@@ -96,7 +96,7 @@ html {
 
   /* Typography */
   /* TODO: clamp */
-  --font-size-h1: var(--font-size-6, 2.5rem);
+  --font-size-h1: var(--font-size-fluid-3, 3rem);
   --font-size-h2: var(--font-size-fluid-2, 2rem);
   --font-size-h3: var(--font-size-fluid-1, 1.5rem);
   --font-size-h4: var(--font-size-3, 1.25rem);

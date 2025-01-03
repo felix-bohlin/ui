@@ -101,11 +101,15 @@ export default defineConfig({
               collapsed: false,
               items: [
                 { text: "Checkbox", link: "/components/inputs/checkbox" },
+                {
+                  text: "Field",
+                  link: "/components/inputs/field",
+                },
                 { text: "Radio", link: "/components/inputs/radio" },
                 { text: "Select", link: "/components/inputs/select" },
                 { text: "Switch", link: "/components/inputs/switch" },
-                { text: "Textarea", link: "/components/inputs/textarea" },
                 { text: "Text field", link: "/components/inputs/text-field" },
+                { text: "Textarea", link: "/components/inputs/textarea" },
               ],
             },
             {

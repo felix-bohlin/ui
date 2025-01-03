@@ -1,0 +1,97 @@
+input[type="range"] {
+  --track-height: 0.5ex;
+  --track-fill: 16%;
+  --track-color: var(--surface-filled);
+  --thumb-size: 3ex;
+  --thumb-offset: -1.25ex;
+  --thumb-highlight-color: light-dark(oklch(0 0 0 / 20%), oklch(100% 0 0/ 20%));
+  --thumb-highlight-size: 0px;
+
+  display: block;
+  inline-size: 100%;
+  margin: 1ex 0;
+  appearance: none;
+  background: transparent;
+  outline-offset: 5px;
+
+  @media (hover: none) {
+    & {
+      --thumb-size: 30px;
+      --thumb-offset: -14px;
+    }
+  }
+
+  &::-webkit-slider-runnable-track {
+    appearance: none;
+    block-size: var(--track-height);
+    border-radius: 5ex;
+    box-shadow: var(--inner-shadow-2);
+    background: linear-gradient(
+        to right,
+        transparent var(--track-fill),
+        var(--track-color) 0%
+      ),
+      var(--primary);
+  }
+
+  &::-moz-range-track {
+    appearance: none;
+    block-size: var(--track-height);
+    border-radius: 5ex;
+    box-shadow: var(--inner-shadow-2);
+    background: linear-gradient(
+        to right,
+        transparent var(--track-fill),
+        var(--track-color) 0%
+      ),
+      var(--primary);
+  }
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    cursor: ew-resize;
+    border: 3px solid var(--surface-filled);
+    block-size: var(--thumb-size);
+    inline-size: var(--thumb-size);
+    margin-block-start: var(--thumb-offset);
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 0 var(--thumb-highlight-size) var(--thumb-highlight-color);
+
+    @media (prefers-reduced-motion: no-preference) {
+      & {
+        transition: box-shadow 0.1s ease;
+      }
+    }
+
+    @nest .fieldset-item:focus-within & {
+      border-color: var(--surface-filled);
+    }
+  }
+
+  &::-moz-range-thumb {
+    appearance: none;
+    cursor: ew-resize;
+    border: 3px solid var(--primary);
+    block-size: var(--thumb-size);
+    inline-size: var(--thumb-size);
+    margin-block-start: var(--thumb-offset);
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 0 var(--thumb-highlight-size) var(--thumb-highlight-color);
+
+    @media (prefers-reduced-motion: no-preference) {
+      & {
+        transition: box-shadow 0.1s ease;
+      }
+    }
+
+    @nest .fieldset-item:focus-within & {
+      border-color: var(--surface-filled);
+    }
+  }
+
+  &:is(:hover, :active) {
+    --thumb-highlight-size: 10px;
+  }
+}

@@ -5,7 +5,7 @@ import { useSidebarControl } from "../composables/sidebar"
 import VPLink from "./VPLink.vue"
 
 const props = defineProps<{
-  item: DefaultTheme.SidebarItem
+  item: DefaultTheme.SidebarItem & { tag?: string }
   depth: number
 }>()
 

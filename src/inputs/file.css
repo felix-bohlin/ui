@@ -10,7 +10,7 @@
 
     &::-webkit-file-upload-button,
     &::file-selector-button {
-      background-color: light-dark(var(--gray-1), var(--gray-12));
+      background-color: light-dark(var(--gray-2), var(--gray-13));
       block-size: 100%;
       border: 0;
       border-inline-end: var(--input-border-width) solid

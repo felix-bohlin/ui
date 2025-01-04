@@ -39,7 +39,6 @@
     "focus-trap": "^7.6.2",
     "mark.js": "^8.11.1",
     "minisearch": "^7.1.1",
-    "open-props": "^1.7.10",
     "opbeta": "npm:open-props@2.0.0-beta.5",
     "shiki": "^1.26.1",
     "vue": "^3.5.13"

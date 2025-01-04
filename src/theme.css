@@ -34,18 +34,30 @@ html {
   --palette-hue-rotate-by: 1;
 }
 
+:root {
+  --gray-1: oklch(from var(--color-1) l none h);
+  --gray-2: oklch(from var(--color-2) l none h);
+  --gray-3: oklch(from var(--color-3) l none h);
+  --gray-4: oklch(from var(--color-4) l none h);
+  --gray-5: oklch(from var(--color-5) l none h);
+  --gray-6: oklch(from var(--color-6) l none h);
+  --gray-7: oklch(from var(--color-7) l none h);
+  --gray-8: oklch(from var(--color-8) l none h);
+  --gray-9: oklch(from var(--color-9) l none h);
+  --gray-10: oklch(from var(--color-10) l none h);
+  --gray-11: oklch(from var(--color-11) l none h);
+  --gray-12: oklch(from var(--color-12) l none h);
+  --gray-13: oklch(from var(--color-13) l none h);
+  --gray-14: oklch(from var(--color-14) l none h);
+  --gray-15: oklch(from var(--color-15) l none h);
+  --gray-16: oklch(from var(--color-16) l none h);
+}
+
 /* Theme */
 :where(html) {
   color-scheme: light dark;
 
   /* Colors */
-  /*
-  Palette picker
-  https://opv2-beta.netlify.app/color/
-  */
-  --gray-hue: 255;
-  --gray-chroma: 0.01;
-
   --palette-hue: var(--oklch-teal);
   --palette-hue-rotate-by: 5;
   --palette-chroma: 0.89;
@@ -60,12 +72,12 @@ html {
   --primary: var(--color-8);
   --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
   --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
-  --primary-contrast: var(--gray-0);
+  --primary-contrast: var(--gray-1);
 
-  --text-color-1: light-dark(var(--gray-14), var(--gray-1));
-  --text-color-1-contrast: light-dark(var(--gray-1), var(--gray-14));
-  --text-color-2: light-dark(var(--gray-12), var(--gray-3));
-  --text-color-2-contrast: light-dark(var(--gray-3), var(--gray-12));
+  --text-color-1: light-dark(var(--gray-15), var(--gray-1));
+  --text-color-1-contrast: light-dark(var(--gray-2), var(--gray-15));
+  --text-color-2: light-dark(var(--gray-13), var(--gray-4));
+  --text-color-2-contrast: light-dark(var(--gray-4), var(--gray-13));
 
   --red: var(--red-9);
   --red-light: var(--red-7);
@@ -88,10 +100,10 @@ html {
   --green-text: light-dark(var(--color-1), var(--color-11));
 
   /* Surface */
-  --surface-default: light-dark(var(--gray-0), var(--gray-13));
-  --surface-filled: light-dark(var(--gray-1), var(--gray-14));
-  --surface-tonal: light-dark(var(--gray-1), var(--gray-12));
-  --surface-elevated: light-dark(var(--gray-0), var(--gray-12));
+  --surface-default: light-dark(var(--gray-1), var(--gray-14));
+  --surface-filled: light-dark(var(--gray-2), var(--gray-15));
+  --surface-tonal: light-dark(var(--gray-2), var(--gray-13));
+  --surface-elevated: light-dark(var(--gray-1), var(--gray-13));
   --surface-border-radius: var(--size-1);
 
   /* Typography */
@@ -108,7 +120,7 @@ html {
   --font-size-xs: var(--font-size-0, 0.75rem);
 
   /* Borders */
-  --border-color: light-dark(var(--gray-2), var(--gray-11));
+  --border-color: light-dark(var(--gray-3), var(--gray-11));
   --border-radius: var(--size-1);
   --border-width: 1px;
 

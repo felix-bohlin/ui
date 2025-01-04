@@ -1,7 +1,7 @@
 :where(.badge) {
   --_bg-color: var(--primary);
   --_border-color: var(--primary);
-  --_color: var(--gray-0);
+  --_color: var(--gray-1);
   --_inset-offset: 16px;
   --_inset: auto auto calc(100% - var(--_inset-offset))
     calc(100% - var(--_inset-offset));

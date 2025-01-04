@@ -6,7 +6,7 @@ Lists meant to be used stand-alone or as part of Select elements
   - .select > .list > option
 */
 :where(.list) {
-  --_bg-color: light-dark(var(--gray-0), var(--gray-14));
+  --_bg-color: light-dark(var(--gray-1), var(--gray-15));
 
   background-color: var(--_bg-color);
   list-style: none;
@@ -145,15 +145,11 @@ Lists meant to be used stand-alone or as part of Select elements
       z-index: 0;
 
       &:hover {
-        background-color: light-dark(var(--gray-1), var(--gray-13));
+        background-color: light-dark(var(--gray-2), var(--gray-14));
       }
 
       &:checked {
-        background-color: color-mix(
-          in oklch,
-          var(--_bg-color) 80%,
-          var(--primary)
-        );
+        background-color: oklch(from var(--primary) l c h / 30%);
       }
     }
 
@@ -188,7 +184,7 @@ Lists meant to be used stand-alone or as part of Select elements
       }
 
       &:hover {
-        background-color: light-dark(var(--gray-1), var(--gray-13));
+        background-color: light-dark(var(--gray-2), var(--gray-14));
       }
 
       /*** Remove ripple effect when trailing button is clicked */

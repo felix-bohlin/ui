@@ -11,7 +11,6 @@
 @import "opbeta/css/color/blue.hex.css" layer(props);
 @import "opbeta/css/color/orange.hex.css" layer(props);
 @import "opbeta/css/color/hues.oklch.css" layer(props);
-@import "open-props/gray-oklch.min.css" layer(props);
 
 /* Normalize */
 @import "./normalize.css" layer(normalize);

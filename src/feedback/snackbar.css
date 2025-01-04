@@ -1,7 +1,7 @@
 :where(.snackbar) {
   align-items: center;
   /* Inverse surface-filled */
-  background-color: light-dark(var(--gray-14), var(--gray-1));
+  background-color: light-dark(var(--gray-15), var(--gray-2));
   border-radius: var(--surface-border-radius);
   box-shadow: var(--shadow-2);
   color: var(--text-color-1-contrast);

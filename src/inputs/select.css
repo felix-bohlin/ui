@@ -73,7 +73,7 @@
     /* Groups */
     [role="group"] {
       label {
-        background-color: light-dark(var(--gray-2), var(--gray-12));
+        background-color: light-dark(var(--gray-3), var(--gray-13));
         color: light-dark(
           oklch(from var(--text-color-1) calc(l * 0.75) c h),
           oklch(from var(--text-color-1) calc(l * 1.25) c h)

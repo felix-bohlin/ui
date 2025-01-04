@@ -163,10 +163,10 @@
     }
   }
   &.elevated {
-    --_bg-color: light-dark(var(--gray-1), var(--gray-12));
+    --_bg-color: light-dark(var(--gray-2), var(--gray-13));
     --_ripple-color: light-dark(
-      color-mix(in oklch, var(--gray-1) 80%, var(--color-8)),
-      color-mix(in oklch, var(--gray-12) 80%, var(--color-8))
+      color-mix(in oklch, var(--gray-2) 80%, var(--color-8)),
+      color-mix(in oklch, var(--gray-13) 80%, var(--color-8))
     );
     --_text-color: var(--color-8);
 

@@ -2,12 +2,12 @@
   --_accent-color: var(--primary);
   --_accent-contrast: var(--primary-contrast);
 
-  --_dot-bg-color: light-dark(var(--gray-10), var(--gray-13));
+  --_dot-bg-color: light-dark(var(--gray-11), var(--gray-14));
   --_dot-inset: var(--size-1) auto auto var(--size-1);
   --_dot-outline-size: 0;
   --_dot-size: var(--size-3);
 
-  --_track-bg-color: light-dark(var(--gray-2), var(--gray-7));
+  --_track-bg-color: light-dark(var(--gray-3), var(--gray-8));
   --_track-height: var(--size-5);
   --_track-width: var(--size-8);
   --_transition-tf: var(--ease-4);

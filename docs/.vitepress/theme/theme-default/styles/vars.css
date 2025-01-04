@@ -286,7 +286,7 @@
     --vp-code-bg: var(--surface-tonal);
 
     --vp-code-block-color: rgba(255, 255, 245, 0.86);
-    --vp-code-block-bg: var(--gray-15, oklch(10% 0.01 255 / 1));
+    --vp-code-block-bg: var(--gray-26, oklch(10% 0.01 255 / 1));
     --vp-code-block-divider-color: #000000;
 
     --vp-code-lang-color: rgba(235, 235, 245, 0.38);

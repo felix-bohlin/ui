@@ -45,6 +45,7 @@ When you visibly want to hide an element but make it accessible for screen reade
         inline-size: var(--highlight-size);
         inset-block-start: 50%;
         inset-inline-start: 50%;
+        position: relative;
         position: absolute;
         transform-origin: center center;
         transform: translateX(calc(var(--isRTL) * 50%)) translateY(-50%)

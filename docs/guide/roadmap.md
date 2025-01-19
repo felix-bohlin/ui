@@ -3,20 +3,28 @@ overline: Guide
 title: Roadmap
 ---
 
-## 1.1
+## Future releases
 
 - toggle button
-- input type="range"
 - input prefix & suffix
-- tabs
 - swap
+
+## 1.2
+
+- tabs
 - bug fixes and requests from issues and PR's
+
+## 1.1{.sr-only}
+
+<h2><span class="badge" aria-label="Latest">1.1</span></h2>
+
+### Components
+
+- input type="range"
 
 <hr>
 
-## 1.0{.sr-only}
-
-<h2><span class="badge" aria-label="Latest">1.0</span></h2>
+## 1.0
 
 ### Components
 

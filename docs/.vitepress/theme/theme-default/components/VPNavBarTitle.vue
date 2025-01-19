@@ -37,7 +37,7 @@ const target = computed(() =>
       :rel="rel"
       :target="target"
     >
-      <span class="badge start-end" aria-label="1.0">
+      <span class="badge start-end" aria-label="1.1">
         <slot name="nav-bar-title-before" />
         <VPImage v-if="theme.logo" class="logo" :image="theme.logo" />
         <template v-if="theme.siteTitle"

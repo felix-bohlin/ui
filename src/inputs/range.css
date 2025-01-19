@@ -1,0 +1,121 @@
+@layer components.base {
+  :where(.range > input[type="range"]) {
+    --thumb-bg: var(--primary);
+    --thumb-highlight-color: oklch(from var(--primary) 70% 100% h / 20%);
+    --thumb-highlight-size: 0px;
+    --thumb-offset: -1ex;
+    --thumb-size: 3ex;
+    --track-color: var(--field-border-color);
+    --track-fill: 0%;
+    --track-height: 1ex;
+
+    appearance: none;
+    background: transparent;
+    display: block;
+    inline-size: 100%;
+    margin: 1ex 0 3ex;
+    outline-offset: 1ex;
+
+    @media (hover: none) {
+      --thumb-offset: -14px;
+      --thumb-size: 30px;
+    }
+
+    /* Track */
+    &::-webkit-slider-runnable-track {
+      appearance: none;
+      background: linear-gradient(
+          to right,
+          transparent var(--track-fill),
+          var(--track-color) 0%
+        ),
+        var(--primary);
+      block-size: var(--track-height);
+      border-radius: 5ex;
+      box-shadow: var(--inner-shadow-1);
+    }
+
+    &::-moz-range-track {
+      appearance: none;
+      background: linear-gradient(
+          to right,
+          transparent var(--track-fill),
+          var(--track-color) 0%
+        ),
+        var(--primary);
+      block-size: var(--track-height);
+      border-radius: 5ex;
+      box-shadow: var(--inner-shadow-2);
+    }
+
+    /* Ring */
+    &::-webkit-slider-thumb {
+      appearance: none;
+      background: var(--thumb-bg);
+      block-size: var(--thumb-size);
+      border-radius: 50%;
+      border: 3px solid var(--surface-default);
+      box-shadow: 0 0 0 var(--thumb-highlight-size) var(--thumb-highlight-color);
+      cursor: ew-resize;
+      inline-size: var(--thumb-size);
+      margin-block-start: var(--thumb-offset);
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: box-shadow 0.1s ease;
+      }
+
+      .fieldset-item:focus-within & {
+        border-color: var(--gray-14);
+      }
+    }
+
+    &::-moz-range-thumb {
+      appearance: none;
+      background: var(--thumb-bg);
+      block-size: var(--thumb-size);
+      border-radius: 50%;
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 0 var(--thumb-highlight-size) var(--thumb-highlight-color);
+      cursor: ew-resize;
+      inline-size: var(--thumb-size);
+      margin-block-start: var(--thumb-offset);
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: box-shadow 0.1s ease;
+      }
+
+      .fieldset-item:focus-within & {
+        border-color: var(--gray-14);
+      }
+    }
+
+    /* Element state */
+    &:not([disabled]) {
+      &:hover {
+        --thumb-highlight-size: var(--size-1);
+      }
+
+      &:active {
+        --thumb-highlight-size: var(--size-2);
+        --track-color: light-dark(
+          oklch(from var(--field-border-color) calc(l * 0.9) c h),
+          oklch(from var(--field-border-color) calc(l * 1.1) c h)
+        );
+      }
+    }
+
+    &[disabled] {
+      --thumb-bg: oklch(from var(--text-color-1) l c h / 50%);
+      --track-color: var(--field-border-color);
+
+      cursor: not-allowed;
+
+      &::-webkit-slider-thumb {
+        cursor: not-allowed;
+      }
+      &::-moz-range-thumb {
+        cursor: not-allowed;
+      }
+    }
+  }
+}

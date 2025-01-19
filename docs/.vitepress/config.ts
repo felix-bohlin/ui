@@ -120,6 +120,7 @@ export default defineConfig({
               items: [
                 { text: "Checkbox", link: "/components/inputs/checkbox" },
                 { text: "Radio", link: "/components/inputs/radio" },
+                { text: "Range", link: "/components/inputs/range" },
                 { text: "Select", link: "/components/inputs/select" },
                 { text: "Switch", link: "/components/inputs/switch" },
                 { text: "Textarea", link: "/components/inputs/textarea" },

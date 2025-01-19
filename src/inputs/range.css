@@ -1,19 +1,20 @@
 @layer components.base {
-  :where(input[type="range"].range) {
+  :where(.range > input[type="range"]) {
     /* --_track-fill: calc(100% * attr(value number, 0) / attr(max number, 100)); */
+    --thumb-bg: var(--primary);
     --thumb-highlight-color: oklch(from var(--primary) 70% 100% h / 20%);
     --thumb-highlight-size: 0px;
-    --thumb-offset: -1.25ex;
+    --thumb-offset: -1ex;
     --thumb-size: 3ex;
     --track-color: var(--field-border-color);
     --track-fill: 0%;
-    --track-height: var(--size-1);
+    --track-height: 1ex;
 
     appearance: none;
     background: transparent;
     display: block;
     inline-size: 100%;
-    margin: 1ex 0;
+    margin: 1ex 0 3ex;
     outline-offset: 3px;
 
     @media (hover: none) {
@@ -21,6 +22,7 @@
       --thumb-size: 30px;
     }
 
+    /* Track */
     &::-webkit-slider-runnable-track {
       appearance: none;
       background: linear-gradient(
@@ -47,12 +49,13 @@
       box-shadow: var(--inner-shadow-2);
     }
 
+    /* Ring */
     &::-webkit-slider-thumb {
       appearance: none;
-      background: var(--primary);
+      background: var(--thumb-bg);
       block-size: var(--thumb-size);
       border-radius: 50%;
-      border: 3px solid var(--primary);
+      border: 3px solid var(--surface-default);
       box-shadow: 0 0 0 var(--thumb-highlight-size) var(--thumb-highlight-color);
       cursor: ew-resize;
       inline-size: var(--thumb-size);
@@ -69,7 +72,7 @@
 
     &::-moz-range-thumb {
       appearance: none;
-      background: var(--primary);
+      background: var(--thumb-bg);
       block-size: var(--thumb-size);
       border-radius: 50%;
       border: 3px solid var(--primary);
@@ -87,12 +90,30 @@
       }
     }
 
-    &:hover {
-      --thumb-highlight-size: var(--size-1);
+    /* Element state */
+    &:not([disabled]) {
+      &:hover {
+        --thumb-highlight-size: var(--size-1);
+      }
+
+      &:active {
+        --thumb-highlight-size: var(--size-2);
+        --track-color: oklch(from var(--field-border-color) calc(l * 1.1) c h);
+      }
     }
 
-    &:active {
-      --thumb-highlight-size: var(--size-2);
+    &[disabled] {
+      --thumb-bg: oklch(from var(--text-color-1) l c h / 50%);
+      --track-color: var(--field-border-color);
+
+      cursor: not-allowed;
+
+      &::-webkit-slider-thumb {
+        cursor: not-allowed;
+      }
+      &::-moz-range-thumb {
+        cursor: not-allowed;
+      }
     }
   }
 }

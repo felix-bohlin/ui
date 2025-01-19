@@ -1,0 +1,98 @@
+@layer components.base {
+  :where(input[type="range"].range) {
+    /* --_track-fill: calc(100% * attr(value number, 0) / attr(max number, 100)); */
+    --thumb-highlight-color: oklch(from var(--primary) 70% 100% h / 20%);
+    --thumb-highlight-size: 0px;
+    --thumb-offset: -1.25ex;
+    --thumb-size: 3ex;
+    --track-color: var(--field-border-color);
+    --track-fill: 0%;
+    --track-height: var(--size-1);
+
+    appearance: none;
+    background: transparent;
+    display: block;
+    inline-size: 100%;
+    margin: 1ex 0;
+    outline-offset: 3px;
+
+    @media (hover: none) {
+      --thumb-offset: -14px;
+      --thumb-size: 30px;
+    }
+
+    &::-webkit-slider-runnable-track {
+      appearance: none;
+      background: linear-gradient(
+          to right,
+          transparent var(--track-fill),
+          var(--track-color) 0%
+        ),
+        var(--primary);
+      block-size: var(--track-height);
+      border-radius: 5ex;
+      box-shadow: var(--inner-shadow-1);
+    }
+
+    &::-moz-range-track {
+      appearance: none;
+      background: linear-gradient(
+          to right,
+          transparent var(--track-fill),
+          var(--track-color) 0%
+        ),
+        var(--primary);
+      block-size: var(--track-height);
+      border-radius: 5ex;
+      box-shadow: var(--inner-shadow-2);
+    }
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      background: var(--primary);
+      block-size: var(--thumb-size);
+      border-radius: 50%;
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 0 var(--thumb-highlight-size) var(--thumb-highlight-color);
+      cursor: ew-resize;
+      inline-size: var(--thumb-size);
+      margin-block-start: var(--thumb-offset);
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: box-shadow 0.1s ease;
+      }
+
+      .fieldset-item:focus-within & {
+        border-color: var(--gray-14);
+      }
+    }
+
+    &::-moz-range-thumb {
+      appearance: none;
+      background: var(--primary);
+      block-size: var(--thumb-size);
+      border-radius: 50%;
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 0 var(--thumb-highlight-size) var(--thumb-highlight-color);
+      cursor: ew-resize;
+      inline-size: var(--thumb-size);
+      margin-block-start: var(--thumb-offset);
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: box-shadow 0.1s ease;
+      }
+
+      .fieldset-item:focus-within & {
+        border-color: var(--gray-14);
+      }
+    }
+
+    &:hover {
+      --thumb-highlight-size: var(--size-1);
+    }
+
+    &:active {
+      --thumb-highlight-size: var(--size-2);
+    }
+  }
+}

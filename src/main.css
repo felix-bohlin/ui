@@ -40,6 +40,7 @@
 @import "./feedback/spinner.css";
 @import "./inputs/checkbox-radio.css";
 @import "./inputs/switch.css";
+@import "./inputs/range.css";
 @import "./text/typography.css";
 
 /*** Has dependencies */

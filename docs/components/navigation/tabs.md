@@ -1,0 +1,4 @@
+---
+overline: Components
+title: Tabs
+---

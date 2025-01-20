@@ -18,8 +18,8 @@ importers:
         specifier: ^1.26.2
         version: 1.26.2
       '@shikijs/transformers':
-        specifier: ^1.26.2
-        version: 1.26.2
+        specifier: ^2.0.3
+        version: 2.0.3
       '@types/markdown-it':
         specifier: ^14.1.2
         version: 14.1.2
@@ -636,11 +636,29 @@ packages:
   '@shikijs/core@1.26.2':
     resolution: {integrity: sha512-ORyu3MrY7dCC7FDLDsFSkBM9b/AT9/Y8rH+UQ07Rtek48pp0ZhQOMPTKolqszP4bBCas6FqTZQYt18BBamVl/g==}
 
+  '@shikijs/core@1.29.1':
+    resolution: {integrity: sha512-Mo1gGGkuOYjDu5H8YwzmOuly9vNr8KDVkqj9xiKhhhFS8jisAtDSEWB9hzqRHLVQgFdA310e8XRJcW4tYhRB2A==}
+
+  '@shikijs/core@2.0.3':
+    resolution: {integrity: sha512-dhbLagx1As0BmaNGUTxJ/qshb4MPyKYIvjCcd7y1utDToebUS4BZI3FH+WVCJF3/VwWWKOhuzX4lgjOb7qtSjQ==}
+
   '@shikijs/engine-javascript@1.26.2':
     resolution: {integrity: sha512-ngkIu9swLVo9Zt5QBtz5Sk08vmPcwuj01r7pPK/Zjmo2U2WyKMK4WMUMmkdQiUacdcLth0zt8u1onp4zhkFXKQ==}
 
+  '@shikijs/engine-javascript@1.29.1':
+    resolution: {integrity: sha512-Hpi8k9x77rCQ7F/7zxIOUruNkNidMyBnP5qAGbLFqg4kRrg1HZhkB8btib5EXbQWTtLb5gBHOdBwshk20njD7Q==}
+
+  '@shikijs/engine-javascript@2.0.3':
+    resolution: {integrity: sha512-GMmfP8xEmUl0H7RXo4VTFYqAWzAADtlghA9perlm6mzuo0n/Ih+owh57ZLWBMMe/N1TUMis4SGJRvx31HtK3jg==}
+
   '@shikijs/engine-oniguruma@1.26.2':
     resolution: {integrity: sha512-mlN7Qrs+w60nKrd7at7XkXSwz6728Pe34taDmHrG6LRHjzCqQ+ysg+/AT6/D2LMk0s2lsr71DjpI73430QP4/w==}
+
+  '@shikijs/engine-oniguruma@1.29.1':
+    resolution: {integrity: sha512-gSt2WhLNgEeLstcweQOSp+C+MhOpTsgdNXRqr3zP6M+BUBZ8Md9OU2BYwUYsALBxHza7hwaIWtFHjQ/aOOychw==}
+
+  '@shikijs/engine-oniguruma@2.0.3':
+    resolution: {integrity: sha512-MicRzo0aNaS18yXBnXjYFLnzi5Sh3NUHtm/WXzavtpGiWd75gRdZsZDMceeFyTL9MMy9iGifK2JePXY5dlZHIA==}
 
   '@shikijs/langs@1.26.2':
     resolution: {integrity: sha512-o5cdPycB2Kw3IgncHxWopWPiTkjAj7dG01fLkkUyj3glb5ftxL/Opecq9F54opMlrgXy7ZIqDERvFLlUzsCOuA==}
@@ -648,11 +666,20 @@ packages:
   '@shikijs/themes@1.26.2':
     resolution: {integrity: sha512-y4Pn6PM5mODz/e3yF6jAUG7WLKJzqL2tJ5qMJCUkMUB1VRgtQVvoa1cHh7NScryGXyrYGJ8nPnRDhdv2rw0xpA==}
 
-  '@shikijs/transformers@1.26.2':
-    resolution: {integrity: sha512-nAwivOhYDKudYsX9xOmA9ekkqYv+Q/IadX5ca0nV7qPTN+wf/tXHrjxVmJJlsEVtakCEuMR0a0AVL+V9QZxi7w==}
+  '@shikijs/transformers@1.29.1':
+    resolution: {integrity: sha512-jVzJhriZ0t9y8TvsV4AzBm74BCLUoK6Bf41aIjJkZc1hKeL0PQtsNL096b1AxgZRwJwTfQalWZ+jBkRAuqVMPw==}
+
+  '@shikijs/transformers@2.0.3':
+    resolution: {integrity: sha512-Y5qmHA2LyoXccq6IPP5AeGqialn54ZORPBxbyNH+NEbCaw1nTCCy+Tfm3idRkqYLZOw0yq+0MUSDWbGezHksow==}
 
   '@shikijs/types@1.26.2':
     resolution: {integrity: sha512-PO2jucx2FIdlLBPYbIUlMtWSLs5ulcRcuV93cR3T65lkK5SJP4MGBRt9kmWGXiQc0f7+FHj/0BEawditZcI/fQ==}
+
+  '@shikijs/types@1.29.1':
+    resolution: {integrity: sha512-aBqAuhYRp5vSir3Pc9+QPu9WESBOjUo03ao0IHLC4TyTioSsp/SkbAZSrIH4ghYYC1T1KTEpRSBa83bas4RnPA==}
+
+  '@shikijs/types@2.0.3':
+    resolution: {integrity: sha512-jyP6NMdWkbBpEn3WqqH8TCfkzE52/hS7msKGJAvxcwyQQah7+hU8x7ejFhCVoxrBaW001v+ID4zl3wspcDSaaw==}
 
   '@shikijs/vscode-textmate@10.0.1':
     resolution: {integrity: sha512-fTIQwLF+Qhuws31iw7Ncl1R3HUDtGwIipiJ9iU+UsDUwMhegFcQKQHd51nZjb7CArq0MvON8rbgCGQYWHUKAdg==}
@@ -1104,6 +1131,9 @@ packages:
 
   oniguruma-to-es@1.0.0:
     resolution: {integrity: sha512-kihvp0O4lFwf5tZMkfanwQLIZ9ORe9OeOFgZonH0BQeThgwfJiaZFeOfvvJVnJIM9TiVmx0RDD35hUJDR0++rQ==}
+
+  oniguruma-to-es@2.2.0:
+    resolution: {integrity: sha512-EEsso27ri0sf+t4uRFEj5C5gvXQj0d0w1Y2qq06b+hDLBnvzO1rWTwEW4C7ytan6nhg4WPwE26eLoiPhHUbvKg==}
 
   open-props@2.0.0-beta.5:
     resolution: {integrity: sha512-Ahq2/q6T+0kzI9Lwt3f8CX6l0IQxqKYkeMi4u09gdFkFmxB1gYuSwqg2xd5nVN1zEYtUN93V0DbQRoDsP3OSmw==}
@@ -1727,15 +1757,55 @@ snapshots:
       '@types/hast': 3.0.4
       hast-util-to-html: 9.0.4
 
+  '@shikijs/core@1.29.1':
+    dependencies:
+      '@shikijs/engine-javascript': 1.29.1
+      '@shikijs/engine-oniguruma': 1.29.1
+      '@shikijs/types': 1.29.1
+      '@shikijs/vscode-textmate': 10.0.1
+      '@types/hast': 3.0.4
+      hast-util-to-html: 9.0.4
+
+  '@shikijs/core@2.0.3':
+    dependencies:
+      '@shikijs/engine-javascript': 2.0.3
+      '@shikijs/engine-oniguruma': 2.0.3
+      '@shikijs/types': 2.0.3
+      '@shikijs/vscode-textmate': 10.0.1
+      '@types/hast': 3.0.4
+      hast-util-to-html: 9.0.4
+
   '@shikijs/engine-javascript@1.26.2':
     dependencies:
       '@shikijs/types': 1.26.2
       '@shikijs/vscode-textmate': 10.0.1
       oniguruma-to-es: 1.0.0
 
+  '@shikijs/engine-javascript@1.29.1':
+    dependencies:
+      '@shikijs/types': 1.29.1
+      '@shikijs/vscode-textmate': 10.0.1
+      oniguruma-to-es: 2.2.0
+
+  '@shikijs/engine-javascript@2.0.3':
+    dependencies:
+      '@shikijs/types': 2.0.3
+      '@shikijs/vscode-textmate': 10.0.1
+      oniguruma-to-es: 2.2.0
+
   '@shikijs/engine-oniguruma@1.26.2':
     dependencies:
       '@shikijs/types': 1.26.2
+      '@shikijs/vscode-textmate': 10.0.1
+
+  '@shikijs/engine-oniguruma@1.29.1':
+    dependencies:
+      '@shikijs/types': 1.29.1
+      '@shikijs/vscode-textmate': 10.0.1
+
+  '@shikijs/engine-oniguruma@2.0.3':
+    dependencies:
+      '@shikijs/types': 2.0.3
       '@shikijs/vscode-textmate': 10.0.1
 
   '@shikijs/langs@1.26.2':
@@ -1746,11 +1816,27 @@ snapshots:
     dependencies:
       '@shikijs/types': 1.26.2
 
-  '@shikijs/transformers@1.26.2':
+  '@shikijs/transformers@1.29.1':
     dependencies:
-      shiki: 1.26.2
+      '@shikijs/core': 1.29.1
+      '@shikijs/types': 1.29.1
+
+  '@shikijs/transformers@2.0.3':
+    dependencies:
+      '@shikijs/core': 2.0.3
+      '@shikijs/types': 2.0.3
 
   '@shikijs/types@1.26.2':
+    dependencies:
+      '@shikijs/vscode-textmate': 10.0.1
+      '@types/hast': 3.0.4
+
+  '@shikijs/types@1.29.1':
+    dependencies:
+      '@shikijs/vscode-textmate': 10.0.1
+      '@types/hast': 3.0.4
+
+  '@shikijs/types@2.0.3':
     dependencies:
       '@shikijs/vscode-textmate': 10.0.1
       '@types/hast': 3.0.4
@@ -2247,6 +2333,12 @@ snapshots:
       regex: 5.1.1
       regex-recursion: 5.1.1
 
+  oniguruma-to-es@2.2.0:
+    dependencies:
+      emoji-regex-xs: 1.0.0
+      regex: 5.1.1
+      regex-recursion: 5.1.1
+
   open-props@2.0.0-beta.5: {}
 
   path-browserify@1.0.1: {}
@@ -2417,7 +2509,7 @@ snapshots:
       '@docsearch/js': 3.8.2(@algolia/client-search@5.19.0)(search-insights@2.17.3)
       '@iconify-json/simple-icons': 1.2.19
       '@shikijs/core': 1.26.2
-      '@shikijs/transformers': 1.26.2
+      '@shikijs/transformers': 1.29.1
       '@shikijs/types': 1.26.2
       '@types/markdown-it': 14.1.2
       '@vitejs/plugin-vue': 5.2.1(vite@5.4.12(@types/node@22.10.5)(lightningcss@1.29.1))(vue@3.5.13(typescript@5.7.3))

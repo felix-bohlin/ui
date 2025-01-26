@@ -43,3 +43,9 @@ title: Tabs
 ## Accessibility
 
 There's a lot. Read about it [here](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-automatic/#accessibilityfeatures).
+
+## Installation
+
+::: code-group
+<<< @/../src/navigation/tabs.css [tabs.css]
+:::

@@ -1,0 +1,11 @@
+@layer components.base {
+  :where(nav.tabs) {
+    /* Tab list */
+    & > [role="tablist"] {
+    }
+
+    /* Tab panels */
+    & > [role="tabpanel"] {
+    }
+  }
+}

@@ -190,6 +190,7 @@
 
   :where(mark) {
     border-radius: var(--border-radius, 0);
+    box-decoration-break: clone;
     padding: calc(var(--size-1) / 2) var(--size-1);
     vertical-align: baseline;
   }

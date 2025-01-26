@@ -45,7 +45,7 @@ export default defineConfig({
       { text: "Guide", link: "/guide/getting-started" },
       { text: "Components", link: "/components/actions/button" },
       { text: "API", link: "/api" },
-      { text: "Blog", link: "/blog" },
+      // { text: "Blog", link: "/blog" },
       { text: "Open Props", link: "https://open-props.style/" },
     ],
 

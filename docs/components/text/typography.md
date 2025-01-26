@@ -142,7 +142,7 @@ import Alert from "../../.vitepress/theme/app/components/Alert.vue";
 
 ## Browser compatibility
 
-<Baseline :ids="['scope', 'light-dark','color-mix']" />
+<Baseline :ids="['box-decoration-break', 'scope', 'light-dark','color-mix']" />
 
 ## Installation
 

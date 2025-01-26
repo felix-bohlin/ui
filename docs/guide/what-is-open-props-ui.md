@@ -27,7 +27,3 @@ Yes and no. Right now that's true for most components. The point is to let the s
 </Alert>
 
 </div>
-
-## Developer blog
-
-The [developer blog](/blog/) mostly consist of learnings made from the work on Open Props UI. Oftentimes we only get to see the finished product, but the journey there can be full of interesting stuff!

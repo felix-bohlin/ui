@@ -126,10 +126,6 @@ These are the classes and attributes a card can be styled with. As usual, feel f
 
 <!--@include: ./card-api.md -->
 
-## See also
-
-- [Card component architecture design decisions](/blog/posts/card-architecture)
-
 ## Browser compatibility
 
 <Baseline :ids="['container-style-queries', 'light-dark']" />

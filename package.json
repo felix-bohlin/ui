@@ -40,7 +40,7 @@
     "mark.js": "^8.11.1",
     "minisearch": "^7.1.1",
     "opbeta": "npm:open-props@2.0.0-beta.5",
-    "shiki": "^1.29.1",
+    "shiki": "^2.1.0",
     "vue": "^3.5.13"
   }
 }

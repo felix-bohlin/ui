@@ -40,6 +40,8 @@ title: Tabs
 
 ### Filled
 
+The roundedness of the tab list is controlled by `var(--button-border-radius)` in your theme setup.
+
 <Example>
 <template #example>
 <nav class="tabs filled">

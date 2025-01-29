@@ -1,11 +1,66 @@
 @layer components.base {
   :where(nav.tabs) {
-    /* Tab list */
-    & > [role="tablist"] {
-    }
+    --_bg-color: transparent;
 
-    /* Tab panels */
-    & > [role="tabpanel"] {
+    &.underlined {
+      /* Tab list */
+      & > [role="tablist"] {
+        border-bottom: 1px solid var(--border-color);
+
+        button {
+          --_ripple-color: light-dark(
+            color-mix(in oklch, var(--gray-2) 80%, var(--color-8)),
+            color-mix(in oklch, var(--gray-13) 80%, var(--color-8))
+          );
+
+          background: var(--_bg-color) var(--ripple, none);
+          font-weight: 500;
+          line-height: var(--font-lineheight-4);
+          padding: var(--size-2) var(--size-3);
+
+          &[aria-selected="true"] {
+            border-block-end: 2px solid var(--primary);
+            color: var(--primary);
+          }
+
+          @media (prefers-reduced-motion: no-preference) {
+            transition:
+              background-color 0.2s var(--ease-out-3),
+              box-shadow 0.2s var(--ease-out-3),
+              border-color 0.2s var(--ease-out-3),
+              color 0.2s var(--ease-out-3),
+              outline-offset 0.05s var(--ease-1);
+
+            /*** Ripple effect */
+            background-position: center;
+            transition: background var(--button-ripple-duration);
+            &:where(:not(:active):hover) {
+              --ripple: radial-gradient(
+                  circle,
+                  transparent 1%,
+                  var(--_ripple-color) 1%
+                )
+                center/15000%;
+            }
+
+            &:where(:hover:active) {
+              background-size: var(--button-ripple-size);
+              transition: background 0s;
+            }
+
+            &:hover {
+              background-color: light-dark(
+                oklch(from var(--primary) calc(l * 0.75) none h / 5%),
+                oklch(from var(--primary) calc(l * 1.25) none h / 5%)
+              );
+            }
+          }
+        }
+      }
+
+      /* Tab panels */
+      & > [role="tabpanel"] {
+      }
     }
   }
 }

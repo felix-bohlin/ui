@@ -15,8 +15,8 @@ importers:
         specifier: ^3.8.3
         version: 3.8.3(@algolia/client-search@5.20.0)(search-insights@2.17.3)
       '@shikijs/core':
-        specifier: ^2.1.0
-        version: 2.1.0
+        specifier: ^2.2.0
+        version: 2.2.0
       '@shikijs/transformers':
         specifier: ^2.1.0
         version: 2.1.0
@@ -2458,7 +2458,7 @@ snapshots:
       '@docsearch/css': 3.8.2
       '@docsearch/js': 3.8.2(@algolia/client-search@5.20.0)(search-insights@2.17.3)
       '@iconify-json/simple-icons': 1.2.21
-      '@shikijs/core': 2.1.0
+      '@shikijs/core': 2.2.0
       '@shikijs/transformers': 2.1.0
       '@shikijs/types': 2.1.0
       '@types/markdown-it': 14.1.2

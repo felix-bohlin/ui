@@ -161,6 +161,16 @@ export default defineConfig({
               ],
             },
             {
+              text: "Navigation",
+              collapsed: false,
+              items: [
+                {
+                  text: "Tabs",
+                  link: "/components/navigation/tabs",
+                },
+              ],
+            },
+            {
               text: "Typography",
               collapsed: false,
               items: [

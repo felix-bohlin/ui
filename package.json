@@ -12,23 +12,23 @@
     "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
-    "@types/node": "^22.13.0",
+    "@types/node": "^22.13.1",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
     "lightningcss": "^1.29.1",
     "postcss": "^8.5.1",
     "postcss-custom-media": "^11.0.5",
-    "prettier": "^3.4.2",
+    "prettier": "^3.5.0",
     "typescript": "^5.7.3",
-    "vite": "^6.0.11",
+    "vite": "^6.1.0",
     "vitepress": "^1.6.3",
     "vue-tsc": "^2.2.0"
   },
   "dependencies": {
     "@docsearch/css": "^3.8.3",
     "@docsearch/js": "^3.8.3",
-    "@shikijs/core": "^2.2.0",
-    "@shikijs/transformers": "^2.2.0",
+    "@shikijs/core": "^2.3.2",
+    "@shikijs/transformers": "^2.3.2",
     "@types/markdown-it": "^14.1.2",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/devtools-api": "^7.7.1",
@@ -40,7 +40,7 @@
     "mark.js": "^8.11.1",
     "minisearch": "^7.1.1",
     "opbeta": "npm:open-props@2.0.0-beta.5",
-    "shiki": "^2.2.0",
+    "shiki": "^2.3.2",
     "vue": "^3.5.13"
   }
 }

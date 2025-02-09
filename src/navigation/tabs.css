@@ -2,6 +2,20 @@
   :where(nav.tabs) {
     --_bg-color: transparent;
 
+    & > [role="tablist"] {
+      button {
+        outline-color: transparent;
+        outline-offset: -4px;
+
+        &[aria-selected="true"] {
+          &:focus-visible {
+            outline: 2px solid var(--text-color-1);
+          }
+        }
+      }
+    }
+
+    /* Underlined */
     &.underlined {
       /* Tab list */
       & > [role="tablist"] {
@@ -17,6 +31,10 @@
           font-weight: 500;
           line-height: var(--font-lineheight-4);
           padding: var(--size-2) var(--size-3);
+
+          &:focus-visible {
+            border-radius: 0;
+          }
 
           &[aria-selected="true"] {
             border-block-end: 2px solid var(--primary);
@@ -57,31 +75,43 @@
         }
       }
 
-      /* Tab panels */
+      /* Tab panel */
       & > [role="tabpanel"] {
       }
     }
 
+    /* Filled */
     &.filled {
-      & > [role="tablist"] {
-        --_tablist-bg: var(--surface-default);
-        --_selected-bg: var(--surface-filled);
+      --_bg-color: var(--surface-default);
+      --_radius: var(--border-radius);
+      --_selected-bg: var(--surface-filled);
 
-        background-color: var(--_tablist-bg);
+      & > [role="tablist"] {
+        background-color: var(--_bg-color);
         border: var(--border-width) solid var(--border-color);
-        border-radius: var(--button-border-radius);
+        border-radius: var(--_radius);
         overflow: hidden;
         padding: 0.792ex;
         width: fit-content;
 
         button {
-          background-color: var(--_tablist-bg);
-          border-radius: var(--button-border-radius);
+          background-color: var(--_bg-color);
+          border-radius: var(--_radius);
           line-height: var(--font-lineheight-4);
           padding-inline: var(--size-3);
 
+          &:hover {
+            background-color: oklch(from var(--_bg-color) calc(l * 1.25) c h);
+          }
+
           &[aria-selected="true"] {
             background-color: var(--_selected-bg);
+
+            &:hover {
+              background-color: oklch(
+                from var(--_selected-bg) calc(l * 1.25) c h
+              );
+            }
           }
 
           @media (prefers-reduced-motion: no-preference) {

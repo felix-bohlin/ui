@@ -4,10 +4,22 @@ title: Tabs
 ---
 
 <script setup>
+	import {ref,onMounted} from 'vue'
 	import Example from "../../.vitepress/theme/app/components/Example.vue"
 	import Baseline from "../../.vitepress/theme/app/components/Baseline.vue"
 	import Alert from "../../.vitepress/theme/app/components/Alert.vue";
+
+import { TabsContent, TabsIndicator, TabsList, TabsRoot, TabsTrigger } from 'radix-vue'
+
 </script>
+
+<div class="not-rich-text">
+<Alert title="Javascript is required" severity="ok" variant="outlined">
+
+You will need Javascript in order to not only switch tabs, but to make sure you can use them in [an accessible way](#accessibility).
+
+</Alert>
+</div>
 
 ## Variants
 
@@ -16,20 +28,78 @@ title: Tabs
 <Example>
 <template #example>
 <nav class="tabs underlined">
-<div role="tablist">
-	<button id="tab-1" role="tab" aria-selected="true" tabindex="-1" aria-controls="tabpanel-1">Tab 1</button>
-	<button id="tab-2" role="tab" aria-selected="false" tabindex="-1" aria-controls="tabpanel-2">Tab 2</button>
-	<button id="tab-3" role="tab" aria-selected="false" tabindex="-1" aria-controls="tabpanel-3">Tab 3</button>
-</div>
+ <TabsRoot
+    default-value="tab1"
+  >
+    <TabsList aria-label="tabs example">
+      <TabsTrigger value="tab1">
+        One
+      </TabsTrigger>
+      <TabsTrigger value="tab2">
+        Two
+      </TabsTrigger>
+      <TabsTrigger value="tab3">
+        Three
+      </TabsTrigger>
+    </TabsList>
+    <TabsContent value="tab1">
+      Tab one content
+    </TabsContent>
+    <TabsContent value="tab2">
+      Tab two content
+    </TabsContent>
+    <TabsContent value="tab3">
+      Tab three content
+    </TabsContent>
+  </TabsRoot>
+</nav>
 
-<div role="tabpanel" id="tabpanel-1" aria-labelledby="tab-1" tabindex="0">
-	panel 1
+<nav class="tabs underlined">
+<div
+    role="tablist"
+    @keydown="handleKeyDown"
+    aria-label="Underlined tabs"
+  >
+    <button
+      id="underlined-tab-1"
+      role="tab"
+      @click="setActiveTab('profile')"
+      :aria-selected="activeTab === 'profile'"
+      aria-controls="tabpanel-1"
+      :tabindex="activeTab === 'profile' ? 0 : -1"
+    >
+      Profile
+    </button>
+    <button
+      id="underlined-tab-2"
+      role="tab"
+      @click="setActiveTab('settings')"
+      :aria-selected="activeTab === 'settings'"
+      aria-controls="tabpanel-2"
+      :tabindex="activeTab === 'settings' ? 0 : -1"
+    >
+      Settings
+    </button>
+    <button
+      id="underlined-tab-3"
+      role="tab"
+      @click="setActiveTab('notifications')"
+      :aria-selected="activeTab === 'notifications'"
+      aria-controls="tabpanel-3"
+      :tabindex="activeTab === 'notifications' ? 0 : -1"
+    >
+      Notifications
+    </button>
+  </div>
+
+<div v-if="activeTab === 'profile'" role="tabpanel" id="tabpanel-1" aria-labelledby="underlined-tab-1">
+	Profile panel
 </div>
-<div role="tabpanel" id="tabpanel-2" aria-labelledby="tab-2" tabindex="0">
- panel 2
+<div v-if="activeTab === 'settings'" role="tabpanel" id="tabpanel-2" aria-labelledby="underlined-tab-2">
+ Settings panel
 </div>
-<div role="tabpanel" id="tabpanel-3" aria-labelledby="tab-3" tabindex="0">
- panel 3
+<div v-if="activeTab === 'notifications'" role="tabpanel" id="tabpanel-3" aria-labelledby="underlined-tab-3">
+ Notifications panel
 </div>
 </nav>
 </template>
@@ -40,25 +110,54 @@ title: Tabs
 
 ### Filled
 
-The roundedness of the tab list is controlled by `var(--button-border-radius)` in your theme setup.
-
 <Example>
 <template #example>
 <nav class="tabs filled">
-<div role="tablist">
-	<button id="tab-1" role="tab" aria-selected="true" tabindex="-1" aria-controls="tabpanel-1">Tab 1</button>
-	<button id="tab-2" role="tab" aria-selected="false" tabindex="-1" aria-controls="tabpanel-2">Tab 2</button>
-	<button id="tab-3" role="tab" aria-selected="false" tabindex="-1" aria-controls="tabpanel-3">Tab 3</button>
-</div>
+<div
+    role="tablist"
+    @keydown="handleKeyDown2"
+    aria-label="Filled tabs"
+  >
+    <button
+      id="filled-tab-1"
+      role="tab"
+      @click="setActiveTab2('korg')"
+      :aria-selected="activeTab2 === 'korg'"
+      aria-controls="tabpanel-1"
+      :tabindex="activeTab2 === 'korg' ? 0 : -1"
+    >
+      Korg
+    </button>
+    <button
+      id="filled-tab-2"
+      role="tab"
+      @click="setActiveTab2('yamaha')"
+      :aria-selected="activeTab2 === 'yamaha'"
+      aria-controls="tabpanel-2"
+      :tabindex="activeTab2 === 'yamaha' ? 0 : -1"
+    >
+      Yamaha
+    </button>
+    <button
+      id="filled-tab-3"
+      role="tab"
+      @click="setActiveTab2('roland')"
+      :aria-selected="activeTab2 === 'roland'"
+      aria-controls="tabpanel-3"
+      :tabindex="activeTab2 === 'roland' ? 0 : -1"
+    >
+      Roland
+    </button>
+  </div>
 
-<div role="tabpanel" id="tabpanel-1" aria-labelledby="tab-1" tabindex="0">
-	panel 1
+<div v-if="activeTab2 === 'korg'" role="tabpanel" id="tabpanel-1" aria-labelledby="filled-tab-1">
+	Korg panel
 </div>
-<div role="tabpanel" id="tabpanel-2" aria-labelledby="tab-2" tabindex="0">
- panel 2
+<div v-if="activeTab2 === 'yamaha'" role="tabpanel" id="tabpanel-2" aria-labelledby="filled-tab-2">
+ Yamaha panel
 </div>
-<div role="tabpanel" id="tabpanel-3" aria-labelledby="tab-3" tabindex="0">
- panel 3
+<div v-if="activeTab2 === 'roland'" role="tabpanel" id="tabpanel-3" aria-labelledby="filled-tab-3">
+ Roland panel
 </div>
 </nav>
 </template>

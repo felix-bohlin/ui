@@ -166,6 +166,7 @@ Lists meant to be used stand-alone or as part of Select elements
         inline-size: 100%;
         margin: 0;
         min-block-size: 40px;
+        outline-offset: -3px;
         padding: var(--size-2) var(--size-3);
         text-align: start;
         text-decoration: none;

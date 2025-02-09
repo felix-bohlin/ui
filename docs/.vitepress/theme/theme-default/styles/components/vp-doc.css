@@ -26,7 +26,7 @@
         color 0.25s,
         opacity 0.25s;
 
-      &:before {
+      &::before {
         content: var(--vp-header-anchor-symbol);
       }
     }

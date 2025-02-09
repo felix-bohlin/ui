@@ -40,7 +40,7 @@
     .field:has(input[list]):where(:focus-within, :hover)
   ) {
     /* Arrow */
-    &:after {
+    &::after {
       block-size: 0;
       border-block-start: 5px solid;
       border-inline: 5px solid transparent;

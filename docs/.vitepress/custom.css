@@ -17,7 +17,7 @@ html {
   scroll-timeline: --page-scroll block;
 
   &:has(.VPHome) {
-    &:before {
+    &::before {
       background-image: radial-gradient(
         var(--text-color-2) 1.4500000000000002px,
         transparent 1.4500000000000002px
@@ -32,7 +32,7 @@ html {
   }
 
   &.dark {
-    &:before {
+    &::before {
       opacity: 0.075;
     }
   }

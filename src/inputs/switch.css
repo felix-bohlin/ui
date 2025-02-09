@@ -31,7 +31,7 @@
       position: relative;
 
       /* Track */
-      &:before {
+      &::before {
         background-color: var(--_track-bg-color);
         block-size: var(--_track-height);
         border: 1px solid var(--_dot-bg-color);
@@ -48,7 +48,7 @@
       }
 
       /* Dot */
-      &:after {
+      &::after {
         background-color: var(--_dot-bg-color);
         block-size: var(--_dot-size);
         border-radius: 100vmax;
@@ -63,7 +63,7 @@
 
       /* Checked */
       &:checked {
-        &:before {
+        &::before {
           background-color: var(--_accent-color);
           border-color: var(--_accent-color);
           transition:
@@ -72,7 +72,7 @@
         }
 
         /* Dot */
-        &:after {
+        &::after {
           --_dot-bg-color: var(--_accent-contrast);
           --_dot-outline-size: calc(var(--size-1) - 1px);
 
@@ -85,14 +85,14 @@
       /* Animation */
       @media (prefers-reduced-motion: no-preference) {
         /* Track */
-        &:before {
+        &::before {
           transition:
             background-color var(--_transition-time) var(--_transition-tf),
             border-color var(--_transition-time) var(--_transition-tf);
         }
 
         /* Dot */
-        &:after {
+        &::after {
           transition: all var(--_transition-time) var(--_transition-tf);
         }
 

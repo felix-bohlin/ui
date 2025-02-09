@@ -11,7 +11,7 @@
     display: inline-flex;
     position: relative;
 
-    &:after {
+    &::after {
       background-color: var(--_bg-color);
       border: 2px solid var(--_border-color);
       border-radius: 100vmax;
@@ -52,7 +52,7 @@
     /* Dot */
     &.dot {
       --_inset: 0 -1px auto auto;
-      &:after {
+      &::after {
         content: "";
         min-inline-size: var(--size-2);
         block-size: var(--size-2);
@@ -63,7 +63,7 @@
 
     /* Visibility */
     &.invisible {
-      &:after {
+      &::after {
         opacity: 0;
         pointer-events: none;
       }

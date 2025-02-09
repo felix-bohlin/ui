@@ -10,7 +10,7 @@
 
     &:open {
       button {
-        &:after {
+        &::after {
           rotate: 180deg;
         }
       }
@@ -49,7 +49,7 @@
       position: relative;
 
       /* Arrow */
-      &:after {
+      &::after {
         block-size: 0;
         border-block-start: 5px solid;
         border-inline: 5px solid transparent;
@@ -127,7 +127,7 @@
         padding-block: var(--size-1);
         padding-inline: var(--size-2) var(--size-7);
 
-        &:after {
+        &::after {
           inset-inline-end: var(--size-2);
         }
       }
@@ -144,7 +144,7 @@
       }
 
       /* Arrow */
-      &:after {
+      &::after {
         align-self: center;
         block-size: 0;
         border-block-start: 5px solid;

@@ -9,7 +9,7 @@
     ) {
     position: relative;
 
-    &:before {
+    &::before {
       animation: spin 0.7s linear infinite;
       border-color: transparent currentColor currentColor;
       border-radius: 50%;
@@ -24,7 +24,7 @@
     }
 
     &:not(button.button):not(:empty) {
-      &:before {
+      &::before {
         margin-inline-end: 0.5em;
       }
     }

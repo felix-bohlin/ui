@@ -24,7 +24,7 @@ Lists meant to be used stand-alone or as part of Select elements
     &.bordered {
       :where(li + li, option + option) {
         margin-block-start: var(--size-3);
-        &:before {
+        &::before {
           block-size: 1px;
           border-block-start: 1px solid var(--border-color);
           content: "";
@@ -46,7 +46,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &.border-top {
           margin-block-start: var(--size-2);
-          &:before {
+          &::before {
             inset: calc(-1 * var(--size-1)) 0 auto 0;
           }
         }
@@ -113,7 +113,7 @@ Lists meant to be used stand-alone or as part of Select elements
       padding: var(--size-2) var(--size-3);
       position: relative;
 
-      &:before {
+      &::before {
         display: none; /* removing checkmark from option */
       }
 
@@ -221,7 +221,7 @@ Lists meant to be used stand-alone or as part of Select elements
       /* Border between list items */
       &.border-top {
         margin-block-start: var(--size-3);
-        &:before {
+        &::before {
           block-size: 1px;
           border-block-start: 1px solid var(--border-color);
           content: "";

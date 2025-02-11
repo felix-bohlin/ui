@@ -14,6 +14,7 @@
     --_label-color: var(--text-color-2);
     --_supporting-text-color: var(--text-color-2);
 
+    contain: layout;
     display: inline-grid;
     position: relative;
 

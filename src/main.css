@@ -27,6 +27,7 @@
 /*** Base components (no dependencies)  */
 @import "./actions/button.css";
 @import "./actions/icon-button.css";
+@import "./actions/tab-buttons.css";
 @import "./actions/toggle-button-group.css";
 @import "./data-display/avatar.css";
 @import "./data-display/badge.css";
@@ -41,7 +42,6 @@
 @import "./inputs/checkbox-radio.css";
 @import "./inputs/switch.css";
 @import "./inputs/range.css";
-@import "./navigation/tabs.css";
 @import "./text/typography.css";
 
 /*** Has dependencies */

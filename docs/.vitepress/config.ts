@@ -109,6 +109,10 @@ export default defineConfig({
                   link: "/components/actions/icon-button",
                 },
                 {
+                  text: "Tab buttons",
+                  link: "/components/actions/tab-buttons",
+                },
+                {
                   text: "Toggle button group",
                   link: "/components/actions/toggle-button-group",
                 },
@@ -158,16 +162,6 @@ export default defineConfig({
                 { text: "Progress", link: "/components/feedback/progress" },
                 { text: "Snackbar", link: "/components/feedback/snackbar" },
                 { text: "Spinner", link: "/components/feedback/spinner" },
-              ],
-            },
-            {
-              text: "Navigation",
-              collapsed: false,
-              items: [
-                {
-                  text: "Tabs",
-                  link: "/components/navigation/tabs",
-                },
               ],
             },
             {

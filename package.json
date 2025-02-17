@@ -34,7 +34,7 @@
     "@vue/devtools-api": "^7.7.1",
     "@vue/shared": "^3.5.13",
     "@vueuse/core": "^12.5.0",
-    "@vueuse/integrations": "^12.5.0",
+    "@vueuse/integrations": "^12.7.0",
     "baseline-status": "^1.0.10",
     "focus-trap": "^7.6.4",
     "mark.js": "^8.11.1",

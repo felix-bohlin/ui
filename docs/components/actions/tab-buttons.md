@@ -15,7 +15,7 @@ title: Tab buttons
 
 <div class="rich-text">
 
-<p>Sure, why not? Just don't forget the accessibility stuff.</p>
+<p>Sure, why not? Just don't forget the <a href="#accessibility">accessibility</a> stuff.</p>
 
 <a href="/components/actions/toggle-button-group">Toggle button group</a>
 
@@ -106,7 +106,11 @@ title: Tab buttons
 
 ## Accessibility
 
-There's a lot. Read about it [here](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-automatic/#accessibilityfeatures).
+- Screen reader navigation through proper tabindexing and ARIA attributes, making sure users can switch between tabs and their respective panels.
+- High contrast with distinct visual indicators for active tabs and keyboard focus states.
+- Complete keyboard navigation is implemented, allowing users to move between tabs using arrow keys, Home/End keys, and Tab key, with automatic activation of panels when their associated tabs receive focus.
+
+There's a lot more. Read about it [here](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-automatic/#accessibilityfeatures).
 
 ## Installation
 

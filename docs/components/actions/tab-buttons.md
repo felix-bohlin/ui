@@ -106,6 +106,29 @@ title: Tab buttons
 
 ## Accessibility
 
+Tab buttons must contain the following:
+
+| Attribute       | Value          | Description                        |
+| --------------- | -------------- | ---------------------------------- |
+| `role`          | `"tab"`        | Identifies the element as a tab    |
+| `id`            | `"TAB_ID"`     | A unique ID for the tab            |
+| `aria-selected` | `"true/false"` | Indicates if the tab is selected   |
+| `aria-controls` | `"panel-id"`   | The ID of the associated tab panel |
+| `tabindex`      | `"0/-1"`       | Indicates if the tab is focusable  |
+
+### Tab panel
+
+Tab panels must contain the following:
+
+| Attribute         | Value             | Description                                                                   |
+| ----------------- | ----------------- | ----------------------------------------------------------------------------- |
+| `role`            | `"tabpanel"`      | Identifies the element as a tab panel                                         |
+| `id`              | `"panel-id"`      | A unique ID for the panel                                                     |
+| `aria-labelledby` | `"unique-tab-id"` | The ID of the associated tab                                                  |
+| `hidden`          | No value needed   | Indicates if the panel is hidden (use hidden attribute for non-active panels) |
+
+### Other
+
 - Screen reader navigation through proper tabindexing and ARIA attributes, making sure users can switch between tabs and their respective panels.
 - High contrast with distinct visual indicators for active tabs and keyboard focus states.
 - Complete keyboard navigation is implemented, allowing users to move between tabs using arrow keys, Home/End keys, and Tab key, with automatic activation of panels when their associated tabs receive focus.

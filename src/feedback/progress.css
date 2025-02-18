@@ -57,7 +57,7 @@
     :where(progress):indeterminate {
       animation-direction: reverse;
 
-      &:after {
+      &::after {
         animation-direction: reverse;
       }
     }

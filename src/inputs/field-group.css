@@ -37,7 +37,7 @@
         legend {
           position: relative;
 
-          &:after {
+          &::after {
             color: var(--red);
             content: "*";
             inset: 0 -0.25ex auto auto;

@@ -63,7 +63,7 @@
         padding-inline: 1ex;
 
         /* Required dot */
-        &:after {
+        &::after {
           inset: 0 -0.25ex auto auto;
         }
       }
@@ -81,7 +81,7 @@
       cursor: pointer;
       inline-size: 1.125rem;
 
-      &:before {
+      &::before {
         --highlight-size: 175%;
       }
     }

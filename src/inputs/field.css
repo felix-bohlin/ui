@@ -14,6 +14,7 @@
     --_label-color: var(--text-color-2);
     --_supporting-text-color: var(--text-color-2);
 
+    contain: layout;
     display: inline-grid;
     position: relative;
 
@@ -329,7 +330,7 @@
       }
 
       /* Bottom line */
-      &:before {
+      &::before {
         background-color: var(--_filled-border-color);
         block-size: calc(var(--field-border-width) + 1px);
         content: "";
@@ -404,7 +405,7 @@
 
       /* Element states */
       &:hover {
-        &:before {
+        &::before {
           transform: scaleX(1);
         }
       }
@@ -415,7 +416,7 @@
           border-block-end-color: var(--_accent-color);
         }
 
-        &:before {
+        &::before {
           background-color: var(--_accent-color);
           transform: scaleX(1) translateX(0px);
         }
@@ -424,7 +425,7 @@
 
     /* Disabled */
     &:where(:has([disabled])) {
-      &:before {
+      &::before {
         display: none;
       }
       :where(input, textarea, select) {
@@ -439,7 +440,7 @@
 
     /* Read-only */
     &:where(:has([readonly])) {
-      &:before {
+      &::before {
         display: none;
       }
       :where(input, textarea, select) {

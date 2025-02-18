@@ -13,6 +13,10 @@
       }
     }
 
+    &:not([open]) {
+      display: none;
+    }
+
     &[open] {
       pointer-events: all;
     }

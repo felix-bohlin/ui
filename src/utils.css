@@ -34,7 +34,7 @@ When you visibly want to hide an element but make it accessible for screen reade
         --thumb-scale: 1.1;
       }
 
-      &:before {
+      &::before {
         --thumb-scale: 0.01;
         --highlight-size: 150%;
 

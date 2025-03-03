@@ -39,8 +39,8 @@ importers:
         specifier: ^12.7.0
         version: 12.7.0(focus-trap@7.6.4)(typescript@5.7.3)
       baseline-status:
-        specifier: ^1.0.10
-        version: 1.0.10
+        specifier: ^1.0.11
+        version: 1.0.11
       focus-trap:
         specifier: ^7.6.4
         version: 7.6.4
@@ -903,8 +903,8 @@ packages:
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
-  baseline-status@1.0.10:
-    resolution: {integrity: sha512-ZyS1oPAQ+hce7b5e14ih+qdcx67pV7sVkcxoFQFQ7byBBAYBj37lB3nuwQogsLp9zV27yRqNTxS1vOM5ZCz3Iw==}
+  baseline-status@1.0.11:
+    resolution: {integrity: sha512-0edUp3vM+YDpubynb7klmookLkxS+95AabxRs0iavzcApy3OIyg19UVjR9IODfJjlUdumy3k1+OS8vOvsJ4AEw==}
 
   birpc@0.2.19:
     resolution: {integrity: sha512-5WeXXAvTmitV1RqJFppT5QtUiz2p1mRSYU000Jkft5ZUCLJIk4uQriYNO50HknxKwM6jd8utNc66K1qGIwwWBQ==}
@@ -2106,7 +2106,7 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  baseline-status@1.0.10:
+  baseline-status@1.0.11:
     dependencies:
       '@lit/task': 1.0.2
       lit: 3.2.1

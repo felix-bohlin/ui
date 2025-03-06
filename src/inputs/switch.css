@@ -52,7 +52,6 @@
         background-color: var(--_dot-bg-color);
         block-size: var(--_dot-size);
         border-radius: 100vmax;
-        border: 1px solid var(--_dot-border-color);
         content: "";
         inline-size: var(--_dot-size);
         inset: var(--_dot-inset);

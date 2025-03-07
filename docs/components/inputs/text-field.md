@@ -360,7 +360,7 @@ This triggers the numeric keyboard on mobile devices while avoiding the jank of 
 
 It should probably be called `<input type="math">` instead.
 
-The British Government has a [great article](https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/) about how .error input number is and goes in-depth. It's a very interesting read.
+The British Government has a [great article](https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/) about how bad input number is and goes in-depth. It's a very interesting read.
 
 </div>
 </Alert>

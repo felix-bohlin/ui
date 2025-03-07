@@ -3,7 +3,7 @@
 ## Thank you to {.h3}
 
 - The community at the Open Props [Discord channel](https://discord.gg/AqA4fU886r) for help and inspiration
-- Adam Argyle, hermit99, onokumus, Deufel, amatiasq, tleperou for contributing :heart:
+- Adam Argyle, hermit99, onokumus, Deufel, amatiasq, tleperou, marpe for contributing :heart:
 - [Bricolage Grotesque](https://github.com/ateliertriay/bricolage) - beautiful typeface used in these docs
 
 ## Sources of inspiration/theft{.h3}

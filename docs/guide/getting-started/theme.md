@@ -1,5 +1,5 @@
 ---
-overline: Gude
+overline: Guide
 title: Theme
 ---
 

@@ -63,6 +63,10 @@ export default defineConfig({
               link: "/guide/getting-started",
               items: [
                 {
+                  text: "Main",
+                  link: "/guide/getting-started/main",
+                },
+                {
                   text: "Normalize",
                   link: "/guide/getting-started/normalize",
                 },

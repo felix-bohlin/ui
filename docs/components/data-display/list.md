@@ -101,7 +101,7 @@ Wrap the elements of your List item with a `a`, `button` or `label` depending on
   <button><!--  --></button>
 </li>
 
-e<li>
+<li>
   <a><!--  --></a>
 </li>
 

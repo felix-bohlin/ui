@@ -25,7 +25,7 @@
     "vue-tsc": "^2.2.8"
   },
   "dependencies": {
-    "@docsearch/css": "^3.8.3",
+    "@docsearch/css": "^3.9.0",
     "@docsearch/js": "^3.9.0",
     "@shikijs/core": "^3.2.1",
     "@shikijs/transformers": "^3.1.0",

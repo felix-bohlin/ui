@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@docsearch/css':
-        specifier: ^3.8.3
-        version: 3.8.3
+        specifier: ^3.9.0
+        version: 3.9.0
       '@docsearch/js':
         specifier: ^3.9.0
         version: 3.9.0(@algolia/client-search@5.20.3)(search-insights@2.17.3)
@@ -231,9 +231,6 @@ packages:
 
   '@docsearch/css@3.8.2':
     resolution: {integrity: sha512-y05ayQFyUmCXze79+56v/4HpycYF3uFqB78pLPrSV5ZKAlDuIAAJNhaRi8tTdRNXh05yxX/TyNnzD6LwSM89vQ==}
-
-  '@docsearch/css@3.8.3':
-    resolution: {integrity: sha512-1nELpMV40JDLJ6rpVVFX48R1jsBFIQ6RnEQDsLFGmzOjPWTOMlZqUcXcvRx8VmYV/TqnS1l784Ofz+ZEb+wEOQ==}
 
   '@docsearch/css@3.9.0':
     resolution: {integrity: sha512-cQbnVbq0rrBwNAKegIac/t6a8nWoUAn8frnkLFW6YARaRmAQr5/Eoe6Ln2fqkUCZ40KpdrKbpSAmgrkviOxuWA==}
@@ -1576,8 +1573,6 @@ snapshots:
       '@csstools/css-tokenizer': 3.0.3
 
   '@docsearch/css@3.8.2': {}
-
-  '@docsearch/css@3.8.3': {}
 
   '@docsearch/css@3.9.0': {}
 

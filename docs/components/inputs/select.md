@@ -10,7 +10,14 @@
 <p>Leverages the <a href="/components/data-display/list" class="link">List component</a> to provide markup for the Select popover.</p>
 </hgroup>
 
-[Non-experimental Select](#non-experimental-select): Uses less modern features and the native option list.
+<span></span>
+
+<div class="not-rich-text">
+<Alert variant="outlined" severity="warning" title="Experimental Web Platform features feature flag required">
+<p>The Select makes use of the latest <a href="https://una.im/select-updates/" class="link">customizable select API</a> which limits it to Chromium version 133<.</p>
+<p>The <a class="link" href="#non-experimental-select">non-experimental</a> Select is usable today though and might work as a fallback while we wait for the browsers to catch up!</p>
+</Alert>
+</div>
 
 ## Variants
 
@@ -514,13 +521,6 @@ This way of writing Selects are currently quite experimental. Accessible solutio
 <!--@include: ../data-display/list-api.md -->
 
 ## Browser compatibility
-
-<div class="not-rich-text">
-<Alert variant="outlined" severity="warning" title="Experimental Web Platform features feature flag required">
-<p>The Select makes use of the latest <a href="https://una.im/select-updates/" class="link">customizable select API</a> which limits it to Chromium version 133<.</p>
-<p>The <a class="link" href="#non-experimental-select">non-experimental</a> Select is usable today though and might work as a fallback while we wait for the browsers to catch up!</p>
-</Alert>
-</div>
 
 <Baseline :ids="['light-dark', 'color-mix']" />
 

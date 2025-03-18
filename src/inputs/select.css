@@ -3,42 +3,53 @@
     position: relative;
 
     /* Default arrow */
-    &::after,
     &::picker-icon {
-      display: none;
+      block-size: 0;
+      border-block-start: 5px solid;
+      border-inline: 5px solid transparent;
+      color: currentColor;
+      content: "";
+      inline-size: 0;
+      inset: 50% var(--size-3) auto auto;
+      pointer-events: none;
+      position: absolute;
+      translate: 0 -50%;
     }
 
     &:open {
-      button {
-        &::after {
-          rotate: 180deg;
-        }
+      &::picker-icon {
+        rotate: 180deg;
       }
     }
 
     /* Select popover */
     &::picker(select) {
+      /* Animation on-stage styles */
       border: 0;
       box-shadow: var(--shadow-2);
+      opacity: 1;
       padding: 0;
+      scale: 1;
+
+      /* Animation starting styles */
+      @starting-style {
+        opacity: 0;
+        transform: scale(0.9);
+      }
 
       @media (prefers-reduced-motion: no-preference) {
         transition:
-          opacity 0.5s var(--ease-3),
+          display 0.2s allow-discrete,
+          opacity 0.2s var(--ease-3),
+          overlay 0.2s allow-discrete,
           scale 0.2s var(--ease-3);
       }
     }
 
-    /* Animation start styles */
+    /* Animation off-stage styles */
     &:not(:open)::picker(select) {
       opacity: 0;
-      scale: 0.5;
-    }
-
-    /* Animation end styles */
-    &:open::picker(select) {
-      opacity: 1;
-      scale: 1;
+      scale: 0.9;
     }
 
     button {
@@ -47,21 +58,6 @@
       inline-size: 100%;
       margin: 0;
       position: relative;
-
-      /* Arrow */
-      &::after {
-        block-size: 0;
-        border-block-start: 5px solid;
-        border-inline: 5px solid transparent;
-        content: "";
-        display: inline-block;
-        flex-shrink: 0;
-        inline-size: 0;
-        inset: 50% var(--size-3) auto auto;
-        pointer-events: none;
-        position: absolute;
-        translate: 0 -50%;
-      }
 
       selectedcontent {
         overflow: hidden;

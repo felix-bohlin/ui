@@ -55,10 +55,12 @@
         margin-block-start: 0.15rem;
         stroke: var(--color-9);
       }
+    }
 
-      /* Links
-      * Can't make sure contrast will be acceptable (yet) so we use the current text color instead.
-      */
+    /* Links
+    * Can't make sure contrast will be acceptable (yet) so we use the current text color instead.
+    */
+    &:not(.outlined) {
       a[href] {
         color: inherit;
 

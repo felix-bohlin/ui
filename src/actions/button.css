@@ -90,9 +90,6 @@
 
       svg {
         max-block-size: 0.7lh;
-      }
-
-      & svg {
         color: currentColor;
       }
     }

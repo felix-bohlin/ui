@@ -90,14 +90,7 @@
 
       svg {
         max-block-size: 0.7lh;
-      }
-
-      & svg:not([fill="none"]) {
-        fill: currentColor;
-      }
-
-      & svg[stroke] {
-        stroke: currentColor;
+        color: currentColor;
       }
     }
 

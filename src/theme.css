@@ -1,8 +1,4 @@
 @layer theme {
-  html {
-    color-scheme: var(--color-scheme);
-  }
-
   .light {
     --color-scheme: light;
   }
@@ -11,7 +7,7 @@
   }
 
   :where(html) {
-    color-scheme: light dark;
+    color-scheme: var(--color-scheme, light dark);
 
     --palette-hue: var(--oklch-teal);
     --palette-hue-rotate-by: 5;

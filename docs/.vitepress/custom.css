@@ -1,5 +1,11 @@
 @import url(https://fonts.bunny.net/css?family=bricolage-grotesque:400,500,600,700,800);
 
+@layer theme {
+  :where(html) {
+    --color-scheme: light;
+  }
+}
+
 :is(h1, h2, h3, h4, h5, h6) {
   font-family: "Bricolage Grotesque", sans-serif;
 }
@@ -11,6 +17,12 @@ html.dark {
 }
 
 html {
+  &:not(.dark) {
+    @media (prefers-color-scheme: light) {
+      color-scheme: light;
+    }
+  }
+
   --text-color-2-78: oklch(from var(--text-color-2) l c h / 78%);
   --text-color-2-56: oklch(from var(--text-color-2) l c h / 56%);
 

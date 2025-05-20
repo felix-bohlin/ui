@@ -32,7 +32,7 @@
     "@types/markdown-it": "^14.1.2",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/devtools-api": "^7.7.6",
-    "@vue/shared": "^3.5.13",
+    "@vue/shared": "^3.5.14",
     "@vueuse/core": "^13.1.0",
     "@vueuse/integrations": "^13.2.0",
     "baseline-status": "^1.0.11",

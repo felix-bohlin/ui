@@ -40,13 +40,13 @@ See also: [Checkbox group](#field-group)
 ```html
 <!-- Checked -->
 <label class="checkbox">
-  <input name="checkbox" type="checkbox" />
+  <input name="checkbox" type="checkbox" checked="checked" />
   <span class="sr-only">Label</span>
 </label>
 
 <!-- Unchecked -->
 <label class="checkbox">
-  <input name="checkbox" type="checkbox" checked="checked" />
+  <input name="checkbox" type="checkbox"/>
   <span class="sr-only">Label</span>
 </label>
 

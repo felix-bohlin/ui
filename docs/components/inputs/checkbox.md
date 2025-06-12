@@ -38,13 +38,13 @@ See also: [Checkbox group](#field-group)
 
 <!-- prettier-ignore -->
 ```html
-<!-- Checked -->
+<!-- Unchecked -->
 <label class="checkbox">
   <input name="checkbox" type="checkbox" />
   <span class="sr-only">Label</span>
 </label>
 
-<!-- Unchecked -->
+<!-- Checked -->
 <label class="checkbox">
   <input name="checkbox" type="checkbox" checked="checked" />
   <span class="sr-only">Label</span>

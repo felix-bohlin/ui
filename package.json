@@ -12,7 +12,7 @@
     "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
-    "@types/node": "^24.0.10",
+    "@types/node": "^24.0.13",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
     "lightningcss": "^1.30.1",

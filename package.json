@@ -22,7 +22,7 @@
     "typescript": "^5.8.3",
     "vite": "^7.0.5",
     "vitepress": "^1.6.3",
-    "vue-tsc": "^3.0.1"
+    "vue-tsc": "^3.0.3"
   },
   "dependencies": {
     "@docsearch/css": "^3.9.0",

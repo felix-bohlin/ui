@@ -31,7 +31,7 @@
     "@shikijs/transformers": "^3.9.2",
     "@types/markdown-it": "^14.1.2",
     "@vitejs/plugin-vue": "^6.0.1",
-    "@vue/devtools-api": "^7.7.7",
+    "@vue/devtools-api": "^8.0.0",
     "@vue/shared": "^3.5.17",
     "@vueuse/core": "^13.6.0",
     "@vueuse/integrations": "^13.5.0",

@@ -50,9 +50,9 @@ importers:
       minisearch:
         specifier: ^7.1.2
         version: 7.1.2
-      opbeta:
-        specifier: npm:open-props@2.0.0-beta.5
-        version: open-props@2.0.0-beta.5
+      opui-css:
+        specifier: ^1.2.6
+        version: 1.2.6
       shiki:
         specifier: ^3.8.1
         version: 3.8.1
@@ -1207,8 +1207,8 @@ packages:
   oniguruma-to-es@4.3.3:
     resolution: {integrity: sha512-rPiZhzC3wXwE59YQMRDodUwwT9FZ9nNBwQQfsd1wfdtlKEyCdRV0avrTcSZ5xlIvGRVPd/cx6ZN45ECmS39xvg==}
 
-  open-props@2.0.0-beta.5:
-    resolution: {integrity: sha512-Ahq2/q6T+0kzI9Lwt3f8CX6l0IQxqKYkeMi4u09gdFkFmxB1gYuSwqg2xd5nVN1zEYtUN93V0DbQRoDsP3OSmw==}
+  opui-css@1.2.6:
+    resolution: {integrity: sha512-mW/rTdX3K62vGrFcO0hMiSAePu8ldHLnuxXxjceBzwyHaGUT9JZzh2p+jLLBVnq/6IpVNOw5ZQtG9qcZqNed4w==}
 
   path-browserify@1.0.1:
     resolution: {integrity: sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==}
@@ -2458,7 +2458,7 @@ snapshots:
       regex: 6.0.1
       regex-recursion: 6.0.2
 
-  open-props@2.0.0-beta.5: {}
+  opui-css@1.2.6: {}
 
   path-browserify@1.0.1: {}
 

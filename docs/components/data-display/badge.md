@@ -205,4 +205,4 @@ Primary (default), `.error`, `.ok`, `.good`, `.warning`.
 
 ## Installation
 
-<<< @/../src/data-display/badge.css
+<<< @/../node_modules/opui-css/src/components/badge.css

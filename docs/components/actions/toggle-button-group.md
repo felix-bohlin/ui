@@ -363,5 +363,5 @@ Create an [issue or a PR](https://github.com/felix-bohlin/ui) and let me know!
 ## Installation
 
 ::: code-group
-<<< @/../src/actions/toggle-button-group.css [toggle-button-group.css]
+<<< @/../node_modules/opui-css/src/components/toggle-button-group.css [toggle-button-group.css]
 :::

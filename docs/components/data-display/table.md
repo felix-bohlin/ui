@@ -305,5 +305,5 @@ If you inspect the page you can see that I cheated a bit with the `inset-block-s
 ## Installation
 
 ::: code-group
-<<< @/../src/data-display/table.css [table.css]
+<<< @/../node_modules/opui-css/src/components/table.css [table.css]
 :::

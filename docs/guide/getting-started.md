@@ -49,14 +49,26 @@ The setup process will differ a bit if you use a framework, but the core princip
 
 <div class="not-rich-text">
 
+
+`main.css` is the home of all your CSS.
+::: code-group [main.css]
+<<< @/../node_modules/opui-css/src/main.css [main.css]
+:::
+
+`index.css` consists of OPUI imports, only.
+::: code-group [index.css]
+<<< @/../node_modules/opui-css/src/index.css [index.css]
+:::
+
+
 <Accordion variant="tonal" style="margin-block-start: var(--size-3)">
-<template #summary>Setup files</template>
+<template #summary>OPUI core</template>
 
 ::: code-group
-<<< @/../src/main.css [main.css]
-<<< @/../src/normalize.css [normalize.css]
-<<< @/../src/utils.css [utils.css]
-<<< @/../src/theme.css [theme.css]
+<<< @/../node_modules/opui-css/src/core/normalize.css [normalize.css]
+<<< @/../node_modules/opui-css/src/core/utils.css [utils.css]
+<<< @/../node_modules/opui-css/src/core/theme.css [theme.css]
+<<< @/../node_modules/opui-css/src/core/components.css [components.css]
 :::
 
 </Accordion>
@@ -64,23 +76,20 @@ The setup process will differ a bit if you use a framework, but the core princip
 
 ### Folder structure
 
-This is folder structure that comes out of the box. Feel free to change it to your needs.
+This is the folder structure that comes out of the box. Feel free to change it to your needs.
 
 ```
 ├─ main.css
-├─ normalize.css
-├─ theme.css
-├─ utils.css
-├─ actions
+├─ index.css
+├─ core
+│  └─ normalize.css
+│  └─ theme.css
+│  └─ utils.css
+│  └─ components.css
+├─ components
+│  └─ button.css
 │  └─ ...
-├─ data-display
-│  └─ ...
-├─ feedback
-│  └─ ...
-├─ inputs
-│  └─ ...
-└─ text
-   └─ ...
+
 ```
 
 <div class="not-rich-text">

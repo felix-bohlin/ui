@@ -377,5 +377,5 @@ These are the classes and attributes a button can be styled with. As usual, feel
 ## Installation
 
 ::: code-group
-<<< @/../src/actions/button.css [button.css]
+<<< @/../node_modules/opui-css/src/components/button.css [button.css]
 :::

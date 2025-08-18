@@ -228,7 +228,7 @@ I ended up reaching for the trusty `:after` pseudo-element. In this case it also
 <template #code>
 
 ::: code-group
-<<< @/../src/feedback/progress.css [progress.css]
+<<< @/../node_modules/opui-css/src/components/progress.css [progress.css]
 
 ```html [progress.html]
 <progress></progress>

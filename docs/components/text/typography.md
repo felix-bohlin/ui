@@ -147,5 +147,5 @@ import Alert from "../../.vitepress/theme/app/components/Alert.vue";
 ## Installation
 
 ::: code-group
-<<< @/../src/text/typography.css [typography.css]
+<<< @/../node_modules/opui-css/src/components/typography.css [typography.css]
 :::

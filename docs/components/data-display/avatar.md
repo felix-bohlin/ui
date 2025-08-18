@@ -189,5 +189,5 @@ To get the Avatars to stack like they do below (previous item on top of the next
 ## Installation
 
 ::: code-group
-<<< @/../src/data-display/avatar.css [avatar.css]
+<<< @/../node_modules/opui-css/src/components/avatar.css [avatar.css]
 :::

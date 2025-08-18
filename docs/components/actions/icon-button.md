@@ -126,5 +126,5 @@ To have an accessible label you can choose between three approaches.
 ## Installation
 
 ::: code-group
-<<< @/../src/actions/icon-button.css [icon-button.css]
+<<< @/../node_modules/opui-css/src/components/icon-button.css [icon-button.css]
 :::

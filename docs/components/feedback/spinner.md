@@ -116,5 +116,5 @@ See [progress accessibility](/components/feedback/progress#accessibility) sectio
 ## Installation
 
 ::: code-group
-<<< @/../src/feedback/spinner.css [spinner.css]
+<<< @/../node_modules/opui-css/src/components/spinner.css [spinner.css]
 :::

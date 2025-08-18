@@ -201,7 +201,7 @@ There are four different severities - neutral (default), ok, warning, error.
 ## Installation
 
 ::: code-group
-<<< @/../src/feedback/alert.css [alert.css]
+<<< @/../node_modules/opui-css/src/components/alert.css [alert.css]
 
 ```css [theme.css]
 /* ... */

@@ -461,6 +461,6 @@ Accordion has [card](/components/data-display/card) as a dependency.
 </div>
 
 ::: code-group
-<<< @/../src/data-display/accordion.css [accordion.css]
-<<< @/../src/data-display/card.css [card.css]
+<<< @/../node_modules/opui-css/src/components/accordion.css [accordion.css]
+<<< @/../node_modules/opui-css/src/components/card.css [card.css]
 :::

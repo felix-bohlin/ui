@@ -189,6 +189,6 @@ When enabled the Field changes size depending on its content.
 ## Installation
 
 ::: code-group
-<<< @/../src/inputs/field.css [field.css]
-<<< @/../src/inputs/textarea.css [textarea.css]
+<<< @/../node_modules/opui-css/src/components/field.css [field.css]
+<<< @/../node_modules/opui-css/src/components/textarea.css [textarea.css]
 :::

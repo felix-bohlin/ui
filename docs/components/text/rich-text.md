@@ -270,5 +270,5 @@ What I've written here is probably long enough, but adding this final sentence c
 ## Installation
 
 ::: code-group
-<<< @/../src/text/rich-text.css [rich-text.css]
+<<< @/../node_modules/opui-css/src/components/rich-text.css [rich-text.css]
 :::

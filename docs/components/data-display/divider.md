@@ -28,4 +28,4 @@ It's just an `<hr>`.
 
 ## Installation
 
-<<< @/../src/data-display/divider.css
+<<< @/../node_modules/opui-css/src/components/divider.css

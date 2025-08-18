@@ -599,6 +599,6 @@ To have an accessible label you can choose between three approaches.
 ## Installation
 
 ::: code-group
-<<< @/../src/inputs/switch.css [switch.css]
-<<< @/../src/inputs/field-group.css [field-group.css]
+<<< @/../node_modules/opui-css/src/components/switch.css [switch.css]
+<<< @/../node_modules/opui-css/src/components/field-group.css [field-group.css]
 :::

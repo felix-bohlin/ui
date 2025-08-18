@@ -144,5 +144,5 @@ import Baseline from "../../.vitepress/theme/app/components/Baseline.vue"
 ## Installation
 
 ::: code-group
-<<< @/../src/data-display/definition-list.css [definition-list.css]
+<<< @/../node_modules/opui-css/src/components/definition-list.css [definition-list.css]
 :::

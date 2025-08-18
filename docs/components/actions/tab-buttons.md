@@ -45,7 +45,7 @@ title: Tab buttons
 </nav>
 </template>
 <template #code>
-	
+
 ```html
 <nav class="tabs underlined">
   <div role="tablist" aria-label="Underlined tabs">
@@ -172,5 +172,5 @@ There's a lot more. Read about it [here](https://www.w3.org/WAI/ARIA/apg/pattern
 ## Installation
 
 ::: code-group
-<<< @/../src/actions/tab-buttons.css [tab-buttons.css]
+<<< @/../node_modules/opui-css/src/components/tab-buttons.css [tab-buttons.css]
 :::

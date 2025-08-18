@@ -256,5 +256,5 @@ Create an [issue or a PR](https://github.com/felix-bohlin/ui) and let me know!
 ## Installation
 
 ::: code-group
-<<< @/../src/actions/button-group.css [button-group.css]
+<<< @/../node_modules/opui-css/src/components/button-group.css [button-group.css]
 :::

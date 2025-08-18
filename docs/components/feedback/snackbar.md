@@ -284,4 +284,4 @@ That's because when open, popover elements aren't influenced by a parents' `posi
 
 ## Installation
 
-<<< @/../src/feedback/snackbar.css
+<<< @/../node_modules/opui-css/src/components/snackbar.css

@@ -1,0 +1,172 @@
+@layer components.extended {
+  :where(details) {
+    --_accordion-transition-time: 0.2s;
+    --_bg-color: transparent;
+    --_margin-inline: var(--size-1);
+    --_shadow: none;
+
+    background-color: var(--_bg-color);
+    box-shadow: var(--_shadow);
+    border-radius: var(--border-radius, 4px);
+    display: block;
+    margin-inline: var(--_margin-inline);
+    transition: all var(--_accordion-transition-time) ease-out;
+
+    /* Accordion animation */
+    /* https://nerdy.dev/open-and-close-transitions-for-the-details-element */
+    @media (prefers-reduced-motion: no-preference) {
+      interpolate-size: allow-keywords;
+    }
+
+    &::details-content {
+      block-size: 0;
+      opacity: 0;
+      overflow-y: clip;
+      transition: content-visibility var(--_accordion-transition-time)
+          allow-discrete,
+        opacity var(--_accordion-transition-time),
+        block-size var(--_accordion-transition-time);
+    }
+
+    &[open]::details-content {
+      block-size: auto;
+      opacity: 1;
+    }
+    /***/
+
+    & > summary {
+      background-color: inherit;
+      cursor: pointer;
+      font-weight: 700;
+      padding-block: var(--size-3);
+      user-select: none;
+    }
+
+    /* Custom arrow */
+    /* summary {
+      align-items: center;
+      background-color: inherit;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      list-style: none;
+      padding-block: var(--size-3);
+      user-select: none;
+
+      &::marker,
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      svg {
+        transition: rotate 0.2s ease-out;
+      }
+    }
+
+    &[open] > summary svg {
+      rotate: 180deg;
+    } */
+
+    & > .content {
+      margin-block-start: 0;
+      padding-block: var(--size-2) var(--size-3);
+    }
+
+    & > .actions {
+      display: flex;
+      gap: var(--size-1);
+      justify-content: end;
+      margin-block-start: var(--size-3);
+      padding-block-end: var(--size-1);
+      padding-inline: var(--size-3) var(--size-1);
+    }
+
+    /* Variants */
+    &.card,
+    &.text {
+      --_bg-color: transparent;
+      --_margin-inline: var(--size-1);
+    }
+
+    &.elevated {
+      --_bg-color: var(--surface-elevated);
+      --_margin-inline: 0;
+      --_shadow: var(--shadow-2);
+    }
+
+    &.outlined {
+      --_bg-color: var(--surface-default);
+      --_margin-inline: 0;
+      border: 1px solid var(--border-color);
+    }
+
+    &.tonal {
+      --_bg-color: var(--surface-tonal);
+      --_margin-inline: 0;
+    }
+
+    &:where(.elevated, .outlined, .tonal) > * {
+      padding-inline: var(--size-3);
+    }
+  }
+
+  /* Accordion group  */
+  :where(.card:has(details)) {
+    --_gutter-color: var(--border-color);
+
+    display: block;
+
+    & > .content {
+      margin-block: 0;
+      padding: 0;
+    }
+
+    &.card,
+    &.text {
+      &:not(.tonal, .outlined, .elevated) {
+        summary {
+          padding-inline: 0;
+        }
+      }
+    }
+
+    details {
+      --_margin-inline: 0;
+
+      border: 0;
+      box-shadow: none;
+
+      & > * {
+        padding-inline: var(--size-3);
+      }
+
+      /* Border between accordion items */
+      & + & {
+        summary {
+          border-radius: 0;
+          border-block-start: 1px solid var(--_gutter-color);
+        }
+      }
+
+      /* First item */
+      &:first-of-type {
+        border-start-start-radius: var(--border-radius, 0.25rem);
+        border-start-end-radius: var(--border-radius, 0.25rem);
+        summary {
+          border-start-start-radius: var(--border-radius, 0.25rem);
+          border-start-end-radius: var(--border-radius, 0.25rem);
+        }
+      }
+
+      /* Last item */
+      &:last-of-type {
+        border-end-start-radius: var(--border-radius, 0.25rem);
+        border-end-end-radius: var(--border-radius, 0.25rem);
+        summary {
+          border-end-start-radius: var(--border-radius, 0.25rem);
+          border-end-end-radius: var(--border-radius, 0.25rem);
+        }
+      }
+    }
+  }
+}

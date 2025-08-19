@@ -1,59 +1,13 @@
-@layer openprops, normalize, utils, theme, components.base, components.has-deps;
-
 /*
 * Open Props
 * Import as many props as you need here.
 * https://unpkg.com/browse/open-props@2.0.0-beta.5/css
 */
-@import "opbeta/css/media-queries.css";
-@import "opbeta/index.css" layer(openprops);
-@import "opbeta/css/sizes/media.css" layer(openprops);
-@import "opbeta/css/font/lineheight.css" layer(openprops);
-@import "opbeta/css/color/hues.oklch.css" layer(openprops);
+@import "open-props/css/media-queries.css";
+@import "open-props/index.css" layer(openprops);
+@import "open-props/css/sizes/media.css" layer(openprops);
+@import "open-props/css/font/lineheight.css" layer(openprops);
+@import "open-props/css/color/hues.oklch.css" layer(openprops);
 
-/* Normalize */
-@import "./normalize.css";
-
-/* Utils */
-@import "./utils.css";
-
-/* Theme */
-@import "./theme.css";
-
-/*
-* Components
-* Components are divided into two categories - if they are stand-alone (base) or if they have dependencies (has-deps).
-*/
-/*** Base components (no dependencies)  */
-@import "./actions/button.css";
-@import "./actions/icon-button.css";
-@import "./actions/tab-buttons.css";
-@import "./actions/toggle-button-group.css";
-@import "./data-display/avatar.css";
-@import "./data-display/badge.css";
-@import "./data-display/card.css";
-@import "./data-display/chip.css";
-@import "./data-display/definition-list.css";
-@import "./data-display/divider.css";
-@import "./data-display/link.css";
-@import "./data-display/table.css";
-@import "./feedback/progress.css";
-@import "./feedback/spinner.css";
-@import "./inputs/checkbox-radio.css";
-@import "./inputs/switch.css";
-@import "./inputs/range.css";
-@import "./text/typography.css";
-
-/*** Has dependencies */
-@import "./actions/button-group.css";
-@import "./data-display/accordion.css";
-@import "./data-display/list.css";
-@import "./feedback/alert.css";
-@import "./feedback/dialog.css";
-@import "./feedback/snackbar.css";
-@import "./inputs/field-group.css";
-@import "./inputs/field.css";
-@import "./inputs/select.css";
-@import "./inputs/text-field.css";
-@import "./inputs/textarea.css";
-@import "./text/rich-text.css";
+/* OPUI Core */
+@import "./opui.css";

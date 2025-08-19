@@ -1,0 +1,148 @@
+@layer components.extended {
+  :where(.snackbar) {
+    align-items: center;
+    /* Inverse surface-filled */
+    background-color: light-dark(var(--gray-15), var(--gray-2));
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-2);
+    color: var(--text-color-1-contrast);
+    display: flex;
+    font-size: var(--font-size-sm);
+    gap: var(--size-3);
+    inset-block: auto var(--size-3);
+    inset-inline: var(--size-3) auto;
+    justify-content: space-between;
+    min-inline-size: min(100%, 37ch);
+    padding: var(--size-2) var(--size-3);
+    position: fixed;
+    inline-size: calc(100% - var(--size-6, 1.75rem));
+    z-index: 100;
+
+    &::backdrop {
+      display: none;
+    }
+
+    * {
+      word-break: break-word;
+    }
+
+    /* Global positioning (in relation to the window) */
+    /*** Default (end-start) */
+    inset-block: auto var(--size-3);
+    inset-inline: 50% 0;
+    translate: -50% 0;
+
+    &.start-start,
+    &.start-center,
+    &.start-end {
+      inset-block: var(--size-3) auto;
+    }
+
+    /* TODO use @custom-media instead? */
+    @container (width > 480px) {
+      /* Default (end-start) */
+      inset-block: auto var(--size-7, 2rem);
+      inset-inline: var(--size-7, 2rem) auto;
+      translate: revert;
+      inline-size: fit-content;
+
+      &.end-start,
+      &.end-end,
+      &.start-start,
+      &.start-end {
+        translate: revert;
+      }
+
+      &.start-start {
+        inset-block: var(--size-7, 2rem) auto;
+        inset-inline: var(--size-7, 2rem) auto;
+      }
+      &.start-center {
+        inset-block: var(--size-7, 2rem) auto;
+        inset-inline: 50% 0;
+        translate: -50% 0;
+      }
+      &.start-end {
+        inset-block: var(--size-7, 2rem) auto;
+        inset-inline: auto var(--size-7, 2rem);
+      }
+      &.end-start {
+        inset-block-end: var(--size-7, 2rem);
+        inset-inline: var(--size-7, 2rem) auto;
+      }
+      &.end-center {
+        inset-block: auto var(--size-7, 2rem);
+        inset-inline: 50% 0;
+        translate: -50% 0;
+      }
+      &.end-end {
+        inset-block: auto var(--size-7, 2rem);
+        inset-inline: auto var(--size-7, 2rem);
+      }
+    }
+
+    /* Absolute positioning */
+    &.absolute {
+      position: absolute;
+    }
+
+    /* Actions */
+    .actions {
+      align-items: center;
+      display: flex;
+      flex-shrink: 0;
+      gap: var(--size-3);
+      padding-inline: 0;
+
+      button {
+        /* Inverse hover and active backgrounds */
+        &:where(:not([disabled])) {
+          &:where(:not(:active):hover) {
+            --_bg-color: light-dark(
+              color-mix(in oklch, white 40%, black),
+              color-mix(in oklch, white 85%, black)
+            );
+          }
+
+          &:where(:hover:active) {
+            --_bg-color: light-dark(
+              color-mix(in oklch, white 45%, black),
+              color-mix(in oklch, white 80%, black)
+            );
+          }
+        }
+      }
+
+      button:not(:has(svg)) {
+        border-radius: var(--border-radius);
+        font-size: inherit;
+        max-block-size: var(--size-6, 1.5rem);
+        padding: 1ex;
+      }
+
+      button:has(svg) {
+        color: inherit;
+        max-inline-size: var(--size-6, 1.75rem);
+        margin: var(--size-00);
+        padding: var(--size-1);
+      }
+    }
+
+    /* Animations */
+    opacity: 0;
+    transition: display 0.075s allow-discrete, overlay 0.075s allow-discrete,
+      opacity 0.075s var(--ease-out-1);
+
+    &:popover-open,
+    &:popover-open::backdrop,
+    &.visible {
+      opacity: 1;
+      transition: display 0.25s allow-discrete, overlay 0.25s allow-discrete,
+        opacity 0.25s var(--ease-out-1);
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,83 @@
+@layer components.extended {
+  /* Common styling for checkbox, radio and switch groups */
+  :where(fieldset.field-group) {
+    border: 0;
+    border-radius: 0;
+    gap: 0;
+    padding: 0;
+    z-index: 1;
+
+    legend {
+      color: var(--text-color-2);
+      padding: 0 1ex 0 0;
+    }
+
+    /* Disabled */
+    &[disabled] {
+      cursor: not-allowed;
+      opacity: 0.64;
+      user-select: none;
+
+      input {
+        cursor: not-allowed;
+      }
+    }
+
+    /* Validation */
+    &.error {
+      legend,
+      .supporting-text {
+        color: var(--color-9);
+      }
+    }
+
+    /* Required */
+    &:has([required]) {
+      &:not(:has(input:where([type="radio"], [type="checkbox"]):checked)) {
+        legend {
+          position: relative;
+
+          &::after {
+            color: var(--red);
+            content: "*";
+            inset: 0 -0.25ex auto auto;
+            position: absolute;
+          }
+        }
+      }
+    }
+    :where(.radio, .checkbox, .switch) .label:after {
+      display: none;
+    }
+
+    /* Supporting text */
+    .supporting-text {
+      color: var(--text-color-2);
+      font-size: var(--font-size-xs);
+      line-height: 1.5;
+      z-index: 1;
+    }
+
+    /* Fields */
+    .fields {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-2);
+
+      * ~ & {
+        padding: var(--size-2) 0;
+      }
+    }
+
+    :last-child {
+      padding-block-end: 0;
+    }
+
+    /* Directions */
+    &.row {
+      .fields {
+        flex-direction: row;
+      }
+    }
+  }
+}

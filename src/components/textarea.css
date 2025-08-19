@@ -1,0 +1,25 @@
+@layer components.extended {
+  :where(.field:has(textarea)) {
+    textarea {
+      block-size: auto;
+      field-sizing: content;
+      min-block-size: 5rem;
+      resize: vertical;
+    }
+
+    /* Size */
+    &.small {
+      textarea {
+        min-block-size: var(--_height);
+      }
+    }
+
+    /* Auto-fit */
+    &.auto-fit {
+      textarea {
+        min-block-size: var(--_height);
+        resize: both;
+      }
+    }
+  }
+}

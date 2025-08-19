@@ -1,0 +1,101 @@
+@layer components.root {
+  :where(.badge) {
+    --_bg-color: var(--primary);
+    --_border-color: var(--primary);
+    --_color: var(--gray-1);
+    --_inset-offset: 16px;
+    --_inset: auto auto calc(100% - var(--_inset-offset))
+      calc(100% - var(--_inset-offset));
+    --_translate: 0;
+
+    display: inline-flex;
+    position: relative;
+
+    &::after {
+      background-color: var(--_bg-color);
+      border: 2px solid var(--_border-color);
+      border-radius: 100vmax;
+      color: var(--_color);
+      content: attr(aria-label);
+      font-size: 12px;
+      font-weight: 500;
+      block-size: var(--size-4);
+      line-height: normal;
+      min-inline-size: var(--size-4, 1.125rem);
+      padding-inline: var(--size-1);
+      inset: var(--_inset);
+      position: absolute;
+      text-align: center;
+      translate: var(--_translate);
+      transition: opacity 0.2s var(--ease-out-1);
+      inline-size: max-content;
+    }
+
+    /* Alignment */
+    &.start-start {
+      --_inset: auto calc(100% - var(--_inset-offset))
+        calc(100% - var(--_inset-offset)) auto;
+    }
+    &.start-end {
+      --_inset: auto auto calc(100% - var(--_inset-offset))
+        calc(100% - var(--_inset-offset));
+    }
+    &.end-start {
+      --_inset: calc(100% - var(--_inset-offset))
+        calc(100% - var(--_inset-offset)) auto auto;
+    }
+    &.end-end {
+      --_inset: calc(100% - var(--_inset-offset)) auto auto
+        calc(100% - var(--_inset-offset));
+    }
+
+    /* Dot */
+    &.dot {
+      --_inset: 0 -1px auto auto;
+      &::after {
+        content: "";
+        min-inline-size: var(--size-2);
+        block-size: var(--size-2);
+        inline-size: var(--size-2);
+        padding: 0;
+      }
+    }
+
+    /* Visibility */
+    &.invisible {
+      &::after {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    /* Colors */
+    &.error,
+    &.good,
+    &.ok,
+    &.warning {
+      --_bg-color: var(--color-8);
+      --_border-color: var(--color-8);
+    }
+  }
+
+  [dir="rtl"] {
+    :where(.badge) {
+      --_inset: auto calc(100% - 16px) calc(100% - 16px) auto;
+
+      /* Alignment */
+      &.start-start {
+        --_inset: auto auto calc(100% - 16px) calc(100% - 16px);
+      }
+      &.start-end {
+        --_inset: auto calc(100% - 16px) calc(100% - 16px) auto;
+      }
+      &.end-start {
+        --_inset: calc(100% - 16px) auto auto calc(100% - 16px);
+      }
+      &.end-end {
+        --_inset: calc(100% - 16px) calc(100% - 16px) auto auto;
+      }
+    }
+  }
+}

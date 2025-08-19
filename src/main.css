@@ -10,4 +10,4 @@ Ideally it's the root/entry CSS file in your project.
 @import "./opui.css";
 
 /* Theme (example) */
-@import "./theme.css";
+/* @import "./theme.css"; */

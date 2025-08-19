@@ -95,7 +95,7 @@ Ideally it's the root/entry CSS file in your project.
   *,
   ::before,
   ::after {
-    box-sizing: border-box;
+    box-sizing: inherit;
   }
 
   * {
@@ -108,6 +108,7 @@ Ideally it's the root/entry CSS file in your project.
     accent-color: var(--primary);
     background-color: var(--_page-bg-color);
     block-size: 100%;
+    box-sizing: border-box;
     caret-color: var(--primary);
     color: var(--text-color-2);
     font-family: var(--font-sans);
@@ -223,37 +224,37 @@ Ideally it's the root/entry CSS file in your project.
   }
 
   :where(
-    a[href],
-    area,
-    button,
-    input:not(
-        [type="text"],
-        [type="email"],
-        [type="number"],
-        [type="password"],
-        [type=""],
-        [type="tel"],
-        [type="url"]
-      ),
-    label[for],
-    select,
-    summary
-  ) {
+      a[href],
+      area,
+      button,
+      input:not(
+          [type="text"],
+          [type="email"],
+          [type="number"],
+          [type="password"],
+          [type=""],
+          [type="tel"],
+          [type="url"]
+        ),
+      label[for],
+      select,
+      summary
+    ) {
     cursor: pointer;
   }
 
   :where(
-    a[href],
-    area,
-    button,
-    [role="button"],
-    input,
-    label[for],
-    select,
-    summary,
-    textarea,
-    [tabindex]:not([tabindex*="-"])
-  ) {
+      a[href],
+      area,
+      button,
+      [role="button"],
+      input,
+      label[for],
+      select,
+      summary,
+      textarea,
+      [tabindex]:not([tabindex*="-"])
+    ) {
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }

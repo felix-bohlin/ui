@@ -2,7 +2,6 @@
   "recommendations": [
     "streetsidesoftware.code-spell-checker",
     "esbenp.prettier-vscode",
-    "vunguyentuan.vscode-css-variables",
-    "Vue.volar"
+    "vunguyentuan.vscode-css-variables"
   ]
 }

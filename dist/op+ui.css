@@ -1,4 +1,8 @@
 @layer openprops, normalize, utils, theme, components.root, components.extended;
+/*
+This main.css file represents whatever file you choose to use as an entry point for OPUI
+Ideally it's the root/entry CSS file in your project.
+*/
 /* Open Props imports */
 /*
 * Open Props
@@ -4145,7 +4149,10 @@ Lists meant to be used stand-alone or as part of Select elements
     }
   }
 }
-/* Theme */
+/* Theme (example) */
+/*
+OPUI default theme
+*/
 @layer theme {
   .light {
     --color-scheme: light;

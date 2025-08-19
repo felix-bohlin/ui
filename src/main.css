@@ -1,13 +1,5 @@
-/*
-* Open Props
-* Import as many props as you need here.
-* https://unpkg.com/browse/open-props@2.0.0-beta.5/css
-*/
-@import "open-props/css/media-queries.css";
-@import "open-props/index.css" layer(openprops);
-@import "open-props/css/sizes/media.css" layer(openprops);
-@import "open-props/css/font/lineheight.css" layer(openprops);
-@import "open-props/css/color/hues.oklch.css" layer(openprops);
+/* Open Props imports */
+@import "./open-props.css";
 
 /* OPUI Core */
 @import "./opui.css";

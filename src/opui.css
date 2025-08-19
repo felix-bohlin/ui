@@ -6,8 +6,5 @@
 /* Utils */
 @import "./core/utils.css";
 
-/* Theme */
-@import "./core/theme.css";
-
 /* Components */
 @import "./core/components.css";

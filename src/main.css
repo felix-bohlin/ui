@@ -1,5 +1,13 @@
+/*
+This main.css file represents whatever file you choose to use as an entry point for OPUI
+Ideally it's the root/entry CSS file in your project.
+*/
+
 /* Open Props imports */
 @import "./open-props.css";
 
 /* OPUI Core */
 @import "./opui.css";
+
+/* Theme (example) */
+@import "./theme.css";

@@ -1,3 +1,6 @@
+/*
+OPUI default theme
+*/
 @layer theme {
   .light {
     --color-scheme: light;

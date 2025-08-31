@@ -19,6 +19,7 @@
     font-weight: 700;
     gap: var(--size-2);
     justify-content: center;
+    line-height: 1;
     min-block-size: var(--_min-height);
     padding-block: 0.5ex;
     padding-inline: 1.5ex;

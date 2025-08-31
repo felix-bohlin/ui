@@ -668,13 +668,16 @@ When you visibly want to hide an element but make it accessible for screen reade
     display: flex;
 
     label {
+      cursor: pointer;
       outline-color: transparent;
       outline-offset: -4px;
 
-      &:has(input:checked) {
-        &:focus-visible {
-          outline: 2px solid var(--text-color-1);
-        }
+      &:has(input:disabled) {
+        cursor: not-allowed;
+      }
+
+      &:has(input:focus-visible) {
+        outline: 2px solid var(--text-color-1);
       }
 
       input {
@@ -682,17 +685,27 @@ When you visibly want to hide an element but make it accessible for screen reade
         pointer-events: none;
         position: absolute;
       }
+
+      /* Disabled */
+      &:has(input:disabled) {
+        color: oklch(from currentColor calc(l * 0.75) c h);
+
+        &:hover {
+          background-color: var(--_bg-color);
+        }
+      }
     }
 
     /* Underlined */
     &.underlined {
-      /* Tab list */
+      --_accent-color: var(--color-8);
+
       border-bottom: 1px solid var(--border-color);
 
       label {
         --_ripple-color: light-dark(
-          color-mix(in oklch, var(--gray-2) 80%, var(--color-8)),
-          color-mix(in oklch, var(--gray-13) 80%, var(--color-8))
+          color-mix(in oklch, var(--gray-2) 80%, var(--_accent-color)),
+          color-mix(in oklch, var(--gray-13) 80%, var(--_accent-color))
         );
 
         background: var(--_bg-color) var(--ripple, none);
@@ -704,9 +717,15 @@ When you visibly want to hide an element but make it accessible for screen reade
           border-radius: 0;
         }
 
+        /* Checked */
         &:has(input:checked) {
-          border-block-end: 2px solid var(--primary);
-          color: var(--primary);
+          border-block-end: 2px solid var(--_accent-color);
+          color: var(--_accent-color);
+        }
+
+        /* Disabled */
+        &:has(input:disabled) {
+          --_accent-color: oklch(from currentColor calc(l * 0.75) c h);
         }
 
         @media (prefers-reduced-motion: no-preference) {
@@ -717,7 +736,7 @@ When you visibly want to hide an element but make it accessible for screen reade
           /*** Ripple effect */
           background-position: center;
           transition: background var(--button-ripple-duration);
-          &:where(:not(:active):hover) {
+          &:where(:has(:not(:disabled)):hover) {
             --ripple: radial-gradient(
                 circle,
                 transparent 1%,
@@ -765,6 +784,7 @@ When you visibly want to hide an element but make it accessible for screen reade
           background-color: oklch(from var(--_bg-color) calc(l * 1.25) c h);
         }
 
+        /* Checked */
         &:has(input:checked) {
           background-color: var(--_selected-bg);
 
@@ -772,6 +792,11 @@ When you visibly want to hide an element but make it accessible for screen reade
             background-color: oklch(
               from var(--_selected-bg) calc(l * 1.25) c h
             );
+          }
+
+          /* Checked & disabled */
+          &:has(input:disabled) {
+            background-color: oklch(from var(--_bg-color) calc(l * 0.75) c h);
           }
         }
 

@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where(.alert) {
+  :where(ui-alert) {
     --_bg-color: var(--surface-tonal);
     --_border-color: var(--surface-tonal);
     --_color: var(--text-color-1);

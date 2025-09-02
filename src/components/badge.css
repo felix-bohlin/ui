@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.badge) {
+  :where(ui-badge) {
     --_bg-color: var(--primary);
     --_border-color: var(--primary);
     --_color: var(--gray-1);
@@ -80,7 +80,7 @@
   }
 
   [dir="rtl"] {
-    :where(.badge) {
+    :where(ui-badge) {
       --_inset: auto calc(100% - 16px) calc(100% - 16px) auto;
 
       /* Alignment */

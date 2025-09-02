@@ -42,15 +42,12 @@
     }
   }
 
-  /*
-  TODO: implement reading-order if that becomes a thing.
-  https://developer.chrome.com/blog/reading-order/
-  */
-  :where(.avatar-group) {
+  :where(ui-avatar-group) {
     --_margin: var(--size-1);
 
     display: flex;
     flex-direction: row-reverse;
+    reading-flow: flex-visual;
 
     &.gap-small {
       --_margin: var(--size-2);

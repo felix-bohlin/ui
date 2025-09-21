@@ -2,6 +2,8 @@
   *,
   ::before,
   ::after {
+    /* Set box sizing instead of inheriting */
+    /* https://www.oddbird.net/2025/09/04/box-model/ */
     box-sizing: border-box;
   }
 
@@ -130,37 +132,37 @@
   }
 
   :where(
-    a[href],
-    area,
-    button,
-    input:not(
-        [type="text"],
-        [type="email"],
-        [type="number"],
-        [type="password"],
-        [type=""],
-        [type="tel"],
-        [type="url"]
-      ),
-    label[for],
-    select,
-    summary
-  ) {
+      a[href],
+      area,
+      button,
+      input:not(
+          [type="text"],
+          [type="email"],
+          [type="number"],
+          [type="password"],
+          [type=""],
+          [type="tel"],
+          [type="url"]
+        ),
+      label[for],
+      select,
+      summary
+    ) {
     cursor: pointer;
   }
 
   :where(
-    a[href],
-    area,
-    button,
-    [role="button"],
-    input,
-    label[for],
-    select,
-    summary,
-    textarea,
-    [tabindex]:not([tabindex*="-"])
-  ) {
+      a[href],
+      area,
+      button,
+      [role="button"],
+      input,
+      label[for],
+      select,
+      summary,
+      textarea,
+      [tabindex]:not([tabindex*="-"])
+    ) {
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }

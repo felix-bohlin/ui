@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.button) {
+  ui-button:where(& > button, & > a) {
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-radius: var(--button-border-radius);

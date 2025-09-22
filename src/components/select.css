@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where(.field > select) {
+  :where(ui-field > select) {
     position: relative;
 
     /* Default arrow */
@@ -63,7 +63,7 @@
       }
     }
 
-    .list {
+    ui-list {
       /* Groups */
       [role="group"] {
         label {
@@ -113,7 +113,7 @@
     }
   }
 
-  :where(.field:has(> select)) {
+  :where(ui-field:has(> select)) {
     /* Size */
     &.small {
       button {
@@ -129,7 +129,7 @@
     /*
     * Non-experimental Select
     *
-    * Hack to get the arrow working. Pseudo elements aren't allowed on the `<select>` element, so need to add it on the `.field` class instead. Noting this down if an `:after` element would be needed on a `.field`.
+    * Hack to get the arrow working. Pseudo elements aren't allowed on the `<select>` element, so need to add it on the `ui-field` instead. Noting this down if an `:after` element would be needed on a `ui-field`.
     */
     &:not(:has(button)) {
       select {

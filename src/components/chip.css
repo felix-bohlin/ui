@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.chip) {
+  :where(ui-chip > *) {
     --_bg-color: var(--surface-tonal);
     --_border-color: var(--border-color);
     --_color: var(--text-color-1);

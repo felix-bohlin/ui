@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where(details) {
+  :where(ui-accordion > details) {
     --_accordion-transition-time: 0.2s;
     --_bg-color: transparent;
     --_margin-inline: var(--size-1);
@@ -111,7 +111,7 @@
   }
 
   /* Accordion group  */
-  :where(.card:has(details)) {
+  :where(.card:has(ui-accordion)) {
     --_gutter-color: var(--border-color);
 
     display: block;
@@ -130,7 +130,7 @@
       }
     }
 
-    details {
+    ui-accordion > details {
       --_margin-inline: 0;
 
       border: 0;

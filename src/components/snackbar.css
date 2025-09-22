@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where(.snackbar) {
+  :where(ui-snackbar > *) {
     align-items: center;
     /* Inverse surface-filled */
     background-color: light-dark(var(--gray-15), var(--gray-2));

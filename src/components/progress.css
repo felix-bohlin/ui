@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(progress) {
+  :where(ui-progress > progress) {
     --_accent-color: var(--primary);
     --_bg-color: var(--surface-tonal);
 

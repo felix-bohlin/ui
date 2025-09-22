@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.icon-button) {
+  :where(ui-icon-button):where(& > button, & > a) {
     --_text-color: inherit;
 
     align-items: center;

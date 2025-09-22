@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.definition-list) {
+  :where(ui-definition-list > ul) {
     --_border-style: solid;
     --_border-width: 1px;
 

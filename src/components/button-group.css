@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where([role="group"].button-group) {
+  :where(ui-button-group > [role="group"]) {
     --_border-radius: var(--button-border-radius);
 
     border-radius: var(--_border-radius);

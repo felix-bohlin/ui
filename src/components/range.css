@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.range > input[type="range"]) {
+  :where(ui-range > input[type="range"]) {
     --thumb-bg: var(--primary);
     --thumb-highlight-color: oklch(from var(--primary) 70% 100% h / 20%);
     --thumb-highlight-size: 0px;

@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where(dialog) {
+  :where(ui-dialog > dialog) {
     margin-block-start: 15%; /* vertical alignment */
     padding-block: 0;
     pointer-events: none;
@@ -53,7 +53,7 @@
     }
   }
 
-  :where(html:has(dialog[open])) {
+  :where(html:has(ui-dialog > dialog[open])) {
     overflow: hidden;
   }
 }

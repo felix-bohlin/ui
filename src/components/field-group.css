@@ -1,6 +1,6 @@
 @layer components.extended {
   /* Common styling for checkbox, radio and switch groups */
-  :where(fieldset.field-group) {
+  :where(ui-field-group > fieldset) {
     border: 0;
     border-radius: 0;
     gap: 0;

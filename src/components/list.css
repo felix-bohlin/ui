@@ -3,10 +3,10 @@
 Lists meant to be used stand-alone or as part of Select elements
 
   Intended use-case:
-  - ul.list > li
-  - .select > .list > option
+  - ui-list > ul > li
+  - .select > ui-list > * > option
 */
-  :where(.list) {
+  :where(ui-list > *) {
     --_bg-color: light-dark(var(--gray-1), var(--gray-15));
 
     background-color: var(--_bg-color);

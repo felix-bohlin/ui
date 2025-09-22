@@ -1,5 +1,6 @@
 @layer components.root {
-  :where(.avatar) {
+  /* Single avatar */
+  :where(ui-avatar > *) {
     --_bg-color: var(--color-8);
     --_color: var(--text-color-1);
     --_width: 40px;
@@ -42,11 +43,12 @@
     }
   }
 
+  /* Avatar group */
   /*
   TODO: implement reading-order if that becomes a thing.
   https://developer.chrome.com/blog/reading-order/
   */
-  :where(.avatar-group) {
+  :where(ui-avatar-group > *) {
     --_margin: var(--size-1);
 
     display: flex;
@@ -60,7 +62,7 @@
       --_margin: var(--size-3);
     }
 
-    .avatar {
+    ui-avatar > * {
       margin-inline-end: calc(-1 * var(--_margin));
       outline: 2px solid var(--surface-default);
     }

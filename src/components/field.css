@@ -3,7 +3,7 @@
 - Common styling for input, textarea and select
 - Form related styles such as: label, supporting text, error handling
 */
-  :where(.field) {
+  :where(ui-field > *) {
     --_accent-color: var(--primary);
     --_bg-color: var(--surface-default);
     --_border-color: var(--field-border-color);

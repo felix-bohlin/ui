@@ -8,3 +8,6 @@
 
 /* Components */
 @import "./components.css";
+
+/* Setup */
+@import "./setup.css";

@@ -8,13 +8,6 @@ https://open-props-ui.netlify.app/
 
 Check out the [getting started guide](https://open-props-ui.netlify.app/guide/getting-started.html).
 
-## Development
-
-```
-pnpm i
-pnpm dev:css
-```
-
 ## Backstory
 
 Practically all established UI libraries need to take older browser versions into account. Some have only just dropped Internet Explorer. Some have barely discovered the power of CSS grid. Open Props UI starts from a blank slate and re-imagines how a component library could be built if you used the most modern features.
@@ -30,3 +23,26 @@ Yes and no. Right now that's true for most components. The point is to let the s
 - Follow accessibility guidelines
 - Serve as an inspiration
 - Be scalable
+
+## Development
+
+```bash
+# Install dependencies
+pnpm i
+
+# Build all themes (outputs to dist/)
+pnpm build
+
+# Build themes in watch mode (rebuilds on file changes)
+pnpm dev
+
+# Clean the dist folder
+pnpm clean
+```
+
+### Theme Building
+
+The build system automatically processes all themes in the `src/themes/` folder. For each theme folder (ex: `chad-zn`, `theme-one`), it:
+
+1. Bundles `theme.css` → `dist/{theme-name}.css`
+2. Bundles `theme+op.css` → `dist/{theme-name}+op.css`

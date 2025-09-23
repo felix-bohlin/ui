@@ -1,10 +1,10 @@
 @layer openprops, normalize, utils, theme, components.root, components.extended;
 
 /* Normalize */
-@import "./core/normalize.css";
+@import "../../core/normalize.css";
 
 /* Utils */
-@import "./core/utils.css";
+@import "../../core/utils.css";
 
 /* Components */
-@import "./core/components.css";
+@import "./components.css";

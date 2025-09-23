@@ -17,9 +17,10 @@
     "./src/*": "./src/*"
   },
   "scripts": {
-    "build": "pnpm run clean && pnpm exec shx mkdir -p dist && postcss src/main.css -o dist/op+ui.css && postcss src/opui.css -o dist/ui.css && postcss src/open-props.css -o dist/op.css",
+    "build:themes": "node scripts/build-themes.js",
+    "build": "pnpm run clean && pnpm run build:themes && postcss src/open-props.css -o dist/op.css",
     "clean": "pnpm exec shx rm -rf dist",
-    "dev": "pnpm run clean && pnpm exec shx mkdir -p dist && postcss src/main.css -o dist/op+ui.css -w & postcss src/opui.css -o dist/ui.css -w & postcss src/open-props.css -o dist/op.css -w"
+    "dev": "pnpm run build:themes --watch"
   },
   "publishConfig": {
     "access": "public"

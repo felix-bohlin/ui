@@ -1,0 +1,82 @@
+@layer components.root {
+  :where(.card) {
+    --_bg-color: transparent;
+    --_border-color: transparent;
+    --_border-width: 0;
+    --_shadow: none;
+
+    background-color: var(--_bg-color);
+    border-color: var(--_border-color);
+    border-radius: var(--border-radius, 0.25rem);
+    border-style: solid;
+    border-width: var(--_border-width);
+    box-shadow: var(--_shadow);
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
+    overflow: hidden;
+    padding-inline: 0;
+
+    /* Variants */
+    &.text {
+      --_bg-color: transparent;
+      --_border-color: transparent;
+      --_border-width: 0;
+      --_shadow: none;
+      padding-inline: 0;
+    }
+
+    &.tonal {
+      --_bg-color: var(--surface-tonal);
+      --_border-width: 1px;
+    }
+
+    &.elevated {
+      --_bg-color: var(--surface-elevated);
+      --_border-color: transparent;
+      --_border-width: 0;
+      --_shadow: var(--shadow-3);
+
+      /* Adjust shadow in dark mode */
+      @container style(--color-scheme: dark) {
+        --_shadow: var(--shadow-4);
+      }
+    }
+
+    &.outlined {
+      --_bg-color: var(--surface-default);
+      --_border-color: var(--border-color);
+      --_border-width: 1px;
+    }
+
+    & > :where(hgroup, .content) {
+      padding-inline: var(--size-3);
+    }
+
+    & > hgroup {
+      padding-block: var(--size-3) 0;
+
+      /* Top paragraph */
+      & > p:first-of-type:first-child {
+        line-height: 1.3;
+      }
+
+      /* Bottom paragraph */
+      & > p:last-of-type:last-child:not(:first-child) {
+        font-size: var(--font-size-1, 1rem);
+      }
+    }
+
+    & > .content:where(:only-child, :first-child) {
+      padding-block: var(--size-3) var(--size-4);
+    }
+
+    & > .actions {
+      display: flex;
+      gap: var(--size-1);
+      margin-block: var(--size-2) 0;
+      padding-block-end: var(--size-1);
+      padding-inline: var(--size-1) var(--size-3);
+    }
+  }
+}

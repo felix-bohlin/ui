@@ -95,7 +95,9 @@ Ideally it's the root/entry CSS file in your project.
   *,
   ::before,
   ::after {
-    box-sizing: inherit;
+    /* Set box sizing instead of inheriting */
+    /* https://www.oddbird.net/2025/09/04/box-model/ */
+    box-sizing: border-box;
   }
 
   * {
@@ -108,7 +110,6 @@ Ideally it's the root/entry CSS file in your project.
     accent-color: var(--primary);
     background-color: var(--_page-bg-color);
     block-size: 100%;
-    box-sizing: border-box;
     caret-color: var(--primary);
     color: var(--text-color-2);
     font-family: var(--font-sans);

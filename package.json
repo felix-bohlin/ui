@@ -17,12 +17,9 @@
     "./src/*": "./src/*"
   },
   "scripts": {
-    "build:css": "pnpm run clean && pnpm exec shx mkdir -p dist && postcss src/main.css -o dist/op+ui.css && postcss src/opui.css -o dist/ui.css && postcss src/open-props.css -o dist/op.css",
+    "build": "pnpm run clean && pnpm exec shx mkdir -p dist && postcss src/main.css -o dist/op+ui.css && postcss src/opui.css -o dist/ui.css && postcss src/open-props.css -o dist/op.css",
     "clean": "pnpm exec shx rm -rf dist",
-    "dev:css": "pnpm run clean && pnpm exec shx mkdir -p dist && postcss src/main.css -o dist/op+ui.css -w & postcss src/opui.css -o dist/ui.css -w & postcss src/open-props.css -o dist/op.css -w",
-    "build": "pnpm run build:css",
-    "prepack": "pnpm run build",
-    "prepublishOnly": "pnpm run build"
+    "dev": "pnpm run clean && pnpm exec shx mkdir -p dist && postcss src/main.css -o dist/op+ui.css -w & postcss src/opui.css -o dist/ui.css -w & postcss src/open-props.css -o dist/op.css -w"
   },
   "publishConfig": {
     "access": "public"

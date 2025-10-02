@@ -1,0 +1,59 @@
+@layer components.extended {
+  :where(dialog) {
+    margin-block-start: 15%; /* vertical alignment */
+    padding-block: 0;
+    pointer-events: none;
+
+    &::backdrop {
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+
+      @media (prefers-reduced-motion: reduce) {
+        backdrop-filter: none;
+      }
+    }
+
+    &:not([open]) {
+      display: none;
+    }
+
+    &[open] {
+      pointer-events: all;
+    }
+
+    .actions {
+      justify-content: end;
+      padding-inline: var(--size-3) var(--size-1);
+    }
+
+    /* Animation */
+    /* There's no close animation, intentionally */
+    opacity: 0;
+
+    &[open] {
+      opacity: 1;
+      transition: display 0.2s allow-discrete,
+        margin-block-start 0.3s var(--ease-1), overlay 0.2s allow-discrete,
+        opacity 0.2s var(--ease-out-1);
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      margin-block-start: 17%;
+      &[open] {
+        margin-block-start: 15%;
+
+        @starting-style {
+          margin-block-start: 17%;
+        }
+      }
+    }
+  }
+
+  :where(html:has(dialog[open])) {
+    overflow: hidden;
+  }
+}

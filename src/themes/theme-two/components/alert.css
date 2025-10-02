@@ -1,0 +1,85 @@
+@layer components.extended {
+  :where(.alert) {
+    --_bg-color: var(--surface-tonal);
+    --_border-color: var(--surface-tonal);
+    --_color: var(--text-color-1);
+
+    &.outlined {
+      --_bg-color: var(--surface-default);
+      --_border-color: var(--border-color);
+      --_color: var(--text-color-1);
+    }
+
+    background-color: var(--_bg-color);
+    border: 1px solid var(--_border-color);
+    border-radius: var(--border-radius);
+    color: var(--_color);
+    padding: var(--size-3);
+
+    & > .content {
+      display: grid;
+      gap: var(--size-2);
+      font-size: var(--font-size-sm);
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        color: inherit;
+        font-size: var(--font-size-md);
+        font-weight: 600;
+
+        * {
+          font-size: inherit;
+        }
+      }
+    }
+
+    /* Colors */
+    &.error,
+    &.ok,
+    &.warning {
+      --_bg-color: var(--color-4);
+      --_border-color: var(--color-9);
+      --_color: var(--color-15);
+
+      &.outlined {
+        --_bg-color: var(--surface-default);
+        --_border-color: var(--color-9);
+        --_color: light-dark(var(--color-15), var(--color-1));
+      }
+
+      svg {
+        margin-block-start: 0.15rem;
+        stroke: var(--color-9);
+      }
+    }
+
+    /* Links
+    * Can't make sure contrast will be acceptable (yet) so we use the current text color instead.
+    */
+    &:not(.outlined) {
+      a[href] {
+        color: inherit;
+
+        &:hover {
+          color: var(--primary);
+        }
+      }
+    }
+
+    /* Icon */
+    &:has(svg) {
+      display: grid;
+      gap: var(--size-3);
+      grid-template-columns: var(--size-4) 1fr;
+
+      svg {
+        margin-block-start: 0.15rem;
+        stroke: currentColor;
+      }
+    }
+  }
+}

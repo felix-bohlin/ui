@@ -1,0 +1,7 @@
+@layer components.root {
+  :where(hr) {
+    background-color: var(--border-color);
+    block-size: var(--border-size-1);
+    margin-block: var(--size-fluid-3);
+  }
+}

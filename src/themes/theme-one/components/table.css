@@ -1,0 +1,100 @@
+@layer components.root {
+  :where(table) {
+    border-collapse: collapse;
+    display: block;
+    margin: var(--size-3) 0;
+    max-inline-size: 100%;
+    position: relative;
+
+    /* Rows */
+    tr {
+      background-color: var(--surface-default);
+      border-top: 1px solid var(--border-color);
+
+      &:hover {
+        background-color: oklch(from var(--surface-filled) l c h / 75%);
+      }
+    }
+
+    /* Cells */
+    th,
+    td {
+      border: 1px solid var(--border-color);
+      padding: var(--size-1) var(--size-2);
+    }
+
+    th {
+      background-color: var(--surface-filled);
+      color: var(--text-color-1);
+      font-size: var(--font-size-sm, 0.75rem);
+      font-weight: 600;
+      text-align: start;
+    }
+
+    td {
+      font-size: var(--font-size-sm, 0.75rem);
+    }
+
+    /* Caption */
+    caption {
+      caption-side: bottom;
+      color: var(--text-color-2);
+      font-size: var(--font-size-sm, 0.75rem);
+      padding: var(--size-2) 0;
+      text-align: start;
+    }
+
+    /* Footer */
+    tfoot {
+      border-top: 2px solid var(--border-color);
+
+      tr {
+        background-color: var(--surface-filled);
+      }
+
+      td {
+        color: var(--text-color-1);
+        font-weight: 600;
+      }
+    }
+
+    /* Column group */
+    colgroup col {
+      border: none;
+    }
+
+    @container (width < 60ch) {
+      th,
+      td {
+        padding: var(--size-1) 0.875rem;
+      }
+    }
+
+    /* Sticky header */
+    &.sticky-header thead {
+      background-color: var(--surface-filled);
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 1;
+    }
+
+    /* Dense */
+    &.dense {
+      th,
+      td {
+        padding: var(--size-1) var(--size-2);
+      }
+
+      caption {
+        padding: var(--size-1) 0;
+      }
+
+      @container (width < 60ch) {
+        th,
+        td {
+          padding: var(--size-1) var(--size-2);
+        }
+      }
+    }
+  }
+}

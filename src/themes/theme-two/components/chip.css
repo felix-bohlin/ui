@@ -1,0 +1,135 @@
+@layer components.root {
+  :where(.chip) {
+    --_bg-color: var(--surface-tonal);
+    --_border-color: var(--border-color);
+    --_color: var(--text-color-1);
+
+    align-items: center;
+    background: var(--_bg-color) var(--ripple, none);
+    border: 1px solid var(--_border-color);
+    border-radius: var(--radius-2, 0.5rem);
+    color: var(--_color);
+    display: inline-flex;
+    font-size: var(--font-size-0, 0.75rem);
+    gap: var(--size-1);
+    block-size: var(--size-7, 2rem);
+    padding-inline: var(--size-2);
+    text-decoration: none;
+
+    /* Variants */
+    &.tonal {
+      --_bg-color: var(--surface-tonal);
+      --_color: var(--text-color-1);
+    }
+
+    &.outlined {
+      --_bg-color: var(--surface-default);
+      --_color: var(--text-color-1);
+    }
+
+    /* TODO: should this be out of the box? */
+    /* Colors */
+    /* &:hover {
+      --_bg-color: var(--color-11);
+      --_border-color: var(--color-11);
+      --_color: var(--text-color-1);
+    } */
+    /* &.red,
+    &.blue,
+    &.green,
+    &.orange,
+    &.primary {
+      --_bg-color: var(--color-5);
+      --_border-color: var(--color-7);
+      --_color: var(--text-color-1-contrast);
+
+      &:hover {
+        --_bg-color: var(--color-7);
+        --_border-color: var(--color-7);
+        --_color: var(--text-color-1-contrast);
+
+        &:active {
+          --_bg-color: var(--color-8);
+          --_border-color: var(--color-8);
+        }
+      }
+
+      &.outlined {
+        --_bg-color: var(--surface-tonal);
+        --_color: var(--text-color-1);
+        --_border-color: var(--color-9);
+
+        &:hover {
+          --_bg-color: var(--color-9);
+          --_border-color: var(--color-9);
+          --_color: var(--text-color-1);
+
+          &:active {
+            --_bg-color: var(--color-11);
+            --_border-color: var(--color-11);
+          }
+        }
+      }
+    } */
+
+    &:where(button, a):where(:not([disabled])) {
+      &:where(:not(:active)):hover {
+        --_bg-color: light-dark(
+          oklch(from var(--surface-tonal) calc(l * 0.98) c h),
+          oklch(from var(--surface-tonal) calc(l * 1.1) c h)
+        );
+      }
+    }
+
+    /* Icon */
+    &:has(svg:first-child) {
+      padding-inline: var(--size-1) var(--size-2);
+    }
+    &:has(svg:last-child) {
+      padding-inline: var(--size-2) var(--size-1);
+    }
+
+    &:has(svg) {
+      svg {
+        flex-shrink: 0;
+        inline-size: var(--size-3);
+      }
+    }
+
+    /* Sizes */
+    &.small {
+      block-size: var(--size-5);
+    }
+    &.multiline {
+      block-size: auto;
+    }
+
+    /* Ripple effect */
+    background-position: center;
+
+    &:where(:not([disabled])) {
+      &:where(:not(:active):hover) {
+        --ripple: radial-gradient(circle, transparent 1%, var(--_bg-color) 1%)
+          center/15000%;
+
+        transition: background var(--button-ripple-duration);
+      }
+
+      &:where(:hover:active) {
+        background-size: var(--button-ripple-size);
+        transition: background 0s;
+      }
+    }
+
+    /* Disabled */
+    &:where([disabled]) {
+      opacity: 0.64;
+      --_text-color: color-mix(
+        in oklch,
+        var(--text-color-2) 50%,
+        var(--surface-default)
+      );
+      cursor: not-allowed;
+    }
+  }
+}

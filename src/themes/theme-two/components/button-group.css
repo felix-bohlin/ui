@@ -1,0 +1,50 @@
+@layer components.extended {
+  :where([role="group"].button-group) {
+    --_border-radius: var(--button-border-radius);
+
+    border-radius: var(--_border-radius);
+    display: inline-flex;
+    min-width: max-content;
+
+    button {
+      border-radius: 0;
+
+      svg {
+        max-inline-size: 0.7lh;
+      }
+
+      &:focus-visible {
+        outline-offset: -4px;
+      }
+
+      & + & {
+        border-inline-width: 1px;
+        margin-inline-start: -1px;
+      }
+
+      &:first-of-type {
+        border-bottom-left-radius: var(--_border-radius);
+        border-top-left-radius: var(--_border-radius);
+      }
+      &:last-of-type {
+        border-bottom-right-radius: var(--_border-radius);
+        border-top-right-radius: var(--_border-radius);
+      }
+
+      /* Variants */
+      &:where(.tonal, .filled) {
+        & + button {
+          border-inline-start-color: var(--color-7);
+        }
+
+        & + &[disabled] {
+          border-inline-start-color: color-mix(
+            in oklch,
+            var(--border-color) 90%,
+            white
+          );
+        }
+      }
+    }
+  }
+}

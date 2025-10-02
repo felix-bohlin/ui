@@ -467,56 +467,6 @@ When you visibly want to hide an element but make it accessible for screen reade
         );
       }
     }
-    &.elevated {
-      --_bg-color: light-dark(
-        color-mix(in oklch, var(--gray-2) 97%, var(--color-16)),
-        color-mix(in oklch, var(--gray-13) 97%, var(--color-1))
-      );
-      --_ripple-color: light-dark(
-        color-mix(in oklch, var(--gray-2) 80%, var(--color-8)),
-        color-mix(in oklch, var(--gray-13) 80%, var(--color-8))
-      );
-      --_text-color: var(--color-8);
-
-      box-shadow: 0px 3px 1px -2px oklch(0 0 0 / 20%),
-        0px 2px 2px 0px oklch(0 0 0 / 14%), 0px 1px 5px 0px oklch(0 0 0 / 12%);
-
-      &:where(:not([disabled])) {
-        &:where(:not(:active):hover) {
-          --ripple: radial-gradient(
-              circle,
-              transparent 1%,
-              var(--_ripple-color) 1%
-            )
-            center/15000%;
-
-          --_bg-color: light-dark(
-            color-mix(in oklch, var(--gray-2) 93%, var(--color-8)),
-            color-mix(in oklch, var(--gray-13) 93%, var(--color-8))
-          );
-        }
-
-        &:where(:hover:active) {
-          --_bg-color: light-dark(
-            color-mix(in oklch, var(--gray-2) 91%, var(--color-8)),
-            color-mix(in oklch, var(--gray-13) 91%, var(--color-8))
-          );
-        }
-      }
-
-      &:where([disabled]) {
-        --_bg-color: color-mix(
-          in oklch,
-          var(--text-color-2) 8%,
-          var(--surface-elevated)
-        );
-        --_text-color: color-mix(
-          in oklch,
-          var(--text-color-2) 70%,
-          var(--surface-elevated)
-        );
-      }
-    }
   }
 
   /* file input */
@@ -702,7 +652,7 @@ When you visibly want to hide an element but make it accessible for screen reade
 
 @layer components.root {
   :where([role="group"].toggle-button-group) {
-    --_border-radius: var(--radius-round);
+    --_border-radius: var(--button-border-radius);
     --_button-padding-inline: clamp(var(--size-2), 3cqi, var(--size-4));
     --_max-width: auto;
     --_icon-size: var(--size-4);
@@ -825,11 +775,7 @@ When you visibly want to hide an element but make it accessible for screen reade
 
       /* Selected */
       &.selected {
-        --_bg-color: color-mix(
-          in oklch,
-          var(--primary) 12%,
-          var(--surface-default)
-        );
+        --_bg-color: oklch(from var(--primary) l c h / 25%);
 
         /* Checkmark */
         svg:first-of-type {
@@ -2239,36 +2185,17 @@ When you visibly want to hide an element but make it accessible for screen reade
       }
 
       /* Variants */
-      /*** Text & Elevated */
-      &:not(:where(.tonal, .filled, .outlined)) {
-        & + button {
-          border-inline-start: 1px solid var(--border-color);
-        }
-      }
-
       &:where(.tonal, .filled) {
         & + button {
           border-inline-start-color: var(--color-7);
         }
-      }
 
-      &:where(.tonal, .filled, .elevated) {
         & + &[disabled] {
           border-inline-start-color: color-mix(
             in oklch,
             var(--border-color) 90%,
             white
           );
-        }
-      }
-
-      &:where(.elevated) {
-        box-shadow: var(--shadow-1);
-
-        button {
-          &:not(:hover) {
-            box-shadow: none;
-          }
         }
       }
     }
@@ -3161,14 +3088,11 @@ Lists meant to be used stand-alone or as part of Select elements
     --_label-color: var(--text-color-2);
     --_supporting-text-color: var(--text-color-2);
 
-    contain: layout;
-    display: inline-grid;
+    display: grid;
     position: relative;
 
     /* Input/Select base */
-    & input,
-    & textarea,
-    & select {
+    :where(& input, & textarea, & select) {
       background-color: var(--_bg-color);
       block-size: var(--_height);
       border-radius: var(--field-border-radius);
@@ -3177,7 +3101,7 @@ Lists meant to be used stand-alone or as part of Select elements
       font-family: var(--font-sans);
       font-size: var(--font-size-1);
       grid-column: 1/-1;
-      grid-row: 1;
+      grid-row: 2;
       inline-size: 100%;
       line-height: var(--font-lineheight-1);
       min-inline-size: 0;
@@ -3302,6 +3226,7 @@ Lists meant to be used stand-alone or as part of Select elements
         appearance: none;
         background: none;
         block-size: var(--_height);
+        inline-size: var(--_height);
         overflow: hidden;
         padding: 0;
 
@@ -3313,37 +3238,18 @@ Lists meant to be used stand-alone or as part of Select elements
           padding: 0;
         }
       }
-
-      .label {
-        border: 1px solid var(--field-border-color);
-        inline-size: fit-content;
-        margin-inline-start: var(--size-2);
-      }
     }
 
-    /* Textarea */
-    &:has(textarea) {
-      .label {
-        align-self: start;
-        margin-block-start: var(--_field-padding-block);
-      }
-    }
-
-    /*
-  * Variant: Outlined
-  */
-    &:not(.filled) {
-      /* Element states */
-      &:hover {
-        &:not(.error) {
-          :where(input, textarea, select) {
-            --_border-color: var(--text-color-1);
-          }
+    /* Element states */
+    &:hover {
+      &:not(.error) {
+        :where(input, textarea, select) {
+          --_border-color: var(--text-color-1);
         }
       }
     }
 
-    &:not(.filled):focus-within {
+    &:focus-within {
       & input,
       & textarea,
       & select {
@@ -3355,88 +3261,27 @@ Lists meant to be used stand-alone or as part of Select elements
 
     /* Label */
     .label {
-      align-self: center;
-      background-color: var(--_bg-color);
-      border-radius: var(--field-border-radius);
-      color: var(--_label-color);
-      border-radius: var(--radius-1);
-      display: inline-flex;
-      font-size: var(--font-size-md);
+      font-size: var(--font-size-sm);
       grid-column: 1/-1;
       grid-row: 1;
-      inline-size: calc(100% - (var(--field-border-width) * 2));
-      margin-inline-start: var(--field-border-width);
-      padding-inline: var(--_field-padding-inline);
-      pointer-events: none;
-      z-index: 1;
-
-      @media (prefers-reduced-motion: no-preference) {
-        transition: border-color 0.2s var(--ease-3),
-          font-size 0.2s var(--ease-3), inline-size 0.05s var(--ease-3),
-          margin 0.2s var(--ease-3), padding-inline 0.2s var(--ease-3);
-      }
-    }
-
-    /*
-  * Label transitions
-  * Triggered by:
-  * - focus
-  * - filled form fields (except color inputs)
-  * - non-empty select options
-  */
-    &:focus-within,
-    &:has(:where(input:not([type="color"]), textarea):not(:placeholder-shown)),
-    &:has(option[value=""]:not(:checked)),
-    &:has(option:checked:not([value=""])) {
-      .label {
-        border-color: transparent;
-        color: var(--_accent-color);
-        font-size: 0.75rem;
-        inline-size: max-content;
-        letter-spacing: 0.15px;
-        line-height: 1.15;
-        margin-block-start: -2.7rem;
-        margin-inline-start: var(--_field-padding-inline);
-        padding-inline: 0.125rem;
-      }
-
-      /* Neutral label color reset */
-      &:not(:focus-within):not(.error) {
-        .label {
-          color: var(--text-color-2);
-        }
-      }
-
-      &:has(textarea) {
-        .label {
-          margin-block-start: -0.35rem;
-        }
-
-        &.small {
-          .label {
-            align-self: start;
-            margin-block-start: var(--_field-padding-block);
-          }
-        }
-      }
     }
 
     /* Supporting text */
     .supporting-text {
       color: var(--_supporting-text-color);
       font-size: var(--font-size-xs);
+      grid-column: 1/-1;
       grid-row: 3;
       line-height: 1.5;
-      margin-inline-start: var(--field-border-width);
-      padding-inline: var(--_field-padding-inline);
-      z-index: 1;
     }
 
     /* Auto-fit */
     &.auto-fit {
       inline-size: auto;
+
       :where(& input, & textarea) {
         field-sizing: content;
+        inline-size: auto;
       }
     }
 
@@ -3454,44 +3299,6 @@ Lists meant to be used stand-alone or as part of Select elements
   */
     &.filled {
       --_bg-color: var(--surface-tonal);
-      *:focus-visible {
-        outline: 0;
-      }
-
-      /* Base style */
-      & input,
-      & textarea,
-      & select {
-        border-block-end-color: var(--_filled-border-color);
-        border-block-start-color: transparent;
-        border-inline-color: transparent;
-        border-radius: 0;
-      }
-
-      & input[type="color"] {
-        border-inline: none;
-      }
-
-      /* Bottom line */
-      &::before {
-        background-color: var(--_filled-border-color);
-        block-size: calc(var(--field-border-width) + 1px);
-        content: "";
-        inline-size: 100%;
-        margin-block-end: calc(-1 * (var(--field-border-width) * 2));
-        transform: scaleX(0);
-        translate: 0 calc(-1 * (var(--field-border-width) * 2));
-        z-index: 1;
-
-        @media (prefers-reduced-motion: no-preference) {
-          transition: transform 0.3s var(--ease-3), translate 0.2s var(--ease-3);
-        }
-      }
-
-      /* Label */
-      .label {
-        background-color: var(--_bg-color);
-      }
 
       &:not(:has([disabled], :has(input[type="color"]))) {
         /* Hover */
@@ -3500,66 +3307,6 @@ Lists meant to be used stand-alone or as part of Select elements
             oklch(from var(--surface-tonal) calc(l * 0.93) c h),
             oklch(from var(--surface-tonal) calc(l * 1.1) c h)
           );
-        }
-      }
-
-      /*
-    * Label transitions
-    * Triggered by:
-    * - focus
-    * - filled form fields (except color inputs)
-    * - non-empty select options
-    */
-      &:has(.label) {
-        &:focus-within,
-        &:has(
-            :where(input:not(:where([type="color"])), textarea):not(
-                :placeholder-shown
-              )
-          ),
-        &:has(option[value=""]:not(:checked)),
-        &:has(option:checked:not([value=""])) {
-          :where(input, textarea) {
-            padding-block: calc(var(--_field-padding-block) * 1.7)
-              calc(var(--_field-padding-block) * 0.3);
-          }
-
-          select > button,
-          select:not(:has(button)) {
-            padding-block: calc(var(--_field-padding-block) * 1.7)
-              calc(var(--_field-padding-block) * 0.3);
-          }
-
-          .label {
-            margin-block-start: calc(-1 * var(--size-5));
-            margin-inline-start: calc(var(--_field-padding-inline) / 2);
-            padding-inline: calc(var(--_field-padding-inline) / 2);
-          }
-
-          &:has(textarea) {
-            .label {
-              margin-block-start: var(--size-1);
-            }
-          }
-        }
-      }
-
-      /* Element states */
-      &:hover {
-        &::before {
-          transform: scaleX(1);
-        }
-      }
-      &:focus-within {
-        & input,
-        & textarea,
-        & select {
-          border-block-end-color: var(--_accent-color);
-        }
-
-        &::before {
-          background-color: var(--_accent-color);
-          transform: scaleX(1) translateX(0px);
         }
       }
     }
@@ -3601,39 +3348,6 @@ Lists meant to be used stand-alone or as part of Select elements
       &:has(input[type="color"]) {
         .label {
           line-height: 1.5;
-        }
-      }
-
-      &:has(textarea) {
-        .label {
-          align-self: center;
-          margin-block-start: unset;
-        }
-      }
-
-      /*
-    * Label transitions
-    * Triggered by:
-    * - focus
-    * - filled form fields (except color inputs)
-    * - non-empty select options
-    */
-      &:focus-within,
-      &:has(
-          :where(input:not([type="color"]), textarea):not(:placeholder-shown)
-        ),
-      &:has(option[value=""]:not(:checked)),
-      &:has(option:checked:not([value=""])) {
-        .label {
-          margin-block-start: -2.2rem;
-          margin-inline-start: var(--size-1);
-          padding-inline: var(--size-1);
-        }
-
-        &:not(.filled):has(textarea) {
-          .label {
-            margin-block-start: -0.35rem;
-          }
         }
       }
     }
@@ -3759,7 +3473,6 @@ Lists meant to be used stand-alone or as part of Select elements
     /* Size */
     &.small {
       button {
-        padding-block: var(--size-1);
         padding-inline: var(--size-2) var(--size-7);
 
         &::after {
@@ -3788,7 +3501,7 @@ Lists meant to be used stand-alone or as part of Select elements
         display: inline-block;
         flex-shrink: 0;
         grid-column: 1/-1;
-        grid-row: 1;
+        grid-row: 2;
         inline-size: 0;
         inset-inline-end: var(--size-3);
         justify-self: end;
@@ -4096,5 +3809,167 @@ Lists meant to be used stand-alone or as part of Select elements
         margin-block-start: 0;
       }
     }
+  }
+}
+
+/* Setup */
+
+/*
+  theme two theme setup
+*/
+
+@layer theme {
+  .light {
+    --color-scheme: light;
+  }
+  .dark {
+    --color-scheme: dark;
+  }
+
+  :where(html) {
+    color-scheme: var(--color-scheme, light dark);
+
+    --palette-hue: var(--oklch-orange);
+    --palette-hue-rotate-by: 0;
+    --palette-chroma: 0.89;
+
+    /* Primary */
+    --primary: var(--color-8);
+    --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
+    --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
+    --primary-contrast: var(--gray-1);
+
+    /* Text */
+    --text-color-1: light-dark(var(--gray-15), var(--gray-1));
+    --text-color-1-contrast: light-dark(var(--gray-2), var(--gray-15));
+    --text-color-2: light-dark(var(--gray-13), var(--gray-4));
+    --text-color-2-contrast: light-dark(var(--gray-4), var(--gray-13));
+
+    /* Surface */
+    --surface-default: light-dark(var(--gray-1), var(--gray-13));
+    --surface-filled: light-dark(var(--gray-3), var(--gray-15));
+    --surface-tonal: light-dark(var(--gray-3), var(--gray-12));
+    --surface-elevated: light-dark(var(--gray-1), var(--gray-12));
+
+    /* Shadows */
+    --shadow-color: light-dark(220 3% 15%, 220 40% 2%);
+    --shadow-strength: light-dark(1%, 10%);
+    --inner-shadow-highlight: light-dark(
+      inset 0 -0.5px 0 0 #fff,
+      inset 0 0.5px 0 0 #0001,
+      inset 0 -0.5px 0 0 #fff1,
+      inset 0 0.5px 0 0 #0007
+    );
+
+    /* Typography */
+    --font-size-h1: var(--font-size-fluid-3, 3.5rem);
+    --font-size-h2: var(--font-size-fluid-2, 2rem);
+    --font-size-h3: var(--font-size-fluid-1, 1.5rem);
+    --font-size-h4: var(--font-size-3, 1.25rem);
+    --font-size-h5: var(--font-size-2, 1.1rem);
+    --font-size-h6: var(--font-size-fluid-0, 1rem);
+    --font-size-lg: var(--font-size-3, 1.25rem);
+    --font-size-md: var(--font-size-fluid-0, 1rem);
+    --font-size-sm: 0.875rem;
+    --font-size-xs: var(--font-size-0, 0.75rem);
+
+    /* Borders */
+    --border-color: light-dark(var(--gray-4), var(--gray-12));
+    --border-radius: var(--size-2);
+    --border-width: 1px;
+
+    /* Input Field */
+    --field-border-color: var(--border-color);
+    --field-border-radius: var(--size-2);
+    --field-border-width: 1px;
+    --field-size: 2.3lh;
+    --field-size-small: 1.9lh;
+
+    /* Button */
+    --button-border-radius: var(--size-2);
+  }
+
+  /* Highlight colors */
+  :where(.red, .error, del) {
+    --palette-hue: var(--oklch-red, 25);
+    --palette-chroma: 1;
+    --palette-hue-rotate-by: 1;
+  }
+  :where(.blue, .ok, abbr, dfn) {
+    --palette-hue: var(--oklch-blue, 210);
+    --palette-chroma: 1;
+    --palette-hue-rotate-by: 1;
+  }
+  :where(.green, .good, ins) {
+    --palette-hue: var(--oklch-green, 145);
+    --palette-chroma: 1;
+    --palette-hue-rotate-by: 1;
+  }
+  :where(.orange, .warning) {
+    --palette-hue: var(--oklch-orange, 75);
+    --palette-chroma: 1;
+    --palette-hue-rotate-by: 1;
+  }
+
+  :where(html) {
+    --red: oklch(from var(--color-9) l 0.2 25);
+    --blue: oklch(from var(--color-9) l 0.2 210);
+    --green: oklch(from var(--color-9) l 0.2 145);
+    --orange: oklch(from var(--color-7) l 0.2 75);
+  }
+
+  /* Gray palette */
+  :where(html) {
+    --gray-chroma: 0.01;
+    --gray-lightness: 255;
+
+    --gray-1: oklch(
+      from var(--color-1) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-2: oklch(
+      from var(--color-2) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-3: oklch(
+      from var(--color-3) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-4: oklch(
+      from var(--color-4) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-5: oklch(
+      from var(--color-5) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-6: oklch(
+      from var(--color-6) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-7: oklch(
+      from var(--color-7) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-8: oklch(
+      from var(--color-8) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-9: oklch(
+      from var(--color-9) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-10: oklch(
+      from var(--color-10) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-11: oklch(
+      from var(--color-11) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-12: oklch(
+      from var(--color-12) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-13: oklch(
+      from var(--color-13) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-14: oklch(
+      from var(--color-14) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-15: oklch(
+      from var(--color-15) l var(--gray-chroma) var(--gray-lightness)
+    );
+    --gray-16: oklch(
+      from var(--color-16) l var(--gray-chroma) var(--gray-lightness)
+    );
   }
 }

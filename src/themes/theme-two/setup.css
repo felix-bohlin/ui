@@ -1,5 +1,5 @@
 /*
-OPUI default theme
+  theme two theme setup
 */
 @layer theme {
   .light {
@@ -12,8 +12,8 @@ OPUI default theme
   :where(html) {
     color-scheme: var(--color-scheme, light dark);
 
-    --palette-hue: var(--oklch-teal);
-    --palette-hue-rotate-by: 5;
+    --palette-hue: var(--oklch-orange);
+    --palette-hue-rotate-by: 0;
     --palette-chroma: 0.89;
 
     /* Primary */
@@ -58,23 +58,18 @@ OPUI default theme
 
     /* Borders */
     --border-color: light-dark(var(--gray-4), var(--gray-12));
-    --border-radius: var(--size-1);
+    --border-radius: var(--size-2);
     --border-width: 1px;
 
     /* Input Field */
     --field-border-color: var(--border-color);
-    --field-border-radius: var(--size-1);
+    --field-border-radius: var(--size-2);
     --field-border-width: 1px;
     --field-size: 2.3lh;
     --field-size-small: 1.9lh;
 
     /* Button */
-    --button-border-radius: var(--radius-round);
-    /* Ripple effect */
-    @media (prefers-reduced-motion: no-preference) {
-      --button-ripple-size: 100%;
-      --button-ripple-duration: 0.5s;
-    }
+    --button-border-radius: var(--size-2);
   }
 
   /* Highlight colors */

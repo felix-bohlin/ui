@@ -851,11 +851,7 @@ When you visibly want to hide an element but make it accessible for screen reade
 
       /* Selected */
       &.selected {
-        --_bg-color: color-mix(
-          in oklch,
-          var(--primary) 12%,
-          var(--surface-default)
-        );
+        --_bg-color: oklch(from var(--primary) l c h / 25%);
 
         /* Checkmark */
         svg:first-of-type {
@@ -1065,6 +1061,18 @@ When you visibly want to hide an element but make it accessible for screen reade
     &.tonal {
       --_bg-color: var(--surface-tonal);
       --_border-width: 1px;
+    }
+
+    &.elevated {
+      --_bg-color: var(--surface-elevated);
+      --_border-color: transparent;
+      --_border-width: 0;
+      --_shadow: var(--shadow-3);
+
+      /* Adjust shadow in dark mode */
+      @container style(--color-scheme: dark) {
+        --_shadow: var(--shadow-4);
+      }
     }
 
     &.outlined {
@@ -2343,6 +2351,12 @@ When you visibly want to hide an element but make it accessible for screen reade
       --_margin-inline: var(--size-1);
     }
 
+    &.elevated {
+      --_bg-color: var(--surface-elevated);
+      --_margin-inline: 0;
+      --_shadow: var(--shadow-2);
+    }
+
     &.outlined {
       --_bg-color: var(--surface-default);
       --_margin-inline: 0;
@@ -2354,7 +2368,7 @@ When you visibly want to hide an element but make it accessible for screen reade
       --_margin-inline: 0;
     }
 
-    &:where(.outlined, .tonal) > * {
+    &:where(.elevated, .outlined, .tonal) > * {
       padding-inline: var(--size-3);
     }
   }
@@ -2372,7 +2386,7 @@ When you visibly want to hide an element but make it accessible for screen reade
 
     &.card,
     &.text {
-      &:not(.tonal, .outlined) {
+      &:not(.tonal, .outlined, .elevated) {
         summary {
           padding-inline: 0;
         }
@@ -3881,6 +3895,7 @@ Lists meant to be used stand-alone or as part of Select elements
     --surface-default: light-dark(var(--gray-1), var(--gray-13));
     --surface-filled: light-dark(var(--gray-3), var(--gray-15));
     --surface-tonal: light-dark(var(--gray-3), var(--gray-12));
+    --surface-elevated: light-dark(var(--gray-1), var(--gray-12));
 
     /* Shadows */
     --shadow-color: light-dark(220 3% 15%, 220 40% 2%);

@@ -901,11 +901,7 @@ When you visibly want to hide an element but make it accessible for screen reade
 
       /* Selected */
       &.selected {
-        --_bg-color: color-mix(
-          in oklch,
-          var(--primary) 12%,
-          var(--surface-default)
-        );
+        --_bg-color: oklch(from var(--primary) l c h / 25%);
 
         /* Checkmark */
         svg:first-of-type {

@@ -166,21 +166,16 @@
       }
     }
 
-    /*
-  * Variant: Outlined
-  */
-    &:not(.filled) {
-      /* Element states */
-      &:hover {
-        &:not(.error) {
-          :where(input, textarea, select) {
-            --_border-color: var(--text-color-1);
-          }
+    /* Element states */
+    &:hover {
+      &:not(.error) {
+        :where(input, textarea, select) {
+          --_border-color: var(--text-color-1);
         }
       }
     }
 
-    &:not(.filled):focus-within {
+    &:focus-within {
       & input,
       & textarea,
       & select {
@@ -230,38 +225,6 @@
   */
     &.filled {
       --_bg-color: var(--surface-tonal);
-      *:focus-visible {
-        outline: 0;
-      }
-
-      /* Base style */
-      & input,
-      & textarea,
-      & select {
-        border-block-end-color: var(--_filled-border-color);
-        border-block-start-color: transparent;
-        border-inline-color: transparent;
-      }
-
-      & input[type="color"] {
-        border-inline: none;
-      }
-
-      /* Bottom line */
-      &::before {
-        background-color: var(--_filled-border-color);
-        block-size: calc(var(--field-border-width) + 1px);
-        content: "";
-        inline-size: 100%;
-        margin-block-end: calc(-1 * (var(--field-border-width) * 2));
-        transform: scaleX(0);
-        translate: 0 calc(-1 * (var(--field-border-width) * 2));
-        z-index: 1;
-
-        @media (prefers-reduced-motion: no-preference) {
-          transition: transform 0.3s var(--ease-3), translate 0.2s var(--ease-3);
-        }
-      }
 
       &:not(:has([disabled], :has(input[type="color"]))) {
         /* Hover */
@@ -270,25 +233,6 @@
             oklch(from var(--surface-tonal) calc(l * 0.93) c h),
             oklch(from var(--surface-tonal) calc(l * 1.1) c h)
           );
-        }
-      }
-
-      /* Element states */
-      &:hover {
-        &::before {
-          transform: scaleX(1);
-        }
-      }
-      &:focus-within {
-        & input,
-        & textarea,
-        & select {
-          border-block-end-color: var(--_accent-color);
-        }
-
-        &::before {
-          background-color: var(--_accent-color);
-          transform: scaleX(1) translateX(0px);
         }
       }
     }

@@ -4117,22 +4117,22 @@ Lists meant to be used stand-alone or as part of Select elements
     color-scheme: var(--color-scheme, light dark);
 
     /* Primary */
-    --primary: light-dark(oklch(0.985 0 0), oklch(0.205 0 0));
-    --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
-    --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
-    --primary-contrast: var(--gray-1);
+    --primary: light-dark(oklch(0.205 0 0), oklch(0.922 0 0));
+    /* --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
+    --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h); */
+    --primary-contrast: light-dark(oklch(0.985 0 0), oklch(0.205 0 0));
 
     /* Text */
-    --text-color-1: light-dark(var(--gray-15), var(--gray-1));
-    --text-color-1-contrast: light-dark(var(--gray-2), var(--gray-15));
+    --text-color-1: light-dark(oklch(0.145 0 0), oklch(0.985 0 0));
+    /* --text-color-1-contrast: light-dark(var(--gray-2), var(--gray-15));
     --text-color-2: light-dark(var(--gray-13), var(--gray-4));
-    --text-color-2-contrast: light-dark(var(--gray-4), var(--gray-13));
+    --text-color-2-contrast: light-dark(var(--gray-4), var(--gray-13)); */
 
     /* Surface */
-    --surface-default: light-dark(oklch(1 0 0), oklch(0.205 0 0));
-    --surface-filled: light-dark(oklch(0.97 0 0), oklch(0.269 0 0));
-    --surface-tonal: light-dark(oklch(0.97 0 0), oklch(0.269 0 0));
-    --surface-elevated: light-dark(var(--gray-1), var(--gray-12));
+    --surface-default: light-dark(oklch(1 0 0), oklch(0.145 0 0));
+    --surface-filled: light-dark(oklch(1 0 0), oklch(0.205 0 0));
+    --surface-tonal: light-dark(oklch(1 0 0), oklch(0.205 0 0));
+    --surface-elevated: light-dark(oklch(1 0 0), oklch(0.205 0 0));
 
     /* Shadows */
     --shadow-color: light-dark(220 3% 15%, 220 40% 2%);
@@ -4157,24 +4157,19 @@ Lists meant to be used stand-alone or as part of Select elements
     --font-size-xs: var(--font-size-0, 0.75rem);
 
     /* Borders */
-    --border-color: light-dark(var(--gray-4), var(--gray-12));
-    --border-radius: var(--size-1);
+    --border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 10%));
+    --border-radius: 0.625rem;
     --border-width: 1px;
 
     /* Input Field */
-    --field-border-color: var(--border-color);
-    --field-border-radius: var(--size-1);
+    --field-border-color: light-dark(oklch(0.922 0 0), oklch(1 0 0 / 15%));
+    --field-border-radius: calc(var(--border-radius) - 2px);
     --field-border-width: 1px;
-    --field-size: 2.3lh;
-    --field-size-small: 1.9lh;
+    --field-size: 36px;
+    --field-size-small: 36px;
 
     /* Button */
-    --button-border-radius: var(--radius-round);
-    /* Ripple effect */
-    @media (prefers-reduced-motion: no-preference) {
-      --button-ripple-size: 100%;
-      --button-ripple-duration: 0.5s;
-    }
+    --button-border-radius: var(--border-radius);
   }
 
   /* Highlight colors */
@@ -4183,27 +4178,9 @@ Lists meant to be used stand-alone or as part of Select elements
     --palette-chroma: 1;
     --palette-hue-rotate-by: 1;
   }
-  :where(.blue, .ok, abbr, dfn) {
-    --palette-hue: var(--oklch-blue, 210);
-    --palette-chroma: 1;
-    --palette-hue-rotate-by: 1;
-  }
-  :where(.green, .good, ins) {
-    --palette-hue: var(--oklch-green, 145);
-    --palette-chroma: 1;
-    --palette-hue-rotate-by: 1;
-  }
-  :where(.orange, .warning) {
-    --palette-hue: var(--oklch-orange, 75);
-    --palette-chroma: 1;
-    --palette-hue-rotate-by: 1;
-  }
 
   :where(html) {
-    --red: oklch(from var(--color-9) l 0.2 25);
-    --blue: oklch(from var(--color-9) l 0.2 210);
-    --green: oklch(from var(--color-9) l 0.2 145);
-    --orange: oklch(from var(--color-7) l 0.2 75);
+    --red: light-dark(oklch(0.577 0.245 27.325), oklch(0.704 0.191 22.216));
   }
 
   /* Gray palette */

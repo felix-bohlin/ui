@@ -74,27 +74,9 @@
     --palette-chroma: 1;
     --palette-hue-rotate-by: 1;
   }
-  :where(.blue, .ok, abbr, dfn) {
-    --palette-hue: var(--oklch-blue, 210);
-    --palette-chroma: 1;
-    --palette-hue-rotate-by: 1;
-  }
-  :where(.green, .good, ins) {
-    --palette-hue: var(--oklch-green, 145);
-    --palette-chroma: 1;
-    --palette-hue-rotate-by: 1;
-  }
-  :where(.orange, .warning) {
-    --palette-hue: var(--oklch-orange, 75);
-    --palette-chroma: 1;
-    --palette-hue-rotate-by: 1;
-  }
 
   :where(html) {
     --red: light-dark(oklch(0.577 0.245 27.325), oklch(0.704 0.191 22.216));
-    --blue: oklch(from var(--color-9) l 0.2 210);
-    --green: oklch(from var(--color-9) l 0.2 145);
-    --orange: oklch(from var(--color-7) l 0.2 75);
   }
 
   /* Gray palette */

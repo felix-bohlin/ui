@@ -88,12 +88,6 @@
       --_margin-inline: var(--size-1);
     }
 
-    &.elevated {
-      --_bg-color: var(--surface-elevated);
-      --_margin-inline: 0;
-      --_shadow: var(--shadow-2);
-    }
-
     &.outlined {
       --_bg-color: var(--surface-default);
       --_margin-inline: 0;
@@ -105,7 +99,7 @@
       --_margin-inline: 0;
     }
 
-    &:where(.elevated, .outlined, .tonal) > * {
+    &:where(.outlined, .tonal) > * {
       padding-inline: var(--size-3);
     }
   }
@@ -123,7 +117,7 @@
 
     &.card,
     &.text {
-      &:not(.tonal, .outlined, .elevated) {
+      &:not(.tonal, .outlined) {
         summary {
           padding-inline: 0;
         }

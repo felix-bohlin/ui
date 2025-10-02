@@ -44,13 +44,6 @@
       text-align: start;
     }
 
-    /* Header */
-    thead {
-      position: sticky;
-      top: 0;
-      z-index: 1;
-    }
-
     /* Footer */
     tfoot {
       border-top: 2px solid var(--border-color);

@@ -20,16 +20,17 @@
     "build:themes": "node scripts/build-themes.js",
     "build": "pnpm run clean && pnpm run build:themes && postcss src/open-props.css -o dist/op.css",
     "clean": "pnpm exec shx rm -rf dist",
-    "dev": "pnpm run build:themes --watch"
+    "dev": "nodemon --watch src --ext css --delay 500ms --verbose --exec \"pnpm build:themes\""
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
+    "nodemon": "^3.1.10",
     "open-props": "2.0.0-beta.5",
+    "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.1",
-    "postcss": "^8.5.6",
     "shx": "^0.4.0"
   }
 }

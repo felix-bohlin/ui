@@ -1,7 +1,92 @@
 @layer openprops, normalize, utils, theme, components.root, components.extended;
-
+/* Open Props */
+/*
+* Open Props
+* Import as many props as you need here.
+* https://unpkg.com/browse/open-props@2.0.0-beta.5/css
+*/
+@custom-media --motionOK      (prefers-reduced-motion: no-preference);
+@custom-media --motionNotOK   (prefers-reduced-motion: reduce);
+@custom-media --opacityOK     (prefers-reduced-transparency: no-preference);
+@custom-media --opacityNotOK  (prefers-reduced-transparency: reduce);
+@custom-media --useDataOK     (prefers-reduced-data: no-preference);
+@custom-media --useDataNotOK  (prefers-reduced-data: reduce);
+@custom-media --OSdark        (prefers-color-scheme: dark);
+@custom-media --OSlight       (prefers-color-scheme: light);
+@custom-media --highContrast  (prefers-contrast: more);
+@custom-media --lowContrast   (prefers-contrast: less);
+@custom-media --portrait      (orientation: portrait);
+@custom-media --landscape     (orientation: landscape);
+@custom-media --HDcolor       (dynamic-range: high);
+@custom-media --touch         (hover: none) and (pointer: coarse);
+@custom-media --stylus        (hover: none) and (pointer: fine);
+@custom-media --pointer       (hover) and (pointer: coarse);
+@custom-media --mouse         (hover) and (pointer: fine);
+@custom-media --xxs-only      (0px <= width <= 240px);
+@custom-media --xxs-n-above   (width >= 240px);
+@custom-media --xxs-n-below   (width < 240px);
+@custom-media --xxs-phone     (--xxs-only) and (--portrait);
+@custom-media --xs-only       (240px <= width <= 360px);
+@custom-media --xs-n-above    (width >= 360px);
+@custom-media --xs-n-below    (width < 360px);
+@custom-media --xs-phone      (--xs-only) and (--portrait);
+@custom-media --sm-only       (360px <= width <= 480px);
+@custom-media --sm-n-above    (width >= 480px);
+@custom-media --sm-n-below    (width < 480px);
+@custom-media --sm-phone      (--sm-only) and (--portrait);
+@custom-media --md-only       (480px <= width <= 768px);
+@custom-media --md-n-above    (width >= 768px);
+@custom-media --md-n-below    (width < 768px);
+@custom-media --md-phone      (--md-only) and (--portrait);
+@custom-media --lg-only       (768px <= width <= 1024px);
+@custom-media --lg-n-above    (width >= 1024px);
+@custom-media --lg-n-below    (width < 1024px);
+@custom-media --lg-phone      (--lg-only) and (--portrait);
+@custom-media --xl-only       (1024px <= width <= 1440px);
+@custom-media --xl-n-above    (width >= 1440px);
+@custom-media --xl-n-below    (width < 1440px);
+@custom-media --xxl-only      (1440px <= width <= 1920px);
+@custom-media --xxl-n-above   (width >= 1920px);
+@custom-media --xxl-n-below   (width < 1920px);
+@layer openprops{
+:where(:root){--font-sans:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;--font-serif:ui-serif,serif;--font-mono:Dank Mono,Operator Mono,Inconsolata,Fira Mono,ui-monospace,SF Mono,Monaco,Droid Sans Mono,Source Code Pro,monospace;--font-weight-1:100;--font-weight-2:200;--font-weight-3:300;--font-weight-4:400;--font-weight-5:500;--font-weight-6:600;--font-weight-7:700;--font-weight-8:800;--font-weight-9:900;--font-size-00:.5rem;--font-size-0:.75rem;--font-size-1:1rem;--font-size-2:1.1rem;--font-size-3:1.25rem;--font-size-4:1.5rem;--font-size-5:2rem;--font-size-6:2.5rem;--font-size-7:3rem;--font-size-8:3.5rem;--font-size-fluid-0:clamp(.75rem,2vw,1rem);--font-size-fluid-1:clamp(1rem,4vw,1.5rem);--font-size-fluid-2:clamp(1.5rem,6vw,2.5rem);--font-size-fluid-3:clamp(2rem,9vw,3.5rem);--size-000:-.5rem;--size-00:-.25rem;--size-1:.25rem;--size-2:.5rem;--size-3:1rem;--size-4:1.25rem;--size-5:1.5rem;--size-6:1.75rem;--size-7:2rem;--size-8:3rem;--size-9:4rem;--size-10:5rem;--size-11:7.5rem;--size-12:10rem;--size-13:15rem;--size-14:20rem;--size-15:30rem;--size-fluid-1:clamp(.5rem,1vw,1rem);--size-fluid-2:clamp(1rem,2vw,1.5rem);--size-fluid-3:clamp(1.5rem,3vw,2rem);--size-fluid-4:clamp(2rem,4vw,3rem);--size-fluid-5:clamp(4rem,5vw,5rem);--size-fluid-6:clamp(5rem,7vw,7.5rem);--size-fluid-7:clamp(7.5rem,10vw,10rem);--size-fluid-8:clamp(10rem,20vw,15rem);--size-fluid-9:clamp(15rem,30vw,20rem);--size-fluid-10:clamp(20rem,40vw,30rem);--size-header-1:20ch;--size-header-2:25ch;--size-header-3:35ch;--size-content-1:20ch;--size-content-2:45ch;--size-content-3:60ch;--ratio-square:1;--ratio-landscape:4/3;--ratio-portrait:3/4;--ratio-widescreen:16/9;--ratio-ultrawide:18/5;--ratio-golden:1.618/1;--layer-1:1;--layer-2:2;--layer-3:3;--layer-4:4;--layer-5:5;--layer-bottom:var(--layer-1);--layer-top:var(--layer-5);--layer-important:2147480000;--border-size-1:1px;--border-size-2:2px;--border-size-3:5px;--border-size-4:10px;--border-size-5:25px;--radius-1:2px;--radius-2:5px;--radius-3:1rem;--radius-4:2rem;--radius-5:4rem;--radius-6:8rem;--radius-round:100000px;--radius-blob-1:30% 70% 70% 30%/53% 30% 70% 47%;--radius-blob-2:53% 47% 34% 66%/63% 46% 54% 37%;--radius-blob-3:37% 63% 56% 44%/49% 56% 44% 51%;--radius-blob-4:63% 37% 37% 63%/43% 37% 63% 57%;--radius-blob-5:49% 51% 48% 52%/57% 44% 56% 43%;--radius-conditional-1:clamp(0px,calc(100vw - 100%)*100000,var(--radius-1));--radius-conditional-2:clamp(0px,calc(100vw - 100%)*100000,var(--radius-2));--radius-conditional-3:clamp(0px,calc(100vw - 100%)*100000,var(--radius-3));--radius-conditional-4:clamp(0px,calc(100vw - 100%)*100000,var(--radius-4));--radius-conditional-5:clamp(0px,calc(100vw - 100%)*100000,var(--radius-5));--radius-conditional-6:clamp(0px,calc(100vw - 100%)*100000,var(--radius-6))}*{--shadow-strength:1%;--shadow-chroma:3%;--shadow-hue:var(--shadow-tint,var(--palette-hue));--shadow-color:15% var(--shadow-chroma)var(--shadow-hue);--inner-shadow-highlight:inset 0 -.5px 0 0 #fff,inset 0 .5px 0 0 #0001;--shadow-1:0 1px 2px -1px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 9%));--shadow-2:0 3px 5px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 3%)),0 7px 14px -5px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 5%));--shadow-3:0 -1px 3px 0 oklch(var(--shadow-color)/calc(var(--shadow-strength) + 2%)),0 1px 2px -5px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 2%)),0 2px 5px -5px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 4%)),0 4px 12px -5px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 5%)),0 12px 15px -5px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 7%));--shadow-4:0 -2px 5px 0 oklch(var(--shadow-color)/calc(var(--shadow-strength) + 2%)),0 1px 1px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 3%)),0 2px 2px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 3%)),0 5px 5px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 4%)),0 9px 9px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 5%)),0 16px 16px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 6%));--shadow-5:0 -1px 2px 0 oklch(var(--shadow-color)/calc(var(--shadow-strength) + 2%)),0 2px 1px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 3%)),0 5px 5px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 3%)),0 10px 10px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 4%)),0 20px 20px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 5%)),0 40px 40px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 7%));--shadow-6:0 -1px 2px 0 oklch(var(--shadow-color)/calc(var(--shadow-strength) + 2%)),0 3px 2px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 3%)),0 7px 5px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 3%)),0 12px 10px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 4%)),0 22px 18px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 5%)),0 41px 33px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 6%)),0 100px 80px -2px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 7%));--inner-shadow-0:inset 0 0 0 1px oklch(var(--shadow-color)/calc(var(--shadow-strength) + 9%));--inner-shadow-1:inset 0 1px 2px 0 oklch(var(--shadow-color)/calc(var(--shadow-strength) + 9%)),var(--inner-shadow-highlight);--inner-shadow-2:inset 0 1px 4px 0 oklch(var(--shadow-color)/calc(var(--shadow-strength) + 9%)),var(--inner-shadow-highlight);--inner-shadow-3:inset 0 2px 8px 0 oklch(var(--shadow-color)/calc(var(--shadow-strength) + 9%)),var(--inner-shadow-highlight);--inner-shadow-4:inset 0 2px 14px 0 oklch(var(--shadow-color)/calc(var(--shadow-strength) + 9%)),var(--inner-shadow-highlight)}@media (prefers-color-scheme:dark){*{--shadow-strength:25%;--shadow-chroma:10%;--shadow-hue:var(--shadow-tint,var(--palette-hue));--shadow-color:15% var(--shadow-chroma)var(--shadow-hue);--inner-shadow-highlight:inset 0 -.5px 0 0 #fff1,inset 0 .5px 0 0 #0007}}:where(:root){--ease-1:cubic-bezier(.25,0,.5,1);--ease-2:cubic-bezier(.25,0,.4,1);--ease-3:cubic-bezier(.25,0,.3,1);--ease-4:cubic-bezier(.25,0,.2,1);--ease-5:cubic-bezier(.25,0,.1,1);--ease-in-1:cubic-bezier(.25,0,1,1);--ease-in-2:cubic-bezier(.5,0,1,1);--ease-in-3:cubic-bezier(.7,0,1,1);--ease-in-4:cubic-bezier(.9,0,1,1);--ease-in-5:cubic-bezier(1,0,1,1);--ease-out-1:cubic-bezier(0,0,.75,1);--ease-out-2:cubic-bezier(0,0,.5,1);--ease-out-3:cubic-bezier(0,0,.3,1);--ease-out-4:cubic-bezier(0,0,.1,1);--ease-out-5:cubic-bezier(0,0,0,1);--ease-in-out-1:cubic-bezier(.1,0,.9,1);--ease-in-out-2:cubic-bezier(.3,0,.7,1);--ease-in-out-3:cubic-bezier(.5,0,.5,1);--ease-in-out-4:cubic-bezier(.7,0,.3,1);--ease-in-out-5:cubic-bezier(.9,0,.1,1);--ease-elastic-out-1:cubic-bezier(.5,.75,.75,1.25);--ease-elastic-out-2:cubic-bezier(.5,1,.75,1.25);--ease-elastic-out-3:cubic-bezier(.5,1.25,.75,1.25);--ease-elastic-out-4:cubic-bezier(.5,1.5,.75,1.25);--ease-elastic-out-5:cubic-bezier(.5,1.75,.75,1.25);--ease-elastic-in-1:cubic-bezier(.5,-.25,.75,1);--ease-elastic-in-2:cubic-bezier(.5,-.5,.75,1);--ease-elastic-in-3:cubic-bezier(.5,-.75,.75,1);--ease-elastic-in-4:cubic-bezier(.5,-1,.75,1);--ease-elastic-in-5:cubic-bezier(.5,-1.25,.75,1);--ease-elastic-in-out-1:cubic-bezier(.5,-.1,.1,1.5);--ease-elastic-in-out-2:cubic-bezier(.5,-.3,.1,1.5);--ease-elastic-in-out-3:cubic-bezier(.5,-.5,.1,1.5);--ease-elastic-in-out-4:cubic-bezier(.5,-.7,.1,1.5);--ease-elastic-in-out-5:cubic-bezier(.5,-.9,.1,1.5);--ease-step-1:steps(2);--ease-step-2:steps(3);--ease-step-3:steps(4);--ease-step-4:steps(7);--ease-step-5:steps(10);--ease-spring-1:linear(0,.006,.025 2.8%,.101 6.1%,.539 18.9%,.721 25.3%,.849 31.5%,.937 38.1%,.968 41.8%,.991 45.7%,1.006 50.1%,1.015 55%,1.017 63.9%,1.001);--ease-spring-2:linear(0,.007,.029 2.2%,.118 4.7%,.625 14.4%,.826 19%,.902,.962,1.008 26.1%,1.041 28.7%,1.064 32.1%,1.07 36%,1.061 40.5%,1.015 53.4%,.999 61.6%,.995 71.2%,1);--ease-spring-3:linear(0,.009,.035 2.1%,.141 4.4%,.723 12.9%,.938 16.7%,1.017,1.077,1.121,1.149 24.3%,1.159,1.163,1.161,1.154 29.9%,1.129 32.8%,1.051 39.6%,1.017 43.1%,.991,.977 51%,.974 53.8%,.975 57.1%,.997 69.8%,1.003 76.9%,1);--ease-spring-4:linear(0,.009,.037 1.7%,.153 3.6%,.776 10.3%,1.001,1.142 16%,1.185,1.209 19%,1.215 19.9% 20.8%,1.199,1.165 25%,1.056 30.3%,1.008 33%,.973,.955 39.2%,.953 41.1%,.957 43.3%,.998 53.3%,1.009 59.1% 63.7%,.998 78.9%,1);--ease-spring-5:linear(0,.01,.04 1.6%,.161 3.3%,.816 9.4%,1.046,1.189 14.4%,1.231,1.254 17%,1.259,1.257 18.6%,1.236,1.194 22.3%,1.057 27%,.999 29.4%,.955 32.1%,.942,.935 34.9%,.933,.939 38.4%,1 47.3%,1.011,1.017 52.6%,1.016 56.4%,1 65.2%,.996 70.2%,1.001 87.2%,1);--ease-bounce-1:linear(0,.004,.016,.035,.063,.098,.141,.191,.25,.316,.391 36.8%,.563,.766,1 58.8%,.946,.908 69.1%,.895,.885,.879,.878,.879,.885,.895,.908 89.7%,.946,1);--ease-bounce-2:linear(0,.004,.016,.035,.063,.098,.141 15.1%,.25,.391,.562,.765,1,.892 45.2%,.849,.815,.788,.769,.757,.753,.757,.769,.788,.815,.85,.892 75.2%,1 80.2%,.973,.954,.943,.939,.943,.954,.973,1);--ease-bounce-3:linear(0,.004,.016,.035,.062,.098,.141 11.4%,.25,.39,.562,.764,1 30.3%,.847 34.8%,.787,.737,.699,.672,.655,.65,.656,.672,.699,.738,.787,.847 61.7%,1 66.2%,.946,.908,.885 74.2%,.879,.878,.879,.885 79.5%,.908,.946,1 87.4%,.981,.968,.96,.957,.96,.968,.981,1);--ease-bounce-4:linear(0,.004,.016 3%,.062,.141,.25,.391,.562 18.2%,1 24.3%,.81,.676 32.3%,.629,.595,.575,.568,.575,.595,.629,.676 48.2%,.811,1 56.2%,.918,.86,.825,.814,.825,.86,.918,1 77.2%,.94 80.6%,.925,.92,.925,.94 87.5%,1 90.9%,.974,.965,.974,1);--ease-bounce-5:linear(0,.004,.016 2.5%,.063,.141,.25 10.1%,.562,1 20.2%,.783,.627,.534 30.9%,.511,.503,.511,.534 38%,.627,.782,1 48.7%,.892,.815,.769 56.3%,.757,.753,.757,.769 61.3%,.815,.892,1 68.8%,.908 72.4%,.885,.878,.885,.908 79.4%,1 83%,.954 85.5%,.943,.939,.943,.954 90.5%,1 93%,.977,.97,.977,1)}:where(:root){--palette-hue:250;--palette-hue-rotate-by:0;--palette-chroma:.15}*{--color-1:oklch(98% calc(.03*var(--palette-chroma,1))calc(var(--palette-hue) + (0*var(--palette-hue-rotate-by))));--color-2:oklch(97% calc(.06*var(--palette-chroma,1))calc(var(--palette-hue) + (1*var(--palette-hue-rotate-by))));--color-3:oklch(93% calc(.1*var(--palette-chroma,1))calc(var(--palette-hue) + (2*var(--palette-hue-rotate-by))));--color-4:oklch(84% calc(.12*var(--palette-chroma,1))calc(var(--palette-hue) + (3*var(--palette-hue-rotate-by))));--color-5:oklch(80% calc(.16*var(--palette-chroma,1))calc(var(--palette-hue) + (4*var(--palette-hue-rotate-by))));--color-6:oklch(71% calc(.19*var(--palette-chroma,1))calc(var(--palette-hue) + (5*var(--palette-hue-rotate-by))));--color-7:oklch(66% calc(.2*var(--palette-chroma,1))calc(var(--palette-hue) + (6*var(--palette-hue-rotate-by))));--color-8:oklch(58% calc(.21*var(--palette-chroma,1))calc(var(--palette-hue) + (7*var(--palette-hue-rotate-by))));--color-9:oklch(53% calc(.2*var(--palette-chroma,1))calc(var(--palette-hue) + (8*var(--palette-hue-rotate-by))));--color-10:oklch(49% calc(.19*var(--palette-chroma,1))calc(var(--palette-hue) + (9*var(--palette-hue-rotate-by))));--color-11:oklch(42% calc(.17*var(--palette-chroma,1))calc(var(--palette-hue) + (10*var(--palette-hue-rotate-by))));--color-12:oklch(35% calc(.15*var(--palette-chroma,1))calc(var(--palette-hue) + (11*var(--palette-hue-rotate-by))));--color-13:oklch(27% calc(.12*var(--palette-chroma,1))calc(var(--palette-hue) + (12*var(--palette-hue-rotate-by))));--color-14:oklch(20% calc(.09*var(--palette-chroma,1))calc(var(--palette-hue) + (13*var(--palette-hue-rotate-by))));--color-15:oklch(16% calc(.07*var(--palette-chroma,1))calc(var(--palette-hue) + (14*var(--palette-hue-rotate-by))));--color-16:oklch(10% calc(.05*var(--palette-chroma,1))calc(var(--palette-hue) + (15*var(--palette-hue-rotate-by))))}}
+@layer openprops{
+:where(:root) {
+	--size-xxs: 240px;
+	--size-xs: 360px;
+	--size-sm: 480px;
+	--size-md: 768px;
+	--size-lg: 1024px;
+	--size-xl: 1440px;
+	--size-xxl: 1920px;
+}}
+@layer openprops{
+:where(:root) {
+	--font-lineheight-00: 0.95;
+	--font-lineheight-0: 1.1;
+	--font-lineheight-1: 1.25;
+	--font-lineheight-2: 1.375;
+	--font-lineheight-3: 1.5;
+	--font-lineheight-4: 1.75;
+	--font-lineheight-5: 2;
+}}
+@layer openprops{
+:where(:root) {
+	--oklch-red: 25;
+	--oklch-pink: 350;
+	--oklch-purple: 310;
+	--oklch-violet: 290;
+	--oklch-indigo: 270;
+	--oklch-blue: 240;
+	--oklch-cyan: 210;
+	--oklch-teal: 185;
+	--oklch-green: 145;
+	--oklch-lime: 125;
+	--oklch-yellow: 100;
+	--oklch-orange: 75;
+}}
+/* theme one theme */
 /* Normalize */
-
 @layer normalize {
   *,
   ::before,
@@ -198,9 +283,7 @@
     scroll-margin-block-start: 2rem;
   }
 }
-
 /* Utils */
-
 @layer utils {
   /*
 Screen-reader only
@@ -261,15 +344,11 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 /* Components */
-
 /*
 * Components are divided into two categories - if they are stand-alone (root) or if they are built on top of others (extended).
 */
-
 /*** Root components (no dependencies)  */
-
 @layer components.root {
   :where(.button) {
     --_bg-color: transparent;
@@ -467,56 +546,6 @@ When you visibly want to hide an element but make it accessible for screen reade
         );
       }
     }
-    &.elevated {
-      --_bg-color: light-dark(
-        color-mix(in oklch, var(--gray-2) 97%, var(--color-16)),
-        color-mix(in oklch, var(--gray-13) 97%, var(--color-1))
-      );
-      --_ripple-color: light-dark(
-        color-mix(in oklch, var(--gray-2) 80%, var(--color-8)),
-        color-mix(in oklch, var(--gray-13) 80%, var(--color-8))
-      );
-      --_text-color: var(--color-8);
-
-      box-shadow: 0px 3px 1px -2px oklch(0 0 0 / 20%),
-        0px 2px 2px 0px oklch(0 0 0 / 14%), 0px 1px 5px 0px oklch(0 0 0 / 12%);
-
-      &:where(:not([disabled])) {
-        &:where(:not(:active):hover) {
-          --ripple: radial-gradient(
-              circle,
-              transparent 1%,
-              var(--_ripple-color) 1%
-            )
-            center/15000%;
-
-          --_bg-color: light-dark(
-            color-mix(in oklch, var(--gray-2) 93%, var(--color-8)),
-            color-mix(in oklch, var(--gray-13) 93%, var(--color-8))
-          );
-        }
-
-        &:where(:hover:active) {
-          --_bg-color: light-dark(
-            color-mix(in oklch, var(--gray-2) 91%, var(--color-8)),
-            color-mix(in oklch, var(--gray-13) 91%, var(--color-8))
-          );
-        }
-      }
-
-      &:where([disabled]) {
-        --_bg-color: color-mix(
-          in oklch,
-          var(--text-color-2) 8%,
-          var(--surface-elevated)
-        );
-        --_text-color: color-mix(
-          in oklch,
-          var(--text-color-2) 70%,
-          var(--surface-elevated)
-        );
-      }
-    }
   }
 
   /* file input */
@@ -537,7 +566,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     margin-inline-end: var(--size-relative-6);
   }
 }
-
 @layer components.root {
   :where(.icon-button) {
     --_text-color: inherit;
@@ -578,7 +606,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   :where(nav.tabs) {
     --_bg-color: transparent;
@@ -699,10 +726,9 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   :where([role="group"].toggle-button-group) {
-    --_border-radius: var(--radius-round);
+    --_border-radius: var(--button-border-radius);
     --_button-padding-inline: clamp(var(--size-2), 3cqi, var(--size-4));
     --_max-width: auto;
     --_icon-size: var(--size-4);
@@ -839,7 +865,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   :where(.avatar) {
     --_bg-color: var(--color-8);
@@ -908,7 +933,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   :where(.badge) {
     --_bg-color: var(--primary);
@@ -1010,7 +1034,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   :where(.card) {
     --_bg-color: transparent;
@@ -1042,18 +1065,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     &.tonal {
       --_bg-color: var(--surface-tonal);
       --_border-width: 1px;
-    }
-
-    &.elevated {
-      --_bg-color: var(--surface-elevated);
-      --_border-color: transparent;
-      --_border-width: 0;
-      --_shadow: var(--shadow-3);
-
-      /* Adjust shadow in dark mode */
-      @container style(--color-scheme: dark) {
-        --_shadow: var(--shadow-4);
-      }
     }
 
     &.outlined {
@@ -1093,7 +1104,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   :where(.chip) {
     --_bg-color: var(--surface-tonal);
@@ -1229,7 +1239,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   :where(.definition-list) {
     --_border-style: solid;
@@ -1295,7 +1304,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   :where(hr) {
     background-color: var(--border-color);
@@ -1303,7 +1311,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     margin-block: var(--size-fluid-3);
   }
 }
-
 @layer components.root {
   :where(.link) {
     color: var(--primary);
@@ -1325,7 +1332,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   :where(table) {
     border-collapse: collapse;
@@ -1370,6 +1376,13 @@ When you visibly want to hide an element but make it accessible for screen reade
       font-size: var(--font-size-sm, 0.75rem);
       padding: var(--size-2) 0;
       text-align: start;
+    }
+
+    /* Header */
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 1;
     }
 
     /* Footer */
@@ -1426,7 +1439,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   :where(progress) {
     --_accent-color: var(--primary);
@@ -1510,7 +1522,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   [aria-busy="true"]:not(
       input,
@@ -1549,7 +1560,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   label:where(.checkbox, .radio) {
     align-items: center;
@@ -1673,7 +1683,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   :where(.switch) {
     --_accent-color: var(--primary);
@@ -1863,7 +1872,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   :where(.range > input[type="range"]) {
     --thumb-bg: var(--primary);
@@ -1985,7 +1993,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.root {
   /* Base typography */
   :where(h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6) {
@@ -2195,9 +2202,7 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 /*** Extended components (has dependencies) */
-
 @layer components.extended {
   :where([role="group"].button-group) {
     --_border-radius: var(--button-border-radius);
@@ -2232,20 +2237,11 @@ When you visibly want to hide an element but make it accessible for screen reade
       }
 
       /* Variants */
-      /*** Text & Elevated */
-      &:not(:where(.tonal, .filled, .outlined)) {
-        & + button {
-          border-inline-start: 1px solid var(--border-color);
-        }
-      }
-
       &:where(.tonal, .filled) {
         & + button {
           border-inline-start-color: var(--color-7);
         }
-      }
 
-      &:where(.tonal, .filled, .elevated) {
         & + &[disabled] {
           border-inline-start-color: color-mix(
             in oklch,
@@ -2254,20 +2250,9 @@ When you visibly want to hide an element but make it accessible for screen reade
           );
         }
       }
-
-      &:where(.elevated) {
-        box-shadow: var(--shadow-1);
-
-        button {
-          &:not(:hover) {
-            box-shadow: none;
-          }
-        }
-      }
     }
   }
 }
-
 @layer components.extended {
   :where(details) {
     --_accordion-transition-time: 0.2s;
@@ -2358,12 +2343,6 @@ When you visibly want to hide an element but make it accessible for screen reade
       --_margin-inline: var(--size-1);
     }
 
-    &.elevated {
-      --_bg-color: var(--surface-elevated);
-      --_margin-inline: 0;
-      --_shadow: var(--shadow-2);
-    }
-
     &.outlined {
       --_bg-color: var(--surface-default);
       --_margin-inline: 0;
@@ -2375,7 +2354,7 @@ When you visibly want to hide an element but make it accessible for screen reade
       --_margin-inline: 0;
     }
 
-    &:where(.elevated, .outlined, .tonal) > * {
+    &:where(.outlined, .tonal) > * {
       padding-inline: var(--size-3);
     }
   }
@@ -2393,7 +2372,7 @@ When you visibly want to hide an element but make it accessible for screen reade
 
     &.card,
     &.text {
-      &:not(.tonal, .outlined, .elevated) {
+      &:not(.tonal, .outlined) {
         summary {
           padding-inline: 0;
         }
@@ -2440,7 +2419,6 @@ When you visibly want to hide an element but make it accessible for screen reade
     }
   }
 }
-
 @layer components.extended {
   /*
 Lists meant to be used stand-alone or as part of Select elements
@@ -2758,7 +2736,6 @@ Lists meant to be used stand-alone or as part of Select elements
     }
   }
 }
-
 @layer components.extended {
   :where(.alert) {
     --_bg-color: var(--surface-tonal);
@@ -2844,7 +2821,6 @@ Lists meant to be used stand-alone or as part of Select elements
     }
   }
 }
-
 @layer components.extended {
   :where(dialog) {
     margin-block-start: 15%; /* vertical alignment */
@@ -2904,7 +2880,6 @@ Lists meant to be used stand-alone or as part of Select elements
     overflow: hidden;
   }
 }
-
 @layer components.extended {
   :where(.snackbar) {
     align-items: center;
@@ -3053,7 +3028,6 @@ Lists meant to be used stand-alone or as part of Select elements
     }
   }
 }
-
 @layer components.extended {
   /* Common styling for checkbox, radio and switch groups */
   :where(fieldset.field-group) {
@@ -3137,7 +3111,6 @@ Lists meant to be used stand-alone or as part of Select elements
     }
   }
 }
-
 @layer components.extended {
   /*
 - Common styling for input, textarea and select
@@ -3154,14 +3127,11 @@ Lists meant to be used stand-alone or as part of Select elements
     --_label-color: var(--text-color-2);
     --_supporting-text-color: var(--text-color-2);
 
-    contain: layout;
-    display: inline-grid;
+    display: grid;
     position: relative;
 
     /* Input/Select base */
-    & input,
-    & textarea,
-    & select {
+    :where(& input, & textarea, & select) {
       background-color: var(--_bg-color);
       block-size: var(--_height);
       border-radius: var(--field-border-radius);
@@ -3170,7 +3140,7 @@ Lists meant to be used stand-alone or as part of Select elements
       font-family: var(--font-sans);
       font-size: var(--font-size-1);
       grid-column: 1/-1;
-      grid-row: 1;
+      grid-row: 2;
       inline-size: 100%;
       line-height: var(--font-lineheight-1);
       min-inline-size: 0;
@@ -3295,6 +3265,7 @@ Lists meant to be used stand-alone or as part of Select elements
         appearance: none;
         background: none;
         block-size: var(--_height);
+        inline-size: var(--_height);
         overflow: hidden;
         padding: 0;
 
@@ -3305,20 +3276,6 @@ Lists meant to be used stand-alone or as part of Select elements
         &::-webkit-color-swatch-wrapper {
           padding: 0;
         }
-      }
-
-      .label {
-        border: 1px solid var(--field-border-color);
-        inline-size: fit-content;
-        margin-inline-start: var(--size-2);
-      }
-    }
-
-    /* Textarea */
-    &:has(textarea) {
-      .label {
-        align-self: start;
-        margin-block-start: var(--_field-padding-block);
       }
     }
 
@@ -3348,88 +3305,27 @@ Lists meant to be used stand-alone or as part of Select elements
 
     /* Label */
     .label {
-      align-self: center;
-      background-color: var(--_bg-color);
-      border-radius: var(--field-border-radius);
-      color: var(--_label-color);
-      border-radius: var(--radius-1);
-      display: inline-flex;
-      font-size: var(--font-size-md);
+      font-size: var(--font-size-sm);
       grid-column: 1/-1;
       grid-row: 1;
-      inline-size: calc(100% - (var(--field-border-width) * 2));
-      margin-inline-start: var(--field-border-width);
-      padding-inline: var(--_field-padding-inline);
-      pointer-events: none;
-      z-index: 1;
-
-      @media (prefers-reduced-motion: no-preference) {
-        transition: border-color 0.2s var(--ease-3),
-          font-size 0.2s var(--ease-3), inline-size 0.05s var(--ease-3),
-          margin 0.2s var(--ease-3), padding-inline 0.2s var(--ease-3);
-      }
-    }
-
-    /*
-  * Label transitions
-  * Triggered by:
-  * - focus
-  * - filled form fields (except color inputs)
-  * - non-empty select options
-  */
-    &:focus-within,
-    &:has(:where(input:not([type="color"]), textarea):not(:placeholder-shown)),
-    &:has(option[value=""]:not(:checked)),
-    &:has(option:checked:not([value=""])) {
-      .label {
-        border-color: transparent;
-        color: var(--_accent-color);
-        font-size: 0.75rem;
-        inline-size: max-content;
-        letter-spacing: 0.15px;
-        line-height: 1.15;
-        margin-block-start: -2.7rem;
-        margin-inline-start: var(--_field-padding-inline);
-        padding-inline: 0.125rem;
-      }
-
-      /* Neutral label color reset */
-      &:not(:focus-within):not(.error) {
-        .label {
-          color: var(--text-color-2);
-        }
-      }
-
-      &:has(textarea) {
-        .label {
-          margin-block-start: -0.35rem;
-        }
-
-        &.small {
-          .label {
-            align-self: start;
-            margin-block-start: var(--_field-padding-block);
-          }
-        }
-      }
     }
 
     /* Supporting text */
     .supporting-text {
       color: var(--_supporting-text-color);
       font-size: var(--font-size-xs);
+      grid-column: 1/-1;
       grid-row: 3;
       line-height: 1.5;
-      margin-inline-start: var(--field-border-width);
-      padding-inline: var(--_field-padding-inline);
-      z-index: 1;
     }
 
     /* Auto-fit */
     &.auto-fit {
       inline-size: auto;
+
       :where(& input, & textarea) {
         field-sizing: content;
+        inline-size: auto;
       }
     }
 
@@ -3458,7 +3354,6 @@ Lists meant to be used stand-alone or as part of Select elements
         border-block-end-color: var(--_filled-border-color);
         border-block-start-color: transparent;
         border-inline-color: transparent;
-        border-radius: 0;
       }
 
       & input[type="color"] {
@@ -3481,11 +3376,6 @@ Lists meant to be used stand-alone or as part of Select elements
         }
       }
 
-      /* Label */
-      .label {
-        background-color: var(--_bg-color);
-      }
-
       &:not(:has([disabled], :has(input[type="color"]))) {
         /* Hover */
         &:hover {
@@ -3493,47 +3383,6 @@ Lists meant to be used stand-alone or as part of Select elements
             oklch(from var(--surface-tonal) calc(l * 0.93) c h),
             oklch(from var(--surface-tonal) calc(l * 1.1) c h)
           );
-        }
-      }
-
-      /*
-    * Label transitions
-    * Triggered by:
-    * - focus
-    * - filled form fields (except color inputs)
-    * - non-empty select options
-    */
-      &:has(.label) {
-        &:focus-within,
-        &:has(
-            :where(input:not(:where([type="color"])), textarea):not(
-                :placeholder-shown
-              )
-          ),
-        &:has(option[value=""]:not(:checked)),
-        &:has(option:checked:not([value=""])) {
-          :where(input, textarea) {
-            padding-block: calc(var(--_field-padding-block) * 1.7)
-              calc(var(--_field-padding-block) * 0.3);
-          }
-
-          select > button,
-          select:not(:has(button)) {
-            padding-block: calc(var(--_field-padding-block) * 1.7)
-              calc(var(--_field-padding-block) * 0.3);
-          }
-
-          .label {
-            margin-block-start: calc(-1 * var(--size-5));
-            margin-inline-start: calc(var(--_field-padding-inline) / 2);
-            padding-inline: calc(var(--_field-padding-inline) / 2);
-          }
-
-          &:has(textarea) {
-            .label {
-              margin-block-start: var(--size-1);
-            }
-          }
         }
       }
 
@@ -3596,43 +3445,9 @@ Lists meant to be used stand-alone or as part of Select elements
           line-height: 1.5;
         }
       }
-
-      &:has(textarea) {
-        .label {
-          align-self: center;
-          margin-block-start: unset;
-        }
-      }
-
-      /*
-    * Label transitions
-    * Triggered by:
-    * - focus
-    * - filled form fields (except color inputs)
-    * - non-empty select options
-    */
-      &:focus-within,
-      &:has(
-          :where(input:not([type="color"]), textarea):not(:placeholder-shown)
-        ),
-      &:has(option[value=""]:not(:checked)),
-      &:has(option:checked:not([value=""])) {
-        .label {
-          margin-block-start: -2.2rem;
-          margin-inline-start: var(--size-1);
-          padding-inline: var(--size-1);
-        }
-
-        &:not(.filled):has(textarea) {
-          .label {
-            margin-block-start: -0.35rem;
-          }
-        }
-      }
     }
   }
 }
-
 @layer components.extended {
   :where(.field > select) {
     position: relative;
@@ -3752,7 +3567,6 @@ Lists meant to be used stand-alone or as part of Select elements
     /* Size */
     &.small {
       button {
-        padding-block: var(--size-1);
         padding-inline: var(--size-2) var(--size-7);
 
         &::after {
@@ -3781,7 +3595,7 @@ Lists meant to be used stand-alone or as part of Select elements
         display: inline-block;
         flex-shrink: 0;
         grid-column: 1/-1;
-        grid-row: 1;
+        grid-row: 2;
         inline-size: 0;
         inset-inline-end: var(--size-3);
         justify-self: end;
@@ -3796,7 +3610,6 @@ Lists meant to be used stand-alone or as part of Select elements
     appearance: base-select;
   }
 }
-
 @layer components.extended {
   :where(
       .field:has(
@@ -3854,7 +3667,6 @@ Lists meant to be used stand-alone or as part of Select elements
     }
   }
 }
-
 @layer components.extended {
   :where(.field:has(textarea)) {
     textarea {
@@ -3880,7 +3692,6 @@ Lists meant to be used stand-alone or as part of Select elements
     }
   }
 }
-
 @layer components.extended {
   @scope (.rich-text) to (.not-rich-text) {
     a {
@@ -4091,13 +3902,10 @@ Lists meant to be used stand-alone or as part of Select elements
     }
   }
 }
-
 /* Setup */
-
 /*
   theme one theme setup
 */
-
 @layer theme {
   .light {
     --color-scheme: light;
@@ -4109,8 +3917,8 @@ Lists meant to be used stand-alone or as part of Select elements
   :where(html) {
     color-scheme: var(--color-scheme, light dark);
 
-    --palette-hue: var(--oklch-teal);
-    --palette-hue-rotate-by: 5;
+    --palette-hue: var(--oklch-orange);
+    --palette-hue-rotate-by: 0;
     --palette-chroma: 0.89;
 
     /* Primary */
@@ -4129,7 +3937,6 @@ Lists meant to be used stand-alone or as part of Select elements
     --surface-default: light-dark(var(--gray-1), var(--gray-13));
     --surface-filled: light-dark(var(--gray-3), var(--gray-15));
     --surface-tonal: light-dark(var(--gray-3), var(--gray-12));
-    --surface-elevated: light-dark(var(--gray-1), var(--gray-12));
 
     /* Shadows */
     --shadow-color: light-dark(220 3% 15%, 220 40% 2%);
@@ -4155,23 +3962,18 @@ Lists meant to be used stand-alone or as part of Select elements
 
     /* Borders */
     --border-color: light-dark(var(--gray-4), var(--gray-12));
-    --border-radius: var(--size-1);
+    --border-radius: var(--size-2);
     --border-width: 1px;
 
     /* Input Field */
     --field-border-color: var(--border-color);
-    --field-border-radius: var(--size-1);
+    --field-border-radius: var(--size-2);
     --field-border-width: 1px;
     --field-size: 2.3lh;
     --field-size-small: 1.9lh;
 
     /* Button */
-    --button-border-radius: var(--radius-round);
-    /* Ripple effect */
-    @media (prefers-reduced-motion: no-preference) {
-      --button-ripple-size: 100%;
-      --button-ripple-duration: 0.5s;
-    }
+    --button-border-radius: var(--size-2);
   }
 
   /* Highlight colors */

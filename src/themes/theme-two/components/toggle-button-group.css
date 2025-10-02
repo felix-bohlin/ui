@@ -1,6 +1,6 @@
 @layer components.root {
   :where([role="group"].toggle-button-group) {
-    --_border-radius: var(--radius-round);
+    --_border-radius: var(--button-border-radius);
     --_button-padding-inline: clamp(var(--size-2), 3cqi, var(--size-4));
     --_max-width: auto;
     --_icon-size: var(--size-4);

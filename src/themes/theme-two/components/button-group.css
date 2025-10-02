@@ -32,36 +32,17 @@
       }
 
       /* Variants */
-      /*** Text & Elevated */
-      &:not(:where(.tonal, .filled, .outlined)) {
-        & + button {
-          border-inline-start: 1px solid var(--border-color);
-        }
-      }
-
       &:where(.tonal, .filled) {
         & + button {
           border-inline-start-color: var(--color-7);
         }
-      }
 
-      &:where(.tonal, .filled, .elevated) {
         & + &[disabled] {
           border-inline-start-color: color-mix(
             in oklch,
             var(--border-color) 90%,
             white
           );
-        }
-      }
-
-      &:where(.elevated) {
-        box-shadow: var(--shadow-1);
-
-        button {
-          &:not(:hover) {
-            box-shadow: none;
-          }
         }
       }
     }

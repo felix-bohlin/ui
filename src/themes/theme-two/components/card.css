@@ -31,18 +31,6 @@
       --_border-width: 1px;
     }
 
-    &.elevated {
-      --_bg-color: var(--surface-elevated);
-      --_border-color: transparent;
-      --_border-width: 0;
-      --_shadow: var(--shadow-3);
-
-      /* Adjust shadow in dark mode */
-      @container style(--color-scheme: dark) {
-        --_shadow: var(--shadow-4);
-      }
-    }
-
     &.outlined {
       --_bg-color: var(--surface-default);
       --_border-color: var(--border-color);

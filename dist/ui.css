@@ -580,76 +580,102 @@ When you visibly want to hide an element but make it accessible for screen reade
 }
 
 @layer components.root {
-  :where(nav.tabs) {
+  :where(.tab-buttons) {
     --_bg-color: transparent;
 
-    & > [role="tablist"] {
-      button {
-        outline-color: transparent;
-        outline-offset: -4px;
+    align-items: center;
+    display: flex;
 
-        &[aria-selected="true"] {
-          &:focus-visible {
-            outline: 2px solid var(--text-color-1);
-          }
+    label {
+      cursor: pointer;
+      outline-color: transparent;
+      outline-offset: -4px;
+
+      &:has(input:disabled) {
+        cursor: not-allowed;
+      }
+
+      &:has(input:focus-visible) {
+        outline: 2px solid var(--text-color-1);
+      }
+
+      input {
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+      }
+
+      /* Disabled */
+      &:has(input:disabled) {
+        color: oklch(from currentColor calc(l * 0.75) c h);
+
+        &:hover {
+          background-color: var(--_bg-color);
         }
       }
     }
 
     /* Underlined */
     &.underlined {
-      /* Tab list */
-      & > [role="tablist"] {
-        border-bottom: 1px solid var(--border-color);
+      --_accent-color: var(--color-8);
 
-        button {
-          --_ripple-color: light-dark(
-            color-mix(in oklch, var(--gray-2) 80%, var(--color-8)),
-            color-mix(in oklch, var(--gray-13) 80%, var(--color-8))
-          );
+      border-bottom: 1px solid var(--border-color);
 
-          background: var(--_bg-color) var(--ripple, none);
-          font-weight: 500;
-          line-height: var(--font-lineheight-4);
-          padding: var(--size-2) var(--size-3);
+      label {
+        --_ripple-color: light-dark(
+          color-mix(in oklch, var(--gray-2) 80%, var(--_accent-color)),
+          color-mix(in oklch, var(--gray-13) 80%, var(--_accent-color))
+        );
 
-          &:focus-visible {
-            border-radius: 0;
+        background: var(--_bg-color) var(--ripple, none);
+        font-weight: 500;
+        line-height: var(--font-lineheight-4);
+        padding: var(--size-2) var(--size-3);
+
+        &:focus-visible {
+          border-radius: 0;
+        }
+
+        /* Checked */
+        &:has(input:checked) {
+          border-block-end: 2px solid var(--_accent-color);
+          color: var(--_accent-color);
+        }
+
+        /* Disabled */
+        &:has(input:disabled) {
+          --_accent-color: oklch(from currentColor calc(l * 0.75) c h);
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+          transition:
+            background-color 0.2s var(--ease-out-3),
+            border-color 0.2s var(--ease-out-3),
+            color 0.2s var(--ease-out-3),
+            outline-offset 0.05s var(--ease-1);
+
+          /*** Ripple effect */
+          background-position: center;
+          transition: background var(--button-ripple-duration);
+          &:where(:has(:not(:disabled)):hover) {
+            --ripple: radial-gradient(
+                circle,
+                transparent 1%,
+                var(--_ripple-color) 1%
+              )
+              center/15000%;
           }
 
-          &[aria-selected="true"] {
-            border-block-end: 2px solid var(--primary);
-            color: var(--primary);
+          &:where(:hover:active) {
+            background-size: var(--button-ripple-size);
+            transition: background 0s;
           }
 
-          @media (prefers-reduced-motion: no-preference) {
-            transition: background-color 0.2s var(--ease-out-3),
-              border-color 0.2s var(--ease-out-3), color 0.2s var(--ease-out-3),
-              outline-offset 0.05s var(--ease-1);
-
-            /*** Ripple effect */
-            background-position: center;
-            transition: background var(--button-ripple-duration);
-            &:where(:not(:active):hover) {
-              --ripple: radial-gradient(
-                  circle,
-                  transparent 1%,
-                  var(--_ripple-color) 1%
-                )
-                center/15000%;
-            }
-
-            &:where(:hover:active) {
-              background-size: var(--button-ripple-size);
-              transition: background 0s;
-            }
-
-            &:hover {
-              background-color: light-dark(
-                oklch(from var(--primary) calc(l * 0.75) none h / 5%),
-                oklch(from var(--primary) calc(l * 1.25) none h / 5%)
-              );
-            }
+          &:hover {
+            background-color: light-dark(
+              oklch(from var(--primary) calc(l * 0.75) none h / 5%),
+              oklch(from var(--primary) calc(l * 1.25) none h / 5%)
+            );
           }
         }
       }
@@ -661,39 +687,46 @@ When you visibly want to hide an element but make it accessible for screen reade
       --_radius: var(--border-radius);
       --_selected-bg: var(--surface-filled);
 
-      & > [role="tablist"] {
-        background-color: var(--_bg-color);
-        border: var(--border-width) solid var(--border-color);
-        border-radius: var(--_radius);
-        overflow: hidden;
-        padding: 0.792ex;
-        width: fit-content;
+      background-color: var(--_bg-color);
+      border: var(--border-width) solid var(--border-color);
+      border-radius: var(--_radius);
+      overflow: hidden;
+      padding: 0.792ex;
+      width: fit-content;
 
-        button {
-          background-color: var(--_bg-color);
-          border-radius: var(--_radius);
-          line-height: var(--font-lineheight-4);
-          padding-inline: var(--size-3);
+      label {
+        background-color: var(--_bg-color);
+        border-radius: var(--_radius);
+        line-height: var(--font-lineheight-2);
+        padding-block: var(--size-1);
+        padding-inline: var(--size-3);
+
+        &:hover {
+          background-color: oklch(from var(--_bg-color) calc(l * 1.25) c h);
+        }
+
+        /* Checked */
+        &:has(input:checked) {
+          background-color: var(--_selected-bg);
 
           &:hover {
-            background-color: oklch(from var(--_bg-color) calc(l * 1.25) c h);
+            background-color: oklch(
+              from var(--_selected-bg) calc(l * 1.25) c h
+            );
           }
 
-          &[aria-selected="true"] {
-            background-color: var(--_selected-bg);
-
-            &:hover {
-              background-color: oklch(
-                from var(--_selected-bg) calc(l * 1.25) c h
-              );
-            }
+          /* Checked & disabled */
+          &:has(input:disabled) {
+            background-color: oklch(from var(--_bg-color) calc(l * 0.75) c h);
           }
+        }
 
-          @media (prefers-reduced-motion: no-preference) {
-            transition: background-color 0.2s var(--ease-out-3),
-              border-color 0.2s var(--ease-out-3), color 0.2s var(--ease-out-3),
-              outline-offset 0.05s var(--ease-1);
-          }
+        @media (prefers-reduced-motion: no-preference) {
+          transition:
+            background-color 0.2s var(--ease-out-3),
+            border-color 0.2s var(--ease-out-3),
+            color 0.2s var(--ease-out-3),
+            outline-offset 0.05s var(--ease-1);
         }
       }
     }

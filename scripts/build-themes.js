@@ -46,8 +46,7 @@ function buildTheme(theme, inputFile, outputFile) {
 
 function buildAllThemes() {
   themes.forEach((theme) => {
-    buildTheme(theme, "theme.css", `${theme}.css`)
-    buildTheme(theme, "theme+op.css", `${theme}+op.css`)
+    buildTheme(theme, "imports.css", `${theme}.css`)
   })
 }
 
@@ -62,23 +61,15 @@ if (isWatch) {
 
   themes.forEach((theme) => {
     const themeDir = path.join(themesDir, theme)
-    const themeCssPath = path.join(themeDir, "theme.css")
-    const themeOpCssPath = path.join(themeDir, "theme+op.css")
+    const importsCssPath = path.join(themeDir, "imports.css")
 
-    ;[themeCssPath, themeOpCssPath].forEach((filePath) => {
-      if (fs.existsSync(filePath)) {
-        const fileName = path.basename(filePath)
-        const watcher = fs.watchFile(filePath, { interval: 1000 }, () => {
-          console.log(`\nDetected change in ${theme}/${fileName}`)
-          if (fileName === "theme.css") {
-            buildTheme(theme, "theme.css", `${theme}.css`)
-          } else if (fileName === "theme+op.css") {
-            buildTheme(theme, "theme+op.css", `${theme}+op.css`)
-          }
-        })
-        watchedFiles.set(filePath, watcher)
-      }
-    })
+    if (fs.existsSync(importsCssPath)) {
+      const watcher = fs.watchFile(importsCssPath, { interval: 1000 }, () => {
+        console.log(`\nDetected change in ${theme}/imports.css`)
+        buildTheme(theme, "imports.css", `${theme}.css`)
+      })
+      watchedFiles.set(importsCssPath, watcher)
+    }
   })
 
   console.log("\nWatching for changes... Press Ctrl+C to stop.")

@@ -69,17 +69,4 @@
 	--font-lineheight-5: 2;
 }}
 @layer openprops{
-:where(:root) {
-	--oklch-red: 25;
-	--oklch-pink: 350;
-	--oklch-purple: 310;
-	--oklch-violet: 290;
-	--oklch-indigo: 270;
-	--oklch-blue: 240;
-	--oklch-cyan: 210;
-	--oklch-teal: 185;
-	--oklch-green: 145;
-	--oklch-lime: 125;
-	--oklch-yellow: 100;
-	--oklch-orange: 75;
-}}
+:where(:root){--oklch-red:25;--oklch-pink:350;--oklch-purple:310;--oklch-violet:290;--oklch-indigo:270;--oklch-blue:240;--oklch-cyan:210;--oklch-teal:185;--oklch-green:145;--oklch-lime:125;--oklch-yellow:100;--oklch-orange:75}}

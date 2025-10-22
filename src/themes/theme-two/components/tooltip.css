@@ -1,0 +1,94 @@
+@layer components.root {
+  :where(.tooltip) {
+    background-color: var(--surface-tonal);
+    border-radius: var(--radius-2);
+    font-size: var(--font-size-xs);
+    margin: var(--size-1);
+    opacity: 1;
+    padding: 0 var(--size-2);
+    position: absolute;
+    position-area: block-start;
+    position-try-fallbacks: flip-block;
+    /* position-try-order: most-height; */
+    view-transition-name: vt-tooltip;
+    z-index: 1;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:where([class^="top"], [class^="bottom"]) {
+      background-color: red;
+      position-try-order: most-height;
+    }
+
+    &:where([class^="left"], [class^="right"]) {
+      background-color: red;
+      position-try-order: most-width;
+    }
+
+    &.top {
+      position-area: block-start;
+    }
+    &.top-start {
+      position-area: block-start span-inline-start;
+    }
+    &.top-end {
+      position-area: block-start span-inline-end;
+    }
+    &.right {
+      position-area: inline-end;
+    }
+    &.right-start {
+      position-area: inline-end span-block-start;
+    }
+    &.right-end {
+      position-area: inline-end span-block-end;
+    }
+    &.bottom {
+      position-area: block-end;
+    }
+    &.bottom-start {
+      position-area: block-end span-inline-start;
+    }
+    &.bottom-end {
+      position-area: block-end span-inline-end;
+    }
+    &.left {
+      position-area: inline-start;
+    }
+    &.left-start {
+      position-area: inline-start span-block-start;
+    }
+    &.left-end {
+      position-area: inline-start span-block-end;
+    }
+
+    /* Swap it around for rtl */
+    :dir(rtl) {
+      &.right {
+        position-area: inline-start;
+      }
+      &.right-start {
+        position-area: inline-start span-block-start;
+      }
+      &.right-end {
+        position-area: inline-start span-block-end;
+      }
+      &.left {
+        position-area: inline-end;
+      }
+      &.left-start {
+        position-area: inline-end span-block-start;
+      }
+      &.left-end {
+        position-area: inline-end span-block-end;
+      }
+    }
+  }
+
+  ::view-transition-old(vt-tooltip),
+  ::view-transition-new(vt-tooltip) {
+    height: 100%;
+  }
+}

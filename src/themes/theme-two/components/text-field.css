@@ -1,0 +1,57 @@
+@layer components.extended {
+  :where(
+      .field:has(
+          :where(
+              input[type="date"],
+              input[type="datetime-local"],
+              input[type="email"],
+              input[type="month"],
+              input[type="number"],
+              input[type="password"],
+              input[type="search"],
+              input[type="tel"],
+              input[type="text"],
+              input[type="time"],
+              input[type="url"],
+              input[type="week"]
+            )
+        )
+    ) {
+    /* Sizes */
+    &.small {
+      input {
+        padding-inline: var(--size-2);
+      }
+    }
+  }
+
+  /* Autosuggest */
+  :where(.field:has(input[list])) {
+    /* Hide native arrow */
+    input::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      position: absolute;
+      cursor: pointer;
+      pointer-events: none;
+    }
+  }
+  :where(
+      .field:has(input[list]:placeholder-shown),
+      .field:has(input[list]):where(:focus-within, :hover)
+    ) {
+    /* Arrow */
+    &::after {
+      block-size: 0;
+      border-block-start: 5px solid;
+      border-inline: 5px solid transparent;
+      content: "";
+      display: inline-block;
+      flex-shrink: 0;
+      inline-size: 0;
+      inset: 50% var(--size-3) auto auto;
+      pointer-events: none;
+      position: absolute;
+      translate: 0 -50%;
+    }
+  }
+}

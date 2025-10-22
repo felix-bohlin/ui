@@ -1,0 +1,281 @@
+@layer components.extended {
+  /*
+- Common styling for input, textarea and select
+- Form related styles such as: label, supporting text, error handling
+*/
+  :where(.field) {
+    --_accent-color: var(--primary);
+    --_bg-color: var(--surface-default);
+    --_border-color: var(--field-border-color);
+    --_field-padding-block: 0.75rem;
+    --_field-padding-inline: var(--size-2);
+    --_filled-border-color: var(--text-color-1);
+    --_height: var(--field-size);
+    --_label-color: var(--text-color-2);
+    --_supporting-text-color: var(--text-color-2);
+
+    display: grid;
+    position: relative;
+
+    /* Input/Select base */
+    :where(& input, & textarea, & select) {
+      background-color: var(--_bg-color);
+      block-size: var(--_height);
+      border-radius: var(--field-border-radius);
+      border: var(--field-border-width) solid var(--_border-color);
+      color: var(--text-color-1);
+      font-family: var(--font-sans);
+      font-size: var(--font-size-1);
+      grid-column: 1/-1;
+      grid-row: 2;
+      inline-size: 100%;
+      line-height: var(--font-lineheight-1);
+      min-inline-size: 0;
+      padding: var(--_field-padding-block) var(--_field-padding-inline);
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+          padding-block 0.2s var(--ease-3);
+      }
+    }
+
+    /* Required/Invalid */
+    &:has(
+        :not(:placeholder-shown):invalid,
+        :where(
+            :placeholder-shown,
+            option[value=""]:not(:checked),
+            option:checked:not([value=""])
+          ):required
+      ) {
+      .label:after {
+        color: var(--red);
+        content: "*";
+        margin: -0.25em auto auto 0.25em;
+      }
+    }
+
+    /* File */
+    &:has(input[type="file"]) {
+      cursor: pointer;
+
+      input {
+        align-self: flex-start;
+        block-size: var(--_height);
+        box-shadow: none;
+        color: var(--text-color-1);
+        cursor: inherit;
+        max-inline-size: 100%;
+        padding: 0;
+        transition: font-size 0.2s var(--ease-3);
+
+        &::-webkit-file-upload-button,
+        &::file-selector-button {
+          background-color: var(--surface-tonal);
+          border: none;
+          block-size: calc(100% - var(--size-2) * 2);
+          border-radius: var(--field-border-radius);
+          cursor: pointer;
+          margin-inline-end: 1ex;
+          margin-block-start: var(--size-2);
+          margin-inline-start: var(--size-2);
+        }
+      }
+
+      /* Variants */
+      &.filled {
+        input {
+          &::-webkit-file-upload-button,
+          &::file-selector-button {
+            background-color: var(--surface-default);
+            block-size: calc(100% - var(--size-2) * 2);
+            border-radius: var(--field-border-radius);
+            cursor: pointer;
+            margin-block-start: var(--size-2);
+          }
+        }
+      }
+
+      /* Sizes */
+      &.small {
+        input {
+          font-size: var(--font-size-sm);
+          &::-webkit-file-upload-button,
+          &::file-selector-button {
+            block-size: calc(100% - var(--size-2));
+            margin-block-start: var(--size-1);
+          }
+        }
+      }
+    }
+
+    /* Autosuggest */
+    &:has(input[list]) {
+      .label {
+        /* Make sure chevron is visible */
+        inline-size: calc(100% - var(--size-6));
+      }
+    }
+
+    /* Select */
+    &:has(select) {
+      .label {
+        /* Make sure chevron is visible */
+        inline-size: calc(100% - var(--size-6));
+      }
+    }
+
+    /* Experimental Select */
+    &:has(select button) {
+      select {
+        padding: 0;
+
+        button {
+          outline: 0;
+          padding: var(--_field-padding-block) var(--size-8)
+            var(--_field-padding-block) var(--_field-padding-inline);
+        }
+      }
+    }
+
+    /* Non-experimental Select */
+    &:has(select):not(:has(button)) {
+      select {
+        padding: var(--_field-padding-block) var(--size-8)
+          var(--_field-padding-block) var(--_field-padding-inline);
+      }
+    }
+
+    /* Input - color */
+    &:has(input[type="color"]) {
+      input {
+        appearance: none;
+        background: none;
+        block-size: var(--_height);
+        inline-size: var(--_height);
+        overflow: hidden;
+        padding: 0;
+
+        &::-webkit-color-swatch {
+          border: none;
+        }
+
+        &::-webkit-color-swatch-wrapper {
+          padding: 0;
+        }
+      }
+    }
+
+    /* Element states */
+    &:hover {
+      &:not(.error) {
+        :where(input, textarea, select) {
+          --_border-color: var(--text-color-1);
+        }
+      }
+    }
+
+    &:focus-within {
+      & input,
+      & textarea,
+      & select {
+        border-color: var(--_accent-color);
+        outline-offset: -2px;
+        outline: 2px solid var(--_accent-color);
+      }
+    }
+
+    /* Label */
+    .label {
+      font-size: var(--font-size-sm);
+      grid-column: 1/-1;
+      grid-row: 1;
+    }
+
+    /* Supporting text */
+    .supporting-text {
+      color: var(--_supporting-text-color);
+      font-size: var(--font-size-xs);
+      grid-column: 1/-1;
+      grid-row: 3;
+      line-height: 1.5;
+    }
+
+    /* Auto-fit */
+    &.auto-fit {
+      inline-size: auto;
+
+      :where(& input, & textarea) {
+        field-sizing: content;
+        inline-size: auto;
+      }
+    }
+
+    /* Validation */
+    &.error {
+      --_accent-color: var(--color-9);
+      --_border-color: var(--color-9);
+      --_filled-border-color: var(--color-9);
+      --_label-color: var(--color-9);
+      --_supporting-text-color: var(--color-9);
+    }
+
+    /*
+  * Variant: Filled
+  */
+    &.filled {
+      --_bg-color: var(--surface-tonal);
+
+      &:not(:has([disabled], :has(input[type="color"]))) {
+        /* Hover */
+        &:hover {
+          --_bg-color: light-dark(
+            oklch(from var(--surface-tonal) calc(l * 0.93) c h),
+            oklch(from var(--surface-tonal) calc(l * 1.1) c h)
+          );
+        }
+      }
+    }
+
+    /* Disabled */
+    &:where(:has([disabled])) {
+      &::before {
+        display: none;
+      }
+      :where(input, textarea, select) {
+        cursor: not-allowed;
+        opacity: 0.7;
+
+        * {
+          pointer-events: none;
+        }
+      }
+    }
+
+    /* Read-only */
+    &:where(:has([readonly])) {
+      &::before {
+        display: none;
+      }
+      :where(input, textarea, select) {
+        cursor: not-allowed;
+
+        * {
+          pointer-events: none;
+        }
+      }
+    }
+
+    /* Sizes */
+    &.small {
+      --_field-padding-block: var(--size-2);
+      --_height: var(--field-size-small);
+
+      &:has(input[type="color"]) {
+        .label {
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+}

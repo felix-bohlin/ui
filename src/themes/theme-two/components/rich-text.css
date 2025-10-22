@@ -1,0 +1,210 @@
+@layer components.extended {
+  @scope (.rich-text) to (.not-rich-text) {
+    a {
+      color: var(--primary);
+      cursor: pointer;
+      font-size: inherit;
+      font-weight: 700;
+      line-height: inherit;
+      text-decoration: underline;
+      text-decoration-color: var(--primary);
+      text-underline-offset: 2px;
+
+      &[href] {
+        &:hover,
+        &:focus-visible {
+          color: var(--primary-light);
+        }
+      }
+    }
+
+    /* Blockquote */
+    blockquote {
+      font-size: inherit;
+      line-height: inherit;
+      :first-child {
+        margin-block-start: 0;
+      }
+
+      :last-child {
+        margin-block-end: 0;
+      }
+    }
+
+    /* Text */
+    p {
+      font-size: inherit;
+      line-height: inherit;
+      margin-block: 1.25em;
+    }
+
+    :is(h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6) {
+      color: var(--text-color-1);
+
+      & + *:not(&) {
+        margin-block-start: 0;
+      }
+    }
+
+    h1,
+    .h1 {
+      font-size: var(--font-size-h1, var(--font-size-7));
+      letter-spacing: -0.02em;
+      line-height: 1.1111111;
+      margin-block: 0 0.8888889em;
+    }
+
+    h2,
+    .h2 {
+      font-size: var(--font-size-h2, var(--font-size-5, 2rem));
+      letter-spacing: -0.02em;
+      line-height: 1.3333333;
+      margin-block: 2em 1em;
+    }
+
+    h3,
+    .h3 {
+      font-size: var(--font-size-h3, var(--font-size-4, 1.5rem));
+      letter-spacing: -0.01em;
+      line-height: 1.6;
+      margin-block: 1.6em 0.6em;
+    }
+
+    h4,
+    .h4 {
+      font-size: var(--font-size-h4, var(--font-size-3, 1.25rem));
+      letter-spacing: -0.01em;
+      line-height: 1.5;
+      margin-block: 1.5em 0.5em;
+    }
+
+    h5,
+    .h5 {
+      font-size: var(--font-size-h5, var(--font-size-2, 1.1rem));
+      line-height: 1;
+      margin-block: 0 var(--size-1);
+    }
+
+    h6,
+    .h6 {
+      font-size: var(--font-size-h6, var(--font-size-1, 1rem));
+      line-height: 1;
+      margin-block: 0 var(--size-1);
+    }
+
+    /** Overline */
+    :where(.overline, hgroup > :where(p, .p):first-of-type:first-child) {
+      color: light-dark(
+        oklch(from var(--text-color-2) calc(l * 1.25) c h),
+        oklch(from var(--text-color-2) calc(l * 0.75) c h)
+      );
+      font-size: var(--font-size-xs);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      line-height: 2.5;
+      text-transform: uppercase;
+    }
+
+    hgroup {
+      & > p {
+        margin: 0;
+      }
+
+      & > :where(h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6) {
+        margin-block-end: 0.4em;
+      }
+
+      & + * {
+        margin-block-start: 3em;
+      }
+
+      /* The second p element */
+      & > :where(p, .p):last-of-type:last-child:not(:first-child) {
+        color: oklch(from currentColor l c h / 75%);
+        font-size: var(--font-size-lg);
+        line-height: 1.6;
+      }
+    }
+
+    /* Lists */
+    ul:not([class]) {
+      list-style-type: disc;
+    }
+
+    ol:not([class]) {
+      list-style-type: decimal;
+    }
+
+    :where(ul, ol):not([class]) {
+      display: grid;
+      font-size: inherit;
+      gap: 0.5em;
+      line-height: inherit;
+      margin-block-start: 1.25em;
+      margin-block-end: 1.25em;
+      padding-inline-start: 1.625em;
+
+      li {
+        padding-inline-start: 0.375em;
+      }
+    }
+
+    /* Nested lists */
+    :where(ul ul),
+    :where(ul ol),
+    :where(ol ul),
+    :where(ol ol) {
+      margin-block-start: 0.75em;
+      margin-block-end: 0.75em;
+    }
+
+    /* Description lists */
+    :where(dl) {
+      font-size: inherit;
+      line-height: inherit;
+      margin-block-start: 1.25em;
+      margin-block-end: 1.25em;
+
+      dt {
+        margin-block-start: 1.25em;
+      }
+
+      dd {
+        margin-block-start: 0.5em;
+        padding-inline-start: 1.625em;
+      }
+    }
+
+    /* Figures */
+    figure {
+      margin-block: 2em;
+
+      & > * {
+        margin-block: 0;
+      }
+
+      & figcaption {
+        font-size: 0.875em;
+        line-height: 1.4285714;
+        margin-block-start: 0.8571429em;
+      }
+    }
+
+    /* Remove top margin from first child */
+    & > :first-child {
+      margin-block-start: 0;
+    }
+
+    /* Remove bottom margin from last child */
+    & > :last-child {
+      margin-block-end: 0;
+    }
+
+    /* Horizontal rules */
+    hr {
+      & + * {
+        margin-block-start: 0;
+      }
+    }
+  }
+}

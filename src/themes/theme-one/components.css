@@ -1,0 +1,37 @@
+/*
+* Components are divided into two categories - if they are stand-alone (root) or if they are built on top of others (extended).
+*/
+
+/*** Root components (no dependencies)  */
+@import "./components/button.css";
+@import "./components/icon-button.css";
+@import "./components/tab-buttons.css";
+@import "./components/toggle-button-group.css";
+@import "./components/avatar.css";
+@import "./components/badge.css";
+@import "./components/card.css";
+@import "./components/chip.css";
+@import "./components/definition-list.css";
+@import "./components/divider.css";
+@import "./components/link.css";
+@import "./components/table.css";
+@import "./components/progress.css";
+@import "./components/spinner.css";
+@import "./components/checkbox-radio.css";
+@import "./components/switch.css";
+@import "./components/range.css";
+@import "./components/typography.css";
+
+/*** Extended components (has dependencies) */
+@import "./components/button-group.css";
+@import "./components/accordion.css";
+@import "./components/list.css";
+@import "./components/alert.css";
+@import "./components/dialog.css";
+@import "./components/snackbar.css";
+@import "./components/field-group.css";
+@import "./components/field.css";
+@import "./components/select.css";
+@import "./components/text-field.css";
+@import "./components/textarea.css";
+@import "./components/rich-text.css";

@@ -7,4 +7,4 @@
 @import "open-props/index.css" layer(openprops);
 @import "open-props/css/sizes/media.css" layer(openprops);
 @import "open-props/css/font/lineheight.css" layer(openprops);
-@import "open-props/css/color/hues.oklch.css" layer(openprops);
+@import "open-props/hues.oklch.css" layer(openprops);

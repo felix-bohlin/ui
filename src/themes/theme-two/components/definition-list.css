@@ -52,12 +52,15 @@
         }
 
         .term {
+          inline-size: max-content;
+
           &::after {
             display: inline-block;
           }
         }
         .description {
           color: var(--text-color-2);
+          text-align: end;
         }
       }
     }

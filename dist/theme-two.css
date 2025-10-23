@@ -1572,14 +1572,6 @@
       }
     }
 
-    /* Sticky header */
-    &.sticky-header thead {
-      background-color: var(--surface-filled);
-      position: sticky;
-      inset-block-start: 0;
-      z-index: 1;
-    }
-
     /* Dense */
     &.dense {
       th,

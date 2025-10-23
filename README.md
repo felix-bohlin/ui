@@ -42,7 +42,4 @@ pnpm clean
 
 ### Theme Building
 
-The build system automatically processes all themes in the `src/themes/` folder. For each theme folder (ex: `chad-zn`, `theme-one`), it:
-
-1. Bundles `theme.css` → `dist/{theme-name}.css`
-2. Bundles `theme+op.css` → `dist/{theme-name}+op.css`
+The build system automatically processes all themes in the `src/themes/` folder out to `/dist`.

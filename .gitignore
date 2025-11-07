@@ -20,3 +20,7 @@ node_modules
 
 # npm pack artifacts
 *.tgz
+
+*storybook.log
+docs/.vitepress/dist
+docs/.vitepress/cache

@@ -1,0 +1,63 @@
+@layer vitepress.base {
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    :before,
+    ::after {
+      animation-delay: -1ms !important;
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      background-attachment: initial !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0s !important;
+      transition-delay: 0s !important;
+    }
+  }
+
+  /* *,
+  :before,
+  ::after {
+    box-sizing: border-box;
+  } */
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  main {
+    display: block;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    line-height: var(--font-lineheight-3);
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  pre,
+  code,
+  kbd,
+  samp {
+    font-family: var(--font-mono);
+  }
+
+  vite-error-overlay {
+    z-index: 9999;
+  }
+
+  mjx-container {
+    overflow-x: auto;
+  }
+
+  mjx-container > svg {
+    display: inline-block;
+    margin: auto;
+  }
+}

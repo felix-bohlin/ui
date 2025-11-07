@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 
-const fs = require("fs")
-const path = require("path")
-const { execSync, spawn } = require("child_process")
+import fs from "fs"
+import path from "path"
+import { execSync, spawn } from "child_process"
+import { fileURLToPath } from "url"
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const themesDir = path.join(__dirname, "..", "src", "themes")
 const distDir = path.join(__dirname, "..", "dist")

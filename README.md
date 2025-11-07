@@ -43,3 +43,9 @@ pnpm clean
 ### Theme Building
 
 The build system automatically processes all themes in the `src/themes/` folder out to `/dist`.
+
+## Documentation
+
+```
+pnpm docs:dev
+```

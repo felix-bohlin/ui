@@ -8,6 +8,7 @@ Lists meant to be used stand-alone or as part of Select elements
 */
   :where(.list) {
     --_bg-color: light-dark(var(--gray-1), var(--gray-15));
+    --_bg-color-hover: light-dark(var(--gray-2), var(--gray-14));
 
     background-color: var(--_bg-color);
     list-style: none;
@@ -146,7 +147,7 @@ Lists meant to be used stand-alone or as part of Select elements
         z-index: 0;
 
         &:hover {
-          background-color: light-dark(var(--gray-2), var(--gray-14));
+          background-color: var(--_bg-color-hover);
         }
 
         &:checked {
@@ -186,7 +187,7 @@ Lists meant to be used stand-alone or as part of Select elements
         }
 
         &:hover {
-          background-color: light-dark(var(--gray-2), var(--gray-14));
+          background-color: var(--_bg-color-hover);
         }
 
         /*** Remove ripple effect when trailing button is clicked */

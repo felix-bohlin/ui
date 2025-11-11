@@ -29,7 +29,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@docsearch/css": "^3.9.0",
+    "@docsearch/css": "^4.3.2",
     "@docsearch/js": "^3.9.0",
     "@shikijs/core": "^3.10.0",
     "@shikijs/transformers": "^3.10.0",

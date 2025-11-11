@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@docsearch/css": "^4.3.2",
-    "@docsearch/js": "^3.9.0",
+    "@docsearch/js": "^4.3.2",
     "@shikijs/core": "^3.10.0",
     "@shikijs/transformers": "^3.10.0",
     "@types/markdown-it": "^14.1.2",

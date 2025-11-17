@@ -48,7 +48,7 @@
     "vue": "^3.5.18"
   },
   "devDependencies": {
-    "@types/node": "^24.3.0",
+    "@types/node": "^24.10.1",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
     "nodemon": "^3.1.10",

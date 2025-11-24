@@ -45,7 +45,7 @@
     "minisearch": "^7.1.2",
     "opui-blocks": "^0.2.0",
     "shiki": "^3.10.0",
-    "vue": "^3.5.18"
+    "vue": "^3.5.25"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",

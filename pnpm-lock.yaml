@@ -30,8 +30,8 @@ importers:
         specifier: ^8.0.3
         version: 8.0.3
       '@vue/shared':
-        specifier: ^3.5.18
-        version: 3.5.24
+        specifier: ^3.5.25
+        version: 3.5.25
       '@vueuse/core':
         specifier: ^14.0.0
         version: 14.0.0(vue@3.5.24(typescript@5.9.3))
@@ -846,6 +846,9 @@ packages:
 
   '@vue/shared@3.5.24':
     resolution: {integrity: sha512-9cwHL2EsJBdi8NY22pngYYWzkTDhld6fAD6jlaeloNGciNSJL6bLpbxVgXl96X00Jtc6YWQv96YA/0sxex/k1A==}
+
+  '@vue/shared@3.5.25':
+    resolution: {integrity: sha512-AbOPdQQnAnzs58H2FrrDxYj/TJfmeS2jdfEEhgiKINy+bnOANmVizIEgq1r+C5zsbs6l1CCQxtcj71rwNQ4jWg==}
 
   '@vueuse/core@12.8.2':
     resolution: {integrity: sha512-HbvCmZdzAu3VGi/pWYm5Ut+Kd9mn1ZHnn4L5G8kOQTPs/IwIAmJoBrmYk2ckLArgMXZj0AW3n5CAejLUO+PhdQ==}
@@ -2396,7 +2399,7 @@ snapshots:
     dependencies:
       '@volar/language-core': 2.4.23
       '@vue/compiler-dom': 3.5.24
-      '@vue/shared': 3.5.24
+      '@vue/shared': 3.5.25
       alien-signals: 3.1.0
       muggle-string: 0.4.1
       path-browserify: 1.0.1
@@ -2427,6 +2430,8 @@ snapshots:
       vue: 3.5.24(typescript@5.9.3)
 
   '@vue/shared@3.5.24': {}
+
+  '@vue/shared@3.5.25': {}
 
   '@vueuse/core@12.8.2(typescript@5.9.3)':
     dependencies:
@@ -3278,7 +3283,7 @@ snapshots:
       '@types/markdown-it': 14.1.2
       '@vitejs/plugin-vue': 5.2.4(vite@5.4.21(@types/node@24.10.1))(vue@3.5.24(typescript@5.9.3))
       '@vue/devtools-api': 7.7.7
-      '@vue/shared': 3.5.24
+      '@vue/shared': 3.5.25
       '@vueuse/core': 12.8.2(typescript@5.9.3)
       '@vueuse/integrations': 12.8.2(focus-trap@7.6.6)(typescript@5.9.3)
       focus-trap: 7.6.6

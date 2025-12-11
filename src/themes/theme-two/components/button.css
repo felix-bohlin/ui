@@ -33,9 +33,12 @@
     }
 
     @media (prefers-reduced-motion: no-preference) {
-      transition: background-color 0.2s var(--ease-out-3),
-        box-shadow 0.2s var(--ease-out-3), border-color 0.2s var(--ease-out-3),
-        color 0.2s var(--ease-out-3), outline-offset 0.05s var(--ease-1);
+      transition:
+        background-color 0.2s var(--ease-out-3),
+        box-shadow 0.2s var(--ease-out-3),
+        border-color 0.2s var(--ease-out-3),
+        color 0.2s var(--ease-out-3),
+        outline-offset 0.05s var(--ease-1);
 
       /* Ripple effect */
       background-position: center;
@@ -89,6 +92,15 @@
         max-block-size: 0.7lh;
         color: currentColor;
       }
+    }
+
+    /* Keyboard input */
+    :is(kbd) {
+      background-color: inherit;
+      border-color: currentColor;
+      color: inherit;
+      font-size: 0.85em;
+      line-height: 1.2;
     }
 
     /* Sizes */

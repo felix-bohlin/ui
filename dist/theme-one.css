@@ -1972,8 +1972,8 @@
         &::before {
           background-color: var(--_accent-color);
           border-color: var(--_accent-color);
-          transition: background-color var(--_transition-time)
-              var(--_transition-tf),
+          transition:
+            background-color var(--_transition-time) var(--_transition-tf),
             border-color var(--_transition-time) var(--_transition-tf);
         }
 
@@ -1992,8 +1992,8 @@
       @media (prefers-reduced-motion: no-preference) {
         /* Track */
         &::before {
-          transition: background-color var(--_transition-time)
-              var(--_transition-tf),
+          transition:
+            background-color var(--_transition-time) var(--_transition-tf),
             border-color var(--_transition-time) var(--_transition-tf);
         }
 
@@ -2010,6 +2010,42 @@
           &:active:after {
             --_dot-outline-size: calc(var(--size-1) + 1px);
           }
+        }
+      }
+    }
+
+    /* Icons */
+    &:has(.icon-checked, .icon-unchecked) {
+      [role="switch"] {
+        grid-column: 1 / -1;
+        grid-row: 1;
+      }
+
+      &:has([role="switch"]:checked) {
+        .icon-unchecked {
+          display: none;
+        }
+        .icon-checked {
+          display: block;
+        }
+      }
+
+      .icon-checked {
+        display: none;
+      }
+
+      svg {
+        grid-column: 1;
+        grid-row: 1;
+        inline-size: var(--_dot-size);
+        margin-inline-start: calc(
+          var(--_track-width) - var(--_dot-size) - var(--size-1)
+        );
+        pointer-events: none;
+        z-index: 1;
+
+        &.icon-checked {
+          margin-inline-start: var(--size-1);
         }
       }
     }

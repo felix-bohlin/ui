@@ -1,216 +1,19 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            --_dot-outline-size: calc(var(--size-1) + 1px);
-            background-color var(--_transition-time) var(--_transition-tf),
-            background-color var(--_transition-time) var(--_transition-tf),
-            border-color var(--_transition-time) var(--_transition-tf);
-            border-color var(--_transition-time) var(--_transition-tf);
-            var(--_track-width) - var(--_dot-size) - var(--size-1)
-          --_dot-bg-color: var(--_accent-contrast);
-          --_dot-outline-size: calc(var(--size-1) - 1px);
-          --_dot-outline-size: calc(var(--size-1) + 1px);
-          );
-          }
-          &:active:after {
-          background-color: var(--_accent-color);
-          border-color: var(--_accent-color);
-          display: block;
-          display: none;
-          inset-inline-start: calc(
-          margin-inline-start: var(--size-1);
-          transition:
-          transition:
-          transition: all var(--_transition-time) var(--_transition-tf);
-          var(--_track-width) - var(--_dot-size) - var(--size-1)
-        .icon-checked {
-        .icon-unchecked {
-        );
-        }
-        }
-        }
-        }
-        }
-        }
-        }
-        }
-        }
-        /* Dot */
-        /* Dot */
-        /* Track */
-        &::after {
-        &::after {
-        &::before {
-        &::before {
-        &:active:after {
-        &:checked {
-        &.icon-checked {
-        background-color: var(--_dot-bg-color);
-        background-color: var(--_track-bg-color);
-        block-size: var(--_dot-size);
-        block-size: var(--_track-height);
-        border-radius: 100vmax;
-        border-radius: 100vmax;
-        border-radius: var(--radius-round);
-        border: 1px solid var(--_dot-bg-color);
-        color: var(--color-9);
-        color: var(--red);
-        content: "";
-        content: "";
-        content: "*";
-        cursor: not-allowed;
-        display: none;
-        grid-column: 1 / -1;
-        grid-column: 1;
-        grid-column: 1/-1;
-        grid-column: 1/-1;
-        grid-row: 1;
-        grid-row: 1;
-        grid-row: 2;
-        grid-row: 3;
-        inline-size: var(--_dot-size);
-        inline-size: var(--_dot-size);
-        inline-size: var(--_track-width);
-        inset: 0 -0.25ex auto auto;
-        inset: 0;
-        inset: var(--_dot-inset);
-        margin-block-start: var(--size-1);
-        margin-inline-start: calc(
-        outline-offset: -1px;
-        outline-offset: 2px;
-        outline: 2px solid currentColor;
-        outline: 2px solid var(--color-9);
-        outline: var(--_dot-outline-size) solid var(--_dot-bg-color);
-        padding-inline: 1ex;
-        pointer-events: none;
-        position: absolute;
-        position: absolute;
-        position: absolute;
-        z-index: 1;
-      --_dot-size: 0.75rem;
-      --_track-height: var(--size-4);
-      --_track-width: 2.5rem;
-      .icon-checked {
-      .label {
-      .label,
-      .label:after {
-      .supporting-text {
-      .supporting-text {
-      [role="switch"] {
-      }
-      }
-      }
-      }
-      }
-      }
-      }
-      }
-      }
-      }
-      }
-      }
-      }
-      }
-      }
-      @media (prefers-reduced-motion: no-preference) {
-      /* Animation */
-      /* Checked */
-      /* Dot */
-      /* Track */
-      &::after {
-      &::before {
-      &:checked {
-      &:focus-visible {
-      &:has([role="switch"]:checked) {
-      appearance: none;
-      block-size: var(--_track-height);
-      color: var(--text-color-2);
-      cursor: not-allowed;
-      cursor: pointer;
-      font-size: var(--font-size-xs);
-      grid-auto-columns: unset;
-      grid-column: 2;
-      grid-column: 2;
-      grid-row: 1;
-      grid-row: 2;
-      inline-size: var(--_track-width);
-      input {
-      input {
-      justify-items: center;
-      line-height: 1.5;
-      margin: 0;
-      min-width: 0;
-      opacity: 0.64;
-      padding-inline: 0 1ex;
-      position: relative;
-      position: relative;
-      svg {
-      user-select: none;
-      user-select: none;
-      z-index: 1;
+@layer components.root {
+  :where(.switch) {
     --_accent-color: var(--primary);
     --_accent-contrast: var(--primary-contrast);
+
     --_dot-bg-color: light-dark(var(--gray-11), var(--gray-14));
     --_dot-inset: var(--size-1) auto auto var(--size-1);
     --_dot-outline-size: 0;
     --_dot-size: var(--size-3);
+
     --_track-bg-color: light-dark(var(--gray-3), var(--gray-8));
     --_track-height: var(--size-5);
     --_track-width: var(--size-8);
     --_transition-tf: var(--ease-4);
     --_transition-time: 0.2s;
-    .label {
-    .supporting-text {
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    /* Disabled */
-    /* Icons */
-    /* Label */
-    /* Required dot */
-    /* Size */
-    /* Stacked layout */
-    /* Supporting text */
-    /* Validation */
-    &:has(.icon-checked, .icon-unchecked) {
-    &:has([disabled]) {
-    &:has([required]:not(:checked)) {
-    &.error {
-    &.small {
-    &.stack {
+
     align-items: center;
     color: var(--text-color-1);
     display: inline-grid;
@@ -218,8 +21,205 @@
     grid-auto-columns: auto;
     grid-auto-flow: column;
     inline-size: fit-content;
+
     input[type="checkbox"][role="switch"] {
-  :where(.switch) {
+      appearance: none;
+      block-size: var(--_track-height);
+      cursor: pointer;
+      inline-size: var(--_track-width);
+      margin: 0;
+      position: relative;
+
+      /* Track */
+      &::before {
+        background-color: var(--_track-bg-color);
+        block-size: var(--_track-height);
+        border: 1px solid var(--_dot-bg-color);
+        border-radius: 100vmax;
+        content: "";
+        inline-size: var(--_track-width);
+        inset: 0;
+        position: absolute;
+      }
+
+      &:focus-visible {
+        outline-offset: 2px;
+        outline: 2px solid currentColor;
+      }
+
+      /* Dot */
+      &::after {
+        background-color: var(--_dot-bg-color);
+        block-size: var(--_dot-size);
+        border-radius: 100vmax;
+        content: "";
+        inline-size: var(--_dot-size);
+        inset: var(--_dot-inset);
+        outline-offset: -1px;
+        outline: var(--_dot-outline-size) solid var(--_dot-bg-color);
+        position: absolute;
+      }
+
+      /* Checked */
+      &:checked {
+        &::before {
+          background-color: var(--_accent-color);
+          border-color: var(--_accent-color);
+          transition:
+            background-color var(--_transition-time) var(--_transition-tf),
+            border-color var(--_transition-time) var(--_transition-tf);
+        }
+
+        /* Dot */
+        &::after {
+          --_dot-bg-color: var(--_accent-contrast);
+          --_dot-outline-size: calc(var(--size-1) - 1px);
+
+          inset-inline-start: calc(
+            var(--_track-width) - var(--_dot-size) - var(--size-1)
+          );
+        }
+      }
+
+      /* Animation */
+      @media (prefers-reduced-motion: no-preference) {
+        /* Track */
+        &::before {
+          transition:
+            background-color var(--_transition-time) var(--_transition-tf),
+            border-color var(--_transition-time) var(--_transition-tf);
+        }
+
+        /* Dot */
+        &::after {
+          transition: all var(--_transition-time) var(--_transition-tf);
+        }
+
+        &:active:after {
+          --_dot-outline-size: calc(var(--size-1) + 1px);
+        }
+
+        &:checked {
+          &:active:after {
+            --_dot-outline-size: calc(var(--size-1) + 1px);
+          }
+        }
+      }
+    }
+
+    /* Icons */
+    &:has(.icon-checked, .icon-unchecked) {
+      [role="switch"] {
+        grid-column: 1 / -1;
+        grid-row: 1;
+      }
+
+      &:has([role="switch"]:checked) {
+        .icon-unchecked {
+          display: none;
+        }
+        .icon-checked {
+          display: block;
+        }
+      }
+
+      .icon-checked {
+        display: none;
+      }
+
+      svg {
+        grid-column: 1;
+        grid-row: 1;
+        inline-size: var(--_dot-size);
+        margin-inline-start: calc(
+          var(--_track-width) - var(--_dot-size) - var(--size-1)
+        );
+        pointer-events: none;
+        z-index: 1;
+
+        &.icon-checked {
+          margin-inline-start: var(--size-1);
+        }
+      }
+    }
+
+    /* Required dot */
+    &:has([required]:not(:checked)) {
+      .label:after {
+        color: var(--red);
+        content: "*";
+        inset: 0 -0.25ex auto auto;
+        position: absolute;
+      }
+    }
+
+    /* Disabled */
+    &:has([disabled]) {
+      cursor: not-allowed;
+      opacity: 0.64;
+      user-select: none;
+
+      input {
+        cursor: not-allowed;
+      }
+    }
+
+    /* Label */
+    .label {
+      grid-column: 2;
+      grid-row: 1;
+      min-width: 0;
+      padding-inline: 0 1ex;
+      position: relative;
+      user-select: none;
+    }
+
+    /* Supporting text */
+    .supporting-text {
+      color: var(--text-color-2);
+      font-size: var(--font-size-xs);
+      grid-column: 2;
+      grid-row: 2;
+      line-height: 1.5;
+      z-index: 1;
+    }
+
+    /* Size */
+    &.small {
+      --_dot-size: 0.75rem;
+      --_track-height: var(--size-4);
+      --_track-width: 2.5rem;
+    }
+
+    /* Stacked layout */
+    &.stack {
+      justify-items: center;
+      grid-auto-columns: unset;
+
+      .label {
+        grid-column: 1/-1;
+        grid-row: 2;
+        margin-block-start: var(--size-1);
+        padding-inline: 1ex;
+      }
+
+      .supporting-text {
+        grid-column: 1/-1;
+        grid-row: 3;
+      }
+    }
+
+    /* Validation */
+    &.error {
+      input {
+        outline: 2px solid var(--color-9);
+        border-radius: var(--radius-round);
+      }
+
+      .label,
+      .supporting-text {
+        color: var(--color-9);
+      }
+    }
   }
 }
-@layer components.root {

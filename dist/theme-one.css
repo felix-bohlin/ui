@@ -2559,8 +2559,8 @@
       block-size: 0;
       opacity: 0;
       overflow-y: clip;
-      transition: content-visibility var(--_accordion-transition-time)
-          allow-discrete,
+      transition:
+        content-visibility var(--_accordion-transition-time) allow-discrete,
         opacity var(--_accordion-transition-time),
         block-size var(--_accordion-transition-time);
     }
@@ -2667,7 +2667,7 @@
       }
     }
 
-    details {
+    & > details {
       --_margin-inline: 0;
 
       border: 0;

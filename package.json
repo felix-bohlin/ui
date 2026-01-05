@@ -40,7 +40,7 @@
     "@vueuse/core": "^14.1.0",
     "@vueuse/integrations": "^14.1.0",
     "baseline-status": "^1.1.0",
-    "focus-trap": "^7.6.6",
+    "focus-trap": "^7.7.1",
     "mark.js": "^8.11.1",
     "minisearch": "^7.2.0",
     "opui-blocks": "^0.2.0",

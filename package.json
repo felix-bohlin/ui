@@ -1,6 +1,6 @@
 {
   "name": "opui-css",
-  "version": "3.3.2",
+  "version": "3.3.3",
   "private": false,
   "license": "MIT",
   "type": "module",
@@ -11,9 +11,14 @@
   "sideEffects": [
     "**/*.css"
   ],
-  "style": "dist/ui.css",
+  "style": "dist/theme-two/theme-two.css",
   "exports": {
-    ".": "./dist/ui.css",
+    ".": "./dist/theme-two/theme-two.css",
+    "./open-props": "./dist/op.css",
+    "./theme-one": "./dist/theme-one/theme-one.css",
+    "./theme-one/components": "./dist/theme-one/components.css",
+    "./theme-two": "./dist/theme-two/theme-two.css",
+    "./theme-two/components": "./dist/theme-two/components.css",
     "./dist/*": "./dist/*",
     "./src/*": "./src/*"
   },

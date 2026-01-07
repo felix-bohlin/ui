@@ -137,7 +137,41 @@ pnpm add opui-css -S
 npm i opui-css -S
 ```
 
-Then check your `node_modules` folder for the `opui-css` package and pick and choose what files you want to use!
+### Usage
+
+You can import themes and components directly from the package:
+
+```css
+/* Import theme-two (default) */
+@import "opui-css";
+
+/* Import theme-one */
+@import "opui-css/theme-one";
+
+/* Import just the components for theme-one */
+@import "opui-css/theme-one/components";
+
+/* Import only the Open Props setup */
+@import "opui-css/open-props";
+```
+
+### Bundler setup
+
+If you're using **Vite**, these imports will work out of the box.
+
+For other **PostCSS** environments, you'll need the `postcss-import` plugin to resolve imports from `node_modules`.
+
+::: code-group
+
+```javascript [postcss.config.js]
+export default {
+  plugins: {
+    "postcss-import": {},
+  },
+}
+```
+
+:::
 
 #### Bundled files
 
@@ -145,14 +179,24 @@ Then check your `node_modules` folder for the `opui-css` package and pick and ch
 
 <ul class="definition-list dotted">
   <li>
-    <span class="term"><code>dist/theme-one.css</code></span>
+    <span class="term"><code>dist/theme-one/theme-one.css</code></span>
     <hr>
     <span class="description">OP, imports, theme, components</span>
   </li>
   <li>
-   <span class="term"><code>dist/theme-two.css</code></span>
+    <span class="term"><code>dist/theme-one/components.css</code></span>
+    <hr>
+    <span class="description">all the components for theme-one</span>
+  </li>
+  <li>
+   <span class="term"><code>dist/theme-two/theme-two.css</code></span>
    <hr>
    <span class="description">OP, imports, theme, components</span>
+  </li>
+  <li>
+    <span class="term"><code>dist/theme-two/components.css</code></span>
+    <hr>
+    <span class="description">all the components for theme-two</span>
   </li>
   <li>
     <span class="term"><code>dist/op.css</code></span>

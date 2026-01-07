@@ -30,8 +30,13 @@ function buildTheme(theme, inputFile, outputFile) {
   const themeDir = path.join(themesDir, theme)
   const inputPath = path.join(themeDir, inputFile)
   const outputPath = path.join(distDir, outputFile)
+  const outputSubDir = path.dirname(outputPath)
 
   if (fs.existsSync(inputPath)) {
+    if (!fs.existsSync(outputSubDir)) {
+      fs.mkdirSync(outputSubDir, { recursive: true })
+    }
+
     console.log(`Building ${theme}/${inputFile} -> dist/${outputFile}`)
 
     try {
@@ -50,7 +55,8 @@ function buildTheme(theme, inputFile, outputFile) {
 
 function buildAllThemes() {
   themes.forEach((theme) => {
-    buildTheme(theme, "imports.css", `${theme}.css`)
+    buildTheme(theme, "imports.css", `${theme}/${theme}.css`)
+    buildTheme(theme, "components.css", `${theme}/components.css`)
   })
 }
 
@@ -66,13 +72,26 @@ if (isWatch) {
   themes.forEach((theme) => {
     const themeDir = path.join(themesDir, theme)
     const importsCssPath = path.join(themeDir, "imports.css")
+    const componentsCssPath = path.join(themeDir, "components.css")
 
     if (fs.existsSync(importsCssPath)) {
       const watcher = fs.watchFile(importsCssPath, { interval: 1000 }, () => {
         console.log(`\nDetected change in ${theme}/imports.css`)
-        buildTheme(theme, "imports.css", `${theme}.css`)
+        buildTheme(theme, "imports.css", `${theme}/${theme}.css`)
       })
       watchedFiles.set(importsCssPath, watcher)
+    }
+
+    if (fs.existsSync(componentsCssPath)) {
+      const watcher = fs.watchFile(
+        componentsCssPath,
+        { interval: 1000 },
+        () => {
+          console.log(`\nDetected change in ${theme}/components.css`)
+          buildTheme(theme, "components.css", `${theme}/components.css`)
+        },
+      )
+      watchedFiles.set(componentsCssPath, watcher)
     }
   })
 

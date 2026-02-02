@@ -50,7 +50,7 @@
     "minisearch": "^7.2.0",
     "opui-blocks": "^0.2.0",
     "shiki": "^3.19.0",
-    "vue": "^3.5.25"
+    "vue": "^3.5.27"
   },
   "devDependencies": {
     "@types/node": "^24.10.3",

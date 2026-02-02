@@ -62,7 +62,7 @@
     "postcss-cli": "^11.0.1",
     "postcss-custom-media": "^11.0.6",
     "postcss-import": "^16.1.1",
-    "prettier": "^3.7.4",
+    "prettier": "^3.8.1",
     "shx": "^0.4.0",
     "typescript": "^5.9.3",
     "vite": "^7.2.7",

@@ -42,7 +42,7 @@
     "@vitejs/plugin-vue": "^6.0.2",
     "@vue/devtools-api": "^8.0.5",
     "@vue/shared": "^3.5.25",
-    "@vueuse/core": "^14.1.0",
+    "@vueuse/core": "^14.2.0",
     "@vueuse/integrations": "^14.1.0",
     "baseline-status": "^1.1.0",
     "focus-trap": "^7.6.6",

@@ -37,7 +37,7 @@
     "@docsearch/css": "^4.3.2",
     "@docsearch/js": "^4.3.2",
     "@shikijs/core": "^3.19.0",
-    "@shikijs/transformers": "^3.19.0",
+    "@shikijs/transformers": "^3.22.0",
     "@types/markdown-it": "^14.1.2",
     "@vitejs/plugin-vue": "^6.0.2",
     "@vue/devtools-api": "^8.0.5",

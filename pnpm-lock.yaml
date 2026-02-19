@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      open-props:
+        specifier: 2.0.0-beta.5
+        version: 2.0.0-beta.5
     devDependencies:
       '@docsearch/css':
         specifier: ^4.3.2
@@ -62,9 +66,6 @@ importers:
       nodemon:
         specifier: ^3.1.11
         version: 3.1.11
-      open-props:
-        specifier: 2.0.0-beta.5
-        version: 2.0.0-beta.5
       opui-blocks:
         specifier: ^0.2.0
         version: 0.2.0

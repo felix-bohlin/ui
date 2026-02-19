@@ -1,6 +1,6 @@
 {
   "name": "opui-css",
-  "version": "3.3.3",
+  "version": "3.3.4",
   "private": false,
   "license": "MIT",
   "type": "module",
@@ -33,40 +33,40 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@docsearch/css": "^4.3.2",
     "@docsearch/js": "^4.3.2",
     "@shikijs/core": "^3.19.0",
     "@shikijs/transformers": "^3.19.0",
     "@types/markdown-it": "^14.1.2",
+    "@types/node": "^24.10.3",
     "@vitejs/plugin-vue": "^6.0.2",
     "@vue/devtools-api": "^8.0.5",
     "@vue/shared": "^3.5.25",
     "@vueuse/core": "^14.1.0",
     "@vueuse/integrations": "^14.1.0",
     "baseline-status": "^1.1.0",
+    "date-fns": "^4.1.0",
     "focus-trap": "^7.6.6",
+    "gray-matter": "^4.0.3",
     "mark.js": "^8.11.1",
     "minisearch": "^7.2.0",
-    "opui-blocks": "^0.2.0",
-    "shiki": "^3.19.0",
-    "vue": "^3.5.25"
-  },
-  "devDependencies": {
-    "@types/node": "^24.10.3",
-    "date-fns": "^4.1.0",
-    "gray-matter": "^4.0.3",
     "nodemon": "^3.1.11",
     "open-props": "2.0.0-beta.5",
+    "opui-blocks": "^0.2.0",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "postcss-custom-media": "^11.0.6",
     "postcss-import": "^16.1.1",
     "prettier": "^3.7.4",
+    "shiki": "^3.19.0",
     "shx": "^0.4.0",
     "typescript": "^5.9.3",
     "vite": "^7.2.7",
     "vitepress": "^1.6.4",
+    "vue": "^3.5.25",
     "vue-tsc": "^3.1.8"
-  }
+  },
+  "packageManager": "pnpm@10.28.2+sha512.41872f037ad22f7348e3b1debbaf7e867cfd448f2726d9cf74c08f19507c31d2c8e7a11525b983febc2df640b5438dee6023ebb1f84ed43cc2d654d2bc326264"
 }

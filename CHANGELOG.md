@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.3.5 - 2026-02-19
+
+### Changed
+
+- goof: forgot to leave open-props as a dependency
+
+## 3.3.4 - 2026-02-19
+
+### Changed
+
+- Moved all dependencies to `devDependencies`.
+
 ## 3.3.3 - 2026-01-07
 
 ### Changed

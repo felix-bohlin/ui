@@ -6,24 +6,13 @@ Documentation and library source for Open Props UI components.
 
 This section is for consumers of the `opui` library.
 
-### Import Components
+### Getting started
 
-Components should be imported using the `@opui/astro` path alias:
-
-```astro
----
-import { Button, Chip } from "@opui/astro"
----
-
-<Button variant="filled">Click Me</Button>
-<Chip label="New" />
-```
+https://open-props-ui.netlify.app/html/guide/getting-started/
 
 ---
 
 ## Maintainers
-
-This section is for developers maintaining or contributing to the `opui` library and its documentation.
 
 ### Project Structure
 

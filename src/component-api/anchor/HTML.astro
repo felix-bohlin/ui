@@ -1,0 +1,57 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Container</Table.Cell>
+      <Table.Cell><code>.anchor</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Wrapper element. Provides <code>anchor-scope</code> and sets
+        <code>anchor-name</code> on its first child.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Floating</Table.Cell>
+      <Table.Cell><code>.anchor-floating</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Positioned floating element. Uses <code>position-anchor</code> and
+        <code>position-area</code>.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Position</Table.Cell>
+      <Table.Cell><code>--anchor-position-area</code></Table.Cell>
+      <Table.Cell><code>start end</code></Table.Cell>
+      <Table.Cell
+        >CSS custom property. Any valid <code>position-area</code> value.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Trigger</Table.Cell>
+      <Table.Cell><code>data-trigger="hover"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Shows floating content on hover/focus. Add <code>interestfor</code> on the
+        trigger element pointing to the <code>.anchor-floating</code> ID.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

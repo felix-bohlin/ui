@@ -1,0 +1,16 @@
+---
+import { List } from "@opui/astro"
+import { ListItem } from "@opui/astro"
+import { SwitchInput } from "@opui/astro"
+---
+
+<List>
+  <ListItem type="switch" for="switch-example-1">
+    <div slot="text">Switch 1</div>
+    <SwitchInput slot="end" id="switch-example-1" />
+  </ListItem>
+  <ListItem type="switch" for="switch-example-2">
+    <div slot="text">Switch 2</div>
+    <SwitchInput slot="end" id="switch-example-2" />
+  </ListItem>
+</List>

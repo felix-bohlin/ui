@@ -1,0 +1,106 @@
+---
+type Item = {
+  text: string
+  value: any
+}
+
+type Props = {
+  [key: string]: any
+  class?: string
+  description?: string
+  disabled?: boolean
+  critical?: boolean
+  dense?: boolean
+  id?: string
+  items?: Item[]
+  label?: string
+  name?: string
+  spread?: boolean
+  required?: boolean
+  size?: "small"
+  endText?: string
+  value?: any
+  variant?: "outlined" | "filled"
+}
+
+export const title = "Select"
+
+const {
+  class: className,
+  description,
+  disabled,
+  critical,
+  dense,
+  id,
+  items = [],
+  label,
+  name,
+  spread,
+  required,
+  size,
+  endText,
+  value,
+  variant = "outlined",
+  ...rest
+} = Astro.props
+
+const { $id, currentFieldName } = Astro.locals
+const selectId = id || $id("select")
+const fieldName = name || currentFieldName
+const labelId = $id("select-label")
+---
+
+<label
+  class:list={[
+    "select",
+    size,
+    {
+      filled: variant === "filled",
+      spread,
+    },
+    className,
+  ]}
+  data-invalid={critical || undefined}
+>
+  {
+    (label || Astro.slots.has("label")) && (
+      <!-- prettier-ignore -->
+      <span class="label" id={labelId}>{label}<slot name="label" /></span>
+    )
+  }
+  {
+    (description || Astro.slots.has("description")) && (
+      <!-- prettier-ignore -->
+      <span class="start-text">{description}<slot name="description" /></span>
+    )
+  }
+  <span class="field">
+    <select
+      aria-labelledby={label ? labelId : undefined}
+      disabled={disabled}
+      id={selectId}
+      name={fieldName}
+      required={required}
+      value={value}
+      {...rest}
+    >
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class:list={["list", { dense }]}>
+        {items.map((item) => <option value={item.value}>{item.text}</option>)}
+        <slot />
+      </div>
+    </select>
+    {Astro.slots.has("prefix") && <span class="prefix"><slot name="prefix" /></span>}
+    {Astro.slots.has("suffix") && <span class="suffix"><slot name="suffix" /></span>}
+    {Astro.slots.has("header") && <span class="header"><slot name="header" /></span>}
+    {Astro.slots.has("footer") && <span class="footer"><slot name="footer" /></span>}
+  </span>
+  {
+    (endText || Astro.slots.has("end-text")) && (
+      <!-- prettier-ignore -->
+      <span id={$id("end-text")} class="end-text">{endText}<slot name="end-text" /></span>
+    )
+  }
+</label>

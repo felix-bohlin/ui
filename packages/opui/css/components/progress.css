@@ -1,0 +1,97 @@
+@layer components.root {
+  :where(progress) {
+    --_accent-color: var(--primary);
+    --_bg-color: var(--surface-tonal);
+
+    appearance: none;
+    background-color: var(--_bg-color);
+    block-size: var(--size-1);
+    border: 0;
+    border-radius: var(--border-radius, 0.25rem);
+    display: inline-block;
+    inline-size: 100%;
+    overflow: hidden;
+    position: relative;
+    vertical-align: baseline;
+
+    /* Color */
+    &.filled {
+      --_bg-color: var(--surface-filled);
+    }
+
+    &.default {
+      --_bg-color: var(--surface-default);
+    }
+
+    &.tonal {
+      --_bg-color: var(--surface-tonal);
+    }
+
+    &::-webkit-progress-bar {
+      background: none;
+      border-radius: var(--border-radius, 0.25rem);
+    }
+
+    &[value]::-webkit-progress-value {
+      background-color: var(--_accent-color);
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: inline-size 0.2s var(--ease-out-4, cubic-bezier(0, 0, 0.1, 1));
+      }
+    }
+
+    &::-moz-progress-bar {
+      background-color: var(--_accent-color);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    progress:indeterminate {
+      background-color: var(--_bg-color);
+
+      &::after {
+        animation: indeterminate 2s linear infinite;
+        background-color: var(--_accent-color);
+        content: "";
+        inset: 0 auto 0 0;
+        position: absolute;
+        will-change: inset-inline-start, inset-inline-end;
+      }
+
+      &[value]::-webkit-progress-value {
+        background-color: transparent;
+      }
+
+      &::-moz-progress-bar {
+        background-color: transparent;
+      }
+    }
+
+    [dir="rtl"] {
+      :where(progress):indeterminate {
+        animation-direction: reverse;
+
+        &::after {
+          animation-direction: reverse;
+        }
+      }
+    }
+  }
+
+  @keyframes indeterminate {
+    0% {
+      inset-inline-start: -200%;
+      inset-inline-end: 100%;
+    }
+
+    60% {
+      inset-inline-start: 107%;
+      inset-inline-end: -8%;
+    }
+
+    100% {
+      inset-inline-start: 107%;
+      inset-inline-end: -8%;
+    }
+  }
+}

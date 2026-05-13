@@ -1,0 +1,43 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><strong>Progress</strong></Table.Cell>
+      <Table.Cell><code>&lt;progress&gt;</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The native HTML progress element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><strong>Indeterminate</strong></Table.Cell>
+      <Table.Cell>No <code>value</code> attribute</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Display an indeterminate loading state.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><strong>Variant</strong></Table.Cell>
+      <Table.Cell
+        ><code>.filled</code>, <code>.default</code>, <code>.tonal</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Modifiers for different background surfaces.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

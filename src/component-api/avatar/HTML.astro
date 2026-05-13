@@ -1,0 +1,58 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Variants</Table.Cell>
+      <Table.Cell
+        ><code>.squared</code>, <code>.rounded</code>, <code>.squircle</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Sets the shape of the avatar.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3>Avatar group</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Container</Table.Cell>
+      <Table.Cell><code>[role="group"]</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Required for grouped avatars.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

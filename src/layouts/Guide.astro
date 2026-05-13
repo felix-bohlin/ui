@@ -1,0 +1,86 @@
+---
+import Document from "./Document.astro"
+import {
+  DEFAULT_FRAMEWORK,
+  hrefFor,
+  stripFrameworkPrefix,
+  type FrameworkId,
+} from "../utils/framework-routing"
+import FrameworkPicker from "../components/FrameworkPicker.astro"
+
+type Props = {
+  overline?: string
+  showToc?: boolean
+}
+
+const { overline = "Guide", showToc = true } = Astro.props
+
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+
+const links = [
+  { href: "/guide/getting-started", label: "Getting started" },
+  { href: "/guide/theme-generator", label: "Theme generator" },
+  { href: "/guide/why-opui", label: "Why Open Props UI?" },
+  { href: "/guide/browser-support", label: "Browser support" },
+  { href: "/guide/acknowledgments", label: "Acknowledgments" },
+].map((link) => ({
+  ...link,
+  resolvedHref: hrefFor(currentFramework, link.href),
+}))
+
+const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
+  /\/$/,
+  "",
+)
+---
+
+<Document overline={overline} showToc={showToc}>
+  <FrameworkPicker size="small" slot="sidebar" />
+  <hr slot="sidebar" />
+  <nav slot="sidebar">
+    <h3>Guide</h3>
+    <menu class="guide-nav-list">
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={link.resolvedHref}
+              aria-current={canonicalPath === link.href ? "page" : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </menu>
+  </nav>
+
+  <slot slot="title" name="title" />
+  <slot slot="preamble" name="preamble" />
+  <slot />
+</Document>
+
+<style is:global>
+  .guide-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    & a {
+      display: block;
+      padding-block: var(--size-1);
+      color: var(--text-muted);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--text-primary);
+      }
+
+      &[aria-current="page"] {
+        color: var(--link);
+        font-weight: var(--font-weight-6);
+      }
+    }
+  }
+</style>

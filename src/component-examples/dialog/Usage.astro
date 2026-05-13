@@ -1,0 +1,35 @@
+---
+import { Dialog } from "@opui/astro"
+import { Button } from "@opui/astro"
+---
+
+<Button commandfor="example-dialog" command="show-modal" variant="outlined">
+  Open dialog
+</Button>
+
+<Dialog
+  id="example-dialog"
+  role="alertdialog"
+  aria-labelledby="dialog-heading"
+  aria-modal="true"
+>
+  <h2 id="dialog-heading" class="h4" slot="header">Are you sure?</h2>
+  <p slot="content">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+    nulla sit amet porttitor rhoncus. Lorem ipsum dolor sit amet, consectetur
+    adipiscing elit. Vivamus sodales, nulla sit amet porttitor rhoncus.
+  </p>
+  <Fragment slot="actions">
+    <Button commandfor="example-dialog" command="close" type="button">
+      Cancel
+    </Button>
+    <Button
+      commandfor="example-dialog"
+      command="close"
+      type="button"
+      variant="filled"
+    >
+      Save
+    </Button>
+  </Fragment>
+</Dialog>

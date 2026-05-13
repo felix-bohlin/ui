@@ -1,0 +1,171 @@
+---
+import { Chip, Tooltip } from "@opui/astro"
+import {
+  computeEngineBrowserSupport,
+  type EngineId,
+} from "../utils/browserSupport"
+import Chrome from "./icons/browsers/Chrome.astro"
+import Edge from "./icons/browsers/Edge.astro"
+import Firefox from "./icons/browsers/Firefox.astro"
+import Safari from "./icons/browsers/Safari.astro"
+
+type Props = {
+  ids: string[]
+}
+
+const { ids } = Astro.props
+const { $id } = Astro.locals
+const entries = computeEngineBrowserSupport(ids)
+
+const ICONS: Record<EngineId, any[]> = {
+  chromium: [Chrome, Edge],
+  gecko: [Firefox],
+  webkit: [Safari],
+}
+
+const HEADINGS = {
+  full: "Full support",
+  partial: "Partial support",
+  none: "Unsupported",
+} as const
+---
+
+<div
+  class="browser-support-chips not-rich-text"
+  aria-label="Browser support summary"
+>
+  {
+    entries.map((entry) => {
+      const icons = ICONS[entry.engine]
+      const tooltipId = $id(`browser-support-${entry.engine}`)
+      const heading = HEADINGS[entry.level]
+      return (
+        <Tooltip id={tooltipId}>
+          <Chip
+            as="button"
+            type="button"
+            size="small"
+            variant={entry.level === "full" ? "tonal" : "outlined"}
+            class:list={["browser-support-chip", entry.level]}
+            interestfor={tooltipId}
+            commandfor={tooltipId}
+            command="toggle-popover"
+          >
+            <span slot="start" class="engine-icons">
+              {icons.map((Icon) => (
+                <Icon />
+              ))}
+            </span>
+            <span class="text">
+              {entry.label}
+              {entry.level === "full" && entry.sinceVersion && (
+                <span class="version">{entry.sinceVersion}+</span>
+              )}
+            </span>
+            <svg
+              slot="end"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              class="status-icon"
+            >
+              {entry.level === "full" && (
+                <path
+                  fill="currentColor"
+                  d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+                />
+              )}
+              {entry.level === "partial" && (
+                <path
+                  fill="currentColor"
+                  d="M12 2 1 21h22zm0 4.53L19.53 19H4.47zM11 10v5h2v-5zm0 7v2h2v-2z"
+                />
+              )}
+              {entry.level === "none" && (
+                <path
+                  fill="currentColor"
+                  d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                />
+              )}
+            </svg>
+          </Chip>
+          <Fragment slot="content">
+            <strong class="tooltip-heading">{heading}</strong>
+            {entry.level === "full" && entry.sinceVersion && (
+              <span>Supported since v{entry.sinceVersion}.</span>
+            )}
+            {entry.level === "partial" && (
+              <span>
+                Missing: <code>{entry.unsupportedFeatures.join(", ")}</code>.
+              </span>
+            )}
+            {entry.level === "none" && (
+              <span>
+                Does not support:{" "}
+                <code>{entry.unsupportedFeatures.join(", ")}</code>.
+              </span>
+            )}
+          </Fragment>
+        </Tooltip>
+      )
+    })
+  }
+</div>
+
+<style>
+  .browser-support-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+    margin-block: var(--size-3) var(--size-5);
+  }
+
+  .engine-icons {
+    display: flex;
+    align-items: center;
+
+    > :global(*:not(:first-child)) {
+      margin-inline-start: -0.25em;
+    }
+  }
+
+  .browser-support-chip {
+    cursor: help;
+
+    .version {
+      color: var(--text-muted);
+      margin-inline-start: var(--size-1);
+    }
+
+    .status-icon {
+      color: var(--text-muted);
+    }
+
+    &.full .status-icon {
+      color: var(--text-ok, #2e7d32);
+    }
+
+    &.partial {
+      .status-icon {
+        color: var(--text-warning, #ed6c02);
+      }
+
+      .version {
+        color: var(--text-warning, #ed6c02);
+      }
+    }
+
+    &.none {
+      opacity: 0.85;
+
+      .status-icon {
+        color: var(--text-critical, #c62828);
+      }
+    }
+  }
+
+  .tooltip-heading {
+    display: block;
+    margin-block-end: var(--size-1);
+  }
+</style>

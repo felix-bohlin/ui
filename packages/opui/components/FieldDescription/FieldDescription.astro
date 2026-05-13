@@ -1,0 +1,13 @@
+---
+type Props = {
+  [key: string]: any
+  class?: string
+}
+
+export const title = "Field Description"
+
+const { class: className, ...rest } = Astro.props
+---
+
+<!-- prettier-ignore -->
+<p class:list={["field-description", className]} {...rest}><slot /></p>

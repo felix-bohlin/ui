@@ -1,0 +1,18 @@
+---
+import { Checkbox } from "@opui/astro"
+---
+
+<div class="example-row spacious">
+  <Checkbox required name="checkbox">Default</Checkbox>
+  <Checkbox stack required name="checkbox">Stack</Checkbox>
+</div>
+<div class="example-row spacious">
+  <Checkbox critical checked name="checkbox">
+    Default
+    <Fragment slot="end-text">Check yourself</Fragment>
+  </Checkbox>
+  <Checkbox stack critical name="checkbox">
+    Stack
+    <Fragment slot="end-text">Before you wreck yourself</Fragment>
+  </Checkbox>
+</div>

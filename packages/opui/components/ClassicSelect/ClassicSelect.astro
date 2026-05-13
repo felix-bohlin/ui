@@ -1,0 +1,83 @@
+---
+type Item = {
+  text: string
+  value: any
+}
+
+type Props = {
+  [key: string]: any
+  class?: string
+  disabled?: boolean
+  critical?: boolean
+  id?: string
+  items?: Item[]
+  label?: string
+  name?: string
+  required?: boolean
+  size?: "small"
+  endText?: string
+  value?: any
+  variant?: "outlined" | "filled"
+}
+
+export const title = "Classic Select"
+
+const {
+  class: className,
+  disabled,
+  critical,
+  id,
+  items = [],
+  label,
+  name,
+  required,
+  size,
+  endText,
+  value,
+  variant = "outlined",
+  ...rest
+} = Astro.props
+
+const { $id } = Astro.locals
+const selectId = id || $id("select")
+const labelId = $id("select-label")
+---
+
+<label
+  class:list={[
+    "select",
+    size,
+    {
+      filled: variant === "filled",
+    },
+    className,
+  ]}
+  data-invalid={critical || undefined}
+>
+  {
+    label && (
+      <!-- prettier-ignore -->
+      <span class="label" id={labelId}>{label}</span>
+    )
+  }
+  <span class="field">
+    <select
+      aria-labelledby={label ? labelId : undefined}
+      disabled={disabled}
+      id={selectId}
+      name={name}
+      required={required}
+      value={value}
+      {...rest}
+    >
+      {items.map((item) => <option value={item.value}>{item.text}</option>)}
+      <slot />
+    </select>
+  </span>
+  {
+    endText && (
+      <!-- prettier-ignore -->
+      <span class="end-text">{endText}</span>
+    )
+  }
+</label>

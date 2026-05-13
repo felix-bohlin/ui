@@ -1,0 +1,216 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example"
+import AutoExample from "../../components/AutoExample.astro"
+import { Callout as UICallout } from "@opui/astro"
+import Conditional from "../../components/Conditional.astro"
+
+import ExampleAnatomy from "../../component-examples/select/Anatomy.astro"
+
+import FieldCSS from "@opui/css/components/text-field.css?raw"
+import SelectCSS from "@opui/css/components/select.css?raw"
+import ListCSS from "@opui/css/components/list.css?raw"
+import SelectAPIAstro from "../../component-api/select/Astro.astro"
+import SelectAPIHTML from "../../component-api/select/HTML.astro"
+import ClassicSelectAPIAstro from "../../component-api/classic-select/Astro.astro"
+import ClassicSelectAPIHTML from "../../component-api/classic-select/HTML.astro"
+---
+
+<Component
+  slug="select"
+  browserSupport={[
+    "customizable-select",
+    "has",
+    "light-dark",
+    "overlay",
+    "relative-color",
+    "starting-style",
+    "transition-behavior",
+  ]}
+  apis={[
+    {
+      astro: SelectAPIAstro,
+      html: SelectAPIHTML,
+    },
+    {
+      title: "Classic Select API",
+      astro: ClassicSelectAPIAstro,
+      html: ClassicSelectAPIHTML,
+    },
+  ]}
+  installationTabs={[
+    {
+      title: "text-field.css",
+      code: FieldCSS,
+      lang: "css",
+      isDependency: true,
+    },
+    { title: "select.css", code: SelectCSS, lang: "css" },
+    { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Select/Select.astro",
+      type: "component",
+    },
+    {
+      path: "packages/opui/components/ClassicSelect/ClassicSelect.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/select.astro", type: "docs" },
+    { path: "src/component-examples/select", type: "docs" },
+    {
+      path: "packages/opui/css/components/select.css",
+      type: "css",
+    },
+    { path: "src/component-api/select", type: "api" },
+    { path: "src/component-api/classic-select", type: "api" },
+  ]}
+  seeAlsoLinks={[
+    {
+      name: "Customizable select (MDN)",
+      href: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Customizable_select",
+    },
+  ]}
+>
+  <Fragment slot="title">Select</Fragment>
+  <Fragment slot="preamble">
+    Leverages the <DocLink href="/components/list" class="link"
+      >List component</DocLink
+    > to provide markup for the Select popover.
+  </Fragment>
+
+  <section>
+    <h2 id="variants">Variants</h2>
+    <AutoExample name="Variants" row spacious />
+  </section>
+
+  <section>
+    <h2 id="end-text">End text</h2>
+    <p><code>.end-text</code>: end text element</p>
+    <AutoExample name="SupportingText" row spacious />
+  </section>
+
+  <section>
+    <h2 id="affix">Affix</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>prefix</code> and <code>suffix</code> slots to affix icons or
+        short text alongside the select inside the field's border.
+      </Fragment>
+      <Fragment slot="html">
+        Add a <code>.prefix</code> or <code>.suffix</code> element inside
+        <code>.field</code> to affix content alongside the select.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Affix" row spacious />
+  </section>
+
+  <section>
+    <h2 id="validation">Validation</h2>
+    <Conditional>
+      <Fragment slot="astro">
+        <ul>
+          <li>
+            Add <code>[required]</code> to the <code>&lt;select&gt;</code> element
+            to toggle required styles.
+          </li>
+          <li>
+            The <code>critical</code> prop toggles the error styles. Make use of the
+            end text to give extra feedback on the error.
+          </li>
+        </ul>
+      </Fragment>
+      <Fragment slot="html">
+        <ul>
+          <li>
+            Add <code>[required]</code> to the <code>&lt;select&gt;</code> element
+            to toggle required styles.
+          </li>
+          <li>
+            Add the <code>data-invalid</code> attribute on the root element to toggle
+            error styles. Make use of the end text to give extra feedback on the error.
+          </li>
+        </ul>
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Validation" column spacious />
+  </section>
+
+  <section>
+    <h2 id="spread">Spread</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>spread</code> boolean prop to display the label and description
+        on the left with the select on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.spread</code> class to display the label and description on
+        the left with the select on the right. The layout collapses to a column on
+        narrow containers.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Orientation" column spacious />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <AutoExample name="Sizes" row spacious />
+  </section>
+
+  <section>
+    <h2 id="classic-select">Classic select</h2>
+    <p>
+      Bog-standard native HTML <code>&lt;select&gt;</code> without customized option
+      list.
+    </p>
+
+    <AutoExample name="Classic" row spacious />
+  </section>
+
+  <Fragment slot="anatomy">
+    <ol>
+      <li>Select container: <code>&lt;select&gt;</code></li>
+      <li>Select button: <code>&lt;button&gt;</code></li>
+      <li>
+        Select button selected option: <code>&lt;selectedcontent&gt;</code>
+      </li>
+      <li>Select button arrow</li>
+      <li>Popover list: <code>.list</code></li>
+      <li>List option/s: <code>&lt;option&gt;</code></li>
+      <li>List option group/s (optional): <code>&lt;optgroup&gt;</code></li>
+    </ol>
+
+    <Example column>
+      <Example.Preview slot="preview-astro" code={ExampleAnatomy} />
+    </Example>
+  </Fragment>
+</Component>
+
+<style is:global>
+  .anatomy {
+    outline: var(--_anatomy-border-gray);
+    outline-offset: -2px;
+
+    & > * {
+      outline: var(--_anatomy-border-red);
+    }
+
+    button.anatomy {
+      selectedcontent {
+        outline: var(--_anatomy-border-red);
+        outline-offset: -2px;
+      }
+
+      &:after {
+        outline: var(--_anatomy-border-red);
+        outline-offset: 2px;
+      }
+    }
+  }
+</style>

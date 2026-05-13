@@ -1,0 +1,337 @@
+@layer components.root {
+  :where(.range) {
+    display: grid;
+    gap: var(--size-1) 0;
+    /* Two-column base so the optional .value cell can sit next to the
+       label on row 1. Children that span the full width keep using
+       `grid-column: 1/-1`, so this is backwards compatible. */
+    grid-template-columns: 1fr auto;
+    position: relative;
+
+    .label {
+      color: var(--text-primary);
+      font-size: var(--font-size-05);
+      font-weight: 600;
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    /* Live current-value readout. Pairs with the <output> element
+       rendered by the Range component (or hand-written .value markup). */
+    :where(.value) {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      grid-column: 2;
+      grid-row: 1;
+      line-height: 1.5;
+      text-align: end;
+    }
+
+    .start-text {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+      grid-column: 1/-1;
+      grid-row: 2;
+      line-height: 1.5;
+    }
+
+    :where(.end-text) {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+      grid-column: 1/-1;
+      grid-row: 5;
+      line-height: 1.5;
+    }
+
+    /* Datalist (tick mark labels) */
+    :where(datalist) {
+      color: var(--text-muted);
+      display: flex;
+      font-size: var(--font-size-0);
+      grid-column: 1/-1;
+      grid-row: 4;
+      justify-content: space-between;
+      margin-top: calc(var(--size-1) * -1);
+      padding-inline: calc(3ex / 2);
+
+      &>option {
+        display: flex;
+        inline-size: 0;
+        justify-content: center;
+        padding: 0;
+        white-space: nowrap;
+      }
+    }
+
+    /* Disabled */
+    &:has([disabled]) {
+      cursor: not-allowed;
+      opacity: 0.64;
+      user-select: none;
+
+      .label,
+      .value,
+      .start-text,
+      .end-text {
+        cursor: not-allowed;
+      }
+    }
+
+    /* Color */
+    &.filled input[type="range"] {
+      --_track-color: var(--surface-filled);
+    }
+
+    &.default input[type="range"] {
+      --_track-color: var(--surface-default);
+    }
+
+    &.tonal input[type="range"] {
+      --_track-color: var(--surface-tonal);
+    }
+
+    /* Orientation */
+    &.spread {
+      align-items: center;
+      column-gap: var(--size-4);
+      container-type: inline-size;
+      grid-template-columns: 1fr auto;
+
+      .label {
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      .start-text {
+        color: var(--text-muted);
+        display: block;
+        font-size: var(--font-size-0);
+        grid-column: 1;
+        grid-row: 2;
+        line-height: 1.5;
+      }
+
+      input[type="range"] {
+        align-self: center;
+        grid-column: 2;
+        grid-row: 1;
+        min-inline-size: 25ch;
+      }
+
+      /* In spread mode, the value sits below the slider in col 2
+         (where end-text would normally land). When end-text is also
+         present it shifts down a row to avoid collision. */
+      :where(.value) {
+        grid-column: 2;
+        grid-row: 2;
+      }
+
+      :where(.end-text) {
+        grid-column: 2;
+        grid-row: 2;
+        text-align: end;
+      }
+
+      datalist {
+        grid-column: 2;
+        grid-row: 2;
+      }
+
+      /* When both datalist and end-text exist, push end-text below the datalist
+         so they don't collide on the same grid cell. */
+      &:has(datalist) :where(.end-text) {
+        grid-row: 3;
+      }
+
+      &:has(.value) :where(.end-text) {
+        grid-row: 3;
+      }
+
+      &:has(.value):has(datalist) :where(.end-text) {
+        grid-row: 4;
+      }
+
+      @container (width < 400px) {
+        grid-template-columns: 1fr;
+
+        * {
+          grid-column: 1/-1;
+        }
+
+        .label {
+          grid-row: 1;
+        }
+
+        /* Share row 1 with the label: the label's text stays left-aligned
+           in its full-width cell, while the value shrinks to fit and
+           right-aligns. Visually reads as a "[name ........ value]" row. */
+        :where(.value) {
+          grid-row: 1;
+          justify-self: end;
+          text-align: end;
+        }
+
+        .start-text {
+          grid-row: 2;
+        }
+
+        input[type="range"] {
+          grid-column: 1/-1;
+          grid-row: 3;
+        }
+
+        datalist {
+          grid-column: 1/-1;
+          grid-row: 4;
+        }
+
+        :where(.end-text) {
+          grid-row: 5;
+          text-align: start;
+        }
+      }
+    }
+
+    /* Validation */
+    &[data-invalid],
+    &:has(:user-invalid) {
+      --_thumb-bg: var(--color-9);
+      --_thumb-highlight-color: oklch(from var(--color-9) 70% 100% h / 20%);
+
+      .start-text,
+      .end-text,
+      .value {
+        color: var(--color-9);
+      }
+    }
+
+    /* Range input */
+    :where(& > input[type="range"]) {
+      --_thumb-bg: var(--primary);
+      --_thumb-highlight-color: oklch(from var(--primary) 70% 100% h / 20%);
+      --_thumb-highlight-size: 0px;
+      --_thumb-offset: -1.125ex;
+      --_thumb-size: 3ex;
+      --_track-color: var(--field-border-color);
+      --_track-fill: 0%;
+      --_track-fill-color: var(--primary);
+      --_track-height: 0.75ex;
+      --_track-radius: 1e5px;
+
+      appearance: none;
+      background: transparent;
+      block-size: var(--size-4);
+      display: block;
+      grid-column: 1/-1;
+      grid-row: 3;
+      inline-size: 100%;
+      outline-offset: 1ex;
+
+      @media (hover: none) {
+        --_thumb-offset: -11.5px;
+        --_thumb-size: 30px;
+      }
+
+      /* Track */
+      &::-webkit-slider-runnable-track {
+        appearance: none;
+        background: linear-gradient(to right,
+            var(--_track-fill-color) var(--_track-fill, 0%),
+            var(--_track-color) 0%);
+        block-size: var(--_track-height);
+        border-radius: var(--_track-radius);
+      }
+
+      &::-moz-range-track {
+        appearance: none;
+        background: var(--_track-color);
+        block-size: var(--_track-height);
+        border-radius: var(--_track-radius);
+      }
+
+      &::-moz-range-progress {
+        appearance: none;
+        background: var(--_track-fill-color);
+        block-size: var(--_track-height);
+        border-radius: var(--_track-radius);
+      }
+
+      /* Ring */
+      &::-webkit-slider-thumb {
+        appearance: none;
+        background: var(--_thumb-bg);
+        block-size: var(--_thumb-size);
+        border: 3px solid var(--surface-default);
+        border-radius: 50%;
+        box-shadow: 0 0 0 var(--_thumb-highlight-size) var(--_thumb-highlight-color);
+        cursor: ew-resize;
+        inline-size: var(--_thumb-size);
+        margin-block-start: var(--_thumb-offset);
+
+        @media (prefers-reduced-motion: no-preference) {
+          transition: box-shadow 0.1s ease;
+        }
+
+        .fieldset-item:focus-within & {
+          border-color: var(--gray-14);
+        }
+      }
+
+      &::-moz-range-thumb {
+        appearance: none;
+        background: var(--_thumb-bg);
+        block-size: var(--_thumb-size);
+        border: 3px solid var(--surface-default);
+        border-radius: 50%;
+        box-shadow: 0 0 0 var(--_thumb-highlight-size) var(--_thumb-highlight-color);
+        cursor: ew-resize;
+        inline-size: var(--_thumb-size);
+        margin-block-start: var(--_thumb-offset);
+
+        @media (prefers-reduced-motion: no-preference) {
+          transition: box-shadow 0.1s ease;
+        }
+
+        .fieldset-item:focus-within & {
+          border-color: var(--gray-14);
+        }
+      }
+
+      /* Element state */
+      .range:has(:user-invalid) &,
+      .range[data-invalid] & {
+        --_track-fill-color: var(--color-9);
+      }
+
+      &:not([disabled]) {
+        &:hover {
+          --_thumb-highlight-size: var(--size-1);
+        }
+
+        &:active {
+          --_thumb-highlight-size: var(--size-2);
+          --_track-color: light-dark(oklch(from var(--field-border-color) calc(l * 0.9) c h),
+              oklch(from var(--field-border-color) calc(l * 1.1) c h));
+        }
+      }
+
+      &[disabled] {
+        --_thumb-bg: oklch(from var(--text-primary) l c h / 50%);
+        --_track-color: var(--field-border-color);
+
+        cursor: not-allowed;
+
+        &::-webkit-slider-thumb {
+          cursor: not-allowed;
+        }
+
+        &::-moz-range-thumb {
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+}

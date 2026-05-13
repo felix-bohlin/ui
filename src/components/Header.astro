@@ -1,0 +1,525 @@
+---
+import GithubLogo from "./GithubLogo.astro"
+import {
+  Button,
+  Drawer,
+  DrawerFooter,
+  DrawerHeader,
+  IconButton,
+  List,
+  ListItem,
+} from "@opui/astro"
+import ThemeConfigurator from "./ThemeConfigurator.astro"
+import FrameworkPicker from "./FrameworkPicker.astro"
+import Search from "./Search.astro"
+import {
+  DEFAULT_FRAMEWORK,
+  hrefFor,
+  stripFrameworkPrefix,
+  type FrameworkId,
+} from "../utils/framework-routing"
+
+const { pathname } = Astro.url
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+
+// Path with any framework prefix removed, so active-state checks work on
+// every variant (e.g. /astro/components/button -> /components/button).
+const canonicalPath = stripFrameworkPrefix(pathname)
+
+const navItems: { label: string; href: string }[] = [
+  { label: "Guide", href: "/guide" },
+  { label: "Components", href: "/components" },
+  { label: "API", href: "/api" },
+]
+
+const resolvedNavItems = navItems.map((item) => ({
+  ...item,
+  href: hrefFor(currentFramework, item.href),
+  isActive:
+    canonicalPath === item.href || canonicalPath.startsWith(item.href + "/"),
+}))
+
+const { link } = Astro.locals
+---
+
+<script is:inline>
+  window.themeUtils = {
+    getSystemPreference() {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"
+    },
+    getStoredTheme() {
+      return localStorage.getItem("theme")
+    },
+    setTheme(theme) {
+      document.documentElement.classList.remove("dark", "light")
+      document.documentElement.classList.add(theme)
+      localStorage.setItem("theme", theme)
+      window.themeUtils.applyCustomTheme(theme)
+    },
+    applyCustomTheme(theme) {
+      const currentTheme =
+        theme ||
+        (document.documentElement.classList.contains("dark") ? "dark" : "light")
+      const STORAGE_KEY = `opui-custom-theme-${currentTheme}`
+      const saved = localStorage.getItem(STORAGE_KEY)
+
+      // Reset previous custom properties before applying mode-specific ones
+      const configItems = [
+        "--palette-hue",
+        "--palette-chroma",
+        "--palette-hue-rotate-by",
+        "--gray-chroma",
+        "--gray-hue",
+        "--border-radius",
+        "--field-border-radius",
+        "--button-border-radius",
+      ]
+      configItems.forEach((name) =>
+        document.documentElement.style.removeProperty(name),
+      )
+      document.documentElement.style.removeProperty("--palette-source")
+      document.documentElement.classList.remove("no-grays")
+
+      let hue, chroma
+      if (saved) {
+        const config = JSON.parse(saved)
+        Object.entries(config).forEach(([name, value]) => {
+          if (name === "enable-grays") {
+            document.documentElement.classList.toggle(
+              "no-grays",
+              value === "false",
+            )
+          } else if (name !== "hue-animator") {
+            document.documentElement.style.setProperty(name, value)
+          }
+        })
+        hue = config["--palette-hue"]
+        chroma = config["--palette-chroma"]
+      }
+
+      // theme.css hardcodes --palette-source and ignores --palette-hue /
+      // --palette-chroma, so we mirror them into --palette-source here
+      // when the user has actually customized either. Inline beats layered
+      // CSS, so this restores the tunable palette globally.
+      if (hue !== undefined || chroma !== undefined) {
+        const h = hue ?? "250"
+        const c = chroma ?? "0.75"
+        document.documentElement.style.setProperty(
+          "--palette-source",
+          `oklch(58% calc(0.21 * ${c}) ${h})`,
+        )
+      }
+    },
+  }
+
+  const storedTheme = window.themeUtils.getStoredTheme()
+  const initialTheme = storedTheme || window.themeUtils.getSystemPreference()
+  window.themeUtils.setTheme(initialTheme)
+  window.themeUtils.applyCustomTheme()
+</script>
+
+<div class="site-header">
+  <header>
+    <div class="content">
+      <!-- Logo -->
+      <a class="logo" href={link("/")} title="Open Props UI"
+        ><span>OP</span><span>UI</span></a
+      >
+      <script is:inline>
+        document.querySelector(".logo")?.addEventListener("mouseenter", (e) => {
+          e.currentTarget.classList.toggle("hovered")
+        })
+      </script>
+
+      <!-- Nav -->
+      <nav aria-label="Main navigation">
+        <ul>
+          {
+            resolvedNavItems.map((item) => (
+              <li>
+                <a
+                  class="button small"
+                  aria-current={item.isActive ? "page" : "false"}
+                  href={item.href}
+                  title={item.label}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="actions">
+        <!-- Search -->
+        <IconButton data-open-search title="Search (⌘K)">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            ><path
+              fill="currentColor"
+              d="M16.102 17.162a8 8 0 1 1 1.06-1.06l4.618 4.618a.75.75 0 1 1-1.06 1.06zM17.5 11a6.5 6.5 0 1 0-13 0a6.5 6.5 0 0 0 13 0"
+            ></path></svg
+          >
+        </IconButton>
+
+        <!-- Theme Configurator -->
+        <IconButton
+          commandfor="theme-configurator-drawer"
+          command="show-modal"
+          title="Customize Theme"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            ><path
+              fill="currentColor"
+              d="M3.839 5.858c2.94-3.916 9.03-5.055 13.364-2.36c4.28 2.66 5.854 7.777 4.1 12.577c-1.655 4.533-6.016 6.328-9.159 4.048c-1.177-.854-1.634-1.925-1.854-3.664l-.106-.987l-.045-.398c-.123-.934-.311-1.352-.705-1.572c-.535-.298-.892-.305-1.595-.033l-.351.146l-.179.078c-1.014.44-1.688.595-2.541.416l-.2-.047l-.164-.047c-2.789-.864-3.202-4.647-.565-8.157m.984 6.716l.123.037l.134.03c.439.087.814.015 1.437-.242l.602-.257c1.202-.493 1.985-.54 3.046.05c.917.512 1.275 1.298 1.457 2.66l.053.459l.055.532l.047.422c.172 1.361.485 2.09 1.248 2.644c2.275 1.65 5.534.309 6.87-3.349c1.516-4.152.174-8.514-3.484-10.789c-3.675-2.284-8.899-1.306-11.373 1.987c-2.075 2.763-1.82 5.28-.215 5.816m11.225-1.994a1.25 1.25 0 1 1 2.414-.647a1.25 1.25 0 0 1-2.414.647m.494 3.488a1.25 1.25 0 1 1 2.415-.647a1.25 1.25 0 0 1-2.415.647M14.07 7.577a1.25 1.25 0 1 1 2.415-.647a1.25 1.25 0 0 1-2.415.647m-.028 8.998a1.25 1.25 0 1 1 2.414-.647a1.25 1.25 0 0 1-2.414.647m-3.497-9.97a1.25 1.25 0 1 1 2.415-.646a1.25 1.25 0 0 1-2.415.646"
+            ></path></svg
+          >
+        </IconButton>
+
+        <!-- Github -->
+        <a
+          href="https://github.com/felix-bohlin/ui"
+          target="_blank"
+          class="github-link icon-button"
+        >
+          <span class="sr-only">Github repo</span>
+          <GithubLogo />
+        </a>
+
+        <!-- Mobile menu button -->
+        <button
+          class="mobile-menu-button icon-button"
+          commandfor="mobile-menu-drawer"
+          command="show-modal"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 20 20"
+            ><path
+              fill="currentColor"
+              d="M6 4.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m1 10a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10a.5.5 0 0 1-.5-.5M2.5 9a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1z"
+            ></path></svg
+          >
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="header-toolbar">
+    <slot name="toolbar" />
+  </div>
+</div>
+
+<Drawer id="mobile-menu-drawer" side="inline-end" closedby="any">
+  <DrawerHeader slot="header" />
+  <Fragment slot="content">
+    <nav aria-label="Mobile navigation">
+      <List variant="transparent">
+        {
+          resolvedNavItems.map((item) => (
+            <ListItem>
+              <a
+                href={item.href}
+                aria-current={item.isActive ? "page" : "false"}
+              >
+                {item.label}
+              </a>
+            </ListItem>
+          ))
+        }
+        <ListItem>
+          <a href="https://github.com/felix-bohlin/ui" target="_blank">
+            <div class="start">
+              <GithubLogo />
+            </div>
+            <p>GitHub</p>
+          </a>
+        </ListItem>
+      </List>
+    </nav>
+
+    <hr />
+
+    <FrameworkPicker />
+  </Fragment>
+
+  <DrawerFooter slot="footer">
+    <Button size="small" commandfor="mobile-menu-drawer" command="close"
+      >Close</Button
+    >
+  </DrawerFooter>
+</Drawer>
+
+<ThemeConfigurator />
+
+<style>
+  .site-header {
+    inset-block-start: 0;
+    position: sticky;
+    z-index: 22;
+  }
+
+  .header-toolbar {
+    display: none;
+    margin-inline: auto;
+    max-inline-size: calc(var(--_content-lg) + var(--_page-gutters));
+    min-inline-size: 0;
+
+    &:has(.local-nav) {
+      display: grid;
+      grid-template-columns: var(--_gap) 1fr 0 minmax(auto, 100%) 0 1fr var(
+          --_gap
+        );
+
+      @media (width >= 900px) {
+        grid-template-columns:
+          var(--_gap) 1fr 200px minmax(auto, 100%)
+          0 1fr var(--_gap);
+      }
+
+      @media (width >= 1140px) {
+        display: none;
+      }
+    }
+  }
+
+  .site-header:has(.header-toolbar:has(.local-nav)) header .content {
+    border-block-end-color: transparent;
+  }
+
+  .site-header:has(.header-toolbar:has(.local-nav)) header .content::before {
+    border-block-end: none;
+  }
+
+  header {
+    .content {
+      align-items: center;
+      backdrop-filter: blur(3px);
+      border-block-end: var(--border-width) solid
+        oklch(from var(--text-primary) l c h / 0.15);
+      container-type: inline-size;
+      display: flex;
+      gap: var(--size-4);
+      justify-content: space-between;
+      margin: 0 auto;
+      max-inline-size: var(--_content-lg);
+      padding: var(--size-4);
+      position: relative;
+
+      &::before {
+        animation: fade-bg linear both;
+        animation-range: 0 150px;
+        animation-timeline: scroll();
+        background-color: var(--surface-elevated);
+        border-radius: 0;
+        border: var(--border-width) solid oklch(from var(--primary) l c h / 0.2);
+        box-shadow: var(--shadow-2);
+        content: "";
+        inset: 0;
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+
+        @media (width >= 1150px) {
+          border-radius: var(--radius-3);
+        }
+
+        @supports (corner-shape: squircle) {
+          border-radius: 0;
+          corner-shape: squircle;
+
+          @media (width >= 1150px) {
+            border-radius: var(--radius-round);
+          }
+        }
+      }
+    }
+
+    nav {
+      display: none;
+      flex: 1;
+      justify-content: end;
+
+      ul {
+        display: flex;
+        gap: var(--size-4);
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        .link {
+          text-decoration: none;
+
+          &[aria-current="page"] {
+            text-decoration-line: underline;
+            text-decoration-thickness: 2px;
+          }
+        }
+      }
+
+      @media (width >= 900px) {
+        display: flex;
+      }
+    }
+
+    .logo {
+      border: calc(var(--border-width) * 2) solid var(--primary);
+      border-radius: var(--border-radius);
+      color: var(--text-primary);
+      display: inline-flex;
+      font-size: var(--font-size-3);
+      font-weight: 700;
+      justify-self: start;
+      padding: 0.1em 0.3em;
+      text-decoration: none;
+
+      @supports (corner-shape: squircle) {
+        border-radius: var(--radius-round);
+        corner-shape: squircle;
+      }
+
+      span {
+        font-family: "Bricolage Grotesque", sans-serif;
+        transition: transform 0.3s ease-out;
+
+        & + span {
+          color: var(--primary);
+        }
+      }
+
+      &:hover {
+        span:first-child {
+          transform: translateY(-10%);
+          transition: transform 0.3s ease;
+        }
+        span:last-child {
+          transform: translateY(10%);
+          transition: transform 0.3s ease;
+        }
+      }
+
+      &.hovered {
+        &:hover {
+          span:first-child {
+            transform: translateY(10%);
+          }
+          span:last-child {
+            transform: translateY(-10%);
+          }
+        }
+      }
+    }
+
+    .actions {
+      align-items: center;
+      display: flex;
+      gap: var(--size-4);
+    }
+
+    .mobile-menu-button {
+      @media (width >= 900px) {
+        display: none;
+      }
+    }
+  }
+
+  /* Mobile menu styles */
+  #mobile-menu-drawer {
+    nav {
+      display: block;
+      margin-inline: calc(var(--size-4) * -1);
+      margin-block-start: calc(var(--size-4) * -1);
+
+      a {
+        align-items: center;
+        color: inherit;
+        display: flex;
+        font-weight: var(--font-weight-6);
+        padding: var(--size-3) var(--size-4);
+        text-decoration: none;
+        width: 100%;
+        transition: background-color 0.2s ease;
+
+        &[aria-current="page"] {
+          background-color: var(--surface-tonal);
+          color: var(--primary);
+        }
+
+        &:hover {
+          background-color: var(--surface-tonal);
+        }
+      }
+    }
+
+    .drawer-footer {
+      padding-block: var(--size-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-3);
+
+      .label {
+        color: var(--text-2);
+        font-size: var(--font-size-0);
+        font-weight: var(--font-weight-7);
+        letter-spacing: var(--font-letter-spacing-1);
+        margin: 0;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  /* Scroll-driven animations */
+  .content {
+    animation: fade-content linear both;
+  }
+
+  @container (width >= 1140px) {
+    header {
+      animation: shrink-padding linear both;
+    }
+  }
+
+  header,
+  .content {
+    animation-timeline: scroll();
+    animation-range: 0 150px;
+  }
+
+  @keyframes shrink-padding {
+    to {
+      padding: var(--size-3) var(--_gap);
+    }
+  }
+
+  @keyframes fade-content {
+    from {
+      opacity: 1;
+    }
+    to {
+      border-block-end-color: transparent;
+      opacity: 0.9;
+      padding: var(--size-2) var(--size-3) var(--size-2) var(--size-2);
+    }
+  }
+
+  @keyframes fade-bg {
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+<Search />

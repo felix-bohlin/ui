@@ -1,0 +1,453 @@
+---
+import Guide from "../../layouts/Guide.astro"
+import Header from "../../components/Header.astro"
+import Baseline from "../../components/Baseline.astro"
+import {
+  getCategorizedBaselineIds,
+  getBaselineMappings,
+} from "../../utils/baseline"
+import { Chip } from "@opui/astro"
+
+const categorized = await getCategorizedBaselineIds()
+const { featureToComponents, componentToFeatures } = await getBaselineMappings()
+
+const allFeatures = Object.keys(featureToComponents).sort()
+const allComponents = Object.keys(componentToFeatures).sort()
+
+const years = Object.keys(categorized)
+  .filter((k) => k !== "all" && k !== "limited")
+  .sort((a, b) => b.localeCompare(a)) // 2025, 2024...
+---
+
+<Guide showToc={false}>
+  <Fragment slot="title">Browser support</Fragment>
+  <Fragment slot="preamble">
+    These are the (most interesting) web platform features used by Open Props
+    UI! If you're here concerned about what components you actually can use
+    today, this should hopefully get you more informed.
+  </Fragment>
+
+  <section class="filter-section">
+    <div class="filter-group">
+      <header>
+        <h2 class="h3">Features</h2>
+        <button id="clear-features" class="button small" style="display: none;">
+          Clear
+        </button>
+      </header>
+      <div class="chip-list" id="feature-chips">
+        {
+          allFeatures.map((id) => (
+            <Chip
+              variant="outlined"
+              as="button"
+              data-id={id}
+              class="filter-chip"
+            >
+              {id}
+            </Chip>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <header>
+        <h2 class="h3">Components</h2>
+        <button
+          id="clear-components"
+          class="button small"
+          style="display: none;"
+        >
+          Clear
+        </button>
+      </header>
+      <div class="chip-list" id="component-chips">
+        {
+          allComponents.map((name) => (
+            <Chip
+              variant="outlined"
+              as="button"
+              data-id={name}
+              class="filter-chip"
+            >
+              {name}
+            </Chip>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <header>
+        <h2 class="h3">Supported since</h2>
+        <button id="clear-years" class="button small" style="display: none;">
+          Clear
+        </button>
+      </header>
+      <div class="chip-list" id="year-chips">
+        <Chip
+          variant="outlined"
+          as="button"
+          data-id="limited"
+          class="filter-chip"
+        >
+          Limited
+        </Chip>
+        {
+          years.map((year) => (
+            <Chip
+              variant="outlined"
+              as="button"
+              data-id={year}
+              class="filter-chip"
+            >
+              {year}
+            </Chip>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      id="filter-results-container"
+      class="filter-results"
+      style="display: none;"
+    >
+      <div id="explorer-wrapper">
+        <Baseline ids={allFeatures} />
+      </div>
+    </div>
+  </section>
+
+  <script
+    is:inline
+    type="application/json"
+    id="baseline-data"
+    set:html={JSON.stringify({
+      featureToComponents,
+      componentToFeatures,
+      categorized,
+    })}
+  />
+</Guide>
+
+<style>
+  .container {
+    display: grid;
+    gap: var(--size-8);
+    margin-inline: auto;
+    max-inline-size: var(--_content-document);
+    padding: var(--size-5);
+  }
+
+  .filter-section {
+    display: grid;
+    gap: var(--size-6);
+
+    .filter-group {
+      display: grid;
+      gap: var(--size-3);
+    }
+
+    header {
+      align-items: center;
+      display: flex;
+      gap: var(--size-3);
+      justify-content: space-between;
+
+      h2 {
+        margin: 0;
+      }
+    }
+  }
+
+  .chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .filter-chip {
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.1s var(--ease-3);
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &.selected {
+      background-color: var(--surface-3);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-1);
+    }
+
+    &.disabled {
+      opacity: 0.3;
+      pointer-events: none;
+      filter: grayscale(1);
+    }
+  }
+
+  .filter-results {
+    display: grid;
+    gap: var(--size-5);
+  }
+</style>
+
+<script>
+  import { BaselineStatus } from "baseline-status/baseline-status"
+
+  if (!customElements.get("baseline-status")) {
+    customElements.define("baseline-status", BaselineStatus)
+  }
+
+  const dataEl = document.getElementById("baseline-data")
+  if (!dataEl) throw new Error("Baseline data missing")
+
+  const { featureToComponents, componentToFeatures, categorized } = JSON.parse(
+    dataEl.innerHTML,
+  )
+
+  const state = {
+    selectedFeatures: new Set<string>(),
+    selectedComponents: new Set<string>(),
+    selectedYears: new Set<string>(),
+  }
+
+  // FILTER EXPLORER LOGIC
+  const featureChips = document.querySelectorAll(
+    "#feature-chips .filter-chip",
+  ) as NodeListOf<HTMLElement>
+  const componentChips = document.querySelectorAll(
+    "#component-chips .filter-chip",
+  ) as NodeListOf<HTMLElement>
+  const yearChips = document.querySelectorAll(
+    "#year-chips .filter-chip",
+  ) as NodeListOf<HTMLElement>
+  const explorerItems = document.querySelectorAll(
+    "#explorer-wrapper baseline-status",
+  ) as NodeListOf<HTMLElement>
+  const resultsContainer = document.getElementById("filter-results-container")
+
+  function updateFilters() {
+    const hasSelection =
+      state.selectedFeatures.size > 0 ||
+      state.selectedComponents.size > 0 ||
+      state.selectedYears.size > 0
+
+    // Update clear button visibility
+    const clearFeaturesBtn = document.getElementById("clear-features")
+    const clearComponentsBtn = document.getElementById("clear-components")
+    const clearYearsBtn = document.getElementById("clear-years")
+    if (clearFeaturesBtn) {
+      clearFeaturesBtn.style.display =
+        state.selectedFeatures.size > 0 ? "block" : "none"
+    }
+    if (clearComponentsBtn) {
+      clearComponentsBtn.style.display =
+        state.selectedComponents.size > 0 ? "block" : "none"
+    }
+    if (clearYearsBtn) {
+      clearYearsBtn.style.display =
+        state.selectedYears.size > 0 ? "block" : "none"
+    }
+
+    // A. Calculate Valid Interaction Sets
+    let validComponentNames = new Set(Object.keys(componentToFeatures))
+    let validFeatureIds = new Set(Object.keys(featureToComponents))
+    let validYears = new Set(
+      Object.keys(categorized).filter((k) => k !== "all"),
+    )
+
+    // If features selected, components must support ALL selected features
+    if (state.selectedFeatures.size > 0) {
+      validComponentNames = new Set(
+        Object.keys(componentToFeatures).filter((compName) => {
+          const compFeatures = componentToFeatures[compName] as string[]
+          return Array.from(state.selectedFeatures).every((f) =>
+            compFeatures.includes(f),
+          )
+        }),
+      )
+    }
+
+    // If components selected, valid features are the UNION of features used by those components
+    if (state.selectedComponents.size > 0) {
+      validFeatureIds = new Set<string>()
+      state.selectedComponents.forEach((compName) => {
+        const features = componentToFeatures[compName] as string[]
+        features.forEach((f) => validFeatureIds.add(f))
+      })
+    }
+
+    // If years selected, intersect valid features and components with features from those years
+    if (state.selectedYears.size > 0) {
+      const yearFeatureIds = new Set<string>()
+      state.selectedYears.forEach((year) => {
+        const yearFeatures = categorized[year] || []
+        yearFeatures.forEach((f: string) => yearFeatureIds.add(f))
+      })
+
+      validFeatureIds = new Set(
+        Array.from(validFeatureIds).filter((f) => yearFeatureIds.has(f)),
+      )
+
+      validComponentNames = new Set(
+        Array.from(validComponentNames).filter((compName) => {
+          const compFeatures = componentToFeatures[compName] as string[]
+          return compFeatures.some((f) => yearFeatureIds.has(f))
+        }),
+      )
+    }
+
+    // Calculate valid years based on active features
+    if (state.selectedFeatures.size > 0 || state.selectedComponents.size > 0) {
+      validYears = new Set(
+        Object.keys(categorized)
+          .filter((k) => k !== "all")
+          .filter((year) => {
+            const yearFeatures = categorized[year] || []
+
+            // A year is valid if it contains any of the explicitly selected features
+            const hasSelectedFeature = Array.from(state.selectedFeatures).some(
+              (f) => yearFeatures.includes(f),
+            )
+
+            // Use the already calculated validFeatureIds for component/year interactions
+            // (only if components are selected, otherwise validFeatureIds contains all features)
+            const hasComponentFeature =
+              state.selectedComponents.size > 0 &&
+              Array.from(validFeatureIds).some((f) => yearFeatures.includes(f))
+
+            return hasSelectedFeature || hasComponentFeature
+          }),
+      )
+    }
+
+    // B. Update Chip UI
+    featureChips.forEach((chip) => {
+      const id = chip.dataset.id!
+      const isSelected = state.selectedFeatures.has(id)
+      const isValid = validFeatureIds.has(id)
+
+      chip.classList.toggle("selected", isSelected)
+      chip.classList.toggle("disabled", !isValid && !isSelected)
+    })
+
+    componentChips.forEach((chip) => {
+      const id = chip.dataset.id!
+      const isSelected = state.selectedComponents.has(id)
+      const isValid = validComponentNames.has(id)
+
+      chip.classList.toggle("selected", isSelected)
+      chip.classList.toggle("disabled", !isValid && !isSelected)
+    })
+
+    yearChips.forEach((chip) => {
+      const id = chip.dataset.id!
+      const isSelected = state.selectedYears.has(id)
+      const isValid = validYears.has(id)
+      chip.classList.toggle("selected", isSelected)
+      chip.classList.toggle("disabled", !isValid && !isSelected)
+    })
+
+    // C. Update Explorer Results
+    if (resultsContainer) {
+      resultsContainer.style.display = "grid"
+
+      const featuresToShow = new Set<string>()
+
+      // If nothing is selected, show all features
+      if (!hasSelection) {
+        Object.keys(featureToComponents).forEach((f) => featuresToShow.add(f))
+      } else {
+        // Add explicitly selected features
+        state.selectedFeatures.forEach((f) => featuresToShow.add(f))
+
+        // Add features from selected components
+        if (state.selectedComponents.size > 0) {
+          state.selectedComponents.forEach((c) => {
+            const cFeatures = componentToFeatures[c] as string[]
+            cFeatures.forEach((f) => featuresToShow.add(f))
+          })
+        }
+
+        // If years are selected
+        if (state.selectedYears.size > 0) {
+          const yearFeatureIds = new Set<string>()
+          state.selectedYears.forEach((year) => {
+            const yearFeatures = categorized[year] || []
+            yearFeatures.forEach((f: string) => yearFeatureIds.add(f))
+          })
+
+          // If only years are selected (no features or components), show all features from those years
+          if (
+            state.selectedFeatures.size === 0 &&
+            state.selectedComponents.size === 0
+          ) {
+            yearFeatureIds.forEach((f) => featuresToShow.add(f))
+          } else {
+            // Otherwise, filter existing features to only include those from selected years
+            const filteredFeatures = new Set<string>()
+            featuresToShow.forEach((f) => {
+              if (yearFeatureIds.has(f)) {
+                filteredFeatures.add(f)
+              }
+            })
+            featuresToShow.clear()
+            filteredFeatures.forEach((f) => featuresToShow.add(f))
+          }
+        }
+      }
+
+      // Toggle visibility; zebra striping is handled by CSS nth-child(even of :not([hidden]))
+      explorerItems.forEach((item) => {
+        const id = item.getAttribute("featureId")!
+        const isVisible = featuresToShow.has(id)
+        item.toggleAttribute("hidden", !isVisible)
+      })
+    }
+  }
+
+  // EVENT LISTENERS
+  function setupChipGroup(containerId: string, stateSet: Set<string>) {
+    const container = document.getElementById(containerId)
+    container?.addEventListener("click", (e) => {
+      const chip = (e.target as HTMLElement).closest(
+        ".filter-chip",
+      ) as HTMLElement
+      if (!chip || chip.classList.contains("disabled")) return
+
+      const id = chip.dataset.id!
+      if (stateSet.has(id)) stateSet.delete(id)
+      else stateSet.add(id)
+
+      updateFilters()
+    })
+  }
+
+  setupChipGroup("feature-chips", state.selectedFeatures)
+  setupChipGroup("component-chips", state.selectedComponents)
+  setupChipGroup("year-chips", state.selectedYears)
+
+  // Clear button handlers
+  document.getElementById("clear-features")?.addEventListener("click", () => {
+    state.selectedFeatures.clear()
+    updateFilters()
+  })
+
+  document.getElementById("clear-components")?.addEventListener("click", () => {
+    state.selectedComponents.clear()
+    updateFilters()
+  })
+
+  document.getElementById("clear-years")?.addEventListener("click", () => {
+    state.selectedYears.clear()
+    updateFilters()
+  })
+
+  // INITIAL RENDER
+  updateFilters()
+</script>

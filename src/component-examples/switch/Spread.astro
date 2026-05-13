@@ -1,0 +1,23 @@
+---
+import { Switch } from "@opui/astro"
+---
+
+<Switch spread>
+  Notifications
+  <Fragment slot="end-text">Receive alerts when someone mentions you.</Fragment>
+</Switch>
+
+<Switch spread required>
+  Required
+  <Fragment slot="end-text">You must accept this to proceed.</Fragment>
+</Switch>
+
+<Switch spread disabled>
+  Disabled
+  <Fragment slot="end-text">This switch is disabled.</Fragment>
+</Switch>
+
+<Switch spread critical>
+  Invalid Switch
+  <Fragment slot="end-text">There is an error with this switch.</Fragment>
+</Switch>

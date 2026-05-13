@@ -1,0 +1,179 @@
+@layer components.root {
+  :where(table) {
+    --_table-border-radius: var(--border-radius);
+
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--border-color);
+    border-radius: var(--_table-border-radius);
+    overflow: hidden;
+    inline-size: 100%;
+    margin: var(--size-3) 0;
+    position: relative;
+
+    /* Rows */
+    tr {
+      &:hover {
+        background-color: oklch(from var(--surface-filled) l c h / 75%);
+      }
+    }
+
+    /* Cells */
+    th,
+    td {
+      background-color: var(--surface-default);
+      border-inline-end: var(--border-width) solid var(--border-color);
+      border-block-end: var(--border-width) solid var(--border-color);
+      padding: var(--size-1) var(--size-2);
+
+      &:last-child {
+        border-inline-end: none;
+      }
+    }
+
+    /* Remove bottom border only on the last row of the table */
+    &>*:last-child tr:last-child {
+
+      th,
+      td {
+        border-block-end: none;
+      }
+    }
+
+    th {
+      background-color: var(--surface-filled);
+      color: var(--text-primary);
+      font-size: var(--font-size-05);
+      font-weight: 600;
+      text-align: start;
+    }
+
+    td {
+      font-size: var(--font-size-05);
+    }
+
+    /* Round corner cells  */
+    &>thead:first-of-type tr:first-child {
+      th:first-child {
+        border-start-start-radius: var(--_table-border-radius);
+      }
+
+      th:last-child {
+        border-start-end-radius: var(--_table-border-radius);
+      }
+    }
+
+    /* Logic for tables without thead */
+    &>tbody:first-of-type:not(thead ~ tbody) tr:first-child {
+      td:first-child {
+        border-start-start-radius: var(--_table-border-radius);
+      }
+
+      td:last-child {
+        border-start-end-radius: var(--_table-border-radius);
+      }
+    }
+
+    /* Logic for bottom corners (whether in tbody or tfoot) */
+    &>*:last-child tr:last-child {
+      :where(th, td):first-child {
+        border-end-start-radius: var(--_table-border-radius);
+      }
+
+      :where(th, td):last-child {
+        border-end-end-radius: var(--_table-border-radius);
+      }
+    }
+
+    /* Footer */
+    tfoot {
+      tr td {
+        background-color: var(--surface-filled);
+        padding-block: var(--size-2);
+      }
+
+      td {
+        color: var(--text-primary);
+        font-weight: 600;
+        border-top: var(--border-width) solid var(--border-color);
+      }
+    }
+
+    /* Caption */
+    caption {
+      caption-side: bottom;
+      color: var(--text-muted);
+      font-size: var(--font-size-05);
+      margin-inline-start: var(--size-2);
+      padding: var(--size-2) 0;
+      text-align: start;
+    }
+
+    /* Header */
+    thead {
+      z-index: 1;
+    }
+
+    /* Remove bottom border of the row above the footer to stay single-line */
+    tbody:has(+ tfoot) tr:last-child td {
+      border-block-end: none;
+    }
+
+    /* Column group */
+    colgroup col {
+      border: none;
+    }
+
+    @container (width < 60ch) {
+
+      th,
+      td {
+        padding: var(--size-1) 0.875rem;
+      }
+    }
+
+    /* Spacious */
+    &.spacious {
+
+      th,
+      td {
+        padding: var(--size-3);
+      }
+
+      caption {
+        margin-inline-start: var(--size-3);
+        padding: var(--size-2) 0;
+      }
+
+      @container (width < 60ch) {
+
+        th,
+        td {
+          padding: var(--size-3);
+        }
+      }
+    }
+
+    /* Dense */
+    &.dense {
+
+      th,
+      td {
+        padding: var(--size-1);
+      }
+
+      caption {
+        margin-inline-start: var(--size-1);
+        padding: var(--size-1) 0;
+      }
+
+      @container (width < 60ch) {
+
+        th,
+        td {
+          padding: var(--size-1);
+        }
+      }
+    }
+  }
+}

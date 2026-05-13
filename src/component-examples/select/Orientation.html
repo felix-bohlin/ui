@@ -1,0 +1,134 @@
+<label class="select spread">
+	<span class="label">Country</span>
+	<span class="start-text">Select your country of residence</span>
+	<span class="field">
+		<select>
+			<button>
+				<selectedcontent></selectedcontent>
+			</button>
+			<div class="list">
+				<option value="">Select a country</option>
+				<option>Denmark</option>
+				<option>Finland</option>
+				<option>Iceland</option>
+				<option>Norway</option>
+				<option>Sweden</option>
+			</div>
+		</select>
+	</span>
+</label>
+
+<label class="select spread filled">
+	<span class="label">Language</span>
+	<span class="start-text">Choose your preferred language</span>
+	<span class="field">
+		<select>
+			<button>
+				<selectedcontent></selectedcontent>
+			</button>
+			<div class="list">
+				<option value="">Select a language</option>
+				<option>Danish</option>
+				<option>Finnish</option>
+				<option>Icelandic</option>
+				<option>Norwegian</option>
+				<option>Swedish</option>
+			</div>
+		</select>
+	</span>
+	<span class="end-text">This affects UI translations</span>
+</label>
+
+<label class="select spread">
+	<span class="label">Required</span>
+	<span class="start-text">You must select an option</span>
+	<span class="field">
+		<select required>
+			<button>
+				<selectedcontent></selectedcontent>
+			</button>
+			<div class="list">
+				<option value="">Select an option</option>
+				<option>Option 1</option>
+				<option>Option 2</option>
+			</div>
+		</select>
+	</span>
+</label>
+
+<label class="select spread">
+	<span class="label">Disabled</span>
+	<span class="start-text">This select is disabled</span>
+	<span class="field">
+		<select disabled>
+			<button>
+				<selectedcontent></selectedcontent>
+			</button>
+			<div class="list">
+				<option>Option 1</option>
+			</div>
+		</select>
+	</span>
+</label>
+
+<label class="select spread" data-invalid>
+	<span class="label">Invalid Select</span>
+	<span class="start-text">This select has an error</span>
+	<span class="field">
+		<select>
+			<button>
+				<selectedcontent></selectedcontent>
+			</button>
+			<div class="list">
+				<option>Option 1</option>
+			</div>
+		</select>
+	</span>
+	<span class="end-text">Please select a valid option.</span>
+</label>
+
+<label class="select spread">
+	<span class="label">Currency</span>
+	<span class="start-text">Used for billing</span>
+	<span class="field">
+		<select>
+			<button>
+				<selectedcontent></selectedcontent>
+			</button>
+			<div class="list">
+				<option value="">-</option>
+				<option>EUR</option>
+				<option>EUR</option>
+				<option>SEK</option>
+			</div>
+		</select>
+		<span class="prefix">¢</span>
+	</span>
+</label>
+
+<label class="select spread filled">
+	<span class="label">Region</span>
+	<span class="start-text">Affects data residency and latency</span>
+	<span class="field">
+		<select>
+			<button>
+				<selectedcontent></selectedcontent>
+			</button>
+			<div class="list">
+				<option value="">-</option>
+				<option>eu-north-1</option>
+				<option>us-east-1</option>
+				<option>ap-southeast-1</option>
+			</div>
+		</select>
+		<span class="prefix">
+			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+				stroke-linecap="round" stroke-linejoin="round">
+				<circle cx="12" cy="12" r="10"></circle>
+				<path d="M2 12h20"></path>
+				<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+			</svg>
+		</span>
+	</span>
+	<span class="end-text">Cannot be changed after deploy</span>
+</label>

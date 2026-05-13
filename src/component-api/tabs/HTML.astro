@@ -1,0 +1,151 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<h3 id="tabs-html">Tabs container</h3>
+<p>The container that organizes the tab grid.</p>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Attribute</Table.HeaderCell>
+      <Table.HeaderCell>Value</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>class</code></Table.Cell>
+      <Table.Cell><code>"tabs"</code></Table.Cell>
+      <Table.Cell>Required class for the parent container.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>role</code></Table.Cell>
+      <Table.Cell><code>"tablist"</code></Table.Cell>
+      <Table.Cell>Required for accessibility.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>class</code></Table.Cell>
+      <Table.Cell><code>"underlined"</code></Table.Cell>
+      <Table.Cell>Optional variant class.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="tab-state-html">Tab State (input)</h3>
+<p>A hidden radio button that manages the selection state.</p>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Attribute</Table.HeaderCell>
+      <Table.HeaderCell>Value</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>type</code></Table.Cell>
+      <Table.Cell><code>"radio"</code></Table.Cell>
+      <Table.Cell>Required for state management.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>class</code></Table.Cell>
+      <Table.Cell><code>"tab-input"</code></Table.Cell>
+      <Table.Cell>Required for behavior and styling.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>name</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>Shared across all tabs in the group.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>checked</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>Applied to the initially active tab.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>aria-controls</code></Table.Cell>
+      <Table.Cell><code>ID</code></Table.Cell>
+      <Table.Cell>Should match the ID of the corresponding panel.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="tab-trigger-html">Tab Trigger (label)</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Attribute</Table.HeaderCell>
+      <Table.HeaderCell>Value</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>class</code></Table.Cell>
+      <Table.Cell><code>"tab-label"</code></Table.Cell>
+      <Table.Cell>Required for behavior and styling.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>for</code></Table.Cell>
+      <Table.Cell><code>ID</code></Table.Cell>
+      <Table.Cell>Must match the ID of the radio input.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>role</code></Table.Cell>
+      <Table.Cell><code>"tab"</code></Table.Cell>
+      <Table.Cell>Required for accessibility.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="tab-panel-html">Tab Panel (div)</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Attribute</Table.HeaderCell>
+      <Table.HeaderCell>Value</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>class</code></Table.Cell>
+      <Table.Cell><code>"tab-panel"</code></Table.Cell>
+      <Table.Cell>Required for behavior and styling.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>role</code></Table.Cell>
+      <Table.Cell><code>"tabpanel"</code></Table.Cell>
+      <Table.Cell>Required for accessibility.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>aria-labelledby</code></Table.Cell>
+      <Table.Cell><code>ID</code></Table.Cell>
+      <Table.Cell>Should match the ID of the corresponding trigger.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

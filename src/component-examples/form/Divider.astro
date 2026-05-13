@@ -1,0 +1,24 @@
+---
+import { Form } from "@opui/astro"
+import { FieldSet } from "@opui/astro"
+import { FieldLegend } from "@opui/astro"
+import { FieldGroup } from "@opui/astro"
+import { TextField } from "@opui/astro"
+import { Button } from "@opui/astro"
+import { Divider } from "@opui/astro"
+---
+
+<Form>
+  <FieldSet>
+    <FieldLegend>Post Content</FieldLegend>
+    <FieldGroup>
+      <TextField label="Title" placeholder="My new post" />
+    </FieldGroup>
+  </FieldSet>
+
+  <Divider />
+
+  <FieldGroup>
+    <Button variant="filled">Publish</Button>
+  </FieldGroup>
+</Form>

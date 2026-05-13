@@ -1,0 +1,51 @@
+<fieldset class="fieldset indeterminate-demo-html">
+	<legend>
+		<label class="checkbox parent">
+			<input type="checkbox" />
+			<span class="label">Select all</span>
+		</label>
+	</legend>
+	<div class="field-group" role="group">
+		<label class="checkbox child">
+			<input name="indeterminate-children-html" type="checkbox" checked />
+			<span class="label">Apples</span>
+		</label>
+		<label class="checkbox child">
+			<input name="indeterminate-children-html" type="checkbox" />
+			<span class="label">Bananas</span>
+		</label>
+		<label class="checkbox child">
+			<input name="indeterminate-children-html" type="checkbox" />
+			<span class="label">Cherries</span>
+		</label>
+	</div>
+</fieldset>
+
+<script>
+	function setupIndeterminateDemoHtml() {
+		document.querySelectorAll(".indeterminate-demo-html").forEach((root) => {
+			const parent = root.querySelector('.parent input[type="checkbox"]');
+			const children = Array.from(
+				root.querySelectorAll('.child input[type="checkbox"]'),
+			);
+			if (!parent || children.length === 0) return;
+
+			const sync = () => {
+				const checkedCount = children.filter((c) => c.checked).length;
+				parent.checked = checkedCount === children.length;
+				parent.indeterminate =
+					checkedCount > 0 && checkedCount < children.length;
+			};
+
+			parent.addEventListener("change", () => {
+				children.forEach((c) => (c.checked = parent.checked));
+				parent.indeterminate = false;
+			});
+			children.forEach((c) => c.addEventListener("change", sync));
+			sync();
+		});
+	}
+
+	setupIndeterminateDemoHtml();
+	document.addEventListener("astro:after-swap", setupIndeterminateDemoHtml);
+</script>

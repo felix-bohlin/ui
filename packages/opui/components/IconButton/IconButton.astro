@@ -1,0 +1,26 @@
+---
+type Props = {
+  [key: string]: any
+  as?: "a" | "button" | string
+  class?: string
+  color?: "critical" | "primary"
+  href?: string
+  size?: "small"
+  variant?: "outlined" | "tonal" | "filled"
+}
+
+export const title = "Icon Button"
+
+const {
+  as: Tag = Astro.props.href ? "a" : "button",
+  class: className,
+  color,
+  href,
+  size,
+  variant,
+  ...rest
+} = Astro.props
+---
+
+<!-- prettier-ignore -->
+<Tag class:list={["icon-button", size, variant, color, className]} href={href} {...rest}><slot /></Tag>

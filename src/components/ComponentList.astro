@@ -1,0 +1,59 @@
+---
+import { components, componentHrefFor } from "../utils/components"
+import { DEFAULT_FRAMEWORK, type FrameworkId } from "../utils/framework-routing"
+
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+---
+
+<ul class="card-grid">
+  {
+    components.map((component) => (
+      <li>
+        <a
+          class="card outlined"
+          href={componentHrefFor(currentFramework, component.slug)}
+        >
+          <div class="content">
+            <p>{component.name}</p>
+          </div>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .card-grid {
+    align-items: stretch;
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    list-style-type: none;
+    margin-block-start: var(--size-3);
+    padding: 0;
+
+    .card {
+      color: inherit;
+      display: block;
+      text-decoration: none;
+
+      &:hover {
+        p {
+          text-decoration: underline;
+        }
+      }
+
+      .content {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+
+        p {
+          font-weight: 600;
+          margin: 0;
+        }
+      }
+    }
+  }
+</style>

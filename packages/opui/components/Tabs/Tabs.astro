@@ -1,0 +1,28 @@
+---
+type Props = {
+  [key: string]: any
+  class?: string
+  name?: string
+}
+
+export const title = "Tabs"
+
+const { $id } = Astro.locals
+const { class: className, name, ...rest } = Astro.props
+
+const groupName = name || $id("tabs")
+
+const originalGroupName = Astro.locals.tabsGroupName
+Astro.locals.tabsGroupName = groupName
+
+const html = await Astro.slots.render("default")
+
+Astro.locals.tabsGroupName = originalGroupName
+---
+
+<div
+  class:list={["tabs", className]}
+  role="tablist"
+  {...rest}
+  set:html={html}
+/>

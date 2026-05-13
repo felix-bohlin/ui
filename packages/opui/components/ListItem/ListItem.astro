@@ -1,0 +1,118 @@
+---
+type Props = {
+  as?: "a" | "button" | "div"
+  borderTop?: boolean
+  class?: string
+  description?: string
+  for?: string
+  headline?: string
+  inset?: boolean
+  type?: "checkbox" | "radio" | "switch"
+  [key: string]: any
+}
+
+export const title = "List Item"
+
+const {
+  as: Tag,
+  borderTop,
+  class: className,
+  description,
+  for: htmlFor,
+  headline,
+  inset,
+  type,
+  ...rest
+} = Astro.props
+
+const hasLabel =
+  type && (type === "checkbox" || type === "radio" || type === "switch")
+const labelClass = type || ""
+const liProps = Tag ? {} : rest
+const innerProps = Tag ? rest : {}
+---
+
+<li
+  class:list={[
+    {
+      "border-top": borderTop,
+      inset,
+    },
+    className,
+  ]}
+  {...liProps}
+>
+  {
+    // Label + checkbox/radio/switch
+    hasLabel ? (
+      <label class={labelClass} for={htmlFor}>
+        {Astro.slots.start && (
+          <div class="start">
+            <slot name="start" />
+          </div>
+        )}
+        {Astro.slots.text || headline || description ? (
+          <div class="text">
+            {headline && <p>{headline}</p>}
+            {description && <p>{description}</p>}
+            <slot name="text" />
+          </div>
+        ) : null}
+        {Astro.slots.end && (
+          <div class="end">
+            <slot name="end" />
+          </div>
+        )}
+        <slot />
+      </label>
+    ) : // With custom tag
+    Tag ? (
+      <Tag {...innerProps}>
+        {Astro.slots.start && (
+          <div class="start">
+            <slot name="start" />
+          </div>
+        )}
+        {headline || description || Astro.slots.text ? (
+          <div class="text">
+            {headline && <p>{headline}</p>}
+            {description && <p>{description}</p>}
+            <slot name="text" />
+            <slot />
+          </div>
+        ) : (
+          <slot />
+        )}
+        {Astro.slots.end && (
+          <div class="end">
+            <slot name="end" />
+          </div>
+        )}
+      </Tag>
+    ) : (
+      // Without custom tag
+      <>
+        {Astro.slots.start && (
+          <div class="start">
+            <slot name="start" />
+          </div>
+        )}
+        {headline || description || Astro.slots.text ? (
+          <div class="text">
+            {headline && <p>{headline}</p>}
+            {description && <p>{description}</p>}
+            <slot name="text" />
+            <slot />
+          </div>
+        ) : (
+          <slot />
+        )}
+        {Astro.slots.end && (
+          <div class="end">
+            <slot name="end" />
+          </div>
+        )}
+      </>
+    )
+  }
+</li>

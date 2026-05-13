@@ -1,0 +1,19 @@
+---
+type Props = {
+  class?: string
+  tabId?: string
+  [key: string]: any
+}
+
+const { class: className, tabId, ...rest } = Astro.props
+const { currentTabId } = Astro.locals
+---
+
+<label
+  for={tabId || currentTabId}
+  class:list={["tab-label", className]}
+  role="tab"
+  {...rest}
+>
+  <slot />
+</label>

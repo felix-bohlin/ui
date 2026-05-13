@@ -1,0 +1,18 @@
+---
+import { Checkbox } from "@opui/astro"
+import { FieldSet } from "@opui/astro"
+import { FieldLegend } from "@opui/astro"
+import { FieldGroup } from "@opui/astro"
+import { Form } from "@opui/astro"
+---
+
+<Form>
+  <FieldSet>
+    <FieldLegend>These are required!</FieldLegend>
+    <FieldGroup direction="row" name="checkbox-group-required-astro">
+      <Checkbox required>Checkbox 1</Checkbox>
+      <Checkbox required>Checkbox 2</Checkbox>
+      <Checkbox required>Checkbox 3</Checkbox>
+    </FieldGroup>
+  </FieldSet>
+</Form>

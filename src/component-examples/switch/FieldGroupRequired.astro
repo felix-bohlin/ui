@@ -1,0 +1,18 @@
+---
+import { Switch } from "@opui/astro"
+import { FieldSet } from "@opui/astro"
+import { FieldLegend } from "@opui/astro"
+import { FieldGroup } from "@opui/astro"
+import { Form } from "@opui/astro"
+---
+
+<Form>
+  <FieldSet>
+    <FieldLegend>These are required!</FieldLegend>
+    <FieldGroup direction="row" name="switch-group-required-astro">
+      <Switch required>Switch 1</Switch>
+      <Switch required>Switch 2</Switch>
+      <Switch required>Switch 3</Switch>
+    </FieldGroup>
+  </FieldSet>
+</Form>

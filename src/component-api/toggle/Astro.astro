@@ -1,0 +1,130 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<h3 id="toggle-button-astro">Toggle Button</h3>
+<p>Individual toggle button component.</p>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>disabled</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Whether the toggle button is disabled.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>label</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The label text for the toggle button.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>name</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The name of the input element. Inherited from ToggleGroup if used
+        within one.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>pressed</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell
+        >Whether the toggle button is pressed. Maps to <code>aria-pressed</code>
+        in checkbox mode and to <code>checked</code> on the underlying input.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>size</code></Table.Cell>
+      <Table.Cell><code>"default" | "small" | "x-small"</code></Table.Cell>
+      <Table.Cell><code>"default"</code></Table.Cell>
+      <Table.Cell>The size of the toggle button.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>type</code></Table.Cell>
+      <Table.Cell><code>"checkbox" | "radio"</code></Table.Cell>
+      <Table.Cell><code>"checkbox"</code></Table.Cell>
+      <Table.Cell
+        >The type of input element. Inherited from ToggleGroup (driven by the
+        <code>selection</code> prop) if used within one.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>value</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The value attribute of the input element. Defaults to <code>label</code
+        > if not provided.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="toggle-group-astro">Toggle Group</h3>
+<p>Container for grouping multiple toggle buttons.</p>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>name</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The name property for child inputs. Used for native form submission.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>size</code></Table.Cell>
+      <Table.Cell><code>"default" | "small" | "x-small"</code></Table.Cell>
+      <Table.Cell><code>"default"</code></Table.Cell>
+      <Table.Cell>The size of the toggle group.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>orientation</code></Table.Cell>
+      <Table.Cell><code>"vertical"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Changes the layout direction of the group.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>selection</code></Table.Cell>
+      <Table.Cell><code>"single" | "multiple"</code></Table.Cell>
+      <Table.Cell><code>"multiple"</code></Table.Cell>
+      <Table.Cell
+        >The selection mode. <code>"single"</code> maps to radio inputs;
+        <code>"multiple"</code> maps to checkbox inputs.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

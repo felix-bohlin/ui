@@ -1,0 +1,31 @@
+---
+import {
+  DEFAULT_FRAMEWORK,
+  frameworkPaths,
+  type FrameworkId,
+} from "../../../utils/framework-routing"
+
+export const getStaticPaths = frameworkPaths
+
+const framework = (Astro.currentLocale ?? DEFAULT_FRAMEWORK) as FrameworkId
+
+const modules = import.meta.glob(
+  "../../../docs/guide/getting-started/*.astro",
+  {
+    eager: true,
+  },
+)
+
+const labelByFramework: Record<FrameworkId, string> = {
+  astro: "Astro",
+  html: "HTML",
+}
+
+const label = labelByFramework[framework]
+const entry = Object.entries(modules).find(([path]) =>
+  path.endsWith(`/${label}.astro`),
+)
+const Page = entry ? (entry[1] as { default: any }).default : null
+---
+
+{Page && <Page />}

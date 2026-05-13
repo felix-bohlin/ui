@@ -1,0 +1,7 @@
+---
+import { frameworkPaths } from "../../utils/framework-routing"
+
+export const getStaticPaths = frameworkPaths
+
+return Astro.redirect(`/${Astro.params.framework}/guide/getting-started`)
+---

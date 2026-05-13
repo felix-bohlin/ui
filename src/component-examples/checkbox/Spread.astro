@@ -1,0 +1,25 @@
+---
+import { Checkbox } from "@opui/astro"
+---
+
+<Checkbox spread>
+  Accept Terms & Conditions
+  <Fragment slot="end-text"
+    >I have read and agree to the privacy policy.</Fragment
+  >
+</Checkbox>
+
+<Checkbox spread required>
+  Required
+  <Fragment slot="end-text">You must accept this to continue.</Fragment>
+</Checkbox>
+
+<Checkbox spread disabled>
+  Disabled
+  <Fragment slot="end-text">This checkbox is disabled.</Fragment>
+</Checkbox>
+
+<Checkbox spread critical>
+  Invalid Checkbox
+  <Fragment slot="end-text">There is an error with this checkbox.</Fragment>
+</Checkbox>

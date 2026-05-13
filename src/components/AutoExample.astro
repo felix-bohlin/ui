@@ -1,0 +1,85 @@
+---
+import Example from "./Example/index"
+
+type Props = {
+  /**
+   * Example file basename inside `src/component-examples/<slug>/`, e.g.
+   * `"Image"` resolves to `Image.astro` and `Image.html` for the Astro and
+   * HTML frameworks respectively.
+   */
+  name: string
+  /**
+   * Component slug. Defaults to `Astro.locals.componentSlug` (set by the
+   * `Component` layout from its own `slug` prop), so doc pages don't have
+   * to repeat the slug on every example.
+   */
+  slug?: string
+  centered?: boolean
+  class?: string
+  column?: boolean
+  exampleClass?: string
+  marks?: Record<string, any>
+  output?: "always-show" | "toggled"
+  richText?: "rich-text" | "not-rich-text"
+  row?: boolean
+  showCode?: boolean
+  spacious?: boolean
+  wrapperClass?: string
+}
+
+const { name, slug: slugProp, ...rest } = Astro.props
+const slug = slugProp ?? Astro.locals.componentSlug
+
+if (!slug) {
+  throw new Error(
+    `<AutoExample name="${name}"> requires a "slug" prop or Astro.locals.componentSlug ` +
+      `(set by <Component slug="..."> in the page frontmatter).`,
+  )
+}
+
+// Eager globs scoped to the component-examples tree. Vite resolves these at
+// build time, so missing files mean `undefined` rather than a runtime fetch.
+// Note: every matched file must be parseable; orphaned/broken example files
+// will fail the whole build.
+const previewModules = import.meta.glob("../component-examples/**/*.astro", {
+  eager: true,
+}) as Record<string, { default: any }>
+
+const rawSources = import.meta.glob("../component-examples/**/*.{astro,html}", {
+  eager: true,
+  query: "?raw",
+  import: "default",
+}) as Record<string, string>
+
+const astroPath = `../component-examples/${slug}/${name}.astro`
+const htmlPath = `../component-examples/${slug}/${name}.html`
+
+const astroComponent = previewModules[astroPath]?.default
+const astroSource = rawSources[astroPath]
+const htmlSource = rawSources[htmlPath]
+
+if (!astroComponent && !htmlSource) {
+  throw new Error(
+    `<AutoExample slug="${slug}" name="${name}"> found no example files at ` +
+      `${astroPath} or ${htmlPath}.`,
+  )
+}
+---
+
+<Example {...rest}>
+  {
+    Astro.slots.has("controls") && (
+      <Fragment slot="controls">
+        <slot name="controls" />
+      </Fragment>
+    )
+  }
+  {
+    astroComponent && (
+      <Example.Preview slot="preview-astro" code={astroComponent} />
+    )
+  }
+  {htmlSource && <Example.Preview slot="preview-html" code={htmlSource} />}
+  {astroSource && <Example.Code slot="code-astro" code={astroSource} />}
+  {htmlSource && <Example.Code slot="code-html" code={htmlSource} />}
+</Example>

@@ -1,0 +1,94 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<h3>Classes</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Sides</Table.Cell>
+      <Table.Cell>
+        <code>.inline-start</code>, <code>.inline-end</code>,
+        <code>.block-start</code>, <code>.block-end</code>
+      </Table.Cell>
+      <Table.Cell><code>.inline-start</code></Table.Cell>
+      <Table.Cell>The side it opens from.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Close behavior</Table.Cell>
+      <Table.Cell>
+        <code>closedby="any"</code>, <code>closedby="closerequest"</code>,
+        <code>closedby="none"</code>
+      </Table.Cell>
+      <Table.Cell><code>closedby="any"</code></Table.Cell>
+      <Table.Cell>How the drawer is closed.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Backdrop</Table.Cell>
+      <Table.Cell><code>.backdrop-transparent</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Removes the backdrop blur.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Autofocus</Table.Cell>
+      <Table.Cell><code>autofocus</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>
+        Focuses the drawer container (or a specific element) when opened.
+        Prevents focus from jumping to the first focusable element.
+      </Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3>Children</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Class</Table.HeaderCell>
+      <Table.HeaderCell>-</Table.HeaderCell>
+      <Table.HeaderCell>-</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>.header</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Top area for titles.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>.content</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Main content area.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>.actions</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Bottom action area.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

@@ -1,0 +1,68 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Accordion</Table.Cell>
+      <Table.Cell><code>details.accordion</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The root element for the accordion. Requires the <code>.accordion</code
+        > class and optionally the <code>.card</code> class for styling.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Group</Table.Cell>
+      <Table.Cell><code>.card[role="group"]</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Optional wrapper for accordion groups. To theme the entire group, apply
+        the variant class to this element.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Attribute</Table.Cell>
+      <Table.Cell><code>name</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The name of the accordion (used for grouping multiple accordions).</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Part</Table.Cell>
+      <Table.Cell
+        ><code>& > summary</code>, <code>& > .content</code>, <code
+          >& > .actions</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional wrappers for child content.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Variants</Table.Cell>
+      <Table.Cell
+        ><code>.text</code>, <code>.elevated</code>, <code>.tonal</code>, <code
+          >.outlined</code
+        ></Table.Cell
+      >
+      <Table.Cell><code>.text</code></Table.Cell>
+      <Table.Cell>The variant to use.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

@@ -1,0 +1,203 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example"
+import AutoExample from "../../components/AutoExample.astro"
+import { Accordion as UIAccordion } from "@opui/astro"
+import { Callout as UICallout } from "@opui/astro"
+
+import ButtonGroupCSS from "@opui/css/components/button-group.css?raw"
+import ButtonGroupAPIAstro from "../../component-api/button-group/Astro.astro"
+import ButtonGroupAPIHTML from "../../component-api/button-group/HTML.astro"
+import ButtonAPIAstro from "../../component-api/button/Astro.astro"
+import ButtonAPIHTML from "../../component-api/button/HTML.astro"
+
+import ExampleAnatomy from "../../component-examples/button-group/Anatomy.astro"
+import Conditional from "../../components/Conditional.astro"
+---
+
+<Component
+  slug="button-group"
+  browserSupport={["color-mix"]}
+  apis={[
+    {
+      title: "Button group",
+      astro: ButtonGroupAPIAstro,
+      html: ButtonGroupAPIHTML,
+    },
+    { title: "Button", astro: ButtonAPIAstro, html: ButtonAPIHTML },
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/ButtonGroup/ButtonGroup.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/button-group.astro", type: "docs" },
+    { path: "src/component-examples/button-group", type: "docs" },
+    {
+      path: "packages/opui/css/components/button-group.css",
+      type: "css",
+    },
+    { path: "src/component-api/button-group", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "button-group.css", code: ButtonGroupCSS, lang: "css" },
+  ]}
+>
+  <Fragment slot="title">Button group</Fragment>
+  <Fragment slot="preamble">
+    <Conditional>
+      <Fragment slot="html">
+        Groups related buttons by wrapping them with <code
+          >class="button-group"</code
+        > and <code>role="group"</code>.
+      </Fragment>
+      <Fragment slot="astro">Groups related buttons.</Fragment>
+    </Conditional>
+  </Fragment>
+  <ul>
+    <li>Button groups should consist of 2-5 buttons.</li>
+    <li>Don't allow them to wrap onto a new line.</li>
+    <li>
+      If an icon is used without label text make sure the button communicates
+      clearly what it does.
+    </li>
+  </ul>
+
+  <div class="not-rich-text">
+    <UIAccordion variant="tonal">
+      <Fragment slot="summary">Button group or Toggle group?</Fragment>
+      <p>
+        If your buttons depend on state (controlled) - use <DocLink
+          href="/components/toggle"
+          class="link">Toggle group</DocLink
+        >.
+      </p>
+      <p>
+        If you just need to group a bunch of "dumb" (uncontrolled) buttons - use
+        Button group.
+      </p>
+    </UIAccordion>
+  </div>
+
+  <section>
+    <h2 id="variants">Variants</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Change the appearance of the entire group with the <code>variant</code>
+        prop.
+      </Fragment>
+      <Fragment slot="html">
+        Change the appearance of the entire group with the <code>.outlined</code
+        >, <code>.tonal</code>, and <code>.filled</code> classes.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Variants" column centered />
+  </section>
+
+  <section>
+    <h2 id="colors">Colors</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set the <code>color</code> prop to <code>primary</code> or <code
+          >critical</code
+        > to recolor the entire group. The default is a neutral gray.
+      </Fragment>
+      <Fragment slot="html">
+        Add a <code>.primary</code> or <code>.critical</code> class to recolor the
+        entire group. The default is a neutral gray.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Colors" column centered />
+  </section>
+
+  <section>
+    <h2 id="icons">Icons</h2>
+    <p>
+      Yes of course, they're just <DocLink
+        href="/components/button"
+        class="link">buttons.</DocLink
+      >
+    </p>
+    <AutoExample name="WithIcons" column centered />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Adjust the size of all buttons in the group using the <code>size</code>
+        prop.
+      </Fragment>
+      <Fragment slot="html">
+        Adjust the size of all buttons in the group using the <code>.small</code
+        > and <code>.large</code> classes.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Size" column centered />
+  </section>
+
+  <section>
+    <h2 id="vertical-orientation">Vertical orientation</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Change the layout of the group with the <code
+          >orientation="vertical"</code
+        > prop.
+      </Fragment>
+      <Fragment slot="html">
+        Change the layout of the group with the <code>.vertical</code> class.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Vertical" column centered />
+  </section>
+
+  <section>
+    <h2 id="disabled">Disabled</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Disable individual buttons within a group by setting the <code
+          >disabled</code
+        >
+        prop on each <code>Button</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Disable individual buttons within a group by adding the <code
+          >disabled</code
+        >
+        attribute to each <code>&lt;button&gt;</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Disabled" column centered />
+  </section>
+
+  <Fragment slot="anatomy">
+    <ol>
+      <li>
+        Container: <code>&lt;element role="group" class="button-group"&gt;</code
+        >
+      </li>
+      <li>
+        Buttons: <DocLink href="/components/button" class="link"
+          >Button</DocLink>
+      </li>
+    </ol>
+
+    <Example row>
+      <Example.Preview slot="preview-astro" code={ExampleAnatomy} />
+    </Example>
+  </Fragment>
+
+  <style is:global>
+    .anatomy {
+      outline: var(--_anatomy-border-gray);
+      outline-offset: 4px;
+
+      & > * {
+        outline: var(--_anatomy-border-red);
+        outline-offset: -5px;
+      }
+    }
+  </style>
+</Component>

@@ -1,0 +1,20 @@
+---
+// Framework-aware anchor for cross-doc navigation. Resolves the `href` to the
+// current request's framework variant at build time via `Astro.locals.link`,
+// so SSR'd HTML is correct on first paint — no runtime rewriting, no flicker,
+// and view transitions / prefetch work cleanly.
+//
+// Use this for any internal docs link in a regular `<a>`. For components that
+// render their own anchor (Button, Chip, IconButton, etc.), use
+// `Astro.locals.link()` directly on the `href` prop instead.
+type Props = {
+  [key: string]: any
+  class?: string
+  href: string
+}
+
+const { class: className, href, ...rest } = Astro.props
+const { link } = Astro.locals
+---
+
+<a class={className} href={link(href)} {...rest}><slot /></a>

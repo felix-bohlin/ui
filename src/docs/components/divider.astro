@@ -1,0 +1,39 @@
+---
+import Component from "../../layouts/Component.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import DividerCSS from "@opui/css/components/divider.css?raw"
+
+---
+
+<Component
+  slug="divider"
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Divider/Divider.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/divider.astro", type: "docs" },
+    { path: "src/component-examples/divider", type: "docs" },
+    {
+      path: "packages/opui/css/components/divider.css",
+      type: "css",
+    },
+    { path: "src/component-api/divider", type: "api" },
+  ]}
+  installationTabs={[{ title: "divider.css", code: DividerCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Divider</Fragment>
+  <Fragment slot="preamble">
+    It's just an <code>&lt;hr&gt;</code>.
+  </Fragment>
+
+  <section>
+    <h2 class="default">Default</h2>
+    <AutoExample name="Default" />
+  </section>
+
+  <section>
+    <h2 id="variants">Variants</h2>
+    <AutoExample name="Variants" />
+  </section>
+</Component>

@@ -1,0 +1,77 @@
+@layer components.root {
+  :where(.tabs) {
+    --_accent-color: var(--primary);
+    --_bg-color: transparent;
+
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--size-1);
+    position: relative;
+
+    &>.tab-input[type="radio"] {
+      /* utils > .sr-only */
+      /* TODO: use mixin for this when available */
+      block-size: 1px;
+      clip-path: inset(50%);
+      inline-size: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+
+      &:checked {
+
+        /* Checked Tab */
+        &+[role="tab"] {
+          border-block-end-color: var(--_accent-color);
+          color: var(--_accent-color);
+
+          /* Checked Panel */
+          &+[role="tabpanel"] {
+            display: block;
+          }
+        }
+      }
+
+      &:focus-visible {
+        &+[role="tab"] {
+          --focus-ring-color: var(--text-muted);
+          --focus-ring-offset: calc(-1 * var(--size-2));
+          outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+          outline-offset: var(--focus-ring-offset);
+        }
+      }
+    }
+
+    /* Tab */
+    &>[role="tab"] {
+      align-items: center;
+      background-color: transparent;
+      border-bottom: 2px solid transparent;
+      border-radius: 0;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      font-weight: 600;
+      justify-content: center;
+      line-height: var(--font-lineheight-4);
+      order: 1;
+      padding: var(--size-2) var(--size-3);
+      position: relative;
+      transition: color 0.1s;
+      user-select: none;
+
+      &:hover {
+        background-color: light-dark(oklch(from var(--_accent-color) calc(l * 0.75) none h / 5%),
+            oklch(from var(--_accent-color) calc(l * 1.25) none h / 5%));
+      }
+    }
+
+    /* Tab Panel */
+    &>[role="tabpanel"] {
+      display: none;
+      inline-size: 100%;
+      order: 2;
+    }
+  }
+}

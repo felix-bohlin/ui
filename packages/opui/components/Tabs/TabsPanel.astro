@@ -1,0 +1,21 @@
+---
+type Props = {
+  class?: string
+  panelId?: string
+  tabId?: string
+  [key: string]: any
+}
+
+const { class: className, panelId, tabId, ...rest } = Astro.props
+const { currentPanelId, currentTabId } = Astro.locals
+---
+
+<div
+  id={panelId || currentPanelId}
+  class:list={["tab-panel", className]}
+  role="tabpanel"
+  aria-labelledby={tabId || currentTabId}
+  {...rest}
+>
+  <slot />
+</div>

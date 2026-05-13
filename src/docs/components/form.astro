@@ -1,0 +1,343 @@
+---
+import Component from "../../layouts/Component.astro"
+import Example from "../../components/Example"
+import AutoExample from "../../components/AutoExample.astro"
+import FormCSS from "@opui/css/components/form.css?raw"
+
+import ExampleUsageAstroCode from "../../component-examples/form/Usage.astro?raw"
+import ExampleUsageHTMLCode from "../../component-examples/form/Usage.html?raw"
+
+import ExampleAdaptiveOutputCode from "../../component-examples/form/AdaptiveOutput.astro?raw"
+
+import ExampleKitchenSink from "../../component-examples/form/KitchenSink.astro"
+import ExampleKitchenSinkCodeAstro from "../../component-examples/form/KitchenSink.astro?raw"
+import ExampleKitchenSinkHTML from "../../component-examples/form/KitchenSink.html?raw"
+
+import ExampleKitchenSinkRow from "../../component-examples/form/KitchenSinkRow.astro"
+import ExampleKitchenSinkRowCodeAstro from "../../component-examples/form/KitchenSinkRow.astro?raw"
+import ExampleKitchenSinkRowHTML from "../../component-examples/form/KitchenSinkRow.html?raw"
+
+import FormAPIAstro from "../../component-api/form/Astro.astro"
+import FormAPIHTML from "../../component-api/form/HTML.astro"
+
+import { Switch as UISwitch } from "@opui/astro"
+import Conditional from "../../components/Conditional.astro"
+import { Code } from "astro-expressive-code/components"
+import { DescriptionList } from "@opui/astro"
+---
+
+<Component
+  slug="form"
+  browserSupport={["has"]}
+  installationTabs={[
+    { title: "form.css", code: FormCSS, lang: "css" },
+    { title: "button.css", seeAlso: true },
+    { title: "checkbox.css", seeAlso: true },
+    { title: "divider.css", seeAlso: true },
+    { title: "radio.css", seeAlso: true },
+    { title: "range.css", seeAlso: true },
+    { title: "select.css", seeAlso: true },
+    { title: "switch.css", seeAlso: true },
+    { title: "textarea.css", seeAlso: true },
+    { title: "text-field.css", seeAlso: true },
+  ]}
+  apis={[
+    {
+      title: "Form",
+      astro: FormAPIAstro,
+      html: FormAPIHTML,
+    },
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Form/Form.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/form.astro", type: "docs" },
+    { path: "src/component-examples/form", type: "docs" },
+    {
+      path: "packages/opui/css/components/form.css",
+      type: "css",
+    },
+    { path: "src/component-api/form", type: "api" },
+  ]}
+>
+  <Fragment slot="title">Form</Fragment>
+  <Fragment slot="preamble">A way to build structured forms.</Fragment>
+
+  <section>
+    <h2 id="usage">Usage</h2>
+    <Conditional>
+      <Code slot="astro" lang="astro" code={ExampleUsageAstroCode} />
+      <Code slot="html" lang="html" code={ExampleUsageHTMLCode} />
+    </Conditional>
+
+    <Conditional>
+      <Fragment slot="astro">
+        <h3 id="non-semantic-elements">Non-semantic elements</h3>
+        <p>
+          Sometimes you can't use semantic form elements like <code
+            >&lt;fieldset&gt;</code
+          > and <code>&lt;legend&gt;</code>. Use the <code>as</code> prop on <code
+            >FieldSet</code
+          > and <code>FieldLegend</code> to render non-semantic alternatives.
+        </p>
+        <Code lang="astro" code={ExampleAdaptiveOutputCode} />
+      </Fragment>
+      <Fragment slot="html">
+        <h3 id="non-semantic-elements">Non-semantic elements</h3>
+        <p>
+          Sometimes you can't use semantic form elements like <code
+            >&lt;fieldset&gt;</code
+          > and <code>&lt;legend&gt;</code>. Replace them with <code
+            >&lt;div role="group"&gt;</code
+          > paired with a <code>&lt;span class="legend"&gt;</code> (or any heading)
+          to keep the visual treatment without the native semantics.
+        </p>
+      </Fragment>
+    </Conditional>
+
+    <section>
+      <h2 id="fieldset">Fieldset</h2>
+      <p>Used to show a relationship between form elements.</p>
+      <Conditional>
+        <DescriptionList variant="bordered" slot="astro">
+          <DescriptionList.Item>
+            <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term
+            >
+            <hr class="dotted" />
+            <DescriptionList.Description>
+              to describe what it's about.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term
+              ><code>FieldDescription</code>(optional)</DescriptionList.Term
+            >
+            <hr class="dotted" />
+            <DescriptionList.Description>
+              to give extra context about the fieldset.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term><code>FieldGroup</code></DescriptionList.Term>
+            <hr class="dotted" />
+            <DescriptionList.Description>
+              groups related fields.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+        </DescriptionList>
+        <DescriptionList variant="bordered" slot="html">
+          <DescriptionList.Item>
+            <DescriptionList.Term
+              ><code>&lt;legend&gt;</code></DescriptionList.Term
+            >
+            <hr class="dotted" />
+            <DescriptionList.Description>
+              to describe what it's about.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term
+              ><code>.field-description</code>(optional)</DescriptionList.Term
+            >
+            <hr class="dotted" />
+            <DescriptionList.Description>
+              to give extra context about the fieldset.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term
+              ><code>.field-group</code></DescriptionList.Term
+            >
+            <hr class="dotted" />
+            <DescriptionList.Description>
+              groups related fields.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+        </DescriptionList>
+      </Conditional>
+    </section>
+
+    <AutoExample name="FieldsetStacked" />
+
+    <h3 id="fieldset-required">Required</h3>
+    <AutoExample name="FieldsetRequired" />
+
+    <h3 id="fieldset-disabled">Disabled</h3>
+    <p>Turns out you can disable an entire fieldset.</p>
+    <AutoExample name="FieldsetDisabled" />
+  </section>
+
+  <section>
+    <h2 id="field-legend">Field Legend</h2>
+    <p>
+      Use <code>FieldLegend</code> (or <code>&lt;legend&gt;</code>) to describe
+      the fieldset.
+    </p>
+    <AutoExample name="FieldLegend" />
+  </section>
+
+  <section>
+    <h2 id="field-description">Field Description</h2>
+    <p>
+      Use <code>FieldDescription</code> (or <code>.field-description</code>) to
+      give extra context about the fieldset.
+    </p>
+    <AutoExample name="FieldDescription" />
+  </section>
+
+  <section>
+    <h2 id="field-group">Field Group</h2>
+    <Conditional>
+      <p slot="astro">
+        Use <code>FieldGroup</code> to wrap related fields. It provides a shared
+        <code>name</code> to all nested inputs.
+      </p>
+      <p slot="html">
+        Use <code>.field-group</code> to wrap related fields.
+      </p>
+    </Conditional>
+
+    <AutoExample name="FieldGroup" />
+
+    <section>
+      <h3 id="field-group-row">Row</h3>
+      <Conditional>
+        <p slot="astro">
+          Use the <code>direction="row"</code> prop to lay out fields horizontally.
+        </p>
+        <p slot="html">
+          Use the <code>.row</code> class to lay out fields horizontally.
+        </p>
+      </Conditional>
+
+      <AutoExample name="FieldGroupRow" row />
+    </section>
+  </section>
+
+  <section>
+    <h2 id="divider">Divider</h2>
+    <Conditional>
+      <p slot="astro">
+        Use the <code>Divider</code> component to create a visual break between sections
+        of your form.
+      </p>
+      <p slot="html">
+        Use a <code>&lt;hr /&gt;</code> to create a visual break between sections
+        of your form.
+      </p>
+    </Conditional>
+    <AutoExample name="Divider" />
+  </section>
+
+  <section>
+    <h2 id="kitchen-sink">Kitchen Sink</h2>
+    <p>Everything all at once.</p>
+    <Example>
+      <Fragment slot="controls">
+        <UISwitch id="kitchen-sink-small-toggle"><code>small</code></UISwitch>
+        <UISwitch id="kitchen-sink-divider-toggle">
+          <Conditional>
+            <Fragment slot="astro">Show <code>&lt;Divider&gt;</code></Fragment>
+            <Fragment slot="html">Show <code>&lt;hr&gt;</code></Fragment>
+          </Conditional>
+        </UISwitch>
+      </Fragment>
+      <Example.Preview slot="preview-astro" code={ExampleKitchenSink} />
+      <Example.Preview slot="preview-html" code={ExampleKitchenSinkHTML} />
+      <Example.Code slot="code-astro" code={ExampleKitchenSinkCodeAstro} />
+    </Example>
+
+    <h3 id="kitchen-sink-horizontal">Row</h3>
+    <p>Everything all at once, but horizontally.</p>
+    <Example>
+      <Fragment slot="controls">
+        <UISwitch id="kitchen-sink-row-small-toggle"
+          ><code>small</code></UISwitch
+        >
+        <UISwitch id="kitchen-sink-row-divider-toggle">
+          <Conditional>
+            <Fragment slot="astro">Show <code>&lt;Divider&gt;</code></Fragment>
+            <Fragment slot="html">Show <code>&lt;hr&gt;</code></Fragment>
+          </Conditional>
+        </UISwitch>
+      </Fragment>
+      <Example.Preview slot="preview-astro" code={ExampleKitchenSinkRow} />
+      <Example.Preview slot="preview-html" code={ExampleKitchenSinkRowHTML} />
+      <Example.Code slot="code-astro" code={ExampleKitchenSinkRowCodeAstro} />
+    </Example>
+
+    <script>
+      function setupKitchenSinkControls() {
+        const smallToggle = document.querySelector(
+          "#kitchen-sink-small-toggle",
+        ) as HTMLInputElement
+        const rowSmallToggle = document.querySelector(
+          "#kitchen-sink-row-small-toggle",
+        ) as HTMLInputElement
+        const dividerToggle = document.querySelector(
+          "#kitchen-sink-divider-toggle",
+        ) as HTMLInputElement
+        const rowDividerToggle = document.querySelector(
+          "#kitchen-sink-row-divider-toggle",
+        ) as HTMLInputElement
+
+        const examples = document.querySelectorAll(
+          "[id^='kitchen-sink-example']",
+        )
+
+        function updateFields() {
+          examples.forEach((example) => {
+            const isRow = example.id.includes("-row")
+            const sToggle = isRow ? rowSmallToggle : smallToggle
+            const dToggle = isRow ? rowDividerToggle : dividerToggle
+
+            if (sToggle) {
+              const fields = example.querySelectorAll(
+                ".text-field, .textarea, .select, .radio, .checkbox, .switch, .button, .range",
+              )
+              fields.forEach((field) => {
+                field.classList.toggle("small", sToggle.checked)
+              })
+            }
+
+            if (dToggle) {
+              const dividers = example.querySelectorAll("hr, .divider")
+              dividers.forEach((divider) => {
+                if (divider instanceof HTMLElement) {
+                  divider.style.display = dToggle.checked ? "" : "none"
+                }
+              })
+            }
+          })
+        }
+
+        smallToggle?.addEventListener("change", updateFields)
+        rowSmallToggle?.addEventListener("change", updateFields)
+        dividerToggle?.addEventListener("change", updateFields)
+        rowDividerToggle?.addEventListener("change", updateFields)
+        updateFields()
+      }
+
+      setupKitchenSinkControls()
+      document.addEventListener("astro:after-swap", setupKitchenSinkControls)
+    </script>
+  </section>
+
+  <p slot="installation">
+    This doesn't include all the styles for all form elements, just the
+    scaffolding around them.
+  </p>
+</Component>
+
+<style is:global>
+  /* This is here becuase the examples don't remove the hr, they just put display none. In real life though they wouldn't be there so it will look right at least. */
+  .field-group {
+    &:has(.button):not(:has(*:not(.button))) {
+      &:not(hr:not([style*="display: none"]) + &) {
+        margin-block-start: var(--size-4);
+      }
+    }
+  }
+</style>

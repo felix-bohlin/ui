@@ -1,0 +1,51 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Variants</Table.Cell>
+      <Table.Cell
+        ><code>.outlined</code>, <code>.tonal</code>, <code>.filled</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The visual style of the icon button.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Sizes</Table.Cell>
+      <Table.Cell><code>.small</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The size of the element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Colors</Table.Cell>
+      <Table.Cell><code>.critical</code>, <code>.primary</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Color modifiers for the icon button. Default is a neutral gray.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>States</Table.Cell>
+      <Table.Cell><code>[disabled]</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Attribute to disable the icon button.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

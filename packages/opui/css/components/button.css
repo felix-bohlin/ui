@@ -1,0 +1,215 @@
+@layer components.root {
+  :where(.button) {
+    --_color: light-dark(var(--color-16), var(--color-1));
+    --_color-contrast: light-dark(var(--color-1), var(--color-16));
+    --_color-tonal: var(--surface-tonal);
+
+    --_accent: var(--_color);
+    --_accent-contrast: var(--_color-contrast);
+    --_accent-tonal: var(--_color-tonal);
+    --_accent-tonal-contrast: var(--_color);
+
+    --_default-hover-bg-color: light-dark(oklch(from var(--_accent) l 0.01 h / 10%),
+        oklch(from var(--_accent) l 0.01 h / 20%));
+    --_default-active-bg-color: light-dark(oklch(from var(--_accent) l 0.06 h / 20%),
+        oklch(from var(--_accent) l 0.06 h / 30%));
+
+    --_filled-hover-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.2) c h),
+        oklch(from var(--_accent) calc(l - 0.1) c h));
+    --_filled-active-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.3) c h),
+        oklch(from var(--_accent) calc(l - 0.15) c h));
+    --_outlined-active-bg-color: var(--_filled-active-bg-color);
+
+    --_bg-color: transparent;
+    --_border-color: transparent;
+    --_border-width: var(--border-size-1);
+    --_font-size: var(--font-size-1);
+    --_min-height: var(--button-size);
+    --_border-radius: var(--button-border-radius, var(--radius-2));
+    --_text-color: var(--_accent);
+
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    align-items: center;
+    background-color: var(--_bg-color);
+    border: var(--_border-width) solid var(--_border-color);
+    border-radius: var(--_border-radius);
+    color: var(--_text-color);
+    display: inline-flex;
+    font-size: var(--_font-size);
+    font-weight: 700;
+    gap: var(--size-2);
+    justify-content: center;
+    min-block-size: var(--_min-height);
+    padding-block: 0.5ex;
+    padding-inline: 1.5ex;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color .1s ease, color .1s ease,
+      border-color .1s ease, box-shadow .1s ease;
+    user-select: none;
+
+    /* Colors — shared interaction model for critical and primary.
+       Each color modifier below only swaps --_color; the tonal surface,
+       contrast text, and hover/active strategy are identical.
+       The .critical scope class in theme.css redirects --palette-source so
+       --color-6 below becomes a tint of the active color. */
+    &.critical,
+    &.primary {
+      --_color-contrast: var(--gray-1);
+      --_color-tonal: var(--color-6);
+      --_accent-tonal-contrast: var(--text-primary-contrast);
+
+      --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
+      --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
+
+      --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+      --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
+
+      --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+    }
+
+    &.critical {
+      --_color: var(--critical);
+    }
+
+    &.primary {
+      --_color: var(--primary);
+    }
+
+    /* Disabled */
+    &:where([disabled]) {
+      --_text-color: color-mix(in oklch,
+          var(--text-muted) 50%,
+          var(--surface-default));
+
+      cursor: not-allowed;
+      opacity: 0.64;
+    }
+
+    /* Hover & Active */
+    &:where(:not([disabled])) {
+      &:where(:not(:active):hover) {
+        --_bg-color: var(--_default-hover-bg-color);
+      }
+
+      &:where(:hover:active),
+      &[aria-current="page"] {
+        --_bg-color: var(--_default-active-bg-color);
+      }
+    }
+
+
+    /* Icons / Keyboard */
+    &:where(:has(svg), &.icon-only) {
+      gap: 1ex;
+
+      svg {
+        color: currentColor;
+        max-block-size: 0.7lh;
+      }
+    }
+
+    /* Keyboard input */
+    :is(kbd) {
+      background-color: oklch(from currentColor l c h / 10%);
+      border: 0;
+      color: oklch(from currentColor l c h / 80%);
+      font-size: 0.8em;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    /* Sizes — heights aliased from the shared --control-size scale.
+       Override --button-size-* in a parent scope to resize an entire region. */
+    &.x-small {
+      --_min-height: var(--button-size-x-small);
+      --_font-size: var(--font-size-0);
+      padding-block: 0;
+      padding-inline: .5ex;
+    }
+
+    &.small {
+      --_min-height: var(--button-size-small);
+      --_font-size: var(--font-size-05);
+      padding-block: 0;
+      padding-inline: .75ex;
+    }
+
+    &.large {
+      --_min-height: var(--button-size-large);
+      padding-inline: 4ex;
+    }
+
+    /* Variants */
+    &.outlined {
+      --_bg-color: transparent;
+      --_border-color: var(--_accent);
+      --_text-color: var(--_accent);
+
+      &:where(:not([disabled])) {
+        &:where(:not(:active):hover) {
+          --_bg-color: var(--_accent);
+          --_border-color: var(--_accent);
+          --_text-color: var(--_accent-contrast);
+        }
+
+        &:where(:active) {
+          --_bg-color: var(--_outlined-active-bg-color);
+          --_border-color: var(--_outlined-active-bg-color);
+          --_text-color: var(--_accent-contrast);
+        }
+      }
+    }
+
+    &.tonal {
+      --_bg-color: var(--_accent-tonal);
+      --_text-color: var(--_accent-tonal-contrast);
+
+      &:where(:not([disabled])) {
+        &:where(:not(:active):hover) {
+          --_bg-color: var(--_accent);
+          --_text-color: var(--_accent-contrast);
+        }
+
+        &:where(:active) {
+          --_bg-color: var(--_outlined-active-bg-color);
+          --_text-color: var(--_accent-contrast);
+        }
+      }
+    }
+
+    &.filled {
+      --_bg-color: var(--_accent);
+      --_text-color: var(--_accent-contrast);
+
+      &:where(:not([disabled])) {
+        &:where(:not(:active):hover) {
+          --_bg-color: var(--_filled-hover-bg-color);
+        }
+
+        &:where(:active) {
+          --_bg-color: var(--_filled-active-bg-color);
+        }
+      }
+    }
+  }
+
+  /* file input */
+  :where(input[type="file"]) {
+    align-self: flex-start;
+    border: var(--border-size-1) solid var(--surface-filled);
+    border-radius: var(--radius-2);
+    box-shadow: var(--inner-shadow-4);
+    color: var(--text-muted-contrast);
+    cursor: initial;
+    max-inline-size: 100%;
+    padding: 0;
+  }
+
+  :where(input[type="file"])::-webkit-file-upload-button,
+  :where(input[type="file"])::file-selector-button {
+    cursor: pointer;
+    margin-inline-end: var(--size-relative-6);
+  }
+}

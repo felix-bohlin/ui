@@ -1,0 +1,51 @@
+---
+type Props = {
+  [key: string]: any
+  alignment?: string
+  class?: string
+  id?: string
+  trigger?: "always" | "hover"
+}
+
+export const title = "Anchor"
+
+const {
+  alignment,
+  class: className,
+  id: idProp,
+  trigger = "always",
+  ...rest
+} = Astro.props
+
+const isHover = trigger === "hover"
+const id = isHover ? (idProp ?? Astro.locals.$id("anchor")) : undefined
+
+const insetMap: Record<string, string> = {
+  "start start": "auto 100% 100% auto",
+  "start end": "auto auto 100% 100%",
+  "end start": "100% 100% auto auto",
+  "end end": "100% auto auto 100%",
+}
+
+const positionArea = alignment
+  ? {
+      "--anchor-position-area": alignment,
+      "--_anchor-inset": insetMap[alignment],
+    }
+  : {}
+---
+
+<span class:list={["anchor", className]} style={positionArea} {...rest}>
+  {
+    isHover ? (
+      <span {...({ interestfor: id } as any)}>
+        <slot />
+      </span>
+    ) : (
+      <slot />
+    )
+  }
+  <span class="anchor-floating" id={id} popover={isHover ? "hint" : undefined}>
+    <slot name="anchored" />
+  </span>
+</span>

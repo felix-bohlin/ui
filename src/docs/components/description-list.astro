@@ -1,0 +1,110 @@
+---
+import Component from "../../layouts/Component.astro"
+import Example from "../../components/Example"
+
+import AutoExample from "../../components/AutoExample.astro"
+import DescriptionListCSS from "@opui/css/components/description-list.css?raw"
+import ExampleAnatomy from "../../component-examples/description-list/Anatomy.astro"
+import Conditional from "../../components/Conditional.astro"
+---
+
+<style is:global>
+  .anatomy {
+    outline: var(--_anatomy-border-gray);
+    outline-offset: 6px;
+    .item * {
+      outline: var(--_anatomy-border-red);
+      outline-offset: -2px;
+    }
+  }
+</style>
+
+<Component
+  slug="description-list"
+  browserSupport={["container-queries", "has"]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/DescriptionList",
+      type: "component",
+    },
+    { path: "src/docs/components/description-list.astro", type: "docs" },
+    { path: "src/component-examples/description-list", type: "docs" },
+    {
+      path: "packages/opui/css/components/description-list.css",
+      type: "css",
+    },
+    { path: "src/component-api/description-list", type: "api" },
+  ]}
+  installationTabs={[
+    {
+      title: "description-list.css",
+      code: DescriptionListCSS,
+      lang: "css",
+    },
+  ]}
+>
+  <Fragment slot="title">Description list</Fragment>
+  <Fragment slot="preamble">
+    Description lists are used to display a list of terms and their
+    descriptions.
+  </Fragment>
+
+  <AutoExample name="Default" />
+
+  <section>
+    <h2 id="bordered">Bordered</h2>
+    <Conditional>
+      <Fragment slot="astro">
+        <p>
+          Set <code>bordered</code> on <code>DescriptionList</code> to add a separator
+          between the term and description on all items. Use{" "}
+          <code>bordered="dotted"</code> for a dotted style.
+        </p>
+      </Fragment>
+      <Fragment slot="html">
+        <p>
+          Add <code>.bordered</code> to the <code>&lt;dl&gt;</code> element. For a
+          dotted style, also add <code>.dotted</code>.
+        </p>
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Bordered" column spacious />
+  </section>
+
+  <Fragment slot="anatomy">
+    <Conditional>
+      <Fragment slot="astro">
+        <ol>
+          <li>List (<code>&lt;DescriptionList&gt;</code>)</li>
+          <li>
+            Term-description group (<code>&lt;DescriptionList.Item&gt;</code>)
+          </li>
+          <li>Term (<code>&lt;DescriptionList.Term&gt;</code>)</li>
+          <li>
+            Separator — rendered via CSS when <code>bordered</code> is set on the
+            list (optional)
+          </li>
+          <li>
+            Description (<code>&lt;DescriptionList.Description&gt;</code>)
+          </li>
+        </ol>
+      </Fragment>
+      <Fragment slot="html">
+        <ol>
+          <li>List (<code>&lt;dl&gt;</code>)</li>
+          <li>Term-description group (<code>&lt;div&gt;</code>)</li>
+          <li>Term (<code>&lt;dt&gt;</code>)</li>
+          <li>
+            Separator — rendered via CSS when <code>.bordered</code> is set on the
+            list (optional)
+          </li>
+          <li>Description (<code>&lt;dd&gt;</code>)</li>
+        </ol>
+      </Fragment>
+    </Conditional>
+
+    <Example>
+      <Example.Preview slot="preview-astro" code={ExampleAnatomy} />
+    </Example>
+  </Fragment>
+</Component>

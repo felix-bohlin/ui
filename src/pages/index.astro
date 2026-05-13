@@ -1,0 +1,38 @@
+---
+import { DEFAULT_FRAMEWORK, FRAMEWORK_IDS } from "../utils/framework-routing"
+
+const fallback = `/${DEFAULT_FRAMEWORK}/`
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting…</title>
+    <link rel="canonical" href={fallback} />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${fallback}`} />
+    <script
+      is:inline
+      define:vars={{
+        defaultFramework: DEFAULT_FRAMEWORK,
+        frameworkIds: FRAMEWORK_IDS,
+        fallback,
+      }}
+    >
+      ;(function () {
+        var target = fallback
+        try {
+          var saved = localStorage.getItem("opui-framework")
+          if (saved && frameworkIds.indexOf(saved) !== -1) {
+            target = "/" + saved + "/"
+          }
+        } catch (_) {}
+        window.location.replace(target)
+      })()
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to <a href={fallback}>{fallback}</a>…</p>
+  </body>
+</html>

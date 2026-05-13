@@ -1,0 +1,90 @@
+/* Font stuff */
+/* @font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/BricolageGrotesque[opsz,wdth,wght].ttf") format("truetype");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+} */
+
+@view-transition {
+  navigation: auto;
+}
+
+*::selection {
+  color: var(--color-1);
+  background: var(--color-12);
+}
+
+:where(h1, h2, h3, h4, h5, h6, hgroup h1 + p) {
+  font-family: var(--font-bricolage-grotesque), sans-serif;
+}
+
+.anatomy {
+  --_anatomy-border-red: 2px dotted tomato;
+  --_anatomy-border-gray: 2px dotted gray;
+
+  pointer-events: none;
+
+  .show-code-button {
+    pointer-events: auto;
+    outline: none !important;
+
+    * {
+      outline: none !important;
+    }
+  }
+}
+
+.example-container {
+  :where(.text-field, .textarea, .select):not(.auto-fit, .row) :where(input, textarea, select) {
+    inline-size: 25ch;
+  }
+}
+
+
+/* Setup */
+:root {
+  --_gap: var(--size-4, 20px);
+  --_page-gutters: calc(var(--_gap) * 2);
+
+  /* Content width */
+  --_content-document: 80ch;
+  --_content-sm: 540px;
+  --_content-md: 1140px;
+  --_content-lg: 1500px;
+  --_content-text: 65ch;
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  scroll-margin: var(--size-11);
+}
+
+/* Wrapper for consistent widths and gutters */
+.container {
+  margin: 0 auto;
+  max-inline-size: min(calc(100% - var(--_page-gutters)), var(--_content-md));
+
+  /* Sizes */
+  &.small {
+    max-inline-size: min(calc(100% - var(--_page-gutters)), var(--_content-sm));
+  }
+
+  &.large {
+    max-inline-size: min(calc(100% - var(--_page-gutters)), var(--_content-lg));
+  }
+
+  &.text {
+    max-inline-size: min(calc(100% - var(--_page-gutters)),
+        var(--_content-text));
+  }
+
+  /* Horizontal alignment */
+  &.start {
+    margin-inline: var(--_gap) auto;
+  }
+
+  &.end {
+    margin-inline: auto var(--_gap);
+  }
+}

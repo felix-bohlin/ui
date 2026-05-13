@@ -1,0 +1,43 @@
+---
+type Props = {
+  [key: string]: any
+  actions?: {
+    align?: "end"
+  }
+  class?: string
+  closedby?: "any" | "closerequest" | "none"
+}
+
+export const title = "Dialog"
+
+const { actions, class: className, closedby, ...rest } = Astro.props
+---
+
+<dialog
+  class:list={["dialog card elevated", className]}
+  closedby={closedby}
+  {...rest}
+>
+  {
+    Astro.slots.has("header") && (
+      <hgroup>
+        <slot name="header" />
+      </hgroup>
+    )
+  }
+  {
+    Astro.slots.has("content") && (
+      <div class="content">
+        <slot name="content" />
+      </div>
+    )
+  }
+  <slot />
+  {
+    Astro.slots.has("actions") && (
+      <div class:list={["actions", actions?.align && `align-${actions.align}`]}>
+        <slot name="actions" />
+      </div>
+    )
+  }
+</dialog>

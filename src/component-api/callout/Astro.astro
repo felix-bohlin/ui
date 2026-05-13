@@ -1,0 +1,34 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>variant</code></Table.Cell>
+      <Table.Cell><code>"tonal" | "outlined"</code></Table.Cell>
+      <Table.Cell><code>"tonal"</code></Table.Cell>
+      <Table.Cell>The visual style of the callout.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>severity</code></Table.Cell>
+      <Table.Cell><code>"ok" | "warning" | "critical"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The severity level, affecting the color and icon.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

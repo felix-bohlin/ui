@@ -1,0 +1,27 @@
+@layer components.root {
+	:where(.anchor) {
+		anchor-name: --anchor;
+		anchor-scope: --anchor;
+		display: inline-block;
+		inline-size: fit-content;
+
+		/* Always-visible */
+		&>.anchor-floating:not([popover]) {
+			block-size: max-content;
+			inline-size: max-content;
+			position: absolute;
+			position-anchor: --anchor;
+			position-area: var(--anchor-position-area, start end);
+			translate: var(--_anchor-tx, 0) var(--_anchor-ty, 0);
+		}
+
+		/* Hover-triggered */
+		&>.anchor-floating[popover] {
+			inset: unset;
+			margin: 0;
+			position: absolute;
+			position-area: var(--anchor-position-area, start end);
+			translate: var(--_anchor-tx, 0) var(--_anchor-ty, 0);
+		}
+	}
+}

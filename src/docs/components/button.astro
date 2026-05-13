@@ -1,0 +1,193 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example"
+import AutoExample from "../../components/AutoExample.astro"
+import { Button as UIButton } from "@opui/astro"
+
+import ButtonCSS from "@opui/css/components/button.css?raw"
+import ExampleIconAndLabel from "../../component-examples/button/IconAndLabel.astro"
+import ExampleIconAndLabelCodeAstro from "../../component-examples/button/IconAndLabelCode.astro?raw"
+import ExampleIconAndLabelHTML from "../../component-examples/button/IconAndLabel.html?raw"
+
+import ExampleSizes from "../../component-examples/button/Sizes.astro"
+import ExampleSizesCodeAstro from "../../component-examples/button/SizesCode.astro?raw"
+import ExampleSizesHTML from "../../component-examples/button/Sizes.html?raw"
+
+import ExampleDisabled from "../../component-examples/button/Disabled.astro"
+import ExampleDisabledCodeAstro from "../../component-examples/button/DisabledCode.astro?raw"
+import ExampleDisabledHTML from "../../component-examples/button/Disabled.html?raw"
+
+import Conditional from "../../components/Conditional.astro"
+---
+
+<Component
+  slug="button"
+  browserSupport={["color-mix", "has", "light-dark", "relative-color"]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Button/Button.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/button.astro", type: "docs" },
+    { path: "src/component-examples/button", type: "docs" },
+    {
+      path: "packages/opui/css/components/button.css",
+      type: "css",
+    },
+    { path: "src/component-api/button", type: "api" },
+  ]}
+  installationTabs={[{ title: "button.css", code: ButtonCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Button</Fragment>
+  <Fragment slot="preamble">
+    Buttons allow users to take actions, and make choices, with a single tap.
+  </Fragment>
+
+  <section>
+    <h2 id="variants">Variants</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Change the button variant with the <code>variant</code> prop.
+      </Fragment>
+      <Fragment slot="html">
+        Change the button variant with the <code>.outlined</code>, <code
+          >.tonal</code
+        >, and <code>.filled</code> classes.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Variants" column spacious />
+  </section>
+
+  <section>
+    <h2 id="colors">Colors</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Pass <code>color</code> to apply a brand or destructive color: <code
+          >primary</code
+        > or <code>critical</code>. The default is a neutral gray.
+      </Fragment>
+      <Fragment slot="html">
+        Add a <code>.primary</code> or <code>.critical</code> class to apply a brand
+        or destructive color. The default is a neutral gray.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Colors" column spacious />
+  </section>
+
+  <section>
+    <h2 id="buttons-with-icon-and-label">Buttons with icon and label</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Include an icon alongside text by nesting it within the component.
+      </Fragment>
+      <Fragment slot="html">
+        Include an icon alongside text by nesting an SVG element within the
+        button.
+      </Fragment>
+    </Conditional>
+    <Example column>
+      <Example.Preview slot="preview-astro" code={ExampleIconAndLabel} />
+      <Example.Preview slot="preview-html" code={ExampleIconAndLabelHTML} />
+      <Example.Code slot="code-html" code={ExampleIconAndLabelHTML} />
+      <Example.Code slot="code-astro" code={ExampleIconAndLabelCodeAstro} />
+    </Example>
+  </section>
+
+  <section>
+    <h2 id="keyboard">Keyboard</h2>
+    <p>
+      Use the <code>&lt;kbd&gt;</code> element to provide keyboard hints within a
+      button.
+    </p>
+    <AutoExample name="Keyboard" row />
+  </section>
+
+  <section>
+    <h2 id="icon-only">Icon-only</h2>
+    <p>
+      See <DocLink href="/components/icon-button">Icon button</DocLink> documentation.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Resize any button using the <code>size</code> prop.
+      </Fragment>
+      <Fragment slot="html">
+        Resize any button with the <code>.small</code> and <code>.large</code>
+        classes.
+      </Fragment>
+    </Conditional>
+    <Example column>
+      <Example.Preview slot="preview-astro" code={ExampleSizes} />
+      <Example.Preview slot="preview-html" code={ExampleSizesHTML} />
+      <Example.Code slot="code-html" code={ExampleSizesHTML} />
+      <Example.Code slot="code-astro" code={ExampleSizesCodeAstro} />
+    </Example>
+  </section>
+
+  <section>
+    <h2 id="disabled">Disabled</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Disable the button with the <code>disabled</code> prop.
+      </Fragment>
+      <Fragment slot="html">
+        Add disabled styling with the <code>disabled</code> attribute or the <code
+          >.disabled</code
+        > class.
+      </Fragment>
+    </Conditional>
+    <Example column>
+      <Example.Preview slot="preview-astro" code={ExampleDisabled} />
+      <Example.Preview slot="preview-html" code={ExampleDisabledHTML} />
+      <Example.Code slot="code-html" code={ExampleDisabledHTML} />
+      <Example.Code slot="code-astro" code={ExampleDisabledCodeAstro} />
+    </Example>
+  </section>
+
+  <section>
+    <h2 id="file-upload">File upload</h2>
+    <p>
+      Is it a button? Is it an input? You can find the <DocLink
+        href="/components/text-field#file">docs for it here</DocLink
+      > at least.
+    </p>
+  </section>
+
+  <Fragment slot="anatomy">
+    <ol>
+      <li>Container</li>
+      <li>Label text (optional)</li>
+      <li>Icon (optional)</li>
+    </ol>
+    <Example row>
+      <UIButton class="anatomy">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          ><path
+            fill="currentColor"
+            d="M13.5 6.5V7h5v-.5a2.5 2.5 0 0 0-5 0m-2 .5v-.5a4.5 4.5 0 1 1 9 0V7H28a1 1 0 1 1 0 2h-1.508L24.6 25.568A5 5 0 0 1 19.63 30h-7.26a5 5 0 0 1-4.97-4.432L5.508 9H4a1 1 0 0 1 0-2zm2.5 6.5a1 1 0 1 0-2 0v10a1 1 0 1 0 2 0zm5-1a1 1 0 0 0-1 1v10a1 1 0 1 0 2 0v-10a1 1 0 0 0-1-1"
+          ></path></svg
+        >
+        <span>Delete</span>
+      </UIButton>
+    </Example>
+  </Fragment>
+</Component>
+
+<style is:global>
+  .anatomy {
+    outline: var(--_anatomy-border-gray);
+    outline-offset: 2px;
+    & > * {
+      outline: var(--_anatomy-border-red);
+    }
+  }
+</style>

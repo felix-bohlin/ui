@@ -1,0 +1,60 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Children</Table.Cell>
+      <Table.Cell><code>.label</code>, <code>.end-text</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Internal element classes.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Layout</Table.Cell>
+      <Table.Cell><code>.spread</code>, <code>.stack</code>, default</Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The layout of the component. <code>.spread</code> pushes label and input
+        to opposite ends. <code>.stack</code> stacks the label under the input.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Sizes</Table.Cell>
+      <Table.Cell><code>.small</code>, <code>.large</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Size modifiers.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Validation</Table.Cell>
+      <Table.Cell><code>.critical</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Error state modifier.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>State</Table.Cell>
+      <Table.Cell><code>data-indeterminate</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Marker attribute on the <code>&lt;input&gt;</code>. Pair with a script
+        that sets <code>el.indeterminate = true</code> — the property is JS-only and
+        the attribute alone has no effect.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

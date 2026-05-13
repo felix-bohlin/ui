@@ -1,0 +1,84 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<h3 id="toggle-button-html">Toggle Button</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><strong>Sizes</strong></Table.Cell>
+      <Table.Cell
+        >default, <code>.small</code>, <code>.x-small</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The size of the button.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><strong>States</strong></Table.Cell>
+      <Table.Cell><code>.disabled</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The state of the button.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="toggle-group-html">Toggle Group</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><strong>Sizes</strong></Table.Cell>
+      <Table.Cell
+        >default, <code>.small</code>, <code>.x-small</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The size of the group. Children inherit the size if desired through CSS
+        variables.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><strong>Children</strong></Table.Cell>
+      <Table.Cell
+        ><code>label.toggle-button</code> containing an <code
+          >input[type="radio|checkbox"]</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The interactive elements within the group. Visual states are driven by <code
+          >input:checked</code
+        >.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

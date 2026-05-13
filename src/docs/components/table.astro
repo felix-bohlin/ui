@@ -1,0 +1,106 @@
+---
+import Component from "../../layouts/Component.astro"
+import Example from "../../components/Example"
+import AutoExample from "../../components/AutoExample.astro"
+import { ToggleGroup, ToggleButton } from "@opui/astro"
+
+import Default from "../../component-examples/table/Default.astro"
+import DefaultAstro from "../../component-examples/table/Default.astro?raw"
+import DefaultHtml from "../../component-examples/table/Default.html?raw"
+
+import Advanced from "../../component-examples/table/Advanced.astro"
+
+---
+
+<Component
+  slug="table"
+  browserSupport={["has", "container-queries", "relative-color"]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Table",
+      type: "component",
+    },
+    { path: "src/docs/components/table.astro", type: "docs" },
+    { path: "src/component-examples/table", type: "docs" },
+    {
+      path: "packages/opui/css/components/table.css",
+      type: "css",
+    },
+    { path: "src/component-api/table", type: "api" },
+  ]}
+>
+  <Fragment slot="title">Table</Fragment>
+  <Fragment slot="preamble">
+    Displays tabular data. Basic tables with row and column headers, and
+    optional captions and footers.
+  </Fragment>
+
+  <section>
+    <h2 id="variants">Variants</h2>
+
+    <h3 id="default">Default</h3>
+    <p>
+      Toggle between different padding densities for the table using the
+      controls below.
+    </p>
+
+    <Example wrapperClass="table-interactive-example">
+      <ToggleGroup slot="controls" size="x-small" selection="single">
+        <ToggleButton data-size="dense">Dense</ToggleButton>
+        <ToggleButton data-size="default" pressed>Default</ToggleButton>
+        <ToggleButton data-size="spacious">Spacious</ToggleButton>
+      </ToggleGroup>
+
+      <Example.Preview slot="preview-astro" code={Default} />
+      <Example.Preview slot="preview-html" code={DefaultHtml} />
+      <Example.Code slot="code-astro" code={DefaultAstro} />
+      <Example.Code slot="code-html" code={DefaultHtml} />
+    </Example>
+  </section>
+
+  <section>
+    <h2 id="advanced">Advanced</h2>
+    <p>
+      An advanced table showcasing the use of <code>colgroup</code>, <code
+        >rowspan</code
+      >, and <code>colspan</code>.
+    </p>
+
+    <AutoExample name="Advanced" />
+  </section>
+</Component>
+
+<script>
+  function setupTableInteractive() {
+    const containers = document.querySelectorAll(".table-interactive-example")
+
+    containers.forEach((container) => {
+      const inputs = container.querySelectorAll<HTMLInputElement>(
+        'input[type="radio"]',
+      )
+
+      inputs.forEach((input) => {
+        input.addEventListener("change", () => {
+          if (!input.checked) return
+
+          const size = input.getAttribute("data-size")
+          const tables = container.querySelectorAll("table")
+
+          tables.forEach((table) => {
+            table.classList.remove("dense", "spacious")
+            if (size !== "default" && size) {
+              table.classList.add(size)
+            }
+          })
+        })
+      })
+    })
+  }
+
+  // Run on load
+  setupTableInteractive()
+
+  // Re-run when Astro swaps the content (if using view transitions)
+  document.addEventListener("astro:load", setupTableInteractive)
+  document.addEventListener("astro:after-swap", setupTableInteractive)
+</script>

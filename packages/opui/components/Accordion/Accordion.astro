@@ -1,0 +1,42 @@
+---
+type Props = {
+  class?: string
+  name?: string
+  open?: boolean
+  variant?: "default" | "outlined" | "elevated" | "tonal"
+  [key: string]: any
+}
+
+export const title = "Accordion"
+
+const { $id } = Astro.locals
+const { class: className, name, open, variant, ...rest } = Astro.props
+
+const summaryId = $id("summary")
+const contentId = $id("content")
+---
+
+<details
+  name={name}
+  class:list={["accordion", "card", variant, className]}
+  open={open}
+  {...rest}
+>
+  <!-- Summary -->
+  <!-- prettier-ignore -->
+  <summary id={summaryId} aria-controls={contentId}><slot name="summary" /><slot name="marker" /></summary>
+
+  <!-- Content -->
+  <div id={contentId} class="content" role="region" aria-labelledby={summaryId}>
+    <slot />
+  </div>
+
+  <!-- Actions -->
+  {
+    Astro.slots.has("actions") && (
+      <div class="actions">
+        <slot name="actions" />
+      </div>
+    )
+  }
+</details>

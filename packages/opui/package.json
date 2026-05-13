@@ -1,0 +1,81 @@
+{
+  "name": "opui-css",
+  "version": "4.0.0",
+  "description": "A CSS UI library exploring next-gen HTML & CSS features. Astro components on top of Open Props.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Felix Bohlin",
+  "homepage": "https://open-props-ui.netlify.app/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felix-bohlin/ui.git",
+    "directory": "packages/opui"
+  },
+  "bugs": {
+    "url": "https://github.com/felix-bohlin/ui/issues"
+  },
+  "keywords": [
+    "astro",
+    "components",
+    "css",
+    "design-system",
+    "html",
+    "open-props",
+    "ui"
+  ],
+  "sideEffects": [
+    "*.css",
+    "./css/js/*.js"
+  ],
+  "files": [
+    "astro",
+    "components",
+    "core",
+    "css",
+    "dist",
+    "env.d.ts",
+    "open-props.css",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    "MIGRATING.md",
+    "README.md",
+    "RELEASING.md"
+  ],
+  "style": "./dist/opui.css",
+  "exports": {
+    ".": "./dist/opui.css",
+    "./open-props": "./dist/op.css",
+    "./astro": "./astro/index.ts",
+    "./components/*": "./components/*",
+    "./core/*": "./core/*.css",
+    "./css/*": "./css/*.css",
+    "./dist/*": "./dist/*"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "prepack": "node scripts/build.mjs",
+    "release": "pnpm version patch && pnpm publish && git push --follow-tags",
+    "release:minor": "pnpm version minor && pnpm publish && git push --follow-tags",
+    "release:major": "pnpm version major && pnpm publish && git push --follow-tags"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.0",
+    "postcss-import": "^16.1.0"
+  },
+  "peerDependencies": {
+    "astro": "^6.3.1",
+    "open-props": "^1.7.23"
+  },
+  "peerDependenciesMeta": {
+    "astro": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

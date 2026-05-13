@@ -1,0 +1,24 @@
+@layer components.extended {
+  :where(.textarea) {
+    textarea {
+      block-size: auto;
+      field-sizing: content;
+      min-block-size: calc(var(--_field-padding-block) * 2 + (var(--border-width) * 2) + 3lh);
+      resize: vertical;
+    }
+
+    /* Size */
+    &.small {
+      textarea {
+        min-block-size: var(--size-9);
+      }
+    }
+
+    /* Auto-fit */
+    &.auto-fit {
+      textarea {
+        resize: both;
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+<button commandfor="closing-behaviors-dialog-html" command="show-modal" class="button outlined">
+	Open dialog
+</button>
+
+<dialog id="closing-behaviors-dialog-html" class="dialog card elevated" closedby="any">
+	<hgroup>
+		<h2 class="h4">How to close</h2>
+	</hgroup>
+	<div class="content">
+		<div class="fieldset">
+			<p class="legend">Choose a closing behavior:</p>
+			<div class="field-group" role="group">
+				<label class="radio">
+					<input type="radio" name="closedby-demo-html" value="any" checked>
+					<span>any</span>
+				</label>
+				<label class="radio">
+					<input type="radio" name="closedby-demo-html" value="closerequest">
+					<span>closerequest</span>
+				</label>
+				<label class="radio">
+					<input type="radio" name="closedby-demo-html" value="none">
+					<span>none</span>
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="actions">
+		<button commandfor="closing-behaviors-dialog-html" command="close" class="button">
+			Close manually
+		</button>
+	</div>
+</dialog>
+
+<script>
+	const radios = document.querySelectorAll('input[name="closedby-demo-html"]')
+
+	radios.forEach((radio) => {
+		radio.addEventListener("change", () => {
+			const dialog = radio.closest('.example-preview')?.querySelector("#closing-behaviors-dialog-html")
+			if (dialog instanceof HTMLDialogElement) {
+				dialog.setAttribute("closedby", radio.value)
+			}
+		})
+	})
+</script>

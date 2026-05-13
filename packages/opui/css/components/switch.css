@@ -1,0 +1,268 @@
+@layer components.root {
+  :where(.switch) {
+    --_accent-color: var(--primary);
+    --_accent-contrast: var(--primary-contrast);
+
+    --_dot-bg-color: light-dark(var(--gray-11), var(--gray-14));
+    --_dot-inset: var(--size-1) auto auto var(--size-1);
+    --_dot-outline-size: 0;
+    --_dot-size: var(--size-3);
+
+    --_track-bg-color: light-dark(var(--gray-3), var(--gray-8));
+    --_track-height: var(--size-5);
+    --_track-width: var(--size-8);
+    --_transition-tf: var(--ease-4);
+    --_transition-time: 0.2s;
+
+    align-items: center;
+    color: var(--text-primary);
+    display: inline-grid;
+    gap: 0 var(--size-2);
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    inline-size: fit-content;
+
+    :where(input[type="checkbox"][role="switch"]) {
+      appearance: none;
+      block-size: var(--_track-height);
+      cursor: pointer;
+      inline-size: var(--_track-width);
+      margin: 0;
+      position: relative;
+
+      /* Track */
+      &::before {
+        background-color: var(--_track-bg-color);
+        block-size: var(--_track-height);
+        border: 1px solid var(--_dot-bg-color);
+        border-radius: var(--radius-round);
+        content: "";
+        inline-size: var(--_track-width);
+        inset: 0;
+        position: absolute;
+      }
+
+      &:focus-visible {
+        --focus-ring-color: currentColor;
+        outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+        outline-offset: var(--focus-ring-offset);
+      }
+
+      /* Dot */
+      &::after {
+        background-color: var(--_dot-bg-color);
+        block-size: var(--_dot-size);
+        border-radius: var(--radius-round);
+        content: "";
+        inline-size: var(--_dot-size);
+        inset: var(--_dot-inset);
+        outline: var(--_dot-outline-size) solid var(--_dot-bg-color);
+        outline-offset: -1px;
+        position: absolute;
+      }
+
+      /* Checked */
+      &:checked {
+        &::before {
+          background-color: var(--_accent-color);
+          border-color: var(--_accent-color);
+          transition:
+            background-color var(--_transition-time) var(--_transition-tf),
+            border-color var(--_transition-time) var(--_transition-tf);
+        }
+
+        /* Dot */
+        &::after {
+          --_dot-bg-color: var(--_accent-contrast);
+          --_dot-outline-size: calc(var(--size-1) - 1px);
+
+          inset-inline-start: calc(var(--_track-width) - var(--_dot-size) - var(--size-1));
+        }
+      }
+
+      /* Animation */
+      @media (prefers-reduced-motion: no-preference) {
+
+        /* Track */
+        &::before {
+          transition:
+            background-color var(--_transition-time) var(--_transition-tf),
+            border-color var(--_transition-time) var(--_transition-tf);
+        }
+
+        /* Dot */
+        &::after {
+          transition: all var(--_transition-time) var(--_transition-tf);
+        }
+
+        &:active:after {
+          --_dot-outline-size: calc(var(--size-1) + 1px);
+        }
+
+        &:checked {
+          &:active:after {
+            --_dot-outline-size: calc(var(--size-1) + 1px);
+          }
+        }
+      }
+    }
+
+    /* Icons */
+    &:has(.icon-checked, .icon-unchecked) {
+      [role="switch"] {
+        grid-column: 1 / -1;
+        grid-row: 1;
+      }
+
+      &:has([role="switch"]:checked) {
+        .icon-unchecked {
+          display: none;
+        }
+
+        .icon-checked {
+          display: block;
+        }
+      }
+
+      .icon-checked {
+        display: none;
+      }
+
+      .icon-unchecked,
+      .icon-checked {
+        grid-column: 1;
+        grid-row: 1;
+        pointer-events: none;
+        z-index: 1;
+
+        svg {
+          display: block;
+          inline-size: var(--_dot-size);
+        }
+      }
+
+      .icon-unchecked {
+        margin-inline-start: calc(var(--_track-width) - var(--_dot-size) - var(--size-1));
+      }
+
+      .icon-checked {
+        margin-inline-start: var(--size-1);
+      }
+    }
+
+    /* Required dot */
+    &:has(:invalid) {
+      .label:after {
+        color: var(--red);
+        content: "*";
+        inset: 0 -0.25ex auto auto;
+        position: absolute;
+      }
+    }
+
+    /* Disabled */
+    &:has([disabled]) {
+      cursor: not-allowed;
+      opacity: 0.64;
+      user-select: none;
+
+      input {
+        cursor: not-allowed;
+      }
+    }
+
+    /* Label */
+    .label {
+      color: var(--text-primary);
+      font-size: var(--font-size-05);
+      grid-column: 2;
+      grid-row: 1;
+      min-width: 0;
+      padding-inline: 0 1ex;
+      position: relative;
+      user-select: none;
+    }
+
+    /* End text */
+    :where(.end-text) {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+      grid-column: 2;
+      grid-row: 2;
+      line-height: 1.5;
+      z-index: 1;
+    }
+
+    /* Size */
+    &.small {
+      --_dot-size: 0.75rem;
+      --_track-height: var(--size-4);
+      --_track-width: 2.5rem;
+    }
+
+    /* Spread layout */
+    &.spread {
+      align-items: center;
+      column-gap: var(--size-4);
+      grid-auto-flow: unset;
+      grid-template-columns: 1fr auto;
+      inline-size: 100%;
+
+      .label {
+        font-weight: 600;
+        grid-column: 1;
+        grid-row: 1;
+        inline-size: fit-content;
+      }
+
+      input[role="switch"] {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      &:has(.icon-checked, .icon-unchecked) {
+
+        input[role="switch"],
+        .icon-checked,
+        .icon-unchecked {
+          grid-column: 2;
+        }
+      }
+
+      :where(.end-text) {
+        grid-column: 1;
+        grid-row: 2;
+      }
+    }
+
+    /* Stacked layout */
+    &.stack {
+      grid-auto-columns: unset;
+      justify-items: center;
+
+      .label {
+        grid-column: 1/-1;
+        grid-row: 2;
+        margin-block-start: var(--size-1);
+        padding-inline: 1ex;
+      }
+
+      .end-text {
+        grid-column: 1/-1;
+        grid-row: 3;
+      }
+    }
+
+    /* Validation */
+    &[data-invalid] {
+      input {
+        border-radius: var(--radius-round);
+        outline: 2px solid var(--color-9);
+      }
+
+      .end-text {
+        color: var(--color-9);
+      }
+    }
+  }
+}

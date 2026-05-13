@@ -1,0 +1,21 @@
+---
+type Props = {
+  code?: string
+  component?: any
+  [key: string]: any
+}
+const { code, component: Component } = Astro.props
+const encodedCode = code ? encodeURIComponent(code) : ""
+---
+
+{
+  Component ? (
+    <div class="example-code-wrapper" data-code={encodedCode}>
+      <Component />
+    </div>
+  ) : code ? (
+    <Fragment set:html={code} />
+  ) : (
+    <slot />
+  )
+}

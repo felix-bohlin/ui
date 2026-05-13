@@ -1,0 +1,100 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<h3 id="list-html">List</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Dense</Table.Cell>
+      <Table.Cell><code>ul.dense</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>When enabled list appears tighter packed.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Gutterless</Table.Cell>
+      <Table.Cell><code>ul.gutterless</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>When enabled list inline padding is removed.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Bordered</Table.Cell>
+      <Table.Cell><code>ul.bordered</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >When enabled a border is rendered on all list items.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Variants</Table.Cell>
+      <Table.Cell
+        ><code>ul.default</code>, <code>ul.tonal</code>, <code
+          >ul.transparent</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Background color variants.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="list-item-html">List item</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Main parts</Table.Cell>
+      <Table.Cell
+        ><code>li > .start</code>, <code>li > .text</code>, <code
+          >li > .end</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Building blocks in List item.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Inset</Table.Cell>
+      <Table.Cell><code>li.inset</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >When enabled a list item without a start icon aligns with items that
+        do.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Border top</Table.Cell>
+      <Table.Cell><code>li.border-top</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>When enabled the list item will get a top border.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

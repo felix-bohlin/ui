@@ -1,0 +1,205 @@
+---
+import { Button, Chip } from "@opui/astro"
+import AstroLogo from "../components/AstroLogo.astro"
+import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
+import Html5Logo from "../components/Html5Logo.astro"
+import Default from "../layouts/Default.astro"
+import {
+  DEFAULT_FRAMEWORK,
+  FRAMEWORKS,
+  hrefFor,
+  type FrameworkId,
+} from "../utils/framework-routing"
+
+const response = await fetch(
+  "https://api.github.com/repos/felix-bohlin/ui/releases/latest",
+)
+const release = await response.json()
+const version = release.tag_name || "4.0.0"
+
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+const componentsHref = hrefFor(currentFramework, "/components")
+const quickstartHref = hrefFor(currentFramework, "/guide/getting-started")
+
+const FRAMEWORK_BRANDING: Record<
+  FrameworkId,
+  { color: string; Logo: typeof AstroLogo }
+> = {
+  astro: { color: "#F041FF", Logo: AstroLogo },
+  html: { color: "#E34F26", Logo: Html5Logo },
+}
+---
+
+<Default>
+  <section id="main-content" class="container large">
+    <ComponentShowcase aria-hidden="true">
+      <hgroup class="hgroup" id="main-heading">
+        <p>{version}</p>
+
+        <h1 class="h1">Open Props UI</h1>
+
+        <p class="hero-description">
+          Components you can copy-paste into your project. <br /> Like if <a
+            class="link"
+            href="https://ui.shadcn.com/">shadcn</a
+          > and <a class="link" href="https://open-props.style/">Open Props</a> had
+          a baby. <br /> Using as modern CSS & HTML as possible.
+        </p>
+
+        <div class="hero-ctas">
+          <Button href={quickstartHref} variant="filled" color="primary">
+            Quickstart
+          </Button>
+          <Button href={componentsHref} variant="tonal"> Components </Button>
+        </div>
+
+        <p class="framework-support" aria-label="Supported frameworks">
+          <span class="label">Works with</span>
+          {
+            FRAMEWORKS.map((framework) => {
+              const branding = FRAMEWORK_BRANDING[framework.id]
+              const Logo = branding.Logo
+              return (
+                <Chip
+                  href={hrefFor(framework.id, "/")}
+                  title={`${framework.label} support`}
+                  variant="outlined"
+                  data-theme-color={branding.color}
+                  data-framework={framework.id}
+                >
+                  <Logo slot="start" />
+                  <span class="text">{framework.label}</span>
+                </Chip>
+              )
+            })
+          }
+        </p>
+      </hgroup>
+    </ComponentShowcase>
+  </section>
+</Default>
+
+<script>
+  import { hexToOklch } from "../lib/colorUtils"
+  import { themeStore } from "../lib/theme-store"
+
+  // Clicking a framework chip in the hero re-tints the site to match that
+  // framework's brand color before navigating. We persist the change via
+  // themeStore so the next page boots with the new palette already applied.
+  document
+    .querySelectorAll<HTMLElement>(".framework-support [data-theme-color]")
+    .forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const hex = chip.dataset.themeColor
+        if (!hex) return
+        const framework = chip.dataset.framework
+        if (framework) {
+          try {
+            localStorage.setItem("opui-framework", framework)
+          } catch (_) {
+            // private mode / storage disabled — non-fatal
+          }
+        }
+        const { C, H } = hexToOklch(hex)
+        const hue = String(Math.round(H))
+        const chroma = String(0.5)
+        const mode = themeStore.getActiveSiteMode()
+        // Disable hue animation so the picked color isn't immediately
+        // overwritten by the rAF loop on the next page load.
+        themeStore.setHueAnimator(mode, false)
+        themeStore.setToken(mode, "--palette-hue", hue)
+        themeStore.setToken(mode, "--palette-chroma", chroma)
+      })
+    })
+</script>
+
+<style is:global>
+  html {
+    --surface-default: light-dark(var(--color-1), var(--color-14));
+    --surface-filled: light-dark(var(--color-3), var(--color-16));
+    --surface-tonal: light-dark(var(--color-3), var(--color-12));
+    --surface-elevated: light-dark(var(--color-1), var(--color-12));
+    --border-color: light-dark(var(--color-4), var(--color-12));
+
+    &:before {
+      background-image: radial-gradient(
+        var(--text-muted) 1.4500000000000002px,
+        transparent 1.4500000000000002px
+      );
+      background-size: 20px 20px;
+      content: "";
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 0.05;
+      pointer-events: none;
+      position: fixed;
+    }
+  }
+</style>
+
+<style>
+  .hero-badge {
+    margin-block-end: var(--size-4);
+  }
+
+  .hero-description {
+    line-height: var(--font-lineheight-4);
+    font-size: var(--font-size-2);
+  }
+
+  .hero-ctas {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+    margin-block-start: var(--size-8);
+  }
+
+  .framework-support {
+    align-items: center;
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--font-size-0);
+    gap: var(--size-2);
+    margin-block-start: var(--size-5);
+
+    .label {
+      font-weight: var(--font-weight-6);
+      letter-spacing: var(--font-letterspacing-3);
+      text-transform: uppercase;
+    }
+
+    & :global(.astro-logo) {
+      color: currentColor;
+    }
+  }
+
+  :is(h1, h2, p) {
+    text-wrap: pretty;
+  }
+
+  .skip-link {
+    position: absolute;
+  }
+
+  #main-content {
+    padding-block: var(--size-4);
+    &:before {
+      background: radial-gradient(
+        100% 100% at 50% 0%,
+        var(--primary),
+        transparent
+      );
+      content: "";
+      inset: 0;
+      opacity: 0.3;
+      position: fixed;
+      z-index: -1;
+      pointer-events: none;
+    }
+  }
+</style>

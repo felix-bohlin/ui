@@ -1,0 +1,190 @@
+---
+import Component from "../../layouts/Component.astro"
+import Example from "../../components/Example"
+
+import AutoExample from "../../components/AutoExample.astro"
+import AccordionAnatomy from "../../component-examples/accordion/Anatomy.astro"
+
+import AccordionCSS from "@opui/css/components/accordion.css?raw"
+import CardCSS from "@opui/css/components/card.css?raw"
+import Conditional from "../../components/Conditional.astro"
+---
+
+<style is:global>
+  .anatomy {
+    outline: var(--_anatomy-border-gray);
+    outline-offset: -2px;
+
+    .actions,
+    .content,
+    summary {
+      outline: var(--_anatomy-border-red);
+      outline-offset: -3px;
+    }
+  }
+</style>
+
+<Component
+  slug="accordion"
+  browserSupport={[
+    "container-style-queries",
+    "content-visibility",
+    "details-content",
+    "details-name",
+    "has",
+    "interpolate-size",
+    "transition-behavior",
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Accordion/Accordion.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/accordion.astro", type: "docs" },
+    { path: "src/component-examples/accordion", type: "docs" },
+    {
+      path: "packages/opui/css/components/accordion.css",
+      type: "css",
+    },
+    { path: "src/component-api/accordion", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "accordion.css", code: AccordionCSS, lang: "css" },
+    {
+      title: "card.css",
+      code: CardCSS,
+      lang: "css",
+      isDependency: true,
+    },
+  ]}
+>
+  <Fragment slot="title">Accordion</Fragment>
+  <Fragment slot="preamble">
+    Leverages the HTML <code>details</code> and <code>summary</code> elements. Uses
+    the native HTML arrow, check out how to add your own <a
+      class="link"
+      href="#custom-marker">custom marker</a
+    >.
+  </Fragment>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+
+    <AutoExample name="Basics" column />
+  </section>
+
+  <section>
+    <h2 id="variants">Variants</h2>
+
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Change the visual style using the <code>variant</code> prop.
+      </Fragment>
+      <Fragment slot="html">
+        Change the visual style by adding one of the variant classes (<code
+          >.card</code
+        >, <code>.outlined</code>, <code>.elevated</code>, <code>.tonal</code>)
+        to the <code>&lt;details&gt;</code> element.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Variants" column />
+  </section>
+
+  <section>
+    <h2 id="accordion-group">Accordion group</h2>
+
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Group multiple accordions by wrapping them in a <code>Card</code>
+        component with <code>role="group"</code>. To theme the entire group,
+        apply the <code>variant</code> prop to the parent container.
+      </Fragment>
+      <Fragment slot="html">
+        Group multiple accordions by wrapping them in a <code>.card</code> element
+        with <code>role="group"</code>. To theme the entire group, apply the
+        variant class to the parent container.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Group" column />
+
+    <h3 id="mutually-exclusive">Mutually exclusive</h3>
+
+    <p>
+      Set the <code>name</code> prop to allow only one accordion in a group to be
+      open at a time.
+    </p>
+
+    <AutoExample name="GroupSingle" column />
+  </section>
+
+  <section>
+    <h2 id="actions">Actions</h2>
+
+    <p>
+      Include interactive elements in the header by using the <code
+        >.actions</code
+      > class.
+    </p>
+
+    <AutoExample name="Actions" />
+  </section>
+
+  <section>
+    <h2 id="custom-marker">Custom marker</h2>
+
+    <p>
+      Replace the default marker by adding an SVG inside the <code>summary</code
+      >.
+    </p>
+
+    <AutoExample name="CustomMarker" column />
+  </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      The <a
+        class="link"
+        href="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/"
+        >WAI-ARIA guidelines</a
+      > for accordions recommend:
+    </p>
+
+    <ul>
+      <li>
+        <code>summary</code> element
+        <ul>
+          <li>adding id and aria-controls</li>
+          <li>adding aria-expanded (if using JS)</li>
+        </ul>
+      </li>
+      <li>
+        content wrapper
+        <ul>
+          <li>adding id, role and aria-labelledby</li>
+        </ul>
+      </li>
+    </ul>
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <ol>
+      <li>
+        <code>&lt;details class="accordion"&gt;</code>: a wrapper for the
+        accordion
+      </li>
+      <li><code>&lt;summary&gt;</code>: a wrapper for the accordion header</li>
+      <li>
+        <code>& > .content</code> (optional): a wrapper for the accordion content
+      </li>
+      <li>
+        <code>& > .actions</code> (optional): a wrapper that groups a set of buttons
+      </li>
+    </ol>
+
+    <Example column showCode={false}>
+      <Example.Preview slot="preview-astro" code={AccordionAnatomy} />
+    </Example>
+  </Fragment>
+</Component>

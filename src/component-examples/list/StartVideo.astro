@@ -1,0 +1,25 @@
+---
+import { List } from "@opui/astro"
+import { ListItem } from "@opui/astro"
+---
+
+<List>
+  <ListItem headline="Headline" description="Supporting text">
+    <video slot="start" controls muted>
+      <source
+        src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+        type="video/mp4"
+      />
+    </video>
+    <div slot="end">13:37</div>
+  </ListItem>
+  <ListItem headline="Headline" description="Supporting text">
+    <video slot="start" controls muted>
+      <source
+        src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+        type="video/mp4"
+      />
+    </video>
+    <div slot="end">90s</div>
+  </ListItem>
+</List>

@@ -1,0 +1,653 @@
+---
+import {
+  Button,
+  Chip,
+  Divider,
+  Drawer,
+  DrawerFooter,
+  DrawerHeader,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Range,
+  Switch,
+  TextField,
+} from "@opui/astro"
+
+const borderRadiusItems = [
+  { text: "0", value: "0" },
+  { text: "1", value: "var(--radius-1)" },
+  { text: "2", value: "var(--radius-2)" },
+  { text: "3", value: "var(--radius-3)" },
+  { text: "4", value: "var(--radius-4)" },
+]
+
+const { link } = Astro.locals
+---
+
+<Drawer
+  backdrop="transparent"
+  closedby="any"
+  id="theme-configurator-drawer"
+  scrollLock={false}
+  side="inline-end"
+>
+  <DrawerHeader slot="header">
+    <h3>Theme config</h3>
+  </DrawerHeader>
+  <div class="content" slot="content">
+    <div class="configurator-content">
+      <form class="form" id="theme-configurator-form">
+        <FieldSet>
+          <FieldLegend>Theme mode</FieldLegend>
+          <FieldGroup direction="row">
+            <Switch spread id="theme-switcher" small>
+              Dark mode
+              <svg
+                slot="icon-checked"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                ><path
+                  fill="currentColor"
+                  d="M20.026 17.001c-2.762 4.784-8.879 6.423-13.663 3.661A10 10 0 0 1 3.13 17.68a.75.75 0 0 1 .365-1.132c3.767-1.348 5.785-2.91 6.956-5.146c1.233-2.353 1.551-4.93.689-8.463a.75.75 0 0 1 .769-.927a9.96 9.96 0 0 1 4.457 1.327c4.784 2.762 6.423 8.879 3.66 13.662"
+                ></path></svg
+              >
+
+              <svg
+                slot="icon-unchecked"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                ><path
+                  fill="currentColor"
+                  d="M12 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 2m5 10a5 5 0 1 1-10 0a5 5 0 0 1 10 0m4.25.75a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5zM12 19a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 19m-7.75-6.25a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5zm-.03-8.53a.75.75 0 0 1 1.06 0l1.5 1.5a.75.75 0 0 1-1.06 1.06l-1.5-1.5a.75.75 0 0 1 0-1.06m1.06 15.56a.75.75 0 1 1-1.06-1.06l1.5-1.5a.75.75 0 1 1 1.06 1.06zm14.5-15.56a.75.75 0 0 0-1.06 0l-1.5 1.5a.75.75 0 0 0 1.06 1.06l1.5-1.5a.75.75 0 0 0 0-1.06m-1.06 15.56a.75.75 0 1 0 1.06-1.06l-1.5-1.5a.75.75 0 1 0-1.06 1.06z"
+                ></path></svg
+              >
+            </Switch>
+          </FieldGroup>
+        </FieldSet>
+
+        <Divider />
+
+        <FieldSet>
+          <FieldLegend>Color palette</FieldLegend>
+          <FieldGroup>
+            <TextField
+              type="color"
+              label="Source color"
+              name="--palette-source-color"
+              value="#000000"
+              spread
+              small
+            />
+            <Switch id="hue-animator" name="hue-animator" checked small spread>
+              Animate
+            </Switch>
+            <Range
+              label="Hue"
+              name="--palette-hue"
+              min="0"
+              max="360"
+              step="1"
+              value="240"
+              valueSuffix="°"
+            />
+            <Range
+              label="Chroma"
+              name="--palette-chroma"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.5"
+              valueSuffix=""
+            />
+            <Range
+              label="Hue rotation"
+              name="--palette-hue-rotate-by"
+              min="-10"
+              max="10"
+              step="1"
+              value="0"
+              valueSuffix=""
+            />
+          </FieldGroup>
+        </FieldSet>
+
+        <Divider />
+
+        <FieldSet>
+          <FieldLegend>Grays</FieldLegend>
+          <FieldGroup>
+            <Switch id="enable-grays" name="enable-grays" checked small spread>
+              Enable
+            </Switch>
+            <Range
+              label="Gray chroma"
+              name="--gray-chroma"
+              min="0"
+              max="0.1"
+              step="0.001"
+              value="0.01"
+              valueSuffix=""
+            />
+            <Range
+              label="Gray hue"
+              name="--gray-hue"
+              min="0"
+              max="360"
+              step="1"
+              value="255"
+              valueSuffix="°"
+            />
+          </FieldGroup>
+        </FieldSet>
+
+        <Divider />
+
+        <FieldSet>
+          <FieldLegend>Border radii/radiuses/radiopedes/you know</FieldLegend>
+          <FieldGroup>
+            <div class="chip-group-wrapper">
+              <span class="label">Border radius</span>
+              <div class="chip-group">
+                {
+                  borderRadiusItems.map((item) => (
+                    <Chip
+                      as="button"
+                      type="button"
+                      size="small"
+                      variant={
+                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
+                      }
+                      data-name="--border-radius"
+                      data-value={item.value}
+                      data-default={
+                        item.value === "var(--radius-2)" ? "true" : undefined
+                      }
+                      label={item.text}
+                      title={item.value}
+                    />
+                  ))
+                }
+              </div>
+            </div>
+          </FieldGroup>
+          <FieldGroup>
+            <div class="chip-group-wrapper">
+              <span class="label">Field border radius</span>
+              <div class="chip-group">
+                {
+                  borderRadiusItems.map((item) => (
+                    <Chip
+                      as="button"
+                      type="button"
+                      size="small"
+                      variant={
+                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
+                      }
+                      data-name="--field-border-radius"
+                      data-value={item.value}
+                      data-default={
+                        item.value === "var(--radius-2)" ? "true" : undefined
+                      }
+                      label={item.text}
+                      title={item.value}
+                    />
+                  ))
+                }
+              </div>
+            </div>
+          </FieldGroup>
+          <FieldGroup>
+            <div class="chip-group-wrapper">
+              <span class="label">Button border radius</span>
+              <div class="chip-group">
+                {
+                  borderRadiusItems.map((item) => (
+                    <Chip
+                      as="button"
+                      type="button"
+                      size="small"
+                      variant={
+                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
+                      }
+                      data-name="--button-border-radius"
+                      data-value={item.value}
+                      data-default={
+                        item.value === "var(--radius-2)" ? "true" : undefined
+                      }
+                      label={item.text}
+                      title={item.value}
+                    />
+                  ))
+                }
+              </div>
+            </div>
+          </FieldGroup>
+        </FieldSet>
+      </form>
+    </div>
+  </div>
+
+  <DrawerFooter slot="footer">
+    <Button size="small" commandfor="theme-configurator-drawer" command="close"
+      >Close</Button
+    >
+    <Button size="small" id="theme-configurator-reset">Reset</Button>
+    <Button
+      href={link("/guide/theme-generator#generated-css")}
+      size="small"
+      variant="outlined"
+      id="theme-configurator-get-css">Get CSS</Button
+    >
+  </DrawerFooter>
+</Drawer>
+
+<script>
+  import {
+    themeStore,
+    TOKENS,
+    TOKEN_DEFAULTS,
+    type Mode,
+    type Token,
+  } from "../lib/theme-store"
+  import { hexToOklch, oklchToHex } from "../lib/colorUtils"
+
+  const TOKEN_SET = new Set<string>(TOKENS)
+
+  const form = document.getElementById(
+    "theme-configurator-form",
+  ) as HTMLFormElement | null
+  const resetBtn = document.getElementById("theme-configurator-reset")
+  const themeSwitcher = document.getElementById(
+    "theme-switcher",
+  ) as HTMLInputElement | null
+  const hueAnimator = document.getElementById(
+    "hue-animator",
+  ) as HTMLInputElement | null
+  const drawer = document.getElementById("theme-configurator-drawer")
+
+  let hueAnimationId: number | null = null
+  let animationAborted = false
+
+  function startHueAnimation() {
+    if (animationAborted) return
+    if (hueAnimationId) return
+    if (hueAnimator) hueAnimator.checked = true
+
+    const duration = 60_000
+    // Mirror the chroma logic below: theme.css doesn't expose --palette-hue
+    // on :root, so getComputedStyle would surface the core fallback (250)
+    // even when the active theme defaults to a different hue (e.g. 240 in
+    // theme three). Routing through the store means we honor user edits
+    // and per-mode configs, then fall back to TOKEN_DEFAULTS.
+    const currentHue =
+      parseFloat(
+        themeStore.effective(themeStore.getActiveSiteMode(), "--palette-hue"),
+      ) || 0
+    const startTimestamp = performance.now() - (currentHue / 360) * duration
+
+    // Cache the slider DOM refs once instead of re-querying on every frame.
+    const hueInput = form?.querySelector<HTMLInputElement>(
+      '[name="--palette-hue"]',
+    )
+    const hueOutput = hueInput
+      ? hueInput
+          .closest<HTMLElement>(".range")
+          ?.querySelector<HTMLOutputElement>(":scope > output.value")
+      : null
+    const hueOutputSuffix = hueOutput?.dataset.suffix ?? ""
+
+    function tick(now: number) {
+      if (animationAborted) return
+      const elapsed = now - startTimestamp
+      const progress = (elapsed % duration) / duration
+      const hue = Math.floor(progress * 360)
+      // Direct write to <html> on every frame; we deliberately bypass
+      // themeStore here so we don't churn localStorage at 60Hz.
+      // theme.css's --palette-source ignores --palette-hue, so we also
+      // re-derive --palette-source per frame using the current chroma.
+      //
+      // Source the chroma through the store rather than getComputedStyle:
+      // theme three never sets --palette-chroma on :root (it bakes the
+      // value directly into --palette-source), so reading the computed
+      // style would surface core/palette.css's :where(:root) fallback of
+      // 0.15 — making the animated palette look noticeably washed-out
+      // compared to the documented theme default of 0.5.
+      const html = document.documentElement
+      html.style.setProperty("--palette-hue", String(hue))
+      const chroma = themeStore.effective(
+        themeStore.getActiveSiteMode(),
+        "--palette-chroma",
+      )
+      html.style.setProperty(
+        "--palette-source",
+        `oklch(58% calc(0.21 * ${chroma}) ${hue})`,
+      )
+
+      // Keep the slider thumb position and the readout next to it in sync
+      // with the current animation frame. We update the output directly
+      // (rather than relying on a synthetic input event) so the readout
+      // changes even if the Range component's event listener somehow
+      // never wired up — defense in depth, since the user's primary
+      // complaint was that the displayed hue value was stuck while the
+      // animation ran.
+      if (hueInput) hueInput.value = String(hue)
+      if (hueOutput) hueOutput.textContent = `${hue}${hueOutputSuffix}`
+
+      hueAnimationId = requestAnimationFrame(tick)
+    }
+
+    hueAnimationId = requestAnimationFrame(tick)
+  }
+
+  function stopHueAnimation() {
+    animationAborted = true
+    if (hueAnimator) hueAnimator.checked = false
+    if (hueAnimationId !== null) {
+      cancelAnimationFrame(hueAnimationId)
+      hueAnimationId = null
+    }
+  }
+
+  // Disabling the animator from the UI is a three-step dance because
+  // every store mutation triggers syncFormFromStore via the subscriber,
+  // and that handler rewrites every form control from the store:
+  //   1. Snapshot the live animated hue from the slider — tick() bypasses
+  //      the store, so this DOM value is the only place it exists.
+  //   2. Flip `hue-animator` first so the subscriber sees the new flag
+  //      and doesn't toggle the switch back on.
+  //   3. Cancel the rAF and write the captured hue, which makes the
+  //      slider, the inline style, and the store agree.
+  function disableHueAnimation(mode: Mode) {
+    const wasAnimating = hueAnimationId !== null
+    const animatedHue = wasAnimating
+      ? form?.querySelector<HTMLInputElement>('[name="--palette-hue"]')?.value
+      : undefined
+
+    themeStore.setHueAnimator(mode, false)
+    stopHueAnimation()
+
+    if (animatedHue) {
+      themeStore.setToken(mode, "--palette-hue", animatedHue)
+    }
+  }
+
+  function syncFormFromStore(mode: Mode = themeStore.getActiveSiteMode()) {
+    if (!form) return
+    const config = themeStore.get(mode)
+
+    TOKENS.forEach((token) => {
+      // Fall back to TOKEN_DEFAULTS, never to getComputedStyle. The current
+      // theme bakes some values (notably --palette-chroma) directly into
+      // --palette-source rather than exposing them as their own custom
+      // properties, so reading the live computed style would surface the
+      // core's :root fallbacks (e.g. --palette-chroma: 0.15) rather than
+      // the documented theme defaults the sliders are meant to reflect.
+      const value = config[token] ?? TOKEN_DEFAULTS[token] ?? ""
+      if (!value) return
+      const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
+      if (input && input.type !== "checkbox") {
+        input.value = value
+        // Programmatic value changes don't fire `input` natively, but the
+        // Range component's <output> readout is wired to that event. Fire a
+        // synthetic one so the displayed value stays in sync with the
+        // slider thumb.
+        input.dispatchEvent(new Event("input", { bubbles: false }))
+      }
+
+      const chips = form.querySelectorAll<HTMLElement>(`[data-name="${token}"]`)
+      let foundMatch = false
+      chips.forEach((chip) => {
+        if (chip.dataset.value === value) {
+          chip.classList.add("tonal")
+          chip.classList.remove("outlined")
+          foundMatch = true
+        } else {
+          chip.classList.remove("tonal")
+          chip.classList.add("outlined")
+        }
+      })
+      if (!foundMatch && chips.length > 0) {
+        chips.forEach((chip) => {
+          if (chip.dataset.default === "true") {
+            chip.classList.add("tonal")
+            chip.classList.remove("outlined")
+          }
+        })
+      }
+    })
+
+    const enableGrays = form.querySelector<HTMLInputElement>(
+      '[name="enable-grays"]',
+    )
+    if (enableGrays) enableGrays.checked = themeStore.isGraysEnabled(mode)
+    // hueAnimator state is managed exclusively by startHueAnimation /
+    // stopHueAnimation; syncing it here would visually toggle the switch
+    // whenever the mode changes, even though the animation isn't touched.
+
+    const colorPicker = form.querySelector<HTMLInputElement>(
+      '[name="--palette-source-color"]',
+    )
+    if (colorPicker) {
+      const hue = parseFloat(
+        config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
+      )
+      const chroma = parseFloat(
+        config["--palette-chroma"] ?? TOKEN_DEFAULTS["--palette-chroma"],
+      )
+      colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
+    }
+  }
+
+  // Apply saved config + sync UI on first load. Header.astro's inline
+  // bootstrap already wrote inline styles to <html>; we go through
+  // applyMode here to emit theme:change and to be the single code path.
+  themeStore.applyMode()
+  syncFormFromStore()
+
+  // Hue animator is loud noise on the generator page; disable + persist.
+  const isGeneratorPage = window.location.pathname.includes(
+    "/guide/theme-generator",
+  )
+  if (isGeneratorPage) {
+    disableHueAnimation(themeStore.getActiveSiteMode())
+  } else {
+    const flag = themeStore.get(themeStore.getActiveSiteMode())["hue-animator"]
+    if (flag !== "false") {
+      startHueAnimation()
+    } else {
+      // The template renders the switch as checked by default; explicitly
+      // uncheck it when the stored config says animation is off.
+      if (hueAnimator) hueAnimator.checked = false
+    }
+  }
+
+  // Stop animation when drawer opens; the user is about to edit by hand.
+  drawer?.addEventListener("command", (e) => {
+    if ((e as any).command === "show-modal") {
+      disableHueAnimation(themeStore.getActiveSiteMode())
+    }
+  })
+
+  // Theme switcher
+  if (themeSwitcher) {
+    themeSwitcher.checked = document.documentElement.classList.contains("dark")
+    themeSwitcher.addEventListener("click", () => {
+      const isDark = document.documentElement.classList.contains("dark")
+      const newTheme: Mode = isDark ? "light" : "dark"
+      // themeUtils owns the .light/.dark class on <html> and the
+      // top-level "theme" localStorage key; the store owns custom tokens.
+      ;(window as any).themeUtils?.setTheme(newTheme)
+      themeSwitcher.checked = newTheme === "dark"
+      // Re-apply through the store so subscribers (the generator page)
+      // hear about it consistently.
+      themeStore.applyMode(newTheme)
+      syncFormFromStore(newTheme)
+    })
+  }
+
+  // Range/text input edits in the drawer form
+  form?.addEventListener("input", (e) => {
+    const target = e.target as HTMLInputElement | null
+    if (!target) return
+    const name = target.name || target.getAttribute("name")
+    if (!name) return
+
+    const mode = themeStore.getActiveSiteMode()
+
+    if (target.type === "checkbox") {
+      if (name === "enable-grays") {
+        themeStore.setEnableGrays(mode, target.checked)
+      } else if (name === "hue-animator") {
+        if (target.checked) {
+          themeStore.setHueAnimator(mode, true)
+          animationAborted = false
+          startHueAnimation()
+        } else {
+          disableHueAnimation(mode)
+        }
+      }
+      return
+    }
+
+    if (name === "--palette-source-color") {
+      const { C, H } = hexToOklch(target.value)
+      const hue = String(Math.round(H))
+      const chroma = String(+Math.min(1, C / 0.21).toFixed(2))
+      themeStore.setToken(mode, "--palette-hue", hue)
+      themeStore.setToken(mode, "--palette-chroma", chroma)
+      return
+    }
+
+    if (TOKEN_SET.has(name)) {
+      themeStore.setToken(mode, name as Token, target.value)
+    }
+  })
+
+  // Chip clicks in the drawer form
+  form?.addEventListener("click", (e) => {
+    const chip = (e.target as HTMLElement).closest<HTMLElement>(
+      "[data-name][data-value]",
+    )
+    if (!chip || !form.contains(chip)) return
+
+    const name = chip.dataset.name
+    const value = chip.dataset.value
+    if (!name || value === undefined) return
+
+    if (TOKEN_SET.has(name)) {
+      themeStore.setToken(themeStore.getActiveSiteMode(), name as Token, value)
+    }
+
+    const chips = form.querySelectorAll<HTMLElement>(`[data-name="${name}"]`)
+    chips.forEach((c) => {
+      if (c === chip) {
+        c.classList.add("tonal")
+        c.classList.remove("outlined")
+      } else {
+        c.classList.remove("tonal")
+        c.classList.add("outlined")
+      }
+    })
+  })
+
+  resetBtn?.addEventListener("click", () => {
+    // Capture the animate state before reset so we can restore it.
+    // Reset wipes the stored config (including `hue-animator`), and the
+    // subsequent syncFormFromStore would otherwise default the switch
+    // back to "on" regardless of what it was.
+    const wasAnimating = hueAnimationId !== null
+    const mode = themeStore.getActiveSiteMode()
+
+    themeStore.reset()
+    form?.reset()
+    if (themeSwitcher) {
+      themeSwitcher.checked =
+        document.documentElement.classList.contains("dark")
+    }
+    const allChips =
+      form?.querySelectorAll<HTMLElement>("[data-name][data-value]") ?? []
+    allChips.forEach((chip) => {
+      if (chip.dataset.default === "true") {
+        chip.classList.add("tonal")
+        chip.classList.remove("outlined")
+      } else {
+        chip.classList.remove("tonal")
+        chip.classList.add("outlined")
+      }
+    })
+
+    // Re-persist the prior animate state. If the user had it off, keep
+    // it off; if on, leave the existing rAF loop running (startHueAnimation
+    // is a no-op while hueAnimationId is set, so we don't double-start).
+    themeStore.setHueAnimator(mode, wasAnimating)
+    if (hueAnimator) hueAnimator.checked = wasAnimating
+    if (wasAnimating && !isGeneratorPage) {
+      animationAborted = false
+      startHueAnimation()
+    }
+  })
+
+  // External writes (e.g. from the theme-generator page editing the
+  // active site mode) — re-sync the drawer's controls.
+  themeStore.subscribe((detail) => {
+    if (detail.mode !== themeStore.getActiveSiteMode()) return
+    syncFormFromStore(detail.mode)
+  })
+</script>
+
+<style is:global>
+  /* `--gray-N` is derived per-element by core/palette.css (see the `*`
+     selector there), so we don't need to redeclare a gray ramp at <html>.
+     The "Disable grays" toggle still has to be implemented here, since
+     theme.css doesn't ship a no-grays surface mapping. */
+  html.no-grays {
+    --surface-default: light-dark(var(--color-1), var(--color-14));
+    --surface-filled: light-dark(var(--color-5), var(--color-16));
+    --surface-tonal: light-dark(var(--color-4), var(--color-12));
+    --surface-elevated: light-dark(var(--color-1), var(--color-12));
+    --border-color: light-dark(var(--color-4), var(--color-12));
+    --field-border-color: light-dark(var(--color-4), var(--color-12));
+  }
+</style>
+
+<style>
+  .configurator-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+
+    p {
+      color: var(--text-muted);
+      font-size: var(--font-size-05);
+      margin: 0;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-4);
+    }
+
+    .chip-group-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-2);
+
+      .label {
+        font-size: var(--font-size-05);
+        font-weight: var(--font-weight-5);
+      }
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+    }
+  }
+</style>

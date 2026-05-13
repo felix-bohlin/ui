@@ -1,0 +1,585 @@
+@layer components.root {
+
+  :where(.p) {
+    text-wrap: pretty;
+
+    &.small {
+      font-size: var(--font-size-1);
+    }
+
+    &.large {
+      font-size: var(--font-size-3);
+    }
+  }
+
+  :where(.h1, .h2, .h3, .h4, .h5, .h6) {
+    color: var(--text-primary);
+    font-weight: 700;
+    text-wrap: pretty;
+  }
+
+  :where(.h1) {
+    font-size: var(--font-size-h1, var(--font-size-7));
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  :where(.h2) {
+    font-size: var(--font-size-h2, var(--font-size-5, 2rem));
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  :where(.h3) {
+    font-size: var(--font-size-h3, var(--font-size-4, 1.5rem));
+    letter-spacing: -0.01em;
+    line-height: 1.167;
+  }
+
+  :where(.h4) {
+    font-size: var(--font-size-h4, var(--font-size-3, 1.25rem));
+    letter-spacing: -0.01em;
+    line-height: 1.235;
+  }
+
+  :where(.h5) {
+    font-size: var(--font-size-h5, var(--font-size-2, 1.1rem));
+    line-height: 1.334;
+  }
+
+  :where(.h6) {
+    font-size: var(--font-size-h6, var(--font-size-1, 1rem));
+    line-height: 1;
+  }
+
+  /** Overline */
+  :where(.overline) {
+    color: light-dark(oklch(from var(--text-muted) calc(l * 1.25) c h),
+        oklch(from var(--text-muted) calc(l * 0.75) c h));
+    font-size: var(--font-size-0);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  :where(.hgroup) {
+    &>p {
+      margin: 0;
+    }
+
+    &> :where(h1, h2, h3, h4, h5, h6) {
+      margin-block: 0 0.4em;
+    }
+
+    /* First p element (overline) */
+    &>p:first-of-type:first-child {
+      color: light-dark(oklch(from var(--text-muted) calc(l * 1.25) c h),
+          oklch(from var(--text-muted) calc(l * 0.75) c h));
+      font-size: var(--font-size-0);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Body paragraphs after the heading */
+    &>p:not(:first-of-type:first-child) {
+      color: oklch(from currentColor l c h / 75%);
+      font-size: var(--font-size-3);
+      line-height: 1.6;
+    }
+
+    &>p+p {
+      margin-block-start: 0.75em;
+    }
+  }
+
+  /** Caption */
+  :where(.caption) {
+    color: var(--text-muted);
+    font-size: var(--font-size-0);
+    line-height: 1.6;
+  }
+
+
+
+  /* Inline text elements — class utilities (work anywhere) */
+  :where(.u, .abbr, .dfn) {
+    text-decoration: underline;
+    text-underline-offset: 1px;
+
+    @supports (-moz-appearance: none) {
+      text-underline-offset: 2px;
+    }
+  }
+
+  :where(.abbr, .dfn) {
+    font-style: normal;
+    text-decoration: var(--color-9) underline dotted;
+
+    &[title] {
+      cursor: help;
+      text-underline-offset: 1px;
+    }
+
+    @supports (-moz-appearance: none) {
+      text-underline-offset: 2px;
+    }
+  }
+
+  :where(.sup) {
+    font-size: 0.5em;
+    vertical-align: super;
+  }
+
+  :where(p, span).small {
+    font-size: max(0.5em, var(--font-size-0, 0.75rem));
+  }
+
+  :where(.cite) {
+    font-style: italic;
+  }
+
+  /* Code */
+  :where(.kbd) {
+    font-family: var(--font-mono);
+    background-color: var(--text-muted);
+    border-color: var(--text-muted);
+    border-radius: var(--radius-2);
+    border-width: var(--border-size-1);
+    color: var(--text-muted-contrast);
+    padding: 0.1ex 0.3ex;
+    word-break: break-word;
+  }
+
+  :where(.mark) {
+    border-radius: var(--radius-2);
+    box-decoration-break: clone;
+    padding: .1ex .3ex;
+    vertical-align: baseline;
+  }
+
+  :where(.s) {
+    text-decoration: line-through;
+  }
+
+  :where(.sub) {
+    font-size: 0.75em;
+    vertical-align: sub;
+  }
+
+  :where(.del) {
+    color: var(--color-9);
+    text-decoration: line-through;
+  }
+
+  :where(.ins) {
+    color: var(--color-9);
+    text-decoration: underline;
+    text-underline-offset: 1px;
+  }
+
+  :where(.var) {
+    font-family: var(--font-mono);
+    background-color: var(--text-muted);
+    border-color: var(--text-muted);
+    border-radius: var(--radius-2);
+    border-width: var(--border-size-1);
+    color: var(--text-muted-contrast);
+    padding: 0.1ex 0.3ex;
+    word-break: break-word;
+  }
+
+  :where(.samp) {
+    font-family: var(--font-mono);
+  }
+
+  /* Blockquote */
+  :where(.blockquote) {
+    border-inline-start: var(--border-size-3) solid currentColor;
+    padding-block: var(--size-3);
+    padding-inline: var(--size-4);
+
+    :first-child {
+      margin-block-start: 0;
+    }
+
+    :last-child {
+      margin-block-end: 0;
+    }
+
+    footer {
+      color: var(--text-muted);
+      margin-block-start: var(--size-3);
+    }
+  }
+
+  /* Code block */
+  :where(pre.code-block) {
+    background-color: var(--color-15);
+    border-radius: var(--border-radius);
+    color: var(--color-1);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-05);
+    max-inline-size: 100%;
+    overflow-x: auto;
+    padding-block: var(--size-3);
+    padding-inline: var(--size-4);
+    scrollbar-width: thin;
+    white-space: pre;
+
+    >code {
+      background: none;
+      border-radius: 0;
+      color: inherit;
+      font-size: inherit;
+      padding: 0;
+      word-break: normal;
+      writing-mode: inherit;
+    }
+  }
+
+}
+
+/* Rich text */
+@layer components.extended {
+  @scope (.rich-text) to (.not-rich-text) {
+    a {
+      color: var(--primary);
+      cursor: pointer;
+      font-size: inherit;
+      font-weight: 700;
+      line-height: inherit;
+      text-decoration: underline;
+      text-decoration-color: var(--primary);
+      text-underline-offset: 2px;
+
+      &[href] {
+
+        &:hover,
+        &:focus-visible {
+          color: var(--primary-light);
+        }
+      }
+    }
+
+    /* Blockquote */
+    blockquote {
+      border-inline-start: var(--border-size-3) solid currentColor;
+      font-size: inherit;
+      line-height: inherit;
+      padding-block: var(--size-3);
+      padding-inline: var(--size-4);
+
+      :first-child {
+        margin-block-start: 0;
+      }
+
+      :last-child {
+        margin-block-end: 0;
+      }
+
+      footer {
+        color: var(--text-muted);
+        margin-block-start: var(--size-3);
+      }
+    }
+
+    /* Code */
+    pre {
+      border-radius: var(--border-radius);
+      font-size: var(--font-size-05);
+      margin-block: var(--size-6);
+      max-inline-size: max-content;
+      min-inline-size: 0;
+      padding-block: var(--size-3);
+      padding-inline: var(--size-4);
+      white-space: pre;
+    }
+
+    pre:has(> code) {
+      background-color: var(--color-15);
+      border-radius: var(--border-radius);
+      color: var(--color-1);
+      max-inline-size: 100%;
+      overflow-x: auto;
+      scrollbar-width: thin;
+
+      >code {
+        background: none;
+        border-radius: 0;
+        color: inherit;
+        font-size: inherit;
+        padding: 0;
+        word-break: normal;
+        writing-mode: inherit;
+      }
+    }
+
+
+    /* Text */
+    p {
+      font-size: inherit;
+      line-height: inherit;
+      margin-block: 1.25em;
+      text-wrap: pretty;
+    }
+
+    :is(h1, h2, h3, h4, h5, h6) {
+      color: var(--text-primary);
+      font-weight: 700;
+      text-wrap: pretty;
+
+      &+*:not(&) {
+        margin-block-start: 0;
+      }
+    }
+
+    h1 {
+      font-size: var(--font-size-h1, var(--font-size-7));
+      letter-spacing: -0.02em;
+      line-height: 1.1111111;
+      margin-block: 0 0.8888889em;
+    }
+
+    h2 {
+      font-size: var(--font-size-h2, var(--font-size-5, 2rem));
+      letter-spacing: -0.02em;
+      line-height: 1.3333333;
+      margin-block: 2em 1em;
+    }
+
+    h3 {
+      font-size: var(--font-size-h3, var(--font-size-4, 1.5rem));
+      letter-spacing: -0.01em;
+      line-height: 1.6;
+      margin-block: 1.6em 0.6em;
+    }
+
+    h4 {
+      font-size: var(--font-size-h4, var(--font-size-3, 1.25rem));
+      letter-spacing: -0.01em;
+      line-height: 1.5;
+      margin-block: 1.5em 0.5em;
+    }
+
+    h5 {
+      font-size: var(--font-size-h5, var(--font-size-2, 1.1rem));
+      line-height: 1;
+      margin-block: 0 var(--size-1);
+    }
+
+    h6 {
+      font-size: var(--font-size-h6, var(--font-size-1, 1rem));
+      line-height: 1;
+      margin-block: 0 var(--size-1);
+    }
+
+    /** Overline */
+    :is(.overline, hgroup p:first-of-type:first-child) {
+      color: light-dark(oklch(from var(--text-muted) calc(l * 1.25) c h),
+          oklch(from var(--text-muted) calc(l * 0.75) c h));
+      font-size: var(--font-size-0);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    hgroup {
+      &>p {
+        margin: 0;
+      }
+
+      &> :where(h1, h2, h3, h4, h5, h6) {
+        margin-block: 0 0.4em;
+      }
+
+      &+* {
+        margin-block-start: 3em;
+      }
+
+      /* Body paragraphs after the heading */
+      &>p:not(:first-of-type:first-child) {
+        color: oklch(from currentColor l c h / 75%);
+        font-size: var(--font-size-3);
+        line-height: 1.6;
+      }
+
+      &>p+p {
+        margin-block-start: 0.75em;
+      }
+    }
+
+    /* Lists */
+    ul:not([class]) {
+      list-style-type: disc;
+    }
+
+    ol:not([class]) {
+      list-style-type: decimal;
+    }
+
+    :where(ul, ol):not([class]) {
+      display: grid;
+      font-size: inherit;
+      gap: 0.5em;
+      line-height: inherit;
+      margin-block-end: 1.25em;
+      margin-block-start: 1.25em;
+      padding-inline-start: 1.625em;
+
+      li {
+        padding-inline-start: 0.375em;
+      }
+    }
+
+    /* Nested lists */
+    :where(ul ul),
+    :where(ul ol),
+    :where(ol ul),
+    :where(ol ol) {
+      margin-block-end: 0.75em;
+      margin-block-start: 0.75em;
+    }
+
+    /* Description lists */
+    :where(dl) {
+      font-size: inherit;
+      line-height: inherit;
+      margin-block-end: 1.25em;
+      margin-block-start: 1.25em;
+
+      dt {
+        font-weight: 700;
+        margin-block-start: 1.25em;
+      }
+
+      dd {
+        margin-block-start: 0.5em;
+        padding-inline-start: 1.625em;
+      }
+    }
+
+    /* Figures */
+    figure {
+      display: grid;
+      gap: var(--size-2);
+      margin-block: var(--size-7);
+      place-items: center;
+
+      &>* {
+        margin-block: 0;
+      }
+
+      & figcaption {
+        font-size: var(--font-size-0);
+        text-wrap: pretty;
+      }
+    }
+
+    /* Remove top margin from first child */
+    &> :first-child {
+      margin-block-start: 0;
+    }
+
+    /* Remove bottom margin from last child */
+    &> :last-child {
+      margin-block-end: 0;
+    }
+
+    /* Horizontal rules */
+    hr {
+      &+* {
+        margin-block-start: 0;
+      }
+    }
+
+    /* Inline text elements */
+    :where(ins, u, abbr, dfn) {
+      text-decoration: underline;
+      text-underline-offset: 1px;
+
+      @supports (-moz-appearance: none) {
+        text-underline-offset: 2px;
+      }
+    }
+
+    :where(abbr, dfn) {
+      font-style: normal;
+      text-decoration: var(--color-9) underline dotted;
+
+      &[title] {
+        cursor: help;
+        text-underline-offset: 1px;
+      }
+
+      @supports (-moz-appearance: none) {
+        text-underline-offset: 2px;
+      }
+    }
+
+    sup {
+      font-size: 0.5em;
+      vertical-align: super;
+    }
+
+    :where(del, ins) {
+      color: var(--color-9);
+    }
+
+    small {
+      font-size: max(0.5em, var(--font-size-0, 0.75rem));
+    }
+
+    cite {
+      font-style: italic;
+    }
+
+    /* Code */
+    :where(code, kbd, samp, pre) {
+      font-family: var(--font-mono);
+    }
+
+    code {
+      background-color: oklch(0 0 0 / 18%);
+      border-radius: var(--border-size-3);
+      font-size: 0.9em;
+      padding: 0.1ex 0.3ex;
+    }
+
+    :where(kbd, var) {
+      background-color: var(--text-muted);
+      border-color: var(--text-muted);
+      border-radius: var(--radius-2);
+      border-width: var(--border-size-1);
+      color: var(--text-muted-contrast);
+      padding: 0.1ex 0.3ex;
+    }
+
+    :not(pre) code,
+    kbd {
+      word-break: break-word;
+    }
+
+    :not(pre) code {
+      border-radius: var(--border-radius, var(--radius-2));
+      padding: 0.5ex;
+      writing-mode: lr;
+    }
+
+    mark {
+      border-radius: var(--radius-2);
+      box-decoration-break: clone;
+      padding: .1ex .3ex;
+      vertical-align: baseline;
+    }
+
+    s {
+      text-decoration: line-through;
+    }
+
+    sub {
+      font-size: 0.75em;
+      vertical-align: sub;
+    }
+  }
+}

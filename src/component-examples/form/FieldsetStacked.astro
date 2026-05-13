@@ -1,0 +1,17 @@
+---
+import { FieldSet } from "@opui/astro"
+import { FieldLegend } from "@opui/astro"
+import { FieldDescription } from "@opui/astro"
+import { FieldGroup } from "@opui/astro"
+import { Radio } from "@opui/astro"
+---
+
+<FieldSet>
+  <FieldLegend>Favorite Pet</FieldLegend>
+  <FieldDescription>Please select your favorite type of pet.</FieldDescription>
+  <FieldGroup name="pet">
+    <Radio value="dog">Dog</Radio>
+    <Radio value="cat">Cat</Radio>
+    <Radio value="hamster">Hamster</Radio>
+  </FieldGroup>
+</FieldSet>

@@ -1,0 +1,13 @@
+---
+type Props = {
+  [key: string]: any
+}
+
+export const title = "Table Column Group"
+
+const { ...rest } = Astro.props
+---
+
+<colgroup {...rest}>
+  <slot />
+</colgroup>

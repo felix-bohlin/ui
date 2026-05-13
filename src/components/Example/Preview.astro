@@ -1,0 +1,15 @@
+---
+const { code: Content, slot: _slot, ...rest } = Astro.props
+---
+
+{
+  Content ? (
+    typeof Content === "string" ? (
+      <Fragment set:html={Content} />
+    ) : (
+      <Content {...rest} />
+    )
+  ) : (
+    <slot />
+  )
+}

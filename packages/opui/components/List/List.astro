@@ -1,0 +1,36 @@
+---
+type Props = {
+  bordered?: boolean
+  dense?: boolean
+  gutterless?: boolean
+  variant?: "default" | "tonal" | "transparent"
+  [key: string]: any
+}
+
+export const title = "List"
+
+const {
+  bordered,
+  class: className,
+  dense,
+  gutterless,
+  variant,
+  ...rest
+} = Astro.props
+---
+
+<ul
+  class:list={[
+    "list",
+    {
+      bordered,
+      dense,
+      gutterless,
+    },
+    variant,
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</ul>

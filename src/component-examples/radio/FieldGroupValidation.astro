@@ -1,0 +1,19 @@
+---
+import { Radio } from "@opui/astro"
+import { FieldSet } from "@opui/astro"
+import { FieldLegend } from "@opui/astro"
+import { FieldGroup } from "@opui/astro"
+import { Form } from "@opui/astro"
+---
+
+<Form>
+  <FieldSet data-invalid>
+    <FieldLegend>Legend</FieldLegend>
+    <FieldGroup direction="row" name="field-group-validation-1-astro">
+      <Radio checked>Radio 1</Radio>
+      <Radio>Radio 2</Radio>
+      <Radio>Radio 3</Radio>
+    </FieldGroup>
+    <span class="end-text">Something went wrong!</span>
+  </FieldSet>
+</Form>

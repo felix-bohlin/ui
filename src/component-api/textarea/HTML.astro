@@ -1,0 +1,77 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Children</Table.Cell>
+      <Table.Cell
+        ><code>.label</code>, <code>.start-text</code>, <code>.field</code>, <code
+          >.end-text</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Direct children of the root element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Field children</Table.Cell>
+      <Table.Cell
+        ><code>&lt;textarea&gt;</code>, <code>.prefix</code>, <code
+          >.suffix</code
+        >, <code>.header</code>, <code>.footer</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Children of <code>.field</code>. The <code>&lt;textarea&gt;</code> comes
+        first, then optional affixes.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Auto-fit</Table.Cell>
+      <Table.Cell><code>.auto-fit</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >When enabled, the element changes size depending on its content.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Layout</Table.Cell>
+      <Table.Cell><code>.spread</code>, default</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The layout of the component. <code>.spread</code> pushes label and description
+        to the left and textarea to the right.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Variants</Table.Cell>
+      <Table.Cell>default, <code>.filled</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The variant to use.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Validation</Table.Cell>
+      <Table.Cell><code>[data-invalid]</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Add the <code>data-invalid</code> attribute to the root element to show error
+        styles.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

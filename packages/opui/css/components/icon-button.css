@@ -1,0 +1,139 @@
+@layer components.root {
+  :where(.icon-button) {
+    --_color: light-dark(var(--color-16), var(--color-1));
+    --_color-contrast: light-dark(var(--color-1), var(--color-16));
+    --_color-tonal: var(--surface-tonal);
+
+    --_accent: var(--_color);
+    --_accent-contrast: var(--_color-contrast);
+    --_accent-tonal: var(--_color-tonal);
+    --_accent-tonal-contrast: var(--_color);
+    --_default-hover-bg-color: light-dark(oklch(from var(--_accent) l 0.01 h / 10%),
+        oklch(from var(--_accent) l 0.01 h / 20%));
+    --_default-active-bg-color: light-dark(oklch(from var(--_accent) l 0.06 h / 20%),
+        oklch(from var(--_accent) l 0.06 h / 30%));
+    --_filled-hover-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.2) c h),
+        oklch(from var(--_accent) calc(l - 0.1) c h));
+    --_filled-active-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.3) c h),
+        oklch(from var(--_accent) calc(l - 0.15) c h));
+    --_outlined-active-bg-color: var(--_filled-active-bg-color);
+
+    --_bg-color: transparent;
+    --_border-color: transparent;
+    --_border-width: var(--border-size-1);
+    --_text-color: inherit;
+
+    align-items: center;
+    aspect-ratio: 1;
+    background-color: var(--_bg-color);
+    block-size: var(--size-6);
+    border: var(--_border-width) solid var(--_border-color);
+    border-radius: var(--radius-round);
+    color: var(--_text-color);
+    display: inline-flex;
+    inline-size: var(--size-6);
+    justify-content: center;
+    padding: 0;
+    transform-style: preserve-3d;
+    transition: background-color .1s ease, color .1s ease,
+      border-color .1s ease, box-shadow .1s ease;
+
+    &:where([disabled]) {
+      --_text-color: light-dark(rgb(0, 0, 0/0.3), rgb(255, 255, 255/0.26));
+      cursor: not-allowed;
+      opacity: 0.64;
+    }
+
+    svg {
+      block-size: auto;
+      inline-size: auto;
+      max-block-size: var(--size-5);
+      max-inline-size: var(--size-5);
+      pointer-events: none;
+    }
+
+    /* Ripple effect, utils.css */
+    &::before {
+      --highlight-size: 130%;
+      background-color: transparent;
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: transform 0.2s ease, background-color .1s ease;
+      }
+    }
+
+    /* Colors — shared interaction model for critical and primary.
+       Each color modifier below only swaps --_color; the tonal surface,
+       contrast text, and hover/active strategy are identical.
+       The .critical scope class in theme.css redirects --palette-source so
+       --color-6 below becomes a tint of the active color. */
+    &.critical,
+    &.primary {
+      --_color-contrast: var(--gray-1);
+      --_color-tonal: var(--color-6);
+      --_accent-tonal-contrast: var(--text-primary-contrast);
+
+      --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
+      --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
+
+      --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+      --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
+
+      --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+    }
+
+    &.critical {
+      --_color: var(--critical);
+    }
+
+    &.primary {
+      --_color: var(--primary);
+    }
+
+    /* Element states */
+    &:where(:not([disabled])) {
+      &:where(:not(:active):hover) {
+        &::before {
+          background-color: var(--_interaction-hover-color, var(--_default-hover-bg-color));
+        }
+      }
+
+      &:where(:hover:active),
+      &[aria-current="page"] {
+        &::before {
+          background-color: var(--_interaction-active-color, var(--_default-active-bg-color));
+        }
+      }
+    }
+
+    /* Size */
+    &.small {
+      block-size: var(--size-4);
+      inline-size: var(--size-4);
+
+      svg {
+        max-block-size: var(--size-4);
+        max-inline-size: var(--size-4);
+      }
+    }
+
+    /* Variants */
+    &.outlined {
+      --_bg-color: transparent;
+      --_border-color: var(--_accent);
+      --_text-color: var(--_accent);
+    }
+
+    &.tonal {
+      --_bg-color: var(--_accent-tonal);
+      --_text-color: var(--_accent-tonal-contrast);
+    }
+
+    &.filled {
+      --_bg-color: var(--_accent);
+      --_interaction-active-color: var(--_filled-active-bg-color);
+      --_interaction-hover-color: var(--_filled-hover-bg-color);
+      --_text-color: var(--_accent-contrast);
+    }
+  }
+}

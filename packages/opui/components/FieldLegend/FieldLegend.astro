@@ -1,0 +1,15 @@
+---
+type Props = {
+  [key: string]: any
+  as?: "legend" | "p" | string
+  class?: string
+}
+
+export const title = "Field Legend"
+
+const { as: Tag = "legend", class: className, ...rest } = Astro.props
+const isLegend = Tag === "legend"
+---
+
+<!-- prettier-ignore -->
+<Tag class:list={[{ legend: !isLegend }, className]} {...rest}><slot /></Tag>

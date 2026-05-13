@@ -1,0 +1,450 @@
+@layer components.extended {
+
+  /*
+- Common styling for input, textarea and select
+- Form related styles such as: label, supporting text, error handling
+*/
+  :where(.text-field, .textarea, .select) {
+    --_accent-color: var(--primary);
+    --_bg-color: var(--surface-default);
+    --_border-color: var(--field-border-color);
+    --_field-padding-block: var(--size-2);
+    --_field-padding-inline: var(--size-2);
+    --_filled-border-color: var(--text-primary);
+    --_height: var(--field-size);
+    --_label-color: var(--text-muted);
+    --_end-text-color: var(--text-muted);
+
+    display: grid;
+    gap: var(--size-1) 0;
+    position: relative;
+
+    /* Field - the actual input with a border around it */
+    .field {
+      background-color: var(--_bg-color);
+      border: var(--field-border-width) solid var(--_border-color);
+      border-radius: var(--field-border-radius);
+      display: grid;
+      grid-column: 1/-1;
+      grid-row: 2;
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas:
+        "header header header"
+        "prefix input  suffix"
+        "footer footer footer";
+      min-block-size: var(--_height);
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    }
+
+    :where(.field input, .field textarea, .field select) {
+      background: transparent;
+      border: 0;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: var(--font-size-1);
+      grid-area: input;
+      inline-size: 100%;
+      line-height: var(--font-lineheight-1);
+      min-inline-size: 0;
+      padding: var(--_field-padding-block) var(--_field-padding-inline);
+
+      &:focus,
+      &:focus-visible {
+        outline: 0;
+      }
+    }
+
+    /* Affixes */
+    .prefix,
+    .suffix {
+      align-items: center;
+      color: var(--_label-color);
+      display: inline-flex;
+      padding-inline: var(--_field-padding-inline);
+      white-space: nowrap;
+    }
+
+    .prefix {
+      grid-area: prefix;
+    }
+
+    .suffix {
+      grid-area: suffix;
+    }
+
+    .header,
+    .footer {
+      align-items: center;
+      color: var(--_label-color);
+      display: flex;
+      font-size: var(--font-size-0);
+      gap: var(--size-2);
+      padding: var(--size-1) var(--_field-padding-inline);
+    }
+
+    .header {
+      border-block-end: 1px solid var(--_border-color);
+      grid-area: header;
+    }
+
+    .footer {
+      border-block-start: 1px solid var(--_border-color);
+      grid-area: footer;
+    }
+
+    /* Remove padding on the input when affixes are next to it */
+    .field:has(> .prefix) :where(input, textarea, select) {
+      padding-inline-start: 0;
+    }
+
+    .field:has(> .suffix) :where(input, textarea, select) {
+      padding-inline-end: 0;
+    }
+
+    /* Textarea - keep affix aligned with the first line */
+    &.textarea .field {
+
+      .prefix,
+      .suffix {
+        align-self: start;
+        padding-block: var(--_field-padding-block);
+      }
+    }
+
+    /* Required/Invalid */
+    &:has(:invalid) {
+      .label:after {
+        color: var(--red);
+        content: "*";
+        margin: -0.25em auto auto 0.25em;
+      }
+    }
+
+    /* File */
+    &:has(input[type="file"]) {
+      cursor: pointer;
+
+      input {
+        align-self: flex-start;
+        block-size: var(--_height);
+        box-shadow: none;
+        color: var(--text-primary);
+        cursor: inherit;
+        max-inline-size: 100%;
+        padding: 0;
+        transition: font-size 0.2s var(--ease-3);
+
+        &::-webkit-file-upload-button,
+        &::file-selector-button {
+          background-color: var(--surface-tonal);
+          block-size: calc(100% - var(--size-2) * 2);
+          border: none;
+          border-radius: var(--field-border-radius);
+          cursor: pointer;
+          margin-block-start: var(--size-2);
+          margin-inline-end: 1ex;
+          margin-inline-start: var(--size-2);
+        }
+      }
+
+      /* Variants */
+      &.filled {
+        input {
+
+          &::-webkit-file-upload-button,
+          &::file-selector-button {
+            background-color: var(--surface-default);
+            block-size: calc(100% - var(--size-2) * 2);
+            border-radius: var(--field-border-radius);
+            cursor: pointer;
+            margin-block-start: var(--size-2);
+          }
+        }
+      }
+
+      /* Sizes */
+      &.small {
+        input {
+          font-size: var(--font-size-05);
+
+          &::-webkit-file-upload-button,
+          &::file-selector-button {
+            block-size: calc(100% - var(--size-2));
+            margin-block-start: var(--size-1);
+          }
+        }
+      }
+    }
+
+    /* Autosuggest */
+    &:has(input[list]) {
+      .label {
+        /* Make sure chevron is visible */
+        inline-size: calc(100% - var(--size-6));
+      }
+    }
+
+    /* Select */
+    &:has(select) {
+      .label {
+        /* Make sure chevron is visible */
+        inline-size: calc(100% - var(--size-6));
+
+      }
+    }
+
+    /* Customizable Select */
+    &:has(select button) {
+      select {
+        padding: 0;
+
+        button {
+          outline: 0;
+          padding: var(--_field-padding-block) var(--size-8) var(--_field-padding-block) var(--_field-padding-inline);
+        }
+      }
+    }
+
+    /* Non-customizable Select */
+    &:has(select):not(:has(button)) {
+      select {
+        padding: var(--_field-padding-block) var(--size-8) var(--_field-padding-block) var(--_field-padding-inline);
+      }
+    }
+
+    /* Input - color */
+    &:has(input[type="color"]) {
+      .field {
+        block-size: var(--_height);
+        inline-size: var(--_height);
+        min-block-size: 0;
+        overflow: hidden;
+      }
+
+      input {
+        appearance: none;
+        background: none;
+        block-size: var(--_height);
+        inline-size: var(--_height);
+        overflow: hidden;
+        padding: 0;
+
+        &::-webkit-color-swatch {
+          border: none;
+        }
+
+        &::-webkit-color-swatch-wrapper {
+          padding: 0;
+        }
+      }
+    }
+
+    /* Element states */
+    &:hover {
+      &:not([data-invalid]) {
+        .field {
+          border-color: var(--text-primary);
+        }
+      }
+    }
+
+    &:focus-within {
+      .field {
+        border-color: var(--_accent-color);
+        outline-offset: -2px;
+      }
+    }
+
+    /* Label */
+    .label {
+      color: var(--text-primary);
+      font-size: var(--font-size-05);
+      font-weight: 600;
+      grid-column: 1/-1;
+      grid-row: 1;
+      padding-inline: 0 1ex;
+    }
+
+    /* End text */
+    :where(.end-text) {
+      color: var(--_end-text-color);
+      font-size: var(--font-size-0);
+      grid-column: 1/-1;
+      grid-row: 3;
+      line-height: 1.5;
+    }
+
+    /* Auto-fit */
+    &.auto-fit {
+      inline-size: auto;
+
+      .field {
+        inline-size: auto;
+      }
+
+      :where(& input, & textarea) {
+        field-sizing: content;
+        inline-size: auto;
+        min-inline-size: 25ch;
+      }
+    }
+
+    /* Validation */
+    &[data-invalid],
+    &:has(:user-invalid) {
+      --_accent-color: var(--color-9);
+      --_border-color: var(--color-9);
+      --_filled-border-color: var(--color-9);
+      --_label-color: var(--color-9);
+      --_end-text-color: var(--color-9);
+    }
+
+    /*
+  * Variant: Filled
+  */
+    &.filled {
+      --_bg-color: var(--surface-tonal);
+
+      &:not(:has([disabled], :has(input[type="color"]))) {
+
+        /* Hover */
+        &:hover {
+          --_bg-color: light-dark(oklch(from var(--surface-tonal) calc(l * 0.93) c h),
+              oklch(from var(--surface-tonal) calc(l * 1.1) c h));
+        }
+      }
+    }
+
+    /* Disabled */
+    &:where(:has([disabled])) {
+      cursor: not-allowed;
+      opacity: 0.64;
+      user-select: none;
+
+      &::before {
+        display: none;
+      }
+
+      .field {
+        cursor: not-allowed;
+      }
+
+      :where(input, textarea, select) {
+        cursor: not-allowed;
+
+        * {
+          pointer-events: none;
+        }
+      }
+
+      .label,
+      .start-text,
+      .end-text {
+        cursor: not-allowed;
+      }
+    }
+
+    /* Read-only */
+    &:where(:has([readonly])) {
+      &::before {
+        display: none;
+      }
+
+      :where(input, textarea, select) {
+        cursor: not-allowed;
+
+        * {
+          pointer-events: none;
+        }
+      }
+    }
+
+    /* Sizes */
+    &.small {
+      --_field-padding-block: var(--size-2);
+      --_height: var(--field-size-small);
+
+      &:has(input[type="color"]) {
+        .label {
+          line-height: 1.5;
+        }
+      }
+    }
+
+    /* Orientation */
+    &.spread {
+      align-items: start;
+      column-gap: var(--size-4);
+      container-type: inline-size;
+      grid-template-columns: 1fr auto;
+
+      .label {
+        font-weight: 600;
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      .start-text {
+        color: var(--_end-text-color);
+        font-size: var(--font-size-0);
+        grid-column: 1;
+        grid-row: 2;
+        line-height: 1.5;
+      }
+
+      .field {
+        align-self: start;
+        grid-column: 2;
+        grid-row: 1 / span 2;
+      }
+
+      .field:has(textarea) {
+        grid-row: 1 / span 3;
+
+        +.end-text {
+          grid-row: 4;
+        }
+      }
+
+      :where(textarea) {
+        min-inline-size: 30ch;
+      }
+
+      :where(.end-text) {
+        grid-column: 2;
+        text-align: end;
+      }
+
+      /* Collapse to column on narrow containers */
+      @container (width < 400px) {
+        column-gap: 0;
+        grid-template-columns: 1fr;
+
+        .label {
+          grid-column: 1;
+          grid-row: 1;
+        }
+
+        .start-text {
+          grid-column: 1;
+          grid-row: 2;
+        }
+
+        .field,
+        .field:has(textarea) {
+          grid-column: 1;
+          grid-row: 3;
+        }
+
+        :where(.end-text) {
+          grid-column: 1;
+          grid-row: 4;
+          text-align: start;
+        }
+      }
+    }
+  }
+}

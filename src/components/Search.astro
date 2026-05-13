@@ -1,0 +1,704 @@
+---
+import { Chip, List, IconButton } from "@opui/astro"
+import Command from "./Command.astro"
+---
+
+<Command isDialog id="search-dialog" class="search-modal">
+  <input
+    slot="input"
+    type="text"
+    id="search-input"
+    placeholder="Search docs..."
+    autocomplete="off"
+  />
+
+  <IconButton
+    slot="input-end"
+    class="search-mobile-close"
+    id="search-close"
+    title="Close"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+      ></path>
+    </svg>
+  </IconButton>
+
+  <div slot="header" class="search-filters" id="search-filters">
+    <Chip
+      size="small"
+      variant="tonal"
+      class="filter-chip active"
+      data-filter="all">All</Chip
+    >
+    <Chip
+      size="small"
+      variant="outlined"
+      class="filter-chip"
+      data-filter="Component">Components</Chip
+    >
+    <Chip
+      size="small"
+      variant="outlined"
+      class="filter-chip"
+      data-filter="Guide">Guides</Chip
+    >
+    <Chip size="small" variant="outlined" class="filter-chip" data-filter="API"
+      >API</Chip
+    >
+  </div>
+
+  <div id="search-results">
+    <div class="command-empty" id="search-empty" style="display: none;">
+      No results found.
+    </div>
+    <div id="recent-searches" class="command-group">
+      <div class="command-group-heading">Recent</div>
+      <List variant="transparent" id="recent-list" />
+    </div>
+    <div id="results-list"></div>
+  </div>
+
+  <Fragment slot="footer">
+    <div class="helper">
+      <span class="keys"><kbd>↑</kbd><kbd>↓</kbd></span>
+      <span>Navigate</span>
+    </div>
+    <div class="helper">
+      <span class="keys"><kbd>←</kbd><kbd>→</kbd></span>
+      <span>Category</span>
+    </div>
+    <div class="helper"><kbd>↵</kbd> <span>Select</span></div>
+    <div class="helper"><kbd>esc</kbd> <span>Close</span></div>
+  </Fragment>
+</Command>
+
+<script>
+  import MiniSearch from "minisearch"
+  import {
+    DEFAULT_FRAMEWORK,
+    FRAMEWORK_IDS,
+    frameworkPrefixPattern,
+    type FrameworkId,
+  } from "../utils/framework"
+
+  const dialog = document.getElementById("search-dialog") as HTMLDialogElement
+  const input = document.getElementById("search-input") as HTMLInputElement
+  const resultsList = document.getElementById("results-list")
+  const recentList = document.getElementById("recent-list")
+  const recentGroup = document.getElementById("recent-searches")
+  const emptyState = document.getElementById("search-empty")
+  const filterGroup = document.getElementById("search-filters")
+  const closeBtn = document.getElementById("search-close")
+
+  let miniSearch: MiniSearch | null = null
+  let searchIndex: any[] = []
+  let selectedIndex = -1
+  let activeFilter = "all"
+
+  function getActiveFrameworkId(): FrameworkId {
+    const fromDataset = document.documentElement.dataset.framework
+    if (fromDataset && (FRAMEWORK_IDS as string[]).includes(fromDataset)) {
+      return fromDataset as FrameworkId
+    }
+    const match = window.location.pathname.match(frameworkPrefixPattern())
+    if (match && (FRAMEWORK_IDS as string[]).includes(match[1])) {
+      return match[1] as FrameworkId
+    }
+    return DEFAULT_FRAMEWORK
+  }
+
+  // Handle filter clicks
+  filterGroup?.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement
+    const filterChip = target.closest(".filter-chip")
+    const typeChip = target.closest(".type-chip")
+
+    if (filterChip) {
+      filterGroup.querySelectorAll(".filter-chip").forEach((c) => {
+        c.classList.remove("active", "tonal")
+        c.classList.add("outlined")
+      })
+      filterChip.classList.add("active", "tonal")
+      filterChip.classList.remove("outlined")
+      activeFilter = (filterChip as HTMLElement).dataset.filter || "all"
+      updateResults()
+      input.focus()
+    }
+  })
+
+  // Initialize MiniSearch
+  async function initSearch() {
+    try {
+      const response = await fetch("/search-index.json")
+      searchIndex = await response.json()
+
+      miniSearch = new MiniSearch({
+        fields: ["title", "description", "headings"], // fields to index for full-text search
+        storeFields: ["title", "description", "category", "url", "headings"], // fields to return with search results
+        searchOptions: {
+          fuzzy: 0.2,
+          prefix: true,
+        },
+      })
+
+      miniSearch.addAll(searchIndex)
+    } catch (e) {
+      console.error("Failed to initialize search", e)
+    }
+  }
+
+  function getRecentSearches() {
+    const stored = localStorage.getItem("opui-recent-searches")
+    try {
+      return stored ? JSON.parse(stored) : []
+    } catch {
+      return []
+    }
+  }
+
+  function saveRecentSearch(item: any) {
+    let recent = getRecentSearches()
+    // Remove if exists
+    recent = recent.filter((r: any) => r.url !== item.url)
+    // Add to front
+    recent.unshift(item)
+    // Limit to 5
+    recent = recent.slice(0, 5)
+    localStorage.setItem("opui-recent-searches", JSON.stringify(recent))
+  }
+
+  function highlight(text: string, query: string) {
+    if (!query) return text
+    const regex = new RegExp(`(${query})`, "gi")
+    return text.replace(regex, "<mark>$1</mark>")
+  }
+
+  function renderItem(item: any, index: number, isSelected: boolean) {
+    const query = input.value.trim()
+    const li = document.createElement("li")
+    if (isSelected) li.setAttribute("aria-selected", "true")
+
+    const displayTitle = highlight(item.title, query)
+    const displayDesc = highlight(item.description || "", query)
+    const typeIndicator = item.type
+      ? `<span class="command-item-shortcut" style="margin-inline-end: var(--size-2);">${item.type}</span>`
+      : ""
+
+    li.innerHTML = `
+      <a href="${item.url}">
+        <div class="text">
+          <p class="title">${displayTitle}</p>
+          <p class="description">${displayDesc}</p>
+        </div>
+        <div class="end">
+          ${typeIndicator}
+          ${item.category ? `<span class="command-item-shortcut">${item.category}</span>` : ""}
+        </div>
+      </a>
+    `
+
+    li.querySelector("a")?.addEventListener("click", (e) => {
+      saveRecentSearch(item)
+      dialog.close()
+    })
+
+    return li
+  }
+
+  function updateResults() {
+    const query = input.value.trim()
+    resultsList!.innerHTML = ""
+    selectedIndex = -1
+
+    if (!query) {
+      recentGroup!.style.display = "block"
+      emptyState!.style.display = "none"
+      renderRecent()
+      return
+    }
+
+    recentGroup!.style.display = "none"
+
+    if (!miniSearch) return
+
+    let results = miniSearch.search(query)
+
+    const activeFrameworkId = getActiveFrameworkId()
+    results = results.filter(
+      (r: any) => !r.frameworkId || r.frameworkId === activeFrameworkId,
+    )
+
+    // Update Category Chips with counts
+    const categoryCounts: Record<string, number> = results.reduce(
+      (acc: any, item: any) => {
+        acc[item.category] = (acc[item.category] || 0) + 1
+        return acc
+      },
+      {},
+    )
+
+    updateChipCounts(results.length, categoryCounts)
+
+    let finalResults = results
+    if (activeFilter !== "all") {
+      finalResults = finalResults.filter(
+        (r: any) => r.category === activeFilter,
+      )
+    }
+
+    if (finalResults.length === 0) {
+      emptyState!.style.display = "block"
+      resultsList!.innerHTML = ""
+      return
+    }
+
+    emptyState!.style.display = "none"
+
+    // Group and sort by category
+    const grouped = finalResults.reduce((acc: any, item: any) => {
+      if (!acc[item.category]) acc[item.category] = []
+      acc[item.category].push(item)
+      return acc
+    }, {})
+
+    const categoryOrder = ["Component", "Guide", "API"]
+    const sortedCategories = Object.keys(grouped).sort((a, b) => {
+      const indexA = categoryOrder.indexOf(a)
+      const indexB = categoryOrder.indexOf(b)
+      if (indexA === -1 && indexB === -1) return a.localeCompare(b)
+      if (indexA === -1) return 1
+      if (indexB === -1) return -1
+      return indexA - indexB
+    })
+
+    let globalIndex = 0
+    for (const category of sortedCategories) {
+      const groupDiv = document.createElement("div")
+      groupDiv.className = "command-group"
+      groupDiv.innerHTML = `<div class="command-group-heading">${category}</div>`
+
+      const ul = document.createElement("ul")
+      ul.className = "list"
+
+      grouped[category].forEach((item: any) => {
+        ul.appendChild(renderItem(item, globalIndex++, false))
+      })
+
+      groupDiv.appendChild(ul)
+      resultsList!.appendChild(groupDiv)
+    }
+
+    if (globalIndex > 0) {
+      selectedIndex = 0
+      updateSelection()
+    }
+  }
+
+  function updateChipCounts(
+    totalCount: number,
+    categoryCounts: Record<string, number>,
+  ) {
+    filterGroup?.querySelectorAll(".filter-chip").forEach((chip) => {
+      const filter = (chip as HTMLElement).dataset.filter
+      const label = chip.querySelector(".text") || chip
+      const baseText =
+        filter === "all"
+          ? "All"
+          : filter === "Component"
+            ? "Components"
+            : filter === "Guide"
+              ? "Guides"
+              : filter
+      const count = filter === "all" ? totalCount : categoryCounts[filter!] || 0
+      label.textContent = `${baseText} (${count})`
+    })
+  }
+
+  function renderRecent() {
+    let recent = getRecentSearches()
+
+    const activeFrameworkId = getActiveFrameworkId()
+    recent = recent.filter(
+      (r: any) => !r.frameworkId || r.frameworkId === activeFrameworkId,
+    )
+
+    // Update counts based on Recent history
+    const categoryCounts: Record<string, number> = recent.reduce(
+      (acc: any, item: any) => {
+        acc[item.category] = (acc[item.category] || 0) + 1
+        return acc
+      },
+      {},
+    )
+
+    updateChipCounts(recent.length, categoryCounts)
+
+    // Apply active category filter
+    if (activeFilter !== "all") {
+      recent = recent.filter((r: any) => r.category === activeFilter)
+    }
+
+    recentList!.innerHTML = ""
+
+    if (recent.length === 0) {
+      recentGroup!.style.display = activeFilter !== "all" ? "block" : "none"
+      if (activeFilter !== "all") {
+        recentList!.innerHTML =
+          '<div class="command-empty" style="padding-block: var(--size-4);">No recent searches in this category.</div>'
+      }
+      return
+    }
+
+    recentGroup!.style.display = "block"
+    recent.forEach((item: any, index: number) => {
+      recentList!.appendChild(renderItem(item, index, false))
+    })
+
+    if (recent.length > 0) {
+      selectedIndex = 0
+      updateSelection()
+    }
+  }
+
+  function updateSelection() {
+    const items = getActiveItems()
+    items.forEach((item, i) => {
+      const link = item.querySelector("a")
+      if (i === selectedIndex) {
+        item.setAttribute("aria-selected", "true")
+        link?.setAttribute("aria-selected", "true")
+        item.scrollIntoView({ block: "nearest" })
+      } else {
+        item.removeAttribute("aria-selected")
+        link?.removeAttribute("aria-selected")
+      }
+    })
+  }
+
+  function getActiveItems() {
+    if (input.value.trim()) {
+      return resultsList!.querySelectorAll("li")
+    } else {
+      return recentList!.querySelectorAll("li")
+    }
+  }
+
+  input.addEventListener("input", updateResults)
+
+  closeBtn?.addEventListener("click", () => {
+    dialog.close()
+  })
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      const chips = Array.from(
+        filterGroup!.querySelectorAll(".filter-chip"),
+      ) as HTMLElement[]
+      const currentIndex = chips.findIndex(
+        (c) => (c as HTMLElement).dataset.filter === activeFilter,
+      )
+      let newIndex
+      if (e.key === "ArrowLeft") {
+        newIndex = (currentIndex - 1 + chips.length) % chips.length
+      } else {
+        newIndex = (currentIndex + 1) % chips.length
+      }
+      const targetChip = chips[newIndex]
+
+      e.preventDefault()
+      // Update UI (same logic as click handler)
+      chips.forEach((c) => {
+        c.classList.remove("active", "tonal")
+        c.classList.add("outlined")
+      })
+      targetChip.classList.add("active", "tonal")
+      targetChip.classList.remove("outlined")
+      activeFilter = targetChip.dataset.filter || "all"
+      updateResults()
+      return
+    }
+
+    const items = getActiveItems()
+    if (items.length === 0) return
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault()
+      selectedIndex = (selectedIndex + 1) % items.length
+      updateSelection()
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault()
+      selectedIndex = (selectedIndex - 1 + items.length) % items.length
+      updateSelection()
+    } else if (e.key === "Enter") {
+      const selected = items[selectedIndex] as HTMLElement
+      const link = selected.querySelector("a")
+      if (link) {
+        const url = link.getAttribute("href")
+        const title = selected.querySelector(".title")?.textContent
+        const description = selected.querySelector(".description")?.textContent
+        const category = selected.querySelector(
+          ".command-item-shortcut",
+        )?.textContent
+
+        saveRecentSearch({ url, title, description, category })
+        dialog.close()
+        window.location.href = link.href
+      }
+    }
+  })
+
+  // Global shortcuts
+  window.addEventListener("keydown", (e) => {
+    const platform = (
+      (navigator as any).userAgentData?.platform ||
+      navigator.platform ||
+      ""
+    ).toLowerCase()
+    const isMac = /mac|iphone|ipad|ipod|ios/.test(platform)
+    const modifier = isMac ? e.metaKey : e.ctrlKey
+
+    if (modifier && e.key === "k") {
+      e.preventDefault()
+      toggleSearch()
+    }
+
+    if (e.key === "/" && document.activeElement === document.body) {
+      e.preventDefault()
+      toggleSearch()
+    }
+  })
+
+  function toggleSearch() {
+    if (dialog.open) {
+      dialog.close()
+    } else {
+      dialog.showModal()
+      input.focus()
+      if (!miniSearch) initSearch()
+      updateResults()
+    }
+  }
+
+  // Handle open from other elements
+  document.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement
+    if (target.closest("[data-open-search]")) {
+      e.preventDefault()
+      toggleSearch()
+    }
+  })
+</script>
+
+<style is:global>
+  :where(.command[open]) {
+    background-color: var(--surface-default);
+    block-size: 100dvb;
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    inline-size: 100%;
+    margin: 0;
+    max-block-size: 100dvb;
+    max-inline-size: 100%;
+    overflow: hidden;
+    padding: 0;
+
+    @media (width >= 640px) {
+      block-size: fit-content;
+      border: var(--border-width) solid var(--border-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-6);
+      inline-size: auto;
+      margin-block-start: 10vh;
+      margin-inline: auto;
+      max-block-size: 80vh;
+      max-inline-size: 640px;
+    }
+
+    &::backdrop {
+      backdrop-filter: blur(10px);
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .command-input-wrapper {
+      align-items: center;
+      border-bottom: var(--border-size-1) solid var(--surface-tonal);
+      display: flex;
+      gap: var(--size-2);
+      padding-inline: var(--size-3);
+
+      svg {
+        color: var(--text-muted);
+        flex-shrink: 0;
+      }
+
+      input {
+        background: transparent;
+        border: none;
+        color: var(--text-primary);
+        flex: 1;
+        font-family: inherit;
+        font-size: var(--font-size-2);
+        outline: none;
+        padding-block: var(--size-3);
+
+        &::placeholder {
+          color: var(--text-muted);
+        }
+      }
+
+      .search-mobile-close {
+        display: none;
+
+        @media (max-width: 640px) {
+          display: flex;
+        }
+      }
+    }
+
+    .search-filters {
+      align-items: center;
+      border-bottom: var(--border-size-1) solid var(--surface-tonal);
+      display: flex;
+      gap: var(--size-2);
+      overflow-x: auto;
+      padding: var(--size-2) var(--size-3);
+      scrollbar-width: none;
+
+      @media (min-width: 641px) {
+        flex-wrap: wrap;
+        padding: var(--size-2);
+      }
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .chip {
+        cursor: pointer;
+        flex-shrink: 0;
+        user-select: none;
+
+        &.active {
+          background-color: var(--surface-tonal);
+          color: var(--text-primary);
+        }
+      }
+    }
+
+    .command-list {
+      flex: 1;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding: var(--size-2);
+
+      &::-webkit-scrollbar {
+        inline-size: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: var(--surface-tonal);
+        border-radius: var(--radius-round);
+      }
+    }
+
+    .command-group {
+      &:not(:first-child) {
+        margin-block-start: var(--size-2);
+      }
+    }
+
+    .command-group-heading {
+      color: var(--text-muted);
+      font-size: var(--font-size-1);
+      font-weight: var(--font-weight-6);
+      letter-spacing: var(--font-letter-spacing-1);
+      padding-block: var(--size-1);
+      padding-inline: var(--size-2);
+      text-transform: uppercase;
+    }
+
+    .command-footer {
+      align-items: center;
+      background-color: var(--surface-tonal);
+      border-top: var(--border-size-1) solid var(--surface-tonal);
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: nowrap;
+      font-size: var(--font-size-0);
+      gap: var(--size-4);
+      overflow-x: auto;
+      padding-block: var(--size-2);
+      padding-inline: var(--size-3);
+      scrollbar-width: none;
+
+      @media (max-width: 640px) {
+        display: none;
+      }
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .helper {
+        align-items: center;
+        display: flex;
+        gap: var(--size-2);
+        white-space: nowrap;
+
+        .keys {
+          align-items: center;
+          display: flex;
+          gap: 2px;
+        }
+
+        kbd {
+          align-items: center;
+          background-color: var(--surface-filled);
+          block-size: 1.6em;
+          border: 1px solid var(--surface-tonal);
+          border-radius: var(--radius-1);
+          box-shadow: 0 1px 0 0 var(--surface-tonal);
+          color: var(--text-primary);
+          display: flex;
+          font-family: var(--font-mono);
+          font-size: 10px;
+          justify-content: center;
+          line-height: normal;
+          min-inline-size: 1.6em;
+          padding-inline: 4px;
+        }
+
+        span:not(.keys) {
+          color: var(--text-muted);
+          font-size: 11px;
+          line-height: 1;
+          margin-block-start: 2px; /* Move text down more to match kbd vertical center */
+        }
+      }
+    }
+
+    .command-empty {
+      color: var(--text-muted);
+      font-size: var(--font-size-1);
+      padding-block: var(--size-8);
+      text-align: center;
+    }
+
+    mark {
+      background: none;
+      color: var(--primary);
+      font-weight: bold;
+      padding: 0;
+      text-decoration: underline;
+    }
+  }
+</style>

@@ -1,0 +1,183 @@
+---
+import { Code } from "astro-expressive-code/components"
+
+import Component from "../../layouts/Component.astro"
+import Example from "../../components/Example"
+import AutoExample from "../../components/AutoExample.astro"
+import BlockquoteHtml from "../../component-examples/typography/Blockquote.html?raw"
+import CodeBlockHtml from "../../component-examples/typography/CodeBlock.html?raw"
+
+import ExampleDefaultHTML from "../../component-examples/typography/Default.html?raw"
+
+import TypographyCSS from "@opui/css/components/typography.css?raw"
+---
+
+<Component
+  slug="typography"
+  browserSupport={[
+    "box-decoration-break",
+    "light-dark",
+    "relative-color",
+    "scope",
+  ]}
+  changelogPaths={[
+    { path: "src/docs/components/typography.astro", type: "docs" },
+    { path: "src/component-examples/typography", type: "docs" },
+    {
+      path: "packages/opui/css/components/typography.css",
+      type: "css",
+    },
+  ]}
+  installationTabs={[
+    { title: "typography.css", code: TypographyCSS, lang: "css" },
+  ]}
+>
+  <Fragment slot="title">Typography</Fragment>
+  <Fragment slot="preamble">
+    Styles for headings, body text, and other text content. Use util classes
+    anywhere or wrap content in <code>.rich-text</code>.
+  </Fragment>
+
+  <section>
+    <h2 id="class-based">Class-based</h2>
+    <p>Utils that you can plop down wherever.</p>
+
+    <h3 id="variants">Variants</h3>
+    <AutoExample name="Variants" column />
+
+    <h3 id="heading-group">Heading group</h3>
+    <AutoExample name="HeadingGroupClass" column />
+
+    <h3 id="blockquote">Blockquote</h3>
+    <Example>
+      <Example.Preview slot="preview-html" code={BlockquoteHtml} />
+      <Example.Preview slot="preview-astro" code={BlockquoteHtml} />
+    </Example>
+
+    <h3 id="code-block">Code block</h3>
+    <Example column>
+      <Example.Preview slot="preview-html" code={CodeBlockHtml} />
+      <Example.Preview slot="preview-astro" code={CodeBlockHtml} />
+    </Example>
+  </section>
+
+  <section>
+    <h2 id="inline-text-elements">Inline text elements</h2>
+    <div class="not-rich-text">
+      <table>
+        <thead>
+          <tr>
+            <th>Result</th>
+            <th>Element</th>
+            <th>Class</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><abbr title="Abbreviation">Abbr.</abbr></td>
+            <td><code>&lt;abbr&gt;</code></td>
+            <td><code>.abbr</code></td>
+          </tr>
+          <tr>
+            <td><dfn title="Title">Definition</dfn></td>
+            <td><code>&lt;dfn&gt;</code></td>
+            <td><code>.dfn</code></td>
+          </tr>
+          <tr>
+            <td><strong>Bold</strong></td>
+            <td><code>&lt;strong&gt;</code>, <code>&lt;b&gt;</code></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><i>Italic</i></td>
+            <td><code>&lt;i&gt;</code>, <code>&lt;em&gt;</code></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><cite>Citation</cite></td>
+            <td><code>&lt;cite&gt;</code></td>
+            <td><code>.cite</code></td>
+          </tr>
+          <tr>
+            <td><kbd>Ctrl + S</kbd></td>
+            <td><code>&lt;kbd&gt;</code></td>
+            <td><code>.kbd</code></td>
+          </tr>
+          <tr>
+            <td><mark>Highlight</mark></td>
+            <td><code>&lt;mark&gt;</code></td>
+            <td><code>.mark</code></td>
+          </tr>
+          <tr>
+            <td><s>Strikethrough</s></td>
+            <td><code>&lt;s&gt;</code></td>
+            <td><code>.s</code></td>
+          </tr>
+          <tr>
+            <td><small>Small</small></td>
+            <td><code>&lt;small&gt;</code></td>
+            <td><code>.small</code></td>
+          </tr>
+          <tr>
+            <td>Text <sub>Sub</sub></td>
+            <td><code>&lt;sub&gt;</code></td>
+            <td><code>.sub</code></td>
+          </tr>
+          <tr>
+            <td>Text <sup>Sup</sup></td>
+            <td><code>&lt;sup&gt;</code></td>
+            <td><code>.sup</code></td>
+          </tr>
+          <tr>
+            <td><u>Underline</u></td>
+            <td><code>&lt;u&gt;</code></td>
+            <td><code>.u</code></td>
+          </tr>
+          <tr>
+            <td><del>Deleted</del></td>
+            <td><code>&lt;del&gt;</code></td>
+            <td><code>.del</code></td>
+          </tr>
+          <tr>
+            <td><ins>Inserted</ins></td>
+            <td><code>&lt;ins&gt;</code></td>
+            <td><code>.ins</code></td>
+          </tr>
+          <tr>
+            <td><var>variable</var></td>
+            <td><code>&lt;var&gt;</code></td>
+            <td><code>.var</code></td>
+          </tr>
+          <tr>
+            <td><samp>sample output</samp></td>
+            <td><code>&lt;samp&gt;</code></td>
+            <td><code>.samp</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="classless">Classless</h2>
+    <p>
+      Wrap your code in <code>.rich-text</code> to add typographic styles to its children.
+      It's extra handy when you can't control the contents yourself, like printing
+      text from a CMS.
+    </p>
+    <Code
+      lang="html"
+      code={`<article class="rich-text">\n  <!-- -->\n</article>`}
+    />
+
+    <h3 id="rich-text-showcase">Classless showcase</h3>
+    <p>
+      Let's put everything together and see how all elements look in a
+      classless, rich-text context.
+    </p>
+    <Example>
+      <Example.Preview slot="preview-html" code={ExampleDefaultHTML} />
+      <Example.Preview slot="preview-astro" code={ExampleDefaultHTML} />
+    </Example>
+  </section>
+</Component>

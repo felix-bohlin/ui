@@ -1,0 +1,53 @@
+---
+type Props = {
+  [key: string]: any
+  class?: string
+  disabled?: boolean
+  label?: string
+  name?: string
+  pressed?: boolean
+  size?: "small" | "x-small"
+  type?: "checkbox" | "radio"
+  value?: string
+}
+
+export const title = "Toggle Button"
+
+const {
+  class: className,
+  disabled,
+  label,
+  name,
+  pressed,
+  size,
+  type,
+  value,
+  ...rest
+} = Astro.props
+
+const { $id, currentToggleGroupName, currentToggleGroupType } = Astro.locals
+const finalName = name || currentToggleGroupName
+const finalType = type || currentToggleGroupType || "checkbox"
+const id = rest.id || $id("toggle")
+---
+
+<label
+  class:list={[
+    "toggle-button",
+    { selected: pressed, disabled },
+    size,
+    className,
+  ]}
+>
+  <input
+    aria-pressed={finalType === "checkbox" ? pressed : undefined}
+    checked={pressed}
+    disabled={disabled}
+    id={id}
+    name={finalName}
+    type={finalType}
+    value={value || label}
+    {...rest}
+  />
+  <slot />
+</label>

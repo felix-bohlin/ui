@@ -1,0 +1,229 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import { Callout as UICallout } from "@opui/astro"
+import Example from "../../components/Example"
+
+import AutoExample from "../../components/AutoExample.astro"
+import CalloutCSS from "@opui/css/components/callout.css?raw"
+import ExampleAnatomy from "../../component-examples/callout/Anatomy.astro"
+
+import Conditional from "../../components/Conditional.astro"
+
+const ThemeCSS = `/* ... */
+.critical {
+  --palette-source: oklch(0.58 0.21 var(--hue-red));
+  --palette-hue-rotate-by: 1;
+}
+.info {
+  --palette-source: oklch(0.58 0.21 var(--hue-blue));
+  --palette-hue-rotate-by: 1;
+}
+.success {
+  --palette-source: oklch(0.58 0.21 var(--hue-green));
+  --palette-hue-rotate-by: 1;
+}
+.warning {
+  --palette-source: oklch(0.58 0.21 var(--hue-orange));
+  --palette-hue-rotate-by: 1;
+}
+/* ... */`
+---
+
+<style is:global>
+  .anatomy {
+    outline: var(--_anatomy-border-gray);
+    outline-offset: -2px;
+
+    .content,
+    svg {
+      outline: var(--_anatomy-border-red);
+      outline-offset: -3px;
+    }
+  }
+</style>
+
+<Component
+  slug="callout"
+  browserSupport={["has", "light-dark", "relative-color"]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Callout/Callout.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/callout.astro", type: "docs" },
+    { path: "src/component-examples/callout", type: "docs" },
+    {
+      path: "packages/opui/css/components/callout.css",
+      type: "css",
+    },
+    { path: "src/component-api/callout", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "callout.css", code: CalloutCSS, lang: "css" },
+    { title: "theme tokens (snippet)", code: ThemeCSS, lang: "css" },
+  ]}
+>
+  <Fragment slot="title">Callout</Fragment>
+  <Fragment slot="preamble">
+    Callouts call out for user attention. Callouts should be part of the flow
+    and used <strong>without</strong> interrupting the user's task.
+  </Fragment>
+
+  <div class="not-rich-text">
+    <UICallout>
+      <svg
+        slot="icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        ><path
+          fill="currentColor"
+          d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+        ></path></svg
+      >
+      <h3>Alternatives</h3>
+      <p>You might want to check out:</p>
+      <ul>
+        <li>
+          <DocLink href="/components/dialog" class="link">Dialog</DocLink>:
+          takes over completely
+        </li>
+        <li>
+          <DocLink href="/components/toast" class="link">Toast</DocLink>:
+          informative but non-interruptive
+        </li>
+      </ul>
+    </UICallout>
+  </div>
+
+  <section>
+    <h2 id="variants">Variants</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Tonal (default) and outlined variants are available via the <code
+          >variant</code
+        > prop.
+      </Fragment>
+      <Fragment slot="html">
+        Tonal (default) and <code>.outlined</code> variants.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Variants" column />
+  </section>
+
+  <section>
+    <h2 id="icon">Icon</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Icons are placed in the <code>icon</code> slot. You can also modify the component
+        so you don't have to do it manually every time.
+      </Fragment>
+      <Fragment slot="html"> Icon must be placed before the content. </Fragment>
+    </Conditional>
+
+    <AutoExample name="Icon" column />
+  </section>
+
+  <section>
+    <h2 id="severities">Severities</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        The <code>severity</code> prop accepts <code>info</code>, <code
+          >success</code
+        >, <code>warning</code>, and <code>critical</code>, plus a non-severity
+        <code>primary</code> tone for brand-tinted attention. The default is a neutral
+        surface.
+      </Fragment>
+      <Fragment slot="html">
+        Severity modifiers — <code>.info</code>, <code>.success</code>, <code
+          >.warning</code
+        >, <code>.critical</code> — plus the non-severity <code>.primary</code>
+        tone for brand-tinted attention. The default is a neutral surface.
+      </Fragment>
+    </Conditional>
+
+    <div class="not-rich-text">
+      <UICallout severity="info">
+        <svg
+          slot="icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          ><path
+            fill="currentColor"
+            d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+          ></path></svg
+        >
+        <strong>Icons and accessibility</strong>
+        <p>
+          Omitting an icon is possible. However, it helps having one if you need
+          to convey a specific kind of severity in your Callout message. For
+          instance, colorblind users might be left confused if there's not
+          enough visual guidance.
+        </p>
+      </UICallout>
+    </div>
+
+    <AutoExample name="Severities" column />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        <Conditional>
+          <Fragment slot="astro">
+            The <code>role="note"</code> attribute is automatically added to the Callout
+            container.
+          </Fragment>
+          <Fragment slot="html">
+            Add <code>role="note"</code> to the Callout container.
+          </Fragment>
+        </Conditional>
+      </li>
+      <li>
+        Use both color and icon to help distinguish between Callout <a
+          href="#severities">severities</a
+        >.
+      </li>
+      <li>
+        Don't interrupt the user with a Callout. In that case, use <DocLink
+          href="/components/dialog">Dialog</DocLink
+        > or <DocLink href="/components/toast">Toast</DocLink>.
+      </li>
+    </ul>
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <ol>
+      <li>
+        <Conditional>
+          <Fragment slot="astro">
+            Container: the <code>&lt;Callout&gt;</code> component.
+          </Fragment>
+          <Fragment slot="html">
+            Container: must have <code>role="note"</code>.
+          </Fragment>
+        </Conditional>
+      </li>
+      <li>Content: text, or wrapper with <code>.content</code> class.</li>
+      <li>
+        <Conditional>
+          <Fragment slot="astro">
+            Icon (optional): <code>&lt;svg slot="icon"&gt;</code> element.
+          </Fragment>
+          <Fragment slot="html">
+            Icon (optional): <code>&lt;svg&gt;</code> element.
+          </Fragment>
+        </Conditional>
+      </li>
+    </ol>
+
+    <Example column>
+      <Example.Preview code={ExampleAnatomy} />
+    </Example>
+  </Fragment>
+</Component>

@@ -1,0 +1,413 @@
+---
+import Document from "./Document.astro"
+import { components, componentHrefFor } from "../utils/components"
+import FrameworkPicker from "../components/FrameworkPicker.astro"
+import BrowserSupport from "../components/BrowserSupport.astro"
+import BrowserSupportChips from "../components/BrowserSupportChips.astro"
+import ComponentAPI from "../components/ComponentAPI.astro"
+import Installation, { type Tab } from "../components/Installation.astro"
+import { Button, Chip, List, ListItem } from "@opui/astro"
+import {
+  getComponentChangelog,
+  type ChangelogPathEntry,
+} from "../utils/changelog"
+import {
+  DEFAULT_FRAMEWORK,
+  FRAMEWORKS,
+  type FrameworkId,
+} from "../utils/framework-routing"
+
+type Props = {
+  overline?: string
+  browserSupport?: string[]
+  /**
+   * Component slug, e.g. `"avatar"`. When provided, APIs and `<AutoExample>`
+   * file lookups resolve relative to this slug; falls back to the URL's last
+   * segment so existing pages without an explicit `slug` keep working.
+   */
+  slug?: string
+  /**
+   * Either an explicit framework-keyed API map (e.g. `{ html, astro }`), an
+   * imported API module / array, or `"auto"` to glob-resolve
+   * `src/component-api/<slug>/<Label>.astro` for every framework.
+   */
+  apis?: any | any[] | "auto"
+  changelogPaths?: ChangelogPathEntry[]
+  installationTabs?: Tab[]
+  seeAlsoLinks?: { name: string; href: string }[]
+  showToc?: boolean
+}
+
+const {
+  apis: apisProp,
+  browserSupport,
+  changelogPaths,
+  installationTabs,
+  seeAlsoLinks,
+  overline = "Components",
+  showToc = true,
+  slug: slugProp,
+} = Astro.props
+
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+
+const { link } = Astro.locals
+
+const urlSlug = Astro.url.pathname
+  .replace(/\/$/, "")
+  .split("/")
+  .filter(Boolean)
+  .pop()
+
+const currentSlug = slugProp ?? urlSlug
+
+// Expose to nested children (notably <AutoExample>) so they don't have to
+// repeat the slug on every invocation.
+Astro.locals.componentSlug = currentSlug
+
+// Auto-resolve framework-keyed API modules when requested. `apis="auto"` (or
+// omitting `apis` entirely once a page is migrated) globs for
+// `component-api/<slug>/<Label>.astro` per registered framework.
+const apiModules = import.meta.glob("../component-api/**/*.astro", {
+  eager: true,
+}) as Record<string, { default: any }>
+
+const autoApis = (() => {
+  if (!currentSlug) return null
+  const entries = FRAMEWORKS.map((f) => {
+    const mod = apiModules[`../component-api/${currentSlug}/${f.label}.astro`]
+    return [f.id, mod?.default] as const
+  }).filter(([, mod]) => mod != null)
+  return entries.length > 0 ? Object.fromEntries(entries) : null
+})()
+
+const apis = apisProp === "auto" ? autoApis : (apisProp ?? autoApis)
+
+const currentIndex = components.findIndex(
+  (component) => component.slug === currentSlug,
+)
+const prevComponent = components[currentIndex - 1]
+const nextComponent = components[currentIndex + 1]
+
+const githubRepo = "https://github.com/felix-bohlin/ui"
+const editUrl = `${githubRepo}/edit/main/src/docs/components/${currentSlug}.astro`
+
+const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
+---
+
+<Document overline={overline} showToc={showToc}>
+  <FrameworkPicker size="small" slot="sidebar" />
+
+  <hr slot="sidebar" />
+
+  <nav slot="sidebar">
+    <h3>Components</h3>
+    <menu>
+      {
+        components.map((component) => {
+          const href = componentHrefFor(currentFramework, component.slug)
+          return (
+            <li>
+              <a
+                href={href}
+                title={component.name}
+                aria-current={
+                  component.slug === currentSlug ? "page" : undefined
+                }
+              >
+                {component.name}
+              </a>
+            </li>
+          )
+        })
+      }
+    </menu>
+  </nav>
+
+  <slot name="title" slot="title" />
+  <slot name="preamble" slot="preamble" />
+
+  {browserSupport && <BrowserSupportChips ids={browserSupport} />}
+
+  <slot />
+
+  {
+    Astro.slots.has("accessibility") && (
+      <section>
+        <h2 id="accessibility">Accessibility</h2>
+        <slot name="accessibility" />
+      </section>
+    )
+  }
+
+  {
+    Astro.slots.has("anatomy") && (
+      <section>
+        <h2 id="anatomy">Anatomy</h2>
+        <slot name="anatomy" />
+      </section>
+    )
+  }
+
+  {apis && <ComponentAPI apis={apis} />}
+
+  {browserSupport && <BrowserSupport ids={browserSupport} />}
+
+  {
+    installationTabs ? (
+      <Installation tabs={installationTabs}>
+        <slot name="installation" />
+      </Installation>
+    ) : (
+      <slot name="installation" />
+    )
+  }
+
+  {
+    !!seeAlsoLinks?.length && (
+      <section>
+        <h2 id="see-also">See also</h2>
+        <ul>
+          {seeAlsoLinks.map((entry) => (
+            <li>
+              <a
+                href={
+                  entry.href.startsWith("/") ? link(entry.href) : entry.href
+                }
+              >
+                {entry.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    changelog.length > 0 && (
+      <section>
+        <h2 id="changelog">Changelog</h2>
+        <div class="not-rich-text">
+          <List id="changelog-list" bordered gutterless variant="transparent">
+            {changelog.map((entry, index) => (
+              <ListItem
+                as="a"
+                class={index >= 5 ? "changelog-extra" : undefined}
+                href={`https://github.com/felix-bohlin/ui/commit/${entry.hash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                headline={entry.message}
+              >
+                <time slot="end" datetime={entry.date}>
+                  {entry.relativeDate}
+                </time>
+                {entry.types.length > 0 && (
+                  <span slot="text" class="changelog-types">
+                    {entry.types.map((type) => (
+                      <Chip label={type} variant="outlined" size="small" />
+                    ))}
+                  </span>
+                )}
+              </ListItem>
+            ))}
+          </List>
+          {changelog.length > 5 && (
+            <Button
+              id="changelog-toggle"
+              variant="outlined"
+              data-more-count={changelog.length - 5}
+            >
+              Show {changelog.length - 5} more
+            </Button>
+          )}
+        </div>
+      </section>
+    )
+  }
+
+  <footer class="component-footer not-rich-text">
+    <hr />
+
+    <Button href={editUrl} target="_blank" size="small">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 32 32"
+        width="1.2em"
+        height="1.2em"
+      >
+        <path
+          fill="currentColor"
+          d="M28.565 3.434a4.89 4.89 0 0 0-6.915 0L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l17.295-17.295a4.89 4.89 0 0 0 0-6.914m-5.5 1.414a2.89 2.89 0 0 1 4.085 4.086l-.9.9l-4.086-4.085zm-2.316 2.315l4.086 4.086L9.857 26.23a1.7 1.7 0 0 1-.846.46L4.3 27.7l1.01-4.71a1.7 1.7 0 0 1 .46-.846z"
+        ></path></svg
+      >
+      Edit page
+    </Button>
+
+    <nav class="pagination">
+      {
+        prevComponent ? (
+          <a
+            href={componentHrefFor(currentFramework, prevComponent.slug)}
+            class="pagination-link prev"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M3 16a1 1 0 0 1 1-1h21.586l-8.293-8.293a1 1 0 0 1 1.414-1.414l10 10a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414-1.414L25.586 17H4a1 1 0 0 1-1-1"
+              />
+            </svg>
+            <div class="hgroup">
+              <p class="overline">Previous</p>
+              <p class="h3">{prevComponent.name}</p>
+            </div>
+          </a>
+        ) : (
+          <div class="spacer" />
+        )
+      }
+      {
+        nextComponent ? (
+          <a
+            href={componentHrefFor(currentFramework, nextComponent.slug)}
+            class="pagination-link next"
+          >
+            <div class="hgroup">
+              <p class="overline">Next</p>
+              <p class="h3">{nextComponent.name}</p>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M3 16a1 1 0 0 1 1-1h21.586l-8.293-8.293a1 1 0 0 1 1.414-1.414l10 10a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414-1.414L25.586 17H4a1 1 0 0 1-1-1"
+              />
+            </svg>
+          </a>
+        ) : (
+          <div class="spacer" />
+        )
+      }
+    </nav>
+  </footer>
+
+  <style>
+    .component-footer {
+      display: grid;
+      gap: var(--size-4);
+      margin-block-start: var(--size-8);
+
+      hr {
+        margin: 0;
+      }
+
+      .button {
+        inline-size: fit-content;
+      }
+
+      .pagination {
+        display: grid;
+        gap: var(--size-4);
+        grid-template-columns: repeat(auto-fit, minmax(min(33ch, 100%), 1fr));
+
+        .pagination-link {
+          align-items: center;
+          border-radius: var(--radius-3);
+          border: 1px solid var(--border-color);
+          color: var(--text-primary);
+          display: flex;
+          gap: var(--size-4);
+          padding: var(--size-4);
+          text-decoration: none;
+          transition: background-color 0.2s ease;
+
+          /* @supports (corner-shape: squircle) {
+          border-radius: 0;
+          corner-shape: squircle;
+        } */
+
+          &:hover {
+            background-color: var(--surface-tonal);
+          }
+
+          hgroup {
+            margin: 0;
+
+            p {
+              color: var(--text-muted);
+              font-size: var(--font-size-0);
+              font-weight: 500;
+              margin: 0;
+              text-transform: none;
+            }
+
+            h3 {
+              font-size: var(--font-size-4);
+              margin: 0;
+            }
+          }
+
+          svg {
+            align-items: center;
+            color: var(--text-muted);
+            display: inline-flex;
+            font-size: var(--font-size-5);
+          }
+
+          &.prev {
+            svg {
+              rotate: 180deg;
+            }
+          }
+
+          &.next {
+            justify-content: end;
+            text-align: end;
+          }
+        }
+      }
+    }
+  </style>
+
+  <style>
+    #changelog-toggle {
+      margin-block-start: var(--size-3);
+    }
+
+    .changelog-types {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-1);
+      margin-block-start: var(--size-1);
+    }
+
+    :global(#changelog-list:not([data-expanded]) .changelog-extra) {
+      display: none;
+    }
+  </style>
+</Document>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    var btn = document.getElementById("changelog-toggle")
+    var list = document.getElementById("changelog-list")
+    if (!btn || !list) return
+    btn.addEventListener("click", function () {
+      var expanded = list.hasAttribute("data-expanded")
+      list.toggleAttribute("data-expanded")
+      btn.textContent = expanded
+        ? "Show " + btn.dataset.moreCount + " more"
+        : "Show less"
+    })
+  })
+</script>

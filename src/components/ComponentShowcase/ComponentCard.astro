@@ -1,0 +1,126 @@
+---
+import { Button, Card } from "@opui/astro"
+
+type Props = {
+  href: string
+  name: string
+  size?: "wide" | "xl"
+}
+
+const { href, name, size } = Astro.props
+const { link } = Astro.locals
+---
+
+<Card variant="elevated" class:list={["showcase-card", size]}>
+  <div class="showcase-preview">
+    <slot />
+  </div>
+  <Button href={link(href)} variant="tonal" size="small" class="showcase-link">
+    <span>{name}</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M5 12h14"></path>
+      <path d="m12 5 7 7-7 7"></path>
+    </svg>
+  </Button>
+</Card>
+
+<style is:global>
+  .showcase-card {
+    block-size: 100%;
+    display: grid;
+    gap: var(--size-3);
+    grid-template-rows: 1fr auto;
+    isolation: isolate;
+    overflow: hidden;
+    padding: var(--size-4);
+    place-items: center;
+    position: relative;
+
+    &::before {
+      background-image: radial-gradient(
+        var(--text-muted) 1.45px,
+        transparent 1.45px
+      );
+      background-size: 18px 18px;
+      content: "";
+      inset: 0;
+      mask-image: radial-gradient(
+        ellipse 75% 65% at center,
+        black 35%,
+        transparent 100%
+      );
+      opacity: 0.12;
+      pointer-events: none;
+      position: absolute;
+      z-index: 0;
+    }
+
+    &.wide {
+      grid-column: span 2;
+    }
+
+    &.xl {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    @media (width <= 600px) {
+      &.wide,
+      &.xl {
+        grid-column: auto;
+        grid-row: auto;
+      }
+    }
+  }
+
+  .showcase-preview {
+    display: grid;
+    inline-size: 100%;
+    place-items: center;
+    position: relative;
+    z-index: 1;
+
+    &
+      > :where(
+        .card,
+        .callout,
+        hr,
+        .list,
+        .text-field,
+        .textarea,
+        .progress,
+        .range,
+        .description-list
+      ) {
+      inline-size: 100%;
+    }
+
+    & select {
+      min-inline-size: 20ch;
+    }
+  }
+
+  .showcase-link {
+    position: relative;
+    z-index: 1;
+
+    & svg {
+      transition: translate 0.2s ease-in-out;
+    }
+
+    &:hover svg {
+      translate: var(--size-1) 0;
+    }
+  }
+</style>

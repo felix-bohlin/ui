@@ -1,0 +1,309 @@
+---
+import Component from "../../layouts/Component.astro"
+import Example from "../../components/Example"
+import { Switch, Table } from "@opui/astro"
+
+import DrawerCSS from "@opui/css/components/drawer.css?raw"
+import DrawerAPIAstro from "../../component-api/drawer/Astro.astro"
+import DrawerAPIHTML from "../../component-api/drawer/HTML.astro"
+
+import ExampleUsage from "../../component-examples/drawer/Usage.astro"
+import ExampleUsageAstro from "/src/component-examples/drawer/Usage.astro?raw"
+import ExampleUsageHTML from "/src/component-examples/drawer/Usage.html?raw"
+
+import ExampleBlurredAstro from "/src/component-examples/drawer/Blurred.astro?raw"
+import ExampleBlurredHTML from "/src/component-examples/drawer/Blurred.html?raw"
+
+import Conditional from "../../components/Conditional.astro"
+---
+
+<Component
+  browserSupport={[
+    "dialog-closedby",
+    "has",
+    "invoker-commands",
+    "overlay",
+    "starting-style",
+    "transition-behavior",
+  ]}
+  apis={{
+    astro: DrawerAPIAstro,
+    html: DrawerAPIHTML,
+  }}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Drawer",
+      type: "component",
+    },
+    { path: "src/docs/components/drawer.astro", type: "docs" },
+    { path: "src/component-examples/drawer", type: "docs" },
+    {
+      path: "packages/opui/css/components/drawer.css",
+      type: "css",
+    },
+    { path: "src/component-api/drawer", type: "api" },
+  ]}
+  installationTabs={[{ title: "drawer.css", code: DrawerCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Drawer</Fragment>
+  <Fragment slot="preamble">
+    Slides in from the sides, top or bottom of the screen.
+  </Fragment>
+
+  <section>
+    <h2 id="usage">Usage</h2>
+    <Conditional>
+      <Fragment slot="astro">
+        <p>Change the opening side with the <code>side</code> prop.</p>
+        <p>
+          Add a title to the header with the <code>header</code> slot. A close button
+          is automatically included in the header.
+        </p>
+        <p>
+          The backdrop is blurred by default. Use <code
+            >backdrop="transparent"</code
+          >
+          to remove the blur effect.
+        </p>
+        <p>
+          Page scrolling is locked by default when the drawer is open. Use the
+          <code>scrollLock={false}</code> prop to allow scrolling while the drawer
+          is open.
+        </p>
+      </Fragment>
+      <Fragment slot="html">
+        <p>
+          Change the opening side with the <code>.inline-start</code>, <code
+            >.inline-end</code
+          >, <code>.block-start</code>, and <code>.block-end</code> classes.
+        </p>
+        <p>
+          The backdrop is blurred by default. Use the <code
+            >.backdrop-transparent</code
+          >
+          class to remove the blur effect.
+        </p>
+        <p>
+          Add the <code>.scroll-lock</code> utility class to the drawer to lock page
+          scrolling while it's open. Omit the class to allow background scrolling.
+        </p>
+      </Fragment>
+    </Conditional>
+    <Example column>
+      <Switch slot="controls" id="backdrop-transparent-toggle">
+        <Conditional>
+          <span slot="astro"><code>backdrop="transparent"</code></span>
+          <span slot="html"><code>.backdrop-transparent</code></span>
+        </Conditional>
+      </Switch>
+      <Example.Preview slot="preview-astro" code={ExampleUsage} />
+      <Example.Preview slot="preview-html" code={ExampleUsageHTML} />
+      <Example.Code slot="code-html" code={ExampleUsageHTML} />
+      <Example.Code slot="code-astro" code={ExampleUsageAstro} />
+    </Example>
+  </section>
+
+  <section>
+    <h2 id="closedby">How to close a drawer</h2>
+    <Conditional>
+      <Fragment slot="html">
+        <p>
+          You can use it like this: <code>&lt;dialog closedby=""&gt;</code> and give
+          it the following values:
+        </p>
+        <Table style="table-layout: fixed">
+          <Table.ColumnGroup>
+            <Table.Column width="30%" />
+            <Table.Column />
+          </Table.ColumnGroup>
+          <Table.Head>
+            <Table.Row>
+              <Table.HeaderCell>Attr value</Table.HeaderCell>
+              <Table.HeaderCell>Description</Table.HeaderCell>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell><code>closedby="any"</code></Table.Cell>
+              <Table.Cell
+                >Click anywhere outside of the drawer to close it.</Table.Cell
+              >
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
+              <Table.Cell>
+                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
+                button on mobile, and whatever dismiss action assistive tools use.
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell><code>closedby="none"</code></Table.Cell>
+              <Table.Cell
+                >You have to handroll a closing solution yourself.</Table.Cell
+              >
+            </Table.Row>
+          </Table.Body>
+        </Table>
+      </Fragment>
+      <Fragment slot="astro">
+        <p>
+          Use the <code>closedby</code> prop to control the closing behavior.
+        </p>
+        <Table style="table-layout: fixed">
+          <Table.ColumnGroup>
+            <Table.Column width="30%" />
+            <Table.Column />
+          </Table.ColumnGroup>
+          <Table.Head>
+            <Table.Row>
+              <Table.HeaderCell>Prop</Table.HeaderCell>
+              <Table.HeaderCell>Description</Table.HeaderCell>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell><code>closedby="any"</code></Table.Cell>
+              <Table.Cell
+                >Click anywhere outside of the drawer to close it.</Table.Cell
+              >
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
+              <Table.Cell>
+                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
+                button on mobile, and whatever dismiss action assistive tools use.
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell><code>closedby="none"</code></Table.Cell>
+              <Table.Cell
+                >You have to handroll a closing solution yourself.</Table.Cell
+              >
+            </Table.Row>
+          </Table.Body>
+        </Table>
+      </Fragment>
+    </Conditional>
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The <code>autofocus</code> attribute should be added to the element the user
+        is expected to interact with immediately upon opening a modal dialog. If no
+        other element involves more immediate interaction, it is recommended to add
+        autofocus to the close button inside the dialog, or the dialog itself if the
+        user is expected to click/activate it to dismiss.
+      </li>
+      <li>
+        Do not add the <code>tabindex</code> property to the
+        <code>&lt;dialog&gt;</code> element as it is not interactive and does not
+        receive focus. The dialog's contents, including the close button contained
+        in the dialog, can receive focus and be interactive.
+      </li>
+    </ul>
+
+    <p>
+      Source: <a
+        class="link"
+        target="_blank"
+        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog"
+        >MDN</a
+      >
+    </p>
+
+    <h3 id="role-attributes">Role & attributes</h3>
+    <Table style="table-layout: fixed">
+      <Table.ColumnGroup>
+        <Table.Column width="30%" />
+        <Table.Column />
+      </Table.ColumnGroup>
+      <Table.Head>
+        <Table.Row>
+          <Table.HeaderCell>Role/attribute</Table.HeaderCell>
+          <Table.HeaderCell>Usage</Table.HeaderCell>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        <Table.Row>
+          <Table.Cell><code>role="dialog"</code></Table.Cell>
+          <Table.Cell
+            >Identifies the element that serves as the drawer container.</Table.Cell
+          >
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell><code>aria-labelledby="IDREF"</code></Table.Cell>
+          <Table.Cell>
+            Gives the drawer an accessible name by referring to the element that
+            provides the drawer title.
+          </Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell><code>aria-describedby="IDREF"</code></Table.Cell>
+          <Table.Cell>
+            Gives the drawer an accessible description by referring to the
+            drawer content that describes the primary message or purpose of the
+            drawer.
+          </Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell><code>aria-modal="true"</code></Table.Cell>
+          <Table.Cell>
+            Tells assistive technologies that the windows underneath the current
+            drawer are not available for interaction (inert).
+          </Table.Cell>
+        </Table.Row>
+      </Table.Body>
+    </Table>
+
+    <h3 id="keyboard-support">Keyboard support</h3>
+    <div class="not-rich-text">
+      <Table style="table-layout: fixed">
+        <Table.ColumnGroup>
+          <Table.Column width="30%" />
+          <Table.Column />
+        </Table.ColumnGroup>
+        <Table.Head>
+          <Table.Row>
+            <Table.HeaderCell>Key</Table.HeaderCell>
+            <Table.HeaderCell>Function</Table.HeaderCell>
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell><kbd>Tab</kbd></Table.Cell>
+            <Table.Cell>
+              <ul>
+                <li>
+                  Moves focus to next focusable element inside the drawer.
+                </li>
+                <li>
+                  When focus is on the last focusable element in the drawer,
+                  moves focus to the first focusable element in the drawer.
+                </li>
+              </ul>
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell><kbd>Shift + Tab</kbd></Table.Cell>
+            <Table.Cell>
+              <ul>
+                <li>
+                  Moves focus to previous focusable element inside the drawer.
+                </li>
+                <li>
+                  When focus is on the first focusable element in the drawer,
+                  moves focus to the last focusable element in the drawer.
+                </li>
+              </ul>
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell><kbd>Esc</kbd></Table.Cell>
+            <Table.Cell>Closes the drawer.</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
+    </div>
+  </Fragment>
+</Component>

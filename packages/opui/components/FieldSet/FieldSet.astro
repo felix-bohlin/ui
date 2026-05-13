@@ -1,0 +1,15 @@
+---
+type Props = {
+  [key: string]: any
+  as?: "fieldset" | "div" | string
+  class?: string
+}
+
+export const title = "Field Set"
+
+const { as: Tag = "fieldset", class: className, ...rest } = Astro.props
+---
+
+<Tag class:list={["fieldset", className]} {...rest}>
+  <slot />
+</Tag>

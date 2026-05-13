@@ -1,0 +1,63 @@
+---
+import { Textarea } from "@opui/astro"
+---
+
+<Textarea spread placeholder="Hello, world!">
+  <Fragment slot="label">Message</Fragment>
+  <Fragment slot="description"
+    >You can write your message here. Keep it short, preferably under 100
+    characters.</Fragment
+  >
+</Textarea>
+
+<Textarea spread placeholder="Additional notes..." filled>
+  <Fragment slot="label">Notes</Fragment>
+  <Fragment slot="description">Add any additional notes or comments</Fragment>
+  <Fragment slot="end-text">Maximum 500 characters</Fragment>
+</Textarea>
+
+<Textarea spread required label="Required">
+  <Fragment slot="description">You must provide a response</Fragment>
+</Textarea>
+
+<Textarea spread disabled label="Disabled">
+  <Fragment slot="description">This textarea is disabled</Fragment>
+</Textarea>
+
+<Textarea spread critical label="Invalid Message">
+  <Fragment slot="description">This textarea has an error</Fragment>
+  <Fragment slot="end-text">This value is too short.</Fragment>
+</Textarea>
+
+<Textarea spread label="Bio" placeholder="Tell us about yourself...">
+  <Fragment slot="description">Shown on your public profile</Fragment>
+  <Fragment slot="prefix">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+      ></path>
+      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+    </svg>
+  </Fragment>
+  <Fragment slot="footer">280 characters left</Fragment>
+</Textarea>
+
+<Textarea
+  spread
+  filled
+  label="Release notes"
+  placeholder="Markdown supported..."
+>
+  <Fragment slot="description">Shown on the changelog page</Fragment>
+  <Fragment slot="header">v1.4.0</Fragment>
+  <Fragment slot="footer">Saved 2 minutes ago</Fragment>
+  <Fragment slot="end-text">Drafts are auto-saved</Fragment>
+</Textarea>

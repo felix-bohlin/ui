@@ -1,0 +1,48 @@
+---
+import { Code } from "astro-expressive-code/components"
+import { Tabs } from "@opui/astro"
+
+type Tab = {
+  title: string
+  code?: string
+  lang?: string
+}
+
+type Props = {
+  tabs: Tab[]
+}
+
+const { tabs } = Astro.props
+---
+
+<div class="code-group card outlined not-rich-text">
+  <Tabs class="underlined" aria-label="Code tabs">
+    {
+      tabs.map((tab, index) => (
+        <Tabs.Item open={index === 0}>
+          <Tabs.Tab>{tab.title}</Tabs.Tab>
+          <Tabs.Panel>
+            {tab.code && <Code code={tab.code} lang={tab.lang} />}
+          </Tabs.Panel>
+        </Tabs.Item>
+      ))
+    }
+  </Tabs>
+</div>
+
+<style>
+  .code-group {
+    gap: 0;
+    margin-block: var(--size-4);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  :global(.tab-panel) {
+    position: relative;
+
+    * {
+      isolation: isolate;
+    }
+  }
+</style>

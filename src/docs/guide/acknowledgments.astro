@@ -1,0 +1,108 @@
+---
+import Guide from "../../layouts/Guide.astro"
+import Contributors from "../../components/Contributors.astro"
+import type { Props } from "astro"
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Acknowledgments</Fragment>
+
+  <section>
+    <h2 id="contributors">Contributors</h2>
+    <Contributors />
+  </section>
+
+  <section>
+    <h2 id="thank-you">Thank you to</h2>
+    <ul>
+      <li>
+        The community at the Open Props <a
+          href="https://discord.gg/AqA4fU886r"
+          target="_blank"
+          rel="noopener noreferrer">Discord channel</a
+        > for help and inspiration.
+      </li>
+      <li>
+        DevRels out there, tinkerers, and demo-makers for exploring what's
+        possible.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="sources-of-inspiration">Sources of inspiration/theft</h2>
+    <p>In no particular order.</p>
+    <ul>
+      <li>
+        <a
+          href="https://mui.com/material-ui/"
+          target="_blank"
+          rel="noopener noreferrer">Material UI</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://m3.material.io/"
+          target="_blank"
+          rel="noopener noreferrer">Google's Material Design guidelines</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://tailwindcss.com/"
+          target="_blank"
+          rel="noopener noreferrer">Tailwind CSS</a
+        >
+      </li>
+      <li>
+        <a href="https://picocss.com/" target="_blank" rel="noopener noreferrer"
+          >Pico CSS</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://ui.shadcn.com/"
+          target="_blank"
+          rel="noopener noreferrer">shadcn</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://graffiti-ui.com/"
+          target="_blank"
+          rel="noopener noreferrer">Graffiti UI</a
+        >
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="other-resources">Other amazing resources</h2>
+    <ul>
+      <li>
+        <a
+          href="https://developer.mozilla.org/"
+          target="_blank"
+          rel="noopener noreferrer">Mozilla Developer Network</a
+        >
+      </li>
+      <li>
+        <a href="https://web.dev/" target="_blank" rel="noopener noreferrer"
+          >web.dev</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://github.com/ateliertriay/bricolage"
+          target="_blank"
+          rel="noopener noreferrer">Bricolage Grotesque</a
+        > - beautiful typeface used in these docs
+      </li>
+      <li>
+        <a href="https://astro.build/" target="_blank" rel="noopener noreferrer"
+          >Astro</a
+        > - used to build this docs site
+      </li>
+    </ul>
+  </section>
+</Guide>

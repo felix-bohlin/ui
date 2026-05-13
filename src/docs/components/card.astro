@@ -1,0 +1,179 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import { Callout as UICallout } from "@opui/astro"
+import Example from "../../components/Example"
+
+import AutoExample from "../../components/AutoExample.astro"
+import CardCSS from "@opui/css/components/card.css?raw"
+import ExampleAnatomy from "../../component-examples/card/Anatomy.astro"
+import Conditional from "../../components/Conditional.astro"
+---
+
+<style is:global>
+  .anatomy {
+    outline: var(--_anatomy-border-gray);
+    outline-offset: 3px;
+
+    :is(hgroup, .content, .actions) {
+      outline: var(--_anatomy-border-red);
+      outline-offset: -2px;
+    }
+  }
+</style>
+
+<Component
+  slug="card"
+  browserSupport={["container-style-queries"]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Card/Card.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/card.astro", type: "docs" },
+    { path: "src/component-examples/card", type: "docs" },
+    {
+      path: "packages/opui/css/components/card.css",
+      type: "css",
+    },
+    { path: "src/component-api/card", type: "api" },
+  ]}
+  installationTabs={[{ title: "card.css", code: CardCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Card</Fragment>
+  <Fragment slot="preamble">
+    The card is extremely versatile and can be used on its own, or as a building
+    block for <DocLink class="link" href="/components/accordion"
+      >accordions</DocLink
+    >, <DocLink class="link" href="/components/dialog">dialogs</DocLink> and more.
+  </Fragment>
+
+  <section>
+    <h2 id="variants">Variants</h2>
+
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Change the card variant with the <code>variant</code> prop.
+      </Fragment>
+      <Fragment slot="html">
+        Change the card variant with the <code>.text</code>, <code
+          >.outlined</code
+        >, <code>.tonal</code>, and <code>.elevated</code> classes.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Variants" column />
+
+    <div class="not-rich-text">
+      <UICallout>
+        <div class="rich-text">
+          <p><strong>Why does a text variant exist?</strong></p>
+          It really doesn't make sense to use the text variant unless you really need
+          to. The <DocLink href="/components/accordion#accordion-group"
+            >accordion group</DocLink
+          > is a great example where Open Props UI leverages the text variant of the
+          <code>.card</code> component.
+        </div>
+      </UICallout>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="header">Header</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"> Using the <code>header</code> slot. </Fragment>
+      <Fragment slot="html">
+        Using the <code>&lt;hgroup&gt;</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Header" column />
+  </section>
+
+  <section>
+    <h2 id="actions">Actions</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Using the <code>actions</code> slot.
+      </Fragment>
+      <Fragment slot="html">
+        Using the <code>.actions</code> class.
+      </Fragment>
+    </Conditional>
+    <p>
+      There are some basic styles here to get you going, but for more advanced
+      use-cases (which always happen), you might want to add your own styles.
+    </p>
+
+    <AutoExample name="Actions" column />
+
+    <h3 id="actions-alignment">Alignment</h3>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Align actions to the end with the <code
+          >actions={`{{ align: 'end' }}`}</code
+        > prop.
+      </Fragment>
+      <Fragment slot="html">
+        Align actions to the end with the <code>.align-end</code> class.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Alignment" column />
+  </section>
+
+  <Fragment slot="anatomy">
+    <p>
+      Open Props UI include these complementary utility components to handle
+      various use cases:
+    </p>
+
+    <Conditional>
+      <Fragment slot="astro">
+        <ol>
+          <li>Container</li>
+          <li>
+            <code>header</code> slot (optional): a wrapper for the card header
+          </li>
+          <li>
+            <code>content</code> slot (optional): a wrapper for the card content
+          </li>
+          <li>
+            <code>default</code> slot (optional): raw content placed directly in the
+            card
+          </li>
+          <li>
+            <code>actions</code> slot (optional): a wrapper that groups a set of buttons
+          </li>
+        </ol>
+      </Fragment>
+      <Fragment slot="html">
+        <ol>
+          <li>Container</li>
+          <li>
+            <code>&lt;hgroup&gt;</code> (optional): a wrapper for the card header
+          </li>
+          <li>
+            <code>.content</code> (optional): a wrapper for the card content
+          </li>
+          <li>
+            <code>.actions</code> (optional): a wrapper that groups a set of buttons
+          </li>
+        </ol>
+      </Fragment>
+    </Conditional>
+
+    <Example column>
+      <Example.Preview slot="preview-astro" code={ExampleAnatomy} />
+    </Example>
+  </Fragment>
+
+  <div slot="installation" class="not-rich-text">
+    <UICallout>
+      <div class="rich-text">
+        Other components might depend on the card component. Be mindful when
+        making changes. <DocLink href="/components/accordion">Accordion</DocLink
+        >, <DocLink href="/components/dialog">Dialog</DocLink>
+      </div>
+    </UICallout>
+  </div>
+</Component>

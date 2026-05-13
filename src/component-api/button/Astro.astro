@@ -1,0 +1,59 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>size</code></Table.Cell>
+      <Table.Cell><code>"small"</code>, <code>"large"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The size of the button.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>variant</code></Table.Cell>
+      <Table.Cell
+        ><code>"outlined"</code>, <code>"tonal"</code>, <code>"filled"</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The visual variant of the button.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>color</code></Table.Cell>
+      <Table.Cell><code>"critical"</code>, <code>"primary"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The color of the button. Default is a neutral gray.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>href</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Renders as an <a> tag if an href is provided.</a>
+      </Table.Cell>
+      <Table.Row>
+        <Table.Cell><code>disabled</code></Table.Cell>
+        <Table.Cell><code>boolean</code></Table.Cell>
+        <Table.Cell>-</Table.Cell>
+        <Table.Cell>Button disabled state.</Table.Cell>
+      </Table.Row>
+    </Table.Row>
+  </Table.Body>
+</Table>

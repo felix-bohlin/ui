@@ -1,0 +1,194 @@
+@layer normalize {
+
+  *,
+  ::before,
+  ::after {
+    /* Set box sizing instead of inheriting */
+    /* https://www.oddbird.net/2025/09/04/box-model/ */
+    box-sizing: border-box;
+  }
+
+  * {
+    scrollbar-width: thin;
+  }
+
+  :where(html) {
+    --_page-bg-color: var(--surface-default);
+
+    accent-color: var(--primary);
+    background-color: var(--_page-bg-color);
+    block-size: 100%;
+    caret-color: var(--primary);
+    color: var(--text-muted, var(--text-color-2));
+    /* text-color-2 is for backwards compatibility */
+    font-family: var(--font-sans);
+    interpolate-size: allow-keywords;
+    line-height: var(--font-lineheight-4);
+
+    /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+
+    @media (prefers-reduced-motion: no-preference) {
+      scroll-behavior: smooth;
+    }
+  }
+
+  :where(body) {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    container-type: inline-size;
+    font-size: 16px;
+    font-synthesis: style;
+    font-weight: 400;
+    inline-size: 100%;
+    margin: 0;
+    min-block-size: 100%;
+    min-inline-size: 320px;
+    position: relative;
+    text-rendering: optimizeLegibility;
+  }
+
+  :where(:not(dialog, popover)) {
+    margin: 0;
+  }
+
+  :where(dialog:not([open])) {
+    outline: none !important;
+  }
+
+
+  :where(:not(fieldset, progress, meter)) {
+    background-origin: border-box;
+    background-repeat: no-repeat;
+    border-style: solid;
+    border-width: 0;
+  }
+
+  :where(fieldset) {
+    border: var(--field-border-width) solid var(--field-border-color);
+    border-radius: var(--field-border-radius);
+    padding: var(--size-3);
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  :where(input, button, textarea),
+  :where(input[type="file"])::-webkit-file-upload-button {
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+  }
+
+  :where(input):-webkit-autofill,
+  :where(input):-webkit-autofill:hover,
+  :where(input):-webkit-autofill:focus,
+  :where(textarea):-webkit-autofill,
+  :where(textarea):-webkit-autofill:hover,
+  :where(textarea):-webkit-autofill:focus,
+  :where(select):-webkit-autofill,
+  :where(select):-webkit-autofill:hover,
+  :where(select):-webkit-autofill:focus,
+  :where(input):autofill,
+  :where(input):autofill:hover,
+  :where(input):autofill:focus,
+  :where(textarea):autofill,
+  :where(textarea):autofill:hover,
+  :where(textarea):autofill:focus,
+  :where(select):autofill,
+  :where(select):autofill:hover,
+  :where(select):autofill:focus {
+    -webkit-text-fill-color: var(--text-muted, var(--text-color-2));
+    -webkit-box-shadow: 0 0 0px 1e5px var(--well-1) inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  ::placeholder {
+    color: var(--text-muted, var(--text-color-2));
+  }
+
+  ::-moz-placeholder {
+    opacity: 1;
+  }
+
+  :focus-visible {
+    /* Inverts the --_page-bg-color */
+    --_focus-visible-color: rgb(from var(--_page-bg-color) calc(255 - r) calc(255 - g) calc(255 - b));
+
+    border-radius: var(--border-radius, 0px);
+    outline: 2px solid var(--_focus-visible-color);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :where(:focus-visible) {
+      transition: outline-offset .15 var(--ease-2);
+    }
+
+    :where(:not(:active):focus-visible) {
+      transition-duration: 0.15s;
+    }
+  }
+
+  :where(:not(:active):focus-visible) {
+    outline-offset: var(--outline-offset, 0px);
+  }
+
+  :where(a[href],
+    area,
+    button,
+    input:not([type="text"],
+      [type="email"],
+      [type="number"],
+      [type="password"],
+      [type=""],
+      [type="tel"],
+      [type="url"]),
+    label[for],
+    select,
+    summary) {
+    cursor: pointer;
+  }
+
+  :where(a[href],
+    area,
+    button,
+    [role="button"],
+    input,
+    label[for],
+    select,
+    summary,
+    textarea,
+    [tabindex]:not([tabindex*="-"])) {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  :where(img, svg, video, canvas, audio, iframe, embed, object) {
+    display: block;
+  }
+
+  :where(img, svg, video) {
+    block-size: auto;
+    max-inline-size: 100%;
+  }
+
+  :where(svg:not([width])) {
+    inline-size: var(--size-7);
+  }
+
+  :where(dt:not(:first-of-type)) {
+    margin-block-start: var(--size-5);
+  }
+
+  :where(figure) {
+    display: grid;
+    gap: var(--size-2);
+    place-items: center;
+  }
+
+  :target {
+    scroll-margin-block-start: 2rem;
+  }
+}

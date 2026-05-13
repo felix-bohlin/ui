@@ -1,0 +1,492 @@
+---
+import {
+  FRAMEWORKS,
+  DEFAULT_FRAMEWORK,
+  type FrameworkId,
+} from "../../utils/framework-routing"
+import { Code } from "astro-expressive-code/components"
+import { Tabs, Chip } from "@opui/astro"
+import { format } from "prettier"
+
+const { $id } = Astro.locals
+
+const clean = (html: string) =>
+  html
+    .replace(/[ \t]*data-astro-source-file=(?:"[^"]*"|'[^']*'|[^ >]*)/g, "")
+    .replace(/[ \t]*data-astro-source-loc=(?:"[^"]*"|'[^']*'|[^ >]*)/g, "")
+    .replace(
+      /[ \t]*data-astro-cid-[a-zA-Z0-9-]+(?:=(?:"[^"]*"|'[^']*'|[^ >]*))?/g,
+      "",
+    )
+    .replace(/[ \t]*<!-- prettier-ignore -->[ \t]*\r?\n?/g, "")
+
+const prettify = async (html: string) => {
+  const cleanHtml = clean(html)
+
+  try {
+    return await format(cleanHtml, {
+      parser: "html",
+      useTabs: true,
+      tabWidth: 2,
+      printWidth: 80,
+      singleAttributePerLine: false,
+    })
+  } catch (error) {
+    return null
+  }
+}
+
+type Props = {
+  centered?: boolean
+  class?: string
+  column?: boolean
+  exampleClass?: string
+  marks?: Record<string, any>
+  output?: "always-show" | "toggled"
+  richText?: "rich-text" | "not-rich-text"
+  row?: boolean
+  showCode?: boolean
+  spacious?: boolean
+  wrapperClass?: string
+}
+
+const {
+  centered,
+  class: className,
+  column,
+  exampleClass,
+  marks = {},
+  output = "toggled",
+  richText = "not-rich-text",
+  row,
+  showCode = true,
+  spacious,
+  wrapperClass,
+} = Astro.props
+
+const activeFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+
+const decodeEntities = (str: string) => {
+  const decode = (s: string) =>
+    s
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&amp;/g, "&")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+  // Split on <pre> blocks so entities inside them are preserved as-is
+  const parts = str.split(/(<pre\b[\s\S]*?<\/pre>)/gi)
+  return parts.map((part, i) => (i % 2 === 0 ? decode(part) : part)).join("")
+}
+
+// Pick the preview slot for the active framework, falling back to the default
+// framework, then to any available preview, so partial migrations keep working.
+const previewSlotName = (() => {
+  const candidates = [
+    `preview-${activeFramework}`,
+    `preview-${DEFAULT_FRAMEWORK}`,
+    ...FRAMEWORKS.map((f) => `preview-${f.id}`),
+  ]
+  return candidates.find((name) => Astro.slots.has(name))
+})()
+
+// Code slot: prefer the active framework, then default. `code-js` is used by
+// JS-driven demos (e.g. Toast) where the source is JavaScript regardless of the
+// active framework, so it acts as a final fallback.
+const codeSlotName = Astro.slots.has(`code-${activeFramework}`)
+  ? `code-${activeFramework}`
+  : Astro.slots.has(`code-${DEFAULT_FRAMEWORK}`)
+    ? `code-${DEFAULT_FRAMEWORK}`
+    : Astro.slots.has("code-js")
+      ? "code-js"
+      : null
+
+const hasPreview = Astro.slots.has("default") || !!previewSlotName
+
+// Render the chosen preview as HTML for the rendered output. Used both for the
+// visible preview and (when output="toggled") as the "Output" tab content for
+// non-HTML frameworks.
+let previewHtml = ""
+if (previewSlotName) {
+  const raw = await Astro.slots.render(previewSlotName)
+  const unescaped = decodeEntities(raw).trim()
+  previewHtml = (await prettify(unescaped)) || clean(unescaped)
+}
+
+// Code content for the source tab.
+let codeContent = ""
+let codeLangId: FrameworkId = activeFramework
+if (codeSlotName) {
+  codeContent = decodeEntities(await Astro.slots.render(codeSlotName)).trim()
+  codeLangId = codeSlotName.replace(/^code-/, "") as FrameworkId
+} else if (activeFramework === "html" && previewHtml) {
+  // For HTML, fall back to the rendered preview as the source.
+  codeContent = previewHtml
+  codeLangId = "html"
+}
+
+// Output (the rendered HTML view) is only meaningful when the source code is
+// in a different framework — otherwise it's identical to the source.
+const outputContent =
+  output && previewHtml && codeLangId !== "html" ? previewHtml : ""
+
+const showOutput = !!(output && outputContent)
+const hasCode = !!codeContent
+
+const codeLangLabel =
+  FRAMEWORKS.find((f) => f.id === codeLangId)?.label ?? codeLangId.toUpperCase()
+
+// Only render the controls bar when the slot actually has non-whitespace
+// content. `Astro.slots.has("controls")` returns true even when a parent
+// component (e.g. <AutoExample>) forwards an empty `<slot name="controls" />`,
+// so we additionally render it and check the resulting string is non-empty.
+const controlsHtml = Astro.slots.has("controls")
+  ? (await Astro.slots.render("controls")).trim()
+  : ""
+const hasControls = !!controlsHtml
+
+const groupName = $id("example")
+const sourceId = `${groupName}-source`
+const sourcePanelId = `${groupName}-source-panel`
+const outputId = `${groupName}-output`
+const outputPanelId = `${groupName}-output-panel`
+---
+
+<div
+  class:list={[
+    "example-container card outlined",
+    richText,
+    wrapperClass,
+    { "example-centered": centered },
+  ]}
+  data-expanded="false"
+>
+  {hasControls && <div class="controls" set:html={controlsHtml} />}
+  {
+    hasPreview && (
+      <div
+        class:list={[
+          "example-preview",
+          className,
+          exampleClass,
+          {
+            "example-column": column,
+            "example-row": row,
+            spacious,
+            "has-show-code": hasCode,
+          },
+        ]}
+      >
+        <slot />
+        {previewHtml && <div class="preview-render" set:html={previewHtml} />}
+
+        {showCode && hasCode && (
+          <Chip
+            as="button"
+            class="show-code-button"
+            size="small"
+            aria-expanded="false"
+            aria-label={`Show ${codeLangLabel}`}
+          >
+            <span class="code-label">{codeLangLabel}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
+              />
+            </svg>
+          </Chip>
+        )}
+      </div>
+    )
+  }
+
+  {
+    showOutput && output === "always-show" && (
+      <div class="example-output-standalone">
+        <Code code={previewHtml} lang="html" />
+      </div>
+    )
+  }
+
+  {
+    hasCode && (
+      <div class="example-code-area">
+        <Tabs class="source-tabs underlined" name={groupName}>
+          <Tabs.Item
+            tabId={sourceId}
+            panelId={sourcePanelId}
+            name={groupName}
+            open
+          >
+            <Tabs.Tab tabId={sourceId} data-tab="source">
+              {codeLangLabel}
+            </Tabs.Tab>
+            <Tabs.Panel
+              panelId={sourcePanelId}
+              tabId={sourceId}
+              class="tab-panel-group"
+              data-panel="source"
+            >
+              <div class="tab-panel">
+                <Code
+                  code={codeContent}
+                  lang={
+                    codeLangId === "astro"
+                      ? "astro"
+                      : codeLangId === "html"
+                        ? "html"
+                        : codeLangId
+                  }
+                  mark={marks[codeLangId]}
+                />
+              </div>
+            </Tabs.Panel>
+          </Tabs.Item>
+
+          {showOutput && (
+            <Tabs.Item
+              tabId={outputId}
+              panelId={outputPanelId}
+              name={groupName}
+            >
+              <Tabs.Tab tabId={outputId} data-tab="output">
+                Output
+              </Tabs.Tab>
+              <Tabs.Panel
+                panelId={outputPanelId}
+                tabId={outputId}
+                class="tab-panel-group"
+                data-panel="output"
+              >
+                <div class="tab-panel">
+                  <Code code={outputContent} lang="html" />
+                </div>
+              </Tabs.Panel>
+            </Tabs.Item>
+          )}
+        </Tabs>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .example-container {
+    anchor-scope: --example-preview;
+    box-shadow: var(--shadow-2);
+    display: grid;
+    gap: 0;
+    margin-block: var(--size-4);
+    overflow: hidden;
+    padding: 0;
+
+    .controls {
+      align-items: center;
+      background-color: var(--surface-default);
+      border-block-end: var(--border-width) solid var(--border-color);
+      display: flex;
+      gap: var(--size-3);
+      justify-content: end;
+      padding: var(--size-2) var(--size-3);
+    }
+
+    .example-code-area {
+      overflow: auto;
+      position: relative;
+
+      * {
+        isolation: isolate;
+      }
+    }
+
+    &[data-expanded="false"] {
+      .example-code-area {
+        display: none;
+      }
+    }
+
+    &[data-expanded="true"] {
+      .example-output-standalone {
+        display: none;
+      }
+    }
+
+    .example-output-standalone {
+      background-color: var(--surface-default);
+      border-block-end: var(--border-width) solid var(--border-color);
+      overflow-x: auto;
+
+      :global(pre) {
+        border: none !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+      }
+    }
+
+    .show-code-button {
+      align-items: center;
+      display: flex;
+      gap: var(--size-2);
+      position: fixed;
+      position-anchor: --example-preview;
+      bottom: anchor(bottom);
+      right: anchor(right);
+      margin: var(--size-2);
+      opacity: 0.64;
+      z-index: 10;
+
+      &[aria-expanded="true"] svg {
+        transform: rotate(180deg);
+      }
+    }
+
+    .example-preview {
+      anchor-name: --example-preview;
+      display: grid;
+      gap: var(--size-3);
+      isolation: isolate;
+      min-block-size: var(--size-10);
+      overflow: auto hidden;
+      padding: var(--size-4);
+      position: relative;
+
+      &.example-column {
+        gap: var(--size-3);
+      }
+
+      &.example-row {
+        align-items: start;
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--size-3);
+        justify-content: center;
+      }
+
+      &.has-show-code {
+        padding-block: var(--size-8);
+      }
+
+      &:not(:last-child) {
+        border-block-end: var(--border-width) solid var(--border-color);
+      }
+
+      &.spacious {
+        gap: var(--size-8);
+      }
+
+      &:before {
+        background-image: radial-gradient(
+          var(--text-muted) 1.4500000000000002px,
+          transparent 1.4500000000000002px
+        );
+        background-size: 20px 20px;
+        bottom: 0;
+        content: "";
+        left: 0;
+        opacity: 0.05;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: -1;
+      }
+
+      &.flex {
+        display: flex;
+      }
+    }
+
+    &.example-centered {
+      .example-preview {
+        place-items: center;
+      }
+    }
+
+    .preview-render {
+      display: contents;
+    }
+  }
+</style>
+
+<style is:global>
+  .tab-panel .expressive-code pre {
+    border-radius: 0;
+  }
+
+  .example-column {
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .example-row {
+    align-items: start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    justify-content: center;
+  }
+</style>
+
+<script>
+  // Tab interactivity for the source/output toggle and the show-code button.
+  // Framework switching is now handled by routing — no client-side language
+  // toggle is needed here.
+
+  function setupContainer(container: HTMLElement) {
+    const toggleBtn = container.querySelector(
+      ".show-code-button",
+    ) as HTMLElement | null
+
+    if (toggleBtn && !(toggleBtn as any)._hasListener) {
+      toggleBtn.addEventListener("click", () => {
+        const isExpanded = container.getAttribute("data-expanded") === "true"
+        const nextState = !isExpanded
+        container.setAttribute("data-expanded", String(nextState))
+        toggleBtn.setAttribute("aria-expanded", String(nextState))
+
+        const codeLabel = toggleBtn.querySelector(".code-label")?.textContent
+        toggleBtn.setAttribute(
+          "aria-label",
+          `${nextState ? "Hide" : "Show"} ${codeLabel ?? "code"}`,
+        )
+      })
+      ;(toggleBtn as any)._hasListener = true
+    }
+
+    // Keep aria-selected on the source/output tab labels in sync with the
+    // checked state of the underlying inputs.
+    const tabs =
+      container.querySelectorAll<HTMLInputElement>(".tab-input") || []
+    const syncAriaSelected = () => {
+      container.querySelectorAll('label[role="tab"]').forEach((lbl) => {
+        const forId = lbl.getAttribute("for")
+        if (!forId) return
+        const input = container.querySelector<HTMLInputElement>(
+          `#${CSS.escape(forId)}`,
+        )
+        if (input) lbl.setAttribute("aria-selected", String(input.checked))
+      })
+    }
+    tabs.forEach((tab) => {
+      tab.removeEventListener("change", syncAriaSelected)
+      tab.addEventListener("change", syncAriaSelected)
+    })
+    syncAriaSelected()
+  }
+
+  function init() {
+    document
+      .querySelectorAll<HTMLElement>(".example-container")
+      .forEach(setupContainer)
+  }
+
+  init()
+  document.addEventListener("astro:after-swap", init)
+</script>

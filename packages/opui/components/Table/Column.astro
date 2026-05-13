@@ -1,0 +1,15 @@
+---
+type Props = {
+  [key: string]: any
+  width?: string
+}
+
+export const title = "Table Column"
+
+const { width, ...rest } = Astro.props
+---
+
+<col
+  style={width ? (width.includes(":") ? width : `width: ${width}`) : undefined}
+  {...rest}
+/>

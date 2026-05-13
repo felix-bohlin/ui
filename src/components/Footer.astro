@@ -1,0 +1,114 @@
+---
+const { link } = Astro.locals
+
+// Hrefs starting with `/` are framework-aware doc paths and get resolved per
+// request via `link()`. Absolute URLs (e.g. https://...) are external and
+// passed through untouched.
+const navItems = [
+  { label: "Guide", href: link("/guide") },
+  { label: "Components", href: link("/components") },
+  { label: "API", href: link("/api") },
+  // { label: "Blog", href: link("/blog") },
+  {
+    label: "Open Props",
+    href: "https://open-props.style",
+  },
+]
+---
+
+<footer>
+  <div class="content">
+    <nav>
+      <ul>
+        {
+          navItems.map((item) => (
+            <li>
+              <a class="link" href={item.href} title={item.label}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <hr />
+
+    <p>
+      Made with Open Props UI, <a
+        class="link"
+        href="https://astro.build"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Astro">Astro</a
+      > and <a
+        class="link"
+        href="https://icones.js.org/collection/fluent"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Fluent UI System Icons">Fluent UI System Icons</a
+      >.
+    </p>
+    <p>
+      Hosted on <a
+        class="link"
+        href="https://www.netlify.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Netlify">Netlify</a
+      >, source code on <a
+        class="link"
+        href="https://github.com/felix-bohlin/ui"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="GitHub">GitHub</a
+      >.
+    </p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background-color: var(--surface-2);
+    margin-block-start: var(--size-12);
+    padding-block: var(--size-9);
+  }
+
+  .content {
+    margin: 0 auto;
+    max-inline-size: var(--_content-md);
+    padding-inline: var(--_gap);
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-6);
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: var(--text-2);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--text-1);
+      text-decoration: underline;
+    }
+  }
+
+  hr {
+    border-block-start: 1px solid var(--surface-3);
+    border: none;
+    margin-block: var(--size-8);
+  }
+
+  p {
+    color: var(--text-2);
+    font-size: var(--font-size-0);
+    text-align: center;
+  }
+</style>

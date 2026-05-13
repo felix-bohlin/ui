@@ -1,0 +1,14 @@
+---
+import { List } from "@opui/astro"
+import { ListItem } from "@opui/astro"
+import { CheckboxInput } from "@opui/astro"
+---
+
+<List>
+  <ListItem as="button" type="button" headline="Button list item" />
+  <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
+  <ListItem type="checkbox" for="clickable-checkbox">
+    <div slot="text">Checkbox list item</div>
+    <CheckboxInput slot="end" id="clickable-checkbox" name="checkbox" />
+  </ListItem>
+</List>

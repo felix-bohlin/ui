@@ -1,0 +1,124 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+
+import AnchorCSS from "@opui/css/components/anchor.css?raw"
+import TooltipCSS from "@opui/css/components/tooltip.css?raw"
+
+---
+
+<Component
+  slug="tooltip"
+  browserSupport={["anchor-positioning", "popover-hint"]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Tooltip/Tooltip.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/tooltip.astro", type: "docs" },
+    { path: "src/component-examples/tooltip", type: "docs" },
+    {
+      path: "packages/opui/css/components/tooltip.css",
+      type: "css",
+    },
+    { path: "src/component-api/tooltip", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "tooltip.css", code: TooltipCSS, lang: "css" },
+    { title: "anchor.css", code: AnchorCSS, lang: "css" },
+  ]}
+  seeAlsoLinks={[{ name: "Anchor", href: "/components/anchor" }]}
+>
+  <Fragment slot="title">Tooltip</Fragment>
+  <Fragment slot="preamble">
+    <p>
+      Built on top of <DocLink href="/components/anchor">Anchor</DocLink>.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="html">
+        Add the <code>.tooltip</code> class alongside <code>.anchor</code> on the
+        wrapper. Wire <code>interestfor</code> on the trigger to the
+        <code>.anchor-floating[popover="hint"]</code> element's ID.
+      </Fragment>
+      <Fragment slot="astro">
+        Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable
+        <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
+        and <code>command="toggle-popover"</code> on the trigger element itself (these
+        attributes are only valid on real invokers like
+        <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a
+        <code>label</code> prop for plain text or use the <code>content</code> slot
+        for richer markup.
+      </Fragment>
+    </Conditional>
+  </Fragment>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="html">
+        Set the tooltip text inside <code>.anchor-floating[popover="hint"]</code
+        >.
+      </Fragment>
+      <Fragment slot="astro">
+        Pass plain text via the <code>label</code> prop.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Basics" centered />
+  </section>
+
+  <section>
+    <h2 id="alignment">Alignment</h2>
+    <Conditional as="p">
+      <Fragment slot="html">
+        Override <code>--anchor-position-area</code> on the wrapper with any valid
+        <code>position-area</code> value.
+      </Fragment>
+      <Fragment slot="astro">
+        Set the <code>alignment</code> prop to any valid <code
+          >position-area</code
+        > value to control where the tooltip appears.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Alignment" centered spacious />
+  </section>
+
+  <section>
+    <h2 id="arrow">Arrow</h2>
+    <Conditional as="p">
+      <Fragment slot="html">
+        Add the <code>.with-arrow</code> class on the <code>.tooltip</code> wrapper
+        to render a small arrow pointing from the tooltip toward the trigger.
+      </Fragment>
+      <Fragment slot="astro">
+        Set the <code>arrow</code> prop to render a small arrow pointing from the
+        tooltip toward the trigger. The arrow tracks the configured
+        <code>alignment</code> — it does not currently track
+        <code>position-try-fallbacks</code> flips at runtime.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Arrow" centered />
+  </section>
+
+  <section>
+    <h2 id="rich-content">Rich content</h2>
+    <Conditional as="p">
+      <Fragment slot="html">
+        Place any inline markup inside <code
+          >.anchor-floating[popover="hint"]</code
+        >.
+      </Fragment>
+      <Fragment slot="astro">
+        Use the <code>content</code> slot to render markup such as <code
+          >&lt;kbd&gt;</code
+        > shortcuts inside the tooltip.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="RichContent" centered />
+  </section>
+</Component>

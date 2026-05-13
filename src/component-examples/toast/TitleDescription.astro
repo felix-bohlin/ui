@@ -1,0 +1,19 @@
+---
+import { Button } from "@opui/astro"
+---
+
+<Button
+  commandfor="toast-manager"
+  command="--show-toast"
+  data-title="Title only"
+>
+  Title only
+</Button>
+<Button
+  commandfor="toast-manager"
+  command="--show-toast"
+  data-title="Title with description"
+  data-description="This is additional context information"
+>
+  Title + description
+</Button>

@@ -1,0 +1,21 @@
+---
+import Baseline from "./Baseline.astro"
+import DocLink from "./DocLink.astro"
+
+type Props = {
+  ids: string[]
+}
+
+const { ids } = Astro.props
+const sortedIds = ids.sort()
+---
+
+<section>
+  <h2 id="browser-support">Browser support</h2>
+  <Baseline ids={sortedIds} />
+  <p>
+    See also the <DocLink href="/guide/browser-support"
+      >full browser support guide</DocLink
+    >.
+  </p>
+</section>

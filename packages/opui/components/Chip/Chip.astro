@@ -1,0 +1,37 @@
+---
+type Props = {
+  [key: string]: any
+  as?: "a" | "button" | "div" | string
+  class?: string
+  label?: string
+  multiline?: boolean
+  size?: "small"
+  variant?: "tonal" | "outlined"
+}
+
+export const title = "Chip"
+
+const {
+  as: Tag = Astro.props.href ? "a" : "div",
+  class: className,
+  label,
+  multiline,
+  size,
+  variant = "tonal",
+  ...rest
+} = Astro.props
+---
+
+<!-- prettier-ignore -->
+<Tag
+  class:list={[
+    "chip",
+    {
+      multiline,
+    },
+    size,
+    variant,
+    className,
+  ]}
+  {...rest}
+><slot name="start" /><slot />{label && <span class="text">{label}</span>}<slot name="end" /></Tag>

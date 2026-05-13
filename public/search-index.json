@@ -1,0 +1,1332 @@
+[
+  {
+    "id": "component-accordion-html",
+    "title": "Accordion",
+    "description": "Leverages the HTML details and summary elements. Uses\r\n    the native HTML arrow, check out how to add your own custom marker.",
+    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/accordion"
+  },
+  {
+    "id": "component-accordion-astro",
+    "title": "Accordion",
+    "description": "Leverages the HTML details and summary elements. Uses\r\n    the native HTML arrow, check out how to add your own custom marker.",
+    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/accordion"
+  },
+  {
+    "id": "component-anchor-html",
+    "title": "Anchor",
+    "description": "A structural primitive for positioning floating content relative to an\r\n      anchor element using CSS Anchor Positioning.\r\n    \r\n    \r\n      \r\n        Add the .anchor class to a container. The first child becomes\r\n        the anchor target. Place floating content inside .anchor-floating. Use --anchor-position-area to control placement.",
+    "headings": "Always Visible Hover Trigger Used By",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/anchor"
+  },
+  {
+    "id": "component-anchor-astro",
+    "title": "Anchor",
+    "description": "A structural primitive for positioning floating content relative to an\r\n      anchor element using CSS Anchor Positioning.\r\n    \r\n    \r\n      \r\n        Add the .anchor class to a container. The first child becomes\r\n        the anchor target. Place floating content inside .anchor-floating. Use --anchor-position-area to control placement.",
+    "headings": "Always Visible Hover Trigger Used By",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/anchor"
+  },
+  {
+    "id": "component-avatar-html",
+    "title": "Avatar",
+    "description": "",
+    "headings": "Image Letter Icon Variants Grouped",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/avatar"
+  },
+  {
+    "id": "component-avatar-astro",
+    "title": "Avatar",
+    "description": "",
+    "headings": "Image Letter Icon Variants Grouped",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/avatar"
+  },
+  {
+    "id": "component-badge-html",
+    "title": "Badge",
+    "description": "A badge is a small status indicator that can be placed on other elements.\r\n    \r\n    \r\n      \r\n        Badge extends Anchor. Add .anchor and .badge classes to the container, wrap the indicator in\r\n        .anchor-floating.",
+    "headings": "Variants Severities Visibility Alignment",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/badge"
+  },
+  {
+    "id": "component-badge-astro",
+    "title": "Badge",
+    "description": "A badge is a small status indicator that can be placed on other elements.\r\n    \r\n    \r\n      \r\n        Badge extends Anchor. Add .anchor and .badge classes to the container, wrap the indicator in\r\n        .anchor-floating.",
+    "headings": "Variants Severities Visibility Alignment",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/badge"
+  },
+  {
+    "id": "component-button-group-html",
+    "title": "Button group",
+    "description": "Groups related buttons by wrapping them with class=\"button-group\" and role=\"group\".",
+    "headings": "Variants Colors Icons Sizes Vertical orientation Disabled",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/button-group"
+  },
+  {
+    "id": "component-button-group-astro",
+    "title": "Button group",
+    "description": "Groups related buttons by wrapping them with class=\"button-group\" and role=\"group\".",
+    "headings": "Variants Colors Icons Sizes Vertical orientation Disabled",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/button-group"
+  },
+  {
+    "id": "component-button-html",
+    "title": "Button",
+    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
+    "headings": "Variants Colors Buttons with icon and label Keyboard Icon-only Sizes Disabled File upload",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/button"
+  },
+  {
+    "id": "component-button-astro",
+    "title": "Button",
+    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
+    "headings": "Variants Colors Buttons with icon and label Keyboard Icon-only Sizes Disabled File upload",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/button"
+  },
+  {
+    "id": "component-callout-html",
+    "title": "Callout",
+    "description": "Callouts call out for user attention. Callouts should be part of the flow\r\n    and used without interrupting the user's task.",
+    "headings": "Variants Icon Severities",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/callout"
+  },
+  {
+    "id": "component-callout-astro",
+    "title": "Callout",
+    "description": "Callouts call out for user attention. Callouts should be part of the flow\r\n    and used without interrupting the user's task.",
+    "headings": "Variants Icon Severities",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/callout"
+  },
+  {
+    "id": "component-card-html",
+    "title": "Card",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
+    "headings": "Variants Header Actions Alignment",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/card"
+  },
+  {
+    "id": "component-card-astro",
+    "title": "Card",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
+    "headings": "Variants Header Actions Alignment",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/card"
+  },
+  {
+    "id": "component-checkbox-html",
+    "title": "Checkbox",
+    "description": "Checkboxes allow users to select one or more items from a set of options.\r\n    See also: Checkbox field group.",
+    "headings": "Visible label Label position End text Validation Indeterminate Spread Sizes Field group Direction Field description Disabled Required Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/checkbox"
+  },
+  {
+    "id": "component-checkbox-astro",
+    "title": "Checkbox",
+    "description": "Checkboxes allow users to select one or more items from a set of options.\r\n    See also: Checkbox field group.",
+    "headings": "Visible label Label position End text Validation Indeterminate Spread Sizes Field group Direction Field description Disabled Required Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/checkbox"
+  },
+  {
+    "id": "component-chip-html",
+    "title": "Chip",
+    "description": "Chips are compact elements that represent an input, attribute, or action.",
+    "headings": "Variants Icon Button Link Sizes",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/chip"
+  },
+  {
+    "id": "component-chip-astro",
+    "title": "Chip",
+    "description": "Chips are compact elements that represent an input, attribute, or action.",
+    "headings": "Variants Icon Button Link Sizes",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/chip"
+  },
+  {
+    "id": "component-description-list-html",
+    "title": "Description list",
+    "description": "Description lists are used to display a list of terms and their\r\n    descriptions.",
+    "headings": "Bordered",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/description-list"
+  },
+  {
+    "id": "component-description-list-astro",
+    "title": "Description list",
+    "description": "Description lists are used to display a list of terms and their\r\n    descriptions.",
+    "headings": "Bordered",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/description-list"
+  },
+  {
+    "id": "component-dialog-html",
+    "title": "Dialog",
+    "description": "A minimally styled window overlaid on the main content. By design the Dialog\r\n    is minimal with zero content to allow for both modal and non-modal use.",
+    "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/dialog"
+  },
+  {
+    "id": "component-dialog-astro",
+    "title": "Dialog",
+    "description": "A minimally styled window overlaid on the main content. By design the Dialog\r\n    is minimal with zero content to allow for both modal and non-modal use.",
+    "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/dialog"
+  },
+  {
+    "id": "component-divider-html",
+    "title": "Divider",
+    "description": "It's just an &lt;hr&gt;.",
+    "headings": "Variants",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/divider"
+  },
+  {
+    "id": "component-divider-astro",
+    "title": "Divider",
+    "description": "It's just an &lt;hr&gt;.",
+    "headings": "Variants",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/divider"
+  },
+  {
+    "id": "component-drawer-html",
+    "title": "Drawer",
+    "description": "Slides in from the sides, top or bottom of the screen.",
+    "headings": "Usage How to close a drawer Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/drawer"
+  },
+  {
+    "id": "component-drawer-astro",
+    "title": "Drawer",
+    "description": "Slides in from the sides, top or bottom of the screen.",
+    "headings": "Usage How to close a drawer Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/drawer"
+  },
+  {
+    "id": "component-form-html",
+    "title": "Form",
+    "description": "A way to build structured forms.",
+    "headings": "Usage Non-semantic elements Fieldset Required Disabled Field Legend Field Description Field Group Row Divider Kitchen Sink",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/form"
+  },
+  {
+    "id": "component-form-astro",
+    "title": "Form",
+    "description": "A way to build structured forms.",
+    "headings": "Usage Non-semantic elements Fieldset Required Disabled Field Legend Field Description Field Group Row Divider Kitchen Sink",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/form"
+  },
+  {
+    "id": "component-icon-button-html",
+    "title": "Icon Button",
+    "description": "Icon buttons are used to trigger actions and are typically found in\r\n    toolbars, cards, and dialogs.",
+    "headings": "Variants Colors Sizes Disabled",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/icon-button"
+  },
+  {
+    "id": "component-icon-button-astro",
+    "title": "Icon Button",
+    "description": "Icon buttons are used to trigger actions and are typically found in\r\n    toolbars, cards, and dialogs.",
+    "headings": "Variants Colors Sizes Disabled",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/icon-button"
+  },
+  {
+    "id": "component-list-html",
+    "title": "List",
+    "description": "Lists are continuous, vertical indexes of text and images and video.\r\n    \r\n      Use lists to help users find a specific item and act on it\r\n      Order list items in logical ways (like alphabetical or numerical)\r\n      Three sizes: one-line, two-line, and three-line\r\n      Keep items short and easy to scan\r\n      Show icons, text, and actions in a consistent format",
+    "headings": "Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/list"
+  },
+  {
+    "id": "component-list-astro",
+    "title": "List",
+    "description": "Lists are continuous, vertical indexes of text and images and video.\r\n    \r\n      Use lists to help users find a specific item and act on it\r\n      Order list items in logical ways (like alphabetical or numerical)\r\n      Three sizes: one-line, two-line, and three-line\r\n      Keep items short and easy to scan\r\n      Show icons, text, and actions in a consistent format",
+    "headings": "Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/list"
+  },
+  {
+    "id": "component-progress-html",
+    "title": "Progress",
+    "description": "See also: Spinner.",
+    "headings": "Indeterminate Determinate Variants",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/progress"
+  },
+  {
+    "id": "component-progress-astro",
+    "title": "Progress",
+    "description": "See also: Spinner.",
+    "headings": "Indeterminate Determinate Variants",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/progress"
+  },
+  {
+    "id": "component-radio-html",
+    "title": "Radio",
+    "description": "Use field groups to group related radio buttons. See also: Form documentation.",
+    "headings": "Direction Field description Disabled Required Validation",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/radio"
+  },
+  {
+    "id": "component-radio-astro",
+    "title": "Radio",
+    "description": "Use field groups to group related radio buttons. See also: Form documentation.",
+    "headings": "Direction Field description Disabled Required Validation",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/radio"
+  },
+  {
+    "id": "component-range-html",
+    "title": "Range",
+    "description": "",
+    "headings": "Start text & End text Value Tick marks Variants Disabled Validation Spread",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/range"
+  },
+  {
+    "id": "component-range-astro",
+    "title": "Range",
+    "description": "",
+    "headings": "Start text & End text Value Tick marks Variants Disabled Validation Spread",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/range"
+  },
+  {
+    "id": "component-select-html",
+    "title": "Select",
+    "description": "Leverages the List component to provide markup for the Select popover.",
+    "headings": "Variants End text Affix Validation Spread Sizes Classic select",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/select"
+  },
+  {
+    "id": "component-select-astro",
+    "title": "Select",
+    "description": "Leverages the List component to provide markup for the Select popover.",
+    "headings": "Variants End text Affix Validation Spread Sizes Classic select",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/select"
+  },
+  {
+    "id": "component-spinner-html",
+    "title": "Spinner",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
+    "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/spinner"
+  },
+  {
+    "id": "component-spinner-astro",
+    "title": "Spinner",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
+    "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/spinner"
+  },
+  {
+    "id": "component-switch-html",
+    "title": "Switch",
+    "description": "See also: Switch field group.",
+    "headings": "Visible label Label position End text Validation Spread Sizes Icons Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/switch"
+  },
+  {
+    "id": "component-switch-astro",
+    "title": "Switch",
+    "description": "See also: Switch field group.",
+    "headings": "Visible label Label position End text Validation Spread Sizes Icons Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/switch"
+  },
+  {
+    "id": "component-table-html",
+    "title": "Table",
+    "description": "Displays tabular data. Basic tables with row and column headers, and\r\n    optional captions and footers.",
+    "headings": "Variants Default Advanced",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/table"
+  },
+  {
+    "id": "component-table-astro",
+    "title": "Table",
+    "description": "Displays tabular data. Basic tables with row and column headers, and\r\n    optional captions and footers.",
+    "headings": "Variants Default Advanced",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/table"
+  },
+  {
+    "id": "component-tabs-html",
+    "title": "Tabs",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
+    "headings": "Basics",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/tabs"
+  },
+  {
+    "id": "component-tabs-astro",
+    "title": "Tabs",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
+    "headings": "Basics",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/tabs"
+  },
+  {
+    "id": "component-text-field-html",
+    "title": "Text field",
+    "description": "An input for single-line text data. Basic text fields with labels, field\r\n    descriptions, and validation states.",
+    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/text-field"
+  },
+  {
+    "id": "component-text-field-astro",
+    "title": "Text field",
+    "description": "An input for single-line text data. Basic text fields with labels, field\r\n    descriptions, and validation states.",
+    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/text-field"
+  },
+  {
+    "id": "component-textarea-html",
+    "title": "Textarea",
+    "description": "An input for multi-line text data. Basic textareas with labels, supporting\r\n    text, and validation states.",
+    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/textarea"
+  },
+  {
+    "id": "component-textarea-astro",
+    "title": "Textarea",
+    "description": "An input for multi-line text data. Basic textareas with labels, supporting\r\n    text, and validation states.",
+    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/textarea"
+  },
+  {
+    "id": "component-toast-html",
+    "title": "Toast",
+    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
+    "headings": "How it works HTML JavaScript Severities Title + description Duration",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/toast"
+  },
+  {
+    "id": "component-toast-astro",
+    "title": "Toast",
+    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
+    "headings": "How it works HTML JavaScript Severities Title + description Duration",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/toast"
+  },
+  {
+    "id": "component-toggle-html",
+    "title": "Toggle",
+    "description": "",
+    "headings": "Toggle button Toggle group Multi-select Single-select Text + icon Vertical orientation Sizes",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/toggle"
+  },
+  {
+    "id": "component-toggle-astro",
+    "title": "Toggle",
+    "description": "",
+    "headings": "Toggle button Toggle group Multi-select Single-select Text + icon Vertical orientation Sizes",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/toggle"
+  },
+  {
+    "id": "component-tooltip-html",
+    "title": "Tooltip",
+    "description": "Built on top of Anchor.\r\n    \r\n    \r\n      \r\n        Add the .tooltip class alongside .anchor on the\r\n        wrapper. Wire interestfor on the trigger to the\r\n        .anchor-floating[popover=\"hint\"] element's ID.",
+    "headings": "Basics Alignment Arrow Rich content",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/tooltip"
+  },
+  {
+    "id": "component-tooltip-astro",
+    "title": "Tooltip",
+    "description": "Built on top of Anchor.\r\n    \r\n    \r\n      \r\n        Add the .tooltip class alongside .anchor on the\r\n        wrapper. Wire interestfor on the trigger to the\r\n        .anchor-floating[popover=\"hint\"] element's ID.",
+    "headings": "Basics Alignment Arrow Rich content",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/tooltip"
+  },
+  {
+    "id": "component-typography-html",
+    "title": "Typography",
+    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .rich-text.",
+    "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/typography"
+  },
+  {
+    "id": "component-typography-astro",
+    "title": "Typography",
+    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .rich-text.",
+    "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/typography"
+  },
+  {
+    "id": "guide-acknowledgments-html",
+    "title": "Acknowledgments",
+    "description": "",
+    "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
+    "category": "Guide",
+    "frameworkId": "html",
+    "url": "/html/guide/acknowledgments"
+  },
+  {
+    "id": "guide-acknowledgments-astro",
+    "title": "Acknowledgments",
+    "description": "",
+    "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
+    "category": "Guide",
+    "frameworkId": "astro",
+    "url": "/astro/guide/acknowledgments"
+  },
+  {
+    "id": "guide-browser-support-html",
+    "title": "Browser support",
+    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "html",
+    "url": "/html/guide/browser-support"
+  },
+  {
+    "id": "guide-browser-support-astro",
+    "title": "Browser support",
+    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "astro",
+    "url": "/astro/guide/browser-support"
+  },
+  {
+    "id": "guide-theme-generator-html",
+    "title": "Theme generator",
+    "description": "",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "html",
+    "url": "/html/guide/theme-generator"
+  },
+  {
+    "id": "guide-theme-generator-astro",
+    "title": "Theme generator",
+    "description": "",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "astro",
+    "url": "/astro/guide/theme-generator"
+  },
+  {
+    "id": "guide-why-opui-html",
+    "title": "Why Open Props UI?",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
+    "headings": "Backstory The goal of OPUI",
+    "category": "Guide",
+    "frameworkId": "html",
+    "url": "/html/guide/why-opui"
+  },
+  {
+    "id": "guide-why-opui-astro",
+    "title": "Why Open Props UI?",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
+    "headings": "Backstory The goal of OPUI",
+    "category": "Guide",
+    "frameworkId": "astro",
+    "url": "/astro/guide/why-opui"
+  },
+  {
+    "id": "guide-getting-started-astro",
+    "title": "Getting started",
+    "description": "OPUI ships first-class Astro components. Install the package, import what\r\n    you need, and you're set.",
+    "headings": "Install via NPM Use a component Load the CSS",
+    "category": "Guide",
+    "frameworkId": "astro",
+    "url": "/astro/guide/getting-started"
+  },
+  {
+    "id": "guide-getting-started-html",
+    "title": "Getting started",
+    "description": "Open Props UI is a CSS UI library exploring how next-gen HTML & CSS features\r\n    can change the way we create components. Designed to be used by professional\r\n    teams as well as tinkering hobbyists.",
+    "headings": "Install manually theme.css generator Install via NPM Usage Install via CDN",
+    "category": "Guide",
+    "frameworkId": "html",
+    "url": "/html/guide/getting-started"
+  },
+  {
+    "id": "api-accordion-astro",
+    "title": "Accordion API",
+    "description": "Reference for Accordion Astro component.",
+    "headings": "Group Card[role=\"group\"] - name string - open boolean false Accordion open state. variant \"default\" The visual variant of the accordion.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#accordion"
+  },
+  {
+    "id": "api-accordion-html",
+    "title": "Accordion API",
+    "description": "Reference for Accordion HTML component.",
+    "headings": "Accordion details.accordion - Group .card[role=\"group\"] - Attribute name - Part - Optional wrappers for child content. Variants .text The variant to use.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#accordion"
+  },
+  {
+    "id": "api-anchor-astro",
+    "title": "Anchor API",
+    "description": "Reference for Anchor Astro component.",
+    "headings": "alignment string \"start end\" trigger \"always\" | \"hover\" \"always\"",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#anchor"
+  },
+  {
+    "id": "api-anchor-html",
+    "title": "Anchor API",
+    "description": "Reference for Anchor HTML component.",
+    "headings": "Container .anchor - Floating .anchor-floating - Position --anchor-position-area start end Trigger data-trigger=\"hover\" -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#anchor"
+  },
+  {
+    "id": "api-badge-astro",
+    "title": "Badge API",
+    "description": "Reference for Badge Astro component.",
+    "headings": "alignment \"start-end\" Position of the badge relative to its container. color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string | number - Screen reader label for the badge.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#badge"
+  },
+  {
+    "id": "api-badge-html",
+    "title": "Badge API",
+    "description": "Reference for Badge HTML component.",
+    "headings": "Container .anchor.badge - Floating .anchor-floating - Positioned floating container from Anchor. Indicator .badge-indicator - Alignment .start-end Position modifiers on .badge. Color - Color modifiers on .badge. Variants .dot - Shape modifier on .badge. Visibility .invisible - Visibility modifier on .badge.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#badge"
+  },
+  {
+    "id": "api-button-group-astro",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Astro component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#button-group"
+  },
+  {
+    "id": "api-button-group-html",
+    "title": "Button Group API",
+    "description": "Reference for Button Group HTML component.",
+    "headings": "Colors .critical, .primary - Orientation .vertical - Orientation modifier. Sizes .small, .large - Size modifiers. Variants - Style modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#button-group"
+  },
+  {
+    "id": "api-callout-astro",
+    "title": "Callout API",
+    "description": "Reference for Callout Astro component.",
+    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity \"ok\" | \"warning\" | \"critical\" - The severity level, affecting the color and icon.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#callout"
+  },
+  {
+    "id": "api-callout-html",
+    "title": "Callout API",
+    "description": "Reference for Callout HTML component.",
+    "headings": "Part & > .content, & > svg - Internal structure. Severities - Severity modifiers. Variants .tonal, .outlined .tonal Style modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#callout"
+  },
+  {
+    "id": "api-avatar-astro",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Astro component.",
+    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#avatar"
+  },
+  {
+    "id": "api-avatar-html",
+    "title": "Avatar API",
+    "description": "Reference for Avatar HTML component.",
+    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#avatar"
+  },
+  {
+    "id": "api-button-astro",
+    "title": "Button API",
+    "description": "Reference for Button Astro component.",
+    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - disabled boolean - Button disabled state.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#button"
+  },
+  {
+    "id": "api-button-html",
+    "title": "Button API",
+    "description": "Reference for Button HTML component.",
+    "headings": "Sizes .small, default, .large - The size of the element. Variants - The variant to use. Colors .critical, .primary - Color modifiers. Default is a neutral gray.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#button"
+  },
+  {
+    "id": "api-card-astro",
+    "title": "Card API",
+    "description": "Reference for Card Astro component.",
+    "headings": "Slots - Optional slots. variant \"text\" The variant to use. actions {'{ align: \"end\" }'} - Alignment for the actions slot.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#card"
+  },
+  {
+    "id": "api-card-html",
+    "title": "Card API",
+    "description": "Reference for Card HTML component.",
+    "headings": "Children - Optional wrappers for child content. Variants .text The variant to use. Alignment .actions.align-end - Align actions to the end.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#card"
+  },
+  {
+    "id": "api-checkbox-astro",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox Astro component.",
+    "headings": "checked boolean false Input checked state. disabled boolean - Input disabled state. critical boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false required boolean false Input required state. size \"small\" | \"large\" - The size of the input. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input. default The label text for the component. end-text",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#checkbox"
+  },
+  {
+    "id": "api-checkbox-html",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox HTML component.",
+    "headings": "Children .label, .end-text - Internal element classes. Layout .spread, .stack, default\r\n      - Sizes .small, .large - Size modifiers. Validation .critical - Error state modifier. State data-indeterminate -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#checkbox"
+  },
+  {
+    "id": "api-chip-astro",
+    "title": "Chip API",
+    "description": "Reference for Chip Astro component.",
+    "headings": "as \"div\" | \"a\" | \"button\" The underlying HTML element. label string - The text label to display. multiline boolean false Allows multiline text. size \"small\" - The size of the chip. variant \"tonal\" | \"outlined\" \"tonal\" The visual variant.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#chip"
+  },
+  {
+    "id": "api-chip-html",
+    "title": "Chip API",
+    "description": "Reference for Chip HTML component.",
+    "headings": "Container - Container element type. Children & > .text, & > svg - Optional child content. Sizes - The size of the element. Variants .tonal, .outlined .tonal The variant to use.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#chip"
+  },
+  {
+    "id": "api-classic-select-astro",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select Astro component.",
+    "headings": "disabled boolean - Select disabled state. critical boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#classic-select"
+  },
+  {
+    "id": "api-classic-select-html",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select HTML component.",
+    "headings": "Sizes .small - The size of the element. Variants default, .filled - The variant to use.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#classic-select"
+  },
+  {
+    "id": "api-description-list-astro",
+    "title": "Description List API",
+    "description": "Reference for Description List Astro component.",
+    "headings": "bordered boolean | \"dotted\" - class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#description-list"
+  },
+  {
+    "id": "api-description-list-html",
+    "title": "Description List API",
+    "description": "Reference for Description List HTML component.",
+    "headings": "Bordered -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#description-list"
+  },
+  {
+    "id": "api-dialog-astro",
+    "title": "Dialog API",
+    "description": "Reference for Dialog Astro component.",
+    "headings": "closedby \"any\" | \"closerequest\" | \"none\" - actions.align \"end\" - Alignment of the actions slot. header content actions default Any content not assigned to a named slot.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#dialog"
+  },
+  {
+    "id": "api-dialog-html",
+    "title": "Dialog API",
+    "description": "Reference for Dialog HTML component.",
+    "headings": "Styles .dialog.card.elevated Included The dialog uses card styles by default. Closed by closedby attribute - The attribute used to control close behavior.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#dialog"
+  },
+  {
+    "id": "api-divider-astro",
+    "title": "Divider API",
+    "description": "Reference for Divider Astro component.",
+    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#divider"
+  },
+  {
+    "id": "api-divider-html",
+    "title": "Divider API",
+    "description": "Reference for Divider HTML component.",
+    "headings": "Variant - Visual variant modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#divider"
+  },
+  {
+    "id": "api-drawer-astro",
+    "title": "Drawer API",
+    "description": "Reference for Drawer Astro component.",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\r\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#drawer"
+  },
+  {
+    "id": "api-drawer-html",
+    "title": "Drawer API",
+    "description": "Reference for Drawer HTML component.",
+    "headings": "Sides .inline-start, .inline-end,\n        .block-start, .block-end .inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\n        Prevents focus from jumping to the first focusable element. .header - - Top area for titles. .content - - Main content area. .actions - - Bottom action area.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#drawer"
+  },
+  {
+    "id": "api-form-astro",
+    "title": "Form API",
+    "description": "Reference for Form Astro component.",
+    "headings": "as string \"form\" The HTML element to render. as \"fieldset\", \"div\" \"fieldset\" The HTML element to render. disabled boolean - Whether the field set is disabled. as \"legend\" The HTML element to render. - [key: string]: any - name string - Shared name for nested input components. direction \"row\", \"column\" - The orientation of the field group.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#form"
+  },
+  {
+    "id": "api-form-html",
+    "title": "Form API",
+    "description": "Reference for Form HTML component.",
+    "headings": "Base .form - The main form container. Base .fieldset - The field set container. Modifiers [disabled] - Whether the field set is disabled. Base .legend, legend - The label for the field set. Base .field-description - Field description for the field set. Base .field-group - Container for related input components. Variants .row, default - The orientation of the field group.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#form"
+  },
+  {
+    "id": "api-field-group-astro",
+    "title": "Field Group API",
+    "description": "Reference for Field Group Astro component.",
+    "headings": "critical boolean false Field group error state. legend string - The text for the legend element. direction \"row\" - The orientation of the field group.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#field-group"
+  },
+  {
+    "id": "api-field-group-html",
+    "title": "Field Group API",
+    "description": "Reference for Field Group HTML component.",
+    "headings": "Children - Supported child elements. Direction default, .row - The orientation of the element. Disabled [disabled] - When applied, disabled styles are shown. Validation .critical - When applied, error styles are shown.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#field-group"
+  },
+  {
+    "id": "api-icon-button-astro",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button Astro component.",
+    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#icon-button"
+  },
+  {
+    "id": "api-icon-button-html",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button HTML component.",
+    "headings": "Variants - The visual style of the icon button. Sizes .small - The size of the element. Colors .critical, .primary - States [disabled] - Attribute to disable the icon button.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#icon-button"
+  },
+  {
+    "id": "api-list-astro",
+    "title": "List API",
+    "description": "Reference for List Astro component.",
+    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#list"
+  },
+  {
+    "id": "api-list-html",
+    "title": "List API",
+    "description": "Reference for List HTML component.",
+    "headings": "Dense ul.dense - When enabled list appears tighter packed. Gutterless ul.gutterless - When enabled list inline padding is removed. Bordered ul.bordered - Variants - Background color variants. Main parts - Building blocks in List item. Inset li.inset - Border top li.border-top - When enabled the list item will get a top border.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#list"
+  },
+  {
+    "id": "api-progress-astro",
+    "title": "Progress API",
+    "description": "Reference for Progress Astro component.",
+    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#progress"
+  },
+  {
+    "id": "api-progress-html",
+    "title": "Progress API",
+    "description": "Reference for Progress HTML component.",
+    "headings": "Progress &lt;progress&gt; - The native HTML progress element. Indeterminate No value attribute - Display an indeterminate loading state. Variant - Modifiers for different background surfaces.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#progress"
+  },
+  {
+    "id": "api-range-astro",
+    "title": "Range API",
+    "description": "Reference for Range Astro component.",
+    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\r\n    \r\n    \r\n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#range"
+  },
+  {
+    "id": "api-range-html",
+    "title": "Range API",
+    "description": "Reference for Range HTML component.",
+    "headings": "Input input[type=\"range\"] - The native range input element. Range .range - Wrapper for label and input styling. Spread .spread - Modifier for a spread layout. Variant - Modifiers for different background surfaces. Label .label - The label element for the range. Value output.value - Start text .start-text - End text .end-text - Optional text displayed below the range input. Spread .spread -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#range"
+  },
+  {
+    "id": "api-select-astro",
+    "title": "Select API",
+    "description": "Reference for Select Astro component.",
+    "headings": "dense boolean false Select dense state. disabled boolean - Select disabled state. description string - Description text displayed above the select. endText string - Supporting text displayed below the select. critical boolean - items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. spread boolean false variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select. default label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#select"
+  },
+  {
+    "id": "api-select-html",
+    "title": "Select API",
+    "description": "Reference for Select HTML component.",
+    "headings": "Children - Direct children of the root element. Field children - Layout .spread, default - Sizes .small - The size of the element. Variants default, .filled - The variant to use. Validation [data-invalid] -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#select"
+  },
+  {
+    "id": "api-switch-astro",
+    "title": "Switch API",
+    "description": "Reference for Switch Astro component.",
+    "headings": "aria-label string - aria-labelledby string - ID of an external element that labels the switch. checked boolean false Whether the switch is checked. disabled boolean false Whether the switch is disabled. critical boolean false Switch error state. hideLabel boolean false Visually hides the label but keeps it accessible. required boolean false Whether the switch is required. small boolean false Reduces the size of the switch. spread boolean false Spreads the label and switch to opposite ends. stack boolean false Labels are stacked under the element. default The label text for the switch. end-text",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#switch"
+  },
+  {
+    "id": "api-switch-html",
+    "title": "Switch API",
+    "description": "Reference for Switch HTML component.",
+    "headings": "Children - Optional children. Sizes .small, default - The size of the element. Layout .spread, .stack, default\r\n      - Validation .critical - When applied, error styles are shown.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#switch"
+  },
+  {
+    "id": "api-tabs-astro",
+    "title": "Tabs API",
+    "description": "Reference for Tabs Astro component.",
+    "headings": "class string - name string \"tabs-XXXX\" open boolean false Whether this tab is initially active. class string - Optional class name. class string - Optional class name.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#tabs"
+  },
+  {
+    "id": "api-tabs-html",
+    "title": "Tabs API",
+    "description": "Reference for Tabs HTML component.",
+    "headings": "class \"tabs\" Required class for the parent container. role \"tablist\" Required for accessibility. class \"underlined\" Optional variant class. type \"radio\" Required for state management. class \"tab-input\" Required for behavior and styling. name string Shared across all tabs in the group. checked boolean Applied to the initially active tab. aria-controls ID Should match the ID of the corresponding panel. class \"tab-label\" Required for behavior and styling. for ID Must match the ID of the radio input. role \"tab\" Required for accessibility. class \"tab-panel\" Required for behavior and styling. role \"tabpanel\" Required for accessibility. aria-labelledby ID Should match the ID of the corresponding trigger.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#tabs"
+  },
+  {
+    "id": "api-table-astro",
+    "title": "Table API",
+    "description": "Reference for Table Astro component.",
+    "headings": "class string - Additional CSS classes to apply to the table. variant \"dense\" | \"spacious\" - The variant to use.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#table"
+  },
+  {
+    "id": "api-table-html",
+    "title": "Table API",
+    "description": "Reference for Table HTML component.",
+    "headings": "Dense .dense - When applied the table will appear denser. Spacious .spacious - When applied the table will appear more spacious.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#table"
+  },
+  {
+    "id": "api-text-field-astro",
+    "title": "Text Field API",
+    "description": "Reference for Text Field Astro component.",
+    "headings": "autoFit boolean false Automatically adjusts its width to content. description string - Description text displayed above the field. critical boolean false label string - The label for the field. size \"small\" - The size of the field. spread boolean false endText string - Supporting text displayed below the field. variant \"filled\" - The visual variant of the field. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#text-field"
+  },
+  {
+    "id": "api-text-field-html",
+    "title": "Text Field API",
+    "description": "Reference for Text Field HTML component.",
+    "headings": "Auto-fit .auto-fit - Children - Direct children of the root element. Field children - Layout .spread, default - Sizes .small - The size of the element. Validation [data-invalid] - Variants default, .filled - The variant to use.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#text-field"
+  },
+  {
+    "id": "api-text-input-astro",
+    "title": "Text Input API",
+    "description": "Reference for Text Input Astro component.",
+    "headings": "autoFit boolean false Automatically adjusts its width to content. size \"small\" - The size of the text field. variant \"filled\" - The visual variant of the text field.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#text-input"
+  },
+  {
+    "id": "api-text-input-html",
+    "title": "Text Input API",
+    "description": "Reference for Text Input HTML component.",
+    "headings": "Wrapper .field - Auto-fit .auto-fit - Sizes .small - The size of the element. Variants default, .filled - The variant to use.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#text-input"
+  },
+  {
+    "id": "api-textarea-astro",
+    "title": "Textarea API",
+    "description": "Reference for Textarea Astro component.",
+    "headings": "autoFit boolean false Automatically adjusts its height to content. description string - Description text displayed above the textarea. endText string - Supporting text displayed below the textarea. spread boolean false variant \"filled\" - The visual variant of the textarea. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#textarea"
+  },
+  {
+    "id": "api-textarea-html",
+    "title": "Textarea API",
+    "description": "Reference for Textarea HTML component.",
+    "headings": "Children - Direct children of the root element. Field children - Auto-fit .auto-fit - Layout .spread, default - Variants default, .filled - The variant to use. Validation [data-invalid] -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#textarea"
+  },
+  {
+    "id": "api-toast-astro",
+    "title": "Toast API",
+    "description": "Reference for Toast Astro component.",
+    "headings": "",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#toast"
+  },
+  {
+    "id": "api-toast-html",
+    "title": "Toast API",
+    "description": "Reference for Toast HTML component.",
+    "headings": "Command --show-toast - Message value / textContent - The message to display in the toast. Severity data-severity info Duration data-duration 5000ms Container #toast-manager - Component .toast -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#toast"
+  },
+  {
+    "id": "api-toggle-astro",
+    "title": "Toggle API",
+    "description": "Reference for Toggle Astro component.",
+    "headings": "disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle button. type \"checkbox\" | \"radio\" \"checkbox\" value string - name string - size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle group. orientation \"vertical\" - Changes the layout direction of the group. selection \"single\" | \"multiple\" \"multiple\"",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#toggle"
+  },
+  {
+    "id": "api-toggle-html",
+    "title": "Toggle API",
+    "description": "Reference for Toggle HTML component.",
+    "headings": "Sizes - The size of the button. States .disabled - The state of the button. Sizes - Children -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#toggle"
+  },
+  {
+    "id": "api-tooltip-astro",
+    "title": "Tooltip API",
+    "description": "Reference for Tooltip Astro component.",
+    "headings": "alignment string \"block-start\" arrow boolean false id string auto-generated label string —",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#tooltip"
+  },
+  {
+    "id": "api-tooltip-html",
+    "title": "Tooltip API",
+    "description": "Reference for Tooltip HTML component.",
+    "headings": "Container .anchor.tooltip - Floating .anchor-floating[popover=\"hint\"] - Trigger interestfor=\"id\" - Arrow .with-arrow - Position --anchor-position-area block-start",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#tooltip"
+  }
+]

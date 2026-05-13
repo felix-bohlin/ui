@@ -1,0 +1,49 @@
+---
+type Props = {
+  [key: string]: any
+  class?: string
+  name?: string
+  orientation?: "vertical"
+  selection?: "single" | "multiple"
+  size?: "default" | "small" | "x-small"
+}
+
+export const title = "Toggle Group"
+
+const {
+  class: className,
+  name,
+  orientation,
+  selection = "multiple",
+  size = "default",
+  ...rest
+} = Astro.props
+
+const { $id } = Astro.locals
+const groupName = name || $id("toggle-group")
+const inputType = selection === "single" ? "radio" : "checkbox"
+
+const originalName = Astro.locals.currentToggleGroupName
+const originalType = Astro.locals.currentToggleGroupType
+
+Astro.locals.currentToggleGroupName = groupName
+Astro.locals.currentToggleGroupType = inputType
+
+const html = await Astro.slots.render("default")
+
+Astro.locals.currentToggleGroupName = originalName
+Astro.locals.currentToggleGroupType = originalType
+---
+
+<div
+  class:list={[
+    "toggle-group",
+    size !== "default" && size,
+    orientation,
+    className,
+  ]}
+  role={selection === "single" ? "radiogroup" : "group"}
+  {...rest}
+>
+  <Fragment set:html={html} />
+</div>

@@ -1,0 +1,173 @@
+---
+import Component from "../../layouts/Component.astro"
+import Example from "../../components/Example"
+
+import AutoExample from "../../components/AutoExample.astro"
+import ExampleAnatomy from "../../component-examples/range/Anatomy.astro"
+
+import RangeCSS from "@opui/css/components/range.css?raw"
+import Conditional from "../../components/Conditional.astro"
+---
+
+<Component
+  slug="range"
+  browserSupport={["light-dark", "relative-color", "container-queries"]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Range/Range.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/range.astro", type: "docs" },
+    { path: "src/component-examples/range", type: "docs" },
+    {
+      path: "packages/opui/css/components/range.css",
+      type: "css",
+    },
+    { path: "src/component-api/range", type: "api" },
+  ]}
+  installationTabs={[{ title: "range.css", code: RangeCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Range</Fragment>
+
+  <AutoExample name="Default" column />
+
+  <section>
+    <h2 id="start-end-text">Start text & End text</h2>
+    <AutoExample name="StartEndText" column />
+  </section>
+
+  <section>
+    <h2 id="value">Value</h2>
+    <Conditional>
+      <p slot="astro">
+        Pass the <code>valueSuffix</code> prop (or use the <code>value</code> named
+        slot) to render a live readout of the slider's current value next to the label.
+        The component wires up an <code>&lt;output&gt;</code> element and keeps its
+        text in sync with the input.
+      </p>
+      <p slot="html">
+        Add an <code>&lt;output class="value"&gt;</code> sibling to the
+        <code>.label</code> with <code>for</code> pointing at the input's id. Optionally
+        set <code>data-suffix</code> for a unit (e.g. <code>°</code>,
+        <code>px</code>). Updating its text content is the consumer's
+        responsibility.
+      </p>
+    </Conditional>
+    <AutoExample name="Value" column />
+  </section>
+
+  <section>
+    <h2 id="tick-marks">Tick marks</h2>
+    <Conditional>
+      <p slot="astro">
+        Pass an id to the <code>list</code> prop together with an <code
+          >options</code
+        >
+        array — <code>{"options=[{ value, label }]"}</code> — and the component renders
+        a matching <code>&lt;datalist&gt;</code>.
+      </p>
+      <p slot="html">
+        Use the <code>list</code> attribute on the <code>&lt;input&gt;</code> and
+        follow it with a <code>&lt;datalist&gt;</code> element containing
+        <code>&lt;option&gt;</code> elements with <code>value</code> and
+        <code>label</code> attributes.
+      </p>
+    </Conditional>
+    <AutoExample name="TickMarksLabels" column />
+  </section>
+
+  <section>
+    <h2 id="variants">Variants</h2>
+    <Conditional>
+      <p slot="astro">
+        Use the <code>variant</code> prop to swap the track surface for better contrast
+        on different backgrounds.
+      </p>
+      <p slot="html">
+        Use the <code>.filled</code>, <code>.default</code>, or <code
+          >.tonal</code
+        >
+        class to swap the track surface for better contrast on different backgrounds.
+      </p>
+    </Conditional>
+    <AutoExample name="Surfaces" column spacious />
+  </section>
+
+  <section>
+    <h2 id="disabled">Disabled</h2>
+    <AutoExample name="Disabled" column />
+  </section>
+
+  <section>
+    <h2 id="validation">Validation</h2>
+    <AutoExample name="Validation" column />
+  </section>
+
+  <section>
+    <h2 id="spread">Spread</h2>
+    <AutoExample name="Row" column />
+
+    <h3>Disabled</h3>
+
+    <AutoExample name="RowDisabled" column />
+
+    <h3>Validation</h3>
+
+    <AutoExample name="RowValidation" column />
+  </section>
+
+  <Fragment slot="anatomy">
+    <ol>
+      <li>Container</li>
+      <li>Label (optional)</li>
+      <li>Value (optional)</li>
+      <li>Start text (optional)</li>
+      <li>Input</li>
+      <li>End text (optional)</li>
+    </ol>
+    <Example>
+      <Example.Preview code={ExampleAnatomy} />
+    </Example>
+  </Fragment>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        <kbd>Right Arrow</kbd>: Increase the value of the slider by one step.
+      </li>
+      <li>
+        <kbd>Up Arrow</kbd>: Increase the value of the slider by one step.
+      </li>
+      <li>
+        <kbd>Left Arrow</kbd>: Decrease the value of the slider by one step.
+      </li>
+      <li>
+        <kbd>Down Arrow</kbd>: Decrease the value of the slider by one step.
+      </li>
+      <li>
+        <kbd>Home</kbd>: Set the slider to the first allowed value in its range.
+      </li>
+      <li>
+        <kbd>End</kbd>: Set the slider to the last allowed value in its range.
+      </li>
+      <li>
+        <kbd>Page Up</kbd> (Optional): Increase the slider value by an amount larger
+        than the step change made by <kbd>Up Arrow</kbd>.
+      </li>
+      <li>
+        <kbd>Page Down</kbd> (Optional): Decrease the slider value by an amount larger
+        than the step change made by <kbd>Down Arrow</kbd>.
+      </li>
+    </ul>
+  </Fragment>
+</Component>
+
+<style is:global>
+  .anatomy {
+    outline: var(--_anatomy-border-gray);
+    outline-offset: 2px;
+    & > * {
+      outline: var(--_anatomy-border-red);
+    }
+  }
+</style>

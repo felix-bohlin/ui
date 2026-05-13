@@ -1,0 +1,39 @@
+---
+import {
+  FRAMEWORKS,
+  DEFAULT_FRAMEWORK,
+  type FrameworkId,
+} from "../utils/framework-routing"
+
+type Props = {
+  [key: string]: any
+  as?: "p" | "div" | "span" | "section"
+}
+
+const { as: Tag = "span" } = Astro.props
+
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+
+// Find the slot for the active framework. Fall back to the default framework
+// (currently HTML) if the page didn't author one for the active framework, so
+// pages don't go blank during incremental migration.
+const slotName = Astro.slots.has(currentFramework)
+  ? currentFramework
+  : Astro.slots.has(DEFAULT_FRAMEWORK)
+    ? DEFAULT_FRAMEWORK
+    : FRAMEWORKS.find((l) => Astro.slots.has(l.id))?.id
+
+const content = slotName ? await Astro.slots.render(slotName) : ""
+---
+
+{content && <Tag class="conditional" set:html={content} />}
+
+<style>
+  /* Default <span> wrapper should be transparent so prose flows inline. */
+  span.conditional,
+  div.conditional,
+  section.conditional {
+    display: contents;
+  }
+</style>

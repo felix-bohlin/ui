@@ -1,0 +1,15 @@
+---
+type Props = {
+  [key: string]: any
+  class?: string
+  variant?: "dense" | "spacious"
+}
+
+export const title = "Table"
+
+const { class: className, variant, ...rest } = Astro.props
+---
+
+<table class:list={[className, variant]} {...rest}>
+  <slot />
+</table>

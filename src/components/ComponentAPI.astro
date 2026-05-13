@@ -1,0 +1,178 @@
+---
+import { Table } from "@opui/astro"
+import {
+  DEFAULT_FRAMEWORK,
+  FRAMEWORKS,
+  type FrameworkId,
+} from "../utils/framework-routing"
+
+type Props = {
+  apis?: any | any[]
+  title?: string
+  hideTitle?: boolean
+}
+
+const { apis, title: titleProp, hideTitle = false } = Astro.props
+
+const apiList = Array.isArray(apis) ? apis : apis ? [apis] : []
+
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+
+const isFrameworkKeyedApi = (value: any) =>
+  value &&
+  !Array.isArray(value) &&
+  typeof value === "object" &&
+  !value.rows &&
+  FRAMEWORKS.every((f) => value[f.id])
+
+// Pick the framework-keyed API entry for the active framework, falling back
+// to the default framework, then the first authored variant — same fallback
+// shape `<Conditional>` uses so partially-authored docs don't go blank.
+const pickFrameworkVariant = (value: any) =>
+  value[currentFramework] ??
+  value[DEFAULT_FRAMEWORK] ??
+  FRAMEWORKS.map((f) => value[f.id]).find(Boolean)
+
+const hasFrameworkSpecificApi =
+  !Array.isArray(apis) && isFrameworkKeyedApi(apis)
+---
+
+{
+  hasFrameworkSpecificApi ? (
+    <Astro.self
+      apis={pickFrameworkVariant(apis)}
+      hideTitle={hideTitle}
+      title={titleProp}
+    />
+  ) : (
+    apiList.length > 0 && (
+      <section>
+        {!hideTitle && <h2 id="api">{titleProp || "API"}</h2>}
+        {apiList.map((api) => {
+          const apiData = api?.rows ? api : typeof api === "object" ? api : null
+          const ApiComponent =
+            api.component || (typeof api === "function" ? api : null)
+          const title = api.title || apiData?.title
+          const id =
+            api.id ||
+            (title ? title.toLowerCase().replace(/\s+/g, "-") : undefined)
+
+          const isFrameworkSpecificEntry = isFrameworkKeyedApi(api)
+
+          return (
+            <Fragment>
+              {title && <h3 id={id}>{title}</h3>}
+              {isFrameworkSpecificEntry ? (
+                <Astro.self
+                  apis={pickFrameworkVariant(api)}
+                  hideTitle={true}
+                />
+              ) : apiData?.rows ? (
+                <div class="api-table-container">
+                  <Table class="api-table">
+                    <Table.ColumnGroup>
+                      {apiData.columns ? (
+                        apiData.columns.map((col: any) => (
+                          <Table.Column width={col.width} />
+                        ))
+                      ) : (
+                        <Fragment>
+                          <Table.Column width="min-width: 20%" />
+                          <Table.Column width="min-width: 20%" />
+                          <Table.Column width="min-width: 20%" />
+                          <Table.Column width="min-width: 300px" />
+                        </Fragment>
+                      )}
+                    </Table.ColumnGroup>
+                    <Table.Head>
+                      <Table.Row>
+                        {apiData.headers ? (
+                          apiData.headers.map((header: any) => (
+                            <Table.HeaderCell>{header}</Table.HeaderCell>
+                          ))
+                        ) : (
+                          <Fragment>
+                            <Table.HeaderCell>Type</Table.HeaderCell>
+                            <Table.HeaderCell>Modifiers</Table.HeaderCell>
+                            <Table.HeaderCell>Default</Table.HeaderCell>
+                            <Table.HeaderCell>Description</Table.HeaderCell>
+                          </Fragment>
+                        )}
+                      </Table.Row>
+                    </Table.Head>
+                    <Table.Body>
+                      {apiData.rows.map((row: any) => (
+                        <Table.Row>
+                          {row.cells ? (
+                            row.cells.map((cell: any) => (
+                              <Table.Cell>
+                                {cell.code ? (
+                                  <code>{cell.text}</code>
+                                ) : cell.href ? (
+                                  <a href={cell.href}>{cell.text}</a>
+                                ) : (
+                                  cell
+                                )}
+                              </Table.Cell>
+                            ))
+                          ) : (
+                            <Fragment>
+                              <Table.Cell>
+                                {row.href ? (
+                                  <a href={row.href}>{row.type}</a>
+                                ) : (
+                                  row.type
+                                )}
+                              </Table.Cell>
+                              <Table.Cell>
+                                {row.modifiers.map((m: any, i: number) => (
+                                  <Fragment>
+                                    {i > 0 && ", "}
+                                    <code>{m}</code>
+                                  </Fragment>
+                                ))}
+                              </Table.Cell>
+                              <Table.Cell>
+                                {row.default === "-" ? (
+                                  "-"
+                                ) : (
+                                  <code>{row.default}</code>
+                                )}
+                              </Table.Cell>
+                              <Table.Cell>{row.description}</Table.Cell>
+                            </Fragment>
+                          )}
+                        </Table.Row>
+                      ))}
+                    </Table.Body>
+                  </Table>
+                </div>
+              ) : ApiComponent ? (
+                <div class="api-table-container">
+                  <ApiComponent />
+                </div>
+              ) : null}
+            </Fragment>
+          )
+        })}
+      </section>
+    )
+  )
+}
+
+<style>
+  .api-table-container {
+    overflow-x: auto;
+    margin-block-end: var(--size-4);
+  }
+
+  .api-table-container :global(table),
+  .api-table-container :global(.api-table) {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    min-width: 700px;
+    margin: 0;
+  }
+</style>

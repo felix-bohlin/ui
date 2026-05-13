@@ -1,0 +1,56 @@
+@layer components.root {
+  :where(.toggle-group) {
+    --_bg-color: var(--surface-default);
+    --_border-color: var(--border-color);
+    --_border-radius: var(--button-border-radius);
+
+    background-color: var(--_bg-color);
+    border: 1px solid var(--_border-color);
+    border-radius: var(--_border-radius);
+    display: inline-flex;
+    inline-size: fit-content;
+    overflow: hidden;
+
+    /* Sizes */
+    &.small {
+      .toggle-button {
+        --_size: var(--field-size-small);
+      }
+    }
+
+    &.x-small {
+      .toggle-button {
+        --_size: var(--field-size-x-small);
+      }
+    }
+
+    /* Toggle button */
+    .toggle-button {
+      border: 0;
+      border-radius: 0;
+      margin: 0;
+    }
+
+    &:not(.vertical) {
+      .toggle-button {
+        border-inline-end: 1px solid var(--_border-color);
+
+        &:last-of-type {
+          border-inline-end: 0;
+        }
+      }
+    }
+
+    &.vertical {
+      flex-direction: column;
+
+      .toggle-button {
+        border-block-end: 1px solid var(--_border-color);
+
+        &:last-of-type {
+          border-block-end: 0;
+        }
+      }
+    }
+  }
+}

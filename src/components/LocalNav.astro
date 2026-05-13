@@ -1,0 +1,153 @@
+---
+import TableOfContents from "./TableOfContents.astro"
+import { Button, Drawer, DrawerFooter } from "@opui/astro"
+
+interface Props {
+  sidebarDrawerId?: string
+  showToc?: boolean
+}
+
+const { sidebarDrawerId, showToc = true } = Astro.props
+---
+
+<div class="local-nav">
+  {
+    sidebarDrawerId && (
+      <Button
+        size="small"
+        class="menu-button"
+        commandfor={sidebarDrawerId}
+        command="show-modal"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M2 5.75A.75.75 0 0 1 2.75 5h15.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 5.75m0 12a.75.75 0 0 1 .75-.75h12.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75M2.75 11a.75.75 0 0 0 0 1.5h18.5a.75.75 0 0 0 0-1.5z"
+          />
+        </svg>
+        <span>Menu</span>
+      </Button>
+    )
+  }
+  {
+    showToc && (
+      <Button
+        size="small"
+        class="toc-button"
+        commandfor="toc-dialog"
+        command="show-modal"
+      >
+        <span>On this page</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M8.47 4.22a.75.75 0 0 0 0 1.06L15.19 12l-6.72 6.72a.75.75 0 1 0 1.06 1.06l7.25-7.25a.75.75 0 0 0 0-1.06L9.53 4.22a.75.75 0 0 0-1.06 0"
+          />
+        </svg>
+      </Button>
+    )
+  }
+</div>
+
+{
+  showToc && (
+    <Drawer
+      id="toc-dialog"
+      backdrop="transparent"
+      side="inline-end"
+      closedby="any"
+    >
+      <TableOfContents slot="content" variant="drawer" />
+      <DrawerFooter slot="footer">
+        <Button size="small" commandfor="toc-dialog" command="close">
+          Close
+        </Button>
+      </DrawerFooter>
+    </Drawer>
+  )
+}
+
+<style>
+  .local-nav {
+    align-items: center;
+    backdrop-filter: blur(3px);
+    display: flex;
+    grid-column: 4 / 8;
+    margin-block-end: var(--size-4);
+    margin-inline-start: var(--size-2);
+    padding-inline: var(--size-1);
+    padding-block: var(--size-2);
+    position: relative;
+
+    @media (width < 900px) {
+      grid-column: 1 / -1;
+      margin-inline-start: 0;
+    }
+
+    &::before {
+      animation: fade-bg linear both;
+      animation-range: 0 150px;
+      animation-timeline: scroll();
+      background-color: var(--surface-elevated);
+      border: var(--border-width) solid oklch(from var(--primary) l c h / 0.2);
+      border-block-start: none;
+      border-block-end: var(--border-width) solid
+        oklch(from var(--text-primary) l c h / 0.15);
+      border-radius: 0;
+      box-shadow: var(--shadow-2);
+      content: "";
+      inset: 0;
+      opacity: 0;
+      position: absolute;
+      z-index: -1;
+
+      @media (width >= 900px) {
+        inset-block: 0;
+        inset-inline-end: 0;
+        inset-inline-start: calc(
+          -1 * (var(--_gap) + 200px + clamp(2rem, 18vw, 16rem))
+        );
+        -webkit-mask-image: linear-gradient(
+          to right,
+          transparent 0,
+          #000 clamp(2.5rem, 12vw, 7rem)
+        );
+        mask-image: linear-gradient(
+          to right,
+          transparent 0,
+          #000 clamp(2.5rem, 12vw, 7rem)
+        );
+      }
+    }
+
+    @media (width >= 1140px) {
+      display: none;
+    }
+  }
+
+  @keyframes fade-bg {
+    to {
+      opacity: 1;
+    }
+  }
+
+  .menu-button {
+    @media (width >= 900px) {
+      display: none;
+    }
+  }
+
+  .toc-button {
+    margin-inline-start: auto;
+  }
+</style>

@@ -1,0 +1,427 @@
+---
+import Default from "./Default.astro"
+import TableOfContents from "../components/TableOfContents.astro"
+import LocalNav from "../components/LocalNav.astro"
+import { Button, Drawer, DrawerFooter } from "@opui/astro"
+
+type Props = {
+  overline?: string
+  showToc?: boolean
+}
+
+const { overline, showToc = true } = Astro.props
+const sidebar = await Astro.slots.render("sidebar")
+const hasSidebarDrawer = sidebar?.includes("<nav")
+
+const preamble = Astro.slots.has("preamble")
+  ? await Astro.slots.render("preamble")
+  : null
+// If the author already supplied block-level markup (e.g. <p>, <div>, or our
+// <Conditional> which renders as <span class="conditional">), render as-is to
+// avoid invalid <p> nesting. Otherwise wrap bare inline text in a <p>.
+const preambleHasBlockMarkup = preamble
+  ? /<(p|div|ul|ol|section|figure|blockquote|span\s+class="conditional")\b/i.test(
+      preamble,
+    )
+  : false
+---
+
+<Default>
+  <Fragment slot="toolbar">
+    <LocalNav
+      sidebarDrawerId={hasSidebarDrawer ? "sidebar-drawer" : undefined}
+      showToc={showToc}
+    />
+  </Fragment>
+  <div id="document-page">
+    {
+      sidebar && (
+        <aside class="sidebar">
+          <div class="content">
+            <Fragment set:html={sidebar} />
+          </div>
+        </aside>
+      )
+    }
+
+    {
+      hasSidebarDrawer && (
+        <Drawer
+          id="sidebar-drawer"
+          backdrop="transparent"
+          side="inline-start"
+          closedby="any"
+        >
+          <Fragment slot="content" set:html={sidebar} />
+          <DrawerFooter slot="footer">
+            <Button size="small" commandfor="sidebar-drawer" command="close">
+              Close
+            </Button>
+          </DrawerFooter>
+        </Drawer>
+      )
+    }
+
+    <main id="main-content">
+      <article class="rich-text">
+        <hgroup id="main-heading">
+          {overline && <p>{overline}</p>}
+          <h1><slot name="title" /></h1>
+          {
+            preamble &&
+              (preambleHasBlockMarkup ? (
+                <Fragment set:html={preamble} />
+              ) : (
+                <p set:html={preamble} />
+              ))
+          }
+        </hgroup>
+
+        <slot />
+      </article>
+    </main>
+
+    {
+      showToc && (
+        <aside class="page-contents">
+          <TableOfContents slot="table-of-contents" />
+        </aside>
+      )
+    }
+  </div>
+</Default>
+
+<script>
+  import { isContentHeading } from "../utils/headings"
+
+  const headings = document.querySelectorAll(
+    "#main-content :is(h2, h3, h4, h5, h6)",
+  )
+  headings.forEach((heading) => {
+    if (!isContentHeading(heading)) {
+      return
+    }
+
+    if (!heading.querySelector("span")) {
+      const span = document.createElement("span")
+      while (heading.firstChild) {
+        span.appendChild(heading.firstChild)
+      }
+      heading.appendChild(span)
+    }
+
+    if (!heading.querySelector(".header-anchor") && heading.id) {
+      const anchor = document.createElement("a")
+      anchor.className = "header-anchor"
+      anchor.href = `#${heading.id}`
+      anchor.ariaLabel = `Permalink to "${heading.textContent?.trim()}"`
+      anchor.textContent = "\u200B"
+      heading.appendChild(anchor)
+    }
+  })
+</script>
+
+<style is:global>
+  #document-page {
+    display: grid;
+    grid-template-columns:
+      var(--_gap) 1fr 0 minmax(auto, 100%)
+      0 1fr var(--_gap);
+    margin: 0 auto;
+    max-inline-size: calc(var(--_content-lg) + var(--_page-gutters));
+
+    &:before {
+      background: radial-gradient(
+        100% 100% at 50% 0%,
+        var(--primary),
+        transparent
+      );
+      content: "";
+      inset: 0;
+      opacity: 0.3;
+      position: fixed;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .sidebar,
+    .page-contents {
+      display: none;
+    }
+
+    @media (width < 900px) {
+      #main-content {
+        grid-column: 3 / 7;
+        max-inline-size: 100%;
+        padding-inline: 0;
+      }
+    }
+
+    @media (width >= 900px) {
+      grid-template-columns:
+        var(--_gap) 1fr 200px minmax(auto, 100%)
+        0 1fr var(--_gap);
+
+      .sidebar {
+        display: block;
+      }
+    }
+
+    @media (width >=1140px) {
+      grid-template-columns:
+        var(--_gap) 1fr 200px minmax(auto, 100%)
+        150px 1fr var(--_gap);
+
+      .page-contents {
+        display: block;
+      }
+    }
+
+    :where(.sidebar, #sidebar-drawer) {
+      .content {
+        padding-inline: var(--size-4);
+
+        .framework-picker {
+          margin-block-end: var(--size-4);
+        }
+
+        hr {
+          margin-block: var(--size-4) var(--size-5);
+        }
+
+        nav {
+          font-weight: 500;
+
+          h3 {
+            font-size: var(--font-size-05);
+            margin-block-end: 0.5em;
+          }
+
+          menu {
+            font-size: var(--font-size-05);
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+              a {
+                color: var(--text-primary);
+                display: flex;
+                padding-block: var(--size-1);
+                text-decoration: none;
+
+                &:not([aria-current="page"]) {
+                  color: oklch(from currentColor l c h / 75%);
+                }
+
+                &:hover {
+                  color: var(--primary);
+                }
+
+                &[aria-current="page"] {
+                  color: var(--primary);
+                  font-weight: 700;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .sidebar:not(#sidebar-drawer) {
+      /* Scroll-driven gradient shadows */
+      scroll-timeline: --sidebar-scroll y;
+
+      /* Gradient shadow pseudo-elements */
+      &::before,
+      &::after {
+        block-size: var(--size-4);
+        content: "";
+        display: block;
+        inset-inline: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: sticky;
+        z-index: 2;
+        /* Use primary color for gradient */
+      }
+
+      &::before {
+        inset-block-start: 0;
+        background: radial-gradient(
+          farthest-side at 50% 0%,
+          color-mix(
+            in oklch,
+            var(--primary) 30%,
+            oklch(from var(--text-primary) l c h / 0.2)
+          ),
+          transparent
+        );
+        animation-name: sidebar-shadow-reveal;
+        animation-timeline: --sidebar-scroll;
+        animation-fill-mode: both;
+        animation-range: 0 150px;
+      }
+
+      &::after {
+        inset-block-end: 0;
+        background: radial-gradient(
+          farthest-side at 50% 100%,
+          color-mix(
+            in oklch,
+            var(--primary) 30%,
+            oklch(from var(--text-primary) l c h / 0.2)
+          ),
+          transparent
+        );
+        animation-name: sidebar-shadow-reveal;
+        animation-timeline: --sidebar-scroll;
+        animation-fill-mode: both;
+        animation-direction: reverse;
+        animation-range: calc(100% - 150px) 100%;
+      }
+
+      animation-name: sidebar-detect-scroll;
+      animation-timeline: --sidebar-scroll;
+      animation-fill-mode: none;
+
+      &::before,
+      &::after {
+        --visibility-if-can-scroll: var(--can-scroll) visible;
+        --visibility-if-cant-scroll: hidden;
+        visibility: var(
+          --visibility-if-can-scroll,
+          var(--visibility-if-cant-scroll)
+        );
+      }
+
+      .content {
+        padding-block: 0;
+      }
+    }
+
+    #sidebar-drawer {
+      .framework-picker,
+      hr {
+        display: none;
+      }
+    }
+
+    .sidebar {
+      align-self: start;
+      background-color: var(--surface-filled);
+      border-radius: var(--border-radius);
+      grid-column: 3;
+      grid-row: 2;
+      inset-block-start: calc(var(--size-10) + var(--_gap));
+      max-block-size: calc(100dvb - var(--size-10) - var(--_page-gutters));
+      overflow-y: auto;
+      position: sticky;
+
+      .content {
+        padding: var(--_gap);
+      }
+
+      @supports (corner-shape: squircle) {
+        border-radius: var(--radius-4);
+        corner-shape: squircle;
+      }
+
+      @media (width >= 900px) and (width < 1140px) {
+        inset-block-start: calc(var(--size-10) + var(--size-8) + var(--_gap));
+        max-block-size: calc(
+          100dvb - var(--size-10) - var(--size-8) - var(--_page-gutters)
+        );
+      }
+    }
+
+    #main-heading {
+      margin-block-end: var(--size-8);
+      max-inline-size: var(--_content-text);
+    }
+
+    #main-content {
+      grid-column: 4;
+      grid-row: 2;
+      max-inline-size: var(--_content-document);
+      min-inline-size: 0;
+      padding: var(--_gap);
+
+      & > .rich-text section:last-of-type > div:last-of-type {
+        margin-block-end: 0;
+      }
+
+      @scope (&) to (.example-container) {
+        :where(h2, h3, h4, h5, h6) {
+          display: flex;
+          align-items: center;
+          gap: var(--size-2);
+
+          .header-anchor {
+            color: var(--primary);
+            display: flex;
+            font-size: 0.8em;
+            opacity: 0;
+            text-decoration: none;
+            transition: opacity 0.2s ease-in-out;
+
+            &::after {
+              content: "#";
+            }
+
+            &:focus-visible {
+              opacity: 1;
+            }
+          }
+
+          &:hover .header-anchor {
+            opacity: 1;
+          }
+        }
+
+        @media (width > 1200px) {
+          :where(h2) {
+            container-name: sticky-heading;
+            container-type: scroll-state;
+            inset-block-start: var(--size-4);
+            position: sticky;
+            z-index: 22;
+          }
+        }
+      }
+    }
+
+    .page-contents {
+      align-self: start;
+      grid-column: 5;
+      grid-row: 2;
+      inset-block-start: var(--size-10);
+      max-block-size: calc(100dvb - var(--size-10));
+      overflow-y: auto;
+      padding: var(--_gap) 0 var(--_gap) var(--_gap);
+      position: sticky;
+
+      @media (width >= 900px) and (width < 1140px) {
+        inset-block-start: calc(var(--size-10) + var(--size-8));
+        max-block-size: calc(100dvb - var(--size-10) - var(--size-8));
+      }
+    }
+  }
+
+  @keyframes sidebar-shadow-reveal {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes sidebar-detect-scroll {
+    from,
+    to {
+      --can-scroll: ;
+    }
+  }
+</style>

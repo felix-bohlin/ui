@@ -1,0 +1,72 @@
+---
+import CodeGroup from "./CodeGroup.astro"
+import { components } from "../utils/components"
+
+export type Tab = {
+  title: string
+  code?: string
+  lang?: string
+  isDependency?: boolean
+  seeAlso?: boolean
+}
+
+type Props = {
+  tabs: Tab[]
+}
+
+const { tabs } = Astro.props
+const { link } = Astro.locals
+
+const dependencies = tabs
+  .filter((tab) => tab.isDependency)
+  .map((tab) => {
+    const slug = tab.title.replace(".css", "")
+    return components.find((c) => c.href.endsWith(slug))
+  })
+  .filter((c): c is (typeof components)[number] => c != null)
+
+const seeAlsoLinks = tabs
+  .filter((tab) => tab.seeAlso)
+  .map((tab) => {
+    const slug = tab.title.replace(".css", "")
+    return components.find((c) => c.href.endsWith(slug))
+  })
+  .filter(Boolean) as (typeof components)[number][]
+---
+
+<section>
+  <h2 id="installation">Installation</h2>
+  <slot />
+
+  {
+    dependencies.length > 0 && (
+      <>
+        <h3 id="dependencies">Dependencies</h3>
+        <ul>
+          {dependencies.map((dep) => (
+            <li>
+              <a href={link(dep.href)}>{dep.name}</a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+
+  {
+    seeAlsoLinks.length > 0 && (
+      <>
+        <h3 id="see-also">See also</h3>
+        <ul>
+          {seeAlsoLinks.map((item) => (
+            <li>
+              <a href={link(item.href)}>{item.name}</a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+
+  <CodeGroup tabs={tabs.filter((tab) => tab.code)} />
+</section>

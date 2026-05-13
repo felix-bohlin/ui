@@ -1,0 +1,147 @@
+---
+type Props = {
+  selector?: string
+  variant?: "default" | "drawer"
+}
+
+const { selector = "#main-content", variant = "default" } = Astro.props
+---
+
+<nav
+  data-toc-selector={selector}
+  class:list={{ "toc-drawer": variant === "drawer" }}
+>
+  <h3>On this page</h3>
+  <menu></menu>
+</nav>
+
+<script>
+  import { getHeadings } from "../utils/headings"
+
+  function initTableOfContents() {
+    const tocNavs = document.querySelectorAll<HTMLElement>(
+      "nav[data-toc-selector]",
+    )
+
+    tocNavs.forEach((tocNav) => {
+      const selector = tocNav.dataset.tocSelector
+      if (!selector) return
+
+      const container = document.querySelector(selector)
+      const rootMenu = tocNav.querySelector("menu")
+      if (!container || !rootMenu) return
+
+      const headings = getHeadings(container, "h2[id], h3[id], h4[id]")
+
+      // Clear and add Overview
+      rootMenu.innerHTML = ""
+      const overviewLi = document.createElement("li")
+      const overviewA = document.createElement("a")
+      overviewA.href = selector.startsWith("#") ? selector : "#main-content"
+      overviewA.textContent = "Overview"
+      overviewA.title = "Overview"
+      overviewLi.appendChild(overviewA)
+      rootMenu.appendChild(overviewLi)
+
+      const stack = [{ ul: rootMenu, level: 1 }]
+
+      headings.forEach((heading) => {
+        const level = parseInt(heading.tagName[1])
+
+        while (stack.length > 1 && stack[stack.length - 1].level >= level) {
+          stack.pop()
+        }
+
+        const currentUl = stack[stack.length - 1].ul
+        const li = document.createElement("li")
+        const a = document.createElement("a")
+        const nestedUl = document.createElement("ul")
+
+        a.href = `#${heading.id}`
+        a.textContent = heading.textContent
+        a.title = heading.textContent?.trim() || ""
+
+        li.append(a, nestedUl)
+        currentUl.appendChild(li)
+        stack.push({ ul: nestedUl, level })
+      })
+
+      // Remove empty nested uls
+      tocNav.querySelectorAll("ul:empty").forEach((ul) => ul.remove())
+    })
+  }
+
+  initTableOfContents()
+  document.addEventListener("astro:after-swap", initTableOfContents)
+</script>
+
+<style>
+  nav {
+    scroll-target-group: auto;
+    text-align: start;
+
+    h3 {
+      font-size: var(--font-size-05);
+      margin-block-end: 0.5em;
+      text-align: start;
+    }
+
+    menu {
+      font-size: var(--font-size-05);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+</style>
+
+<style is:global>
+  [data-toc-selector] {
+    ul {
+      font-size: var(--font-size-0);
+      list-style-type: none;
+      margin: 0;
+      margin-inline-start: var(--size-3);
+      padding: 0;
+    }
+
+    a {
+      display: block;
+      overflow: hidden;
+      padding-block: var(--size-1);
+      position: relative;
+      text-decoration: none;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      &:before {
+        background-color: transparent;
+        block-size: 80%;
+        border-radius: var(--radius-2);
+        content: "";
+        inline-size: 2px;
+        inset-block-start: 10%;
+        inset-inline-start: calc(-1 * var(--size-3));
+        position: absolute;
+        transition: background-color 0.3s;
+      }
+
+      &:not([aria-current="page"]) {
+        color: oklch(from currentColor l c h / 75%);
+      }
+
+      &:hover {
+        color: var(--primary);
+      }
+
+      &:target-current {
+        color: var(--primary);
+        font-weight: 700;
+
+        &:before {
+          background-color: currentColor;
+        }
+      }
+    }
+  }
+</style>

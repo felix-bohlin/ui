@@ -1,0 +1,128 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import RadioCSS from "@opui/css/components/radio.css?raw"
+import FormCSS from "@opui/css/components/form.css?raw"
+
+import FieldGroupAPIAstro from "../../component-api/field-group/Astro.astro"
+import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
+
+import Conditional from "../../components/Conditional.astro"
+---
+
+<Component
+  slug="radio"
+  browserSupport={["has"]}
+  apis={{
+    astro: FieldGroupAPIAstro,
+    html: FieldGroupAPIHTML,
+  }}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Radio",
+      type: "component",
+    },
+    {
+      path: "packages/opui/components/FieldGroup/FieldGroup.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/radio.astro", type: "docs" },
+    { path: "src/component-examples/radio", type: "docs" },
+    {
+      path: "packages/opui/css/components/radio.css",
+      type: "css",
+    },
+    { path: "src/component-api/field-group", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "radio.css", code: RadioCSS, lang: "css" },
+    { title: "form.css", code: FormCSS, lang: "css", seeAlso: true },
+  ]}
+>
+  <Fragment slot="title">Radio</Fragment>
+  <Fragment slot="preamble">
+    Use field groups to group related radio buttons. See also: <DocLink
+      href="/components/form"
+      class="link">Form documentation</DocLink
+    >.
+  </Fragment>
+
+  <Conditional as="p">
+    <Fragment slot="astro">
+      The <code>name</code> prop will get passed down to each radio button in the
+      group.
+    </Fragment>
+    <Fragment slot="html">
+      Give every <code>&lt;input type="radio"&gt;</code> in the group the same
+      <code>name</code> attribute. Browsers use that shared name to enforce mutual
+      exclusivity within the group.
+    </Fragment>
+  </Conditional>
+
+  <AutoExample name="FieldGroup" centered column />
+
+  <section>
+    <h2 id="direction">Direction</h2>
+
+    <AutoExample name="FieldGroupDirection" row />
+  </section>
+
+  <section>
+    <h2 id="field-description">Field description</h2>
+    <p>Can be placed above and below the fields.</p>
+
+    <AutoExample name="FieldGroupFieldDescription" column centered spacious />
+  </section>
+
+  <section>
+    <h2 id="disabled">Disabled</h2>
+    <p>
+      Attach the <code>disabled</code> attribute to the <code
+        >&lt;fieldset&gt;</code
+      > element.
+    </p>
+
+    <AutoExample name="FieldGroupDisabled" row />
+  </section>
+
+  <section>
+    <h2 id="required">Required</h2>
+    <p>
+      Attach the <code>required</code> attribute to at least one of your <code
+        >&lt;input&gt;</code
+      > elements.
+    </p>
+
+    <AutoExample name="FieldGroupRequired" row />
+  </section>
+
+  <section>
+    <h2 id="validation">Validation</h2>
+    <Conditional>
+      <p slot="html">
+        Attach the <code>data-invalid</code> attribute to your <code
+          >fieldset.fieldset</code
+        > element
+      </p>
+      <p slot="astro">
+        Attach the <code>data-invalid</code> attribute to your <code
+          >Fieldset</code
+        > component.
+      </p>
+    </Conditional>
+
+    <AutoExample name="FieldGroupValidation" row />
+  </section>
+</Component>
+
+<style is:global>
+  .example-row {
+    display: flex;
+    gap: var(--size-3);
+    align-items: center;
+  }
+  .example-row.spacious {
+    gap: var(--size-6);
+  }
+</style>

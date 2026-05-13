@@ -1,0 +1,302 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import { Callout as UICallout, DescriptionList, Table } from "@opui/astro"
+
+import DialogCSS from "@opui/css/components/dialog.css?raw"
+import CardCSS from "@opui/css/components/card.css?raw"
+
+import ExampleAnatomy from "../../component-examples/dialog/Anatomy.astro"
+
+import Conditional from "../../components/Conditional.astro"
+---
+
+<Component
+  slug="dialog"
+  browserSupport={[
+    "container-style-queries",
+    "dialog-closedby",
+    "has",
+    "invoker-commands",
+    "overlay",
+    "starting-style",
+    "transition-behavior",
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Dialog/Dialog.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/dialog.astro", type: "docs" },
+    { path: "src/component-examples/dialog", type: "docs" },
+    {
+      path: "packages/opui/css/components/dialog.css",
+      type: "css",
+    },
+    { path: "src/component-api/dialog", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "dialog.css", code: DialogCSS, lang: "css" },
+    { title: "card.css", code: CardCSS, lang: "css", isDependency: true },
+  ]}
+>
+  <Fragment slot="title">Dialog</Fragment>
+  <Fragment slot="preamble">
+    A minimally styled window overlaid on the main content. By design the Dialog
+    is minimal with zero content to allow for both modal and non-modal use.
+  </Fragment>
+  <div class="not-rich-text">
+    <UICallout>
+      <Fragment slot="title">Modal vs Dialog</Fragment>
+      <p>
+        The term "modal" and "dialog" are often used interchangeably, but
+        there's an important difference. A modal window describes parts of a UI
+        that <a href="#modal" class="link">blocks user interaction</a>. A dialog <a
+          href="#non-modal"
+          class="link">doesn't have to be blocking</a
+        >.
+      </p>
+    </UICallout>
+  </div>
+
+  <section>
+    <h2 id="usage">Usage</h2>
+
+    <h3 id="non-modal">Non-modal</h3>
+    <ul>
+      <li>
+        <DocLink href="/components/toast" class="link">Toast</DocLink>:
+        informative but non-interruptive
+      </li>
+    </ul>
+
+    <h3 id="modal">Modal</h3>
+    <div class="not-rich-text">
+      <UICallout severity="info">
+        <Fragment slot="title">No JavaScript required</Fragment>
+        <p>
+          In browsers that support <a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
+            class="link">Invoker Commands</a
+          > you can toggle a <code>&lt;dialog&gt;</code> without JavaScript by using
+          the <code>commandfor</code> and <code>command</code> attributes.
+        </p>
+      </UICallout>
+    </div>
+
+    <AutoExample name="Usage" row />
+  </section>
+
+  <section>
+    <h2 id="how-to-close">How to close a dialog</h2>
+    <Conditional>
+      <Fragment slot="html">
+        <p>
+          You can use it like this: <code>&lt;dialog closedby=""&gt;</code> and give
+          it the following values:
+        </p>
+        <Table style="table-layout: fixed">
+          <Table.ColumnGroup>
+            <Table.Column width="30%" />
+            <Table.Column />
+          </Table.ColumnGroup>
+          <Table.Head>
+            <Table.Row>
+              <Table.HeaderCell>Attr value</Table.HeaderCell>
+              <Table.HeaderCell>Description</Table.HeaderCell>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell><code>closedby="any"</code></Table.Cell>
+              <Table.Cell
+                >Click anywhere outside of the dialog to close it.</Table.Cell
+              >
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
+              <Table.Cell>
+                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
+                button on mobile, and whatever dismiss action assistive tools use.
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell><code>closedby="none"</code></Table.Cell>
+              <Table.Cell
+                >You have to handroll a closing solution yourself.</Table.Cell
+              >
+            </Table.Row>
+          </Table.Body>
+        </Table>
+      </Fragment>
+      <Fragment slot="astro">
+        <p>
+          Use <code>closedby</code> prop to control the closing behavior.
+        </p>
+        <Table style="table-layout: fixed">
+          <Table.ColumnGroup>
+            <Table.Column width="30%" />
+            <Table.Column />
+          </Table.ColumnGroup>
+          <Table.Head>
+            <Table.Row>
+              <Table.HeaderCell>Prop</Table.HeaderCell>
+              <Table.HeaderCell>Description</Table.HeaderCell>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell><code>closedby="any"</code></Table.Cell>
+              <Table.Cell
+                >Click anywhere outside of the dialog to close it.</Table.Cell
+              >
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
+              <Table.Cell>
+                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
+                button on mobile, and whatever dismiss action assistive tools use.
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell><code>closedby="none"</code></Table.Cell>
+              <Table.Cell
+                >You have to handroll a closing solution yourself.</Table.Cell
+              >
+            </Table.Row>
+          </Table.Body>
+        </Table>
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="CloseBehaviors" row />
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The <code>tabindex</code> attribute must <strong>not</strong> be used on the
+        <code>&lt;dialog&gt;</code> element.
+      </li>
+    </ul>
+
+    <h3 id="role-attributes">Role & attributes</h3>
+    <Table style="table-layout: fixed">
+      <Table.ColumnGroup>
+        <Table.Column width="30%" />
+        <Table.Column />
+      </Table.ColumnGroup>
+      <Table.Head>
+        <Table.Row>
+          <Table.HeaderCell>Role/attribute</Table.HeaderCell>
+          <Table.HeaderCell>Usage</Table.HeaderCell>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        <Table.Row>
+          <Table.Cell><code>role="dialog"</code></Table.Cell>
+          <Table.Cell
+            >Identifies the element that serves as the dialog container.</Table.Cell
+          >
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell><code>role="alertdialog"</code></Table.Cell>
+          <Table.Cell>
+            If the dialog is a confirmation window communicating an important
+            message that requires a confirmation or other user response.
+          </Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell><code>aria-labelledby="IDREF"</code></Table.Cell>
+          <Table.Cell>
+            Gives the dialog an accessible name by referring to the element that
+            provides the dialog title.
+          </Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell><code>aria-describedby="IDREF"</code></Table.Cell>
+          <Table.Cell>
+            Gives the dialog an accessible description by referring to the
+            dialog content that describes the primary message or purpose of the
+            dialog.
+          </Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell><code>aria-modal="true"</code></Table.Cell>
+          <Table.Cell>
+            Tells assistive technologies that the windows underneath the current
+            dialog are not available for interaction (inert).
+          </Table.Cell>
+        </Table.Row>
+      </Table.Body>
+    </Table>
+
+    <h3 id="keyboard-support">Keyboard support</h3>
+    <div class="not-rich-text">
+      <Table style="table-layout: fixed">
+        <Table.ColumnGroup>
+          <Table.Column width="30%" />
+          <Table.Column />
+        </Table.ColumnGroup>
+        <Table.Head>
+          <Table.Row>
+            <Table.HeaderCell>Key</Table.HeaderCell>
+            <Table.HeaderCell>Function</Table.HeaderCell>
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell><kbd>Tab</kbd></Table.Cell>
+            <Table.Cell>
+              <ul>
+                <li>
+                  Moves focus to next focusable element inside the dialog.
+                </li>
+                <li>
+                  When focus is on the last focusable element in the dialog,
+                  moves focus to the first focusable element in the dialog.
+                </li>
+              </ul>
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell><kbd>Shift + Tab</kbd></Table.Cell>
+            <Table.Cell>
+              <ul>
+                <li>
+                  Moves focus to previous focusable element inside the dialog.
+                </li>
+                <li>
+                  When focus is on the first focusable element in the dialog,
+                  moves focus to the last focusable element in the dialog.
+                </li>
+              </ul>
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell><kbd>Esc</kbd></Table.Cell>
+            <Table.Cell>Closes the dialog.</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
+    </div>
+
+    <p>
+      Source: <a
+        href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/#rps_label"
+        class="link">w3.org</a
+      >, <a
+        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#accessibility"
+        class="link">MDN</a
+      >
+    </p>
+  </Fragment>
+</Component>
+
+<style is:global>
+  .anatomy {
+    outline: var(--_anatomy-border-gray);
+    outline-offset: -2px;
+  }
+</style>

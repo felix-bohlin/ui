@@ -1,0 +1,52 @@
+---
+import { Checkbox } from "@opui/astro"
+import { FieldDescription } from "@opui/astro"
+import { FieldGroup } from "@opui/astro"
+import { FieldLegend } from "@opui/astro"
+import { FieldSet } from "@opui/astro"
+import { Form } from "@opui/astro"
+import { Radio } from "@opui/astro"
+---
+
+<Form>
+  <FieldSet>
+    <FieldLegend>Choose your favorite Radiohead album</FieldLegend>
+    <FieldDescription>There are no wrong answers.</FieldDescription>
+    <FieldGroup name="albums">
+      <Radio value="ok-computer">OK Computer</Radio>
+      <Radio value="kid-a">Kid A</Radio>
+      <Radio value="in-rainbows">In Rainbows</Radio>
+      <Radio value="king-of-limbs">The King of Limbs</Radio>
+    </FieldGroup>
+  </FieldSet>
+
+  <FieldSet>
+    <FieldLegend>Which side projects do you follow?</FieldLegend>
+    <FieldDescription>Some are better than others.</FieldDescription>
+    <FieldGroup name="projects">
+      <Checkbox value="the-smile">
+        The Smile
+        <Fragment slot="end-text"
+          >Thom Yorke, Jonny Greenwood, Tom Skinner</Fragment
+        >
+      </Checkbox>
+      <Checkbox value="atoms-for-peace">
+        Atoms for Peace
+        <Fragment slot="end-text">Thom Yorke, Flea, Nigel Godrich</Fragment>
+      </Checkbox>
+      <Checkbox value="eob">
+        EOB
+        <Fragment slot="end-text">Ed O'Brien solo</Fragment>
+      </Checkbox>
+      <Checkbox value="jonny-scores">
+        Film Scores
+        <Fragment slot="end-text">Film compositions by Jonny Greenwood</Fragment
+        >
+      </Checkbox>
+      <Checkbox value="selway-solo">
+        Philip Selway
+        <Fragment slot="end-text">Philip Selway solo albums</Fragment>
+      </Checkbox>
+    </FieldGroup>
+  </FieldSet>
+</Form>

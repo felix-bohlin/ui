@@ -1,0 +1,47 @@
+---
+type Props = {
+  class?: string
+  name?: string
+  open?: boolean
+  tabId?: string
+  panelId?: string
+  [key: string]: any
+}
+
+const { $id } = Astro.locals
+const {
+  class: className,
+  name,
+  open,
+  tabId = $id("tab"),
+  panelId = $id("panel"),
+  ...rest
+} = Astro.props
+
+const tabsGroupName = name || Astro.locals.tabsGroupName
+const originalGroupName = Astro.locals.tabsGroupName
+Astro.locals.tabsGroupName = tabsGroupName
+
+const originalTabId = Astro.locals.currentTabId
+const originalPanelId = Astro.locals.currentPanelId
+
+Astro.locals.currentTabId = tabId
+Astro.locals.currentPanelId = panelId
+
+const html = await Astro.slots.render("default")
+
+Astro.locals.currentTabId = originalTabId
+Astro.locals.currentPanelId = originalPanelId
+Astro.locals.tabsGroupName = originalGroupName
+---
+
+<input
+  aria-controls={panelId}
+  checked={open}
+  class:list={["tab-input", className]}
+  id={tabId}
+  name={tabsGroupName}
+  type="radio"
+  {...rest}
+/>
+<Fragment set:html={html} />

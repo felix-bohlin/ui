@@ -1,0 +1,19 @@
+---
+import { List } from "@opui/astro"
+import { ListItem } from "@opui/astro"
+---
+
+<List>
+  <ListItem headline="Headline">
+    <div slot="end">30kB</div>
+  </ListItem>
+  <ListItem headline="Headline" description="Supporting text">
+    <div slot="end">99%</div>
+  </ListItem>
+  <ListItem headline="Headline">
+    <p slot="description">
+      Supporting text that truly is quite long enough to fill up multiple lines.
+    </p>
+    <div slot="end">100+</div>
+  </ListItem>
+</List>

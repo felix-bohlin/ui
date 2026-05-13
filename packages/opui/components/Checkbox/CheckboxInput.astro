@@ -1,0 +1,32 @@
+---
+type Props = {
+  [key: string]: any
+  checked?: boolean
+  disabled?: boolean
+  id?: string
+  indeterminate?: boolean
+  name?: string
+  required?: boolean
+  value?: string
+}
+
+const { checked, disabled, id, indeterminate, name, required, value, ...rest } =
+  Astro.props
+---
+
+<input
+  type="checkbox"
+  data-indeterminate={indeterminate || undefined}
+  {checked}
+  {disabled}
+  {id}
+  {name}
+  {required}
+  {value}
+  {...rest}
+/>
+
+<script>
+  import { initCheckbox } from "../../css/js/checkbox.js"
+  initCheckbox()
+</script>

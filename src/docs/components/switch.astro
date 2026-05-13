@@ -1,0 +1,336 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example"
+import AutoExample from "../../components/AutoExample.astro"
+import SwitchCSS from "@opui/css/components/switch.css?raw"
+import FormCSS from "@opui/css/components/form.css?raw"
+
+import SwitchAPIAstro from "../../component-api/switch/Astro.astro"
+import SwitchAPIHTML from "../../component-api/switch/HTML.astro"
+import FieldGroupAPIAstro from "../../component-api/field-group/Astro.astro"
+import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
+
+import ExampleAnatomy from "../../component-examples/switch/Anatomy.astro"
+import Conditional from "../../components/Conditional.astro"
+---
+
+<Component
+  slug="switch"
+  browserSupport={["has", "light-dark"]}
+  apis={[
+    {
+      title: "Switch API",
+      astro: SwitchAPIAstro,
+      html: SwitchAPIHTML,
+    },
+    {
+      title: "Field group API",
+      astro: FieldGroupAPIAstro,
+      html: FieldGroupAPIHTML,
+    },
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Switch",
+      type: "component",
+    },
+    {
+      path: "packages/opui/components/FieldGroup/FieldGroup.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/switch.astro", type: "docs" },
+    { path: "src/component-examples/switch", type: "docs" },
+    {
+      path: "packages/opui/css/components/switch.css",
+      type: "css",
+    },
+    { path: "src/component-api/switch", type: "api" },
+    { path: "src/component-api/field-group", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "switch.css", code: SwitchCSS, lang: "css" },
+    { title: "form.css", code: FormCSS, lang: "css", seeAlso: true },
+  ]}
+>
+  <Fragment slot="title">Switch</Fragment>
+  <Fragment slot="preamble">
+    See also: <a href="#field-group" class="link">Switch field group</a>.
+  </Fragment>
+
+  <!--
+  Keep a look out for the new HTML switch control.
+  It's not mature yet to even try to implement here,
+  but will be in time.
+  https://webkit.org/blog/15054/an-html-switch-control/
+   -->
+
+  <p>
+    All switches should have an accessible name. Either provide a visible or
+    visually-hidden label inside the component, or set <code>aria-label</code> on
+    the input. Both approaches are fine.
+  </p>
+
+  <AutoExample name="Variants" row />
+
+  <section>
+    <h2 id="visible-label">Visible label</h2>
+    <p>
+      Render the label text inside an element with a <code>.label</code> class. Also,
+      don't miss the info on label <a href="#accessibility" class="link"
+        >accessibility</a
+      >.
+    </p>
+
+    <AutoExample name="VisibleLabel" column centered />
+
+    <h3 id="label-position">Label position</h3>
+    <AutoExample name="LabelPosition" row spacious />
+
+    <h3 id="end-text">End text</h3>
+    <AutoExample name="SupportingText" row spacious />
+
+    <h3 id="validation">Validation</h3>
+    <ul>
+      <li>
+        Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to toggle
+        required styles
+      </li>
+      <li>
+        The <code>data-invalid</code> attribute toggles the error styles. Make use
+        of the end text to give extra feedback on the error.
+      </li>
+    </ul>
+
+    <AutoExample name="Validation" column centered spacious />
+  </section>
+
+  <section>
+    <h2 id="spread">Spread</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>spread</code> prop to push the label to the left and the switch
+        to the right. This is useful for full-width items like lists and menus.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.spread</code> class to the <code
+          >&lt;label.switch&gt;</code
+        >
+        to push the label to the left and the switch to the right. This is useful
+        for full-width items like lists and menus.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Spread" column />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set the <code>small</code> prop for a smaller Switch variant.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.small</code> class on the <code
+          >&lt;label.switch&gt;</code
+        >
+        for a smaller Switch variant.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Sizes" column centered spacious />
+  </section>
+
+  <section>
+    <h2 id="icons">Icons</h2>
+    <AutoExample name="Icons" column centered />
+  </section>
+
+  <section>
+    <h2 id="field-group">Field group</h2>
+    <p>Use field groups to group related switches.</p>
+    <Conditional>
+      <p slot="astro">
+        The <code>name</code> prop will get passed down to each switch in the group.
+      </p>
+      <p slot="html">
+        Give every <code>&lt;input&gt;</code> in the group the same <code
+          >name</code
+        >
+        attribute so they're submitted together.
+      </p>
+    </Conditional>
+    <p>
+      See also: <DocLink href="/components/form" class="link"
+        >Form documentation</DocLink
+      >.
+    </p>
+
+    <AutoExample name="FieldGroup" centered column />
+
+    <h3 id="field-group-direction">Direction</h3>
+    <AutoExample name="FieldGroupDirection" row />
+
+    <h3 id="field-group-field-description">Field description</h3>
+    <p>Can be placed above and below the fields.</p>
+    <AutoExample name="FieldGroupFieldDescription" column centered spacious />
+
+    <h3 id="field-group-disabled">Disabled</h3>
+    <p>
+      Attach the <code>disabled</code> attribute to the <code
+        >&lt;fieldset&gt;</code
+      > element.
+    </p>
+    <AutoExample name="FieldGroupDisabled" row />
+
+    <h3 id="field-group-required">Required</h3>
+    <p>
+      Attach the <code>required</code> attribute to at least one of your <code
+        >&lt;input&gt;</code
+      > elements.
+    </p>
+    <AutoExample name="FieldGroupRequired" row />
+
+    <h3 id="field-group-validation">Validation</h3>
+    <Conditional>
+      <p slot="html">
+        Attach the <code>data-invalid</code> attribute to your <code
+          >fieldset.fieldset</code
+        > element.
+      </p>
+      <p slot="astro">
+        Attach the <code>data-invalid</code> attribute to your <code
+          >Fieldset</code
+        > component.
+      </p>
+    </Conditional>
+    <AutoExample name="FieldGroupValidation" row />
+  </section>
+
+  <Fragment slot="accessibility">
+    <h3 id="role-attributes">Role & attributes</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Role/attribute</th>
+          <th>Usage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>role="switch"</code></td>
+          <td>
+            Required on the <code>input</code> element. Identifies the element that
+            serves as a switch.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 id="labels">Labels</h3>
+    <p>
+      Accessible switches should have a label. The first two approaches are
+      equally ok:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Approach</th>
+          <th>Usage in Switch component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Provide a label inside the element</td>
+          <td
+            >Use a <code>.label</code> child for a <a
+              href="#visible-label"
+              class="link">visible label</a
+            >, or a <code>.sr-only</code> child to hide it visually while keeping
+            it accessible. In Astro, set the <code>hideLabel</code> prop to render
+            the slot content as <code>.sr-only</code>.</td
+          >
+        </tr>
+        <tr>
+          <td>Add an <code>aria-label</code> on the input</td>
+          <td
+            >Used when there's no visible label inside the component (e.g.
+            icon-only switches). In Astro, pass <code>aria-label</code> as a prop
+            on the component and it will land on the input.</td
+          >
+        </tr>
+        <tr>
+          <td>
+            Have a visible label that you reference with <code
+              >aria-labelledby</code
+            >
+          </td>
+          <td>Not used.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 id="keyboard-support">Keyboard support</h3>
+    <div class="not-rich-text">
+      <table>
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Function</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><kbd>Space</kbd></td>
+            <td>When Switch is focused it changes its state.</td>
+          </tr>
+          <tr>
+            <td><kbd>Enter</kbd></td>
+            <td>(Optional) When Switch is focused it changes its state.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <ol>
+      <li>Container: <code>label</code> element</li>
+      <li>Switch: <code>& input type="checkbox" role="switch"</code></li>
+      <li>Label (optional): & <code>.label</code></li>
+      <li>End text (optional): <code>.end-text</code></li>
+    </ol>
+
+    <Example row>
+      <Example.Preview slot="preview-astro" code={ExampleAnatomy} />
+    </Example>
+  </Fragment>
+</Component>
+
+<style is:global>
+  .example-row {
+    display: flex;
+    gap: var(--size-3);
+    align-items: center;
+  }
+  .example-row.spacious {
+    gap: var(--size-6);
+  }
+
+  .switch.anatomy {
+    outline: var(--_anatomy-border-gray);
+    outline-offset: 8px;
+
+    .label,
+    .end-text,
+    input {
+      outline: var(--_anatomy-border-red);
+      outline-offset: -3px;
+    }
+
+    input {
+      border-radius: var(--radius-round);
+      outline-offset: -2px;
+    }
+  }
+</style>

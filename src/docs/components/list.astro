@@ -1,0 +1,398 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example"
+import AutoExample from "../../components/AutoExample.astro"
+import { Callout, List as UIList, ListItem, Switch } from "@opui/astro"
+
+import ListCSS from "@opui/css/components/list.css?raw"
+import ExampleDefaultHTML from "../../component-examples/list/Default.html?raw"
+
+import ListDense from "../../component-examples/ListDense.astro"
+import Conditional from "../../components/Conditional.astro"
+---
+
+<Component
+  slug="list"
+  browserSupport={["has", "light-dark", "relative-color"]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/List/List.astro",
+      type: "component",
+    },
+    {
+      path: "packages/opui/components/ListItem/ListItem.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/list.astro", type: "docs" },
+    { path: "src/component-examples/list", type: "docs" },
+    {
+      path: "packages/opui/css/components/list.css",
+      type: "css",
+    },
+    { path: "src/component-api/list", type: "api" },
+  ]}
+  installationTabs={[{ title: "list.css", code: ListCSS, lang: "css" }]}
+>
+  <Fragment slot="title">List</Fragment>
+  <Fragment slot="preamble">
+    Lists are continuous, vertical indexes of text and images and video.
+    <ul>
+      <li>Use lists to help users find a specific item and act on it</li>
+      <li>Order list items in logical ways (like alphabetical or numerical)</li>
+      <li>Three sizes: one-line, two-line, and three-line</li>
+      <li>Keep items short and easy to scan</li>
+      <li>Show icons, text, and actions in a consistent format</li>
+    </ul>
+  </Fragment>
+
+  <AutoExample name="Default" />
+
+  <section>
+    <h2 id="configurations">Configurations</h2>
+    <p>A List item is split up in three parts:</p>
+    <Conditional>
+      <ul slot="astro">
+        <li>
+          <a href="#text" class="link"><code>text</code> slot</a>: main content
+        </li>
+        <li>
+          <a href="#start-items" class="link"><code>start</code> slot</a> (optional):
+          items before the main content
+        </li>
+        <li>
+          <a href="#end-items" class="link"><code>end</code> slot</a> (optional):
+          items after the main content
+        </li>
+      </ul>
+      <ul slot="html">
+        <li>
+          <a href="#text" class="link"><code>.text</code></a>: main content
+        </li>
+        <li>
+          <a href="#start-items" class="link"><code>.start</code></a> (optional):
+          items before the main content
+        </li>
+        <li>
+          <a href="#end-items" class="link"><code>.end</code></a> (optional): items
+          after the main content
+        </li>
+      </ul>
+    </Conditional>
+
+    <div class="not-rich-text">
+      <Callout>
+        <Fragment slot="title">With great power...</Fragment>
+        <p>
+          The List component is <em>extremely</em> flexible and versatile. Be careful
+          if you start creating new configurations on your own. Maybe an existing
+          one can solve your problem, but in another way?
+        </p>
+      </Callout>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="variants">Variants</h2>
+    <Conditional>
+      <p slot="astro">
+        Change background color with the <code>variant</code> prop.
+      </p>
+      <p slot="html">
+        Use
+        <code>.default</code>, <code>.tonal</code>, and <code>.transparent</code
+        > to change the background color.
+      </p>
+    </Conditional>
+
+    <AutoExample name="Variants" />
+  </section>
+
+  <section>
+    <h2 id="clickable-list-item">Clickable list item</h2>
+    <p>
+      Wrap the elements of your List item with a <code>a</code>, <code
+        >button</code
+      >
+      or <code>label</code> depending on use-case.
+    </p>
+
+    <AutoExample name="Clickable" />
+
+    <h3 id="selected">Selected item</h3>
+    <Conditional>
+      <p slot="html">
+        Add <code>aria-selected="true"</code> to the <code>li</code>.
+      </p>
+      <p slot="astro">
+        Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
+      </p>
+    </Conditional>
+    <AutoExample name="Selected" />
+  </section>
+
+  <section>
+    <h2 id="text">Text</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Main text lives in the <code>text</code> slot, or pass <code
+          >headline</code
+        >
+        and <code>description</code> props directly on <code>ListItem</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Main text lives in <code>div.text</code>.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Text" />
+  </section>
+
+  <section>
+    <h2 id="start-items">Start items</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Authored via the <code>start</code> slot on <code>ListItem</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Found in <code>div.start</code>.
+      </Fragment>
+    </Conditional>
+
+    <h3 id="icon">Icon</h3>
+    <AutoExample name="StartIcon" />
+
+    <h3 id="avatar">Avatar</h3>
+    <p>
+      Read more: <DocLink href="/components/avatar" class="link"
+        >Avatar</DocLink>
+    </p>
+    <AutoExample name="StartAvatar" />
+
+    <h3 id="image">Image</h3>
+    <AutoExample name="StartImage" />
+
+    <h3 id="video">Video</h3>
+    <AutoExample name="StartVideo" />
+  </section>
+
+  <section>
+    <h2 id="end-items">End items</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Authored via the <code>end</code> slot on <code>ListItem</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Found in <code>div.end</code>.
+      </Fragment>
+    </Conditional>
+
+    <h3 id="end-text">Text</h3>
+    <AutoExample name="EndText" />
+
+    <h3 id="keyboard-command">Keyboard command</h3>
+    <AutoExample name="EndKeyboard" />
+
+    <h3 id="checkbox">Checkbox</h3>
+    <p>
+      Wrap the List item content with a <code
+        >&lt;label class="checkbox" for="INPUTID"&gt;</code
+      >
+      to make the entire surface clickable.
+    </p>
+    <p>
+      Read more: <DocLink href="/components/checkbox" class="link"
+        >Checkbox</DocLink>
+    </p>
+    <AutoExample name="EndCheckbox" />
+
+    <h3 id="radio">Radio</h3>
+    <p>
+      Wrap the List item content with a <code
+        >&lt;label class="radio" for="INPUTID"&gt;</code
+      >
+      to make the entire surface clickable.
+    </p>
+    <p>
+      Radio group: Add a common name to each <code>&lt;input&gt;</code> for radio
+      group behavior.
+    </p>
+    <p>
+      Read more: <DocLink href="/components/radio" class="link">Radio</DocLink>
+    </p>
+    <AutoExample name="EndRadio" />
+
+    <h3 id="switch">Switch</h3>
+    <p>
+      Read more: <DocLink href="/components/switch" class="link"
+        >Switch</DocLink>
+    </p>
+    <AutoExample name="EndSwitch" />
+  </section>
+
+  <section>
+    <h2 id="inset">Inset</h2>
+    <p>Enables a list item without a start icon to align with items that do.</p>
+    <AutoExample name="Inset" />
+  </section>
+
+  <section>
+    <h2 id="gutterless">Gutterless</h2>
+    <p>
+      Apply the <code>.gutterless</code> class on the <code>ul.list</code> element
+      to remove the inline padding on the list items.
+    </p>
+    <AutoExample name="Gutterless" />
+  </section>
+
+  <section>
+    <h2 id="borders">Borders</h2>
+    <h3 id="on-every-item">On every item</h3>
+    <p>
+      Apply the <code>.bordered</code> class on the <code>ul.list</code> element to
+      give all list items a border.
+    </p>
+    <AutoExample name="Bordered" />
+
+    <h3 id="on-one-item">On one item</h3>
+    <p>
+      Apply the <code>.border-top</code> class on a <code>li.list</code> item to give
+      it an upper border.
+    </p>
+    <AutoExample name="SingleBorder" />
+  </section>
+
+  <section>
+    <h2 id="dense">Dense</h2>
+    <Conditional>
+      <p slot="html">
+        Just add the <code>.dense</code> class to the <code>ul.list</code>!
+      </p>
+      <p slot="astro">
+        Just add the <code>dense</code> prop to the <code>List</code>!
+      </p>
+    </Conditional>
+    <Example>
+      <Conditional slot="controls">
+        <Switch
+          slot="html"
+          id="list-dense-toggle-html"
+          class="list-dense-toggle"
+          small
+          checked
+        >
+          <code>.dense</code>
+        </Switch>
+        <Switch
+          slot="astro"
+          id="list-dense-toggle-astro"
+          class="list-dense-toggle"
+          small
+          checked
+        >
+          <code>dense</code>
+        </Switch>
+      </Conditional>
+
+      <Example.Preview slot="preview-astro">
+        <ListDense />
+      </Example.Preview>
+      <Example.Preview slot="preview-html">
+        <div
+          set:html={ExampleDefaultHTML.replace(
+            /class="list"/,
+            'class="list dense list-dense-target"',
+          ).replace(/-all-/g, "-dense-")}
+        />
+      </Example.Preview>
+      <Example.Code
+        slot="code-html"
+        code={`<ul class="list dense">
+  <!--  -->
+</ul>`}
+      />
+      <Example.Code
+        slot="code-astro"
+        code={`<List dense>
+  <!--  -->
+</List>`}
+      />
+    </Example>
+  </section>
+
+  <Fragment slot="anatomy">
+    <ol>
+      <li>Container: <code>ul.list</code></li>
+      <li>List item: <code>li</code></li>
+      <li>
+        Content wrapper (optional): <code>a</code>, <code>button</code>, <code
+          >label</code
+        >
+      </li>
+      <li>
+        Start content (optional): <code>.start</code> &gt; <code>svg</code>, <code
+          >img</code
+        >, <code>video</code>
+      </li>
+      <li>
+        Text content: <code>.text</code> &gt; <code>p</code>, <code>p + p</code>
+      </li>
+      <li>
+        End content (optional): <code>.end</code> &gt; <code>svg</code>, <code
+          >p</code
+        >, <code>button</code>, <code>a</code>, <code>input</code>
+      </li>
+    </ol>
+
+    <Example>
+      <Example.Preview slot="preview-astro">
+        <UIList class="anatomy">
+          <ListItem
+            class="anatomy"
+            headline="Headline"
+            description="Supporting text"
+          >
+            <svg
+              slot="start"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
+              ></path>
+            </svg>
+            <div slot="end">100+</div>
+          </ListItem>
+        </UIList>
+      </Example.Preview>
+    </Example>
+  </Fragment>
+</Component>
+
+<style is:global>
+  .tab-panel ul {
+    margin: 0 auto;
+    max-inline-size: 40ch;
+  }
+
+  .anatomy {
+    outline: var(--_anatomy-border-gray);
+    outline-offset: -2px;
+
+    .text,
+    svg,
+    img,
+    video,
+    .start,
+    .end,
+    a,
+    button,
+    label {
+      outline: var(--_anatomy-border-red);
+      outline-offset: -3px;
+    }
+  }
+</style>

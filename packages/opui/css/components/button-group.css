@@ -1,0 +1,179 @@
+@layer components.extended {
+  :where([role="group"].button-group) {
+    --_border-radius: var(--button-border-radius);
+
+    border-radius: var(--_border-radius);
+    display: inline-flex;
+    min-width: max-content;
+
+    /* Button */
+    button {
+      border-radius: 0;
+
+      /* button.css > --_accent-tonal */
+      --_divider-color: light-dark(oklch(from var(--_accent-tonal) calc(l - 0.1) c h),
+          oklch(from var(--_accent-tonal) calc(l + 0.1) c h));
+
+      &.outlined {
+        --_divider-color: var(--_border-color);
+      }
+
+      &.filled {
+        --_divider-color: currentColor;
+      }
+
+      &:focus-visible {
+        outline-offset: -4px;
+      }
+
+      /* Color inheritance from Button Group — shared interaction model.
+         The .critical scope class in theme.css redirects --palette-source so
+         --color-6 below becomes a tint of the active color. */
+      :where(.button-group.critical,
+        .button-group.primary) & {
+        --_color-contrast: var(--gray-1);
+        --_color-tonal: var(--color-6);
+        --_accent-tonal-contrast: var(--text-primary-contrast);
+        --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
+        --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
+        --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+        --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
+        --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+      }
+
+      :where(.button-group.critical) & {
+        --_color: var(--critical);
+      }
+
+      :where(.button-group.primary) & {
+        --_color: var(--primary);
+      }
+
+      :where(.button-group.small) & {
+        --_min-height: 1.875rem;
+        padding-block: 0;
+        padding-inline: 1ex;
+      }
+
+      :where(.button-group.large) & {
+        --_min-height: 2.875rem;
+        padding-inline: 4ex;
+      }
+
+      :where(.button-group.outlined) & {
+        --_border-color: var(--_accent);
+        --_divider-color: var(--_accent);
+
+        &:where(:not([disabled])) {
+          &:where(:not(:active):hover) {
+            --_bg-color: var(--_accent);
+            --_border-color: var(--_accent);
+            --_text-color: var(--_accent-contrast);
+          }
+
+          &:where(:active) {
+            --_bg-color: var(--_outlined-active-bg-color);
+            --_border-color: var(--_outlined-active-bg-color);
+            --_text-color: var(--_accent-contrast);
+          }
+        }
+      }
+
+      :where(.button-group.tonal) & {
+        --_bg-color: var(--_accent-tonal);
+        --_text-color: var(--_accent-tonal-contrast);
+
+        &:where(:not([disabled])) {
+          &:where(:not(:active):hover) {
+            --_bg-color: var(--_accent);
+            --_text-color: var(--_accent-contrast);
+          }
+
+          &:where(:active) {
+            --_bg-color: var(--_outlined-active-bg-color);
+            --_text-color: var(--_accent-contrast);
+          }
+        }
+      }
+
+      :where(.button-group.filled) & {
+        --_bg-color: var(--_accent);
+        --_text-color: var(--_accent-contrast);
+        --_divider-color: currentColor;
+
+        :where(.button-group.critical,
+          .button-group.primary) & {
+          --_divider-color: light-dark(oklch(from var(--_accent) calc(l - 0.1) c h),
+              oklch(from var(--_accent) calc(l + 0.1) c h));
+        }
+
+        &:where(:not([disabled])) {
+          &:where(:not(:active):hover) {
+            --_bg-color: var(--_filled-hover-bg-color);
+          }
+
+          &:where(:active) {
+            --_bg-color: var(--_filled-active-bg-color);
+          }
+        }
+      }
+    }
+
+    &:not(.vertical) {
+      button {
+        &:first-of-type {
+          border-end-start-radius: var(--_border-radius);
+          border-start-start-radius: var(--_border-radius);
+        }
+
+        &:last-of-type {
+          border-end-end-radius: var(--_border-radius);
+          border-start-end-radius: var(--_border-radius);
+        }
+
+        /* Siblings */
+        &+& {
+          border-inline-start-color: var(--_divider-color);
+          border-inline-width: 1px;
+          margin-inline-start: -1px;
+
+          &[disabled] {
+            border-inline-start-color: color-mix(in oklch, var(--_divider-color) 40%, transparent);
+          }
+        }
+      }
+    }
+
+    &.vertical {
+      flex-direction: column;
+
+      button {
+        padding: var(--size-2);
+
+        &:has(svg) {
+          aspect-ratio: 1;
+          padding: var(--size-1);
+        }
+
+        &:first-of-type {
+          border-start-start-radius: var(--_border-radius);
+          border-start-end-radius: var(--_border-radius);
+        }
+
+        &:last-of-type {
+          border-end-start-radius: var(--_border-radius);
+          border-end-end-radius: var(--_border-radius);
+        }
+
+        &+& {
+          border-block-start: 1px solid var(--_divider-color);
+          margin-block-start: -1px;
+
+          &[disabled] {
+            border-block-start-color: color-mix(in oklch, var(--_divider-color) 40%, transparent);
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Container</Table.Cell>
+      <Table.Cell><code>.anchor.badge</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Wrapper element. Extends <a href="/components/anchor">Anchor</a
+        >.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Floating</Table.Cell>
+      <Table.Cell><code>.anchor-floating</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Positioned floating container from Anchor.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Indicator</Table.Cell>
+      <Table.Cell><code>.badge-indicator</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The badge content element inside <code>.anchor-floating</code
+        >.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Alignment</Table.Cell>
+      <Table.Cell
+        ><code>.start-start</code>, <code>.start-end</code>, <code
+          >.end-start</code
+        >, <code>.end-end</code></Table.Cell
+      >
+      <Table.Cell><code>.start-end</code></Table.Cell>
+      <Table.Cell>Position modifiers on <code>.badge</code>.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Color</Table.Cell>
+      <Table.Cell
+        ><code>.critical</code>, <code>.info</code>, <code>.neutral</code>,
+        <code>.success</code>, <code>.warning</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Color modifiers on <code>.badge</code>.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Variants</Table.Cell>
+      <Table.Cell><code>.dot</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Shape modifier on <code>.badge</code>.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Visibility</Table.Cell>
+      <Table.Cell><code>.invisible</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Visibility modifier on <code>.badge</code>.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

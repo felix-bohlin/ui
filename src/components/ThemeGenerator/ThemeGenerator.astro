@@ -1,0 +1,799 @@
+---
+import {
+  Button,
+  Card,
+  Checkbox,
+  Chip,
+  Divider,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  IconButton,
+  Range,
+  Switch,
+  TextField,
+  ToggleButton,
+  ToggleGroup,
+} from "@opui/astro"
+import { PLACEHOLDER_CSS } from "./generateCss"
+
+const surfaces = ["default", "tonal", "filled", "elevated"]
+
+const borderRadiusItems = [
+  { text: "0", value: "0" },
+  { text: "1", value: "var(--radius-1)" },
+  { text: "2", value: "var(--radius-2)" },
+  { text: "3", value: "var(--radius-3)" },
+  { text: "4", value: "var(--radius-4)" },
+]
+
+const radiusGroups = [
+  { name: "--border-radius", label: "Border Radius" },
+  { name: "--field-border-radius", label: "Field Border Radius" },
+  { name: "--button-border-radius", label: "Button Border Radius" },
+] as const
+---
+
+<div class="theme-generator" id="theme-generator-root">
+  <!-- Mode switcher: chooses which mode is being edited.
+       "Both" writes every edit to light and dark at once; the preview
+       falls back to the site's current mode in that case. -->
+  <ToggleGroup
+    class="mode-switch"
+    name="theme-generator-mode"
+    selection="single"
+    size="small"
+    aria-label="Editing mode"
+  >
+    <ToggleButton value="light">Light</ToggleButton>
+    <ToggleButton pressed value="both">Both</ToggleButton>
+    <ToggleButton value="dark">Dark</ToggleButton>
+  </ToggleGroup>
+
+  <div class="generator-grid">
+    <!-- Controls -->
+    <Card variant="outlined" class="controls not-rich-text">
+      <h3 slot="header">Theme controls</h3>
+
+      <form id="theme-generator-form" class="form" slot="content">
+        <FieldSet>
+          <FieldLegend>Color Palette</FieldLegend>
+          <FieldGroup>
+            <TextField
+              type="color"
+              label="Source color"
+              name="--palette-source-color"
+              value="#000000"
+              spread
+              small
+            />
+            <Range
+              label="Hue"
+              name="--palette-hue"
+              min="0"
+              max="360"
+              step="1"
+              value="240"
+              valueSuffix="°"
+            />
+            <Range
+              label="Chroma"
+              name="--palette-chroma"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.5"
+              valueSuffix=""
+            />
+            <Range
+              label="Hue Rotation"
+              name="--palette-hue-rotate-by"
+              min="-10"
+              max="10"
+              step="1"
+              value="0"
+              valueSuffix=""
+            />
+          </FieldGroup>
+        </FieldSet>
+
+        <Divider />
+
+        <FieldSet>
+          <FieldLegend>Grays</FieldLegend>
+          <FieldGroup>
+            <Switch name="enable-grays" checked small spread>Enable</Switch>
+            <Range
+              label="Gray Chroma"
+              name="--gray-chroma"
+              min="0"
+              max="0.1"
+              step="0.001"
+              value="0.01"
+              valueSuffix=""
+            />
+            <Range
+              label="Gray Hue"
+              name="--gray-hue"
+              min="0"
+              max="360"
+              step="1"
+              value="255"
+              valueSuffix="°"
+            />
+          </FieldGroup>
+        </FieldSet>
+
+        <Divider />
+
+        {
+          radiusGroups.map((group) => (
+            <FieldSet>
+              <FieldLegend>{group.label}</FieldLegend>
+              <FieldGroup>
+                <div class="chip-group" data-radius-group={group.name}>
+                  {borderRadiusItems.map((item) => (
+                    <Chip
+                      as="button"
+                      type="button"
+                      size="small"
+                      variant={
+                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
+                      }
+                      data-name={group.name}
+                      data-value={item.value}
+                      data-default={
+                        item.value === "var(--radius-2)" ? "true" : undefined
+                      }
+                      label={item.text}
+                      title={item.value}
+                    />
+                  ))}
+                </div>
+              </FieldGroup>
+            </FieldSet>
+          ))
+        }
+      </form>
+
+      <Fragment slot="actions">
+        <Button id="theme-generator-reset" size="small">Reset</Button>
+      </Fragment>
+    </Card>
+
+    <!-- Preview -->
+    <Card
+      variant="outlined"
+      class="preview-card not-rich-text"
+      id="theme-generator-preview"
+    >
+      <h3 slot="header">Preview</h3>
+
+      <div class="preview-pane" slot="content">
+        <h4 class="section-label">Palette</h4>
+        <div class="palette-grid">
+          {
+            Array.from({ length: 16 }, (_, i) => i + 1).map((n) => (
+              <div class="swatch" style={`background-color: var(--color-${n})`}>
+                <span>{n}</span>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="gray-palette">
+          <Divider />
+          <h4 class="section-label">Grays</h4>
+          <div class="palette-grid">
+            {
+              Array.from({ length: 16 }, (_, i) => i + 1).map((n) => (
+                <div
+                  class="swatch"
+                  style={`background-color: var(--gray-${n})`}
+                >
+                  <span>{n}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <Divider />
+        <h4 class="section-label">Surfaces</h4>
+        <div class="surface-stack">
+          {
+            surfaces.map((s) => (
+              <div
+                class="surface-swatch"
+                style={`background-color: var(--surface-${s})`}
+              >
+                <span>{s}</span>
+              </div>
+            ))
+          }
+        </div>
+
+        <Divider />
+        <h4 class="section-label">Examples</h4>
+        <Card variant="outlined">
+          <h5 slot="header">Card</h5>
+          <p slot="content">Cards use border radius and surface colors.</p>
+          <Fragment slot="actions">
+            <Button variant="tonal">Cancel</Button>
+            <Button variant="filled">Save</Button>
+          </Fragment>
+        </Card>
+        <div class="form-showcase">
+          <TextField label="Label" placeholder="Input field..." />
+          <div class="row">
+            <Switch checked>On</Switch>
+            <Checkbox checked>Pick</Checkbox>
+          </div>
+        </div>
+      </div>
+    </Card>
+  </div>
+
+  <!-- Generated CSS -->
+  <Card variant="outlined" class="css-output not-rich-text" id="generated-css">
+    <Fragment slot="header">
+      <div class="css-header">
+        <h3>theme.css</h3>
+        <IconButton
+          id="theme-generator-copy"
+          size="small"
+          title="Copy CSS"
+          aria-label="Copy CSS"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            ><path
+              fill="currentColor"
+              d="M9 18q-.825 0-1.412-.587T7 16V4q0-.825.588-1.412T9 2h9q.825 0 1.413.588T20 4v12q0 .825-.587 1.413T18 18zm-4 4q-.825 0-1.412-.587T3 20V7q0-.425.288-.712T4 6t.713.288T5 7v13h10q.425 0 .713.288T16 21t-.288.713T15 22zm4-6h9V4H9z"
+            ></path>
+          </svg>
+        </IconButton>
+      </div>
+    </Fragment>
+    <pre
+      slot="content"><code id="theme-generator-css-code" class="hljs language-css">{PLACEHOLDER_CSS}</code></pre>
+  </Card>
+</div>
+
+<style>
+  .theme-generator {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+  }
+
+  .mode-switch {
+    align-self: start;
+  }
+
+  .generator-grid {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: 1fr;
+
+    @media (width >= 900px) {
+      grid-template-columns: minmax(280px, 360px) 1fr;
+      align-items: start;
+    }
+  }
+
+  .controls {
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-4);
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+    }
+  }
+
+  /* Scoped preview card.
+     The whole card carries the preview's color-scheme and token
+     overrides so its outer surface (and not just the inner content)
+     flips when switching Light/Dark — otherwise picking Light while
+     the site is Dark leaves the wrapping Card painted dark.
+
+     - `color-scheme` drives `light-dark()` for the card and everything
+       inside it, independent of the site mode.
+     - `--palette-source` is rebound here so palette slider edits flow
+       through `* { --color-N: ... }` locally, even though theme.css
+       hardcodes `--palette-source` on <html> / .dark.
+     - `--gray-N` is handled by core/palette.css's `*` rule per-element.
+     - Surface / border / no-grays mappings mirror theme.css and the
+       configurator's `html.no-grays` override. */
+  .preview-card {
+    color-scheme: light;
+    /* Re-resolve text color here so the header (which inherits from
+       <html> otherwise) picks up the preview's local color-scheme. */
+    color: var(--text-primary);
+
+    --palette-source: oklch(
+      58% calc(0.21 * var(--palette-chroma, 0.5)) var(--palette-hue, 240)
+    );
+
+    --surface-default: light-dark(var(--gray-1), var(--gray-13));
+    --surface-filled: light-dark(var(--gray-4), var(--gray-15));
+    --surface-tonal: light-dark(var(--gray-3), var(--gray-12));
+    --surface-elevated: light-dark(var(--gray-1), var(--gray-12));
+    --border-color: light-dark(var(--gray-4), var(--gray-12));
+    --field-border-color: var(--border-color);
+
+    &.dark {
+      color-scheme: dark;
+    }
+
+    &.no-grays {
+      --surface-default: light-dark(var(--color-1), var(--color-14));
+      --surface-filled: light-dark(var(--color-5), var(--color-16));
+      --surface-tonal: light-dark(var(--color-4), var(--color-12));
+      --surface-elevated: light-dark(var(--color-1), var(--color-12));
+      --border-color: light-dark(var(--color-4), var(--color-12));
+      --field-border-color: light-dark(var(--color-4), var(--color-12));
+    }
+  }
+
+  .preview-pane {
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+  }
+
+  .section-label {
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .preview-card.no-grays .gray-palette {
+    display: none;
+  }
+
+  .palette-grid {
+    display: grid;
+    gap: var(--size-2);
+    grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+  }
+
+  .swatch {
+    aspect-ratio: 1;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    display: grid;
+    inline-size: 100%;
+    place-items: center;
+
+    &:hover span {
+      opacity: 1;
+    }
+
+    span {
+      aspect-ratio: 1;
+      background-color: oklch(from var(--text-primary) l c h / 0.65);
+      color: oklch(from var(--text-primary) l c h / 0);
+      border-radius: var(--radius-round);
+      display: grid;
+      opacity: 0;
+      padding-inline: 1ex;
+      pointer-events: none;
+      place-items: center;
+      text-align: center;
+      transition: opacity 0.2s ease-out;
+    }
+  }
+
+  .surface-stack {
+    display: grid;
+    gap: var(--size-1);
+  }
+
+  .surface-swatch {
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    display: flex;
+    font-size: var(--font-size-0);
+    font-weight: var(--font-weight-6);
+    justify-content: space-between;
+    padding: var(--size-2) var(--size-3);
+    text-transform: uppercase;
+  }
+
+  .form-showcase {
+    background-color: var(--surface-tonal);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
+    padding: var(--size-3);
+
+    & .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-8);
+    }
+  }
+
+  .css-output {
+    .css-header {
+      align-items: center;
+      display: flex;
+      gap: var(--size-3);
+      justify-content: space-between;
+      width: 100%;
+
+      h3 {
+        margin: 0;
+      }
+    }
+
+    pre {
+      background: var(--surface-filled);
+      border-radius: var(--border-radius);
+      margin: 0;
+      max-block-size: 60vh;
+      overflow: auto;
+      padding: var(--size-4);
+    }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: var(--font-size-0);
+      white-space: pre;
+    }
+  }
+</style>
+
+<style is:global>
+  /* VS Code Dark Plus colors for the generator's hljs output. Kept
+     scoped to the code block so other code on the page is unaffected. */
+  #theme-generator-css-code.hljs {
+    color: #d4d4d4;
+  }
+  #theme-generator-css-code .hljs-keyword,
+  #theme-generator-css-code .hljs-selector-tag {
+    color: #c586c0;
+  }
+  #theme-generator-css-code .hljs-selector-class,
+  #theme-generator-css-code .hljs-selector-id,
+  #theme-generator-css-code .hljs-selector-pseudo {
+    color: #d7ba7d;
+  }
+  #theme-generator-css-code .hljs-built_in {
+    color: #dcdcaa;
+  }
+  #theme-generator-css-code .hljs-attr,
+  #theme-generator-css-code .hljs-attribute {
+    color: #9cdcfe;
+  }
+  #theme-generator-css-code .hljs-number,
+  #theme-generator-css-code .hljs-unit {
+    color: #b5cea8;
+  }
+  #theme-generator-css-code .hljs-string {
+    color: #ce9178;
+  }
+  #theme-generator-css-code .hljs-comment {
+    color: #6a9955;
+  }
+</style>
+
+<script>
+  import hljs from "highlight.js/lib/core"
+  import css from "highlight.js/lib/languages/css"
+  import {
+    themeStore,
+    TOKENS,
+    TOKEN_DEFAULTS,
+    type Mode,
+    type ModeConfig,
+    type Token,
+  } from "../../lib/theme-store"
+  import { generateCss } from "./generateCss"
+  import { hexToOklch, oklchToHex } from "../../lib/colorUtils"
+
+  hljs.registerLanguage("css", css)
+
+  const TOKEN_SET = new Set<string>(TOKENS)
+  const PALETTE_TOKENS: readonly Token[] = [
+    "--palette-hue",
+    "--palette-chroma",
+    "--palette-hue-rotate-by",
+    "--gray-chroma",
+    "--gray-hue",
+  ]
+
+  const root = document.getElementById("theme-generator-root")
+  if (!root) throw new Error("Theme generator root not found")
+
+  const form = document.getElementById(
+    "theme-generator-form",
+  ) as HTMLFormElement
+  const preview = document.getElementById("theme-generator-preview")!
+  const codeEl = document.getElementById("theme-generator-css-code")!
+  const copyBtn = document.getElementById("theme-generator-copy")
+  const resetBtn = document.getElementById("theme-generator-reset")
+  const modeRadios = root.querySelectorAll<HTMLInputElement>(
+    'input[name="theme-generator-mode"]',
+  )
+
+  // The UI exposes a third "both" choice on top of the storage modes,
+  // which fans every edit out to both light and dark configs.
+  type EditingMode = Mode | "both"
+  let editingMode: EditingMode = "both"
+
+  function readModeFromRadios(): EditingMode {
+    for (const r of modeRadios) {
+      if (
+        r.checked &&
+        (r.value === "light" || r.value === "dark" || r.value === "both")
+      ) {
+        return r.value
+      }
+    }
+    return "both"
+  }
+
+  /** Modes that should receive a write for the current editing mode. */
+  function targetModes(): readonly Mode[] {
+    return editingMode === "both" ? (["light", "dark"] as const) : [editingMode]
+  }
+
+  /**
+   * Mode the preview renders. In Both we follow the site's active mode so
+   * the user always sees a coherent surface — and so when their site is
+   * (e.g.) dark, the rest of the docs update live alongside the preview.
+   */
+  function previewMode(): Mode {
+    return editingMode === "both" ? themeStore.getActiveSiteMode() : editingMode
+  }
+
+  /**
+   * Mode whose values populate the form. In Both we read from light by
+   * convention; light/dark stay in sync because every write fans out.
+   */
+  function formMode(): Mode {
+    return editingMode === "both" ? "light" : editingMode
+  }
+
+  function setGrayInputsDisabled(disabled: boolean) {
+    const grayInputs = form.querySelectorAll<HTMLInputElement>(
+      '[name="--gray-chroma"], [name="--gray-hue"]',
+    )
+    grayInputs.forEach((input) => {
+      input.disabled = disabled
+    })
+  }
+
+  // Guard against the synthetic `input` events we fire when programmatically
+  // setting slider values. Without this, the form's own `input` listener
+  // would re-write the same value to the store and loop forever via the
+  // theme:change subscription.
+  let suppressInputHandler = false
+
+  function syncFormFromConfig(config: ModeConfig) {
+    TOKENS.forEach((token) => {
+      const value = config[token] ?? TOKEN_DEFAULTS[token]
+      const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
+      if (input && input.type !== "checkbox") {
+        input.value = value
+        // Fire a synthetic input event so the Range component's built-in
+        // auto-updater refreshes the <output> readout. Programmatic value
+        // assignments don't trigger `input` natively.
+        suppressInputHandler = true
+        try {
+          input.dispatchEvent(new Event("input", { bubbles: true }))
+        } finally {
+          suppressInputHandler = false
+        }
+      }
+
+      const chips = form.querySelectorAll<HTMLElement>(`[data-name="${token}"]`)
+      let foundMatch = false
+      chips.forEach((chip) => {
+        if (chip.dataset.value === value) {
+          chip.classList.add("tonal")
+          chip.classList.remove("outlined")
+          foundMatch = true
+        } else {
+          chip.classList.remove("tonal")
+          chip.classList.add("outlined")
+        }
+      })
+      if (!foundMatch && chips.length > 0) {
+        chips.forEach((chip) => {
+          if (chip.dataset.default === "true") {
+            chip.classList.add("tonal")
+            chip.classList.remove("outlined")
+          }
+        })
+      }
+    })
+
+    const enableGrays = form.querySelector<HTMLInputElement>(
+      '[name="enable-grays"]',
+    )
+    const graysEnabled = config["enable-grays"] !== "false"
+    if (enableGrays) enableGrays.checked = graysEnabled
+    setGrayInputsDisabled(!graysEnabled)
+
+    const colorPicker = form.querySelector<HTMLInputElement>(
+      '[name="--palette-source-color"]',
+    )
+    if (colorPicker) {
+      const hue = parseFloat(
+        config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
+      )
+      const chroma = parseFloat(
+        config["--palette-chroma"] ?? TOKEN_DEFAULTS["--palette-chroma"],
+      )
+      colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
+    }
+  }
+
+  function applyToPreview() {
+    const mode = previewMode()
+    const config = themeStore.get(mode)
+    preview.classList.toggle("dark", mode === "dark")
+    preview.classList.toggle("light", mode === "light")
+    preview.classList.toggle("no-grays", config["enable-grays"] === "false")
+
+    PALETTE_TOKENS.forEach((token) => {
+      const value = config[token] ?? TOKEN_DEFAULTS[token]
+      preview.style.setProperty(token, value)
+    })
+
+    const radiusTokens: Token[] = [
+      "--border-radius",
+      "--field-border-radius",
+      "--button-border-radius",
+    ]
+    radiusTokens.forEach((token) => {
+      const value = config[token] ?? TOKEN_DEFAULTS[token]
+      preview.style.setProperty(token, value)
+    })
+  }
+
+  function rerenderCode() {
+    const code = generateCss({
+      light: themeStore.get("light"),
+      dark: themeStore.get("dark"),
+    })
+    codeEl.innerHTML = hljs.highlight(code, { language: "css" }).value
+  }
+
+  function refreshAll() {
+    syncFormFromConfig(themeStore.get(formMode()))
+    applyToPreview()
+    rerenderCode()
+  }
+
+  // Wire up: mode tabs
+  modeRadios.forEach((radio) => {
+    radio.addEventListener("change", () => {
+      if (!radio.checked) return
+      editingMode = readModeFromRadios()
+      refreshAll()
+    })
+  })
+
+  // Wire up: range inputs + enable-grays switch
+  form.addEventListener("input", (e) => {
+    if (suppressInputHandler) return
+    const target = e.target as HTMLInputElement | null
+    if (!target) return
+    const name = target.name || target.getAttribute("name")
+    if (!name) return
+
+    if (target.type === "checkbox") {
+      if (name === "enable-grays") {
+        targetModes().forEach((m) =>
+          themeStore.setEnableGrays(m, target.checked),
+        )
+        setGrayInputsDisabled(!target.checked)
+      }
+      // refreshAll will run via the subscription below.
+      return
+    }
+
+    if (name === "--palette-source-color") {
+      const { C, H } = hexToOklch(target.value)
+      const hue = String(Math.round(H))
+      const chroma = String(+Math.min(1, C / 0.21).toFixed(2))
+      targetModes().forEach((m) => {
+        themeStore.setToken(m, "--palette-hue", hue)
+        themeStore.setToken(m, "--palette-chroma", chroma)
+      })
+      return
+    }
+
+    if (TOKEN_SET.has(name)) {
+      targetModes().forEach((m) =>
+        themeStore.setToken(m, name as Token, target.value),
+      )
+      // No refreshAll here either — the subscription handles it.
+    }
+  })
+
+  // Wire up: chip clicks for radius groups
+  form.addEventListener("click", (e) => {
+    const chip = (e.target as HTMLElement).closest<HTMLElement>(
+      "[data-name][data-value]",
+    )
+    if (!chip || !form.contains(chip)) return
+    const name = chip.dataset.name
+    const value = chip.dataset.value
+    if (!name || value === undefined) return
+    if (TOKEN_SET.has(name)) {
+      targetModes().forEach((m) => themeStore.setToken(m, name as Token, value))
+    }
+  })
+
+  // Wire up: reset button
+  resetBtn?.addEventListener("click", () => {
+    themeStore.reset()
+    form.reset()
+    // form.reset() restores every input to its HTML initial value, which
+    // sets the color picker back to #000000. Re-sync from the store so
+    // the swatch reflects the actual post-reset defaults.
+    refreshAll()
+  })
+
+  // Wire up: copy
+  copyBtn?.addEventListener("click", async () => {
+    const code = generateCss({
+      light: themeStore.get("light"),
+      dark: themeStore.get("dark"),
+    })
+    try {
+      await navigator.clipboard.writeText(code)
+      ;(window as any).showToast?.({
+        title: "Copied theme.css",
+        description: "Paste it into your project's stylesheet.",
+        duration: "3s",
+      })
+    } catch {
+      ;(window as any).showToast?.({
+        title: "Copy failed",
+        description: "Your browser blocked clipboard access.",
+        severity: "error",
+        duration: "4s",
+      })
+    }
+  })
+
+  // Re-render on every store change (source-agnostic: drawer or page).
+  themeStore.subscribe((detail) => {
+    // When the global theme mode is toggled (e.g. via ThemeConfigurator),
+    // keep the editing mode selector in sync with the new active site mode.
+    if (detail.type === "applyMode") {
+      const newMode = themeStore.getActiveSiteMode()
+      modeRadios.forEach((radio) => {
+        radio.checked = radio.value === newMode
+      })
+      editingMode = newMode
+    }
+    refreshAll()
+  })
+
+  // Initial render — default the mode selector to the active site mode
+  // so the editing mode matches what the user is currently viewing.
+  const activeSiteMode = themeStore.getActiveSiteMode()
+  modeRadios.forEach((radio) => {
+    radio.checked = radio.value === activeSiteMode
+  })
+  editingMode = readModeFromRadios()
+  refreshAll()
+</script>

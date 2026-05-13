@@ -1,0 +1,54 @@
+---
+import Anchor from "../Anchor/Anchor.astro"
+
+type Props = {
+  [key: string]: any
+  alignment?: "start-start" | "end-start" | "end-end"
+  class?: string
+  color?: "critical" | "info" | "neutral" | "success" | "warning"
+  dot?: boolean
+  invisible?: boolean
+  label?: string | number
+}
+
+export const title = "Badge"
+
+const {
+  alignment,
+  class: className,
+  color,
+  dot,
+  invisible,
+  label,
+  ...rest
+} = Astro.props
+
+const positionArea =
+  alignment === "start-start"
+    ? "start start"
+    : alignment === "end-start"
+      ? "end start"
+      : alignment === "end-end"
+        ? "end end"
+        : undefined
+---
+
+<Anchor
+  alignment={positionArea}
+  class:list={[
+    "badge",
+    {
+      dot,
+      invisible,
+    },
+    alignment,
+    className,
+    color,
+  ]}
+  {...rest}
+>
+  <slot />
+  <span class="badge-indicator" slot="anchored" aria-label={label?.toString()}
+    >{dot ? "" : label}</span
+  >
+</Anchor>

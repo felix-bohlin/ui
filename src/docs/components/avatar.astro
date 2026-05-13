@@ -1,0 +1,80 @@
+---
+import Component from "../../layouts/Component.astro"
+import AutoExample from "../../components/AutoExample.astro"
+
+import AvatarCSS from "@opui/css/components/avatar.css?raw"
+
+import Conditional from "../../components/Conditional.astro"
+---
+
+<Component
+  slug="avatar"
+  browserSupport={["has"]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Avatar/Avatar.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/avatar.astro", type: "docs" },
+    { path: "src/component-examples/avatar", type: "docs" },
+    {
+      path: "packages/opui/css/components/avatar.css",
+      type: "css",
+    },
+    { path: "src/component-api/avatar", type: "api" },
+  ]}
+  installationTabs={[{ title: "avatar.css", code: AvatarCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Avatar</Fragment>
+
+  <section>
+    <h2 id="image">Image</h2>
+
+    <AutoExample name="Image" row />
+  </section>
+
+  <section>
+    <h2 id="letter">Letter</h2>
+
+    <AutoExample name="Letter" row />
+  </section>
+
+  <section>
+    <h2 id="icon">Icon</h2>
+
+    <AutoExample name="Icon" row />
+  </section>
+
+  <section>
+    <h2 id="variants">Variants</h2>
+
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Change the shape of the avatar with the <code>variant</code> prop.
+      </Fragment>
+      <Fragment slot="html">
+        Change the shape of the avatar with the <code>.squared</code>, <code
+          >.rounded</code
+        > and <code>.squircle</code> classes.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Variants" row />
+  </section>
+
+  <section>
+    <h2 id="grouped">Grouped</h2>
+
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Group multiple avatars by setting the <code>isGroup</code> prop on a parent
+        container.
+      </Fragment>
+      <Fragment slot="html">
+        Group multiple avatars by adding <code>role="group"</code> to a parent container.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Grouped" row />
+  </section>
+</Component>

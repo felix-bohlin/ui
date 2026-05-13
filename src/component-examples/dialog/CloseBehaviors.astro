@@ -1,0 +1,51 @@
+---
+import { Dialog } from "@opui/astro"
+import { Radio } from "@opui/astro"
+import { Button } from "@opui/astro"
+import { FieldSet as Fieldset } from "@opui/astro"
+import { FieldGroup } from "@opui/astro"
+import { FieldLegend } from "@opui/astro"
+---
+
+<Button
+  commandfor="closing-behaviors-dialog"
+  command="show-modal"
+  variant="outlined"
+>
+  Open dialog
+</Button>
+
+<Dialog id="closing-behaviors-dialog" closedby="any">
+  <h2 class="h4" slot="header">How to close</h2>
+  <div slot="content">
+    <Fieldset>
+      <FieldLegend>Choose a closing behavior:</FieldLegend>
+      <FieldGroup name="closedby-demo">
+        <Radio value="any" checked>any</Radio>
+        <Radio value="closerequest">closerequest</Radio>
+        <Radio value="none">none</Radio>
+      </FieldGroup>
+    </Fieldset>
+  </div>
+  <Fragment slot="actions">
+    <Button commandfor="closing-behaviors-dialog" command="close">
+      Close manually
+    </Button>
+  </Fragment>
+</Dialog>
+
+<script>
+  const dialog = document.getElementById(
+    "closing-behaviors-dialog",
+  ) as HTMLDialogElement
+  const radios = document.querySelectorAll('input[name="closedby-demo"]')
+
+  radios.forEach((radio) => {
+    radio.addEventListener("change", (e) => {
+      const target = e.target as HTMLInputElement
+      if (dialog) {
+        dialog.setAttribute("closedby", target.value)
+      }
+    })
+  })
+</script>

@@ -1,0 +1,13 @@
+---
+type Props = {
+  [key: string]: any
+}
+
+export const title = "Table Row"
+
+const { ...rest } = Astro.props
+---
+
+<tr {...rest}>
+  <slot />
+</tr>

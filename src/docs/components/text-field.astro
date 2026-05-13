@@ -1,0 +1,403 @@
+---
+import Component from "../../layouts/Component.astro"
+import Example from "../../components/Example"
+import AutoExample from "../../components/AutoExample.astro"
+import { Callout as UICallout, Switch as UISwitch } from "@opui/astro"
+import Conditional from "../../components/Conditional.astro"
+
+import Variants from "../../component-examples/text-field/Variants.astro"
+import Sizes from "../../component-examples/text-field/Sizes.astro"
+import SupportingText from "../../component-examples/text-field/SupportingText.astro"
+import Affix from "../../component-examples/text-field/Affix.astro"
+import Headers from "../../component-examples/text-field/Headers.astro"
+import Validation from "../../component-examples/text-field/Validation.astro"
+import AutoFit from "../../component-examples/text-field/AutoFit.astro"
+import InputTypes from "../../component-examples/text-field/InputTypes.astro"
+import InputTypesAstro from "../../component-examples/text-field/InputTypes.astro?raw"
+import InputTypesHtml from "../../component-examples/text-field/InputTypes.html?raw"
+
+import Numeric from "../../component-examples/text-field/Numeric.astro"
+import NumericAstro from "../../component-examples/text-field/Numeric.astro?raw"
+import NumericHtml from "../../component-examples/text-field/Numeric.html?raw"
+
+import File from "../../component-examples/text-field/File.astro"
+import FileAstro from "../../component-examples/text-field/File.astro?raw"
+import FileHtml from "../../component-examples/text-field/File.html?raw"
+
+import Autosuggest from "../../component-examples/text-field/Autosuggest.astro"
+import AutosuggestAstro from "../../component-examples/text-field/Autosuggest.astro?raw"
+import AutosuggestHtml from "../../component-examples/text-field/Autosuggest.html?raw"
+
+import NoLabel from "../../component-examples/text-field/NoLabel.astro"
+import NoLabelAstro from "../../component-examples/text-field/NoLabel.astro?raw"
+import NoLabelHtml from "../../component-examples/text-field/NoLabel.html?raw"
+
+import Orientation from "../../component-examples/text-field/Orientation.astro"
+import FieldCSS from "@opui/css/components/text-field.css?raw"
+import TextFieldCSS from "@opui/css/components/text-input.css?raw"
+
+import TextFieldAPIAstro from "../../component-api/text-field/Astro.astro"
+import TextFieldAPIHTML from "../../component-api/text-field/HTML.astro"
+import TextInputAPIAstro from "../../component-api/text-input/Astro.astro"
+import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
+---
+
+<Component
+  slug="text-field"
+  browserSupport={[
+    "datalist",
+    "field-sizing",
+    "has",
+    "light-dark",
+    "relative-color",
+  ]}
+  apis={[
+    {
+      title: "Text field API",
+      astro: TextFieldAPIAstro,
+      html: TextFieldAPIHTML,
+    },
+    {
+      title: "Text input API",
+      astro: TextInputAPIAstro,
+      html: TextInputAPIHTML,
+    },
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/TextField/TextField.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/text-field.astro", type: "docs" },
+    { path: "src/component-examples/text-field", type: "docs" },
+    {
+      path: "packages/opui/css/components/text-field.css",
+      type: "css",
+    },
+    {
+      path: "packages/opui/css/components/text-input.css",
+      type: "css",
+    },
+    { path: "src/component-api/text-field", type: "api" },
+    { path: "src/component-api/text-input", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "text-field.css", code: FieldCSS, lang: "css" },
+    {
+      title: "text-input.css",
+      code: TextFieldCSS,
+      lang: "css",
+      isDependency: true,
+    },
+  ]}
+>
+  <Fragment slot="title">Text field</Fragment>
+  <Fragment slot="preamble">
+    An input for single-line text data. Basic text fields with labels, field
+    descriptions, and validation states.
+  </Fragment>
+
+  <section>
+    <h2 id="variants">Variants</h2>
+    <AutoExample name="Variants" row />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <AutoExample name="Sizes" row />
+  </section>
+
+  <section>
+    <h2 id="end-text">End text</h2>
+    <AutoExample name="SupportingText" centered />
+  </section>
+
+  <section>
+    <h2 id="affix">Affix</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> slots to affix content inside the field's border.
+        Prefix and suffix sit beside the input, while header and footer span the field's
+        full width with a divider.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.prefix</code>, <code>.suffix</code>, <code>.header</code>, or
+        <code>.footer</code> elements inside <code>.field</code> to affix content
+        inside the field's border. Prefix and suffix sit beside the input, while header
+        and footer span the field's full width with a divider.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Affix" column />
+
+    <h3 id="headers-and-footers">Headers and footers</h3>
+    <p>
+      Use the <code>header</code> slot for inside-field captions (filenames, categories)
+      and the <code>footer</code> slot for counters, hints, or action buttons.
+    </p>
+
+    <AutoExample name="Headers" column />
+  </section>
+
+  <section>
+    <h2 id="validation">Validation</h2>
+    <p>
+      Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to toggle
+      required styles
+    </p>
+    <p>
+      The <code>.critical</code> class toggles the error styles. Make use of the end
+      text to give extra feedback on the error.
+    </p>
+
+    <AutoExample name="Validation" column spacious />
+  </section>
+
+  <section>
+    <h2 id="spread">Spread</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>spread</code> boolean prop to display the label and description
+        on the left with the input on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.spread</code> class to display the label and description on
+        the left with the input on the right. The layout collapses to a column on
+        narrow containers.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Orientation" column spacious />
+  </section>
+
+  <section>
+    <h2 id="auto-fit">Auto-fit</h2>
+    <p>When enabled the Field changes size depending on its content.</p>
+
+    <AutoExample name="AutoFit" exampleClass="flex" />
+  </section>
+
+  <section>
+    <h2 id="input-types">Input types</h2>
+    <Example row>
+      <UISwitch small slot="controls" id="text-field-filled-toggle"
+        >Filled</UISwitch
+      >
+      <UISwitch small slot="controls" id="text-field-small-toggle"
+        >Small</UISwitch
+      >
+
+      <Example.Preview slot="preview-astro" code={InputTypes} />
+      <Example.Preview slot="preview-html" code={InputTypesHtml} />
+      <Example.Code slot="code-astro" code={InputTypesAstro} />
+      <Example.Code slot="code-html" code={InputTypesHtml} />
+    </Example>
+
+    <div class="not-rich-text">
+      <UICallout>
+        <Fragment slot="title">Date inputs</Fragment>
+        <div class="rich-text">
+          Date-related inputs never show as empty, so the label is always
+          visible. There are only hacks with compromises and no neat ways of
+          dealing with that issue. You're free to implement a solution of your
+          own here that works with your project.
+        </div>
+      </UICallout>
+    </div>
+
+    <h3 id="numeric-vs-input-type-number">
+      Numeric vs <code>&lt;input type="number"&gt;</code>
+    </h3>
+
+    <Example>
+      <Numeric slot="preview-astro" />
+      <Numeric slot="preview-html" />
+      <Example.Code slot="code-astro" code={NumericAstro} />
+      <Example.Code slot="code-html" code={NumericHtml} />
+    </Example>
+
+    <div class="not-rich-text">
+      <UICallout severity="critical">
+        <Fragment slot="title"
+          >You most likely don't need <code>&lt;input type="number"&gt;</code
+          ></Fragment
+        >
+        <div class="rich-text">
+          <p>
+            While <code>&lt;input type="number"&gt;</code> may seem logical for numeric
+            data it should only be used when mathematical operations are needed on
+            the input (which is... never). Data like credit card numbers, IDs or social
+            security numbers - are actually text that happen to be numeric rather
+            than mathematical values. Therefore, consider using
+            <code
+              >&lt;input type="text" inputmode="numeric" pattern="[0-9]*"&gt;</code
+            > instead.
+          </p>
+
+          <p><strong>You will have a bad time.</strong></p>
+
+          <p>
+            This triggers the numeric keyboard on mobile devices while avoiding
+            the jank of number inputs, such as:
+          </p>
+
+          <ul>
+            <li>Unexpected value increments from scroll wheels</li>
+            <li>Browser-specific validation differences</li>
+            <li>Accessibility problems</li>
+            <li>Removal of leading zeros</li>
+            <li>Allows for some non-numeric mathematical characters</li>
+          </ul>
+
+          <p>
+            It should probably be called <code>&lt;input type="math"&gt;</code> instead.
+          </p>
+
+          <p>
+            The British Government has a <a
+              href="https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/"
+              class="link">great article</a
+            > about how bad input number is and goes in-depth. It's a very interesting
+            read.
+          </p>
+        </div>
+      </UICallout>
+    </div>
+
+    <h3 id="file">File</h3>
+    <p>
+      Use <code>aria-label</code> instead of the <code>&lt;label&gt;</code> element.
+    </p>
+
+    <p>
+      File is a weird one. Should it really be an <code>&lt;input&gt;</code> element?
+      Well, it's what we've got :sweat_smile:
+    </p>
+
+    <Example row>
+      <File slot="preview-astro" />
+      <File slot="preview-html" />
+      <Example.Code slot="code-astro" code={FileAstro} />
+      <Example.Code slot="code-html" code={FileHtml} />
+    </Example>
+  </section>
+
+  <section>
+    <h2 id="autosuggest">Autosuggest</h2>
+    <p>
+      Leverages the <code>&lt;input&gt;</code> + <code>&lt;datalist&gt;</code> element
+      combo.
+    </p>
+
+    <ul>
+      <li><code>&lt;input list="DATALISTID"&gt;</code></li>
+      <li><code>&lt;datalist id="DATALISTID"&gt;</code></li>
+    </ul>
+
+    <Example row>
+      <Autosuggest slot="preview-astro" />
+      <Autosuggest slot="preview-html" />
+      <Example.Code slot="code-astro" code={AutosuggestAstro} />
+      <Example.Code slot="code-html" code={AutosuggestHtml} />
+    </Example>
+
+    <div class="not-rich-text">
+      <UICallout>
+        <div class="rich-text">
+          <p>
+            Think of <code>&lt;datalist&gt;</code> as a list of <em
+              >suggested</em
+            > values.
+          </p>
+
+          <ul>
+            <li>
+              <code>&lt;select&gt;</code> only allows you to choose between its provided
+              values.
+            </li>
+            <li>
+              <code>&lt;input&gt;</code> lets you input anything you want.
+            </li>
+            <li>
+              <code>&lt;input&gt;</code> + <code>&lt;datalist&gt;</code> is a hybrid
+              between the two.
+            </li>
+          </ul>
+        </div>
+      </UICallout>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="do-i-have-to-use-label">
+      Do I have to use <code>&lt;label&gt;</code>?
+    </h2>
+    <p>
+      No. But you get some accessibility wins for free with <code
+        >&lt;label&gt;</code
+      >. It's recommended to label your inputs somehow.
+    </p>
+
+    <Example>
+      <NoLabel slot="preview-astro" />
+      <NoLabel slot="preview-html" />
+      <Example.Code slot="code-astro" code={NoLabelAstro} />
+      <Example.Code slot="code-html" code={NoLabelHtml} />
+    </Example>
+  </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        <a href="#numeric-vs-input-type-number" class="link"
+          >Don't use <code>&lt;input type="number"&gt;</code></a
+        > unless your user research tells you to.
+      </li>
+    </ul>
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <ol>
+      <li><code>label.text-field</code>: Container element</li>
+      <li><code>.label</code>: Field label element</li>
+      <li><code>.field</code>: The boxed input area</li>
+      <li>
+        <code>.header</code>: Optional inside-border header strip (with divider)
+      </li>
+      <li><code>.prefix</code>: Optional inline-start affix</li>
+      <li><code>&lt;input&gt;</code>: Input element</li>
+      <li><code>.suffix</code>: Optional inline-end affix</li>
+      <li>
+        <code>.footer</code>: Optional inside-border footer strip (with divider)
+      </li>
+      <li><code>.end-text</code>: Supporting text element</li>
+    </ol>
+
+    <Example>
+      <label class="text-field anatomy">
+        <span class="label">Label</span>
+        <span class="field">
+          <span class="header">Header</span>
+          <span class="prefix">¢</span>
+          <input type="text" value="Value" placeholder="Placeholder" />
+          <span class="suffix">EUR</span>
+          <span class="footer">Footer</span>
+        </span>
+        <span class="end-text">Supporting text</span>
+      </label>
+    </Example>
+  </Fragment>
+</Component>
+
+<style is:global>
+  .anatomy {
+    outline: var(--_anatomy-border-gray);
+    outline-offset: 6px;
+
+    & > * {
+      outline: var(--_anatomy-border-red);
+    }
+  }
+</style>

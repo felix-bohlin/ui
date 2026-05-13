@@ -1,0 +1,132 @@
+/*
+  theme three theme setup
+*/
+@layer theme {
+
+  /* 1. Color scheme */
+  .light {
+    --color-scheme: light;
+  }
+
+  .dark {
+    --color-scheme: dark;
+  }
+
+  :where(html) {
+    color-scheme: var(--color-scheme, light dark);
+
+    /* 2. Palette source - one value to rule them all. Every other color is derived from this one.
+       Both light/dark branches are wired up via light-dark() so prefers-color-scheme works
+       automatically. Set them to different OKLCH values if you want a distinct dark-mode palette. */
+    --palette-source: light-dark(oklch(0.58 calc(0.21 * 0.5) var(--hue-blue)),
+        oklch(0.58 calc(0.21 * 0.5) var(--hue-blue)));
+    --palette-hue-rotate-by: 0;
+
+    /* Gray ramp lives in core/palette.css. Override --gray-chroma or
+       --gray-hue here if this theme wants warmer/cooler grays. */
+
+    /* 3. Named colors (no severity meaning) — use when you literally want a green/red/etc. dot */
+    --blue: oklch(from var(--color-9) l 0.2 210);
+    --green: oklch(from var(--color-9) l 0.2 145);
+    --orange: oklch(from var(--color-7) l 0.2 75);
+    --red: oklch(from var(--color-9) l 0.2 25);
+
+    /* 4. Intent tokens
+       Severity (have scope classes below): --success, --info, --warning, --critical
+       Non-severity (value-only):           --primary, --neutral */
+    --success: var(--green);
+    --info: var(--blue);
+    --warning: var(--orange);
+    --critical: var(--red);
+    --neutral: var(--gray-9);
+
+    /* 5. Primary */
+    --primary: var(--color-8);
+    --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
+    --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
+    --primary-contrast: var(--gray-1);
+
+    /* 6. Text */
+    --text-primary: light-dark(var(--gray-15), var(--gray-1));
+    --text-primary-contrast: light-dark(var(--gray-2), var(--gray-15));
+    --text-muted: light-dark(var(--gray-13), var(--gray-4));
+    --text-muted-contrast: light-dark(var(--gray-4), var(--gray-13));
+
+    /* 7. Surfaces */
+    --surface-default: light-dark(var(--gray-1), var(--gray-13));
+    --surface-filled: light-dark(var(--gray-4), var(--gray-15));
+    --surface-tonal: light-dark(var(--gray-3), var(--gray-12));
+    --surface-elevated: light-dark(var(--gray-1), var(--gray-12));
+
+    /* 8. Borders */
+    --border-color: light-dark(var(--gray-4), var(--gray-12));
+    --border-radius: var(--size-2);
+    --border-width: 1px;
+
+    /* 9. Focus ring — components consume these and may override locally
+       (e.g. .button.filled { --focus-ring-offset: 3px; }, .checkbox { --focus-ring-offset: 0; }) */
+    --focus-ring-color: var(--primary);
+    --focus-ring-width: 2px;
+    --focus-ring-offset: 2px;
+    --focus-ring-style: solid;
+
+    /* 10. Typography */
+    --font-size-h1: var(--font-size-fluid-3);
+    --font-size-h2: var(--font-size-fluid-2);
+    --font-size-h3: var(--font-size-fluid-1);
+    --font-size-h4: var(--font-size-3);
+    --font-size-h5: var(--font-size-2);
+    --font-size-h6: var(--font-size-fluid-0);
+
+    /* Sneaking in an extra font size I want but Open Props doesn't provide. You can do whatever you want with your own theme. It's just CSS. */
+    --font-size-05: 0.875rem;
+
+    /* 11. Control sizes — shared scale for fields and buttons so they line up
+       visually. --field-size-* and --button-size-* alias from --control-size-*. */
+    --control-size-x-small: 28px;
+    --control-size-small: 32px;
+    --control-size: 40px;
+    --control-size-large: 46px;
+
+    --field-size-x-small: var(--control-size-x-small);
+    --field-size-small: var(--control-size-small);
+    --field-size: var(--control-size);
+    --field-size-large: var(--control-size-large);
+
+    --button-size-x-small: var(--control-size-x-small);
+    --button-size-small: var(--control-size-small);
+    --button-size: var(--control-size);
+    --button-size-large: var(--control-size-large);
+
+    /* 12. Field / input */
+    --field-border-color: var(--border-color);
+    --field-border-radius: var(--size-2);
+    --field-border-width: 1px;
+
+    /* 13. Button */
+    --button-border-radius: var(--size-2);
+  }
+
+  /* 14. Severity scope classes — re-source the palette inside these contexts.
+     Authoring `<div class="warning">` paints the entire subtree warning-orange.
+     Non-severity tokens (--primary, --neutral) deliberately have no scope class. */
+  :where(.critical, [data-invalid], del) {
+    --palette-source: oklch(0.58 0.21 var(--hue-red));
+    --palette-hue-rotate-by: 1;
+  }
+
+  :where(.info, abbr, dfn) {
+    --palette-source: oklch(0.58 0.21 var(--hue-blue));
+    --palette-hue-rotate-by: 1;
+  }
+
+  :where(.success, ins) {
+    --palette-source: oklch(0.58 0.21 var(--hue-green));
+    --palette-hue-rotate-by: 1;
+  }
+
+  :where(.warning) {
+    --palette-source: oklch(0.58 0.21 var(--hue-orange));
+    --palette-hue-rotate-by: 1;
+  }
+}

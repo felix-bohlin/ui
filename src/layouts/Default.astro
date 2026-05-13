@@ -1,0 +1,14 @@
+---
+import Header from "../components/Header.astro"
+import Layout from "./Layout.astro"
+---
+
+<Layout>
+  <a href="#main-content" class="sr-only">Skip to main content</a>
+
+  <Header>
+    <slot name="toolbar" slot="toolbar" />
+  </Header>
+
+  <slot />
+</Layout>

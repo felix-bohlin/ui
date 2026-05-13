@@ -1,0 +1,65 @@
+@layer components.root {
+  :where(.avatar) {
+    --_bg-color: var(--primary);
+    --_color: var(--color-1);
+    --_width: 40px;
+
+    align-items: center;
+    aspect-ratio: 1;
+    background-color: var(--_bg-color);
+    border-radius: var(--radius-round);
+    color: var(--_color);
+    display: inline-flex;
+    inline-size: var(--_width);
+    justify-content: center;
+    overflow: clip;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+
+    &:has(img) {
+      background-color: transparent;
+    }
+
+    svg {
+      max-inline-size: var(--size-5);
+    }
+
+    img {
+      block-size: 100%;
+      inline-size: 100%;
+      inset: 0;
+      object-fit: cover;
+      position: absolute;
+    }
+
+    &.squared {
+      border-radius: 0;
+    }
+
+    &.rounded {
+      border-radius: var(--radius-2);
+    }
+
+    &.squircle {
+      border-radius: var(--radius-3);
+
+      @supports (corner-shape: squircle) {
+        border-radius: var(--radius-round);
+        corner-shape: squircle;
+      }
+    }
+  }
+
+  :where([role="group"]) {
+    --_margin: var(--size-3);
+    --_outline-color: var(--surface-default);
+
+    display: flex;
+
+    .avatar {
+      box-shadow: 0 0 0 2px var(--_outline-color);
+      margin-inline-end: calc(-1 * var(--_margin));
+    }
+  }
+}

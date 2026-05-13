@@ -1,0 +1,18 @@
+---
+import { Radio } from "@opui/astro"
+import { FieldSet } from "@opui/astro"
+import { FieldLegend } from "@opui/astro"
+import { FieldGroup } from "@opui/astro"
+import { Form } from "@opui/astro"
+---
+
+<Form>
+  <FieldSet>
+    <FieldLegend>These are required!</FieldLegend>
+    <FieldGroup direction="row" name="fieldset-required-1-astro">
+      <Radio required>Radio 1</Radio>
+      <Radio required>Radio 2</Radio>
+      <Radio required>Radio 3</Radio>
+    </FieldGroup>
+  </FieldSet>
+</Form>

@@ -1,0 +1,345 @@
+@layer components.extended {
+
+  /*
+Lists meant to be used stand-alone or as part of Select elements
+
+  Intended use-case:
+  - ul.list > li
+  - .select > .list > option
+*/
+  :where(.list) {
+    --_bg-color: var(--surface-filled);
+    --_bg-color-hover: oklch(from var(--primary) l c h / 15%);
+
+    background-color: var(--_bg-color);
+    color: var(--text-primary);
+    list-style: none;
+    padding: var(--size-2) 0;
+
+    @media (pointer: coarse) {
+
+      &,
+      * {
+        user-select: none;
+      }
+    }
+
+    /* Background color */
+    &.transparent {
+      --_bg-color: transparent;
+    }
+
+    &.default {
+      --_bg-color: var(--surface-default);
+    }
+
+    &.tonal {
+      --_bg-color: var(--surface-tonal);
+    }
+
+    /* Borders on all list items */
+    &.bordered {
+      :where(li + li, option + option) {
+        margin-block-start: var(--size-3);
+
+        &::before {
+          block-size: 1px;
+          border-block-start: 1px solid var(--border-color);
+          content: "";
+          display: block;
+          inline-size: 100%;
+          inset: calc(-1 * var(--size-2)) 0 auto 0;
+          position: absolute;
+          visibility: visible;
+          /* override select > option:before style */
+        }
+      }
+    }
+
+    /* Dense - less gaps and spacing */
+    &.dense {
+      :where(li, option) {
+        gap: var(--size-2);
+        min-block-size: var(--size-7);
+        padding: var(--size-1) var(--size-2);
+
+        &.border-top {
+          margin-block-start: var(--size-2);
+
+          &::before {
+            inset: calc(-1 * var(--size-1)) 0 auto 0;
+          }
+        }
+
+        /* Clickable list item */
+        &:has(> a, > button, > label) {
+          min-block-size: auto;
+          padding: 0;
+        }
+
+        &> :where(a, button, label) {
+          gap: var(--size-2);
+          min-block-size: var(--size-7);
+          padding: var(--size-1) var(--size-2);
+        }
+
+        /* Checkbox / Radio */
+        &>label {
+          .end {
+            padding-inline-end: 0.125rem;
+          }
+
+          &:where(.checkbox, .radio) {
+            --_input-size: var(--size-3);
+          }
+        }
+
+        /* Leading and trailing content */
+        .start,
+        .end {
+          .avatar {
+            max-inline-size: var(--size-6);
+          }
+
+          .icon-button,
+          svg {
+            max-inline-size: var(--size-4);
+          }
+
+          .checkbox,
+          .radio {
+            --_input-size: var(--size-3);
+          }
+        }
+      }
+    }
+
+    /* Gutterless */
+    &.gutterless {
+      :where(li, option) {
+        padding-inline: 0;
+
+        &> :where(a, button, label) {
+          padding-inline: 0;
+        }
+      }
+    }
+
+    /* List item */
+    :where(li, option, [role="group"] > label) {
+      align-items: center;
+      background-color: var(--_bg-color);
+      display: flex;
+      font-size: var(--font-size-05);
+      gap: var(--size-3);
+      isolation: isolate;
+      min-block-size: 40px;
+      padding: var(--size-2) var(--size-3);
+      position: relative;
+
+      &::before {
+        display: none;
+        /* removing checkmark from option */
+      }
+
+      * {
+        font-size: inherit;
+      }
+
+      /* Clickable list item */
+      &:has(> a, > button, > label) {
+        background: transparent;
+        display: block;
+        min-block-size: auto;
+        padding: 0;
+
+        &[aria-selected="true"]> :where(a, button, label),
+        &[aria-selected="true"],
+        &:has(> [aria-current="page"])> :where(a, button, label) {
+          background-color: var(--_bg-color-hover);
+        }
+      }
+
+      /* Select option */
+      &:where(option) {
+        align-items: center;
+        background-color: var(--_bg-color);
+        color: inherit;
+        cursor: pointer;
+        display: flex;
+        gap: var(--size-3);
+        inline-size: 100%;
+        margin: 0;
+        min-block-size: 40px;
+        padding: var(--size-2) var(--size-3);
+        text-align: start;
+        text-decoration: none;
+        z-index: 0;
+
+        &:hover {
+          background-color: var(--_bg-color-hover);
+        }
+
+        &[aria-selected="true"] {
+          background-color: var(--_bg-color-hover);
+          color: var(--primary);
+        }
+
+        &:checked {
+          background-color: oklch(from var(--primary) l c h / 30%);
+        }
+      }
+
+      &>a,
+      &>button,
+      &>label {
+        align-items: center;
+        background-color: var(--_bg-color);
+        color: inherit;
+        cursor: pointer;
+        display: flex;
+        gap: var(--size-3);
+        inline-size: 100%;
+        margin: 0;
+        min-block-size: 40px;
+        outline-offset: -3px;
+        padding: var(--size-2) var(--size-3);
+        text-align: start;
+        text-decoration: none;
+        z-index: 0;
+
+        &:hover {
+          background-color: var(--_bg-color-hover);
+        }
+
+        &[aria-selected="true"],
+        &[aria-current="page"] {
+          background-color: var(--_bg-color-hover);
+        }
+      }
+
+      /* Checkbox / Radio / Switch */
+      &>label {
+        &:where(.checkbox, .radio, .switch) {
+          display: flex;
+        }
+
+        .end {
+          padding-inline-end: var(--size-1);
+        }
+
+        &:where(.checkbox, .radio) {
+          inline-size: 100%;
+        }
+
+        /* Switches look comically big in lists, so it's better to use a smaller variant  */
+        &.switch {
+          --_dot-size: 0.75rem;
+          --_track-height: var(--size-4);
+          --_track-width: 2.5rem;
+        }
+      }
+
+      /* Video */
+      &:has(video) {
+        padding: 0.75rem var(--size-3) 0.75rem 0;
+      }
+
+      /* Border between list items */
+      &.border-top {
+        margin-block-start: var(--size-3);
+
+        &::before {
+          block-size: 1px;
+          border-block-start: 1px solid var(--border-color);
+          content: "";
+          display: block;
+          inline-size: 100%;
+          inset: calc(-1 * var(--size-2)) 0 auto 0;
+          position: absolute;
+        }
+      }
+
+      /* Text */
+      .text {
+        flex: 1;
+        line-height: 1.6;
+
+        :where(h1, h2, h3, h4, h5, h6, p, span) {
+          color: inherit;
+          font-weight: 400;
+        }
+
+        p+p {
+          color: var(--text-muted);
+          font-size: var(--font-size-0);
+        }
+      }
+
+      /* Leading content */
+      .start {
+        align-items: center;
+        align-self: center;
+        display: grid;
+        z-index: 1;
+
+        &:has(svg) {
+          max-inline-size: var(--size-5);
+        }
+
+        svg {
+          padding-block-start: 0.125rem;
+        }
+
+        img {
+          aspect-ratio: 1;
+          inline-size: 56px;
+          object-fit: cover;
+        }
+
+        video {
+          aspect-ratio: 16/9;
+          block-size: 64px;
+          object-fit: cover;
+        }
+      }
+
+      /* Trailing content */
+      .end {
+        align-items: center;
+        display: flex;
+        font-size: var(--font-size-0);
+        text-align: end;
+        z-index: 1;
+
+        &:not(:has(a, button, input)) {
+          pointer-events: none;
+        }
+
+        kbd {
+          background-color: transparent;
+          border: 0;
+          color: inherit;
+          opacity: 0.6;
+        }
+
+        svg {
+          inline-size: 100%;
+          max-inline-size: var(--size-5);
+        }
+      }
+
+      /* Inset */
+      &.inset {
+        .text {
+          padding-inline-start: calc(var(--size-5) + var(--size-3));
+        }
+
+        /* Safety measure so it won't look bad if there for some reason should exist a leading element inside. */
+        .start {
+          display: none;
+        }
+      }
+    }
+  }
+}

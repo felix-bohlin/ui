@@ -1,0 +1,18 @@
+---
+import { Switch } from "@opui/astro"
+import { FieldSet } from "@opui/astro"
+import { FieldLegend } from "@opui/astro"
+import { FieldGroup } from "@opui/astro"
+import { Form } from "@opui/astro"
+---
+
+<Form>
+  <FieldSet disabled>
+    <FieldLegend>Legend</FieldLegend>
+    <FieldGroup direction="row" name="switch-group-disabled-astro">
+      <Switch>Switch 1</Switch>
+      <Switch>Switch 2</Switch>
+      <Switch>Switch 3</Switch>
+    </FieldGroup>
+  </FieldSet>
+</Form>

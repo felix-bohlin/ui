@@ -1,0 +1,86 @@
+---
+import Guide from "../../layouts/Guide.astro"
+import { Callout } from "@opui/astro"
+import DocLink from "../../components/DocLink.astro"
+import type { Props } from "astro"
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Why Open Props UI?</Fragment>
+  <Fragment slot="preamble">
+    A CSS UI library exploring how next-gen HTML & CSS features can change the
+    way we create components. Designed to be used by professional teams as well
+    as tinkering hobbyists.
+  </Fragment>
+
+  <p>
+    Everything is made with ease-of-use and scalability in mind. Last but not
+    least - you <strong>copy and paste the components</strong> into your repo. It's
+    the best way to have a complete understanding and ownership over your stuff.
+  </p>
+
+  <section>
+    <h2 id="backstory">Backstory</h2>
+    <p>
+      When I started this project it was a reaction to UI libraries being slow
+      to adopt widespread CSS features. Some barely used CSS grid or <code
+        >gap</code
+      >. Open Props UI would be that blank slate rethink of how a UI library
+      could be built if you used the most modern features.
+    </p>
+    <p>
+      In general however, I'm mostly just very curious about how far we can push
+      HTML and CSS now that so much has happened these last couple of years. For
+      understandable reasons many developers haven't been keeping up, but our
+      toolbox has been updated so much now that <strong>we need examples</strong
+      > of how to use it. Making small demos on Codepen or looking at examples on
+      MDN wouldn't cut it - there needed to be some weight behind it. I needed to
+      convince myself as much as anyone else that these newly landed features are
+      capable of real world usage.
+    </p>
+    <p>
+      As I've been working on this I have gotten more convinced that right now, <DocLink
+        href="/guide/browser-support">and going forwards</DocLink
+      >, frontend developers need to re-examine their assumtions. If nothing
+      else, library developers have to look more closely at what the platform
+      offers. AI has pushed developers into an architect kind of role, so if
+      we're not as involved in how the code is written anymore, we need to make
+      sure the foundations are solid.
+    </p>
+    <p>
+      Or what do I know, maybe the output is <a
+        href="https://youtu.be/RaQdd8bUaXk?si=SILoMZQZxfyoo-_A&t=657"
+        target="_blank"
+        rel="noopener noreferrer">the only thing that matters?</a
+      > I don't think I believe that yet, but if nothing else this has been fun.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-goal">The goal of OPUI</h2>
+    <ul>
+      <li>
+        Have pragmatic defaults without sacrificing flexibility and control
+      </li>
+      <li>Leverage the native platform as much as possible</li>
+      <li>Follow accessibility guidelines</li>
+      <li>Serve as an inspiration</li>
+      <li>Be scalable</li>
+    </ul>
+  </section>
+
+  <div class="not-rich-text">
+    <Callout>
+      <Fragment slot="title"
+        >"If you only use the latest features, that means this is can never
+        enter production"</Fragment
+      >
+      <p>
+        Yes and no. Right now that's true for many components. The point is to
+        let the spec and the components mature alongside each other and in time
+        the library will be ready for production.
+      </p>
+      <p>We're all adults here, we make the decisions we think are best.</p>
+    </Callout>
+  </div>
+</Guide>

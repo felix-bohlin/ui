@@ -1,0 +1,170 @@
+---
+import Component from "../../layouts/Component.astro"
+import Example from "../../components/Example"
+import AutoExample from "../../components/AutoExample.astro"
+import { ToggleButton } from "@opui/astro"
+
+import Interactive from "../../component-examples/toggle/Interactive.astro"
+import Vertical from "../../component-examples/toggle/Vertical.astro"
+import Sizes from "../../component-examples/toggle/Sizes.astro"
+import MultiSelect from "../../component-examples/toggle/MultiSelect.astro"
+import Alignment from "../../component-examples/toggle/Alignment.astro"
+import Standalone from "../../component-examples/toggle/Standalone.astro"
+import ToggleGroupCSS from "@opui/css/components/toggle-group.css?raw"
+import ToggleButtonCSS from "@opui/css/components/toggle-button.css?raw"
+import Conditional from "../../components/Conditional.astro"
+---
+
+<Component
+  slug="toggle"
+  browserSupport={["color-mix", "light-dark", "relative-color"]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/ToggleButton/ToggleButton.astro",
+      type: "component",
+    },
+    {
+      path: "packages/opui/components/ToggleGroup/ToggleGroup.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/toggle.astro", type: "docs" },
+    { path: "src/component-examples/toggle", type: "docs" },
+    {
+      path: "packages/opui/css/components/toggle-button.css",
+      type: "css",
+    },
+    {
+      path: "packages/opui/css/components/toggle-group.css",
+      type: "css",
+    },
+    { path: "src/component-api/toggle", type: "api" },
+  ]}
+  installationTabs={[
+    {
+      title: "toggle-group.css",
+      code: ToggleGroupCSS,
+      lang: "css",
+    },
+    {
+      title: "toggle-button.css",
+      code: ToggleButtonCSS,
+      lang: "css",
+    },
+  ]}
+>
+  <Fragment slot="title">Toggle</Fragment>
+  <Fragment slot="preamble"
+    >Buttons (disguised as input checkbox/radio) that can be toggled on and off.
+  </Fragment>
+
+  <section>
+    <h2 id="toggle-button">Toggle button</h2>
+    <AutoExample name="Standalone" centered />
+  </section>
+
+  <section>
+    <h2 id="toggle-group">Toggle group</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
+      </Fragment>
+      <Fragment slot="html">
+        Group toggle buttons by wrapping them in a <code
+          >&lt;div role="radiogroup" class="toggle-group"&gt;</code
+        > (or <code>role="group"</code> when multi-select).
+      </Fragment>
+    </Conditional>
+
+    <h3 id="multi-select">Multi-select</h3>
+    <Conditional>
+      <p slot="html">
+        Use <code>type="checkbox"</code> for multi-select groups.
+      </p>
+      <p slot="astro">
+        Use <code>selection="multiple"</code> for multi-select groups.
+      </p>
+    </Conditional>
+
+    <AutoExample name="MultiSelect" centered />
+
+    <h3 id="single-select">Single-select</h3>
+    <Conditional>
+      <p slot="html">Use <code>type="radio"</code> for single-select groups.</p>
+      <p slot="astro">
+        Use <code>selection="single"</code> for single-select groups.
+      </p>
+    </Conditional>
+
+    <AutoExample name="Alignment" centered />
+
+    <h3 id="text-icon">Text + icon</h3>
+
+    <AutoExample name="Interactive" centered />
+
+    <h3 id="vertical-orientation">Vertical orientation</h3>
+    <Conditional>
+      <p slot="astro">
+        Change the layout of the group with the <code
+          >orientation="vertical"</code
+        > prop.
+      </p>
+      <p slot="html">
+        Change the layout of the group with the <code>.vertical</code> class.
+      </p>
+    </Conditional>
+    <AutoExample name="Vertical" centered />
+
+    <h3 id="sizes">Sizes</h3>
+    <p>
+      Choose between three sizes: default, <code>.x-small</code> and <code
+        >.small</code
+      >.
+    </p>
+
+    <AutoExample name="Sizes" centered row />
+  </section>
+
+  <Fragment slot="anatomy">
+    <Example centered>
+      <div role="radiogroup" class="toggle-group anatomy">
+        <label class="toggle-button selected">
+          <input type="radio" checked />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            ><path
+              fill="currentColor"
+              d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
+            ></path></svg
+          >
+          Selected
+        </label>
+        <label class="toggle-button">
+          <input type="radio" />
+          Enabled
+        </label>
+      </div>
+    </Example>
+  </Fragment>
+</Component>
+
+<style is:global>
+  .anatomy {
+    outline: var(--_anatomy-border-gray);
+    outline-offset: 4px;
+
+    .toggle-button:first-of-type {
+      outline: var(--_anatomy-border-red);
+
+      & > * {
+        outline: var(--_anatomy-border-red);
+      }
+    }
+  }
+
+  .toggle-group .toggle-button:has(input:checked).has-text svg:nth-of-type(2) {
+    display: none;
+  }
+</style>

@@ -1,0 +1,14 @@
+---
+type Props = {
+  [key: string]: any
+  class?: string
+  variant?: "tonal" | "filled" | "primary"
+}
+
+export const title = "Divider"
+
+const { class: className, variant, ...rest } = Astro.props
+const variantClass = variant ? `border-${variant}` : ""
+---
+
+<hr class:list={["divider", className, variantClass]} {...rest} />

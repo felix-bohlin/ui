@@ -1,0 +1,49 @@
+---
+type Props = {
+  [key: string]: any
+  backdrop?: "transparent" | "blurred"
+  class?: string
+  closedby?: "any" | "closerequest" | "none"
+  id?: string
+  scrollLock?: boolean
+  side?: "inline-start" | "inline-end" | "block-start" | "block-end"
+}
+
+export const title = "Drawer"
+
+const {
+  backdrop = "blurred",
+  class: className,
+  closedby = "any",
+  id,
+  scrollLock = true,
+  side = "inline-start",
+  ...rest
+} = Astro.props
+
+const { $id } = Astro.locals
+const drawerId = id || $id("drawer")
+---
+
+<dialog
+  closedby={closedby}
+  class:list={[
+    "drawer",
+    side,
+    {
+      "backdrop-transparent": backdrop === "transparent",
+      "scroll-lock": scrollLock,
+    },
+    className,
+  ]}
+  id={drawerId}
+  {...rest}
+>
+  {Astro.slots.has("header") && <slot name="header" />}
+
+  <div class="content">
+    <slot name="content" />
+  </div>
+
+  {Astro.slots.has("footer") && <slot name="footer" />}
+</dialog>

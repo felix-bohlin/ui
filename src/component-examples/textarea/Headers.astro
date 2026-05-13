@@ -1,0 +1,11 @@
+---
+import { Textarea } from "@opui/astro"
+---
+
+<Textarea label="Code" placeholder="console.log('Hello, world!')">
+  <Fragment slot="header">script.js</Fragment>
+</Textarea>
+
+<Textarea label="Comment" placeholder="Write a comment...">
+  <Fragment slot="footer">0 / 280</Fragment>
+</Textarea>

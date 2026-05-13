@@ -1,0 +1,56 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Group</Table.Cell>
+      <Table.Cell><code>Card[role="group"]</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Optional wrapper for accordion groups. To theme the entire group, apply
+        the <code>variant</code> prop to this component.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>name</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The name of the accordion (used for grouping multiple accordions).
+        Works best when wrapped in a <code>Card</code> with <code
+          >role="group"</code
+        >.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>open</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Accordion open state.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>variant</code></Table.Cell>
+      <Table.Cell
+        ><code>"default" | "outlined" | "elevated" | "tonal"</code></Table.Cell
+      >
+      <Table.Cell><code>"default"</code></Table.Cell>
+      <Table.Cell>The visual variant of the accordion.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

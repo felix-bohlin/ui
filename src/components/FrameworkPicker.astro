@@ -1,0 +1,77 @@
+---
+import { Select } from "@opui/astro"
+import {
+  DEFAULT_FRAMEWORK,
+  FRAMEWORKS,
+  type FrameworkId,
+} from "../utils/framework-routing"
+
+type Props = {
+  size?: "small"
+}
+
+const { size } = Astro.props
+
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+---
+
+<Select aria-label="Framework" class="framework-picker" size={size}>
+  {
+    FRAMEWORKS.map((framework) => (
+      <option value={framework.id} selected={framework.id === currentFramework}>
+        {framework.label}
+      </option>
+    ))
+  }
+</Select>
+
+<script>
+  import {
+    FRAMEWORK_IDS,
+    frameworkPrefixPattern,
+    type FrameworkId,
+  } from "../utils/framework"
+
+  function stripFrameworkPrefix(pathname: string): string {
+    const match = pathname.match(frameworkPrefixPattern())
+    if (!match) return pathname || "/"
+    const stripped = pathname.slice(
+      match[0].length - (match[2] === "/" ? 1 : 0),
+    )
+    return stripped || "/"
+  }
+
+  function urlForFramework(framework: FrameworkId): string {
+    const sharedPath = stripFrameworkPrefix(window.location.pathname)
+    const path = sharedPath === "/" ? "" : sharedPath
+    return `/${framework}${path}${window.location.search}${window.location.hash}`
+  }
+
+  function init() {
+    const pickers = document.querySelectorAll<HTMLSelectElement>(
+      ".framework-picker select",
+    )
+    pickers.forEach((select) => {
+      if (select.dataset.bound === "true") return
+      select.dataset.bound = "true"
+      select.addEventListener("change", () => {
+        const framework = select.value as FrameworkId
+        if (!(FRAMEWORK_IDS as string[]).includes(framework)) return
+        // Persist explicit picker choice so future visits to the bare
+        // homepage land on the user's preferred variant. Writes ONLY on
+        // explicit change — never on plain URL navigation, so deep links
+        // can't silently overwrite a saved preference.
+        try {
+          localStorage.setItem("opui-framework", framework)
+        } catch (_) {
+          // private mode / storage disabled — non-fatal
+        }
+        window.location.href = urlForFramework(framework)
+      })
+    })
+  }
+
+  init()
+  document.addEventListener("astro:after-swap", init)
+</script>

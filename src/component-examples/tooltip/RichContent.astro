@@ -1,0 +1,14 @@
+---
+import { Button, Tooltip } from "@opui/astro"
+---
+
+<Tooltip id="tooltip-rich">
+  <Button
+    interestfor="tooltip-rich"
+    commandfor="tooltip-rich"
+    command="toggle-popover">Keyboard shortcuts</Button
+  >
+  <Fragment slot="content">
+    Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette.
+  </Fragment>
+</Tooltip>

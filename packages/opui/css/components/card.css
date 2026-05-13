@@ -1,0 +1,117 @@
+@layer components.root {
+  :where(.card) {
+    --_bg-tonal: var(--surface-tonal);
+    --_bg-elevated: var(--surface-elevated);
+    --_bg-surface: var(--surface-default);
+    --_border-color: var(--border-color);
+    --_card-bg-color: var(--_bg-surface);
+    --_card-border-color: transparent;
+    --_card-border-width: 0;
+
+    --_card-shadow: none;
+    --_shadow-light: var(--shadow-3);
+    --_shadow-dark: var(--shadow-4);
+    --_shadow-elevated: var(--_shadow-light);
+
+    @container style(--color-scheme: dark) {
+      --_shadow-elevated: var(--_shadow-dark);
+    }
+
+    background-color: var(--_card-bg-color);
+    border-color: var(--_card-border-color);
+    border-radius: var(--border-radius);
+    border-style: solid;
+    border-width: var(--_card-border-width);
+    box-shadow: var(--_card-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
+    overflow: hidden;
+    padding-inline: 0;
+    position: relative;
+
+    /* Variants */
+    &.text {
+      --_card-bg-color: transparent;
+      --_card-border-color: transparent;
+      --_card-border-width: 0;
+      --_card-shadow: none;
+    }
+
+    &.tonal {
+      --_card-bg-color: var(--_bg-tonal);
+      --_card-border-width: 1px;
+    }
+
+    &.elevated {
+      --_card-bg-color: var(--_bg-elevated);
+      --_card-shadow: var(--_shadow-elevated);
+    }
+
+    &.outlined {
+      --_card-bg-color: var(--_bg-surface);
+      --_card-border-color: var(--_border-color);
+      --_card-border-width: 1px;
+    }
+
+    &> :where(hgroup, .content) {
+      padding-inline: var(--size-3);
+
+      &:last-child {
+        padding-block-end: var(--size-3);
+      }
+    }
+
+    /* Header */
+    &>hgroup {
+      padding-block: var(--size-3) 0;
+
+      /* Top paragraph */
+      &>p:first-of-type:first-child {
+        line-height: 1.3;
+      }
+
+      :where(h1, h2, h3, h4, h5, h6):last-child {
+        margin-block-end: 0;
+      }
+
+      /* Bottom paragraph */
+      &>p:last-of-type:last-child:not(:first-child) {
+        font-size: var(--font-size-1);
+      }
+    }
+
+    /* Content */
+    &>.content:where(:only-child, :first-child) {
+      padding-block: var(--size-3) var(--size-4);
+    }
+
+    /* Actions */
+    &>.actions {
+      display: flex;
+      gap: var(--size-2);
+      margin-block: var(--size-2) 0;
+      padding-block-end: var(--size-2);
+      padding-inline: var(--size-3);
+
+      &:has(.button:first-child[class="button"]) {
+        padding-inline: var(--size-1) var(--size-3);
+      }
+
+      &:has(.button:not([class="button"])) {
+        padding-block-end: var(--size-2);
+      }
+
+      /* Alignment */
+      &.align-end {
+        justify-content: end;
+
+        &:has(.button:first-child[class="button"]) {
+          padding-inline: var(--size-3) var(--size-1);
+        }
+      }
+    }
+
+
+  }
+}

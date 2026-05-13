@@ -1,0 +1,71 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><strong>Command</strong></Table.Cell>
+      <Table.Cell><code>--show-toast</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Custom invoker command to trigger a toast notification.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><strong>Message</strong></Table.Cell>
+      <Table.Cell><code>value</code> / <code>textContent</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The message to display in the toast.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><strong>Severity</strong></Table.Cell>
+      <Table.Cell><code>data-severity</code></Table.Cell>
+      <Table.Cell><code>info</code></Table.Cell>
+      <Table.Cell
+        >Modifies the toast appearance. Options: <code>success</code>, <code
+          >critical</code
+        >, <code>info</code>.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><strong>Duration</strong></Table.Cell>
+      <Table.Cell><code>data-duration</code></Table.Cell>
+      <Table.Cell><code>5000ms</code></Table.Cell>
+      <Table.Cell
+        >Determines how long the toast remains visible. Supports CSS time units
+        (ms, s).</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><strong>Container</strong></Table.Cell>
+      <Table.Cell><code>#toast-manager</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The global fixed container that manages the stack of toasts.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><strong>Component</strong></Table.Cell>
+      <Table.Cell><code>.toast</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Individual notification element within the container.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

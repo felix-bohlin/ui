@@ -1,0 +1,71 @@
+@layer utils {
+
+  /*
+Screen-reader only
+When you visibly want to hide an element but make it accessible for screen readers.
+*/
+  .sr-only {
+    block-size: 1px;
+    clip-path: inset(50%);
+    inline-size: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  /*
+Scroll-lock
+Add `.scroll-lock` to any element that uses the [open] attribute (native <dialog>,
+<details>, or any custom element). When that element is open, the page is locked.
+*/
+  html:has(.scroll-lock[open]) {
+    overflow: clip;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+
+  /* Hover and active effect for checkbox, radio and icon buttons */
+  :where(.checkbox input, .radio input, .icon-button) {
+    --isLTR: 1;
+    --isRTL: -1;
+
+    position: relative;
+    transform-style: preserve-3d;
+
+    &:dir(rtl) {
+      --isLTR: -1;
+      --isRTL: 1;
+    }
+
+    &:where(:not([disabled])) {
+      &:hover:before {
+        --thumb-scale: 1;
+      }
+
+      &:active:before {
+        --thumb-scale: 1.1;
+      }
+
+      &::before {
+        --thumb-scale: 0.01;
+        --highlight-size: 150%;
+
+        background-color: oklch(0.6 0 0 / 0.2);
+        block-size: var(--highlight-size);
+        clip-path: circle(50%);
+        content: "";
+        inline-size: var(--highlight-size);
+        inset-block-start: 50%;
+        inset-inline-start: 50%;
+        position: absolute;
+        transform-origin: center center;
+        transform: translateX(calc(var(--isRTL) * 50%)) translateY(-50%) translateZ(-1px) scale(var(--thumb-scale));
+        will-change: transform;
+
+        @media (prefers-reduced-motion: no-preference) {
+          transition: transform 0.2s ease;
+        }
+      }
+    }
+  }
+}

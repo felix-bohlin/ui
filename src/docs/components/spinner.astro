@@ -1,0 +1,80 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import SpinnerCSS from "@opui/css/components/spinner.css?raw"
+---
+
+<Component
+  slug="spinner"
+  changelogPaths={[
+    { path: "src/docs/components/spinner.astro", type: "docs" },
+    { path: "src/component-examples/spinner", type: "docs" },
+    {
+      path: "packages/opui/css/components/spinner.css",
+      type: "css",
+    },
+  ]}
+  installationTabs={[{ title: "spinner.css", code: SpinnerCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Spinner</Fragment>
+  <Fragment slot="preamble">
+    Add it to an element with <code>aria-busy="true"</code>. Spinners are always
+    indeterminate. See also: <DocLink href="/components/progress" class="link"
+      >Progress bar</DocLink
+    >.
+  </Fragment>
+
+  <AutoExample name="Default" />
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <p>
+      The spinner's size is set to <code>1em</code>, which means it will adjust
+      to its current font size.
+    </p>
+    <AutoExample name="Sizes" column />
+  </section>
+
+  <section>
+    <h2 id="buttons">Buttons</h2>
+    <p>
+      Simply add <code>aria-busy="true"</code> to a <code>&lt;button&gt;</code>.
+    </p>
+    <AutoExample name="Buttons" column />
+  </section>
+
+  <section>
+    <h2 id="when-not-to-use">When not to use <code>aria-busy="true"</code></h2>
+    <p>
+      There are a few exceptions where <code>aria-busy="true"</code> won't render
+      a spinner. Either because it doesn't make sense or because there are other reasons
+      you would like to use that aria attribute.
+    </p>
+
+    <h3 id="blocked-by-another-use-case">
+      1. Because it's blocked by another use case
+    </h3>
+    <p>
+      In conjunction with the <code>&lt;progress&gt;</code> element <code
+        >aria-busy="true"</code
+      > is used on the section that is being updated. Rendering a spinner here would
+      result in a spinner <em>and</em> a progress bar which doesn't make sense.
+    </p>
+
+    <p>
+      See <DocLink href="/components/progress#accessibility"
+        >progress accessibility</DocLink
+      > section for more.
+    </p>
+
+    <h3 id="doesnt-make-sense">2. Because it doesn't make sense</h3>
+    <ul>
+      <li><code>&lt;input&gt;</code></li>
+      <li><code>&lt;select&gt;</code></li>
+      <li><code>&lt;textarea&gt;</code></li>
+      <li><code>&lt;html&gt;</code></li>
+      <li><code>&lt;progress&gt;</code></li>
+    </ul>
+  </section>
+</Component>

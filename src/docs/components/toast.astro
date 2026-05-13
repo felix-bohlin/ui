@@ -1,0 +1,175 @@
+---
+import Component from "../../layouts/Component.astro"
+import Example from "../../components/Example"
+
+import AutoExample from "../../components/AutoExample.astro"
+import JavascriptDemo from "../../component-examples/toast/Javascript.astro"
+import JavascriptHtml from "../../component-examples/toast/Javascript.html?raw"
+import JavascriptJS from "../../component-examples/toast/Javascript.js?raw"
+import ToastCSS from "@opui/css/components/toast.css?raw"
+---
+
+<Component
+  slug="toast"
+  browserSupport={["popover", "light-dark", "invoker-commands"]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Toast/Toast.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/toast.astro", type: "docs" },
+    { path: "src/component-examples/toast", type: "docs" },
+    {
+      path: "packages/opui/css/components/toast.css",
+      type: "css",
+    },
+    { path: "src/component-api/toast", type: "api" },
+  ]}
+  installationTabs={[{ title: "toast.css", code: ToastCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Toast</Fragment>
+  <Fragment slot="preamble">
+    Non-interruptive and stackable notifications. They pop up like... toast.
+  </Fragment>
+
+  <section>
+    <h2 id="how-it-works">How it works</h2>
+    <p>
+      Toasts are managed by a global container. Trigger them either completely
+      with HTML (using <a
+        href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
+        class="link">invoker commands</a
+      >) or with JavaScript.
+    </p>
+    <p>
+      Structure lives in HTML via a default <code
+        >&lt;template id="toast-template"&gt;</code
+      >. CSS owns the lifetime through <code
+        >attr(data-duration type(&lt;time&gt;))</code
+      >. JS only clones the template, fills the structural slots (<code
+        >[data-toast-title]</code
+      >, <code>[data-toast-description]</code>, <code>[data-toast-icon]</code>,
+      <code>[data-toast-close]</code>) using <code>textContent</code>, and
+      removes the toast on <code>animationend</code>. Provide your own <code
+        >&lt;template&gt;</code
+      > with the same slot markers and reference it via <code
+        >data-template</code
+      >
+      on the trigger to override the default look.
+    </p>
+
+    <h3 id="html">HTML</h3>
+    <p>
+      Use <code>commandfor="toast-manager"</code> and <code
+        >command="--show-toast"</code
+      >
+      on a button. The <code>data-title</code> attribute will be used as the message.
+    </p>
+
+    <AutoExample name="HTML" centered />
+
+    <h3 id="javascript">JavaScript</h3>
+    <p>
+      This is arguably the most common way. After some kind of fetch you might
+      want to display some kind of message.
+    </p>
+    <p>
+      Use the <code>showToast</code> helper or by dispatching a <code
+        >CommandEvent</code
+      >.
+    </p>
+
+    <Example centered>
+      <Example.Preview slot="preview-astro" code={JavascriptDemo} />
+      <Example.Preview slot="preview-html" code={JavascriptHtml} />
+      <Example.Code slot="code-js" code={JavascriptJS} />
+    </Example>
+  </section>
+
+  <section>
+    <h2 id="severities">Severities</h2>
+    <p>
+      Use the <code>data-severity</code> attribute to change the appearance of the
+      toast.
+    </p>
+
+    <AutoExample name="Severity" row centered />
+  </section>
+
+  <section>
+    <h2 id="title-description">Title + description</h2>
+    <p>
+      Use <code>data-title</code> for a single-line toast, or add <code
+        >data-description</code
+      > for a two-line toast with additional context.
+    </p>
+
+    <AutoExample name="TitleDescription" row centered />
+  </section>
+
+  <section>
+    <h2 id="duration">Duration</h2>
+    <p>
+      Control how long the toast stays visible using <code>data-duration</code>.
+      Supports CSS time units such as <code>ms</code> or <code>s</code>.
+    </p>
+
+    <AutoExample name="Duration" row centered />
+  </section>
+
+  <Fragment slot="anatomy">
+    <p>
+      1. Container (Manager)<br />
+      2. Individual Toast Body<br />
+      3. Content Area<br />
+      4. Close Button (Optional)
+    </p>
+
+    <Example>
+      <div
+        class="anatomy-demo"
+        style="position: relative; inset: auto; display: flex; z-index: 1;"
+      >
+        <div class="toast info anatomy">
+          <div class="content">Notification message content</div>
+          <button class="close-button" aria-label="Close">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
+            >
+          </button>
+        </div>
+      </div>
+    </Example>
+
+    <style is:global>
+      .anatomy-demo {
+        outline: var(--_anatomy-border-gray);
+        outline-offset: -2px;
+
+        .toast.anatomy {
+          outline: var(--_anatomy-border-red);
+          outline-offset: -4px;
+        }
+
+        .content {
+          outline: var(--_anatomy-border-red);
+          outline-offset: 2px;
+        }
+
+        .close-button {
+          outline: var(--_anatomy-border-red);
+          outline-offset: 2px;
+        }
+      }
+    </style>
+  </Fragment>
+</Component>

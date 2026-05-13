@@ -1,0 +1,29 @@
+---
+type Props = {
+  [key: string]: any
+  class?: string
+  color?: "critical" | "primary"
+  orientation?: "vertical"
+  size?: "small" | "large"
+  variant?: "outlined" | "tonal" | "filled"
+}
+
+export const title = "Button Group"
+
+const {
+  class: className,
+  color,
+  orientation,
+  size,
+  variant,
+  ...rest
+} = Astro.props
+---
+
+<div
+  class:list={["button-group", color, size, variant, orientation, className]}
+  role="group"
+  {...rest}
+>
+  <slot />
+</div>

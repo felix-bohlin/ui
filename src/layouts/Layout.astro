@@ -1,0 +1,47 @@
+---
+import "@opui/css/imports.css"
+import "/src/styles/base.css"
+import { Toast } from "@opui/astro"
+import Footer from "../components/Footer.astro"
+import { Font } from "astro:assets"
+import {
+  DEFAULT_FRAMEWORK,
+  frameworkVariantsOf,
+  type FrameworkId,
+} from "../utils/framework-routing"
+
+const pathname = Astro.url.pathname
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+
+// Every route is mirrored across frameworks, so every page advertises its
+// alternates. Each variant self-canonicalizes; rel=alternate covers the rest.
+const variants = frameworkVariantsOf(pathname)
+const normalize = (url: string) => url.replace(/\/+$/, "") || "/"
+const currentNormalized = normalize(pathname)
+---
+
+<!doctype html>
+<html lang="en" data-framework={currentFramework}>
+  <head>
+    <Font cssVariable="--font-bricolage-grotesque" preload />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link rel="canonical" href={pathname} />
+    {
+      variants
+        .filter((v) => normalize(v.url) !== currentNormalized)
+        .map((v) => (
+          <link rel="alternate" href={v.url} data-framework={v.framework} />
+        ))
+    }
+    <meta name="generator" content={Astro.generator} />
+    <title>Open Props UI</title>
+  </head>
+  <body>
+    <slot />
+    <Toast />
+    <Footer />
+  </body>
+</html>

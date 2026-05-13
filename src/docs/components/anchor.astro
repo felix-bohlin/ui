@@ -1,0 +1,86 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+
+import AnchorCSS from "@opui/css/components/anchor.css?raw"
+
+---
+
+<Component
+  slug="anchor"
+  browserSupport={["anchor-positioning", "popover-hint"]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Anchor/Anchor.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/anchor.astro", type: "docs" },
+    { path: "src/component-examples/anchor", type: "docs" },
+    {
+      path: "packages/opui/css/components/anchor.css",
+      type: "css",
+    },
+    { path: "src/component-api/anchor", type: "api" },
+  ]}
+  installationTabs={[{ title: "anchor.css", code: AnchorCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Anchor</Fragment>
+  <Fragment slot="preamble">
+    <p>
+      A structural primitive for positioning floating content relative to an
+      anchor element using CSS Anchor Positioning.
+    </p>
+    <Conditional>
+      <Fragment slot="html">
+        Add the <code>.anchor</code> class to a container. The first child becomes
+        the anchor target. Place floating content inside <code
+          >.anchor-floating</code
+        >. Use <code>--anchor-position-area</code> to control placement.
+      </Fragment>
+      <Fragment slot="astro">
+        Use the default slot for the anchor target and the
+        <code>anchored</code> slot for floating content. Set
+        <code>alignment</code> to any valid <code>position-area</code> value.
+      </Fragment>
+    </Conditional>
+  </Fragment>
+
+  <section>
+    <h2 id="always-visible">Always Visible</h2>
+    <p>Floating content that is always shown.</p>
+
+    <AutoExample name="AlwaysVisible" />
+  </section>
+
+  <section>
+    <h2 id="hover-trigger">Hover Trigger</h2>
+    <Conditional as="p">
+      <Fragment slot="html">
+        Add <code>interestfor</code> on the trigger element pointing to the
+        <code>.anchor-floating</code> ID.
+      </Fragment>
+      <Fragment slot="astro">
+        Set <code>trigger="hover"</code>. The component adds <code
+          >interestfor</code
+        > and <code>popover="hint"</code> declaratively.
+      </Fragment>
+    </Conditional>
+    <p>
+      Add <code>interestfor</code>, <code>commandfor</code>, and <code
+        >command="toggle-popover"</code
+      > to the anchor trigger so touch devices can tap to show the floating content.
+    </p>
+
+    <AutoExample name="Hover" />
+  </section>
+
+  <section>
+    <h2 id="used-by">Used By</h2>
+    <ul>
+      <li><DocLink href="/components/badge">Badge</DocLink></li>
+      <li><DocLink href="/components/tooltip">Tooltip</DocLink></li>
+    </ul>
+  </section>
+</Component>

@@ -1,0 +1,88 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example"
+import AutoExample from "../../components/AutoExample.astro"
+import { Progress as UIProgress } from "@opui/astro"
+
+import ProgressCSS from "@opui/css/components/progress.css?raw"
+import Conditional from "../../components/Conditional.astro"
+---
+
+<Component
+  slug="progress"
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Progress/Progress.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/progress.astro", type: "docs" },
+    { path: "src/component-examples/progress", type: "docs" },
+    {
+      path: "packages/opui/css/components/progress.css",
+      type: "css",
+    },
+    { path: "src/component-api/progress", type: "api" },
+  ]}
+  installationTabs={[{ title: "progress.css", code: ProgressCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Progress</Fragment>
+  <Fragment slot="preamble">
+    See also: <DocLink href="/components/spinner" class="link">Spinner</DocLink
+    >.
+  </Fragment>
+
+  <section>
+    <h2 id="indeterminate">Indeterminate</h2>
+    <AutoExample name="Indeterminate" />
+  </section>
+
+  <section>
+    <h2 id="determinate">Determinate</h2>
+    <AutoExample name="Determinate" column />
+  </section>
+
+  <section>
+    <h2 id="variants">Variants</h2>
+    <Conditional>
+      <p slot="astro">
+        Use the <code>variant</code> prop to swap the progress bar track surface for
+        better contrast on different backgrounds.
+      </p>
+      <p slot="html">
+        Use the modifier classes <code>.filled</code>, <code>.default</code>, or
+        <code>.tonal</code> on the <code>&lt;progress&gt;</code> element to swap the
+        progress bar track surface for better contrast on different backgrounds.
+      </p>
+    </Conditional>
+    <AutoExample name="Surfaces" column />
+  </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      If the <code>&lt;progress&gt;</code> element is describing the loading progress
+      of a section of a page:
+    </p>
+    <ul>
+      <li>use <code>aria-describedby</code> to point to the status</li>
+      <li>
+        set <code>aria-busy="true"</code> on the section that is being updated, removing
+        it when loading is finished.
+      </li>
+    </ul>
+    <p>
+      Source: <a
+        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress#accessibility"
+        class="link">MDN</a
+      >
+    </p>
+    <Example>
+      <Example.Preview slot="preview-astro">
+        <div aria-busy="true" aria-describedby="progress-bar">
+          Content here is loading.
+        </div>
+        <UIProgress id="progress-bar" aria-label="Content loading…" />
+      </Example.Preview>
+    </Example>
+  </Fragment>
+</Component>

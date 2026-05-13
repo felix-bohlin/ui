@@ -1,0 +1,57 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>alignment</code></Table.Cell>
+      <Table.Cell
+        ><code>"start-start" | "start-end" | "end-start" | "end-end"</code
+        ></Table.Cell
+      >
+      <Table.Cell><code>"start-end"</code></Table.Cell>
+      <Table.Cell>Position of the badge relative to its container.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>color</code></Table.Cell>
+      <Table.Cell
+        ><code>"critical" | "ok" | "good" | "warning"</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The color variant of the badge.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>dot</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Renders the badge as a simple dot.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>invisible</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Hides the badge.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>label</code></Table.Cell>
+      <Table.Cell><code>string | number</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Screen reader label for the badge.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

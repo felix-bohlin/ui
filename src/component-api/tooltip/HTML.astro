@@ -1,0 +1,67 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Container</Table.Cell>
+      <Table.Cell><code>.anchor.tooltip</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Wrapper element. Combines the anchor primitive with the tooltip
+        styling.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Floating</Table.Cell>
+      <Table.Cell><code>.anchor-floating[popover="hint"]</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Floating tooltip surface. Uses the <code>hint</code>
+        popover so it auto-shows on <code>interestfor</code> hover/focus.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Trigger</Table.Cell>
+      <Table.Cell><code>interestfor="id"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Add to the trigger element pointing to the floating element's ID. Pair
+        with <code>commandfor</code> and <code>command="toggle-popover"</code> for
+        touch support.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Arrow</Table.Cell>
+      <Table.Cell><code>.with-arrow</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Add to the <code>.tooltip</code> wrapper to render an arrow pointing from
+        the tooltip toward the trigger.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Position</Table.Cell>
+      <Table.Cell><code>--anchor-position-area</code></Table.Cell>
+      <Table.Cell><code>block-start</code></Table.Cell>
+      <Table.Cell
+        >CSS custom property. Any valid <code>position-area</code> value.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

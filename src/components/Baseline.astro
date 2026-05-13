@@ -1,0 +1,48 @@
+---
+type Props = {
+  ids: string[]
+}
+
+const { ids } = Astro.props
+---
+
+{
+  ids && ids.length > 0 && (
+    <article class="card outlined not-rich-text">
+      {ids.map((id) => (
+        <baseline-status featureId={id} />
+      ))}
+    </article>
+  )
+}
+
+<script>
+  import { BaselineStatus } from "baseline-status/baseline-status"
+
+  if (!customElements.get("baseline-status")) {
+    customElements.define("baseline-status", BaselineStatus)
+  }
+</script>
+
+<style>
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-block: var(--size-3);
+  }
+
+  baseline-status {
+    border-radius: 0;
+    display: block;
+    padding: var(--size-3) var(--size-3);
+
+    &[hidden] {
+      display: none;
+    }
+
+    &:not([hidden]):nth-child(even of :not([hidden])) {
+      background-color: var(--surface-tonal);
+    }
+  }
+</style>

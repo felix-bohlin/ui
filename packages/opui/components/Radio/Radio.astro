@@ -1,0 +1,70 @@
+---
+import RadioInput from "./RadioInput.astro"
+
+type Props = {
+  [key: string]: any
+  checked?: boolean
+  class?: string
+  disabled?: boolean
+  critical?: boolean
+  hideLabel?: boolean
+  id?: string
+  name?: string
+  required?: boolean
+  size?: "small" | "large"
+  stack?: boolean
+  value?: string
+}
+
+export const title = "Radio"
+
+const {
+  checked,
+  class: className,
+  disabled,
+  critical,
+  hideLabel,
+  id,
+  name,
+  required,
+  size,
+  stack,
+  value,
+  ...rest
+} = Astro.props
+
+const { $id, currentFieldName } = Astro.locals
+const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
+
+const finalName = name || currentFieldName
+---
+
+<label
+  class:list={[
+    "radio",
+    size,
+    {
+      stack,
+    },
+    className,
+  ]}
+  data-invalid={critical || undefined}
+>
+  <RadioInput
+    aria-describedby={endTextId}
+    {checked}
+    {disabled}
+    {id}
+    name={finalName}
+    {required}
+    {value}
+    {...rest}
+  />
+  <!-- prettier-ignore --><span class:list={[hideLabel ? "sr-only" : "label"]}><slot /></span>
+  {
+    Astro.slots.has("end-text") && (
+      <!-- prettier-ignore -->
+      <span id={endTextId} class="end-text"><slot name="end-text" /></span>
+    )
+  }
+</label>

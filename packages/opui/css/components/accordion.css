@@ -1,0 +1,174 @@
+@layer components.extended {
+  :where(details.accordion) {
+    --_actions-gap: var(--size-1);
+    --_actions-margin-block-start: var(--size-3);
+    --_actions-padding-block-end: var(--size-1);
+    --_actions-padding-inline: var(--size-3) var(--size-1);
+    --_bg-color: transparent;
+    --_border-color: transparent;
+    --_border-radius: var(--border-radius, 4px);
+    --_border-width: 0;
+    --_content-padding-block: var(--size-2) var(--size-3);
+    --_content-padding-inline: var(--_padding-inline);
+    --_margin-inline: var(--size-1);
+    --_padding-inline: initial;
+    --_shadow: none;
+    --_summary-padding-block: var(--size-3);
+    --_summary-padding-inline: var(--_padding-inline);
+    --_svg-transition: 0.2s var(--ease-1);
+    --_transition: 0.2s;
+
+    background-color: var(--_bg-color);
+    border: var(--_border-width) solid var(--_border-color);
+    border-radius: var(--_border-radius);
+    box-shadow: var(--_shadow);
+    display: block;
+    margin-inline: var(--_margin-inline);
+    transition: all var(--_transition) ease-out;
+
+    &.elevated {
+      --_bg-color: var(--surface-elevated);
+      --_margin-inline: 0;
+      --_padding-inline: var(--size-3);
+      --_shadow: var(--shadow-3);
+    }
+
+    &.outlined {
+      --_bg-color: var(--surface-default);
+      --_border-color: var(--border-color);
+      --_border-width: 1px;
+      --_margin-inline: 0;
+      --_padding-inline: var(--size-3);
+    }
+
+    &.tonal {
+      --_bg-color: var(--surface-tonal);
+      --_margin-inline: 0;
+      --_padding-inline: var(--size-3);
+    }
+
+    /* Accordion animation */
+    /* https://nerdy.dev/open-and-close-transitions-for-the-details-element */
+    @media (prefers-reduced-motion: no-preference) {
+      interpolate-size: allow-keywords;
+    }
+
+    &::details-content {
+      block-size: 0;
+      opacity: 0;
+      overflow-y: clip;
+      transition:
+        content-visibility var(--_transition) allow-discrete,
+        opacity var(--_transition),
+        block-size var(--_transition);
+    }
+
+    &[open]::details-content {
+      block-size: auto;
+      opacity: 1;
+    }
+
+    /* Layout */
+    &>summary {
+      background-color: inherit;
+      cursor: pointer;
+      font-weight: 700;
+      padding-block: var(--_summary-padding-block);
+      padding-inline: var(--_summary-padding-inline);
+      user-select: none;
+
+      &:has(svg) {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+
+        &::marker,
+        &::-webkit-details-marker {
+          display: none;
+        }
+      }
+
+      svg {
+        transition: rotate var(--_svg-transition);
+      }
+    }
+
+    &[open]>summary svg {
+      rotate: 180deg;
+    }
+
+    &>.content {
+      margin-block-start: 0;
+      padding-block: var(--_content-padding-block);
+      padding-inline: var(--_content-padding-inline);
+    }
+
+    &>.actions {
+      display: flex;
+      gap: var(--_actions-gap);
+      justify-content: end;
+      margin-block-start: var(--_actions-margin-block-start);
+      padding-block-end: var(--_actions-padding-block-end);
+      padding-inline: var(--_actions-padding-inline);
+    }
+  }
+
+  /* Accordion group  */
+  :where(.card[role="group"]:has(details.accordion)) {
+    --_group-radius: var(--border-radius);
+    --_gutter-color: var(--border-color);
+    --_item-padding-inline: var(--size-3);
+    --_item-summary-padding-inline: var(--_item-padding-inline);
+
+    display: block;
+
+    &.card {
+      &:not(.tonal, .outlined, .elevated) {
+        --_item-summary-padding-inline: 0;
+      }
+    }
+
+    &>.content {
+      margin-block: 0;
+      padding: 0;
+    }
+
+    &>details.accordion {
+      --_border-color: transparent;
+      --_border-width: 0;
+      --_margin-inline: 0;
+      --_padding-inline: var(--_item-padding-inline);
+      --_shadow: none;
+      --_summary-padding-inline: var(--_item-summary-padding-inline);
+
+      /* Border between accordion items */
+      &+& {
+        border-block-start: 1px solid var(--_gutter-color);
+        border-radius: 0;
+      }
+
+      /* First item */
+      &:first-of-type {
+        border-start-end-radius: var(--_group-radius);
+        border-start-start-radius: var(--_group-radius);
+
+        summary {
+          border-start-end-radius: var(--_group-radius);
+          border-start-start-radius: var(--_group-radius);
+        }
+      }
+
+      /* Last item */
+      &:last-of-type {
+        border-end-end-radius: var(--_group-radius);
+        border-end-start-radius: var(--_group-radius);
+
+        summary {
+          border-end-end-radius: var(--_group-radius);
+          border-end-start-radius: var(--_group-radius);
+        }
+      }
+    }
+  }
+}

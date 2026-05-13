@@ -1,0 +1,133 @@
+---
+import Component from "../../layouts/Component.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import { Table } from "@opui/astro"
+
+import TabsCSS from "@opui/css/components/tabs.css?raw"
+
+---
+
+<Component
+  slug="tabs"
+  browserSupport={["light-dark"]}
+  installationTabs={[{ title: "tabs.css", code: TabsCSS, lang: "css" }]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Tabs",
+      type: "component",
+    },
+    { path: "src/docs/components/tabs.astro", type: "docs" },
+    { path: "src/component-examples/tabs", type: "docs" },
+    {
+      path: "packages/opui/css/components/tabs.css",
+      type: "css",
+    },
+    { path: "src/component-api/tabs", type: "api" },
+  ]}
+>
+  <Fragment slot="title">Tabs</Fragment>
+  <Fragment slot="preamble">
+    The Tabs are radio inputs and the Panels are just divs that show and hide
+    based on the radio inputs' <code>:checked</code> state.
+  </Fragment>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <AutoExample name="Basics" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      The tab system uses standard radio inputs and labels, so we get group
+      management and keyboard support for free!
+    </p>
+
+    <h3>Tab List</h3>
+    <Table>
+      <Table.ColumnGroup>
+        <Table.Column width="150px" />
+        <Table.Column width="150px" />
+        <Table.Column />
+      </Table.ColumnGroup>
+      <Table.Head>
+        <Table.Row>
+          <Table.HeaderCell>Element</Table.HeaderCell>
+          <Table.HeaderCell>Attribute</Table.HeaderCell>
+          <Table.HeaderCell>Description</Table.HeaderCell>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        <Table.Row>
+          <Table.Cell><code>.tabs</code></Table.Cell>
+          <Table.Cell><code>role="tablist"</code></Table.Cell>
+          <Table.Cell
+            >Identifies the element as a container for a set of tabs.</Table.Cell
+          >
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell><code>input</code></Table.Cell>
+          <Table.Cell><code>name</code></Table.Cell>
+          <Table.Cell
+            >Groups the radio buttons together for exclusive selection.</Table.Cell
+          >
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell><code>label</code></Table.Cell>
+          <Table.Cell><code>role="tab"</code></Table.Cell>
+          <Table.Cell
+            >Identifies the element as a tab to assistive technology.</Table.Cell
+          >
+        </Table.Row>
+      </Table.Body>
+    </Table>
+
+    <h3>Tab Panel</h3>
+
+    <p>The content area associated with a tab:</p>
+
+    <Table>
+      <Table.ColumnGroup>
+        <Table.Column width="150px" />
+        <Table.Column width="150px" />
+        <Table.Column />
+      </Table.ColumnGroup>
+      <Table.Head>
+        <Table.Row>
+          <Table.HeaderCell>Attribute</Table.HeaderCell>
+          <Table.HeaderCell>Value</Table.HeaderCell>
+          <Table.HeaderCell>Description</Table.HeaderCell>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        <Table.Row>
+          <Table.Cell><code>role</code></Table.Cell>
+          <Table.Cell><code>"tabpanel"</code></Table.Cell>
+          <Table.Cell>Identifies the element as a tab panel.</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell><code>aria-labelledby</code></Table.Cell>
+          <Table.Cell><code>string</code></Table.Cell>
+          <Table.Cell>Links the panel to its trigger ID.</Table.Cell>
+        </Table.Row>
+      </Table.Body>
+    </Table>
+
+    <h3>Keyboard Interaction</h3>
+
+    <ul>
+      <li>
+        <strong>Tab</strong>: Moves focus to the active tab trigger (the radio
+        button). Pressing Tab again moves focus out of the tab list to the next
+        focusable element.
+      </li>
+      <li>
+        <strong>Right Arrow / Down Arrow</strong>: Moves focus to the next tab
+        and activates it.
+      </li>
+      <li>
+        <strong>Left Arrow / Up Arrow</strong>: Moves focus to the previous tab
+        and activates it.
+      </li>
+    </ul>
+  </Fragment>
+</Component>

@@ -1,0 +1,43 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Part</Table.Cell>
+      <Table.Cell><code>& > .content</code>, <code>& > svg</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Internal structure.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Severities</Table.Cell>
+      <Table.Cell
+        ><code>.critical</code>, <code>.info</code>, <code>.primary</code>,
+        <code>.success</code>, <code>.warning</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Severity modifiers.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Variants</Table.Cell>
+      <Table.Cell><code>.tonal</code>, <code>.outlined</code></Table.Cell>
+      <Table.Cell><code>.tonal</code></Table.Cell>
+      <Table.Cell>Style modifiers.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

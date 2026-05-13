@@ -1,0 +1,20 @@
+@layer components.root {
+  :where(hr) {
+    background-color: var(--border-color);
+    block-size: var(--border-size-1);
+    margin-block: var(--size-fluid-3);
+
+    /* Border color */
+    &.border-filled {
+      background-color: var(--surface-filled);
+    }
+
+    &.border-primary {
+      background-color: var(--primary);
+    }
+
+    &.border-tonal {
+      background-color: var(--surface-tonal);
+    }
+  }
+}

@@ -1,0 +1,106 @@
+---
+type Props = {
+  [key: string]: any
+  autoFit?: boolean
+  class?: string
+  cols?: number
+  description?: string
+  disabled?: boolean
+  critical?: boolean
+  filled?: boolean
+  id?: string
+  label?: string
+  maxlength?: number
+  minlength?: number
+  name?: string
+  spread?: boolean
+  placeholder?: string
+  required?: boolean
+  rows?: number
+  small?: boolean
+  endText?: string
+  value?: string
+}
+
+export const title = "Textarea"
+
+const {
+  autoFit,
+  class: className,
+  cols,
+  description,
+  disabled,
+  critical,
+  filled,
+  id,
+  label,
+  maxlength,
+  minlength,
+  name,
+  spread,
+  placeholder,
+  required,
+  rows,
+  small,
+  endText,
+  value,
+  ...rest
+} = Astro.props
+
+const { $id, currentFieldName } = Astro.locals
+const fieldId = id || $id("textarea")
+const fieldName = name || currentFieldName
+---
+
+<label
+  class:list={[
+    "textarea",
+    {
+      "auto-fit": autoFit,
+      filled,
+      spread,
+      small,
+    },
+    className,
+  ]}
+  data-invalid={critical || undefined}
+  {...rest}
+>
+{
+  (label || Astro.slots.has("label")) && (
+      <!-- prettier-ignore -->
+      <span class="label">{label}<slot name="label" /></span>
+    )
+  }
+
+{
+  (description || Astro.slots.has("description")) && (
+      <!-- prettier-ignore -->
+      <span class="start-text">{description}<slot name="description" /></span>
+    )
+  }
+  <span class="field">
+    <textarea
+      cols={cols}
+      disabled={disabled}
+      id={fieldId}
+      maxlength={maxlength}
+      minlength={minlength}
+      name={fieldName}
+      placeholder={placeholder}
+      required={required}
+      rows={rows}
+      value={value}></textarea>
+    {Astro.slots.has("prefix") && <span class="prefix"><slot name="prefix" /></span>}
+    {Astro.slots.has("suffix") && <span class="suffix"><slot name="suffix" /></span>}
+    {Astro.slots.has("header") && <span class="header"><slot name="header" /></span>}
+    {Astro.slots.has("footer") && <span class="footer"><slot name="footer" /></span>}
+  </span>
+    {
+      (endText || Astro.slots.has("end-text") || Astro.slots.has("supporting-text")) && (
+      <!-- prettier-ignore -->
+      <span class="end-text">{endText}<slot name="end-text" /><slot name="supporting-text" /></span>
+    )
+  }
+  <slot />
+</label>

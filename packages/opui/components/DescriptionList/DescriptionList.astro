@@ -1,0 +1,22 @@
+---
+type Props = {
+  [key: string]: any
+  bordered?: boolean | "dotted"
+  class?: string
+}
+
+export const title = "Description List"
+
+const { bordered, class: className, ...rest } = Astro.props
+---
+
+<dl
+  class:list={[
+    "description-list",
+    { bordered: bordered, dotted: bordered === "dotted" },
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</dl>

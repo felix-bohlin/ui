@@ -1,0 +1,47 @@
+---
+type Props = {
+  class?: string
+  isDialog?: boolean
+  [key: string]: any
+}
+
+const { class: className, isDialog = false, ...rest } = Astro.props
+const Element = isDialog ? "dialog" : "div"
+---
+
+<Element
+  class:list={["command", isDialog && "dialog", className]}
+  {...isDialog ? { closedby: "any" } : {}}
+  {...rest}
+>
+  <div class="command-input-wrapper">
+    <slot name="input-icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        ><path
+          fill="currentColor"
+          d="M16.102 17.162a8 8 0 1 1 1.06-1.06l4.618 4.618a.75.75 0 1 1-1.06 1.06zM17.5 11a6.5 6.5 0 1 0-13 0a6.5 6.5 0 0 0 13 0"
+        ></path></svg
+      >
+    </slot>
+    <slot name="input" />
+    <slot name="input-end" />
+  </div>
+
+  <slot name="header" />
+
+  <div class="command-list" id="command-list">
+    <slot />
+  </div>
+
+  <div class="command-footer">
+    <slot name="footer">
+      <div class="helper"><kbd>↑</kbd><kbd>↓</kbd> <span>Navigate</span></div>
+      <div class="helper"><kbd>↵</kbd> <span>Select</span></div>
+      <div class="helper"><kbd>esc</kbd> <span>Close</span></div>
+    </slot>
+  </div>
+</Element>

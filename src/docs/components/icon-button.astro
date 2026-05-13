@@ -1,0 +1,157 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example"
+import AutoExample from "../../components/AutoExample.astro"
+import { Callout as UICallout } from "@opui/astro"
+import IconButtonCSS from "@opui/css/components/icon-button.css?raw"
+import ExampleAnatomy from "../../component-examples/icon-button/Anatomy.astro"
+
+import Conditional from "../../components/Conditional.astro"
+---
+
+<Component
+  slug="icon-button"
+  browserSupport={["light-dark", "relative-color"]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/IconButton/IconButton.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/icon-button.astro", type: "docs" },
+    { path: "src/component-examples/icon-button", type: "docs" },
+    {
+      path: "packages/opui/css/components/icon-button.css",
+      type: "css",
+    },
+    { path: "src/component-api/icon-button", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "icon-button.css", code: IconButtonCSS, lang: "css" },
+  ]}
+>
+  <Fragment slot="title">Icon Button</Fragment>
+  <Fragment slot="preamble">
+    Icon buttons are used to trigger actions and are typically found in
+    toolbars, cards, and dialogs.
+  </Fragment>
+
+  <AutoExample name="Default" row />
+
+  <section>
+    <h2 id="variants">Variants</h2>
+    <p>
+      Icon buttons come in three variants: <code>outlined</code>, <code
+        >tonal</code
+      > and <code>filled</code>.
+    </p>
+    <AutoExample name="Variants" row />
+  </section>
+
+  <section>
+    <h2 id="colors">Colors</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Pass <code>color</code> to apply a brand or destructive color: <code
+          >primary</code
+        > or <code>critical</code>. The default is a neutral gray.
+      </Fragment>
+      <Fragment slot="html">
+        Add a <code>.primary</code> or <code>.critical</code> class to apply a brand
+        or destructive color. The default is a neutral gray.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Colors" row />
+  </section>
+
+  <div class="not-rich-text">
+    <UICallout>
+      <Fragment slot="title">
+        <code>aria-label</code>?
+      </Fragment>
+      <div class="rich-text">
+        Yes! In order for screen readers to understand what the button is for we
+        can add <code>aria-label</code> to the <code>&lt;button&gt;</code> element.
+        <br /><br />
+        Read more: <a href="#accessibility" class="link"
+          >Icon Button accessibility</a
+        >.
+      </div>
+    </UICallout>
+  </div>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <p>Make the button smaller with the <code>.small</code> modifier.</p>
+    <AutoExample name="Sizes" row />
+  </section>
+
+  <section>
+    <h2 id="disabled">Disabled</h2>
+    <p>
+      Prevent user interaction by adding the <code>disabled</code> attribute.
+    </p>
+    <AutoExample name="Disabled" row />
+  </section>
+
+  <Fragment slot="anatomy">
+    <ol>
+      <li>Container: <code>&lt;button class="icon-button"&gt;</code></li>
+      <li>Icon: <code>&lt;svg&gt;</code></li>
+      <li>Label text: <code>&lt;button aria-label=""&gt;</code></li>
+    </ol>
+    <Example row>
+      <Example.Preview code={ExampleAnatomy} />
+    </Example>
+  </Fragment>
+
+  <Fragment slot="accessibility">
+    <p>To have an accessible label you can choose between three approaches.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Variant</th>
+          <th>Usage in Icon Button component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            >Add a <code>aria-label</code> on the <code>&lt;button&gt;</code> element</td
+          >
+          <td>Default behavior.</td>
+        </tr>
+        <tr>
+          <td>Provide a label inside the <code>&lt;button&gt;</code> element</td
+          >
+          <td
+            >Not used (but possible with the <code>.sr-only</code>
+            <DocLink href="/guide/getting-started/utils" class="link"
+              >util</DocLink
+            >).</td
+          >
+        </tr>
+        <tr>
+          <td
+            >Have a visible label that you reference with <code
+              >aria-labelledby</code
+            ></td
+          >
+          <td>Not used.</td>
+        </tr>
+      </tbody>
+    </table>
+  </Fragment>
+</Component>
+
+<style is:global>
+  .anatomy {
+    outline: var(--_anatomy-border-gray);
+    outline-offset: -2px;
+
+    svg {
+      outline: var(--_anatomy-border-red);
+      outline-offset: -3px;
+    }
+  }
+</style>

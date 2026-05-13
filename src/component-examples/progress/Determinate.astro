@@ -1,0 +1,20 @@
+---
+import { Progress } from "@opui/astro"
+---
+
+<Progress id="determinate-progress" max="100" value="10" />
+
+<script>
+  const progress = document.querySelector(
+    "#determinate-progress",
+  ) as HTMLProgressElement
+  if (progress) {
+    setInterval(() => {
+      if (progress.value >= 100) {
+        progress.value = 10
+      } else {
+        progress.value += 10
+      }
+    }, 3000)
+  }
+</script>

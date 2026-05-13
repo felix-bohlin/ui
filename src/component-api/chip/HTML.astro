@@ -1,0 +1,51 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Container</Table.Cell>
+      <Table.Cell
+        ><code>.chip</code>, <code>a.chip</code>, <code>button.chip</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Container element type.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Children</Table.Cell>
+      <Table.Cell><code>& > .text</code>, <code>& > svg</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional child content.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Sizes</Table.Cell>
+      <Table.Cell
+        ><code>.small</code>, default, <code>.multiline</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The size of the element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Variants</Table.Cell>
+      <Table.Cell><code>.tonal</code>, <code>.outlined</code></Table.Cell>
+      <Table.Cell><code>.tonal</code></Table.Cell>
+      <Table.Cell>The variant to use.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.1 - 2026-05-13
+
+### Fixed
+
+- Autosuggest arrow placement.
+
 ## 4.0.0
 
 Complete rewrite. The library now also ships as an installable npm package with Astro components.

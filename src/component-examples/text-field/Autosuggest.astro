@@ -2,22 +2,24 @@
 import { TextField } from "@opui/astro"
 ---
 
-<label class="text-field">
-  <span class="label">Users</span>
-  <input type="text" list="users" placeholder="Placeholder" />
+<TextField label="Users" list="users" placeholder="Placeholder">
   <datalist id="users">
     <option value="Ray Manzarek"></option>
     <option value="Jonny Greenwood"></option>
     <option value="Marika Hackman"></option>
   </datalist>
-</label>
+</TextField>
 
-<label class="text-field filled">
-  <span class="label">Emails</span>
-  <input type="email" list="users-email" placeholder="Placeholder" />
+<TextField
+  filled
+  label="Emails"
+  list="users-email"
+  placeholder="Placeholder"
+  type="email"
+>
   <datalist id="users-email">
     <option value="ray.manzarek@the.doors"></option>
     <option value="jonny.greenwood@radio.head"></option>
     <option value="marika@hack.man"></option>
   </datalist>
-</label>
+</TextField>

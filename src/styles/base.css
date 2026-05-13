@@ -1,12 +1,3 @@
-/* Font stuff */
-/* @font-face {
-  font-family: "Bricolage Grotesque";
-  src: url("/BricolageGrotesque[opsz,wdth,wght].ttf") format("truetype");
-  font-weight: 300 900;
-  font-style: normal;
-  font-display: swap;
-} */
-
 @view-transition {
   navigation: auto;
 }
@@ -46,7 +37,11 @@
 /* Setup */
 :root {
   --_gap: var(--size-4, 20px);
-  --_page-gutters: calc(var(--_gap) * 2);
+  --_page-gutters: var(--_gap);
+
+  @media (width >=600px) {
+    --_page-gutters: calc(var(--_gap) * 2);
+  }
 
   /* Content width */
   --_content-document: 80ch;

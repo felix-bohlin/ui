@@ -39,7 +39,7 @@
       }
     }
 
-    :where(.field input, .field textarea, .field select) {
+    :where(.field) :where(input, textarea, select) {
       background: transparent;
       border: 0;
       color: var(--text-primary);

@@ -1,6 +1,7 @@
-# Open Props UI Docs
+# Open Props UI
 
-Documentation and library source for Open Props UI components.
+A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Designed to be used by professional teams as well as tinkering hobbyists.
+
 
 ## Usage
 https://open-props-ui.netlify.app/html/guide/getting-started/

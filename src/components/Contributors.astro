@@ -1,91 +1,96 @@
 ---
 import { Avatar, Tooltip } from "@opui/astro"
+import historicalContributors from "../data/historical-contributors.json"
 
-interface Contributor {
+type Contributor = {
   login: string
   avatar_url: string
   html_url: string
-  type: string
   first_contribution_date?: string
 }
+
+const REPO = "felix-bohlin/ui"
+const HEADERS = { "User-Agent": "Astro-Site-Generator" }
 
 let contributors: Contributor[] = []
 let error = ""
 
 try {
   const response = await fetch(
-    "https://api.github.com/repos/felix-bohlin/ui/contributors",
-    {
-      headers: {
-        "User-Agent": "Astro-Site-Generator",
-      },
-    },
+    `https://api.github.com/repos/${REPO}/contributors`,
+    { headers: HEADERS },
   )
 
-  if (response.ok) {
+  if (!response.ok) {
+    error = `HTTP Error: ${response.status}`
+  } else {
     const data = await response.json()
-    if (Array.isArray(data)) {
-      const users = data.filter((c: Contributor) => c.type === "User")
+    if (!Array.isArray(data)) {
+      error = "Unexpected response from GitHub"
+    } else {
+      const currentUsers: Contributor[] = data
+        .filter((c: { type: string }) => c.type === "User")
+        .map((u: { login: string; avatar_url: string; html_url: string }) => ({
+          login: u.login,
+          avatar_url: u.avatar_url,
+          html_url: u.html_url,
+        }))
 
-      // Fetch first contribution date for each user
+      // Merge historical (static JSON) with current, current takes precedence
+      const merged = new Map<string, Contributor>(
+        historicalContributors.map((c) => [c.login, c]),
+      )
+      for (const u of currentUsers) merged.set(u.login, u)
+
+      // Fetch first contribution date for current contributors
       contributors = await Promise.all(
-        users.map(async (user) => {
+        Array.from(merged.values()).map(async (user) => {
           try {
-            // Fetch the first commit by this author
-            // We get the last page of their commits to find the very first one
             const commitRes = await fetch(
-              `https://api.github.com/repos/felix-bohlin/ui/commits?author=${user.login}&per_page=1`,
-              {
-                headers: {
-                  "User-Agent": "Astro-Site-Generator",
-                },
-              },
+              `https://api.github.com/repos/${REPO}/commits?author=${user.login}&per_page=1`,
+              { headers: HEADERS },
             )
 
-            if (!commitRes.ok) return user
+            if (commitRes.ok) {
+              const link = commitRes.headers.get("link")
+              let firstCommitDate = ""
 
-            const link = commitRes.headers.get("link")
-            let firstCommitDate = ""
-
-            if (link && link.includes('rel="last"')) {
-              const lastPageUrl = link.match(/<([^>]+)>; rel="last"/)?.[1]
-              if (lastPageUrl) {
-                const lastPageRes = await fetch(lastPageUrl, {
-                  headers: {
-                    "User-Agent": "Astro-Site-Generator",
-                  },
-                })
-                if (lastPageRes.ok) {
-                  const lastPageCommits = await lastPageRes.json()
-                  firstCommitDate =
-                    lastPageCommits[lastPageCommits.length - 1]?.commit?.author
-                      ?.date
+              if (link && link.includes('rel="last"')) {
+                const lastPageUrl = link.match(/<([^>]+)>; rel="last"/)?.[1]
+                if (lastPageUrl) {
+                  const lastPageRes = await fetch(lastPageUrl, {
+                    headers: HEADERS,
+                  })
+                  if (lastPageRes.ok) {
+                    const lastPageCommits = await lastPageRes.json()
+                    firstCommitDate =
+                      lastPageCommits[lastPageCommits.length - 1]?.commit
+                        ?.author?.date ?? ""
+                  }
                 }
+              } else {
+                const commits = await commitRes.json()
+                firstCommitDate = commits[0]?.commit?.author?.date ?? ""
               }
-            } else {
-              // Only one page of commits
-              const commits = await commitRes.json()
-              firstCommitDate = commits[0]?.commit?.author?.date
-            }
 
-            return { ...user, first_contribution_date: firstCommitDate }
+              if (firstCommitDate) {
+                return { ...user, first_contribution_date: firstCommitDate }
+              }
+            }
           } catch (e) {
-            return user
+            // fall through
           }
+
+          return user
         }),
       )
 
-      // Sort by date
       contributors.sort((a, b) => {
         const dateA = a.first_contribution_date || "9999-12-31"
         const dateB = b.first_contribution_date || "9999-12-31"
         return dateA.localeCompare(dateB)
       })
-    } else {
-      error = "Unexpected response from GitHub"
     }
-  } else {
-    error = `HTTP Error: ${response.status}`
   }
 } catch (e) {
   error = e instanceof Error ? e.message : "An unknown error occurred"

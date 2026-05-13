@@ -3,11 +3,6 @@
 Documentation and library source for Open Props UI components.
 
 ## Usage
-
-This section is for consumers of the `opui` library.
-
-### Getting started
-
 https://open-props-ui.netlify.app/html/guide/getting-started/
 
 ---

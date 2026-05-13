@@ -1,5 +1,6 @@
 ---
 import Baseline from "./Baseline.astro"
+import BrowserSupportChips from "./BrowserSupportChips.astro"
 import DocLink from "./DocLink.astro"
 
 type Props = {
@@ -12,6 +13,7 @@ const sortedIds = ids.sort()
 
 <section>
   <h2 id="browser-support">Browser support</h2>
+  <BrowserSupportChips ids={sortedIds} />
   <Baseline ids={sortedIds} />
   <p>
     See also the <DocLink href="/guide/browser-support"

@@ -18,19 +18,19 @@ import Theming from "./_theming.astro"
 
     <CodeGroup
       tabs={[
-        { title: "pnpm", code: "pnpm add opui -S", lang: "sh" },
-        { title: "npm", code: "npm install opui -S", lang: "sh" },
+        { title: "pnpm", code: "pnpm add opui-css -S", lang: "sh" },
+        { title: "npm", code: "npm install opui-css -S", lang: "sh" },
       ]}
     />
   </section>
 
   <section>
     <h2 id="usage">Use a component</h2>
-    <p>Components can be imported from <code>@opui/astro</code>:</p>
+    <p>Components can be imported from <code>opui-css/astro</code>:</p>
 
     <Code
       code={`---
-import { Button } from "@opui/astro"
+import { Button } from "opui-css/astro"
 ---
 
 <Button variant="filled">Click me</Button>`}
@@ -45,13 +45,13 @@ import { Button } from "@opui/astro"
       per app. Import the pre-bundled theme from your global stylesheet (or a
       shared layout):
     </p>
-    <Code code={`@import "opui/css/imports.css";`} lang="css" />
+    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
     <p>Or pick and choose pieces if you want a lighter footprint:</p>
     <Code
-      code={`@import "opui/core/normalize.css";
-@import "opui/core/utils.css";
-@import "opui/css/theme.css";
-@import "opui/css/components.css";`}
+      code={`@import "opui-css/core/normalize.css";
+@import "opui-css/core/utils.css";
+@import "opui-css/css/theme.css";
+@import "opui-css/css/components.css";`}
       lang="css"
     />
   </section>

@@ -82,21 +82,21 @@ import Theming from "./_theming.astro"
 
     <CodeGroup
       tabs={[
-        { title: "pnpm", code: "pnpm add opui -S", lang: "sh" },
-        { title: "npm", code: "npm install opui -S", lang: "sh" },
+        { title: "pnpm", code: "pnpm add opui-css -S", lang: "sh" },
+        { title: "npm", code: "npm install opui-css -S", lang: "sh" },
       ]}
     />
 
     <h3 id="npm-usage">Usage</h3>
     <p>Either import everything:</p>
-    <Code code={`@import "opui/css/imports.css";`} lang="css" />
+    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
 
     <p>Or pick and choose the parts you want to include:</p>
     <Code
-      code={`@import "opui/core/normalize.css";
-@import "opui/core/utils.css";
-@import "opui/css/theme.css";
-@import "opui/css/components.css";`}
+      code={`@import "opui-css/core/normalize.css";
+@import "opui-css/core/utils.css";
+@import "opui-css/css/theme.css";
+@import "opui-css/css/components.css";`}
       lang="css"
     />
   </section>

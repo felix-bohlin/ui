@@ -22,10 +22,9 @@ Peer dependencies:
 
 ```astro
 ---
+import "opui-css/css/imports.css"
 import { Button, Card } from "opui-css/astro"
 ---
-
-<link rel="stylesheet" href="opui-css/css/imports.css" />
 
 <Card>
   <Button variant="primary">Click me</Button>

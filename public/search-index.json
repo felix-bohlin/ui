@@ -730,24 +730,24 @@
     "url": "/html/api#accordion"
   },
   {
-    "id": "api-avatar-astro",
-    "title": "Avatar API",
-    "description": "Reference for Avatar Astro component.",
-    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
+    "id": "api-badge-astro",
+    "title": "Badge API",
+    "description": "Reference for Badge Astro component.",
+    "headings": "alignment \"start-end\" Position of the badge relative to its container. color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string | number - Screen reader label for the badge.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#avatar"
+    "url": "/astro/api#badge"
   },
   {
-    "id": "api-avatar-html",
-    "title": "Avatar API",
-    "description": "Reference for Avatar HTML component.",
-    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
+    "id": "api-badge-html",
+    "title": "Badge API",
+    "description": "Reference for Badge HTML component.",
+    "headings": "Container .anchor.badge - Floating .anchor-floating - Positioned floating container from Anchor. Indicator .badge-indicator - Alignment .start-end Position modifiers on .badge. Color - Color modifiers on .badge. Variants .dot - Shape modifier on .badge. Visibility .invisible - Visibility modifier on .badge.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#avatar"
+    "url": "/html/api#badge"
   },
   {
     "id": "api-anchor-astro",
@@ -770,6 +770,26 @@
     "url": "/html/api#anchor"
   },
   {
+    "id": "api-avatar-astro",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Astro component.",
+    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#avatar"
+  },
+  {
+    "id": "api-avatar-html",
+    "title": "Avatar API",
+    "description": "Reference for Avatar HTML component.",
+    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#avatar"
+  },
+  {
     "id": "api-button-astro",
     "title": "Button API",
     "description": "Reference for Button Astro component.",
@@ -790,46 +810,6 @@
     "url": "/html/api#button"
   },
   {
-    "id": "api-button-group-astro",
-    "title": "Button Group API",
-    "description": "Reference for Button Group Astro component.",
-    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#button-group"
-  },
-  {
-    "id": "api-button-group-html",
-    "title": "Button Group API",
-    "description": "Reference for Button Group HTML component.",
-    "headings": "Colors .critical, .primary - Orientation .vertical - Orientation modifier. Sizes .small, .large - Size modifiers. Variants - Style modifiers.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#button-group"
-  },
-  {
-    "id": "api-badge-astro",
-    "title": "Badge API",
-    "description": "Reference for Badge Astro component.",
-    "headings": "alignment \"start-end\" Position of the badge relative to its container. color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string | number - Screen reader label for the badge.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#badge"
-  },
-  {
-    "id": "api-badge-html",
-    "title": "Badge API",
-    "description": "Reference for Badge HTML component.",
-    "headings": "Container .anchor.badge - Floating .anchor-floating - Positioned floating container from Anchor. Indicator .badge-indicator - Alignment .start-end Position modifiers on .badge. Color - Color modifiers on .badge. Variants .dot - Shape modifier on .badge. Visibility .invisible - Visibility modifier on .badge.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#badge"
-  },
-  {
     "id": "api-callout-astro",
     "title": "Callout API",
     "description": "Reference for Callout Astro component.",
@@ -848,6 +828,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#callout"
+  },
+  {
+    "id": "api-button-group-astro",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Astro component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#button-group"
+  },
+  {
+    "id": "api-button-group-html",
+    "title": "Button Group API",
+    "description": "Reference for Button Group HTML component.",
+    "headings": "Colors .critical, .primary - Orientation .vertical - Orientation modifier. Sizes .small, .large - Size modifiers. Variants - Style modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#button-group"
   },
   {
     "id": "api-card-astro",
@@ -930,26 +930,6 @@
     "url": "/html/api#classic-select"
   },
   {
-    "id": "api-description-list-astro",
-    "title": "Description List API",
-    "description": "Reference for Description List Astro component.",
-    "headings": "bordered boolean | \"dotted\" - class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#description-list"
-  },
-  {
-    "id": "api-description-list-html",
-    "title": "Description List API",
-    "description": "Reference for Description List HTML component.",
-    "headings": "Bordered -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#description-list"
-  },
-  {
     "id": "api-dialog-astro",
     "title": "Dialog API",
     "description": "Reference for Dialog Astro component.",
@@ -968,6 +948,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#dialog"
+  },
+  {
+    "id": "api-description-list-astro",
+    "title": "Description List API",
+    "description": "Reference for Description List Astro component.",
+    "headings": "bordered boolean | \"dotted\" - class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#description-list"
+  },
+  {
+    "id": "api-description-list-html",
+    "title": "Description List API",
+    "description": "Reference for Description List HTML component.",
+    "headings": "Bordered -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#description-list"
   },
   {
     "id": "api-divider-astro",
@@ -1110,24 +1110,24 @@
     "url": "/html/api#progress"
   },
   {
-    "id": "api-select-astro",
-    "title": "Select API",
-    "description": "Reference for Select Astro component.",
-    "headings": "dense boolean false Select dense state. disabled boolean - Select disabled state. description string - Description text displayed above the select. endText string - Supporting text displayed below the select. critical boolean - items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. spread boolean false variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select. default label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element.",
+    "id": "api-range-astro",
+    "title": "Range API",
+    "description": "Reference for Range Astro component.",
+    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\r\n    \r\n    \r\n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#select"
+    "url": "/astro/api#range"
   },
   {
-    "id": "api-select-html",
-    "title": "Select API",
-    "description": "Reference for Select HTML component.",
-    "headings": "Children - Direct children of the root element. Field children - Layout .spread, default - Sizes .small - The size of the element. Variants default, .filled - The variant to use. Validation [data-invalid] -",
+    "id": "api-range-html",
+    "title": "Range API",
+    "description": "Reference for Range HTML component.",
+    "headings": "Input input[type=\"range\"] - The native range input element. Range .range - Wrapper for label and input styling. Spread .spread - Modifier for a spread layout. Variant - Modifiers for different background surfaces. Label .label - The label element for the range. Value output.value - Start text .start-text - End text .end-text - Optional text displayed below the range input. Spread .spread -",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#select"
+    "url": "/html/api#range"
   },
   {
     "id": "api-switch-astro",
@@ -1150,24 +1150,24 @@
     "url": "/html/api#switch"
   },
   {
-    "id": "api-range-astro",
-    "title": "Range API",
-    "description": "Reference for Range Astro component.",
-    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\r\n    \r\n    \r\n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "id": "api-select-astro",
+    "title": "Select API",
+    "description": "Reference for Select Astro component.",
+    "headings": "dense boolean false Select dense state. disabled boolean - Select disabled state. description string - Description text displayed above the select. endText string - Supporting text displayed below the select. critical boolean - items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. spread boolean false variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select. default label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#range"
+    "url": "/astro/api#select"
   },
   {
-    "id": "api-range-html",
-    "title": "Range API",
-    "description": "Reference for Range HTML component.",
-    "headings": "Input input[type=\"range\"] - The native range input element. Range .range - Wrapper for label and input styling. Spread .spread - Modifier for a spread layout. Variant - Modifiers for different background surfaces. Label .label - The label element for the range. Value output.value - Start text .start-text - End text .end-text - Optional text displayed below the range input. Spread .spread -",
+    "id": "api-select-html",
+    "title": "Select API",
+    "description": "Reference for Select HTML component.",
+    "headings": "Children - Direct children of the root element. Field children - Layout .spread, default - Sizes .small - The size of the element. Variants default, .filled - The variant to use. Validation [data-invalid] -",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#range"
+    "url": "/html/api#select"
   },
   {
     "id": "api-table-astro",
@@ -1210,26 +1210,6 @@
     "url": "/html/api#tabs"
   },
   {
-    "id": "api-text-field-astro",
-    "title": "Text Field API",
-    "description": "Reference for Text Field Astro component.",
-    "headings": "autoFit boolean false Automatically adjusts its width to content. description string - Description text displayed above the field. critical boolean false label string - The label for the field. size \"small\" - The size of the field. spread boolean false endText string - Supporting text displayed below the field. variant \"filled\" - The visual variant of the field. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#text-field"
-  },
-  {
-    "id": "api-text-field-html",
-    "title": "Text Field API",
-    "description": "Reference for Text Field HTML component.",
-    "headings": "Auto-fit .auto-fit - Children - Direct children of the root element. Field children - Layout .spread, default - Sizes .small - The size of the element. Validation [data-invalid] - Variants default, .filled - The variant to use.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#text-field"
-  },
-  {
     "id": "api-text-input-astro",
     "title": "Text Input API",
     "description": "Reference for Text Input Astro component.",
@@ -1248,6 +1228,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#text-input"
+  },
+  {
+    "id": "api-text-field-astro",
+    "title": "Text Field API",
+    "description": "Reference for Text Field Astro component.",
+    "headings": "autoFit boolean false Automatically adjusts its width to content. description string - Description text displayed above the field. critical boolean false label string - The label for the field. size \"small\" - The size of the field. spread boolean false endText string - Supporting text displayed below the field. variant \"filled\" - The visual variant of the field. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#text-field"
+  },
+  {
+    "id": "api-text-field-html",
+    "title": "Text Field API",
+    "description": "Reference for Text Field HTML component.",
+    "headings": "Auto-fit .auto-fit - Children - Direct children of the root element. Field children - Layout .spread, default - Sizes .small - The size of the element. Validation [data-invalid] - Variants default, .filled - The variant to use.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#text-field"
   },
   {
     "id": "api-textarea-astro",

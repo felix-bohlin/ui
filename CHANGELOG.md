@@ -8,8 +8,8 @@
 
 ### Changed
 
-- **Package layout**: Flattened the active theme out of `themes/theme-three/` into `css/`. Files now live at `opui/css/imports.css`, `opui/css/theme.css`, `opui/css/components.css`, and `opui/css/components/*.css`.
-- **Package exports**: Replaced `./themes/*` with `./css/*`. Import paths change from `@opui/themes/theme-three/...` / `opui/themes/theme-three/...` to `@opui/css/...` / `opui/css/...`.
+- **Package layout**: Flattened the active theme out of `themes/theme-three/` into `css/`. Files now live at `opui-css/css/imports.css`, `opui-css/css/theme.css`, `opui-css/css/components.css`, and `opui-css/css/components/*.css`.
+- **Package exports**: Replaced `./themes/*` with `./css/*`. Import paths change from `@opui-css/themes/theme-three/...` / `opui-css/themes/theme-three/...` to `@opui-css/css/...` / `opui-css/css/...`.
 
 ## 3.3.5 - 2026-02-19
 

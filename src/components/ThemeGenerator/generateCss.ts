@@ -17,7 +17,7 @@ import {
   TOKEN_DEFAULTS,
   type ModeConfig,
   type Token,
-} from "../../lib/theme-store"
+} from "../../utils/theme-store"
 
 const PALETTE_TOKENS = [
   "--palette-hue",

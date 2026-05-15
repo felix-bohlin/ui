@@ -1,13 +1,5 @@
 ---
-type Props = {
-  [key: string]: any
-  checked?: boolean
-  disabled?: boolean
-  id?: string
-  name?: string
-  required?: boolean
-  value?: string
-}
+import type { SwitchInputProps as Props } from "./types.ts"
 
 const { checked, disabled, id, name, required, value, ...rest } = Astro.props
 ---

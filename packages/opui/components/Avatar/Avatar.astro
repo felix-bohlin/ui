@@ -1,15 +1,6 @@
 ---
-type Props = {
-  [key: string]: any
-  alt?: string
-  as?: "div" | "a" | "button" | string
-  class?: string
-  href?: string
-  isGroup?: boolean
-  spacing?: "small" | "x-small"
-  src?: string
-  variant?: "squared" | "rounded" | "squircle"
-}
+import type { Props } from './types.ts'
+
 
 export const title = "Avatar"
 
@@ -26,6 +17,7 @@ const {
 } = Astro.props
 
 const Tag = as || (href ? "a" : "div")
+
 ---
 
 <!-- prettier-ignore -->

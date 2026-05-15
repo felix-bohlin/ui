@@ -1,18 +1,13 @@
 ---
+import type { Props } from './types.ts'
+
 import Anchor from "../Anchor/Anchor.astro"
 
-type Props = {
-  [key: string]: any
-  alignment?: string
-  arrow?: boolean
-  class?: string
-  id?: string
-  label?: string
-}
 
 export const title = "Tooltip"
 
 const { alignment, arrow, class: className, id, label, ...rest } = Astro.props
+
 ---
 
 <Anchor

@@ -1,13 +1,6 @@
 ---
-type Props = {
-  [key: string]: any
-  as?: "a" | "button" | "div" | string
-  class?: string
-  label?: string
-  multiline?: boolean
-  size?: "small"
-  variant?: "tonal" | "outlined"
-}
+import type { Props } from './types.ts'
+
 
 export const title = "Chip"
 
@@ -20,6 +13,7 @@ const {
   variant = "tonal",
   ...rest
 } = Astro.props
+
 ---
 
 <!-- prettier-ignore -->

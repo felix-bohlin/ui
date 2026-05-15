@@ -1,15 +1,11 @@
 ---
-type Props = {
-  variant?: "text" | "outlined" | "elevated" | "tonal"
-  actions?: {
-    align?: "end"
-  }
-  [key: string]: any
-}
+import type { Props } from './types.ts'
+
 
 export const title = "Card"
 
 const { variant, actions, class: className, ...rest } = Astro.props
+
 ---
 
 <div class:list={["card", variant, className]} {...rest}>

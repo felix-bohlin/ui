@@ -730,26 +730,6 @@
     "url": "/html/api#accordion"
   },
   {
-    "id": "api-badge-astro",
-    "title": "Badge API",
-    "description": "Reference for Badge Astro component.",
-    "headings": "alignment \"start-end\" Position of the badge relative to its container. color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string | number - Screen reader label for the badge.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#badge"
-  },
-  {
-    "id": "api-badge-html",
-    "title": "Badge API",
-    "description": "Reference for Badge HTML component.",
-    "headings": "Container .anchor.badge - Floating .anchor-floating - Positioned floating container from Anchor. Indicator .badge-indicator - Alignment .start-end Position modifiers on .badge. Color - Color modifiers on .badge. Variants .dot - Shape modifier on .badge. Visibility .invisible - Visibility modifier on .badge.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#badge"
-  },
-  {
     "id": "api-anchor-astro",
     "title": "Anchor API",
     "description": "Reference for Anchor Astro component.",
@@ -790,6 +770,26 @@
     "url": "/html/api#avatar"
   },
   {
+    "id": "api-badge-astro",
+    "title": "Badge API",
+    "description": "Reference for Badge Astro component.",
+    "headings": "alignment \"start-end\" Position of the badge relative to its container. color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string | number - Screen reader label for the badge.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#badge"
+  },
+  {
+    "id": "api-badge-html",
+    "title": "Badge API",
+    "description": "Reference for Badge HTML component.",
+    "headings": "Container .anchor.badge - Floating .anchor-floating - Positioned floating container from Anchor. Indicator .badge-indicator - Alignment .start-end Position modifiers on .badge. Color - Color modifiers on .badge. Variants .dot - Shape modifier on .badge. Visibility .invisible - Visibility modifier on .badge.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#badge"
+  },
+  {
     "id": "api-button-astro",
     "title": "Button API",
     "description": "Reference for Button Astro component.",
@@ -810,26 +810,6 @@
     "url": "/html/api#button"
   },
   {
-    "id": "api-callout-astro",
-    "title": "Callout API",
-    "description": "Reference for Callout Astro component.",
-    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity \"ok\" | \"warning\" | \"critical\" - The severity level, affecting the color and icon.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#callout"
-  },
-  {
-    "id": "api-callout-html",
-    "title": "Callout API",
-    "description": "Reference for Callout HTML component.",
-    "headings": "Part & > .content, & > svg - Internal structure. Severities - Severity modifiers. Variants .tonal, .outlined .tonal Style modifiers.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#callout"
-  },
-  {
     "id": "api-button-group-astro",
     "title": "Button Group API",
     "description": "Reference for Button Group Astro component.",
@@ -848,6 +828,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#button-group"
+  },
+  {
+    "id": "api-callout-astro",
+    "title": "Callout API",
+    "description": "Reference for Callout Astro component.",
+    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity \"ok\" | \"warning\" | \"critical\" - The severity level, affecting the color and icon.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#callout"
+  },
+  {
+    "id": "api-callout-html",
+    "title": "Callout API",
+    "description": "Reference for Callout HTML component.",
+    "headings": "Part & > .content, & > svg - Internal structure. Severities - Severity modifiers. Variants .tonal, .outlined .tonal Style modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#callout"
   },
   {
     "id": "api-card-astro",
@@ -1070,26 +1070,6 @@
     "url": "/html/api#icon-button"
   },
   {
-    "id": "api-list-astro",
-    "title": "List API",
-    "description": "Reference for List Astro component.",
-    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#list"
-  },
-  {
-    "id": "api-list-html",
-    "title": "List API",
-    "description": "Reference for List HTML component.",
-    "headings": "Dense ul.dense - When enabled list appears tighter packed. Gutterless ul.gutterless - When enabled list inline padding is removed. Bordered ul.bordered - Variants - Background color variants. Main parts - Building blocks in List item. Inset li.inset - Border top li.border-top - When enabled the list item will get a top border.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#list"
-  },
-  {
     "id": "api-progress-astro",
     "title": "Progress API",
     "description": "Reference for Progress Astro component.",
@@ -1108,6 +1088,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#progress"
+  },
+  {
+    "id": "api-list-astro",
+    "title": "List API",
+    "description": "Reference for List Astro component.",
+    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#list"
+  },
+  {
+    "id": "api-list-html",
+    "title": "List API",
+    "description": "Reference for List HTML component.",
+    "headings": "Dense ul.dense - When enabled list appears tighter packed. Gutterless ul.gutterless - When enabled list inline padding is removed. Bordered ul.bordered - Variants - Background color variants. Main parts - Building blocks in List item. Inset li.inset - Border top li.border-top - When enabled the list item will get a top border.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#list"
   },
   {
     "id": "api-range-astro",
@@ -1130,26 +1130,6 @@
     "url": "/html/api#range"
   },
   {
-    "id": "api-switch-astro",
-    "title": "Switch API",
-    "description": "Reference for Switch Astro component.",
-    "headings": "aria-label string - aria-labelledby string - ID of an external element that labels the switch. checked boolean false Whether the switch is checked. disabled boolean false Whether the switch is disabled. critical boolean false Switch error state. hideLabel boolean false Visually hides the label but keeps it accessible. required boolean false Whether the switch is required. small boolean false Reduces the size of the switch. spread boolean false Spreads the label and switch to opposite ends. stack boolean false Labels are stacked under the element. default The label text for the switch. end-text",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#switch"
-  },
-  {
-    "id": "api-switch-html",
-    "title": "Switch API",
-    "description": "Reference for Switch HTML component.",
-    "headings": "Children - Optional children. Sizes .small, default - The size of the element. Layout .spread, .stack, default\r\n      - Validation .critical - When applied, error styles are shown.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#switch"
-  },
-  {
     "id": "api-select-astro",
     "title": "Select API",
     "description": "Reference for Select Astro component.",
@@ -1168,6 +1148,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#select"
+  },
+  {
+    "id": "api-switch-astro",
+    "title": "Switch API",
+    "description": "Reference for Switch Astro component.",
+    "headings": "aria-label string - aria-labelledby string - ID of an external element that labels the switch. checked boolean false Whether the switch is checked. disabled boolean false Whether the switch is disabled. critical boolean false Switch error state. hideLabel boolean false Visually hides the label but keeps it accessible. required boolean false Whether the switch is required. small boolean false Reduces the size of the switch. spread boolean false Spreads the label and switch to opposite ends. stack boolean false Labels are stacked under the element. default The label text for the switch. end-text",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#switch"
+  },
+  {
+    "id": "api-switch-html",
+    "title": "Switch API",
+    "description": "Reference for Switch HTML component.",
+    "headings": "Children - Optional children. Sizes .small, default - The size of the element. Layout .spread, .stack, default\r\n      - Validation .critical - When applied, error styles are shown.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#switch"
   },
   {
     "id": "api-table-astro",
@@ -1210,26 +1210,6 @@
     "url": "/html/api#tabs"
   },
   {
-    "id": "api-text-input-astro",
-    "title": "Text Input API",
-    "description": "Reference for Text Input Astro component.",
-    "headings": "autoFit boolean false Automatically adjusts its width to content. size \"small\" - The size of the text field. variant \"filled\" - The visual variant of the text field.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#text-input"
-  },
-  {
-    "id": "api-text-input-html",
-    "title": "Text Input API",
-    "description": "Reference for Text Input HTML component.",
-    "headings": "Wrapper .field - Auto-fit .auto-fit - Sizes .small - The size of the element. Variants default, .filled - The variant to use.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#text-input"
-  },
-  {
     "id": "api-text-field-astro",
     "title": "Text Field API",
     "description": "Reference for Text Field Astro component.",
@@ -1250,24 +1230,24 @@
     "url": "/html/api#text-field"
   },
   {
-    "id": "api-textarea-astro",
-    "title": "Textarea API",
-    "description": "Reference for Textarea Astro component.",
-    "headings": "autoFit boolean false Automatically adjusts its height to content. description string - Description text displayed above the textarea. endText string - Supporting text displayed below the textarea. spread boolean false variant \"filled\" - The visual variant of the textarea. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
+    "id": "api-text-input-astro",
+    "title": "Text Input API",
+    "description": "Reference for Text Input Astro component.",
+    "headings": "autoFit boolean false Automatically adjusts its width to content. size \"small\" - The size of the text field. variant \"filled\" - The visual variant of the text field.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#textarea"
+    "url": "/astro/api#text-input"
   },
   {
-    "id": "api-textarea-html",
-    "title": "Textarea API",
-    "description": "Reference for Textarea HTML component.",
-    "headings": "Children - Direct children of the root element. Field children - Auto-fit .auto-fit - Layout .spread, default - Variants default, .filled - The variant to use. Validation [data-invalid] -",
+    "id": "api-text-input-html",
+    "title": "Text Input API",
+    "description": "Reference for Text Input HTML component.",
+    "headings": "Wrapper .field - Auto-fit .auto-fit - Sizes .small - The size of the element. Variants default, .filled - The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#textarea"
+    "url": "/html/api#text-input"
   },
   {
     "id": "api-toast-astro",
@@ -1308,6 +1288,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#toggle"
+  },
+  {
+    "id": "api-textarea-astro",
+    "title": "Textarea API",
+    "description": "Reference for Textarea Astro component.",
+    "headings": "autoFit boolean false Automatically adjusts its height to content. description string - Description text displayed above the textarea. endText string - Supporting text displayed below the textarea. spread boolean false variant \"filled\" - The visual variant of the textarea. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#textarea"
+  },
+  {
+    "id": "api-textarea-html",
+    "title": "Textarea API",
+    "description": "Reference for Textarea HTML component.",
+    "headings": "Children - Direct children of the root element. Field children - Auto-fit .auto-fit - Layout .spread, default - Variants default, .filled - The variant to use. Validation [data-invalid] -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#textarea"
   },
   {
     "id": "api-tooltip-astro",

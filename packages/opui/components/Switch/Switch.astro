@@ -1,21 +1,6 @@
 ---
 import SwitchInput from "./SwitchInput.astro"
-
-type Props = {
-  [key: string]: any
-  checked?: boolean
-  class?: string
-  disabled?: boolean
-  critical?: boolean
-  hideLabel?: boolean
-  id?: string
-  name?: string
-  required?: boolean
-  small?: boolean
-  spread?: boolean
-  stack?: boolean
-  value?: string
-}
+import type { SwitchProps as Props } from "./types.ts"
 
 export const title = "Switch"
 

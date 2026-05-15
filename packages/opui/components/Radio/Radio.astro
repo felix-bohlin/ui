@@ -1,20 +1,6 @@
 ---
 import RadioInput from "./RadioInput.astro"
-
-type Props = {
-  [key: string]: any
-  checked?: boolean
-  class?: string
-  disabled?: boolean
-  critical?: boolean
-  hideLabel?: boolean
-  id?: string
-  name?: string
-  required?: boolean
-  size?: "small" | "large"
-  stack?: boolean
-  value?: string
-}
+import type { RadioProps as Props } from "./types.ts"
 
 export const title = "Radio"
 

@@ -1,24 +1,9 @@
 ---
-type CommonProps = {
-  [key: string]: any
-  as?: string
-  class?: string
-  color?: "critical" | "primary"
-  size?: "x-small" | "small" | "large"
-  variant?: "outlined" | "tonal" | "filled"
-}
+import type { Props } from './types.ts'
 
-type AnchorProps = CommonProps & {
-  disabled?: never
-  href: string
-}
 
-type ButtonProps = CommonProps & {
-  disabled?: boolean
-  href?: undefined
-}
 
-type Props = AnchorProps | ButtonProps
+
 
 export const title = "Button"
 
@@ -35,6 +20,7 @@ const {
 
 const Tag = as || (href ? "a" : "button")
 const isButton = Tag === "button"
+
 ---
 
 <!-- prettier-ignore -->

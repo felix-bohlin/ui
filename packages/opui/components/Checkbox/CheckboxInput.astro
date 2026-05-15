@@ -1,14 +1,5 @@
 ---
-type Props = {
-  [key: string]: any
-  checked?: boolean
-  disabled?: boolean
-  id?: string
-  indeterminate?: boolean
-  name?: string
-  required?: boolean
-  value?: string
-}
+import type { CheckboxInputProps as Props } from "./types.ts"
 
 const { checked, disabled, id, indeterminate, name, required, value, ...rest } =
   Astro.props

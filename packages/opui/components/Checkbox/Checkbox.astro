@@ -1,22 +1,6 @@
 ---
 import CheckboxInput from "./CheckboxInput.astro"
-
-type Props = {
-  [key: string]: any
-  checked?: boolean
-  class?: string
-  critical?: boolean
-  disabled?: boolean
-  hideLabel?: boolean
-  id?: string
-  indeterminate?: boolean
-  name?: string
-  required?: boolean
-  size?: "small" | "large"
-  spread?: boolean
-  stack?: boolean
-  value?: string
-}
+import type { CheckboxProps as Props } from "./types.ts"
 
 export const title = "Checkbox"
 

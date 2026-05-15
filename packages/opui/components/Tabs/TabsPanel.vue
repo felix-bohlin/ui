@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject } from 'vue'
+import { CurrentPanelIdKey, CurrentTabIdKey } from './types'
 
 const props = defineProps<{
   class?: any
@@ -7,8 +8,8 @@ const props = defineProps<{
   tabId?: string
 }>()
 
-const currentPanelId = inject<string>('currentPanelId')
-const currentTabId = inject<string>('currentTabId')
+const currentPanelId = inject(CurrentPanelIdKey)
+const currentTabId = inject(CurrentTabIdKey)
 </script>
 
 <template>

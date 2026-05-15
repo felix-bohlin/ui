@@ -1,8 +1,9 @@
+import type { HTMLAttributes } from 'vue'
 export type Props = {
   [key: string]: any
   alt?: string
   as?: "div" | "a" | "button" | string
-  class?: string
+  class?: HTMLAttributes['class']
   href?: string
   isGroup?: boolean
   spacing?: "small" | "x-small"

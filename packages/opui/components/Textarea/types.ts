@@ -1,7 +1,8 @@
+import type { HTMLAttributes } from 'vue'
 export type TextareaProps = {
   [key: string]: any
   autoFit?: boolean
-  class?: string
+  class?: HTMLAttributes['class']
   cols?: number
   description?: string
   disabled?: boolean

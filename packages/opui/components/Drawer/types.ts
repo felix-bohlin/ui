@@ -1,8 +1,9 @@
+import type { HTMLAttributes } from 'vue'
 
 export type Props = {
   [key: string]: any
   backdrop?: "transparent" | "blurred"
-  class?: string
+  class?: HTMLAttributes['class']
   closedby?: "any" | "closerequest" | "none"
   id?: string
   scrollLock?: boolean

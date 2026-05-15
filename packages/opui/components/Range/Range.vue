@@ -14,15 +14,11 @@ const labelId = useId()
 const startTextId = useId()
 const endTextId = useId()
 
-const hasLabel = computed(() => !!props.label || !!useSlots().default)
-const hasStartText = computed(() => !!props.startText || !!useSlots()['start-text'])
-const hasEndText = computed(() => !!props.endText || !!useSlots()['end-text'])
-const hasValue = computed(() => props.valueSuffix !== undefined || !!useSlots().value)
 
 const describedBy = computed(() => {
   return [
-    hasStartText.value ? startTextId : undefined,
-    hasEndText.value ? endTextId : undefined,
+    (props.startText || !!useSlots()['start-text']) ? startTextId : undefined,
+    (props.endText || !!useSlots()['end-text']) ? endTextId : undefined,
   ]
     .filter(Boolean)
     .join(' ') || undefined
@@ -32,14 +28,14 @@ const describedBy = computed(() => {
 
 <template>
   <label :class="['range', props.variant, { spread: props.spread }, props.class]">
-    <span v-if="hasLabel" class="label" :id="labelId">
-      {{ props.label }}<slot></slot>
+    <span v-if="props.label || $slots.default" class="label" :id="labelId">
+      <slot>{{ props.label }}</slot>
     </span>
-    <output v-if="hasValue" class="value" :for="inputId" :data-suffix="props.valueSuffix">
-      <slot name="value">{{ modelValue !== undefined ? modelValue : props.value }}</slot>
+    <output v-if="props.valueSuffix !== undefined || $slots.value" class="value" :for="inputId" :data-suffix="props.valueSuffix">
+      <slot name="value">{{ modelValue ?? props.value }}</slot>
     </output>
-    <span v-if="hasStartText" class="start-text" :id="startTextId">
-      {{ props.startText }}<slot name="start-text"></slot>
+    <span v-if="props.startText || $slots['start-text']" class="start-text" :id="startTextId">
+      <slot name="start-text">{{ props.startText }}</slot>
     </span>
 
     <input
@@ -67,8 +63,8 @@ const describedBy = computed(() => {
       <slot name="datalist"></slot>
     </datalist>
 
-    <span v-if="hasEndText" class="end-text" :id="endTextId">
-      {{ props.endText }}<slot name="end-text"></slot>
+    <span v-if="props.endText || $slots['end-text']" class="end-text" :id="endTextId">
+      <slot name="end-text">{{ props.endText }}</slot>
     </span>
   </label>
 </template>

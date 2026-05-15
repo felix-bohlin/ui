@@ -1,5 +1,6 @@
+import type { HTMLAttributes } from 'vue'
 export type Props = {
   [key: string]: any
-  class?: string
+  class?: HTMLAttributes['class']
   variant?: "tonal" | "filled" | "primary"
 }

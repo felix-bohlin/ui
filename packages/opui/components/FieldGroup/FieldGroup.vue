@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import type { FieldGroupProps } from './types.ts'
 import { provide } from 'vue'
+import { CurrentFieldNameKey } from './types'
 
 const props = defineProps<FieldGroupProps>()
 
 if (props.name) {
-  provide('currentFieldName', props.name)
+  provide(CurrentFieldNameKey, props.name)
 }
 </script>
 

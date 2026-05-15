@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { provide, useId } from 'vue'
+import { TabsGroupNameKey } from './types'
 
 const props = defineProps<{
   class?: any
@@ -7,7 +8,7 @@ const props = defineProps<{
 }>()
 
 const groupName = props.name || useId()
-provide('tabsGroupName', groupName)
+provide(TabsGroupNameKey, groupName)
 </script>
 
 <template>

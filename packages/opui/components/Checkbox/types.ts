@@ -1,7 +1,8 @@
+import type { HTMLAttributes } from 'vue'
 export type CheckboxProps = {
   [key: string]: any
   checked?: boolean
-  class?: string
+  class?: HTMLAttributes['class']
   critical?: boolean
   disabled?: boolean
   hideLabel?: boolean

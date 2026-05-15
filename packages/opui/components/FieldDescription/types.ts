@@ -1,4 +1,5 @@
+import type { HTMLAttributes } from 'vue'
 export type FieldDescriptionProps = {
   [key: string]: any
-  class?: string
+  class?: HTMLAttributes['class']
 }

@@ -1,7 +1,8 @@
+import type { HTMLAttributes } from 'vue'
 export type CommonProps = {
   [key: string]: any
   as?: string
-  class?: string
+  class?: HTMLAttributes['class']
   color?: "critical" | "primary"
   size?: "x-small" | "small" | "large"
   variant?: "outlined" | "tonal" | "filled"

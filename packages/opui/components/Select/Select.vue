@@ -31,11 +31,11 @@ const endTextId = useId()
     :data-invalid="props.critical || undefined"
   >
     <span v-if="props.label || $slots.label" class="label" :id="labelId">
-      {{ props.label }}<slot name="label"></slot>
+      <slot name="label">{{ props.label }}</slot>
     </span>
 
     <span v-if="props.description || $slots.description" class="start-text">
-      {{ props.description }}<slot name="description"></slot>
+      <slot name="description">{{ props.description }}</slot>
     </span>
 
     <span class="field">
@@ -65,7 +65,7 @@ const endTextId = useId()
     </span>
 
     <span v-if="props.endText || $slots['end-text']" :id="endTextId" class="end-text">
-      {{ props.endText }}<slot name="end-text"></slot>
+      <slot name="end-text">{{ props.endText }}</slot>
     </span>
   </label>
 </template>

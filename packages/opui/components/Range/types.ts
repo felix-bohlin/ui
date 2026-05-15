@@ -1,6 +1,7 @@
+import type { HTMLAttributes } from 'vue'
 export type RangeProps = {
   [key: string]: any
-  class?: string
+  class?: HTMLAttributes['class']
   disabled?: boolean
   endText?: string
   id?: string

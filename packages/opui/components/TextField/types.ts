@@ -1,7 +1,8 @@
+import type { HTMLAttributes } from 'vue'
 export type TextFieldProps = {
   [key: string]: any
   autoFit?: boolean
-  class?: string
+  class?: HTMLAttributes['class']
   critical?: boolean
   description?: string
   disabled?: boolean

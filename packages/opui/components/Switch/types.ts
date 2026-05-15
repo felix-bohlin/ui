@@ -1,7 +1,8 @@
+import type { HTMLAttributes } from 'vue'
 export type SwitchProps = {
   [key: string]: any
   checked?: boolean
-  class?: string
+  class?: HTMLAttributes['class']
   disabled?: boolean
   critical?: boolean
   hideLabel?: boolean

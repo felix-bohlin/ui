@@ -31,11 +31,11 @@ const startTextValue = computed(() => props.description || props.startText)
     v-bind="$attrs"
   >
     <span v-if="props.label || $slots.label" class="label">
-      {{ props.label }}<slot name="label"></slot>
+      <slot name="label">{{ props.label }}</slot>
     </span>
 
     <span v-if="startTextValue || $slots.description" class="start-text">
-      {{ startTextValue }}<slot name="description"></slot>
+      <slot name="description">{{ startTextValue }}</slot>
     </span>
 
     <span class="field">
@@ -61,7 +61,7 @@ const startTextValue = computed(() => props.description || props.startText)
     </span>
 
     <span v-if="props.endText || $slots['end-text'] || $slots['supporting-text']" class="end-text">
-      {{ props.endText }}<slot name="end-text"></slot><slot name="supporting-text"></slot>
+      <slot name="end-text">{{ props.endText }}</slot><slot name="supporting-text"></slot>
     </span>
 
     <slot></slot>

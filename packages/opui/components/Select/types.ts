@@ -1,3 +1,4 @@
+import type { HTMLAttributes } from 'vue'
 export type Item = {
   text: string
   value: any
@@ -5,7 +6,7 @@ export type Item = {
 
 export type SelectProps = {
   [key: string]: any
-  class?: string
+  class?: HTMLAttributes['class']
   description?: string
   disabled?: boolean
   critical?: boolean

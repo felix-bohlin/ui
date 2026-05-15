@@ -28,11 +28,11 @@ const fieldId = props.id || useId()
     v-bind="$attrs"
   >
     <span v-if="props.label || $slots.label" class="label">
-      {{ props.label }}<slot name="label"></slot>
+      <slot name="label">{{ props.label }}</slot>
     </span>
 
     <span v-if="props.description || $slots.description" class="start-text">
-      {{ props.description }}<slot name="description"></slot>
+      <slot name="description">{{ props.description }}</slot>
     </span>
 
     <span class="field">
@@ -55,7 +55,7 @@ const fieldId = props.id || useId()
     </span>
 
     <span v-if="props.endText || $slots['end-text'] || $slots['supporting-text']" class="end-text">
-      {{ props.endText }}<slot name="end-text"></slot><slot name="supporting-text"></slot>
+      <slot name="end-text">{{ props.endText }}</slot><slot name="supporting-text"></slot>
     </span>
 
     <slot></slot>

@@ -1,6 +1,7 @@
+import type { HTMLAttributes } from 'vue'
 export type Props = {
   [key: string]: any
-  class?: string
+  class?: HTMLAttributes['class']
   color?: "critical" | "primary"
   orientation?: "vertical"
   size?: "small" | "large"

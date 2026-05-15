@@ -4,3 +4,11 @@ export type Props = {
   class?: string
   name?: string
 }
+
+export type TabsItemProps = {
+  class?: any
+  name?: string
+  open?: boolean
+  tabId?: string
+  panelId?: string
+}

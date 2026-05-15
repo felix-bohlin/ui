@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { RangeProps } from './types.ts'
-import { useId, computed } from 'vue'
+import { useId, computed, useSlots } from 'vue'
 
 defineOptions({
   inheritAttrs: false,
@@ -28,7 +28,6 @@ const describedBy = computed(() => {
     .join(' ') || undefined
 })
 
-import { useSlots } from 'vue'
 </script>
 
 <template>

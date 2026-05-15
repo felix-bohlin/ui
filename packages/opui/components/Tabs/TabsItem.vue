@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { provide, inject, useId } from 'vue'
+import type { TabsItemProps } from './types'
 
-const props = defineProps<{
-  class?: any
-  name?: string
-  open?: boolean
-  tabId?: string
-  panelId?: string
-}>()
+const props = defineProps<TabsItemProps>()
 
 const tabsGroupName = props.name || inject<string>('tabsGroupName') || useId()
 provide('tabsGroupName', tabsGroupName)

@@ -41,27 +41,37 @@ if (!slug) {
 // build time, so missing files mean `undefined` rather than a runtime fetch.
 // Note: every matched file must be parseable; orphaned/broken example files
 // will fail the whole build.
-const previewModules = import.meta.glob("../component-examples/**/*.astro", {
-  eager: true,
-}) as Record<string, { default: any }>
+const previewModules = import.meta.glob(
+  "../component-examples/**/*.{astro,svelte}",
+  {
+    eager: true,
+  },
+) as Record<string, { default: any }>
 
-const rawSources = import.meta.glob("../component-examples/**/*.{astro,html}", {
-  eager: true,
-  query: "?raw",
-  import: "default",
-}) as Record<string, string>
+const rawSources = import.meta.glob(
+  "../component-examples/**/*.{astro,html,svelte}",
+  {
+    eager: true,
+    query: "?raw",
+    import: "default",
+  },
+) as Record<string, string>
 
 const astroPath = `../component-examples/${slug}/${name}.astro`
-const htmlPath = `../component-examples/${slug}/${name}.html`
-
 const astroComponent = previewModules[astroPath]?.default
 const astroSource = rawSources[astroPath]
+
+const sveltePath = `../component-examples/${slug}/${name}.svelte`
+const svelteComponent = previewModules[sveltePath]?.default
+const svelteSource = rawSources[sveltePath]
+
+const htmlPath = `../component-examples/${slug}/${name}.html`
 const htmlSource = rawSources[htmlPath]
 
-if (!astroComponent && !htmlSource) {
+if (!astroComponent && !htmlSource && !svelteSource) {
   throw new Error(
     `<AutoExample slug="${slug}" name="${name}"> found no example files at ` +
-      `${astroPath} or ${htmlPath}.`,
+      `${astroPath}, ${htmlPath}, or ${sveltePath}.`,
   )
 }
 ---
@@ -79,7 +89,13 @@ if (!astroComponent && !htmlSource) {
       <Example.Preview slot="preview-astro" code={astroComponent} />
     )
   }
+  {
+    svelteComponent && (
+      <Example.Preview slot="preview-svelte" code={svelteComponent} />
+    )
+  }
   {htmlSource && <Example.Preview slot="preview-html" code={htmlSource} />}
   {astroSource && <Example.Code slot="code-astro" code={astroSource} />}
   {htmlSource && <Example.Code slot="code-html" code={htmlSource} />}
+  {svelteSource && <Example.Code slot="code-svelte" code={svelteSource} />}
 </Example>

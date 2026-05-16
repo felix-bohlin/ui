@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url"
 import { defineConfig, fontProviders } from "astro/config"
 
 import expressiveCode from "astro-expressive-code"
+import svelte from "@astrojs/svelte"
 
 import { DEFAULT_FRAMEWORK, FRAMEWORK_IDS } from "./src/utils/framework.js"
 
@@ -45,6 +46,7 @@ export default defineConfig({
   },
   redirects: legacyRedirects,
   integrations: [
+    svelte(),
     expressiveCode({
       themes: ["dark-plus", "light-plus"],
     }),

@@ -1,4 +1,5 @@
 ---
+import { prefixClasses as pfx } from "../utils";
 type Props = {
   [key: string]: any
   as?: "legend" | "p" | string
@@ -12,4 +13,4 @@ const isLegend = Tag === "legend"
 ---
 
 <!-- prettier-ignore -->
-<Tag class:list={[{ legend: !isLegend }, className]} {...rest}><slot /></Tag>
+<Tag class:list={pfx([{ legend: !isLegend }, className])} {...rest}><slot /></Tag>

@@ -1,4 +1,5 @@
 ---
+import { prefixClasses as pfx } from "../utils";
 import RadioInput from "./RadioInput.astro"
 
 type Props = {
@@ -60,7 +61,7 @@ const finalName = name || currentFieldName
     {value}
     {...rest}
   />
-  <!-- prettier-ignore --><span class:list={[hideLabel ? "sr-only" : "label"]}><slot /></span>
+  <!-- prettier-ignore --><span class:list={pfx([hideLabel ? "sr-only" : "label"])}><slot /></span>
   {
     Astro.slots.has("end-text") && (
       <!-- prettier-ignore -->

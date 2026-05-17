@@ -1,4 +1,5 @@
 ---
+import { prefixClasses as pfx } from "../utils";
 type Props = {
   [key: string]: any
   alignment?: string
@@ -35,7 +36,7 @@ const positionArea = alignment
   : {}
 ---
 
-<span class:list={["anchor", className]} style={positionArea} {...rest}>
+<span class:list={pfx(["anchor", className])} style={positionArea} {...rest}>
   {
     isHover ? (
       <span {...({ interestfor: id } as any)}>

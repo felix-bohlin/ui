@@ -1,4 +1,5 @@
 ---
+import { prefixClasses as pfx } from "../utils";
 type Props = {
   [key: string]: any
   class?: string
@@ -11,4 +12,4 @@ const { class: className, variant, ...rest } = Astro.props
 const variantClass = variant ? `border-${variant}` : ""
 ---
 
-<hr class:list={["divider", className, variantClass]} {...rest} />
+<hr class:list={pfx(["divider", className, variantClass])} {...rest} />

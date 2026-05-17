@@ -1,4 +1,5 @@
 ---
+import { prefixClasses as pfx } from "../utils";
 type CommonProps = {
   [key: string]: any
   as?: string
@@ -39,7 +40,7 @@ const isButton = Tag === "button"
 
 <!-- prettier-ignore -->
 <Tag
-  class:list={["button", { disabled: isButton && disabled }, size, variant, color, className]}
+  class:list={pfx(["button", { disabled: isButton && disabled }, size, variant, color, className])}
   disabled={isButton ? disabled : undefined}
   href={href}
   {...rest}><slot /></Tag>

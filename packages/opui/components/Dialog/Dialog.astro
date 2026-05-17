@@ -1,4 +1,5 @@
 ---
+import { prefixClasses as pfx } from "../utils";
 type Props = {
   [key: string]: any
   actions?: {
@@ -14,7 +15,7 @@ const { actions, class: className, closedby, ...rest } = Astro.props
 ---
 
 <dialog
-  class:list={["dialog card elevated", className]}
+  class:list={pfx(["dialog card elevated", className])}
   closedby={closedby}
   {...rest}
 >
@@ -35,7 +36,7 @@ const { actions, class: className, closedby, ...rest } = Astro.props
   <slot />
   {
     Astro.slots.has("actions") && (
-      <div class:list={["actions", actions?.align && `align-${actions.align}`]}>
+      <div class:list={pfx(["actions", actions?.align && `align-${actions.align}`])}>
         <slot name="actions" />
       </div>
     )

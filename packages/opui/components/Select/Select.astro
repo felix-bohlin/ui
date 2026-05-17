@@ -1,4 +1,5 @@
 ---
+import { prefixClasses as pfx } from "../utils";
 type Item = {
   text: string
   value: any
@@ -87,7 +88,7 @@ const labelId = $id("select-label")
       <button>
         <selectedcontent></selectedcontent>
       </button>
-      <div class:list={["list", { dense }]}>
+      <div class:list={pfx(["list", { dense }])}>
         {items.map((item) => <option value={item.value}>{item.text}</option>)}
         <slot />
       </div>

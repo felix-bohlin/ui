@@ -1,4 +1,5 @@
 ---
+import { prefixClasses as pfx } from "../utils";
 import IconButton from "../IconButton/IconButton.astro"
 
 type Props = {
@@ -12,7 +13,7 @@ export const title = "Drawer Header"
 const { class: className, heading, ...rest } = Astro.props
 ---
 
-<div class:list={["header", className]} {...rest}>
+<div class:list={pfx(["header", className])} {...rest}>
   {heading && <span>{heading}</span>}
   <slot />
   <IconButton onclick="this.closest('dialog').close()" title="Close">

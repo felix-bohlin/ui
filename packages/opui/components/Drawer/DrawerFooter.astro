@@ -1,4 +1,5 @@
 ---
+import { prefixClasses as pfx } from "../utils";
 type Props = {
   [key: string]: any
   class?: string
@@ -9,6 +10,6 @@ export const title = "Drawer Footer"
 const { class: className, ...rest } = Astro.props
 ---
 
-<div class:list={["footer", className]} {...rest}>
+<div class:list={pfx(["footer", className])} {...rest}>
   <slot />
 </div>

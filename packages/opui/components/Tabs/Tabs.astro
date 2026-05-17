@@ -1,4 +1,5 @@
 ---
+import { prefixClasses as pfx } from "../utils";
 type Props = {
   [key: string]: any
   class?: string
@@ -21,7 +22,7 @@ Astro.locals.tabsGroupName = originalGroupName
 ---
 
 <div
-  class:list={["tabs", className]}
+  class:list={pfx(["tabs", className])}
   role="tablist"
   {...rest}
   set:html={html}

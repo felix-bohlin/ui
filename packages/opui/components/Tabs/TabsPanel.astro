@@ -1,4 +1,5 @@
 ---
+import { prefixClasses as pfx } from "../utils";
 type Props = {
   class?: string
   panelId?: string
@@ -12,7 +13,7 @@ const { currentPanelId, currentTabId } = Astro.locals
 
 <div
   id={panelId || currentPanelId}
-  class:list={["tab-panel", className]}
+  class:list={pfx(["tab-panel", className])}
   role="tabpanel"
   aria-labelledby={tabId || currentTabId}
   {...rest}

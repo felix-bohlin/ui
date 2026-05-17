@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefixClasses as pfx } from "../utils"
 import Anchor from "../Anchor/Anchor.astro"
 
 type Props = {
@@ -18,7 +18,7 @@ const { alignment, arrow, class: className, id, label, ...rest } = Astro.props
 
 <Anchor
   alignment={alignment}
-  class:list={pfx(["tooltip", { "with-arrow": arrow }, className])}
+  class:list={pfx(["tooltip", { "with-arrow": !!arrow }, className])}
   id={id}
   trigger="hover"
   {...rest}

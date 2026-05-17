@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefixClasses as pfx } from "../utils"
 type Props = {
   as?: "a" | "button" | "div"
   borderTop?: boolean
@@ -34,13 +34,13 @@ const innerProps = Tag ? rest : {}
 ---
 
 <li
-  class:list={[
+  class:list={pfx([
     {
       "border-top": borderTop,
       inset,
     },
     className,
-  ]}
+  ])}
   {...liProps}
 >
   {

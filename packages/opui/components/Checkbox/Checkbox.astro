@@ -45,7 +45,7 @@ const finalName = name || currentFieldName
 ---
 
 <label
-  class:list={[
+  class:list={pfx([
     "checkbox",
     size,
     {
@@ -53,7 +53,7 @@ const finalName = name || currentFieldName
       spread,
     },
     className,
-  ]}
+  ])}
   data-invalid={critical || undefined}
 >
   <CheckboxInput
@@ -67,7 +67,8 @@ const finalName = name || currentFieldName
     {value}
     {...rest}
   />
-  <!-- prettier-ignore --><span class:list={pfx([hideLabel ? "sr-only" : "label"])}><slot /></span>
+  <!-- prettier-ignore -->
+  <span class:list={pfx([hideLabel ? "sr-only" : "label"])}><slot /></span>
   {
     Astro.slots.has("end-text") && (
       <!-- prettier-ignore -->

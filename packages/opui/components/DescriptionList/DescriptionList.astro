@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefixClasses as pfx } from "../utils"
 type Props = {
   [key: string]: any
   bordered?: boolean | "dotted"
@@ -12,11 +12,11 @@ const { bordered, class: className, ...rest } = Astro.props
 ---
 
 <dl
-  class:list={[
+  class:list={pfx([
     "description-list",
     { bordered: bordered, dotted: bordered === "dotted" },
     className,
-  ]}
+  ])}
   {...rest}
 >
   <slot />

@@ -54,7 +54,7 @@ if (
 ---
 
 <label
-  class:list={[
+  class:list={pfx([
     "switch",
     {
       small,
@@ -62,7 +62,7 @@ if (
       spread,
     },
     className,
-  ]}
+  ])}
   data-invalid={critical || undefined}
 >
   {
@@ -91,7 +91,8 @@ if (
   />
   {
     Astro.slots.has("default") && (
-    <!-- prettier-ignore --><span class:list={pfx([hideLabel ? "sr-only" : "label"])}><slot /></span>)
+    <!-- prettier-ignore -->
+    <span class:list={pfx([hideLabel ? "sr-only" : "label"])}><slot /></span>)
   }
     {
       Astro.slots.has("end-text") && (

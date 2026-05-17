@@ -52,7 +52,7 @@ const labelId = $id("select-label")
 ---
 
 <label
-  class:list={[
+  class:list={pfx([
     "select",
     size,
     {
@@ -60,7 +60,7 @@ const labelId = $id("select-label")
       spread,
     },
     className,
-  ]}
+  ])}
   data-invalid={critical || undefined}
 >
   {

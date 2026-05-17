@@ -1,9 +1,9 @@
 type ClassListValue =
   | string
-  | undefined
-  | Record<string, boolean>
+  | Record<string, any>
   | Set<string>
   | ClassListValue[]
+  | undefined
 
 /**
  * Prefixes CSS class names with the OPUI_PREFIX environment variable, if provided.

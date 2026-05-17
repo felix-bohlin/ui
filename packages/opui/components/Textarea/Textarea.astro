@@ -54,7 +54,7 @@ const fieldName = name || currentFieldName
 ---
 
 <label
-  class:list={[
+  class:list={pfx([
     "textarea",
     {
       "auto-fit": autoFit,
@@ -63,7 +63,7 @@ const fieldName = name || currentFieldName
       small,
     },
     className,
-  ]}
+  ])}
   data-invalid={critical || undefined}
   {...rest}
 >

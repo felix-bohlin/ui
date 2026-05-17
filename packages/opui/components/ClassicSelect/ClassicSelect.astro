@@ -45,14 +45,14 @@ const labelId = $id("select-label")
 ---
 
 <label
-  class:list={[
+  class:list={pfx([
     "select",
     size,
     {
       filled: variant === "filled",
     },
     className,
-  ]}
+  ])}
   data-invalid={critical || undefined}
 >
   {

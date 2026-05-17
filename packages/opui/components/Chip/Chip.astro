@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefixClasses as pfx } from "../utils"
 type Props = {
   [key: string]: any
   as?: "a" | "button" | "div" | string
@@ -25,7 +25,7 @@ const {
 
 <!-- prettier-ignore -->
 <Tag
-  class:list={[
+  class:list={pfx([
     "chip",
     {
       multiline,
@@ -33,6 +33,6 @@ const {
     size,
     variant,
     className,
-  ]}
+  ])}
   {...rest}
 ><slot name="start" /><slot />{label && <span class="text">{label}</span>}<slot name="end" /></Tag>

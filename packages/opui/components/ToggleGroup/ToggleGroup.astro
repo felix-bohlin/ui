@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefixClasses as pfx } from "../utils"
 type Props = {
   [key: string]: any
   class?: string
@@ -37,12 +37,12 @@ Astro.locals.currentToggleGroupType = originalType
 ---
 
 <div
-  class:list={[
+  class:list={pfx([
     "toggle-group",
     size !== "default" && size,
     orientation,
     className,
-  ]}
+  ])}
   role={selection === "single" ? "radiogroup" : "group"}
   {...rest}
 >

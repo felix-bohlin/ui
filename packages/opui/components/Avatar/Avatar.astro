@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefixClasses as pfx } from "../utils"
 type Props = {
   [key: string]: any
   alt?: string
@@ -31,7 +31,7 @@ const Tag = as || (href ? "a" : "div")
 
 <!-- prettier-ignore -->
 <Tag
-  class:list={[
+  class:list={pfx([
     { avatar: !isGroup },
     !isGroup && variant,
     {
@@ -39,7 +39,7 @@ const Tag = as || (href ? "a" : "div")
       "gap-x-small": isGroup && spacing === "x-small",
     },
     className,
-  ]}
+  ])}
   href={href}
   role={isGroup ? "group" : undefined}
   {...rest}>{src ? <img src={src} alt={alt} /> : <slot />}</Tag>

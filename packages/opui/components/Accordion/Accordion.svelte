@@ -1,19 +1,5 @@
 <script lang="ts">
-  import type { HTMLAttributes } from "svelte/elements"
-  import type { Snippet } from "svelte"
-
-  type Props = {
-    class?: HTMLAttributes<HTMLDetailsElement>["class"]
-    name?: string
-    open?: boolean
-    variant?: "default" | "outlined" | "elevated" | "tonal"
-
-    // Snippets
-    actions?: Snippet
-    children: Snippet
-    marker?: Snippet
-    summary: string | Snippet
-  } & HTMLAttributes<HTMLDetailsElement>
+  import type { Props } from "./types"
 
   let {
     class: className = "",
@@ -27,7 +13,7 @@
     marker,
     summary,
     ...rest
-  }: Props = $props()
+  }: Props<"svelte"> = $props()
 
   export const title = "Accordion" as const
   let element = $state<HTMLDetailsElement | null>(null)

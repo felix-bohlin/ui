@@ -1,16 +1,16 @@
 ---
-type Props = {
-  class?: string
-  name?: string
-  open?: boolean
-  variant?: "default" | "outlined" | "elevated" | "tonal"
-  [key: string]: any
-}
+import type { Props } from "./types"
 
 export const title = "Accordion"
 
 const { $id } = Astro.locals
-const { class: className, name, open, variant, ...rest } = Astro.props
+const {
+  class: className,
+  name,
+  open,
+  variant,
+  ...rest
+} = Astro.props as Props<"astro">
 
 const summaryId = $id("summary")
 const contentId = $id("content")

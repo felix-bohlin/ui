@@ -33,8 +33,9 @@
   let element = $state<HTMLDetailsElement | null>(null)
   export { element as this }
 
-  const summaryId = `summary-${crypto.randomUUID()}`
-  const contentId = `content-${crypto.randomUUID()}`
+  const id = $props.id()
+  const summaryId = `summary-${id}`
+  const contentId = `content-${id}`
 
   const classes = $derived(["accordion", "card", variant, className])
 </script>

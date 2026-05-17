@@ -64,6 +64,9 @@ importers:
       postcss-import:
         specifier: ^16.1.0
         version: 16.1.1(postcss@8.5.14)
+      postcss-rename:
+        specifier: ^0.8.1
+        version: 0.8.1
 
 packages:
 
@@ -1501,8 +1504,16 @@ packages:
     peerDependencies:
       postcss: ^8.2.14
 
+  postcss-rename@0.8.1:
+    resolution: {integrity: sha512-HOwqcu2fcyz3r7CabPwajI7aqsSxvp3+ySyk8qhSzOeIXrcVVKcZ+Q+q9KuMiKBdI10KCb2kYVPV5QJ4tkNhhw==}
+    engines: {node: '>=20.0.0'}
+
   postcss-selector-parser@6.1.2:
     resolution: {integrity: sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg==}
+    engines: {node: '>=4'}
+
+  postcss-selector-parser@7.1.1:
+    resolution: {integrity: sha512-orRsuYpJVw8LdAwqqLykBj9ecS5/cRHlI5+nvTo8LcCKmzDmqVORXtOIYEEQuL9D4BxtA1lm5isAqzQZCoQ6Eg==}
     engines: {node: '>=4'}
 
   postcss-value-parser@4.2.0:
@@ -3698,7 +3709,17 @@ snapshots:
       postcss: 8.5.14
       postcss-selector-parser: 6.1.2
 
+  postcss-rename@0.8.1:
+    dependencies:
+      postcss-selector-parser: 7.1.1
+      postcss-value-parser: 4.2.0
+
   postcss-selector-parser@6.1.2:
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
+
+  postcss-selector-parser@7.1.1:
     dependencies:
       cssesc: 3.0.0
       util-deprecate: 1.0.2

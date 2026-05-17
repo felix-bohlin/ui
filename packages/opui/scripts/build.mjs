@@ -1,12 +1,18 @@
 import { mkdir, rm, writeFile } from "node:fs/promises"
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import { createRequire } from "node:module"
 import postcss from "postcss"
 import atImport from "postcss-import"
+
+const require = createRequire(import.meta.url)
+const postcssRename = require("postcss-rename")
 
 const here = dirname(fileURLToPath(import.meta.url))
 const root = resolve(here, "..")
 const dist = resolve(root, "dist")
+
+const prefix = process.env.OPUI_PREFIX || ""
 
 const targets = [
   { input: "css/imports.css", out: "opui.css" },
@@ -14,7 +20,15 @@ const targets = [
   { input: "open-props.css", out: "op.css" },
 ]
 
-const processor = postcss([atImport()])
+const processor = postcss(
+  [
+    atImport(),
+    prefix &&
+      postcssRename({
+        prefix,
+      }),
+  ].filter(Boolean),
+)
 
 await rm(dist, { force: true, recursive: true })
 await mkdir(dist, { recursive: true })
@@ -29,5 +43,7 @@ for (const { input, out } of targets) {
   })
   await writeFile(to, result.css)
   await writeFile(`${to}.map`, result.map.toString())
-  console.log(`built dist/${out} (+ .map)`)
+  console.log(
+    `built dist/${out} (+ .map)${prefix ? ` with prefix "${prefix}"` : ""}`,
+  )
 }

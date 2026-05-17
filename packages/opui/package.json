@@ -61,7 +61,8 @@
   },
   "devDependencies": {
     "postcss": "^8.4.0",
-    "postcss-import": "^16.1.0"
+    "postcss-import": "^16.1.0",
+    "postcss-rename": "^0.8.1"
   },
   "peerDependencies": {
     "astro": "^6.3.1",

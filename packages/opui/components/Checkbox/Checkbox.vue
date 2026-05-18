@@ -8,7 +8,7 @@ defineOptions({
 })
 
 const props = defineProps<CheckboxProps>()
-const modelValue = defineModel<boolean | any[]>()
+const modelValue = defineModel<boolean | (string | number)[]>()
 
 const endTextId = useId()
 </script>

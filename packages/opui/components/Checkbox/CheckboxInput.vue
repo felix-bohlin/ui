@@ -6,7 +6,7 @@ defineOptions({
 })
 
 const props = defineProps<CheckboxInputProps>()
-const modelValue = defineModel<boolean | any[]>()
+const modelValue = defineModel<boolean | (string | number)[]>()
 </script>
 
 <template>

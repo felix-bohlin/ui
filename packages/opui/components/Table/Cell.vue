@@ -1,12 +1,5 @@
-<script setup lang="ts">
-import type { Props } from './types'
-
-const props = defineProps<Props>()
-</script>
-
 <template>
-
-<td >
-  <slot></slot>
-</td>
+  <td>
+    <slot></slot>
+  </td>
 </template>

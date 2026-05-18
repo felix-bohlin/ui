@@ -6,7 +6,7 @@ defineOptions({
 })
 
 const props = defineProps<SwitchInputProps>()
-const modelValue = defineModel<boolean | any[]>()
+const modelValue = defineModel<boolean | (string | number)[]>()
 </script>
 
 <template>

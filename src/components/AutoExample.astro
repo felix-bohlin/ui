@@ -45,18 +45,23 @@ const previewModules = import.meta.glob("../component-examples/**/*.astro", {
   eager: true,
 }) as Record<string, { default: any }>
 
-const rawSources = import.meta.glob("../component-examples/**/*.{astro,html}", {
-  eager: true,
-  query: "?raw",
-  import: "default",
-}) as Record<string, string>
+const rawSources = import.meta.glob(
+  "../component-examples/**/*.{astro,html,vue}",
+  {
+    eager: true,
+    query: "?raw",
+    import: "default",
+  },
+) as Record<string, string>
 
 const astroPath = `../component-examples/${slug}/${name}.astro`
 const htmlPath = `../component-examples/${slug}/${name}.html`
+const vuePath = `../component-examples/${slug}/${name}.vue`
 
 const astroComponent = previewModules[astroPath]?.default
 const astroSource = rawSources[astroPath]
 const htmlSource = rawSources[htmlPath]
+const vueSource = rawSources[vuePath]
 
 if (!astroComponent && !htmlSource) {
   throw new Error(
@@ -82,4 +87,5 @@ if (!astroComponent && !htmlSource) {
   {htmlSource && <Example.Preview slot="preview-html" code={htmlSource} />}
   {astroSource && <Example.Code slot="code-astro" code={astroSource} />}
   {htmlSource && <Example.Code slot="code-html" code={htmlSource} />}
+  {vueSource && <Example.Code slot="code-vue" code={vueSource} />}
 </Example>

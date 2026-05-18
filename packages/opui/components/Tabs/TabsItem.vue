@@ -1,14 +1,29 @@
 <script setup lang="ts">
-import { provide, inject, useId } from 'vue'
-import { TabsGroupNameKey, CurrentTabIdKey, CurrentPanelIdKey, type TabsItemProps } from './types'
+import { inject, provide, useId } from 'vue'
+import {
+  CurrentPanelIdKey,
+  CurrentTabIdKey,
+  TabsGroupNameKey,
+  type TabsItemProps,
+} from './types'
 
-const props = defineProps<TabsItemProps>()
+const {
+  class: className,
+  name,
+  open,
+  panelId,
+  tabId,
+} = defineProps<TabsItemProps>()
 
-const tabsGroupName = props.name || inject(TabsGroupNameKey) || useId()
+defineOptions({
+  inheritAttrs: false,
+})
+
+const tabsGroupName = name || inject(TabsGroupNameKey, undefined) || useId()
 provide(TabsGroupNameKey, tabsGroupName)
 
-const computedTabId = props.tabId || useId()
-const computedPanelId = props.panelId || useId()
+const computedTabId = tabId || useId()
+const computedPanelId = panelId || useId()
 
 provide(CurrentTabIdKey, computedTabId)
 provide(CurrentPanelIdKey, computedPanelId)
@@ -17,11 +32,12 @@ provide(CurrentPanelIdKey, computedPanelId)
 <template>
   <input
     :aria-controls="computedPanelId"
-    :checked="props.open"
-    :class="['tab-input', props.class]"
+    :checked="open"
+    :class="['tab-input', className]"
     :id="computedTabId"
     :name="tabsGroupName"
     type="radio"
+    v-bind="$attrs"
   />
-  <slot />
+  <slot></slot>
 </template>

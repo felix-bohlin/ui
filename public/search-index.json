@@ -2,7 +2,7 @@
   {
     "id": "component-accordion-html",
     "title": "Accordion",
-    "description": "Leverages the HTML details and summary elements. Uses\r\n    the native HTML arrow, check out how to add your own custom marker.",
+    "description": "Leverages the HTML details and summary elements. Uses\n    the native HTML arrow, check out how to add your own custom marker.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
     "category": "Component",
     "frameworkId": "html",
@@ -12,7 +12,7 @@
   {
     "id": "component-accordion-astro",
     "title": "Accordion",
-    "description": "Leverages the HTML details and summary elements. Uses\r\n    the native HTML arrow, check out how to add your own custom marker.",
+    "description": "Leverages the HTML details and summary elements. Uses\n    the native HTML arrow, check out how to add your own custom marker.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
     "category": "Component",
     "frameworkId": "astro",
@@ -22,7 +22,7 @@
   {
     "id": "component-anchor-html",
     "title": "Anchor",
-    "description": "A structural primitive for positioning floating content relative to an\r\n      anchor element using CSS Anchor Positioning.\r\n    \r\n    \r\n      \r\n        Add the .anchor class to a container. The first child becomes\r\n        the anchor target. Place floating content inside .anchor-floating. Use --anchor-position-area to control placement.",
+    "description": "A structural primitive for positioning floating content relative to an\n      anchor element using CSS Anchor Positioning.\n    \n    \n      \n        Add the .anchor class to a container. The first child becomes\n        the anchor target. Place floating content inside .anchor-floating. Use --anchor-position-area to control placement.",
     "headings": "Always Visible Hover Trigger Used By",
     "category": "Component",
     "frameworkId": "html",
@@ -32,7 +32,7 @@
   {
     "id": "component-anchor-astro",
     "title": "Anchor",
-    "description": "A structural primitive for positioning floating content relative to an\r\n      anchor element using CSS Anchor Positioning.\r\n    \r\n    \r\n      \r\n        Add the .anchor class to a container. The first child becomes\r\n        the anchor target. Place floating content inside .anchor-floating. Use --anchor-position-area to control placement.",
+    "description": "A structural primitive for positioning floating content relative to an\n      anchor element using CSS Anchor Positioning.\n    \n    \n      \n        Add the .anchor class to a container. The first child becomes\n        the anchor target. Place floating content inside .anchor-floating. Use --anchor-position-area to control placement.",
     "headings": "Always Visible Hover Trigger Used By",
     "category": "Component",
     "frameworkId": "astro",
@@ -62,7 +62,7 @@
   {
     "id": "component-badge-html",
     "title": "Badge",
-    "description": "A badge is a small status indicator that can be placed on other elements.\r\n    \r\n    \r\n      \r\n        Badge extends Anchor. Add .anchor and .badge classes to the container, wrap the indicator in\r\n        .anchor-floating.",
+    "description": "A badge is a small status indicator that can be placed on other elements.\n    \n    \n      \n        Badge extends Anchor. Add .anchor and .badge classes to the container, wrap the indicator in\n        .anchor-floating.",
     "headings": "Variants Severities Visibility Alignment",
     "category": "Component",
     "frameworkId": "html",
@@ -72,7 +72,7 @@
   {
     "id": "component-badge-astro",
     "title": "Badge",
-    "description": "A badge is a small status indicator that can be placed on other elements.\r\n    \r\n    \r\n      \r\n        Badge extends Anchor. Add .anchor and .badge classes to the container, wrap the indicator in\r\n        .anchor-floating.",
+    "description": "A badge is a small status indicator that can be placed on other elements.\n    \n    \n      \n        Badge extends Anchor. Add .anchor and .badge classes to the container, wrap the indicator in\n        .anchor-floating.",
     "headings": "Variants Severities Visibility Alignment",
     "category": "Component",
     "frameworkId": "astro",
@@ -122,7 +122,7 @@
   {
     "id": "component-callout-html",
     "title": "Callout",
-    "description": "Callouts call out for user attention. Callouts should be part of the flow\r\n    and used without interrupting the user's task.",
+    "description": "Callouts call out for user attention. Callouts should be part of the flow\n    and used without interrupting the user's task.",
     "headings": "Variants Icon Severities",
     "category": "Component",
     "frameworkId": "html",
@@ -132,7 +132,7 @@
   {
     "id": "component-callout-astro",
     "title": "Callout",
-    "description": "Callouts call out for user attention. Callouts should be part of the flow\r\n    and used without interrupting the user's task.",
+    "description": "Callouts call out for user attention. Callouts should be part of the flow\n    and used without interrupting the user's task.",
     "headings": "Variants Icon Severities",
     "category": "Component",
     "frameworkId": "astro",
@@ -142,7 +142,7 @@
   {
     "id": "component-card-html",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment",
     "category": "Component",
     "frameworkId": "html",
@@ -152,7 +152,7 @@
   {
     "id": "component-card-astro",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment",
     "category": "Component",
     "frameworkId": "astro",
@@ -162,7 +162,7 @@
   {
     "id": "component-checkbox-html",
     "title": "Checkbox",
-    "description": "Checkboxes allow users to select one or more items from a set of options.\r\n    See also: Checkbox field group.",
+    "description": "Checkboxes allow users to select one or more items from a set of options.\n    See also: Checkbox field group.",
     "headings": "Visible label Label position End text Validation Indeterminate Spread Sizes Field group Direction Field description Disabled Required Labels Keyboard support",
     "category": "Component",
     "frameworkId": "html",
@@ -172,7 +172,7 @@
   {
     "id": "component-checkbox-astro",
     "title": "Checkbox",
-    "description": "Checkboxes allow users to select one or more items from a set of options.\r\n    See also: Checkbox field group.",
+    "description": "Checkboxes allow users to select one or more items from a set of options.\n    See also: Checkbox field group.",
     "headings": "Visible label Label position End text Validation Indeterminate Spread Sizes Field group Direction Field description Disabled Required Labels Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
@@ -202,7 +202,7 @@
   {
     "id": "component-description-list-html",
     "title": "Description list",
-    "description": "Description lists are used to display a list of terms and their\r\n    descriptions.",
+    "description": "Description lists are used to display a list of terms and their\n    descriptions.",
     "headings": "Bordered",
     "category": "Component",
     "frameworkId": "html",
@@ -212,7 +212,7 @@
   {
     "id": "component-description-list-astro",
     "title": "Description list",
-    "description": "Description lists are used to display a list of terms and their\r\n    descriptions.",
+    "description": "Description lists are used to display a list of terms and their\n    descriptions.",
     "headings": "Bordered",
     "category": "Component",
     "frameworkId": "astro",
@@ -222,7 +222,7 @@
   {
     "id": "component-dialog-html",
     "title": "Dialog",
-    "description": "A minimally styled window overlaid on the main content. By design the Dialog\r\n    is minimal with zero content to allow for both modal and non-modal use.",
+    "description": "A minimally styled window overlaid on the main content. By design the Dialog\n    is minimal with zero content to allow for both modal and non-modal use.",
     "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "html",
@@ -232,7 +232,7 @@
   {
     "id": "component-dialog-astro",
     "title": "Dialog",
-    "description": "A minimally styled window overlaid on the main content. By design the Dialog\r\n    is minimal with zero content to allow for both modal and non-modal use.",
+    "description": "A minimally styled window overlaid on the main content. By design the Dialog\n    is minimal with zero content to allow for both modal and non-modal use.",
     "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
@@ -302,7 +302,7 @@
   {
     "id": "component-icon-button-html",
     "title": "Icon Button",
-    "description": "Icon buttons are used to trigger actions and are typically found in\r\n    toolbars, cards, and dialogs.",
+    "description": "Icon buttons are used to trigger actions and are typically found in\n    toolbars, cards, and dialogs.",
     "headings": "Variants Colors Sizes Disabled",
     "category": "Component",
     "frameworkId": "html",
@@ -312,7 +312,7 @@
   {
     "id": "component-icon-button-astro",
     "title": "Icon Button",
-    "description": "Icon buttons are used to trigger actions and are typically found in\r\n    toolbars, cards, and dialogs.",
+    "description": "Icon buttons are used to trigger actions and are typically found in\n    toolbars, cards, and dialogs.",
     "headings": "Variants Colors Sizes Disabled",
     "category": "Component",
     "frameworkId": "astro",
@@ -322,7 +322,7 @@
   {
     "id": "component-list-html",
     "title": "List",
-    "description": "Lists are continuous, vertical indexes of text and images and video.\r\n    \r\n      Use lists to help users find a specific item and act on it\r\n      Order list items in logical ways (like alphabetical or numerical)\r\n      Three sizes: one-line, two-line, and three-line\r\n      Keep items short and easy to scan\r\n      Show icons, text, and actions in a consistent format",
+    "description": "Lists are continuous, vertical indexes of text and images and video.\n    \n      Use lists to help users find a specific item and act on it\n      Order list items in logical ways (like alphabetical or numerical)\n      Three sizes: one-line, two-line, and three-line\n      Keep items short and easy to scan\n      Show icons, text, and actions in a consistent format",
     "headings": "Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
     "category": "Component",
     "frameworkId": "html",
@@ -332,7 +332,7 @@
   {
     "id": "component-list-astro",
     "title": "List",
-    "description": "Lists are continuous, vertical indexes of text and images and video.\r\n    \r\n      Use lists to help users find a specific item and act on it\r\n      Order list items in logical ways (like alphabetical or numerical)\r\n      Three sizes: one-line, two-line, and three-line\r\n      Keep items short and easy to scan\r\n      Show icons, text, and actions in a consistent format",
+    "description": "Lists are continuous, vertical indexes of text and images and video.\n    \n      Use lists to help users find a specific item and act on it\n      Order list items in logical ways (like alphabetical or numerical)\n      Three sizes: one-line, two-line, and three-line\n      Keep items short and easy to scan\n      Show icons, text, and actions in a consistent format",
     "headings": "Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
     "category": "Component",
     "frameworkId": "astro",
@@ -422,7 +422,7 @@
   {
     "id": "component-spinner-html",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
     "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "html",
@@ -432,7 +432,7 @@
   {
     "id": "component-spinner-astro",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
     "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "astro",
@@ -462,7 +462,7 @@
   {
     "id": "component-table-html",
     "title": "Table",
-    "description": "Displays tabular data. Basic tables with row and column headers, and\r\n    optional captions and footers.",
+    "description": "Displays tabular data. Basic tables with row and column headers, and\n    optional captions and footers.",
     "headings": "Variants Default Advanced",
     "category": "Component",
     "frameworkId": "html",
@@ -472,7 +472,7 @@
   {
     "id": "component-table-astro",
     "title": "Table",
-    "description": "Displays tabular data. Basic tables with row and column headers, and\r\n    optional captions and footers.",
+    "description": "Displays tabular data. Basic tables with row and column headers, and\n    optional captions and footers.",
     "headings": "Variants Default Advanced",
     "category": "Component",
     "frameworkId": "astro",
@@ -482,7 +482,7 @@
   {
     "id": "component-tabs-html",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
     "headings": "Basics",
     "category": "Component",
     "frameworkId": "html",
@@ -492,7 +492,7 @@
   {
     "id": "component-tabs-astro",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
     "headings": "Basics",
     "category": "Component",
     "frameworkId": "astro",
@@ -502,7 +502,7 @@
   {
     "id": "component-text-field-html",
     "title": "Text field",
-    "description": "An input for single-line text data. Basic text fields with labels, field\r\n    descriptions, and validation states.",
+    "description": "An input for single-line text data. Basic text fields with labels, field\n    descriptions, and validation states.",
     "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
     "category": "Component",
     "frameworkId": "html",
@@ -512,7 +512,7 @@
   {
     "id": "component-text-field-astro",
     "title": "Text field",
-    "description": "An input for single-line text data. Basic text fields with labels, field\r\n    descriptions, and validation states.",
+    "description": "An input for single-line text data. Basic text fields with labels, field\n    descriptions, and validation states.",
     "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
     "category": "Component",
     "frameworkId": "astro",
@@ -522,7 +522,7 @@
   {
     "id": "component-textarea-html",
     "title": "Textarea",
-    "description": "An input for multi-line text data. Basic textareas with labels, supporting\r\n    text, and validation states.",
+    "description": "An input for multi-line text data. Basic textareas with labels, supporting\n    text, and validation states.",
     "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
     "category": "Component",
     "frameworkId": "html",
@@ -532,7 +532,7 @@
   {
     "id": "component-textarea-astro",
     "title": "Textarea",
-    "description": "An input for multi-line text data. Basic textareas with labels, supporting\r\n    text, and validation states.",
+    "description": "An input for multi-line text data. Basic textareas with labels, supporting\n    text, and validation states.",
     "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
     "category": "Component",
     "frameworkId": "astro",
@@ -582,7 +582,7 @@
   {
     "id": "component-tooltip-html",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.\r\n    \r\n    \r\n      \r\n        Add the .tooltip class alongside .anchor on the\r\n        wrapper. Wire interestfor on the trigger to the\r\n        .anchor-floating[popover=\"hint\"] element's ID.",
+    "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .tooltip class alongside .anchor on the\n        wrapper. Wire interestfor on the trigger to the\n        .anchor-floating[popover=\"hint\"] element's ID.",
     "headings": "Basics Alignment Arrow Rich content",
     "category": "Component",
     "frameworkId": "html",
@@ -592,7 +592,7 @@
   {
     "id": "component-tooltip-astro",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.\r\n    \r\n    \r\n      \r\n        Add the .tooltip class alongside .anchor on the\r\n        wrapper. Wire interestfor on the trigger to the\r\n        .anchor-floating[popover=\"hint\"] element's ID.",
+    "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .tooltip class alongside .anchor on the\n        wrapper. Wire interestfor on the trigger to the\n        .anchor-floating[popover=\"hint\"] element's ID.",
     "headings": "Basics Alignment Arrow Rich content",
     "category": "Component",
     "frameworkId": "astro",
@@ -602,7 +602,7 @@
   {
     "id": "component-typography-html",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "html",
@@ -612,7 +612,7 @@
   {
     "id": "component-typography-astro",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "astro",
@@ -640,7 +640,7 @@
   {
     "id": "guide-browser-support-html",
     "title": "Browser support",
-    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
+    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "html",
@@ -649,7 +649,7 @@
   {
     "id": "guide-browser-support-astro",
     "title": "Browser support",
-    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
+    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "astro",
@@ -676,7 +676,7 @@
   {
     "id": "guide-why-opui-html",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
     "headings": "Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "html",
@@ -685,7 +685,7 @@
   {
     "id": "guide-why-opui-astro",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
     "headings": "Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "astro",
@@ -694,7 +694,7 @@
   {
     "id": "guide-getting-started-astro",
     "title": "Getting started",
-    "description": "OPUI ships first-class Astro components. Install the package, import what\r\n    you need, and you're set.",
+    "description": "OPUI ships first-class Astro components. Install the package, import what\n    you need, and you're set.",
     "headings": "Install via NPM Use a component Load the CSS",
     "category": "Guide",
     "frameworkId": "astro",
@@ -703,7 +703,7 @@
   {
     "id": "guide-getting-started-html",
     "title": "Getting started",
-    "description": "Open Props UI is a CSS UI library exploring how next-gen HTML & CSS features\r\n    can change the way we create components. Designed to be used by professional\r\n    teams as well as tinkering hobbyists.",
+    "description": "Open Props UI is a CSS UI library exploring how next-gen HTML & CSS features\n    can change the way we create components. Designed to be used by professional\n    teams as well as tinkering hobbyists.",
     "headings": "Install manually theme.css generator Install via NPM Usage Install via CDN",
     "category": "Guide",
     "frameworkId": "html",
@@ -883,7 +883,7 @@
     "id": "api-checkbox-html",
     "title": "Checkbox API",
     "description": "Reference for Checkbox HTML component.",
-    "headings": "Children .label, .end-text - Internal element classes. Layout .spread, .stack, default\r\n      - Sizes .small, .large - Size modifiers. Validation .critical - Error state modifier. State data-indeterminate -",
+    "headings": "Children .label, .end-text - Internal element classes. Layout .spread, .stack, default\n      - Sizes .small, .large - Size modifiers. Validation .critical - Error state modifier. State data-indeterminate -",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -930,26 +930,6 @@
     "url": "/html/api#classic-select"
   },
   {
-    "id": "api-dialog-astro",
-    "title": "Dialog API",
-    "description": "Reference for Dialog Astro component.",
-    "headings": "closedby \"any\" | \"closerequest\" | \"none\" - actions.align \"end\" - Alignment of the actions slot. header content actions default Any content not assigned to a named slot.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#dialog"
-  },
-  {
-    "id": "api-dialog-html",
-    "title": "Dialog API",
-    "description": "Reference for Dialog HTML component.",
-    "headings": "Styles .dialog.card.elevated Included The dialog uses card styles by default. Closed by closedby attribute - The attribute used to control close behavior.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#dialog"
-  },
-  {
     "id": "api-description-list-astro",
     "title": "Description List API",
     "description": "Reference for Description List Astro component.",
@@ -968,6 +948,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#description-list"
+  },
+  {
+    "id": "api-dialog-astro",
+    "title": "Dialog API",
+    "description": "Reference for Dialog Astro component.",
+    "headings": "closedby \"any\" | \"closerequest\" | \"none\" - actions.align \"end\" - Alignment of the actions slot. header content actions default Any content not assigned to a named slot.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#dialog"
+  },
+  {
+    "id": "api-dialog-html",
+    "title": "Dialog API",
+    "description": "Reference for Dialog HTML component.",
+    "headings": "Styles .dialog.card.elevated Included The dialog uses card styles by default. Closed by closedby attribute - The attribute used to control close behavior.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#dialog"
   },
   {
     "id": "api-divider-astro",
@@ -993,7 +993,7 @@
     "id": "api-drawer-astro",
     "title": "Drawer API",
     "description": "Reference for Drawer Astro component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\r\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1003,7 +1003,7 @@
     "id": "api-drawer-html",
     "title": "Drawer API",
     "description": "Reference for Drawer HTML component.",
-    "headings": "Sides .inline-start, .inline-end,\r\n        .block-start, .block-end .inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\r\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\r\n        Prevents focus from jumping to the first focusable element. .header - - Top area for titles. .content - - Main content area. .actions - - Bottom action area.",
+    "headings": "Sides .inline-start, .inline-end,\n        .block-start, .block-end .inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\n        Prevents focus from jumping to the first focusable element. .header - - Top area for titles. .content - - Main content area. .actions - - Bottom action area.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -1070,26 +1070,6 @@
     "url": "/html/api#icon-button"
   },
   {
-    "id": "api-progress-astro",
-    "title": "Progress API",
-    "description": "Reference for Progress Astro component.",
-    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#progress"
-  },
-  {
-    "id": "api-progress-html",
-    "title": "Progress API",
-    "description": "Reference for Progress HTML component.",
-    "headings": "Progress &lt;progress&gt; - The native HTML progress element. Indeterminate No value attribute - Display an indeterminate loading state. Variant - Modifiers for different background surfaces.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#progress"
-  },
-  {
     "id": "api-list-astro",
     "title": "List API",
     "description": "Reference for List Astro component.",
@@ -1110,10 +1090,30 @@
     "url": "/html/api#list"
   },
   {
+    "id": "api-progress-astro",
+    "title": "Progress API",
+    "description": "Reference for Progress Astro component.",
+    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#progress"
+  },
+  {
+    "id": "api-progress-html",
+    "title": "Progress API",
+    "description": "Reference for Progress HTML component.",
+    "headings": "Progress &lt;progress&gt; - The native HTML progress element. Indeterminate No value attribute - Display an indeterminate loading state. Variant - Modifiers for different background surfaces.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#progress"
+  },
+  {
     "id": "api-range-astro",
     "title": "Range API",
     "description": "Reference for Range Astro component.",
-    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\r\n    \r\n    \r\n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\n    \n    \n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1163,7 +1163,7 @@
     "id": "api-switch-html",
     "title": "Switch API",
     "description": "Reference for Switch HTML component.",
-    "headings": "Children - Optional children. Sizes .small, default - The size of the element. Layout .spread, .stack, default\r\n      - Validation .critical - When applied, error styles are shown.",
+    "headings": "Children - Optional children. Sizes .small, default - The size of the element. Layout .spread, .stack, default\n      - Validation .critical - When applied, error styles are shown.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -1250,6 +1250,26 @@
     "url": "/html/api#text-input"
   },
   {
+    "id": "api-textarea-astro",
+    "title": "Textarea API",
+    "description": "Reference for Textarea Astro component.",
+    "headings": "autoFit boolean false Automatically adjusts its height to content. description string - Description text displayed above the textarea. endText string - Supporting text displayed below the textarea. spread boolean false variant \"filled\" - The visual variant of the textarea. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#textarea"
+  },
+  {
+    "id": "api-textarea-html",
+    "title": "Textarea API",
+    "description": "Reference for Textarea HTML component.",
+    "headings": "Children - Direct children of the root element. Field children - Auto-fit .auto-fit - Layout .spread, default - Variants default, .filled - The variant to use. Validation [data-invalid] -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#textarea"
+  },
+  {
     "id": "api-toast-astro",
     "title": "Toast API",
     "description": "Reference for Toast Astro component.",
@@ -1288,26 +1308,6 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#toggle"
-  },
-  {
-    "id": "api-textarea-astro",
-    "title": "Textarea API",
-    "description": "Reference for Textarea Astro component.",
-    "headings": "autoFit boolean false Automatically adjusts its height to content. description string - Description text displayed above the textarea. endText string - Supporting text displayed below the textarea. spread boolean false variant \"filled\" - The visual variant of the textarea. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#textarea"
-  },
-  {
-    "id": "api-textarea-html",
-    "title": "Textarea API",
-    "description": "Reference for Textarea HTML component.",
-    "headings": "Children - Direct children of the root element. Field children - Auto-fit .auto-fit - Layout .spread, default - Variants default, .filled - The variant to use. Validation [data-invalid] -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#textarea"
   },
   {
     "id": "api-tooltip-astro",

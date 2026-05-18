@@ -16,7 +16,7 @@ const {
   ...rest
 } = Astro.props
 
-const Tag = as || (href ? "a" : "div")
+const Tag = (as || (href ? "a" : "div")) as any
 
 ---
 

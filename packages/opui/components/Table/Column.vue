@@ -1,13 +1,19 @@
 <script setup lang="ts">
-import type { Props } from './types'
+import type { ColumnProps } from './types'
 
-const props = defineProps<Props>()
+const { width } = defineProps<ColumnProps>()
+
+defineOptions({
+  inheritAttrs: false,
+})
+
+const colStyle = width
+  ? width.includes(':')
+    ? width
+    : `width: ${width}`
+  : undefined
 </script>
 
 <template>
-
-<col
-  style={width ? (width.includes(":") ? width : `width: ${width}`) : undefined}
-  
-/>
+  <col :style="colStyle" v-bind="$attrs" />
 </template>

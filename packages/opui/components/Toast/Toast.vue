@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import type { Props } from './types'
 import { onMounted } from 'vue'
 import { initToastManager } from '../../css/js/toast.js'
-
-const props = defineProps<Props>()
 
 onMounted(() => {
   initToastManager()

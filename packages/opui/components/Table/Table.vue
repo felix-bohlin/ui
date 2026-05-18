@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import type { Props } from './types'
 
-const props = defineProps<Props>()
+const { class: className, variant } = defineProps<Props>()
+
+defineOptions({
+  inheritAttrs: false,
+})
 </script>
 
 <template>
-
-<table :class="[className, variant]" >
-  <slot></slot>
-</table>
+  <table :class="[className, variant]" v-bind="$attrs">
+    <slot></slot>
+  </table>
 </template>

@@ -1,21 +1,26 @@
 <script setup lang="ts">
 import { inject } from 'vue'
-import { CurrentTabIdKey } from './types'
+import {
+  CurrentTabIdKey,
+  type TabsTabProps,
+} from './types'
 
-const props = defineProps<{
-  class?: any
-  tabId?: string
-}>()
+const { class: className, tabId } = defineProps<TabsTabProps>()
 
-const currentTabId = inject(CurrentTabIdKey)
+defineOptions({
+  inheritAttrs: false,
+})
+
+const currentTabId = inject(CurrentTabIdKey, undefined)
 </script>
 
 <template>
-<label
-  :for="props.tabId || currentTabId"
-  :class="['tab-label', props.class]"
-  role="tab"
->
-  <slot></slot>
-</label>
+  <label
+    :for="tabId || currentTabId"
+    :class="['tab-label', className]"
+    role="tab"
+    v-bind="$attrs"
+  >
+    <slot></slot>
+  </label>
 </template>

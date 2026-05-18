@@ -8,7 +8,7 @@ defineOptions({
 })
 
 const props = defineProps<RadioProps>()
-const modelValue = defineModel<any>()
+const modelValue = defineModel<string | number | boolean>()
 
 const endTextId = useId()
 </script>

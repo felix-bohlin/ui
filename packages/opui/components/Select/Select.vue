@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<SelectProps>(), {
   items: () => [],
   variant: 'outlined',
 })
-const modelValue = defineModel<any>()
+const modelValue = defineModel<string | number | (string | number)[]>()
 
 const selectId = props.id || useId()
 const labelId = useId()

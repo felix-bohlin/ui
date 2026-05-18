@@ -1,8 +1,10 @@
+import type { HTMLAttributes } from "vue";
 
 export type Props = {
-  bordered?: boolean
-  dense?: boolean
-  gutterless?: boolean
-  variant?: "default" | "tonal" | "transparent"
-  [key: string]: any
-}
+	[key: string]: any;
+	bordered?: boolean;
+	class?: HTMLAttributes["class"];
+	dense?: boolean;
+	gutterless?: boolean;
+	variant?: "default" | "tonal" | "transparent";
+};

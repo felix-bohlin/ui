@@ -1,6 +1,7 @@
-import type { HTMLAttributes } from 'vue'
+import type { HTMLAttributes } from "vue";
 
 export type Props = {
-  [key: string]: any
-  class?: HTMLAttributes['class']
-}
+	[key: string]: any;
+	bordered?: boolean | "dotted";
+	class?: HTMLAttributes["class"];
+};

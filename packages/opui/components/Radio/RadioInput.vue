@@ -6,7 +6,7 @@ defineOptions({
 })
 
 const props = defineProps<RadioInputProps>()
-const modelValue = defineModel<any>()
+const modelValue = defineModel<string | number | boolean>()
 </script>
 
 <template>

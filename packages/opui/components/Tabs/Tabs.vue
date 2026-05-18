@@ -1,21 +1,19 @@
 <script setup lang="ts">
 import { provide, useId } from 'vue'
-import { TabsGroupNameKey } from './types'
+import { TabsGroupNameKey, type Props } from './types'
 
-const props = defineProps<{
-  class?: any
-  name?: string
-}>()
+const { class: className, name } = defineProps<Props>()
 
-const groupName = props.name || useId()
+defineOptions({
+  inheritAttrs: false,
+})
+
+const groupName = name || useId()
 provide(TabsGroupNameKey, groupName)
 </script>
 
 <template>
-<div
-  :class="['tabs', props.class]"
-  role="tablist"
->
-  <slot />
-</div>
+  <div :class="['tabs', className]" role="tablist" v-bind="$attrs">
+    <slot></slot>
+  </div>
 </template>

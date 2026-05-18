@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.0 - 2026-05-18
+
+### Breaking
+
+- **Card** and **Dialog** (Astro): the `actions` prop with an `align` field is removed. Use the `actionsAlign` prop instead (`"start"` | `"end"`).
+
 ## 4.0.1 - 2026-05-13
 
 ### Fixed

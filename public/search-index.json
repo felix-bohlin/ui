@@ -20,6 +20,16 @@
     "url": "/astro/components/accordion"
   },
   {
+    "id": "component-accordion-vue",
+    "title": "Accordion",
+    "description": "Leverages the HTML details and summary elements. Uses\n    the native HTML arrow, check out how to add your own custom marker.",
+    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/accordion"
+  },
+  {
     "id": "component-anchor-html",
     "title": "Anchor",
     "description": "A structural primitive for positioning floating content relative to an\n      anchor element using CSS Anchor Positioning.\n    \n    \n      \n        Add the .anchor class to a container. The first child becomes\n        the anchor target. Place floating content inside .anchor-floating. Use --anchor-position-area to control placement.",
@@ -38,6 +48,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/anchor"
+  },
+  {
+    "id": "component-anchor-vue",
+    "title": "Anchor",
+    "description": "A structural primitive for positioning floating content relative to an\n      anchor element using CSS Anchor Positioning.\n    \n    \n      \n        Add the .anchor class to a container. The first child becomes\n        the anchor target. Place floating content inside .anchor-floating. Use --anchor-position-area to control placement.",
+    "headings": "Always Visible Hover Trigger Used By",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/anchor"
   },
   {
     "id": "component-avatar-html",
@@ -60,6 +80,16 @@
     "url": "/astro/components/avatar"
   },
   {
+    "id": "component-avatar-vue",
+    "title": "Avatar",
+    "description": "",
+    "headings": "Image Letter Icon Variants Grouped",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/avatar"
+  },
+  {
     "id": "component-badge-html",
     "title": "Badge",
     "description": "A badge is a small status indicator that can be placed on other elements.\n    \n    \n      \n        Badge extends Anchor. Add .anchor and .badge classes to the container, wrap the indicator in\n        .anchor-floating.",
@@ -78,6 +108,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/badge"
+  },
+  {
+    "id": "component-badge-vue",
+    "title": "Badge",
+    "description": "A badge is a small status indicator that can be placed on other elements.\n    \n    \n      \n        Badge extends Anchor. Add .anchor and .badge classes to the container, wrap the indicator in\n        .anchor-floating.",
+    "headings": "Variants Severities Visibility Alignment",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/badge"
   },
   {
     "id": "component-button-group-html",
@@ -100,6 +140,16 @@
     "url": "/astro/components/button-group"
   },
   {
+    "id": "component-button-group-vue",
+    "title": "Button group",
+    "description": "Groups related buttons by wrapping them with class=\"button-group\" and role=\"group\".",
+    "headings": "Variants Colors Icons Sizes Vertical orientation Disabled",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/button-group"
+  },
+  {
     "id": "component-button-html",
     "title": "Button",
     "description": "Buttons allow users to take actions, and make choices, with a single tap.",
@@ -118,6 +168,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/button"
+  },
+  {
+    "id": "component-button-vue",
+    "title": "Button",
+    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
+    "headings": "Variants Colors Buttons with icon and label Keyboard Icon-only Sizes Disabled File upload",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/button"
   },
   {
     "id": "component-callout-html",
@@ -140,6 +200,16 @@
     "url": "/astro/components/callout"
   },
   {
+    "id": "component-callout-vue",
+    "title": "Callout",
+    "description": "Callouts call out for user attention. Callouts should be part of the flow\n    and used without interrupting the user's task.",
+    "headings": "Variants Icon Severities",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/callout"
+  },
+  {
     "id": "component-card-html",
     "title": "Card",
     "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
@@ -158,6 +228,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/card"
+  },
+  {
+    "id": "component-card-vue",
+    "title": "Card",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "headings": "Variants Header Actions Alignment",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/card"
   },
   {
     "id": "component-checkbox-html",
@@ -180,6 +260,16 @@
     "url": "/astro/components/checkbox"
   },
   {
+    "id": "component-checkbox-vue",
+    "title": "Checkbox",
+    "description": "Checkboxes allow users to select one or more items from a set of options.\n    See also: Checkbox field group.",
+    "headings": "Visible label Label position End text Validation Indeterminate Spread Sizes Field group Direction Field description Disabled Required Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/checkbox"
+  },
+  {
     "id": "component-chip-html",
     "title": "Chip",
     "description": "Chips are compact elements that represent an input, attribute, or action.",
@@ -198,6 +288,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/chip"
+  },
+  {
+    "id": "component-chip-vue",
+    "title": "Chip",
+    "description": "Chips are compact elements that represent an input, attribute, or action.",
+    "headings": "Variants Icon Button Link Sizes",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/chip"
   },
   {
     "id": "component-description-list-html",
@@ -220,6 +320,16 @@
     "url": "/astro/components/description-list"
   },
   {
+    "id": "component-description-list-vue",
+    "title": "Description list",
+    "description": "Description lists are used to display a list of terms and their\n    descriptions.",
+    "headings": "Bordered",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/description-list"
+  },
+  {
     "id": "component-dialog-html",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog\n    is minimal with zero content to allow for both modal and non-modal use.",
@@ -238,6 +348,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/dialog"
+  },
+  {
+    "id": "component-dialog-vue",
+    "title": "Dialog",
+    "description": "A minimally styled window overlaid on the main content. By design the Dialog\n    is minimal with zero content to allow for both modal and non-modal use.",
+    "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/dialog"
   },
   {
     "id": "component-divider-html",
@@ -260,6 +380,16 @@
     "url": "/astro/components/divider"
   },
   {
+    "id": "component-divider-vue",
+    "title": "Divider",
+    "description": "It's just an &lt;hr&gt;.",
+    "headings": "Variants",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/divider"
+  },
+  {
     "id": "component-drawer-html",
     "title": "Drawer",
     "description": "Slides in from the sides, top or bottom of the screen.",
@@ -278,6 +408,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/drawer"
+  },
+  {
+    "id": "component-drawer-vue",
+    "title": "Drawer",
+    "description": "Slides in from the sides, top or bottom of the screen.",
+    "headings": "Usage How to close a drawer Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/drawer"
   },
   {
     "id": "component-form-html",
@@ -300,6 +440,16 @@
     "url": "/astro/components/form"
   },
   {
+    "id": "component-form-vue",
+    "title": "Form",
+    "description": "A way to build structured forms.",
+    "headings": "Usage Non-semantic elements Fieldset Required Disabled Field Legend Field Description Field Group Row Divider Kitchen Sink",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/form"
+  },
+  {
     "id": "component-icon-button-html",
     "title": "Icon Button",
     "description": "Icon buttons are used to trigger actions and are typically found in\n    toolbars, cards, and dialogs.",
@@ -318,6 +468,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/icon-button"
+  },
+  {
+    "id": "component-icon-button-vue",
+    "title": "Icon Button",
+    "description": "Icon buttons are used to trigger actions and are typically found in\n    toolbars, cards, and dialogs.",
+    "headings": "Variants Colors Sizes Disabled",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/icon-button"
   },
   {
     "id": "component-list-html",
@@ -340,6 +500,16 @@
     "url": "/astro/components/list"
   },
   {
+    "id": "component-list-vue",
+    "title": "List",
+    "description": "Lists are continuous, vertical indexes of text and images and video.\n    \n      Use lists to help users find a specific item and act on it\n      Order list items in logical ways (like alphabetical or numerical)\n      Three sizes: one-line, two-line, and three-line\n      Keep items short and easy to scan\n      Show icons, text, and actions in a consistent format",
+    "headings": "Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/list"
+  },
+  {
     "id": "component-progress-html",
     "title": "Progress",
     "description": "See also: Spinner.",
@@ -358,6 +528,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/progress"
+  },
+  {
+    "id": "component-progress-vue",
+    "title": "Progress",
+    "description": "See also: Spinner.",
+    "headings": "Indeterminate Determinate Variants",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/progress"
   },
   {
     "id": "component-radio-html",
@@ -380,6 +560,16 @@
     "url": "/astro/components/radio"
   },
   {
+    "id": "component-radio-vue",
+    "title": "Radio",
+    "description": "Use field groups to group related radio buttons. See also: Form documentation.",
+    "headings": "Direction Field description Disabled Required Validation",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/radio"
+  },
+  {
     "id": "component-range-html",
     "title": "Range",
     "description": "",
@@ -398,6 +588,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/range"
+  },
+  {
+    "id": "component-range-vue",
+    "title": "Range",
+    "description": "",
+    "headings": "Start text & End text Value Tick marks Variants Disabled Validation Spread",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/range"
   },
   {
     "id": "component-select-html",
@@ -420,6 +620,16 @@
     "url": "/astro/components/select"
   },
   {
+    "id": "component-select-vue",
+    "title": "Select",
+    "description": "Leverages the List component to provide markup for the Select popover.",
+    "headings": "Variants End text Affix Validation Spread Sizes Classic select",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/select"
+  },
+  {
     "id": "component-spinner-html",
     "title": "Spinner",
     "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
@@ -438,6 +648,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/spinner"
+  },
+  {
+    "id": "component-spinner-vue",
+    "title": "Spinner",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/spinner"
   },
   {
     "id": "component-switch-html",
@@ -460,6 +680,16 @@
     "url": "/astro/components/switch"
   },
   {
+    "id": "component-switch-vue",
+    "title": "Switch",
+    "description": "See also: Switch field group.",
+    "headings": "Visible label Label position End text Validation Spread Sizes Icons Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/switch"
+  },
+  {
     "id": "component-table-html",
     "title": "Table",
     "description": "Displays tabular data. Basic tables with row and column headers, and\n    optional captions and footers.",
@@ -478,6 +708,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/table"
+  },
+  {
+    "id": "component-table-vue",
+    "title": "Table",
+    "description": "Displays tabular data. Basic tables with row and column headers, and\n    optional captions and footers.",
+    "headings": "Variants Default Advanced",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/table"
   },
   {
     "id": "component-tabs-html",
@@ -500,6 +740,16 @@
     "url": "/astro/components/tabs"
   },
   {
+    "id": "component-tabs-vue",
+    "title": "Tabs",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
+    "headings": "Basics",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/tabs"
+  },
+  {
     "id": "component-text-field-html",
     "title": "Text field",
     "description": "An input for single-line text data. Basic text fields with labels, field\n    descriptions, and validation states.",
@@ -518,6 +768,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/text-field"
+  },
+  {
+    "id": "component-text-field-vue",
+    "title": "Text field",
+    "description": "An input for single-line text data. Basic text fields with labels, field\n    descriptions, and validation states.",
+    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/text-field"
   },
   {
     "id": "component-textarea-html",
@@ -540,6 +800,16 @@
     "url": "/astro/components/textarea"
   },
   {
+    "id": "component-textarea-vue",
+    "title": "Textarea",
+    "description": "An input for multi-line text data. Basic textareas with labels, supporting\n    text, and validation states.",
+    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/textarea"
+  },
+  {
     "id": "component-toast-html",
     "title": "Toast",
     "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
@@ -558,6 +828,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/toast"
+  },
+  {
+    "id": "component-toast-vue",
+    "title": "Toast",
+    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
+    "headings": "How it works HTML JavaScript Severities Title + description Duration",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/toast"
   },
   {
     "id": "component-toggle-html",
@@ -580,6 +860,16 @@
     "url": "/astro/components/toggle"
   },
   {
+    "id": "component-toggle-vue",
+    "title": "Toggle",
+    "description": "",
+    "headings": "Toggle button Toggle group Multi-select Single-select Text + icon Vertical orientation Sizes",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/toggle"
+  },
+  {
     "id": "component-tooltip-html",
     "title": "Tooltip",
     "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .tooltip class alongside .anchor on the\n        wrapper. Wire interestfor on the trigger to the\n        .anchor-floating[popover=\"hint\"] element's ID.",
@@ -598,6 +888,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/tooltip"
+  },
+  {
+    "id": "component-tooltip-vue",
+    "title": "Tooltip",
+    "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .tooltip class alongside .anchor on the\n        wrapper. Wire interestfor on the trigger to the\n        .anchor-floating[popover=\"hint\"] element's ID.",
+    "headings": "Basics Alignment Arrow Rich content",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/tooltip"
   },
   {
     "id": "component-typography-html",
@@ -620,6 +920,16 @@
     "url": "/astro/components/typography"
   },
   {
+    "id": "component-typography-vue",
+    "title": "Typography",
+    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .rich-text.",
+    "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/typography"
+  },
+  {
     "id": "guide-acknowledgments-html",
     "title": "Acknowledgments",
     "description": "",
@@ -636,6 +946,15 @@
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/acknowledgments"
+  },
+  {
+    "id": "guide-acknowledgments-vue",
+    "title": "Acknowledgments",
+    "description": "",
+    "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
+    "category": "Guide",
+    "frameworkId": "vue",
+    "url": "/vue/guide/acknowledgments"
   },
   {
     "id": "guide-browser-support-html",
@@ -656,6 +975,15 @@
     "url": "/astro/guide/browser-support"
   },
   {
+    "id": "guide-browser-support-vue",
+    "title": "Browser support",
+    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "vue",
+    "url": "/vue/guide/browser-support"
+  },
+  {
     "id": "guide-theme-generator-html",
     "title": "Theme generator",
     "description": "",
@@ -672,6 +1000,15 @@
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/theme-generator"
+  },
+  {
+    "id": "guide-theme-generator-vue",
+    "title": "Theme generator",
+    "description": "",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "vue",
+    "url": "/vue/guide/theme-generator"
   },
   {
     "id": "guide-why-opui-html",
@@ -692,6 +1029,15 @@
     "url": "/astro/guide/why-opui"
   },
   {
+    "id": "guide-why-opui-vue",
+    "title": "Why Open Props UI?",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
+    "headings": "Backstory The goal of OPUI",
+    "category": "Guide",
+    "frameworkId": "vue",
+    "url": "/vue/guide/why-opui"
+  },
+  {
     "id": "guide-getting-started-astro",
     "title": "Getting started",
     "description": "OPUI ships first-class Astro components. Install the package, import what\n    you need, and you're set.",
@@ -708,6 +1054,15 @@
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/getting-started"
+  },
+  {
+    "id": "guide-getting-started-vue",
+    "title": "Getting started",
+    "description": "OPUI ships Vue 3 single-file components alongside the Astro variants. Install\n    the package, import what you need, and you're set.",
+    "headings": "Install via NPM Use a component Load the CSS",
+    "category": "Guide",
+    "frameworkId": "vue",
+    "url": "/vue/guide/getting-started"
   },
   {
     "id": "api-accordion-astro",
@@ -853,7 +1208,7 @@
     "id": "api-card-astro",
     "title": "Card API",
     "description": "Reference for Card Astro component.",
-    "headings": "Slots - Optional slots. variant \"text\" The variant to use. actions {'{ align: \"end\" }'} - Alignment for the actions slot.",
+    "headings": "Slots - Optional slots. actionsAlign - Alignment for the actions slot. variant \"text\" The variant to use.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -863,7 +1218,7 @@
     "id": "api-card-html",
     "title": "Card API",
     "description": "Reference for Card HTML component.",
-    "headings": "Children - Optional wrappers for child content. Variants .text The variant to use. Alignment .actions.align-end - Align actions to the end.",
+    "headings": "Children - Optional wrappers for child content. Variants .text The variant to use. Alignment .align-end - Align actions to the end.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -890,26 +1245,6 @@
     "url": "/html/api#checkbox"
   },
   {
-    "id": "api-chip-astro",
-    "title": "Chip API",
-    "description": "Reference for Chip Astro component.",
-    "headings": "as \"div\" | \"a\" | \"button\" The underlying HTML element. label string - The text label to display. multiline boolean false Allows multiline text. size \"small\" - The size of the chip. variant \"tonal\" | \"outlined\" \"tonal\" The visual variant.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#chip"
-  },
-  {
-    "id": "api-chip-html",
-    "title": "Chip API",
-    "description": "Reference for Chip HTML component.",
-    "headings": "Container - Container element type. Children & > .text, & > svg - Optional child content. Sizes - The size of the element. Variants .tonal, .outlined .tonal The variant to use.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#chip"
-  },
-  {
     "id": "api-classic-select-astro",
     "title": "Classic Select API",
     "description": "Reference for Classic Select Astro component.",
@@ -928,6 +1263,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#classic-select"
+  },
+  {
+    "id": "api-chip-astro",
+    "title": "Chip API",
+    "description": "Reference for Chip Astro component.",
+    "headings": "as \"div\" | \"a\" | \"button\" The underlying HTML element. label string - The text label to display. multiline boolean false Allows multiline text. size \"small\" - The size of the chip. variant \"tonal\" | \"outlined\" \"tonal\" The visual variant.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#chip"
+  },
+  {
+    "id": "api-chip-html",
+    "title": "Chip API",
+    "description": "Reference for Chip HTML component.",
+    "headings": "Container - Container element type. Children & > .text, & > svg - Optional child content. Sizes - The size of the element. Variants .tonal, .outlined .tonal The variant to use.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#chip"
   },
   {
     "id": "api-description-list-astro",
@@ -953,7 +1308,7 @@
     "id": "api-dialog-astro",
     "title": "Dialog API",
     "description": "Reference for Dialog Astro component.",
-    "headings": "closedby \"any\" | \"closerequest\" | \"none\" - actions.align \"end\" - Alignment of the actions slot. header content actions default Any content not assigned to a named slot.",
+    "headings": "actionsAlign - Alignment of the actions slot. closedby \"any\" | \"closerequest\" | \"none\" - header content actions default Any content not assigned to a named slot.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1150,26 +1505,6 @@
     "url": "/html/api#select"
   },
   {
-    "id": "api-switch-astro",
-    "title": "Switch API",
-    "description": "Reference for Switch Astro component.",
-    "headings": "aria-label string - aria-labelledby string - ID of an external element that labels the switch. checked boolean false Whether the switch is checked. disabled boolean false Whether the switch is disabled. critical boolean false Switch error state. hideLabel boolean false Visually hides the label but keeps it accessible. required boolean false Whether the switch is required. small boolean false Reduces the size of the switch. spread boolean false Spreads the label and switch to opposite ends. stack boolean false Labels are stacked under the element. default The label text for the switch. end-text",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#switch"
-  },
-  {
-    "id": "api-switch-html",
-    "title": "Switch API",
-    "description": "Reference for Switch HTML component.",
-    "headings": "Children - Optional children. Sizes .small, default - The size of the element. Layout .spread, .stack, default\n      - Validation .critical - When applied, error styles are shown.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#switch"
-  },
-  {
     "id": "api-table-astro",
     "title": "Table API",
     "description": "Reference for Table Astro component.",
@@ -1188,6 +1523,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#table"
+  },
+  {
+    "id": "api-switch-astro",
+    "title": "Switch API",
+    "description": "Reference for Switch Astro component.",
+    "headings": "aria-label string - aria-labelledby string - ID of an external element that labels the switch. checked boolean false Whether the switch is checked. disabled boolean false Whether the switch is disabled. critical boolean false Switch error state. hideLabel boolean false Visually hides the label but keeps it accessible. required boolean false Whether the switch is required. small boolean false Reduces the size of the switch. spread boolean false Spreads the label and switch to opposite ends. stack boolean false Labels are stacked under the element. default The label text for the switch. end-text",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#switch"
+  },
+  {
+    "id": "api-switch-html",
+    "title": "Switch API",
+    "description": "Reference for Switch HTML component.",
+    "headings": "Children - Optional children. Sizes .small, default - The size of the element. Layout .spread, .stack, default\n      - Validation .critical - When applied, error styles are shown.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#switch"
   },
   {
     "id": "api-tabs-astro",

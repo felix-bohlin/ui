@@ -26,6 +26,7 @@ export { default as FieldSet } from "../components/FieldSet/FieldSet.vue";
 export { default as Form } from "../components/Form/Form.vue";
 export { default as IconButton } from "../components/IconButton/IconButton.vue";
 export { default as List } from "../components/List/List.vue";
+export { default as ListItem } from "../components/ListItem/ListItem.vue";
 export { default as Progress } from "../components/Progress/Progress.vue";
 export { default as Radio } from "../components/Radio/Radio.vue";
 export { default as RadioInput } from "../components/Radio/RadioInput.vue";

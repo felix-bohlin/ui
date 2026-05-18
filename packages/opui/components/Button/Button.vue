@@ -3,7 +3,6 @@ import type { Props } from './types'
 
 const {
   as,
-  class: className,
   color,
   disabled,
   href,
@@ -18,7 +17,7 @@ const isButton = Tag === 'button'
 <template>
   <component
     :is="Tag"
-    :class="['button', { disabled: isButton && disabled }, size, variant, color, className]"
+    :class="['button', { disabled: isButton && disabled }, size, variant, color, $props.class]"
     :disabled="isButton ? disabled : undefined"
     :href="href"
   >

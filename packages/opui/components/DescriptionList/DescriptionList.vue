@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Props } from './types'
 
-const { bordered, class: className } = defineProps<Props>()
+const { bordered } = defineProps<Props>()
 
 defineOptions({
   inheritAttrs: false,
@@ -13,7 +13,7 @@ defineOptions({
     :class="[
       'description-list',
       { bordered: bordered, dotted: bordered === 'dotted' },
-      className,
+      $props.class,
     ]"
     v-bind="$attrs"
   >

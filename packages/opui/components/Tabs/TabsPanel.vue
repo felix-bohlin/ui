@@ -7,7 +7,6 @@ import {
 } from './types'
 
 const {
-  class: className,
   panelId,
   tabId,
 } = defineProps<TabsPanelProps>()
@@ -23,7 +22,7 @@ const currentTabId = inject(CurrentTabIdKey, undefined)
 <template>
   <div
     :id="panelId || currentPanelId"
-    :class="['tab-panel', className]"
+    :class="['tab-panel', $props.class]"
     role="tabpanel"
     :aria-labelledby="tabId || currentTabId"
     v-bind="$attrs"

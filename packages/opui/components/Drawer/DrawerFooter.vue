@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DrawerFooterProps } from './types'
 
-const { class: className } = defineProps<DrawerFooterProps>()
+defineProps<DrawerFooterProps>()
 
 defineOptions({
   inheritAttrs: false,
@@ -9,7 +9,7 @@ defineOptions({
 </script>
 
 <template>
-  <div :class="['footer', className]" v-bind="$attrs">
+  <div :class="['footer', $props.class]" v-bind="$attrs">
     <slot></slot>
   </div>
 </template>

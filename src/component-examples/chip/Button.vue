@@ -1,0 +1,30 @@
+<script setup lang="ts">
+import { Chip } from "opui-css/vue"
+</script>
+
+<template>
+<div class="example-row">
+  <Chip as="button" variant="tonal" label="Tonal button" />
+  <Chip as="button" variant="outlined" label="Outlined button" />
+</div>
+<div class="example-row">
+  <Chip as="button" variant="tonal">
+    <template #start><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+      <path
+        fill="currentColor"
+        d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
+      ></path>
+    </svg></template>
+    <span class="text">Open now</span>
+  </Chip>
+  <Chip as="button" variant="outlined">
+    <span class="text">Sort by</span>
+    <template #end><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+      <path
+        fill="currentColor"
+        d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
+      ></path>
+    </svg></template>
+  </Chip>
+</div>
+</template>

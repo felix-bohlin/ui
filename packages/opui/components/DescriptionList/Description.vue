@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { Props } from './types'
 
-const props = defineProps<Props>()
+defineProps<Props>()
 </script>
 
 <template>
 
-<dd :class="["description", className]" >
+<dd :class="['description', $props.class]">
   <slot></slot>
 </dd>
 </template>

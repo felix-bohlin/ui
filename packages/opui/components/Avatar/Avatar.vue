@@ -4,7 +4,6 @@ import type { Props } from './types'
 const {
   alt,
   as,
-  class: className,
   href,
   isGroup,
   spacing,
@@ -25,7 +24,7 @@ const Tag = as || (href ? 'a' : 'div')
         'gap-small': isGroup && spacing === 'small',
         'gap-x-small': isGroup && spacing === 'x-small',
       },
-      className,
+      $props.class,
     ]"
     :href="href"
     :role="isGroup ? 'group' : undefined"

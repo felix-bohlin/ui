@@ -1,23 +1,22 @@
 <script setup lang="ts">
-import { provide, useId } from 'vue'
-import { ToggleGroupKey, type Props } from './types'
+import { provide, useId } from "vue";
+import { type Props, ToggleGroupKey } from "./types";
 
 const {
-  class: className,
-  name,
-  orientation,
-  selection = 'multiple',
-  size = 'default',
-} = defineProps<Props>()
+	name,
+	orientation,
+	selection = "multiple",
+	size = "default",
+} = defineProps<Props>();
 
 defineOptions({
-  inheritAttrs: false,
-})
+	inheritAttrs: false,
+});
 
-const groupName = name || useId()
-const inputType = selection === 'single' ? 'radio' : 'checkbox'
+const groupName = name || useId();
+const inputType = selection === "single" ? "radio" : "checkbox";
 
-provide(ToggleGroupKey, { name: groupName, type: inputType })
+provide(ToggleGroupKey, { name: groupName, type: inputType });
 </script>
 
 <template>
@@ -26,7 +25,7 @@ provide(ToggleGroupKey, { name: groupName, type: inputType })
       'toggle-group',
       size !== 'default' && size,
       orientation,
-      className,
+      $props.class,
     ]"
     :role="selection === 'single' ? 'radiogroup' : 'group'"
     v-bind="$attrs"

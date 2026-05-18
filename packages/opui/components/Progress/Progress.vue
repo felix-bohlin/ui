@@ -5,7 +5,6 @@ const {
   'aria-busy': ariaBusy,
   'aria-describedby': ariaDescribedby,
   'aria-label': ariaLabel,
-  class: className,
   id,
   max,
   value,
@@ -18,7 +17,7 @@ const {
     :aria-busy="ariaBusy"
     :aria-describedby="ariaDescribedby"
     :aria-label="ariaLabel"
-    :class="['progress', className, variant]"
+    :class="['progress', variant, $props.class]"
     :id="id"
     :max="max"
     :value="value"

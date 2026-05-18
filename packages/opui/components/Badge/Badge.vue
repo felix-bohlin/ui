@@ -1,24 +1,17 @@
 <script setup lang="ts">
-import type { Props } from './types'
-import Anchor from '../Anchor/Anchor.vue'
+import Anchor from "../Anchor/Anchor.vue";
+import type { Props } from "./types";
 
-const {
-  alignment,
-  class: className,
-  color,
-  dot,
-  invisible,
-  label,
-} = defineProps<Props>()
+const { alignment, color, dot, invisible, label } = defineProps<Props>();
 
 const positionArea =
-  alignment === 'start-start'
-    ? 'start start'
-    : alignment === 'end-start'
-      ? 'end start'
-      : alignment === 'end-end'
-        ? 'end end'
-        : undefined
+	alignment === "start-start"
+		? "start start"
+		: alignment === "end-start"
+			? "end start"
+			: alignment === "end-end"
+				? "end end"
+				: undefined;
 </script>
 
 <template>
@@ -31,8 +24,8 @@ const positionArea =
         invisible,
       },
       alignment,
-      className,
       color,
+      $props.class,
     ]"
   >
     <slot></slot>

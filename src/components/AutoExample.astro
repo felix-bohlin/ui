@@ -45,6 +45,10 @@ const previewModules = import.meta.glob("../component-examples/**/*.astro", {
   eager: true,
 }) as Record<string, { default: any }>
 
+const vuePreviewModules = import.meta.glob("../component-examples/**/*.vue", {
+  eager: true,
+}) as Record<string, { default: any }>
+
 const rawSources = import.meta.glob(
   "../component-examples/**/*.{astro,html,vue}",
   {
@@ -59,6 +63,7 @@ const htmlPath = `../component-examples/${slug}/${name}.html`
 const vuePath = `../component-examples/${slug}/${name}.vue`
 
 const astroComponent = previewModules[astroPath]?.default
+const vueComponent = vuePreviewModules[vuePath]?.default
 const astroSource = rawSources[astroPath]
 const htmlSource = rawSources[htmlPath]
 const vueSource = rawSources[vuePath]
@@ -85,6 +90,7 @@ if (!astroComponent && !htmlSource) {
     )
   }
   {htmlSource && <Example.Preview slot="preview-html" code={htmlSource} />}
+  {vueComponent && <Example.Preview slot="preview-vue" code={vueComponent} />}
   {astroSource && <Example.Code slot="code-astro" code={astroSource} />}
   {htmlSource && <Example.Code slot="code-html" code={htmlSource} />}
   {vueSource && <Example.Code slot="code-vue" code={vueSource} />}

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { Props } from './types'
-import Anchor from '../Anchor/Anchor.vue'
+import Anchor from "../Anchor/Anchor.vue";
+import type { Props } from "./types";
 
-const { alignment, arrow, class: className, id, label } = defineProps<Props>()
+const { alignment, arrow, id, label } = defineProps<Props>();
 </script>
 
 <template>
   <Anchor
     :alignment="alignment"
-    :class="['tooltip', { 'with-arrow': arrow }, className]"
+    :class="['tooltip', { 'with-arrow': arrow }, $props.class]"
     :id="id"
     trigger="hover"
   >

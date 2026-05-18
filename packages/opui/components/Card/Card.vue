@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { Props } from './types'
-import { useSlots } from 'vue'
+import { useSlots } from "vue";
+import type { Props } from "./types";
 
-const { variant, actions, class: className } = defineProps<Props>()
+const { actionsAlign, variant } = defineProps<Props>();
 
-const slots = useSlots()
+const slots = useSlots();
 </script>
 
 <template>
-  <div :class="['card', variant, className]">
+  <div :class="['card', variant, $props.class]">
     <hgroup v-if="slots.header">
       <slot name="header"></slot>
     </hgroup>
@@ -19,7 +19,7 @@ const slots = useSlots()
 
     <slot></slot>
 
-    <div v-if="slots.actions" :class="['actions', actions?.align && `align-${actions.align}`]">
+    <div v-if="slots.actions" :class="['actions', actionsAlign && `align-${actionsAlign}`]">
       <slot name="actions"></slot>
     </div>
   </div>

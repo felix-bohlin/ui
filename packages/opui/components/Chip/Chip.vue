@@ -3,7 +3,6 @@ import type { Props } from './types'
 
 const {
   as,
-  class: className,
   label,
   multiline,
   size,
@@ -24,7 +23,7 @@ const Tag = as || (href ? 'a' : 'div')
       },
       size,
       variant,
-      className,
+      $props.class,
     ]"
     :href="href"
   >

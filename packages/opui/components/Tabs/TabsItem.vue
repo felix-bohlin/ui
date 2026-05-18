@@ -8,7 +8,6 @@ import {
 } from './types'
 
 const {
-  class: className,
   name,
   open,
   panelId,
@@ -33,7 +32,7 @@ provide(CurrentPanelIdKey, computedPanelId)
   <input
     :aria-controls="computedPanelId"
     :checked="open"
-    :class="['tab-input', className]"
+    :class="['tab-input', $props.class]"
     :id="computedTabId"
     :name="tabsGroupName"
     type="radio"

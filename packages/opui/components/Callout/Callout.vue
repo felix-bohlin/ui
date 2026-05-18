@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { Props } from './types'
-import { useSlots } from 'vue'
+import { useSlots } from "vue";
+import type { Props } from "./types";
 
-const { class: className, severity, variant } = defineProps<Props>()
+const { severity, variant } = defineProps<Props>();
 
-const slots = useSlots()
+const slots = useSlots();
 </script>
 
 <template>
   <article
     role="note"
-    :class="['callout', variant, severity, className]"
+    :class="['callout', variant, severity, $props.class]"
   >
     <slot name="icon">
       <svg

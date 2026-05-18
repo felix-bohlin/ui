@@ -3,7 +3,6 @@ import type { Props } from './types'
 
 const {
   bordered,
-  class: className,
   dense,
   gutterless,
   variant,
@@ -24,7 +23,7 @@ defineOptions({
         gutterless,
       },
       variant,
-      className,
+      $props.class,
     ]"
     v-bind="$attrs"
   >

@@ -2,7 +2,7 @@
 import IconButton from '../IconButton/IconButton.vue'
 import type { DrawerHeaderProps } from './types'
 
-const { class: className, heading } = defineProps<DrawerHeaderProps>()
+const { heading } = defineProps<DrawerHeaderProps>()
 
 defineOptions({
   inheritAttrs: false,
@@ -15,7 +15,7 @@ const closeDrawer = (event: MouseEvent) => {
 </script>
 
 <template>
-  <div :class="['header', className]" v-bind="$attrs">
+  <div :class="['header', $props.class]" v-bind="$attrs">
     <span v-if="heading">{{ heading }}</span>
     <slot></slot>
     <IconButton title="Close" @click="closeDrawer">

@@ -4,7 +4,6 @@ import type { Props } from './types'
 
 const {
   backdrop = 'blurred',
-  class: className,
   closedby = 'any',
   id,
   scrollLock = true,
@@ -29,7 +28,7 @@ const drawerId = id || useId()
         'backdrop-transparent': backdrop === 'transparent',
         'scroll-lock': scrollLock,
       },
-      className,
+      $props.class,
     ]"
     :closedby="closedby"
     v-bind="$attrs"

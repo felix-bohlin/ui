@@ -3,7 +3,6 @@ import type { Props } from './types'
 
 const {
   as,
-  class: className,
   color,
   href,
   size,
@@ -16,7 +15,7 @@ const Tag = as || (href ? 'a' : 'button')
 <template>
   <component
     :is="Tag"
-    :class="['icon-button', size, variant, color, className]"
+    :class="['icon-button', size, variant, color, $props.class]"
     :href="href"
   >
     <slot></slot>

@@ -5,7 +5,7 @@ import {
   type TabsTabProps,
 } from './types'
 
-const { class: className, tabId } = defineProps<TabsTabProps>()
+const { tabId } = defineProps<TabsTabProps>()
 
 defineOptions({
   inheritAttrs: false,
@@ -17,7 +17,7 @@ const currentTabId = inject(CurrentTabIdKey, undefined)
 <template>
   <label
     :for="tabId || currentTabId"
-    :class="['tab-label', className]"
+    :class="['tab-label', $props.class]"
     role="tab"
     v-bind="$attrs"
   >

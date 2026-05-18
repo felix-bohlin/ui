@@ -4,7 +4,6 @@ import type { Props } from './types'
 
 const {
   alignment,
-  class: className,
   id: idProp,
   trigger = 'always',
 } = defineProps<Props>()
@@ -29,7 +28,7 @@ const positionArea = alignment
 </script>
 
 <template>
-  <span :class="['anchor', className]" :style="positionArea">
+  <span :class="['anchor', $props.class]" :style="positionArea">
     <span v-if="isHover" :interestfor="id">
       <slot></slot>
     </span>

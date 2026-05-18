@@ -2,7 +2,7 @@
 import { useSlots } from 'vue'
 import type { Props } from './types'
 
-const { actions, class: className, closedby } = defineProps<Props>()
+const { actionsAlign, closedby } = defineProps<Props>()
 
 defineOptions({
   inheritAttrs: false,
@@ -13,7 +13,7 @@ const slots = useSlots()
 
 <template>
   <dialog
-    :class="['dialog', 'card', 'elevated', className]"
+    :class="['dialog', 'card', 'elevated', $props.class]"
     :closedby="closedby"
     v-bind="$attrs"
   >
@@ -29,7 +29,7 @@ const slots = useSlots()
 
     <div
       v-if="slots.actions"
-      :class="['actions', actions?.align && `align-${actions.align}`]"
+      :class="['actions', actionsAlign && `align-${actionsAlign}`]"
     >
       <slot name="actions"></slot>
     </div>

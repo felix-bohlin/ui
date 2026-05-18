@@ -20,18 +20,20 @@ import { Table } from "@opui/astro"
   </Table.Head>
   <Table.Body>
     <Table.Row>
+      <Table.Cell><code>actionsAlign</code></Table.Cell>
+      <Table.Cell
+        ><code>"start"</code>, <code>"end"</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Alignment of the actions slot.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
       <Table.Cell><code>closedby</code></Table.Cell>
       <Table.Cell><code>"any" | "closerequest" | "none"</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell
         >Specifies how the dialog can be closed (e.g., clicking outside).</Table.Cell
       >
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell><code>actions.align</code></Table.Cell>
-      <Table.Cell><code>"end"</code></Table.Cell>
-      <Table.Cell>-</Table.Cell>
-      <Table.Cell>Alignment of the actions slot.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>

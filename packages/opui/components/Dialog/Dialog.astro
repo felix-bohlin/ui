@@ -1,16 +1,14 @@
 ---
 type Props = {
   [key: string]: any
-  actions?: {
-    align?: "end"
-  }
+  actionsAlign?: "start" | "end"
   class?: string
   closedby?: "any" | "closerequest" | "none"
 }
 
 export const title = "Dialog"
 
-const { actions, class: className, closedby, ...rest } = Astro.props
+const { actionsAlign, class: className, closedby, ...rest } = Astro.props
 ---
 
 <dialog
@@ -35,7 +33,7 @@ const { actions, class: className, closedby, ...rest } = Astro.props
   <slot />
   {
     Astro.slots.has("actions") && (
-      <div class:list={["actions", actions?.align && `align-${actions.align}`]}>
+      <div class:list={["actions", actionsAlign && `align-${actionsAlign}`]}>
         <slot name="actions" />
       </div>
     )

@@ -1,13 +1,6 @@
 import config from "virtual:opui-config"
 
-/**
- * Prefixes CSS class names with the configured prefix.
- *
- * Transforms class names in any format that Astro's `class:list` directive accepts.
- * The prefix is only applied if prefix is set.
- *
- * @see https://docs.astro.build/en/reference/directives-reference/#classlist
- */
+/** @type {import('./prefix.d.ts').prefixClasses} */
 export function prefixClasses(pfx, classes) {
   if (!classes || !pfx) return classes
 
@@ -37,11 +30,7 @@ export function prefixClasses(pfx, classes) {
   return classes
 }
 
-/**
- * Prefixes CSS class names with the configured prefix.
- *
- * Spread syntax for less verbosity in components.
- */
+/** @type {import('./prefix.d.ts').prefix} */
 export function prefix(...classes) {
   return prefixClasses(config?.prefix, classes)
 }

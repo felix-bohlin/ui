@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils"
+import { prefix } from "../../css/js/prefix"
 type Props = {
   [key: string]: any
   backdrop?: "transparent" | "blurred"
@@ -28,7 +28,7 @@ const drawerId = id || $id("drawer")
 
 <dialog
   closedby={closedby}
-  class:list={pfx([
+  class:list={prefix(
     "drawer",
     side,
     {
@@ -36,7 +36,7 @@ const drawerId = id || $id("drawer")
       "scroll-lock": scrollLock,
     },
     className,
-  ])}
+  )}
   id={drawerId}
   {...rest}
 >

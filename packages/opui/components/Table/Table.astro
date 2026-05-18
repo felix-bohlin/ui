@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefix } from "../../css/js/prefix.js"
 type Props = {
   [key: string]: any
   class?: string
@@ -11,6 +11,6 @@ export const title = "Table"
 const { class: className, variant, ...rest } = Astro.props
 ---
 
-<table class:list={pfx([className, variant])} {...rest}>
+<table class:list={prefix(className, variant)} {...rest}>
   <slot />
 </table>

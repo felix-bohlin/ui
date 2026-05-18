@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefix } from "../../css/js/prefix.js";
 import SwitchInput from "./SwitchInput.astro"
 
 type Props = {
@@ -54,7 +54,7 @@ if (
 ---
 
 <label
-  class:list={pfx([
+  class:list={prefix(
     "switch",
     {
       small,
@@ -62,7 +62,7 @@ if (
       spread,
     },
     className,
-  ])}
+  )}
   data-invalid={critical || undefined}
 >
   {
@@ -92,7 +92,7 @@ if (
   {
     Astro.slots.has("default") && (
     <!-- prettier-ignore -->
-    <span class:list={pfx([hideLabel ? "sr-only" : "label"])}><slot /></span>)
+    <span class:list={prefix(hideLabel ? "sr-only" : "label")}><slot /></span>)
   }
     {
       Astro.slots.has("end-text") && (

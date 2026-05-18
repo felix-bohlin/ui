@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefix } from "../../css/js/prefix.js"
 type Props = {
   class?: string
   tabId?: string
@@ -12,7 +12,7 @@ const { currentTabId } = Astro.locals
 
 <label
   for={tabId || currentTabId}
-  class:list={pfx(["tab-label", className])}
+  class:list={prefix("tab-label", className)}
   role="tab"
   {...rest}
 >

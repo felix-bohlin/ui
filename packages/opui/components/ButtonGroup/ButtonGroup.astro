@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefix } from "../../css/js/prefix.js"
 type Props = {
   [key: string]: any
   class?: string
@@ -22,7 +22,14 @@ const {
 ---
 
 <div
-  class:list={pfx(["button-group", color, size, variant, orientation, className])}
+  class:list={prefix(
+    "button-group",
+    color,
+    size,
+    variant,
+    orientation,
+    className,
+  )}
   role="group"
   {...rest}
 >

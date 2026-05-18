@@ -4,15 +4,23 @@ import { fileURLToPath } from "node:url"
 import { createRequire } from "node:module"
 import postcss from "postcss"
 import atImport from "postcss-import"
+import { cosmiconfig } from "cosmiconfig"
 
 const require = createRequire(import.meta.url)
 const postcssRename = require("postcss-rename")
 
+const defaultConfig = {
+  prefix: "",
+}
+
+const explorer = cosmiconfig("opui")
+const result = await explorer.search()
+
+const { prefix } = result?.config || defaultConfig
+
 const here = dirname(fileURLToPath(import.meta.url))
 const root = resolve(here, "..")
 const dist = resolve(root, "dist")
-
-const prefix = process.env.OPUI_PREFIX || ""
 
 const targets = [
   { input: "css/imports.css", out: "opui.css" },

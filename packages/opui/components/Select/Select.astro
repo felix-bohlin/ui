@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefix } from "../../css/js/prefix.js";
 type Item = {
   text: string
   value: any
@@ -52,7 +52,7 @@ const labelId = $id("select-label")
 ---
 
 <label
-  class:list={pfx([
+  class:list={prefix(
     "select",
     size,
     {
@@ -60,7 +60,7 @@ const labelId = $id("select-label")
       spread,
     },
     className,
-  ])}
+  )}
   data-invalid={critical || undefined}
 >
   {
@@ -88,7 +88,7 @@ const labelId = $id("select-label")
       <button>
         <selectedcontent></selectedcontent>
       </button>
-      <div class:list={pfx(["list", { dense }])}>
+      <div class:list={prefix("list", { dense })}>
         {items.map((item) => <option value={item.value}>{item.text}</option>)}
         <slot />
       </div>

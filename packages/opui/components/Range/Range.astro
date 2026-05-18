@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefix } from "../../css/js/prefix"
 type Props = {
   [key: string]: any
   class?: string
@@ -61,7 +61,7 @@ const endTextId = hasEndText ? $id("range-end") : undefined
 const describedBy = [startTextId, endTextId].filter(Boolean).join(" ") || undefined
 ---
 
-<label class:list={pfx(["range", variant, { spread }, className])}>
+<label class:list={prefix("range", variant, { spread }, className)}>
   {
     hasLabel && (
       <!-- prettier-ignore -->

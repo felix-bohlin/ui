@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefix } from "../../css/js/prefix.js";
 type Item = {
   text: string
   value: any
@@ -45,14 +45,14 @@ const labelId = $id("select-label")
 ---
 
 <label
-  class:list={pfx([
+  class:list={prefix(
     "select",
     size,
     {
       filled: variant === "filled",
     },
     className,
-  ])}
+  )}
   data-invalid={critical || undefined}
 >
   {

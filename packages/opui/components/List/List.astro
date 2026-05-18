@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils"
+import { prefix } from "../../css/js/prefix.js"
 type Props = {
   bordered?: boolean
   dense?: boolean
@@ -21,7 +21,7 @@ const {
 ---
 
 <ul
-  class:list={pfx([
+  class:list={prefix(
     "list",
     {
       bordered,
@@ -30,7 +30,7 @@ const {
     },
     variant,
     className,
-  ])}
+  )}
   {...rest}
 >
   <slot />

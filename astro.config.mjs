@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url"
 import { defineConfig, fontProviders } from "astro/config"
 
 import expressiveCode from "astro-expressive-code"
+import { opui as opuiVitePlugin } from "opui-css/vite"
 
 import { DEFAULT_FRAMEWORK, FRAMEWORK_IDS } from "./src/utils/framework.js"
 
@@ -49,7 +50,9 @@ export default defineConfig({
       themes: ["dark-plus", "light-plus"],
     }),
   ],
-  vite: {},
+  vite: {
+    plugins: [opuiVitePlugin()],
+  },
   devToolbar: { enabled: false },
   fonts: [
     {

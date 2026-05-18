@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefix } from "../../css/js/prefix"
 type Props = {
   [key: string]: any
   class?: string
@@ -25,7 +25,7 @@ try {
 ---
 
 <div
-  class:list={pfx(["field-group", direction, className])}
+  class:list={prefix("field-group", direction, className)}
   {...rest}
   role="group"
   set:html={html}

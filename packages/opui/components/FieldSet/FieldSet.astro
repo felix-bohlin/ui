@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefix } from "../../css/js/prefix"
 type Props = {
   [key: string]: any
   as?: "fieldset" | "div" | string
@@ -11,6 +11,6 @@ export const title = "Field Set"
 const { as: Tag = "fieldset", class: className, ...rest } = Astro.props
 ---
 
-<Tag class:list={pfx(["fieldset", className])} {...rest}>
+<Tag class:list={prefix("fieldset", className)} {...rest}>
   <slot />
 </Tag>

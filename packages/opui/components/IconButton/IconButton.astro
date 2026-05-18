@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils"
+import { prefix } from "../../css/js/prefix.js"
 type Props = {
   [key: string]: any
   as?: "a" | "button" | string
@@ -24,4 +24,4 @@ const {
 ---
 
 <!-- prettier-ignore -->
-<Tag class:list={pfx(["icon-button", size, variant, color, className])} href={href} {...rest}><slot /></Tag>
+<Tag class:list={prefix("icon-button", size, variant, color, className)} href={href} {...rest}><slot /></Tag>

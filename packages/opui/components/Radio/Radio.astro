@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefix } from "../../css/js/prefix"
 import RadioInput from "./RadioInput.astro"
 
 type Props = {
@@ -41,14 +41,14 @@ const finalName = name || currentFieldName
 ---
 
 <label
-  class:list={pfx([
+  class:list={prefix(
     "radio",
     size,
     {
       stack,
     },
     className,
-  ])}
+  )}
   data-invalid={critical || undefined}
 >
   <RadioInput
@@ -62,7 +62,7 @@ const finalName = name || currentFieldName
     {...rest}
   />
   <!-- prettier-ignore -->
-  <span class:list={pfx([hideLabel ? "sr-only" : "label"])}><slot /></span>
+  <span class:list={prefix(hideLabel ? "sr-only" : "label")}><slot /></span>
   {
     Astro.slots.has("end-text") && (
       <!-- prettier-ignore -->

@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefix } from "../../css/js/prefix.js";
 type Props = {
   [key: string]: any
   autoFit?: boolean
@@ -73,7 +73,7 @@ const fieldName = name || currentFieldName
 ---
 
 <label
-  class:list={pfx([
+  class:list={prefix(
     "text-field",
     {
       "auto-fit": autoFit,
@@ -82,7 +82,7 @@ const fieldName = name || currentFieldName
       small,
     },
     className,
-  ])}
+  )}
   data-invalid={critical || undefined}
   {...rest}
 >

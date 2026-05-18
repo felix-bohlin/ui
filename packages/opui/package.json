@@ -35,6 +35,8 @@
     "dist",
     "env.d.ts",
     "open-props.css",
+    "opui.d.ts",
+    "plugins/vite.mjs",
     "CHANGELOG.md",
     "CONTRIBUTING.md",
     "LICENSE",
@@ -44,13 +46,23 @@
   ],
   "style": "./dist/opui.css",
   "exports": {
-    ".": "./dist/opui.css",
+    ".": {
+      "types": "./opui.d.ts",
+      "import": "./dist/opui.css"
+    },
+    "./astro": {
+      "types": "./astro/index.d.ts",
+      "import": "./astro/index.ts"
+    },
     "./open-props": "./dist/op.css",
-    "./astro": "./astro/index.ts",
     "./components/*": "./components/*",
     "./core/*": "./core/*.css",
     "./css/*": "./css/*.css",
-    "./dist/*": "./dist/*"
+    "./dist/*": "./dist/*",
+    "./vite": {
+      "types": "./plugins/vite.d.ts",
+      "import": "./plugins/vite.mjs"
+    }
   },
   "scripts": {
     "build": "node scripts/build.mjs",
@@ -59,10 +71,14 @@
     "release:minor": "pnpm version minor && pnpm publish && git push --follow-tags",
     "release:major": "pnpm version major && pnpm publish && git push --follow-tags"
   },
+  "dependencies": {
+    "cosmiconfig": "^9.0.1"
+  },
   "devDependencies": {
     "postcss": "^8.4.0",
     "postcss-import": "^16.1.0",
-    "postcss-rename": "^0.8.1"
+    "postcss-rename": "^0.8.1",
+    "vite": "^7.3.3"
   },
   "peerDependencies": {
     "astro": "^6.3.1",

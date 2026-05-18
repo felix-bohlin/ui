@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils"
+import { prefix } from "../../css/js/prefix.js"
 
 type Props = {
   [key: string]: any
@@ -34,12 +34,12 @@ const id = rest.id || $id("toggle")
 ---
 
 <label
-  class:list={pfx([
+  class:list={prefix(
     "toggle-button",
     { selected: pressed, disabled },
     size,
     className,
-  ])}
+  )}
 >
   <input
     aria-pressed={finalType === "checkbox" ? pressed : undefined}

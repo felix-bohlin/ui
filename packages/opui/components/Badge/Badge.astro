@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils"
+import { prefix } from "../../css/js/prefix.js"
 import Anchor from "../Anchor/Anchor.astro"
 
 type Props = {
@@ -36,7 +36,7 @@ const positionArea =
 
 <Anchor
   alignment={positionArea}
-  class:list={pfx([
+  class:list={prefix(
     "badge",
     {
       dot,
@@ -45,7 +45,7 @@ const positionArea =
     alignment,
     className,
     color,
-  ])}
+  )}
   {...rest}
 >
   <slot />

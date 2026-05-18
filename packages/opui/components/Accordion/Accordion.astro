@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefix } from "../../css/js/prefix.js"
 type Props = {
   class?: string
   name?: string
@@ -19,7 +19,7 @@ const contentId = $id("content")
 
 <details
   name={name}
-  class:list={pfx(["accordion", "card", variant, className])}
+  class:list={prefix("accordion", "card", variant, className)}
   open={open}
   {...rest}
 >

@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefix } from "../../css/js/prefix.js"
 type Props = {
   [key: string]: any
   "aria-busy"?: "true" | "false" | boolean
@@ -31,7 +31,7 @@ const {
   aria-busy={ariaBusy}
   aria-describedby={ariaDescribedby}
   aria-label={ariaLabel}
-  class:list={pfx(["progress", className, variant])}
+  class:list={prefix("progress", className, variant)}
   id={id}
   max={max}
   value={value}

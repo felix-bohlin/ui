@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils"
+import { prefix } from "../../css/js/prefix.js"
 type Props = {
   [key: string]: any
   bordered?: boolean | "dotted"
@@ -12,11 +12,11 @@ const { bordered, class: className, ...rest } = Astro.props
 ---
 
 <dl
-  class:list={pfx([
+  class:list={prefix(
     "description-list",
     { bordered: bordered, dotted: bordered === "dotted" },
     className,
-  ])}
+  )}
   {...rest}
 >
   <slot />

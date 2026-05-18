@@ -1,5 +1,5 @@
 ---
-import { prefixClasses as pfx } from "../utils";
+import { prefix } from "../../css/js/prefix.js"
 type Props = {
   class?: string
   name?: string
@@ -39,7 +39,7 @@ Astro.locals.tabsGroupName = originalGroupName
 <input
   aria-controls={panelId}
   checked={open}
-  class:list={pfx(["tab-input", className])}
+  class:list={prefix("tab-input", className)}
   id={tabId}
   name={tabsGroupName}
   type="radio"

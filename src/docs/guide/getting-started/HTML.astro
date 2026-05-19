@@ -33,20 +33,20 @@ import Theming from "./_theming.astro"
       The most flexible way to use OPUI. Download these files from the <a
         class="link"
         target="_blank"
-        href="https://github.com/felix-bohlin/ui/tree/main/src"
-        ><code>src/</code> folder on GitHub</a
+        href="https://github.com/felix-bohlin/ui/tree/main/packages/opui"
+        ><code>packages/opui/</code> folder on GitHub</a
       > and drop them into your project for full control.
     </p>
 
     <Code
-      code={`├─ src
+      code={`├─ opui
   └─ core
      ├─ normalize.css
      └─ utils.css
-  └─ theme
-     ├─ theme.css
-     ├─ open-props.css
-     └─ components.css`}
+  └─ css
+     ├─ components.css
+     └─ theme.css
+  └─ open-props.css`}
       lang="text"
     />
 
@@ -55,10 +55,10 @@ import Theming from "./_theming.astro"
       code={`@layer openprops, normalize, theme, components.root, components.extended, utils;
 
 @import "./open-props.css";
-@import "../core/normalize.css";
-@import "./theme.css";
-@import "./components.css";
-@import "../core/utils.css";`}
+@import "./core/normalize.css";
+@import "./css/theme.css";
+@import "./css/components.css";
+@import "./core/utils.css";`}
       lang="css"
     />
     <p>

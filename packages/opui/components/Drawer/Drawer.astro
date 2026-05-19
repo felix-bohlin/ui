@@ -28,15 +28,13 @@ const drawerId = id || $id("drawer")
 
 <dialog
   closedby={closedby}
-  class:list={prefix(
-    "drawer",
-    side,
-    {
+  class:list={[
+    prefix("drawer", side, {
       "backdrop-transparent": backdrop === "transparent",
       "scroll-lock": scrollLock,
-    },
+    }),
     className,
-  )}
+  ]}
   id={drawerId}
   {...rest}
 >

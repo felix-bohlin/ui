@@ -34,13 +34,13 @@ const innerProps = Tag ? rest : {}
 ---
 
 <li
-  class:list={prefix(
-    {
+  class:list={[
+    prefix({
       "border-top": borderTop,
       inset,
-    },
+    }),
     className,
-  )}
+  ]}
   {...liProps}
 >
   {

@@ -18,7 +18,7 @@ const { alignment, arrow, class: className, id, label, ...rest } = Astro.props
 
 <Anchor
   alignment={alignment}
-  class:list={prefix("tooltip", { "with-arrow": !!arrow }, className)}
+  class:list={[prefix("tooltip", { "with-arrow": !!arrow }), className]}
   id={id}
   trigger="hover"
   {...rest}

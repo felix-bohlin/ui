@@ -11,4 +11,4 @@ const { class: className, ...rest } = Astro.props
 ---
 
 <!-- prettier-ignore -->
-<p class:list={prefix("field-description", className)} {...rest}><slot /></p>
+<p class:list={[prefix("field-description"), className]} {...rest}><slot /></p>

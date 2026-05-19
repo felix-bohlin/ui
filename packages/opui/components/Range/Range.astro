@@ -61,7 +61,7 @@ const endTextId = hasEndText ? $id("range-end") : undefined
 const describedBy = [startTextId, endTextId].filter(Boolean).join(" ") || undefined
 ---
 
-<label class:list={prefix("range", variant, { spread }, className)}>
+<label class:list={[prefix("range", variant, { spread }), className]}>
   {
     hasLabel && (
       <!-- prettier-ignore -->

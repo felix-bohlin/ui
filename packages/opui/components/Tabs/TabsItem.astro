@@ -39,7 +39,7 @@ Astro.locals.tabsGroupName = originalGroupName
 <input
   aria-controls={panelId}
   checked={open}
-  class:list={prefix("tab-input", className)}
+  class:list={[prefix("tab-input"), className]}
   id={tabId}
   name={tabsGroupName}
   type="radio"

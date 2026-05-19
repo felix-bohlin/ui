@@ -1,5 +1,5 @@
 ---
-import { prefix } from "../../css/js/prefix.js";
+import { prefix } from "../../css/js/prefix.js"
 type Props = {
   [key: string]: any
   alt?: string
@@ -29,17 +29,17 @@ const {
 const Tag = as || (href ? "a" : "div")
 ---
 
-<!-- prettier-ignore -->
 <Tag
-  class:list={prefix(
-    { avatar: !isGroup },
-    !isGroup && variant,
-    {
+  class:list={[
+    prefix({ avatar: !isGroup }, !isGroup && variant, {
       "gap-small": isGroup && spacing === "small",
       "gap-x-small": isGroup && spacing === "x-small",
-    },
+    }),
     className,
-  )}
+  ]}
   href={href}
   role={isGroup ? "group" : undefined}
-  {...rest}>{src ? <img src={src} alt={alt} /> : <slot />}</Tag>
+  {...rest}
+>
+  {src ? <img src={src} alt={alt} /> : <slot />}
+</Tag>

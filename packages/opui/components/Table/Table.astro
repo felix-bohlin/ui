@@ -11,6 +11,6 @@ export const title = "Table"
 const { class: className, variant, ...rest } = Astro.props
 ---
 
-<table class:list={prefix(className, variant)} {...rest}>
+<table class:list={[prefix(variant), className]} {...rest}>
   <slot />
 </table>

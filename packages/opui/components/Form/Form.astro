@@ -11,6 +11,6 @@ export const title = "Form"
 const { as: Tag = "form", class: className, ...rest } = Astro.props
 ---
 
-<Tag class:list={prefix("form", className)} {...rest}>
+<Tag class:list={[prefix("form"), className]} {...rest}>
   <slot />
 </Tag>

@@ -25,14 +25,13 @@ const {
 
 <!-- prettier-ignore -->
 <Tag
-  class:list={prefix([
+  class:list={[prefix(
     "chip",
     {
       multiline,
     },
     size,
     variant,
-    className,
-  ])}
+  ), className]}
   {...rest}
 ><slot name="start" /><slot />{label && <span class="text">{label}</span>}<slot name="end" /></Tag>

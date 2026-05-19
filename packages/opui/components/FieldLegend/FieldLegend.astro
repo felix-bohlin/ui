@@ -13,4 +13,4 @@ const isLegend = Tag === "legend"
 ---
 
 <!-- prettier-ignore -->
-<Tag class:list={prefix({ legend: !isLegend }, className)} {...rest}><slot /></Tag>
+<Tag class:list={[prefix({ legend: !isLegend }), className]} {...rest}><slot /></Tag>

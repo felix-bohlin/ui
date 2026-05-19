@@ -13,7 +13,7 @@ const { actionsAlign, class: className, closedby, ...rest } = Astro.props
 ---
 
 <dialog
-  class:list={prefix("dialog card elevated", className)}
+  class:list={[prefix("dialog card elevated"), className]}
   closedby={closedby}
   {...rest}
 >

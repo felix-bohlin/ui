@@ -36,7 +36,7 @@ const positionArea = alignment
   : {}
 ---
 
-<span class:list={prefix("anchor", className)} style={positionArea} {...rest}>
+<span class:list={[prefix("anchor"), className]} style={positionArea} {...rest}>
   {
     isHover ? (
       <span {...({ interestfor: id } as any)}>

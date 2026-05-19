@@ -31,7 +31,7 @@ const {
   aria-busy={ariaBusy}
   aria-describedby={ariaDescribedby}
   aria-label={ariaLabel}
-  class:list={prefix("progress", className, variant)}
+  class:list={[prefix("progress", variant), className]}
   id={id}
   max={max}
   value={value}

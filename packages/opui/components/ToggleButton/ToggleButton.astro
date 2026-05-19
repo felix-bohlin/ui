@@ -34,12 +34,10 @@ const id = rest.id || $id("toggle")
 ---
 
 <label
-  class:list={prefix(
-    "toggle-button",
-    { selected: pressed, disabled },
-    size,
+  class:list={[
+    prefix("toggle-button", { selected: pressed, disabled }, size),
     className,
-  )}
+  ]}
 >
   <input
     aria-pressed={finalType === "checkbox" ? pressed : undefined}

@@ -52,15 +52,14 @@ const labelId = $id("select-label")
 ---
 
 <label
-  class:list={prefix(
+  class:list={[prefix(
     "select",
     size,
     {
       filled: variant === "filled",
       spread,
     },
-    className,
-  )}
+  ), className]}
   data-invalid={critical || undefined}
 >
   {

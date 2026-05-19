@@ -14,7 +14,7 @@ const { class: className, severity, variant, ...rest } = Astro.props
 
 <article
   role="note"
-  class:list={prefix("callout", variant, severity, className)}
+  class:list={[prefix("callout", variant, severity), className]}
   {...rest}
 >
   <slot name="icon">

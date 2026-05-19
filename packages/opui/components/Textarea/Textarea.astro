@@ -54,16 +54,16 @@ const fieldName = name || currentFieldName
 ---
 
 <label
-  class:list={prefix(
+  class:list={[prefix(
     "textarea",
     {
       "auto-fit": autoFit,
       filled,
       spread,
       small,
-    },
+    }),
     className,
-  )}
+  ]}
   data-invalid={critical || undefined}
   {...rest}
 >

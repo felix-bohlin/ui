@@ -12,7 +12,7 @@ const { currentTabId } = Astro.locals
 
 <label
   for={tabId || currentTabId}
-  class:list={prefix("tab-label", className)}
+  class:list={[prefix("tab-label"), className]}
   role="tab"
   {...rest}
 >

@@ -21,16 +21,18 @@ const {
 ---
 
 <ul
-  class:list={prefix(
-    "list",
-    {
-      bordered,
-      dense,
-      gutterless,
-    },
-    variant,
+  class:list={[
+    prefix(
+      "list",
+      {
+        bordered,
+        dense,
+        gutterless,
+      },
+      variant,
+    ),
     className,
-  )}
+  ]}
   {...rest}
 >
   <slot />

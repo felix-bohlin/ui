@@ -12,11 +12,13 @@ const { bordered, class: className, ...rest } = Astro.props
 ---
 
 <dl
-  class:list={prefix(
-    "description-list",
-    { bordered: bordered, dotted: bordered === "dotted" },
+  class:list={[
+    prefix("description-list", {
+      bordered: bordered,
+      dotted: bordered === "dotted",
+    }),
     className,
-  )}
+  ]}
   {...rest}
 >
   <slot />

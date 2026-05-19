@@ -37,12 +37,10 @@ Astro.locals.currentToggleGroupType = originalType
 ---
 
 <div
-  class:list={prefix(
-    "toggle-group",
-    size !== "default" && size,
-    orientation,
+  class:list={[
+    prefix("toggle-group", size !== "default" && size, orientation),
     className,
-  )}
+  ]}
   role={selection === "single" ? "radiogroup" : "group"}
   {...rest}
 >

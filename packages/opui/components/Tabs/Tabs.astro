@@ -22,7 +22,7 @@ Astro.locals.tabsGroupName = originalGroupName
 ---
 
 <div
-  class:list={prefix("tabs", className)}
+  class:list={[prefix("tabs"), className]}
   role="tablist"
   {...rest}
   set:html={html}

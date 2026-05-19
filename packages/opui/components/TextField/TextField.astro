@@ -73,16 +73,16 @@ const fieldName = name || currentFieldName
 ---
 
 <label
-  class:list={prefix(
+  class:list={[prefix(
     "text-field",
     {
       "auto-fit": autoFit,
       filled,
       spread,
       small,
-    },
+    }),
     className,
-  )}
+  ]}
   data-invalid={critical || undefined}
   {...rest}
 >

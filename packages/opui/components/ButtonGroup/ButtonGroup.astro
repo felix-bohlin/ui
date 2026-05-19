@@ -22,14 +22,10 @@ const {
 ---
 
 <div
-  class:list={prefix(
-    "button-group",
-    color,
-    size,
-    variant,
-    orientation,
+  class:list={[
+    prefix("button-group", color, size, variant, orientation),
     className,
-  )}
+  ]}
   role="group"
   {...rest}
 >

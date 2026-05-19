@@ -41,14 +41,14 @@ const finalName = name || currentFieldName
 ---
 
 <label
-  class:list={prefix(
+  class:list={[prefix(
     "radio",
     size,
     {
       stack,
-    },
+    }),
     className,
-  )}
+  ]}
   data-invalid={critical || undefined}
 >
   <RadioInput

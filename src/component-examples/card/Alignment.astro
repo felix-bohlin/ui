@@ -4,7 +4,7 @@ import { Button } from "@opui/astro"
 import { IconButton } from "@opui/astro"
 ---
 
-<Card variant="outlined" actions={{ align: "end" }}>
+<Card variant="outlined" actionsAlign="end">
   <Fragment slot="content">Buttons aligned to the end. Works too!</Fragment>
   <Fragment slot="actions">
     <Button>Cancel</Button>
@@ -12,7 +12,7 @@ import { IconButton } from "@opui/astro"
   </Fragment>
 </Card>
 
-<Card variant="outlined" actions={{ align: "end" }}>
+<Card variant="outlined" actionsAlign="end">
   <Fragment slot="content">Again, buttons are aligned to the end!</Fragment>
   <Fragment slot="actions">
     <Button variant="outlined">Cancel</Button>
@@ -20,7 +20,7 @@ import { IconButton } from "@opui/astro"
   </Fragment>
 </Card>
 
-<Card variant="outlined" actions={{ align: "end" }}>
+<Card variant="outlined" actionsAlign="end">
   <Fragment slot="content">Icon buttons aligned to the end!</Fragment>
   <Fragment slot="actions">
     <IconButton aria-label="Favorite">

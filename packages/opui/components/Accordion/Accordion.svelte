@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Props } from "./types"
+  import type { Props } from "./types.svelte"
 
   let {
     class: className = "",
@@ -13,7 +13,7 @@
     marker,
     summary,
     ...rest
-  }: Props<"svelte"> = $props()
+  }: Props = $props()
 
   export const title = "Accordion" as const
   let element = $state<HTMLDetailsElement | null>(null)

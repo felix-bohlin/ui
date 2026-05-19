@@ -75,6 +75,7 @@
     "cosmiconfig": "^9.0.1"
   },
   "devDependencies": {
+    "@types/postcss-import": "^14.0.3",
     "postcss": "^8.4.0",
     "postcss-import": "^16.1.0",
     "postcss-rename": "^0.8.1",

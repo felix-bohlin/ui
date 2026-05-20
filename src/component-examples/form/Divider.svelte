@@ -1,4 +1,3 @@
-<!--
 <script lang="ts">
   import { Form } from "@opui/svelte"
   import { FieldSet } from "@opui/svelte"
@@ -23,4 +22,3 @@
     <Button variant="filled">Publish</Button>
   </FieldGroup>
 </Form>
--->

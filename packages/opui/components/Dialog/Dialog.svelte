@@ -19,7 +19,7 @@
 
 <dialog
   bind:this={element}
-  class:list={["dialog card elevated", className]}
+  class={["dialog card elevated", className]}
   {closedby}
   {...rest}
 >

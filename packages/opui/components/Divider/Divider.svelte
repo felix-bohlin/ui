@@ -12,6 +12,6 @@
 
 <hr
   bind:this={element}
-  class:list={["divider", className, variantClass]}
+  class={["divider", className, variantClass]}
   {...rest}
 />

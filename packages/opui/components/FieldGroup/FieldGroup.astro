@@ -1,15 +1,8 @@
 ---
-type Props = {
-  [key: string]: any
-  class?: string
-  direction?: "row" | "column"
-  name?: string
-}
-
+import type { Props } from "./types.astro"
 export const title = "Field Group"
 
 const { class: className, direction, name, ...rest } = Astro.props
-
 const originalName = Astro.locals.currentFieldName
 if (name) {
   Astro.locals.currentFieldName = name

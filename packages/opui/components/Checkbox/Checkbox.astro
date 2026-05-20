@@ -13,7 +13,7 @@ const {
   spread,
   stack,
   ...rest
-} = Astro.props as Props
+} = Astro.props
 
 const { $id, currentFieldName } = Astro.locals
 const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined

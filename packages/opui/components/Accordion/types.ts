@@ -1,3 +1,3 @@
-export type BaseProps = {
+export type Props = {
   variant?: "default" | "outlined" | "elevated" | "tonal"
 }

@@ -4,7 +4,7 @@ import type { Props } from "./types.astro"
 export const title = "Accordion"
 
 const { $id } = Astro.locals
-const { class: className, name, open, variant, ...rest } = Astro.props as Props
+const { class: className, name, open, variant, ...rest } = Astro.props
 
 const summaryId = $id("summary")
 const contentId = $id("content")

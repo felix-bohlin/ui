@@ -1,25 +1,12 @@
 <script lang="ts">
-  import type { HTMLAttributes } from "svelte/elements"
-  import type { Snippet } from "svelte"
+  import type { Props } from "./types.svelte"
 
-  type Element = HTMLDivElement
-
-  type Props = {
-    class?: HTMLAttributes<Element>["class"]
-    variant?: "text" | "outlined" | "tonal" | "elevated"
-    actions?: { align: "start" | "end" }
-
-    // Snippets
-    action?: Snippet
-    header?: Snippet
-    children?: Snippet
-    content?: Snippet
-  } & HTMLAttributes<Element>
+  export const title = "Card" as const
 
   let {
     class: className = "",
     variant = "text",
-    actions,
+    actionsAlign,
 
     // Snippets
     action,
@@ -29,8 +16,7 @@
     ...rest
   }: Props = $props()
 
-  export const title = "Card" as const
-  let element = $state<Element | null>(null)
+  let element = $state<HTMLElementTagNameMap["div"] | null>(null)
   export { element as this }
 
   const classes = $derived(["card", variant, className])
@@ -53,10 +39,7 @@
   {/if}
 
   {#if action}
-    <div
-      class="actions"
-      class:align-end={actions?.align === "end" || undefined}
-    >
+    <div class="actions" class:align-end={actionsAlign === "end" || undefined}>
       {@render action()}
     </div>
   {/if}

@@ -1,42 +1,40 @@
 <script lang="ts">
-  import type * as FieldSet from "../FieldSet/types.svelte"
-  import type { Props } from "./types.svelte"
   import { getContext } from "svelte"
+  import type { Props } from "./types.svelte"
 
-  export const title = "Text Field"
+  export const title = "Textarea"
 
   const {
     autoFit,
     class: className,
+    description: descriptionProp,
     critical,
     filled,
     id,
     label,
-    small,
     spread,
+    small,
 
-    // Input Props
+    // Textarea props
+    cols,
     disabled,
-    list,
-    max,
-    min,
+    maxlength,
+    minlength,
     name,
     placeholder,
     required,
-    step,
-    type = "text",
+    rows,
     value,
 
     // Snippets
     children,
-    description: descriptionProp,
     endText,
     footer,
     header,
     prefix,
     suffix,
-    supportingText,
     startText,
+    supportingText,
     ...rest
   }: Props = $props()
 
@@ -52,7 +50,7 @@
 <label
   bind:this={element}
   class={[
-    "text-field",
+    "textarea",
     {
       "auto-fit": autoFit,
       filled,
@@ -83,21 +81,18 @@
     </span>
   {/if}
   <span class="field">
-    <input
+    <textarea
+      {cols}
       {disabled}
       id={fieldId}
-      inputmode={type === "numeric" ? "numeric" : undefined}
-      {list}
-      {max}
-      {min}
+      {maxlength}
+      {minlength}
       name={fieldName}
-      pattern={type === "numeric" ? "[0-9]*" : undefined}
       {placeholder}
       {required}
-      {step}
-      type={type === "numeric" ? "text" : type}
+      {rows}
       {value}
-    />
+    ></textarea>
     {#if prefix}
       <span class="prefix">
         {#if typeof prefix === "string"}{prefix}
@@ -129,7 +124,7 @@
       </span>
     {/if}
   </span>
-  {#if endText}
+  {#if endText || supportingText}
     <span class="end-text">
       {#if typeof endText === "string"}{endText}
       {:else}{@render endText()}

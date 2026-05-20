@@ -1,34 +1,31 @@
 export type Props = {
   autoFit?: boolean
-  critical?: boolean
   description?: string
-  endText?: string
+  critical?: boolean
   filled?: boolean
   label?: string
-  small?: boolean
   spread?: boolean
-  startText?: string
+  small?: boolean
+  endText?: string
 }
 
 export type Slots =
   | "description"
-  | "endText"
   | "footer"
   | "header"
   | "label"
   | "prefix"
-  | "startText"
   | "suffix"
+  | "endText"
   | "supportingText"
 
-export type InputProps =
+export type TextareaProps =
+  | "cols"
   | "disabled"
-  | "list"
-  | "max"
-  | "min"
+  | "maxlength"
+  | "minlength"
   | "name"
   | "placeholder"
   | "required"
-  | "step"
-  | "type"
+  | "rows"
   | "value"

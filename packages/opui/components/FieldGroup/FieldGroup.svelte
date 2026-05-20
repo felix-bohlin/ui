@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { Props } from "./types.svelte"
+  import { setContext } from "svelte"
+  import type { Props, Context } from "./types.svelte"
   export const title = "Field Group" as const
 
   const {
@@ -10,7 +11,9 @@
     ...rest
   }: Props = $props()
 
-  // TODO: currentFieldName
+  $effect(() => {
+    setContext<Context["currentFieldName"]>("currentFieldName", name)
+  })
 
   let element = $state<HTMLDivElement | null>(null)
   export { element as this }

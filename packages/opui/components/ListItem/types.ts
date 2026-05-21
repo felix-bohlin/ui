@@ -4,7 +4,22 @@ export type Props = {
   for?: string
   inset?: boolean
   type?: "checkbox" | "radio" | "switch" | "button"
-}
+} & (
+  | {
+      as?: "a"
+      href: string
+      disabled?: never
+    }
+  | {
+      as?: "button"
+      href?: never
+      disabled?: boolean
+    }
+  | {
+      as?: string
+      href?: never
+    }
+)
 
 export type Slots<S> = {
   description?: string | S

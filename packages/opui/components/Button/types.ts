@@ -4,7 +4,7 @@ export type Props = {
   variant?: "outlined" | "tonal" | "filled"
 } & (
   | {
-      as: "a"
+      as?: "a"
       href: string
       disabled?: never
     }

@@ -53,7 +53,11 @@
   </span>
   {#if endText}
     <span id={endTextId} class="end-text">
-      {@render endText()}
+      {#if typeof endText === "string"}
+        {endText}
+      {:else}
+        {@render endText()}
+      {/if}
     </span>
   {/if}
 </label>

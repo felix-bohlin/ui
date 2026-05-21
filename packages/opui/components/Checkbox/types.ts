@@ -7,6 +7,10 @@ export type CheckboxProps = {
   stack?: boolean
 }
 
+export type CheckboxSlots<S> = {
+  endText?: string | S
+}
+
 export type CheckboxInputProps = {
   indeterminate?: boolean
 }

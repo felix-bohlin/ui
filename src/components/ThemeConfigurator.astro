@@ -475,11 +475,12 @@ const { link } = Astro.locals
 
   // Theme switcher
   if (themeSwitcher) {
-    themeSwitcher.checked = document.documentElement.classList.contains("ui-dark")
+    themeSwitcher.checked =
+      document.documentElement.classList.contains("ui-dark")
     themeSwitcher.addEventListener("click", () => {
       const isDark = document.documentElement.classList.contains("ui-dark")
       const newTheme: Mode = isDark ? "light" : "dark"
-      // themeUtils owns the .light/.dark class on <html> and the
+      // themeUtils owns the .ui-light/.ui-dark class on <html> and the
       // top-level "theme" localStorage key; the store owns custom tokens.
       ;(window as any).themeUtils?.setTheme(newTheme)
       themeSwitcher.checked = newTheme === "dark"

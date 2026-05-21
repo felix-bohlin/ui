@@ -54,8 +54,13 @@ const { link } = Astro.locals
       return localStorage.getItem("theme")
     },
     setTheme(theme) {
-      document.documentElement.classList.remove("ui-dark", "ui-light")
-      document.documentElement.classList.add(theme)
+      document.documentElement.classList.remove(
+        "ui-dark",
+        "ui-light",
+        "dark",
+        "light",
+      )
+      document.documentElement.classList.add(`ui-${theme}`)
       localStorage.setItem("theme", theme)
       window.themeUtils.applyCustomTheme(theme)
     },

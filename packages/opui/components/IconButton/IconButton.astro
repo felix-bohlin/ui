@@ -9,5 +9,16 @@ const { as, class: className, color, size, variant, href, ...rest } = props
 const Tag = as || (href ? "a" : "button")
 ---
 
-<!-- prettier-ignore -->
-<Tag class:list={["ui-icon-button", size && `ui-${size}`, variant && `ui-${variant}`, color && `ui-${color}`, className]} href={href} {...rest as any}><slot /></Tag>
+<Tag
+  class:list={[
+    "ui-icon-button",
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
+    color && `ui-${color}`,
+    className,
+  ]}
+  href={href}
+  {...rest as any}
+>
+  <slot />
+</Tag>

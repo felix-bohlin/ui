@@ -4,7 +4,16 @@ import type { Props } from "./types.astro"
 export const title = "Button"
 
 const props = Astro.props as Props
-const { as, class: className, color, size, variant, disabled, href, ...rest } = props
+const {
+  as,
+  class: className,
+  color,
+  size,
+  variant,
+  disabled,
+  href,
+  ...rest
+} = props
 
 const Tag = as || (href ? "a" : "button")
 const isButton = Tag === "button"

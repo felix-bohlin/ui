@@ -25,13 +25,13 @@ const {
 <!-- prettier-ignore -->
 <Tag
   class:list={[
-    "chip",
+    "ui-chip",
     {
-      multiline,
+      "ui-multiline": multiline,
     },
-    size,
-    variant,
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
     className,
   ]}
   {...rest}
-><slot name="start" /><slot />{label && <span class="text">{label}</span>}<slot name="end" /></Tag>
+><slot name="start" /><slot />{label && <span class="ui-text">{label}</span>}<slot name="end" /></Tag>

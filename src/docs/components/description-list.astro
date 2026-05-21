@@ -6,13 +6,16 @@ import AutoExample from "../../components/AutoExample.astro"
 import DescriptionListCSS from "@opui/css/components/description-list.css?raw"
 import ExampleAnatomy from "../../component-examples/description-list/Anatomy.astro"
 import Conditional from "../../components/Conditional.astro"
+
+export const description =
+  "Description lists are used to display a list of terms and their descriptions."
 ---
 
 <style is:global>
   .anatomy {
     outline: var(--_anatomy-border-gray);
     outline-offset: 6px;
-    .item * {
+    .ui-item * {
       outline: var(--_anatomy-border-red);
       outline-offset: -2px;
     }
@@ -44,10 +47,6 @@ import Conditional from "../../components/Conditional.astro"
   ]}
 >
   <Fragment slot="title">Description list</Fragment>
-  <Fragment slot="preamble">
-    Description lists are used to display a list of terms and their
-    descriptions.
-  </Fragment>
 
   <AutoExample name="Default" />
 
@@ -63,8 +62,8 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         <p>
-          Add <code>.bordered</code> to the <code>&lt;dl&gt;</code> element. For a
-          dotted style, also add <code>.dotted</code>.
+          Add <code>.ui-bordered</code> to the <code>&lt;dl&gt;</code> element. For
+          a dotted style, also add <code>.ui-dotted</code>.
         </p>
       </Fragment>
     </Conditional>
@@ -95,8 +94,8 @@ import Conditional from "../../components/Conditional.astro"
           <li>Term-description group (<code>&lt;div&gt;</code>)</li>
           <li>Term (<code>&lt;dt&gt;</code>)</li>
           <li>
-            Separator — rendered via CSS when <code>.bordered</code> is set on the
-            list (optional)
+            Separator — rendered via CSS when <code>.ui-bordered</code> is set on
+            the list (optional)
           </li>
           <li>Description (<code>&lt;dd&gt;</code>)</li>
         </ol>

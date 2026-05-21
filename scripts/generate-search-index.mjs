@@ -16,6 +16,9 @@ function frameworkUrl(framework, sharedPath) {
 function readMeta(file) {
   const content = fs.readFileSync(file, "utf-8")
   const titleMatch = content.match(/<Fragment slot="title">(.*?)<\/Fragment>/s)
+  const descriptionExportMatch = content.match(
+    /export const description\s*=\s*("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/s,
+  )
   const preambleMatch = content.match(
     /<Fragment slot="preamble">(.*?)<\/Fragment>/s,
   )
@@ -23,9 +26,11 @@ function readMeta(file) {
   if (!titleMatch) return null
 
   const title = titleMatch[1].replace(/<[^>]*>/g, "").trim()
-  const preamble = preambleMatch
-    ? preambleMatch[1].replace(/<[^>]*>/g, "").trim()
-    : ""
+  const preamble = descriptionExportMatch
+    ? descriptionExportMatch[1].slice(1, -1)
+    : preambleMatch
+      ? preambleMatch[1].replace(/<[^>]*>/g, "").trim()
+      : ""
 
   const headingMatches = content.matchAll(
     /<h[23][^>]*id=["'](.*?)["'].*?>(.*?)<\/h[23]>/gi,

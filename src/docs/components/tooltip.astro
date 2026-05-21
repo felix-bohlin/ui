@@ -38,9 +38,9 @@ import TooltipCSS from "@opui/css/components/tooltip.css?raw"
     </p>
     <Conditional as="p">
       <Fragment slot="html">
-        Add the <code>.tooltip</code> class alongside <code>.anchor</code> on the
+        Add the <code>.ui-tooltip</code> class alongside <code>.ui-anchor</code> on the
         wrapper. Wire <code>interestfor</code> on the trigger to the
-        <code>.anchor-floating[popover="hint"]</code> element's ID.
+        <code>.ui-anchor-floating[popover="hint"]</code> element's ID.
       </Fragment>
       <Fragment slot="astro">
         Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable
@@ -58,7 +58,7 @@ import TooltipCSS from "@opui/css/components/tooltip.css?raw"
     <h2 id="basics">Basics</h2>
     <Conditional as="p">
       <Fragment slot="html">
-        Set the tooltip text inside <code>.anchor-floating[popover="hint"]</code
+        Set the tooltip text inside <code>.ui-anchor-floating[popover="hint"]</code
         >.
       </Fragment>
       <Fragment slot="astro">
@@ -90,7 +90,7 @@ import TooltipCSS from "@opui/css/components/tooltip.css?raw"
     <h2 id="arrow">Arrow</h2>
     <Conditional as="p">
       <Fragment slot="html">
-        Add the <code>.with-arrow</code> class on the <code>.tooltip</code> wrapper
+        Add the <code>.ui-with-arrow</code> class on the <code>.ui-tooltip</code> wrapper
         to render a small arrow pointing from the tooltip toward the trigger.
       </Fragment>
       <Fragment slot="astro">
@@ -109,8 +109,7 @@ import TooltipCSS from "@opui/css/components/tooltip.css?raw"
     <Conditional as="p">
       <Fragment slot="html">
         Place any inline markup inside <code
-          >.anchor-floating[popover="hint"]</code
-        >.
+>.ui-anchor-floating[popover="hint"]</code>.
       </Fragment>
       <Fragment slot="astro">
         Use the <code>content</code> slot to render markup such as <code

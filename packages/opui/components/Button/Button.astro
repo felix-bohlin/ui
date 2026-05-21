@@ -4,21 +4,23 @@ import type { Props } from "./types.astro"
 export const title = "Button"
 
 const props = Astro.props as Props
-const { as, class: className, color, size, variant, ...rest } = props
+const { as, class: className, color, size, variant, disabled, href, ...rest } = props
 
-const Tag = as || ("href" in props ? "a" : "button")
+const Tag = as || (href ? "a" : "button")
+const isButton = Tag === "button"
 ---
 
 <Tag
   class:list={[
-    "button",
-    { disabled: props.as === "button" && props.disabled },
-    size,
-    variant,
-    color,
+    "ui-button",
+    { "ui-disabled": isButton && disabled },
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
+    color && `ui-${color}`,
     className,
   ]}
-  disabled={props.as === "button" ? props.disabled : undefined}
+  disabled={isButton ? disabled : undefined}
+  href={href}
   {...rest as any}
 >
   <slot />

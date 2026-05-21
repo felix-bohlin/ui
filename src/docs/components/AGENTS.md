@@ -24,7 +24,7 @@ Before creating or refactoring a page, perform the following research:
     - Default HTML structure and class names.
     - Provided slots (e.g., `title`, `summary`, `controls`).
 2.  **Analyze the CSS**: Read `packages/opui/css/components/[name].css` to identify:
-    - Modifier classes (e.g., `.filled`, `.outlined`, `.small`).
+    - Modifier classes (e.g., `.ui-filled`, `.ui-outlined`, `.ui-small`).
     - Modern CSS features being used (to populate `browserSupport`).
     - Internal part classes (to target for the `anatomy` section).
 3.  **Check for API Metadata**: Verify if a corresponding API file or folder exists in `src/component-api/`.
@@ -76,7 +76,7 @@ import ComponentCSS from "@opui/css/components/component.css?raw"
   <Fragment slot="preamble">
     Brief description. See also: <DocLink
       href="/components/related"
-      class="link">Related</DocLink
+      class="ui-link">Related</DocLink
     >.
   </Fragment>
 
@@ -165,8 +165,8 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 ### 5.3 `<UICallout>` (Alerts & Info)
 
 - **Severity**: `ok`, `warning`, `critical`, or default (blue).
-- **Wrapping**: Always wrap in `<div class="not-rich-text">`.
-- **Content**: If multiple paragraphs/lists, wrap content in `<div class="rich-text">`.
+- **Wrapping**: Always wrap in `<div class="ui-not-rich-text">`.
+- **Content**: If multiple paragraphs/lists, wrap content in `<div class="ui-rich-text">`.
 
 ### 5.4 Anatomy Section
 
@@ -195,7 +195,7 @@ Use `<Conditional>` to display different text or HTML content for different fram
 
 - **Analytical Examples**: Show sections for each major variant, size, and state found in CSS/source.
 - **Modifier Descriptions**: Section descriptions should focus on **actionable modifiers** (props or CSS classes).
-  - **Include** when explaining how to change the component (e.g., "Set the `orientation` prop to change the button group layout" or "Resize any button with the `.small` and `.large` classes").
+  - **Include** when explaining how to change the component (e.g., "Set the `orientation` prop to change the button group layout" or "Resize any button with the `.ui-small` and `.ui-large` classes").
   - **Omit** when the heading is self-explanatory and the configuration is static or default (e.g., "Image", "Letter", or "Icon" sections for an Avatar). If the section merely showcases a built-in capability without requiring specific prop-based modification logic to understand, skip the description to avoid "stating the obvious."
   - **Framework-Specific Counterparts**: Descriptions should always have framework-specific counterparts when referring to implementation details (like props vs. classes). Use the `<Conditional>` component to ensure the technical guidance matches the active framework's URL.
 - **Functional Parity**: Ensure that HTML examples are just as functional and complete as their Astro counterparts. Both versions should result in the same visual and functional output in their respective previews.

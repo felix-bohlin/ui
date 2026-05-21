@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where(.select select) {
+  :where(.ui-select select) {
     position: relative;
 
     /* Default arrow */
@@ -64,7 +64,7 @@
       }
     }
 
-    .list {
+    .ui-list {
       --_bg-color: var(--surface-filled);
       border: var(--field-border-width) solid var(--field-border-color);
       border-radius: var(--field-border-radius);
@@ -119,10 +119,10 @@
     }
   }
 
-  :where(.select:has(select)) {
+  :where(.ui-select:has(select)) {
 
     /* Size */
-    &.small {
+    &.ui-small {
       button {
         padding-inline: var(--size-2) var(--size-7);
 

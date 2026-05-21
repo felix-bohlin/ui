@@ -2,14 +2,15 @@
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import { Callout as UICallout, DescriptionList, Table } from "@opui/astro"
+import { Callout as UICallout, Table } from "@opui/astro"
 
 import DialogCSS from "@opui/css/components/dialog.css?raw"
 import CardCSS from "@opui/css/components/card.css?raw"
 
-import ExampleAnatomy from "../../component-examples/dialog/Anatomy.astro"
-
 import Conditional from "../../components/Conditional.astro"
+
+export const description =
+  "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use."
 ---
 
 <Component
@@ -42,19 +43,16 @@ import Conditional from "../../components/Conditional.astro"
   ]}
 >
   <Fragment slot="title">Dialog</Fragment>
-  <Fragment slot="preamble">
-    A minimally styled window overlaid on the main content. By design the Dialog
-    is minimal with zero content to allow for both modal and non-modal use.
-  </Fragment>
-  <div class="not-rich-text">
+
+  <div class="ui-not-rich-text">
     <UICallout>
       <Fragment slot="title">Modal vs Dialog</Fragment>
       <p>
         The term "modal" and "dialog" are often used interchangeably, but
         there's an important difference. A modal window describes parts of a UI
-        that <a href="#modal" class="link">blocks user interaction</a>. A dialog <a
-          href="#non-modal"
-          class="link">doesn't have to be blocking</a
+        that <a href="#modal" class="ui-link">blocks user interaction</a>. A
+        dialog <a href="#non-modal" class="ui-link"
+          >doesn't have to be blocking</a
         >.
       </p>
     </UICallout>
@@ -66,19 +64,19 @@ import Conditional from "../../components/Conditional.astro"
     <h3 id="non-modal">Non-modal</h3>
     <ul>
       <li>
-        <DocLink href="/components/toast" class="link">Toast</DocLink>:
+        <DocLink href="/components/toast" class="ui-link">Toast</DocLink>:
         informative but non-interruptive
       </li>
     </ul>
 
     <h3 id="modal">Modal</h3>
-    <div class="not-rich-text">
+    <div class="ui-not-rich-text">
       <UICallout severity="info">
         <Fragment slot="title">No JavaScript required</Fragment>
         <p>
           In browsers that support <a
             href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
-            class="link">Invoker Commands</a
+            class="ui-link">Invoker Commands</a
           > you can toggle a <code>&lt;dialog&gt;</code> without JavaScript by using
           the <code>commandfor</code> and <code>command</code> attributes.
         </p>
@@ -233,7 +231,7 @@ import Conditional from "../../components/Conditional.astro"
     </Table>
 
     <h3 id="keyboard-support">Keyboard support</h3>
-    <div class="not-rich-text">
+    <div class="ui-not-rich-text">
       <Table style="table-layout: fixed">
         <Table.ColumnGroup>
           <Table.Column width="30%" />
@@ -285,10 +283,10 @@ import Conditional from "../../components/Conditional.astro"
     <p>
       Source: <a
         href="https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/#rps_label"
-        class="link">w3.org</a
+        class="ui-link">w3.org</a
       >, <a
         href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#accessibility"
-        class="link">MDN</a
+        class="ui-link">MDN</a
       >
     </p>
   </Fragment>

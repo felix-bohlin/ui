@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.chip) {
+  :where(.ui-chip) {
     --_bg-color: var(--surface-tonal);
     --_border-color: var(--border-color);
     --_color: var(--text-primary);
@@ -17,12 +17,12 @@
     text-decoration: none;
 
     /* Variants */
-    &.tonal {
+    &.ui-tonal {
       --_bg-color: var(--surface-tonal);
       --_color: var(--text-primary);
     }
 
-    &.outlined {
+    &.ui-outlined {
       --_bg-color: var(--surface-default);
       --_color: var(--text-primary);
     }
@@ -51,11 +51,11 @@
     }
 
     /* Sizes */
-    &.small {
+    &.ui-small {
       block-size: var(--size-5);
     }
 
-    &.multiline {
+    &.ui-multiline {
       block-size: auto;
     }
 

@@ -4,11 +4,11 @@
 @layer theme {
 
   /* 1. Color scheme */
-  .light {
+  .ui-light {
     --color-scheme: light;
   }
 
-  .dark {
+  .ui-dark {
     --color-scheme: dark;
   }
 
@@ -64,7 +64,7 @@
     --border-width: 1px;
 
     /* 9. Focus ring — components consume these and may override locally
-       (e.g. .button.filled { --focus-ring-offset: 3px; }, .checkbox { --focus-ring-offset: 0; }) */
+       (e.g. .ui-button.ui-filled { --focus-ring-offset: 3px; }, .ui-checkbox { --focus-ring-offset: 0; }) */
     --focus-ring-color: var(--primary);
     --focus-ring-width: 2px;
     --focus-ring-offset: 2px;
@@ -108,24 +108,24 @@
   }
 
   /* 14. Severity scope classes — re-source the palette inside these contexts.
-     Authoring `<div class="warning">` paints the entire subtree warning-orange.
+     Authoring `<div class="ui-warning">` paints the entire subtree warning-orange.
      Non-severity tokens (--primary, --neutral) deliberately have no scope class. */
-  :where(.critical, [data-invalid], del) {
+  :where(.ui-critical, [data-invalid], del) {
     --palette-source: oklch(0.58 0.21 var(--hue-red));
     --palette-hue-rotate-by: 1;
   }
 
-  :where(.info, abbr, dfn) {
+  :where(.ui-info, abbr, dfn) {
     --palette-source: oklch(0.58 0.21 var(--hue-blue));
     --palette-hue-rotate-by: 1;
   }
 
-  :where(.success, ins) {
+  :where(.ui-success, ins) {
     --palette-source: oklch(0.58 0.21 var(--hue-green));
     --palette-hue-rotate-by: 1;
   }
 
-  :where(.warning) {
+  :where(.ui-warning) {
     --palette-source: oklch(0.58 0.21 var(--hue-orange));
     --palette-hue-rotate-by: 1;
   }

@@ -5,13 +5,6 @@ import AutoExample from "../../components/AutoExample.astro"
 import { Callout as UICallout, Switch as UISwitch } from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
 
-import Variants from "../../component-examples/text-field/Variants.astro"
-import Sizes from "../../component-examples/text-field/Sizes.astro"
-import SupportingText from "../../component-examples/text-field/SupportingText.astro"
-import Affix from "../../component-examples/text-field/Affix.astro"
-import Headers from "../../component-examples/text-field/Headers.astro"
-import Validation from "../../component-examples/text-field/Validation.astro"
-import AutoFit from "../../component-examples/text-field/AutoFit.astro"
 import InputTypes from "../../component-examples/text-field/InputTypes.astro"
 import InputTypesAstro from "../../component-examples/text-field/InputTypes.astro?raw"
 import InputTypesHtml from "../../component-examples/text-field/InputTypes.html?raw"
@@ -32,7 +25,6 @@ import NoLabel from "../../component-examples/text-field/NoLabel.astro"
 import NoLabelAstro from "../../component-examples/text-field/NoLabel.astro?raw"
 import NoLabelHtml from "../../component-examples/text-field/NoLabel.html?raw"
 
-import Orientation from "../../component-examples/text-field/Orientation.astro"
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextFieldCSS from "@opui/css/components/text-input.css?raw"
 
@@ -40,6 +32,9 @@ import TextFieldAPIAstro from "../../component-api/text-field/Astro.astro"
 import TextFieldAPIHTML from "../../component-api/text-field/HTML.astro"
 import TextInputAPIAstro from "../../component-api/text-input/Astro.astro"
 import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
+
+export const description =
+  "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states."
 ---
 
 <Component
@@ -92,10 +87,6 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
   ]}
 >
   <Fragment slot="title">Text field</Fragment>
-  <Fragment slot="preamble">
-    An input for single-line text data. Basic text fields with labels, field
-    descriptions, and validation states.
-  </Fragment>
 
   <section>
     <h2 id="variants">Variants</h2>
@@ -122,8 +113,10 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
         full width with a divider.
       </Fragment>
       <Fragment slot="html">
-        Add <code>.prefix</code>, <code>.suffix</code>, <code>.header</code>, or
-        <code>.footer</code> elements inside <code>.field</code> to affix content
+        Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
+          >.ui-header</code
+        >, or
+        <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
         inside the field's border. Prefix and suffix sit beside the input, while header
         and footer span the field's full width with a divider.
       </Fragment>
@@ -147,8 +140,8 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
       required styles
     </p>
     <p>
-      The <code>.critical</code> class toggles the error styles. Make use of the end
-      text to give extra feedback on the error.
+      The <code>.ui-critical</code> class toggles the error styles. Make use of the
+      end text to give extra feedback on the error.
     </p>
 
     <AutoExample name="Validation" column spacious />
@@ -163,9 +156,9 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
         on narrow containers.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.spread</code> class to display the label and description on
-        the left with the input on the right. The layout collapses to a column on
-        narrow containers.
+        Add the <code>.ui-spread</code> class to display the label and description
+        on the left with the input on the right. The layout collapses to a column
+        on narrow containers.
       </Fragment>
     </Conditional>
 
@@ -195,10 +188,10 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
       <Example.Code slot="code-html" code={InputTypesHtml} />
     </Example>
 
-    <div class="not-rich-text">
+    <div class="ui-not-rich-text">
       <UICallout>
         <Fragment slot="title">Date inputs</Fragment>
-        <div class="rich-text">
+        <div class="ui-rich-text">
           Date-related inputs never show as empty, so the label is always
           visible. There are only hacks with compromises and no neat ways of
           dealing with that issue. You're free to implement a solution of your
@@ -218,13 +211,13 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
       <Example.Code slot="code-html" code={NumericHtml} />
     </Example>
 
-    <div class="not-rich-text">
+    <div class="ui-not-rich-text">
       <UICallout severity="critical">
         <Fragment slot="title"
           >You most likely don't need <code>&lt;input type="number"&gt;</code
           ></Fragment
         >
-        <div class="rich-text">
+        <div class="ui-rich-text">
           <p>
             While <code>&lt;input type="number"&gt;</code> may seem logical for numeric
             data it should only be used when mathematical operations are needed on
@@ -258,7 +251,7 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
           <p>
             The British Government has a <a
               href="https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/"
-              class="link">great article</a
+              class="ui-link">great article</a
             > about how bad input number is and goes in-depth. It's a very interesting
             read.
           </p>
@@ -303,9 +296,9 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
       <Example.Code slot="code-html" code={AutosuggestHtml} />
     </Example>
 
-    <div class="not-rich-text">
+    <div class="ui-not-rich-text">
       <UICallout>
-        <div class="rich-text">
+        <div class="ui-rich-text">
           <p>
             Think of <code>&lt;datalist&gt;</code> as a list of <em
               >suggested</em
@@ -351,7 +344,7 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
   <Fragment slot="accessibility">
     <ul>
       <li>
-        <a href="#numeric-vs-input-type-number" class="link"
+        <a href="#numeric-vs-input-type-number" class="ui-link"
           >Don't use <code>&lt;input type="number"&gt;</code></a
         > unless your user research tells you to.
       </li>
@@ -360,36 +353,77 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
 
   <Fragment slot="anatomy">
     <ol>
-      <li><code>label.text-field</code>: Container element</li>
-      <li><code>.label</code>: Field label element</li>
-      <li><code>.field</code>: The boxed input area</li>
+      <li><code>label.ui-text-field</code>: Container element</li>
+      <li><code>.ui-label</code>: Field label element</li>
+      <li><code>.ui-field</code>: The boxed input area</li>
       <li>
-        <code>.header</code>: Optional inside-border header strip (with divider)
+        <code>.ui-header</code>: Optional inside-border header strip (with
+        divider)
       </li>
-      <li><code>.prefix</code>: Optional inline-start affix</li>
+      <li><code>.ui-prefix</code>: Optional inline-start affix</li>
       <li><code>&lt;input&gt;</code>: Input element</li>
-      <li><code>.suffix</code>: Optional inline-end affix</li>
+      <li><code>.ui-suffix</code>: Optional inline-end affix</li>
       <li>
-        <code>.footer</code>: Optional inside-border footer strip (with divider)
+        <code>.ui-footer</code>: Optional inside-border footer strip (with
+        divider)
       </li>
-      <li><code>.end-text</code>: Supporting text element</li>
+      <li><code>.ui-end-text</code>: Supporting text element</li>
     </ol>
 
     <Example>
-      <label class="text-field anatomy">
-        <span class="label">Label</span>
-        <span class="field">
-          <span class="header">Header</span>
-          <span class="prefix">¢</span>
+      <label class="ui-text-field anatomy">
+        <span class="ui-label">Label</span>
+        <span class="ui-field">
+          <span class="ui-header">Header</span>
+          <span class="ui-prefix">¢</span>
           <input type="text" value="Value" placeholder="Placeholder" />
-          <span class="suffix">EUR</span>
-          <span class="footer">Footer</span>
+          <span class="ui-suffix">EUR</span>
+          <span class="ui-footer">Footer</span>
         </span>
-        <span class="end-text">Supporting text</span>
+        <span class="ui-end-text">Supporting text</span>
       </label>
     </Example>
   </Fragment>
 </Component>
+
+<script>
+  function setupInputTypesControls() {
+    document
+      .querySelectorAll<HTMLElement>(".example-container")
+      .forEach((container) => {
+        if (!container.querySelector("#text-field-filled-toggle")) return
+        if (container.dataset.inputTypesSetup) return
+        container.dataset.inputTypesSetup = "true"
+
+        const filledToggle = container.querySelector<HTMLInputElement>(
+          "#text-field-filled-toggle",
+        )
+        const smallToggle = container.querySelector<HTMLInputElement>(
+          "#text-field-small-toggle",
+        )
+
+        const updateFields = () => {
+          if (!filledToggle || !smallToggle) return
+          container.querySelectorAll(".input-type-field").forEach((field) => {
+            field.classList.toggle("ui-filled", filledToggle.checked)
+            field.classList.toggle("ui-small", smallToggle.checked)
+          })
+        }
+
+        container.addEventListener("change", (event) => {
+          const input = event.target
+          if (!(input instanceof HTMLInputElement)) return
+          if (input !== filledToggle && input !== smallToggle) return
+          updateFields()
+        })
+
+        updateFields()
+      })
+  }
+
+  setupInputTypesControls()
+  document.addEventListener("astro:after-swap", setupInputTypesControls)
+</script>
 
 <style is:global>
   .anatomy {

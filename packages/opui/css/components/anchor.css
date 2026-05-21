@@ -1,12 +1,12 @@
 @layer components.root {
-	:where(.anchor) {
+	:where(.ui-anchor) {
 		anchor-name: --anchor;
 		anchor-scope: --anchor;
 		display: inline-block;
 		inline-size: fit-content;
 
 		/* Always-visible */
-		&>.anchor-floating:not([popover]) {
+		&>.ui-anchor-floating:not([popover]) {
 			block-size: max-content;
 			inline-size: max-content;
 			position: absolute;
@@ -16,7 +16,7 @@
 		}
 
 		/* Hover-triggered */
-		&>.anchor-floating[popover] {
+		&>.ui-anchor-floating[popover] {
 			inset: unset;
 			margin: 0;
 			position: absolute;

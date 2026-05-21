@@ -1,7 +1,7 @@
 @layer components.extended {
 
   /* Form */
-  :where(.form) {
+  :where(.ui-form) {
     display: grid;
     gap: var(--size-8);
 
@@ -11,7 +11,7 @@
   }
 
   /* Fieldset */
-  :where(.fieldset) {
+  :where(.ui-fieldset) {
     all: unset;
     border: 0;
     border-radius: 0;
@@ -22,20 +22,20 @@
     padding: 0;
 
     /* Legend */
-    :where(legend, .legend) {
+    :where(legend, .ui-legend) {
       all: unset;
       color: var(--text-primary);
       font-weight: 600;
       margin-block-end: var(--size-3);
       padding: 0;
 
-      &:has(+ :where(.field-description)) {
+      &:has(+ :where(.ui-field-description)) {
         margin-block-end: 0;
       }
     }
 
     /* Field description / supporting text */
-    :where(.field-description) {
+    :where(.ui-field-description) {
       color: var(--text-muted);
       font-size: var(--font-size-05);
       line-height: var(--font-lineheight-3);
@@ -46,13 +46,13 @@
     }
 
     /* End text */
-    :where(.end-text) {
+    :where(.ui-end-text) {
       color: var(--text-muted);
       font-size: var(--font-size-0);
       line-height: var(--font-lineheight-3);
     }
 
-    &:has(.text-field.row) {
+    &:has(.ui-text-field.ui-row) {
       row-gap: var(--size-7);
     }
 
@@ -63,26 +63,26 @@
 
       input,
       label,
-      .label {
+      .ui-label {
         cursor: not-allowed;
       }
     }
 
     /* Error / validation */
     &[data-invalid] {
-      :where(.end-text) {
+      :where(.ui-end-text) {
         color: var(--primary);
       }
 
-      :where(.checkbox, .radio, .switch) {
+      :where(.ui-checkbox, .ui-radio, .ui-switch) {
         --palette-source: oklch(0.58 0.21 var(--hue-red));
 
-        :where(.end-text) {
+        :where(.ui-end-text) {
           color: var(--primary);
         }
       }
 
-      :where(.switch) {
+      :where(.ui-switch) {
         input {
           border-radius: var(--radius-round);
           outline: 2px solid var(--primary);
@@ -92,7 +92,7 @@
 
     /* Required */
     &:has(:invalid) {
-      :where(legend, .legend) {
+      :where(legend, .ui-legend) {
         padding-inline-end: 1ex;
         position: relative;
 
@@ -107,18 +107,18 @@
   }
 
   /* Field group */
-  :where(.field-group) {
+  :where(.ui-field-group) {
     display: flex;
     flex-direction: column;
     gap: var(--size-4);
 
     /* If it only has checkboxes, radios, or switches */
-    &:has(> :where(.checkbox, .radio, .switch)):not(:has(> :not(.checkbox, .radio, .switch))) {
+    &:has(> :where(.ui-checkbox, .ui-radio, .ui-switch)):not(:has(> :not(.ui-checkbox, .ui-radio, .ui-switch))) {
       gap: var(--size-2);
     }
 
     /* If it only has buttons */
-    &:has(.button):not(:has(*:not(.button))) {
+    &:has(.ui-button):not(:has(*:not(.ui-button))) {
       align-items: center;
       flex-direction: row;
       gap: var(--size-2);
@@ -134,11 +134,11 @@
     }
 
     /* Directions */
-    &.row {
+    &.ui-row {
       flex-direction: row;
       flex-wrap: wrap;
 
-      &:has(> :where(.checkbox, .radio, .switch)) {
+      &:has(> :where(.ui-checkbox, .ui-radio, .ui-switch)) {
         gap: var(--size-4);
       }
     }

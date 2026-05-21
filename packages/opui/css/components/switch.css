@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.switch) {
+  :where(.ui-switch) {
     --_accent-color: var(--primary);
     --_accent-contrast: var(--primary-contrast);
 
@@ -108,28 +108,28 @@
     }
 
     /* Icons */
-    &:has(.icon-checked, .icon-unchecked) {
+    &:has(.ui-icon-checked, .ui-icon-unchecked) {
       [role="switch"] {
         grid-column: 1 / -1;
         grid-row: 1;
       }
 
       &:has([role="switch"]:checked) {
-        .icon-unchecked {
+        .ui-icon-unchecked {
           display: none;
         }
 
-        .icon-checked {
+        .ui-icon-checked {
           display: block;
         }
       }
 
-      .icon-checked {
+      .ui-icon-checked {
         display: none;
       }
 
-      .icon-unchecked,
-      .icon-checked {
+      .ui-icon-unchecked,
+      .ui-icon-checked {
         grid-column: 1;
         grid-row: 1;
         pointer-events: none;
@@ -141,18 +141,18 @@
         }
       }
 
-      .icon-unchecked {
+      .ui-icon-unchecked {
         margin-inline-start: calc(var(--_track-width) - var(--_dot-size) - var(--size-1));
       }
 
-      .icon-checked {
+      .ui-icon-checked {
         margin-inline-start: var(--size-1);
       }
     }
 
     /* Required dot */
     &:has(:invalid) {
-      .label:after {
+      .ui-label:after {
         color: var(--red);
         content: "*";
         inset: 0 -0.25ex auto auto;
@@ -172,7 +172,7 @@
     }
 
     /* Label */
-    .label {
+    .ui-label {
       color: var(--text-primary);
       font-size: var(--font-size-05);
       grid-column: 2;
@@ -184,7 +184,7 @@
     }
 
     /* End text */
-    :where(.end-text) {
+    :where(.ui-end-text) {
       color: var(--text-muted);
       font-size: var(--font-size-0);
       grid-column: 2;
@@ -194,21 +194,21 @@
     }
 
     /* Size */
-    &.small {
+    &.ui-small {
       --_dot-size: 0.75rem;
       --_track-height: var(--size-4);
       --_track-width: 2.5rem;
     }
 
     /* Spread layout */
-    &.spread {
+    &.ui-spread {
       align-items: center;
       column-gap: var(--size-4);
       grid-auto-flow: unset;
       grid-template-columns: 1fr auto;
       inline-size: 100%;
 
-      .label {
+      .ui-label {
         font-weight: 600;
         grid-column: 1;
         grid-row: 1;
@@ -220,34 +220,34 @@
         grid-row: 1;
       }
 
-      &:has(.icon-checked, .icon-unchecked) {
+      &:has(.ui-icon-checked, .ui-icon-unchecked) {
 
         input[role="switch"],
-        .icon-checked,
-        .icon-unchecked {
+        .ui-icon-checked,
+        .ui-icon-unchecked {
           grid-column: 2;
         }
       }
 
-      :where(.end-text) {
+      :where(.ui-end-text) {
         grid-column: 1;
         grid-row: 2;
       }
     }
 
     /* Stacked layout */
-    &.stack {
+    &.ui-stack {
       grid-auto-columns: unset;
       justify-items: center;
 
-      .label {
+      .ui-label {
         grid-column: 1/-1;
         grid-row: 2;
         margin-block-start: var(--size-1);
         padding-inline: 1ex;
       }
 
-      .end-text {
+      .ui-end-text {
         grid-column: 1/-1;
         grid-row: 3;
       }
@@ -260,7 +260,7 @@
         outline: 2px solid var(--color-9);
       }
 
-      .end-text {
+      .ui-end-text {
         color: var(--color-9);
       }
     }

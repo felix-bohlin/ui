@@ -4,10 +4,10 @@
 Lists meant to be used stand-alone or as part of Select elements
 
   Intended use-case:
-  - ul.list > li
-  - .select > .list > option
+  - ul.ui-list > li
+  - .ui-select > .ui-list > option
 */
-  :where(.list) {
+  :where(.ui-list) {
     --_bg-color: var(--surface-filled);
     --_bg-color-hover: oklch(from var(--primary) l c h / 15%);
 
@@ -25,20 +25,20 @@ Lists meant to be used stand-alone or as part of Select elements
     }
 
     /* Background color */
-    &.transparent {
+    &.ui-transparent {
       --_bg-color: transparent;
     }
 
-    &.default {
+    &.ui-default {
       --_bg-color: var(--surface-default);
     }
 
-    &.tonal {
+    &.ui-tonal {
       --_bg-color: var(--surface-tonal);
     }
 
     /* Borders on all list items */
-    &.bordered {
+    &.ui-bordered {
       :where(li + li, option + option) {
         margin-block-start: var(--size-3);
 
@@ -57,13 +57,13 @@ Lists meant to be used stand-alone or as part of Select elements
     }
 
     /* Dense - less gaps and spacing */
-    &.dense {
+    &.ui-dense {
       :where(li, option) {
         gap: var(--size-2);
         min-block-size: var(--size-7);
         padding: var(--size-1) var(--size-2);
 
-        &.border-top {
+        &.ui-border-top {
           margin-block-start: var(--size-2);
 
           &::before {
@@ -85,29 +85,29 @@ Lists meant to be used stand-alone or as part of Select elements
 
         /* Checkbox / Radio */
         &>label {
-          .end {
+          .ui-end {
             padding-inline-end: 0.125rem;
           }
 
-          &:where(.checkbox, .radio) {
+          &:where(.ui-checkbox, .ui-radio) {
             --_input-size: var(--size-3);
           }
         }
 
         /* Leading and trailing content */
-        .start,
-        .end {
-          .avatar {
+        .ui-start,
+        .ui-end {
+          .ui-avatar {
             max-inline-size: var(--size-6);
           }
 
-          .icon-button,
+          .ui-icon-button,
           svg {
             max-inline-size: var(--size-4);
           }
 
-          .checkbox,
-          .radio {
+          .ui-checkbox,
+          .ui-radio {
             --_input-size: var(--size-3);
           }
         }
@@ -115,7 +115,7 @@ Lists meant to be used stand-alone or as part of Select elements
     }
 
     /* Gutterless */
-    &.gutterless {
+    &.ui-gutterless {
       :where(li, option) {
         padding-inline: 0;
 
@@ -220,20 +220,20 @@ Lists meant to be used stand-alone or as part of Select elements
 
       /* Checkbox / Radio / Switch */
       &>label {
-        &:where(.checkbox, .radio, .switch) {
+        &:where(.ui-checkbox, .ui-radio, .ui-switch) {
           display: flex;
         }
 
-        .end {
+        .ui-end {
           padding-inline-end: var(--size-1);
         }
 
-        &:where(.checkbox, .radio) {
+        &:where(.ui-checkbox, .ui-radio) {
           inline-size: 100%;
         }
 
         /* Switches look comically big in lists, so it's better to use a smaller variant  */
-        &.switch {
+        &.ui-switch {
           --_dot-size: 0.75rem;
           --_track-height: var(--size-4);
           --_track-width: 2.5rem;
@@ -246,7 +246,7 @@ Lists meant to be used stand-alone or as part of Select elements
       }
 
       /* Border between list items */
-      &.border-top {
+      &.ui-border-top {
         margin-block-start: var(--size-3);
 
         &::before {
@@ -261,7 +261,7 @@ Lists meant to be used stand-alone or as part of Select elements
       }
 
       /* Text */
-      .text {
+      .ui-text {
         flex: 1;
         line-height: 1.6;
 
@@ -277,7 +277,7 @@ Lists meant to be used stand-alone or as part of Select elements
       }
 
       /* Leading content */
-      .start {
+      .ui-start {
         align-items: center;
         align-self: center;
         display: grid;
@@ -305,7 +305,7 @@ Lists meant to be used stand-alone or as part of Select elements
       }
 
       /* Trailing content */
-      .end {
+      .ui-end {
         align-items: center;
         display: flex;
         font-size: var(--font-size-0);
@@ -330,13 +330,13 @@ Lists meant to be used stand-alone or as part of Select elements
       }
 
       /* Inset */
-      &.inset {
-        .text {
+      &.ui-inset {
+        .ui-text {
           padding-inline-start: calc(var(--size-5) + var(--size-3));
         }
 
         /* Safety measure so it won't look bad if there for some reason should exist a leading element inside. */
-        .start {
+        .ui-start {
           display: none;
         }
       }

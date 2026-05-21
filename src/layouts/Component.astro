@@ -6,7 +6,7 @@ import BrowserSupport from "../components/BrowserSupport.astro"
 import BrowserSupportChips from "../components/BrowserSupportChips.astro"
 import ComponentAPI from "../components/ComponentAPI.astro"
 import Installation, { type Tab } from "../components/Installation.astro"
-import { Button, Chip, List, ListItem } from "@opui/astro"
+import { Button, Chip, Divider, List, ListItem } from "@opui/astro"
 import {
   getComponentChangelog,
   type ChangelogPathEntry,
@@ -99,7 +99,7 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 <Document overline={overline} showToc={showToc}>
   <FrameworkPicker size="small" slot="sidebar" />
 
-  <hr slot="sidebar" />
+  <Divider variant="tonal" slot="sidebar" />
 
   <nav slot="sidebar">
     <h3>Components</h3>

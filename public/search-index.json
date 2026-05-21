@@ -750,26 +750,6 @@
     "url": "/html/api#anchor"
   },
   {
-    "id": "api-avatar-astro",
-    "title": "Avatar API",
-    "description": "Reference for Avatar Astro component.",
-    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#avatar"
-  },
-  {
-    "id": "api-avatar-html",
-    "title": "Avatar API",
-    "description": "Reference for Avatar HTML component.",
-    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#avatar"
-  },
-  {
     "id": "api-badge-astro",
     "title": "Badge API",
     "description": "Reference for Badge Astro component.",
@@ -788,6 +768,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#badge"
+  },
+  {
+    "id": "api-avatar-astro",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Astro component.",
+    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#avatar"
+  },
+  {
+    "id": "api-avatar-html",
+    "title": "Avatar API",
+    "description": "Reference for Avatar HTML component.",
+    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#avatar"
   },
   {
     "id": "api-button-astro",
@@ -950,26 +950,6 @@
     "url": "/html/api#description-list"
   },
   {
-    "id": "api-dialog-astro",
-    "title": "Dialog API",
-    "description": "Reference for Dialog Astro component.",
-    "headings": "actionsAlign - Alignment of the actions slot. closedby \"any\" | \"closerequest\" | \"none\" - header content actions default Any content not assigned to a named slot.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#dialog"
-  },
-  {
-    "id": "api-dialog-html",
-    "title": "Dialog API",
-    "description": "Reference for Dialog HTML component.",
-    "headings": "Styles .ui-dialog.ui-card.ui-elevated Included The dialog uses card styles by default. Closed by closedby attribute - The attribute used to control close behavior.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#dialog"
-  },
-  {
     "id": "api-divider-astro",
     "title": "Divider API",
     "description": "Reference for Divider Astro component.",
@@ -988,6 +968,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#divider"
+  },
+  {
+    "id": "api-dialog-astro",
+    "title": "Dialog API",
+    "description": "Reference for Dialog Astro component.",
+    "headings": "actionsAlign - Alignment of the actions slot. closedby \"any\" | \"closerequest\" | \"none\" - header content actions default Any content not assigned to a named slot.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#dialog"
+  },
+  {
+    "id": "api-dialog-html",
+    "title": "Dialog API",
+    "description": "Reference for Dialog HTML component.",
+    "headings": "Styles .ui-dialog.ui-card.ui-elevated Included The dialog uses card styles by default. Closed by closedby attribute - The attribute used to control close behavior.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#dialog"
   },
   {
     "id": "api-drawer-astro",

@@ -165,8 +165,8 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 ### 5.3 `<UICallout>` (Alerts & Info)
 
 - **Severity**: `ok`, `warning`, `critical`, or default (blue).
-- **Wrapping**: Always wrap in `<div class="not-rich-text">`.
-- **Content**: If multiple paragraphs/lists, wrap content in `<div class="rich-text">`.
+- **Wrapping**: Always wrap in `<div class="ui-not-rich-text">`.
+- **Content**: If multiple paragraphs/lists, wrap content in `<div class="ui-rich-text">`.
 
 ### 5.4 Anatomy Section
 

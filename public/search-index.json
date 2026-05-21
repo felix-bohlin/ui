@@ -910,26 +910,6 @@
     "url": "/html/api#chip"
   },
   {
-    "id": "api-classic-select-astro",
-    "title": "Classic Select API",
-    "description": "Reference for Classic Select Astro component.",
-    "headings": "disabled boolean - Select disabled state. critical boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#classic-select"
-  },
-  {
-    "id": "api-classic-select-html",
-    "title": "Classic Select API",
-    "description": "Reference for Classic Select HTML component.",
-    "headings": "Sizes .ui-small - The size of the element. Variants default, .ui-filled - The variant to use.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#classic-select"
-  },
-  {
     "id": "api-description-list-astro",
     "title": "Description List API",
     "description": "Reference for Description List Astro component.",
@@ -948,6 +928,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#description-list"
+  },
+  {
+    "id": "api-classic-select-astro",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select Astro component.",
+    "headings": "disabled boolean - Select disabled state. critical boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#classic-select"
+  },
+  {
+    "id": "api-classic-select-html",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select HTML component.",
+    "headings": "Sizes .ui-small - The size of the element. Variants default, .ui-filled - The variant to use.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#classic-select"
   },
   {
     "id": "api-dialog-astro",
@@ -1130,26 +1130,6 @@
     "url": "/html/api#range"
   },
   {
-    "id": "api-select-astro",
-    "title": "Select API",
-    "description": "Reference for Select Astro component.",
-    "headings": "dense boolean false Select dense state. disabled boolean - Select disabled state. description string - Description text displayed above the select. endText string - Supporting text displayed below the select. critical boolean - items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. spread boolean false variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select. default label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#select"
-  },
-  {
-    "id": "api-select-html",
-    "title": "Select API",
-    "description": "Reference for Select HTML component.",
-    "headings": "Children - Direct children of the root element. Field children - Layout .ui-spread, default - Sizes .ui-small - The size of the element. Variants default, .ui-filled - The variant to use. Validation [data-invalid] -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#select"
-  },
-  {
     "id": "api-switch-astro",
     "title": "Switch API",
     "description": "Reference for Switch Astro component.",
@@ -1168,6 +1148,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#switch"
+  },
+  {
+    "id": "api-select-astro",
+    "title": "Select API",
+    "description": "Reference for Select Astro component.",
+    "headings": "dense boolean false Select dense state. disabled boolean - Select disabled state. description string - Description text displayed above the select. endText string - Supporting text displayed below the select. critical boolean - items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. spread boolean false variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select. default label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#select"
+  },
+  {
+    "id": "api-select-html",
+    "title": "Select API",
+    "description": "Reference for Select HTML component.",
+    "headings": "Children - Direct children of the root element. Field children - Layout .ui-spread, default - Sizes .ui-small - The size of the element. Variants default, .ui-filled - The variant to use. Validation [data-invalid] -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#select"
   },
   {
     "id": "api-table-astro",

@@ -18,7 +18,8 @@
       margin: 0;
       padding: 0;
 
-      dt {
+      dt,
+      .ui-term {
         display: block;
         font-weight: 700;
         overflow: hidden;
@@ -39,7 +40,8 @@
         gap: var(--size-1);
         grid-template-columns: 1fr auto;
 
-        dt {
+        dt,
+        .ui-term {
           inline-size: max-content;
 
           &::after {
@@ -56,7 +58,8 @@
       &.ui-bordered .ui-item {
         grid-template-columns: auto 1fr auto;
 
-        dt {
+        dt,
+        .ui-term {
           order: 0;
         }
 

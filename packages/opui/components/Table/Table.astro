@@ -10,6 +10,9 @@ export const title = "Table"
 const { class: className, variant, ...rest } = Astro.props
 ---
 
-<table class:list={[className, variant && `ui-${variant}`]} {...rest}>
+<table
+  class:list={["ui-table", className, variant && `ui-${variant}`]}
+  {...rest}
+>
   <slot />
 </table>

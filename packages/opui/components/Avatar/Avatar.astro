@@ -6,7 +6,6 @@ type Props = {
   class?: string
   href?: string
   isGroup?: boolean
-  spacing?: "small" | "x-small"
   src?: string
   variant?: "squared" | "rounded" | "squircle"
 }
@@ -19,7 +18,6 @@ const {
   class: className,
   href,
   isGroup,
-  spacing,
   src,
   variant,
   ...rest
@@ -33,10 +31,6 @@ const Tag = as || (href ? "a" : "div")
   class:list={[
     { "ui-avatar": !isGroup },
     !isGroup && variant && `ui-${variant}`,
-    {
-      "gap-small": isGroup && spacing === "small",
-      "gap-x-small": isGroup && spacing === "x-small",
-    },
     className,
   ]}
   href={href}

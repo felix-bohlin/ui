@@ -22,19 +22,23 @@
       &:checked {
 
         /* Checked Tab */
-        &+[role="tab"] {
+        &+[role="tab"],
+        &+.ui-tab-label {
           border-block-end-color: var(--_accent-color);
           color: var(--_accent-color);
 
           /* Checked Panel */
-          &+[role="tabpanel"] {
+          &+[role="tabpanel"],
+          &+.ui-tab-panel {
             display: block;
           }
         }
       }
 
       &:focus-visible {
-        &+[role="tab"] {
+
+        &+[role="tab"],
+        &+.ui-tab-label {
           --focus-ring-color: var(--text-muted);
           --focus-ring-offset: calc(-1 * var(--size-2));
           outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
@@ -44,7 +48,8 @@
     }
 
     /* Tab */
-    &>[role="tab"] {
+    &>[role="tab"],
+    &>.ui-tab-label {
       align-items: center;
       background-color: transparent;
       border-bottom: 2px solid transparent;
@@ -68,7 +73,8 @@
     }
 
     /* Tab Panel */
-    &>[role="tabpanel"] {
+    &>[role="tabpanel"],
+    &>.ui-tab-panel {
       display: none;
       inline-size: 100%;
       order: 2;

@@ -910,26 +910,6 @@
     "url": "/html/api#chip"
   },
   {
-    "id": "api-description-list-astro",
-    "title": "Description List API",
-    "description": "Reference for Description List Astro component.",
-    "headings": "bordered boolean | \"dotted\" - class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#description-list"
-  },
-  {
-    "id": "api-description-list-html",
-    "title": "Description List API",
-    "description": "Reference for Description List HTML component.",
-    "headings": "Bordered -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#description-list"
-  },
-  {
     "id": "api-classic-select-astro",
     "title": "Classic Select API",
     "description": "Reference for Classic Select Astro component.",
@@ -948,6 +928,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#classic-select"
+  },
+  {
+    "id": "api-description-list-astro",
+    "title": "Description List API",
+    "description": "Reference for Description List Astro component.",
+    "headings": "bordered boolean | \"dotted\" - class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#description-list"
+  },
+  {
+    "id": "api-description-list-html",
+    "title": "Description List API",
+    "description": "Reference for Description List HTML component.",
+    "headings": "Bordered -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#description-list"
   },
   {
     "id": "api-dialog-astro",
@@ -1130,26 +1130,6 @@
     "url": "/html/api#range"
   },
   {
-    "id": "api-switch-astro",
-    "title": "Switch API",
-    "description": "Reference for Switch Astro component.",
-    "headings": "aria-label string - aria-labelledby string - ID of an external element that labels the switch. checked boolean false Whether the switch is checked. disabled boolean false Whether the switch is disabled. critical boolean false Switch error state. hideLabel boolean false Visually hides the label but keeps it accessible. required boolean false Whether the switch is required. small boolean false Reduces the size of the switch. spread boolean false Spreads the label and switch to opposite ends. stack boolean false Labels are stacked under the element. default The label text for the switch. end-text",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#switch"
-  },
-  {
-    "id": "api-switch-html",
-    "title": "Switch API",
-    "description": "Reference for Switch HTML component.",
-    "headings": "Children - Optional children. Sizes .ui-small, default - The size of the element. Layout .ui-spread, .ui-stack, default\n      - Validation .ui-critical - When applied, error styles are shown.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#switch"
-  },
-  {
     "id": "api-select-astro",
     "title": "Select API",
     "description": "Reference for Select Astro component.",
@@ -1168,6 +1148,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#select"
+  },
+  {
+    "id": "api-switch-astro",
+    "title": "Switch API",
+    "description": "Reference for Switch Astro component.",
+    "headings": "aria-label string - aria-labelledby string - ID of an external element that labels the switch. checked boolean false Whether the switch is checked. disabled boolean false Whether the switch is disabled. critical boolean false Switch error state. hideLabel boolean false Visually hides the label but keeps it accessible. required boolean false Whether the switch is required. small boolean false Reduces the size of the switch. spread boolean false Spreads the label and switch to opposite ends. stack boolean false Labels are stacked under the element. default The label text for the switch. end-text",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#switch"
+  },
+  {
+    "id": "api-switch-html",
+    "title": "Switch API",
+    "description": "Reference for Switch HTML component.",
+    "headings": "Children - Optional children. Sizes .ui-small, default - The size of the element. Layout .ui-spread, .ui-stack, default\n      - Validation .ui-critical - When applied, error styles are shown.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#switch"
   },
   {
     "id": "api-table-astro",

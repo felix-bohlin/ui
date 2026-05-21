@@ -9,16 +9,17 @@ export type Props = {
   endText?: string
 }
 
-export type Slots =
-  | "description"
-  | "footer"
-  | "header"
-  | "label"
-  | "prefix"
-  | "startText"
-  | "suffix"
-  | "endText"
-  | "supportingText"
+export type Slots<S> = {
+  description: string | S
+  footer: string | S
+  header: string | S
+  label: string | S
+  prefix: string | S
+  startText: string | S
+  suffix: string | S
+  endText: string | S
+  supportingText: string | S
+}
 
 export type TextareaProps =
   | "cols"

@@ -10,16 +10,17 @@ export type Props = {
   startText?: string
 }
 
-export type Slots =
-  | "description"
-  | "endText"
-  | "footer"
-  | "header"
-  | "label"
-  | "prefix"
-  | "startText"
-  | "suffix"
-  | "supportingText"
+export type Slots<S> = {
+  description: string | S
+  endText: string | S
+  footer: string | S
+  header: string | S
+  label: string | S
+  prefix: string | S
+  startText: string | S
+  suffix: string | S
+  supportingText: string | S
+}
 
 export type InputProps =
   | "disabled"

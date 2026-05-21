@@ -25,7 +25,11 @@
 >
   {#if header}
     <hgroup>
-      {@render header()}
+      {#if typeof header === "string"}
+        {header}
+      {:else}
+        {@render header()}
+      {/if}
     </hgroup>
   {/if}
   {#if content}

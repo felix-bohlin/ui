@@ -9,7 +9,6 @@ export type SwitchProps = {
 export type SwitchSlots<S> = {
   children?: S
   endText?: string | S
-  default?: S
   iconUnchecked?: S
   iconChecked?: S
 }

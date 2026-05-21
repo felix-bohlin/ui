@@ -6,7 +6,7 @@ type InputProps = {
   type?: SvelteHTMLElements["input"]["type"] | "numeric"
 }
 
-type Snippets = Partial<Record<Base.Slots, string | Snippet>>
+type Snippets = Base.Slots<Snippet>
 
 export type Props =
   // Unique component props, except snippets

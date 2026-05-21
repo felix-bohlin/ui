@@ -15,7 +15,7 @@ When you visibly want to hide an element but make it accessible for screen reade
 
   /*
 Scroll-lock
-Add `.scroll-lock` to any element that uses the [open] attribute (native <dialog>,
+Add `.ui-scroll-lock` to any element that uses the [open] attribute (native <dialog>,
 <details>, or any custom element). When that element is open, the page is locked.
 */
   html:has(.ui-scroll-lock[open]) {

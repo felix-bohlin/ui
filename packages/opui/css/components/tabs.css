@@ -10,7 +10,7 @@
     position: relative;
 
     &>.ui-tab-input[type="radio"] {
-      /* utils > .sr-only */
+      /* utils > .ui-sr-only */
       /* TODO: use mixin for this when available */
       block-size: 1px;
       clip-path: inset(50%);

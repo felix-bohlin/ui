@@ -64,7 +64,7 @@
     --border-width: 1px;
 
     /* 9. Focus ring — components consume these and may override locally
-       (e.g. .button.filled { --focus-ring-offset: 3px; }, .checkbox { --focus-ring-offset: 0; }) */
+       (e.g. .ui-button.ui-filled { --focus-ring-offset: 3px; }, .ui-checkbox { --focus-ring-offset: 0; }) */
     --focus-ring-color: var(--primary);
     --focus-ring-width: 2px;
     --focus-ring-offset: 2px;

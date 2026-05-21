@@ -4,7 +4,6 @@ import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
 import { Accordion as UIAccordion } from "@opui/astro"
-import { Callout as UICallout } from "@opui/astro"
 
 import ButtonGroupCSS from "@opui/css/components/button-group.css?raw"
 import ButtonGroupAPIAstro from "../../component-api/button-group/Astro.astro"
@@ -88,7 +87,8 @@ import Conditional from "../../components/Conditional.astro"
         prop.
       </Fragment>
       <Fragment slot="html">
-        Change the appearance of the entire group with the <code>.ui-outlined</code
+        Change the appearance of the entire group with the <code
+          >.ui-outlined</code
         >, <code>.ui-tonal</code>, and <code>.ui-filled</code> classes.
       </Fragment>
     </Conditional>
@@ -104,8 +104,8 @@ import Conditional from "../../components/Conditional.astro"
         > to recolor the entire group. The default is a neutral gray.
       </Fragment>
       <Fragment slot="html">
-        Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to recolor the
-        entire group. The default is a neutral gray.
+        Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to recolor
+        the entire group. The default is a neutral gray.
       </Fragment>
     </Conditional>
     <AutoExample name="Colors" column centered />
@@ -130,7 +130,8 @@ import Conditional from "../../components/Conditional.astro"
         prop.
       </Fragment>
       <Fragment slot="html">
-        Adjust the size of all buttons in the group using the <code>.ui-small</code
+        Adjust the size of all buttons in the group using the <code
+          >.ui-small</code
         > and <code>.ui-large</code> classes.
       </Fragment>
     </Conditional>
@@ -175,12 +176,14 @@ import Conditional from "../../components/Conditional.astro"
   <Fragment slot="anatomy">
     <ol>
       <li>
-        Container: <code>&lt;element role="group" class="ui-button-group"&gt;</code
+        Container: <code
+          >&lt;element role="group" class="ui-button-group"&gt;</code
         >
       </li>
       <li>
         Buttons: <DocLink href="/components/button" class="ui-link"
-          >Button</DocLink>
+          >Button</DocLink
+        >
       </li>
     </ol>
 

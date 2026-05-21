@@ -5,13 +5,6 @@ import AutoExample from "../../components/AutoExample.astro"
 import { Callout as UICallout, Switch as UISwitch } from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
 
-import Variants from "../../component-examples/text-field/Variants.astro"
-import Sizes from "../../component-examples/text-field/Sizes.astro"
-import SupportingText from "../../component-examples/text-field/SupportingText.astro"
-import Affix from "../../component-examples/text-field/Affix.astro"
-import Headers from "../../component-examples/text-field/Headers.astro"
-import Validation from "../../component-examples/text-field/Validation.astro"
-import AutoFit from "../../component-examples/text-field/AutoFit.astro"
 import InputTypes from "../../component-examples/text-field/InputTypes.astro"
 import InputTypesAstro from "../../component-examples/text-field/InputTypes.astro?raw"
 import InputTypesHtml from "../../component-examples/text-field/InputTypes.html?raw"
@@ -32,7 +25,6 @@ import NoLabel from "../../component-examples/text-field/NoLabel.astro"
 import NoLabelAstro from "../../component-examples/text-field/NoLabel.astro?raw"
 import NoLabelHtml from "../../component-examples/text-field/NoLabel.html?raw"
 
-import Orientation from "../../component-examples/text-field/Orientation.astro"
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextFieldCSS from "@opui/css/components/text-input.css?raw"
 
@@ -92,10 +84,6 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
   ]}
 >
   <Fragment slot="title">Text field</Fragment>
-  <Fragment slot="preamble">
-    An input for single-line text data. Basic text fields with labels, field
-    descriptions, and validation states.
-  </Fragment>
 
   <section>
     <h2 id="variants">Variants</h2>
@@ -362,7 +350,7 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
 
   <Fragment slot="anatomy">
     <ol>
-      <li><code>label.text-field</code>: Container element</li>
+      <li><code>label.ui-text-field</code>: Container element</li>
       <li><code>.ui-label</code>: Field label element</li>
       <li><code>.ui-field</code>: The boxed input area</li>
       <li>

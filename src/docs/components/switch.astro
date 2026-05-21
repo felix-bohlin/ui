@@ -76,9 +76,10 @@ import Conditional from "../../components/Conditional.astro"
   <section>
     <h2 id="visible-label">Visible label</h2>
     <p>
-      Render the label text inside an element with a <code>.ui-label</code> class. Also,
-      don't miss the info on label <a href="#accessibility" class="ui-link"
-        >accessibility</a
+      Render the label text inside an element with a <code>.ui-label</code> class.
+      Also, don't miss the info on label <a
+        href="#accessibility"
+        class="ui-link">accessibility</a
       >.
     </p>
 
@@ -114,7 +115,7 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-spread</code> class to the <code
-          >&lt;label.switch&gt;</code
+          >&lt;label class="ui-switch"&gt;</code
         >
         to push the label to the left and the switch to the right. This is useful
         for full-width items like lists and menus.
@@ -132,7 +133,7 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-small</code> class on the <code
-          >&lt;label.switch&gt;</code
+          >&lt;label class="ui-switch"&gt;</code
         >
         for a smaller Switch variant.
       </Fragment>
@@ -195,7 +196,7 @@ import Conditional from "../../components/Conditional.astro"
     <Conditional>
       <p slot="html">
         Attach the <code>data-invalid</code> attribute to your <code
-          >fieldset.fieldset</code
+          >&lt;fieldset class="ui-fieldset"&gt;</code
         > element.
       </p>
       <p slot="astro">

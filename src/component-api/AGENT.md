@@ -12,11 +12,11 @@ When creating or updating a component API table, ensure:
 - [ ] **Table Sub-components**: Use `Table.Head`, `Table.Body`, `Table.Row`, `Table.Cell`, `Table.HeaderCell`, `Table.ColumnGroup`, and `Table.Column` for table structure.
 - [ ] **Column Widths**: Use `Table.ColumnGroup` and `Table.Column` to specify widths: `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 300px"`.
 - [ ] **CSS Verified**: All modifiers and selectors (e.g., `& > .content`) exist in the component's CSS file in `packages/opui/css/components/`.
-- [ ] **Dots on Classes**: Every CSS class modifier starts with a dot (e.g., `.primary`).
+- [ ] **Dots on Classes**: Every CSS class modifier starts with a dot (e.g., `.ui-primary`).
 - [ ] **Code Tags**: All CSS classes, selectors, HTML tags, and Astro component props are wrapped in `<code>` tags (exception: `default` and group names like `Slots`).
 - [ ] **Standard Types**: Use `Base` or `Children`, `Variants`, and `Sizes` where appropriate.
 - [ ] **Default Keyword**: Use lowercase `default` (no tags, no dot) in the **Modifiers** column when a property has a baseline state with no specific class.
-- [ ] **Default Column**: Use a hyphen `-` if there is no default value. If there is a default, match the formatting used in the **Type** or **Modifiers** column (e.g., `<code>"text"</code>` or `<code>.primary</code>`).
+- [ ] **Default Column**: Use a hyphen `-` if there is no default value. If there is a default, match the formatting used in the **Type** or **Modifiers** column (e.g., `<code>"text"</code>` or `<code>.ui-primary</code>`).
 - [ ] **Short Descriptions**: All descriptions are very short and concise (often a single sentence fragment).
 
 ## Workflow
@@ -25,9 +25,9 @@ When creating or updating a component API table, ensure:
 2.  **Table Format**:
     - **Astro API**: Use `Prop`, `Type`, `Default`, and `Description`.
     - **HTML API**: Use `Type`, `Modifiers`, `Default`, and `Description`.
-3.  **Class Prefixing**: **CRITICAL**: Any modifier that represents a CSS class in an HTML API table must be prefixed with a dot (e.g., `.primary`, not `primary`).
+3.  **Class Prefixing**: **CRITICAL**: Any modifier that represents a CSS class in an HTML API table must use the `ui-` prefix and a leading dot (e.g., `.ui-primary`, not `primary` or `.primary`).
     - **Note**: The keyword `default` is not a class and should NOT have a dot.
-4.  **Code Tags**: All CSS classes, selectors, HTML tags, and Astro component props must be wrapped in `<code>` tags (e.g., `<code>.text</code>`, `<code>& > svg</code>`, `<code>"outlined"</code>`, `<code>size</code>`).
+4.  **Code Tags**: All CSS classes, selectors, HTML tags, and Astro component props must be wrapped in `<code>` tags (e.g., `<code>.ui-text</code>`, `<code>& > svg</code>`, `<code>"outlined"</code>`, `<code>size</code>`).
     - **Exception**: The keyword `default` and group names (like `Slots`, `Children`, `Variants`, `Sizes`) are NEVER wrapped in `<code>` tags.
     - **No Code Sausages**: Do not create long `<code>` tags with multiple values. Split them into individual `<code>` tags (e.g., `<code>"text"</code>`, `<code>"outlined"</code>` instead of `<code>"text" | "outlined"</code>`).
 5.  **Astro Types**: For Astro components, use TypeScript-like types in the **Type** column (e.g., `<code>"small"</code>`, `<code>"large"</code>`, `<code>boolean</code>`). Use commas as delimiters.

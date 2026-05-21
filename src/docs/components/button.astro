@@ -40,9 +40,6 @@ import Conditional from "../../components/Conditional.astro"
   installationTabs={[{ title: "button.css", code: ButtonCSS, lang: "css" }]}
 >
   <Fragment slot="title">Button</Fragment>
-  <Fragment slot="preamble">
-    Buttons allow users to take actions, and make choices, with a single tap.
-  </Fragment>
 
   <section>
     <h2 id="variants">Variants</h2>
@@ -52,7 +49,8 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         Change the button variant with the <code>.ui-outlined</code>, <code
->.ui-tonal</code>, and <code>.ui-filled</code> classes.
+          >.ui-tonal</code
+        >, and <code>.ui-filled</code> classes.
       </Fragment>
     </Conditional>
     <AutoExample name="Variants" column spacious />
@@ -67,8 +65,8 @@ import Conditional from "../../components/Conditional.astro"
         > or <code>critical</code>. The default is a neutral gray.
       </Fragment>
       <Fragment slot="html">
-        Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to apply a brand
-        or destructive color. The default is a neutral gray.
+        Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to apply
+        a brand or destructive color. The default is a neutral gray.
       </Fragment>
     </Conditional>
     <AutoExample name="Colors" column spacious />
@@ -116,7 +114,9 @@ import Conditional from "../../components/Conditional.astro"
         Resize any button using the <code>size</code> prop.
       </Fragment>
       <Fragment slot="html">
-        Resize any button with the <code>.ui-small</code> and <code>.ui-large</code>
+        Resize any button with the <code>.ui-small</code> and <code
+          >.ui-large</code
+        >
         classes.
       </Fragment>
     </Conditional>
@@ -136,7 +136,8 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         Add disabled styling with the <code>disabled</code> attribute or the <code
->.ui-disabled</code> class.
+          >.ui-disabled</code
+        > class.
       </Fragment>
     </Conditional>
     <Example column>

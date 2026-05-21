@@ -11,9 +11,6 @@ import ExampleUsage from "../../component-examples/drawer/Usage.astro"
 import ExampleUsageAstro from "/src/component-examples/drawer/Usage.astro?raw"
 import ExampleUsageHTML from "/src/component-examples/drawer/Usage.html?raw"
 
-import ExampleBlurredAstro from "/src/component-examples/drawer/Blurred.astro?raw"
-import ExampleBlurredHTML from "/src/component-examples/drawer/Blurred.html?raw"
-
 import Conditional from "../../components/Conditional.astro"
 ---
 
@@ -332,3 +329,34 @@ import Conditional from "../../components/Conditional.astro"
   setupDrawerBackdropControls()
   document.addEventListener("astro:after-swap", setupDrawerBackdropControls)
 </script>
+
+<style is:global>
+  .drawer-examples {
+    display: grid;
+    grid-template-areas:
+      ". top ."
+      "left . right"
+      ". bottom .";
+    gap: var(--size-3);
+    justify-items: center;
+    align-items: center;
+    margin: var(--size-8) auto;
+    width: fit-content;
+  }
+
+  .drawer-examples .top {
+    grid-area: top;
+  }
+
+  .drawer-examples .left {
+    grid-area: left;
+  }
+
+  .drawer-examples .right {
+    grid-area: right;
+  }
+
+  .drawer-examples .bottom {
+    grid-area: bottom;
+  }
+</style>

@@ -27,7 +27,7 @@
 
 		input[type="checkbox"],
 		input[type="radio"] {
-			/* utils.css > .sr-only */
+			/* utils.css > .ui-sr-only */
 			block-size: 1px;
 			clip-path: inset(50%);
 			inline-size: 1px;

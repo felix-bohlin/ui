@@ -156,7 +156,7 @@
 		}
 	}
 
-	/* Scroll-lock is provided by the shared `.scroll-lock` utility in core/utils.css.
+	/* Scroll-lock is provided by the shared `.ui-scroll-lock` utility in core/utils.css.
 	   This carve-out re-enables page scrolling when a transparent-backdrop drawer is
 	   open on wide viewports (where the drawer doesn't visually cover the page). */
 	html:has(dialog.ui-drawer.ui-scroll-lock[open].ui-backdrop-transparent) {

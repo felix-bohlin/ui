@@ -4,14 +4,6 @@ import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 
-import Variants from "../../component-examples/textarea/Variants.astro"
-import Sizes from "../../component-examples/textarea/Sizes.astro"
-import SupportingText from "../../component-examples/textarea/SupportingText.astro"
-import Affix from "../../component-examples/textarea/Affix.astro"
-import Headers from "../../component-examples/textarea/Headers.astro"
-import Validation from "../../component-examples/textarea/Validation.astro"
-import AutoFit from "../../component-examples/textarea/AutoFit.astro"
-import Orientation from "../../component-examples/textarea/Orientation.astro"
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
 
@@ -67,10 +59,6 @@ import TextareaAPIHTML from "../../component-api/textarea/HTML.astro"
   ]}
 >
   <Fragment slot="title">Textarea</Fragment>
-  <Fragment slot="preamble">
-    An input for multi-line text data. Basic textareas with labels, supporting
-    text, and validation states.
-  </Fragment>
 
   <section>
     <h2 id="variants">Variants</h2>
@@ -96,7 +84,9 @@ import TextareaAPIHTML from "../../component-api/textarea/HTML.astro"
         Header and footer are particularly useful for filenames and character counters.
       </Fragment>
       <Fragment slot="html">
-        Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code>.ui-header</code>, or
+        Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
+          >.ui-header</code
+        >, or
         <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
         inside the textarea's border.
       </Fragment>
@@ -138,8 +128,8 @@ import TextareaAPIHTML from "../../component-api/textarea/HTML.astro"
         on narrow containers.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to display the label and description on
-        the left with the textarea on the right. The layout collapses to a column
+        Add the <code>.ui-spread</code> class to display the label and description
+        on the left with the textarea on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
     </Conditional>
@@ -158,17 +148,19 @@ import TextareaAPIHTML from "../../component-api/textarea/HTML.astro"
 
   <Fragment slot="anatomy">
     <ol>
-      <li><code>label.textarea</code>: Container element</li>
+      <li><code>label.ui-textarea</code>: Container element</li>
       <li><code>.ui-label</code>: Field label element</li>
       <li><code>.ui-field</code>: The boxed input area</li>
       <li>
-        <code>.ui-header</code>: Optional inside-border header strip (with divider)
+        <code>.ui-header</code>: Optional inside-border header strip (with
+        divider)
       </li>
       <li><code>.ui-prefix</code>: Optional inline-start affix</li>
       <li><code>&lt;textarea&gt;</code>: Textarea element</li>
       <li><code>.ui-suffix</code>: Optional inline-end affix</li>
       <li>
-        <code>.ui-footer</code>: Optional inside-border footer strip (with divider)
+        <code>.ui-footer</code>: Optional inside-border footer strip (with
+        divider)
       </li>
       <li><code>.ui-end-text</code>: Supporting text element</li>
     </ol>

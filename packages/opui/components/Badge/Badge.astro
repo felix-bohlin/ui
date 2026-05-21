@@ -48,7 +48,12 @@ const positionArea =
   {...rest}
 >
   <slot />
-  <span class="ui-badge-indicator" slot="anchored" aria-label={label?.toString()}
-    >{dot ? "" : label}</span
+  <span
+    class="ui-badge-indicator"
+    slot="anchored"
+    aria-label={label?.toString()}
   >
+    {dot ? "" : label}
+    {!dot && <slot name="indicator" />}
+  </span>
 </Anchor>

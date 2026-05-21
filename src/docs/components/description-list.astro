@@ -44,10 +44,6 @@ import Conditional from "../../components/Conditional.astro"
   ]}
 >
   <Fragment slot="title">Description list</Fragment>
-  <Fragment slot="preamble">
-    Description lists are used to display a list of terms and their
-    descriptions.
-  </Fragment>
 
   <AutoExample name="Default" />
 
@@ -63,8 +59,8 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         <p>
-          Add <code>.ui-bordered</code> to the <code>&lt;dl&gt;</code> element. For a
-          dotted style, also add <code>.ui-dotted</code>.
+          Add <code>.ui-bordered</code> to the <code>&lt;dl&gt;</code> element. For
+          a dotted style, also add <code>.ui-dotted</code>.
         </p>
       </Fragment>
     </Conditional>
@@ -95,8 +91,8 @@ import Conditional from "../../components/Conditional.astro"
           <li>Term-description group (<code>&lt;div&gt;</code>)</li>
           <li>Term (<code>&lt;dt&gt;</code>)</li>
           <li>
-            Separator — rendered via CSS when <code>.ui-bordered</code> is set on the
-            list (optional)
+            Separator — rendered via CSS when <code>.ui-bordered</code> is set on
+            the list (optional)
           </li>
           <li>Description (<code>&lt;dd&gt;</code>)</li>
         </ol>

@@ -7,6 +7,7 @@ import JavascriptDemo from "../../component-examples/toast/Javascript.astro"
 import JavascriptHtml from "../../component-examples/toast/Javascript.html?raw"
 import JavascriptJS from "../../component-examples/toast/Javascript.js?raw"
 import ToastCSS from "@opui/css/components/toast.css?raw"
+import { Badge, Callout as UICallout } from "@opui/astro"
 ---
 
 <Component
@@ -27,10 +28,16 @@ import ToastCSS from "@opui/css/components/toast.css?raw"
   ]}
   installationTabs={[{ title: "toast.css", code: ToastCSS, lang: "css" }]}
 >
-  <Fragment slot="title">Toast</Fragment>
-  <Fragment slot="preamble">
-    Non-interruptive and stackable notifications. They pop up like... toast.
+  <Fragment slot="title">
+    <Badge color="warning" label="ALPHA">Toast</Badge>
   </Fragment>
+
+  <div class="ui-not-rich-text">
+    <UICallout severity="warning">
+      <Fragment slot="title">Alpha stage</Fragment>
+      <p>This is in no way finished, just an idea put out in the open.</p>
+    </UICallout>
+  </div>
 
   <section>
     <h2 id="how-it-works">How it works</h2>

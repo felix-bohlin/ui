@@ -1,6 +1,5 @@
 ---
 import Component from "../../layouts/Component.astro"
-import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example"
 
 import AutoExample from "../../components/AutoExample.astro"
@@ -55,18 +54,6 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     <p>
       A badge is a small status indicator that can be placed on other elements.
     </p>
-    <Conditional>
-      <Fragment slot="html">
-        Badge extends <DocLink href="/components/anchor">Anchor</DocLink>. Add <code
-          >.ui-anchor</code
-        > and <code>.ui-badge</code> classes to the container, wrap the indicator
-        in
-        <code>.ui-anchor-floating</code>.
-      </Fragment>
-      <Fragment slot="astro">
-        Use the <code>label</code> property to add content inside the Badge.
-      </Fragment>
-    </Conditional>
   </Fragment>
 
   <section>
@@ -81,6 +68,25 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     </Conditional>
 
     <AutoExample name="Variants" row />
+  </section>
+
+  <section>
+    <h2 id="indicator">Indicator</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set indicator text with the <code>label</code> prop or the <code
+          >indicator</code
+        > slot. The default slot holds the anchored element.
+      </Fragment>
+      <Fragment slot="html">
+        Put indicator text inside <code>.ui-badge-indicator</code>. The anchored
+        element is the badge's direct child before <code
+          >.ui-anchor-floating</code
+        >.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Indicator" row />
   </section>
 
   <section>
@@ -150,11 +156,17 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
   </section>
 
   <Fragment slot="anatomy">
-    <p>The badge component is composed of two main elements:</p>
-    <ol>
-      <li>Element to wrap</li>
-      <li>Badge</li>
-    </ol>
+    <Conditional>
+      <p slot="astro">
+        The badge is composed of an anchored element (default slot), and an
+        indicator (<code>label</code> prop or <code>indicator</code> slot).
+      </p>
+      <p slot="html">
+        The badge is composed of an anchored element and a <code
+          >.ui-badge-indicator</code
+        > inside <code>.ui-anchor-floating</code>.
+      </p>
+    </Conditional>
 
     <Example row>
       <Example.Preview code={BadgeAnatomy} />

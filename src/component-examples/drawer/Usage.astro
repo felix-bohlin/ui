@@ -152,31 +152,3 @@ import { Button, Drawer, DrawerHeader, DrawerFooter } from "@opui/astro"
     >
   </DrawerFooter>
 </Drawer>
-
-<style>
-  .drawer-examples {
-    display: grid;
-    grid-template-areas:
-      ". top ."
-      "left . right"
-      ". bottom .";
-    gap: var(--size-3);
-    justify-items: center;
-    align-items: center;
-    margin: var(--size-8) auto;
-    width: fit-content;
-  }
-
-  .top {
-    grid-area: top;
-  }
-  .left {
-    grid-area: left;
-  }
-  .right {
-    grid-area: right;
-  }
-  .bottom {
-    grid-area: bottom;
-  }
-</style>

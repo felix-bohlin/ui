@@ -21,16 +21,22 @@ import { Table } from "@opui/astro"
     <Table.Row>
       <Table.Cell><code>alignment</code></Table.Cell>
       <Table.Cell
-        ><code>"start-start" | "start-end" | "end-start" | "end-end"</code
+        ><code>"start-start"</code>, <code>"end-start"</code>, <code
+          >"end-end"</code
         ></Table.Cell
       >
-      <Table.Cell><code>"start-end"</code></Table.Cell>
-      <Table.Cell>Position of the badge relative to its container.</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Position of the badge relative to its container. Omit for the default
+        (centered on the end edge).</Table.Cell
+      >
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>color</code></Table.Cell>
       <Table.Cell
-        ><code>"critical" | "ok" | "good" | "warning"</code></Table.Cell
+        ><code>"critical"</code>, <code>"info"</code>, <code>"neutral"</code>, <code
+          >"success"</code
+        >, <code>"warning"</code></Table.Cell
       >
       <Table.Cell>-</Table.Cell>
       <Table.Cell>The color variant of the badge.</Table.Cell>
@@ -51,7 +57,36 @@ import { Table } from "@opui/astro"
       <Table.Cell><code>label</code></Table.Cell>
       <Table.Cell><code>string | number</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
-      <Table.Cell>Screen reader label for the badge.</Table.Cell>
+      <Table.Cell
+        >Visible badge text. Also sets <code>aria-label</code> on the indicator.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3>Slots</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Slot</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>default</Table.Cell>
+      <Table.Cell>The element the badge is anchored to.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>indicator</code></Table.Cell>
+      <Table.Cell
+        >Badge indicator content. Alternative to the <code>label</code> prop.</Table.Cell
+      >
     </Table.Row>
   </Table.Body>
 </Table>

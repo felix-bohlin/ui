@@ -30,8 +30,8 @@ const years = Object.keys(categorized)
   <section class="filter-section">
     <div class="filter-group">
       <header>
-        <h2 class="h3">Features</h2>
-        <button id="clear-features" class="button small" style="display: none;">
+        <h2 class="ui-h3">Features</h2>
+        <button id="clear-features" class="ui-button ui-small" style="display: none;">
           Clear
         </button>
       </header>
@@ -53,10 +53,10 @@ const years = Object.keys(categorized)
 
     <div class="filter-group">
       <header>
-        <h2 class="h3">Components</h2>
+        <h2 class="ui-h3">Components</h2>
         <button
           id="clear-components"
-          class="button small"
+          class="ui-button ui-small"
           style="display: none;"
         >
           Clear
@@ -80,8 +80,8 @@ const years = Object.keys(categorized)
 
     <div class="filter-group">
       <header>
-        <h2 class="h3">Supported since</h2>
-        <button id="clear-years" class="button small" style="display: none;">
+        <h2 class="ui-h3">Supported since</h2>
+        <button id="clear-years" class="ui-button ui-small" style="display: none;">
           Clear
         </button>
       </header>
@@ -183,7 +183,7 @@ const years = Object.keys(categorized)
       box-shadow: var(--shadow-1);
     }
 
-    &.disabled {
+    &.ui-disabled {
       opacity: 0.3;
       pointer-events: none;
       filter: grayscale(1);
@@ -333,7 +333,7 @@ const years = Object.keys(categorized)
       const isValid = validFeatureIds.has(id)
 
       chip.classList.toggle("selected", isSelected)
-      chip.classList.toggle("disabled", !isValid && !isSelected)
+      chip.classList.toggle("ui-disabled", !isValid && !isSelected)
     })
 
     componentChips.forEach((chip) => {
@@ -342,7 +342,7 @@ const years = Object.keys(categorized)
       const isValid = validComponentNames.has(id)
 
       chip.classList.toggle("selected", isSelected)
-      chip.classList.toggle("disabled", !isValid && !isSelected)
+      chip.classList.toggle("ui-disabled", !isValid && !isSelected)
     })
 
     yearChips.forEach((chip) => {
@@ -350,7 +350,7 @@ const years = Object.keys(categorized)
       const isSelected = state.selectedYears.has(id)
       const isValid = validYears.has(id)
       chip.classList.toggle("selected", isSelected)
-      chip.classList.toggle("disabled", !isValid && !isSelected)
+      chip.classList.toggle("ui-disabled", !isValid && !isSelected)
     })
 
     // C. Update Explorer Results
@@ -418,7 +418,7 @@ const years = Object.keys(categorized)
       const chip = (e.target as HTMLElement).closest(
         ".filter-chip",
       ) as HTMLElement
-      if (!chip || chip.classList.contains("disabled")) return
+      if (!chip || chip.classList.contains("ui-disabled")) return
 
       const id = chip.dataset.id!
       if (stateSet.has(id)) stateSet.delete(id)

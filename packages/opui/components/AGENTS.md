@@ -68,32 +68,33 @@ const { as: Tag = Astro.props.href ? "a" : "button", ...rest } = Astro.props
 - **Override**: Allow manual override via the `as` prop.
 
 ### Styling Inheritance
-Components should often inherit styles from others (e.g., `Dialog` looking like a `Card`). Use conditional classes to apply the inherited base class.
+Components should often inherit styles from others (e.g., `Dialog` looking like a `Card`). Use conditional classes to apply the inherited base class. All library classes are prefixed with `ui-`.
 
 ```astro
-<dialog class:list={["dialog", { card: variant }, variant, className]} {...rest}>
+<dialog class:list={["ui-dialog", { "ui-card": variant }, variant && `ui-${variant}`, className]} {...rest}>
 ```
 
 ---
 
 ## 3. Class Management
 
-Use `class:list` exclusively. Follow this order for readability:
-1.  **Component Base Class**: The primary CSS class (e.g., `"button"`).
-2.  **State Objects**: Boolean flags (e.g., `{ active, disabled, error }`).
-3.  **Variant Props**: Direct string values from props (e.g., `size`, `variant`).
-4.  **External Class**: Always include `className` at the end to allow for overrides.
+Use `class:list` exclusively. Every library-owned class is prefixed with `ui-`; the public prop API stays unprefixed (`<Button size="small" variant="outlined">`) and the component interpolates the prefix when rendering.
+
+Follow this order for readability:
+1.  **Component Base Class**: The primary CSS class, prefixed (e.g., `"ui-button"`).
+2.  **State Objects**: Boolean flags as quoted prefixed keys (e.g., `{ "ui-disabled": disabled }`).
+3.  **Variant Props**: Interpolate the prefix from the prop value (e.g., `size && \`ui-${size}\``).
+4.  **External Class**: Always include `className` at the end to allow for overrides. Do not prefix `className`.
 
 ```astro
 <div
   class:list={[
-    "chip",
+    "ui-chip",
     {
-      multiline: isMultiline,
-      selected,
+      "ui-multiline": isMultiline,
     },
-    size,
-    variant,
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
     className,
   ]}
 >
@@ -107,9 +108,9 @@ Use `class:list` exclusively. Follow this order for readability:
 For simple text-based components, provide both a `label` prop and a default slot.
 
 ```astro
-<div class="component">
+<div class="ui-component">
   { (label || Astro.slots.has("default")) && (
-    <span class="text">
+    <span class="ui-text">
       {label}
       <slot />
     </span>
@@ -121,10 +122,10 @@ For simple text-based components, provide both a `label` prop and a default slot
 Use named slots for specific functional areas. Check for existence before rendering wrapper tags.
 
 ```astro
-<div class="card">
+<div class="ui-card">
   {Astro.slots.has("header") && <header><slot name="header" /></header>}
   <slot />
-  {Astro.slots.has("actions") && <footer class="actions"><slot name="actions" /></footer>}
+  {Astro.slots.has("actions") && <footer class="ui-actions"><slot name="actions" /></footer>}
 </div>
 ```
 
@@ -136,10 +137,10 @@ Use named slots for specific functional areas. Check for existence before render
 Most inputs should be wrapped in a `<label>` to provide a larger hit area and built-in accessibility.
 
 ```astro
-<label class:list={["field", { disabled, error }]}>
-  <span class="label">{label}</span>
+<label class:list={["ui-field", { "ui-disabled": disabled, "ui-critical": error }]}>
+  <span class="ui-label">{label}</span>
   <input type="text" {...rest} />
-  {endText && <span class="end-text">{endText}</span>}
+  {endText && <span class="ui-end-text">{endText}</span>}
 </label>
 ```
 

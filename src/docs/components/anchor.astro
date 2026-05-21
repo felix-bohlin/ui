@@ -34,10 +34,9 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     </p>
     <Conditional>
       <Fragment slot="html">
-        Add the <code>.anchor</code> class to a container. The first child becomes
+        Add the <code>.ui-anchor</code> class to a container. The first child becomes
         the anchor target. Place floating content inside <code
-          >.anchor-floating</code
-        >. Use <code>--anchor-position-area</code> to control placement.
+>.ui-anchor-floating</code>. Use <code>--anchor-position-area</code> to control placement.
       </Fragment>
       <Fragment slot="astro">
         Use the default slot for the anchor target and the
@@ -59,7 +58,7 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     <Conditional as="p">
       <Fragment slot="html">
         Add <code>interestfor</code> on the trigger element pointing to the
-        <code>.anchor-floating</code> ID.
+        <code>.ui-anchor-floating</code> ID.
       </Fragment>
       <Fragment slot="astro">
         Set <code>trigger="hover"</code>. The component adds <code

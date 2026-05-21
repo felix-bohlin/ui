@@ -35,7 +35,7 @@ const positionArea = alignment
   : {}
 ---
 
-<span class:list={["anchor", className]} style={positionArea} {...rest}>
+<span class:list={["ui-anchor", className]} style={positionArea} {...rest}>
   {
     isHover ? (
       <span {...({ interestfor: id } as any)}>
@@ -45,7 +45,7 @@ const positionArea = alignment
       <slot />
     )
   }
-  <span class="anchor-floating" id={id} popover={isHover ? "hint" : undefined}>
+  <span class="ui-anchor-floating" id={id} popover={isHover ? "hint" : undefined}>
     <slot name="anchored" />
   </span>
 </span>

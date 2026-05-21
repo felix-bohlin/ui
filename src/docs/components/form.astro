@@ -91,7 +91,7 @@ import { DescriptionList } from "@opui/astro"
             >&lt;fieldset&gt;</code
           > and <code>&lt;legend&gt;</code>. Replace them with <code
             >&lt;div role="group"&gt;</code
-          > paired with a <code>&lt;span class="legend"&gt;</code> (or any heading)
+          > paired with a <code>&lt;span class="ui-legend"&gt;</code> (or any heading)
           to keep the visual treatment without the native semantics.
         </p>
       </Fragment>
@@ -105,7 +105,7 @@ import { DescriptionList } from "@opui/astro"
           <DescriptionList.Item>
             <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term
             >
-            <hr class="dotted" />
+            <hr class="ui-dotted" />
             <DescriptionList.Description>
               to describe what it's about.
             </DescriptionList.Description>
@@ -114,14 +114,14 @@ import { DescriptionList } from "@opui/astro"
             <DescriptionList.Term
               ><code>FieldDescription</code>(optional)</DescriptionList.Term
             >
-            <hr class="dotted" />
+            <hr class="ui-dotted" />
             <DescriptionList.Description>
               to give extra context about the fieldset.
             </DescriptionList.Description>
           </DescriptionList.Item>
           <DescriptionList.Item>
             <DescriptionList.Term><code>FieldGroup</code></DescriptionList.Term>
-            <hr class="dotted" />
+            <hr class="ui-dotted" />
             <DescriptionList.Description>
               groups related fields.
             </DescriptionList.Description>
@@ -132,25 +132,26 @@ import { DescriptionList } from "@opui/astro"
             <DescriptionList.Term
               ><code>&lt;legend&gt;</code></DescriptionList.Term
             >
-            <hr class="dotted" />
+            <hr class="ui-dotted" />
             <DescriptionList.Description>
               to describe what it's about.
             </DescriptionList.Description>
           </DescriptionList.Item>
           <DescriptionList.Item>
             <DescriptionList.Term
-              ><code>.field-description</code>(optional)</DescriptionList.Term
+              ><code>.ui-field-description</code
+              >(optional)</DescriptionList.Term
             >
-            <hr class="dotted" />
+            <hr class="ui-dotted" />
             <DescriptionList.Description>
               to give extra context about the fieldset.
             </DescriptionList.Description>
           </DescriptionList.Item>
           <DescriptionList.Item>
             <DescriptionList.Term
-              ><code>.field-group</code></DescriptionList.Term
+              ><code>.ui-field-group</code></DescriptionList.Term
             >
-            <hr class="dotted" />
+            <hr class="ui-dotted" />
             <DescriptionList.Description>
               groups related fields.
             </DescriptionList.Description>
@@ -181,8 +182,8 @@ import { DescriptionList } from "@opui/astro"
   <section>
     <h2 id="field-description">Field Description</h2>
     <p>
-      Use <code>FieldDescription</code> (or <code>.field-description</code>) to
-      give extra context about the fieldset.
+      Use <code>FieldDescription</code> (or <code>.ui-field-description</code>)
+      to give extra context about the fieldset.
     </p>
     <AutoExample name="FieldDescription" />
   </section>
@@ -195,7 +196,7 @@ import { DescriptionList } from "@opui/astro"
         <code>name</code> to all nested inputs.
       </p>
       <p slot="html">
-        Use <code>.field-group</code> to wrap related fields.
+        Use <code>.ui-field-group</code> to wrap related fields.
       </p>
     </Conditional>
 
@@ -208,7 +209,7 @@ import { DescriptionList } from "@opui/astro"
           Use the <code>direction="row"</code> prop to lay out fields horizontally.
         </p>
         <p slot="html">
-          Use the <code>.row</code> class to lay out fields horizontally.
+          Use the <code>.ui-row</code> class to lay out fields horizontally.
         </p>
       </Conditional>
 
@@ -267,62 +268,6 @@ import { DescriptionList } from "@opui/astro"
       <Example.Preview slot="preview-html" code={ExampleKitchenSinkRowHTML} />
       <Example.Code slot="code-astro" code={ExampleKitchenSinkRowCodeAstro} />
     </Example>
-
-    <script>
-      function setupKitchenSinkControls() {
-        const smallToggle = document.querySelector(
-          "#kitchen-sink-small-toggle",
-        ) as HTMLInputElement
-        const rowSmallToggle = document.querySelector(
-          "#kitchen-sink-row-small-toggle",
-        ) as HTMLInputElement
-        const dividerToggle = document.querySelector(
-          "#kitchen-sink-divider-toggle",
-        ) as HTMLInputElement
-        const rowDividerToggle = document.querySelector(
-          "#kitchen-sink-row-divider-toggle",
-        ) as HTMLInputElement
-
-        const examples = document.querySelectorAll(
-          "[id^='kitchen-sink-example']",
-        )
-
-        function updateFields() {
-          examples.forEach((example) => {
-            const isRow = example.id.includes("-row")
-            const sToggle = isRow ? rowSmallToggle : smallToggle
-            const dToggle = isRow ? rowDividerToggle : dividerToggle
-
-            if (sToggle) {
-              const fields = example.querySelectorAll(
-                ".text-field, .textarea, .select, .radio, .checkbox, .switch, .button, .range",
-              )
-              fields.forEach((field) => {
-                field.classList.toggle("small", sToggle.checked)
-              })
-            }
-
-            if (dToggle) {
-              const dividers = example.querySelectorAll("hr, .divider")
-              dividers.forEach((divider) => {
-                if (divider instanceof HTMLElement) {
-                  divider.style.display = dToggle.checked ? "" : "none"
-                }
-              })
-            }
-          })
-        }
-
-        smallToggle?.addEventListener("change", updateFields)
-        rowSmallToggle?.addEventListener("change", updateFields)
-        dividerToggle?.addEventListener("change", updateFields)
-        rowDividerToggle?.addEventListener("change", updateFields)
-        updateFields()
-      }
-
-      setupKitchenSinkControls()
-      document.addEventListener("astro:after-swap", setupKitchenSinkControls)
-    </script>
   </section>
 
   <p slot="installation">
@@ -331,10 +276,67 @@ import { DescriptionList } from "@opui/astro"
   </p>
 </Component>
 
+<script>
+  function setupKitchenSinkControls() {
+    document
+      .querySelectorAll<HTMLElement>(".example-container")
+      .forEach((container) => {
+        const example = container.querySelector("[id^='kitchen-sink-example']")
+        if (!example) return
+        if (container.dataset.kitchenSinkSetup) return
+        container.dataset.kitchenSinkSetup = "true"
+
+        const isRow = example.id.includes("-row")
+        const smallToggle = container.querySelector<HTMLInputElement>(
+          isRow
+            ? "#kitchen-sink-row-small-toggle"
+            : "#kitchen-sink-small-toggle",
+        )
+        const dividerToggle = container.querySelector<HTMLInputElement>(
+          isRow
+            ? "#kitchen-sink-row-divider-toggle"
+            : "#kitchen-sink-divider-toggle",
+        )
+
+        const updateFields = () => {
+          if (smallToggle) {
+            example
+              .querySelectorAll(
+                ".ui-text-field, .ui-textarea, .ui-select, .ui-radio, .ui-checkbox, .ui-switch, .ui-button, .ui-range",
+              )
+              .forEach((field) => {
+                field.classList.toggle("ui-small", smallToggle.checked)
+              })
+          }
+
+          if (dividerToggle) {
+            example.querySelectorAll("hr.ui-divider").forEach((divider) => {
+              if (divider instanceof HTMLElement) {
+                divider.style.display = dividerToggle.checked ? "" : "none"
+              }
+            })
+          }
+        }
+
+        container.addEventListener("change", (event) => {
+          const input = event.target
+          if (!(input instanceof HTMLInputElement)) return
+          if (input !== smallToggle && input !== dividerToggle) return
+          updateFields()
+        })
+
+        updateFields()
+      })
+  }
+
+  setupKitchenSinkControls()
+  document.addEventListener("astro:after-swap", setupKitchenSinkControls)
+</script>
+
 <style is:global>
   /* This is here becuase the examples don't remove the hr, they just put display none. In real life though they wouldn't be there so it will look right at least. */
-  .field-group {
-    &:has(.button):not(:has(*:not(.button))) {
+  .ui-field-group {
+    &:has(.ui-button):not(:has(*:not(.ui-button))) {
       &:not(hr:not([style*="display: none"]) + &) {
         margin-block-start: var(--size-4);
       }

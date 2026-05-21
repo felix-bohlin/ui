@@ -8,8 +8,8 @@ import Default from "../../component-examples/table/Default.astro"
 import DefaultAstro from "../../component-examples/table/Default.astro?raw"
 import DefaultHtml from "../../component-examples/table/Default.html?raw"
 
-import Advanced from "../../component-examples/table/Advanced.astro"
-
+export const description =
+  "Displays tabular data. Basic tables with row and column headers, and optional captions and footers."
 ---
 
 <Component
@@ -30,10 +30,6 @@ import Advanced from "../../component-examples/table/Advanced.astro"
   ]}
 >
   <Fragment slot="title">Table</Fragment>
-  <Fragment slot="preamble">
-    Displays tabular data. Basic tables with row and column headers, and
-    optional captions and footers.
-  </Fragment>
 
   <section>
     <h2 id="variants">Variants</h2>
@@ -72,35 +68,32 @@ import Advanced from "../../component-examples/table/Advanced.astro"
 
 <script>
   function setupTableInteractive() {
-    const containers = document.querySelectorAll(".table-interactive-example")
+    document
+      .querySelectorAll<HTMLElement>(".ui-table-interactive-example")
+      .forEach((container) => {
+        if (container.dataset.tableInteractiveSetup) return
+        container.dataset.tableInteractiveSetup = "true"
 
-    containers.forEach((container) => {
-      const inputs = container.querySelectorAll<HTMLInputElement>(
-        'input[type="radio"]',
-      )
-
-      inputs.forEach((input) => {
-        input.addEventListener("change", () => {
+        container.addEventListener("change", (event) => {
+          const input = event.target
+          if (!(input instanceof HTMLInputElement) || input.type !== "radio") {
+            return
+          }
           if (!input.checked) return
 
           const size = input.getAttribute("data-size")
-          const tables = container.querySelectorAll("table")
+          if (!size) return
 
-          tables.forEach((table) => {
-            table.classList.remove("dense", "spacious")
-            if (size !== "default" && size) {
-              table.classList.add(size)
+          container.querySelectorAll("table").forEach((table) => {
+            table.classList.remove("ui-dense", "ui-spacious")
+            if (size !== "default") {
+              table.classList.add(`ui-${size}`)
             }
           })
         })
       })
-    })
   }
 
-  // Run on load
   setupTableInteractive()
-
-  // Re-run when Astro swaps the content (if using view transitions)
-  document.addEventListener("astro:load", setupTableInteractive)
   document.addEventListener("astro:after-swap", setupTableInteractive)
 </script>

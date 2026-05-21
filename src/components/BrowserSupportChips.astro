@@ -31,7 +31,7 @@ const HEADINGS = {
 ---
 
 <div
-  class="browser-support-chips not-rich-text"
+  class="browser-support-chips ui-not-rich-text"
   aria-label="Browser support summary"
 >
   {
@@ -46,7 +46,10 @@ const HEADINGS = {
             type="button"
             size="small"
             variant={entry.level === "full" ? "tonal" : "outlined"}
-            class:list={["browser-support-chip", entry.level]}
+            class:list={[
+              "browser-support-chip",
+              entry.level && `${entry.level}`,
+            ]}
             interestfor={tooltipId}
             commandfor={tooltipId}
             command="toggle-popover"
@@ -56,7 +59,7 @@ const HEADINGS = {
                 <Icon />
               ))}
             </span>
-            <span class="text">
+            <span class="ui-text">
               {entry.label}
               {entry.level === "full" && entry.sinceVersion && (
                 <span class="version">{entry.sinceVersion}+</span>

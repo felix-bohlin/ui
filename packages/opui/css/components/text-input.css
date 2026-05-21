@@ -1,6 +1,6 @@
 @layer components.extended {
 
-  :where(.text-field:has( :where(input[type="date"],
+  :where(.ui-text-field:has( :where(input[type="date"],
         input[type="datetime-local"],
         input[type="email"],
         input[type="month"],
@@ -14,7 +14,7 @@
         input[type="week"]))) {
 
     /* Sizes */
-    &.small {
+    &.ui-small {
       input {
         padding-inline: var(--size-2);
       }
@@ -22,8 +22,8 @@
   }
 
   /* Autosuggest */
-  :where(.text-field:has(input[list])) {
-    .field {
+  :where(.ui-text-field:has(input[list])) {
+    .ui-field {
       position: relative;
     }
 
@@ -39,7 +39,7 @@
       padding-inline-end: var(--size-8);
     }
 
-    .field::after {
+    .ui-field::after {
       block-size: 0;
       border-block-start: 5px solid;
       border-inline: 5px solid transparent;
@@ -51,12 +51,12 @@
       translate: 0 -50%;
     }
 
-    &.small {
+    &.ui-small {
       input[list] {
         padding-inline-end: var(--size-7);
       }
 
-      .field::after {
+      .ui-field::after {
         inset-inline-end: var(--size-2);
       }
     }

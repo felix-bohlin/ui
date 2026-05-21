@@ -45,11 +45,11 @@ const finalName = name || currentFieldName
 
 <label
   class:list={[
-    "checkbox",
-    size,
+    "ui-checkbox",
+    size && `ui-${size}`,
     {
-      stack,
-      spread,
+      "ui-stack": stack,
+      "ui-spread": spread,
     },
     className,
   ]}
@@ -66,11 +66,11 @@ const finalName = name || currentFieldName
     {value}
     {...rest}
   />
-  <!-- prettier-ignore --><span class:list={[hideLabel ? "sr-only" : "label"]}><slot /></span>
+  <!-- prettier-ignore --><span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>
   {
     Astro.slots.has("end-text") && (
       <!-- prettier-ignore -->
-      <span id={endTextId} class="end-text"><slot name="end-text" /></span>
+      <span id={endTextId} class="ui-end-text"><slot name="end-text" /></span>
     )
   }
 </label>

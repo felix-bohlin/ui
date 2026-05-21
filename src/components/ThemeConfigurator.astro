@@ -35,9 +35,9 @@ const { link } = Astro.locals
   <DrawerHeader slot="header">
     <h3>Theme config</h3>
   </DrawerHeader>
-  <div class="content" slot="content">
+  <div class="ui-content" slot="content">
     <div class="configurator-content">
-      <form class="form" id="theme-configurator-form">
+      <form class="ui-form" id="theme-configurator-form">
         <FieldSet>
           <FieldLegend>Theme mode</FieldLegend>
           <FieldGroup direction="row">
@@ -151,7 +151,7 @@ const { link } = Astro.locals
           <FieldLegend>Border radii/radiuses/radiopedes/you know</FieldLegend>
           <FieldGroup>
             <div class="chip-group-wrapper">
-              <span class="label">Border radius</span>
+              <span class="ui-label">Border radius</span>
               <div class="chip-group">
                 {
                   borderRadiusItems.map((item) => (
@@ -177,7 +177,7 @@ const { link } = Astro.locals
           </FieldGroup>
           <FieldGroup>
             <div class="chip-group-wrapper">
-              <span class="label">Field border radius</span>
+              <span class="ui-label">Field border radius</span>
               <div class="chip-group">
                 {
                   borderRadiusItems.map((item) => (
@@ -203,7 +203,7 @@ const { link } = Astro.locals
           </FieldGroup>
           <FieldGroup>
             <div class="chip-group-wrapper">
-              <span class="label">Button border radius</span>
+              <span class="ui-label">Button border radius</span>
               <div class="chip-group">
                 {
                   borderRadiusItems.map((item) => (
@@ -296,8 +296,8 @@ const { link } = Astro.locals
     )
     const hueOutput = hueInput
       ? hueInput
-          .closest<HTMLElement>(".range")
-          ?.querySelector<HTMLOutputElement>(":scope > output.value")
+          .closest<HTMLElement>(".ui-range")
+          ?.querySelector<HTMLOutputElement>(":scope > output.ui-value")
       : null
     const hueOutputSuffix = hueOutput?.dataset.suffix ?? ""
 
@@ -403,19 +403,19 @@ const { link } = Astro.locals
       let foundMatch = false
       chips.forEach((chip) => {
         if (chip.dataset.value === value) {
-          chip.classList.add("tonal")
-          chip.classList.remove("outlined")
+          chip.classList.add("ui-tonal")
+          chip.classList.remove("ui-outlined")
           foundMatch = true
         } else {
-          chip.classList.remove("tonal")
-          chip.classList.add("outlined")
+          chip.classList.remove("ui-tonal")
+          chip.classList.add("ui-outlined")
         }
       })
       if (!foundMatch && chips.length > 0) {
         chips.forEach((chip) => {
           if (chip.dataset.default === "true") {
-            chip.classList.add("tonal")
-            chip.classList.remove("outlined")
+            chip.classList.add("ui-tonal")
+            chip.classList.remove("ui-outlined")
           }
         })
       }
@@ -475,11 +475,12 @@ const { link } = Astro.locals
 
   // Theme switcher
   if (themeSwitcher) {
-    themeSwitcher.checked = document.documentElement.classList.contains("dark")
+    themeSwitcher.checked =
+      document.documentElement.classList.contains("ui-dark")
     themeSwitcher.addEventListener("click", () => {
-      const isDark = document.documentElement.classList.contains("dark")
+      const isDark = document.documentElement.classList.contains("ui-dark")
       const newTheme: Mode = isDark ? "light" : "dark"
-      // themeUtils owns the .light/.dark class on <html> and the
+      // themeUtils owns the .ui-light/.ui-dark class on <html> and the
       // top-level "theme" localStorage key; the store owns custom tokens.
       ;(window as any).themeUtils?.setTheme(newTheme)
       themeSwitcher.checked = newTheme === "dark"
@@ -546,11 +547,11 @@ const { link } = Astro.locals
     const chips = form.querySelectorAll<HTMLElement>(`[data-name="${name}"]`)
     chips.forEach((c) => {
       if (c === chip) {
-        c.classList.add("tonal")
-        c.classList.remove("outlined")
+        c.classList.add("ui-tonal")
+        c.classList.remove("ui-outlined")
       } else {
-        c.classList.remove("tonal")
-        c.classList.add("outlined")
+        c.classList.remove("ui-tonal")
+        c.classList.add("ui-outlined")
       }
     })
   })
@@ -567,17 +568,17 @@ const { link } = Astro.locals
     form?.reset()
     if (themeSwitcher) {
       themeSwitcher.checked =
-        document.documentElement.classList.contains("dark")
+        document.documentElement.classList.contains("ui-dark")
     }
     const allChips =
       form?.querySelectorAll<HTMLElement>("[data-name][data-value]") ?? []
     allChips.forEach((chip) => {
       if (chip.dataset.default === "true") {
-        chip.classList.add("tonal")
-        chip.classList.remove("outlined")
+        chip.classList.add("ui-tonal")
+        chip.classList.remove("ui-outlined")
       } else {
-        chip.classList.remove("tonal")
-        chip.classList.add("outlined")
+        chip.classList.remove("ui-tonal")
+        chip.classList.add("ui-outlined")
       }
     })
 
@@ -638,7 +639,7 @@ const { link } = Astro.locals
       flex-direction: column;
       gap: var(--size-2);
 
-      .label {
+      .ui-label {
         font-size: var(--font-size-05);
         font-weight: var(--font-weight-5);
       }

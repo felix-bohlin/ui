@@ -52,11 +52,11 @@ const labelId = $id("select-label")
 
 <label
   class:list={[
-    "select",
-    size,
+    "ui-select",
+    size && `ui-${size}`,
     {
-      filled: variant === "filled",
-      spread,
+      "ui-filled": variant === "filled",
+      "ui-spread": spread,
     },
     className,
   ]}
@@ -65,16 +65,16 @@ const labelId = $id("select-label")
   {
     (label || Astro.slots.has("label")) && (
       <!-- prettier-ignore -->
-      <span class="label" id={labelId}>{label}<slot name="label" /></span>
+      <span class="ui-label" id={labelId}>{label}<slot name="label" /></span>
     )
   }
   {
     (description || Astro.slots.has("description")) && (
       <!-- prettier-ignore -->
-      <span class="start-text">{description}<slot name="description" /></span>
+      <span class="ui-start-text">{description}<slot name="description" /></span>
     )
   }
-  <span class="field">
+  <span class="ui-field">
     <select
       aria-labelledby={label ? labelId : undefined}
       disabled={disabled}
@@ -87,20 +87,20 @@ const labelId = $id("select-label")
       <button>
         <selectedcontent></selectedcontent>
       </button>
-      <div class:list={["list", { dense }]}>
+      <div class:list={["ui-list", { "ui-dense": dense }]}>
         {items.map((item) => <option value={item.value}>{item.text}</option>)}
         <slot />
       </div>
     </select>
-    {Astro.slots.has("prefix") && <span class="prefix"><slot name="prefix" /></span>}
-    {Astro.slots.has("suffix") && <span class="suffix"><slot name="suffix" /></span>}
-    {Astro.slots.has("header") && <span class="header"><slot name="header" /></span>}
-    {Astro.slots.has("footer") && <span class="footer"><slot name="footer" /></span>}
+    {Astro.slots.has("prefix") && <span class="ui-prefix"><slot name="prefix" /></span>}
+    {Astro.slots.has("suffix") && <span class="ui-suffix"><slot name="suffix" /></span>}
+    {Astro.slots.has("header") && <span class="ui-header"><slot name="header" /></span>}
+    {Astro.slots.has("footer") && <span class="ui-footer"><slot name="footer" /></span>}
   </span>
   {
     (endText || Astro.slots.has("end-text")) && (
       <!-- prettier-ignore -->
-      <span id={$id("end-text")} class="end-text">{endText}<slot name="end-text" /></span>
+      <span id={$id("end-text")} class="ui-end-text">{endText}<slot name="end-text" /></span>
     )
   }
 </label>

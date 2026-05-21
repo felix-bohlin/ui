@@ -1,69 +1,73 @@
-<table>
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
   <caption>Nordic Countries Overview</caption>
-  <colgroup>
-    <col />
-    <col />
-    <col />
-  </colgroup>
-  <thead>
-    <tr>
-      <th rowspan="2">Country</th>
-      <th colspan="3">Major Cities</th>
-      <th colspan="2">Nature</th>
-    </tr>
-    <tr>
-      <th>Capital</th>
-      <th>2nd Largest</th>
-      <th>3rd Largest</th>
-      <th>National Animal</th>
-      <th>National Bird</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Norway</td>
-      <td>Oslo</td>
-      <td>Bergen</td>
-      <td>Trondheim</td>
-      <td>Elk</td>
-      <td>White-throated Dipper</td>
-    </tr>
-    <tr>
-      <td>Sweden</td>
-      <td>Stockholm</td>
-      <td>Göteborg</td>
-      <td>Malmö</td>
-      <td>Elk</td>
-      <td>Common Blackbird</td>
-    </tr>
-    <tr>
-      <td>Denmark</td>
-      <td>København</td>
-      <td>Aarhus</td>
-      <td>Odense</td>
-      <td>Mute Swan</td>
-      <td>Mute Swan</td>
-    </tr>
-    <tr>
-      <td>Finland</td>
-      <td>Helsinki</td>
-      <td>Espoo</td>
-      <td>Tampere</td>
-      <td>Brown Bear</td>
-      <td>Whooper Swan</td>
-    </tr>
-    <tr>
-      <td>Iceland</td>
-      <td>Reykjavík</td>
-      <td>Kópavogur</td>
-      <td>Hafnarfjörður</td>
-      <td>Gyrfalcon</td>
-      <td>Gyrfalcon</td>
-    </tr>
-  </tbody>
+  <Table.ColumnGroup>
+    <Table.Column />
+    <Table.Column />
+    <Table.Column />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell rowspan={2}>Country</Table.HeaderCell>
+      <Table.HeaderCell colspan={3}>Major Cities</Table.HeaderCell>
+      <Table.HeaderCell colspan={2}>Nature</Table.HeaderCell>
+    </Table.Row>
+    <Table.Row>
+      <Table.HeaderCell>Capital</Table.HeaderCell>
+      <Table.HeaderCell>2nd Largest</Table.HeaderCell>
+      <Table.HeaderCell>3rd Largest</Table.HeaderCell>
+      <Table.HeaderCell>National Animal</Table.HeaderCell>
+      <Table.HeaderCell>National Bird</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Norway</Table.Cell>
+      <Table.Cell>Oslo</Table.Cell>
+      <Table.Cell>Bergen</Table.Cell>
+      <Table.Cell>Trondheim</Table.Cell>
+      <Table.Cell>Elk</Table.Cell>
+      <Table.Cell>White-throated Dipper</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Sweden</Table.Cell>
+      <Table.Cell>Stockholm</Table.Cell>
+      <Table.Cell>Göteborg</Table.Cell>
+      <Table.Cell>Malmö</Table.Cell>
+      <Table.Cell>Elk</Table.Cell>
+      <Table.Cell>Common Blackbird</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Denmark</Table.Cell>
+      <Table.Cell>København</Table.Cell>
+      <Table.Cell>Aarhus</Table.Cell>
+      <Table.Cell>Odense</Table.Cell>
+      <Table.Cell>Mute Swan</Table.Cell>
+      <Table.Cell>Mute Swan</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Finland</Table.Cell>
+      <Table.Cell>Helsinki</Table.Cell>
+      <Table.Cell>Espoo</Table.Cell>
+      <Table.Cell>Tampere</Table.Cell>
+      <Table.Cell>Brown Bear</Table.Cell>
+      <Table.Cell>Whooper Swan</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Iceland</Table.Cell>
+      <Table.Cell>Reykjavík</Table.Cell>
+      <Table.Cell>Kópavogur</Table.Cell>
+      <Table.Cell>Hafnarfjörður</Table.Cell>
+      <Table.Cell>Gyrfalcon</Table.Cell>
+      <Table.Cell>Gyrfalcon</Table.Cell>
+    </Table.Row>
+  </Table.Body>
   <tfoot>
-    <tr>
-      <td colspan="6">Scandinavia != The Nordics</td>
-    </tr>
+    <Table.Row>
+      <Table.Cell colspan={6}>Scandinavia != The Nordics</Table.Cell>
+    </Table.Row>
   </tfoot>
-</table>
+</Table>

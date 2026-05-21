@@ -17,13 +17,13 @@ const navItems = [
 ---
 
 <footer>
-  <div class="content">
+  <div class="ui-content">
     <nav>
       <ul>
         {
           navItems.map((item) => (
             <li>
-              <a class="link" href={item.href} title={item.label}>
+              <a class="ui-link" href={item.href} title={item.label}>
                 {item.label}
               </a>
             </li>
@@ -32,17 +32,17 @@ const navItems = [
       </ul>
     </nav>
 
-    <hr />
+    <hr class="ui-divider" />
 
     <p>
       Made with Open Props UI, <a
-        class="link"
+        class="ui-link"
         href="https://astro.build"
         target="_blank"
         rel="noopener noreferrer"
         title="Astro">Astro</a
       > and <a
-        class="link"
+        class="ui-link"
         href="https://icones.js.org/collection/fluent"
         target="_blank"
         rel="noopener noreferrer"
@@ -51,13 +51,13 @@ const navItems = [
     </p>
     <p>
       Hosted on <a
-        class="link"
+        class="ui-link"
         href="https://www.netlify.com/"
         target="_blank"
         rel="noopener noreferrer"
         title="Netlify">Netlify</a
       >, source code on <a
-        class="link"
+        class="ui-link"
         href="https://github.com/felix-bohlin/ui"
         target="_blank"
         rel="noopener noreferrer"
@@ -74,7 +74,7 @@ const navItems = [
     padding-block: var(--size-9);
   }
 
-  .content {
+  .ui-content {
     margin: 0 auto;
     max-inline-size: var(--_content-md);
     padding-inline: var(--_gap);

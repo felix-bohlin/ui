@@ -42,7 +42,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Anchor" href="/components/anchor">
-    <div class="anchor" aria-hidden="true">
+    <div class="ui-anchor" aria-hidden="true">
       <Chip variant="outlined">Anchored</Chip>
       {
         (
@@ -290,13 +290,13 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     if (themeSwitcher) {
       const syncTheme = () => {
         themeSwitcher.checked =
-          document.documentElement.classList.contains("dark")
+          document.documentElement.classList.contains("ui-dark")
       }
 
       syncTheme()
 
       themeSwitcher.addEventListener("click", () => {
-        const isDark = document.documentElement.classList.contains("dark")
+        const isDark = document.documentElement.classList.contains("ui-dark")
         const newTheme = isDark ? "light" : "dark"
         window.themeUtils.setTheme(newTheme)
         syncTheme()

@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.toggle-group) {
+  :where(.ui-toggle-group) {
     --_bg-color: var(--surface-default);
     --_border-color: var(--border-color);
     --_border-radius: var(--button-border-radius);
@@ -12,27 +12,27 @@
     overflow: hidden;
 
     /* Sizes */
-    &.small {
-      .toggle-button {
+    &.ui-small {
+      .ui-toggle-button {
         --_size: var(--field-size-small);
       }
     }
 
-    &.x-small {
-      .toggle-button {
+    &.ui-x-small {
+      .ui-toggle-button {
         --_size: var(--field-size-x-small);
       }
     }
 
     /* Toggle button */
-    .toggle-button {
+    .ui-toggle-button {
       border: 0;
       border-radius: 0;
       margin: 0;
     }
 
-    &:not(.vertical) {
-      .toggle-button {
+    &:not(.ui-vertical) {
+      .ui-toggle-button {
         border-inline-end: 1px solid var(--_border-color);
 
         &:last-of-type {
@@ -41,10 +41,10 @@
       }
     }
 
-    &.vertical {
+    &.ui-vertical {
       flex-direction: column;
 
-      .toggle-button {
+      .ui-toggle-button {
         border-block-end: 1px solid var(--_border-color);
 
         &:last-of-type {

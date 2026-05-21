@@ -29,7 +29,7 @@
 		/* > .toast:nth-last-child(n + 6) { display: none; } */
 	}
 
-	:where(.toast) {
+	:where(.ui-toast) {
 		--_anim-enter: 0.3s;
 		--_anim-exit: 0.3s;
 
@@ -57,11 +57,11 @@
 			animation-play-state: paused;
 		}
 
-		&.exiting {
+		&.ui-exiting {
 			animation: toast-exit var(--_anim-exit) var(--ease-in-3) forwards;
 		}
 
-		.icon {
+		.ui-icon {
 			background: no-repeat center / contain;
 			block-size: var(--size-4);
 			flex-shrink: 0;
@@ -69,25 +69,25 @@
 		}
 
 		/* Hide the icon slot when there's no severity to render against. */
-		&:not([data-severity]) .icon {
+		&:not([data-severity]) .ui-icon {
 			display: none;
 		}
 
-		.content {
+		.ui-content {
 			font-size: var(--font-size-05);
 			word-break: break-word;
 		}
 
-		.title {
+		.ui-title {
 			font-weight: 600;
 		}
 
-		.description {
+		.ui-description {
 			color: oklch(from currentColor l c h / 75%);
 			font-size: var(--font-size-0);
 		}
 
-		.close-button {
+		.ui-close-button {
 			background: none;
 			border: none;
 			color: inherit;
@@ -104,19 +104,19 @@
 		}
 
 		/* Severity icons via CSS data URIs — keeps icon assets out of JS strings. */
-		&[data-severity="success"] .icon {
+		&[data-severity="success"] .ui-icon {
 			background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2322c55e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><path d='m9 11 3 3L22 4'/></svg>");
 		}
 
-		&[data-severity="info"] .icon {
+		&[data-severity="info"] .ui-icon {
 			background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M12 16v-4'/><path d='M12 8h.01'/></svg>");
 		}
 
-		&[data-severity="warning"] .icon {
+		&[data-severity="warning"] .ui-icon {
 			background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/><path d='M12 9v4'/><path d='M12 17h.01'/></svg>");
 		}
 
-		&[data-severity="critical"] .icon {
+		&[data-severity="critical"] .ui-icon {
 			background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ef4444' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>");
 		}
 	}

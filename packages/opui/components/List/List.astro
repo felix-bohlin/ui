@@ -21,13 +21,13 @@ const {
 
 <ul
   class:list={[
-    "list",
+    "ui-list",
     {
-      bordered,
-      dense,
-      gutterless,
+      "ui-bordered": bordered,
+      "ui-dense": dense,
+      "ui-gutterless": gutterless,
     },
-    variant,
+    variant && `ui-${variant}`,
     className,
   ]}
   {...rest}

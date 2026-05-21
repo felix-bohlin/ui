@@ -4,7 +4,7 @@
 Screen-reader only
 When you visibly want to hide an element but make it accessible for screen readers.
 */
-  .sr-only {
+  .ui-sr-only {
     block-size: 1px;
     clip-path: inset(50%);
     inline-size: 1px;
@@ -15,17 +15,17 @@ When you visibly want to hide an element but make it accessible for screen reade
 
   /*
 Scroll-lock
-Add `.scroll-lock` to any element that uses the [open] attribute (native <dialog>,
+Add `.ui-scroll-lock` to any element that uses the [open] attribute (native <dialog>,
 <details>, or any custom element). When that element is open, the page is locked.
 */
-  html:has(.scroll-lock[open]) {
+  html:has(.ui-scroll-lock[open]) {
     overflow: clip;
     overscroll-behavior: contain;
     scrollbar-gutter: stable;
   }
 
   /* Hover and active effect for checkbox, radio and icon buttons */
-  :where(.checkbox input, .radio input, .icon-button) {
+  :where(.ui-checkbox input, .ui-radio input, .ui-icon-button) {
     --isLTR: 1;
     --isRTL: -1;
 

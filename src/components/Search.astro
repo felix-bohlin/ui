@@ -123,11 +123,11 @@ import Command from "./Command.astro"
 
     if (filterChip) {
       filterGroup.querySelectorAll(".filter-chip").forEach((c) => {
-        c.classList.remove("active", "tonal")
-        c.classList.add("outlined")
+        c.classList.remove("active", "ui-tonal")
+        c.classList.add("ui-outlined")
       })
-      filterChip.classList.add("active", "tonal")
-      filterChip.classList.remove("outlined")
+      filterChip.classList.add("active", "ui-tonal")
+      filterChip.classList.remove("ui-outlined")
       activeFilter = (filterChip as HTMLElement).dataset.filter || "all"
       updateResults()
       input.focus()
@@ -194,11 +194,11 @@ import Command from "./Command.astro"
 
     li.innerHTML = `
       <a href="${item.url}">
-        <div class="text">
-          <p class="title">${displayTitle}</p>
-          <p class="description">${displayDesc}</p>
+        <div class="ui-text">
+          <p class="ui-title">${displayTitle}</p>
+          <p class="ui-description">${displayDesc}</p>
         </div>
-        <div class="end">
+        <div class="ui-end">
           ${typeIndicator}
           ${item.category ? `<span class="command-item-shortcut">${item.category}</span>` : ""}
         </div>
@@ -286,7 +286,7 @@ import Command from "./Command.astro"
       groupDiv.innerHTML = `<div class="command-group-heading">${category}</div>`
 
       const ul = document.createElement("ul")
-      ul.className = "list"
+      ul.className = "ui-list ui-transparent"
 
       grouped[category].forEach((item: any) => {
         ul.appendChild(renderItem(item, globalIndex++, false))
@@ -308,7 +308,7 @@ import Command from "./Command.astro"
   ) {
     filterGroup?.querySelectorAll(".filter-chip").forEach((chip) => {
       const filter = (chip as HTMLElement).dataset.filter
-      const label = chip.querySelector(".text") || chip
+      const label = chip.querySelector(".ui-text") || chip
       const baseText =
         filter === "all"
           ? "All"
@@ -416,11 +416,11 @@ import Command from "./Command.astro"
       e.preventDefault()
       // Update UI (same logic as click handler)
       chips.forEach((c) => {
-        c.classList.remove("active", "tonal")
-        c.classList.add("outlined")
+        c.classList.remove("active", "ui-tonal")
+        c.classList.add("ui-outlined")
       })
-      targetChip.classList.add("active", "tonal")
-      targetChip.classList.remove("outlined")
+      targetChip.classList.add("active", "ui-tonal")
+      targetChip.classList.remove("ui-outlined")
       activeFilter = targetChip.dataset.filter || "all"
       updateResults()
       return
@@ -442,8 +442,9 @@ import Command from "./Command.astro"
       const link = selected.querySelector("a")
       if (link) {
         const url = link.getAttribute("href")
-        const title = selected.querySelector(".title")?.textContent
-        const description = selected.querySelector(".description")?.textContent
+        const title = selected.querySelector(".ui-title")?.textContent
+        const description =
+          selected.querySelector(".ui-description")?.textContent
         const category = selected.querySelector(
           ".command-item-shortcut",
         )?.textContent
@@ -528,6 +529,12 @@ import Command from "./Command.astro"
       background-color: rgba(0, 0, 0, 0.4);
     }
 
+    .command-input-wrapper,
+    .search-filters,
+    .command-footer {
+      flex-shrink: 0;
+    }
+
     .command-input-wrapper {
       align-items: center;
       border-bottom: var(--border-size-1) solid var(--surface-tonal);
@@ -582,7 +589,7 @@ import Command from "./Command.astro"
         display: none;
       }
 
-      .chip {
+      .ui-chip {
         cursor: pointer;
         flex-shrink: 0;
         user-select: none;

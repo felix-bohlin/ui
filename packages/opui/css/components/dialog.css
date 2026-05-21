@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where(.dialog) {
+  :where(.ui-dialog) {
     inline-size: 100%;
     inset: 0;
     margin: auto;
@@ -34,7 +34,7 @@
       pointer-events: all;
     }
 
-    .actions {
+    .ui-actions {
       justify-content: end;
       padding-inline: var(--size-3) var(--size-1);
     }
@@ -61,7 +61,7 @@
     }
   }
 
-  :where(html:has(.dialog[open])) {
+  :where(html:has(.ui-dialog[open])) {
     block-size: 100%;
     overflow: hidden;
   }

@@ -1,5 +1,5 @@
 @layer components.root {
-	label.checkbox {
+	label.ui-checkbox {
 		--_input-size: var(--size-4);
 
 		align-items: center;
@@ -27,7 +27,7 @@
 
 		/* Required dot */
 		&:has(:invalid) {
-			.label:after {
+			.ui-label:after {
 				color: var(--red);
 				content: "*";
 				inset: 0 -0.25ex auto auto;
@@ -36,7 +36,7 @@
 		}
 
 		/* Label */
-		.label {
+		.ui-label {
 			color: var(--text-primary);
 			font-size: var(--font-size-05);
 			grid-column: 2;
@@ -46,7 +46,7 @@
 		}
 
 		/* End text */
-		:where(.end-text) {
+		:where(.ui-end-text) {
 			color: var(--text-muted);
 			font-size: var(--font-size-0);
 			grid-column: 2;
@@ -56,14 +56,14 @@
 		}
 
 		/* Spread layout */
-		&.spread {
+		&.ui-spread {
 			align-items: center;
 			column-gap: var(--size-4);
 			grid-auto-flow: unset;
 			grid-template-columns: 1fr auto;
 			inline-size: 100%;
 
-			.label {
+			.ui-label {
 				font-weight: 600;
 				grid-column: 1;
 				grid-row: 1;
@@ -75,18 +75,18 @@
 				grid-row: 1;
 			}
 
-			:where(.end-text) {
+			:where(.ui-end-text) {
 				grid-column: 1;
 				grid-row: 2;
 			}
 		}
 
 		/* Stacked layout */
-		&.stack {
+		&.ui-stack {
 			justify-items: center;
 			grid-auto-columns: unset;
 
-			.label {
+			.ui-label {
 				grid-column: 1/-1;
 				grid-row: 2;
 				margin-block-start: var(--size-1);
@@ -98,7 +98,7 @@
 				}
 			}
 
-			.end-text {
+			.ui-end-text {
 				grid-column: 1/-1;
 				grid-row: 3;
 			}
@@ -157,13 +157,13 @@
 		}
 
 		/* Sizes */
-		&.small {
+		&.ui-small {
 			input[type="checkbox"] {
 				--_input-size: var(--size-3);
 			}
 		}
 
-		&.large {
+		&.ui-large {
 			input[type="checkbox"] {
 				--_input-size: var(--size-5);
 			}
@@ -174,7 +174,7 @@
 		&:has(:user-invalid) {
 			--palette-source: oklch(0.58 0.21 var(--hue-red));
 
-			:where(.end-text) {
+			:where(.ui-end-text) {
 				color: var(--primary);
 			}
 		}

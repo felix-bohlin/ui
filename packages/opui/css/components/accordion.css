@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where(details.accordion) {
+  :where(details.ui-accordion) {
     --_actions-gap: var(--size-1);
     --_actions-margin-block-start: var(--size-3);
     --_actions-padding-block-end: var(--size-1);
@@ -26,14 +26,14 @@
     margin-inline: var(--_margin-inline);
     transition: all var(--_transition) ease-out;
 
-    &.elevated {
+    &.ui-elevated {
       --_bg-color: var(--surface-elevated);
       --_margin-inline: 0;
       --_padding-inline: var(--size-3);
       --_shadow: var(--shadow-3);
     }
 
-    &.outlined {
+    &.ui-outlined {
       --_bg-color: var(--surface-default);
       --_border-color: var(--border-color);
       --_border-width: 1px;
@@ -41,7 +41,7 @@
       --_padding-inline: var(--size-3);
     }
 
-    &.tonal {
+    &.ui-tonal {
       --_bg-color: var(--surface-tonal);
       --_margin-inline: 0;
       --_padding-inline: var(--size-3);
@@ -98,13 +98,13 @@
       rotate: 180deg;
     }
 
-    &>.content {
+    &>.ui-content {
       margin-block-start: 0;
       padding-block: var(--_content-padding-block);
       padding-inline: var(--_content-padding-inline);
     }
 
-    &>.actions {
+    &>.ui-actions {
       display: flex;
       gap: var(--_actions-gap);
       justify-content: end;
@@ -115,7 +115,7 @@
   }
 
   /* Accordion group  */
-  :where(.card[role="group"]:has(details.accordion)) {
+  :where(.ui-card[role="group"]:has(details.ui-accordion)) {
     --_group-radius: var(--border-radius);
     --_gutter-color: var(--border-color);
     --_item-padding-inline: var(--size-3);
@@ -123,18 +123,18 @@
 
     display: block;
 
-    &.card {
-      &:not(.tonal, .outlined, .elevated) {
+    &.ui-card {
+      &:not(.ui-tonal, .ui-outlined, .ui-elevated) {
         --_item-summary-padding-inline: 0;
       }
     }
 
-    &>.content {
+    &>.ui-content {
       margin-block: 0;
       padding: 0;
     }
 
-    &>details.accordion {
+    &>details.ui-accordion {
       --_border-color: transparent;
       --_border-width: 0;
       --_margin-inline: 0;

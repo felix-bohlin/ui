@@ -1,5 +1,5 @@
 @layer components.root {
-	label.radio {
+	label.ui-radio {
 		--_input-size: 1.125rem;
 		--_indicator-size: 50%;
 
@@ -28,7 +28,7 @@
 
 		/* Required dot */
 		&:has(:invalid) {
-			.label:after {
+			.ui-label:after {
 				color: var(--red);
 				content: "*";
 				inset: 0 -0.25ex auto auto;
@@ -37,7 +37,7 @@
 		}
 
 		/* Label */
-		.label {
+		.ui-label {
 			color: var(--text-primary);
 			font-size: var(--font-size-05);
 			grid-column: 2;
@@ -47,7 +47,7 @@
 		}
 
 		/* End text */
-		:where(.end-text) {
+		:where(.ui-end-text) {
 			color: var(--text-muted);
 			font-size: var(--font-size-0);
 			grid-column: 2;
@@ -57,11 +57,11 @@
 		}
 
 		/* Stacked layout */
-		&.stack {
+		&.ui-stack {
 			grid-auto-columns: unset;
 			justify-items: center;
 
-			.label {
+			.ui-label {
 				grid-column: 1/-1;
 				grid-row: 2;
 				margin-block-start: var(--size-1);
@@ -73,7 +73,7 @@
 				}
 			}
 
-			.end-text {
+			.ui-end-text {
 				grid-column: 1/-1;
 				grid-row: 3;
 			}
@@ -122,14 +122,14 @@
 		}
 
 		/* Sizes */
-		&.small {
+		&.ui-small {
 			input[type="radio"] {
 				--_input-size: var(--size-3);
 
 			}
 		}
 
-		&.large {
+		&.ui-large {
 			input[type="radio"] {
 				--_input-size: var(--size-4);
 
@@ -141,7 +141,7 @@
 		&:has(:user-invalid) {
 			--palette-source: oklch(0.58 0.21 var(--hue-red));
 
-			:where(.end-text) {
+			:where(.ui-end-text) {
 				color: var(--primary);
 			}
 		}

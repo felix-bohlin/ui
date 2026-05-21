@@ -11,19 +11,19 @@ import ExampleAnatomy from "../../component-examples/callout/Anatomy.astro"
 import Conditional from "../../components/Conditional.astro"
 
 const ThemeCSS = `/* ... */
-.critical {
+.ui-critical {
   --palette-source: oklch(0.58 0.21 var(--hue-red));
   --palette-hue-rotate-by: 1;
 }
-.info {
+.ui-info {
   --palette-source: oklch(0.58 0.21 var(--hue-blue));
   --palette-hue-rotate-by: 1;
 }
-.success {
+.ui-success {
   --palette-source: oklch(0.58 0.21 var(--hue-green));
   --palette-hue-rotate-by: 1;
 }
-.warning {
+.ui-warning {
   --palette-source: oklch(0.58 0.21 var(--hue-orange));
   --palette-hue-rotate-by: 1;
 }
@@ -35,7 +35,7 @@ const ThemeCSS = `/* ... */
     outline: var(--_anatomy-border-gray);
     outline-offset: -2px;
 
-    .content,
+    .ui-content,
     svg {
       outline: var(--_anatomy-border-red);
       outline-offset: -3px;
@@ -66,11 +66,12 @@ const ThemeCSS = `/* ... */
 >
   <Fragment slot="title">Callout</Fragment>
   <Fragment slot="preamble">
-    Callouts call out for user attention. Callouts should be part of the flow
-    and used <strong>without</strong> interrupting the user's task.
+    Callouts call out for user attention. Should be part of the flow and used <strong
+      >without</strong
+    > interrupting the user's task.
   </Fragment>
 
-  <div class="not-rich-text">
+  <div class="ui-not-rich-text">
     <UICallout>
       <svg
         slot="icon"
@@ -87,11 +88,11 @@ const ThemeCSS = `/* ... */
       <p>You might want to check out:</p>
       <ul>
         <li>
-          <DocLink href="/components/dialog" class="link">Dialog</DocLink>:
+          <DocLink href="/components/dialog" class="ui-link">Dialog</DocLink>:
           takes over completely
         </li>
         <li>
-          <DocLink href="/components/toast" class="link">Toast</DocLink>:
+          <DocLink href="/components/toast" class="ui-link">Toast</DocLink>:
           informative but non-interruptive
         </li>
       </ul>
@@ -107,7 +108,7 @@ const ThemeCSS = `/* ... */
         > prop.
       </Fragment>
       <Fragment slot="html">
-        Tonal (default) and <code>.outlined</code> variants.
+        Tonal (default) and <code>.ui-outlined</code> variants.
       </Fragment>
     </Conditional>
 
@@ -138,14 +139,16 @@ const ThemeCSS = `/* ... */
         surface.
       </Fragment>
       <Fragment slot="html">
-        Severity modifiers — <code>.info</code>, <code>.success</code>, <code
-          >.warning</code
-        >, <code>.critical</code> — plus the non-severity <code>.primary</code>
+        Severity modifiers — <code>.ui-info</code>, <code>.ui-success</code>, <code
+          >.ui-warning</code
+        >, <code>.ui-critical</code> — plus the non-severity <code
+          >.ui-primary</code
+        >
         tone for brand-tinted attention. The default is a neutral surface.
       </Fragment>
     </Conditional>
 
-    <div class="not-rich-text">
+    <div class="ui-not-rich-text">
       <UICallout severity="info">
         <svg
           slot="icon"
@@ -209,7 +212,7 @@ const ThemeCSS = `/* ... */
           </Fragment>
         </Conditional>
       </li>
-      <li>Content: text, or wrapper with <code>.content</code> class.</li>
+      <li>Content: text, or wrapper with <code>.ui-content</code> class.</li>
       <li>
         <Conditional>
           <Fragment slot="astro">

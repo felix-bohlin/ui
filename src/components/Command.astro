@@ -10,7 +10,7 @@ const Element = isDialog ? "dialog" : "div"
 ---
 
 <Element
-  class:list={["command", isDialog && "dialog", className]}
+  class:list={["command", isDialog && "ui-dialog", className]}
   {...isDialog ? { closedby: "any" } : {}}
   {...rest}
 >

@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(progress) {
+  :where(.ui-progress) {
     --_accent-color: var(--primary);
     --_bg-color: var(--surface-tonal);
 
@@ -15,15 +15,15 @@
     vertical-align: baseline;
 
     /* Color */
-    &.filled {
+    &.ui-filled {
       --_bg-color: var(--surface-filled);
     }
 
-    &.default {
+    &.ui-default {
       --_bg-color: var(--surface-default);
     }
 
-    &.tonal {
+    &.ui-tonal {
       --_bg-color: var(--surface-tonal);
     }
 

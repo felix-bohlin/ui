@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.link) {
+  :where(.ui-link) {
     color: var(--primary);
     cursor: pointer;
     font-weight: 700;

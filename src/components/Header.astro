@@ -62,7 +62,9 @@ const { link } = Astro.locals
     applyCustomTheme(theme) {
       const currentTheme =
         theme ||
-        (document.documentElement.classList.contains("ui-dark") ? "dark" : "light")
+        (document.documentElement.classList.contains("ui-dark")
+          ? "dark"
+          : "light")
       const STORAGE_KEY = `opui-custom-theme-${currentTheme}`
       const saved = localStorage.getItem(STORAGE_KEY)
 
@@ -251,7 +253,7 @@ const { link } = Astro.locals
       </List>
     </nav>
 
-    <hr />
+    <hr class="ui-divider" />
 
     <FrameworkPicker />
   </Fragment>

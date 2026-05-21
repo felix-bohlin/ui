@@ -38,7 +38,7 @@ export { default as RadioInput } from "../components/Radio/RadioInput.svelte"
 //   Panel as TabsPanel,
 // } from "../components/Tabs/index"
 // export { default as Table } from "../components/Table/index"
-// export { default as Textarea } from "../components/Textarea/Textarea.svelte"
+export { default as Textarea } from "../components/Textarea/Textarea.svelte"
 export { default as TextField } from "../components/TextField/TextField.svelte"
 // export { default as Toast } from "../components/Toast/Toast.svelte"
 // export { default as Tooltip } from "../components/Tooltip/Tooltip.svelte"

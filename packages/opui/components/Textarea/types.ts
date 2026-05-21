@@ -15,6 +15,7 @@ export type Slots =
   | "header"
   | "label"
   | "prefix"
+  | "startText"
   | "suffix"
   | "endText"
   | "supportingText"

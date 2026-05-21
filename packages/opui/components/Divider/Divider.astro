@@ -1,5 +1,6 @@
 ---
 export const title = "Divider"
+import type { Props } from "./types.astro"
 
 const { class: className, variant, ...rest } = Astro.props
 const variantClass = variant ? `border-${variant}` : ""

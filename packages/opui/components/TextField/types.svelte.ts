@@ -9,7 +9,7 @@ type InputProps = {
   // include the rest
   Pick<SvelteHTMLElements["input"], Exclude<Base.InputProps, "type">>
 
-type Snippets = Record<Base.Slots, string | Snippet>
+type Snippets = Partial<Record<Base.Slots, string | Snippet>>
 
 export type Props =
   // Unique component props, except snippets

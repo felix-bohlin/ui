@@ -1,25 +1,27 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
+  import type { Snippet } from "svelte"
 
   export const title = "List Item" as const
 
+  const props: Props = $props()
   const {
     as: Tag,
     borderTop,
     class: className,
-    description,
     for: htmlFor,
-    headline,
     inset,
     type,
 
     // Snippets
     children,
+    description,
     end,
+    headline,
     start,
     text,
     ...rest
-  }: Props = $props()
+  } = $derived(props)
 
   let element = $state<HTMLLIElement | null>(null)
   export { element as this }
@@ -27,30 +29,36 @@
     type && ["checkbox", "radio", "switch"].includes(type),
   )
   const labelClass = $derived(type || "")
-  const liProps = $derived(Tag ? {} : rest)
-  const innerProps = $derived(Tag ? rest : {})
 </script>
+
+{#snippet snippetString(ss: Snippet | string | undefined)}
+  {#if typeof ss === "string"}
+    {ss}
+  {:else}
+    {@render ss?.()}
+  {/if}
+{/snippet}
 
 {#snippet inner()}
   {#if start}
     <div class="start">
-      {@render start()}
+      {@render snippetString(start)}
     </div>
   {/if}
   {#if text || headline || description}
     <div class="text">
       {#if headline}
-        <p>{headline}</p>
+        <p>{@render snippetString(headline)}</p>
       {/if}
       {#if description}
-        <p>{description}</p>
+        <p>{@render snippetString(description)}</p>
       {/if}
-      {@render text?.()}
+      {@render snippetString(text)}
     </div>
   {/if}
   {#if end}
     <div class="end">
-      {@render end()}
+      {@render snippetString(end)}
     </div>
   {/if}
   {@render children?.()}
@@ -65,14 +73,17 @@
     },
     className,
   ]}
-  {...liProps}
+  {...!(props.as || props.as === "li") ? (rest as typeof props) : {}}
 >
   {#if hasLabel}
     <label class={labelClass} for={htmlFor}>
       {@render inner()}
     </label>
   {:else if Tag}
-    <svelte:element this={Tag} {...innerProps}>
+    <svelte:element
+      this={Tag}
+      {...props.as != "li" ? (rest as typeof props) : {}}
+    >
       {@render inner()}
     </svelte:element>
   {:else}

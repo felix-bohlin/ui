@@ -1,6 +1,7 @@
 <script lang="ts">
   import { getContext } from "svelte"
   import type { Props } from "./types.svelte"
+  import type * as FieldSet from "../FieldSet/types.svelte"
 
   export const title = "Textarea"
 
@@ -127,10 +128,10 @@
   {#if endText || supportingText}
     <span class="end-text">
       {#if typeof endText === "string"}{endText}
-      {:else}{@render endText()}
+      {:else if endText}{@render endText()}
       {/if}
       {#if typeof supportingText === "string"}{supportingText}
-      {:else}{@render supportingText()}
+      {:else if supportingText}{@render supportingText()}
       {/if}
     </span>
   {/if}

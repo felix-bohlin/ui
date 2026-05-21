@@ -1,25 +1,5 @@
 <script lang="ts">
-  import type { HTMLAttributes } from "svelte/elements"
-  import type { Snippet } from "svelte"
-
-  type CommonProps<T extends "button" | "a" = "button"> = {
-    as?: T
-    class?: HTMLAttributes<HTMLElementTagNameMap[T]>["class"]
-    color?: "critical" | "primary"
-    size?: "small"
-    variant?: "outlined" | "tonal" | "filled"
-    children: Snippet
-  } & HTMLAttributes<HTMLElementTagNameMap[T]>
-
-  type Props =
-    | (CommonProps<"button"> & {
-        disabled?: boolean
-        href?: never
-      })
-    | (CommonProps<"a"> & {
-        disabled?: never
-        href: string
-      })
+  import { Props } from "./types.svelte"
 
   let {
     as,

@@ -102,7 +102,7 @@
   {
     "id": "component-button-html",
     "title": "Button",
-    "description": "",
+    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
     "headings": "Variants Colors Buttons with icon and label Keyboard Icon-only Sizes Disabled File upload",
     "category": "Component",
     "frameworkId": "html",
@@ -112,7 +112,7 @@
   {
     "id": "component-button-astro",
     "title": "Button",
-    "description": "",
+    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
     "headings": "Variants Colors Buttons with icon and label Keyboard Icon-only Sizes Disabled File upload",
     "category": "Component",
     "frameworkId": "astro",
@@ -202,7 +202,7 @@
   {
     "id": "component-description-list-html",
     "title": "Description list",
-    "description": "",
+    "description": "Description lists are used to display a list of terms and their descriptions.",
     "headings": "Bordered",
     "category": "Component",
     "frameworkId": "html",
@@ -212,7 +212,7 @@
   {
     "id": "component-description-list-astro",
     "title": "Description list",
-    "description": "",
+    "description": "Description lists are used to display a list of terms and their descriptions.",
     "headings": "Bordered",
     "category": "Component",
     "frameworkId": "astro",
@@ -222,7 +222,7 @@
   {
     "id": "component-dialog-html",
     "title": "Dialog",
-    "description": "",
+    "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
     "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "html",
@@ -232,7 +232,7 @@
   {
     "id": "component-dialog-astro",
     "title": "Dialog",
-    "description": "",
+    "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
     "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
@@ -302,7 +302,7 @@
   {
     "id": "component-icon-button-html",
     "title": "Icon Button",
-    "description": "",
+    "description": "Icon buttons are used to trigger actions and are typically found in toolbars, cards, and dialogs.",
     "headings": "Variants Colors Sizes Disabled",
     "category": "Component",
     "frameworkId": "html",
@@ -312,7 +312,7 @@
   {
     "id": "component-icon-button-astro",
     "title": "Icon Button",
-    "description": "",
+    "description": "Icon buttons are used to trigger actions and are typically found in toolbars, cards, and dialogs.",
     "headings": "Variants Colors Sizes Disabled",
     "category": "Component",
     "frameworkId": "astro",
@@ -322,7 +322,7 @@
   {
     "id": "component-list-html",
     "title": "List",
-    "description": "",
+    "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
     "headings": "Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
     "category": "Component",
     "frameworkId": "html",
@@ -332,7 +332,7 @@
   {
     "id": "component-list-astro",
     "title": "List",
-    "description": "",
+    "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
     "headings": "Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
     "category": "Component",
     "frameworkId": "astro",
@@ -462,7 +462,7 @@
   {
     "id": "component-table-html",
     "title": "Table",
-    "description": "",
+    "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
     "headings": "Variants Default Advanced",
     "category": "Component",
     "frameworkId": "html",
@@ -472,7 +472,7 @@
   {
     "id": "component-table-astro",
     "title": "Table",
-    "description": "",
+    "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
     "headings": "Variants Default Advanced",
     "category": "Component",
     "frameworkId": "astro",
@@ -502,7 +502,7 @@
   {
     "id": "component-text-field-html",
     "title": "Text field",
-    "description": "",
+    "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
     "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
     "category": "Component",
     "frameworkId": "html",
@@ -512,7 +512,7 @@
   {
     "id": "component-text-field-astro",
     "title": "Text field",
-    "description": "",
+    "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
     "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
     "category": "Component",
     "frameworkId": "astro",
@@ -522,7 +522,7 @@
   {
     "id": "component-textarea-html",
     "title": "Textarea",
-    "description": "",
+    "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
     "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
     "category": "Component",
     "frameworkId": "html",
@@ -532,7 +532,7 @@
   {
     "id": "component-textarea-astro",
     "title": "Textarea",
-    "description": "",
+    "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
     "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
     "category": "Component",
     "frameworkId": "astro",
@@ -542,7 +542,7 @@
   {
     "id": "component-toast-html",
     "title": "Toast",
-    "description": "",
+    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
     "headings": "How it works HTML JavaScript Severities Title + description Duration",
     "category": "Component",
     "frameworkId": "html",
@@ -552,7 +552,7 @@
   {
     "id": "component-toast-astro",
     "title": "Toast",
-    "description": "",
+    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
     "headings": "How it works HTML JavaScript Severities Title + description Duration",
     "category": "Component",
     "frameworkId": "astro",

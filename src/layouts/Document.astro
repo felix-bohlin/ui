@@ -346,7 +346,10 @@ const preambleHasBlockMarkup = preamble
       grid-row: 2;
       max-inline-size: var(--_content-document);
       min-inline-size: 0;
-      padding: var(--_gap);
+
+      @media (width >= 900px) {
+        padding: var(--_gap);
+      }
 
       & > .ui-rich-text section:last-of-type > div:last-of-type {
         margin-block-end: 0;

@@ -1,4 +1,3 @@
-<!--
 <script lang="ts">
   import { List } from "@opui/svelte"
   import { ListItem } from "@opui/svelte"
@@ -17,4 +16,3 @@
     {/snippet}
   </ListItem>
 </List>
--->

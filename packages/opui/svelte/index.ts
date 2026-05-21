@@ -1,6 +1,6 @@
 export { default as Accordion } from "../components/Accordion/Accordion.svelte"
 // export { default as Anchor } from "../components/Anchor/Anchor.svelte"
-// export { default as Avatar } from "../components/Avatar/Avatar.svelte"
+export { default as Avatar } from "../components/Avatar/Avatar.svelte"
 // export { default as Badge } from "../components/Badge/Badge.svelte"
 export { default as Button } from "../components/Button/Button.svelte"
 // export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.svelte"

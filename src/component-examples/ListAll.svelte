@@ -1,4 +1,3 @@
-<!--
 <script lang="ts">
   import { Avatar } from "@opui/svelte"
   import { CheckboxInput } from "@opui/svelte"
@@ -208,4 +207,3 @@
     <SwitchInput id={`${prefix}switch-all-1`} />
   {/snippet}
 </ListItem>
--->

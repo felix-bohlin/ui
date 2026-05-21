@@ -54,14 +54,16 @@
         <p>{@render snippetString(description)}</p>
       {/if}
       {@render snippetString(text)}
+      {@render children?.()}
     </div>
+  {:else}
+    {@render children?.()}
   {/if}
   {#if end}
     <div class="ui-end">
       {@render snippetString(end)}
     </div>
   {/if}
-  {@render children?.()}
 {/snippet}
 
 <li

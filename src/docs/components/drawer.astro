@@ -74,16 +74,18 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="html">
         <p>
           Change the opening side with the <code>.ui-inline-start</code>, <code
->.ui-inline-end</code>, <code>.ui-block-start</code>, and <code>.ui-block-end</code> classes.
+            >.ui-inline-end</code
+          >, <code>.ui-block-start</code>, and <code>.ui-block-end</code> classes.
         </p>
         <p>
           The backdrop is blurred by default. Use the <code
->.ui-backdrop-transparent</code>
+            >.ui-backdrop-transparent</code
+          >
           class to remove the blur effect.
         </p>
         <p>
-          Add the <code>.ui-scroll-lock</code> utility class to the drawer to lock page
-          scrolling while it's open. Omit the class to allow background scrolling.
+          Add the <code>.ui-scroll-lock</code> utility class to the drawer to lock
+          page scrolling while it's open. Omit the class to allow background scrolling.
         </p>
       </Fragment>
     </Conditional>
@@ -305,3 +307,28 @@ import Conditional from "../../components/Conditional.astro"
     </div>
   </Fragment>
 </Component>
+
+<script>
+  function setupDrawerBackdropControls() {
+    document
+      .querySelectorAll<HTMLElement>(".example-container")
+      .forEach((container) => {
+        if (!container.querySelector("#backdrop-transparent-toggle")) return
+        if (container.dataset.drawerBackdropSetup) return
+        container.dataset.drawerBackdropSetup = "true"
+
+        container.addEventListener("change", (event) => {
+          const input = event.target
+          if (!(input instanceof HTMLInputElement)) return
+          if (input.id !== "backdrop-transparent-toggle") return
+
+          container.querySelectorAll("dialog.ui-drawer").forEach((drawer) => {
+            drawer.classList.toggle("ui-backdrop-transparent", input.checked)
+          })
+        })
+      })
+  }
+
+  setupDrawerBackdropControls()
+  document.addEventListener("astro:after-swap", setupDrawerBackdropControls)
+</script>

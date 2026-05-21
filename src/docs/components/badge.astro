@@ -15,7 +15,6 @@ import Conditional from "../../components/Conditional.astro"
 
 import BadgeCSS from "@opui/css/components/badge.css?raw"
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
-
 ---
 
 <style is:global>
@@ -59,7 +58,9 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     <Conditional>
       <Fragment slot="html">
         Badge extends <DocLink href="/components/anchor">Anchor</DocLink>. Add <code
->.ui-anchor</code> and <code>.ui-badge</code> classes to the container, wrap the indicator in
+          >.ui-anchor</code
+        > and <code>.ui-badge</code> classes to the container, wrap the indicator
+        in
         <code>.ui-anchor-floating</code>.
       </Fragment>
       <Fragment slot="astro">
@@ -86,7 +87,9 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     <h2 id="severities">Severities</h2>
     <Conditional>
       <p slot="html">
-        <code>.ui-critical</code>, <code>.ui-info</code>, <code>.ui-neutral</code>,
+        <code>.ui-critical</code>, <code>.ui-info</code>, <code
+          >.ui-neutral</code
+        >,
         <code>.ui-success</code>, <code>.ui-warning</code>.
       </p>
       <p slot="astro">
@@ -134,7 +137,8 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     <Conditional>
       <p slot="html">
         <code>.ui-start-start</code>, default, <code>.ui-end-start</code>, <code
->.ui-end-end</code>.
+          >.ui-end-end</code
+        >.
       </p>
       <p slot="astro">
         <code>start-start</code>, default,
@@ -157,3 +161,36 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     </Example>
   </Fragment>
 </Component>
+
+<script>
+  function setupBadgeVisibilityControls() {
+    document
+      .querySelectorAll<HTMLElement>(".example-container")
+      .forEach((container) => {
+        if (!container.querySelector("#badge-visibility-toggle")) return
+        if (container.dataset.badgeVisibilitySetup) return
+        container.dataset.badgeVisibilitySetup = "true"
+
+        const sync = (checked: boolean) => {
+          container.querySelectorAll(".ui-badge").forEach((badge) => {
+            badge.classList.toggle("ui-invisible", checked)
+          })
+        }
+
+        container.addEventListener("change", (event) => {
+          const input = event.target
+          if (!(input instanceof HTMLInputElement)) return
+          if (input.id !== "badge-visibility-toggle") return
+          sync(input.checked)
+        })
+
+        const initial = container.querySelector<HTMLInputElement>(
+          "#badge-visibility-toggle",
+        )
+        if (initial) sync(initial.checked)
+      })
+  }
+
+  setupBadgeVisibilityControls()
+  document.addEventListener("astro:after-swap", setupBadgeVisibilityControls)
+</script>

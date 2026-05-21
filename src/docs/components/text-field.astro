@@ -122,7 +122,9 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
         full width with a divider.
       </Fragment>
       <Fragment slot="html">
-        Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code>.ui-header</code>, or
+        Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
+          >.ui-header</code
+        >, or
         <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
         inside the field's border. Prefix and suffix sit beside the input, while header
         and footer span the field's full width with a divider.
@@ -147,8 +149,8 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
       required styles
     </p>
     <p>
-      The <code>.ui-critical</code> class toggles the error styles. Make use of the end
-      text to give extra feedback on the error.
+      The <code>.ui-critical</code> class toggles the error styles. Make use of the
+      end text to give extra feedback on the error.
     </p>
 
     <AutoExample name="Validation" column spacious />
@@ -163,9 +165,9 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
         on narrow containers.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to display the label and description on
-        the left with the input on the right. The layout collapses to a column on
-        narrow containers.
+        Add the <code>.ui-spread</code> class to display the label and description
+        on the left with the input on the right. The layout collapses to a column
+        on narrow containers.
       </Fragment>
     </Conditional>
 
@@ -364,13 +366,15 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
       <li><code>.ui-label</code>: Field label element</li>
       <li><code>.ui-field</code>: The boxed input area</li>
       <li>
-        <code>.ui-header</code>: Optional inside-border header strip (with divider)
+        <code>.ui-header</code>: Optional inside-border header strip (with
+        divider)
       </li>
       <li><code>.ui-prefix</code>: Optional inline-start affix</li>
       <li><code>&lt;input&gt;</code>: Input element</li>
       <li><code>.ui-suffix</code>: Optional inline-end affix</li>
       <li>
-        <code>.ui-footer</code>: Optional inside-border footer strip (with divider)
+        <code>.ui-footer</code>: Optional inside-border footer strip (with
+        divider)
       </li>
       <li><code>.ui-end-text</code>: Supporting text element</li>
     </ol>
@@ -390,6 +394,45 @@ import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
     </Example>
   </Fragment>
 </Component>
+
+<script>
+  function setupInputTypesControls() {
+    document
+      .querySelectorAll<HTMLElement>(".example-container")
+      .forEach((container) => {
+        if (!container.querySelector("#text-field-filled-toggle")) return
+        if (container.dataset.inputTypesSetup) return
+        container.dataset.inputTypesSetup = "true"
+
+        const filledToggle = container.querySelector<HTMLInputElement>(
+          "#text-field-filled-toggle",
+        )
+        const smallToggle = container.querySelector<HTMLInputElement>(
+          "#text-field-small-toggle",
+        )
+
+        const updateFields = () => {
+          if (!filledToggle || !smallToggle) return
+          container.querySelectorAll(".input-type-field").forEach((field) => {
+            field.classList.toggle("ui-filled", filledToggle.checked)
+            field.classList.toggle("ui-small", smallToggle.checked)
+          })
+        }
+
+        container.addEventListener("change", (event) => {
+          const input = event.target
+          if (!(input instanceof HTMLInputElement)) return
+          if (input !== filledToggle && input !== smallToggle) return
+          updateFields()
+        })
+
+        updateFields()
+      })
+  }
+
+  setupInputTypesControls()
+  document.addEventListener("astro:after-swap", setupInputTypesControls)
+</script>
 
 <style is:global>
   .anatomy {

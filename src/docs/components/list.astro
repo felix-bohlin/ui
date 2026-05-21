@@ -54,7 +54,8 @@ import Conditional from "../../components/Conditional.astro"
     <Conditional>
       <ul slot="astro">
         <li>
-          <a href="#text" class="ui-link"><code>text</code> slot</a>: main content
+          <a href="#text" class="ui-link"><code>text</code> slot</a>: main
+          content
         </li>
         <li>
           <a href="#start-items" class="ui-link"><code>start</code> slot</a> (optional):
@@ -67,15 +68,16 @@ import Conditional from "../../components/Conditional.astro"
       </ul>
       <ul slot="html">
         <li>
-          <a href="#text" class="ui-link"><code>.ui-text</code></a>: main content
+          <a href="#text" class="ui-link"><code>.ui-text</code></a>: main
+          content
         </li>
         <li>
           <a href="#start-items" class="ui-link"><code>.ui-start</code></a> (optional):
           items before the main content
         </li>
         <li>
-          <a href="#end-items" class="ui-link"><code>.ui-end</code></a> (optional): items
-          after the main content
+          <a href="#end-items" class="ui-link"><code>.ui-end</code></a> (optional):
+          items after the main content
         </li>
       </ul>
     </Conditional>
@@ -100,7 +102,8 @@ import Conditional from "../../components/Conditional.astro"
       </p>
       <p slot="html">
         Use
-        <code>.ui-default</code>, <code>.ui-tonal</code>, and <code>.ui-transparent</code
+        <code>.ui-default</code>, <code>.ui-tonal</code>, and <code
+          >.ui-transparent</code
         > to change the background color.
       </p>
     </Conditional>
@@ -165,7 +168,8 @@ import Conditional from "../../components/Conditional.astro"
     <h3 id="avatar">Avatar</h3>
     <p>
       Read more: <DocLink href="/components/avatar" class="ui-link"
-        >Avatar</DocLink>
+        >Avatar</DocLink
+      >
     </p>
     <AutoExample name="StartAvatar" />
 
@@ -202,7 +206,8 @@ import Conditional from "../../components/Conditional.astro"
     </p>
     <p>
       Read more: <DocLink href="/components/checkbox" class="ui-link"
-        >Checkbox</DocLink>
+        >Checkbox</DocLink
+      >
     </p>
     <AutoExample name="EndCheckbox" />
 
@@ -218,14 +223,17 @@ import Conditional from "../../components/Conditional.astro"
       group behavior.
     </p>
     <p>
-      Read more: <DocLink href="/components/radio" class="ui-link">Radio</DocLink>
+      Read more: <DocLink href="/components/radio" class="ui-link"
+        >Radio</DocLink
+      >
     </p>
     <AutoExample name="EndRadio" />
 
     <h3 id="switch">Switch</h3>
     <p>
       Read more: <DocLink href="/components/switch" class="ui-link"
-        >Switch</DocLink>
+        >Switch</DocLink
+      >
     </p>
     <AutoExample name="EndSwitch" />
   </section>
@@ -249,15 +257,15 @@ import Conditional from "../../components/Conditional.astro"
     <h2 id="borders">Borders</h2>
     <h3 id="on-every-item">On every item</h3>
     <p>
-      Apply the <code>.ui-bordered</code> class on the <code>ul.list</code> element to
-      give all list items a border.
+      Apply the <code>.ui-bordered</code> class on the <code>ul.list</code> element
+      to give all list items a border.
     </p>
     <AutoExample name="Bordered" />
 
     <h3 id="on-one-item">On one item</h3>
     <p>
-      Apply the <code>.ui-border-top</code> class on a <code>li.list</code> item to give
-      it an upper border.
+      Apply the <code>.ui-border-top</code> class on a <code>li.list</code> item to
+      give it an upper border.
     </p>
     <AutoExample name="SingleBorder" />
   </section>
@@ -335,7 +343,9 @@ import Conditional from "../../components/Conditional.astro"
         >, <code>video</code>
       </li>
       <li>
-        Text content: <code>.ui-text</code> &gt; <code>p</code>, <code>p + p</code>
+        Text content: <code>.ui-text</code> &gt; <code>p</code>, <code
+          >p + p</code
+        >
       </li>
       <li>
         End content (optional): <code>.ui-end</code> &gt; <code>svg</code>, <code
@@ -371,6 +381,46 @@ import Conditional from "../../components/Conditional.astro"
     </Example>
   </Fragment>
 </Component>
+
+<script>
+  function setupListDenseControls() {
+    document
+      .querySelectorAll<HTMLElement>(".example-container")
+      .forEach((container) => {
+        if (!container.querySelector(".list-dense-target")) return
+        if (container.dataset.listDenseSetup) return
+        container.dataset.listDenseSetup = "true"
+
+        const sync = (checked: boolean) => {
+          container.querySelectorAll(".list-dense-target").forEach((list) => {
+            list.classList.toggle("ui-dense", checked)
+          })
+          container
+            .querySelectorAll<HTMLInputElement>(".list-dense-toggle input")
+            .forEach((input) => {
+              if (input.checked !== checked) {
+                input.checked = checked
+              }
+            })
+        }
+
+        container.addEventListener("change", (event) => {
+          const input = event.target
+          if (!(input instanceof HTMLInputElement)) return
+          if (!input.closest(".list-dense-toggle")) return
+          sync(input.checked)
+        })
+
+        const initial = container.querySelector<HTMLInputElement>(
+          ".list-dense-toggle input",
+        )
+        if (initial) sync(initial.checked)
+      })
+  }
+
+  setupListDenseControls()
+  document.addEventListener("astro:after-swap", setupListDenseControls)
+</script>
 
 <style is:global>
   .tab-panel ul {

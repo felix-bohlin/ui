@@ -153,24 +153,6 @@ import { Button, Drawer, DrawerHeader, DrawerFooter } from "@opui/astro"
   </DrawerFooter>
 </Drawer>
 
-<script>
-  const transparentToggle = document.querySelector(
-    "#backdrop-transparent-toggle",
-  ) as HTMLInputElement
-  const drawers = document.querySelectorAll("dialog.ui-drawer")
-
-  transparentToggle?.addEventListener("change", (e) => {
-    const isTransparent = (e.target as HTMLInputElement).checked
-    drawers.forEach((drawer) => {
-      if (isTransparent) {
-        drawer.classList.add("ui-backdrop-transparent")
-      } else {
-        drawer.classList.remove("ui-backdrop-transparent")
-      }
-    })
-  })
-</script>
-
 <style>
   .drawer-examples {
     display: grid;

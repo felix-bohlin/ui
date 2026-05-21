@@ -2,7 +2,7 @@
 * Somehow handle when a group gets too wide for its container. Should it be handled?
 */
 @layer components.root {
-	:where(.toggle-button) {
+	:where(.ui-toggle-button) {
 		--_button-bg-color: transparent;
 		--_size: var(--field-size);
 		--_svg-size: var(--size-4);
@@ -38,7 +38,7 @@
 
 		/* Element states */
 		@media (pointer: fine) {
-			&:hover:not(.disabled) {
+			&:hover:not(.ui-disabled) {
 				--_button-bg-color: light-dark(oklch(0% 0 0 / 0.04), oklch(100% 0 0 / 0.08));
 			}
 		}
@@ -51,7 +51,7 @@
 		}
 
 		/* Disabled */
-		&.disabled {
+		&.ui-disabled {
 			border-color: color-mix(in oklch, var(--border-color) 50%, transparent);
 			color: color-mix(in oklch, var(--text-primary) 30%, transparent);
 			cursor: not-allowed;
@@ -76,11 +76,11 @@
 		}
 
 		/* Sizes */
-		&.small {
+		&.ui-small {
 			--_size: var(--field-size-small);
 		}
 
-		&.x-small {
+		&.ui-x-small {
 			--_size: var(--field-size-x-small);
 		}
 	}

@@ -23,7 +23,7 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     outline: var(--_anatomy-border-gray);
     outline-offset: -2px;
 
-    & > .anchor-floating > .badge-indicator {
+    & > .ui-anchor-floating > .ui-badge-indicator {
       outline: var(--_anatomy-border-red);
       outline-offset: -3px;
     }
@@ -59,9 +59,8 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     <Conditional>
       <Fragment slot="html">
         Badge extends <DocLink href="/components/anchor">Anchor</DocLink>. Add <code
-          >.anchor</code
-        > and <code>.badge</code> classes to the container, wrap the indicator in
-        <code>.anchor-floating</code>.
+>.ui-anchor</code> and <code>.ui-badge</code> classes to the container, wrap the indicator in
+        <code>.ui-anchor-floating</code>.
       </Fragment>
       <Fragment slot="astro">
         Use the <code>label</code> property to add content inside the Badge.
@@ -76,7 +75,7 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
         Default, and <code>dot</code>.
       </Fragment>
       <Fragment slot="html">
-        Default, and <code>.dot</code>.
+        Default, and <code>.ui-dot</code>.
       </Fragment>
     </Conditional>
 
@@ -87,8 +86,8 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     <h2 id="severities">Severities</h2>
     <Conditional>
       <p slot="html">
-        <code>.critical</code>, <code>.info</code>, <code>.neutral</code>,
-        <code>.success</code>, <code>.warning</code>.
+        <code>.ui-critical</code>, <code>.ui-info</code>, <code>.ui-neutral</code>,
+        <code>.ui-success</code>, <code>.ui-warning</code>.
       </p>
       <p slot="astro">
         <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
@@ -108,7 +107,7 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
         prop.
       </Fragment>
       <Fragment slot="html">
-        Change the badge's visibility using the <code>.invisible</code>
+        Change the badge's visibility using the <code>.ui-invisible</code>
         class.
       </Fragment>
     </Conditional>
@@ -116,7 +115,7 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     <Example row>
       <Conditional slot="controls">
         <UISwitch slot="html" id="badge-visibility-toggle"
-          ><code>.invisible</code></UISwitch
+          ><code>.ui-invisible</code></UISwitch
         >
         <UISwitch slot="astro" id="badge-visibility-toggle"
           ><code>invisible</code></UISwitch
@@ -134,9 +133,8 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     <p>Where the badge should be placed over the child.</p>
     <Conditional>
       <p slot="html">
-        <code>.start-start</code>, default, <code>.end-start</code>, <code
-          >.end-end</code
-        >.
+        <code>.ui-start-start</code>, default, <code>.ui-end-start</code>, <code
+>.ui-end-end</code>.
       </p>
       <p slot="astro">
         <code>start-start</code>, default,

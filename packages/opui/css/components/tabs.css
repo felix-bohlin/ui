@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.tabs) {
+  :where(.ui-tabs) {
     --_accent-color: var(--primary);
     --_bg-color: transparent;
 
@@ -9,7 +9,7 @@
     gap: 0 var(--size-1);
     position: relative;
 
-    &>.tab-input[type="radio"] {
+    &>.ui-tab-input[type="radio"] {
       /* utils > .sr-only */
       /* TODO: use mixin for this when available */
       block-size: 1px;

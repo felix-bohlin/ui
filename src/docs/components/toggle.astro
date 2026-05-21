@@ -70,7 +70,7 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         Group toggle buttons by wrapping them in a <code
-          >&lt;div role="radiogroup" class="toggle-group"&gt;</code
+          >&lt;div role="radiogroup" class="ui-toggle-group"&gt;</code
         > (or <code>role="group"</code> when multi-select).
       </Fragment>
     </Conditional>
@@ -109,16 +109,15 @@ import Conditional from "../../components/Conditional.astro"
         > prop.
       </p>
       <p slot="html">
-        Change the layout of the group with the <code>.vertical</code> class.
+        Change the layout of the group with the <code>.ui-vertical</code> class.
       </p>
     </Conditional>
     <AutoExample name="Vertical" centered />
 
     <h3 id="sizes">Sizes</h3>
     <p>
-      Choose between three sizes: default, <code>.x-small</code> and <code
-        >.small</code
-      >.
+      Choose between three sizes: default, <code>.ui-x-small</code> and <code
+>.ui-small</code>.
     </p>
 
     <AutoExample name="Sizes" centered row />
@@ -126,8 +125,8 @@ import Conditional from "../../components/Conditional.astro"
 
   <Fragment slot="anatomy">
     <Example centered>
-      <div role="radiogroup" class="toggle-group anatomy">
-        <label class="toggle-button selected">
+      <div role="radiogroup" class="ui-toggle-group anatomy">
+        <label class="ui-toggle-button selected">
           <input type="radio" checked />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -141,7 +140,7 @@ import Conditional from "../../components/Conditional.astro"
           >
           Selected
         </label>
-        <label class="toggle-button">
+        <label class="ui-toggle-button">
           <input type="radio" />
           Enabled
         </label>
@@ -155,7 +154,7 @@ import Conditional from "../../components/Conditional.astro"
     outline: var(--_anatomy-border-gray);
     outline-offset: 4px;
 
-    .toggle-button:first-of-type {
+    .ui-toggle-button:first-of-type {
       outline: var(--_anatomy-border-red);
 
       & > * {
@@ -164,7 +163,7 @@ import Conditional from "../../components/Conditional.astro"
     }
   }
 
-  .toggle-group .toggle-button:has(input:checked).has-text svg:nth-of-type(2) {
+  .ui-toggle-group .ui-toggle-button:has(input:checked).has-text svg:nth-of-type(2) {
     display: none;
   }
 </style>

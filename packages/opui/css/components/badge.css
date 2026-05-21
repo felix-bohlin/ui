@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where(.badge) {
+  :where(.ui-badge) {
     --_anchor-tx: -50%;
     --_anchor-ty: 50%;
     --_badge-inset: auto auto 100% 100%;
@@ -15,14 +15,14 @@
 
     /* Floating wrapper: traditional inset-based positioning so this works
        in browsers without position-area support (Firefox, older Safari). */
-    &>.anchor-floating:not([popover]) {
+    &>.ui-anchor-floating:not([popover]) {
       inset: var(--_badge-inset);
       position-anchor: auto;
       position-area: none;
     }
 
     /* Indicator */
-    &>.anchor-floating>.badge-indicator {
+    &>.ui-anchor-floating>.ui-badge-indicator {
       background-color: var(--_bg-color);
       block-size: var(--_size);
       border: 2px solid var(--_border-color);
@@ -41,57 +41,57 @@
     }
 
     /* Colors */
-    &.critical {
+    &.ui-critical {
       --_bg-color: var(--critical);
       --_border-color: var(--critical);
     }
 
-    &.success {
+    &.ui-success {
       --_bg-color: var(--success);
       --_border-color: var(--success);
     }
 
-    &.info {
+    &.ui-info {
       --_bg-color: var(--info);
       --_border-color: var(--info);
     }
 
-    &.warning {
+    &.ui-warning {
       --_bg-color: var(--warning);
       --_border-color: var(--warning);
     }
 
-    &.neutral {
+    &.ui-neutral {
       --_bg-color: var(--neutral);
       --_border-color: var(--neutral);
     }
 
     /* Alignment */
-    &.start-start {
+    &.ui-start-start {
       --_anchor-tx: 50%;
       --_anchor-ty: 50%;
       --_badge-inset: auto 100% 100% auto;
     }
 
-    &.end-start {
+    &.ui-end-start {
       --_anchor-tx: 50%;
       --_anchor-ty: -50%;
       --_badge-inset: 100% 100% auto auto;
     }
 
-    &.end-end {
+    &.ui-end-end {
       --_anchor-tx: -50%;
       --_anchor-ty: -50%;
       --_badge-inset: 100% auto auto 100%;
     }
 
     /* Dot */
-    &.dot {
+    &.ui-dot {
       --_anchor-tx: calc((var(--_dot-size) - 2px) * -1);
       --_anchor-ty: var(--_dot-size);
     }
 
-    &.dot>.anchor-floating>.badge-indicator {
+    &.ui-dot>.ui-anchor-floating>.ui-badge-indicator {
       block-size: var(--_dot-size);
       inline-size: var(--_dot-size);
       min-inline-size: var(--_dot-size);
@@ -99,7 +99,7 @@
     }
 
     /* Visibility */
-    &.invisible>.anchor-floating>.badge-indicator {
+    &.ui-invisible>.ui-anchor-floating>.ui-badge-indicator {
       opacity: 0;
       pointer-events: none;
     }

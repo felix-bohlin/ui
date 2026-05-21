@@ -12,7 +12,7 @@ import Conditional from "../../components/Conditional.astro"
   .anatomy {
     outline: var(--_anatomy-border-gray);
     outline-offset: 6px;
-    .item * {
+    .ui-item * {
       outline: var(--_anatomy-border-red);
       outline-offset: -2px;
     }
@@ -63,8 +63,8 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         <p>
-          Add <code>.bordered</code> to the <code>&lt;dl&gt;</code> element. For a
-          dotted style, also add <code>.dotted</code>.
+          Add <code>.ui-bordered</code> to the <code>&lt;dl&gt;</code> element. For a
+          dotted style, also add <code>.ui-dotted</code>.
         </p>
       </Fragment>
     </Conditional>
@@ -95,7 +95,7 @@ import Conditional from "../../components/Conditional.astro"
           <li>Term-description group (<code>&lt;div&gt;</code>)</li>
           <li>Term (<code>&lt;dt&gt;</code>)</li>
           <li>
-            Separator — rendered via CSS when <code>.bordered</code> is set on the
+            Separator — rendered via CSS when <code>.ui-bordered</code> is set on the
             list (optional)
           </li>
           <li>Description (<code>&lt;dd&gt;</code>)</li>

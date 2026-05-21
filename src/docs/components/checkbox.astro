@@ -57,7 +57,7 @@ import Conditional from "../../components/Conditional.astro"
   <Fragment slot="title">Checkbox</Fragment>
   <Fragment slot="preamble">
     Checkboxes allow users to select one or more items from a set of options.
-    See also: <a href="#field-group" class="link">Checkbox field group</a>.
+    See also: <a href="#field-group" class="ui-link">Checkbox field group</a>.
   </Fragment>
 
   <AutoExample name="Variants" row />
@@ -65,8 +65,8 @@ import Conditional from "../../components/Conditional.astro"
   <section>
     <h2 id="visible-label">Visible label</h2>
     <p>
-      Render the label text inside an element with a <code>.label</code> class. Also,
-      don't miss the info on label <a href="#accessibility" class="link"
+      Render the label text inside an element with a <code>.ui-label</code> class. Also,
+      don't miss the info on label <a href="#accessibility" class="ui-link"
         >accessibility</a
       >.
     </p>
@@ -114,10 +114,10 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
     </Conditional>
 
-    <div class="not-rich-text">
+    <div class="ui-not-rich-text">
       <UICallout>
         <Fragment slot="title">JavaScript required</Fragment>
-        <div class="rich-text">
+        <div class="ui-rich-text">
           The <code>indeterminate</code> state cannot be set with HTML or CSS alone.
           The browser only exposes it as a property on <code
             >HTMLInputElement</code
@@ -140,7 +140,7 @@ import Conditional from "../../components/Conditional.astro"
         to the right. This is useful for full-width items like lists and menus.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.spread</code> class to the <code
+        Add the <code>.ui-spread</code> class to the <code
           >&lt;label.checkbox&gt;</code
         >
         to push the label to the left and the checkbox to the right. This is useful
@@ -169,7 +169,7 @@ import Conditional from "../../components/Conditional.astro"
       </p>
     </Conditional>
     <p>
-      See also: <DocLink href="/components/form" class="link"
+      See also: <DocLink href="/components/form" class="ui-link"
         >Form documentation</DocLink
       >.
     </p>
@@ -253,7 +253,7 @@ import Conditional from "../../components/Conditional.astro"
     </table>
 
     <h3 id="keyboard-support">Keyboard support</h3>
-    <div class="not-rich-text">
+    <div class="ui-not-rich-text">
       <table>
         <thead>
           <tr>
@@ -294,16 +294,16 @@ import Conditional from "../../components/Conditional.astro"
     gap: var(--size-3);
     align-items: center;
   }
-  .example-row.spacious {
+  .example-row.ui-spacious {
     gap: var(--size-6);
   }
 
-  .checkbox.anatomy {
+  .ui-checkbox.anatomy {
     outline: var(--_anatomy-border-gray);
     outline-offset: 8px;
 
-    .label,
-    .end-text,
+    .ui-label,
+    .ui-end-text,
     input {
       outline: var(--_anatomy-border-red);
       outline-offset: -3px;

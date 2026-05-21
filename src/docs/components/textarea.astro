@@ -96,8 +96,8 @@ import TextareaAPIHTML from "../../component-api/textarea/HTML.astro"
         Header and footer are particularly useful for filenames and character counters.
       </Fragment>
       <Fragment slot="html">
-        Add <code>.prefix</code>, <code>.suffix</code>, <code>.header</code>, or
-        <code>.footer</code> elements inside <code>.field</code> to affix content
+        Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code>.ui-header</code>, or
+        <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
         inside the textarea's border.
       </Fragment>
     </Conditional>
@@ -138,7 +138,7 @@ import TextareaAPIHTML from "../../component-api/textarea/HTML.astro"
         on narrow containers.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.spread</code> class to display the label and description on
+        Add the <code>.ui-spread</code> class to display the label and description on
         the left with the textarea on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
@@ -153,44 +153,44 @@ import TextareaAPIHTML from "../../component-api/textarea/HTML.astro"
 
     <AutoExample name="AutoFit" exampleClass="flex" />
 
-    <div class="not-rich-text"></div>
+    <div class="ui-not-rich-text"></div>
   </section>
 
   <Fragment slot="anatomy">
     <ol>
       <li><code>label.textarea</code>: Container element</li>
-      <li><code>.label</code>: Field label element</li>
-      <li><code>.field</code>: The boxed input area</li>
+      <li><code>.ui-label</code>: Field label element</li>
+      <li><code>.ui-field</code>: The boxed input area</li>
       <li>
-        <code>.header</code>: Optional inside-border header strip (with divider)
+        <code>.ui-header</code>: Optional inside-border header strip (with divider)
       </li>
-      <li><code>.prefix</code>: Optional inline-start affix</li>
+      <li><code>.ui-prefix</code>: Optional inline-start affix</li>
       <li><code>&lt;textarea&gt;</code>: Textarea element</li>
-      <li><code>.suffix</code>: Optional inline-end affix</li>
+      <li><code>.ui-suffix</code>: Optional inline-end affix</li>
       <li>
-        <code>.footer</code>: Optional inside-border footer strip (with divider)
+        <code>.ui-footer</code>: Optional inside-border footer strip (with divider)
       </li>
-      <li><code>.end-text</code>: Supporting text element</li>
+      <li><code>.ui-end-text</code>: Supporting text element</li>
     </ol>
 
     <Example>
-      <label class="textarea anatomy">
-        <span class="label">Label</span>
-        <span class="field">
-          <span class="header">Header</span>
-          <span class="prefix">@</span>
+      <label class="ui-textarea anatomy">
+        <span class="ui-label">Label</span>
+        <span class="ui-field">
+          <span class="ui-header">Header</span>
+          <span class="ui-prefix">@</span>
           <textarea placeholder="Placeholder"></textarea>
-          <span class="suffix">.com</span>
-          <span class="footer">Footer</span>
+          <span class="ui-suffix">.com</span>
+          <span class="ui-footer">Footer</span>
         </span>
-        <span class="end-text">Supporting text</span>
+        <span class="ui-end-text">Supporting text</span>
       </label>
     </Example>
   </Fragment>
 </Component>
 
 <style is:global>
-  .textarea.anatomy {
+  .ui-textarea.anatomy {
     outline: var(--_anatomy-border-gray);
     outline-offset: 6px;
 

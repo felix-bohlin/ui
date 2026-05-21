@@ -91,7 +91,7 @@ import { DescriptionList } from "@opui/astro"
             >&lt;fieldset&gt;</code
           > and <code>&lt;legend&gt;</code>. Replace them with <code
             >&lt;div role="group"&gt;</code
-          > paired with a <code>&lt;span class="legend"&gt;</code> (or any heading)
+          > paired with a <code>&lt;span class="ui-legend"&gt;</code> (or any heading)
           to keep the visual treatment without the native semantics.
         </p>
       </Fragment>
@@ -105,7 +105,7 @@ import { DescriptionList } from "@opui/astro"
           <DescriptionList.Item>
             <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term
             >
-            <hr class="dotted" />
+            <hr class="ui-dotted" />
             <DescriptionList.Description>
               to describe what it's about.
             </DescriptionList.Description>
@@ -114,14 +114,14 @@ import { DescriptionList } from "@opui/astro"
             <DescriptionList.Term
               ><code>FieldDescription</code>(optional)</DescriptionList.Term
             >
-            <hr class="dotted" />
+            <hr class="ui-dotted" />
             <DescriptionList.Description>
               to give extra context about the fieldset.
             </DescriptionList.Description>
           </DescriptionList.Item>
           <DescriptionList.Item>
             <DescriptionList.Term><code>FieldGroup</code></DescriptionList.Term>
-            <hr class="dotted" />
+            <hr class="ui-dotted" />
             <DescriptionList.Description>
               groups related fields.
             </DescriptionList.Description>
@@ -132,25 +132,25 @@ import { DescriptionList } from "@opui/astro"
             <DescriptionList.Term
               ><code>&lt;legend&gt;</code></DescriptionList.Term
             >
-            <hr class="dotted" />
+            <hr class="ui-dotted" />
             <DescriptionList.Description>
               to describe what it's about.
             </DescriptionList.Description>
           </DescriptionList.Item>
           <DescriptionList.Item>
             <DescriptionList.Term
-              ><code>.field-description</code>(optional)</DescriptionList.Term
+              ><code>.ui-field-description</code>(optional)</DescriptionList.Term
             >
-            <hr class="dotted" />
+            <hr class="ui-dotted" />
             <DescriptionList.Description>
               to give extra context about the fieldset.
             </DescriptionList.Description>
           </DescriptionList.Item>
           <DescriptionList.Item>
             <DescriptionList.Term
-              ><code>.field-group</code></DescriptionList.Term
+              ><code>.ui-field-group</code></DescriptionList.Term
             >
-            <hr class="dotted" />
+            <hr class="ui-dotted" />
             <DescriptionList.Description>
               groups related fields.
             </DescriptionList.Description>
@@ -181,7 +181,7 @@ import { DescriptionList } from "@opui/astro"
   <section>
     <h2 id="field-description">Field Description</h2>
     <p>
-      Use <code>FieldDescription</code> (or <code>.field-description</code>) to
+      Use <code>FieldDescription</code> (or <code>.ui-field-description</code>) to
       give extra context about the fieldset.
     </p>
     <AutoExample name="FieldDescription" />
@@ -195,7 +195,7 @@ import { DescriptionList } from "@opui/astro"
         <code>name</code> to all nested inputs.
       </p>
       <p slot="html">
-        Use <code>.field-group</code> to wrap related fields.
+        Use <code>.ui-field-group</code> to wrap related fields.
       </p>
     </Conditional>
 
@@ -208,7 +208,7 @@ import { DescriptionList } from "@opui/astro"
           Use the <code>direction="row"</code> prop to lay out fields horizontally.
         </p>
         <p slot="html">
-          Use the <code>.row</code> class to lay out fields horizontally.
+          Use the <code>.ui-row</code> class to lay out fields horizontally.
         </p>
       </Conditional>
 
@@ -295,10 +295,10 @@ import { DescriptionList } from "@opui/astro"
 
             if (sToggle) {
               const fields = example.querySelectorAll(
-                ".text-field, .textarea, .select, .radio, .checkbox, .switch, .button, .range",
+                ".ui-text-field, .ui-textarea, .ui-select, .ui-radio, .ui-checkbox, .ui-switch, .ui-button, .ui-range",
               )
               fields.forEach((field) => {
-                field.classList.toggle("small", sToggle.checked)
+                field.classList.toggle("ui-small", sToggle.checked)
               })
             }
 
@@ -333,8 +333,8 @@ import { DescriptionList } from "@opui/astro"
 
 <style is:global>
   /* This is here becuase the examples don't remove the hr, they just put display none. In real life though they wouldn't be there so it will look right at least. */
-  .field-group {
-    &:has(.button):not(:has(*:not(.button))) {
+  .ui-field-group {
+    &:has(.ui-button):not(:has(*:not(.ui-button))) {
       &:not(hr:not([style*="display: none"]) + &) {
         margin-block-start: var(--size-4);
       }

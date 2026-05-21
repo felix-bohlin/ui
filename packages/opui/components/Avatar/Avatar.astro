@@ -31,8 +31,8 @@ const Tag = as || (href ? "a" : "div")
 <!-- prettier-ignore -->
 <Tag
   class:list={[
-    { avatar: !isGroup },
-    !isGroup && variant,
+    { "ui-avatar": !isGroup },
+    !isGroup && variant && `ui-${variant}`,
     {
       "gap-small": isGroup && spacing === "small",
       "gap-x-small": isGroup && spacing === "x-small",

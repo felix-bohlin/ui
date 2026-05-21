@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where([role="group"].button-group) {
+  :where([role="group"].ui-button-group) {
     --_border-radius: var(--button-border-radius);
 
     border-radius: var(--_border-radius);
@@ -14,11 +14,11 @@
       --_divider-color: light-dark(oklch(from var(--_accent-tonal) calc(l - 0.1) c h),
           oklch(from var(--_accent-tonal) calc(l + 0.1) c h));
 
-      &.outlined {
+      &.ui-outlined {
         --_divider-color: var(--_border-color);
       }
 
-      &.filled {
+      &.ui-filled {
         --_divider-color: currentColor;
       }
 
@@ -29,8 +29,8 @@
       /* Color inheritance from Button Group — shared interaction model.
          The .critical scope class in theme.css redirects --palette-source so
          --color-6 below becomes a tint of the active color. */
-      :where(.button-group.critical,
-        .button-group.primary) & {
+      :where(.ui-button-group.ui-critical,
+        .ui-button-group.ui-primary) & {
         --_color-contrast: var(--gray-1);
         --_color-tonal: var(--color-6);
         --_accent-tonal-contrast: var(--text-primary-contrast);
@@ -41,26 +41,26 @@
         --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
       }
 
-      :where(.button-group.critical) & {
+      :where(.ui-button-group.ui-critical) & {
         --_color: var(--critical);
       }
 
-      :where(.button-group.primary) & {
+      :where(.ui-button-group.ui-primary) & {
         --_color: var(--primary);
       }
 
-      :where(.button-group.small) & {
+      :where(.ui-button-group.ui-small) & {
         --_min-height: 1.875rem;
         padding-block: 0;
         padding-inline: 1ex;
       }
 
-      :where(.button-group.large) & {
+      :where(.ui-button-group.ui-large) & {
         --_min-height: 2.875rem;
         padding-inline: 4ex;
       }
 
-      :where(.button-group.outlined) & {
+      :where(.ui-button-group.ui-outlined) & {
         --_border-color: var(--_accent);
         --_divider-color: var(--_accent);
 
@@ -79,7 +79,7 @@
         }
       }
 
-      :where(.button-group.tonal) & {
+      :where(.ui-button-group.ui-tonal) & {
         --_bg-color: var(--_accent-tonal);
         --_text-color: var(--_accent-tonal-contrast);
 
@@ -96,13 +96,13 @@
         }
       }
 
-      :where(.button-group.filled) & {
+      :where(.ui-button-group.ui-filled) & {
         --_bg-color: var(--_accent);
         --_text-color: var(--_accent-contrast);
         --_divider-color: currentColor;
 
-        :where(.button-group.critical,
-          .button-group.primary) & {
+        :where(.ui-button-group.ui-critical,
+          .ui-button-group.ui-primary) & {
           --_divider-color: light-dark(oklch(from var(--_accent) calc(l - 0.1) c h),
               oklch(from var(--_accent) calc(l + 0.1) c h));
         }
@@ -119,7 +119,7 @@
       }
     }
 
-    &:not(.vertical) {
+    &:not(.ui-vertical) {
       button {
         &:first-of-type {
           border-end-start-radius: var(--_border-radius);
@@ -144,7 +144,7 @@
       }
     }
 
-    &.vertical {
+    &.ui-vertical {
       flex-direction: column;
 
       button {

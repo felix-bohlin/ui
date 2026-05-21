@@ -133,7 +133,7 @@
     }
 
     /* Spacious */
-    &.spacious {
+    &.ui-spacious {
 
       th,
       td {
@@ -155,7 +155,7 @@
     }
 
     /* Dense */
-    &.dense {
+    &.ui-dense {
 
       th,
       td {

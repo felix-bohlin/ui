@@ -155,9 +155,9 @@ const outputPanelId = `${groupName}-output-panel`
 
 <div
   class:list={[
-    "example-container card outlined",
-    richText,
-    wrapperClass,
+    "example-container ui-card ui-outlined",
+    richText && `ui-${richText}`,
+    wrapperClass && `ui-${wrapperClass}`,
     { "example-centered": centered },
   ]}
   data-expanded="false"
@@ -169,11 +169,11 @@ const outputPanelId = `${groupName}-output-panel`
         class:list={[
           "example-preview",
           className,
-          exampleClass,
+          exampleClass && `ui-${exampleClass}`,
           {
             "example-column": column,
             "example-row": row,
-            spacious,
+            "ui-spacious": spacious,
             "has-show-code": hasCode,
           },
         ]}
@@ -377,7 +377,7 @@ const outputPanelId = `${groupName}-output-panel`
         border-block-end: var(--border-width) solid var(--border-color);
       }
 
-      &.spacious {
+      &.ui-spacious {
         gap: var(--size-8);
       }
 
@@ -463,7 +463,7 @@ const outputPanelId = `${groupName}-output-panel`
     // Keep aria-selected on the source/output tab labels in sync with the
     // checked state of the underlying inputs.
     const tabs =
-      container.querySelectorAll<HTMLInputElement>(".tab-input") || []
+      container.querySelectorAll<HTMLInputElement>(".ui-tab-input") || []
     const syncAriaSelected = () => {
       container.querySelectorAll('label[role="tab"]').forEach((lbl) => {
         const forId = lbl.getAttribute("for")

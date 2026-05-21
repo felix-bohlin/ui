@@ -23,4 +23,4 @@ const {
 ---
 
 <!-- prettier-ignore -->
-<Tag class:list={["icon-button", size, variant, color, className]} href={href} {...rest}><slot /></Tag>
+<Tag class:list={["ui-icon-button", size && `ui-${size}`, variant && `ui-${variant}`, color && `ui-${color}`, className]} href={href} {...rest}><slot /></Tag>

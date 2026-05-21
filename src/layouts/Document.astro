@@ -37,7 +37,7 @@ const preambleHasBlockMarkup = preamble
     {
       sidebar && (
         <aside class="sidebar">
-          <div class="content">
+          <div class="ui-content">
             <Fragment set:html={sidebar} />
           </div>
         </aside>
@@ -63,7 +63,7 @@ const preambleHasBlockMarkup = preamble
     }
 
     <main id="main-content">
-      <article class="rich-text">
+      <article class="ui-rich-text">
         <hgroup id="main-heading">
           {overline && <p>{overline}</p>}
           <h1><slot name="title" /></h1>
@@ -178,7 +178,7 @@ const preambleHasBlockMarkup = preamble
     }
 
     :where(.sidebar, #sidebar-drawer) {
-      .content {
+      .ui-content {
         padding-inline: var(--size-4);
 
         .framework-picker {
@@ -296,7 +296,7 @@ const preambleHasBlockMarkup = preamble
         );
       }
 
-      .content {
+      .ui-content {
         padding-block: 0;
       }
     }
@@ -319,7 +319,7 @@ const preambleHasBlockMarkup = preamble
       overflow-y: auto;
       position: sticky;
 
-      .content {
+      .ui-content {
         padding: var(--_gap);
       }
 
@@ -348,7 +348,7 @@ const preambleHasBlockMarkup = preamble
       min-inline-size: 0;
       padding: var(--_gap);
 
-      & > .rich-text section:last-of-type > div:last-of-type {
+      & > .ui-rich-text section:last-of-type > div:last-of-type {
         margin-block-end: 0;
       }
 

@@ -5,15 +5,15 @@
     margin-block: var(--size-fluid-3);
 
     /* Border color */
-    &.border-filled {
+    &.ui-border-filled {
       background-color: var(--surface-filled);
     }
 
-    &.border-primary {
+    &.ui-border-primary {
       background-color: var(--primary);
     }
 
-    &.border-tonal {
+    &.ui-border-tonal {
       background-color: var(--surface-tonal);
     }
   }

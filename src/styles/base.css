@@ -28,7 +28,7 @@
 }
 
 .example-container {
-  :where(.text-field, .textarea, .select):not(.auto-fit, .row) :where(input, textarea, select) {
+  :where(.ui-text-field, .ui-textarea, .ui-select):not(.ui-auto-fit, .ui-row) :where(input, textarea, select) {
     inline-size: 25ch;
   }
 }
@@ -61,25 +61,25 @@
   max-inline-size: min(calc(100% - var(--_page-gutters)), var(--_content-md));
 
   /* Sizes */
-  &.small {
+  &.ui-small {
     max-inline-size: min(calc(100% - var(--_page-gutters)), var(--_content-sm));
   }
 
-  &.large {
+  &.ui-large {
     max-inline-size: min(calc(100% - var(--_page-gutters)), var(--_content-lg));
   }
 
-  &.text {
+  &.ui-text {
     max-inline-size: min(calc(100% - var(--_page-gutters)),
         var(--_content-text));
   }
 
   /* Horizontal alignment */
-  &.start {
+  &.ui-start {
     margin-inline: var(--_gap) auto;
   }
 
-  &.end {
+  &.ui-end {
     margin-inline: auto var(--_gap);
   }
 }

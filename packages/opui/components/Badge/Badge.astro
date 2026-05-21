@@ -36,19 +36,19 @@ const positionArea =
 <Anchor
   alignment={positionArea}
   class:list={[
-    "badge",
+    "ui-badge",
     {
-      dot,
-      invisible,
+      "ui-dot": dot,
+      "ui-invisible": invisible,
     },
-    alignment,
+    alignment && `ui-${alignment}`,
     className,
-    color,
+    color && `ui-${color}`,
   ]}
   {...rest}
 >
   <slot />
-  <span class="badge-indicator" slot="anchored" aria-label={label?.toString()}
+  <span class="ui-badge-indicator" slot="anchored" aria-label={label?.toString()}
     >{dot ? "" : label}</span
   >
 </Anchor>

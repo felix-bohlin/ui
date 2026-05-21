@@ -11,7 +11,7 @@ const { href, name, size } = Astro.props
 const { link } = Astro.locals
 ---
 
-<Card variant="elevated" class:list={["showcase-card", size]}>
+<Card variant="elevated" class:list={["showcase-card", size && `ui-${size}`]}>
   <div class="showcase-preview">
     <slot />
   </div>
@@ -93,15 +93,15 @@ const { link } = Astro.locals
 
     &
       > :where(
-        .card,
-        .callout,
+        .ui-card,
+        .ui-callout,
         hr,
-        .list,
-        .text-field,
-        .textarea,
+        .ui-list,
+        .ui-text-field,
+        .ui-textarea,
         .progress,
-        .range,
-        .description-list
+        .ui-range,
+        .ui-description-list
       ) {
       inline-size: 100%;
     }

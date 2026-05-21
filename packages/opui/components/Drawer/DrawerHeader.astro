@@ -12,7 +12,7 @@ export const title = "Drawer Header"
 const { class: className, heading, ...rest } = Astro.props
 ---
 
-<div class:list={["header", className]} {...rest}>
+<div class:list={["ui-header", className]} {...rest}>
   {heading && <span>{heading}</span>}
   <slot />
   <IconButton onclick="this.closest('dialog').close()" title="Close">

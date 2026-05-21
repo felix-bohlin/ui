@@ -157,15 +157,15 @@ import { Button, Drawer, DrawerHeader, DrawerFooter } from "@opui/astro"
   const transparentToggle = document.querySelector(
     "#backdrop-transparent-toggle",
   ) as HTMLInputElement
-  const drawers = document.querySelectorAll("dialog.drawer")
+  const drawers = document.querySelectorAll("dialog.ui-drawer")
 
   transparentToggle?.addEventListener("change", (e) => {
     const isTransparent = (e.target as HTMLInputElement).checked
     drawers.forEach((drawer) => {
       if (isTransparent) {
-        drawer.classList.add("backdrop-transparent")
+        drawer.classList.add("ui-backdrop-transparent")
       } else {
-        drawer.classList.remove("backdrop-transparent")
+        drawer.classList.remove("ui-backdrop-transparent")
       }
     })
   })

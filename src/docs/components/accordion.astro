@@ -15,8 +15,8 @@ import Conditional from "../../components/Conditional.astro"
     outline: var(--_anatomy-border-gray);
     outline-offset: -2px;
 
-    .actions,
-    .content,
+    .ui-actions,
+    .ui-content,
     summary {
       outline: var(--_anatomy-border-red);
       outline-offset: -3px;
@@ -62,7 +62,7 @@ import Conditional from "../../components/Conditional.astro"
   <Fragment slot="preamble">
     Leverages the HTML <code>details</code> and <code>summary</code> elements. Uses
     the native HTML arrow, check out how to add your own <a
-      class="link"
+      class="ui-link"
       href="#custom-marker">custom marker</a
     >.
   </Fragment>
@@ -82,8 +82,7 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         Change the visual style by adding one of the variant classes (<code
-          >.card</code
-        >, <code>.outlined</code>, <code>.elevated</code>, <code>.tonal</code>)
+>.ui-card</code>, <code>.ui-outlined</code>, <code>.ui-elevated</code>, <code>.ui-tonal</code>)
         to the <code>&lt;details&gt;</code> element.
       </Fragment>
     </Conditional>
@@ -101,7 +100,7 @@ import Conditional from "../../components/Conditional.astro"
         apply the <code>variant</code> prop to the parent container.
       </Fragment>
       <Fragment slot="html">
-        Group multiple accordions by wrapping them in a <code>.card</code> element
+        Group multiple accordions by wrapping them in a <code>.ui-card</code> element
         with <code>role="group"</code>. To theme the entire group, apply the
         variant class to the parent container.
       </Fragment>
@@ -124,8 +123,7 @@ import Conditional from "../../components/Conditional.astro"
 
     <p>
       Include interactive elements in the header by using the <code
-        >.actions</code
-      > class.
+>.ui-actions</code> class.
     </p>
 
     <AutoExample name="Actions" />
@@ -145,7 +143,7 @@ import Conditional from "../../components/Conditional.astro"
   <Fragment slot="accessibility">
     <p>
       The <a
-        class="link"
+        class="ui-link"
         href="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/"
         >WAI-ARIA guidelines</a
       > for accordions recommend:
@@ -171,15 +169,15 @@ import Conditional from "../../components/Conditional.astro"
   <Fragment slot="anatomy">
     <ol>
       <li>
-        <code>&lt;details class="accordion"&gt;</code>: a wrapper for the
+        <code>&lt;details class="ui-accordion"&gt;</code>: a wrapper for the
         accordion
       </li>
       <li><code>&lt;summary&gt;</code>: a wrapper for the accordion header</li>
       <li>
-        <code>& > .content</code> (optional): a wrapper for the accordion content
+        <code>& > .ui-content</code> (optional): a wrapper for the accordion content
       </li>
       <li>
-        <code>& > .actions</code> (optional): a wrapper that groups a set of buttons
+        <code>& > .ui-actions</code> (optional): a wrapper that groups a set of buttons
       </li>
     </ol>
 

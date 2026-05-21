@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.card) {
+  :where(.ui-card) {
     --_bg-tonal: var(--surface-tonal);
     --_bg-elevated: var(--surface-elevated);
     --_bg-surface: var(--surface-default);
@@ -31,30 +31,30 @@
     position: relative;
 
     /* Variants */
-    &.text {
+    &.ui-text {
       --_card-bg-color: transparent;
       --_card-border-color: transparent;
       --_card-border-width: 0;
       --_card-shadow: none;
     }
 
-    &.tonal {
+    &.ui-tonal {
       --_card-bg-color: var(--_bg-tonal);
       --_card-border-width: 1px;
     }
 
-    &.elevated {
+    &.ui-elevated {
       --_card-bg-color: var(--_bg-elevated);
       --_card-shadow: var(--_shadow-elevated);
     }
 
-    &.outlined {
+    &.ui-outlined {
       --_card-bg-color: var(--_bg-surface);
       --_card-border-color: var(--_border-color);
       --_card-border-width: 1px;
     }
 
-    &> :where(hgroup, .content) {
+    &> :where(hgroup, .ui-content) {
       padding-inline: var(--size-3);
 
       &:last-child {
@@ -82,31 +82,31 @@
     }
 
     /* Content */
-    &>.content:where(:only-child, :first-child) {
+    &>.ui-content:where(:only-child, :first-child) {
       padding-block: var(--size-3) var(--size-4);
     }
 
     /* Actions */
-    &>.actions {
+    &>.ui-actions {
       display: flex;
       gap: var(--size-2);
       margin-block: var(--size-2) 0;
       padding-block-end: var(--size-2);
       padding-inline: var(--size-3);
 
-      &:has(.button:first-child[class="button"]) {
+      &:has(.ui-button:first-child[class="ui-button"]) {
         padding-inline: var(--size-1) var(--size-3);
       }
 
-      &:has(.button:not([class="button"])) {
+      &:has(.ui-button:not([class="ui-button"])) {
         padding-block-end: var(--size-2);
       }
 
       /* Alignment */
-      &.align-end {
+      &.ui-align-end {
         justify-content: end;
 
-        &:has(.button:first-child[class="button"]) {
+        &:has(.ui-button:first-child[class="ui-button"]) {
           padding-inline: var(--size-3) var(--size-1);
         }
       }

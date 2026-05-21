@@ -35,7 +35,7 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
   <Fragment slot="title">Typography</Fragment>
   <Fragment slot="preamble">
     Styles for headings, body text, and other text content. Use util classes
-    anywhere or wrap content in <code>.rich-text</code>.
+    anywhere or wrap content in <code>.ui-rich-text</code>.
   </Fragment>
 
   <section>
@@ -63,7 +63,7 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
 
   <section>
     <h2 id="inline-text-elements">Inline text elements</h2>
-    <div class="not-rich-text">
+    <div class="ui-not-rich-text">
       <table>
         <thead>
           <tr>
@@ -76,12 +76,12 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
           <tr>
             <td><abbr title="Abbreviation">Abbr.</abbr></td>
             <td><code>&lt;abbr&gt;</code></td>
-            <td><code>.abbr</code></td>
+            <td><code>.ui-abbr</code></td>
           </tr>
           <tr>
             <td><dfn title="Title">Definition</dfn></td>
             <td><code>&lt;dfn&gt;</code></td>
-            <td><code>.dfn</code></td>
+            <td><code>.ui-dfn</code></td>
           </tr>
           <tr>
             <td><strong>Bold</strong></td>
@@ -96,62 +96,62 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
           <tr>
             <td><cite>Citation</cite></td>
             <td><code>&lt;cite&gt;</code></td>
-            <td><code>.cite</code></td>
+            <td><code>.ui-cite</code></td>
           </tr>
           <tr>
             <td><kbd>Ctrl + S</kbd></td>
             <td><code>&lt;kbd&gt;</code></td>
-            <td><code>.kbd</code></td>
+            <td><code>.ui-kbd</code></td>
           </tr>
           <tr>
             <td><mark>Highlight</mark></td>
             <td><code>&lt;mark&gt;</code></td>
-            <td><code>.mark</code></td>
+            <td><code>.ui-mark</code></td>
           </tr>
           <tr>
             <td><s>Strikethrough</s></td>
             <td><code>&lt;s&gt;</code></td>
-            <td><code>.s</code></td>
+            <td><code>.ui-s</code></td>
           </tr>
           <tr>
             <td><small>Small</small></td>
             <td><code>&lt;small&gt;</code></td>
-            <td><code>.small</code></td>
+            <td><code>.ui-small</code></td>
           </tr>
           <tr>
             <td>Text <sub>Sub</sub></td>
             <td><code>&lt;sub&gt;</code></td>
-            <td><code>.sub</code></td>
+            <td><code>.ui-sub</code></td>
           </tr>
           <tr>
             <td>Text <sup>Sup</sup></td>
             <td><code>&lt;sup&gt;</code></td>
-            <td><code>.sup</code></td>
+            <td><code>.ui-sup</code></td>
           </tr>
           <tr>
             <td><u>Underline</u></td>
             <td><code>&lt;u&gt;</code></td>
-            <td><code>.u</code></td>
+            <td><code>.ui-u</code></td>
           </tr>
           <tr>
             <td><del>Deleted</del></td>
             <td><code>&lt;del&gt;</code></td>
-            <td><code>.del</code></td>
+            <td><code>.ui-del</code></td>
           </tr>
           <tr>
             <td><ins>Inserted</ins></td>
             <td><code>&lt;ins&gt;</code></td>
-            <td><code>.ins</code></td>
+            <td><code>.ui-ins</code></td>
           </tr>
           <tr>
             <td><var>variable</var></td>
             <td><code>&lt;var&gt;</code></td>
-            <td><code>.var</code></td>
+            <td><code>.ui-var</code></td>
           </tr>
           <tr>
             <td><samp>sample output</samp></td>
             <td><code>&lt;samp&gt;</code></td>
-            <td><code>.samp</code></td>
+            <td><code>.ui-samp</code></td>
           </tr>
         </tbody>
       </table>
@@ -161,13 +161,13 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
   <section>
     <h2 id="classless">Classless</h2>
     <p>
-      Wrap your code in <code>.rich-text</code> to add typographic styles to its children.
+      Wrap your code in <code>.ui-rich-text</code> to add typographic styles to its children.
       It's extra handy when you can't control the contents yourself, like printing
       text from a CMS.
     </p>
     <Code
       lang="html"
-      code={`<article class="rich-text">\n  <!-- -->\n</article>`}
+      code={`<article class="ui-rich-text">\n  <!-- -->\n</article>`}
     />
 
     <h3 id="rich-text-showcase">Classless showcase</h3>

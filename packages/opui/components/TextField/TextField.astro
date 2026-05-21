@@ -73,12 +73,12 @@ const fieldName = name || currentFieldName
 
 <label
   class:list={[
-    "text-field",
+    "ui-text-field",
     {
-      "auto-fit": autoFit,
-      filled,
-      spread,
-      small,
+      "ui-auto-fit": autoFit,
+      "ui-filled": filled,
+      "ui-spread": spread,
+      "ui-small": small,
     },
     className,
   ]}
@@ -88,16 +88,16 @@ const fieldName = name || currentFieldName
   {
     (label || Astro.slots.has("label")) && (
       <!-- prettier-ignore -->
-      <span class="label">{label}<slot name="label" /></span>
+      <span class="ui-label">{label}<slot name="label" /></span>
     )
   }
   {
     (startTextValue || Astro.slots.has("description")) && (
       <!-- prettier-ignore -->
-      <span class="start-text">{startTextValue}<slot name="description" /></span>
+      <span class="ui-start-text">{startTextValue}<slot name="description" /></span>
     )
   }
-  <span class="field">
+  <span class="ui-field">
     <input
       disabled={disabled}
       id={fieldId}
@@ -113,15 +113,15 @@ const fieldName = name || currentFieldName
       type={type === "numeric" ? "text" : type}
       value={value}
     />
-    {Astro.slots.has("prefix") && <span class="prefix"><slot name="prefix" /></span>}
-    {Astro.slots.has("suffix") && <span class="suffix"><slot name="suffix" /></span>}
-    {Astro.slots.has("header") && <span class="header"><slot name="header" /></span>}
-    {Astro.slots.has("footer") && <span class="footer"><slot name="footer" /></span>}
+    {Astro.slots.has("prefix") && <span class="ui-prefix"><slot name="prefix" /></span>}
+    {Astro.slots.has("suffix") && <span class="ui-suffix"><slot name="suffix" /></span>}
+    {Astro.slots.has("header") && <span class="ui-header"><slot name="header" /></span>}
+    {Astro.slots.has("footer") && <span class="ui-footer"><slot name="footer" /></span>}
   </span>
   {
     (endText || Astro.slots.has("end-text") || Astro.slots.has("supporting-text")) && (
       <!-- prettier-ignore -->
-      <span class="end-text">{endText}<slot name="end-text" /><slot name="supporting-text" /></span>
+      <span class="ui-end-text">{endText}<slot name="end-text" /><slot name="supporting-text" /></span>
     )
   }
   <slot />

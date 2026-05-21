@@ -57,23 +57,23 @@ import Conditional from "../../components/Conditional.astro"
         > or <code>critical</code>. The default is a neutral gray.
       </Fragment>
       <Fragment slot="html">
-        Add a <code>.primary</code> or <code>.critical</code> class to apply a brand
+        Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to apply a brand
         or destructive color. The default is a neutral gray.
       </Fragment>
     </Conditional>
     <AutoExample name="Colors" row />
   </section>
 
-  <div class="not-rich-text">
+  <div class="ui-not-rich-text">
     <UICallout>
       <Fragment slot="title">
         <code>aria-label</code>?
       </Fragment>
-      <div class="rich-text">
+      <div class="ui-rich-text">
         Yes! In order for screen readers to understand what the button is for we
         can add <code>aria-label</code> to the <code>&lt;button&gt;</code> element.
         <br /><br />
-        Read more: <a href="#accessibility" class="link"
+        Read more: <a href="#accessibility" class="ui-link"
           >Icon Button accessibility</a
         >.
       </div>
@@ -82,7 +82,7 @@ import Conditional from "../../components/Conditional.astro"
 
   <section>
     <h2 id="sizes">Sizes</h2>
-    <p>Make the button smaller with the <code>.small</code> modifier.</p>
+    <p>Make the button smaller with the <code>.ui-small</code> modifier.</p>
     <AutoExample name="Sizes" row />
   </section>
 
@@ -96,7 +96,7 @@ import Conditional from "../../components/Conditional.astro"
 
   <Fragment slot="anatomy">
     <ol>
-      <li>Container: <code>&lt;button class="icon-button"&gt;</code></li>
+      <li>Container: <code>&lt;button class="ui-icon-button"&gt;</code></li>
       <li>Icon: <code>&lt;svg&gt;</code></li>
       <li>Label text: <code>&lt;button aria-label=""&gt;</code></li>
     </ol>
@@ -125,8 +125,8 @@ import Conditional from "../../components/Conditional.astro"
           <td>Provide a label inside the <code>&lt;button&gt;</code> element</td
           >
           <td
-            >Not used (but possible with the <code>.sr-only</code>
-            <DocLink href="/guide/getting-started/utils" class="link"
+            >Not used (but possible with the <code>.ui-sr-only</code>
+            <DocLink href="/guide/getting-started/utils" class="ui-link"
               >util</DocLink
             >).</td
           >

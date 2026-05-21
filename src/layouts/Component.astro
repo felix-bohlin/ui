@@ -189,7 +189,7 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
     changelog.length > 0 && (
       <section>
         <h2 id="changelog">Changelog</h2>
-        <div class="not-rich-text">
+        <div class="ui-not-rich-text">
           <List id="changelog-list" bordered gutterless variant="transparent">
             {changelog.map((entry, index) => (
               <ListItem
@@ -227,7 +227,7 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
     )
   }
 
-  <footer class="component-footer not-rich-text">
+  <footer class="component-footer ui-not-rich-text">
     <hr />
 
     <Button href={editUrl} target="_blank" size="small">
@@ -263,9 +263,9 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
                 d="M3 16a1 1 0 0 1 1-1h21.586l-8.293-8.293a1 1 0 0 1 1.414-1.414l10 10a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414-1.414L25.586 17H4a1 1 0 0 1-1-1"
               />
             </svg>
-            <div class="hgroup">
-              <p class="overline">Previous</p>
-              <p class="h3">{prevComponent.name}</p>
+            <div class="ui-hgroup">
+              <p class="ui-overline">Previous</p>
+              <p class="ui-h3">{prevComponent.name}</p>
             </div>
           </a>
         ) : (
@@ -278,9 +278,9 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
             href={componentHrefFor(currentFramework, nextComponent.slug)}
             class="pagination-link next"
           >
-            <div class="hgroup">
-              <p class="overline">Next</p>
-              <p class="h3">{nextComponent.name}</p>
+            <div class="ui-hgroup">
+              <p class="ui-overline">Next</p>
+              <p class="ui-h3">{nextComponent.name}</p>
             </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -311,7 +311,7 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
         margin: 0;
       }
 
-      .button {
+      .ui-button {
         inline-size: fit-content;
       }
 

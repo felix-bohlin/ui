@@ -15,7 +15,7 @@ import Conditional from "../../components/Conditional.astro"
     outline: var(--_anatomy-border-gray);
     outline-offset: 3px;
 
-    :is(hgroup, .content, .actions) {
+    :is(hgroup, .ui-content, .ui-actions) {
       outline: var(--_anatomy-border-red);
       outline-offset: -2px;
     }
@@ -43,9 +43,9 @@ import Conditional from "../../components/Conditional.astro"
   <Fragment slot="title">Card</Fragment>
   <Fragment slot="preamble">
     The card is extremely versatile and can be used on its own, or as a building
-    block for <DocLink class="link" href="/components/accordion"
+    block for <DocLink class="ui-link" href="/components/accordion"
       >accordions</DocLink
-    >, <DocLink class="link" href="/components/dialog">dialogs</DocLink> and more.
+    >, <DocLink class="ui-link" href="/components/dialog">dialogs</DocLink> and more.
   </Fragment>
 
   <section>
@@ -56,23 +56,22 @@ import Conditional from "../../components/Conditional.astro"
         Change the card variant with the <code>variant</code> prop.
       </Fragment>
       <Fragment slot="html">
-        Change the card variant with the <code>.text</code>, <code
-          >.outlined</code
-        >, <code>.tonal</code>, and <code>.elevated</code> classes.
+        Change the card variant with the <code>.ui-text</code>, <code
+>.ui-outlined</code>, <code>.ui-tonal</code>, and <code>.ui-elevated</code> classes.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Variants" column />
 
-    <div class="not-rich-text">
+    <div class="ui-not-rich-text">
       <UICallout>
-        <div class="rich-text">
+        <div class="ui-rich-text">
           <p><strong>Why does a text variant exist?</strong></p>
           It really doesn't make sense to use the text variant unless you really need
           to. The <DocLink href="/components/accordion#accordion-group"
             >accordion group</DocLink
           > is a great example where Open Props UI leverages the text variant of the
-          <code>.card</code> component.
+          <code>.ui-card</code> component.
         </div>
       </UICallout>
     </div>
@@ -96,7 +95,7 @@ import Conditional from "../../components/Conditional.astro"
         Using the <code>actions</code> slot.
       </Fragment>
       <Fragment slot="html">
-        Using the <code>.actions</code> class.
+        Using the <code>.ui-actions</code> class.
       </Fragment>
     </Conditional>
     <p>
@@ -112,7 +111,7 @@ import Conditional from "../../components/Conditional.astro"
         Align actions to the end with the <code>actionsAlign="end"</code> prop.
       </Fragment>
       <Fragment slot="html">
-        Align actions to the end with the <code>.align-end</code> class.
+        Align actions to the end with the <code>.ui-align-end</code> class.
       </Fragment>
     </Conditional>
 
@@ -151,10 +150,10 @@ import Conditional from "../../components/Conditional.astro"
             <code>&lt;hgroup&gt;</code> (optional): a wrapper for the card header
           </li>
           <li>
-            <code>.content</code> (optional): a wrapper for the card content
+            <code>.ui-content</code> (optional): a wrapper for the card content
           </li>
           <li>
-            <code>.actions</code> (optional): a wrapper that groups a set of buttons
+            <code>.ui-actions</code> (optional): a wrapper that groups a set of buttons
           </li>
         </ol>
       </Fragment>
@@ -165,9 +164,9 @@ import Conditional from "../../components/Conditional.astro"
     </Example>
   </Fragment>
 
-  <div slot="installation" class="not-rich-text">
+  <div slot="installation" class="ui-not-rich-text">
     <UICallout>
-      <div class="rich-text">
+      <div class="ui-rich-text">
         Other components might depend on the card component. Be mindful when
         making changes. <DocLink href="/components/accordion">Accordion</DocLink
         >, <DocLink href="/components/dialog">Dialog</DocLink>

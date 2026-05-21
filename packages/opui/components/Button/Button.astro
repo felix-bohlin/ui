@@ -39,7 +39,7 @@ const isButton = Tag === "button"
 
 <!-- prettier-ignore -->
 <Tag
-  class:list={["button", { disabled: isButton && disabled }, size, variant, color, className]}
+  class:list={["ui-button", { "ui-disabled": isButton && disabled }, size && `ui-${size}`, variant && `ui-${variant}`, color && `ui-${color}`, className]}
   disabled={isButton ? disabled : undefined}
   href={href}
   {...rest}><slot /></Tag>

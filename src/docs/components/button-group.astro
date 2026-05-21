@@ -49,7 +49,7 @@ import Conditional from "../../components/Conditional.astro"
     <Conditional>
       <Fragment slot="html">
         Groups related buttons by wrapping them with <code
-          >class="button-group"</code
+          >class="ui-button-group"</code
         > and <code>role="group"</code>.
       </Fragment>
       <Fragment slot="astro">Groups related buttons.</Fragment>
@@ -64,13 +64,13 @@ import Conditional from "../../components/Conditional.astro"
     </li>
   </ul>
 
-  <div class="not-rich-text">
+  <div class="ui-not-rich-text">
     <UIAccordion variant="tonal">
       <Fragment slot="summary">Button group or Toggle group?</Fragment>
       <p>
         If your buttons depend on state (controlled) - use <DocLink
           href="/components/toggle"
-          class="link">Toggle group</DocLink
+          class="ui-link">Toggle group</DocLink
         >.
       </p>
       <p>
@@ -88,8 +88,8 @@ import Conditional from "../../components/Conditional.astro"
         prop.
       </Fragment>
       <Fragment slot="html">
-        Change the appearance of the entire group with the <code>.outlined</code
-        >, <code>.tonal</code>, and <code>.filled</code> classes.
+        Change the appearance of the entire group with the <code>.ui-outlined</code
+        >, <code>.ui-tonal</code>, and <code>.ui-filled</code> classes.
       </Fragment>
     </Conditional>
     <AutoExample name="Variants" column centered />
@@ -104,7 +104,7 @@ import Conditional from "../../components/Conditional.astro"
         > to recolor the entire group. The default is a neutral gray.
       </Fragment>
       <Fragment slot="html">
-        Add a <code>.primary</code> or <code>.critical</code> class to recolor the
+        Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to recolor the
         entire group. The default is a neutral gray.
       </Fragment>
     </Conditional>
@@ -116,7 +116,7 @@ import Conditional from "../../components/Conditional.astro"
     <p>
       Yes of course, they're just <DocLink
         href="/components/button"
-        class="link">buttons.</DocLink
+        class="ui-link">buttons.</DocLink
       >
     </p>
     <AutoExample name="WithIcons" column centered />
@@ -130,8 +130,8 @@ import Conditional from "../../components/Conditional.astro"
         prop.
       </Fragment>
       <Fragment slot="html">
-        Adjust the size of all buttons in the group using the <code>.small</code
-        > and <code>.large</code> classes.
+        Adjust the size of all buttons in the group using the <code>.ui-small</code
+        > and <code>.ui-large</code> classes.
       </Fragment>
     </Conditional>
     <AutoExample name="Size" column centered />
@@ -146,7 +146,7 @@ import Conditional from "../../components/Conditional.astro"
         > prop.
       </Fragment>
       <Fragment slot="html">
-        Change the layout of the group with the <code>.vertical</code> class.
+        Change the layout of the group with the <code>.ui-vertical</code> class.
       </Fragment>
     </Conditional>
 
@@ -175,11 +175,11 @@ import Conditional from "../../components/Conditional.astro"
   <Fragment slot="anatomy">
     <ol>
       <li>
-        Container: <code>&lt;element role="group" class="button-group"&gt;</code
+        Container: <code>&lt;element role="group" class="ui-button-group"&gt;</code
         >
       </li>
       <li>
-        Buttons: <DocLink href="/components/button" class="link"
+        Buttons: <DocLink href="/components/button" class="ui-link"
           >Button</DocLink>
       </li>
     </ol>

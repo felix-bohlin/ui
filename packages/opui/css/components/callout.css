@@ -1,5 +1,5 @@
 @layer components.root {
-	:where(.callout) {
+	:where(.ui-callout) {
 		--_bg-color: var(--surface-tonal);
 		--_border-color: var(--surface-tonal);
 		--_color: var(--text-primary);
@@ -27,11 +27,11 @@
 		padding: var(--_padding);
 		position: relative;
 
-		&.critical,
-		&.info,
-		&.neutral,
-		&.success,
-		&.warning {
+		&.ui-critical,
+		&.ui-info,
+		&.ui-neutral,
+		&.ui-success,
+		&.ui-warning {
 			--_bg-color: light-dark(oklch(from var(--color-2) l c h / 20%), oklch(from var(--color-6) l c h / 5%));
 			--_border-color: light-dark(var(--color-5), var(--color-11));
 			--_color: light-dark(var(--color-16), var(--color-1));
@@ -43,7 +43,7 @@
 			--_outlined-icon-color: var(--color-9);
 		}
 
-		&.outlined {
+		&.ui-outlined {
 			--_bg-color: var(--_outlined-bg-color);
 			--_border-color: var(--_outlined-border-color);
 			--_color: var(--_outlined-color);
@@ -60,7 +60,7 @@
 			z-index: -1;
 		}
 
-		&>.content {
+		&>.ui-content {
 			display: grid;
 			font-size: var(--_font-size);
 			gap: var(--_content-gap);
@@ -84,7 +84,7 @@
 		/* Links
     * Can't make sure contrast will be acceptable (yet) so we use the current text color instead.
     */
-		&:not(.outlined) {
+		&:not(.ui-outlined) {
 			a[href] {
 				color: inherit;
 

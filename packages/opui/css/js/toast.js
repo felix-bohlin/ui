@@ -8,13 +8,13 @@
  * No setTimeout. No popovertargetaction. No innerHTML of user data.
  */
 
-const FALLBACK_TEMPLATE = `<div class="toast" role="alert">
-  <span class="icon" data-toast-icon></span>
-  <div class="content">
-    <div class="title" data-toast-title></div>
-    <div class="description" data-toast-description></div>
+const FALLBACK_TEMPLATE = `<div class="ui-toast" role="alert">
+  <span class="ui-icon" data-toast-icon></span>
+  <div class="ui-content">
+    <div class="ui-title" data-toast-title></div>
+    <div class="ui-description" data-toast-description></div>
   </div>
-  <button class="close-button" data-toast-close type="button" aria-label="Close">
+  <button class="ui-close-button" data-toast-close type="button" aria-label="Close">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
   </button>
 </div>`
@@ -86,7 +86,7 @@ function fillSlot(root, selector, text) {
 
 function wireToast(node) {
   node.querySelector("[data-toast-close]")?.addEventListener("click", () => {
-    node.classList.add("exiting")
+    node.classList.add("ui-exiting")
   })
   node.addEventListener("animationend", (event) => {
     if (event.animationName === "toast-exit") node.remove()

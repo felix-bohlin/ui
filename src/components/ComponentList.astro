@@ -11,10 +11,10 @@ const currentFramework = (Astro.currentLocale ??
     components.map((component) => (
       <li>
         <a
-          class="card outlined"
+          class="ui-card ui-outlined"
           href={componentHrefFor(currentFramework, component.slug)}
         >
-          <div class="content">
+          <div class="ui-content">
             <p>{component.name}</p>
           </div>
         </a>
@@ -33,7 +33,7 @@ const currentFramework = (Astro.currentLocale ??
     margin-block-start: var(--size-3);
     padding: 0;
 
-    .card {
+    .ui-card {
       color: inherit;
       display: block;
       text-decoration: none;
@@ -44,7 +44,7 @@ const currentFramework = (Astro.currentLocale ??
         }
       }
 
-      .content {
+      .ui-content {
         align-items: center;
         display: flex;
         justify-content: space-between;

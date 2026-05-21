@@ -22,7 +22,7 @@
       vertical-align: -0.14em;
     }
 
-    &:not(button.button):not(:empty) {
+    &:not(button.ui-button):not(:empty) {
       &::before {
         margin-inline-end: 0.5em;
       }

@@ -38,12 +38,12 @@ import { Badge } from "@opui/astro"
     toggles.forEach((toggle) => {
       const container = toggle.closest(".example-container")
       if (!container) return
-      container.querySelectorAll(".badge").forEach((b) => badges.add(b))
+      container.querySelectorAll(".ui-badge").forEach((b) => badges.add(b))
     })
 
     function updateBadges(checked: boolean) {
       badges.forEach((badge) => {
-        badge.classList.toggle("invisible", checked)
+        badge.classList.toggle("ui-invisible", checked)
       })
 
       toggles.forEach((t) => {

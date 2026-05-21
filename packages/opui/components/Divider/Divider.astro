@@ -11,4 +11,4 @@ const { class: className, variant, ...rest } = Astro.props
 const variantClass = variant ? `border-${variant}` : ""
 ---
 
-<hr class:list={["divider", className, variantClass]} {...rest} />
+<hr class:list={["divider", className, variantClass && `ui-${variantClass}`]} {...rest} />

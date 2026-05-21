@@ -12,7 +12,7 @@ const { actionsAlign, class: className, closedby, ...rest } = Astro.props
 ---
 
 <dialog
-  class:list={["dialog card elevated", className]}
+  class:list={["ui-dialog ui-card ui-elevated", className]}
   closedby={closedby}
   {...rest}
 >
@@ -25,7 +25,7 @@ const { actionsAlign, class: className, closedby, ...rest } = Astro.props
   }
   {
     Astro.slots.has("content") && (
-      <div class="content">
+      <div class="ui-content">
         <slot name="content" />
       </div>
     )
@@ -33,7 +33,7 @@ const { actionsAlign, class: className, closedby, ...rest } = Astro.props
   <slot />
   {
     Astro.slots.has("actions") && (
-      <div class:list={["actions", actionsAlign && `align-${actionsAlign}`]}>
+      <div class:list={["ui-actions", actionsAlign && `ui-align-${actionsAlign}`]}>
         <slot name="actions" />
       </div>
     )

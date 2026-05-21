@@ -54,33 +54,33 @@ import Conditional from "../../components/Conditional.astro"
     <Conditional>
       <ul slot="astro">
         <li>
-          <a href="#text" class="link"><code>text</code> slot</a>: main content
+          <a href="#text" class="ui-link"><code>text</code> slot</a>: main content
         </li>
         <li>
-          <a href="#start-items" class="link"><code>start</code> slot</a> (optional):
+          <a href="#start-items" class="ui-link"><code>start</code> slot</a> (optional):
           items before the main content
         </li>
         <li>
-          <a href="#end-items" class="link"><code>end</code> slot</a> (optional):
+          <a href="#end-items" class="ui-link"><code>end</code> slot</a> (optional):
           items after the main content
         </li>
       </ul>
       <ul slot="html">
         <li>
-          <a href="#text" class="link"><code>.text</code></a>: main content
+          <a href="#text" class="ui-link"><code>.ui-text</code></a>: main content
         </li>
         <li>
-          <a href="#start-items" class="link"><code>.start</code></a> (optional):
+          <a href="#start-items" class="ui-link"><code>.ui-start</code></a> (optional):
           items before the main content
         </li>
         <li>
-          <a href="#end-items" class="link"><code>.end</code></a> (optional): items
+          <a href="#end-items" class="ui-link"><code>.ui-end</code></a> (optional): items
           after the main content
         </li>
       </ul>
     </Conditional>
 
-    <div class="not-rich-text">
+    <div class="ui-not-rich-text">
       <Callout>
         <Fragment slot="title">With great power...</Fragment>
         <p>
@@ -100,7 +100,7 @@ import Conditional from "../../components/Conditional.astro"
       </p>
       <p slot="html">
         Use
-        <code>.default</code>, <code>.tonal</code>, and <code>.transparent</code
+        <code>.ui-default</code>, <code>.ui-tonal</code>, and <code>.ui-transparent</code
         > to change the background color.
       </p>
     </Conditional>
@@ -164,7 +164,7 @@ import Conditional from "../../components/Conditional.astro"
 
     <h3 id="avatar">Avatar</h3>
     <p>
-      Read more: <DocLink href="/components/avatar" class="link"
+      Read more: <DocLink href="/components/avatar" class="ui-link"
         >Avatar</DocLink>
     </p>
     <AutoExample name="StartAvatar" />
@@ -196,12 +196,12 @@ import Conditional from "../../components/Conditional.astro"
     <h3 id="checkbox">Checkbox</h3>
     <p>
       Wrap the List item content with a <code
-        >&lt;label class="checkbox" for="INPUTID"&gt;</code
+        >&lt;label class="ui-checkbox" for="INPUTID"&gt;</code
       >
       to make the entire surface clickable.
     </p>
     <p>
-      Read more: <DocLink href="/components/checkbox" class="link"
+      Read more: <DocLink href="/components/checkbox" class="ui-link"
         >Checkbox</DocLink>
     </p>
     <AutoExample name="EndCheckbox" />
@@ -209,7 +209,7 @@ import Conditional from "../../components/Conditional.astro"
     <h3 id="radio">Radio</h3>
     <p>
       Wrap the List item content with a <code
-        >&lt;label class="radio" for="INPUTID"&gt;</code
+        >&lt;label class="ui-radio" for="INPUTID"&gt;</code
       >
       to make the entire surface clickable.
     </p>
@@ -218,13 +218,13 @@ import Conditional from "../../components/Conditional.astro"
       group behavior.
     </p>
     <p>
-      Read more: <DocLink href="/components/radio" class="link">Radio</DocLink>
+      Read more: <DocLink href="/components/radio" class="ui-link">Radio</DocLink>
     </p>
     <AutoExample name="EndRadio" />
 
     <h3 id="switch">Switch</h3>
     <p>
-      Read more: <DocLink href="/components/switch" class="link"
+      Read more: <DocLink href="/components/switch" class="ui-link"
         >Switch</DocLink>
     </p>
     <AutoExample name="EndSwitch" />
@@ -239,7 +239,7 @@ import Conditional from "../../components/Conditional.astro"
   <section>
     <h2 id="gutterless">Gutterless</h2>
     <p>
-      Apply the <code>.gutterless</code> class on the <code>ul.list</code> element
+      Apply the <code>.ui-gutterless</code> class on the <code>ul.list</code> element
       to remove the inline padding on the list items.
     </p>
     <AutoExample name="Gutterless" />
@@ -249,14 +249,14 @@ import Conditional from "../../components/Conditional.astro"
     <h2 id="borders">Borders</h2>
     <h3 id="on-every-item">On every item</h3>
     <p>
-      Apply the <code>.bordered</code> class on the <code>ul.list</code> element to
+      Apply the <code>.ui-bordered</code> class on the <code>ul.list</code> element to
       give all list items a border.
     </p>
     <AutoExample name="Bordered" />
 
     <h3 id="on-one-item">On one item</h3>
     <p>
-      Apply the <code>.border-top</code> class on a <code>li.list</code> item to give
+      Apply the <code>.ui-border-top</code> class on a <code>li.list</code> item to give
       it an upper border.
     </p>
     <AutoExample name="SingleBorder" />
@@ -266,7 +266,7 @@ import Conditional from "../../components/Conditional.astro"
     <h2 id="dense">Dense</h2>
     <Conditional>
       <p slot="html">
-        Just add the <code>.dense</code> class to the <code>ul.list</code>!
+        Just add the <code>.ui-dense</code> class to the <code>ul.list</code>!
       </p>
       <p slot="astro">
         Just add the <code>dense</code> prop to the <code>List</code>!
@@ -281,7 +281,7 @@ import Conditional from "../../components/Conditional.astro"
           small
           checked
         >
-          <code>.dense</code>
+          <code>.ui-dense</code>
         </Switch>
         <Switch
           slot="astro"
@@ -300,14 +300,14 @@ import Conditional from "../../components/Conditional.astro"
       <Example.Preview slot="preview-html">
         <div
           set:html={ExampleDefaultHTML.replace(
-            /class="list"/,
-            'class="list dense list-dense-target"',
+            /class="ui-list"/,
+            'class="ui-list ui-dense list-dense-target"',
           ).replace(/-all-/g, "-dense-")}
         />
       </Example.Preview>
       <Example.Code
         slot="code-html"
-        code={`<ul class="list dense">
+        code={`<ul class="ui-list ui-dense">
   <!--  -->
 </ul>`}
       />
@@ -330,15 +330,15 @@ import Conditional from "../../components/Conditional.astro"
         >
       </li>
       <li>
-        Start content (optional): <code>.start</code> &gt; <code>svg</code>, <code
+        Start content (optional): <code>.ui-start</code> &gt; <code>svg</code>, <code
           >img</code
         >, <code>video</code>
       </li>
       <li>
-        Text content: <code>.text</code> &gt; <code>p</code>, <code>p + p</code>
+        Text content: <code>.ui-text</code> &gt; <code>p</code>, <code>p + p</code>
       </li>
       <li>
-        End content (optional): <code>.end</code> &gt; <code>svg</code>, <code
+        End content (optional): <code>.ui-end</code> &gt; <code>svg</code>, <code
           >p</code
         >, <code>button</code>, <code>a</code>, <code>input</code>
       </li>
@@ -382,12 +382,12 @@ import Conditional from "../../components/Conditional.astro"
     outline: var(--_anatomy-border-gray);
     outline-offset: -2px;
 
-    .text,
+    .ui-text,
     svg,
     img,
     video,
-    .start,
-    .end,
+    .ui-start,
+    .ui-end,
     a,
     button,
     label {

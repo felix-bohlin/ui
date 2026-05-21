@@ -1,59 +1,59 @@
 @layer components.root {
 
-  :where(.p) {
+  :where(.ui-p) {
     text-wrap: pretty;
 
-    &.small {
+    &.ui-small {
       font-size: var(--font-size-1);
     }
 
-    &.large {
+    &.ui-large {
       font-size: var(--font-size-3);
     }
   }
 
-  :where(.h1, .h2, .h3, .h4, .h5, .h6) {
+  :where(.ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
     color: var(--text-primary);
     font-weight: 700;
     text-wrap: pretty;
   }
 
-  :where(.h1) {
+  :where(.ui-h1) {
     font-size: var(--font-size-h1, var(--font-size-7));
     letter-spacing: -0.02em;
     line-height: 1.15;
   }
 
-  :where(.h2) {
+  :where(.ui-h2) {
     font-size: var(--font-size-h2, var(--font-size-5, 2rem));
     letter-spacing: -0.02em;
     line-height: 1.2;
   }
 
-  :where(.h3) {
+  :where(.ui-h3) {
     font-size: var(--font-size-h3, var(--font-size-4, 1.5rem));
     letter-spacing: -0.01em;
     line-height: 1.167;
   }
 
-  :where(.h4) {
+  :where(.ui-h4) {
     font-size: var(--font-size-h4, var(--font-size-3, 1.25rem));
     letter-spacing: -0.01em;
     line-height: 1.235;
   }
 
-  :where(.h5) {
+  :where(.ui-h5) {
     font-size: var(--font-size-h5, var(--font-size-2, 1.1rem));
     line-height: 1.334;
   }
 
-  :where(.h6) {
+  :where(.ui-h6) {
     font-size: var(--font-size-h6, var(--font-size-1, 1rem));
     line-height: 1;
   }
 
   /** Overline */
-  :where(.overline) {
+  :where(.ui-overline) {
     color: light-dark(oklch(from var(--text-muted) calc(l * 1.25) c h),
         oklch(from var(--text-muted) calc(l * 0.75) c h));
     font-size: var(--font-size-0);
@@ -62,7 +62,7 @@
     text-transform: uppercase;
   }
 
-  :where(.hgroup) {
+  :where(.ui-hgroup) {
     &>p {
       margin: 0;
     }
@@ -94,7 +94,7 @@
   }
 
   /** Caption */
-  :where(.caption) {
+  :where(.ui-caption) {
     color: var(--text-muted);
     font-size: var(--font-size-0);
     line-height: 1.6;
@@ -103,7 +103,7 @@
 
 
   /* Inline text elements — class utilities (work anywhere) */
-  :where(.u, .abbr, .dfn) {
+  :where(.ui-u, .ui-abbr, .ui-dfn) {
     text-decoration: underline;
     text-underline-offset: 1px;
 
@@ -112,7 +112,7 @@
     }
   }
 
-  :where(.abbr, .dfn) {
+  :where(.ui-abbr, .ui-dfn) {
     font-style: normal;
     text-decoration: var(--color-9) underline dotted;
 
@@ -126,21 +126,21 @@
     }
   }
 
-  :where(.sup) {
+  :where(.ui-sup) {
     font-size: 0.5em;
     vertical-align: super;
   }
 
-  :where(p, span).small {
+  :where(p, span).ui-small {
     font-size: max(0.5em, var(--font-size-0, 0.75rem));
   }
 
-  :where(.cite) {
+  :where(.ui-cite) {
     font-style: italic;
   }
 
   /* Code */
-  :where(.kbd) {
+  :where(.ui-kbd) {
     font-family: var(--font-mono);
     background-color: var(--text-muted);
     border-color: var(--text-muted);
@@ -151,34 +151,34 @@
     word-break: break-word;
   }
 
-  :where(.mark) {
+  :where(.ui-mark) {
     border-radius: var(--radius-2);
     box-decoration-break: clone;
     padding: .1ex .3ex;
     vertical-align: baseline;
   }
 
-  :where(.s) {
+  :where(.ui-s) {
     text-decoration: line-through;
   }
 
-  :where(.sub) {
+  :where(.ui-sub) {
     font-size: 0.75em;
     vertical-align: sub;
   }
 
-  :where(.del) {
+  :where(.ui-del) {
     color: var(--color-9);
     text-decoration: line-through;
   }
 
-  :where(.ins) {
+  :where(.ui-ins) {
     color: var(--color-9);
     text-decoration: underline;
     text-underline-offset: 1px;
   }
 
-  :where(.var) {
+  :where(.ui-var) {
     font-family: var(--font-mono);
     background-color: var(--text-muted);
     border-color: var(--text-muted);
@@ -189,12 +189,12 @@
     word-break: break-word;
   }
 
-  :where(.samp) {
+  :where(.ui-samp) {
     font-family: var(--font-mono);
   }
 
   /* Blockquote */
-  :where(.blockquote) {
+  :where(.ui-blockquote) {
     border-inline-start: var(--border-size-3) solid currentColor;
     padding-block: var(--size-3);
     padding-inline: var(--size-4);
@@ -214,7 +214,7 @@
   }
 
   /* Code block */
-  :where(pre.code-block) {
+  :where(pre.ui-code-block) {
     background-color: var(--color-15);
     border-radius: var(--border-radius);
     color: var(--color-1);
@@ -242,7 +242,7 @@
 
 /* Rich text */
 @layer components.extended {
-  @scope (.rich-text) to (.not-rich-text) {
+  @scope (.ui-rich-text) to (.ui-not-rich-text) {
     a {
       color: var(--primary);
       cursor: pointer;
@@ -375,7 +375,7 @@
     }
 
     /** Overline */
-    :is(.overline, hgroup p:first-of-type:first-child) {
+    :is(.ui-overline, hgroup p:first-of-type:first-child) {
       color: light-dark(oklch(from var(--text-muted) calc(l * 1.25) c h),
           oklch(from var(--text-muted) calc(l * 0.75) c h));
       font-size: var(--font-size-0);

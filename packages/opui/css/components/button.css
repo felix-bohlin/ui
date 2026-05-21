@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.button) {
+  :where(.ui-button) {
     --_color: light-dark(var(--color-16), var(--color-1));
     --_color-contrast: light-dark(var(--color-1), var(--color-16));
     --_color-tonal: var(--surface-tonal);
@@ -54,8 +54,8 @@
        contrast text, and hover/active strategy are identical.
        The .critical scope class in theme.css redirects --palette-source so
        --color-6 below becomes a tint of the active color. */
-    &.critical,
-    &.primary {
+    &.ui-critical,
+    &.ui-primary {
       --_color-contrast: var(--gray-1);
       --_color-tonal: var(--color-6);
       --_accent-tonal-contrast: var(--text-primary-contrast);
@@ -69,11 +69,11 @@
       --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
     }
 
-    &.critical {
+    &.ui-critical {
       --_color: var(--critical);
     }
 
-    &.primary {
+    &.ui-primary {
       --_color: var(--primary);
     }
 
@@ -101,7 +101,7 @@
 
 
     /* Icons / Keyboard */
-    &:where(:has(svg), &.icon-only) {
+    &:where(:has(svg), &.ui-icon-only) {
       gap: 1ex;
 
       svg {
@@ -122,27 +122,27 @@
 
     /* Sizes — heights aliased from the shared --control-size scale.
        Override --button-size-* in a parent scope to resize an entire region. */
-    &.x-small {
+    &.ui-x-small {
       --_min-height: var(--button-size-x-small);
       --_font-size: var(--font-size-0);
       padding-block: 0;
       padding-inline: .5ex;
     }
 
-    &.small {
+    &.ui-small {
       --_min-height: var(--button-size-small);
       --_font-size: var(--font-size-05);
       padding-block: 0;
       padding-inline: .75ex;
     }
 
-    &.large {
+    &.ui-large {
       --_min-height: var(--button-size-large);
       padding-inline: 4ex;
     }
 
     /* Variants */
-    &.outlined {
+    &.ui-outlined {
       --_bg-color: transparent;
       --_border-color: var(--_accent);
       --_text-color: var(--_accent);
@@ -162,7 +162,7 @@
       }
     }
 
-    &.tonal {
+    &.ui-tonal {
       --_bg-color: var(--_accent-tonal);
       --_text-color: var(--_accent-tonal-contrast);
 
@@ -179,7 +179,7 @@
       }
     }
 
-    &.filled {
+    &.ui-filled {
       --_bg-color: var(--_accent);
       --_text-color: var(--_accent-contrast);
 

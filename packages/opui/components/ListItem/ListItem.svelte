@@ -28,7 +28,7 @@
   const hasLabel = $derived(
     type && ["checkbox", "radio", "switch"].includes(type),
   )
-  const labelClass = $derived(type || "")
+  const labelClass = $derived(`ui-${type}` || "")
 </script>
 
 {#snippet snippetString(ss: Snippet | string | undefined)}
@@ -41,12 +41,12 @@
 
 {#snippet inner()}
   {#if start}
-    <div class="start">
+    <div class="ui-start">
       {@render snippetString(start)}
     </div>
   {/if}
   {#if text || headline || description}
-    <div class="text">
+    <div class="ui-text">
       {#if headline}
         <p>{@render snippetString(headline)}</p>
       {/if}
@@ -57,7 +57,7 @@
     </div>
   {/if}
   {#if end}
-    <div class="end">
+    <div class="ui-end">
       {@render snippetString(end)}
     </div>
   {/if}
@@ -68,8 +68,8 @@
   bind:this={element}
   class={[
     {
-      "border-top": borderTop,
-      inset,
+      "ui-border-top": borderTop,
+      "ui-inset": inset,
     },
     className,
   ]}

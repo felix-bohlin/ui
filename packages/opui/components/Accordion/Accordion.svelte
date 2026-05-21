@@ -23,7 +23,12 @@
   const summaryId = `summary-${id}`
   const contentId = `content-${id}`
 
-  const classes = $derived(["accordion", "card", variant, className])
+  const classes = $derived([
+    "ui-accordion",
+    "ui-card",
+    variant && `ui-${variant}`,
+    className,
+  ])
 </script>
 
 <details bind:this={element} {open} {name} class={classes} {...rest}>
@@ -38,12 +43,17 @@
     {/if}
   </summary>
 
-  <div id={contentId} class="content" role="region" aria-labelledby={summaryId}>
+  <div
+    id={contentId}
+    class="ui-content"
+    role="region"
+    aria-labelledby={summaryId}
+  >
     {@render children()}
   </div>
 
   {#if actions}
-    <div class="actions">
+    <div class="ui-actions">
       {@render actions()}
     </div>
   {/if}

@@ -27,32 +27,29 @@
   const endTextId = $derived(endText ? `end-text-${id}` : undefined)
   const finalName = $derived(name || currentFieldName)
   const invalid = $derived(critical || undefined)
-</script>
-
-<label
-  bind:this={element}
-  class={[
-    "checkbox",
-    size,
+  const classes = $derived([
+    "ui-checkbox",
+    size && `ui-${size}`,
     {
-      stack,
-      spread,
+      "ui-stack": stack,
+      "ui-spread": spread,
     },
     className,
-  ]}
-  data-invalid={invalid}
->
+  ])
+</script>
+
+<label bind:this={element} class={classes} data-invalid={invalid}>
   <CheckboxInput
     aria-describedby={endTextId}
     {indeterminate}
     name={finalName}
     {...rest}
   />
-  <span class={[hideLabel ? "sr-only" : "label"]}>
+  <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
     {@render children?.()}
   </span>
   {#if endText}
-    <span id={endTextId} class="end-text">
+    <span id={endTextId} class="ui-end-text">
       {#if typeof endText === "string"}
         {endText}
       {:else}

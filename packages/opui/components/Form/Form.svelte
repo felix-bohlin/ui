@@ -17,7 +17,7 @@
 <svelte:element
   this={Tag}
   bind:this={element}
-  class={["form", className]}
+  class={["ui-form", className]}
   {...rest}
 >
   {@render children?.()}

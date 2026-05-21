@@ -4,14 +4,14 @@
   export const title = "Divider" as const
 
   const { class: className, variant, ...rest }: Props = $props()
-  const variantClass = $derived(variant ? `border-${variant}` : "")
 
   let element = $state<HTMLHRElement | null>(null)
   export { element as this }
+  const classes = $derived([
+    "ui-divider",
+    className,
+    variant && `ui-border-${variant}`,
+  ])
 </script>
 
-<hr
-  bind:this={element}
-  class={["divider", className, variantClass]}
-  {...rest}
-/>
+<hr bind:this={element} class={classes} {...rest} />

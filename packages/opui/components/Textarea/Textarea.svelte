@@ -46,25 +46,27 @@
   const description = $derived(descriptionProp || startText)
   const fieldId = $derived(id || `text-field-${componentId}`)
   const fieldName = $derived(name || currentFieldName)
+
+  const classes = $derived([
+    "ui-textarea",
+    {
+      "ui-auto-fit": autoFit,
+      "ui-filled": filled,
+      "ui-spread": spread,
+      "ui-small": small,
+    },
+    className,
+  ])
 </script>
 
 <label
   bind:this={element}
-  class={[
-    "textarea",
-    {
-      "auto-fit": autoFit,
-      filled,
-      spread,
-      small,
-    },
-    className,
-  ]}
+  class={classes}
   data-invalid={critical || undefined}
   {...rest}
 >
   {#if label}
-    <span class="label">
+    <span class="ui-label">
       {#if typeof label === "string"}
         {label}
       {:else}
@@ -73,7 +75,7 @@
     </span>
   {/if}
   {#if description}
-    <span class="start-text">
+    <span class="ui-start-text">
       {#if typeof description === "string"}
         {description}
       {:else}
@@ -81,7 +83,7 @@
       {/if}
     </span>
   {/if}
-  <span class="field">
+  <span class="ui-field">
     <textarea
       {cols}
       {disabled}
@@ -95,7 +97,7 @@
       {value}
     ></textarea>
     {#if prefix}
-      <span class="prefix">
+      <span class="ui-prefix">
         {#if typeof prefix === "string"}{prefix}
         {:else}{@render prefix()}
         {/if}
@@ -103,7 +105,7 @@
     {/if}
 
     {#if suffix}
-      <span class="suffix">
+      <span class="ui-suffix">
         {#if typeof suffix === "string"}{suffix}
         {:else}{@render suffix()}
         {/if}
@@ -111,14 +113,14 @@
     {/if}
 
     {#if header}
-      <span class="header">
+      <span class="ui-header">
         {#if typeof header === "string"}{header}
         {:else}{@render header()}
         {/if}
       </span>
     {/if}
     {#if footer}
-      <span class="footer">
+      <span class="ui-footer">
         {#if typeof footer === "string"}{footer}
         {:else}{@render footer()}
         {/if}
@@ -126,7 +128,7 @@
     {/if}
   </span>
   {#if endText || supportingText}
-    <span class="end-text">
+    <span class="ui-end-text">
       {#if typeof endText === "string"}{endText}
       {:else if endText}{@render endText()}
       {/if}

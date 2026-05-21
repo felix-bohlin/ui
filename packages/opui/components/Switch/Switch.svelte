@@ -42,41 +42,38 @@
       )
     }
   })
-</script>
-
-<label
-  bind:this={element}
-  class={[
-    "switch",
+  const classes = $derived([
+    "ui-switch",
     {
-      small,
-      stack,
-      spread,
+      "ui-small": small,
+      "ui-stack": stack,
+      "ui-spread": spread,
     },
     className,
-  ]}
-  data-invalid={critical || undefined}
->
+  ])
+</script>
+
+<label bind:this={element} class={classes} data-invalid={critical || undefined}>
   {#if iconUnchecked}
-    <span class="icon-unchecked" aria-hidden="true">
+    <span class="ui-icon-unchecked" aria-hidden="true">
       {@render iconUnchecked()}
     </span>
   {/if}
   {#if iconChecked}
-    <span class="icon-checked" aria-hidden="true">
+    <span class="ui-icon-checked" aria-hidden="true">
       {@render iconChecked()}
     </span>
   {/if}
 
   <SwitchInput aria-describedby={endTextId} name={finalName} {...rest} />
   {#if children}
-    <span class={[hideLabel ? "sr-only" : "label"]}>
+    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
       {@render children()}
     </span>
   {/if}
 
   {#if endText}
-    <span id={endTextId} class="end-text">
+    <span id={endTextId} class="ui-end-text">
       {#if typeof endText === "string"}
         {endText}
       {:else}

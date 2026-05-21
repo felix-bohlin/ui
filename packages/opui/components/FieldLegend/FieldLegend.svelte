@@ -17,7 +17,7 @@
 <svelte:element
   this={Tag}
   bind:this={element}
-  class={[{ legend: Tag === "legend" }, className]}
+  class={[{ "ui-legend": Tag === "legend" }, className]}
   {...rest}
 >
   {@render children?.()}

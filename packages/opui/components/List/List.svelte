@@ -14,20 +14,21 @@
     children,
     ...rest
   }: Props = $props()
+
+  let element = $state<HTMLUListElement | null>(null)
+  export { element as this }
+  const classes = $derived([
+    "ui-list",
+    {
+      "ui-bordered": bordered,
+      "ui-dense": dense,
+      "ui-gutterless": gutterless,
+    },
+    variant && `ui-${variant}`,
+    className,
+  ])
 </script>
 
-<ul
-  class={[
-    "list",
-    {
-      bordered,
-      dense,
-      gutterless,
-    },
-    variant,
-    className,
-  ]}
-  {...rest}
->
+<ul bind:this={element} class={classes} {...rest}>
   {@render children?.()}
 </ul>

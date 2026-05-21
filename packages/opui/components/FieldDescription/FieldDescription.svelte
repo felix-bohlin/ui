@@ -15,6 +15,6 @@
   export { element as this }
 </script>
 
-<p bind:this={element} class={["field-description", className]} {...rest}>
+<p bind:this={element} class={["ui-field-description", className]} {...rest}>
   {@render children?.()}
 </p>

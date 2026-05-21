@@ -15,14 +15,10 @@
 
   let element = $state<HTMLDialogElement | null>(null)
   export { element as this }
+  const classes = $derived(["ui-dialog ui-card ui-elevated", className])
 </script>
 
-<dialog
-  bind:this={element}
-  class={["dialog card elevated", className]}
-  {closedby}
-  {...rest}
->
+<dialog bind:this={element} class={classes} {closedby} {...rest}>
   {#if header}
     <hgroup>
       {#if typeof header === "string"}
@@ -33,12 +29,15 @@
     </hgroup>
   {/if}
   {#if content}
-    <div class="content">
+    <div class="ui-content">
       {@render content()}
     </div>
   {/if}
   {#if actions}
-    <div class={["actions", actionsAlign && `align-${actionsAlign}`]}>
+    <div
+      class={"ui-actions"}
+      class:ui-align={actionsAlign ? `align-${actionsAlign}` : undefined}
+    >
       {@render actions()}
     </div>
   {/if}

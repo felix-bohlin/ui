@@ -25,9 +25,9 @@
     "ui-button",
     { "ui-disabled": isDisabled },
     className,
-    color,
-    size,
-    variant,
+    color && `ui-${color}`,
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
   ])
 </script>
 

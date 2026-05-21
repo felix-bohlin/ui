@@ -23,23 +23,21 @@
   const finalName = $derived(name || currentFieldName)
   const currentFieldDescription =
     getContext<FieldSet.Context["description"]>("description")
+  const classes = $derived([
+    "ui-radio",
+    size && `ui-${size}`,
+    { "ui-stack": stack },
+    className,
+  ])
 </script>
 
-<label
-  class={[
-    "radio",
-    size,
-    {
-      stack,
-    },
-    className,
-  ]}
-  data-invalid={critical || undefined}
->
+<label class={classes} data-invalid={critical || undefined}>
   <RadioInput
     aria-describedby={currentFieldDescription}
     name={finalName}
     {...rest}
   />
-  <span class={[hideLabel ? "sr-only" : "label"]}>{@render children?.()}</span>
+  <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}
+    >{@render children?.()}</span
+  >
 </label>

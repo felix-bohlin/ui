@@ -17,7 +17,7 @@
 <svelte:element
   this={Tag}
   bind:this={element}
-  class={["fieldset", className]}
+  class={["ui-fieldset", className]}
   {...rest}
 >
   {@render children?.()}

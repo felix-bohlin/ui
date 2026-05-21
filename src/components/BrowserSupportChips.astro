@@ -46,7 +46,10 @@ const HEADINGS = {
             type="button"
             size="small"
             variant={entry.level === "full" ? "tonal" : "outlined"}
-            class:list={["browser-support-chip", (entry.level && `ui-${entry.level}`)]}
+            class:list={[
+              "browser-support-chip",
+              entry.level && `${entry.level}`,
+            ]}
             interestfor={tooltipId}
             commandfor={tooltipId}
             command="toggle-popover"

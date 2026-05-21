@@ -4,8 +4,8 @@
 Lists meant to be used stand-alone or as part of Select elements
 
   Intended use-case:
-  - ul.list > li
-  - .select > .list > option
+  - ul.ui-list > li
+  - .ui-select > .ui-list > option
 */
   :where(.ui-list) {
     --_bg-color: var(--surface-filled);

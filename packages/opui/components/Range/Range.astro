@@ -120,7 +120,7 @@ const describedBy = [startTextId, endTextId].filter(Boolean).join(" ") || undefi
 
 <script>
   // Mirror the slider's current value into its associated <output> on every
-  // input event. Idempotent: each .range is wired once, and ignores ranges
+  // input event. Idempotent: each .ui-range is wired once, and ignores ranges
   // without a value display.
   for (const range of document.querySelectorAll<HTMLElement>(".ui-range")) {
     const input = range.querySelector<HTMLInputElement>('input[type="range"]')

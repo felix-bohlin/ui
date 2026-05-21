@@ -92,7 +92,6 @@ Follow this order for readability:
     "ui-chip",
     {
       "ui-multiline": isMultiline,
-      "ui-selected": selected,
     },
     size && `ui-${size}`,
     variant && `ui-${variant}`,

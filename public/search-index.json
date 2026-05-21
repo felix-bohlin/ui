@@ -62,8 +62,8 @@
   {
     "id": "component-badge-html",
     "title": "Badge",
-    "description": "A badge is a small status indicator that can be placed on other elements.\n    \n    \n      \n        Badge extends Anchor. Add .ui-anchor and .ui-badge classes to the container, wrap the indicator\n        in\n        .ui-anchor-floating.",
-    "headings": "Variants Severities Visibility Alignment",
+    "description": "A badge is a small status indicator that can be placed on other elements.",
+    "headings": "Variants Indicator Severities Visibility Alignment",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -72,8 +72,8 @@
   {
     "id": "component-badge-astro",
     "title": "Badge",
-    "description": "A badge is a small status indicator that can be placed on other elements.\n    \n    \n      \n        Badge extends Anchor. Add .ui-anchor and .ui-badge classes to the container, wrap the indicator\n        in\n        .ui-anchor-floating.",
-    "headings": "Variants Severities Visibility Alignment",
+    "description": "A badge is a small status indicator that can be placed on other elements.",
+    "headings": "Variants Indicator Severities Visibility Alignment",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
@@ -102,7 +102,7 @@
   {
     "id": "component-button-html",
     "title": "Button",
-    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
+    "description": "",
     "headings": "Variants Colors Buttons with icon and label Keyboard Icon-only Sizes Disabled File upload",
     "category": "Component",
     "frameworkId": "html",
@@ -112,7 +112,7 @@
   {
     "id": "component-button-astro",
     "title": "Button",
-    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
+    "description": "",
     "headings": "Variants Colors Buttons with icon and label Keyboard Icon-only Sizes Disabled File upload",
     "category": "Component",
     "frameworkId": "astro",
@@ -122,7 +122,7 @@
   {
     "id": "component-callout-html",
     "title": "Callout",
-    "description": "Callouts call out for user attention. Callouts should be part of the flow\n    and used without interrupting the user's task.",
+    "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
     "headings": "Variants Icon Severities",
     "category": "Component",
     "frameworkId": "html",
@@ -132,7 +132,7 @@
   {
     "id": "component-callout-astro",
     "title": "Callout",
-    "description": "Callouts call out for user attention. Callouts should be part of the flow\n    and used without interrupting the user's task.",
+    "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
     "headings": "Variants Icon Severities",
     "category": "Component",
     "frameworkId": "astro",
@@ -162,7 +162,7 @@
   {
     "id": "component-checkbox-html",
     "title": "Checkbox",
-    "description": "Checkboxes allow users to select one or more items from a set of options.\n    See also: Checkbox field group.",
+    "description": "See also: Checkbox field group.",
     "headings": "Visible label Label position End text Validation Indeterminate Spread Sizes Field group Direction Field description Disabled Required Labels Keyboard support",
     "category": "Component",
     "frameworkId": "html",
@@ -172,7 +172,7 @@
   {
     "id": "component-checkbox-astro",
     "title": "Checkbox",
-    "description": "Checkboxes allow users to select one or more items from a set of options.\n    See also: Checkbox field group.",
+    "description": "See also: Checkbox field group.",
     "headings": "Visible label Label position End text Validation Indeterminate Spread Sizes Field group Direction Field description Disabled Required Labels Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
@@ -202,7 +202,7 @@
   {
     "id": "component-description-list-html",
     "title": "Description list",
-    "description": "Description lists are used to display a list of terms and their\n    descriptions.",
+    "description": "",
     "headings": "Bordered",
     "category": "Component",
     "frameworkId": "html",
@@ -212,7 +212,7 @@
   {
     "id": "component-description-list-astro",
     "title": "Description list",
-    "description": "Description lists are used to display a list of terms and their\n    descriptions.",
+    "description": "",
     "headings": "Bordered",
     "category": "Component",
     "frameworkId": "astro",
@@ -222,7 +222,7 @@
   {
     "id": "component-dialog-html",
     "title": "Dialog",
-    "description": "A minimally styled window overlaid on the main content. By design the Dialog\n    is minimal with zero content to allow for both modal and non-modal use.",
+    "description": "",
     "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "html",
@@ -232,7 +232,7 @@
   {
     "id": "component-dialog-astro",
     "title": "Dialog",
-    "description": "A minimally styled window overlaid on the main content. By design the Dialog\n    is minimal with zero content to allow for both modal and non-modal use.",
+    "description": "",
     "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
@@ -302,7 +302,7 @@
   {
     "id": "component-icon-button-html",
     "title": "Icon Button",
-    "description": "Icon buttons are used to trigger actions and are typically found in\n    toolbars, cards, and dialogs.",
+    "description": "",
     "headings": "Variants Colors Sizes Disabled",
     "category": "Component",
     "frameworkId": "html",
@@ -312,7 +312,7 @@
   {
     "id": "component-icon-button-astro",
     "title": "Icon Button",
-    "description": "Icon buttons are used to trigger actions and are typically found in\n    toolbars, cards, and dialogs.",
+    "description": "",
     "headings": "Variants Colors Sizes Disabled",
     "category": "Component",
     "frameworkId": "astro",
@@ -322,7 +322,7 @@
   {
     "id": "component-list-html",
     "title": "List",
-    "description": "Lists are continuous, vertical indexes of text and images and video.\n    \n      Use lists to help users find a specific item and act on it\n      Order list items in logical ways (like alphabetical or numerical)\n      Three sizes: one-line, two-line, and three-line\n      Keep items short and easy to scan\n      Show icons, text, and actions in a consistent format",
+    "description": "",
     "headings": "Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
     "category": "Component",
     "frameworkId": "html",
@@ -332,7 +332,7 @@
   {
     "id": "component-list-astro",
     "title": "List",
-    "description": "Lists are continuous, vertical indexes of text and images and video.\n    \n      Use lists to help users find a specific item and act on it\n      Order list items in logical ways (like alphabetical or numerical)\n      Three sizes: one-line, two-line, and three-line\n      Keep items short and easy to scan\n      Show icons, text, and actions in a consistent format",
+    "description": "",
     "headings": "Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
     "category": "Component",
     "frameworkId": "astro",
@@ -362,7 +362,7 @@
   {
     "id": "component-radio-html",
     "title": "Radio",
-    "description": "Use field groups to group related radio buttons. See also: Form documentation.",
+    "description": "See also: Form documentation.",
     "headings": "Direction Field description Disabled Required Validation",
     "category": "Component",
     "frameworkId": "html",
@@ -372,7 +372,7 @@
   {
     "id": "component-radio-astro",
     "title": "Radio",
-    "description": "Use field groups to group related radio buttons. See also: Form documentation.",
+    "description": "See also: Form documentation.",
     "headings": "Direction Field description Disabled Required Validation",
     "category": "Component",
     "frameworkId": "astro",
@@ -462,7 +462,7 @@
   {
     "id": "component-table-html",
     "title": "Table",
-    "description": "Displays tabular data. Basic tables with row and column headers, and\n    optional captions and footers.",
+    "description": "",
     "headings": "Variants Default Advanced",
     "category": "Component",
     "frameworkId": "html",
@@ -472,7 +472,7 @@
   {
     "id": "component-table-astro",
     "title": "Table",
-    "description": "Displays tabular data. Basic tables with row and column headers, and\n    optional captions and footers.",
+    "description": "",
     "headings": "Variants Default Advanced",
     "category": "Component",
     "frameworkId": "astro",
@@ -502,7 +502,7 @@
   {
     "id": "component-text-field-html",
     "title": "Text field",
-    "description": "An input for single-line text data. Basic text fields with labels, field\n    descriptions, and validation states.",
+    "description": "",
     "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
     "category": "Component",
     "frameworkId": "html",
@@ -512,7 +512,7 @@
   {
     "id": "component-text-field-astro",
     "title": "Text field",
-    "description": "An input for single-line text data. Basic text fields with labels, field\n    descriptions, and validation states.",
+    "description": "",
     "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
     "category": "Component",
     "frameworkId": "astro",
@@ -522,7 +522,7 @@
   {
     "id": "component-textarea-html",
     "title": "Textarea",
-    "description": "An input for multi-line text data. Basic textareas with labels, supporting\n    text, and validation states.",
+    "description": "",
     "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
     "category": "Component",
     "frameworkId": "html",
@@ -532,7 +532,7 @@
   {
     "id": "component-textarea-astro",
     "title": "Textarea",
-    "description": "An input for multi-line text data. Basic textareas with labels, supporting\n    text, and validation states.",
+    "description": "",
     "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
     "category": "Component",
     "frameworkId": "astro",
@@ -542,7 +542,7 @@
   {
     "id": "component-toast-html",
     "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
+    "description": "",
     "headings": "How it works HTML JavaScript Severities Title + description Duration",
     "category": "Component",
     "frameworkId": "html",
@@ -552,7 +552,7 @@
   {
     "id": "component-toast-astro",
     "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
+    "description": "",
     "headings": "How it works HTML JavaScript Severities Title + description Duration",
     "category": "Component",
     "frameworkId": "astro",
@@ -723,7 +723,7 @@
     "id": "api-accordion-html",
     "title": "Accordion API",
     "description": "Reference for Accordion HTML component.",
-    "headings": "Accordion details.accordion - Group .ui-card[role=\"group\"] - Attribute name - Part - Optional wrappers for child content. Variants .ui-text The variant to use.",
+    "headings": "Accordion details.ui-accordion - Group .ui-card[role=\"group\"] - Attribute name - Part - Optional wrappers for child content. Variants .ui-text The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -773,7 +773,7 @@
     "id": "api-badge-astro",
     "title": "Badge API",
     "description": "Reference for Badge Astro component.",
-    "headings": "alignment - Position of the badge relative to its container. Omit for the default (centered on the end edge). color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string | number - Screen reader label for the badge.",
+    "headings": "alignment - color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string | number - default The element the badge is anchored to. indicator",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -783,7 +783,7 @@
     "id": "api-badge-html",
     "title": "Badge API",
     "description": "Reference for Badge HTML component.",
-    "headings": "Container .ui-anchor.ui-badge - Floating .ui-anchor-floating - Positioned floating container from Anchor. Indicator .ui-badge-indicator - Alignment - Position modifiers on .ui-badge. Default is centered on the end edge. Color - Color modifiers on .ui-badge. Variants .ui-dot - Shape modifier on .ui-badge. Visibility .ui-invisible - Visibility modifier on .ui-badge.",
+    "headings": "Container .ui-anchor.ui-badge - Floating .ui-anchor-floating - Positioned floating container from Anchor. Indicator .ui-badge-indicator - Alignment - Color - Color modifiers on .ui-badge. Variants .ui-dot - Shape modifier on .ui-badge. Visibility .ui-invisible - Visibility modifier on .ui-badge.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -1083,7 +1083,7 @@
     "id": "api-list-html",
     "title": "List API",
     "description": "Reference for List HTML component.",
-    "headings": "Dense ul.dense - When enabled list appears tighter packed. Gutterless ul.gutterless - When enabled list inline padding is removed. Bordered ul.bordered - Variants - Background color variants. Main parts - Building blocks in List item. Inset li.inset - Border top li.border-top - When enabled the list item will get a top border.",
+    "headings": "Dense .ui-dense - When enabled list appears tighter packed. Gutterless .ui-gutterless - When enabled list inline padding is removed. Bordered .ui-bordered - Variants - Background color variants. Main parts - Building blocks in List item. Inset .ui-inset - Border top .ui-border-top - When enabled the list item will get a top border.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",

@@ -143,7 +143,7 @@ import Conditional from "../../components/Conditional.astro"
         and <code>description</code> props directly on <code>ListItem</code>.
       </Fragment>
       <Fragment slot="html">
-        Main text lives in <code>div.text</code>.
+        Main text lives in <code>div.ui-text</code>.
       </Fragment>
     </Conditional>
 
@@ -157,7 +157,7 @@ import Conditional from "../../components/Conditional.astro"
         Authored via the <code>start</code> slot on <code>ListItem</code>.
       </Fragment>
       <Fragment slot="html">
-        Found in <code>div.start</code>.
+        Found in <code>div.ui-start</code>.
       </Fragment>
     </Conditional>
 
@@ -186,7 +186,7 @@ import Conditional from "../../components/Conditional.astro"
         Authored via the <code>end</code> slot on <code>ListItem</code>.
       </Fragment>
       <Fragment slot="html">
-        Found in <code>div.end</code>.
+        Found in <code>div.ui-end</code>.
       </Fragment>
     </Conditional>
 
@@ -246,7 +246,7 @@ import Conditional from "../../components/Conditional.astro"
   <section>
     <h2 id="gutterless">Gutterless</h2>
     <p>
-      Apply the <code>.ui-gutterless</code> class on the <code>ul.list</code> element
+      Apply the <code>.ui-gutterless</code> class on the <code>ul.ui-list</code> element
       to remove the inline padding on the list items.
     </p>
     <AutoExample name="Gutterless" />
@@ -256,15 +256,15 @@ import Conditional from "../../components/Conditional.astro"
     <h2 id="borders">Borders</h2>
     <h3 id="on-every-item">On every item</h3>
     <p>
-      Apply the <code>.ui-bordered</code> class on the <code>ul.list</code> element
+      Apply the <code>.ui-bordered</code> class on the <code>ul.ui-list</code> element
       to give all list items a border.
     </p>
     <AutoExample name="Bordered" />
 
     <h3 id="on-one-item">On one item</h3>
     <p>
-      Apply the <code>.ui-border-top</code> class on a <code>li.list</code> item to
-      give it an upper border.
+      Apply the <code>.ui-border-top</code> class on a <code>li</code> item to give
+      it an upper border.
     </p>
     <AutoExample name="SingleBorder" />
   </section>
@@ -273,7 +273,8 @@ import Conditional from "../../components/Conditional.astro"
     <h2 id="dense">Dense</h2>
     <Conditional>
       <p slot="html">
-        Just add the <code>.ui-dense</code> class to the <code>ul.list</code>!
+        Just add the <code>.ui-dense</code> class to the <code>ul.ui-list</code
+        >!
       </p>
       <p slot="astro">
         Just add the <code>dense</code> prop to the <code>List</code>!
@@ -329,7 +330,7 @@ import Conditional from "../../components/Conditional.astro"
 
   <Fragment slot="anatomy">
     <ol>
-      <li>Container: <code>ul.list</code></li>
+      <li>Container: <code>ul.ui-list</code></li>
       <li>List item: <code>li</code></li>
       <li>
         Content wrapper (optional): <code>a</code>, <code>button</code>, <code

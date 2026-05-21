@@ -286,7 +286,7 @@ import Command from "./Command.astro"
       groupDiv.innerHTML = `<div class="command-group-heading">${category}</div>`
 
       const ul = document.createElement("ul")
-      ul.className = "ui-list"
+      ul.className = "ui-list ui-transparent"
 
       grouped[category].forEach((item: any) => {
         ul.appendChild(renderItem(item, globalIndex++, false))
@@ -443,7 +443,8 @@ import Command from "./Command.astro"
       if (link) {
         const url = link.getAttribute("href")
         const title = selected.querySelector(".ui-title")?.textContent
-        const description = selected.querySelector(".ui-description")?.textContent
+        const description =
+          selected.querySelector(".ui-description")?.textContent
         const category = selected.querySelector(
           ".command-item-shortcut",
         )?.textContent

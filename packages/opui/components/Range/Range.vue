@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { RangeProps, Slots } from "./types.d.vue"
-import { useId, computed } from "vue"
+import { useId } from "vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -14,29 +14,23 @@ const inputId = props.id || useId()
 const labelId = useId()
 const startTextId = useId()
 const endTextId = useId()
-
-const describedBy = computed(() => {
-  return (
-    [
-      props.startText || !!useSlots()["start-text"] ? startTextId : undefined,
-      props.endText || !!useSlots()["end-text"] ? endTextId : undefined,
-    ]
-      .filter(Boolean)
-      .join(" ") || undefined
-  )
-})
 </script>
 
 <template>
   <label
-    :class="['range', props.variant, { spread: props.spread }, props.class]"
+    :class="[
+      'ui-range',
+      props.variant && `ui-${props.variant}`,
+      { 'ui-spread': props.spread },
+      props.class,
+    ]"
   >
-    <span v-if="props.label || $slots.default" class="label" :id="labelId">
+    <span v-if="props.label || $slots.default" class="ui-label" :id="labelId">
       <slot>{{ props.label }}</slot>
     </span>
     <output
       v-if="props.valueSuffix !== undefined || $slots.value"
-      class="value"
+      class="ui-value"
       :for="inputId"
       :data-suffix="props.valueSuffix"
     >
@@ -44,14 +38,21 @@ const describedBy = computed(() => {
     </output>
     <span
       v-if="props.startText || $slots['start-text']"
-      class="start-text"
+      class="ui-start-text"
       :id="startTextId"
     >
       <slot name="start-text">{{ props.startText }}</slot>
     </span>
 
     <input
-      :aria-describedby="describedBy"
+      :aria-describedby="
+        [
+          props.startText || $slots['start-text'] ? startTextId : undefined,
+          props.endText || $slots['end-text'] ? endTextId : undefined,
+        ]
+          .filter(Boolean)
+          .join(' ') || undefined
+      "
       :aria-labelledby="labelId"
       :disabled="props.disabled"
       :id="inputId"
@@ -80,7 +81,7 @@ const describedBy = computed(() => {
 
     <span
       v-if="props.endText || $slots['end-text']"
-      class="end-text"
+      class="ui-end-text"
       :id="endTextId"
     >
       <slot name="end-text">{{ props.endText }}</slot>

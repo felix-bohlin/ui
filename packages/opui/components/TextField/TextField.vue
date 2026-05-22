@@ -19,27 +19,27 @@ const startTextValue = computed(() => props.description || props.startText)
 <template>
   <label
     :class="[
-      'text-field',
+      'ui-text-field',
       {
-        'auto-fit': props.autoFit,
-        filled: props.filled,
-        spread: props.spread,
-        small: props.small,
+        'ui-auto-fit': props.autoFit,
+        'ui-filled': props.filled,
+        'ui-spread': props.spread,
+        'ui-small': props.small,
       },
       props.class,
     ]"
     :data-invalid="props.critical || undefined"
     v-bind="$attrs"
   >
-    <span v-if="props.label || $slots.label" class="label">
+    <span v-if="props.label || $slots.label" class="ui-label">
       <slot name="label">{{ props.label }}</slot>
     </span>
 
-    <span v-if="startTextValue || $slots.description" class="start-text">
+    <span v-if="startTextValue || $slots.description" class="ui-start-text">
       <slot name="description">{{ startTextValue }}</slot>
     </span>
 
-    <span class="field">
+    <span class="ui-field">
       <input
         :disabled="props.disabled"
         :id="fieldId"
@@ -55,23 +55,23 @@ const startTextValue = computed(() => props.description || props.startText)
         :type="props.type === 'numeric' ? 'text' : props.type"
         v-model="modelValue"
       />
-      <span class="prefix" v-if="$slots.prefix"
+      <span class="ui-prefix" v-if="$slots.prefix"
         ><slot name="prefix"></slot
       ></span>
-      <span class="suffix" v-if="$slots.suffix"
+      <span class="ui-suffix" v-if="$slots.suffix"
         ><slot name="suffix"></slot
       ></span>
-      <span class="header" v-if="$slots.header"
+      <span class="ui-header" v-if="$slots.header"
         ><slot name="header"></slot
       ></span>
-      <span class="footer" v-if="$slots.footer"
+      <span class="ui-footer" v-if="$slots.footer"
         ><slot name="footer"></slot
       ></span>
     </span>
 
     <span
       v-if="props.endText || $slots['end-text'] || $slots['supporting-text']"
-      class="end-text"
+      class="ui-end-text"
     >
       <slot name="end-text">{{ props.endText }}</slot
       ><slot name="supporting-text"></slot>

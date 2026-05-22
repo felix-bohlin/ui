@@ -21,25 +21,25 @@ const endTextId = useId()
 <template>
   <label
     :class="[
-      'select',
-      props.size,
+      'ui-select',
+      props.size && `ui-${props.size}`,
       {
-        filled: props.variant === 'filled',
-        spread: props.spread,
+        'ui-filled': props.variant === 'filled',
+        'ui-spread': props.spread,
       },
       props.class,
     ]"
     :data-invalid="props.critical || undefined"
   >
-    <span v-if="props.label || $slots.label" class="label" :id="labelId">
+    <span v-if="props.label || $slots.label" class="ui-label" :id="labelId">
       <slot name="label">{{ props.label }}</slot>
     </span>
 
-    <span v-if="props.description || $slots.description" class="start-text">
+    <span v-if="props.description || $slots.description" class="ui-start-text">
       <slot name="description">{{ props.description }}</slot>
     </span>
 
-    <span class="field">
+    <span class="ui-field">
       <select
         :aria-labelledby="props.label ? labelId : undefined"
         :disabled="props.disabled"
@@ -52,7 +52,7 @@ const endTextId = useId()
         <button v-pre>
           <selectedcontent></selectedcontent>
         </button>
-        <div :class="['list', { dense: props.dense }]">
+        <div :class="['ui-list', { 'ui-dense': props.dense }]">
           <option
             v-for="item in props.items"
             :key="item.value"
@@ -63,16 +63,16 @@ const endTextId = useId()
           <slot></slot>
         </div>
       </select>
-      <span class="prefix" v-if="$slots.prefix"
+      <span class="ui-prefix" v-if="$slots.prefix"
         ><slot name="prefix"></slot
       ></span>
-      <span class="suffix" v-if="$slots.suffix"
+      <span class="ui-suffix" v-if="$slots.suffix"
         ><slot name="suffix"></slot
       ></span>
-      <span class="header" v-if="$slots.header"
+      <span class="ui-header" v-if="$slots.header"
         ><slot name="header"></slot
       ></span>
-      <span class="footer" v-if="$slots.footer"
+      <span class="ui-footer" v-if="$slots.footer"
         ><slot name="footer"></slot
       ></span>
     </span>
@@ -80,7 +80,7 @@ const endTextId = useId()
     <span
       v-if="props.endText || $slots['end-text']"
       :id="endTextId"
-      class="end-text"
+      class="ui-end-text"
     >
       <slot name="end-text">{{ props.endText }}</slot>
     </span>

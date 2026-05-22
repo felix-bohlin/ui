@@ -10,7 +10,13 @@ const Tag = as || (href ? "a" : "button")
 <template>
   <component
     :is="Tag"
-    :class="['icon-button', size, variant, color, $props.class]"
+    :class="[
+      'ui-icon-button',
+      size && `ui-${size}`,
+      variant && `ui-${variant}`,
+      color && `ui-${color}`,
+      $props.class,
+    ]"
     :href="href"
   >
     <slot></slot>

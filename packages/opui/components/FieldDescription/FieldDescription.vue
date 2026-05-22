@@ -6,7 +6,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <p :class="['field-description', props.class]" v-bind="$attrs">
+  <p :class="['ui-field-description', props.class]" v-bind="$attrs">
     <slot></slot>
   </p>
 </template>

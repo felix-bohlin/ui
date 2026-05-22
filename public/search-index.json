@@ -1471,26 +1471,6 @@
     "url": "/html/api#avatar"
   },
   {
-    "id": "api-badge-astro",
-    "title": "Badge API",
-    "description": "Reference for Badge Astro component.",
-    "headings": "alignment - color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string | number - default The element the badge is anchored to. indicator",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#badge"
-  },
-  {
-    "id": "api-badge-html",
-    "title": "Badge API",
-    "description": "Reference for Badge HTML component.",
-    "headings": "Container .ui-anchor.ui-badge - Floating .ui-anchor-floating - Positioned floating container from Anchor. Indicator .ui-badge-indicator - Alignment - Color - Color modifiers on .ui-badge. Variants .ui-dot - Shape modifier on .ui-badge. Visibility .ui-invisible - Visibility modifier on .ui-badge.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#badge"
-  },
-  {
     "id": "api-button-astro",
     "title": "Button API",
     "description": "Reference for Button Astro component.",
@@ -1509,6 +1489,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#button"
+  },
+  {
+    "id": "api-badge-astro",
+    "title": "Badge API",
+    "description": "Reference for Badge Astro component.",
+    "headings": "alignment - color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string | number - default The element the badge is anchored to. indicator",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#badge"
+  },
+  {
+    "id": "api-badge-html",
+    "title": "Badge API",
+    "description": "Reference for Badge HTML component.",
+    "headings": "Container .ui-anchor.ui-badge - Floating .ui-anchor-floating - Positioned floating container from Anchor. Indicator .ui-badge-indicator - Alignment - Color - Color modifiers on .ui-badge. Variants .ui-dot - Shape modifier on .ui-badge. Visibility .ui-invisible - Visibility modifier on .ui-badge.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#badge"
   },
   {
     "id": "api-button-group-astro",
@@ -1931,46 +1931,6 @@
     "url": "/html/api#text-field"
   },
   {
-    "id": "api-text-input-astro",
-    "title": "Text Input API",
-    "description": "Reference for Text Input Astro component.",
-    "headings": "autoFit boolean false Automatically adjusts its width to content. size \"small\" - The size of the text field. variant \"filled\" - The visual variant of the text field.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#text-input"
-  },
-  {
-    "id": "api-text-input-html",
-    "title": "Text Input API",
-    "description": "Reference for Text Input HTML component.",
-    "headings": "Wrapper .ui-field - Auto-fit .ui-auto-fit - Sizes .ui-small - The size of the element. Variants default, .ui-filled - The variant to use.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#text-input"
-  },
-  {
-    "id": "api-textarea-astro",
-    "title": "Textarea API",
-    "description": "Reference for Textarea Astro component.",
-    "headings": "autoFit boolean false Automatically adjusts its height to content. description string - Description text displayed above the textarea. endText string - Supporting text displayed below the textarea. spread boolean false variant \"filled\" - The visual variant of the textarea. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#textarea"
-  },
-  {
-    "id": "api-textarea-html",
-    "title": "Textarea API",
-    "description": "Reference for Textarea HTML component.",
-    "headings": "Children - Direct children of the root element. Field children - Auto-fit .ui-auto-fit - Layout .ui-spread, default - Variants default, .ui-filled - The variant to use. Validation [data-invalid] -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#textarea"
-  },
-  {
     "id": "api-toast-astro",
     "title": "Toast API",
     "description": "Reference for Toast Astro component.",
@@ -2009,6 +1969,46 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#toggle"
+  },
+  {
+    "id": "api-textarea-astro",
+    "title": "Textarea API",
+    "description": "Reference for Textarea Astro component.",
+    "headings": "autoFit boolean false Automatically adjusts its height to content. description string - Description text displayed above the textarea. endText string - Supporting text displayed below the textarea. spread boolean false variant \"filled\" - The visual variant of the textarea. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#textarea"
+  },
+  {
+    "id": "api-textarea-html",
+    "title": "Textarea API",
+    "description": "Reference for Textarea HTML component.",
+    "headings": "Children - Direct children of the root element. Field children - Auto-fit .ui-auto-fit - Layout .ui-spread, default - Variants default, .ui-filled - The variant to use. Validation [data-invalid] -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#textarea"
+  },
+  {
+    "id": "api-text-input-astro",
+    "title": "Text Input API",
+    "description": "Reference for Text Input Astro component.",
+    "headings": "autoFit boolean false Automatically adjusts its width to content. size \"small\" - The size of the text field. variant \"filled\" - The visual variant of the text field.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#text-input"
+  },
+  {
+    "id": "api-text-input-html",
+    "title": "Text Input API",
+    "description": "Reference for Text Input HTML component.",
+    "headings": "Wrapper .ui-field - Auto-fit .ui-auto-fit - Sizes .ui-small - The size of the element. Variants default, .ui-filled - The variant to use.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#text-input"
   },
   {
     "id": "api-tooltip-astro",

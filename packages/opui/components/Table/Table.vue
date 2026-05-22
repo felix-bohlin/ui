@@ -10,7 +10,10 @@ defineOptions({
 </script>
 
 <template>
-  <table :class="[variant, $props.class]" v-bind="$attrs">
+  <table
+    :class="['ui-table', variant && `ui-${variant}`, $props.class]"
+    v-bind="$attrs"
+  >
     <slot></slot>
   </table>
 </template>

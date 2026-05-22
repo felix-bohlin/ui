@@ -17,11 +17,11 @@ const endTextId = useId()
 <template>
   <label
     :class="[
-      'switch',
+      'ui-switch',
       {
-        small: props.small,
-        stack: props.stack,
-        spread: props.spread,
+        'ui-small': props.small,
+        'ui-stack': props.stack,
+        'ui-spread': props.spread,
       },
       props.class,
     ]"
@@ -29,13 +29,17 @@ const endTextId = useId()
   >
     <span
       v-if="$slots['icon-unchecked']"
-      class="icon-unchecked"
+      class="ui-icon-unchecked"
       aria-hidden="true"
     >
       <slot name="icon-unchecked"></slot>
     </span>
 
-    <span v-if="$slots['icon-checked']" class="icon-checked" aria-hidden="true">
+    <span
+      v-if="$slots['icon-checked']"
+      class="ui-icon-checked"
+      aria-hidden="true"
+    >
       <slot name="icon-checked"></slot>
     </span>
 
@@ -52,12 +56,12 @@ const endTextId = useId()
 
     <span
       v-if="$slots.default"
-      :class="[props.hideLabel ? 'sr-only' : 'label']"
+      :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
     >
       <slot></slot>
     </span>
 
-    <span v-if="$slots['end-text']" :id="endTextId" class="end-text">
+    <span v-if="$slots['end-text']" :id="endTextId" class="ui-end-text">
       <slot name="end-text"></slot>
     </span>
   </label>

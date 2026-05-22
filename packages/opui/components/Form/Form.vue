@@ -8,7 +8,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <component :is="props.as" :class="['form', props.class]" v-bind="$attrs">
+  <component :is="props.as" :class="['ui-form', props.class]" v-bind="$attrs">
     <slot></slot>
   </component>
 </template>

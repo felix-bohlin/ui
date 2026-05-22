@@ -14,7 +14,7 @@ provide(TabsGroupNameKey, groupName)
 </script>
 
 <template>
-  <div :class="['tabs', $props.class]" role="tablist" v-bind="$attrs">
+  <div :class="['ui-tabs', $props.class]" role="tablist" v-bind="$attrs">
     <slot></slot>
   </div>
 </template>

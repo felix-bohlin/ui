@@ -20,19 +20,19 @@ const labelId = useId()
 <template>
   <label
     :class="[
-      'select',
-      props.size,
+      'ui-select',
+      props.size && `ui-${props.size}`,
       {
-        filled: props.variant === 'filled',
+        'ui-filled': props.variant === 'filled',
       },
       props.class,
     ]"
     :data-invalid="props.critical || undefined"
   >
-    <span v-if="props.label" class="label" :id="labelId">{{
+    <span v-if="props.label" class="ui-label" :id="labelId">{{
       props.label
     }}</span>
-    <span class="field">
+    <span class="ui-field">
       <select
         :aria-labelledby="props.label ? labelId : undefined"
         :disabled="props.disabled"
@@ -52,6 +52,6 @@ const labelId = useId()
         <slot></slot>
       </select>
     </span>
-    <span v-if="props.endText" class="end-text">{{ props.endText }}</span>
+    <span v-if="props.endText" class="ui-end-text">{{ props.endText }}</span>
   </label>
 </template>

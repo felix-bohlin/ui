@@ -20,9 +20,9 @@ const inputId = id || useId()
 <template>
   <label
     :class="[
-      'toggle-button',
-      { selected: pressed, disabled },
-      size,
+      'ui-toggle-button',
+      { 'ui-disabled': disabled },
+      size && `ui-${size}`,
       $props.class,
     ]"
   >

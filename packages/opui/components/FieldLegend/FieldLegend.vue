@@ -10,7 +10,7 @@ defineSlots<Slots>()
 <template>
   <component
     :is="props.as"
-    :class="[{ legend: props.as !== 'legend' }, props.class]"
+    :class="[{ 'ui-legend': props.as !== 'legend' }, props.class]"
     v-bind="$attrs"
   >
     <slot></slot>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
-const { alt, as, href, isGroup, spacing, src, variant } = defineProps<Props>()
+const { alt, as, href, isGroup, src, variant } = defineProps<Props>()
 defineSlots<Slots>()
 
 const Tag = as || (href ? "a" : "div")
@@ -11,12 +11,8 @@ const Tag = as || (href ? "a" : "div")
   <component
     :is="Tag"
     :class="[
-      { avatar: !isGroup },
-      !isGroup && variant,
-      {
-        'gap-small': isGroup && spacing === 'small',
-        'gap-x-small': isGroup && spacing === 'x-small',
-      },
+      { 'ui-avatar': !isGroup },
+      !isGroup && variant && `ui-${variant}`,
       $props.class,
     ]"
     :href="href"

@@ -25,13 +25,13 @@ const positionArea = alignment
 </script>
 
 <template>
-  <span :class="['anchor', $props.class]" :style="positionArea">
+  <span :class="['ui-anchor', $props.class]" :style="positionArea">
     <span v-if="isHover" :interestfor="id">
       <slot></slot>
     </span>
     <slot v-else></slot>
     <span
-      class="anchor-floating"
+      class="ui-anchor-floating"
       :id="id"
       :popover="isHover ? 'hint' : undefined"
     >

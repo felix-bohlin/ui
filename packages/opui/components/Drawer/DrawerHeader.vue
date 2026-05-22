@@ -16,7 +16,7 @@ const closeDrawer = (event: MouseEvent) => {
 </script>
 
 <template>
-  <div :class="['header', $props.class]" v-bind="$attrs">
+  <div :class="['ui-header', $props.class]" v-bind="$attrs">
     <span v-if="heading">{{ heading }}</span>
     <slot></slot>
     <IconButton title="Close" @click="closeDrawer">

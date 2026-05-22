@@ -12,7 +12,7 @@ const contentId = useId()
 <template>
   <details
     :name="name"
-    :class="['accordion', 'card', variant, className]"
+    :class="['ui-accordion', 'ui-card', variant && `ui-${variant}`, className]"
     :open="open"
   >
     <!-- Summary -->
@@ -23,7 +23,7 @@ const contentId = useId()
     <!-- Content -->
     <div
       :id="contentId"
-      class="content"
+      class="ui-content"
       role="region"
       :aria-labelledby="summaryId"
     >
@@ -31,7 +31,7 @@ const contentId = useId()
     </div>
 
     <!-- Actions -->
-    <div v-if="$slots.actions" class="actions">
+    <div v-if="$slots.actions" class="ui-actions">
       <slot name="actions"></slot>
     </div>
   </details>

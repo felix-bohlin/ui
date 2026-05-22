@@ -12,7 +12,7 @@ const slots = defineSlots<Slots>()
 
 <template>
   <dialog
-    :class="['dialog', 'card', 'elevated', $props.class]"
+    :class="['ui-dialog', 'ui-card', 'ui-elevated', $props.class]"
     :closedby="closedby"
     v-bind="$attrs"
   >
@@ -20,7 +20,7 @@ const slots = defineSlots<Slots>()
       <slot name="header"></slot>
     </hgroup>
 
-    <div v-if="slots.content" class="content">
+    <div v-if="slots.content" class="ui-content">
       <slot name="content"></slot>
     </div>
 
@@ -28,7 +28,7 @@ const slots = defineSlots<Slots>()
 
     <div
       v-if="slots.actions"
-      :class="['actions', actionsAlign && `align-${actionsAlign}`]"
+      :class="['ui-actions', actionsAlign && `ui-align-${actionsAlign}`]"
     >
       <slot name="actions"></slot>
     </div>

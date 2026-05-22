@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { inject } from "vue"
-import { CurrentPanelIdKey, CurrentTabIdKey, type Slots, type TabsPanelProps } from "./types.d.vue"
+import {
+  CurrentPanelIdKey,
+  CurrentTabIdKey,
+  type Slots,
+  type TabsPanelProps,
+} from "./types.d.vue"
 
 const { panelId, tabId } = defineProps<TabsPanelProps>()
 defineSlots<Slots>()
@@ -16,7 +21,7 @@ const currentTabId = inject(CurrentTabIdKey, undefined)
 <template>
   <div
     :id="panelId || currentPanelId"
-    :class="['tab-panel', $props.class]"
+    :class="['ui-tab-panel', $props.class]"
     role="tabpanel"
     :aria-labelledby="tabId || currentTabId"
     v-bind="$attrs"

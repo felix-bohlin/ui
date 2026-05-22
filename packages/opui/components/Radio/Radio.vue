@@ -17,10 +17,10 @@ const endTextId = useId()
 <template>
   <label
     :class="[
-      'radio',
-      props.size,
+      'ui-radio',
+      props.size && `ui-${props.size}`,
       {
-        stack: props.stack,
+        'ui-stack': props.stack,
       },
       props.class,
     ]"
@@ -36,8 +36,10 @@ const endTextId = useId()
       :required="props.required"
       :value="props.value"
     />
-    <span :class="[props.hideLabel ? 'sr-only' : 'label']"><slot></slot></span>
-    <span :id="endTextId" class="end-text" v-if="$slots['end-text']">
+    <span :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
+      ><slot></slot
+    ></span>
+    <span :id="endTextId" class="ui-end-text" v-if="$slots['end-text']">
       <slot name="end-text"></slot>
     </span>
   </label>

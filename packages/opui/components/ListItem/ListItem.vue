@@ -28,38 +28,42 @@ const innerAttrs = computed(() => (Tag.value ? attrs : {}))
   <li
     :class="[
       {
-        'border-top': props.borderTop,
-        inset: props.inset,
+        'ui-border-top': props.borderTop,
+        'ui-inset': props.inset,
       },
       props.class,
     ]"
     v-bind="liAttrs"
   >
-    <label v-if="hasLabel" :class="labelClass" :for="props.for">
-      <div v-if="slots.start" class="start">
+    <label
+      v-if="hasLabel"
+      :class="labelClass && `ui-${labelClass}`"
+      :for="props.for"
+    >
+      <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
       <div
         v-if="slots.text || props.headline || props.description"
-        class="text"
+        class="ui-text"
       >
         <p v-if="props.headline">{{ props.headline }}</p>
         <p v-if="props.description">{{ props.description }}</p>
         <slot name="text"></slot>
       </div>
-      <div v-if="slots.end" class="end">
+      <div v-if="slots.end" class="ui-end">
         <slot name="end"></slot>
       </div>
       <slot></slot>
     </label>
 
     <component :is="Tag" v-else-if="Tag" v-bind="innerAttrs">
-      <div v-if="slots.start" class="start">
+      <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
       <div
         v-if="props.headline || props.description || slots.text"
-        class="text"
+        class="ui-text"
       >
         <p v-if="props.headline">{{ props.headline }}</p>
         <p v-if="props.description">{{ props.description }}</p>
@@ -67,18 +71,18 @@ const innerAttrs = computed(() => (Tag.value ? attrs : {}))
         <slot></slot>
       </div>
       <slot v-else></slot>
-      <div v-if="slots.end" class="end">
+      <div v-if="slots.end" class="ui-end">
         <slot name="end"></slot>
       </div>
     </component>
 
     <template v-else>
-      <div v-if="slots.start" class="start">
+      <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
       <div
         v-if="props.headline || props.description || slots.text"
-        class="text"
+        class="ui-text"
       >
         <p v-if="props.headline">{{ props.headline }}</p>
         <p v-if="props.description">{{ props.description }}</p>
@@ -86,7 +90,7 @@ const innerAttrs = computed(() => (Tag.value ? attrs : {}))
         <slot></slot>
       </div>
       <slot v-else></slot>
-      <div v-if="slots.end" class="end">
+      <div v-if="slots.end" class="ui-end">
         <slot name="end"></slot>
       </div>
     </template>

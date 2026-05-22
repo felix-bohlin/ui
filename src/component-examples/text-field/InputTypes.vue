@@ -1,66 +1,10 @@
-<template>
-<div class="example-column">
-  <label class="text-field input-type-field">
-    <span class="label">Color</span>
-    <input type="color" placeholder="Color" />
-  </label>
-  <label class="text-field input-type-field">
-    <span class="label">Email</span>
-    <input type="email" placeholder="name@email.com" />
-  </label>
-  <label class="text-field input-type-field">
-    <span class="label">Password</span>
-    <input type="password" placeholder="Password" />
-  </label>
-  <label class="text-field input-type-field">
-    <span class="label">Search</span>
-    <input type="search" placeholder="Search" />
-  </label>
-  <label class="text-field input-type-field">
-    <span class="label">Phone</span>
-    <input type="tel" placeholder="(666) 666-1337" />
-  </label>
-  <label class="text-field input-type-field">
-    <span class="label">Text</span>
-    <input type="text" placeholder="Text" />
-  </label>
-  <label class="text-field input-type-field">
-    <span class="label">URL</span>
-    <input type="url" placeholder="https://yoursite.com" />
-  </label>
-</div>
+<script setup lang="ts">
+import { onMounted } from "vue"
 
-<div class="example-column">
-  <label class="text-field input-type-field">
-    <span class="label">Date</span>
-    <input type="date" placeholder="Date" />
-  </label>
-  <label class="text-field input-type-field">
-    <span class="label">Datetime local</span>
-    <input type="datetime-local" placeholder="Datetime local" />
-  </label>
-  <label class="text-field input-type-field">
-    <span class="label">Month</span>
-    <input type="month" placeholder="Month" />
-  </label>
-  <label class="text-field input-type-field">
-    <span class="label">Time</span>
-    <input type="time" placeholder="Time" />
-  </label>
-  <label class="text-field input-type-field">
-    <span class="label">Week</span>
-    <input type="week" placeholder="Week" />
-  </label>
-</div>
-
-<script>
+onMounted(() => {
   function setupInputTypesControls() {
-    const filledToggle = document.querySelector(
-      "#text-field-filled-toggle",
-    ) as HTMLInputElement
-    const smallToggle = document.querySelector(
-      "#text-field-small-toggle",
-    ) as HTMLInputElement
+    const filledToggle = document.querySelector("#text-field-filled-toggle")
+    const smallToggle = document.querySelector("#text-field-small-toggle")
     const fields = document.querySelectorAll(".input-type-field")
 
     function updateFields() {
@@ -77,5 +21,61 @@
 
   setupInputTypesControls()
   document.addEventListener("astro:after-swap", setupInputTypesControls)
+})
 </script>
+
+<template>
+  <div class="example-column">
+    <label class="text-field input-type-field">
+      <span class="label">Color</span>
+      <input type="color" placeholder="Color" />
+    </label>
+    <label class="text-field input-type-field">
+      <span class="label">Email</span>
+      <input type="email" placeholder="name@email.com" />
+    </label>
+    <label class="text-field input-type-field">
+      <span class="label">Password</span>
+      <input type="password" placeholder="Password" />
+    </label>
+    <label class="text-field input-type-field">
+      <span class="label">Search</span>
+      <input type="search" placeholder="Search" />
+    </label>
+    <label class="text-field input-type-field">
+      <span class="label">Phone</span>
+      <input type="tel" placeholder="(666) 666-1337" />
+    </label>
+    <label class="text-field input-type-field">
+      <span class="label">Text</span>
+      <input type="text" placeholder="Text" />
+    </label>
+    <label class="text-field input-type-field">
+      <span class="label">URL</span>
+      <input type="url" placeholder="https://yoursite.com" />
+    </label>
+  </div>
+
+  <div class="example-column">
+    <label class="text-field input-type-field">
+      <span class="label">Date</span>
+      <input type="date" placeholder="Date" />
+    </label>
+    <label class="text-field input-type-field">
+      <span class="label">Datetime local</span>
+      <input type="datetime-local" placeholder="Datetime local" />
+    </label>
+    <label class="text-field input-type-field">
+      <span class="label">Month</span>
+      <input type="month" placeholder="Month" />
+    </label>
+    <label class="text-field input-type-field">
+      <span class="label">Time</span>
+      <input type="time" placeholder="Time" />
+    </label>
+    <label class="text-field input-type-field">
+      <span class="label">Week</span>
+      <input type="week" placeholder="Week" />
+    </label>
+  </div>
 </template>

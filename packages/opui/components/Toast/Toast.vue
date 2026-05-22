@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { initToastManager } from '../../css/js/toast.js'
+import { onMounted } from "vue"
+import { initToastManager } from "../../css/js/toast.js"
 
 onMounted(() => {
   initToastManager()
@@ -8,18 +8,23 @@ onMounted(() => {
 </script>
 
 <template>
-  <output aria-live="polite" id="toast-manager" popover="manual" role="status"></output>
+  <output
+    aria-live="polite"
+    id="toast-manager"
+    popover="manual"
+    role="status"
+  ></output>
 
   <template id="toast-template">
-    <div class="toast" role="alert">
-      <span class="icon" data-toast-icon></span>
-      <div class="content">
-        <div class="title" data-toast-title></div>
-        <div class="description" data-toast-description></div>
+    <div class="ui-toast" role="alert">
+      <span class="ui-icon" data-toast-icon></span>
+      <div class="ui-content">
+        <div class="ui-title" data-toast-title></div>
+        <div class="ui-description" data-toast-description></div>
       </div>
       <button
         aria-label="Close"
-        class="close-button"
+        class="ui-close-button"
         data-toast-close
         type="button"
       >

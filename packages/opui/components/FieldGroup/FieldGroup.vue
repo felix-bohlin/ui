@@ -12,7 +12,11 @@ if (props.name) {
 
 <template>
   <div
-    :class="['field-group', props.direction, props.class]"
+    :class="[
+      'ui-field-group',
+      props.direction && `ui-${props.direction}`,
+      props.class,
+    ]"
     v-bind="$attrs"
     role="group"
   >

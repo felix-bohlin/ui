@@ -18,7 +18,7 @@ const {
     :aria-busy="ariaBusy"
     :aria-describedby="ariaDescribedby"
     :aria-label="ariaLabel"
-    :class="['progress', variant, $props.class]"
+    :class="['ui-progress', variant && `ui-${variant}`, $props.class]"
     :id="id"
     :max="max"
     :value="value"

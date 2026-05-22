@@ -12,8 +12,8 @@ defineOptions({
 <template>
   <dl
     :class="[
-      'description-list',
-      { bordered: bordered, dotted: bordered === 'dotted' },
+      'ui-description-list',
+      { 'ui-bordered': bordered, 'ui-dotted': bordered === 'dotted' },
       $props.class,
     ]"
     v-bind="$attrs"

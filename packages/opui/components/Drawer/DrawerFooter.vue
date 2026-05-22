@@ -10,7 +10,7 @@ defineOptions({
 </script>
 
 <template>
-  <div :class="['footer', $props.class]" v-bind="$attrs">
+  <div :class="['ui-footer', $props.class]" v-bind="$attrs">
     <slot></slot>
   </div>
 </template>

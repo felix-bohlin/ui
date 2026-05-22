@@ -29,7 +29,7 @@ provide(CurrentPanelIdKey, computedPanelId)
   <input
     :aria-controls="computedPanelId"
     :checked="open"
-    :class="['tab-input', $props.class]"
+    :class="['ui-tab-input', $props.class]"
     :id="computedTabId"
     :name="tabsGroupName"
     type="radio"

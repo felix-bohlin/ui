@@ -19,19 +19,19 @@ const positionArea =
   <Anchor
     :alignment="positionArea"
     :class="[
-      'badge',
+      'ui-badge',
       {
-        dot,
-        invisible,
+        'ui-dot': dot,
+        'ui-invisible': invisible,
       },
-      alignment,
-      color,
+      alignment && `ui-${alignment}`,
+      color && `ui-${color}`,
       $props.class,
     ]"
   >
     <slot></slot>
     <template #anchored>
-      <span class="badge-indicator" :aria-label="label?.toString()">{{
+      <span class="ui-badge-indicator" :aria-label="label?.toString()">{{
         dot ? "" : label
       }}</span>
     </template>

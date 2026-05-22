@@ -6,7 +6,7 @@ defineSlots<Slots>()
 </script>
 
 <template>
-  <div :class="['item', $props.class]">
+  <div :class="['ui-item', $props.class]">
     <slot></slot>
   </div>
 </template>

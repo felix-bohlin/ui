@@ -6,5 +6,7 @@ const variantClass = variant ? `border-${variant}` : ""
 </script>
 
 <template>
-  <hr :class="['divider', variantClass, $props.class]" />
+  <hr
+    :class="['ui-divider', $props.class, variantClass && `ui-${variantClass}`]"
+  />
 </template>

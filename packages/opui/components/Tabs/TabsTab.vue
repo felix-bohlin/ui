@@ -15,7 +15,7 @@ const currentTabId = inject(CurrentTabIdKey, undefined)
 <template>
   <label
     :for="tabId || currentTabId"
-    :class="['tab-label', $props.class]"
+    :class="['ui-tab-label', $props.class]"
     role="tab"
     v-bind="$attrs"
   >

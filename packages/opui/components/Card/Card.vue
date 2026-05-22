@@ -7,12 +7,12 @@ const slots = defineSlots<Slots>()
 </script>
 
 <template>
-  <div :class="['card', variant, $props.class]">
+  <div :class="['ui-card', variant && `ui-${variant}`, $props.class]">
     <hgroup v-if="slots.header">
       <slot name="header"></slot>
     </hgroup>
 
-    <div v-if="slots.content" class="content">
+    <div v-if="slots.content" class="ui-content">
       <slot name="content"></slot>
     </div>
 
@@ -20,7 +20,7 @@ const slots = defineSlots<Slots>()
 
     <div
       v-if="slots.actions"
-      :class="['actions', actionsAlign && `align-${actionsAlign}`]"
+      :class="['ui-actions', actionsAlign && `ui-align-${actionsAlign}`]"
     >
       <slot name="actions"></slot>
     </div>

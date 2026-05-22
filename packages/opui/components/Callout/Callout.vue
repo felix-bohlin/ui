@@ -6,7 +6,15 @@ const slots = defineSlots<Slots>()
 </script>
 
 <template>
-  <article role="note" :class="['callout', variant, severity, $props.class]">
+  <article
+    role="note"
+    :class="[
+      'ui-callout',
+      variant && `ui-${variant}`,
+      severity && `ui-${severity}`,
+      $props.class,
+    ]"
+  >
     <slot name="icon">
       <svg
         v-if="severity === 'info'"
@@ -45,8 +53,8 @@ const slots = defineSlots<Slots>()
         />
       </svg>
     </slot>
-    <div class="content">
-      <h3 v-if="slots.title" class="title">
+    <div class="ui-content">
+      <h3 v-if="slots.title" class="ui-title">
         <slot name="title"></slot>
       </h3>
       <slot></slot>

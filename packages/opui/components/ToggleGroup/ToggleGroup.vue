@@ -23,9 +23,9 @@ provide(ToggleGroupKey, { name: groupName, type: inputType })
 <template>
   <div
     :class="[
-      'toggle-group',
-      size !== 'default' && size,
-      orientation,
+      'ui-toggle-group',
+      size !== 'default' && size && `ui-${size}`,
+      orientation && `ui-${orientation}`,
       $props.class,
     ]"
     :role="selection === 'single' ? 'radiogroup' : 'group'"

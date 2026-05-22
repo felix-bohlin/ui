@@ -8,11 +8,11 @@ defineSlots<Slots>()
 <template>
   <div
     :class="[
-      'button-group',
-      props.color,
-      props.size,
-      props.variant,
-      props.orientation,
+      'ui-button-group',
+      props.color && `ui-${props.color}`,
+      props.size && `ui-${props.size}`,
+      props.variant && `ui-${props.variant}`,
+      props.orientation && `ui-${props.orientation}`,
       props.class,
     ]"
     role="group"

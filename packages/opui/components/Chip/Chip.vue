@@ -18,19 +18,19 @@ const Tag = as || (href ? "a" : "div")
   <component
     :is="Tag"
     :class="[
-      'chip',
+      'ui-chip',
       {
-        multiline,
+        'ui-multiline': multiline,
       },
-      size,
-      variant,
+      size && `ui-${size}`,
+      variant && `ui-${variant}`,
       $props.class,
     ]"
     :href="href"
   >
     <slot name="start"></slot>
     <slot></slot>
-    <span v-if="label" class="text">{{ label }}</span>
+    <span v-if="label" class="ui-text">{{ label }}</span>
     <slot name="end"></slot>
   </component>
 </template>

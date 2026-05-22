@@ -9,7 +9,7 @@ defineSlots<Slots>()
 <template>
   <Anchor
     :alignment="alignment"
-    :class="['tooltip', { 'with-arrow': arrow }, $props.class]"
+    :class="['ui-tooltip', { 'ui-with-arrow': arrow }, $props.class]"
     :id="id"
     trigger="hover"
   >

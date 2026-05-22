@@ -12,13 +12,13 @@ defineOptions({
 <template>
   <ul
     :class="[
-      'list',
+      'ui-list',
       {
-        bordered,
-        dense,
-        gutterless,
+        'ui-bordered': bordered,
+        'ui-dense': dense,
+        'ui-gutterless': gutterless,
       },
-      variant,
+      variant && `ui-${variant}`,
       $props.class,
     ]"
     v-bind="$attrs"

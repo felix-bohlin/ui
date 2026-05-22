@@ -12,11 +12,11 @@ const isButton = Tag === "button"
   <component
     :is="Tag"
     :class="[
-      'button',
-      { disabled: isButton && disabled },
-      size,
-      variant,
-      color,
+      'ui-button',
+      { 'ui-disabled': isButton && disabled },
+      size && `ui-${size}`,
+      variant && `ui-${variant}`,
+      color && `ui-${color}`,
       $props.class,
     ]"
     :disabled="isButton ? disabled : undefined"

@@ -22,11 +22,11 @@ const drawerId = id || useId()
   <dialog
     :id="drawerId"
     :class="[
-      'drawer',
-      side,
+      'ui-drawer',
+      side && `ui-${side}`,
       {
-        'backdrop-transparent': backdrop === 'transparent',
-        'scroll-lock': scrollLock,
+        'ui-backdrop-transparent': backdrop === 'transparent',
+        'ui-scroll-lock': scrollLock,
       },
       $props.class,
     ]"
@@ -35,7 +35,7 @@ const drawerId = id || useId()
   >
     <slot v-if="slots.header" name="header"></slot>
 
-    <div class="content">
+    <div class="ui-content">
       <slot name="content"></slot>
     </div>
 

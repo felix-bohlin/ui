@@ -7,7 +7,7 @@ const { currentPanelId, currentTabId } = Astro.locals
 
 <div
   id={panelId || currentPanelId}
-  class:list={["tab-panel", className]}
+  class:list={["ui-tab-panel", className]}
   role="tabpanel"
   aria-labelledby={tabId || currentTabId}
   {...rest}

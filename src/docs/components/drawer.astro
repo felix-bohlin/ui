@@ -13,9 +13,6 @@ import ExampleUsageAstro from "/src/component-examples/drawer/Usage.astro?raw"
 import ExampleUsageVueRaw from "/src/component-examples/drawer/Usage.vue?raw"
 import ExampleUsageHTML from "/src/component-examples/drawer/Usage.html?raw"
 
-import ExampleBlurredAstro from "/src/component-examples/drawer/Blurred.astro?raw"
-import ExampleBlurredHTML from "/src/component-examples/drawer/Blurred.html?raw"
-
 import Conditional from "../../components/Conditional.astro"
 ---
 
@@ -75,19 +72,19 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         <p>
-          Change the opening side with the <code>.inline-start</code>, <code
-            >.inline-end</code
-          >, <code>.block-start</code>, and <code>.block-end</code> classes.
+          Change the opening side with the <code>.ui-inline-start</code>, <code
+            >.ui-inline-end</code
+          >, <code>.ui-block-start</code>, and <code>.ui-block-end</code> classes.
         </p>
         <p>
           The backdrop is blurred by default. Use the <code
-            >.backdrop-transparent</code
+            >.ui-backdrop-transparent</code
           >
           class to remove the blur effect.
         </p>
         <p>
-          Add the <code>.scroll-lock</code> utility class to the drawer to lock page
-          scrolling while it's open. Omit the class to allow background scrolling.
+          Add the <code>.ui-scroll-lock</code> utility class to the drawer to lock
+          page scrolling while it's open. Omit the class to allow background scrolling.
         </p>
       </Fragment>
     </Conditional>
@@ -95,7 +92,7 @@ import Conditional from "../../components/Conditional.astro"
       <Switch slot="controls" id="backdrop-transparent-toggle">
         <Conditional>
           <span slot="astro"><code>backdrop="transparent"</code></span>
-          <span slot="html"><code>.backdrop-transparent</code></span>
+          <span slot="html"><code>.ui-backdrop-transparent</code></span>
         </Conditional>
       </Switch>
       <Example.Preview slot="preview-astro" code={ExampleUsage} />
@@ -209,7 +206,7 @@ import Conditional from "../../components/Conditional.astro"
 
     <p>
       Source: <a
-        class="link"
+        class="ui-link"
         target="_blank"
         href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog"
         >MDN</a
@@ -261,7 +258,7 @@ import Conditional from "../../components/Conditional.astro"
     </Table>
 
     <h3 id="keyboard-support">Keyboard support</h3>
-    <div class="not-rich-text">
+    <div class="ui-not-rich-text">
       <Table style="table-layout: fixed">
         <Table.ColumnGroup>
           <Table.Column width="30%" />
@@ -311,3 +308,59 @@ import Conditional from "../../components/Conditional.astro"
     </div>
   </Fragment>
 </Component>
+
+<script>
+  function setupDrawerBackdropControls() {
+    document
+      .querySelectorAll<HTMLElement>(".example-container")
+      .forEach((container) => {
+        if (!container.querySelector("#backdrop-transparent-toggle")) return
+        if (container.dataset.drawerBackdropSetup) return
+        container.dataset.drawerBackdropSetup = "true"
+
+        container.addEventListener("change", (event) => {
+          const input = event.target
+          if (!(input instanceof HTMLInputElement)) return
+          if (input.id !== "backdrop-transparent-toggle") return
+
+          container.querySelectorAll("dialog.ui-drawer").forEach((drawer) => {
+            drawer.classList.toggle("ui-backdrop-transparent", input.checked)
+          })
+        })
+      })
+  }
+
+  setupDrawerBackdropControls()
+  document.addEventListener("astro:after-swap", setupDrawerBackdropControls)
+</script>
+
+<style is:global>
+  .drawer-examples {
+    display: grid;
+    grid-template-areas:
+      ". top ."
+      "left . right"
+      ". bottom .";
+    gap: var(--size-3);
+    justify-items: center;
+    align-items: center;
+    margin: var(--size-8) auto;
+    width: fit-content;
+  }
+
+  .drawer-examples .top {
+    grid-area: top;
+  }
+
+  .drawer-examples .left {
+    grid-area: left;
+  }
+
+  .drawer-examples .right {
+    grid-area: right;
+  }
+
+  .drawer-examples .bottom {
+    grid-area: bottom;
+  }
+</style>

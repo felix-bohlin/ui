@@ -1,10 +1,8 @@
 ---
-import type { FieldGroupProps as Props } from "./types.ts"
-
+import type { Props } from "./types.astro"
 export const title = "Field Group"
 
 const { class: className, direction, name, ...rest } = Astro.props
-
 const originalName = Astro.locals.currentFieldName
 if (name) {
   Astro.locals.currentFieldName = name
@@ -19,7 +17,7 @@ try {
 ---
 
 <div
-  class:list={["field-group", direction, className]}
+  class:list={["ui-field-group", direction && `ui-${direction}`, className]}
   {...rest}
   role="group"
   set:html={html}

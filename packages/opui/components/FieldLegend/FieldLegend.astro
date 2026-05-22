@@ -1,6 +1,5 @@
 ---
-import type { FieldLegendProps as Props } from "./types.ts"
-
+import type { Props } from "./types.astro"
 export const title = "Field Legend"
 
 const { as: Tag = "legend", class: className, ...rest } = Astro.props
@@ -8,4 +7,4 @@ const isLegend = Tag === "legend"
 ---
 
 <!-- prettier-ignore -->
-<Tag class:list={[{ legend: !isLegend }, className]} {...rest}><slot /></Tag>
+<Tag class:list={[{ "ui-legend": !isLegend }, className]} {...rest}><slot /></Tag>

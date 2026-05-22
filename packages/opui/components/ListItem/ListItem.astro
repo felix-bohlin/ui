@@ -1,15 +1,5 @@
 ---
-type Props = {
-  as?: "a" | "button" | "div"
-  borderTop?: boolean
-  class?: string
-  description?: string
-  for?: string
-  headline?: string
-  inset?: boolean
-  type?: "checkbox" | "radio" | "switch"
-  [key: string]: any
-}
+import type { Props } from "./types.astro"
 
 export const title = "List Item"
 
@@ -35,8 +25,8 @@ const innerProps = Tag ? rest : {}
 <li
   class:list={[
     {
-      "border-top": borderTop,
-      inset,
+      "ui-border-top": borderTop,
+      "ui-inset": inset,
     },
     className,
   ]}
@@ -45,21 +35,21 @@ const innerProps = Tag ? rest : {}
   {
     // Label + checkbox/radio/switch
     hasLabel ? (
-      <label class={labelClass} for={htmlFor}>
+      <label class={labelClass && `ui-${labelClass}`} for={htmlFor}>
         {Astro.slots.start && (
-          <div class="start">
+          <div class="ui-start">
             <slot name="start" />
           </div>
         )}
         {Astro.slots.text || headline || description ? (
-          <div class="text">
+          <div class="ui-text">
             {headline && <p>{headline}</p>}
             {description && <p>{description}</p>}
             <slot name="text" />
           </div>
         ) : null}
         {Astro.slots.end && (
-          <div class="end">
+          <div class="ui-end">
             <slot name="end" />
           </div>
         )}
@@ -69,12 +59,12 @@ const innerProps = Tag ? rest : {}
     Tag ? (
       <Tag {...innerProps}>
         {Astro.slots.start && (
-          <div class="start">
+          <div class="ui-start">
             <slot name="start" />
           </div>
         )}
         {headline || description || Astro.slots.text ? (
-          <div class="text">
+          <div class="ui-text">
             {headline && <p>{headline}</p>}
             {description && <p>{description}</p>}
             <slot name="text" />
@@ -84,7 +74,7 @@ const innerProps = Tag ? rest : {}
           <slot />
         )}
         {Astro.slots.end && (
-          <div class="end">
+          <div class="ui-end">
             <slot name="end" />
           </div>
         )}
@@ -93,12 +83,12 @@ const innerProps = Tag ? rest : {}
       // Without custom tag
       <>
         {Astro.slots.start && (
-          <div class="start">
+          <div class="ui-start">
             <slot name="start" />
           </div>
         )}
         {headline || description || Astro.slots.text ? (
-          <div class="text">
+          <div class="ui-text">
             {headline && <p>{headline}</p>}
             {description && <p>{description}</p>}
             <slot name="text" />
@@ -108,7 +98,7 @@ const innerProps = Tag ? rest : {}
           <slot />
         )}
         {Astro.slots.end && (
-          <div class="end">
+          <div class="ui-end">
             <slot name="end" />
           </div>
         )}

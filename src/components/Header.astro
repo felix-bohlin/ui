@@ -54,15 +54,22 @@ const { link } = Astro.locals
       return localStorage.getItem("theme")
     },
     setTheme(theme) {
-      document.documentElement.classList.remove("dark", "light")
-      document.documentElement.classList.add(theme)
+      document.documentElement.classList.remove(
+        "ui-dark",
+        "ui-light",
+        "dark",
+        "light",
+      )
+      document.documentElement.classList.add(`ui-${theme}`)
       localStorage.setItem("theme", theme)
       window.themeUtils.applyCustomTheme(theme)
     },
     applyCustomTheme(theme) {
       const currentTheme =
         theme ||
-        (document.documentElement.classList.contains("dark") ? "dark" : "light")
+        (document.documentElement.classList.contains("ui-dark")
+          ? "dark"
+          : "light")
       const STORAGE_KEY = `opui-custom-theme-${currentTheme}`
       const saved = localStorage.getItem(STORAGE_KEY)
 
@@ -123,7 +130,7 @@ const { link } = Astro.locals
 
 <div class="site-header">
   <header>
-    <div class="content">
+    <div class="ui-content">
       <!-- Logo -->
       <a class="logo" href={link("/")} title="Open Props UI"
         ><span>OP</span><span>UI</span></a
@@ -141,7 +148,7 @@ const { link } = Astro.locals
             resolvedNavItems.map((item) => (
               <li>
                 <a
-                  class="button small"
+                  class="ui-button ui-small"
                   aria-current={item.isActive ? "page" : "false"}
                   href={item.href}
                   title={item.label}
@@ -154,7 +161,7 @@ const { link } = Astro.locals
         </ul>
       </nav>
 
-      <div class="actions">
+      <div class="ui-actions">
         <!-- Search -->
         <IconButton data-open-search title="Search (⌘K)">
           <svg
@@ -191,15 +198,15 @@ const { link } = Astro.locals
         <a
           href="https://github.com/felix-bohlin/ui"
           target="_blank"
-          class="github-link icon-button"
+          class="github-link ui-icon-button"
         >
-          <span class="sr-only">Github repo</span>
+          <span class="ui-sr-only">Github repo</span>
           <GithubLogo />
         </a>
 
         <!-- Mobile menu button -->
         <button
-          class="mobile-menu-button icon-button"
+          class="mobile-menu-button ui-icon-button"
           commandfor="mobile-menu-drawer"
           command="show-modal"
         >
@@ -242,7 +249,7 @@ const { link } = Astro.locals
         }
         <ListItem>
           <a href="https://github.com/felix-bohlin/ui" target="_blank">
-            <div class="start">
+            <div class="ui-start">
               <GithubLogo />
             </div>
             <p>GitHub</p>
@@ -251,7 +258,7 @@ const { link } = Astro.locals
       </List>
     </nav>
 
-    <hr />
+    <hr class="ui-divider" />
 
     <FrameworkPicker />
   </Fragment>
@@ -296,16 +303,16 @@ const { link } = Astro.locals
     }
   }
 
-  .site-header:has(.header-toolbar:has(.local-nav)) header .content {
+  .site-header:has(.header-toolbar:has(.local-nav)) header .ui-content {
     border-block-end-color: transparent;
   }
 
-  .site-header:has(.header-toolbar:has(.local-nav)) header .content::before {
+  .site-header:has(.header-toolbar:has(.local-nav)) header .ui-content::before {
     border-block-end: none;
   }
 
   header {
-    .content {
+    .ui-content {
       align-items: center;
       backdrop-filter: blur(3px);
       border-block-end: var(--border-width) solid
@@ -360,7 +367,7 @@ const { link } = Astro.locals
         padding: 0;
         margin: 0;
 
-        .link {
+        .ui-link {
           text-decoration: none;
 
           &[aria-current="page"] {
@@ -423,7 +430,7 @@ const { link } = Astro.locals
       }
     }
 
-    .actions {
+    .ui-actions {
       align-items: center;
       display: flex;
       gap: var(--size-4);
@@ -470,7 +477,7 @@ const { link } = Astro.locals
       flex-direction: column;
       gap: var(--size-3);
 
-      .label {
+      .ui-label {
         color: var(--text-2);
         font-size: var(--font-size-0);
         font-weight: var(--font-weight-7);
@@ -482,7 +489,7 @@ const { link } = Astro.locals
   }
 
   /* Scroll-driven animations */
-  .content {
+  .ui-content {
     animation: fade-content linear both;
   }
 
@@ -493,7 +500,7 @@ const { link } = Astro.locals
   }
 
   header,
-  .content {
+  .ui-content {
     animation-timeline: scroll();
     animation-range: 0 150px;
   }

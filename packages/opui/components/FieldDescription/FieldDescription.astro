@@ -1,5 +1,5 @@
 ---
-import type { FieldDescriptionProps as Props } from "./types.ts"
+import type { Props } from "./types.astro"
 
 export const title = "Field Description"
 
@@ -7,4 +7,4 @@ const { class: className, ...rest } = Astro.props
 ---
 
 <!-- prettier-ignore -->
-<p class:list={["field-description", className]} {...rest}><slot /></p>
+<p class:list={["ui-field-description", className]} {...rest}><slot /></p>

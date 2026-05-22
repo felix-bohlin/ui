@@ -1,39 +1,35 @@
-import type { HTMLAttributes } from 'vue'
-export type TextFieldProps = {
-  [key: string]: any
+export type Props = {
   autoFit?: boolean
-  class?: HTMLAttributes['class']
   critical?: boolean
   description?: string
-  disabled?: boolean
   endText?: string
   filled?: boolean
-  id?: string
   label?: string
-  list?: string
-  max?: number | string
-  min?: number | string
-  name?: string
-  placeholder?: string
-  required?: boolean
   small?: boolean
   spread?: boolean
   startText?: string
-  step?: number | string
-  type?:
-    | 'color'
-    | 'date'
-    | 'datetime-local'
-    | 'email'
-    | 'file'
-    | 'month'
-    | 'numeric'
-    | 'password'
-    | 'search'
-    | 'tel'
-    | 'text'
-    | 'time'
-    | 'url'
-    | 'week'
-  value?: string | number
 }
+
+export type Slots<S> = {
+  description: string | S
+  endText: string | S
+  footer: string | S
+  header: string | S
+  label: string | S
+  prefix: string | S
+  startText: string | S
+  suffix: string | S
+  supportingText: string | S
+}
+
+export type InputProps =
+  | "disabled"
+  | "list"
+  | "max"
+  | "min"
+  | "name"
+  | "placeholder"
+  | "required"
+  | "step"
+  | "type"
+  | "value"

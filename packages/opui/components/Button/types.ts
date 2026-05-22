@@ -1,18 +1,16 @@
-import type { HTMLAttributes } from 'vue'
-export type CommonProps = {
-  [key: string]: any
-  as?: string
-  class?: HTMLAttributes['class']
+export type Props = {
   color?: "critical" | "primary"
   size?: "x-small" | "small" | "large"
   variant?: "outlined" | "tonal" | "filled"
-}
-export type AnchorProps = CommonProps & {
-  disabled?: never
-  href: string
-}
-export type ButtonProps = CommonProps & {
-  disabled?: boolean
-  href?: undefined
-}
-export type Props = AnchorProps | ButtonProps
+} & (
+  | {
+      as?: "a"
+      href: string
+      disabled?: never
+    }
+  | {
+      as?: "button"
+      href?: never
+      disabled?: boolean
+    }
+)

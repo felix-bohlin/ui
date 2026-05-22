@@ -1,26 +1,36 @@
 ---
-import type { Props } from "./types.ts"
+import type { Props } from "./types.astro"
 
 export const title = "Button"
 
+const props = Astro.props as Props
 const {
   as,
   class: className,
   color,
-  disabled,
-  href,
   size,
   variant,
+  disabled,
+  href,
   ...rest
-} = Astro.props
+} = props
 
 const Tag = (as || (href ? "a" : "button")) as any
 const isButton = Tag === "button"
 ---
 
-<!-- prettier-ignore -->
 <Tag
-  class:list={["button", { disabled: isButton && disabled }, size, variant, color, className]}
+  class:list={[
+    "ui-button",
+    { "ui-disabled": isButton && disabled },
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
+    color && `ui-${color}`,
+    className,
+  ]}
   disabled={isButton ? disabled : undefined}
   href={href}
-  {...rest}><slot /></Tag>
+  {...rest as any}
+>
+  <slot />
+</Tag>

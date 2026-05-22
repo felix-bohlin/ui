@@ -1,5 +1,5 @@
 export const HEADING_EXCLUSION_SELECTOR =
-  'dialog, [role="dialog"], [role="alertdialog"], [role="note"], [role="status"], .toast, .example-container, .example-preview'
+  'dialog, [role="dialog"], [role="alertdialog"], [role="note"], [role="status"], .ui-toast, .example-container, .example-preview'
 
 /**
  * Filter headings to exclude those inside certain containers (dialogs, examples, etc.)

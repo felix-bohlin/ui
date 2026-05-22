@@ -8,7 +8,7 @@ const { ids } = Astro.props
 
 {
   ids && ids.length > 0 && (
-    <article class="card outlined not-rich-text">
+    <article class="ui-card ui-outlined ui-not-rich-text">
       {ids.map((id) => (
         <baseline-status featureId={id} />
       ))}

@@ -4,6 +4,6 @@ import type { Props } from "./types"
 const { class: className, ...rest } = Astro.props
 ---
 
-<div class:list={["item", className]} {...rest}>
+<div class:list={["ui-item", className]} {...rest}>
   <slot />
 </div>

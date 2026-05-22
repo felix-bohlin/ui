@@ -3,6 +3,7 @@ import { Button, Chip } from "@opui/astro"
 import AstroLogo from "../components/AstroLogo.astro"
 import ComponentShowcase from "../components/ComponentShowcase/ComponentShowcase.astro"
 import Html5Logo from "../components/Html5Logo.astro"
+import SvelteLogo from "../components/SvelteLogo.astro"
 import VueLogo from "../components/VueLogo.astro"
 import Default from "../layouts/Default.astro"
 import {
@@ -30,23 +31,25 @@ const FRAMEWORK_BRANDING: Record<
   astro: { color: "#F041FF", Logo: AstroLogo },
   html: { color: "#E34F26", Logo: Html5Logo },
   vue: { color: "#41B883", Logo: VueLogo },
+  svelte: { color: "#FF3E00", Logo: SvelteLogo },
 }
 ---
 
 <Default>
-  <section id="main-content" class="container large">
+  <section id="main-content" class="container ui-large">
     <ComponentShowcase aria-hidden="true">
-      <hgroup class="hgroup" id="main-heading">
+      <hgroup class="ui-hgroup" id="main-heading">
         <p>{version}</p>
 
-        <h1 class="h1">Open Props UI</h1>
+        <h1 class="ui-h1">Open Props UI</h1>
 
         <p class="hero-description">
           Components you can copy-paste into your project. <br /> Like if <a
-            class="link"
+            class="ui-link"
             href="https://ui.shadcn.com/">shadcn</a
-          > and <a class="link" href="https://open-props.style/">Open Props</a> had
-          a baby. <br /> Using as modern CSS & HTML as possible.
+          > and <a class="ui-link" href="https://open-props.style/"
+            >Open Props</a
+          > had a baby. <br /> Using as modern CSS & HTML as possible.
         </p>
 
         <div class="hero-ctas">
@@ -57,7 +60,7 @@ const FRAMEWORK_BRANDING: Record<
         </div>
 
         <p class="framework-support" aria-label="Supported frameworks">
-          <span class="label">Works with</span>
+          <span class="ui-label">Works with</span>
           {
             FRAMEWORKS.map((framework) => {
               const branding = FRAMEWORK_BRANDING[framework.id]
@@ -71,7 +74,7 @@ const FRAMEWORK_BRANDING: Record<
                   data-framework={framework.id}
                 >
                   <Logo slot="start" />
-                  <span class="text">{framework.label}</span>
+                  <span class="ui-text">{framework.label}</span>
                 </Chip>
               )
             })
@@ -169,7 +172,7 @@ const FRAMEWORK_BRANDING: Record<
     gap: var(--size-2);
     margin-block-start: var(--size-5);
 
-    .label {
+    .ui-label {
       font-weight: var(--font-weight-6);
       letter-spacing: var(--font-letterspacing-3);
       text-transform: uppercase;

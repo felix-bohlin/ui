@@ -49,8 +49,15 @@ const vuePreviewModules = import.meta.glob("../component-examples/**/*.vue", {
   eager: true,
 }) as Record<string, { default: any }>
 
+const sveltePreviewModules = import.meta.glob(
+  "../component-examples/**/*.svelte",
+  {
+    eager: true,
+  },
+) as Record<string, { default: any }>
+
 const rawSources = import.meta.glob(
-  "../component-examples/**/*.{astro,html,vue}",
+  "../component-examples/**/*.{astro,html,vue,svelte}",
   {
     eager: true,
     query: "?raw",
@@ -61,17 +68,20 @@ const rawSources = import.meta.glob(
 const astroPath = `../component-examples/${slug}/${name}.astro`
 const htmlPath = `../component-examples/${slug}/${name}.html`
 const vuePath = `../component-examples/${slug}/${name}.vue`
+const sveltePath = `../component-examples/${slug}/${name}.svelte`
 
 const astroComponent = previewModules[astroPath]?.default
 const vueComponent = vuePreviewModules[vuePath]?.default
+const svelteComponent = sveltePreviewModules[sveltePath]?.default
 const astroSource = rawSources[astroPath]
 const htmlSource = rawSources[htmlPath]
 const vueSource = rawSources[vuePath]
+const svelteSource = rawSources[sveltePath]
 
-if (!astroComponent && !htmlSource) {
+if (!astroComponent && !htmlSource && !vueComponent && !svelteComponent) {
   throw new Error(
     `<AutoExample slug="${slug}" name="${name}"> found no example files at ` +
-      `${astroPath} or ${htmlPath}.`,
+      `${astroPath}, ${htmlPath}, ${vuePath}, or ${sveltePath}.`,
   )
 }
 ---
@@ -89,9 +99,15 @@ if (!astroComponent && !htmlSource) {
       <Example.Preview slot="preview-astro" code={astroComponent} />
     )
   }
+  {
+    svelteComponent && (
+      <Example.Preview slot="preview-svelte" code={svelteComponent} />
+    )
+  }
   {htmlSource && <Example.Preview slot="preview-html" code={htmlSource} />}
   {vueComponent && <Example.Preview slot="preview-vue" code={vueComponent} />}
   {astroSource && <Example.Code slot="code-astro" code={astroSource} />}
   {htmlSource && <Example.Code slot="code-html" code={htmlSource} />}
   {vueSource && <Example.Code slot="code-vue" code={vueSource} />}
+  {svelteSource && <Example.Code slot="code-svelte" code={svelteSource} />}
 </Example>

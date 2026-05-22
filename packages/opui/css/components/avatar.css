@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.avatar) {
+  :where(.ui-avatar) {
     --_bg-color: var(--primary);
     --_color: var(--color-1);
     --_width: 40px;
@@ -33,15 +33,15 @@
       position: absolute;
     }
 
-    &.squared {
+    &.ui-squared {
       border-radius: 0;
     }
 
-    &.rounded {
+    &.ui-rounded {
       border-radius: var(--radius-2);
     }
 
-    &.squircle {
+    &.ui-squircle {
       border-radius: var(--radius-3);
 
       @supports (corner-shape: squircle) {
@@ -57,7 +57,7 @@
 
     display: flex;
 
-    .avatar {
+    .ui-avatar {
       box-shadow: 0 0 0 2px var(--_outline-color);
       margin-inline-end: calc(-1 * var(--_margin));
     }

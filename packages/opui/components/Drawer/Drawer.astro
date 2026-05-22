@@ -20,11 +20,11 @@ const drawerId = id || $id("drawer")
 <dialog
   closedby={closedby}
   class:list={[
-    "drawer",
-    side,
+    "ui-drawer",
+    side && `ui-${side}`,
     {
-      "backdrop-transparent": backdrop === "transparent",
-      "scroll-lock": scrollLock,
+      "ui-backdrop-transparent": backdrop === "transparent",
+      "ui-scroll-lock": scrollLock,
     },
     className,
   ]}
@@ -33,7 +33,7 @@ const drawerId = id || $id("drawer")
 >
   {Astro.slots.has("header") && <slot name="header" />}
 
-  <div class="content">
+  <div class="ui-content">
     <slot name="content" />
   </div>
 

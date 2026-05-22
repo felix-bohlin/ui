@@ -38,23 +38,23 @@ const endTextId = hasEndText ? $id("range-end") : undefined
 const describedBy = [startTextId, endTextId].filter(Boolean).join(" ") || undefined
 ---
 
-<label class:list={["range", variant, { spread }, className]}>
+<label class:list={["ui-range", variant && `ui-${variant}`, { "ui-spread": spread }, className]}>
   {
     hasLabel && (
       <!-- prettier-ignore -->
-      <span class="label" id={labelId}>{label}<slot /></span>
+      <span class="ui-label" id={labelId}>{label}<slot /></span>
     )
   }
   {
     hasValue && (
-      <output class="value" for={inputId} data-suffix={valueSuffix}>
+      <output class="ui-value" for={inputId} data-suffix={valueSuffix}>
         <slot name="value">{value}</slot>
       </output>
     )
   }
   {
     hasStartText && (
-      <span class="start-text" id={startTextId}>
+      <span class="ui-start-text" id={startTextId}>
         {startText}<slot name="start-text" />
       </span>
     )
@@ -89,7 +89,7 @@ const describedBy = [startTextId, endTextId].filter(Boolean).join(" ") || undefi
   }
   {
     hasEndText && (
-      <span class="end-text" id={endTextId}>
+      <span class="ui-end-text" id={endTextId}>
         {endText}<slot name="end-text" />
       </span>
     )
@@ -98,11 +98,11 @@ const describedBy = [startTextId, endTextId].filter(Boolean).join(" ") || undefi
 
 <script>
   // Mirror the slider's current value into its associated <output> on every
-  // input event. Idempotent: each .range is wired once, and ignores ranges
+  // input event. Idempotent: each .ui-range is wired once, and ignores ranges
   // without a value display.
-  for (const range of document.querySelectorAll<HTMLElement>(".range")) {
+  for (const range of document.querySelectorAll<HTMLElement>(".ui-range")) {
     const input = range.querySelector<HTMLInputElement>('input[type="range"]')
-    const output = range.querySelector<HTMLOutputElement>(":scope > output.value")
+    const output = range.querySelector<HTMLOutputElement>(":scope > output.ui-value")
     if (!input || !output) continue
     const suffix = output.dataset.suffix ?? ""
     const update = () => {

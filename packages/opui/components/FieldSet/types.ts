@@ -1,6 +1,5 @@
-import type { HTMLAttributes } from 'vue'
-export type FieldSetProps = {
-  [key: string]: any
-  as?: 'fieldset' | 'div' | string
-  class?: HTMLAttributes['class']
+export type Props = {}
+export type Context = {
+  name?: string | null
+  description?: string | null
 }

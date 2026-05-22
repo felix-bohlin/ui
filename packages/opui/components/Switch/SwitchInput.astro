@@ -1,17 +1,7 @@
 ---
-import type { SwitchInputProps as Props } from "./types.ts"
+import type { SwitchInputProps as Props } from "./types.astro"
 
-const { checked, disabled, id, name, required, value, ...rest } = Astro.props
+const { ...rest } = Astro.props
 ---
 
-<input
-  type="checkbox"
-  role="switch"
-  {checked}
-  {disabled}
-  {id}
-  {name}
-  {required}
-  {value}
-  {...rest}
-/>
+<input type="checkbox" role="switch" {...rest} />

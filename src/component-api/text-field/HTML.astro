@@ -20,7 +20,7 @@ import { Table } from "@opui/astro"
   <Table.Body>
     <Table.Row>
       <Table.Cell>Auto-fit</Table.Cell>
-      <Table.Cell><code>.auto-fit</code></Table.Cell>
+      <Table.Cell><code>.ui-auto-fit</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell
         >When enabled, the element changes size depending on its content.</Table.Cell
@@ -29,9 +29,9 @@ import { Table } from "@opui/astro"
     <Table.Row>
       <Table.Cell>Children</Table.Cell>
       <Table.Cell
-        ><code>.label</code>, <code>.start-text</code>, <code>.field</code>, <code
+        ><code>.ui-label</code>, <code>.ui-start-text</code>, <code>.ui-field</code>, <code
           >&lt;datalist&gt;</code
-        >, <code>.end-text</code></Table.Cell
+        >, <code>.ui-end-text</code></Table.Cell
       >
       <Table.Cell>-</Table.Cell>
       <Table.Cell>Direct children of the root element.</Table.Cell>
@@ -41,28 +41,27 @@ import { Table } from "@opui/astro"
       <Table.Cell
         ><code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, <code
           >&lt;textarea&gt;</code
-        >, <code>.prefix</code>, <code>.suffix</code>, <code>.header</code>, <code
-          >.footer</code
-        ></Table.Cell
+        >, <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code>.ui-header</code>, <code
+>.ui-footer</code></Table.Cell
       >
       <Table.Cell>-</Table.Cell>
       <Table.Cell
-        >Children of <code>.field</code>. The control element comes first, then
+        >Children of <code>.ui-field</code>. The control element comes first, then
         optional affixes.</Table.Cell
       >
     </Table.Row>
     <Table.Row>
       <Table.Cell>Layout</Table.Cell>
-      <Table.Cell><code>.spread</code>, default</Table.Cell>
+      <Table.Cell><code>.ui-spread</code>, default</Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell
-        >The layout of the component. <code>.spread</code> pushes label and description
+        >The layout of the component. <code>.ui-spread</code> pushes label and description
         to the left and input to the right.</Table.Cell
       >
     </Table.Row>
     <Table.Row>
       <Table.Cell>Sizes</Table.Cell>
-      <Table.Cell><code>.small</code></Table.Cell>
+      <Table.Cell><code>.ui-small</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell>The size of the element.</Table.Cell>
     </Table.Row>
@@ -77,7 +76,7 @@ import { Table } from "@opui/astro"
     </Table.Row>
     <Table.Row>
       <Table.Cell>Variants</Table.Cell>
-      <Table.Cell>default, <code>.filled</code></Table.Cell>
+      <Table.Cell>default, <code>.ui-filled</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell>The variant to use.</Table.Cell>
     </Table.Row>

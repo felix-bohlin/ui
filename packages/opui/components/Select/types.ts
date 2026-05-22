@@ -1,24 +1,27 @@
-import type { HTMLAttributes } from "vue";
-export type Item = {
-	text: string;
-	value: string | number;
-};
+export type Props = {
+  critical?: boolean
+  dense?: boolean
+  description?: string
+  items?: Item[]
+  label?: string
+  spread?: boolean
+  size?: "small"
+  endText?: string
+  variant?: "outlined" | "filled"
+}
 
-export type SelectProps = {
-	[key: string]: any;
-	class?: HTMLAttributes["class"];
-	description?: string;
-	disabled?: boolean;
-	critical?: boolean;
-	dense?: boolean;
-	id?: string;
-	items?: Item[];
-	label?: string;
-	name?: string;
-	spread?: boolean;
-	required?: boolean;
-	size?: "small";
-	endText?: string;
-	value?: string | number;
-	variant?: "outlined" | "filled";
-};
+export type Item = {
+  text: string
+  value: any
+}
+
+export type Slots<S> = {
+  children?: S
+  description?: string | S
+  endText?: string | S
+  footer?: string | S
+  header?: string | S
+  label?: string | S
+  prefix?: string | S
+  suffix?: string | S
+}

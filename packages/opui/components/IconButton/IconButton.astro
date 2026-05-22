@@ -1,26 +1,24 @@
 ---
-type Props = {
-  [key: string]: any
-  as?: "a" | "button" | string
-  class?: string
-  color?: "critical" | "primary"
-  href?: string
-  size?: "small"
-  variant?: "outlined" | "tonal" | "filled"
-}
+import type { Props } from "./types.astro"
 
 export const title = "Icon Button"
 
-const {
-  as: Tag = Astro.props.href ? "a" : "button",
-  class: className,
-  color,
-  href,
-  size,
-  variant,
-  ...rest
-} = Astro.props
+const props = Astro.props as Props
+const { as, class: className, color, size, variant, href, ...rest } = props
+
+const Tag = as || (href ? "a" : "button")
 ---
 
-<!-- prettier-ignore -->
-<Tag class:list={["icon-button", size, variant, color, className]} href={href} {...rest}><slot /></Tag>
+<Tag
+  class:list={[
+    "ui-icon-button",
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
+    color && `ui-${color}`,
+    className,
+  ]}
+  href={href}
+  {...rest as any}
+>
+  <slot />
+</Tag>

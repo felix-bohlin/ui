@@ -2,7 +2,6 @@
 import Component from "../../layouts/Component.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import DividerCSS from "@opui/css/components/divider.css?raw"
-
 ---
 
 <Component
@@ -23,9 +22,7 @@ import DividerCSS from "@opui/css/components/divider.css?raw"
   installationTabs={[{ title: "divider.css", code: DividerCSS, lang: "css" }]}
 >
   <Fragment slot="title">Divider</Fragment>
-  <Fragment slot="preamble">
-    It's just an <code>&lt;hr&gt;</code>.
-  </Fragment>
+  <Fragment slot="preamble"> It's just a line. </Fragment>
 
   <section>
     <h2 class="default">Default</h2>

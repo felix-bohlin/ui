@@ -1,11 +1,10 @@
 ---
-import type { FormProps as Props } from "./types.ts"
-
+import type { Props } from "./types.astro"
 export const title = "Form"
 
 const { as: Tag = "form", class: className, ...rest } = Astro.props
 ---
 
-<Tag class:list={["form", className]} {...rest}>
+<Tag class:list={["ui-form", className]} {...rest}>
   <slot />
 </Tag>

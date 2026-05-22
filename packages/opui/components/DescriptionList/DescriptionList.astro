@@ -8,8 +8,8 @@ const { bordered, class: className, ...rest } = Astro.props
 
 <dl
   class:list={[
-    "description-list",
-    { bordered: bordered, dotted: bordered === "dotted" },
+    "ui-description-list",
+    { "ui-bordered": bordered, "ui-dotted": bordered === "dotted" },
     className,
   ]}
   {...rest}

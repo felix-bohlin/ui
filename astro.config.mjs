@@ -2,9 +2,9 @@
 import { readdirSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { defineConfig, fontProviders } from "astro/config"
-import vue from "@astrojs/vue"
-
 import expressiveCode from "astro-expressive-code"
+import svelte from "@astrojs/svelte"
+import vue from "@astrojs/vue"
 
 import { DEFAULT_FRAMEWORK, FRAMEWORK_IDS } from "./src/utils/framework.js"
 
@@ -46,6 +46,7 @@ export default defineConfig({
   },
   redirects: legacyRedirects,
   integrations: [
+    svelte(),
     vue(),
     expressiveCode({
       themes: ["dark-plus", "light-plus"],

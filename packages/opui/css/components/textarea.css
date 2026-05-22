@@ -1,5 +1,5 @@
 @layer components.extended {
-  :where(.textarea) {
+  :where(.ui-textarea) {
     textarea {
       block-size: auto;
       field-sizing: content;
@@ -8,14 +8,14 @@
     }
 
     /* Size */
-    &.small {
+    &.ui-small {
       textarea {
         min-block-size: var(--size-9);
       }
     }
 
     /* Auto-fit */
-    &.auto-fit {
+    &.ui-auto-fit {
       textarea {
         resize: both;
       }

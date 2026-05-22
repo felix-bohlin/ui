@@ -20,16 +20,17 @@ import { Table } from "@opui/astro"
   <Table.Body>
     <Table.Row>
       <Table.Cell>Accordion</Table.Cell>
-      <Table.Cell><code>details.accordion</code></Table.Cell>
+      <Table.Cell><code>details.ui-accordion</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell
-        >The root element for the accordion. Requires the <code>.accordion</code
-        > class and optionally the <code>.card</code> class for styling.</Table.Cell
+        >The root element for the accordion. Requires the <code
+          >.ui-accordion</code
+        > class and optionally the <code>.ui-card</code> class for styling.</Table.Cell
       >
     </Table.Row>
     <Table.Row>
       <Table.Cell>Group</Table.Cell>
-      <Table.Cell><code>.card[role="group"]</code></Table.Cell>
+      <Table.Cell><code>.ui-card[role="group"]</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell
         >Optional wrapper for accordion groups. To theme the entire group, apply
@@ -47,8 +48,8 @@ import { Table } from "@opui/astro"
     <Table.Row>
       <Table.Cell>Part</Table.Cell>
       <Table.Cell
-        ><code>& > summary</code>, <code>& > .content</code>, <code
-          >& > .actions</code
+        ><code>& > summary</code>, <code>& > .ui-content</code>, <code
+          >& > .ui-actions</code
         ></Table.Cell
       >
       <Table.Cell>-</Table.Cell>
@@ -57,11 +58,10 @@ import { Table } from "@opui/astro"
     <Table.Row>
       <Table.Cell>Variants</Table.Cell>
       <Table.Cell
-        ><code>.text</code>, <code>.elevated</code>, <code>.tonal</code>, <code
-          >.outlined</code
-        ></Table.Cell
+        ><code>.ui-text</code>, <code>.ui-elevated</code>, <code>.ui-tonal</code
+        >, <code>.ui-outlined</code></Table.Cell
       >
-      <Table.Cell><code>.text</code></Table.Cell>
+      <Table.Cell><code>.ui-text</code></Table.Cell>
       <Table.Cell>The variant to use.</Table.Cell>
     </Table.Row>
   </Table.Body>

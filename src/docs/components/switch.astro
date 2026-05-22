@@ -55,7 +55,7 @@ import Conditional from "../../components/Conditional.astro"
 >
   <Fragment slot="title">Switch</Fragment>
   <Fragment slot="preamble">
-    See also: <a href="#field-group" class="link">Switch field group</a>.
+    See also: <a href="#field-group" class="ui-link">Switch field group</a>.
   </Fragment>
 
   <!--
@@ -76,9 +76,10 @@ import Conditional from "../../components/Conditional.astro"
   <section>
     <h2 id="visible-label">Visible label</h2>
     <p>
-      Render the label text inside an element with a <code>.label</code> class. Also,
-      don't miss the info on label <a href="#accessibility" class="link"
-        >accessibility</a
+      Render the label text inside an element with a <code>.ui-label</code> class.
+      Also, don't miss the info on label <a
+        href="#accessibility"
+        class="ui-link">accessibility</a
       >.
     </p>
 
@@ -113,8 +114,8 @@ import Conditional from "../../components/Conditional.astro"
         to the right. This is useful for full-width items like lists and menus.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.spread</code> class to the <code
-          >&lt;label.switch&gt;</code
+        Add the <code>.ui-spread</code> class to the <code
+          >&lt;label class="ui-switch"&gt;</code
         >
         to push the label to the left and the switch to the right. This is useful
         for full-width items like lists and menus.
@@ -131,8 +132,8 @@ import Conditional from "../../components/Conditional.astro"
         Set the <code>small</code> prop for a smaller Switch variant.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.small</code> class on the <code
-          >&lt;label.switch&gt;</code
+        Add the <code>.ui-small</code> class on the <code
+          >&lt;label class="ui-switch"&gt;</code
         >
         for a smaller Switch variant.
       </Fragment>
@@ -161,7 +162,7 @@ import Conditional from "../../components/Conditional.astro"
       </p>
     </Conditional>
     <p>
-      See also: <DocLink href="/components/form" class="link"
+      See also: <DocLink href="/components/form" class="ui-link"
         >Form documentation</DocLink
       >.
     </p>
@@ -195,7 +196,7 @@ import Conditional from "../../components/Conditional.astro"
     <Conditional>
       <p slot="html">
         Attach the <code>data-invalid</code> attribute to your <code
-          >fieldset.fieldset</code
+          >&lt;fieldset class="ui-fieldset"&gt;</code
         > element.
       </p>
       <p slot="astro">
@@ -209,7 +210,7 @@ import Conditional from "../../components/Conditional.astro"
 
   <Fragment slot="accessibility">
     <h3 id="role-attributes">Role & attributes</h3>
-    <table>
+    <table class="ui-table">
       <thead>
         <tr>
           <th>Role/attribute</th>
@@ -232,7 +233,7 @@ import Conditional from "../../components/Conditional.astro"
       Accessible switches should have a label. The first two approaches are
       equally ok:
     </p>
-    <table>
+    <table class="ui-table">
       <thead>
         <tr>
           <th>Approach</th>
@@ -243,12 +244,12 @@ import Conditional from "../../components/Conditional.astro"
         <tr>
           <td>Provide a label inside the element</td>
           <td
-            >Use a <code>.label</code> child for a <a
+            >Use a <code>.ui-label</code> child for a <a
               href="#visible-label"
-              class="link">visible label</a
-            >, or a <code>.sr-only</code> child to hide it visually while keeping
+              class="ui-link">visible label</a
+            >, or a <code>.ui-sr-only</code> child to hide it visually while keeping
             it accessible. In Astro, set the <code>hideLabel</code> prop to render
-            the slot content as <code>.sr-only</code>.</td
+            the slot content as <code>.ui-sr-only</code>.</td
           >
         </tr>
         <tr>
@@ -271,8 +272,8 @@ import Conditional from "../../components/Conditional.astro"
     </table>
 
     <h3 id="keyboard-support">Keyboard support</h3>
-    <div class="not-rich-text">
-      <table>
+    <div class="ui-not-rich-text">
+      <table class="ui-table">
         <thead>
           <tr>
             <th>Key</th>
@@ -297,8 +298,8 @@ import Conditional from "../../components/Conditional.astro"
     <ol>
       <li>Container: <code>label</code> element</li>
       <li>Switch: <code>& input type="checkbox" role="switch"</code></li>
-      <li>Label (optional): & <code>.label</code></li>
-      <li>End text (optional): <code>.end-text</code></li>
+      <li>Label (optional): & <code>.ui-label</code></li>
+      <li>End text (optional): <code>.ui-end-text</code></li>
     </ol>
 
     <Example row>
@@ -313,16 +314,16 @@ import Conditional from "../../components/Conditional.astro"
     gap: var(--size-3);
     align-items: center;
   }
-  .example-row.spacious {
+  .example-row.ui-spacious {
     gap: var(--size-6);
   }
 
-  .switch.anatomy {
+  .ui-switch.anatomy {
     outline: var(--_anatomy-border-gray);
     outline-offset: 8px;
 
-    .label,
-    .end-text,
+    .ui-label,
+    .ui-end-text,
     input {
       outline: var(--_anatomy-border-red);
       outline-offset: -3px;

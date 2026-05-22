@@ -1,6 +1,5 @@
 ---
-import type { Props } from './types.ts'
-
+import type { Props } from "./types.astro"
 
 export const title = "Avatar"
 
@@ -10,25 +9,19 @@ const {
   class: className,
   href,
   isGroup,
-  spacing,
   src,
   variant,
   ...rest
 } = Astro.props
 
 const Tag = (as || (href ? "a" : "div")) as any
-
 ---
 
 <!-- prettier-ignore -->
 <Tag
   class:list={[
-    { avatar: !isGroup },
-    !isGroup && variant,
-    {
-      "gap-small": isGroup && spacing === "small",
-      "gap-x-small": isGroup && spacing === "x-small",
-    },
+    { "ui-avatar": !isGroup },
+    !isGroup && variant && `ui-${variant}`,
     className,
   ]}
   href={href}

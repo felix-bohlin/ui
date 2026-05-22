@@ -1,3 +1,25 @@
+# Migrating from v4 to v5
+
+v5 prefixes every OPUI-owned class with `ui-`. The component prop API is unchanged; only the rendered class names change.
+
+If you use the framework component (e.g. `<Button size="small" variant="outlined">`), you don't need to do anything — the component emits the prefixed classes for you.
+
+If you use raw HTML or write CSS that targets library classes, you must rename every reference:
+
+```diff
+- <button class="button outlined small">Save</button>
++ <button class="ui-button ui-outlined ui-small">Save</button>
+```
+
+```diff
+- .button.filled { /* override */ }
++ .ui-button.ui-filled { /* override */ }
+```
+
+The full list of renamed tokens is in [CHANGELOG.md](./CHANGELOG.md#500). Run a project-wide find/replace per token, then visually smoke test.
+
+CSS custom properties (`--primary`, `--surface-default`, `--size-3`, …) are unchanged.
+
 # Migrating from v3 to v4
 
 v4 is a full re-platform.
@@ -78,7 +100,7 @@ import { Button, Dialog, Tabs } from "opui-css/astro"
 
 `astro` is an _optional_ peer — only required if you actually import from `opui-css/astro`. Pure-CSS consumers won't see a peer warning.
 
-The components emit the same class names the v3 docs documented, so existing styles keep working.
+Astro components emit prefixed `ui-` classes (see the v4 → v5 section at the top of this file). Raw HTML and CSS overrides must use those prefixed names.
 
 ## 8. Cascade layers
 

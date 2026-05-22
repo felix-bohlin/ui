@@ -1,23 +1,33 @@
-import type { HTMLAttributes } from 'vue'
-export type TextareaProps = {
-  [key: string]: any
+export type Props = {
   autoFit?: boolean
-  class?: HTMLAttributes['class']
-  cols?: number
   description?: string
-  disabled?: boolean
   critical?: boolean
   filled?: boolean
-  id?: string
   label?: string
-  maxlength?: number
-  minlength?: number
-  name?: string
   spread?: boolean
-  placeholder?: string
-  required?: boolean
-  rows?: number
   small?: boolean
   endText?: string
-  value?: string
 }
+
+export type Slots<S> = {
+  description?: string | S
+  footer?: string | S
+  header?: string | S
+  label?: string | S
+  prefix?: string | S
+  startText?: string | S
+  suffix?: string | S
+  endText?: string | S
+  supportingText?: string | S
+}
+
+export type TextareaProps =
+  | "cols"
+  | "disabled"
+  | "maxlength"
+  | "minlength"
+  | "name"
+  | "placeholder"
+  | "required"
+  | "rows"
+  | "value"

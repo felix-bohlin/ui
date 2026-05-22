@@ -1,9 +1,16 @@
 export type Props = {
-	[key: string]: any;
-	as?: "a" | "button" | string;
-	class?: string;
-	color?: "critical" | "primary";
-	href?: string;
-	size?: "small";
-	variant?: "outlined" | "tonal" | "filled";
-};
+  color?: "critical" | "primary"
+  size?: "small"
+  variant?: "outlined" | "tonal" | "filled"
+} & (
+  | {
+      as: "a"
+      href: string
+      disabled?: never
+    }
+  | {
+      as?: "button"
+      href?: never
+      disabled?: boolean
+    }
+)

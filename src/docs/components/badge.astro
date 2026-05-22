@@ -1,6 +1,5 @@
 ---
 import Component from "../../layouts/Component.astro"
-import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example"
 
 import AutoExample from "../../components/AutoExample.astro"
@@ -17,7 +16,6 @@ import Conditional from "../../components/Conditional.astro"
 
 import BadgeCSS from "@opui/css/components/badge.css?raw"
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
-
 ---
 
 <style is:global>
@@ -25,7 +23,7 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     outline: var(--_anatomy-border-gray);
     outline-offset: -2px;
 
-    & > .anchor-floating > .badge-indicator {
+    & > .ui-anchor-floating > .ui-badge-indicator {
       outline: var(--_anatomy-border-red);
       outline-offset: -3px;
     }
@@ -58,17 +56,6 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     <p>
       A badge is a small status indicator that can be placed on other elements.
     </p>
-    <Conditional>
-      <Fragment slot="html">
-        Badge extends <DocLink href="/components/anchor">Anchor</DocLink>. Add <code
-          >.anchor</code
-        > and <code>.badge</code> classes to the container, wrap the indicator in
-        <code>.anchor-floating</code>.
-      </Fragment>
-      <Fragment slot="astro">
-        Use the <code>label</code> property to add content inside the Badge.
-      </Fragment>
-    </Conditional>
   </Fragment>
 
   <section>
@@ -78,7 +65,7 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
         Default, and <code>dot</code>.
       </Fragment>
       <Fragment slot="html">
-        Default, and <code>.dot</code>.
+        Default, and <code>.ui-dot</code>.
       </Fragment>
     </Conditional>
 
@@ -86,11 +73,32 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
   </section>
 
   <section>
+    <h2 id="indicator">Indicator</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set indicator text with the <code>label</code> prop or the <code
+          >indicator</code
+        > slot. The default slot holds the anchored element.
+      </Fragment>
+      <Fragment slot="html">
+        Put indicator text inside <code>.ui-badge-indicator</code>. The anchored
+        element is the badge's direct child before <code
+          >.ui-anchor-floating</code
+        >.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Indicator" row />
+  </section>
+
+  <section>
     <h2 id="severities">Severities</h2>
     <Conditional>
       <p slot="html">
-        <code>.critical</code>, <code>.info</code>, <code>.neutral</code>,
-        <code>.success</code>, <code>.warning</code>.
+        <code>.ui-critical</code>, <code>.ui-info</code>, <code
+          >.ui-neutral</code
+        >,
+        <code>.ui-success</code>, <code>.ui-warning</code>.
       </p>
       <p slot="astro">
         <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
@@ -110,7 +118,7 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
         prop.
       </Fragment>
       <Fragment slot="html">
-        Change the badge's visibility using the <code>.invisible</code>
+        Change the badge's visibility using the <code>.ui-invisible</code>
         class.
       </Fragment>
     </Conditional>
@@ -118,7 +126,7 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     <Example row>
       <Conditional slot="controls">
         <UISwitch slot="html" id="badge-visibility-toggle"
-          ><code>.invisible</code></UISwitch
+          ><code>.ui-invisible</code></UISwitch
         >
         <UISwitch slot="astro" id="badge-visibility-toggle"
           ><code>invisible</code></UISwitch
@@ -138,8 +146,8 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     <p>Where the badge should be placed over the child.</p>
     <Conditional>
       <p slot="html">
-        <code>.start-start</code>, default, <code>.end-start</code>, <code
-          >.end-end</code
+        <code>.ui-start-start</code>, default, <code>.ui-end-start</code>, <code
+          >.ui-end-end</code
         >.
       </p>
       <p slot="astro">
@@ -152,14 +160,53 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
   </section>
 
   <Fragment slot="anatomy">
-    <p>The badge component is composed of two main elements:</p>
-    <ol>
-      <li>Element to wrap</li>
-      <li>Badge</li>
-    </ol>
+    <Conditional>
+      <p slot="astro">
+        The badge is composed of an anchored element (default slot), and an
+        indicator (<code>label</code> prop or <code>indicator</code> slot).
+      </p>
+      <p slot="html">
+        The badge is composed of an anchored element and a <code
+          >.ui-badge-indicator</code
+        > inside <code>.ui-anchor-floating</code>.
+      </p>
+    </Conditional>
 
     <Example row>
       <Example.Preview code={BadgeAnatomy} />
     </Example>
   </Fragment>
 </Component>
+
+<script>
+  function setupBadgeVisibilityControls() {
+    document
+      .querySelectorAll<HTMLElement>(".example-container")
+      .forEach((container) => {
+        if (!container.querySelector("#badge-visibility-toggle")) return
+        if (container.dataset.badgeVisibilitySetup) return
+        container.dataset.badgeVisibilitySetup = "true"
+
+        const sync = (checked: boolean) => {
+          container.querySelectorAll(".ui-badge").forEach((badge) => {
+            badge.classList.toggle("ui-invisible", checked)
+          })
+        }
+
+        container.addEventListener("change", (event) => {
+          const input = event.target
+          if (!(input instanceof HTMLInputElement)) return
+          if (input.id !== "badge-visibility-toggle") return
+          sync(input.checked)
+        })
+
+        const initial = container.querySelector<HTMLInputElement>(
+          "#badge-visibility-toggle",
+        )
+        if (initial) sync(initial.checked)
+      })
+  }
+
+  setupBadgeVisibilityControls()
+  document.addEventListener("astro:after-swap", setupBadgeVisibilityControls)
+</script>

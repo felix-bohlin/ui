@@ -7,6 +7,7 @@ import {
   type FrameworkId,
 } from "../utils/framework-routing"
 import FrameworkPicker from "../components/FrameworkPicker.astro"
+import { Divider } from "@opui/astro"
 
 type Props = {
   overline?: string
@@ -37,7 +38,9 @@ const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
 
 <Document overline={overline} showToc={showToc}>
   <FrameworkPicker size="small" slot="sidebar" />
-  <hr slot="sidebar" />
+
+  <Divider variant="tonal" slot="sidebar" />
+
   <nav slot="sidebar">
     <h3>Guide</h3>
     <menu class="guide-nav-list">

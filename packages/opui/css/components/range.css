@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.range) {
+  :where(.ui-range) {
     display: grid;
     gap: var(--size-1) 0;
     /* Two-column base so the optional .value cell can sit next to the
@@ -8,7 +8,7 @@
     grid-template-columns: 1fr auto;
     position: relative;
 
-    .label {
+    .ui-label {
       color: var(--text-primary);
       font-size: var(--font-size-05);
       font-weight: 600;
@@ -18,7 +18,7 @@
 
     /* Live current-value readout. Pairs with the <output> element
        rendered by the Range component (or hand-written .value markup). */
-    :where(.value) {
+    :where(.ui-value) {
       color: var(--text-muted);
       font-size: var(--font-size-0);
       font-variant-numeric: tabular-nums;
@@ -29,7 +29,7 @@
       text-align: end;
     }
 
-    .start-text {
+    .ui-start-text {
       color: var(--text-muted);
       font-size: var(--font-size-0);
       grid-column: 1/-1;
@@ -37,7 +37,7 @@
       line-height: 1.5;
     }
 
-    :where(.end-text) {
+    :where(.ui-end-text) {
       color: var(--text-muted);
       font-size: var(--font-size-0);
       grid-column: 1/-1;
@@ -71,40 +71,40 @@
       opacity: 0.64;
       user-select: none;
 
-      .label,
-      .value,
-      .start-text,
-      .end-text {
+      .ui-label,
+      .ui-value,
+      .ui-start-text,
+      .ui-end-text {
         cursor: not-allowed;
       }
     }
 
     /* Color */
-    &.filled input[type="range"] {
+    &.ui-filled input[type="range"] {
       --_track-color: var(--surface-filled);
     }
 
-    &.default input[type="range"] {
+    &.ui-default input[type="range"] {
       --_track-color: var(--surface-default);
     }
 
-    &.tonal input[type="range"] {
+    &.ui-tonal input[type="range"] {
       --_track-color: var(--surface-tonal);
     }
 
     /* Orientation */
-    &.spread {
+    &.ui-spread {
       align-items: center;
       column-gap: var(--size-4);
       container-type: inline-size;
       grid-template-columns: 1fr auto;
 
-      .label {
+      .ui-label {
         grid-column: 1;
         grid-row: 1;
       }
 
-      .start-text {
+      .ui-start-text {
         color: var(--text-muted);
         display: block;
         font-size: var(--font-size-0);
@@ -123,12 +123,12 @@
       /* In spread mode, the value sits below the slider in col 2
          (where end-text would normally land). When end-text is also
          present it shifts down a row to avoid collision. */
-      :where(.value) {
+      :where(.ui-value) {
         grid-column: 2;
         grid-row: 2;
       }
 
-      :where(.end-text) {
+      :where(.ui-end-text) {
         grid-column: 2;
         grid-row: 2;
         text-align: end;
@@ -141,15 +141,15 @@
 
       /* When both datalist and end-text exist, push end-text below the datalist
          so they don't collide on the same grid cell. */
-      &:has(datalist) :where(.end-text) {
+      &:has(datalist) :where(.ui-end-text) {
         grid-row: 3;
       }
 
-      &:has(.value) :where(.end-text) {
+      &:has(.ui-value) :where(.ui-end-text) {
         grid-row: 3;
       }
 
-      &:has(.value):has(datalist) :where(.end-text) {
+      &:has(.ui-value):has(datalist) :where(.ui-end-text) {
         grid-row: 4;
       }
 
@@ -160,20 +160,20 @@
           grid-column: 1/-1;
         }
 
-        .label {
+        .ui-label {
           grid-row: 1;
         }
 
         /* Share row 1 with the label: the label's text stays left-aligned
            in its full-width cell, while the value shrinks to fit and
            right-aligns. Visually reads as a "[name ........ value]" row. */
-        :where(.value) {
+        :where(.ui-value) {
           grid-row: 1;
           justify-self: end;
           text-align: end;
         }
 
-        .start-text {
+        .ui-start-text {
           grid-row: 2;
         }
 
@@ -187,7 +187,7 @@
           grid-row: 4;
         }
 
-        :where(.end-text) {
+        :where(.ui-end-text) {
           grid-row: 5;
           text-align: start;
         }
@@ -200,9 +200,9 @@
       --_thumb-bg: var(--color-9);
       --_thumb-highlight-color: oklch(from var(--color-9) 70% 100% h / 20%);
 
-      .start-text,
-      .end-text,
-      .value {
+      .ui-start-text,
+      .ui-end-text,
+      .ui-value {
         color: var(--color-9);
       }
     }
@@ -274,7 +274,7 @@
           transition: box-shadow 0.1s ease;
         }
 
-        .fieldset-item:focus-within & {
+        .ui-fieldset-item:focus-within & {
           border-color: var(--gray-14);
         }
       }
@@ -294,14 +294,14 @@
           transition: box-shadow 0.1s ease;
         }
 
-        .fieldset-item:focus-within & {
+        .ui-fieldset-item:focus-within & {
           border-color: var(--gray-14);
         }
       }
 
       /* Element state */
-      .range:has(:user-invalid) &,
-      .range[data-invalid] & {
+      .ui-range:has(:user-invalid) &,
+      .ui-range[data-invalid] & {
         --_track-fill-color: var(--color-9);
       }
 

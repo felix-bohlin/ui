@@ -1,17 +1,15 @@
-import type { HTMLAttributes, InjectionKey } from "vue";
-
 export type Props = {
-	[key: string]: any;
-	class?: HTMLAttributes["class"];
-	name?: string;
-	orientation?: "vertical";
-	selection?: "single" | "multiple";
-	size?: "default" | "small" | "x-small";
-};
+  name?: string
+  orientation?: "vertical"
+  selection?: "single" | "multiple"
+  size?: "default" | "small" | "x-small"
+}
 
-export type ToggleGroupContext = {
-	name: string;
-	type: "checkbox" | "radio";
-};
+export type Slots<S> = {
+  children: S
+}
 
-export const ToggleGroupKey = Symbol() as InjectionKey<ToggleGroupContext>;
+export type ToggleContext = {
+  groupName: string
+  inputType: "radio" | "checkbox"
+}

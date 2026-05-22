@@ -22,7 +22,7 @@ const {
   aria-busy={ariaBusy}
   aria-describedby={ariaDescribedby}
   aria-label={ariaLabel}
-  class:list={["progress", className, variant]}
+  class:list={["ui-progress", className, variant && `ui-${variant}`]}
   id={id}
   max={max}
   value={value}

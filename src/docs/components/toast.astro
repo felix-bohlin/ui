@@ -7,6 +7,10 @@ import JavascriptDemo from "../../component-examples/toast/Javascript.astro"
 import JavascriptHtml from "../../component-examples/toast/Javascript.html?raw"
 import JavascriptJS from "../../component-examples/toast/Javascript.js?raw"
 import ToastCSS from "@opui/css/components/toast.css?raw"
+import { Badge, Callout as UICallout } from "@opui/astro"
+
+export const description =
+  "Non-interruptive and stackable notifications. They pop up like... toast."
 ---
 
 <Component
@@ -27,10 +31,16 @@ import ToastCSS from "@opui/css/components/toast.css?raw"
   ]}
   installationTabs={[{ title: "toast.css", code: ToastCSS, lang: "css" }]}
 >
-  <Fragment slot="title">Toast</Fragment>
-  <Fragment slot="preamble">
-    Non-interruptive and stackable notifications. They pop up like... toast.
+  <Fragment slot="title">
+    <Badge color="warning" label="ALPHA">Toast</Badge>
   </Fragment>
+
+  <div class="ui-not-rich-text">
+    <UICallout severity="warning">
+      <Fragment slot="title">Alpha stage</Fragment>
+      <p>This is in no way finished, just an idea put out in the open.</p>
+    </UICallout>
+  </div>
 
   <section>
     <h2 id="how-it-works">How it works</h2>
@@ -38,7 +48,7 @@ import ToastCSS from "@opui/css/components/toast.css?raw"
       Toasts are managed by a global container. Trigger them either completely
       with HTML (using <a
         href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
-        class="link">invoker commands</a
+        class="ui-link">invoker commands</a
       >) or with JavaScript.
     </p>
     <p>
@@ -130,9 +140,9 @@ import ToastCSS from "@opui/css/components/toast.css?raw"
         class="anatomy-demo"
         style="position: relative; inset: auto; display: flex; z-index: 1;"
       >
-        <div class="toast info anatomy">
-          <div class="content">Notification message content</div>
-          <button class="close-button" aria-label="Close">
+        <div class="ui-toast ui-info anatomy">
+          <div class="ui-content">Notification message content</div>
+          <button class="ui-close-button" aria-label="Close">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -155,17 +165,17 @@ import ToastCSS from "@opui/css/components/toast.css?raw"
         outline: var(--_anatomy-border-gray);
         outline-offset: -2px;
 
-        .toast.anatomy {
+        .ui-toast.anatomy {
           outline: var(--_anatomy-border-red);
           outline-offset: -4px;
         }
 
-        .content {
+        .ui-content {
           outline: var(--_anatomy-border-red);
           outline-offset: 2px;
         }
 
-        .close-button {
+        .ui-close-button {
           outline: var(--_anatomy-border-red);
           outline-offset: 2px;
         }

@@ -1,12 +1,12 @@
 ---
-import type { Props } from './types.ts'
-
-
 export const title = "Divider"
+import type { Props } from "./types.astro"
 
 const { class: className, variant, ...rest } = Astro.props
 const variantClass = variant ? `border-${variant}` : ""
-
 ---
 
-<hr class:list={["divider", className, variantClass]} {...rest} />
+<hr
+  class:list={["ui-divider", className, variantClass && `ui-${variantClass}`]}
+  {...rest}
+/>

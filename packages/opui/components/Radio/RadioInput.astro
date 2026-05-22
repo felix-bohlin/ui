@@ -1,16 +1,7 @@
 ---
-import type { RadioInputProps as Props } from "./types.ts"
+import type { RadioInputProps as Props } from "./types.astro"
 
-const { checked, disabled, id, name, required, value, ...rest } = Astro.props
+const { ...props } = Astro.props
 ---
 
-<input
-  type="radio"
-  {checked}
-  {disabled}
-  {id}
-  {name}
-  {required}
-  {value}
-  {...rest}
-/>
+<input type="radio" {...props} />

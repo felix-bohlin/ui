@@ -1,22 +1,17 @@
 ---
 import SwitchInput from "./SwitchInput.astro"
-import type { SwitchProps as Props } from "./types.ts"
+import type { SwitchProps as Props } from './types.astro'
 
 export const title = "Switch"
 
 const {
-  checked,
   class: className,
-  disabled,
   critical,
   hideLabel,
-  id,
   name,
-  required,
   small,
   spread,
   stack,
-  value,
   ...rest
 } = Astro.props
 
@@ -39,11 +34,11 @@ if (
 
 <label
   class:list={[
-    "switch",
+    "ui-switch",
     {
-      small,
-      stack,
-      spread,
+      "ui-small": small,
+      "ui-stack": stack,
+      "ui-spread": spread,
     },
     className,
   ]}
@@ -51,36 +46,31 @@ if (
 >
   {
     Astro.slots.has("icon-unchecked") && (
-      <span class="icon-unchecked" aria-hidden="true">
+      <span class="ui-icon-unchecked" aria-hidden="true">
         <slot name="icon-unchecked" />
       </span>
     )
   }
   {
     Astro.slots.has("icon-checked") && (
-      <span class="icon-checked" aria-hidden="true">
+      <span class="ui-icon-checked" aria-hidden="true">
         <slot name="icon-checked" />
       </span>
     )
   }
   <SwitchInput
     aria-describedby={endTextId}
-    {checked}
-    {disabled}
-    {id}
     name={finalName}
-    {required}
-    {value}
     {...rest}
   />
   {
     Astro.slots.has("default") && (
-    <!-- prettier-ignore --><span class:list={[hideLabel ? "sr-only" : "label"]}><slot /></span>)
+    <!-- prettier-ignore --><span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>)
   }
     {
       Astro.slots.has("end-text") && (
         <!-- prettier-ignore -->
-        <span id={endTextId} class="end-text"><slot name="end-text" /></span>
+        <span id={endTextId} class="ui-end-text"><slot name="end-text" /></span>
       )
     }
 </label>

@@ -108,7 +108,7 @@ function emit(detail: ThemeChangeDetail): void {
 
 function getActiveSiteMode(): Mode {
   if (!isBrowser) return "light"
-  return document.documentElement.classList.contains("dark") ? "dark" : "light"
+  return document.documentElement.classList.contains("ui-dark") ? "dark" : "light"
 }
 
 const PALETTE_SOURCE_TOKENS = new Set<Token>([
@@ -125,7 +125,7 @@ const PALETTE_SOURCE_TOKENS = new Set<Token>([
  * inline style on <html> only when the user has actually set them.
  *
  * Inline styles outrank both layered and unlayered CSS, so this beats
- * `@layer theme`'s rule on `:where(html)` and on `.dark`.
+ * `@layer theme`'s rule on `:where(html)` and on `.ui-dark`.
  */
 function syncPaletteSource(mode: Mode): void {
   if (!isBrowser) return

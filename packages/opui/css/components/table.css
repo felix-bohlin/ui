@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(table) {
+  :where(.ui-table) {
     --_table-border-radius: var(--border-radius);
 
     border-collapse: separate;
@@ -133,7 +133,7 @@
     }
 
     /* Spacious */
-    &.spacious {
+    &.ui-spacious {
 
       th,
       td {
@@ -155,7 +155,7 @@
     }
 
     /* Dense */
-    &.dense {
+    &.ui-dense {
 
       th,
       td {

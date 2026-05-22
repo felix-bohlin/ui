@@ -52,10 +52,10 @@ const radiusGroups = [
 
   <div class="generator-grid">
     <!-- Controls -->
-    <Card variant="outlined" class="controls not-rich-text">
+    <Card variant="outlined" class="controls ui-not-rich-text">
       <h3 slot="header">Theme controls</h3>
 
-      <form id="theme-generator-form" class="form" slot="content">
+      <form id="theme-generator-form" class="ui-form" slot="content">
         <FieldSet>
           <FieldLegend>Color Palette</FieldLegend>
           <FieldGroup>
@@ -164,7 +164,7 @@ const radiusGroups = [
     <!-- Preview -->
     <Card
       variant="outlined"
-      class="preview-card not-rich-text"
+      class="preview-card ui-not-rich-text"
       id="theme-generator-preview"
     >
       <h3 slot="header">Preview</h3>
@@ -225,7 +225,7 @@ const radiusGroups = [
         </Card>
         <div class="form-showcase">
           <TextField label="Label" placeholder="Input field..." />
-          <div class="row">
+          <div class="ui-row">
             <Switch checked>On</Switch>
             <Checkbox checked>Pick</Checkbox>
           </div>
@@ -235,7 +235,11 @@ const radiusGroups = [
   </div>
 
   <!-- Generated CSS -->
-  <Card variant="outlined" class="css-output not-rich-text" id="generated-css">
+  <Card
+    variant="outlined"
+    class="css-output ui-not-rich-text"
+    id="generated-css"
+  >
     <Fragment slot="header">
       <div class="css-header">
         <h3>theme.css</h3>
@@ -286,7 +290,7 @@ const radiusGroups = [
   }
 
   .controls {
-    .form {
+    .ui-form {
       display: flex;
       flex-direction: column;
       gap: var(--size-4);
@@ -330,7 +334,7 @@ const radiusGroups = [
     --border-color: light-dark(var(--gray-4), var(--gray-12));
     --field-border-color: var(--border-color);
 
-    &.dark {
+    &.ui-dark {
       color-scheme: dark;
     }
 
@@ -419,7 +423,7 @@ const radiusGroups = [
     gap: var(--size-3);
     padding: var(--size-3);
 
-    & .row {
+    & .ui-row {
       display: flex;
       flex-wrap: wrap;
       gap: var(--size-8);
@@ -605,19 +609,19 @@ const radiusGroups = [
       let foundMatch = false
       chips.forEach((chip) => {
         if (chip.dataset.value === value) {
-          chip.classList.add("tonal")
-          chip.classList.remove("outlined")
+          chip.classList.add("ui-tonal")
+          chip.classList.remove("ui-outlined")
           foundMatch = true
         } else {
-          chip.classList.remove("tonal")
-          chip.classList.add("outlined")
+          chip.classList.remove("ui-tonal")
+          chip.classList.add("ui-outlined")
         }
       })
       if (!foundMatch && chips.length > 0) {
         chips.forEach((chip) => {
           if (chip.dataset.default === "true") {
-            chip.classList.add("tonal")
-            chip.classList.remove("outlined")
+            chip.classList.add("ui-tonal")
+            chip.classList.remove("ui-outlined")
           }
         })
       }
@@ -647,8 +651,8 @@ const radiusGroups = [
   function applyToPreview() {
     const mode = previewMode()
     const config = themeStore.get(mode)
-    preview.classList.toggle("dark", mode === "dark")
-    preview.classList.toggle("light", mode === "light")
+    preview.classList.toggle("ui-dark", mode === "dark")
+    preview.classList.toggle("ui-light", mode === "light")
     preview.classList.toggle("no-grays", config["enable-grays"] === "false")
 
     PALETTE_TOKENS.forEach((token) => {

@@ -38,7 +38,7 @@ Drop a pre-bundled stylesheet into any page and use the documented class names:
 ```html
 <link rel="stylesheet" href="https://unpkg.com/opui-css/dist/opui.css" />
 
-<button class="button primary">Click me</button>
+<button class="ui-button ui-primary">Click me</button>
 ```
 
 `dist/opui.css` is a single self-contained file (Open Props + normalize + theme + every component + utils, in the correct cascade layers). `dist/opui.components.css` is the same minus tokens and reset for users who already have those.

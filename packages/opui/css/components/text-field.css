@@ -4,7 +4,7 @@
 - Common styling for input, textarea and select
 - Form related styles such as: label, supporting text, error handling
 */
-  :where(.text-field, .textarea, .select) {
+  :where(.ui-text-field, .ui-textarea, .ui-select) {
     --_accent-color: var(--primary);
     --_bg-color: var(--surface-default);
     --_border-color: var(--field-border-color);
@@ -20,7 +20,7 @@
     position: relative;
 
     /* Field - the actual input with a border around it */
-    .field {
+    .ui-field {
       background-color: var(--_bg-color);
       border: var(--field-border-width) solid var(--_border-color);
       border-radius: var(--field-border-radius);
@@ -39,7 +39,7 @@
       }
     }
 
-    :where(.field) :where(input, textarea, select) {
+    :where(.ui-field) :where(input, textarea, select) {
       background: transparent;
       border: 0;
       color: var(--text-primary);
@@ -58,8 +58,8 @@
     }
 
     /* Affixes */
-    .prefix,
-    .suffix {
+    .ui-prefix,
+    .ui-suffix {
       align-items: center;
       color: var(--_label-color);
       display: inline-flex;
@@ -67,16 +67,16 @@
       white-space: nowrap;
     }
 
-    .prefix {
+    .ui-prefix {
       grid-area: prefix;
     }
 
-    .suffix {
+    .ui-suffix {
       grid-area: suffix;
     }
 
-    .header,
-    .footer {
+    .ui-header,
+    .ui-footer {
       align-items: center;
       color: var(--_label-color);
       display: flex;
@@ -85,30 +85,30 @@
       padding: var(--size-1) var(--_field-padding-inline);
     }
 
-    .header {
+    .ui-header {
       border-block-end: 1px solid var(--_border-color);
       grid-area: header;
     }
 
-    .footer {
+    .ui-footer {
       border-block-start: 1px solid var(--_border-color);
       grid-area: footer;
     }
 
     /* Remove padding on the input when affixes are next to it */
-    .field:has(> .prefix) :where(input, textarea, select) {
+    .ui-field:has(> .ui-prefix) :where(input, textarea, select) {
       padding-inline-start: 0;
     }
 
-    .field:has(> .suffix) :where(input, textarea, select) {
+    .ui-field:has(> .ui-suffix) :where(input, textarea, select) {
       padding-inline-end: 0;
     }
 
     /* Textarea - keep affix aligned with the first line */
-    &.textarea .field {
+    &.ui-textarea .ui-field {
 
-      .prefix,
-      .suffix {
+      .ui-prefix,
+      .ui-suffix {
         align-self: start;
         padding-block: var(--_field-padding-block);
       }
@@ -116,7 +116,7 @@
 
     /* Required/Invalid */
     &:has(:invalid) {
-      .label:after {
+      .ui-label:after {
         color: var(--red);
         content: "*";
         margin: -0.25em auto auto 0.25em;
@@ -151,7 +151,7 @@
       }
 
       /* Variants */
-      &.filled {
+      &.ui-filled {
         input {
 
           &::-webkit-file-upload-button,
@@ -166,7 +166,7 @@
       }
 
       /* Sizes */
-      &.small {
+      &.ui-small {
         input {
           font-size: var(--font-size-05);
 
@@ -181,7 +181,7 @@
 
     /* Autosuggest */
     &:has(input[list]) {
-      .label {
+      .ui-label {
         /* Make sure chevron is visible */
         inline-size: calc(100% - var(--size-6));
       }
@@ -189,7 +189,7 @@
 
     /* Select */
     &:has(select) {
-      .label {
+      .ui-label {
         /* Make sure chevron is visible */
         inline-size: calc(100% - var(--size-6));
 
@@ -217,7 +217,7 @@
 
     /* Input - color */
     &:has(input[type="color"]) {
-      .field {
+      .ui-field {
         block-size: var(--_height);
         inline-size: var(--_height);
         min-block-size: 0;
@@ -245,21 +245,21 @@
     /* Element states */
     &:hover {
       &:not([data-invalid]) {
-        .field {
+        .ui-field {
           border-color: var(--text-primary);
         }
       }
     }
 
     &:focus-within {
-      .field {
+      .ui-field {
         border-color: var(--_accent-color);
         outline-offset: -2px;
       }
     }
 
     /* Label */
-    .label {
+    .ui-label {
       color: var(--text-primary);
       font-size: var(--font-size-05);
       font-weight: 600;
@@ -269,7 +269,7 @@
     }
 
     /* End text */
-    :where(.end-text) {
+    :where(.ui-end-text) {
       color: var(--_end-text-color);
       font-size: var(--font-size-0);
       grid-column: 1/-1;
@@ -278,10 +278,10 @@
     }
 
     /* Auto-fit */
-    &.auto-fit {
+    &.ui-auto-fit {
       inline-size: auto;
 
-      .field {
+      .ui-field {
         inline-size: auto;
       }
 
@@ -305,7 +305,7 @@
     /*
   * Variant: Filled
   */
-    &.filled {
+    &.ui-filled {
       --_bg-color: var(--surface-tonal);
 
       &:not(:has([disabled], :has(input[type="color"]))) {
@@ -328,7 +328,7 @@
         display: none;
       }
 
-      .field {
+      .ui-field {
         cursor: not-allowed;
       }
 
@@ -340,9 +340,9 @@
         }
       }
 
-      .label,
-      .start-text,
-      .end-text {
+      .ui-label,
+      .ui-start-text,
+      .ui-end-text {
         cursor: not-allowed;
       }
     }
@@ -363,31 +363,31 @@
     }
 
     /* Sizes */
-    &.small {
+    &.ui-small {
       --_field-padding-block: var(--size-2);
       --_height: var(--field-size-small);
 
       &:has(input[type="color"]) {
-        .label {
+        .ui-label {
           line-height: 1.5;
         }
       }
     }
 
     /* Orientation */
-    &.spread {
+    &.ui-spread {
       align-items: start;
       column-gap: var(--size-4);
       container-type: inline-size;
       grid-template-columns: 1fr auto;
 
-      .label {
+      .ui-label {
         font-weight: 600;
         grid-column: 1;
         grid-row: 1;
       }
 
-      .start-text {
+      .ui-start-text {
         color: var(--_end-text-color);
         font-size: var(--font-size-0);
         grid-column: 1;
@@ -395,16 +395,16 @@
         line-height: 1.5;
       }
 
-      .field {
+      .ui-field {
         align-self: start;
         grid-column: 2;
         grid-row: 1 / span 2;
       }
 
-      .field:has(textarea) {
+      .ui-field:has(textarea) {
         grid-row: 1 / span 3;
 
-        +.end-text {
+        +.ui-end-text {
           grid-row: 4;
         }
       }
@@ -413,7 +413,7 @@
         min-inline-size: 30ch;
       }
 
-      :where(.end-text) {
+      :where(.ui-end-text) {
         grid-column: 2;
         text-align: end;
       }
@@ -423,23 +423,23 @@
         column-gap: 0;
         grid-template-columns: 1fr;
 
-        .label {
+        .ui-label {
           grid-column: 1;
           grid-row: 1;
         }
 
-        .start-text {
+        .ui-start-text {
           grid-column: 1;
           grid-row: 2;
         }
 
-        .field,
-        .field:has(textarea) {
+        .ui-field,
+        .ui-field:has(textarea) {
           grid-column: 1;
           grid-row: 3;
         }
 
-        :where(.end-text) {
+        :where(.ui-end-text) {
           grid-column: 1;
           grid-row: 4;
           text-align: start;

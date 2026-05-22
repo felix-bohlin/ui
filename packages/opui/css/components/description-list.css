@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.description-list) {
+  :where(.ui-description-list) {
     --_border-style: solid;
     --_border-width: 1px;
 
@@ -8,17 +8,18 @@
     margin: 0;
     padding: 0;
 
-    &.dotted {
+    &.ui-dotted {
       --_border-style: dotted;
       --_border-width: 2px;
     }
 
-    .item {
+    .ui-item {
       display: grid;
       margin: 0;
       padding: 0;
 
-      dt {
+      dt,
+      .ui-term {
         display: block;
         font-weight: 700;
         overflow: hidden;
@@ -33,13 +34,14 @@
     @container (width > 45ch) {
       gap: var(--size-1);
 
-      .item {
+      .ui-item {
         align-items: baseline;
         display: grid;
         gap: var(--size-1);
         grid-template-columns: 1fr auto;
 
-        dt {
+        dt,
+        .ui-term {
           inline-size: max-content;
 
           &::after {
@@ -53,10 +55,11 @@
         }
       }
 
-      &.bordered .item {
+      &.ui-bordered .ui-item {
         grid-template-columns: auto 1fr auto;
 
-        dt {
+        dt,
+        .ui-term {
           order: 0;
         }
 

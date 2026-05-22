@@ -39,7 +39,7 @@ import Conditional from "../../components/Conditional.astro"
         >.
       </Fragment>
       <Fragment slot="html">
-        The Chip has two variants: tonal (default) and <code>.outlined</code>.
+        The Chip has two variants: tonal (default) and <code>.ui-outlined</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="Variants" row />
@@ -54,7 +54,7 @@ import Conditional from "../../components/Conditional.astro"
       </p>
       <p slot="html">
         The icon can be placed before or after the text. <br />
-        Make sure the text is wrapped in the <code>.text</code> wrapper class.
+        Make sure the text is wrapped in the <code>.ui-text</code> wrapper class.
       </p>
     </Conditional>
     <AutoExample name="Icon" row />
@@ -90,9 +90,9 @@ import Conditional from "../../components/Conditional.astro"
       </p>
       <p slot="html">
         1. Container: <code>div</code>, <code>a</code> or <code>button</code> with
-        <code>.chip</code> class
+        <code>.ui-chip</code> class
         <br />
-        2. Text: <code>.text</code> wrapper
+        2. Text: <code>.ui-text</code> wrapper
         <br />
         3. Icon (optional): <code>&lt;svg&gt;</code> element
       </p>
@@ -108,7 +108,7 @@ import Conditional from "../../components/Conditional.astro"
     outline: var(--_anatomy-border-gray);
     outline-offset: -2px;
 
-    .text,
+    .ui-text,
     svg {
       outline: var(--_anatomy-border-red);
       outline-offset: -3px;

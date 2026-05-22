@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import { provide, useId } from "vue";
-import { type Props, ToggleGroupKey } from "./types";
+import { provide, useId } from "vue"
+import { ToggleGroupKey, type Props, type Slots } from "./types.d.vue"
 
 const {
-	name,
-	orientation,
-	selection = "multiple",
-	size = "default",
-} = defineProps<Props>();
+  name,
+  orientation,
+  selection = "multiple",
+  size = "default",
+} = defineProps<Props>()
+defineSlots<Slots>()
 
 defineOptions({
-	inheritAttrs: false,
-});
+  inheritAttrs: false,
+})
 
-const groupName = name || useId();
-const inputType = selection === "single" ? "radio" : "checkbox";
+const groupName = name || useId()
+const inputType = selection === "single" ? "radio" : "checkbox"
 
-provide(ToggleGroupKey, { name: groupName, type: inputType });
+provide(ToggleGroupKey, { name: groupName, type: inputType })
 </script>
 
 <template>

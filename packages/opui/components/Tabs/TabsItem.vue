@@ -1,18 +1,15 @@
 <script setup lang="ts">
-import { inject, provide, useId } from 'vue'
+import { inject, provide, useId } from "vue"
 import {
   CurrentPanelIdKey,
   CurrentTabIdKey,
   TabsGroupNameKey,
+  type Slots,
   type TabsItemProps,
-} from './types'
+} from "./types.d.vue"
 
-const {
-  name,
-  open,
-  panelId,
-  tabId,
-} = defineProps<TabsItemProps>()
+const { name, open, panelId, tabId } = defineProps<TabsItemProps>()
+defineSlots<Slots>()
 
 defineOptions({
   inheritAttrs: false,

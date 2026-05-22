@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type { Props } from './types'
+import type { Props, Slots } from "./types.d.vue"
 
 const { bordered } = defineProps<Props>()
+defineSlots<Slots>()
 
 defineOptions({
   inheritAttrs: false,

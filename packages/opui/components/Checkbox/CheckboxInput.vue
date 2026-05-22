@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CheckboxInputProps } from './types.ts'
+import type { CheckboxInputProps } from "./types"
 
 defineOptions({
   inheritAttrs: false,

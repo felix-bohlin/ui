@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import type { FieldSetProps } from './types.ts'
+import type { Props, Slots } from "./types.d.vue"
 
-const props = withDefaults(defineProps<FieldSetProps>(), {
-  as: 'fieldset',
+const props = withDefaults(defineProps<Props>(), {
+  as: "fieldset",
 })
+defineSlots<Slots>()
 </script>
 
 <template>

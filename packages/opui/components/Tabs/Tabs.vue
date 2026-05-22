@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { provide, useId } from "vue";
-import { type Props, TabsGroupNameKey } from "./types";
+import { provide, useId } from "vue"
+import { TabsGroupNameKey, type Props, type Slots } from "./types.d.vue"
 
-const { name } = defineProps<Props>();
+const { name } = defineProps<Props>()
+defineSlots<Slots>()
 
 defineOptions({
-	inheritAttrs: false,
-});
+  inheritAttrs: false,
+})
 
-const groupName = name || useId();
-provide(TabsGroupNameKey, groupName);
+const groupName = name || useId()
+provide(TabsGroupNameKey, groupName)
 </script>
 
 <template>

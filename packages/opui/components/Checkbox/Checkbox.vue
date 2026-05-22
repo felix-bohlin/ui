@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import CheckboxInput from './CheckboxInput.vue'
-import type { CheckboxProps } from './types.ts'
-import { useId } from 'vue'
+import CheckboxInput from "./CheckboxInput.vue"
+import type { CheckboxProps, Slots } from "./types.d.vue"
+import { useId } from "vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
 const props = defineProps<CheckboxProps>()
+defineSlots<Slots>()
 const modelValue = defineModel<boolean | (string | number)[]>()
 
 const endTextId = useId()

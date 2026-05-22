@@ -1,19 +1,9 @@
 <script setup lang="ts">
-import { computed, useAttrs, useSlots } from 'vue'
-
-type Props = {
-  as?: 'a' | 'button' | 'div'
-  borderTop?: boolean
-  class?: string
-  description?: string
-  for?: string
-  headline?: string
-  inset?: boolean
-  type?: 'checkbox' | 'radio' | 'switch'
-}
+import { computed, useAttrs } from "vue"
+import type { Props, Slots } from "./types.d.vue"
 
 const props = defineProps<Props>()
-const slots = useSlots()
+const slots = defineSlots<Slots>()
 const attrs = useAttrs()
 
 defineOptions({
@@ -23,11 +13,11 @@ defineOptions({
 const hasLabel = computed(
   () =>
     props.type &&
-    (props.type === 'checkbox' ||
-      props.type === 'radio' ||
-      props.type === 'switch'),
+    (props.type === "checkbox" ||
+      props.type === "radio" ||
+      props.type === "switch"),
 )
-const labelClass = computed(() => props.type || '')
+const labelClass = computed(() => props.type || "")
 const Tag = computed(() => props.as)
 
 const liAttrs = computed(() => (Tag.value ? {} : attrs))
@@ -45,11 +35,7 @@ const innerAttrs = computed(() => (Tag.value ? attrs : {}))
     ]"
     v-bind="liAttrs"
   >
-    <label
-      v-if="hasLabel"
-      :class="labelClass"
-      :for="props.for"
-    >
+    <label v-if="hasLabel" :class="labelClass" :for="props.for">
       <div v-if="slots.start" class="start">
         <slot name="start"></slot>
       </div>
@@ -67,11 +53,7 @@ const innerAttrs = computed(() => (Tag.value ? attrs : {}))
       <slot></slot>
     </label>
 
-    <component
-      :is="Tag"
-      v-else-if="Tag"
-      v-bind="innerAttrs"
-    >
+    <component :is="Tag" v-else-if="Tag" v-bind="innerAttrs">
       <div v-if="slots.start" class="start">
         <slot name="start"></slot>
       </div>

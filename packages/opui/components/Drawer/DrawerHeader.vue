@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import IconButton from '../IconButton/IconButton.vue'
-import type { DrawerHeaderProps } from './types'
+import IconButton from "../IconButton/IconButton.vue"
+import type { DrawerHeaderProps, DrawerHeaderSlots } from "./types.d.vue"
 
 const { heading } = defineProps<DrawerHeaderProps>()
+defineSlots<DrawerHeaderSlots>()
 
 defineOptions({
   inheritAttrs: false,
@@ -10,7 +11,7 @@ defineOptions({
 
 const closeDrawer = (event: MouseEvent) => {
   const target = event.currentTarget as HTMLElement | null
-  target?.closest('dialog')?.close()
+  target?.closest("dialog")?.close()
 }
 </script>
 

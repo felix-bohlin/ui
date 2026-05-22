@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import { useSlots } from "vue";
-import type { Props } from "./types";
+import type { Props, Slots } from "./types.d.vue"
 
-const { severity, variant } = defineProps<Props>();
-
-const slots = useSlots();
+const { severity, variant } = defineProps<Props>()
+const slots = defineSlots<Slots>()
 </script>
 
 <template>
-  <article
-    role="note"
-    :class="['callout', variant, severity, $props.class]"
-  >
+  <article role="note" :class="['callout', variant, severity, $props.class]">
     <slot name="icon">
       <svg
         v-if="severity === 'info'"

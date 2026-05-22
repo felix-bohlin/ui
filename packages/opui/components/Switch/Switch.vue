@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import SwitchInput from './SwitchInput.vue'
-import type { SwitchProps } from './types.ts'
-import { useId, useSlots } from 'vue'
+import SwitchInput from "./SwitchInput.vue"
+import type { Slots, SwitchProps } from "./types.d.vue"
+import { useId } from "vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
 const props = defineProps<SwitchProps>()
+defineSlots<Slots>()
 const modelValue = defineModel<boolean | (string | number)[]>()
 
 const endTextId = useId()
@@ -26,7 +27,11 @@ const endTextId = useId()
     ]"
     :data-invalid="props.critical || undefined"
   >
-    <span v-if="$slots['icon-unchecked']" class="icon-unchecked" aria-hidden="true">
+    <span
+      v-if="$slots['icon-unchecked']"
+      class="icon-unchecked"
+      aria-hidden="true"
+    >
       <slot name="icon-unchecked"></slot>
     </span>
 
@@ -45,7 +50,10 @@ const endTextId = useId()
       :value="props.value"
     />
 
-    <span v-if="$slots.default" :class="[props.hideLabel ? 'sr-only' : 'label']">
+    <span
+      v-if="$slots.default"
+      :class="[props.hideLabel ? 'sr-only' : 'label']"
+    >
       <slot></slot>
     </span>
 

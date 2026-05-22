@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import type { TextareaProps } from './types.ts'
-import { useId } from 'vue'
+import { useId } from "vue"
+import type { Props, Slots } from "./types.d.vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<TextareaProps>()
+const props = defineProps<Props>()
+defineSlots<Slots>()
 const modelValue = defineModel<string>()
 
 const fieldId = props.id || useId()
@@ -48,14 +49,26 @@ const fieldId = props.id || useId()
         :rows="props.rows"
         v-model="modelValue"
       ></textarea>
-      <span class="prefix" v-if="$slots.prefix"><slot name="prefix"></slot></span>
-      <span class="suffix" v-if="$slots.suffix"><slot name="suffix"></slot></span>
-      <span class="header" v-if="$slots.header"><slot name="header"></slot></span>
-      <span class="footer" v-if="$slots.footer"><slot name="footer"></slot></span>
+      <span class="prefix" v-if="$slots.prefix"
+        ><slot name="prefix"></slot
+      ></span>
+      <span class="suffix" v-if="$slots.suffix"
+        ><slot name="suffix"></slot
+      ></span>
+      <span class="header" v-if="$slots.header"
+        ><slot name="header"></slot
+      ></span>
+      <span class="footer" v-if="$slots.footer"
+        ><slot name="footer"></slot
+      ></span>
     </span>
 
-    <span v-if="props.endText || $slots['end-text'] || $slots['supporting-text']" class="end-text">
-      <slot name="end-text">{{ props.endText }}</slot><slot name="supporting-text"></slot>
+    <span
+      v-if="props.endText || $slots['end-text'] || $slots['supporting-text']"
+      class="end-text"
+    >
+      <slot name="end-text">{{ props.endText }}</slot
+      ><slot name="supporting-text"></slot>
     </span>
 
     <slot></slot>

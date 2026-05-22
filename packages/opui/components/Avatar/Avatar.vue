@@ -1,17 +1,10 @@
 <script setup lang="ts">
-import type { Props } from './types'
+import type { Props, Slots } from "./types.d.vue"
 
-const {
-  alt,
-  as,
-  href,
-  isGroup,
-  spacing,
-  src,
-  variant,
-} = defineProps<Props>()
+const { alt, as, href, isGroup, spacing, src, variant } = defineProps<Props>()
+defineSlots<Slots>()
 
-const Tag = as || (href ? 'a' : 'div')
+const Tag = as || (href ? "a" : "div")
 </script>
 
 <template>

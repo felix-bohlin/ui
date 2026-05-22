@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import type { FieldLegendProps } from './types.ts'
+import type { Props, Slots } from "./types.d.vue"
 
-const props = withDefaults(defineProps<FieldLegendProps>(), {
-  as: 'legend',
+const props = withDefaults(defineProps<Props>(), {
+  as: "legend",
 })
+defineSlots<Slots>()
 </script>
 
 <template>
-  <component :is="props.as" :class="[{ legend: props.as !== 'legend' }, props.class]" v-bind="$attrs">
+  <component
+    :is="props.as"
+    :class="[{ legend: props.as !== 'legend' }, props.class]"
+    v-bind="$attrs"
+  >
     <slot></slot>
   </component>
 </template>

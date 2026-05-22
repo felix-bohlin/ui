@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { useId, useSlots } from 'vue'
-import type { Props } from './types'
+import { useId } from "vue"
+import type { DrawerSlots, Props } from "./types.d.vue"
 
 const {
-  backdrop = 'blurred',
-  closedby = 'any',
+  backdrop = "blurred",
+  closedby = "any",
   id,
   scrollLock = true,
-  side = 'inline-start',
+  side = "inline-start",
 } = defineProps<Props>()
+const slots = defineSlots<DrawerSlots>()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const slots = useSlots()
 const drawerId = id || useId()
 </script>
 

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { useSlots } from 'vue'
-import type { Props } from './types'
+import type { Props, Slots } from "./types.d.vue"
 
 const { actionsAlign, closedby } = defineProps<Props>()
 
@@ -8,7 +7,7 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const slots = useSlots()
+const slots = defineSlots<Slots>()
 </script>
 
 <template>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { FieldGroupProps } from './types.ts'
-import { provide } from 'vue'
-import { CurrentFieldNameKey } from './types'
+import { provide } from "vue"
+import { CurrentFieldNameKey, type Props, type Slots } from "./types.d.vue"
 
-const props = defineProps<FieldGroupProps>()
+const props = defineProps<Props>()
+defineSlots<Slots>()
 
 if (props.name) {
   provide(CurrentFieldNameKey, props.name)
@@ -11,7 +11,11 @@ if (props.name) {
 </script>
 
 <template>
-  <div :class="['field-group', props.direction, props.class]" v-bind="$attrs" role="group">
+  <div
+    :class="['field-group', props.direction, props.class]"
+    v-bind="$attrs"
+    role="group"
+  >
     <slot></slot>
   </div>
 </template>

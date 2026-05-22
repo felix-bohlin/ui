@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type { DrawerFooterProps } from './types'
+import type { DrawerFooterProps, DrawerFooterSlots } from "./types.d.vue"
 
 defineProps<DrawerFooterProps>()
+defineSlots<DrawerFooterSlots>()
 
 defineOptions({
   inheritAttrs: false,

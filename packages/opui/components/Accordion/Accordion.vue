@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useId } from 'vue'
-import type { Props } from './types'
+import { useId } from "vue"
+import type { Props, Slots } from "./types.d.vue"
 
-const props = defineProps<Props>()
+const { class: className, name, open, variant } = defineProps<Props>()
+defineSlots<Slots>()
 
 const summaryId = useId()
 const contentId = useId()
@@ -11,7 +12,7 @@ const contentId = useId()
 <template>
   <details
     :name="name"
-    :class="['accordion', 'card', variant, props.class]"
+    :class="['accordion', 'card', variant, className]"
     :open="open"
   >
     <!-- Summary -->
@@ -20,7 +21,12 @@ const contentId = useId()
     </summary>
 
     <!-- Content -->
-    <div :id="contentId" class="content" role="region" :aria-labelledby="summaryId">
+    <div
+      :id="contentId"
+      class="content"
+      role="region"
+      :aria-labelledby="summaryId"
+    >
       <slot></slot>
     </div>
 

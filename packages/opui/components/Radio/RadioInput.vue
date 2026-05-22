@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { RadioInputProps } from './types.ts'
+import type { RadioInputProps } from "./types"
 
 defineOptions({
   inheritAttrs: false,

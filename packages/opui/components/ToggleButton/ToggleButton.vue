@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import { inject, useId } from "vue";
-import { ToggleGroupKey } from "../ToggleGroup/types";
-import type { Props } from "./types";
+import { inject, useId } from "vue"
+import { ToggleGroupKey } from "../ToggleGroup/types.d.vue"
+import type { Props, Slots } from "./types.d.vue"
 
 const { disabled, id, label, name, pressed, size, type, value } =
-	defineProps<Props>();
+  defineProps<Props>()
+defineSlots<Slots>()
 
 defineOptions({
-	inheritAttrs: false,
-});
+  inheritAttrs: false,
+})
 
-const group = inject(ToggleGroupKey, undefined);
-const finalName = name || group?.name;
-const finalType = type || group?.type || "checkbox";
-const inputId = id || useId();
+const group = inject(ToggleGroupKey, undefined)
+const finalName = name || group?.name
+const finalType = type || group?.type || "checkbox"
+const inputId = id || useId()
 </script>
 
 <template>

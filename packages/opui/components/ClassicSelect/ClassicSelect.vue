@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { ClassicSelectProps } from './types.ts'
-import { useId } from 'vue'
+import type { ClassicSelectProps, Slots } from "./types.d.vue"
+import { useId } from "vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -8,8 +8,9 @@ defineOptions({
 
 const props = withDefaults(defineProps<ClassicSelectProps>(), {
   items: () => [],
-  variant: 'outlined',
+  variant: "outlined",
 })
+defineSlots<Slots>()
 const modelValue = defineModel<string | number | (string | number)[]>()
 
 const selectId = props.id || useId()
@@ -28,7 +29,9 @@ const labelId = useId()
     ]"
     :data-invalid="props.critical || undefined"
   >
-    <span v-if="props.label" class="label" :id="labelId">{{ props.label }}</span>
+    <span v-if="props.label" class="label" :id="labelId">{{
+      props.label
+    }}</span>
     <span class="field">
       <select
         :aria-labelledby="props.label ? labelId : undefined"
@@ -39,7 +42,11 @@ const labelId = useId()
         v-bind="$attrs"
         v-model="modelValue"
       >
-        <option v-for="item in props.items" :key="item.value" :value="item.value">
+        <option
+          v-for="item in props.items"
+          :key="item.value"
+          :value="item.value"
+        >
           {{ item.text }}
         </option>
         <slot></slot>

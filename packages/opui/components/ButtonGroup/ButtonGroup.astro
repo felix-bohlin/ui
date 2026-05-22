@@ -1,5 +1,5 @@
 ---
-import type { Props } from "./types"
+import type { Props } from "./types.astro"
 
 export const title = "Button Group"
 
@@ -14,7 +14,14 @@ const {
 ---
 
 <div
-  class:list={["ui-button-group", color && `ui-${color}`, size && `ui-${size}`, variant && `ui-${variant}`, orientation && `ui-${orientation}`, className]}
+  class:list={[
+    "ui-button-group",
+    color && `ui-${color}`,
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
+    orientation && `ui-${orientation}`,
+    className,
+  ]}
   role="group"
   {...rest}
 >

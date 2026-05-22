@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import {
-  CurrentTabIdKey,
-  type TabsTabProps,
-} from './types'
+import { inject } from "vue"
+import { CurrentTabIdKey, type Slots, type TabsTabProps } from "./types.d.vue"
 
 const { tabId } = defineProps<TabsTabProps>()
+defineSlots<Slots>()
 
 defineOptions({
   inheritAttrs: false,

@@ -1,28 +1,25 @@
 <script setup lang="ts">
-import { useId } from 'vue'
-import type { Props } from './types'
+import { useId } from "vue"
+import type { Props, Slots } from "./types.d.vue"
 
-const {
-  alignment,
-  id: idProp,
-  trigger = 'always',
-} = defineProps<Props>()
+const { alignment, id: idProp, trigger = "always" } = defineProps<Props>()
+defineSlots<Slots>()
 
-const isHover = trigger === 'hover'
+const isHover = trigger === "hover"
 const uid = useId()
 const id = isHover ? (idProp ?? uid) : undefined
 
 const insetMap: Record<string, string> = {
-  'start start': 'auto 100% 100% auto',
-  'start end': 'auto auto 100% 100%',
-  'end start': '100% 100% auto auto',
-  'end end': '100% auto auto 100%',
+  "start start": "auto 100% 100% auto",
+  "start end": "auto auto 100% 100%",
+  "end start": "100% 100% auto auto",
+  "end end": "100% auto auto 100%",
 }
 
 const positionArea = alignment
   ? {
-      '--anchor-position-area': alignment,
-      '--_anchor-inset': insetMap[alignment],
+      "--anchor-position-area": alignment,
+      "--_anchor-inset": insetMap[alignment],
     }
   : {}
 </script>
@@ -33,7 +30,11 @@ const positionArea = alignment
       <slot></slot>
     </span>
     <slot v-else></slot>
-    <span class="anchor-floating" :id="id" :popover="isHover ? 'hint' : undefined">
+    <span
+      class="anchor-floating"
+      :id="id"
+      :popover="isHover ? 'hint' : undefined"
+    >
       <slot name="anchored"></slot>
     </span>
   </span>

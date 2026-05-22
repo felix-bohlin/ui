@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import RadioInput from './RadioInput.vue'
-import type { RadioProps } from './types.ts'
-import { useId } from 'vue'
+import RadioInput from "./RadioInput.vue"
+import type { RadioProps, Slots } from "./types.d.vue"
+import { useId } from "vue"
 
 defineOptions({
   inheritAttrs: false,
 })
 
 const props = defineProps<RadioProps>()
+defineSlots<Slots>()
 const modelValue = defineModel<string | number | boolean>()
 
 const endTextId = useId()

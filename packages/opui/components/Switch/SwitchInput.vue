@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SwitchInputProps } from './types.ts'
+import type { SwitchInputProps } from "./types"
 
 defineOptions({
   inheritAttrs: false,

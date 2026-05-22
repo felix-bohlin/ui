@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import type { Props } from './types'
+import type { Props, Slots } from "./types.d.vue"
 
+defineSlots<Slots>()
 const {
-  'aria-busy': ariaBusy,
-  'aria-describedby': ariaDescribedby,
-  'aria-label': ariaLabel,
+  "aria-busy": ariaBusy,
+  "aria-describedby": ariaDescribedby,
+  "aria-label": ariaLabel,
   id,
   max,
   value,

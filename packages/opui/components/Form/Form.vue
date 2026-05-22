@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import type { FormProps } from './types.ts'
+import type { Props, Slots } from "./types.d.vue"
 
-const props = withDefaults(defineProps<FormProps>(), {
-  as: 'form',
+const props = withDefaults(defineProps<Props>(), {
+  as: "form",
 })
+defineSlots<Slots>()
 </script>
 
 <template>

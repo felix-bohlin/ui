@@ -1,9 +1,6 @@
-import type { HTMLAttributes } from "vue";
-
 export type Props = {
 	[key: string]: any;
 	backdrop?: "transparent" | "blurred";
-	class?: HTMLAttributes["class"];
 	closedby?: "any" | "closerequest" | "none";
 	id?: string;
 	scrollLock?: boolean;
@@ -12,11 +9,9 @@ export type Props = {
 
 export type DrawerHeaderProps = {
 	[key: string]: any;
-	class?: HTMLAttributes["class"];
 	heading?: string;
 };
 
 export type DrawerFooterProps = {
 	[key: string]: any;
-	class?: HTMLAttributes["class"];
 };

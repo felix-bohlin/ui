@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import Anchor from "../Anchor/Anchor.vue";
-import type { Props } from "./types";
+import Anchor from "../Anchor/Anchor.vue"
+import type { Props, Slots } from "./types.d.vue"
 
-const { alignment, arrow, id, label } = defineProps<Props>();
+const { alignment, arrow, id, label } = defineProps<Props>()
+defineSlots<Slots>()
 </script>
 
 <template>

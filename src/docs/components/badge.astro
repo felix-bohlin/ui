@@ -4,8 +4,10 @@ import Example from "../../components/Example"
 
 import AutoExample from "../../components/AutoExample.astro"
 import BadgeVisibility from "../../component-examples/badge/Visibility.astro"
+import BadgeVisibilityVue from "../../component-examples/badge/Visibility.vue"
 import BadgeVisibilityHTML from "../../component-examples/badge/Visibility.html?raw"
 import BadgeVisibilityAstro from "../../component-examples/badge/VisibilityCode.astro?raw"
+import BadgeVisibilityVueRaw from "../../component-examples/badge/VisibilityCode.vue?raw"
 
 import BadgeAnatomy from "../../component-examples/badge/Anatomy.astro"
 
@@ -132,8 +134,10 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
       </Conditional>
       <Example.Preview slot="preview-astro" code={BadgeVisibility} />
       <Example.Preview slot="preview-html" code={BadgeVisibilityHTML} />
+      <Example.Preview slot="preview-vue" code={BadgeVisibilityVue} />
       <Example.Code slot="code-html" code={BadgeVisibilityHTML} />
       <Example.Code slot="code-astro" code={BadgeVisibilityAstro} />
+      <Example.Code slot="code-vue" code={BadgeVisibilityVueRaw} />
     </Example>
   </section>
 

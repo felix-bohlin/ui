@@ -1,11 +1,5 @@
 ---
-type Props = {
-  class?: string
-  name?: string
-  open?: boolean
-  variant?: "default" | "outlined" | "elevated" | "tonal"
-  [key: string]: any
-}
+import type { Props } from "./types.astro"
 
 export const title = "Accordion"
 
@@ -18,7 +12,12 @@ const contentId = $id("content")
 
 <details
   name={name}
-  class:list={["ui-accordion", "ui-card", variant && `ui-${variant}`, className]}
+  class:list={[
+    "ui-accordion",
+    "ui-card",
+    variant && `ui-${variant}`,
+    className,
+  ]}
   open={open}
   {...rest}
 >
@@ -27,7 +26,12 @@ const contentId = $id("content")
   <summary id={summaryId} aria-controls={contentId}><slot name="summary" /><slot name="marker" /></summary>
 
   <!-- Content -->
-  <div id={contentId} class="ui-content" role="region" aria-labelledby={summaryId}>
+  <div
+    id={contentId}
+    class="ui-content"
+    role="region"
+    aria-labelledby={summaryId}
+  >
     <slot />
   </div>
 

@@ -1,10 +1,5 @@
 ---
-type Props = {
-  class?: string
-  panelId?: string
-  tabId?: string
-  [key: string]: any
-}
+import type { TabsPanelProps as Props } from "./types.astro"
 
 const { class: className, panelId, tabId, ...rest } = Astro.props
 const { currentPanelId, currentTabId } = Astro.locals

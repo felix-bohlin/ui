@@ -5,16 +5,22 @@ import AutoExample from "../../components/AutoExample.astro"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import ExampleUsageAstroCode from "../../component-examples/form/Usage.astro?raw"
+import ExampleUsageVueCode from "../../component-examples/form/Usage.vue?raw"
 import ExampleUsageHTMLCode from "../../component-examples/form/Usage.html?raw"
 
 import ExampleAdaptiveOutputCode from "../../component-examples/form/AdaptiveOutput.astro?raw"
+import ExampleAdaptiveOutputVueCode from "../../component-examples/form/AdaptiveOutput.vue?raw"
 
 import ExampleKitchenSink from "../../component-examples/form/KitchenSink.astro"
+import ExampleKitchenSinkVue from "../../component-examples/form/KitchenSink.vue"
 import ExampleKitchenSinkCodeAstro from "../../component-examples/form/KitchenSink.astro?raw"
+import ExampleKitchenSinkCodeVue from "../../component-examples/form/KitchenSink.vue?raw"
 import ExampleKitchenSinkHTML from "../../component-examples/form/KitchenSink.html?raw"
 
 import ExampleKitchenSinkRow from "../../component-examples/form/KitchenSinkRow.astro"
+import ExampleKitchenSinkRowVue from "../../component-examples/form/KitchenSinkRow.vue"
 import ExampleKitchenSinkRowCodeAstro from "../../component-examples/form/KitchenSinkRow.astro?raw"
+import ExampleKitchenSinkRowCodeVue from "../../component-examples/form/KitchenSinkRow.vue?raw"
 import ExampleKitchenSinkRowHTML from "../../component-examples/form/KitchenSinkRow.html?raw"
 
 import FormAPIAstro from "../../component-api/form/Astro.astro"
@@ -69,6 +75,7 @@ import { DescriptionList } from "@opui/astro"
     <h2 id="usage">Usage</h2>
     <Conditional>
       <Code slot="astro" lang="astro" code={ExampleUsageAstroCode} />
+      <Code slot="vue" lang="vue" code={ExampleUsageVueCode} />
       <Code slot="html" lang="html" code={ExampleUsageHTMLCode} />
     </Conditional>
 
@@ -83,6 +90,17 @@ import { DescriptionList } from "@opui/astro"
           > and <code>FieldLegend</code> to render non-semantic alternatives.
         </p>
         <Code lang="astro" code={ExampleAdaptiveOutputCode} />
+      </Fragment>
+      <Fragment slot="vue">
+        <h3 id="non-semantic-elements">Non-semantic elements</h3>
+        <p>
+          Sometimes you can't use semantic form elements like <code
+            >&lt;fieldset&gt;</code
+          > and <code>&lt;legend&gt;</code>. Use the <code>as</code> prop on <code
+            >FieldSet</code
+          > and <code>FieldLegend</code> to render non-semantic alternatives.
+        </p>
+        <Code lang="vue" code={ExampleAdaptiveOutputVueCode} />
       </Fragment>
       <Fragment slot="html">
         <h3 id="non-semantic-elements">Non-semantic elements</h3>
@@ -247,7 +265,9 @@ import { DescriptionList } from "@opui/astro"
       </Fragment>
       <Example.Preview slot="preview-astro" code={ExampleKitchenSink} />
       <Example.Preview slot="preview-html" code={ExampleKitchenSinkHTML} />
+      <Example.Preview slot="preview-vue" code={ExampleKitchenSinkVue} />
       <Example.Code slot="code-astro" code={ExampleKitchenSinkCodeAstro} />
+      <Example.Code slot="code-vue" code={ExampleKitchenSinkCodeVue} />
     </Example>
 
     <h3 id="kitchen-sink-horizontal">Row</h3>
@@ -266,7 +286,9 @@ import { DescriptionList } from "@opui/astro"
       </Fragment>
       <Example.Preview slot="preview-astro" code={ExampleKitchenSinkRow} />
       <Example.Preview slot="preview-html" code={ExampleKitchenSinkRowHTML} />
+      <Example.Preview slot="preview-vue" code={ExampleKitchenSinkRowVue} />
       <Example.Code slot="code-astro" code={ExampleKitchenSinkRowCodeAstro} />
+      <Example.Code slot="code-vue" code={ExampleKitchenSinkRowCodeVue} />
     </Example>
   </section>
 

@@ -7,22 +7,32 @@ import Conditional from "../../components/Conditional.astro"
 
 import InputTypes from "../../component-examples/text-field/InputTypes.astro"
 import InputTypesAstro from "../../component-examples/text-field/InputTypes.astro?raw"
+import InputTypesVueRaw from "../../component-examples/text-field/InputTypes.vue?raw"
+import InputTypesPreviewVue from "../../component-examples/text-field/InputTypes.vue"
 import InputTypesHtml from "../../component-examples/text-field/InputTypes.html?raw"
 
 import Numeric from "../../component-examples/text-field/Numeric.astro"
 import NumericAstro from "../../component-examples/text-field/Numeric.astro?raw"
+import NumericVueRaw from "../../component-examples/text-field/Numeric.vue?raw"
+import NumericPreviewVue from "../../component-examples/text-field/Numeric.vue"
 import NumericHtml from "../../component-examples/text-field/Numeric.html?raw"
 
 import File from "../../component-examples/text-field/File.astro"
 import FileAstro from "../../component-examples/text-field/File.astro?raw"
+import FileVueRaw from "../../component-examples/text-field/File.vue?raw"
+import FilePreviewVue from "../../component-examples/text-field/File.vue"
 import FileHtml from "../../component-examples/text-field/File.html?raw"
 
 import Autosuggest from "../../component-examples/text-field/Autosuggest.astro"
 import AutosuggestAstro from "../../component-examples/text-field/Autosuggest.astro?raw"
+import AutosuggestVueRaw from "../../component-examples/text-field/Autosuggest.vue?raw"
+import AutosuggestPreviewVue from "../../component-examples/text-field/Autosuggest.vue"
 import AutosuggestHtml from "../../component-examples/text-field/Autosuggest.html?raw"
 
 import NoLabel from "../../component-examples/text-field/NoLabel.astro"
 import NoLabelAstro from "../../component-examples/text-field/NoLabel.astro?raw"
+import NoLabelVueRaw from "../../component-examples/text-field/NoLabel.vue?raw"
+import NoLabelPreviewVue from "../../component-examples/text-field/NoLabel.vue"
 import NoLabelHtml from "../../component-examples/text-field/NoLabel.html?raw"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
@@ -184,7 +194,9 @@ export const description =
 
       <Example.Preview slot="preview-astro" code={InputTypes} />
       <Example.Preview slot="preview-html" code={InputTypesHtml} />
+      <Example.Preview slot="preview-vue" code={InputTypesPreviewVue} />
       <Example.Code slot="code-astro" code={InputTypesAstro} />
+      <Example.Code slot="code-vue" code={InputTypesVueRaw} />
       <Example.Code slot="code-html" code={InputTypesHtml} />
     </Example>
 
@@ -207,7 +219,9 @@ export const description =
     <Example>
       <Numeric slot="preview-astro" />
       <Numeric slot="preview-html" />
+      <NumericPreviewVue slot="preview-vue" />
       <Example.Code slot="code-astro" code={NumericAstro} />
+      <Example.Code slot="code-vue" code={NumericVueRaw} />
       <Example.Code slot="code-html" code={NumericHtml} />
     </Example>
 
@@ -272,7 +286,9 @@ export const description =
     <Example row>
       <File slot="preview-astro" />
       <File slot="preview-html" />
+      <FilePreviewVue slot="preview-vue" />
       <Example.Code slot="code-astro" code={FileAstro} />
+      <Example.Code slot="code-vue" code={FileVueRaw} />
       <Example.Code slot="code-html" code={FileHtml} />
     </Example>
   </section>
@@ -292,7 +308,9 @@ export const description =
     <Example row>
       <Autosuggest slot="preview-astro" />
       <Autosuggest slot="preview-html" />
+      <AutosuggestPreviewVue slot="preview-vue" />
       <Example.Code slot="code-astro" code={AutosuggestAstro} />
+      <Example.Code slot="code-vue" code={AutosuggestVueRaw} />
       <Example.Code slot="code-html" code={AutosuggestHtml} />
     </Example>
 
@@ -336,7 +354,9 @@ export const description =
     <Example>
       <NoLabel slot="preview-astro" />
       <NoLabel slot="preview-html" />
+      <NoLabelPreviewVue slot="preview-vue" />
       <Example.Code slot="code-astro" code={NoLabelAstro} />
+      <Example.Code slot="code-vue" code={NoLabelVueRaw} />
       <Example.Code slot="code-html" code={NoLabelHtml} />
     </Example>
   </section>

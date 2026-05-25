@@ -1,8 +1,5 @@
 ---
-type Props = {
-  [key: string]: any
-  class?: string
-}
+import type { DescriptionProps as Props } from "./types.astro"
 
 const { class: className, ...rest } = Astro.props
 ---

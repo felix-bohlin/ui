@@ -1,12 +1,5 @@
 ---
-type Props = {
-  [key: string]: any
-  class?: string
-  color?: "critical" | "primary"
-  orientation?: "vertical"
-  size?: "small" | "large"
-  variant?: "outlined" | "tonal" | "filled"
-}
+import type { Props } from "./types.astro"
 
 export const title = "Button Group"
 
@@ -21,7 +14,14 @@ const {
 ---
 
 <div
-  class:list={["ui-button-group", color && `ui-${color}`, size && `ui-${size}`, variant && `ui-${variant}`, orientation && `ui-${orientation}`, className]}
+  class:list={[
+    "ui-button-group",
+    color && `ui-${color}`,
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
+    orientation && `ui-${orientation}`,
+    className,
+  ]}
   role="group"
   {...rest}
 >

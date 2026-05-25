@@ -1,14 +1,5 @@
 ---
-type Props = {
-  [key: string]: any
-  alt?: string
-  as?: "div" | "a" | "button" | string
-  class?: string
-  href?: string
-  isGroup?: boolean
-  src?: string
-  variant?: "squared" | "rounded" | "squircle"
-}
+import type { Props } from "./types.astro"
 
 export const title = "Avatar"
 
@@ -23,7 +14,7 @@ const {
   ...rest
 } = Astro.props
 
-const Tag = as || (href ? "a" : "div")
+const Tag = (as || (href ? "a" : "div")) as any
 ---
 
 <!-- prettier-ignore -->

@@ -8,7 +8,9 @@ import DrawerAPIAstro from "../../component-api/drawer/Astro.astro"
 import DrawerAPIHTML from "../../component-api/drawer/HTML.astro"
 
 import ExampleUsage from "../../component-examples/drawer/Usage.astro"
+import ExampleUsageVue from "../../component-examples/drawer/Usage.vue"
 import ExampleUsageAstro from "/src/component-examples/drawer/Usage.astro?raw"
+import ExampleUsageVueRaw from "/src/component-examples/drawer/Usage.vue?raw"
 import ExampleUsageHTML from "/src/component-examples/drawer/Usage.html?raw"
 
 import Conditional from "../../components/Conditional.astro"
@@ -95,8 +97,10 @@ import Conditional from "../../components/Conditional.astro"
       </Switch>
       <Example.Preview slot="preview-astro" code={ExampleUsage} />
       <Example.Preview slot="preview-html" code={ExampleUsageHTML} />
+      <Example.Preview slot="preview-vue" code={ExampleUsageVue} />
       <Example.Code slot="code-html" code={ExampleUsageHTML} />
       <Example.Code slot="code-astro" code={ExampleUsageAstro} />
+      <Example.Code slot="code-vue" code={ExampleUsageVueRaw} />
     </Example>
   </section>
 

@@ -1,15 +1,6 @@
 ---
-type Props = {
-  [key: string]: any
-  "aria-busy"?: "true" | "false" | boolean
-  "aria-describedby"?: string
-  "aria-label"?: string
-  class?: string
-  id?: string
-  max?: number | string
-  value?: number | string
-  variant?: "filled" | "default" | "tonal"
-}
+import type { Props } from './types.astro'
+
 
 export const title = "Progress"
 
@@ -24,6 +15,7 @@ const {
   variant,
   ...rest
 } = Astro.props
+
 ---
 
 <progress

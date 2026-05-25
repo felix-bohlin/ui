@@ -242,7 +242,9 @@ const outputPanelId = `${groupName}-output-panel`
                       ? "astro"
                       : codeLangId === "html"
                         ? "html"
-                        : codeLangId
+                        : codeLangId === "solid"
+                          ? "tsx"
+                          : codeLangId
                   }
                   mark={marks[codeLangId]}
                 />

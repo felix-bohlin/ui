@@ -1,0 +1,131 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>label</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The label for the range input.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>startText</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Informational text between label and the range input.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>endText</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Informational text below the range input.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>spread</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Spreads the label/text and input to opposite ends.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>variant</code></Table.Cell>
+      <Table.Cell><code>'filled' | 'default' | 'tonal'</code></Table.Cell>
+      <Table.Cell><code>'default'</code></Table.Cell>
+      <Table.Cell
+        >Adjusts the track color for better contrast on different surfaces.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>min</code></Table.Cell>
+      <Table.Cell><code>number | string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The minimum value.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>max</code></Table.Cell>
+      <Table.Cell><code>number | string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The maximum value.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>step</code></Table.Cell>
+      <Table.Cell><code>number | string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The step increment.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>value</code></Table.Cell>
+      <Table.Cell><code>number | string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The current value.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>valueSuffix</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Renders a live <code>&lt;output&gt;</code> next to the label showing the
+        current input value. The suffix (e.g. <code>°</code>, <code>px</code>)
+        is appended to the value and the component keeps the readout in sync on
+        every <code>input</code> event.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3>Slots</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Slot</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>default</code></Table.Cell>
+      <Table.Cell>Slot for the label element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>start-text</code></Table.Cell>
+      <Table.Cell>Slot for the text between label and input.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>end-text</code></Table.Cell>
+      <Table.Cell>Slot for the text below the input.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>value</code></Table.Cell>
+      <Table.Cell
+        >Custom content for the live value readout. When set, replaces the
+        default rendering of the <code>value</code> prop inside <code
+          >&lt;output&gt;</code
+        >. The auto-update script still mirrors the input's value into the
+        element's text content.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

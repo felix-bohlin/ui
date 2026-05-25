@@ -3,6 +3,7 @@ import { readdirSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { defineConfig, fontProviders } from "astro/config"
 import expressiveCode from "astro-expressive-code"
+import solid from "@astrojs/solid-js"
 import svelte from "@astrojs/svelte"
 import vue from "@astrojs/vue"
 
@@ -46,6 +47,7 @@ export default defineConfig({
   },
   redirects: legacyRedirects,
   integrations: [
+    solid(),
     svelte(),
     vue(),
     expressiveCode({

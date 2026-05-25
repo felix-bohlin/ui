@@ -1,0 +1,156 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>dense</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Select dense state.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>disabled</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Select disabled state.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>description</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Description text displayed above the select.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>endText</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Supporting text displayed below the select.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>critical</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Select error state. Sets <code>[data-invalid]</code> on the root element.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>items</code></Table.Cell>
+      <Table.Cell><code>Item[]</code></Table.Cell>
+      <Table.Cell><code>[]</code></Table.Cell>
+      <Table.Cell
+        >An array of objects with <code>text</code> and <code>value</code> properties.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>label</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The label for the select.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>required</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Select required state.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>size</code></Table.Cell>
+      <Table.Cell><code>"small"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The size of the select.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>spread</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell
+        >Spreads the label/description and select to opposite ends.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>variant</code></Table.Cell>
+      <Table.Cell><code>"outlined" | "filled"</code></Table.Cell>
+      <Table.Cell><code>"outlined"</code></Table.Cell>
+      <Table.Cell>The visual variant of the select.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3>Slots</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Slot</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>default</code></Table.Cell>
+      <Table.Cell
+        >Alternative way to define options (using <code>&lt;option&gt;</code> elements).</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>label</code></Table.Cell>
+      <Table.Cell>Slot for the label element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>description</code></Table.Cell>
+      <Table.Cell
+        >Slot for the description (start text) element, displayed above the
+        field.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>prefix</code></Table.Cell>
+      <Table.Cell
+        >Content placed at the inline-start of the field, inside the border.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>suffix</code></Table.Cell>
+      <Table.Cell
+        >Content placed at the inline-end of the field, inside the border.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>header</code></Table.Cell>
+      <Table.Cell
+        >Content placed above the select, inside the border, with a divider.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>footer</code></Table.Cell>
+      <Table.Cell
+        >Content placed below the select, inside the border, with a divider.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>end-text</code></Table.Cell>
+      <Table.Cell>Slot for the supporting text (end text) element.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

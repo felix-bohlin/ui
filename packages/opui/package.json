@@ -21,6 +21,7 @@
     "design-system",
     "html",
     "open-props",
+    "solid",
     "ui",
     "vue"
   ],
@@ -36,6 +37,7 @@
     "dist",
     "env.d.ts",
     "open-props.css",
+    "solid",
     "vue",
     "CHANGELOG.md",
     "CONTRIBUTING.md",
@@ -49,6 +51,7 @@
     ".": "./dist/opui.css",
     "./open-props": "./dist/op.css",
     "./astro": "./astro/index.ts",
+    "./solid": "./solid/index.ts",
     "./vue": "./vue/index.ts",
     "./components/*": "./components/*",
     "./core/*": "./core/*.css",
@@ -69,11 +72,15 @@
   "peerDependencies": {
     "astro": "^6.3.1",
     "open-props": "^1.7.23",
+    "solid-js": ">=1.9.0",
     "svelte": ">=5.55.7",
     "vue": ">=3.5.0"
   },
   "peerDependenciesMeta": {
     "astro": {
+      "optional": true
+    },
+    "solid-js": {
       "optional": true
     },
     "svelte": {

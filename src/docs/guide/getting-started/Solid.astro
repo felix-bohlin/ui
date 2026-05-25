@@ -1,0 +1,61 @@
+---
+import Guide from "../../../layouts/Guide.astro"
+import CodeGroup from "../../../components/CodeGroup.astro"
+import { Code } from "astro-expressive-code/components"
+import Theming from "./_theming.astro"
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships Solid.js components alongside the Astro and Vue variants. Install
+    the package, import what you need, and you're set.
+  </Fragment>
+
+  <section>
+    <h2 id="installation">Install via NPM</h2>
+    <p>Install the package and the Solid renderer to get access to the components.</p>
+
+    <CodeGroup
+      tabs={[
+        { title: "pnpm", code: "pnpm add opui-css solid-js -S", lang: "sh" },
+        { title: "npm", code: "npm install opui-css solid-js -S", lang: "sh" },
+      ]}
+    />
+  </section>
+
+  <section>
+    <h2 id="usage">Use a component</h2>
+    <p>Components can be imported from <code>opui-css/solid</code>:</p>
+
+    <Code
+      code={`/* @jsxImportSource solid-js */
+import { Button } from "opui-css/solid"
+
+export default function App() {
+  return <Button variant="filled">Click me</Button>
+}`}
+      lang="tsx"
+    />
+  </section>
+
+  <section>
+    <h2 id="css">Load the CSS</h2>
+    <p>
+      Solid components ship markup only — the CSS still has to be loaded once per
+      app. Import the pre-bundled theme from your entry stylesheet (or
+      <code>index.css</code>):
+    </p>
+    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
+    <p>Or pick and choose pieces if you want a lighter footprint:</p>
+    <Code
+      code={`@import "opui-css/core/normalize.css";
+@import "opui-css/core/utils.css";
+@import "opui-css/css/theme.css";
+@import "opui-css/css/components.css";`}
+      lang="css"
+    />
+  </section>
+
+  <Theming />
+</Guide>

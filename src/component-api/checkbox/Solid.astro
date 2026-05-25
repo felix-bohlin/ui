@@ -1,0 +1,106 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>checked</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Input checked state.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>disabled</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Input disabled state.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>critical</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Input error state.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>hideLabel</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Visually hides the label.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>indeterminate</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell
+        >Visual partial-selection state. Applied via JS at runtime; does not
+        affect form submission.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>required</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Input required state.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>size</code></Table.Cell>
+      <Table.Cell><code>"small" | "large"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The size of the input.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>spread</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Spreads the label and input to opposite ends.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>stack</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Stacks the label under the input.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3>Slots</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Slot</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>default</code></Table.Cell>
+      <Table.Cell>The label text for the component.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>end-text</code></Table.Cell>
+      <Table.Cell
+        >Optional supporting text displayed after the label.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

@@ -1,0 +1,10 @@
+import { Range } from "opui-css/solid"
+
+export default function Example() {
+  return (
+    <>
+      <Range label="Invalid" invalid />
+      <Range label="Valid" valid />
+    </>
+  )
+}

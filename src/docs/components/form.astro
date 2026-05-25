@@ -7,6 +7,7 @@ import FormCSS from "@opui/css/components/form.css?raw"
 import ExampleUsageAstroCode from "../../component-examples/form/Usage.astro?raw"
 import ExampleUsageVueCode from "../../component-examples/form/Usage.vue?raw"
 import ExampleUsageHTMLCode from "../../component-examples/form/Usage.html?raw"
+import ExampleUsageSolidCode from "../../component-examples/form/Usage.tsx?raw"
 
 import ExampleAdaptiveOutputCode from "../../component-examples/form/AdaptiveOutput.astro?raw"
 import ExampleAdaptiveOutputVueCode from "../../component-examples/form/AdaptiveOutput.vue?raw"
@@ -75,6 +76,7 @@ import { DescriptionList } from "@opui/astro"
     <h2 id="usage">Usage</h2>
     <Conditional>
       <Code slot="astro" lang="astro" code={ExampleUsageAstroCode} />
+      <Code slot="solid" lang="tsx" code={ExampleUsageSolidCode} />
       <Code slot="vue" lang="vue" code={ExampleUsageVueCode} />
       <Code slot="html" lang="html" code={ExampleUsageHTMLCode} />
     </Conditional>

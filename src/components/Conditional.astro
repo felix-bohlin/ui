@@ -20,7 +20,8 @@ const currentFramework = (Astro.currentLocale ??
 // pages don't go blank during incremental migration.
 const slotName = Astro.slots.has(currentFramework)
   ? currentFramework
-  : currentFramework === "vue" && Astro.slots.has("astro")
+  : (currentFramework === "solid" || currentFramework === "vue") &&
+      Astro.slots.has("astro")
     ? "astro"
     : Astro.slots.has(DEFAULT_FRAMEWORK)
       ? DEFAULT_FRAMEWORK

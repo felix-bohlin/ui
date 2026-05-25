@@ -56,8 +56,12 @@ const sveltePreviewModules = import.meta.glob(
   },
 ) as Record<string, { default: any }>
 
+const solidPreviewModules = import.meta.glob("../component-examples/**/*.tsx", {
+  eager: true,
+}) as Record<string, { default: any }>
+
 const rawSources = import.meta.glob(
-  "../component-examples/**/*.{astro,html,vue,svelte}",
+  "../component-examples/**/*.{astro,html,vue,svelte,tsx}",
   {
     eager: true,
     query: "?raw",
@@ -69,19 +73,28 @@ const astroPath = `../component-examples/${slug}/${name}.astro`
 const htmlPath = `../component-examples/${slug}/${name}.html`
 const vuePath = `../component-examples/${slug}/${name}.vue`
 const sveltePath = `../component-examples/${slug}/${name}.svelte`
+const solidPath = `../component-examples/${slug}/${name}.tsx`
 
 const astroComponent = previewModules[astroPath]?.default
 const vueComponent = vuePreviewModules[vuePath]?.default
 const svelteComponent = sveltePreviewModules[sveltePath]?.default
+const solidComponent = solidPreviewModules[solidPath]?.default
 const astroSource = rawSources[astroPath]
 const htmlSource = rawSources[htmlPath]
 const vueSource = rawSources[vuePath]
 const svelteSource = rawSources[sveltePath]
+const solidSource = rawSources[solidPath]
 
-if (!astroComponent && !htmlSource && !vueComponent && !svelteComponent) {
+if (
+  !astroComponent &&
+  !htmlSource &&
+  !vueComponent &&
+  !svelteComponent &&
+  !solidComponent
+) {
   throw new Error(
     `<AutoExample slug="${slug}" name="${name}"> found no example files at ` +
-      `${astroPath}, ${htmlPath}, ${vuePath}, or ${sveltePath}.`,
+      `${astroPath}, ${htmlPath}, ${vuePath}, ${sveltePath}, or ${solidPath}.`,
   )
 }
 ---
@@ -100,6 +113,11 @@ if (!astroComponent && !htmlSource && !vueComponent && !svelteComponent) {
     )
   }
   {
+    solidComponent && (
+      <Example.Preview slot="preview-solid" code={solidComponent} />
+    )
+  }
+  {
     svelteComponent && (
       <Example.Preview slot="preview-svelte" code={svelteComponent} />
     )
@@ -110,4 +128,5 @@ if (!astroComponent && !htmlSource && !vueComponent && !svelteComponent) {
   {htmlSource && <Example.Code slot="code-html" code={htmlSource} />}
   {vueSource && <Example.Code slot="code-vue" code={vueSource} />}
   {svelteSource && <Example.Code slot="code-svelte" code={svelteSource} />}
+  {solidSource && <Example.Code slot="code-solid" code={solidSource} />}
 </Example>

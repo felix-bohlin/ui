@@ -20,9 +20,16 @@ import { Table } from "@opui/astro"
   <Table.Body>
     <Table.Row>
       <Table.Cell><strong>Progress</strong></Table.Cell>
-      <Table.Cell><code>&lt;progress class="ui-progress"&gt;</code></Table.Cell>
+      <Table.Cell
+        ><code
+          >&lt;div
+          class="ui-progress"&gt;&lt;progress&gt;…&lt;/progress&gt;&lt;/div&gt;</code
+        ></Table.Cell
+      >
       <Table.Cell>-</Table.Cell>
-      <Table.Cell>The native HTML progress element.</Table.Cell>
+      <Table.Cell
+        >Wrapper div with the native HTML progress element inside.</Table.Cell
+      >
     </Table.Row>
     <Table.Row>
       <Table.Cell><strong>Indeterminate</strong></Table.Cell>
@@ -38,7 +45,9 @@ import { Table } from "@opui/astro"
         ></Table.Cell
       >
       <Table.Cell>-</Table.Cell>
-      <Table.Cell>Modifiers for different background surfaces.</Table.Cell>
+      <Table.Cell
+        >Modifiers on the wrapper div for different background surfaces.</Table.Cell
+      >
     </Table.Row>
   </Table.Body>
 </Table>

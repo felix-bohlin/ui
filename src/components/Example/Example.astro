@@ -231,10 +231,9 @@ const outputPanelId = `${groupName}-output-panel`
             <Tabs.Panel
               panelId={sourcePanelId}
               tabId={sourceId}
-              class="tab-panel-group"
               data-panel="source"
             >
-              <div class="tab-panel">
+              <div class="ui-tab-panel">
                 <Code
                   code={codeContent}
                   lang={
@@ -262,10 +261,9 @@ const outputPanelId = `${groupName}-output-panel`
               <Tabs.Panel
                 panelId={outputPanelId}
                 tabId={outputId}
-                class="tab-panel-group"
                 data-panel="output"
               >
-                <div class="tab-panel">
+                <div class="ui-tab-panel">
                   <Code code={outputContent} lang="html" />
                 </div>
               </Tabs.Panel>
@@ -416,7 +414,7 @@ const outputPanelId = `${groupName}-output-panel`
 </style>
 
 <style is:global>
-  .tab-panel .expressive-code pre {
+  .ui-tab-panel .expressive-code pre {
     border-radius: 0;
   }
 

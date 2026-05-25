@@ -1,4 +1,3 @@
-/* @jsxImportSource solid-js */
 import { splitProps, type JSX } from "solid-js"
 import Anchor from "../Anchor/Anchor"
 import type { Props } from "./types.solid"

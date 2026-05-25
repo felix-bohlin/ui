@@ -1,4 +1,3 @@
-/* @jsxImportSource solid-js */
 import { splitProps, type JSX, Show, createUniqueId, For } from "solid-js"
 import type { RangeProps } from "./types.solid"
 

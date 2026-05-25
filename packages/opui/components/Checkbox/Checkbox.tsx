@@ -1,4 +1,3 @@
-/* @jsxImportSource solid-js */
 import { splitProps, type JSX, Show, createUniqueId } from "solid-js"
 import CheckboxInput from "./CheckboxInput"
 import type { CheckboxProps } from "./types.solid"

@@ -1,4 +1,3 @@
-/* @jsxImportSource solid-js */
 import { splitProps, type JSX, Show } from "solid-js"
 import IconButton from "../IconButton/IconButton"
 import type { DrawerHeaderProps } from "./types.solid"

@@ -1,4 +1,3 @@
-/* @jsxImportSource solid-js */
 import { splitProps, createUniqueId, Show, mergeProps, type JSX } from "solid-js"
 import type { Props } from "./types.solid"
 

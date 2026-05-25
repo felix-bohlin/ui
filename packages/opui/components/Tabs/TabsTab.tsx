@@ -1,4 +1,3 @@
-/* @jsxImportSource solid-js */
 import { splitProps, type JSX, useContext } from "solid-js"
 import { CurrentTabIdContext } from "./TabsItem"
 import type { TabsTabProps } from "./types.solid"

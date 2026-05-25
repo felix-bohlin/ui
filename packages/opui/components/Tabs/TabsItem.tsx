@@ -1,4 +1,3 @@
-/* @jsxImportSource solid-js */
 import { splitProps, type JSX, createContext, useContext, createUniqueId } from "solid-js"
 import { TabsGroupNameContext } from "./Tabs"
 import type { TabsItemProps } from "./types.solid"

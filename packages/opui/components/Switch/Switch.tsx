@@ -1,4 +1,3 @@
-/* @jsxImportSource solid-js */
 import { splitProps, type JSX, Show, createUniqueId } from "solid-js"
 import SwitchInput from "./SwitchInput"
 import type { SwitchProps } from "./types.solid"

@@ -1,4 +1,3 @@
-/* @jsxImportSource solid-js */
 import { onMount, type JSX } from "solid-js"
 import { initToastManager } from "../../css/js/toast.js"
 import type { Props } from "./types.solid"

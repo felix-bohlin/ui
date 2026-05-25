@@ -1,4 +1,3 @@
-/* @jsxImportSource solid-js */
 import { splitProps, type JSX, Show, createMemo } from "solid-js"
 import { Dynamic } from "solid-js/web"
 import type { Props } from "./types.solid"

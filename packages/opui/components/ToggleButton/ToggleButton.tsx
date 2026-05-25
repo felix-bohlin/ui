@@ -1,4 +1,3 @@
-/* @jsxImportSource solid-js */
 import { splitProps, type JSX, useContext, createUniqueId } from "solid-js"
 import { ToggleGroupContext } from "../ToggleGroup/ToggleGroup"
 import type { Props } from "./types.solid"

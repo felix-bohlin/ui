@@ -6,4 +6,3 @@
 @import "open-props/src/index.css" layer(openprops);
 @import "open-props/src/props.colors-oklch-hues.css" layer(openprops);
 @import "open-props/src/props.gray-oklch.css" layer(openprops);
-@import "./core/palette.css" layer(openprops);

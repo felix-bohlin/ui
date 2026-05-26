@@ -5,7 +5,8 @@ export async function getBaselineMappings() {
     eager: true,
   })
 
-  const featureToComponents: Record<string, { name: string; href: string }[]> = {}
+  const featureToComponents: Record<string, { name: string; href: string }[]> =
+    {}
   const componentToFeatures: Record<string, string[]> = {}
 
   for (const path in modules) {
@@ -17,7 +18,8 @@ export async function getBaselineMappings() {
     const href = `/components/${slug}`
 
     const content = modules[path] as string
-    const baselineRegex = /<(?:Baseline|BrowserSupport|Component)[\s\S]*?(?:ids|browserSupport)=\{([\s\S]*?)\}/g
+    const baselineRegex =
+      /<(?:Baseline|BrowserSupport|Component)[\s\S]*?(?:ids|browserSupport)=\{([\s\S]*?)\}/g
     let match
 
     const featuresInComponent: string[] = []
@@ -54,7 +56,7 @@ export async function getBaselineMappings() {
 export async function getBaselineData() {
   try {
     const response = await fetch(
-      "https://cdn.jsdelivr.net/npm/web-features/data.json"
+      "https://cdn.jsdelivr.net/npm/web-features/data.json",
     )
     if (!response.ok) throw new Error("Failed to fetch web-features data")
     return await response.json()

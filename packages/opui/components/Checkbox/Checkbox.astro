@@ -1,39 +1,17 @@
 ---
+import type { CheckboxProps as Props } from './types.astro';
 import CheckboxInput from "./CheckboxInput.astro"
-
-type Props = {
-  [key: string]: any
-  checked?: boolean
-  class?: string
-  critical?: boolean
-  disabled?: boolean
-  hideLabel?: boolean
-  id?: string
-  indeterminate?: boolean
-  name?: string
-  required?: boolean
-  size?: "small" | "large"
-  spread?: boolean
-  stack?: boolean
-  value?: string
-}
 
 export const title = "Checkbox"
 
 const {
-  checked,
   class: className,
   critical,
-  disabled,
   hideLabel,
-  id,
-  indeterminate,
   name,
-  required,
   size,
   spread,
   stack,
-  value,
   ...rest
 } = Astro.props
 
@@ -57,13 +35,7 @@ const finalName = name || currentFieldName
 >
   <CheckboxInput
     aria-describedby={endTextId}
-    {checked}
-    {disabled}
-    {id}
-    {indeterminate}
     name={finalName}
-    {required}
-    {value}
     {...rest}
   />
   <!-- prettier-ignore --><span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>

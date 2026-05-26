@@ -1,13 +1,5 @@
 ---
-type Props = {
-  [key: string]: any
-  as?: "a" | "button" | "div" | string
-  class?: string
-  label?: string
-  multiline?: boolean
-  size?: "small"
-  variant?: "tonal" | "outlined"
-}
+import type { Props } from "./types.astro"
 
 export const title = "Chip"
 
@@ -33,5 +25,5 @@ const {
     variant && `ui-${variant}`,
     className,
   ]}
-  {...rest}
+  {...rest as any}
 ><slot name="start" /><slot />{label && <span class="ui-text">{label}</span>}<slot name="end" /></Tag>

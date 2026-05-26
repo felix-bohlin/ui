@@ -1,7 +1,5 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
-  import { serializeForm, createForm, setFormContext } from "./context.svelte"
-  import Accordion from "../Accordion/Accordion.svelte"
 
   export const title = "Form" as const
 
@@ -14,10 +12,6 @@
 
   let element = $state<HTMLFormElement | HTMLElement | null>(null)
   export { element as this }
-
-  const id = $props.id()
-  const form = $derived(createForm({ name: rest.name }, { id }))
-  setFormContext(form)
 </script>
 
 <svelte:element

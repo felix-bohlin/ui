@@ -21,7 +21,8 @@
     "design-system",
     "html",
     "open-props",
-    "ui"
+    "ui",
+    "vue"
   ],
   "sideEffects": [
     "*.css",
@@ -35,6 +36,7 @@
     "dist",
     "env.d.ts",
     "open-props.css",
+    "vue",
     "CHANGELOG.md",
     "CONTRIBUTING.md",
     "LICENSE",
@@ -47,6 +49,7 @@
     ".": "./dist/opui.css",
     "./open-props": "./dist/op.css",
     "./astro": "./astro/index.ts",
+    "./vue": "./vue/index.ts",
     "./components/*": "./components/*",
     "./core/*": "./core/*.css",
     "./css/*": "./css/*.css",
@@ -65,10 +68,18 @@
   },
   "peerDependencies": {
     "astro": "^6.3.1",
-    "open-props": "^1.7.23"
+    "open-props": "^1.7.23",
+    "svelte": ">=5.55.7",
+    "vue": ">=3.5.0"
   },
   "peerDependenciesMeta": {
     "astro": {
+      "optional": true
+    },
+    "svelte": {
+      "optional": true
+    },
+    "vue": {
       "optional": true
     }
   },

@@ -3,6 +3,7 @@ import { Table } from "@opui/astro"
 import {
   DEFAULT_FRAMEWORK,
   FRAMEWORKS,
+  FRAMEWORK_IDS,
   type FrameworkId,
 } from "../utils/framework-routing"
 
@@ -24,13 +25,17 @@ const isFrameworkKeyedApi = (value: any) =>
   !Array.isArray(value) &&
   typeof value === "object" &&
   !value.rows &&
-  FRAMEWORKS.every((f) => value[f.id])
+  Object.keys(value).length > 0 &&
+  Object.keys(value).every((k) =>
+    FRAMEWORK_IDS.includes(k as FrameworkId),
+  )
 
 // Pick the framework-keyed API entry for the active framework, falling back
 // to the default framework, then the first authored variant — same fallback
 // shape `<Conditional>` uses so partially-authored docs don't go blank.
 const pickFrameworkVariant = (value: any) =>
   value[currentFramework] ??
+  (currentFramework === "vue" ? value.astro : undefined) ??
   value[DEFAULT_FRAMEWORK] ??
   FRAMEWORKS.map((f) => value[f.id]).find(Boolean)
 

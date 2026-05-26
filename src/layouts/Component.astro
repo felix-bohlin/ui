@@ -128,6 +128,17 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
   <slot name="title" slot="title" />
   <slot name="preamble" slot="preamble" />
 
+  {
+    currentFramework === "vue" && (
+      <p class="rich-text">
+        <strong>Vue.</strong> Import components from{" "}
+        <code>opui-css/vue</code>. Props and named slots follow the same API as
+        in the Astro sections below; static HTML notes describe class-based
+        markup when you are not using Vue components.
+      </p>
+    )
+  }
+
   {browserSupport && <BrowserSupportChips ids={browserSupport} />}
 
   <slot />

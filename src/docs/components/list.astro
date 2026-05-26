@@ -9,6 +9,8 @@ import ListCSS from "@opui/css/components/list.css?raw"
 import ExampleDefaultHTML from "../../component-examples/list/Default.html?raw"
 
 import ListDense from "../../component-examples/ListDense.astro"
+import ListDenseVue from "../../component-examples/ListDense.vue"
+import ListDenseVueRaw from "../../component-examples/ListDense.vue?raw"
 import Conditional from "../../components/Conditional.astro"
 
 export const description =
@@ -308,6 +310,7 @@ export const description =
       <Example.Preview slot="preview-astro">
         <ListDense />
       </Example.Preview>
+      <Example.Preview slot="preview-vue" code={ListDenseVue} />
       <Example.Preview slot="preview-html">
         <div
           set:html={ExampleDefaultHTML.replace(
@@ -328,6 +331,7 @@ export const description =
   <!--  -->
 </List>`}
       />
+      <Example.Code slot="code-vue" code={ListDenseVueRaw} />
     </Example>
   </section>
 

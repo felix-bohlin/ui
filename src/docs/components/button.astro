@@ -7,15 +7,21 @@ import { Button as UIButton } from "@opui/astro"
 
 import ButtonCSS from "@opui/css/components/button.css?raw"
 import ExampleIconAndLabel from "../../component-examples/button/IconAndLabel.astro"
+import ExampleIconAndLabelVue from "../../component-examples/button/IconAndLabel.vue"
 import ExampleIconAndLabelCodeAstro from "../../component-examples/button/IconAndLabelCode.astro?raw"
+import ExampleIconAndLabelCodeVue from "../../component-examples/button/IconAndLabelCode.vue?raw"
 import ExampleIconAndLabelHTML from "../../component-examples/button/IconAndLabel.html?raw"
 
 import ExampleSizes from "../../component-examples/button/Sizes.astro"
+import ExampleSizesVue from "../../component-examples/button/Sizes.vue"
 import ExampleSizesCodeAstro from "../../component-examples/button/SizesCode.astro?raw"
+import ExampleSizesCodeVue from "../../component-examples/button/SizesCode.vue?raw"
 import ExampleSizesHTML from "../../component-examples/button/Sizes.html?raw"
 
 import ExampleDisabled from "../../component-examples/button/Disabled.astro"
+import ExampleDisabledVue from "../../component-examples/button/Disabled.vue"
 import ExampleDisabledCodeAstro from "../../component-examples/button/DisabledCode.astro?raw"
+import ExampleDisabledCodeVue from "../../component-examples/button/DisabledCode.vue?raw"
 import ExampleDisabledHTML from "../../component-examples/button/Disabled.html?raw"
 
 import Conditional from "../../components/Conditional.astro"
@@ -89,8 +95,10 @@ export const description =
     <Example column>
       <Example.Preview slot="preview-astro" code={ExampleIconAndLabel} />
       <Example.Preview slot="preview-html" code={ExampleIconAndLabelHTML} />
+      <Example.Preview slot="preview-vue" code={ExampleIconAndLabelVue} />
       <Example.Code slot="code-html" code={ExampleIconAndLabelHTML} />
       <Example.Code slot="code-astro" code={ExampleIconAndLabelCodeAstro} />
+      <Example.Code slot="code-vue" code={ExampleIconAndLabelCodeVue} />
     </Example>
   </section>
 
@@ -126,8 +134,10 @@ export const description =
     <Example column>
       <Example.Preview slot="preview-astro" code={ExampleSizes} />
       <Example.Preview slot="preview-html" code={ExampleSizesHTML} />
+      <Example.Preview slot="preview-vue" code={ExampleSizesVue} />
       <Example.Code slot="code-html" code={ExampleSizesHTML} />
       <Example.Code slot="code-astro" code={ExampleSizesCodeAstro} />
+      <Example.Code slot="code-vue" code={ExampleSizesCodeVue} />
     </Example>
   </section>
 
@@ -146,8 +156,10 @@ export const description =
     <Example column>
       <Example.Preview slot="preview-astro" code={ExampleDisabled} />
       <Example.Preview slot="preview-html" code={ExampleDisabledHTML} />
+      <Example.Preview slot="preview-vue" code={ExampleDisabledVue} />
       <Example.Code slot="code-html" code={ExampleDisabledHTML} />
       <Example.Code slot="code-astro" code={ExampleDisabledCodeAstro} />
+      <Example.Code slot="code-vue" code={ExampleDisabledCodeVue} />
     </Example>
   </section>
 

@@ -3,10 +3,8 @@
     --_accent-color: var(--primary);
     --_bg-color: var(--surface-tonal);
 
-    appearance: none;
     background-color: var(--_bg-color);
     block-size: var(--size-1);
-    border: 0;
     border-radius: var(--border-radius, 0.25rem);
     display: inline-block;
     inline-size: 100%;
@@ -27,28 +25,35 @@
       --_bg-color: var(--surface-tonal);
     }
 
-    &::-webkit-progress-bar {
+    &>progress {
+      appearance: none;
       background: none;
-      border-radius: var(--border-radius, 0.25rem);
-    }
+      block-size: 100%;
+      border: 0;
+      display: block;
+      inline-size: 100%;
 
-    &[value]::-webkit-progress-value {
-      background-color: var(--_accent-color);
-
-      @media (prefers-reduced-motion: no-preference) {
-        transition: inline-size 0.2s var(--ease-out-4, cubic-bezier(0, 0, 0.1, 1));
+      &::-webkit-progress-bar {
+        background: none;
+        border-radius: var(--border-radius, 0.25rem);
       }
-    }
 
-    &::-moz-progress-bar {
-      background-color: var(--_accent-color);
+      &[value]::-webkit-progress-value {
+        background-color: var(--_accent-color);
+
+        @media (prefers-reduced-motion: no-preference) {
+          transition: inline-size 0.2s var(--ease-out-4, cubic-bezier(0, 0, 0.1, 1));
+        }
+      }
+
+      &::-moz-progress-bar {
+        background-color: var(--_accent-color);
+      }
     }
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    progress:indeterminate {
-      background-color: var(--_bg-color);
-
+    :where(.ui-progress):has(> progress:indeterminate) {
       &::after {
         animation: indeterminate 2s linear infinite;
         background-color: var(--_accent-color);
@@ -58,19 +63,19 @@
         will-change: inset-inline-start, inset-inline-end;
       }
 
-      &[value]::-webkit-progress-value {
-        background-color: transparent;
-      }
+      &>progress {
+        &::-webkit-progress-value {
+          background-color: transparent;
+        }
 
-      &::-moz-progress-bar {
-        background-color: transparent;
+        &::-moz-progress-bar {
+          background-color: transparent;
+        }
       }
     }
 
     [dir="rtl"] {
-      :where(progress):indeterminate {
-        animation-direction: reverse;
-
+      :where(.ui-progress):has(> progress:indeterminate) {
         &::after {
           animation-direction: reverse;
         }

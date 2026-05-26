@@ -12,12 +12,9 @@ import {
   hrefFor,
   type FrameworkId,
 } from "../utils/framework-routing"
+import opuiPackage from "../../packages/opui/package.json"
 
-const response = await fetch(
-  "https://api.github.com/repos/felix-bohlin/ui/releases/latest",
-)
-const release = await response.json()
-const version = release.tag_name || "4.0.0"
+const version = opuiPackage.version
 
 const currentFramework = (Astro.currentLocale ??
   DEFAULT_FRAMEWORK) as FrameworkId

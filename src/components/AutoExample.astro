@@ -91,9 +91,7 @@ if (!astroComponent && !htmlSource && !svelteSource) {
   }
   {
     svelteComponent && (
-      <Fragment slot="review-svelte">
-        <Example.PreviewSvelte client:load {name} {slug} />
-      </Fragment>
+      <Example.Preview slot="preview-svelte" code={svelteComponent} />
     )
   }
   {htmlSource && <Example.Preview slot="preview-html" code={htmlSource} />}

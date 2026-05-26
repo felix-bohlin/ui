@@ -1,8 +1,6 @@
 <script lang="ts">
-  import type { RadioProps as Props } from "./types.svelte"
   import RadioInput from "./RadioInput.svelte"
-  import { getContext } from "svelte"
-  import type * as FieldSet from "../FieldSet/types.svelte"
+  import type { RadioProps as Props } from "./types.svelte"
 
   export const title = "Radio"
 
@@ -19,10 +17,7 @@
     ...rest
   }: Props = $props()
 
-  const currentFieldName = getContext<FieldSet.Context["name"]>("name")
-  const finalName = $derived(name || currentFieldName)
-  const currentFieldDescription =
-    getContext<FieldSet.Context["description"]>("description")
+  const description = ""
   const classes = $derived([
     "ui-radio",
     size && `ui-${size}`,
@@ -32,11 +27,7 @@
 </script>
 
 <label class={classes} data-invalid={critical || undefined}>
-  <RadioInput
-    aria-describedby={currentFieldDescription}
-    name={finalName}
-    {...rest}
-  />
+  <RadioInput aria-describedby={description} {...rest} />
   <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}
     >{@render children?.()}</span
   >

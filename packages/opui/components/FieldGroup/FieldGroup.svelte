@@ -1,7 +1,14 @@
 <script lang="ts">
-  import { setContext } from "svelte"
   import type { Props } from "./types.svelte"
-  import type * as FieldSet from "../FieldSet/types.svelte"
+  import {
+    createFieldGroup,
+    setFieldGroupContext,
+    createField,
+    addField,
+    getForm,
+    removeField,
+  } from "../Form/context.svelte"
+  import { onMount } from "svelte"
   export const title = "Field Group" as const
 
   const {
@@ -9,11 +16,46 @@
     class: className,
     direction,
     name,
+    type: inputType,
     ...rest
   }: Props = $props()
 
-  $effect(() => {
-    setContext<FieldSet.Context["name"]>("name", name)
+  const isGroup = $derived(Boolean(name && inputType))
+  const fieldGroup = $derived(
+    createFieldGroup(
+      {
+        name,
+      },
+      { inputType: "checkbox" },
+    ),
+  )
+  setFieldGroupContext(fieldGroup)
+
+  const field = $derived(
+    createField(
+      {
+        name: name ?? "",
+        type: isGroup ? "group" : "default",
+      },
+      { inputType },
+    ),
+  )
+
+  $effect.pre(() => {
+    if (field.type === "group") {
+      addField(field)
+    }
+  })
+
+  onMount(() => {
+    const form = getForm()
+    if (!form) return
+
+    return () => {
+      if (form.fields.has(field.name)) {
+        removeField(field.name, form)
+      }
+    }
   })
 
   let element = $state<HTMLDivElement | null>(null)
@@ -26,5 +68,5 @@
 </script>
 
 <div bind:this={element} class={classes} {...rest} role="group">
-  {@render children?.()}
+  {@render children?.(fieldGroup)}
 </div>

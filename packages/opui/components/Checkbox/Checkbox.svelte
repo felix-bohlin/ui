@@ -1,17 +1,19 @@
 <script lang="ts">
   import CheckboxInput from "./CheckboxInput.svelte"
   import type { CheckboxProps as Props } from "./types.svelte"
+
   export const title = "Checkbox" as const
 
   const {
     class: className,
     critical,
+    checked = $bindable(),
     hideLabel,
-    indeterminate,
-    name,
+    indeterminate = $bindable(),
     size,
     spread,
     stack,
+    id,
 
     // Snippets
     children,
@@ -21,11 +23,9 @@
 
   let element = $state<HTMLLabelElement | null>(null)
   export { element as this }
-  const id = $props.id()
-  // TODO: const { currentFieldName } = Astro.locals
-  const currentFieldName = ""
-  const endTextId = $derived(endText ? `end-text-${id}` : undefined)
-  const finalName = $derived(name || currentFieldName)
+
+  const componentId = $props.id()
+  const endTextId = $derived(endText ? `end-text-${componentId}` : undefined)
   const invalid = $derived(critical || undefined)
   const classes = $derived([
     "ui-checkbox",
@@ -41,8 +41,8 @@
 <label bind:this={element} class={classes} data-invalid={invalid}>
   <CheckboxInput
     aria-describedby={endTextId}
+    {checked}
     {indeterminate}
-    name={finalName}
     {...rest}
   />
   <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>

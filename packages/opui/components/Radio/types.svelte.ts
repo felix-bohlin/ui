@@ -1,6 +1,11 @@
 import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
 
-export type RadioProps = Base.RadioProps & SvelteHTMLElements["input"]
+type Actions = {
+  useSelect?: boolean
+}
+
+export type RadioProps = Base.RadioProps & SvelteHTMLElements["input"] & Actions
 export type RadioInputProps = Base.RadioInputProps &
-  Omit<SvelteHTMLElements["input"], "type">
+  Omit<SvelteHTMLElements["input"], "type"> &
+  Actions

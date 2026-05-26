@@ -1,15 +1,29 @@
 <script lang="ts">
   import { Checkbox, FieldGroup, FieldLegend, FieldSet } from "@opui/svelte"
-  // TODO: Indeterminate demo script
+  const fruits = ["Apples", "Bananas", "Cherries"] as const
+  let selection = $state([])
+  let indeterminate = $derived(
+    !!selection.length && fruits.length !== selection.length,
+  )
+  $effect(() => {
+    console.log(selection, indeterminate)
+  })
 </script>
 
 <FieldSet class="indeterminate-demo">
+  {JSON.stringify(selection)}
   <FieldLegend>
-    <Checkbox class="parent">Select all</Checkbox>
+    <Checkbox {indeterminate}>Select all</Checkbox>
   </FieldLegend>
-  <FieldGroup name="indeterminate-children-astro">
-    <Checkbox class="child" checked>Apples</Checkbox>
-    <Checkbox class="child">Bananas</Checkbox>
-    <Checkbox class="child">Cherries</Checkbox>
+  <FieldGroup name="indeterminate-children-svelte">
+    {#each fruits as fruit}
+      <input
+        type="checkbox"
+        name="selection"
+        onchange={() => console.log("hi")}
+        bind:group={selection}
+        value={fruit}
+      />
+    {/each}
   </FieldGroup>
 </FieldSet>

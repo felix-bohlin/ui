@@ -4,17 +4,15 @@
   import { FieldLegend } from "@opui/svelte"
   import { FieldGroup } from "@opui/svelte"
   import { Form } from "@opui/svelte"
-
-  const name = "fieldset-field-description-1-astro"
 </script>
 
 <Form>
   <FieldSet data-invalid>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" {name}>
-      <Radio {name} checked>Radio 1</Radio>
-      <Radio {name}>Radio 2</Radio>
-      <Radio {name}>Radio 3</Radio>
+    <FieldGroup direction="row" name="fieldset-field-description-1-astro">
+      <Radio checked>Radio 1</Radio>
+      <Radio>Radio 2</Radio>
+      <Radio>Radio 3</Radio>
     </FieldGroup>
     <span class="end-text">Something went wrong!</span>
   </FieldSet>

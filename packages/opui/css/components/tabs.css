@@ -9,7 +9,7 @@
     gap: 0 var(--size-1);
     position: relative;
 
-    &>.ui-tab-input[type="radio"] {
+    & > .ui-tab-input[type="radio"] {
       /* utils > .ui-sr-only */
       /* TODO: use mixin for this when available */
       block-size: 1px;
@@ -20,36 +20,35 @@
       white-space: nowrap;
 
       &:checked {
-
         /* Checked Tab */
-        &+[role="tab"],
-        &+.ui-tab-label {
+        & + [role="tab"],
+        & + .ui-tab-label {
           border-block-end-color: var(--_accent-color);
           color: var(--_accent-color);
 
           /* Checked Panel */
-          &+[role="tabpanel"],
-          &+.ui-tab-panel {
+          & + [role="tabpanel"],
+          & + .ui-tab-panel {
             display: block;
           }
         }
       }
 
       &:focus-visible {
-
-        &+[role="tab"],
-        &+.ui-tab-label {
+        & + [role="tab"],
+        & + .ui-tab-label {
           --focus-ring-color: var(--text-muted);
           --focus-ring-offset: calc(-1 * var(--size-2));
-          outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+          outline: var(--focus-ring-width) var(--focus-ring-style)
+            var(--focus-ring-color);
           outline-offset: var(--focus-ring-offset);
         }
       }
     }
 
     /* Tab */
-    &>[role="tab"],
-    &>.ui-tab-label {
+    & > [role="tab"],
+    & > .ui-tab-label {
       align-items: center;
       background-color: transparent;
       border-bottom: 2px solid transparent;
@@ -67,14 +66,16 @@
       user-select: none;
 
       &:hover {
-        background-color: light-dark(oklch(from var(--_accent-color) calc(l * 0.75) none h / 5%),
-            oklch(from var(--_accent-color) calc(l * 1.25) none h / 5%));
+        background-color: light-dark(
+          oklch(from var(--_accent-color) calc(l * 0.75) none h / 5%),
+          oklch(from var(--_accent-color) calc(l * 1.25) none h / 5%)
+        );
       }
     }
 
     /* Tab Panel */
-    &>[role="tabpanel"],
-    &>.ui-tab-panel {
+    & > [role="tabpanel"],
+    & > .ui-tab-panel {
       display: none;
       inline-size: 100%;
       order: 2;

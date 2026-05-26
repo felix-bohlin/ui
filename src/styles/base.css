@@ -28,11 +28,11 @@
 }
 
 .example-container {
-  :where(.ui-text-field, .ui-textarea, .ui-select):not(.ui-auto-fit, .ui-row) :where(input, textarea, select) {
+  :where(.ui-text-field, .ui-textarea, .ui-select):not(.ui-auto-fit, .ui-row)
+    :where(input, textarea, select) {
     inline-size: 25ch;
   }
 }
-
 
 /* Setup */
 :root {
@@ -70,8 +70,10 @@
   }
 
   &.ui-text {
-    max-inline-size: min(calc(100% - var(--_page-gutters)),
-        var(--_content-text));
+    max-inline-size: min(
+      calc(100% - var(--_page-gutters)),
+      var(--_content-text)
+    );
   }
 
   /* Horizontal alignment */

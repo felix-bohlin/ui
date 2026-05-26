@@ -44,7 +44,8 @@
 
       &:focus-visible {
         --focus-ring-color: currentColor;
-        outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+        outline: var(--focus-ring-width) var(--focus-ring-style)
+          var(--focus-ring-color);
         outline-offset: var(--focus-ring-offset);
       }
 
@@ -76,13 +77,14 @@
           --_dot-bg-color: var(--_accent-contrast);
           --_dot-outline-size: calc(var(--size-1) - 1px);
 
-          inset-inline-start: calc(var(--_track-width) - var(--_dot-size) - var(--size-1));
+          inset-inline-start: calc(
+            var(--_track-width) - var(--_dot-size) - var(--size-1)
+          );
         }
       }
 
       /* Animation */
       @media (prefers-reduced-motion: no-preference) {
-
         /* Track */
         &::before {
           transition:
@@ -142,7 +144,9 @@
       }
 
       .ui-icon-unchecked {
-        margin-inline-start: calc(var(--_track-width) - var(--_dot-size) - var(--size-1));
+        margin-inline-start: calc(
+          var(--_track-width) - var(--_dot-size) - var(--size-1)
+        );
       }
 
       .ui-icon-checked {
@@ -221,7 +225,6 @@
       }
 
       &:has(.ui-icon-checked, .ui-icon-unchecked) {
-
         input[role="switch"],
         .ui-icon-checked,
         .ui-icon-unchecked {

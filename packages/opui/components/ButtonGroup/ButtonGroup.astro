@@ -21,7 +21,14 @@ const {
 ---
 
 <div
-  class:list={["ui-button-group", color && `ui-${color}`, size && `ui-${size}`, variant && `ui-${variant}`, orientation && `ui-${orientation}`, className]}
+  class:list={[
+    "ui-button-group",
+    color && `ui-${color}`,
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
+    orientation && `ui-${orientation}`,
+    className,
+  ]}
   role="group"
   {...rest}
 >

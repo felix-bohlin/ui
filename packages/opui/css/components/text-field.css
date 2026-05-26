@@ -1,5 +1,4 @@
 @layer components.extended {
-
   /*
 - Common styling for input, textarea and select
 - Form related styles such as: label, supporting text, error handling
@@ -106,7 +105,6 @@
 
     /* Textarea - keep affix aligned with the first line */
     &.ui-textarea .ui-field {
-
       .ui-prefix,
       .ui-suffix {
         align-self: start;
@@ -153,7 +151,6 @@
       /* Variants */
       &.ui-filled {
         input {
-
           &::-webkit-file-upload-button,
           &::file-selector-button {
             background-color: var(--surface-default);
@@ -192,7 +189,6 @@
       .ui-label {
         /* Make sure chevron is visible */
         inline-size: calc(100% - var(--size-6));
-
       }
     }
 
@@ -203,7 +199,8 @@
 
         button {
           outline: 0;
-          padding: var(--_field-padding-block) var(--size-8) var(--_field-padding-block) var(--_field-padding-inline);
+          padding: var(--_field-padding-block) var(--size-8)
+            var(--_field-padding-block) var(--_field-padding-inline);
         }
       }
     }
@@ -211,7 +208,8 @@
     /* Non-customizable Select */
     &:has(select):not(:has(button)) {
       select {
-        padding: var(--_field-padding-block) var(--size-8) var(--_field-padding-block) var(--_field-padding-inline);
+        padding: var(--_field-padding-block) var(--size-8)
+          var(--_field-padding-block) var(--_field-padding-inline);
       }
     }
 
@@ -309,11 +307,12 @@
       --_bg-color: var(--surface-tonal);
 
       &:not(:has([disabled], :has(input[type="color"]))) {
-
         /* Hover */
         &:hover {
-          --_bg-color: light-dark(oklch(from var(--surface-tonal) calc(l * 0.93) c h),
-              oklch(from var(--surface-tonal) calc(l * 1.1) c h));
+          --_bg-color: light-dark(
+            oklch(from var(--surface-tonal) calc(l * 0.93) c h),
+            oklch(from var(--surface-tonal) calc(l * 1.1) c h)
+          );
         }
       }
     }
@@ -404,7 +403,7 @@
       .ui-field:has(textarea) {
         grid-row: 1 / span 3;
 
-        +.ui-end-text {
+        + .ui-end-text {
           grid-row: 4;
         }
       }

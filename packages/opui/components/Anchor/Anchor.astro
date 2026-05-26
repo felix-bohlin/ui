@@ -45,7 +45,11 @@ const positionArea = alignment
       <slot />
     )
   }
-  <span class="ui-anchor-floating" id={id} popover={isHover ? "hint" : undefined}>
+  <span
+    class="ui-anchor-floating"
+    id={id}
+    popover={isHover ? "hint" : undefined}
+  >
     <slot name="anchored" />
   </span>
 </span>

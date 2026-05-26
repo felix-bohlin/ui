@@ -16,7 +16,7 @@ export function isContentHeading(heading: Element) {
  */
 export function getHeadings(
   container: ParentNode = document,
-  selector: string = 'h2, h3, h4',
+  selector: string = "h2, h3, h4",
 ) {
   return Array.from(
     container.querySelectorAll<HTMLHeadingElement>(selector),

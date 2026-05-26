@@ -41,7 +41,8 @@
 
     &[open] {
       opacity: 1;
-      transition: display 0.2s allow-discrete,
+      transition:
+        display 0.2s allow-discrete,
         overlay 0.2s allow-discrete,
         opacity 0.2s var(--ease-out-1);
 

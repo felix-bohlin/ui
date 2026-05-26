@@ -6,10 +6,6 @@
 
 - **Progress**: the `.ui-progress` class is now placed on a wrapper `<div>` instead of directly on `<progress>`. Raw HTML users must change `<progress class="ui-progress">` → `<div class="ui-progress"><progress>…</progress></div>`. Variant modifiers (`ui-default`, `ui-filled`, `ui-tonal`) also move to the wrapper `<div>`. The Astro component handles this automatically.
 
-### Fixed
-
-- Progress indeterminate animation and surface-variant styles now work correctly with the new wrapper structure.
-
 ## 5.0.0 - 2026-05-21
 
 ### Breaking

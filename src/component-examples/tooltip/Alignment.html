@@ -1,49 +1,89 @@
 <div class="tooltip-alignment-grid">
-	<span class="ui-anchor ui-tooltip" style="--anchor-position-area: block-start;">
-		<button class="ui-button" interestfor="tooltip-top" commandfor="tooltip-top" command="toggle-popover">Top</button>
-		<span class="ui-anchor-floating" id="tooltip-top" popover="hint">Above</span>
-	</span>
-	<span class="ui-anchor ui-tooltip" style="--anchor-position-area: inline-start;">
-		<button class="ui-button" interestfor="tooltip-start" commandfor="tooltip-start"
-			command="toggle-popover">Start</button>
-		<span class="ui-anchor-floating" id="tooltip-start" popover="hint">Before</span>
-	</span>
-	<span class="ui-anchor ui-tooltip" style="--anchor-position-area: inline-end;">
-		<button class="ui-button" interestfor="tooltip-end" commandfor="tooltip-end" command="toggle-popover">End</button>
-		<span class="ui-anchor-floating" id="tooltip-end" popover="hint">After</span>
-	</span>
-	<span class="ui-anchor ui-tooltip" style="--anchor-position-area: block-end;">
-		<button class="ui-button" interestfor="tooltip-bottom" commandfor="tooltip-bottom"
-			command="toggle-popover">Bottom</button>
-		<span class="ui-anchor-floating" id="tooltip-bottom" popover="hint">Below</span>
-	</span>
+  <span
+    class="ui-anchor ui-tooltip"
+    style="--anchor-position-area: block-start"
+  >
+    <button
+      class="ui-button"
+      interestfor="tooltip-top"
+      commandfor="tooltip-top"
+      command="toggle-popover"
+    >
+      Top
+    </button>
+    <span class="ui-anchor-floating" id="tooltip-top" popover="hint"
+      >Above</span
+    >
+  </span>
+  <span
+    class="ui-anchor ui-tooltip"
+    style="--anchor-position-area: inline-start"
+  >
+    <button
+      class="ui-button"
+      interestfor="tooltip-start"
+      commandfor="tooltip-start"
+      command="toggle-popover"
+    >
+      Start
+    </button>
+    <span class="ui-anchor-floating" id="tooltip-start" popover="hint"
+      >Before</span
+    >
+  </span>
+  <span class="ui-anchor ui-tooltip" style="--anchor-position-area: inline-end">
+    <button
+      class="ui-button"
+      interestfor="tooltip-end"
+      commandfor="tooltip-end"
+      command="toggle-popover"
+    >
+      End
+    </button>
+    <span class="ui-anchor-floating" id="tooltip-end" popover="hint"
+      >After</span
+    >
+  </span>
+  <span class="ui-anchor ui-tooltip" style="--anchor-position-area: block-end">
+    <button
+      class="ui-button"
+      interestfor="tooltip-bottom"
+      commandfor="tooltip-bottom"
+      command="toggle-popover"
+    >
+      Bottom
+    </button>
+    <span class="ui-anchor-floating" id="tooltip-bottom" popover="hint"
+      >Below</span
+    >
+  </span>
 </div>
 
 <style>
-	.tooltip-alignment-grid {
-		display: grid;
-		gap: var(--size-3);
-		grid-template-areas:
-			".     top    .  "
-			"start .      end"
-			".     bottom .  ";
-		justify-items: center;
-		align-items: center;
-	}
+  .tooltip-alignment-grid {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-areas:
+      ".     top    .  "
+      "start .      end"
+      ".     bottom .  ";
+    justify-items: center;
+    align-items: center;
+  }
 
-	.tooltip-alignment-grid> :nth-child(1) {
-		grid-area: top;
-	}
+  .tooltip-alignment-grid > :nth-child(1) {
+    grid-area: top;
+  }
 
-	.tooltip-alignment-grid> :nth-child(2) {
-		grid-area: start;
-	}
+  .tooltip-alignment-grid > :nth-child(2) {
+    grid-area: start;
+  }
 
-	.tooltip-alignment-grid> :nth-child(3) {
-		grid-area: end;
-	}
+  .tooltip-alignment-grid > :nth-child(3) {
+    grid-area: end;
+  }
 
-	.tooltip-alignment-grid> :nth-child(4) {
-		grid-area: bottom;
-	}
+  .tooltip-alignment-grid > :nth-child(4) {
+    grid-area: bottom;
+  }
 </style>

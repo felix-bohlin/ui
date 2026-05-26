@@ -69,10 +69,7 @@ const hasFrameworkSpecificApi =
             <Fragment>
               {title && <h3 id={id}>{title}</h3>}
               {isFrameworkSpecificEntry ? (
-                <Astro.self
-                  apis={pickFrameworkVariant(api)}
-                  hideTitle={true}
-                />
+                <Astro.self apis={pickFrameworkVariant(api)} hideTitle={true} />
               ) : apiData?.rows ? (
                 <div class="api-table-container">
                   <Table class="api-table">

@@ -1,109 +1,112 @@
 @layer components.root {
-	:where(.ui-callout) {
-		--_bg-color: var(--surface-tonal);
-		--_border-color: var(--surface-tonal);
-		--_color: var(--text-primary);
-		--_icon-color: currentColor;
-		--_link-hover-color: var(--primary);
-		--_padding: var(--size-3);
-		--_border-radius: var(--border-radius);
-		--_gap: var(--size-3);
-		--_content-gap: var(--size-2);
-		--_font-size: var(--font-size-05);
-		--_title-font-size: var(--font-size-1);
-		--_icon-size: var(--size-4);
-		--_surface-bg: var(--surface-default);
+  :where(.ui-callout) {
+    --_bg-color: var(--surface-tonal);
+    --_border-color: var(--surface-tonal);
+    --_color: var(--text-primary);
+    --_icon-color: currentColor;
+    --_link-hover-color: var(--primary);
+    --_padding: var(--size-3);
+    --_border-radius: var(--border-radius);
+    --_gap: var(--size-3);
+    --_content-gap: var(--size-2);
+    --_font-size: var(--font-size-05);
+    --_title-font-size: var(--font-size-1);
+    --_icon-size: var(--size-4);
+    --_surface-bg: var(--surface-default);
 
-		--_outlined-bg-color: var(--surface-default);
-		--_outlined-border-color: var(--border-color);
-		--_outlined-color: var(--text-primary);
-		--_outlined-icon-color: currentColor;
+    --_outlined-bg-color: var(--surface-default);
+    --_outlined-border-color: var(--border-color);
+    --_outlined-color: var(--text-primary);
+    --_outlined-icon-color: currentColor;
 
-		background-color: var(--_bg-color, var(--_surface-bg));
-		border: 1px solid var(--_border-color, var(--border-color));
-		border-radius: var(--_border-radius);
-		color: var(--_color);
-		isolation: isolate;
-		padding: var(--_padding);
-		position: relative;
+    background-color: var(--_bg-color, var(--_surface-bg));
+    border: 1px solid var(--_border-color, var(--border-color));
+    border-radius: var(--_border-radius);
+    color: var(--_color);
+    isolation: isolate;
+    padding: var(--_padding);
+    position: relative;
 
-		&.ui-critical,
-		&.ui-info,
-		&.ui-neutral,
-		&.ui-success,
-		&.ui-warning {
-			--_bg-color: light-dark(oklch(from var(--color-2) l c h / 20%), oklch(from var(--color-6) l c h / 5%));
-			--_border-color: light-dark(var(--color-5), var(--color-11));
-			--_color: light-dark(var(--color-16), var(--color-1));
-			--_icon-color: var(--color-9);
+    &.ui-critical,
+    &.ui-info,
+    &.ui-neutral,
+    &.ui-success,
+    &.ui-warning {
+      --_bg-color: light-dark(
+        oklch(from var(--color-2) l c h / 20%),
+        oklch(from var(--color-6) l c h / 5%)
+      );
+      --_border-color: light-dark(var(--color-5), var(--color-11));
+      --_color: light-dark(var(--color-16), var(--color-1));
+      --_icon-color: var(--color-9);
 
-			--_outlined-bg-color: var(--surface-default);
-			--_outlined-border-color: var(--color-9);
-			--_outlined-color: light-dark(var(--color-15), var(--color-1));
-			--_outlined-icon-color: var(--color-9);
-		}
+      --_outlined-bg-color: var(--surface-default);
+      --_outlined-border-color: var(--color-9);
+      --_outlined-color: light-dark(var(--color-15), var(--color-1));
+      --_outlined-icon-color: var(--color-9);
+    }
 
-		&.ui-outlined {
-			--_bg-color: var(--_outlined-bg-color);
-			--_border-color: var(--_outlined-border-color);
-			--_color: var(--_outlined-color);
-			--_icon-color: var(--_outlined-icon-color);
-		}
+    &.ui-outlined {
+      --_bg-color: var(--_outlined-bg-color);
+      --_border-color: var(--_outlined-border-color);
+      --_color: var(--_outlined-color);
+      --_icon-color: var(--_outlined-icon-color);
+    }
 
-		&::before {
-			background-color: var(--_bg-color);
-			border-radius: inherit;
-			content: "";
-			inset: 0;
-			pointer-events: none;
-			position: absolute;
-			z-index: -1;
-		}
+    &::before {
+      background-color: var(--_bg-color);
+      border-radius: inherit;
+      content: "";
+      inset: 0;
+      pointer-events: none;
+      position: absolute;
+      z-index: -1;
+    }
 
-		&>.ui-content {
-			display: grid;
-			font-size: var(--_font-size);
-			gap: var(--_content-gap);
+    & > .ui-content {
+      display: grid;
+      font-size: var(--_font-size);
+      gap: var(--_content-gap);
 
-			h1,
-			h2,
-			h3,
-			h4,
-			h5,
-			h6 {
-				color: inherit;
-				font-size: var(--_title-font-size);
-				font-weight: 600;
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        color: inherit;
+        font-size: var(--_title-font-size);
+        font-weight: 600;
 
-				* {
-					font-size: inherit;
-				}
-			}
-		}
+        * {
+          font-size: inherit;
+        }
+      }
+    }
 
-		/* Links
+    /* Links
     * Can't make sure contrast will be acceptable (yet) so we use the current text color instead.
     */
-		&:not(.ui-outlined) {
-			a[href] {
-				color: inherit;
+    &:not(.ui-outlined) {
+      a[href] {
+        color: inherit;
 
-				&:hover {
-					color: var(--_link-hover-color);
-				}
-			}
-		}
+        &:hover {
+          color: var(--_link-hover-color);
+        }
+      }
+    }
 
-		/* Icon */
-		&:has(svg) {
-			display: grid;
-			gap: var(--_gap);
-			grid-template-columns: var(--_icon-size) 1fr;
+    /* Icon */
+    &:has(svg) {
+      display: grid;
+      gap: var(--_gap);
+      grid-template-columns: var(--_icon-size) 1fr;
 
-			svg {
-				margin-block-start: 0.15rem;
-				stroke: var(--_icon-color);
-			}
-		}
-	}
+      svg {
+        margin-block-start: 0.15rem;
+        stroke: var(--_icon-color);
+      }
+    }
+  }
 }

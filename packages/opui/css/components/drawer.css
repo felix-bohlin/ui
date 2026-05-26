@@ -1,171 +1,171 @@
 @layer components.root {
-	:where(dialog.ui-drawer) {
-		--_backdrop-bg-color: transparent;
-		--_backdrop-blur: blur(2px);
-		--_bg-color: var(--surface-default);
-		--_block-size: min(80vb, 650px);
-		--_border-color: var(--border-color);
-		--_border-width: var(--border-width);
-		--_color: var(--text-primary);
-		--_content-padding: var(--size-4);
-		--_footer-gap: var(--size-3);
-		--_footer-padding: var(--size-3);
-		--_header-font-size: var(--font-size-3);
-		--_header-padding: var(--size-3);
-		--_inline-size: min(375px, 100vi);
-		--_shadow: var(--shadow-2);
-		--_transition-duration: 0.2s;
-		--_transition-timing: var(--ease-out-3);
+  :where(dialog.ui-drawer) {
+    --_backdrop-bg-color: transparent;
+    --_backdrop-blur: blur(2px);
+    --_bg-color: var(--surface-default);
+    --_block-size: min(80vb, 650px);
+    --_border-color: var(--border-color);
+    --_border-width: var(--border-width);
+    --_color: var(--text-primary);
+    --_content-padding: var(--size-4);
+    --_footer-gap: var(--size-3);
+    --_footer-padding: var(--size-3);
+    --_header-font-size: var(--font-size-3);
+    --_header-padding: var(--size-3);
+    --_inline-size: min(375px, 100vi);
+    --_shadow: var(--shadow-2);
+    --_transition-duration: 0.2s;
+    --_transition-timing: var(--ease-out-3);
 
-		background-color: var(--_bg-color);
-		border: none;
-		box-shadow: var(--_shadow);
-		color: var(--_color);
-		display: flex;
-		flex-direction: column;
-		margin: 0;
-		max-inline-size: 100%;
-		padding: 0;
-		position: fixed;
-		transition:
-			display var(--_transition-duration) allow-discrete,
-			overlay var(--_transition-duration) allow-discrete,
-			translate var(--_transition-duration) var(--_transition-timing);
-		z-index: 1000;
+    background-color: var(--_bg-color);
+    border: none;
+    box-shadow: var(--_shadow);
+    color: var(--_color);
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    max-inline-size: 100%;
+    padding: 0;
+    position: fixed;
+    transition:
+      display var(--_transition-duration) allow-discrete,
+      overlay var(--_transition-duration) allow-discrete,
+      translate var(--_transition-duration) var(--_transition-timing);
+    z-index: 1000;
 
-		&::backdrop {
-			backdrop-filter: var(--_backdrop-blur);
-			background-color: var(--_backdrop-bg-color);
-			opacity: 0;
-			transition:
-				display var(--_transition-duration) allow-discrete,
-				overlay var(--_transition-duration) allow-discrete,
-				opacity var(--_transition-duration) var(--_transition-timing);
-		}
+    &::backdrop {
+      backdrop-filter: var(--_backdrop-blur);
+      background-color: var(--_backdrop-bg-color);
+      opacity: 0;
+      transition:
+        display var(--_transition-duration) allow-discrete,
+        overlay var(--_transition-duration) allow-discrete,
+        opacity var(--_transition-duration) var(--_transition-timing);
+    }
 
-		&.ui-backdrop-transparent {
-			--_backdrop-blur: none;
-		}
+    &.ui-backdrop-transparent {
+      --_backdrop-blur: none;
+    }
 
-		.ui-header {
-			align-items: center;
-			border-block-end: var(--_border-width) solid var(--_border-color);
-			display: flex;
-			padding: var(--_header-padding);
+    .ui-header {
+      align-items: center;
+      border-block-end: var(--_border-width) solid var(--_border-color);
+      display: flex;
+      padding: var(--_header-padding);
 
-			:where(h1, h2, h3, h4, h5, h6) {
-				font-size: var(--_header-font-size);
-				margin: 0;
-			}
+      :where(h1, h2, h3, h4, h5, h6) {
+        font-size: var(--_header-font-size);
+        margin: 0;
+      }
 
-			:where(.ui-icon-button) {
-				margin-inline-start: auto;
-			}
-		}
+      :where(.ui-icon-button) {
+        margin-inline-start: auto;
+      }
+    }
 
-		.ui-content {
-			flex: 1;
-			overflow-y: auto;
-			padding: var(--_content-padding);
-		}
+    .ui-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--_content-padding);
+    }
 
-		.ui-footer {
-			border-block-start: var(--_border-width) solid var(--_border-color);
-			display: flex;
-			gap: var(--_footer-gap);
-			justify-content: end;
-			padding: var(--_footer-padding);
-		}
+    .ui-footer {
+      border-block-start: var(--_border-width) solid var(--_border-color);
+      display: flex;
+      gap: var(--_footer-gap);
+      justify-content: end;
+      padding: var(--_footer-padding);
+    }
 
-		&.ui-inline-start,
-		&.ui-inline-end {
-			block-size: 100dvb;
-			inline-size: var(--_inline-size);
-			inset-block: 0;
-			max-block-size: 100%;
-		}
+    &.ui-inline-start,
+    &.ui-inline-end {
+      block-size: 100dvb;
+      inline-size: var(--_inline-size);
+      inset-block: 0;
+      max-block-size: 100%;
+    }
 
-		&.ui-inline-start {
-			border-inline-end: var(--_border-width) solid var(--_border-color);
-			inset-inline-end: auto;
-			inset-inline-start: 0;
-			translate: -100% 0;
-		}
+    &.ui-inline-start {
+      border-inline-end: var(--_border-width) solid var(--_border-color);
+      inset-inline-end: auto;
+      inset-inline-start: 0;
+      translate: -100% 0;
+    }
 
-		&.ui-inline-end {
-			border-inline-start: var(--_border-width) solid var(--_border-color);
-			inset-inline-end: 0;
-			inset-inline-start: auto;
-			translate: 100% 0;
+    &.ui-inline-end {
+      border-inline-start: var(--_border-width) solid var(--_border-color);
+      inset-inline-end: 0;
+      inset-inline-start: auto;
+      translate: 100% 0;
 
-			.ui-footer {
-				justify-content: start;
-			}
-		}
+      .ui-footer {
+        justify-content: start;
+      }
+    }
 
-		&.ui-block-start,
-		&.ui-block-end {
-			block-size: var(--_block-size);
-			inline-size: 100dvi;
-			inset-inline: 0;
-			max-block-size: 80dvb;
-		}
+    &.ui-block-start,
+    &.ui-block-end {
+      block-size: var(--_block-size);
+      inline-size: 100dvi;
+      inset-inline: 0;
+      max-block-size: 80dvb;
+    }
 
-		&.ui-block-start {
-			border-block-end: var(--_border-width) solid var(--_border-color);
-			inset-block-end: auto;
-			inset-block-start: 0;
-			translate: 0 -100%;
-		}
+    &.ui-block-start {
+      border-block-end: var(--_border-width) solid var(--_border-color);
+      inset-block-end: auto;
+      inset-block-start: 0;
+      translate: 0 -100%;
+    }
 
-		&.ui-block-end {
-			border-block-start: var(--_border-width) solid var(--_border-color);
-			inset-block-end: 0;
-			inset-block-start: auto;
-			translate: 0 100%;
-		}
+    &.ui-block-end {
+      border-block-start: var(--_border-width) solid var(--_border-color);
+      inset-block-end: 0;
+      inset-block-start: auto;
+      translate: 0 100%;
+    }
 
-		&[open] {
-			translate: 0 0;
+    &[open] {
+      translate: 0 0;
 
-			&::backdrop {
-				opacity: 1;
-			}
+      &::backdrop {
+        opacity: 1;
+      }
 
-			@starting-style {
-				&::backdrop {
-					opacity: 0;
-				}
+      @starting-style {
+        &::backdrop {
+          opacity: 0;
+        }
 
-				&.ui-inline-start {
-					translate: -100% 0;
-				}
+        &.ui-inline-start {
+          translate: -100% 0;
+        }
 
-				&.ui-inline-end {
-					translate: 100% 0;
-				}
+        &.ui-inline-end {
+          translate: 100% 0;
+        }
 
-				&.ui-block-start {
-					translate: 0 -100%;
-				}
+        &.ui-block-start {
+          translate: 0 -100%;
+        }
 
-				&.ui-block-end {
-					translate: 0 100%;
-				}
-			}
-		}
-	}
+        &.ui-block-end {
+          translate: 0 100%;
+        }
+      }
+    }
+  }
 
-	/* Scroll-lock is provided by the shared `.ui-scroll-lock` utility in core/utils.css.
+  /* Scroll-lock is provided by the shared `.ui-scroll-lock` utility in core/utils.css.
 	   This carve-out re-enables page scrolling when a transparent-backdrop drawer is
 	   open on wide viewports (where the drawer doesn't visually cover the page). */
-	html:has(dialog.ui-drawer.ui-scroll-lock[open].ui-backdrop-transparent) {
-		overflow: unset;
-		overscroll-behavior: auto;
+  html:has(dialog.ui-drawer.ui-scroll-lock[open].ui-backdrop-transparent) {
+    overflow: unset;
+    overscroll-behavior: auto;
 
-		@media (width < 500px) {
-			overflow: clip;
-			overscroll-behavior: contain;
-		}
-	}
+    @media (width < 500px) {
+      overflow: clip;
+      overscroll-behavior: contain;
+    }
+  }
 }

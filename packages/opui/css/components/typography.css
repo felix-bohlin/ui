@@ -1,5 +1,4 @@
 @layer components.root {
-
   :where(.ui-p) {
     text-wrap: pretty;
 
@@ -54,8 +53,10 @@
 
   /** Overline */
   :where(.ui-overline) {
-    color: light-dark(oklch(from var(--text-muted) calc(l * 1.25) c h),
-        oklch(from var(--text-muted) calc(l * 0.75) c h));
+    color: light-dark(
+      oklch(from var(--text-muted) calc(l * 1.25) c h),
+      oklch(from var(--text-muted) calc(l * 0.75) c h)
+    );
     font-size: var(--font-size-0);
     font-weight: 500;
     letter-spacing: 0.06em;
@@ -63,18 +64,20 @@
   }
 
   :where(.ui-hgroup) {
-    &>p {
+    & > p {
       margin: 0;
     }
 
-    &> :where(h1, h2, h3, h4, h5, h6) {
+    & > :where(h1, h2, h3, h4, h5, h6) {
       margin-block: 0 0.4em;
     }
 
     /* First p element (overline) */
-    &>p:first-of-type:first-child {
-      color: light-dark(oklch(from var(--text-muted) calc(l * 1.25) c h),
-          oklch(from var(--text-muted) calc(l * 0.75) c h));
+    & > p:first-of-type:first-child {
+      color: light-dark(
+        oklch(from var(--text-muted) calc(l * 1.25) c h),
+        oklch(from var(--text-muted) calc(l * 0.75) c h)
+      );
       font-size: var(--font-size-0);
       font-weight: 500;
       letter-spacing: 0.06em;
@@ -82,13 +85,13 @@
     }
 
     /* Body paragraphs after the heading */
-    &>p:not(:first-of-type:first-child) {
+    & > p:not(:first-of-type:first-child) {
       color: oklch(from currentColor l c h / 75%);
       font-size: var(--font-size-3);
       line-height: 1.6;
     }
 
-    &>p+p {
+    & > p + p {
       margin-block-start: 0.75em;
     }
   }
@@ -99,8 +102,6 @@
     font-size: var(--font-size-0);
     line-height: 1.6;
   }
-
-
 
   /* Inline text elements — class utilities (work anywhere) */
   :where(.ui-u, .ui-abbr, .ui-dfn) {
@@ -154,7 +155,7 @@
   :where(.ui-mark) {
     border-radius: var(--radius-2);
     box-decoration-break: clone;
-    padding: .1ex .3ex;
+    padding: 0.1ex 0.3ex;
     vertical-align: baseline;
   }
 
@@ -227,7 +228,7 @@
     scrollbar-width: thin;
     white-space: pre;
 
-    >code {
+    > code {
       background: none;
       border-radius: 0;
       color: inherit;
@@ -237,7 +238,6 @@
       writing-mode: inherit;
     }
   }
-
 }
 
 /* Rich text */
@@ -254,7 +254,6 @@
       text-underline-offset: 2px;
 
       &[href] {
-
         &:hover,
         &:focus-visible {
           color: var(--primary-light);
@@ -304,7 +303,7 @@
       overflow-x: auto;
       scrollbar-width: thin;
 
-      >code {
+      > code {
         background: none;
         border-radius: 0;
         color: inherit;
@@ -314,7 +313,6 @@
         writing-mode: inherit;
       }
     }
-
 
     /* Text */
     p {
@@ -329,7 +327,7 @@
       font-weight: 700;
       text-wrap: pretty;
 
-      &+*:not(&) {
+      & + *:not(&) {
         margin-block-start: 0;
       }
     }
@@ -376,8 +374,10 @@
 
     /** Overline */
     :is(.ui-overline, hgroup p:first-of-type:first-child) {
-      color: light-dark(oklch(from var(--text-muted) calc(l * 1.25) c h),
-          oklch(from var(--text-muted) calc(l * 0.75) c h));
+      color: light-dark(
+        oklch(from var(--text-muted) calc(l * 1.25) c h),
+        oklch(from var(--text-muted) calc(l * 0.75) c h)
+      );
       font-size: var(--font-size-0);
       font-weight: 500;
       letter-spacing: 0.06em;
@@ -385,26 +385,26 @@
     }
 
     hgroup {
-      &>p {
+      & > p {
         margin: 0;
       }
 
-      &> :where(h1, h2, h3, h4, h5, h6) {
+      & > :where(h1, h2, h3, h4, h5, h6) {
         margin-block: 0 0.4em;
       }
 
-      &+* {
+      & + * {
         margin-block-start: 3em;
       }
 
       /* Body paragraphs after the heading */
-      &>p:not(:first-of-type:first-child) {
+      & > p:not(:first-of-type:first-child) {
         color: oklch(from currentColor l c h / 75%);
         font-size: var(--font-size-3);
         line-height: 1.6;
       }
 
-      &>p+p {
+      & > p + p {
         margin-block-start: 0.75em;
       }
     }
@@ -466,7 +466,7 @@
       margin-block: var(--size-7);
       place-items: center;
 
-      &>* {
+      & > * {
         margin-block: 0;
       }
 
@@ -477,18 +477,18 @@
     }
 
     /* Remove top margin from first child */
-    &> :first-child {
+    & > :first-child {
       margin-block-start: 0;
     }
 
     /* Remove bottom margin from last child */
-    &> :last-child {
+    & > :last-child {
       margin-block-end: 0;
     }
 
     /* Horizontal rules */
     hr {
-      &+* {
+      & + * {
         margin-block-start: 0;
       }
     }
@@ -569,7 +569,7 @@
     mark {
       border-radius: var(--radius-2);
       box-decoration-break: clone;
-      padding: .1ex .3ex;
+      padding: 0.1ex 0.3ex;
       vertical-align: baseline;
     }
 

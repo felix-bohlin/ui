@@ -1,34 +1,11 @@
 ---
-type Item = {
-  text: string
-  value: any
-}
-
-type Props = {
-  [key: string]: any
-  class?: string
-  description?: string
-  disabled?: boolean
-  critical?: boolean
-  dense?: boolean
-  id?: string
-  items?: Item[]
-  label?: string
-  name?: string
-  spread?: boolean
-  required?: boolean
-  size?: "small"
-  endText?: string
-  value?: any
-  variant?: "outlined" | "filled"
-}
+import type { Props } from './types.astro'
 
 export const title = "Select"
 
 const {
   class: className,
   description,
-  disabled,
   critical,
   dense,
   id,
@@ -36,10 +13,8 @@ const {
   label,
   name,
   spread,
-  required,
   size,
   endText,
-  value,
   variant = "outlined",
   ...rest
 } = Astro.props
@@ -77,11 +52,8 @@ const labelId = $id("select-label")
   <span class="ui-field">
     <select
       aria-labelledby={label ? labelId : undefined}
-      disabled={disabled}
       id={selectId}
       name={fieldName}
-      required={required}
-      value={value}
       {...rest}
     >
       <button>

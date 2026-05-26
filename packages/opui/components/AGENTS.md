@@ -8,7 +8,7 @@ This guide defines the standards for implementing reusable Astro UI components i
 
 When implementing or updating a component, ensure:
 - [ ] **Title Export**: `export const title = "Component Name"` is present.
-- [ ] **Props Type**: Used `type Props = { ... }` (avoid interfaces).
+- [ ] **Props Type**: Imported `Props` from `./types.astro` (avoid interfaces).
 - [ ] **Sorting**: Props, Destructuring, and Classes are sorted alphabetically.
 - [ ] **Rest Props**: `...rest` is captured and spread onto the root element.
 - [ ] **Class Management**: Used `class:list` for all class manipulations.
@@ -20,18 +20,17 @@ When implementing or updating a component, ensure:
 
 ## 1. Frontmatter Structure
 
+Every component uses layered type files:
+
+- `types.ts` — shared, framework-agnostic props (component-specific only; no `HTMLAttributes`)
+- `types.astro.ts` — Astro props = base + `HTMLAttributes<element>`
+- `types.d.vue.ts` / `types.svelte.ts` / `types.solid.ts` — framework-specific extensions (for merge parity)
+
 Every component must follow this exact frontmatter layout:
 
 ```astro
 ---
-type Props = {
-  [key: string]: any // Required for ...rest support
-  class?: string
-  disabled?: boolean
-  label?: string
-  size?: "small" | "large"
-  variant?: "outlined" | "tonal" | "filled"
-}
+import type { Props } from "./types.astro"
 
 export const title = "My Component"
 
@@ -40,15 +39,15 @@ const {
   disabled,
   label,
   size,
-  variant = "outlined", // Default values in destructuring
+  variant = "outlined",
   ...rest
 } = Astro.props
 ---
 ```
 
 ### Key Rules:
-- **Alphabetical Sorting**: Sort property definitions in `type Props` and variables in the destructuring statement.
-- **REST Support**: Always include `[key: string]: any` in props and `...rest` in destructuring.
+- **Alphabetical Sorting**: Sort property definitions in `types.ts` and variables in the destructuring statement.
+- **REST Support**: Use `HTMLAttributes` in `types.astro.ts` and `...rest` in destructuring.
 - **Title Export**: This is mandatory for documentation generation.
 
 ---

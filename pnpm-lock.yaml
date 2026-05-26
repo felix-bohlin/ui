@@ -4,6 +4,18 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    astro:
+      specifier: ^6.3.1
+      version: 6.3.1
+    open-props:
+      specifier: ^1.7.23
+      version: 1.7.23
+    svelte:
+      specifier: ^5.55.7
+      version: 5.55.7
+
 importers:
 
   .:
@@ -12,7 +24,7 @@ importers:
         specifier: ^0.9.9
         version: 0.9.9(prettier-plugin-astro@0.14.1)(prettier@3.8.3)(typescript@6.0.3)
       astro:
-        specifier: ^6.3.1
+        specifier: 'catalog:'
         version: 6.3.1(@types/node@25.0.3)(rollup@4.60.3)(yaml@2.8.4)
       astro-expressive-code:
         specifier: ^0.41.7
@@ -30,14 +42,11 @@ importers:
         specifier: ^7.2.0
         version: 7.2.0
       open-props:
-        specifier: ^1.7.23
+        specifier: 'catalog:'
         version: 1.7.23
       opui-css:
         specifier: workspace:*
         version: link:packages/opui
-      svelte:
-        specifier: ^5.55.7
-        version: 5.55.7
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -57,17 +66,20 @@ importers:
       prettier-plugin-svelte:
         specifier: ^3.5.2
         version: 3.5.2(prettier@3.8.3)(svelte@5.55.7)
+      svelte:
+        specifier: 'catalog:'
+        version: 5.55.7
 
   packages/opui:
     dependencies:
       astro:
-        specifier: ^6.3.1
+        specifier: 'catalog:'
         version: 6.3.1(@types/node@25.0.3)(rollup@4.60.3)(yaml@2.8.4)
       open-props:
-        specifier: ^1.7.23
+        specifier: 'catalog:'
         version: 1.7.23
       svelte:
-        specifier: '>=5.55.7'
+        specifier: 'catalog:'
         version: 5.55.7
     devDependencies:
       postcss:
@@ -1014,9 +1026,6 @@ packages:
   detect-libc@2.1.2:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
-
-  devalue@5.8.0:
-    resolution: {integrity: sha512-2zA9pFEsnp7vWBZbXF5JAgAq0fsUIt/1XPbRiAmRV3lp/2C3upzH+sADiyy66aFCihoLEsrQHxNM5w1gIDfsBg==}
 
   devalue@5.8.1:
     resolution: {integrity: sha512-4CXDYRBGqN+57wVJkuXBYmpAVUSg3L6JAQa/DFqm238G73E1wuyc/JhGQJzN7vUf/CMphYau2zXbfWzDR5aTEw==}
@@ -2892,7 +2901,7 @@ snapshots:
       clsx: 2.1.1
       common-ancestor-path: 2.0.0
       cookie: 1.1.1
-      devalue: 5.8.0
+      devalue: 5.8.1
       diff: 8.0.4
       dset: 3.1.4
       es-module-lexer: 2.1.0
@@ -3080,8 +3089,6 @@ snapshots:
 
   detect-libc@2.1.2:
     optional: true
-
-  devalue@5.8.0: {}
 
   devalue@5.8.1: {}
 

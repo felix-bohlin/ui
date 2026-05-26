@@ -25,7 +25,7 @@
       --_bg-color: var(--surface-tonal);
     }
 
-    &>progress {
+    & > progress {
       appearance: none;
       background: none;
       block-size: 100%;
@@ -42,7 +42,8 @@
         background-color: var(--_accent-color);
 
         @media (prefers-reduced-motion: no-preference) {
-          transition: inline-size 0.2s var(--ease-out-4, cubic-bezier(0, 0, 0.1, 1));
+          transition: inline-size 0.2s
+            var(--ease-out-4, cubic-bezier(0, 0, 0.1, 1));
         }
       }
 
@@ -63,7 +64,7 @@
         will-change: inset-inline-start, inset-inline-end;
       }
 
-      &>progress {
+      & > progress {
         &::-webkit-progress-value {
           background-color: transparent;
         }

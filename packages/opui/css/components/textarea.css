@@ -3,7 +3,9 @@
     textarea {
       block-size: auto;
       field-sizing: content;
-      min-block-size: calc(var(--_field-padding-block) * 2 + (var(--border-width) * 2) + 3lh);
+      min-block-size: calc(
+        var(--_field-padding-block) * 2 + (var(--border-width) * 2) + 3lh
+      );
       resize: vertical;
     }
 

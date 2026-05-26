@@ -29,8 +29,10 @@
 
     &:where(button, a):where(:not([disabled])) {
       &:where(:not(:active)):hover {
-        --_bg-color: light-dark(oklch(from var(--surface-tonal) calc(l * 0.98) c h),
-            oklch(from var(--surface-tonal) calc(l * 1.1) c h));
+        --_bg-color: light-dark(
+          oklch(from var(--surface-tonal) calc(l * 0.98) c h),
+          oklch(from var(--surface-tonal) calc(l * 1.1) c h)
+        );
       }
     }
 
@@ -64,7 +66,8 @@
 
     &:where(:not([disabled])) {
       &:where(:not(:active):hover) {
-        --ripple: radial-gradient(circle, transparent 1%, var(--_bg-color) 1%) center/15000%;
+        --ripple: radial-gradient(circle, transparent 1%, var(--_bg-color) 1%)
+          center/15000%;
 
         transition: background var(--button-ripple-duration);
       }
@@ -78,9 +81,11 @@
     /* Disabled */
     &:where([disabled]) {
       opacity: 0.64;
-      --_color: color-mix(in oklch,
-          var(--text-muted) 50%,
-          var(--surface-default));
+      --_color: color-mix(
+        in oklch,
+        var(--text-muted) 50%,
+        var(--surface-default)
+      );
       cursor: not-allowed;
     }
   }

@@ -2,7 +2,6 @@
   theme three theme setup
 */
 @layer theme {
-
   /* 1. Color scheme */
   .ui-light {
     --color-scheme: light;
@@ -18,8 +17,10 @@
     /* 2. Palette source - one value to rule them all. Every other color is derived from this one.
        Both light/dark branches are wired up via light-dark() so prefers-color-scheme works
        automatically. Set them to different OKLCH values if you want a distinct dark-mode palette. */
-    --palette-source: light-dark(oklch(0.58 calc(0.21 * 0.5) var(--hue-blue)),
-        oklch(0.58 calc(0.21 * 0.5) var(--hue-blue)));
+    --palette-source: light-dark(
+      oklch(0.58 calc(0.21 * 0.5) var(--hue-blue)),
+      oklch(0.58 calc(0.21 * 0.5) var(--hue-blue))
+    );
     --palette-hue-rotate-by: 0;
 
     /* Gray ramp lives in core/palette.css. Override --gray-chroma or

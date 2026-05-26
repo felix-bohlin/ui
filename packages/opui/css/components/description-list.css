@@ -70,7 +70,8 @@
         &::after {
           background-color: transparent;
           block-size: 2px;
-          border-block-end: var(--_border-width) var(--_border-style) var(--border-color);
+          border-block-end: var(--_border-width) var(--_border-style)
+            var(--border-color);
           content: "";
           order: 1;
         }

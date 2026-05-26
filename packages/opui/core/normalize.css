@@ -1,5 +1,4 @@
 @layer normalize {
-
   *,
   ::before,
   ::after {
@@ -58,7 +57,6 @@
     outline: none !important;
   }
 
-
   :where(:not(fieldset, progress, meter)) {
     background-origin: border-box;
     background-repeat: no-repeat;
@@ -114,7 +112,9 @@
 
   :focus-visible {
     /* Inverts the --_page-bg-color */
-    --_focus-visible-color: rgb(from var(--_page-bg-color) calc(255 - r) calc(255 - g) calc(255 - b));
+    --_focus-visible-color: rgb(
+      from var(--_page-bg-color) calc(255 - r) calc(255 - g) calc(255 - b)
+    );
 
     border-radius: var(--border-radius, 0px);
     outline: 2px solid var(--_focus-visible-color);
@@ -123,7 +123,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     :where(:focus-visible) {
-      transition: outline-offset .15 var(--ease-2);
+      transition: outline-offset 0.15 var(--ease-2);
     }
 
     :where(:not(:active):focus-visible) {
@@ -135,23 +135,28 @@
     outline-offset: var(--outline-offset, 0px);
   }
 
-  :where(a[href],
+  :where(
+    a[href],
     area,
     button,
-    input:not([type="text"],
+    input:not(
+      [type="text"],
       [type="email"],
       [type="number"],
       [type="password"],
       [type=""],
       [type="tel"],
-      [type="url"]),
+      [type="url"]
+    ),
     label[for],
     select,
-    summary) {
+    summary
+  ) {
     cursor: pointer;
   }
 
-  :where(a[href],
+  :where(
+    a[href],
     area,
     button,
     [role="button"],
@@ -160,7 +165,8 @@
     select,
     summary,
     textarea,
-    [tabindex]:not([tabindex*="-"])) {
+    [tabindex]:not([tabindex*="-"])
+  ) {
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }

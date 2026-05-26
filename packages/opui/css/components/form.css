@@ -1,5 +1,4 @@
 @layer components.extended {
-
   /* Form */
   :where(.ui-form) {
     display: grid;
@@ -113,7 +112,9 @@
     gap: var(--size-4);
 
     /* If it only has checkboxes, radios, or switches */
-    &:has(> :where(.ui-checkbox, .ui-radio, .ui-switch)):not(:has(> :not(.ui-checkbox, .ui-radio, .ui-switch))) {
+    &:has(> :where(.ui-checkbox, .ui-radio, .ui-switch)):not(
+        :has(> :not(.ui-checkbox, .ui-radio, .ui-switch))
+      ) {
       gap: var(--size-2);
     }
 
@@ -129,7 +130,7 @@
       }
     }
 
-    &+& {
+    & + & {
       margin-block-start: var(--size-5);
     }
 

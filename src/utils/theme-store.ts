@@ -108,7 +108,9 @@ function emit(detail: ThemeChangeDetail): void {
 
 function getActiveSiteMode(): Mode {
   if (!isBrowser) return "light"
-  return document.documentElement.classList.contains("ui-dark") ? "dark" : "light"
+  return document.documentElement.classList.contains("ui-dark")
+    ? "dark"
+    : "light"
 }
 
 const PALETTE_SOURCE_TOKENS = new Set<Token>([

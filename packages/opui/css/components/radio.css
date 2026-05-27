@@ -1,172 +1,170 @@
 @layer components.root {
-	label.ui-radio {
-		--_input-size: 1.125rem;
-		--_indicator-size: 50%;
+  label.ui-radio {
+    --_input-size: 1.125rem;
+    --_indicator-size: 50%;
 
-		align-items: center;
-		color: var(--text-primary);
-		cursor: pointer;
-		display: inline-grid;
-		gap: 0 var(--size-2);
-		grid-auto-columns: auto;
-		grid-auto-flow: column;
-		inline-size: fit-content;
-		line-height: 1.5;
-		transform: translateZ(0);
-		user-select: none;
+    align-items: center;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: inline-grid;
+    gap: 0 var(--size-2);
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    inline-size: fit-content;
+    line-height: 1.5;
+    transform: translateZ(0);
+    user-select: none;
 
-		/* Disabled */
-		&:has([disabled]) {
-			cursor: not-allowed;
-			opacity: 0.64;
-			user-select: none;
+    /* Disabled */
+    &:has([disabled]) {
+      cursor: not-allowed;
+      opacity: 0.64;
+      user-select: none;
 
-			input {
-				cursor: not-allowed;
-			}
-		}
+      input {
+        cursor: not-allowed;
+      }
+    }
 
-		/* Required dot */
-		&:has(:invalid) {
-			.ui-label:after {
-				color: var(--red);
-				content: "*";
-				inset: 0 -0.25ex auto auto;
-				position: absolute;
-			}
-		}
+    /* Required dot */
+    &:has(:invalid) {
+      .ui-label:after {
+        color: var(--red);
+        content: "*";
+        inset: 0 -0.25ex auto auto;
+        position: absolute;
+      }
+    }
 
-		/* Label */
-		.ui-label {
-			color: var(--text-primary);
-			font-size: var(--font-size-05);
-			grid-column: 2;
-			grid-row: 1;
-			padding-inline: 0 1ex;
-			position: relative;
-		}
+    /* Label */
+    .ui-label {
+      color: var(--text-primary);
+      font-size: var(--font-size-05);
+      grid-column: 2;
+      grid-row: 1;
+      padding-inline: 0 1ex;
+      position: relative;
+    }
 
-		/* End text */
-		:where(.ui-end-text) {
-			color: var(--text-muted);
-			font-size: var(--font-size-0);
-			grid-column: 2;
-			grid-row: 2;
-			line-height: 1.5;
-			z-index: 1;
-		}
+    /* End text */
+    :where(.ui-end-text) {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+      grid-column: 2;
+      grid-row: 2;
+      line-height: 1.5;
+      z-index: 1;
+    }
 
-		/* Stacked layout */
-		&.ui-stack {
-			grid-auto-columns: unset;
-			justify-items: center;
+    /* Stacked layout */
+    &.ui-stack {
+      grid-auto-columns: unset;
+      justify-items: center;
 
-			.ui-label {
-				grid-column: 1/-1;
-				grid-row: 2;
-				margin-block-start: var(--size-1);
-				padding-inline: 1ex;
+      .ui-label {
+        grid-column: 1/-1;
+        grid-row: 2;
+        margin-block-start: var(--size-1);
+        padding-inline: 1ex;
 
-				/* Required dot */
-				&::after {
-					inset: 0 -0.25ex auto auto;
-				}
-			}
+        /* Required dot */
+        &::after {
+          inset: 0 -0.25ex auto auto;
+        }
+      }
 
-			.ui-end-text {
-				grid-column: 1/-1;
-				grid-row: 3;
-			}
-		}
+      .ui-end-text {
+        grid-column: 1/-1;
+        grid-row: 3;
+      }
+    }
 
-		/* Input */
-		input[type="radio"] {
-			appearance: none;
-			aspect-ratio: 1;
-			background-color: var(--surface-default);
-			block-size: var(--_input-size);
-			border: 1px solid var(--field-border-color);
-			border-radius: var(--radius-round);
-			box-sizing: border-box;
-			cursor: pointer;
-			display: grid;
-			inline-size: var(--_input-size);
-			margin: 0;
-			padding: 0;
-			place-items: center;
-			position: relative;
+    /* Input */
+    input[type="radio"] {
+      appearance: none;
+      aspect-ratio: 1;
+      background-color: var(--surface-default);
+      block-size: var(--_input-size);
+      border: 1px solid var(--field-border-color);
+      border-radius: var(--radius-round);
+      box-sizing: border-box;
+      cursor: pointer;
+      display: grid;
+      inline-size: var(--_input-size);
+      margin: 0;
+      padding: 0;
+      place-items: center;
+      position: relative;
 
-			&:checked {
-				background-color: var(--primary);
-				border-color: var(--primary);
-			}
+      &:checked {
+        background-color: var(--primary);
+        border-color: var(--primary);
+      }
 
-			/* Dot */
-			&::after {
-				background-color: var(--primary-contrast);
-				block-size: var(--_indicator-size);
-				border-radius: var(--radius-round);
-				content: "";
-				inline-size: var(--_indicator-size);
-				margin: auto;
-				opacity: 0;
-			}
+      /* Dot */
+      &::after {
+        background-color: var(--primary-contrast);
+        block-size: var(--_indicator-size);
+        border-radius: var(--radius-round);
+        content: "";
+        inline-size: var(--_indicator-size);
+        margin: auto;
+        opacity: 0;
+      }
 
-			&:checked::after {
-				opacity: 1;
-			}
+      &:checked::after {
+        opacity: 1;
+      }
 
-			&::before {
-				--highlight-size: 175%;
-			}
-		}
+      &::before {
+        --highlight-size: 175%;
+      }
+    }
 
-		/* Sizes */
-		&.ui-small {
-			input[type="radio"] {
-				--_input-size: var(--size-3);
+    /* Sizes */
+    &.ui-small {
+      input[type="radio"] {
+        --_input-size: var(--size-3);
+      }
+    }
 
-			}
-		}
+    &.ui-large {
+      input[type="radio"] {
+        --_input-size: var(--size-4);
+      }
+    }
 
-		&.ui-large {
-			input[type="radio"] {
-				--_input-size: var(--size-4);
+    /* Validation */
+    &[data-invalid],
+    &:has(:user-invalid) {
+      --palette-source: oklch(0.58 0.21 var(--hue-red));
 
-			}
-		}
+      :where(.ui-end-text) {
+        color: var(--primary);
+      }
+    }
 
-		/* Validation */
-		&[data-invalid],
-		&:has(:user-invalid) {
-			--palette-source: oklch(0.58 0.21 var(--hue-red));
+    /* Touch devices */
+    @media (pointer: coarse) {
+      input[type="radio"] {
+        block-size: var(--size-4);
+        inline-size: var(--size-4);
+      }
+    }
 
-			:where(.ui-end-text) {
-				color: var(--primary);
-			}
-		}
+    @media (forced-colors: active) {
+      input[type="radio"] {
+        border: 1px solid CanvasText;
 
-		/* Touch devices */
-		@media (pointer: coarse) {
-			input[type="radio"] {
-				block-size: var(--size-4);
-				inline-size: var(--size-4);
-			}
-		}
+        &:checked {
+          background-color: SelectedItem;
+          border-color: SelectedItem;
 
-		@media (forced-colors: active) {
-			input[type="radio"] {
-				border: 1px solid CanvasText;
-
-				&:checked {
-					background-color: SelectedItem;
-					border-color: SelectedItem;
-
-					&::after {
-						background-color: SelectedItemText;
-					}
-				}
-			}
-		}
-	}
+          &::after {
+            background-color: SelectedItemText;
+          }
+        }
+      }
+    }
+  }
 }

@@ -1,4 +1,8 @@
 ---
+import "@opui/css/imports.css"
+import "/src/styles/base.css"
+import { Font } from "astro:assets"
+import { Progress } from "@opui/astro"
 import { DEFAULT_FRAMEWORK, FRAMEWORK_IDS } from "../utils/framework-routing"
 
 const fallback = `/${DEFAULT_FRAMEWORK}/`
@@ -7,11 +11,14 @@ const fallback = `/${DEFAULT_FRAMEWORK}/`
 <!doctype html>
 <html lang="en">
   <head>
+    <Font cssVariable="--font-bricolage-grotesque" preload />
     <meta charset="utf-8" />
-    <title>Redirecting…</title>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <link rel="canonical" href={fallback} />
     <meta name="robots" content="noindex" />
     <meta http-equiv="refresh" content={`0; url=${fallback}`} />
+    <title>Redirecting… — Open Props UI</title>
     <script
       is:inline
       define:vars={{
@@ -33,6 +40,28 @@ const fallback = `/${DEFAULT_FRAMEWORK}/`
     </script>
   </head>
   <body>
-    <p>Redirecting to <a href={fallback}>{fallback}</a>…</p>
+    <main>
+      <h1 class="ui-h1">Open Props UI</h1>
+      <Progress aria-busy="true" aria-label="Redirecting" />
+      <p>Redirecting to <a class="ui-link" href={fallback}>{fallback}</a>…</p>
+    </main>
   </body>
 </html>
+
+<style>
+  body {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-block-size: 100dvh;
+  }
+
+  main {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+    max-inline-size: 30ch;
+    text-align: center;
+  }
+</style>

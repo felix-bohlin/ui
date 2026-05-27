@@ -32,8 +32,7 @@
     }
 
     /* Remove bottom border only on the last row of the table */
-    &>*:last-child tr:last-child {
-
+    & > *:last-child tr:last-child {
       th,
       td {
         border-block-end: none;
@@ -53,7 +52,7 @@
     }
 
     /* Round corner cells  */
-    &>thead:first-of-type tr:first-child {
+    & > thead:first-of-type tr:first-child {
       th:first-child {
         border-start-start-radius: var(--_table-border-radius);
       }
@@ -64,7 +63,7 @@
     }
 
     /* Logic for tables without thead */
-    &>tbody:first-of-type:not(thead ~ tbody) tr:first-child {
+    & > tbody:first-of-type:not(thead ~ tbody) tr:first-child {
       td:first-child {
         border-start-start-radius: var(--_table-border-radius);
       }
@@ -75,7 +74,7 @@
     }
 
     /* Logic for bottom corners (whether in tbody or tfoot) */
-    &>*:last-child tr:last-child {
+    & > *:last-child tr:last-child {
       :where(th, td):first-child {
         border-end-start-radius: var(--_table-border-radius);
       }
@@ -125,7 +124,6 @@
     }
 
     @container (width < 60ch) {
-
       th,
       td {
         padding: var(--size-1) 0.875rem;
@@ -134,7 +132,6 @@
 
     /* Spacious */
     &.ui-spacious {
-
       th,
       td {
         padding: var(--size-3);
@@ -146,7 +143,6 @@
       }
 
       @container (width < 60ch) {
-
         th,
         td {
           padding: var(--size-3);
@@ -156,7 +152,6 @@
 
     /* Dense */
     &.ui-dense {
-
       th,
       td {
         padding: var(--size-1);
@@ -168,7 +163,6 @@
       }
 
       @container (width < 60ch) {
-
         th,
         td {
           padding: var(--size-1);

@@ -28,9 +28,14 @@
 }
 
 .example-container {
-  :where(.ui-text-field, .ui-textarea, .ui-select):not(.ui-auto-fit, .ui-row)
-    :where(input, textarea, select) {
-    inline-size: 25ch;
+  :where(.ui-text-field, .ui-textarea, .ui-select):not(.ui-auto-fit, .ui-row) :where(input, textarea, select) {
+    min-inline-size: 25ch;
+  }
+}
+
+.example-preview {
+  .ui-auto-fit .ui-field {
+    inline-size: fit-content;
   }
 }
 
@@ -70,10 +75,8 @@
   }
 
   &.ui-text {
-    max-inline-size: min(
-      calc(100% - var(--_page-gutters)),
-      var(--_content-text)
-    );
+    max-inline-size: min(calc(100% - var(--_page-gutters)),
+        var(--_content-text));
   }
 
   /* Horizontal alignment */

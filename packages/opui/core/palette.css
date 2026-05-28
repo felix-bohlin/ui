@@ -1,5 +1,10 @@
 @layer theme.palette {
-  :where(:root) {
+
+  :where( :root,
+    .ui-warning, .ui-critical, .ui-info, .ui-success,
+    [data-invalid], [class*="ui-"]:has(:user-invalid),
+    del, ins, abbr, dfn,
+    .ui-palette) {
     --palette-hue: 250;
     --palette-hue-rotate-by: 0;
     --palette-chroma: 0.15;
@@ -24,6 +29,9 @@
     --color-15: oklch(from var(--palette-source) 16% calc(0.07 * (c / 0.21)) calc(h + (14 * var(--palette-hue-rotate-by))));
     --color-16: oklch(from var(--palette-source) 10% calc(0.05 * (c / 0.21)) calc(h + (15 * var(--palette-hue-rotate-by))));
 
+  }
+
+  :where(:root) {
     /* Grays */
     --gray-chroma: 0.01;
     --gray-hue: 255;

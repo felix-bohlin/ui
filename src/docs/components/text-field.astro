@@ -139,10 +139,17 @@ export const description =
       Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to toggle
       required styles
     </p>
-    <p>
-      The <code>.ui-critical</code> class toggles the error styles. Make use of the
-      end text to give extra feedback on the error.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>error</code> prop to toggle invalid styles. It renders
+        <code>data-invalid</code> on the root element. Make use of the end text to
+        give extra feedback on the error.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>data-invalid</code> on the root element to toggle invalid styles.
+        Make use of the end text to give extra feedback on the error.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Validation" column spacious />
   </section>

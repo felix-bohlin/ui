@@ -5,7 +5,7 @@ type Props = {
   [key: string]: any
   checked?: boolean
   class?: string
-  critical?: boolean
+  error?: boolean
   disabled?: boolean
   hideLabel?: boolean
   id?: string
@@ -23,7 +23,7 @@ export const title = "Checkbox"
 const {
   checked,
   class: className,
-  critical,
+  error,
   disabled,
   hideLabel,
   id,
@@ -53,7 +53,7 @@ const finalName = name || currentFieldName
     },
     className,
   ]}
-  data-invalid={critical || undefined}
+  data-invalid={error || undefined}
 >
   <CheckboxInput
     aria-describedby={endTextId}

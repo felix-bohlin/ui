@@ -9,7 +9,7 @@ type Props = {
   class?: string
   description?: string
   disabled?: boolean
-  critical?: boolean
+  error?: boolean
   dense?: boolean
   id?: string
   items?: Item[]
@@ -29,7 +29,7 @@ const {
   class: className,
   description,
   disabled,
-  critical,
+  error,
   dense,
   id,
   items = [],
@@ -60,7 +60,7 @@ const labelId = $id("select-label")
     },
     className,
   ]}
-  data-invalid={critical || undefined}
+  data-invalid={error || undefined}
 >
   {
     (label || Astro.slots.has("label")) && (

@@ -6,7 +6,7 @@ type Props = {
   checked?: boolean
   class?: string
   disabled?: boolean
-  critical?: boolean
+  error?: boolean
   hideLabel?: boolean
   id?: string
   name?: string
@@ -23,7 +23,7 @@ const {
   checked,
   class: className,
   disabled,
-  critical,
+  error,
   hideLabel,
   id,
   name,
@@ -62,7 +62,7 @@ if (
     },
     className,
   ]}
-  data-invalid={critical || undefined}
+  data-invalid={error || undefined}
 >
   {
     Astro.slots.has("icon-unchecked") && (

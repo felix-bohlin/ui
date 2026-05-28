@@ -6,7 +6,7 @@ type Props = {
   cols?: number
   description?: string
   disabled?: boolean
-  critical?: boolean
+  error?: boolean
   filled?: boolean
   id?: string
   label?: string
@@ -30,7 +30,7 @@ const {
   cols,
   description,
   disabled,
-  critical,
+  error,
   filled,
   id,
   label,
@@ -63,7 +63,7 @@ const fieldName = name || currentFieldName
     },
     className,
   ]}
-  data-invalid={critical || undefined}
+  data-invalid={error || undefined}
   {...rest}
 >
 {

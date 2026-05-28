@@ -29,9 +29,6 @@
     --color-15: oklch(from var(--palette-source) 16% calc(0.07 * (c / 0.21)) calc(h + (14 * var(--palette-hue-rotate-by))));
     --color-16: oklch(from var(--palette-source) 10% calc(0.05 * (c / 0.21)) calc(h + (15 * var(--palette-hue-rotate-by))));
 
-  }
-
-  :where(:root) {
     /* Grays */
     --gray-chroma: 0.01;
     --gray-hue: 255;

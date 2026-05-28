@@ -302,8 +302,6 @@ const { link } = Astro.locals
       const progress = (elapsed % duration) / duration
       const hue = Math.floor(progress * 360)
 
-      //
-
       const html = document.documentElement
       html.style.setProperty("--palette-hue", String(hue))
       const chroma = themeStore.effective(

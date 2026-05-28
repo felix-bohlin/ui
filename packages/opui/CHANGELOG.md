@@ -14,9 +14,22 @@ The heavy color math is now properly scoped down to `:root`, severity classes (e
 
 - Added a new `.ui-palette` util class. If you are building something where you want to make use of the palette you can just use that class and be able to use the palette right there.
 
+### Migration
+
+The `opui-css/open-props` export no longer bundles OPUI's custom palette variables (`--color-*` and `--gray-*`). It now strictly represents the underlying Open Props tokens.
+
+If you were relying on OPUI’s dynamic palette colors while importing the `open-props` subpath, you must now explicitly import the palette module alongside it:
+
+```diff
+  import 'opui-css/open-props';
++ import 'opui-css/core/palette.css';
+```
+
+Alternately, you can import the default full bundle (`import 'opui-css';`) which includes everything.
+
 ### Thank you
 
-- [yinhx3](https://github.com/yinhx3) for reporting the issue!
+- [yinhx3](https://github.com/yinhx3) for reporting [#351](https://github.com/felix-bohlin/ui/issues/351)!
 
 ## 5.0.1 - 2026-05-26
 

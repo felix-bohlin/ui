@@ -52,11 +52,11 @@ import Theming from "./_theming.astro"
 
     <p>Combine them in your main stylesheet:</p>
     <Code
-      code={`@layer openprops, normalize, theme, components.root, components.extended, utils;
+      code={`@layer openprops, theme, normalize, components.root, components.extended, utils;
 
 @import "./open-props.css";
-@import "./core/normalize.css";
 @import "./css/theme.css";
+@import "./core/normalize.css";
 @import "./css/components.css";
 @import "./core/utils.css";`}
       lang="css"

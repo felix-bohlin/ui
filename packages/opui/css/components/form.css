@@ -1,4 +1,5 @@
 @layer components.extended {
+
   /* Form */
   :where(.ui-form) {
     display: grid;
@@ -70,21 +71,21 @@
     /* Error / validation */
     &[data-invalid] {
       :where(.ui-end-text) {
-        color: var(--primary);
+        color: var(--critical);
       }
 
       :where(.ui-checkbox, .ui-radio, .ui-switch) {
-        --palette-source: oklch(0.58 0.21 var(--hue-red));
+        --primary: var(--critical);
 
         :where(.ui-end-text) {
-          color: var(--primary);
+          color: var(--critical);
         }
       }
 
       :where(.ui-switch) {
         input {
           border-radius: var(--radius-round);
-          outline: 2px solid var(--primary);
+          outline: 2px solid var(--critical);
         }
       }
     }
@@ -112,9 +113,7 @@
     gap: var(--size-4);
 
     /* If it only has checkboxes, radios, or switches */
-    &:has(> :where(.ui-checkbox, .ui-radio, .ui-switch)):not(
-        :has(> :not(.ui-checkbox, .ui-radio, .ui-switch))
-      ) {
+    &:has(> :where(.ui-checkbox, .ui-radio, .ui-switch)):not( :has(> :not(.ui-checkbox, .ui-radio, .ui-switch))) {
       gap: var(--size-2);
     }
 
@@ -130,7 +129,7 @@
       }
     }
 
-    & + & {
+    &+& {
       margin-block-start: var(--size-5);
     }
 

@@ -2,7 +2,7 @@
 
   :where( :root,
     .ui-warning, .ui-critical, .ui-info, .ui-success,
-    [data-invalid], [class*="ui-"]:has(:user-invalid),
+    [data-invalid],
     del, ins, abbr, dfn,
     .ui-palette) {
     --palette-hue: 250;
@@ -28,6 +28,7 @@
     --color-14: oklch(from var(--palette-source) 20% calc(0.09 * (c / 0.21)) calc(h + (13 * var(--palette-hue-rotate-by))));
     --color-15: oklch(from var(--palette-source) 16% calc(0.07 * (c / 0.21)) calc(h + (14 * var(--palette-hue-rotate-by))));
     --color-16: oklch(from var(--palette-source) 10% calc(0.05 * (c / 0.21)) calc(h + (15 * var(--palette-hue-rotate-by))));
+
 
     /* Grays */
     --gray-chroma: 0.01;

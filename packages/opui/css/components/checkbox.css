@@ -133,12 +133,14 @@
       /* Checkmark */
       &::after {
         background-color: var(--primary-contrast);
-        clip-path: polygon(15% 52%,
-            40% 77%,
-            85% 32%,
-            75% 22%,
-            40% 57%,
-            25% 42%);
+        clip-path: polygon(
+          15% 52%,
+          40% 77%,
+          85% 32%,
+          75% 22%,
+          40% 57%,
+          25% 42%
+        );
         content: "";
         inset: 0;
         opacity: 0;

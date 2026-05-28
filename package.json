@@ -1,7 +1,7 @@
 {
   "name": "open-props-ui-docs",
   "type": "module",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "scripts": {
     "dev": "astro dev",
     "build": "pnpm build-search-index && pnpm check-browser-support && astro build",

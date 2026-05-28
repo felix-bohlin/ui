@@ -55,7 +55,7 @@ If you do have a bundler that resolves CSS `@import`s (Vite, Astro, webpack, …
 The library defines this layer order:
 
 ```css
-@layer openprops, normalize, theme, components.root, components.extended, utils;
+@layer openprops, theme, normalize, components.root, components.extended, utils;
 ```
 
 Wrap your own styles in a layer above `utils` (or unlayered) to override.

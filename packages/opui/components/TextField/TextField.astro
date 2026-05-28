@@ -3,7 +3,7 @@ type Props = {
   [key: string]: any
   autoFit?: boolean
   class?: string
-  critical?: boolean
+  error?: boolean
   description?: string
   disabled?: boolean
   endText?: string
@@ -43,7 +43,7 @@ export const title = "Text Field"
 const {
   autoFit,
   class: className,
-  critical,
+  error,
   description,
   disabled,
   endText,
@@ -82,7 +82,7 @@ const fieldName = name || currentFieldName
     },
     className,
   ]}
-  data-invalid={critical || undefined}
+  data-invalid={error || undefined}
   {...rest}
 >
   {

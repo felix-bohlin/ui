@@ -279,18 +279,13 @@ const { link } = Astro.locals
     if (hueAnimator) hueAnimator.checked = true
 
     const duration = 60_000
-    // Mirror the chroma logic below: theme.css doesn't expose --palette-hue
-    // on :root, so getComputedStyle would surface the core fallback (250)
-    // even when the active theme defaults to a different hue (e.g. 240 in
-    // theme three). Routing through the store means we honor user edits
-    // and per-mode configs, then fall back to TOKEN_DEFAULTS.
+
     const currentHue =
       parseFloat(
         themeStore.effective(themeStore.getActiveSiteMode(), "--palette-hue"),
       ) || 0
     const startTimestamp = performance.now() - (currentHue / 360) * duration
 
-    // Cache the slider DOM refs once instead of re-querying on every frame.
     const hueInput = form?.querySelector<HTMLInputElement>(
       '[name="--palette-hue"]',
     )
@@ -306,17 +301,7 @@ const { link } = Astro.locals
       const elapsed = now - startTimestamp
       const progress = (elapsed % duration) / duration
       const hue = Math.floor(progress * 360)
-      // Direct write to <html> on every frame; we deliberately bypass
-      // themeStore here so we don't churn localStorage at 60Hz.
-      // theme.css's --palette-source ignores --palette-hue, so we also
-      // re-derive --palette-source per frame using the current chroma.
-      //
-      // Source the chroma through the store rather than getComputedStyle:
-      // theme three never sets --palette-chroma on :root (it bakes the
-      // value directly into --palette-source), so reading the computed
-      // style would surface core/palette.css's :where(:root) fallback of
-      // 0.15 — making the animated palette look noticeably washed-out
-      // compared to the documented theme default of 0.5.
+
       const html = document.documentElement
       html.style.setProperty("--palette-hue", String(hue))
       const chroma = themeStore.effective(
@@ -328,13 +313,6 @@ const { link } = Astro.locals
         `oklch(58% calc(0.21 * ${chroma}) ${hue})`,
       )
 
-      // Keep the slider thumb position and the readout next to it in sync
-      // with the current animation frame. We update the output directly
-      // (rather than relying on a synthetic input event) so the readout
-      // changes even if the Range component's event listener somehow
-      // never wired up — defense in depth, since the user's primary
-      // complaint was that the displayed hue value was stuck while the
-      // animation ran.
       if (hueInput) hueInput.value = String(hue)
       if (hueOutput) hueOutput.textContent = `${hue}${hueOutputSuffix}`
 
@@ -353,15 +331,6 @@ const { link } = Astro.locals
     }
   }
 
-  // Disabling the animator from the UI is a three-step dance because
-  // every store mutation triggers syncFormFromStore via the subscriber,
-  // and that handler rewrites every form control from the store:
-  //   1. Snapshot the live animated hue from the slider — tick() bypasses
-  //      the store, so this DOM value is the only place it exists.
-  //   2. Flip `hue-animator` first so the subscriber sees the new flag
-  //      and doesn't toggle the switch back on.
-  //   3. Cancel the rAF and write the captured hue, which makes the
-  //      slider, the inline style, and the store agree.
   function disableHueAnimation(mode: Mode) {
     const wasAnimating = hueAnimationId !== null
     const animatedHue = wasAnimating
@@ -381,21 +350,12 @@ const { link } = Astro.locals
     const config = themeStore.get(mode)
 
     TOKENS.forEach((token) => {
-      // Fall back to TOKEN_DEFAULTS, never to getComputedStyle. The current
-      // theme bakes some values (notably --palette-chroma) directly into
-      // --palette-source rather than exposing them as their own custom
-      // properties, so reading the live computed style would surface the
-      // core's :root fallbacks (e.g. --palette-chroma: 0.15) rather than
-      // the documented theme defaults the sliders are meant to reflect.
       const value = config[token] ?? TOKEN_DEFAULTS[token] ?? ""
       if (!value) return
       const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
       if (input && input.type !== "checkbox") {
         input.value = value
-        // Programmatic value changes don't fire `input` natively, but the
-        // Range component's <output> readout is wired to that event. Fire a
-        // synthetic one so the displayed value stays in sync with the
-        // slider thumb.
+
         input.dispatchEvent(new Event("input", { bubbles: false }))
       }
 
@@ -425,9 +385,6 @@ const { link } = Astro.locals
       '[name="enable-grays"]',
     )
     if (enableGrays) enableGrays.checked = themeStore.isGraysEnabled(mode)
-    // hueAnimator state is managed exclusively by startHueAnimation /
-    // stopHueAnimation; syncing it here would visually toggle the switch
-    // whenever the mode changes, even though the animation isn't touched.
 
     const colorPicker = form.querySelector<HTMLInputElement>(
       '[name="--palette-source-color"]',
@@ -443,13 +400,9 @@ const { link } = Astro.locals
     }
   }
 
-  // Apply saved config + sync UI on first load. Header.astro's inline
-  // bootstrap already wrote inline styles to <html>; we go through
-  // applyMode here to emit theme:change and to be the single code path.
   themeStore.applyMode()
   syncFormFromStore()
 
-  // Hue animator is loud noise on the generator page; disable + persist.
   const isGeneratorPage = window.location.pathname.includes(
     "/guide/theme-generator",
   )
@@ -460,38 +413,31 @@ const { link } = Astro.locals
     if (flag !== "false") {
       startHueAnimation()
     } else {
-      // The template renders the switch as checked by default; explicitly
-      // uncheck it when the stored config says animation is off.
       if (hueAnimator) hueAnimator.checked = false
     }
   }
 
-  // Stop animation when drawer opens; the user is about to edit by hand.
   drawer?.addEventListener("command", (e) => {
     if ((e as any).command === "show-modal") {
       disableHueAnimation(themeStore.getActiveSiteMode())
     }
   })
 
-  // Theme switcher
   if (themeSwitcher) {
     themeSwitcher.checked =
       document.documentElement.classList.contains("ui-dark")
     themeSwitcher.addEventListener("click", () => {
       const isDark = document.documentElement.classList.contains("ui-dark")
       const newTheme: Mode = isDark ? "light" : "dark"
-      // themeUtils owns the .ui-light/.ui-dark class on <html> and the
-      // top-level "theme" localStorage key; the store owns custom tokens.
+
       ;(window as any).themeUtils?.setTheme(newTheme)
       themeSwitcher.checked = newTheme === "dark"
-      // Re-apply through the store so subscribers (the generator page)
-      // hear about it consistently.
+
       themeStore.applyMode(newTheme)
       syncFormFromStore(newTheme)
     })
   }
 
-  // Range/text input edits in the drawer form
   form?.addEventListener("input", (e) => {
     const target = e.target as HTMLInputElement | null
     if (!target) return
@@ -529,7 +475,6 @@ const { link } = Astro.locals
     }
   })
 
-  // Chip clicks in the drawer form
   form?.addEventListener("click", (e) => {
     const chip = (e.target as HTMLElement).closest<HTMLElement>(
       "[data-name][data-value]",
@@ -557,10 +502,6 @@ const { link } = Astro.locals
   })
 
   resetBtn?.addEventListener("click", () => {
-    // Capture the animate state before reset so we can restore it.
-    // Reset wipes the stored config (including `hue-animator`), and the
-    // subsequent syncFormFromStore would otherwise default the switch
-    // back to "on" regardless of what it was.
     const wasAnimating = hueAnimationId !== null
     const mode = themeStore.getActiveSiteMode()
 
@@ -582,9 +523,6 @@ const { link } = Astro.locals
       }
     })
 
-    // Re-persist the prior animate state. If the user had it off, keep
-    // it off; if on, leave the existing rAF loop running (startHueAnimation
-    // is a no-op while hueAnimationId is set, so we don't double-start).
     themeStore.setHueAnimator(mode, wasAnimating)
     if (hueAnimator) hueAnimator.checked = wasAnimating
     if (wasAnimating && !isGeneratorPage) {
@@ -593,8 +531,6 @@ const { link } = Astro.locals
     }
   })
 
-  // External writes (e.g. from the theme-generator page editing the
-  // active site mode) — re-sync the drawer's controls.
   themeStore.subscribe((detail) => {
     if (detail.mode !== themeStore.getActiveSiteMode()) return
     syncFormFromStore(detail.mode)
@@ -602,10 +538,6 @@ const { link } = Astro.locals
 </script>
 
 <style is:global>
-  /* `--gray-N` is derived per-element by core/palette.css (see the `*`
-     selector there), so we don't need to redeclare a gray ramp at <html>.
-     The "Disable grays" toggle still has to be implemented here, since
-     theme.css doesn't ship a no-grays surface mapping. */
   html.no-grays {
     --surface-default: light-dark(var(--color-1), var(--color-14));
     --surface-filled: light-dark(var(--color-5), var(--color-16));

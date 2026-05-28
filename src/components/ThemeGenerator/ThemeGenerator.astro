@@ -35,9 +35,6 @@ const radiusGroups = [
 ---
 
 <div class="theme-generator" id="theme-generator-root">
-  <!-- Mode switcher: chooses which mode is being edited.
-       "Both" writes every edit to light and dark at once; the preview
-       falls back to the site's current mode in that case. -->
   <ToggleGroup
     class="mode-switch"
     name="theme-generator-mode"
@@ -303,29 +300,96 @@ const radiusGroups = [
     }
   }
 
-  /* Scoped preview card.
-     The whole card carries the preview's color-scheme and token
-     overrides so its outer surface (and not just the inner content)
-     flips when switching Light/Dark — otherwise picking Light while
-     the site is Dark leaves the wrapping Card painted dark.
-
-     - `color-scheme` drives `light-dark()` for the card and everything
-       inside it, independent of the site mode.
-     - `--palette-source` is rebound here so palette slider edits flow
-       through `* { --color-N: ... }` locally, even though theme.css
-       hardcodes `--palette-source` on <html> / .dark.
-     - `--gray-N` is handled by core/palette.css's `*` rule per-element.
-     - Surface / border / no-grays mappings mirror theme.css and the
-       configurator's `html.no-grays` override. */
   .preview-card {
     color-scheme: light;
-    /* Re-resolve text color here so the header (which inherits from
-       <html> otherwise) picks up the preview's local color-scheme. */
+
     color: var(--text-primary);
 
     --palette-source: oklch(
       58% calc(0.21 * var(--palette-chroma, 0.5)) var(--palette-hue, 240)
     );
+
+    --color-1: oklch(
+      from var(--palette-source) 98% calc(0.03 * (c / 0.21))
+        calc(h + (0 * var(--palette-hue-rotate-by)))
+    );
+    --color-2: oklch(
+      from var(--palette-source) 97% calc(0.06 * (c / 0.21))
+        calc(h + (1 * var(--palette-hue-rotate-by)))
+    );
+    --color-3: oklch(
+      from var(--palette-source) 93% calc(0.1 * (c / 0.21))
+        calc(h + (2 * var(--palette-hue-rotate-by)))
+    );
+    --color-4: oklch(
+      from var(--palette-source) 84% calc(0.12 * (c / 0.21))
+        calc(h + (3 * var(--palette-hue-rotate-by)))
+    );
+    --color-5: oklch(
+      from var(--palette-source) 80% calc(0.16 * (c / 0.21))
+        calc(h + (4 * var(--palette-hue-rotate-by)))
+    );
+    --color-6: oklch(
+      from var(--palette-source) 71% calc(0.19 * (c / 0.21))
+        calc(h + (5 * var(--palette-hue-rotate-by)))
+    );
+    --color-7: oklch(
+      from var(--palette-source) 66% calc(0.2 * (c / 0.21))
+        calc(h + (6 * var(--palette-hue-rotate-by)))
+    );
+    --color-8: oklch(
+      from var(--palette-source) 58% calc(0.21 * (c / 0.21))
+        calc(h + (7 * var(--palette-hue-rotate-by)))
+    );
+    --color-9: oklch(
+      from var(--palette-source) 53% calc(0.2 * (c / 0.21))
+        calc(h + (8 * var(--palette-hue-rotate-by)))
+    );
+    --color-10: oklch(
+      from var(--palette-source) 49% calc(0.19 * (c / 0.21))
+        calc(h + (9 * var(--palette-hue-rotate-by)))
+    );
+    --color-11: oklch(
+      from var(--palette-source) 42% calc(0.17 * (c / 0.21))
+        calc(h + (10 * var(--palette-hue-rotate-by)))
+    );
+    --color-12: oklch(
+      from var(--palette-source) 35% calc(0.15 * (c / 0.21))
+        calc(h + (11 * var(--palette-hue-rotate-by)))
+    );
+    --color-13: oklch(
+      from var(--palette-source) 27% calc(0.12 * (c / 0.21))
+        calc(h + (12 * var(--palette-hue-rotate-by)))
+    );
+    --color-14: oklch(
+      from var(--palette-source) 20% calc(0.09 * (c / 0.21))
+        calc(h + (13 * var(--palette-hue-rotate-by)))
+    );
+    --color-15: oklch(
+      from var(--palette-source) 16% calc(0.07 * (c / 0.21))
+        calc(h + (14 * var(--palette-hue-rotate-by)))
+    );
+    --color-16: oklch(
+      from var(--palette-source) 10% calc(0.05 * (c / 0.21))
+        calc(h + (15 * var(--palette-hue-rotate-by)))
+    );
+
+    --gray-1: oklch(from var(--color-1) l var(--gray-chroma) var(--gray-hue));
+    --gray-2: oklch(from var(--color-2) l var(--gray-chroma) var(--gray-hue));
+    --gray-3: oklch(from var(--color-3) l var(--gray-chroma) var(--gray-hue));
+    --gray-4: oklch(from var(--color-4) l var(--gray-chroma) var(--gray-hue));
+    --gray-5: oklch(from var(--color-5) l var(--gray-chroma) var(--gray-hue));
+    --gray-6: oklch(from var(--color-6) l var(--gray-chroma) var(--gray-hue));
+    --gray-7: oklch(from var(--color-7) l var(--gray-chroma) var(--gray-hue));
+    --gray-8: oklch(from var(--color-8) l var(--gray-chroma) var(--gray-hue));
+    --gray-9: oklch(from var(--color-9) l var(--gray-chroma) var(--gray-hue));
+    --gray-10: oklch(from var(--color-10) l var(--gray-chroma) var(--gray-hue));
+    --gray-11: oklch(from var(--color-11) l var(--gray-chroma) var(--gray-hue));
+    --gray-12: oklch(from var(--color-12) l var(--gray-chroma) var(--gray-hue));
+    --gray-13: oklch(from var(--color-13) l var(--gray-chroma) var(--gray-hue));
+    --gray-14: oklch(from var(--color-14) l var(--gray-chroma) var(--gray-hue));
+    --gray-15: oklch(from var(--color-15) l var(--gray-chroma) var(--gray-hue));
+    --gray-16: oklch(from var(--color-16) l var(--gray-chroma) var(--gray-hue));
 
     --surface-default: light-dark(var(--gray-1), var(--gray-13));
     --surface-filled: light-dark(var(--gray-4), var(--gray-15));
@@ -462,8 +526,6 @@ const radiusGroups = [
 </style>
 
 <style is:global>
-  /* VS Code Dark Plus colors for the generator's hljs output. Kept
-     scoped to the code block so other code on the page is unaffected. */
   #theme-generator-css-code.hljs {
     color: #d4d4d4;
   }
@@ -534,8 +596,6 @@ const radiusGroups = [
     'input[name="theme-generator-mode"]',
   )
 
-  // The UI exposes a third "both" choice on top of the storage modes,
-  // which fans every edit out to both light and dark configs.
   type EditingMode = Mode | "both"
   let editingMode: EditingMode = "both"
 
@@ -551,24 +611,14 @@ const radiusGroups = [
     return "both"
   }
 
-  /** Modes that should receive a write for the current editing mode. */
   function targetModes(): readonly Mode[] {
     return editingMode === "both" ? (["light", "dark"] as const) : [editingMode]
   }
 
-  /**
-   * Mode the preview renders. In Both we follow the site's active mode so
-   * the user always sees a coherent surface — and so when their site is
-   * (e.g.) dark, the rest of the docs update live alongside the preview.
-   */
   function previewMode(): Mode {
     return editingMode === "both" ? themeStore.getActiveSiteMode() : editingMode
   }
 
-  /**
-   * Mode whose values populate the form. In Both we read from light by
-   * convention; light/dark stay in sync because every write fans out.
-   */
   function formMode(): Mode {
     return editingMode === "both" ? "light" : editingMode
   }
@@ -582,10 +632,6 @@ const radiusGroups = [
     })
   }
 
-  // Guard against the synthetic `input` events we fire when programmatically
-  // setting slider values. Without this, the form's own `input` listener
-  // would re-write the same value to the store and loop forever via the
-  // theme:change subscription.
   let suppressInputHandler = false
 
   function syncFormFromConfig(config: ModeConfig) {
@@ -594,9 +640,6 @@ const radiusGroups = [
       const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
       if (input && input.type !== "checkbox") {
         input.value = value
-        // Fire a synthetic input event so the Range component's built-in
-        // auto-updater refreshes the <output> readout. Programmatic value
-        // assignments don't trigger `input` natively.
         suppressInputHandler = true
         try {
           input.dispatchEvent(new Event("input", { bubbles: true }))
@@ -685,7 +728,6 @@ const radiusGroups = [
     rerenderCode()
   }
 
-  // Wire up: mode tabs
   modeRadios.forEach((radio) => {
     radio.addEventListener("change", () => {
       if (!radio.checked) return
@@ -694,7 +736,6 @@ const radiusGroups = [
     })
   })
 
-  // Wire up: range inputs + enable-grays switch
   form.addEventListener("input", (e) => {
     if (suppressInputHandler) return
     const target = e.target as HTMLInputElement | null
@@ -709,7 +750,6 @@ const radiusGroups = [
         )
         setGrayInputsDisabled(!target.checked)
       }
-      // refreshAll will run via the subscription below.
       return
     }
 
@@ -728,11 +768,9 @@ const radiusGroups = [
       targetModes().forEach((m) =>
         themeStore.setToken(m, name as Token, target.value),
       )
-      // No refreshAll here either — the subscription handles it.
     }
   })
 
-  // Wire up: chip clicks for radius groups
   form.addEventListener("click", (e) => {
     const chip = (e.target as HTMLElement).closest<HTMLElement>(
       "[data-name][data-value]",
@@ -746,17 +784,12 @@ const radiusGroups = [
     }
   })
 
-  // Wire up: reset button
   resetBtn?.addEventListener("click", () => {
     themeStore.reset()
     form.reset()
-    // form.reset() restores every input to its HTML initial value, which
-    // sets the color picker back to #000000. Re-sync from the store so
-    // the swatch reflects the actual post-reset defaults.
     refreshAll()
   })
 
-  // Wire up: copy
   copyBtn?.addEventListener("click", async () => {
     const code = generateCss({
       light: themeStore.get("light"),
@@ -779,10 +812,7 @@ const radiusGroups = [
     }
   })
 
-  // Re-render on every store change (source-agnostic: drawer or page).
   themeStore.subscribe((detail) => {
-    // When the global theme mode is toggled (e.g. via ThemeConfigurator),
-    // keep the editing mode selector in sync with the new active site mode.
     if (detail.type === "applyMode") {
       const newMode = themeStore.getActiveSiteMode()
       modeRadios.forEach((radio) => {
@@ -793,8 +823,6 @@ const radiusGroups = [
     refreshAll()
   })
 
-  // Initial render — default the mode selector to the active site mode
-  // so the editing mode matches what the user is currently viewing.
   const activeSiteMode = themeStore.getActiveSiteMode()
   modeRadios.forEach((radio) => {
     radio.checked = radio.value === activeSiteMode

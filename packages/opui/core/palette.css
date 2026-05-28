@@ -1,109 +1,110 @@
-:where(:root) {
-  --palette-hue: 250;
-  /* <angle */
-  --palette-hue-rotate-by: 0;
-  /* +- deg : warm or cool the palette */
-  --palette-chroma: 0.15;
-  /* 0-1 : lower to mute and pastel, over 2 at own risk */
+@layer theme.palette {
+  :where(
+    :root,
+    .ui-warning,
+    .ui-critical,
+    .ui-info,
+    .ui-success,
+    [data-invalid],
+    del,
+    ins,
+    abbr,
+    dfn,
+    .ui-palette
+  ) {
+    --palette-hue: 250;
+    --palette-hue-rotate-by: 0;
+    --palette-chroma: 0.15;
 
-  /* New API: a single OKLCH source that drives the entire ramp.
-     The default below derives from the legacy --palette-hue / --palette-chroma
-     vars so themes that haven't migrated keep working unchanged. Themes opting
-     into the new API just set --palette-source directly. */
-  --palette-source: oklch(
-    58% calc(0.21 * var(--palette-chroma, 1)) var(--palette-hue, 250)
-  );
-}
+    --palette-source: oklch(
+      58% calc(0.21 * var(--palette-chroma, 1)) var(--palette-hue, 250)
+    );
 
-* {
-  --color-1: oklch(
-    from var(--palette-source) 98% calc(0.03 * (c / 0.21))
-      calc(h + (0 * var(--palette-hue-rotate-by)))
-  );
-  --color-2: oklch(
-    from var(--palette-source) 97% calc(0.06 * (c / 0.21))
-      calc(h + (1 * var(--palette-hue-rotate-by)))
-  );
-  --color-3: oklch(
-    from var(--palette-source) 93% calc(0.1 * (c / 0.21))
-      calc(h + (2 * var(--palette-hue-rotate-by)))
-  );
-  --color-4: oklch(
-    from var(--palette-source) 84% calc(0.12 * (c / 0.21))
-      calc(h + (3 * var(--palette-hue-rotate-by)))
-  );
-  --color-5: oklch(
-    from var(--palette-source) 80% calc(0.16 * (c / 0.21))
-      calc(h + (4 * var(--palette-hue-rotate-by)))
-  );
-  --color-6: oklch(
-    from var(--palette-source) 71% calc(0.19 * (c / 0.21))
-      calc(h + (5 * var(--palette-hue-rotate-by)))
-  );
-  --color-7: oklch(
-    from var(--palette-source) 66% calc(0.2 * (c / 0.21))
-      calc(h + (6 * var(--palette-hue-rotate-by)))
-  );
-  --color-8: oklch(
-    from var(--palette-source) 58% calc(0.21 * (c / 0.21))
-      calc(h + (7 * var(--palette-hue-rotate-by)))
-  );
-  --color-9: oklch(
-    from var(--palette-source) 53% calc(0.2 * (c / 0.21))
-      calc(h + (8 * var(--palette-hue-rotate-by)))
-  );
-  --color-10: oklch(
-    from var(--palette-source) 49% calc(0.19 * (c / 0.21))
-      calc(h + (9 * var(--palette-hue-rotate-by)))
-  );
-  --color-11: oklch(
-    from var(--palette-source) 42% calc(0.17 * (c / 0.21))
-      calc(h + (10 * var(--palette-hue-rotate-by)))
-  );
-  --color-12: oklch(
-    from var(--palette-source) 35% calc(0.15 * (c / 0.21))
-      calc(h + (11 * var(--palette-hue-rotate-by)))
-  );
-  --color-13: oklch(
-    from var(--palette-source) 27% calc(0.12 * (c / 0.21))
-      calc(h + (12 * var(--palette-hue-rotate-by)))
-  );
-  --color-14: oklch(
-    from var(--palette-source) 20% calc(0.09 * (c / 0.21))
-      calc(h + (13 * var(--palette-hue-rotate-by)))
-  );
-  --color-15: oklch(
-    from var(--palette-source) 16% calc(0.07 * (c / 0.21))
-      calc(h + (14 * var(--palette-hue-rotate-by)))
-  );
-  --color-16: oklch(
-    from var(--palette-source) 10% calc(0.05 * (c / 0.21))
-      calc(h + (15 * var(--palette-hue-rotate-by)))
-  );
-}
+    /* Colors */
+    --color-1: oklch(
+      from var(--palette-source) 98% calc(0.03 * (c / 0.21))
+        calc(h + (0 * var(--palette-hue-rotate-by)))
+    );
+    --color-2: oklch(
+      from var(--palette-source) 97% calc(0.06 * (c / 0.21))
+        calc(h + (1 * var(--palette-hue-rotate-by)))
+    );
+    --color-3: oklch(
+      from var(--palette-source) 93% calc(0.1 * (c / 0.21))
+        calc(h + (2 * var(--palette-hue-rotate-by)))
+    );
+    --color-4: oklch(
+      from var(--palette-source) 84% calc(0.12 * (c / 0.21))
+        calc(h + (3 * var(--palette-hue-rotate-by)))
+    );
+    --color-5: oklch(
+      from var(--palette-source) 80% calc(0.16 * (c / 0.21))
+        calc(h + (4 * var(--palette-hue-rotate-by)))
+    );
+    --color-6: oklch(
+      from var(--palette-source) 71% calc(0.19 * (c / 0.21))
+        calc(h + (5 * var(--palette-hue-rotate-by)))
+    );
+    --color-7: oklch(
+      from var(--palette-source) 66% calc(0.2 * (c / 0.21))
+        calc(h + (6 * var(--palette-hue-rotate-by)))
+    );
+    --color-8: oklch(
+      from var(--palette-source) 58% calc(0.21 * (c / 0.21))
+        calc(h + (7 * var(--palette-hue-rotate-by)))
+    );
+    --color-9: oklch(
+      from var(--palette-source) 53% calc(0.2 * (c / 0.21))
+        calc(h + (8 * var(--palette-hue-rotate-by)))
+    );
+    --color-10: oklch(
+      from var(--palette-source) 49% calc(0.19 * (c / 0.21))
+        calc(h + (9 * var(--palette-hue-rotate-by)))
+    );
+    --color-11: oklch(
+      from var(--palette-source) 42% calc(0.17 * (c / 0.21))
+        calc(h + (10 * var(--palette-hue-rotate-by)))
+    );
+    --color-12: oklch(
+      from var(--palette-source) 35% calc(0.15 * (c / 0.21))
+        calc(h + (11 * var(--palette-hue-rotate-by)))
+    );
+    --color-13: oklch(
+      from var(--palette-source) 27% calc(0.12 * (c / 0.21))
+        calc(h + (12 * var(--palette-hue-rotate-by)))
+    );
+    --color-14: oklch(
+      from var(--palette-source) 20% calc(0.09 * (c / 0.21))
+        calc(h + (13 * var(--palette-hue-rotate-by)))
+    );
+    --color-15: oklch(
+      from var(--palette-source) 16% calc(0.07 * (c / 0.21))
+        calc(h + (14 * var(--palette-hue-rotate-by)))
+    );
+    --color-16: oklch(
+      from var(--palette-source) 10% calc(0.05 * (c / 0.21))
+        calc(h + (15 * var(--palette-hue-rotate-by)))
+    );
 
-/* Gray ramp — derived from each --color-N step so it shares the palette's
-   per-step lightness curve. --gray-chroma / --gray-hue follow the Open Props
-   convention (hue is the third oklch arg, NOT lightness). Override either
-   in a theme to warm/cool the grays without redefining each --gray-N. */
-* {
-  --gray-chroma: 0.01;
-  --gray-hue: 255;
+    /* Grays */
+    --gray-chroma: 0.01;
+    --gray-hue: 255;
 
-  --gray-1: oklch(from var(--color-1) l var(--gray-chroma) var(--gray-hue));
-  --gray-2: oklch(from var(--color-2) l var(--gray-chroma) var(--gray-hue));
-  --gray-3: oklch(from var(--color-3) l var(--gray-chroma) var(--gray-hue));
-  --gray-4: oklch(from var(--color-4) l var(--gray-chroma) var(--gray-hue));
-  --gray-5: oklch(from var(--color-5) l var(--gray-chroma) var(--gray-hue));
-  --gray-6: oklch(from var(--color-6) l var(--gray-chroma) var(--gray-hue));
-  --gray-7: oklch(from var(--color-7) l var(--gray-chroma) var(--gray-hue));
-  --gray-8: oklch(from var(--color-8) l var(--gray-chroma) var(--gray-hue));
-  --gray-9: oklch(from var(--color-9) l var(--gray-chroma) var(--gray-hue));
-  --gray-10: oklch(from var(--color-10) l var(--gray-chroma) var(--gray-hue));
-  --gray-11: oklch(from var(--color-11) l var(--gray-chroma) var(--gray-hue));
-  --gray-12: oklch(from var(--color-12) l var(--gray-chroma) var(--gray-hue));
-  --gray-13: oklch(from var(--color-13) l var(--gray-chroma) var(--gray-hue));
-  --gray-14: oklch(from var(--color-14) l var(--gray-chroma) var(--gray-hue));
-  --gray-15: oklch(from var(--color-15) l var(--gray-chroma) var(--gray-hue));
-  --gray-16: oklch(from var(--color-16) l var(--gray-chroma) var(--gray-hue));
+    --gray-1: oklch(from var(--color-1) l var(--gray-chroma) var(--gray-hue));
+    --gray-2: oklch(from var(--color-2) l var(--gray-chroma) var(--gray-hue));
+    --gray-3: oklch(from var(--color-3) l var(--gray-chroma) var(--gray-hue));
+    --gray-4: oklch(from var(--color-4) l var(--gray-chroma) var(--gray-hue));
+    --gray-5: oklch(from var(--color-5) l var(--gray-chroma) var(--gray-hue));
+    --gray-6: oklch(from var(--color-6) l var(--gray-chroma) var(--gray-hue));
+    --gray-7: oklch(from var(--color-7) l var(--gray-chroma) var(--gray-hue));
+    --gray-8: oklch(from var(--color-8) l var(--gray-chroma) var(--gray-hue));
+    --gray-9: oklch(from var(--color-9) l var(--gray-chroma) var(--gray-hue));
+    --gray-10: oklch(from var(--color-10) l var(--gray-chroma) var(--gray-hue));
+    --gray-11: oklch(from var(--color-11) l var(--gray-chroma) var(--gray-hue));
+    --gray-12: oklch(from var(--color-12) l var(--gray-chroma) var(--gray-hue));
+    --gray-13: oklch(from var(--color-13) l var(--gray-chroma) var(--gray-hue));
+    --gray-14: oklch(from var(--color-14) l var(--gray-chroma) var(--gray-hue));
+    --gray-15: oklch(from var(--color-15) l var(--gray-chroma) var(--gray-hue));
+    --gray-16: oklch(from var(--color-16) l var(--gray-chroma) var(--gray-hue));
+  }
 }

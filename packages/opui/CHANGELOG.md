@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.0.2 - 2026-05-28
+
+### Fixed
+
+- [#351](https://github.com/felix-bohlin/ui/issues/351): (Attempted to) fix performance issue caused by palette being defined on `*` instead of `:root`. This was causing style recalculations on every element when the palette changed, oops. Hopefully now, recalculations will only happen on elements that use palette variables.
+
+### Thank you
+
+- [yinhx3](https://github.com/yinhx3) for reporting the issue!
+
 ## 5.0.1 - 2026-05-26
 
 ### Breaking

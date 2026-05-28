@@ -42,6 +42,7 @@ import Theming from "./_theming.astro"
       code={`├─ opui
   └─ core
      ├─ normalize.css
+     ├─ palette.css
      └─ utils.css
   └─ css
      ├─ components.css
@@ -55,6 +56,7 @@ import Theming from "./_theming.astro"
       code={`@layer openprops, theme, normalize, components.root, components.extended, utils;
 
 @import "./open-props.css";
+@import "./core/palette.css";
 @import "./css/theme.css";
 @import "./core/normalize.css";
 @import "./css/components.css";
@@ -93,10 +95,12 @@ import Theming from "./_theming.astro"
 
     <p>Or pick and choose the parts you want to include:</p>
     <Code
-      code={`@import "opui-css/core/normalize.css";
-@import "opui-css/core/utils.css";
+      code={`@import "opui-css/open-props.css";
+@import "opui-css/core/palette.css";
 @import "opui-css/css/theme.css";
-@import "opui-css/css/components.css";`}
+@import "opui-css/core/normalize.css";
+@import "opui-css/css/components.css";
+@import "opui-css/core/utils.css";`}
       lang="css"
     />
   </section>

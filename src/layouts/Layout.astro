@@ -29,7 +29,7 @@ const currentNormalized = normalize(pathname)
 
 const siteTitle = title ? `${title} — Open Props UI` : "Open Props UI"
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
-const imageUrl = new URL(image || "/og-image.png", Astro.site)
+// const imageUrl = new URL(image || "/og-image.png", Astro.site)
 ---
 
 <!doctype html>
@@ -49,7 +49,7 @@ const imageUrl = new URL(image || "/og-image.png", Astro.site)
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={siteTitle} />
     {description && <meta property="og:description" content={description} />}
-    <meta property="og:image" content={imageUrl} />
+    <!-- <meta property="og:image" content={imageUrl} /> -->
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -60,7 +60,7 @@ const imageUrl = new URL(image || "/og-image.png", Astro.site)
         <meta property="twitter:description" content={description} />
       )
     }
-    <meta property="twitter:image" content={imageUrl} />
+    <!-- <meta property="twitter:image" content={imageUrl} /> -->
 
     {
       variants

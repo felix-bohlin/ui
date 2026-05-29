@@ -35,7 +35,7 @@ const { link } = Astro.locals
   <DrawerHeader slot="header">
     <h3>Theme config</h3>
   </DrawerHeader>
-  <div class="ui-content" slot="content">
+  <Fragment slot="content">
     <div class="configurator-content">
       <form class="ui-form" id="theme-configurator-form">
         <FieldSet>
@@ -83,9 +83,6 @@ const { link } = Astro.locals
               spread
               small
             />
-            <Switch id="hue-animator" name="hue-animator" checked small spread>
-              Animate
-            </Switch>
             <Range
               label="Hue"
               name="--palette-hue"
@@ -230,7 +227,7 @@ const { link } = Astro.locals
         </FieldSet>
       </form>
     </div>
-  </div>
+  </Fragment>
 
   <DrawerFooter slot="footer">
     <Button size="small" commandfor="theme-configurator-drawer" command="close"
@@ -265,85 +262,7 @@ const { link } = Astro.locals
   const themeSwitcher = document.getElementById(
     "theme-switcher",
   ) as HTMLInputElement | null
-  const hueAnimator = document.getElementById(
-    "hue-animator",
-  ) as HTMLInputElement | null
   const drawer = document.getElementById("theme-configurator-drawer")
-
-  let hueAnimationId: number | null = null
-  let animationAborted = false
-
-  function startHueAnimation() {
-    if (animationAborted) return
-    if (hueAnimationId) return
-    if (hueAnimator) hueAnimator.checked = true
-
-    const duration = 60_000
-
-    const currentHue =
-      parseFloat(
-        themeStore.effective(themeStore.getActiveSiteMode(), "--palette-hue"),
-      ) || 0
-    const startTimestamp = performance.now() - (currentHue / 360) * duration
-
-    const hueInput = form?.querySelector<HTMLInputElement>(
-      '[name="--palette-hue"]',
-    )
-    const hueOutput = hueInput
-      ? hueInput
-          .closest<HTMLElement>(".ui-range")
-          ?.querySelector<HTMLOutputElement>(":scope > output.ui-value")
-      : null
-    const hueOutputSuffix = hueOutput?.dataset.suffix ?? ""
-
-    function tick(now: number) {
-      if (animationAborted) return
-      const elapsed = now - startTimestamp
-      const progress = (elapsed % duration) / duration
-      const hue = Math.floor(progress * 360)
-
-      const html = document.documentElement
-      html.style.setProperty("--palette-hue", String(hue))
-      const chroma = themeStore.effective(
-        themeStore.getActiveSiteMode(),
-        "--palette-chroma",
-      )
-      html.style.setProperty(
-        "--palette-source",
-        `oklch(58% calc(0.21 * ${chroma}) ${hue})`,
-      )
-
-      if (hueInput) hueInput.value = String(hue)
-      if (hueOutput) hueOutput.textContent = `${hue}${hueOutputSuffix}`
-
-      hueAnimationId = requestAnimationFrame(tick)
-    }
-
-    hueAnimationId = requestAnimationFrame(tick)
-  }
-
-  function stopHueAnimation() {
-    animationAborted = true
-    if (hueAnimator) hueAnimator.checked = false
-    if (hueAnimationId !== null) {
-      cancelAnimationFrame(hueAnimationId)
-      hueAnimationId = null
-    }
-  }
-
-  function disableHueAnimation(mode: Mode) {
-    const wasAnimating = hueAnimationId !== null
-    const animatedHue = wasAnimating
-      ? form?.querySelector<HTMLInputElement>('[name="--palette-hue"]')?.value
-      : undefined
-
-    themeStore.setHueAnimator(mode, false)
-    stopHueAnimation()
-
-    if (animatedHue) {
-      themeStore.setToken(mode, "--palette-hue", animatedHue)
-    }
-  }
 
   function syncFormFromStore(mode: Mode = themeStore.getActiveSiteMode()) {
     if (!form) return
@@ -403,26 +322,6 @@ const { link } = Astro.locals
   themeStore.applyMode()
   syncFormFromStore()
 
-  const isGeneratorPage = window.location.pathname.includes(
-    "/guide/theme-generator",
-  )
-  if (isGeneratorPage) {
-    disableHueAnimation(themeStore.getActiveSiteMode())
-  } else {
-    const flag = themeStore.get(themeStore.getActiveSiteMode())["hue-animator"]
-    if (flag !== "false") {
-      startHueAnimation()
-    } else {
-      if (hueAnimator) hueAnimator.checked = false
-    }
-  }
-
-  drawer?.addEventListener("command", (e) => {
-    if ((e as any).command === "show-modal") {
-      disableHueAnimation(themeStore.getActiveSiteMode())
-    }
-  })
-
   if (themeSwitcher) {
     themeSwitcher.checked =
       document.documentElement.classList.contains("ui-dark")
@@ -449,14 +348,6 @@ const { link } = Astro.locals
     if (target.type === "checkbox") {
       if (name === "enable-grays") {
         themeStore.setEnableGrays(mode, target.checked)
-      } else if (name === "hue-animator") {
-        if (target.checked) {
-          themeStore.setHueAnimator(mode, true)
-          animationAborted = false
-          startHueAnimation()
-        } else {
-          disableHueAnimation(mode)
-        }
       }
       return
     }
@@ -502,9 +393,6 @@ const { link } = Astro.locals
   })
 
   resetBtn?.addEventListener("click", () => {
-    const wasAnimating = hueAnimationId !== null
-    const mode = themeStore.getActiveSiteMode()
-
     themeStore.reset()
     form?.reset()
     if (themeSwitcher) {
@@ -522,13 +410,6 @@ const { link } = Astro.locals
         chip.classList.add("ui-outlined")
       }
     })
-
-    themeStore.setHueAnimator(mode, wasAnimating)
-    if (hueAnimator) hueAnimator.checked = wasAnimating
-    if (wasAnimating && !isGeneratorPage) {
-      animationAborted = false
-      startHueAnimation()
-    }
   })
 
   themeStore.subscribe((detail) => {

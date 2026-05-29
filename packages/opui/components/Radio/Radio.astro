@@ -1,35 +1,16 @@
 ---
+import type { RadioProps as Props } from './types.astro'
 import RadioInput from "./RadioInput.astro"
-
-type Props = {
-  [key: string]: any
-  checked?: boolean
-  class?: string
-  disabled?: boolean
-  error?: boolean
-  hideLabel?: boolean
-  id?: string
-  name?: string
-  required?: boolean
-  size?: "small" | "large"
-  stack?: boolean
-  value?: string
-}
 
 export const title = "Radio"
 
 const {
-  checked,
   class: className,
-  disabled,
   error,
   hideLabel,
-  id,
   name,
-  required,
   size,
   stack,
-  value,
   ...rest
 } = Astro.props
 
@@ -52,12 +33,7 @@ const finalName = name || currentFieldName
 >
   <RadioInput
     aria-describedby={endTextId}
-    {checked}
-    {disabled}
-    {id}
     name={finalName}
-    {required}
-    {value}
     {...rest}
   />
   <!-- prettier-ignore --><span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>

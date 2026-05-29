@@ -1,45 +1,36 @@
 ---
-type CommonProps = {
-  [key: string]: any
-  as?: string
-  class?: string
-  color?: "critical" | "primary"
-  size?: "x-small" | "small" | "large"
-  variant?: "outlined" | "tonal" | "filled"
-}
-
-type AnchorProps = CommonProps & {
-  disabled?: never
-  href: string
-}
-
-type ButtonProps = CommonProps & {
-  disabled?: boolean
-  href?: undefined
-}
-
-type Props = AnchorProps | ButtonProps
+import type { Props } from "./types.astro"
 
 export const title = "Button"
 
+const props = Astro.props as Props
 const {
   as,
   class: className,
   color,
-  disabled,
-  href,
   size,
   variant,
+  disabled,
+  href,
   ...rest
-} = Astro.props
+} = props
 
 const Tag = as || (href ? "a" : "button")
 const isButton = Tag === "button"
 ---
 
-<!-- prettier-ignore -->
 <Tag
-  class:list={["ui-button", { "ui-disabled": isButton && disabled }, size && `ui-${size}`, variant && `ui-${variant}`, color && `ui-${color}`, className]}
+  class:list={[
+    "ui-button",
+    { "ui-disabled": isButton && disabled },
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
+    color && `ui-${color}`,
+    className,
+  ]}
   disabled={isButton ? disabled : undefined}
   href={href}
-  {...rest}><slot /></Tag>
+  {...rest as any}
+>
+  <slot />
+</Tag>

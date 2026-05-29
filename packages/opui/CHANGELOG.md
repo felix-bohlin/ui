@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.2 - 2026-05-29
+
+### Fixed
+
+- Removed Open Props gray imports that overrode OPUI custom grays. How did I miss that??
+
 ## 5.1.1 - 2026-05-29
 
 ### Added

@@ -6,10 +6,10 @@ export const title = "Text Field"
 const {
   autoFit,
   class: className,
-  critical,
   description,
   disabled,
   endText,
+  error,
   filled,
   id,
   label,
@@ -45,7 +45,7 @@ const fieldName = name || currentFieldName
     },
     className,
   ]}
-  data-invalid={critical || undefined}
+  data-invalid={error || undefined}
   {...rest}
 >
   {

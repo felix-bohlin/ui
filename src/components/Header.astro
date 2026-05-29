@@ -99,25 +99,12 @@ const { link } = Astro.locals
               "no-grays",
               value === "false",
             )
-          } else if (name !== "hue-animator") {
+          } else {
             document.documentElement.style.setProperty(name, value)
           }
         })
         hue = config["--palette-hue"]
         chroma = config["--palette-chroma"]
-      }
-
-      // theme.css hardcodes --palette-source and ignores --palette-hue /
-      // --palette-chroma, so we mirror them into --palette-source here
-      // when the user has actually customized either. Inline beats layered
-      // CSS, so this restores the tunable palette globally.
-      if (hue !== undefined || chroma !== undefined) {
-        const h = hue ?? "250"
-        const c = chroma ?? "0.75"
-        document.documentElement.style.setProperty(
-          "--palette-source",
-          `oklch(58% calc(0.21 * ${c}) ${h})`,
-        )
       }
     },
   }

@@ -10,11 +10,20 @@ import FrameworkPicker from "../components/FrameworkPicker.astro"
 import { Divider } from "@opui/astro"
 
 type Props = {
+  title?: string
+  description?: string
+  image?: string
   overline?: string
   showToc?: boolean
 }
 
-const { overline = "Guide", showToc = true } = Astro.props
+const {
+  overline = "Guide",
+  showToc = true,
+  title,
+  description,
+  image,
+} = Astro.props
 
 const currentFramework = (Astro.currentLocale ??
   DEFAULT_FRAMEWORK) as FrameworkId
@@ -36,7 +45,13 @@ const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
 )
 ---
 
-<Document overline={overline} showToc={showToc}>
+<Document
+  overline={overline}
+  showToc={showToc}
+  title={title}
+  description={description}
+  image={image}
+>
   <FrameworkPicker size="small" slot="sidebar" />
 
   <Divider variant="tonal" slot="sidebar" />

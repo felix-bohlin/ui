@@ -20,7 +20,10 @@ import { Table } from "@opui/astro"
   <Table.Body>
     <Table.Row>
       <Table.Cell><code>as</code></Table.Cell>
-      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell
+        ><code>"form"</code>, <code>"div"</code>, <code>string</code
+        ></Table.Cell
+      >
       <Table.Cell><code>"form"</code></Table.Cell>
       <Table.Cell>The HTML element to render.</Table.Cell>
     </Table.Row>
@@ -46,7 +49,10 @@ import { Table } from "@opui/astro"
   <Table.Body>
     <Table.Row>
       <Table.Cell><code>as</code></Table.Cell>
-      <Table.Cell><code>"fieldset"</code>, <code>"div"</code></Table.Cell>
+      <Table.Cell
+        ><code>"fieldset"</code>, <code>"div"</code>, <code>string</code
+        ></Table.Cell
+      >
       <Table.Cell><code>"fieldset"</code></Table.Cell>
       <Table.Cell>The HTML element to render.</Table.Cell>
     </Table.Row>
@@ -79,8 +85,7 @@ import { Table } from "@opui/astro"
     <Table.Row>
       <Table.Cell><code>as</code></Table.Cell>
       <Table.Cell
-        ><code>"legend"</code>, <code>"p"</code>, <code>"div"</code>, <code
-          >"span"</code
+        ><code>"legend"</code>, <code>"p"</code>, <code>string</code
         ></Table.Cell
       >
       <Table.Cell><code>"legend"</code></Table.Cell>

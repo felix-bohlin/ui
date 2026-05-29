@@ -1,3 +1,14 @@
+# Migrating from v5.0 to v5.1
+
+In v5.1.0, the `critical` prop has been renamed to `error` on all form components (`TextField`, `Checkbox`, `Radio`, `Switch`, `Select`, `ClassicSelect`, `Textarea`).
+
+```diff
+- <TextField critical label="Name" />
++ <TextField error label="Name" />
+```
+
+Note: Components that use `critical` for severity styling (such as `Button`, `Callout`, `Badge`) still use the `critical` prop.
+
 # Migrating from v4 to v5
 
 v5 prefixes every OPUI-owned class with `ui-`. The component prop API is unchanged; only the rendered class names change.

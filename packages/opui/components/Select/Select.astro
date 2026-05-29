@@ -5,16 +5,16 @@ export const title = "Select"
 
 const {
   class: className,
-  description,
-  critical,
   dense,
+  description,
+  endText,
+  error,
   id,
   items = [],
   label,
   name,
-  spread,
   size,
-  endText,
+  spread,
   variant = "outlined",
   ...rest
 } = Astro.props
@@ -35,7 +35,7 @@ const labelId = $id("select-label")
     },
     className,
   ]}
-  data-invalid={critical || undefined}
+  data-invalid={error || undefined}
 >
   {
     (label || Astro.slots.has("label")) && (
@@ -51,7 +51,7 @@ const labelId = $id("select-label")
   }
   <span class="ui-field">
     <select
-      aria-labelledby={label ? labelId : undefined}
+      aria-labelledby={(label || Astro.slots.has("label")) ? labelId : undefined}
       id={selectId}
       name={fieldName}
       {...rest}

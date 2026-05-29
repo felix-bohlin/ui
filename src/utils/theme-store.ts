@@ -10,7 +10,7 @@
  *  - Emits a `theme:change` CustomEvent on `document` so any subscribed UI
  *    (the drawer, the generator page) re-syncs without DOM-bridging hacks.
  *
- * Boolean-ish settings (enable-grays, hue-animator) are stored as the strings
+ * Boolean-ish settings (enable-grays) are stored as the string
  * "true"/"false" to stay byte-compatible with previously-saved configs.
  */
 
@@ -55,15 +55,9 @@ export const TOKEN_DEFAULTS: Record<Token, string> = {
 
 export type ModeConfig = Partial<Record<Token, string>> & {
   "enable-grays"?: "true" | "false"
-  "hue-animator"?: "true" | "false"
 }
 
-export type ChangeType =
-  | "set"
-  | "reset"
-  | "applyMode"
-  | "enable-grays"
-  | "hue-animator"
+export type ChangeType = "set" | "reset" | "applyMode" | "enable-grays"
 
 export type ThemeChangeDetail = {
   mode: Mode
@@ -113,43 +107,6 @@ function getActiveSiteMode(): Mode {
     : "light"
 }
 
-const PALETTE_SOURCE_TOKENS = new Set<Token>([
-  "--palette-hue",
-  "--palette-chroma",
-  "--palette-hue-rotate-by",
-])
-
-/**
- * The shipped theme defines `--palette-source` directly (hardcoded hue +
- * chroma) and does not read the tunable `--palette-hue` / `--palette-chroma`
- * vars. To keep the slider contract working without overriding theme
- * defaults at rest, we mirror those vars into `--palette-source` as an
- * inline style on <html> only when the user has actually set them.
- *
- * Inline styles outrank both layered and unlayered CSS, so this beats
- * `@layer theme`'s rule on `:where(html)` and on `.ui-dark`.
- */
-function syncPaletteSource(mode: Mode): void {
-  if (!isBrowser) return
-  if (mode !== getActiveSiteMode()) return
-
-  const config = readConfig(mode)
-  const hue = config["--palette-hue"]
-  const chroma = config["--palette-chroma"]
-
-  if (hue === undefined && chroma === undefined) {
-    document.documentElement.style.removeProperty("--palette-source")
-    return
-  }
-
-  const h = hue ?? TOKEN_DEFAULTS["--palette-hue"]
-  const c = chroma ?? TOKEN_DEFAULTS["--palette-chroma"]
-  document.documentElement.style.setProperty(
-    "--palette-source",
-    `oklch(58% calc(0.21 * ${c}) ${h})`,
-  )
-}
-
 export const themeStore = {
   get(mode: Mode): ModeConfig {
     return readConfig(mode)
@@ -173,7 +130,6 @@ export const themeStore = {
     if (isBrowser && mode === getActiveSiteMode()) {
       document.documentElement.style.setProperty(token, value)
     }
-    if (PALETTE_SOURCE_TOKENS.has(token)) syncPaletteSource(mode)
     emit({ mode, type: "set", token, value })
   },
 
@@ -191,17 +147,6 @@ export const themeStore = {
     })
   },
 
-  setHueAnimator(mode: Mode, enabled: boolean): void {
-    const config = readConfig(mode)
-    config["hue-animator"] = enabled ? "true" : "false"
-    writeConfig(mode, config)
-    emit({
-      mode,
-      type: "hue-animator",
-      value: enabled ? "true" : "false",
-    })
-  },
-
   /**
    * Re-applies the saved config for `mode` to <html>. Mirrors
    * Header.astro's bootstrap so toggling the global theme and switching
@@ -211,20 +156,16 @@ export const themeStore = {
     if (!isBrowser) return
     const html = document.documentElement
     TOKENS.forEach((t) => html.style.removeProperty(t))
-    html.style.removeProperty("--palette-source")
     html.classList.remove("no-grays")
 
     const config = readConfig(mode)
     for (const [name, value] of Object.entries(config)) {
       if (name === "enable-grays") {
         html.classList.toggle("no-grays", value === "false")
-      } else if (name === "hue-animator") {
-        // not an HTML effect; consumed by the configurator's animator
       } else if (typeof value === "string") {
         html.style.setProperty(name, value)
       }
     }
-    syncPaletteSource(mode)
     emit({ mode, type: "applyMode" })
   },
 
@@ -236,7 +177,6 @@ export const themeStore = {
 
     const html = document.documentElement
     TOKENS.forEach((t) => html.style.removeProperty(t))
-    html.style.removeProperty("--palette-source")
     html.classList.remove("no-grays")
 
     emit({ mode: getActiveSiteMode(), type: "reset" })

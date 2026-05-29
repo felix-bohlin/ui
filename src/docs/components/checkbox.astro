@@ -85,10 +85,17 @@ import Conditional from "../../components/Conditional.astro"
         Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to toggle
         required styles
       </li>
-      <li>
-        The <code>data-invalid</code> attribute toggles the error styles. Make use
-        of the end text to give extra feedback on the error.
-      </li>
+      <Conditional>
+        <li slot="astro">
+          Use the <code>error</code> prop to toggle invalid styles. It renders
+          <code>data-invalid</code> on the root element. Make use of the end text
+          to give extra feedback on the error.
+        </li>
+        <li slot="html">
+          Add <code>data-invalid</code> on the root element to toggle invalid styles.
+          Make use of the end text to give extra feedback on the error.
+        </li>
+      </Conditional>
     </ul>
 
     <AutoExample name="Validation" column spacious />

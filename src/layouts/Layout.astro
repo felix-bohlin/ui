@@ -10,6 +10,13 @@ import {
   type FrameworkId,
 } from "../utils/framework-routing"
 
+type Props = {
+  title?: string
+  description?: string
+  image?: string
+}
+
+const { title, description, image } = Astro.props
 const pathname = Astro.url.pathname
 const currentFramework = (Astro.currentLocale ??
   DEFAULT_FRAMEWORK) as FrameworkId
@@ -19,6 +26,10 @@ const currentFramework = (Astro.currentLocale ??
 const variants = frameworkVariantsOf(pathname)
 const normalize = (url: string) => url.replace(/\/+$/, "") || "/"
 const currentNormalized = normalize(pathname)
+
+const siteTitle = title ? `${title} — Open Props UI` : "Open Props UI"
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const imageUrl = new URL(image || "/og-image.png", Astro.site)
 ---
 
 <!doctype html>
@@ -28,7 +39,29 @@ const currentNormalized = normalize(pathname)
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <link rel="canonical" href={pathname} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <title>{siteTitle}</title>
+    {description && <meta name="description" content={description} />}
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={siteTitle} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:image" content={imageUrl} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={siteTitle} />
+    {
+      description && (
+        <meta property="twitter:description" content={description} />
+      )
+    }
+    <meta property="twitter:image" content={imageUrl} />
+
     {
       variants
         .filter((v) => normalize(v.url) !== currentNormalized)
@@ -37,7 +70,6 @@ const currentNormalized = normalize(pathname)
         ))
     }
     <meta name="generator" content={Astro.generator} />
-    <title>Open Props UI</title>
   </head>
   <body>
     <slot />

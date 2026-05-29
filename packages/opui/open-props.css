@@ -1,9 +1,6 @@
 /*
 * Open Props
 * Import as many props as you need here.
-* https://app.unpkg.com/open-props@1.7.17/files/src
 */
 @import "open-props/src/index.css" layer(openprops);
 @import "open-props/src/props.colors-oklch-hues.css" layer(openprops);
-@import "open-props/src/props.gray-oklch.css" layer(openprops);
-@import "./core/palette.css" layer(openprops);

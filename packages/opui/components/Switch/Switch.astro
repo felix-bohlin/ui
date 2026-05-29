@@ -6,7 +6,7 @@ export const title = "Switch"
 
 const {
   class: className,
-  critical,
+  error,
   hideLabel,
   name,
   small,
@@ -42,7 +42,7 @@ if (
     },
     className,
   ]}
-  data-invalid={critical || undefined}
+  data-invalid={error || undefined}
 >
   {
     Astro.slots.has("icon-unchecked") && (

@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.1.1 - 2026-05-29
+
+### Added
+
+- Added CSS `@property` types to the palette (`--color-*` and `--gray-*`) variables to hopefully improve perf.
+
+### Changed
+
+- Cleaned up comments and theme variable organization in `css/theme.css`.
+
 ## 5.1.0 - 2026-05-28
 
 ### Fixed

@@ -6,7 +6,7 @@
 
   const {
     class: className,
-    critical,
+    error,
     checked = $bindable(),
     hideLabel,
     indeterminate = $bindable(),
@@ -26,7 +26,7 @@
 
   const componentId = $props.id()
   const endTextId = $derived(endText ? `end-text-${componentId}` : undefined)
-  const invalid = $derived(critical || undefined)
+  const invalid = $derived(error || undefined)
   const classes = $derived([
     "ui-checkbox",
     size && `ui-${size}`,

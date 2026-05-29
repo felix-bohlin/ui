@@ -8,7 +8,7 @@
 
   const {
     class: className,
-    critical,
+    error,
     hideLabel,
     name,
     small,
@@ -53,7 +53,7 @@
   ])
 </script>
 
-<label bind:this={element} class={classes} data-invalid={critical || undefined}>
+<label bind:this={element} class={classes} data-invalid={error || undefined}>
   {#if iconUnchecked}
     <span class="ui-icon-unchecked" aria-hidden="true">
       {@render iconUnchecked()}

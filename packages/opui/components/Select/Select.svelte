@@ -8,7 +8,7 @@
   const {
     class: className,
     description,
-    critical,
+    error,
     dense,
     id,
     items,
@@ -56,7 +56,7 @@
   {/if}
 {/snippet}
 
-<label class={classes} bind:this={element} data-invalid={critical || undefined}>
+<label class={classes} bind:this={element} data-invalid={error || undefined}>
   {#if label}
     <span class="ui-label" id={labelId}>
       {@render snippetString(label)}

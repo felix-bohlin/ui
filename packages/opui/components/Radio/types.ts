@@ -1,7 +1,7 @@
 export type RadioProps = {
   checked?: boolean
   disabled?: boolean
-  critical?: boolean
+  error?: boolean
   hideLabel?: boolean
   name?: string
   required?: boolean

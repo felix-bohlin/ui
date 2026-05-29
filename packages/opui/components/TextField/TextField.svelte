@@ -8,7 +8,7 @@
   const {
     autoFit,
     class: className,
-    critical,
+    error,
     filled,
     id,
     label,
@@ -62,7 +62,7 @@
 <label
   bind:this={element}
   class={classes}
-  data-invalid={critical || undefined}
+  data-invalid={error || undefined}
   {...rest}
 >
   {#if label}

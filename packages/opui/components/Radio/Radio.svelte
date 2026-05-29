@@ -6,7 +6,7 @@
 
   const {
     class: className,
-    critical,
+    error,
     hideLabel,
     name,
     size,
@@ -26,7 +26,7 @@
   ])
 </script>
 
-<label class={classes} data-invalid={critical || undefined}>
+<label class={classes} data-invalid={error || undefined}>
   <RadioInput aria-describedby={description} {...rest} />
   <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}
     >{@render children?.()}</span

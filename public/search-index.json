@@ -730,26 +730,6 @@
     "url": "/html/api#accordion"
   },
   {
-    "id": "api-avatar-astro",
-    "title": "Avatar API",
-    "description": "Reference for Avatar Astro component.",
-    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#avatar"
-  },
-  {
-    "id": "api-avatar-html",
-    "title": "Avatar API",
-    "description": "Reference for Avatar HTML component.",
-    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#avatar"
-  },
-  {
     "id": "api-anchor-astro",
     "title": "Anchor API",
     "description": "Reference for Anchor Astro component.",
@@ -768,6 +748,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#anchor"
+  },
+  {
+    "id": "api-avatar-astro",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Astro component.",
+    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#avatar"
+  },
+  {
+    "id": "api-avatar-html",
+    "title": "Avatar API",
+    "description": "Reference for Avatar HTML component.",
+    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#avatar"
   },
   {
     "id": "api-badge-astro",
@@ -1030,26 +1030,6 @@
     "url": "/html/api#field-group"
   },
   {
-    "id": "api-icon-button-astro",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button Astro component.",
-    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#icon-button"
-  },
-  {
-    "id": "api-icon-button-html",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button HTML component.",
-    "headings": "Variants - The visual style of the icon button. Sizes .ui-small - The size of the element. Colors - States [disabled] - Attribute to disable the icon button.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#icon-button"
-  },
-  {
     "id": "api-form-astro",
     "title": "Form API",
     "description": "Reference for Form Astro component.",
@@ -1068,6 +1048,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#form"
+  },
+  {
+    "id": "api-icon-button-astro",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button Astro component.",
+    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#icon-button"
+  },
+  {
+    "id": "api-icon-button-html",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button HTML component.",
+    "headings": "Variants - The visual style of the icon button. Sizes .ui-small - The size of the element. Colors - States [disabled] - Attribute to disable the icon button.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#icon-button"
   },
   {
     "id": "api-list-astro",
@@ -1150,26 +1150,6 @@
     "url": "/html/api#select"
   },
   {
-    "id": "api-table-astro",
-    "title": "Table API",
-    "description": "Reference for Table Astro component.",
-    "headings": "class string - Additional CSS classes to apply to the table. variant \"dense\" | \"spacious\" - The variant to use.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#table"
-  },
-  {
-    "id": "api-table-html",
-    "title": "Table API",
-    "description": "Reference for Table HTML component.",
-    "headings": "Table &lt;table class=\"ui-table\"&gt; - The native HTML table element. Dense .ui-dense - When applied the table will appear denser. Spacious .ui-spacious - When applied the table will appear more spacious.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#table"
-  },
-  {
     "id": "api-switch-astro",
     "title": "Switch API",
     "description": "Reference for Switch Astro component.",
@@ -1188,6 +1168,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#switch"
+  },
+  {
+    "id": "api-table-astro",
+    "title": "Table API",
+    "description": "Reference for Table Astro component.",
+    "headings": "class string - Additional CSS classes to apply to the table. variant \"dense\" | \"spacious\" - The variant to use.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#table"
+  },
+  {
+    "id": "api-table-html",
+    "title": "Table API",
+    "description": "Reference for Table HTML component.",
+    "headings": "Table &lt;table class=\"ui-table\"&gt; - The native HTML table element. Dense .ui-dense - When applied the table will appear denser. Spacious .ui-spacious - When applied the table will appear more spacious.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#table"
   },
   {
     "id": "api-tabs-astro",

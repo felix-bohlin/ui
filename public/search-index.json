@@ -2,7 +2,7 @@
   {
     "id": "component-accordion-html",
     "title": "Accordion",
-    "description": "Leverages the HTML details and summary elements. Uses\n    the native HTML arrow, check out how to add your own custom marker.",
+    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
     "category": "Component",
     "frameworkId": "html",
@@ -12,7 +12,7 @@
   {
     "id": "component-accordion-astro",
     "title": "Accordion",
-    "description": "Leverages the HTML details and summary elements. Uses\n    the native HTML arrow, check out how to add your own custom marker.",
+    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
     "category": "Component",
     "frameworkId": "astro",
@@ -22,7 +22,7 @@
   {
     "id": "component-anchor-html",
     "title": "Anchor",
-    "description": "A structural primitive for positioning floating content relative to an\n      anchor element using CSS Anchor Positioning.\n    \n    \n      \n        Add the .ui-anchor class to a container. The first child becomes\n        the anchor target. Place floating content inside .ui-anchor-floating. Use --anchor-position-area to control placement.",
+    "description": "",
     "headings": "Always Visible Hover Trigger Used By",
     "category": "Component",
     "frameworkId": "html",
@@ -32,7 +32,7 @@
   {
     "id": "component-anchor-astro",
     "title": "Anchor",
-    "description": "A structural primitive for positioning floating content relative to an\n      anchor element using CSS Anchor Positioning.\n    \n    \n      \n        Add the .ui-anchor class to a container. The first child becomes\n        the anchor target. Place floating content inside .ui-anchor-floating. Use --anchor-position-area to control placement.",
+    "description": "",
     "headings": "Always Visible Hover Trigger Used By",
     "category": "Component",
     "frameworkId": "astro",
@@ -730,26 +730,6 @@
     "url": "/html/api#accordion"
   },
   {
-    "id": "api-anchor-astro",
-    "title": "Anchor API",
-    "description": "Reference for Anchor Astro component.",
-    "headings": "alignment string \"start end\" trigger \"always\" | \"hover\" \"always\"",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#anchor"
-  },
-  {
-    "id": "api-anchor-html",
-    "title": "Anchor API",
-    "description": "Reference for Anchor HTML component.",
-    "headings": "Container .ui-anchor - Floating .ui-anchor-floating - Position --anchor-position-area start end Trigger data-trigger=\"hover\" -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#anchor"
-  },
-  {
     "id": "api-avatar-astro",
     "title": "Avatar API",
     "description": "Reference for Avatar Astro component.",
@@ -768,6 +748,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#avatar"
+  },
+  {
+    "id": "api-anchor-astro",
+    "title": "Anchor API",
+    "description": "Reference for Anchor Astro component.",
+    "headings": "alignment string \"start end\" trigger \"always\" | \"hover\" \"always\"",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#anchor"
+  },
+  {
+    "id": "api-anchor-html",
+    "title": "Anchor API",
+    "description": "Reference for Anchor HTML component.",
+    "headings": "Container .ui-anchor - Floating .ui-anchor-floating - Position --anchor-position-area start end Trigger data-trigger=\"hover\" -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#anchor"
   },
   {
     "id": "api-badge-astro",
@@ -1090,26 +1090,6 @@
     "url": "/html/api#list"
   },
   {
-    "id": "api-progress-astro",
-    "title": "Progress API",
-    "description": "Reference for Progress Astro component.",
-    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#progress"
-  },
-  {
-    "id": "api-progress-html",
-    "title": "Progress API",
-    "description": "Reference for Progress HTML component.",
-    "headings": "Progress - Indeterminate No value attribute - Display an indeterminate loading state. Variant -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#progress"
-  },
-  {
     "id": "api-range-astro",
     "title": "Range API",
     "description": "Reference for Range Astro component.",
@@ -1128,6 +1108,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#range"
+  },
+  {
+    "id": "api-progress-astro",
+    "title": "Progress API",
+    "description": "Reference for Progress Astro component.",
+    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#progress"
+  },
+  {
+    "id": "api-progress-html",
+    "title": "Progress API",
+    "description": "Reference for Progress HTML component.",
+    "headings": "Progress - Indeterminate No value attribute - Display an indeterminate loading state. Variant -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#progress"
   },
   {
     "id": "api-select-astro",

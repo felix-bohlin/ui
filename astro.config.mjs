@@ -52,7 +52,18 @@ export default defineConfig({
       themes: ["dark-plus", "light-plus"],
     }),
   ],
-  vite: {},
+  vite: {
+    plugins: [
+      {
+        name: "opui-package-astro-hmr",
+        handleHotUpdate({ file, server }) {
+          if (file.includes("/packages/opui/") && file.endsWith(".astro")) {
+            server.ws.send({ type: "full-reload", path: "*" })
+          }
+        },
+      },
+    ],
+  },
   devToolbar: { enabled: false },
   fonts: [
     {

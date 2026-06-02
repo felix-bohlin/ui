@@ -582,8 +582,8 @@
   {
     "id": "component-tooltip-html",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .ui-tooltip class alongside .ui-anchor on\n        the wrapper. Wire interestfor on the trigger to the\n        .ui-anchor-floating[popover=\"hint\"] element's ID.",
-    "headings": "Basics Alignment Arrow Rich content",
+    "description": "Built on top of Anchor.",
+    "headings": "Basics Text only... ... or any markup you want Alignment Arrow",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -592,8 +592,8 @@
   {
     "id": "component-tooltip-astro",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .ui-tooltip class alongside .ui-anchor on\n        the wrapper. Wire interestfor on the trigger to the\n        .ui-anchor-floating[popover=\"hint\"] element's ID.",
-    "headings": "Basics Alignment Arrow Rich content",
+    "description": "Built on top of Anchor.",
+    "headings": "Basics Text only... ... or any markup you want Alignment Arrow",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
@@ -730,26 +730,6 @@
     "url": "/html/api#accordion"
   },
   {
-    "id": "api-avatar-astro",
-    "title": "Avatar API",
-    "description": "Reference for Avatar Astro component.",
-    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#avatar"
-  },
-  {
-    "id": "api-avatar-html",
-    "title": "Avatar API",
-    "description": "Reference for Avatar HTML component.",
-    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#avatar"
-  },
-  {
     "id": "api-anchor-astro",
     "title": "Anchor API",
     "description": "Reference for Anchor Astro component.",
@@ -768,6 +748,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#anchor"
+  },
+  {
+    "id": "api-avatar-astro",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Astro component.",
+    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#avatar"
+  },
+  {
+    "id": "api-avatar-html",
+    "title": "Avatar API",
+    "description": "Reference for Avatar HTML component.",
+    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#avatar"
   },
   {
     "id": "api-badge-astro",
@@ -1090,26 +1090,6 @@
     "url": "/html/api#list"
   },
   {
-    "id": "api-range-astro",
-    "title": "Range API",
-    "description": "Reference for Range Astro component.",
-    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\n    \n    \n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#range"
-  },
-  {
-    "id": "api-range-html",
-    "title": "Range API",
-    "description": "Reference for Range HTML component.",
-    "headings": "Input input[type=\"range\"] - The native range input element. Range .ui-range - Wrapper for label and input styling. Spread .ui-spread - Modifier for a spread layout. Variant - Modifiers for different background surfaces. Label .ui-label - The label element for the range. Value output.value - Start text .ui-start-text - End text .ui-end-text - Optional text displayed below the range input. Spread .ui-spread -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#range"
-  },
-  {
     "id": "api-progress-astro",
     "title": "Progress API",
     "description": "Reference for Progress Astro component.",
@@ -1130,6 +1110,26 @@
     "url": "/html/api#progress"
   },
   {
+    "id": "api-range-astro",
+    "title": "Range API",
+    "description": "Reference for Range Astro component.",
+    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\n    \n    \n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#range"
+  },
+  {
+    "id": "api-range-html",
+    "title": "Range API",
+    "description": "Reference for Range HTML component.",
+    "headings": "Input input[type=\"range\"] - The native range input element. Range .ui-range - Wrapper for label and input styling. Spread .ui-spread - Modifier for a spread layout. Variant - Modifiers for different background surfaces. Label .ui-label - The label element for the range. Value output.value - Start text .ui-start-text - End text .ui-end-text - Optional text displayed below the range input. Spread .ui-spread -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#range"
+  },
+  {
     "id": "api-select-astro",
     "title": "Select API",
     "description": "Reference for Select Astro component.",
@@ -1148,6 +1148,26 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#select"
+  },
+  {
+    "id": "api-spinner-astro",
+    "title": "Spinner API",
+    "description": "Reference for Spinner Astro component.",
+    "headings": "aria-busy - Sizes font-size 1em Excluded - Elements that never receive a spinner.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#spinner"
+  },
+  {
+    "id": "api-spinner-html",
+    "title": "Spinner API",
+    "description": "Reference for Spinner HTML component.",
+    "headings": "State aria-busy=\"true\" - Sizes font-size on the element 1em Excluded - Elements that never receive a spinner.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#spinner"
   },
   {
     "id": "api-switch-astro",
@@ -1328,5 +1348,25 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#tooltip"
+  },
+  {
+    "id": "api-typography-astro",
+    "title": "Typography API",
+    "description": "Reference for Typography Astro component.",
+    "headings": "Classes - Sizes .ui-small, .ui-large - Size modifiers on .ui-p.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#typography"
+  },
+  {
+    "id": "api-typography-html",
+    "title": "Typography API",
+    "description": "Reference for Typography HTML component.",
+    "headings": "Headings - Heading styles for any element. Paragraph .ui-p - Body paragraph styling. Sizes .ui-small, .ui-large - Size modifiers on .ui-p. Overline .ui-overline - Small uppercase label text. Caption .ui-caption - Muted supporting text. Heading group .ui-hgroup - Blockquote .ui-blockquote - Quoted block with a start border. Code block pre.ui-code-block - Monospace preformatted block. Inline - Inline text element utilities. Rich text .ui-rich-text -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#typography"
   }
 ]

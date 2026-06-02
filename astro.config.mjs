@@ -1,7 +1,11 @@
 // @ts-check
 import { readdirSync } from "node:fs"
 import { fileURLToPath } from "node:url"
-import { defineConfig, fontProviders } from "astro/config"
+import {
+  defineConfig,
+  fontProviders,
+  passthroughImageService,
+} from "astro/config"
 import sitemap from "@astrojs/sitemap"
 
 import expressiveCode from "astro-expressive-code"
@@ -35,6 +39,7 @@ const legacyRedirects = {
 
 // https://astro.build/config
 export default defineConfig({
+  image: { service: passthroughImageService() },
   site: "https://open-props-ui.netlify.app/",
   // Framework variants are modeled as i18n locales. Every framework lives
   // under its own URL prefix (e.g. /html/..., /astro/...). The "default" is

@@ -12,8 +12,8 @@ export type ClassicSelectProps = {
   label?: string
   name?: string
   required?: boolean
-  size?: 'small'
+  size?: "small"
   endText?: string
   value?: any
-  variant?: 'outlined' | 'filled'
+  variant?: "outlined" | "filled"
 }

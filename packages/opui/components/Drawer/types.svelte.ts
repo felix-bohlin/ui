@@ -8,6 +8,8 @@ export type Props = Base.Props &
   Omit<SvelteHTMLElements["dialog"], "id"> &
   Snippets
 
-export type DrawerFooterProps = Base.DrawerFooterProps & SvelteHTMLElements["div"]
+export type DrawerFooterProps = Base.DrawerFooterProps &
+  SvelteHTMLElements["div"]
 
-export type DrawerHeaderProps = Base.DrawerHeaderProps & SvelteHTMLElements["div"]
+export type DrawerHeaderProps = Base.DrawerHeaderProps &
+  SvelteHTMLElements["div"]

@@ -1,6 +1,5 @@
 ---
-import type { Props } from './types.astro'
-
+import type { Props } from "./types.astro"
 
 export const title = "Anchor"
 
@@ -28,7 +27,6 @@ const positionArea = alignment
       "--_anchor-inset": insetMap[alignment],
     }
   : {}
-
 ---
 
 <span class:list={["ui-anchor", className]} style={positionArea} {...rest}>

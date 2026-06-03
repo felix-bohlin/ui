@@ -1,13 +1,13 @@
 export type Props = {
-	[key: string]: any;
-	variant?: string;
-};
+  [key: string]: any
+  variant?: string
+}
 
 export type SectionProps = {
-	[key: string]: any;
-};
+  [key: string]: any
+}
 
 export type ColumnProps = {
-	[key: string]: any;
-	width?: string;
-};
+  [key: string]: any
+  width?: string
+}

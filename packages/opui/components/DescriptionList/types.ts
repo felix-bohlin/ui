@@ -1,4 +1,4 @@
 export type Props = {
-	[key: string]: any;
-	bordered?: boolean | "dotted";
-};
+  [key: string]: any
+  bordered?: boolean | "dotted"
+}

@@ -1,5 +1,5 @@
 ---
-import type { Props } from './types.astro'
+import type { Props } from "./types.astro"
 
 export const title = "Textarea"
 
@@ -45,17 +45,21 @@ const fieldName = name || currentFieldName
   data-invalid={error || undefined}
   {...rest}
 >
-{
-  (label || Astro.slots.has("label")) && (
-      <!-- prettier-ignore -->
-      <span class="ui-label">{label}<slot name="label" /></span>
+  {
+    (label || Astro.slots.has("label")) && (
+      <span class="ui-label">
+        {label}
+        <slot name="label" />
+      </span>
     )
   }
 
-{
-  (description || Astro.slots.has("description")) && (
-      <!-- prettier-ignore -->
-      <span class="ui-start-text">{description}<slot name="description" /></span>
+  {
+    (description || Astro.slots.has("description")) && (
+      <span class="ui-start-text">
+        {description}
+        <slot name="description" />
+      </span>
     )
   }
   <span class="ui-field">
@@ -70,15 +74,44 @@ const fieldName = name || currentFieldName
       required={required}
       rows={rows}
       value={value}></textarea>
-    {Astro.slots.has("prefix") && <span class="ui-prefix"><slot name="prefix" /></span>}
-    {Astro.slots.has("suffix") && <span class="ui-suffix"><slot name="suffix" /></span>}
-    {Astro.slots.has("header") && <span class="ui-header"><slot name="header" /></span>}
-    {Astro.slots.has("footer") && <span class="ui-footer"><slot name="footer" /></span>}
-  </span>
     {
-      (endText || Astro.slots.has("end-text") || Astro.slots.has("supporting-text")) && (
-      <!-- prettier-ignore -->
-      <span class="ui-end-text">{endText}<slot name="end-text" /><slot name="supporting-text" /></span>
+      Astro.slots.has("prefix") && (
+        <span class="ui-prefix">
+          <slot name="prefix" />
+        </span>
+      )
+    }
+    {
+      Astro.slots.has("suffix") && (
+        <span class="ui-suffix">
+          <slot name="suffix" />
+        </span>
+      )
+    }
+    {
+      Astro.slots.has("header") && (
+        <span class="ui-header">
+          <slot name="header" />
+        </span>
+      )
+    }
+    {
+      Astro.slots.has("footer") && (
+        <span class="ui-footer">
+          <slot name="footer" />
+        </span>
+      )
+    }
+  </span>
+  {
+    (endText ||
+      Astro.slots.has("end-text") ||
+      Astro.slots.has("supporting-text")) && (
+      <span class="ui-end-text">
+        {endText}
+        <slot name="end-text" />
+        <slot name="supporting-text" />
+      </span>
     )
   }
   <slot />

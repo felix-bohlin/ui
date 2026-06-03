@@ -14,7 +14,6 @@ const {
 } = Astro.props
 ---
 
-<!-- prettier-ignore -->
 <Tag
   class:list={[
     "ui-chip",
@@ -26,4 +25,7 @@ const {
     className,
   ]}
   {...rest as any}
-><slot name="start" /><slot />{label && <span class="ui-text">{label}</span>}<slot name="end" /></Tag>
+  ><slot name="start" /><slot />{
+    label && <span class="ui-text">{label}</span>
+  }<slot name="end" /></Tag
+>

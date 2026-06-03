@@ -17,7 +17,6 @@ const {
 const Tag = (as || (href ? "a" : "div")) as any
 ---
 
-<!-- prettier-ignore -->
 <Tag
   class:list={[
     { "ui-avatar": !isGroup },
@@ -26,4 +25,5 @@ const Tag = (as || (href ? "a" : "div")) as any
   ]}
   href={href}
   role={isGroup ? "group" : undefined}
-  {...rest}>{src ? <img src={src} alt={alt} /> : <slot />}</Tag>
+  {...rest}>{src ? <img src={src} alt={alt} /> : <slot />}</Tag
+>

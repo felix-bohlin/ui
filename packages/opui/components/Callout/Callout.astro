@@ -1,16 +1,19 @@
 ---
-import type { Props } from './types.astro'
-
+import type { Props } from "./types.astro"
 
 export const title = "Callout"
 
 const { class: className, severity, variant, ...rest } = Astro.props
-
 ---
 
 <article
   role="note"
-  class:list={["ui-callout", variant && `ui-${variant}`, severity && `ui-${severity}`, className]}
+  class:list={[
+    "ui-callout",
+    variant && `ui-${variant}`,
+    severity && `ui-${severity}`,
+    className,
+  ]}
   {...rest}
 >
   <slot name="icon">
@@ -63,8 +66,9 @@ const { class: className, severity, variant, ...rest } = Astro.props
   <div class="ui-content">
     {
       Astro.slots.has("title") && (
-        <!-- prettier-ignore -->
-        <h3 class="ui-title"><slot name="title" /></h3>
+        <h3 class="ui-title">
+          <slot name="title" />
+        </h3>
       )
     }
     <slot />

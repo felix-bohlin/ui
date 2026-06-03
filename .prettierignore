@@ -1,0 +1,7 @@
+pnpm-lock.yaml
+pnpm-workspace.yaml
+.astro
+.cursor
+.vscode
+dist
+node_modules

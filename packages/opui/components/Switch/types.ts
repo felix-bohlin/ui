@@ -1,5 +1,5 @@
 export type SwitchProps = {
-  critical?: boolean
+  error?: boolean
   hideLabel?: boolean
   small?: boolean
   spread?: boolean

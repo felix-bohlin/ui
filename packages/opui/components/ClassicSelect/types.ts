@@ -6,7 +6,7 @@ export type Item = {
 export type ClassicSelectProps = {
   [key: string]: any
   disabled?: boolean
-  critical?: boolean
+  error?: boolean
   id?: string
   items?: Item[]
   label?: string

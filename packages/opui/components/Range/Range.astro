@@ -1,27 +1,5 @@
 ---
-type Props = {
-  [key: string]: any
-  class?: string
-  disabled?: boolean
-  endText?: string
-  id?: string
-  label?: string
-  max?: number | string
-  min?: number | string
-  name?: string
-  spread?: boolean
-  startText?: string
-  step?: number | string
-  value?: number | string
-  valueSuffix?: string
-  variant?: "filled" | "default" | "tonal"
-} & (
-  | { list?: never; options?: never }
-  | {
-      list: string
-      options: (string | number | { value: string | number; label?: string })[]
-    }
-)
+import type { RangeProps as Props } from "./types.astro"
 
 export const title = "Range"
 
@@ -57,14 +35,24 @@ const labelId = hasLabel ? $id("range-label") : undefined
 const startTextId = hasStartText ? $id("range-start") : undefined
 const endTextId = hasEndText ? $id("range-end") : undefined
 
-const describedBy = [startTextId, endTextId].filter(Boolean).join(" ") || undefined
+const describedBy =
+  [startTextId, endTextId].filter(Boolean).join(" ") || undefined
 ---
 
-<label class:list={["ui-range", variant && `ui-${variant}`, { "ui-spread": spread }, className]}>
+<label
+  class:list={[
+    "ui-range",
+    variant && `ui-${variant}`,
+    { "ui-spread": spread },
+    className,
+  ]}
+>
   {
     hasLabel && (
-      <!-- prettier-ignore -->
-      <span class="ui-label" id={labelId}>{label}<slot /></span>
+      <span class="ui-label" id={labelId}>
+        {label}
+        <slot />
+      </span>
     )
   }
   {
@@ -77,7 +65,8 @@ const describedBy = [startTextId, endTextId].filter(Boolean).join(" ") || undefi
   {
     hasStartText && (
       <span class="ui-start-text" id={startTextId}>
-        {startText}<slot name="start-text" />
+        {startText}
+        <slot name="start-text" />
       </span>
     )
   }
@@ -103,7 +92,7 @@ const describedBy = [startTextId, endTextId].filter(Boolean).join(" ") || undefi
             <option value={option.value} label={option.label} />
           ) : (
             <option value={option} />
-          )
+          ),
         )}
         <slot name="datalist" />
       </datalist>
@@ -112,7 +101,8 @@ const describedBy = [startTextId, endTextId].filter(Boolean).join(" ") || undefi
   {
     hasEndText && (
       <span class="ui-end-text" id={endTextId}>
-        {endText}<slot name="end-text" />
+        {endText}
+        <slot name="end-text" />
       </span>
     )
   }
@@ -124,7 +114,9 @@ const describedBy = [startTextId, endTextId].filter(Boolean).join(" ") || undefi
   // without a value display.
   for (const range of document.querySelectorAll<HTMLElement>(".ui-range")) {
     const input = range.querySelector<HTMLInputElement>('input[type="range"]')
-    const output = range.querySelector<HTMLOutputElement>(":scope > output.ui-value")
+    const output = range.querySelector<HTMLOutputElement>(
+      ":scope > output.ui-value",
+    )
     if (!input || !output) continue
     const suffix = output.dataset.suffix ?? ""
     const update = () => {

@@ -1,14 +1,5 @@
 ---
-type Props = {
-  [key: string]: any
-  alt?: string
-  as?: "div" | "a" | "button" | string
-  class?: string
-  href?: string
-  isGroup?: boolean
-  src?: string
-  variant?: "squared" | "rounded" | "squircle"
-}
+import type { Props } from "./types.astro"
 
 export const title = "Avatar"
 
@@ -23,10 +14,9 @@ const {
   ...rest
 } = Astro.props
 
-const Tag = as || (href ? "a" : "div")
+const Tag = (as || (href ? "a" : "div")) as any
 ---
 
-<!-- prettier-ignore -->
 <Tag
   class:list={[
     { "ui-avatar": !isGroup },
@@ -35,4 +25,5 @@ const Tag = as || (href ? "a" : "div")
   ]}
   href={href}
   role={isGroup ? "group" : undefined}
-  {...rest}>{src ? <img src={src} alt={alt} /> : <slot />}</Tag>
+  {...rest}>{src ? <img src={src} alt={alt} /> : <slot />}</Tag
+>

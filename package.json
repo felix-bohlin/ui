@@ -12,21 +12,24 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
+    "astro": "catalog:",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^6.3.1",
     "astro-expressive-code": "^0.41.7",
     "baseline-status": "^1.1.1",
     "globby": "^16.2.0",
     "highlight.js": "^11.11.1",
     "minisearch": "^7.2.0",
-    "open-props": "^1.7.23",
+    "open-props": "catalog:",
     "opui-css": "workspace:*",
     "typescript": "^6.0.3",
     "web-features": "^3.27.0"
   },
   "devDependencies": {
     "prettier": "^3.8.3",
-    "prettier-plugin-astro": "0.14.1"
+    "prettier-plugin-astro": "0.14.1",
+    "solid-js": "catalog:",
+    "svelte": "catalog:",
+    "vue": "catalog:"
   },
   "pnpm": {
     "onlyBuiltDependencies": []

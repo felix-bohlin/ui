@@ -1,15 +1,7 @@
 ---
-import Anchor from "../Anchor/Anchor.astro"
+import type { Props } from "./types.astro"
 
-type Props = {
-  [key: string]: any
-  alignment?: "start-start" | "end-start" | "end-end"
-  class?: string
-  color?: "critical" | "info" | "neutral" | "success" | "warning"
-  dot?: boolean
-  invisible?: boolean
-  label?: string | number
-}
+import Anchor from "../Anchor/Anchor.astro"
 
 export const title = "Badge"
 
@@ -45,7 +37,7 @@ const positionArea =
     className,
     color && `ui-${color}`,
   ]}
-  {...rest}
+  {...rest as any}
 >
   <slot />
   <span

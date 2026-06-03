@@ -62,8 +62,8 @@
     "postcss-import": "^16.1.0"
   },
   "peerDependencies": {
-    "astro": "^6.3.1",
-    "open-props": "^1.7.23"
+    "astro": "catalog:",
+    "open-props": "catalog:"
   },
   "peerDependenciesMeta": {
     "astro": {

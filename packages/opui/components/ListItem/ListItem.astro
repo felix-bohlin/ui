@@ -1,15 +1,5 @@
 ---
-type Props = {
-  as?: "a" | "button" | "div"
-  borderTop?: boolean
-  class?: string
-  description?: string
-  for?: string
-  headline?: string
-  inset?: boolean
-  type?: "checkbox" | "radio" | "switch"
-  [key: string]: any
-}
+import type { Props } from "./types.astro"
 
 export const title = "List Item"
 
@@ -40,7 +30,7 @@ const innerProps = Tag ? rest : {}
     },
     className,
   ]}
-  {...liProps}
+  {...liProps as any}
 >
   {
     // Label + checkbox/radio/switch
@@ -67,7 +57,7 @@ const innerProps = Tag ? rest : {}
       </label>
     ) : // With custom tag
     Tag ? (
-      <Tag {...innerProps}>
+      <Tag {...(innerProps as any)}>
         {Astro.slots.start && (
           <div class="ui-start">
             <slot name="start" />

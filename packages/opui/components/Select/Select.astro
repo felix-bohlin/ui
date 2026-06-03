@@ -1,27 +1,5 @@
 ---
-type Item = {
-  text: string
-  value: any
-}
-
-type Props = {
-  [key: string]: any
-  class?: string
-  description?: string
-  disabled?: boolean
-  error?: boolean
-  dense?: boolean
-  id?: string
-  items?: Item[]
-  label?: string
-  name?: string
-  spread?: boolean
-  required?: boolean
-  size?: "small"
-  endText?: string
-  value?: any
-  variant?: "outlined" | "filled"
-}
+import type { Props } from "./types.astro"
 
 export const title = "Select"
 
@@ -36,9 +14,9 @@ const {
   label,
   name,
   spread,
-  required,
   size,
   endText,
+  required,
   value,
   variant = "outlined",
   ...rest
@@ -64,14 +42,18 @@ const labelId = $id("select-label")
 >
   {
     (label || Astro.slots.has("label")) && (
-      <!-- prettier-ignore -->
-      <span class="ui-label" id={labelId}>{label}<slot name="label" /></span>
+      <span class="ui-label" id={labelId}>
+        {label}
+        <slot name="label" />
+      </span>
     )
   }
   {
     (description || Astro.slots.has("description")) && (
-      <!-- prettier-ignore -->
-      <span class="ui-start-text">{description}<slot name="description" /></span>
+      <span class="ui-start-text">
+        {description}
+        <slot name="description" />
+      </span>
     )
   }
   <span class="ui-field">
@@ -92,15 +74,41 @@ const labelId = $id("select-label")
         <slot />
       </div>
     </select>
-    {Astro.slots.has("prefix") && <span class="ui-prefix"><slot name="prefix" /></span>}
-    {Astro.slots.has("suffix") && <span class="ui-suffix"><slot name="suffix" /></span>}
-    {Astro.slots.has("header") && <span class="ui-header"><slot name="header" /></span>}
-    {Astro.slots.has("footer") && <span class="ui-footer"><slot name="footer" /></span>}
+    {
+      Astro.slots.has("prefix") && (
+        <span class="ui-prefix">
+          <slot name="prefix" />
+        </span>
+      )
+    }
+    {
+      Astro.slots.has("suffix") && (
+        <span class="ui-suffix">
+          <slot name="suffix" />
+        </span>
+      )
+    }
+    {
+      Astro.slots.has("header") && (
+        <span class="ui-header">
+          <slot name="header" />
+        </span>
+      )
+    }
+    {
+      Astro.slots.has("footer") && (
+        <span class="ui-footer">
+          <slot name="footer" />
+        </span>
+      )
+    }
   </span>
   {
     (endText || Astro.slots.has("end-text")) && (
-      <!-- prettier-ignore -->
-      <span id={$id("end-text")} class="ui-end-text">{endText}<slot name="end-text" /></span>
+      <span id={$id("end-text")} class="ui-end-text">
+        {endText}
+        <slot name="end-text" />
+      </span>
     )
   }
 </label>

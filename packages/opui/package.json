@@ -1,6 +1,6 @@
 {
   "name": "opui-css",
-  "version": "5.0.1",
+  "version": "5.1.2",
   "description": "A CSS UI library exploring next-gen HTML & CSS features. Astro components on top of Open Props.",
   "type": "module",
   "license": "MIT",
@@ -36,11 +36,9 @@
     "env.d.ts",
     "open-props.css",
     "CHANGELOG.md",
-    "CONTRIBUTING.md",
     "LICENSE",
     "MIGRATING.md",
-    "README.md",
-    "RELEASING.md"
+    "README.md"
   ],
   "style": "./dist/opui.css",
   "exports": {

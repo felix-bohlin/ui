@@ -17,6 +17,7 @@ export const description =
 ---
 
 <Component
+  description={description}
   slug="textarea"
   browserSupport={[
     "datalist",
@@ -110,12 +111,13 @@ export const description =
     </p>
     <Conditional as="p">
       <Fragment slot="astro">
-        The <code>critical</code> prop toggles the error styles. Make use of the end
+        Use the <code>error</code> prop to toggle invalid styles. It renders the
+        <code>data-invalid</code> attribute on the root element. Make use of the end
         text to give extra feedback on the error.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>data-invalid</code> attribute to toggle error styles. Make use
-        of the end text to give extra feedback on the error.
+        Add <code>data-invalid</code> on the root element to toggle invalid styles.
+        Make use of the end text to give extra feedback on the error.
       </Fragment>
     </Conditional>
 

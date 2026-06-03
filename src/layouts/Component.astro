@@ -18,6 +18,9 @@ import {
 } from "../utils/framework-routing"
 
 type Props = {
+  title?: string
+  description?: string
+  image?: string
   overline?: string
   browserSupport?: string[]
   /**
@@ -47,6 +50,9 @@ const {
   overline = "Components",
   showToc = true,
   slug: slugProp,
+  title,
+  description,
+  image,
 } = Astro.props
 
 const currentFramework = (Astro.currentLocale ??
@@ -96,7 +102,13 @@ const editUrl = `${githubRepo}/edit/main/src/docs/components/${currentSlug}.astr
 const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 ---
 
-<Document overline={overline} showToc={showToc}>
+<Document
+  overline={overline}
+  showToc={showToc}
+  title={title}
+  description={description}
+  image={image}
+>
   <FrameworkPicker size="small" slot="sidebar" />
 
   <Divider variant="tonal" slot="sidebar" />

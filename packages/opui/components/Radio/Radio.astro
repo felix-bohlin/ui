@@ -6,7 +6,8 @@ export const title = "Radio"
 
 const {
   class: className,
-  critical,
+  disabled,
+  error,
   hideLabel,
   name,
   size,
@@ -29,7 +30,7 @@ const finalName = name || currentFieldName
     },
     className,
   ]}
-  data-invalid={critical || undefined}
+  data-invalid={error || undefined}
 >
   <RadioInput
     aria-describedby={endTextId}

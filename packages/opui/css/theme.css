@@ -1,7 +1,5 @@
-/*
-  theme three theme setup
-*/
 @layer theme {
+
   /* 1. Color scheme */
   .ui-light {
     --color-scheme: light;
@@ -14,17 +12,16 @@
   :where(html) {
     color-scheme: var(--color-scheme, light dark);
 
-    /* 2. Palette source - one value to rule them all. Every other color is derived from this one.
-       Both light/dark branches are wired up via light-dark() so prefers-color-scheme works
-       automatically. Set them to different OKLCH values if you want a distinct dark-mode palette. */
-    --palette-source: light-dark(
-      oklch(0.58 calc(0.21 * 0.5) var(--hue-blue)),
-      oklch(0.58 calc(0.21 * 0.5) var(--hue-blue))
-    );
-    --palette-hue-rotate-by: 0;
+    /* 2. Palette - override the values in core/palette.css */
+    --palette-hue: light-dark(var(--hue-green), var(--hue-blue));
+    --palette-chroma: 0.5;
+    /* --palette-source: oklch(.58 calc(.21 * .5) var(--hue-blue));   */
 
-    /* Gray ramp lives in core/palette.css. Override --gray-chroma or
-       --gray-hue here if this theme wants warmer/cooler grays. */
+    /* Gray palette also lives in core/palette.css. */
+    /*
+      --gray-hue: 255;
+      --gray-chroma: 0.01;
+    */
 
     /* 3. Named colors (no severity meaning) — use when you literally want a green/red/etc. dot */
     --blue: oklch(from var(--color-9) l 0.2 210);
@@ -33,8 +30,8 @@
     --red: oklch(from var(--color-9) l 0.2 25);
 
     /* 4. Intent tokens
-       Severity (have scope classes below): --success, --info, --warning, --critical
-       Non-severity (value-only):           --primary, --neutral */
+      Severity (have scope classes below): --success, --info, --warning, --critical
+      Non-severity (value-only):           --primary, --neutral */
     --success: var(--green);
     --info: var(--blue);
     --warning: var(--orange);
@@ -64,8 +61,7 @@
     --border-radius: var(--size-2);
     --border-width: 1px;
 
-    /* 9. Focus ring — components consume these and may override locally
-       (e.g. .ui-button.ui-filled { --focus-ring-offset: 3px; }, .ui-checkbox { --focus-ring-offset: 0; }) */
+    /* 9. Focus ring */
     --focus-ring-color: var(--primary);
     --focus-ring-width: 2px;
     --focus-ring-offset: 2px;
@@ -82,8 +78,7 @@
     /* Sneaking in an extra font size I want but Open Props doesn't provide. You can do whatever you want with your own theme. It's just CSS. */
     --font-size-05: 0.875rem;
 
-    /* 11. Control sizes — shared scale for fields and buttons so they line up
-       visually. --field-size-* and --button-size-* alias from --control-size-*. */
+    /* 11. Control sizes — shared scale for fields and buttons so they line up. */
     --control-size-x-small: 28px;
     --control-size-small: 32px;
     --control-size: 40px;
@@ -108,9 +103,7 @@
     --button-border-radius: var(--size-2);
   }
 
-  /* 14. Severity scope classes — re-source the palette inside these contexts.
-     Authoring `<div class="ui-warning">` paints the entire subtree warning-orange.
-     Non-severity tokens (--primary, --neutral) deliberately have no scope class. */
+  /* 14. Severity scope classes */
   :where(.ui-critical, [data-invalid], del) {
     --palette-source: oklch(0.58 0.21 var(--hue-red));
     --palette-hue-rotate-by: 1;

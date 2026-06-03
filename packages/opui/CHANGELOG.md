@@ -1,5 +1,56 @@
 # Changelog
 
+## 5.1.2 - 2026-05-29
+
+### Fixed
+
+- Removed Open Props gray imports that overrode OPUI custom grays. How did I miss that??
+
+## 5.1.1 - 2026-05-29
+
+### Added
+
+- Added CSS `@property` types to the palette (`--color-*` and `--gray-*`) variables to hopefully improve perf.
+
+### Changed
+
+- Cleaned up comments and theme variable organization in `css/theme.css`.
+
+## 5.1.0 - 2026-05-28
+
+### Fixed
+
+- [#351](https://github.com/felix-bohlin/ui/issues/351): (Attempted to) fix performance issue caused by palette being defined on `*` instead of `:root`. This was causing style recalculations on every element when the palette changed, oops. Hopefully now, recalculations will only happen on elements that use palette variables.
+
+The heavy color math is now properly scoped down to `:root`, severity classes (ex `.ui-warning`), and invalid components (`[class*="ui-"]:has(:user-invalid)`).
+
+- Palette no longer is included in the openprops layer, instead it's been placed in the `theme.palette` layer, so hopefully it will solve some potential specificity issues.
+
+### Changed
+
+- Renamed the `critical` prop to `error` for validation in form components (`TextField`, `Checkbox`, `Radio`, `Switch`, `Select`, `ClassicSelect`, `Textarea`). While `critical` remains the standard for severity coloring (e.g. Buttons, Callouts, Badges), `error` makes more contextual sense for validation states.
+
+### Added
+
+- Added a new `.ui-palette` util class. If you are building something where you want to make use of the palette you can just use that class and be able to use the palette right there.
+
+### Migration
+
+The `opui-css/open-props` export no longer bundles OPUI's custom palette variables (`--color-*` and `--gray-*`). It now strictly represents the underlying Open Props tokens.
+
+If you were relying on OPUI’s dynamic palette colors while importing the `open-props` subpath, you must now explicitly import the palette module alongside it:
+
+```diff
+  import 'opui-css/open-props';
++ import 'opui-css/core/palette.css';
+```
+
+Alternately, you can import the default full bundle (`import 'opui-css';`) which includes everything.
+
+### Thank you
+
+- [yinhx3](https://github.com/yinhx3) for reporting [#351](https://github.com/felix-bohlin/ui/issues/351)!
+
 ## 5.0.1 - 2026-05-26
 
 ### Breaking

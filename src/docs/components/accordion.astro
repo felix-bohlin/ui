@@ -60,11 +60,8 @@ import Conditional from "../../components/Conditional.astro"
 >
   <Fragment slot="title">Accordion</Fragment>
   <Fragment slot="preamble">
-    Leverages the HTML <code>details</code> and <code>summary</code> elements. Uses
-    the native HTML arrow, check out how to add your own <a
-      class="ui-link"
-      href="#custom-marker">custom marker</a
-    >.
+    Let's you show and hide stuff. Uses the native HTML arrow, check out how to
+    add your own <a class="ui-link" href="#custom-marker">custom marker</a>.
   </Fragment>
 
   <section>
@@ -78,14 +75,14 @@ import Conditional from "../../components/Conditional.astro"
 
     <Conditional as="p">
       <Fragment slot="astro">
-        Change the visual style using the <code>variant</code> prop.
+        Use the <code>variant</code> prop to change how it looks.
       </Fragment>
       <Fragment slot="html">
-        Change the visual style by adding one of the variant classes (<code
-          >.ui-card</code
-        >, <code>.ui-outlined</code>, <code>.ui-elevated</code>, <code
-          >.ui-tonal</code
-        >) to the <code>&lt;details&gt;</code> element.
+        Add one of the variant classes (<code>.ui-card</code>, <code
+          >.ui-outlined</code
+        >, <code>.ui-elevated</code>, <code>.ui-tonal</code>) to the <code
+          >&lt;details&gt;</code
+        > element to change how it looks.
       </Fragment>
     </Conditional>
 

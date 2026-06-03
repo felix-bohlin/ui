@@ -1,4 +1,5 @@
 ---
+import type { Props } from './types.astro'
 
 export const title = "Textarea"
 
@@ -8,7 +9,7 @@ const {
   cols,
   description,
   disabled,
-  critical,
+  error,
   filled,
   id,
   label,
@@ -41,7 +42,7 @@ const fieldName = name || currentFieldName
     },
     className,
   ]}
-  data-invalid={critical || undefined}
+  data-invalid={error || undefined}
   {...rest}
 >
 {

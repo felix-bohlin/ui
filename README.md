@@ -14,9 +14,9 @@ https://open-props-ui.netlify.app/html/guide/getting-started/
 
 The project is managed as a monorepo with two main parts:
 
-- **The Library (`packages/opui`)**: Contains the framework-agnostic core of the library. It is managed as a standalone workspace package named `opui`.
+- **The Library (`packages/opui`)**: Contains the framework-agnostic core of the library. It is managed as a standalone workspace package named `opui-css`.
   - `components/`: UI components organized by folder. Each folder contains the component logic, templates (e.g., `Button.astro`), and specific types.
-  - `themes/`: CSS themes and component-specific styles.
+  - `css/`: Component styles, theme, and entry-point imports.
   - `astro/`: Public entry point and barrel exports for Astro-based projects.
 - **The Documentation Site (`src/`)**: The Astro site implementation, located in `src/pages`, `src/layouts`, and `src/components`.
 

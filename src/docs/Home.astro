@@ -49,7 +49,9 @@ const FRAMEWORK_BRANDING: Record<
           <Button href={quickstartHref} variant="filled" color="primary">
             Quickstart
           </Button>
-          <Button href={componentsHref} variant="tonal"> Components </Button>
+          <Button href={componentsHref} variant="outlined" color="primary">
+            Components
+          </Button>
         </div>
 
         <p class="framework-support" aria-label="Supported frameworks">
@@ -103,9 +105,6 @@ const FRAMEWORK_BRANDING: Record<
         const hue = String(Math.round(H))
         const chroma = String(0.5)
         const mode = themeStore.getActiveSiteMode()
-        // Disable hue animation so the picked color isn't immediately
-        // overwritten by the rAF loop on the next page load.
-        themeStore.setHueAnimator(mode, false)
         themeStore.setToken(mode, "--palette-hue", hue)
         themeStore.setToken(mode, "--palette-chroma", chroma)
       })

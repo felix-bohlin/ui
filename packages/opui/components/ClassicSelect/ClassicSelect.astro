@@ -6,7 +6,7 @@ export const title = "Classic Select"
 const {
   class: className,
   disabled,
-  critical,
+  error,
   id,
   items = [],
   label,
@@ -33,7 +33,7 @@ const labelId = $id("select-label")
     },
     className,
   ]}
-  data-invalid={critical || undefined}
+  data-invalid={error || undefined}
 >
   {
     label && (

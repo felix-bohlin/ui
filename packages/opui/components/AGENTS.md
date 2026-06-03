@@ -47,7 +47,7 @@ const {
 
 ### Key Rules:
 - **Alphabetical Sorting**: Sort property definitions in `types.ts` and variables in the destructuring statement.
-- **REST Support**: Use `HTMLAttributes` in `types.astro.ts` and `...rest` in destructuring.
+- **REST Support**: Use `HTMLAttributes` in `types.astro.ts` and `...rest` in destructuring. Do not add `[key: string]: any` to `types.ts` — native attributes belong in the framework type files.
 - **Title Export**: This is mandatory for documentation generation.
 
 ---

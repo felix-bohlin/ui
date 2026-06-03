@@ -1,5 +1,4 @@
 export type Props = {
-  [key: string]: any
   backdrop?: "transparent" | "blurred"
   closedby?: "any" | "closerequest" | "none"
   id?: string
@@ -8,13 +7,10 @@ export type Props = {
 }
 
 export type DrawerHeaderProps = {
-  [key: string]: any
   heading?: string
 }
 
-export type DrawerFooterProps = {
-  [key: string]: any
-}
+export type DrawerFooterProps = {}
 
 export type Slots<S> = {
   content?: S

@@ -15,3 +15,9 @@ export type DrawerHeaderProps = {
 export type DrawerFooterProps = {
 	[key: string]: any;
 };
+
+export type Slots<S> = {
+	content?: S;
+	footer?: S;
+	header?: S;
+};

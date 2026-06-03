@@ -3,6 +3,7 @@ import type {
   DrawerFooterProps as BaseDrawerFooterProps,
   DrawerHeaderProps as BaseDrawerHeaderProps,
   Props as BaseProps,
+  Slots as BaseSlots,
 } from "./types"
 
 export type Props = BaseProps & {
@@ -17,11 +18,7 @@ export type DrawerFooterProps = BaseDrawerFooterProps & {
   class?: HTMLAttributes["class"]
 }
 
-export type DrawerSlots = {
-  content?: Slot
-  footer?: Slot
-  header?: Slot
-}
+export type DrawerSlots = BaseSlots<Slot>
 
 export type DrawerHeaderSlots = {
   default?: Slot

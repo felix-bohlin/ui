@@ -4,8 +4,7 @@ export type Props = {
 }
 
 export type Slots<S> = {
-  action?: S
-  header?: S
-  children?: S
+  actions?: S
   content?: S
+  header?: S
 }

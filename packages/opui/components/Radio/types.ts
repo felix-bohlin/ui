@@ -7,3 +7,7 @@ export type RadioProps = {
 }
 
 export type RadioInputProps = {}
+
+export type RadioSlots<S> = {
+  endText?: string | S
+}

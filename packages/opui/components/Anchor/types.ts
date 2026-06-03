@@ -3,3 +3,7 @@ export type Props = {
   alignment?: string
   trigger?: "always" | "hover"
 }
+
+export type Slots<S> = {
+  anchored?: S
+}

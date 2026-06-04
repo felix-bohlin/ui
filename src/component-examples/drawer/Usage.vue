@@ -1,24 +1,5 @@
 <script setup lang="ts">
 import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
-import { onMounted } from "vue"
-
-onMounted(() => {
-  const transparentToggle = document.querySelector(
-    "#backdrop-transparent-toggle",
-  )
-  const drawers = document.querySelectorAll("dialog.drawer")
-
-  transparentToggle?.addEventListener("change", (e) => {
-    const isTransparent = e.target.checked
-    drawers.forEach((drawer) => {
-      if (isTransparent) {
-        drawer.classList.add("backdrop-transparent")
-      } else {
-        drawer.classList.remove("backdrop-transparent")
-      }
-    })
-  })
-})
 </script>
 
 <template>

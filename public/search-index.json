@@ -1245,36 +1245,6 @@
     "url": "/vue/api#button-group"
   },
   {
-    "id": "api-callout-astro",
-    "title": "Callout API",
-    "description": "Reference for Callout Astro component.",
-    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#callout"
-  },
-  {
-    "id": "api-callout-html",
-    "title": "Callout API",
-    "description": "Reference for Callout HTML component.",
-    "headings": "Part & > .ui-content, & > svg\n      - Internal structure. Severities - Severity modifiers. Variants .ui-tonal, .ui-outlined .ui-tonal Style modifiers.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#callout"
-  },
-  {
-    "id": "api-callout-vue",
-    "title": "Callout API",
-    "description": "Reference for Callout Vue component.",
-    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#callout"
-  },
-  {
     "id": "api-card-astro",
     "title": "Card API",
     "description": "Reference for Card Astro component.",
@@ -1303,6 +1273,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#card"
+  },
+  {
+    "id": "api-callout-astro",
+    "title": "Callout API",
+    "description": "Reference for Callout Astro component.",
+    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#callout"
+  },
+  {
+    "id": "api-callout-html",
+    "title": "Callout API",
+    "description": "Reference for Callout HTML component.",
+    "headings": "Part & > .ui-content, & > svg\n      - Internal structure. Severities - Severity modifiers. Variants .ui-tonal, .ui-outlined .ui-tonal Style modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#callout"
+  },
+  {
+    "id": "api-callout-vue",
+    "title": "Callout API",
+    "description": "Reference for Callout Vue component.",
+    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#callout"
   },
   {
     "id": "api-checkbox-astro",
@@ -1365,36 +1365,6 @@
     "url": "/vue/api#chip"
   },
   {
-    "id": "api-classic-select-astro",
-    "title": "Classic Select API",
-    "description": "Reference for Classic Select Astro component.",
-    "headings": "disabled boolean - Select disabled state. error boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#classic-select"
-  },
-  {
-    "id": "api-classic-select-html",
-    "title": "Classic Select API",
-    "description": "Reference for Classic Select HTML component.",
-    "headings": "Sizes .ui-small - The size of the element. Variants default, .ui-filled - The variant to use.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#classic-select"
-  },
-  {
-    "id": "api-classic-select-vue",
-    "title": "Classic Select API",
-    "description": "Reference for Classic Select Vue component.",
-    "headings": "disabled boolean - Select disabled state. error boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#classic-select"
-  },
-  {
     "id": "api-description-list-astro",
     "title": "Description List API",
     "description": "Reference for Description List Astro component.",
@@ -1425,34 +1395,34 @@
     "url": "/vue/api#description-list"
   },
   {
-    "id": "api-dialog-astro",
-    "title": "Dialog API",
-    "description": "Reference for Dialog Astro component.",
-    "headings": "actionsAlign \"start\", \"end\" - Alignment of the actions slot. closedby \"any\" | \"closerequest\" | \"none\" - header content actions default Any content not assigned to a named slot.",
+    "id": "api-classic-select-astro",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select Astro component.",
+    "headings": "disabled boolean - Select disabled state. error boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#dialog"
+    "url": "/astro/api#classic-select"
   },
   {
-    "id": "api-dialog-html",
-    "title": "Dialog API",
-    "description": "Reference for Dialog HTML component.",
-    "headings": "Styles .ui-dialog.ui-card.ui-elevated Included The dialog uses card styles by default. Closed by closedby attribute - The attribute used to control close behavior.",
+    "id": "api-classic-select-html",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select HTML component.",
+    "headings": "Sizes .ui-small - The size of the element. Variants default, .ui-filled - The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#dialog"
+    "url": "/html/api#classic-select"
   },
   {
-    "id": "api-dialog-vue",
-    "title": "Dialog API",
-    "description": "Reference for Dialog Vue component.",
-    "headings": "actionsAlign \"start\", \"end\" - Alignment of the actions slot. closedby \"any\" | \"closerequest\" | \"none\" - header content actions default Any content not assigned to a named slot.",
+    "id": "api-classic-select-vue",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select Vue component.",
+    "headings": "disabled boolean - Select disabled state. error boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
-    "url": "/vue/api#dialog"
+    "url": "/vue/api#classic-select"
   },
   {
     "id": "api-divider-astro",
@@ -1483,6 +1453,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#divider"
+  },
+  {
+    "id": "api-dialog-astro",
+    "title": "Dialog API",
+    "description": "Reference for Dialog Astro component.",
+    "headings": "actionsAlign \"start\", \"end\" - Alignment of the actions slot. closedby \"any\" | \"closerequest\" | \"none\" - header content actions default Any content not assigned to a named slot.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#dialog"
+  },
+  {
+    "id": "api-dialog-html",
+    "title": "Dialog API",
+    "description": "Reference for Dialog HTML component.",
+    "headings": "Styles .ui-dialog.ui-card.ui-elevated Included The dialog uses card styles by default. Closed by closedby attribute - The attribute used to control close behavior.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#dialog"
+  },
+  {
+    "id": "api-dialog-vue",
+    "title": "Dialog API",
+    "description": "Reference for Dialog Vue component.",
+    "headings": "actionsAlign \"start\", \"end\" - Alignment of the actions slot. closedby \"any\" | \"closerequest\" | \"none\" - header content actions default Any content not assigned to a named slot.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#dialog"
   },
   {
     "id": "api-drawer-astro",
@@ -1995,36 +1995,6 @@
     "url": "/vue/api#toggle"
   },
   {
-    "id": "api-tooltip-astro",
-    "title": "Tooltip API",
-    "description": "Reference for Tooltip Astro component.",
-    "headings": "alignment string \"block-start\" arrow boolean false id string auto-generated label string —",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#tooltip"
-  },
-  {
-    "id": "api-tooltip-html",
-    "title": "Tooltip API",
-    "description": "Reference for Tooltip HTML component.",
-    "headings": "Container .ui-anchor.ui-tooltip - Floating .ui-anchor-floating[popover=\"hint\"] - Trigger interestfor=\"id\" - Arrow .ui-with-arrow - Position --anchor-position-area block-start",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#tooltip"
-  },
-  {
-    "id": "api-tooltip-vue",
-    "title": "Tooltip API",
-    "description": "Reference for Tooltip Vue component.",
-    "headings": "alignment string \"block-start\" arrow boolean false id string auto-generated label string —",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#tooltip"
-  },
-  {
     "id": "api-typography-astro",
     "title": "Typography API",
     "description": "Reference for Typography Astro component.",
@@ -2053,5 +2023,35 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#typography"
+  },
+  {
+    "id": "api-tooltip-astro",
+    "title": "Tooltip API",
+    "description": "Reference for Tooltip Astro component.",
+    "headings": "alignment string \"block-start\" arrow boolean false id string auto-generated label string —",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#tooltip"
+  },
+  {
+    "id": "api-tooltip-html",
+    "title": "Tooltip API",
+    "description": "Reference for Tooltip HTML component.",
+    "headings": "Container .ui-anchor.ui-tooltip - Floating .ui-anchor-floating[popover=\"hint\"] - Trigger interestfor=\"id\" - Arrow .ui-with-arrow - Position --anchor-position-area block-start",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#tooltip"
+  },
+  {
+    "id": "api-tooltip-vue",
+    "title": "Tooltip API",
+    "description": "Reference for Tooltip Vue component.",
+    "headings": "alignment string \"block-start\" arrow boolean false id string auto-generated label string —",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#tooltip"
   }
 ]

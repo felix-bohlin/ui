@@ -84,6 +84,9 @@ import Conditional from "../../components/Conditional.astro"
           >&lt;details&gt;</code
         > element to change how it looks.
       </Fragment>
+      <Fragment slot="vue">
+        Use the <code>variant</code> prop to change how it looks.
+      </Fragment>
     </Conditional>
 
     <AutoExample name="Variants" column />
@@ -102,6 +105,11 @@ import Conditional from "../../components/Conditional.astro"
         Group multiple accordions by wrapping them in a <code>.ui-card</code> element
         with <code>role="group"</code>. To theme the entire group, apply the
         variant class to the parent container.
+      </Fragment>
+      <Fragment slot="vue">
+        Group multiple accordions by wrapping them in a <code>Card</code>
+        component with <code>role="group"</code>. To theme the entire group,
+        apply the <code>variant</code> prop to the parent container.
       </Fragment>
     </Conditional>
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
 const {
@@ -11,12 +12,12 @@ const {
 } = defineProps<Props>()
 defineSlots<Slots>()
 
-const Tag = as || (href ? "a" : "div")
+const tag = computed(() => as || (href ? "a" : "div"))
 </script>
 
 <template>
   <component
-    :is="Tag"
+    :is="tag"
     :class="[
       'ui-chip',
       {
@@ -26,7 +27,7 @@ const Tag = as || (href ? "a" : "div")
       variant && `ui-${variant}`,
       $props.class,
     ]"
-    :href="href"
+    :href="tag === 'a' ? href : undefined"
   >
     <slot name="start"></slot>
     <slot></slot>

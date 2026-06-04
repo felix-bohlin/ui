@@ -42,6 +42,11 @@ import Conditional from "../../components/Conditional.astro"
         The Chip has two variants: tonal (default) and <code>.ui-outlined</code
         >.
       </Fragment>
+      <Fragment slot="vue">
+        The Chip has two variants: <code>tonal</code> (default) and <code
+          >outlined</code
+        >.
+      </Fragment>
     </Conditional>
     <AutoExample name="Variants" row />
   </section>
@@ -56,6 +61,10 @@ import Conditional from "../../components/Conditional.astro"
       <p slot="html">
         The icon can be placed before or after the text. <br />
         Make sure the text is wrapped in the <code>.ui-text</code> wrapper class.
+      </p>
+      <p slot="vue">
+        The icon can be placed before or after the text using the
+        <code>start</code> and <code>end</code> slots.
       </p>
     </Conditional>
     <AutoExample name="Icon" row />
@@ -96,6 +105,17 @@ import Conditional from "../../components/Conditional.astro"
         2. Text: <code>.ui-text</code> wrapper
         <br />
         3. Icon (optional): <code>&lt;svg&gt;</code> element
+      </p>
+      <p slot="vue">
+        1. Container: <code>&lt;Chip&gt;</code> (renders as <code>div</code>, <code
+          >a</code
+        > or <code>button</code>)
+        <br />
+        2. Text: <code>label</code> prop or <code>default slot</code>
+        <br />
+        3. Icon (optional): <code>&lt;svg&gt;</code> element in the <code
+          >start</code
+        > or <code>end</code> slot
       </p>
     </Conditional>
     <Example row>

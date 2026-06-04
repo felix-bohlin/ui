@@ -12,8 +12,10 @@ import SelectCSS from "@opui/css/components/select.css?raw"
 import ListCSS from "@opui/css/components/list.css?raw"
 import SelectAPIAstro from "../../component-api/select/Astro.astro"
 import SelectAPIHTML from "../../component-api/select/HTML.astro"
+import SelectAPIVue from "../../component-api/select/Vue.astro"
 import ClassicSelectAPIAstro from "../../component-api/classic-select/Astro.astro"
 import ClassicSelectAPIHTML from "../../component-api/classic-select/HTML.astro"
+import ClassicSelectAPIVue from "../../component-api/classic-select/Vue.astro"
 ---
 
 <Component
@@ -31,11 +33,13 @@ import ClassicSelectAPIHTML from "../../component-api/classic-select/HTML.astro"
     {
       astro: SelectAPIAstro,
       html: SelectAPIHTML,
+      vue: SelectAPIVue,
     },
     {
       title: "Classic Select API",
       astro: ClassicSelectAPIAstro,
       html: ClassicSelectAPIHTML,
+      vue: ClassicSelectAPIVue,
     },
   ]}
   installationTabs={[
@@ -102,6 +106,10 @@ import ClassicSelectAPIHTML from "../../component-api/classic-select/HTML.astro"
         Add a <code>.ui-prefix</code> or <code>.ui-suffix</code> element inside
         <code>.ui-field</code> to affix content alongside the select.
       </Fragment>
+      <Fragment slot="vue">
+        Use the <code>prefix</code> and <code>suffix</code> slots to affix icons or
+        short text alongside the select inside the field's border.
+      </Fragment>
     </Conditional>
 
     <AutoExample name="Affix" row spacious />
@@ -163,6 +171,11 @@ import ClassicSelectAPIHTML from "../../component-api/classic-select/HTML.astro"
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-spread</code> class to display the label and description
+        on the left with the select on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>spread</code> boolean prop to display the label and description
         on the left with the select on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>

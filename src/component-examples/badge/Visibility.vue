@@ -1,47 +1,9 @@
 <script setup lang="ts">
-import { onMounted } from "vue"
 import { Badge } from "opui-css/vue"
-
-onMounted(() => {
-  function setupBadgeVisibilityControls() {
-    const toggles = document.querySelectorAll(
-      "#badge-visibility-toggle",
-    ) as NodeListOf<HTMLInputElement>
-
-    const badges = new Set<Element>()
-    toggles.forEach((toggle) => {
-      const container = toggle.closest(".example-container")
-      if (!container) return
-      container.querySelectorAll(".badge").forEach((b) => badges.add(b))
-    })
-
-    function updateBadges(checked: boolean) {
-      badges.forEach((badge) => {
-        badge.classList.toggle("invisible", checked)
-      })
-
-      toggles.forEach((t) => {
-        if (t.checked !== checked) {
-          t.checked = checked
-        }
-      })
-    }
-
-    toggles.forEach((toggle) => {
-      toggle.addEventListener("change", () => updateBadges(toggle.checked))
-    })
-
-    if (toggles.length > 0) {
-      updateBadges(toggles[0].checked)
-    }
-  }
-
-  setupBadgeVisibilityControls()
-})
 </script>
 
 <template>
-  <Badge label="5" invisible>
+  <Badge label="5">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -55,7 +17,7 @@ onMounted(() => {
     </svg>
   </Badge>
 
-  <Badge dot invisible>
+  <Badge dot>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"

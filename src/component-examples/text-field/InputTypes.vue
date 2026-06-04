@@ -1,28 +1,4 @@
-<script setup lang="ts">
-import { onMounted } from "vue"
-
-onMounted(() => {
-  function setupInputTypesControls() {
-    const filledToggle = document.querySelector("#text-field-filled-toggle")
-    const smallToggle = document.querySelector("#text-field-small-toggle")
-    const fields = document.querySelectorAll(".input-type-field")
-
-    function updateFields() {
-      if (!filledToggle || !smallToggle) return
-      fields.forEach((field) => {
-        field.classList.toggle("ui-filled", filledToggle.checked)
-        field.classList.toggle("ui-small", smallToggle.checked)
-      })
-    }
-
-    filledToggle?.addEventListener("change", updateFields)
-    smallToggle?.addEventListener("change", updateFields)
-  }
-
-  setupInputTypesControls()
-  document.addEventListener("astro:after-swap", setupInputTypesControls)
-})
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="example-column">

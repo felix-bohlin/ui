@@ -40,8 +40,10 @@ import TextFieldCSS from "@opui/css/components/text-input.css?raw"
 
 import TextFieldAPIAstro from "../../component-api/text-field/Astro.astro"
 import TextFieldAPIHTML from "../../component-api/text-field/HTML.astro"
+import TextFieldAPIVue from "../../component-api/text-field/Vue.astro"
 import TextInputAPIAstro from "../../component-api/text-input/Astro.astro"
 import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
+import TextInputAPIVue from "../../component-api/text-input/Vue.astro"
 
 export const description =
   "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states."
@@ -62,11 +64,13 @@ export const description =
       title: "Text field API",
       astro: TextFieldAPIAstro,
       html: TextFieldAPIHTML,
+      vue: TextFieldAPIVue,
     },
     {
       title: "Text input API",
       astro: TextInputAPIAstro,
       html: TextInputAPIHTML,
+      vue: TextInputAPIVue,
     },
   ]}
   changelogPaths={[
@@ -118,6 +122,12 @@ export const description =
     <h2 id="affix">Affix</h2>
     <Conditional as="p">
       <Fragment slot="astro">
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> slots to affix content inside the field's border.
+        Prefix and suffix sit beside the input, while header and footer span the field's
+        full width with a divider.
+      </Fragment>
+      <Fragment slot="vue">
         Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
         and <code>footer</code> slots to affix content inside the field's border.
         Prefix and suffix sit beside the input, while header and footer span the field's
@@ -190,6 +200,11 @@ export const description =
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-spread</code> class to display the label and description
+        on the left with the input on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>spread</code> boolean prop to display the label and description
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>

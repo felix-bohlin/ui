@@ -7,6 +7,7 @@ import FormCSS from "@opui/css/components/form.css?raw"
 
 import FieldGroupAPIAstro from "../../component-api/field-group/Astro.astro"
 import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
+import FieldGroupAPIVue from "../../component-api/field-group/Vue.astro"
 
 import Conditional from "../../components/Conditional.astro"
 ---
@@ -17,6 +18,7 @@ import Conditional from "../../components/Conditional.astro"
   apis={{
     astro: FieldGroupAPIAstro,
     html: FieldGroupAPIHTML,
+    vue: FieldGroupAPIVue,
   }}
   changelogPaths={[
     {
@@ -56,6 +58,10 @@ import Conditional from "../../components/Conditional.astro"
       Give every <code>&lt;input type="radio"&gt;</code> in the group the same
       <code>name</code> attribute. Browsers use that shared name to enforce mutual
       exclusivity within the group.
+    </Fragment>
+    <Fragment slot="vue">
+      The <code>name</code> prop will get passed down to each radio button in the
+      group.
     </Fragment>
   </Conditional>
 

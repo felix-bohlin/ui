@@ -6,6 +6,7 @@ import { Switch, Table } from "@opui/astro"
 import DrawerCSS from "@opui/css/components/drawer.css?raw"
 import DrawerAPIAstro from "../../component-api/drawer/Astro.astro"
 import DrawerAPIHTML from "../../component-api/drawer/HTML.astro"
+import DrawerAPIVue from "../../component-api/drawer/Vue.astro"
 
 import ExampleUsage from "../../component-examples/drawer/Usage.astro"
 import ExampleUsageVue from "../../component-examples/drawer/Usage.vue"
@@ -28,6 +29,7 @@ import Conditional from "../../components/Conditional.astro"
   apis={{
     astro: DrawerAPIAstro,
     html: DrawerAPIHTML,
+    vue: DrawerAPIVue,
   }}
   changelogPaths={[
     {
@@ -87,12 +89,31 @@ import Conditional from "../../components/Conditional.astro"
           page scrolling while it's open. Omit the class to allow background scrolling.
         </p>
       </Fragment>
+      <Fragment slot="vue">
+        <p>Change the opening side with the <code>side</code> prop.</p>
+        <p>
+          Add a title to the header with the <code>header</code> slot. A close button
+          is automatically included in the header.
+        </p>
+        <p>
+          The backdrop is blurred by default. Use <code
+            >backdrop="transparent"</code
+          >
+          to remove the blur effect.
+        </p>
+        <p>
+          Page scrolling is locked by default when the drawer is open. Use the
+          <code>scrollLock={false}</code> prop to allow scrolling while the drawer
+          is open.
+        </p>
+      </Fragment>
     </Conditional>
     <Example column>
       <Switch slot="controls" id="backdrop-transparent-toggle">
         <Conditional>
           <span slot="astro"><code>backdrop="transparent"</code></span>
           <span slot="html"><code>.ui-backdrop-transparent</code></span>
+          <span slot="vue"><code>backdrop="transparent"</code></span>
         </Conditional>
       </Switch>
       <Example.Preview slot="preview-astro" code={ExampleUsage} />
@@ -147,6 +168,44 @@ import Conditional from "../../components/Conditional.astro"
         </Table>
       </Fragment>
       <Fragment slot="astro">
+        <p>
+          Use the <code>closedby</code> prop to control the closing behavior.
+        </p>
+        <Table style="table-layout: fixed">
+          <Table.ColumnGroup>
+            <Table.Column width="30%" />
+            <Table.Column />
+          </Table.ColumnGroup>
+          <Table.Head>
+            <Table.Row>
+              <Table.HeaderCell>Prop</Table.HeaderCell>
+              <Table.HeaderCell>Description</Table.HeaderCell>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell><code>closedby="any"</code></Table.Cell>
+              <Table.Cell
+                >Click anywhere outside of the drawer to close it.</Table.Cell
+              >
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
+              <Table.Cell>
+                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
+                button on mobile, and whatever dismiss action assistive tools use.
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell><code>closedby="none"</code></Table.Cell>
+              <Table.Cell
+                >You have to handroll a closing solution yourself.</Table.Cell
+              >
+            </Table.Row>
+          </Table.Body>
+        </Table>
+      </Fragment>
+      <Fragment slot="vue">
         <p>
           Use the <code>closedby</code> prop to control the closing behavior.
         </p>

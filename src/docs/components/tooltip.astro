@@ -52,6 +52,15 @@ import TooltipCSS from "@opui/css/components/tooltip.css?raw"
       <code>label</code> prop for plain text or use the <code>content</code> slot
       for richer markup.
     </Fragment>
+    <Fragment slot="vue">
+      Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable
+      <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
+      and <code>command="toggle-popover"</code> on the trigger element itself (these
+      attributes are only valid on real invokers like
+      <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a
+      <code>label</code> prop for plain text or use the <code>content</code> slot
+      for richer markup.
+    </Fragment>
   </Conditional>
   <section>
     <h2 id="basics">Basics</h2>
@@ -63,6 +72,9 @@ import TooltipCSS from "@opui/css/components/tooltip.css?raw"
         >.
       </Fragment>
       <Fragment slot="astro">
+        Pass plain text via the <code>label</code> prop.
+      </Fragment>
+      <Fragment slot="vue">
         Pass plain text via the <code>label</code> prop.
       </Fragment>
     </Conditional>
@@ -78,6 +90,10 @@ import TooltipCSS from "@opui/css/components/tooltip.css?raw"
           >, not only text.
         </Fragment>
         <Fragment slot="astro">
+          Use the <code>content</code> slot instead, and it let's you put anything
+          in the tooltip.
+        </Fragment>
+        <Fragment slot="vue">
           Use the <code>content</code> slot instead, and it let's you put anything
           in the tooltip.
         </Fragment>
@@ -97,6 +113,9 @@ import TooltipCSS from "@opui/css/components/tooltip.css?raw"
       <Fragment slot="astro">
         Use the <code>alignment</code> prop.
       </Fragment>
+      <Fragment slot="vue">
+        Use the <code>alignment</code> prop.
+      </Fragment>
     </Conditional>
 
     <AutoExample name="Alignment" row spacious />
@@ -110,6 +129,12 @@ import TooltipCSS from "@opui/css/components/tooltip.css?raw"
         >. This would be cool to solve with <code>corner-shape</code> one day.
       </Fragment>
       <Fragment slot="astro">
+        Set the <code>arrow</code> prop. This would be cool to solve with <code
+          >corner-shape</code
+        >
+        one day.
+      </Fragment>
+      <Fragment slot="vue">
         Set the <code>arrow</code> prop. This would be cool to solve with <code
           >corner-shape</code
         >

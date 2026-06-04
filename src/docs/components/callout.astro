@@ -110,6 +110,11 @@ const ThemeCSS = `/* ... */
       <Fragment slot="html">
         Tonal (default) and <code>.ui-outlined</code> variants.
       </Fragment>
+      <Fragment slot="vue">
+        Tonal (default) and outlined variants are available via the <code
+          >variant</code
+        > prop.
+      </Fragment>
     </Conditional>
 
     <AutoExample name="Variants" column />
@@ -123,6 +128,10 @@ const ThemeCSS = `/* ... */
         so you don't have to do it manually every time.
       </Fragment>
       <Fragment slot="html"> Icon must be placed before the content. </Fragment>
+      <Fragment slot="vue">
+        Icons are placed in the <code>icon</code> slot. You can also modify the component
+        so you don't have to do it manually every time.
+      </Fragment>
     </Conditional>
 
     <AutoExample name="Icon" column />
@@ -145,6 +154,13 @@ const ThemeCSS = `/* ... */
           >.ui-primary</code
         >
         tone for brand-tinted attention. The default is a neutral surface.
+      </Fragment>
+      <Fragment slot="vue">
+        The <code>severity</code> prop accepts <code>info</code>, <code
+          >success</code
+        >, <code>warning</code>, and <code>critical</code>, plus a non-severity
+        <code>primary</code> tone for brand-tinted attention. The default is a neutral
+        surface.
       </Fragment>
     </Conditional>
 
@@ -185,6 +201,10 @@ const ThemeCSS = `/* ... */
           <Fragment slot="html">
             Add <code>role="note"</code> to the Callout container.
           </Fragment>
+          <Fragment slot="vue">
+            The <code>role="note"</code> attribute is automatically added to the Callout
+            container.
+          </Fragment>
         </Conditional>
       </li>
       <li>
@@ -210,6 +230,9 @@ const ThemeCSS = `/* ... */
           <Fragment slot="html">
             Container: must have <code>role="note"</code>.
           </Fragment>
+          <Fragment slot="vue">
+            Container: the <code>&lt;Callout&gt;</code> component.
+          </Fragment>
         </Conditional>
       </li>
       <li>Content: text, or wrapper with <code>.ui-content</code> class.</li>
@@ -220,6 +243,9 @@ const ThemeCSS = `/* ... */
           </Fragment>
           <Fragment slot="html">
             Icon (optional): <code>&lt;svg&gt;</code> element.
+          </Fragment>
+          <Fragment slot="vue">
+            Icon (optional): <code>&lt;svg slot="icon"&gt;</code> element.
           </Fragment>
         </Conditional>
       </li>

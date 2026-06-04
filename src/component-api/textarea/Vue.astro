@@ -1,0 +1,134 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>autoFit</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Automatically adjusts its height to content.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>description</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Description text displayed above the textarea.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>endText</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Supporting text displayed below the textarea.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>error</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell
+        >Field error state. Sets <code>[data-invalid]</code> on the root element.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>filled</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>The filled visual variant.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>label</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The label for the textarea.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>small</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>The small size variant.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>spread</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell
+        >Spreads the label/description and textarea to opposite ends.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3>Slots</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Slot</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>label</code></Table.Cell>
+      <Table.Cell>Slot for the label element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>description</code></Table.Cell>
+      <Table.Cell
+        >Slot for the description (start text) element, displayed above the
+        field.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>prefix</code></Table.Cell>
+      <Table.Cell
+        >Content placed at the inline-start of the field, inside the border.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>suffix</code></Table.Cell>
+      <Table.Cell
+        >Content placed at the inline-end of the field, inside the border.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>header</code></Table.Cell>
+      <Table.Cell
+        >Content placed above the textarea, inside the border, with a divider.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>footer</code></Table.Cell>
+      <Table.Cell
+        >Content placed below the textarea, inside the border, with a divider.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>end-text</code></Table.Cell>
+      <Table.Cell>Slot for the supporting text (end text) element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>supporting-text</code></Table.Cell>
+      <Table.Cell>Legacy slot for the supporting text element.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

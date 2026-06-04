@@ -1,0 +1,147 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>as</code></Table.Cell>
+      <Table.Cell><code>"form"</code>, <code>"div"</code></Table.Cell>
+      <Table.Cell><code>"form"</code></Table.Cell>
+      <Table.Cell>The HTML element to render.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="fieldset-api">FieldSet</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>as</code></Table.Cell>
+      <Table.Cell><code>"fieldset"</code>, <code>"div"</code></Table.Cell>
+      <Table.Cell><code>"fieldset"</code></Table.Cell>
+      <Table.Cell>The HTML element to render.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>disabled</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Whether the field set is disabled.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="field-legend-api">FieldLegend</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>as</code></Table.Cell>
+      <Table.Cell><code>"legend"</code>, <code>"p"</code></Table.Cell>
+      <Table.Cell><code>"legend"</code></Table.Cell>
+      <Table.Cell>The HTML element to render.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="field-description-api">FieldDescription</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Helper text for the field set. Accepts standard HTML attributes on the
+        rendered <code>&lt;p&gt;</code> (via <code>...rest</code>).</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="field-group-api">FieldGroup</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>name</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Shared name for nested input components.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>direction</code></Table.Cell>
+      <Table.Cell><code>"row"</code>, <code>"column"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The orientation of the field group.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

@@ -17,7 +17,7 @@ catalogs:
       version: 1.9.13
     svelte:
       specifier: ^5.55.7
-      version: 5.55.9
+      version: 5.56.1
     vue:
       specifier: ^3.5.35
       version: 3.5.34
@@ -53,9 +53,6 @@ importers:
       opui-css:
         specifier: workspace:*
         version: link:packages/opui
-      svelte:
-        specifier: ^5.55.7
-        version: 5.56.1
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -92,7 +89,7 @@ importers:
         version: 1.7.23
       svelte:
         specifier: 'catalog:'
-        version: 5.55.9
+        version: 5.56.1
       vue:
         specifier: 'catalog:'
         version: 3.5.34(typescript@6.0.3)
@@ -2430,10 +2427,6 @@ packages:
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
-
-  svelte@5.55.9:
-    resolution: {integrity: sha512-fTjjT8cHLDwigcu2j3pv7Jq04LklXevPB8uBgyHNiTXv+RMNvVnrjS4UEYrLMkhuq1vpCodHjiW+z/95SDs/fg==}
-    engines: {node: '>=18'}
 
   svelte@5.56.1:
     resolution: {integrity: sha512-eArsJmvl3xZVuTYD852PzIEdg2wgDdIZ1NEsIPbzAukHwi284B18No4nK2rCO9AwsWUDza4Cjvmoa4HaojTl5g==}
@@ -5786,27 +5779,6 @@ snapshots:
       s.color: 0.0.15
 
   supports-preserve-symlinks-flag@1.0.0: {}
-
-  svelte@5.55.9:
-    dependencies:
-      '@jridgewell/remapping': 2.3.5
-      '@jridgewell/sourcemap-codec': 1.5.5
-      '@sveltejs/acorn-typescript': 1.0.10(acorn@8.16.0)
-      '@types/estree': 1.0.9
-      '@types/trusted-types': 2.0.7
-      acorn: 8.16.0
-      aria-query: 5.3.1
-      axobject-query: 4.1.0
-      clsx: 2.1.1
-      devalue: 5.8.1
-      esm-env: 1.2.2
-      esrap: 2.2.11
-      is-reference: 3.0.3
-      locate-character: 3.0.0
-      magic-string: 0.30.21
-      zimmerframe: 1.1.4
-    transitivePeerDependencies:
-      - '@typescript-eslint/types'
 
   svelte@5.56.1:
     dependencies:

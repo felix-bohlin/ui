@@ -1,0 +1,58 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>as</code></Table.Cell>
+      <Table.Cell><code>any</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The element or component to render as.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>href</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The link to use if the avatar is an anchor.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>variant</code></Table.Cell>
+      <Table.Cell><code> "squared" | "rounded" | "squircle"</code></Table.Cell>
+      <Table.Cell><code>"default"</code></Table.Cell>
+      <Table.Cell>The visual style of the avatar.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>isGroup</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Renders the avatar as a group.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>src</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The image source for the avatar.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>alt</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The alternative text for the avatar image.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

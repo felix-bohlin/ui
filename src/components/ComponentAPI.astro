@@ -33,7 +33,6 @@ const isFrameworkKeyedApi = (value: any) =>
 // shape `<Conditional>` uses so partially-authored docs don't go blank.
 const pickFrameworkVariant = (value: any) =>
   value[currentFramework] ??
-  (currentFramework === "vue" ? value.astro : undefined) ??
   value[DEFAULT_FRAMEWORK] ??
   FRAMEWORKS.map((f) => value[f.id]).find(Boolean)
 

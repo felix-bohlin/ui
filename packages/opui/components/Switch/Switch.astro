@@ -1,12 +1,12 @@
 ---
 import SwitchInput from "./SwitchInput.astro"
-import type { SwitchProps as Props } from './types.astro'
+import type { SwitchProps as Props } from "./types.astro"
 
 export const title = "Switch"
 
 const {
   class: className,
-  critical,
+  error,
   hideLabel,
   name,
   small,
@@ -27,7 +27,7 @@ if (
   !Astro.props["aria-labelledby"]
 ) {
   console.warn(
-    "[OPUI Switch] Missing accessible name. Provide a default slot, `aria-label`, or `aria-labelledby`."
+    "[OPUI Switch] Missing accessible name. Provide a default slot, `aria-label`, or `aria-labelledby`.",
   )
 }
 ---
@@ -42,7 +42,7 @@ if (
     },
     className,
   ]}
-  data-invalid={critical || undefined}
+  data-invalid={error || undefined}
 >
   {
     Astro.slots.has("icon-unchecked") && (
@@ -58,19 +58,19 @@ if (
       </span>
     )
   }
-  <SwitchInput
-    aria-describedby={endTextId}
-    name={finalName}
-    {...rest}
-  />
+  <SwitchInput aria-describedby={endTextId} name={finalName} {...rest} />
   {
     Astro.slots.has("default") && (
-    <!-- prettier-ignore --><span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>)
+      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+        <slot />
+      </span>
+    )
   }
-    {
-      Astro.slots.has("end-text") && (
-        <!-- prettier-ignore -->
-        <span id={endTextId} class="ui-end-text"><slot name="end-text" /></span>
-      )
-    }
+  {
+    Astro.slots.has("end-text") && (
+      <span id={endTextId} class="ui-end-text">
+        <slot name="end-text" />
+      </span>
+    )
+  }
 </label>

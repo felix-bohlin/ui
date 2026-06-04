@@ -1,13 +1,9 @@
 export type Props = {
-	[key: string]: any;
-	variant?: string;
-};
+  variant?: "dense" | "spacious"
+}
 
-export type SectionProps = {
-	[key: string]: any;
-};
+export type SectionProps = {}
 
 export type ColumnProps = {
-	[key: string]: any;
-	width?: string;
-};
+  width?: string
+}

@@ -70,21 +70,21 @@
     /* Error / validation */
     &[data-invalid] {
       :where(.ui-end-text) {
-        color: var(--primary);
+        color: var(--critical);
       }
 
       :where(.ui-checkbox, .ui-radio, .ui-switch) {
-        --palette-source: oklch(0.58 0.21 var(--hue-red));
+        --primary: var(--critical);
 
         :where(.ui-end-text) {
-          color: var(--primary);
+          color: var(--critical);
         }
       }
 
       :where(.ui-switch) {
         input {
           border-radius: var(--radius-round);
-          outline: 2px solid var(--primary);
+          outline: 2px solid var(--critical);
         }
       }
     }

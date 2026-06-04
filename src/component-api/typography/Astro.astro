@@ -1,0 +1,45 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Classes</Table.Cell>
+      <Table.Cell
+        ><code>.ui-h1</code>–<code>.ui-h6</code>, <code>.ui-p</code>, <code
+          >.ui-overline</code
+        >, <code>.ui-caption</code>, <code>.ui-hgroup</code>, <code
+          >.ui-blockquote</code
+        >, <code>pre.ui-code-block</code>, inline utilities, <code
+          >.ui-rich-text</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >CSS-only typography. Apply classes on elements in templates; no Astro
+        component.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Sizes</Table.Cell>
+      <Table.Cell><code>.ui-small</code>, <code>.ui-large</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Size modifiers on <code>.ui-p</code>.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

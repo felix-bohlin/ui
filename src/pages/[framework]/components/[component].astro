@@ -1,25 +1,29 @@
 ---
 import { FRAMEWORK_IDS } from "../../../utils/framework-routing"
 
-export async function getStaticPaths() {
-  const modules = import.meta.glob("../../../docs/components/*.astro", {
-    eager: true,
-  })
+const docs = import.meta.glob("../../../docs/components/*.astro", {
+  eager: true,
+})
 
-  const components = Object.entries(modules).map(([path, mod]) => ({
-    slug: path.split("/").pop()!.replace(".astro", ""),
-    Doc: (mod as { default: any }).default,
-  }))
+const slugOf = (path: string) => path.split("/").pop()!.replace(".astro", "")
+
+export function getStaticPaths() {
+  const slugs = Object.keys(
+    import.meta.glob("../../../docs/components/*.astro"),
+  )
+    .map((path) => path.split("/").pop()!.replace(".astro", ""))
+    .sort()
 
   return FRAMEWORK_IDS.flatMap((framework) =>
-    components.map(({ slug, Doc }) => ({
+    slugs.map((slug) => ({
       params: { framework, component: slug },
-      props: { Doc },
     })),
   )
 }
 
-const { Doc } = Astro.props
+const { component } = Astro.params
+const match = Object.entries(docs).find(([path]) => slugOf(path) === component)
+const Doc = (match![1] as { default: any }).default
 ---
 
 <Doc />

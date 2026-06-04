@@ -35,26 +35,27 @@ import TooltipCSS from "@opui/css/components/tooltip.css?raw"
     <p>
       Built on top of <DocLink href="/components/anchor">Anchor</DocLink>.
     </p>
-    <Conditional as="p">
-      <Fragment slot="html">
-        Add the <code>.ui-tooltip</code> class alongside <code>.ui-anchor</code> on
-        the wrapper. Wire <code>interestfor</code> on the trigger to the
-        <code>.ui-anchor-floating[popover="hint"]</code> element's ID.
-      </Fragment>
-      <Fragment slot="astro">
-        Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable
-        <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
-        and <code>command="toggle-popover"</code> on the trigger element itself (these
-        attributes are only valid on real invokers like
-        <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a
-        <code>label</code> prop for plain text or use the <code>content</code> slot
-        for richer markup.
-      </Fragment>
-    </Conditional>
   </Fragment>
 
+  <Conditional as="p">
+    <Fragment slot="html">
+      Add the <code>.ui-tooltip</code> class alongside <code>.ui-anchor</code> on
+      the wrapper. Wire <code>interestfor</code> on the trigger to the
+      <code>.ui-anchor-floating[popover="hint"]</code> element's ID.
+    </Fragment>
+    <Fragment slot="astro">
+      Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable
+      <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
+      and <code>command="toggle-popover"</code> on the trigger element itself (these
+      attributes are only valid on real invokers like
+      <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a
+      <code>label</code> prop for plain text or use the <code>content</code> slot
+      for richer markup.
+    </Fragment>
+  </Conditional>
   <section>
     <h2 id="basics">Basics</h2>
+    <h3 id="text-only">Text only...</h3>
     <Conditional as="p">
       <Fragment slot="html">
         Set the tooltip text inside <code
@@ -67,23 +68,38 @@ import TooltipCSS from "@opui/css/components/tooltip.css?raw"
     </Conditional>
 
     <AutoExample name="Basics" centered />
+
+    <section>
+      <h3 id="anything">... or any markup you want</h3>
+      <Conditional as="p">
+        <Fragment slot="html">
+          You can place any markup you want (famous last words) inside <code
+            >.ui-anchor-floating[popover="hint"]</code
+          >, not only text.
+        </Fragment>
+        <Fragment slot="astro">
+          Use the <code>content</code> slot instead, and it let's you put anything
+          in the tooltip.
+        </Fragment>
+      </Conditional>
+
+      <AutoExample name="RichContent" centered />
+    </section>
   </section>
 
   <section>
     <h2 id="alignment">Alignment</h2>
     <Conditional as="p">
       <Fragment slot="html">
-        Override <code>--anchor-position-area</code> on the wrapper with any valid
+        Set <code>--anchor-position-area</code> on the parent with your preferred
         <code>position-area</code> value.
       </Fragment>
       <Fragment slot="astro">
-        Set the <code>alignment</code> prop to any valid <code
-          >position-area</code
-        > value to control where the tooltip appears.
+        Use the <code>alignment</code> prop.
       </Fragment>
     </Conditional>
 
-    <AutoExample name="Alignment" centered spacious />
+    <AutoExample name="Alignment" row spacious />
   </section>
 
   <section>
@@ -91,34 +107,16 @@ import TooltipCSS from "@opui/css/components/tooltip.css?raw"
     <Conditional as="p">
       <Fragment slot="html">
         Add the <code>.ui-with-arrow</code> class on the <code>.ui-tooltip</code
-        > wrapper to render a small arrow pointing from the tooltip toward the trigger.
+        >. This would be cool to solve with <code>corner-shape</code> one day.
       </Fragment>
       <Fragment slot="astro">
-        Set the <code>arrow</code> prop to render a small arrow pointing from the
-        tooltip toward the trigger. The arrow tracks the configured
-        <code>alignment</code> — it does not currently track
-        <code>position-try-fallbacks</code> flips at runtime.
+        Set the <code>arrow</code> prop. This would be cool to solve with <code
+          >corner-shape</code
+        >
+        one day.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Arrow" centered />
-  </section>
-
-  <section>
-    <h2 id="rich-content">Rich content</h2>
-    <Conditional as="p">
-      <Fragment slot="html">
-        Place any inline markup inside <code
-          >.ui-anchor-floating[popover="hint"]</code
-        >.
-      </Fragment>
-      <Fragment slot="astro">
-        Use the <code>content</code> slot to render markup such as <code
-          >&lt;kbd&gt;</code
-        > shortcuts inside the tooltip.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="RichContent" centered />
   </section>
 </Component>

@@ -6,3 +6,8 @@ export type Props = {
   size?: "small"
   variant?: "tonal" | "outlined"
 }
+
+export type Slots<S> = {
+  end?: S
+  start?: S
+}

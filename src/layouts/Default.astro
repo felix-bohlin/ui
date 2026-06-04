@@ -1,9 +1,17 @@
 ---
 import Header from "../components/Header.astro"
 import Layout from "./Layout.astro"
+
+type Props = {
+  title?: string
+  description?: string
+  image?: string
+}
+
+const { title, description, image } = Astro.props
 ---
 
-<Layout>
+<Layout title={title} description={description} image={image}>
   <a href="#main-content" class="ui-sr-only">Skip to main content</a>
 
   <Header>

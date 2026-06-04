@@ -7,24 +7,30 @@
     <div class="ui-field-group" role="group">
       <label class="ui-text-field ui-spread">
         <span class="ui-label">Full Name</span>
-        <input type="text" placeholder="Jane Doe" required />
+        <span class="ui-field">
+          <input type="text" placeholder="Jane Doe" required />
+        </span>
       </label>
       <label class="ui-text-field ui-spread">
         <span class="ui-label">Email Address</span>
-        <input type="email" placeholder="jane@example.com" required />
+        <span class="ui-field">
+          <input type="email" placeholder="jane@example.com" required />
+        </span>
       </label>
       <label class="ui-select ui-spread">
         <span class="ui-label">Role</span>
-        <select>
-          <button>
-            <selectedcontent></selectedcontent>
-          </button>
-          <div class="ui-list">
-            <option value="dev">Developer</option>
-            <option value="design">Designer</option>
-            <option value="manager">Manager</option>
-          </div>
-        </select>
+        <span class="ui-field">
+          <select>
+            <button>
+              <selectedcontent></selectedcontent>
+            </button>
+            <div class="ui-list">
+              <option value="dev">Developer</option>
+              <option value="design">Designer</option>
+              <option value="manager">Manager</option>
+            </div>
+          </select>
+        </span>
       </label>
     </div>
   </fieldset>
@@ -95,7 +101,9 @@
     <div class="ui-field-group" role="group">
       <label class="ui-textarea ui-spread">
         <span class="ui-label">Biography</span>
-        <textarea placeholder="Tell us about yourself..." rows="4"></textarea>
+        <span class="ui-field">
+          <textarea placeholder="Tell us about yourself..." rows="4"></textarea>
+        </span>
       </label>
     </div>
   </fieldset>

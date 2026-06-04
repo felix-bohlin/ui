@@ -5,11 +5,14 @@ import LocalNav from "../components/LocalNav.astro"
 import { Button, Drawer, DrawerFooter } from "@opui/astro"
 
 type Props = {
+  title?: string
+  description?: string
+  image?: string
   overline?: string
   showToc?: boolean
 }
 
-const { overline, showToc = true } = Astro.props
+const { title, description, image, overline, showToc = true } = Astro.props
 const sidebar = await Astro.slots.render("sidebar")
 const hasSidebarDrawer = sidebar?.includes("<nav")
 
@@ -24,9 +27,18 @@ const preambleHasBlockMarkup = preamble
       preamble,
     )
   : false
+
+const rawTitle = await Astro.slots.render("title")
+// Only strip tags if we actually have a title slot. For fallback, use the title prop if available.
+const titleText = rawTitle
+  ? rawTitle.replace(/<[^>]+>/g, "").trim()
+  : (title ?? "")
+// Same for description. If prop description isn't set, try extracting from preamble.
+const descText =
+  description ?? (preamble ? preamble.replace(/<[^>]+>/g, "").trim() : "")
 ---
 
-<Default>
+<Default title={titleText} description={descText} image={image}>
   <Fragment slot="toolbar">
     <LocalNav
       sidebarDrawerId={hasSidebarDrawer ? "sidebar-drawer" : undefined}

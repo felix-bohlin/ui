@@ -115,6 +115,31 @@ import Command from "./Command.astro"
     return DEFAULT_FRAMEWORK
   }
 
+  function getItemFrameworkId(item: {
+    frameworkId?: string
+    url?: string
+  }): FrameworkId | undefined {
+    if (
+      item.frameworkId &&
+      (FRAMEWORK_IDS as string[]).includes(item.frameworkId)
+    ) {
+      return item.frameworkId as FrameworkId
+    }
+    const match = item.url?.match(frameworkPrefixPattern())
+    if (match && (FRAMEWORK_IDS as string[]).includes(match[1])) {
+      return match[1] as FrameworkId
+    }
+    return undefined
+  }
+
+  function matchesActiveFramework(item: {
+    frameworkId?: string
+    url?: string
+  }): boolean {
+    const frameworkId = getItemFrameworkId(item)
+    return !frameworkId || frameworkId === getActiveFrameworkId()
+  }
+
   // Handle filter clicks
   filterGroup?.addEventListener("click", (e) => {
     const target = e.target as HTMLElement
@@ -142,7 +167,14 @@ import Command from "./Command.astro"
 
       miniSearch = new MiniSearch({
         fields: ["title", "description", "headings"], // fields to index for full-text search
-        storeFields: ["title", "description", "category", "url", "headings"], // fields to return with search results
+        storeFields: [
+          "title",
+          "description",
+          "category",
+          "url",
+          "headings",
+          "frameworkId",
+        ],
         searchOptions: {
           fuzzy: 0.2,
           prefix: true,
@@ -188,9 +220,6 @@ import Command from "./Command.astro"
 
     const displayTitle = highlight(item.title, query)
     const displayDesc = highlight(item.description || "", query)
-    const typeIndicator = item.type
-      ? `<span class="command-item-shortcut" style="margin-inline-end: var(--size-2);">${item.type}</span>`
-      : ""
 
     li.innerHTML = `
       <a href="${item.url}">
@@ -199,7 +228,6 @@ import Command from "./Command.astro"
           <p class="ui-description">${displayDesc}</p>
         </div>
         <div class="ui-end">
-          ${typeIndicator}
           ${item.category ? `<span class="command-item-shortcut">${item.category}</span>` : ""}
         </div>
       </a>
@@ -231,10 +259,7 @@ import Command from "./Command.astro"
 
     let results = miniSearch.search(query)
 
-    const activeFrameworkId = getActiveFrameworkId()
-    results = results.filter(
-      (r: any) => !r.frameworkId || r.frameworkId === activeFrameworkId,
-    )
+    results = results.filter((r: any) => matchesActiveFramework(r))
 
     // Update Category Chips with counts
     const categoryCounts: Record<string, number> = results.reduce(
@@ -325,10 +350,7 @@ import Command from "./Command.astro"
   function renderRecent() {
     let recent = getRecentSearches()
 
-    const activeFrameworkId = getActiveFrameworkId()
-    recent = recent.filter(
-      (r: any) => !r.frameworkId || r.frameworkId === activeFrameworkId,
-    )
+    recent = recent.filter((r: any) => matchesActiveFramework(r))
 
     // Update counts based on Recent history
     const categoryCounts: Record<string, number> = recent.reduce(

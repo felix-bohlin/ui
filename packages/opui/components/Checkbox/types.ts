@@ -1,5 +1,6 @@
 export type CheckboxProps = {
-  critical?: boolean
+  disabled?: boolean
+  error?: boolean
   hideLabel?: boolean
   indeterminate?: boolean
   size?: "small" | "large"

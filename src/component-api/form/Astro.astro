@@ -20,7 +20,7 @@ import { Table } from "@opui/astro"
   <Table.Body>
     <Table.Row>
       <Table.Cell><code>as</code></Table.Cell>
-      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell><code>"form"</code>, <code>"div"</code></Table.Cell>
       <Table.Cell><code>"form"</code></Table.Cell>
       <Table.Cell>The HTML element to render.</Table.Cell>
     </Table.Row>
@@ -78,11 +78,7 @@ import { Table } from "@opui/astro"
   <Table.Body>
     <Table.Row>
       <Table.Cell><code>as</code></Table.Cell>
-      <Table.Cell
-        ><code>"legend"</code>, <code>"p"</code>, <code>"div"</code>, <code
-          >"span"</code
-        ></Table.Cell
-      >
+      <Table.Cell><code>"legend"</code>, <code>"p"</code></Table.Cell>
       <Table.Cell><code>"legend"</code></Table.Cell>
       <Table.Cell>The HTML element to render.</Table.Cell>
     </Table.Row>
@@ -108,10 +104,11 @@ import { Table } from "@opui/astro"
   <Table.Body>
     <Table.Row>
       <Table.Cell>-</Table.Cell>
-      <Table.Cell><code>[key: string]: any</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell
-        >Field description for the field set. Accepts standard HTML attributes.</Table.Cell
+        >Helper text for the field set. Accepts standard HTML attributes on the
+        rendered <code>&lt;p&gt;</code> (via <code>...rest</code>).</Table.Cell
       >
     </Table.Row>
   </Table.Body>

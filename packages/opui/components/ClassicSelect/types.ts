@@ -6,14 +6,14 @@ export type Item = {
 export type ClassicSelectProps = {
   [key: string]: any
   disabled?: boolean
-  critical?: boolean
+  error?: boolean
   id?: string
   items?: Item[]
   label?: string
   name?: string
   required?: boolean
-  size?: 'small'
+  size?: "small"
   endText?: string
   value?: any
-  variant?: 'outlined' | 'filled'
+  variant?: "outlined" | "filled"
 }

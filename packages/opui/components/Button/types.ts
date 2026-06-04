@@ -1,5 +1,8 @@
 export type Props = {
   color?: "critical" | "primary"
+  command?: string
+  commandfor?: string
+  interestfor?: string
   size?: "x-small" | "small" | "large"
   variant?: "outlined" | "tonal" | "filled"
 } & (

@@ -1,13 +1,13 @@
 export type RadioProps = {
-  checked?: boolean
   disabled?: boolean
-  critical?: boolean
+  error?: boolean
   hideLabel?: boolean
-  name?: string
-  required?: boolean
   size?: "small" | "large"
   stack?: boolean
-  value?: string
 }
 
 export type RadioInputProps = {}
+
+export type RadioSlots<S> = {
+  endText?: string | S
+}

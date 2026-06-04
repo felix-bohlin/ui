@@ -1,0 +1,52 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>aria-busy</code></Table.Cell>
+      <Table.Cell
+        ><code>"true"</code>, <code>"false"</code>, <code>boolean</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Set on any element to show a spinner. CSS-only; no Astro component.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Sizes</Table.Cell>
+      <Table.Cell><code>font-size</code></Table.Cell>
+      <Table.Cell><code>1em</code></Table.Cell>
+      <Table.Cell
+        >Spinner size follows the element's computed font size.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Excluded</Table.Cell>
+      <Table.Cell
+        ><code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, <code
+          >&lt;textarea&gt;</code
+        >, <code>&lt;html&gt;</code>, <code>&lt;progress&gt;</code>, elements
+        with <code>aria-describedby</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Elements that never receive a spinner.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

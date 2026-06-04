@@ -1,6 +1,6 @@
 {
   "name": "opui-css",
-  "version": "5.0.1",
+  "version": "5.2.0",
   "description": "A CSS UI library exploring next-gen HTML & CSS features. Astro components on top of Open Props.",
   "type": "module",
   "license": "MIT",
@@ -38,11 +38,9 @@
     "open-props.css",
     "vue",
     "CHANGELOG.md",
-    "CONTRIBUTING.md",
     "LICENSE",
     "MIGRATING.md",
-    "README.md",
-    "RELEASING.md"
+    "README.md"
   ],
   "style": "./dist/opui.css",
   "exports": {
@@ -67,10 +65,10 @@
     "postcss-import": "^16.1.0"
   },
   "peerDependencies": {
-    "astro": "^6.3.1",
-    "open-props": "^1.7.23",
-    "svelte": ">=5.55.7",
-    "vue": ">=3.5.0"
+    "astro": "catalog:",
+    "open-props": "catalog:",
+    "svelte": "catalog:",
+    "vue": "catalog:"
   },
   "peerDependenciesMeta": {
     "astro": {

@@ -3,9 +3,9 @@ import { List, ListItem } from "opui-css/vue"
 </script>
 
 <template>
-<List bordered>
-  <ListItem headline="So" />
-  <ListItem headline="Many" />
-  <ListItem headline="Borders" />
-</List>
+  <List bordered>
+    <ListItem headline="So" />
+    <ListItem headline="Many" />
+    <ListItem headline="Borders" />
+  </List>
 </template>

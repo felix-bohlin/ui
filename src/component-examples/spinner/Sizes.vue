@@ -1,7 +1,7 @@
 <template>
-<h2 aria-busy="true">h2</h2>
-<h4 aria-busy="true">h4</h4>
-<p aria-busy="true">Paragraph</p>
-<span aria-busy="true">Span</span>
-<a href="#sizes" aria-busy="true" class="link">Link</a>
+  <h2 aria-busy="true">h2</h2>
+  <h4 aria-busy="true">h4</h4>
+  <p aria-busy="true">Paragraph</p>
+  <span aria-busy="true">Span</span>
+  <a href="#sizes" aria-busy="true" class="link">Link</a>
 </template>

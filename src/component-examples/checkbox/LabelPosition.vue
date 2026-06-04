@@ -3,6 +3,6 @@ import { Checkbox } from "opui-css/vue"
 </script>
 
 <template>
-<Checkbox name="checkbox">Default</Checkbox>
-<Checkbox stack name="checkbox">Stack</Checkbox>
+  <Checkbox name="checkbox">Default</Checkbox>
+  <Checkbox stack name="checkbox">Stack</Checkbox>
 </template>

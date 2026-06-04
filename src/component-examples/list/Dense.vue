@@ -3,7 +3,7 @@ import { List } from "opui-css/vue"
 </script>
 
 <template>
-<List dense>
-  <ListDense />
-</List>
+  <List dense>
+    <ListDense />
+  </List>
 </template>

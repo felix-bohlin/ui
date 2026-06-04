@@ -3,12 +3,12 @@ import { Divider } from "opui-css/vue"
 </script>
 
 <template>
-Tonal
-<Divider variant="tonal" />
+  Tonal
+  <Divider variant="tonal" />
 
-Filled
-<Divider variant="filled" />
+  Filled
+  <Divider variant="filled" />
 
-Primary
-<Divider variant="primary" />
+  Primary
+  <Divider variant="primary" />
 </template>

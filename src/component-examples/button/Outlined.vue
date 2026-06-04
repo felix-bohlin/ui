@@ -3,7 +3,7 @@ import { Button } from "opui-css/vue"
 </script>
 
 <template>
-<Button variant="outlined">Outlined</Button>
-<Button variant="outlined" disabled>Disabled</Button>
-<Button variant="outlined" href="#outlined">Link</Button>
+  <Button variant="outlined">Outlined</Button>
+  <Button variant="outlined" disabled>Disabled</Button>
+  <Button variant="outlined" href="#outlined">Link</Button>
 </template>

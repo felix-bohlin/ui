@@ -1058,7 +1058,7 @@
   {
     "id": "guide-getting-started-vue",
     "title": "Getting started",
-    "description": "OPUI ships Vue 3 single-file components alongside the Astro variants. Install\n    the package, import what you need, and you're set.",
+    "description": "OPUI ships Vue 3 single-file components alongside the Astro variants.\n    Install the package, import what you need, and you're set.",
     "headings": "Install via NPM Use a component Load the CSS",
     "category": "Guide",
     "frameworkId": "vue",

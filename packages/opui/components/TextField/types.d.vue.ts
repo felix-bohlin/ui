@@ -1,9 +1,15 @@
-import type { HTMLAttributes, Slot } from "vue"
-import type { Props as BaseProps } from "./types"
+import type { HTMLAttributes, InputHTMLAttributes, Slot } from "vue"
+import type * as Base from "./types"
 
-export type Props = BaseProps & {
-  class?: HTMLAttributes["class"]
-}
+type InputProps = {
+  type?: InputHTMLAttributes["type"] | "numeric"
+} & Pick<InputHTMLAttributes, Exclude<Base.InputProps, "type" | "value">>
+
+export type Props = Base.Props &
+  InputProps & {
+    class?: HTMLAttributes["class"]
+    id?: HTMLAttributes["id"]
+  }
 
 export type Slots = {
   default?: Slot

@@ -26,9 +26,7 @@ const isFrameworkKeyedApi = (value: any) =>
   typeof value === "object" &&
   !value.rows &&
   Object.keys(value).length > 0 &&
-  Object.keys(value).every((k) =>
-    FRAMEWORK_IDS.includes(k as FrameworkId),
-  )
+  Object.keys(value).every((k) => FRAMEWORK_IDS.includes(k as FrameworkId))
 
 // Pick the framework-keyed API entry for the active framework, falling back
 // to the default framework, then the first authored variant — same fallback

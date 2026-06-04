@@ -40,12 +40,7 @@ const experience = ref(5)
         <TextField placeholder="Jane Doe" required spread>
           <template #label>Full Name</template>
         </TextField>
-        <TextField
-          type="email"
-          placeholder="jane@example.com"
-          required
-          spread
-        >
+        <TextField type="email" placeholder="jane@example.com" required spread>
           <template #label>Email Address</template>
         </TextField>
         <Select :items="roleItems" spread>
@@ -106,11 +101,7 @@ const experience = ref(5)
       <FieldLegend>Additional Info</FieldLegend>
       <FieldDescription>Anything else we should know?</FieldDescription>
       <FieldGroup name="details">
-        <Textarea
-          placeholder="Tell us about yourself..."
-          :rows="4"
-          spread
-        >
+        <Textarea placeholder="Tell us about yourself..." :rows="4" spread>
           <template #label>Biography</template>
         </Textarea>
       </FieldGroup>

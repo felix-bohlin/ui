@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { Avatar, CheckboxInput, ListItem, RadioInput, SwitchInput } from "opui-css/vue"
+import {
+  Avatar,
+  CheckboxInput,
+  ListItem,
+  RadioInput,
+  SwitchInput,
+} from "opui-css/vue"
 
 const { prefix = "" } = defineProps<{
   prefix?: string
@@ -182,11 +188,7 @@ const { prefix = "" } = defineProps<{
     </template>
   </ListItem>
 
-  <ListItem
-    border-top
-    type="checkbox"
-    :for="`${prefix}checkbox-all`"
-  >
+  <ListItem border-top type="checkbox" :for="`${prefix}checkbox-all`">
     <template #text><div>Checkbox</div></template>
     <template #end>
       <CheckboxInput :id="`${prefix}checkbox-all`" />

@@ -18,7 +18,9 @@ export type DrawerFooterProps = BaseDrawerFooterProps & {
   class?: HTMLAttributes["class"]
 }
 
-export type DrawerSlots = BaseSlots<Slot>
+export type DrawerSlots = BaseSlots<Slot> & {
+  default?: Slot
+}
 
 export type DrawerHeaderSlots = {
   default?: Slot

@@ -13,7 +13,6 @@
   "dependencies": {
     "@astrojs/check": "^0.9.9",
     "astro": "catalog:",
-    "@astrojs/sitemap": "^3.7.3",
     "astro-expressive-code": "^0.41.7",
     "baseline-status": "^1.1.1",
     "globby": "^16.2.0",
@@ -22,13 +21,14 @@
     "open-props": "catalog:",
     "opui-css": "workspace:*",
     "typescript": "^6.0.3",
-    "web-features": "^3.27.0"
+    "web-features": "^3.29.0"
   },
   "devDependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/vue": "^6.0.1",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "0.14.1",
     "solid-js": "catalog:",
-    "svelte": "catalog:",
     "vue": "catalog:"
   },
   "pnpm": {

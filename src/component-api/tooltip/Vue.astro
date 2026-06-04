@@ -1,0 +1,60 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>alignment</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell><code>"block-start"</code></Table.Cell>
+      <Table.Cell
+        >Any valid <code>position-area</code> value. Controls where the tooltip is
+        placed relative to the trigger.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>arrow</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell
+        >When <code>true</code>, renders an arrow pointing from the tooltip
+        toward the trigger. The arrow flips automatically with the tooltip via
+        <code>position-try-fallbacks</code>.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>id</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>auto-generated</Table.Cell>
+      <Table.Cell
+        >Identifier used to wire <code>interestfor</code> on the trigger to the floating
+        element.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>label</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>—</Table.Cell>
+      <Table.Cell
+        >Plain-text tooltip content. For richer markup, use the <code
+          >content</code
+        > slot instead.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

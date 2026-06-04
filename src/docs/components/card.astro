@@ -60,6 +60,9 @@ import Conditional from "../../components/Conditional.astro"
           >.ui-outlined</code
         >, <code>.ui-tonal</code>, and <code>.ui-elevated</code> classes.
       </Fragment>
+      <Fragment slot="vue">
+        Change the card variant with the <code>variant</code> prop.
+      </Fragment>
     </Conditional>
 
     <AutoExample name="Variants" column />
@@ -85,6 +88,7 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="html">
         Using the <code>&lt;hgroup&gt;</code>.
       </Fragment>
+      <Fragment slot="vue"> Using the <code>header</code> slot. </Fragment>
     </Conditional>
     <AutoExample name="Header" column />
   </section>
@@ -97,6 +101,9 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         Using the <code>.ui-actions</code> class.
+      </Fragment>
+      <Fragment slot="vue">
+        Using the <code>actions</code> slot.
       </Fragment>
     </Conditional>
     <p>
@@ -113,6 +120,9 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         Align actions to the end with the <code>.ui-align-end</code> class.
+      </Fragment>
+      <Fragment slot="vue">
+        Align actions to the end with the <code>actionsAlign="end"</code> prop.
       </Fragment>
     </Conditional>
 
@@ -155,6 +165,24 @@ import Conditional from "../../components/Conditional.astro"
           </li>
           <li>
             <code>.ui-actions</code> (optional): a wrapper that groups a set of buttons
+          </li>
+        </ol>
+      </Fragment>
+      <Fragment slot="vue">
+        <ol>
+          <li>Container</li>
+          <li>
+            <code>header</code> slot (optional): a wrapper for the card header
+          </li>
+          <li>
+            <code>content</code> slot (optional): a wrapper for the card content
+          </li>
+          <li>
+            <code>default</code> slot (optional): raw content placed directly in the
+            card
+          </li>
+          <li>
+            <code>actions</code> slot (optional): a wrapper that groups a set of buttons
           </li>
         </ol>
       </Fragment>

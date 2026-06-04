@@ -6,7 +6,6 @@ export const title = "Select"
 const {
   class: className,
   description,
-  disabled,
   error,
   dense,
   id,
@@ -16,8 +15,6 @@ const {
   spread,
   size,
   endText,
-  required,
-  value,
   variant = "outlined",
   ...rest
 } = Astro.props
@@ -59,11 +56,8 @@ const labelId = $id("select-label")
   <span class="ui-field">
     <select
       aria-labelledby={label ? labelId : undefined}
-      disabled={disabled}
       id={selectId}
       name={fieldName}
-      required={required}
-      value={value}
       {...rest}
     >
       <button>

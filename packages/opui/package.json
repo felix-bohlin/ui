@@ -21,7 +21,8 @@
     "design-system",
     "html",
     "open-props",
-    "ui"
+    "ui",
+    "vue"
   ],
   "sideEffects": [
     "*.css",
@@ -35,6 +36,7 @@
     "dist",
     "env.d.ts",
     "open-props.css",
+    "vue",
     "CHANGELOG.md",
     "LICENSE",
     "MIGRATING.md",
@@ -45,6 +47,7 @@
     ".": "./dist/opui.css",
     "./open-props": "./dist/op.css",
     "./astro": "./astro/index.ts",
+    "./vue": "./vue/index.ts",
     "./components/*": "./components/*",
     "./core/*": "./core/*.css",
     "./css/*": "./css/*.css",
@@ -63,10 +66,18 @@
   },
   "peerDependencies": {
     "astro": "catalog:",
-    "open-props": "catalog:"
+    "open-props": "catalog:",
+    "svelte": "catalog:",
+    "vue": "catalog:"
   },
   "peerDependenciesMeta": {
     "astro": {
+      "optional": true
+    },
+    "svelte": {
+      "optional": true
+    },
+    "vue": {
       "optional": true
     }
   },

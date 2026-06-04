@@ -1,5 +1,4 @@
 export type CheckboxProps = {
-  disabled?: boolean
   error?: boolean
   hideLabel?: boolean
   indeterminate?: boolean

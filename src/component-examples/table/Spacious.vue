@@ -1,5 +1,5 @@
 <template>
-  <table class="spacious">
+  <table class="ui-table ui-spacious">
     <caption>
       Band Members
     </caption>

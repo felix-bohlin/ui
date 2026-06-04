@@ -1,16 +1,16 @@
 <template>
   <div class="anatomy">
-    <div class="select">
+    <div class="ui-select">
       <div>
         <button class="anatomy">
           <selectedcontent></selectedcontent>
         </button>
-        <div class="list">
+        <div class="ui-list">
           <option>Option One</option>
         </div>
       </div>
     </div>
-    <div class="list">
+    <div class="ui-list">
       <option selected>Option One</option>
       <option>Option Two</option>
       <option>Option Three</option>

@@ -36,7 +36,7 @@ onMounted(() => {
   </Button>
 
   <Dialog id="closing-behaviors-dialog" closedby="any">
-    <template #header><h2 class="h4">How to close</h2></template>
+    <template #header><h2 class="ui-h4">How to close</h2></template>
     <template #content
       ><div>
         <FieldSet>

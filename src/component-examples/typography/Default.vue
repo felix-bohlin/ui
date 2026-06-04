@@ -1,5 +1,5 @@
 <template>
-  <article class="rich-text">
+  <article class="ui-rich-text">
     <hgroup>
       <p>Typography showcase</p>
       <h1>Fixie beard tumeric: What the kombucha tells us</h1>

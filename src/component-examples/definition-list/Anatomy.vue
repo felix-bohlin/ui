@@ -1,9 +1,17 @@
+<script setup lang="ts">
+import {
+  Description,
+  DescriptionList,
+  DescriptionListItem,
+  DescriptionListTerm,
+} from "opui-css/vue"
+</script>
+
 <template>
-  <dl class="definition-list dotted anatomy">
-    <div class="item">
-      <dt class="term">Price</dt>
-      <hr />
-      <dd class="description">6 950 000</dd>
-    </div>
-  </dl>
+  <DescriptionList bordered="dotted" class="anatomy">
+    <DescriptionListItem>
+      <DescriptionListTerm>Price</DescriptionListTerm>
+      <Description>6 950 000</Description>
+    </DescriptionListItem>
+  </DescriptionList>
 </template>

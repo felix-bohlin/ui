@@ -11,7 +11,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
         <Switch>Switch 2</Switch>
         <Switch>Switch 3</Switch>
       </FieldGroup>
-      <span class="end-text">Something went wrong!</span>
+      <span class="ui-end-text">Something went wrong!</span>
     </FieldSet>
   </Form>
 </template>

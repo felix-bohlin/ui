@@ -1,7 +1,7 @@
 <template>
-  <div class="hgroup">
-    <p class="overline">Zero or more p elements</p>
-    <h2 class="h2">Followed by one h* element</h2>
-    <p class="p">Followed by zero or more p elements</p>
+  <div class="ui-hgroup">
+    <p class="ui-overline">Zero or more p elements</p>
+    <h2 class="ui-h2">Followed by one h* element</h2>
+    <p class="ui-p">Followed by zero or more p elements</p>
   </div>
 </template>

@@ -11,13 +11,13 @@ import { Button } from "opui-css/vue"
 
   <div class="example-row">
     <Button aria-busy="true">
-      <span class="sr-only">Text</span>
+      <span class="ui-sr-only">Text</span>
     </Button>
     <Button aria-busy="true" disabled variant="outlined">
-      <span class="sr-only">Outlined</span>
+      <span class="ui-sr-only">Outlined</span>
     </Button>
     <Button aria-busy="true" variant="filled">
-      <span class="sr-only">Filled</span>
+      <span class="ui-sr-only">Filled</span>
     </Button>
   </div>
 </template>

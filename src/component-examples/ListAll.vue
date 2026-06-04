@@ -75,7 +75,7 @@ const { prefix = "" } = defineProps<{
 
   <ListItem border-top>
     <button>
-      <div class="text">
+      <div class="ui-text">
         <p>Button list item</p>
       </div>
     </button>
@@ -83,7 +83,7 @@ const { prefix = "" } = defineProps<{
 
   <ListItem>
     <a href="#">
-      <div class="text">
+      <div class="ui-text">
         <p>Link list item</p>
       </div>
     </a>
@@ -106,7 +106,7 @@ const { prefix = "" } = defineProps<{
 
   <ListItem border-top>
     <button>
-      <div class="start">
+      <div class="ui-start">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -119,7 +119,7 @@ const { prefix = "" } = defineProps<{
           ></path>
         </svg>
       </div>
-      <div class="text">
+      <div class="ui-text">
         <p>Button with start icon</p>
       </div>
     </button>
@@ -127,7 +127,7 @@ const { prefix = "" } = defineProps<{
 
   <ListItem>
     <a href="#">
-      <div class="start">
+      <div class="ui-start">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -140,7 +140,7 @@ const { prefix = "" } = defineProps<{
           ></path>
         </svg>
       </div>
-      <div class="text">
+      <div class="ui-text">
         <p>Link with start icon</p>
       </div>
     </a>
@@ -148,10 +148,10 @@ const { prefix = "" } = defineProps<{
 
   <ListItem border-top>
     <button>
-      <div class="text">
+      <div class="ui-text">
         <p>End icon</p>
       </div>
-      <div class="end">
+      <div class="ui-end">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -170,8 +170,8 @@ const { prefix = "" } = defineProps<{
   <ListItem headline="End icon button">
     <template #end>
       <div>
-        <button class="icon-button">
-          <span class="sr-only">More</span>
+        <button class="ui-icon-button">
+          <span class="ui-sr-only">More</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"

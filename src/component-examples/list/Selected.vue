@@ -6,7 +6,7 @@ import { List, ListItem } from "opui-css/vue"
   <List>
     <ListItem aria-selected="true">
       <a href="#">
-        <div class="text">
+        <div class="ui-text">
           <p>Selected item</p>
           <p>This item has aria-selected="true" applied to the ListItem</p>
         </div>
@@ -14,7 +14,7 @@ import { List, ListItem } from "opui-css/vue"
     </ListItem>
     <ListItem>
       <a href="#">
-        <div class="text">
+        <div class="ui-text">
           <p>Normal item</p>
         </div>
       </a>

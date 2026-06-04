@@ -11,7 +11,7 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
         <Checkbox>Checkbox 2</Checkbox>
         <Checkbox>Checkbox 3</Checkbox>
       </FieldGroup>
-      <span class="end-text">Something went wrong!</span>
+      <span class="ui-end-text">Something went wrong!</span>
     </FieldSet>
   </Form>
 </template>

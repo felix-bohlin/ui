@@ -5,7 +5,7 @@ import { Chip } from "opui-css/vue"
 <template>
   <Chip as="a" href="#" variant="tonal" label="Tonal link" />
   <Chip as="a" href="#" variant="outlined">
-    <span class="text">Outlined link</span>
+    <span class="ui-text">Outlined link</span>
     <template #end
       ><svg
         xmlns="http://www.w3.org/2000/svg"

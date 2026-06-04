@@ -1,5 +1,5 @@
 <template>
-  <table>
+  <table class="ui-table">
     <caption>
       Nordic Countries Overview
     </caption>

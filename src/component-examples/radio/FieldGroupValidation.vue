@@ -11,7 +11,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
         <Radio>Radio 2</Radio>
         <Radio>Radio 3</Radio>
       </FieldGroup>
-      <span class="end-text">Something went wrong!</span>
+      <span class="ui-end-text">Something went wrong!</span>
     </FieldSet>
   </Form>
 </template>

@@ -6,7 +6,7 @@ import { Button, Card } from "opui-css/vue"
   <Card variant="elevated" class="anatomy">
     <template #header>
       <p>Overline</p>
-      <h2 class="h3">Headline</h2>
+      <h2 class="ui-h3">Headline</h2>
       <p>Subhead</p>
     </template>
     <template #content>

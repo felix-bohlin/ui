@@ -7,7 +7,7 @@ import { List, ListItem } from "opui-css/vue"
     <ListItem headline="Gutterless list item">
       <template #end
         ><div>
-          <button class="icon-button" type="button">
+          <button class="ui-icon-button" type="button">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"

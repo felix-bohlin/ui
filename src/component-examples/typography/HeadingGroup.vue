@@ -1,5 +1,5 @@
 <template>
-  <div class="rich-text">
+  <div class="ui-rich-text">
     <hgroup>
       <p>Zero or more p elements</p>
       <h2>Followed by one h* element</h2>

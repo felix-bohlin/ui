@@ -14,7 +14,7 @@ import { Button, Dialog } from "opui-css/vue"
     aria-modal="true"
   >
     <template #header
-      ><h2 id="dialog-heading" class="h4">Are you sure?</h2></template
+      ><h2 id="dialog-heading" class="ui-h4">Are you sure?</h2></template
     >
     <template #content
       ><p>

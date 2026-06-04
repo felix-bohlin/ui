@@ -1,5 +1,5 @@
 <template>
-  <table class="dense">
+  <table class="ui-table ui-dense">
     <caption>
       Band Members
     </caption>

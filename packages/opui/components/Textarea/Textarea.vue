@@ -36,11 +36,7 @@ const fieldId = props.id || useId()
     </span>
 
     <span class="ui-field">
-      <textarea
-        :id="fieldId"
-        v-bind="$attrs"
-        v-model="modelValue"
-      ></textarea>
+      <textarea :id="fieldId" v-bind="$attrs" v-model="modelValue"></textarea>
       <span class="ui-prefix" v-if="$slots.prefix"
         ><slot name="prefix"></slot
       ></span>

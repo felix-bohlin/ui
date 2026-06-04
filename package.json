@@ -21,7 +21,7 @@
     "open-props": "catalog:",
     "opui-css": "workspace:*",
     "typescript": "^6.0.3",
-    "web-features": "^3.27.0"
+    "web-features": "^3.29.0"
   },
   "devDependencies": {
     "@astrojs/sitemap": "^3.7.3",

@@ -1245,36 +1245,6 @@
     "url": "/vue/api#button-group"
   },
   {
-    "id": "api-callout-astro",
-    "title": "Callout API",
-    "description": "Reference for Callout Astro component.",
-    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#callout"
-  },
-  {
-    "id": "api-callout-html",
-    "title": "Callout API",
-    "description": "Reference for Callout HTML component.",
-    "headings": "Part & > .ui-content, & > svg\n      - Internal structure. Severities - Severity modifiers. Variants .ui-tonal, .ui-outlined .ui-tonal Style modifiers.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#callout"
-  },
-  {
-    "id": "api-callout-vue",
-    "title": "Callout API",
-    "description": "Reference for Callout Vue component.",
-    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#callout"
-  },
-  {
     "id": "api-card-astro",
     "title": "Card API",
     "description": "Reference for Card Astro component.",
@@ -1303,6 +1273,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#card"
+  },
+  {
+    "id": "api-callout-astro",
+    "title": "Callout API",
+    "description": "Reference for Callout Astro component.",
+    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#callout"
+  },
+  {
+    "id": "api-callout-html",
+    "title": "Callout API",
+    "description": "Reference for Callout HTML component.",
+    "headings": "Part & > .ui-content, & > svg\n      - Internal structure. Severities - Severity modifiers. Variants .ui-tonal, .ui-outlined .ui-tonal Style modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#callout"
+  },
+  {
+    "id": "api-callout-vue",
+    "title": "Callout API",
+    "description": "Reference for Callout Vue component.",
+    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#callout"
   },
   {
     "id": "api-checkbox-astro",
@@ -1785,36 +1785,6 @@
     "url": "/vue/api#switch"
   },
   {
-    "id": "api-table-astro",
-    "title": "Table API",
-    "description": "Reference for Table Astro component.",
-    "headings": "class string - Additional CSS classes to apply to the table. variant \"dense\" | \"spacious\" - The variant to use.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#table"
-  },
-  {
-    "id": "api-table-html",
-    "title": "Table API",
-    "description": "Reference for Table HTML component.",
-    "headings": "Table &lt;table class=\"ui-table\"&gt; - The native HTML table element. Dense .ui-dense - When applied the table will appear denser. Spacious .ui-spacious - When applied the table will appear more spacious.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#table"
-  },
-  {
-    "id": "api-table-vue",
-    "title": "Table API",
-    "description": "Reference for Table Vue component.",
-    "headings": "class string - Additional CSS classes to apply to the table. variant \"dense\" | \"spacious\" - The variant to use.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#table"
-  },
-  {
     "id": "api-tabs-astro",
     "title": "Tabs API",
     "description": "Reference for Tabs Astro component.",
@@ -1843,6 +1813,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#tabs"
+  },
+  {
+    "id": "api-table-astro",
+    "title": "Table API",
+    "description": "Reference for Table Astro component.",
+    "headings": "class string - Additional CSS classes to apply to the table. variant \"dense\" | \"spacious\" - The variant to use.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#table"
+  },
+  {
+    "id": "api-table-html",
+    "title": "Table API",
+    "description": "Reference for Table HTML component.",
+    "headings": "Table &lt;table class=\"ui-table\"&gt; - The native HTML table element. Dense .ui-dense - When applied the table will appear denser. Spacious .ui-spacious - When applied the table will appear more spacious.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#table"
+  },
+  {
+    "id": "api-table-vue",
+    "title": "Table API",
+    "description": "Reference for Table Vue component.",
+    "headings": "class string - Additional CSS classes to apply to the table. variant \"dense\" | \"spacious\" - The variant to use.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#table"
   },
   {
     "id": "api-text-field-astro",

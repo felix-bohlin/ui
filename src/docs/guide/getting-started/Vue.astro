@@ -8,8 +8,8 @@ import Theming from "./_theming.astro"
 <Guide overline="Guide">
   <Fragment slot="title">Getting started</Fragment>
   <Fragment slot="preamble">
-    OPUI ships Vue 3 single-file components alongside the Astro variants.
-    Install the package, import what you need, and you're set.
+    OPUI ships Vue 3 single-file components. Install the package, import what
+    you need, and you're set.
   </Fragment>
 
   <section>
@@ -50,10 +50,12 @@ import { Button } from "opui-css/vue"
     <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
     <p>Or pick and choose pieces if you want a lighter footprint:</p>
     <Code
-      code={`@import "opui-css/core/normalize.css";
-@import "opui-css/core/utils.css";
+      code={`@import "opui-css/open-props.css";
+@import "opui-css/core/palette.css";
 @import "opui-css/css/theme.css";
-@import "opui-css/css/components.css";`}
+@import "opui-css/core/normalize.css";
+@import "opui-css/css/components.css";
+@import "opui-css/core/utils.css";`}
       lang="css"
     />
   </section>

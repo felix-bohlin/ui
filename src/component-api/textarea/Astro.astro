@@ -37,18 +37,38 @@ import { Table } from "@opui/astro"
       <Table.Cell>Supporting text displayed below the textarea.</Table.Cell>
     </Table.Row>
     <Table.Row>
+      <Table.Cell><code>error</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell
+        >Field error state. Sets <code>[data-invalid]</code> on the root element.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>filled</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>The filled visual variant.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>label</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The label for the textarea.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>small</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>The small size variant.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
       <Table.Cell><code>spread</code></Table.Cell>
       <Table.Cell><code>boolean</code></Table.Cell>
       <Table.Cell><code>false</code></Table.Cell>
       <Table.Cell
         >Spreads the label/description and textarea to opposite ends.</Table.Cell
       >
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell><code>variant</code></Table.Cell>
-      <Table.Cell><code>"filled"</code></Table.Cell>
-      <Table.Cell>-</Table.Cell>
-      <Table.Cell>The visual variant of the textarea.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>

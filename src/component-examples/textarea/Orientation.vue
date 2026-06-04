@@ -25,7 +25,7 @@ import { Textarea } from "opui-css/vue"
     <template #description>This textarea is disabled</template>
   </Textarea>
 
-  <Textarea spread critical label="Invalid Message">
+  <Textarea spread error label="Invalid Message">
     <template #description>This textarea has an error</template>
     <template #end-text>This value is too short.</template>
   </Textarea>

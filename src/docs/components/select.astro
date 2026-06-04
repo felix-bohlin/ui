@@ -113,13 +113,26 @@ import ClassicSelectAPIHTML from "../../component-api/classic-select/HTML.astro"
       <Fragment slot="astro">
         <ul>
           <li>
-            Add <code>[required]</code> to the <code>&lt;select&gt;</code> element
-            to toggle required styles.
+            Set <code>required</code> on the component to toggle required styles on
+            the select.
           </li>
           <li>
             Use the <code>error</code> prop to toggle invalid styles. It renders the
             <code>data-invalid</code> attribute on the root element. Make use of the
             end text to give extra feedback on the error.
+          </li>
+        </ul>
+      </Fragment>
+      <Fragment slot="vue">
+        <ul>
+          <li>
+            Add the <code>required</code> attribute on the component. It is forwarded
+            to the underlying <code>&lt;select&gt;</code>.
+          </li>
+          <li>
+            Use the <code>error</code> prop to toggle invalid styles. It renders
+            <code>data-invalid</code> on the root element. Make use of the end text
+            to give extra feedback on the error.
           </li>
         </ul>
       </Fragment>

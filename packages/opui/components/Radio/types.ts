@@ -1,5 +1,4 @@
 export type RadioProps = {
-  disabled?: boolean
   error?: boolean
   hideLabel?: boolean
   size?: "small" | "large"

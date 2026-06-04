@@ -13,11 +13,6 @@ const modelValue = defineModel<boolean | (string | number)[]>()
   <input
     type="checkbox"
     :data-indeterminate="props.indeterminate || undefined"
-    :disabled="props.disabled"
-    :id="props.id"
-    :name="props.name"
-    :required="props.required"
-    :value="props.value"
     v-bind="$attrs"
     v-model="modelValue"
   />

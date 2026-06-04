@@ -13,13 +13,13 @@ import { Textarea } from "opui-css/vue"
       label="Label"
       placeholder="Default"
       endText="Only double-negatives are allowed."
-      critical
+      error
     />
     <Textarea
       label="Label"
       placeholder="Filled"
       endText="Only letters from the first half of the alphabet are allowed."
-      critical
+      error
       filled
     />
   </div>

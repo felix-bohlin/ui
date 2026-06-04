@@ -25,8 +25,7 @@ const fieldId = props.id || useId()
       },
       props.class,
     ]"
-    :data-invalid="props.critical || undefined"
-    v-bind="$attrs"
+    :data-invalid="props.error || undefined"
   >
     <span v-if="props.label || $slots.label" class="ui-label">
       <slot name="label">{{ props.label }}</slot>
@@ -38,15 +37,8 @@ const fieldId = props.id || useId()
 
     <span class="ui-field">
       <textarea
-        :cols="props.cols"
-        :disabled="props.disabled"
         :id="fieldId"
-        :maxlength="props.maxlength"
-        :minlength="props.minlength"
-        :name="props.name"
-        :placeholder="props.placeholder"
-        :required="props.required"
-        :rows="props.rows"
+        v-bind="$attrs"
         v-model="modelValue"
       ></textarea>
       <span class="ui-prefix" v-if="$slots.prefix"

@@ -81,12 +81,27 @@ import Conditional from "../../components/Conditional.astro"
 
     <h3 id="validation">Validation</h3>
     <ul>
-      <li>
-        Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to toggle
-        required styles
-      </li>
       <Conditional>
         <li slot="astro">
+          Set <code>required</code> on the component to toggle required styles on
+          the input.
+        </li>
+        <li slot="vue">
+          Add the <code>required</code> attribute on the component. It is forwarded
+          to the underlying <code>&lt;input&gt;</code>.
+        </li>
+        <li slot="html">
+          Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to
+          toggle required styles.
+        </li>
+      </Conditional>
+      <Conditional>
+        <li slot="astro">
+          Use the <code>error</code> prop to toggle invalid styles. It renders
+          <code>data-invalid</code> on the root element. Make use of the end text
+          to give extra feedback on the error.
+        </li>
+        <li slot="vue">
           Use the <code>error</code> prop to toggle invalid styles. It renders
           <code>data-invalid</code> on the root element. Make use of the end text
           to give extra feedback on the error.

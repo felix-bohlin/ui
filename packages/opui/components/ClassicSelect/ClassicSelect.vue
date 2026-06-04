@@ -27,7 +27,7 @@ const labelId = useId()
       },
       props.class,
     ]"
-    :data-invalid="props.critical || undefined"
+    :data-invalid="props.error || undefined"
   >
     <span v-if="props.label" class="ui-label" :id="labelId">{{
       props.label
@@ -35,10 +35,7 @@ const labelId = useId()
     <span class="ui-field">
       <select
         :aria-labelledby="props.label ? labelId : undefined"
-        :disabled="props.disabled"
         :id="selectId"
-        :name="props.name"
-        :required="props.required"
         v-bind="$attrs"
         v-model="modelValue"
       >

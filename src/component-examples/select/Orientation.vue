@@ -40,7 +40,7 @@ import { Select } from "opui-css/vue"
     <option>Option 1</option>
   </Select>
 
-  <Select spread critical>
+  <Select spread error>
     <template #label>Invalid Select</template>
     <template #description>This select has an error</template>
     <template #end-text>Please select a valid option.</template>

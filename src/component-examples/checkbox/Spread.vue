@@ -18,7 +18,7 @@ import { Checkbox } from "opui-css/vue"
     <template #end-text>This checkbox is disabled.</template>
   </Checkbox>
 
-  <Checkbox spread critical>
+  <Checkbox spread error>
     Invalid Checkbox
     <template #end-text>There is an error with this checkbox.</template>
   </Checkbox>

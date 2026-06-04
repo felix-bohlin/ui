@@ -8,11 +8,11 @@ import { Checkbox } from "opui-css/vue"
     <Checkbox stack required name="checkbox">Stack</Checkbox>
   </div>
   <div class="example-row spacious">
-    <Checkbox critical checked name="checkbox">
+    <Checkbox error checked name="checkbox">
       Default
       <template #end-text>Check yourself</template>
     </Checkbox>
-    <Checkbox stack critical name="checkbox">
+    <Checkbox stack error name="checkbox">
       Stack
       <template #end-text>Before you wreck yourself</template>
     </Checkbox>

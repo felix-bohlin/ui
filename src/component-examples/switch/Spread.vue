@@ -18,7 +18,7 @@ import { Switch } from "opui-css/vue"
     <template #end-text>This switch is disabled.</template>
   </Switch>
 
-  <Switch spread critical>
+  <Switch spread error>
     Invalid Switch
     <template #end-text>There is an error with this switch.</template>
   </Switch>

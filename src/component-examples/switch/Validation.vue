@@ -9,11 +9,11 @@ import { Switch } from "opui-css/vue"
   </div>
 
   <div class="example-row spacious">
-    <Switch critical>
+    <Switch error>
       Default
       <template #end-text>Supporting text</template>
     </Switch>
-    <Switch critical stack>
+    <Switch error stack>
       Stack
       <template #end-text>Supporting text</template>
     </Switch>

@@ -22,7 +22,7 @@ import { TextField } from "opui-css/vue"
     <template #description>This field is disabled</template>
   </TextField>
 
-  <TextField spread critical label="Invalid Name">
+  <TextField spread error label="Invalid Name">
     <template #description>This field has an error</template>
     <template #end-text>This value is too short.</template>
   </TextField>

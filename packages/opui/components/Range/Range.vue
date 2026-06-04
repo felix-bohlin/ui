@@ -54,13 +54,8 @@ const endTextId = useId()
           .join(' ') || undefined
       "
       :aria-labelledby="labelId"
-      :disabled="props.disabled"
       :id="inputId"
       :list="props.list"
-      :max="props.max"
-      :min="props.min"
-      :name="props.name"
-      :step="props.step"
       type="range"
       v-bind="$attrs"
       v-model="modelValue"

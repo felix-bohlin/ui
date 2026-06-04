@@ -146,12 +146,27 @@ export const description =
 
   <section>
     <h2 id="validation">Validation</h2>
-    <p>
-      Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to toggle
-      required styles
-    </p>
     <Conditional as="p">
       <Fragment slot="astro">
+        Set <code>required</code> on the component to toggle required styles on the
+        input.
+      </Fragment>
+      <Fragment slot="vue">
+        Add the <code>required</code> attribute on the component. It is forwarded
+        to the underlying <code>&lt;input&gt;</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to toggle
+        required styles.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>error</code> prop to toggle invalid styles. It renders
+        <code>data-invalid</code> on the root element. Make use of the end text to
+        give extra feedback on the error.
+      </Fragment>
+      <Fragment slot="vue">
         Use the <code>error</code> prop to toggle invalid styles. It renders
         <code>data-invalid</code> on the root element. Make use of the end text to
         give extra feedback on the error.

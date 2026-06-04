@@ -20,14 +20,14 @@ import { Select } from "opui-css/vue"
   </div>
 
   <div class="example-row">
-    <Select label="Label" critical endText="Supporting text">
+    <Select label="Label" error endText="Supporting text">
       <option value="">-</option>
       <option selected>Wrong option</option>
       <option>Also wrong!</option>
       <option>Nothing's right!</option>
     </Select>
 
-    <Select label="Label" variant="filled" critical endText="Supporting text">
+    <Select label="Label" variant="filled" error endText="Supporting text">
       <option value="">-</option>
       <option selected>Wrong option</option>
       <option>Also wrong!</option>

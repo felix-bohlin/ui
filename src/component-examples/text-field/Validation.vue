@@ -14,14 +14,14 @@ import { TextField } from "opui-css/vue"
       placeholder="Placeholder"
       value="This isn't right"
       endText="Only double-negatives are allowed."
-      critical
+      error
     />
     <TextField
       label="Label"
       placeholder="Placeholder"
       value="Uh-oh"
       endText="Only letters from the first half of the alphabet are allowed."
-      critical
+      error
       filled
     />
   </div>

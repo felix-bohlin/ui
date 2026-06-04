@@ -1245,36 +1245,6 @@
     "url": "/vue/api#button-group"
   },
   {
-    "id": "api-card-astro",
-    "title": "Card API",
-    "description": "Reference for Card Astro component.",
-    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#card"
-  },
-  {
-    "id": "api-card-html",
-    "title": "Card API",
-    "description": "Reference for Card HTML component.",
-    "headings": "Children - Optional wrappers for child content. Variants .ui-text The variant to use. Alignment .ui-align-end - Align actions to the end.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#card"
-  },
-  {
-    "id": "api-card-vue",
-    "title": "Card API",
-    "description": "Reference for Card Vue component.",
-    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#card"
-  },
-  {
     "id": "api-callout-astro",
     "title": "Callout API",
     "description": "Reference for Callout Astro component.",
@@ -1303,6 +1273,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#callout"
+  },
+  {
+    "id": "api-card-astro",
+    "title": "Card API",
+    "description": "Reference for Card Astro component.",
+    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#card"
+  },
+  {
+    "id": "api-card-html",
+    "title": "Card API",
+    "description": "Reference for Card HTML component.",
+    "headings": "Children - Optional wrappers for child content. Variants .ui-text The variant to use. Alignment .ui-align-end - Align actions to the end.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#card"
+  },
+  {
+    "id": "api-card-vue",
+    "title": "Card API",
+    "description": "Reference for Card Vue component.",
+    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#card"
   },
   {
     "id": "api-checkbox-astro",
@@ -1365,36 +1365,6 @@
     "url": "/vue/api#chip"
   },
   {
-    "id": "api-description-list-astro",
-    "title": "Description List API",
-    "description": "Reference for Description List Astro component.",
-    "headings": "bordered boolean | \"dotted\" - class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#description-list"
-  },
-  {
-    "id": "api-description-list-html",
-    "title": "Description List API",
-    "description": "Reference for Description List HTML component.",
-    "headings": "Bordered -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#description-list"
-  },
-  {
-    "id": "api-description-list-vue",
-    "title": "Description List API",
-    "description": "Reference for Description List Vue component.",
-    "headings": "bordered boolean | \"dotted\" - class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#description-list"
-  },
-  {
     "id": "api-classic-select-astro",
     "title": "Classic Select API",
     "description": "Reference for Classic Select Astro component.",
@@ -1425,34 +1395,34 @@
     "url": "/vue/api#classic-select"
   },
   {
-    "id": "api-divider-astro",
-    "title": "Divider API",
-    "description": "Reference for Divider Astro component.",
-    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
+    "id": "api-description-list-astro",
+    "title": "Description List API",
+    "description": "Reference for Description List Astro component.",
+    "headings": "bordered boolean | \"dotted\" - class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#divider"
+    "url": "/astro/api#description-list"
   },
   {
-    "id": "api-divider-html",
-    "title": "Divider API",
-    "description": "Reference for Divider HTML component.",
-    "headings": "Variant - Visual variant modifiers.",
+    "id": "api-description-list-html",
+    "title": "Description List API",
+    "description": "Reference for Description List HTML component.",
+    "headings": "Bordered -",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#divider"
+    "url": "/html/api#description-list"
   },
   {
-    "id": "api-divider-vue",
-    "title": "Divider API",
-    "description": "Reference for Divider Vue component.",
-    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
+    "id": "api-description-list-vue",
+    "title": "Description List API",
+    "description": "Reference for Description List Vue component.",
+    "headings": "bordered boolean | \"dotted\" - class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
-    "url": "/vue/api#divider"
+    "url": "/vue/api#description-list"
   },
   {
     "id": "api-dialog-astro",
@@ -1483,6 +1453,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#dialog"
+  },
+  {
+    "id": "api-divider-astro",
+    "title": "Divider API",
+    "description": "Reference for Divider Astro component.",
+    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#divider"
+  },
+  {
+    "id": "api-divider-html",
+    "title": "Divider API",
+    "description": "Reference for Divider HTML component.",
+    "headings": "Variant - Visual variant modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#divider"
+  },
+  {
+    "id": "api-divider-vue",
+    "title": "Divider API",
+    "description": "Reference for Divider Vue component.",
+    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#divider"
   },
   {
     "id": "api-drawer-astro",
@@ -1995,36 +1995,6 @@
     "url": "/vue/api#toggle"
   },
   {
-    "id": "api-typography-astro",
-    "title": "Typography API",
-    "description": "Reference for Typography Astro component.",
-    "headings": "Classes - Sizes .ui-small, .ui-large - Size modifiers on .ui-p.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#typography"
-  },
-  {
-    "id": "api-typography-html",
-    "title": "Typography API",
-    "description": "Reference for Typography HTML component.",
-    "headings": "Headings - Heading styles for any element. Paragraph .ui-p - Body paragraph styling. Sizes .ui-small, .ui-large - Size modifiers on .ui-p. Overline .ui-overline - Small uppercase label text. Caption .ui-caption - Muted supporting text. Heading group .ui-hgroup - Blockquote .ui-blockquote - Quoted block with a start border. Code block pre.ui-code-block - Monospace preformatted block. Inline - Inline text element utilities. Rich text .ui-rich-text -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#typography"
-  },
-  {
-    "id": "api-typography-vue",
-    "title": "Typography API",
-    "description": "Reference for Typography Vue component.",
-    "headings": "Classes - Sizes .ui-small, .ui-large - Size modifiers on .ui-p.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#typography"
-  },
-  {
     "id": "api-tooltip-astro",
     "title": "Tooltip API",
     "description": "Reference for Tooltip Astro component.",
@@ -2053,5 +2023,35 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#tooltip"
+  },
+  {
+    "id": "api-typography-astro",
+    "title": "Typography API",
+    "description": "Reference for Typography Astro component.",
+    "headings": "Classes - Sizes .ui-small, .ui-large - Size modifiers on .ui-p.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#typography"
+  },
+  {
+    "id": "api-typography-html",
+    "title": "Typography API",
+    "description": "Reference for Typography HTML component.",
+    "headings": "Headings - Heading styles for any element. Paragraph .ui-p - Body paragraph styling. Sizes .ui-small, .ui-large - Size modifiers on .ui-p. Overline .ui-overline - Small uppercase label text. Caption .ui-caption - Muted supporting text. Heading group .ui-hgroup - Blockquote .ui-blockquote - Quoted block with a start border. Code block pre.ui-code-block - Monospace preformatted block. Inline - Inline text element utilities. Rich text .ui-rich-text -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#typography"
+  },
+  {
+    "id": "api-typography-vue",
+    "title": "Typography API",
+    "description": "Reference for Typography Vue component.",
+    "headings": "Classes - Sizes .ui-small, .ui-large - Size modifiers on .ui-p.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#typography"
   }
 ]

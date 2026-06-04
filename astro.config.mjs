@@ -8,7 +8,6 @@ import {
 } from "astro/config"
 import sitemap from "@astrojs/sitemap"
 import expressiveCode from "astro-expressive-code"
-import svelte from "@astrojs/svelte"
 import vue from "@astrojs/vue"
 
 import { DEFAULT_FRAMEWORK, FRAMEWORK_IDS } from "./src/utils/framework.js"
@@ -53,7 +52,6 @@ export default defineConfig({
   },
   redirects: legacyRedirects,
   integrations: [
-    svelte(),
     vue(),
     sitemap(),
     expressiveCode({

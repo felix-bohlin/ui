@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.3.0 - 2026-06-04
+
+Vue support! 🎉
+It's a lot of work but hopefully it's all good with them.
+
+### Added
+
+- Vue components, importable from `opui-css/vue`.
+- Adjusted types for Vue, Svelte and Solid.
+
 ## 5.2.0 - 2026-06-03
 
 ### Changed

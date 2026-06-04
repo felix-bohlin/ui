@@ -3,5 +3,5 @@
   <h4 aria-busy="true">h4</h4>
   <p aria-busy="true">Paragraph</p>
   <span aria-busy="true">Span</span>
-  <a href="#sizes" aria-busy="true" class="link">Link</a>
+  <a href="#sizes" aria-busy="true" class="ui-link">Link</a>
 </template>

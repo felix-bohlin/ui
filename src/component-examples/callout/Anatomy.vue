@@ -20,7 +20,7 @@ import { Callout } from "opui-css/vue"
     <template #title>Another Callout</template>
     <p>
       This is an outlined Callout. Why not use a
-      <a class="link" href="/components/card">Card</a> since they look very
+      <a class="ui-link" href="/components/card">Card</a> since they look very
       similar? For one, the Callout is a more focused component with different
       properties.
     </p>

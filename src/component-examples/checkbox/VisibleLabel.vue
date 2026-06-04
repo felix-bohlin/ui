@@ -10,7 +10,7 @@ import { Checkbox } from "opui-css/vue"
     <span class="label"
       >Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
       semiotics artisan synth stumptown gastropub cornhole
-      <a class="link" href="#visible-label">privacy policy ipsum</a></span
+      <a class="ui-link" href="#visible-label">privacy policy ipsum</a></span
     >
   </Checkbox>
 </template>

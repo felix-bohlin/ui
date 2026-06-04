@@ -33,9 +33,15 @@ const drawerId = id || $id("drawer")
 >
   {Astro.slots.has("header") && <slot name="header" />}
 
-  <div class="ui-content">
-    <slot name="content" />
-  </div>
+  {
+    Astro.slots.has("content") && (
+      <div class="ui-content">
+        <slot name="content" />
+      </div>
+    )
+  }
+
+  <slot />
 
   {Astro.slots.has("footer") && <slot name="footer" />}
 </dialog>

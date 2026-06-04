@@ -13,6 +13,7 @@ export type DrawerHeaderProps = {
 export type DrawerFooterProps = {}
 
 export type Slots<S> = {
+  children?: S
   content?: S
   footer?: S
   header?: S

@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
-    "astro": "catalog:",
     "@astrojs/sitemap": "^3.7.3",
+    "astro": "catalog:",
     "astro-expressive-code": "^0.41.7",
     "baseline-status": "^1.1.1",
     "globby": "^16.2.0",
@@ -21,16 +21,16 @@
     "minisearch": "^7.2.0",
     "open-props": "catalog:",
     "opui-css": "workspace:*",
-    "svelte": "^5.55.7",
+    "svelte": "^5.56.1",
     "typescript": "^6.0.3",
-    "web-features": "^3.27.0"
+    "web-features": "^3.29.0"
   },
   "devDependencies": {
-    "@astrojs/svelte": "^8.1.1",
+    "@astrojs/svelte": "^8.1.2",
     "@astrojs/vue": "^6.0.1",
-    "prettier-plugin-svelte": "^3.5.2",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "0.14.1",
+    "prettier-plugin-svelte": "^3.5.2",
     "solid-js": "catalog:",
     "svelte": "catalog:",
     "vue": "catalog:"

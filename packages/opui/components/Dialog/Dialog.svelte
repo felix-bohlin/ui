@@ -9,6 +9,7 @@
     closedby,
     header,
     content,
+    children,
     actions,
     ...rest
   }: Props = $props()
@@ -32,6 +33,9 @@
     <div class="ui-content">
       {@render content()}
     </div>
+  {/if}
+  {#if children}
+    {@render children()}
   {/if}
   {#if actions}
     <div

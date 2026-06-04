@@ -9,8 +9,10 @@ import FormCSS from "@opui/css/components/form.css?raw"
 
 import CheckboxAPIAstro from "../../component-api/checkbox/Astro.astro"
 import CheckboxAPIHTML from "../../component-api/checkbox/HTML.astro"
+import CheckboxAPIVue from "../../component-api/checkbox/Vue.astro"
 import FieldGroupAPIAstro from "../../component-api/field-group/Astro.astro"
 import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
+import FieldGroupAPIVue from "../../component-api/field-group/Vue.astro"
 
 import ExampleAnatomy from "../../component-examples/checkbox/Anatomy.astro"
 import Conditional from "../../components/Conditional.astro"
@@ -24,11 +26,13 @@ import Conditional from "../../components/Conditional.astro"
       title: "Checkbox API",
       astro: CheckboxAPIAstro,
       html: CheckboxAPIHTML,
+      vue: CheckboxAPIVue,
     },
     {
       title: "Field group API",
       astro: FieldGroupAPIAstro,
       html: FieldGroupAPIHTML,
+      vue: FieldGroupAPIVue,
     },
   ]}
   changelogPaths={[
@@ -81,12 +85,27 @@ import Conditional from "../../components/Conditional.astro"
 
     <h3 id="validation">Validation</h3>
     <ul>
-      <li>
-        Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to toggle
-        required styles
-      </li>
       <Conditional>
         <li slot="astro">
+          Set <code>required</code> on the component to toggle required styles on
+          the input.
+        </li>
+        <li slot="vue">
+          Add the <code>required</code> attribute on the component. It is forwarded
+          to the underlying <code>&lt;input&gt;</code>.
+        </li>
+        <li slot="html">
+          Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to
+          toggle required styles.
+        </li>
+      </Conditional>
+      <Conditional>
+        <li slot="astro">
+          Use the <code>error</code> prop to toggle invalid styles. It renders
+          <code>data-invalid</code> on the root element. Make use of the end text
+          to give extra feedback on the error.
+        </li>
+        <li slot="vue">
           Use the <code>error</code> prop to toggle invalid styles. It renders
           <code>data-invalid</code> on the root element. Make use of the end text
           to give extra feedback on the error.
@@ -103,221 +122,263 @@ import Conditional from "../../components/Conditional.astro"
 
   <section>
     <h2 id="indeterminate">Indeterminate</h2>
-    <Conditional as="p">
+    <Conditional>
       <Fragment slot="astro">
-        Set the <code>indeterminate</code> prop to render a partially-selected state.
-        <code>indeterminate</code> is a JavaScript-only property on <code
-          >HTMLInputElement</code
-        >, so the component renders <code>data-indeterminate</code> and applies the
-        property at runtime.
-      </Fragment>
-      <Fragment slot="html">
-        Add <code>data-indeterminate</code> to the <code
-          >&lt;input type="checkbox"&gt;</code
-        > and run a script that sets <code>el.indeterminate = true</code>. <code
-          >indeterminate</code
-        > is a JavaScript-only property on <code>HTMLInputElement</code> — the attribute
-        alone has no effect.
-      </Fragment>
-    </Conditional>
-
-    <div class="ui-not-rich-text">
-      <UICallout>
-        <Fragment slot="title">JavaScript required</Fragment>
-        <div class="ui-rich-text">
-          The <code>indeterminate</code> state cannot be set with HTML or CSS alone.
-          The browser only exposes it as a property on <code
+        <p>
+          Set the <code>indeterminate</code> prop to render a partially-selected state.
+          <code>indeterminate</code> is a JavaScript-only property on <code
             >HTMLInputElement</code
-          >, so a small script is needed to flip <code
-            >el.indeterminate = true</code
-          > after the element is in the DOM. The <code>:indeterminate</code> CSS pseudo-class
-          then matches and the dash glyph appears.
+          >, so the component renders <code>data-indeterminate</code> and applies
+          the property at runtime.
+        </p>
+
+        <div class="ui-not-rich-text">
+          <UICallout>
+            <Fragment slot="title">JavaScript required</Fragment>
+            <div class="ui-rich-text">
+              The <code>indeterminate</code> state cannot be set with HTML or CSS
+              alone. The browser only exposes it as a property on <code
+                >HTMLInputElement</code
+              >, so a small script is needed to flip <code
+                >el.indeterminate = true</code
+              > after the element is in the DOM. The <code>:indeterminate</code> CSS
+              pseudo-class then matches and the dash glyph appears.
+            </div>
+          </UICallout>
         </div>
-      </UICallout>
-    </div>
+      </Fragment>
+
+      <Fragment slot="vue">
+        <p>
+          Set the <code>indeterminate</code> prop to render a partially-selected state.
+          <code>indeterminate</code> is a JavaScript-only property on <code
+            >HTMLInputElement</code
+          >, so the component renders <code>data-indeterminate</code> and applies
+          the property at runtime.
+        </p>
+      </Fragment>
+
+      <div slot="html" class="ui-not-rich-text">
+        <p>
+          Add <code>data-indeterminate</code> to the <code
+            >&lt;input type="checkbox"&gt;</code
+          > and run a script that sets <code>el.indeterminate = true</code>. <code
+            >indeterminate</code
+          > is a JavaScript-only property on <code>HTMLInputElement</code> — the attribute
+          alone has no effect.
+        </p>
+
+        <UICallout>
+          <Fragment slot="title">JavaScript required</Fragment>
+          <div class="ui-rich-text">
+            The <code>indeterminate</code> state cannot be set with HTML or CSS alone.
+            The browser only exposes it as a property on <code
+              >HTMLInputElement</code
+            >, so a small script is needed to flip <code
+              >el.indeterminate = true</code
+            > after the element is in the DOM. The <code>:indeterminate</code> CSS
+            pseudo-class then matches and the dash glyph appears.
+          </div>
+        </UICallout>
+      </div>
+    </Conditional>
 
     <AutoExample name="Indeterminate" column centered spacious />
-  </section>
 
-  <section>
-    <h2 id="spread">Spread</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Use the <code>spread</code> prop to push the label to the left and the checkbox
-        to the right. This is useful for full-width items like lists and menus.
-      </Fragment>
-      <Fragment slot="html">
-        Add the <code>.ui-spread</code> class to the <code
-          >&lt;label class="ui-checkbox"&gt;</code
-        >
-        to push the label to the left and the checkbox to the right. This is useful
-        for full-width items like lists and menus.
-      </Fragment>
-    </Conditional>
+    <section>
+      <h2 id="spread">Spread</h2>
+      <Conditional as="p">
+        <Fragment slot="astro">
+          Use the <code>spread</code> prop to push the label to the left and the checkbox
+          to the right. This is useful for full-width items like lists and menus.
+        </Fragment>
+        <Fragment slot="html">
+          Add the <code>.ui-spread</code> class to the <code
+            >&lt;label class="ui-checkbox"&gt;</code
+          >
+          to push the label to the left and the checkbox to the right. This is useful
+          for full-width items like lists and menus.
+        </Fragment>
+        <Fragment slot="vue">
+          Use the <code>spread</code> prop to push the label to the left and the checkbox
+          to the right. This is useful for full-width items like lists and menus.
+        </Fragment>
+      </Conditional>
 
-    <AutoExample name="Spread" column />
-  </section>
+      <AutoExample name="Spread" column />
+    </section>
 
-  <section>
-    <h2 id="sizes">Sizes</h2>
-    <AutoExample name="Sizes" column centered spacious />
-  </section>
+    <section>
+      <h2 id="sizes">Sizes</h2>
+      <AutoExample name="Sizes" column centered spacious />
+    </section>
 
-  <section>
-    <h2 id="field-group">Field group</h2>
-    <p>Use field groups to group related checkboxes.</p>
-    <Conditional>
-      <p slot="astro">
-        The <code>name</code> prop will get passed down to each checkbox in the group.
+    <section>
+      <h2 id="field-group">Field group</h2>
+      <p>Use field groups to group related checkboxes.</p>
+      <Conditional>
+        <p slot="astro">
+          The <code>name</code> prop will get passed down to each checkbox in the
+          group.
+        </p>
+        <p slot="html">
+          Give every <code>&lt;input type="checkbox"&gt;</code> in the group the same
+          <code>name</code> attribute so they're submitted together.
+        </p>
+        <p slot="vue">
+          The <code>name</code> prop will get passed down to each checkbox in the
+          group.
+        </p>
+      </Conditional>
+      <p>
+        See also: <DocLink href="/components/form" class="ui-link"
+          >Form documentation</DocLink
+        >.
       </p>
-      <p slot="html">
-        Give every <code>&lt;input type="checkbox"&gt;</code> in the group the same
-        <code>name</code> attribute so they're submitted together.
+
+      <AutoExample name="FieldGroup" centered column />
+
+      <h3 id="field-group-direction">Direction</h3>
+      <AutoExample name="FieldGroupDirection" row />
+
+      <h3 id="field-group-field-description">Field description</h3>
+      <p>Can be placed above and below the fields.</p>
+      <AutoExample name="FieldGroupFieldDescription" column centered spacious />
+
+      <h3 id="field-group-disabled">Disabled</h3>
+      <p>
+        Attach the <code>disabled</code> attribute to the <code
+          >&lt;fieldset&gt;</code
+        > element.
       </p>
-    </Conditional>
-    <p>
-      See also: <DocLink href="/components/form" class="ui-link"
-        >Form documentation</DocLink
-      >.
-    </p>
+      <AutoExample name="FieldGroupDisabled" row />
 
-    <AutoExample name="FieldGroup" centered column />
-
-    <h3 id="field-group-direction">Direction</h3>
-    <AutoExample name="FieldGroupDirection" row />
-
-    <h3 id="field-group-field-description">Field description</h3>
-    <p>Can be placed above and below the fields.</p>
-    <AutoExample name="FieldGroupFieldDescription" column centered spacious />
-
-    <h3 id="field-group-disabled">Disabled</h3>
-    <p>
-      Attach the <code>disabled</code> attribute to the <code
-        >&lt;fieldset&gt;</code
-      > element.
-    </p>
-    <AutoExample name="FieldGroupDisabled" row />
-
-    <h3 id="field-group-required">Required</h3>
-    <p>
-      Attach the <code>required</code> attribute to at least one of your <code
-        >&lt;input&gt;</code
-      > elements.
-    </p>
-    <AutoExample name="FieldGroupRequired" row />
-
-    <h3 id="field-group-validation">Validation</h3>
-    <Conditional>
-      <p slot="html">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >&lt;fieldset class="ui-fieldset"&gt;</code
-        > element
+      <h3 id="field-group-required">Required</h3>
+      <p>
+        Attach the <code>required</code> attribute to at least one of your <code
+          >&lt;input&gt;</code
+        > elements.
       </p>
-      <p slot="astro">
-        Attach the <code>data-invalid</code> attribute to your <code
-          >Fieldset</code
-        > component.
+      <AutoExample name="FieldGroupRequired" row />
+
+      <h3 id="field-group-validation">Validation</h3>
+      <Conditional>
+        <p slot="html">
+          Attach the <code>data-invalid</code> attribute to your <code
+            >&lt;fieldset class="ui-fieldset"&gt;</code
+          > element
+        </p>
+        <p slot="astro">
+          Attach the <code>data-invalid</code> attribute to your <code
+            >Fieldset</code
+          > component.
+        </p>
+        <p slot="vue">
+          Attach the <code>data-invalid</code> attribute to your <code
+            >FieldSet</code
+          > component.
+        </p>
+      </Conditional>
+      <AutoExample name="FieldGroupValidation" row />
+    </section>
+
+    <Fragment slot="accessibility">
+      <h3 id="labels">Labels</h3>
+      <p>
+        Accessible checkboxes must have a label. You can choose between three
+        approaches:
       </p>
-    </Conditional>
-    <AutoExample name="FieldGroupValidation" row />
-  </section>
-
-  <Fragment slot="accessibility">
-    <h3 id="labels">Labels</h3>
-    <p>
-      Accessible checkboxes must have a label. You can choose between three
-      approaches:
-    </p>
-    <table class="ui-table">
-      <thead>
-        <tr>
-          <th>Approach</th>
-          <th>Usage in Checkbox component</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            Provide a label text inside the <code>label</code>/<code
-              >role="checkbox"</code
-            > element
-          </td>
-          <td>Default</td>
-        </tr>
-        <tr>
-          <td>Add a <code>aria-label</code> on the input element</td>
-          <td>Not used</td>
-        </tr>
-        <tr>
-          <td>
-            Have a visible label that you reference with <code
-              >aria-labelledby</code
-            >
-          </td>
-          <td>Not used</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3 id="keyboard-support">Keyboard support</h3>
-    <div class="ui-not-rich-text">
       <table class="ui-table">
         <thead>
           <tr>
-            <th>Key</th>
-            <th>Function</th>
+            <th>Approach</th>
+            <th>Usage in Checkbox component</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><kbd>Space</kbd></td>
-            <td>When Checkbox is focused it changes its state.</td>
+            <td>
+              Provide a label text inside the <code>label</code>/<code
+                >role="checkbox"</code
+              > element
+            </td>
+            <td>Default</td>
           </tr>
           <tr>
-            <td><kbd>Enter</kbd></td>
-            <td>(Optional) When Checkbox is focused it changes its state.</td>
+            <td>Add a <code>aria-label</code> on the input element</td>
+            <td>Not used</td>
+          </tr>
+          <tr>
+            <td>
+              Have a visible label that you reference with <code
+                >aria-labelledby</code
+              >
+            </td>
+            <td>Not used</td>
           </tr>
         </tbody>
       </table>
-    </div>
-  </Fragment>
 
-  <Fragment slot="anatomy">
-    <ol>
-      <li>Container</li>
-      <li>Input</li>
-      <li>Label (optional)</li>
-      <li>End text (optional)</li>
-    </ol>
-    <Example>
-      <Example.Preview slot="preview-astro" code={ExampleAnatomy} />
-    </Example>
-  </Fragment>
+      <h3 id="keyboard-support">Keyboard support</h3>
+      <div class="ui-not-rich-text">
+        <table class="ui-table">
+          <thead>
+            <tr>
+              <th>Key</th>
+              <th>Function</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><kbd>Space</kbd></td>
+              <td>When Checkbox is focused it changes its state.</td>
+            </tr>
+            <tr>
+              <td><kbd>Enter</kbd></td>
+              <td>(Optional) When Checkbox is focused it changes its state.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </Fragment>
+
+    <Fragment slot="anatomy">
+      <ol>
+        <li>Container</li>
+        <li>Input</li>
+        <li>Label (optional)</li>
+        <li>End text (optional)</li>
+      </ol>
+      <Example>
+        <Example.Preview slot="preview-astro" code={ExampleAnatomy} />
+      </Example>
+    </Fragment>
+  </section>
+
+  <style is:global>
+    .example-row {
+      display: flex;
+      gap: var(--size-3);
+      align-items: center;
+    }
+    .example-row.ui-spacious {
+      gap: var(--size-6);
+    }
+
+    .ui-checkbox.anatomy {
+      outline: var(--_anatomy-border-gray);
+      outline-offset: 8px;
+
+      .ui-label,
+      .ui-end-text,
+      input {
+        outline: var(--_anatomy-border-red);
+        outline-offset: -3px;
+      }
+
+      input {
+        outline-offset: 2px;
+      }
+    }
+  </style>
 </Component>
-
-<style is:global>
-  .example-row {
-    display: flex;
-    gap: var(--size-3);
-    align-items: center;
-  }
-  .example-row.ui-spacious {
-    gap: var(--size-6);
-  }
-
-  .ui-checkbox.anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: 8px;
-
-    .ui-label,
-    .ui-end-text,
-    input {
-      outline: var(--_anatomy-border-red);
-      outline-offset: -3px;
-    }
-
-    input {
-      outline-offset: 2px;
-    }
-  }
-</style>

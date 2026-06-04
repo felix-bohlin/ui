@@ -41,7 +41,7 @@ const { link } = Astro.locals
         <FieldSet>
           <FieldLegend>Theme mode</FieldLegend>
           <FieldGroup direction="row">
-            <Switch spread id="theme-switcher" small>
+            <Switch spread id="theme-switcher">
               Dark mode
               <svg
                 slot="icon-checked"
@@ -118,7 +118,7 @@ const { link } = Astro.locals
         <FieldSet>
           <FieldLegend>Grays</FieldLegend>
           <FieldGroup>
-            <Switch id="enable-grays" name="enable-grays" checked small spread>
+            <Switch id="enable-grays" name="enable-grays" checked spread>
               Enable
             </Switch>
             <Range

@@ -1,6 +1,6 @@
 import type * as Base from "./types"
-import type { HTMLAttributes, HTMLTag } from "astro/types"
+import type { HTMLAttributes } from "astro/types"
 
-// prettier-ignore
-export type Props<T extends HTMLTag = "legend"> =
-  | (Base.Props & { as?: T } & HTMLAttributes<T>)
+export type Props =
+  | (Base.Props & { as?: "legend" } & HTMLAttributes<"legend">)
+  | (Base.Props & { as: "p" } & HTMLAttributes<"p">)

@@ -15,7 +15,7 @@ const {
   ...rest
 } = props
 
-const Tag = as || (href ? "a" : "button")
+const Tag = (as || (href ? "a" : "button")) as any
 const isButton = Tag === "button"
 ---
 

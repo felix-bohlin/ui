@@ -1,0 +1,34 @@
+<script setup lang="ts">
+import { Button, ButtonGroup } from "opui-css/vue"
+
+const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"></path></svg>`
+const helpIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M11.499 10.803A4.505 4.505 0 0 1 16 6.5a4.5 4.5 0 0 1 4.5 4.5c0 1.276-.298 2.02-.676 2.565c-.368.53-.836.925-1.471 1.459l-.286.241c-.745.632-1.614 1.42-2.268 2.628c-.659 1.217-1.049 2.76-1.049 4.857a1.25 1.25 0 0 0 2.5 0c0-1.778.328-2.892.748-3.667c.424-.783.993-1.324 1.685-1.91l.259-.217c.616-.515 1.363-1.139 1.937-1.966C22.579 13.98 23 12.724 23 11a7 7 0 0 0-7-7a7.005 7.005 0 0 0-6.999 6.695a1.25 1.25 0 1 0 2.498.108M16 29a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3"></path></svg>`
+const closeIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"></path></svg>`
+</script>
+
+<template>
+  <ButtonGroup variant="outlined">
+    <Button aria-label="Label">
+      <span v-html="checkIcon"></span>
+    </Button>
+    <Button aria-label="Label"> Maybe </Button>
+    <Button aria-label="Label">
+      <span v-html="closeIcon"></span>
+    </Button>
+  </ButtonGroup>
+
+  <ButtonGroup variant="outlined">
+    <Button>
+      <span v-html="checkIcon"></span>
+      OK
+    </Button>
+    <Button>
+      <span v-html="helpIcon"></span>
+      Maybe
+    </Button>
+    <Button>
+      <span v-html="closeIcon"></span>
+      No
+    </Button>
+  </ButtonGroup>
+</template>

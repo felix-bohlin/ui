@@ -8,8 +8,10 @@ import { Accordion as UIAccordion } from "@opui/astro"
 import ButtonGroupCSS from "@opui/css/components/button-group.css?raw"
 import ButtonGroupAPIAstro from "../../component-api/button-group/Astro.astro"
 import ButtonGroupAPIHTML from "../../component-api/button-group/HTML.astro"
+import ButtonGroupAPIVue from "../../component-api/button-group/Vue.astro"
 import ButtonAPIAstro from "../../component-api/button/Astro.astro"
 import ButtonAPIHTML from "../../component-api/button/HTML.astro"
+import ButtonAPIVue from "../../component-api/button/Vue.astro"
 
 import ExampleAnatomy from "../../component-examples/button-group/Anatomy.astro"
 import Conditional from "../../components/Conditional.astro"
@@ -23,8 +25,14 @@ import Conditional from "../../components/Conditional.astro"
       title: "Button group",
       astro: ButtonGroupAPIAstro,
       html: ButtonGroupAPIHTML,
+      vue: ButtonGroupAPIVue,
     },
-    { title: "Button", astro: ButtonAPIAstro, html: ButtonAPIHTML },
+    {
+      title: "Button",
+      astro: ButtonAPIAstro,
+      html: ButtonAPIHTML,
+      vue: ButtonAPIVue,
+    },
   ]}
   changelogPaths={[
     {
@@ -52,6 +60,7 @@ import Conditional from "../../components/Conditional.astro"
         > and <code>role="group"</code>.
       </Fragment>
       <Fragment slot="astro">Groups related buttons.</Fragment>
+      <Fragment slot="vue">Groups related buttons.</Fragment>
     </Conditional>
   </Fragment>
   <ul>
@@ -91,6 +100,10 @@ import Conditional from "../../components/Conditional.astro"
           >.ui-outlined</code
         >, <code>.ui-tonal</code>, and <code>.ui-filled</code> classes.
       </Fragment>
+      <Fragment slot="vue">
+        Change the appearance of the entire group with the <code>variant</code>
+        prop.
+      </Fragment>
     </Conditional>
     <AutoExample name="Variants" column centered />
   </section>
@@ -106,6 +119,11 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="html">
         Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to recolor
         the entire group. The default is a neutral gray.
+      </Fragment>
+      <Fragment slot="vue">
+        Set the <code>color</code> prop to <code>primary</code> or <code
+          >critical</code
+        > to recolor the entire group. The default is a neutral gray.
       </Fragment>
     </Conditional>
     <AutoExample name="Colors" column centered />
@@ -134,6 +152,10 @@ import Conditional from "../../components/Conditional.astro"
           >.ui-small</code
         > and <code>.ui-large</code> classes.
       </Fragment>
+      <Fragment slot="vue">
+        Adjust the size of all buttons in the group using the <code>size</code>
+        prop.
+      </Fragment>
     </Conditional>
     <AutoExample name="Size" column centered />
   </section>
@@ -148,6 +170,11 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         Change the layout of the group with the <code>.ui-vertical</code> class.
+      </Fragment>
+      <Fragment slot="vue">
+        Change the layout of the group with the <code
+          >orientation="vertical"</code
+        > prop.
       </Fragment>
     </Conditional>
 
@@ -168,6 +195,12 @@ import Conditional from "../../components/Conditional.astro"
           >disabled</code
         >
         attribute to each <code>&lt;button&gt;</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Disable individual buttons within a group by setting the <code
+          >disabled</code
+        >
+        prop on each <code>Button</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="Disabled" column centered />

@@ -1,0 +1,48 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>color</code></Table.Cell>
+      <Table.Cell><code>"critical"</code>, <code>"primary"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Color of every button in the group. Default is a neutral gray.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>orientation</code></Table.Cell>
+      <Table.Cell><code>"vertical"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The layout orientation of the group.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>size</code></Table.Cell>
+      <Table.Cell><code>"small" | "large"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The size of the buttons in the group.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>variant</code></Table.Cell>
+      <Table.Cell><code>"outlined" | "tonal" | "filled"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The visual style of the buttons in the group.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

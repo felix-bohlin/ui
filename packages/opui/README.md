@@ -36,7 +36,10 @@ import { Button, Card } from "opui-css/astro"
 Drop a pre-bundled stylesheet into any page and use the documented class names:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/opui-css/dist/opui.css" />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/opui-css/dist/opui.css"
+/>
 
 <button class="ui-button ui-primary">Click me</button>
 ```
@@ -77,10 +80,6 @@ Wrap your own styles in a layer above `utils` (or unlayered) to override.
 | `opui-css/core/utils.css`           | Utility classes                               |
 | `opui-css/astro`                    | All Astro components                          |
 | `opui-css/components/*`             | Individual Astro component sources            |
-
-## Contributing
-
-See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the component-authoring pattern.
 
 ## License
 

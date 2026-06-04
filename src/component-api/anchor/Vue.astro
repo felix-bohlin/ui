@@ -1,0 +1,41 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>alignment</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell><code>"start end"</code></Table.Cell>
+      <Table.Cell
+        >Any valid <code>position-area</code> value. Controls where the floating content
+        is placed.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>trigger</code></Table.Cell>
+      <Table.Cell><code>"always" | "hover"</code></Table.Cell>
+      <Table.Cell><code>"always"</code></Table.Cell>
+      <Table.Cell
+        >When set to <code>"hover"</code>, wraps the anchor slot in an
+        <code>interestfor</code> invoker and uses <code>popover="hint"</code> on the
+        floating element.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

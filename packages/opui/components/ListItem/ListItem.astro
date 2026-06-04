@@ -30,7 +30,7 @@ const innerProps = Tag ? rest : {}
     },
     className,
   ]}
-  {...liProps}
+  {...liProps as any}
 >
   {
     // Label + checkbox/radio/switch
@@ -57,7 +57,7 @@ const innerProps = Tag ? rest : {}
       </label>
     ) : // With custom tag
     Tag ? (
-      <Tag {...innerProps}>
+      <Tag {...(innerProps as any)}>
         {Astro.slots.start && (
           <div class="ui-start">
             <slot name="start" />

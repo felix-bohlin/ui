@@ -1,13 +1,5 @@
 ---
-type Props = {
-  [key: string]: any
-  backdrop?: "transparent" | "blurred"
-  class?: string
-  closedby?: "any" | "closerequest" | "none"
-  id?: string
-  scrollLock?: boolean
-  side?: "inline-start" | "inline-end" | "block-start" | "block-end"
-}
+import type { Props } from "./types.astro"
 
 export const title = "Drawer"
 
@@ -41,9 +33,15 @@ const drawerId = id || $id("drawer")
 >
   {Astro.slots.has("header") && <slot name="header" />}
 
-  <div class="ui-content">
-    <slot name="content" />
-  </div>
+  {
+    Astro.slots.has("content") && (
+      <div class="ui-content">
+        <slot name="content" />
+      </div>
+    )
+  }
+
+  <slot />
 
   {Astro.slots.has("footer") && <slot name="footer" />}
 </dialog>

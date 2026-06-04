@@ -1,0 +1,79 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<h3>Props</h3>
+<Table style="table-layout: fixed">
+  <Table.ColumnGroup>
+    <Table.Column width="20%" />
+    <Table.Column width="20%" />
+    <Table.Column width="20%" />
+    <Table.Column width="40%" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>actionsAlign</code></Table.Cell>
+      <Table.Cell><code>"start"</code>, <code>"end"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Alignment of the actions slot.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>closedby</code></Table.Cell>
+      <Table.Cell><code>"any" | "closerequest" | "none"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Specifies how the dialog can be closed (e.g., clicking outside).</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3>Slots</h3>
+<Table style="table-layout: fixed">
+  <Table.ColumnGroup>
+    <Table.Column width="30%" />
+    <Table.Column width="70%" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Slot</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>header</code></Table.Cell>
+      <Table.Cell
+        >The header content, wrapped in an <code>hgroup</code>.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>content</code></Table.Cell>
+      <Table.Cell
+        >The main content, wrapped in a <code>div</code> with a <code
+          >content</code
+        > class.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>actions</code></Table.Cell>
+      <Table.Cell
+        >The footer actions, wrapped in a <code>div</code> with an <code
+          >actions</code
+        > class.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>default</code></Table.Cell>
+      <Table.Cell>Any content not assigned to a named slot.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

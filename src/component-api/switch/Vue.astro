@@ -1,0 +1,112 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>aria-label</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Accessible name for the switch. Use when there's no visible label (ex
+        icon-only switches).</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>aria-labelledby</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>ID of an external element that labels the switch.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>checked</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Whether the switch is checked.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>disabled</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Whether the switch is disabled.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>error</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Switch error state.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>hideLabel</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Visually hides the label but keeps it accessible.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>required</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Whether the switch is required.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>small</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Reduces the size of the switch.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>spread</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Spreads the label and switch to opposite ends.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>stack</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Labels are stacked under the element.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3>Slots</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Slot</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>default</code></Table.Cell>
+      <Table.Cell>The label text for the switch.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>end-text</code></Table.Cell>
+      <Table.Cell
+        >Optional supporting text displayed after the label.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

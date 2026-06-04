@@ -1,0 +1,57 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>value</code></Table.Cell>
+      <Table.Cell><code>number | string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The current value of the progress bar.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>max</code></Table.Cell>
+      <Table.Cell><code>number | string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The maximum value of the progress bar.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>aria-busy</code></Table.Cell>
+      <Table.Cell><code>"true" | "false" | boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Indicates that the element or its content is being modified.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>aria-label</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Accessible label for the progress bar.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>variant</code></Table.Cell>
+      <Table.Cell><code>'filled' | 'default' | 'tonal'</code></Table.Cell>
+      <Table.Cell><code>'default'</code></Table.Cell>
+      <Table.Cell
+        >Adjusts the progress bar background color for better contrast on
+        different surfaces.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

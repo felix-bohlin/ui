@@ -1,0 +1,46 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Slots</Table.Cell>
+      <Table.Cell
+        ><code>header</code>, <code>content</code>, <code>actions</code>,
+        <code>default</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional slots.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>actionsAlign</code></Table.Cell>
+      <Table.Cell><code>"start"</code>, <code>"end"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Alignment for the <code>actions</code> slot.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>variant</code></Table.Cell>
+      <Table.Cell
+        ><code>"text"</code>, <code>"outlined"</code>, <code>"tonal"</code>,
+        <code>"elevated"</code></Table.Cell
+      >
+      <Table.Cell><code>"text"</code></Table.Cell>
+      <Table.Cell>The variant to use.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

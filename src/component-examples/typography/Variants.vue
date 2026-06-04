@@ -1,0 +1,12 @@
+<template>
+  <h1 class="ui-h1">Heading 1</h1>
+  <h2 class="ui-h2">Heading 2</h2>
+  <h3 class="ui-h3">Heading 3</h3>
+  <h4 class="ui-h4">Heading 4</h4>
+  <h5 class="ui-h5">Heading 5</h5>
+  <h6 class="ui-h6">Heading 6</h6>
+  <p class="ui-p ui-large">Body Large</p>
+  <p class="ui-p">Body</p>
+  <p class="ui-overline">Overline</p>
+  <p class="ui-caption">Caption</p>
+</template>

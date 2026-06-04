@@ -1,5 +1,23 @@
 # Changelog
 
+## 5.3.0 - 2026-06-04
+
+Vue support! 🎉
+It's a lot of work but hopefully it's all good with them.
+
+### Added
+
+- Vue components, importable from `opui-css/vue`.
+- Adjusted types for Vue, Svelte and Solid.
+
+## 5.2.0 - 2026-06-03
+
+### Changed
+
+- Broke out types for components into their own files. All frameworks now have their own types file. Yes you read that right, there will be more frameworks soon. Svelte, Vue and Solid are coming soon (in that order).
+
+Thank you to [somephic](https://github.com/somephic) for the contribution and discussions!
+
 ## 5.1.2 - 2026-05-29
 
 ### Fixed

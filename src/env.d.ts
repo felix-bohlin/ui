@@ -1,3 +1,15 @@
+// Augment Astro's JSX intrinsic <button> attributes with the new
+// invoker/interest-target attributes (`command`, `commandfor`, `interestfor`),
+// which aren't in Astro's typings yet. Keeps example pages typecheck-clean
+// without per-call casts.
+declare namespace astroHTML.JSX {
+  interface ButtonHTMLAttributes {
+    command?: string
+    commandfor?: string
+    interestfor?: string
+  }
+}
+
 declare namespace App {
   // Augments the package-level `App.Locals` declaration in
   // `packages/opui/env.d.ts`. Interface declarations merge across files;

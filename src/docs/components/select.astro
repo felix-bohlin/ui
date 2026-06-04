@@ -12,8 +12,10 @@ import SelectCSS from "@opui/css/components/select.css?raw"
 import ListCSS from "@opui/css/components/list.css?raw"
 import SelectAPIAstro from "../../component-api/select/Astro.astro"
 import SelectAPIHTML from "../../component-api/select/HTML.astro"
+import SelectAPIVue from "../../component-api/select/Vue.astro"
 import ClassicSelectAPIAstro from "../../component-api/classic-select/Astro.astro"
 import ClassicSelectAPIHTML from "../../component-api/classic-select/HTML.astro"
+import ClassicSelectAPIVue from "../../component-api/classic-select/Vue.astro"
 ---
 
 <Component
@@ -31,11 +33,13 @@ import ClassicSelectAPIHTML from "../../component-api/classic-select/HTML.astro"
     {
       astro: SelectAPIAstro,
       html: SelectAPIHTML,
+      vue: SelectAPIVue,
     },
     {
       title: "Classic Select API",
       astro: ClassicSelectAPIAstro,
       html: ClassicSelectAPIHTML,
+      vue: ClassicSelectAPIVue,
     },
   ]}
   installationTabs={[
@@ -102,6 +106,10 @@ import ClassicSelectAPIHTML from "../../component-api/classic-select/HTML.astro"
         Add a <code>.ui-prefix</code> or <code>.ui-suffix</code> element inside
         <code>.ui-field</code> to affix content alongside the select.
       </Fragment>
+      <Fragment slot="vue">
+        Use the <code>prefix</code> and <code>suffix</code> slots to affix icons or
+        short text alongside the select inside the field's border.
+      </Fragment>
     </Conditional>
 
     <AutoExample name="Affix" row spacious />
@@ -113,13 +121,26 @@ import ClassicSelectAPIHTML from "../../component-api/classic-select/HTML.astro"
       <Fragment slot="astro">
         <ul>
           <li>
-            Add <code>[required]</code> to the <code>&lt;select&gt;</code> element
-            to toggle required styles.
+            Set <code>required</code> on the component to toggle required styles on
+            the select.
           </li>
           <li>
             Use the <code>error</code> prop to toggle invalid styles. It renders the
             <code>data-invalid</code> attribute on the root element. Make use of the
             end text to give extra feedback on the error.
+          </li>
+        </ul>
+      </Fragment>
+      <Fragment slot="vue">
+        <ul>
+          <li>
+            Add the <code>required</code> attribute on the component. It is forwarded
+            to the underlying <code>&lt;select&gt;</code>.
+          </li>
+          <li>
+            Use the <code>error</code> prop to toggle invalid styles. It renders
+            <code>data-invalid</code> on the root element. Make use of the end text
+            to give extra feedback on the error.
           </li>
         </ul>
       </Fragment>
@@ -150,6 +171,11 @@ import ClassicSelectAPIHTML from "../../component-api/classic-select/HTML.astro"
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-spread</code> class to display the label and description
+        on the left with the select on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>spread</code> boolean prop to display the label and description
         on the left with the select on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>

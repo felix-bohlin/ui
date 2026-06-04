@@ -1,5 +1,5 @@
 ---
-import type { RadioProps as Props } from './types.astro'
+import type { RadioProps as Props } from "./types.astro"
 import RadioInput from "./RadioInput.astro"
 
 export const title = "Radio"
@@ -31,16 +31,13 @@ const finalName = name || currentFieldName
   ]}
   data-invalid={error || undefined}
 >
-  <RadioInput
-    aria-describedby={endTextId}
-    name={finalName}
-    {...rest}
-  />
-  <!-- prettier-ignore --><span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>
+  <RadioInput aria-describedby={endTextId} name={finalName} {...rest} />
+  <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>
   {
     Astro.slots.has("end-text") && (
-      <!-- prettier-ignore -->
-      <span id={endTextId} class="ui-end-text"><slot name="end-text" /></span>
+      <span id={endTextId} class="ui-end-text">
+        <slot name="end-text" />
+      </span>
     )
   }
 </label>

@@ -1185,36 +1185,6 @@
     "url": "/vue/api#badge"
   },
   {
-    "id": "api-button-astro",
-    "title": "Button API",
-    "description": "Reference for Button Astro component.",
-    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - disabled boolean - Button disabled state.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#button"
-  },
-  {
-    "id": "api-button-html",
-    "title": "Button API",
-    "description": "Reference for Button HTML component.",
-    "headings": "Sizes - The size of the element. Variants - The variant to use. Colors - Color modifiers. Default is a neutral gray.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#button"
-  },
-  {
-    "id": "api-button-vue",
-    "title": "Button API",
-    "description": "Reference for Button Vue component.",
-    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - disabled boolean - Button disabled state.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#button"
-  },
-  {
     "id": "api-button-group-astro",
     "title": "Button Group API",
     "description": "Reference for Button Group Astro component.",
@@ -1245,34 +1215,34 @@
     "url": "/vue/api#button-group"
   },
   {
-    "id": "api-card-astro",
-    "title": "Card API",
-    "description": "Reference for Card Astro component.",
-    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
+    "id": "api-button-astro",
+    "title": "Button API",
+    "description": "Reference for Button Astro component.",
+    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - disabled boolean - Button disabled state.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#card"
+    "url": "/astro/api#button"
   },
   {
-    "id": "api-card-html",
-    "title": "Card API",
-    "description": "Reference for Card HTML component.",
-    "headings": "Children - Optional wrappers for child content. Variants .ui-text The variant to use. Alignment .ui-align-end - Align actions to the end.",
+    "id": "api-button-html",
+    "title": "Button API",
+    "description": "Reference for Button HTML component.",
+    "headings": "Sizes - The size of the element. Variants - The variant to use. Colors - Color modifiers. Default is a neutral gray.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#card"
+    "url": "/html/api#button"
   },
   {
-    "id": "api-card-vue",
-    "title": "Card API",
-    "description": "Reference for Card Vue component.",
-    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
+    "id": "api-button-vue",
+    "title": "Button API",
+    "description": "Reference for Button Vue component.",
+    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - disabled boolean - Button disabled state.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
-    "url": "/vue/api#card"
+    "url": "/vue/api#button"
   },
   {
     "id": "api-callout-astro",
@@ -1303,6 +1273,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#callout"
+  },
+  {
+    "id": "api-card-astro",
+    "title": "Card API",
+    "description": "Reference for Card Astro component.",
+    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#card"
+  },
+  {
+    "id": "api-card-html",
+    "title": "Card API",
+    "description": "Reference for Card HTML component.",
+    "headings": "Children - Optional wrappers for child content. Variants .ui-text The variant to use. Alignment .ui-align-end - Align actions to the end.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#card"
+  },
+  {
+    "id": "api-card-vue",
+    "title": "Card API",
+    "description": "Reference for Card Vue component.",
+    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#card"
   },
   {
     "id": "api-checkbox-astro",
@@ -1785,36 +1785,6 @@
     "url": "/vue/api#switch"
   },
   {
-    "id": "api-tabs-astro",
-    "title": "Tabs API",
-    "description": "Reference for Tabs Astro component.",
-    "headings": "class string - Additional class names. name string \"tabs-XXXX\" open boolean false Whether this tab is initially active. class string - Optional class name. class string - Optional class name.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#tabs"
-  },
-  {
-    "id": "api-tabs-html",
-    "title": "Tabs API",
-    "description": "Reference for Tabs HTML component.",
-    "headings": "class \"ui-tabs\" Required class for the parent container. role \"tablist\" Required for accessibility. type \"radio\" Required for state management. class \"ui-tab-input\" Required for behavior and styling. name string Shared across all tabs in the group. checked boolean Applied to the initially active tab. aria-controls ID Should match the ID of the corresponding panel. class \"ui-tab-label\" Required for behavior and styling. for ID Must match the ID of the radio input. role \"tab\" Required for accessibility. class \"ui-tab-panel\" Required for behavior and styling. role \"tabpanel\" Required for accessibility. aria-labelledby ID Should match the ID of the corresponding trigger.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#tabs"
-  },
-  {
-    "id": "api-tabs-vue",
-    "title": "Tabs API",
-    "description": "Reference for Tabs Vue component.",
-    "headings": "class string - Additional class names. name string \"tabs-XXXX\" open boolean false Whether this tab is initially active. class string - Optional class name. class string - Optional class name.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#tabs"
-  },
-  {
     "id": "api-table-astro",
     "title": "Table API",
     "description": "Reference for Table Astro component.",
@@ -1843,6 +1813,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#table"
+  },
+  {
+    "id": "api-tabs-astro",
+    "title": "Tabs API",
+    "description": "Reference for Tabs Astro component.",
+    "headings": "class string - Additional class names. name string \"tabs-XXXX\" open boolean false Whether this tab is initially active. class string - Optional class name. class string - Optional class name.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#tabs"
+  },
+  {
+    "id": "api-tabs-html",
+    "title": "Tabs API",
+    "description": "Reference for Tabs HTML component.",
+    "headings": "class \"ui-tabs\" Required class for the parent container. role \"tablist\" Required for accessibility. type \"radio\" Required for state management. class \"ui-tab-input\" Required for behavior and styling. name string Shared across all tabs in the group. checked boolean Applied to the initially active tab. aria-controls ID Should match the ID of the corresponding panel. class \"ui-tab-label\" Required for behavior and styling. for ID Must match the ID of the radio input. role \"tab\" Required for accessibility. class \"ui-tab-panel\" Required for behavior and styling. role \"tabpanel\" Required for accessibility. aria-labelledby ID Should match the ID of the corresponding trigger.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#tabs"
+  },
+  {
+    "id": "api-tabs-vue",
+    "title": "Tabs API",
+    "description": "Reference for Tabs Vue component.",
+    "headings": "class string - Additional class names. name string \"tabs-XXXX\" open boolean false Whether this tab is initially active. class string - Optional class name. class string - Optional class name.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#tabs"
   },
   {
     "id": "api-text-field-astro",

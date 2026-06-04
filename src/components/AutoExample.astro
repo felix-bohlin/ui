@@ -76,7 +76,7 @@ if (!astroComponent && !htmlSource && !vueComponent) {
 }
 ---
 
-<Example {...rest}>
+<Example {...rest} vueExampleId={vueComponent ? `${slug}/${name}` : undefined}>
   {
     Astro.slots.has("controls") && (
       <Fragment slot="controls">

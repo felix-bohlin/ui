@@ -22,7 +22,7 @@ export const FRAMEWORKS = [
 
 /** @type {FrameworkId[]} */
 export const FRAMEWORK_IDS = FRAMEWORKS.map(
-  (l) => /** @type {FrameworkId} */ l.id,
+  (l) => /** @type {FrameworkId} */ (l.id),
 )
 
 /**

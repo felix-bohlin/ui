@@ -1,5 +1,6 @@
 @layer components.extended {
   :where(details.ui-accordion) {
+    --_motion: var(--motion, 1);
     --_actions-gap: var(--size-1);
     --_actions-margin-block-start: var(--size-3);
     --_actions-padding-block-end: var(--size-1);
@@ -15,8 +16,8 @@
     --_shadow: none;
     --_summary-padding-block: var(--size-3);
     --_summary-padding-inline: var(--_padding-inline);
-    --_svg-transition: 0.2s var(--ease-1);
-    --_transition: 0.2s;
+    --_svg-transition: calc(0.2s * var(--_motion)) var(--ease-1);
+    --_transition: calc(0.2s * var(--_motion));
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
@@ -49,9 +50,7 @@
 
     /* Accordion animation */
     /* https://nerdy.dev/open-and-close-transitions-for-the-details-element */
-    @media (prefers-reduced-motion: no-preference) {
-      interpolate-size: allow-keywords;
-    }
+    interpolate-size: allow-keywords;
 
     &::details-content {
       block-size: 0;
@@ -69,7 +68,7 @@
     }
 
     /* Layout */
-    & > summary {
+    &>summary {
       background-color: inherit;
       cursor: pointer;
       font-weight: 700;
@@ -94,17 +93,17 @@
       }
     }
 
-    &[open] > summary svg {
+    &[open]>summary svg {
       rotate: 180deg;
     }
 
-    & > .ui-content {
+    &>.ui-content {
       margin-block-start: 0;
       padding-block: var(--_content-padding-block);
       padding-inline: var(--_content-padding-inline);
     }
 
-    & > .ui-actions {
+    &>.ui-actions {
       display: flex;
       gap: var(--_actions-gap);
       justify-content: end;
@@ -129,12 +128,12 @@
       }
     }
 
-    & > .ui-content {
+    &>.ui-content {
       margin-block: 0;
       padding: 0;
     }
 
-    & > details.ui-accordion {
+    &>details.ui-accordion {
       --_border-color: transparent;
       --_border-width: 0;
       --_margin-inline: 0;
@@ -143,7 +142,7 @@
       --_summary-padding-inline: var(--_item-summary-padding-inline);
 
       /* Border between accordion items */
-      & + & {
+      &+& {
         border-block-start: 1px solid var(--_gutter-color);
         border-radius: 0;
       }

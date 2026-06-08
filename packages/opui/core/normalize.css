@@ -1,4 +1,5 @@
 @layer normalize {
+
   *,
   ::before,
   ::after {
@@ -9,6 +10,28 @@
 
   * {
     scrollbar-width: thin;
+  }
+
+  html {
+    --motion: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      --motion: 0;
+    }
+  }
+
+  .ui-motion-off {
+    --motion: 0 !important;
+  }
+
+  .ui-motion-on {
+    --motion: 1 !important;
+  }
+
+  .ui-motion-debug {
+    --motion: 10 !important;
   }
 
   :where(html) {
@@ -112,51 +135,36 @@
 
   :focus-visible {
     /* Inverts the --_page-bg-color */
-    --_focus-visible-color: rgb(
-      from var(--_page-bg-color) calc(255 - r) calc(255 - g) calc(255 - b)
-    );
+    --_focus-visible-color: rgb(from var(--_page-bg-color) calc(255 - r) calc(255 - g) calc(255 - b));
 
     border-radius: var(--border-radius, 0px);
     outline: 2px solid var(--_focus-visible-color);
     outline-offset: 2px;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    :where(:focus-visible) {
-      transition: outline-offset 0.15 var(--ease-2);
-    }
-
-    :where(:not(:active):focus-visible) {
-      transition-duration: 0.15s;
-    }
+    transition: outline-offset calc(0.15s * var(--motion)) var(--ease-2);
   }
 
   :where(:not(:active):focus-visible) {
+    transition-duration: calc(0.15s * var(--motion));
     outline-offset: var(--outline-offset, 0px);
   }
 
-  :where(
-    a[href],
+  :where(a[href],
     area,
     button,
-    input:not(
-      [type="text"],
+    input:not([type="text"],
       [type="email"],
       [type="number"],
       [type="password"],
       [type=""],
       [type="tel"],
-      [type="url"]
-    ),
+      [type="url"]),
     label[for],
     select,
-    summary
-  ) {
+    summary) {
     cursor: pointer;
   }
 
-  :where(
-    a[href],
+  :where(a[href],
     area,
     button,
     [role="button"],
@@ -165,8 +173,7 @@
     select,
     summary,
     textarea,
-    [tabindex]:not([tabindex*="-"])
-  ) {
+    [tabindex]:not([tabindex*="-"])) {
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }

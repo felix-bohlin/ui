@@ -1,5 +1,6 @@
 @layer components.root {
   :where(.ui-icon-button) {
+    --_motion: var(--motion, 1);
     --_color: light-dark(var(--color-16), var(--color-1));
     --_color-contrast: light-dark(var(--color-1), var(--color-16));
     --_color-tonal: var(--surface-tonal);
@@ -8,22 +9,14 @@
     --_accent-contrast: var(--_color-contrast);
     --_accent-tonal: var(--_color-tonal);
     --_accent-tonal-contrast: var(--_color);
-    --_default-hover-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.01 h / 10%),
-      oklch(from var(--_accent) l 0.01 h / 20%)
-    );
-    --_default-active-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.06 h / 20%),
-      oklch(from var(--_accent) l 0.06 h / 30%)
-    );
-    --_filled-hover-bg-color: light-dark(
-      oklch(from var(--_accent) calc(l + 0.2) c h),
-      oklch(from var(--_accent) calc(l - 0.1) c h)
-    );
-    --_filled-active-bg-color: light-dark(
-      oklch(from var(--_accent) calc(l + 0.3) c h),
-      oklch(from var(--_accent) calc(l - 0.15) c h)
-    );
+    --_default-hover-bg-color: light-dark(oklch(from var(--_accent) l 0.01 h / 10%),
+        oklch(from var(--_accent) l 0.01 h / 20%));
+    --_default-active-bg-color: light-dark(oklch(from var(--_accent) l 0.06 h / 20%),
+        oklch(from var(--_accent) l 0.06 h / 30%));
+    --_filled-hover-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.2) c h),
+        oklch(from var(--_accent) calc(l - 0.1) c h));
+    --_filled-active-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.3) c h),
+        oklch(from var(--_accent) calc(l - 0.15) c h));
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
 
     --_bg-color: transparent;
@@ -44,10 +37,10 @@
     padding: 0;
     transform-style: preserve-3d;
     transition:
-      background-color 0.1s ease,
-      color 0.1s ease,
-      border-color 0.1s ease,
-      box-shadow 0.1s ease;
+      background-color calc(0.1s * var(--_motion)) ease,
+      color calc(0.1s * var(--_motion)) ease,
+      border-color calc(0.1s * var(--_motion)) ease,
+      box-shadow calc(0.1s * var(--_motion)) ease;
 
     &:where([disabled]) {
       --_text-color: light-dark(rgb(0, 0, 0/0.3), rgb(255, 255, 255/0.26));
@@ -67,12 +60,9 @@
     &::before {
       --highlight-size: 130%;
       background-color: transparent;
-
-      @media (prefers-reduced-motion: no-preference) {
-        transition:
-          transform 0.2s ease,
-          background-color 0.1s ease;
-      }
+      transition:
+        transform calc(0.2s * var(--_motion)) ease,
+        background-color calc(0.1s * var(--_motion)) ease;
     }
 
     /* Colors — shared interaction model for critical and primary.
@@ -107,20 +97,16 @@
     &:where(:not([disabled])) {
       &:where(:not(:active):hover) {
         &::before {
-          background-color: var(
-            --_interaction-hover-color,
-            var(--_default-hover-bg-color)
-          );
+          background-color: var(--_interaction-hover-color,
+              var(--_default-hover-bg-color));
         }
       }
 
       &:where(:hover:active),
       &[aria-current="page"] {
         &::before {
-          background-color: var(
-            --_interaction-active-color,
-            var(--_default-active-bg-color)
-          );
+          background-color: var(--_interaction-active-color,
+              var(--_default-active-bg-color));
         }
       }
     }

@@ -26,7 +26,7 @@
       --_bg-color: var(--surface-tonal);
     }
 
-    &>progress {
+    & > progress {
       appearance: none;
       background: none;
       block-size: 100%;
@@ -41,7 +41,8 @@
 
       &[value]::-webkit-progress-value {
         background-color: var(--_accent-color);
-        transition: inline-size calc(0.2s * var(--_motion)) var(--ease-out-4, cubic-bezier(0, 0, 0.1, 1));
+        transition: inline-size calc(0.2s * var(--_motion))
+          var(--ease-out-4, cubic-bezier(0, 0, 0.1, 1));
       }
 
       &::-moz-progress-bar {
@@ -60,7 +61,7 @@
       will-change: inset-inline-start, inset-inline-end;
     }
 
-    &>progress {
+    & > progress {
       &::-webkit-progress-value {
         background-color: transparent;
       }

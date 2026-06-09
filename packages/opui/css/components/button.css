@@ -10,15 +10,23 @@
     --_accent-tonal: var(--_color-tonal);
     --_accent-tonal-contrast: var(--_color);
 
-    --_default-hover-bg-color: light-dark(oklch(from var(--_accent) l 0.01 h / 10%),
-        oklch(from var(--_accent) l 0.01 h / 20%));
-    --_default-active-bg-color: light-dark(oklch(from var(--_accent) l 0.06 h / 20%),
-        oklch(from var(--_accent) l 0.06 h / 30%));
+    --_default-hover-bg-color: light-dark(
+      oklch(from var(--_accent) l 0.01 h / 10%),
+      oklch(from var(--_accent) l 0.01 h / 20%)
+    );
+    --_default-active-bg-color: light-dark(
+      oklch(from var(--_accent) l 0.06 h / 20%),
+      oklch(from var(--_accent) l 0.06 h / 30%)
+    );
 
-    --_filled-hover-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.2) c h),
-        oklch(from var(--_accent) calc(l - 0.1) c h));
-    --_filled-active-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.3) c h),
-        oklch(from var(--_accent) calc(l - 0.15) c h));
+    --_filled-hover-bg-color: light-dark(
+      oklch(from var(--_accent) calc(l + 0.2) c h),
+      oklch(from var(--_accent) calc(l - 0.1) c h)
+    );
+    --_filled-active-bg-color: light-dark(
+      oklch(from var(--_accent) calc(l + 0.3) c h),
+      oklch(from var(--_accent) calc(l - 0.15) c h)
+    );
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
 
     --_bg-color: transparent;
@@ -83,9 +91,11 @@
 
     /* Disabled */
     &:where([disabled]) {
-      --_text-color: color-mix(in oklch,
-          var(--text-muted) 50%,
-          var(--surface-default));
+      --_text-color: color-mix(
+        in oklch,
+        var(--text-muted) 50%,
+        var(--surface-default)
+      );
 
       cursor: not-allowed;
       opacity: 0.64;

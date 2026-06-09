@@ -14,6 +14,7 @@ pnpm add opui-css open-props
 Peer dependencies:
 
 - `astro` `^6` (only required if you use the Astro components)
+- `vue` `^3` (only required if you use the Vue components)
 - `open-props` `^1`
 
 ## Usage

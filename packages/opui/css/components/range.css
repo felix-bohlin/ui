@@ -1,5 +1,6 @@
 @layer components.root {
   :where(.ui-range) {
+    --_motion: var(--motion, 1);
     display: grid;
     gap: var(--size-1) 0;
     /* Two-column base so the optional .value cell can sit next to the
@@ -273,9 +274,7 @@
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        @media (prefers-reduced-motion: no-preference) {
-          transition: box-shadow 0.1s ease;
-        }
+        transition: box-shadow calc(0.1s * var(--_motion)) ease;
 
         .ui-fieldset-item:focus-within & {
           border-color: var(--gray-14);
@@ -294,9 +293,7 @@
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        @media (prefers-reduced-motion: no-preference) {
-          transition: box-shadow 0.1s ease;
-        }
+        transition: box-shadow calc(0.1s * var(--_motion)) ease;
 
         .ui-fieldset-item:focus-within & {
           border-color: var(--gray-14);

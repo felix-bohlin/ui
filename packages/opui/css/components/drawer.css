@@ -1,5 +1,6 @@
 @layer components.root {
   :where(dialog.ui-drawer) {
+    --_motion: var(--motion, 1);
     --_backdrop-bg-color: transparent;
     --_backdrop-blur: blur(2px);
     --_bg-color: var(--surface-default);
@@ -14,7 +15,7 @@
     --_header-padding: var(--size-3);
     --_inline-size: min(375px, 100vi);
     --_shadow: var(--shadow-2);
-    --_transition-duration: 0.2s;
+    --_transition-duration: calc(0.2s * var(--_motion));
     --_transition-timing: var(--ease-out-3);
 
     background-color: var(--_bg-color);

@@ -11,6 +11,28 @@
     scrollbar-width: thin;
   }
 
+  html {
+    --motion: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      --motion: 0;
+    }
+  }
+
+  .ui-motion-off {
+    --motion: 0 !important;
+  }
+
+  .ui-motion-on {
+    --motion: 1 !important;
+  }
+
+  .ui-motion-debug {
+    --motion: 10 !important;
+  }
+
   :where(html) {
     --_page-bg-color: var(--surface-default);
 
@@ -119,19 +141,11 @@
     border-radius: var(--border-radius, 0px);
     outline: 2px solid var(--_focus-visible-color);
     outline-offset: 2px;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    :where(:focus-visible) {
-      transition: outline-offset 0.15 var(--ease-2);
-    }
-
-    :where(:not(:active):focus-visible) {
-      transition-duration: 0.15s;
-    }
+    transition: outline-offset calc(0.15s * var(--motion)) var(--ease-2);
   }
 
   :where(:not(:active):focus-visible) {
+    transition-duration: calc(0.15s * var(--motion));
     outline-offset: var(--outline-offset, 0px);
   }
 

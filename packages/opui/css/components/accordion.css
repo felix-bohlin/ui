@@ -1,5 +1,6 @@
 @layer components.extended {
   :where(details.ui-accordion) {
+    --_motion: var(--motion, 1);
     --_actions-gap: var(--size-1);
     --_actions-margin-block-start: var(--size-3);
     --_actions-padding-block-end: var(--size-1);
@@ -15,8 +16,8 @@
     --_shadow: none;
     --_summary-padding-block: var(--size-3);
     --_summary-padding-inline: var(--_padding-inline);
-    --_svg-transition: 0.2s var(--ease-1);
-    --_transition: 0.2s;
+    --_svg-transition: calc(0.2s * var(--_motion)) var(--ease-1);
+    --_transition: calc(0.2s * var(--_motion));
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
@@ -49,9 +50,7 @@
 
     /* Accordion animation */
     /* https://nerdy.dev/open-and-close-transitions-for-the-details-element */
-    @media (prefers-reduced-motion: no-preference) {
-      interpolate-size: allow-keywords;
-    }
+    interpolate-size: allow-keywords;
 
     &::details-content {
       block-size: 0;

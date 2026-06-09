@@ -1,5 +1,6 @@
 @layer components.root {
   :where(.ui-button) {
+    --_motion: var(--motion, 1);
     --_color: light-dark(var(--color-16), var(--color-1));
     --_color-contrast: light-dark(var(--color-1), var(--color-16));
     --_color-tonal: var(--surface-tonal);
@@ -54,10 +55,10 @@
     text-align: center;
     text-decoration: none;
     transition:
-      background-color 0.1s ease,
-      color 0.1s ease,
-      border-color 0.1s ease,
-      box-shadow 0.1s ease;
+      background-color calc(0.1s * var(--_motion)) ease,
+      color calc(0.1s * var(--_motion)) ease,
+      border-color calc(0.1s * var(--_motion)) ease,
+      box-shadow calc(0.1s * var(--_motion)) ease;
     user-select: none;
 
     /* Colors — shared interaction model for critical and primary.

@@ -1185,36 +1185,6 @@
     "url": "/vue/api#badge"
   },
   {
-    "id": "api-button-group-astro",
-    "title": "Button Group API",
-    "description": "Reference for Button Group Astro component.",
-    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#button-group"
-  },
-  {
-    "id": "api-button-group-html",
-    "title": "Button Group API",
-    "description": "Reference for Button Group HTML component.",
-    "headings": "Colors - Orientation .ui-vertical - Orientation modifier. Sizes .ui-small, .ui-large - Size modifiers. Variants - Style modifiers.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#button-group"
-  },
-  {
-    "id": "api-button-group-vue",
-    "title": "Button Group API",
-    "description": "Reference for Button Group Vue component.",
-    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#button-group"
-  },
-  {
     "id": "api-button-astro",
     "title": "Button API",
     "description": "Reference for Button Astro component.",
@@ -1243,6 +1213,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#button"
+  },
+  {
+    "id": "api-button-group-astro",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Astro component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#button-group"
+  },
+  {
+    "id": "api-button-group-html",
+    "title": "Button Group API",
+    "description": "Reference for Button Group HTML component.",
+    "headings": "Colors - Orientation .ui-vertical - Orientation modifier. Sizes .ui-small, .ui-large - Size modifiers. Variants - Style modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#button-group"
+  },
+  {
+    "id": "api-button-group-vue",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Vue component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#button-group"
   },
   {
     "id": "api-callout-astro",
@@ -1455,36 +1455,6 @@
     "url": "/vue/api#dialog"
   },
   {
-    "id": "api-divider-astro",
-    "title": "Divider API",
-    "description": "Reference for Divider Astro component.",
-    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#divider"
-  },
-  {
-    "id": "api-divider-html",
-    "title": "Divider API",
-    "description": "Reference for Divider HTML component.",
-    "headings": "Variant - Visual variant modifiers.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#divider"
-  },
-  {
-    "id": "api-divider-vue",
-    "title": "Divider API",
-    "description": "Reference for Divider Vue component.",
-    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#divider"
-  },
-  {
     "id": "api-drawer-astro",
     "title": "Drawer API",
     "description": "Reference for Drawer Astro component.",
@@ -1513,6 +1483,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#drawer"
+  },
+  {
+    "id": "api-divider-astro",
+    "title": "Divider API",
+    "description": "Reference for Divider Astro component.",
+    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#divider"
+  },
+  {
+    "id": "api-divider-html",
+    "title": "Divider API",
+    "description": "Reference for Divider HTML component.",
+    "headings": "Variant - Visual variant modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#divider"
+  },
+  {
+    "id": "api-divider-vue",
+    "title": "Divider API",
+    "description": "Reference for Divider Vue component.",
+    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#divider"
   },
   {
     "id": "api-field-group-astro",

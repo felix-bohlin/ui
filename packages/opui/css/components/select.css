@@ -1,5 +1,6 @@
 @layer components.extended {
   :where(.ui-select select) {
+    --_motion: var(--motion, 1);
     position: relative;
 
     /* Default arrow */
@@ -37,13 +38,11 @@
         transform: scale(0.9);
       }
 
-      @media (prefers-reduced-motion: no-preference) {
-        transition:
-          display 0.2s allow-discrete,
-          opacity 0.2s var(--ease-3),
-          overlay 0.2s allow-discrete,
-          scale 0.2s var(--ease-3);
-      }
+      transition:
+        display calc(0.2s * var(--_motion)) allow-discrete,
+        opacity calc(0.2s * var(--_motion)) var(--ease-3),
+        overlay calc(0.2s * var(--_motion)) allow-discrete,
+        scale calc(0.2s * var(--_motion)) var(--ease-3);
     }
 
     /* Animation off-stage styles */

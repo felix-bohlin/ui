@@ -1,5 +1,6 @@
 @layer components.root {
   :where(.ui-icon-button) {
+    --_motion: var(--motion, 1);
     --_color: light-dark(var(--color-16), var(--color-1));
     --_color-contrast: light-dark(var(--color-1), var(--color-16));
     --_color-tonal: var(--surface-tonal);
@@ -44,10 +45,10 @@
     padding: 0;
     transform-style: preserve-3d;
     transition:
-      background-color 0.1s ease,
-      color 0.1s ease,
-      border-color 0.1s ease,
-      box-shadow 0.1s ease;
+      background-color calc(0.1s * var(--_motion)) ease,
+      color calc(0.1s * var(--_motion)) ease,
+      border-color calc(0.1s * var(--_motion)) ease,
+      box-shadow calc(0.1s * var(--_motion)) ease;
 
     &:where([disabled]) {
       --_text-color: light-dark(rgb(0, 0, 0/0.3), rgb(255, 255, 255/0.26));
@@ -67,12 +68,9 @@
     &::before {
       --highlight-size: 130%;
       background-color: transparent;
-
-      @media (prefers-reduced-motion: no-preference) {
-        transition:
-          transform 0.2s ease,
-          background-color 0.1s ease;
-      }
+      transition:
+        transform calc(0.2s * var(--_motion)) ease,
+        background-color calc(0.1s * var(--_motion)) ease;
     }
 
     /* Colors — shared interaction model for critical and primary.

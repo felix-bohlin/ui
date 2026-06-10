@@ -136,13 +136,26 @@ if (codeSlotName) {
 // Output (the rendered HTML view) is only meaningful when the source code is
 // in a different framework — otherwise it's identical to the source.
 const outputContent =
-  output && previewHtml && codeLangId !== "html" ? previewHtml : ""
+  output && previewHtml && codeLangId !== "html" && codeLangId !== "wc"
+    ? previewHtml
+    : ""
 
 const showOutput = !!(output && outputContent)
 const hasCode = !!codeContent
 
 const codeLangLabel =
   FRAMEWORKS.find((f) => f.id === codeLangId)?.label ?? codeLangId.toUpperCase()
+
+const CODE_LANGS: Record<FrameworkId, string> = {
+  astro: "astro",
+  html: "html",
+  vue: "vue",
+  wc: "html",
+}
+
+function getCodeLang(id: FrameworkId) {
+  return CODE_LANGS[id]
+}
 
 // Only render the controls bar when the slot actually has non-whitespace
 // content. `Astro.slots.has("controls")` returns true even when a parent
@@ -202,9 +215,8 @@ const outputPanelId = `${groupName}-output-panel`
             class="show-code-button"
             size="small"
             aria-expanded="false"
-            aria-label={`Show ${codeLangLabel}`}
           >
-            <span class="code-label">{codeLangLabel}</span>
+            <span class="code-label">Show code</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -251,13 +263,7 @@ const outputPanelId = `${groupName}-output-panel`
               <div class="ui-tab-panel">
                 <Code
                   code={codeContent}
-                  lang={
-                    codeLangId === "astro"
-                      ? "astro"
-                      : codeLangId === "html"
-                        ? "html"
-                        : codeLangId
-                  }
+                  lang={getCodeLang(codeLangId)}
                   mark={marks[codeLangId]}
                 />
               </div>

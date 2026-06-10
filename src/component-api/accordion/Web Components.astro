@@ -1,0 +1,85 @@
+---
+import ComponentAPI from "../../components/ComponentAPI.astro"
+import Default from "./HTML.astro" // You can import HTML as a base if it's the same, or write from scratch.
+---
+
+<ComponentAPI
+  apis={[
+    {
+      title: "Attributes",
+      headers: ["Attribute", "Type", "Description"],
+      columns: [
+        { width: "min-width: 20%" },
+        { width: "width: auto" },
+        { width: "width: auto" },
+      ],
+      rows: [
+        {
+          cells: [
+            "`open`",
+            `boolean`,
+            `Whether the accordion is open. Sets the native \`open\` attribute on the internal \`<details>\`.`,
+          ],
+        },
+        {
+          cells: [
+            "`variant`",
+            `"default" | "outlined" | "elevated" | "tonal"`,
+            `The styling variant to use. Defaults to \`"default"\`.`,
+          ],
+        },
+        {
+          cells: [
+            "`name`",
+            `string`,
+            `The name attribute for accordion grouping.`,
+          ],
+        },
+      ],
+    },
+    {
+      title: "Slots",
+      headers: ["Slot", "Description"],
+      columns: [{ width: "min-width: 20%" }, { width: "width: auto" }],
+      rows: [
+        {
+          cells: [
+            `<code>summary</code>`,
+            `The summary content. Required for accessibility.`,
+          ],
+        },
+        {
+          cells: [
+            `<code>default</code>`,
+            `The content of the accordion panel.`,
+          ],
+        },
+        {
+          cells: [
+            `<code>marker</code>`,
+            `Optional custom marker. Replaces the default caret when present.`,
+          ],
+        },
+        {
+          cells: [
+            `<code>actions</code>`,
+            `Optional actions typically placed below the content.`,
+          ],
+        },
+      ],
+    },
+    {
+      title: "Events",
+      headers: ["Event", "Description"],
+      columns: [{ width: "min-width: 20%" }, { width: "width: auto" }],
+      rows: [
+        {
+          cells: [
+            `<code>toggle</code>`,
+            `Fired when the accordion opens or closes. Bubbles up from the internal <code>details</code> element.`,
+          ],
+        },
+      ],
+    },
+  ]}
+/>

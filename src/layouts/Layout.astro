@@ -70,6 +70,9 @@ const imageUrl = new URL(image || "/share-img.png", Astro.site)
         ))
     }
     <meta name="generator" content={Astro.generator} />
+    <script>
+      import "../../packages/opui/web-components.js"
+    </script>
   </head>
   <body>
     <slot />

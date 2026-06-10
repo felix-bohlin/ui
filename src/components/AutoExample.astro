@@ -50,7 +50,7 @@ const vuePreviewModules = import.meta.glob("../component-examples/**/*.vue", {
 }) as Record<string, { default: any }>
 
 const rawSources = import.meta.glob(
-  "../component-examples/**/*.{astro,html,vue}",
+  "../component-examples/**/*.{astro,html,vue,wc.html}",
   {
     eager: true,
     query: "?raw",
@@ -61,17 +61,19 @@ const rawSources = import.meta.glob(
 const astroPath = `../component-examples/${slug}/${name}.astro`
 const htmlPath = `../component-examples/${slug}/${name}.html`
 const vuePath = `../component-examples/${slug}/${name}.vue`
+const wcPath = `../component-examples/${slug}/${name}.wc.html`
 
 const astroComponent = previewModules[astroPath]?.default
 const vueComponent = vuePreviewModules[vuePath]?.default
 const astroSource = rawSources[astroPath]
 const htmlSource = rawSources[htmlPath]
 const vueSource = rawSources[vuePath]
+const wcSource = rawSources[wcPath]
 
-if (!astroComponent && !htmlSource && !vueComponent) {
+if (!astroComponent && !htmlSource && !vueComponent && !wcSource) {
   throw new Error(
     `<AutoExample slug="${slug}" name="${name}"> found no example files at ` +
-      `${astroPath}, ${htmlPath}, or ${vuePath}.`,
+      `${astroPath}, ${htmlPath}, ${vuePath}, or ${wcPath}.`,
   )
 }
 ---
@@ -91,7 +93,9 @@ if (!astroComponent && !htmlSource && !vueComponent) {
   }
   {htmlSource && <Example.Preview slot="preview-html" code={htmlSource} />}
   {vueComponent && <Example.Preview slot="preview-vue" code={vueComponent} />}
+  {wcSource && <Example.Preview slot="preview-wc" code={wcSource} />}
   {astroSource && <Example.Code slot="code-astro" code={astroSource} />}
   {htmlSource && <Example.Code slot="code-html" code={htmlSource} />}
   {vueSource && <Example.Code slot="code-vue" code={vueSource} />}
+  {wcSource && <Example.Code slot="code-wc" code={wcSource} />}
 </Example>

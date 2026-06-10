@@ -37,6 +37,8 @@
     "env.d.ts",
     "open-props.css",
     "vue",
+    "web-components.js",
+    "web-components.d.ts",
     "CHANGELOG.md",
     "LICENSE",
     "MIGRATING.md",
@@ -46,6 +48,8 @@
   "exports": {
     ".": "./dist/opui.css",
     "./open-props": "./dist/op.css",
+    "./web-components": "./web-components.js",
+    "./web-components/styles": "./dist/web-components/styles.js",
     "./astro": "./astro/index.ts",
     "./vue": "./vue/index.ts",
     "./components/*": "./components/*",

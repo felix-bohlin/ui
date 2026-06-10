@@ -8,7 +8,7 @@
 //
 // Order convention: default framework first.
 
-/** @typedef {"html" | "astro" | "vue"} FrameworkId */
+/** @typedef {"html" | "astro" | "vue" | "wc"} FrameworkId */
 
 /** @type {FrameworkId} */
 export const DEFAULT_FRAMEWORK = "html"
@@ -16,6 +16,7 @@ export const DEFAULT_FRAMEWORK = "html"
 /** @type {{ id: FrameworkId, label: string }[]} */
 export const FRAMEWORKS = [
   { id: "html", label: "HTML" },
+  { id: "wc", label: "Web components" },
   { id: "astro", label: "Astro" },
   { id: "vue", label: "Vue" },
 ]

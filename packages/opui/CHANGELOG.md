@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.4.1 - 2026-06-11
+
+### Fixed
+
+- Fixed a `@vue/compiler-sfc` compilation crash in `Avatar`.
+
 ## 5.4.0 - 2026-06-09
 
 - Added global control for motion that lets you enable or disable all motion with a single class `.ui-motion-on`, `.ui-motion-off`, `.ui-motion-debug`. By default it will listen to `prefers-reduced-motion`. Locally each component individually has `--_motion` variable that can be changed as well.

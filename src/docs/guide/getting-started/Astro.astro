@@ -48,10 +48,12 @@ import { Button } from "opui-css/astro"
     <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
     <p>Or pick and choose pieces if you want a lighter footprint:</p>
     <Code
-      code={`@import "opui-css/core/normalize.css";
-@import "opui-css/core/utils.css";
+      code={`@import "opui-css/open-props.css";
+@import "opui-css/core/palette.css";
 @import "opui-css/css/theme.css";
-@import "opui-css/css/components.css";`}
+@import "opui-css/core/normalize.css";
+@import "opui-css/css/components.css";
+@import "opui-css/core/utils.css";`}
       lang="css"
     />
   </section>

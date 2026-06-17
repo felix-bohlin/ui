@@ -67,6 +67,9 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
       <Fragment slot="html">
         Default, and <code>.ui-dot</code>.
       </Fragment>
+      <Fragment slot="vue">
+        Default, and <code>dot</code>.
+      </Fragment>
     </Conditional>
 
     <AutoExample name="Variants" row />
@@ -85,6 +88,11 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
         element is the badge's direct child before <code
           >.ui-anchor-floating</code
         >.
+      </Fragment>
+      <Fragment slot="vue">
+        Set indicator text with the <code>label</code> prop or the <code
+          >indicator</code
+        > slot. The default slot holds the anchored element.
       </Fragment>
     </Conditional>
 
@@ -105,6 +113,11 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
           >success</code
         >, <code>warning</code>.
       </p>
+      <p slot="vue">
+        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
+          >success</code
+        >, <code>warning</code>.
+      </p>
     </Conditional>
 
     <AutoExample name="Color" row />
@@ -121,6 +134,10 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
         Change the badge's visibility using the <code>.ui-invisible</code>
         class.
       </Fragment>
+      <Fragment slot="vue">
+        Change the badge's visibility using the <code>invisible</code>
+        prop.
+      </Fragment>
     </Conditional>
 
     <Example row>
@@ -129,6 +146,9 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
           ><code>.ui-invisible</code></UISwitch
         >
         <UISwitch slot="astro" id="badge-visibility-toggle"
+          ><code>invisible</code></UISwitch
+        >
+        <UISwitch slot="vue" id="badge-visibility-toggle"
           ><code>invisible</code></UISwitch
         >
       </Conditional>
@@ -154,6 +174,10 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
         <code>start-start</code>, default,
         <code>end-start</code>, <code>end-end</code>.
       </p>
+      <p slot="vue">
+        <code>start-start</code>, default,
+        <code>end-start</code>, <code>end-end</code>.
+      </p>
     </Conditional>
 
     <AutoExample name="Alignment" row spacious />
@@ -169,6 +193,10 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
         The badge is composed of an anchored element and a <code
           >.ui-badge-indicator</code
         > inside <code>.ui-anchor-floating</code>.
+      </p>
+      <p slot="vue">
+        The badge is composed of an anchored element (default slot), and an
+        indicator (<code>label</code> prop or <code>indicator</code> slot).
       </p>
     </Conditional>
 

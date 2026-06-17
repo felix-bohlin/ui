@@ -1,6 +1,6 @@
 # Open Props UI
 
-A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Built on top of [Open Props](https://open-props.style/) and ships [Astro](https://astro.build/) components alongside framework-agnostic CSS.
+A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Built on top of [Open Props](https://open-props.style/) and ships HTML, [Astro](https://astro.build/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS.
 
 - Docs: [open-props-ui.netlify.app](https://open-props-ui.netlify.app/)
 - Source: [github.com/felix-bohlin/ui](https://github.com/felix-bohlin/ui)
@@ -14,6 +14,7 @@ pnpm add opui-css open-props
 Peer dependencies:
 
 - `astro` `^6` (only required if you use the Astro components)
+- `vue` `^3` (only required if you use the Vue components)
 - `open-props` `^1`
 
 ## Usage
@@ -36,7 +37,10 @@ import { Button, Card } from "opui-css/astro"
 Drop a pre-bundled stylesheet into any page and use the documented class names:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/opui-css/dist/opui.css" />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/opui-css/dist/opui.css"
+/>
 
 <button class="ui-button ui-primary">Click me</button>
 ```
@@ -55,7 +59,7 @@ If you do have a bundler that resolves CSS `@import`s (Vite, Astro, webpack, …
 The library defines this layer order:
 
 ```css
-@layer openprops, normalize, theme, components.root, components.extended, utils;
+@layer openprops, theme, normalize, components.root, components.extended, utils;
 ```
 
 Wrap your own styles in a layer above `utils` (or unlayered) to override.
@@ -77,10 +81,6 @@ Wrap your own styles in a layer above `utils` (or unlayered) to override.
 | `opui-css/core/utils.css`           | Utility classes                               |
 | `opui-css/astro`                    | All Astro components                          |
 | `opui-css/components/*`             | Individual Astro component sources            |
-
-## Contributing
-
-See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the component-authoring pattern.
 
 ## License
 

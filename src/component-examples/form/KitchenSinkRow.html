@@ -1,114 +1,130 @@
 <form class="ui-form" id="kitchen-sink-example-row-html">
-	<fieldset class="ui-fieldset">
-		<legend>User Profile</legend>
-		<p class="ui-field-description">Please provide your basic contact details.</p>
-		<div class="ui-field-group" role="group">
-			<label class="ui-text-field ui-spread">
-				<span class="ui-label">Full Name</span>
-				<input type="text" placeholder="Jane Doe" required />
-			</label>
-			<label class="ui-text-field ui-spread">
-				<span class="ui-label">Email Address</span>
-				<input type="email" placeholder="jane@example.com" required />
-			</label>
-			<label class="ui-select ui-spread">
-				<span class="ui-label">Role</span>
-				<select>
-					<button>
-						<selectedcontent></selectedcontent>
-					</button>
-					<div class="ui-list">
-						<option value="dev">Developer</option>
-						<option value="design">Designer</option>
-						<option value="manager">Manager</option>
-					</div>
-				</select>
-			</label>
-		</div>
-	</fieldset>
+  <fieldset class="ui-fieldset">
+    <legend>User Profile</legend>
+    <p class="ui-field-description">
+      Please provide your basic contact details.
+    </p>
+    <div class="ui-field-group" role="group">
+      <label class="ui-text-field ui-spread">
+        <span class="ui-label">Full Name</span>
+        <span class="ui-field">
+          <input type="text" placeholder="Jane Doe" required />
+        </span>
+      </label>
+      <label class="ui-text-field ui-spread">
+        <span class="ui-label">Email Address</span>
+        <span class="ui-field">
+          <input type="email" placeholder="jane@example.com" required />
+        </span>
+      </label>
+      <label class="ui-select ui-spread">
+        <span class="ui-label">Role</span>
+        <span class="ui-field">
+          <select>
+            <button>
+              <selectedcontent></selectedcontent>
+            </button>
+            <div class="ui-list">
+              <option value="dev">Developer</option>
+              <option value="design">Designer</option>
+              <option value="manager">Manager</option>
+            </div>
+          </select>
+        </span>
+      </label>
+    </div>
+  </fieldset>
 
-	<hr class="ui-divider" />
+  <hr class="ui-divider" />
 
-	<fieldset class="ui-fieldset">
-		<legend>Notifications</legend>
-		<p class="ui-field-description">Configure how you want to receive updates.</p>
-		<div class="ui-field-group" role="group">
-			<label class="ui-switch ui-spread">
-				<input type="checkbox" role="switch" name="email_notifs" checked />
-				<span class="ui-label">Email Notifications</span>
-			</label>
-			<label class="ui-switch ui-spread">
-				<input type="checkbox" role="switch" name="sms_notifs" />
-				<span class="ui-label">SMS Notifications</span>
-			</label>
-		</div>
-	</fieldset>
+  <fieldset class="ui-fieldset">
+    <legend>Notifications</legend>
+    <p class="ui-field-description">
+      Configure how you want to receive updates.
+    </p>
+    <div class="ui-field-group" role="group">
+      <label class="ui-switch ui-spread">
+        <input type="checkbox" role="switch" name="email_notifs" checked />
+        <span class="ui-label">Email Notifications</span>
+      </label>
+      <label class="ui-switch ui-spread">
+        <input type="checkbox" role="switch" name="sms_notifs" />
+        <span class="ui-label">SMS Notifications</span>
+      </label>
+    </div>
+  </fieldset>
 
-	<hr class="ui-divider" />
+  <hr class="ui-divider" />
 
-	<fieldset class="ui-fieldset">
-		<legend>Theme Preference</legend>
-		<p class="ui-field-description">Select your preferred visual style.</p>
-		<div class="ui-field-group ui-row">
-			<label class="ui-radio">
-				<input type="radio" name="theme" value="light" checked />
-				<span class="ui-label">Light Theme</span>
-			</label>
-			<label class="ui-radio">
-				<input type="radio" name="theme" value="dark" />
-				<span class="ui-label">Dark Theme</span>
-			</label>
-			<label class="ui-radio">
-				<input type="radio" name="theme" value="system" />
-				<span class="ui-label">System Default</span>
-			</label>
-		</div>
-	</fieldset>
+  <fieldset class="ui-fieldset">
+    <legend>Theme Preference</legend>
+    <p class="ui-field-description">Select your preferred visual style.</p>
+    <div class="ui-field-group ui-row">
+      <label class="ui-radio">
+        <input type="radio" name="theme" value="light" checked />
+        <span class="ui-label">Light Theme</span>
+      </label>
+      <label class="ui-radio">
+        <input type="radio" name="theme" value="dark" />
+        <span class="ui-label">Dark Theme</span>
+      </label>
+      <label class="ui-radio">
+        <input type="radio" name="theme" value="system" />
+        <span class="ui-label">System Default</span>
+      </label>
+    </div>
+  </fieldset>
 
-	<hr class="ui-divider" />
+  <hr class="ui-divider" />
 
-	<fieldset class="ui-fieldset">
-		<legend>Experience Level</legend>
-		<p class="ui-field-description">How many years of experience do you have?</p>
-		<div class="ui-field-group" role="group">
-			<label class="ui-range ui-spread">
-				<span class="ui-label">Professional Experience</span>
-				<span class="ui-start-text">Drag the slider to match your total tenure.</span>
-				<input type="range" min="0" max="20" step="1" value="5">
-			</label>
-		</div>
-	</fieldset>
+  <fieldset class="ui-fieldset">
+    <legend>Experience Level</legend>
+    <p class="ui-field-description">
+      How many years of experience do you have?
+    </p>
+    <div class="ui-field-group" role="group">
+      <label class="ui-range ui-spread">
+        <span class="ui-label">Professional Experience</span>
+        <span class="ui-start-text"
+          >Drag the slider to match your total tenure.</span
+        >
+        <input type="range" min="0" max="20" step="1" value="5" />
+      </label>
+    </div>
+  </fieldset>
 
-	<hr class="ui-divider" />
+  <hr class="ui-divider" />
 
-	<fieldset class="ui-fieldset">
-		<legend>Additional Info</legend>
-		<p class="ui-field-description">Anything else we should know?</p>
-		<div class="ui-field-group" role="group">
-			<label class="ui-textarea ui-spread">
-				<span class="ui-label">Biography</span>
-				<textarea placeholder="Tell us about yourself..." rows="4"></textarea>
-			</label>
-		</div>
-	</fieldset>
+  <fieldset class="ui-fieldset">
+    <legend>Additional Info</legend>
+    <p class="ui-field-description">Anything else we should know?</p>
+    <div class="ui-field-group" role="group">
+      <label class="ui-textarea ui-spread">
+        <span class="ui-label">Biography</span>
+        <span class="ui-field">
+          <textarea placeholder="Tell us about yourself..." rows="4"></textarea>
+        </span>
+      </label>
+    </div>
+  </fieldset>
 
-	<hr class="ui-divider" />
+  <hr class="ui-divider" />
 
-	<fieldset class="ui-fieldset">
-		<legend>Legal</legend>
-		<div class="ui-field-group" role="group">
-			<label class="ui-checkbox ui-spread">
-				<input type="checkbox" name="terms" required />
-				<span class="ui-label">I agree to the terms and conditions</span>
-				<span class="ui-end-text">Support this text</span>
-			</label>
-		</div>
-	</fieldset>
+  <fieldset class="ui-fieldset">
+    <legend>Legal</legend>
+    <div class="ui-field-group" role="group">
+      <label class="ui-checkbox ui-spread">
+        <input type="checkbox" name="terms" required />
+        <span class="ui-label">I agree to the terms and conditions</span>
+        <span class="ui-end-text">Support this text</span>
+      </label>
+    </div>
+  </fieldset>
 
-	<hr class="ui-divider" />
+  <hr class="ui-divider" />
 
-	<div class="ui-field-group" role="group">
-		<button class="ui-button ui-filled" type="submit">Send</button>
-		<button class="ui-button">Cancel</button>
-	</div>
+  <div class="ui-field-group" role="group">
+    <button class="ui-button ui-filled" type="submit">Send</button>
+    <button class="ui-button">Cancel</button>
+  </div>
 </form>

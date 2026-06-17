@@ -1,5 +1,6 @@
 @layer components.extended {
   :where(.ui-select select) {
+    --_motion: var(--motion, 1);
     position: relative;
 
     /* Default arrow */
@@ -37,10 +38,11 @@
         transform: scale(0.9);
       }
 
-      @media (prefers-reduced-motion: no-preference) {
-        transition: display 0.2s allow-discrete, opacity 0.2s var(--ease-3),
-          overlay 0.2s allow-discrete, scale 0.2s var(--ease-3);
-      }
+      transition:
+        display calc(0.2s * var(--_motion)) allow-discrete,
+        opacity calc(0.2s * var(--_motion)) var(--ease-3),
+        overlay calc(0.2s * var(--_motion)) allow-discrete,
+        scale calc(0.2s * var(--_motion)) var(--ease-3);
     }
 
     /* Animation off-stage styles */
@@ -73,8 +75,10 @@
       [role="group"] {
         label {
           background-color: light-dark(var(--gray-3), var(--gray-13));
-          color: light-dark(oklch(from var(--text-primary) calc(l * 0.75) c h),
-              oklch(from var(--text-primary) calc(l * 1.25) c h));
+          color: light-dark(
+            oklch(from var(--text-primary) calc(l * 0.75) c h),
+            oklch(from var(--text-primary) calc(l * 1.25) c h)
+          );
           font-weight: 500;
           overflow: hidden;
           padding-inline: var(--size-2);
@@ -97,7 +101,6 @@
 
       /* Option */
       option {
-
         /* Checkmark */
         /* TODO - checkmark should be the final version of the checkmark API. Follow the development of this and remove redundant psuedo stuff. */
         &::check {
@@ -120,7 +123,6 @@
   }
 
   :where(.ui-select:has(select)) {
-
     /* Size */
     &.ui-small {
       button {

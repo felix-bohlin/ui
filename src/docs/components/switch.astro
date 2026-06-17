@@ -8,8 +8,10 @@ import FormCSS from "@opui/css/components/form.css?raw"
 
 import SwitchAPIAstro from "../../component-api/switch/Astro.astro"
 import SwitchAPIHTML from "../../component-api/switch/HTML.astro"
+import SwitchAPIVue from "../../component-api/switch/Vue.astro"
 import FieldGroupAPIAstro from "../../component-api/field-group/Astro.astro"
 import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
+import FieldGroupAPIVue from "../../component-api/field-group/Vue.astro"
 
 import ExampleAnatomy from "../../component-examples/switch/Anatomy.astro"
 import Conditional from "../../components/Conditional.astro"
@@ -23,11 +25,13 @@ import Conditional from "../../components/Conditional.astro"
       title: "Switch API",
       astro: SwitchAPIAstro,
       html: SwitchAPIHTML,
+      vue: SwitchAPIVue,
     },
     {
       title: "Field group API",
       astro: FieldGroupAPIAstro,
       html: FieldGroupAPIHTML,
+      vue: FieldGroupAPIVue,
     },
   ]}
   changelogPaths={[
@@ -93,14 +97,36 @@ import Conditional from "../../components/Conditional.astro"
 
     <h3 id="validation">Validation</h3>
     <ul>
-      <li>
-        Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to toggle
-        required styles
-      </li>
-      <li>
-        The <code>data-invalid</code> attribute toggles the error styles. Make use
-        of the end text to give extra feedback on the error.
-      </li>
+      <Conditional>
+        <li slot="astro">
+          Set <code>required</code> on the component to toggle required styles on
+          the input.
+        </li>
+        <li slot="vue">
+          Add the <code>required</code> attribute on the component. It is forwarded
+          to the underlying <code>&lt;input&gt;</code>.
+        </li>
+        <li slot="html">
+          Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to
+          toggle required styles.
+        </li>
+      </Conditional>
+      <Conditional>
+        <li slot="astro">
+          Use the <code>error</code> prop to toggle invalid styles. It renders
+          <code>data-invalid</code> on the root element. Make use of the end text
+          to give extra feedback on the error.
+        </li>
+        <li slot="vue">
+          Use the <code>error</code> prop to toggle invalid styles. It renders
+          <code>data-invalid</code> on the root element. Make use of the end text
+          to give extra feedback on the error.
+        </li>
+        <li slot="html">
+          Add <code>data-invalid</code> on the root element to toggle invalid styles.
+          Make use of the end text to give extra feedback on the error.
+        </li>
+      </Conditional>
     </ul>
 
     <AutoExample name="Validation" column centered spacious />
@@ -120,6 +146,10 @@ import Conditional from "../../components/Conditional.astro"
         to push the label to the left and the switch to the right. This is useful
         for full-width items like lists and menus.
       </Fragment>
+      <Fragment slot="vue">
+        Use the <code>spread</code> prop to push the label to the left and the switch
+        to the right. This is useful for full-width items like lists and menus.
+      </Fragment>
     </Conditional>
 
     <AutoExample name="Spread" column />
@@ -136,6 +166,9 @@ import Conditional from "../../components/Conditional.astro"
           >&lt;label class="ui-switch"&gt;</code
         >
         for a smaller Switch variant.
+      </Fragment>
+      <Fragment slot="vue">
+        Set the <code>small</code> prop for a smaller Switch variant.
       </Fragment>
     </Conditional>
 
@@ -159,6 +192,9 @@ import Conditional from "../../components/Conditional.astro"
           >name</code
         >
         attribute so they're submitted together.
+      </p>
+      <p slot="vue">
+        The <code>name</code> prop will get passed down to each switch in the group.
       </p>
     </Conditional>
     <p>
@@ -200,6 +236,11 @@ import Conditional from "../../components/Conditional.astro"
         > element.
       </p>
       <p slot="astro">
+        Attach the <code>data-invalid</code> attribute to your <code
+          >Fieldset</code
+        > component.
+      </p>
+      <p slot="vue">
         Attach the <code>data-invalid</code> attribute to your <code
           >Fieldset</code
         > component.

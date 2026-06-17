@@ -1,5 +1,6 @@
 @layer components.root {
   :where(.ui-range) {
+    --_motion: var(--motion, 1);
     display: grid;
     gap: var(--size-1) 0;
     /* Two-column base so the optional .value cell can sit next to the
@@ -56,7 +57,7 @@
       margin-top: calc(var(--size-1) * -1);
       padding-inline: calc(3ex / 2);
 
-      &>option {
+      & > option {
         display: flex;
         inline-size: 0;
         justify-content: center;
@@ -237,9 +238,11 @@
       /* Track */
       &::-webkit-slider-runnable-track {
         appearance: none;
-        background: linear-gradient(to right,
-            var(--_track-fill-color) var(--_track-fill, 0%),
-            var(--_track-color) 0%);
+        background: linear-gradient(
+          to right,
+          var(--_track-fill-color) var(--_track-fill, 0%),
+          var(--_track-color) 0%
+        );
         block-size: var(--_track-height);
         border-radius: var(--_track-radius);
       }
@@ -265,14 +268,13 @@
         block-size: var(--_thumb-size);
         border: 3px solid var(--surface-default);
         border-radius: 50%;
-        box-shadow: 0 0 0 var(--_thumb-highlight-size) var(--_thumb-highlight-color);
+        box-shadow: 0 0 0 var(--_thumb-highlight-size)
+          var(--_thumb-highlight-color);
         cursor: ew-resize;
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        @media (prefers-reduced-motion: no-preference) {
-          transition: box-shadow 0.1s ease;
-        }
+        transition: box-shadow calc(0.1s * var(--_motion)) ease;
 
         .ui-fieldset-item:focus-within & {
           border-color: var(--gray-14);
@@ -285,14 +287,13 @@
         block-size: var(--_thumb-size);
         border: 3px solid var(--surface-default);
         border-radius: 50%;
-        box-shadow: 0 0 0 var(--_thumb-highlight-size) var(--_thumb-highlight-color);
+        box-shadow: 0 0 0 var(--_thumb-highlight-size)
+          var(--_thumb-highlight-color);
         cursor: ew-resize;
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        @media (prefers-reduced-motion: no-preference) {
-          transition: box-shadow 0.1s ease;
-        }
+        transition: box-shadow calc(0.1s * var(--_motion)) ease;
 
         .ui-fieldset-item:focus-within & {
           border-color: var(--gray-14);
@@ -312,8 +313,10 @@
 
         &:active {
           --_thumb-highlight-size: var(--size-2);
-          --_track-color: light-dark(oklch(from var(--field-border-color) calc(l * 0.9) c h),
-              oklch(from var(--field-border-color) calc(l * 1.1) c h));
+          --_track-color: light-dark(
+            oklch(from var(--field-border-color) calc(l * 0.9) c h),
+            oklch(from var(--field-border-color) calc(l * 1.1) c h)
+          );
         }
       }
 
@@ -333,5 +336,4 @@
       }
     }
   }
-
 }

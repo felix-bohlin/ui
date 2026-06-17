@@ -3,32 +3,36 @@ import { IconButton } from "opui-css/vue"
 </script>
 
 <template>
-<IconButton color="primary" variant="filled" aria-label="Primary">
-  <svg
-    fill="none"
-    height="20"
-    stroke="currentColor"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    stroke-width="2"
-    viewBox="0 0 24 24"
-    width="20"
-    xmlns="http://www.w3.org/2000/svg"
-    ><path d="M5 12h14"></path><path d="M12 5v14"></path></svg
-  >
-</IconButton>
-<IconButton color="critical" variant="filled" aria-label="Critical">
-  <svg
-    fill="none"
-    height="20"
-    stroke="currentColor"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    stroke-width="2"
-    viewBox="0 0 24 24"
-    width="20"
-    xmlns="http://www.w3.org/2000/svg"
-    ><path d="M5 12h14"></path><path d="M12 5v14"></path></svg
-  >
-</IconButton>
+  <IconButton color="primary" variant="filled" aria-label="Primary">
+    <svg
+      fill="none"
+      height="20"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      width="20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M5 12h14"></path>
+      <path d="M12 5v14"></path>
+    </svg>
+  </IconButton>
+  <IconButton color="critical" variant="filled" aria-label="Critical">
+    <svg
+      fill="none"
+      height="20"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      width="20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M5 12h14"></path>
+      <path d="M12 5v14"></path>
+    </svg>
+  </IconButton>
 </template>

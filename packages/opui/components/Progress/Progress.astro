@@ -1,6 +1,5 @@
 ---
-import type { Props } from './types.astro'
-
+import type { Props } from "./types.astro"
 
 export const title = "Progress"
 
@@ -18,15 +17,16 @@ const {
 
 ---
 
-<progress
-  aria-busy={ariaBusy}
-  aria-describedby={ariaDescribedby}
-  aria-label={ariaLabel}
-  class:list={["ui-progress", className, variant && `ui-${variant}`]}
-  id={id}
-  max={max}
-  value={value}
-  {...rest}
->
-  <slot />
-</progress>
+<div class:list={["ui-progress", className, variant && `ui-${variant}`]}>
+  <progress
+    aria-busy={ariaBusy}
+    aria-describedby={ariaDescribedby}
+    aria-label={ariaLabel}
+    id={id}
+    max={max}
+    value={value}
+    {...rest}
+  >
+    <slot />
+  </progress>
+</div>

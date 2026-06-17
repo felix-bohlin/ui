@@ -23,6 +23,7 @@ export const description =
 </style>
 
 <Component
+  description={description}
   slug="description-list"
   browserSupport={["container-queries", "has"]}
   changelogPaths={[
@@ -66,6 +67,13 @@ export const description =
           a dotted style, also add <code>.ui-dotted</code>.
         </p>
       </Fragment>
+      <Fragment slot="vue">
+        <p>
+          Set <code>bordered</code> on <code>DescriptionList</code> to add a separator
+          between the term and description on all items. Use{" "}
+          <code>bordered="dotted"</code> for a dotted style.
+        </p>
+      </Fragment>
     </Conditional>
     <AutoExample name="Bordered" column spacious />
   </section>
@@ -98,6 +106,22 @@ export const description =
             the list (optional)
           </li>
           <li>Description (<code>&lt;dd&gt;</code>)</li>
+        </ol>
+      </Fragment>
+      <Fragment slot="vue">
+        <ol>
+          <li>List (<code>&lt;DescriptionList&gt;</code>)</li>
+          <li>
+            Term-description group (<code>&lt;DescriptionList.Item&gt;</code>)
+          </li>
+          <li>Term (<code>&lt;DescriptionList.Term&gt;</code>)</li>
+          <li>
+            Separator — rendered via CSS when <code>bordered</code> is set on the
+            list (optional)
+          </li>
+          <li>
+            Description (<code>&lt;DescriptionList.Description&gt;</code>)
+          </li>
         </ol>
       </Fragment>
     </Conditional>

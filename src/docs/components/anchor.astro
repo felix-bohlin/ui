@@ -5,7 +5,6 @@ import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
-
 ---
 
 <Component
@@ -27,24 +26,9 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
   installationTabs={[{ title: "anchor.css", code: AnchorCSS, lang: "css" }]}
 >
   <Fragment slot="title">Anchor</Fragment>
-  <Fragment slot="preamble">
-    <p>
-      A structural primitive for positioning floating content relative to an
-      anchor element using CSS Anchor Positioning.
-    </p>
-    <Conditional>
-      <Fragment slot="html">
-        Add the <code>.ui-anchor</code> class to a container. The first child becomes
-        the anchor target. Place floating content inside <code
->.ui-anchor-floating</code>. Use <code>--anchor-position-area</code> to control placement.
-      </Fragment>
-      <Fragment slot="astro">
-        Use the default slot for the anchor target and the
-        <code>anchored</code> slot for floating content. Set
-        <code>alignment</code> to any valid <code>position-area</code> value.
-      </Fragment>
-    </Conditional>
-  </Fragment>
+  <Fragment slot="preamble"
+    >A structural primitive to enable CSS Anchor Positioning on stuff.</Fragment
+  >
 
   <section>
     <h2 id="always-visible">Always Visible</h2>
@@ -61,6 +45,11 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
         <code>.ui-anchor-floating</code> ID.
       </Fragment>
       <Fragment slot="astro">
+        Set <code>trigger="hover"</code>. The component adds <code
+          >interestfor</code
+        > and <code>popover="hint"</code> declaratively.
+      </Fragment>
+      <Fragment slot="vue">
         Set <code>trigger="hover"</code>. The component adds <code
           >interestfor</code
         > and <code>popover="hint"</code> declaratively.

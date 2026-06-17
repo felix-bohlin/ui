@@ -26,6 +26,7 @@ import ExampleKitchenSinkRowHTML from "../../component-examples/form/KitchenSink
 
 import FormAPIAstro from "../../component-api/form/Astro.astro"
 import FormAPIHTML from "../../component-api/form/HTML.astro"
+import FormAPIVue from "../../component-api/form/Vue.astro"
 
 import { Switch as UISwitch } from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
@@ -53,6 +54,7 @@ import { DescriptionList } from "@opui/astro"
       title: "Form",
       astro: FormAPIAstro,
       html: FormAPIHTML,
+      vue: FormAPIVue,
     },
   ]}
   changelogPaths={[
@@ -76,7 +78,6 @@ import { DescriptionList } from "@opui/astro"
     <h2 id="usage">Usage</h2>
     <Conditional>
       <Code slot="astro" lang="astro" code={ExampleUsageAstroCode} />
-      <Code slot="solid" lang="tsx" code={ExampleUsageSolidCode} />
       <Code slot="vue" lang="vue" code={ExampleUsageVueCode} />
       <Code slot="html" lang="html" code={ExampleUsageHTMLCode} />
     </Conditional>
@@ -121,7 +122,7 @@ import { DescriptionList } from "@opui/astro"
       <h2 id="fieldset">Fieldset</h2>
       <p>Used to show a relationship between form elements.</p>
       <Conditional>
-        <DescriptionList variant="bordered" slot="astro">
+        <DescriptionList bordered slot="astro">
           <DescriptionList.Item>
             <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term
             >
@@ -147,7 +148,7 @@ import { DescriptionList } from "@opui/astro"
             </DescriptionList.Description>
           </DescriptionList.Item>
         </DescriptionList>
-        <DescriptionList variant="bordered" slot="html">
+        <DescriptionList bordered slot="html">
           <DescriptionList.Item>
             <DescriptionList.Term
               ><code>&lt;legend&gt;</code></DescriptionList.Term
@@ -171,6 +172,32 @@ import { DescriptionList } from "@opui/astro"
             <DescriptionList.Term
               ><code>.ui-field-group</code></DescriptionList.Term
             >
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              groups related fields.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+        </DescriptionList>
+        <DescriptionList bordered slot="vue">
+          <DescriptionList.Item>
+            <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term
+            >
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              to describe what it's about.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term
+              ><code>FieldDescription</code>(optional)</DescriptionList.Term
+            >
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              to give extra context about the fieldset.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term><code>FieldGroup</code></DescriptionList.Term>
             <hr class="ui-dotted" />
             <DescriptionList.Description>
               groups related fields.
@@ -218,6 +245,10 @@ import { DescriptionList } from "@opui/astro"
       <p slot="html">
         Use <code>.ui-field-group</code> to wrap related fields.
       </p>
+      <p slot="vue">
+        Use <code>FieldGroup</code> to wrap related fields. It provides a shared
+        <code>name</code> to all nested inputs.
+      </p>
     </Conditional>
 
     <AutoExample name="FieldGroup" />
@@ -230,6 +261,9 @@ import { DescriptionList } from "@opui/astro"
         </p>
         <p slot="html">
           Use the <code>.ui-row</code> class to lay out fields horizontally.
+        </p>
+        <p slot="vue">
+          Use the <code>direction="row"</code> prop to lay out fields horizontally.
         </p>
       </Conditional>
 
@@ -248,6 +282,10 @@ import { DescriptionList } from "@opui/astro"
         Use a <code>&lt;hr /&gt;</code> to create a visual break between sections
         of your form.
       </p>
+      <p slot="vue">
+        Use the <code>Divider</code> component to create a visual break between sections
+        of your form.
+      </p>
     </Conditional>
     <AutoExample name="Divider" />
   </section>
@@ -262,6 +300,7 @@ import { DescriptionList } from "@opui/astro"
           <Conditional>
             <Fragment slot="astro">Show <code>&lt;Divider&gt;</code></Fragment>
             <Fragment slot="html">Show <code>&lt;hr&gt;</code></Fragment>
+            <Fragment slot="vue">Show <code>&lt;Divider&gt;</code></Fragment>
           </Conditional>
         </UISwitch>
       </Fragment>
@@ -283,6 +322,7 @@ import { DescriptionList } from "@opui/astro"
           <Conditional>
             <Fragment slot="astro">Show <code>&lt;Divider&gt;</code></Fragment>
             <Fragment slot="html">Show <code>&lt;hr&gt;</code></Fragment>
+            <Fragment slot="vue">Show <code>&lt;Divider&gt;</code></Fragment>
           </Conditional>
         </UISwitch>
       </Fragment>

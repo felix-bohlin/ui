@@ -18,6 +18,7 @@ export const description =
 ---
 
 <Component
+  description={description}
   slug="list"
   browserSupport={["has", "light-dark", "relative-color"]}
   changelogPaths={[
@@ -75,6 +76,20 @@ export const description =
           items after the main content
         </li>
       </ul>
+      <ul slot="vue">
+        <li>
+          <a href="#text" class="ui-link"><code>text</code> slot</a>: main
+          content
+        </li>
+        <li>
+          <a href="#start-items" class="ui-link"><code>start</code> slot</a> (optional):
+          items before the main content
+        </li>
+        <li>
+          <a href="#end-items" class="ui-link"><code>end</code> slot</a> (optional):
+          items after the main content
+        </li>
+      </ul>
     </Conditional>
 
     <div class="ui-not-rich-text">
@@ -100,6 +115,9 @@ export const description =
         <code>.ui-default</code>, <code>.ui-tonal</code>, and <code
           >.ui-transparent</code
         > to change the background color.
+      </p>
+      <p slot="vue">
+        Change background color with the <code>variant</code> prop.
       </p>
     </Conditional>
 
@@ -134,6 +152,9 @@ export const description =
       <p slot="astro">
         Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
       </p>
+      <p slot="vue">
+        Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
+      </p>
     </Conditional>
     <AutoExample name="Selected" />
   </section>
@@ -150,6 +171,12 @@ export const description =
       <Fragment slot="html">
         Main text lives in <code>div.ui-text</code>.
       </Fragment>
+      <Fragment slot="vue">
+        Main text lives in the <code>text</code> slot, or pass <code
+          >headline</code
+        >
+        and <code>description</code> props directly on <code>ListItem</code>.
+      </Fragment>
     </Conditional>
 
     <AutoExample name="Text" />
@@ -163,6 +190,9 @@ export const description =
       </Fragment>
       <Fragment slot="html">
         Found in <code>div.ui-start</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Authored via the <code>start</code> slot on <code>ListItem</code>.
       </Fragment>
     </Conditional>
 
@@ -192,6 +222,9 @@ export const description =
       </Fragment>
       <Fragment slot="html">
         Found in <code>div.ui-end</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Authored via the <code>end</code> slot on <code>ListItem</code>.
       </Fragment>
     </Conditional>
 
@@ -284,6 +317,9 @@ export const description =
       <p slot="astro">
         Just add the <code>dense</code> prop to the <code>List</code>!
       </p>
+      <p slot="vue">
+        Just add the <code>dense</code> prop to the <code>List</code>!
+      </p>
     </Conditional>
     <Example>
       <Conditional slot="controls">
@@ -299,6 +335,15 @@ export const description =
         <Switch
           slot="astro"
           id="list-dense-toggle-astro"
+          class="list-dense-toggle"
+          small
+          checked
+        >
+          <code>dense</code>
+        </Switch>
+        <Switch
+          slot="vue"
+          id="list-dense-toggle-vue"
           class="list-dense-toggle"
           small
           checked

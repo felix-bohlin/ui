@@ -29,7 +29,7 @@ const endTextId = useId()
       },
       props.class,
     ]"
-    :data-invalid="props.critical || undefined"
+    :data-invalid="props.error || undefined"
   >
     <span v-if="props.label || $slots.label" class="ui-label" :id="labelId">
       <slot name="label">{{ props.label }}</slot>
@@ -42,10 +42,7 @@ const endTextId = useId()
     <span class="ui-field">
       <select
         :aria-labelledby="props.label ? labelId : undefined"
-        :disabled="props.disabled"
         :id="selectId"
-        :name="props.name"
-        :required="props.required"
         v-bind="$attrs"
         v-model="modelValue"
       >

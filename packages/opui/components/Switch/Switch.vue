@@ -25,7 +25,7 @@ const endTextId = useId()
       },
       props.class,
     ]"
-    :data-invalid="props.critical || undefined"
+    :data-invalid="props.error || undefined"
   >
     <span
       v-if="$slots['icon-unchecked']"
@@ -47,11 +47,6 @@ const endTextId = useId()
       v-bind="$attrs"
       v-model="modelValue"
       :aria-describedby="endTextId"
-      :disabled="props.disabled"
-      :id="props.id"
-      :name="props.name"
-      :required="props.required"
-      :value="props.value"
     />
 
     <span

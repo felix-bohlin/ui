@@ -5,3 +5,7 @@ export type Props = {
   id?: string
   label?: string
 }
+
+export type Slots<S> = {
+  content?: S
+}

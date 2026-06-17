@@ -1,0 +1,114 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<h3>Props</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>id</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>auto-generated</Table.Cell>
+      <Table.Cell>
+        Unique identifier. Defaults to a stable auto-generated id when omitted.
+      </Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>side</code></Table.Cell>
+      <Table.Cell>
+        <code>"inline-start"</code>, <code>"inline-end"</code>,
+        <code>"block-start"</code>, <code>"block-end"</code>
+      </Table.Cell>
+      <Table.Cell><code>"inline-start"</code></Table.Cell>
+      <Table.Cell>The side it opens from.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>backdrop</code></Table.Cell>
+      <Table.Cell>
+        <code>"transparent"</code>, <code>"blurred"</code>
+      </Table.Cell>
+      <Table.Cell><code>"blurred"</code></Table.Cell>
+      <Table.Cell>The backdrop style.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>scrollLock</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>true</code></Table.Cell>
+      <Table.Cell>Whether to lock page scroll.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>class</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional CSS class.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>closedby</code></Table.Cell>
+      <Table.Cell>
+        <code>"any"</code>, <code>"closerequest"</code>, <code>"none"</code>
+      </Table.Cell>
+      <Table.Cell><code>"any"</code></Table.Cell>
+      <Table.Cell>How the drawer is closed.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3>Slots</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Slot</Table.HeaderCell>
+      <Table.HeaderCell>-</Table.HeaderCell>
+      <Table.HeaderCell>-</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>heading</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The drawer title.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>default</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Main content area.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>actions</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Bottom action area.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+<Table.Row>
+  <Table.Cell><code>actions</code></Table.Cell>
+  <Table.Cell
+    >The bottom actions area, wrapped in a <code>div</code> with an <code
+      >actions</code
+    > class.</Table.Cell
+  >
+</Table.Row>

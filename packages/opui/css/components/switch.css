@@ -1,5 +1,6 @@
 @layer components.root {
   :where(.ui-switch) {
+    --_motion: var(--motion, 1);
     --_accent-color: var(--primary);
     --_accent-contrast: var(--primary-contrast);
 
@@ -12,7 +13,7 @@
     --_track-height: var(--size-5);
     --_track-width: var(--size-8);
     --_transition-tf: var(--ease-4);
-    --_transition-time: 0.2s;
+    --_transition-time: calc(0.2s * var(--_motion));
 
     align-items: center;
     color: var(--text-primary);
@@ -44,7 +45,8 @@
 
       &:focus-visible {
         --focus-ring-color: currentColor;
-        outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+        outline: var(--focus-ring-width) var(--focus-ring-style)
+          var(--focus-ring-color);
         outline-offset: var(--focus-ring-offset);
       }
 
@@ -76,33 +78,32 @@
           --_dot-bg-color: var(--_accent-contrast);
           --_dot-outline-size: calc(var(--size-1) - 1px);
 
-          inset-inline-start: calc(var(--_track-width) - var(--_dot-size) - var(--size-1));
+          inset-inline-start: calc(
+            var(--_track-width) - var(--_dot-size) - var(--size-1)
+          );
         }
       }
 
       /* Animation */
-      @media (prefers-reduced-motion: no-preference) {
+      /* Track */
+      &::before {
+        transition:
+          background-color var(--_transition-time) var(--_transition-tf),
+          border-color var(--_transition-time) var(--_transition-tf);
+      }
 
-        /* Track */
-        &::before {
-          transition:
-            background-color var(--_transition-time) var(--_transition-tf),
-            border-color var(--_transition-time) var(--_transition-tf);
-        }
+      /* Dot */
+      &::after {
+        transition: all var(--_transition-time) var(--_transition-tf);
+      }
 
-        /* Dot */
-        &::after {
-          transition: all var(--_transition-time) var(--_transition-tf);
-        }
+      &:active:after {
+        --_dot-outline-size: calc(var(--size-1) + 1px);
+      }
 
+      &:checked {
         &:active:after {
           --_dot-outline-size: calc(var(--size-1) + 1px);
-        }
-
-        &:checked {
-          &:active:after {
-            --_dot-outline-size: calc(var(--size-1) + 1px);
-          }
         }
       }
     }
@@ -142,7 +143,9 @@
       }
 
       .ui-icon-unchecked {
-        margin-inline-start: calc(var(--_track-width) - var(--_dot-size) - var(--size-1));
+        margin-inline-start: calc(
+          var(--_track-width) - var(--_dot-size) - var(--size-1)
+        );
       }
 
       .ui-icon-checked {
@@ -221,7 +224,6 @@
       }
 
       &:has(.ui-icon-checked, .ui-icon-unchecked) {
-
         input[role="switch"],
         .ui-icon-checked,
         .ui-icon-unchecked {

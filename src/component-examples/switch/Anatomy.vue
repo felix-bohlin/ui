@@ -3,8 +3,8 @@ import { Switch } from "opui-css/vue"
 </script>
 
 <template>
-<Switch class="anatomy">
-  Label
-  <template #end-text>End text</template>
-</Switch>
+  <Switch class="anatomy">
+    Label
+    <template #end-text>End text</template>
+  </Switch>
 </template>

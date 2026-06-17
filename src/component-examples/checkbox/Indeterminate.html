@@ -1,51 +1,51 @@
 <fieldset class="ui-fieldset indeterminate-demo-html">
-	<legend>
-		<label class="ui-checkbox parent">
-			<input type="checkbox" />
-			<span class="ui-label">Select all</span>
-		</label>
-	</legend>
-	<div class="ui-field-group" role="group">
-		<label class="ui-checkbox child">
-			<input name="indeterminate-children-html" type="checkbox" checked />
-			<span class="ui-label">Apples</span>
-		</label>
-		<label class="ui-checkbox child">
-			<input name="indeterminate-children-html" type="checkbox" />
-			<span class="ui-label">Bananas</span>
-		</label>
-		<label class="ui-checkbox child">
-			<input name="indeterminate-children-html" type="checkbox" />
-			<span class="ui-label">Cherries</span>
-		</label>
-	</div>
+  <legend>
+    <label class="ui-checkbox parent">
+      <input type="checkbox" />
+      <span class="ui-label">Select all</span>
+    </label>
+  </legend>
+  <div class="ui-field-group" role="group">
+    <label class="ui-checkbox child">
+      <input name="indeterminate-children-html" type="checkbox" checked />
+      <span class="ui-label">Apples</span>
+    </label>
+    <label class="ui-checkbox child">
+      <input name="indeterminate-children-html" type="checkbox" />
+      <span class="ui-label">Bananas</span>
+    </label>
+    <label class="ui-checkbox child">
+      <input name="indeterminate-children-html" type="checkbox" />
+      <span class="ui-label">Cherries</span>
+    </label>
+  </div>
 </fieldset>
 
 <script>
-	function setupIndeterminateDemoHtml() {
-		document.querySelectorAll(".indeterminate-demo-html").forEach((root) => {
-			const parent = root.querySelector('.parent input[type="checkbox"]');
-			const children = Array.from(
-				root.querySelectorAll('.child input[type="checkbox"]'),
-			);
-			if (!parent || children.length === 0) return;
+  function setupIndeterminateDemoHtml() {
+    document.querySelectorAll(".indeterminate-demo-html").forEach((root) => {
+      const parent = root.querySelector('.parent input[type="checkbox"]')
+      const children = Array.from(
+        root.querySelectorAll('.child input[type="checkbox"]'),
+      )
+      if (!parent || children.length === 0) return
 
-			const sync = () => {
-				const checkedCount = children.filter((c) => c.checked).length;
-				parent.checked = checkedCount === children.length;
-				parent.indeterminate =
-					checkedCount > 0 && checkedCount < children.length;
-			};
+      const sync = () => {
+        const checkedCount = children.filter((c) => c.checked).length
+        parent.checked = checkedCount === children.length
+        parent.indeterminate =
+          checkedCount > 0 && checkedCount < children.length
+      }
 
-			parent.addEventListener("change", () => {
-				children.forEach((c) => (c.checked = parent.checked));
-				parent.indeterminate = false;
-			});
-			children.forEach((c) => c.addEventListener("change", sync));
-			sync();
-		});
-	}
+      parent.addEventListener("change", () => {
+        children.forEach((c) => (c.checked = parent.checked))
+        parent.indeterminate = false
+      })
+      children.forEach((c) => c.addEventListener("change", sync))
+      sync()
+    })
+  }
 
-	setupIndeterminateDemoHtml();
-	document.addEventListener("astro:after-swap", setupIndeterminateDemoHtml);
+  setupIndeterminateDemoHtml()
+  document.addEventListener("astro:after-swap", setupIndeterminateDemoHtml)
 </script>

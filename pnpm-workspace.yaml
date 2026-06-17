@@ -1,3 +1,10 @@
 packages:
-  - "packages/*"
-  - "."
+  - packages/*
+  - .
+
+catalog:
+  astro: ^6.4.7
+  open-props: ^1.7.23
+  solid-js: ^1.9.13
+  svelte: ^5.56.3
+  vue: ^3.5.38

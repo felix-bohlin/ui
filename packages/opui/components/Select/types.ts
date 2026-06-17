@@ -1,5 +1,5 @@
 export type Props = {
-  critical?: boolean
+  error?: boolean
   dense?: boolean
   description?: string
   items?: Item[]

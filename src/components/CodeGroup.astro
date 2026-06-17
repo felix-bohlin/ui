@@ -37,12 +37,16 @@ const { tabs } = Astro.props
     padding: 0;
     overflow: hidden;
   }
+</style>
 
-  :global(.tab-panel) {
-    position: relative;
-
+<style is:global>
+  .ui-tab-panel {
     * {
       isolation: isolate;
+    }
+
+    .expressive-code .frame .header {
+      border-radius: 0;
     }
   }
 </style>

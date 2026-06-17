@@ -1,5 +1,6 @@
 @layer components.root {
   :where(.ui-button) {
+    --_motion: var(--motion, 1);
     --_color: light-dark(var(--color-16), var(--color-1));
     --_color-contrast: light-dark(var(--color-1), var(--color-16));
     --_color-tonal: var(--surface-tonal);
@@ -9,15 +10,23 @@
     --_accent-tonal: var(--_color-tonal);
     --_accent-tonal-contrast: var(--_color);
 
-    --_default-hover-bg-color: light-dark(oklch(from var(--_accent) l 0.01 h / 10%),
-        oklch(from var(--_accent) l 0.01 h / 20%));
-    --_default-active-bg-color: light-dark(oklch(from var(--_accent) l 0.06 h / 20%),
-        oklch(from var(--_accent) l 0.06 h / 30%));
+    --_default-hover-bg-color: light-dark(
+      oklch(from var(--_accent) l 0.01 h / 10%),
+      oklch(from var(--_accent) l 0.01 h / 20%)
+    );
+    --_default-active-bg-color: light-dark(
+      oklch(from var(--_accent) l 0.06 h / 20%),
+      oklch(from var(--_accent) l 0.06 h / 30%)
+    );
 
-    --_filled-hover-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.2) c h),
-        oklch(from var(--_accent) calc(l - 0.1) c h));
-    --_filled-active-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.3) c h),
-        oklch(from var(--_accent) calc(l - 0.15) c h));
+    --_filled-hover-bg-color: light-dark(
+      oklch(from var(--_accent) calc(l + 0.2) c h),
+      oklch(from var(--_accent) calc(l - 0.1) c h)
+    );
+    --_filled-active-bg-color: light-dark(
+      oklch(from var(--_accent) calc(l + 0.3) c h),
+      oklch(from var(--_accent) calc(l - 0.15) c h)
+    );
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
 
     --_bg-color: transparent;
@@ -45,8 +54,11 @@
     padding-inline: 1.5ex;
     text-align: center;
     text-decoration: none;
-    transition: background-color .1s ease, color .1s ease,
-      border-color .1s ease, box-shadow .1s ease;
+    transition:
+      background-color calc(0.1s * var(--_motion)) ease,
+      color calc(0.1s * var(--_motion)) ease,
+      border-color calc(0.1s * var(--_motion)) ease,
+      box-shadow calc(0.1s * var(--_motion)) ease;
     user-select: none;
 
     /* Colors — shared interaction model for critical and primary.
@@ -79,9 +91,11 @@
 
     /* Disabled */
     &:where([disabled]) {
-      --_text-color: color-mix(in oklch,
-          var(--text-muted) 50%,
-          var(--surface-default));
+      --_text-color: color-mix(
+        in oklch,
+        var(--text-muted) 50%,
+        var(--surface-default)
+      );
 
       cursor: not-allowed;
       opacity: 0.64;
@@ -98,7 +112,6 @@
         --_bg-color: var(--_default-active-bg-color);
       }
     }
-
 
     /* Icons / Keyboard */
     &:where(:has(svg), &.ui-icon-only) {
@@ -126,14 +139,14 @@
       --_min-height: var(--button-size-x-small);
       --_font-size: var(--font-size-0);
       padding-block: 0;
-      padding-inline: .5ex;
+      padding-inline: 0.5ex;
     }
 
     &.ui-small {
       --_min-height: var(--button-size-small);
       --_font-size: var(--font-size-05);
       padding-block: 0;
-      padding-inline: .75ex;
+      padding-inline: 0.75ex;
     }
 
     &.ui-large {

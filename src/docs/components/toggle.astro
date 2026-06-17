@@ -65,6 +65,9 @@ import Conditional from "../../components/Conditional.astro"
           >&lt;div role="radiogroup" class="ui-toggle-group"&gt;</code
         > (or <code>role="group"</code> when multi-select).
       </Fragment>
+      <Fragment slot="vue">
+        Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
+      </Fragment>
     </Conditional>
 
     <h3 id="multi-select">Multi-select</h3>
@@ -75,6 +78,9 @@ import Conditional from "../../components/Conditional.astro"
       <p slot="astro">
         Use <code>selection="multiple"</code> for multi-select groups.
       </p>
+      <p slot="vue">
+        Use <code>selection="multiple"</code> for multi-select groups.
+      </p>
     </Conditional>
 
     <AutoExample name="MultiSelect" centered />
@@ -83,6 +89,9 @@ import Conditional from "../../components/Conditional.astro"
     <Conditional>
       <p slot="html">Use <code>type="radio"</code> for single-select groups.</p>
       <p slot="astro">
+        Use <code>selection="single"</code> for single-select groups.
+      </p>
+      <p slot="vue">
         Use <code>selection="single"</code> for single-select groups.
       </p>
     </Conditional>
@@ -102,6 +111,11 @@ import Conditional from "../../components/Conditional.astro"
       </p>
       <p slot="html">
         Change the layout of the group with the <code>.ui-vertical</code> class.
+      </p>
+      <p slot="vue">
+        Change the layout of the group with the <code
+          >orientation="vertical"</code
+        > prop.
       </p>
     </Conditional>
     <AutoExample name="Vertical" centered />

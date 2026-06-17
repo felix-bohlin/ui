@@ -1,12 +1,12 @@
 ---
-import type { ClassicSelectProps as Props, Item } from "./types.astro"
+import type { ClassicSelectProps as Props } from "./types.astro"
 
 export const title = "Classic Select"
 
 const {
   class: className,
   disabled,
-  critical,
+  error,
   id,
   items = [],
   label,
@@ -33,12 +33,13 @@ const labelId = $id("select-label")
     },
     className,
   ]}
-  data-invalid={critical || undefined}
+  data-invalid={error || undefined}
 >
   {
     label && (
-      <!-- prettier-ignore -->
-      <span class="ui-label" id={labelId}>{label}</span>
+      <span class="ui-label" id={labelId}>
+        {label}
+      </span>
     )
   }
   <span class="ui-field">
@@ -55,10 +56,5 @@ const labelId = $id("select-label")
       <slot />
     </select>
   </span>
-  {
-    endText && (
-      <!-- prettier-ignore -->
-      <span class="ui-end-text">{endText}</span>
-    )
-  }
+  {endText && <span class="ui-end-text">{endText}</span>}
 </label>

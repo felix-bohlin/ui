@@ -14,6 +14,7 @@ export const description =
 ---
 
 <Component
+  description={description}
   slug="icon-button"
   browserSupport={["light-dark", "relative-color"]}
   changelogPaths={[
@@ -58,6 +59,11 @@ export const description =
       <Fragment slot="html">
         Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to apply
         a brand or destructive color. The default is a neutral gray.
+      </Fragment>
+      <Fragment slot="vue">
+        Pass <code>color</code> to apply a brand or destructive color: <code
+          >primary</code
+        > or <code>critical</code>. The default is a neutral gray.
       </Fragment>
     </Conditional>
     <AutoExample name="Colors" row />

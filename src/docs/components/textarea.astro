@@ -9,14 +9,17 @@ import TextareaCSS from "@opui/css/components/textarea.css?raw"
 
 import TextFieldAPIAstro from "../../component-api/text-field/Astro.astro"
 import TextFieldAPIHTML from "../../component-api/text-field/HTML.astro"
+import TextFieldAPIVue from "../../component-api/text-field/Vue.astro"
 import TextareaAPIAstro from "../../component-api/textarea/Astro.astro"
 import TextareaAPIHTML from "../../component-api/textarea/HTML.astro"
+import TextareaAPIVue from "../../component-api/textarea/Vue.astro"
 
 export const description =
   "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states."
 ---
 
 <Component
+  description={description}
   slug="textarea"
   browserSupport={[
     "datalist",
@@ -30,8 +33,14 @@ export const description =
       title: "Text field API",
       astro: TextFieldAPIAstro,
       html: TextFieldAPIHTML,
+      vue: TextFieldAPIVue,
     },
-    { title: "Textarea API", astro: TextareaAPIAstro, html: TextareaAPIHTML },
+    {
+      title: "Textarea API",
+      astro: TextareaAPIAstro,
+      html: TextareaAPIHTML,
+      vue: TextareaAPIVue,
+    },
   ]}
   changelogPaths={[
     {
@@ -86,6 +95,11 @@ export const description =
         and <code>footer</code> slots to affix content inside the textarea's border.
         Header and footer are particularly useful for filenames and character counters.
       </Fragment>
+      <Fragment slot="vue">
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> slots to affix content inside the textarea's border.
+        Header and footer are particularly useful for filenames and character counters.
+      </Fragment>
       <Fragment slot="html">
         Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
           >.ui-header</code
@@ -104,18 +118,34 @@ export const description =
 
   <section>
     <h2 id="validation">Validation</h2>
-    <p>
-      Add <code>[required]</code> to the <code>&lt;textarea&gt;</code> element to
-      toggle required styles
-    </p>
     <Conditional as="p">
       <Fragment slot="astro">
-        The <code>critical</code> prop toggles the error styles. Make use of the end
-        text to give extra feedback on the error.
+        Set <code>required</code> on the component to toggle required styles on the
+        textarea.
+      </Fragment>
+      <Fragment slot="vue">
+        Add the <code>required</code> attribute on the component. It is forwarded
+        to the underlying <code>&lt;textarea&gt;</code>.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>data-invalid</code> attribute to toggle error styles. Make use
-        of the end text to give extra feedback on the error.
+        Add <code>[required]</code> to the <code>&lt;textarea&gt;</code> element to
+        toggle required styles.
+      </Fragment>
+    </Conditional>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>error</code> prop to toggle invalid styles. It renders the
+        <code>data-invalid</code> attribute on the root element. Make use of the end
+        text to give extra feedback on the error.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>error</code> prop to toggle invalid styles. It renders
+        <code>data-invalid</code> on the root element. Make use of the end text to
+        give extra feedback on the error.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>data-invalid</code> on the root element to toggle invalid styles.
+        Make use of the end text to give extra feedback on the error.
       </Fragment>
     </Conditional>
 
@@ -132,6 +162,11 @@ export const description =
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-spread</code> class to display the label and description
+        on the left with the textarea on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>spread</code> boolean prop to display the label and description
         on the left with the textarea on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>

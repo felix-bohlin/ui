@@ -1,10 +1,11 @@
-import type { HTMLAttributes, ImgHTMLAttributes, Slot } from "vue"
-import type { ImageProps, Props as BaseProps } from "./types"
+import type { Slot } from "vue"
+import type { Props as BaseProps } from "./types"
 
-export type Props = BaseProps &
-  Pick<ImgHTMLAttributes, ImageProps> & {
-    class?: HTMLAttributes["class"]
-  }
+export type Props = BaseProps & {
+  alt?: string
+  src?: string
+  class?: string
+}
 
 export type Slots = {
   default?: Slot

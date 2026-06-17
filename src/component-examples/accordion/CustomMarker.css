@@ -1,21 +1,21 @@
 summary {
-	&:has(svg) {
-		align-items: center;
-		display: flex;
-		justify-content: space-between;
-		list-style: none;
+  &:has(svg) {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
 
-		&::marker,
-		&::-webkit-details-marker {
-			display: none;
-		}
-	}
+    &::marker,
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
 
-	svg {
-		transition: rotate 0.3s var(--ease-1);
-	}
+  svg {
+    transition: rotate 0.3s var(--ease-1);
+  }
 }
 
-details[open]>summary svg {
-	rotate: 180deg;
+details[open] > summary svg {
+  rotate: 180deg;
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ColumnProps } from './types'
+import type { ColumnProps } from "./types"
 
 const { width } = defineProps<ColumnProps>()
 
@@ -8,7 +8,7 @@ defineOptions({
 })
 
 const colStyle = width
-  ? width.includes(':')
+  ? width.includes(":")
     ? width
     : `width: ${width}`
   : undefined

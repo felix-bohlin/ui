@@ -1,67 +1,70 @@
 @layer components.extended {
-	:where(.ui-tooltip) {
-		--_tooltip-bg: light-dark(var(--gray-13), var(--gray-3));
-		--_tooltip-color: light-dark(var(--gray-1), var(--gray-15));
-		--_tooltip-offset: var(--size-2);
+  :where(.ui-tooltip) {
+    --_tooltip-bg: light-dark(var(--gray-13), var(--gray-3));
+    --_tooltip-color: light-dark(var(--gray-1), var(--gray-15));
+    --_tooltip-offset: var(--size-2);
 
-		&>.ui-anchor-floating {
-			background-color: var(--_tooltip-bg);
-			border-radius: var(--radius-2);
-			color: var(--_tooltip-color);
-			font-size: var(--font-size-05);
-			line-height: 1.3;
-			margin: var(--_tooltip-offset);
-			max-inline-size: 240px;
-			/* UA sets overflow: auto on [popover], which clips the arrow. */
-			overflow: visible;
-			padding-block: var(--size-1);
-			padding-inline: var(--size-2);
-			position-area: var(--anchor-position-area, block-start);
-			position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
-			position-visibility: anchors-visible;
-			text-align: center;
-			text-wrap: pretty;
-		}
+    & > .ui-anchor-floating {
+      background-color: var(--_tooltip-bg);
+      border-radius: var(--radius-2);
+      color: var(--_tooltip-color);
+      font-size: var(--font-size-05);
+      line-height: 1.3;
+      margin: var(--_tooltip-offset);
+      max-inline-size: 240px;
+      /* UA sets overflow: auto on [popover], which clips the arrow. */
+      overflow: visible;
+      padding-block: var(--size-1);
+      padding-inline: var(--size-2);
+      position-area: var(--anchor-position-area, block-start);
+      position-try-fallbacks:
+        flip-block,
+        flip-inline,
+        flip-block flip-inline;
+      position-visibility: anchors-visible;
+      text-align: center;
+      text-wrap: pretty;
+    }
 
-		/* Optional arrow pointing from the tooltip toward the trigger.
+    /* Optional arrow pointing from the tooltip toward the trigger.
 		   Anchored to the same --anchor so it flips together with the
 		   tooltip when position-try-fallbacks kicks in. */
-		&.ui-with-arrow {
-			--_arrow-size: var(--size-2);
+    &.ui-with-arrow {
+      --_arrow-size: var(--size-2);
 
-			&>.ui-anchor-floating {
-				/* Reserve space so the arrow doesn't overlap the trigger. */
-				--_tooltip-offset: calc(var(--size-2) + var(--_arrow-size) / 2);
-			}
+      & > .ui-anchor-floating {
+        /* Reserve space so the arrow doesn't overlap the trigger. */
+        --_tooltip-offset: calc(var(--size-2) + var(--_arrow-size) / 2);
+      }
 
-			&>.ui-anchor-floating::before {
-				background-color: var(--_tooltip-bg);
-				block-size: var(--_arrow-size);
-				content: "";
-				inline-size: var(--_arrow-size);
-				inset-block-end: calc(var(--_arrow-size) / -2);
-				inset-inline-start: 50%;
-				position: absolute;
-				rotate: 45deg;
-				translate: -50% 0;
-			}
-		}
+      & > .ui-anchor-floating::before {
+        background-color: var(--_tooltip-bg);
+        block-size: var(--_arrow-size);
+        content: "";
+        inline-size: var(--_arrow-size);
+        inset-block-end: calc(var(--_arrow-size) / -2);
+        inset-inline-start: 50%;
+        position: absolute;
+        rotate: 45deg;
+        translate: -50% 0;
+      }
+    }
 
-		/* Fade */
-		&>.ui-anchor-floating[popover] {
-			opacity: 0;
-			transition:
-				display 0.15s allow-discrete,
-				opacity 0.15s var(--ease-out-1),
-				overlay 0.15s allow-discrete;
+    /* Fade */
+    & > .ui-anchor-floating[popover] {
+      opacity: 0;
+      transition:
+        display 0.15s allow-discrete,
+        opacity 0.15s var(--ease-out-1),
+        overlay 0.15s allow-discrete;
 
-			&:popover-open {
-				opacity: 1;
+      &:popover-open {
+        opacity: 1;
 
-				@starting-style {
-					opacity: 0;
-				}
-			}
-		}
-	}
+        @starting-style {
+          opacity: 0;
+        }
+      }
+    }
+  }
 }

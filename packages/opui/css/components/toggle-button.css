@@ -2,86 +2,90 @@
 * Somehow handle when a group gets too wide for its container. Should it be handled?
 */
 @layer components.root {
-	:where(.ui-toggle-button) {
-		--_button-bg-color: transparent;
-		--_size: var(--field-size);
-		--_svg-size: var(--size-4);
+  :where(.ui-toggle-button) {
+    --_button-bg-color: transparent;
+    --_size: var(--field-size);
+    --_svg-size: var(--size-4);
 
-		align-items: center;
-		background-color: var(--_button-bg-color);
-		block-size: var(--_size);
-		border: 1px solid var(--border-color);
-		border-radius: var(--button-border-radius);
-		color: var(--text-primary);
-		cursor: pointer;
-		display: inline-flex;
-		flex: auto;
-		gap: var(--size-2);
-		inline-size: fit-content;
-		justify-content: center;
-		min-inline-size: var(--_size);
-		outline-offset: calc(-1 * var(--size-2));
-		padding: 0 var(--size-2);
-		position: relative;
-		user-select: none;
+    align-items: center;
+    background-color: var(--_button-bg-color);
+    block-size: var(--_size);
+    border: 1px solid var(--border-color);
+    border-radius: var(--button-border-radius);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: inline-flex;
+    flex: auto;
+    gap: var(--size-2);
+    inline-size: fit-content;
+    justify-content: center;
+    min-inline-size: var(--_size);
+    outline-offset: calc(-1 * var(--size-2));
+    padding: 0 var(--size-2);
+    position: relative;
+    user-select: none;
 
-		input[type="checkbox"],
-		input[type="radio"] {
-			/* utils.css > .ui-sr-only */
-			block-size: 1px;
-			clip-path: inset(50%);
-			inline-size: 1px;
-			overflow: hidden;
-			position: absolute;
-			white-space: nowrap;
-		}
+    input[type="checkbox"],
+    input[type="radio"] {
+      /* utils.css > .ui-sr-only */
+      block-size: 1px;
+      clip-path: inset(50%);
+      inline-size: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+    }
 
-		/* Element states */
-		@media (pointer: fine) {
-			&:hover:not(.ui-disabled) {
-				--_button-bg-color: light-dark(oklch(0% 0 0 / 0.04), oklch(100% 0 0 / 0.08));
-			}
-		}
+    /* Element states */
+    @media (pointer: fine) {
+      &:hover:not(.ui-disabled) {
+        --_button-bg-color: light-dark(
+          oklch(0% 0 0 / 0.04),
+          oklch(100% 0 0 / 0.08)
+        );
+      }
+    }
 
-		&:has(input:focus-visible) {
-			--focus-ring-color: var(--text-muted);
-			--focus-ring-offset: -6px;
-			outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
-			outline-offset: var(--focus-ring-offset);
-		}
+    &:has(input:focus-visible) {
+      --focus-ring-color: var(--text-muted);
+      --focus-ring-offset: -6px;
+      outline: var(--focus-ring-width) var(--focus-ring-style)
+        var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+    }
 
-		/* Disabled */
-		&.ui-disabled {
-			border-color: color-mix(in oklch, var(--border-color) 50%, transparent);
-			color: color-mix(in oklch, var(--text-primary) 30%, transparent);
-			cursor: not-allowed;
-		}
+    /* Disabled */
+    &.ui-disabled {
+      border-color: color-mix(in oklch, var(--border-color) 50%, transparent);
+      color: color-mix(in oklch, var(--text-primary) 30%, transparent);
+      cursor: not-allowed;
+    }
 
-		/* svgs */
-		svg {
-			block-size: var(--_svg-size);
-			flex-shrink: 0;
-			inline-size: var(--_svg-size);
-		}
+    /* svgs */
+    svg {
+      block-size: var(--_svg-size);
+      flex-shrink: 0;
+      inline-size: var(--_svg-size);
+    }
 
-		/* Selected */
-		&:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
-			--_button-bg-color: oklch(from var(--primary) l c h / 25%);
+    /* Selected */
+    &:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
+      --_button-bg-color: oklch(from var(--primary) l c h / 25%);
 
-			@media (pointer: fine) {
-				&:hover {
-					--_button-bg-color: oklch(from var(--primary) l c h / 35%);
-				}
-			}
-		}
+      @media (pointer: fine) {
+        &:hover {
+          --_button-bg-color: oklch(from var(--primary) l c h / 35%);
+        }
+      }
+    }
 
-		/* Sizes */
-		&.ui-small {
-			--_size: var(--field-size-small);
-		}
+    /* Sizes */
+    &.ui-small {
+      --_size: var(--field-size-small);
+    }
 
-		&.ui-x-small {
-			--_size: var(--field-size-x-small);
-		}
-	}
+    &.ui-x-small {
+      --_size: var(--field-size-x-small);
+    }
+  }
 }

@@ -35,9 +35,11 @@ const drawerId = id || useId()
   >
     <slot v-if="slots.header" name="header"></slot>
 
-    <div class="ui-content">
+    <div v-if="slots.content" class="ui-content">
       <slot name="content"></slot>
     </div>
+
+    <slot></slot>
 
     <slot v-if="slots.footer" name="footer"></slot>
   </dialog>

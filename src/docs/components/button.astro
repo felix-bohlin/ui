@@ -31,6 +31,7 @@ export const description =
 ---
 
 <Component
+  description={description}
   slug="button"
   browserSupport={["color-mix", "has", "light-dark", "relative-color"]}
   changelogPaths={[
@@ -61,6 +62,9 @@ export const description =
           >.ui-tonal</code
         >, and <code>.ui-filled</code> classes.
       </Fragment>
+      <Fragment slot="vue">
+        Change the button variant with the <code>variant</code> prop.
+      </Fragment>
     </Conditional>
     <AutoExample name="Variants" column spacious />
   </section>
@@ -77,6 +81,11 @@ export const description =
         Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to apply
         a brand or destructive color. The default is a neutral gray.
       </Fragment>
+      <Fragment slot="vue">
+        Pass <code>color</code> to apply a brand or destructive color: <code
+          >primary</code
+        > or <code>critical</code>. The default is a neutral gray.
+      </Fragment>
     </Conditional>
     <AutoExample name="Colors" column spacious />
   </section>
@@ -90,6 +99,9 @@ export const description =
       <Fragment slot="html">
         Include an icon alongside text by nesting an SVG element within the
         button.
+      </Fragment>
+      <Fragment slot="vue">
+        Include an icon alongside text by nesting it within the component.
       </Fragment>
     </Conditional>
     <Example column>
@@ -130,6 +142,9 @@ export const description =
         >
         classes.
       </Fragment>
+      <Fragment slot="vue">
+        Resize any button using the <code>size</code> prop.
+      </Fragment>
     </Conditional>
     <Example column>
       <Example.Preview slot="preview-astro" code={ExampleSizes} />
@@ -151,6 +166,9 @@ export const description =
         Add disabled styling with the <code>disabled</code> attribute or the <code
           >.ui-disabled</code
         > class.
+      </Fragment>
+      <Fragment slot="vue">
+        Disable the button with the <code>disabled</code> prop.
       </Fragment>
     </Conditional>
     <Example column>

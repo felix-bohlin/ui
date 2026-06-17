@@ -1,5 +1,4 @@
 @layer components.extended {
-
   /*
 Lists meant to be used stand-alone or as part of Select elements
 
@@ -17,7 +16,6 @@ Lists meant to be used stand-alone or as part of Select elements
     padding: var(--size-2) 0;
 
     @media (pointer: coarse) {
-
       &,
       * {
         user-select: none;
@@ -77,14 +75,14 @@ Lists meant to be used stand-alone or as part of Select elements
           padding: 0;
         }
 
-        &> :where(a, button, label) {
+        & > :where(a, button, label) {
           gap: var(--size-2);
           min-block-size: var(--size-7);
           padding: var(--size-1) var(--size-2);
         }
 
         /* Checkbox / Radio */
-        &>label {
+        & > label {
           .ui-end {
             padding-inline-end: 0.125rem;
           }
@@ -119,7 +117,7 @@ Lists meant to be used stand-alone or as part of Select elements
       :where(li, option) {
         padding-inline: 0;
 
-        &> :where(a, button, label) {
+        & > :where(a, button, label) {
           padding-inline: 0;
         }
       }
@@ -153,9 +151,9 @@ Lists meant to be used stand-alone or as part of Select elements
         min-block-size: auto;
         padding: 0;
 
-        &[aria-selected="true"]> :where(a, button, label),
+        &[aria-selected="true"] > :where(a, button, label),
         &[aria-selected="true"],
-        &:has(> [aria-current="page"])> :where(a, button, label) {
+        &:has(> [aria-current="page"]) > :where(a, button, label) {
           background-color: var(--_bg-color-hover);
         }
       }
@@ -190,9 +188,9 @@ Lists meant to be used stand-alone or as part of Select elements
         }
       }
 
-      &>a,
-      &>button,
-      &>label {
+      & > a,
+      & > button,
+      & > label {
         align-items: center;
         background-color: var(--_bg-color);
         color: inherit;
@@ -219,7 +217,7 @@ Lists meant to be used stand-alone or as part of Select elements
       }
 
       /* Checkbox / Radio / Switch */
-      &>label {
+      & > label {
         &:where(.ui-checkbox, .ui-radio, .ui-switch) {
           display: flex;
         }
@@ -270,7 +268,7 @@ Lists meant to be used stand-alone or as part of Select elements
           font-weight: 400;
         }
 
-        p+p {
+        p + p {
           color: var(--text-muted);
           font-size: var(--font-size-0);
         }

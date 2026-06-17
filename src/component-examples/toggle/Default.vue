@@ -3,7 +3,5 @@ import { ToggleButton } from "opui-css/vue"
 </script>
 
 <template>
-<ToggleButton value="notifications">
-	Notifications
-</ToggleButton>
+  <ToggleButton value="notifications"> Notifications </ToggleButton>
 </template>

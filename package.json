@@ -1,37 +1,40 @@
 {
   "name": "open-props-ui-docs",
   "type": "module",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "scripts": {
-    "dev": "astro dev",
-    "build": "pnpm build-search-index && pnpm check-browser-support && astro build",
-    "preview": "astro preview",
     "astro": "astro",
+    "build": "pnpm build-search-index && pnpm check-browser-support && astro build",
     "build-search-index": "node scripts/generate-search-index.mjs",
-    "check-browser-support": "node scripts/check-browser-support.mjs"
+    "check-browser-support": "node scripts/check-browser-support.mjs",
+    "dev": "astro dev",
+    "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.9",
-    "astro": "^6.3.1",
+    "astro": "catalog:",
     "astro-expressive-code": "^0.41.7",
     "baseline-status": "^1.1.1",
     "globby": "^16.2.0",
     "highlight.js": "^11.11.1",
     "minisearch": "^7.2.0",
-    "open-props": "^1.7.23",
+    "open-props": "catalog:",
     "opui-css": "workspace:*",
-    "svelte": "^5.55.7",
     "typescript": "^6.0.3",
-    "web-features": "^3.27.0"
+    "web-features": "^3.30.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/sitemap": "^3.7.3",
     "@astrojs/solid-js": "^6.0.1",
-    "@astrojs/svelte": "^8.1.1",
+    "@astrojs/svelte": "^8.1.2",
     "@astrojs/vue": "^6.0.1",
-    "prettier": "^3.8.3",
+    "prettier": "^3.8.4",
     "prettier-plugin-astro": "0.14.1",
-    "prettier-plugin-svelte": "^3.5.2",
-    "solid-js": "^1.9.13",
-    "vue": "^3.5.34"
+    "solid-js": "catalog:",
+    "svelte": "catalog:",
+    "vue": "catalog:"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": []
   }
 }

@@ -47,6 +47,7 @@ type Props = {
   row?: boolean
   showCode?: boolean
   spacious?: boolean
+  vueExampleId?: string
   wrapperClass?: string
 }
 
@@ -61,6 +62,7 @@ const {
   row,
   showCode = true,
   spacious,
+  vueExampleId,
   wrapperClass,
 } = Astro.props
 
@@ -103,6 +105,11 @@ const codeSlotName = Astro.slots.has(`code-${activeFramework}`)
       : null
 
 const hasPreview = Astro.slots.has("default") || !!previewSlotName
+
+// Vue previews are mounted client-side (see mount-vue-examples) so interactive
+// examples actually run in the browser. The SSR string is kept as the initial
+// markup and replaced on mount.
+const isLivePreview = previewSlotName === "preview-vue" && !!vueExampleId
 
 // Render the chosen preview as HTML for the rendered output. Used both for the
 // visible preview and (when output="toggled") as the "Output" tab content for
@@ -179,7 +186,15 @@ const outputPanelId = `${groupName}-output-panel`
         ]}
       >
         <slot />
-        {previewHtml && <div class="preview-render" set:html={previewHtml} />}
+        {isLivePreview ? (
+          <div
+            class="preview-render"
+            data-vue-example={vueExampleId}
+            set:html={previewHtml}
+          />
+        ) : (
+          previewHtml && <div class="preview-render" set:html={previewHtml} />
+        )}
 
         {showCode && hasCode && (
           <Chip
@@ -231,10 +246,9 @@ const outputPanelId = `${groupName}-output-panel`
             <Tabs.Panel
               panelId={sourcePanelId}
               tabId={sourceId}
-              class="tab-panel-group"
               data-panel="source"
             >
-              <div class="tab-panel">
+              <div class="ui-tab-panel">
                 <Code
                   code={codeContent}
                   lang={
@@ -264,10 +278,9 @@ const outputPanelId = `${groupName}-output-panel`
               <Tabs.Panel
                 panelId={outputPanelId}
                 tabId={outputId}
-                class="tab-panel-group"
                 data-panel="output"
               >
-                <div class="tab-panel">
+                <div class="ui-tab-panel">
                   <Code code={outputContent} lang="html" />
                 </div>
               </Tabs.Panel>
@@ -418,7 +431,7 @@ const outputPanelId = `${groupName}-output-panel`
 </style>
 
 <style is:global>
-  .tab-panel .expressive-code pre {
+  .ui-tab-panel .expressive-code pre {
     border-radius: 0;
   }
 
@@ -437,6 +450,8 @@ const outputPanelId = `${groupName}-output-panel`
 </style>
 
 <script>
+  import "./mount-vue-examples"
+
   // Tab interactivity for the source/output toggle and the show-code button.
   // Framework switching is now handled by routing — no client-side language
   // toggle is needed here.

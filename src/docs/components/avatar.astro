@@ -54,7 +54,11 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         Change the shape of the avatar with the <code>.ui-squared</code>, <code
->.ui-rounded</code> and <code>.ui-squircle</code> classes.
+          >.ui-rounded</code
+        > and <code>.ui-squircle</code> classes.
+      </Fragment>
+      <Fragment slot="vue">
+        Change the shape of the avatar with the <code>variant</code> prop.
       </Fragment>
     </Conditional>
 
@@ -71,6 +75,10 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="html">
         Group multiple avatars by adding <code>role="group"</code> to a parent container.
+      </Fragment>
+      <Fragment slot="vue">
+        Group multiple avatars by setting the <code>isGroup</code> prop on a parent
+        container.
       </Fragment>
     </Conditional>
 

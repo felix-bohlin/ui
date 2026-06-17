@@ -2,7 +2,7 @@
   {
     "id": "component-accordion-html",
     "title": "Accordion",
-    "description": "Leverages the HTML details and summary elements. Uses\n    the native HTML arrow, check out how to add your own custom marker.",
+    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
     "category": "Component",
     "frameworkId": "html",
@@ -12,7 +12,7 @@
   {
     "id": "component-accordion-astro",
     "title": "Accordion",
-    "description": "Leverages the HTML details and summary elements. Uses\n    the native HTML arrow, check out how to add your own custom marker.",
+    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
     "category": "Component",
     "frameworkId": "astro",
@@ -20,19 +20,9 @@
     "url": "/astro/components/accordion"
   },
   {
-    "id": "component-accordion-svelte",
-    "title": "Accordion",
-    "description": "Leverages the HTML details and summary elements. Uses\n    the native HTML arrow, check out how to add your own custom marker.",
-    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/accordion"
-  },
-  {
     "id": "component-accordion-vue",
     "title": "Accordion",
-    "description": "Leverages the HTML details and summary elements. Uses\n    the native HTML arrow, check out how to add your own custom marker.",
+    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
     "category": "Component",
     "frameworkId": "vue",
@@ -42,7 +32,7 @@
   {
     "id": "component-anchor-html",
     "title": "Anchor",
-    "description": "A structural primitive for positioning floating content relative to an\n      anchor element using CSS Anchor Positioning.\n    \n    \n      \n        Add the .ui-anchor class to a container. The first child becomes\n        the anchor target. Place floating content inside .ui-anchor-floating. Use --anchor-position-area to control placement.",
+    "description": "",
     "headings": "Always Visible Hover Trigger Used By",
     "category": "Component",
     "frameworkId": "html",
@@ -52,7 +42,7 @@
   {
     "id": "component-anchor-astro",
     "title": "Anchor",
-    "description": "A structural primitive for positioning floating content relative to an\n      anchor element using CSS Anchor Positioning.\n    \n    \n      \n        Add the .ui-anchor class to a container. The first child becomes\n        the anchor target. Place floating content inside .ui-anchor-floating. Use --anchor-position-area to control placement.",
+    "description": "",
     "headings": "Always Visible Hover Trigger Used By",
     "category": "Component",
     "frameworkId": "astro",
@@ -60,19 +50,9 @@
     "url": "/astro/components/anchor"
   },
   {
-    "id": "component-anchor-svelte",
-    "title": "Anchor",
-    "description": "A structural primitive for positioning floating content relative to an\n      anchor element using CSS Anchor Positioning.\n    \n    \n      \n        Add the .ui-anchor class to a container. The first child becomes\n        the anchor target. Place floating content inside .ui-anchor-floating. Use --anchor-position-area to control placement.",
-    "headings": "Always Visible Hover Trigger Used By",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/anchor"
-  },
-  {
     "id": "component-anchor-vue",
     "title": "Anchor",
-    "description": "A structural primitive for positioning floating content relative to an\n      anchor element using CSS Anchor Positioning.\n    \n    \n      \n        Add the .ui-anchor class to a container. The first child becomes\n        the anchor target. Place floating content inside .ui-anchor-floating. Use --anchor-position-area to control placement.",
+    "description": "",
     "headings": "Always Visible Hover Trigger Used By",
     "category": "Component",
     "frameworkId": "vue",
@@ -98,16 +78,6 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/avatar"
-  },
-  {
-    "id": "component-avatar-svelte",
-    "title": "Avatar",
-    "description": "",
-    "headings": "Image Letter Icon Variants Grouped",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/avatar"
   },
   {
     "id": "component-avatar-vue",
@@ -140,16 +110,6 @@
     "url": "/astro/components/badge"
   },
   {
-    "id": "component-badge-svelte",
-    "title": "Badge",
-    "description": "A badge is a small status indicator that can be placed on other elements.",
-    "headings": "Variants Indicator Severities Visibility Alignment",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/badge"
-  },
-  {
     "id": "component-badge-vue",
     "title": "Badge",
     "description": "A badge is a small status indicator that can be placed on other elements.",
@@ -178,16 +138,6 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/button-group"
-  },
-  {
-    "id": "component-button-group-svelte",
-    "title": "Button group",
-    "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
-    "headings": "Variants Colors Icons Sizes Vertical orientation Disabled",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/button-group"
   },
   {
     "id": "component-button-group-vue",
@@ -220,16 +170,6 @@
     "url": "/astro/components/button"
   },
   {
-    "id": "component-button-svelte",
-    "title": "Button",
-    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
-    "headings": "Variants Colors Buttons with icon and label Keyboard Icon-only Sizes Disabled File upload",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/button"
-  },
-  {
     "id": "component-button-vue",
     "title": "Button",
     "description": "Buttons allow users to take actions, and make choices, with a single tap.",
@@ -258,16 +198,6 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/callout"
-  },
-  {
-    "id": "component-callout-svelte",
-    "title": "Callout",
-    "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
-    "headings": "Variants Icon Severities",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/callout"
   },
   {
     "id": "component-callout-vue",
@@ -300,16 +230,6 @@
     "url": "/astro/components/card"
   },
   {
-    "id": "component-card-svelte",
-    "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
-    "headings": "Variants Header Actions Alignment",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/card"
-  },
-  {
     "id": "component-card-vue",
     "title": "Card",
     "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
@@ -338,16 +258,6 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/checkbox"
-  },
-  {
-    "id": "component-checkbox-svelte",
-    "title": "Checkbox",
-    "description": "See also: Checkbox field group.",
-    "headings": "Visible label Label position End text Validation Indeterminate Spread Sizes Field group Direction Field description Disabled Required Labels Keyboard support",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/checkbox"
   },
   {
     "id": "component-checkbox-vue",
@@ -380,16 +290,6 @@
     "url": "/astro/components/chip"
   },
   {
-    "id": "component-chip-svelte",
-    "title": "Chip",
-    "description": "Chips are compact elements that represent an input, attribute, or action.",
-    "headings": "Variants Icon Button Link Sizes",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/chip"
-  },
-  {
     "id": "component-chip-vue",
     "title": "Chip",
     "description": "Chips are compact elements that represent an input, attribute, or action.",
@@ -418,16 +318,6 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/description-list"
-  },
-  {
-    "id": "component-description-list-svelte",
-    "title": "Description list",
-    "description": "Description lists are used to display a list of terms and their descriptions.",
-    "headings": "Bordered",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/description-list"
   },
   {
     "id": "component-description-list-vue",
@@ -460,16 +350,6 @@
     "url": "/astro/components/dialog"
   },
   {
-    "id": "component-dialog-svelte",
-    "title": "Dialog",
-    "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/dialog"
-  },
-  {
     "id": "component-dialog-vue",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
@@ -498,16 +378,6 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/divider"
-  },
-  {
-    "id": "component-divider-svelte",
-    "title": "Divider",
-    "description": "It's just a line.",
-    "headings": "Variants",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/divider"
   },
   {
     "id": "component-divider-vue",
@@ -540,16 +410,6 @@
     "url": "/astro/components/drawer"
   },
   {
-    "id": "component-drawer-svelte",
-    "title": "Drawer",
-    "description": "Slides in from the sides, top or bottom of the screen.",
-    "headings": "Usage How to close a drawer Role & attributes Keyboard support",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/drawer"
-  },
-  {
     "id": "component-drawer-vue",
     "title": "Drawer",
     "description": "Slides in from the sides, top or bottom of the screen.",
@@ -578,16 +438,6 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/form"
-  },
-  {
-    "id": "component-form-svelte",
-    "title": "Form",
-    "description": "A way to build structured forms.",
-    "headings": "Usage Non-semantic elements Fieldset Required Disabled Field Legend Field Description Field Group Row Divider Kitchen Sink",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/form"
   },
   {
     "id": "component-form-vue",
@@ -620,16 +470,6 @@
     "url": "/astro/components/icon-button"
   },
   {
-    "id": "component-icon-button-svelte",
-    "title": "Icon Button",
-    "description": "Icon buttons are used to trigger actions and are typically found in toolbars, cards, and dialogs.",
-    "headings": "Variants Colors Sizes Disabled",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/icon-button"
-  },
-  {
     "id": "component-icon-button-vue",
     "title": "Icon Button",
     "description": "Icon buttons are used to trigger actions and are typically found in toolbars, cards, and dialogs.",
@@ -658,16 +498,6 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/list"
-  },
-  {
-    "id": "component-list-svelte",
-    "title": "List",
-    "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
-    "headings": "Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/list"
   },
   {
     "id": "component-list-vue",
@@ -700,16 +530,6 @@
     "url": "/astro/components/progress"
   },
   {
-    "id": "component-progress-svelte",
-    "title": "Progress",
-    "description": "See also: Spinner.",
-    "headings": "Indeterminate Determinate Variants",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/progress"
-  },
-  {
     "id": "component-progress-vue",
     "title": "Progress",
     "description": "See also: Spinner.",
@@ -738,16 +558,6 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/radio"
-  },
-  {
-    "id": "component-radio-svelte",
-    "title": "Radio",
-    "description": "See also: Form documentation.",
-    "headings": "Direction Field description Disabled Required Validation",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/radio"
   },
   {
     "id": "component-radio-vue",
@@ -780,16 +590,6 @@
     "url": "/astro/components/range"
   },
   {
-    "id": "component-range-svelte",
-    "title": "Range",
-    "description": "",
-    "headings": "Start text & End text Value Tick marks Variants Disabled Validation Spread",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/range"
-  },
-  {
     "id": "component-range-vue",
     "title": "Range",
     "description": "",
@@ -818,16 +618,6 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/select"
-  },
-  {
-    "id": "component-select-svelte",
-    "title": "Select",
-    "description": "Leverages the List component to provide markup for the Select popover.",
-    "headings": "Variants End text Affix Validation Spread Sizes Classic select",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/select"
   },
   {
     "id": "component-select-vue",
@@ -860,16 +650,6 @@
     "url": "/astro/components/spinner"
   },
   {
-    "id": "component-spinner-svelte",
-    "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
-    "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/spinner"
-  },
-  {
     "id": "component-spinner-vue",
     "title": "Spinner",
     "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
@@ -898,16 +678,6 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/switch"
-  },
-  {
-    "id": "component-switch-svelte",
-    "title": "Switch",
-    "description": "See also: Switch field group.",
-    "headings": "Visible label Label position End text Validation Spread Sizes Icons Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/switch"
   },
   {
     "id": "component-switch-vue",
@@ -940,16 +710,6 @@
     "url": "/astro/components/table"
   },
   {
-    "id": "component-table-svelte",
-    "title": "Table",
-    "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
-    "headings": "Variants Default Advanced",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/table"
-  },
-  {
     "id": "component-table-vue",
     "title": "Table",
     "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
@@ -978,16 +738,6 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/tabs"
-  },
-  {
-    "id": "component-tabs-svelte",
-    "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
-    "headings": "Basics",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/tabs"
   },
   {
     "id": "component-tabs-vue",
@@ -1020,16 +770,6 @@
     "url": "/astro/components/text-field"
   },
   {
-    "id": "component-text-field-svelte",
-    "title": "Text field",
-    "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
-    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/text-field"
-  },
-  {
     "id": "component-text-field-vue",
     "title": "Text field",
     "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
@@ -1058,16 +798,6 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/textarea"
-  },
-  {
-    "id": "component-textarea-svelte",
-    "title": "Textarea",
-    "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
-    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/textarea"
   },
   {
     "id": "component-textarea-vue",
@@ -1100,16 +830,6 @@
     "url": "/astro/components/toast"
   },
   {
-    "id": "component-toast-svelte",
-    "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
-    "headings": "How it works HTML JavaScript Severities Title + description Duration",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/toast"
-  },
-  {
     "id": "component-toast-vue",
     "title": "Toast",
     "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
@@ -1140,16 +860,6 @@
     "url": "/astro/components/toggle"
   },
   {
-    "id": "component-toggle-svelte",
-    "title": "Toggle",
-    "description": "",
-    "headings": "Toggle button Toggle group Multi-select Single-select Text + icon Vertical orientation Sizes",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/toggle"
-  },
-  {
     "id": "component-toggle-vue",
     "title": "Toggle",
     "description": "",
@@ -1162,8 +872,8 @@
   {
     "id": "component-tooltip-html",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .ui-tooltip class alongside .ui-anchor on the\n        wrapper. Wire interestfor on the trigger to the\n        .ui-anchor-floating[popover=\"hint\"] element's ID.",
-    "headings": "Basics Alignment Arrow Rich content",
+    "description": "Built on top of Anchor.",
+    "headings": "Basics Text only... ... or any markup you want Alignment Arrow",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -1172,28 +882,18 @@
   {
     "id": "component-tooltip-astro",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .ui-tooltip class alongside .ui-anchor on the\n        wrapper. Wire interestfor on the trigger to the\n        .ui-anchor-floating[popover=\"hint\"] element's ID.",
-    "headings": "Basics Alignment Arrow Rich content",
+    "description": "Built on top of Anchor.",
+    "headings": "Basics Text only... ... or any markup you want Alignment Arrow",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/tooltip"
   },
   {
-    "id": "component-tooltip-svelte",
-    "title": "Tooltip",
-    "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .ui-tooltip class alongside .ui-anchor on the\n        wrapper. Wire interestfor on the trigger to the\n        .ui-anchor-floating[popover=\"hint\"] element's ID.",
-    "headings": "Basics Alignment Arrow Rich content",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/tooltip"
-  },
-  {
     "id": "component-tooltip-vue",
     "title": "Tooltip",
-    "description": "Built on top of Anchor.\n    \n    \n      \n        Add the .ui-tooltip class alongside .ui-anchor on the\n        wrapper. Wire interestfor on the trigger to the\n        .ui-anchor-floating[popover=\"hint\"] element's ID.",
-    "headings": "Basics Alignment Arrow Rich content",
+    "description": "Built on top of Anchor.",
+    "headings": "Basics Text only... ... or any markup you want Alignment Arrow",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1218,16 +918,6 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/typography"
-  },
-  {
-    "id": "component-typography-svelte",
-    "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
-    "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/typography"
   },
   {
     "id": "component-typography-vue",
@@ -1258,15 +948,6 @@
     "url": "/astro/guide/acknowledgments"
   },
   {
-    "id": "guide-acknowledgments-svelte",
-    "title": "Acknowledgments",
-    "description": "",
-    "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
-    "category": "Guide",
-    "frameworkId": "svelte",
-    "url": "/svelte/guide/acknowledgments"
-  },
-  {
     "id": "guide-acknowledgments-vue",
     "title": "Acknowledgments",
     "description": "",
@@ -1292,15 +973,6 @@
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/browser-support"
-  },
-  {
-    "id": "guide-browser-support-svelte",
-    "title": "Browser support",
-    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
-    "headings": "",
-    "category": "Guide",
-    "frameworkId": "svelte",
-    "url": "/svelte/guide/browser-support"
   },
   {
     "id": "guide-browser-support-vue",
@@ -1330,15 +1002,6 @@
     "url": "/astro/guide/theme-generator"
   },
   {
-    "id": "guide-theme-generator-svelte",
-    "title": "Theme generator",
-    "description": "",
-    "headings": "",
-    "category": "Guide",
-    "frameworkId": "svelte",
-    "url": "/svelte/guide/theme-generator"
-  },
-  {
     "id": "guide-theme-generator-vue",
     "title": "Theme generator",
     "description": "",
@@ -1364,15 +1027,6 @@
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/why-opui"
-  },
-  {
-    "id": "guide-why-opui-svelte",
-    "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
-    "headings": "Backstory The goal of OPUI",
-    "category": "Guide",
-    "frameworkId": "svelte",
-    "url": "/svelte/guide/why-opui"
   },
   {
     "id": "guide-why-opui-vue",
@@ -1404,7 +1058,7 @@
   {
     "id": "guide-getting-started-vue",
     "title": "Getting started",
-    "description": "OPUI ships Vue 3 single-file components alongside the Astro variants. Install\n    the package, import what you need, and you're set.",
+    "description": "OPUI ships Vue 3 single-file components. Install the package, import what\n    you need, and you're set.",
     "headings": "Install via NPM Use a component Load the CSS",
     "category": "Guide",
     "frameworkId": "vue",
@@ -1431,6 +1085,16 @@
     "url": "/html/api#accordion"
   },
   {
+    "id": "api-accordion-vue",
+    "title": "Accordion API",
+    "description": "Reference for Accordion Vue component.",
+    "headings": "Group Card[role=\"group\"] - name string - open boolean false Accordion open state. variant \"default\" The visual variant of the accordion.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#accordion"
+  },
+  {
     "id": "api-anchor-astro",
     "title": "Anchor API",
     "description": "Reference for Anchor Astro component.",
@@ -1449,6 +1113,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#anchor"
+  },
+  {
+    "id": "api-anchor-vue",
+    "title": "Anchor API",
+    "description": "Reference for Anchor Vue component.",
+    "headings": "alignment string \"start end\" trigger \"always\" | \"hover\" \"always\"",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#anchor"
   },
   {
     "id": "api-avatar-astro",
@@ -1471,24 +1145,14 @@
     "url": "/html/api#avatar"
   },
   {
-    "id": "api-button-astro",
-    "title": "Button API",
-    "description": "Reference for Button Astro component.",
-    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - disabled boolean - Button disabled state.",
+    "id": "api-avatar-vue",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Vue component.",
+    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
     "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#button"
-  },
-  {
-    "id": "api-button-html",
-    "title": "Button API",
-    "description": "Reference for Button HTML component.",
-    "headings": "Sizes .ui-small, default, .ui-large - The size of the element. Variants - The variant to use. Colors .ui-critical, .ui-primary - Color modifiers. Default is a neutral gray.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#button"
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#avatar"
   },
   {
     "id": "api-badge-astro",
@@ -1511,6 +1175,46 @@
     "url": "/html/api#badge"
   },
   {
+    "id": "api-badge-vue",
+    "title": "Badge API",
+    "description": "Reference for Badge Vue component.",
+    "headings": "alignment - color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string | number - default The element the badge is anchored to. indicator",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#badge"
+  },
+  {
+    "id": "api-button-astro",
+    "title": "Button API",
+    "description": "Reference for Button Astro component.",
+    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - disabled boolean - Button disabled state.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#button"
+  },
+  {
+    "id": "api-button-html",
+    "title": "Button API",
+    "description": "Reference for Button HTML component.",
+    "headings": "Sizes - The size of the element. Variants - The variant to use. Colors - Color modifiers. Default is a neutral gray.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#button"
+  },
+  {
+    "id": "api-button-vue",
+    "title": "Button API",
+    "description": "Reference for Button Vue component.",
+    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - disabled boolean - Button disabled state.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#button"
+  },
+  {
     "id": "api-button-group-astro",
     "title": "Button Group API",
     "description": "Reference for Button Group Astro component.",
@@ -1524,11 +1228,21 @@
     "id": "api-button-group-html",
     "title": "Button Group API",
     "description": "Reference for Button Group HTML component.",
-    "headings": "Colors .ui-critical, .ui-primary - Orientation .ui-vertical - Orientation modifier. Sizes .ui-small, .ui-large - Size modifiers. Variants - Style modifiers.",
+    "headings": "Colors - Orientation .ui-vertical - Orientation modifier. Sizes .ui-small, .ui-large - Size modifiers. Variants - Style modifiers.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#button-group"
+  },
+  {
+    "id": "api-button-group-vue",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Vue component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#button-group"
   },
   {
     "id": "api-callout-astro",
@@ -1544,17 +1258,27 @@
     "id": "api-callout-html",
     "title": "Callout API",
     "description": "Reference for Callout HTML component.",
-    "headings": "Part & > .ui-content, & > svg - Internal structure. Severities - Severity modifiers. Variants .ui-tonal, .ui-outlined .ui-tonal Style modifiers.",
+    "headings": "Part & > .ui-content, & > svg\n      - Internal structure. Severities - Severity modifiers. Variants .ui-tonal, .ui-outlined .ui-tonal Style modifiers.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#callout"
   },
   {
+    "id": "api-callout-vue",
+    "title": "Callout API",
+    "description": "Reference for Callout Vue component.",
+    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#callout"
+  },
+  {
     "id": "api-card-astro",
     "title": "Card API",
     "description": "Reference for Card Astro component.",
-    "headings": "Slots - Optional slots. actionsAlign - Alignment for the actions slot. variant \"text\" The variant to use.",
+    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1571,10 +1295,20 @@
     "url": "/html/api#card"
   },
   {
+    "id": "api-card-vue",
+    "title": "Card API",
+    "description": "Reference for Card Vue component.",
+    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#card"
+  },
+  {
     "id": "api-checkbox-astro",
     "title": "Checkbox API",
     "description": "Reference for Checkbox Astro component.",
-    "headings": "checked boolean false Input checked state. disabled boolean - Input disabled state. critical boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false required boolean false Input required state. size \"small\" | \"large\" - The size of the input. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input. default The label text for the component. end-text",
+    "headings": "checked boolean false Input checked state. disabled boolean - Input disabled state. error boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false required boolean false Input required state. size \"small\" | \"large\" - The size of the input. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input. default The label text for the component. end-text",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1584,11 +1318,21 @@
     "id": "api-checkbox-html",
     "title": "Checkbox API",
     "description": "Reference for Checkbox HTML component.",
-    "headings": "Children .ui-label, .ui-end-text - Internal element classes. Layout .ui-spread, .ui-stack, default\n      - Sizes .ui-small, .ui-large - Size modifiers. Validation .ui-critical - Error state modifier. State data-indeterminate -",
+    "headings": "Children .ui-label, .ui-end-text - Internal element classes. Layout - Sizes .ui-small, .ui-large - Size modifiers. Validation [data-invalid] - Error state modifier. State data-indeterminate -",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#checkbox"
+  },
+  {
+    "id": "api-checkbox-vue",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox Vue component.",
+    "headings": "checked boolean false Input checked state. disabled boolean - Input disabled state. error boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false required boolean false Input required state. size \"small\" | \"large\" - The size of the input. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input. default The label text for the component. end-text",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#checkbox"
   },
   {
     "id": "api-chip-astro",
@@ -1611,10 +1355,20 @@
     "url": "/html/api#chip"
   },
   {
+    "id": "api-chip-vue",
+    "title": "Chip API",
+    "description": "Reference for Chip Vue component.",
+    "headings": "as \"div\" | \"a\" | \"button\" The underlying HTML element. label string - The text label to display. multiline boolean false Allows multiline text. size \"small\" - The size of the chip. variant \"tonal\" | \"outlined\" \"tonal\" The visual variant.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#chip"
+  },
+  {
     "id": "api-classic-select-astro",
     "title": "Classic Select API",
     "description": "Reference for Classic Select Astro component.",
-    "headings": "disabled boolean - Select disabled state. critical boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select.",
+    "headings": "disabled boolean - Select disabled state. error boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1629,6 +1383,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#classic-select"
+  },
+  {
+    "id": "api-classic-select-vue",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select Vue component.",
+    "headings": "disabled boolean - Select disabled state. error boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#classic-select"
   },
   {
     "id": "api-description-list-astro",
@@ -1651,10 +1415,20 @@
     "url": "/html/api#description-list"
   },
   {
+    "id": "api-description-list-vue",
+    "title": "Description List API",
+    "description": "Reference for Description List Vue component.",
+    "headings": "bordered boolean | \"dotted\" - class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#description-list"
+  },
+  {
     "id": "api-dialog-astro",
     "title": "Dialog API",
     "description": "Reference for Dialog Astro component.",
-    "headings": "actionsAlign - Alignment of the actions slot. closedby \"any\" | \"closerequest\" | \"none\" - header content actions default Any content not assigned to a named slot.",
+    "headings": "actionsAlign \"start\", \"end\" - Alignment of the actions slot. closedby \"any\" | \"closerequest\" | \"none\" - header content actions default Any content not assigned to a named slot.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1671,24 +1445,14 @@
     "url": "/html/api#dialog"
   },
   {
-    "id": "api-divider-astro",
-    "title": "Divider API",
-    "description": "Reference for Divider Astro component.",
-    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
+    "id": "api-dialog-vue",
+    "title": "Dialog API",
+    "description": "Reference for Dialog Vue component.",
+    "headings": "actionsAlign \"start\", \"end\" - Alignment of the actions slot. closedby \"any\" | \"closerequest\" | \"none\" - header content actions default Any content not assigned to a named slot.",
     "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#divider"
-  },
-  {
-    "id": "api-divider-html",
-    "title": "Divider API",
-    "description": "Reference for Divider HTML component.",
-    "headings": "Variant - Visual variant modifiers.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#divider"
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#dialog"
   },
   {
     "id": "api-drawer-astro",
@@ -1711,10 +1475,50 @@
     "url": "/html/api#drawer"
   },
   {
+    "id": "api-drawer-vue",
+    "title": "Drawer API",
+    "description": "Reference for Drawer Vue component.",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#drawer"
+  },
+  {
+    "id": "api-divider-astro",
+    "title": "Divider API",
+    "description": "Reference for Divider Astro component.",
+    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#divider"
+  },
+  {
+    "id": "api-divider-html",
+    "title": "Divider API",
+    "description": "Reference for Divider HTML component.",
+    "headings": "Variant - Visual variant modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#divider"
+  },
+  {
+    "id": "api-divider-vue",
+    "title": "Divider API",
+    "description": "Reference for Divider Vue component.",
+    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#divider"
+  },
+  {
     "id": "api-field-group-astro",
     "title": "Field Group API",
     "description": "Reference for Field Group Astro component.",
-    "headings": "critical boolean false Field group error state. legend string - The text for the legend element. direction \"row\" - The orientation of the field group.",
+    "headings": "direction \"row\" - The orientation of the field group.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1724,17 +1528,27 @@
     "id": "api-field-group-html",
     "title": "Field Group API",
     "description": "Reference for Field Group HTML component.",
-    "headings": "Children - Supported child elements. Direction default, .ui-row - The orientation of the element. Disabled [disabled] - When applied, disabled styles are shown. Validation .ui-critical - When applied, error styles are shown.",
+    "headings": "Children - Supported child elements. Direction default, .ui-row - The orientation of the element. Disabled [disabled] - When applied, disabled styles are shown. Validation [data-invalid] - When applied, error styles are shown.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#field-group"
   },
   {
+    "id": "api-field-group-vue",
+    "title": "Field Group API",
+    "description": "Reference for Field Group Vue component.",
+    "headings": "direction \"row\" - The orientation of the field group.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#field-group"
+  },
+  {
     "id": "api-form-astro",
     "title": "Form API",
     "description": "Reference for Form Astro component.",
-    "headings": "as string \"form\" The HTML element to render. as \"fieldset\", \"div\" \"fieldset\" The HTML element to render. disabled boolean - Whether the field set is disabled. as \"legend\" The HTML element to render. - [key: string]: any - name string - Shared name for nested input components. direction \"row\", \"column\" - The orientation of the field group.",
+    "headings": "as \"form\", \"div\" \"form\" The HTML element to render. as \"fieldset\", \"div\" \"fieldset\" The HTML element to render. disabled boolean - Whether the field set is disabled. as \"legend\", \"p\" \"legend\" The HTML element to render. - - - name string - Shared name for nested input components. direction \"row\", \"column\" - The orientation of the field group.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1751,6 +1565,16 @@
     "url": "/html/api#form"
   },
   {
+    "id": "api-form-vue",
+    "title": "Form API",
+    "description": "Reference for Form Vue component.",
+    "headings": "as \"form\", \"div\" \"form\" The HTML element to render. as \"fieldset\", \"div\" \"fieldset\" The HTML element to render. disabled boolean - Whether the field set is disabled. as \"legend\", \"p\" \"legend\" The HTML element to render. - - - name string - Shared name for nested input components. direction \"row\", \"column\" - The orientation of the field group.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#form"
+  },
+  {
     "id": "api-icon-button-astro",
     "title": "Icon Button API",
     "description": "Reference for Icon Button Astro component.",
@@ -1764,11 +1588,21 @@
     "id": "api-icon-button-html",
     "title": "Icon Button API",
     "description": "Reference for Icon Button HTML component.",
-    "headings": "Variants - The visual style of the icon button. Sizes .ui-small - The size of the element. Colors .ui-critical, .ui-primary - States [disabled] - Attribute to disable the icon button.",
+    "headings": "Variants - The visual style of the icon button. Sizes .ui-small - The size of the element. Colors - States [disabled] - Attribute to disable the icon button.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#icon-button"
+  },
+  {
+    "id": "api-icon-button-vue",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button Vue component.",
+    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#icon-button"
   },
   {
     "id": "api-list-astro",
@@ -1791,6 +1625,16 @@
     "url": "/html/api#list"
   },
   {
+    "id": "api-list-vue",
+    "title": "List API",
+    "description": "Reference for List Vue component.",
+    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#list"
+  },
+  {
     "id": "api-progress-astro",
     "title": "Progress API",
     "description": "Reference for Progress Astro component.",
@@ -1804,11 +1648,21 @@
     "id": "api-progress-html",
     "title": "Progress API",
     "description": "Reference for Progress HTML component.",
-    "headings": "Progress &lt;progress class=\"ui-progress\"&gt; - The native HTML progress element. Indeterminate No value attribute - Display an indeterminate loading state. Variant - Modifiers for different background surfaces.",
+    "headings": "Progress - Indeterminate No value attribute - Display an indeterminate loading state. Variant -",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#progress"
+  },
+  {
+    "id": "api-progress-vue",
+    "title": "Progress API",
+    "description": "Reference for Progress Vue component.",
+    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#progress"
   },
   {
     "id": "api-range-astro",
@@ -1831,10 +1685,20 @@
     "url": "/html/api#range"
   },
   {
+    "id": "api-range-vue",
+    "title": "Range API",
+    "description": "Reference for Range Vue component.",
+    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\n    \n    \n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#range"
+  },
+  {
     "id": "api-select-astro",
     "title": "Select API",
     "description": "Reference for Select Astro component.",
-    "headings": "dense boolean false Select dense state. disabled boolean - Select disabled state. description string - Description text displayed above the select. endText string - Supporting text displayed below the select. critical boolean - items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. spread boolean false variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select. default label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element.",
+    "headings": "dense boolean false Select dense state. disabled boolean - Select disabled state. description string - Description text displayed above the select. endText string - Supporting text displayed below the select. error boolean - items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. spread boolean false variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select. default label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1851,10 +1715,50 @@
     "url": "/html/api#select"
   },
   {
+    "id": "api-select-vue",
+    "title": "Select API",
+    "description": "Reference for Select Vue component.",
+    "headings": "dense boolean false Select dense state. disabled boolean - Select disabled state. description string - Description text displayed above the select. endText string - Supporting text displayed below the select. error boolean - items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. spread boolean false variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select. default label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#select"
+  },
+  {
+    "id": "api-spinner-astro",
+    "title": "Spinner API",
+    "description": "Reference for Spinner Astro component.",
+    "headings": "aria-busy - Sizes font-size 1em Excluded - Elements that never receive a spinner.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#spinner"
+  },
+  {
+    "id": "api-spinner-html",
+    "title": "Spinner API",
+    "description": "Reference for Spinner HTML component.",
+    "headings": "State aria-busy=\"true\" - Sizes font-size on the element 1em Excluded - Elements that never receive a spinner.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#spinner"
+  },
+  {
+    "id": "api-spinner-vue",
+    "title": "Spinner API",
+    "description": "Reference for Spinner Vue component.",
+    "headings": "aria-busy - Sizes font-size 1em Excluded - Elements that never receive a spinner.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#spinner"
+  },
+  {
     "id": "api-switch-astro",
     "title": "Switch API",
     "description": "Reference for Switch Astro component.",
-    "headings": "aria-label string - aria-labelledby string - ID of an external element that labels the switch. checked boolean false Whether the switch is checked. disabled boolean false Whether the switch is disabled. critical boolean false Switch error state. hideLabel boolean false Visually hides the label but keeps it accessible. required boolean false Whether the switch is required. small boolean false Reduces the size of the switch. spread boolean false Spreads the label and switch to opposite ends. stack boolean false Labels are stacked under the element. default The label text for the switch. end-text",
+    "headings": "aria-label string - aria-labelledby string - ID of an external element that labels the switch. checked boolean false Whether the switch is checked. disabled boolean false Whether the switch is disabled. error boolean false Switch error state. hideLabel boolean false Visually hides the label but keeps it accessible. required boolean false Whether the switch is required. small boolean false Reduces the size of the switch. spread boolean false Spreads the label and switch to opposite ends. stack boolean false Labels are stacked under the element. default The label text for the switch. end-text",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1864,11 +1768,21 @@
     "id": "api-switch-html",
     "title": "Switch API",
     "description": "Reference for Switch HTML component.",
-    "headings": "Children - Optional children. Sizes .ui-small, default - The size of the element. Layout .ui-spread, .ui-stack, default\n      - Validation .ui-critical - When applied, error styles are shown.",
+    "headings": "Children - Optional children. Sizes .ui-small, default - The size of the element. Layout - Validation [data-invalid] - When applied, error styles are shown.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#switch"
+  },
+  {
+    "id": "api-switch-vue",
+    "title": "Switch API",
+    "description": "Reference for Switch Vue component.",
+    "headings": "aria-label string - aria-labelledby string - ID of an external element that labels the switch. checked boolean false Whether the switch is checked. disabled boolean false Whether the switch is disabled. error boolean false Switch error state. hideLabel boolean false Visually hides the label but keeps it accessible. required boolean false Whether the switch is required. small boolean false Reduces the size of the switch. spread boolean false Spreads the label and switch to opposite ends. stack boolean false Labels are stacked under the element. default The label text for the switch. end-text",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#switch"
   },
   {
     "id": "api-table-astro",
@@ -1891,6 +1805,16 @@
     "url": "/html/api#table"
   },
   {
+    "id": "api-table-vue",
+    "title": "Table API",
+    "description": "Reference for Table Vue component.",
+    "headings": "class string - Additional CSS classes to apply to the table. variant \"dense\" | \"spacious\" - The variant to use.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#table"
+  },
+  {
     "id": "api-tabs-astro",
     "title": "Tabs API",
     "description": "Reference for Tabs Astro component.",
@@ -1911,10 +1835,20 @@
     "url": "/html/api#tabs"
   },
   {
+    "id": "api-tabs-vue",
+    "title": "Tabs API",
+    "description": "Reference for Tabs Vue component.",
+    "headings": "class string - Additional class names. name string \"tabs-XXXX\" open boolean false Whether this tab is initially active. class string - Optional class name. class string - Optional class name.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#tabs"
+  },
+  {
     "id": "api-text-field-astro",
     "title": "Text Field API",
     "description": "Reference for Text Field Astro component.",
-    "headings": "autoFit boolean false Automatically adjusts its width to content. description string - Description text displayed above the field. critical boolean false label string - The label for the field. size \"small\" - The size of the field. spread boolean false endText string - Supporting text displayed below the field. variant \"filled\" - The visual variant of the field. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
+    "headings": "autoFit boolean false Automatically adjusts its width to content. description string - Description text displayed above the field. error boolean false label string - The label for the field. size \"small\" - The size of the field. spread boolean false endText string - Supporting text displayed below the field. variant \"filled\" - The visual variant of the field. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1931,64 +1865,14 @@
     "url": "/html/api#text-field"
   },
   {
-    "id": "api-toast-astro",
-    "title": "Toast API",
-    "description": "Reference for Toast Astro component.",
-    "headings": "",
+    "id": "api-text-field-vue",
+    "title": "Text Field API",
+    "description": "Reference for Text Field Vue component.",
+    "headings": "autoFit boolean false Automatically adjusts its width to content. description string - Description text displayed above the field. error boolean false label string - The label for the field. size \"small\" - The size of the field. spread boolean false endText string - Supporting text displayed below the field. variant \"filled\" - The visual variant of the field. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
     "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#toast"
-  },
-  {
-    "id": "api-toast-html",
-    "title": "Toast API",
-    "description": "Reference for Toast HTML component.",
-    "headings": "Command --show-toast - Message value / textContent - The message to display in the toast. Severity data-severity info Duration data-duration 5000ms Container #toast-manager - Component .ui-toast -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#toast"
-  },
-  {
-    "id": "api-toggle-astro",
-    "title": "Toggle API",
-    "description": "Reference for Toggle Astro component.",
-    "headings": "disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle button. type \"checkbox\" | \"radio\" \"checkbox\" value string - name string - size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle group. orientation \"vertical\" - Changes the layout direction of the group. selection \"single\" | \"multiple\" \"multiple\"",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#toggle"
-  },
-  {
-    "id": "api-toggle-html",
-    "title": "Toggle API",
-    "description": "Reference for Toggle HTML component.",
-    "headings": "Sizes - The size of the button. States .ui-disabled - The state of the button. Sizes - Children -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#toggle"
-  },
-  {
-    "id": "api-textarea-astro",
-    "title": "Textarea API",
-    "description": "Reference for Textarea Astro component.",
-    "headings": "autoFit boolean false Automatically adjusts its height to content. description string - Description text displayed above the textarea. endText string - Supporting text displayed below the textarea. spread boolean false variant \"filled\" - The visual variant of the textarea. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#textarea"
-  },
-  {
-    "id": "api-textarea-html",
-    "title": "Textarea API",
-    "description": "Reference for Textarea HTML component.",
-    "headings": "Children - Direct children of the root element. Field children - Auto-fit .ui-auto-fit - Layout .ui-spread, default - Variants default, .ui-filled - The variant to use. Validation [data-invalid] -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#textarea"
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#text-field"
   },
   {
     "id": "api-text-input-astro",
@@ -2011,6 +1895,106 @@
     "url": "/html/api#text-input"
   },
   {
+    "id": "api-text-input-vue",
+    "title": "Text Input API",
+    "description": "Reference for Text Input Vue component.",
+    "headings": "autoFit boolean false Automatically adjusts its width to content. size \"small\" - The size of the text field. variant \"filled\" - The visual variant of the text field.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#text-input"
+  },
+  {
+    "id": "api-textarea-astro",
+    "title": "Textarea API",
+    "description": "Reference for Textarea Astro component.",
+    "headings": "autoFit boolean false Automatically adjusts its height to content. description string - Description text displayed above the textarea. endText string - Supporting text displayed below the textarea. error boolean false filled boolean false The filled visual variant. label string - The label for the textarea. small boolean false The small size variant. spread boolean false label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#textarea"
+  },
+  {
+    "id": "api-textarea-html",
+    "title": "Textarea API",
+    "description": "Reference for Textarea HTML component.",
+    "headings": "Children - Direct children of the root element. Field children - Auto-fit .ui-auto-fit - Layout .ui-spread, default - Variants default, .ui-filled - The variant to use. Validation [data-invalid] -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#textarea"
+  },
+  {
+    "id": "api-textarea-vue",
+    "title": "Textarea API",
+    "description": "Reference for Textarea Vue component.",
+    "headings": "autoFit boolean false Automatically adjusts its height to content. description string - Description text displayed above the textarea. endText string - Supporting text displayed below the textarea. error boolean false filled boolean false The filled visual variant. label string - The label for the textarea. small boolean false The small size variant. spread boolean false label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#textarea"
+  },
+  {
+    "id": "api-toast-astro",
+    "title": "Toast API",
+    "description": "Reference for Toast Astro component.",
+    "headings": "",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#toast"
+  },
+  {
+    "id": "api-toast-html",
+    "title": "Toast API",
+    "description": "Reference for Toast HTML component.",
+    "headings": "Command --show-toast - Message value / textContent - The message to display in the toast. Severity data-severity info Duration data-duration 5000ms Container #toast-manager - Component .ui-toast -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#toast"
+  },
+  {
+    "id": "api-toast-vue",
+    "title": "Toast API",
+    "description": "Reference for Toast Vue component.",
+    "headings": "",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#toast"
+  },
+  {
+    "id": "api-toggle-astro",
+    "title": "Toggle API",
+    "description": "Reference for Toggle Astro component.",
+    "headings": "disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle button. type \"checkbox\" | \"radio\" \"checkbox\" value string - name string - size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle group. orientation \"vertical\" - Changes the layout direction of the group. selection \"single\" | \"multiple\" \"multiple\"",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#toggle"
+  },
+  {
+    "id": "api-toggle-html",
+    "title": "Toggle API",
+    "description": "Reference for Toggle HTML component.",
+    "headings": "Sizes - The size of the button. States .ui-disabled - The state of the button. Sizes - Children -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#toggle"
+  },
+  {
+    "id": "api-toggle-vue",
+    "title": "Toggle API",
+    "description": "Reference for Toggle Vue component.",
+    "headings": "disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle button. type \"checkbox\" | \"radio\" \"checkbox\" value string - name string - size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle group. orientation \"vertical\" - Changes the layout direction of the group. selection \"single\" | \"multiple\" \"multiple\"",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#toggle"
+  },
+  {
     "id": "api-tooltip-astro",
     "title": "Tooltip API",
     "description": "Reference for Tooltip Astro component.",
@@ -2029,5 +2013,45 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#tooltip"
+  },
+  {
+    "id": "api-tooltip-vue",
+    "title": "Tooltip API",
+    "description": "Reference for Tooltip Vue component.",
+    "headings": "alignment string \"block-start\" arrow boolean false id string auto-generated label string —",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#tooltip"
+  },
+  {
+    "id": "api-typography-astro",
+    "title": "Typography API",
+    "description": "Reference for Typography Astro component.",
+    "headings": "Classes - Sizes .ui-small, .ui-large - Size modifiers on .ui-p.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#typography"
+  },
+  {
+    "id": "api-typography-html",
+    "title": "Typography API",
+    "description": "Reference for Typography HTML component.",
+    "headings": "Headings - Heading styles for any element. Paragraph .ui-p - Body paragraph styling. Sizes .ui-small, .ui-large - Size modifiers on .ui-p. Overline .ui-overline - Small uppercase label text. Caption .ui-caption - Muted supporting text. Heading group .ui-hgroup - Blockquote .ui-blockquote - Quoted block with a start border. Code block pre.ui-code-block - Monospace preformatted block. Inline - Inline text element utilities. Rich text .ui-rich-text -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#typography"
+  },
+  {
+    "id": "api-typography-vue",
+    "title": "Typography API",
+    "description": "Reference for Typography Vue component.",
+    "headings": "Classes - Sizes .ui-small, .ui-large - Size modifiers on .ui-p.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#typography"
   }
 ]

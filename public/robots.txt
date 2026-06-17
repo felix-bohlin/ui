@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://open-props-ui.netlify.app/sitemap-index.xml

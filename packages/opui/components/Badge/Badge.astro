@@ -1,8 +1,7 @@
 ---
-import type { Props } from './types.astro'
+import type { Props } from "./types.astro"
 
 import Anchor from "../Anchor/Anchor.astro"
-
 
 export const title = "Badge"
 
@@ -39,7 +38,7 @@ const positionArea =
     className,
     color && `ui-${color}`,
   ]}
-  {...rest}
+  {...rest as any}
 >
   <slot />
   <span

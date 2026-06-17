@@ -14,14 +14,16 @@ import SpinnerCSS from "@opui/css/components/spinner.css?raw"
       path: "packages/opui/css/components/spinner.css",
       type: "css",
     },
+    { path: "src/component-api/spinner", type: "api" },
   ]}
   installationTabs={[{ title: "spinner.css", code: SpinnerCSS, lang: "css" }]}
 >
   <Fragment slot="title">Spinner</Fragment>
   <Fragment slot="preamble">
     Add it to an element with <code>aria-busy="true"</code>. Spinners are always
-    indeterminate. See also: <DocLink href="/components/progress" class="ui-link"
-      >Progress bar</DocLink
+    indeterminate. See also: <DocLink
+      href="/components/progress"
+      class="ui-link">Progress bar</DocLink
     >.
   </Fragment>
 

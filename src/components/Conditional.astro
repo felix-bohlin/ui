@@ -1,9 +1,5 @@
 ---
-import {
-  FRAMEWORKS,
-  DEFAULT_FRAMEWORK,
-  type FrameworkId,
-} from "../utils/framework-routing"
+import { DEFAULT_FRAMEWORK, type FrameworkId } from "../utils/framework-routing"
 
 type Props = {
   [key: string]: any
@@ -20,12 +16,9 @@ const currentFramework = (Astro.currentLocale ??
 // pages don't go blank during incremental migration.
 const slotName = Astro.slots.has(currentFramework)
   ? currentFramework
-  : (currentFramework === "solid" || currentFramework === "vue") &&
-      Astro.slots.has("astro")
-    ? "astro"
-    : Astro.slots.has(DEFAULT_FRAMEWORK)
-      ? DEFAULT_FRAMEWORK
-      : FRAMEWORKS.find((l) => Astro.slots.has(l.id))?.id
+  : Astro.slots.has(DEFAULT_FRAMEWORK)
+    ? DEFAULT_FRAMEWORK
+    : undefined
 
 const content = slotName ? await Astro.slots.render(slotName) : ""
 ---

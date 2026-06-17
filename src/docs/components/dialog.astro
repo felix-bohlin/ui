@@ -14,6 +14,7 @@ export const description =
 ---
 
 <Component
+  description={description}
   slug="dialog"
   browserSupport={[
     "container-style-queries",
@@ -129,6 +130,44 @@ export const description =
         </Table>
       </Fragment>
       <Fragment slot="astro">
+        <p>
+          Use <code>closedby</code> prop to control the closing behavior.
+        </p>
+        <Table style="table-layout: fixed">
+          <Table.ColumnGroup>
+            <Table.Column width="30%" />
+            <Table.Column />
+          </Table.ColumnGroup>
+          <Table.Head>
+            <Table.Row>
+              <Table.HeaderCell>Prop</Table.HeaderCell>
+              <Table.HeaderCell>Description</Table.HeaderCell>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell><code>closedby="any"</code></Table.Cell>
+              <Table.Cell
+                >Click anywhere outside of the dialog to close it.</Table.Cell
+              >
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
+              <Table.Cell>
+                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
+                button on mobile, and whatever dismiss action assistive tools use.
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell><code>closedby="none"</code></Table.Cell>
+              <Table.Cell
+                >You have to handroll a closing solution yourself.</Table.Cell
+              >
+            </Table.Row>
+          </Table.Body>
+        </Table>
+      </Fragment>
+      <Fragment slot="vue">
         <p>
           Use <code>closedby</code> prop to control the closing behavior.
         </p>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
-const { actionsAlign, closedby } = defineProps<Props>()
+const { actionsAlign } = defineProps<Props>()
 
 defineOptions({
   inheritAttrs: false,
@@ -13,7 +13,6 @@ const slots = defineSlots<Slots>()
 <template>
   <dialog
     :class="['ui-dialog', 'ui-card', 'ui-elevated', $props.class]"
-    :closedby="closedby"
     v-bind="$attrs"
   >
     <hgroup v-if="slots.header">

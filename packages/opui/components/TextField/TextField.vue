@@ -28,8 +28,7 @@ const startTextValue = computed(() => props.description || props.startText)
       },
       props.class,
     ]"
-    :data-invalid="props.critical || undefined"
-    v-bind="$attrs"
+    :data-invalid="props.error || undefined"
   >
     <span v-if="props.label || $slots.label" class="ui-label">
       <slot name="label">{{ props.label }}</slot>
@@ -41,18 +40,11 @@ const startTextValue = computed(() => props.description || props.startText)
 
     <span class="ui-field">
       <input
-        :disabled="props.disabled"
         :id="fieldId"
         :inputmode="props.type === 'numeric' ? 'numeric' : undefined"
-        :list="props.list"
-        :max="props.max"
-        :min="props.min"
-        :name="props.name"
         :pattern="props.type === 'numeric' ? '[0-9]*' : undefined"
-        :placeholder="props.placeholder"
-        :required="props.required"
-        :step="props.step"
         :type="props.type === 'numeric' ? 'text' : props.type"
+        v-bind="$attrs"
         v-model="modelValue"
       />
       <span class="ui-prefix" v-if="$slots.prefix"

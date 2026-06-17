@@ -3,5 +3,5 @@ import { Range } from "opui-css/vue"
 </script>
 
 <template>
-<Range disabled label="Disabled" />
+  <Range disabled label="Disabled" />
 </template>

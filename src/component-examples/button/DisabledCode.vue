@@ -3,5 +3,5 @@ import { Button } from "opui-css/vue"
 </script>
 
 <template>
-<Button disabled>Text</Button>
+  <Button disabled>Text</Button>
 </template>

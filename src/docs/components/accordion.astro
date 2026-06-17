@@ -60,11 +60,8 @@ import Conditional from "../../components/Conditional.astro"
 >
   <Fragment slot="title">Accordion</Fragment>
   <Fragment slot="preamble">
-    Leverages the HTML <code>details</code> and <code>summary</code> elements. Uses
-    the native HTML arrow, check out how to add your own <a
-      class="ui-link"
-      href="#custom-marker">custom marker</a
-    >.
+    Let's you show and hide stuff. Uses the native HTML arrow, check out how to
+    add your own <a class="ui-link" href="#custom-marker">custom marker</a>.
   </Fragment>
 
   <section>
@@ -78,12 +75,17 @@ import Conditional from "../../components/Conditional.astro"
 
     <Conditional as="p">
       <Fragment slot="astro">
-        Change the visual style using the <code>variant</code> prop.
+        Use the <code>variant</code> prop to change how it looks.
       </Fragment>
       <Fragment slot="html">
-        Change the visual style by adding one of the variant classes (<code
->.ui-card</code>, <code>.ui-outlined</code>, <code>.ui-elevated</code>, <code>.ui-tonal</code>)
-        to the <code>&lt;details&gt;</code> element.
+        Add one of the variant classes (<code>.ui-card</code>, <code
+          >.ui-outlined</code
+        >, <code>.ui-elevated</code>, <code>.ui-tonal</code>) to the <code
+          >&lt;details&gt;</code
+        > element to change how it looks.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>variant</code> prop to change how it looks.
       </Fragment>
     </Conditional>
 
@@ -104,6 +106,11 @@ import Conditional from "../../components/Conditional.astro"
         with <code>role="group"</code>. To theme the entire group, apply the
         variant class to the parent container.
       </Fragment>
+      <Fragment slot="vue">
+        Group multiple accordions by wrapping them in a <code>Card</code>
+        component with <code>role="group"</code>. To theme the entire group,
+        apply the <code>variant</code> prop to the parent container.
+      </Fragment>
     </Conditional>
 
     <AutoExample name="Group" column />
@@ -123,7 +130,8 @@ import Conditional from "../../components/Conditional.astro"
 
     <p>
       Include interactive elements in the header by using the <code
->.ui-actions</code> class.
+        >.ui-actions</code
+      > class.
     </p>
 
     <AutoExample name="Actions" />

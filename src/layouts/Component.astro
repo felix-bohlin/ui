@@ -18,19 +18,12 @@ import {
 } from "../utils/framework-routing"
 
 type Props = {
+  title?: string
+  description?: string
+  image?: string
   overline?: string
   browserSupport?: string[]
-  /**
-   * Component slug, e.g. `"avatar"`. When provided, APIs and `<AutoExample>`
-   * file lookups resolve relative to this slug; falls back to the URL's last
-   * segment so existing pages without an explicit `slug` keep working.
-   */
   slug?: string
-  /**
-   * Either an explicit framework-keyed API map (e.g. `{ html, astro }`), an
-   * imported API module / array, or `"auto"` to glob-resolve
-   * `src/component-api/<slug>/<Label>.astro` for every framework.
-   */
   apis?: any | any[] | "auto"
   changelogPaths?: ChangelogPathEntry[]
   installationTabs?: Tab[]
@@ -47,6 +40,9 @@ const {
   overline = "Components",
   showToc = true,
   slug: slugProp,
+  title,
+  description,
+  image,
 } = Astro.props
 
 const currentFramework = (Astro.currentLocale ??
@@ -61,14 +57,8 @@ const urlSlug = Astro.url.pathname
   .pop()
 
 const currentSlug = slugProp ?? urlSlug
-
-// Expose to nested children (notably <AutoExample>) so they don't have to
-// repeat the slug on every invocation.
 Astro.locals.componentSlug = currentSlug
 
-// Auto-resolve framework-keyed API modules when requested. `apis="auto"` (or
-// omitting `apis` entirely once a page is migrated) globs for
-// `component-api/<slug>/<Label>.astro` per registered framework.
 const apiModules = import.meta.glob("../component-api/**/*.astro", {
   eager: true,
 }) as Record<string, { default: any }>
@@ -96,7 +86,13 @@ const editUrl = `${githubRepo}/edit/main/src/docs/components/${currentSlug}.astr
 const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 ---
 
-<Document overline={overline} showToc={showToc}>
+<Document
+  overline={overline}
+  showToc={showToc}
+  title={title}
+  description={description}
+  image={image}
+>
   <FrameworkPicker size="small" slot="sidebar" />
 
   <Divider variant="tonal" slot="sidebar" />

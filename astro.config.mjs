@@ -1,10 +1,15 @@
 // @ts-check
 import { readdirSync } from "node:fs"
 import { fileURLToPath } from "node:url"
-import { defineConfig, fontProviders } from "astro/config"
-import expressiveCode from "astro-expressive-code"
 import solid from "@astrojs/solid-js"
 import svelte from "@astrojs/svelte"
+import {
+  defineConfig,
+  fontProviders,
+  passthroughImageService,
+} from "astro/config"
+import sitemap from "@astrojs/sitemap"
+import expressiveCode from "astro-expressive-code"
 import vue from "@astrojs/vue"
 
 import { DEFAULT_FRAMEWORK, FRAMEWORK_IDS } from "./src/utils/framework.js"
@@ -36,6 +41,8 @@ const legacyRedirects = {
 
 // https://astro.build/config
 export default defineConfig({
+  image: { service: passthroughImageService() },
+  site: "https://open-props-ui.netlify.app/",
   // Framework variants are modeled as i18n locales. Every framework lives
   // under its own URL prefix (e.g. /html/..., /astro/...). The "default" is
   // only used as a fallback target for unprefixed legacy URLs, which redirect
@@ -50,11 +57,23 @@ export default defineConfig({
     solid(),
     svelte(),
     vue(),
+    sitemap(),
     expressiveCode({
       themes: ["dark-plus", "light-plus"],
     }),
   ],
-  vite: {},
+  vite: {
+    plugins: [
+      {
+        name: "opui-package-astro-hmr",
+        handleHotUpdate({ file, server }) {
+          if (file.includes("/packages/opui/") && file.endsWith(".astro")) {
+            server.ws.send({ type: "full-reload", path: "*" })
+          }
+        },
+      },
+    ],
+  },
   devToolbar: { enabled: false },
   fonts: [
     {

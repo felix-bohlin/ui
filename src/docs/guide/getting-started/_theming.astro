@@ -57,3 +57,55 @@ import { Code } from "astro-expressive-code/components"
     lang="css"
   />
 </section>
+
+<section>
+  <h2 id="motion">Motion</h2>
+  <p>
+    Use the <code>--motion</code> variable to turn motion on or off. The default value
+    is <code>1</code>.
+  </p>
+
+  <p>
+    Adjust the motion speed using util classes on the <code>html</code> element, or
+    scope changes locally to an individual component instance.
+  </p>
+
+  <h3 id="motion-accessibility">Accessibility</h3>
+  <p>
+    By default, if a user has <code>prefers-reduced-motion: reduce</code> enabled
+    <code>--motion</code> variable automatically shifts to <code>0</code>,
+    completely disabling transitions.
+  </p>
+
+  <h3 id="motion-global">Global Classes</h3>
+  <p>
+    Adding these utility classes to the <code>html</code> element will override the
+    OS preference.
+  </p>
+  <ul>
+    <li>
+      <code>.ui-motion-off</code>: sets <code>--motion: 0</code> (disables motion
+      globally).
+    </li>
+    <li>
+      <code>.ui-motion-on</code>: sets <code>--motion: 1</code> (enables default motion).
+    </li>
+    <li>
+      <code>.ui-motion-debug</code>: sets <code>--motion: 10</code> (slows down transitions
+      10x to test and debug choreography).
+    </li>
+  </ul>
+  <Code code={`<html lang="en" class="ui-motion-debug">`} lang="html" />
+
+  <h3 id="motion-local">Local Overrides</h3>
+  <p>
+    Components use a local <code>--_motion</code> variable that allows you to disable
+    motion for each component individually if you want.
+  </p>
+  <Code
+    code={`<button class="ui-button" style="--_motion: 0">
+  Instant interaction
+</button>`}
+    lang="html"
+  />
+</section>

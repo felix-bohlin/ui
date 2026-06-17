@@ -1,12 +1,14 @@
 ---
-import { Anchor } from "@opui/astro"
+import { Anchor, Button } from "@opui/astro"
 ---
 
 <Anchor trigger="hover" id="anchor-hover">
-  <button
+  <Button
     interestfor="anchor-hover"
     commandfor="anchor-hover"
-    command="toggle-popover">Hover me</button
+    command="toggle-popover">Hover me</Button
   >
-  <span slot="anchored"><div class="ui-card ui-elevated">Tooltip content</div></span>
+  <span slot="anchored"
+    ><div class="ui-card ui-elevated">Tooltip content</div></span
+  >
 </Anchor>

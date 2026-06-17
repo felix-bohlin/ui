@@ -1,5 +1,6 @@
 @layer components.extended {
   :where(.ui-dialog) {
+    --_motion: var(--motion, 1);
     inline-size: 100%;
     inset: 0;
     margin: auto;
@@ -20,10 +21,6 @@
     &::backdrop {
       backdrop-filter: blur(1px);
       background-color: rgba(0, 0, 0, 0.5);
-
-      @media (prefers-reduced-motion: reduce) {
-        backdrop-filter: none;
-      }
     }
 
     &:not([open]) {
@@ -41,22 +38,21 @@
 
     &[open] {
       opacity: 1;
-      transition: display 0.2s allow-discrete,
-        overlay 0.2s allow-discrete,
-        opacity 0.2s var(--ease-out-1);
+      transition:
+        display calc(0.2s * var(--_motion)) allow-discrete,
+        overlay calc(0.2s * var(--_motion)) allow-discrete,
+        opacity calc(0.2s * var(--_motion)) var(--ease-out-1);
 
       @starting-style {
         opacity: 0;
       }
     }
 
-    @media (prefers-reduced-motion: no-preference) {
-      &[open] {
-        margin-block-start: 15%;
+    &[open] {
+      margin-block-start: 15%;
 
-        @starting-style {
-          opacity: 0;
-        }
+      @starting-style {
+        opacity: 0;
       }
     }
   }

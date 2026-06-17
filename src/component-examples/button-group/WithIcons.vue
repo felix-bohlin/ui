@@ -7,28 +7,28 @@ const closeIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32
 </script>
 
 <template>
-<ButtonGroup variant="outlined">
-  <Button aria-label="Label">
-    <span v-html="checkIcon"></span>
-  </Button>
-  <Button aria-label="Label"> Maybe </Button>
-  <Button aria-label="Label">
-    <span v-html="closeIcon"></span>
-  </Button>
-</ButtonGroup>
+  <ButtonGroup variant="outlined">
+    <Button aria-label="Label">
+      <span v-html="checkIcon"></span>
+    </Button>
+    <Button aria-label="Label"> Maybe </Button>
+    <Button aria-label="Label">
+      <span v-html="closeIcon"></span>
+    </Button>
+  </ButtonGroup>
 
-<ButtonGroup variant="outlined">
-  <Button>
-    <span v-html="checkIcon"></span>
-    OK
-  </Button>
-  <Button>
-    <span v-html="helpIcon"></span>
-    Maybe
-  </Button>
-  <Button>
-    <span v-html="closeIcon"></span>
-    No
-  </Button>
-</ButtonGroup>
+  <ButtonGroup variant="outlined">
+    <Button>
+      <span v-html="checkIcon"></span>
+      OK
+    </Button>
+    <Button>
+      <span v-html="helpIcon"></span>
+      Maybe
+    </Button>
+    <Button>
+      <span v-html="closeIcon"></span>
+      No
+    </Button>
+  </ButtonGroup>
 </template>

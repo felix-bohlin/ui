@@ -6,63 +6,63 @@ const minusIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24
 </script>
 
 <template>
-<div class="example-row">
-  <ButtonGroup orientation="vertical">
-    <Button aria-label="Up">
-      <span v-html="plusIcon"></span>
-    </Button>
-    <Button aria-label="Decrease">
-      <span v-html="minusIcon"></span>
-    </Button>
-  </ButtonGroup>
+  <div class="example-row">
+    <ButtonGroup orientation="vertical">
+      <Button aria-label="Up">
+        <span v-html="plusIcon"></span>
+      </Button>
+      <Button aria-label="Decrease">
+        <span v-html="minusIcon"></span>
+      </Button>
+    </ButtonGroup>
 
-  <ButtonGroup orientation="vertical" variant="outlined">
-    <Button aria-label="Up">
-      <span v-html="plusIcon"></span>
-    </Button>
-    <Button aria-label="Decrease">
-      <span v-html="minusIcon"></span>
-    </Button>
-  </ButtonGroup>
+    <ButtonGroup orientation="vertical" variant="outlined">
+      <Button aria-label="Up">
+        <span v-html="plusIcon"></span>
+      </Button>
+      <Button aria-label="Decrease">
+        <span v-html="minusIcon"></span>
+      </Button>
+    </ButtonGroup>
 
-  <ButtonGroup orientation="vertical" variant="tonal">
-    <Button aria-label="Up">
-      <span v-html="plusIcon"></span>
-    </Button>
-    <Button aria-label="Decrease">
-      <span v-html="minusIcon"></span>
-    </Button>
-  </ButtonGroup>
+    <ButtonGroup orientation="vertical" variant="tonal">
+      <Button aria-label="Up">
+        <span v-html="plusIcon"></span>
+      </Button>
+      <Button aria-label="Decrease">
+        <span v-html="minusIcon"></span>
+      </Button>
+    </ButtonGroup>
 
-  <ButtonGroup orientation="vertical" variant="filled">
-    <Button aria-label="Up">
-      <span v-html="plusIcon"></span>
-    </Button>
-    <Button aria-label="Decrease">
-      <span v-html="minusIcon"></span>
-    </Button>
-  </ButtonGroup>
-</div>
+    <ButtonGroup orientation="vertical" variant="filled">
+      <Button aria-label="Up">
+        <span v-html="plusIcon"></span>
+      </Button>
+      <Button aria-label="Decrease">
+        <span v-html="minusIcon"></span>
+      </Button>
+    </ButtonGroup>
+  </div>
 
-<div class="example-row">
-  <ButtonGroup orientation="vertical">
-    <Button>Up</Button>
-    <Button>Down</Button>
-  </ButtonGroup>
+  <div class="example-row">
+    <ButtonGroup orientation="vertical">
+      <Button>Up</Button>
+      <Button>Down</Button>
+    </ButtonGroup>
 
-  <ButtonGroup orientation="vertical" variant="outlined">
-    <Button>Up</Button>
-    <Button>Down</Button>
-  </ButtonGroup>
+    <ButtonGroup orientation="vertical" variant="outlined">
+      <Button>Up</Button>
+      <Button>Down</Button>
+    </ButtonGroup>
 
-  <ButtonGroup orientation="vertical" variant="tonal">
-    <Button>Up</Button>
-    <Button>Down</Button>
-  </ButtonGroup>
+    <ButtonGroup orientation="vertical" variant="tonal">
+      <Button>Up</Button>
+      <Button>Down</Button>
+    </ButtonGroup>
 
-  <ButtonGroup orientation="vertical" variant="filled">
-    <Button>Up</Button>
-    <Button>Down</Button>
-  </ButtonGroup>
-</div>
+    <ButtonGroup orientation="vertical" variant="filled">
+      <Button>Up</Button>
+      <Button>Down</Button>
+    </ButtonGroup>
+  </div>
 </template>

@@ -22,8 +22,10 @@ const contentId = $id("content")
   {...rest}
 >
   <!-- Summary -->
-  <!-- prettier-ignore -->
-  <summary id={summaryId} aria-controls={contentId}><slot name="summary" /><slot name="marker" /></summary>
+
+  <summary id={summaryId} aria-controls={contentId}
+    ><slot name="summary" /><slot name="marker" /></summary
+  >
 
   <!-- Content -->
   <div

@@ -1,6 +1,6 @@
 export type Props = {
   autoFit?: boolean
-  critical?: boolean
+  error?: boolean
   description?: string
   endText?: string
   filled?: boolean

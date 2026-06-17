@@ -1,80 +1,56 @@
-<script setup lang="ts">
-import { onMounted } from "vue"
-
-onMounted(() => {
-  function setupInputTypesControls() {
-    const filledToggle = document.querySelector("#text-field-filled-toggle")
-    const smallToggle = document.querySelector("#text-field-small-toggle")
-    const fields = document.querySelectorAll(".input-type-field")
-
-    function updateFields() {
-      if (!filledToggle || !smallToggle) return
-      fields.forEach((field) => {
-        field.classList.toggle("filled", filledToggle.checked)
-        field.classList.toggle("small", smallToggle.checked)
-      })
-    }
-
-    filledToggle?.addEventListener("change", updateFields)
-    smallToggle?.addEventListener("change", updateFields)
-  }
-
-  setupInputTypesControls()
-  document.addEventListener("astro:after-swap", setupInputTypesControls)
-})
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="example-column">
-    <label class="text-field input-type-field">
-      <span class="label">Color</span>
+    <label class="ui-text-field input-type-field">
+      <span class="ui-label">Color</span>
       <input type="color" placeholder="Color" />
     </label>
-    <label class="text-field input-type-field">
-      <span class="label">Email</span>
+    <label class="ui-text-field input-type-field">
+      <span class="ui-label">Email</span>
       <input type="email" placeholder="name@email.com" />
     </label>
-    <label class="text-field input-type-field">
-      <span class="label">Password</span>
+    <label class="ui-text-field input-type-field">
+      <span class="ui-label">Password</span>
       <input type="password" placeholder="Password" />
     </label>
-    <label class="text-field input-type-field">
-      <span class="label">Search</span>
+    <label class="ui-text-field input-type-field">
+      <span class="ui-label">Search</span>
       <input type="search" placeholder="Search" />
     </label>
-    <label class="text-field input-type-field">
-      <span class="label">Phone</span>
+    <label class="ui-text-field input-type-field">
+      <span class="ui-label">Phone</span>
       <input type="tel" placeholder="(666) 666-1337" />
     </label>
-    <label class="text-field input-type-field">
-      <span class="label">Text</span>
+    <label class="ui-text-field input-type-field">
+      <span class="ui-label">Text</span>
       <input type="text" placeholder="Text" />
     </label>
-    <label class="text-field input-type-field">
-      <span class="label">URL</span>
+    <label class="ui-text-field input-type-field">
+      <span class="ui-label">URL</span>
       <input type="url" placeholder="https://yoursite.com" />
     </label>
   </div>
 
   <div class="example-column">
-    <label class="text-field input-type-field">
-      <span class="label">Date</span>
+    <label class="ui-text-field input-type-field">
+      <span class="ui-label">Date</span>
       <input type="date" placeholder="Date" />
     </label>
-    <label class="text-field input-type-field">
-      <span class="label">Datetime local</span>
+    <label class="ui-text-field input-type-field">
+      <span class="ui-label">Datetime local</span>
       <input type="datetime-local" placeholder="Datetime local" />
     </label>
-    <label class="text-field input-type-field">
-      <span class="label">Month</span>
+    <label class="ui-text-field input-type-field">
+      <span class="ui-label">Month</span>
       <input type="month" placeholder="Month" />
     </label>
-    <label class="text-field input-type-field">
-      <span class="label">Time</span>
+    <label class="ui-text-field input-type-field">
+      <span class="ui-label">Time</span>
       <input type="time" placeholder="Time" />
     </label>
-    <label class="text-field input-type-field">
-      <span class="label">Week</span>
+    <label class="ui-text-field input-type-field">
+      <span class="ui-label">Week</span>
       <input type="week" placeholder="Week" />
     </label>
   </div>

@@ -1,11 +1,12 @@
 @layer components.root {
-
-  [aria-busy="true"]:not(input,
+  [aria-busy="true"]:not(
+    input,
     select,
     textarea,
     html,
     progress,
-    [aria-describedby]) {
+    [aria-describedby]
+  ) {
     position: relative;
 
     &::before {

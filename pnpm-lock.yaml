@@ -26,9 +26,6 @@ importers:
 
   .:
     dependencies:
-      '@astrojs/check':
-        specifier: ^0.9.9
-        version: 0.9.9(prettier-plugin-astro@0.14.1)(prettier@3.8.4)(typescript@6.0.3)
       astro:
         specifier: 'catalog:'
         version: 6.4.7(@types/node@25.0.3)(rollup@4.62.0)(yaml@2.9.0)
@@ -60,6 +57,9 @@ importers:
         specifier: ^3.30.0
         version: 3.30.0
     devDependencies:
+      '@astrojs/check':
+        specifier: ^0.9.9
+        version: 0.9.9(prettier-plugin-astro@0.14.1)(prettier@3.8.4)(typescript@6.0.3)
       '@astrojs/sitemap':
         specifier: ^3.7.3
         version: 3.7.3

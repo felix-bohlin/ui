@@ -14,12 +14,24 @@ import Theming from "./_theming.astro"
 
   <section>
     <h2 id="installation">Install via NPM</h2>
-    <p>Install the package to get access to the components.</p>
+    <p>
+      Install the package, <code>open-props</code>, and <code>vue</code> — the source
+      CSS imports below resolve Open Props from your
+      <code>node_modules</code>.
+    </p>
 
     <CodeGroup
       tabs={[
-        { title: "pnpm", code: "pnpm add opui-css vue -S", lang: "sh" },
-        { title: "npm", code: "npm install opui-css vue -S", lang: "sh" },
+        {
+          title: "pnpm",
+          code: "pnpm add opui-css open-props vue -S",
+          lang: "sh",
+        },
+        {
+          title: "npm",
+          code: "npm install opui-css open-props vue -S",
+          lang: "sh",
+        },
       ]}
     />
   </section>

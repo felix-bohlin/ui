@@ -1,6 +1,6 @@
 {
   "name": "opui-css",
-  "version": "5.4.1",
+  "version": "5.4.2",
   "description": "A CSS UI library exploring next-gen HTML & CSS features. HTML, Astro & Vue components on top of Open Props.",
   "type": "module",
   "license": "MIT",

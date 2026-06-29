@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.4.2 - 2026-06-29
+
+### Fixed
+
+- Make overline in `Card` header smaller.
+
 ## 5.4.1 - 2026-06-11
 
 ### Fixed

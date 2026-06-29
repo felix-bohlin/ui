@@ -13,7 +13,7 @@ Note: Components that use `critical` for severity styling (such as `Button`, `Ca
 
 v5 prefixes every OPUI-owned class with `ui-`. The component prop API is unchanged; only the rendered class names change.
 
-If you use the framework component (e.g. `<Button size="small" variant="outlined">`), you don't need to do anything — the component emits the prefixed classes for you.
+If you use the framework component (e.g. `<Button size="small" variant="outlined">`), you don't need to do anything - the component emits the prefixed classes for you.
 
 If you use raw HTML or write CSS that targets library classes, you must rename every reference:
 
@@ -37,7 +37,7 @@ v4 is a full re-platform.
 
 ## 1. `import "opui-css"` still works
 
-The default export still resolves to a complete, ready-to-use stylesheet — just under a different filename. No code change needed unless you want one.
+The default export still resolves to a complete, ready-to-use stylesheet - just under a different filename. No code change needed unless you want one.
 
 ```diff
 - import "opui-css"          // resolved to dist/theme-two/theme-two.css
@@ -79,7 +79,7 @@ If you were importing from `src/`:
 
 The component CSS now lives under `css/`. The pre-bundled output stays in `dist/`.
 
-## 5. Pick a theme — there's only one
+## 5. Pick a theme - there's only one
 
 `theme-one` and `theme-two` are removed. The shipped theme lives in `css/theme.css`. To customise, override variables in a layer:
 
@@ -109,7 +109,7 @@ import { Button, Dialog, Tabs } from "opui-css/astro"
 <Button variant="primary">Save</Button>
 ```
 
-`astro` is an _optional_ peer — only required if you actually import from `opui-css/astro`. Pure-CSS consumers won't see a peer warning.
+`astro` is an _optional_ peer - only required if you actually import from `opui-css/astro`. Pure-CSS consumers won't see a peer warning.
 
 Astro components emit prefixed `ui-` classes (see the v4 → v5 section at the top of this file). Raw HTML and CSS overrides must use those prefixed names.
 
@@ -125,7 +125,7 @@ Put your overrides in a later layer or unlayered. If your app already declared `
 
 ## 9. Copy/paste is still supported
 
-The source files under `components/` and `css/components/` are unminified and free to vendor in — the license is unchanged (MIT).
+The source files under `components/` and `css/components/` are unminified and free to vendor in - the license is unchanged (MIT).
 
 ## 10. Pinning v3
 

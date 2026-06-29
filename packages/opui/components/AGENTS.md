@@ -22,9 +22,9 @@ When implementing or updating a component, ensure:
 
 Every component uses layered type files:
 
-- `types.ts` — shared, framework-agnostic props (component-specific only; no `HTMLAttributes`)
-- `types.astro.ts` — Astro props = base + `HTMLAttributes<element>`
-- `types.d.vue.ts` / `types.svelte.ts` / `types.solid.ts` — framework-specific extensions (for merge parity)
+- `types.ts` - shared, framework-agnostic props (component-specific only; no `HTMLAttributes`)
+- `types.astro.ts` - Astro props = base + `HTMLAttributes<element>`
+- `types.d.vue.ts` / `types.svelte.ts` / `types.solid.ts` - framework-specific extensions (for merge parity)
 
 Every component must follow this exact frontmatter layout:
 
@@ -47,7 +47,7 @@ const {
 
 ### Key Rules:
 - **Alphabetical Sorting**: Sort property definitions in `types.ts` and variables in the destructuring statement.
-- **REST Support**: Use `HTMLAttributes` in `types.astro.ts` and `...rest` in destructuring. Do not add `[key: string]: any` to `types.ts` — native attributes belong in the framework type files.
+- **REST Support**: Use `HTMLAttributes` in `types.astro.ts` and `...rest` in destructuring. Do not add `[key: string]: any` to `types.ts` - native attributes belong in the framework type files.
 - **Title Export**: This is mandatory for documentation generation.
 
 ---

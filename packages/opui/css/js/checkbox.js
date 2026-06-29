@@ -1,7 +1,7 @@
 /**
  * Checkbox runtime helpers.
  *
- * `indeterminate` is a JavaScript-only property on HTMLInputElement — the
+ * `indeterminate` is a JavaScript-only property on HTMLInputElement - the
  * attribute alone has no effect. We mark inputs with `data-indeterminate` at
  * render time and apply the property here, both on initial load and after
  * Astro's view transitions swap the DOM.

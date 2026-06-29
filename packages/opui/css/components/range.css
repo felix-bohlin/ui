@@ -3,9 +3,6 @@
     --_motion: var(--motion, 1);
     display: grid;
     gap: var(--size-1) 0;
-    /* Two-column base so the optional .value cell can sit next to the
-       label on row 1. Children that span the full width keep using
-       `grid-column: 1/-1`, so this is backwards compatible. */
     grid-template-columns: 1fr auto;
     position: relative;
 
@@ -17,8 +14,6 @@
       grid-row: 1;
     }
 
-    /* Live current-value readout. Pairs with the <output> element
-       rendered by the Range component (or hand-written .value markup). */
     :where(.ui-value) {
       color: var(--text-muted);
       font-size: var(--font-size-0);
@@ -57,7 +52,7 @@
       margin-top: calc(var(--size-1) * -1);
       padding-inline: calc(3ex / 2);
 
-      & > option {
+      &>option {
         display: flex;
         inline-size: 0;
         justify-content: center;
@@ -121,9 +116,6 @@
         min-inline-size: 25ch;
       }
 
-      /* In spread mode, the value sits below the slider in col 2
-         (where end-text would normally land). When end-text is also
-         present it shifts down a row to avoid collision. */
       :where(.ui-value) {
         grid-column: 2;
         grid-row: 2;
@@ -140,8 +132,6 @@
         grid-row: 2;
       }
 
-      /* When both datalist and end-text exist, push end-text below the datalist
-         so they don't collide on the same grid cell. */
       &:has(datalist) :where(.ui-end-text) {
         grid-row: 3;
       }
@@ -165,9 +155,6 @@
           grid-row: 1;
         }
 
-        /* Share row 1 with the label: the label's text stays left-aligned
-           in its full-width cell, while the value shrinks to fit and
-           right-aligns. Visually reads as a "[name ........ value]" row. */
         :where(.ui-value) {
           grid-row: 1;
           justify-self: end;
@@ -238,11 +225,9 @@
       /* Track */
       &::-webkit-slider-runnable-track {
         appearance: none;
-        background: linear-gradient(
-          to right,
-          var(--_track-fill-color) var(--_track-fill, 0%),
-          var(--_track-color) 0%
-        );
+        background: linear-gradient(to right,
+            var(--_track-fill-color) var(--_track-fill, 0%),
+            var(--_track-color) 0%);
         block-size: var(--_track-height);
         border-radius: var(--_track-radius);
       }
@@ -268,8 +253,7 @@
         block-size: var(--_thumb-size);
         border: 3px solid var(--surface-default);
         border-radius: 50%;
-        box-shadow: 0 0 0 var(--_thumb-highlight-size)
-          var(--_thumb-highlight-color);
+        box-shadow: 0 0 0 var(--_thumb-highlight-size) var(--_thumb-highlight-color);
         cursor: ew-resize;
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
@@ -287,8 +271,7 @@
         block-size: var(--_thumb-size);
         border: 3px solid var(--surface-default);
         border-radius: 50%;
-        box-shadow: 0 0 0 var(--_thumb-highlight-size)
-          var(--_thumb-highlight-color);
+        box-shadow: 0 0 0 var(--_thumb-highlight-size) var(--_thumb-highlight-color);
         cursor: ew-resize;
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
@@ -313,10 +296,8 @@
 
         &:active {
           --_thumb-highlight-size: var(--size-2);
-          --_track-color: light-dark(
-            oklch(from var(--field-border-color) calc(l * 0.9) c h),
-            oklch(from var(--field-border-color) calc(l * 1.1) c h)
-          );
+          --_track-color: light-dark(oklch(from var(--field-border-color) calc(l * 0.9) c h),
+              oklch(from var(--field-border-color) calc(l * 1.1) c h));
         }
       }
 

@@ -11,10 +11,8 @@
       border-radius: 0;
 
       /* button.css > --_accent-tonal */
-      --_divider-color: light-dark(
-        oklch(from var(--_accent-tonal) calc(l - 0.1) c h),
-        oklch(from var(--_accent-tonal) calc(l + 0.1) c h)
-      );
+      --_divider-color: light-dark(oklch(from var(--_accent-tonal) calc(l - 0.1) c h),
+          oklch(from var(--_accent-tonal) calc(l + 0.1) c h));
 
       &.ui-outlined {
         --_divider-color: var(--_border-color);
@@ -28,9 +26,7 @@
         outline-offset: -4px;
       }
 
-      /* Color inheritance from Button Group — shared interaction model.
-         The .critical scope class in theme.css redirects --palette-source so
-         --color-6 below becomes a tint of the active color. */
+      /* Color inherited from Button Group. */
       :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) & {
         --_color-contrast: var(--gray-1);
         --_color-tonal: var(--color-6);
@@ -38,12 +34,8 @@
         --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
         --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
         --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-        --_filled-active-bg-color: oklch(
-          from var(--_accent) calc(l - 0.15) c h
-        );
-        --_outlined-active-bg-color: oklch(
-          from var(--_accent) calc(l - 0.1) c h
-        );
+        --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
+        --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
       }
 
       :where(.ui-button-group.ui-critical) & {
@@ -107,10 +99,8 @@
         --_divider-color: currentColor;
 
         :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) & {
-          --_divider-color: light-dark(
-            oklch(from var(--_accent) calc(l - 0.1) c h),
-            oklch(from var(--_accent) calc(l + 0.1) c h)
-          );
+          --_divider-color: light-dark(oklch(from var(--_accent) calc(l - 0.1) c h),
+              oklch(from var(--_accent) calc(l + 0.1) c h));
         }
 
         &:where(:not([disabled])) {
@@ -138,17 +128,15 @@
         }
 
         /* Siblings */
-        & + & {
+        &+& {
           border-inline-start-color: var(--_divider-color);
           border-inline-width: 1px;
           margin-inline-start: -1px;
 
           &[disabled] {
-            border-inline-start-color: color-mix(
-              in oklch,
-              var(--_divider-color) 40%,
-              transparent
-            );
+            border-inline-start-color: color-mix(in oklch,
+                var(--_divider-color) 40%,
+                transparent);
           }
         }
       }
@@ -175,16 +163,14 @@
           border-end-end-radius: var(--_border-radius);
         }
 
-        & + & {
+        &+& {
           border-block-start: 1px solid var(--_divider-color);
           margin-block-start: -1px;
 
           &[disabled] {
-            border-block-start-color: color-mix(
-              in oklch,
-              var(--_divider-color) 40%,
-              transparent
-            );
+            border-block-start-color: color-mix(in oklch,
+                var(--_divider-color) 40%,
+                transparent);
           }
         }
       }

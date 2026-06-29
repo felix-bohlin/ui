@@ -112,7 +112,7 @@ Run a project-wide find/replace per token, prompt or whatever. Below are all the
 
 </details>
 
-After the search/replace, do a visual smoke test — there is no automated codemod for consumer projects.
+After the search/replace, do a visual smoke test - there is no automated codemod for consumer projects.
 
 ## 4.1.0 - 2026-05-18
 

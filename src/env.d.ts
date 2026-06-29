@@ -13,7 +13,7 @@ declare namespace astroHTML.JSX {
 declare namespace App {
   // Augments the package-level `App.Locals` declaration in
   // `packages/opui/env.d.ts`. Interface declarations merge across files;
-  // type aliases do not — keep both as `interface` so additions here are
+  // type aliases do not - keep both as `interface` so additions here are
   // additive instead of clobbering the base shape.
   interface Locals {
     /**

@@ -1,23 +1,12 @@
 ---
-// Framework-agnostic theming reference. Included from both the html and astro
-// variants of /guide/getting-started.
 import { Code } from "astro-expressive-code/components"
 ---
 
 <section>
   <h2 id="theming">Theming</h2>
   <p>
-    Once installed, here's how the theming system fits together: a single
-    palette source feeds intent tokens, which components read from. The focus
-    ring, control sizes, and shadows are separate scales you can tune
-    independently.
-  </p>
-
-  <h3 id="palette-source">Palette source</h3>
-  <p>
-    The 16-step <code>--color-N</code> ramp is generated from a single OKLCH input:
-    <code>--palette-source</code>. Setting it on <code>:where(html)</code> (or any
-    ancestor) regenerates the entire palette in place.
+    The basic idea is to define one source color, <code>--palette-source</code>,
+    and then derive the rest of the 16-step palette from it.
   </p>
 
   <Code
@@ -30,82 +19,65 @@ import { Code } from "astro-expressive-code/components"
 
   <ul>
     <li>
-      <strong>Must be <code>oklch()</code>.</strong> Hex, <code>rgb()</code>,
-      and named colors won't work — the relative-color math reads the source's
-      <code>c</code> and <code>h</code> channels directly.
+      <strong>Must be <code>oklch()</code>. </strong>
+      <li>
+        <strong><code>--palette-hue-rotate-by</code></strong> is a separate knob for
+        per-step warm/cool drift, in degrees.
+      </li>
     </li>
-    <li>
-      <strong>Hue and chroma propagate; lightness is not used.</strong> The ramp keeps
-      its own L curve, so the literal source color won't necessarily appear at any
-      step.
-    </li>
-    <li>
-      <strong><code>--palette-hue-rotate-by</code></strong> is a separate knob for
-      per-step warm/cool drift, in degrees.
-    </li>
-  </ul>
 
-  <p>
-    To re-source the palette in a sub-tree (e.g. for status colors), override
-    <code>--palette-source</code> on a scoped selector:
-  </p>
+    <p>
+      You can override the source color anywhere you want for useful or cool
+      effect:
+    </p>
 
-  <Code
-    code={`:where(.ui-warning) {
+    <Code
+      code={`:where(.ui-warning) {
   --palette-source: oklch(0.58 0.21 var(--hue-orange));
 }`}
-    lang="css"
-  />
-</section>
-
-<section>
-  <h2 id="motion">Motion</h2>
-  <p>
-    Use the <code>--motion</code> variable to turn motion on or off. The default value
-    is <code>1</code>.
-  </p>
-
-  <p>
-    Adjust the motion speed using util classes on the <code>html</code> element, or
-    scope changes locally to an individual component instance.
-  </p>
-
-  <h3 id="motion-accessibility">Accessibility</h3>
-  <p>
-    By default, if a user has <code>prefers-reduced-motion: reduce</code> enabled
-    <code>--motion</code> variable automatically shifts to <code>0</code>,
-    completely disabling transitions.
-  </p>
-
-  <h3 id="motion-global">Global Classes</h3>
-  <p>
-    Adding these utility classes to the <code>html</code> element will override the
-    OS preference.
-  </p>
-  <ul>
-    <li>
-      <code>.ui-motion-off</code>: sets <code>--motion: 0</code> (disables motion
-      globally).
-    </li>
-    <li>
-      <code>.ui-motion-on</code>: sets <code>--motion: 1</code> (enables default motion).
-    </li>
-    <li>
-      <code>.ui-motion-debug</code>: sets <code>--motion: 10</code> (slows down transitions
-      10x to test and debug choreography).
-    </li>
+      lang="css"
+    />
   </ul>
-  <Code code={`<html lang="en" class="ui-motion-debug">`} lang="html" />
 
-  <h3 id="motion-local">Local Overrides</h3>
-  <p>
-    Components use a local <code>--_motion</code> variable that allows you to disable
-    motion for each component individually if you want.
-  </p>
-  <Code
-    code={`<button class="ui-button" style="--_motion: 0">
+  <section>
+    <h2 id="motion">Motion</h2>
+    <p>
+      Use the <code>--motion</code> variable to turn motion on or off. The default
+      value is <code>1</code>. If a user has <code
+        >prefers-reduced-motion: reduce</code
+      > enabled,
+      <code>--motion</code> will be set to <code>0</code> by default.
+    </p>
+
+    <h3 id="motion-global">Global Classes</h3>
+    <p>
+      Adding these utility classes to the <code>html</code> element will override
+      the OS preference.
+    </p>
+    <ul>
+      <li>
+        <code>.ui-motion-off</code>: sets <code>--motion: 0</code>.
+      </li>
+      <li>
+        <code>.ui-motion-on</code>: sets <code>--motion: 1</code>.
+      </li>
+      <li>
+        <code>.ui-motion-debug</code>: sets <code>--motion: 10</code> (slows down
+        transitions 10x).
+      </li>
+    </ul>
+    <Code code={`<html lang="en" class="ui-motion-debug">`} lang="html" />
+
+    <h3 id="motion-local">Local Overrides</h3>
+    <p>
+      Components use a local <code>--_motion</code> variable that allows you to disable
+      motion for each component individually if you want.
+    </p>
+    <Code
+      code={`<button class="ui-button" style="--_motion: 0">
   Instant interaction
 </button>`}
-    lang="html"
-  />
+      lang="html"
+    />
+  </section>
 </section>

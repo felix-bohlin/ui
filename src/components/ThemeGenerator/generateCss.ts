@@ -97,7 +97,7 @@ export function generateCss({
 
   if (graysEnabled) {
     lines.push(
-      "    /* Gray ramp — derived per-element by core/palette.css. Override --gray-chroma",
+      "    /* Gray ramp - derived per-element by core/palette.css. Override --gray-chroma",
     )
     lines.push("       or --gray-hue here for warmer/cooler grays. */")
     lines.push(`    --gray-chroma: ${lightSnap["--gray-chroma"]};`)
@@ -106,7 +106,7 @@ export function generateCss({
   }
 
   lines.push(
-    "    /* 3. Named colors (no severity meaning) — use when you literally want a green/red/etc. dot */",
+    "    /* 3. Named colors (no severity meaning) - use when you literally want a green/red/etc. dot */",
   )
   lines.push("    --blue: oklch(from var(--color-9) l 0.2 210);")
   lines.push("    --green: oklch(from var(--color-9) l 0.2 145);")
@@ -208,7 +208,7 @@ export function generateCss({
   lines.push("    --border-width: 1px;")
   lines.push("")
   lines.push(
-    "    /* 9. Focus ring — components consume these and may override locally */",
+    "    /* 9. Focus ring - components consume these and may override locally */",
   )
   lines.push("    --focus-ring-color: var(--primary);")
   lines.push("    --focus-ring-width: 2px;")
@@ -225,7 +225,7 @@ export function generateCss({
   lines.push("    --font-size-05: 0.875rem;")
   lines.push("")
   lines.push(
-    "    /* 11. Control sizes — shared scale for fields and buttons. */",
+    "    /* 11. Control sizes - shared scale for fields and buttons. */",
   )
   lines.push("    --control-size-x-small: 28px;")
   lines.push("    --control-size-small: 32px;")
@@ -309,7 +309,7 @@ export function generateCss({
 
   lines.push("")
   lines.push(
-    "  /* 14. Severity scope classes — re-source the palette inside these contexts. */",
+    "  /* 14. Severity scope classes - re-source the palette inside these contexts. */",
   )
   lines.push("  :where(.ui-critical, [data-invalid], del) {")
   lines.push("    --palette-source: oklch(0.58 0.21 var(--hue-red));")

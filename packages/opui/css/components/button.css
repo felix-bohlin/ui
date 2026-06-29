@@ -10,23 +10,15 @@
     --_accent-tonal: var(--_color-tonal);
     --_accent-tonal-contrast: var(--_color);
 
-    --_default-hover-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.01 h / 10%),
-      oklch(from var(--_accent) l 0.01 h / 20%)
-    );
-    --_default-active-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.06 h / 20%),
-      oklch(from var(--_accent) l 0.06 h / 30%)
-    );
+    --_default-hover-bg-color: light-dark(oklch(from var(--_accent) l 0.01 h / 10%),
+        oklch(from var(--_accent) l 0.01 h / 20%));
+    --_default-active-bg-color: light-dark(oklch(from var(--_accent) l 0.06 h / 20%),
+        oklch(from var(--_accent) l 0.06 h / 30%));
 
-    --_filled-hover-bg-color: light-dark(
-      oklch(from var(--_accent) calc(l + 0.2) c h),
-      oklch(from var(--_accent) calc(l - 0.1) c h)
-    );
-    --_filled-active-bg-color: light-dark(
-      oklch(from var(--_accent) calc(l + 0.3) c h),
-      oklch(from var(--_accent) calc(l - 0.15) c h)
-    );
+    --_filled-hover-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.2) c h),
+        oklch(from var(--_accent) calc(l - 0.1) c h));
+    --_filled-active-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.3) c h),
+        oklch(from var(--_accent) calc(l - 0.15) c h));
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
 
     --_bg-color: transparent;
@@ -61,11 +53,6 @@
       box-shadow calc(0.1s * var(--_motion)) ease;
     user-select: none;
 
-    /* Colors — shared interaction model for critical and primary.
-       Each color modifier below only swaps --_color; the tonal surface,
-       contrast text, and hover/active strategy are identical.
-       The .critical scope class in theme.css redirects --palette-source so
-       --color-6 below becomes a tint of the active color. */
     &.ui-critical,
     &.ui-primary {
       --_color-contrast: var(--gray-1);
@@ -91,11 +78,9 @@
 
     /* Disabled */
     &:where([disabled]) {
-      --_text-color: color-mix(
-        in oklch,
-        var(--text-muted) 50%,
-        var(--surface-default)
-      );
+      --_text-color: color-mix(in oklch,
+          var(--text-muted) 50%,
+          var(--surface-default));
 
       cursor: not-allowed;
       opacity: 0.64;
@@ -133,8 +118,7 @@
       line-height: 1.2;
     }
 
-    /* Sizes — heights aliased from the shared --control-size scale.
-       Override --button-size-* in a parent scope to resize an entire region. */
+    /* Sizes */
     &.ui-x-small {
       --_min-height: var(--button-size-x-small);
       --_font-size: var(--font-size-0);
@@ -208,7 +192,7 @@
     }
   }
 
-  /* file input */
+  /* File input */
   :where(input[type="file"]) {
     align-self: flex-start;
     border: var(--border-size-1) solid var(--surface-filled);

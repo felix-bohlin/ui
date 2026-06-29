@@ -4,7 +4,7 @@
     --_tooltip-color: light-dark(var(--gray-1), var(--gray-15));
     --_tooltip-offset: var(--size-2);
 
-    & > .ui-anchor-floating {
+    &>.ui-anchor-floating {
       background-color: var(--_tooltip-bg);
       border-radius: var(--radius-2);
       color: var(--_tooltip-color);
@@ -26,18 +26,16 @@
       text-wrap: pretty;
     }
 
-    /* Optional arrow pointing from the tooltip toward the trigger.
-		   Anchored to the same --anchor so it flips together with the
-		   tooltip when position-try-fallbacks kicks in. */
+    /* Arrow */
     &.ui-with-arrow {
       --_arrow-size: var(--size-2);
 
-      & > .ui-anchor-floating {
-        /* Reserve space so the arrow doesn't overlap the trigger. */
+      &>.ui-anchor-floating {
+        /* Offset so the arrow doesn't overlap the trigger. */
         --_tooltip-offset: calc(var(--size-2) + var(--_arrow-size) / 2);
       }
 
-      & > .ui-anchor-floating::before {
+      &>.ui-anchor-floating::before {
         background-color: var(--_tooltip-bg);
         block-size: var(--_arrow-size);
         content: "";
@@ -51,7 +49,7 @@
     }
 
     /* Fade */
-    & > .ui-anchor-floating[popover] {
+    &>.ui-anchor-floating[popover] {
       opacity: 0;
       transition:
         display 0.15s allow-discrete,

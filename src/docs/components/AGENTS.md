@@ -39,7 +39,7 @@ Before creating or refactoring a page, perform the following research:
 
 ## 2. File Structure & Location
 
-- **Documentation Modules**: `src/docs/components/[name].astro` (lowercase, kebab-case). These are shared per-component modules consumed by the dynamic route shell. There is no `src/pages/components/` directory — legacy `/components/...` URLs are handled by the `redirects` map in [astro.config.mjs](../../../astro.config.mjs).
+- **Documentation Modules**: `src/docs/components/[name].astro` (lowercase, kebab-case). These are shared per-component modules consumed by the dynamic route shell. There is no `src/pages/components/` directory - legacy `/components/...` URLs are handled by the `redirects` map in [astro.config.mjs](../../../astro.config.mjs).
 - **Route Shell** (do not edit per-component): [`src/pages/[framework]/components/[component].astro`](../../pages/%5Bframework%5D/components/%5Bcomponent%5D.astro) generates one route per (framework × component) and delegates to `src/docs/components/[name].astro`.
 - **Example Files**: For each component, create a directory: `src/component-examples/[component]/`.
   - `Basics.astro` (Rendered preview and Astro source)
@@ -50,11 +50,11 @@ Before creating or refactoring a page, perform the following research:
 
 ## 3. Implementation Pattern: Externalized Examples
 
-Inline HTML/Astro code examples live in `src/component-examples/`. The active framework is determined by URL routing, and `<Example>` server-renders only the matching slot — but you still author all framework slots in the page so every variant can be served.
+Inline HTML/Astro code examples live in `src/component-examples/`. The active framework is determined by URL routing, and `<Example>` server-renders only the matching slot - but you still author all framework slots in the page so every variant can be served.
 
 ### 3.1 Basic Page Template
 
-Every component module lives under `src/docs/components/` and uses the `Component` layout. The standard pattern uses `<AutoExample>` and the layout's auto-API resolver — both keyed off the page's `slug` — so adding a new section or framework is a filesystem operation, not an import-list edit:
+Every component module lives under `src/docs/components/` and uses the `Component` layout. The standard pattern uses `<AutoExample>` and the layout's auto-API resolver - both keyed off the page's `slug` - so adding a new section or framework is a filesystem operation, not an import-list edit:
 
 ```astro
 ---
@@ -91,7 +91,7 @@ What the conventions handle automatically:
 
 - **`<AutoExample name="Basics">`** globs `src/component-examples/<slug>/Basics.{astro,html}` for every framework registered in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Drop a file in the right folder and the section picks it up.
 - **API tables** are auto-resolved from `src/component-api/<slug>/<Label>.astro` (where `<Label>` is the framework's display label, e.g. `Astro.astro`, `HTML.astro`). No `apis={{ ... }}` prop needed unless you have a non-standard layout.
-- The layout sets `Astro.locals.componentSlug = slug`, which `<AutoExample>` reads — so each example only repeats `name`, never the slug.
+- The layout sets `Astro.locals.componentSlug = slug`, which `<AutoExample>` reads - so each example only repeats `name`, never the slug.
 
 CSS imports use the `@opui/css/...` package alias. UI-component imports use `@opui/astro` (e.g. `import { Button } from "@opui/astro"`). Avoid hand-rolled relative paths into the package.
 
@@ -119,7 +119,7 @@ The manual form remains supported and unchanged:
 1.  **Extract Examples**: Move inline code to `src/component-examples/{component}/`.
     - `.astro` files should contain UI components imported via the `@opui/astro` alias (e.g. `import { Button } from "@opui/astro"`).
     - `.html` files should contain vanilla HTML equivalents. **HTML examples must be just as functional and complete as the Astro ones.**
-    - Do not wrap the whole example in `<div class="example-row">` / `<div class="example-column">` — set `row` / `column` on `<AutoExample>` in the docs page instead. Multiple sibling `example-row` / `example-column` groups inside one example are fine.
+    - Do not wrap the whole example in `<div class="example-row">` / `<div class="example-column">` - set `row` / `column` on `<AutoExample>` in the docs page instead. Multiple sibling `example-row` / `example-column` groups inside one example are fine.
 2.  **Replace `<Example>` blocks**: For each standard section, replace the import block + `<Example>` + four slots with a single `<AutoExample name="..." />`.
 3.  **Cleanup**: Remove the now-unused `?raw` and component imports from the page frontmatter.
 
@@ -152,7 +152,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 - **Layout**: Use `row` or `column`. Use `centered` to center items, `spacious` for more padding.
 - **No outer layout wrapper in example files**: Files in `src/component-examples/` must not wrap _all_ of their content in a single outer `<div class="example-row">` or `<div class="example-column">`. `<Example row>` / `<Example column>` already applies that class to the surrounding `.example-preview` in [src/components/Example/Example.astro](../../components/Example/Example.astro), so the wrapper is redundant. Inner `example-row` / `example-column` groupings are still allowed when a single example legitimately needs to be split into multiple sibling rows/columns (e.g., one row per variant).
 - **Preview**: Use `Example.Preview` with `slot="preview-html"` or `slot="preview-astro"`.
-- **Code**: Use `Example.Code` with `slot="code-html"` or `slot="code-astro"`. The HTML route falls back to the prettified preview HTML when `code-html` isn't authored, so an explicit `code-html` is only needed when the snippet must differ from the rendered preview (e.g., to hide doc-only wrappers — see the `*Code.astro` pattern in §2). Use `slot="code-js"` for JS-driven demos where the source is JavaScript regardless of the active framework (e.g., Toast).
+- **Code**: Use `Example.Code` with `slot="code-html"` or `slot="code-astro"`. The HTML route falls back to the prettified preview HTML when `code-html` isn't authored, so an explicit `code-html` is only needed when the snippet must differ from the rendered preview (e.g., to hide doc-only wrappers - see the `*Code.astro` pattern in §2). Use `slot="code-js"` for JS-driven demos where the source is JavaScript regardless of the active framework (e.g., Toast).
 - **Controls**: Use `slot="controls"` for interactive elements (like `UISwitch`) that control the preview state.
 
 ### 5.2 API Documentation
@@ -206,7 +206,7 @@ Use `<Conditional>` to display different text or HTML content for different fram
 ## 7. Key Learnings & Debugging
 
 - **Framework Routing**: Every framework lives under its own prefix (e.g. `/html/components/button`, `/astro/components/button`). The active framework comes from `Astro.currentLocale` and flows into `<Conditional>`, `<Example>`, and `<ComponentAPI>` automatically. Legacy unprefixed URLs redirect to the default framework variant.
-- **Adding a New Framework**: Add the framework to `FRAMEWORKS` in [src/utils/framework.js](../../utils/framework.js) and a row to the `FRAMEWORK_BRANDING` map in [src/pages/index.astro](../../pages/index.astro). Then drop the per-component content into the right folders — `src/component-examples/<component>/<Name>.<ext>` for each example and `src/component-api/<component>/<Label>.astro` for the API table. `<AutoExample>` and the auto-API resolver pick those up without doc-page edits. Any sections still using the manual `<Example>` form will need `preview-<id>` / `code-<id>` slots added alongside the existing ones.
+- **Adding a New Framework**: Add the framework to `FRAMEWORKS` in [src/utils/framework.js](../../utils/framework.js) and a row to the `FRAMEWORK_BRANDING` map in [src/pages/index.astro](../../pages/index.astro). Then drop the per-component content into the right folders - `src/component-examples/<component>/<Name>.<ext>` for each example and `src/component-api/<component>/<Label>.astro` for the API table. `<AutoExample>` and the auto-API resolver pick those up without doc-page edits. Any sections still using the manual `<Example>` form will need `preview-<id>` / `code-<id>` slots added alongside the existing ones.
 - **Line Highlighting**: Use the `ins`, `del`, or `mark` props with array syntax (e.g., `mark={[1, 5, 10]}`).
   - **1-indexed**: Highlights are 1-indexed. The opening `---` of an Astro file is line 1.
   - **Validation**: Cross-check that highlighted lines in Astro correspond to the same functionality in HTML.
@@ -214,7 +214,7 @@ Use `<Conditional>` to display different text or HTML content for different fram
 - **Path Resolution**: Inside `src/component-examples/`, prefer the `@opui/astro` alias for UI components and `@opui/css/...` for CSS imports rather than relative paths into the package.
 - **API prop vs. Hardcoding**: Always use the `apis` prop on `<Component />` instead of hardcoding `<BadgeAPI />` in the default slot. This ensures consistent positioning and styling.
 - **Internal Links in Prose**: Use canonical paths (e.g. `/components/text-field#file`) and let the docs site resolve them per request. Two primitives:
-  - **`<DocLink href="...">`** — drop-in replacement for `<a>` in shared docs content. SSR-resolves the href to the active framework variant (`/components/...` or `/astro/components/...`) at build time. Always prefer `DocLink` over a raw `<a>` for cross-doc links.
-  - **`Astro.locals.link("/path")`** — same resolution as a function. Use it for `href` props on components that render their own anchor (e.g. `Button`, `Chip`, `IconButton`, `ComponentCard`): `<Button href={link("/components/button")}>`.
+  - **`<DocLink href="...">`** - drop-in replacement for `<a>` in shared docs content. SSR-resolves the href to the active framework variant (`/components/...` or `/astro/components/...`) at build time. Always prefer `DocLink` over a raw `<a>` for cross-doc links.
+  - **`Astro.locals.link("/path")`** - same resolution as a function. Use it for `href` props on components that render their own anchor (e.g. `Button`, `Chip`, `IconButton`, `ComponentCard`): `<Button href={link("/components/button")}>`.
   - **Never** hard-code `/astro/...` or `/html/...` in doc prose; `DocLink` and `link` resolve to whichever variant the reader is currently on. The framework switcher chips on the homepage are the only exception (they intentionally name a specific variant).
   - The `componentHrefFor` helper in [src/utils/components.ts](../../utils/components.ts) is still around for slug-only convenience in structural lists (sidebar, pagination, [ComponentList](../../components/ComponentList.astro)). For everything else, prefer `DocLink` / `Astro.locals.link`.

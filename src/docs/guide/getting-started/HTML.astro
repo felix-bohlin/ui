@@ -21,7 +21,7 @@ import Theming from "./_theming.astro"
         Open Props UI is <u>just CSS</u>. You can copy any <DocLink
           class="ui-link"
           href="/components">component</DocLink
-        > CSS straight from the docs — no install required. The rest of this page
+        > CSS straight from the docs - no install required. The rest of this page
         is for when you want the full setup.
       </p>
     </Callout>
@@ -35,7 +35,7 @@ import Theming from "./_theming.astro"
         target="_blank"
         href="https://github.com/felix-bohlin/ui/tree/main/packages/opui"
         ><code>packages/opui/</code> folder on GitHub</a
-      > and drop them into your project for full control.
+      > and drop them into your project.
     </p>
 
     <Code
@@ -51,7 +51,11 @@ import Theming from "./_theming.astro"
       lang="text"
     />
 
-    <p>Combine them in your main stylesheet:</p>
+    <p>
+      Put it all together something like this in your main CSS. If you have your
+      files in a different folder structure you'd of course need to change the
+      paths.
+    </p>
     <Code
       code={`@layer openprops, theme, normalize, components.root, components.extended, utils;
 
@@ -63,14 +67,10 @@ import Theming from "./_theming.astro"
 @import "./core/utils.css";`}
       lang="css"
     />
-    <p>
-      The import paths above assume the folder layout shown in the tree — adjust
-      them if you place the files elsewhere.
-    </p>
 
     <h3 id="theme-generator"><code>theme.css</code> generator</h3>
     <p>
-      There's a visual editor for editing <code>theme.css</code> - <DocLink
+      There's a WIP visual editor for editing <code>theme.css</code> - <DocLink
         href="/guide/theme-generator">try it out</DocLink
       >!
     </p>
@@ -80,10 +80,6 @@ import Theming from "./_theming.astro"
 
   <section>
     <h2 id="npm-installation">Install via NPM</h2>
-    <p>
-      Install the package and <code>open-props</code> — the source CSS imports below
-      resolve Open Props from your <code>node_modules</code>.
-    </p>
 
     <CodeGroup
       tabs={[
@@ -118,9 +114,6 @@ import Theming from "./_theming.astro"
 
   <section>
     <h2 id="cdn">Install via CDN</h2>
-    <p>
-      For the quickest way to get started, you can include the styles via CDN.
-    </p>
     <Code
       code={`<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css/dist/opui.css" />`}
       lang="html"

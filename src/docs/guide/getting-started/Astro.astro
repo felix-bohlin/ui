@@ -14,11 +14,6 @@ import Theming from "./_theming.astro"
 
   <section>
     <h2 id="installation">Install via NPM</h2>
-    <p>
-      Install the package, <code>open-props</code>, and <code>astro</code> — the source
-      CSS imports below resolve Open Props from your
-      <code>node_modules</code>.
-    </p>
 
     <CodeGroup
       tabs={[
@@ -37,28 +32,13 @@ import Theming from "./_theming.astro"
   </section>
 
   <section>
-    <h2 id="usage">Use a component</h2>
-    <p>Components can be imported from <code>opui-css/astro</code>:</p>
-
-    <Code
-      code={`---
-import { Button } from "opui-css/astro"
----
-
-<Button variant="filled">Click me</Button>`}
-      lang="astro"
-    />
-  </section>
-
-  <section>
-    <h2 id="css">Load the CSS</h2>
+    <h2 id="css">Import the CSS</h2>
     <p>
-      Astro components ship markup only — the CSS still has to be loaded once
-      per app. Import the pre-bundled theme from your global stylesheet (or a
-      shared layout):
+      Astro components ship markup only - the CSS still has to be imported in
+      your app somehow. Import everything:
     </p>
     <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
-    <p>Or pick and choose pieces if you want a lighter footprint:</p>
+    <p>Or pick and choose:</p>
     <Code
       code={`@import "opui-css/open-props.css";
 @import "opui-css/core/palette.css";
@@ -67,6 +47,18 @@ import { Button } from "opui-css/astro"
 @import "opui-css/css/components.css";
 @import "opui-css/core/utils.css";`}
       lang="css"
+    />
+  </section>
+
+  <section>
+    <h2 id="usage">How to use</h2>
+    <Code
+      code={`---
+import { Button } from "opui-css/astro"
+---
+
+<Button variant="filled">Click me</Button>`}
+      lang="astro"
     />
   </section>
 

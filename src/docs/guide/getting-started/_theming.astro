@@ -79,5 +79,13 @@ import { Code } from "astro-expressive-code/components"
 </button>`}
       lang="html"
     />
+
+    <p>
+      Additionally, this is how you could include <code>--motion</code> in your CSS:
+    </p>
+    <Code
+      code={`transition: transform calc(0.2s * var(--motion, 1)) ease;`}
+      lang="css"
+    />
   </section>
 </section>

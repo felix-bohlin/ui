@@ -22,9 +22,6 @@ const componentSlugs = slugsIn("./src/docs/components")
 const guideSlugs = ["getting-started", ...slugsIn("./src/docs/guide")]
 
 const d = `/${DEFAULT_FRAMEWORK}`
-// Legacy unprefixed paths redirect to the default framework variant. Astro
-// validates each destination against an existing route, so we enumerate
-// component and guide slugs from disk rather than using `[param]` patterns.
 const legacyRedirects = {
   "/components": `${d}/components`,
   "/api": `${d}/api`,
@@ -41,10 +38,6 @@ const legacyRedirects = {
 export default defineConfig({
   image: { service: passthroughImageService() },
   site: "https://open-props-ui.netlify.app/",
-  // Framework variants are modeled as i18n locales. Every framework lives
-  // under its own URL prefix (e.g. /html/..., /astro/...). The "default" is
-  // only used as a fallback target for unprefixed legacy URLs, which redirect
-  // to /<DEFAULT_FRAMEWORK>/... via dedicated redirect pages under src/pages.
   i18n: {
     defaultLocale: DEFAULT_FRAMEWORK,
     locales: FRAMEWORK_IDS,

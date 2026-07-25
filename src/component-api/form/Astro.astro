@@ -114,6 +114,121 @@ import { Table } from "@opui/astro"
   </Table.Body>
 </Table>
 
+<h3 id="field-label-api">FieldLabel</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>label</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Text to render as the label.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>hideLabel</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Whether to hide the label visually but keep it for screen readers.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="field-start-text-api">FieldStartText</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>text</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Text to render as the start text.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="field-end-text-api">FieldEndText</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>text</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Text to render as the end text.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="field-control-api">FieldControl</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+    <Table.Column width="100px" />
+    <Table.Column width="250px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Wrapper element that aligns the input control and affix slots
+        automatically.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>
+
 <h3 id="field-group-api">FieldGroup</h3>
 <Table>
   <Table.ColumnGroup>

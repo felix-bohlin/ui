@@ -1,0 +1,1 @@
+export type Props = { hideLabel?: boolean; id?: string; label?: string }

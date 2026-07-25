@@ -1,6 +1,7 @@
 ---
 import SwitchInput from "./SwitchInput.astro"
 import type { SwitchProps as Props } from "./types.astro"
+import { FieldLabel, FieldEndText } from "@opui/astro"
 
 export const title = "Switch"
 
@@ -8,17 +9,16 @@ const {
   class: className,
   error,
   hideLabel,
-  name,
   small,
   spread,
   stack,
-  ...rest
+  ...inputProps
 } = Astro.props
 
 const { $id, currentFieldName } = Astro.locals
 const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
 
-const finalName = name || currentFieldName
+const finalName = inputProps.name || currentFieldName
 
 if (
   import.meta.env.DEV &&
@@ -58,19 +58,21 @@ if (
       </span>
     )
   }
-  <SwitchInput aria-describedby={endTextId} name={finalName} {...rest} />
+  <SwitchInput aria-describedby={endTextId} name={finalName} {...inputProps} />
+
   {
     Astro.slots.has("default") && (
-      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+      <FieldLabel hideLabel={hideLabel}>
         <slot />
-      </span>
+      </FieldLabel>
     )
   }
+
   {
     Astro.slots.has("end-text") && (
-      <span id={endTextId} class="ui-end-text">
+      <FieldEndText id={endTextId}>
         <slot name="end-text" />
-      </span>
+      </FieldEndText>
     )
   }
 </label>

@@ -1,5 +1,11 @@
 ---
 import type { Props } from "./types.astro"
+import {
+  FieldLabel,
+  FieldStartText,
+  FieldEndText,
+  FieldControl,
+} from "@opui/astro"
 
 export const title = "Text Field"
 
@@ -8,30 +14,20 @@ const {
   class: className,
   error,
   description,
-  disabled,
   endText,
   filled,
-  id,
   label,
-  list,
-  max,
-  min,
-  name,
-  placeholder,
-  required,
   small,
   spread,
   startText,
-  step,
   type = "text",
-  value,
-  ...rest
+  ...inputProps
 } = Astro.props
 
 const startTextValue = description || startText
 const { $id, currentFieldName } = Astro.locals
-const fieldId = id || $id("text-field")
-const fieldName = name || currentFieldName
+const fieldId = inputProps.id || $id("text-field")
+const fieldName = inputProps.name || currentFieldName
 ---
 
 <label
@@ -46,79 +42,73 @@ const fieldName = name || currentFieldName
     className,
   ]}
   data-invalid={error || undefined}
-  {...rest}
 >
   {
     (label || Astro.slots.has("label")) && (
-      <span class="ui-label">
-        {label}
+      <FieldLabel label={label}>
         <slot name="label" />
-      </span>
+      </FieldLabel>
     )
   }
+
   {
     (startTextValue || Astro.slots.has("description")) && (
-      <span class="ui-start-text">
-        {startTextValue}
+      <FieldStartText text={startTextValue}>
         <slot name="description" />
-      </span>
+      </FieldStartText>
     )
   }
-  <span class="ui-field">
-    <input
-      disabled={disabled}
-      id={fieldId}
-      inputmode={type === "numeric" ? "numeric" : undefined}
-      list={list}
-      max={max}
-      min={min}
-      name={fieldName}
-      pattern={type === "numeric" ? "[0-9]*" : undefined}
-      placeholder={placeholder}
-      required={required}
-      step={step}
-      type={type === "numeric" ? "text" : type}
-      value={value}
-    />
+
+  <FieldControl>
     {
       Astro.slots.has("prefix") && (
-        <span class="ui-prefix">
+        <Fragment slot="prefix">
           <slot name="prefix" />
-        </span>
+        </Fragment>
       )
     }
     {
       Astro.slots.has("suffix") && (
-        <span class="ui-suffix">
+        <Fragment slot="suffix">
           <slot name="suffix" />
-        </span>
+        </Fragment>
       )
     }
     {
       Astro.slots.has("header") && (
-        <span class="ui-header">
+        <Fragment slot="header">
           <slot name="header" />
-        </span>
+        </Fragment>
       )
     }
     {
       Astro.slots.has("footer") && (
-        <span class="ui-footer">
+        <Fragment slot="footer">
           <slot name="footer" />
-        </span>
+        </Fragment>
       )
     }
-  </span>
+
+    <input
+      id={fieldId}
+      inputmode={type === "numeric" ? "numeric" : undefined}
+      name={fieldName}
+      pattern={type === "numeric" ? "[0-9]*" : undefined}
+      type={type === "numeric" ? "text" : type}
+      {...inputProps}
+    />
+  </FieldControl>
+
   {
     (endText ||
       Astro.slots.has("end-text") ||
       Astro.slots.has("supporting-text")) && (
-      <span class="ui-end-text">
-        {endText}
+      <FieldEndText text={endText}>
         <slot name="end-text" />
         <slot name="supporting-text" />
-      </span>
+      </FieldEndText>
     )
   }
+
   <slot />
 </label>

@@ -2,6 +2,7 @@
 import CheckboxInput from "./CheckboxInput.vue"
 import type { CheckboxProps, Slots } from "./types.d.vue"
 import { useId } from "vue"
+import { FieldLabel, FieldEndText } from "opui-css/vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -33,11 +34,13 @@ const endTextId = useId()
       :aria-describedby="$slots['end-text'] ? endTextId : undefined"
       :indeterminate="props.indeterminate"
     />
-    <span :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
-      ><slot></slot
-    ></span>
-    <span :id="endTextId" class="ui-end-text" v-if="$slots['end-text']">
+
+    <FieldLabel v-if="$slots.default" :hideLabel="props.hideLabel">
+      <slot></slot>
+    </FieldLabel>
+
+    <FieldEndText v-if="$slots['end-text']" :id="endTextId">
       <slot name="end-text"></slot>
-    </span>
+    </FieldEndText>
   </label>
 </template>

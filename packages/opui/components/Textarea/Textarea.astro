@@ -1,34 +1,30 @@
 ---
 import type { Props } from "./types.astro"
+import {
+  FieldLabel,
+  FieldStartText,
+  FieldEndText,
+  FieldControl,
+} from "@opui/astro"
 
 export const title = "Textarea"
 
 const {
   autoFit,
   class: className,
-  cols,
   description,
-  disabled,
   error,
   filled,
-  id,
   label,
-  maxlength,
-  minlength,
-  name,
   spread,
-  placeholder,
-  required,
-  rows,
   small,
   endText,
-  value,
-  ...rest
+  ...inputProps
 } = Astro.props
 
 const { $id, currentFieldName } = Astro.locals
-const fieldId = id || $id("textarea")
-const fieldName = name || currentFieldName
+const fieldId = inputProps.id || $id("textarea")
+const fieldName = inputProps.name || currentFieldName
 ---
 
 <label
@@ -43,76 +39,66 @@ const fieldName = name || currentFieldName
     className,
   ]}
   data-invalid={error || undefined}
-  {...rest}
 >
   {
     (label || Astro.slots.has("label")) && (
-      <span class="ui-label">
-        {label}
+      <FieldLabel label={label}>
         <slot name="label" />
-      </span>
+      </FieldLabel>
     )
   }
 
   {
     (description || Astro.slots.has("description")) && (
-      <span class="ui-start-text">
-        {description}
+      <FieldStartText text={description}>
         <slot name="description" />
-      </span>
+      </FieldStartText>
     )
   }
-  <span class="ui-field">
-    <textarea
-      cols={cols}
-      disabled={disabled}
-      id={fieldId}
-      maxlength={maxlength}
-      minlength={minlength}
-      name={fieldName}
-      placeholder={placeholder}
-      required={required}
-      rows={rows}
-      value={value}></textarea>
+
+  <FieldControl>
     {
       Astro.slots.has("prefix") && (
-        <span class="ui-prefix">
+        <Fragment slot="prefix">
           <slot name="prefix" />
-        </span>
+        </Fragment>
       )
     }
     {
       Astro.slots.has("suffix") && (
-        <span class="ui-suffix">
+        <Fragment slot="suffix">
           <slot name="suffix" />
-        </span>
+        </Fragment>
       )
     }
     {
       Astro.slots.has("header") && (
-        <span class="ui-header">
+        <Fragment slot="header">
           <slot name="header" />
-        </span>
+        </Fragment>
       )
     }
     {
       Astro.slots.has("footer") && (
-        <span class="ui-footer">
+        <Fragment slot="footer">
           <slot name="footer" />
-        </span>
+        </Fragment>
       )
     }
-  </span>
+
+    <textarea id={fieldId} name={fieldName} {...inputProps}></textarea>
+  </FieldControl>
+
   {
     (endText ||
       Astro.slots.has("end-text") ||
       Astro.slots.has("supporting-text")) && (
-      <span class="ui-end-text">
-        {endText}
+      <FieldEndText text={endText}>
         <slot name="end-text" />
         <slot name="supporting-text" />
-      </span>
+      </FieldEndText>
     )
   }
+
   <slot />
 </label>

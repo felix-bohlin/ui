@@ -1,5 +1,4 @@
 export type RangeProps = {
-  [key: string]: any
   endText?: string
   id?: string
   label?: string

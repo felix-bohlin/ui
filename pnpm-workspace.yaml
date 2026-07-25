@@ -2,6 +2,9 @@ packages:
   - packages/*
   - .
 
+allowBuilds:
+  esbuild: true
+
 catalog:
   astro: ^7.0.6
   open-props: ^1.7.23

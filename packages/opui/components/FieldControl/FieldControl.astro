@@ -1,0 +1,39 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Field Control"
+
+const { class: className, ...rest } = Astro.props
+---
+
+<span class:list={["ui-field", className]} {...rest}>
+  <slot />
+  {
+    Astro.slots.has("prefix") && (
+      <span class="ui-prefix">
+        <slot name="prefix" />
+      </span>
+    )
+  }
+  {
+    Astro.slots.has("suffix") && (
+      <span class="ui-suffix">
+        <slot name="suffix" />
+      </span>
+    )
+  }
+  {
+    Astro.slots.has("header") && (
+      <span class="ui-header">
+        <slot name="header" />
+      </span>
+    )
+  }
+  {
+    Astro.slots.has("footer") && (
+      <span class="ui-footer">
+        <slot name="footer" />
+      </span>
+    )
+  }
+</span>

@@ -1,0 +1,18 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Field End Text"
+
+const { class: className, text, ...rest } = Astro.props
+const hasContent = text || Astro.slots.has("default") || Astro.slots.has("supporting-text")
+---
+
+{
+  hasContent && (
+    <span class:list={["ui-end-text", className]} {...rest}>
+      {text}
+      <slot />
+      <slot name="supporting-text" />
+    </span>
+  )
+}

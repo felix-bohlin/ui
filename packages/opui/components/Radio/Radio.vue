@@ -2,6 +2,7 @@
 import RadioInput from "./RadioInput.vue"
 import type { RadioProps, Slots } from "./types.d.vue"
 import { useId } from "vue"
+import { FieldLabel, FieldEndText } from "opui-css/vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -31,11 +32,13 @@ const endTextId = useId()
       v-model="modelValue"
       :aria-describedby="endTextId"
     />
-    <span :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
-      ><slot></slot
-    ></span>
-    <span :id="endTextId" class="ui-end-text" v-if="$slots['end-text']">
+
+    <FieldLabel v-if="$slots.default" :hideLabel="props.hideLabel">
+      <slot></slot>
+    </FieldLabel>
+
+    <FieldEndText v-if="$slots['end-text']" :id="endTextId">
       <slot name="end-text"></slot>
-    </span>
+    </FieldEndText>
   </label>
 </template>

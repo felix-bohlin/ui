@@ -1,5 +1,11 @@
 ---
 import type { Props } from "./types.astro"
+import {
+  FieldLabel,
+  FieldStartText,
+  FieldEndText,
+  FieldControl,
+} from "@opui/astro"
 
 export const title = "Select"
 
@@ -8,20 +14,18 @@ const {
   description,
   error,
   dense,
-  id,
   items = [],
   label,
-  name,
   spread,
   size,
   endText,
   variant = "outlined",
-  ...rest
+  ...inputProps
 } = Astro.props
 
 const { $id, currentFieldName } = Astro.locals
-const selectId = id || $id("select")
-const fieldName = name || currentFieldName
+const selectId = inputProps.id || $id("select")
+const fieldName = inputProps.name || currentFieldName
 const labelId = $id("select-label")
 ---
 
@@ -39,26 +43,55 @@ const labelId = $id("select-label")
 >
   {
     (label || Astro.slots.has("label")) && (
-      <span class="ui-label" id={labelId}>
-        {label}
+      <FieldLabel label={label} id={labelId}>
         <slot name="label" />
-      </span>
+      </FieldLabel>
     )
   }
+
   {
     (description || Astro.slots.has("description")) && (
-      <span class="ui-start-text">
-        {description}
+      <FieldStartText text={description}>
         <slot name="description" />
-      </span>
+      </FieldStartText>
     )
   }
-  <span class="ui-field">
+
+  <FieldControl>
+    {
+      Astro.slots.has("prefix") && (
+        <Fragment slot="prefix">
+          <slot name="prefix" />
+        </Fragment>
+      )
+    }
+    {
+      Astro.slots.has("suffix") && (
+        <Fragment slot="suffix">
+          <slot name="suffix" />
+        </Fragment>
+      )
+    }
+    {
+      Astro.slots.has("header") && (
+        <Fragment slot="header">
+          <slot name="header" />
+        </Fragment>
+      )
+    }
+    {
+      Astro.slots.has("footer") && (
+        <Fragment slot="footer">
+          <slot name="footer" />
+        </Fragment>
+      )
+    }
+
     <select
       aria-labelledby={label ? labelId : undefined}
       id={selectId}
       name={fieldName}
-      {...rest}
+      {...inputProps}
     >
       <button>
         <selectedcontent></selectedcontent>
@@ -68,41 +101,13 @@ const labelId = $id("select-label")
         <slot />
       </div>
     </select>
-    {
-      Astro.slots.has("prefix") && (
-        <span class="ui-prefix">
-          <slot name="prefix" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("suffix") && (
-        <span class="ui-suffix">
-          <slot name="suffix" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("header") && (
-        <span class="ui-header">
-          <slot name="header" />
-        </span>
-      )
-    }
-    {
-      Astro.slots.has("footer") && (
-        <span class="ui-footer">
-          <slot name="footer" />
-        </span>
-      )
-    }
-  </span>
+  </FieldControl>
+
   {
     (endText || Astro.slots.has("end-text")) && (
-      <span id={$id("end-text")} class="ui-end-text">
-        {endText}
+      <FieldEndText text={endText} id={$id("end-text")}>
         <slot name="end-text" />
-      </span>
+      </FieldEndText>
     )
   }
 </label>

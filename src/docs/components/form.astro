@@ -117,9 +117,25 @@ import { DescriptionList } from "@opui/astro"
       </Fragment>
     </Conditional>
 
+    <Conditional as="div">
+      <Fragment slot="astro">
+        <section>
+          <h2 id="other-form-components">Other form components</h2>
+
+          <AutoExample name="Primitives" column />
+        </section>
+      </Fragment>
+      <Fragment slot="vue">
+        <section>
+          <h2 id="other-form-components">Other form components</h2>
+
+          <AutoExample name="Primitives" column />
+        </section>
+      </Fragment>
+    </Conditional>
+
     <section>
       <h2 id="fieldset">Fieldset</h2>
-      <p>Used to show a relationship between form elements.</p>
       <Conditional>
         <DescriptionList bordered slot="astro">
           <DescriptionList.Item>
@@ -137,6 +153,40 @@ import { DescriptionList } from "@opui/astro"
             <hr class="ui-dotted" />
             <DescriptionList.Description>
               to give extra context about the fieldset.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term><code>FieldLabel</code></DescriptionList.Term>
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              displays the label for a field.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term
+              ><code>FieldStartText</code></DescriptionList.Term
+            >
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              displays leading helper text for a field.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term
+              ><code>FieldControl</code></DescriptionList.Term
+            >
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              wraps the input element and manages affix alignment.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term
+              ><code>FieldEndText</code></DescriptionList.Term
+            >
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              displays trailing helper text for a field.
             </DescriptionList.Description>
           </DescriptionList.Item>
           <DescriptionList.Item>
@@ -168,6 +218,38 @@ import { DescriptionList } from "@opui/astro"
             </DescriptionList.Description>
           </DescriptionList.Item>
           <DescriptionList.Item>
+            <DescriptionList.Term><code>.ui-label</code></DescriptionList.Term>
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              displays the label for a field.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term
+              ><code>.ui-start-text</code></DescriptionList.Term
+            >
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              displays leading helper text for a field.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term><code>.ui-field</code></DescriptionList.Term>
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              wraps the input element and manages affix alignment.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term
+              ><code>.ui-end-text</code></DescriptionList.Term
+            >
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              displays trailing helper text for a field.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
             <DescriptionList.Term
               ><code>.ui-field-group</code></DescriptionList.Term
             >
@@ -193,6 +275,40 @@ import { DescriptionList } from "@opui/astro"
             <hr class="ui-dotted" />
             <DescriptionList.Description>
               to give extra context about the fieldset.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term><code>FieldLabel</code></DescriptionList.Term>
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              displays the label for a field.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term
+              ><code>FieldStartText</code></DescriptionList.Term
+            >
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              displays leading helper text for a field.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term
+              ><code>FieldControl</code></DescriptionList.Term
+            >
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              wraps the input element and manages affix alignment.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term
+              ><code>FieldEndText</code></DescriptionList.Term
+            >
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              displays trailing helper text for a field.
             </DescriptionList.Description>
           </DescriptionList.Item>
           <DescriptionList.Item>

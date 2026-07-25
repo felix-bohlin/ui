@@ -16,10 +16,10 @@ catalogs:
       specifier: ^1.9.13
       version: 1.9.14
     svelte:
-      specifier: ^5.55.7
+      specifier: ^5.56.4
       version: 5.56.4
     vue:
-      specifier: ^3.5.35
+      specifier: ^3.5.39
       version: 3.5.39
 
 importers:

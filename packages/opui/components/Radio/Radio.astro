@@ -1,24 +1,23 @@
 ---
 import type { RadioProps as Props } from "./types.astro"
+import { FieldLabel, FieldEndText } from "@opui/astro"
 import RadioInput from "./RadioInput.astro"
 
 export const title = "Radio"
 
 const {
   class: className,
-  disabled,
   error,
   hideLabel,
-  name,
   size,
   stack,
-  ...rest
+  ...inputProps
 } = Astro.props
 
 const { $id, currentFieldName } = Astro.locals
 const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
 
-const finalName = name || currentFieldName
+const finalName = inputProps.name || currentFieldName
 ---
 
 <label
@@ -32,13 +31,21 @@ const finalName = name || currentFieldName
   ]}
   data-invalid={error || undefined}
 >
-  <RadioInput aria-describedby={endTextId} name={finalName} {...rest} />
-  <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>
+  <RadioInput aria-describedby={endTextId} name={finalName} {...inputProps} />
+
+  {
+    Astro.slots.has("default") && (
+      <FieldLabel hideLabel={hideLabel}>
+        <slot />
+      </FieldLabel>
+    )
+  }
+
   {
     Astro.slots.has("end-text") && (
-      <span id={endTextId} class="ui-end-text">
+      <FieldEndText id={endTextId}>
         <slot name="end-text" />
-      </span>
+      </FieldEndText>
     )
   }
 </label>

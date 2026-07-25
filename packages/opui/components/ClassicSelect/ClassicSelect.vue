@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ClassicSelectProps, Slots } from "./types.d.vue"
 import { useId } from "vue"
+import { FieldLabel, FieldEndText } from "opui-css/vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -29,9 +30,10 @@ const labelId = useId()
     ]"
     :data-invalid="props.error || undefined"
   >
-    <span v-if="props.label" class="ui-label" :id="labelId">{{
-      props.label
-    }}</span>
+    <FieldLabel v-if="props.label || $slots.label" :label="props.label" :id="labelId">
+      <slot name="label" v-if="$slots.label"></slot>
+    </FieldLabel>
+
     <span class="ui-field">
       <select
         :aria-labelledby="props.label ? labelId : undefined"
@@ -49,6 +51,9 @@ const labelId = useId()
         <slot></slot>
       </select>
     </span>
-    <span v-if="props.endText" class="ui-end-text">{{ props.endText }}</span>
+
+    <FieldEndText v-if="props.endText || $slots['end-text']" :text="props.endText">
+      <slot name="end-text" v-if="$slots['end-text']"></slot>
+    </FieldEndText>
   </label>
 </template>

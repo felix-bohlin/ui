@@ -1,0 +1,17 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Field Label"
+
+const { class: className, hideLabel, label, ...rest } = Astro.props
+const hasContent = label || Astro.slots.has("default")
+---
+
+{
+  hasContent && (
+    <span class:list={[hideLabel ? "ui-sr-only" : "ui-label", className]} {...rest}>
+      {label}
+      <slot />
+    </span>
+  )
+}

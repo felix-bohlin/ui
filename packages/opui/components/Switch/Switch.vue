@@ -2,6 +2,7 @@
 import SwitchInput from "./SwitchInput.vue"
 import type { Slots, SwitchProps } from "./types.d.vue"
 import { useId } from "vue"
+import { FieldLabel, FieldEndText } from "opui-css/vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -49,15 +50,12 @@ const endTextId = useId()
       :aria-describedby="endTextId"
     />
 
-    <span
-      v-if="$slots.default"
-      :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
-    >
+    <FieldLabel v-if="$slots.default" :hideLabel="props.hideLabel">
       <slot></slot>
-    </span>
+    </FieldLabel>
 
-    <span v-if="$slots['end-text']" :id="endTextId" class="ui-end-text">
+    <FieldEndText v-if="$slots['end-text']" :id="endTextId">
       <slot name="end-text"></slot>
-    </span>
+    </FieldEndText>
   </label>
 </template>

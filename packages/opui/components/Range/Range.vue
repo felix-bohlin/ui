@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { RangeProps, Slots } from "./types.d.vue"
 import { useId } from "vue"
+import { FieldLabel, FieldStartText, FieldEndText } from "opui-css/vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -25,9 +26,10 @@ const endTextId = useId()
       props.class,
     ]"
   >
-    <span v-if="props.label || $slots.default" class="ui-label" :id="labelId">
-      <slot>{{ props.label }}</slot>
-    </span>
+    <FieldLabel v-if="props.label || $slots.default" :id="labelId" :label="props.label">
+      <slot v-if="$slots.default"></slot>
+    </FieldLabel>
+
     <output
       v-if="props.valueSuffix !== undefined || $slots.value"
       class="ui-value"
@@ -36,13 +38,14 @@ const endTextId = useId()
     >
       <slot name="value">{{ modelValue ?? props.value }}</slot>
     </output>
-    <span
+
+    <FieldStartText
       v-if="props.startText || $slots['start-text']"
-      class="ui-start-text"
       :id="startTextId"
+      :text="props.startText"
     >
-      <slot name="start-text">{{ props.startText }}</slot>
-    </span>
+      <slot name="start-text" v-if="$slots['start-text']"></slot>
+    </FieldStartText>
 
     <input
       :aria-describedby="
@@ -74,12 +77,12 @@ const endTextId = useId()
       <slot name="datalist"></slot>
     </datalist>
 
-    <span
+    <FieldEndText
       v-if="props.endText || $slots['end-text']"
-      class="ui-end-text"
       :id="endTextId"
+      :text="props.endText"
     >
-      <slot name="end-text">{{ props.endText }}</slot>
-    </span>
+      <slot name="end-text" v-if="$slots['end-text']"></slot>
+    </FieldEndText>
   </label>
 </template>

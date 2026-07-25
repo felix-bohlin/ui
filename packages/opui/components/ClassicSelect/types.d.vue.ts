@@ -7,4 +7,6 @@ export type ClassicSelectProps = BaseClassicSelectProps & {
 
 export type Slots = {
   default?: Slot
+  "end-text"?: Slot
+  label?: Slot
 }

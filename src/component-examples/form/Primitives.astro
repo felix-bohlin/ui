@@ -1,0 +1,34 @@
+---
+import {
+  FieldSet,
+  FieldLegend,
+  FieldGroup,
+  FieldLabel,
+  FieldStartText,
+  FieldControl,
+  FieldEndText,
+} from "@opui/astro"
+---
+
+<FieldSet>
+  <FieldLegend>Custom Form Layout</FieldLegend>
+
+  <FieldGroup>
+    <label class="ui-text-field" data-invalid="true">
+      <FieldLabel label="Username" />
+      <FieldStartText text="Choose a unique handle." />
+
+      <FieldControl>
+        <span slot="prefix" class="ui-icon" aria-hidden="true">@</span>
+        <input
+          type="text"
+          name="username"
+          placeholder="johndoe"
+          aria-invalid="true"
+        />
+      </FieldControl>
+
+      <FieldEndText text="This username is already taken." />
+    </label>
+  </FieldGroup>
+</FieldSet>

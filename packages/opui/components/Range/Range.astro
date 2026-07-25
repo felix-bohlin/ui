@@ -1,26 +1,21 @@
 ---
 import type { RangeProps as Props } from "./types.astro"
+import { FieldLabel, FieldStartText, FieldEndText } from "@opui/astro"
 
 export const title = "Range"
 
 const {
   class: className,
-  disabled,
   endText,
-  id,
   label,
   list,
-  max,
-  min,
-  name,
   options,
   spread,
   startText,
-  step,
   value,
   valueSuffix,
   variant,
-  ...rest
+  ...inputProps
 } = Astro.props
 
 const { $id } = Astro.locals
@@ -30,7 +25,7 @@ const hasStartText = !!startText || Astro.slots.has("start-text")
 const hasEndText = !!endText || Astro.slots.has("end-text")
 const hasValue = valueSuffix !== undefined || Astro.slots.has("value")
 
-const inputId = id || $id("range")
+const inputId = inputProps.id || $id("range")
 const labelId = hasLabel ? $id("range-label") : undefined
 const startTextId = hasStartText ? $id("range-start") : undefined
 const endTextId = hasEndText ? $id("range-end") : undefined
@@ -49,12 +44,12 @@ const describedBy =
 >
   {
     hasLabel && (
-      <span class="ui-label" id={labelId}>
-        {label}
+      <FieldLabel id={labelId} label={label}>
         <slot />
-      </span>
+      </FieldLabel>
     )
   }
+
   {
     hasValue && (
       <output class="ui-value" for={inputId} data-suffix={valueSuffix}>
@@ -62,27 +57,23 @@ const describedBy =
       </output>
     )
   }
+
   {
     hasStartText && (
-      <span class="ui-start-text" id={startTextId}>
-        {startText}
+      <FieldStartText id={startTextId} text={startText}>
         <slot name="start-text" />
-      </span>
+      </FieldStartText>
     )
   }
+
   <input
     aria-describedby={describedBy}
     aria-labelledby={labelId}
-    disabled={disabled}
     id={inputId}
     list={list}
-    max={max}
-    min={min}
-    name={name}
-    step={step}
     type="range"
     value={value}
-    {...rest}
+    {...inputProps}
   />
   {
     (options || Astro.slots.has("datalist")) && (
@@ -98,20 +89,17 @@ const describedBy =
       </datalist>
     )
   }
+
   {
     hasEndText && (
-      <span class="ui-end-text" id={endTextId}>
-        {endText}
+      <FieldEndText id={endTextId} text={endText}>
         <slot name="end-text" />
-      </span>
+      </FieldEndText>
     )
   }
 </label>
 
 <script>
-  // Mirror the slider's current value into its associated <output> on every
-  // input event. Idempotent: each .ui-range is wired once, and ignores ranges
-  // without a value display.
   for (const range of document.querySelectorAll<HTMLElement>(".ui-range")) {
     const input = range.querySelector<HTMLInputElement>('input[type="range"]')
     const output = range.querySelector<HTMLOutputElement>(

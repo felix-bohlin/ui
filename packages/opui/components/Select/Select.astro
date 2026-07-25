@@ -58,34 +58,10 @@ const labelId = $id("select-label")
   }
 
   <FieldControl>
-    {
-      Astro.slots.has("prefix") && (
-        <Fragment slot="prefix">
-          <slot name="prefix" />
-        </Fragment>
-      )
-    }
-    {
-      Astro.slots.has("suffix") && (
-        <Fragment slot="suffix">
-          <slot name="suffix" />
-        </Fragment>
-      )
-    }
-    {
-      Astro.slots.has("header") && (
-        <Fragment slot="header">
-          <slot name="header" />
-        </Fragment>
-      )
-    }
-    {
-      Astro.slots.has("footer") && (
-        <Fragment slot="footer">
-          <slot name="footer" />
-        </Fragment>
-      )
-    }
+    <slot name="prefix" slot="prefix" />
+    <slot name="suffix" slot="suffix" />
+    <slot name="header" slot="header" />
+    <slot name="footer" slot="footer" />
 
     <select
       aria-labelledby={label ? labelId : undefined}

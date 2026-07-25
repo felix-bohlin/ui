@@ -83,24 +83,24 @@ import { DescriptionList } from "@opui/astro"
 
     <Conditional>
       <Fragment slot="astro">
-        <h3 id="non-semantic-elements">Non-semantic elements</h3>
+        <h3 id="non-semantic-elements"><code>as</code> prop</h3>
         <p>
           Sometimes you can't use semantic form elements like <code
             >&lt;fieldset&gt;</code
           > and <code>&lt;legend&gt;</code>. Use the <code>as</code> prop on <code
             >FieldSet</code
-          > and <code>FieldLegend</code> to render non-semantic alternatives.
+          > and <code>FieldLegend</code> instead.
         </p>
         <Code lang="astro" code={ExampleAdaptiveOutputCode} />
       </Fragment>
       <Fragment slot="vue">
-        <h3 id="non-semantic-elements">Non-semantic elements</h3>
+        <h3 id="non-semantic-elements"><code>as</code> prop</h3>
         <p>
           Sometimes you can't use semantic form elements like <code
             >&lt;fieldset&gt;</code
           > and <code>&lt;legend&gt;</code>. Use the <code>as</code> prop on <code
             >FieldSet</code
-          > and <code>FieldLegend</code> to render non-semantic alternatives.
+          > and <code>FieldLegend</code> instead.
         </p>
         <Code lang="vue" code={ExampleAdaptiveOutputVueCode} />
       </Fragment>
@@ -111,8 +111,7 @@ import { DescriptionList } from "@opui/astro"
             >&lt;fieldset&gt;</code
           > and <code>&lt;legend&gt;</code>. Replace them with <code
             >&lt;div role="group"&gt;</code
-          > paired with a <code>&lt;span class="ui-legend"&gt;</code> (or any heading)
-          to keep the visual treatment without the native semantics.
+          > and <code>&lt;span class="ui-legend"&gt;</code> (or any heading).
         </p>
       </Fragment>
     </Conditional>

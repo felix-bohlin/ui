@@ -4,36 +4,18 @@ import type { Props } from "./types.astro"
 export const title = "Field Control"
 
 const { class: className, ...rest } = Astro.props
+
+const prefix = await Astro.slots.render("prefix")
+const suffix = await Astro.slots.render("suffix")
+const header = await Astro.slots.render("header")
+const footer = await Astro.slots.render("footer")
 ---
 
 <span class:list={["ui-field", className]} {...rest}>
   <slot />
-  {
-    Astro.slots.has("prefix") && (
-      <span class="ui-prefix">
-        <slot name="prefix" />
-      </span>
-    )
-  }
-  {
-    Astro.slots.has("suffix") && (
-      <span class="ui-suffix">
-        <slot name="suffix" />
-      </span>
-    )
-  }
-  {
-    Astro.slots.has("header") && (
-      <span class="ui-header">
-        <slot name="header" />
-      </span>
-    )
-  }
-  {
-    Astro.slots.has("footer") && (
-      <span class="ui-footer">
-        <slot name="footer" />
-      </span>
-    )
-  }
+  <!-- trim hack because Astro just returns transitioning slots to true -->
+  {prefix?.trim() && <span class="ui-prefix" set:html={prefix} />}
+  {suffix?.trim() && <span class="ui-suffix" set:html={suffix} />}
+  {header?.trim() && <span class="ui-header" set:html={header} />}
+  {footer?.trim() && <span class="ui-footer" set:html={footer} />}
 </span>

@@ -65,10 +65,10 @@
     "postcss-import": "^16.1.0"
   },
   "peerDependencies": {
-    "astro": "catalog:",
-    "open-props": "catalog:",
-    "svelte": "catalog:",
-    "vue": "catalog:"
+    "astro": "^7.0.6",
+    "open-props": "^1.7.23",
+    "svelte": "^5.56.4",
+    "vue": "^3.5.39"
   },
   "peerDependenciesMeta": {
     "astro": {

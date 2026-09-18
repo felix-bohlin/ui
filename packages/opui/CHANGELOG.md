@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.4.3 - 2026-09-18
+
+### Fixed
+
+Fix publish pnpm issue ([#357](https://github.com/felix-bohlin/ui/issues/357)) - thanks @onokumus!
+
 ## 5.4.2 - 2026-06-29
 
 ### Fixed

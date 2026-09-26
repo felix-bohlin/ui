@@ -5,6 +5,7 @@
 ### Fixed
 
 - Global `:focus-visible` ring now reads `--focus-ring-color`, `--focus-ring-width`, `--focus-ring-style` and `--focus-ring-offset`. `--focus-ring-color` is unset by default so the ring keeps its inverted page background color.
+- `Tooltip` transitions now respect `--motion` (`prefers-reduced-motion`, `.ui-motion-off`).
 
 ## 5.4.3 - 2026-09-18
 

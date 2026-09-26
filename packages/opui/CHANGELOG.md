@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Documented source imports with a `.css` extension (`opui-css/css/imports.css`, `opui-css/core/normalize.css`, `opui-css/css/components/button.css`, …) now resolve through `exports`. Previously they resolved to `*.css.css`.
 - Global `:focus-visible` ring now reads `--focus-ring-color`, `--focus-ring-width`, `--focus-ring-style` and `--focus-ring-offset`. `--focus-ring-color` is unset by default so the ring keeps its inverted page background color.
 - `Tooltip` transitions now respect `--motion` (`prefers-reduced-motion`, `.ui-motion-off`).
 - `Dialog` backdrop is themeable via `--_backdrop-bg-color` and `--_backdrop-blur` (same as `Drawer`).

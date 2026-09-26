@@ -139,8 +139,9 @@
     );
 
     border-radius: var(--border-radius, 0px);
-    outline: 2px solid var(--_focus-visible-color);
-    outline-offset: 2px;
+    outline: var(--focus-ring-width, 2px) var(--focus-ring-style, solid)
+      var(--focus-ring-color, var(--_focus-visible-color));
+    outline-offset: var(--focus-ring-offset, 2px);
     transition: outline-offset calc(0.15s * var(--motion)) var(--ease-2);
   }
 

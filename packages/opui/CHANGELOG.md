@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- `DrawerHeader` takes a `commandfor` prop (the drawer `id`). When set, the close button uses `command="close"` (Invoker Commands) and needs no JavaScript. Without it, the previous script fallback is used.
+
 ### Fixed
 
 - Documented source imports with a `.css` extension (`opui-css/css/imports.css`, `opui-css/core/normalize.css`, `opui-css/css/components/button.css`, …) now resolve through `exports`. Previously they resolved to `*.css.css`.

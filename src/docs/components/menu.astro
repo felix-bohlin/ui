@@ -1,0 +1,152 @@
+---
+import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import { Callout as UICallout } from "@opui/astro"
+
+import ListCSS from "@opui/css/components/list.css?raw"
+import MenuCSS from "@opui/css/components/menu.css?raw"
+
+export const description =
+  "A popover list of actions or links, anchored to the button that opens it. No JavaScript required."
+---
+
+<Component
+  description={description}
+  slug="menu"
+  browserSupport={[
+    "anchor-positioning",
+    "invoker-commands",
+    "popover",
+    "starting-style",
+    "transition-behavior",
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Menu/Menu.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/menu.astro", type: "docs" },
+    { path: "src/component-examples/menu", type: "docs" },
+    { path: "packages/opui/css/components/menu.css", type: "css" },
+    { path: "src/component-api/menu", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "menu.css", code: MenuCSS, lang: "css" },
+    { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
+  ]}
+  seeAlsoLinks={[{ name: "List", href: "/components/list" }]}
+>
+  <Fragment slot="title">Menu</Fragment>
+  <Fragment slot="preamble">
+    <p>
+      Built on top of <DocLink href="/components/list">List</DocLink>, the
+      <code>popover</code> attribute and Invoker Commands. The button that opens
+      the menu becomes its anchor, so there's no <code>anchor-name</code> to
+      wire up.
+    </p>
+  </Fragment>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="html">
+        Add <code>.ui-menu.ui-list</code> and <code>popover</code> to a
+        <code>&lt;menu&gt;</code>. Open it with
+        <code>commandfor</code> and <code>command="toggle-popover"</code>. Add
+        <code>command="hide-popover"</code> to items that should close the menu
+        when clicked.
+      </Fragment>
+      <Fragment slot="astro">
+        Pass an <code>items</code> array and open the menu with
+        <code>commandfor</code> and <code>command="toggle-popover"</code>. Button
+        items close the menu when clicked unless <code>closeOnClick</code> is
+        <code>false</code>. Any other keys on an item are passed to its element.
+      </Fragment>
+      <Fragment slot="vue">
+        Pass an <code>items</code> array and open the menu with
+        <code>commandfor</code> and <code>command="toggle-popover"</code>. Button
+        items close the menu when clicked unless <code>closeOnClick</code> is
+        <code>false</code>. Any other keys on an item are passed to its element.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Basics" centered />
+  </section>
+
+  <section>
+    <h2 id="custom">Custom items</h2>
+    <Conditional as="p">
+      <Fragment slot="html">
+        Items are regular list items, so icons (<code>.ui-start</code>),
+        shortcuts (<code>.ui-end</code>), <code>.ui-border-top</code> and
+        <code>.ui-dense</code> from List all work. Use <code>li.ui-label</code> for
+        group labels and <code>.ui-critical</code> for destructive items.
+      </Fragment>
+      <Fragment slot="astro">
+        Use the default slot with <code>ListItem</code> (or plain
+        <code>&lt;li&gt;</code>) for full control. It can be combined with
+        <code>items</code>. Use <code>li.ui-label</code> for group labels and
+        <code>.ui-critical</code> for destructive items.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the default slot with <code>ListItem</code> (or plain
+        <code>&lt;li&gt;</code>) for full control. It can be combined with
+        <code>items</code>. Use <code>li.ui-label</code> for group labels and
+        <code>.ui-critical</code> for destructive items.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Custom" centered />
+  </section>
+
+  <section>
+    <h2 id="placement">Placement</h2>
+    <Conditional as="p">
+      <Fragment slot="html">
+        Add <code>.ui-block-start</code>, <code>.ui-inline-start</code> or
+        <code>.ui-inline-end</code>. For anything else, set
+        <code>--anchor-position-area</code> to any <code>position-area</code> value.
+        The menu flips automatically when it runs out of space.
+      </Fragment>
+      <Fragment slot="astro">
+        Use the <code>placement</code> prop. For anything else, set
+        <code>--anchor-position-area</code> to any <code>position-area</code> value.
+        The menu flips automatically when it runs out of space.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>placement</code> prop. For anything else, set
+        <code>--anchor-position-area</code> to any <code>position-area</code> value.
+        The menu flips automatically when it runs out of space.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Placement" row centered />
+  </section>
+
+  <section>
+    <h2 id="submenu">Submenu</h2>
+    <p>
+      Put a menu inside a list item of another menu. Nested popovers keep their
+      parent open, and closing the outer menu closes everything inside it.
+    </p>
+
+    <AutoExample name="Submenu" centered />
+  </section>
+
+  <Fragment slot="accessibility">
+    <div class="ui-not-rich-text">
+      <UICallout severity="info">
+        <Fragment slot="title">Tab, not arrow keys</Fragment>
+        <p>
+          Items are native buttons and links, navigated with <kbd>Tab</kbd>.
+          <kbd>Esc</kbd> and clicking outside close the menu, and the trigger
+          gets <code>aria-expanded</code> automatically. The ARIA
+          <code>role="menu"</code> pattern with arrow-key navigation isn't used,
+          because it requires JavaScript to work correctly.
+        </p>
+      </UICallout>
+    </div>
+  </Fragment>
+</Component>

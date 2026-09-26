@@ -1,0 +1,71 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Menu"
+
+const {
+  class: className,
+  dense,
+  id,
+  items,
+  placement,
+  popover = "auto",
+  ...rest
+} = Astro.props
+
+const { $id } = Astro.locals
+const menuId = id || $id("menu")
+---
+
+<menu
+  class:list={[
+    "ui-menu",
+    "ui-list",
+    { "ui-dense": dense },
+    placement && placement !== "block-end" && `ui-${placement}`,
+    className,
+  ]}
+  id={menuId}
+  popover={popover}
+  {...rest}
+>
+  {
+    items?.map(
+      ({
+        borderTop,
+        closeOnClick = true,
+        critical,
+        disabled,
+        href,
+        label,
+        shortcut,
+        ...itemRest
+      }) => {
+        const Tag = href ? "a" : "button"
+        const closes = !href && closeOnClick && !disabled
+
+        return (
+          <li class:list={[{ "ui-border-top": borderTop, "ui-critical": critical }]}>
+            <Tag
+              aria-disabled={href && disabled ? "true" : undefined}
+              command={closes ? "hide-popover" : undefined}
+              commandfor={closes ? menuId : undefined}
+              disabled={!href && disabled ? true : undefined}
+              href={href && !disabled ? href : undefined}
+              type={href ? undefined : "button"}
+              {...(itemRest as any)}
+            >
+              {label}{" "}
+              {shortcut && (
+                <span class="ui-end">
+                  <kbd>{shortcut}</kbd>
+                </span>
+              )}
+            </Tag>
+          </li>
+        )
+      },
+    )
+  }
+  <slot />
+</menu>

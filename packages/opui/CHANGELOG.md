@@ -4,6 +4,7 @@
 
 ### Added
 
+- `Menu` component (`menu.ui-menu.ui-list[popover]`). Opens with Invoker Commands, anchors to its trigger with no `anchor-name`, and flips when it runs out of space. Supports an `items` prop, custom `ListItem` content, placements, `--anchor-position-area`, group labels, critical items and submenus. No JavaScript.
 - `DrawerHeader` takes a `commandfor` prop (the drawer `id`). When set, the close button uses `command="close"` (Invoker Commands) and needs no JavaScript. Without it, the previous script fallback is used.
 
 ### Fixed

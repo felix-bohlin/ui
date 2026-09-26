@@ -1,0 +1,82 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Modifiers</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Part</Table.Cell>
+      <Table.Cell><code>menu.ui-menu.ui-list[popover]</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The menu surface.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Trigger</Table.Cell>
+      <Table.Cell><code>commandfor="id"</code>, <code>command="toggle-popover"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Opens and closes the menu. Becomes its anchor.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Children</Table.Cell>
+      <Table.Cell><code>li &gt; button</code>, <code>li &gt; a</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Menu items.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Children</Table.Cell>
+      <Table.Cell><code>command="hide-popover"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Closes the menu when the item is clicked.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Children</Table.Cell>
+      <Table.Cell><code>li.ui-label</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Group label.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Children</Table.Cell>
+      <Table.Cell><code>.ui-start</code>, <code>.ui-end</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Leading and trailing content, e.g. icons and shortcuts.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Colors</Table.Cell>
+      <Table.Cell><code>.ui-critical</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>On an item or its <code>li</code>. Destructive item.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Placement</Table.Cell>
+      <Table.Cell><code>.ui-block-start</code>, <code>.ui-inline-start</code>, <code>.ui-inline-end</code></Table.Cell>
+      <Table.Cell>default</Table.Cell>
+      <Table.Cell>Where the menu opens. Default is below the trigger.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Placement</Table.Cell>
+      <Table.Cell><code>--anchor-position-area</code></Table.Cell>
+      <Table.Cell><code>block-end span-inline-end</code></Table.Cell>
+      <Table.Cell>Any valid <code>position-area</code> value.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Sizes</Table.Cell>
+      <Table.Cell><code>.ui-dense</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Less spacing.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

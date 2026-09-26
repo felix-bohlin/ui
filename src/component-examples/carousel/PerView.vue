@@ -12,6 +12,7 @@ const places = [
 
 <template>
   <Carousel
+    buttons="outside"
     label="Destinations"
     :per-view="3"
   >

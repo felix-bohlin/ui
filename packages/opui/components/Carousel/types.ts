@@ -1,6 +1,6 @@
 export type Props = {
   align?: "start" | "center"
-  buttons?: boolean
+  buttons?: boolean | "outside"
   label?: string
   markers?: boolean
   peek?: boolean

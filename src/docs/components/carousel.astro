@@ -47,15 +47,18 @@ export const description =
     <Conditional as="p">
       <Fragment slot="html">
         <code>ul.ui-carousel</code> with an <code>aria-label</code>. Add
-        <code>.ui-with-buttons</code> and <code>.ui-with-markers</code>.
+        <code>.ui-with-buttons</code> and <code>.ui-with-markers</code>. Buttons
+        overlay the items, or sit beside them with <code>.ui-buttons-outside</code>.
       </Fragment>
       <Fragment slot="astro">
         <code>&lt;li&gt;</code> items and a <code>label</code>. Add
-        <code>markers</code>.
+        <code>markers</code>. Buttons overlay the items, or sit beside them with
+        <code>buttons="outside"</code>.
       </Fragment>
       <Fragment slot="vue">
         <code>&lt;li&gt;</code> items and a <code>label</code>. Add
-        <code>markers</code>.
+        <code>markers</code>. Buttons overlay the items, or sit beside them with
+        <code>buttons="outside"</code>.
       </Fragment>
     </Conditional>
 
@@ -94,6 +97,27 @@ export const description =
     </Conditional>
 
     <AutoExample name="Peek" />
+  </section>
+
+  <section>
+    <h2 id="images">Images</h2>
+    <p>
+      <code>img</code> and <code>video</code> fill the item. Crop with
+      <code>--_media-aspect-ratio</code>.
+    </p>
+
+    <AutoExample name="Images" />
+    <AutoExample name="Gallery" />
+  </section>
+
+  <section>
+    <h2 id="actions">Actions</h2>
+    <p>
+      <DocLink href="/components/card">Cards</DocLink> with
+      <DocLink href="/components/button">Buttons</DocLink>.
+    </p>
+
+    <AutoExample name="Actions" />
   </section>
 
   <section>

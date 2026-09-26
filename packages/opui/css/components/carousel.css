@@ -1,9 +1,9 @@
 @layer components.root {
   :where(.ui-carousel) {
     --_motion: var(--motion, 1);
-    --_button-bg-color: var(--surface-elevated);
-    --_button-border-color: var(--border-color);
-    --_button-color: var(--text-primary);
+    --_button-bg-color: light-dark(var(--gray-13), var(--gray-3));
+    --_button-border-color: transparent;
+    --_button-color: light-dark(var(--gray-1), var(--gray-15));
     --_button-disabled-opacity: 0;
     --_button-inset: var(--size-2);
     --_button-next-content: "\203A";
@@ -20,6 +20,8 @@
     --_marker-label: "Slide ";
     --_marker-size: var(--size-2);
     --_markers-margin-block-start: var(--size-3);
+    --_media-aspect-ratio: 16 / 9;
+    --_media-border-radius: var(--border-radius, var(--radius-2));
     --_padding-inline: 0px;
     --_per-view: 1;
     --_snap-align: start;
@@ -46,6 +48,15 @@
       counter-increment: ui-carousel-item;
       min-inline-size: 0;
       scroll-snap-align: var(--_snap-align);
+    }
+
+    /* Media */
+    & > * > :where(img, video) {
+      aspect-ratio: var(--_media-aspect-ratio);
+      block-size: auto;
+      border-radius: var(--_media-border-radius);
+      inline-size: 100%;
+      object-fit: cover;
     }
 
     /* Alignment */
@@ -103,6 +114,25 @@
       &::scroll-button(inline-end):disabled {
         cursor: default;
         opacity: var(--_button-disabled-opacity);
+      }
+
+      /* Buttons outside the items */
+      &.ui-buttons-outside {
+        @supports selector(::scroll-button(*)) {
+          margin-inline: calc(var(--_button-size) + var(--_button-inset));
+        }
+
+        &::scroll-button(inline-start) {
+          inset-inline-start: calc(
+            anchor(self-start) - var(--_button-size) - var(--_button-inset)
+          );
+        }
+
+        &::scroll-button(inline-end) {
+          inset-inline-end: calc(
+            anchor(self-end) - var(--_button-size) - var(--_button-inset)
+          );
+        }
       }
     }
 

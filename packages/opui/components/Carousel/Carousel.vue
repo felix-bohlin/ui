@@ -18,6 +18,7 @@ defineSlots<Slots>()
     :class="[
       'ui-carousel',
       {
+        'ui-buttons-outside': buttons === 'outside',
         'ui-peek': peek,
         'ui-with-buttons': buttons,
         'ui-with-markers': markers,

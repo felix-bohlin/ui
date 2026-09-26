@@ -26,9 +26,9 @@ import { Table } from "@opui/astro"
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>buttons</code></Table.Cell>
-      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>boolean</code>, <code>"outside"</code></Table.Cell>
       <Table.Cell><code>true</code></Table.Cell>
-      <Table.Cell>Previous and next buttons.</Table.Cell>
+      <Table.Cell>Previous and next buttons, over or beside the items.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>label</code></Table.Cell>
@@ -80,17 +80,17 @@ import { Table } from "@opui/astro"
   <Table.Body>
     <Table.Row>
       <Table.Cell><code>--_button-bg-color</code></Table.Cell>
-      <Table.Cell><code>var(--surface-elevated)</code></Table.Cell>
+      <Table.Cell><code>light-dark(var(--gray-13), var(--gray-3))</code></Table.Cell>
       <Table.Cell>Button background.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>--_button-border-color</code></Table.Cell>
-      <Table.Cell><code>var(--border-color)</code></Table.Cell>
+      <Table.Cell><code>transparent</code></Table.Cell>
       <Table.Cell>Button border.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>--_button-color</code></Table.Cell>
-      <Table.Cell><code>var(--text-primary)</code></Table.Cell>
+      <Table.Cell><code>light-dark(var(--gray-1), var(--gray-15))</code></Table.Cell>
       <Table.Cell>Button icon color.</Table.Cell>
     </Table.Row>
     <Table.Row>
@@ -162,6 +162,16 @@ import { Table } from "@opui/astro"
       <Table.Cell><code>--_markers-margin-block-start</code></Table.Cell>
       <Table.Cell><code>var(--size-3)</code></Table.Cell>
       <Table.Cell>Space above the markers.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_media-aspect-ratio</code></Table.Cell>
+      <Table.Cell><code>16 / 9</code></Table.Cell>
+      <Table.Cell>Aspect ratio of <code>img</code> and <code>video</code>.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_media-border-radius</code></Table.Cell>
+      <Table.Cell><code>var(--border-radius)</code></Table.Cell>
+      <Table.Cell>Radius of <code>img</code> and <code>video</code>.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>--_padding-inline</code></Table.Cell>

@@ -12,6 +12,7 @@ const places = [
 
 <template>
   <Carousel
+    buttons="outside"
     label="Destinations"
     markers
     :per-view="2"

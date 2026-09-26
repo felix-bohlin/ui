@@ -77,7 +77,7 @@
     }
 
     /* Disabled */
-    &:where([disabled]) {
+    &:where([disabled], [aria-disabled="true"]) {
       --_text-color: color-mix(in oklch,
           var(--text-muted) 50%,
           var(--surface-default));
@@ -87,7 +87,7 @@
     }
 
     /* Hover & Active */
-    &:where(:not([disabled])) {
+    &:where(:not([disabled], [aria-disabled="true"])) {
       &:where(:not(:active):hover) {
         --_bg-color: var(--_default-hover-bg-color);
       }
@@ -144,7 +144,7 @@
       --_border-color: var(--_accent);
       --_text-color: var(--_accent);
 
-      &:where(:not([disabled])) {
+      &:where(:not([disabled], [aria-disabled="true"])) {
         &:where(:not(:active):hover) {
           --_bg-color: var(--_accent);
           --_border-color: var(--_accent);
@@ -163,7 +163,7 @@
       --_bg-color: var(--_accent-tonal);
       --_text-color: var(--_accent-tonal-contrast);
 
-      &:where(:not([disabled])) {
+      &:where(:not([disabled], [aria-disabled="true"])) {
         &:where(:not(:active):hover) {
           --_bg-color: var(--_accent);
           --_text-color: var(--_accent-contrast);
@@ -180,7 +180,7 @@
       --_bg-color: var(--_accent);
       --_text-color: var(--_accent-contrast);
 
-      &:where(:not([disabled])) {
+      &:where(:not([disabled], [aria-disabled="true"])) {
         &:where(:not(:active):hover) {
           --_bg-color: var(--_filled-hover-bg-color);
         }

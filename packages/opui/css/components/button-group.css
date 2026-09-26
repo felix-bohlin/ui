@@ -61,7 +61,7 @@
         --_border-color: var(--_accent);
         --_divider-color: var(--_accent);
 
-        &:where(:not([disabled])) {
+        &:where(:not([disabled], [aria-disabled="true"])) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
             --_border-color: var(--_accent);
@@ -80,7 +80,7 @@
         --_bg-color: var(--_accent-tonal);
         --_text-color: var(--_accent-tonal-contrast);
 
-        &:where(:not([disabled])) {
+        &:where(:not([disabled], [aria-disabled="true"])) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
             --_text-color: var(--_accent-contrast);
@@ -103,7 +103,7 @@
               oklch(from var(--_accent) calc(l + 0.1) c h));
         }
 
-        &:where(:not([disabled])) {
+        &:where(:not([disabled], [aria-disabled="true"])) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_filled-hover-bg-color);
           }
@@ -133,7 +133,7 @@
           border-inline-width: 1px;
           margin-inline-start: -1px;
 
-          &[disabled] {
+          &:is([disabled], [aria-disabled="true"]) {
             border-inline-start-color: color-mix(in oklch,
                 var(--_divider-color) 40%,
                 transparent);
@@ -167,7 +167,7 @@
           border-block-start: 1px solid var(--_divider-color);
           margin-block-start: -1px;
 
-          &[disabled] {
+          &:is([disabled], [aria-disabled="true"]) {
             border-block-start-color: color-mix(in oklch,
                 var(--_divider-color) 40%,
                 transparent);

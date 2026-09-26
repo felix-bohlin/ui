@@ -8,6 +8,7 @@
 - `Tooltip` transitions now respect `--motion` (`prefers-reduced-motion`, `.ui-motion-off`).
 - `Dialog` backdrop is themeable via `--_backdrop-bg-color` and `--_backdrop-blur` (same as `Drawer`).
 - `Dialog` scroll-lock matches `.ui-scroll-lock` and no longer shifts the layout when the scrollbar disappears.
+- `Button`, `IconButton` and `ButtonGroup` style `[aria-disabled="true"]` the same as `[disabled]`, e.g. for `<a class="ui-button" aria-disabled="true">` or focusable disabled buttons.
 
 ## 5.4.3 - 2026-09-18
 

@@ -1,0 +1,182 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>align</code></Table.Cell>
+      <Table.Cell><code>"start"</code>, <code>"center"</code></Table.Cell>
+      <Table.Cell><code>"start"</code></Table.Cell>
+      <Table.Cell>Where items snap.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>buttons</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>true</code></Table.Cell>
+      <Table.Cell>Previous and next buttons.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>label</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Accessible name of the carousel.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>markers</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>One marker per item.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>peek</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Shows part of the neighbouring items.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>perView</code></Table.Cell>
+      <Table.Cell><code>number</code></Table.Cell>
+      <Table.Cell><code>1</code></Table.Cell>
+      <Table.Cell>Number of visible items.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>default</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell><code>&lt;li&gt;</code> items.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3>Custom properties</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 30%" />
+    <Table.Column width="min-width: 30%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Property</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>--_button-bg-color</code></Table.Cell>
+      <Table.Cell><code>var(--surface-elevated)</code></Table.Cell>
+      <Table.Cell>Button background.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_button-border-color</code></Table.Cell>
+      <Table.Cell><code>var(--border-color)</code></Table.Cell>
+      <Table.Cell>Button border.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_button-color</code></Table.Cell>
+      <Table.Cell><code>var(--text-primary)</code></Table.Cell>
+      <Table.Cell>Button icon color.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_button-disabled-opacity</code></Table.Cell>
+      <Table.Cell><code>0</code></Table.Cell>
+      <Table.Cell>Button opacity at the start and end.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_button-inset</code></Table.Cell>
+      <Table.Cell><code>var(--size-2)</code></Table.Cell>
+      <Table.Cell>Distance from the edge.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_button-next-content</code></Table.Cell>
+      <Table.Cell><code>"›"</code></Table.Cell>
+      <Table.Cell>Next icon. Any <code>content</code> value, e.g. <code>url()</code>.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_button-prev-content</code></Table.Cell>
+      <Table.Cell><code>"‹"</code></Table.Cell>
+      <Table.Cell>Previous icon.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_button-shadow</code></Table.Cell>
+      <Table.Cell><code>var(--shadow-2)</code></Table.Cell>
+      <Table.Cell>Button shadow.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_button-size</code></Table.Cell>
+      <Table.Cell><code>var(--button-size-small)</code></Table.Cell>
+      <Table.Cell>Button size.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_gap</code></Table.Cell>
+      <Table.Cell><code>var(--size-3)</code></Table.Cell>
+      <Table.Cell>Space between items.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_item-size</code></Table.Cell>
+      <Table.Cell><code>calc()</code></Table.Cell>
+      <Table.Cell>Item width. Derived from <code>--_per-view</code> and <code>--_gap</code>.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_marker-color</code></Table.Cell>
+      <Table.Cell><code>oklch(… / 25%)</code></Table.Cell>
+      <Table.Cell>Marker color.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_marker-color-active</code></Table.Cell>
+      <Table.Cell><code>var(--primary)</code></Table.Cell>
+      <Table.Cell>Current marker color.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_marker-gap</code></Table.Cell>
+      <Table.Cell><code>var(--size-2)</code></Table.Cell>
+      <Table.Cell>Space between markers.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_marker-label</code></Table.Cell>
+      <Table.Cell><code>"Slide "</code></Table.Cell>
+      <Table.Cell>Accessible name prefix for markers.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_marker-size</code></Table.Cell>
+      <Table.Cell><code>var(--size-2)</code></Table.Cell>
+      <Table.Cell>Marker size.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_markers-margin-block-start</code></Table.Cell>
+      <Table.Cell><code>var(--size-3)</code></Table.Cell>
+      <Table.Cell>Space above the markers.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_padding-inline</code></Table.Cell>
+      <Table.Cell><code>0px</code></Table.Cell>
+      <Table.Cell>Inline padding. Set by <code>.ui-peek</code>.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_per-view</code></Table.Cell>
+      <Table.Cell><code>1</code></Table.Cell>
+      <Table.Cell>Number of visible items.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>--_snap-align</code></Table.Cell>
+      <Table.Cell><code>start</code></Table.Cell>
+      <Table.Cell>Snap alignment of items.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

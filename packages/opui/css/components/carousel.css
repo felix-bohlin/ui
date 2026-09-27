@@ -51,7 +51,7 @@
     }
 
     /* Media */
-    & > * > :where(img, video) {
+    & > * > :where(iframe, img, video) {
       aspect-ratio: var(--_media-aspect-ratio);
       block-size: auto;
       border-radius: var(--_media-border-radius);

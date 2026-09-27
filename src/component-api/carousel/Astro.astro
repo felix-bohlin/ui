@@ -28,7 +28,7 @@ import { Table } from "@opui/astro"
       <Table.Cell><code>buttons</code></Table.Cell>
       <Table.Cell><code>boolean</code>, <code>"outside"</code></Table.Cell>
       <Table.Cell><code>true</code></Table.Cell>
-      <Table.Cell>Previous and next buttons, over or beside the items.</Table.Cell>
+      <Table.Cell>Previous and next buttons.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>label</code></Table.Cell>
@@ -40,7 +40,7 @@ import { Table } from "@opui/astro"
       <Table.Cell><code>markers</code></Table.Cell>
       <Table.Cell><code>boolean</code></Table.Cell>
       <Table.Cell><code>false</code></Table.Cell>
-      <Table.Cell>One marker per item.</Table.Cell>
+      <Table.Cell>One marker per item, after the list.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>peek</code></Table.Cell>
@@ -96,7 +96,7 @@ import { Table } from "@opui/astro"
     <Table.Row>
       <Table.Cell><code>--_button-disabled-opacity</code></Table.Cell>
       <Table.Cell><code>0</code></Table.Cell>
-      <Table.Cell>Button opacity at the start and end.</Table.Cell>
+      <Table.Cell>Button opacity at the ends.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>--_button-inset</code></Table.Cell>
@@ -106,7 +106,7 @@ import { Table } from "@opui/astro"
     <Table.Row>
       <Table.Cell><code>--_button-next-content</code></Table.Cell>
       <Table.Cell><code>"›"</code></Table.Cell>
-      <Table.Cell>Next icon. Any <code>content</code> value, e.g. <code>url()</code>.</Table.Cell>
+      <Table.Cell>Next icon.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>--_button-prev-content</code></Table.Cell>
@@ -131,7 +131,7 @@ import { Table } from "@opui/astro"
     <Table.Row>
       <Table.Cell><code>--_item-size</code></Table.Cell>
       <Table.Cell><code>calc()</code></Table.Cell>
-      <Table.Cell>Item width. Derived from <code>--_per-view</code> and <code>--_gap</code>.</Table.Cell>
+      <Table.Cell>Item width.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>--_marker-color</code></Table.Cell>
@@ -151,7 +151,7 @@ import { Table } from "@opui/astro"
     <Table.Row>
       <Table.Cell><code>--_marker-label</code></Table.Cell>
       <Table.Cell><code>"Slide "</code></Table.Cell>
-      <Table.Cell>Accessible name prefix for markers.</Table.Cell>
+      <Table.Cell>Marker name prefix.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>--_marker-size</code></Table.Cell>
@@ -166,17 +166,17 @@ import { Table } from "@opui/astro"
     <Table.Row>
       <Table.Cell><code>--_media-aspect-ratio</code></Table.Cell>
       <Table.Cell><code>16 / 9</code></Table.Cell>
-      <Table.Cell>Aspect ratio of <code>img</code> and <code>video</code>.</Table.Cell>
+      <Table.Cell>Image aspect ratio.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>--_media-border-radius</code></Table.Cell>
       <Table.Cell><code>var(--border-radius)</code></Table.Cell>
-      <Table.Cell>Radius of <code>img</code> and <code>video</code>.</Table.Cell>
+      <Table.Cell>Image radius.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>--_padding-inline</code></Table.Cell>
       <Table.Cell><code>0px</code></Table.Cell>
-      <Table.Cell>Inline padding. Set by <code>.ui-peek</code>.</Table.Cell>
+      <Table.Cell>Inline padding.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>--_per-view</code></Table.Cell>

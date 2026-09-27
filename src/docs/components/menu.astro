@@ -40,31 +40,17 @@ export const description =
   <Fragment slot="title">Menu</Fragment>
   <Fragment slot="preamble">
     <p>
-      A popover <DocLink href="/components/list">List</DocLink>, opened by a
-      <DocLink href="/components/button">Button</DocLink> or
-      <DocLink href="/components/icon-button">Icon Button</DocLink> and anchored
-      to it. HTML only.
+      A popover <DocLink href="/components/list">List</DocLink>, anchored to its
+      <DocLink href="/components/button">Button</DocLink>. HTML only.
     </p>
   </Fragment>
 
   <section>
     <h2 id="basics">Basics</h2>
     <Conditional as="p">
-      <Fragment slot="html">
-        <code>menu.ui-menu.ui-list[popover]</code>, opened with
-        <code>command="toggle-popover"</code>. Items close it with
-        <code>command="hide-popover"</code>.
-      </Fragment>
-      <Fragment slot="astro">
-        <code>items</code>, opened with <code>command="toggle-popover"</code>.
-        Items close the menu unless <code>closeOnClick</code> is
-        <code>false</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        <code>items</code>, opened with <code>command="toggle-popover"</code>.
-        Items close the menu unless <code>closeOnClick</code> is
-        <code>false</code>.
-      </Fragment>
+      <Fragment slot="html"><code>command="toggle-popover"</code> to open, and <code>command="hide-popover"</code> to close.</Fragment>
+      <Fragment slot="astro"><code>items</code>, and <code>closeOnClick: false</code> to keep it open.</Fragment>
+      <Fragment slot="vue"><code>items</code>, and <code>closeOnClick: false</code> to keep it open.</Fragment>
     </Conditional>
 
     <AutoExample name="Basics" centered />
@@ -72,23 +58,10 @@ export const description =
 
   <section>
     <h2 id="custom">Custom items</h2>
-    <Conditional as="p">
-      <Fragment slot="html">
-        Any <DocLink href="/components/list">List</DocLink> item. Group labels
-        with <code>li.ui-label</code>, destructive items with
-        <code>.ui-critical</code>.
-      </Fragment>
-      <Fragment slot="astro">
-        <DocLink href="/components/list">ListItem</DocLink> in the default slot.
-        Group labels with <code>li.ui-label</code>, destructive items with
-        <code>.ui-critical</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        <DocLink href="/components/list">ListItem</DocLink> in the default slot.
-        Group labels with <code>li.ui-label</code>, destructive items with
-        <code>.ui-critical</code>.
-      </Fragment>
-    </Conditional>
+    <p>
+      <code>li.ui-label</code> for groups, and <code>.ui-critical</code> for
+      destructive items.
+    </p>
 
     <AutoExample name="Custom" centered />
   </section>
@@ -96,16 +69,9 @@ export const description =
   <section>
     <h2 id="placement">Placement</h2>
     <Conditional as="p">
-      <Fragment slot="html">
-        Default, <code>.ui-block-start</code>, <code>.ui-inline-start</code>,
-        <code>.ui-inline-end</code>, or any <code>--anchor-position-area</code>.
-      </Fragment>
-      <Fragment slot="astro">
-        <code>placement</code>, or any <code>--anchor-position-area</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        <code>placement</code>, or any <code>--anchor-position-area</code>.
-      </Fragment>
+      <Fragment slot="html"><code>.ui-block-start</code>, <code>.ui-inline-start</code>, <code>.ui-inline-end</code>, or any <code>--anchor-position-area</code>.</Fragment>
+      <Fragment slot="astro"><code>placement</code>, or any <code>--anchor-position-area</code>.</Fragment>
+      <Fragment slot="vue"><code>placement</code>, or any <code>--anchor-position-area</code>.</Fragment>
     </Conditional>
 
     <AutoExample name="Placement" row centered />
@@ -119,9 +85,6 @@ export const description =
   </section>
 
   <Fragment slot="accessibility">
-    <p>
-      Items are native buttons and links. Navigate with <kbd>Tab</kbd>, close
-      with <kbd>Esc</kbd>.
-    </p>
+    <p><kbd>Tab</kbd> to navigate, and <kbd>Esc</kbd> to close.</p>
   </Fragment>
 </Component>

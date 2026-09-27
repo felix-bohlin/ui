@@ -36,38 +36,20 @@ export const description =
   <Fragment slot="title">Carousel</Fragment>
   <Fragment slot="preamble">
     <p>
-      A scrolling list of anything, e.g. <DocLink href="/components/card"
-        >Cards</DocLink
-      >. CSS only. Falls back to a regular scroller.
+      A scrolling list of anything, e.g.
+      <DocLink href="/components/card">Cards</DocLink>. CSS only.
     </p>
   </Fragment>
 
   <section>
     <h2 id="basics">Basics</h2>
     <Conditional as="p">
-      <Fragment slot="html">
-        <code>ul.ui-carousel</code> with an <code>aria-label</code>. Add
-        <code>.ui-with-buttons</code> and <code>.ui-with-markers</code>. Buttons
-        overlay the items, or sit beside them with <code>.ui-buttons-outside</code>.
-      </Fragment>
-      <Fragment slot="astro">
-        <code>&lt;li&gt;</code> items and a <code>label</code>. Add
-        <code>markers</code>. Buttons overlay the items, or sit beside them with
-        <code>buttons="outside"</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        <code>&lt;li&gt;</code> items and a <code>label</code>. Add
-        <code>markers</code>. Buttons overlay the items, or sit beside them with
-        <code>buttons="outside"</code>.
-      </Fragment>
+      <Fragment slot="html"><code>.ui-with-buttons</code>, and <code>.ui-with-markers</code> to navigate.</Fragment>
+      <Fragment slot="astro"><code>markers</code> to add markers.</Fragment>
+      <Fragment slot="vue"><code>markers</code> to add markers.</Fragment>
     </Conditional>
 
     <AutoExample name="Basics" />
-
-    <p>
-      Markers render after the list, so wrap the carousel when its parent is
-      flex or grid.
-    </p>
   </section>
 
   <section>
@@ -84,16 +66,9 @@ export const description =
   <section>
     <h2 id="peek">Peek</h2>
     <Conditional as="p">
-      <Fragment slot="html">
-        <code>.ui-peek</code>, and <code>.ui-align-center</code> to snap to the
-        center.
-      </Fragment>
-      <Fragment slot="astro">
-        <code>peek</code>, and <code>align="center"</code> to snap to the center.
-      </Fragment>
-      <Fragment slot="vue">
-        <code>peek</code>, and <code>align="center"</code> to snap to the center.
-      </Fragment>
+      <Fragment slot="html"><code>.ui-peek</code>, and <code>.ui-align-center</code> to snap to the center.</Fragment>
+      <Fragment slot="astro"><code>peek</code>, and <code>align="center"</code> to snap to the center.</Fragment>
+      <Fragment slot="vue"><code>peek</code>, and <code>align="center"</code> to snap to the center.</Fragment>
     </Conditional>
 
     <AutoExample name="Peek" />
@@ -101,38 +76,31 @@ export const description =
 
   <section>
     <h2 id="images">Images</h2>
-    <p>
-      <code>img</code> and <code>video</code> fill the item. Crop with
-      <code>--_media-aspect-ratio</code>.
-    </p>
+    <p><code>--_media-aspect-ratio</code> to crop images.</p>
 
     <AutoExample name="Images" />
     <AutoExample name="Gallery" />
   </section>
 
   <section>
-    <h2 id="actions">Actions</h2>
-    <p>
-      <DocLink href="/components/card">Cards</DocLink> with
-      <DocLink href="/components/button">Buttons</DocLink>.
-    </p>
+    <h2 id="buttons-outside">Buttons outside</h2>
+    <Conditional as="p">
+      <Fragment slot="html"><code>.ui-buttons-outside</code> to keep buttons off the content.</Fragment>
+      <Fragment slot="astro"><code>buttons="outside"</code> to keep buttons off the content.</Fragment>
+      <Fragment slot="vue"><code>buttons="outside"</code> to keep buttons off the content.</Fragment>
+    </Conditional>
 
     <AutoExample name="Actions" />
   </section>
 
   <section>
     <h2 id="customize">Customize</h2>
-    <p>
-      See <a href="#api" class="ui-link">API</a> for all custom properties.
-    </p>
+    <p>See <a href="#api" class="ui-link">API</a>.</p>
 
     <AutoExample name="Customize" />
   </section>
 
   <Fragment slot="accessibility">
-    <p>
-      Screen readers announce the item position. Buttons are named "Previous"
-      and "Next". Markers are named <code>--_marker-label</code> + number.
-    </p>
+    <p>Announces item position. Buttons and markers are named.</p>
   </Fragment>
 </Component>

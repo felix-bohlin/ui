@@ -4,6 +4,7 @@ import type { Props } from "./types.astro"
 export const title = "Menu"
 
 const {
+  align,
   class: className,
   dense,
   id,
@@ -21,7 +22,7 @@ const menuId = id || $id("menu")
   class:list={[
     "ui-menu",
     "ui-list",
-    { "ui-dense": dense },
+    { "ui-align-end": align === "end", "ui-dense": dense },
     placement && placement !== "block-end" && `ui-${placement}`,
     className,
   ]}

@@ -2,7 +2,7 @@
 import { useId } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const { dense, id, items, placement } = defineProps<Props>()
+const { align, dense, id, items, placement } = defineProps<Props>()
 defineSlots<Slots>()
 
 defineOptions({
@@ -18,7 +18,7 @@ const menuId = id || useId()
     :class="[
       'ui-menu',
       'ui-list',
-      { 'ui-dense': dense },
+      { 'ui-align-end': align === 'end', 'ui-dense': dense },
       placement && placement !== 'block-end' && `ui-${placement}`,
       $props.class,
     ]"

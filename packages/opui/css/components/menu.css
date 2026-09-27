@@ -9,7 +9,9 @@
     --_max-block-size: 60dvb;
     --_min-inline-size: 12rem;
     --_offset: var(--size-1);
-    --_position-area: block-end span-inline-end;
+    --_side: block-end;
+    --_span: span-inline-end;
+    --_position-area: var(--_side) var(--_span);
     --_shadow: var(--shadow-3);
     --_transition-duration: calc(0.15s * var(--_motion));
 
@@ -57,17 +59,27 @@
 
     /* Placements */
     &.ui-block-start {
-      --_position-area: block-start span-inline-end;
+      --_side: block-start;
     }
 
     &.ui-inline-end {
       --_margin: 0 var(--_offset);
-      --_position-area: inline-end span-block-end;
+      --_side: inline-end;
+      --_span: span-block-end;
     }
 
     &.ui-inline-start {
       --_margin: 0 var(--_offset);
-      --_position-area: inline-start span-block-end;
+      --_side: inline-start;
+      --_span: span-block-end;
+    }
+
+    &.ui-align-end {
+      --_span: span-inline-start;
+
+      &:is(.ui-inline-end, .ui-inline-start) {
+        --_span: span-block-start;
+      }
     }
 
     /* Items */

@@ -243,7 +243,7 @@
     "id": "component-carousel-html",
     "title": "Carousel",
     "description": "A scrolling list with snap points, buttons and markers. CSS only.",
-    "headings": "Basics Items per view Peek Images Video Buttons outside Customize",
+    "headings": "Basics Items per view Peek Images Video Buttons outside Custom buttons",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -253,7 +253,7 @@
     "id": "component-carousel-astro",
     "title": "Carousel",
     "description": "A scrolling list with snap points, buttons and markers. CSS only.",
-    "headings": "Basics Items per view Peek Images Video Buttons outside Customize",
+    "headings": "Basics Items per view Peek Images Video Buttons outside Custom buttons",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
@@ -263,7 +263,7 @@
     "id": "component-carousel-vue",
     "title": "Carousel",
     "description": "A scrolling list with snap points, buttons and markers. CSS only.",
-    "headings": "Basics Items per view Peek Images Video Buttons outside Customize",
+    "headings": "Basics Items per view Peek Images Video Buttons outside Custom buttons",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1185,36 +1185,6 @@
     "url": "/vue/api#anchor"
   },
   {
-    "id": "api-badge-astro",
-    "title": "Badge API",
-    "description": "Reference for Badge Astro component.",
-    "headings": "alignment - color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string | number - default The element the badge is anchored to. indicator",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#badge"
-  },
-  {
-    "id": "api-badge-html",
-    "title": "Badge API",
-    "description": "Reference for Badge HTML component.",
-    "headings": "Container .ui-anchor.ui-badge - Floating .ui-anchor-floating - Positioned floating container from Anchor. Indicator .ui-badge-indicator - Alignment - Color - Color modifiers on .ui-badge. Variants .ui-dot - Shape modifier on .ui-badge. Visibility .ui-invisible - Visibility modifier on .ui-badge.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#badge"
-  },
-  {
-    "id": "api-badge-vue",
-    "title": "Badge API",
-    "description": "Reference for Badge Vue component.",
-    "headings": "alignment - color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string | number - default The element the badge is anchored to. indicator",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#badge"
-  },
-  {
     "id": "api-avatar-astro",
     "title": "Avatar API",
     "description": "Reference for Avatar Astro component.",
@@ -1243,6 +1213,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#avatar"
+  },
+  {
+    "id": "api-badge-astro",
+    "title": "Badge API",
+    "description": "Reference for Badge Astro component.",
+    "headings": "alignment - color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string | number - default The element the badge is anchored to. indicator",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#badge"
+  },
+  {
+    "id": "api-badge-html",
+    "title": "Badge API",
+    "description": "Reference for Badge HTML component.",
+    "headings": "Container .ui-anchor.ui-badge - Floating .ui-anchor-floating - Positioned floating container from Anchor. Indicator .ui-badge-indicator - Alignment - Color - Color modifiers on .ui-badge. Variants .ui-dot - Shape modifier on .ui-badge. Visibility .ui-invisible - Visibility modifier on .ui-badge.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#badge"
+  },
+  {
+    "id": "api-badge-vue",
+    "title": "Badge API",
+    "description": "Reference for Badge Vue component.",
+    "headings": "alignment - color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string | number - default The element the badge is anchored to. indicator",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#badge"
   },
   {
     "id": "api-button-astro",
@@ -1275,36 +1275,6 @@
     "url": "/vue/api#button"
   },
   {
-    "id": "api-callout-astro",
-    "title": "Callout API",
-    "description": "Reference for Callout Astro component.",
-    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#callout"
-  },
-  {
-    "id": "api-callout-html",
-    "title": "Callout API",
-    "description": "Reference for Callout HTML component.",
-    "headings": "Part & > .ui-content, & > svg\r\n      - Internal structure. Severities - Severity modifiers. Variants .ui-tonal, .ui-outlined .ui-tonal Style modifiers.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#callout"
-  },
-  {
-    "id": "api-callout-vue",
-    "title": "Callout API",
-    "description": "Reference for Callout Vue component.",
-    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#callout"
-  },
-  {
     "id": "api-button-group-astro",
     "title": "Button Group API",
     "description": "Reference for Button Group Astro component.",
@@ -1333,6 +1303,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#button-group"
+  },
+  {
+    "id": "api-callout-astro",
+    "title": "Callout API",
+    "description": "Reference for Callout Astro component.",
+    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#callout"
+  },
+  {
+    "id": "api-callout-html",
+    "title": "Callout API",
+    "description": "Reference for Callout HTML component.",
+    "headings": "Part & > .ui-content, & > svg\r\n      - Internal structure. Severities - Severity modifiers. Variants .ui-tonal, .ui-outlined .ui-tonal Style modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#callout"
+  },
+  {
+    "id": "api-callout-vue",
+    "title": "Callout API",
+    "description": "Reference for Callout Vue component.",
+    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#callout"
   },
   {
     "id": "api-card-astro",
@@ -1368,7 +1368,7 @@
     "id": "api-carousel-astro",
     "title": "Carousel API",
     "description": "Reference for Carousel Astro component.",
-    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items. --_button-bg-color light-dark(var(--gray-13), var(--gray-3)) Button background. --_button-border-color transparent Button border. --_button-color light-dark(var(--gray-1), var(--gray-15)) Button icon color. --_button-disabled-opacity 0 Button opacity at the ends. --_button-inset var(--size-2) Distance from the edge. --_button-next-content \"›\" Next icon. --_button-prev-content \"‹\" Previous icon. --_button-shadow var(--shadow-2) Button shadow. --_button-size var(--button-size-small) Button size. --_gap var(--size-3) Space between items. --_item-size calc() Item width. --_marker-color oklch(… / 25%) Marker color. --_marker-color-active var(--primary) Current marker color. --_marker-gap var(--size-2) Space between markers. --_marker-label \"Slide \" Marker name prefix. --_marker-size var(--size-2) Marker size. --_markers-margin-block-start var(--size-3) Space above the markers. --_media-aspect-ratio 16 / 9 Media aspect ratio. --_media-border-radius var(--border-radius) Media radius. --_padding-inline 0px Inline padding. --_per-view 1 Number of visible items. --_snap-align start Snap alignment of items.",
+    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items. --_button-bg-color light-dark(var(--gray-13), var(--gray-3)) Button background. --_button-border-color transparent Button border. --_button-color light-dark(var(--gray-1), var(--gray-15)) Button icon color. --_button-disabled-opacity 0 Button opacity at the ends. --_button-inset var(--size-2) Distance from the edge. --_button-next-content \"›\" Next icon. Text or url(). --_button-prev-content \"‹\" Previous icon. Text or url(). --_button-shadow var(--shadow-2) Button shadow. --_button-size var(--button-size-small) Button size. --_gap var(--size-3) Space between items. --_item-size calc() Item width. --_marker-color oklch(… / 25%) Marker color. --_marker-color-active var(--primary) Current marker color. --_marker-gap var(--size-2) Space between markers. --_marker-label \"Slide \" Marker name prefix. --_marker-size var(--size-2) Marker size. --_markers-margin-block-start var(--size-3) Space above the markers. --_media-aspect-ratio 16 / 9 Media aspect ratio. --_media-border-radius var(--border-radius) Media radius. --_padding-inline 0px Inline padding. --_per-view 1 Number of visible items. --_snap-align start Snap alignment of items.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1378,7 +1378,7 @@
     "id": "api-carousel-html",
     "title": "Carousel API",
     "description": "Reference for Carousel HTML component.",
-    "headings": "Part ul.ui-carousel - The scroller. Needs an aria-label. Children li - The items. Alignment .ui-align-center default Where items snap. Buttons .ui-with-buttons - Previous and next buttons. Buttons .ui-buttons-outside - Buttons beside the items. Markers .ui-with-markers - One marker per item, after the list. Peek .ui-peek - Shows part of the neighbouring items. Items per view --_per-view 1 Number of visible items. --_button-bg-color light-dark(var(--gray-13), var(--gray-3)) Button background. --_button-border-color transparent Button border. --_button-color light-dark(var(--gray-1), var(--gray-15)) Button icon color. --_button-disabled-opacity 0 Button opacity at the ends. --_button-inset var(--size-2) Distance from the edge. --_button-next-content \"›\" Next icon. --_button-prev-content \"‹\" Previous icon. --_button-shadow var(--shadow-2) Button shadow. --_button-size var(--button-size-small) Button size. --_gap var(--size-3) Space between items. --_item-size calc() Item width. --_marker-color oklch(… / 25%) Marker color. --_marker-color-active var(--primary) Current marker color. --_marker-gap var(--size-2) Space between markers. --_marker-label \"Slide \" Marker name prefix. --_marker-size var(--size-2) Marker size. --_markers-margin-block-start var(--size-3) Space above the markers. --_media-aspect-ratio 16 / 9 Media aspect ratio. --_media-border-radius var(--border-radius) Media radius. --_padding-inline 0px Inline padding. --_per-view 1 Number of visible items. --_snap-align start Snap alignment of items.",
+    "headings": "Part ul.ui-carousel - The scroller. Needs an aria-label. Children li - The items. Alignment .ui-align-center default Where items snap. Buttons .ui-with-buttons - Previous and next buttons. Buttons .ui-buttons-outside - Buttons beside the items. Markers .ui-with-markers - One marker per item, after the list. Peek .ui-peek - Shows part of the neighbouring items. Items per view --_per-view 1 Number of visible items. --_button-bg-color light-dark(var(--gray-13), var(--gray-3)) Button background. --_button-border-color transparent Button border. --_button-color light-dark(var(--gray-1), var(--gray-15)) Button icon color. --_button-disabled-opacity 0 Button opacity at the ends. --_button-inset var(--size-2) Distance from the edge. --_button-next-content \"›\" Next icon. Text or url(). --_button-prev-content \"‹\" Previous icon. Text or url(). --_button-shadow var(--shadow-2) Button shadow. --_button-size var(--button-size-small) Button size. --_gap var(--size-3) Space between items. --_item-size calc() Item width. --_marker-color oklch(… / 25%) Marker color. --_marker-color-active var(--primary) Current marker color. --_marker-gap var(--size-2) Space between markers. --_marker-label \"Slide \" Marker name prefix. --_marker-size var(--size-2) Marker size. --_markers-margin-block-start var(--size-3) Space above the markers. --_media-aspect-ratio 16 / 9 Media aspect ratio. --_media-border-radius var(--border-radius) Media radius. --_padding-inline 0px Inline padding. --_per-view 1 Number of visible items. --_snap-align start Snap alignment of items.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -1388,7 +1388,7 @@
     "id": "api-carousel-vue",
     "title": "Carousel API",
     "description": "Reference for Carousel Vue component.",
-    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items. --_button-bg-color light-dark(var(--gray-13), var(--gray-3)) Button background. --_button-border-color transparent Button border. --_button-color light-dark(var(--gray-1), var(--gray-15)) Button icon color. --_button-disabled-opacity 0 Button opacity at the ends. --_button-inset var(--size-2) Distance from the edge. --_button-next-content \"›\" Next icon. --_button-prev-content \"‹\" Previous icon. --_button-shadow var(--shadow-2) Button shadow. --_button-size var(--button-size-small) Button size. --_gap var(--size-3) Space between items. --_item-size calc() Item width. --_marker-color oklch(… / 25%) Marker color. --_marker-color-active var(--primary) Current marker color. --_marker-gap var(--size-2) Space between markers. --_marker-label \"Slide \" Marker name prefix. --_marker-size var(--size-2) Marker size. --_markers-margin-block-start var(--size-3) Space above the markers. --_media-aspect-ratio 16 / 9 Media aspect ratio. --_media-border-radius var(--border-radius) Media radius. --_padding-inline 0px Inline padding. --_per-view 1 Number of visible items. --_snap-align start Snap alignment of items.",
+    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items. --_button-bg-color light-dark(var(--gray-13), var(--gray-3)) Button background. --_button-border-color transparent Button border. --_button-color light-dark(var(--gray-1), var(--gray-15)) Button icon color. --_button-disabled-opacity 0 Button opacity at the ends. --_button-inset var(--size-2) Distance from the edge. --_button-next-content \"›\" Next icon. Text or url(). --_button-prev-content \"‹\" Previous icon. Text or url(). --_button-shadow var(--shadow-2) Button shadow. --_button-size var(--button-size-small) Button size. --_gap var(--size-3) Space between items. --_item-size calc() Item width. --_marker-color oklch(… / 25%) Marker color. --_marker-color-active var(--primary) Current marker color. --_marker-gap var(--size-2) Space between markers. --_marker-label \"Slide \" Marker name prefix. --_marker-size var(--size-2) Marker size. --_markers-margin-block-start var(--size-3) Space above the markers. --_media-aspect-ratio 16 / 9 Media aspect ratio. --_media-border-radius var(--border-radius) Media radius. --_padding-inline 0px Inline padding. --_per-view 1 Number of visible items. --_snap-align start Snap alignment of items.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1425,36 +1425,6 @@
     "url": "/vue/api#checkbox"
   },
   {
-    "id": "api-classic-select-astro",
-    "title": "Classic Select API",
-    "description": "Reference for Classic Select Astro component.",
-    "headings": "disabled boolean - Select disabled state. error boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#classic-select"
-  },
-  {
-    "id": "api-classic-select-html",
-    "title": "Classic Select API",
-    "description": "Reference for Classic Select HTML component.",
-    "headings": "Sizes .ui-small - The size of the element. Variants default, .ui-filled - The variant to use.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#classic-select"
-  },
-  {
-    "id": "api-classic-select-vue",
-    "title": "Classic Select API",
-    "description": "Reference for Classic Select Vue component.",
-    "headings": "disabled boolean - Select disabled state. error boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#classic-select"
-  },
-  {
     "id": "api-chip-astro",
     "title": "Chip API",
     "description": "Reference for Chip Astro component.",
@@ -1483,6 +1453,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#chip"
+  },
+  {
+    "id": "api-classic-select-astro",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select Astro component.",
+    "headings": "disabled boolean - Select disabled state. error boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#classic-select"
+  },
+  {
+    "id": "api-classic-select-html",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select HTML component.",
+    "headings": "Sizes .ui-small - The size of the element. Variants default, .ui-filled - The variant to use.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#classic-select"
+  },
+  {
+    "id": "api-classic-select-vue",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select Vue component.",
+    "headings": "disabled boolean - Select disabled state. error boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#classic-select"
   },
   {
     "id": "api-description-list-astro",
@@ -1545,36 +1545,6 @@
     "url": "/vue/api#dialog"
   },
   {
-    "id": "api-drawer-astro",
-    "title": "Drawer API",
-    "description": "Reference for Drawer Astro component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#drawer"
-  },
-  {
-    "id": "api-drawer-html",
-    "title": "Drawer API",
-    "description": "Reference for Drawer HTML component.",
-    "headings": "Sides .ui-inline-start, .ui-inline-end,\r\n        .ui-block-start, .ui-block-end .ui-inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\r\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .ui-backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\r\n        Prevents focus from jumping to the first focusable element. .ui-header - - Top area for titles. .ui-content - - Main content area. .ui-actions - - Bottom action area.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#drawer"
-  },
-  {
-    "id": "api-drawer-vue",
-    "title": "Drawer API",
-    "description": "Reference for Drawer Vue component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#drawer"
-  },
-  {
     "id": "api-divider-astro",
     "title": "Divider API",
     "description": "Reference for Divider Astro component.",
@@ -1603,6 +1573,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#divider"
+  },
+  {
+    "id": "api-drawer-astro",
+    "title": "Drawer API",
+    "description": "Reference for Drawer Astro component.",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#drawer"
+  },
+  {
+    "id": "api-drawer-html",
+    "title": "Drawer API",
+    "description": "Reference for Drawer HTML component.",
+    "headings": "Sides .ui-inline-start, .ui-inline-end,\r\n        .ui-block-start, .ui-block-end .ui-inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\r\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .ui-backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\r\n        Prevents focus from jumping to the first focusable element. .ui-header - - Top area for titles. .ui-content - - Main content area. .ui-actions - - Bottom action area.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#drawer"
+  },
+  {
+    "id": "api-drawer-vue",
+    "title": "Drawer API",
+    "description": "Reference for Drawer Vue component.",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#drawer"
   },
   {
     "id": "api-field-group-astro",
@@ -1725,36 +1725,6 @@
     "url": "/vue/api#list"
   },
   {
-    "id": "api-progress-astro",
-    "title": "Progress API",
-    "description": "Reference for Progress Astro component.",
-    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#progress"
-  },
-  {
-    "id": "api-progress-html",
-    "title": "Progress API",
-    "description": "Reference for Progress HTML component.",
-    "headings": "Progress - Indeterminate No value attribute - Display an indeterminate loading state. Variant -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#progress"
-  },
-  {
-    "id": "api-progress-vue",
-    "title": "Progress API",
-    "description": "Reference for Progress Vue component.",
-    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#progress"
-  },
-  {
     "id": "api-menu-astro",
     "title": "Menu API",
     "description": "Reference for Menu Astro component.",
@@ -1785,34 +1755,34 @@
     "url": "/vue/api#menu"
   },
   {
-    "id": "api-range-astro",
-    "title": "Range API",
-    "description": "Reference for Range Astro component.",
-    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\r\n    \r\n    \r\n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "id": "api-progress-astro",
+    "title": "Progress API",
+    "description": "Reference for Progress Astro component.",
+    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#range"
+    "url": "/astro/api#progress"
   },
   {
-    "id": "api-range-html",
-    "title": "Range API",
-    "description": "Reference for Range HTML component.",
-    "headings": "Input input[type=\"range\"] - The native range input element. Range .ui-range - Wrapper for label and input styling. Spread .ui-spread - Modifier for a spread layout. Variant - Modifiers for different background surfaces. Label .ui-label - The label element for the range. Value output.value - Start text .ui-start-text - End text .ui-end-text - Optional text displayed below the range input. Spread .ui-spread -",
+    "id": "api-progress-html",
+    "title": "Progress API",
+    "description": "Reference for Progress HTML component.",
+    "headings": "Progress - Indeterminate No value attribute - Display an indeterminate loading state. Variant -",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#range"
+    "url": "/html/api#progress"
   },
   {
-    "id": "api-range-vue",
-    "title": "Range API",
-    "description": "Reference for Range Vue component.",
-    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\r\n    \r\n    \r\n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "id": "api-progress-vue",
+    "title": "Progress API",
+    "description": "Reference for Progress Vue component.",
+    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
-    "url": "/vue/api#range"
+    "url": "/vue/api#progress"
   },
   {
     "id": "api-select-astro",
@@ -1843,6 +1813,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#select"
+  },
+  {
+    "id": "api-range-astro",
+    "title": "Range API",
+    "description": "Reference for Range Astro component.",
+    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\r\n    \r\n    \r\n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#range"
+  },
+  {
+    "id": "api-range-html",
+    "title": "Range API",
+    "description": "Reference for Range HTML component.",
+    "headings": "Input input[type=\"range\"] - The native range input element. Range .ui-range - Wrapper for label and input styling. Spread .ui-spread - Modifier for a spread layout. Variant - Modifiers for different background surfaces. Label .ui-label - The label element for the range. Value output.value - Start text .ui-start-text - End text .ui-end-text - Optional text displayed below the range input. Spread .ui-spread -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#range"
+  },
+  {
+    "id": "api-range-vue",
+    "title": "Range API",
+    "description": "Reference for Range Vue component.",
+    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\r\n    \r\n    \r\n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#range"
   },
   {
     "id": "api-spinner-astro",

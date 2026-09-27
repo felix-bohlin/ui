@@ -4,36 +4,36 @@ import { Button } from "opui-css/vue"
 
 <template>
   <Button>
-    Text
+    <span>Text</span>
     <svg><!-- --></svg>
   </Button>
   <Button variant="outlined">
-    Outlined
+    <span>Outlined</span>
     <svg><!-- --></svg>
   </Button>
   <Button variant="tonal">
-    Tonal
+    <span>Tonal</span>
     <svg><!-- --></svg>
   </Button>
   <Button variant="filled">
-    Filled
+    <span>Filled</span>
     <svg><!-- --></svg>
   </Button>
 
   <Button>
     <svg><!-- --></svg>
-    Text
+    <span>Text</span>
   </Button>
   <Button variant="outlined">
     <svg><!-- --></svg>
-    Outlined
+    <span>Outlined</span>
   </Button>
   <Button variant="tonal">
     <svg><!-- --></svg>
-    Tonal
+    <span>Tonal</span>
   </Button>
   <Button variant="filled">
     <svg><!-- --></svg>
-    Filled
+    <span>Filled</span>
   </Button>
 </template>

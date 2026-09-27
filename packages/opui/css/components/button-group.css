@@ -48,13 +48,13 @@
 
       :where(.ui-button-group.ui-small) & {
         --_min-height: 1.875rem;
+        --_padding-inline: 1.25ex;
         padding-block: 0;
-        padding-inline: 1ex;
       }
 
       :where(.ui-button-group.ui-large) & {
         --_min-height: 2.875rem;
-        padding-inline: 4ex;
+        --_padding-inline: 2.5ex;
       }
 
       &.ui-icon-only {

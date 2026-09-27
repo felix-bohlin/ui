@@ -52,6 +52,7 @@
     --_font-size: var(--font-size-1);
     --_min-height: var(--button-size);
     --_border-radius: var(--button-border-radius, var(--radius-2));
+    --_padding-inline: 1.5ex;
     --_text-color: var(--_accent);
 
     -webkit-tap-highlight-color: transparent;
@@ -68,7 +69,7 @@
     justify-content: center;
     min-block-size: var(--_min-height);
     padding-block: 0.5ex;
-    padding-inline: 1.5ex;
+    padding-inline: var(--_padding-inline);
     text-align: center;
     text-decoration: none;
     transition:
@@ -107,13 +108,24 @@
     }
 
     /* Icons / Keyboard */
-    &:where(:has(svg), &.ui-icon-only) {
+    &:where(:has(> svg), .ui-icon-only) {
       gap: 1ex;
 
-      svg {
+      & > svg {
+        block-size: auto;
         color: currentColor;
+        flex-shrink: 0;
+        inline-size: auto;
         max-block-size: 0.7lh;
       }
+    }
+
+    &:where(:has(> svg:first-child + *)) {
+      padding-inline-start: calc(var(--_padding-inline) * 0.75);
+    }
+
+    &:where(:has(> * + svg:last-child)) {
+      padding-inline-end: calc(var(--_padding-inline) * 0.75);
     }
 
     /* Keyboard input */
@@ -130,29 +142,25 @@
     &.ui-x-small {
       --_min-height: var(--button-size-x-small);
       --_font-size: var(--font-size-0);
+      --_padding-inline: 1ex;
       padding-block: 0;
-      padding-inline: 0.5ex;
     }
 
     &.ui-small {
       --_min-height: var(--button-size-small);
       --_font-size: var(--font-size-05);
+      --_padding-inline: 1.25ex;
       padding-block: 0;
-      padding-inline: 0.75ex;
     }
 
     &.ui-large {
       --_min-height: var(--button-size-large);
-      padding-inline: 4ex;
+      --_padding-inline: 2.5ex;
     }
 
     &.ui-icon-only {
       min-inline-size: var(--_min-height);
       padding-inline: 0;
-
-      svg {
-        inline-size: auto;
-      }
     }
 
     /* Variants */

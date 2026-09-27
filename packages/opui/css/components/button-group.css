@@ -7,7 +7,7 @@
     min-width: max-content;
 
     /* Button */
-    & > button {
+    &>button {
       border-radius: 0;
 
       /* button.css > --_accent-tonal */
@@ -126,7 +126,9 @@
     }
 
     &:not(.ui-vertical) {
-      & > button {
+      &>button {
+        border-inline-width: 1px 0;
+
         &:first-of-type {
           border-end-start-radius: var(--_border-radius);
           border-start-start-radius: var(--_border-radius);
@@ -135,13 +137,13 @@
         &:last-of-type {
           border-end-end-radius: var(--_border-radius);
           border-start-end-radius: var(--_border-radius);
+          /* TODO: make sure this is the fix */
+          border-inline-width: 1px;
         }
 
         /* Siblings */
         &+& {
           border-inline-start-color: var(--_divider-color);
-          border-inline-width: 1px;
-          margin-inline-start: -1px;
 
           &:is([disabled], [aria-disabled="true"]) {
             border-inline-start-color: color-mix(in oklch,
@@ -149,13 +151,15 @@
                 transparent);
           }
         }
+
       }
     }
 
     &.ui-vertical {
       flex-direction: column;
 
-      & > button {
+      &>button {
+        border-block-width: 1px 0;
         padding: var(--size-2);
 
         &:has(svg) {
@@ -171,11 +175,12 @@
         &:last-of-type {
           border-end-start-radius: var(--_border-radius);
           border-end-end-radius: var(--_border-radius);
+          /* TODO: make sure this is a good fix */
+          border-block-width: 1px;
         }
 
         &+& {
           border-block-start: 1px solid var(--_divider-color);
-          margin-block-start: -1px;
 
           &:is([disabled], [aria-disabled="true"]) {
             border-block-start-color: color-mix(in oklch,

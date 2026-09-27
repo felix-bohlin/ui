@@ -1,7 +1,12 @@
+## Not now
+
 - [] Toast loading state isn't a real component
 - [] Auto-suggest arrow is misaligned
 - [] button kbd looks weird on Mac
-- [] Button group dividers look double thick (check if the -1px margin applies, or scaling rounds the overlapping borders apart)
+
+## Misc
+
+- [?] Button group dividers look double thick (check if the -1px margin applies, or scaling rounds the overlapping borders apart)
 - [] Review `feat/pixel-style` (Pixel style switcher in theme drawer): check every component in light/dark, no flash on reload, Default unchanged vs main, logo font now uses `--font-heading`. Rebase may conflict in button-group.css and CHANGELOG.md
 - [] Check button changes in the browser: new padding scale, icon side padding with wrapped labels, icon sizing, icon-only, button groups
 - [] components.css lists icon-button under "no dependencies" but it now needs button.css for its tokens

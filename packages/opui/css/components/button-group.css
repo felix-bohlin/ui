@@ -7,7 +7,7 @@
     min-width: max-content;
 
     /* Button */
-    button {
+    & > button {
       border-radius: 0;
 
       /* button.css > --_accent-tonal */
@@ -120,7 +120,7 @@
     }
 
     &:not(.ui-vertical) {
-      button {
+      & > button {
         &:first-of-type {
           border-end-start-radius: var(--_border-radius);
           border-start-start-radius: var(--_border-radius);
@@ -149,7 +149,7 @@
     &.ui-vertical {
       flex-direction: column;
 
-      button {
+      & > button {
         padding: var(--size-2);
 
         &:has(svg) {

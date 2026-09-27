@@ -10,10 +10,10 @@
 - [] Review `feat/pixel-style` (Pixel style switcher in theme drawer): check every component in light/dark, no flash on reload, Default unchanged vs main, logo font now uses `--font-heading`. Rebase may conflict in button-group.css and CHANGELOG.md
 - [] Check button changes in the browser: new padding scale, icon side padding with wrapped labels, icon sizing, icon-only, button groups
 - [] components.css lists icon-button under "no dependencies" but it now needs button.css for its tokens
-- [] Button kbd: swap `oklch(from currentColor ...)` for `color-mix(in oklch, currentColor 10%, transparent)` and `:is(kbd)` for `kbd`
 - [] Disabled button text color only applies to the text variant, filled/tonal/outlined override it (intended?)
 - [] Button group still duplicates the primary/critical button tokens in its "Color inherited from Button Group" block
 - [] Icon button disabled styles ignore `.ui-disabled`
+- [] Can modern attr() be used in carousel for --_per-view?
 
 ## Bugs
 
@@ -22,6 +22,7 @@
 - [] DrawerHeader's `@click` close fallback never runs in server-rendered Vue without hydration (only `commandfor` works there)
 - [] Carousel: browsers with scroll buttons but no `if()` (Chrome 135-136) show both the glyph and the image icon
 - [] Running pnpm scripts adds `@pnpm/exe` to `pnpm-lock.yaml`
+- [] Menu submenu arrow is really small and should look a bit nicer
 
 ## Docs
 

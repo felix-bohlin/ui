@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "build-search-index": "node scripts/generate-search-index.mjs",
+    "build-skill": "node scripts/build-agent-skill.mjs",
     "check-browser-support": "node scripts/check-browser-support.mjs"
   },
   "dependencies": {

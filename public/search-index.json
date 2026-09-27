@@ -123,7 +123,7 @@
     "id": "component-button-group-html",
     "title": "Button group",
     "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
-    "headings": "Variants Colors Icons Sizes Vertical orientation Disabled",
+    "headings": "Variants Colors Icons Split button Sizes Vertical orientation Disabled",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -133,7 +133,7 @@
     "id": "component-button-group-astro",
     "title": "Button group",
     "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
-    "headings": "Variants Colors Icons Sizes Vertical orientation Disabled",
+    "headings": "Variants Colors Icons Split button Sizes Vertical orientation Disabled",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
@@ -143,7 +143,7 @@
     "id": "component-button-group-vue",
     "title": "Button group",
     "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
-    "headings": "Variants Colors Icons Sizes Vertical orientation Disabled",
+    "headings": "Variants Colors Icons Split button Sizes Vertical orientation Disabled",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1368,7 +1368,7 @@
     "id": "api-carousel-astro",
     "title": "Carousel API",
     "description": "Reference for Carousel Astro component.",
-    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items. --_button-bg-color light-dark(var(--gray-13), var(--gray-3)) Button background. --_button-border-color transparent Button border. --_button-color light-dark(var(--gray-1), var(--gray-15)) Button icon color. --_button-disabled-opacity 0 Button opacity at the ends. --_button-inset var(--size-2) Distance from the edge. --_button-next-content \"›\" Next icon. Text or url(). --_button-prev-content \"‹\" Previous icon. Text or url(). --_button-shadow var(--shadow-2) Button shadow. --_button-size var(--button-size-small) Button size. --_gap var(--size-3) Space between items. --_item-size calc() Item width. --_marker-color oklch(… / 25%) Marker color. --_marker-color-active var(--primary) Current marker color. --_marker-gap var(--size-2) Space between markers. --_marker-label \"Slide \" Marker name prefix. --_marker-size var(--size-2) Marker size. --_markers-margin-block-start var(--size-3) Space above the markers. --_media-aspect-ratio 16 / 9 Media aspect ratio. --_media-border-radius var(--border-radius) Media radius. --_padding-inline 0px Inline padding. --_per-view 1 Number of visible items. --_snap-align start Snap alignment of items.",
+    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1378,7 +1378,7 @@
     "id": "api-carousel-html",
     "title": "Carousel API",
     "description": "Reference for Carousel HTML component.",
-    "headings": "Part ul.ui-carousel - The scroller. Needs an aria-label. Children li - The items. Alignment .ui-align-center default Where items snap. Buttons .ui-with-buttons - Previous and next buttons. Buttons .ui-buttons-outside - Buttons beside the items. Markers .ui-with-markers - One marker per item, after the list. Peek .ui-peek - Shows part of the neighbouring items. Items per view --_per-view 1 Number of visible items. --_button-bg-color light-dark(var(--gray-13), var(--gray-3)) Button background. --_button-border-color transparent Button border. --_button-color light-dark(var(--gray-1), var(--gray-15)) Button icon color. --_button-disabled-opacity 0 Button opacity at the ends. --_button-inset var(--size-2) Distance from the edge. --_button-next-content \"›\" Next icon. Text or url(). --_button-prev-content \"‹\" Previous icon. Text or url(). --_button-shadow var(--shadow-2) Button shadow. --_button-size var(--button-size-small) Button size. --_gap var(--size-3) Space between items. --_item-size calc() Item width. --_marker-color oklch(… / 25%) Marker color. --_marker-color-active var(--primary) Current marker color. --_marker-gap var(--size-2) Space between markers. --_marker-label \"Slide \" Marker name prefix. --_marker-size var(--size-2) Marker size. --_markers-margin-block-start var(--size-3) Space above the markers. --_media-aspect-ratio 16 / 9 Media aspect ratio. --_media-border-radius var(--border-radius) Media radius. --_padding-inline 0px Inline padding. --_per-view 1 Number of visible items. --_snap-align start Snap alignment of items.",
+    "headings": "Part ul.ui-carousel - The scroller. Needs an aria-label. Children li - The items. Alignment .ui-align-center default Where items snap. Buttons .ui-with-buttons - Previous and next buttons. Buttons .ui-buttons-outside - Buttons beside the items. Markers .ui-with-markers - One marker per item, after the list. Peek .ui-peek - Shows part of the neighbouring items. Items per view --_per-view 1 Number of visible items.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -1388,7 +1388,7 @@
     "id": "api-carousel-vue",
     "title": "Carousel API",
     "description": "Reference for Carousel Vue component.",
-    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items. --_button-bg-color light-dark(var(--gray-13), var(--gray-3)) Button background. --_button-border-color transparent Button border. --_button-color light-dark(var(--gray-1), var(--gray-15)) Button icon color. --_button-disabled-opacity 0 Button opacity at the ends. --_button-inset var(--size-2) Distance from the edge. --_button-next-content \"›\" Next icon. Text or url(). --_button-prev-content \"‹\" Previous icon. Text or url(). --_button-shadow var(--shadow-2) Button shadow. --_button-size var(--button-size-small) Button size. --_gap var(--size-3) Space between items. --_item-size calc() Item width. --_marker-color oklch(… / 25%) Marker color. --_marker-color-active var(--primary) Current marker color. --_marker-gap var(--size-2) Space between markers. --_marker-label \"Slide \" Marker name prefix. --_marker-size var(--size-2) Marker size. --_markers-margin-block-start var(--size-3) Space above the markers. --_media-aspect-ratio 16 / 9 Media aspect ratio. --_media-border-radius var(--border-radius) Media radius. --_padding-inline 0px Inline padding. --_per-view 1 Number of visible items. --_snap-align start Snap alignment of items.",
+    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1665,36 +1665,6 @@
     "url": "/vue/api#form"
   },
   {
-    "id": "api-icon-button-astro",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button Astro component.",
-    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#icon-button"
-  },
-  {
-    "id": "api-icon-button-html",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button HTML component.",
-    "headings": "Variants - The visual style of the icon button. Sizes .ui-small - The size of the element. Colors - States [disabled] - Attribute to disable the icon button.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#icon-button"
-  },
-  {
-    "id": "api-icon-button-vue",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button Vue component.",
-    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#icon-button"
-  },
-  {
     "id": "api-list-astro",
     "title": "List API",
     "description": "Reference for List Astro component.",
@@ -1725,10 +1695,40 @@
     "url": "/vue/api#list"
   },
   {
+    "id": "api-icon-button-astro",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button Astro component.",
+    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#icon-button"
+  },
+  {
+    "id": "api-icon-button-html",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button HTML component.",
+    "headings": "Variants - The visual style of the icon button. Sizes .ui-small - The size of the element. Colors - States [disabled] - Attribute to disable the icon button.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#icon-button"
+  },
+  {
+    "id": "api-icon-button-vue",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button Vue component.",
+    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#icon-button"
+  },
+  {
     "id": "api-menu-astro",
     "title": "Menu API",
     "description": "Reference for Menu Astro component.",
-    "headings": "dense boolean false Less spacing. id string auto-generated The trigger's commandfor. items MenuItem[] - Menu items. placement \"block-end\", \"block-start\", \"inline-end\", \"inline-start\" \"block-end\" Where the menu opens. popover \"auto\", \"manual\" \"auto\" The popover type. default - - Optional child content. borderTop boolean false Divider above the item. closeOnClick boolean true Close the menu on click. critical boolean false Destructive item. disabled boolean false Disables the item. href string - Renders a link instead of a button. label string - The item text. shortcut string - Keyboard shortcut hint. any other key unknown - Passed to the item element.",
+    "headings": "align \"start\", \"end\" \"start\" Which edge of the trigger the menu lines up with. dense boolean false Less spacing. id string auto-generated The trigger's commandfor. items MenuItem[] - Menu items. placement \"block-end\", \"block-start\", \"inline-end\", \"inline-start\" \"block-end\" Where the menu opens. popover \"auto\", \"manual\" \"auto\" The popover type. default - - Optional child content. borderTop boolean false Divider above the item. closeOnClick boolean true Close the menu on click. critical boolean false Destructive item. disabled boolean false Disables the item. href string - Renders a link instead of a button. label string - The item text. shortcut string - Keyboard shortcut hint. any other key unknown - Passed to the item element.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1738,7 +1738,7 @@
     "id": "api-menu-html",
     "title": "Menu API",
     "description": "Reference for Menu HTML component.",
-    "headings": "Part menu.ui-menu.ui-list[popover] - The menu surface. Trigger commandfor=\"id\", command=\"toggle-popover\" - Opens the menu. Children li &gt; button, li &gt; a - Menu items. Children command=\"hide-popover\" - Closes the menu on click. Children li.ui-label - Group label. Children .ui-start, .ui-end - Icons and shortcuts. Colors .ui-critical - Destructive item. Placement .ui-block-start, .ui-inline-start, .ui-inline-end default Where the menu opens. Placement --anchor-position-area block-end span-inline-end Any valid position-area value. Sizes .ui-dense - Less spacing.",
+    "headings": "Part menu.ui-menu.ui-list[popover] - The menu surface. Trigger commandfor=\"id\", command=\"toggle-popover\" - Opens the menu. Children li &gt; button, li &gt; a - Menu items. Children command=\"hide-popover\" - Closes the menu on click. Children li.ui-label - Group label. Children .ui-start, .ui-end - Icons and shortcuts. Colors .ui-critical - Destructive item. Placement .ui-block-start, .ui-inline-start, .ui-inline-end default Where the menu opens. Placement .ui-align-end - Lines up with the trigger's end edge. Placement --anchor-position-area block-end span-inline-end Any valid position-area value. Sizes .ui-dense - Less spacing.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -1748,7 +1748,7 @@
     "id": "api-menu-vue",
     "title": "Menu API",
     "description": "Reference for Menu Vue component.",
-    "headings": "dense boolean false Less spacing. id string auto-generated The trigger's commandfor. items MenuItem[] - Menu items. placement \"block-end\", \"block-start\", \"inline-end\", \"inline-start\" \"block-end\" Where the menu opens. popover \"auto\", \"manual\" \"auto\" The popover type. default - - Optional child content. borderTop boolean false Divider above the item. closeOnClick boolean true Close the menu on click. critical boolean false Destructive item. disabled boolean false Disables the item. href string - Renders a link instead of a button. label string - The item text. shortcut string - Keyboard shortcut hint. any other key unknown - Passed to the item element.",
+    "headings": "align \"start\", \"end\" \"start\" Which edge of the trigger the menu lines up with. dense boolean false Less spacing. id string auto-generated The trigger's commandfor. items MenuItem[] - Menu items. placement \"block-end\", \"block-start\", \"inline-end\", \"inline-start\" \"block-end\" Where the menu opens. popover \"auto\", \"manual\" \"auto\" The popover type. default - - Optional child content. borderTop boolean false Divider above the item. closeOnClick boolean true Close the menu on click. critical boolean false Destructive item. disabled boolean false Disables the item. href string - Renders a link instead of a button. label string - The item text. shortcut string - Keyboard shortcut hint. any other key unknown - Passed to the item element.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1785,36 +1785,6 @@
     "url": "/vue/api#progress"
   },
   {
-    "id": "api-select-astro",
-    "title": "Select API",
-    "description": "Reference for Select Astro component.",
-    "headings": "dense boolean false Select dense state. disabled boolean - Select disabled state. description string - Description text displayed above the select. endText string - Supporting text displayed below the select. error boolean - items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. spread boolean false variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select. default label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#select"
-  },
-  {
-    "id": "api-select-html",
-    "title": "Select API",
-    "description": "Reference for Select HTML component.",
-    "headings": "Children - Direct children of the root element. Field children - Layout .ui-spread, default - Sizes .ui-small - The size of the element. Variants default, .ui-filled - The variant to use. Validation [data-invalid] -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#select"
-  },
-  {
-    "id": "api-select-vue",
-    "title": "Select API",
-    "description": "Reference for Select Vue component.",
-    "headings": "dense boolean false Select dense state. disabled boolean - Select disabled state. description string - Description text displayed above the select. endText string - Supporting text displayed below the select. error boolean - items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. spread boolean false variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select. default label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#select"
-  },
-  {
     "id": "api-range-astro",
     "title": "Range API",
     "description": "Reference for Range Astro component.",
@@ -1843,6 +1813,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#range"
+  },
+  {
+    "id": "api-select-astro",
+    "title": "Select API",
+    "description": "Reference for Select Astro component.",
+    "headings": "dense boolean false Select dense state. disabled boolean - Select disabled state. description string - Description text displayed above the select. endText string - Supporting text displayed below the select. error boolean - items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. spread boolean false variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select. default label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#select"
+  },
+  {
+    "id": "api-select-html",
+    "title": "Select API",
+    "description": "Reference for Select HTML component.",
+    "headings": "Children - Direct children of the root element. Field children - Layout .ui-spread, default - Sizes .ui-small - The size of the element. Variants default, .ui-filled - The variant to use. Validation [data-invalid] -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#select"
+  },
+  {
+    "id": "api-select-vue",
+    "title": "Select API",
+    "description": "Reference for Select Vue component.",
+    "headings": "dense boolean false Select dense state. disabled boolean - Select disabled state. description string - Description text displayed above the select. endText string - Supporting text displayed below the select. error boolean - items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. spread boolean false variant \"outlined\" | \"filled\" \"outlined\" The visual variant of the select. default label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#select"
   },
   {
     "id": "api-spinner-astro",
@@ -2085,36 +2085,6 @@
     "url": "/vue/api#toast"
   },
   {
-    "id": "api-toggle-astro",
-    "title": "Toggle API",
-    "description": "Reference for Toggle Astro component.",
-    "headings": "disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle button. type \"checkbox\" | \"radio\" \"checkbox\" value string - name string - size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle group. orientation \"vertical\" - Changes the layout direction of the group. selection \"single\" | \"multiple\" \"multiple\"",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#toggle"
-  },
-  {
-    "id": "api-toggle-html",
-    "title": "Toggle API",
-    "description": "Reference for Toggle HTML component.",
-    "headings": "Sizes - The size of the button. States .ui-disabled - The state of the button. Sizes - Children -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#toggle"
-  },
-  {
-    "id": "api-toggle-vue",
-    "title": "Toggle API",
-    "description": "Reference for Toggle Vue component.",
-    "headings": "disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle button. type \"checkbox\" | \"radio\" \"checkbox\" value string - name string - size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle group. orientation \"vertical\" - Changes the layout direction of the group. selection \"single\" | \"multiple\" \"multiple\"",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#toggle"
-  },
-  {
     "id": "api-tooltip-astro",
     "title": "Tooltip API",
     "description": "Reference for Tooltip Astro component.",
@@ -2143,6 +2113,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#tooltip"
+  },
+  {
+    "id": "api-toggle-astro",
+    "title": "Toggle API",
+    "description": "Reference for Toggle Astro component.",
+    "headings": "disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle button. type \"checkbox\" | \"radio\" \"checkbox\" value string - name string - size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle group. orientation \"vertical\" - Changes the layout direction of the group. selection \"single\" | \"multiple\" \"multiple\"",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#toggle"
+  },
+  {
+    "id": "api-toggle-html",
+    "title": "Toggle API",
+    "description": "Reference for Toggle HTML component.",
+    "headings": "Sizes - The size of the button. States .ui-disabled - The state of the button. Sizes - Children -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#toggle"
+  },
+  {
+    "id": "api-toggle-vue",
+    "title": "Toggle API",
+    "description": "Reference for Toggle Vue component.",
+    "headings": "disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle button. type \"checkbox\" | \"radio\" \"checkbox\" value string - name string - size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle group. orientation \"vertical\" - Changes the layout direction of the group. selection \"single\" | \"multiple\" \"multiple\"",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#toggle"
   },
   {
     "id": "api-typography-astro",

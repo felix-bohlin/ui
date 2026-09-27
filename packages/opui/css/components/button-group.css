@@ -134,8 +134,8 @@
         /* Siblings */
         &+& {
           border-inline-start-color: var(--_divider-color);
-          border-inline-width: 1px;
-          margin-inline-start: -1px;
+          border-inline-width: var(--border-width);
+          margin-inline-start: calc(-1 * var(--border-width));
 
           &:is([disabled], [aria-disabled="true"]) {
             border-inline-start-color: color-mix(in oklch,
@@ -168,8 +168,8 @@
         }
 
         &+& {
-          border-block-start: 1px solid var(--_divider-color);
-          margin-block-start: -1px;
+          border-block-start: var(--border-width) solid var(--_divider-color);
+          margin-block-start: calc(-1 * var(--border-width));
 
           &:is([disabled], [aria-disabled="true"]) {
             border-block-start-color: color-mix(in oklch,

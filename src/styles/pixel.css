@@ -1,0 +1,56 @@
+:root[data-style="pixel"] {
+  --pixel-ink: light-dark(var(--gray-15), var(--gray-2));
+  --pixel-shadow: light-dark(var(--gray-15), oklch(0% 0 0));
+
+  --palette-hue: 300;
+  --palette-chroma: 0.9;
+
+  --font-sans: var(--font-pixelify-sans), monospace;
+  --font-heading: var(--font-pixelify-sans), monospace;
+
+  --border-color: var(--pixel-ink);
+  --border-width: 3px;
+  --field-border-width: 3px;
+  --border-radius: 0 !important;
+  --field-border-radius: 0 !important;
+  --button-border-radius: 0 !important;
+
+  --radius-1: 0;
+  --radius-2: 0;
+  --radius-3: 0;
+  --radius-4: 0;
+  --radius-5: 0;
+  --radius-6: 0;
+  --radius-round: 0;
+
+  --shadow-1: 2px 2px 0 0 var(--pixel-shadow);
+  --shadow-2: 3px 3px 0 0 var(--pixel-shadow);
+  --shadow-3: 4px 4px 0 0 var(--pixel-shadow);
+  --shadow-4: 6px 6px 0 0 var(--pixel-shadow);
+  --shadow-5: 8px 8px 0 0 var(--pixel-shadow);
+  --shadow-6: 8px 8px 0 0 var(--pixel-shadow);
+  --inner-shadow-4: inset 3px 3px 0 0 oklch(0% 0 0 / 15%);
+
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 0;
+
+  --ease-1: var(--ease-step-3);
+  --ease-2: var(--ease-step-3);
+  --ease-3: var(--ease-step-3);
+  --ease-4: var(--ease-step-3);
+  --ease-5: var(--ease-step-3);
+  --ease-in-1: var(--ease-step-3);
+  --ease-in-2: var(--ease-step-3);
+  --ease-in-3: var(--ease-step-3);
+  --ease-in-4: var(--ease-step-3);
+  --ease-in-5: var(--ease-step-3);
+  --ease-out-1: var(--ease-step-3);
+  --ease-out-2: var(--ease-step-3);
+  --ease-out-3: var(--ease-step-3);
+  --ease-out-4: var(--ease-step-3);
+  --ease-out-5: var(--ease-step-3);
+
+  img {
+    image-rendering: pixelated;
+  }
+}

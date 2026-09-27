@@ -10,7 +10,7 @@
     align-items: center;
     background-color: var(--_button-bg-color);
     block-size: var(--_size);
-    border: 1px solid var(--border-color);
+    border: var(--border-width) solid var(--border-color);
     border-radius: var(--button-border-radius);
     color: var(--text-primary);
     cursor: pointer;

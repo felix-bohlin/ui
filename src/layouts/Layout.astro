@@ -1,6 +1,7 @@
 ---
 import "@opui/css/imports.css"
 import "/src/styles/base.css"
+import "/src/styles/pixel.css"
 import { Toast } from "@opui/astro"
 import Footer from "../components/Footer.astro"
 import { Font } from "astro:assets"
@@ -41,6 +42,7 @@ const markdownUrl = hasMarkdown
 <html lang="en" data-framework={currentFramework}>
   <head>
     <Font cssVariable="--font-bricolage-grotesque" preload />
+    <Font cssVariable="--font-pixelify-sans" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />

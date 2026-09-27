@@ -10,6 +10,7 @@ import {
   FieldLegend,
   FieldSet,
   Range,
+  Select,
   Switch,
   TextField,
 } from "@opui/astro"
@@ -20,6 +21,11 @@ const radiusGroups = [
   { name: "--field-border-radius", label: "Field border radius" },
   { name: "--button-border-radius", label: "Button border radius" },
 ] as const
+
+const styleOptions = [
+  { text: "Default", value: "default" },
+  { text: "Pixel", value: "pixel" },
+]
 
 const { link } = Astro.locals
 ---
@@ -39,6 +45,15 @@ const { link } = Astro.locals
       <form class="ui-form" id="theme-configurator-form">
         <FieldSet>
           <FieldLegend>Theme mode</FieldLegend>
+          <FieldGroup>
+            <Select
+              id="style-switcher"
+              label="Style"
+              items={styleOptions}
+              size="small"
+              spread
+            />
+          </FieldGroup>
           <FieldGroup direction="row">
             <Switch spread id="theme-switcher">
               Dark mode
@@ -143,7 +158,7 @@ const { link } = Astro.locals
 
         <Divider />
 
-        <FieldSet>
+        <FieldSet id="radius-fieldset">
           <FieldLegend>Border radii</FieldLegend>
           {
             radiusGroups.map((group) => (
@@ -260,6 +275,25 @@ const { link } = Astro.locals
   themeStore.applyMode()
   syncFormFromStore()
 
+  const styleSwitcher = document.getElementById(
+    "style-switcher",
+  ) as HTMLSelectElement | null
+  const radiusFieldset = document.getElementById(
+    "radius-fieldset",
+  ) as HTMLFieldSetElement | null
+
+  function syncStyle(style: string) {
+    if (styleSwitcher) styleSwitcher.value = style
+    if (radiusFieldset) radiusFieldset.disabled = style === "pixel"
+  }
+
+  syncStyle((window as any).themeUtils?.getStoredStyle() ?? "default")
+
+  styleSwitcher?.addEventListener("change", () => {
+    ;(window as any).themeUtils?.setStyle(styleSwitcher.value)
+    syncStyle(styleSwitcher.value)
+  })
+
   if (themeSwitcher) {
     themeSwitcher.checked =
       document.documentElement.classList.contains("ui-dark")
@@ -326,6 +360,7 @@ const { link } = Astro.locals
   resetBtn?.addEventListener("click", () => {
     themeStore.reset()
     form?.reset()
+    syncStyle((window as any).themeUtils?.getStoredStyle() ?? "default")
     if (themeSwitcher) {
       themeSwitcher.checked =
         document.documentElement.classList.contains("ui-dark")

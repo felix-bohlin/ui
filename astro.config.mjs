@@ -82,5 +82,20 @@ export default defineConfig({
         ],
       },
     },
+    {
+      name: "Pixelify Sans",
+      provider: fontProviders.local(),
+      cssVariable: "--font-pixelify-sans",
+      options: {
+        variants: [
+          {
+            src: ["./public/PixelifySans[wght].ttf"],
+            style: "normal",
+            weight: "400 700",
+            display: "swap",
+          },
+        ],
+      },
+    },
   ],
 })

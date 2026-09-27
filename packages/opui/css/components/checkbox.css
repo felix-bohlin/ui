@@ -113,7 +113,7 @@
       background-color: var(--surface-default);
       block-size: var(--_input-size);
       border-radius: var(--radius-1);
-      border: 1px solid var(--border-color);
+      border: var(--field-border-width) solid var(--border-color);
       box-sizing: border-box;
       cursor: pointer;
       display: grid;

@@ -4,7 +4,7 @@
 
     border-collapse: separate;
     border-spacing: 0;
-    border: 1px solid var(--border-color);
+    border: var(--border-width) solid var(--border-color);
     border-radius: var(--_table-border-radius);
     overflow: hidden;
     inline-size: 100%;

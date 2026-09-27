@@ -107,7 +107,26 @@ const { link } = Astro.locals
         chroma = config["--palette-chroma"]
       }
     },
+    getStoredStyle() {
+      try {
+        return localStorage.getItem("opui-style") || "default"
+      } catch (_) {
+        return "default"
+      }
+    },
+    setStyle(style) {
+      if (style === "default") {
+        delete document.documentElement.dataset.style
+      } else {
+        document.documentElement.dataset.style = style
+      }
+      try {
+        localStorage.setItem("opui-style", style)
+      } catch (_) {}
+    },
   }
+
+  window.themeUtils.setStyle(window.themeUtils.getStoredStyle())
 
   const storedTheme = window.themeUtils.getStoredTheme()
   const initialTheme = storedTheme || window.themeUtils.getSystemPreference()
@@ -386,7 +405,7 @@ const { link } = Astro.locals
       }
 
       span {
-        font-family: "Bricolage Grotesque", sans-serif;
+        font-family: var(--font-heading);
         transition: transform 0.3s ease-out;
 
         & + span {

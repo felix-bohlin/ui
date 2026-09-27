@@ -56,6 +56,16 @@ import { Table } from "@opui/astro"
       <Table.Cell>-</Table.Cell>
       <Table.Cell>Whether the field set is disabled.</Table.Cell>
     </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>data-invalid</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Shows nested fields and <code>.ui-end-text</code> as <a
+          href="#fieldset-validation">invalid</a
+        >.</Table.Cell
+      >
+    </Table.Row>
   </Table.Body>
 </Table>
 
@@ -132,16 +142,16 @@ import { Table } from "@opui/astro"
   </Table.Head>
   <Table.Body>
     <Table.Row>
+      <Table.Cell><code>direction</code></Table.Cell>
+      <Table.Cell><code>"column"</code>, <code>"row"</code></Table.Cell>
+      <Table.Cell><code>"column"</code></Table.Cell>
+      <Table.Cell>The orientation of the field group.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
       <Table.Cell><code>name</code></Table.Cell>
       <Table.Cell><code>string</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell>Shared name for nested input components.</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell><code>direction</code></Table.Cell>
-      <Table.Cell><code>"row"</code>, <code>"column"</code></Table.Cell>
-      <Table.Cell>-</Table.Cell>
-      <Table.Cell>The orientation of the field group.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>

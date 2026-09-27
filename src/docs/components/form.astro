@@ -58,6 +58,22 @@ import { DescriptionList } from "@opui/astro"
   ]}
   changelogPaths={[
     {
+      path: "packages/opui/components/FieldDescription/FieldDescription.astro",
+      type: "component",
+    },
+    {
+      path: "packages/opui/components/FieldGroup/FieldGroup.astro",
+      type: "component",
+    },
+    {
+      path: "packages/opui/components/FieldLegend/FieldLegend.astro",
+      type: "component",
+    },
+    {
+      path: "packages/opui/components/FieldSet/FieldSet.astro",
+      type: "component",
+    },
+    {
       path: "packages/opui/components/Form/Form.astro",
       type: "component",
     },
@@ -110,110 +126,142 @@ import { DescriptionList } from "@opui/astro"
           Sometimes you can't use semantic form elements like <code
             >&lt;fieldset&gt;</code
           > and <code>&lt;legend&gt;</code>. Replace them with <code
-            >&lt;div role="group"&gt;</code
-          > paired with a <code>&lt;span class="ui-legend"&gt;</code> (or any heading)
-          to keep the visual treatment without the native semantics.
+            >&lt;div class="ui-fieldset" role="group"&gt;</code
+          > paired with a <code>&lt;p class="ui-legend"&gt;</code> to keep the visual
+          treatment without the native semantics.
         </p>
       </Fragment>
     </Conditional>
+  </section>
 
-    <section>
-      <h2 id="fieldset">Fieldset</h2>
-      <p>Used to show a relationship between form elements.</p>
-      <Conditional>
-        <DescriptionList bordered slot="astro">
-          <DescriptionList.Item>
-            <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term
-            >
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              to describe what it's about.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-          <DescriptionList.Item>
-            <DescriptionList.Term
-              ><code>FieldDescription</code>(optional)</DescriptionList.Term
-            >
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              to give extra context about the fieldset.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-          <DescriptionList.Item>
-            <DescriptionList.Term><code>FieldGroup</code></DescriptionList.Term>
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              groups related fields.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-        </DescriptionList>
-        <DescriptionList bordered slot="html">
-          <DescriptionList.Item>
-            <DescriptionList.Term
-              ><code>&lt;legend&gt;</code></DescriptionList.Term
-            >
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              to describe what it's about.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-          <DescriptionList.Item>
-            <DescriptionList.Term
-              ><code>.ui-field-description</code
-              >(optional)</DescriptionList.Term
-            >
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              to give extra context about the fieldset.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-          <DescriptionList.Item>
-            <DescriptionList.Term
-              ><code>.ui-field-group</code></DescriptionList.Term
-            >
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              groups related fields.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-        </DescriptionList>
-        <DescriptionList bordered slot="vue">
-          <DescriptionList.Item>
-            <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term
-            >
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              to describe what it's about.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-          <DescriptionList.Item>
-            <DescriptionList.Term
-              ><code>FieldDescription</code>(optional)</DescriptionList.Term
-            >
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              to give extra context about the fieldset.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-          <DescriptionList.Item>
-            <DescriptionList.Term><code>FieldGroup</code></DescriptionList.Term>
-            <hr class="ui-dotted" />
-            <DescriptionList.Description>
-              groups related fields.
-            </DescriptionList.Description>
-          </DescriptionList.Item>
-        </DescriptionList>
-      </Conditional>
-    </section>
+  <section>
+    <h2 id="fieldset">Fieldset</h2>
+    <p>Used to show a relationship between form elements.</p>
+    <Conditional>
+      <DescriptionList bordered slot="astro">
+        <DescriptionList.Item>
+          <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term>
+          <hr class="ui-dotted" />
+          <DescriptionList.Description>
+            to describe what it's about.
+          </DescriptionList.Description>
+        </DescriptionList.Item>
+        <DescriptionList.Item>
+          <DescriptionList.Term
+            ><code>FieldDescription</code>(optional)</DescriptionList.Term
+          >
+          <hr class="ui-dotted" />
+          <DescriptionList.Description>
+            to give extra context about the fieldset.
+          </DescriptionList.Description>
+        </DescriptionList.Item>
+        <DescriptionList.Item>
+          <DescriptionList.Term><code>FieldGroup</code></DescriptionList.Term>
+          <hr class="ui-dotted" />
+          <DescriptionList.Description>
+            groups related fields.
+          </DescriptionList.Description>
+        </DescriptionList.Item>
+      </DescriptionList>
+      <DescriptionList bordered slot="html">
+        <DescriptionList.Item>
+          <DescriptionList.Term
+            ><code>&lt;legend&gt;</code></DescriptionList.Term
+          >
+          <hr class="ui-dotted" />
+          <DescriptionList.Description>
+            to describe what it's about.
+          </DescriptionList.Description>
+        </DescriptionList.Item>
+        <DescriptionList.Item>
+          <DescriptionList.Term
+            ><code>.ui-field-description</code>(optional)</DescriptionList.Term
+          >
+          <hr class="ui-dotted" />
+          <DescriptionList.Description>
+            to give extra context about the fieldset.
+          </DescriptionList.Description>
+        </DescriptionList.Item>
+        <DescriptionList.Item>
+          <DescriptionList.Term
+            ><code>.ui-field-group</code></DescriptionList.Term
+          >
+          <hr class="ui-dotted" />
+          <DescriptionList.Description>
+            groups related fields.
+          </DescriptionList.Description>
+        </DescriptionList.Item>
+      </DescriptionList>
+      <DescriptionList bordered slot="vue">
+        <DescriptionList.Item>
+          <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term>
+          <hr class="ui-dotted" />
+          <DescriptionList.Description>
+            to describe what it's about.
+          </DescriptionList.Description>
+        </DescriptionList.Item>
+        <DescriptionList.Item>
+          <DescriptionList.Term
+            ><code>FieldDescription</code>(optional)</DescriptionList.Term
+          >
+          <hr class="ui-dotted" />
+          <DescriptionList.Description>
+            to give extra context about the fieldset.
+          </DescriptionList.Description>
+        </DescriptionList.Item>
+        <DescriptionList.Item>
+          <DescriptionList.Term><code>FieldGroup</code></DescriptionList.Term>
+          <hr class="ui-dotted" />
+          <DescriptionList.Description>
+            groups related fields.
+          </DescriptionList.Description>
+        </DescriptionList.Item>
+      </DescriptionList>
+    </Conditional>
 
     <AutoExample name="FieldsetStacked" />
 
     <h3 id="fieldset-required">Required</h3>
+    <p>
+      The legend gets an asterisk while any nested field is <code>:invalid</code
+      >, e.g. an empty <code>required</code> field.
+    </p>
     <AutoExample name="FieldsetRequired" />
 
     <h3 id="fieldset-disabled">Disabled</h3>
-    <p>Turns out you can disable an entire fieldset.</p>
+    <Conditional>
+      <p slot="astro">
+        Set the <code>disabled</code> prop on <code>FieldSet</code> to disable all
+        nested fields.
+      </p>
+      <p slot="html">
+        Set the <code>disabled</code> attribute on the <code
+          >&lt;fieldset&gt;</code
+        > to disable all nested fields.
+      </p>
+      <p slot="vue">
+        Set the <code>disabled</code> prop on <code>FieldSet</code> to disable all
+        nested fields.
+      </p>
+    </Conditional>
     <AutoExample name="FieldsetDisabled" />
+
+    <h3 id="fieldset-validation">Validation</h3>
+    <Conditional>
+      <p slot="astro">
+        Add <code>data-invalid</code> to <code>FieldSet</code> to show nested checkboxes,
+        radios, switches and <code>.ui-end-text</code> as invalid.
+      </p>
+      <p slot="html">
+        Add <code>data-invalid</code> to the <code>.ui-fieldset</code> to show nested
+        checkboxes, radios, switches and <code>.ui-end-text</code> as invalid.
+      </p>
+      <p slot="vue">
+        Add <code>data-invalid</code> to <code>FieldSet</code> to show nested checkboxes,
+        radios, switches and <code>.ui-end-text</code> as invalid.
+      </p>
+    </Conditional>
+    <AutoExample name="FieldsetValidation" />
   </section>
 
   <section>

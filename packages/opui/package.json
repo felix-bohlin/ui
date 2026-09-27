@@ -54,7 +54,11 @@
     "./core/*": "./core/*.css",
     "./css/*.css": "./css/*.css",
     "./css/*": "./css/*.css",
-    "./dist/*": "./dist/*"
+    "./css/js/*.js": "./css/js/*.js",
+    "./css/js/*": "./css/js/*.js",
+    "./dist/*": "./dist/*",
+    "./js/*.js": "./css/js/*.js",
+    "./js/*": "./css/js/*.js"
   },
   "scripts": {
     "build": "node scripts/build.mjs",

@@ -57,6 +57,10 @@
         padding-inline: 4ex;
       }
 
+      &.ui-icon-only {
+        padding-inline: 0;
+      }
+
       :where(.ui-button-group.ui-outlined) & {
         --_border-color: var(--_accent);
         --_divider-color: var(--_accent);

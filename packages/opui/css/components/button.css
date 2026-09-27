@@ -138,6 +138,15 @@
       padding-inline: 4ex;
     }
 
+    &.ui-icon-only {
+      min-inline-size: var(--_min-height);
+      padding-inline: 0;
+
+      svg {
+        inline-size: auto;
+      }
+    }
+
     /* Variants */
     &.ui-outlined {
       --_bg-color: transparent;

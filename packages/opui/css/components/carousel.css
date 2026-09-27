@@ -5,9 +5,12 @@
     --_button-border-color: transparent;
     --_button-color: light-dark(var(--gray-1), var(--gray-15));
     --_button-disabled-opacity: 0;
+    --_button-icon-size: 60%;
     --_button-inset: var(--size-2);
     --_button-next-content: "\276F";
+    --_button-next-icon: none;
     --_button-prev-content: "\276E";
+    --_button-prev-icon: none;
     --_button-shadow: var(--shadow-2);
     --_button-size: var(--button-size-small, 32px);
     --_gap: var(--size-3);
@@ -74,6 +77,9 @@
       &::scroll-button(inline-start),
       &::scroll-button(inline-end) {
         background-color: var(--_button-bg-color);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: var(--_button-icon-size);
         block-size: var(--_button-size);
         border: var(--border-width, 1px) solid var(--_button-border-color);
         border-radius: var(--radius-round);
@@ -96,13 +102,43 @@
       }
 
       &::scroll-button(inline-start) {
+        background-image: var(--_button-prev-icon);
         content: var(--_button-prev-content) / "Previous";
         inset-inline-start: calc(anchor(self-start) + var(--_button-inset));
       }
 
       &::scroll-button(inline-end) {
+        background-image: var(--_button-next-icon);
         content: var(--_button-next-content) / "Next";
         inset-inline-end: calc(anchor(self-end) + var(--_button-inset));
+      }
+
+      @supports (content: if(style(--x: none): "a"; else: "b")) {
+        &::scroll-button(inline-start) {
+          content: if(
+              style(--_button-prev-icon: none): var(--_button-prev-content);
+              else: ""
+            )
+            / "Previous";
+        }
+
+        &::scroll-button(inline-end) {
+          content: if(
+              style(--_button-next-icon: none): var(--_button-next-content);
+              else: ""
+            )
+            / "Next";
+        }
+      }
+
+      &:dir(rtl) {
+        &::scroll-button(inline-start) {
+          background-image: var(--_button-next-icon);
+        }
+
+        &::scroll-button(inline-end) {
+          background-image: var(--_button-prev-icon);
+        }
       }
 
       &::scroll-button(inline-start):active,

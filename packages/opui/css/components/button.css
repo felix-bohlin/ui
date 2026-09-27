@@ -75,8 +75,7 @@
     transition:
       background-color calc(0.1s * var(--_motion)) ease,
       color calc(0.1s * var(--_motion)) ease,
-      border-color calc(0.1s * var(--_motion)) ease,
-      box-shadow calc(0.1s * var(--_motion)) ease;
+      border-color calc(0.1s * var(--_motion)) ease;
     user-select: none;
 
     /* Disabled */
@@ -235,7 +234,6 @@
     padding: 0;
   }
 
-  :where(input[type="file"])::-webkit-file-upload-button,
   :where(input[type="file"])::file-selector-button {
     cursor: pointer;
     margin-inline-end: var(--size-relative-6);

@@ -20,8 +20,7 @@
     transition:
       background-color calc(0.1s * var(--_motion)) ease,
       color calc(0.1s * var(--_motion)) ease,
-      border-color calc(0.1s * var(--_motion)) ease,
-      box-shadow calc(0.1s * var(--_motion)) ease;
+      border-color calc(0.1s * var(--_motion)) ease;
 
     &:where([disabled], [aria-disabled="true"]) {
       --_text-color: light-dark(rgb(0, 0, 0/0.3), rgb(255, 255, 255/0.26));

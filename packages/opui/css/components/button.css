@@ -79,7 +79,7 @@
     user-select: none;
 
     /* Disabled */
-    &:where([disabled], [aria-disabled="true"]) {
+    &:where([disabled], [aria-disabled="true"], .ui-disabled) {
       --_text-color: color-mix(in oklch,
           var(--text-muted) 50%,
           var(--surface-default));
@@ -88,8 +88,12 @@
       opacity: 0.64;
     }
 
+    &:where(a):where([aria-disabled="true"], .ui-disabled) {
+      pointer-events: none;
+    }
+
     /* Hover & Active */
-    &:where(:not([disabled], [aria-disabled="true"])) {
+    &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
       @media (hover: hover) {
         &:where(:not(:active):hover) {
           --_bg-color: var(--_default-hover-bg-color);
@@ -157,7 +161,7 @@
       --_border-color: var(--_accent);
       --_text-color: var(--_accent);
 
-      &:where(:not([disabled], [aria-disabled="true"])) {
+      &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
@@ -178,7 +182,7 @@
       --_bg-color: var(--_accent-tonal);
       --_text-color: var(--_accent-tonal-contrast);
 
-      &:where(:not([disabled], [aria-disabled="true"])) {
+      &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
@@ -197,7 +201,7 @@
       --_bg-color: var(--_accent);
       --_text-color: var(--_accent-contrast);
 
-      &:where(:not([disabled], [aria-disabled="true"])) {
+      &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_filled-hover-bg-color);

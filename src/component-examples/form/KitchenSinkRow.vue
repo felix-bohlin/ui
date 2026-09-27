@@ -123,7 +123,7 @@ const experience = ref(5)
 
     <FieldGroup>
       <Button variant="filled" type="submit">Send</Button>
-      <Button>Cancel</Button>
+      <Button type="button">Cancel</Button>
     </FieldGroup>
   </Form>
 </template>

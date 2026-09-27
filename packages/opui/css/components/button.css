@@ -90,8 +90,10 @@
 
     /* Hover & Active */
     &:where(:not([disabled], [aria-disabled="true"])) {
-      &:where(:not(:active):hover) {
-        --_bg-color: var(--_default-hover-bg-color);
+      @media (hover: hover) {
+        &:where(:not(:active):hover) {
+          --_bg-color: var(--_default-hover-bg-color);
+        }
       }
 
       &:where(:hover:active),
@@ -156,10 +158,12 @@
       --_text-color: var(--_accent);
 
       &:where(:not([disabled], [aria-disabled="true"])) {
-        &:where(:not(:active):hover) {
-          --_bg-color: var(--_accent);
-          --_border-color: var(--_accent);
-          --_text-color: var(--_accent-contrast);
+        @media (hover: hover) {
+          &:where(:not(:active):hover) {
+            --_bg-color: var(--_accent);
+            --_border-color: var(--_accent);
+            --_text-color: var(--_accent-contrast);
+          }
         }
 
         &:where(:active) {
@@ -175,9 +179,11 @@
       --_text-color: var(--_accent-tonal-contrast);
 
       &:where(:not([disabled], [aria-disabled="true"])) {
-        &:where(:not(:active):hover) {
-          --_bg-color: var(--_accent);
-          --_text-color: var(--_accent-contrast);
+        @media (hover: hover) {
+          &:where(:not(:active):hover) {
+            --_bg-color: var(--_accent);
+            --_text-color: var(--_accent-contrast);
+          }
         }
 
         &:where(:active) {
@@ -192,8 +198,10 @@
       --_text-color: var(--_accent-contrast);
 
       &:where(:not([disabled], [aria-disabled="true"])) {
-        &:where(:not(:active):hover) {
-          --_bg-color: var(--_filled-hover-bg-color);
+        @media (hover: hover) {
+          &:where(:not(:active):hover) {
+            --_bg-color: var(--_filled-hover-bg-color);
+          }
         }
 
         &:where(:active) {

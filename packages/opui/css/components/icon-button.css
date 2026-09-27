@@ -48,10 +48,12 @@
 
     /* Element states */
     &:where(:not([disabled], [aria-disabled="true"])) {
-      &:where(:not(:active):hover) {
-        &::before {
-          background-color: var(--_interaction-hover-color,
-              var(--_default-hover-bg-color));
+      @media (hover: hover) {
+        &:where(:not(:active):hover) {
+          &::before {
+            background-color: var(--_interaction-hover-color,
+                var(--_default-hover-bg-color));
+          }
         }
       }
 

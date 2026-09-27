@@ -116,6 +116,7 @@ Either import everything:
 Or pick and choose the parts you want to include:
 
 ```css
+@import "opui-css/css/layers.css";
 @import "opui-css/open-props.css";
 @import "opui-css/core/palette.css";
 @import "opui-css/css/theme.css";

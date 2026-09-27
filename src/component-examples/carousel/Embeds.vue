@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import { Carousel } from "opui-css/vue"
 
-const films = [
-  { id: "aqz-KE-bpKQ", title: "Big Buck Bunny" },
-  { id: "eRsGyueVLvQ", title: "Sintel" },
-  { id: "WhWc3b3KhnY", title: "Spring" },
-  { id: "R6MlUcmOul8", title: "Tears of Steel" },
+const tutorials = [
+  { id: "gmI5nvzv170", title: "CSS only carousel? Learn ::scroll-button() in 9 minutes" },
+  { id: "bP8mrNdR-hs", title: "I love the new CSS functions" },
+  { id: "qu1jE41O_8o", title: "Use these CSS features instead of JavaScript" },
 ]
 </script>
 
 <template>
-  <Carousel label="Films" markers>
-    <li v-for="{ id, title } in films" :key="id">
+  <Carousel label="Tutorials" markers>
+    <li v-for="{ id, title } in tutorials" :key="id">
       <iframe
         allow="encrypted-media; fullscreen; picture-in-picture"
         allowfullscreen

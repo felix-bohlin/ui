@@ -146,6 +146,25 @@ import Conditional from "../../components/Conditional.astro"
   </section>
 
   <section>
+    <h2 id="split-button">Split button</h2>
+    <Conditional as="p">
+      <Fragment slot="html">
+        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after
+        the last button. <code>.ui-align-end</code> lines it up with the group.
+      </Fragment>
+      <Fragment slot="astro">
+        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after
+        the last button. <code>align="end"</code> lines it up with the group.
+      </Fragment>
+      <Fragment slot="vue">
+        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after
+        the last button. <code>align="end"</code> lines it up with the group.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="SplitButton" centered />
+  </section>
+
+  <section>
     <h2 id="sizes">Sizes</h2>
     <Conditional as="p">
       <Fragment slot="astro">

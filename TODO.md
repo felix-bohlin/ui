@@ -17,12 +17,21 @@
 - [] DrawerHeader's `@click` close fallback never runs in server-rendered Vue without hydration (only `commandfor` works there)
 - [] Carousel: browsers with scroll buttons but no `if()` (Chrome 135-136) show both the glyph and the image icon
 - [] Running pnpm scripts adds `@pnpm/exe` to `pnpm-lock.yaml`
+- [] Form: the required asterisk uses `.ui-fieldset:has(:invalid)`, so it disappears once the field is filled and shows for any invalid field (e.g. a bad email). `:has(:required)` may be the intent
+- [] Form: `FieldSet as="div"` doesn't add `role="group"`, and `disabled` on a div only dims it, nested inputs stay enabled
+- [] Form: `.ui-fieldset:has(.ui-text-field.ui-row)` in `form.css` never matches (text field has no `.ui-row`)
+- [] `pnpm build-skill` after `astro build` fails (`dist/html/guide/getting-started.md` missing) and deletes every file in `skills/opui/references`
+- [] Skill references drop API tables on pages with more than one table (Form and Checkbox `## API` only have headings)
 
 ## Docs
 
 - [] Drawer API lists `heading` and `actions` as slots (they aren't) and has a stray row after the table
 - [] Carousel: `--_button-prev-icon`/`--_button-next-icon`/`--_button-icon-size` aren't documented anywhere since the custom properties table was removed
 - [] Dialog docs callout still says "No JavaScript required" (positive wording: "HTML only")
+- [] Form skill references (`skills/opui/references/*/form.md`) need regenerating after the form docs fixes
+- [] Form: Astro examples use one import per line in random order (Vue examples are combined and sorted)
+- [] Checkbox, Radio and Switch field group validation text says `Fieldset` instead of `FieldSet`
+- [] Form: FieldGroup `types.solid.ts` allows an `as` prop the component doesn't support, and FieldSet's `Context` type is unused
 
 ## To check
 

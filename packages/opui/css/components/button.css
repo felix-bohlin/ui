@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.ui-button) {
+  :where(.ui-button, .ui-icon-button) {
     --_motion: var(--motion, 1);
     --_color: light-dark(var(--color-16), var(--color-1));
     --_color-contrast: light-dark(var(--color-1), var(--color-16));
@@ -21,6 +21,31 @@
         oklch(from var(--_accent) calc(l - 0.15) c h));
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
 
+    &.ui-critical,
+    &.ui-primary {
+      --_color-contrast: var(--gray-1);
+      --_color-tonal: var(--color-6);
+      --_accent-tonal-contrast: var(--text-primary-contrast);
+
+      --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
+      --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
+
+      --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+      --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
+
+      --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+    }
+
+    &.ui-critical {
+      --_color: var(--critical);
+    }
+
+    &.ui-primary {
+      --_color: var(--primary);
+    }
+  }
+
+  :where(.ui-button) {
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-width: var(--border-size-1);
@@ -52,29 +77,6 @@
       border-color calc(0.1s * var(--_motion)) ease,
       box-shadow calc(0.1s * var(--_motion)) ease;
     user-select: none;
-
-    &.ui-critical,
-    &.ui-primary {
-      --_color-contrast: var(--gray-1);
-      --_color-tonal: var(--color-6);
-      --_accent-tonal-contrast: var(--text-primary-contrast);
-
-      --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
-      --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
-
-      --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-      --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
-
-      --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-    }
-
-    &.ui-critical {
-      --_color: var(--critical);
-    }
-
-    &.ui-primary {
-      --_color: var(--primary);
-    }
 
     /* Disabled */
     &:where([disabled], [aria-disabled="true"]) {

@@ -4,6 +4,7 @@ import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
 import { Callout as UICallout } from "@opui/astro"
+import ButtonCSS from "@opui/css/components/button.css?raw"
 import IconButtonCSS from "@opui/css/components/icon-button.css?raw"
 import ExampleAnatomy from "../../component-examples/icon-button/Anatomy.astro"
 
@@ -32,6 +33,12 @@ export const description =
   ]}
   installationTabs={[
     { title: "icon-button.css", code: IconButtonCSS, lang: "css" },
+    {
+      title: "button.css",
+      code: ButtonCSS,
+      lang: "css",
+      isDependency: true,
+    },
   ]}
 >
   <Fragment slot="title">Icon Button</Fragment>

@@ -26,26 +26,6 @@
         outline-offset: -4px;
       }
 
-      /* Color inherited from Button Group. */
-      :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) & {
-        --_color-contrast: var(--gray-1);
-        --_color-tonal: var(--color-6);
-        --_accent-tonal-contrast: var(--text-primary-contrast);
-        --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
-        --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
-        --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-        --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
-        --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-      }
-
-      :where(.ui-button-group.ui-critical) & {
-        --_color: var(--critical);
-      }
-
-      :where(.ui-button-group.ui-primary) & {
-        --_color: var(--primary);
-      }
-
       :where(.ui-button-group.ui-small) & {
         --_min-height: 1.875rem;
         --_padding-inline: 1.25ex;

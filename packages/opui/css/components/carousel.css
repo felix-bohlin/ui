@@ -6,8 +6,8 @@
     --_button-color: light-dark(var(--gray-1), var(--gray-15));
     --_button-disabled-opacity: 0;
     --_button-inset: var(--size-2);
-    --_button-next-content: "\203A";
-    --_button-prev-content: "\2039";
+    --_button-next-content: "\276F";
+    --_button-prev-content: "\276E";
     --_button-shadow: var(--shadow-2);
     --_button-size: var(--button-size-small, 32px);
     --_gap: var(--size-3);
@@ -81,11 +81,11 @@
         color: var(--_button-color);
         cursor: pointer;
         display: grid;
-        font-size: calc(var(--_button-size) * 0.75);
+        font-size: calc(var(--_button-size) * 0.4);
         inline-size: var(--_button-size);
         inset-block-start: anchor(center);
         line-height: 1;
-        padding-block-end: 0.1em;
+        padding: 0;
         place-items: center;
         position: absolute;
         position-anchor: auto;

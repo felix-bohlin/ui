@@ -12,9 +12,9 @@ The term "modal" and "dialog" are often used interchangeably, but there's an imp
 
 ### Modal
 
-### No JavaScript required
+### HTML only
 
-In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` without JavaScript by using the `commandfor` and `command` attributes.
+In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
 ```html
 <button

@@ -1,7 +1,6 @@
 ---
 import "@opui/css/imports.css"
 import "/src/styles/base.css"
-import { Toast } from "@opui/astro"
 import Footer from "../components/Footer.astro"
 import { Font } from "astro:assets"
 import {
@@ -73,7 +72,6 @@ const imageUrl = new URL(image || "/share-img.png", Astro.site)
   </head>
   <body>
     <slot />
-    <Toast />
     <Footer />
   </body>
 </html>

@@ -795,21 +795,7 @@ const radiusGroups = [
       light: themeStore.get("light"),
       dark: themeStore.get("dark"),
     })
-    try {
-      await navigator.clipboard.writeText(code)
-      ;(window as any).showToast?.({
-        title: "Copied theme.css",
-        description: "Paste it into your project's stylesheet.",
-        duration: "3s",
-      })
-    } catch {
-      ;(window as any).showToast?.({
-        title: "Copy failed",
-        description: "Your browser blocked clipboard access.",
-        severity: "error",
-        duration: "4s",
-      })
-    }
+    await navigator.clipboard.writeText(code)
   })
 
   themeStore.subscribe((detail) => {

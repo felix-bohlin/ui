@@ -2,7 +2,7 @@
   {
     "id": "component-accordion-html",
     "title": "Accordion",
-    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
+    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\r\n    add your own custom marker.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
     "category": "Component",
     "frameworkId": "html",
@@ -12,7 +12,7 @@
   {
     "id": "component-accordion-astro",
     "title": "Accordion",
-    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
+    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\r\n    add your own custom marker.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
     "category": "Component",
     "frameworkId": "astro",
@@ -20,9 +20,29 @@
     "url": "/astro/components/accordion"
   },
   {
+    "id": "component-accordion-solid",
+    "title": "Accordion",
+    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\r\n    add your own custom marker.",
+    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/accordion"
+  },
+  {
+    "id": "component-accordion-svelte",
+    "title": "Accordion",
+    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\r\n    add your own custom marker.",
+    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/accordion"
+  },
+  {
     "id": "component-accordion-vue",
     "title": "Accordion",
-    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
+    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\r\n    add your own custom marker.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
     "category": "Component",
     "frameworkId": "vue",
@@ -48,6 +68,26 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/anchor"
+  },
+  {
+    "id": "component-anchor-solid",
+    "title": "Anchor",
+    "description": "",
+    "headings": "Always Visible Hover Trigger Used By",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/anchor"
+  },
+  {
+    "id": "component-anchor-svelte",
+    "title": "Anchor",
+    "description": "",
+    "headings": "Always Visible Hover Trigger Used By",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/anchor"
   },
   {
     "id": "component-anchor-vue",
@@ -80,6 +120,26 @@
     "url": "/astro/components/avatar"
   },
   {
+    "id": "component-avatar-solid",
+    "title": "Avatar",
+    "description": "",
+    "headings": "Image Letter Icon Variants Grouped",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/avatar"
+  },
+  {
+    "id": "component-avatar-svelte",
+    "title": "Avatar",
+    "description": "",
+    "headings": "Image Letter Icon Variants Grouped",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/avatar"
+  },
+  {
     "id": "component-avatar-vue",
     "title": "Avatar",
     "description": "",
@@ -108,6 +168,26 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/badge"
+  },
+  {
+    "id": "component-badge-solid",
+    "title": "Badge",
+    "description": "A badge is a small status indicator that can be placed on other elements.",
+    "headings": "Variants Indicator Severities Visibility Alignment",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/badge"
+  },
+  {
+    "id": "component-badge-svelte",
+    "title": "Badge",
+    "description": "A badge is a small status indicator that can be placed on other elements.",
+    "headings": "Variants Indicator Severities Visibility Alignment",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/badge"
   },
   {
     "id": "component-badge-vue",
@@ -140,6 +220,26 @@
     "url": "/astro/components/button-group"
   },
   {
+    "id": "component-button-group-solid",
+    "title": "Button group",
+    "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
+    "headings": "Variants Colors Icons Sizes Vertical orientation Disabled",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/button-group"
+  },
+  {
+    "id": "component-button-group-svelte",
+    "title": "Button group",
+    "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
+    "headings": "Variants Colors Icons Sizes Vertical orientation Disabled",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/button-group"
+  },
+  {
     "id": "component-button-group-vue",
     "title": "Button group",
     "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
@@ -168,6 +268,26 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/button"
+  },
+  {
+    "id": "component-button-solid",
+    "title": "Button",
+    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
+    "headings": "Variants Colors Buttons with icon and label Keyboard Icon-only Sizes Disabled File upload",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/button"
+  },
+  {
+    "id": "component-button-svelte",
+    "title": "Button",
+    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
+    "headings": "Variants Colors Buttons with icon and label Keyboard Icon-only Sizes Disabled File upload",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/button"
   },
   {
     "id": "component-button-vue",
@@ -200,6 +320,26 @@
     "url": "/astro/components/callout"
   },
   {
+    "id": "component-callout-solid",
+    "title": "Callout",
+    "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
+    "headings": "Variants Icon Severities",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/callout"
+  },
+  {
+    "id": "component-callout-svelte",
+    "title": "Callout",
+    "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
+    "headings": "Variants Icon Severities",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/callout"
+  },
+  {
     "id": "component-callout-vue",
     "title": "Callout",
     "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
@@ -212,7 +352,7 @@
   {
     "id": "component-card-html",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment",
     "category": "Component",
     "frameworkId": "html",
@@ -222,7 +362,7 @@
   {
     "id": "component-card-astro",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment",
     "category": "Component",
     "frameworkId": "astro",
@@ -230,9 +370,29 @@
     "url": "/astro/components/card"
   },
   {
+    "id": "component-card-solid",
+    "title": "Card",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
+    "headings": "Variants Header Actions Alignment",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/card"
+  },
+  {
+    "id": "component-card-svelte",
+    "title": "Card",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
+    "headings": "Variants Header Actions Alignment",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/card"
+  },
+  {
     "id": "component-card-vue",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment",
     "category": "Component",
     "frameworkId": "vue",
@@ -258,6 +418,26 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/checkbox"
+  },
+  {
+    "id": "component-checkbox-solid",
+    "title": "Checkbox",
+    "description": "See also: Checkbox field group.",
+    "headings": "Visible label Label position End text Validation Indeterminate Spread Sizes Field group Direction Field description Disabled Required Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/checkbox"
+  },
+  {
+    "id": "component-checkbox-svelte",
+    "title": "Checkbox",
+    "description": "See also: Checkbox field group.",
+    "headings": "Visible label Label position End text Validation Indeterminate Spread Sizes Field group Direction Field description Disabled Required Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/checkbox"
   },
   {
     "id": "component-checkbox-vue",
@@ -290,6 +470,26 @@
     "url": "/astro/components/chip"
   },
   {
+    "id": "component-chip-solid",
+    "title": "Chip",
+    "description": "Chips are compact elements that represent an input, attribute, or action.",
+    "headings": "Variants Icon Button Link Sizes",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/chip"
+  },
+  {
+    "id": "component-chip-svelte",
+    "title": "Chip",
+    "description": "Chips are compact elements that represent an input, attribute, or action.",
+    "headings": "Variants Icon Button Link Sizes",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/chip"
+  },
+  {
     "id": "component-chip-vue",
     "title": "Chip",
     "description": "Chips are compact elements that represent an input, attribute, or action.",
@@ -320,6 +520,26 @@
     "url": "/astro/components/description-list"
   },
   {
+    "id": "component-description-list-solid",
+    "title": "Description list",
+    "description": "Description lists are used to display a list of terms and their descriptions.",
+    "headings": "Bordered",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/description-list"
+  },
+  {
+    "id": "component-description-list-svelte",
+    "title": "Description list",
+    "description": "Description lists are used to display a list of terms and their descriptions.",
+    "headings": "Bordered",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/description-list"
+  },
+  {
     "id": "component-description-list-vue",
     "title": "Description list",
     "description": "Description lists are used to display a list of terms and their descriptions.",
@@ -333,7 +553,7 @@
     "id": "component-dialog-html",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Modal How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -343,17 +563,37 @@
     "id": "component-dialog-astro",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Modal How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/dialog"
   },
   {
+    "id": "component-dialog-solid",
+    "title": "Dialog",
+    "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
+    "headings": "Usage Modal How to close a dialog Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/dialog"
+  },
+  {
+    "id": "component-dialog-svelte",
+    "title": "Dialog",
+    "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
+    "headings": "Usage Modal How to close a dialog Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/dialog"
+  },
+  {
     "id": "component-dialog-vue",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Modal How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -378,6 +618,26 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/divider"
+  },
+  {
+    "id": "component-divider-solid",
+    "title": "Divider",
+    "description": "It's just a line.",
+    "headings": "Variants",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/divider"
+  },
+  {
+    "id": "component-divider-svelte",
+    "title": "Divider",
+    "description": "It's just a line.",
+    "headings": "Variants",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/divider"
   },
   {
     "id": "component-divider-vue",
@@ -410,6 +670,26 @@
     "url": "/astro/components/drawer"
   },
   {
+    "id": "component-drawer-solid",
+    "title": "Drawer",
+    "description": "Slides in from the sides, top or bottom of the screen.",
+    "headings": "Usage How to close a drawer Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/drawer"
+  },
+  {
+    "id": "component-drawer-svelte",
+    "title": "Drawer",
+    "description": "Slides in from the sides, top or bottom of the screen.",
+    "headings": "Usage How to close a drawer Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/drawer"
+  },
+  {
     "id": "component-drawer-vue",
     "title": "Drawer",
     "description": "Slides in from the sides, top or bottom of the screen.",
@@ -438,6 +718,26 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/form"
+  },
+  {
+    "id": "component-form-solid",
+    "title": "Form",
+    "description": "A way to build structured forms.",
+    "headings": "Usage Non-semantic elements Fieldset Required Disabled Field Legend Field Description Field Group Row Divider Kitchen Sink",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/form"
+  },
+  {
+    "id": "component-form-svelte",
+    "title": "Form",
+    "description": "A way to build structured forms.",
+    "headings": "Usage Non-semantic elements Fieldset Required Disabled Field Legend Field Description Field Group Row Divider Kitchen Sink",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/form"
   },
   {
     "id": "component-form-vue",
@@ -470,6 +770,26 @@
     "url": "/astro/components/icon-button"
   },
   {
+    "id": "component-icon-button-solid",
+    "title": "Icon Button",
+    "description": "Icon buttons are used to trigger actions and are typically found in toolbars, cards, and dialogs.",
+    "headings": "Variants Colors Sizes Disabled",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/icon-button"
+  },
+  {
+    "id": "component-icon-button-svelte",
+    "title": "Icon Button",
+    "description": "Icon buttons are used to trigger actions and are typically found in toolbars, cards, and dialogs.",
+    "headings": "Variants Colors Sizes Disabled",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/icon-button"
+  },
+  {
     "id": "component-icon-button-vue",
     "title": "Icon Button",
     "description": "Icon buttons are used to trigger actions and are typically found in toolbars, cards, and dialogs.",
@@ -498,6 +818,26 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/list"
+  },
+  {
+    "id": "component-list-solid",
+    "title": "List",
+    "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
+    "headings": "Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/list"
+  },
+  {
+    "id": "component-list-svelte",
+    "title": "List",
+    "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
+    "headings": "Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/list"
   },
   {
     "id": "component-list-vue",
@@ -530,6 +870,26 @@
     "url": "/astro/components/progress"
   },
   {
+    "id": "component-progress-solid",
+    "title": "Progress",
+    "description": "See also: Spinner.",
+    "headings": "Indeterminate Determinate Variants",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/progress"
+  },
+  {
+    "id": "component-progress-svelte",
+    "title": "Progress",
+    "description": "See also: Spinner.",
+    "headings": "Indeterminate Determinate Variants",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/progress"
+  },
+  {
     "id": "component-progress-vue",
     "title": "Progress",
     "description": "See also: Spinner.",
@@ -558,6 +918,26 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/radio"
+  },
+  {
+    "id": "component-radio-solid",
+    "title": "Radio",
+    "description": "See also: Form documentation.",
+    "headings": "Direction Field description Disabled Required Validation",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/radio"
+  },
+  {
+    "id": "component-radio-svelte",
+    "title": "Radio",
+    "description": "See also: Form documentation.",
+    "headings": "Direction Field description Disabled Required Validation",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/radio"
   },
   {
     "id": "component-radio-vue",
@@ -590,6 +970,26 @@
     "url": "/astro/components/range"
   },
   {
+    "id": "component-range-solid",
+    "title": "Range",
+    "description": "",
+    "headings": "Start text & End text Value Tick marks Variants Disabled Validation Spread",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/range"
+  },
+  {
+    "id": "component-range-svelte",
+    "title": "Range",
+    "description": "",
+    "headings": "Start text & End text Value Tick marks Variants Disabled Validation Spread",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/range"
+  },
+  {
     "id": "component-range-vue",
     "title": "Range",
     "description": "",
@@ -620,6 +1020,26 @@
     "url": "/astro/components/select"
   },
   {
+    "id": "component-select-solid",
+    "title": "Select",
+    "description": "Leverages the List component to provide markup for the Select popover.",
+    "headings": "Variants End text Affix Validation Spread Sizes Classic select",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/select"
+  },
+  {
+    "id": "component-select-svelte",
+    "title": "Select",
+    "description": "Leverages the List component to provide markup for the Select popover.",
+    "headings": "Variants End text Affix Validation Spread Sizes Classic select",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/select"
+  },
+  {
     "id": "component-select-vue",
     "title": "Select",
     "description": "Leverages the List component to provide markup for the Select popover.",
@@ -632,7 +1052,7 @@
   {
     "id": "component-spinner-html",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
     "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "html",
@@ -642,7 +1062,7 @@
   {
     "id": "component-spinner-astro",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
     "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "astro",
@@ -650,9 +1070,29 @@
     "url": "/astro/components/spinner"
   },
   {
+    "id": "component-spinner-solid",
+    "title": "Spinner",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
+    "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/spinner"
+  },
+  {
+    "id": "component-spinner-svelte",
+    "title": "Spinner",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
+    "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/spinner"
+  },
+  {
     "id": "component-spinner-vue",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
     "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "vue",
@@ -678,6 +1118,26 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/switch"
+  },
+  {
+    "id": "component-switch-solid",
+    "title": "Switch",
+    "description": "See also: Switch field group.",
+    "headings": "Visible label Label position End text Validation Spread Sizes Icons Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/switch"
+  },
+  {
+    "id": "component-switch-svelte",
+    "title": "Switch",
+    "description": "See also: Switch field group.",
+    "headings": "Visible label Label position End text Validation Spread Sizes Icons Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/switch"
   },
   {
     "id": "component-switch-vue",
@@ -710,6 +1170,26 @@
     "url": "/astro/components/table"
   },
   {
+    "id": "component-table-solid",
+    "title": "Table",
+    "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
+    "headings": "Variants Default Advanced",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/table"
+  },
+  {
+    "id": "component-table-svelte",
+    "title": "Table",
+    "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
+    "headings": "Variants Default Advanced",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/table"
+  },
+  {
     "id": "component-table-vue",
     "title": "Table",
     "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
@@ -722,7 +1202,7 @@
   {
     "id": "component-tabs-html",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
     "headings": "Basics",
     "category": "Component",
     "frameworkId": "html",
@@ -732,7 +1212,7 @@
   {
     "id": "component-tabs-astro",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
     "headings": "Basics",
     "category": "Component",
     "frameworkId": "astro",
@@ -740,9 +1220,29 @@
     "url": "/astro/components/tabs"
   },
   {
+    "id": "component-tabs-solid",
+    "title": "Tabs",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
+    "headings": "Basics",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/tabs"
+  },
+  {
+    "id": "component-tabs-svelte",
+    "title": "Tabs",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
+    "headings": "Basics",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/tabs"
+  },
+  {
     "id": "component-tabs-vue",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
     "headings": "Basics",
     "category": "Component",
     "frameworkId": "vue",
@@ -768,6 +1268,26 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/text-field"
+  },
+  {
+    "id": "component-text-field-solid",
+    "title": "Text field",
+    "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
+    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/text-field"
+  },
+  {
+    "id": "component-text-field-svelte",
+    "title": "Text field",
+    "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
+    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/text-field"
   },
   {
     "id": "component-text-field-vue",
@@ -800,6 +1320,26 @@
     "url": "/astro/components/textarea"
   },
   {
+    "id": "component-textarea-solid",
+    "title": "Textarea",
+    "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
+    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/textarea"
+  },
+  {
+    "id": "component-textarea-svelte",
+    "title": "Textarea",
+    "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
+    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/textarea"
+  },
+  {
     "id": "component-textarea-vue",
     "title": "Textarea",
     "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
@@ -808,36 +1348,6 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/components/textarea"
-  },
-  {
-    "id": "component-toast-html",
-    "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
-    "headings": "How it works HTML JavaScript Severities Title + description Duration",
-    "category": "Component",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/components/toast"
-  },
-  {
-    "id": "component-toast-astro",
-    "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
-    "headings": "How it works HTML JavaScript Severities Title + description Duration",
-    "category": "Component",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/components/toast"
-  },
-  {
-    "id": "component-toast-vue",
-    "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
-    "headings": "How it works HTML JavaScript Severities Title + description Duration",
-    "category": "Component",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/components/toast"
   },
   {
     "id": "component-toggle-html",
@@ -858,6 +1368,26 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/toggle"
+  },
+  {
+    "id": "component-toggle-solid",
+    "title": "Toggle",
+    "description": "",
+    "headings": "Toggle button Toggle group Multi-select Single-select Text + icon Vertical orientation Sizes",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/toggle"
+  },
+  {
+    "id": "component-toggle-svelte",
+    "title": "Toggle",
+    "description": "",
+    "headings": "Toggle button Toggle group Multi-select Single-select Text + icon Vertical orientation Sizes",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/toggle"
   },
   {
     "id": "component-toggle-vue",
@@ -890,6 +1420,26 @@
     "url": "/astro/components/tooltip"
   },
   {
+    "id": "component-tooltip-solid",
+    "title": "Tooltip",
+    "description": "Built on top of Anchor.",
+    "headings": "Basics Text only... ... or any markup you want Alignment Arrow",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/tooltip"
+  },
+  {
+    "id": "component-tooltip-svelte",
+    "title": "Tooltip",
+    "description": "Built on top of Anchor.",
+    "headings": "Basics Text only... ... or any markup you want Alignment Arrow",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/tooltip"
+  },
+  {
     "id": "component-tooltip-vue",
     "title": "Tooltip",
     "description": "Built on top of Anchor.",
@@ -902,7 +1452,7 @@
   {
     "id": "component-typography-html",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .ui-rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "html",
@@ -912,7 +1462,7 @@
   {
     "id": "component-typography-astro",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .ui-rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "astro",
@@ -920,9 +1470,29 @@
     "url": "/astro/components/typography"
   },
   {
+    "id": "component-typography-solid",
+    "title": "Typography",
+    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .ui-rich-text.",
+    "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/typography"
+  },
+  {
+    "id": "component-typography-svelte",
+    "title": "Typography",
+    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .ui-rich-text.",
+    "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/typography"
+  },
+  {
     "id": "component-typography-vue",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .ui-rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "vue",
@@ -948,6 +1518,24 @@
     "url": "/astro/guide/acknowledgments"
   },
   {
+    "id": "guide-acknowledgments-solid",
+    "title": "Acknowledgments",
+    "description": "",
+    "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
+    "category": "Guide",
+    "frameworkId": "solid",
+    "url": "/solid/guide/acknowledgments"
+  },
+  {
+    "id": "guide-acknowledgments-svelte",
+    "title": "Acknowledgments",
+    "description": "",
+    "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/acknowledgments"
+  },
+  {
     "id": "guide-acknowledgments-vue",
     "title": "Acknowledgments",
     "description": "",
@@ -959,7 +1547,7 @@
   {
     "id": "guide-browser-support-html",
     "title": "Browser support",
-    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
+    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "html",
@@ -968,16 +1556,34 @@
   {
     "id": "guide-browser-support-astro",
     "title": "Browser support",
-    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
+    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/browser-support"
   },
   {
+    "id": "guide-browser-support-solid",
+    "title": "Browser support",
+    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "solid",
+    "url": "/solid/guide/browser-support"
+  },
+  {
+    "id": "guide-browser-support-svelte",
+    "title": "Browser support",
+    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/browser-support"
+  },
+  {
     "id": "guide-browser-support-vue",
     "title": "Browser support",
-    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
+    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "vue",
@@ -1002,6 +1608,24 @@
     "url": "/astro/guide/theme-generator"
   },
   {
+    "id": "guide-theme-generator-solid",
+    "title": "Theme generator",
+    "description": "",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "solid",
+    "url": "/solid/guide/theme-generator"
+  },
+  {
+    "id": "guide-theme-generator-svelte",
+    "title": "Theme generator",
+    "description": "",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/theme-generator"
+  },
+  {
     "id": "guide-theme-generator-vue",
     "title": "Theme generator",
     "description": "",
@@ -1013,7 +1637,7 @@
   {
     "id": "guide-why-opui-html",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
     "headings": "Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "html",
@@ -1022,16 +1646,34 @@
   {
     "id": "guide-why-opui-astro",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
     "headings": "Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/why-opui"
   },
   {
+    "id": "guide-why-opui-solid",
+    "title": "Why Open Props UI?",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
+    "headings": "Backstory The goal of OPUI",
+    "category": "Guide",
+    "frameworkId": "solid",
+    "url": "/solid/guide/why-opui"
+  },
+  {
+    "id": "guide-why-opui-svelte",
+    "title": "Why Open Props UI?",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
+    "headings": "Backstory The goal of OPUI",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/why-opui"
+  },
+  {
     "id": "guide-why-opui-vue",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
     "headings": "Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "vue",
@@ -1040,7 +1682,7 @@
   {
     "id": "guide-getting-started-astro",
     "title": "Getting started",
-    "description": "OPUI ships first-class Astro components. Install the package, import what\n    you need, and you're set.",
+    "description": "OPUI ships first-class Astro components. Install the package, import what\r\n    you need, and you're set.",
     "headings": "Install via NPM Import the CSS How to use",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1049,11 +1691,20 @@
   {
     "id": "guide-getting-started-html",
     "title": "Getting started",
-    "description": "Open Props UI is a CSS UI library exploring how next-gen HTML & CSS features\n    can change the way we create components. Designed to be used by professional\n    teams as well as tinkering hobbyists.",
+    "description": "Open Props UI is a CSS UI library exploring how next-gen HTML & CSS features\r\n    can change the way we create components. Designed to be used by professional\r\n    teams as well as tinkering hobbyists.",
     "headings": "Install manually theme.css generator Install via NPM Usage Install via CDN",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/getting-started"
+  },
+  {
+    "id": "guide-getting-started-solid",
+    "title": "Getting started",
+    "description": "",
+    "headings": "Install via NPM Import the CSS How to use",
+    "category": "Guide",
+    "frameworkId": "solid",
+    "url": "/solid/guide/getting-started"
   },
   {
     "id": "guide-getting-started-vue",
@@ -1085,6 +1736,16 @@
     "url": "/html/api#accordion"
   },
   {
+    "id": "api-accordion-solid",
+    "title": "Accordion API",
+    "description": "Reference for Accordion Solid component.",
+    "headings": "Group Card[role=\"group\"] - actions JSX.Element - Optional actions rendered below the content. children JSX.Element - The accordion content. marker JSX.Element - Optional custom marker rendered after the summary.\r\n    \r\n    \r\n      name string - open boolean false Accordion open state. summary string, JSX.Element - The accordion summary. variant \"default\" The visual variant of the accordion.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#accordion"
+  },
+  {
     "id": "api-accordion-vue",
     "title": "Accordion API",
     "description": "Reference for Accordion Vue component.",
@@ -1093,36 +1754,6 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#accordion"
-  },
-  {
-    "id": "api-anchor-astro",
-    "title": "Anchor API",
-    "description": "Reference for Anchor Astro component.",
-    "headings": "alignment string \"start end\" trigger \"always\" | \"hover\" \"always\"",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#anchor"
-  },
-  {
-    "id": "api-anchor-html",
-    "title": "Anchor API",
-    "description": "Reference for Anchor HTML component.",
-    "headings": "Container .ui-anchor - Floating .ui-anchor-floating - Position --anchor-position-area start end Trigger data-trigger=\"hover\" -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#anchor"
-  },
-  {
-    "id": "api-anchor-vue",
-    "title": "Anchor API",
-    "description": "Reference for Anchor Vue component.",
-    "headings": "alignment string \"start end\" trigger \"always\" | \"hover\" \"always\"",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#anchor"
   },
   {
     "id": "api-avatar-astro",
@@ -1145,6 +1776,16 @@
     "url": "/html/api#avatar"
   },
   {
+    "id": "api-avatar-solid",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Solid component.",
+    "headings": "alt string - The alternative text for the avatar image. as any - The element or component to render as. children JSX.Element - href string - The link to use if the avatar is an anchor. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#avatar"
+  },
+  {
     "id": "api-avatar-vue",
     "title": "Avatar API",
     "description": "Reference for Avatar Vue component.",
@@ -1153,6 +1794,46 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#avatar"
+  },
+  {
+    "id": "api-anchor-astro",
+    "title": "Anchor API",
+    "description": "Reference for Anchor Astro component.",
+    "headings": "alignment string \"start end\" trigger \"always\" | \"hover\" \"always\"",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#anchor"
+  },
+  {
+    "id": "api-anchor-html",
+    "title": "Anchor API",
+    "description": "Reference for Anchor HTML component.",
+    "headings": "Container .ui-anchor - Floating .ui-anchor-floating - Position --anchor-position-area start end Trigger data-trigger=\"hover\" -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#anchor"
+  },
+  {
+    "id": "api-anchor-solid",
+    "title": "Anchor API",
+    "description": "Reference for Anchor Solid component.",
+    "headings": "alignment string \"start end\" anchored JSX.Element - The floating content. children JSX.Element - The element the floating content is anchored to. trigger \"always\" | \"hover\" \"always\"",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#anchor"
+  },
+  {
+    "id": "api-anchor-vue",
+    "title": "Anchor API",
+    "description": "Reference for Anchor Vue component.",
+    "headings": "alignment string \"start end\" trigger \"always\" | \"hover\" \"always\"",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#anchor"
   },
   {
     "id": "api-badge-astro",
@@ -1175,6 +1856,16 @@
     "url": "/html/api#badge"
   },
   {
+    "id": "api-badge-solid",
+    "title": "Badge API",
+    "description": "Reference for Badge Solid component.",
+    "headings": "alignment - children JSX.Element - The element the badge is anchored to. color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. indicator JSX.Element - invisible boolean false Hides the badge. label string | number -",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#badge"
+  },
+  {
     "id": "api-badge-vue",
     "title": "Badge API",
     "description": "Reference for Badge Vue component.",
@@ -1183,36 +1874,6 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#badge"
-  },
-  {
-    "id": "api-button-astro",
-    "title": "Button API",
-    "description": "Reference for Button Astro component.",
-    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - disabled boolean - Button disabled state.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#button"
-  },
-  {
-    "id": "api-button-html",
-    "title": "Button API",
-    "description": "Reference for Button HTML component.",
-    "headings": "Sizes - The size of the element. Variants - The variant to use. Colors - Color modifiers. Default is a neutral gray.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#button"
-  },
-  {
-    "id": "api-button-vue",
-    "title": "Button API",
-    "description": "Reference for Button Vue component.",
-    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - disabled boolean - Button disabled state.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#button"
   },
   {
     "id": "api-button-group-astro",
@@ -1235,6 +1896,16 @@
     "url": "/html/api#button-group"
   },
   {
+    "id": "api-button-group-solid",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Solid component.",
+    "headings": "children JSX.Element - The buttons in the group. color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#button-group"
+  },
+  {
     "id": "api-button-group-vue",
     "title": "Button Group API",
     "description": "Reference for Button Group Vue component.",
@@ -1243,6 +1914,46 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#button-group"
+  },
+  {
+    "id": "api-button-astro",
+    "title": "Button API",
+    "description": "Reference for Button Astro component.",
+    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - disabled boolean - Button disabled state.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#button"
+  },
+  {
+    "id": "api-button-html",
+    "title": "Button API",
+    "description": "Reference for Button HTML component.",
+    "headings": "Sizes - The size of the element. Variants - The variant to use. Colors - Color modifiers. Default is a neutral gray.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#button"
+  },
+  {
+    "id": "api-button-solid",
+    "title": "Button API",
+    "description": "Reference for Button Solid component.",
+    "headings": "children JSX.Element - The button content. color \"critical\", \"primary\" - disabled boolean - Button disabled state. href string - size \"small\", \"large\" - The size of the button. variant - The visual variant of the button.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#button"
+  },
+  {
+    "id": "api-button-vue",
+    "title": "Button API",
+    "description": "Reference for Button Vue component.",
+    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - disabled boolean - Button disabled state.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#button"
   },
   {
     "id": "api-callout-astro",
@@ -1258,11 +1969,21 @@
     "id": "api-callout-html",
     "title": "Callout API",
     "description": "Reference for Callout HTML component.",
-    "headings": "Part & > .ui-content, & > svg\n      - Internal structure. Severities - Severity modifiers. Variants .ui-tonal, .ui-outlined .ui-tonal Style modifiers.",
+    "headings": "Part & > .ui-content, & > svg\r\n      - Internal structure. Severities - Severity modifiers. Variants .ui-tonal, .ui-outlined .ui-tonal Style modifiers.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#callout"
+  },
+  {
+    "id": "api-callout-solid",
+    "title": "Callout API",
+    "description": "Reference for Callout Solid component.",
+    "headings": "children JSX.Element - The callout content. icon JSX.Element - Optional icon. Replaces the default severity icon.\r\n    \r\n    \r\n      severity - The severity level, affecting the color and icon. title JSX.Element - Optional title. variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#callout"
   },
   {
     "id": "api-callout-vue",
@@ -1295,6 +2016,16 @@
     "url": "/html/api#card"
   },
   {
+    "id": "api-card-solid",
+    "title": "Card API",
+    "description": "Reference for Card Solid component.",
+    "headings": "actions JSX.Element - Actions, wrapped in .ui-actions. actionsAlign \"start\", \"end\" - Alignment for the actions prop. children JSX.Element - Optional child content. content JSX.Element - Content, wrapped in .ui-content. header JSX.Element - Header, wrapped in hgroup. variant \"text\" The variant to use.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#card"
+  },
+  {
     "id": "api-card-vue",
     "title": "Card API",
     "description": "Reference for Card Vue component.",
@@ -1323,6 +2054,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#checkbox"
+  },
+  {
+    "id": "api-checkbox-solid",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox Solid component.",
+    "headings": "checked boolean false Input checked state. children JSX.Element - Optional child content. disabled boolean - Input disabled state. endText JSX.Element - Supporting text after the label. error boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false Visual partial-selection state. required boolean false Input required state. size \"small\", \"large\" - The size of the element. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#checkbox"
   },
   {
     "id": "api-checkbox-vue",
@@ -1355,6 +2096,16 @@
     "url": "/html/api#chip"
   },
   {
+    "id": "api-chip-solid",
+    "title": "Chip API",
+    "description": "Reference for Chip Solid component.",
+    "headings": "as \"div\" children JSX.Element - Optional child content. end JSX.Element - Content after the label. label string - The text label. multiline boolean false Allows multiline text. size \"small\" - The size of the element. start JSX.Element - Content before the label. variant \"tonal\", \"outlined\" \"tonal\" The variant to use.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#chip"
+  },
+  {
     "id": "api-chip-vue",
     "title": "Chip API",
     "description": "Reference for Chip Vue component.",
@@ -1383,6 +2134,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#classic-select"
+  },
+  {
+    "id": "api-classic-select-solid",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select Solid component.",
+    "headings": "children JSX.Element - disabled boolean - Select disabled state. endText string - Supporting text displayed below the select. error boolean - Select error state. items Item[] [] label string - The label for the select. required boolean - Select required state. size \"small\" - The size of the select. variant \"outlined\", \"filled\" \"outlined\" The variant to use.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#classic-select"
   },
   {
     "id": "api-classic-select-vue",
@@ -1415,6 +2176,16 @@
     "url": "/html/api#description-list"
   },
   {
+    "id": "api-description-list-solid",
+    "title": "Description List API",
+    "description": "Reference for Description List Solid component.",
+    "headings": "bordered boolean, \"dotted\" - children JSX.Element - Optional child content. children JSX.Element - Optional child content. children JSX.Element - Optional child content. children JSX.Element - Optional child content.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#description-list"
+  },
+  {
     "id": "api-description-list-vue",
     "title": "Description List API",
     "description": "Reference for Description List Vue component.",
@@ -1443,6 +2214,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#dialog"
+  },
+  {
+    "id": "api-dialog-solid",
+    "title": "Dialog API",
+    "description": "Reference for Dialog Solid component.",
+    "headings": "actions JSX.Element - Actions, wrapped in .ui-actions. actionsAlign \"start\", \"end\" - Alignment for the actions prop. children JSX.Element - Optional child content. closedby - How the dialog can be closed. content JSX.Element - Content, wrapped in .ui-content. header JSX.Element - Header, wrapped in hgroup.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#dialog"
   },
   {
     "id": "api-dialog-vue",
@@ -1475,6 +2256,16 @@
     "url": "/html/api#divider"
   },
   {
+    "id": "api-divider-solid",
+    "title": "Divider API",
+    "description": "Reference for Divider Solid component.",
+    "headings": "variant - The variant to use.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#divider"
+  },
+  {
     "id": "api-divider-vue",
     "title": "Divider API",
     "description": "Reference for Divider Vue component.",
@@ -1488,7 +2279,7 @@
     "id": "api-drawer-astro",
     "title": "Drawer API",
     "description": "Reference for Drawer Astro component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\r\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1498,17 +2289,27 @@
     "id": "api-drawer-html",
     "title": "Drawer API",
     "description": "Reference for Drawer HTML component.",
-    "headings": "Sides .ui-inline-start, .ui-inline-end,\n        .ui-block-start, .ui-block-end .ui-inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .ui-backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\n        Prevents focus from jumping to the first focusable element. .ui-header - - Top area for titles. .ui-content - - Main content area. .ui-actions - - Bottom action area.",
+    "headings": "Sides .ui-inline-start, .ui-inline-end,\r\n        .ui-block-start, .ui-block-end .ui-inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\r\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .ui-backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\r\n        Prevents focus from jumping to the first focusable element. .ui-header - - Top area for titles. .ui-content - - Main content area. .ui-actions - - Bottom action area.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#drawer"
   },
   {
+    "id": "api-drawer-solid",
+    "title": "Drawer API",
+    "description": "Reference for Drawer Solid component.",
+    "headings": "backdrop \"transparent\", \"blurred\"\r\n      \"blurred\" The backdrop style. children JSX.Element - Optional child content. closedby \"any\" How the drawer can be closed. content JSX.Element - Content, wrapped in .ui-content. footer JSX.Element - Footer, e.g. a DrawerFooter. header JSX.Element - Header, e.g. a DrawerHeader. id string auto-generated Unique identifier. scrollLock boolean true Locks page scroll while open. side \"inline-start\" The side it opens from. children JSX.Element - Optional child content. heading string - The drawer title. children JSX.Element - Optional child content.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#drawer"
+  },
+  {
     "id": "api-drawer-vue",
     "title": "Drawer API",
     "description": "Reference for Drawer Vue component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\r\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1533,6 +2334,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#field-group"
+  },
+  {
+    "id": "api-field-group-solid",
+    "title": "Field Group API",
+    "description": "Reference for Field Group Solid component.",
+    "headings": "direction \"row\", \"column\" - The orientation of the field group. name string - Passed down as name to child radios.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#field-group"
   },
   {
     "id": "api-field-group-vue",
@@ -1565,6 +2376,16 @@
     "url": "/html/api#form"
   },
   {
+    "id": "api-form-solid",
+    "title": "Form API",
+    "description": "Reference for Form Solid component.",
+    "headings": "as \"form\", \"div\" \"form\" The HTML element to render. as \"fieldset\", \"div\" \"fieldset\" The HTML element to render. disabled boolean - Whether the field set is disabled. as \"legend\" The HTML element to render. - [key: string]: any - name string - Shared name for nested input components. direction \"row\", \"column\" - The orientation of the field group.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#form"
+  },
+  {
     "id": "api-form-vue",
     "title": "Form API",
     "description": "Reference for Form Vue component.",
@@ -1593,6 +2414,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#icon-button"
+  },
+  {
+    "id": "api-icon-button-solid",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button Solid component.",
+    "headings": "as \"button\", \"a\" The underlying HTML element. color \"critical\", \"primary\" - disabled boolean - Whether the icon button is disabled. href string - size \"small\" - The size of the icon button. variant - The style of the icon button.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#icon-button"
   },
   {
     "id": "api-icon-button-vue",
@@ -1625,6 +2456,16 @@
     "url": "/html/api#list"
   },
   {
+    "id": "api-list-solid",
+    "title": "List API",
+    "description": "Reference for List Solid component.",
+    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant - The background color variant of the list. as string - borderTop boolean false List item top border. description string - Extra text displayed below the headline. end JSX.Element - Content after the main text. for string - headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. start JSX.Element - Content before the main text. text JSX.Element - Main text content. type -",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#list"
+  },
+  {
     "id": "api-list-vue",
     "title": "List API",
     "description": "Reference for List Vue component.",
@@ -1655,6 +2496,16 @@
     "url": "/html/api#progress"
   },
   {
+    "id": "api-progress-solid",
+    "title": "Progress API",
+    "description": "Reference for Progress Solid component.",
+    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#progress"
+  },
+  {
     "id": "api-progress-vue",
     "title": "Progress API",
     "description": "Reference for Progress Vue component.",
@@ -1668,7 +2519,7 @@
     "id": "api-range-astro",
     "title": "Range API",
     "description": "Reference for Range Astro component.",
-    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\n    \n    \n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\r\n    \r\n    \r\n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1685,10 +2536,20 @@
     "url": "/html/api#range"
   },
   {
+    "id": "api-range-solid",
+    "title": "Range API",
+    "description": "Reference for Range Solid component.",
+    "headings": "children JSX.Element - datalist JSX.Element - endText string, JSX.Element - Informational text below the range input. label string - The label for the range input. list string - max number, string - The maximum value. min number, string - The minimum value. options - spread boolean false Spreads the label/text and input to opposite ends.\r\n    \r\n    \r\n      startText string, JSX.Element - step number, string - The step increment. value number, string - The current value. valueSuffix string - valueText JSX.Element - variant - The variant to use.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#range"
+  },
+  {
     "id": "api-range-vue",
     "title": "Range API",
     "description": "Reference for Range Vue component.",
-    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\n    \n    \n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\r\n    \r\n    \r\n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1713,6 +2574,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#select"
+  },
+  {
+    "id": "api-select-solid",
+    "title": "Select API",
+    "description": "Reference for Select Solid component.",
+    "headings": "children JSX.Element - dense boolean false Select dense state. description string, JSX.Element - Description text displayed above the select. disabled boolean - Select disabled state. endText string, JSX.Element - Supporting text displayed below the select. error boolean - footer string, JSX.Element - header string, JSX.Element - items Item[] [] label string, JSX.Element - The label for the select. prefix string, JSX.Element - required boolean - Select required state. size \"small\" - The size of the select. spread boolean false suffix string, JSX.Element - variant \"outlined\", \"filled\" \"outlined\" The variant to use.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#select"
   },
   {
     "id": "api-select-vue",
@@ -1745,6 +2616,16 @@
     "url": "/html/api#spinner"
   },
   {
+    "id": "api-spinner-solid",
+    "title": "Spinner API",
+    "description": "Reference for Spinner Solid component.",
+    "headings": "aria-busy - Sizes font-size 1em Excluded - Elements that never receive a spinner.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#spinner"
+  },
+  {
     "id": "api-spinner-vue",
     "title": "Spinner API",
     "description": "Reference for Spinner Vue component.",
@@ -1773,6 +2654,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#switch"
+  },
+  {
+    "id": "api-switch-solid",
+    "title": "Switch API",
+    "description": "Reference for Switch Solid component.",
+    "headings": "aria-label string - aria-labelledby string - ID of an external element that labels the switch. checked boolean false Whether the switch is checked. children JSX.Element - The label text for the switch. disabled boolean false Whether the switch is disabled. endText string, JSX.Element - error boolean false Switch error state. hideLabel boolean false Visually hides the label but keeps it accessible. iconChecked JSX.Element - Icon shown when the switch is checked. iconUnchecked JSX.Element - Icon shown when the switch is unchecked. required boolean false Whether the switch is required. small boolean false Reduces the size of the switch. spread boolean false Spreads the label and switch to opposite ends. stack boolean false Labels are stacked under the element.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#switch"
   },
   {
     "id": "api-switch-vue",
@@ -1805,6 +2696,16 @@
     "url": "/html/api#table"
   },
   {
+    "id": "api-table-solid",
+    "title": "Table API",
+    "description": "Reference for Table Solid component.",
+    "headings": "children JSX.Element - Optional child content. class string - Additional CSS classes to apply to the table. variant \"dense\", \"spacious\" - The variant to use. width string - children JSX.Element - Optional child content.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#table"
+  },
+  {
     "id": "api-table-vue",
     "title": "Table API",
     "description": "Reference for Table Vue component.",
@@ -1833,6 +2734,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#tabs"
+  },
+  {
+    "id": "api-tabs-solid",
+    "title": "Tabs API",
+    "description": "Reference for Tabs Solid component.",
+    "headings": "children JSX.Element - Optional child content. class string - Additional class names. name string - children JSX.Element - Optional child content. class string - Optional class name. name string - open boolean false Whether this tab is initially active. panelId string - Id of the panel. Generated when omitted. tabId string - Id of the tab input. Generated when omitted. children JSX.Element - Optional child content. class string - Optional class name. tabId string - children JSX.Element - Optional child content. class string - Optional class name. panelId string - tabId string -",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#tabs"
   },
   {
     "id": "api-tabs-vue",
@@ -1865,6 +2776,16 @@
     "url": "/html/api#text-field"
   },
   {
+    "id": "api-text-field-solid",
+    "title": "Text Field API",
+    "description": "Reference for Text Field Solid component.",
+    "headings": "autoFit boolean false Automatically adjusts its width to content. children JSX.Element - Optional child content. description string, JSX.Element - Description text displayed above the field. endText string, JSX.Element - Supporting text displayed below the field. error boolean false filled boolean false Uses the filled variant. footer string, JSX.Element - header string, JSX.Element - label string, JSX.Element - The label for the field. prefix string, JSX.Element - small boolean false Uses the small size. spread boolean false startText string, JSX.Element - Alias for description. suffix string, JSX.Element - supportingText string, JSX.Element - Legacy alias for endText. type string, \"numeric\" \"text\"",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#text-field"
+  },
+  {
     "id": "api-text-field-vue",
     "title": "Text Field API",
     "description": "Reference for Text Field Vue component.",
@@ -1893,6 +2814,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#text-input"
+  },
+  {
+    "id": "api-text-input-solid",
+    "title": "Text Input API",
+    "description": "Reference for Text Input Solid component.",
+    "headings": "autoFit boolean false Automatically adjusts its width to content. size \"small\" - The size of the text field. variant \"filled\" - The visual variant of the text field.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#text-input"
   },
   {
     "id": "api-text-input-vue",
@@ -1925,6 +2856,16 @@
     "url": "/html/api#textarea"
   },
   {
+    "id": "api-textarea-solid",
+    "title": "Textarea API",
+    "description": "Reference for Textarea Solid component.",
+    "headings": "autoFit boolean false Automatically adjusts its height to content. children JSX.Element - Optional child content. description string, JSX.Element - Description text displayed above the textarea. endText string, JSX.Element - Supporting text displayed below the textarea. error boolean false filled boolean false The filled visual variant. footer string, JSX.Element - header string, JSX.Element - label string, JSX.Element - The label for the textarea. prefix string, JSX.Element - small boolean false The small size variant. spread boolean false suffix string, JSX.Element - supportingText string, JSX.Element - Legacy alias for endText.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#textarea"
+  },
+  {
     "id": "api-textarea-vue",
     "title": "Textarea API",
     "description": "Reference for Textarea Vue component.",
@@ -1933,36 +2874,6 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#textarea"
-  },
-  {
-    "id": "api-toast-astro",
-    "title": "Toast API",
-    "description": "Reference for Toast Astro component.",
-    "headings": "",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#toast"
-  },
-  {
-    "id": "api-toast-html",
-    "title": "Toast API",
-    "description": "Reference for Toast HTML component.",
-    "headings": "Command --show-toast - Message value / textContent - The message to display in the toast. Severity data-severity info Duration data-duration 5000ms Container #toast-manager - Component .ui-toast -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#toast"
-  },
-  {
-    "id": "api-toast-vue",
-    "title": "Toast API",
-    "description": "Reference for Toast Vue component.",
-    "headings": "",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#toast"
   },
   {
     "id": "api-toggle-astro",
@@ -1983,6 +2894,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#toggle"
+  },
+  {
+    "id": "api-toggle-solid",
+    "title": "Toggle API",
+    "description": "Reference for Toggle Solid component.",
+    "headings": "children JSX.Element - Optional child content. disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"small\", \"x-small\" - The size of the toggle button. type \"checkbox\", \"radio\" \"checkbox\" value string - children JSX.Element - Optional child content. name string - orientation \"vertical\" - Changes the layout direction of the group. selection \"single\", \"multiple\" \"multiple\" size \"default\" The size of the toggle group.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#toggle"
   },
   {
     "id": "api-toggle-vue",
@@ -2015,6 +2936,16 @@
     "url": "/html/api#tooltip"
   },
   {
+    "id": "api-tooltip-solid",
+    "title": "Tooltip API",
+    "description": "Reference for Tooltip Solid component.",
+    "headings": "alignment string \"block-start\" arrow boolean false children JSX.Element - The trigger element. content JSX.Element - id string auto-generated label string —",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#tooltip"
+  },
+  {
     "id": "api-tooltip-vue",
     "title": "Tooltip API",
     "description": "Reference for Tooltip Vue component.",
@@ -2043,6 +2974,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#typography"
+  },
+  {
+    "id": "api-typography-solid",
+    "title": "Typography API",
+    "description": "Reference for Typography Solid component.",
+    "headings": "Classes - Sizes .ui-small, .ui-large - Size modifiers on .ui-p.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#typography"
   },
   {
     "id": "api-typography-vue",

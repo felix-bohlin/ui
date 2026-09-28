@@ -1,4 +1,3 @@
-- [] Toast loading state isn't a real component
 - [] Popover menues
 - [] Auto-suggest arrow is misaligned
 - [] button kbd looks weird on Mac

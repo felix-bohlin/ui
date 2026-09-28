@@ -96,7 +96,7 @@ const previewSlotName = (() => {
 })()
 
 // Code slot: prefer the active framework, then default. `code-js` is used by
-// JS-driven demos (e.g. Toast) where the source is JavaScript regardless of the
+// JS-driven demos where the source is JavaScript regardless of the
 // active framework, so it acts as a final fallback.
 const codeSlotName = Astro.slots.has(`code-${activeFramework}`)
   ? `code-${activeFramework}`

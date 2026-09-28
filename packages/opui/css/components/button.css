@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.ui-button, .ui-icon-button) {
+  :where(.ui-button) {
     --_motion: var(--motion, 1);
     --_color: light-dark(var(--color-16), var(--color-1));
     --_color-contrast: light-dark(var(--color-1), var(--color-16));
@@ -62,6 +62,7 @@
     --_border-color: transparent;
     --_border-width: var(--border-size-1);
     --_font-size: var(--font-size-1);
+    --_icon-size: 0.7lh;
     --_min-height: var(--button-size);
     --_border-radius: var(--button-border-radius, var(--radius-2));
     --_padding-inline: 1.5ex;
@@ -107,7 +108,9 @@
     }
 
     /* Hover & Active */
-    &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+    &:where(
+      :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
+    ) {
       @media (hover: hover) {
         &:where(:not(:active):hover) {
           --_bg-color: var(--_default-hover-bg-color);
@@ -129,7 +132,7 @@
         color: currentColor;
         flex-shrink: 0;
         inline-size: auto;
-        max-block-size: 0.7lh;
+        max-block-size: var(--_icon-size);
       }
     }
 
@@ -172,6 +175,7 @@
     }
 
     &:where(:has(> svg:only-child)) {
+      --_icon-size: calc(var(--_min-height) * 0.6);
       min-inline-size: var(--_min-height);
       padding-inline: 0;
     }
@@ -182,7 +186,9 @@
       --_border-color: var(--_accent);
       --_text-color: var(--_accent);
 
-      &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+      &:where(
+        :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
+      ) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
@@ -203,7 +209,9 @@
       --_bg-color: var(--_accent-tonal);
       --_text-color: var(--_accent-tonal-contrast);
 
-      &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+      &:where(
+        :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
+      ) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_accent);
@@ -222,7 +230,9 @@
       --_bg-color: var(--_accent);
       --_text-color: var(--_accent-contrast);
 
-      &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+      &:where(
+        :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
+      ) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
             --_bg-color: var(--_filled-hover-bg-color);
@@ -231,6 +241,56 @@
 
         &:where(:active) {
           --_bg-color: var(--_filled-active-bg-color);
+        }
+      }
+    }
+
+    &.ui-rounded {
+      --_border-radius: var(--radius-round);
+    }
+
+    &.ui-ripple {
+      --_ripple-active-color: var(--_default-active-bg-color);
+      --_ripple-color: transparent;
+      --_ripple-hover-color: var(--_default-hover-bg-color);
+      --_ripple-scale: 0.01;
+      --_ripple-size: 130%;
+
+      position: relative;
+      transform-style: preserve-3d;
+
+      &::before {
+        background-color: var(--_ripple-color);
+        block-size: var(--_ripple-size);
+        clip-path: circle(50%);
+        content: "";
+        inline-size: var(--_ripple-size);
+        inset: 50% auto auto 50%;
+        position: absolute;
+        transform: translate(-50%, -50%) translateZ(-1px)
+          scale(var(--_ripple-scale));
+        transition:
+          background-color calc(0.1s * var(--_motion)) ease,
+          transform calc(0.2s * var(--_motion)) ease;
+      }
+
+      &.ui-filled {
+        --_ripple-active-color: var(--_filled-active-bg-color);
+        --_ripple-hover-color: var(--_filled-hover-bg-color);
+      }
+
+      &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+        @media (hover: hover) {
+          &:where(:not(:active):hover) {
+            --_ripple-color: var(--_ripple-hover-color);
+            --_ripple-scale: 1;
+          }
+        }
+
+        &:where(:hover:active),
+        &[aria-current="page"] {
+          --_ripple-color: var(--_ripple-active-color);
+          --_ripple-scale: 1.1;
         }
       }
     }

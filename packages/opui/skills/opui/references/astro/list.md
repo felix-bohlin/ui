@@ -451,7 +451,7 @@ import { ListItem } from "opui-css/astro"
 <List gutterless>
   <ListItem headline="Gutterless list item">
     <div slot="end">
-      <button class="ui-icon-button" type="button">
+      <button class="ui-button ui-rounded ui-ripple ui-small" type="button">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"

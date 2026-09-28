@@ -179,8 +179,7 @@
       <p>End icon button</p>
     </div>
     <div class="ui-end">
-      <button class="ui-icon-button">
-        <span class="ui-sr-only">More</span>
+      <button class="ui-button ui-rounded ui-ripple ui-small" aria-label="More">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -750,7 +749,7 @@ Apply the `.ui-gutterless` class on the `ul.ui-list` element to remove the inlin
       <p>Gutterless list item</p>
     </div>
     <div class="ui-end">
-      <button class="ui-icon-button" type="button">
+      <button class="ui-button ui-rounded ui-ripple ui-small" type="button">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"

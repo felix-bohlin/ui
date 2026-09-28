@@ -27,7 +27,6 @@
 @import "./components/typography.css";
 
 /*** Extended components (has dependencies) */
-@import "./components/icon-button.css";
 @import "./components/badge.css";
 @import "./components/button-group.css";
 @import "./components/accordion.css";

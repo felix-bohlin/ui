@@ -1,3 +1,19 @@
+# Migrating from v5 to v6
+
+`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `rounded` makes it a circle and `ripple` gives it the hover halo. `IconButton`'s default size matches `size="small"`, and its `small` matches `x-small`.
+
+```diff
+- <IconButton aria-label="Edit">
++ <Button ripple rounded size="small" aria-label="Edit">
+```
+
+```diff
+- <button class="ui-icon-button ui-small">
++ <button class="ui-button ui-rounded ui-ripple ui-x-small">
+```
+
+`icon-button.css` is gone, so drop its import if you import single component files.
+
 # Migrating from v5.0 to v5.1
 
 In v5.1.0, the `critical` prop has been renamed to `error` on all form components (`TextField`, `Checkbox`, `Radio`, `Switch`, `Select`, `ClassicSelect`, `Textarea`).

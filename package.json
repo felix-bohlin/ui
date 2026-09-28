@@ -25,14 +25,12 @@
   },
   "devDependencies": {
     "@astrojs/sitemap": "^3.7.4",
-    "@astrojs/svelte": "^9.0.1",
     "@astrojs/vue": "^7.0.3",
     "@solidjs/vite-plugin": "^3.0.0-next.35",
     "@solidjs/web": "catalog:",
     "prettier": "^3.8.4",
     "prettier-plugin-astro": "0.14.1",
     "solid-js": "catalog:",
-    "svelte": "catalog:",
     "vue": "catalog:"
   },
   "pnpm": {

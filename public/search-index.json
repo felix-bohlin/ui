@@ -30,16 +30,6 @@
     "url": "/solid/components/accordion"
   },
   {
-    "id": "component-accordion-svelte",
-    "title": "Accordion",
-    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
-    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/accordion"
-  },
-  {
     "id": "component-accordion-vue",
     "title": "Accordion",
     "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
@@ -78,16 +68,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/anchor"
-  },
-  {
-    "id": "component-anchor-svelte",
-    "title": "Anchor",
-    "description": "",
-    "headings": "Always Visible Hover Trigger Used By",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/anchor"
   },
   {
     "id": "component-anchor-vue",
@@ -130,16 +110,6 @@
     "url": "/solid/components/avatar"
   },
   {
-    "id": "component-avatar-svelte",
-    "title": "Avatar",
-    "description": "",
-    "headings": "Image Letter Icon Variants Grouped",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/avatar"
-  },
-  {
     "id": "component-avatar-vue",
     "title": "Avatar",
     "description": "",
@@ -178,16 +148,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/badge"
-  },
-  {
-    "id": "component-badge-svelte",
-    "title": "Badge",
-    "description": "A badge is a small status indicator that can be placed on other elements.",
-    "headings": "Variants Indicator Severities Visibility Alignment",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/badge"
   },
   {
     "id": "component-badge-vue",
@@ -230,16 +190,6 @@
     "url": "/solid/components/button-group"
   },
   {
-    "id": "component-button-group-svelte",
-    "title": "Button group",
-    "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
-    "headings": "Variants Colors Icons Sizes Vertical orientation Disabled",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/button-group"
-  },
-  {
     "id": "component-button-group-vue",
     "title": "Button group",
     "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
@@ -278,16 +228,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/button"
-  },
-  {
-    "id": "component-button-svelte",
-    "title": "Button",
-    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
-    "headings": "Variants Colors Buttons with icon and label Keyboard Icon-only Sizes Disabled File upload",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/button"
   },
   {
     "id": "component-button-vue",
@@ -330,16 +270,6 @@
     "url": "/solid/components/callout"
   },
   {
-    "id": "component-callout-svelte",
-    "title": "Callout",
-    "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
-    "headings": "Variants Icon Severities",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/callout"
-  },
-  {
     "id": "component-callout-vue",
     "title": "Callout",
     "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
@@ -378,16 +308,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/card"
-  },
-  {
-    "id": "component-card-svelte",
-    "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
-    "headings": "Variants Header Actions Alignment",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/card"
   },
   {
     "id": "component-card-vue",
@@ -430,16 +350,6 @@
     "url": "/solid/components/checkbox"
   },
   {
-    "id": "component-checkbox-svelte",
-    "title": "Checkbox",
-    "description": "See also: Checkbox field group.",
-    "headings": "Visible label Label position End text Validation Indeterminate Spread Sizes Field group Direction Field description Disabled Required Labels Keyboard support",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/checkbox"
-  },
-  {
     "id": "component-checkbox-vue",
     "title": "Checkbox",
     "description": "See also: Checkbox field group.",
@@ -478,16 +388,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/chip"
-  },
-  {
-    "id": "component-chip-svelte",
-    "title": "Chip",
-    "description": "Chips are compact elements that represent an input, attribute, or action.",
-    "headings": "Variants Icon Button Link Sizes",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/chip"
   },
   {
     "id": "component-chip-vue",
@@ -530,16 +430,6 @@
     "url": "/solid/components/description-list"
   },
   {
-    "id": "component-description-list-svelte",
-    "title": "Description list",
-    "description": "Description lists are used to display a list of terms and their descriptions.",
-    "headings": "Bordered",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/description-list"
-  },
-  {
     "id": "component-description-list-vue",
     "title": "Description list",
     "description": "Description lists are used to display a list of terms and their descriptions.",
@@ -578,16 +468,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/dialog"
-  },
-  {
-    "id": "component-dialog-svelte",
-    "title": "Dialog",
-    "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/dialog"
   },
   {
     "id": "component-dialog-vue",
@@ -630,16 +510,6 @@
     "url": "/solid/components/divider"
   },
   {
-    "id": "component-divider-svelte",
-    "title": "Divider",
-    "description": "It's just a line.",
-    "headings": "Variants",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/divider"
-  },
-  {
     "id": "component-divider-vue",
     "title": "Divider",
     "description": "It's just a line.",
@@ -678,16 +548,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/drawer"
-  },
-  {
-    "id": "component-drawer-svelte",
-    "title": "Drawer",
-    "description": "Slides in from the sides, top or bottom of the screen.",
-    "headings": "Usage How to close a drawer Role & attributes Keyboard support",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/drawer"
   },
   {
     "id": "component-drawer-vue",
@@ -730,16 +590,6 @@
     "url": "/solid/components/form"
   },
   {
-    "id": "component-form-svelte",
-    "title": "Form",
-    "description": "A way to build structured forms.",
-    "headings": "Usage Non-semantic elements Fieldset Required Disabled Field Legend Field Description Field Group Row Divider Kitchen Sink",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/form"
-  },
-  {
     "id": "component-form-vue",
     "title": "Form",
     "description": "A way to build structured forms.",
@@ -778,16 +628,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/icon-button"
-  },
-  {
-    "id": "component-icon-button-svelte",
-    "title": "Icon Button",
-    "description": "Icon buttons are used to trigger actions and are typically found in toolbars, cards, and dialogs.",
-    "headings": "Variants Colors Sizes Disabled",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/icon-button"
   },
   {
     "id": "component-icon-button-vue",
@@ -830,16 +670,6 @@
     "url": "/solid/components/list"
   },
   {
-    "id": "component-list-svelte",
-    "title": "List",
-    "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
-    "headings": "Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/list"
-  },
-  {
     "id": "component-list-vue",
     "title": "List",
     "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
@@ -878,16 +708,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/progress"
-  },
-  {
-    "id": "component-progress-svelte",
-    "title": "Progress",
-    "description": "See also: Spinner.",
-    "headings": "Indeterminate Determinate Variants",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/progress"
   },
   {
     "id": "component-progress-vue",
@@ -930,16 +750,6 @@
     "url": "/solid/components/radio"
   },
   {
-    "id": "component-radio-svelte",
-    "title": "Radio",
-    "description": "See also: Form documentation.",
-    "headings": "Direction Field description Disabled Required Validation",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/radio"
-  },
-  {
     "id": "component-radio-vue",
     "title": "Radio",
     "description": "See also: Form documentation.",
@@ -978,16 +788,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/range"
-  },
-  {
-    "id": "component-range-svelte",
-    "title": "Range",
-    "description": "",
-    "headings": "Start text & End text Value Tick marks Variants Disabled Validation Spread",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/range"
   },
   {
     "id": "component-range-vue",
@@ -1030,16 +830,6 @@
     "url": "/solid/components/select"
   },
   {
-    "id": "component-select-svelte",
-    "title": "Select",
-    "description": "Leverages the List component to provide markup for the Select popover.",
-    "headings": "Variants End text Affix Validation Spread Sizes Classic select",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/select"
-  },
-  {
     "id": "component-select-vue",
     "title": "Select",
     "description": "Leverages the List component to provide markup for the Select popover.",
@@ -1078,16 +868,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/spinner"
-  },
-  {
-    "id": "component-spinner-svelte",
-    "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
-    "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/spinner"
   },
   {
     "id": "component-spinner-vue",
@@ -1130,16 +910,6 @@
     "url": "/solid/components/switch"
   },
   {
-    "id": "component-switch-svelte",
-    "title": "Switch",
-    "description": "See also: Switch field group.",
-    "headings": "Visible label Label position End text Validation Spread Sizes Icons Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/switch"
-  },
-  {
     "id": "component-switch-vue",
     "title": "Switch",
     "description": "See also: Switch field group.",
@@ -1178,16 +948,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/table"
-  },
-  {
-    "id": "component-table-svelte",
-    "title": "Table",
-    "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
-    "headings": "Variants Default Advanced",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/table"
   },
   {
     "id": "component-table-vue",
@@ -1230,16 +990,6 @@
     "url": "/solid/components/tabs"
   },
   {
-    "id": "component-tabs-svelte",
-    "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
-    "headings": "Basics",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/tabs"
-  },
-  {
     "id": "component-tabs-vue",
     "title": "Tabs",
     "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
@@ -1278,16 +1028,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/text-field"
-  },
-  {
-    "id": "component-text-field-svelte",
-    "title": "Text field",
-    "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
-    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/text-field"
   },
   {
     "id": "component-text-field-vue",
@@ -1330,16 +1070,6 @@
     "url": "/solid/components/textarea"
   },
   {
-    "id": "component-textarea-svelte",
-    "title": "Textarea",
-    "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
-    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/textarea"
-  },
-  {
     "id": "component-textarea-vue",
     "title": "Textarea",
     "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
@@ -1378,16 +1108,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/toast"
-  },
-  {
-    "id": "component-toast-svelte",
-    "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
-    "headings": "How it works HTML JavaScript Severities Title + description Duration",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/toast"
   },
   {
     "id": "component-toast-vue",
@@ -1430,16 +1150,6 @@
     "url": "/solid/components/toggle"
   },
   {
-    "id": "component-toggle-svelte",
-    "title": "Toggle",
-    "description": "",
-    "headings": "Toggle button Toggle group Multi-select Single-select Text + icon Vertical orientation Sizes",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/toggle"
-  },
-  {
     "id": "component-toggle-vue",
     "title": "Toggle",
     "description": "",
@@ -1478,16 +1188,6 @@
     "frameworkId": "solid",
     "type": "Solid",
     "url": "/solid/components/tooltip"
-  },
-  {
-    "id": "component-tooltip-svelte",
-    "title": "Tooltip",
-    "description": "Built on top of Anchor.",
-    "headings": "Basics Text only... ... or any markup you want Alignment Arrow",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/tooltip"
   },
   {
     "id": "component-tooltip-vue",
@@ -1530,16 +1230,6 @@
     "url": "/solid/components/typography"
   },
   {
-    "id": "component-typography-svelte",
-    "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
-    "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
-    "category": "Component",
-    "frameworkId": "svelte",
-    "type": "Svelte",
-    "url": "/svelte/components/typography"
-  },
-  {
     "id": "component-typography-vue",
     "title": "Typography",
     "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
@@ -1575,15 +1265,6 @@
     "category": "Guide",
     "frameworkId": "solid",
     "url": "/solid/guide/acknowledgments"
-  },
-  {
-    "id": "guide-acknowledgments-svelte",
-    "title": "Acknowledgments",
-    "description": "",
-    "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
-    "category": "Guide",
-    "frameworkId": "svelte",
-    "url": "/svelte/guide/acknowledgments"
   },
   {
     "id": "guide-acknowledgments-vue",
@@ -1622,15 +1303,6 @@
     "url": "/solid/guide/browser-support"
   },
   {
-    "id": "guide-browser-support-svelte",
-    "title": "Browser support",
-    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
-    "headings": "",
-    "category": "Guide",
-    "frameworkId": "svelte",
-    "url": "/svelte/guide/browser-support"
-  },
-  {
     "id": "guide-browser-support-vue",
     "title": "Browser support",
     "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
@@ -1667,15 +1339,6 @@
     "url": "/solid/guide/theme-generator"
   },
   {
-    "id": "guide-theme-generator-svelte",
-    "title": "Theme generator",
-    "description": "",
-    "headings": "",
-    "category": "Guide",
-    "frameworkId": "svelte",
-    "url": "/svelte/guide/theme-generator"
-  },
-  {
     "id": "guide-theme-generator-vue",
     "title": "Theme generator",
     "description": "",
@@ -1710,15 +1373,6 @@
     "category": "Guide",
     "frameworkId": "solid",
     "url": "/solid/guide/why-opui"
-  },
-  {
-    "id": "guide-why-opui-svelte",
-    "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
-    "headings": "Backstory The goal of OPUI",
-    "category": "Guide",
-    "frameworkId": "svelte",
-    "url": "/svelte/guide/why-opui"
   },
   {
     "id": "guide-why-opui-vue",

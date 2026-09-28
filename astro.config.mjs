@@ -1,7 +1,6 @@
 // @ts-check
 import { readdirSync } from "node:fs"
 import { fileURLToPath } from "node:url"
-import svelte from "@astrojs/svelte"
 import {
   defineConfig,
   fontProviders,
@@ -49,7 +48,6 @@ export default defineConfig({
   redirects: legacyRedirects,
   integrations: [
     solid(),
-    svelte(),
     vue(),
     sitemap(),
     expressiveCode({

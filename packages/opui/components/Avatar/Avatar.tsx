@@ -1,31 +1,36 @@
-import { splitProps, type JSX, Show } from "solid-js"
-import { Dynamic } from "solid-js/web"
+import { omit, Show } from "solid-js"
+import { Dynamic } from "@solidjs/web"
 import type { Props } from "./types.solid"
 
 export default function Avatar(props: Props) {
-  const [local, rest] = splitProps(props, [
+  const rest = omit(
+    props,
     "alt",
     "as",
+    "children",
+    "class",
     "href",
     "isGroup",
     "src",
     "variant",
-    "class",
-    "children",
-  ])
+  )
 
-  const Tag = () => local.as || (local.href ? "a" : "div")
+  const Tag = () => props.as || (props.href ? "a" : "div")
 
   return (
     <Dynamic
       component={Tag()}
-      class={`${!local.isGroup ? "ui-avatar" : ""} ${!local.isGroup && local.variant ? `ui-${local.variant}` : ""} ${local.class || ""}`.trim()}
-      href={local.href}
-      role={local.isGroup ? "group" : undefined}
+      class={[
+        { "ui-avatar": !props.isGroup },
+        !props.isGroup && props.variant && `ui-${props.variant}`,
+        props.class,
+      ]}
+      href={props.href}
+      role={props.isGroup ? "group" : undefined}
       {...rest}
     >
-      <Show when={local.src} fallback={local.children}>
-        <img src={local.src} alt={local.alt} />
+      <Show when={props.src} fallback={props.children}>
+        <img src={props.src} alt={props.alt} />
       </Show>
     </Dynamic>
   )

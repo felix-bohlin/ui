@@ -1,23 +1,17 @@
-import { Accordion } from "opui-css/solid"
+import { Accordion, Button } from "opui-css/solid"
 
 export default function Example() {
   return (
     <Accordion
-      marker={
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill="currentColor"
-            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
-          ></path>
-        </svg>
+      actions={
+        <>
+          <Button>Cancel</Button>
+          <Button>Agree</Button>
+        </>
       }
-      summary="Custom marker"
-      variant="outlined"
+      class="anatomy"
+      open
+      summary="Accordion title"
     >
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus

@@ -1,4 +1,4 @@
-import { splitProps, createUniqueId, Show, mergeProps, type JSX } from "solid-js"
+import { createUniqueId, merge, omit, Show } from "solid-js"
 import type { Props } from "./types.solid"
 
 const insetMap: Record<string, string> = {
@@ -9,45 +9,40 @@ const insetMap: Record<string, string> = {
 }
 
 export default function Anchor(rawProps: Props) {
-  const props = mergeProps({ trigger: "always" }, rawProps)
-  const [local, rest] = splitProps(props, [
+  const props = merge({ trigger: "always" }, rawProps)
+  const rest = omit(
+    props,
     "alignment",
+    "anchored",
+    "children",
     "class",
     "id",
     "trigger",
-    "children",
-    "anchored",
-  ])
+  )
 
-  const isHover = () => local.trigger === "hover"
   const uid = createUniqueId()
-  const computedId = () => (isHover() ? local.id ?? uid : undefined)
+  const isHover = () => props.trigger === "hover"
+  const id = () => (isHover() ? (props.id ?? uid) : undefined)
 
   const positionArea = () =>
-    local.alignment
+    props.alignment
       ? {
-          "--anchor-position-area": local.alignment,
-          "--_anchor-inset": insetMap[local.alignment],
+          "--anchor-position-area": props.alignment,
+          "--_anchor-inset": insetMap[props.alignment],
         }
-      : {}
+      : undefined
 
   return (
-    <span
-      class={`ui-anchor ${local.class || ""}`}
-      style={positionArea() as JSX.CSSProperties}
-      {...rest}
-    >
-      <Show when={isHover()} fallback={local.children}>
-        {/* @ts-ignore */}
-        <span interestfor={computedId()}>{local.children}</span>
+    <span class={["ui-anchor", props.class]} style={positionArea()} {...rest}>
+      <Show when={isHover()} fallback={props.children}>
+        <span interestfor={id() || undefined}>{props.children}</span>
       </Show>
       <span
         class="ui-anchor-floating"
-        id={computedId()}
-        // @ts-ignore
+        id={id()}
         popover={isHover() ? "hint" : undefined}
       >
-        {local.anchored}
+        {props.anchored}
       </span>
     </span>
   )

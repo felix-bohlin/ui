@@ -1,31 +1,37 @@
-import { splitProps, createUniqueId, Show } from "solid-js"
+import { createUniqueId, omit, Show } from "solid-js"
 import type { Props } from "./types.solid"
 
 export default function Accordion(props: Props) {
-  const [local, rest] = splitProps(props, [
+  const rest = omit(
+    props,
+    "actions",
+    "children",
     "class",
+    "marker",
     "name",
     "open",
-    "variant",
-    "children",
     "summary",
-    "marker",
-    "actions",
-  ])
+    "variant",
+  )
 
   const summaryId = createUniqueId()
   const contentId = createUniqueId()
 
   return (
     <details
-      name={local.name}
-      class={`ui-accordion ui-card ${local.variant ? `ui-${local.variant}` : ""} ${local.class || ""}`}
-      open={local.open}
+      name={props.name}
+      class={[
+        "ui-accordion",
+        "ui-card",
+        props.variant && `ui-${props.variant}`,
+        props.class,
+      ]}
+      open={props.open}
       {...rest}
     >
       <summary id={summaryId} aria-controls={contentId}>
-        {local.summary}
-        {local.marker}
+        {props.summary}
+        {props.marker}
       </summary>
 
       <div
@@ -34,11 +40,11 @@ export default function Accordion(props: Props) {
         role="region"
         aria-labelledby={summaryId}
       >
-        {local.children}
+        {props.children}
       </div>
 
-      <Show when={local.actions}>
-        <div class="ui-actions">{local.actions}</div>
+      <Show when={props.actions}>
+        {(actions) => <div class="ui-actions">{actions()}</div>}
       </Show>
     </details>
   )

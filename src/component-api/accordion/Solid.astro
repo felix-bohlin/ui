@@ -28,6 +28,25 @@ import { Table } from "@opui/astro"
       >
     </Table.Row>
     <Table.Row>
+      <Table.Cell><code>actions</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional actions rendered below the content.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>children</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The accordion content.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>marker</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional custom marker rendered after the summary.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
       <Table.Cell><code>name</code></Table.Cell>
       <Table.Cell><code>string</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
@@ -43,6 +62,12 @@ import { Table } from "@opui/astro"
       <Table.Cell><code>boolean</code></Table.Cell>
       <Table.Cell><code>false</code></Table.Cell>
       <Table.Cell>Accordion open state.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>summary</code></Table.Cell>
+      <Table.Cell><code>string</code>, <code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The accordion summary.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>variant</code></Table.Cell>

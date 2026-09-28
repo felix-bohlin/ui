@@ -1,39 +1,51 @@
-import { splitProps, type JSX } from "solid-js"
+import { omit, Show } from "solid-js"
 import Anchor from "../Anchor/Anchor"
 import type { Props } from "./types.solid"
 
 export default function Badge(props: Props) {
-  const [local, rest] = splitProps(props, [
+  const rest = omit(
+    props,
     "alignment",
+    "children",
+    "class",
     "color",
     "dot",
+    "indicator",
     "invisible",
     "label",
-    "class",
-    "children",
-  ])
+  )
 
   const positionArea = () =>
-    local.alignment === "start-start"
+    props.alignment === "start-start"
       ? "start start"
-      : local.alignment === "end-start"
+      : props.alignment === "end-start"
         ? "end start"
-        : local.alignment === "end-end"
+        : props.alignment === "end-end"
           ? "end end"
           : undefined
 
   return (
     <Anchor
       alignment={positionArea()}
-      class={`ui-badge ${local.dot ? "ui-dot" : ""} ${local.invisible ? "ui-invisible" : ""} ${local.alignment ? `ui-${local.alignment}` : ""} ${local.color ? `ui-${local.color}` : ""} ${local.class || ""}`.trim()}
       anchored={
-        <span class="ui-badge-indicator" aria-label={local.label?.toString()}>
-          {local.dot ? "" : local.label}
+        <span class="ui-badge-indicator" aria-label={props.label?.toString()}>
+          {props.dot ? "" : props.label}
+          <Show when={!props.dot}>{props.indicator}</Show>
         </span>
       }
+      class={[
+        "ui-badge",
+        {
+          "ui-dot": !!props.dot,
+          "ui-invisible": !!props.invisible,
+        },
+        props.alignment && `ui-${props.alignment}`,
+        props.color && `ui-${props.color}`,
+        props.class,
+      ]}
       {...rest}
     >
-      {local.children}
+      {props.children}
     </Anchor>
   )
 }

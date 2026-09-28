@@ -3,6 +3,7 @@ import { Callout } from "opui-css/solid"
 export default function Example() {
   return (
     <Callout
+      class="anatomy"
       icon={
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -16,8 +17,17 @@ export default function Example() {
           ></path>
         </svg>
       }
+      title="Another Callout"
+      variant="outlined"
     >
-      This is a tonal Callout with an icon.
+      <p>
+        This is an outlined Callout. Why not use a{" "}
+        <a class="ui-link" href="/components/card">
+          Card
+        </a>{" "}
+        since they look very similar? For one, the Callout is a more focused
+        component with different properties.
+      </p>
     </Callout>
   )
 }

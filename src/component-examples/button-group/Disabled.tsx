@@ -1,11 +1,19 @@
-import { Button } from "opui-css/solid"
+import { Button, ButtonGroup } from "opui-css/solid"
 
 export default function Example() {
   return (
-    <div role="group" class="button-group">
-      <Button variant="outlined">Left</Button>
-      <Button variant="outlined" disabled>Middle</Button>
-      <Button variant="outlined">Right</Button>
-    </div>
+    <>
+      <ButtonGroup variant="filled">
+        <Button>Enabled</Button>
+        <Button disabled>Disabled</Button>
+        <Button>Enabled</Button>
+      </ButtonGroup>
+
+      <ButtonGroup variant="filled" color="primary">
+        <Button>Enabled</Button>
+        <Button disabled>Disabled</Button>
+        <Button>Enabled</Button>
+      </ButtonGroup>
+    </>
   )
 }

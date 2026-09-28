@@ -4,14 +4,28 @@ export default function Example() {
   return (
     <>
       <div class="example-row">
-        <Button variant="filled" color="primary">Primary</Button>
-        <Button variant="tonal" color="primary">Primary</Button>
-        <Button variant="outlined" color="primary">Primary</Button>
+        <Button color="primary">Primary</Button>
+        <Button color="primary" variant="outlined">
+          Outlined
+        </Button>
+        <Button color="primary" variant="tonal">
+          Tonal
+        </Button>
+        <Button color="primary" variant="filled">
+          Filled
+        </Button>
       </div>
       <div class="example-row">
-        <Button variant="filled" color="critical">Critical</Button>
-        <Button variant="tonal" color="critical">Critical</Button>
-        <Button variant="outlined" color="critical">Critical</Button>
+        <Button color="critical">Critical</Button>
+        <Button color="critical" variant="outlined">
+          Outlined
+        </Button>
+        <Button color="critical" variant="tonal">
+          Tonal
+        </Button>
+        <Button color="critical" variant="filled">
+          Filled
+        </Button>
       </div>
     </>
   )

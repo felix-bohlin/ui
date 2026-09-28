@@ -1,4 +1,6 @@
+import type { JSX } from "@solidjs/web"
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
 
-export type Props = Base.Props & JSX.HTMLAttributes<HTMLSpanElement>
+export type Props = Base.Props &
+  Base.Slots<JSX.Element> &
+  JSX.HTMLAttributes<HTMLSpanElement>

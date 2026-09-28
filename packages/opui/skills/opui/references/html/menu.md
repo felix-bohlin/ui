@@ -44,7 +44,7 @@ If you want to decide yourself what goes into your list.
 
 ```html
 <button
-  class="ui-icon-button"
+  class="ui-button ui-rounded ui-ripple ui-small"
   aria-label="More actions"
   commandfor="menu-custom-html"
   command="toggle-popover"

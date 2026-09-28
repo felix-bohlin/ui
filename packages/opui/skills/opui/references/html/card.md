@@ -76,7 +76,10 @@ There are some basic styles here to get you going, but for more advanced use-cas
 <div class="ui-card ui-outlined">
   <div class="ui-content">Icon buttons work too!</div>
   <div class="ui-actions">
-    <button class="ui-icon-button" aria-label="Favorite">
+    <button
+      class="ui-button ui-rounded ui-ripple ui-small"
+      aria-label="Favorite"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -89,7 +92,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
         />
       </svg>
     </button>
-    <button class="ui-icon-button" aria-label="Share">
+    <button class="ui-button ui-rounded ui-ripple ui-small" aria-label="Share">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -132,7 +135,10 @@ Align actions to the end with the `.ui-align-end` class.
 <div class="ui-card ui-outlined">
   <div class="ui-content">Icon buttons aligned to the end!</div>
   <div class="ui-actions ui-align-end">
-    <button class="ui-icon-button" aria-label="Favorite">
+    <button
+      class="ui-button ui-rounded ui-ripple ui-small"
+      aria-label="Favorite"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -145,7 +151,7 @@ Align actions to the end with the `.ui-align-end` class.
         />
       </svg>
     </button>
-    <button class="ui-icon-button" aria-label="Share">
+    <button class="ui-button ui-rounded ui-ripple ui-small" aria-label="Share">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"

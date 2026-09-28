@@ -59,7 +59,7 @@
         margin: 0;
       }
 
-      :where(.ui-icon-button) {
+      :where(.ui-button:has(> svg:only-child)) {
         margin-inline-start: auto;
       }
     }

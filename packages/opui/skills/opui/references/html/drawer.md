@@ -51,7 +51,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   <div class="ui-header">
     <span>Inline Start</span>
     <button
-      class="ui-icon-button"
+      class="ui-button ui-rounded ui-ripple ui-small"
       title="Close"
       commandfor="drawer-inline-start-html"
       command="close"
@@ -107,7 +107,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   <div class="ui-header">
     <span>Inline End</span>
     <button
-      class="ui-icon-button"
+      class="ui-button ui-rounded ui-ripple ui-small"
       title="Close"
       commandfor="drawer-inline-end-html"
       command="close"
@@ -163,7 +163,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   <div class="ui-header">
     <span>Block Start</span>
     <button
-      class="ui-icon-button"
+      class="ui-button ui-rounded ui-ripple ui-small"
       title="Close"
       commandfor="drawer-block-start-html"
       command="close"
@@ -214,7 +214,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   <div class="ui-header">
     <span>Block End</span>
     <button
-      class="ui-icon-button"
+      class="ui-button ui-rounded ui-ripple ui-small"
       title="Close"
       commandfor="drawer-block-end-html"
       command="close"

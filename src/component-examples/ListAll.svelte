@@ -65,7 +65,7 @@
 
 <ListItem borderTop>
   <button>
-    <div class="text">
+    <div class="ui-text">
       <p>Button list item</p>
     </div>
   </button>
@@ -73,7 +73,7 @@
 
 <ListItem>
   <a href="#">
-    <div class="text">
+    <div class="ui-text">
       <p>Link list item</p>
     </div>
   </a>
@@ -98,7 +98,7 @@
 
 <ListItem borderTop>
   <button>
-    <div class="start">
+    <div class="ui-start">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -111,7 +111,7 @@
         ></path>
       </svg>
     </div>
-    <div class="text">
+    <div class="ui-text">
       <p>Button with start icon</p>
     </div>
   </button>
@@ -119,7 +119,7 @@
 
 <ListItem>
   <a href="#">
-    <div class="start">
+    <div class="ui-start">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -132,7 +132,7 @@
         ></path>
       </svg>
     </div>
-    <div class="text">
+    <div class="ui-text">
       <p>Link with start icon</p>
     </div>
   </a>
@@ -140,10 +140,10 @@
 
 <ListItem borderTop>
   <button>
-    <div class="text">
+    <div class="ui-text">
       <p>End icon</p>
     </div>
-    <div class="end">
+    <div class="ui-end">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -162,8 +162,8 @@
 <ListItem headline="End icon button">
   {#snippet end()}
     <div>
-      <button class="icon-button">
-        <span class="sr-only">More</span>
+      <button class="ui-icon-button">
+        <span class="ui-sr-only">More</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"

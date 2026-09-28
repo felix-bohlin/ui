@@ -5,14 +5,14 @@
 </script>
 
 <List>
-  <ListItem type="switch" for="switch-example-1" text="switch 1">
+  <ListItem type="switch" for="switch-example-1" text="Switch 1">
     {#snippet end()}
-      <SwitchInput id="switch-example-1" name="switch-example-group" />
+      <SwitchInput id="switch-example-1" />
     {/snippet}
   </ListItem>
-  <ListItem type="switch" for="switch-example-2" text="switch 2">
+  <ListItem type="switch" for="switch-example-2" text="Switch 2">
     {#snippet end()}
-      <SwitchInput id="switch-example-2" name="switch-example-group" />
+      <SwitchInput id="switch-example-2" />
     {/snippet}
   </ListItem>
 </List>

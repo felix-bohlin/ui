@@ -23,6 +23,6 @@
     <p>Makes the text line up nicely</p>
   </ListItem>
   <ListItem inset headline="Inset class" start="Hidden">
-    <p>Any <code>div.start</code> will be hidden when inset</p>
+    <p>Any <code>div.ui-start</code> will be hidden when inset</p>
   </ListItem>
 </List>

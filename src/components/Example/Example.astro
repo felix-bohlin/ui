@@ -86,51 +86,53 @@ const decodeEntities = (str: string) => {
 
 // Pick the preview slot for the active framework, falling back to the default
 // framework, then to any available preview, so partial migrations keep working.
-const previewSlotName = (() => {
-  const candidates = [
-    `preview-${activeFramework}`,
-    `preview-${DEFAULT_FRAMEWORK}`,
-    ...FRAMEWORKS.map((f) => `preview-${f.id}`),
-  ]
-  return candidates.find((name) => Astro.slots.has(name))
-})()
+const renderFirstSlot = async (candidates: string[]) => {
+  for (const name of candidates) {
+    if (!Astro.slots.has(name)) continue
+    const raw = await Astro.slots.render(name)
+    if (raw.trim()) return { name, raw }
+  }
+}
+
+const previewSlot = await renderFirstSlot([
+  `preview-${activeFramework}`,
+  `preview-${DEFAULT_FRAMEWORK}`,
+  ...FRAMEWORKS.map((f) => `preview-${f.id}`),
+])
 
 // Code slot: prefer the active framework, then default. `code-js` is used by
 // JS-driven demos (e.g. Toast) where the source is JavaScript regardless of the
 // active framework, so it acts as a final fallback.
-const codeSlotName = Astro.slots.has(`code-${activeFramework}`)
-  ? `code-${activeFramework}`
-  : Astro.slots.has(`code-${DEFAULT_FRAMEWORK}`)
-    ? `code-${DEFAULT_FRAMEWORK}`
-    : Astro.slots.has("code-js")
-      ? "code-js"
-      : null
+const codeSlot = await renderFirstSlot([
+  `code-${activeFramework}`,
+  `code-${DEFAULT_FRAMEWORK}`,
+  "code-js",
+])
 
-const hasPreview = Astro.slots.has("default") || !!previewSlotName
+const hasPreview = Astro.slots.has("default") || !!previewSlot
 
 // Vue previews are mounted client-side (see mount-vue-examples) so interactive
 // examples actually run in the browser. The SSR string is kept as the initial
 // markup and replaced on mount.
-const isLivePreview = previewSlotName === "preview-vue" && !!vueExampleId
+const isLivePreview = previewSlot?.name === "preview-vue" && !!vueExampleId
 const isLiveSveltePreview =
-  previewSlotName === "preview-svelte" && !!svelteExampleId
+  previewSlot?.name === "preview-svelte" && !!svelteExampleId
 
 // Render the chosen preview as HTML for the rendered output. Used both for the
 // visible preview and (when output="toggled") as the "Output" tab content for
 // non-HTML frameworks.
 let previewHtml = ""
-if (previewSlotName) {
-  const raw = await Astro.slots.render(previewSlotName)
-  const unescaped = decodeEntities(raw).trim()
+if (previewSlot) {
+  const unescaped = decodeEntities(previewSlot.raw).trim()
   previewHtml = (await prettify(unescaped)) || clean(unescaped)
 }
 
 // Code content for the source tab.
 let codeContent = ""
 let codeLangId: FrameworkId = activeFramework
-if (codeSlotName) {
-  codeContent = decodeEntities(await Astro.slots.render(codeSlotName)).trim()
-  codeLangId = codeSlotName.replace(/^code-/, "") as FrameworkId
+if (codeSlot) {
+  codeContent = decodeEntities(codeSlot.raw).trim()
+  codeLangId = codeSlot.name.replace(/^code-/, "") as FrameworkId
 } else if (activeFramework === "html" && previewHtml) {
   // For HTML, fall back to the rendered preview as the source.
   codeContent = previewHtml

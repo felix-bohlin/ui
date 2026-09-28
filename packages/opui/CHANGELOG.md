@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.0 - 2026-09-28
+
+### Removed
+
+- `Toast` component from Astro and Vue. Toast is still available in HTML as an alpha, using `toast.css` and `toast.js`.
+
 ## 5.4.3 - 2026-09-18
 
 ### Fixed

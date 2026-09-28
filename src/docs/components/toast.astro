@@ -3,7 +3,6 @@ import Component from "../../layouts/Component.astro"
 import Example from "../../components/Example"
 
 import AutoExample from "../../components/AutoExample.astro"
-import JavascriptDemo from "../../component-examples/toast/Javascript.astro"
 import JavascriptHtml from "../../component-examples/toast/Javascript.html?raw"
 import JavascriptJS from "../../component-examples/toast/Javascript.js?raw"
 import ToastCSS from "@opui/css/components/toast.css?raw"
@@ -18,10 +17,6 @@ export const description =
   slug="toast"
   browserSupport={["popover", "light-dark", "invoker-commands"]}
   changelogPaths={[
-    {
-      path: "packages/opui/components/Toast/Toast.astro",
-      type: "component",
-    },
     { path: "src/docs/components/toast.astro", type: "docs" },
     { path: "src/component-examples/toast", type: "docs" },
     {
@@ -91,7 +86,6 @@ export const description =
     </p>
 
     <Example centered>
-      <Example.Preview slot="preview-astro" code={JavascriptDemo} />
       <Example.Preview slot="preview-html" code={JavascriptHtml} />
       <Example.Code slot="code-js" code={JavascriptJS} />
     </Example>

@@ -2,7 +2,7 @@
   import { Callout } from "@opui/svelte"
 </script>
 
-<Callout severity="neutral">This is a tonal primary Callout</Callout>
+<Callout severity="neutral">This is a tonal neutral Callout</Callout>
 <Callout severity="info">
   {#snippet icon()}
     <svg
@@ -50,7 +50,7 @@
 </Callout>
 
 <Callout variant="outlined" severity="neutral"
-  >This is an outlined primary Callout</Callout
+  >This is an outlined neutral Callout</Callout
 >
 <Callout variant="outlined" severity="info">
   {#snippet icon()}

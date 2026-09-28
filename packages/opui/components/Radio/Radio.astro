@@ -14,10 +14,8 @@ const {
   ...rest
 } = Astro.props
 
-const { $id, currentFieldName } = Astro.locals
+const { $id } = Astro.locals
 const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
-
-const finalName = name || currentFieldName
 ---
 
 <label
@@ -31,7 +29,7 @@ const finalName = name || currentFieldName
   ]}
   data-invalid={error || undefined}
 >
-  <RadioInput aria-describedby={endTextId} name={finalName} {...rest} />
+  <RadioInput aria-describedby={endTextId} name={name} {...rest} />
   <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>
   {
     Astro.slots.has("end-text") && (

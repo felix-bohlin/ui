@@ -15,10 +15,8 @@ const {
   ...rest
 } = Astro.props
 
-const { $id, currentFieldName } = Astro.locals
+const { $id } = Astro.locals
 const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
-
-const finalName = name || currentFieldName
 
 if (
   import.meta.env.DEV &&
@@ -58,7 +56,7 @@ if (
       </span>
     )
   }
-  <SwitchInput aria-describedby={endTextId} name={finalName} {...rest} />
+  <SwitchInput aria-describedby={endTextId} name={name} {...rest} />
   {
     Astro.slots.has("default") && (
       <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>

@@ -9,9 +9,11 @@ import TextareaCSS from "@opui/css/components/textarea.css?raw"
 
 import TextFieldAPIAstro from "../../component-api/text-field/Astro.astro"
 import TextFieldAPIHTML from "../../component-api/text-field/HTML.astro"
+import TextFieldAPISolid from "../../component-api/text-field/Solid.astro"
 import TextFieldAPIVue from "../../component-api/text-field/Vue.astro"
 import TextareaAPIAstro from "../../component-api/textarea/Astro.astro"
 import TextareaAPIHTML from "../../component-api/textarea/HTML.astro"
+import TextareaAPISolid from "../../component-api/textarea/Solid.astro"
 import TextareaAPIVue from "../../component-api/textarea/Vue.astro"
 
 export const description =
@@ -33,12 +35,14 @@ export const description =
       title: "Text field API",
       astro: TextFieldAPIAstro,
       html: TextFieldAPIHTML,
+      solid: TextFieldAPISolid,
       vue: TextFieldAPIVue,
     },
     {
       title: "Textarea API",
       astro: TextareaAPIAstro,
       html: TextareaAPIHTML,
+      solid: TextareaAPISolid,
       vue: TextareaAPIVue,
     },
   ]}

@@ -1,7 +1,9 @@
-import { TextField } from "opui-css/solid"
-
 export default function Example() {
   return (
-    <TextField aria-label="Search" placeholder="Search..." />
+    <div class="ui-text-field">
+      <span class="ui-field">
+        <input type="text" placeholder="Placeholder" />
+      </span>
+    </div>
   )
 }

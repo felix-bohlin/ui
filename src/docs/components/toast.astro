@@ -6,6 +6,7 @@ import AutoExample from "../../components/AutoExample.astro"
 import JavascriptDemo from "../../component-examples/toast/Javascript.astro"
 import JavascriptHtml from "../../component-examples/toast/Javascript.html?raw"
 import JavascriptJS from "../../component-examples/toast/Javascript.js?raw"
+import JavascriptSolid from "../../component-examples/toast/Javascript.tsx"
 import ToastCSS from "@opui/css/components/toast.css?raw"
 import { Badge, Callout as UICallout } from "@opui/astro"
 
@@ -90,9 +91,10 @@ export const description =
       >.
     </p>
 
-    <Example centered>
+    <Example centered solidExampleId="toast/Javascript">
       <Example.Preview slot="preview-astro" code={JavascriptDemo} />
       <Example.Preview slot="preview-html" code={JavascriptHtml} />
+      <Example.Preview slot="preview-solid" code={JavascriptSolid} />
       <Example.Code slot="code-js" code={JavascriptJS} />
     </Example>
   </section>

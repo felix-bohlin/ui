@@ -1,33 +1,34 @@
-import { splitProps, type JSX } from "solid-js"
+import { omit } from "solid-js"
 import Anchor from "../Anchor/Anchor"
 import type { Props } from "./types.solid"
 
 export default function Tooltip(props: Props) {
-  const [local, rest] = splitProps(props, [
+  const rest = omit(
+    props,
     "alignment",
     "arrow",
+    "children",
+    "class",
+    "content",
     "id",
     "label",
-    "content",
-    "class",
-    "children",
-  ])
+  )
 
   return (
     <Anchor
-      alignment={local.alignment}
-      class={`ui-tooltip ${local.arrow ? "ui-with-arrow" : ""} ${local.class || ""}`.trim()}
-      id={local.id}
-      trigger="hover"
+      alignment={props.alignment}
       anchored={
         <>
-          {local.label}
-          {local.content}
+          {props.label}
+          {props.content}
         </>
       }
+      class={["ui-tooltip", { "ui-with-arrow": !!props.arrow }, props.class]}
+      id={props.id}
+      trigger="hover"
       {...rest}
     >
-      {local.children}
+      {props.children}
     </Anchor>
   )
 }

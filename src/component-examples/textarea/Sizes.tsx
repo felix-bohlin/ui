@@ -3,9 +3,8 @@ import { Textarea } from "opui-css/solid"
 export default function Example() {
   return (
     <>
-      <Textarea label="Small" size="small" placeholder="Placeholder" />
-      <Textarea label="Default" placeholder="Placeholder" />
-      <Textarea label="Large" size="large" placeholder="Placeholder" />
+      <Textarea label="Small outlined" placeholder="Placeholder" small />
+      <Textarea label="Small filled" placeholder="Placeholder" small filled />
     </>
   )
 }

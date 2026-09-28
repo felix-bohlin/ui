@@ -1,7 +1,6 @@
+import type { JSX } from "@solidjs/web"
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
 
 export type Props = Base.Props &
-  Omit<JSX.InputHTMLAttributes<HTMLInputElement>, "size" | "type"> & {
-    type?: "checkbox" | "radio"
-  }
+  Base.Slots<JSX.Element> &
+  Omit<JSX.InputHTMLAttributes<HTMLInputElement>, "size" | "type">

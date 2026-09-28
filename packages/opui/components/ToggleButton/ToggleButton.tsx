@@ -1,9 +1,12 @@
-import { splitProps, type JSX, useContext, createUniqueId } from "solid-js"
-import { ToggleGroupContext } from "../ToggleGroup/ToggleGroup"
+import { createUniqueId, omit, useContext } from "solid-js"
+import { ToggleGroupContext } from "../ToggleGroup/context.solid"
 import type { Props } from "./types.solid"
 
 export default function ToggleButton(props: Props) {
-  const [local, rest] = splitProps(props, [
+  const rest = omit(
+    props,
+    "children",
+    "class",
     "disabled",
     "id",
     "label",
@@ -12,30 +15,37 @@ export default function ToggleButton(props: Props) {
     "size",
     "type",
     "value",
-    "class",
-    "children",
-  ])
+  )
 
   const group = useContext(ToggleGroupContext)
-  const finalName = () => local.name || group?.name
-  const finalType = () => local.type || group?.type || "checkbox"
-  const inputId = () => local.id || createUniqueId()
+  const uid = createUniqueId()
+  const finalName = () => props.name || group?.groupName
+  const finalType = () => props.type || group?.inputType || "checkbox"
+  const inputId = () => props.id || uid
+  const value = () => props.value || props.label
 
   return (
     <label
-      class={`ui-toggle-button ${local.disabled ? "ui-disabled" : ""} ${local.size ? `ui-${local.size}` : ""} ${local.class || ""}`.trim()}
+      class={[
+        "ui-toggle-button",
+        { "ui-disabled": !!props.disabled },
+        props.size && `ui-${props.size}`,
+        props.class,
+      ]}
     >
       <input
-        aria-pressed={finalType() === "checkbox" ? local.pressed : undefined}
-        checked={local.pressed}
-        disabled={local.disabled}
+        aria-pressed={
+          finalType() === "checkbox" ? `${!!props.pressed}` : undefined
+        }
+        checked={props.pressed}
+        disabled={props.disabled}
         id={inputId()}
         name={finalName()}
         type={finalType()}
-        value={local.value || local.label}
+        {...(value() ? { value: value() } : {})}
         {...rest}
       />
-      {local.children}
+      {props.children}
     </label>
   )
 }

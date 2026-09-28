@@ -10,39 +10,51 @@ import InputTypesAstro from "../../component-examples/text-field/InputTypes.astr
 import InputTypesVueRaw from "../../component-examples/text-field/InputTypes.vue?raw"
 import InputTypesPreviewVue from "../../component-examples/text-field/InputTypes.vue"
 import InputTypesHtml from "../../component-examples/text-field/InputTypes.html?raw"
+import InputTypesPreviewSolid from "../../component-examples/text-field/InputTypes.tsx"
+import InputTypesSolidRaw from "../../component-examples/text-field/InputTypes.tsx?raw"
 
 import Numeric from "../../component-examples/text-field/Numeric.astro"
 import NumericAstro from "../../component-examples/text-field/Numeric.astro?raw"
 import NumericVueRaw from "../../component-examples/text-field/Numeric.vue?raw"
 import NumericPreviewVue from "../../component-examples/text-field/Numeric.vue"
 import NumericHtml from "../../component-examples/text-field/Numeric.html?raw"
+import NumericPreviewSolid from "../../component-examples/text-field/Numeric.tsx"
+import NumericSolidRaw from "../../component-examples/text-field/Numeric.tsx?raw"
 
 import File from "../../component-examples/text-field/File.astro"
 import FileAstro from "../../component-examples/text-field/File.astro?raw"
 import FileVueRaw from "../../component-examples/text-field/File.vue?raw"
 import FilePreviewVue from "../../component-examples/text-field/File.vue"
 import FileHtml from "../../component-examples/text-field/File.html?raw"
+import FilePreviewSolid from "../../component-examples/text-field/File.tsx"
+import FileSolidRaw from "../../component-examples/text-field/File.tsx?raw"
 
 import Autosuggest from "../../component-examples/text-field/Autosuggest.astro"
 import AutosuggestAstro from "../../component-examples/text-field/Autosuggest.astro?raw"
 import AutosuggestVueRaw from "../../component-examples/text-field/Autosuggest.vue?raw"
 import AutosuggestPreviewVue from "../../component-examples/text-field/Autosuggest.vue"
 import AutosuggestHtml from "../../component-examples/text-field/Autosuggest.html?raw"
+import AutosuggestPreviewSolid from "../../component-examples/text-field/Autosuggest.tsx"
+import AutosuggestSolidRaw from "../../component-examples/text-field/Autosuggest.tsx?raw"
 
 import NoLabel from "../../component-examples/text-field/NoLabel.astro"
 import NoLabelAstro from "../../component-examples/text-field/NoLabel.astro?raw"
 import NoLabelVueRaw from "../../component-examples/text-field/NoLabel.vue?raw"
 import NoLabelPreviewVue from "../../component-examples/text-field/NoLabel.vue"
 import NoLabelHtml from "../../component-examples/text-field/NoLabel.html?raw"
+import NoLabelPreviewSolid from "../../component-examples/text-field/NoLabel.tsx"
+import NoLabelSolidRaw from "../../component-examples/text-field/NoLabel.tsx?raw"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextFieldCSS from "@opui/css/components/text-input.css?raw"
 
 import TextFieldAPIAstro from "../../component-api/text-field/Astro.astro"
 import TextFieldAPIHTML from "../../component-api/text-field/HTML.astro"
+import TextFieldAPISolid from "../../component-api/text-field/Solid.astro"
 import TextFieldAPIVue from "../../component-api/text-field/Vue.astro"
 import TextInputAPIAstro from "../../component-api/text-input/Astro.astro"
 import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
+import TextInputAPISolid from "../../component-api/text-input/Solid.astro"
 import TextInputAPIVue from "../../component-api/text-input/Vue.astro"
 
 export const description =
@@ -64,12 +76,14 @@ export const description =
       title: "Text field API",
       astro: TextFieldAPIAstro,
       html: TextFieldAPIHTML,
+      solid: TextFieldAPISolid,
       vue: TextFieldAPIVue,
     },
     {
       title: "Text input API",
       astro: TextInputAPIAstro,
       html: TextInputAPIHTML,
+      solid: TextInputAPISolid,
       vue: TextInputAPIVue,
     },
   ]}
@@ -222,7 +236,7 @@ export const description =
 
   <section>
     <h2 id="input-types">Input types</h2>
-    <Example row>
+    <Example row solidExampleId="text-field/InputTypes">
       <UISwitch small slot="controls" id="text-field-filled-toggle"
         >Filled</UISwitch
       >
@@ -233,8 +247,10 @@ export const description =
       <Example.Preview slot="preview-astro" code={InputTypes} />
       <Example.Preview slot="preview-html" code={InputTypesHtml} />
       <Example.Preview slot="preview-vue" code={InputTypesPreviewVue} />
+      <Example.Preview slot="preview-solid" code={InputTypesPreviewSolid} />
       <Example.Code slot="code-astro" code={InputTypesAstro} />
       <Example.Code slot="code-vue" code={InputTypesVueRaw} />
+      <Example.Code slot="code-solid" code={InputTypesSolidRaw} />
       <Example.Code slot="code-html" code={InputTypesHtml} />
     </Example>
 
@@ -254,12 +270,14 @@ export const description =
       Numeric vs <code>&lt;input type="number"&gt;</code>
     </h3>
 
-    <Example>
+    <Example solidExampleId="text-field/Numeric">
       <Numeric slot="preview-astro" />
       <Numeric slot="preview-html" />
       <NumericPreviewVue slot="preview-vue" />
+      <Example.Preview slot="preview-solid" code={NumericPreviewSolid} />
       <Example.Code slot="code-astro" code={NumericAstro} />
       <Example.Code slot="code-vue" code={NumericVueRaw} />
+      <Example.Code slot="code-solid" code={NumericSolidRaw} />
       <Example.Code slot="code-html" code={NumericHtml} />
     </Example>
 
@@ -321,12 +339,14 @@ export const description =
       Well, it's what we've got :sweat_smile:
     </p>
 
-    <Example row>
+    <Example row solidExampleId="text-field/File">
       <File slot="preview-astro" />
       <File slot="preview-html" />
       <FilePreviewVue slot="preview-vue" />
+      <Example.Preview slot="preview-solid" code={FilePreviewSolid} />
       <Example.Code slot="code-astro" code={FileAstro} />
       <Example.Code slot="code-vue" code={FileVueRaw} />
+      <Example.Code slot="code-solid" code={FileSolidRaw} />
       <Example.Code slot="code-html" code={FileHtml} />
     </Example>
   </section>
@@ -343,12 +363,14 @@ export const description =
       <li><code>&lt;datalist id="DATALISTID"&gt;</code></li>
     </ul>
 
-    <Example row>
+    <Example row solidExampleId="text-field/Autosuggest">
       <Autosuggest slot="preview-astro" />
       <Autosuggest slot="preview-html" />
       <AutosuggestPreviewVue slot="preview-vue" />
+      <Example.Preview slot="preview-solid" code={AutosuggestPreviewSolid} />
       <Example.Code slot="code-astro" code={AutosuggestAstro} />
       <Example.Code slot="code-vue" code={AutosuggestVueRaw} />
+      <Example.Code slot="code-solid" code={AutosuggestSolidRaw} />
       <Example.Code slot="code-html" code={AutosuggestHtml} />
     </Example>
 
@@ -389,12 +411,14 @@ export const description =
       >. It's recommended to label your inputs somehow.
     </p>
 
-    <Example>
+    <Example solidExampleId="text-field/NoLabel">
       <NoLabel slot="preview-astro" />
       <NoLabel slot="preview-html" />
       <NoLabelPreviewVue slot="preview-vue" />
+      <Example.Preview slot="preview-solid" code={NoLabelPreviewSolid} />
       <Example.Code slot="code-astro" code={NoLabelAstro} />
       <Example.Code slot="code-vue" code={NoLabelVueRaw} />
+      <Example.Code slot="code-solid" code={NoLabelSolidRaw} />
       <Example.Code slot="code-html" code={NoLabelHtml} />
     </Example>
   </section>

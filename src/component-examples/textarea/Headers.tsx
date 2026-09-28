@@ -2,6 +2,18 @@ import { Textarea } from "opui-css/solid"
 
 export default function Example() {
   return (
-    <Textarea label="Description" header="Product details" placeholder="Describe your product..." />
+    <>
+      <Textarea
+        label="Code"
+        placeholder="console.log('Hello, world!')"
+        header="script.js"
+      />
+
+      <Textarea
+        label="Comment"
+        placeholder="Write a comment..."
+        footer="0 / 280"
+      />
+    </>
   )
 }

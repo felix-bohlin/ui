@@ -1,9 +1,13 @@
-import { Toast } from "opui-css/solid"
+import { Button } from "opui-css/solid"
 
 export default function Example() {
   return (
-    <Toast>
-      <p>This is a toast notification.</p>
-    </Toast>
+    <Button
+      commandfor="toast-manager"
+      command="--show-toast"
+      data-title="Default Notification"
+    >
+      Show Default Toast
+    </Button>
   )
 }

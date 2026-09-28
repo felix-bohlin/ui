@@ -1,68 +1,76 @@
-import { splitProps, type JSX, Show, createUniqueId } from "solid-js"
+import { createUniqueId, omit, Show } from "solid-js"
 import type { Props } from "./types.solid"
 
 export default function Textarea(props: Props) {
-  const [local, rest] = splitProps(props, [
+  const rest = omit(
+    props,
     "autoFit",
-    "critical",
+    "children",
+    "class",
     "description",
     "endText",
+    "error",
     "filled",
+    "footer",
+    "header",
+    "id",
     "label",
+    "prefix",
     "small",
     "spread",
-    "prefix",
     "suffix",
-    "header",
-    "footer",
-    "startText",
     "supportingText",
-    "class",
-    "children",
-  ])
+  )
 
-  const fieldId = () => rest.id || createUniqueId()
+  const uid = createUniqueId()
+  const fieldId = () => props.id || uid
 
   return (
     <label
-      class={`ui-textarea ${local.autoFit ? "ui-auto-fit" : ""} ${local.filled ? "ui-filled" : ""} ${local.spread ? "ui-spread" : ""} ${local.small ? "ui-small" : ""} ${local.class || ""}`.trim()}
-      data-invalid={local.critical || undefined}
+      class={[
+        "ui-textarea",
+        {
+          "ui-auto-fit": !!props.autoFit,
+          "ui-filled": !!props.filled,
+          "ui-spread": !!props.spread,
+          "ui-small": !!props.small,
+        },
+        props.class,
+      ]}
+      data-invalid={props.error ? "true" : undefined}
     >
-      <Show when={local.label}>
-        <span class="ui-label">{local.label}</span>
+      <Show when={props.label}>
+        <span class="ui-label">{props.label}</span>
       </Show>
 
-      <Show when={local.description}>
-        <span class="ui-start-text">{local.description}</span>
+      <Show when={props.description}>
+        <span class="ui-start-text">{props.description}</span>
       </Show>
 
       <span class="ui-field">
-        <textarea
-          id={fieldId()}
-          {...rest}
-        />
-        <Show when={local.prefix}>
-          <span class="ui-prefix">{local.prefix}</span>
+        <textarea id={fieldId()} {...rest}></textarea>
+        <Show when={props.prefix}>
+          <span class="ui-prefix">{props.prefix}</span>
         </Show>
-        <Show when={local.suffix}>
-          <span class="ui-suffix">{local.suffix}</span>
+        <Show when={props.suffix}>
+          <span class="ui-suffix">{props.suffix}</span>
         </Show>
-        <Show when={local.header}>
-          <span class="ui-header">{local.header}</span>
+        <Show when={props.header}>
+          <span class="ui-header">{props.header}</span>
         </Show>
-        <Show when={local.footer}>
-          <span class="ui-footer">{local.footer}</span>
+        <Show when={props.footer}>
+          <span class="ui-footer">{props.footer}</span>
         </Show>
       </span>
 
-      <Show when={local.endText || local.supportingText}>
+      <Show when={props.endText || props.supportingText}>
         <span class="ui-end-text">
-          {local.endText}
-          {local.supportingText}
+          {props.endText}
+          {props.supportingText}
         </span>
       </Show>
 
-      {local.children}
+      {props.children}
     </label>
   )
 }

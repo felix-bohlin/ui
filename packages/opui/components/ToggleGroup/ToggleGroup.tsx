@@ -1,30 +1,46 @@
-import { splitProps, type JSX, createContext, createUniqueId } from "solid-js"
+import { createUniqueId, merge, omit } from "solid-js"
+import { ToggleGroupContext } from "./context.solid"
 import type { Props } from "./types.solid"
 
-export const ToggleGroupContext = createContext<{ name: string; type: "radio" | "checkbox" }>()
-
-export default function ToggleGroup(props: Props) {
-  const [local, rest] = splitProps(props, [
+export default function ToggleGroup(rawProps: Props) {
+  const props = merge({ selection: "multiple", size: "default" }, rawProps)
+  const rest = omit(
+    props,
+    "children",
+    "class",
     "name",
     "orientation",
     "selection",
     "size",
-    "class",
-    "children",
-  ])
+  )
 
-  const groupName = () => local.name || createUniqueId()
-  const inputType = () => (local.selection === "single" ? "radio" : "checkbox")
+  const uid = createUniqueId()
+  const groupName = () => props.name || uid
+  const inputType = () => (props.selection === "single" ? "radio" : "checkbox")
 
   return (
-    <ToggleGroupContext.Provider value={{ name: groupName(), type: inputType() }}>
+    <ToggleGroupContext
+      value={{
+        get groupName() {
+          return groupName()
+        },
+        get inputType() {
+          return inputType()
+        },
+      }}
+    >
       <div
-        class={`ui-toggle-group ${local.size && local.size !== "default" ? `ui-${local.size}` : ""} ${local.orientation ? `ui-${local.orientation}` : ""} ${local.class || ""}`.trim()}
-        role={local.selection === "single" ? "radiogroup" : "group"}
+        class={[
+          "ui-toggle-group",
+          props.size !== "default" && props.size && `ui-${props.size}`,
+          props.orientation && `ui-${props.orientation}`,
+          props.class,
+        ]}
+        role={props.selection === "single" ? "radiogroup" : "group"}
         {...rest}
       >
-        {local.children}
+        {props.children}
       </div>
-    </ToggleGroupContext.Provider>
+    </ToggleGroupContext>
   )
 }

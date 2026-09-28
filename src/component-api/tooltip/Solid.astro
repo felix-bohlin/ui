@@ -38,6 +38,20 @@ import { Table } from "@opui/astro"
       >
     </Table.Row>
     <Table.Row>
+      <Table.Cell><code>children</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The trigger element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>content</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Rich tooltip content, rendered after <code>label</code>.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
       <Table.Cell><code>id</code></Table.Cell>
       <Table.Cell><code>string</code></Table.Cell>
       <Table.Cell>auto-generated</Table.Cell>
@@ -53,7 +67,7 @@ import { Table } from "@opui/astro"
       <Table.Cell
         >Plain-text tooltip content. For richer markup, use the <code
           >content</code
-        > slot instead.</Table.Cell
+        > prop instead.</Table.Cell
       >
     </Table.Row>
   </Table.Body>

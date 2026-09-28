@@ -1,12 +1,38 @@
-import { Toast } from "opui-css/solid"
+import { Button } from "opui-css/solid"
 
 export default function Example() {
   return (
     <>
-      <Toast severity="info" title="Info" description="Informational message." />
-      <Toast severity="warning" title="Warning" description="Warning message." />
-      <Toast severity="critical" title="Error" description="Error message." />
-      <Toast severity="success" title="Success" description="Success message." />
+      <Button
+        commandfor="toast-manager"
+        command="--show-toast"
+        data-title="Success!"
+        data-severity="success"
+        variant="filled"
+        class="green"
+      >
+        Success
+      </Button>
+      <Button
+        commandfor="toast-manager"
+        command="--show-toast"
+        data-title="Something went wrong"
+        data-severity="critical"
+        variant="filled"
+        class="red"
+      >
+        Error
+      </Button>
+      <Button
+        commandfor="toast-manager"
+        command="--show-toast"
+        data-title="Did you know?"
+        data-severity="info"
+        variant="filled"
+        class="blue"
+      >
+        Info
+      </Button>
     </>
   )
 }

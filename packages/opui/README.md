@@ -84,6 +84,8 @@ The library defines this layer order:
 @layer openprops, theme, normalize, components.root, components.extended, utils;
 ```
 
+Import `opui-css/css/layers.css` first to set this order when you import single files.
+
 Wrap your own styles in a layer above `utils` (or unlayered) to override.
 
 ## Entry points
@@ -96,6 +98,7 @@ Wrap your own styles in a layer above `utils` (or unlayered) to override.
 | `opui-css/dist/opui.components.css` | Pre-bundled: components only                  |
 | `opui-css/dist/op.css`              | Same as `opui-css/open-props` - explicit path |
 | `opui-css/css/imports.css`          | Source: everything (resolved by your bundler) |
+| `opui-css/css/layers.css`           | `@layer` order only                           |
 | `opui-css/css/components.css`       | All component styles (no tokens / reset)      |
 | `opui-css/css/components/*.css`     | One component at a time                       |
 | `opui-css/css/theme.css`            | Theme tokens (primary, surfaces, text, …)     |

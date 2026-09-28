@@ -3,7 +3,7 @@ import { Callout } from "opui-css/vue"
 </script>
 
 <template>
-  <Callout severity="neutral">This is a tonal primary Callout</Callout>
+  <Callout severity="neutral">This is a tonal neutral Callout</Callout>
   <Callout severity="info">
     <template #icon
       ><svg
@@ -50,7 +50,7 @@ import { Callout } from "opui-css/vue"
   </Callout>
 
   <Callout variant="outlined" severity="neutral"
-    >This is an outlined primary Callout</Callout
+    >This is an outlined neutral Callout</Callout
   >
   <Callout variant="outlined" severity="info">
     <template #icon

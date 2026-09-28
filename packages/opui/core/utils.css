@@ -35,7 +35,7 @@ Add `.ui-scroll-lock` to any element that uses the [open] attribute (native <dia
       --isRTL: 1;
     }
 
-    &:where(:not([disabled], [aria-disabled="true"])) {
+    &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
       &:hover:before {
         --thumb-scale: 1;
       }

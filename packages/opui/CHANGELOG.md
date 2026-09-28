@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Vue 3.6 support.
+- Vue Vapor components, importable from `opui-css/vue/vapor`.
+
+### Fixed
+
+- `disabled`, `id`, `name` and `value` props on the Vue `ToggleButton`.
+
 ## 5.4.3 - 2026-09-18
 
 ### Fixed

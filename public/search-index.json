@@ -1059,7 +1059,7 @@
     "id": "guide-getting-started-vue",
     "title": "Getting started",
     "description": "",
-    "headings": "Install via NPM Import the CSS How to use",
+    "headings": "Install via NPM Import the CSS How to use Vapor mode",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/getting-started"
@@ -1215,34 +1215,34 @@
     "url": "/vue/api#button"
   },
   {
-    "id": "api-button-group-astro",
-    "title": "Button Group API",
-    "description": "Reference for Button Group Astro component.",
-    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "id": "api-card-astro",
+    "title": "Card API",
+    "description": "Reference for Card Astro component.",
+    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#button-group"
+    "url": "/astro/api#card"
   },
   {
-    "id": "api-button-group-html",
-    "title": "Button Group API",
-    "description": "Reference for Button Group HTML component.",
-    "headings": "Colors - Orientation .ui-vertical - Orientation modifier. Sizes .ui-small, .ui-large - Size modifiers. Variants - Style modifiers.",
+    "id": "api-card-html",
+    "title": "Card API",
+    "description": "Reference for Card HTML component.",
+    "headings": "Children - Optional wrappers for child content. Variants .ui-text The variant to use. Alignment .ui-align-end - Align actions to the end.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#button-group"
+    "url": "/html/api#card"
   },
   {
-    "id": "api-button-group-vue",
-    "title": "Button Group API",
-    "description": "Reference for Button Group Vue component.",
-    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "id": "api-card-vue",
+    "title": "Card API",
+    "description": "Reference for Card Vue component.",
+    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
-    "url": "/vue/api#button-group"
+    "url": "/vue/api#card"
   },
   {
     "id": "api-callout-astro",
@@ -1275,34 +1275,34 @@
     "url": "/vue/api#callout"
   },
   {
-    "id": "api-card-astro",
-    "title": "Card API",
-    "description": "Reference for Card Astro component.",
-    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
+    "id": "api-button-group-astro",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Astro component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#card"
+    "url": "/astro/api#button-group"
   },
   {
-    "id": "api-card-html",
-    "title": "Card API",
-    "description": "Reference for Card HTML component.",
-    "headings": "Children - Optional wrappers for child content. Variants .ui-text The variant to use. Alignment .ui-align-end - Align actions to the end.",
+    "id": "api-button-group-html",
+    "title": "Button Group API",
+    "description": "Reference for Button Group HTML component.",
+    "headings": "Colors - Orientation .ui-vertical - Orientation modifier. Sizes .ui-small, .ui-large - Size modifiers. Variants - Style modifiers.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#card"
+    "url": "/html/api#button-group"
   },
   {
-    "id": "api-card-vue",
-    "title": "Card API",
-    "description": "Reference for Card Vue component.",
-    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
+    "id": "api-button-group-vue",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Vue component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
-    "url": "/vue/api#card"
+    "url": "/vue/api#button-group"
   },
   {
     "id": "api-checkbox-astro",
@@ -1425,36 +1425,6 @@
     "url": "/vue/api#description-list"
   },
   {
-    "id": "api-dialog-astro",
-    "title": "Dialog API",
-    "description": "Reference for Dialog Astro component.",
-    "headings": "actionsAlign \"start\", \"end\" - Alignment of the actions slot. closedby \"any\" | \"closerequest\" | \"none\" - header content actions default Any content not assigned to a named slot.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#dialog"
-  },
-  {
-    "id": "api-dialog-html",
-    "title": "Dialog API",
-    "description": "Reference for Dialog HTML component.",
-    "headings": "Styles .ui-dialog.ui-card.ui-elevated Included The dialog uses card styles by default. Closed by closedby attribute - The attribute used to control close behavior.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#dialog"
-  },
-  {
-    "id": "api-dialog-vue",
-    "title": "Dialog API",
-    "description": "Reference for Dialog Vue component.",
-    "headings": "actionsAlign \"start\", \"end\" - Alignment of the actions slot. closedby \"any\" | \"closerequest\" | \"none\" - header content actions default Any content not assigned to a named slot.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#dialog"
-  },
-  {
     "id": "api-divider-astro",
     "title": "Divider API",
     "description": "Reference for Divider Astro component.",
@@ -1483,6 +1453,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#divider"
+  },
+  {
+    "id": "api-dialog-astro",
+    "title": "Dialog API",
+    "description": "Reference for Dialog Astro component.",
+    "headings": "actionsAlign \"start\", \"end\" - Alignment of the actions slot. closedby \"any\" | \"closerequest\" | \"none\" - header content actions default Any content not assigned to a named slot.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#dialog"
+  },
+  {
+    "id": "api-dialog-html",
+    "title": "Dialog API",
+    "description": "Reference for Dialog HTML component.",
+    "headings": "Styles .ui-dialog.ui-card.ui-elevated Included The dialog uses card styles by default. Closed by closedby attribute - The attribute used to control close behavior.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#dialog"
+  },
+  {
+    "id": "api-dialog-vue",
+    "title": "Dialog API",
+    "description": "Reference for Dialog Vue component.",
+    "headings": "actionsAlign \"start\", \"end\" - Alignment of the actions slot. closedby \"any\" | \"closerequest\" | \"none\" - header content actions default Any content not assigned to a named slot.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#dialog"
   },
   {
     "id": "api-drawer-astro",

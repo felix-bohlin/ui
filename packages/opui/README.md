@@ -32,6 +32,23 @@ import { Button, Card } from "opui-css/astro"
 </Card>
 ```
 
+### Vue components
+
+```vue
+<script setup lang="ts">
+import "opui-css/css/imports.css"
+import { Button, Card } from "opui-css/vue"
+</script>
+
+<template>
+  <Card>
+    <Button variant="primary">Click me</Button>
+  </Card>
+</template>
+```
+
+Vapor mode (Vue 3.6+): import the same components from `opui-css/vue/vapor`. Mount with `createVaporApp`, or install `vaporInteropPlugin` when mixing with virtual DOM components.
+
 ### Plain HTML + CSS (no build step)
 
 Drop a pre-bundled stylesheet into any page and use the documented class names:

@@ -59,5 +59,73 @@ import { Button } from "opui-css/vue"
     />
   </section>
 
+  <section>
+    <h2 id="vapor">Vapor mode</h2>
+    <p>
+      Every component also ships as a <a
+        href="https://vuejs.org/guide/extras/vapor-mode">Vapor</a
+      > component (Vue 3.6+). Same props, slots and markup - no virtual DOM. Import
+      them from <code>opui-css/vue/vapor</code>:
+    </p>
+    <Code
+      code={`<script setup vapor lang="ts">
+import { Button } from "opui-css/vue/vapor"
+</script>
+
+<template>
+  <Button variant="filled">Click me</Button>
+</template>`}
+      lang="vue"
+    />
+    <p>In a Vapor-only app, mount with <code>createVaporApp</code>:</p>
+    <Code
+      code={`import { createVaporApp } from "vue"
+import App from "./App.vue"
+
+createVaporApp(App).mount("#app")`}
+      lang="ts"
+    />
+    <p>
+      Mixing Vapor and virtual DOM components requires the
+      <code>vaporInteropPlugin</code>:
+    </p>
+    <Code
+      code={`import { createApp, vaporInteropPlugin } from "vue"
+import App from "./App.vue"
+
+createApp(App).use(vaporInteropPlugin).mount("#app")`}
+      lang="ts"
+    />
+    <p>
+      In Astro, install the plugin through the <code>appEntrypoint</code> option of
+      <code>@astrojs/vue</code>. The Vapor runtime is client-only, so skip it
+      during SSR:
+    </p>
+    <CodeGroup
+      tabs={[
+        {
+          title: "astro.config.mjs",
+          code: `import { defineConfig } from "astro/config"
+import vue from "@astrojs/vue"
+
+export default defineConfig({
+  integrations: [vue({ appEntrypoint: "/src/pages/_app" })],
+})`,
+          lang: "js",
+        },
+        {
+          title: "src/pages/_app.ts",
+          code: `import type { App } from "vue"
+import * as vue from "vue"
+
+export default (app: App) => {
+  if (!import.meta.env.SSR) app.use(vue.vaporInteropPlugin)
+}`,
+          lang: "ts",
+        },
+      ]}
+    />
+  </section>
+
   <Theming />
 </Guide>

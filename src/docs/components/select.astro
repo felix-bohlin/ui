@@ -219,7 +219,7 @@ import ClassicSelectAPIVue from "../../component-api/classic-select/Vue.astro"
 </Component>
 
 <style is:global>
-  .anatomy {
+  .anatomy:has(> .ui-select) {
     outline: var(--_anatomy-border-gray);
     outline-offset: -2px;
 

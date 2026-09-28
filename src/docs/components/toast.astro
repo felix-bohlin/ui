@@ -5,10 +5,8 @@ import Component from "../../layouts/Component.astro"
 import Example from "../../components/Example"
 
 import AutoExample from "../../components/AutoExample.astro"
-import JavascriptDemo from "../../component-examples/toast/Javascript.astro"
 import JavascriptHtml from "../../component-examples/toast/Javascript.html?raw"
 import JavascriptJS from "../../component-examples/toast/Javascript.js?raw"
-import LoadingDemo from "../../component-examples/toast/Loading.astro"
 import LoadingHtml from "../../component-examples/toast/Loading.html?raw"
 import LoadingJS from "../../component-examples/toast/Loading.js?raw"
 import ToastCSS from "@opui/css/components/toast.css?raw"
@@ -23,10 +21,6 @@ export const description =
   slug="toast"
   browserSupport={["popover", "light-dark", "invoker-commands"]}
   changelogPaths={[
-    {
-      path: "packages/opui/components/Toast/Toast.astro",
-      type: "component",
-    },
     { path: "src/docs/components/toast.astro", type: "docs" },
     { path: "src/component-examples/toast", type: "docs" },
     {
@@ -51,25 +45,32 @@ export const description =
   <section>
     <h2 id="how-it-works">How it works</h2>
     <p>
-      Toasts live in a global container, <code>#toast-manager</code>, rendered
-      by the <code>Toast</code> component. CSS owns the lifetime through <code
-        >attr(data-duration type(&lt;time&gt;))</code
-      >, so there are no timers. JS only builds the toast, fills the title and
-      description using <code>textContent</code>, and removes it on <code
-        >animationend</code
-      >.
+      Toasts live in a global container, <code>#toast-manager</code>, placed
+      once at the end of <code>&lt;body&gt;</code>. CSS owns the lifetime
+      through <code>attr(data-duration type(&lt;time&gt;))</code>, so there are
+      no timers. JS only builds the toast, fills the title and description using <code
+        >textContent</code
+      >, and removes it on <code>animationend</code>.
     </p>
+
+    <Code
+      lang="html"
+      code={`<output aria-live="polite" id="toast-manager" popover="manual" role="status"></output>
+
+<script type="module">
+  import { initToastManager } from "opui-css/toast"
+  initToastManager()
+</script>`}
+    />
 
     <h3 id="javascript">JavaScript</h3>
     <p>
       The most common case: show the outcome of something async, like a fetch.
-      Import <code>toast</code> from <code>opui-css/toast</code>. It works
-      without the <code>Toast</code> component too, the container is created on first
-      use.
+      Import <code>toast</code> from <code>opui-css/toast</code>. If the page
+      has no container, one is created on first use.
     </p>
 
     <Example centered>
-      <Example.Preview slot="preview-astro" code={JavascriptDemo} />
       <Example.Preview slot="preview-html" code={JavascriptHtml} />
       <Example.Code slot="code-js" code={JavascriptJS} />
     </Example>
@@ -84,7 +85,6 @@ export const description =
     </p>
 
     <Example centered>
-      <Example.Preview slot="preview-astro" code={LoadingDemo} />
       <Example.Preview slot="preview-html" code={LoadingHtml} />
       <Example.Code slot="code-js" code={LoadingJS} />
     </Example>

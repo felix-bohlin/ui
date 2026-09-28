@@ -2,10 +2,13 @@
   import IconButton from "../IconButton/IconButton.svelte"
   import type { DrawerHeaderProps as Props } from "./types.svelte"
 
-  const { children, class: className, heading, ...rest }: Props = $props()
-
-  let element = $state<HTMLDivElement | null>(null)
-  export { element as this }
+  let {
+    children,
+    class: className,
+    heading,
+    ref = $bindable(null),
+    ...rest
+  }: Props = $props()
 
   const closeDrawer = (event: MouseEvent) => {
     const target = event.currentTarget as HTMLElement | null
@@ -13,7 +16,7 @@
   }
 </script>
 
-<div bind:this={element} class={["ui-header", className]} {...rest}>
+<div bind:this={ref} class={["ui-header", className]} {...rest}>
   {#if heading}
     <span>{heading}</span>
   {/if}

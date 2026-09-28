@@ -6,7 +6,7 @@ export type TabsContext = {
   tabId?: string
 }
 
-const key = Symbol("tabs")
+const key = Symbol()
 
 export const getTabsContext = () => getContext<TabsContext | undefined>(key)
 export const setTabsContext = (context: TabsContext) => setContext(key, context)

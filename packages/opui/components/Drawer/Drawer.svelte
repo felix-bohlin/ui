@@ -1,11 +1,12 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  const {
+  let {
     backdrop = "blurred",
     class: className,
     closedby = "any",
     id,
+    ref = $bindable(null),
     scrollLock = true,
     side = "inline-start",
 
@@ -17,12 +18,13 @@
     ...rest
   }: Props = $props()
 
-  let element = $state<HTMLDialogElement | null>(null)
-  export { element as this }
-
   const componentId = $props.id()
-  const drawerId = $derived(id || `drawer-${componentId}`)
-  const classes = $derived([
+</script>
+
+<dialog
+  bind:this={ref}
+  {closedby}
+  class={[
     "ui-drawer",
     side && `ui-${side}`,
     {
@@ -30,10 +32,10 @@
       "ui-scroll-lock": scrollLock,
     },
     className,
-  ])
-</script>
-
-<dialog bind:this={element} class={classes} {closedby} id={drawerId} {...rest}>
+  ]}
+  id={id || `drawer-${componentId}`}
+  {...rest}
+>
   {@render header?.()}
   {#if content}
     <div class="ui-content">

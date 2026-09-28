@@ -4,4 +4,6 @@ import type { SvelteHTMLElements } from "svelte/elements"
 
 export type Props = Base.Props &
   Base.Slots<Snippet> &
-  Omit<SvelteHTMLElements["input"], "size" | "type">
+  Omit<SvelteHTMLElements["input"], "size" | "type"> & {
+    ref?: HTMLLabelElement | null
+  }

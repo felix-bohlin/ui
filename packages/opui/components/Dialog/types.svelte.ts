@@ -4,4 +4,8 @@ import type { Snippet } from "svelte"
 
 type Snippets = Base.Slots<Snippet>
 
-export type Props = Base.Props & Snippets & SvelteHTMLElements["dialog"]
+export type Props = Base.Props &
+  Snippets &
+  SvelteHTMLElements["dialog"] & {
+    ref?: HTMLDialogElement | null
+  }

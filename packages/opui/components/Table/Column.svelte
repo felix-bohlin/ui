@@ -1,14 +1,11 @@
 <script lang="ts">
   import type { ColumnProps as Props } from "./types.svelte"
 
-  const { width, ...rest }: Props = $props()
-
-  let element = $state<HTMLTableColElement | null>(null)
-  export { element as this }
-
-  const style = $derived(
-    width ? (width.includes(":") ? width : `width: ${width}`) : undefined,
-  )
+  let { ref = $bindable(null), width, ...rest }: Props = $props()
 </script>
 
-<col bind:this={element} {style} {...rest} />
+<col
+  bind:this={ref}
+  style={width ? (width.includes(":") ? width : `width: ${width}`) : undefined}
+  {...rest}
+/>

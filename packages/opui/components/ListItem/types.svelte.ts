@@ -6,6 +6,7 @@ import type { Snippet } from "svelte"
 export type Props =
   Omit<Base.Props, keyof Base.Slots<Snippet>> &
   Base.Slots<Snippet> &
+  { ref?: HTMLLIElement | null } &
   (
     | ({ as?: "li" } & SvelteHTMLElements["li"])
     | ({ as: "a" } & SvelteHTMLElements["a"])

@@ -1,12 +1,14 @@
 <script lang="ts">
   import type { DescriptionProps as Props } from "./types.svelte"
 
-  const { children, class: className, ...rest }: Props = $props()
-
-  let element = $state<HTMLElement | null>(null)
-  export { element as this }
+  let {
+    children,
+    class: className,
+    ref = $bindable(null),
+    ...rest
+  }: Props = $props()
 </script>
 
-<dd bind:this={element} class={["ui-description", className]} {...rest}>
+<dd bind:this={ref} class={["ui-description", className]} {...rest}>
   {@render children?.()}
 </dd>

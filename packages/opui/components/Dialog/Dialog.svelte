@@ -1,22 +1,25 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  const {
+  let {
+    actions,
     actionsAlign,
+    children,
     class: className,
     closedby,
-    header,
     content,
-    actions,
+    header,
+    ref = $bindable(null),
     ...rest
   }: Props = $props()
-
-  let element = $state<HTMLDialogElement | null>(null)
-  export { element as this }
-  const classes = $derived(["ui-dialog ui-card ui-elevated", className])
 </script>
 
-<dialog bind:this={element} class={classes} {closedby} {...rest}>
+<dialog
+  bind:this={ref}
+  class={["ui-dialog ui-card ui-elevated", className]}
+  {closedby}
+  {...rest}
+>
   {#if header}
     <hgroup>
       {#if typeof header === "string"}
@@ -31,6 +34,7 @@
       {@render content()}
     </div>
   {/if}
+  {@render children?.()}
   {#if actions}
     <div class={["ui-actions", actionsAlign && `ui-align-${actionsAlign}`]}>
       {@render actions()}

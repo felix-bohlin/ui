@@ -1,23 +1,23 @@
 <script lang="ts">
   import type { TabsItemProps as Props } from "./types.svelte"
-  import { getTabsContext, setTabsContext } from "./context.svelte"
+  import { getTabsContext, setTabsContext } from "./context"
 
   const id = $props.id()
-  const {
+
+  let {
     children,
     class: className,
     name,
     open,
     panelId = `panel-${id}`,
+    ref = $bindable(null),
     tabId = `tab-${id}`,
     ...rest
   }: Props = $props()
 
-  let element = $state<HTMLInputElement | null>(null)
-  export { element as this }
-
   const parent = getTabsContext()
   const groupName = $derived(name || parent?.groupName)
+
   setTabsContext({
     get groupName() {
       return groupName
@@ -29,15 +29,13 @@
       return tabId
     },
   })
-
-  const classes = $derived(["ui-tab-input", className])
 </script>
 
 <input
-  bind:this={element}
+  bind:this={ref}
   aria-controls={panelId}
   checked={open}
-  class={classes}
+  class={["ui-tab-input", className]}
   id={tabId}
   name={groupName}
   type="radio"

@@ -1,28 +1,25 @@
 <script lang="ts">
   import type { TabsPanelProps as Props } from "./types.svelte"
-  import { getTabsContext } from "./context.svelte"
+  import { getTabsContext } from "./context"
 
-  const {
+  let {
     children,
     class: className,
     panelId,
+    ref = $bindable(null),
     tabId,
     ...rest
   }: Props = $props()
 
-  let element = $state<HTMLDivElement | null>(null)
-  export { element as this }
-
   const context = getTabsContext()
-  const classes = $derived(["ui-tab-panel", className])
 </script>
 
 <div
-  bind:this={element}
-  aria-labelledby={tabId || context?.tabId}
-  class={classes}
+  bind:this={ref}
   id={panelId || context?.panelId}
+  class={["ui-tab-panel", className]}
   role="tabpanel"
+  aria-labelledby={tabId || context?.tabId}
   {...rest}
 >
   {@render children?.()}

@@ -1,12 +1,9 @@
 <script lang="ts">
   import type { SectionProps as Props } from "./types.svelte"
 
-  const { children, ...rest }: Props<"th"> = $props()
-
-  let element = $state<HTMLTableCellElement | null>(null)
-  export { element as this }
+  let { children, ref = $bindable(null), ...rest }: Props<"th"> = $props()
 </script>
 
-<th bind:this={element} {...rest}>
+<th bind:this={ref} {...rest}>
   {@render children?.()}
 </th>

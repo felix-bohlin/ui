@@ -1,12 +1,14 @@
 <script lang="ts">
   import type { TermProps as Props } from "./types.svelte"
 
-  const { children, class: className, ...rest }: Props = $props()
-
-  let element = $state<HTMLElement | null>(null)
-  export { element as this }
+  let {
+    children,
+    class: className,
+    ref = $bindable(null),
+    ...rest
+  }: Props = $props()
 </script>
 
-<dt bind:this={element} class={["ui-term", className]} {...rest}>
+<dt bind:this={ref} class={["ui-term", className]} {...rest}>
   {@render children?.()}
 </dt>

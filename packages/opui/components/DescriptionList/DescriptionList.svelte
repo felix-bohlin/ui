@@ -1,18 +1,23 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  const { bordered, children, class: className, ...rest }: Props = $props()
+  let {
+    bordered,
+    children,
+    class: className,
+    ref = $bindable(null),
+    ...rest
+  }: Props = $props()
+</script>
 
-  let element = $state<HTMLDListElement | null>(null)
-  export { element as this }
-
-  const classes = $derived([
+<dl
+  bind:this={ref}
+  class={[
     "ui-description-list",
     { "ui-bordered": bordered, "ui-dotted": bordered === "dotted" },
     className,
-  ])
-</script>
-
-<dl bind:this={element} class={classes} {...rest}>
+  ]}
+  {...rest}
+>
   {@render children?.()}
 </dl>

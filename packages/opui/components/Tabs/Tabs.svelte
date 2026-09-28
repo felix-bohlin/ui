@@ -1,23 +1,25 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
-  import { setTabsContext } from "./context.svelte"
+  import { setTabsContext } from "./context"
 
-  const { children, class: className, name, ...rest }: Props = $props()
-
-  let element = $state<HTMLDivElement | null>(null)
-  export { element as this }
+  let {
+    children,
+    class: className,
+    name,
+    ref = $bindable(null),
+    ...rest
+  }: Props = $props()
 
   const id = $props.id()
   const groupName = $derived(name || `tabs-${id}`)
+
   setTabsContext({
     get groupName() {
       return groupName
     },
   })
-
-  const classes = $derived(["ui-tabs", className])
 </script>
 
-<div bind:this={element} class={classes} role="tablist" {...rest}>
+<div bind:this={ref} class={["ui-tabs", className]} role="tablist" {...rest}>
   {@render children?.()}
 </div>

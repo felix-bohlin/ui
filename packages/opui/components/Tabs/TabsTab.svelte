@@ -1,20 +1,22 @@
 <script lang="ts">
   import type { TabsTabProps as Props } from "./types.svelte"
-  import { getTabsContext } from "./context.svelte"
+  import { getTabsContext } from "./context"
 
-  const { children, class: className, tabId, ...rest }: Props = $props()
-
-  let element = $state<HTMLLabelElement | null>(null)
-  export { element as this }
+  let {
+    children,
+    class: className,
+    ref = $bindable(null),
+    tabId,
+    ...rest
+  }: Props = $props()
 
   const context = getTabsContext()
-  const classes = $derived(["ui-tab-label", className])
 </script>
 
 <label
-  bind:this={element}
-  class={classes}
+  bind:this={ref}
   for={tabId || context?.tabId}
+  class={["ui-tab-label", className]}
   role="tab"
   {...rest}
 >

@@ -1,34 +1,32 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
-  import { setToggleContext, type ToggleContext } from "./context.svelte"
+  import { setToggleGroupContext } from "./context"
 
-  const {
+  let {
     children,
     class: className,
     name,
     orientation,
+    ref = $bindable(null),
     selection = "multiple",
     size = "default",
     ...rest
   }: Props = $props()
 
-  let element = $state<HTMLDivElement | null>(null)
-  export { element as this }
-
   const id = $props.id()
-  const toggleContext = $state<ToggleContext>({
-    groupName: "",
-    inputType: "checkbox",
-  })
-  setToggleContext(toggleContext)
-  $effect(() => {
-    toggleContext.groupName = name || `toggle-group-${id}`
-    toggleContext.inputType = selection === "single" ? "radio" : "checkbox"
+
+  setToggleGroupContext({
+    get groupName() {
+      return name || `toggle-group-${id}`
+    },
+    get inputType() {
+      return selection === "single" ? "radio" : "checkbox"
+    },
   })
 </script>
 
 <div
-  bind:this={element}
+  bind:this={ref}
   class={[
     "ui-toggle-group",
     size !== "default" && size && `ui-${size}`,

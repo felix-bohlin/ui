@@ -2,9 +2,10 @@
   import type { Props } from "./types.svelte"
 
   let {
-    class: className = "",
+    class: className,
     name,
     open,
+    ref = $bindable(null),
     variant,
 
     // Snippets
@@ -15,32 +16,21 @@
     ...rest
   }: Props = $props()
 
-  let element = $state<HTMLDetailsElement | null>(null)
-  export { element as this }
-
   const id = $props.id()
   const summaryId = `summary-${id}`
   const contentId = `content-${id}`
-
-  const classes = $derived([
-    "ui-accordion",
-    "ui-card",
-    variant && `ui-${variant}`,
-    className,
-  ])
 </script>
 
-<details bind:this={element} {open} {name} class={classes} {...rest}>
-  <summary id={summaryId} aria-controls={contentId}>
-    {#if typeof summary === "string"}
-      {summary}
-    {:else if summary}
-      {@render summary()}
-    {/if}
-    {#if marker}
-      {@render marker()}
-    {/if}
-  </summary>
+<details
+  bind:this={ref}
+  {name}
+  class={["ui-accordion", "ui-card", variant && `ui-${variant}`, className]}
+  {open}
+  {...rest}
+>
+  <summary id={summaryId} aria-controls={contentId}
+    >{#if typeof summary === "string"}{summary}{:else}{@render summary()}{/if}{@render marker?.()}</summary
+  >
 
   <div
     id={contentId}

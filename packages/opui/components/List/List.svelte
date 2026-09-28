@@ -1,21 +1,23 @@
 <script lang="ts">
-  import type { Props } from "./types.svelte.ts"
+  import type { Props } from "./types.svelte"
 
   let {
     bordered,
     class: className,
     dense,
     gutterless,
+    ref = $bindable(null),
     variant,
 
     // Snippets
     children,
     ...rest
   }: Props = $props()
+</script>
 
-  let element = $state<HTMLUListElement | null>(null)
-  export { element as this }
-  const classes = $derived([
+<ul
+  bind:this={ref}
+  class={[
     "ui-list",
     {
       "ui-bordered": bordered,
@@ -24,9 +26,8 @@
     },
     variant && `ui-${variant}`,
     className,
-  ])
-</script>
-
-<ul bind:this={element} class={classes} {...rest}>
+  ]}
+  {...rest}
+>
   {@render children?.()}
 </ul>

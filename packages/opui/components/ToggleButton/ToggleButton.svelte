@@ -1,49 +1,42 @@
 <script lang="ts">
-  import type { Props } from "./types.svelte.ts"
-  import { getToggleContext } from "../ToggleGroup/context.svelte"
+  import type { Props } from "./types.svelte"
+  import { getToggleGroupContext } from "../ToggleGroup/context"
 
-  const {
+  let {
     children,
     class: className,
     disabled,
+    id,
     label,
     name,
     pressed,
+    ref = $bindable(null),
     size,
     type,
     value,
     ...rest
   }: Props = $props()
 
-  let element = $state<HTMLLabelElement | null>(null)
-  export { element as this }
-
-  let toggleGroup: ReturnType<typeof getToggleContext> | null = null
-  try {
-    toggleGroup = getToggleContext()
-  } catch (_e) {
-    // toggle group not set
-  }
-
   const componentId = $props.id()
-  const finalName = $derived(name || toggleGroup?.groupName)
-  const finalType = $derived(type || toggleGroup?.inputType || "checkbox")
-  const id = $derived(rest.id || `toggle-${componentId}`)
-  const classes = $derived([
+  const group = getToggleGroupContext()
+  const finalType = $derived(type || group?.inputType || "checkbox")
+</script>
+
+<label
+  bind:this={ref}
+  class={[
     "ui-toggle-button",
     { "ui-disabled": disabled },
     size && `ui-${size}`,
     className,
-  ])
-</script>
-
-<label bind:this={element} class={classes}>
+  ]}
+>
   <input
     aria-pressed={finalType === "checkbox" ? pressed : undefined}
     checked={pressed}
     {disabled}
-    {id}
-    name={finalName}
+    id={id || `toggle-${componentId}`}
+    name={name || group?.groupName}
     type={finalType}
     value={value || label}
     {...rest}

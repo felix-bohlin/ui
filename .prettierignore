@@ -5,3 +5,5 @@ pnpm-workspace.yaml
 .vscode
 dist
 node_modules
+packages/opui/components/AGENTS.md
+public/search-index.json

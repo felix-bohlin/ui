@@ -30,6 +30,7 @@ const currentFramework = (Astro.currentLocale ??
   import {
     FRAMEWORK_IDS,
     frameworkPrefixPattern,
+    pathHasFramework,
     type FrameworkId,
   } from "../utils/framework"
 
@@ -44,6 +45,9 @@ const currentFramework = (Astro.currentLocale ??
 
   function urlForFramework(framework: FrameworkId): string {
     const sharedPath = stripFrameworkPrefix(window.location.pathname)
+    if (!pathHasFramework(framework, sharedPath)) {
+      return `/${framework}/components/`
+    }
     const path = sharedPath === "/" ? "" : sharedPath
     return `/${framework}${path}${window.location.search}${window.location.hash}`
   }

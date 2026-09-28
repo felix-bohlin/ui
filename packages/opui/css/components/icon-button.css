@@ -22,10 +22,14 @@
       color calc(0.1s * var(--_motion)) ease,
       border-color calc(0.1s * var(--_motion)) ease;
 
-    &:where([disabled], [aria-disabled="true"]) {
-      --_text-color: light-dark(rgb(0, 0, 0/0.3), rgb(255, 255, 255/0.26));
+    &:where([disabled], [aria-disabled="true"], .ui-disabled) {
+      --_text-color: light-dark(rgb(0 0 0 / 0.3), rgb(255 255 255 / 0.26));
       cursor: not-allowed;
       opacity: 0.64;
+    }
+
+    &:where(a):where([aria-disabled="true"], .ui-disabled) {
+      pointer-events: none;
     }
 
     svg {
@@ -46,7 +50,7 @@
     }
 
     /* Element states */
-    &:where(:not([disabled], [aria-disabled="true"])) {
+    &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
       @media (hover: hover) {
         &:where(:not(:active):hover) {
           &::before {

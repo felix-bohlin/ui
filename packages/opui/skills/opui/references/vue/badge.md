@@ -1,7 +1,5 @@
 # Badge
 
-A badge is a small status indicator that can be placed on other elements.
-
 ## Variants
 
 Default, and `dot`.

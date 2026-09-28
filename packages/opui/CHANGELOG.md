@@ -29,6 +29,8 @@
 - `IconButton` is listed under extended components in `components.css`, since it needs `button.css` for its tokens.
 - `opui-css/open-props.css` resolves through `exports`.
 - Vue `DrawerHeader` closes the drawer without hydration.
+- `FieldGroup` `name` only applies to its own fields in Astro and Vue.
+- `Tabs` and `ToggleGroup` context only applies to their own children in Astro.
 
 ## 5.5.0 - 2026-09-28
 

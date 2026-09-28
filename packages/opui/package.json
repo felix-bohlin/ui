@@ -46,10 +46,13 @@
   "exports": {
     ".": "./dist/opui.css",
     "./open-props": "./dist/op.css",
+    "./open-props.css": "./open-props.css",
     "./astro": "./astro/index.ts",
     "./vue": "./vue/index.ts",
     "./components/*": "./components/*",
+    "./core/*.css": "./core/*.css",
     "./core/*": "./core/*.css",
+    "./css/*.css": "./css/*.css",
     "./css/*": "./css/*.css",
     "./dist/*": "./dist/*"
   },

@@ -92,7 +92,7 @@
   {
     "id": "component-badge-html",
     "title": "Badge",
-    "description": "A badge is a small status indicator that can be placed on other elements.",
+    "description": "",
     "headings": "Variants Indicator Severities Visibility Alignment",
     "category": "Component",
     "frameworkId": "html",
@@ -102,7 +102,7 @@
   {
     "id": "component-badge-astro",
     "title": "Badge",
-    "description": "A badge is a small status indicator that can be placed on other elements.",
+    "description": "",
     "headings": "Variants Indicator Severities Visibility Alignment",
     "category": "Component",
     "frameworkId": "astro",
@@ -112,7 +112,7 @@
   {
     "id": "component-badge-vue",
     "title": "Badge",
-    "description": "A badge is a small status indicator that can be placed on other elements.",
+    "description": "",
     "headings": "Variants Indicator Severities Visibility Alignment",
     "category": "Component",
     "frameworkId": "vue",

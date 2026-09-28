@@ -1,20 +1,20 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 </script>
 
 <template>
   <Tabs>
-    <Tabs.Item open>
+    <TabsItem open>
       <TabsTab>Profile</TabsTab>
       <TabsPanel>Profile settings and information.</TabsPanel>
-    </Tabs.Item>
-    <Tabs.Item>
+    </TabsItem>
+    <TabsItem>
       <TabsTab>Settings</TabsTab>
       <TabsPanel>General account settings.</TabsPanel>
-    </Tabs.Item>
-    <Tabs.Item>
+    </TabsItem>
+    <TabsItem>
       <TabsTab>Notifications</TabsTab>
       <TabsPanel>Manage your notifications.</TabsPanel>
-    </Tabs.Item>
+    </TabsItem>
   </Tabs>
 </template>

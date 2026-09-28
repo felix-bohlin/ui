@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import type { DrawerFooterProps, DrawerFooterSlots } from "./types.d.vue"
 
 defineProps<DrawerFooterProps>()

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { computed, useAttrs } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 

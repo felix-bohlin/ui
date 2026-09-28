@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import IconButton from "../IconButton/IconButton.vue"
 import type { DrawerHeaderProps, DrawerHeaderSlots } from "./types.d.vue"
 

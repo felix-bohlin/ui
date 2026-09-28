@@ -1,4 +1,4 @@
-<template>
+<template vapor>
   <div class="anatomy">
     <div class="ui-select">
       <div>

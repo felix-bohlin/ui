@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { List, ListItem, RadioInput } from "opui-css/vue"
 </script>
 

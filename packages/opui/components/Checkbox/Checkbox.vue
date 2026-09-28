@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import CheckboxInput from "./CheckboxInput.vue"
 import type { CheckboxProps, Slots } from "./types.d.vue"
 import { useId } from "vue"
@@ -9,7 +9,9 @@ defineOptions({
 
 const props = defineProps<CheckboxProps>()
 defineSlots<Slots>()
-const modelValue = defineModel<boolean | (string | number)[]>()
+const modelValue = defineModel<boolean | (string | number)[]>({
+  default: undefined,
+})
 
 const endTextId = useId()
 </script>

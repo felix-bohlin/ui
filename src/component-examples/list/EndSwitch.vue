@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { List, ListItem, SwitchInput } from "opui-css/vue"
 </script>
 

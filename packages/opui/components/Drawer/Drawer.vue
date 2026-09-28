@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { useId } from "vue"
 import type { DrawerSlots, Props } from "./types.d.vue"
 

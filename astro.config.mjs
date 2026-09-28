@@ -54,6 +54,19 @@ export default defineConfig({
   vite: {
     plugins: [
       {
+        name: "vue-vapor-inline-template",
+        apply: "build",
+        configResolved({ plugins }) {
+          const vuePlugin = plugins.find(({ name }) => name === "vite:vue")
+          if (vuePlugin) {
+            vuePlugin.api.options = {
+              ...vuePlugin.api.options,
+              devServer: null,
+            }
+          }
+        },
+      },
+      {
         name: "opui-package-astro-hmr",
         handleHotUpdate({ file, server }) {
           if (file.includes("/packages/opui/") && file.endsWith(".astro")) {

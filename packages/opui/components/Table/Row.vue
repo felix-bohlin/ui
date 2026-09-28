@@ -1,4 +1,4 @@
-<template>
+<template vapor>
   <tr>
     <slot></slot>
   </tr>

@@ -1,4 +1,4 @@
-<template>
+<template vapor>
   <table class="ui-table">
     <caption>
       Nordic Countries Overview

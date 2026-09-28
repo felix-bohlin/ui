@@ -1,4 +1,4 @@
-<template>
+<template vapor>
   <div class="ui-rich-text">
     <hgroup>
       <p>Zero or more p elements</p>

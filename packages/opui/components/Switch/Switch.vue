@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import SwitchInput from "./SwitchInput.vue"
 import type { Slots, SwitchProps } from "./types.d.vue"
 import { useId } from "vue"
@@ -9,7 +9,9 @@ defineOptions({
 
 const props = defineProps<SwitchProps>()
 defineSlots<Slots>()
-const modelValue = defineModel<boolean | (string | number)[]>()
+const modelValue = defineModel<boolean | (string | number)[]>({
+  default: undefined,
+})
 
 const endTextId = useId()
 </script>

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import Anchor from "../Anchor/Anchor.vue"
 import type { Props, Slots } from "./types.d.vue"
 

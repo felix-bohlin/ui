@@ -1,4 +1,4 @@
-import { createApp } from "vue"
+import { createVaporApp } from "vue"
 
 const loaders = import.meta.glob("../../component-examples/**/*.vue") as Record<
   string,
@@ -26,7 +26,9 @@ async function mountAll() {
     el.setAttribute("data-vue-mounted", "")
     const mod = await loader()
     el.innerHTML = ""
-    createApp(mod.default as Parameters<typeof createApp>[0]).mount(el)
+    createVaporApp(mod.default as Parameters<typeof createVaporApp>[0]).mount(
+      el,
+    )
   }
 }
 

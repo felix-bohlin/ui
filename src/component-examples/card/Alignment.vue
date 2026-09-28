@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { Button, Card, IconButton } from "opui-css/vue"
 </script>
 

@@ -1,7 +1,7 @@
 {
   "name": "opui-css",
   "version": "5.5.0",
-  "description": "A CSS UI library exploring next-gen HTML & CSS features. HTML, Astro & Vue components on top of Open Props.",
+  "description": "A CSS UI library exploring next-gen HTML & CSS features. HTML, Astro & Vue Vapor components on top of Open Props.",
   "type": "module",
   "license": "MIT",
   "author": "Felix Bohlin",
@@ -22,6 +22,7 @@
     "html",
     "open-props",
     "ui",
+    "vapor",
     "vue"
   ],
   "sideEffects": [
@@ -68,7 +69,7 @@
     "astro": "^7.0.6",
     "open-props": "^1.7.23",
     "svelte": "^5.56.4",
-    "vue": "^3.5.39"
+    "vue": "^3.6.0-rc.1"
   },
   "peerDependenciesMeta": {
     "astro": {

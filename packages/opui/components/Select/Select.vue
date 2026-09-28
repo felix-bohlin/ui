@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { inject, useId } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"

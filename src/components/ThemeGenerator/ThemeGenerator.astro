@@ -583,250 +583,258 @@ const radiusGroups = [
   ]
 
   const root = document.getElementById("theme-generator-root")
-  if (!root) throw new Error("Theme generator root not found")
-
-  const form = document.getElementById(
-    "theme-generator-form",
-  ) as HTMLFormElement
-  const preview = document.getElementById("theme-generator-preview")!
-  const codeEl = document.getElementById("theme-generator-css-code")!
-  const copyBtn = document.getElementById("theme-generator-copy")
-  const resetBtn = document.getElementById("theme-generator-reset")
-  const modeRadios = root.querySelectorAll<HTMLInputElement>(
-    'input[name="theme-generator-mode"]',
-  )
-
-  type EditingMode = Mode | "both"
-  let editingMode: EditingMode = "both"
-
-  function readModeFromRadios(): EditingMode {
-    for (const r of modeRadios) {
-      if (
-        r.checked &&
-        (r.value === "light" || r.value === "dark" || r.value === "both")
-      ) {
-        return r.value
-      }
-    }
-    return "both"
-  }
-
-  function targetModes(): readonly Mode[] {
-    return editingMode === "both" ? (["light", "dark"] as const) : [editingMode]
-  }
-
-  function previewMode(): Mode {
-    return editingMode === "both" ? themeStore.getActiveSiteMode() : editingMode
-  }
-
-  function formMode(): Mode {
-    return editingMode === "both" ? "light" : editingMode
-  }
-
-  function setGrayInputsDisabled(disabled: boolean) {
-    const grayInputs = form.querySelectorAll<HTMLInputElement>(
-      '[name="--gray-chroma"], [name="--gray-hue"]',
+  if (root) {
+    const form = document.getElementById(
+      "theme-generator-form",
+    ) as HTMLFormElement
+    const preview = document.getElementById("theme-generator-preview")!
+    const codeEl = document.getElementById("theme-generator-css-code")!
+    const copyBtn = document.getElementById("theme-generator-copy")
+    const resetBtn = document.getElementById("theme-generator-reset")
+    const modeRadios = root.querySelectorAll<HTMLInputElement>(
+      'input[name="theme-generator-mode"]',
     )
-    grayInputs.forEach((input) => {
-      input.disabled = disabled
-    })
-  }
 
-  let suppressInputHandler = false
+    type EditingMode = Mode | "both"
+    let editingMode: EditingMode = "both"
 
-  function syncFormFromConfig(config: ModeConfig) {
-    TOKENS.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token]
-      const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
-      if (input && input.type !== "checkbox") {
-        input.value = value
-        suppressInputHandler = true
-        try {
-          input.dispatchEvent(new Event("input", { bubbles: true }))
-        } finally {
-          suppressInputHandler = false
+    function readModeFromRadios(): EditingMode {
+      for (const r of modeRadios) {
+        if (
+          r.checked &&
+          (r.value === "light" || r.value === "dark" || r.value === "both")
+        ) {
+          return r.value
         }
       }
+      return "both"
+    }
 
-      const chips = form.querySelectorAll<HTMLElement>(`[data-name="${token}"]`)
-      let foundMatch = false
-      chips.forEach((chip) => {
-        if (chip.dataset.value === value) {
-          chip.classList.add("ui-tonal")
-          chip.classList.remove("ui-outlined")
-          foundMatch = true
-        } else {
-          chip.classList.remove("ui-tonal")
-          chip.classList.add("ui-outlined")
-        }
+    function targetModes(): readonly Mode[] {
+      return editingMode === "both"
+        ? (["light", "dark"] as const)
+        : [editingMode]
+    }
+
+    function previewMode(): Mode {
+      return editingMode === "both"
+        ? themeStore.getActiveSiteMode()
+        : editingMode
+    }
+
+    function formMode(): Mode {
+      return editingMode === "both" ? "light" : editingMode
+    }
+
+    function setGrayInputsDisabled(disabled: boolean) {
+      const grayInputs = form.querySelectorAll<HTMLInputElement>(
+        '[name="--gray-chroma"], [name="--gray-hue"]',
+      )
+      grayInputs.forEach((input) => {
+        input.disabled = disabled
       })
-      if (!foundMatch && chips.length > 0) {
+    }
+
+    let suppressInputHandler = false
+
+    function syncFormFromConfig(config: ModeConfig) {
+      TOKENS.forEach((token) => {
+        const value = config[token] ?? TOKEN_DEFAULTS[token]
+        const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
+        if (input && input.type !== "checkbox") {
+          input.value = value
+          suppressInputHandler = true
+          try {
+            input.dispatchEvent(new Event("input", { bubbles: true }))
+          } finally {
+            suppressInputHandler = false
+          }
+        }
+
+        const chips = form.querySelectorAll<HTMLElement>(
+          `[data-name="${token}"]`,
+        )
+        let foundMatch = false
         chips.forEach((chip) => {
-          if (chip.dataset.default === "true") {
+          if (chip.dataset.value === value) {
             chip.classList.add("ui-tonal")
             chip.classList.remove("ui-outlined")
+            foundMatch = true
+          } else {
+            chip.classList.remove("ui-tonal")
+            chip.classList.add("ui-outlined")
           }
+        })
+        if (!foundMatch && chips.length > 0) {
+          chips.forEach((chip) => {
+            if (chip.dataset.default === "true") {
+              chip.classList.add("ui-tonal")
+              chip.classList.remove("ui-outlined")
+            }
+          })
+        }
+      })
+
+      const enableGrays = form.querySelector<HTMLInputElement>(
+        '[name="enable-grays"]',
+      )
+      const graysEnabled = config["enable-grays"] !== "false"
+      if (enableGrays) enableGrays.checked = graysEnabled
+      setGrayInputsDisabled(!graysEnabled)
+
+      const colorPicker = form.querySelector<HTMLInputElement>(
+        '[name="--palette-source-color"]',
+      )
+      if (colorPicker) {
+        const hue = parseFloat(
+          config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
+        )
+        const chroma = parseFloat(
+          config["--palette-chroma"] ?? TOKEN_DEFAULTS["--palette-chroma"],
+        )
+        colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
+      }
+    }
+
+    function applyToPreview() {
+      const mode = previewMode()
+      const config = themeStore.get(mode)
+      preview.classList.toggle("ui-dark", mode === "dark")
+      preview.classList.toggle("ui-light", mode === "light")
+      preview.classList.toggle("no-grays", config["enable-grays"] === "false")
+
+      PALETTE_TOKENS.forEach((token) => {
+        const value = config[token] ?? TOKEN_DEFAULTS[token]
+        preview.style.setProperty(token, value)
+      })
+
+      const radiusTokens: Token[] = [
+        "--border-radius",
+        "--field-border-radius",
+        "--button-border-radius",
+      ]
+      radiusTokens.forEach((token) => {
+        const value = config[token] ?? TOKEN_DEFAULTS[token]
+        preview.style.setProperty(token, value)
+      })
+    }
+
+    function rerenderCode() {
+      const code = generateCss({
+        light: themeStore.get("light"),
+        dark: themeStore.get("dark"),
+      })
+      codeEl.innerHTML = hljs.highlight(code, { language: "css" }).value
+    }
+
+    function refreshAll() {
+      syncFormFromConfig(themeStore.get(formMode()))
+      applyToPreview()
+      rerenderCode()
+    }
+
+    modeRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        if (!radio.checked) return
+        editingMode = readModeFromRadios()
+        refreshAll()
+      })
+    })
+
+    form.addEventListener("input", (e) => {
+      if (suppressInputHandler) return
+      const target = e.target as HTMLInputElement | null
+      if (!target) return
+      const name = target.name || target.getAttribute("name")
+      if (!name) return
+
+      if (target.type === "checkbox") {
+        if (name === "enable-grays") {
+          targetModes().forEach((m) =>
+            themeStore.setEnableGrays(m, target.checked),
+          )
+          setGrayInputsDisabled(!target.checked)
+        }
+        return
+      }
+
+      if (name === "--palette-source-color") {
+        const { C, H } = hexToOklch(target.value)
+        const hue = String(Math.round(H))
+        const chroma = String(+Math.min(1, C / 0.21).toFixed(2))
+        targetModes().forEach((m) => {
+          themeStore.setToken(m, "--palette-hue", hue)
+          themeStore.setToken(m, "--palette-chroma", chroma)
+        })
+        return
+      }
+
+      if (TOKEN_SET.has(name)) {
+        targetModes().forEach((m) =>
+          themeStore.setToken(m, name as Token, target.value),
+        )
+      }
+    })
+
+    form.addEventListener("click", (e) => {
+      const chip = (e.target as HTMLElement).closest<HTMLElement>(
+        "[data-name][data-value]",
+      )
+      if (!chip || !form.contains(chip)) return
+      const name = chip.dataset.name
+      const value = chip.dataset.value
+      if (!name || value === undefined) return
+      if (TOKEN_SET.has(name)) {
+        targetModes().forEach((m) =>
+          themeStore.setToken(m, name as Token, value),
+        )
+      }
+    })
+
+    resetBtn?.addEventListener("click", () => {
+      themeStore.reset()
+      form.reset()
+      refreshAll()
+    })
+
+    copyBtn?.addEventListener("click", async () => {
+      const code = generateCss({
+        light: themeStore.get("light"),
+        dark: themeStore.get("dark"),
+      })
+      try {
+        await navigator.clipboard.writeText(code)
+        ;(window as any).showToast?.({
+          title: "Copied theme.css",
+          description: "Paste it into your project's stylesheet.",
+          duration: "3s",
+        })
+      } catch {
+        ;(window as any).showToast?.({
+          title: "Copy failed",
+          description: "Your browser blocked clipboard access.",
+          severity: "error",
+          duration: "4s",
         })
       }
     })
 
-    const enableGrays = form.querySelector<HTMLInputElement>(
-      '[name="enable-grays"]',
-    )
-    const graysEnabled = config["enable-grays"] !== "false"
-    if (enableGrays) enableGrays.checked = graysEnabled
-    setGrayInputsDisabled(!graysEnabled)
-
-    const colorPicker = form.querySelector<HTMLInputElement>(
-      '[name="--palette-source-color"]',
-    )
-    if (colorPicker) {
-      const hue = parseFloat(
-        config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
-      )
-      const chroma = parseFloat(
-        config["--palette-chroma"] ?? TOKEN_DEFAULTS["--palette-chroma"],
-      )
-      colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
-    }
-  }
-
-  function applyToPreview() {
-    const mode = previewMode()
-    const config = themeStore.get(mode)
-    preview.classList.toggle("ui-dark", mode === "dark")
-    preview.classList.toggle("ui-light", mode === "light")
-    preview.classList.toggle("no-grays", config["enable-grays"] === "false")
-
-    PALETTE_TOKENS.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token]
-      preview.style.setProperty(token, value)
-    })
-
-    const radiusTokens: Token[] = [
-      "--border-radius",
-      "--field-border-radius",
-      "--button-border-radius",
-    ]
-    radiusTokens.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token]
-      preview.style.setProperty(token, value)
-    })
-  }
-
-  function rerenderCode() {
-    const code = generateCss({
-      light: themeStore.get("light"),
-      dark: themeStore.get("dark"),
-    })
-    codeEl.innerHTML = hljs.highlight(code, { language: "css" }).value
-  }
-
-  function refreshAll() {
-    syncFormFromConfig(themeStore.get(formMode()))
-    applyToPreview()
-    rerenderCode()
-  }
-
-  modeRadios.forEach((radio) => {
-    radio.addEventListener("change", () => {
-      if (!radio.checked) return
-      editingMode = readModeFromRadios()
+    themeStore.subscribe((detail) => {
+      if (detail.type === "applyMode") {
+        const newMode = themeStore.getActiveSiteMode()
+        modeRadios.forEach((radio) => {
+          radio.checked = radio.value === newMode
+        })
+        editingMode = newMode
+      }
       refreshAll()
     })
-  })
 
-  form.addEventListener("input", (e) => {
-    if (suppressInputHandler) return
-    const target = e.target as HTMLInputElement | null
-    if (!target) return
-    const name = target.name || target.getAttribute("name")
-    if (!name) return
-
-    if (target.type === "checkbox") {
-      if (name === "enable-grays") {
-        targetModes().forEach((m) =>
-          themeStore.setEnableGrays(m, target.checked),
-        )
-        setGrayInputsDisabled(!target.checked)
-      }
-      return
-    }
-
-    if (name === "--palette-source-color") {
-      const { C, H } = hexToOklch(target.value)
-      const hue = String(Math.round(H))
-      const chroma = String(+Math.min(1, C / 0.21).toFixed(2))
-      targetModes().forEach((m) => {
-        themeStore.setToken(m, "--palette-hue", hue)
-        themeStore.setToken(m, "--palette-chroma", chroma)
-      })
-      return
-    }
-
-    if (TOKEN_SET.has(name)) {
-      targetModes().forEach((m) =>
-        themeStore.setToken(m, name as Token, target.value),
-      )
-    }
-  })
-
-  form.addEventListener("click", (e) => {
-    const chip = (e.target as HTMLElement).closest<HTMLElement>(
-      "[data-name][data-value]",
-    )
-    if (!chip || !form.contains(chip)) return
-    const name = chip.dataset.name
-    const value = chip.dataset.value
-    if (!name || value === undefined) return
-    if (TOKEN_SET.has(name)) {
-      targetModes().forEach((m) => themeStore.setToken(m, name as Token, value))
-    }
-  })
-
-  resetBtn?.addEventListener("click", () => {
-    themeStore.reset()
-    form.reset()
-    refreshAll()
-  })
-
-  copyBtn?.addEventListener("click", async () => {
-    const code = generateCss({
-      light: themeStore.get("light"),
-      dark: themeStore.get("dark"),
+    const activeSiteMode = themeStore.getActiveSiteMode()
+    modeRadios.forEach((radio) => {
+      radio.checked = radio.value === activeSiteMode
     })
-    try {
-      await navigator.clipboard.writeText(code)
-      ;(window as any).showToast?.({
-        title: "Copied theme.css",
-        description: "Paste it into your project's stylesheet.",
-        duration: "3s",
-      })
-    } catch {
-      ;(window as any).showToast?.({
-        title: "Copy failed",
-        description: "Your browser blocked clipboard access.",
-        severity: "error",
-        duration: "4s",
-      })
-    }
-  })
-
-  themeStore.subscribe((detail) => {
-    if (detail.type === "applyMode") {
-      const newMode = themeStore.getActiveSiteMode()
-      modeRadios.forEach((radio) => {
-        radio.checked = radio.value === newMode
-      })
-      editingMode = newMode
-    }
+    editingMode = readModeFromRadios()
     refreshAll()
-  })
-
-  const activeSiteMode = themeStore.getActiveSiteMode()
-  modeRadios.forEach((radio) => {
-    radio.checked = radio.value === activeSiteMode
-  })
-  editingMode = readModeFromRadios()
-  refreshAll()
+  }
 </script>

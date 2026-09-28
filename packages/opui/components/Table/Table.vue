@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
 const { variant } = defineProps<Props>()

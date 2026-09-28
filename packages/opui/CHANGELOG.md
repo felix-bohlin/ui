@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### Breaking
+
+- Vue components are now [Vapor](https://vuejs.org/guide/extras/vapor-mode) components and require Vue 3.6. See [MIGRATING.md](./MIGRATING.md).
+
+### Fixed
+
+- `disabled`, `id`, `name` and `value` props on the Vue `ToggleButton`.
+- `href` prop on the Vue `Chip`.
+
 ## 5.5.0 - 2026-09-28
 
 ### Removed

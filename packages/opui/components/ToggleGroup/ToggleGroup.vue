@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { provide, useId } from "vue"
 import { ToggleGroupKey, type Props, type Slots } from "./types.d.vue"
 

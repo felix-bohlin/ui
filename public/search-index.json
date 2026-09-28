@@ -1059,7 +1059,7 @@
     "id": "guide-getting-started-vue",
     "title": "Getting started",
     "description": "",
-    "headings": "Install via NPM Import the CSS How to use",
+    "headings": "Install via NPM Import the CSS How to use Virtual DOM apps",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/getting-started"

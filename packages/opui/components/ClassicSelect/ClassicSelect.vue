@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import type { ClassicSelectProps, Slots } from "./types.d.vue"
 import { useId } from "vue"
 

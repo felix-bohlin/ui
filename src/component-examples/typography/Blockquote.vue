@@ -1,4 +1,4 @@
-<template>
+<template vapor>
   <blockquote class="ui-blockquote">
     "Occupy your mind, don't stay home. Talk to all your friends, but don't look
     at your phone”

@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"],
+  "exclude": ["dist", "dist-test", "playwright-report", "test-results"],
   "compilerOptions": {
     "paths": {
       "@opui/*": ["./packages/opui/*"],

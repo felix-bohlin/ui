@@ -1095,36 +1095,6 @@
     "url": "/vue/api#accordion"
   },
   {
-    "id": "api-anchor-astro",
-    "title": "Anchor API",
-    "description": "Reference for Anchor Astro component.",
-    "headings": "alignment string \"start end\" trigger \"always\" | \"hover\" \"always\"",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#anchor"
-  },
-  {
-    "id": "api-anchor-html",
-    "title": "Anchor API",
-    "description": "Reference for Anchor HTML component.",
-    "headings": "Container .ui-anchor - Floating .ui-anchor-floating - Position --anchor-position-area start end Trigger data-trigger=\"hover\" -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#anchor"
-  },
-  {
-    "id": "api-anchor-vue",
-    "title": "Anchor API",
-    "description": "Reference for Anchor Vue component.",
-    "headings": "alignment string \"start end\" trigger \"always\" | \"hover\" \"always\"",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#anchor"
-  },
-  {
     "id": "api-avatar-astro",
     "title": "Avatar API",
     "description": "Reference for Avatar Astro component.",
@@ -1153,6 +1123,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#avatar"
+  },
+  {
+    "id": "api-anchor-astro",
+    "title": "Anchor API",
+    "description": "Reference for Anchor Astro component.",
+    "headings": "alignment string \"start end\" trigger \"always\" | \"hover\" \"always\"",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#anchor"
+  },
+  {
+    "id": "api-anchor-html",
+    "title": "Anchor API",
+    "description": "Reference for Anchor HTML component.",
+    "headings": "Container .ui-anchor - Floating .ui-anchor-floating - Position --anchor-position-area start end Trigger data-trigger=\"hover\" -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#anchor"
+  },
+  {
+    "id": "api-anchor-vue",
+    "title": "Anchor API",
+    "description": "Reference for Anchor Vue component.",
+    "headings": "alignment string \"start end\" trigger \"always\" | \"hover\" \"always\"",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#anchor"
   },
   {
     "id": "api-badge-astro",
@@ -1215,36 +1215,6 @@
     "url": "/vue/api#button"
   },
   {
-    "id": "api-button-group-astro",
-    "title": "Button Group API",
-    "description": "Reference for Button Group Astro component.",
-    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#button-group"
-  },
-  {
-    "id": "api-button-group-html",
-    "title": "Button Group API",
-    "description": "Reference for Button Group HTML component.",
-    "headings": "Colors - Orientation .ui-vertical - Orientation modifier. Sizes .ui-small, .ui-large - Size modifiers. Variants - Style modifiers.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#button-group"
-  },
-  {
-    "id": "api-button-group-vue",
-    "title": "Button Group API",
-    "description": "Reference for Button Group Vue component.",
-    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#button-group"
-  },
-  {
     "id": "api-callout-astro",
     "title": "Callout API",
     "description": "Reference for Callout Astro component.",
@@ -1303,6 +1273,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#card"
+  },
+  {
+    "id": "api-button-group-astro",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Astro component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#button-group"
+  },
+  {
+    "id": "api-button-group-html",
+    "title": "Button Group API",
+    "description": "Reference for Button Group HTML component.",
+    "headings": "Colors - Orientation .ui-vertical - Orientation modifier. Sizes .ui-small, .ui-large - Size modifiers. Variants - Style modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#button-group"
+  },
+  {
+    "id": "api-button-group-vue",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Vue component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#button-group"
   },
   {
     "id": "api-checkbox-astro",
@@ -1455,36 +1455,6 @@
     "url": "/vue/api#dialog"
   },
   {
-    "id": "api-divider-astro",
-    "title": "Divider API",
-    "description": "Reference for Divider Astro component.",
-    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#divider"
-  },
-  {
-    "id": "api-divider-html",
-    "title": "Divider API",
-    "description": "Reference for Divider HTML component.",
-    "headings": "Variant - Visual variant modifiers.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#divider"
-  },
-  {
-    "id": "api-divider-vue",
-    "title": "Divider API",
-    "description": "Reference for Divider Vue component.",
-    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#divider"
-  },
-  {
     "id": "api-drawer-astro",
     "title": "Drawer API",
     "description": "Reference for Drawer Astro component.",
@@ -1513,6 +1483,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#drawer"
+  },
+  {
+    "id": "api-divider-astro",
+    "title": "Divider API",
+    "description": "Reference for Divider Astro component.",
+    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#divider"
+  },
+  {
+    "id": "api-divider-html",
+    "title": "Divider API",
+    "description": "Reference for Divider HTML component.",
+    "headings": "Variant - Visual variant modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#divider"
+  },
+  {
+    "id": "api-divider-vue",
+    "title": "Divider API",
+    "description": "Reference for Divider Vue component.",
+    "headings": "variant \"tonal\" | \"filled\" | \"primary\" - The visual variant of the divider.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#divider"
   },
   {
     "id": "api-field-group-astro",
@@ -1695,36 +1695,6 @@
     "url": "/vue/api#range"
   },
   {
-    "id": "api-spinner-astro",
-    "title": "Spinner API",
-    "description": "Reference for Spinner Astro component.",
-    "headings": "aria-busy - Sizes font-size 1em Excluded - Elements that never receive a spinner.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#spinner"
-  },
-  {
-    "id": "api-spinner-html",
-    "title": "Spinner API",
-    "description": "Reference for Spinner HTML component.",
-    "headings": "State aria-busy=\"true\" - Sizes font-size on the element 1em Excluded - Elements that never receive a spinner.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#spinner"
-  },
-  {
-    "id": "api-spinner-vue",
-    "title": "Spinner API",
-    "description": "Reference for Spinner Vue component.",
-    "headings": "aria-busy - Sizes font-size 1em Excluded - Elements that never receive a spinner.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#spinner"
-  },
-  {
     "id": "api-select-astro",
     "title": "Select API",
     "description": "Reference for Select Astro component.",
@@ -1753,6 +1723,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#select"
+  },
+  {
+    "id": "api-spinner-astro",
+    "title": "Spinner API",
+    "description": "Reference for Spinner Astro component.",
+    "headings": "aria-busy - Sizes font-size 1em Excluded - Elements that never receive a spinner.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#spinner"
+  },
+  {
+    "id": "api-spinner-html",
+    "title": "Spinner API",
+    "description": "Reference for Spinner HTML component.",
+    "headings": "State aria-busy=\"true\" - Sizes font-size on the element 1em Excluded - Elements that never receive a spinner.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#spinner"
+  },
+  {
+    "id": "api-spinner-vue",
+    "title": "Spinner API",
+    "description": "Reference for Spinner Vue component.",
+    "headings": "aria-busy - Sizes font-size 1em Excluded - Elements that never receive a spinner.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#spinner"
   },
   {
     "id": "api-switch-astro",

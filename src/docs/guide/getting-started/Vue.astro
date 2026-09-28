@@ -88,7 +88,8 @@ createApp(App).use(vaporInteropPlugin).mount("#app")`}
     <p>
       In Astro, install the plugin through the <code>appEntrypoint</code> option of
       <code>@astrojs/vue</code>. The Vapor runtime is client-only, so skip it
-      during SSR:
+      during SSR. Astro builds also need the Vite plugin below, as Vue 3.6
+      doesn't render Vapor components with non-inlined templates in production:
     </p>
     <CodeGroup
       tabs={[
@@ -99,6 +100,24 @@ import vue from "@astrojs/vue"
 
 export default defineConfig({
   integrations: [vue({ appEntrypoint: "/src/pages/_app" })],
+  vite: {
+    plugins: [
+      {
+        // Vapor needs inlined templates in production builds
+        name: "vue-vapor-inline-template",
+        apply: "build",
+        configResolved({ plugins }) {
+          const vuePlugin = plugins.find(({ name }) => name === "vite:vue")
+          if (vuePlugin) {
+            vuePlugin.api.options = {
+              ...vuePlugin.api.options,
+              devServer: null,
+            }
+          }
+        },
+      },
+    ],
+  },
 })`,
           lang: "js",
         },

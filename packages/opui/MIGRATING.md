@@ -19,6 +19,8 @@ import { createApp, vaporInteropPlugin } from "vue"
 createApp(App).use(vaporInteropPlugin).mount("#app")
 ```
 
+Astro builds also need the `vue-vapor-inline-template` Vite plugin from the [Vue getting started guide](https://open-props-ui.netlify.app/vue/guide/getting-started/#virtual-dom).
+
 4. Template refs on library components no longer expose `$el`, `$props` or `$attrs`. Query the DOM instead, e.g. `document.getElementById("my-dialog")`.
 5. Per-element lifecycle events (`@vue:mounted` etc.) on library components are not supported.
 

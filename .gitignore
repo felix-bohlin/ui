@@ -26,3 +26,8 @@ pnpm-debug.log*
 
 # old_website
 
+
+# test output
+dist-test/
+playwright-report/
+test-results/

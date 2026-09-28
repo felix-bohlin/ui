@@ -8,6 +8,13 @@
     "builtin": true,
     "node": true
   },
-  "ignorePatterns": [".astro/**", "dist/**", "packages/opui/dist/**"],
+  "ignorePatterns": [
+    ".astro/**",
+    "dist-test/**",
+    "dist/**",
+    "packages/opui/dist/**",
+    "playwright-report/**",
+    "test-results/**"
+  ],
   "plugins": ["oxc", "typescript", "unicorn", "vue"]
 }

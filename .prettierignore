@@ -8,3 +8,6 @@ node_modules
 packages/opui/components/AGENTS.md
 public/search-index.json
 tests/unit/__snapshots__
+dist-test
+playwright-report
+test-results

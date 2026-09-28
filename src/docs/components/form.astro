@@ -5,21 +5,27 @@ import AutoExample from "../../components/AutoExample.astro"
 import FormCSS from "@opui/css/components/form.css?raw"
 
 import ExampleUsageAstroCode from "../../component-examples/form/Usage.astro?raw"
+import ExampleUsageSvelteCode from "../../component-examples/form/Usage.svelte?raw"
 import ExampleUsageVueCode from "../../component-examples/form/Usage.vue?raw"
 import ExampleUsageHTMLCode from "../../component-examples/form/Usage.html?raw"
 
 import ExampleAdaptiveOutputCode from "../../component-examples/form/AdaptiveOutput.astro?raw"
+import ExampleAdaptiveOutputSvelteCode from "../../component-examples/form/AdaptiveOutput.svelte?raw"
 import ExampleAdaptiveOutputVueCode from "../../component-examples/form/AdaptiveOutput.vue?raw"
 
 import ExampleKitchenSink from "../../component-examples/form/KitchenSink.astro"
+import ExampleKitchenSinkSvelte from "../../component-examples/form/KitchenSink.svelte"
 import ExampleKitchenSinkVue from "../../component-examples/form/KitchenSink.vue"
 import ExampleKitchenSinkCodeAstro from "../../component-examples/form/KitchenSink.astro?raw"
+import ExampleKitchenSinkCodeSvelte from "../../component-examples/form/KitchenSink.svelte?raw"
 import ExampleKitchenSinkCodeVue from "../../component-examples/form/KitchenSink.vue?raw"
 import ExampleKitchenSinkHTML from "../../component-examples/form/KitchenSink.html?raw"
 
 import ExampleKitchenSinkRow from "../../component-examples/form/KitchenSinkRow.astro"
+import ExampleKitchenSinkRowSvelte from "../../component-examples/form/KitchenSinkRow.svelte"
 import ExampleKitchenSinkRowVue from "../../component-examples/form/KitchenSinkRow.vue"
 import ExampleKitchenSinkRowCodeAstro from "../../component-examples/form/KitchenSinkRow.astro?raw"
+import ExampleKitchenSinkRowCodeSvelte from "../../component-examples/form/KitchenSinkRow.svelte?raw"
 import ExampleKitchenSinkRowCodeVue from "../../component-examples/form/KitchenSinkRow.vue?raw"
 import ExampleKitchenSinkRowHTML from "../../component-examples/form/KitchenSinkRow.html?raw"
 
@@ -77,6 +83,7 @@ import { DescriptionList } from "@opui/astro"
     <h2 id="usage">Usage</h2>
     <Conditional>
       <Code slot="astro" lang="astro" code={ExampleUsageAstroCode} />
+      <Code slot="svelte" lang="svelte" code={ExampleUsageSvelteCode} />
       <Code slot="vue" lang="vue" code={ExampleUsageVueCode} />
       <Code slot="html" lang="html" code={ExampleUsageHTMLCode} />
     </Conditional>
@@ -92,6 +99,17 @@ import { DescriptionList } from "@opui/astro"
           > and <code>FieldLegend</code> to render non-semantic alternatives.
         </p>
         <Code lang="astro" code={ExampleAdaptiveOutputCode} />
+      </Fragment>
+      <Fragment slot="svelte">
+        <h3 id="non-semantic-elements">Non-semantic elements</h3>
+        <p>
+          Sometimes you can't use semantic form elements like <code
+            >&lt;fieldset&gt;</code
+          > and <code>&lt;legend&gt;</code>. Use the <code>as</code> prop on <code
+            >FieldSet</code
+          > and <code>FieldLegend</code> to render non-semantic alternatives.
+        </p>
+        <Code lang="svelte" code={ExampleAdaptiveOutputSvelteCode} />
       </Fragment>
       <Fragment slot="vue">
         <h3 id="non-semantic-elements">Non-semantic elements</h3>
@@ -177,6 +195,32 @@ import { DescriptionList } from "@opui/astro"
             </DescriptionList.Description>
           </DescriptionList.Item>
         </DescriptionList>
+        <DescriptionList bordered slot="svelte">
+          <DescriptionList.Item>
+            <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term
+            >
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              to describe what it's about.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term
+              ><code>FieldDescription</code>(optional)</DescriptionList.Term
+            >
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              to give extra context about the fieldset.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+          <DescriptionList.Item>
+            <DescriptionList.Term><code>FieldGroup</code></DescriptionList.Term>
+            <hr class="ui-dotted" />
+            <DescriptionList.Description>
+              groups related fields.
+            </DescriptionList.Description>
+          </DescriptionList.Item>
+        </DescriptionList>
         <DescriptionList bordered slot="vue">
           <DescriptionList.Item>
             <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term
@@ -244,6 +288,10 @@ import { DescriptionList } from "@opui/astro"
       <p slot="html">
         Use <code>.ui-field-group</code> to wrap related fields.
       </p>
+      <p slot="svelte">
+        Use <code>FieldGroup</code> to wrap related fields. It provides a shared
+        <code>name</code> to all nested inputs.
+      </p>
       <p slot="vue">
         Use <code>FieldGroup</code> to wrap related fields. It provides a shared
         <code>name</code> to all nested inputs.
@@ -260,6 +308,9 @@ import { DescriptionList } from "@opui/astro"
         </p>
         <p slot="html">
           Use the <code>.ui-row</code> class to lay out fields horizontally.
+        </p>
+        <p slot="svelte">
+          Use the <code>direction="row"</code> prop to lay out fields horizontally.
         </p>
         <p slot="vue">
           Use the <code>direction="row"</code> prop to lay out fields horizontally.
@@ -281,6 +332,10 @@ import { DescriptionList } from "@opui/astro"
         Use a <code>&lt;hr /&gt;</code> to create a visual break between sections
         of your form.
       </p>
+      <p slot="svelte">
+        Use the <code>Divider</code> component to create a visual break between sections
+        of your form.
+      </p>
       <p slot="vue">
         Use the <code>Divider</code> component to create a visual break between sections
         of your form.
@@ -299,14 +354,17 @@ import { DescriptionList } from "@opui/astro"
           <Conditional>
             <Fragment slot="astro">Show <code>&lt;Divider&gt;</code></Fragment>
             <Fragment slot="html">Show <code>&lt;hr&gt;</code></Fragment>
+            <Fragment slot="svelte">Show <code>&lt;Divider&gt;</code></Fragment>
             <Fragment slot="vue">Show <code>&lt;Divider&gt;</code></Fragment>
           </Conditional>
         </UISwitch>
       </Fragment>
       <Example.Preview slot="preview-astro" code={ExampleKitchenSink} />
       <Example.Preview slot="preview-html" code={ExampleKitchenSinkHTML} />
+      <Example.Preview slot="preview-svelte" code={ExampleKitchenSinkSvelte} />
       <Example.Preview slot="preview-vue" code={ExampleKitchenSinkVue} />
       <Example.Code slot="code-astro" code={ExampleKitchenSinkCodeAstro} />
+      <Example.Code slot="code-svelte" code={ExampleKitchenSinkCodeSvelte} />
       <Example.Code slot="code-vue" code={ExampleKitchenSinkCodeVue} />
     </Example>
 
@@ -321,14 +379,20 @@ import { DescriptionList } from "@opui/astro"
           <Conditional>
             <Fragment slot="astro">Show <code>&lt;Divider&gt;</code></Fragment>
             <Fragment slot="html">Show <code>&lt;hr&gt;</code></Fragment>
+            <Fragment slot="svelte">Show <code>&lt;Divider&gt;</code></Fragment>
             <Fragment slot="vue">Show <code>&lt;Divider&gt;</code></Fragment>
           </Conditional>
         </UISwitch>
       </Fragment>
       <Example.Preview slot="preview-astro" code={ExampleKitchenSinkRow} />
       <Example.Preview slot="preview-html" code={ExampleKitchenSinkRowHTML} />
+      <Example.Preview
+        slot="preview-svelte"
+        code={ExampleKitchenSinkRowSvelte}
+      />
       <Example.Preview slot="preview-vue" code={ExampleKitchenSinkRowVue} />
       <Example.Code slot="code-astro" code={ExampleKitchenSinkRowCodeAstro} />
+      <Example.Code slot="code-svelte" code={ExampleKitchenSinkRowCodeSvelte} />
       <Example.Code slot="code-vue" code={ExampleKitchenSinkRowCodeVue} />
     </Example>
   </section>

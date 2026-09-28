@@ -1,4 +1,3 @@
-<!--
 <script lang="ts">
   import { ClassicSelect } from "@opui/svelte"
 </script>
@@ -14,4 +13,3 @@
   <option>Option 1</option>
   <option>Option 2</option>
 </ClassicSelect>
--->

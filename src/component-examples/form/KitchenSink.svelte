@@ -1,19 +1,20 @@
-<!--
 <script lang="ts">
-  import { Form } from "@opui/svelte"
-  import { FieldSet } from "@opui/svelte"
-  import { FieldLegend } from "@opui/svelte"
-  import { FieldDescription } from "@opui/svelte"
-  import { FieldGroup } from "@opui/svelte"
-  import { TextField } from "@opui/svelte"
-  import { Select } from "@opui/svelte"
-  import { Switch } from "@opui/svelte"
-  import { Radio } from "@opui/svelte"
-  import { Textarea } from "@opui/svelte"
-  import { Checkbox } from "@opui/svelte"
-  import { Range } from "@opui/svelte"
-  import { Button } from "@opui/svelte"
-  import { Divider } from "@opui/svelte"
+  import {
+    Button,
+    Checkbox,
+    Divider,
+    FieldDescription,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+    Form,
+    Radio,
+    Range,
+    Select,
+    Switch,
+    TextField,
+    Textarea,
+  } from "@opui/svelte"
 </script>
 
 <Form id="kitchen-sink-example">
@@ -106,7 +107,7 @@
     <FieldGroup name="legal">
       <Checkbox name="terms" required>
         I agree to the terms and conditions
-        <Fragment slot="end-text">Support this text</Fragment>
+        {#snippet endText()}Support this text{/snippet}
       </Checkbox>
     </FieldGroup>
   </FieldSet>
@@ -118,4 +119,3 @@
     <Button>Cancel</Button>
   </FieldGroup>
 </Form>
--->

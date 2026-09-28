@@ -7,20 +7,26 @@ import { Button as UIButton } from "@opui/astro"
 
 import ButtonCSS from "@opui/css/components/button.css?raw"
 import ExampleIconAndLabel from "../../component-examples/button/IconAndLabel.astro"
+import ExampleIconAndLabelSvelte from "../../component-examples/button/IconAndLabel.svelte"
 import ExampleIconAndLabelVue from "../../component-examples/button/IconAndLabel.vue"
 import ExampleIconAndLabelCodeAstro from "../../component-examples/button/IconAndLabelCode.astro?raw"
+import ExampleIconAndLabelCodeSvelte from "../../component-examples/button/IconAndLabelCode.svelte?raw"
 import ExampleIconAndLabelCodeVue from "../../component-examples/button/IconAndLabelCode.vue?raw"
 import ExampleIconAndLabelHTML from "../../component-examples/button/IconAndLabel.html?raw"
 
 import ExampleSizes from "../../component-examples/button/Sizes.astro"
+import ExampleSizesSvelte from "../../component-examples/button/Sizes.svelte"
 import ExampleSizesVue from "../../component-examples/button/Sizes.vue"
 import ExampleSizesCodeAstro from "../../component-examples/button/SizesCode.astro?raw"
+import ExampleSizesCodeSvelte from "../../component-examples/button/SizesCode.svelte?raw"
 import ExampleSizesCodeVue from "../../component-examples/button/SizesCode.vue?raw"
 import ExampleSizesHTML from "../../component-examples/button/Sizes.html?raw"
 
 import ExampleDisabled from "../../component-examples/button/Disabled.astro"
+import ExampleDisabledSvelte from "../../component-examples/button/Disabled.svelte"
 import ExampleDisabledVue from "../../component-examples/button/Disabled.vue"
 import ExampleDisabledCodeAstro from "../../component-examples/button/DisabledCode.astro?raw"
+import ExampleDisabledCodeSvelte from "../../component-examples/button/DisabledCode.svelte?raw"
 import ExampleDisabledCodeVue from "../../component-examples/button/DisabledCode.vue?raw"
 import ExampleDisabledHTML from "../../component-examples/button/Disabled.html?raw"
 
@@ -62,6 +68,9 @@ export const description =
           >.ui-tonal</code
         >, and <code>.ui-filled</code> classes.
       </Fragment>
+      <Fragment slot="svelte">
+        Change the button variant with the <code>variant</code> prop.
+      </Fragment>
       <Fragment slot="vue">
         Change the button variant with the <code>variant</code> prop.
       </Fragment>
@@ -80,6 +89,11 @@ export const description =
       <Fragment slot="html">
         Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to apply
         a brand or destructive color. The default is a neutral gray.
+      </Fragment>
+      <Fragment slot="svelte">
+        Pass <code>color</code> to apply a brand or destructive color: <code
+          >primary</code
+        > or <code>critical</code>. The default is a neutral gray.
       </Fragment>
       <Fragment slot="vue">
         Pass <code>color</code> to apply a brand or destructive color: <code
@@ -100,6 +114,9 @@ export const description =
         Include an icon alongside text by nesting an SVG element within the
         button.
       </Fragment>
+      <Fragment slot="svelte">
+        Include an icon alongside text by nesting it within the component.
+      </Fragment>
       <Fragment slot="vue">
         Include an icon alongside text by nesting it within the component.
       </Fragment>
@@ -107,9 +124,11 @@ export const description =
     <Example column>
       <Example.Preview slot="preview-astro" code={ExampleIconAndLabel} />
       <Example.Preview slot="preview-html" code={ExampleIconAndLabelHTML} />
+      <Example.Preview slot="preview-svelte" code={ExampleIconAndLabelSvelte} />
       <Example.Preview slot="preview-vue" code={ExampleIconAndLabelVue} />
       <Example.Code slot="code-html" code={ExampleIconAndLabelHTML} />
       <Example.Code slot="code-astro" code={ExampleIconAndLabelCodeAstro} />
+      <Example.Code slot="code-svelte" code={ExampleIconAndLabelCodeSvelte} />
       <Example.Code slot="code-vue" code={ExampleIconAndLabelCodeVue} />
     </Example>
   </section>
@@ -142,6 +161,9 @@ export const description =
         >
         classes.
       </Fragment>
+      <Fragment slot="svelte">
+        Resize any button using the <code>size</code> prop.
+      </Fragment>
       <Fragment slot="vue">
         Resize any button using the <code>size</code> prop.
       </Fragment>
@@ -149,9 +171,11 @@ export const description =
     <Example column>
       <Example.Preview slot="preview-astro" code={ExampleSizes} />
       <Example.Preview slot="preview-html" code={ExampleSizesHTML} />
+      <Example.Preview slot="preview-svelte" code={ExampleSizesSvelte} />
       <Example.Preview slot="preview-vue" code={ExampleSizesVue} />
       <Example.Code slot="code-html" code={ExampleSizesHTML} />
       <Example.Code slot="code-astro" code={ExampleSizesCodeAstro} />
+      <Example.Code slot="code-svelte" code={ExampleSizesCodeSvelte} />
       <Example.Code slot="code-vue" code={ExampleSizesCodeVue} />
     </Example>
   </section>
@@ -167,6 +191,9 @@ export const description =
           >.ui-disabled</code
         > class.
       </Fragment>
+      <Fragment slot="svelte">
+        Disable the button with the <code>disabled</code> prop.
+      </Fragment>
       <Fragment slot="vue">
         Disable the button with the <code>disabled</code> prop.
       </Fragment>
@@ -174,9 +201,11 @@ export const description =
     <Example column>
       <Example.Preview slot="preview-astro" code={ExampleDisabled} />
       <Example.Preview slot="preview-html" code={ExampleDisabledHTML} />
+      <Example.Preview slot="preview-svelte" code={ExampleDisabledSvelte} />
       <Example.Preview slot="preview-vue" code={ExampleDisabledVue} />
       <Example.Code slot="code-html" code={ExampleDisabledHTML} />
       <Example.Code slot="code-astro" code={ExampleDisabledCodeAstro} />
+      <Example.Code slot="code-svelte" code={ExampleDisabledCodeSvelte} />
       <Example.Code slot="code-vue" code={ExampleDisabledCodeVue} />
     </Example>
   </section>

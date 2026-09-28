@@ -9,8 +9,10 @@ import DrawerAPIHTML from "../../component-api/drawer/HTML.astro"
 import DrawerAPIVue from "../../component-api/drawer/Vue.astro"
 
 import ExampleUsage from "../../component-examples/drawer/Usage.astro"
+import ExampleUsageSvelte from "../../component-examples/drawer/Usage.svelte"
 import ExampleUsageVue from "../../component-examples/drawer/Usage.vue"
 import ExampleUsageAstro from "/src/component-examples/drawer/Usage.astro?raw"
+import ExampleUsageSvelteRaw from "/src/component-examples/drawer/Usage.svelte?raw"
 import ExampleUsageVueRaw from "/src/component-examples/drawer/Usage.vue?raw"
 import ExampleUsageHTML from "/src/component-examples/drawer/Usage.html?raw"
 
@@ -118,9 +120,11 @@ import Conditional from "../../components/Conditional.astro"
       </Switch>
       <Example.Preview slot="preview-astro" code={ExampleUsage} />
       <Example.Preview slot="preview-html" code={ExampleUsageHTML} />
+      <Example.Preview slot="preview-svelte" code={ExampleUsageSvelte} />
       <Example.Preview slot="preview-vue" code={ExampleUsageVue} />
       <Example.Code slot="code-html" code={ExampleUsageHTML} />
       <Example.Code slot="code-astro" code={ExampleUsageAstro} />
+      <Example.Code slot="code-svelte" code={ExampleUsageSvelteRaw} />
       <Example.Code slot="code-vue" code={ExampleUsageVueRaw} />
     </Example>
   </section>

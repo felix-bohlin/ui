@@ -1,20 +1,19 @@
-<!--
 <script lang="ts">
   import {
-  Button,
-  Checkbox,
-  Divider,
-  FieldDescription,
-  FieldGroup,
-  FieldLegend,
-  FieldSet,
-  Form,
-  Radio,
-  Range,
-  Select,
-  Switch,
-  TextField,
-  Textarea,
+    Button,
+    Checkbox,
+    Divider,
+    FieldDescription,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+    Form,
+    Radio,
+    Range,
+    Select,
+    Switch,
+    TextField,
+    Textarea,
   } from "@opui/svelte"
 </script>
 
@@ -26,10 +25,10 @@
     </FieldDescription>
     <FieldGroup>
       <TextField placeholder="Jane Doe" required spread>
-        <Fragment slot="label">Full Name</Fragment>
+        {#snippet label()}Full Name{/snippet}
       </TextField>
       <TextField type="email" placeholder="jane@example.com" required spread>
-        <Fragment slot="label">Email Address</Fragment>
+        {#snippet label()}Email Address{/snippet}
       </TextField>
       <Select
         items={[
@@ -39,7 +38,7 @@
         ]}
         spread
       >
-        <Fragment slot="label">Role</Fragment>
+        {#snippet label()}Role{/snippet}
       </Select>
     </FieldGroup>
   </FieldSet>
@@ -79,9 +78,7 @@
     <FieldGroup>
       <Range min="0" max="20" step="1" value="5" spread>
         Professional Experience
-        <Fragment slot="start-text"
-          >Drag the slider to match your total tenure.</Fragment
-        >
+        {#snippet startText()}Drag the slider to match your total tenure.{/snippet}
       </Range>
     </FieldGroup>
   </FieldSet>
@@ -93,7 +90,7 @@
     <FieldDescription>Anything else we should know?</FieldDescription>
     <FieldGroup name="details">
       <Textarea placeholder="Tell us about yourself..." rows={4} spread>
-        <Fragment slot="label">Biography</Fragment>
+        {#snippet label()}Biography{/snippet}
       </Textarea>
     </FieldGroup>
   </FieldSet>
@@ -105,7 +102,7 @@
     <FieldGroup name="legal">
       <Checkbox name="terms" required spread>
         I agree to the terms and conditions
-        <Fragment slot="end-text">Support this text</Fragment>
+        {#snippet endText()}Support this text{/snippet}
       </Checkbox>
     </FieldGroup>
   </FieldSet>
@@ -117,4 +114,3 @@
     <Button>Cancel</Button>
   </FieldGroup>
 </Form>
--->

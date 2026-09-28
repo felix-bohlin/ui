@@ -8,6 +8,8 @@ import Default from "../../component-examples/table/Default.astro"
 import DefaultVue from "../../component-examples/table/Default.vue"
 import DefaultAstro from "../../component-examples/table/Default.astro?raw"
 import DefaultVueRaw from "../../component-examples/table/Default.vue?raw"
+import DefaultSvelte from "../../component-examples/table/Default.svelte"
+import DefaultSvelteRaw from "../../component-examples/table/Default.svelte?raw"
 import DefaultHtml from "../../component-examples/table/Default.html?raw"
 
 export const description =
@@ -53,8 +55,10 @@ export const description =
       <Example.Preview slot="preview-astro" code={Default} />
       <Example.Preview slot="preview-html" code={DefaultHtml} />
       <Example.Preview slot="preview-vue" code={DefaultVue} />
+      <Example.Preview slot="preview-svelte" code={DefaultSvelte} />
       <Example.Code slot="code-astro" code={DefaultAstro} />
       <Example.Code slot="code-vue" code={DefaultVueRaw} />
+      <Example.Code slot="code-svelte" code={DefaultSvelteRaw} />
       <Example.Code slot="code-html" code={DefaultHtml} />
     </Example>
   </section>

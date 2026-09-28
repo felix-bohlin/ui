@@ -1392,36 +1392,6 @@
     "url": "/vue/api#card"
   },
   {
-    "id": "api-carousel-astro",
-    "title": "Carousel API",
-    "description": "Reference for Carousel Astro component.",
-    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#carousel"
-  },
-  {
-    "id": "api-carousel-html",
-    "title": "Carousel API",
-    "description": "Reference for Carousel HTML component.",
-    "headings": "Part ul.ui-carousel - The scroller. Needs an aria-label. Children li - The items. Alignment .ui-align-center default Where items snap. Buttons .ui-with-buttons - Previous and next buttons. Buttons .ui-buttons-outside - Buttons beside the items. Markers .ui-with-markers - One marker per item, after the list. Peek .ui-peek - Shows part of the neighbouring items. Items per view --_per-view 1 Number of visible items.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#carousel"
-  },
-  {
-    "id": "api-carousel-vue",
-    "title": "Carousel API",
-    "description": "Reference for Carousel Vue component.",
-    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#carousel"
-  },
-  {
     "id": "api-checkbox-astro",
     "title": "Checkbox API",
     "description": "Reference for Checkbox Astro component.",
@@ -1450,6 +1420,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#checkbox"
+  },
+  {
+    "id": "api-carousel-astro",
+    "title": "Carousel API",
+    "description": "Reference for Carousel Astro component.",
+    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#carousel"
+  },
+  {
+    "id": "api-carousel-html",
+    "title": "Carousel API",
+    "description": "Reference for Carousel HTML component.",
+    "headings": "Part ul.ui-carousel - The scroller. Needs an aria-label. Children li - The items. Alignment .ui-align-center default Where items snap. Buttons .ui-with-buttons - Previous and next buttons. Buttons .ui-buttons-outside - Buttons beside the items. Markers .ui-with-markers - One marker per item, after the list. Peek .ui-peek - Shows part of the neighbouring items. Items per view --_per-view 1 Number of visible items.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#carousel"
+  },
+  {
+    "id": "api-carousel-vue",
+    "title": "Carousel API",
+    "description": "Reference for Carousel Vue component.",
+    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#carousel"
   },
   {
     "id": "api-chip-astro",
@@ -1662,36 +1662,6 @@
     "url": "/vue/api#field-group"
   },
   {
-    "id": "api-form-astro",
-    "title": "Form API",
-    "description": "Reference for Form Astro component.",
-    "headings": "as \"form\", \"div\" \"form\" The HTML element to render. as \"fieldset\", \"div\" \"fieldset\" The HTML element to render. disabled boolean - Whether the field set is disabled. as \"legend\", \"p\" \"legend\" The HTML element to render. - - - name string - Shared name for nested input components. direction \"row\", \"column\" - The orientation of the field group.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#form"
-  },
-  {
-    "id": "api-form-html",
-    "title": "Form API",
-    "description": "Reference for Form HTML component.",
-    "headings": "Base .ui-form - The main form container. Base .ui-fieldset - The field set container. Modifiers [disabled] - Whether the field set is disabled. Base .ui-legend, legend - The label for the field set. Base .ui-field-description - Field description for the field set. Base .ui-field-group - Container for related input components. Variants .ui-row, default - The orientation of the field group.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#form"
-  },
-  {
-    "id": "api-form-vue",
-    "title": "Form API",
-    "description": "Reference for Form Vue component.",
-    "headings": "as \"form\", \"div\" \"form\" The HTML element to render. as \"fieldset\", \"div\" \"fieldset\" The HTML element to render. disabled boolean - Whether the field set is disabled. as \"legend\", \"p\" \"legend\" The HTML element to render. - - - name string - Shared name for nested input components. direction \"row\", \"column\" - The orientation of the field group.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#form"
-  },
-  {
     "id": "api-icon-button-astro",
     "title": "Icon Button API",
     "description": "Reference for Icon Button Astro component.",
@@ -1722,34 +1692,64 @@
     "url": "/vue/api#icon-button"
   },
   {
-    "id": "api-progress-astro",
-    "title": "Progress API",
-    "description": "Reference for Progress Astro component.",
-    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
+    "id": "api-form-astro",
+    "title": "Form API",
+    "description": "Reference for Form Astro component.",
+    "headings": "as \"form\", \"div\" \"form\" The HTML element to render. as \"fieldset\", \"div\" \"fieldset\" The HTML element to render. disabled boolean - Whether the field set is disabled. as \"legend\", \"p\" \"legend\" The HTML element to render. - - - name string - Shared name for nested input components. direction \"row\", \"column\" - The orientation of the field group.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#progress"
+    "url": "/astro/api#form"
   },
   {
-    "id": "api-progress-html",
-    "title": "Progress API",
-    "description": "Reference for Progress HTML component.",
-    "headings": "Progress - Indeterminate No value attribute - Display an indeterminate loading state. Variant -",
+    "id": "api-form-html",
+    "title": "Form API",
+    "description": "Reference for Form HTML component.",
+    "headings": "Base .ui-form - The main form container. Base .ui-fieldset - The field set container. Modifiers [disabled] - Whether the field set is disabled. Base .ui-legend, legend - The label for the field set. Base .ui-field-description - Field description for the field set. Base .ui-field-group - Container for related input components. Variants .ui-row, default - The orientation of the field group.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#progress"
+    "url": "/html/api#form"
   },
   {
-    "id": "api-progress-vue",
-    "title": "Progress API",
-    "description": "Reference for Progress Vue component.",
-    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
+    "id": "api-form-vue",
+    "title": "Form API",
+    "description": "Reference for Form Vue component.",
+    "headings": "as \"form\", \"div\" \"form\" The HTML element to render. as \"fieldset\", \"div\" \"fieldset\" The HTML element to render. disabled boolean - Whether the field set is disabled. as \"legend\", \"p\" \"legend\" The HTML element to render. - - - name string - Shared name for nested input components. direction \"row\", \"column\" - The orientation of the field group.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
-    "url": "/vue/api#progress"
+    "url": "/vue/api#form"
+  },
+  {
+    "id": "api-list-astro",
+    "title": "List API",
+    "description": "Reference for List Astro component.",
+    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#list"
+  },
+  {
+    "id": "api-list-html",
+    "title": "List API",
+    "description": "Reference for List HTML component.",
+    "headings": "Dense .ui-dense - When enabled list appears tighter packed. Gutterless .ui-gutterless - When enabled list inline padding is removed. Bordered .ui-bordered - Variants - Background color variants. Main parts - Building blocks in List item. Inset .ui-inset - Border top .ui-border-top - When enabled the list item will get a top border.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#list"
+  },
+  {
+    "id": "api-list-vue",
+    "title": "List API",
+    "description": "Reference for List Vue component.",
+    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#list"
   },
   {
     "id": "api-menu-astro",
@@ -1782,6 +1782,36 @@
     "url": "/vue/api#menu"
   },
   {
+    "id": "api-progress-astro",
+    "title": "Progress API",
+    "description": "Reference for Progress Astro component.",
+    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#progress"
+  },
+  {
+    "id": "api-progress-html",
+    "title": "Progress API",
+    "description": "Reference for Progress HTML component.",
+    "headings": "Progress - Indeterminate No value attribute - Display an indeterminate loading state. Variant -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#progress"
+  },
+  {
+    "id": "api-progress-vue",
+    "title": "Progress API",
+    "description": "Reference for Progress Vue component.",
+    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#progress"
+  },
+  {
     "id": "api-range-astro",
     "title": "Range API",
     "description": "Reference for Range Astro component.",
@@ -1810,36 +1840,6 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#range"
-  },
-  {
-    "id": "api-list-astro",
-    "title": "List API",
-    "description": "Reference for List Astro component.",
-    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#list"
-  },
-  {
-    "id": "api-list-html",
-    "title": "List API",
-    "description": "Reference for List HTML component.",
-    "headings": "Dense .ui-dense - When enabled list appears tighter packed. Gutterless .ui-gutterless - When enabled list inline padding is removed. Bordered .ui-bordered - Variants - Background color variants. Main parts - Building blocks in List item. Inset .ui-inset - Border top .ui-border-top - When enabled the list item will get a top border.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#list"
-  },
-  {
-    "id": "api-list-vue",
-    "title": "List API",
-    "description": "Reference for List Vue component.",
-    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#list"
   },
   {
     "id": "api-select-astro",

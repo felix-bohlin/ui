@@ -49,9 +49,9 @@ const PRESET_META = [
   {
     id: "wedding",
     label: "Wedding",
-    tagline: "Blush, cream, gold and a script headline.",
+    tagline: "Muted teal, cream and a script headline.",
     description:
-      "Rose primary on cream surfaces with thin gold rules. Script headings, small-caps subheadings, pill buttons and double-line frames around cards, like a good invitation.",
+      "Modelled on a real wedding site built with this library: Norican script titles, Gabriela serif headings, Mukta body copy, a deep muted teal primary on white and cream, two pixel corners and buttons that fill with a sliding wipe on hover.",
   },
 ] as const satisfies readonly Omit<Preset, "css" | "tokens">[]
 

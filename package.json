@@ -9,11 +9,14 @@
     "astro": "astro",
     "build-search-index": "node scripts/generate-search-index.mjs",
     "check-browser-support": "node scripts/check-browser-support.mjs",
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm build",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "oxlint --deny-warnings . && stylelint \"packages/opui/**/*.css\"",
-    "typecheck": "astro check && vue-tsc --noEmit -p tsconfig.vue.json"
+    "typecheck": "astro check && vue-tsc --noEmit -p tsconfig.vue.json",
+    "test": "vitest run",
+    "test:record-drift": "PARITY_RECORD=1 vitest run",
+    "test:update": "vitest run --update"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
@@ -32,10 +35,12 @@
     "@astrojs/sitemap": "^3.7.4",
     "@astrojs/vue": "^7.0.3",
     "oxlint": "^1.85.0",
+    "parse5": "^8.0.1",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "0.14.1",
     "solid-js": "catalog:",
     "stylelint": "^17.15.0",
+    "vitest": "^5.0.2",
     "vue": "catalog:",
     "vue-tsc": "^3.3.11"
   },

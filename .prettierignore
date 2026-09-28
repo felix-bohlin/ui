@@ -7,3 +7,4 @@ dist
 node_modules
 packages/opui/components/AGENTS.md
 public/search-index.json
+tests/unit/__snapshots__

@@ -4,7 +4,7 @@ A popover [List](https://open-props-ui.netlify.app/astro/components/list.md), an
 
 ## Basics
 
-`items`, and `closeOnClick: false` to keep it open.
+`items` with `borderTop`, `critical`, `disabled` and `shortcut`.
 
 ```astro
 ---
@@ -185,6 +185,7 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
 | Prop        | Type                                                             | Default        | Description                                       |
 | ----------- | ---------------------------------------------------------------- | -------------- | ------------------------------------------------- |
 | `align`     | `"start"`, `"end"`                                               | `"start"`      | Which edge of the trigger the menu lines up with. |
+| `class`     | `string`                                                         | -              | Optional CSS class.                               |
 | `dense`     | `boolean`                                                        | `false`        | Less spacing.                                     |
 | `id`        | `string`                                                         | auto-generated | The trigger's `commandfor`.                       |
 | `items`     | `MenuItem[]`                                                     | -              | Menu items.                                       |

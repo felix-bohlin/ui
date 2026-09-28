@@ -1,4 +1,8 @@
-import { hrefFor, type FrameworkId } from "./framework-routing"
+import {
+  frameworksForComponent,
+  hrefFor,
+  type FrameworkId,
+} from "./framework-routing"
 
 const pageModules = import.meta.glob("../pages/components/*.astro")
 const docModules = import.meta.glob("../docs/components/*.astro")
@@ -28,6 +32,12 @@ export const components = Array.from(slugs)
     return { name, slug, href: `/components/${slug}` }
   })
   .sort((a, b) => a.name.localeCompare(b.name))
+
+export function componentsFor(framework: FrameworkId) {
+  return components.filter((component) =>
+    frameworksForComponent(component.slug).includes(framework),
+  )
+}
 
 /**
  * Returns the URL for a component on a specific framework. Used by sidebar

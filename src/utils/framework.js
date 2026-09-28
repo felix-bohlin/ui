@@ -33,3 +33,25 @@ export const FRAMEWORK_IDS = FRAMEWORKS.map(
 export function frameworkPrefixPattern() {
   return new RegExp(`^/(${FRAMEWORK_IDS.join("|")})(/|$)`)
 }
+
+/** @type {Record<string, FrameworkId[]>} */
+export const COMPONENT_FRAMEWORKS = {
+  toast: ["html"],
+}
+
+/**
+ * @param {string} slug
+ * @returns {FrameworkId[]}
+ */
+export function frameworksForComponent(slug) {
+  return COMPONENT_FRAMEWORKS[slug] ?? FRAMEWORK_IDS
+}
+
+/**
+ * @param {string} sharedPath
+ * @returns {FrameworkId[]}
+ */
+export function frameworksForPath(sharedPath) {
+  const slug = sharedPath.match(/^\/components\/([^/?#]+)/)?.[1]
+  return slug ? frameworksForComponent(slug) : FRAMEWORK_IDS
+}

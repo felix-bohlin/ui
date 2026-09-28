@@ -1,5 +1,27 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Toast (HTML, alpha): `opui-css/toast` export with `toast(title, options)`, `toast.promise()` and a `loading` severity.
+- Toast (HTML, alpha): server-rendered toasts inside `#toast-manager` work without JS.
+
+### Changed
+
+- Toast (HTML, alpha): the `<template id="toast-template">` and `data-template` are removed, `toast.js` builds the toast.
+
+### Fixed
+
+- Toast enter animation never played.
+- Toasts showed behind modal dialogs.
+
+## 5.5.0 - 2026-09-28
+
+### Removed
+
+- `Toast` component from Astro and Vue. Toast is still available in HTML as an alpha, using `toast.css` and `toast.js`.
+
 ## 5.4.3 - 2026-09-18
 
 ### Fixed

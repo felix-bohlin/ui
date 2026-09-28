@@ -4,6 +4,8 @@ import {
   FRAMEWORK_IDS,
   FRAMEWORKS,
   frameworkPrefixPattern,
+  frameworksForComponent,
+  frameworksForPath,
   type FrameworkId,
 } from "./framework"
 
@@ -12,6 +14,8 @@ export {
   FRAMEWORK_IDS,
   FRAMEWORKS,
   frameworkPrefixPattern,
+  frameworksForComponent,
+  frameworksForPath,
   type FrameworkId,
 }
 
@@ -63,8 +67,9 @@ export function hrefFor(framework: FrameworkId, pathname: string): string {
   const suffix = splitAt === -1 ? "" : pathname.slice(splitAt)
 
   const sharedPath = stripFrameworkPrefix(path)
+  const available = frameworksForPath(sharedPath)
   const localized = getRelativeLocaleUrl(
-    framework,
+    available.includes(framework) ? framework : available[0],
     sharedPath.replace(/^\//, ""),
   )
   return `${localized}${suffix}`
@@ -77,7 +82,8 @@ export function hrefFor(framework: FrameworkId, pathname: string): string {
 export function frameworkVariantsOf(
   pathname: string,
 ): { framework: FrameworkId; url: string; isDefault: boolean }[] {
-  return FRAMEWORKS.map((l) => ({
+  const available = frameworksForPath(stripFrameworkPrefix(pathname))
+  return FRAMEWORKS.filter((l) => available.includes(l.id)).map((l) => ({
     framework: l.id,
     url: hrefFor(l.id, pathname),
     isDefault: l.id === DEFAULT_FRAMEWORK,

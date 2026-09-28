@@ -1,5 +1,8 @@
 ---
-import { FRAMEWORK_IDS } from "../../../utils/framework-routing"
+import {
+  FRAMEWORK_IDS,
+  frameworksForComponent,
+} from "../../../utils/framework-routing"
 
 const docs = import.meta.glob("../../../docs/components/*.astro", {
   eager: true,
@@ -15,9 +18,11 @@ export function getStaticPaths() {
     .sort()
 
   return FRAMEWORK_IDS.flatMap((framework) =>
-    slugs.map((slug) => ({
-      params: { framework, component: slug },
-    })),
+    slugs
+      .filter((slug) => frameworksForComponent(slug).includes(framework))
+      .map((slug) => ({
+        params: { framework, component: slug },
+      })),
   )
 }
 

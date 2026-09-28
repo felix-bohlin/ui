@@ -2,7 +2,7 @@ import fs from "fs"
 import path from "path"
 import { globby } from "globby"
 
-import { FRAMEWORKS } from "../src/utils/framework.js"
+import { FRAMEWORKS, frameworksForComponent } from "../src/utils/framework.js"
 
 const API_LABEL_PATTERN = FRAMEWORKS.map((f) => f.label).join("|")
 const LABEL_TO_ID = Object.fromEntries(FRAMEWORKS.map((f) => [f.label, f.id]))
@@ -67,8 +67,11 @@ async function generateIndex() {
 
     const slug = path.basename(file, ".astro")
     const sharedPath = `/components/${slug}`
+    const available = frameworksForComponent(slug)
 
-    for (const framework of FRAMEWORKS) {
+    for (const framework of FRAMEWORKS.filter((f) =>
+      available.includes(f.id),
+    )) {
       const url = frameworkUrl(framework.id, sharedPath)
       index.push({
         id: `component-${slug}-${framework.id}`,

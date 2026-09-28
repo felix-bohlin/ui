@@ -13,6 +13,12 @@ import {
   Switch,
   TextField,
 } from "@opui/astro"
+import { PRESETS } from "../utils/theme-presets"
+
+const presetOptions = [
+  { id: "", label: "Default", tagline: "The library as it ships." },
+  ...PRESETS.map(({ id, label, tagline }) => ({ id, label, tagline })),
+].sort((a, b) => a.label.localeCompare(b.label))
 
 const borderRadiusItems = [
   { text: "0", value: "0" },
@@ -38,6 +44,37 @@ const { link } = Astro.locals
   <Fragment slot="content">
     <div class="configurator-content">
       <form class="ui-form" id="theme-configurator-form">
+        <FieldSet>
+          <FieldLegend>Theme</FieldLegend>
+          <FieldGroup>
+            <div class="chip-group-wrapper">
+              <div class="chip-group">
+                {
+                  presetOptions.map((option) => (
+                    <Chip
+                      as="button"
+                      type="button"
+                      size="small"
+                      variant={option.id === "" ? "tonal" : "outlined"}
+                      data-preset={option.id}
+                      label={option.label}
+                      title={option.tagline}
+                    />
+                  ))
+                }
+              </div>
+              <p>
+                Presets live in these docs, not in the library. <a
+                  class="ui-link"
+                  href={link("/themes")}>Browse and copy them</a
+                >.
+              </p>
+            </div>
+          </FieldGroup>
+        </FieldSet>
+
+        <Divider />
+
         <FieldSet>
           <FieldLegend>Theme mode</FieldLegend>
           <FieldGroup direction="row">
@@ -247,10 +284,10 @@ const { link } = Astro.locals
   import {
     themeStore,
     TOKENS,
-    TOKEN_DEFAULTS,
     type Mode,
     type Token,
   } from "../utils/theme-store"
+  import { isPresetId } from "../utils/theme-presets"
   import { hexToOklch, oklchToHex } from "../utils/color-utils"
 
   const TOKEN_SET = new Set<string>(TOKENS)
@@ -264,12 +301,26 @@ const { link } = Astro.locals
   ) as HTMLInputElement | null
   const drawer = document.getElementById("theme-configurator-drawer")
 
+  function syncPresetChips() {
+    if (!form) return
+    const active = themeStore.getPreset() ?? ""
+    form.querySelectorAll<HTMLElement>("[data-preset]").forEach((chip) => {
+      const selected = chip.dataset.preset === active
+      chip.classList.toggle("ui-tonal", selected)
+      chip.classList.toggle("ui-outlined", !selected)
+      chip.setAttribute("aria-pressed", String(selected))
+    })
+  }
+
   function syncFormFromStore(mode: Mode = themeStore.getActiveSiteMode()) {
     if (!form) return
     const config = themeStore.get(mode)
+    const defaults = themeStore.defaults()
+
+    syncPresetChips()
 
     TOKENS.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token] ?? ""
+      const value = config[token] ?? defaults[token] ?? ""
       if (!value) return
       const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
       if (input && input.type !== "checkbox") {
@@ -279,25 +330,11 @@ const { link } = Astro.locals
       }
 
       const chips = form.querySelectorAll<HTMLElement>(`[data-name="${token}"]`)
-      let foundMatch = false
       chips.forEach((chip) => {
-        if (chip.dataset.value === value) {
-          chip.classList.add("ui-tonal")
-          chip.classList.remove("ui-outlined")
-          foundMatch = true
-        } else {
-          chip.classList.remove("ui-tonal")
-          chip.classList.add("ui-outlined")
-        }
+        const selected = chip.dataset.value === value
+        chip.classList.toggle("ui-tonal", selected)
+        chip.classList.toggle("ui-outlined", !selected)
       })
-      if (!foundMatch && chips.length > 0) {
-        chips.forEach((chip) => {
-          if (chip.dataset.default === "true") {
-            chip.classList.add("ui-tonal")
-            chip.classList.remove("ui-outlined")
-          }
-        })
-      }
     })
 
     const enableGrays = form.querySelector<HTMLInputElement>(
@@ -310,10 +347,10 @@ const { link } = Astro.locals
     )
     if (colorPicker) {
       const hue = parseFloat(
-        config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
+        config["--palette-hue"] ?? defaults["--palette-hue"],
       )
       const chroma = parseFloat(
-        config["--palette-chroma"] ?? TOKEN_DEFAULTS["--palette-chroma"],
+        config["--palette-chroma"] ?? defaults["--palette-chroma"],
       )
       colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
     }
@@ -367,6 +404,15 @@ const { link } = Astro.locals
   })
 
   form?.addEventListener("click", (e) => {
+    const presetChip = (e.target as HTMLElement).closest<HTMLElement>(
+      "[data-preset]",
+    )
+    if (presetChip && form.contains(presetChip)) {
+      const id = presetChip.dataset.preset
+      themeStore.setPreset(isPresetId(id) ? id : null)
+      return
+    }
+
     const chip = (e.target as HTMLElement).closest<HTMLElement>(
       "[data-name][data-value]",
     )

@@ -29,8 +29,8 @@ const PALETTE_TOKENS = [
 
 type Snapshot = Record<Token, string>
 
-function snapshotFor(config: ModeConfig): Snapshot {
-  const out = { ...TOKEN_DEFAULTS }
+function snapshotFor(config: ModeConfig, defaults: Snapshot): Snapshot {
+  const out = { ...defaults }
   for (const [key, value] of Object.entries(config)) {
     if (key in out && typeof value === "string") {
       out[key as Token] = value
@@ -50,12 +50,16 @@ function paletteSource(snap: Snapshot): string {
 export function generateCss({
   light,
   dark,
+  defaults = TOKEN_DEFAULTS,
+  preset,
 }: {
   light: ModeConfig
   dark: ModeConfig
+  defaults?: Snapshot
+  preset?: string
 }): string {
-  const lightSnap = snapshotFor(light)
-  const darkSnap = snapshotFor(dark)
+  const lightSnap = snapshotFor(light, defaults)
+  const darkSnap = snapshotFor(dark, defaults)
   const graysEnabled = isGraysEnabled(light)
 
   const palettesDiffer = PALETTE_TOKENS.some(
@@ -71,6 +75,13 @@ export function generateCss({
   const lines: string[] = []
   lines.push("/*")
   lines.push("  theme setup")
+  if (preset) {
+    lines.push("")
+    lines.push(
+      `  Tweaked on top of the "${preset}" docs preset. The preset itself`,
+    )
+    lines.push("  is not part of this file - grab it from the themes page.")
+  }
   lines.push("*/")
   lines.push("@layer theme {")
   lines.push("")

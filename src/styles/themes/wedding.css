@@ -1,0 +1,144 @@
+@font-face {
+  font-family: "Great Vibes";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/GreatVibes.woff2") format("woff2");
+}
+
+[data-theme="wedding"] {
+  --palette-hue: 15;
+  --palette-chroma: 0.35;
+  --palette-hue-rotate-by: -1;
+  --gray-chroma: 0.02;
+  --gray-hue: 75;
+  --border-radius: var(--radius-3);
+  --field-border-radius: var(--radius-4);
+  --button-border-radius: var(--radius-4);
+
+  --wedding-gold: light-dark(oklch(0.74 0.11 82), oklch(0.8 0.12 85));
+  --wedding-script: "Great Vibes", "Snell Roundhand", "Apple Chancery", cursive;
+
+  --font-serif:
+    "Cormorant Garamond", "EB Garamond", Garamond, "Iowan Old Style",
+    "Palatino Linotype", Georgia, serif;
+  --font-sans: var(--font-serif);
+  --font-size-h1: calc(var(--font-size-fluid-3) * 1.4);
+  --font-size-h2: calc(var(--font-size-fluid-2) * 1.35);
+  --border-width: 1px;
+  --field-border-width: 1px;
+  --focus-ring-color: var(--wedding-gold);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
+  --primary: light-dark(var(--color-8), var(--color-6));
+  --primary-light: light-dark(var(--color-6), var(--color-4));
+  --primary-dark: light-dark(var(--color-10), var(--color-8));
+  --primary-contrast: light-dark(var(--gray-1), var(--gray-16));
+  --text-primary: light-dark(oklch(0.32 0.03 40), var(--gray-2));
+  --text-muted: light-dark(oklch(0.45 0.03 40), var(--gray-5));
+  --surface-default: light-dark(var(--gray-1), var(--gray-15));
+  --surface-filled: light-dark(var(--color-2), var(--gray-16));
+  --surface-tonal: light-dark(var(--color-2), var(--color-14));
+  --surface-elevated: light-dark(var(--gray-1), var(--gray-14));
+  --border-color: var(--wedding-gold);
+  --field-border-color: light-dark(var(--color-5), var(--color-11));
+  --shadow-3: 0 18px 40px -20px oklch(0.5 0.08 30 / 0.35);
+  --shadow-4: 0 18px 40px -20px oklch(0 0 0 / 0.7);
+
+  font-family: var(--font-sans);
+  line-height: 1.7;
+
+  :is(h1, h2, .ui-h1, .ui-h2) {
+    font-family: var(--wedding-script);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.1;
+  }
+
+  :is(h3, h4, h5, h6, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
+    font-family: var(--font-serif);
+    font-variant-caps: small-caps;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+  }
+
+  :is(.ui-button, .ui-toggle-button, .ui-chip, .ui-overline, legend) {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .ui-button {
+    font-size: 0.8rem;
+    padding-inline: 3ex;
+
+    &.ui-small {
+      font-size: 0.7rem;
+    }
+
+    &.ui-x-small {
+      font-size: 0.65rem;
+    }
+
+    &.ui-outlined {
+      border-color: var(--wedding-gold);
+      color: var(--text-primary);
+    }
+  }
+
+  .ui-tabs > .ui-tab-label {
+    border-bottom-width: 1px;
+    font-variant-caps: small-caps;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+  }
+
+  .ui-card:is(.ui-outlined, .ui-elevated, .ui-tonal) {
+    border-color: var(--wedding-gold);
+
+    &::after {
+      border: 1px solid var(--wedding-gold);
+      border-radius: calc(var(--border-radius) - 5px);
+      content: "";
+      inset: 5px;
+      pointer-events: none;
+      position: absolute;
+    }
+  }
+
+  .ui-divider {
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--wedding-gold),
+      transparent
+    );
+  }
+
+  .ui-chip {
+    border-color: var(--wedding-gold);
+    border-radius: var(--radius-round);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+  }
+
+  .ui-field {
+    background-color: transparent;
+  }
+
+  .ui-checkbox input {
+    border-radius: var(--radius-round);
+  }
+
+  .ui-link {
+    color: var(--primary);
+    text-decoration-color: var(--wedding-gold);
+    text-underline-offset: 0.2em;
+  }
+
+  *::selection {
+    background: var(--primary);
+    color: var(--primary-contrast);
+  }
+}

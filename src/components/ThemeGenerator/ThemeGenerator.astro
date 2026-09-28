@@ -17,6 +17,8 @@ import {
 } from "@opui/astro"
 import { PLACEHOLDER_CSS } from "./generateCss"
 
+const { link } = Astro.locals
+
 const surfaces = ["default", "tonal", "filled", "elevated"]
 
 const borderRadiusItems = [
@@ -46,6 +48,14 @@ const radiusGroups = [
     <ToggleButton pressed value="both">Both</ToggleButton>
     <ToggleButton value="dark">Dark</ToggleButton>
   </ToggleGroup>
+
+  <p class="preset-note" id="theme-generator-preset-note" hidden>
+    You're tweaking the <strong data-preset-label></strong> preset. The CSS below
+    only covers these tokens - the preset itself lives on the <a
+      class="ui-link"
+      href={link("/themes")}>themes</a
+    > page.
+  </p>
 
   <div class="generator-grid">
     <!-- Controls -->
@@ -273,6 +283,12 @@ const radiusGroups = [
 
   .mode-switch {
     align-self: start;
+  }
+
+  .preset-note {
+    color: var(--text-muted);
+    font-size: var(--font-size-05);
+    margin: 0;
   }
 
   .generator-grid {
@@ -563,11 +579,11 @@ const radiusGroups = [
   import {
     themeStore,
     TOKENS,
-    TOKEN_DEFAULTS,
     type Mode,
     type ModeConfig,
     type Token,
   } from "../../utils/theme-store"
+  import { presetById } from "../../utils/theme-presets"
   import { generateCss } from "./generateCss"
   import { hexToOklch, oklchToHex } from "../../utils/color-utils"
 
@@ -592,6 +608,7 @@ const radiusGroups = [
   const codeEl = document.getElementById("theme-generator-css-code")!
   const copyBtn = document.getElementById("theme-generator-copy")
   const resetBtn = document.getElementById("theme-generator-reset")
+  const presetNote = document.getElementById("theme-generator-preset-note")
   const modeRadios = root.querySelectorAll<HTMLInputElement>(
     'input[name="theme-generator-mode"]',
   )
@@ -635,8 +652,9 @@ const radiusGroups = [
   let suppressInputHandler = false
 
   function syncFormFromConfig(config: ModeConfig) {
+    const defaults = themeStore.defaults()
     TOKENS.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token]
+      const value = config[token] ?? defaults[token]
       const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
       if (input && input.type !== "checkbox") {
         input.value = value
@@ -649,25 +667,11 @@ const radiusGroups = [
       }
 
       const chips = form.querySelectorAll<HTMLElement>(`[data-name="${token}"]`)
-      let foundMatch = false
       chips.forEach((chip) => {
-        if (chip.dataset.value === value) {
-          chip.classList.add("ui-tonal")
-          chip.classList.remove("ui-outlined")
-          foundMatch = true
-        } else {
-          chip.classList.remove("ui-tonal")
-          chip.classList.add("ui-outlined")
-        }
+        const selected = chip.dataset.value === value
+        chip.classList.toggle("ui-tonal", selected)
+        chip.classList.toggle("ui-outlined", !selected)
       })
-      if (!foundMatch && chips.length > 0) {
-        chips.forEach((chip) => {
-          if (chip.dataset.default === "true") {
-            chip.classList.add("ui-tonal")
-            chip.classList.remove("ui-outlined")
-          }
-        })
-      }
     })
 
     const enableGrays = form.querySelector<HTMLInputElement>(
@@ -682,10 +686,10 @@ const radiusGroups = [
     )
     if (colorPicker) {
       const hue = parseFloat(
-        config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
+        config["--palette-hue"] ?? defaults["--palette-hue"],
       )
       const chroma = parseFloat(
-        config["--palette-chroma"] ?? TOKEN_DEFAULTS["--palette-chroma"],
+        config["--palette-chroma"] ?? defaults["--palette-chroma"],
       )
       colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
     }
@@ -694,12 +698,13 @@ const radiusGroups = [
   function applyToPreview() {
     const mode = previewMode()
     const config = themeStore.get(mode)
+    const defaults = themeStore.defaults()
     preview.classList.toggle("ui-dark", mode === "dark")
     preview.classList.toggle("ui-light", mode === "light")
     preview.classList.toggle("no-grays", config["enable-grays"] === "false")
 
     PALETTE_TOKENS.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token]
+      const value = config[token] ?? defaults[token]
       preview.style.setProperty(token, value)
     })
 
@@ -709,23 +714,37 @@ const radiusGroups = [
       "--button-border-radius",
     ]
     radiusTokens.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token]
+      const value = config[token] ?? defaults[token]
       preview.style.setProperty(token, value)
     })
   }
 
-  function rerenderCode() {
-    const code = generateCss({
+  function currentCss() {
+    return generateCss({
       light: themeStore.get("light"),
       dark: themeStore.get("dark"),
+      defaults: themeStore.defaults(),
+      preset: presetById(themeStore.getPreset())?.label,
     })
-    codeEl.innerHTML = hljs.highlight(code, { language: "css" }).value
+  }
+
+  function rerenderCode() {
+    codeEl.innerHTML = hljs.highlight(currentCss(), { language: "css" }).value
+  }
+
+  function syncPresetNote() {
+    if (!presetNote) return
+    const preset = presetById(themeStore.getPreset())
+    presetNote.hidden = !preset
+    const label = presetNote.querySelector("[data-preset-label]")
+    if (label) label.textContent = preset?.label ?? ""
   }
 
   function refreshAll() {
     syncFormFromConfig(themeStore.get(formMode()))
     applyToPreview()
     rerenderCode()
+    syncPresetNote()
   }
 
   modeRadios.forEach((radio) => {
@@ -791,10 +810,7 @@ const radiusGroups = [
   })
 
   copyBtn?.addEventListener("click", async () => {
-    const code = generateCss({
-      light: themeStore.get("light"),
-      dark: themeStore.get("dark"),
-    })
+    const code = currentCss()
     try {
       await navigator.clipboard.writeText(code)
       ;(window as any).showToast?.({

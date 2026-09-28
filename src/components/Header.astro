@@ -31,6 +31,7 @@ const navItems: { label: string; href: string }[] = [
   { label: "Guide", href: "/guide/getting-started" },
   { label: "Components", href: "/components" },
   { label: "API", href: "/api" },
+  { label: "Themes", href: "/themes" },
 ]
 
 const resolvedNavItems = navItems.map((item) => ({
@@ -52,6 +53,14 @@ const { link } = Astro.locals
     },
     getStoredTheme() {
       return localStorage.getItem("theme")
+    },
+    applyPreset() {
+      const preset = localStorage.getItem("opui-theme-preset")
+      if (preset) {
+        document.documentElement.setAttribute("data-theme", preset)
+      } else {
+        document.documentElement.removeAttribute("data-theme")
+      }
     },
     setTheme(theme) {
       document.documentElement.classList.remove(
@@ -113,6 +122,7 @@ const { link } = Astro.locals
   const initialTheme = storedTheme || window.themeUtils.getSystemPreference()
   window.themeUtils.setTheme(initialTheme)
   window.themeUtils.applyCustomTheme()
+  window.themeUtils.applyPreset()
 </script>
 
 <div class="site-header">

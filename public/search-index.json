@@ -1038,6 +1038,33 @@
     "url": "/vue/guide/why-opui"
   },
   {
+    "id": "themes-html",
+    "title": "Themes",
+    "description": "The same components, five very different looks. Each theme is one stylesheet\n    that only sets tokens and overrides a handful of selectors, so you can see\n    how far the library bends without forking it.",
+    "headings": "Make your own",
+    "category": "Guide",
+    "frameworkId": "html",
+    "url": "/html/themes"
+  },
+  {
+    "id": "themes-astro",
+    "title": "Themes",
+    "description": "The same components, five very different looks. Each theme is one stylesheet\n    that only sets tokens and overrides a handful of selectors, so you can see\n    how far the library bends without forking it.",
+    "headings": "Make your own",
+    "category": "Guide",
+    "frameworkId": "astro",
+    "url": "/astro/themes"
+  },
+  {
+    "id": "themes-vue",
+    "title": "Themes",
+    "description": "The same components, five very different looks. Each theme is one stylesheet\n    that only sets tokens and overrides a handful of selectors, so you can see\n    how far the library bends without forking it.",
+    "headings": "Make your own",
+    "category": "Guide",
+    "frameworkId": "vue",
+    "url": "/vue/themes"
+  },
+  {
     "id": "guide-getting-started-astro",
     "title": "Getting started",
     "description": "OPUI ships first-class Astro components. Install the package, import what\n    you need, and you're set.",
@@ -1215,36 +1242,6 @@
     "url": "/vue/api#button"
   },
   {
-    "id": "api-button-group-astro",
-    "title": "Button Group API",
-    "description": "Reference for Button Group Astro component.",
-    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#button-group"
-  },
-  {
-    "id": "api-button-group-html",
-    "title": "Button Group API",
-    "description": "Reference for Button Group HTML component.",
-    "headings": "Colors - Orientation .ui-vertical - Orientation modifier. Sizes .ui-small, .ui-large - Size modifiers. Variants - Style modifiers.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#button-group"
-  },
-  {
-    "id": "api-button-group-vue",
-    "title": "Button Group API",
-    "description": "Reference for Button Group Vue component.",
-    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#button-group"
-  },
-  {
     "id": "api-callout-astro",
     "title": "Callout API",
     "description": "Reference for Callout Astro component.",
@@ -1273,6 +1270,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#callout"
+  },
+  {
+    "id": "api-button-group-astro",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Astro component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#button-group"
+  },
+  {
+    "id": "api-button-group-html",
+    "title": "Button Group API",
+    "description": "Reference for Button Group HTML component.",
+    "headings": "Colors - Orientation .ui-vertical - Orientation modifier. Sizes .ui-small, .ui-large - Size modifiers. Variants - Style modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#button-group"
+  },
+  {
+    "id": "api-button-group-vue",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Vue component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#button-group"
   },
   {
     "id": "api-card-astro",
@@ -1335,36 +1362,6 @@
     "url": "/vue/api#checkbox"
   },
   {
-    "id": "api-chip-astro",
-    "title": "Chip API",
-    "description": "Reference for Chip Astro component.",
-    "headings": "as \"div\" | \"a\" | \"button\" The underlying HTML element. label string - The text label to display. multiline boolean false Allows multiline text. size \"small\" - The size of the chip. variant \"tonal\" | \"outlined\" \"tonal\" The visual variant.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#chip"
-  },
-  {
-    "id": "api-chip-html",
-    "title": "Chip API",
-    "description": "Reference for Chip HTML component.",
-    "headings": "Container - Container element type. Children & > .ui-text, & > svg - Optional child content. Sizes - The size of the element. Variants .ui-tonal, .ui-outlined .ui-tonal The variant to use.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#chip"
-  },
-  {
-    "id": "api-chip-vue",
-    "title": "Chip API",
-    "description": "Reference for Chip Vue component.",
-    "headings": "as \"div\" | \"a\" | \"button\" The underlying HTML element. label string - The text label to display. multiline boolean false Allows multiline text. size \"small\" - The size of the chip. variant \"tonal\" | \"outlined\" \"tonal\" The visual variant.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#chip"
-  },
-  {
     "id": "api-classic-select-astro",
     "title": "Classic Select API",
     "description": "Reference for Classic Select Astro component.",
@@ -1393,6 +1390,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#classic-select"
+  },
+  {
+    "id": "api-chip-astro",
+    "title": "Chip API",
+    "description": "Reference for Chip Astro component.",
+    "headings": "as \"div\" | \"a\" | \"button\" The underlying HTML element. label string - The text label to display. multiline boolean false Allows multiline text. size \"small\" - The size of the chip. variant \"tonal\" | \"outlined\" \"tonal\" The visual variant.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#chip"
+  },
+  {
+    "id": "api-chip-html",
+    "title": "Chip API",
+    "description": "Reference for Chip HTML component.",
+    "headings": "Container - Container element type. Children & > .ui-text, & > svg - Optional child content. Sizes - The size of the element. Variants .ui-tonal, .ui-outlined .ui-tonal The variant to use.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#chip"
+  },
+  {
+    "id": "api-chip-vue",
+    "title": "Chip API",
+    "description": "Reference for Chip Vue component.",
+    "headings": "as \"div\" | \"a\" | \"button\" The underlying HTML element. label string - The text label to display. multiline boolean false Allows multiline text. size \"small\" - The size of the chip. variant \"tonal\" | \"outlined\" \"tonal\" The visual variant.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#chip"
   },
   {
     "id": "api-description-list-astro",
@@ -1785,36 +1812,6 @@
     "url": "/vue/api#switch"
   },
   {
-    "id": "api-table-astro",
-    "title": "Table API",
-    "description": "Reference for Table Astro component.",
-    "headings": "class string - Additional CSS classes to apply to the table. variant \"dense\" | \"spacious\" - The variant to use.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#table"
-  },
-  {
-    "id": "api-table-html",
-    "title": "Table API",
-    "description": "Reference for Table HTML component.",
-    "headings": "Table &lt;table class=\"ui-table\"&gt; - The native HTML table element. Dense .ui-dense - When applied the table will appear denser. Spacious .ui-spacious - When applied the table will appear more spacious.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#table"
-  },
-  {
-    "id": "api-table-vue",
-    "title": "Table API",
-    "description": "Reference for Table Vue component.",
-    "headings": "class string - Additional CSS classes to apply to the table. variant \"dense\" | \"spacious\" - The variant to use.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#table"
-  },
-  {
     "id": "api-tabs-astro",
     "title": "Tabs API",
     "description": "Reference for Tabs Astro component.",
@@ -1843,6 +1840,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#tabs"
+  },
+  {
+    "id": "api-table-astro",
+    "title": "Table API",
+    "description": "Reference for Table Astro component.",
+    "headings": "class string - Additional CSS classes to apply to the table. variant \"dense\" | \"spacious\" - The variant to use.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#table"
+  },
+  {
+    "id": "api-table-html",
+    "title": "Table API",
+    "description": "Reference for Table HTML component.",
+    "headings": "Table &lt;table class=\"ui-table\"&gt; - The native HTML table element. Dense .ui-dense - When applied the table will appear denser. Spacious .ui-spacious - When applied the table will appear more spacious.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#table"
+  },
+  {
+    "id": "api-table-vue",
+    "title": "Table API",
+    "description": "Reference for Table Vue component.",
+    "headings": "class string - Additional CSS classes to apply to the table. variant \"dense\" | \"spacious\" - The variant to use.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#table"
   },
   {
     "id": "api-text-field-astro",

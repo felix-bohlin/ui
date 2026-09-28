@@ -1,0 +1,217 @@
+---
+import {
+  Button,
+  Card,
+  Checkbox,
+  Chip,
+  Divider,
+  Switch,
+  TextField,
+} from "@opui/astro"
+
+type Props = {
+  id: string
+  label: string
+}
+
+const { id, label } = Astro.props
+---
+
+<div
+  class="theme-preview ui-palette ui-not-rich-text"
+  data-theme={id}
+  aria-label={`${label} theme preview`}
+>
+  <div class="theme-preview-copy">
+    <p class="ui-overline">Preview</p>
+    <p class="ui-h3">{label}</p>
+    <p>
+      Body copy set in this theme's typeface, with a <a
+        class="ui-link"
+        href="#"
+        tabindex="-1">link</a
+      > and some <strong>emphasis</strong>.
+    </p>
+  </div>
+
+  <div class="theme-preview-row">
+    <Button variant="filled" color="primary">Primary</Button>
+    <Button variant="tonal">Tonal</Button>
+    <Button variant="outlined">Outlined</Button>
+    <Button>Text</Button>
+  </div>
+
+  <div class="theme-preview-row">
+    <Chip label="Chip" />
+    <Chip variant="outlined" label="Outlined" />
+    <Switch checked>Switch</Switch>
+    <Checkbox checked>Checkbox</Checkbox>
+  </div>
+
+  <Divider />
+
+  <div class="theme-preview-grid">
+    <TextField label="Email" placeholder="you@example.com" />
+
+    <Card variant="outlined">
+      <h5 slot="header">Card</h5>
+      <p slot="content">Surfaces, borders and radii all come from tokens.</p>
+      <Fragment slot="actions">
+        <Button variant="tonal" size="small">Cancel</Button>
+        <Button variant="filled" size="small" color="primary">Save</Button>
+      </Fragment>
+    </Card>
+  </div>
+</div>
+
+<style is:global>
+  @layer theme {
+    .theme-preview.ui-palette {
+      --palette-hue: 240;
+      --palette-chroma: 0.5;
+      --palette-hue-rotate-by: 0;
+      --gray-chroma: 0.01;
+      --gray-hue: 255;
+      --motion: 1;
+
+      --font-sans: var(--font-system-ui);
+      --font-serif: ui-serif, serif;
+      --font-mono: var(--font-monospace-code);
+
+      --shadow-1: 0 1px 2px -1px
+        hsl(var(--shadow-color) / var(--shadow-strength-10));
+      --shadow-2:
+        0 3px 5px -2px hsl(var(--shadow-color) / var(--shadow-strength-4)),
+        0 7px 14px -5px hsl(var(--shadow-color) / var(--shadow-strength-6));
+      --shadow-3:
+        0 -1px 3px 0 hsl(var(--shadow-color) / var(--shadow-strength-3)),
+        0 1px 2px -5px hsl(var(--shadow-color) / var(--shadow-strength-3)),
+        0 2px 5px -5px hsl(var(--shadow-color) / var(--shadow-strength-5)),
+        0 4px 12px -5px hsl(var(--shadow-color) / var(--shadow-strength-6)),
+        0 12px 15px -5px hsl(var(--shadow-color) / var(--shadow-strength-8));
+      --shadow-4:
+        0 -2px 5px 0 hsl(var(--shadow-color) / var(--shadow-strength-3)),
+        0 1px 1px -2px hsl(var(--shadow-color) / var(--shadow-strength-4)),
+        0 2px 2px -2px hsl(var(--shadow-color) / var(--shadow-strength-4)),
+        0 5px 5px -2px hsl(var(--shadow-color) / var(--shadow-strength-5)),
+        0 9px 9px -2px hsl(var(--shadow-color) / var(--shadow-strength-6)),
+        0 16px 16px -2px hsl(var(--shadow-color) / var(--shadow-strength-7));
+
+      --blue: oklch(from var(--color-9) l 0.2 210);
+      --green: oklch(from var(--color-9) l 0.2 145);
+      --orange: oklch(from var(--color-7) l 0.2 75);
+      --red: oklch(from var(--color-9) l 0.2 25);
+
+      --success: var(--green);
+      --info: var(--blue);
+      --warning: var(--orange);
+      --critical: var(--red);
+      --neutral: var(--gray-9);
+
+      --primary: var(--color-8);
+      --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
+      --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
+      --primary-contrast: var(--gray-1);
+
+      --text-primary: light-dark(var(--gray-15), var(--gray-1));
+      --text-primary-contrast: light-dark(var(--gray-2), var(--gray-15));
+      --text-muted: light-dark(var(--gray-13), var(--gray-4));
+      --text-muted-contrast: light-dark(var(--gray-4), var(--gray-13));
+
+      --surface-default: light-dark(var(--gray-1), var(--gray-13));
+      --surface-filled: light-dark(var(--gray-4), var(--gray-15));
+      --surface-tonal: light-dark(var(--gray-3), var(--gray-12));
+      --surface-elevated: light-dark(var(--gray-1), var(--gray-12));
+
+      --border-color: light-dark(var(--gray-4), var(--gray-12));
+      --border-radius: var(--size-2);
+      --border-width: 1px;
+
+      --focus-ring-color: var(--primary);
+      --focus-ring-width: 2px;
+      --focus-ring-offset: 2px;
+      --focus-ring-style: solid;
+
+      --font-size-h1: var(--font-size-fluid-3);
+      --font-size-h2: var(--font-size-fluid-2);
+      --font-size-h3: var(--font-size-fluid-1);
+      --font-size-h4: var(--font-size-3);
+      --font-size-h5: var(--font-size-2);
+      --font-size-h6: var(--font-size-fluid-0);
+      --font-size-05: 0.875rem;
+
+      --control-size-x-small: 28px;
+      --control-size-small: 32px;
+      --control-size: 40px;
+      --control-size-large: 46px;
+
+      --field-size-x-small: var(--control-size-x-small);
+      --field-size-small: var(--control-size-small);
+      --field-size: var(--control-size);
+      --field-size-large: var(--control-size-large);
+
+      --button-size-x-small: var(--control-size-x-small);
+      --button-size-small: var(--control-size-small);
+      --button-size: var(--control-size);
+      --button-size-large: var(--control-size-large);
+
+      --field-border-color: var(--border-color);
+      --field-border-radius: var(--size-2);
+      --field-border-width: 1px;
+
+      --button-border-radius: var(--size-2);
+
+      -webkit-font-smoothing: auto;
+      background-color: var(--surface-default);
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+      font-variant-numeric: normal;
+      image-rendering: auto;
+      letter-spacing: normal;
+      line-height: var(--font-lineheight-4);
+    }
+  }
+</style>
+
+<style>
+  .theme-preview {
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+    padding: var(--size-5);
+  }
+
+  .theme-preview-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-1);
+
+    p {
+      margin: 0;
+    }
+
+    .ui-h3 {
+      margin-block-end: var(--size-1);
+    }
+  }
+
+  .theme-preview-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3) var(--size-4);
+  }
+
+  .theme-preview-grid {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: 1fr;
+
+    @media (width >= 640px) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+</style>

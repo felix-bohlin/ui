@@ -92,8 +92,21 @@ const examples = examplesFor(framework, component)
         ))
       }
     </main>
+    {
+      component === "toast" && (
+        <output
+          aria-live="polite"
+          id="toast-manager"
+          popover="manual"
+          role="status"
+        />
+      )
+    }
     <script>
       import "../../../components/Example/mount-vue-examples"
+      import { initToastManager } from "@opui/css/js/toast.js"
+
+      initToastManager()
     </script>
   </body>
 </html>

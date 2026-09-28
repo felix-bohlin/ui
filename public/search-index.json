@@ -553,7 +553,7 @@
     "id": "component-dialog-html",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Modal How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -563,7 +563,7 @@
     "id": "component-dialog-astro",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Modal How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
@@ -573,7 +573,7 @@
     "id": "component-dialog-solid",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Modal How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "solid",
     "type": "Solid",
@@ -583,7 +583,7 @@
     "id": "component-dialog-svelte",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Modal How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "svelte",
     "type": "Svelte",
@@ -593,7 +593,7 @@
     "id": "component-dialog-vue",
     "title": "Dialog",
     "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
-    "headings": "Usage Modal How to close a dialog Role & attributes Keyboard support",
+    "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1350,6 +1350,56 @@
     "url": "/vue/components/textarea"
   },
   {
+    "id": "component-toast-html",
+    "title": "Toast",
+    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
+    "headings": "How it works HTML JavaScript Severities Title + description Duration",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/toast"
+  },
+  {
+    "id": "component-toast-astro",
+    "title": "Toast",
+    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
+    "headings": "How it works HTML JavaScript Severities Title + description Duration",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/toast"
+  },
+  {
+    "id": "component-toast-solid",
+    "title": "Toast",
+    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
+    "headings": "How it works HTML JavaScript Severities Title + description Duration",
+    "category": "Component",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/components/toast"
+  },
+  {
+    "id": "component-toast-svelte",
+    "title": "Toast",
+    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
+    "headings": "How it works HTML JavaScript Severities Title + description Duration",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/toast"
+  },
+  {
+    "id": "component-toast-vue",
+    "title": "Toast",
+    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
+    "headings": "How it works HTML JavaScript Severities Title + description Duration",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/toast"
+  },
+  {
     "id": "component-toggle-html",
     "title": "Toggle",
     "description": "",
@@ -1756,46 +1806,6 @@
     "url": "/vue/api#accordion"
   },
   {
-    "id": "api-avatar-astro",
-    "title": "Avatar API",
-    "description": "Reference for Avatar Astro component.",
-    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#avatar"
-  },
-  {
-    "id": "api-avatar-html",
-    "title": "Avatar API",
-    "description": "Reference for Avatar HTML component.",
-    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#avatar"
-  },
-  {
-    "id": "api-avatar-solid",
-    "title": "Avatar API",
-    "description": "Reference for Avatar Solid component.",
-    "headings": "alt string - The alternative text for the avatar image. as any - The element or component to render as. children JSX.Element - href string - The link to use if the avatar is an anchor. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar.",
-    "category": "API",
-    "frameworkId": "solid",
-    "type": "Solid",
-    "url": "/solid/api#avatar"
-  },
-  {
-    "id": "api-avatar-vue",
-    "title": "Avatar API",
-    "description": "Reference for Avatar Vue component.",
-    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#avatar"
-  },
-  {
     "id": "api-anchor-astro",
     "title": "Anchor API",
     "description": "Reference for Anchor Astro component.",
@@ -1834,6 +1844,46 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#anchor"
+  },
+  {
+    "id": "api-avatar-astro",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Astro component.",
+    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#avatar"
+  },
+  {
+    "id": "api-avatar-html",
+    "title": "Avatar API",
+    "description": "Reference for Avatar HTML component.",
+    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#avatar"
+  },
+  {
+    "id": "api-avatar-solid",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Solid component.",
+    "headings": "alt string - The alternative text for the avatar image. as any - The element or component to render as. children JSX.Element - href string - The link to use if the avatar is an anchor. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#avatar"
+  },
+  {
+    "id": "api-avatar-vue",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Vue component.",
+    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#avatar"
   },
   {
     "id": "api-badge-astro",
@@ -2036,46 +2086,6 @@
     "url": "/vue/api#card"
   },
   {
-    "id": "api-checkbox-astro",
-    "title": "Checkbox API",
-    "description": "Reference for Checkbox Astro component.",
-    "headings": "checked boolean false Input checked state. disabled boolean - Input disabled state. error boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false required boolean false Input required state. size \"small\" | \"large\" - The size of the input. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input. default The label text for the component. end-text",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#checkbox"
-  },
-  {
-    "id": "api-checkbox-html",
-    "title": "Checkbox API",
-    "description": "Reference for Checkbox HTML component.",
-    "headings": "Children .ui-label, .ui-end-text - Internal element classes. Layout - Sizes .ui-small, .ui-large - Size modifiers. Validation [data-invalid] - Error state modifier. State data-indeterminate -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#checkbox"
-  },
-  {
-    "id": "api-checkbox-solid",
-    "title": "Checkbox API",
-    "description": "Reference for Checkbox Solid component.",
-    "headings": "checked boolean false Input checked state. children JSX.Element - Optional child content. disabled boolean - Input disabled state. endText JSX.Element - Supporting text after the label. error boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false Visual partial-selection state. required boolean false Input required state. size \"small\", \"large\" - The size of the element. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input.",
-    "category": "API",
-    "frameworkId": "solid",
-    "type": "Solid",
-    "url": "/solid/api#checkbox"
-  },
-  {
-    "id": "api-checkbox-vue",
-    "title": "Checkbox API",
-    "description": "Reference for Checkbox Vue component.",
-    "headings": "checked boolean false Input checked state. disabled boolean - Input disabled state. error boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false required boolean false Input required state. size \"small\" | \"large\" - The size of the input. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input. default The label text for the component. end-text",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#checkbox"
-  },
-  {
     "id": "api-chip-astro",
     "title": "Chip API",
     "description": "Reference for Chip Astro component.",
@@ -2154,6 +2164,46 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#classic-select"
+  },
+  {
+    "id": "api-checkbox-astro",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox Astro component.",
+    "headings": "checked boolean false Input checked state. disabled boolean - Input disabled state. error boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false required boolean false Input required state. size \"small\" | \"large\" - The size of the input. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input. default The label text for the component. end-text",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#checkbox"
+  },
+  {
+    "id": "api-checkbox-html",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox HTML component.",
+    "headings": "Children .ui-label, .ui-end-text - Internal element classes. Layout - Sizes .ui-small, .ui-large - Size modifiers. Validation [data-invalid] - Error state modifier. State data-indeterminate -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#checkbox"
+  },
+  {
+    "id": "api-checkbox-solid",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox Solid component.",
+    "headings": "checked boolean false Input checked state. children JSX.Element - Optional child content. disabled boolean - Input disabled state. endText JSX.Element - Supporting text after the label. error boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false Visual partial-selection state. required boolean false Input required state. size \"small\", \"large\" - The size of the element. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#checkbox"
+  },
+  {
+    "id": "api-checkbox-vue",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox Vue component.",
+    "headings": "checked boolean false Input checked state. disabled boolean - Input disabled state. error boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false required boolean false Input required state. size \"small\" | \"large\" - The size of the input. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input. default The label text for the component. end-text",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#checkbox"
   },
   {
     "id": "api-description-list-astro",
@@ -2396,46 +2446,6 @@
     "url": "/vue/api#form"
   },
   {
-    "id": "api-icon-button-astro",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button Astro component.",
-    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#icon-button"
-  },
-  {
-    "id": "api-icon-button-html",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button HTML component.",
-    "headings": "Variants - The visual style of the icon button. Sizes .ui-small - The size of the element. Colors - States [disabled] - Attribute to disable the icon button.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#icon-button"
-  },
-  {
-    "id": "api-icon-button-solid",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button Solid component.",
-    "headings": "as \"button\", \"a\" The underlying HTML element. color \"critical\", \"primary\" - disabled boolean - Whether the icon button is disabled. href string - size \"small\" - The size of the icon button. variant - The style of the icon button.",
-    "category": "API",
-    "frameworkId": "solid",
-    "type": "Solid",
-    "url": "/solid/api#icon-button"
-  },
-  {
-    "id": "api-icon-button-vue",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button Vue component.",
-    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#icon-button"
-  },
-  {
     "id": "api-list-astro",
     "title": "List API",
     "description": "Reference for List Astro component.",
@@ -2554,6 +2564,46 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#range"
+  },
+  {
+    "id": "api-icon-button-astro",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button Astro component.",
+    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#icon-button"
+  },
+  {
+    "id": "api-icon-button-html",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button HTML component.",
+    "headings": "Variants - The visual style of the icon button. Sizes .ui-small - The size of the element. Colors - States [disabled] - Attribute to disable the icon button.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#icon-button"
+  },
+  {
+    "id": "api-icon-button-solid",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button Solid component.",
+    "headings": "as \"button\", \"a\" The underlying HTML element. color \"critical\", \"primary\" - disabled boolean - Whether the icon button is disabled. href string - size \"small\" - The size of the icon button. variant - The style of the icon button.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#icon-button"
+  },
+  {
+    "id": "api-icon-button-vue",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button Vue component.",
+    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#icon-button"
   },
   {
     "id": "api-select-astro",
@@ -2876,44 +2926,14 @@
     "url": "/vue/api#textarea"
   },
   {
-    "id": "api-toggle-astro",
-    "title": "Toggle API",
-    "description": "Reference for Toggle Astro component.",
-    "headings": "disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle button. type \"checkbox\" | \"radio\" \"checkbox\" value string - name string - size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle group. orientation \"vertical\" - Changes the layout direction of the group. selection \"single\" | \"multiple\" \"multiple\"",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#toggle"
-  },
-  {
-    "id": "api-toggle-html",
-    "title": "Toggle API",
-    "description": "Reference for Toggle HTML component.",
-    "headings": "Sizes - The size of the button. States .ui-disabled - The state of the button. Sizes - Children -",
+    "id": "api-toast-html",
+    "title": "Toast API",
+    "description": "Reference for Toast HTML component.",
+    "headings": "Command --show-toast - Message value / textContent - The message to display in the toast. Severity data-severity info Duration data-duration 5000ms Container #toast-manager - Component .ui-toast -",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#toggle"
-  },
-  {
-    "id": "api-toggle-solid",
-    "title": "Toggle API",
-    "description": "Reference for Toggle Solid component.",
-    "headings": "children JSX.Element - Optional child content. disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"small\", \"x-small\" - The size of the toggle button. type \"checkbox\", \"radio\" \"checkbox\" value string - children JSX.Element - Optional child content. name string - orientation \"vertical\" - Changes the layout direction of the group. selection \"single\", \"multiple\" \"multiple\" size \"default\" The size of the toggle group.",
-    "category": "API",
-    "frameworkId": "solid",
-    "type": "Solid",
-    "url": "/solid/api#toggle"
-  },
-  {
-    "id": "api-toggle-vue",
-    "title": "Toggle API",
-    "description": "Reference for Toggle Vue component.",
-    "headings": "disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle button. type \"checkbox\" | \"radio\" \"checkbox\" value string - name string - size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle group. orientation \"vertical\" - Changes the layout direction of the group. selection \"single\" | \"multiple\" \"multiple\"",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#toggle"
+    "url": "/html/api#toast"
   },
   {
     "id": "api-tooltip-astro",
@@ -2954,6 +2974,46 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#tooltip"
+  },
+  {
+    "id": "api-toggle-astro",
+    "title": "Toggle API",
+    "description": "Reference for Toggle Astro component.",
+    "headings": "disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle button. type \"checkbox\" | \"radio\" \"checkbox\" value string - name string - size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle group. orientation \"vertical\" - Changes the layout direction of the group. selection \"single\" | \"multiple\" \"multiple\"",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#toggle"
+  },
+  {
+    "id": "api-toggle-html",
+    "title": "Toggle API",
+    "description": "Reference for Toggle HTML component.",
+    "headings": "Sizes - The size of the button. States .ui-disabled - The state of the button. Sizes - Children -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#toggle"
+  },
+  {
+    "id": "api-toggle-solid",
+    "title": "Toggle API",
+    "description": "Reference for Toggle Solid component.",
+    "headings": "children JSX.Element - Optional child content. disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"small\", \"x-small\" - The size of the toggle button. type \"checkbox\", \"radio\" \"checkbox\" value string - children JSX.Element - Optional child content. name string - orientation \"vertical\" - Changes the layout direction of the group. selection \"single\", \"multiple\" \"multiple\" size \"default\" The size of the toggle group.",
+    "category": "API",
+    "frameworkId": "solid",
+    "type": "Solid",
+    "url": "/solid/api#toggle"
+  },
+  {
+    "id": "api-toggle-vue",
+    "title": "Toggle API",
+    "description": "Reference for Toggle Vue component.",
+    "headings": "disabled boolean false Whether the toggle button is disabled. label string - The label text for the toggle button. name string - pressed boolean false size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle button. type \"checkbox\" | \"radio\" \"checkbox\" value string - name string - size \"default\" | \"small\" | \"x-small\" \"default\" The size of the toggle group. orientation \"vertical\" - Changes the layout direction of the group. selection \"single\" | \"multiple\" \"multiple\"",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#toggle"
   },
   {
     "id": "api-typography-astro",

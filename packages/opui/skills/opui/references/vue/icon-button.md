@@ -355,5 +355,10 @@ See also the [full browser support guide](https://open-props-ui.netlify.app/vue/
 
 ## Installation
 
+### Dependencies
+
+- [Button](https://open-props-ui.netlify.app/vue/components/button.md)
+
 - `opui-css/css/components/icon-button.css`
+- `opui-css/css/components/button.css`
 

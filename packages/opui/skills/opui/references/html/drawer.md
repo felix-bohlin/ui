@@ -344,9 +344,9 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 | Class         | - | - | Description          |
 | ------------- | - | - | -------------------- |
-| `.ui-header`  | - | - | Top area for titles. |
 | `.ui-content` | - | - | Main content area.   |
-| `.ui-actions` | - | - | Bottom action area.  |
+| `.ui-footer`  | - | - | Bottom action area.  |
+| `.ui-header`  | - | - | Top area for titles. |
 
 ## Browser support
 

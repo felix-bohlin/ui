@@ -36,7 +36,9 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
 
 
   <Drawer id="drawer-inline-start" side="inline-start" closedby="any">
-    <template #header><DrawerHeader commandfor="drawer-inline-start" heading="Inline Start" /></template>
+    <template #header>
+      <DrawerHeader commandfor="drawer-inline-start" heading="Inline Start" />
+    </template>
     <template #content>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
@@ -81,7 +83,9 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
 
 
   <Drawer id="drawer-inline-end" side="inline-end" closedby="any">
-    <template #header><DrawerHeader commandfor="drawer-inline-end" heading="Inline End" /></template>
+    <template #header>
+      <DrawerHeader commandfor="drawer-inline-end" heading="Inline End" />
+    </template>
     <template #content>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
@@ -126,7 +130,9 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
 
 
   <Drawer id="drawer-block-start" side="block-start" closedby="any">
-    <template #header><DrawerHeader commandfor="drawer-block-start" heading="Block Start" /></template>
+    <template #header>
+      <DrawerHeader commandfor="drawer-block-start" heading="Block Start" />
+    </template>
     <template #content>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
@@ -157,7 +163,9 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
 
 
   <Drawer id="drawer-block-end" side="block-end" closedby="any">
-    <template #header><DrawerHeader commandfor="drawer-block-end" heading="Block End" /></template>
+    <template #header>
+      <DrawerHeader commandfor="drawer-block-end" heading="Block End" />
+    </template>
     <template #content>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
@@ -246,13 +254,12 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ### Slots
 
-| Slot      | - | - | Description         |
-| --------- | - | - | ------------------- |
-| `heading` | - | - | The drawer title.   |
-| `default` | - | - | Main content area.  |
-| `actions` | - | - | Bottom action area. |
-
-`actions`The bottom actions area, wrapped in a `div` with an `actions` class.
+| Slot      | - | - | Description                                                      |
+| --------- | - | - | ---------------------------------------------------------------- |
+| `content` | - | - | Main content area, wrapped in a `div` with a `ui-content` class. |
+| `default` | - | - | Unwrapped content.                                               |
+| `footer`  | - | - | Bottom area, e.g. a `DrawerFooter`.                              |
+| `header`  | - | - | Top area, e.g. a `DrawerHeader`.                                 |
 
 ## Browser support
 

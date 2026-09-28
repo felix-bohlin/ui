@@ -7,7 +7,6 @@ Callouts call out for user attention. Should be part of the flow and used **with
 You might want to check out:
 
 - [Dialog](https://open-props-ui.netlify.app/vue/components/dialog.md): takes over completely
-- [Toast](https://open-props-ui.netlify.app/vue/components/toast.md): informative but non-interruptive
 
 ## Variants
 
@@ -70,7 +69,7 @@ import { Callout } from "opui-css/vue"
 
 ## Severities
 
-The `severity` prop accepts `info`, `success`, `warning`, and `critical`, plus a non-severity `primary` tone for brand-tinted attention. The default is a neutral surface.
+The `severity` prop accepts `info`, `success`, `warning`, and `critical`, plus a non-severity `neutral` tone for brand-tinted attention. The default is a plain surface.
 
 **Icons and accessibility**
 
@@ -83,7 +82,7 @@ import { Callout } from "opui-css/vue"
 
 
 <template>
-  <Callout severity="neutral">This is a tonal primary Callout</Callout>
+  <Callout severity="neutral">This is a tonal neutral Callout</Callout>
   <Callout severity="info">
     <template #icon
       ><svg
@@ -131,7 +130,7 @@ import { Callout } from "opui-css/vue"
 
 
   <Callout variant="outlined" severity="neutral"
-    >This is an outlined primary Callout</Callout
+    >This is an outlined neutral Callout</Callout
   >
   <Callout variant="outlined" severity="info">
     <template #icon
@@ -184,7 +183,7 @@ import { Callout } from "opui-css/vue"
 
 - The `role="note"` attribute is automatically added to the Callout container.
 - Use both color and icon to help distinguish between Callout [severities](#severities).
-- Don't interrupt the user with a Callout. In that case, use [Dialog](https://open-props-ui.netlify.app/vue/components/dialog.md) or [Toast](https://open-props-ui.netlify.app/vue/components/toast.md).
+- Don't interrupt the user with a Callout. In that case, use [Dialog](https://open-props-ui.netlify.app/vue/components/dialog.md).
 
 ## Anatomy
 

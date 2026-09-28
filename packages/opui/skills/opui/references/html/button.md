@@ -48,12 +48,12 @@ Add a `.ui-primary` or `.ui-critical` class to apply a brand or destructive colo
 
 ## Buttons with icon and label
 
-Include an icon alongside text by nesting an SVG element within the button.
+Include an icon alongside text by nesting an SVG element within the button. Wrap the label in a `<span>` to tighten the padding on the icon side.
 
 ```html
 <div class="example-row">
   <button class="ui-button">
-    Text
+    <span>Text</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -69,7 +69,7 @@ Include an icon alongside text by nesting an SVG element within the button.
 
 
   <button class="ui-button ui-outlined">
-    Outlined
+    <span>Outlined</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -85,7 +85,7 @@ Include an icon alongside text by nesting an SVG element within the button.
 
 
   <button class="ui-button ui-tonal">
-    Tonal
+    <span>Tonal</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -101,7 +101,7 @@ Include an icon alongside text by nesting an SVG element within the button.
 
 
   <button class="ui-button ui-filled">
-    Filled
+    <span>Filled</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -128,7 +128,7 @@ Include an icon alongside text by nesting an SVG element within the button.
         d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
       ></path>
     </svg>
-    Text
+    <span>Text</span>
   </button>
   <button class="ui-button ui-outlined">
     <svg
@@ -142,7 +142,7 @@ Include an icon alongside text by nesting an SVG element within the button.
         d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
       ></path>
     </svg>
-    Outlined
+    <span>Outlined</span>
   </button>
 
 
@@ -158,7 +158,7 @@ Include an icon alongside text by nesting an SVG element within the button.
         d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
       ></path>
     </svg>
-    Tonal
+    <span>Tonal</span>
   </button>
 
 
@@ -174,7 +174,7 @@ Include an icon alongside text by nesting an SVG element within the button.
         d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
       ></path>
     </svg>
-    Filled
+    <span>Filled</span>
   </button>
 </div>
 ```
@@ -192,7 +192,7 @@ Use the `<kbd>` element to provide keyboard hints within a button.
 
 ## Icon-only
 
-See [Icon button](https://open-props-ui.netlify.app/html/components/icon-button.md) documentation.
+A button whose only child is an `svg` is square. Give it an`aria-label`. See [Icon button](https://open-props-ui.netlify.app/html/components/icon-button.md) for a round one.
 
 ## Sizes
 
@@ -215,7 +215,7 @@ Resize any button with the `.ui-small` and `.ui-large` classes.
 
 <div class="example-row">
   <button class="ui-button ui-outlined ui-small">
-    Small
+    <span>Small</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -229,7 +229,7 @@ Resize any button with the `.ui-small` and `.ui-large` classes.
     </svg>
   </button>
   <button class="ui-button ui-outlined">
-    Default
+    <span>Default</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -243,7 +243,7 @@ Resize any button with the `.ui-small` and `.ui-large` classes.
     </svg>
   </button>
   <button class="ui-button ui-outlined ui-large">
-    Large
+    <span>Large</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"

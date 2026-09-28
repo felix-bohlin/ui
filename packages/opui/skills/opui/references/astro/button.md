@@ -58,7 +58,7 @@ import { Button } from "opui-css/astro"
 
 ## Buttons with icon and label
 
-Include an icon alongside text by nesting it within the component.
+Include an icon alongside text by nesting it within the component. Wrap the label in a `<span>` to tighten the padding on the icon side.
 
 ```astro
 ---
@@ -67,38 +67,38 @@ import { Button } from "opui-css/astro"
 
 
 <Button>
-  Text
+  <span>Text</span>
   <svg> <!-- --> </svg>
 </Button>
 <Button variant="outlined">
-  Outlined
+  <span>Outlined</span>
   <svg> <!-- --> </svg>
 </Button>
 <Button variant="tonal">
-  Tonal
+  <span>Tonal</span>
   <svg> <!-- --> </svg>
 </Button>
 <Button variant="filled">
-  Filled
+  <span>Filled</span>
   <svg> <!-- --> </svg>
 </Button>
 
 
 <Button>
   <svg> <!-- --> </svg>
-  Text
+  <span>Text</span>
 </Button>
 <Button variant="outlined">
   <svg> <!-- --> </svg>
-  Outlined
+  <span>Outlined</span>
 </Button>
 <Button variant="tonal">
   <svg> <!-- --> </svg>
-  Tonal
+  <span>Tonal</span>
 </Button>
 <Button variant="filled">
   <svg> <!-- --> </svg>
-  Filled
+  <span>Filled</span>
 </Button>
 ```
 
@@ -128,7 +128,7 @@ import { Button } from "opui-css/astro"
 
 ## Icon-only
 
-See [Icon button](https://open-props-ui.netlify.app/astro/components/icon-button.md) documentation.
+A button whose only child is an `svg` is square. Give it an`aria-label`. See [Icon button](https://open-props-ui.netlify.app/astro/components/icon-button.md) for a round one.
 
 ## Sizes
 
@@ -151,15 +151,15 @@ import { Button } from "opui-css/astro"
 
 
 <Button size="small" variant="outlined">
-  Small
+  <span>Small</span>
   <svg> <!-- --> </svg>
 </Button>
 <Button variant="outlined">
-  Default
+  <span>Default</span>
   <svg> <!-- --> </svg>
 </Button>
 <Button variant="outlined" size="large">
-  Large
+  <span>Large</span>
   <svg> <!-- --> </svg>
 </Button>
 ```

@@ -2,19 +2,15 @@
 
 ### Modal vs Dialog
 
-The term "modal" and "dialog" are often used interchangeably, but there's an important difference. A modal window describes parts of a UI that [blocks user interaction](#modal). A dialog [doesn't have to be blocking](#non-modal).
+The term "modal" and "dialog" are often used interchangeably, but there's an important difference. A modal window describes parts of a UI that [blocks user interaction](#modal). A dialog doesn't have to be blocking.
 
 ## Usage
-
-### Non-modal
-
-- [Toast](https://open-props-ui.netlify.app/vue/components/toast.md): informative but non-interruptive
 
 ### Modal
 
 ### HTML only
 
-In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
+In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the`commandfor` and `command` attributes.
 
 ```vue
 <script setup lang="ts">

@@ -1,10 +1,10 @@
 # Menu
 
-A popover [List](https://open-props-ui.netlify.app/astro/components/list.md), anchored to its[Button](https://open-props-ui.netlify.app/astro/components/button.md). HTML only.
+A popover [List](https://open-props-ui.netlify.app/astro/components/list.md), anchored to a [Button](https://open-props-ui.netlify.app/astro/components/button.md).
 
 ## Basics
 
-`items`, and `closeOnClick: false` to keep it open.
+`items` with `borderTop`, `critical`, `disabled` and `shortcut`.
 
 ```astro
 ---
@@ -28,7 +28,7 @@ import { Button, Menu } from "opui-css/astro"
 
 ## Custom items
 
-`li.ui-label` for groups, and `.ui-critical` for destructive items.
+If you want to decide yourself what goes into your list.
 
 ```astro
 ---
@@ -110,7 +110,11 @@ const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
 ---
 
 
-<Button commandfor="menu-block-start" command="toggle-popover" variant="outlined">
+<Button
+  commandfor="menu-block-start"
+  command="toggle-popover"
+  variant="outlined"
+>
   Block start
 </Button>
 <Menu id="menu-block-start" items={items} placement="block-start" />
@@ -122,13 +126,21 @@ const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
 <Menu id="menu-block-end" items={items} />
 
 
-<Button commandfor="menu-inline-start" command="toggle-popover" variant="outlined">
+<Button
+  commandfor="menu-inline-start"
+  command="toggle-popover"
+  variant="outlined"
+>
   Inline start
 </Button>
 <Menu id="menu-inline-start" items={items} placement="inline-start" />
 
 
-<Button commandfor="menu-inline-end" command="toggle-popover" variant="outlined">
+<Button
+  commandfor="menu-inline-end"
+  command="toggle-popover"
+  variant="outlined"
+>
   Inline end
 </Button>
 <Menu id="menu-inline-end" items={items} placement="inline-end" />
@@ -173,6 +185,7 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
 | Prop        | Type                                                             | Default        | Description                                       |
 | ----------- | ---------------------------------------------------------------- | -------------- | ------------------------------------------------- |
 | `align`     | `"start"`, `"end"`                                               | `"start"`      | Which edge of the trigger the menu lines up with. |
+| `class`     | `string`                                                         | -              | Optional CSS class.                               |
 | `dense`     | `boolean`                                                        | `false`        | Less spacing.                                     |
 | `id`        | `string`                                                         | auto-generated | The trigger's `commandfor`.                       |
 | `items`     | `MenuItem[]`                                                     | -              | Menu items.                                       |

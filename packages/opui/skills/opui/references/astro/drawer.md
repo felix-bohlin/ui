@@ -35,7 +35,11 @@ import { Button, Drawer, DrawerHeader, DrawerFooter } from "opui-css/astro"
 
 
 <Drawer id="drawer-inline-start" side="inline-start" closedby="any">
-  <DrawerHeader slot="header" commandfor="drawer-inline-start" heading="Inline Start" />
+  <DrawerHeader
+    slot="header"
+    commandfor="drawer-inline-start"
+    heading="Inline Start"
+  />
   <Fragment slot="content">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
@@ -77,7 +81,11 @@ import { Button, Drawer, DrawerHeader, DrawerFooter } from "opui-css/astro"
 
 
 <Drawer id="drawer-inline-end" side="inline-end" closedby="any">
-  <DrawerHeader slot="header" commandfor="drawer-inline-end" heading="Inline End" />
+  <DrawerHeader
+    slot="header"
+    commandfor="drawer-inline-end"
+    heading="Inline End"
+  />
   <Fragment slot="content">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
@@ -119,7 +127,11 @@ import { Button, Drawer, DrawerHeader, DrawerFooter } from "opui-css/astro"
 
 
 <Drawer id="drawer-block-start" side="block-start" closedby="any">
-  <DrawerHeader slot="header" commandfor="drawer-block-start" heading="Block Start" />
+  <DrawerHeader
+    slot="header"
+    commandfor="drawer-block-start"
+    heading="Block Start"
+  />
   <Fragment slot="content">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
@@ -147,7 +159,11 @@ import { Button, Drawer, DrawerHeader, DrawerFooter } from "opui-css/astro"
 
 
 <Drawer id="drawer-block-end" side="block-end" closedby="any">
-  <DrawerHeader slot="header" commandfor="drawer-block-end" heading="Block End" />
+  <DrawerHeader
+    slot="header"
+    commandfor="drawer-block-end"
+    heading="Block End"
+  />
   <Fragment slot="content">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
@@ -232,13 +248,12 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ### Slots
 
-| Slot      | - | - | Description         |
-| --------- | - | - | ------------------- |
-| `heading` | - | - | The drawer title.   |
-| `default` | - | - | Main content area.  |
-| `actions` | - | - | Bottom action area. |
-
-`actions`The bottom actions area, wrapped in a `div` with an `actions` class.
+| Slot      | - | - | Description                                                      |
+| --------- | - | - | ---------------------------------------------------------------- |
+| `content` | - | - | Main content area, wrapped in a `div` with a `ui-content` class. |
+| `default` | - | - | Unwrapped content.                                               |
+| `footer`  | - | - | Bottom area, e.g. a `DrawerFooter`.                              |
+| `header`  | - | - | Top area, e.g. a `DrawerHeader`.                                 |
 
 ## Browser support
 

@@ -201,11 +201,11 @@ Open Props UI include these complementary utility components to handle various u
 
 ## API
 
-| Prop           | Type                                            | Default  | Description                       |
-| -------------- | ----------------------------------------------- | -------- | --------------------------------- |
-| Slots          | `header`, `content`, `actions`, `default`       | -        | Optional slots.                   |
-| `actionsAlign` | `"start"`, `"end"`                              | -        | Alignment for the `actions` slot. |
-| `variant`      | `"text"`, `"outlined"`, `"tonal"`, `"elevated"` | `"text"` | The variant to use.               |
+| Prop           | Type                                            | Default | Description                       |
+| -------------- | ----------------------------------------------- | ------- | --------------------------------- |
+| Slots          | `header`, `content`, `actions`, `default`       | -       | Optional slots.                   |
+| `actionsAlign` | `"start"`, `"end"`                              | -       | Alignment for the `actions` slot. |
+| `variant`      | `"text"`, `"outlined"`, `"tonal"`, `"elevated"` | -       | The variant to use.               |
 
 ## Browser support
 

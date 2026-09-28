@@ -10,11 +10,7 @@ const places = [
 ]
 ---
 
-<Carousel
-  buttons="outside"
-  label="Destinations"
-  perView={3}
->
+<Carousel buttons="outside" label="Destinations" perView={3}>
   {
     places.map(({ description, title }) => (
       <li>

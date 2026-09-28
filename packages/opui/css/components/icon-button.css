@@ -54,8 +54,10 @@
       @media (hover: hover) {
         &:where(:not(:active):hover) {
           &::before {
-            background-color: var(--_interaction-hover-color,
-                var(--_default-hover-bg-color));
+            background-color: var(
+              --_interaction-hover-color,
+              var(--_default-hover-bg-color)
+            );
           }
         }
       }
@@ -63,8 +65,10 @@
       &:where(:hover:active),
       &[aria-current="page"] {
         &::before {
-          background-color: var(--_interaction-active-color,
-              var(--_default-active-bg-color));
+          background-color: var(
+            --_interaction-active-color,
+            var(--_default-active-bg-color)
+          );
         }
       }
     }

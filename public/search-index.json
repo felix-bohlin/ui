@@ -880,26 +880,6 @@
     "url": "/html/components/toast"
   },
   {
-    "id": "component-toast-astro",
-    "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
-    "headings": "How it works HTML JavaScript Severities Title + description Duration",
-    "category": "Component",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/components/toast"
-  },
-  {
-    "id": "component-toast-vue",
-    "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
-    "headings": "How it works HTML JavaScript Severities Title + description Duration",
-    "category": "Component",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/components/toast"
-  },
-  {
     "id": "component-toggle-html",
     "title": "Toggle",
     "description": "",
@@ -1182,36 +1162,6 @@
     "url": "/vue/api#accordion"
   },
   {
-    "id": "api-avatar-astro",
-    "title": "Avatar API",
-    "description": "Reference for Avatar Astro component.",
-    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#avatar"
-  },
-  {
-    "id": "api-avatar-html",
-    "title": "Avatar API",
-    "description": "Reference for Avatar HTML component.",
-    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#avatar"
-  },
-  {
-    "id": "api-avatar-vue",
-    "title": "Avatar API",
-    "description": "Reference for Avatar Vue component.",
-    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#avatar"
-  },
-  {
     "id": "api-anchor-astro",
     "title": "Anchor API",
     "description": "Reference for Anchor Astro component.",
@@ -1240,6 +1190,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#anchor"
+  },
+  {
+    "id": "api-avatar-astro",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Astro component.",
+    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#avatar"
+  },
+  {
+    "id": "api-avatar-html",
+    "title": "Avatar API",
+    "description": "Reference for Avatar HTML component.",
+    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#avatar"
+  },
+  {
+    "id": "api-avatar-vue",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Vue component.",
+    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#avatar"
   },
   {
     "id": "api-badge-astro",
@@ -1272,36 +1252,6 @@
     "url": "/vue/api#badge"
   },
   {
-    "id": "api-button-astro",
-    "title": "Button API",
-    "description": "Reference for Button Astro component.",
-    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - iconOnly boolean false Square, for an icon without a label. disabled boolean - Button disabled state.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#button"
-  },
-  {
-    "id": "api-button-html",
-    "title": "Button API",
-    "description": "Reference for Button HTML component.",
-    "headings": "Sizes - The size of the element. Variants - The variant to use. Colors - Color modifiers. Default is a neutral gray. Icon-only .ui-icon-only - Square, for an icon without a label.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#button"
-  },
-  {
-    "id": "api-button-vue",
-    "title": "Button API",
-    "description": "Reference for Button Vue component.",
-    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - iconOnly boolean false Square, for an icon without a label. disabled boolean - Button disabled state.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#button"
-  },
-  {
     "id": "api-button-group-astro",
     "title": "Button Group API",
     "description": "Reference for Button Group Astro component.",
@@ -1332,6 +1282,36 @@
     "url": "/vue/api#button-group"
   },
   {
+    "id": "api-button-astro",
+    "title": "Button API",
+    "description": "Reference for Button Astro component.",
+    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - disabled boolean - Button disabled state.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#button"
+  },
+  {
+    "id": "api-button-html",
+    "title": "Button API",
+    "description": "Reference for Button HTML component.",
+    "headings": "Sizes - The size of the element. Variants - The variant to use. Colors - Color modifiers. Default is a neutral gray.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#button"
+  },
+  {
+    "id": "api-button-vue",
+    "title": "Button API",
+    "description": "Reference for Button Vue component.",
+    "headings": "size \"small\", \"large\" - The size of the button. variant - The visual variant of the button. color \"critical\", \"primary\" - href string - disabled boolean - Button disabled state.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#button"
+  },
+  {
     "id": "api-callout-astro",
     "title": "Callout API",
     "description": "Reference for Callout Astro component.",
@@ -1345,7 +1325,7 @@
     "id": "api-callout-html",
     "title": "Callout API",
     "description": "Reference for Callout HTML component.",
-    "headings": "Part & > .ui-content, & > svg\n      - Internal structure. Severities - Severity modifiers. Variants .ui-tonal, .ui-outlined .ui-tonal Style modifiers.",
+    "headings": "Part & > .ui-content, & > svg - Internal structure. Severities - Severity modifiers. Variants .ui-tonal, .ui-outlined .ui-tonal Style modifiers.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -1392,6 +1372,36 @@
     "url": "/vue/api#card"
   },
   {
+    "id": "api-carousel-astro",
+    "title": "Carousel API",
+    "description": "Reference for Carousel Astro component.",
+    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#carousel"
+  },
+  {
+    "id": "api-carousel-html",
+    "title": "Carousel API",
+    "description": "Reference for Carousel HTML component.",
+    "headings": "Part ul.ui-carousel - The scroller. Needs an aria-label. Children li - The items. Alignment .ui-align-center - Where items snap. Buttons .ui-with-buttons - Previous and next buttons. Buttons .ui-buttons-outside - Buttons beside the items. Markers .ui-with-markers - One marker per item, after the list. Peek .ui-peek - Shows part of the neighbouring items. Items per view --_per-view 1 Number of visible items.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#carousel"
+  },
+  {
+    "id": "api-carousel-vue",
+    "title": "Carousel API",
+    "description": "Reference for Carousel Vue component.",
+    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#carousel"
+  },
+  {
     "id": "api-checkbox-astro",
     "title": "Checkbox API",
     "description": "Reference for Checkbox Astro component.",
@@ -1420,36 +1430,6 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#checkbox"
-  },
-  {
-    "id": "api-carousel-astro",
-    "title": "Carousel API",
-    "description": "Reference for Carousel Astro component.",
-    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#carousel"
-  },
-  {
-    "id": "api-carousel-html",
-    "title": "Carousel API",
-    "description": "Reference for Carousel HTML component.",
-    "headings": "Part ul.ui-carousel - The scroller. Needs an aria-label. Children li - The items. Alignment .ui-align-center default Where items snap. Buttons .ui-with-buttons - Previous and next buttons. Buttons .ui-buttons-outside - Buttons beside the items. Markers .ui-with-markers - One marker per item, after the list. Peek .ui-peek - Shows part of the neighbouring items. Items per view --_per-view 1 Number of visible items.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#carousel"
-  },
-  {
-    "id": "api-carousel-vue",
-    "title": "Carousel API",
-    "description": "Reference for Carousel Vue component.",
-    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#carousel"
   },
   {
     "id": "api-chip-astro",
@@ -1605,7 +1585,7 @@
     "id": "api-drawer-astro",
     "title": "Drawer API",
     "description": "Reference for Drawer Astro component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. content - - Main content area, wrapped in a div with a\n        ui-content class. default - - Unwrapped content. footer - - Bottom area, e.g. a DrawerFooter. header - - Top area, e.g. a DrawerHeader.",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\", \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. content - - Main content area, wrapped in a div with a ui-content class. default - - Unwrapped content. footer - - Bottom area, e.g. a DrawerFooter. header - - Top area, e.g. a DrawerHeader.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1615,7 +1595,7 @@
     "id": "api-drawer-html",
     "title": "Drawer API",
     "description": "Reference for Drawer HTML component.",
-    "headings": "Sides .ui-inline-start, .ui-inline-end,\n        .ui-block-start, .ui-block-end .ui-inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .ui-backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\n        Prevents focus from jumping to the first focusable element. .ui-content - - Main content area. .ui-footer - - Bottom action area. .ui-header - - Top area for titles.",
+    "headings": "Sides .ui-inline-start, .ui-inline-end, .ui-block-start, .ui-block-end .ui-inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\", closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .ui-backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened. Prevents focus from jumping to the first focusable element. .ui-content - - Main content area. .ui-footer - - Bottom action area. .ui-header - - Top area for titles.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -1625,7 +1605,7 @@
     "id": "api-drawer-vue",
     "title": "Drawer API",
     "description": "Reference for Drawer Vue component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. content - - Main content area, wrapped in a div with a\n        ui-content class. default - - Unwrapped content. footer - - Bottom area, e.g. a DrawerFooter. header - - Top area, e.g. a DrawerHeader.",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\", \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. content - - Main content area, wrapped in a div with a ui-content class. default - - Unwrapped content. footer - - Bottom area, e.g. a DrawerFooter. header - - Top area, e.g. a DrawerHeader.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1662,36 +1642,6 @@
     "url": "/vue/api#field-group"
   },
   {
-    "id": "api-icon-button-astro",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button Astro component.",
-    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#icon-button"
-  },
-  {
-    "id": "api-icon-button-html",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button HTML component.",
-    "headings": "Variants - The visual style of the icon button. Sizes .ui-small - The size of the element. Colors - States [disabled] - Attribute to disable the icon button.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#icon-button"
-  },
-  {
-    "id": "api-icon-button-vue",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button Vue component.",
-    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#icon-button"
-  },
-  {
     "id": "api-form-astro",
     "title": "Form API",
     "description": "Reference for Form Astro component.",
@@ -1720,6 +1670,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#form"
+  },
+  {
+    "id": "api-icon-button-astro",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button Astro component.",
+    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#icon-button"
+  },
+  {
+    "id": "api-icon-button-html",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button HTML component.",
+    "headings": "Variants - The visual style of the icon button. Sizes .ui-small - The size of the element. Colors - States [disabled] - Attribute to disable the icon button.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#icon-button"
+  },
+  {
+    "id": "api-icon-button-vue",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button Vue component.",
+    "headings": "as any The underlying HTML element. href string - size \"small\" - The size of the icon button. color \"critical\", \"primary\" - variant - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#icon-button"
   },
   {
     "id": "api-list-astro",
@@ -1755,7 +1735,7 @@
     "id": "api-menu-astro",
     "title": "Menu API",
     "description": "Reference for Menu Astro component.",
-    "headings": "align \"start\", \"end\" \"start\" Which edge of the trigger the menu lines up with. dense boolean false Less spacing. id string auto-generated The trigger's commandfor. items MenuItem[] - Menu items. placement \"block-end\", \"block-start\", \"inline-end\", \"inline-start\" \"block-end\" Where the menu opens. popover \"auto\", \"manual\" \"auto\" The popover type. default - - Optional child content. borderTop boolean false Divider above the item. closeOnClick boolean true Close the menu on click. critical boolean false Destructive item. disabled boolean false Disables the item. href string - Renders a link instead of a button. label string - The item text. shortcut string - Keyboard shortcut hint. any other key unknown - Passed to the item element.",
+    "headings": "align \"start\", \"end\" \"start\" Which edge of the trigger the menu lines up with. class string - Optional CSS class. dense boolean false Less spacing. id string auto-generated The trigger's commandfor. items MenuItem[] - Menu items. placement \"block-end\", \"block-start\", \"inline-end\", \"inline-start\" \"block-end\" Where the menu opens. popover \"auto\", \"manual\" \"auto\" The popover type. default - - Optional child content. borderTop boolean false Divider above the item. closeOnClick boolean true Close the menu on click. critical boolean false Destructive item. disabled boolean false Disables the item. href string - Renders a link instead of a button. label string - The item text. shortcut string - Keyboard shortcut hint. any other key unknown - Passed to the item element.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1775,7 +1755,7 @@
     "id": "api-menu-vue",
     "title": "Menu API",
     "description": "Reference for Menu Vue component.",
-    "headings": "align \"start\", \"end\" \"start\" Which edge of the trigger the menu lines up with. dense boolean false Less spacing. id string auto-generated The trigger's commandfor. items MenuItem[] - Menu items. placement \"block-end\", \"block-start\", \"inline-end\", \"inline-start\" \"block-end\" Where the menu opens. popover \"auto\", \"manual\" \"auto\" The popover type. default - - Optional child content. borderTop boolean false Divider above the item. closeOnClick boolean true Close the menu on click. critical boolean false Destructive item. disabled boolean false Disables the item. href string - Renders a link instead of a button. label string - The item text. shortcut string - Keyboard shortcut hint. any other key unknown - Passed to the item element.",
+    "headings": "align \"start\", \"end\" \"start\" Which edge of the trigger the menu lines up with. class string - Optional CSS class. dense boolean false Less spacing. id string auto-generated The trigger's commandfor. items MenuItem[] - Menu items. placement \"block-end\", \"block-start\", \"inline-end\", \"inline-start\" \"block-end\" Where the menu opens. popover \"auto\", \"manual\" \"auto\" The popover type. default - - Optional child content. borderTop boolean false Divider above the item. closeOnClick boolean true Close the menu on click. critical boolean false Destructive item. disabled boolean false Disables the item. href string - Renders a link instead of a button. label string - The item text. shortcut string - Keyboard shortcut hint. any other key unknown - Passed to the item element.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1815,7 +1795,7 @@
     "id": "api-range-astro",
     "title": "Range API",
     "description": "Reference for Range Astro component.",
-    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\n    \n    \n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends. variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1835,7 +1815,7 @@
     "id": "api-range-vue",
     "title": "Range API",
     "description": "Reference for Range Vue component.",
-    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\n    \n    \n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends. variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",

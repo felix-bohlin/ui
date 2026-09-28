@@ -64,6 +64,10 @@ function readConfig(mode: Mode): ModeConfig {
     if ("--gray-hue-offset" in parsed) {
       delete parsed["--gray-hue-offset"]
     }
+    for (const key of Object.keys(parsed) as Token[]) {
+      const radius = /^var\(--radius-(\d)\)$/.exec(parsed[key] ?? "")
+      if (radius) parsed[key] = `var(--size-${radius[1]})`
+    }
     return parsed
   } catch {
     return {}

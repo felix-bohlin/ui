@@ -106,7 +106,10 @@ export default function llms() {
           if (!framework || !pathname.endsWith(".md")) return next()
 
           const page = await fetch(
-            new URL(pathname.replace(/\.md$/, "/"), `http://${req.headers.host}`),
+            new URL(
+              pathname.replace(/\.md$/, "/"),
+              `http://${req.headers.host}`,
+            ),
           )
           if (!page.ok) return next()
 

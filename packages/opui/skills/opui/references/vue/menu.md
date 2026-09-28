@@ -1,10 +1,10 @@
 # Menu
 
-A popover [List](https://open-props-ui.netlify.app/vue/components/list.md), anchored to its[Button](https://open-props-ui.netlify.app/vue/components/button.md). HTML only.
+A popover [List](https://open-props-ui.netlify.app/vue/components/list.md), anchored to a [Button](https://open-props-ui.netlify.app/vue/components/button.md).
 
 ## Basics
 
-`items`, and `closeOnClick: false` to keep it open.
+`items` with `borderTop`, `critical`, `disabled` and `shortcut`.
 
 ```vue
 <script setup lang="ts">
@@ -30,7 +30,7 @@ import { Button, Menu } from "opui-css/vue"
 
 ## Custom items
 
-`li.ui-label` for groups, and `.ui-critical` for destructive items.
+If you want to decide yourself what goes into your list.
 
 ```vue
 <script setup lang="ts">
@@ -133,7 +133,11 @@ const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
   <Menu id="menu-block-start" :items="items" placement="block-start" />
 
 
-  <Button commandfor="menu-block-end" command="toggle-popover" variant="outlined">
+  <Button
+    commandfor="menu-block-end"
+    command="toggle-popover"
+    variant="outlined"
+  >
     Block end
   </Button>
   <Menu id="menu-block-end" :items="items" />
@@ -201,6 +205,7 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
 | Prop        | Type                                                             | Default        | Description                                       |
 | ----------- | ---------------------------------------------------------------- | -------------- | ------------------------------------------------- |
 | `align`     | `"start"`, `"end"`                                               | `"start"`      | Which edge of the trigger the menu lines up with. |
+| `class`     | `string`                                                         | -              | Optional CSS class.                               |
 | `dense`     | `boolean`                                                        | `false`        | Less spacing.                                     |
 | `id`        | `string`                                                         | auto-generated | The trigger's `commandfor`.                       |
 | `items`     | `MenuItem[]`                                                     | -              | Menu items.                                       |

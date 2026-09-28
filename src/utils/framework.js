@@ -26,7 +26,9 @@ export const FRAMEWORK_IDS = FRAMEWORKS.map(
 )
 
 /** @type {Record<string, FrameworkId[]>} */
-export const COMPONENT_FRAMEWORKS = {}
+export const COMPONENT_FRAMEWORKS = {
+  toast: ["html"],
+}
 
 /**
  * @param {FrameworkId} framework

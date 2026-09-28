@@ -1,7 +1,5 @@
 # Carousel
 
-A scrolling list of anything, e.g.[Cards](https://open-props-ui.netlify.app/html/components/card.md). CSS only.
-
 ## Basics
 
 `.ui-with-buttons`, and `.ui-with-markers` to navigate.
@@ -478,7 +476,7 @@ Announces item position. Buttons and markers are named.
 | -------------- | --------------------- | ------- | ------------------------------------- |
 | Part           | `ul.ui-carousel`      | -       | The scroller. Needs an `aria-label`.  |
 | Children       | `li`                  | -       | The items.                            |
-| Alignment      | `.ui-align-center`    | default | Where items snap.                     |
+| Alignment      | `.ui-align-center`    | -       | Where items snap.                     |
 | Buttons        | `.ui-with-buttons`    | -       | Previous and next buttons.            |
 | Buttons        | `.ui-buttons-outside` | -       | Buttons beside the items.             |
 | Markers        | `.ui-with-markers`    | -       | One marker per item, after the list.  |

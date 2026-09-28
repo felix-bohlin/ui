@@ -1,37 +1,40 @@
-import { splitProps, type JSX, Show } from "solid-js"
+import { omit, Show } from "solid-js"
 import type { Props } from "./types.solid"
 
 export default function Dialog(props: Props) {
-  const [local, rest] = splitProps(props, [
-    "actionsAlign",
-    "closedby",
-    "header",
-    "content",
+  const rest = omit(
+    props,
     "actions",
-    "class",
+    "actionsAlign",
     "children",
-  ])
+    "class",
+    "content",
+    "header",
+  )
 
   return (
     <dialog
-      /* @ts-ignore: closedby might not be typed in all environments */
-      closedby={local.closedby}
-      class={`ui-dialog ui-card ui-elevated ${local.class || ""}`.trim()}
+      class={["ui-dialog", "ui-card", "ui-elevated", props.class]}
       {...rest}
     >
-      <Show when={local.header}>
-        <hgroup>{local.header}</hgroup>
+      <Show when={props.header}>
+        <hgroup>{props.header}</hgroup>
       </Show>
 
-      <Show when={local.content}>
-        <div class="ui-content">{local.content}</div>
+      <Show when={props.content}>
+        <div class="ui-content">{props.content}</div>
       </Show>
 
-      {local.children}
+      {props.children}
 
-      <Show when={local.actions}>
-        <div class={`ui-actions ${local.actionsAlign ? `ui-align-${local.actionsAlign}` : ""}`.trim()}>
-          {local.actions}
+      <Show when={props.actions}>
+        <div
+          class={[
+            "ui-actions",
+            props.actionsAlign && `ui-align-${props.actionsAlign}`,
+          ]}
+        >
+          {props.actions}
         </div>
       </Show>
     </dialog>

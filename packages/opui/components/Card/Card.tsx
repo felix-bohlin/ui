@@ -1,35 +1,41 @@
-import { splitProps, type JSX, Show } from "solid-js"
+import { omit, Show } from "solid-js"
 import type { Props } from "./types.solid"
 
 export default function Card(props: Props) {
-  const [local, rest] = splitProps(props, [
-    "actionsAlign",
-    "variant",
-    "header",
-    "content",
+  const rest = omit(
+    props,
     "actions",
-    "class",
+    "actionsAlign",
     "children",
-  ])
+    "class",
+    "content",
+    "header",
+    "variant",
+  )
 
   return (
     <div
-      class={`ui-card ${local.variant ? `ui-${local.variant}` : ""} ${local.class || ""}`.trim()}
+      class={["ui-card", props.variant && `ui-${props.variant}`, props.class]}
       {...rest}
     >
-      <Show when={local.header}>
-        <hgroup>{local.header}</hgroup>
+      <Show when={props.header}>
+        <hgroup>{props.header}</hgroup>
       </Show>
 
-      <Show when={local.content}>
-        <div class="ui-content">{local.content}</div>
+      <Show when={props.content}>
+        <div class="ui-content">{props.content}</div>
       </Show>
 
-      {local.children}
+      {props.children}
 
-      <Show when={local.actions}>
-        <div class={`ui-actions ${local.actionsAlign ? `ui-align-${local.actionsAlign}` : ""}`.trim()}>
-          {local.actions}
+      <Show when={props.actions}>
+        <div
+          class={[
+            "ui-actions",
+            props.actionsAlign && `ui-align-${props.actionsAlign}`,
+          ]}
+        >
+          {props.actions}
         </div>
       </Show>
     </div>

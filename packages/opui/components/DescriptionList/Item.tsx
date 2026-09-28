@@ -1,13 +1,12 @@
-import { splitProps, type JSX } from "solid-js"
-import { Dynamic } from "solid-js/web"
-import type { Props } from "./types.solid"
+import { omit } from "solid-js"
+import type { ItemProps } from "./types.solid"
 
-export default function Item(props: Props) {
-  const [local, rest] = splitProps(props, ["class", "as", "children"])
-  
+export default function Item(props: ItemProps) {
+  const rest = omit(props, "children", "class")
+
   return (
-    <Dynamic component={local.as || "div"} class={`ui-item ${local.class || ""}`} {...rest}>
-      {local.children}
-    </Dynamic>
+    <div class={["ui-item", props.class]} {...rest}>
+      {props.children}
+    </div>
   )
 }

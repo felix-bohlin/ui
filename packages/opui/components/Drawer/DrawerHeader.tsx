@@ -1,9 +1,9 @@
-import { splitProps, type JSX, Show } from "solid-js"
+import { omit, Show } from "solid-js"
 import IconButton from "../IconButton/IconButton"
 import type { DrawerHeaderProps } from "./types.solid"
 
 export default function DrawerHeader(props: DrawerHeaderProps) {
-  const [local, rest] = splitProps(props, ["heading", "class", "children"])
+  const rest = omit(props, "children", "class", "heading")
 
   const closeDrawer = (event: MouseEvent) => {
     const target = event.currentTarget as HTMLElement | null
@@ -11,11 +11,11 @@ export default function DrawerHeader(props: DrawerHeaderProps) {
   }
 
   return (
-    <div class={`ui-header ${local.class || ""}`.trim()} {...rest}>
-      <Show when={local.heading}>
-        <span>{local.heading}</span>
+    <div class={["ui-header", props.class]} {...rest}>
+      <Show when={props.heading}>
+        <span>{props.heading}</span>
       </Show>
-      {local.children}
+      {props.children}
       <IconButton title="Close" onClick={closeDrawer}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

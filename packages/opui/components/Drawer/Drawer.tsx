@@ -1,41 +1,57 @@
-import { splitProps, type JSX, Show, createUniqueId } from "solid-js"
+import { createUniqueId, merge, omit, Show } from "solid-js"
 import type { Props } from "./types.solid"
 
-export default function Drawer(props: Props) {
-  const [local, rest] = splitProps(props, [
+export default function Drawer(rawProps: Props) {
+  const props = merge(
+    {
+      backdrop: "blurred",
+      closedby: "any",
+      scrollLock: true,
+      side: "inline-start",
+    } as const,
+    rawProps,
+  )
+  const rest = omit(
+    props,
     "backdrop",
+    "children",
+    "class",
     "closedby",
+    "content",
+    "footer",
+    "header",
     "id",
     "scrollLock",
     "side",
-    "header",
-    "content",
-    "footer",
-    "class",
-    "children",
-  ])
+  )
 
-  const drawerId = () => local.id || createUniqueId()
+  const uid = createUniqueId()
+  const drawerId = () => props.id || uid
 
   return (
     <dialog
       id={drawerId()}
-      /* @ts-ignore: closedby might not be typed in all environments */
-      closedby={local.closedby !== undefined ? local.closedby : "any"}
-      class={`ui-drawer ${local.side || "inline-start" ? `ui-${local.side || "inline-start"}` : ""} ${local.backdrop === "transparent" ? "ui-backdrop-transparent" : ""} ${local.scrollLock ?? true ? "ui-scroll-lock" : ""} ${local.class || ""}`.trim()}
+      class={[
+        "ui-drawer",
+        props.side && `ui-${props.side}`,
+        {
+          "ui-backdrop-transparent": props.backdrop === "transparent",
+          "ui-scroll-lock": !!props.scrollLock,
+        },
+        props.class,
+      ]}
+      closedby={props.closedby}
       {...rest}
     >
-      <Show when={local.header}>
-        {local.header}
+      <Show when={props.header}>{props.header}</Show>
+
+      <Show when={props.content}>
+        <div class="ui-content">{props.content}</div>
       </Show>
 
-      <div class="ui-content">
-        {local.content || local.children}
-      </div>
+      {props.children}
 
-      <Show when={local.footer}>
-        {local.footer}
-      </Show>
+      <Show when={props.footer}>{props.footer}</Show>
     </dialog>
   )
 }

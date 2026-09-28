@@ -1,9 +1,9 @@
+import type { JSX } from "@solidjs/web"
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
 
 export type Props = Base.Props &
-  Omit<JSX.DialogHtmlAttributes<HTMLDialogElement>, "id"> &
-  Partial<Base.Slots<JSX.Element>>
+  Base.Slots<JSX.Element> &
+  Omit<JSX.DialogHtmlAttributes<HTMLDialogElement>, "closedby" | "id">
 
 export type DrawerFooterProps = Base.DrawerFooterProps &
   JSX.HTMLAttributes<HTMLDivElement>

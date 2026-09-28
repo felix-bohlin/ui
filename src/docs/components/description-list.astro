@@ -67,6 +67,13 @@ export const description =
           a dotted style, also add <code>.ui-dotted</code>.
         </p>
       </Fragment>
+      <Fragment slot="solid">
+        <p>
+          Set <code>bordered</code> on <code>DescriptionList</code> to add a separator
+          between the term and description on all items. Use{" "}
+          <code>bordered="dotted"</code> for a dotted style.
+        </p>
+      </Fragment>
       <Fragment slot="vue">
         <p>
           Set <code>bordered</code> on <code>DescriptionList</code> to add a separator
@@ -106,6 +113,22 @@ export const description =
             the list (optional)
           </li>
           <li>Description (<code>&lt;dd&gt;</code>)</li>
+        </ol>
+      </Fragment>
+      <Fragment slot="solid">
+        <ol>
+          <li>List (<code>&lt;DescriptionList&gt;</code>)</li>
+          <li>
+            Term-description group (<code>&lt;DescriptionListItem&gt;</code>)
+          </li>
+          <li>Term (<code>&lt;DescriptionListTerm&gt;</code>)</li>
+          <li>
+            Separator - rendered via CSS when <code>bordered</code> is set on the
+            list (optional)
+          </li>
+          <li>
+            Description (<code>&lt;Description&gt;</code>)
+          </li>
         </ol>
       </Fragment>
       <Fragment slot="vue">

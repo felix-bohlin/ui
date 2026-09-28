@@ -4,14 +4,26 @@ export default function Example() {
   return (
     <>
       <div class="example-row">
-        <Checkbox hideLabel size="small" checked name="checkbox">Label</Checkbox>
-        <Checkbox hideLabel checked name="checkbox">Label</Checkbox>
-        <Checkbox hideLabel size="large" checked name="checkbox">Label</Checkbox>
+        <Checkbox hideLabel size="small" checked name="checkbox">
+          Label
+        </Checkbox>
+        <Checkbox hideLabel checked name="checkbox">
+          Label
+        </Checkbox>
+        <Checkbox hideLabel size="large" checked name="checkbox">
+          Label
+        </Checkbox>
       </div>
       <div class="example-row">
-        <Checkbox size="small" checked name="checkbox">Small</Checkbox>
-        <Checkbox checked name="checkbox">Default</Checkbox>
-        <Checkbox size="large" checked name="checkbox">Large</Checkbox>
+        <Checkbox size="small" checked name="checkbox">
+          Small
+        </Checkbox>
+        <Checkbox checked name="checkbox">
+          Default
+        </Checkbox>
+        <Checkbox size="large" checked name="checkbox">
+          Large
+        </Checkbox>
       </div>
     </>
   )

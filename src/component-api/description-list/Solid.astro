@@ -20,25 +20,23 @@ import { Table } from "@opui/astro"
   <Table.Body>
     <Table.Row>
       <Table.Cell><code>bordered</code></Table.Cell>
-      <Table.Cell><code>boolean | "dotted"</code></Table.Cell>
+      <Table.Cell><code>boolean</code>, <code>"dotted"</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell
-        >Adds a separator between the term and description on all items. Use{
-          " "
-        }
-        <code>"dotted"</code> for a dotted style.</Table.Cell
+        >Adds a separator between term and description. <code>"dotted"</code> for
+        a dotted style.</Table.Cell
       >
     </Table.Row>
     <Table.Row>
-      <Table.Cell><code>class</code></Table.Cell>
-      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell><code>children</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
-      <Table.Cell>Custom CSS classes.</Table.Cell>
+      <Table.Cell>Optional child content.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>
 
-<h3 id="description-list-item">DescriptionList.Item</h3>
+<h3 id="description-list-item">DescriptionListItem</h3>
 
 <Table>
   <Table.ColumnGroup>
@@ -57,15 +55,15 @@ import { Table } from "@opui/astro"
   </Table.Head>
   <Table.Body>
     <Table.Row>
-      <Table.Cell><code>class</code></Table.Cell>
-      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell><code>children</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
-      <Table.Cell>Custom CSS classes.</Table.Cell>
+      <Table.Cell>Optional child content.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>
 
-<h3 id="description-list-term">DescriptionList.Term</h3>
+<h3 id="description-list-term">DescriptionListTerm</h3>
 
 <Table>
   <Table.ColumnGroup>
@@ -84,15 +82,15 @@ import { Table } from "@opui/astro"
   </Table.Head>
   <Table.Body>
     <Table.Row>
-      <Table.Cell><code>class</code></Table.Cell>
-      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell><code>children</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
-      <Table.Cell>Custom CSS classes.</Table.Cell>
+      <Table.Cell>Optional child content.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>
 
-<h3 id="description-list-description">DescriptionList.Description</h3>
+<h3 id="description-list-description">Description</h3>
 
 <Table>
   <Table.ColumnGroup>
@@ -111,10 +109,10 @@ import { Table } from "@opui/astro"
   </Table.Head>
   <Table.Body>
     <Table.Row>
-      <Table.Cell><code>class</code></Table.Cell>
-      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell><code>children</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
-      <Table.Cell>Custom CSS classes.</Table.Cell>
+      <Table.Cell>Optional child content.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>

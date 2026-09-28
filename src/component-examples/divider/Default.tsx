@@ -3,9 +3,9 @@ import { Divider } from "opui-css/solid"
 export default function Example() {
   return (
     <>
-      <p>Above divider</p>
+      This text is placed over
       <Divider />
-      <p>Below divider</p>
+      This text is placed under
     </>
   )
 }

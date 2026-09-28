@@ -1,14 +1,22 @@
-import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
+import {
+  Checkbox,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+} from "opui-css/solid"
 
 export default function Example() {
   return (
     <Form>
-      <FieldSet invalid>
+      <FieldSet data-invalid>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup name="checkbox-invalid">
-          <Checkbox>Option 1</Checkbox>
-          <Checkbox>Option 2</Checkbox>
+        <FieldGroup direction="row" name="checkbox-group-validation-astro">
+          <Checkbox checked>Checkbox 1</Checkbox>
+          <Checkbox>Checkbox 2</Checkbox>
+          <Checkbox>Checkbox 3</Checkbox>
         </FieldGroup>
+        <span class="ui-end-text">Something went wrong!</span>
       </FieldSet>
     </Form>
   )

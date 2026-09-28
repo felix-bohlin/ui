@@ -1,36 +1,50 @@
-import { splitProps, type JSX, Show, createUniqueId } from "solid-js"
+import { createUniqueId, omit, Show, useContext } from "solid-js"
+import { FieldGroupContext } from "../FieldGroup/context"
 import CheckboxInput from "./CheckboxInput"
 import type { CheckboxProps } from "./types.solid"
 
 export default function Checkbox(props: CheckboxProps) {
-  const [local, rest] = splitProps(props, [
-    "critical",
+  const rest = omit(
+    props,
+    "children",
+    "class",
+    "endText",
+    "error",
     "hideLabel",
-    "indeterminate",
+    "name",
     "size",
     "spread",
     "stack",
-    "endText",
-    "class",
-    "children",
-  ])
+  )
 
-  const endTextId = createUniqueId()
+  const fieldGroup = useContext(FieldGroupContext)
+  const id = createUniqueId()
+  const endTextId = () => (props.endText ? id : undefined)
 
   return (
     <label
-      class={`ui-checkbox ${local.size ? `ui-${local.size}` : ""} ${local.stack ? "ui-stack" : ""} ${local.spread ? "ui-spread" : ""} ${local.class || ""}`.trim()}
-      data-invalid={local.critical || undefined}
+      class={[
+        "ui-checkbox",
+        props.size && `ui-${props.size}`,
+        {
+          "ui-spread": !!props.spread,
+          "ui-stack": !!props.stack,
+        },
+        props.class,
+      ]}
+      data-invalid={props.error || undefined}
     >
       <CheckboxInput
-        indeterminate={local.indeterminate}
-        aria-describedby={local.endText ? endTextId : undefined}
+        aria-describedby={endTextId()}
+        name={props.name || fieldGroup.name}
         {...rest}
       />
-      <span class={local.hideLabel ? "ui-sr-only" : "ui-label"}>{local.children}</span>
-      <Show when={local.endText}>
-        <span id={endTextId} class="ui-end-text">
-          {local.endText}
+      <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>
+        {props.children}
+      </span>
+      <Show when={props.endText}>
+        <span id={endTextId()} class="ui-end-text">
+          {props.endText}
         </span>
       </Show>
     </label>

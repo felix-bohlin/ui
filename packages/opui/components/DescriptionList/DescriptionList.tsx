@@ -1,15 +1,22 @@
-import { splitProps, type JSX } from "solid-js"
+import { omit } from "solid-js"
 import type { Props } from "./types.solid"
 
 export default function DescriptionList(props: Props) {
-  const [local, rest] = splitProps(props, ["bordered", "class", "children"])
+  const rest = omit(props, "bordered", "children", "class")
 
   return (
     <dl
-      class={`ui-description-list ${local.bordered ? "ui-bordered" : ""} ${local.bordered === "dotted" ? "ui-dotted" : ""} ${local.class || ""}`.trim()}
+      class={[
+        "ui-description-list",
+        {
+          "ui-bordered": !!props.bordered,
+          "ui-dotted": props.bordered === "dotted",
+        },
+        props.class,
+      ]}
       {...rest}
     >
-      {local.children}
+      {props.children}
     </dl>
   )
 }

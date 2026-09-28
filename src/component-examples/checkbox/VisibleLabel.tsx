@@ -1,5 +1,26 @@
 import { Checkbox } from "opui-css/solid"
 
 export default function Example() {
-  return <Checkbox name="checkbox">Visible label</Checkbox>
+  return (
+    <>
+      <Checkbox checked name="checkbox">
+        Choice A
+      </Checkbox>
+      <Checkbox disabled name="checkbox">
+        Disabled
+      </Checkbox>
+      <Checkbox checked disabled name="checkbox">
+        Checked and disabled
+      </Checkbox>
+      <Checkbox name="checkbox">
+        <span>
+          Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
+          semiotics artisan synth stumptown gastropub cornhole{" "}
+          <a class="ui-link" href="#visible-label">
+            privacy policy ipsum
+          </a>
+        </span>
+      </Checkbox>
+    </>
+  )
 }

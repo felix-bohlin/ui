@@ -1,12 +1,12 @@
-import { splitProps, type JSX } from "solid-js"
+import { omit } from "solid-js"
 import type { DrawerFooterProps } from "./types.solid"
 
 export default function DrawerFooter(props: DrawerFooterProps) {
-  const [local, rest] = splitProps(props, ["class", "children"])
+  const rest = omit(props, "children", "class")
 
   return (
-    <div class={`ui-footer ${local.class || ""}`.trim()} {...rest}>
-      {local.children}
+    <div class={["ui-footer", props.class]} {...rest}>
+      {props.children}
     </div>
   )
 }

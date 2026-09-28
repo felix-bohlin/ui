@@ -1,15 +1,39 @@
-import { Checkbox, FieldDescription, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
+import {
+  Checkbox,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+} from "opui-css/solid"
 
 export default function Example() {
   return (
     <Form>
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
-        <FieldDescription>Supporting description for the group.</FieldDescription>
-        <FieldGroup name="checkbox-desc">
-          <Checkbox>Option 1</Checkbox>
-          <Checkbox>Option 2</Checkbox>
+        <FieldDescription>Field description above fields</FieldDescription>
+        <FieldGroup
+          direction="row"
+          name="checkbox-group-field-description-1-astro"
+        >
+          <Checkbox checked>Checkbox 1</Checkbox>
+          <Checkbox>Checkbox 2</Checkbox>
+          <Checkbox>Checkbox 3</Checkbox>
         </FieldGroup>
+      </FieldSet>
+
+      <FieldSet>
+        <FieldLegend>Legend</FieldLegend>
+        <FieldGroup
+          direction="row"
+          name="checkbox-group-field-description-2-astro"
+        >
+          <Checkbox checked>Checkbox 1</Checkbox>
+          <Checkbox>Checkbox 2</Checkbox>
+          <Checkbox>Checkbox 3</Checkbox>
+        </FieldGroup>
+        <FieldDescription>Field description below fields</FieldDescription>
       </FieldSet>
     </Form>
   )

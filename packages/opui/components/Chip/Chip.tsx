@@ -1,36 +1,44 @@
-import { splitProps, type JSX, Show } from "solid-js"
-import { Dynamic } from "solid-js/web"
+import { merge, omit, Show } from "solid-js"
+import { Dynamic } from "@solidjs/web"
 import type { Props } from "./types.solid"
 
-export default function Chip(props: Props) {
-  const [local, rest] = splitProps(props, [
+export default function Chip(rawProps: Props) {
+  const props = merge({ variant: "tonal" }, rawProps)
+  const rest = omit(
+    props,
     "as",
+    "children",
+    "class",
+    "end",
+    "href",
     "label",
     "multiline",
     "size",
-    "variant",
-    "href",
     "start",
-    "end",
-    "class",
-    "children",
-  ])
+    "variant",
+  )
 
-  const Tag = () => local.as || (local.href ? "a" : "div")
+  const Tag = () => props.as || (props.href ? "a" : "div")
 
   return (
     <Dynamic
       component={Tag()}
-      class={`ui-chip ${local.multiline ? "ui-multiline" : ""} ${local.size ? `ui-${local.size}` : ""} ${local.variant || "tonal" ? `ui-${local.variant || "tonal"}` : ""} ${local.class || ""}`.trim()}
-      href={local.href}
+      class={[
+        "ui-chip",
+        { "ui-multiline": !!props.multiline },
+        props.size && `ui-${props.size}`,
+        props.variant && `ui-${props.variant}`,
+        props.class,
+      ]}
+      href={Tag() === "a" ? props.href : undefined}
       {...rest}
     >
-      {local.start}
-      {local.children}
-      <Show when={local.label}>
-        <span class="ui-text">{local.label}</span>
+      {props.start}
+      {props.children}
+      <Show when={props.label}>
+        <span class="ui-text">{props.label}</span>
       </Show>
-      {local.end}
+      {props.end}
     </Dynamic>
   )
 }

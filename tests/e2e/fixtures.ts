@@ -24,8 +24,8 @@ export const openFixture = async (
   await page.goto(`/${framework}/test/${component}/`)
   if (framework === "vue") {
     await page.waitForFunction(() =>
-      [...document.querySelectorAll("[data-vue-example]")].every((el) =>
-        el.hasAttribute("data-vue-mounted"),
+      [...document.querySelectorAll("[data-vue-example]")].every(
+        (el) => "__vue_app__" in el,
       ),
     )
   }

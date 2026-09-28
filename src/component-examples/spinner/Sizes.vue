@@ -1,4 +1,4 @@
-<template>
+<template vapor>
   <h2 aria-busy="true">h2</h2>
   <h4 aria-busy="true">h4</h4>
   <p aria-busy="true">Paragraph</p>

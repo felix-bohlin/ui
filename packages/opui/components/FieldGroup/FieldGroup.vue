@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { provide } from "vue"
 import { CurrentFieldNameKey, type Props, type Slots } from "./types.d.vue"
 

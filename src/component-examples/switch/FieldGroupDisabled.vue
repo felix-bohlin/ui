@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
 </script>
 

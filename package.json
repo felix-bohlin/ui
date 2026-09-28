@@ -3,12 +3,11 @@
   "type": "module",
   "version": "2.0.0",
   "scripts": {
-    "dev": "pnpm build-vapor && astro dev",
-    "build": "pnpm build-vapor && pnpm build-search-index && pnpm check-browser-support && astro build",
+    "dev": "astro dev",
+    "build": "pnpm build-search-index && pnpm check-browser-support && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "build-search-index": "node scripts/generate-search-index.mjs",
-    "build-vapor": "node packages/opui/scripts/build-vapor.mjs",
     "check-browser-support": "node scripts/check-browser-support.mjs"
   },
   "dependencies": {

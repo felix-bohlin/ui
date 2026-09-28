@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { Divider } from "opui-css/vue"
 </script>
 

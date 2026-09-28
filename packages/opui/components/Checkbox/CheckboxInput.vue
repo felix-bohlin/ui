@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import type { CheckboxInputProps } from "./types"
 import { useAttrs, useTemplateRef, watchPostEffect } from "vue"
 

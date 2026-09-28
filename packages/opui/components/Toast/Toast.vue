@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { onMounted } from "vue"
 import { initToastManager } from "../../css/js/toast.js"
 

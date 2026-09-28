@@ -246,7 +246,7 @@ importers:
         specifier: ^5.56.4
         version: 5.56.4
       vue:
-        specifier: ^3.5.39 || ^3.6.0-rc.1
+        specifier: ^3.6.0-rc.1
         version: 3.6.0-rc.9(typescript@6.0.3)
     devDependencies:
       postcss:

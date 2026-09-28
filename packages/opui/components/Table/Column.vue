@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import type { ColumnProps } from "./types"
 
 const { width } = defineProps<ColumnProps>()

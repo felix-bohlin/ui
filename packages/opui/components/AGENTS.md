@@ -26,6 +26,8 @@ Every component uses layered type files:
 - `types.astro.ts` - Astro props = base + `HTMLAttributes<element>`
 - `types.d.vue.ts` / `types.svelte.ts` / `types.solid.ts` - framework-specific extensions (for merge parity)
 
+Vue components are Vapor components: always use `<script setup vapor>` (or `<template vapor>` for template-only SFCs).
+
 Every component must follow this exact frontmatter layout:
 
 ```astro

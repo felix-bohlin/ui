@@ -1,4 +1,4 @@
-<template>
+<template vapor>
   <div class="ui-hgroup">
     <p class="ui-overline">Zero or more p elements</p>
     <h2 class="ui-h2">Followed by one h* element</h2>

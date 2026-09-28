@@ -10,11 +10,6 @@ import sitemap from "@astrojs/sitemap"
 import expressiveCode from "astro-expressive-code"
 import vue from "@astrojs/vue"
 
-import {
-  buildVaporFile,
-  isVaporSource,
-} from "./packages/opui/scripts/build-vapor.mjs"
-
 import { DEFAULT_FRAMEWORK, FRAMEWORK_IDS } from "./src/utils/framework.js"
 
 /** @param {string} relDir */
@@ -59,14 +54,21 @@ export default defineConfig({
   vite: {
     plugins: [
       {
+        name: "vue-vapor-inline-template",
+        apply: "build",
+        configResolved({ plugins }) {
+          const vuePlugin = plugins.find(({ name }) => name === "vite:vue")
+          if (vuePlugin) {
+            vuePlugin.api.options = {
+              ...vuePlugin.api.options,
+              devServer: null,
+            }
+          }
+        },
+      },
+      {
         name: "opui-package-astro-hmr",
         handleHotUpdate({ file, server }) {
-          if (
-            file.includes("/packages/opui/components/") &&
-            isVaporSource(file)
-          ) {
-            buildVaporFile(file)
-          }
           if (file.includes("/packages/opui/") && file.endsWith(".astro")) {
             server.ws.send({ type: "full-reload", path: "*" })
           }

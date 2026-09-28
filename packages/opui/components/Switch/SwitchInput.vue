@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import type { SwitchInputProps } from "./types"
 
 defineOptions({

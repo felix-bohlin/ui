@@ -1,4 +1,4 @@
-<script setup lang="ts"></script>
+<script setup vapor lang="ts"></script>
 
 <template>
   <div class="example-column">

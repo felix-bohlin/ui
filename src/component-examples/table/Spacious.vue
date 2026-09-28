@@ -1,4 +1,4 @@
-<template>
+<template vapor>
   <table class="ui-table ui-spacious">
     <caption>
       Band Members

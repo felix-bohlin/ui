@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import type { RangeProps, Slots } from "./types.d.vue"
 import { useId } from "vue"
 

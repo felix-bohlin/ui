@@ -1,4 +1,4 @@
-<template>
+<template vapor>
   <article class="ui-rich-text">
     <hgroup>
       <p>Typography showcase</p>

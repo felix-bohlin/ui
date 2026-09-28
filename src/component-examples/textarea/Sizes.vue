@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { Textarea } from "opui-css/vue"
 </script>
 

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { onMounted } from "vue"
 import { Button } from "opui-css/vue"
 

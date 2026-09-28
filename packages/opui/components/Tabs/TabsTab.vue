@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import { inject } from "vue"
 import { CurrentTabIdKey, type Slots, type TabsTabProps } from "./types.d.vue"
 

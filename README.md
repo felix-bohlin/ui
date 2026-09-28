@@ -35,7 +35,3 @@ pnpm dev
 2. Add `[ComponentName].astro` to that folder.
 3. Export the component from the barrel in `packages/opui/astro/index.ts`.
 4. (Optional) Implement the component CSS in `packages/opui/css/components/`.
-
-### Vue Vapor Components
-
-The Vapor variants (`*.vapor.vue` and `packages/opui/vue/vapor.ts`) are generated from the Vue components and not committed. Generate them with `pnpm build-vapor` (runs automatically on `pnpm dev`, `pnpm build` and when packing `opui-css`).

@@ -164,7 +164,9 @@ async function generateIndex() {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ")
 
-    const cellMatches = content.matchAll(/<Table\.Cell>(.*?)<\/Table\.Cell>/gs)
+    const cellMatches = content.matchAll(
+      /<Table\.Cell\b[^>]*>(.*?)<\/Table\.Cell\s*>/gs,
+    )
     const apiContent = []
     for (const cellMatch of cellMatches) {
       apiContent.push(

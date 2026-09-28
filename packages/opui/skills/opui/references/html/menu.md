@@ -123,9 +123,33 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
   Block start
 </button>
 <menu class="ui-menu ui-list ui-block-start" id="menu-block-start-html" popover>
-  <li><button type="button">First</button></li>
-  <li><button type="button">Second</button></li>
-  <li><button type="button">Third</button></li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-block-start-html"
+    >
+      First
+    </button>
+  </li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-block-start-html"
+    >
+      Second
+    </button>
+  </li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-block-start-html"
+    >
+      Third
+    </button>
+  </li>
 </menu>
 
 
@@ -137,9 +161,33 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
   Block end
 </button>
 <menu class="ui-menu ui-list" id="menu-block-end-html" popover>
-  <li><button type="button">First</button></li>
-  <li><button type="button">Second</button></li>
-  <li><button type="button">Third</button></li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-block-end-html"
+    >
+      First
+    </button>
+  </li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-block-end-html"
+    >
+      Second
+    </button>
+  </li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-block-end-html"
+    >
+      Third
+    </button>
+  </li>
 </menu>
 
 
@@ -155,9 +203,33 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
   id="menu-inline-start-html"
   popover
 >
-  <li><button type="button">First</button></li>
-  <li><button type="button">Second</button></li>
-  <li><button type="button">Third</button></li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-inline-start-html"
+    >
+      First
+    </button>
+  </li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-inline-start-html"
+    >
+      Second
+    </button>
+  </li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-inline-start-html"
+    >
+      Third
+    </button>
+  </li>
 </menu>
 
 
@@ -169,9 +241,33 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
   Inline end
 </button>
 <menu class="ui-menu ui-list ui-inline-end" id="menu-inline-end-html" popover>
-  <li><button type="button">First</button></li>
-  <li><button type="button">Second</button></li>
-  <li><button type="button">Third</button></li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-inline-end-html"
+    >
+      First
+    </button>
+  </li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-inline-end-html"
+    >
+      Second
+    </button>
+  </li>
+  <li>
+    <button
+      type="button"
+      command="hide-popover"
+      commandfor="menu-inline-end-html"
+    >
+      Third
+    </button>
+  </li>
 </menu>
 ```
 

@@ -2,7 +2,7 @@ import { execSync } from "child_process"
 import { dirname, resolve } from "path"
 import { fileURLToPath } from "url"
 
-// Resolved at build time — two levels up from src/utils/ to repo root
+// Resolved at build time - two levels up from src/utils/ to repo root
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../../")
 
 export type ChangelogPathEntry = {

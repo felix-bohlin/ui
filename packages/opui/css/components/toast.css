@@ -102,7 +102,6 @@
       }
     }
 
-    /* Severity icons via CSS data URIs — keeps icon assets out of JS strings. */
     &[data-severity="success"] .ui-icon {
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2322c55e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><path d='m9 11 3 3L22 4'/></svg>");
     }
@@ -132,8 +131,6 @@
     }
   }
 
-  /* Identity keyframe — only purpose is to delay the exit animation by the
-	   author-defined duration. */
   @keyframes toast-hold {
     from {
       opacity: 1;

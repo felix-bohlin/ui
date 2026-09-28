@@ -15,21 +15,21 @@
 
     /* Floating wrapper: traditional inset-based positioning so this works
        in browsers without position-area support (Firefox, older Safari). */
-    & > .ui-anchor-floating:not([popover]) {
+    &>.ui-anchor-floating:not([popover]) {
       inset: var(--_badge-inset);
       position-anchor: auto;
       position-area: none;
     }
 
     /* Indicator */
-    & > .ui-anchor-floating > .ui-badge-indicator {
+    &>.ui-anchor-floating>.ui-badge-indicator {
       background-color: var(--_bg-color);
       block-size: var(--_size);
       border: 2px solid var(--_border-color);
       border-radius: var(--radius-round);
       color: var(--_text-color);
       display: grid;
-      font-size: 12px;
+      font-size: var(--font-size-0);
       font-weight: 500;
       inline-size: max-content;
       line-height: normal;
@@ -91,7 +91,7 @@
       --_anchor-ty: var(--_dot-size);
     }
 
-    &.ui-dot > .ui-anchor-floating > .ui-badge-indicator {
+    &.ui-dot>.ui-anchor-floating>.ui-badge-indicator {
       block-size: var(--_dot-size);
       inline-size: var(--_dot-size);
       min-inline-size: var(--_dot-size);
@@ -99,7 +99,7 @@
     }
 
     /* Visibility */
-    &.ui-invisible > .ui-anchor-floating > .ui-badge-indicator {
+    &.ui-invisible>.ui-anchor-floating>.ui-badge-indicator {
       opacity: 0;
       pointer-events: none;
     }

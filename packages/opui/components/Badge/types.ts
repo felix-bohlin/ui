@@ -6,3 +6,7 @@ export type Props = {
   invisible?: boolean
   label?: string | number
 }
+
+export type Slots<S> = {
+  indicator?: S
+}

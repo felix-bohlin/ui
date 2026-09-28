@@ -23,7 +23,7 @@
       Cornhole actually <code>h1</code> tumblr tacos mumblecore twee. Crucifix
       pour-over leggings heirloom chartreuse cloud bread trust fund lyft keytar.
       <footer>
-        — <cite>Flexitarian single-origin, somewhere off the L train</cite>
+        - <cite>Flexitarian single-origin, somewhere off the L train</cite>
       </footer>
     </blockquote>
     <p>

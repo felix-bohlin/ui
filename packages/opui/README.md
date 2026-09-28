@@ -70,9 +70,9 @@ Wrap your own styles in a layer above `utils` (or unlayered) to override.
 | ----------------------------------- | --------------------------------------------- |
 | `opui-css`                          | Pre-bundled: everything in one file (default) |
 | `opui-css/open-props`               | Pre-bundled: Open Props tokens only           |
-| `opui-css/dist/opui.css`            | Same as default — explicit path               |
+| `opui-css/dist/opui.css`            | Same as default - explicit path               |
 | `opui-css/dist/opui.components.css` | Pre-bundled: components only                  |
-| `opui-css/dist/op.css`              | Same as `opui-css/open-props` — explicit path |
+| `opui-css/dist/op.css`              | Same as `opui-css/open-props` - explicit path |
 | `opui-css/css/imports.css`          | Source: everything (resolved by your bundler) |
 | `opui-css/css/components.css`       | All component styles (no tokens / reset)      |
 | `opui-css/css/components/*.css`     | One component at a time                       |

@@ -60,12 +60,12 @@ const currentFramework = (Astro.currentLocale ??
         if (!(FRAMEWORK_IDS as string[]).includes(framework)) return
         // Persist explicit picker choice so future visits to the bare
         // homepage land on the user's preferred variant. Writes ONLY on
-        // explicit change — never on plain URL navigation, so deep links
+        // explicit change - never on plain URL navigation, so deep links
         // can't silently overwrite a saved preference.
         try {
           localStorage.setItem("opui-framework", framework)
         } catch (_) {
-          // private mode / storage disabled — non-fatal
+          // private mode / storage disabled - non-fatal
         }
         window.location.href = urlForFramework(framework)
       })

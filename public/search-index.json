@@ -1041,7 +1041,7 @@
     "id": "guide-getting-started-astro",
     "title": "Getting started",
     "description": "OPUI ships first-class Astro components. Install the package, import what\n    you need, and you're set.",
-    "headings": "Install via NPM Use a component Load the CSS",
+    "headings": "Install via NPM Import the CSS How to use",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/getting-started"
@@ -1058,8 +1058,8 @@
   {
     "id": "guide-getting-started-vue",
     "title": "Getting started",
-    "description": "OPUI ships Vue 3 single-file components. Install the package, import what\n    you need, and you're set.",
-    "headings": "Install via NPM Use a component Load the CSS",
+    "description": "",
+    "headings": "Install via NPM Import the CSS How to use",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/getting-started"
@@ -1455,36 +1455,6 @@
     "url": "/vue/api#dialog"
   },
   {
-    "id": "api-drawer-astro",
-    "title": "Drawer API",
-    "description": "Reference for Drawer Astro component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#drawer"
-  },
-  {
-    "id": "api-drawer-html",
-    "title": "Drawer API",
-    "description": "Reference for Drawer HTML component.",
-    "headings": "Sides .ui-inline-start, .ui-inline-end,\n        .ui-block-start, .ui-block-end .ui-inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .ui-backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\n        Prevents focus from jumping to the first focusable element. .ui-header - - Top area for titles. .ui-content - - Main content area. .ui-actions - - Bottom action area.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#drawer"
-  },
-  {
-    "id": "api-drawer-vue",
-    "title": "Drawer API",
-    "description": "Reference for Drawer Vue component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#drawer"
-  },
-  {
     "id": "api-divider-astro",
     "title": "Divider API",
     "description": "Reference for Divider Astro component.",
@@ -1513,6 +1483,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#divider"
+  },
+  {
+    "id": "api-drawer-astro",
+    "title": "Drawer API",
+    "description": "Reference for Drawer Astro component.",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#drawer"
+  },
+  {
+    "id": "api-drawer-html",
+    "title": "Drawer API",
+    "description": "Reference for Drawer HTML component.",
+    "headings": "Sides .ui-inline-start, .ui-inline-end,\n        .ui-block-start, .ui-block-end .ui-inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .ui-backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\n        Prevents focus from jumping to the first focusable element. .ui-header - - Top area for titles. .ui-content - - Main content area. .ui-actions - - Bottom action area.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#drawer"
+  },
+  {
+    "id": "api-drawer-vue",
+    "title": "Drawer API",
+    "description": "Reference for Drawer Vue component.",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#drawer"
   },
   {
     "id": "api-field-group-astro",

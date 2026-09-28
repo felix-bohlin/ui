@@ -1,6 +1,6 @@
 {
   "name": "opui-css",
-  "version": "5.4.1",
+  "version": "5.4.3",
   "description": "A CSS UI library exploring next-gen HTML & CSS features. HTML, Astro & Vue components on top of Open Props.",
   "type": "module",
   "license": "MIT",
@@ -68,6 +68,7 @@
     "postcss-import": "^16.1.0"
   },
   "peerDependencies": {
+    "@solidjs/web": "catalog:",
     "astro": "catalog:",
     "open-props": "catalog:",
     "solid-js": "catalog:",
@@ -75,6 +76,9 @@
     "vue": "catalog:"
   },
   "peerDependenciesMeta": {
+    "@solidjs/web": {
+      "optional": true
+    },
     "astro": {
       "optional": true
     },

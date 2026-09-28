@@ -1,7 +1,7 @@
 @layer utils {
+
   /*
 Screen-reader only
-When you visibly want to hide an element but make it accessible for screen readers.
 */
   .ui-sr-only {
     block-size: 1px;
@@ -58,8 +58,7 @@ Add `.ui-scroll-lock` to any element that uses the [open] attribute (native <dia
         inset-inline-start: 50%;
         position: absolute;
         transform-origin: center center;
-        transform: translateX(calc(var(--isRTL) * 50%)) translateY(-50%)
-          translateZ(-1px) scale(var(--thumb-scale));
+        transform: translateX(calc(var(--isRTL) * 50%)) translateY(-50%) translateZ(-1px) scale(var(--thumb-scale));
         will-change: transform;
 
         transition: transform calc(0.2s * var(--motion, 1)) ease;

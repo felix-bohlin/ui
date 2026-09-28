@@ -1,5 +1,17 @@
 # Changelog
 
+## 5.4.3 - 2026-09-18
+
+### Fixed
+
+Fix publish pnpm issue ([#357](https://github.com/felix-bohlin/ui/issues/357)) - thanks @onokumus!
+
+## 5.4.2 - 2026-06-29
+
+### Fixed
+
+- Make overline in `Card` header smaller.
+
 ## 5.4.1 - 2026-06-11
 
 ### Fixed
@@ -112,7 +124,7 @@ Run a project-wide find/replace per token, prompt or whatever. Below are all the
 
 </details>
 
-After the search/replace, do a visual smoke test — there is no automated codemod for consumer projects.
+After the search/replace, do a visual smoke test - there is no automated codemod for consumer projects.
 
 ## 4.1.0 - 2026-05-18
 

@@ -11,8 +11,9 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.10",
     "astro": "catalog:",
-    "astro-expressive-code": "^0.41.7",
+    "astro-expressive-code": "^0.44.0",
     "baseline-status": "^1.1.1",
     "globby": "^16.2.0",
     "highlight.js": "^11.11.1",
@@ -23,11 +24,11 @@
     "web-features": "^3.30.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.9",
-    "@astrojs/sitemap": "^3.7.3",
-    "@astrojs/solid-js": "^6.0.1",
-    "@astrojs/svelte": "^8.1.2",
-    "@astrojs/vue": "^6.0.1",
+    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/svelte": "^9.0.1",
+    "@astrojs/vue": "^7.0.3",
+    "@solidjs/vite-plugin": "^3.0.0-next.35",
+    "@solidjs/web": "catalog:",
     "prettier": "^3.8.4",
     "prettier-plugin-astro": "0.14.1",
     "solid-js": "catalog:",
@@ -37,5 +38,5 @@
   "pnpm": {
     "onlyBuiltDependencies": []
   },
-  "packageManager": "pnpm@10.28.2+sha512.41872f037ad22f7348e3b1debbaf7e867cfd448f2726d9cf74c08f19507c31d2c8e7a11525b983febc2df640b5438dee6023ebb1f84ed43cc2d654d2bc326264"
+  "packageManager": "pnpm@12.4.2+sha512.08adc6613180275c7c9edada39dcf08c9c61ad4e7eaf330a4f3461f102b0f907423454d117f98e72d47fef0616070644d7bffc973a6a57f5090a6d7c368b07c9"
 }

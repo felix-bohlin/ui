@@ -27,7 +27,7 @@ const variants = frameworkVariantsOf(pathname)
 const normalize = (url: string) => url.replace(/\/+$/, "") || "/"
 const currentNormalized = normalize(pathname)
 
-const siteTitle = title ? `${title} — Open Props UI` : "Open Props UI"
+const siteTitle = title ? `${title} - Open Props UI` : "Open Props UI"
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 const imageUrl = new URL(image || "/share-img.png", Astro.site)
 ---

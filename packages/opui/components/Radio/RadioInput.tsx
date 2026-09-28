@@ -1,5 +1,10 @@
+import { omit, useContext } from "solid-js"
+import { FieldGroupContext } from "../FieldGroup/context"
 import type { RadioInputProps } from "./types.solid"
 
 export default function RadioInput(props: RadioInputProps) {
-  return <input type="radio" {...props} />
+  const rest = omit(props, "name")
+  const fieldGroup = useContext(FieldGroupContext)
+
+  return <input type="radio" name={props.name ?? fieldGroup.name} {...rest} />
 }

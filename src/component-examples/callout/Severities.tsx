@@ -3,7 +3,7 @@ import { Callout } from "opui-css/solid"
 export default function Example() {
   return (
     <>
-      <Callout severity="neutral">This is a tonal primary Callout</Callout>
+      <Callout severity="neutral">This is a tonal neutral Callout</Callout>
       <Callout
         icon={
           <svg
@@ -59,7 +59,7 @@ export default function Example() {
         This is a tonal critical Callout
       </Callout>
       <Callout severity="neutral" variant="outlined">
-        This is an outlined primary Callout
+        This is an outlined neutral Callout
       </Callout>
       <Callout
         icon={

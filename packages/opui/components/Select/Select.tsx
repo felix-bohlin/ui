@@ -1,8 +1,10 @@
-import { createUniqueId, For, merge, omit, Show } from "solid-js"
+import { createUniqueId, For, merge, omit, Show, useContext } from "solid-js"
+import { FieldGroupContext } from "../FieldGroup/context"
 import type { Props } from "./types.solid"
 
 export default function Select(rawProps: Props) {
   const props = merge({ items: [], variant: "outlined" }, rawProps)
+  const fieldGroup = useContext(FieldGroupContext)
   const rest = omit(
     props,
     "children",
@@ -16,6 +18,7 @@ export default function Select(rawProps: Props) {
     "id",
     "items",
     "label",
+    "name",
     "prefix",
     "size",
     "spread",
@@ -54,6 +57,7 @@ export default function Select(rawProps: Props) {
         <select
           aria-labelledby={props.label ? labelId : undefined}
           id={selectId()}
+          name={props.name ?? fieldGroup.name}
           {...rest}
         >
           <button>

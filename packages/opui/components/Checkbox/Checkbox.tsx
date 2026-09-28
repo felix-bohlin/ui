@@ -1,5 +1,4 @@
-import { createUniqueId, omit, Show, useContext } from "solid-js"
-import { FieldGroupContext } from "../FieldGroup/context"
+import { createUniqueId, omit, Show } from "solid-js"
 import CheckboxInput from "./CheckboxInput"
 import type { CheckboxProps } from "./types.solid"
 
@@ -17,7 +16,6 @@ export default function Checkbox(props: CheckboxProps) {
     "stack",
   )
 
-  const fieldGroup = useContext(FieldGroupContext)
   const id = createUniqueId()
   const endTextId = () => (props.endText ? id : undefined)
 
@@ -36,7 +34,7 @@ export default function Checkbox(props: CheckboxProps) {
     >
       <CheckboxInput
         aria-describedby={endTextId()}
-        name={props.name || fieldGroup.name}
+        name={props.name}
         {...rest}
       />
       <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>

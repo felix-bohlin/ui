@@ -1,5 +1,4 @@
-import { createUniqueId, omit, Show, useContext } from "solid-js"
-import { FieldGroupContext } from "../FieldGroup/context"
+import { createUniqueId, omit, Show } from "solid-js"
 import RadioInput from "./RadioInput"
 import type { RadioProps } from "./types.solid"
 
@@ -16,7 +15,6 @@ export default function Radio(props: RadioProps) {
     "stack",
   )
 
-  const fieldGroup = useContext(FieldGroupContext)
   const id = createUniqueId()
   const endTextId = () => (props.endText ? id : undefined)
 
@@ -30,11 +28,7 @@ export default function Radio(props: RadioProps) {
       ]}
       data-invalid={props.error || undefined}
     >
-      <RadioInput
-        aria-describedby={endTextId()}
-        name={props.name || fieldGroup.name}
-        {...rest}
-      />
+      <RadioInput aria-describedby={endTextId()} name={props.name} {...rest} />
       <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>
         {props.children}
       </span>

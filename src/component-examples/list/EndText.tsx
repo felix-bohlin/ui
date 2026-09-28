@@ -11,12 +11,7 @@ export default function Example() {
       />
       <ListItem
         headline="Headline"
-        text={
-          <p>
-            Supporting text that truly is quite long enough to fill up multiple
-            lines.
-          </p>
-        }
+        description="Supporting text that truly is quite long enough to fill up multiple lines."
         end={<div>100+</div>}
       />
     </List>

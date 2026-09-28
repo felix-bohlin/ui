@@ -1,5 +1,4 @@
-import { createUniqueId, omit, Show, useContext } from "solid-js"
-import { FieldGroupContext } from "../FieldGroup/context"
+import { createUniqueId, omit, Show } from "solid-js"
 import SwitchInput from "./SwitchInput"
 import type { SwitchProps } from "./types.solid"
 
@@ -19,7 +18,6 @@ export default function Switch(props: SwitchProps) {
     "stack",
   )
 
-  const fieldGroup = useContext(FieldGroupContext)
   const uid = createUniqueId()
   const endTextId = () => (props.endText ? uid : undefined)
 
@@ -46,11 +44,7 @@ export default function Switch(props: SwitchProps) {
           {props.iconChecked}
         </span>
       </Show>
-      <SwitchInput
-        aria-describedby={endTextId()}
-        name={props.name || fieldGroup.name}
-        {...rest}
-      />
+      <SwitchInput aria-describedby={endTextId()} name={props.name} {...rest} />
       <Show when={props.children}>
         <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>
           {props.children}

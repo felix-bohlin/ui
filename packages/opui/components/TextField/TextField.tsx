@@ -1,8 +1,10 @@
-import { createUniqueId, merge, omit, Show } from "solid-js"
+import { createUniqueId, merge, omit, Show, useContext } from "solid-js"
+import { FieldGroupContext } from "../FieldGroup/context"
 import type { Props } from "./types.solid"
 
 export default function TextField(rawProps: Props) {
   const props = merge({ type: "text" }, rawProps)
+  const fieldGroup = useContext(FieldGroupContext)
   const rest = omit(
     props,
     "autoFit",
@@ -16,6 +18,7 @@ export default function TextField(rawProps: Props) {
     "header",
     "id",
     "label",
+    "name",
     "prefix",
     "small",
     "spread",
@@ -55,6 +58,7 @@ export default function TextField(rawProps: Props) {
       <span class="ui-field">
         <input
           id={fieldId()}
+          name={props.name ?? fieldGroup.name}
           inputmode={isNumeric() ? "numeric" : undefined}
           pattern={isNumeric() ? "[0-9]*" : undefined}
           type={isNumeric() ? "text" : props.type}

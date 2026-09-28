@@ -1,7 +1,9 @@
-import { createUniqueId, omit, Show } from "solid-js"
+import { createUniqueId, omit, Show, useContext } from "solid-js"
+import { FieldGroupContext } from "../FieldGroup/context"
 import type { Props } from "./types.solid"
 
 export default function Textarea(props: Props) {
+  const fieldGroup = useContext(FieldGroupContext)
   const rest = omit(
     props,
     "autoFit",
@@ -15,6 +17,7 @@ export default function Textarea(props: Props) {
     "header",
     "id",
     "label",
+    "name",
     "prefix",
     "small",
     "spread",
@@ -48,7 +51,11 @@ export default function Textarea(props: Props) {
       </Show>
 
       <span class="ui-field">
-        <textarea id={fieldId()} {...rest}></textarea>
+        <textarea
+          id={fieldId()}
+          name={props.name ?? fieldGroup.name}
+          {...rest}
+        ></textarea>
         <Show when={props.prefix}>
           <span class="ui-prefix">{props.prefix}</span>
         </Show>

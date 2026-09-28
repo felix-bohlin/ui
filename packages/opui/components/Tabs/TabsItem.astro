@@ -11,21 +11,23 @@ const {
   ...rest
 } = Astro.props
 
-const tabsGroupName = name || Astro.locals.tabsGroupName
-const originalGroupName = Astro.locals.tabsGroupName
-Astro.locals.tabsGroupName = tabsGroupName
+const escapeAttr = (value: string) =>
+  value.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
 
-const originalTabId = Astro.locals.currentTabId
-const originalPanelId = Astro.locals.currentPanelId
-
-Astro.locals.currentTabId = tabId
-Astro.locals.currentPanelId = panelId
-
-const html = await Astro.slots.render("default")
-
-Astro.locals.currentTabId = originalTabId
-Astro.locals.currentPanelId = originalPanelId
-Astro.locals.tabsGroupName = originalGroupName
+const slotHtml = (await Astro.slots.render("default")) ?? ""
+const html = slotHtml
+  .replace(
+    /<label\b(?=[^>]*\sclass="[^"]*\bui-tab-label\b)(?![^>]*\sfor=)/g,
+    () => `<label for="${escapeAttr(tabId)}"`,
+  )
+  .replace(
+    /<div\b(?=[^>]*\srole="tabpanel")(?![^>]*\sid=)/g,
+    () => `<div id="${escapeAttr(panelId)}"`,
+  )
+  .replace(
+    /<div\b(?=[^>]*\srole="tabpanel")(?![^>]*\saria-labelledby=)/g,
+    () => `<div aria-labelledby="${escapeAttr(tabId)}"`,
+  )
 ---
 
 <input
@@ -33,7 +35,7 @@ Astro.locals.tabsGroupName = originalGroupName
   checked={open}
   class:list={["ui-tab-input", className]}
   id={tabId}
-  name={tabsGroupName}
+  name={name}
   type="radio"
   {...rest}
 />

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useId } from "vue"
+import { inject, useId } from "vue"
 import type { Props, Slots } from "./types.d.vue"
+import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -16,6 +17,7 @@ const modelValue = defineModel<string | number | (string | number)[]>()
 const selectId = props.id || useId()
 const labelId = useId()
 const endTextId = useId()
+const currentFieldName = inject(CurrentFieldNameKey, undefined)
 </script>
 
 <template>
@@ -43,6 +45,7 @@ const endTextId = useId()
       <select
         :aria-labelledby="props.label ? labelId : undefined"
         :id="selectId"
+        :name="currentFieldName"
         v-bind="$attrs"
         v-model="modelValue"
       >

@@ -2,11 +2,10 @@
 import type { TabsTabProps as Props } from "./types.astro"
 
 const { class: className, tabId, ...rest } = Astro.props
-const { currentTabId } = Astro.locals
 ---
 
 <label
-  for={tabId || currentTabId}
+  for={tabId}
   class:list={["ui-tab-label", className]}
   role="tab"
   {...rest}

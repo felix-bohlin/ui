@@ -11,3 +11,5 @@ tests/unit/__snapshots__
 dist-test
 playwright-report
 test-results
+tests/e2e/a11y-known-violations.json
+tests/unit/parity-known-drift.json

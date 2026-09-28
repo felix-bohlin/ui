@@ -1,0 +1,128 @@
+{
+  "astro/avatar": [
+    "color-contrast"
+  ],
+  "astro/badge": [
+    "color-contrast"
+  ],
+  "astro/button": [
+    "color-contrast"
+  ],
+  "astro/button-group": [
+    "color-contrast"
+  ],
+  "astro/callout": [
+    "aria-allowed-role"
+  ],
+  "astro/checkbox": [
+    "color-contrast"
+  ],
+  "astro/drawer": [
+    "scrollable-region-focusable"
+  ],
+  "astro/list": [
+    "aria-allowed-attr",
+    "button-name",
+    "color-contrast",
+    "list"
+  ],
+  "astro/select": [
+    "button-name"
+  ],
+  "astro/spinner": [
+    "color-contrast",
+    "heading-order"
+  ],
+  "astro/tabs": [
+    "aria-allowed-role",
+    "aria-required-children",
+    "color-contrast"
+  ],
+  "astro/typography": [
+    "color-contrast"
+  ],
+  "html/avatar": [
+    "color-contrast"
+  ],
+  "html/badge": [
+    "color-contrast"
+  ],
+  "html/button": [
+    "color-contrast"
+  ],
+  "html/button-group": [
+    "color-contrast"
+  ],
+  "html/callout": [
+    "aria-allowed-role"
+  ],
+  "html/checkbox": [
+    "color-contrast"
+  ],
+  "html/list": [
+    "aria-allowed-attr",
+    "button-name",
+    "color-contrast"
+  ],
+  "html/range": [
+    "label"
+  ],
+  "html/spinner": [
+    "color-contrast",
+    "heading-order"
+  ],
+  "html/tabs": [
+    "aria-allowed-role",
+    "aria-required-children",
+    "color-contrast"
+  ],
+  "html/toggle": [
+    "label"
+  ],
+  "html/typography": [
+    "color-contrast"
+  ],
+  "vue/accordion": [
+    "landmark-unique"
+  ],
+  "vue/avatar": [
+    "color-contrast"
+  ],
+  "vue/badge": [
+    "color-contrast"
+  ],
+  "vue/button": [
+    "color-contrast"
+  ],
+  "vue/button-group": [
+    "color-contrast"
+  ],
+  "vue/callout": [
+    "aria-allowed-role"
+  ],
+  "vue/checkbox": [
+    "color-contrast"
+  ],
+  "vue/drawer": [
+    "scrollable-region-focusable"
+  ],
+  "vue/list": [
+    "aria-allowed-attr",
+    "button-name",
+    "color-contrast",
+    "list"
+  ],
+  "vue/select": [
+    "button-name"
+  ],
+  "vue/spinner": [
+    "color-contrast",
+    "heading-order"
+  ],
+  "vue/toggle": [
+    "aria-allowed-attr"
+  ],
+  "vue/typography": [
+    "color-contrast"
+  ]
+}

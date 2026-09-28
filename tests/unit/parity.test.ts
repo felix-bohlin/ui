@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto"
 import { writeFileSync } from "node:fs"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { getContainerRenderer } from "@astrojs/vue/container-renderer"
@@ -17,8 +18,8 @@ const astroModules = import.meta.glob<{ default: any }>(
 const vueModules = import.meta.glob<{ default: any }>(
   "../../src/component-examples/**/*.vue",
 )
-const componentSources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.{astro,vue}",
+const exampleSources = import.meta.glob<string>(
+  "../../src/component-examples/**/*.{astro,html,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
 const htmlSources = import.meta.glob<string>(
@@ -26,9 +27,20 @@ const htmlSources = import.meta.glob<string>(
   { import: "default", query: "?raw" },
 )
 
-const allComponentSources = Object.values(componentSources).join("\n")
-
-const EXTERNAL_CLASSES = new Set(["ec-line", "frame", "indent"])
+const EXAMPLE_CLASSES = new Set([
+  "code",
+  "copy",
+  "ec-line",
+  "expressive-code",
+  "frame",
+  "header",
+  "indent",
+  ...Object.values(exampleSources).flatMap((source) =>
+    [...source.matchAll(/\bclass="([^"{]+)"/g)].flatMap((match) =>
+      match[1].split(/\s+/),
+    ),
+  ),
+])
 
 type Framework = "astro" | "html" | "vue"
 
@@ -108,9 +120,10 @@ const markup = (example: Example, framework: Framework) => {
 
 type Comparison = keyof typeof knownDrift
 
-const recorded: Record<Comparison, string[]> = {
-  "astro-vue": [],
-  html: [],
+const known: Record<Comparison, Record<string, string>> = knownDrift
+const recorded: Record<Comparison, Record<string, string>> = {
+  "astro-vue": {},
+  html: {},
 }
 
 const compare = (
@@ -118,23 +131,41 @@ const compare = (
   example: Example,
   pairs: [Framework, Framework][],
 ) => {
-  const known = knownDrift[comparison].includes(example.key)
   const title = pairs.map(([a, b]) => `${a} = ${b}`).join(", ")
-  const run = RECORD || !known ? test : test.fails
 
-  run(title, async () => {
-    for (const [a, b] of pairs) {
-      const [left, right] = await Promise.all([
-        markup(example, a),
-        markup(example, b),
-      ])
-      if (RECORD) {
-        if (left !== right) recorded[comparison].push(example.key)
-        if (left !== right) break
-        continue
-      }
-      expect(right, `${b} differs from ${a}`).toBe(left)
+  test(title, async () => {
+    const outputs = await Promise.all(
+      pairs.map(([a, b]) =>
+        Promise.all([markup(example, a), markup(example, b)]),
+      ),
+    )
+    const drift = outputs
+      .map(([left, right], index) =>
+        left === right ? "" : `${pairs[index].join("|")}\n${left}\n${right}`,
+      )
+      .join("\n")
+    const signature = drift.trim()
+      ? createHash("sha256").update(drift).digest("hex").slice(0, 16)
+      : ""
+
+    if (RECORD) {
+      if (signature) recorded[comparison][example.key] = signature
+      return
     }
+
+    const expected = known[comparison][example.key]
+    if (expected) {
+      expect(
+        signature,
+        `known drift changed or was fixed; re-record with pnpm test:record-drift`,
+      ).toBe(expected)
+      return
+    }
+
+    outputs.forEach(([left, right], index) => {
+      const [a, b] = pairs[index]
+      expect(right, `${b} differs from ${a}`).toBe(left)
+    })
   })
 }
 
@@ -156,10 +187,7 @@ describe.each(cases)("$key", (example) => {
         ...(await markup(example, framework)).matchAll(/ class="([^"]*)"/g),
       ].flatMap((match) => match[1].split(" "))
       const unprefixed = [...new Set(classes)].filter(
-        (name) =>
-          !name.startsWith("ui-") &&
-          !EXTERNAL_CLASSES.has(name) &&
-          !allComponentSources.includes(name),
+        (name) => !name.startsWith("ui-") && !EXAMPLE_CLASSES.has(name),
       )
       expect(unprefixed).toEqual([])
     },
@@ -182,9 +210,13 @@ describe.each(cases)("$key", (example) => {
 afterAll(() => {
   if (!RECORD) return
   const sorted = Object.fromEntries(
-    Object.entries(recorded).map(([comparison, keys]) => [
+    Object.entries(recorded).map(([comparison, signatures]) => [
       comparison,
-      [...new Set(keys)].toSorted(),
+      Object.fromEntries(
+        Object.keys(signatures)
+          .toSorted((a, b) => a.localeCompare(b))
+          .map((key) => [key, signatures[key]]),
+      ),
     ]),
   )
   writeFileSync(KNOWN_DRIFT_FILE, JSON.stringify(sorted, null, 2) + "\n")

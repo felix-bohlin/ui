@@ -44,6 +44,8 @@ const VOID_ELEMENTS = new Set([
   "wbr",
 ])
 
+const GENERATED_NAME = /^(v-[\w-]+|[a-z][a-z-]*-\d+)$/
+
 const isElement = (node: Node): node is Element => "tagName" in node
 
 const childrenOf = (node: Node) =>
@@ -58,6 +60,10 @@ const collectIds = (nodes: Node[], ids: Map<string, string>) => {
     if (!isElement(node) || DROPPED_ELEMENTS.has(node.tagName)) continue
     const id = node.attrs.find((attr) => attr.name === "id")?.value
     if (id && !ids.has(id)) ids.set(id, `id-${ids.size + 1}`)
+    const name = node.attrs.find((attr) => attr.name === "name")?.value
+    if (name && GENERATED_NAME.test(name) && !ids.has(`name:${name}`)) {
+      ids.set(`name:${name}`, `name-${ids.size + 1}`)
+    }
     collectIds(childrenOf(node), ids)
   }
 }
@@ -71,6 +77,7 @@ const normalizeAttribute = (
     return value.split(/\s+/).filter(Boolean).toSorted().join(" ")
   }
   if (name === "id") return ids.get(value) ?? value
+  if (name === "name") return ids.get(`name:${value}`) ?? value
   if (ID_REFERENCE_ATTRIBUTES.has(name)) {
     return value
       .split(/\s+/)

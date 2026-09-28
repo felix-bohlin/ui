@@ -250,11 +250,9 @@
     }
 
     &.ui-ripple {
-      --_ripple-active-color: var(--_default-active-bg-color);
-      --_ripple-color: transparent;
-      --_ripple-hover-color: var(--_default-hover-bg-color);
+      --_ripple-color: oklch(0.6 0 0 / 0.2);
       --_ripple-scale: 0.01;
-      --_ripple-size: 130%;
+      --_ripple-size: 150%;
 
       position: relative;
       transform-style: preserve-3d;
@@ -269,27 +267,18 @@
         position: absolute;
         transform: translate(-50%, -50%) translateZ(-1px)
           scale(var(--_ripple-scale));
-        transition:
-          background-color calc(0.1s * var(--_motion)) ease,
-          transform calc(0.2s * var(--_motion)) ease;
-      }
-
-      &.ui-filled {
-        --_ripple-active-color: var(--_filled-active-bg-color);
-        --_ripple-hover-color: var(--_filled-hover-bg-color);
+        transition: transform calc(0.2s * var(--_motion)) ease;
       }
 
       &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
         @media (hover: hover) {
           &:where(:not(:active):hover) {
-            --_ripple-color: var(--_ripple-hover-color);
             --_ripple-scale: 1;
           }
         }
 
         &:where(:hover:active),
         &[aria-current="page"] {
-          --_ripple-color: var(--_ripple-active-color);
           --_ripple-scale: 1.1;
         }
       }

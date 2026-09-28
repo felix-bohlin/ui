@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { Form } from "@opui/svelte"
-  import { FieldDescription } from "@opui/svelte"
-  import { FieldSet } from "@opui/svelte"
-  import { FieldLegend } from "@opui/svelte"
-  import { FieldGroup } from "@opui/svelte"
   import { Checkbox } from "@opui/svelte"
+  import { FieldDescription } from "@opui/svelte"
+  import { FieldGroup } from "@opui/svelte"
+  import { FieldLegend } from "@opui/svelte"
+  import { FieldSet } from "@opui/svelte"
+  import { Form } from "@opui/svelte"
   import { Radio } from "@opui/svelte"
 </script>
 

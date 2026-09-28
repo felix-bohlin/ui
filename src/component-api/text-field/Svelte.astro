@@ -41,7 +41,7 @@ import { Table } from "@opui/astro"
           >min</code
         >, <code>name</code>, <code>placeholder</code>, <code>required</code>, <code
           >step</code
-        >, <code>value</code></Table.Cell
+        ></Table.Cell
       >
       <Table.Cell>-</Table.Cell>
       <Table.Cell
@@ -70,6 +70,12 @@ import { Table } from "@opui/astro"
       <Table.Cell>The filled visual variant.</Table.Cell>
     </Table.Row>
     <Table.Row>
+      <Table.Cell><code>ref</code></Table.Cell>
+      <Table.Cell><code>HTMLLabelElement</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Bindable reference to the root element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
       <Table.Cell><code>small</code></Table.Cell>
       <Table.Cell><code>boolean</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
@@ -91,6 +97,12 @@ import { Table } from "@opui/astro"
         >The input type. <code>"numeric"</code> renders a text input with a numeric
         keyboard.</Table.Cell
       >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>value</code></Table.Cell>
+      <Table.Cell><code>string</code>, <code>number</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The input value. Bindable.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>

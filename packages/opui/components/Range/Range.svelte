@@ -54,7 +54,12 @@
 
 <label
   bind:this={ref}
-  class={["ui-range", variant && `ui-${variant}`, { "ui-spread": spread }, className]}
+  class={[
+    "ui-range",
+    variant && `ui-${variant}`,
+    { "ui-spread": spread },
+    className,
+  ]}
 >
   {#if labelId}
     <span class="ui-label" id={labelId}>

@@ -47,6 +47,15 @@ import { Table } from "@opui/astro"
       <Table.Cell>Input error state.</Table.Cell>
     </Table.Row>
     <Table.Row>
+      <Table.Cell><code>group</code></Table.Cell>
+      <Table.Cell><code>(string | number)[]</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Checked values of a checkbox group, matched against <code>value</code>.
+        Bindable.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
       <Table.Cell><code>hideLabel</code></Table.Cell>
       <Table.Cell><code>boolean</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
@@ -59,6 +68,12 @@ import { Table } from "@opui/astro"
       <Table.Cell
         >Visual partial-selection state. Does not affect form submission.</Table.Cell
       >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>ref</code></Table.Cell>
+      <Table.Cell><code>HTMLLabelElement</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Bindable reference to the root element.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>required</code></Table.Cell>
@@ -75,13 +90,13 @@ import { Table } from "@opui/astro"
     <Table.Row>
       <Table.Cell><code>spread</code></Table.Cell>
       <Table.Cell><code>boolean</code></Table.Cell>
-      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
       <Table.Cell>Spreads the label and input to opposite ends.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>stack</code></Table.Cell>
       <Table.Cell><code>boolean</code></Table.Cell>
-      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
       <Table.Cell>Stacks the label under the input.</Table.Cell>
     </Table.Row>
   </Table.Body>

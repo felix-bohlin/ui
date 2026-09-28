@@ -22,7 +22,10 @@
   <ListItem inset headline="Inset class">
     <p>Makes the text line up nicely</p>
   </ListItem>
-  <ListItem inset headline="Inset class" start="Hidden">
+  <ListItem inset headline="Inset class">
+    {#snippet start()}
+      <div>Hidden</div>
+    {/snippet}
     <p>Any <code>div.ui-start</code> will be hidden when inset</p>
   </ListItem>
 </List>

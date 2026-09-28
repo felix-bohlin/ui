@@ -4,7 +4,10 @@
 </script>
 
 <List>
-  <ListItem headline="Headline" description="Supporting text" end="13:37">
+  <ListItem headline="Headline" description="Supporting text">
+    {#snippet end()}
+      <div>13:37</div>
+    {/snippet}
     {#snippet start()}
       <video controls muted>
         <source
@@ -14,7 +17,10 @@
       </video>
     {/snippet}
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text" end="90s">
+  <ListItem headline="Headline" description="Supporting text">
+    {#snippet end()}
+      <div>90s</div>
+    {/snippet}
     {#snippet start()}
       <video controls muted>
         <source

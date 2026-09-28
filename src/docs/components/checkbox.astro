@@ -166,7 +166,8 @@ import Conditional from "../../components/Conditional.astro"
           Set the <code>indeterminate</code> prop to render a partially-selected state.
           <code>indeterminate</code> is a JavaScript-only property on <code
             >HTMLInputElement</code
-          >, so the component renders <code>data-indeterminate</code> on the input.
+          >, so the component renders <code>data-indeterminate</code> on the input
+          and applies the property whenever the prop changes.
         </p>
       </Fragment>
       <Fragment slot="vue">
@@ -252,7 +253,8 @@ import Conditional from "../../components/Conditional.astro"
         </p>
         <p slot="svelte">
           The <code>name</code> prop will get passed down to each checkbox in the
-          group.
+          group. Use <code>bind:group</code> on each checkbox to collect the checked
+          <code>value</code>s in an array.
         </p>
         <p slot="vue">
           The <code>name</code> prop will get passed down to each checkbox in the

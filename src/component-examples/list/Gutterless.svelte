@@ -6,22 +6,27 @@
 <List gutterless>
   <ListItem headline="Gutterless list item">
     {#snippet end()}
-      <button class="ui-icon-button" type="button">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 32 32"
-        >
-          <path
-            fill="currentColor"
-            d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
-          ></path>
-        </svg>
-      </button>
+      <div>
+        <button class="ui-icon-button" type="button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
+            ></path>
+          </svg>
+        </button>
+      </div>
     {/snippet}
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text" end="100+">
+  <ListItem headline="Headline" description="Supporting text">
+    {#snippet end()}
+      <div>100+</div>
+    {/snippet}
     {#snippet start()}
       <svg
         xmlns="http://www.w3.org/2000/svg"

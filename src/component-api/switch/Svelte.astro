@@ -51,7 +51,7 @@ import { Table } from "@opui/astro"
       <Table.Cell><code>checked</code></Table.Cell>
       <Table.Cell><code>boolean</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
-      <Table.Cell>Whether the switch is checked.</Table.Cell>
+      <Table.Cell>Whether the switch is checked. Bindable.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>disabled</code></Table.Cell>
@@ -66,10 +66,25 @@ import { Table } from "@opui/astro"
       <Table.Cell>Switch error state.</Table.Cell>
     </Table.Row>
     <Table.Row>
+      <Table.Cell><code>group</code></Table.Cell>
+      <Table.Cell><code>(string | number)[]</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Checked values of a switch group, matched against <code>value</code>.
+        Bindable.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
       <Table.Cell><code>hideLabel</code></Table.Cell>
       <Table.Cell><code>boolean</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell>Visually hides the label but keeps it accessible.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>ref</code></Table.Cell>
+      <Table.Cell><code>HTMLLabelElement</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Bindable reference to the root element.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>required</code></Table.Cell>

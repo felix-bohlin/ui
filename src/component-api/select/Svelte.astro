@@ -57,11 +57,17 @@ import { Table } from "@opui/astro"
     <Table.Row>
       <Table.Cell><code>items</code></Table.Cell>
       <Table.Cell><code>Item[]</code></Table.Cell>
-      <Table.Cell>-</Table.Cell>
+      <Table.Cell><code>[]</code></Table.Cell>
       <Table.Cell
         >An array of objects with <code>text</code> and <code>value</code> properties.
-        Takes precedence over <code>children</code>.</Table.Cell
+        Rendered before <code>children</code>.</Table.Cell
       >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>ref</code></Table.Cell>
+      <Table.Cell><code>HTMLLabelElement</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Bindable reference to the root element.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>required</code></Table.Cell>
@@ -82,6 +88,12 @@ import { Table } from "@opui/astro"
       <Table.Cell
         >Spreads the label/description and select to opposite ends.</Table.Cell
       >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>value</code></Table.Cell>
+      <Table.Cell><code>any</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The selected value. Bindable.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>variant</code></Table.Cell>

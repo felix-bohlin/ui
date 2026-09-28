@@ -6,12 +6,12 @@
 <List>
   <ListItem headline="Save all">
     {#snippet end()}
-      <kbd>CTRL+ALT+DEL</kbd>
+      <div><kbd>CTRL+ALT+DEL</kbd></div>
     {/snippet}
   </ListItem>
   <ListItem headline="Save">
     {#snippet end()}
-      <kbd>CTRL+S</kbd>
+      <div><kbd>CTRL+S</kbd></div>
     {/snippet}
   </ListItem>
 </List>

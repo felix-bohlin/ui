@@ -14,11 +14,15 @@
   description="Supporting text that truly is quite long enough to fill up multiple lines."
 />
 
-<ListItem headline="Trailing supporting text" end="100+" />
+<ListItem headline="Trailing supporting text">
+  {#snippet end()}
+    <div>100+</div>
+  {/snippet}
+</ListItem>
 
 <ListItem headline="Trailing keyboard command">
   {#snippet end()}
-    <kbd>CTRL+Shift+X</kbd>
+    <div><kbd>CTRL+Shift+X</kbd></div>
   {/snippet}
 </ListItem>
 
@@ -182,30 +186,37 @@
   {/snippet}
 </ListItem>
 
-<ListItem
-  borderTop
-  type="checkbox"
-  for={`${prefix}checkbox-all`}
-  text="Checkbox"
->
+<ListItem borderTop type="checkbox" for={`${prefix}checkbox-all`}>
+  {#snippet text()}
+    <div>Checkbox</div>
+  {/snippet}
   {#snippet end()}
     <CheckboxInput id={`${prefix}checkbox-all`} />
   {/snippet}
 </ListItem>
 
-<ListItem borderTop type="radio" for={`${prefix}radio-all-1`} text="Radio 1">
+<ListItem borderTop type="radio" for={`${prefix}radio-all-1`}>
+  {#snippet text()}
+    <div>Radio 1</div>
+  {/snippet}
   {#snippet end()}
     <RadioInput id={`${prefix}radio-all-1`} name={`${prefix}radio-group-all`} />
   {/snippet}
 </ListItem>
 
-<ListItem type="radio" for={`${prefix}radio-all-2`} text="Radio 2">
+<ListItem type="radio" for={`${prefix}radio-all-2`}>
+  {#snippet text()}
+    <div>Radio 2</div>
+  {/snippet}
   {#snippet end()}
     <RadioInput id={`${prefix}radio-all-2`} name={`${prefix}radio-group-all`} />
   {/snippet}
 </ListItem>
 
-<ListItem borderTop type="switch" for={`${prefix}switch-all-1`} text="Switch 1">
+<ListItem borderTop type="switch" for={`${prefix}switch-all-1`}>
+  {#snippet text()}
+    <div>Switch 1</div>
+  {/snippet}
   {#snippet end()}
     <SwitchInput id={`${prefix}switch-all-1`} />
   {/snippet}

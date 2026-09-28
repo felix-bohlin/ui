@@ -1,5 +1,8 @@
 <script lang="ts">
-  import { FieldDescription, FieldLegend, FieldSet, Form } from "@opui/svelte"
+  import { FieldDescription } from "@opui/svelte"
+  import { FieldLegend } from "@opui/svelte"
+  import { FieldSet } from "@opui/svelte"
+  import { Form } from "@opui/svelte"
 </script>
 
 <Form as="div">

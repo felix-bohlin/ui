@@ -24,8 +24,8 @@ import { Table } from "@opui/astro"
         ><code>children</code>, <code>description</code>, <code>endText</code>, <code
           >footer</code
         >, <code>header</code>, <code>label</code>, <code>prefix</code>, <code
-          >startText</code
-        >, <code>suffix</code>, <code>supportingText</code></Table.Cell
+          >suffix</code
+        >, <code>supportingText</code></Table.Cell
       >
       <Table.Cell>-</Table.Cell>
       <Table.Cell
@@ -41,7 +41,7 @@ import { Table } from "@opui/astro"
           >minlength</code
         >, <code>name</code>, <code>placeholder</code>, <code>required</code>, <code
           >rows</code
-        >, <code>value</code></Table.Cell
+        ></Table.Cell
       >
       <Table.Cell>-</Table.Cell>
       <Table.Cell
@@ -70,6 +70,12 @@ import { Table } from "@opui/astro"
       <Table.Cell>The filled visual variant.</Table.Cell>
     </Table.Row>
     <Table.Row>
+      <Table.Cell><code>ref</code></Table.Cell>
+      <Table.Cell><code>HTMLLabelElement</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Bindable reference to the root element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
       <Table.Cell><code>small</code></Table.Cell>
       <Table.Cell><code>boolean</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
@@ -82,6 +88,12 @@ import { Table } from "@opui/astro"
       <Table.Cell
         >Spreads the label/description and textarea to opposite ends.</Table.Cell
       >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>value</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The textarea value. Bindable.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>

@@ -1,20 +1,29 @@
 <script lang="ts">
-  import {
-    Button,
-    Checkbox,
-    Divider,
-    FieldDescription,
-    FieldGroup,
-    FieldLegend,
-    FieldSet,
-    Form,
-    Radio,
-    Range,
-    Select,
-    Switch,
-    TextField,
-    Textarea,
-  } from "@opui/svelte"
+  import { Form } from "@opui/svelte"
+  import { FieldSet } from "@opui/svelte"
+  import { FieldLegend } from "@opui/svelte"
+  import { FieldDescription } from "@opui/svelte"
+  import { FieldGroup } from "@opui/svelte"
+  import { TextField } from "@opui/svelte"
+  import { Select } from "@opui/svelte"
+  import { Switch } from "@opui/svelte"
+  import { Radio } from "@opui/svelte"
+  import { Textarea } from "@opui/svelte"
+  import { Checkbox } from "@opui/svelte"
+  import { Range } from "@opui/svelte"
+  import { Button } from "@opui/svelte"
+  import { Divider } from "@opui/svelte"
+
+  const roleItems = [
+    { text: "Developer", value: "dev" },
+    { text: "Designer", value: "design" },
+    { text: "Manager", value: "manager" },
+  ]
+
+  let emailNotifs = $state(true)
+  let smsNotifs = $state(false)
+  let theme = $state("light")
+  let experience = $state(5)
 </script>
 
 <Form id="kitchen-sink-example-row">
@@ -30,14 +39,7 @@
       <TextField type="email" placeholder="jane@example.com" required spread>
         {#snippet label()}Email Address{/snippet}
       </TextField>
-      <Select
-        items={[
-          { text: "Developer", value: "dev" },
-          { text: "Designer", value: "design" },
-          { text: "Manager", value: "manager" },
-        ]}
-        spread
-      >
+      <Select items={roleItems} spread>
         {#snippet label()}Role{/snippet}
       </Select>
     </FieldGroup>
@@ -51,8 +53,12 @@
       Configure how you want to receive updates.
     </FieldDescription>
     <FieldGroup name="notifications">
-      <Switch name="email_notifs" checked spread>Email Notifications</Switch>
-      <Switch name="sms_notifs" spread>SMS Notifications</Switch>
+      <Switch bind:checked={emailNotifs} name="email_notifs" spread
+        >Email Notifications</Switch
+      >
+      <Switch bind:checked={smsNotifs} name="sms_notifs" spread
+        >SMS Notifications</Switch
+      >
     </FieldGroup>
   </FieldSet>
 
@@ -62,9 +68,9 @@
     <FieldLegend>Theme Preference</FieldLegend>
     <FieldDescription>Select your preferred visual style.</FieldDescription>
     <FieldGroup direction="row" name="theme">
-      <Radio value="light" checked>Light Theme</Radio>
-      <Radio value="dark">Dark Theme</Radio>
-      <Radio value="system">System Default</Radio>
+      <Radio bind:group={theme} value="light">Light Theme</Radio>
+      <Radio bind:group={theme} value="dark">Dark Theme</Radio>
+      <Radio bind:group={theme} value="system">System Default</Radio>
     </FieldGroup>
   </FieldSet>
 
@@ -76,7 +82,7 @@
       >How many years of experience do you have?</FieldDescription
     >
     <FieldGroup>
-      <Range min="0" max="20" step="1" value="5" spread>
+      <Range min="0" max="20" step="1" bind:value={experience} spread>
         Professional Experience
         {#snippet startText()}Drag the slider to match your total tenure.{/snippet}
       </Range>

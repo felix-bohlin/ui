@@ -5,8 +5,9 @@
 <Textarea spread placeholder="Hello, world!">
   {#snippet label()}Message{/snippet}
   {#snippet description()}
-    >You can write your message here. Keep it short, preferably under 100
-    characters.{/snippet}
+    You can write your message here. Keep it short, preferably under 100
+    characters.
+  {/snippet}
 </Textarea>
 
 <Textarea spread placeholder="Additional notes..." filled>

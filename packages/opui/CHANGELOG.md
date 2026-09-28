@@ -4,7 +4,7 @@
 
 ### Added
 
-- `Button` takes an `iconOnly` prop (`.ui-icon-only`) for square icon-only buttons, at every size and inside `ButtonGroup`.
+- `Button` is square when its only child is an `svg`, at every size and inside `ButtonGroup`.
 - `Button` padding scales with `--_padding-inline`, and the icon side gets tighter padding when a direct child `svg` sits next to a wrapped label (e.g. `<span>`).
 - `Button` and `IconButton` support `.ui-disabled`. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.
 - `layers.css` with the `@layer` order, for importing single component files.

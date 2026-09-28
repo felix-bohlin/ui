@@ -82,7 +82,11 @@ if (!astroComponent && !htmlSource && !vueComponent && !svelteComponent) {
 }
 ---
 
-<Example {...rest} vueExampleId={vueComponent ? `${slug}/${name}` : undefined}>
+<Example
+  {...rest}
+  svelteExampleId={svelteComponent ? `${slug}/${name}` : undefined}
+  vueExampleId={vueComponent ? `${slug}/${name}` : undefined}
+>
   {
     Astro.slots.has("controls") && (
       <Fragment slot="controls">

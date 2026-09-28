@@ -130,7 +130,7 @@
 
     &.ui-large {
       input[type="radio"] {
-        --_input-size: var(--size-4);
+        --_input-size: 1.375rem;
       }
     }
 

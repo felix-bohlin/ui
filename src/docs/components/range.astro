@@ -111,6 +111,24 @@ import Conditional from "../../components/Conditional.astro"
   </section>
 
   <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set the <code>small</code> prop for a smaller Range.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.ui-small</code> class on the <code
+          >&lt;label class="ui-range"&gt;</code
+        > for a smaller Range.
+      </Fragment>
+      <Fragment slot="vue">
+        Set the <code>small</code> prop for a smaller Range.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Sizes" column />
+  </section>
+
+  <section>
     <h2 id="disabled">Disabled</h2>
     <AutoExample name="Disabled" column />
   </section>

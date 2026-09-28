@@ -363,8 +363,12 @@
 
     /* Sizes */
     &.ui-small {
-      --_field-padding-block: var(--size-2);
+      --_field-padding-block: var(--size-1);
       --_height: var(--field-size-small);
+
+      :where(.ui-field) :where(input, textarea, select) {
+        font-size: var(--font-size-05);
+      }
 
       &:has(input[type="color"]) {
         .ui-label {

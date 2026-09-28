@@ -182,6 +182,15 @@
       }
     }
 
+    /* Size */
+    &.ui-small input[type="range"] {
+      --_thumb-offset: -0.875ex;
+      --_thumb-size: 2.5ex;
+      --_track-height: 0.75ex;
+
+      block-size: var(--size-3);
+    }
+
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {

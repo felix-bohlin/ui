@@ -3,6 +3,7 @@ export type RangeProps = {
   endText?: string
   id?: string
   label?: string
+  small?: boolean
   spread?: boolean
   startText?: string
   value?: number | string

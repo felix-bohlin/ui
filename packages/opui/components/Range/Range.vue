@@ -21,7 +21,7 @@ const endTextId = useId()
     :class="[
       'ui-range',
       props.variant && `ui-${props.variant}`,
-      { 'ui-spread': props.spread },
+      { 'ui-small': props.small, 'ui-spread': props.spread },
       props.class,
     ]"
   >

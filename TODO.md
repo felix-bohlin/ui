@@ -50,7 +50,8 @@
 - [] `text-box: trim-both cap alphabetic` on Button/Chip/Badge only works if the label is wrapped in its own element (flex/grid containers ignore it)
 - [] Scroll-state container queries: sticky Table header shadow, scroll shadows in Dialog/Drawer
 - [] Opt-in `:user-valid` success styling for forms
-- [] Size pass across all controls so small/default/large line up when mixed (e.g. Form kitchen sink): small text field/select is 38px not 32px (`.ui-small` keeps `--_field-padding-block: var(--size-2)`), Range has no small size, and buttons, switches, checkboxes and radios all shrink by different amounts
+- [] Size scale gaps: TextField/Select/Textarea/Switch/Range have no `large` (Button, Checkbox and Radio do) and only Button/ToggleButton have `x-small`
+- [] Size API is inconsistent: `small` boolean (TextField, Textarea, Switch, Range) vs `size` prop (Select, Checkbox, Radio, Button, ToggleButton)
 
 ## Questions
 

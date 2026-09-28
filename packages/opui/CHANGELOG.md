@@ -8,6 +8,7 @@
 - `Menu` component (`menu.ui-menu.ui-list[popover]`). Opens with Invoker Commands, anchors to its trigger with no `anchor-name`, and flips when it runs out of space. Supports an `items` prop, custom `ListItem` content, placements, end alignment (`align="end"`, `.ui-align-end`), `--anchor-position-area`, group labels, critical items and submenus. HTML and CSS only.
 - `Button` takes an `iconOnly` prop (`.ui-icon-only`) for square icon-only buttons, at every size and inside `ButtonGroup`.
 - `DrawerHeader` takes a `commandfor` prop (the drawer `id`). When set, the close button uses `command="close"` (Invoker Commands), HTML only. Without it, the previous script fallback is used.
+- `Range` takes a `small` prop (`.ui-small`).
 
 ### Fixed
 
@@ -18,6 +19,8 @@
 - `Dialog` scroll-lock matches `.ui-scroll-lock` and no longer shifts the layout when the scrollbar disappears.
 - `Button`, `IconButton` and `ButtonGroup` style `[aria-disabled="true"]` the same as `[disabled]`, e.g. for `<a class="ui-button" aria-disabled="true">` or focusable disabled buttons.
 - `ButtonGroup` only styles its direct child buttons, so a `Menu` inside it (split button) keeps its own item styles.
+- Small `TextField`, `Select` and `Textarea` are 32px tall with 14px text, matching small buttons. Previously they were 38px with 16px text.
+- Large `Radio` is 22px, in proportion with large `Checkbox`.
 
 ## 5.4.3 - 2026-09-18
 

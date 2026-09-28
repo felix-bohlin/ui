@@ -14,6 +14,7 @@ const {
   min,
   name,
   options,
+  small,
   spread,
   startText,
   step,
@@ -43,7 +44,7 @@ const describedBy =
   class:list={[
     "ui-range",
     variant && `ui-${variant}`,
-    { "ui-spread": spread },
+    { "ui-small": small, "ui-spread": spread },
     className,
   ]}
 >

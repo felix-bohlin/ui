@@ -2,7 +2,12 @@
 import Document from "../layouts/Document.astro"
 import FrameworkPicker from "./FrameworkPicker.astro"
 import ComponentAPI from "./ComponentAPI.astro"
-import { FRAMEWORKS, type FrameworkId } from "../utils/framework-routing"
+import {
+  componentHasFramework,
+  DEFAULT_FRAMEWORK,
+  FRAMEWORKS,
+  type FrameworkId,
+} from "../utils/framework-routing"
 
 const apiModules = import.meta.glob("../component-api/**/*.astro", {
   eager: true,
@@ -43,8 +48,11 @@ for (const path in apiModules) {
 }
 
 const { link } = Astro.locals
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
 
 const apiList = Object.values(groups)
+  .filter(({ folder }) => componentHasFramework(currentFramework, folder))
   .map((group) => {
     let slug = group.prefix ? group.prefix.toLowerCase() : group.folder
 

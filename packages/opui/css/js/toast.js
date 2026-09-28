@@ -1,94 +1,56 @@
 /**
  * Toast manager.
  *
- * - HTML owns structure (via <template id="toast-template">).
+ * - JS owns structure (build the toast, fill title/description via textContent).
  * - CSS owns lifetime (via attr(data-duration type(<time>))).
- * - JS owns lifecycle (clone template, fill slots, append, remove on animationend).
+ * - JS owns lifecycle (append, remove on animationend).
  *
  * No setTimeout. No popovertargetaction. No innerHTML of user data.
  */
 
-const FALLBACK_TEMPLATE = `<div class="ui-toast" role="alert">
-  <span class="ui-icon" data-toast-icon></span>
-  <div class="ui-content">
-    <div class="ui-title" data-toast-title></div>
-    <div class="ui-description" data-toast-description></div>
-  </div>
-  <button class="ui-close-button" data-toast-close type="button" aria-label="Close">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-  </button>
-</div>`
+const CLOSE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`
 
 export function initToastManager() {
   const manager = document.getElementById("toast-manager")
-  if (!manager) return
+  if (!manager || manager.dataset.ready) return
+  manager.dataset.ready = ""
 
-  try {
-    manager.showPopover()
-  } catch {
-    /* already open or unsupported */
-  }
+  if (!manager.matches(":popover-open")) manager.showPopover()
 
   manager.addEventListener("command", (event) => {
     if (event.command !== "--show-toast") return
-    const trigger = event.source
-    if (!trigger) return
-
-    const data = trigger.dataset || {}
-    showToast(
-      {
-        description: data.description,
-        duration: data.duration,
-        severity: data.severity,
-        template: data.template,
-        title: data.title || trigger.textContent?.trim() || "",
-      },
-      manager,
-    )
+    manager.append(createToast(event.source?.dataset ?? {}))
   })
 
-  window.showToast = (options) => showToast(options || {}, manager)
+  window.showToast = (options = {}) => manager.append(createToast(options))
 }
 
-function showToast(options, manager) {
-  const node = buildToast(options.template || "toast-template")
-  if (!node) return
+function createToast({ description, duration, severity, title }) {
+  const toast = element("div", "ui-toast")
+  const content = element("div", "ui-content")
+  const close = element("button", "ui-close-button")
 
-  fillSlot(node, "[data-toast-title]", options.title)
-  fillSlot(node, "[data-toast-description]", options.description)
+  if (title) content.append(element("div", "ui-title", title))
+  if (description) content.append(element("div", "ui-description", description))
 
-  if (options.severity) node.dataset.severity = options.severity
-  if (options.duration) node.dataset.duration = options.duration
+  close.type = "button"
+  close.setAttribute("aria-label", "Close")
+  close.innerHTML = CLOSE_ICON
+  close.addEventListener("click", () => toast.classList.add("ui-exiting"))
 
-  wireToast(node)
-  manager.appendChild(node)
-}
-
-function buildToast(templateId) {
-  const tpl = document.getElementById(templateId)
-  if (tpl?.content?.firstElementChild) {
-    return tpl.content.firstElementChild.cloneNode(true)
-  }
-  const wrap = document.createElement("div")
-  wrap.innerHTML = FALLBACK_TEMPLATE.trim()
-  return wrap.firstElementChild
-}
-
-function fillSlot(root, selector, text) {
-  const el = root.querySelector(selector)
-  if (!el) return
-  if (text == null || text === "") {
-    el.remove()
-    return
-  }
-  el.textContent = text
-}
-
-function wireToast(node) {
-  node.querySelector("[data-toast-close]")?.addEventListener("click", () => {
-    node.classList.add("ui-exiting")
+  if (duration) toast.dataset.duration = duration
+  if (severity) toast.dataset.severity = severity
+  toast.addEventListener("animationend", (event) => {
+    if (event.animationName === "toast-exit") toast.remove()
   })
-  node.addEventListener("animationend", (event) => {
-    if (event.animationName === "toast-exit") node.remove()
-  })
+  toast.append(element("span", "ui-icon"), content, close)
+
+  return toast
+}
+
+function element(tag, className, text) {
+  const node = document.createElement(tag)
+  node.className = className
+  if (text) node.textContent = text
+  return node
 }

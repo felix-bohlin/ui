@@ -53,20 +53,11 @@ export const description =
       >) or with JavaScript.
     </p>
     <p>
-      Structure lives in HTML via a default <code
-        >&lt;template id="toast-template"&gt;</code
-      >. CSS owns the lifetime through <code
+      CSS owns the lifetime through <code
         >attr(data-duration type(&lt;time&gt;))</code
-      >. JS only clones the template, fills the structural slots (<code
-        >[data-toast-title]</code
-      >, <code>[data-toast-description]</code>, <code>[data-toast-icon]</code>,
-      <code>[data-toast-close]</code>) using <code>textContent</code>, and
-      removes the toast on <code>animationend</code>. Provide your own <code
-        >&lt;template&gt;</code
-      > with the same slot markers and reference it via <code
-        >data-template</code
-      >
-      on the trigger to override the default look.
+      >. JS only builds the toast, fills the title and description using <code
+        >textContent</code
+      >, and removes it on <code>animationend</code>.
     </p>
 
     <h3 id="html">HTML</h3>
@@ -84,11 +75,7 @@ export const description =
       This is arguably the most common way. After some kind of fetch you might
       want to display some kind of message.
     </p>
-    <p>
-      Use the <code>showToast</code> helper or by dispatching a <code
-        >CommandEvent</code
-      >.
-    </p>
+    <p>Use the <code>showToast</code> helper.</p>
 
     <Example centered>
       <Example.Preview slot="preview-astro" code={JavascriptDemo} />
@@ -167,6 +154,7 @@ export const description =
         outline-offset: -2px;
 
         .ui-toast.anatomy {
+          animation: none;
           outline: var(--_anatomy-border-red);
           outline-offset: -4px;
         }

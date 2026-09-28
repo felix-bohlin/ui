@@ -35,12 +35,9 @@
 
     align-items: center;
     animation:
-      toast-enter var(--_anim-enter) var(--ease-out-3) both,
-      toast-hold attr(data-duration type(<time>), 5s) linear both,
-      toast-exit var(--_anim-exit) var(--ease-in-3) both;
-    animation-delay:
-      0s, var(--_anim-enter),
-      calc(var(--_anim-enter) + attr(data-duration type(<time>), 5s));
+      toast-enter var(--_anim-enter) var(--ease-out-3) backwards,
+      toast-exit var(--_anim-exit) var(--ease-in-3)
+        calc(var(--_anim-enter) + attr(data-duration type(<time>), 5s)) forwards;
     background-color: light-dark(var(--gray-15), var(--gray-2));
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-3);
@@ -52,7 +49,8 @@
     padding: var(--size-3) var(--size-4);
     pointer-events: auto;
 
-    &:hover {
+    &:hover,
+    &:focus-within {
       animation-play-state: paused;
     }
 
@@ -128,16 +126,6 @@
     to {
       opacity: 1;
       translate: 0 0;
-    }
-  }
-
-  @keyframes toast-hold {
-    from {
-      opacity: 1;
-    }
-
-    to {
-      opacity: 1;
     }
   }
 

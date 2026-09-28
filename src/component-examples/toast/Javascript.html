@@ -1,22 +1,12 @@
 <button class="ui-button" id="js-trigger-html">Trigger from JS</button>
 
 <script>
-	function setupToastDemoHtml() {
-		const btn = document.getElementById("js-trigger-html");
-		if (btn) {
-			btn.addEventListener("click", () => {
-				if ((window as any).showToast) {
-					; (window as any).showToast({
-						title: "Triggered from JS!",
-						description: "With an optional description",
-						severity: "success",
-						duration: "3000ms",
-					});
-				}
-			});
-		}
-	}
-
-	setupToastDemoHtml();
-	document.addEventListener("astro:after-swap", setupToastDemoHtml);
+  document.getElementById("js-trigger-html")?.addEventListener("click", () => {
+    window.showToast({
+      title: "Triggered from JS!",
+      description: "With an optional description",
+      severity: "success",
+      duration: "3000ms",
+    })
+  })
 </script>

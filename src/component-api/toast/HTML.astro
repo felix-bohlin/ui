@@ -27,19 +27,25 @@ import { Table } from "@opui/astro"
       >
     </Table.Row>
     <Table.Row>
-      <Table.Cell><strong>Message</strong></Table.Cell>
-      <Table.Cell><code>value</code> / <code>textContent</code></Table.Cell>
+      <Table.Cell><strong>Title</strong></Table.Cell>
+      <Table.Cell><code>data-title</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell>The message to display in the toast.</Table.Cell>
     </Table.Row>
     <Table.Row>
+      <Table.Cell><strong>Description</strong></Table.Cell>
+      <Table.Cell><code>data-description</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional secondary line below the title.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
       <Table.Cell><strong>Severity</strong></Table.Cell>
       <Table.Cell><code>data-severity</code></Table.Cell>
-      <Table.Cell><code>info</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
       <Table.Cell
-        >Modifies the toast appearance. Options: <code>success</code>, <code
-          >critical</code
-        >, <code>info</code>.</Table.Cell
+        >Adds an icon to the toast. Options: <code>critical</code>, <code
+          >info</code
+        >, <code>success</code>, <code>warning</code>.</Table.Cell
       >
     </Table.Row>
     <Table.Row>

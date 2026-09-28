@@ -810,36 +810,6 @@
     "url": "/vue/components/textarea"
   },
   {
-    "id": "component-toast-html",
-    "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
-    "headings": "How it works HTML JavaScript Severities Title + description Duration",
-    "category": "Component",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/components/toast"
-  },
-  {
-    "id": "component-toast-astro",
-    "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
-    "headings": "How it works HTML JavaScript Severities Title + description Duration",
-    "category": "Component",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/components/toast"
-  },
-  {
-    "id": "component-toast-vue",
-    "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
-    "headings": "How it works HTML JavaScript Severities Title + description Duration",
-    "category": "Component",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/components/toast"
-  },
-  {
     "id": "component-toggle-html",
     "title": "Toggle",
     "description": "",
@@ -1095,36 +1065,6 @@
     "url": "/vue/api#accordion"
   },
   {
-    "id": "api-avatar-astro",
-    "title": "Avatar API",
-    "description": "Reference for Avatar Astro component.",
-    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#avatar"
-  },
-  {
-    "id": "api-avatar-html",
-    "title": "Avatar API",
-    "description": "Reference for Avatar HTML component.",
-    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#avatar"
-  },
-  {
-    "id": "api-avatar-vue",
-    "title": "Avatar API",
-    "description": "Reference for Avatar Vue component.",
-    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#avatar"
-  },
-  {
     "id": "api-anchor-astro",
     "title": "Anchor API",
     "description": "Reference for Anchor Astro component.",
@@ -1153,6 +1093,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#anchor"
+  },
+  {
+    "id": "api-avatar-astro",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Astro component.",
+    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#avatar"
+  },
+  {
+    "id": "api-avatar-html",
+    "title": "Avatar API",
+    "description": "Reference for Avatar HTML component.",
+    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#avatar"
+  },
+  {
+    "id": "api-avatar-vue",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Vue component.",
+    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#avatar"
   },
   {
     "id": "api-badge-astro",
@@ -1215,6 +1185,36 @@
     "url": "/vue/api#button"
   },
   {
+    "id": "api-button-group-astro",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Astro component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#button-group"
+  },
+  {
+    "id": "api-button-group-html",
+    "title": "Button Group API",
+    "description": "Reference for Button Group HTML component.",
+    "headings": "Colors - Orientation .ui-vertical - Orientation modifier. Sizes .ui-small, .ui-large - Size modifiers. Variants - Style modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#button-group"
+  },
+  {
+    "id": "api-button-group-vue",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Vue component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#button-group"
+  },
+  {
     "id": "api-callout-astro",
     "title": "Callout API",
     "description": "Reference for Callout Astro component.",
@@ -1273,36 +1273,6 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#card"
-  },
-  {
-    "id": "api-button-group-astro",
-    "title": "Button Group API",
-    "description": "Reference for Button Group Astro component.",
-    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#button-group"
-  },
-  {
-    "id": "api-button-group-html",
-    "title": "Button Group API",
-    "description": "Reference for Button Group HTML component.",
-    "headings": "Colors - Orientation .ui-vertical - Orientation modifier. Sizes .ui-small, .ui-large - Size modifiers. Variants - Style modifiers.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#button-group"
-  },
-  {
-    "id": "api-button-group-vue",
-    "title": "Button Group API",
-    "description": "Reference for Button Group Vue component.",
-    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#button-group"
   },
   {
     "id": "api-checkbox-astro",
@@ -1455,36 +1425,6 @@
     "url": "/vue/api#dialog"
   },
   {
-    "id": "api-drawer-astro",
-    "title": "Drawer API",
-    "description": "Reference for Drawer Astro component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#drawer"
-  },
-  {
-    "id": "api-drawer-html",
-    "title": "Drawer API",
-    "description": "Reference for Drawer HTML component.",
-    "headings": "Sides .ui-inline-start, .ui-inline-end,\n        .ui-block-start, .ui-block-end .ui-inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .ui-backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\n        Prevents focus from jumping to the first focusable element. .ui-header - - Top area for titles. .ui-content - - Main content area. .ui-actions - - Bottom action area.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#drawer"
-  },
-  {
-    "id": "api-drawer-vue",
-    "title": "Drawer API",
-    "description": "Reference for Drawer Vue component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#drawer"
-  },
-  {
     "id": "api-divider-astro",
     "title": "Divider API",
     "description": "Reference for Divider Astro component.",
@@ -1515,34 +1455,34 @@
     "url": "/vue/api#divider"
   },
   {
-    "id": "api-field-group-astro",
-    "title": "Field Group API",
-    "description": "Reference for Field Group Astro component.",
-    "headings": "direction \"row\" - The orientation of the field group.",
+    "id": "api-drawer-astro",
+    "title": "Drawer API",
+    "description": "Reference for Drawer Astro component.",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#field-group"
+    "url": "/astro/api#drawer"
   },
   {
-    "id": "api-field-group-html",
-    "title": "Field Group API",
-    "description": "Reference for Field Group HTML component.",
-    "headings": "Children - Supported child elements. Direction default, .ui-row - The orientation of the element. Disabled [disabled] - When applied, disabled styles are shown. Validation [data-invalid] - When applied, error styles are shown.",
+    "id": "api-drawer-html",
+    "title": "Drawer API",
+    "description": "Reference for Drawer HTML component.",
+    "headings": "Sides .ui-inline-start, .ui-inline-end,\n        .ui-block-start, .ui-block-end .ui-inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .ui-backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\n        Prevents focus from jumping to the first focusable element. .ui-header - - Top area for titles. .ui-content - - Main content area. .ui-actions - - Bottom action area.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#field-group"
+    "url": "/html/api#drawer"
   },
   {
-    "id": "api-field-group-vue",
-    "title": "Field Group API",
-    "description": "Reference for Field Group Vue component.",
-    "headings": "direction \"row\" - The orientation of the field group.",
+    "id": "api-drawer-vue",
+    "title": "Drawer API",
+    "description": "Reference for Drawer Vue component.",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
-    "url": "/vue/api#field-group"
+    "url": "/vue/api#drawer"
   },
   {
     "id": "api-form-astro",
@@ -1633,6 +1573,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#list"
+  },
+  {
+    "id": "api-field-group-astro",
+    "title": "Field Group API",
+    "description": "Reference for Field Group Astro component.",
+    "headings": "direction \"row\" - The orientation of the field group.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#field-group"
+  },
+  {
+    "id": "api-field-group-html",
+    "title": "Field Group API",
+    "description": "Reference for Field Group HTML component.",
+    "headings": "Children - Supported child elements. Direction default, .ui-row - The orientation of the element. Disabled [disabled] - When applied, disabled styles are shown. Validation [data-invalid] - When applied, error styles are shown.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#field-group"
+  },
+  {
+    "id": "api-field-group-vue",
+    "title": "Field Group API",
+    "description": "Reference for Field Group Vue component.",
+    "headings": "direction \"row\" - The orientation of the field group.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#field-group"
   },
   {
     "id": "api-progress-astro",
@@ -1933,36 +1903,6 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#textarea"
-  },
-  {
-    "id": "api-toast-astro",
-    "title": "Toast API",
-    "description": "Reference for Toast Astro component.",
-    "headings": "",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#toast"
-  },
-  {
-    "id": "api-toast-html",
-    "title": "Toast API",
-    "description": "Reference for Toast HTML component.",
-    "headings": "Command --show-toast - Message value / textContent - The message to display in the toast. Severity data-severity info Duration data-duration 5000ms Container #toast-manager - Component .ui-toast -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#toast"
-  },
-  {
-    "id": "api-toast-vue",
-    "title": "Toast API",
-    "description": "Reference for Toast Vue component.",
-    "headings": "",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#toast"
   },
   {
     "id": "api-toggle-astro",

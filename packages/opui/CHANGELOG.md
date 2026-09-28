@@ -4,6 +4,7 @@
 
 ### Breaking
 
+- Removed the `Toast` component.
 - Vue components are now [Vapor](https://vuejs.org/guide/extras/vapor-mode) components and require Vue 3.6. See [MIGRATING.md](./MIGRATING.md).
 
 ### Fixed

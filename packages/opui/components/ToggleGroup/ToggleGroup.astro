@@ -14,18 +14,23 @@ const {
 
 const { $id } = Astro.locals
 const groupName = name || $id("toggle-group")
-const inputType = selection === "single" ? "radio" : "checkbox"
+const escapedName = groupName.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
 
-const originalName = Astro.locals.currentToggleGroupName
-const originalType = Astro.locals.currentToggleGroupType
-
-Astro.locals.currentToggleGroupName = groupName
-Astro.locals.currentToggleGroupType = inputType
-
-const html = await Astro.slots.render("default")
-
-Astro.locals.currentToggleGroupName = originalName
-Astro.locals.currentToggleGroupType = originalType
+const slotHtml = (await Astro.slots.render("default")) ?? ""
+const html = slotHtml.replace(
+  /(<label\b[^>]*\sclass="[^"]*\bui-toggle-button\b[^>]*>\s*<input\b)([^>]*)/g,
+  (_, start, attrs) => {
+    let inputAttrs = /\sname=/.test(attrs)
+      ? attrs
+      : ` name="${escapedName}"${attrs}`
+    if (selection === "single") {
+      inputAttrs = inputAttrs
+        .replace(/\saria-pressed(="[^"]*")?/, "")
+        .replace(/\stype="checkbox"/, ' type="radio"')
+    }
+    return start + inputAttrs
+  },
+)
 ---
 
 <div

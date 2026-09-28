@@ -7,13 +7,13 @@ const { $id } = Astro.locals
 const { class: className, name, ...rest } = Astro.props
 
 const groupName = name || $id("tabs")
+const escapedName = groupName.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
 
-const originalGroupName = Astro.locals.tabsGroupName
-Astro.locals.tabsGroupName = groupName
-
-const html = await Astro.slots.render("default")
-
-Astro.locals.tabsGroupName = originalGroupName
+const slotHtml = (await Astro.slots.render("default")) ?? ""
+const html = slotHtml.replace(
+  /<input\b(?=[^>]*\sclass="[^"]*\bui-tab-input\b)(?![^>]*\sname=)/g,
+  () => `<input name="${escapedName}"`,
+)
 ---
 
 <div

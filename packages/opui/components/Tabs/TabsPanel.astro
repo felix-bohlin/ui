@@ -2,14 +2,13 @@
 import type { TabsPanelProps as Props } from "./types.astro"
 
 const { class: className, panelId, tabId, ...rest } = Astro.props
-const { currentPanelId, currentTabId } = Astro.locals
 ---
 
 <div
-  id={panelId || currentPanelId}
+  id={panelId}
   class:list={["ui-tab-panel", className]}
   role="tabpanel"
-  aria-labelledby={tabId || currentTabId}
+  aria-labelledby={tabId}
   {...rest}
 >
   <slot />

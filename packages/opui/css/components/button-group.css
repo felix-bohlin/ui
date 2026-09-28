@@ -39,7 +39,7 @@
         --_padding-inline: 2.5ex;
       }
 
-      &.ui-icon-only {
+      &:where(:has(> svg:only-child)) {
         padding-inline: 0;
       }
 

@@ -78,7 +78,7 @@ import { Button } from "opui-css/astro"
 
 ## Icons
 
-Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/astro/components/button.md)
+Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/astro/components/button.md) Wrap labels in a `<span>` so buttons with an icon keep their padding.
 
 ```astro
 ---

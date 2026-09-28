@@ -80,7 +80,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 ## Icons
 
-Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/vue/components/button.md)
+Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/vue/components/button.md) Wrap labels in a `<span>` so buttons with an icon keep their padding.
 
 ```vue
 <script setup lang="ts">

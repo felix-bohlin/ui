@@ -62,7 +62,7 @@ import { Button } from "opui-css/vue"
 
 ## Buttons with icon and label
 
-Include an icon alongside text by nesting it within the component. Wrap the label in a `<span>` to tighten the padding on the icon side.
+Include an icon alongside text by nesting it within the component. Always wrap the label in a `<span>`: it tightens the padding on the icon side, and a button whose only element is an `svg` is styled as icon-only.
 
 ```vue
 <script setup lang="ts">

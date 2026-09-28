@@ -8,6 +8,6 @@
 </div>
 
 <div class="example-row spacious">
-  <Switch critical endText="Supporting text">Default</Switch>
-  <Switch critical stack endText="Supporting text">Stack</Switch>
+  <Switch error endText="Supporting text">Default</Switch>
+  <Switch error stack endText="Supporting text">Stack</Switch>
 </div>

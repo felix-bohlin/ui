@@ -6,8 +6,6 @@
     children,
     class: className,
     direction,
-    name,
-    type: inputType,
     ...rest
   }: Props = $props()
 

@@ -9,7 +9,7 @@
     actionsAlign,
 
     // Snippets
-    action,
+    actions,
     children,
     content,
     header,
@@ -38,12 +38,12 @@
     {@render children()}
   {/if}
 
-  {#if action}
+  {#if actions}
     <div
       class="ui-actions"
       class:ui-align-end={actionsAlign === "end" || undefined}
     >
-      {@render action()}
+      {@render actions()}
     </div>
   {/if}
 </div>

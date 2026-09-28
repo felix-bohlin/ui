@@ -23,7 +23,7 @@
   {#snippet description()}This textarea is disabled{/snippet}
 </Textarea>
 
-<Textarea spread critical label="Invalid Message">
+<Textarea spread error label="Invalid Message">
   {#snippet description()}This textarea has an error{/snippet}
   {#snippet endText()}This value is too short.{/snippet}
 </Textarea>

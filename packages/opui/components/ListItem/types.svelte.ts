@@ -4,7 +4,7 @@ import type { Snippet } from "svelte"
 
 // prettier-ignore
 export type Props =
-  Base.Props &
+  Omit<Base.Props, keyof Base.Slots<Snippet>> &
   Base.Slots<Snippet> &
   (
     | ({ as?: "li" } & SvelteHTMLElements["li"])

@@ -23,7 +23,7 @@
   {/snippet}
 </Switch>
 
-<Switch spread critical>
+<Switch spread error>
   Invalid Switch
   {#snippet endText()}
     There is an error with this switch.

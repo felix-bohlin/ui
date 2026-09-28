@@ -8,7 +8,7 @@
   {#snippet content()}
     Notice how the buttons are made to align with the text above.
   {/snippet}
-  {#snippet action()}
+  {#snippet actions()}
     <Button>Cancel</Button>
     <Button>Save</Button>
   {/snippet}
@@ -18,7 +18,7 @@
   {#snippet content()}
     Trying other button types too. Look at that!
   {/snippet}
-  {#snippet action()}
+  {#snippet actions()}
     <Button variant="outlined">Cancel</Button>
     <Button variant="filled">Save</Button>
   {/snippet}
@@ -28,7 +28,7 @@
   {#snippet content()}
     Icon buttons work too!
   {/snippet}
-  {#snippet action()}
+  {#snippet actions()}
     <IconButton aria-label="Favorite">
       <svg
         xmlns="http://www.w3.org/2000/svg"

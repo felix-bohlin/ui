@@ -7,11 +7,11 @@
   <Checkbox stack required name="checkbox">Stack</Checkbox>
 </div>
 <div class="example-row spacious">
-  <Checkbox critical checked name="checkbox">
+  <Checkbox error checked name="checkbox">
     Default
     {#snippet endText()}Check yourself{/snippet}
   </Checkbox>
-  <Checkbox stack critical name="checkbox">
+  <Checkbox stack error name="checkbox">
     Stack
     {#snippet endText()}Before you wreck yourself{/snippet}
   </Checkbox>

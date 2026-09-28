@@ -39,7 +39,7 @@
   <option>Option 1</option>
 </Select>
 
-<Select spread critical>
+<Select spread error>
   {#snippet label()}Invalid Select{/snippet}
   {#snippet description()}This select has an error{/snippet}
   {#snippet endText()}Please select a valid option.{/snippet}

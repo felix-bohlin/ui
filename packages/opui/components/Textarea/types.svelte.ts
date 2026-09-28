@@ -6,7 +6,7 @@ type InputProps = {
   type?: SvelteHTMLElements["input"]["type"] | "numeric"
 }
 
-type Snippets = Base.Slots<Snippet>
+type Snippets = Partial<Base.Slots<Snippet>>
 
 export type Props =
   // Unique component props, except snippets

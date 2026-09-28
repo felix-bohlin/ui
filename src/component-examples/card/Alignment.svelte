@@ -4,31 +4,31 @@
   import { IconButton } from "@opui/svelte"
 </script>
 
-<Card variant="outlined" actions={{ align: "end" }}>
+<Card variant="outlined" actionsAlign="end">
   {#snippet content()}
     Buttons aligned to the end. Works too!
   {/snippet}
-  {#snippet action()}
+  {#snippet actions()}
     <Button>Cancel</Button>
     <Button>Save</Button>
   {/snippet}
 </Card>
 
-<Card variant="outlined" actions={{ align: "end" }}>
+<Card variant="outlined" actionsAlign="end">
   {#snippet content()}
     Again, buttons are aligned to the end!
   {/snippet}
-  {#snippet action()}
+  {#snippet actions()}
     <Button variant="outlined">Cancel</Button>
     <Button variant="filled">Save</Button>
   {/snippet}
 </Card>
 
-<Card variant="outlined" actions={{ align: "end" }}>
+<Card variant="outlined" actionsAlign="end">
   {#snippet content()}
     Icon buttons aligned to the end!
   {/snippet}
-  {#snippet action()}
+  {#snippet actions()}
     <IconButton aria-label="Favorite">
       <svg
         xmlns="http://www.w3.org/2000/svg"

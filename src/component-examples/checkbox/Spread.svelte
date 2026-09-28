@@ -23,7 +23,7 @@
   {/snippet}
 </Checkbox>
 
-<Checkbox spread critical>
+<Checkbox spread error>
   Invalid Checkbox
   {#snippet endText()}
     There is an error with this checkbox.

@@ -22,7 +22,7 @@
   {#snippet description()}This field is disabled{/snippet}
 </TextField>
 
-<TextField spread critical label="Invalid Name">
+<TextField spread error label="Invalid Name">
   {#snippet description()}This field has an error{/snippet}
   {#snippet endText()}This value is too short.{/snippet}
 </TextField>

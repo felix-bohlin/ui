@@ -48,10 +48,18 @@ export const TOKEN_DEFAULTS: Record<Token, string> = {
   "--palette-hue-rotate-by": "0",
   "--gray-chroma": "0.01",
   "--gray-hue": "255",
-  "--border-radius": "var(--radius-2)",
-  "--field-border-radius": "var(--radius-2)",
-  "--button-border-radius": "var(--radius-2)",
+  "--border-radius": "var(--size-2)",
+  "--field-border-radius": "var(--size-2)",
+  "--button-border-radius": "var(--size-2)",
 }
+
+export const RADIUS_OPTIONS = [
+  { text: "0", value: "0" },
+  { text: "1", value: "var(--size-1)" },
+  { text: "2", value: "var(--size-2)" },
+  { text: "3", value: "var(--size-3)" },
+  { text: "4", value: "var(--size-4)" },
+]
 
 export type ModeConfig = Partial<Record<Token, string>> & {
   "enable-grays"?: "true" | "false"
@@ -83,6 +91,10 @@ function readConfig(mode: Mode): ModeConfig {
     // longer applies. Users will fall back to the default --gray-hue (255).
     if ("--gray-hue-offset" in parsed) {
       delete parsed["--gray-hue-offset"]
+    }
+    for (const key of Object.keys(parsed) as Token[]) {
+      const radius = /^var\(--radius-(\d)\)$/.exec(parsed[key] ?? "")
+      if (radius) parsed[key] = `var(--size-${radius[1]})`
     }
     return parsed
   } catch {

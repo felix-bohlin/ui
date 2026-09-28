@@ -1,6 +1,7 @@
 ---
 import {
   Button,
+  Callout,
   Card,
   Checkbox,
   Chip,
@@ -15,37 +16,52 @@ import {
   ToggleButton,
   ToggleGroup,
 } from "@opui/astro"
+import { RADIUS_OPTIONS, TOKEN_DEFAULTS } from "../../utils/theme-store"
 import { PLACEHOLDER_CSS } from "./generateCss"
 
 const surfaces = ["default", "tonal", "filled", "elevated"]
 
-const borderRadiusItems = [
-  { text: "0", value: "0" },
-  { text: "1", value: "var(--radius-1)" },
-  { text: "2", value: "var(--radius-2)" },
-  { text: "3", value: "var(--radius-3)" },
-  { text: "4", value: "var(--radius-4)" },
-]
+const steps = Array.from({ length: 16 }, (_, i) => i + 1)
 
 const radiusGroups = [
   { name: "--border-radius", label: "Border Radius" },
   { name: "--field-border-radius", label: "Field Border Radius" },
   { name: "--button-border-radius", label: "Button Border Radius" },
 ] as const
+
+const previewStyle = Object.entries(TOKEN_DEFAULTS)
+  .map(([token, value]) => `${token}: ${value}`)
+  .join("; ")
 ---
 
 <div class="theme-generator" id="theme-generator-root">
-  <ToggleGroup
-    class="mode-switch"
-    name="theme-generator-mode"
-    selection="single"
-    size="small"
-    aria-label="Editing mode"
+  <div class="toolbar">
+    <div class="mode-field">
+      <ToggleGroup
+        name="theme-generator-mode"
+        selection="single"
+        size="small"
+        aria-label="Editing mode"
+      >
+        <ToggleButton value="light">Light</ToggleButton>
+        <ToggleButton pressed value="both">Both</ToggleButton>
+        <ToggleButton value="dark">Dark</ToggleButton>
+      </ToggleGroup>
+    </div>
+    <Button id="theme-generator-reset" size="small" variant="outlined"
+      >Reset</Button
+    >
+  </div>
+
+  <Callout
+    class="diverged-note"
+    id="theme-generator-diverged"
+    severity="info"
+    hidden
   >
-    <ToggleButton value="light">Light</ToggleButton>
-    <ToggleButton pressed value="both">Both</ToggleButton>
-    <ToggleButton value="dark">Dark</ToggleButton>
-  </ToggleGroup>
+    Light and dark have different values. The controls show the mode in the
+    preview, and each change applies to both modes.
+  </Callout>
 
   <div class="generator-grid">
     <!-- Controls -->
@@ -128,49 +144,55 @@ const radiusGroups = [
             <FieldSet>
               <FieldLegend>{group.label}</FieldLegend>
               <FieldGroup>
-                <div class="chip-group" data-radius-group={group.name}>
-                  {borderRadiusItems.map((item) => (
-                    <Chip
-                      as="button"
-                      type="button"
-                      size="small"
-                      variant={
-                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
-                      }
-                      data-name={group.name}
-                      data-value={item.value}
-                      data-default={
-                        item.value === "var(--radius-2)" ? "true" : undefined
-                      }
-                      label={item.text}
-                      title={item.value}
-                    />
-                  ))}
+                <div class="chip-group">
+                  {RADIUS_OPTIONS.map((item) => {
+                    const pressed = item.value === TOKEN_DEFAULTS[group.name]
+                    return (
+                      <Chip
+                        as="button"
+                        type="button"
+                        size="small"
+                        variant={pressed ? "tonal" : "outlined"}
+                        aria-pressed={pressed ? "true" : "false"}
+                        data-name={group.name}
+                        data-value={item.value}
+                        label={item.text}
+                        title={item.value}
+                      />
+                    )
+                  })}
                 </div>
               </FieldGroup>
             </FieldSet>
           ))
         }
       </form>
-
-      <Fragment slot="actions">
-        <Button id="theme-generator-reset" size="small">Reset</Button>
-      </Fragment>
     </Card>
 
     <!-- Preview -->
     <Card
       variant="outlined"
-      class="preview-card ui-not-rich-text"
+      class="preview-card ui-palette ui-not-rich-text"
       id="theme-generator-preview"
+      style={previewStyle}
     >
-      <h3 slot="header">Preview</h3>
+      <Fragment slot="header">
+        <div class="card-header">
+          <h3>Preview</h3>
+          <Chip
+            id="theme-generator-preview-mode"
+            size="small"
+            variant="outlined"
+            label="Light mode"
+          />
+        </div>
+      </Fragment>
 
       <div class="preview-pane" slot="content">
         <h4 class="section-label">Palette</h4>
         <div class="palette-grid">
           {
-            Array.from({ length: 16 }, (_, i) => i + 1).map((n) => (
+            steps.map((n) => (
               <div class="swatch" style={`background-color: var(--color-${n})`}>
                 <span>{n}</span>
               </div>
@@ -183,7 +205,7 @@ const radiusGroups = [
           <h4 class="section-label">Grays</h4>
           <div class="palette-grid">
             {
-              Array.from({ length: 16 }, (_, i) => i + 1).map((n) => (
+              steps.map((n) => (
                 <div
                   class="swatch"
                   style={`background-color: var(--gray-${n})`}
@@ -238,25 +260,44 @@ const radiusGroups = [
     id="generated-css"
   >
     <Fragment slot="header">
-      <div class="css-header">
+      <div class="card-header">
         <h3>theme.css</h3>
-        <IconButton
-          id="theme-generator-copy"
-          size="small"
-          title="Copy CSS"
-          aria-label="Copy CSS"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            ><path
-              fill="currentColor"
-              d="M9 18q-.825 0-1.412-.587T7 16V4q0-.825.588-1.412T9 2h9q.825 0 1.413.588T20 4v12q0 .825-.587 1.413T18 18zm-4 4q-.825 0-1.412-.587T3 20V7q0-.425.288-.712T4 6t.713.288T5 7v13h10q.425 0 .713.288T16 21t-.288.713T15 22zm4-6h9V4H9z"
-            ></path>
-          </svg>
-        </IconButton>
+        <div class="css-actions">
+          <IconButton
+            id="theme-generator-copy"
+            size="small"
+            title="Copy CSS"
+            aria-label="Copy CSS"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              ><path
+                fill="currentColor"
+                d="M9 18q-.825 0-1.412-.587T7 16V4q0-.825.588-1.412T9 2h9q.825 0 1.413.588T20 4v12q0 .825-.587 1.413T18 18zm-4 4q-.825 0-1.412-.587T3 20V7q0-.425.288-.712T4 6t.713.288T5 7v13h10q.425 0 .713.288T16 21t-.288.713T15 22zm4-6h9V4H9z"
+              ></path>
+            </svg>
+          </IconButton>
+          <IconButton
+            id="theme-generator-download"
+            size="small"
+            title="Download theme.css"
+            aria-label="Download theme.css"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              ><path
+                fill="currentColor"
+                d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.3-.3-.288-.7t.288-.7q.3-.3.713-.312t.712.287L11 12.15V5q0-.425.288-.712T12 4t.713.288T13 5v7.15l1.875-1.875q.3-.3.713-.288t.712.313q.275.3.288.7t-.288.7l-3.6 3.6q-.15.15-.325.213t-.375.062M6 20q-.825 0-1.412-.587T4 18v-2q0-.425.288-.712T5 15t.713.288T6 16v2h12v-2q0-.425.288-.712T19 15t.713.288T20 16v2q0 .825-.587 1.413T18 20z"
+              ></path>
+            </svg>
+          </IconButton>
+        </div>
       </div>
     </Fragment>
     <pre
@@ -266,23 +307,44 @@ const radiusGroups = [
 
 <style>
   .theme-generator {
+    container-type: inline-size;
     display: flex;
     flex-direction: column;
     gap: var(--size-4);
   }
 
-  .mode-switch {
-    align-self: start;
+  .toolbar {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    justify-content: space-between;
+  }
+
+  .mode-field {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2) var(--size-3);
+  }
+
+  .mode-label {
+    font-size: var(--font-size-05);
+    font-weight: var(--font-weight-6);
+  }
+
+  .diverged-note[hidden] {
+    display: none;
   }
 
   .generator-grid {
     display: grid;
     gap: var(--size-4);
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
 
-    @media (width >= 900px) {
-      grid-template-columns: minmax(280px, 360px) 1fr;
+    @container (width >= 640px) {
       align-items: start;
+      grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
     }
   }
 
@@ -300,96 +362,34 @@ const radiusGroups = [
     }
   }
 
+  .card-header {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2) var(--size-3);
+    justify-content: space-between;
+    width: 100%;
+
+    h3 {
+      margin: 0;
+    }
+  }
+
   .preview-card {
     color-scheme: light;
 
     color: var(--text-primary);
 
-    --palette-source: oklch(
-      58% calc(0.21 * var(--palette-chroma, 0.5)) var(--palette-hue, 240)
-    );
+    --primary: var(--color-8);
+    --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
+    --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
+    --primary-contrast: var(--gray-1);
+    --neutral: var(--gray-9);
 
-    --color-1: oklch(
-      from var(--palette-source) 98% calc(0.03 * (c / 0.21))
-        calc(h + (0 * var(--palette-hue-rotate-by)))
-    );
-    --color-2: oklch(
-      from var(--palette-source) 97% calc(0.06 * (c / 0.21))
-        calc(h + (1 * var(--palette-hue-rotate-by)))
-    );
-    --color-3: oklch(
-      from var(--palette-source) 93% calc(0.1 * (c / 0.21))
-        calc(h + (2 * var(--palette-hue-rotate-by)))
-    );
-    --color-4: oklch(
-      from var(--palette-source) 84% calc(0.12 * (c / 0.21))
-        calc(h + (3 * var(--palette-hue-rotate-by)))
-    );
-    --color-5: oklch(
-      from var(--palette-source) 80% calc(0.16 * (c / 0.21))
-        calc(h + (4 * var(--palette-hue-rotate-by)))
-    );
-    --color-6: oklch(
-      from var(--palette-source) 71% calc(0.19 * (c / 0.21))
-        calc(h + (5 * var(--palette-hue-rotate-by)))
-    );
-    --color-7: oklch(
-      from var(--palette-source) 66% calc(0.2 * (c / 0.21))
-        calc(h + (6 * var(--palette-hue-rotate-by)))
-    );
-    --color-8: oklch(
-      from var(--palette-source) 58% calc(0.21 * (c / 0.21))
-        calc(h + (7 * var(--palette-hue-rotate-by)))
-    );
-    --color-9: oklch(
-      from var(--palette-source) 53% calc(0.2 * (c / 0.21))
-        calc(h + (8 * var(--palette-hue-rotate-by)))
-    );
-    --color-10: oklch(
-      from var(--palette-source) 49% calc(0.19 * (c / 0.21))
-        calc(h + (9 * var(--palette-hue-rotate-by)))
-    );
-    --color-11: oklch(
-      from var(--palette-source) 42% calc(0.17 * (c / 0.21))
-        calc(h + (10 * var(--palette-hue-rotate-by)))
-    );
-    --color-12: oklch(
-      from var(--palette-source) 35% calc(0.15 * (c / 0.21))
-        calc(h + (11 * var(--palette-hue-rotate-by)))
-    );
-    --color-13: oklch(
-      from var(--palette-source) 27% calc(0.12 * (c / 0.21))
-        calc(h + (12 * var(--palette-hue-rotate-by)))
-    );
-    --color-14: oklch(
-      from var(--palette-source) 20% calc(0.09 * (c / 0.21))
-        calc(h + (13 * var(--palette-hue-rotate-by)))
-    );
-    --color-15: oklch(
-      from var(--palette-source) 16% calc(0.07 * (c / 0.21))
-        calc(h + (14 * var(--palette-hue-rotate-by)))
-    );
-    --color-16: oklch(
-      from var(--palette-source) 10% calc(0.05 * (c / 0.21))
-        calc(h + (15 * var(--palette-hue-rotate-by)))
-    );
-
-    --gray-1: oklch(from var(--color-1) l var(--gray-chroma) var(--gray-hue));
-    --gray-2: oklch(from var(--color-2) l var(--gray-chroma) var(--gray-hue));
-    --gray-3: oklch(from var(--color-3) l var(--gray-chroma) var(--gray-hue));
-    --gray-4: oklch(from var(--color-4) l var(--gray-chroma) var(--gray-hue));
-    --gray-5: oklch(from var(--color-5) l var(--gray-chroma) var(--gray-hue));
-    --gray-6: oklch(from var(--color-6) l var(--gray-chroma) var(--gray-hue));
-    --gray-7: oklch(from var(--color-7) l var(--gray-chroma) var(--gray-hue));
-    --gray-8: oklch(from var(--color-8) l var(--gray-chroma) var(--gray-hue));
-    --gray-9: oklch(from var(--color-9) l var(--gray-chroma) var(--gray-hue));
-    --gray-10: oklch(from var(--color-10) l var(--gray-chroma) var(--gray-hue));
-    --gray-11: oklch(from var(--color-11) l var(--gray-chroma) var(--gray-hue));
-    --gray-12: oklch(from var(--color-12) l var(--gray-chroma) var(--gray-hue));
-    --gray-13: oklch(from var(--color-13) l var(--gray-chroma) var(--gray-hue));
-    --gray-14: oklch(from var(--color-14) l var(--gray-chroma) var(--gray-hue));
-    --gray-15: oklch(from var(--color-15) l var(--gray-chroma) var(--gray-hue));
-    --gray-16: oklch(from var(--color-16) l var(--gray-chroma) var(--gray-hue));
+    --text-primary: light-dark(var(--gray-15), var(--gray-1));
+    --text-primary-contrast: light-dark(var(--gray-2), var(--gray-15));
+    --text-muted: light-dark(var(--gray-13), var(--gray-4));
+    --text-muted-contrast: light-dark(var(--gray-4), var(--gray-13));
 
     --surface-default: light-dark(var(--gray-1), var(--gray-13));
     --surface-filled: light-dark(var(--gray-4), var(--gray-15));
@@ -403,12 +403,31 @@ const radiusGroups = [
     }
 
     &.no-grays {
+      --primary-contrast: var(--color-1);
+      --neutral: var(--color-9);
+
+      --text-primary: light-dark(var(--color-15), var(--color-1));
+      --text-primary-contrast: light-dark(var(--color-2), var(--color-15));
+      --text-muted: light-dark(var(--color-13), var(--color-4));
+      --text-muted-contrast: light-dark(var(--color-4), var(--color-13));
+
       --surface-default: light-dark(var(--color-1), var(--color-14));
       --surface-filled: light-dark(var(--color-5), var(--color-16));
       --surface-tonal: light-dark(var(--color-4), var(--color-12));
       --surface-elevated: light-dark(var(--color-1), var(--color-12));
       --border-color: light-dark(var(--color-4), var(--color-12));
-      --field-border-color: light-dark(var(--color-4), var(--color-12));
+    }
+
+    @container (width >= 640px) {
+      inset-block-start: calc(var(--size-10) + var(--size-4));
+      max-block-size: calc(100dvb - var(--size-10) - var(--size-8));
+      overflow-y: auto;
+      position: sticky;
+
+      @media (width >= 900px) and (width < 1140px) {
+        inset-block-start: calc(var(--size-10) + var(--size-8) + var(--size-4));
+        max-block-size: calc(100dvb - var(--size-10) - var(--size-8) * 2);
+      }
     }
   }
 
@@ -428,10 +447,20 @@ const radiusGroups = [
     display: none;
   }
 
+  .gray-palette {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+  }
+
   .palette-grid {
     display: grid;
-    gap: var(--size-2);
-    grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+    gap: var(--size-1);
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+
+    @container (width >= 400px) {
+      gap: var(--size-2);
+    }
   }
 
   .swatch {
@@ -439,6 +468,7 @@ const radiusGroups = [
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     display: grid;
+    font-size: var(--font-size-0);
     inline-size: 100%;
     place-items: center;
 
@@ -449,9 +479,10 @@ const radiusGroups = [
     span {
       aspect-ratio: 1;
       background-color: oklch(from var(--text-primary) l c h / 0.65);
-      color: oklch(from var(--text-primary) l c h / 0);
+      color: var(--text-primary-contrast);
       border-radius: var(--radius-round);
       display: grid;
+      min-inline-size: 1lh;
       opacity: 0;
       padding-inline: 1ex;
       pointer-events: none;
@@ -463,7 +494,8 @@ const radiusGroups = [
 
   .surface-stack {
     display: grid;
-    gap: var(--size-1);
+    gap: var(--size-2);
+    grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
   }
 
   .surface-swatch {
@@ -490,21 +522,14 @@ const radiusGroups = [
     & .ui-row {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--size-8);
+      gap: var(--size-3) var(--size-6);
     }
   }
 
   .css-output {
-    .css-header {
-      align-items: center;
+    .css-actions {
       display: flex;
-      gap: var(--size-3);
-      justify-content: space-between;
-      width: 100%;
-
-      h3 {
-        margin: 0;
-      }
+      gap: var(--size-1);
     }
 
     pre {
@@ -574,13 +599,6 @@ const radiusGroups = [
   hljs.registerLanguage("css", css)
 
   const TOKEN_SET = new Set<string>(TOKENS)
-  const PALETTE_TOKENS: readonly Token[] = [
-    "--palette-hue",
-    "--palette-chroma",
-    "--palette-hue-rotate-by",
-    "--gray-chroma",
-    "--gray-hue",
-  ]
 
   const root = document.getElementById("theme-generator-root")
   if (!root) throw new Error("Theme generator root not found")
@@ -589,15 +607,23 @@ const radiusGroups = [
     "theme-generator-form",
   ) as HTMLFormElement
   const preview = document.getElementById("theme-generator-preview")!
+  const previewModeText = document.querySelector(
+    "#theme-generator-preview-mode .ui-text",
+  )
+  const divergedNote = document.getElementById("theme-generator-diverged")
   const codeEl = document.getElementById("theme-generator-css-code")!
   const copyBtn = document.getElementById("theme-generator-copy")
+  const downloadBtn = document.getElementById("theme-generator-download")
   const resetBtn = document.getElementById("theme-generator-reset")
   const modeRadios = root.querySelectorAll<HTMLInputElement>(
     'input[name="theme-generator-mode"]',
   )
 
   type EditingMode = Mode | "both"
-  let editingMode: EditingMode = "both"
+  let editingMode: EditingMode = readModeFromRadios()
+  let generatedCss = ""
+  let pickingColor = false
+  let refreshQueued = false
 
   function readModeFromRadios(): EditingMode {
     for (const r of modeRadios) {
@@ -619,8 +645,18 @@ const radiusGroups = [
     return editingMode === "both" ? themeStore.getActiveSiteMode() : editingMode
   }
 
-  function formMode(): Mode {
-    return editingMode === "both" ? "light" : editingMode
+  function modesDiffer() {
+    const light = themeStore.get("light")
+    const dark = themeStore.get("dark")
+    return (
+      themeStore.isGraysEnabled("light") !==
+        themeStore.isGraysEnabled("dark") ||
+      TOKENS.some(
+        (token) =>
+          (light[token] ?? TOKEN_DEFAULTS[token]) !==
+          (dark[token] ?? TOKEN_DEFAULTS[token]),
+      )
+    )
   }
 
   function setGrayInputsDisabled(disabled: boolean) {
@@ -630,6 +666,12 @@ const radiusGroups = [
     grayInputs.forEach((input) => {
       input.disabled = disabled
     })
+  }
+
+  function setChipPressed(chip: HTMLElement, pressed: boolean) {
+    chip.classList.toggle("ui-tonal", pressed)
+    chip.classList.toggle("ui-outlined", !pressed)
+    chip.setAttribute("aria-pressed", String(pressed))
   }
 
   let suppressInputHandler = false
@@ -648,26 +690,9 @@ const radiusGroups = [
         }
       }
 
-      const chips = form.querySelectorAll<HTMLElement>(`[data-name="${token}"]`)
-      let foundMatch = false
-      chips.forEach((chip) => {
-        if (chip.dataset.value === value) {
-          chip.classList.add("ui-tonal")
-          chip.classList.remove("ui-outlined")
-          foundMatch = true
-        } else {
-          chip.classList.remove("ui-tonal")
-          chip.classList.add("ui-outlined")
-        }
-      })
-      if (!foundMatch && chips.length > 0) {
-        chips.forEach((chip) => {
-          if (chip.dataset.default === "true") {
-            chip.classList.add("ui-tonal")
-            chip.classList.remove("ui-outlined")
-          }
-        })
-      }
+      form
+        .querySelectorAll<HTMLElement>(`[data-name="${token}"]`)
+        .forEach((chip) => setChipPressed(chip, chip.dataset.value === value))
     })
 
     const enableGrays = form.querySelector<HTMLInputElement>(
@@ -680,7 +705,7 @@ const radiusGroups = [
     const colorPicker = form.querySelector<HTMLInputElement>(
       '[name="--palette-source-color"]',
     )
-    if (colorPicker) {
+    if (colorPicker && !pickingColor) {
       const hue = parseFloat(
         config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
       )
@@ -698,34 +723,39 @@ const radiusGroups = [
     preview.classList.toggle("ui-light", mode === "light")
     preview.classList.toggle("no-grays", config["enable-grays"] === "false")
 
-    PALETTE_TOKENS.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token]
-      preview.style.setProperty(token, value)
+    TOKENS.forEach((token) => {
+      preview.style.setProperty(token, config[token] ?? TOKEN_DEFAULTS[token])
     })
 
-    const radiusTokens: Token[] = [
-      "--border-radius",
-      "--field-border-radius",
-      "--button-border-radius",
-    ]
-    radiusTokens.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token]
-      preview.style.setProperty(token, value)
-    })
+    if (previewModeText) {
+      previewModeText.textContent = mode === "dark" ? "Dark mode" : "Light mode"
+    }
   }
 
   function rerenderCode() {
-    const code = generateCss({
+    generatedCss = generateCss({
       light: themeStore.get("light"),
       dark: themeStore.get("dark"),
     })
-    codeEl.innerHTML = hljs.highlight(code, { language: "css" }).value
+    codeEl.innerHTML = hljs.highlight(generatedCss, { language: "css" }).value
   }
 
   function refreshAll() {
-    syncFormFromConfig(themeStore.get(formMode()))
+    syncFormFromConfig(themeStore.get(previewMode()))
     applyToPreview()
     rerenderCode()
+    if (divergedNote) {
+      divergedNote.hidden = editingMode !== "both" || !modesDiffer()
+    }
+  }
+
+  function scheduleRefresh() {
+    if (refreshQueued) return
+    refreshQueued = true
+    requestAnimationFrame(() => {
+      refreshQueued = false
+      refreshAll()
+    })
   }
 
   modeRadios.forEach((radio) => {
@@ -754,6 +784,7 @@ const radiusGroups = [
     }
 
     if (name === "--palette-source-color") {
+      pickingColor = true
       const { C, H } = hexToOklch(target.value)
       const hue = String(Math.round(H))
       const chroma = String(+Math.min(1, C / 0.21).toFixed(2))
@@ -769,6 +800,13 @@ const radiusGroups = [
         themeStore.setToken(m, name as Token, target.value),
       )
     }
+  })
+
+  form.addEventListener("change", (e) => {
+    const target = e.target as HTMLInputElement | null
+    if (target?.name !== "--palette-source-color") return
+    pickingColor = false
+    scheduleRefresh()
   })
 
   form.addEventListener("click", (e) => {
@@ -791,12 +829,8 @@ const radiusGroups = [
   })
 
   copyBtn?.addEventListener("click", async () => {
-    const code = generateCss({
-      light: themeStore.get("light"),
-      dark: themeStore.get("dark"),
-    })
     try {
-      await navigator.clipboard.writeText(code)
+      await navigator.clipboard.writeText(generatedCss)
       ;(window as any).showToast?.({
         title: "Copied theme.css",
         description: "Paste it into your project's stylesheet.",
@@ -812,21 +846,18 @@ const radiusGroups = [
     }
   })
 
-  themeStore.subscribe((detail) => {
-    if (detail.type === "applyMode") {
-      const newMode = themeStore.getActiveSiteMode()
-      modeRadios.forEach((radio) => {
-        radio.checked = radio.value === newMode
-      })
-      editingMode = newMode
-    }
-    refreshAll()
+  downloadBtn?.addEventListener("click", () => {
+    const url = URL.createObjectURL(
+      new Blob([generatedCss], { type: "text/css" }),
+    )
+    const link = document.createElement("a")
+    link.href = url
+    link.download = "theme.css"
+    link.click()
+    setTimeout(() => URL.revokeObjectURL(url))
   })
 
-  const activeSiteMode = themeStore.getActiveSiteMode()
-  modeRadios.forEach((radio) => {
-    radio.checked = radio.value === activeSiteMode
-  })
-  editingMode = readModeFromRadios()
+  themeStore.subscribe(scheduleRefresh)
+
   refreshAll()
 </script>

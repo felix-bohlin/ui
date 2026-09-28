@@ -13,7 +13,9 @@ import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/vue"
     backdrop="blurred"
     closedby="any"
   >
-    <template #header><DrawerHeader heading="Blurred Backdrop" /></template>
+    <template #header>
+      <DrawerHeader commandfor="drawer-blurred" heading="Blurred Backdrop" />
+    </template>
     <template #content>
       <p>
         This drawer has a blurred backdrop. Lorem ipsum dolor sit amet,

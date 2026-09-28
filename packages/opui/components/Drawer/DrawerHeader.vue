@@ -1,25 +1,27 @@
 <script setup lang="ts">
+import { computed } from "vue"
 import IconButton from "../IconButton/IconButton.vue"
 import type { DrawerHeaderProps, DrawerHeaderSlots } from "./types.d.vue"
 
-const { heading } = defineProps<DrawerHeaderProps>()
+const { commandfor, heading } = defineProps<DrawerHeaderProps>()
 defineSlots<DrawerHeaderSlots>()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const closeDrawer = (event: MouseEvent) => {
-  const target = event.currentTarget as HTMLElement | null
-  target?.closest("dialog")?.close()
-}
+const closeAttrs = computed(() =>
+  commandfor
+    ? { command: "close", commandfor }
+    : { onclick: "this.closest('dialog').close()" },
+)
 </script>
 
 <template>
   <div :class="['ui-header', $props.class]" v-bind="$attrs">
     <span v-if="heading">{{ heading }}</span>
     <slot></slot>
-    <IconButton title="Close" @click="closeDrawer">
+    <IconButton title="Close" v-bind="closeAttrs">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"

@@ -1,24 +1,5 @@
-@layer components.root {
+@layer components.extended {
   :where(.ui-icon-button) {
-    --_motion: var(--motion, 1);
-    --_color: light-dark(var(--color-16), var(--color-1));
-    --_color-contrast: light-dark(var(--color-1), var(--color-16));
-    --_color-tonal: var(--surface-tonal);
-
-    --_accent: var(--_color);
-    --_accent-contrast: var(--_color-contrast);
-    --_accent-tonal: var(--_color-tonal);
-    --_accent-tonal-contrast: var(--_color);
-    --_default-hover-bg-color: light-dark(oklch(from var(--_accent) l 0.01 h / 10%),
-        oklch(from var(--_accent) l 0.01 h / 20%));
-    --_default-active-bg-color: light-dark(oklch(from var(--_accent) l 0.06 h / 20%),
-        oklch(from var(--_accent) l 0.06 h / 30%));
-    --_filled-hover-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.2) c h),
-        oklch(from var(--_accent) calc(l - 0.1) c h));
-    --_filled-active-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.3) c h),
-        oklch(from var(--_accent) calc(l - 0.15) c h));
-    --_outlined-active-bg-color: var(--_filled-active-bg-color);
-
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-width: var(--border-size-1);
@@ -39,13 +20,16 @@
     transition:
       background-color calc(0.1s * var(--_motion)) ease,
       color calc(0.1s * var(--_motion)) ease,
-      border-color calc(0.1s * var(--_motion)) ease,
-      box-shadow calc(0.1s * var(--_motion)) ease;
+      border-color calc(0.1s * var(--_motion)) ease;
 
-    &:where([disabled]) {
-      --_text-color: light-dark(rgb(0, 0, 0/0.3), rgb(255, 255, 255/0.26));
+    &:where([disabled], [aria-disabled="true"], .ui-disabled) {
+      --_text-color: light-dark(rgb(0 0 0 / 0.3), rgb(255 255 255 / 0.26));
       cursor: not-allowed;
       opacity: 0.64;
+    }
+
+    &:where(a):where([aria-disabled="true"], .ui-disabled) {
+      pointer-events: none;
     }
 
     svg {
@@ -65,43 +49,26 @@
         background-color calc(0.1s * var(--_motion)) ease;
     }
 
-    &.ui-critical,
-    &.ui-primary {
-      --_color-contrast: var(--gray-1);
-      --_color-tonal: var(--color-6);
-      --_accent-tonal-contrast: var(--text-primary-contrast);
-
-      --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
-      --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
-
-      --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-      --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
-
-      --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-    }
-
-    &.ui-critical {
-      --_color: var(--critical);
-    }
-
-    &.ui-primary {
-      --_color: var(--primary);
-    }
-
     /* Element states */
-    &:where(:not([disabled])) {
-      &:where(:not(:active):hover) {
-        &::before {
-          background-color: var(--_interaction-hover-color,
-              var(--_default-hover-bg-color));
+    &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+      @media (hover: hover) {
+        &:where(:not(:active):hover) {
+          &::before {
+            background-color: var(
+              --_interaction-hover-color,
+              var(--_default-hover-bg-color)
+            );
+          }
         }
       }
 
       &:where(:hover:active),
       &[aria-current="page"] {
         &::before {
-          background-color: var(--_interaction-active-color,
-              var(--_default-active-bg-color));
+          background-color: var(
+            --_interaction-active-color,
+            var(--_default-active-bg-color)
+          );
         }
       }
     }

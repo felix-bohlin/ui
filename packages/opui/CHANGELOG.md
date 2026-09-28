@@ -4,6 +4,10 @@
 
 ### Added
 
+- `Button` takes an `iconOnly` prop (`.ui-icon-only`) for square icon-only buttons, at every size and inside `ButtonGroup`.
+- `DrawerHeader` takes a `commandfor` prop (the drawer `id`). When set, the close button uses `command="close"` (Invoker Commands), HTML only. Without it, the previous script fallback is used.
+- `Button` padding scales with `--_padding-inline`, and the icon side gets tighter padding when a direct child `svg` sits next to a wrapped label (e.g. `<span>`).
+- `Button` and `IconButton` support `.ui-disabled`. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.
 - `layers.css` with the `@layer` order, for importing single component files.
 
 ### Fixed
@@ -13,7 +17,14 @@
 - `Tooltip` transitions now respect `--motion` (`prefers-reduced-motion`, `.ui-motion-off`).
 - `Dialog` backdrop is themeable via `--_backdrop-bg-color` and `--_backdrop-blur` (same as `Drawer`).
 - `Dialog` scroll-lock matches `.ui-scroll-lock` and no longer shifts the layout when the scrollbar disappears.
+- `Button`, `IconButton` and `ButtonGroup` style `[aria-disabled="true"]` the same as `[disabled]`, e.g. for `<a class="ui-button" aria-disabled="true">` or focusable disabled buttons.
+- `ButtonGroup` only styles its direct child buttons, so a `Menu` inside it (split button) keeps its own item styles.
+- `Button`, `IconButton` and `ButtonGroup` hover styles only apply on devices that support hover, so they no longer stick after a tap.
+- `ButtonGroup` dividers are no longer double thick.
+- `IconButton` disabled text color uses valid `rgb()` syntax.
+- `IconButton` is listed under extended components in `components.css`, since it needs `button.css` for its tokens.
 - `opui-css/open-props.css` resolves through `exports`.
+- Vue `DrawerHeader` closes the drawer without hydration.
 
 ## 5.5.0 - 2026-09-28
 

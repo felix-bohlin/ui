@@ -94,14 +94,19 @@ export const description =
     <h2 id="buttons-with-icon-and-label">Buttons with icon and label</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Include an icon alongside text by nesting it within the component.
+        Include an icon alongside text by nesting it within the component. Wrap
+        the label in a <code>&lt;span&gt;</code> to tighten the padding on the icon
+        side.
       </Fragment>
       <Fragment slot="html">
         Include an icon alongside text by nesting an SVG element within the
-        button.
+        button. Wrap the label in a <code>&lt;span&gt;</code> to tighten the padding
+        on the icon side.
       </Fragment>
       <Fragment slot="vue">
-        Include an icon alongside text by nesting it within the component.
+        Include an icon alongside text by nesting it within the component. Wrap
+        the label in a <code>&lt;span&gt;</code> to tighten the padding on the icon
+        side.
       </Fragment>
     </Conditional>
     <Example column>
@@ -125,9 +130,23 @@ export const description =
 
   <section>
     <h2 id="icon-only">Icon-only</h2>
-    <p>
-      See <DocLink href="/components/icon-button">Icon button</DocLink> documentation.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="html">
+        <code>.ui-icon-only</code> for a square button, or <DocLink
+          href="/components/icon-button">Icon button</DocLink
+        > for a round one.
+      </Fragment>
+      <Fragment slot="astro">
+        <code>iconOnly</code> for a square button, or <DocLink
+          href="/components/icon-button">Icon button</DocLink
+        > for a round one.
+      </Fragment>
+      <Fragment slot="vue">
+        <code>iconOnly</code> for a square button, or <DocLink
+          href="/components/icon-button">Icon button</DocLink
+        > for a round one.
+      </Fragment>
+    </Conditional>
   </section>
 
   <section>

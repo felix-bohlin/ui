@@ -137,11 +137,14 @@
           border-start-end-radius: var(--_border-radius);
         }
 
+        &:not(:last-of-type) {
+          border-inline-end-width: 0;
+        }
+
         /* Siblings */
         &+& {
           border-inline-start-color: var(--_divider-color);
-          border-inline-width: 1px;
-          margin-inline-start: -1px;
+          border-inline-start-width: 1px;
 
           &:is([disabled], [aria-disabled="true"]) {
             border-inline-start-color: color-mix(in oklch,
@@ -173,9 +176,12 @@
           border-end-end-radius: var(--_border-radius);
         }
 
+        &:not(:last-of-type) {
+          border-block-end-width: 0;
+        }
+
         &+& {
           border-block-start: 1px solid var(--_divider-color);
-          margin-block-start: -1px;
 
           &:is([disabled], [aria-disabled="true"]) {
             border-block-start-color: color-mix(in oklch,

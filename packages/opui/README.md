@@ -14,7 +14,7 @@ pnpm add opui-css open-props
 Peer dependencies:
 
 - `astro` `^6` (only required if you use the Astro components)
-- `vue` `^3` (only required if you use the Vue components)
+- `vue` `^3.6` (only required if you use the Vue components)
 - `open-props` `^1`
 
 ## Usage
@@ -35,7 +35,7 @@ import { Button, Card } from "opui-css/astro"
 ### Vue components
 
 ```vue
-<script setup lang="ts">
+<script setup vapor lang="ts">
 import "opui-css/css/imports.css"
 import { Button, Card } from "opui-css/vue"
 </script>
@@ -47,7 +47,7 @@ import { Button, Card } from "opui-css/vue"
 </template>
 ```
 
-Vapor mode (Vue 3.6+): import the same components from `opui-css/vue/vapor`. Mount with `createVaporApp`, or install `vaporInteropPlugin` when mixing with virtual DOM components.
+The Vue components are [Vapor](https://vuejs.org/guide/extras/vapor-mode) components (Vue 3.6+). Mount with `createVaporApp`, or install `vaporInteropPlugin` in apps mounted with `createApp`.
 
 ### Plain HTML + CSS (no build step)
 

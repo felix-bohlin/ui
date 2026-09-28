@@ -1,3 +1,27 @@
+# Migrating to Vue Vapor components
+
+The Vue components (`opui-css/vue`) are now [Vapor](https://vuejs.org/guide/extras/vapor-mode) components. Props, slots and rendered markup are unchanged.
+
+1. Upgrade to Vue 3.6 or later.
+2. Vapor-only apps mount with `createVaporApp`:
+
+```ts
+import { createVaporApp } from "vue"
+
+createVaporApp(App).mount("#app")
+```
+
+3. Apps mounted with `createApp` (including Astro and other SSR setups) need `vaporInteropPlugin`:
+
+```ts
+import { createApp, vaporInteropPlugin } from "vue"
+
+createApp(App).use(vaporInteropPlugin).mount("#app")
+```
+
+4. Template refs on library components no longer expose `$el`, `$props` or `$attrs`. Query the DOM instead, e.g. `document.getElementById("my-dialog")`.
+5. Per-element lifecycle events (`@vue:mounted` etc.) on library components are not supported.
+
 # Migrating from v5.0 to v5.1
 
 In v5.1.0, the `critical` prop has been renamed to `error` on all form components (`TextField`, `Checkbox`, `Radio`, `Switch`, `Select`, `ClassicSelect`, `Textarea`).

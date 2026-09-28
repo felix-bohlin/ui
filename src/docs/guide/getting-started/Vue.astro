@@ -47,8 +47,13 @@ import Theming from "./_theming.astro"
 
   <section>
     <h2 id="usage">How to use</h2>
+    <p>
+      The components are <a href="https://vuejs.org/guide/extras/vapor-mode"
+        >Vapor</a
+      > components - no virtual DOM. Vue 3.6 or later is required.
+    </p>
     <Code
-      code={`<script setup lang="ts">
+      code={`<script setup vapor lang="ts">
 import { Button } from "opui-css/vue"
 </script>
 
@@ -57,27 +62,7 @@ import { Button } from "opui-css/vue"
 </template>`}
       lang="vue"
     />
-  </section>
-
-  <section>
-    <h2 id="vapor">Vapor mode</h2>
-    <p>
-      Every component also ships as a <a
-        href="https://vuejs.org/guide/extras/vapor-mode">Vapor</a
-      > component (Vue 3.6+). Same props, slots and markup - no virtual DOM. Import
-      them from <code>opui-css/vue/vapor</code>:
-    </p>
-    <Code
-      code={`<script setup vapor lang="ts">
-import { Button } from "opui-css/vue/vapor"
-</script>
-
-<template>
-  <Button variant="filled">Click me</Button>
-</template>`}
-      lang="vue"
-    />
-    <p>In a Vapor-only app, mount with <code>createVaporApp</code>:</p>
+    <p>Mount your app with <code>createVaporApp</code>:</p>
     <Code
       code={`import { createVaporApp } from "vue"
 import App from "./App.vue"
@@ -85,9 +70,13 @@ import App from "./App.vue"
 createVaporApp(App).mount("#app")`}
       lang="ts"
     />
+  </section>
+
+  <section>
+    <h2 id="virtual-dom">Virtual DOM apps</h2>
     <p>
-      Mixing Vapor and virtual DOM components requires the
-      <code>vaporInteropPlugin</code>:
+      Apps mounted with <code>createApp</code> need the
+      <code>vaporInteropPlugin</code> to render Vapor components:
     </p>
     <Code
       code={`import { createApp, vaporInteropPlugin } from "vue"

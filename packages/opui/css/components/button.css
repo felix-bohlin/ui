@@ -121,7 +121,7 @@
     }
 
     /* Icons / Keyboard */
-    &:where(:has(> svg), .ui-icon-only) {
+    &:where(:has(> svg)) {
       gap: 1ex;
 
       & > svg {
@@ -171,7 +171,7 @@
       --_padding-inline: 2.5ex;
     }
 
-    &.ui-icon-only {
+    &:where(:has(> svg:only-child)) {
       min-inline-size: var(--_min-height);
       padding-inline: 0;
     }

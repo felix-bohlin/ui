@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
-const { as, color, disabled, href, size, variant } = defineProps<Props>()
+const { as, color, disabled, href, iconOnly, size, variant } =
+  defineProps<Props>()
 defineSlots<Slots>()
 
 const Tag = as || (href ? "a" : "button")
@@ -13,7 +14,7 @@ const isButton = Tag === "button"
     :is="Tag"
     :class="[
       'ui-button',
-      { 'ui-disabled': isButton && disabled },
+      { 'ui-disabled': isButton && disabled, 'ui-icon-only': iconOnly },
       size && `ui-${size}`,
       variant && `ui-${variant}`,
       color && `ui-${color}`,

@@ -16,7 +16,7 @@ import { Button } from "opui-css/vue"
 
   <div class="example-row">
     <Button size="small" variant="outlined">
-      Small
+      <span>Small</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -30,7 +30,7 @@ import { Button } from "opui-css/vue"
       </svg>
     </Button>
     <Button variant="outlined">
-      Default
+      <span>Default</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -44,7 +44,7 @@ import { Button } from "opui-css/vue"
       </svg>
     </Button>
     <Button variant="outlined" size="large">
-      Large
+      <span>Large</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

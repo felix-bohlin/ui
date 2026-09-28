@@ -7,12 +7,14 @@
     min-width: max-content;
 
     /* Button */
-    button {
+    & > button {
       border-radius: 0;
 
       /* button.css > --_accent-tonal */
-      --_divider-color: light-dark(oklch(from var(--_accent-tonal) calc(l - 0.1) c h),
-          oklch(from var(--_accent-tonal) calc(l + 0.1) c h));
+      --_divider-color: light-dark(
+        oklch(from var(--_accent-tonal) calc(l - 0.1) c h),
+        oklch(from var(--_accent-tonal) calc(l + 0.1) c h)
+      );
 
       &.ui-outlined {
         --_divider-color: var(--_border-color);
@@ -26,46 +28,32 @@
         outline-offset: -4px;
       }
 
-      /* Color inherited from Button Group. */
-      :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) & {
-        --_color-contrast: var(--gray-1);
-        --_color-tonal: var(--color-6);
-        --_accent-tonal-contrast: var(--text-primary-contrast);
-        --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
-        --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
-        --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-        --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
-        --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-      }
-
-      :where(.ui-button-group.ui-critical) & {
-        --_color: var(--critical);
-      }
-
-      :where(.ui-button-group.ui-primary) & {
-        --_color: var(--primary);
-      }
-
       :where(.ui-button-group.ui-small) & {
         --_min-height: 1.875rem;
+        --_padding-inline: 1.25ex;
         padding-block: 0;
-        padding-inline: 1ex;
       }
 
       :where(.ui-button-group.ui-large) & {
         --_min-height: 2.875rem;
-        padding-inline: 4ex;
+        --_padding-inline: 2.5ex;
+      }
+
+      &.ui-icon-only {
+        padding-inline: 0;
       }
 
       :where(.ui-button-group.ui-outlined) & {
         --_border-color: var(--_accent);
         --_divider-color: var(--_accent);
 
-        &:where(:not([disabled])) {
-          &:where(:not(:active):hover) {
-            --_bg-color: var(--_accent);
-            --_border-color: var(--_accent);
-            --_text-color: var(--_accent-contrast);
+        &:where(:not([disabled], [aria-disabled="true"])) {
+          @media (hover: hover) {
+            &:where(:not(:active):hover) {
+              --_bg-color: var(--_accent);
+              --_border-color: var(--_accent);
+              --_text-color: var(--_accent-contrast);
+            }
           }
 
           &:where(:active) {
@@ -80,10 +68,12 @@
         --_bg-color: var(--_accent-tonal);
         --_text-color: var(--_accent-tonal-contrast);
 
-        &:where(:not([disabled])) {
-          &:where(:not(:active):hover) {
-            --_bg-color: var(--_accent);
-            --_text-color: var(--_accent-contrast);
+        &:where(:not([disabled], [aria-disabled="true"])) {
+          @media (hover: hover) {
+            &:where(:not(:active):hover) {
+              --_bg-color: var(--_accent);
+              --_text-color: var(--_accent-contrast);
+            }
           }
 
           &:where(:active) {
@@ -99,13 +89,17 @@
         --_divider-color: currentColor;
 
         :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) & {
-          --_divider-color: light-dark(oklch(from var(--_accent) calc(l - 0.1) c h),
-              oklch(from var(--_accent) calc(l + 0.1) c h));
+          --_divider-color: light-dark(
+            oklch(from var(--_accent) calc(l - 0.1) c h),
+            oklch(from var(--_accent) calc(l + 0.1) c h)
+          );
         }
 
-        &:where(:not([disabled])) {
-          &:where(:not(:active):hover) {
-            --_bg-color: var(--_filled-hover-bg-color);
+        &:where(:not([disabled], [aria-disabled="true"])) {
+          @media (hover: hover) {
+            &:where(:not(:active):hover) {
+              --_bg-color: var(--_filled-hover-bg-color);
+            }
           }
 
           &:where(:active) {
@@ -116,7 +110,9 @@
     }
 
     &:not(.ui-vertical) {
-      button {
+      & > button {
+        border-inline-width: 1px 0;
+
         &:first-of-type {
           border-end-start-radius: var(--_border-radius);
           border-start-start-radius: var(--_border-radius);
@@ -125,18 +121,20 @@
         &:last-of-type {
           border-end-end-radius: var(--_border-radius);
           border-start-end-radius: var(--_border-radius);
+          /* TODO: make sure this is the fix */
+          border-inline-width: 1px;
         }
 
         /* Siblings */
-        &+& {
+        & + & {
           border-inline-start-color: var(--_divider-color);
-          border-inline-width: 1px;
-          margin-inline-start: -1px;
 
-          &[disabled] {
-            border-inline-start-color: color-mix(in oklch,
-                var(--_divider-color) 40%,
-                transparent);
+          &:is([disabled], [aria-disabled="true"]) {
+            border-inline-start-color: color-mix(
+              in oklch,
+              var(--_divider-color) 40%,
+              transparent
+            );
           }
         }
       }
@@ -145,7 +143,8 @@
     &.ui-vertical {
       flex-direction: column;
 
-      button {
+      & > button {
+        border-block-width: 1px 0;
         padding: var(--size-2);
 
         &:has(svg) {
@@ -161,16 +160,19 @@
         &:last-of-type {
           border-end-start-radius: var(--_border-radius);
           border-end-end-radius: var(--_border-radius);
+          /* TODO: make sure this is a good fix */
+          border-block-width: 1px;
         }
 
-        &+& {
+        & + & {
           border-block-start: 1px solid var(--_divider-color);
-          margin-block-start: -1px;
 
-          &[disabled] {
-            border-block-start-color: color-mix(in oklch,
-                var(--_divider-color) 40%,
-                transparent);
+          &:is([disabled], [aria-disabled="true"]) {
+            border-block-start-color: color-mix(
+              in oklch,
+              var(--_divider-color) 40%,
+              transparent
+            );
           }
         }
       }

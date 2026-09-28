@@ -12,15 +12,15 @@ import { Button } from "opui-css/vue"
   <Button variant="filled" size="large">Large</Button>
 
   <Button size="small" variant="outlined">
-    Small
+    <span>Small</span>
     <svg><!-- --></svg>
   </Button>
   <Button variant="outlined">
-    Default
+    <span>Default</span>
     <svg><!-- --></svg>
   </Button>
   <Button variant="outlined" size="large">
-    Large
+    <span>Large</span>
     <svg><!-- --></svg>
   </Button>
 </template>

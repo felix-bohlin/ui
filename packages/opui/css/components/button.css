@@ -1,5 +1,5 @@
 @layer components.root {
-  :where(.ui-button) {
+  :where(.ui-button, .ui-icon-button) {
     --_motion: var(--motion, 1);
     --_color: light-dark(var(--color-16), var(--color-1));
     --_color-contrast: light-dark(var(--color-1), var(--color-16));
@@ -10,23 +10,61 @@
     --_accent-tonal: var(--_color-tonal);
     --_accent-tonal-contrast: var(--_color);
 
-    --_default-hover-bg-color: light-dark(oklch(from var(--_accent) l 0.01 h / 10%),
-        oklch(from var(--_accent) l 0.01 h / 20%));
-    --_default-active-bg-color: light-dark(oklch(from var(--_accent) l 0.06 h / 20%),
-        oklch(from var(--_accent) l 0.06 h / 30%));
+    --_default-hover-bg-color: light-dark(
+      oklch(from var(--_accent) l 0.01 h / 10%),
+      oklch(from var(--_accent) l 0.01 h / 20%)
+    );
+    --_default-active-bg-color: light-dark(
+      oklch(from var(--_accent) l 0.06 h / 20%),
+      oklch(from var(--_accent) l 0.06 h / 30%)
+    );
 
-    --_filled-hover-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.2) c h),
-        oklch(from var(--_accent) calc(l - 0.1) c h));
-    --_filled-active-bg-color: light-dark(oklch(from var(--_accent) calc(l + 0.3) c h),
-        oklch(from var(--_accent) calc(l - 0.15) c h));
+    --_filled-hover-bg-color: light-dark(
+      oklch(from var(--_accent) calc(l + 0.2) c h),
+      oklch(from var(--_accent) calc(l - 0.1) c h)
+    );
+    --_filled-active-bg-color: light-dark(
+      oklch(from var(--_accent) calc(l + 0.3) c h),
+      oklch(from var(--_accent) calc(l - 0.15) c h)
+    );
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
 
+    &.ui-critical,
+    &.ui-primary,
+    /* Color inherited from Button Group. */
+    :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) > & {
+      --_color-contrast: var(--gray-1);
+      --_color-tonal: var(--color-6);
+      --_accent-tonal-contrast: var(--text-primary-contrast);
+
+      --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
+      --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
+
+      --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+      --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
+
+      --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+    }
+
+    &.ui-critical,
+    :where(.ui-button-group.ui-critical) > & {
+      --_color: var(--critical);
+    }
+
+    &.ui-primary,
+    :where(.ui-button-group.ui-primary) > & {
+      --_color: var(--primary);
+    }
+  }
+
+  :where(.ui-button) {
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-width: var(--border-size-1);
     --_font-size: var(--font-size-1);
     --_min-height: var(--button-size);
     --_border-radius: var(--button-border-radius, var(--radius-2));
+    --_padding-inline: 1.5ex;
     --_text-color: var(--_accent);
 
     -webkit-tap-highlight-color: transparent;
@@ -43,53 +81,37 @@
     justify-content: center;
     min-block-size: var(--_min-height);
     padding-block: 0.5ex;
-    padding-inline: 1.5ex;
+    padding-inline: var(--_padding-inline);
     text-align: center;
     text-decoration: none;
     transition:
       background-color calc(0.1s * var(--_motion)) ease,
       color calc(0.1s * var(--_motion)) ease,
-      border-color calc(0.1s * var(--_motion)) ease,
-      box-shadow calc(0.1s * var(--_motion)) ease;
+      border-color calc(0.1s * var(--_motion)) ease;
     user-select: none;
 
-    &.ui-critical,
-    &.ui-primary {
-      --_color-contrast: var(--gray-1);
-      --_color-tonal: var(--color-6);
-      --_accent-tonal-contrast: var(--text-primary-contrast);
-
-      --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
-      --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
-
-      --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-      --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
-
-      --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-    }
-
-    &.ui-critical {
-      --_color: var(--critical);
-    }
-
-    &.ui-primary {
-      --_color: var(--primary);
-    }
-
     /* Disabled */
-    &:where([disabled]) {
-      --_text-color: color-mix(in oklch,
-          var(--text-muted) 50%,
-          var(--surface-default));
+    &:where([disabled], [aria-disabled="true"], .ui-disabled) {
+      --_text-color: color-mix(
+        in oklch,
+        var(--text-muted) 50%,
+        var(--surface-default)
+      );
 
       cursor: not-allowed;
       opacity: 0.64;
     }
 
+    &:where(a):where([aria-disabled="true"], .ui-disabled) {
+      pointer-events: none;
+    }
+
     /* Hover & Active */
-    &:where(:not([disabled])) {
-      &:where(:not(:active):hover) {
-        --_bg-color: var(--_default-hover-bg-color);
+    &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+      @media (hover: hover) {
+        &:where(:not(:active):hover) {
+          --_bg-color: var(--_default-hover-bg-color);
+        }
       }
 
       &:where(:hover:active),
@@ -99,13 +121,24 @@
     }
 
     /* Icons / Keyboard */
-    &:where(:has(svg), &.ui-icon-only) {
+    &:where(:has(> svg), .ui-icon-only) {
       gap: 1ex;
 
-      svg {
+      & > svg {
+        block-size: auto;
         color: currentColor;
+        flex-shrink: 0;
+        inline-size: auto;
         max-block-size: 0.7lh;
       }
+    }
+
+    &:where(:has(> svg:first-child + *)) {
+      padding-inline-start: calc(var(--_padding-inline) * 0.75);
+    }
+
+    &:where(:has(> * + svg:last-child)) {
+      padding-inline-end: calc(var(--_padding-inline) * 0.75);
     }
 
     /* Keyboard input */
@@ -122,20 +155,25 @@
     &.ui-x-small {
       --_min-height: var(--button-size-x-small);
       --_font-size: var(--font-size-0);
+      --_padding-inline: 1ex;
       padding-block: 0;
-      padding-inline: 0.5ex;
     }
 
     &.ui-small {
       --_min-height: var(--button-size-small);
       --_font-size: var(--font-size-05);
+      --_padding-inline: 1.25ex;
       padding-block: 0;
-      padding-inline: 0.75ex;
     }
 
     &.ui-large {
       --_min-height: var(--button-size-large);
-      padding-inline: 4ex;
+      --_padding-inline: 2.5ex;
+    }
+
+    &.ui-icon-only {
+      min-inline-size: var(--_min-height);
+      padding-inline: 0;
     }
 
     /* Variants */
@@ -144,11 +182,13 @@
       --_border-color: var(--_accent);
       --_text-color: var(--_accent);
 
-      &:where(:not([disabled])) {
-        &:where(:not(:active):hover) {
-          --_bg-color: var(--_accent);
-          --_border-color: var(--_accent);
-          --_text-color: var(--_accent-contrast);
+      &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+        @media (hover: hover) {
+          &:where(:not(:active):hover) {
+            --_bg-color: var(--_accent);
+            --_border-color: var(--_accent);
+            --_text-color: var(--_accent-contrast);
+          }
         }
 
         &:where(:active) {
@@ -163,10 +203,12 @@
       --_bg-color: var(--_accent-tonal);
       --_text-color: var(--_accent-tonal-contrast);
 
-      &:where(:not([disabled])) {
-        &:where(:not(:active):hover) {
-          --_bg-color: var(--_accent);
-          --_text-color: var(--_accent-contrast);
+      &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+        @media (hover: hover) {
+          &:where(:not(:active):hover) {
+            --_bg-color: var(--_accent);
+            --_text-color: var(--_accent-contrast);
+          }
         }
 
         &:where(:active) {
@@ -180,9 +222,11 @@
       --_bg-color: var(--_accent);
       --_text-color: var(--_accent-contrast);
 
-      &:where(:not([disabled])) {
-        &:where(:not(:active):hover) {
-          --_bg-color: var(--_filled-hover-bg-color);
+      &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+        @media (hover: hover) {
+          &:where(:not(:active):hover) {
+            --_bg-color: var(--_filled-hover-bg-color);
+          }
         }
 
         &:where(:active) {
@@ -204,7 +248,6 @@
     padding: 0;
   }
 
-  :where(input[type="file"])::-webkit-file-upload-button,
   :where(input[type="file"])::file-selector-button {
     cursor: pointer;
     margin-inline-end: var(--size-relative-6);

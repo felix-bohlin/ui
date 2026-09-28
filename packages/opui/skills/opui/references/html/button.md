@@ -192,7 +192,7 @@ Use the `<kbd>` element to provide keyboard hints within a button.
 
 ## Icon-only
 
-`.ui-icon-only` for a square button, or [Icon button](https://open-props-ui.netlify.app/html/components/icon-button.md) for a round one.
+A button whose only child is an `svg` is square. Give it an`aria-label`. See [Icon button](https://open-props-ui.netlify.app/html/components/icon-button.md) for a round one.
 
 ## Sizes
 
@@ -356,12 +356,11 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 ## API
 
-| Type      | Modifiers                                          | Default | Description                                 |
-| --------- | -------------------------------------------------- | ------- | ------------------------------------------- |
-| Sizes     | `.ui-small`, default, `.ui-large`                  | -       | The size of the element.                    |
-| Variants  | default, `.ui-outlined`, `.ui-tonal`, `.ui-filled` | -       | The variant to use.                         |
-| Colors    | `.ui-critical`, `.ui-primary`                      | -       | Color modifiers. Default is a neutral gray. |
-| Icon-only | `.ui-icon-only`                                    | -       | Square, for an icon without a label.        |
+| Type     | Modifiers                                          | Default | Description                                 |
+| -------- | -------------------------------------------------- | ------- | ------------------------------------------- |
+| Sizes    | `.ui-small`, default, `.ui-large`                  | -       | The size of the element.                    |
+| Variants | default, `.ui-outlined`, `.ui-tonal`, `.ui-filled` | -       | The variant to use.                         |
+| Colors   | `.ui-critical`, `.ui-primary`                      | -       | Color modifiers. Default is a neutral gray. |
 
 ## Browser support
 

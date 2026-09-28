@@ -128,7 +128,7 @@ import { Button } from "opui-css/astro"
 
 ## Icon-only
 
-`iconOnly` for a square button, or [Icon button](https://open-props-ui.netlify.app/astro/components/icon-button.md) for a round one.
+A button whose only child is an `svg` is square. Give it an`aria-label`. See [Icon button](https://open-props-ui.netlify.app/astro/components/icon-button.md) for a round one.
 
 ## Sizes
 
@@ -195,7 +195,6 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `variant`  | `"outlined"`, `"tonal"`, `"filled"` | -       | The visual variant of the button.                   |
 | `color`    | `"critical"`, `"primary"`           | -       | The color of the button. Default is a neutral gray. |
 | `href`     | `string`                            | -       | Renders as an `<a>` tag if an href is provided.     |
-| `iconOnly` | `boolean`                           | `false` | Square, for an icon without a label.                |
 | `disabled` | `boolean`                           | -       | Button disabled state.                              |
 
 ## Browser support

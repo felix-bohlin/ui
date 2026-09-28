@@ -480,36 +480,6 @@
     "url": "/vue/components/form"
   },
   {
-    "id": "component-icon-button-html",
-    "title": "Icon Button",
-    "description": "Icon buttons are used to trigger actions and are typically found in toolbars, cards, and dialogs.",
-    "headings": "Variants Colors Sizes Disabled",
-    "category": "Component",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/components/icon-button"
-  },
-  {
-    "id": "component-icon-button-astro",
-    "title": "Icon Button",
-    "description": "Icon buttons are used to trigger actions and are typically found in toolbars, cards, and dialogs.",
-    "headings": "Variants Colors Sizes Disabled",
-    "category": "Component",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/components/icon-button"
-  },
-  {
-    "id": "component-icon-button-vue",
-    "title": "Icon Button",
-    "description": "Icon buttons are used to trigger actions and are typically found in toolbars, cards, and dialogs.",
-    "headings": "Variants Colors Sizes Disabled",
-    "category": "Component",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/components/icon-button"
-  },
-  {
     "id": "component-list-html",
     "title": "List",
     "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
@@ -1258,7 +1228,7 @@
     "id": "api-button-astro",
     "title": "Button API",
     "description": "Reference for Button Astro component.",
-    "headings": "size \"small\", \"large\" - The size of the button. variant \"outlined\", \"tonal\", \"filled\" - The visual variant of the button. color \"critical\", \"primary\" - The color of the button. Default is a neutral gray. href string - Renders as an &lt;a&gt; tag if an href is provided. disabled boolean - Button disabled state.",
+    "headings": "size \"small\", \"large\" - The size of the button. variant \"outlined\", \"tonal\", \"filled\" - The visual variant of the button. color \"critical\", \"primary\" - The color of the button. Default is a neutral gray. href string - Renders as an &lt;a&gt; tag if an href is provided. ripple boolean false A halo behind the button on hover instead of a background change. rounded boolean false Fully rounded corners, a circle when icon-only. disabled boolean - Button disabled state.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1268,7 +1238,7 @@
     "id": "api-button-html",
     "title": "Button API",
     "description": "Reference for Button HTML component.",
-    "headings": "Sizes .ui-small, default, .ui-large - The size of the element. Variants default, .ui-outlined, .ui-tonal, .ui-filled - The variant to use. Colors .ui-critical, .ui-primary - Color modifiers. Default is a neutral gray.",
+    "headings": "Sizes .ui-small, default, .ui-large - The size of the element. Variants default, .ui-outlined, .ui-tonal, .ui-filled - The variant to use. Colors .ui-critical, .ui-primary - Color modifiers. Default is a neutral gray. Shape .ui-rounded - Fully rounded corners, a circle when icon-only. Hover .ui-ripple - A halo behind the button on hover instead of a background change.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -1278,7 +1248,7 @@
     "id": "api-button-vue",
     "title": "Button API",
     "description": "Reference for Button Vue component.",
-    "headings": "size \"small\", \"large\" - The size of the button. variant \"outlined\", \"tonal\", \"filled\" - The visual variant of the button. color \"critical\", \"primary\" - The color of the button. Default is a neutral gray. href string - Renders as an &lt;a&gt; tag if an href is provided. disabled boolean - Button disabled state.",
+    "headings": "size \"small\", \"large\" - The size of the button. variant \"outlined\", \"tonal\", \"filled\" - The visual variant of the button. color \"critical\", \"primary\" - The color of the button. Default is a neutral gray. href string - Renders as an &lt;a&gt; tag if an href is provided. ripple boolean false A halo behind the button on hover instead of a background change. rounded boolean false Fully rounded corners, a circle when icon-only. disabled boolean - Button disabled state.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1643,36 +1613,6 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#form"
-  },
-  {
-    "id": "api-icon-button-astro",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button Astro component.",
-    "headings": "as any \"button\" (or \"a\" if href present) The underlying HTML element. href string - Renders as an &lt;a&gt; tag if an href is provided. size \"small\" - The size of the icon button. color \"critical\", \"primary\" - The color of the icon button. Default is a neutral gray. variant \"outlined\" | \"tonal\" | \"filled\" - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#icon-button"
-  },
-  {
-    "id": "api-icon-button-html",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button HTML component.",
-    "headings": "Variants .ui-outlined, .ui-tonal, .ui-filled - The visual style of the icon button. Sizes .ui-small - The size of the element. Colors .ui-critical, .ui-primary - Color modifiers for the icon button. Default is a neutral gray. States [disabled] - Attribute to disable the icon button.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#icon-button"
-  },
-  {
-    "id": "api-icon-button-vue",
-    "title": "Icon Button API",
-    "description": "Reference for Icon Button Vue component.",
-    "headings": "as any \"button\" (or \"a\" if href present) The underlying HTML element. href string - Renders as an &lt;a&gt; tag if an href is provided. size \"small\" - The size of the icon button. color \"critical\", \"primary\" - The color of the icon button. Default is a neutral gray. variant \"outlined\" | \"tonal\" | \"filled\" - The style of the icon button. disabled boolean - Whether the icon button is disabled.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#icon-button"
   },
   {
     "id": "api-list-astro",

@@ -192,7 +192,91 @@ Use the `<kbd>` element to provide keyboard hints within a button.
 
 ## Icon-only
 
-A button whose only child is an `svg` is square. Give it an`aria-label`. See [Icon button](https://open-props-ui.netlify.app/html/components/icon-button.md) for a round one.
+A button whose only child is an `svg` is square. Give it an`aria-label`. Add `.ui-rounded` for a circle and `.ui-ripple` for a hover halo instead of a background change.
+
+```html
+<button class="ui-button" aria-label="Edit">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+    ></path>
+  </svg>
+</button>
+<button class="ui-button ui-rounded" aria-label="Edit">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+    ></path>
+  </svg>
+</button>
+<button class="ui-button ui-ripple ui-rounded" aria-label="Edit">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+    ></path>
+  </svg>
+</button>
+<button class="ui-button ui-ripple ui-rounded ui-tonal" aria-label="Edit">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+    ></path>
+  </svg>
+</button>
+<button
+  class="ui-button ui-primary ui-ripple ui-rounded ui-filled"
+  aria-label="Edit"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+    ></path>
+  </svg>
+</button>
+<button class="ui-button ui-ripple ui-rounded ui-small" aria-label="Edit">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+    ></path>
+  </svg>
+</button>
+```
 
 ## Sizes
 
@@ -356,11 +440,13 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 ## API
 
-| Type     | Modifiers                                          | Default | Description                                 |
-| -------- | -------------------------------------------------- | ------- | ------------------------------------------- |
-| Sizes    | `.ui-small`, default, `.ui-large`                  | -       | The size of the element.                    |
-| Variants | default, `.ui-outlined`, `.ui-tonal`, `.ui-filled` | -       | The variant to use.                         |
-| Colors   | `.ui-critical`, `.ui-primary`                      | -       | Color modifiers. Default is a neutral gray. |
+| Type     | Modifiers                                          | Default | Description                                                       |
+| -------- | -------------------------------------------------- | ------- | ----------------------------------------------------------------- |
+| Sizes    | `.ui-small`, default, `.ui-large`                  | -       | The size of the element.                                          |
+| Variants | default, `.ui-outlined`, `.ui-tonal`, `.ui-filled` | -       | The variant to use.                                               |
+| Colors   | `.ui-critical`, `.ui-primary`                      | -       | Color modifiers. Default is a neutral gray.                       |
+| Shape    | `.ui-rounded`                                      | -       | Fully rounded corners, a circle when icon-only.                   |
+| Hover    | `.ui-ripple`                                       | -       | A halo behind the button on hover instead of a background change. |
 
 ## Browser support
 

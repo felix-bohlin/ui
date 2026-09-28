@@ -128,7 +128,95 @@ import { Button } from "opui-css/vue"
 
 ## Icon-only
 
-A button whose only child is an `svg` is square. Give it an`aria-label`. See [Icon button](https://open-props-ui.netlify.app/vue/components/icon-button.md) for a round one.
+A button whose only child is an `svg` is square. Give it an`aria-label`. Add `rounded` for a circle and `ripple` for a hover halo instead of a background change.
+
+```vue
+<script setup lang="ts">
+import { Button } from "opui-css/vue"
+</script>
+
+
+<template>
+  <Button aria-label="Edit">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+      ></path>
+    </svg>
+  </Button>
+  <Button aria-label="Edit" rounded>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+      ></path>
+    </svg>
+  </Button>
+  <Button aria-label="Edit" ripple rounded>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+      ></path>
+    </svg>
+  </Button>
+  <Button aria-label="Edit" ripple rounded variant="tonal">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+      ></path>
+    </svg>
+  </Button>
+  <Button aria-label="Edit" color="primary" ripple rounded variant="filled">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+      ></path>
+    </svg>
+  </Button>
+  <Button aria-label="Edit" ripple rounded size="small">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+      ></path>
+    </svg>
+  </Button>
+</template>
+```
 
 ## Sizes
 
@@ -193,13 +281,15 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 ## API
 
-| Prop       | Type                                | Default | Description                                         |
-| ---------- | ----------------------------------- | ------- | --------------------------------------------------- |
-| `size`     | `"small"`, `"large"`                | -       | The size of the button.                             |
-| `variant`  | `"outlined"`, `"tonal"`, `"filled"` | -       | The visual variant of the button.                   |
-| `color`    | `"critical"`, `"primary"`           | -       | The color of the button. Default is a neutral gray. |
-| `href`     | `string`                            | -       | Renders as an `<a>` tag if an href is provided.     |
-| `disabled` | `boolean`                           | -       | Button disabled state.                              |
+| Prop       | Type                                | Default | Description                                                       |
+| ---------- | ----------------------------------- | ------- | ----------------------------------------------------------------- |
+| `size`     | `"small"`, `"large"`                | -       | The size of the button.                                           |
+| `variant`  | `"outlined"`, `"tonal"`, `"filled"` | -       | The visual variant of the button.                                 |
+| `color`    | `"critical"`, `"primary"`           | -       | The color of the button. Default is a neutral gray.               |
+| `href`     | `string`                            | -       | Renders as an `<a>` tag if an href is provided.                   |
+| `ripple`   | `boolean`                           | `false` | A halo behind the button on hover instead of a background change. |
+| `rounded`  | `boolean`                           | `false` | Fully rounded corners, a circle when icon-only.                   |
+| `disabled` | `boolean`                           | -       | Button disabled state.                                            |
 
 ## Browser support
 

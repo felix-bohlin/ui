@@ -34,12 +34,15 @@ If you want to decide yourself what goes into your list.
 
 ```vue
 <script setup lang="ts">
-import { IconButton, ListItem, Menu } from "opui-css/vue"
+import { Button, ListItem, Menu } from "opui-css/vue"
 </script>
 
 
 <template>
-  <IconButton
+  <Button
+    ripple
+    rounded
+    size="small"
     aria-label="More actions"
     commandfor="menu-custom"
     command="toggle-popover"
@@ -50,7 +53,7 @@ import { IconButton, ListItem, Menu } from "opui-css/vue"
         d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
       ></path>
     </svg>
-  </IconButton>
+  </Button>
   <Menu id="menu-custom">
     <li class="ui-label">Document</li>
     <ListItem as="button" commandfor="menu-custom" command="hide-popover">

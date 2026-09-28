@@ -2,13 +2,9 @@
 
 ### Modal vs Dialog
 
-The term "modal" and "dialog" are often used interchangeably, but there's an important difference. A modal window describes parts of a UI that [blocks user interaction](#modal). A dialog [doesn't have to be blocking](#non-modal).
+The term "modal" and "dialog" are often used interchangeably, but there's an important difference. A modal window describes parts of a UI that [blocks user interaction](#modal). A dialog doesn't have to be blocking.
 
 ## Usage
-
-### Non-modal
-
-- [Toast](https://open-props-ui.netlify.app/astro/components/toast.md): informative but non-interruptive
 
 ### Modal
 

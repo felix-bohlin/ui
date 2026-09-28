@@ -53,15 +53,15 @@ Icon must be placed before the content.
 
 ## Severities
 
-Severity modifiers - `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-critical` - plus the non-severity `.ui-primary` tone for brand-tinted attention. The default is a neutral surface.
+Severity modifiers - `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-critical` - plus the non-severity `.ui-neutral` tone for brand-tinted attention. The default is a plain surface.
 
 **Icons and accessibility**
 
 Omitting an icon is possible. However, it helps having one if you need to convey a specific kind of severity in your Callout message. For instance, colorblind users might be left confused if there's not enough visual guidance.
 
 ```html
-<article role="note" class="ui-callout ui-primary">
-  <div class="ui-content">This is a tonal primary Callout</div>
+<article role="note" class="ui-callout ui-neutral">
+  <div class="ui-content">This is a tonal neutral Callout</div>
 </article>
 
 
@@ -113,8 +113,8 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 </article>
 
 
-<article role="note" class="ui-callout ui-outlined ui-primary">
-  <div class="ui-content">This is an outlined primary Callout</div>
+<article role="note" class="ui-callout ui-outlined ui-neutral">
+  <div class="ui-content">This is an outlined neutral Callout</div>
 </article>
 
 
@@ -183,7 +183,7 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 | Type       | Modifiers                                                               | Default     | Description         |
 | ---------- | ----------------------------------------------------------------------- | ----------- | ------------------- |
 | Part       | `& > .ui-content`, `& > svg`                                            | -           | Internal structure. |
-| Severities | `.ui-critical`, `.ui-info`, `.ui-primary`, `.ui-success`, `.ui-warning` | -           | Severity modifiers. |
+| Severities | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -           | Severity modifiers. |
 | Variants   | `.ui-tonal`, `.ui-outlined`                                             | `.ui-tonal` | Style modifiers.    |
 
 ## Browser support

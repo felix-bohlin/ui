@@ -1,7 +1,5 @@
 # Carousel
 
-A scrolling list of anything, e.g.[Cards](https://open-props-ui.netlify.app/vue/components/card.md). CSS only.
-
 ## Basics
 
 `markers` to add markers.

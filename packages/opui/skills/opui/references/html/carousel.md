@@ -1,7 +1,5 @@
 # Carousel
 
-A scrolling list of anything, e.g.[Cards](https://open-props-ui.netlify.app/html/components/card.md). CSS only.
-
 ## Basics
 
 `.ui-with-buttons`, and `.ui-with-markers` to navigate.

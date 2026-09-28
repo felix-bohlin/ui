@@ -317,5 +317,10 @@ See also the [full browser support guide](https://open-props-ui.netlify.app/astr
 
 ## Installation
 
+### Dependencies
+
+- [Button](https://open-props-ui.netlify.app/astro/components/button.md)
+
 - `opui-css/css/components/icon-button.css`
+- `opui-css/css/components/button.css`
 

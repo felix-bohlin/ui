@@ -68,9 +68,11 @@ Add a `.ui-primary` or `.ui-critical` class to recolor the entire group. The def
 
 Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/components/button.md)
 
+`.ui-icon-only` keeps icon-only buttons square.
+
 ```html
 <div role="group" class="ui-button-group ui-outlined">
-  <button class="ui-button" aria-label="Label">
+  <button class="ui-button ui-icon-only" aria-label="Label">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -88,7 +90,7 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
   <button class="ui-button" aria-label="Label">Maybe</button>
 
 
-  <button class="ui-button" aria-label="Label">
+  <button class="ui-button ui-icon-only" aria-label="Label">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -164,7 +166,7 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
 
 
   <button
-    class="ui-button"
+    class="ui-button ui-icon-only"
     aria-label="More save options"
     commandfor="split-button-menu-html"
     command="toggle-popover"
@@ -244,33 +246,15 @@ Change the layout of the group with the `.ui-vertical` class.
 <div class="example-row">
   <div class="ui-button-group ui-vertical" role="group">
     <button aria-label="Up" class="ui-button">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="12" y1="5" x2="12" y2="19"></line>
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
     </button>
     <button aria-label="Decrease" class="ui-button">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
     </button>
@@ -279,33 +263,15 @@ Change the layout of the group with the `.ui-vertical` class.
 
   <div class="ui-button-group ui-outlined ui-vertical" role="group">
     <button aria-label="Up" class="ui-button">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="12" y1="5" x2="12" y2="19"></line>
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
     </button>
     <button aria-label="Decrease" class="ui-button">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
     </button>
@@ -314,33 +280,15 @@ Change the layout of the group with the `.ui-vertical` class.
 
   <div class="ui-button-group ui-tonal ui-vertical" role="group">
     <button aria-label="Up" class="ui-button">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="12" y1="5" x2="12" y2="19"></line>
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
     </button>
     <button aria-label="Decrease" class="ui-button">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
     </button>
@@ -349,33 +297,15 @@ Change the layout of the group with the `.ui-vertical` class.
 
   <div class="ui-button-group ui-filled ui-vertical" role="group">
     <button aria-label="Up" class="ui-button">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="12" y1="5" x2="12" y2="19"></line>
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
     </button>
     <button aria-label="Decrease" class="ui-button">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="5" y1="12" x2="19" y2="12"></line>
       </svg>
     </button>

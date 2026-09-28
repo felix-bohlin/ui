@@ -320,5 +320,10 @@ See also the [full browser support guide](https://open-props-ui.netlify.app/html
 
 ## Installation
 
+### Dependencies
+
+- [Button](https://open-props-ui.netlify.app/html/components/button.md)
+
 - `opui-css/css/components/icon-button.css`
+- `opui-css/css/components/button.css`
 

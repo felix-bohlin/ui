@@ -191,11 +191,11 @@ Open Props UI include these complementary utility components to handle various u
 
 ## API
 
-| Type      | Modifiers                                               | Default    | Description                          |
-| --------- | ------------------------------------------------------- | ---------- | ------------------------------------ |
-| Children  | `& > hgroup`, `& > .ui-content`, `& > .ui-actions`      | -          | Optional wrappers for child content. |
-| Variants  | `.ui-text`, `.ui-outlined`, `.ui-tonal`, `.ui-elevated` | `.ui-text` | The variant to use.                  |
-| Alignment | `.ui-align-end`                                         | -          | Align actions to the end.            |
+| Type      | Modifiers                                               | Default | Description                          |
+| --------- | ------------------------------------------------------- | ------- | ------------------------------------ |
+| Children  | `& > hgroup`, `& > .ui-content`, `& > .ui-actions`      | -       | Optional wrappers for child content. |
+| Variants  | `.ui-text`, `.ui-outlined`, `.ui-tonal`, `.ui-elevated` | -       | The variant to use.                  |
+| Alignment | `.ui-align-end`                                         | -       | Align actions to the end.            |
 
 ## Browser support
 

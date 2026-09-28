@@ -246,13 +246,12 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ### Slots
 
-| Slot      | - | - | Description         |
-| --------- | - | - | ------------------- |
-| `heading` | - | - | The drawer title.   |
-| `default` | - | - | Main content area.  |
-| `actions` | - | - | Bottom action area. |
-
-`actions`The bottom actions area, wrapped in a `div` with an `actions` class.
+| Slot      | - | - | Description                                                      |
+| --------- | - | - | ---------------------------------------------------------------- |
+| `content` | - | - | Main content area, wrapped in a `div` with a `ui-content` class. |
+| `default` | - | - | Unwrapped content.                                               |
+| `footer`  | - | - | Bottom area, e.g. a `DrawerFooter`.                              |
+| `header`  | - | - | Top area, e.g. a `DrawerHeader`.                                 |
 
 ## Browser support
 

@@ -1,6 +1,6 @@
 # Menu
 
-A popover [List](https://open-props-ui.netlify.app/vue/components/list.md), anchored to its[Button](https://open-props-ui.netlify.app/vue/components/button.md). HTML only.
+A popover [List](https://open-props-ui.netlify.app/vue/components/list.md), anchored to a [Button](https://open-props-ui.netlify.app/vue/components/button.md).
 
 ## Basics
 
@@ -30,7 +30,7 @@ import { Button, Menu } from "opui-css/vue"
 
 ## Custom items
 
-`li.ui-label` for groups, and `.ui-critical` for destructive items.
+If you want to decide yourself what goes into your list.
 
 ```vue
 <script setup lang="ts">

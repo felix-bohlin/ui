@@ -7,12 +7,12 @@ Each component has one reference per framework: `html/<file>`, `astro/<file>` an
 | Accordion | `accordion.md` | Let's you show and hide stuff. Uses the native HTML arrow, check out how to add your own custom marker. |
 | Anchor | `anchor.md` | A structural primitive to enable CSS Anchor Positioning on stuff. |
 | Avatar | `avatar.md` |  |
-| Badge | `badge.md` | A badge is a small status indicator that can be placed on other elements. |
+| Badge | `badge.md` |  |
 | Button | `button.md` | Buttons allow users to take actions, and make choices, with a single tap. |
 | Button group | `button-group.md` | Groups related buttons by wrapping them with class="ui-button-group" and role="group". |
 | Callout | `callout.md` | Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task. |
 | Card | `card.md` | The card is extremely versatile and can be used on its own, or as a building block for accordions, dialogs and more. |
-| Carousel | `carousel.md` | A scrolling list with snap points, buttons and markers. CSS only. |
+| Carousel | `carousel.md` | A scrolling list with snap points, buttons and markers. |
 | Checkbox | `checkbox.md` | See also: Checkbox field group. |
 | Chip | `chip.md` | Chips are compact elements that represent an input, attribute, or action. |
 | Description list | `description-list.md` | Description lists are used to display a list of terms and their descriptions. |
@@ -22,7 +22,7 @@ Each component has one reference per framework: `html/<file>`, `astro/<file>` an
 | Form | `form.md` | A way to build structured forms. |
 | Icon Button | `icon-button.md` | Icon buttons are used to trigger actions and are typically found in toolbars, cards, and dialogs. |
 | List | `list.md` | Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it. |
-| Menu | `menu.md` | A popover list of actions or links. CSS only. |
+| Menu | `menu.md` | A popover list of actions or links. |
 | Progress | `progress.md` | See also: Spinner. |
 | Radio | `radio.md` | See also: Form documentation. |
 | Range | `range.md` |  |

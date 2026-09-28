@@ -295,10 +295,10 @@ import { ListItem } from "opui-css/astro"
   <ListItem headline="Headline" description="Supporting text">
     <div slot="end">99%</div>
   </ListItem>
-  <ListItem headline="Headline">
-    <p slot="description">
-      Supporting text that truly is quite long enough to fill up multiple lines.
-    </p>
+  <ListItem
+    headline="Headline"
+    description="Supporting text that truly is quite long enough to fill up multiple lines."
+  >
     <div slot="end">100+</div>
   </ListItem>
 </List>

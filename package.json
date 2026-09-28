@@ -9,9 +9,10 @@
     "astro": "astro",
     "build-search-index": "node scripts/generate-search-index.mjs",
     "check-browser-support": "node scripts/check-browser-support.mjs",
-    "check": "pnpm format:check && pnpm build",
+    "check": "pnpm format:check && pnpm lint && pnpm build",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "lint": "oxlint --deny-warnings . && stylelint \"packages/opui/**/*.css\""
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
@@ -29,9 +30,11 @@
   "devDependencies": {
     "@astrojs/sitemap": "^3.7.4",
     "@astrojs/vue": "^7.0.3",
+    "oxlint": "^1.85.0",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "0.14.1",
     "solid-js": "catalog:",
+    "stylelint": "^17.15.0",
     "vue": "catalog:"
   },
   "pnpm": {

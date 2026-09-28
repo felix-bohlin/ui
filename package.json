@@ -20,7 +20,7 @@
     "check-components": "node scripts/check-components.mjs",
     "test:e2e": "playwright test",
     "test:e2e:serve": "OPUI_TEST_PAGES=1 astro build --outDir dist-test && astro preview --outDir dist-test --port 4322",
-    "test:e2e:update": "playwright test --update-snapshots",
+    "test:e2e:update": "playwright test --update-snapshots=all",
     "test:e2e:record-a11y": "A11Y_RECORD=1 playwright test a11y --project=light --workers=1"
   },
   "dependencies": {

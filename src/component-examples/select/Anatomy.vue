@@ -16,12 +16,12 @@
       <option>Option Three</option>
     </div>
   </div>
-
-  <style>
-    .anatomy {
-      display: grid;
-      gap: var(--size-1);
-      margin: 0 auto;
-    }
-  </style>
 </template>
+
+<style>
+.anatomy {
+  display: grid;
+  gap: var(--size-1);
+  margin: 0 auto;
+}
+</style>

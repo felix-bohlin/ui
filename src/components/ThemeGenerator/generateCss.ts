@@ -210,7 +210,7 @@ export function generateCss({
   lines.push(
     "    /* 9. Focus ring - components consume these and may override locally */",
   )
-  lines.push("    --focus-ring-color: var(--primary);")
+  lines.push("    /* --focus-ring-color: var(--primary); */")
   lines.push("    --focus-ring-width: 2px;")
   lines.push("    --focus-ring-offset: 2px;")
   lines.push("    --focus-ring-style: solid;")

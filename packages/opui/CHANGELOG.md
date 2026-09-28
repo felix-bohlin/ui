@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- Global `:focus-visible` ring now reads `--focus-ring-color`, `--focus-ring-width`, `--focus-ring-style` and `--focus-ring-offset`. `--focus-ring-color` is unset by default so the ring keeps its inverted page background color.
+
 ## 5.5.0 - 2026-09-28
 
 ### Removed

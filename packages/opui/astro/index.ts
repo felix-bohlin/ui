@@ -22,7 +22,6 @@ export { default as FieldGroup } from "../components/FieldGroup/FieldGroup.astro
 export { default as FieldLegend } from "../components/FieldLegend/FieldLegend.astro"
 export { default as FieldSet } from "../components/FieldSet/FieldSet.astro"
 export { default as Form } from "../components/Form/Form.astro"
-export { default as IconButton } from "../components/IconButton/IconButton.astro"
 export { default as List } from "../components/List/List.astro"
 export { default as ListItem } from "../components/ListItem/ListItem.astro"
 export { default as Menu } from "../components/Menu/Menu.astro"

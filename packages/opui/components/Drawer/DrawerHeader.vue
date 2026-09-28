@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue"
-import IconButton from "../IconButton/IconButton.vue"
+import Button from "../Button/Button.vue"
 import type { DrawerHeaderProps, DrawerHeaderSlots } from "./types.d.vue"
 
 const { commandfor, heading } = defineProps<DrawerHeaderProps>()
@@ -21,7 +21,7 @@ const closeAttrs = computed(() =>
   <div :class="['ui-header', $props.class]" v-bind="$attrs">
     <span v-if="heading">{{ heading }}</span>
     <slot></slot>
-    <IconButton title="Close" v-bind="closeAttrs">
+    <Button ripple rounded size="small" title="Close" v-bind="closeAttrs">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -33,6 +33,6 @@ const closeAttrs = computed(() =>
           d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
         ></path>
       </svg>
-    </IconButton>
+    </Button>
   </div>
 </template>

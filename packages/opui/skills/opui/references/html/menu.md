@@ -39,7 +39,7 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 
 
 <button
-  class="ui-icon-button"
+  class="ui-button ui-rounded ui-ripple ui-small"
   aria-label="More actions"
   commandfor="menu-custom-html"
   command="toggle-popover"

@@ -99,7 +99,7 @@ Lists meant to be used stand-alone or as part of Select elements
             max-inline-size: var(--size-6);
           }
 
-          .ui-icon-button,
+          .ui-button:has(> svg:only-child),
           svg {
             max-inline-size: var(--size-4);
           }

@@ -130,12 +130,27 @@ export const description =
 
   <section>
     <h2 id="icon-only">Icon-only</h2>
-    <p>
-      A button whose only child is an <code>svg</code> is square. Give it an
-      <code>aria-label</code>. See <DocLink href="/components/icon-button"
-        >Icon button</DocLink
-      > for a round one.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        A button whose only child is an <code>svg</code> is square. Give it an
+        <code>aria-label</code>. Add <code>rounded</code> for a circle and <code
+          >ripple</code
+        > for a hover halo instead of a background change.
+      </Fragment>
+      <Fragment slot="html">
+        A button whose only child is an <code>svg</code> is square. Give it an
+        <code>aria-label</code>. Add <code>.ui-rounded</code> for a circle and <code
+          >.ui-ripple</code
+        > for a hover halo instead of a background change.
+      </Fragment>
+      <Fragment slot="vue">
+        A button whose only child is an <code>svg</code> is square. Give it an
+        <code>aria-label</code>. Add <code>rounded</code> for a circle and <code
+          >ripple</code
+        > for a hover halo instead of a background change.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="IconOnly" row />
   </section>
 
   <section>

@@ -170,7 +170,7 @@ const { prefix = "" } = defineProps<{
   <ListItem headline="End icon button">
     <template #end>
       <div>
-        <button class="ui-icon-button">
+        <button class="ui-button ui-rounded ui-ripple ui-small">
           <span class="ui-sr-only">More</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"

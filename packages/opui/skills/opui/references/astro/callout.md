@@ -65,7 +65,7 @@ import { Callout } from "opui-css/astro"
 
 ## Severities
 
-The `severity` prop accepts `info`, `success`, `warning`, and `critical`, plus a non-severity `neutral` tone for brand-tinted attention. The default is a plain surface.
+The `severity` prop accepts `info`, `success`, `warning`, and `critical`, plus a non-severity`neutral` tone for brand-tinted attention. The default is a plain surface.
 
 **Icons and accessibility**
 

@@ -159,7 +159,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
 
 ## Visibility
 
-Change the badge's visibility using the `.ui-invisible` class.
+Change the badge's visibility using the `.ui-invisible`class.
 
 ```html
 <span class="ui-anchor ui-badge ui-invisible">
@@ -292,21 +292,21 @@ The badge is composed of an anchored element and a `.ui-badge-indicator` inside 
 
 ## API
 
-| Type       | Modifiers                                                               | Default | Description                                                                                     |
-| ---------- | ----------------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------- |
-| Container  | `.ui-anchor.ui-badge`                                                   | -       | Wrapper element. Extends [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md). |
-| Floating   | `.ui-anchor-floating`                                                   | -       | Positioned floating container from Anchor.                                                      |
-| Indicator  | `.ui-badge-indicator`                                                   | -       | The badge content element inside `.ui-anchor-floating`.                                         |
-| Alignment  | `.ui-start-start`, default, `.ui-end-start`, `.ui-end-end`              | -       | Position modifiers on `.ui-badge`. Default is centered on the end edge.                         |
-| Color      | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | Color modifiers on `.ui-badge`.                                                                 |
-| Variants   | `.ui-dot`                                                               | -       | Shape modifier on `.ui-badge`.                                                                  |
-| Visibility | `.ui-invisible`                                                         | -       | Visibility modifier on `.ui-badge`.                                                             |
+| Type       | Modifiers                                                              | Default | Description                                                                                     |
+| ---------- | ---------------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------- |
+| Container  | `.ui-anchor.ui-badge`                                                  | -       | Wrapper element. Extends [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md). |
+| Floating   | `.ui-anchor-floating`                                                  | -       | Positioned floating container from Anchor.                                                      |
+| Indicator  | `.ui-badge-indicator`                                                  | -       | The badge content element inside `.ui-anchor-floating`.                                         |
+| Alignment  | `.ui-start-start`, default, `.ui-end-start`, `.ui-end-end`             | -       | Position modifiers on `.ui-badge`. Default is centered on the end edge.                         |
+| Color      | `.ui-critical`, `.ui-info`, `.ui-neutral`,`.ui-success`, `.ui-warning` | -       | Color modifiers on `.ui-badge`.                                                                 |
+| Variants   | `.ui-dot`                                                              | -       | Shape modifier on `.ui-badge`.                                                                  |
+| Visibility | `.ui-invisible`                                                        | -       | Visibility modifier on `.ui-badge`.                                                             |
 
 ## Browser support
 
-- Chromium: Full support Supported since v151.
+- Chromium: Full support Supported since v144.
 - Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v27.
+- Safari: Full support Supported since v26.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 

@@ -2,7 +2,7 @@
 
 See also: [Form documentation](https://open-props-ui.netlify.app/html/components/form.md).
 
-Give every `<input type="radio">` in the group the same `name` attribute. Browsers use that shared name to enforce mutual exclusivity within the group.
+Give every `<input type="radio">` in the group the same`name` attribute. Browsers use that shared name to enforce mutual exclusivity within the group.
 
 ```html
 <fieldset class="ui-fieldset">

@@ -3,7 +3,9 @@ import { onMounted } from "vue"
 import { Progress } from "opui-css/vue"
 
 onMounted(() => {
-  const progress = document.querySelector("#determinate-progress")
+  const progress = document.querySelector<HTMLProgressElement>(
+    "#determinate-progress",
+  )
   if (progress) {
     setInterval(() => {
       if (progress.value >= 100) {

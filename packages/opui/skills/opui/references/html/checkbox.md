@@ -207,7 +207,7 @@ The `indeterminate` state cannot be set with HTML or CSS alone. The browser only
 
 ## Spread
 
-Add the `.ui-spread` class to the `<label class="ui-checkbox">` to push the label to the left and the checkbox to the right. This is useful for full-width items like lists and menus.
+Add the `.ui-spread` class to the `<label class="ui-checkbox">`to push the label to the left and the checkbox to the right. This is useful for full-width items like lists and menus.
 
 ```html
 <label class="ui-checkbox ui-spread">
@@ -495,7 +495,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
     }
     t();
   </script>
-  <span class="ui-label"> Label </span
+  <span class="ui-label">Label</span
   ><span id="end-text-1" class="ui-end-text">End text</span></label
 >
 ```

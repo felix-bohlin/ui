@@ -22,7 +22,7 @@ const menuId = id || useId()
       placement && placement !== 'block-end' && `ui-${placement}`,
       $props.class,
     ]"
-    popover="auto"
+    popover=""
     v-bind="$attrs"
   >
     <li

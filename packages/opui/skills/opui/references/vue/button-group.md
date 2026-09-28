@@ -14,7 +14,7 @@ If you just need to group a bunch of "dumb" (uncontrolled) buttons - use Button 
 
 ## Variants
 
-Change the appearance of the entire group with the `variant` prop.
+Change the appearance of the entire group with the `variant`prop.
 
 ```vue
 <script setup lang="ts">
@@ -208,7 +208,7 @@ import { Button, ButtonGroup, Menu } from "opui-css/vue"
 
 ## Sizes
 
-Adjust the size of all buttons in the group using the `size` prop.
+Adjust the size of all buttons in the group using the `size`prop.
 
 ```vue
 <script setup lang="ts">
@@ -421,7 +421,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 ## Disabled
 
-Disable individual buttons within a group by setting the `disabled` prop on each `Button`.
+Disable individual buttons within a group by setting the `disabled`prop on each `Button`.
 
 ```vue
 <script setup lang="ts">

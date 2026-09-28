@@ -103,7 +103,7 @@ import { TextField } from "opui-css/astro"
 
 Set `required` on the component to toggle required styles on the input.
 
-Use the `error` prop to toggle invalid styles. It renders `data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
+Use the `error` prop to toggle invalid styles. It renders`data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
 
 ```astro
 ---
@@ -336,7 +336,7 @@ The British Government has a [great article](https://technology.blog.gov.uk/2020
 
 Use `aria-label` instead of the `<label>` element.
 
-File is a weird one. Should it really be an `<input>` element? Well, it's what we've got :sweat\_smile:
+File is a weird one. Should it really be an `<input>` element? Well, it's what we've got :sweat_smile:
 
 ```astro
 ---

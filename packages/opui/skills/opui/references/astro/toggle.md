@@ -231,26 +231,26 @@ import { ToggleButton } from "opui-css/astro"
 
 Individual toggle button component.
 
-| Prop       | Type                                | Default      | Description                                                                                                             |
-| ---------- | ----------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `boolean`                           | `false`      | Whether the toggle button is disabled.                                                                                  |
-| `label`    | `string`                            | -            | The label text for the toggle button.                                                                                   |
-| `name`     | `string`                            | -            | The name of the input element. Inherited from ToggleGroup if used within one.                                           |
-| `pressed`  | `boolean`                           | `false`      | Whether the toggle button is pressed. Maps to `aria-pressed` in checkbox mode and to `checked` on the underlying input. |
-| `size`     | `"default" \| "small" \| "x-small"` | `"default"`  | The size of the toggle button.                                                                                          |
-| `type`     | `"checkbox" \| "radio"`             | `"checkbox"` | The type of input element. Inherited from ToggleGroup (driven by the `selection` prop) if used within one.              |
-| `value`    | `string`                            | -            | The value attribute of the input element. Defaults to `label` if not provided.                                          |
+| Prop       | Type                                | Default      | Description                                                                                                            |
+| ---------- | ----------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `boolean`                           | `false`      | Whether the toggle button is disabled.                                                                                 |
+| `label`    | `string`                            | -            | The label text for the toggle button.                                                                                  |
+| `name`     | `string`                            | -            | The name of the input element. Inherited from ToggleGroup if used within one.                                          |
+| `pressed`  | `boolean`                           | `false`      | Whether the toggle button is pressed. Maps to `aria-pressed`in checkbox mode and to `checked` on the underlying input. |
+| `size`     | `"default" \| "small" \| "x-small"` | `"default"`  | The size of the toggle button.                                                                                         |
+| `type`     | `"checkbox" \| "radio"`             | `"checkbox"` | The type of input element. Inherited from ToggleGroup (driven by the`selection` prop) if used within one.              |
+| `value`    | `string`                            | -            | The value attribute of the input element. Defaults to `label` if not provided.                                         |
 
 ### Toggle Group
 
 Container for grouping multiple toggle buttons.
 
-| Prop          | Type                                | Default      | Description                                                                                |
-| ------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------------------------ |
-| `name`        | `string`                            | -            | The name property for child inputs. Used for native form submission.                       |
-| `size`        | `"default" \| "small" \| "x-small"` | `"default"`  | The size of the toggle group.                                                              |
-| `orientation` | `"vertical"`                        | -            | Changes the layout direction of the group.                                                 |
-| `selection`   | `"single" \| "multiple"`            | `"multiple"` | The selection mode. `"single"` maps to radio inputs; `"multiple"` maps to checkbox inputs. |
+| Prop          | Type                                | Default      | Description                                                                               |
+| ------------- | ----------------------------------- | ------------ | ----------------------------------------------------------------------------------------- |
+| `name`        | `string`                            | -            | The name property for child inputs. Used for native form submission.                      |
+| `size`        | `"default" \| "small" \| "x-small"` | `"default"`  | The size of the toggle group.                                                             |
+| `orientation` | `"vertical"`                        | -            | Changes the layout direction of the group.                                                |
+| `selection`   | `"single" \| "multiple"`            | `"multiple"` | The selection mode. `"single"` maps to radio inputs;`"multiple"` maps to checkbox inputs. |
 
 ## Browser support
 

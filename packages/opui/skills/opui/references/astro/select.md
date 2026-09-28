@@ -331,7 +331,7 @@ import { ClassicSelect } from "opui-css/astro"
 
 - Chromium: Full support Supported since v135.
 - Firefox: Partial support Missing: customizable-select, overlay.
-- Safari: Partial support Missing: overlay.
+- Safari: Partial support Missing: customizable-select, overlay.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 

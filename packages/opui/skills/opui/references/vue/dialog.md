@@ -90,7 +90,7 @@ onMounted(() => {
 
   radios.forEach((radio) => {
     radio.addEventListener("change", (e) => {
-      const target = e.target
+      const target = e.target as HTMLInputElement
       if (dialog) {
         dialog.setAttribute("closedby", target.value)
       }

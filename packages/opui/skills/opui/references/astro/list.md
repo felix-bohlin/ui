@@ -117,7 +117,7 @@ import { List, ListItem } from "opui-css/astro"
 
 ## Text
 
-Main text lives in the `text` slot, or pass `headline` and `description` props directly on `ListItem`.
+Main text lives in the `text` slot, or pass `headline`and `description` props directly on `ListItem`.
 
 ```astro
 ---

@@ -82,7 +82,7 @@ Leverages the [List component](https://open-props-ui.netlify.app/html/components
 
 ## Affix
 
-Add a `.ui-prefix` or `.ui-suffix` element inside `.ui-field` to affix content alongside the select.
+Add a `.ui-prefix` or `.ui-suffix` element inside`.ui-field` to affix content alongside the select.
 
 ```html
 <label class="ui-select">
@@ -455,14 +455,14 @@ Bog-standard native HTML `<select>` without customized option list.
 
 ## API
 
-| Type           | Modifiers                                                          | Default | Description                                                                                                 |
-| -------------- | ------------------------------------------------------------------ | ------- | ----------------------------------------------------------------------------------------------------------- |
-| Children       | `.ui-label`, `.ui-start-text`, `.ui-field`, `.ui-end-text`         | -       | Direct children of the root element.                                                                        |
-| Field children | `<select>`, `.ui-prefix`, `.ui-suffix`, `.ui-header`, `.ui-footer` | -       | Children of `.ui-field`. The `<select>` comes first, then optional affixes.                                 |
-| Layout         | `.ui-spread`, default                                              | -       | The layout of the component. `.ui-spread` pushes label and description to the left and select to the right. |
-| Sizes          | `.ui-small`                                                        | -       | The size of the element.                                                                                    |
-| Variants       | default, `.ui-filled`                                              | -       | The variant to use.                                                                                         |
-| Validation     | `[data-invalid]`                                                   | -       | Add the `data-invalid` attribute to the root element to show error styles.                                  |
+| Type           | Modifiers                                                         | Default | Description                                                                                                 |
+| -------------- | ----------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
+| Children       | `.ui-label`, `.ui-start-text`, `.ui-field`, `.ui-end-text`        | -       | Direct children of the root element.                                                                        |
+| Field children | `<select>`, `.ui-prefix`, `.ui-suffix`,`.ui-header`, `.ui-footer` | -       | Children of `.ui-field`. The `<select>` comes first, then optional affixes.                                 |
+| Layout         | `.ui-spread`, default                                             | -       | The layout of the component. `.ui-spread` pushes label and description to the left and select to the right. |
+| Sizes          | `.ui-small`                                                       | -       | The size of the element.                                                                                    |
+| Variants       | default, `.ui-filled`                                             | -       | The variant to use.                                                                                         |
+| Validation     | `[data-invalid]`                                                  | -       | Add the `data-invalid` attribute to the root element to show error styles.                                  |
 
 ### Classic Select API
 
@@ -470,7 +470,7 @@ Bog-standard native HTML `<select>` without customized option list.
 
 - Chromium: Full support Supported since v135.
 - Firefox: Partial support Missing: customizable-select, overlay.
-- Safari: Partial support Missing: overlay.
+- Safari: Partial support Missing: customizable-select, overlay.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 

@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
   import { Accordion } from "@opui/svelte"
 </script>
 
-<Accordion variant="outlined" summary="Custom Marker">
+<Accordion variant="outlined" summary="Custom marker">
   {#snippet marker()}
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,10 +1,11 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  const {
+  let {
     class: className,
     color,
     orientation,
+    ref = $bindable(null),
     size,
     variant,
 
@@ -12,20 +13,20 @@
     children,
     ...rest
   }: Props = $props()
+</script>
 
-  let element = $state<HTMLDivElement | null>(null)
-  export { element as this }
-
-  const classes = $derived([
+<div
+  bind:this={ref}
+  class={[
     "ui-button-group",
     color && `ui-${color}`,
     size && `ui-${size}`,
     variant && `ui-${variant}`,
     orientation && `ui-${orientation}`,
     className,
-  ])
-</script>
-
-<div bind:this={element} class={classes} role="group" {...rest}>
+  ]}
+  role="group"
+  {...rest}
+>
   {@render children?.()}
 </div>

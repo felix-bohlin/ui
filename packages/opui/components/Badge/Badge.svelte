@@ -2,23 +2,20 @@
   import Anchor from "../Anchor/Anchor.svelte"
   import type { Props } from "./types.svelte"
 
-  const {
+  let {
     alignment,
     class: className,
     color,
     dot,
     invisible,
     label,
+    ref = $bindable(null),
 
     // Snippets
     children,
     indicator,
     ...rest
   }: Props = $props()
-
-  let anchor = $state<ReturnType<typeof Anchor> | null>(null)
-  const element = $derived<HTMLSpanElement | null>(anchor?.this ?? null)
-  export { element as this }
 
   const positionArea = $derived(
     alignment === "start-start"
@@ -29,8 +26,12 @@
           ? "end end"
           : undefined,
   )
+</script>
 
-  const classes = $derived([
+<Anchor
+  bind:ref
+  alignment={positionArea}
+  class={[
     "ui-badge",
     {
       "ui-dot": dot,
@@ -39,10 +40,9 @@
     alignment && `ui-${alignment}`,
     className,
     color && `ui-${color}`,
-  ])
-</script>
-
-<Anchor bind:this={anchor} alignment={positionArea} class={classes} {...rest}>
+  ]}
+  {...rest}
+>
   {@render children?.()}
   {#snippet anchored()}
     <span class="ui-badge-indicator" aria-label={label?.toString()}>

@@ -4,4 +4,6 @@ import type { Snippet } from "svelte"
 
 type Snippets = Base.Slots<Snippet>
 
-export type Props = Base.Props & Snippets & SvelteHTMLElements["span"]
+export type Props = Base.Props &
+  Snippets &
+  SvelteHTMLElements["span"] & { ref?: HTMLSpanElement | null }

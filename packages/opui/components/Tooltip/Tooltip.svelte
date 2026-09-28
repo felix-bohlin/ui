@@ -1,35 +1,26 @@
 <script lang="ts">
-  import type { Props } from "./types.svelte"
   import Anchor from "../Anchor/Anchor.svelte"
+  import type { Props } from "./types.svelte"
 
-  const {
+  let {
     alignment,
     arrow,
     class: className,
     id,
     label,
+    ref = $bindable(null),
 
     // Snippets
     children,
     content,
     ...rest
   }: Props = $props()
-
-  let anchor = $state<ReturnType<typeof Anchor> | null>(null)
-  const element = $derived<HTMLSpanElement | null>(anchor?.this ?? null)
-  export { element as this }
-
-  const classes = $derived([
-    "ui-tooltip",
-    { "ui-with-arrow": arrow },
-    className,
-  ])
 </script>
 
 <Anchor
-  bind:this={anchor}
+  bind:ref
   {alignment}
-  class={classes}
+  class={["ui-tooltip", { "ui-with-arrow": arrow }, className]}
   {id}
   trigger="hover"
   {...rest}

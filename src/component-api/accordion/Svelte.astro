@@ -36,9 +36,9 @@ import { Table } from "@opui/astro"
       >
       <Table.Cell>-</Table.Cell>
       <Table.Cell
-        >Optional snippets. <code>summary</code> also accepts a <code
-          >string</code
-        >.</Table.Cell
+        ><code>children</code> and <code>summary</code> are required. <code
+          >summary</code
+        > also accepts a <code>string</code>.</Table.Cell
       >
     </Table.Row>
     <Table.Row>
@@ -57,6 +57,12 @@ import { Table } from "@opui/astro"
       <Table.Cell><code>boolean</code></Table.Cell>
       <Table.Cell><code>false</code></Table.Cell>
       <Table.Cell>Accordion open state.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>ref</code></Table.Cell>
+      <Table.Cell><code>HTMLDetailsElement</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Bindable reference to the root element.</Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>variant</code></Table.Cell>

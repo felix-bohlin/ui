@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Accordion } from "@opui/svelte"
   import { Button } from "@opui/svelte"
 </script>

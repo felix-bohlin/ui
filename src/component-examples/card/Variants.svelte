@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Card } from "@opui/svelte"
 </script>
 

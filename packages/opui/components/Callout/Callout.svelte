@@ -1,8 +1,9 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  const {
+  let {
     class: className,
+    ref = $bindable(null),
     severity,
     variant,
 
@@ -12,19 +13,19 @@
     title,
     ...rest
   }: Props = $props()
+</script>
 
-  let element = $state<HTMLElement | null>(null)
-  export { element as this }
-
-  const classes = $derived([
+<article
+  bind:this={ref}
+  role="note"
+  class={[
     "ui-callout",
     variant && `ui-${variant}`,
     severity && `ui-${severity}`,
     className,
-  ])
-</script>
-
-<article bind:this={element} role="note" class={classes} {...rest}>
+  ]}
+  {...rest}
+>
   {#if icon}
     {@render icon()}
   {:else if severity === "info"}

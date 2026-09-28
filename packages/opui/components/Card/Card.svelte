@@ -2,9 +2,10 @@
   import type { Props } from "./types.svelte"
 
   let {
-    class: className = "",
-    variant = "text",
     actionsAlign,
+    class: className,
+    ref = $bindable(null),
+    variant,
 
     // Snippets
     actions,
@@ -13,14 +14,13 @@
     header,
     ...rest
   }: Props = $props()
-
-  let element = $state<HTMLElementTagNameMap["div"] | null>(null)
-  export { element as this }
-
-  const classes = $derived(["ui-card", variant && `ui-${variant}`, className])
 </script>
 
-<div bind:this={element} class={classes} {...rest}>
+<div
+  bind:this={ref}
+  class={["ui-card", variant && `ui-${variant}`, className]}
+  {...rest}
+>
   {#if header}
     <hgroup>
       {@render header()}
@@ -32,15 +32,11 @@
       {@render content()}
     </div>
   {/if}
-  {#if children}
-    {@render children()}
-  {/if}
+
+  {@render children?.()}
 
   {#if actions}
-    <div
-      class="ui-actions"
-      class:ui-align-end={actionsAlign === "end" || undefined}
-    >
+    <div class={["ui-actions", actionsAlign && `ui-align-${actionsAlign}`]}>
       {@render actions()}
     </div>
   {/if}

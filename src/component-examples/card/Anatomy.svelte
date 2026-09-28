@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { Button, Card } from "@opui/svelte"
+  import { Card } from "@opui/svelte"
+  import { Button } from "@opui/svelte"
 </script>
 
 <Card variant="elevated" class="anatomy">

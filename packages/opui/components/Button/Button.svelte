@@ -1,39 +1,37 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  const {
+  let {
     as,
-    children,
     class: className,
     color,
     disabled,
     href,
+    ref = $bindable(null),
     size,
     variant,
+
+    // Snippets
+    children,
     ...rest
   }: Props = $props()
 
-  let element = $state<HTMLButtonElement | HTMLAnchorElement | null>(null)
-  export { element as this }
-
-  const Tag = $derived(as ?? (href ? "a" : "button"))
-  const isDisabled = $derived(Tag === "button" ? disabled : undefined)
-
-  const classes = $derived([
-    "ui-button",
-    { "ui-disabled": isDisabled },
-    size && `ui-${size}`,
-    variant && `ui-${variant}`,
-    color && `ui-${color}`,
-    className,
-  ])
+  const Tag = $derived(as || (href ? "a" : "button"))
+  const isButton = $derived(Tag === "button")
 </script>
 
 <svelte:element
   this={Tag}
-  bind:this={element}
-  class={classes}
-  disabled={isDisabled}
+  bind:this={ref}
+  class={[
+    "ui-button",
+    { "ui-disabled": isButton && disabled },
+    size && `ui-${size}`,
+    variant && `ui-${variant}`,
+    color && `ui-${color}`,
+    className,
+  ]}
+  disabled={isButton ? disabled : undefined}
   {href}
   {...rest}
 >

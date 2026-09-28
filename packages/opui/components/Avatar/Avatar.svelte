@@ -1,12 +1,13 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  const {
+  let {
     alt,
     as,
     class: className,
     href,
     isGroup,
+    ref = $bindable(null),
     src,
     variant,
 
@@ -15,23 +16,17 @@
     ...rest
   }: Props = $props()
 
-  let element = $state<
-    HTMLDivElement | HTMLAnchorElement | HTMLButtonElement | null
-  >(null)
-  export { element as this }
-
   const Tag = $derived(as || (href ? "a" : "div"))
-  const classes = $derived([
-    { "ui-avatar": !isGroup },
-    !isGroup && variant && `ui-${variant}`,
-    className,
-  ])
 </script>
 
 <svelte:element
   this={Tag}
-  bind:this={element}
-  class={classes}
+  bind:this={ref}
+  class={[
+    { "ui-avatar": !isGroup },
+    !isGroup && variant && `ui-${variant}`,
+    className,
+  ]}
   {href}
   role={isGroup ? "group" : undefined}
   {...rest}

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Card } from "@opui/svelte"
   import { Button } from "@opui/svelte"
   import { IconButton } from "@opui/svelte"

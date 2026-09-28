@@ -1,15 +1,16 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  const { class: className, variant, ...rest }: Props = $props()
-
-  let element = $state<HTMLHRElement | null>(null)
-  export { element as this }
-  const classes = $derived([
-    "ui-divider",
-    className,
-    variant && `ui-border-${variant}`,
-  ])
+  let {
+    class: className,
+    ref = $bindable(null),
+    variant,
+    ...rest
+  }: Props = $props()
 </script>
 
-<hr bind:this={element} class={classes} {...rest} />
+<hr
+  bind:this={ref}
+  class={["ui-divider", className, variant && `ui-border-${variant}`]}
+  {...rest}
+/>

@@ -5,7 +5,7 @@
 
 <Anchor trigger="hover" id="anchor-hover">
   <Button
-    {...{ interestfor: "anchor-hover" }}
+    interestfor="anchor-hover"
     commandfor="anchor-hover"
     command="toggle-popover">Hover me</Button
   >

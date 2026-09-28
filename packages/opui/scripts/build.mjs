@@ -3,6 +3,7 @@ import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 import postcss from "postcss"
 import atImport from "postcss-import"
+import { buildVapor } from "./build-vapor.mjs"
 
 const here = dirname(fileURLToPath(import.meta.url))
 const root = resolve(here, "..")
@@ -31,3 +32,5 @@ for (const { input, out } of targets) {
   await writeFile(`${to}.map`, result.map.toString())
   console.log(`built dist/${out} (+ .map)`)
 }
+
+buildVapor()

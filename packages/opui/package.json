@@ -1,7 +1,7 @@
 {
   "name": "opui-css",
   "version": "5.4.3",
-  "description": "A CSS UI library exploring next-gen HTML & CSS features. HTML, Astro & Vue components on top of Open Props.",
+  "description": "A CSS UI library exploring next-gen HTML & CSS features. HTML, Astro & Vue (incl. Vapor) components on top of Open Props.",
   "type": "module",
   "license": "MIT",
   "author": "Felix Bohlin",
@@ -22,6 +22,7 @@
     "html",
     "open-props",
     "ui",
+    "vapor",
     "vue"
   ],
   "sideEffects": [
@@ -48,6 +49,7 @@
     "./open-props": "./dist/op.css",
     "./astro": "./astro/index.ts",
     "./vue": "./vue/index.ts",
+    "./vue/vapor": "./vue/vapor.ts",
     "./components/*": "./components/*",
     "./core/*": "./core/*.css",
     "./css/*": "./css/*.css",
@@ -55,6 +57,7 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs",
+    "build:vapor": "node scripts/build-vapor.mjs",
     "prepack": "node scripts/build.mjs",
     "release": "pnpm version patch && pnpm publish && git push --follow-tags",
     "release:minor": "pnpm version minor && pnpm publish && git push --follow-tags",
@@ -68,7 +71,7 @@
     "astro": "^7.0.6",
     "open-props": "^1.7.23",
     "svelte": "^5.56.4",
-    "vue": "^3.5.39"
+    "vue": "^3.5.39 || ^3.6.0-rc.1"
   },
   "peerDependenciesMeta": {
     "astro": {

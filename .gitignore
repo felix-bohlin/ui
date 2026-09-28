@@ -4,6 +4,10 @@ dist/
 # generated types
 .astro/
 
+# generated vapor components
+packages/opui/components/**/*.vapor.vue
+packages/opui/vue/vapor.ts
+
 # dependencies
 node_modules/
 

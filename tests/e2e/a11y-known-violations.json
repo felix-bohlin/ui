@@ -119,6 +119,11 @@
     "color-contrast",
     "heading-order"
   ],
+  "vue/tabs": [
+    "aria-allowed-role",
+    "aria-required-children",
+    "color-contrast"
+  ],
   "vue/toggle": [
     "aria-allowed-attr"
   ],

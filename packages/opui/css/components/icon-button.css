@@ -1,4 +1,4 @@
-@layer components.root {
+@layer components.extended {
   :where(.ui-icon-button) {
     --_bg-color: transparent;
     --_border-color: transparent;

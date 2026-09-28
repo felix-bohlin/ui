@@ -240,6 +240,36 @@
     "url": "/vue/components/card"
   },
   {
+    "id": "component-carousel-html",
+    "title": "Carousel",
+    "description": "A scrolling list with snap points, buttons and markers.",
+    "headings": "Basics Items per view Peek Images Video Buttons outside Custom buttons",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/carousel"
+  },
+  {
+    "id": "component-carousel-astro",
+    "title": "Carousel",
+    "description": "A scrolling list with snap points, buttons and markers.",
+    "headings": "Basics Items per view Peek Images Video Buttons outside Custom buttons",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/carousel"
+  },
+  {
+    "id": "component-carousel-vue",
+    "title": "Carousel",
+    "description": "A scrolling list with snap points, buttons and markers.",
+    "headings": "Basics Items per view Peek Images Video Buttons outside Custom buttons",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/carousel"
+  },
+  {
     "id": "component-checkbox-html",
     "title": "Checkbox",
     "description": "See also: Checkbox field group.",
@@ -1333,6 +1363,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#card"
+  },
+  {
+    "id": "api-carousel-astro",
+    "title": "Carousel API",
+    "description": "Reference for Carousel Astro component.",
+    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#carousel"
+  },
+  {
+    "id": "api-carousel-html",
+    "title": "Carousel API",
+    "description": "Reference for Carousel HTML component.",
+    "headings": "Part ul.ui-carousel - The scroller. Needs an aria-label. Children li - The items. Alignment .ui-align-center default Where items snap. Buttons .ui-with-buttons - Previous and next buttons. Buttons .ui-buttons-outside - Buttons beside the items. Markers .ui-with-markers - One marker per item, after the list. Peek .ui-peek - Shows part of the neighbouring items. Items per view --_per-view 1 Number of visible items.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#carousel"
+  },
+  {
+    "id": "api-carousel-vue",
+    "title": "Carousel API",
+    "description": "Reference for Carousel Vue component.",
+    "headings": "align \"start\", \"center\" \"start\" Where items snap. buttons boolean, \"outside\" true Previous and next buttons. label string - Accessible name of the carousel. markers boolean false One marker per item, after the list. peek boolean false Shows part of the neighbouring items. perView number 1 Number of visible items. default - - &lt;li&gt; items.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#carousel"
   },
   {
     "id": "api-checkbox-astro",

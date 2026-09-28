@@ -1,0 +1,222 @@
+@layer components.root {
+  :where(.ui-carousel) {
+    --_motion: var(--motion, 1);
+    --_button-bg-color: light-dark(var(--gray-13), var(--gray-3));
+    --_button-border-color: transparent;
+    --_button-color: light-dark(var(--gray-1), var(--gray-15));
+    --_button-disabled-opacity: 0;
+    --_button-icon-size: 60%;
+    --_button-inset: var(--size-2);
+    --_button-next-content: "\276F";
+    --_button-next-icon: none;
+    --_button-prev-content: "\276E";
+    --_button-prev-icon: none;
+    --_button-shadow: var(--shadow-2);
+    --_button-size: var(--button-size-small, 32px);
+    --_gap: var(--size-3);
+    --_item-size: calc(
+      (100% - (var(--_per-view) - 1) * var(--_gap)) / var(--_per-view)
+    );
+    --_marker-color: oklch(from var(--text-primary) l c h / 25%);
+    --_marker-color-active: var(--primary);
+    --_marker-gap: var(--size-2);
+    --_marker-label: "Slide ";
+    --_marker-size: var(--size-2);
+    --_markers-margin-block-start: var(--size-3);
+    --_media-aspect-ratio: 16 / 9;
+    --_media-border-radius: var(--border-radius, var(--radius-2));
+    --_padding-inline: 0px;
+    --_per-view: 1;
+    --_snap-align: start;
+
+    counter-reset: ui-carousel-item;
+    display: grid;
+    gap: var(--_gap);
+    grid-auto-columns: var(--_item-size);
+    grid-auto-flow: column;
+    list-style: none;
+    margin: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding-block: 0;
+    padding-inline: var(--_padding-inline);
+    scroll-padding-inline: var(--_padding-inline);
+    scroll-snap-type: x mandatory;
+
+    @media (prefers-reduced-motion: no-preference) {
+      scroll-behavior: smooth;
+    }
+
+    & > * {
+      counter-increment: ui-carousel-item;
+      min-inline-size: 0;
+      scroll-snap-align: var(--_snap-align);
+    }
+
+    /* Media */
+    & > * > :where(iframe, img, video) {
+      aspect-ratio: var(--_media-aspect-ratio);
+      block-size: auto;
+      border-radius: var(--_media-border-radius);
+      inline-size: 100%;
+      object-fit: cover;
+    }
+
+    /* Alignment */
+    &.ui-align-center {
+      --_snap-align: center;
+    }
+
+    /* Peek at the neighbouring items */
+    &.ui-peek {
+      --_padding-inline: var(--size-8);
+    }
+
+    /* Buttons */
+    &.ui-with-buttons {
+      &::scroll-button(inline-start),
+      &::scroll-button(inline-end) {
+        background-color: var(--_button-bg-color);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: var(--_button-icon-size);
+        block-size: var(--_button-size);
+        border: var(--border-width, 1px) solid var(--_button-border-color);
+        border-radius: var(--radius-round);
+        box-shadow: var(--_button-shadow);
+        color: var(--_button-color);
+        cursor: pointer;
+        display: grid;
+        font-size: calc(var(--_button-size) * 0.4);
+        inline-size: var(--_button-size);
+        inset-block-start: anchor(center);
+        line-height: 1;
+        padding: 0;
+        place-items: center;
+        position: absolute;
+        position-anchor: auto;
+        transition:
+          opacity calc(0.15s * var(--_motion)) ease,
+          scale calc(0.1s * var(--_motion)) ease;
+        translate: 0 -50%;
+      }
+
+      &::scroll-button(inline-start) {
+        background-image: var(--_button-prev-icon);
+        content: var(--_button-prev-content) / "Previous";
+        inset-inline-start: calc(anchor(self-start) + var(--_button-inset));
+      }
+
+      &::scroll-button(inline-end) {
+        background-image: var(--_button-next-icon);
+        content: var(--_button-next-content) / "Next";
+        inset-inline-end: calc(anchor(self-end) + var(--_button-inset));
+      }
+
+      @supports (content: if(style(--x: none): "a" ; else: "b")) {
+        &::scroll-button(inline-start) {
+          content: if(
+              style(--_button-prev-icon: none): var(--_button-prev-content) ;
+                else: ""
+            ) /
+            "Previous";
+        }
+
+        &::scroll-button(inline-end) {
+          content: if(
+              style(--_button-next-icon: none): var(--_button-next-content) ;
+                else: ""
+            ) /
+            "Next";
+        }
+      }
+
+      @supports not (content: if(style(--x: none): "a" ; else: "b")) {
+        @container not style(--_button-prev-icon: none) {
+          &::scroll-button(inline-start) {
+            content: "" / "Previous";
+          }
+        }
+
+        @container not style(--_button-next-icon: none) {
+          &::scroll-button(inline-end) {
+            content: "" / "Next";
+          }
+        }
+      }
+
+      &:dir(rtl) {
+        &::scroll-button(inline-start) {
+          background-image: var(--_button-next-icon);
+        }
+
+        &::scroll-button(inline-end) {
+          background-image: var(--_button-prev-icon);
+        }
+      }
+
+      &::scroll-button(inline-start):active,
+      &::scroll-button(inline-end):active {
+        scale: 0.94;
+      }
+
+      &::scroll-button(inline-start):disabled,
+      &::scroll-button(inline-end):disabled {
+        cursor: default;
+        opacity: var(--_button-disabled-opacity);
+      }
+
+      /* Buttons outside the items */
+      &.ui-buttons-outside {
+        @supports selector(::scroll-button(*)) {
+          margin-inline: calc(var(--_button-size) + var(--_button-inset));
+        }
+
+        &::scroll-button(inline-start) {
+          inset-inline-start: calc(
+            anchor(self-start) - var(--_button-size) - var(--_button-inset)
+          );
+        }
+
+        &::scroll-button(inline-end) {
+          inset-inline-end: calc(
+            anchor(self-end) - var(--_button-size) - var(--_button-inset)
+          );
+        }
+      }
+    }
+
+    /* Markers */
+    &.ui-with-markers {
+      scroll-marker-group: after;
+
+      &::scroll-marker-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--_marker-gap);
+        justify-content: center;
+        margin-block-start: var(--_markers-margin-block-start);
+      }
+
+      & > *::scroll-marker {
+        background-color: var(--_marker-color);
+        block-size: var(--_marker-size);
+        border-radius: var(--radius-round);
+        content: "" / var(--_marker-label) counter(ui-carousel-item);
+        cursor: pointer;
+        inline-size: var(--_marker-size);
+        transition: background-color calc(0.15s * var(--_motion)) ease;
+      }
+
+      & > *::scroll-marker:target-current {
+        background-color: var(--_marker-color-active);
+      }
+    }
+
+    @supports selector(::scroll-button(*)) {
+      &:is(.ui-with-buttons, .ui-with-markers) {
+        scrollbar-width: none;
+      }
+    }
+  }
+}

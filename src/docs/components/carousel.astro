@@ -1,0 +1,123 @@
+---
+import Component from "../../layouts/Component.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import DocLink from "../../components/DocLink.astro"
+
+import CarouselCSS from "@opui/css/components/carousel.css?raw"
+
+export const description =
+  "A scrolling list with snap points, buttons and markers."
+---
+
+<Component
+  description={description}
+  slug="carousel"
+  browserSupport={[
+    "anchor-positioning",
+    "scroll-buttons",
+    "scroll-markers",
+    "scroll-snap",
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Carousel/Carousel.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/carousel.astro", type: "docs" },
+    { path: "src/component-examples/carousel", type: "docs" },
+    { path: "packages/opui/css/components/carousel.css", type: "css" },
+    { path: "src/component-api/carousel", type: "api" },
+  ]}
+  installationTabs={[{ title: "carousel.css", code: CarouselCSS, lang: "css" }]}
+>
+  <Fragment slot="title">Carousel</Fragment>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-with-buttons</code>, and <code>.ui-with-markers</code> to navigate.</Fragment
+      >
+      <Fragment slot="astro"><code>markers</code> to add markers.</Fragment>
+      <Fragment slot="vue"><code>markers</code> to add markers.</Fragment>
+    </Conditional>
+
+    <AutoExample name="Basics" />
+  </section>
+
+  <section>
+    <h2 id="per-view">Items per view</h2>
+    <Conditional as="p">
+      <Fragment slot="html"><code>--_per-view</code>.</Fragment>
+      <Fragment slot="astro"><code>perView</code>.</Fragment>
+      <Fragment slot="vue"><code>perView</code>.</Fragment>
+    </Conditional>
+
+    <AutoExample name="PerView" />
+  </section>
+
+  <section>
+    <h2 id="peek">Peek</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-peek</code>, and <code>.ui-align-center</code> to snap to the center.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>peek</code>, and <code>align="center"</code> to snap to the center.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>peek</code>, and <code>align="center"</code> to snap to the center.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Peek" />
+  </section>
+
+  <section>
+    <h2 id="images">Images</h2>
+    <p><code>--_media-aspect-ratio</code> to crop images.</p>
+
+    <AutoExample name="Images" />
+    <AutoExample name="Gallery" />
+  </section>
+
+  <section>
+    <h2 id="video">Video</h2>
+    <p><code>video</code> and <code>iframe</code> fill the item too.</p>
+
+    <AutoExample name="Videos" />
+    <AutoExample name="Embeds" />
+  </section>
+
+  <section>
+    <h2 id="buttons-outside">Buttons outside</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-buttons-outside</code> to keep buttons off the content.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>buttons="outside"</code> to keep buttons off the content.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>buttons="outside"</code> to keep buttons off the content.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Actions" />
+  </section>
+
+  <section>
+    <h2 id="custom-buttons">Custom buttons</h2>
+    <p>
+      <code>--_button-prev-icon</code> and <code>--_button-next-icon</code> for custom
+      icons, <code>--_button-icon-size</code> to scale them.
+    </p>
+
+    <AutoExample name="CustomButtons" />
+  </section>
+
+  <Fragment slot="accessibility">
+    <p>Announces item position. Buttons and markers are named.</p>
+  </Fragment>
+</Component>

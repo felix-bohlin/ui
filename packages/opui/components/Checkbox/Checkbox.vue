@@ -9,7 +9,9 @@ defineOptions({
 
 const props = defineProps<CheckboxProps>()
 defineSlots<Slots>()
-const modelValue = defineModel<boolean | (string | number)[]>()
+const modelValue = defineModel<boolean | (string | number)[]>({
+  default: undefined,
+})
 
 const endTextId = useId()
 </script>

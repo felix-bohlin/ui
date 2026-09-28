@@ -10,7 +10,9 @@ defineOptions({
 const attrs = useAttrs()
 const currentFieldName = inject(CurrentFieldNameKey, undefined)
 const props = defineProps<CheckboxInputProps>()
-const modelValue = defineModel<boolean | (string | number)[]>()
+const modelValue = defineModel<boolean | (string | number)[]>({
+  default: undefined,
+})
 
 const input = useTemplateRef<HTMLInputElement>("input")
 

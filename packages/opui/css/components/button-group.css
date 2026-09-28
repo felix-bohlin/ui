@@ -47,7 +47,7 @@
         --_border-color: var(--_accent);
         --_divider-color: var(--_accent);
 
-        &:where(:not([disabled], [aria-disabled="true"])) {
+        &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
           @media (hover: hover) {
             &:where(:not(:active):hover) {
               --_bg-color: var(--_accent);
@@ -68,7 +68,7 @@
         --_bg-color: var(--_accent-tonal);
         --_text-color: var(--_accent-tonal-contrast);
 
-        &:where(:not([disabled], [aria-disabled="true"])) {
+        &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
           @media (hover: hover) {
             &:where(:not(:active):hover) {
               --_bg-color: var(--_accent);
@@ -95,7 +95,7 @@
           );
         }
 
-        &:where(:not([disabled], [aria-disabled="true"])) {
+        &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
           @media (hover: hover) {
             &:where(:not(:active):hover) {
               --_bg-color: var(--_filled-hover-bg-color);
@@ -129,7 +129,7 @@
         & + & {
           border-inline-start-color: var(--_divider-color);
 
-          &:is([disabled], [aria-disabled="true"]) {
+          &:is([disabled], [aria-disabled="true"], .ui-disabled) {
             border-inline-start-color: color-mix(
               in oklch,
               var(--_divider-color) 40%,
@@ -167,7 +167,7 @@
         & + & {
           border-block-start: 1px solid var(--_divider-color);
 
-          &:is([disabled], [aria-disabled="true"]) {
+          &:is([disabled], [aria-disabled="true"], .ui-disabled) {
             border-block-start-color: color-mix(
               in oklch,
               var(--_divider-color) 40%,

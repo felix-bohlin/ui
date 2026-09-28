@@ -128,7 +128,7 @@ import { Button } from "opui-css/vue"
 
 ## Icon-only
 
-A button whose only child is an `svg` is square. Give it an `aria-label`. Add `rounded` for a circle and `ripple` for a hover halo instead of a background change.
+A button whose only child is an `svg` is square. Give it an`aria-label`. Add `rounded` for a circle and `ripple` for a hover halo instead of a background change.
 
 ```vue
 <script setup lang="ts">

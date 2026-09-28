@@ -192,7 +192,7 @@ Use the `<kbd>` element to provide keyboard hints within a button.
 
 ## Icon-only
 
-A button whose only child is an `svg` is square. Give it an `aria-label`. Add `.ui-rounded` for a circle and `.ui-ripple` for a hover halo instead of a background change.
+A button whose only child is an `svg` is square. Give it an`aria-label`. Add `.ui-rounded` for a circle and `.ui-ripple` for a hover halo instead of a background change.
 
 ```html
 <button class="ui-button" aria-label="Edit">

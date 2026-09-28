@@ -104,6 +104,11 @@ export const description =
         and <code>footer</code> slots to affix content inside the textarea's border.
         Header and footer are particularly useful for filenames and character counters.
       </Fragment>
+      <Fragment slot="solid">
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> props to affix content inside the textarea's border.
+        Header and footer are particularly useful for filenames and character counters.
+      </Fragment>
       <Fragment slot="html">
         Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
           >.ui-header</code
@@ -131,6 +136,10 @@ export const description =
         Add the <code>required</code> attribute on the component. It is forwarded
         to the underlying <code>&lt;textarea&gt;</code>.
       </Fragment>
+      <Fragment slot="solid">
+        Add the <code>required</code> attribute on the component. It is forwarded
+        to the underlying <code>&lt;textarea&gt;</code>.
+      </Fragment>
       <Fragment slot="html">
         Add <code>[required]</code> to the <code>&lt;textarea&gt;</code> element to
         toggle required styles.
@@ -143,6 +152,11 @@ export const description =
         text to give extra feedback on the error.
       </Fragment>
       <Fragment slot="vue">
+        Use the <code>error</code> prop to toggle invalid styles. It renders
+        <code>data-invalid</code> on the root element. Make use of the end text to
+        give extra feedback on the error.
+      </Fragment>
+      <Fragment slot="solid">
         Use the <code>error</code> prop to toggle invalid styles. It renders
         <code>data-invalid</code> on the root element. Make use of the end text to
         give extra feedback on the error.
@@ -170,6 +184,11 @@ export const description =
         on narrow containers.
       </Fragment>
       <Fragment slot="vue">
+        Use the <code>spread</code> boolean prop to display the label and description
+        on the left with the textarea on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
+      <Fragment slot="solid">
         Use the <code>spread</code> boolean prop to display the label and description
         on the left with the textarea on the right. The layout collapses to a column
         on narrow containers.

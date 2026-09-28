@@ -7,7 +7,7 @@ Each component has one reference per listed framework: `html/<file>`, `astro/<fi
 | Accordion | `accordion.md` | html, astro, vue | Let's you show and hide stuff. Uses the native HTML arrow, check out how to add your own custom marker. |
 | Anchor | `anchor.md` | html, astro, vue | A structural primitive to enable CSS Anchor Positioning on stuff. |
 | Avatar | `avatar.md` | html, astro, vue |  |
-| Badge | `badge.md` | html, astro, vue | A badge is a small status indicator that can be placed on other elements. |
+| Badge | `badge.md` | html, astro, vue |  |
 | Button | `button.md` | html, astro, vue | Buttons allow users to take actions, and make choices, with a single tap. |
 | Button group | `button-group.md` | html, astro, vue | Groups related buttons by wrapping them with class="ui-button-group" and role="group". |
 | Callout | `callout.md` | html, astro, vue | Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task. |

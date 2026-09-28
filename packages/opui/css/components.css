@@ -23,6 +23,7 @@
 @import "./components/radio.css";
 @import "./components/range.css";
 @import "./components/switch.css";
+@import "./components/toast.css";
 @import "./components/typography.css";
 
 /*** Extended components (has dependencies) */

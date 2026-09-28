@@ -1,6 +1,7 @@
 <script setup vapor lang="ts">
-import { useId } from "vue"
+import { inject, useId } from "vue"
 import type { Props, Slots } from "./types.d.vue"
+import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -11,6 +12,7 @@ defineSlots<Slots>()
 const modelValue = defineModel<string>()
 
 const fieldId = props.id || useId()
+const currentFieldName = inject(CurrentFieldNameKey, undefined)
 </script>
 
 <template>
@@ -36,7 +38,12 @@ const fieldId = props.id || useId()
     </span>
 
     <span class="ui-field">
-      <textarea :id="fieldId" v-bind="$attrs" v-model="modelValue"></textarea>
+      <textarea
+        :id="fieldId"
+        :name="currentFieldName"
+        v-bind="$attrs"
+        v-model="modelValue"
+      ></textarea>
       <span class="ui-prefix" v-if="$slots.prefix"
         ><slot name="prefix"></slot
       ></span>

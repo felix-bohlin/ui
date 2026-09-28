@@ -26,9 +26,8 @@ const {
   ...rest
 } = Astro.props
 
-const { $id, currentFieldName } = Astro.locals
+const { $id } = Astro.locals
 const fieldId = id || $id("textarea")
-const fieldName = name || currentFieldName
 ---
 
 <label
@@ -69,7 +68,7 @@ const fieldName = name || currentFieldName
       id={fieldId}
       maxlength={maxlength}
       minlength={minlength}
-      name={fieldName}
+      name={name}
       placeholder={placeholder}
       required={required}
       rows={rows}

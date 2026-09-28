@@ -15,9 +15,8 @@ const {
   ...rest
 } = Astro.props
 
-const { $id, currentToggleGroupName, currentToggleGroupType } = Astro.locals
-const finalName = name || currentToggleGroupName
-const finalType = type || currentToggleGroupType || "checkbox"
+const { $id } = Astro.locals
+const finalType = type || "checkbox"
 const id = rest.id || $id("toggle")
 ---
 
@@ -34,7 +33,7 @@ const id = rest.id || $id("toggle")
     checked={pressed}
     disabled={disabled}
     id={id}
-    name={finalName}
+    name={name}
     type={finalType}
     value={value || label}
     {...rest}

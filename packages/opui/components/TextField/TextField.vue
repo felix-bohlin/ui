@@ -1,6 +1,7 @@
 <script setup vapor lang="ts">
-import { useId, computed } from "vue"
+import { useId, computed, inject } from "vue"
 import type { Props, Slots } from "./types.d.vue"
+import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -13,6 +14,7 @@ defineSlots<Slots>()
 const modelValue = defineModel<string | number>()
 
 const fieldId = props.id || useId()
+const currentFieldName = inject(CurrentFieldNameKey, undefined)
 const startTextValue = computed(() => props.description || props.startText)
 </script>
 
@@ -41,6 +43,7 @@ const startTextValue = computed(() => props.description || props.startText)
     <span class="ui-field">
       <input
         :id="fieldId"
+        :name="currentFieldName"
         :inputmode="props.type === 'numeric' ? 'numeric' : undefined"
         :pattern="props.type === 'numeric' ? '[0-9]*' : undefined"
         :type="props.type === 'numeric' ? 'text' : props.type"

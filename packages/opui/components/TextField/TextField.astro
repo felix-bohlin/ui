@@ -29,9 +29,8 @@ const {
 } = Astro.props
 
 const startTextValue = description || startText
-const { $id, currentFieldName } = Astro.locals
+const { $id } = Astro.locals
 const fieldId = id || $id("text-field")
-const fieldName = name || currentFieldName
 ---
 
 <label
@@ -72,7 +71,7 @@ const fieldName = name || currentFieldName
       list={list}
       max={max}
       min={min}
-      name={fieldName}
+      name={name}
       pattern={type === "numeric" ? "[0-9]*" : undefined}
       placeholder={placeholder}
       required={required}

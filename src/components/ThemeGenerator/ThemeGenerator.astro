@@ -804,7 +804,19 @@ const radiusGroups = [
       })
       try {
         await navigator.clipboard.writeText(code)
-      } catch {}
+        ;(window as any).showToast?.({
+          title: "Copied theme.css",
+          description: "Paste it into your project's stylesheet.",
+          duration: "3s",
+        })
+      } catch {
+        ;(window as any).showToast?.({
+          title: "Copy failed",
+          description: "Your browser blocked clipboard access.",
+          severity: "error",
+          duration: "4s",
+        })
+      }
     })
 
     themeStore.subscribe((detail) => {

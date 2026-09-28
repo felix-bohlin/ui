@@ -100,7 +100,7 @@ CSS imports use the `@opui/css/...` package alias. UI-component imports use `@op
 `<AutoExample>` covers the common case (file-per-framework with matching basenames). Use the manual `<Example>` form when a section needs:
 
 - A `<slot name="controls">` for interactive switches.
-- A `code-js` slot (JS-driven demos).
+- A `code-js` slot (JS-driven demos like Toast).
 - A `*Code.astro` source override that differs from the rendered preview (used to hide doc-only wrappers).
 - Inline JSX content as the preview (used by some `anatomy` slots).
 
@@ -152,7 +152,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 - **Layout**: Use `row` or `column`. Use `centered` to center items, `spacious` for more padding.
 - **No outer layout wrapper in example files**: Files in `src/component-examples/` must not wrap _all_ of their content in a single outer `<div class="example-row">` or `<div class="example-column">`. `<Example row>` / `<Example column>` already applies that class to the surrounding `.example-preview` in [src/components/Example/Example.astro](../../components/Example/Example.astro), so the wrapper is redundant. Inner `example-row` / `example-column` groupings are still allowed when a single example legitimately needs to be split into multiple sibling rows/columns (e.g., one row per variant).
 - **Preview**: Use `Example.Preview` with `slot="preview-html"` or `slot="preview-astro"`.
-- **Code**: Use `Example.Code` with `slot="code-html"` or `slot="code-astro"`. The HTML route falls back to the prettified preview HTML when `code-html` isn't authored, so an explicit `code-html` is only needed when the snippet must differ from the rendered preview (e.g., to hide doc-only wrappers - see the `*Code.astro` pattern in §2). Use `slot="code-js"` for JS-driven demos where the source is JavaScript regardless of the active framework.
+- **Code**: Use `Example.Code` with `slot="code-html"` or `slot="code-astro"`. The HTML route falls back to the prettified preview HTML when `code-html` isn't authored, so an explicit `code-html` is only needed when the snippet must differ from the rendered preview (e.g., to hide doc-only wrappers - see the `*Code.astro` pattern in §2). Use `slot="code-js"` for JS-driven demos where the source is JavaScript regardless of the active framework (e.g., Toast).
 - **Controls**: Use `slot="controls"` for interactive elements (like `UISwitch`) that control the preview state.
 
 ### 5.2 API Documentation

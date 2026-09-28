@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: write
   pull-requests: write
 
@@ -14,6 +15,8 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || (github.event.label.name == 'update-snapshots' && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/playwright:v1.63.0-noble
+    outputs:
+      pushed: ${{ steps.commit.outputs.pushed }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -28,6 +31,7 @@ jobs:
         env:
           HOME: /root
       - name: Commit updated snapshots
+        id: commit
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
@@ -38,7 +42,18 @@ jobs:
           else
             git commit -m "chore: update visual snapshots"
             git push
+            echo "pushed=true" >> "$GITHUB_OUTPUT"
           fi
+
+  run-ci:
+    needs: update
+    if: needs.update.outputs.pushed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh workflow run ci.yml --ref "${{ github.head_ref || github.ref_name }}"
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
 
   remove-label:
     needs: update

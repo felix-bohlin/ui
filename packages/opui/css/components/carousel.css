@@ -131,6 +131,20 @@
         }
       }
 
+      @supports not (content: if(style(--x: none): "a"; else: "b")) {
+        @container not style(--_button-prev-icon: none) {
+          &::scroll-button(inline-start) {
+            content: "" / "Previous";
+          }
+        }
+
+        @container not style(--_button-next-icon: none) {
+          &::scroll-button(inline-end) {
+            content: "" / "Next";
+          }
+        }
+      }
+
       &:dir(rtl) {
         &::scroll-button(inline-start) {
           background-image: var(--_button-next-icon);

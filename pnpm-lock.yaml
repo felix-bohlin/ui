@@ -255,22 +255,22 @@ importers:
   packages/opui:
     dependencies:
       '@solidjs/web':
-        specifier: 'catalog:'
+        specifier: ^2.0.0-rc.10
         version: 2.0.0-rc.10(solid-js@2.0.0-rc.10)
       astro:
-        specifier: 'catalog:'
+        specifier: ^7.0.6
         version: 7.0.6(@emnapi/core@1.11.3)(@emnapi/runtime@1.11.3)(@types/node@24.13.2)(yaml@2.9.0)
       open-props:
-        specifier: 'catalog:'
+        specifier: ^1.7.23
         version: 1.7.23
       solid-js:
-        specifier: 'catalog:'
+        specifier: ^2.0.0-rc.10
         version: 2.0.0-rc.10
       svelte:
-        specifier: 'catalog:'
+        specifier: ^5.56.4
         version: 5.56.4
       vue:
-        specifier: 'catalog:'
+        specifier: ^3.5.39
         version: 3.5.39(typescript@6.0.3)
     devDependencies:
       postcss:

@@ -1,7 +1,7 @@
 {
   "name": "opui-css",
   "version": "5.4.3",
-  "description": "A CSS UI library exploring next-gen HTML & CSS features. HTML, Astro & Vue components on top of Open Props.",
+  "description": "A CSS UI library exploring next-gen HTML & CSS features. HTML, Astro, Solid & Vue components on top of Open Props.",
   "type": "module",
   "license": "MIT",
   "author": "Felix Bohlin",
@@ -68,12 +68,12 @@
     "postcss-import": "^16.1.0"
   },
   "peerDependencies": {
-    "@solidjs/web": "catalog:",
-    "astro": "catalog:",
-    "open-props": "catalog:",
-    "solid-js": "catalog:",
-    "svelte": "catalog:",
-    "vue": "catalog:"
+    "@solidjs/web": "^2.0.0-rc.10",
+    "astro": "^7.0.6",
+    "open-props": "^1.7.23",
+    "solid-js": "^2.0.0-rc.10",
+    "svelte": "^5.56.4",
+    "vue": "^3.5.39"
   },
   "peerDependenciesMeta": {
     "@solidjs/web": {

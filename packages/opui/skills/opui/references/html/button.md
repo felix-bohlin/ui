@@ -280,7 +280,7 @@ Add disabled styling with the `disabled` attribute or the `.ui-disabled` class.
 
 <div class="example-row">
   <button class="ui-button" disabled>
-    Text
+    <span>Text</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -296,7 +296,7 @@ Add disabled styling with the `disabled` attribute or the `.ui-disabled` class.
 
 
   <button class="ui-button ui-outlined" disabled>
-    Outlined
+    <span>Outlined</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -312,7 +312,7 @@ Add disabled styling with the `disabled` attribute or the `.ui-disabled` class.
 
 
   <button class="ui-button ui-tonal" disabled>
-    Tonal
+    <span>Tonal</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -328,7 +328,7 @@ Add disabled styling with the `disabled` attribute or the `.ui-disabled` class.
 
 
   <button class="ui-button ui-filled" disabled>
-    Filled
+    <span>Filled</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"

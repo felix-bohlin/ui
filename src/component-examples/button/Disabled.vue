@@ -11,7 +11,7 @@ import { Button } from "opui-css/vue"
   </div>
   <div class="example-row">
     <Button disabled>
-      Text
+      <span>Text</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -25,7 +25,7 @@ import { Button } from "opui-css/vue"
       </svg>
     </Button>
     <Button variant="outlined" disabled>
-      Outlined
+      <span>Outlined</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -39,7 +39,7 @@ import { Button } from "opui-css/vue"
       </svg>
     </Button>
     <Button variant="tonal" disabled>
-      Tonal
+      <span>Tonal</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -53,7 +53,7 @@ import { Button } from "opui-css/vue"
       </svg>
     </Button>
     <Button variant="filled" disabled>
-      Filled
+      <span>Filled</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

@@ -49,13 +49,13 @@ function readMeta(file) {
 async function generateIndex() {
   console.log("Generating search index...")
 
-  const componentDocs = await globby(["src/docs/components/*.astro"])
-  const guidePages = await globby(["src/docs/guide/*.astro"])
-  const gettingStartedPages = await globby([
-    "src/docs/guide/getting-started/[A-Z]*.astro",
-  ])
+  const componentDocs = (await globby(["src/docs/components/*.astro"])).sort()
+  const guidePages = (await globby(["src/docs/guide/*.astro"])).sort()
+  const gettingStartedPages = (
+    await globby(["src/docs/guide/getting-started/[A-Z]*.astro"])
+  ).sort()
   const homePages = await globby(["src/pages/index.astro"])
-  const apiFiles = await globby(["src/component-api/**/*.astro"])
+  const apiFiles = (await globby(["src/component-api/**/*.astro"])).sort()
 
   const index = []
 

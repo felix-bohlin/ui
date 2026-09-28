@@ -2,7 +2,7 @@
   {
     "id": "component-accordion-html",
     "title": "Accordion",
-    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\r\n    add your own custom marker.",
+    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
     "category": "Component",
     "frameworkId": "html",
@@ -12,7 +12,7 @@
   {
     "id": "component-accordion-astro",
     "title": "Accordion",
-    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\r\n    add your own custom marker.",
+    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
     "category": "Component",
     "frameworkId": "astro",
@@ -22,7 +22,7 @@
   {
     "id": "component-accordion-vue",
     "title": "Accordion",
-    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\r\n    add your own custom marker.",
+    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
     "category": "Component",
     "frameworkId": "vue",
@@ -212,7 +212,7 @@
   {
     "id": "component-card-html",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment",
     "category": "Component",
     "frameworkId": "html",
@@ -222,7 +222,7 @@
   {
     "id": "component-card-astro",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment",
     "category": "Component",
     "frameworkId": "astro",
@@ -232,7 +232,7 @@
   {
     "id": "component-card-vue",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment",
     "category": "Component",
     "frameworkId": "vue",
@@ -692,7 +692,7 @@
   {
     "id": "component-spinner-html",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
     "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "html",
@@ -702,7 +702,7 @@
   {
     "id": "component-spinner-astro",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
     "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "astro",
@@ -712,7 +712,7 @@
   {
     "id": "component-spinner-vue",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
     "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "vue",
@@ -782,7 +782,7 @@
   {
     "id": "component-tabs-html",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
     "headings": "Basics",
     "category": "Component",
     "frameworkId": "html",
@@ -792,7 +792,7 @@
   {
     "id": "component-tabs-astro",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
     "headings": "Basics",
     "category": "Component",
     "frameworkId": "astro",
@@ -802,7 +802,7 @@
   {
     "id": "component-tabs-vue",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
     "headings": "Basics",
     "category": "Component",
     "frameworkId": "vue",
@@ -942,7 +942,7 @@
   {
     "id": "component-typography-html",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .ui-rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "html",
@@ -952,7 +952,7 @@
   {
     "id": "component-typography-astro",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .ui-rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "astro",
@@ -962,7 +962,7 @@
   {
     "id": "component-typography-vue",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .ui-rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "vue",
@@ -999,7 +999,7 @@
   {
     "id": "guide-browser-support-html",
     "title": "Browser support",
-    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
+    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "html",
@@ -1008,7 +1008,7 @@
   {
     "id": "guide-browser-support-astro",
     "title": "Browser support",
-    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
+    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1017,7 +1017,7 @@
   {
     "id": "guide-browser-support-vue",
     "title": "Browser support",
-    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
+    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "vue",
@@ -1053,7 +1053,7 @@
   {
     "id": "guide-why-opui-html",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
     "headings": "Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "html",
@@ -1062,7 +1062,7 @@
   {
     "id": "guide-why-opui-astro",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
     "headings": "Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1071,7 +1071,7 @@
   {
     "id": "guide-why-opui-vue",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
     "headings": "Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "vue",
@@ -1080,7 +1080,7 @@
   {
     "id": "guide-getting-started-astro",
     "title": "Getting started",
-    "description": "OPUI ships first-class Astro components. Install the package, import what\r\n    you need, and you're set.",
+    "description": "OPUI ships first-class Astro components. Install the package, import what\n    you need, and you're set.",
     "headings": "Install via NPM Import the CSS How to use",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1089,7 +1089,7 @@
   {
     "id": "guide-getting-started-html",
     "title": "Getting started",
-    "description": "Open Props UI is a CSS UI library exploring how next-gen HTML & CSS features\r\n    can change the way we create components. Designed to be used by professional\r\n    teams as well as tinkering hobbyists.",
+    "description": "Open Props UI is a CSS UI library exploring how next-gen HTML & CSS features\n    can change the way we create components. Designed to be used by professional\n    teams as well as tinkering hobbyists.",
     "headings": "Install manually theme.css generator Install via NPM Usage Install via CDN",
     "category": "Guide",
     "frameworkId": "html",
@@ -1165,64 +1165,34 @@
     "url": "/vue/api#anchor"
   },
   {
-    "id": "api-button-group-astro",
-    "title": "Button Group API",
-    "description": "Reference for Button Group Astro component.",
-    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "id": "api-avatar-astro",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Astro component.",
+    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#button-group"
+    "url": "/astro/api#avatar"
   },
   {
-    "id": "api-button-group-html",
-    "title": "Button Group API",
-    "description": "Reference for Button Group HTML component.",
-    "headings": "Colors - Orientation .ui-vertical - Orientation modifier. Sizes .ui-small, .ui-large - Size modifiers. Variants - Style modifiers.",
+    "id": "api-avatar-html",
+    "title": "Avatar API",
+    "description": "Reference for Avatar HTML component.",
+    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#button-group"
+    "url": "/html/api#avatar"
   },
   {
-    "id": "api-button-group-vue",
-    "title": "Button Group API",
-    "description": "Reference for Button Group Vue component.",
-    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
+    "id": "api-avatar-vue",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Vue component.",
+    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
-    "url": "/vue/api#button-group"
-  },
-  {
-    "id": "api-callout-astro",
-    "title": "Callout API",
-    "description": "Reference for Callout Astro component.",
-    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#callout"
-  },
-  {
-    "id": "api-callout-html",
-    "title": "Callout API",
-    "description": "Reference for Callout HTML component.",
-    "headings": "Part & > .ui-content, & > svg\r\n      - Internal structure. Severities - Severity modifiers. Variants .ui-tonal, .ui-outlined .ui-tonal Style modifiers.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#callout"
-  },
-  {
-    "id": "api-callout-vue",
-    "title": "Callout API",
-    "description": "Reference for Callout Vue component.",
-    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#callout"
+    "url": "/vue/api#avatar"
   },
   {
     "id": "api-badge-astro",
@@ -1255,34 +1225,34 @@
     "url": "/vue/api#badge"
   },
   {
-    "id": "api-avatar-astro",
-    "title": "Avatar API",
-    "description": "Reference for Avatar Astro component.",
-    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
+    "id": "api-button-group-astro",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Astro component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#avatar"
+    "url": "/astro/api#button-group"
   },
   {
-    "id": "api-avatar-html",
-    "title": "Avatar API",
-    "description": "Reference for Avatar HTML component.",
-    "headings": "Variants - Sets the shape of the avatar. Container [role=\"group\"] - Required for grouped avatars.",
+    "id": "api-button-group-html",
+    "title": "Button Group API",
+    "description": "Reference for Button Group HTML component.",
+    "headings": "Colors - Orientation .ui-vertical - Orientation modifier. Sizes .ui-small, .ui-large - Size modifiers. Variants - Style modifiers.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#avatar"
+    "url": "/html/api#button-group"
   },
   {
-    "id": "api-avatar-vue",
-    "title": "Avatar API",
-    "description": "Reference for Avatar Vue component.",
-    "headings": "as any - The element or component to render as. href string - The link to use if the avatar is an anchor. variant \"squared\" | \"rounded\" | \"squircle\" \"default\" The visual style of the avatar. isGroup boolean false Renders the avatar as a group. src string - The image source for the avatar. alt string - The alternative text for the avatar image.",
+    "id": "api-button-group-vue",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Vue component.",
+    "headings": "color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. size \"small\" | \"large\" - The size of the buttons in the group. variant \"outlined\" | \"tonal\" | \"filled\" - The visual style of the buttons in the group.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
-    "url": "/vue/api#avatar"
+    "url": "/vue/api#button-group"
   },
   {
     "id": "api-button-astro",
@@ -1315,6 +1285,36 @@
     "url": "/vue/api#button"
   },
   {
+    "id": "api-callout-astro",
+    "title": "Callout API",
+    "description": "Reference for Callout Astro component.",
+    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#callout"
+  },
+  {
+    "id": "api-callout-html",
+    "title": "Callout API",
+    "description": "Reference for Callout HTML component.",
+    "headings": "Part & > .ui-content, & > svg\n      - Internal structure. Severities - Severity modifiers. Variants .ui-tonal, .ui-outlined .ui-tonal Style modifiers.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#callout"
+  },
+  {
+    "id": "api-callout-vue",
+    "title": "Callout API",
+    "description": "Reference for Callout Vue component.",
+    "headings": "variant \"tonal\" | \"outlined\" \"tonal\" The visual style of the callout. severity - The severity level, affecting the color and icon.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#callout"
+  },
+  {
     "id": "api-card-astro",
     "title": "Card API",
     "description": "Reference for Card Astro component.",
@@ -1343,66 +1343,6 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#card"
-  },
-  {
-    "id": "api-chip-astro",
-    "title": "Chip API",
-    "description": "Reference for Chip Astro component.",
-    "headings": "as \"div\" | \"a\" | \"button\" The underlying HTML element. label string - The text label to display. multiline boolean false Allows multiline text. size \"small\" - The size of the chip. variant \"tonal\" | \"outlined\" \"tonal\" The visual variant.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#chip"
-  },
-  {
-    "id": "api-chip-html",
-    "title": "Chip API",
-    "description": "Reference for Chip HTML component.",
-    "headings": "Container - Container element type. Children & > .ui-text, & > svg - Optional child content. Sizes - The size of the element. Variants .ui-tonal, .ui-outlined .ui-tonal The variant to use.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#chip"
-  },
-  {
-    "id": "api-chip-vue",
-    "title": "Chip API",
-    "description": "Reference for Chip Vue component.",
-    "headings": "as \"div\" | \"a\" | \"button\" The underlying HTML element. label string - The text label to display. multiline boolean false Allows multiline text. size \"small\" - The size of the chip. variant \"tonal\" | \"outlined\" \"tonal\" The visual variant.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#chip"
-  },
-  {
-    "id": "api-checkbox-astro",
-    "title": "Checkbox API",
-    "description": "Reference for Checkbox Astro component.",
-    "headings": "checked boolean false Input checked state. disabled boolean - Input disabled state. error boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false required boolean false Input required state. size \"small\" | \"large\" - The size of the input. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input. default The label text for the component. end-text",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#checkbox"
-  },
-  {
-    "id": "api-checkbox-html",
-    "title": "Checkbox API",
-    "description": "Reference for Checkbox HTML component.",
-    "headings": "Children .ui-label, .ui-end-text - Internal element classes. Layout - Sizes .ui-small, .ui-large - Size modifiers. Validation [data-invalid] - Error state modifier. State data-indeterminate -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#checkbox"
-  },
-  {
-    "id": "api-checkbox-vue",
-    "title": "Checkbox API",
-    "description": "Reference for Checkbox Vue component.",
-    "headings": "checked boolean false Input checked state. disabled boolean - Input disabled state. error boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false required boolean false Input required state. size \"small\" | \"large\" - The size of the input. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input. default The label text for the component. end-text",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#checkbox"
   },
   {
     "id": "api-carousel-astro",
@@ -1435,34 +1375,64 @@
     "url": "/vue/api#carousel"
   },
   {
-    "id": "api-description-list-astro",
-    "title": "Description List API",
-    "description": "Reference for Description List Astro component.",
-    "headings": "bordered boolean | \"dotted\" - class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes.",
+    "id": "api-checkbox-astro",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox Astro component.",
+    "headings": "checked boolean false Input checked state. disabled boolean - Input disabled state. error boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false required boolean false Input required state. size \"small\" | \"large\" - The size of the input. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input. default The label text for the component. end-text",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#description-list"
+    "url": "/astro/api#checkbox"
   },
   {
-    "id": "api-description-list-html",
-    "title": "Description List API",
-    "description": "Reference for Description List HTML component.",
-    "headings": "Bordered -",
+    "id": "api-checkbox-html",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox HTML component.",
+    "headings": "Children .ui-label, .ui-end-text - Internal element classes. Layout - Sizes .ui-small, .ui-large - Size modifiers. Validation [data-invalid] - Error state modifier. State data-indeterminate -",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#description-list"
+    "url": "/html/api#checkbox"
   },
   {
-    "id": "api-description-list-vue",
-    "title": "Description List API",
-    "description": "Reference for Description List Vue component.",
-    "headings": "bordered boolean | \"dotted\" - class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes.",
+    "id": "api-checkbox-vue",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox Vue component.",
+    "headings": "checked boolean false Input checked state. disabled boolean - Input disabled state. error boolean - Input error state. hideLabel boolean - Visually hides the label. indeterminate boolean false required boolean false Input required state. size \"small\" | \"large\" - The size of the input. spread boolean false Spreads the label and input to opposite ends. stack boolean false Stacks the label under the input. default The label text for the component. end-text",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
-    "url": "/vue/api#description-list"
+    "url": "/vue/api#checkbox"
+  },
+  {
+    "id": "api-chip-astro",
+    "title": "Chip API",
+    "description": "Reference for Chip Astro component.",
+    "headings": "as \"div\" | \"a\" | \"button\" The underlying HTML element. label string - The text label to display. multiline boolean false Allows multiline text. size \"small\" - The size of the chip. variant \"tonal\" | \"outlined\" \"tonal\" The visual variant.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#chip"
+  },
+  {
+    "id": "api-chip-html",
+    "title": "Chip API",
+    "description": "Reference for Chip HTML component.",
+    "headings": "Container - Container element type. Children & > .ui-text, & > svg - Optional child content. Sizes - The size of the element. Variants .ui-tonal, .ui-outlined .ui-tonal The variant to use.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#chip"
+  },
+  {
+    "id": "api-chip-vue",
+    "title": "Chip API",
+    "description": "Reference for Chip Vue component.",
+    "headings": "as \"div\" | \"a\" | \"button\" The underlying HTML element. label string - The text label to display. multiline boolean false Allows multiline text. size \"small\" - The size of the chip. variant \"tonal\" | \"outlined\" \"tonal\" The visual variant.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#chip"
   },
   {
     "id": "api-classic-select-astro",
@@ -1493,6 +1463,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#classic-select"
+  },
+  {
+    "id": "api-description-list-astro",
+    "title": "Description List API",
+    "description": "Reference for Description List Astro component.",
+    "headings": "bordered boolean | \"dotted\" - class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#description-list"
+  },
+  {
+    "id": "api-description-list-html",
+    "title": "Description List API",
+    "description": "Reference for Description List HTML component.",
+    "headings": "Bordered -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#description-list"
+  },
+  {
+    "id": "api-description-list-vue",
+    "title": "Description List API",
+    "description": "Reference for Description List Vue component.",
+    "headings": "bordered boolean | \"dotted\" - class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes. class string - Custom CSS classes.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#description-list"
   },
   {
     "id": "api-dialog-astro",
@@ -1555,40 +1555,10 @@
     "url": "/vue/api#divider"
   },
   {
-    "id": "api-form-astro",
-    "title": "Form API",
-    "description": "Reference for Form Astro component.",
-    "headings": "as \"form\", \"div\" \"form\" The HTML element to render. as \"fieldset\", \"div\" \"fieldset\" The HTML element to render. disabled boolean - Whether the field set is disabled. as \"legend\", \"p\" \"legend\" The HTML element to render. - - - name string - Shared name for nested input components. direction \"row\", \"column\" - The orientation of the field group.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#form"
-  },
-  {
-    "id": "api-form-html",
-    "title": "Form API",
-    "description": "Reference for Form HTML component.",
-    "headings": "Base .ui-form - The main form container. Base .ui-fieldset - The field set container. Modifiers [disabled] - Whether the field set is disabled. Base .ui-legend, legend - The label for the field set. Base .ui-field-description - Field description for the field set. Base .ui-field-group - Container for related input components. Variants .ui-row, default - The orientation of the field group.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#form"
-  },
-  {
-    "id": "api-form-vue",
-    "title": "Form API",
-    "description": "Reference for Form Vue component.",
-    "headings": "as \"form\", \"div\" \"form\" The HTML element to render. as \"fieldset\", \"div\" \"fieldset\" The HTML element to render. disabled boolean - Whether the field set is disabled. as \"legend\", \"p\" \"legend\" The HTML element to render. - - - name string - Shared name for nested input components. direction \"row\", \"column\" - The orientation of the field group.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#form"
-  },
-  {
     "id": "api-drawer-astro",
     "title": "Drawer API",
     "description": "Reference for Drawer Astro component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\r\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. content - - Main content area, wrapped in a div with a\r\n        ui-content class. default - - Unwrapped content. footer - - Bottom area, e.g. a DrawerFooter. header - - Top area, e.g. a DrawerHeader.",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. content - - Main content area, wrapped in a div with a\n        ui-content class. default - - Unwrapped content. footer - - Bottom area, e.g. a DrawerFooter. header - - Top area, e.g. a DrawerHeader.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1598,7 +1568,7 @@
     "id": "api-drawer-html",
     "title": "Drawer API",
     "description": "Reference for Drawer HTML component.",
-    "headings": "Sides .ui-inline-start, .ui-inline-end,\r\n        .ui-block-start, .ui-block-end .ui-inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\r\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .ui-backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\r\n        Prevents focus from jumping to the first focusable element. .ui-content - - Main content area. .ui-footer - - Bottom action area. .ui-header - - Top area for titles.",
+    "headings": "Sides .ui-inline-start, .ui-inline-end,\n        .ui-block-start, .ui-block-end .ui-inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .ui-backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\n        Prevents focus from jumping to the first focusable element. .ui-content - - Main content area. .ui-footer - - Bottom action area. .ui-header - - Top area for titles.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -1608,7 +1578,7 @@
     "id": "api-drawer-vue",
     "title": "Drawer API",
     "description": "Reference for Drawer Vue component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\r\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. content - - Main content area, wrapped in a div with a\r\n        ui-content class. default - - Unwrapped content. footer - - Bottom area, e.g. a DrawerFooter. header - - Top area, e.g. a DrawerHeader.",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. content - - Main content area, wrapped in a div with a\n        ui-content class. default - - Unwrapped content. footer - - Bottom area, e.g. a DrawerFooter. header - - Top area, e.g. a DrawerHeader.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1645,34 +1615,34 @@
     "url": "/vue/api#field-group"
   },
   {
-    "id": "api-list-astro",
-    "title": "List API",
-    "description": "Reference for List Astro component.",
-    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
+    "id": "api-form-astro",
+    "title": "Form API",
+    "description": "Reference for Form Astro component.",
+    "headings": "as \"form\", \"div\" \"form\" The HTML element to render. as \"fieldset\", \"div\" \"fieldset\" The HTML element to render. disabled boolean - Whether the field set is disabled. as \"legend\", \"p\" \"legend\" The HTML element to render. - - - name string - Shared name for nested input components. direction \"row\", \"column\" - The orientation of the field group.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#list"
+    "url": "/astro/api#form"
   },
   {
-    "id": "api-list-html",
-    "title": "List API",
-    "description": "Reference for List HTML component.",
-    "headings": "Dense .ui-dense - When enabled list appears tighter packed. Gutterless .ui-gutterless - When enabled list inline padding is removed. Bordered .ui-bordered - Variants - Background color variants. Main parts - Building blocks in List item. Inset .ui-inset - Border top .ui-border-top - When enabled the list item will get a top border.",
+    "id": "api-form-html",
+    "title": "Form API",
+    "description": "Reference for Form HTML component.",
+    "headings": "Base .ui-form - The main form container. Base .ui-fieldset - The field set container. Modifiers [disabled] - Whether the field set is disabled. Base .ui-legend, legend - The label for the field set. Base .ui-field-description - Field description for the field set. Base .ui-field-group - Container for related input components. Variants .ui-row, default - The orientation of the field group.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#list"
+    "url": "/html/api#form"
   },
   {
-    "id": "api-list-vue",
-    "title": "List API",
-    "description": "Reference for List Vue component.",
-    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
+    "id": "api-form-vue",
+    "title": "Form API",
+    "description": "Reference for Form Vue component.",
+    "headings": "as \"form\", \"div\" \"form\" The HTML element to render. as \"fieldset\", \"div\" \"fieldset\" The HTML element to render. disabled boolean - Whether the field set is disabled. as \"legend\", \"p\" \"legend\" The HTML element to render. - - - name string - Shared name for nested input components. direction \"row\", \"column\" - The orientation of the field group.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
-    "url": "/vue/api#list"
+    "url": "/vue/api#form"
   },
   {
     "id": "api-icon-button-astro",
@@ -1703,6 +1673,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#icon-button"
+  },
+  {
+    "id": "api-list-astro",
+    "title": "List API",
+    "description": "Reference for List Astro component.",
+    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#list"
+  },
+  {
+    "id": "api-list-html",
+    "title": "List API",
+    "description": "Reference for List HTML component.",
+    "headings": "Dense .ui-dense - When enabled list appears tighter packed. Gutterless .ui-gutterless - When enabled list inline padding is removed. Bordered .ui-bordered - Variants - Background color variants. Main parts - Building blocks in List item. Inset .ui-inset - Border top .ui-border-top - When enabled the list item will get a top border.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#list"
+  },
+  {
+    "id": "api-list-vue",
+    "title": "List API",
+    "description": "Reference for List Vue component.",
+    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#list"
   },
   {
     "id": "api-menu-astro",
@@ -1765,6 +1765,36 @@
     "url": "/vue/api#progress"
   },
   {
+    "id": "api-range-astro",
+    "title": "Range API",
+    "description": "Reference for Range Astro component.",
+    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\n    \n    \n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#range"
+  },
+  {
+    "id": "api-range-html",
+    "title": "Range API",
+    "description": "Reference for Range HTML component.",
+    "headings": "Input input[type=\"range\"] - The native range input element. Range .ui-range - Wrapper for label and input styling. Spread .ui-spread - Modifier for a spread layout. Variant - Modifiers for different background surfaces. Label .ui-label - The label element for the range. Value output.value - Start text .ui-start-text - End text .ui-end-text - Optional text displayed below the range input. Spread .ui-spread -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#range"
+  },
+  {
+    "id": "api-range-vue",
+    "title": "Range API",
+    "description": "Reference for Range Vue component.",
+    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\n    \n    \n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#range"
+  },
+  {
     "id": "api-select-astro",
     "title": "Select API",
     "description": "Reference for Select Astro component.",
@@ -1793,36 +1823,6 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#select"
-  },
-  {
-    "id": "api-range-astro",
-    "title": "Range API",
-    "description": "Reference for Range Astro component.",
-    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\r\n    \r\n    \r\n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#range"
-  },
-  {
-    "id": "api-range-html",
-    "title": "Range API",
-    "description": "Reference for Range HTML component.",
-    "headings": "Input input[type=\"range\"] - The native range input element. Range .ui-range - Wrapper for label and input styling. Spread .ui-spread - Modifier for a spread layout. Variant - Modifiers for different background surfaces. Label .ui-label - The label element for the range. Value output.value - Start text .ui-start-text - End text .ui-end-text - Optional text displayed below the range input. Spread .ui-spread -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#range"
-  },
-  {
-    "id": "api-range-vue",
-    "title": "Range API",
-    "description": "Reference for Range Vue component.",
-    "headings": "label string - The label for the range input. startText string - endText string - Informational text below the range input. spread boolean false Spreads the label/text and input to opposite ends.\r\n    \r\n    \r\n      variant 'filled' | 'default' | 'tonal' 'default' min number | string - The minimum value. max number | string - The maximum value. step number | string - The step increment. value number | string - The current value. valueSuffix string - default Slot for the label element. start-text Slot for the text between label and input. end-text Slot for the text below the input. value",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#range"
   },
   {
     "id": "api-spinner-astro",
@@ -1915,6 +1915,36 @@
     "url": "/vue/api#table"
   },
   {
+    "id": "api-tabs-astro",
+    "title": "Tabs API",
+    "description": "Reference for Tabs Astro component.",
+    "headings": "class string - Additional class names. name string \"tabs-XXXX\" open boolean false Whether this tab is initially active. class string - Optional class name. class string - Optional class name.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#tabs"
+  },
+  {
+    "id": "api-tabs-html",
+    "title": "Tabs API",
+    "description": "Reference for Tabs HTML component.",
+    "headings": "class \"ui-tabs\" Required class for the parent container. role \"tablist\" Required for accessibility. type \"radio\" Required for state management. class \"ui-tab-input\" Required for behavior and styling. name string Shared across all tabs in the group. checked boolean Applied to the initially active tab. aria-controls ID Should match the ID of the corresponding panel. class \"ui-tab-label\" Required for behavior and styling. for ID Must match the ID of the radio input. role \"tab\" Required for accessibility. class \"ui-tab-panel\" Required for behavior and styling. role \"tabpanel\" Required for accessibility. aria-labelledby ID Should match the ID of the corresponding trigger.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#tabs"
+  },
+  {
+    "id": "api-tabs-vue",
+    "title": "Tabs API",
+    "description": "Reference for Tabs Vue component.",
+    "headings": "class string - Additional class names. name string \"tabs-XXXX\" open boolean false Whether this tab is initially active. class string - Optional class name. class string - Optional class name.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#tabs"
+  },
+  {
     "id": "api-text-field-astro",
     "title": "Text Field API",
     "description": "Reference for Text Field Astro component.",
@@ -1975,46 +2005,6 @@
     "url": "/vue/api#text-input"
   },
   {
-    "id": "api-tabs-astro",
-    "title": "Tabs API",
-    "description": "Reference for Tabs Astro component.",
-    "headings": "class string - Additional class names. name string \"tabs-XXXX\" open boolean false Whether this tab is initially active. class string - Optional class name. class string - Optional class name.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#tabs"
-  },
-  {
-    "id": "api-tabs-html",
-    "title": "Tabs API",
-    "description": "Reference for Tabs HTML component.",
-    "headings": "class \"ui-tabs\" Required class for the parent container. role \"tablist\" Required for accessibility. type \"radio\" Required for state management. class \"ui-tab-input\" Required for behavior and styling. name string Shared across all tabs in the group. checked boolean Applied to the initially active tab. aria-controls ID Should match the ID of the corresponding panel. class \"ui-tab-label\" Required for behavior and styling. for ID Must match the ID of the radio input. role \"tab\" Required for accessibility. class \"ui-tab-panel\" Required for behavior and styling. role \"tabpanel\" Required for accessibility. aria-labelledby ID Should match the ID of the corresponding trigger.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#tabs"
-  },
-  {
-    "id": "api-tabs-vue",
-    "title": "Tabs API",
-    "description": "Reference for Tabs Vue component.",
-    "headings": "class string - Additional class names. name string \"tabs-XXXX\" open boolean false Whether this tab is initially active. class string - Optional class name. class string - Optional class name.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#tabs"
-  },
-  {
-    "id": "api-toast-html",
-    "title": "Toast API",
-    "description": "Reference for Toast HTML component.",
-    "headings": "Command --show-toast - Message value / textContent - The message to display in the toast. Severity data-severity info Duration data-duration 5000ms Container #toast-manager - Component .ui-toast -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#toast"
-  },
-  {
     "id": "api-textarea-astro",
     "title": "Textarea API",
     "description": "Reference for Textarea Astro component.",
@@ -2043,6 +2033,16 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#textarea"
+  },
+  {
+    "id": "api-toast-html",
+    "title": "Toast API",
+    "description": "Reference for Toast HTML component.",
+    "headings": "Command --show-toast - Message value / textContent - The message to display in the toast. Severity data-severity info Duration data-duration 5000ms Container #toast-manager - Component .ui-toast -",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#toast"
   },
   {
     "id": "api-toggle-astro",

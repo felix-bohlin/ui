@@ -25,7 +25,7 @@ Floating content that is always shown.
 
 ## Hover Trigger
 
-Add `interestfor` on the trigger element pointing to the `.ui-anchor-floating` ID.
+Add `interestfor` on the trigger element pointing to the`.ui-anchor-floating` ID.
 
 Add `interestfor`, `commandfor`, and `command="toggle-popover"` to the anchor trigger so touch devices can tap to show the floating content.
 
@@ -53,15 +53,15 @@ Add `interestfor`, `commandfor`, and `command="toggle-popover"` to the anchor tr
 
 | Type      | Modifiers                | Default     | Description                                                                                                               |
 | --------- | ------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Container | `.ui-anchor`             | -           | Wrapper element. Provides `anchor-scope` and sets `anchor-name` on its first child.                                       |
-| Floating  | `.ui-anchor-floating`    | -           | Positioned floating element. Uses `position-anchor` and `position-area`.                                                  |
+| Container | `.ui-anchor`             | -           | Wrapper element. Provides `anchor-scope` and sets`anchor-name` on its first child.                                        |
+| Floating  | `.ui-anchor-floating`    | -           | Positioned floating element. Uses `position-anchor` and`position-area`.                                                   |
 | Position  | `--anchor-position-area` | `start end` | CSS custom property. Any valid `position-area` value.                                                                     |
 | Trigger   | `data-trigger="hover"`   | -           | Shows floating content on hover/focus. Add `interestfor` on the trigger element pointing to the `.ui-anchor-floating` ID. |
 
 ## Browser support
 
-- Chromium: Full support Supported since v151.
-- Firefox: Full support Supported since v153.
+- Chromium: Full support Supported since v144.
+- Firefox: Full support Supported since v151.
 - Safari: Partial support Missing: popover-hint.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).

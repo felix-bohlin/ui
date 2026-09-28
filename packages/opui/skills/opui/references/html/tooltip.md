@@ -2,7 +2,7 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md).
 
-Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Wire `interestfor` on the trigger to the `.ui-anchor-floating[popover="hint"]` element's ID.
+Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Wire `interestfor` on the trigger to the`.ui-anchor-floating[popover="hint"]` element's ID.
 
 ## Basics
 
@@ -48,7 +48,7 @@ You can place any markup you want (famous last words) inside `.ui-anchor-floatin
 
 ## Alignment
 
-Set `--anchor-position-area` on the parent with your preferred `position-area` value.
+Set `--anchor-position-area` on the parent with your preferred`position-area` value.
 
 ```html
 <div class="tooltip-alignment-grid">
@@ -172,15 +172,15 @@ Add the `.ui-with-arrow` class on the `.ui-tooltip`. This would be cool to solve
 | Type      | Modifiers                             | Default       | Description                                                                                                                                |
 | --------- | ------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | Container | `.ui-anchor.ui-tooltip`               | -             | Wrapper element. Combines the anchor primitive with the tooltip styling.                                                                   |
-| Floating  | `.ui-anchor-floating[popover="hint"]` | -             | Floating tooltip surface. Uses the `hint` popover so it auto-shows on `interestfor` hover/focus.                                           |
+| Floating  | `.ui-anchor-floating[popover="hint"]` | -             | Floating tooltip surface. Uses the `hint`popover so it auto-shows on `interestfor` hover/focus.                                            |
 | Trigger   | `interestfor="id"`                    | -             | Add to the trigger element pointing to the floating element's ID. Pair with `commandfor` and `command="toggle-popover"` for touch support. |
 | Arrow     | `.ui-with-arrow`                      | -             | Add to the `.ui-tooltip` wrapper to render an arrow pointing from the tooltip toward the trigger.                                          |
 | Position  | `--anchor-position-area`              | `block-start` | CSS custom property. Any valid `position-area` value.                                                                                      |
 
 ## Browser support
 
-- Chromium: Full support Supported since v151.
-- Firefox: Full support Supported since v153.
+- Chromium: Full support Supported since v144.
+- Firefox: Full support Supported since v151.
 - Safari: Partial support Missing: popover-hint.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).

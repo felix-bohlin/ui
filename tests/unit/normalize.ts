@@ -91,7 +91,7 @@ const normalizeAttribute = (
   if (name === "style") {
     return value
       .split(";")
-      .map((declaration) => declaration.trim())
+      .map((declaration) => declaration.trim().replace(/\s*:\s*/, ": "))
       .filter(Boolean)
       .join("; ")
   }
@@ -120,7 +120,10 @@ const serialize = (
         name: attr.name,
         value: normalizeAttribute(attr.name, attr.value, ids),
       }))
-      .filter((attr) => !(attr.name === "class" && !attr.value))
+      .filter(
+        (attr) =>
+          !((attr.name === "class" || attr.name === "style") && !attr.value),
+      )
       .toSorted((a, b) => a.name.localeCompare(b.name))
       .map((attr) => (attr.value ? `${attr.name}="${attr.value}"` : attr.name))
 

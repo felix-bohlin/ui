@@ -151,7 +151,7 @@ import { Badge } from "opui-css/astro"
 
 ## Visibility
 
-Change the badge's visibility using the `invisible` prop.
+Change the badge's visibility using the `invisible`prop.
 
 ```astro
 ---
@@ -254,9 +254,9 @@ The badge is composed of an anchored element (default slot), and an indicator (`
 
 ## Browser support
 
-- Chromium: Full support Supported since v151.
+- Chromium: Full support Supported since v144.
 - Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v27.
+- Safari: Full support Supported since v26.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 

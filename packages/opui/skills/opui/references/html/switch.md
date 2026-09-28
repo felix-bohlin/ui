@@ -160,7 +160,7 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
 ## Spread
 
-Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label to the left and the switch to the right. This is useful for full-width items like lists and menus.
+Add the `.ui-spread` class to the `<label class="ui-switch">`to push the label to the left and the switch to the right. This is useful for full-width items like lists and menus.
 
 ```html
 <label class="ui-switch ui-spread">
@@ -193,7 +193,7 @@ Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label 
 
 ## Sizes
 
-Add the `.ui-small` class on the `<label class="ui-switch">` for a smaller Switch variant.
+Add the `.ui-small` class on the `<label class="ui-switch">`for a smaller Switch variant.
 
 ```html
 <div class="example-row">
@@ -565,8 +565,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 <label class="ui-switch anatomy"
   ><input type="checkbox" role="switch" aria-describedby="end-text-1" /><span
     class="ui-label"
-  >
-    Label </span
+    >Label</span
   ><span id="end-text-1" class="ui-end-text">End text</span></label
 >
 ```

@@ -166,7 +166,7 @@ import { Badge } from "opui-css/vue"
 
 ## Visibility
 
-Change the badge's visibility using the `invisible` prop.
+Change the badge's visibility using the `invisible`prop.
 
 ```vue
 <script setup lang="ts">
@@ -277,9 +277,9 @@ The badge is composed of an anchored element (default slot), and an indicator (`
 
 ## Browser support
 
-- Chromium: Full support Supported since v151.
+- Chromium: Full support Supported since v144.
 - Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v27.
+- Safari: Full support Supported since v26.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
 

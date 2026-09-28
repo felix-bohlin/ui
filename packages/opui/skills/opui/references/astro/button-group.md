@@ -14,7 +14,7 @@ If you just need to group a bunch of "dumb" (uncontrolled) buttons - use Button 
 
 ## Variants
 
-Change the appearance of the entire group with the `variant` prop.
+Change the appearance of the entire group with the `variant`prop.
 
 ```astro
 ---
@@ -151,7 +151,7 @@ const chevronIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="
 
 ## Sizes
 
-Adjust the size of all buttons in the group using the `size` prop.
+Adjust the size of all buttons in the group using the `size`prop.
 
 ```astro
 ---
@@ -266,7 +266,7 @@ const minusIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24
 
 ## Disabled
 
-Disable individual buttons within a group by setting the `disabled` prop on each `Button`.
+Disable individual buttons within a group by setting the `disabled`prop on each `Button`.
 
 ```astro
 ---

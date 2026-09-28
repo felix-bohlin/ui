@@ -186,7 +186,7 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
   <menu
     id="split-button-menu-html"
     class="ui-menu ui-list ui-align-end"
-    popover="auto"
+    popover
   >
     <li>
       <button
@@ -405,7 +405,7 @@ Change the layout of the group with the `.ui-vertical` class.
 
 ## Disabled
 
-Disable individual buttons within a group by adding the `disabled` attribute to each `<button>`.
+Disable individual buttons within a group by adding the `disabled`attribute to each `<button>`.
 
 ```html
 <div role="group" class="ui-button-group ui-filled">

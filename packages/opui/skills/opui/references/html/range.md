@@ -177,17 +177,17 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 
 ## API
 
-| Type           | Modifiers                                | Default | Description                                                                                                                                                |
-| -------------- | ---------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Input**      | `input[type="range"]`                    | -       | The native range input element.                                                                                                                            |
-| **Range**      | `.ui-range`                              | -       | Wrapper for label and input styling.                                                                                                                       |
-| **Spread**     | `.ui-spread`                             | -       | Modifier for a spread layout.                                                                                                                              |
-| **Variant**    | `.ui-filled`, `.ui-default`, `.ui-tonal` | -       | Modifiers for different background surfaces.                                                                                                               |
-| **Label**      | `.ui-label`                              | -       | The label element for the range.                                                                                                                           |
-| **Value**      | `output.value`                           | -       | Optional `<output>` showing the input's current value. Use `for` to associate it with the input and an optional `data-suffix` attribute for a unit suffix. |
-| **Start text** | `.ui-start-text`                         | -       | Optional text displayed between label and the range input (often used with spread layout).                                                                 |
-| **End text**   | `.ui-end-text`                           | -       | Optional text displayed below the range input.                                                                                                             |
-| **Spread**     | `.ui-spread`                             | -       | Modifier class to layout label and input on opposite sides.                                                                                                |
+| Type           | Modifiers                                | Default | Description                                                                                                                                              |
+| -------------- | ---------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Input**      | `input[type="range"]`                    | -       | The native range input element.                                                                                                                          |
+| **Range**      | `.ui-range`                              | -       | Wrapper for label and input styling.                                                                                                                     |
+| **Spread**     | `.ui-spread`                             | -       | Modifier for a spread layout.                                                                                                                            |
+| **Variant**    | `.ui-filled`, `.ui-default`, `.ui-tonal` | -       | Modifiers for different background surfaces.                                                                                                             |
+| **Label**      | `.ui-label`                              | -       | The label element for the range.                                                                                                                         |
+| **Value**      | `output.value`                           | -       | Optional `<output>` showing the input's current value. Use`for` to associate it with the input and an optional`data-suffix` attribute for a unit suffix. |
+| **Start text** | `.ui-start-text`                         | -       | Optional text displayed between label and the range input (often used with spread layout).                                                               |
+| **End text**   | `.ui-end-text`                           | -       | Optional text displayed below the range input.                                                                                                           |
+| **Spread**     | `.ui-spread`                             | -       | Modifier class to layout label and input on opposite sides.                                                                                              |
 
 ## Browser support
 

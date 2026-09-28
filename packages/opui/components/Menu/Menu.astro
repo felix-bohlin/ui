@@ -27,7 +27,7 @@ const menuId = id || $id("menu")
     className,
   ]}
   id={menuId}
-  popover={popover}
+  popover={popover === "auto" ? true : popover}
   {...rest}
 >
   {

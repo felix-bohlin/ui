@@ -196,7 +196,7 @@ A button whose only child is an `svg` is square. Give it an`aria-label`. See [Ic
 
 ## Sizes
 
-Resize any button with the `.ui-small` and `.ui-large` classes.
+Resize any button with the `.ui-small` and `.ui-large`classes.
 
 ```html
 <div class="example-row">

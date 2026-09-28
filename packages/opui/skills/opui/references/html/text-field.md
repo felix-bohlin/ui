@@ -52,7 +52,7 @@
 
 ## Affix
 
-Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.ui-field` to affix content inside the field's border. Prefix and suffix sit beside the input, while header and footer span the field's full width with a divider.
+Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or`.ui-footer` elements inside `.ui-field` to affix content inside the field's border. Prefix and suffix sit beside the input, while header and footer span the field's full width with a divider.
 
 ```html
 <label class="ui-text-field">
@@ -422,7 +422,7 @@ The British Government has a [great article](https://technology.blog.gov.uk/2020
 
 Use `aria-label` instead of the `<label>` element.
 
-File is a weird one. Should it really be an `<input>` element? Well, it's what we've got :sweat\_smile:
+File is a weird one. Should it really be an `<input>` element? Well, it's what we've got :sweat_smile:
 
 ```html
 <div class="ui-text-field" aria-label="Label">

@@ -125,7 +125,7 @@ import { List, ListItem } from "opui-css/vue"
 
 ## Text
 
-Main text lives in the `text` slot, or pass `headline` and `description` props directly on `ListItem`.
+Main text lives in the `text` slot, or pass `headline`and `description` props directly on `ListItem`.
 
 ```vue
 <script setup lang="ts">

@@ -61,7 +61,7 @@
 
 ## Affix
 
-Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.ui-field` to affix content inside the textarea's border.
+Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or`.ui-footer` elements inside `.ui-field` to affix content inside the textarea's border.
 
 ```html
 <label class="ui-textarea">

@@ -74,7 +74,7 @@ import { Accordion } from "opui-css/astro"
 
 ## Accordion group
 
-Group multiple accordions by wrapping them in a `Card` component with `role="group"`. To theme the entire group, apply the `variant` prop to the parent container.
+Group multiple accordions by wrapping them in a `Card`component with `role="group"`. To theme the entire group, apply the `variant` prop to the parent container.
 
 ```astro
 ---

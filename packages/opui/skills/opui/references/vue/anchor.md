@@ -67,15 +67,15 @@ import { Anchor } from "opui-css/vue"
 
 ## API
 
-| Prop        | Type                  | Default       | Description                                                                                                                 |
-| ----------- | --------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `alignment` | `string`              | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                             |
-| `trigger`   | `"always" \| "hover"` | `"always"`    | When set to `"hover"`, wraps the anchor slot in an `interestfor` invoker and uses `popover="hint"` on the floating element. |
+| Prop        | Type                  | Default       | Description                                                                                                                |
+| ----------- | --------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `alignment` | `string`              | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                            |
+| `trigger`   | `"always" \| "hover"` | `"always"`    | When set to `"hover"`, wraps the anchor slot in an`interestfor` invoker and uses `popover="hint"` on the floating element. |
 
 ## Browser support
 
-- Chromium: Full support Supported since v151.
-- Firefox: Full support Supported since v153.
+- Chromium: Full support Supported since v144.
+- Firefox: Full support Supported since v151.
 - Safari: Partial support Missing: popover-hint.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).

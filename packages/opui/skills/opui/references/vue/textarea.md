@@ -105,7 +105,7 @@ import { Textarea } from "opui-css/vue"
 
 Add the `required` attribute on the component. It is forwarded to the underlying `<textarea>`.
 
-Use the `error` prop to toggle invalid styles. It renders `data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
+Use the `error` prop to toggle invalid styles. It renders`data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
 
 ```vue
 <script setup lang="ts">

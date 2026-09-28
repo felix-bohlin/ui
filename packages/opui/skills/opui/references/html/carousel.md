@@ -485,7 +485,7 @@ Announces item position. Buttons and markers are named.
 
 ## Browser support
 
-- Chromium: Full support Supported since v151.
+- Chromium: Full support Supported since v144.
 - Firefox: Partial support Missing: scroll-buttons, scroll-markers.
 - Safari: Partial support Missing: scroll-buttons, scroll-markers.
 

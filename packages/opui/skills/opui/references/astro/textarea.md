@@ -86,7 +86,7 @@ import { Textarea } from "opui-css/astro"
 
 Set `required` on the component to toggle required styles on the textarea.
 
-Use the `error` prop to toggle invalid styles. It renders the `data-invalid` attribute on the root element. Make use of the end text to give extra feedback on the error.
+Use the `error` prop to toggle invalid styles. It renders the`data-invalid` attribute on the root element. Make use of the end text to give extra feedback on the error.
 
 ```astro
 ---

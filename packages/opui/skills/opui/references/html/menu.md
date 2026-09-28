@@ -1,6 +1,6 @@
 # Menu
 
-A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anchored to a [Button](https://open-props-ui.netlify.app/html/components/button.md).
+A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anchored to a[Button](https://open-props-ui.netlify.app/html/components/button.md).
 
 ## Basics
 
@@ -36,8 +36,13 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
     </button>
   </li>
 </menu>
+```
 
+## Custom items
 
+If you want to decide yourself what goes into your list.
+
+```html
 <button
   class="ui-icon-button"
   aria-label="More actions"
@@ -54,7 +59,7 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 <menu class="ui-menu ui-list" id="menu-custom-html" popover>
   <li class="ui-label">Document</li>
   <li>
-    <button type="button" commandfor="menu-custom-html" command="hide-popover">
+    <button commandfor="menu-custom-html" command="hide-popover">
       <div class="ui-start">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -68,7 +73,7 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
     </button>
   </li>
   <li>
-    <button type="button" commandfor="menu-custom-html" command="hide-popover">
+    <button commandfor="menu-custom-html" command="hide-popover">
       <div class="ui-start">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -95,7 +100,7 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
     </a>
   </li>
   <li class="ui-border-top ui-critical">
-    <button type="button" commandfor="menu-custom-html" command="hide-popover">
+    <button commandfor="menu-custom-html" command="hide-popover">
       <div class="ui-start">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -342,25 +347,25 @@ A menu inside a list item.
 
 ## API
 
-| Type      | Modifiers                                               | Default                     | Description                           |
-| --------- | ------------------------------------------------------- | --------------------------- | ------------------------------------- |
-| Part      | `menu.ui-menu.ui-list[popover]`                         | -                           | The menu surface.                     |
-| Trigger   | `commandfor="id"`, `command="toggle-popover"`           | -                           | Opens the menu.                       |
-| Children  | `li > button`, `li > a`                                 | -                           | Menu items.                           |
-| Children  | `command="hide-popover"`                                | -                           | Closes the menu on click.             |
-| Children  | `li.ui-label`                                           | -                           | Group label.                          |
-| Children  | `.ui-start`, `.ui-end`                                  | -                           | Icons and shortcuts.                  |
-| Colors    | `.ui-critical`                                          | -                           | Destructive item.                     |
-| Placement | `.ui-block-start`, `.ui-inline-start`, `.ui-inline-end` | default                     | Where the menu opens.                 |
-| Placement | `.ui-align-end`                                         | -                           | Lines up with the trigger's end edge. |
-| Placement | `--anchor-position-area`                                | `block-end span-inline-end` | Any valid `position-area` value.      |
-| Sizes     | `.ui-dense`                                             | -                           | Less spacing.                         |
+| Type      | Modifiers                                             | Default                     | Description                           |
+| --------- | ----------------------------------------------------- | --------------------------- | ------------------------------------- |
+| Part      | `menu.ui-menu.ui-list[popover]`                       | -                           | The menu surface.                     |
+| Trigger   | `commandfor="id"`, `command="toggle-popover"`         | -                           | Opens the menu.                       |
+| Children  | `li > button`, `li > a`                               | -                           | Menu items.                           |
+| Children  | `command="hide-popover"`                              | -                           | Closes the menu on click.             |
+| Children  | `li.ui-label`                                         | -                           | Group label.                          |
+| Children  | `.ui-start`, `.ui-end`                                | -                           | Icons and shortcuts.                  |
+| Colors    | `.ui-critical`                                        | -                           | Destructive item.                     |
+| Placement | `.ui-block-start`,`.ui-inline-start`,`.ui-inline-end` | default                     | Where the menu opens.                 |
+| Placement | `.ui-align-end`                                       | -                           | Lines up with the trigger's end edge. |
+| Placement | `--anchor-position-area`                              | `block-end span-inline-end` | Any valid `position-area` value.      |
+| Sizes     | `.ui-dense`                                           | -                           | Less spacing.                         |
 
 ## Browser support
 
-- Chromium: Full support Supported since v151.
+- Chromium: Full support Supported since v144.
 - Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v27.
+- Safari: Full support Supported since v26.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 

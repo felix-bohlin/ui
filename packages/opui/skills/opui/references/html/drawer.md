@@ -333,12 +333,12 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ### Classes
 
-| Type           | Modifiers                                                                | Default            | Description                                                                                                                   |
-| -------------- | ------------------------------------------------------------------------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
-| Sides          | `.ui-inline-start`, `.ui-inline-end`, `.ui-block-start`, `.ui-block-end` | `.ui-inline-start` | The side it opens from.                                                                                                       |
-| Close behavior | `closedby="any"`, `closedby="closerequest"`, `closedby="none"`           | `closedby="any"`   | How the drawer is closed.                                                                                                     |
-| Backdrop       | `.ui-backdrop-transparent`                                               | -                  | Removes the backdrop blur.                                                                                                    |
-| Autofocus      | `autofocus`                                                              | -                  | Focuses the drawer container (or a specific element) when opened. Prevents focus from jumping to the first focusable element. |
+| Type           | Modifiers                                                               | Default            | Description                                                                                                                   |
+| -------------- | ----------------------------------------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| Sides          | `.ui-inline-start`, `.ui-inline-end`,`.ui-block-start`, `.ui-block-end` | `.ui-inline-start` | The side it opens from.                                                                                                       |
+| Close behavior | `closedby="any"`, `closedby="closerequest"`,`closedby="none"`           | `closedby="any"`   | How the drawer is closed.                                                                                                     |
+| Backdrop       | `.ui-backdrop-transparent`                                              | -                  | Removes the backdrop blur.                                                                                                    |
+| Autofocus      | `autofocus`                                                             | -                  | Focuses the drawer container (or a specific element) when opened. Prevents focus from jumping to the first focusable element. |
 
 ### Children
 

@@ -1,6 +1,8 @@
 @layer components.extended {
   :where(.ui-dialog) {
     --_motion: var(--motion, 1);
+    --_backdrop-bg-color: rgba(0, 0, 0, 0.5);
+    --_backdrop-blur: blur(1px);
     inline-size: 100%;
     inset: 0;
     margin: auto;
@@ -19,16 +21,12 @@
     opacity: 0;
 
     &::backdrop {
-      backdrop-filter: blur(1px);
-      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: var(--_backdrop-blur);
+      background-color: var(--_backdrop-bg-color);
     }
 
     &:not([open]) {
       display: none;
-    }
-
-    &[open] {
-      pointer-events: all;
     }
 
     .ui-actions {
@@ -38,6 +36,7 @@
 
     &[open] {
       opacity: 1;
+      pointer-events: all;
       transition:
         display calc(0.2s * var(--_motion)) allow-discrete,
         overlay calc(0.2s * var(--_motion)) allow-discrete,
@@ -47,18 +46,12 @@
         opacity: 0;
       }
     }
-
-    &[open] {
-      margin-block-start: 15%;
-
-      @starting-style {
-        opacity: 0;
-      }
-    }
   }
 
   :where(html:has(.ui-dialog[open])) {
     block-size: 100%;
-    overflow: hidden;
+    overflow: clip;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
   }
 }

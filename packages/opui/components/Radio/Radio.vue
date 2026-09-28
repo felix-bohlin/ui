@@ -29,7 +29,7 @@ const endTextId = useId()
     <RadioInput
       v-bind="$attrs"
       v-model="modelValue"
-      :aria-describedby="endTextId"
+      :aria-describedby="$slots['end-text'] ? endTextId : undefined"
     />
     <span :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
       ><slot></slot

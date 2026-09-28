@@ -1,6 +1,6 @@
 # Open Props UI
 
-A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Built on top of [Open Props](https://open-props.style/) and ships [Astro](https://astro.build/) components alongside framework-agnostic CSS.
+A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Built on top of [Open Props](https://open-props.style/) and ships HTML, [Astro](https://astro.build/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS.
 
 - Docs: [open-props-ui.netlify.app](https://open-props-ui.netlify.app/)
 - Source: [github.com/felix-bohlin/ui](https://github.com/felix-bohlin/ui)
@@ -14,6 +14,7 @@ pnpm add opui-css open-props
 Peer dependencies:
 
 - `astro` `^6` (only required if you use the Astro components)
+- `vue` `^3` (only required if you use the Vue components)
 - `open-props` `^1`
 
 ## Usage
@@ -69,9 +70,9 @@ Wrap your own styles in a layer above `utils` (or unlayered) to override.
 | ----------------------------------- | --------------------------------------------- |
 | `opui-css`                          | Pre-bundled: everything in one file (default) |
 | `opui-css/open-props`               | Pre-bundled: Open Props tokens only           |
-| `opui-css/dist/opui.css`            | Same as default — explicit path               |
+| `opui-css/dist/opui.css`            | Same as default - explicit path               |
 | `opui-css/dist/opui.components.css` | Pre-bundled: components only                  |
-| `opui-css/dist/op.css`              | Same as `opui-css/open-props` — explicit path |
+| `opui-css/dist/op.css`              | Same as `opui-css/open-props` - explicit path |
 | `opui-css/css/imports.css`          | Source: everything (resolved by your bundler) |
 | `opui-css/css/components.css`       | All component styles (no tokens / reset)      |
 | `opui-css/css/components/*.css`     | One component at a time                       |

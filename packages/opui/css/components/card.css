@@ -54,7 +54,7 @@
       --_card-border-width: 1px;
     }
 
-    & > :where(hgroup, .ui-content) {
+    &> :where(hgroup, .ui-content) {
       padding-inline: var(--size-3);
 
       &:last-child {
@@ -63,11 +63,12 @@
     }
 
     /* Header */
-    & > hgroup {
+    &>hgroup {
       padding-block: var(--size-3) 0;
 
       /* Top paragraph */
-      & > p:first-of-type:first-child {
+      &>p:first-of-type:first-child {
+        font-size: var(--font-size-0);
         line-height: 1.3;
       }
 
@@ -76,18 +77,18 @@
       }
 
       /* Bottom paragraph */
-      & > p:last-of-type:last-child:not(:first-child) {
+      &>p:last-of-type:last-child:not(:first-child) {
         font-size: var(--font-size-1);
       }
     }
 
     /* Content */
-    & > .ui-content:where(:only-child, :first-child) {
+    &>.ui-content:where(:only-child, :first-child) {
       padding-block: var(--size-3) var(--size-4);
     }
 
     /* Actions */
-    & > .ui-actions {
+    &>.ui-actions {
       display: flex;
       gap: var(--size-2);
       margin-block: var(--size-2) 0;

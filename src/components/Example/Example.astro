@@ -134,7 +134,7 @@ if (codeSlotName) {
 }
 
 // Output (the rendered HTML view) is only meaningful when the source code is
-// in a different framework — otherwise it's identical to the source.
+// in a different framework - otherwise it's identical to the source.
 const outputContent =
   output && previewHtml && codeLangId !== "html" ? previewHtml : ""
 
@@ -451,7 +451,7 @@ const outputPanelId = `${groupName}-output-panel`
   import "./mount-vue-examples"
 
   // Tab interactivity for the source/output toggle and the show-code button.
-  // Framework switching is now handled by routing — no client-side language
+  // Framework switching is now handled by routing - no client-side language
   // toggle is needed here.
 
   function setupContainer(container: HTMLElement) {

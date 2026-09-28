@@ -31,9 +31,10 @@ const positionArea =
   >
     <slot></slot>
     <template #anchored>
-      <span class="ui-badge-indicator" :aria-label="label?.toString()">{{
-        dot ? "" : label
-      }}</span>
+      <span class="ui-badge-indicator" :aria-label="label?.toString()">
+        {{ dot ? "" : label }}
+        <slot v-if="!dot" name="indicator"></slot>
+      </span>
     </template>
   </Anchor>
 </template>

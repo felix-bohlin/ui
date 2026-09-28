@@ -50,7 +50,7 @@ When creating or updating a component API table, ensure:
 
 ## Framework-specific APIs
 
-API tables are **auto-resolved** when the doc page declares `slug="..."` on `<Component>`. The layout globs `src/component-api/<slug>/<Label>.astro` for every framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)) — so the conventional layout is:
+API tables are **auto-resolved** when the doc page declares `slug="..."` on `<Component>`. The layout globs `src/component-api/<slug>/<Label>.astro` for every framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)) - so the conventional layout is:
 
 ```
 src/component-api/button/

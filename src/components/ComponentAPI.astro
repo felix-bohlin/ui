@@ -29,7 +29,7 @@ const isFrameworkKeyedApi = (value: any) =>
   Object.keys(value).every((k) => FRAMEWORK_IDS.includes(k as FrameworkId))
 
 // Pick the framework-keyed API entry for the active framework, falling back
-// to the default framework, then the first authored variant — same fallback
+// to the default framework, then the first authored variant - same fallback
 // shape `<Conditional>` uses so partially-authored docs don't go blank.
 const pickFrameworkVariant = (value: any) =>
   value[currentFramework] ??

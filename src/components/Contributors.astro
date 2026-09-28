@@ -8,14 +8,17 @@ type Contributor = {
 }
 
 const REPO = "felix-bohlin/ui"
-const HEADERS = { "User-Agent": "Astro-Site-Generator" }
+const HEADERS = {
+  "User-Agent": "Astro-Site-Generator",
+  Accept: "application/json",
+}
 
 let contributors: Contributor[] = []
 let error = ""
 
 try {
   const response = await fetch(
-    `https://api.github.com/repos/${REPO}/contributors`,
+    `https://github.com/${REPO}/graphs/contributors-data`,
     { headers: HEADERS },
   )
 
@@ -27,12 +30,18 @@ try {
       error = "Unexpected response from GitHub"
     } else {
       contributors = data
-        .filter((c: { type: string }) => c.type === "User")
-        .map((u: { login: string; avatar_url: string; html_url: string }) => ({
-          login: u.login,
-          avatar_url: u.avatar_url,
-          html_url: u.html_url,
+        .filter(
+          (c: any) =>
+            !c.author.path.includes("/apps/") &&
+            !c.author.login.includes("[bot]") &&
+            c.author.login !== "Copilot",
+        )
+        .map((c: any) => ({
+          login: c.author.login,
+          avatar_url: c.author.avatar,
+          html_url: `https://github.com${c.author.path}`,
         }))
+        .reverse()
     }
   }
 } catch (e) {

@@ -19,14 +19,14 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   // Pre-bind a framework-aware link resolver for this request. Authoring
   // shared docs content can then write `link("/components/button")` and get
-  // `/components/button` or `/astro/components/button` automatically — no
+  // `/components/button` or `/astro/components/button` automatically - no
   // runtime DOM rewriting required.
   //
   // We derive the framework from the URL prefix rather than
   // `context.currentLocale`. Astro's `currentLocale` is unreliable in
   // middleware (often `undefined` for prerendered pages because routing
   // metadata hasn't resolved yet at this stage), so we parse the pathname
-  // ourselves — it's the same source of truth Astro uses anyway.
+  // ourselves - it's the same source of truth Astro uses anyway.
   const firstSegment = context.url.pathname.split("/")[1] ?? ""
   const framework: FrameworkId = isFrameworkId(firstSegment)
     ? firstSegment

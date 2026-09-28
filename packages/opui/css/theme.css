@@ -1,4 +1,5 @@
 @layer theme {
+
   /* 1. Color scheme */
   .ui-light {
     --color-scheme: light;
@@ -22,15 +23,13 @@
       --gray-chroma: 0.01;
     */
 
-    /* 3. Named colors (no severity meaning) — use when you literally want a green/red/etc. dot */
+    /* 3. Named colors (no severity meaning) - use when you literally want a green/red/etc. dot */
     --blue: oklch(from var(--color-9) l 0.2 210);
     --green: oklch(from var(--color-9) l 0.2 145);
     --orange: oklch(from var(--color-7) l 0.2 75);
     --red: oklch(from var(--color-9) l 0.2 25);
 
-    /* 4. Intent tokens
-      Severity (have scope classes below): --success, --info, --warning, --critical
-      Non-severity (value-only):           --primary, --neutral */
+    /* 4. Intent tokens */
     --success: var(--green);
     --info: var(--blue);
     --warning: var(--orange);
@@ -77,7 +76,7 @@
     /* Sneaking in an extra font size I want but Open Props doesn't provide. You can do whatever you want with your own theme. It's just CSS. */
     --font-size-05: 0.875rem;
 
-    /* 11. Control sizes — shared scale for fields and buttons so they line up. */
+    /* 11. Control sizes - shared scale for fields and buttons so they line up. */
     --control-size-x-small: 28px;
     --control-size-small: 32px;
     --control-size: 40px;

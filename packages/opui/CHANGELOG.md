@@ -1,5 +1,27 @@
 # Changelog
 
+## 5.4.3 - 2026-09-18
+
+### Fixed
+
+Fix publish pnpm issue ([#357](https://github.com/felix-bohlin/ui/issues/357)) - thanks @onokumus!
+
+## 5.4.2 - 2026-06-29
+
+### Fixed
+
+- Make overline in `Card` header smaller.
+
+## 5.4.1 - 2026-06-11
+
+### Fixed
+
+- Fixed a `@vue/compiler-sfc` compilation crash in `Avatar`.
+
+## 5.4.0 - 2026-06-09
+
+- Added global control for motion that lets you enable or disable all motion with a single class `.ui-motion-on`, `.ui-motion-off`, `.ui-motion-debug`. By default it will listen to `prefers-reduced-motion`. Locally each component individually has `--_motion` variable that can be changed as well.
+
 ## 5.3.0 - 2026-06-04
 
 Vue support! 🎉
@@ -102,7 +124,7 @@ Run a project-wide find/replace per token, prompt or whatever. Below are all the
 
 </details>
 
-After the search/replace, do a visual smoke test — there is no automated codemod for consumer projects.
+After the search/replace, do a visual smoke test - there is no automated codemod for consumer projects.
 
 ## 4.1.0 - 2026-05-18
 

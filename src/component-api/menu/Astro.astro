@@ -1,0 +1,143 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>align</code></Table.Cell>
+      <Table.Cell><code>"start"</code>, <code>"end"</code></Table.Cell>
+      <Table.Cell><code>"start"</code></Table.Cell>
+      <Table.Cell>Which edge of the trigger the menu lines up with.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>class</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional CSS class.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>dense</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Less spacing.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>id</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>auto-generated</Table.Cell>
+      <Table.Cell>The trigger's <code>commandfor</code>.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>items</code></Table.Cell>
+      <Table.Cell><code>MenuItem[]</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Menu items.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>placement</code></Table.Cell>
+      <Table.Cell>
+        <code>"block-end"</code>,
+        <code>"block-start"</code>,
+        <code>"inline-end"</code>,
+        <code>"inline-start"</code>
+      </Table.Cell>
+      <Table.Cell><code>"block-end"</code></Table.Cell>
+      <Table.Cell>Where the menu opens.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>popover</code></Table.Cell>
+      <Table.Cell><code>"auto"</code>, <code>"manual"</code></Table.Cell>
+      <Table.Cell><code>"auto"</code></Table.Cell>
+      <Table.Cell>The popover type.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>default</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional child content.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3>MenuItem</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Key</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>borderTop</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Divider above the item.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>closeOnClick</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>true</code></Table.Cell>
+      <Table.Cell>Close the menu on click.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>critical</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Destructive item.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>disabled</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Disables the item.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>href</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Renders a link instead of a button.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>label</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The item text.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>shortcut</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Keyboard shortcut hint.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>any other key</Table.Cell>
+      <Table.Cell><code>unknown</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Passed to the item element.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

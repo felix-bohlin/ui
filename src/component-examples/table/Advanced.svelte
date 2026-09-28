@@ -1,14 +1,12 @@
 <script lang="ts">
-  import {
-    Table,
-    TableBody,
-    TableCell,
-    TableColumn,
-    TableColumnGroup,
-    TableHead,
-    TableHeaderCell,
-    TableRow,
-  } from "@opui/svelte"
+  import { Table } from "@opui/svelte"
+  import { TableBody } from "@opui/svelte"
+  import { TableCell } from "@opui/svelte"
+  import { TableColumn } from "@opui/svelte"
+  import { TableColumnGroup } from "@opui/svelte"
+  import { TableHead } from "@opui/svelte"
+  import { TableHeaderCell } from "@opui/svelte"
+  import { TableRow } from "@opui/svelte"
 </script>
 
 <Table>

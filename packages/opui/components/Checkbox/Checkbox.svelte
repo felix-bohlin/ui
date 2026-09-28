@@ -1,20 +1,19 @@
 <script lang="ts">
-  import { getContext } from "svelte"
   import CheckboxInput from "./CheckboxInput.svelte"
-  import type * as FieldSet from "../FieldSet/types.svelte"
+  import { getFieldContext } from "../FieldGroup/context"
   import type { CheckboxProps as Props } from "./types.svelte"
 
   let {
+    checked = $bindable(),
     class: className,
     error,
-    checked = $bindable(),
+    group = $bindable(),
     hideLabel,
-    indeterminate = $bindable(),
     name,
+    ref = $bindable(null),
     size,
     spread,
     stack,
-    id,
 
     // Snippets
     children,
@@ -22,15 +21,14 @@
     ...rest
   }: Props = $props()
 
-  let element = $state<HTMLLabelElement | null>(null)
-  export { element as this }
+  const id = $props.id()
+  const field = getFieldContext()
+  const endTextId = $derived(endText ? `end-text-${id}` : undefined)
+</script>
 
-  const componentId = $props.id()
-  const currentFieldName = getContext<FieldSet.Context["name"]>("name")
-  const endTextId = $derived(endText ? `end-text-${componentId}` : undefined)
-  const finalName = $derived(name || currentFieldName)
-  const invalid = $derived(error || undefined)
-  const classes = $derived([
+<label
+  bind:this={ref}
+  class={[
     "ui-checkbox",
     size && `ui-${size}`,
     {
@@ -38,15 +36,14 @@
       "ui-spread": spread,
     },
     className,
-  ])
-</script>
-
-<label bind:this={element} class={classes} data-invalid={invalid}>
+  ]}
+  data-invalid={error || undefined}
+>
   <CheckboxInput
     aria-describedby={endTextId}
     bind:checked
-    bind:indeterminate
-    name={finalName}
+    bind:group
+    name={name || field?.name}
     {...rest}
   />
   <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>

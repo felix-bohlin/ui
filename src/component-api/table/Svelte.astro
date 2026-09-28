@@ -27,6 +27,12 @@ import { Table } from "@opui/astro"
       <Table.Cell>Optional snippets.</Table.Cell>
     </Table.Row>
     <Table.Row>
+      <Table.Cell><code>ref</code></Table.Cell>
+      <Table.Cell><code>HTMLTableElement</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Bindable reference to the root element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
       <Table.Cell><code>variant</code></Table.Cell>
       <Table.Cell><code>"dense"</code>, <code>"spacious"</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
@@ -40,7 +46,8 @@ import { Table } from "@opui/astro"
     >TableHead</code
   >, <code>TableHeaderCell</code> and <code>TableRow</code> accept a <code
     >children</code
-  > snippet and the attributes of their HTML element.
+  > snippet, a bindable <code>ref</code> to their element and the attributes of their
+  HTML element.
 </p>
 
 <h3 id="table-column-svelte">TableColumn</h3>
@@ -61,6 +68,12 @@ import { Table } from "@opui/astro"
     </Table.Row>
   </Table.Head>
   <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>ref</code></Table.Cell>
+      <Table.Cell><code>HTMLTableColElement</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Bindable reference to the root element.</Table.Cell>
+    </Table.Row>
     <Table.Row>
       <Table.Cell><code>width</code></Table.Cell>
       <Table.Cell><code>string</code></Table.Cell>

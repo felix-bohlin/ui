@@ -2,4 +2,4 @@
   import { Switch } from "@opui/svelte"
 </script>
 
-<Switch class="anatomy" endText="End text" />
+<Switch class="anatomy" endText="End text">Label</Switch>

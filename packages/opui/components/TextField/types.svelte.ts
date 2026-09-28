@@ -19,4 +19,4 @@ export type Props =
     // Input attributes
     InputProps &
     // Snippets
-    Snippets
+    Snippets & { ref?: HTMLLabelElement | null }

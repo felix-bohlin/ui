@@ -1,20 +1,18 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  const {
+  let {
     as: Tag = "form",
     children,
     class: className,
+    ref = $bindable(null),
     ...rest
   }: Props = $props()
-
-  let element = $state<HTMLFormElement | HTMLElement | null>(null)
-  export { element as this }
 </script>
 
 <svelte:element
   this={Tag}
-  bind:this={element}
+  bind:this={ref}
   class={["ui-form", className]}
   {...rest}
 >

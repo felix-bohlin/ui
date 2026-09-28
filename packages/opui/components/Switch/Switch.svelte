@@ -1,14 +1,16 @@
 <script lang="ts">
-  import { getContext } from "svelte"
   import SwitchInput from "./SwitchInput.svelte"
-  import type * as FieldSet from "../FieldSet/types.svelte"
+  import { getFieldContext } from "../FieldGroup/context"
   import type { SwitchProps as Props } from "./types.svelte"
 
-  const {
+  let {
+    checked = $bindable(),
     class: className,
     error,
+    group = $bindable(),
     hideLabel,
     name,
+    ref = $bindable(null),
     small,
     spread,
     stack,
@@ -21,12 +23,9 @@
     ...rest
   }: Props = $props()
 
-  let element = $state<HTMLLabelElement | null>(null)
-  export { element as this }
   const id = $props.id()
-  const currentFieldName = getContext<FieldSet.Context["name"]>("name")
+  const field = getFieldContext()
   const endTextId = $derived(endText ? `end-text-${id}` : undefined)
-  const finalName = $derived(name || currentFieldName)
 
   $effect(() => {
     if (
@@ -40,7 +39,11 @@
       )
     }
   })
-  const classes = $derived([
+</script>
+
+<label
+  bind:this={ref}
+  class={[
     "ui-switch",
     {
       "ui-small": small,
@@ -48,10 +51,9 @@
       "ui-spread": spread,
     },
     className,
-  ])
-</script>
-
-<label bind:this={element} class={classes} data-invalid={error || undefined}>
+  ]}
+  data-invalid={error || undefined}
+>
   {#if iconUnchecked}
     <span class="ui-icon-unchecked" aria-hidden="true">
       {@render iconUnchecked()}
@@ -62,20 +64,24 @@
       {@render iconChecked()}
     </span>
   {/if}
-
-  <SwitchInput aria-describedby={endTextId} name={finalName} {...rest} />
+  <SwitchInput
+    aria-describedby={endTextId}
+    bind:checked
+    bind:group
+    name={name || field?.name}
+    {...rest}
+  />
   {#if children}
     <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
       {@render children()}
     </span>
   {/if}
-
   {#if endText}
     <span id={endTextId} class="ui-end-text">
       {#if typeof endText === "string"}
         {endText}
       {:else}
-        {@render endText?.()}
+        {@render endText()}
       {/if}
     </span>
   {/if}

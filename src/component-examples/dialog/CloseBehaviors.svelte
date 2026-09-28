@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte"
   import { Dialog } from "@opui/svelte"
   import { Radio } from "@opui/svelte"
   import { Button } from "@opui/svelte"
@@ -7,23 +6,9 @@
   import { FieldGroup } from "@opui/svelte"
   import { FieldLegend } from "@opui/svelte"
 
-  const name = "closedby-demo"
+  const behaviors = ["any", "closerequest", "none"] as const
 
-  onMount(() => {
-    const dialog = document.getElementById(
-      "closing-behaviors-dialog",
-    ) as HTMLDialogElement
-    const radios = document.querySelectorAll('input[name="closedby-demo"]')
-
-    radios.forEach((radio) => {
-      radio.addEventListener("change", (e) => {
-        const target = e.target as HTMLInputElement
-        if (dialog) {
-          dialog.setAttribute("closedby", target.value)
-        }
-      })
-    })
-  })
+  let closedby = $state<(typeof behaviors)[number]>("any")
 </script>
 
 <Button
@@ -34,7 +19,7 @@
   Open dialog
 </Button>
 
-<Dialog id="closing-behaviors-dialog" closedby="any">
+<Dialog id="closing-behaviors-dialog" {closedby}>
   {#snippet header()}
     <h2 class="ui-h4">How to close</h2>
   {/snippet}
@@ -42,10 +27,14 @@
     <div>
       <Fieldset>
         <FieldLegend>Choose a closing behavior:</FieldLegend>
-        <FieldGroup {name}>
-          <Radio {name} value="any" checked>any</Radio>
-          <Radio {name} value="closerequest">closerequest</Radio>
-          <Radio {name} value="none">none</Radio>
+        <FieldGroup name="closedby-demo">
+          {#each behaviors as behavior (behavior)}
+            <Radio
+              checked={behavior === closedby}
+              onchange={() => (closedby = behavior)}
+              value={behavior}>{behavior}</Radio
+            >
+          {/each}
         </FieldGroup>
       </Fieldset>
     </div>

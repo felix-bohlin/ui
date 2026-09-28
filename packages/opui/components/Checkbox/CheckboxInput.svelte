@@ -3,18 +3,33 @@
 
   let {
     checked = $bindable(),
-    indeterminate = $bindable(),
+    group = $bindable(),
+    indeterminate,
+    ref = $bindable(null),
+    value,
     ...rest
   }: Props = $props()
-  let element = $state<HTMLInputElement | null>(null)
-  export { element as this }
+
+  const getChecked = () => (group ? group.includes(value) : !!checked)
+  const setChecked = (isChecked: boolean) => {
+    if (group) {
+      group = isChecked
+        ? [...group, value]
+        : group.filter((item) => item !== value)
+    } else {
+      checked = isChecked
+    }
+  }
 </script>
 
 <input
-  bind:this={element}
-  bind:checked
-  bind:indeterminate
+  bind:this={ref}
+  bind:checked={getChecked, setChecked}
+  {@attach (input) => {
+    input.indeterminate = Boolean(indeterminate)
+  }}
   type="checkbox"
   data-indeterminate={indeterminate || undefined}
+  {value}
   {...rest}
 />

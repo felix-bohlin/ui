@@ -4,7 +4,7 @@
 </script>
 
 <List>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem headline="Headline" description="Supporting text" end="13:37">
     {#snippet start()}
       <video controls muted>
         <source
@@ -12,12 +12,9 @@
           type="video/mp4"
         />
       </video>
-    {/snippet}
-    {#snippet end()}
-      13:37
     {/snippet}
   </ListItem>
-  <ListItem headline="Headline" description="Supporting text">
+  <ListItem headline="Headline" description="Supporting text" end="90s">
     {#snippet start()}
       <video controls muted>
         <source
@@ -25,9 +22,6 @@
           type="video/mp4"
         />
       </video>
-    {/snippet}
-    {#snippet end()}
-      <div>90s</div>
     {/snippet}
   </ListItem>
 </List>

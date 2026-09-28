@@ -10,6 +10,7 @@
     items = [],
     label,
     name,
+    ref = $bindable(null),
     required,
     size,
     value = $bindable(),
@@ -20,23 +21,22 @@
     ...rest
   }: Props = $props()
 
-  let element = $state<HTMLLabelElement | null>(null)
-  export { element as this }
-
   const componentId = $props.id()
-  const selectId = $derived(id || `select-${componentId}`)
   const labelId = `select-label-${componentId}`
-  const classes = $derived([
+</script>
+
+<label
+  bind:this={ref}
+  class={[
     "ui-select",
     size && `ui-${size}`,
     {
       "ui-filled": variant === "filled",
     },
     className,
-  ])
-</script>
-
-<label bind:this={element} class={classes} data-invalid={error || undefined}>
+  ]}
+  data-invalid={error || undefined}
+>
   {#if label}
     <span class="ui-label" id={labelId}>
       {label}
@@ -45,11 +45,11 @@
   <span class="ui-field">
     <select
       aria-labelledby={label ? labelId : undefined}
+      bind:value
       {disabled}
-      id={selectId}
+      id={id || `select-${componentId}`}
       {name}
       {required}
-      bind:value
       {...rest}
     >
       {#each items as item}

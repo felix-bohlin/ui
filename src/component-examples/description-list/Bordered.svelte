@@ -1,10 +1,8 @@
 <script lang="ts">
-  import {
-    Description,
-    DescriptionList,
-    DescriptionListItem,
-    DescriptionListTerm,
-  } from "@opui/svelte"
+  import { Description } from "@opui/svelte"
+  import { DescriptionList } from "@opui/svelte"
+  import { DescriptionListItem } from "@opui/svelte"
+  import { DescriptionListTerm } from "@opui/svelte"
 </script>
 
 <DescriptionList bordered>

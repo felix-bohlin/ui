@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
   import type { Snippet } from "svelte"
+  import type { HTMLLiAttributes } from "svelte/elements"
 
   let {
     as,
@@ -84,7 +85,7 @@
     },
     className,
   ]}
-  {...as ? {} : rest}
+  {...(as ? {} : rest) as HTMLLiAttributes}
 >
   {#if hasLabel}
     <label class={`ui-${type}`} for={htmlFor}>

@@ -1,27 +1,29 @@
 <script lang="ts">
-  import { setContext, untrack } from "svelte"
+  import { getFieldContext, setFieldContext } from "./context"
   import type { Props } from "./types.svelte"
 
-  const {
+  let {
     children,
     class: className,
     direction,
     name,
+    ref = $bindable(null),
     ...rest
   }: Props = $props()
 
-  const fieldName = untrack(() => name)
-  if (fieldName) setContext("name", fieldName)
-
-  let element = $state<HTMLDivElement | null>(null)
-  export { element as this }
-  const classes = $derived([
-    "ui-field-group",
-    direction && `ui-${direction}`,
-    className,
-  ])
+  const parent = getFieldContext()
+  setFieldContext({
+    get name() {
+      return name || parent?.name
+    },
+  })
 </script>
 
-<div bind:this={element} class={classes} {...rest} role="group">
+<div
+  bind:this={ref}
+  class={["ui-field-group", direction && `ui-${direction}`, className]}
+  {...rest}
+  role="group"
+>
   {@render children?.()}
 </div>

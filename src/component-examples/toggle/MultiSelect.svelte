@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { ToggleGroup, ToggleButton } from "@opui/svelte"
+  import { ToggleGroup } from "@opui/svelte"
+  import { ToggleButton } from "@opui/svelte"
 </script>
 
 <ToggleGroup name="text-style">

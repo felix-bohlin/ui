@@ -1,15 +1,16 @@
 <script lang="ts">
-  import type * as FieldSet from "../FieldSet/types.svelte"
+  import { getFieldContext } from "../FieldGroup/context"
   import type { Props } from "./types.svelte"
-  import { getContext } from "svelte"
+  import type { Snippet } from "svelte"
 
-  const {
+  let {
     autoFit,
     class: className,
     error,
     filled,
     id,
     label,
+    ref = $bindable(null),
     small,
     spread,
 
@@ -23,7 +24,7 @@
     required,
     step,
     type = "text",
-    value,
+    value = $bindable(),
 
     // Snippets
     children,
@@ -32,20 +33,28 @@
     footer,
     header,
     prefix,
+    startText,
     suffix,
     supportingText,
-    startText,
     ...rest
   }: Props = $props()
 
-  let element = $state<HTMLLabelElement | null>(null)
-  export { element as this }
   const componentId = $props.id()
-  const currentFieldName = getContext<FieldSet.Context["name"]>("name")
+  const field = getFieldContext()
   const description = $derived(descriptionProp || startText)
-  const fieldId = $derived(id || `text-field-${componentId}`)
-  const fieldName = $derived(name || currentFieldName)
-  const classes = $derived([
+</script>
+
+{#snippet snippetString(ss: Snippet | string | undefined)}
+  {#if typeof ss === "string"}
+    {ss}
+  {:else}
+    {@render ss?.()}
+  {/if}
+{/snippet}
+
+<label
+  bind:this={ref}
+  class={[
     "ui-text-field",
     {
       "ui-auto-fit": autoFit,
@@ -54,88 +63,49 @@
       "ui-small": small,
     },
     className,
-  ])
-</script>
-
-<label
-  bind:this={element}
-  class={classes}
+  ]}
   data-invalid={error || undefined}
   {...rest}
 >
   {#if label}
-    <span class="ui-label">
-      {#if typeof label === "string"}
-        {label}
-      {:else}
-        {@render label()}
-      {/if}
-    </span>
+    <span class="ui-label">{@render snippetString(label)}</span>
   {/if}
   {#if description}
-    <span class="ui-start-text">
-      {#if typeof description === "string"}
-        {description}
-      {:else}
-        {@render description()}
-      {/if}
-    </span>
+    <span class="ui-start-text">{@render snippetString(description)}</span>
   {/if}
   <span class="ui-field">
     <input
+      bind:value
       {disabled}
-      id={fieldId}
+      id={id || `text-field-${componentId}`}
       inputmode={type === "numeric" ? "numeric" : undefined}
       {list}
       {max}
       {min}
-      name={fieldName}
+      name={name || field?.name}
       pattern={type === "numeric" ? "[0-9]*" : undefined}
       {placeholder}
       {required}
       {step}
       type={type === "numeric" ? "text" : type}
-      {value}
     />
     {#if prefix}
-      <span class="ui-prefix">
-        {#if typeof prefix === "string"}{prefix}
-        {:else}{@render prefix()}
-        {/if}
-      </span>
+      <span class="ui-prefix">{@render snippetString(prefix)}</span>
     {/if}
-
     {#if suffix}
-      <span class="ui-suffix">
-        {#if typeof suffix === "string"}{suffix}
-        {:else}{@render suffix()}
-        {/if}
-      </span>
+      <span class="ui-suffix">{@render snippetString(suffix)}</span>
     {/if}
-
     {#if header}
-      <span class="ui-header">
-        {#if typeof header === "string"}{header}
-        {:else}{@render header()}
-        {/if}
-      </span>
+      <span class="ui-header">{@render snippetString(header)}</span>
     {/if}
     {#if footer}
-      <span class="ui-footer">
-        {#if typeof footer === "string"}{footer}
-        {:else}{@render footer()}
-        {/if}
-      </span>
+      <span class="ui-footer">{@render snippetString(footer)}</span>
     {/if}
   </span>
   {#if endText || supportingText}
     <span class="ui-end-text">
-      {#if typeof endText === "string"}{endText}
-      {:else if endText}{@render endText()}
-      {/if}
-      {#if typeof supportingText === "string"}{supportingText}
-      {:else if supportingText}{@render supportingText()}
-      {/if}
+      {@render snippetString(endText)}
+      {@render snippetString(supportingText)}
     </span>
   {/if}
   {@render children?.()}

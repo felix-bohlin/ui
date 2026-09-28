@@ -29,4 +29,3 @@
     There is an error with this checkbox.
   {/snippet}
 </Checkbox>
--->

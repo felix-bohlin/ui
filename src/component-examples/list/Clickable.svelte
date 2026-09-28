@@ -7,10 +7,7 @@
 <List>
   <ListItem as="button" type="button" headline="Button list item" />
   <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
-  <ListItem type="checkbox" for="clickable-checkbox">
-    {#snippet text()}
-      <div>Checkbox list item</div>
-    {/snippet}
+  <ListItem type="checkbox" for="clickable-checkbox" text="Checkbox list item">
     {#snippet end()}
       <CheckboxInput id="clickable-checkbox" name="checkbox" />
     {/snippet}

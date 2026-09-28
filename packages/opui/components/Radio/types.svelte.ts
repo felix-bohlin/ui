@@ -4,9 +4,17 @@ import type { Snippet } from "svelte"
 
 type Snippets = Base.RadioSlots<Snippet>
 
+type Group = { group?: string | number | boolean }
+
 export type RadioInputProps = Base.RadioInputProps &
-  Omit<SvelteHTMLElements["input"], "type">
+  Group &
+  Omit<SvelteHTMLElements["input"], "group" | "type"> & {
+    ref?: HTMLInputElement | null
+  }
 
 export type RadioProps = Omit<Base.RadioProps, keyof Snippets> &
   Snippets &
-  Omit<SvelteHTMLElements["input"], "size">
+  Group &
+  Omit<SvelteHTMLElements["input"], "group" | "size"> & {
+    ref?: HTMLLabelElement | null
+  }

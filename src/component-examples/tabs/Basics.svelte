@@ -1,5 +1,8 @@
 <script lang="ts">
-  import { Tabs, TabsItem, TabsPanel, TabsTab } from "@opui/svelte"
+  import { Tabs } from "@opui/svelte"
+  import { TabsItem } from "@opui/svelte"
+  import { TabsPanel } from "@opui/svelte"
+  import { TabsTab } from "@opui/svelte"
 </script>
 
 <Tabs>

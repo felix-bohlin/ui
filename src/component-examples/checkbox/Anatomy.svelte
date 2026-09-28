@@ -5,7 +5,6 @@
 <Checkbox class="anatomy" checked>
   Label
   {#snippet endText()}
-    End Text
+    End text
   {/snippet}
 </Checkbox>
--->

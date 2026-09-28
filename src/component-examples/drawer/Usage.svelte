@@ -1,5 +1,8 @@
 <script lang="ts">
-  import { Button, Drawer, DrawerFooter, DrawerHeader } from "@opui/svelte"
+  import { Button } from "@opui/svelte"
+  import { Drawer } from "@opui/svelte"
+  import { DrawerFooter } from "@opui/svelte"
+  import { DrawerHeader } from "@opui/svelte"
 </script>
 
 <div class="drawer-examples">

@@ -1,14 +1,15 @@
 <script lang="ts">
-  import { getContext } from "svelte"
   import RadioInput from "./RadioInput.svelte"
-  import type * as FieldSet from "../FieldSet/types.svelte"
+  import { getFieldContext } from "../FieldGroup/context"
   import type { RadioProps as Props } from "./types.svelte"
 
-  const {
+  let {
     class: className,
     error,
+    group = $bindable(),
     hideLabel,
     name,
+    ref = $bindable(null),
     size,
     stack,
 
@@ -18,26 +19,32 @@
     ...rest
   }: Props = $props()
 
-  let element = $state<HTMLLabelElement | null>(null)
-  export { element as this }
-
   const id = $props.id()
-  const currentFieldName = getContext<FieldSet.Context["name"]>("name")
+  const field = getFieldContext()
   const endTextId = $derived(endText ? `end-text-${id}` : undefined)
-  const finalName = $derived(name || currentFieldName)
-  const classes = $derived([
-    "ui-radio",
-    size && `ui-${size}`,
-    { "ui-stack": stack },
-    className,
-  ])
 </script>
 
-<label bind:this={element} class={classes} data-invalid={error || undefined}>
-  <RadioInput aria-describedby={endTextId} name={finalName} {...rest} />
-  <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}
-    >{@render children?.()}</span
-  >
+<label
+  bind:this={ref}
+  class={[
+    "ui-radio",
+    size && `ui-${size}`,
+    {
+      "ui-stack": stack,
+    },
+    className,
+  ]}
+  data-invalid={error || undefined}
+>
+  <RadioInput
+    aria-describedby={endTextId}
+    bind:group
+    name={name || field?.name}
+    {...rest}
+  />
+  <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+    {@render children?.()}
+  </span>
   {#if endText}
     <span id={endTextId} class="ui-end-text">
       {#if typeof endText === "string"}

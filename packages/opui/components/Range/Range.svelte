@@ -12,9 +12,11 @@
     min,
     name,
     options,
+    ref = $bindable(null),
     spread,
     step,
     value = $bindable(),
+    valueSuffix,
     variant,
 
     // Snippets
@@ -22,13 +24,9 @@
     datalist,
     endText,
     startText,
-    valueSuffix,
     valueText,
     ...rest
   }: Props = $props()
-
-  let element = $state<HTMLLabelElement | null>(null)
-  export { element as this }
 
   let mounted = $state(false)
   onMount(() => {
@@ -36,29 +34,14 @@
   })
 
   const componentId = $props.id()
-  const hasLabel = $derived(!!label || !!children)
-  const hasStartText = $derived(!!startText)
-  const hasEndText = $derived(!!endText)
-  const hasValue = $derived(valueSuffix !== undefined || !!valueText)
-  const suffix = $derived(typeof valueSuffix === "string" ? valueSuffix : "")
-
   const inputId = $derived(id || `range-${componentId}`)
-  const labelId = $derived(hasLabel ? `range-label-${componentId}` : undefined)
+  const labelId = $derived(
+    label || children ? `range-label-${componentId}` : undefined,
+  )
   const startTextId = $derived(
-    hasStartText ? `range-start-${componentId}` : undefined,
+    startText ? `range-start-${componentId}` : undefined,
   )
-  const endTextId = $derived(
-    hasEndText ? `range-end-${componentId}` : undefined,
-  )
-  const describedBy = $derived(
-    [startTextId, endTextId].filter(Boolean).join(" ") || undefined,
-  )
-  const classes = $derived([
-    "ui-range",
-    variant && `ui-${variant}`,
-    { "ui-spread": spread },
-    className,
-  ])
+  const endTextId = $derived(endText ? `range-end-${componentId}` : undefined)
 </script>
 
 {#snippet snippetString(ss: Snippet | string | undefined)}
@@ -69,20 +52,19 @@
   {/if}
 {/snippet}
 
-<label bind:this={element} class={classes}>
-  {#if hasLabel}
+<label
+  bind:this={ref}
+  class={["ui-range", variant && `ui-${variant}`, { "ui-spread": spread }, className]}
+>
+  {#if labelId}
     <span class="ui-label" id={labelId}>
-      {label ?? ""}{@render children?.()}
+      {label}{@render children?.()}
     </span>
   {/if}
-  {#if hasValue}
-    <output
-      class="ui-value"
-      data-suffix={typeof valueSuffix === "string" ? valueSuffix : undefined}
-      for={inputId}
-    >
+  {#if valueSuffix !== undefined || valueText}
+    <output class="ui-value" for={inputId} data-suffix={valueSuffix}>
       {#if mounted}
-        {value}{suffix}
+        {value}{valueSuffix}
       {:else if valueText}
         {@render valueText()}
       {:else}
@@ -90,14 +72,16 @@
       {/if}
     </output>
   {/if}
-  {#if hasStartText}
+  {#if startTextId}
     <span class="ui-start-text" id={startTextId}>
       {@render snippetString(startText)}
     </span>
   {/if}
   <input
-    aria-describedby={describedBy}
+    aria-describedby={[startTextId, endTextId].filter(Boolean).join(" ") ||
+      undefined}
     aria-labelledby={labelId}
+    bind:value
     {disabled}
     id={inputId}
     {list}
@@ -106,7 +90,6 @@
     {name}
     {step}
     type="range"
-    bind:value
     {...rest}
   />
   {#if options || datalist}
@@ -121,7 +104,7 @@
       {@render datalist?.()}
     </datalist>
   {/if}
-  {#if hasEndText}
+  {#if endTextId}
     <span class="ui-end-text" id={endTextId}>
       {@render snippetString(endText)}
     </span>

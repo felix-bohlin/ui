@@ -91,6 +91,8 @@
       <img
         src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt=""
+        decoding="async"
+        loading="lazy"
       />
     </Avatar>
   {/snippet}
@@ -180,29 +182,30 @@
   {/snippet}
 </ListItem>
 
-<ListItem borderTop type="checkbox" for={`${prefix}checkbox-all`}>
-  {#snippet text()}Checkbox{/snippet}
+<ListItem
+  borderTop
+  type="checkbox"
+  for={`${prefix}checkbox-all`}
+  text="Checkbox"
+>
   {#snippet end()}
     <CheckboxInput id={`${prefix}checkbox-all`} />
   {/snippet}
 </ListItem>
 
-<ListItem borderTop type="radio" for={`${prefix}radio-all-1`}>
-  {#snippet text()}Radio 1{/snippet}
+<ListItem borderTop type="radio" for={`${prefix}radio-all-1`} text="Radio 1">
   {#snippet end()}
     <RadioInput id={`${prefix}radio-all-1`} name={`${prefix}radio-group-all`} />
   {/snippet}
 </ListItem>
 
-<ListItem type="radio" for={`${prefix}radio-all-2`}>
-  {#snippet text()}Radio 2{/snippet}
+<ListItem type="radio" for={`${prefix}radio-all-2`} text="Radio 2">
   {#snippet end()}
     <RadioInput id={`${prefix}radio-all-2`} name={`${prefix}radio-group-all`} />
   {/snippet}
 </ListItem>
 
-<ListItem borderTop type="switch" for={`${prefix}switch-all-1`}>
-  {#snippet text()}Switch 1{/snippet}
+<ListItem borderTop type="switch" for={`${prefix}switch-all-1`} text="Switch 1">
   {#snippet end()}
     <SwitchInput id={`${prefix}switch-all-1`} />
   {/snippet}

@@ -1,23 +1,22 @@
 export type Props = {
   autoFit?: boolean
   description?: string
+  endText?: string
   error?: boolean
   filled?: boolean
   label?: string
-  spread?: boolean
   small?: boolean
-  endText?: string
+  spread?: boolean
 }
 
 export type Slots<S> = {
   description?: string | S
+  endText?: string | S
   footer?: string | S
   header?: string | S
   label?: string | S
   prefix?: string | S
-  startText?: string | S
   suffix?: string | S
-  endText?: string | S
   supportingText?: string | S
 }
 

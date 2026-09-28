@@ -21,7 +21,8 @@ import { Table } from "@opui/astro"
     <Table.Row>
       <Table.Cell>Snippets</Table.Cell>
       <Table.Cell
-        ><code>actions</code>, <code>content</code>, <code>header</code
+        ><code>actions</code>, <code>children</code>, <code>content</code>, <code
+          >header</code
         ></Table.Cell
       >
       <Table.Cell>-</Table.Cell>
@@ -47,6 +48,12 @@ import { Table } from "@opui/astro"
       <Table.Cell
         >Specifies how the dialog can be closed (e.g., clicking outside).</Table.Cell
       >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>ref</code></Table.Cell>
+      <Table.Cell><code>HTMLDialogElement</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Bindable reference to the root element.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>

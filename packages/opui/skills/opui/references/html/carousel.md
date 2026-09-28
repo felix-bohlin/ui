@@ -403,7 +403,7 @@ A scrolling list of anything, e.g.[Cards](https://open-props-ui.netlify.app/html
 
 ## Custom buttons
 
-`--_button-prev-icon` and `--_button-next-icon` for custom icons.
+`--_button-prev-icon` and `--_button-next-icon` for custom icons, `--_button-icon-size` to scale them.
 
 ```html
 <ul

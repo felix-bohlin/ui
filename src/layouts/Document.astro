@@ -38,7 +38,7 @@ const descText =
   description ?? (preamble ? preamble.replace(/<[^>]+>/g, "").trim() : "")
 ---
 
-<Default title={titleText} description={descText} image={image}>
+<Default title={titleText} description={descText} hasMarkdown image={image}>
   <Fragment slot="toolbar">
     <LocalNav
       sidebarDrawerId={hasSidebarDrawer ? "sidebar-drawer" : undefined}

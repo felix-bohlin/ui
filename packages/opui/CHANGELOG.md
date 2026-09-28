@@ -12,6 +12,7 @@
 - `Button` and `IconButton` support `.ui-disabled`. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.
 - `Carousel` buttons take image icons via `--_button-prev-icon` and `--_button-next-icon`, sized with `--_button-icon-size`. The glyph is hidden when an icon is set, and the icons swap in RTL.
 - `layers.css` with the `@layer` order, for importing single component files.
+- The package ships an agent skill in `skills/opui` with a reference for every component.
 
 ### Fixed
 

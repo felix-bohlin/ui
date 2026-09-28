@@ -9,6 +9,7 @@ import {
 import sitemap from "@astrojs/sitemap"
 import expressiveCode from "astro-expressive-code"
 import vue from "@astrojs/vue"
+import llms from "./src/integrations/llms.mjs"
 
 import { DEFAULT_FRAMEWORK, FRAMEWORK_IDS } from "./src/utils/framework.js"
 
@@ -47,6 +48,7 @@ export default defineConfig({
   integrations: [
     vue(),
     sitemap(),
+    llms(),
     expressiveCode({
       themes: ["dark-plus", "light-plus"],
     }),

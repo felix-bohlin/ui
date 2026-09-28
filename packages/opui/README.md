@@ -109,6 +109,18 @@ Wrap your own styles in a layer above `utils` (or unlayered) to override.
 | `opui-css/vue`                      | All Vue components                            |
 | `opui-css/components/*`             | Individual Astro and Vue component sources    |
 
+## AI assistants
+
+The package ships an agent skill in `skills/opui` with a reference for every component, matching the installed version. Agents don't load skills from `node_modules` on their own, so copy it into your project:
+
+```bash
+cp -r node_modules/opui-css/skills/opui .claude/skills/opui
+```
+
+Use the skills folder your agent reads from if it isn't Claude Code, or point your `AGENTS.md` at `node_modules/opui-css/skills/opui/SKILL.md`.
+
+The docs are also available as [llms.txt](https://open-props-ui.netlify.app/llms.txt), and every docs page has a Markdown version, e.g. [/html/components/button.md](https://open-props-ui.netlify.app/html/components/button.md).
+
 ## License
 
 [MIT](./LICENSE) © Felix Bohlin

@@ -92,7 +92,7 @@
   {
     "id": "component-badge-html",
     "title": "Badge",
-    "description": "A badge is a small status indicator that can be placed on other elements.",
+    "description": "",
     "headings": "Variants Indicator Severities Visibility Alignment",
     "category": "Component",
     "frameworkId": "html",
@@ -102,7 +102,7 @@
   {
     "id": "component-badge-astro",
     "title": "Badge",
-    "description": "A badge is a small status indicator that can be placed on other elements.",
+    "description": "",
     "headings": "Variants Indicator Severities Visibility Alignment",
     "category": "Component",
     "frameworkId": "astro",
@@ -112,7 +112,7 @@
   {
     "id": "component-badge-vue",
     "title": "Badge",
-    "description": "A badge is a small status indicator that can be placed on other elements.",
+    "description": "",
     "headings": "Variants Indicator Severities Visibility Alignment",
     "category": "Component",
     "frameworkId": "vue",
@@ -242,7 +242,7 @@
   {
     "id": "component-carousel-html",
     "title": "Carousel",
-    "description": "A scrolling list with snap points, buttons and markers. CSS only.",
+    "description": "A scrolling list with snap points, buttons and markers.",
     "headings": "Basics Items per view Peek Images Video Buttons outside Custom buttons",
     "category": "Component",
     "frameworkId": "html",
@@ -252,7 +252,7 @@
   {
     "id": "component-carousel-astro",
     "title": "Carousel",
-    "description": "A scrolling list with snap points, buttons and markers. CSS only.",
+    "description": "A scrolling list with snap points, buttons and markers.",
     "headings": "Basics Items per view Peek Images Video Buttons outside Custom buttons",
     "category": "Component",
     "frameworkId": "astro",
@@ -262,7 +262,7 @@
   {
     "id": "component-carousel-vue",
     "title": "Carousel",
-    "description": "A scrolling list with snap points, buttons and markers. CSS only.",
+    "description": "A scrolling list with snap points, buttons and markers.",
     "headings": "Basics Items per view Peek Images Video Buttons outside Custom buttons",
     "category": "Component",
     "frameworkId": "vue",
@@ -542,7 +542,7 @@
   {
     "id": "component-menu-html",
     "title": "Menu",
-    "description": "A popover list of actions or links. CSS only.",
+    "description": "A popover list of actions or links.",
     "headings": "Basics Custom items Placement Submenu",
     "category": "Component",
     "frameworkId": "html",
@@ -552,7 +552,7 @@
   {
     "id": "component-menu-astro",
     "title": "Menu",
-    "description": "A popover list of actions or links. CSS only.",
+    "description": "A popover list of actions or links.",
     "headings": "Basics Custom items Placement Submenu",
     "category": "Component",
     "frameworkId": "astro",
@@ -562,7 +562,7 @@
   {
     "id": "component-menu-vue",
     "title": "Menu",
-    "description": "A popover list of actions or links. CSS only.",
+    "description": "A popover list of actions or links.",
     "headings": "Basics Custom items Placement Submenu",
     "category": "Component",
     "frameworkId": "vue",
@@ -1332,36 +1332,6 @@
     "url": "/vue/api#button-group"
   },
   {
-    "id": "api-card-astro",
-    "title": "Card API",
-    "description": "Reference for Card Astro component.",
-    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#card"
-  },
-  {
-    "id": "api-card-html",
-    "title": "Card API",
-    "description": "Reference for Card HTML component.",
-    "headings": "Children - Optional wrappers for child content. Variants .ui-text The variant to use. Alignment .ui-align-end - Align actions to the end.",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#card"
-  },
-  {
-    "id": "api-card-vue",
-    "title": "Card API",
-    "description": "Reference for Card Vue component.",
-    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant \"text\" The variant to use.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#card"
-  },
-  {
     "id": "api-callout-astro",
     "title": "Callout API",
     "description": "Reference for Callout Astro component.",
@@ -1390,6 +1360,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#callout"
+  },
+  {
+    "id": "api-card-astro",
+    "title": "Card API",
+    "description": "Reference for Card Astro component.",
+    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant - The variant to use.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#card"
+  },
+  {
+    "id": "api-card-html",
+    "title": "Card API",
+    "description": "Reference for Card HTML component.",
+    "headings": "Children - Optional wrappers for child content. Variants - The variant to use. Alignment .ui-align-end - Align actions to the end.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#card"
+  },
+  {
+    "id": "api-card-vue",
+    "title": "Card API",
+    "description": "Reference for Card Vue component.",
+    "headings": "Slots - Optional slots. actionsAlign \"start\", \"end\" - Alignment for the actions slot. variant - The variant to use.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#card"
   },
   {
     "id": "api-carousel-astro",
@@ -1605,7 +1605,7 @@
     "id": "api-drawer-astro",
     "title": "Drawer API",
     "description": "Reference for Drawer Astro component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. content - - Main content area, wrapped in a div with a\n        ui-content class. default - - Unwrapped content. footer - - Bottom area, e.g. a DrawerFooter. header - - Top area, e.g. a DrawerHeader.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1615,7 +1615,7 @@
     "id": "api-drawer-html",
     "title": "Drawer API",
     "description": "Reference for Drawer HTML component.",
-    "headings": "Sides .ui-inline-start, .ui-inline-end,\n        .ui-block-start, .ui-block-end .ui-inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .ui-backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\n        Prevents focus from jumping to the first focusable element. .ui-header - - Top area for titles. .ui-content - - Main content area. .ui-actions - - Bottom action area.",
+    "headings": "Sides .ui-inline-start, .ui-inline-end,\n        .ui-block-start, .ui-block-end .ui-inline-start The side it opens from. Close behavior closedby=\"any\", closedby=\"closerequest\",\n        closedby=\"none\" closedby=\"any\" How the drawer is closed. Backdrop .ui-backdrop-transparent - Removes the backdrop blur. Autofocus autofocus - Focuses the drawer container (or a specific element) when opened.\n        Prevents focus from jumping to the first focusable element. .ui-content - - Main content area. .ui-footer - - Bottom action area. .ui-header - - Top area for titles.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -1625,7 +1625,7 @@
     "id": "api-drawer-vue",
     "title": "Drawer API",
     "description": "Reference for Drawer Vue component.",
-    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. heading - - The drawer title. default - - Main content area. actions - - Bottom action area. actions",
+    "headings": "id string auto-generated Unique identifier. Defaults to a stable auto-generated id when omitted. side \"inline-start\", \"inline-end\",\n        \"block-start\", \"block-end\" \"inline-start\" The side it opens from. backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. scrollLock boolean true Whether to lock page scroll. class string - Optional CSS class. closedby \"any\", \"closerequest\", \"none\" \"any\" How the drawer is closed. commandfor string - The drawer id to close. heading string - The drawer title. content - - Main content area, wrapped in a div with a\n        ui-content class. default - - Unwrapped content. footer - - Bottom area, e.g. a DrawerFooter. header - - Top area, e.g. a DrawerHeader.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
@@ -1722,34 +1722,34 @@
     "url": "/vue/api#icon-button"
   },
   {
-    "id": "api-list-astro",
-    "title": "List API",
-    "description": "Reference for List Astro component.",
-    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
+    "id": "api-progress-astro",
+    "title": "Progress API",
+    "description": "Reference for Progress Astro component.",
+    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
-    "url": "/astro/api#list"
+    "url": "/astro/api#progress"
   },
   {
-    "id": "api-list-html",
-    "title": "List API",
-    "description": "Reference for List HTML component.",
-    "headings": "Dense .ui-dense - When enabled list appears tighter packed. Gutterless .ui-gutterless - When enabled list inline padding is removed. Bordered .ui-bordered - Variants - Background color variants. Main parts - Building blocks in List item. Inset .ui-inset - Border top .ui-border-top - When enabled the list item will get a top border.",
+    "id": "api-progress-html",
+    "title": "Progress API",
+    "description": "Reference for Progress HTML component.",
+    "headings": "Progress - Indeterminate No value attribute - Display an indeterminate loading state. Variant -",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
-    "url": "/html/api#list"
+    "url": "/html/api#progress"
   },
   {
-    "id": "api-list-vue",
-    "title": "List API",
-    "description": "Reference for List Vue component.",
-    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
+    "id": "api-progress-vue",
+    "title": "Progress API",
+    "description": "Reference for Progress Vue component.",
+    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
-    "url": "/vue/api#list"
+    "url": "/vue/api#progress"
   },
   {
     "id": "api-menu-astro",
@@ -1782,36 +1782,6 @@
     "url": "/vue/api#menu"
   },
   {
-    "id": "api-progress-astro",
-    "title": "Progress API",
-    "description": "Reference for Progress Astro component.",
-    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#progress"
-  },
-  {
-    "id": "api-progress-html",
-    "title": "Progress API",
-    "description": "Reference for Progress HTML component.",
-    "headings": "Progress - Indeterminate No value attribute - Display an indeterminate loading state. Variant -",
-    "category": "API",
-    "frameworkId": "html",
-    "type": "HTML",
-    "url": "/html/api#progress"
-  },
-  {
-    "id": "api-progress-vue",
-    "title": "Progress API",
-    "description": "Reference for Progress Vue component.",
-    "headings": "value number | string - The current value of the progress bar. max number | string - The maximum value of the progress bar. aria-busy \"true\" | \"false\" | boolean - aria-label string - Accessible label for the progress bar. variant 'filled' | 'default' | 'tonal' 'default'",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#progress"
-  },
-  {
     "id": "api-range-astro",
     "title": "Range API",
     "description": "Reference for Range Astro component.",
@@ -1840,6 +1810,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#range"
+  },
+  {
+    "id": "api-list-astro",
+    "title": "List API",
+    "description": "Reference for List Astro component.",
+    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#list"
+  },
+  {
+    "id": "api-list-html",
+    "title": "List API",
+    "description": "Reference for List HTML component.",
+    "headings": "Dense .ui-dense - When enabled list appears tighter packed. Gutterless .ui-gutterless - When enabled list inline padding is removed. Bordered .ui-bordered - Variants - Background color variants. Main parts - Building blocks in List item. Inset .ui-inset - Border top .ui-border-top - When enabled the list item will get a top border.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#list"
+  },
+  {
+    "id": "api-list-vue",
+    "title": "List API",
+    "description": "Reference for List Vue component.",
+    "headings": "bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. variant \"default\" | \"tonal\" | \"transparent\" - The background color variant of the list. as string - borderTop boolean false List item top border. headline string - The main text for the list item. inset boolean false Aligns with items that have a start icon. supportingText string - Extra text displayed below the headline.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#list"
   },
   {
     "id": "api-select-astro",
@@ -2082,16 +2082,6 @@
     "url": "/vue/api#textarea"
   },
   {
-    "id": "api-toast-astro",
-    "title": "Toast API",
-    "description": "Reference for Toast Astro component.",
-    "headings": "",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#toast"
-  },
-  {
     "id": "api-toast-html",
     "title": "Toast API",
     "description": "Reference for Toast HTML component.",
@@ -2100,16 +2090,6 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#toast"
-  },
-  {
-    "id": "api-toast-vue",
-    "title": "Toast API",
-    "description": "Reference for Toast Vue component.",
-    "headings": "",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#toast"
   },
   {
     "id": "api-toggle-astro",

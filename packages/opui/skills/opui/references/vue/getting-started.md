@@ -25,6 +25,7 @@ Vue components ship markup only - the CSS still has to be imported in your app s
 Or pick and choose:
 
 ```css
+@import "opui-css/css/layers.css";
 @import "opui-css/open-props.css";
 @import "opui-css/core/palette.css";
 @import "opui-css/css/theme.css";

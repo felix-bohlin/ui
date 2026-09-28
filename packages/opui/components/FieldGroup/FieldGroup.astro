@@ -3,17 +3,15 @@ import type { Props } from "./types.astro"
 export const title = "Field Group"
 
 const { class: className, direction, name, ...rest } = Astro.props
-const originalName = Astro.locals.currentFieldName
-if (name) {
-  Astro.locals.currentFieldName = name
-}
 
-let html = ""
-try {
-  html = await Astro.slots.render("default")
-} finally {
-  Astro.locals.currentFieldName = originalName
-}
+const slotHtml = (await Astro.slots.render("default")) ?? ""
+const escapedName = name?.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
+const html = name
+  ? slotHtml.replace(
+      /<(input|select|textarea)\b(?![^>]*\sname=)/g,
+      (_, tag) => `<${tag} name="${escapedName}"`,
+    )
+  : slotHtml
 ---
 
 <div

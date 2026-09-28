@@ -10,13 +10,10 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const closeDrawer = (event: MouseEvent) => {
-  const target = event.currentTarget as HTMLElement | null
-  target?.closest("dialog")?.close()
-}
-
 const closeAttrs = computed(() =>
-  commandfor ? { command: "close", commandfor } : { onClick: closeDrawer },
+  commandfor
+    ? { command: "close", commandfor }
+    : { onclick: "this.closest('dialog').close()" },
 )
 </script>
 

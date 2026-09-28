@@ -2,7 +2,7 @@ import fs from "fs"
 import path from "path"
 import { globby } from "globby"
 
-import { FRAMEWORKS } from "../src/utils/framework.js"
+import { componentHasFramework, FRAMEWORKS } from "../src/utils/framework.js"
 
 const API_LABEL_PATTERN = FRAMEWORKS.map((f) => f.label).join("|")
 const LABEL_TO_ID = Object.fromEntries(FRAMEWORKS.map((f) => [f.label, f.id]))
@@ -70,6 +70,7 @@ async function generateIndex() {
     const sharedPath = `/components/${slug}`
 
     for (const framework of FRAMEWORKS) {
+      if (!componentHasFramework(framework.id, slug)) continue
       const url = frameworkUrl(framework.id, sharedPath)
       index.push({
         id: `component-${slug}-${framework.id}`,

@@ -279,7 +279,7 @@ const plans = [
 
 ## Custom buttons
 
-`--_button-prev-icon` and `--_button-next-icon` for custom icons.
+`--_button-prev-icon` and `--_button-next-icon` for custom icons, `--_button-icon-size` to scale them.
 
 ```vue
 <script setup lang="ts">

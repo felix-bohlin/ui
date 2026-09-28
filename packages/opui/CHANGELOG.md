@@ -20,6 +20,12 @@
 - `ButtonGroup` only styles its direct child buttons, so a `Menu` inside it (split button) keeps its own item styles.
 - Component borders read `--border-width` (and `--field-border-width` for `Checkbox`, `Radio`, `Switch` and `TextField`) instead of a hardcoded `1px`. This affects `Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton` and `ToggleGroup`.
 
+## 5.5.0 - 2026-09-28
+
+### Removed
+
+- `Toast` component from Astro and Vue. Toast is still available in HTML as an alpha, using `toast.css` and `toast.js`.
+
 ## 5.4.3 - 2026-09-18
 
 ### Fixed

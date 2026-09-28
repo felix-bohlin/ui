@@ -9,6 +9,8 @@ import ListCSS from "@opui/css/components/list.css?raw"
 import ExampleDefaultHTML from "../../component-examples/list/Default.html?raw"
 
 import ListDense from "../../component-examples/ListDense.astro"
+import ListDenseSolid from "../../component-examples/ListDense.tsx"
+import ListDenseSolidRaw from "../../component-examples/ListDense.tsx?raw"
 import ListDenseVue from "../../component-examples/ListDense.vue"
 import ListDenseVueRaw from "../../component-examples/ListDense.vue?raw"
 import Conditional from "../../components/Conditional.astro"
@@ -90,6 +92,20 @@ export const description =
           items after the main content
         </li>
       </ul>
+      <ul slot="solid">
+        <li>
+          <a href="#text" class="ui-link"><code>text</code> prop</a>: main
+          content
+        </li>
+        <li>
+          <a href="#start-items" class="ui-link"><code>start</code> prop</a> (optional):
+          items before the main content
+        </li>
+        <li>
+          <a href="#end-items" class="ui-link"><code>end</code> prop</a> (optional):
+          items after the main content
+        </li>
+      </ul>
     </Conditional>
 
     <div class="ui-not-rich-text">
@@ -117,6 +133,9 @@ export const description =
         > to change the background color.
       </p>
       <p slot="vue">
+        Change background color with the <code>variant</code> prop.
+      </p>
+      <p slot="solid">
         Change background color with the <code>variant</code> prop.
       </p>
     </Conditional>
@@ -155,6 +174,9 @@ export const description =
       <p slot="vue">
         Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
       </p>
+      <p slot="solid">
+        Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
+      </p>
     </Conditional>
     <AutoExample name="Selected" />
   </section>
@@ -177,6 +199,12 @@ export const description =
         >
         and <code>description</code> props directly on <code>ListItem</code>.
       </Fragment>
+      <Fragment slot="solid">
+        Main text lives in the <code>text</code> prop, or pass <code
+          >headline</code
+        >
+        and <code>description</code> props directly on <code>ListItem</code>.
+      </Fragment>
     </Conditional>
 
     <AutoExample name="Text" />
@@ -193,6 +221,9 @@ export const description =
       </Fragment>
       <Fragment slot="vue">
         Authored via the <code>start</code> slot on <code>ListItem</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        Authored via the <code>start</code> prop on <code>ListItem</code>.
       </Fragment>
     </Conditional>
 
@@ -225,6 +256,9 @@ export const description =
       </Fragment>
       <Fragment slot="vue">
         Authored via the <code>end</code> slot on <code>ListItem</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        Authored via the <code>end</code> prop on <code>ListItem</code>.
       </Fragment>
     </Conditional>
 
@@ -320,8 +354,11 @@ export const description =
       <p slot="vue">
         Just add the <code>dense</code> prop to the <code>List</code>!
       </p>
+      <p slot="solid">
+        Just add the <code>dense</code> prop to the <code>List</code>!
+      </p>
     </Conditional>
-    <Example>
+    <Example solidExampleId="ListDense">
       <Conditional slot="controls">
         <Switch
           slot="html"
@@ -350,12 +387,22 @@ export const description =
         >
           <code>dense</code>
         </Switch>
+        <Switch
+          slot="solid"
+          id="list-dense-toggle-solid"
+          class="list-dense-toggle"
+          small
+          checked
+        >
+          <code>dense</code>
+        </Switch>
       </Conditional>
 
       <Example.Preview slot="preview-astro">
         <ListDense />
       </Example.Preview>
       <Example.Preview slot="preview-vue" code={ListDenseVue} />
+      <Example.Preview slot="preview-solid" code={ListDenseSolid} />
       <Example.Preview slot="preview-html">
         <div
           set:html={ExampleDefaultHTML.replace(
@@ -377,6 +424,7 @@ export const description =
 </List>`}
       />
       <Example.Code slot="code-vue" code={ListDenseVueRaw} />
+      <Example.Code slot="code-solid" code={ListDenseSolidRaw} />
     </Example>
   </section>
 

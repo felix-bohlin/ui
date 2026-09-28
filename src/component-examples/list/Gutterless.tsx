@@ -1,11 +1,46 @@
-import { List } from "opui-css/solid"
+import { List, ListItem } from "opui-css/solid"
 
 export default function Example() {
   return (
     <List gutterless>
-      <li>Item one</li>
-      <li>Item two</li>
-      <li>Item three</li>
+      <ListItem
+        headline="Gutterless list item"
+        end={
+          <div>
+            <button class="ui-icon-button" type="button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        }
+      />
+      <ListItem
+        headline="Headline"
+        description="Supporting text"
+        start={
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
+            ></path>
+          </svg>
+        }
+        end={<div>100+</div>}
+      />
     </List>
   )
 }

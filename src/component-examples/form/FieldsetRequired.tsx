@@ -1,15 +1,21 @@
-import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  TextField,
+  Textarea,
+} from "opui-css/solid"
 
 export default function Example() {
   return (
-    <Form>
-      <FieldSet>
-        <FieldLegend required>Required fieldset</FieldLegend>
-        <FieldGroup name="form-required">
-          <Checkbox>Option A</Checkbox>
-          <Checkbox>Option B</Checkbox>
-        </FieldGroup>
-      </FieldSet>
-    </Form>
+    <FieldSet>
+      <FieldLegend>Pet info</FieldLegend>
+      <FieldDescription>We must know your pet's information.</FieldDescription>
+      <FieldGroup name="bio">
+        <TextField label="Name" />
+        <Textarea required label="Life story" />
+      </FieldGroup>
+    </FieldSet>
   )
 }

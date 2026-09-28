@@ -1,15 +1,24 @@
-import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
+import {
+  Checkbox,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "opui-css/solid"
 
 export default function Example() {
   return (
-    <Form>
-      <FieldSet disabled>
-        <FieldLegend>Disabled fieldset</FieldLegend>
-        <FieldGroup name="form-disabled">
-          <Checkbox>Option A</Checkbox>
-          <Checkbox>Option B</Checkbox>
-        </FieldGroup>
-      </FieldSet>
-    </Form>
+    <FieldSet disabled>
+      <FieldLegend>Pet dating</FieldLegend>
+      <FieldDescription>You can't change these settings</FieldDescription>
+      <FieldGroup name="notifications">
+        <Checkbox value="horse-tinder" checked>
+          Horse Tinder
+        </Checkbox>
+        <Checkbox value="onlyhorsefans" checked>
+          OnlyHorseFans
+        </Checkbox>
+      </FieldGroup>
+    </FieldSet>
   )
 }

@@ -1,31 +1,39 @@
-import { splitProps, type JSX } from "solid-js"
+import { omit } from "solid-js"
 import type { Props } from "./types.solid"
 
 export default function Progress(props: Props) {
-  const [local, rest] = splitProps(props, [
+  const rest = omit(
+    props,
     "aria-busy",
     "aria-describedby",
     "aria-label",
+    "children",
+    "class",
     "id",
     "max",
     "value",
     "variant",
-    "class",
-    "children",
-  ])
+  )
 
   return (
-    <progress
-      aria-busy={local["aria-busy"]}
-      aria-describedby={local["aria-describedby"]}
-      aria-label={local["aria-label"]}
-      id={local.id}
-      max={local.max}
-      value={local.value}
-      class={`ui-progress ${local.variant ? `ui-${local.variant}` : ""} ${local.class || ""}`.trim()}
-      {...rest}
+    <div
+      class={[
+        "ui-progress",
+        props.variant && `ui-${props.variant}`,
+        props.class,
+      ]}
     >
-      {local.children}
-    </progress>
+      <progress
+        aria-busy={props["aria-busy"]}
+        aria-describedby={props["aria-describedby"]}
+        aria-label={props["aria-label"]}
+        id={props.id}
+        max={props.max}
+        value={props.value}
+        {...rest}
+      >
+        {props.children}
+      </progress>
+    </div>
   )
 }

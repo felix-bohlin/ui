@@ -19,22 +19,16 @@ import { Table } from "@opui/astro"
   </Table.Head>
   <Table.Body>
     <Table.Row>
-      <Table.Cell><code>critical</code></Table.Cell>
-      <Table.Cell><code>boolean</code></Table.Cell>
-      <Table.Cell><code>false</code></Table.Cell>
-      <Table.Cell>Field group error state.</Table.Cell>
-    </Table.Row>
-    <Table.Row>
-      <Table.Cell><code>legend</code></Table.Cell>
-      <Table.Cell><code>string</code></Table.Cell>
-      <Table.Cell>-</Table.Cell>
-      <Table.Cell>The text for the legend element.</Table.Cell>
-    </Table.Row>
-    <Table.Row>
       <Table.Cell><code>direction</code></Table.Cell>
-      <Table.Cell><code>"row"</code></Table.Cell>
+      <Table.Cell><code>"row"</code>, <code>"column"</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell>The orientation of the field group.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>name</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Passed down as <code>name</code> to child radios.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>

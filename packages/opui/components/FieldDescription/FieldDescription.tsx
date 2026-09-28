@@ -1,13 +1,12 @@
-import { splitProps, type JSX } from "solid-js"
-import { Dynamic } from "solid-js/web"
+import { omit } from "solid-js"
 import type { Props } from "./types.solid"
 
 export default function FieldDescription(props: Props) {
-  const [local, rest] = splitProps(props, ["class", "as", "children"])
-  
+  const rest = omit(props, "children", "class")
+
   return (
-    <Dynamic component={local.as || "div"} class={`ui-fielddescription ${local.class || ""}`} {...rest}>
-      {local.children}
-    </Dynamic>
+    <p class={["ui-field-description", props.class]} {...rest}>
+      {props.children}
+    </p>
   )
 }

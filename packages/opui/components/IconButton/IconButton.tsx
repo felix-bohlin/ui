@@ -1,28 +1,35 @@
-import { splitProps, type JSX } from "solid-js"
-import { Dynamic } from "solid-js/web"
+import { omit } from "solid-js"
+import { Dynamic } from "@solidjs/web"
 import type { Props } from "./types.solid"
 
 export default function IconButton(props: Props) {
-  const [local, rest] = splitProps(props, [
+  const rest = omit(
+    props,
     "as",
+    "children",
+    "class",
     "color",
     "href",
     "size",
     "variant",
-    "class",
-    "children",
-  ])
+  )
 
-  const Tag = () => local.as || (local.href ? "a" : "button")
+  const Tag = () => props.as || (props.href ? "a" : "button")
 
   return (
     <Dynamic
       component={Tag()}
-      class={`ui-icon-button ${local.size ? `ui-${local.size}` : ""} ${local.variant ? `ui-${local.variant}` : ""} ${local.color ? `ui-${local.color}` : ""} ${local.class || ""}`.trim()}
-      href={local.href}
+      class={[
+        "ui-icon-button",
+        props.size && `ui-${props.size}`,
+        props.variant && `ui-${props.variant}`,
+        props.color && `ui-${props.color}`,
+        props.class,
+      ]}
+      href={props.href}
       {...rest}
     >
-      {local.children}
+      {props.children}
     </Dynamic>
   )
 }

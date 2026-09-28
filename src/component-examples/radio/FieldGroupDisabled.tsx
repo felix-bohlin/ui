@@ -4,10 +4,11 @@ export default function Example() {
   return (
     <Form>
       <FieldSet disabled>
-        <FieldLegend>Disabled</FieldLegend>
-        <FieldGroup name="radio-disabled">
-          <Radio value="a">Option A</Radio>
-          <Radio value="b">Option B</Radio>
+        <FieldLegend>Legend</FieldLegend>
+        <FieldGroup direction="row" name="fieldset-disabled-1-astro">
+          <Radio checked>Radio 1</Radio>
+          <Radio>Radio 2</Radio>
+          <Radio>Radio 3</Radio>
         </FieldGroup>
       </FieldSet>
     </Form>

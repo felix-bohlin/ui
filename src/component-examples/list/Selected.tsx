@@ -3,9 +3,21 @@ import { List, ListItem } from "opui-css/solid"
 export default function Example() {
   return (
     <List>
-      <ListItem type="button" selected headline="Selected item" />
-      <ListItem type="button" headline="Unselected item" />
-      <ListItem type="button" headline="Unselected item" />
+      <ListItem aria-selected="true">
+        <a href="#">
+          <div class="ui-text">
+            <p>Selected item</p>
+            <p>This item has aria-selected="true" applied to the ListItem</p>
+          </div>
+        </a>
+      </ListItem>
+      <ListItem>
+        <a href="#">
+          <div class="ui-text">
+            <p>Normal item</p>
+          </div>
+        </a>
+      </ListItem>
     </List>
   )
 }

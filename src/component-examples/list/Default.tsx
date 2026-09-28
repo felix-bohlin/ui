@@ -1,11 +1,10 @@
 import { List } from "opui-css/solid"
+import ListAll from "../ListAll.tsx"
 
 export default function Example() {
   return (
     <List>
-      <li>Item one</li>
-      <li>Item two</li>
-      <li>Item three</li>
+      <ListAll prefix="default-" />
     </List>
   )
 }

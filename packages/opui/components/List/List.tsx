@@ -1,22 +1,33 @@
-import { splitProps, type JSX } from "solid-js"
+import { omit } from "solid-js"
 import type { Props } from "./types.solid"
 
 export default function List(props: Props) {
-  const [local, rest] = splitProps(props, [
+  const rest = omit(
+    props,
     "bordered",
+    "children",
+    "class",
     "dense",
+    "divided",
     "gutterless",
     "variant",
-    "class",
-    "children",
-  ])
+  )
 
   return (
     <ul
-      class={`ui-list ${local.bordered ? "ui-bordered" : ""} ${local.dense ? "ui-dense" : ""} ${local.gutterless ? "ui-gutterless" : ""} ${local.variant ? `ui-${local.variant}` : ""} ${local.class || ""}`.trim()}
+      class={[
+        "ui-list",
+        {
+          "ui-bordered": !!props.bordered,
+          "ui-dense": !!props.dense,
+          "ui-gutterless": !!props.gutterless,
+        },
+        props.variant && `ui-${props.variant}`,
+        props.class,
+      ]}
       {...rest}
     >
-      {local.children}
+      {props.children}
     </ul>
   )
 }

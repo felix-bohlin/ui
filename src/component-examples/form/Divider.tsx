@@ -1,11 +1,28 @@
-import { Divider, Form, TextField } from "opui-css/solid"
+import {
+  Button,
+  Divider,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+  TextField,
+} from "opui-css/solid"
 
 export default function Example() {
   return (
     <Form>
-      <TextField label="Email" type="email" />
+      <FieldSet>
+        <FieldLegend>Post Content</FieldLegend>
+        <FieldGroup>
+          <TextField label="Title" placeholder="My new post" />
+        </FieldGroup>
+      </FieldSet>
+
       <Divider />
-      <TextField label="Password" type="password" />
+
+      <FieldGroup>
+        <Button variant="filled">Publish</Button>
+      </FieldGroup>
     </Form>
   )
 }

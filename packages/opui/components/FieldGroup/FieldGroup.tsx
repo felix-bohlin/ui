@@ -1,13 +1,24 @@
-import { splitProps, type JSX } from "solid-js"
-import { Dynamic } from "solid-js/web"
+import { omit, useContext } from "solid-js"
+import { FieldGroupContext } from "./context"
 import type { Props } from "./types.solid"
 
 export default function FieldGroup(props: Props) {
-  const [local, rest] = splitProps(props, ["class", "as", "children"])
-  
+  const rest = omit(props, "children", "class", "direction", "name")
+  const parent = useContext(FieldGroupContext)
+
   return (
-    <Dynamic component={local.as || "div"} class={`ui-fieldgroup ${local.class || ""}`} {...rest}>
-      {local.children}
-    </Dynamic>
+    <FieldGroupContext value={{ name: props.name || parent.name }}>
+      <div
+        class={[
+          "ui-field-group",
+          props.direction && `ui-${props.direction}`,
+          props.class,
+        ]}
+        {...rest}
+        role="group"
+      >
+        {props.children}
+      </div>
+    </FieldGroupContext>
   )
 }

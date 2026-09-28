@@ -1,5 +1,5 @@
 import { Progress } from "opui-css/solid"
 
 export default function Example() {
-  return <Progress label="Loading..." />
+  return <Progress aria-busy="true" />
 }

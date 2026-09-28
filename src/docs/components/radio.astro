@@ -7,6 +7,7 @@ import FormCSS from "@opui/css/components/form.css?raw"
 
 import FieldGroupAPIAstro from "../../component-api/field-group/Astro.astro"
 import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
+import FieldGroupAPISolid from "../../component-api/field-group/Solid.astro"
 import FieldGroupAPIVue from "../../component-api/field-group/Vue.astro"
 
 import Conditional from "../../components/Conditional.astro"
@@ -18,6 +19,7 @@ import Conditional from "../../components/Conditional.astro"
   apis={{
     astro: FieldGroupAPIAstro,
     html: FieldGroupAPIHTML,
+    solid: FieldGroupAPISolid,
     vue: FieldGroupAPIVue,
   }}
   changelogPaths={[
@@ -63,6 +65,10 @@ import Conditional from "../../components/Conditional.astro"
       The <code>name</code> prop will get passed down to each radio button in the
       group.
     </Fragment>
+    <Fragment slot="solid">
+      The <code>name</code> prop will get passed down to each radio button in the
+      group.
+    </Fragment>
   </Conditional>
 
   <AutoExample name="FieldGroup" centered column />
@@ -102,6 +108,11 @@ import Conditional from "../../components/Conditional.astro"
           >Radio</code
         >. It is forwarded to the underlying <code>&lt;input&gt;</code>.
       </Fragment>
+      <Fragment slot="solid">
+        Add the <code>required</code> attribute on at least one <code
+          >Radio</code
+        >. It is forwarded to the underlying <code>&lt;input&gt;</code>.
+      </Fragment>
       <Fragment slot="html">
         Attach the <code>required</code> attribute to at least one of your <code
           >&lt;input&gt;</code
@@ -126,6 +137,10 @@ import Conditional from "../../components/Conditional.astro"
         > component.
       </p>
       <p slot="vue">
+        Attach <code>data-invalid</code> to the <code>FieldSet</code> wrapper, or
+        use the <code>error</code> prop on individual <code>Radio</code> components.
+      </p>
+      <p slot="solid">
         Attach <code>data-invalid</code> to the <code>FieldSet</code> wrapper, or
         use the <code>error</code> prop on individual <code>Radio</code> components.
       </p>

@@ -1,15 +1,33 @@
-import { FieldDescription, FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/solid"
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
+  Radio,
+} from "opui-css/solid"
 
 export default function Example() {
   return (
     <Form>
       <FieldSet>
-        <FieldLegend>Options</FieldLegend>
-        <FieldDescription>Pick the best option for you.</FieldDescription>
-        <FieldGroup name="radio-desc">
-          <Radio value="a">Option A</Radio>
-          <Radio value="b">Option B</Radio>
+        <FieldLegend>Legend</FieldLegend>
+        <FieldDescription>Field description above fields</FieldDescription>
+        <FieldGroup direction="row" name="fieldset-field-description-1-astro">
+          <Radio checked>Radio 1</Radio>
+          <Radio>Radio 2</Radio>
+          <Radio>Radio 3</Radio>
         </FieldGroup>
+      </FieldSet>
+
+      <FieldSet>
+        <FieldLegend>Legend</FieldLegend>
+        <FieldGroup direction="row" name="fieldset-field-description-2-astro">
+          <Radio checked>Radio 1</Radio>
+          <Radio>Radio 2</Radio>
+          <Radio>Radio 3</Radio>
+        </FieldGroup>
+        <FieldDescription>Field description below fields</FieldDescription>
       </FieldSet>
     </Form>
   )

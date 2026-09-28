@@ -2,7 +2,7 @@
 import { Table } from "@opui/astro"
 ---
 
-<h3 id="list-astro">List</h3>
+<h3 id="list-solid">List</h3>
 
 <Table>
   <Table.ColumnGroup>
@@ -40,14 +40,17 @@ import { Table } from "@opui/astro"
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>variant</code></Table.Cell>
-      <Table.Cell><code>"default" | "tonal" | "transparent"</code></Table.Cell>
+      <Table.Cell
+        ><code>"default"</code>, <code>"tonal"</code>, <code>"transparent"</code
+        ></Table.Cell
+      >
       <Table.Cell>-</Table.Cell>
       <Table.Cell>The background color variant of the list.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>
 
-<h3 id="list-item-astro">List item</h3>
+<h3 id="list-item-solid">List item</h3>
 
 <Table>
   <Table.ColumnGroup>
@@ -72,8 +75,7 @@ import { Table } from "@opui/astro"
       <Table.Cell
         >Renders an inner element of the given tag (e.g. <code>"a"</code>, <code
           >"button"</code
-        >). All extra props are forwarded to it, so any HTML attribute is
-        supported without enumeration.</Table.Cell
+        >). All extra props are forwarded to it.</Table.Cell
       >
     </Table.Row>
     <Table.Row>
@@ -81,6 +83,26 @@ import { Table } from "@opui/astro"
       <Table.Cell><code>boolean</code></Table.Cell>
       <Table.Cell><code>false</code></Table.Cell>
       <Table.Cell>List item top border.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>description</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Extra text displayed below the headline.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>end</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Content after the main text.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>for</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The input id for the <code>&lt;label&gt;</code> wrapper.</Table.Cell
+      >
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>headline</code></Table.Cell>
@@ -95,10 +117,27 @@ import { Table } from "@opui/astro"
       <Table.Cell>Aligns with items that have a start icon.</Table.Cell>
     </Table.Row>
     <Table.Row>
-      <Table.Cell><code>supportingText</code></Table.Cell>
-      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell><code>start</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
-      <Table.Cell>Extra text displayed below the headline.</Table.Cell>
+      <Table.Cell>Content before the main text.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>text</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Main text content.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>type</code></Table.Cell>
+      <Table.Cell
+        ><code>"checkbox"</code>, <code>"radio"</code>, <code>"switch"</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Wraps the content in a <code>&lt;label&gt;</code> with the matching class.</Table.Cell
+      >
     </Table.Row>
   </Table.Body>
 </Table>

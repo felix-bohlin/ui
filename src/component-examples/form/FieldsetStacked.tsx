@@ -1,10 +1,23 @@
-import { Form, TextField } from "opui-css/solid"
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Radio,
+} from "opui-css/solid"
 
 export default function Example() {
   return (
-    <Form stacked>
-      <TextField label="First name" placeholder="First" />
-      <TextField label="Last name" placeholder="Last" />
-    </Form>
+    <FieldSet>
+      <FieldLegend>Favorite Pet</FieldLegend>
+      <FieldDescription>
+        Please select your favorite type of pet.
+      </FieldDescription>
+      <FieldGroup name="pet">
+        <Radio value="dog">Dog</Radio>
+        <Radio value="cat">Cat</Radio>
+        <Radio value="hamster">Hamster</Radio>
+      </FieldGroup>
+    </FieldSet>
   )
 }

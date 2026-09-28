@@ -20,48 +20,48 @@ import { Table } from "@opui/astro"
   <Table.Body>
     <Table.Row>
       <Table.Cell><code>as</code></Table.Cell>
-      <Table.Cell><code>any</code></Table.Cell>
+      <Table.Cell><code>"button"</code>, <code>"a"</code></Table.Cell>
       <Table.Cell
         ><code>"button"</code> (or <code>"a"</code> if <code>href</code> present)</Table.Cell
       >
       <Table.Cell>The underlying HTML element.</Table.Cell>
     </Table.Row>
     <Table.Row>
+      <Table.Cell><code>color</code></Table.Cell>
+      <Table.Cell><code>"critical"</code>, <code>"primary"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The color of the icon button. Default is a neutral gray.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>disabled</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Whether the icon button is disabled.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
       <Table.Cell><code>href</code></Table.Cell>
       <Table.Cell><code>string</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell
-        >Renders as an <a> tag if an href is provided.</a>
-      </Table.Cell>
-      <Table.Row>
-        <Table.Cell><code>size</code></Table.Cell>
-        <Table.Cell><code>"small"</code></Table.Cell>
-        <Table.Cell>-</Table.Cell>
-        <Table.Cell>The size of the icon button.</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell><code>color</code></Table.Cell>
-        <Table.Cell><code>"critical"</code>, <code>"primary"</code></Table.Cell>
-        <Table.Cell>-</Table.Cell>
-        <Table.Cell
-          >The color of the icon button. Default is a neutral gray.</Table.Cell
-        >
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell><code>variant</code></Table.Cell>
-        <Table.Cell
-          ><code>"outlined"</code> | <code>"tonal"</code> | <code>"filled"</code
-          ></Table.Cell
-        >
-        <Table.Cell>-</Table.Cell>
-        <Table.Cell>The style of the icon button.</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell><code>disabled</code></Table.Cell>
-        <Table.Cell><code>boolean</code></Table.Cell>
-        <Table.Cell>-</Table.Cell>
-        <Table.Cell>Whether the icon button is disabled.</Table.Cell>
-      </Table.Row>
+        >Renders as an <code>&lt;a&gt;</code> tag if an href is provided.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>size</code></Table.Cell>
+      <Table.Cell><code>"small"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The size of the icon button.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>variant</code></Table.Cell>
+      <Table.Cell
+        ><code>"outlined"</code>, <code>"tonal"</code>, <code>"filled"</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The style of the icon button.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>

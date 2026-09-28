@@ -1,13 +1,14 @@
-import { splitProps, type JSX } from "solid-js"
-import { Dynamic } from "solid-js/web"
+import { merge, omit } from "solid-js"
+import { Dynamic } from "@solidjs/web"
 import type { Props } from "./types.solid"
 
-export default function Form(props: Props) {
-  const [local, rest] = splitProps(props, ["class", "as", "children"])
-  
+export default function Form(rawProps: Props) {
+  const props = merge({ as: "form" }, rawProps)
+  const rest = omit(props, "as", "children", "class")
+
   return (
-    <Dynamic component={local.as || "div"} class={`ui-form ${local.class || ""}`} {...rest}>
-      {local.children}
+    <Dynamic component={props.as} class={["ui-form", props.class]} {...rest}>
+      {props.children}
     </Dynamic>
   )
 }

@@ -1,102 +1,103 @@
-import { splitProps, type JSX, Show, createMemo } from "solid-js"
-import { Dynamic } from "solid-js/web"
+import { children, omit, Show } from "solid-js"
+import { Dynamic } from "@solidjs/web"
+import type { JSX } from "@solidjs/web"
 import type { Props } from "./types.solid"
 
 export default function ListItem(props: Props) {
-  const [local, rest] = splitProps(props, [
-    "borderTop",
-    "for",
-    "inset",
-    "type",
+  const rest = omit(
+    props,
     "as",
-    "href",
-    "headline",
-    "description",
-    "start",
-    "end",
-    "text",
-    "class",
+    "borderTop",
     "children",
-  ])
+    "class",
+    "description",
+    "end",
+    "for",
+    "headline",
+    "inset",
+    "start",
+    "text",
+    "type",
+  )
+
+  const end = children(() => props.end)
+  const start = children(() => props.start)
+  const text = children(() => props.text)
 
   const hasLabel = () =>
-    local.type &&
-    (local.type === "checkbox" ||
-      local.type === "radio" ||
-      local.type === "switch")
+    props.type === "checkbox" ||
+    props.type === "radio" ||
+    props.type === "switch"
+  const hasText = () => !!(props.headline || props.description || text())
+  const Tag = () => props.as
 
-  const labelClass = () => local.type || ""
-  const Tag = () => local.as
+  const Start = () => (
+    <Show when={start()}>
+      <div class="ui-start">{start()}</div>
+    </Show>
+  )
+  const End = () => (
+    <Show when={end()}>
+      <div class="ui-end">{end()}</div>
+    </Show>
+  )
+  const Text = (textProps: { children?: JSX.Element }) => (
+    <div class="ui-text">
+      <Show when={props.headline}>
+        <p>{props.headline}</p>
+      </Show>
+      <Show when={props.description}>
+        <p>{props.description}</p>
+      </Show>
+      {text()}
+      {textProps.children}
+    </div>
+  )
 
   return (
     <li
-      class={`${local.borderTop ? "ui-border-top" : ""} ${local.inset ? "ui-inset" : ""} ${local.class || ""}`.trim() || undefined}
-      {...(Tag() || hasLabel() ? {} : rest)}
+      class={[
+        {
+          "ui-border-top": !!props.borderTop,
+          "ui-inset": !!props.inset,
+        },
+        props.class,
+      ]}
+      {...(Tag() ? {} : rest)}
     >
-      <Show when={hasLabel()}>
-        <label
-          class={labelClass() ? `ui-${labelClass()}` : undefined}
-          for={local.for}
-        >
-          <Show when={local.start}>
-            <div class="ui-start">{local.start}</div>
+      <Show
+        when={hasLabel()}
+        fallback={
+          <Show
+            when={Tag()}
+            fallback={
+              <>
+                <Start />
+                <Show when={hasText()} fallback={props.children}>
+                  <Text>{props.children}</Text>
+                </Show>
+                <End />
+              </>
+            }
+          >
+            <Dynamic component={Tag()} {...rest}>
+              <Start />
+              <Show when={hasText()} fallback={props.children}>
+                <Text>{props.children}</Text>
+              </Show>
+              <End />
+            </Dynamic>
           </Show>
-          <Show when={local.text || local.headline || local.description}>
-            <div class="ui-text">
-              <Show when={local.headline}><p>{local.headline}</p></Show>
-              <Show when={local.description}><p>{local.description}</p></Show>
-              {local.text}
-            </div>
+        }
+      >
+        <label class={props.type && `ui-${props.type}`} for={props.for}>
+          <Start />
+          <Show when={hasText()}>
+            <Text />
           </Show>
-          <Show when={local.end}>
-            <div class="ui-end">{local.end}</div>
-          </Show>
-          {local.children}
+          <End />
+          {props.children}
         </label>
-      </Show>
-
-      <Show when={!hasLabel() && Tag()}>
-        <Dynamic component={Tag() as any} href={local.href} {...rest}>
-          <Show when={local.start}>
-            <div class="ui-start">{local.start}</div>
-          </Show>
-          <Show
-            when={local.text || local.headline || local.description}
-            fallback={local.children}
-          >
-            <div class="ui-text">
-              <Show when={local.headline}><p>{local.headline}</p></Show>
-              <Show when={local.description}><p>{local.description}</p></Show>
-              {local.text}
-              {local.children}
-            </div>
-          </Show>
-          <Show when={local.end}>
-            <div class="ui-end">{local.end}</div>
-          </Show>
-        </Dynamic>
-      </Show>
-
-      <Show when={!hasLabel() && !Tag()}>
-        <>
-          <Show when={local.start}>
-            <div class="ui-start">{local.start}</div>
-          </Show>
-          <Show
-            when={local.text || local.headline || local.description}
-            fallback={local.children}
-          >
-            <div class="ui-text">
-              <Show when={local.headline}><p>{local.headline}</p></Show>
-              <Show when={local.description}><p>{local.description}</p></Show>
-              {local.text}
-              {local.children}
-            </div>
-          </Show>
-          <Show when={local.end}>
-            <div class="ui-end">{local.end}</div>
-          </Show>
-        </>
       </Show>
     </li>
   )

@@ -19,6 +19,12 @@
 - `Button`, `IconButton` and `ButtonGroup` style `[aria-disabled="true"]` the same as `[disabled]`, e.g. for `<a class="ui-button" aria-disabled="true">` or focusable disabled buttons.
 - `ButtonGroup` only styles its direct child buttons, so a `Menu` inside it (split button) keeps its own item styles.
 
+## 5.5.0 - 2026-09-28
+
+### Removed
+
+- `Toast` component from Astro and Vue. Toast is still available in HTML as an alpha, using `toast.css` and `toast.js`.
+
 ## 5.4.3 - 2026-09-18
 
 ### Fixed

@@ -42,7 +42,6 @@ export {
 export { default as Table } from "../components/Table/index"
 export { default as Textarea } from "../components/Textarea/Textarea.astro"
 export { default as TextField } from "../components/TextField/TextField.astro"
-export { default as Toast } from "../components/Toast/Toast.astro"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.astro"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.astro"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.astro"

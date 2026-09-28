@@ -3,7 +3,11 @@
 
   export const title = "Checkbox Input" as const
 
-  let { checked = $bindable(), indeterminate, ...rest }: Props = $props()
+  let {
+    checked = $bindable(),
+    indeterminate = $bindable(),
+    ...rest
+  }: Props = $props()
   let element = $state<HTMLInputElement | null>(null)
   export { element as this }
 </script>
@@ -11,6 +15,7 @@
 <input
   bind:this={element}
   bind:checked
+  bind:indeterminate
   type="checkbox"
   data-indeterminate={indeterminate || undefined}
   {...rest}

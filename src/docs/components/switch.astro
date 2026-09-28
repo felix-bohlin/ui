@@ -106,6 +106,10 @@ import Conditional from "../../components/Conditional.astro"
           Set <code>required</code> on the component to toggle required styles on
           the input.
         </li>
+        <li slot="svelte">
+          Add the <code>required</code> attribute on the component. It is forwarded
+          to the underlying <code>&lt;input&gt;</code>.
+        </li>
         <li slot="vue">
           Add the <code>required</code> attribute on the component. It is forwarded
           to the underlying <code>&lt;input&gt;</code>.
@@ -117,6 +121,11 @@ import Conditional from "../../components/Conditional.astro"
       </Conditional>
       <Conditional>
         <li slot="astro">
+          Use the <code>error</code> prop to toggle invalid styles. It renders
+          <code>data-invalid</code> on the root element. Make use of the end text
+          to give extra feedback on the error.
+        </li>
+        <li slot="svelte">
           Use the <code>error</code> prop to toggle invalid styles. It renders
           <code>data-invalid</code> on the root element. Make use of the end text
           to give extra feedback on the error.
@@ -150,6 +159,10 @@ import Conditional from "../../components/Conditional.astro"
         to push the label to the left and the switch to the right. This is useful
         for full-width items like lists and menus.
       </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>spread</code> prop to push the label to the left and the switch
+        to the right. This is useful for full-width items like lists and menus.
+      </Fragment>
       <Fragment slot="vue">
         Use the <code>spread</code> prop to push the label to the left and the switch
         to the right. This is useful for full-width items like lists and menus.
@@ -170,6 +183,9 @@ import Conditional from "../../components/Conditional.astro"
           >&lt;label class="ui-switch"&gt;</code
         >
         for a smaller Switch variant.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set the <code>small</code> prop for a smaller Switch variant.
       </Fragment>
       <Fragment slot="vue">
         Set the <code>small</code> prop for a smaller Switch variant.
@@ -196,6 +212,9 @@ import Conditional from "../../components/Conditional.astro"
           >name</code
         >
         attribute so they're submitted together.
+      </p>
+      <p slot="svelte">
+        The <code>name</code> prop will get passed down to each switch in the group.
       </p>
       <p slot="vue">
         The <code>name</code> prop will get passed down to each switch in the group.
@@ -242,6 +261,11 @@ import Conditional from "../../components/Conditional.astro"
       <p slot="astro">
         Attach the <code>data-invalid</code> attribute to your <code
           >Fieldset</code
+        > component.
+      </p>
+      <p slot="svelte">
+        Attach the <code>data-invalid</code> attribute to your <code
+          >FieldSet</code
         > component.
       </p>
       <p slot="vue">

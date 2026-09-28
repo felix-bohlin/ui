@@ -6,7 +6,7 @@
 
   export const title = "Checkbox" as const
 
-  const {
+  let {
     class: className,
     error,
     checked = $bindable(),
@@ -46,8 +46,8 @@
 <label bind:this={element} class={classes} data-invalid={invalid}>
   <CheckboxInput
     aria-describedby={endTextId}
-    {checked}
-    {indeterminate}
+    bind:checked
+    bind:indeterminate
     name={finalName}
     {...rest}
   />

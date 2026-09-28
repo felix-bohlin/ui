@@ -66,7 +66,7 @@ Add a `.ui-primary` or `.ui-critical` class to recolor the entire group. The def
 
 ## Icons
 
-Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/components/button.md)
+Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/components/button.md) Wrap labels in a `<span>` so buttons with an icon keep their padding.
 
 ```html
 <div role="group" class="ui-button-group ui-outlined">

@@ -47,7 +47,9 @@
         --_border-color: var(--_accent);
         --_divider-color: var(--_accent);
 
-        &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+        &:where(
+          :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
+        ) {
           @media (hover: hover) {
             &:where(:not(:active):hover) {
               --_bg-color: var(--_accent);
@@ -68,7 +70,9 @@
         --_bg-color: var(--_accent-tonal);
         --_text-color: var(--_accent-tonal-contrast);
 
-        &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+        &:where(
+          :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
+        ) {
           @media (hover: hover) {
             &:where(:not(:active):hover) {
               --_bg-color: var(--_accent);
@@ -95,7 +99,9 @@
           );
         }
 
-        &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+        &:where(
+          :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
+        ) {
           @media (hover: hover) {
             &:where(:not(:active):hover) {
               --_bg-color: var(--_filled-hover-bg-color);

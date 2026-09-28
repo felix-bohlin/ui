@@ -167,7 +167,12 @@ async function generateIndex() {
     const cellMatches = content.matchAll(/<Table\.Cell>(.*?)<\/Table\.Cell>/gs)
     const apiContent = []
     for (const cellMatch of cellMatches) {
-      apiContent.push(cellMatch[1].replace(/<[^>]*>/g, "").trim())
+      apiContent.push(
+        cellMatch[1]
+          .replace(/<[^>]*>/g, "")
+          .replace(/\s+/g, " ")
+          .trim(),
+      )
     }
 
     const apiUrl = frameworkUrl(frameworkId, "/api") + `#${folder}`

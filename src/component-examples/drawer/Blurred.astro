@@ -13,7 +13,11 @@ import { Button } from "@opui/astro"
   backdrop="blurred"
   closedby="any"
 >
-  <DrawerHeader slot="header" heading="Blurred Backdrop" />
+  <DrawerHeader
+    slot="header"
+    commandfor="drawer-blurred"
+    heading="Blurred Backdrop"
+  />
   <Fragment slot="content">
     <p>
       This drawer has a blurred backdrop. Lorem ipsum dolor sit amet,

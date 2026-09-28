@@ -5,6 +5,7 @@
 ### Added
 
 - `Button` takes an `iconOnly` prop (`.ui-icon-only`) for square icon-only buttons, at every size and inside `ButtonGroup`.
+- `DrawerHeader` takes a `commandfor` prop (the drawer `id`). When set, the close button uses `command="close"` (Invoker Commands), HTML only. Without it, the previous script fallback is used.
 - `Button` padding scales with `--_padding-inline`, and the icon side gets tighter padding when a direct child `svg` sits next to a wrapped label (e.g. `<span>`).
 - `Button` and `IconButton` support `.ui-disabled`. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.
 - `layers.css` with the `@layer` order, for importing single component files.
@@ -23,6 +24,7 @@
 - `IconButton` disabled text color uses valid `rgb()` syntax.
 - `IconButton` is listed under extended components in `components.css`, since it needs `button.css` for its tokens.
 - `opui-css/open-props.css` resolves through `exports`.
+- Vue `DrawerHeader` closes the drawer without hydration.
 
 ## 5.5.0 - 2026-09-28
 

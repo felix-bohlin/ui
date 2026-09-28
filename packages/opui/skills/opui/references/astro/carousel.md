@@ -19,11 +19,7 @@ const places = [
 ---
 
 
-<Carousel
-  buttons="outside"
-  label="Destinations"
-  markers
->
+<Carousel buttons="outside" label="Destinations" markers>
   {
     places.map(({ description, title }) => (
       <li>
@@ -59,11 +55,7 @@ const places = [
 ---
 
 
-<Carousel
-  buttons="outside"
-  label="Destinations"
-  perView={3}
->
+<Carousel buttons="outside" label="Destinations" perView={3}>
   {
     places.map(({ description, title }) => (
       <li>
@@ -99,13 +91,7 @@ const places = [
 ---
 
 
-<Carousel
-  align="center"
-  buttons={false}
-  label="Destinations"
-  markers
-  peek
->
+<Carousel align="center" buttons={false} label="Destinations" markers peek>
   {
     places.map(({ description, title }) => (
       <li>
@@ -229,7 +215,10 @@ import { Carousel } from "opui-css/astro"
 
 
 const tutorials = [
-  { id: "gmI5nvzv170", title: "CSS only carousel? Learn ::scroll-button() in 9 minutes" },
+  {
+    id: "gmI5nvzv170",
+    title: "CSS only carousel? Learn ::scroll-button() in 9 minutes",
+  },
   { id: "bP8mrNdR-hs", title: "I love the new CSS functions" },
   { id: "qu1jE41O_8o", title: "Use these CSS features instead of JavaScript" },
 ]
@@ -247,7 +236,7 @@ const tutorials = [
           referrerpolicy="strict-origin-when-cross-origin"
           src={`https://www.youtube-nocookie.com/embed/${id}`}
           title={title}
-        ></iframe>
+        />
       </li>
     ))
   }
@@ -264,8 +253,16 @@ import { Button, Card, Carousel } from "opui-css/astro"
 
 
 const plans = [
-  { action: "Choose Basic", description: "For personal projects.", title: "Basic" },
-  { action: "Contact sales", description: "For large organisations.", title: "Enterprise" },
+  {
+    action: "Choose Basic",
+    description: "For personal projects.",
+    title: "Basic",
+  },
+  {
+    action: "Contact sales",
+    description: "For large organisations.",
+    title: "Enterprise",
+  },
   { action: "Choose Pro", description: "For growing teams.", title: "Pro" },
   { action: "Choose Team", description: "For small teams.", title: "Team" },
 ]

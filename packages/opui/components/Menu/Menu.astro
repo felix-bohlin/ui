@@ -46,7 +46,11 @@ const menuId = id || $id("menu")
         const closes = !href && closeOnClick && !disabled
 
         return (
-          <li class:list={[{ "ui-border-top": borderTop, "ui-critical": critical }]}>
+          <li
+            class:list={[
+              { "ui-border-top": borderTop, "ui-critical": critical },
+            ]}
+          >
             <Tag
               aria-disabled={href && disabled ? "true" : undefined}
               command={closes ? "hide-popover" : undefined}

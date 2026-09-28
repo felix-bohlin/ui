@@ -113,25 +113,25 @@
         inset-inline-end: calc(anchor(self-end) + var(--_button-inset));
       }
 
-      @supports (content: if(style(--x: none): "a"; else: "b")) {
+      @supports (content: if(style(--x: none): "a" ; else: "b")) {
         &::scroll-button(inline-start) {
           content: if(
-              style(--_button-prev-icon: none): var(--_button-prev-content);
-              else: ""
-            )
-            / "Previous";
+              style(--_button-prev-icon: none): var(--_button-prev-content) ;
+                else: ""
+            ) /
+            "Previous";
         }
 
         &::scroll-button(inline-end) {
           content: if(
-              style(--_button-next-icon: none): var(--_button-next-content);
-              else: ""
-            )
-            / "Next";
+              style(--_button-next-icon: none): var(--_button-next-content) ;
+                else: ""
+            ) /
+            "Next";
         }
       }
 
-      @supports not (content: if(style(--x: none): "a"; else: "b")) {
+      @supports not (content: if(style(--x: none): "a" ; else: "b")) {
         @container not style(--_button-prev-icon: none) {
           &::scroll-button(inline-start) {
             content: "" / "Previous";

@@ -14,7 +14,11 @@ const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
   </Button>
   <Menu id="menu-block-start" :items="items" placement="block-start" />
 
-  <Button commandfor="menu-block-end" command="toggle-popover" variant="outlined">
+  <Button
+    commandfor="menu-block-end"
+    command="toggle-popover"
+    variant="outlined"
+  >
     Block end
   </Button>
   <Menu id="menu-block-end" :items="items" />

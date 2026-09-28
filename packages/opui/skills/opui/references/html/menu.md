@@ -7,7 +7,11 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 `command="toggle-popover"` to open, and `command="hide-popover"` to close.
 
 ```html
-<button class="ui-button ui-outlined" commandfor="menu-basics-html" command="toggle-popover">
+<button
+  class="ui-button ui-outlined"
+  commandfor="menu-basics-html"
+  command="toggle-popover"
+>
   Options
 </button>
 <menu class="ui-menu ui-list" id="menu-basics-html" popover>
@@ -34,10 +38,17 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 </menu>
 
 
-<button class="ui-icon-button" aria-label="More actions" commandfor="menu-custom-html" command="toggle-popover">
+<button
+  class="ui-icon-button"
+  aria-label="More actions"
+  commandfor="menu-custom-html"
+  command="toggle-popover"
+>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <path fill="currentColor"
-      d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
+    <path
+      fill="currentColor"
+      d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+    />
   </svg>
 </button>
 <menu class="ui-menu ui-list" id="menu-custom-html" popover>
@@ -46,8 +57,10 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
     <button type="button" commandfor="menu-custom-html" command="hide-popover">
       <div class="ui-start">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z" />
+          <path
+            fill="currentColor"
+            d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
+          />
         </svg>
       </div>
       Rename
@@ -58,8 +71,10 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
     <button type="button" commandfor="menu-custom-html" command="hide-popover">
       <div class="ui-start">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m0 16H8V7h11z" />
+          <path
+            fill="currentColor"
+            d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m0 16H8V7h11z"
+          />
         </svg>
       </div>
       Copy
@@ -70,8 +85,10 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
     <a href="#menu">
       <div class="ui-start">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z" />
+          <path
+            fill="currentColor"
+            d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3z"
+          />
         </svg>
       </div>
       Open in new tab
@@ -81,7 +98,10 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
     <button type="button" commandfor="menu-custom-html" command="hide-popover">
       <div class="ui-start">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z" />
+          <path
+            fill="currentColor"
+            d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
+          />
         </svg>
       </div>
       Delete
@@ -130,7 +150,11 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 >
   Inline start
 </button>
-<menu class="ui-menu ui-list ui-inline-start" id="menu-inline-start-html" popover>
+<menu
+  class="ui-menu ui-list ui-inline-start"
+  id="menu-inline-start-html"
+  popover
+>
   <li><button type="button">First</button></li>
   <li><button type="button">Second</button></li>
   <li><button type="button">Third</button></li>
@@ -175,23 +199,39 @@ A menu inside a list item.
     </button>
   </li>
   <li>
-    <button type="button" commandfor="menu-export-html" command="toggle-popover">
+    <button
+      type="button"
+      commandfor="menu-export-html"
+      command="toggle-popover"
+    >
       Export
       <span class="ui-end" aria-hidden="true">▸</span>
     </button>
     <menu class="ui-menu ui-list ui-inline-end" id="menu-export-html" popover>
       <li>
-        <button type="button" commandfor="menu-file-html" command="hide-popover">
+        <button
+          type="button"
+          commandfor="menu-file-html"
+          command="hide-popover"
+        >
           PDF
         </button>
       </li>
       <li>
-        <button type="button" commandfor="menu-file-html" command="hide-popover">
+        <button
+          type="button"
+          commandfor="menu-file-html"
+          command="hide-popover"
+        >
           PNG
         </button>
       </li>
       <li>
-        <button type="button" commandfor="menu-file-html" command="hide-popover">
+        <button
+          type="button"
+          commandfor="menu-file-html"
+          command="hide-popover"
+        >
           SVG
         </button>
       </li>

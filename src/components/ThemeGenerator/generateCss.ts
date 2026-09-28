@@ -64,8 +64,12 @@ const RAMPS = {
 } satisfies Record<string, Ramp>
 
 function rampValue(ramp: Ramp, grays: { light: boolean; dark: boolean }) {
-  const light = grays.light ? `--gray-${ramp.gray[0]}` : `--color-${ramp.color[0]}`
-  const dark = grays.dark ? `--gray-${ramp.gray[1]}` : `--color-${ramp.color[1]}`
+  const light = grays.light
+    ? `--gray-${ramp.gray[0]}`
+    : `--color-${ramp.color[0]}`
+  const dark = grays.dark
+    ? `--gray-${ramp.gray[1]}`
+    : `--color-${ramp.color[1]}`
   return light === dark
     ? `var(${light})`
     : `light-dark(var(${light}), var(${dark}))`

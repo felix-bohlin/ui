@@ -4,7 +4,7 @@
   "exclude": ["dist"],
   "compilerOptions": {
     "jsx": "preserve",
-    "jsxImportSource": "solid-js",
+    "jsxImportSource": "@solidjs/web",
     "paths": {
       "@opui/*": ["./packages/opui/*"],
       "@opui/astro": ["./packages/opui/astro/index.ts"]

@@ -1,7 +1,6 @@
 // @ts-check
 import { readdirSync } from "node:fs"
 import { fileURLToPath } from "node:url"
-import solid from "@astrojs/solid-js"
 import svelte from "@astrojs/svelte"
 import {
   defineConfig,
@@ -11,6 +10,8 @@ import {
 import sitemap from "@astrojs/sitemap"
 import expressiveCode from "astro-expressive-code"
 import vue from "@astrojs/vue"
+
+import solid from "./integrations/solid/index.mjs"
 
 import { DEFAULT_FRAMEWORK, FRAMEWORK_IDS } from "./src/utils/framework.js"
 

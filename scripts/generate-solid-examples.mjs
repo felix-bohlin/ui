@@ -2334,54 +2334,6 @@ export default function Example() {
   )
 }`)
 
-// ─── TOAST ──────────────────────────────────────────────────────────────────
-write("toast", "HTML", `
-/* @jsxImportSource solid-js */
-import { Toast } from "opui-css/solid"
-
-export default function Example() {
-  return (
-    <Toast>
-      <p>This is a toast notification.</p>
-    </Toast>
-  )
-}`)
-
-write("toast", "TitleDescription", `
-/* @jsxImportSource solid-js */
-import { Toast } from "opui-css/solid"
-
-export default function Example() {
-  return (
-    <Toast title="Success" description="Your changes have been saved." />
-  )
-}`)
-
-write("toast", "Severity", `
-/* @jsxImportSource solid-js */
-import { Toast } from "opui-css/solid"
-
-export default function Example() {
-  return (
-    <>
-      <Toast severity="info" title="Info" description="Informational message." />
-      <Toast severity="warning" title="Warning" description="Warning message." />
-      <Toast severity="critical" title="Error" description="Error message." />
-      <Toast severity="success" title="Success" description="Success message." />
-    </>
-  )
-}`)
-
-write("toast", "Duration", `
-/* @jsxImportSource solid-js */
-import { Toast } from "opui-css/solid"
-
-export default function Example() {
-  return (
-    <Toast title="Auto-dismiss" description="This toast will auto-dismiss." duration={5000} />
-  )
-}`)
-
 // ─── TOGGLE ─────────────────────────────────────────────────────────────────
 write("toggle", "Default", `
 /* @jsxImportSource solid-js */

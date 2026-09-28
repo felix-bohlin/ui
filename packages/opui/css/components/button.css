@@ -22,7 +22,9 @@
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
 
     &.ui-critical,
-    &.ui-primary {
+    &.ui-primary,
+    /* Color inherited from Button Group. */
+    :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) > & {
       --_color-contrast: var(--gray-1);
       --_color-tonal: var(--color-6);
       --_accent-tonal-contrast: var(--text-primary-contrast);
@@ -36,11 +38,13 @@
       --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
     }
 
-    &.ui-critical {
+    &.ui-critical,
+    :where(.ui-button-group.ui-critical) > & {
       --_color: var(--critical);
     }
 
-    &.ui-primary {
+    &.ui-primary,
+    :where(.ui-button-group.ui-primary) > & {
       --_color: var(--primary);
     }
   }

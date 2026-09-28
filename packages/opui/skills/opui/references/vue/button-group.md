@@ -82,8 +82,6 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/vue/components/button.md)
 
-`iconOnly` keeps icon-only buttons square.
-
 ```vue
 <script setup lang="ts">
 import { Button, ButtonGroup } from "opui-css/vue"
@@ -92,7 +90,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 <template>
   <ButtonGroup variant="outlined">
-    <Button aria-label="Label" iconOnly>
+    <Button aria-label="Label">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -106,7 +104,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
       </svg>
     </Button>
     <Button aria-label="Label"> Maybe </Button>
-    <Button aria-label="Label" iconOnly>
+    <Button aria-label="Label">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -183,7 +181,6 @@ import { Button, ButtonGroup, Menu } from "opui-css/vue"
   <ButtonGroup variant="outlined">
     <Button>Save</Button>
     <Button
-      iconOnly
       aria-label="More save options"
       commandfor="split-button-menu"
       command="toggle-popover"

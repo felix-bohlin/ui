@@ -6,7 +6,6 @@ import { Button, ButtonGroup, Menu } from "opui-css/vue"
   <ButtonGroup variant="outlined">
     <Button>Save</Button>
     <Button
-      iconOnly
       aria-label="More save options"
       commandfor="split-button-menu"
       command="toggle-popover"

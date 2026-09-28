@@ -4,7 +4,7 @@
   export const title = "Icon Button" as const
 
   let {
-    as = "button",
+    as,
     children,
     class: className,
     color,
@@ -19,15 +19,14 @@
   export { element as this }
 
   const Tag = $derived(as ?? (href ? "a" : "button"))
-  const isDisabled = $derived(as === "button" ? disabled : undefined)
+  const isDisabled = $derived(Tag === "button" ? disabled : undefined)
 
   const classes = $derived([
-    "ui-button",
-    { "ui-disabled": isDisabled },
-    className,
-    color && `ui-${color}`,
+    "ui-icon-button",
     size && `ui-${size}`,
     variant && `ui-${variant}`,
+    color && `ui-${color}`,
+    className,
   ])
 </script>
 
@@ -36,6 +35,7 @@
   bind:this={element}
   class={classes}
   disabled={isDisabled}
+  {href}
   {...rest}
 >
   {@render children?.()}

@@ -34,10 +34,7 @@
     </div>
   {/if}
   {#if actions}
-    <div
-      class={"ui-actions"}
-      class:ui-align={actionsAlign ? `align-${actionsAlign}` : undefined}
-    >
+    <div class={["ui-actions", actionsAlign && `ui-align-${actionsAlign}`]}>
       {@render actions()}
     </div>
   {/if}

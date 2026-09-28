@@ -67,6 +67,40 @@ import { Table } from "@opui/astro"
   </Table.Body>
 </Table>
 
+<h3>DrawerHeader props</h3>
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>commandfor</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>
+        The drawer <code>id</code> to close.
+      </Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>heading</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The drawer title.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
 <h3>Slots</h3>
 <Table>
   <Table.ColumnGroup>
@@ -85,30 +119,31 @@ import { Table } from "@opui/astro"
   </Table.Head>
   <Table.Body>
     <Table.Row>
-      <Table.Cell><code>heading</code></Table.Cell>
+      <Table.Cell><code>content</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell>-</Table.Cell>
-      <Table.Cell>The drawer title.</Table.Cell>
+      <Table.Cell>
+        Main content area, wrapped in a <code>div</code> with a
+        <code>ui-content</code> class.
+      </Table.Cell>
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>default</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell>-</Table.Cell>
-      <Table.Cell>Main content area.</Table.Cell>
+      <Table.Cell>Unwrapped content.</Table.Cell>
     </Table.Row>
     <Table.Row>
-      <Table.Cell><code>actions</code></Table.Cell>
+      <Table.Cell><code>footer</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell>-</Table.Cell>
-      <Table.Cell>Bottom action area.</Table.Cell>
+      <Table.Cell>Bottom area, e.g. a <code>DrawerFooter</code>.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>header</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Top area, e.g. a <code>DrawerHeader</code>.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>
-<Table.Row>
-  <Table.Cell><code>actions</code></Table.Cell>
-  <Table.Cell
-    >The bottom actions area, wrapped in a <code>div</code> with an <code
-      >actions</code
-    > class.</Table.Cell
-  >
-</Table.Row>

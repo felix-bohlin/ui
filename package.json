@@ -8,7 +8,10 @@
     "preview": "astro preview",
     "astro": "astro",
     "build-search-index": "node scripts/generate-search-index.mjs",
-    "check-browser-support": "node scripts/check-browser-support.mjs"
+    "check-browser-support": "node scripts/check-browser-support.mjs",
+    "check": "pnpm format:check && pnpm build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",

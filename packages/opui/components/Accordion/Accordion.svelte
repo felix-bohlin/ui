@@ -15,7 +15,6 @@
     ...rest
   }: Props = $props()
 
-  export const title = "Accordion" as const
   let element = $state<HTMLDetailsElement | null>(null)
   export { element as this }
 

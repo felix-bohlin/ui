@@ -4,8 +4,6 @@
   import type * as FieldSet from "../FieldSet/types.svelte"
   import type { RadioProps as Props } from "./types.svelte"
 
-  export const title = "Radio"
-
   const {
     class: className,
     error,

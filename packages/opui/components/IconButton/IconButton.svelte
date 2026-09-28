@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  export const title = "Icon Button" as const
-
   let {
     as,
     children,

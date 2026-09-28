@@ -2,8 +2,6 @@
   import IconButton from "../IconButton/IconButton.svelte"
   import type { DrawerHeaderProps as Props } from "./types.svelte"
 
-  export const title = "Drawer Header" as const
-
   const { children, class: className, heading, ...rest }: Props = $props()
 
   let element = $state<HTMLDivElement | null>(null)

@@ -2,8 +2,6 @@
   import type { Props } from "./types.svelte.ts"
   import { getToggleContext } from "../ToggleGroup/context.svelte"
 
-  export const title = "Toggle Button"
-
   const {
     children,
     class: className,

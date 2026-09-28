@@ -2,8 +2,6 @@
   import type { Props } from "./types.svelte"
   import type { Snippet } from "svelte"
 
-  export const title = "List Item" as const
-
   const props: Props = $props()
   const {
     as: Tag,

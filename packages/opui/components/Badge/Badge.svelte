@@ -2,8 +2,6 @@
   import Anchor from "../Anchor/Anchor.svelte"
   import type { Props } from "./types.svelte"
 
-  export const title = "Badge" as const
-
   const {
     alignment,
     class: className,

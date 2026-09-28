@@ -2,8 +2,6 @@
   import type { RangeProps as Props } from "./types.svelte"
   import { onMount, type Snippet } from "svelte"
 
-  export const title = "Range" as const
-
   let {
     class: className,
     disabled,

@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { ClassicSelectProps as Props } from "./types.svelte"
 
-  export const title = "Classic Select" as const
-
   let {
     class: className,
     disabled,

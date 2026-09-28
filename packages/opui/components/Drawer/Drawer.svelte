@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  export const title = "Drawer" as const
-
   const {
     backdrop = "blurred",
     class: className,

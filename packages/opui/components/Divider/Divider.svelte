@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  export const title = "Divider" as const
-
   const { class: className, variant, ...rest }: Props = $props()
 
   let element = $state<HTMLHRElement | null>(null)

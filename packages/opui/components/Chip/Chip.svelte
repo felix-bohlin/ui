@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  export const title = "Chip" as const
-
   const {
     as,
     class: className,

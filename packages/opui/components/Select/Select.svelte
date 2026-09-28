@@ -3,8 +3,6 @@
   import type * as FieldSet from "../FieldSet/types.svelte"
   import { getContext, type Snippet } from "svelte"
 
-  export const title = "Select"
-
   const {
     class: className,
     description,

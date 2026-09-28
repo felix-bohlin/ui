@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { CheckboxInputProps as Props } from "./types.svelte"
 
-  export const title = "Checkbox Input" as const
-
   let {
     checked = $bindable(),
     indeterminate = $bindable(),

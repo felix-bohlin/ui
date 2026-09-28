@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  export const title = "Description List" as const
-
   const { bordered, children, class: className, ...rest }: Props = $props()
 
   let element = $state<HTMLDListElement | null>(null)

@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  export const title = "Callout" as const
-
   const {
     class: className,
     severity,
@@ -11,7 +9,7 @@
     // Snippets
     children,
     icon,
-    title: titleSnippet,
+    title,
     ...rest
   }: Props = $props()
 
@@ -67,9 +65,9 @@
     </svg>
   {/if}
   <div class="ui-content">
-    {#if titleSnippet}
+    {#if title}
       <h3 class="ui-title">
-        {@render titleSnippet()}
+        {@render title()}
       </h3>
     {/if}
     {@render children?.()}

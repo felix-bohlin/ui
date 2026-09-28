@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  export const title = "Form" as const
-
   const {
     as: Tag = "form",
     children,

@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { SectionProps as Props } from "./types.svelte"
 
-  export const title = "Table Head" as const
-
   const { children, ...rest }: Props<"thead"> = $props()
 
   let element = $state<HTMLTableSectionElement | null>(null)

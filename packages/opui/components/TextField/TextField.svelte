@@ -3,8 +3,6 @@
   import type { Props } from "./types.svelte"
   import { getContext } from "svelte"
 
-  export const title = "Text Field"
-
   const {
     autoFit,
     class: className,

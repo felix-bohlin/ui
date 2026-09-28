@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  export const title = "Dialog"
-
   const {
     actionsAlign,
     class: className,

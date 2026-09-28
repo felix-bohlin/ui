@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  export const title = "Field Set" as const
-
   const {
     as: Tag = "fieldset",
     children,

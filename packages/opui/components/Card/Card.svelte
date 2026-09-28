@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  export const title = "Card" as const
-
   let {
     class: className = "",
     variant = "text",

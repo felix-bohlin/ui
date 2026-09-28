@@ -2,8 +2,6 @@
   import type { Props } from "./types.svelte"
   import { setTabsContext } from "./context.svelte"
 
-  export const title = "Tabs" as const
-
   const { children, class: className, name, ...rest }: Props = $props()
 
   let element = $state<HTMLDivElement | null>(null)

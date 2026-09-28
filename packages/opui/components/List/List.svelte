@@ -1,8 +1,6 @@
 <script lang="ts">
   import type { Props } from "./types.svelte.ts"
 
-  export const title = "List" as const
-
   let {
     bordered,
     class: className,

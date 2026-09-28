@@ -2,8 +2,6 @@
   import type { Props } from "./types.svelte"
   import { setToggleContext, type ToggleContext } from "./context.svelte"
 
-  export const title = "Toggle Group"
-
   const {
     children,
     class: className,

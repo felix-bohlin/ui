@@ -1,7 +1,6 @@
 <script lang="ts">
   import { setContext, untrack } from "svelte"
   import type { Props } from "./types.svelte"
-  export const title = "Field Group" as const
 
   const {
     children,

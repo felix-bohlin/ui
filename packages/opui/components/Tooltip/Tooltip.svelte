@@ -2,8 +2,6 @@
   import type { Props } from "./types.svelte"
   import Anchor from "../Anchor/Anchor.svelte"
 
-  export const title = "Tooltip" as const
-
   const {
     alignment,
     arrow,

@@ -4,8 +4,6 @@
   import type * as FieldSet from "../FieldSet/types.svelte"
   import type { CheckboxProps as Props } from "./types.svelte"
 
-  export const title = "Checkbox" as const
-
   let {
     class: className,
     error,

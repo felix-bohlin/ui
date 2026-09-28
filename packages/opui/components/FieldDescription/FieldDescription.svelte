@@ -3,8 +3,6 @@
   import type { Props } from "./types.svelte"
   import type * as FieldSet from "../FieldSet/types.svelte"
 
-  export const title = "Field Description" as const
-
   const { children, class: className, id, ...rest }: Props = $props()
 
   $effect(() => {

@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    ".astro/types.d.ts",
+    "packages/opui/components/**/*.vue",
+    "packages/opui/vue/**/*.ts",
+    "src/**/*.vue"
+  ]
+}

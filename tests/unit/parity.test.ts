@@ -17,10 +17,18 @@ const astroModules = import.meta.glob<{ default: any }>(
 const vueModules = import.meta.glob<{ default: any }>(
   "../../src/component-examples/**/*.vue",
 )
+const componentSources = import.meta.glob<string>(
+  "../../src/component-examples/**/*.{astro,vue}",
+  { eager: true, import: "default", query: "?raw" },
+)
 const htmlSources = import.meta.glob<string>(
   "../../src/component-examples/**/*.html",
   { import: "default", query: "?raw" },
 )
+
+const allComponentSources = Object.values(componentSources).join("\n")
+
+const EXTERNAL_CLASSES = new Set(["ec-line", "frame", "indent"])
 
 type Framework = "astro" | "html" | "vue"
 
@@ -140,6 +148,22 @@ describe.each(cases)("$key", (example) => {
       `__snapshots__/${example.key}.${framework}.html`,
     )
   })
+
+  test.each(frameworks.filter((framework) => framework !== "html"))(
+    "%s only adds ui- prefixed classes",
+    async (framework) => {
+      const classes = [
+        ...(await markup(example, framework)).matchAll(/ class="([^"]*)"/g),
+      ].flatMap((match) => match[1].split(" "))
+      const unprefixed = [...new Set(classes)].filter(
+        (name) =>
+          !name.startsWith("ui-") &&
+          !EXTERNAL_CLASSES.has(name) &&
+          !allComponentSources.includes(name),
+      )
+      expect(unprefixed).toEqual([])
+    },
+  )
 
   if (example.loaders.astro && example.loaders.vue) {
     compare("astro-vue", example, [["astro", "vue"]])

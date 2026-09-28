@@ -1,8 +1,8 @@
 export type Props = {
   autoFit?: boolean
-  error?: boolean
   description?: string
   endText?: string
+  error?: boolean
   filled?: boolean
   label?: string
   small?: boolean

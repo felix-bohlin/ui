@@ -1,13 +1,8 @@
-import { splitProps, type JSX } from "solid-js"
-import { Dynamic } from "solid-js/web"
-import type { Props } from "./types.solid"
+import { omit } from "solid-js"
+import type { ColumnGroupProps } from "./types.solid"
 
-export default function ColumnGroup(props: Props) {
-  const [local, rest] = splitProps(props, ["class", "as", "children"])
-  
-  return (
-    <Dynamic component={local.as || "div"} class={`ui-columngroup ${local.class || ""}`} {...rest}>
-      {local.children}
-    </Dynamic>
-  )
+export default function TableColumnGroup(props: ColumnGroupProps) {
+  const rest = omit(props, "children")
+
+  return <colgroup {...rest}>{props.children}</colgroup>
 }

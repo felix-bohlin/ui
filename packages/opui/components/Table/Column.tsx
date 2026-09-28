@@ -1,13 +1,15 @@
-import { splitProps, type JSX } from "solid-js"
-import { Dynamic } from "solid-js/web"
-import type { Props } from "./types.solid"
+import { omit } from "solid-js"
+import type { ColumnProps } from "./types.solid"
 
-export default function Column(props: Props) {
-  const [local, rest] = splitProps(props, ["class", "as", "children"])
-  
-  return (
-    <Dynamic component={local.as || "div"} class={`ui-column ${local.class || ""}`} {...rest}>
-      {local.children}
-    </Dynamic>
-  )
+export default function TableColumn(props: ColumnProps) {
+  const rest = omit(props, "width")
+
+  const colStyle = () =>
+    props.width
+      ? props.width.includes(":")
+        ? props.width
+        : `width: ${props.width}`
+      : undefined
+
+  return <col style={colStyle()} {...rest} />
 }

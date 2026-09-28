@@ -1,52 +1,55 @@
-import { splitProps, type JSX, Show, createUniqueId, For } from "solid-js"
+import { createUniqueId, For, merge, omit, Show } from "solid-js"
 import type { ClassicSelectProps } from "./types.solid"
 
-export default function ClassicSelect(props: ClassicSelectProps) {
-  const [local, rest] = splitProps(props, [
-    "items",
-    "variant",
-    "id",
-    "label",
-    "disabled",
-    "name",
-    "required",
-    "size",
-    "endText",
-    "critical",
-    "class",
+export default function ClassicSelect(rawProps: ClassicSelectProps) {
+  const props = merge({ items: [], variant: "outlined" }, rawProps)
+  const rest = omit(
+    props,
     "children",
-  ])
+    "class",
+    "endText",
+    "error",
+    "id",
+    "items",
+    "label",
+    "size",
+    "variant",
+  )
 
-  const selectId = () => local.id || createUniqueId()
+  const uid = createUniqueId()
   const labelId = createUniqueId()
 
-  const items = () => local.items || []
+  const selectId = () => props.id ?? uid
 
   return (
     <label
-      class={`ui-select ${local.size ? `ui-${local.size}` : ""} ${local.variant === "filled" ? "ui-filled" : ""} ${local.class || ""}`.trim()}
-      data-invalid={local.critical || undefined}
+      class={[
+        "ui-select",
+        props.size && `ui-${props.size}`,
+        { "ui-filled": props.variant === "filled" },
+        props.class,
+      ]}
+      data-invalid={props.error || undefined}
     >
-      <Show when={local.label}>
-        <span class="ui-label" id={labelId}>{local.label}</span>
+      <Show when={props.label}>
+        <span class="ui-label" id={labelId}>
+          {props.label}
+        </span>
       </Show>
       <span class="ui-field">
         <select
-          aria-labelledby={local.label ? labelId : undefined}
-          disabled={local.disabled}
+          aria-labelledby={props.label ? labelId : undefined}
           id={selectId()}
-          name={local.name}
-          required={local.required}
           {...rest}
         >
-          <For each={items()}>
+          <For each={props.items}>
             {(item) => <option value={item.value}>{item.text}</option>}
           </For>
-          {local.children}
+          {props.children}
         </select>
       </span>
-      <Show when={local.endText}>
-        <span class="ui-end-text">{local.endText}</span>
+      <Show when={props.endText}>
+        <span class="ui-end-text">{props.endText}</span>
       </Show>
     </label>
   )

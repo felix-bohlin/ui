@@ -1,41 +1,47 @@
-import { splitProps, type JSX, createContext, useContext, createUniqueId } from "solid-js"
-import { TabsGroupNameContext } from "./Tabs"
+import { createUniqueId, omit, useContext } from "solid-js"
+import {
+  CurrentPanelIdContext,
+  CurrentTabIdContext,
+  TabsGroupNameContext,
+} from "./context"
 import type { TabsItemProps } from "./types.solid"
 
-export const CurrentTabIdContext = createContext<string>()
-export const CurrentPanelIdContext = createContext<string>()
-
 export default function TabsItem(props: TabsItemProps) {
-  const [local, rest] = splitProps(props, [
+  const rest = omit(
+    props,
+    "children",
+    "class",
     "name",
     "open",
     "panelId",
     "tabId",
-    "class",
-    "children",
-  ])
+  )
 
-  const contextGroupName = useContext(TabsGroupNameContext)
-  const tabsGroupName = () => local.name || contextGroupName || createUniqueId()
-  const computedTabId = () => local.tabId || createUniqueId()
-  const computedPanelId = () => local.panelId || createUniqueId()
+  const parentGroupName = useContext(TabsGroupNameContext)
+  const groupUid = createUniqueId()
+  const panelUid = createUniqueId()
+  const tabUid = createUniqueId()
+
+  const groupName = () => props.name || parentGroupName() || groupUid
+  const panelId = () => props.panelId || panelUid
+  const tabId = () => props.tabId || tabUid
 
   return (
-    <TabsGroupNameContext.Provider value={tabsGroupName()}>
-      <CurrentTabIdContext.Provider value={computedTabId()}>
-        <CurrentPanelIdContext.Provider value={computedPanelId()}>
+    <TabsGroupNameContext value={groupName}>
+      <CurrentTabIdContext value={tabId}>
+        <CurrentPanelIdContext value={panelId}>
           <input
-            aria-controls={computedPanelId()}
-            checked={local.open}
-            class={`ui-tab-input ${local.class || ""}`.trim()}
-            id={computedTabId()}
-            name={tabsGroupName()}
+            aria-controls={panelId()}
+            checked={props.open}
+            class={["ui-tab-input", props.class]}
+            id={tabId()}
+            name={groupName()}
             type="radio"
             {...rest}
           />
-          {local.children}
-        </CurrentPanelIdContext.Provider>
-      </CurrentTabIdContext.Provider>
-    </TabsGroupNameContext.Provider>
+          {props.children}
+        </CurrentPanelIdContext>
+      </CurrentTabIdContext>
+    </TabsGroupNameContext>
   )
 }

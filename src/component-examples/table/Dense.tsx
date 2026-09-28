@@ -1,19 +1,50 @@
-import { Table } from "opui-css/solid"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/solid"
 
 export default function Example() {
   return (
-    <Table dense>
-      <Table.Head>
-        <Table.Row>
-          <Table.HeaderCell>Name</Table.HeaderCell>
-          <Table.HeaderCell>Value</Table.HeaderCell>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>
-        <Table.Row><Table.Cell>Row 1</Table.Cell><Table.Cell>Value 1</Table.Cell></Table.Row>
-        <Table.Row><Table.Cell>Row 2</Table.Cell><Table.Cell>Value 2</Table.Cell></Table.Row>
-        <Table.Row><Table.Cell>Row 3</Table.Cell><Table.Cell>Value 3</Table.Cell></Table.Row>
-      </Table.Body>
+    <Table variant="dense">
+      <caption>Band Members</caption>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Band</TableHeaderCell>
+          <TableHeaderCell>Name</TableHeaderCell>
+          <TableHeaderCell>Instrument</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>Radiohead</TableCell>
+          <TableCell>Ed O'Brien</TableCell>
+          <TableCell>Guitar/Vocals</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Korn</TableCell>
+          <TableCell>Jonathan Davis</TableCell>
+          <TableCell>Vocals</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Broken Bells</TableCell>
+          <TableCell>James Mercer</TableCell>
+          <TableCell>Vocals/Guitar</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Pink Floyd</TableCell>
+          <TableCell>David Gilmour</TableCell>
+          <TableCell>Guitar/Vocals</TableCell>
+        </TableRow>
+      </TableBody>
+      <tfoot>
+        <TableRow>
+          <TableCell colspan={3}>All great bands!</TableCell>
+        </TableRow>
+      </tfoot>
     </Table>
   )
 }

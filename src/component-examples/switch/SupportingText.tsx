@@ -1,5 +1,12 @@
 import { Switch } from "opui-css/solid"
 
 export default function Example() {
-  return <Switch name="switch" supportingText="Additional info">Dark mode</Switch>
+  return (
+    <>
+      <Switch endText="Supporting text">Default</Switch>
+      <Switch stack endText="Supporting text">
+        Stack
+      </Switch>
+    </>
+  )
 }

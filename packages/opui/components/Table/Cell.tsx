@@ -1,13 +1,8 @@
-import { splitProps, type JSX } from "solid-js"
-import { Dynamic } from "solid-js/web"
-import type { Props } from "./types.solid"
+import { omit } from "solid-js"
+import type { CellProps } from "./types.solid"
 
-export default function Cell(props: Props) {
-  const [local, rest] = splitProps(props, ["class", "as", "children"])
-  
-  return (
-    <Dynamic component={local.as || "div"} class={`ui-cell ${local.class || ""}`} {...rest}>
-      {local.children}
-    </Dynamic>
-  )
+export default function TableCell(props: CellProps) {
+  const rest = omit(props, "children")
+
+  return <td {...rest}>{props.children}</td>
 }

@@ -19,13 +19,27 @@ import { Table } from "@opui/astro"
   </Table.Head>
   <Table.Body>
     <Table.Row>
+      <Table.Cell><code>children</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Options (using <code>&lt;option&gt;</code> elements).</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
       <Table.Cell><code>disabled</code></Table.Cell>
       <Table.Cell><code>boolean</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell>Select disabled state.</Table.Cell>
     </Table.Row>
     <Table.Row>
-      <Table.Cell><code>critical</code></Table.Cell>
+      <Table.Cell><code>endText</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Supporting text displayed below the select.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>error</code></Table.Cell>
       <Table.Cell><code>boolean</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell>Select error state.</Table.Cell>
@@ -58,9 +72,9 @@ import { Table } from "@opui/astro"
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>variant</code></Table.Cell>
-      <Table.Cell><code>"outlined" | "filled"</code></Table.Cell>
+      <Table.Cell><code>"outlined"</code>, <code>"filled"</code></Table.Cell>
       <Table.Cell><code>"outlined"</code></Table.Cell>
-      <Table.Cell>The visual variant of the select.</Table.Cell>
+      <Table.Cell>The variant to use.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>

@@ -1,77 +1,88 @@
-import { splitProps, type JSX, Show, createUniqueId, For } from "solid-js"
+import { createUniqueId, For, merge, omit, Show } from "solid-js"
 import type { Props } from "./types.solid"
 
-export default function Select(props: Props) {
-  const [local, rest] = splitProps(props, [
-    "critical",
+export default function Select(rawProps: Props) {
+  const props = merge({ items: [], variant: "outlined" }, rawProps)
+  const rest = omit(
+    props,
+    "children",
+    "class",
     "dense",
     "description",
+    "endText",
+    "error",
+    "footer",
+    "header",
+    "id",
     "items",
     "label",
-    "spread",
-    "size",
-    "endText",
-    "variant",
-    "class",
     "prefix",
+    "size",
+    "spread",
     "suffix",
-    "header",
-    "footer",
-    "children",
-  ])
+    "variant",
+  )
 
-  const selectId = () => rest.id || createUniqueId()
+  const uid = createUniqueId()
   const labelId = createUniqueId()
   const endTextId = createUniqueId()
-  const items = () => local.items || []
+
+  const selectId = () => props.id ?? uid
 
   return (
     <label
-      class={`ui-select ${local.size ? `ui-${local.size}` : ""} ${local.variant === "filled" ? "ui-filled" : ""} ${local.spread ? "ui-spread" : ""} ${local.class || ""}`.trim()}
-      data-invalid={local.critical || undefined}
+      class={[
+        "ui-select",
+        props.size && `ui-${props.size}`,
+        {
+          "ui-filled": props.variant === "filled",
+          "ui-spread": !!props.spread,
+        },
+        props.class,
+      ]}
+      data-invalid={props.error || undefined}
     >
-      <Show when={local.label}>
-        <span class="ui-label" id={labelId}>{local.label}</span>
+      <Show when={props.label}>
+        <span class="ui-label" id={labelId}>
+          {props.label}
+        </span>
       </Show>
-
-      <Show when={local.description}>
-        <span class="ui-start-text">{local.description}</span>
+      <Show when={props.description}>
+        <span class="ui-start-text">{props.description}</span>
       </Show>
-
       <span class="ui-field">
         <select
-          aria-labelledby={local.label ? labelId : undefined}
+          aria-labelledby={props.label ? labelId : undefined}
           id={selectId()}
           {...rest}
         >
-          {/* @ts-ignore: custom element */}
-          <button v-pre>
-            {/* @ts-ignore: custom element */}
+          <button>
             <selectedcontent></selectedcontent>
           </button>
-          <div class={`ui-list ${local.dense ? "ui-dense" : ""}`.trim()}>
-            <For each={items()}>
+          <div class={["ui-list", { "ui-dense": !!props.dense }]}>
+            <For each={props.items}>
               {(item) => <option value={item.value}>{item.text}</option>}
             </For>
-            {local.children}
+            {props.children}
           </div>
         </select>
-        <Show when={local.prefix}>
-          <span class="ui-prefix">{local.prefix}</span>
+        <Show when={props.prefix}>
+          <span class="ui-prefix">{props.prefix}</span>
         </Show>
-        <Show when={local.suffix}>
-          <span class="ui-suffix">{local.suffix}</span>
+        <Show when={props.suffix}>
+          <span class="ui-suffix">{props.suffix}</span>
         </Show>
-        <Show when={local.header}>
-          <span class="ui-header">{local.header}</span>
+        <Show when={props.header}>
+          <span class="ui-header">{props.header}</span>
         </Show>
-        <Show when={local.footer}>
-          <span class="ui-footer">{local.footer}</span>
+        <Show when={props.footer}>
+          <span class="ui-footer">{props.footer}</span>
         </Show>
       </span>
-
-      <Show when={local.endText}>
-        <span id={endTextId} class="ui-end-text">{local.endText}</span>
+      <Show when={props.endText}>
+        <span id={endTextId} class="ui-end-text">
+          {props.endText}
+        </span>
       </Show>
     </label>
   )

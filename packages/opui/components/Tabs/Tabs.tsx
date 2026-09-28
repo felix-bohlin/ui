@@ -1,17 +1,18 @@
-import { splitProps, type JSX, createContext, createUniqueId } from "solid-js"
+import { createUniqueId, omit } from "solid-js"
+import { TabsGroupNameContext } from "./context"
 import type { Props } from "./types.solid"
 
-export const TabsGroupNameContext = createContext<string>()
-
 export default function Tabs(props: Props) {
-  const [local, rest] = splitProps(props, ["name", "class", "children"])
-  const groupName = () => local.name || createUniqueId()
+  const rest = omit(props, "children", "class", "name")
+
+  const uid = createUniqueId()
+  const groupName = () => props.name || uid
 
   return (
-    <TabsGroupNameContext.Provider value={groupName()}>
-      <div class={`ui-tabs ${local.class || ""}`.trim()} role="tablist" {...rest}>
-        {local.children}
+    <TabsGroupNameContext value={groupName}>
+      <div class={["ui-tabs", props.class]} role="tablist" {...rest}>
+        {props.children}
       </div>
-    </TabsGroupNameContext.Provider>
+    </TabsGroupNameContext>
   )
 }

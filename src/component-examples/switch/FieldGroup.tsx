@@ -2,13 +2,13 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/solid"
 
 export default function Example() {
   return (
-    <Form>
+    <Form as="div">
       <FieldSet>
-        <FieldLegend>Preferences</FieldLegend>
-        <FieldGroup name="switch-group">
-          <Switch>Dark mode</Switch>
-          <Switch>Notifications</Switch>
-          <Switch>Auto-save</Switch>
+        <FieldLegend>Legend</FieldLegend>
+        <FieldGroup name="switch-group-astro">
+          <Switch>Switch 1</Switch>
+          <Switch>Switch 2</Switch>
+          <Switch>Switch 3</Switch>
         </FieldGroup>
       </FieldSet>
     </Form>

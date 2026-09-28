@@ -3,9 +3,20 @@ import { Switch } from "opui-css/solid"
 export default function Example() {
   return (
     <>
-      <Switch size="small" checked name="switch">Small</Switch>
-      <Switch checked name="switch">Default</Switch>
-      <Switch size="large" checked name="switch">Large</Switch>
+      <div class="example-row">
+        <Switch small checked hideLabel>
+          Small
+        </Switch>
+        <Switch checked hideLabel>
+          Default
+        </Switch>
+      </div>
+      <div class="example-row">
+        <Switch small checked>
+          Small
+        </Switch>
+        <Switch checked>Default</Switch>
+      </div>
     </>
   )
 }

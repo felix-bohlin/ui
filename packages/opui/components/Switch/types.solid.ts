@@ -1,9 +1,9 @@
+import type { JSX } from "@solidjs/web"
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
 
 export type SwitchProps = Base.SwitchProps &
-  JSX.InputHTMLAttributes<HTMLInputElement> &
-  Base.SwitchSlots<JSX.Element>
+  Base.SwitchSlots<JSX.Element> &
+  JSX.InputHTMLAttributes<HTMLInputElement>
 
 export type SwitchInputProps = Base.SwitchInputProps &
   JSX.InputHTMLAttributes<HTMLInputElement>

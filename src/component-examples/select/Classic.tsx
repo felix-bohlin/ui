@@ -2,10 +2,18 @@ import { ClassicSelect } from "opui-css/solid"
 
 export default function Example() {
   return (
-    <ClassicSelect label="Label">
-      <option>Option one</option>
-      <option>Option two</option>
-      <option>Option three</option>
-    </ClassicSelect>
+    <>
+      <ClassicSelect label="Label">
+        <option value="">-</option>
+        <option>Option</option>
+        <option>Option</option>
+      </ClassicSelect>
+
+      <ClassicSelect label="Label" variant="filled">
+        <option value="">-</option>
+        <option>Option 1</option>
+        <option>Option 2</option>
+      </ClassicSelect>
+    </>
   )
 }

@@ -4,10 +4,11 @@ export default function Example() {
   return (
     <Form>
       <FieldSet disabled>
-        <FieldLegend>Disabled</FieldLegend>
-        <FieldGroup name="switch-disabled">
-          <Switch>Option A</Switch>
-          <Switch>Option B</Switch>
+        <FieldLegend>Legend</FieldLegend>
+        <FieldGroup direction="row" name="switch-group-disabled-astro">
+          <Switch>Switch 1</Switch>
+          <Switch>Switch 2</Switch>
+          <Switch>Switch 3</Switch>
         </FieldGroup>
       </FieldSet>
     </Form>

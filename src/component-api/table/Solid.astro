@@ -2,6 +2,8 @@
 import { Table } from "@opui/astro"
 ---
 
+<h3 id="table-solid">Table</h3>
+
 <Table>
   <Table.ColumnGroup>
     <Table.Column width="min-width: 20%" />
@@ -19,6 +21,12 @@ import { Table } from "@opui/astro"
   </Table.Head>
   <Table.Body>
     <Table.Row>
+      <Table.Cell><code>children</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional child content.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
       <Table.Cell><code>class</code></Table.Cell>
       <Table.Cell><code>string</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
@@ -26,9 +34,75 @@ import { Table } from "@opui/astro"
     </Table.Row>
     <Table.Row>
       <Table.Cell><code>variant</code></Table.Cell>
-      <Table.Cell><code>"dense" | "spacious"</code></Table.Cell>
+      <Table.Cell><code>"dense"</code>, <code>"spacious"</code></Table.Cell>
       <Table.Cell>-</Table.Cell>
       <Table.Cell>The variant to use.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="table-column-solid">TableColumn</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>width</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Column width, e.g. <code>"20%"</code> or <code>"min-width: 20%"</code
+        >.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="table-parts-solid">
+  TableBody, TableCell, TableColumnGroup, TableHead, TableHeaderCell, TableRow
+</h3>
+<p>
+  Render <code>&lt;tbody&gt;</code>, <code>&lt;td&gt;</code>, <code
+    >&lt;colgroup&gt;</code
+  >, <code>&lt;thead&gt;</code>, <code>&lt;th&gt;</code> and <code
+    >&lt;tr&gt;</code
+  >. All native attributes are passed through.
+</p>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>children</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional child content.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>

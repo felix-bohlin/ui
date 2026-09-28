@@ -9,6 +9,8 @@ import DefaultVue from "../../component-examples/table/Default.vue"
 import DefaultAstro from "../../component-examples/table/Default.astro?raw"
 import DefaultVueRaw from "../../component-examples/table/Default.vue?raw"
 import DefaultHtml from "../../component-examples/table/Default.html?raw"
+import DefaultSolid from "../../component-examples/table/Default.tsx"
+import DefaultSolidRaw from "../../component-examples/table/Default.tsx?raw"
 
 export const description =
   "Displays tabular data. Basic tables with row and column headers, and optional captions and footers."
@@ -43,7 +45,10 @@ export const description =
       controls below.
     </p>
 
-    <Example wrapperClass="table-interactive-example">
+    <Example
+      solidExampleId="table/Default"
+      wrapperClass="table-interactive-example"
+    >
       <ToggleGroup slot="controls" size="x-small" selection="single">
         <ToggleButton data-size="dense">Dense</ToggleButton>
         <ToggleButton data-size="default" pressed>Default</ToggleButton>
@@ -53,8 +58,10 @@ export const description =
       <Example.Preview slot="preview-astro" code={Default} />
       <Example.Preview slot="preview-html" code={DefaultHtml} />
       <Example.Preview slot="preview-vue" code={DefaultVue} />
+      <Example.Preview slot="preview-solid" code={DefaultSolid} />
       <Example.Code slot="code-astro" code={DefaultAstro} />
       <Example.Code slot="code-vue" code={DefaultVueRaw} />
+      <Example.Code slot="code-solid" code={DefaultSolidRaw} />
       <Example.Code slot="code-html" code={DefaultHtml} />
     </Example>
   </section>

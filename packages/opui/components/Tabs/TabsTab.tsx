@@ -1,20 +1,20 @@
-import { splitProps, type JSX, useContext } from "solid-js"
-import { CurrentTabIdContext } from "./TabsItem"
+import { omit, useContext } from "solid-js"
+import { CurrentTabIdContext } from "./context"
 import type { TabsTabProps } from "./types.solid"
 
 export default function TabsTab(props: TabsTabProps) {
-  const [local, rest] = splitProps(props, ["tabId", "class", "children"])
+  const rest = omit(props, "children", "class", "tabId")
 
   const currentTabId = useContext(CurrentTabIdContext)
 
   return (
     <label
-      for={local.tabId || currentTabId}
-      class={`ui-tab-label ${local.class || ""}`.trim()}
+      for={props.tabId || currentTabId()}
+      class={["ui-tab-label", props.class]}
       role="tab"
       {...rest}
     >
-      {local.children}
+      {props.children}
     </label>
   )
 }

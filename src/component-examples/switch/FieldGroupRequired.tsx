@@ -4,10 +4,11 @@ export default function Example() {
   return (
     <Form>
       <FieldSet>
-        <FieldLegend required>Required</FieldLegend>
-        <FieldGroup name="switch-required">
-          <Switch>Option A</Switch>
-          <Switch>Option B</Switch>
+        <FieldLegend>These are required!</FieldLegend>
+        <FieldGroup direction="row" name="switch-group-required-astro">
+          <Switch required>Switch 1</Switch>
+          <Switch required>Switch 2</Switch>
+          <Switch required>Switch 3</Switch>
         </FieldGroup>
       </FieldSet>
     </Form>

@@ -3,12 +3,14 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/solid"
 export default function Example() {
   return (
     <Form>
-      <FieldSet invalid>
-        <FieldLegend>Invalid</FieldLegend>
-        <FieldGroup name="switch-invalid">
-          <Switch>Option A</Switch>
-          <Switch>Option B</Switch>
+      <FieldSet data-invalid>
+        <FieldLegend>Legend</FieldLegend>
+        <FieldGroup direction="row" name="switch-group-validation-astro">
+          <Switch>Switch 1</Switch>
+          <Switch>Switch 2</Switch>
+          <Switch>Switch 3</Switch>
         </FieldGroup>
+        <span class="ui-end-text">Something went wrong!</span>
       </FieldSet>
     </Form>
   )

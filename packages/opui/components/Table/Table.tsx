@@ -1,15 +1,15 @@
-import { splitProps, type JSX } from "solid-js"
+import { omit } from "solid-js"
 import type { Props } from "./types.solid"
 
 export default function Table(props: Props) {
-  const [local, rest] = splitProps(props, ["variant", "class", "children"])
+  const rest = omit(props, "children", "class", "variant")
 
   return (
     <table
-      class={`ui-table ${local.variant ? `ui-${local.variant}` : ""} ${local.class || ""}`.trim()}
+      class={["ui-table", props.variant && `ui-${props.variant}`, props.class]}
       {...rest}
     >
-      {local.children}
+      {props.children}
     </table>
   )
 }

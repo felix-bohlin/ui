@@ -6,6 +6,11 @@ A CSS UI library exploring how next-gen HTML & CSS features can change the way w
 
 https://open-props-ui.netlify.app/html/guide/getting-started/
 
+### AI assistants
+
+- [llms.txt](https://open-props-ui.netlify.app/llms.txt) indexes the docs. Every page also has a Markdown version, e.g. [/html/components/button.md](https://open-props-ui.netlify.app/html/components/button.md).
+- `opui-css` ships an agent skill in `skills/opui`. See the [package README](packages/opui/README.md#ai-assistants).
+
 ---
 
 ## Maintainers
@@ -36,3 +41,12 @@ pnpm dev
 2. Add `[ComponentName].astro` to that folder.
 3. Export the component from the barrel in `packages/opui/astro/index.ts`.
 4. (Optional) Implement the component CSS in `packages/opui/css/components/`.
+
+### Agent skill
+
+`packages/opui/skills/opui/references` is generated from the docs build. Regenerate it before publishing:
+
+```bash
+pnpm build
+pnpm build-skill
+```

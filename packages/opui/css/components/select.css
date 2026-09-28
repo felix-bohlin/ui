@@ -6,12 +6,12 @@
     /* Default arrow */
     &::picker-icon {
       block-size: 0;
-      border-block-start: 5px solid;
-      border-inline: 5px solid transparent;
+      border-block-start: var(--_arrow-size) solid;
+      border-inline: var(--_arrow-size) solid transparent;
       color: currentColor;
       content: "";
       inline-size: 0;
-      inset: 50% var(--size-3) auto auto;
+      inset: 50% var(--_arrow-inset) auto auto;
       pointer-events: none;
       position: absolute;
       translate: 0 -50%;
@@ -121,6 +121,8 @@
   }
 
   :where(.ui-select:has(select)) {
+    --_arrow-inset: var(--size-3);
+    --_arrow-size: 5px;
 
     /* Size */
     &.ui-small {
@@ -147,15 +149,15 @@
       &::after {
         align-self: center;
         block-size: 0;
-        border-block-start: 5px solid;
-        border-inline: 5px solid transparent;
+        border-block-start: var(--_arrow-size) solid;
+        border-inline: var(--_arrow-size) solid transparent;
         content: "";
         display: inline-block;
         flex-shrink: 0;
         grid-column: 1/-1;
         grid-row: 2;
         inline-size: 0;
-        inset-inline-end: var(--size-3);
+        inset-inline-end: var(--_arrow-inset);
         justify-self: end;
         pointer-events: none;
         position: relative;

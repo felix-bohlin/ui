@@ -14,7 +14,12 @@
  * "true"/"false" to stay byte-compatible with previously-saved configs.
  */
 
-import { TOKENS, TOKEN_DEFAULTS, type Token } from "./theme-tokens"
+import {
+  RADIUS_OPTIONS,
+  TOKENS,
+  TOKEN_DEFAULTS,
+  type Token,
+} from "./theme-tokens"
 import {
   isPresetId,
   presetById,
@@ -25,7 +30,7 @@ import {
 
 export type Mode = "light" | "dark"
 
-export { TOKENS, TOKEN_DEFAULTS, type Token }
+export { RADIUS_OPTIONS, TOKENS, TOKEN_DEFAULTS, type Token }
 
 export type ModeConfig = Partial<Record<Token, string>> & {
   "enable-grays"?: "true" | "false"

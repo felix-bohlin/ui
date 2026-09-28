@@ -8,11 +8,11 @@ const closeIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32
 
 <template>
   <ButtonGroup variant="outlined">
-    <Button aria-label="Label">
+    <Button aria-label="Label" iconOnly>
       <span v-html="checkIcon"></span>
     </Button>
     <Button aria-label="Label"> Maybe </Button>
-    <Button aria-label="Label">
+    <Button aria-label="Label" iconOnly>
       <span v-html="closeIcon"></span>
     </Button>
   </ButtonGroup>

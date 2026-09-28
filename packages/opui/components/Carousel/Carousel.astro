@@ -1,0 +1,42 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Carousel"
+
+const {
+  align,
+  buttons = true,
+  class: className,
+  label,
+  markers,
+  peek,
+  perView,
+  style,
+  ...rest
+} = Astro.props
+
+const perViewStyle = perView ? `--_per-view: ${perView};` : ""
+const mergedStyle =
+  typeof style === "string" || !style
+    ? `${perViewStyle}${style ?? ""}` || undefined
+    : { ...(perView ? { "--_per-view": perView } : {}), ...style }
+---
+
+<ul
+  aria-label={label}
+  class:list={[
+    "ui-carousel",
+    {
+      "ui-buttons-outside": buttons === "outside",
+      "ui-peek": peek,
+      "ui-with-buttons": buttons,
+      "ui-with-markers": markers,
+    },
+    align && align !== "start" && `ui-align-${align}`,
+    className,
+  ]}
+  style={mergedStyle}
+  {...rest}
+>
+  <slot />
+</ul>

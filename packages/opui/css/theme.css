@@ -60,7 +60,7 @@
     --border-width: 1px;
 
     /* 9. Focus ring */
-    --focus-ring-color: var(--primary);
+    /* --focus-ring-color: var(--primary); */
     --focus-ring-width: 2px;
     --focus-ring-offset: 2px;
     --focus-ring-style: solid;

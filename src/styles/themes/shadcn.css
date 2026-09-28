@@ -14,6 +14,7 @@
   --font-sans:
     Inter, Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
+  --font-heading: var(--font-sans);
   --border-width: 1px;
   --field-border-width: 1px;
   --control-size-x-small: 28px;

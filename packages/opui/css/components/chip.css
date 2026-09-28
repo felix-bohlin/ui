@@ -8,7 +8,7 @@
     background: var(--_bg-color) var(--ripple, none);
     block-size: var(--size-7, 2rem);
     border-radius: var(--radius-2, 0.5rem);
-    border: 1px solid var(--_border-color);
+    border: var(--border-width) solid var(--_border-color);
     color: var(--_color);
     display: inline-flex;
     font-size: var(--font-size-0, 0.75rem);

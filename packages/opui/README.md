@@ -13,9 +13,9 @@ pnpm add opui-css open-props
 
 Peer dependencies:
 
-- `astro` `^6` (only required if you use the Astro components)
-- `vue` `^3` (only required if you use the Vue components)
-- `open-props` `^1`
+- `astro` `^7` (only required if you use the Astro components)
+- `open-props` `^1.7`
+- `vue` `^3.5` (only required if you use the Vue components)
 
 ## Usage
 
@@ -28,9 +28,31 @@ import { Button, Card } from "opui-css/astro"
 ---
 
 <Card>
-  <Button variant="primary">Click me</Button>
+  <Button color="primary" variant="filled">Click me</Button>
 </Card>
 ```
+
+### Vue components
+
+Vue components ship markup only, so import the CSS once in your app entry:
+
+```css
+@import "opui-css/css/imports.css";
+```
+
+```vue
+<script setup lang="ts">
+import { Button, Card } from "opui-css/vue"
+</script>
+
+<template>
+  <Card>
+    <Button color="primary" variant="filled">Click me</Button>
+  </Card>
+</template>
+```
+
+Both `opui-css/astro` and `opui-css/vue` export uncompiled sources (`.astro`, `.vue`, `.ts`), so they need a bundler that compiles them, e.g. Astro or Vite with `@vitejs/plugin-vue`.
 
 ### Plain HTML + CSS (no build step)
 
@@ -76,11 +98,25 @@ Wrap your own styles in a layer above `utils` (or unlayered) to override.
 | `opui-css/css/imports.css`          | Source: everything (resolved by your bundler) |
 | `opui-css/css/components.css`       | All component styles (no tokens / reset)      |
 | `opui-css/css/components/*.css`     | One component at a time                       |
+| `opui-css/css/theme.css`            | Theme tokens (primary, surfaces, text, …)     |
 | `opui-css/core/normalize.css`       | CSS reset                                     |
 | `opui-css/core/palette.css`         | Extra OKLCH palette                           |
 | `opui-css/core/utils.css`           | Utility classes                               |
 | `opui-css/astro`                    | All Astro components                          |
-| `opui-css/components/*`             | Individual Astro component sources            |
+| `opui-css/vue`                      | All Vue components                            |
+| `opui-css/components/*`             | Individual Astro and Vue component sources    |
+
+## AI assistants
+
+The package ships an agent skill in `skills/opui` with a reference for every component, matching the installed version. Agents don't load skills from `node_modules` on their own, so copy it into your project:
+
+```bash
+cp -r node_modules/opui-css/skills/opui .claude/skills/opui
+```
+
+Use the skills folder your agent reads from if it isn't Claude Code, or point your `AGENTS.md` at `node_modules/opui-css/skills/opui/SKILL.md`.
+
+The docs are also available as [llms.txt](https://open-props-ui.netlify.app/llms.txt), and every docs page has a Markdown version, e.g. [/html/components/button.md](https://open-props-ui.netlify.app/html/components/button.md).
 
 ## License
 

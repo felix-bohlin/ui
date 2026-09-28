@@ -1,9 +1,9 @@
 @font-face {
-  font-family: "Press Start 2P";
+  font-family: "Pixelify Sans";
   font-style: normal;
-  font-weight: 400;
+  font-weight: 400 700;
   font-display: swap;
-  src: url("/fonts/PressStart2P.woff2") format("woff2");
+  src: url("/PixelifySans%5Bwght%5D.ttf") format("truetype");
 }
 
 [data-theme="pixelated"] {
@@ -16,24 +16,46 @@
   --field-border-radius: 0;
   --button-border-radius: 0;
 
-  --pixelated-font: "Press Start 2P", ui-monospace, monospace;
+  --pixelated-font: "Pixelify Sans", ui-monospace, monospace;
   --pixelated-unit: 3px;
   --pixelated-ink: light-dark(var(--gray-15), var(--gray-2));
 
-  --font-sans: var(--font-monospace-code);
-  --font-size-h1: var(--font-size-fluid-2);
-  --font-size-h2: var(--font-size-fluid-1);
-  --font-size-h3: var(--font-size-3);
-  --font-size-h4: var(--font-size-2);
-  --font-size-h5: var(--font-size-1);
-  --font-size-h6: var(--font-size-0);
+  --font-sans: var(--pixelated-font);
+  --font-heading: var(--pixelated-font);
+  --radius-1: 0;
+  --radius-2: 0;
+  --radius-3: 0;
+  --radius-4: 0;
+  --radius-5: 0;
+  --radius-6: 0;
+  --radius-round: 0;
+  --shadow-1: 2px 2px 0 0 var(--pixelated-ink);
+  --shadow-2: 3px 3px 0 0 var(--pixelated-ink);
+  --shadow-3: 4px 4px 0 0 var(--pixelated-ink);
+  --shadow-4: 6px 6px 0 0 var(--pixelated-ink);
+  --shadow-5: 8px 8px 0 0 var(--pixelated-ink);
+  --shadow-6: 8px 8px 0 0 var(--pixelated-ink);
+  --ease-1: var(--ease-step-3);
+  --ease-2: var(--ease-step-3);
+  --ease-3: var(--ease-step-3);
+  --ease-4: var(--ease-step-3);
+  --ease-5: var(--ease-step-3);
+  --ease-in-1: var(--ease-step-3);
+  --ease-in-2: var(--ease-step-3);
+  --ease-in-3: var(--ease-step-3);
+  --ease-in-4: var(--ease-step-3);
+  --ease-in-5: var(--ease-step-3);
+  --ease-out-1: var(--ease-step-3);
+  --ease-out-2: var(--ease-step-3);
+  --ease-out-3: var(--ease-step-3);
+  --ease-out-4: var(--ease-step-3);
+  --ease-out-5: var(--ease-step-3);
   --border-width: 2px;
   --field-border-width: 2px;
   --focus-ring-color: var(--pixelated-ink);
   --focus-ring-width: 3px;
   --focus-ring-offset: 3px;
   --focus-ring-style: dashed;
-  --motion: 0;
   --primary: var(--color-9);
   --primary-contrast: var(--gray-1);
   --text-primary: light-dark(var(--gray-16), var(--gray-1));
@@ -44,64 +66,21 @@
   --surface-elevated: light-dark(var(--gray-1), var(--gray-14));
   --border-color: var(--pixelated-ink);
   --field-border-color: var(--pixelated-ink);
-  --shadow-1: none;
-  --shadow-2: var(--pixelated-unit) var(--pixelated-unit) 0 0
-    var(--pixelated-ink);
-  --shadow-3: var(--pixelated-unit) var(--pixelated-unit) 0 0
-    var(--pixelated-ink);
-  --shadow-4: var(--pixelated-unit) var(--pixelated-unit) 0 0
-    var(--pixelated-ink);
-  --shadow-5: var(--pixelated-unit) var(--pixelated-unit) 0 0
-    var(--pixelated-ink);
-  --shadow-6: var(--pixelated-unit) var(--pixelated-unit) 0 0
-    var(--pixelated-ink);
 
   font-family: var(--font-sans);
   image-rendering: pixelated;
 
   :is(h1, h2, h3, h4, h5, h6, .ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
-    font-family: var(--pixelated-font);
-    font-weight: 400;
+    font-family: var(--font-heading);
     letter-spacing: 0;
-    line-height: 1.5;
   }
 
   svg {
     shape-rendering: crispEdges;
   }
 
-  :is(.ui-button, .ui-chip, .ui-toggle-button, .ui-overline, legend) {
-    font-family: var(--pixelated-font);
-    font-weight: 400;
-    letter-spacing: 0;
-    text-transform: uppercase;
-  }
-
-  .ui-tabs > .ui-tab-label {
-    font-family: var(--pixelated-font);
-    font-size: var(--font-size-0);
-    font-weight: 400;
-    text-transform: uppercase;
-  }
-
-  .ui-button {
-    font-size: var(--font-size-0);
-
-    &.ui-small {
-      font-size: 0.625rem;
-    }
-
-    &.ui-x-small {
-      font-size: 0.5rem;
-    }
-
-    &.ui-large {
-      font-size: var(--font-size-05);
-    }
-
-    &:not([disabled]):active {
-      translate: 0 var(--pixelated-unit);
-    }
+  .ui-button:not([disabled]):active {
+    translate: 0 var(--pixelated-unit);
   }
 
   :is(
@@ -118,7 +97,6 @@
       var(--pixelated-unit) 0 0 0 var(--pixelated-ink);
 
     border-color: transparent;
-    border-radius: 0;
     border-width: 0;
     box-shadow: var(--pixelated-corners);
     margin: var(--pixelated-unit);
@@ -126,30 +104,6 @@
 
   :is(.ui-button, .ui-icon-button).ui-outlined {
     --pixelated-ink: currentColor;
-  }
-
-  .ui-chip {
-    font-size: 0.625rem;
-  }
-
-  :is(.ui-icon-button, .ui-avatar, .ui-avatar img, .ui-avatar svg) {
-    border-radius: 0;
-  }
-
-  .ui-switch input[type="checkbox"][role="switch"] {
-    &::before,
-    &::after {
-      border-radius: 0;
-    }
-
-    &::before {
-      border-width: 2px;
-    }
-  }
-
-  :is(.ui-checkbox, .ui-radio) input {
-    border-radius: 0;
-    border-width: 2px;
   }
 
   .ui-link {

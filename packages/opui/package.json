@@ -36,6 +36,7 @@
     "dist",
     "env.d.ts",
     "open-props.css",
+    "skills",
     "vue",
     "CHANGELOG.md",
     "LICENSE",
@@ -49,7 +50,9 @@
     "./astro": "./astro/index.ts",
     "./vue": "./vue/index.ts",
     "./components/*": "./components/*",
+    "./core/*.css": "./core/*.css",
     "./core/*": "./core/*.css",
+    "./css/*.css": "./css/*.css",
     "./css/*": "./css/*.css",
     "./dist/*": "./dist/*"
   },

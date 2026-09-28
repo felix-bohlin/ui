@@ -12,9 +12,9 @@
   --palette-hue-rotate-by: -1;
   --gray-chroma: 0.02;
   --gray-hue: 75;
-  --border-radius: var(--radius-3);
-  --field-border-radius: var(--radius-4);
-  --button-border-radius: var(--radius-4);
+  --border-radius: var(--size-3);
+  --field-border-radius: var(--size-4);
+  --button-border-radius: var(--size-4);
 
   --wedding-gold: light-dark(oklch(0.74 0.11 82), oklch(0.8 0.12 85));
   --wedding-script: "Great Vibes", "Snell Roundhand", "Apple Chancery", cursive;
@@ -23,6 +23,7 @@
     "Cormorant Garamond", "EB Garamond", Garamond, "Iowan Old Style",
     "Palatino Linotype", Georgia, serif;
   --font-sans: var(--font-serif);
+  --font-heading: var(--wedding-script);
   --font-size-h1: calc(var(--font-size-fluid-3) * 1.4);
   --font-size-h2: calc(var(--font-size-fluid-2) * 1.35);
   --border-width: 1px;

@@ -12,6 +12,7 @@
 @import "./components/anchor.css";
 @import "./components/avatar.css";
 @import "./components/card.css";
+@import "./components/carousel.css";
 @import "./components/chip.css";
 @import "./components/description-list.css";
 @import "./components/divider.css";
@@ -31,6 +32,7 @@
 @import "./components/button-group.css";
 @import "./components/accordion.css";
 @import "./components/list.css";
+@import "./components/menu.css";
 @import "./components/dialog.css";
 @import "./components/drawer.css";
 @import "./components/form.css";

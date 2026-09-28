@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "build-search-index": "node scripts/generate-search-index.mjs",
+    "build-skill": "node scripts/build-agent-skill.mjs",
     "check-browser-support": "node scripts/check-browser-support.mjs"
   },
   "dependencies": {
@@ -26,13 +27,17 @@
   "devDependencies": {
     "@astrojs/sitemap": "^3.7.4",
     "@astrojs/vue": "^7.0.3",
+    "hast-util-select": "^6.0.4",
+    "hast-util-to-text": "^4.0.2",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "0.14.1",
+    "rehype-parse": "^9.0.1",
+    "rehype-remark": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-stringify": "^11.0.0",
     "solid-js": "catalog:",
+    "unified": "^11.0.5",
     "vue": "catalog:"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": []
   },
   "packageManager": "pnpm@12.4.2+sha512.08adc6613180275c7c9edada39dcf08c9c61ad4e7eaf330a4f3461f102b0f907423454d117f98e72d47fef0616070644d7bffc973a6a57f5090a6d7c368b07c9"
 }

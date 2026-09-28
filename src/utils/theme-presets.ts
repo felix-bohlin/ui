@@ -37,7 +37,7 @@ const PRESET_META = [
     label: "Pixelated",
     tagline: "8-bit corners and a Game Boy palette.",
     description:
-      "Square everything, a real pixel font for headings and controls, notched corners drawn with box shadows, crisp edges on icons and images and zero transitions.",
+      "Square everything, a real pixel font throughout, notched corners drawn with box shadows, crisp edges on icons and images, and stepped motion instead of easing.",
   },
   {
     id: "shadcn",

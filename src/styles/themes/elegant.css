@@ -4,9 +4,9 @@
   --palette-hue-rotate-by: 0;
   --gray-chroma: 0.012;
   --gray-hue: 70;
-  --border-radius: var(--radius-1);
+  --border-radius: var(--size-1);
   --field-border-radius: 0;
-  --button-border-radius: var(--radius-1);
+  --button-border-radius: var(--size-1);
 
   --elegant-shadow:
     0 24px 48px -24px light-dark(oklch(0.2 0.02 70 / 0.35), oklch(0 0 0 / 0.7)),
@@ -16,6 +16,7 @@
     "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia,
     "Times New Roman", serif;
   --font-sans: var(--font-serif);
+  --font-heading: var(--font-serif);
   --border-width: 1px;
   --field-border-width: 1px;
   --focus-ring-width: 1px;

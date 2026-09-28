@@ -19,6 +19,14 @@
     Impact, "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   --font-sans: var(--font-monospace-slab-serif);
+  --font-heading: var(--brutalist-display-font);
+  --radius-1: 0;
+  --radius-2: 0;
+  --radius-3: 0;
+  --radius-4: 0;
+  --radius-5: 0;
+  --radius-6: 0;
+  --radius-round: 0;
   --border-width: 3px;
   --field-border-width: 3px;
   --focus-ring-color: var(--brutalist-ink);
@@ -126,8 +134,6 @@
     .ui-toggle-group
   ) {
     border-color: var(--brutalist-ink);
-    border-style: solid;
-    border-width: var(--border-width);
     box-shadow: var(--brutalist-shadow);
   }
 
@@ -145,34 +151,12 @@
   }
 
   .ui-chip {
-    border-radius: 0;
-    border-width: 2px;
     font-size: 0.7rem;
-  }
-
-  .ui-icon-button {
-    border-radius: 0;
   }
 
   .ui-field:focus-within {
     background-color: var(--primary);
     color: var(--primary-contrast);
-  }
-
-  .ui-switch input[type="checkbox"][role="switch"] {
-    &::before {
-      border: 2px solid var(--brutalist-ink);
-      border-radius: 0;
-    }
-
-    &::after {
-      border-radius: 0;
-    }
-  }
-
-  :is(.ui-checkbox, .ui-radio) input {
-    border-radius: 0;
-    border-width: 2px;
   }
 
   .ui-link {

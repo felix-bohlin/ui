@@ -5,11 +5,11 @@ pnpm-workspace.yaml
 .vscode
 dist
 node_modules
-packages/opui/components/AGENTS.md
-public/search-index.json
-tests/unit/__snapshots__
 dist-test
+packages/opui/components/AGENTS.md
 playwright-report
+public/search-index.json
 test-results
 tests/e2e/a11y-known-violations.json
+tests/unit/__snapshots__
 tests/unit/parity-known-drift.json

@@ -146,6 +146,9 @@
       }
 
       &:dir(rtl) {
+        --_button-next-content: "\276E";
+        --_button-prev-content: "\276F";
+
         &::scroll-button(inline-start) {
           background-image: var(--_button-next-icon);
         }

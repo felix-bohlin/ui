@@ -5,7 +5,7 @@
 ### Added
 
 - `Menu` component (`menu.ui-menu.ui-list[popover]`). Opens with Invoker Commands, anchors to its trigger with no `anchor-name`, and flips when it runs out of space. Supports an `items` prop, custom `ListItem` content, placements, end alignment (`align="end"`, `.ui-align-end`), `--anchor-position-area`, group labels, critical items and submenus. HTML and CSS only.
-- `Button` takes an `iconOnly` prop (`.ui-icon-only`) for square icon-only buttons, at every size and inside `ButtonGroup`.
+- `Button` is square when its only child is an `svg`, at every size and inside `ButtonGroup`.
 - `DrawerHeader` takes a `commandfor` prop (the drawer `id`). When set, the close button uses `command="close"` (Invoker Commands), HTML only. Without it, the previous script fallback is used.
 - `Button` padding scales with `--_padding-inline`, and the icon side gets tighter padding when a direct child `svg` sits next to a wrapped label (e.g. `<span>`).
 - `Button` and `IconButton` support `.ui-disabled`. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.

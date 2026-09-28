@@ -8,7 +8,6 @@ const {
   as,
   class: className,
   color,
-  iconOnly,
   size,
   variant,
   disabled,
@@ -23,7 +22,7 @@ const isButton = Tag === "button"
 <Tag
   class:list={[
     "ui-button",
-    { "ui-disabled": isButton && disabled, "ui-icon-only": iconOnly },
+    { "ui-disabled": isButton && disabled },
     size && `ui-${size}`,
     variant && `ui-${variant}`,
     color && `ui-${color}`,

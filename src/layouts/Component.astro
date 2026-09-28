@@ -1,6 +1,6 @@
 ---
 import Document from "./Document.astro"
-import { components, componentHrefFor } from "../utils/components"
+import { componentsFor, componentHrefFor } from "../utils/components"
 import FrameworkPicker from "../components/FrameworkPicker.astro"
 import BrowserSupport from "../components/BrowserSupport.astro"
 import BrowserSupportChips from "../components/BrowserSupportChips.astro"
@@ -74,6 +74,7 @@ const autoApis = (() => {
 
 const apis = apisProp === "auto" ? autoApis : (apisProp ?? autoApis)
 
+const components = componentsFor(currentFramework)
 const currentIndex = components.findIndex(
   (component) => component.slug === currentSlug,
 )

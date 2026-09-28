@@ -1,17 +1,21 @@
 import { getRelativeLocaleUrl } from "astro:i18n"
 import {
+  componentHasFramework,
   DEFAULT_FRAMEWORK,
   FRAMEWORK_IDS,
   FRAMEWORKS,
   frameworkPrefixPattern,
+  pathHasFramework,
   type FrameworkId,
 } from "./framework"
 
 export {
+  componentHasFramework,
   DEFAULT_FRAMEWORK,
   FRAMEWORK_IDS,
   FRAMEWORKS,
   frameworkPrefixPattern,
+  pathHasFramework,
   type FrameworkId,
 }
 
@@ -77,9 +81,12 @@ export function hrefFor(framework: FrameworkId, pathname: string): string {
 export function frameworkVariantsOf(
   pathname: string,
 ): { framework: FrameworkId; url: string; isDefault: boolean }[] {
-  return FRAMEWORKS.map((l) => ({
-    framework: l.id,
-    url: hrefFor(l.id, pathname),
-    isDefault: l.id === DEFAULT_FRAMEWORK,
-  }))
+  const sharedPath = stripFrameworkPrefix(pathname)
+  return FRAMEWORKS.filter((l) => pathHasFramework(l.id, sharedPath)).map(
+    (l) => ({
+      framework: l.id,
+      url: hrefFor(l.id, pathname),
+      isDefault: l.id === DEFAULT_FRAMEWORK,
+    }),
+  )
 }

@@ -25,6 +25,28 @@ export const FRAMEWORK_IDS = FRAMEWORKS.map(
   (l) => /** @type {FrameworkId} */ (l.id),
 )
 
+/** @type {Record<string, FrameworkId[]>} */
+export const COMPONENT_FRAMEWORKS = {
+  toast: ["html"],
+}
+
+/**
+ * @param {FrameworkId} framework
+ * @param {string} slug
+ */
+export function componentHasFramework(framework, slug) {
+  return COMPONENT_FRAMEWORKS[slug]?.includes(framework) ?? true
+}
+
+/**
+ * @param {FrameworkId} framework
+ * @param {string} sharedPath
+ */
+export function pathHasFramework(framework, sharedPath) {
+  const slug = sharedPath.match(/^\/components\/([^/]+)/)?.[1]
+  return !slug || componentHasFramework(framework, slug)
+}
+
 /**
  * Build a fresh regex that matches a framework prefix at the start of a
  * pathname (e.g. `/astro/` or `/astro`). Returns a new instance each call so

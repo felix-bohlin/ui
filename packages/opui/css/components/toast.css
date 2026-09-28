@@ -3,7 +3,7 @@
     background: none;
     block-size: auto;
     border: none;
-    display: none;
+    display: flex;
     flex-direction: column-reverse;
     gap: var(--size-3);
     inline-size: auto;
@@ -15,10 +15,6 @@
     pointer-events: none;
     position: fixed;
     z-index: 1000;
-
-    &:popover-open {
-      display: flex;
-    }
 
     &::backdrop {
       display: none;
@@ -54,6 +50,17 @@
       animation-play-state: paused;
     }
 
+    &[data-severity="loading"] {
+      animation: toast-enter var(--_anim-enter) var(--ease-out-3) backwards;
+
+      .ui-icon {
+        animation: toast-spin 0.8s linear infinite;
+        border: 2px solid currentColor;
+        border-block-start-color: transparent;
+        border-radius: 50%;
+      }
+    }
+
     &.ui-exiting {
       animation: toast-exit var(--_anim-exit) var(--ease-in-3) forwards;
     }
@@ -71,6 +78,7 @@
     }
 
     .ui-content {
+      flex: 1;
       font-size: var(--font-size-05);
       word-break: break-word;
     }
@@ -137,9 +145,16 @@
     }
 
     to {
+      display: none;
       opacity: 0;
       scale: 0.9;
       translate: 0 var(--size-4);
+    }
+  }
+
+  @keyframes toast-spin {
+    to {
+      rotate: 1turn;
     }
   }
 }

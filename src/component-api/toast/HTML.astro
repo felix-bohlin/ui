@@ -45,7 +45,8 @@ import { Table } from "@opui/astro"
       <Table.Cell
         >Adds an icon to the toast. Options: <code>critical</code>, <code
           >info</code
-        >, <code>success</code>, <code>warning</code>.</Table.Cell
+        >, <code>loading</code>, <code>success</code>, <code>warning</code>.
+        Loading toasts stay until updated.</Table.Cell
       >
     </Table.Row>
     <Table.Row>
@@ -55,6 +56,28 @@ import { Table } from "@opui/astro"
       <Table.Cell
         >Determines how long the toast remains visible. Supports CSS time units
         (ms, s).</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><strong>JavaScript</strong></Table.Cell>
+      <Table.Cell><code>toast(title, options)</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Shows a toast and returns a handle with <code>update()</code> and <code
+          >dismiss()</code
+        >. Options: <code>description</code>, <code>duration</code>, <code
+          >severity</code
+        >.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><strong>JavaScript</strong></Table.Cell>
+      <Table.Cell><code>toast.promise(promise, messages)</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Shows a loading toast that turns into success or error. Messages: <code
+          >error</code
+        >, <code>loading</code>, <code>success</code>.</Table.Cell
       >
     </Table.Row>
     <Table.Row>

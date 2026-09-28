@@ -51,7 +51,11 @@
     "./components/*": "./components/*",
     "./core/*": "./core/*.css",
     "./css/*": "./css/*.css",
-    "./dist/*": "./dist/*"
+    "./dist/*": "./dist/*",
+    "./toast": {
+      "types": "./css/js/toast.d.ts",
+      "default": "./css/js/toast.js"
+    }
   },
   "scripts": {
     "build": "node scripts/build.mjs",

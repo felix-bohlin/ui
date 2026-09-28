@@ -1,12 +1,7 @@
-<button class="ui-button" id="js-trigger-html">Trigger from JS</button>
+<button class="ui-button" id="js-trigger-html">Save profile</button>
 
 <script>
   document.getElementById("js-trigger-html")?.addEventListener("click", () => {
-    window.showToast({
-      title: "Triggered from JS!",
-      description: "With an optional description",
-      severity: "success",
-      duration: "3000ms",
-    })
+    window.showToast({ severity: "success", title: "Profile saved" })
   })
 </script>

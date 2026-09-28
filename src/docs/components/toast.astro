@@ -1,4 +1,6 @@
 ---
+import { Code } from "astro-expressive-code/components"
+
 import Component from "../../layouts/Component.astro"
 import Example from "../../components/Example"
 
@@ -6,6 +8,9 @@ import AutoExample from "../../components/AutoExample.astro"
 import JavascriptDemo from "../../component-examples/toast/Javascript.astro"
 import JavascriptHtml from "../../component-examples/toast/Javascript.html?raw"
 import JavascriptJS from "../../component-examples/toast/Javascript.js?raw"
+import LoadingDemo from "../../component-examples/toast/Loading.astro"
+import LoadingHtml from "../../component-examples/toast/Loading.html?raw"
+import LoadingJS from "../../component-examples/toast/Loading.js?raw"
 import ToastCSS from "@opui/css/components/toast.css?raw"
 import { Badge, Callout as UICallout } from "@opui/astro"
 
@@ -46,42 +51,73 @@ export const description =
   <section>
     <h2 id="how-it-works">How it works</h2>
     <p>
-      Toasts are managed by a global container. Trigger them either completely
-      with HTML (using <a
-        href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
-        class="ui-link">invoker commands</a
-      >) or with JavaScript.
-    </p>
-    <p>
-      CSS owns the lifetime through <code
+      Toasts live in a global container, <code>#toast-manager</code>, rendered
+      by the <code>Toast</code> component. CSS owns the lifetime through <code
         >attr(data-duration type(&lt;time&gt;))</code
-      >. JS only builds the toast, fills the title and description using <code
-        >textContent</code
-      >, and removes it on <code>animationend</code>.
+      >, so there are no timers. JS only builds the toast, fills the title and
+      description using <code>textContent</code>, and removes it on <code
+        >animationend</code
+      >.
     </p>
-
-    <h3 id="html">HTML</h3>
-    <p>
-      Use <code>commandfor="toast-manager"</code> and <code
-        >command="--show-toast"</code
-      >
-      on a button. The <code>data-title</code> attribute will be used as the message.
-    </p>
-
-    <AutoExample name="HTML" centered />
 
     <h3 id="javascript">JavaScript</h3>
     <p>
-      This is arguably the most common way. After some kind of fetch you might
-      want to display some kind of message.
+      The most common case: show the outcome of something async, like a fetch.
+      Import <code>toast</code> from <code>opui-css/toast</code>. It works
+      without the <code>Toast</code> component too, the container is created on first
+      use.
     </p>
-    <p>Use the <code>showToast</code> helper.</p>
 
     <Example centered>
       <Example.Preview slot="preview-astro" code={JavascriptDemo} />
       <Example.Preview slot="preview-html" code={JavascriptHtml} />
       <Example.Code slot="code-js" code={JavascriptJS} />
     </Example>
+
+    <h3 id="loading">Loading</h3>
+    <p>
+      <code>toast.promise</code> shows a loading toast that turns into a success or
+      error toast when the promise settles. A loading toast stays until it's updated.
+      Every <code>toast()</code> call also returns a handle with <code
+        >update()</code
+      > and <code>dismiss()</code>.
+    </p>
+
+    <Example centered>
+      <Example.Preview slot="preview-astro" code={LoadingDemo} />
+      <Example.Preview slot="preview-html" code={LoadingHtml} />
+      <Example.Code slot="code-js" code={LoadingJS} />
+    </Example>
+
+    <h3 id="html">HTML</h3>
+    <p>
+      For a fixed message on click, use <code>commandfor="toast-manager"</code>
+      and <code>command="--show-toast"</code> on a button. The <code
+        >data-*</code
+      > attributes map to the <code>toast()</code> options. Custom commands still
+      need the toast script to be loaded.
+    </p>
+
+    <AutoExample name="HTML" centered />
+
+    <h3 id="server-rendered">Server-rendered</h3>
+    <p>
+      Toasts rendered straight into the container need no JS at all, handy for
+      flash messages after a form post. They animate in and out on their own.
+      The close button needs the toast script.
+    </p>
+
+    <Code
+      lang="html"
+      code={`<output aria-live="polite" id="toast-manager" popover="manual" role="status">
+  <div class="ui-toast" data-severity="success">
+    <span class="ui-icon"></span>
+    <div class="ui-content">
+      <div class="ui-title">Profile saved</div>
+    </div>
+  </div>
+</output>`}
+    />
   </section>
 
   <section>

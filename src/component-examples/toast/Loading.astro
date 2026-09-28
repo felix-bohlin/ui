@@ -1,0 +1,17 @@
+---
+import { Button } from "@opui/astro"
+---
+
+<Button id="js-loading">Save profile</Button>
+
+<script>
+  import { toast } from "opui-css/toast"
+
+  document.getElementById("js-loading")?.addEventListener("click", () => {
+    toast.promise(new Promise((resolve) => setTimeout(resolve, 1500)), {
+      error: "Could not save profile",
+      loading: "Saving profile…",
+      success: "Profile saved",
+    })
+  })
+</script>

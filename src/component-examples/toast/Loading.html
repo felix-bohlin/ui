@@ -1,0 +1,13 @@
+<button class="ui-button" id="js-loading-html">Save profile</button>
+
+<script>
+  document.getElementById("js-loading-html")?.addEventListener("click", () => {
+    const saving = window.showToast({
+      severity: "loading",
+      title: "Saving profile…",
+    })
+    setTimeout(() => {
+      saving.update({ severity: "success", title: "Profile saved" })
+    }, 1500)
+  })
+</script>

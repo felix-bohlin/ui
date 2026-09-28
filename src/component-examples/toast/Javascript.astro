@@ -2,25 +2,12 @@
 import { Button } from "@opui/astro"
 ---
 
-<Button id="js-trigger">Trigger from JS</Button>
+<Button id="js-trigger">Save profile</Button>
 
 <script>
-  function setupToastDemo() {
-    const btn = document.getElementById("js-trigger")
-    if (btn) {
-      btn.addEventListener("click", () => {
-        if ((window as any).showToast) {
-          ;(window as any).showToast({
-            title: "Triggered from JS!",
-            description: "With an optional description",
-            severity: "success",
-            duration: "3000ms",
-          })
-        }
-      })
-    }
-  }
+  import { toast } from "opui-css/toast"
 
-  setupToastDemo()
-  document.addEventListener("astro:after-swap", setupToastDemo)
+  document.getElementById("js-trigger")?.addEventListener("click", () => {
+    toast("Profile saved", { severity: "success" })
+  })
 </script>

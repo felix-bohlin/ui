@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { setContext, untrack } from "svelte"
   import type { Props } from "./types.svelte"
   export const title = "Field Group" as const
 
@@ -6,8 +7,12 @@
     children,
     class: className,
     direction,
+    name,
     ...rest
   }: Props = $props()
+
+  const fieldName = untrack(() => name)
+  if (fieldName) setContext("name", fieldName)
 
   let element = $state<HTMLDivElement | null>(null)
   export { element as this }

@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { getContext } from "svelte"
   import CheckboxInput from "./CheckboxInput.svelte"
+  import type * as FieldSet from "../FieldSet/types.svelte"
   import type { CheckboxProps as Props } from "./types.svelte"
 
   export const title = "Checkbox" as const
@@ -10,6 +12,7 @@
     checked = $bindable(),
     hideLabel,
     indeterminate = $bindable(),
+    name,
     size,
     spread,
     stack,
@@ -25,7 +28,9 @@
   export { element as this }
 
   const componentId = $props.id()
+  const currentFieldName = getContext<FieldSet.Context["name"]>("name")
   const endTextId = $derived(endText ? `end-text-${componentId}` : undefined)
+  const finalName = $derived(name || currentFieldName)
   const invalid = $derived(error || undefined)
   const classes = $derived([
     "ui-checkbox",
@@ -43,6 +48,7 @@
     aria-describedby={endTextId}
     {checked}
     {indeterminate}
+    name={finalName}
     {...rest}
   />
   <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>

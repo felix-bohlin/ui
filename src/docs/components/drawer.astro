@@ -6,6 +6,7 @@ import { Switch, Table } from "@opui/astro"
 import DrawerCSS from "@opui/css/components/drawer.css?raw"
 import DrawerAPIAstro from "../../component-api/drawer/Astro.astro"
 import DrawerAPIHTML from "../../component-api/drawer/HTML.astro"
+import DrawerAPISvelte from "../../component-api/drawer/Svelte.astro"
 import DrawerAPIVue from "../../component-api/drawer/Vue.astro"
 
 import ExampleUsage from "../../component-examples/drawer/Usage.astro"
@@ -31,6 +32,7 @@ import Conditional from "../../components/Conditional.astro"
   apis={{
     astro: DrawerAPIAstro,
     html: DrawerAPIHTML,
+    svelte: DrawerAPISvelte,
     vue: DrawerAPIVue,
   }}
   changelogPaths={[
@@ -115,6 +117,7 @@ import Conditional from "../../components/Conditional.astro"
         <Conditional>
           <span slot="astro"><code>backdrop="transparent"</code></span>
           <span slot="html"><code>.ui-backdrop-transparent</code></span>
+          <span slot="svelte"><code>backdrop="transparent"</code></span>
           <span slot="vue"><code>backdrop="transparent"</code></span>
         </Conditional>
       </Switch>

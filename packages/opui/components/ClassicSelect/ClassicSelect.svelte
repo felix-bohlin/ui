@@ -3,7 +3,7 @@
 
   export const title = "Classic Select" as const
 
-  const {
+  let {
     class: className,
     disabled,
     endText,
@@ -14,7 +14,7 @@
     name,
     required,
     size,
-    value,
+    value = $bindable(),
     variant = "outlined",
 
     // Snippets
@@ -51,7 +51,7 @@
       id={selectId}
       {name}
       {required}
-      {value}
+      bind:value
       {...rest}
     >
       {#each items as item}

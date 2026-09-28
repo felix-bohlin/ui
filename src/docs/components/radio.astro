@@ -7,6 +7,7 @@ import FormCSS from "@opui/css/components/form.css?raw"
 
 import FieldGroupAPIAstro from "../../component-api/field-group/Astro.astro"
 import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
+import FieldGroupAPISvelte from "../../component-api/field-group/Svelte.astro"
 import FieldGroupAPIVue from "../../component-api/field-group/Vue.astro"
 
 import Conditional from "../../components/Conditional.astro"
@@ -18,6 +19,7 @@ import Conditional from "../../components/Conditional.astro"
   apis={{
     astro: FieldGroupAPIAstro,
     html: FieldGroupAPIHTML,
+    svelte: FieldGroupAPISvelte,
     vue: FieldGroupAPIVue,
   }}
   changelogPaths={[

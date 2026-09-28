@@ -9,6 +9,16 @@ import CalloutCSS from "@opui/css/components/callout.css?raw"
 import ExampleAnatomy from "../../component-examples/callout/Anatomy.astro"
 
 import Conditional from "../../components/Conditional.astro"
+import {
+  componentHasFramework,
+  DEFAULT_FRAMEWORK,
+  type FrameworkId,
+} from "../../utils/framework-routing"
+
+const hasToast = componentHasFramework(
+  (Astro.currentLocale ?? DEFAULT_FRAMEWORK) as FrameworkId,
+  "toast",
+)
 
 const ThemeCSS = `/* ... */
 .ui-critical {
@@ -91,10 +101,18 @@ const ThemeCSS = `/* ... */
           <DocLink href="/components/dialog" class="ui-link">Dialog</DocLink>:
           takes over completely
         </li>
-        <li>
-          <DocLink href="/components/toast" class="ui-link">Toast</DocLink>:
-          informative but non-interruptive
-        </li>
+        {
+          hasToast && (
+            <li>
+              <DocLink
+                href="/components/toast"
+                class="ui-link"
+                set:text="Toast"
+              />
+              : informative but non-interruptive
+            </li>
+          )
+        }
       </ul>
     </UICallout>
   </div>
@@ -215,7 +233,14 @@ const ThemeCSS = `/* ... */
       <li>
         Don't interrupt the user with a Callout. In that case, use <DocLink
           href="/components/dialog">Dialog</DocLink
-        > or <DocLink href="/components/toast">Toast</DocLink>.
+        >{
+          hasToast && (
+            <>
+              {" "}
+              or <DocLink href="/components/toast">Toast</DocLink>
+            </>
+          )
+        }.
       </li>
     </ul>
   </Fragment>

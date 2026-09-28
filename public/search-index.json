@@ -880,26 +880,6 @@
     "url": "/html/components/toast"
   },
   {
-    "id": "component-toast-astro",
-    "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
-    "headings": "How it works HTML JavaScript Severities Title + description Duration",
-    "category": "Component",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/components/toast"
-  },
-  {
-    "id": "component-toast-vue",
-    "title": "Toast",
-    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
-    "headings": "How it works HTML JavaScript Severities Title + description Duration",
-    "category": "Component",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/components/toast"
-  },
-  {
     "id": "component-toggle-html",
     "title": "Toggle",
     "description": "",

@@ -1,7 +1,7 @@
 import fs from "node:fs"
 import path from "node:path"
 
-import { FRAMEWORKS } from "../src/utils/framework.js"
+import { componentHasFramework, FRAMEWORKS } from "../src/utils/framework.js"
 
 const DIST = path.resolve(process.cwd(), "dist")
 const REFERENCES = path.resolve(
@@ -67,14 +67,18 @@ function buildSkill() {
   const index = [
     "# Components",
     "",
-    "Each component has one reference per framework: `html/<file>`, `astro/<file>` and `vue/<file>`.",
+    "Each component has one reference per listed framework: `html/<file>`, `astro/<file>` and `vue/<file>`.",
     "",
-    "| Component | File | Description |",
-    "| --- | --- | --- |",
-    ...components.map(
-      (c) =>
-        `| ${c.title} | \`${c.slug}.md\` | ${c.description.replace(/\|/g, "\\|")} |`,
-    ),
+    "| Component | File | Frameworks | Description |",
+    "| --- | --- | --- | --- |",
+    ...components.map((c) => {
+      const frameworks = FRAMEWORKS.filter((f) =>
+        componentHasFramework(f.id, c.slug),
+      )
+        .map((f) => f.id)
+        .join(", ")
+      return `| ${c.title} | \`${c.slug}.md\` | ${frameworks} | ${c.description.replace(/\|/g, "\\|")} |`
+    }),
     "",
   ].join("\n")
 

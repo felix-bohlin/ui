@@ -4,7 +4,11 @@ Slides in from the sides, top or bottom of the screen.
 
 **Quick start**
 
-Run `npm install opui-css open-props`, then import the component and its styles.
+### npm
+
+```sh
+npm install opui-css open-props
+```
 
 ```astro
 ---
@@ -13,7 +17,7 @@ import { Drawer, DrawerFooter, DrawerHeader } from "opui-css/astro"
 ---
 ```
 
-[Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) · [CSS source](#installation)
+[Full setup guide](https://open-props-ui.netlify.app/astro/guide/getting-started.md)
 
 ## Usage
 

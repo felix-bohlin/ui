@@ -4,7 +4,11 @@ Let's you show and hide stuff. Uses the native HTML arrow, check out how to add 
 
 **Quick start**
 
-Run `npm install opui-css open-props`, then import the component and its styles.
+### npm
+
+```sh
+npm install opui-css open-props
+```
 
 ```astro
 ---
@@ -14,7 +18,7 @@ import { Accordion } from "opui-css/astro"
 ---
 ```
 
-[Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) · [CSS source](#installation)
+[Full setup guide](https://open-props-ui.netlify.app/astro/guide/getting-started.md)
 
 ## Basics
 

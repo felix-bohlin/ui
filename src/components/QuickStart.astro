@@ -44,7 +44,9 @@ const imports = [
   ...componentImport(),
 ]
 
-const snippets: Record<FrameworkId, { code: string; lang: string }> = {
+const install = { code: "npm install opui-css open-props", lang: "sh" }
+
+const usage: Record<FrameworkId, { code: string; lang: string }> = {
   astro: {
     code: ["---", ...imports, "---"].join("\n"),
     lang: "astro",
@@ -59,34 +61,53 @@ const snippets: Record<FrameworkId, { code: string; lang: string }> = {
   },
 }
 
-const { code, lang } = snippets[framework]
+const cdn = {
+  code: '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css/dist/opui.css" />',
+  lang: "html",
+}
+
+const options = [
+  { blocks: [install, usage[framework]], label: "npm" },
+  ...(framework === "html"
+    ? [
+        { blocks: [cdn], label: "CDN" },
+        { blocks: [], label: "Copy the CSS" },
+      ]
+    : []),
+]
 ---
 
 <div class="quick-start ui-not-rich-text">
   <Accordion variant="outlined">
-    <Fragment slot="summary">Quick start</Fragment>
+    <Fragment slot="summary">
+      Quick start
+      <span class="quick-start-hint">
+        {options.map((option) => option.label).join(" · ")}
+      </span>
+    </Fragment>
     <div class="ui-rich-text">
       {
-        framework === "html" ? (
-          <p>
-            Run <code>npm install opui-css open-props</code> and import the
-            styles, or copy the CSS source further down.
-          </p>
-        ) : (
-          <p>
-            Run <code>npm install opui-css open-props</code>, then import{" "}
-            {exports.length > 0 ? "the component and its styles" : "the styles"}
-            .
-          </p>
-        )
+        options.map((option) => (
+          <>
+            <h3>{option.label}</h3>
+            {option.blocks.map((block) => (
+              <Code code={block.code} frame="none" lang={block.lang} />
+            ))}
+            {option.blocks.length === 0 && (
+              <div class="ui-not-rich-text">
+                <Button href="#installation" size="small" variant="outlined">
+                  Jump to source
+                </Button>
+              </div>
+            )}
+          </>
+        ))
       }
-      <Code code={code} lang={lang} />
     </div>
     <Fragment slot="actions">
       <Button href={link("/guide/getting-started")} size="small">
-        Getting started
+        Full setup guide
       </Button>
-      <Button href="#installation" size="small">CSS source</Button>
     </Fragment>
   </Accordion>
 </div>
@@ -94,5 +115,24 @@ const { code, lang } = snippets[framework]
 <style>
   .quick-start {
     margin-block-end: var(--size-4);
+
+    .quick-start-hint {
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-inline-start: var(--size-2);
+    }
+
+    .ui-rich-text h3 {
+      font-size: var(--font-size-1);
+      margin-block: var(--size-3) var(--size-2);
+
+      &:first-child {
+        margin-block-start: 0;
+      }
+    }
+
+    .ui-rich-text :global(.expressive-code + .expressive-code) {
+      margin-block-start: var(--size-2);
+    }
   }
 </style>

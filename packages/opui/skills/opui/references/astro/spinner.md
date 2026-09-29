@@ -4,7 +4,11 @@ Add it to an element with `aria-busy="true"`. Spinners are always indeterminate.
 
 **Quick start**
 
-Run `npm install opui-css open-props`, then import the styles.
+### npm
+
+```sh
+npm install opui-css open-props
+```
 
 ```astro
 ---
@@ -12,7 +16,7 @@ import "opui-css/css/components/spinner.css"
 ---
 ```
 
-[Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) · [CSS source](#installation)
+[Full setup guide](https://open-props-ui.netlify.app/astro/guide/getting-started.md)
 
 ```astro
 <div aria-busy="true"></div>

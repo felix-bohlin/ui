@@ -4,7 +4,11 @@ See also: [Checkbox field group](#field-group).
 
 **Quick start**
 
-Run `npm install opui-css open-props`, then import the component and its styles.
+### npm
+
+```sh
+npm install opui-css open-props
+```
 
 ```astro
 ---
@@ -13,7 +17,7 @@ import { Checkbox, CheckboxInput } from "opui-css/astro"
 ---
 ```
 
-[Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) · [CSS source](#installation)
+[Full setup guide](https://open-props-ui.netlify.app/astro/guide/getting-started.md)
 
 ```astro
 ---

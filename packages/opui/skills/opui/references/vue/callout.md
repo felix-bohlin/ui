@@ -4,7 +4,11 @@ Callouts call out for user attention. Should be part of the flow and used **with
 
 **Quick start**
 
-Run `npm install opui-css open-props`, then import the component and its styles.
+### npm
+
+```sh
+npm install opui-css open-props
+```
 
 ```vue
 <script setup lang="ts">
@@ -13,7 +17,7 @@ import { Callout } from "opui-css/vue"
 </script>
 ```
 
-[Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) · [CSS source](#installation)
+[Full setup guide](https://open-props-ui.netlify.app/vue/guide/getting-started.md)
 
 ### Alternatives
 

@@ -4,7 +4,11 @@ See also: [Switch field group](#field-group).
 
 **Quick start**
 
-Run `npm install opui-css open-props`, then import the component and its styles.
+### npm
+
+```sh
+npm install opui-css open-props
+```
 
 ```vue
 <script setup lang="ts">
@@ -13,7 +17,7 @@ import { Switch, SwitchInput } from "opui-css/vue"
 </script>
 ```
 
-[Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) · [CSS source](#installation)
+[Full setup guide](https://open-props-ui.netlify.app/vue/guide/getting-started.md)
 
 All switches should have an accessible name. Either provide a visible or visually-hidden label inside the component, or set `aria-label` on the input. Both approaches are fine.
 

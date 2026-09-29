@@ -10,6 +10,7 @@ const REMOVE_SELECTORS = [
   ".controls",
   ".example-preview",
   ".header-anchor",
+  ".quick-start-hint",
   ".theme-generator",
   "h1 .ui-anchor-floating",
   "[data-panel='output']",

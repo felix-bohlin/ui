@@ -4,7 +4,11 @@ Leverages the [List component](https://open-props-ui.netlify.app/html/components
 
 **Quick start**
 
-Run `npm install opui-css open-props` and import the styles, or copy the CSS source further down.
+### npm
+
+```sh
+npm install opui-css open-props
+```
 
 ```css
 @import "opui-css/css/components/list.css";
@@ -12,7 +16,17 @@ Run `npm install opui-css open-props` and import the styles, or copy the CSS sou
 @import "opui-css/css/components/text-field.css";
 ```
 
-[Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) · [CSS source](#installation)
+### CDN
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css/dist/opui.css" />
+```
+
+### Copy the CSS
+
+[Jump to source](#installation)
+
+[Full setup guide](https://open-props-ui.netlify.app/html/guide/getting-started.md)
 
 ## Variants
 

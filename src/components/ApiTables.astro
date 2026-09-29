@@ -1,7 +1,7 @@
 ---
 import { Table } from "@opui/astro"
 import type { Framework } from "../component-api/frameworks"
-import { htmlRows, propRows, slotRows } from "../component-api/rows"
+import { htmlRows, partLabel, propRows, slotRows } from "../component-api/rows"
 import type { ComponentApi } from "../component-api/types"
 import { checkApi } from "../utils/component-source"
 import { formatInline } from "../utils/format-inline"
@@ -22,13 +22,19 @@ const component = framework === "html" ? undefined : framework
 const html = component ? [] : htmlRows(api)
 const rows = component ? propRows(api, component) : []
 const slots = component ? slotRows(api, component) : []
+const parts = component
+  ? []
+  : [api.root, ...api.parts].map((part) => ({
+      description: part.description,
+      name: partLabel(api, part, "html"),
+    }))
 const note = api.notes?.[framework]
 
 const splitType = (type: string) => type.split("|").map((part) => part.trim())
 ---
 
 {
-  !component ? (
+  html.length > 0 && (
     <div class="table-scroll wide">
       <Table>
         <Table.ColumnGroup>
@@ -72,81 +78,90 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
         </Table.Body>
       </Table>
     </div>
-  ) : (
-    <Fragment>
-      <div class="table-scroll wide">
-        <Table>
-          <Table.ColumnGroup>
-            <Table.Column width="min-width: 20%" />
-            <Table.Column width="min-width: 20%" />
-            <Table.Column width="min-width: 20%" />
-            <Table.Column width="min-width: 300px" />
-          </Table.ColumnGroup>
-          <Table.Head>
-            <Table.Row>
-              <Table.HeaderCell>Prop</Table.HeaderCell>
-              <Table.HeaderCell>Type</Table.HeaderCell>
-              <Table.HeaderCell>Default</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            {rows.map((row) => (
-              <Table.Row>
-                <Table.Cell>
-                  <code>{row.name}</code>
-                </Table.Cell>
-                <Table.Cell>
-                  {row.type
-                    ? splitType(row.type).map((type, i) => (
-                        <Fragment>
-                          {i > 0 && ", "}
-                          <code>{type}</code>
-                        </Fragment>
-                      ))
-                    : "-"}
-                </Table.Cell>
-                <Table.Cell>
-                  {row.default ? <code>{row.default}</code> : "-"}
-                </Table.Cell>
-                <Table.Cell set:html={formatInline(row.description)} />
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
-      </div>
-
-      {slots.length > 0 && (
-        <Fragment>
-          <SlotsHeading>Slots</SlotsHeading>
-          <div class="table-scroll">
-            <Table>
-              <Table.ColumnGroup>
-                <Table.Column width="min-width: 20%" />
-                <Table.Column width="min-width: 300px" />
-              </Table.ColumnGroup>
-              <Table.Head>
-                <Table.Row>
-                  <Table.HeaderCell>Slot</Table.HeaderCell>
-                  <Table.HeaderCell>Description</Table.HeaderCell>
-                </Table.Row>
-              </Table.Head>
-              <Table.Body>
-                {slots.map((row) => (
-                  <Table.Row>
-                    <Table.Cell>
-                      <code>{row.name}</code>
-                    </Table.Cell>
-                    <Table.Cell set:html={formatInline(row.description)} />
-                  </Table.Row>
-                ))}
-              </Table.Body>
-            </Table>
-          </div>
-        </Fragment>
-      )}
-    </Fragment>
   )
+}
+
+{
+  rows.length > 0 && (
+    <div class="table-scroll wide">
+      <Table>
+        <Table.ColumnGroup>
+          <Table.Column width="min-width: 20%" />
+          <Table.Column width="min-width: 20%" />
+          <Table.Column width="min-width: 20%" />
+          <Table.Column width="min-width: 300px" />
+        </Table.ColumnGroup>
+        <Table.Head>
+          <Table.Row>
+            <Table.HeaderCell>Prop</Table.HeaderCell>
+            <Table.HeaderCell>Type</Table.HeaderCell>
+            <Table.HeaderCell>Default</Table.HeaderCell>
+            <Table.HeaderCell>Description</Table.HeaderCell>
+          </Table.Row>
+        </Table.Head>
+        <Table.Body>
+          {rows.map((row) => (
+            <Table.Row>
+              <Table.Cell>
+                <code>{row.name}</code>
+              </Table.Cell>
+              <Table.Cell>
+                {row.type
+                  ? splitType(row.type).map((type, i) => (
+                      <Fragment>
+                        {i > 0 && ", "}
+                        <code>{type}</code>
+                      </Fragment>
+                    ))
+                  : "-"}
+              </Table.Cell>
+              <Table.Cell>
+                {row.default ? <code>{row.default}</code> : "-"}
+              </Table.Cell>
+              <Table.Cell set:html={formatInline(row.description)} />
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    </div>
+  )
+}
+
+{
+  [
+    { heading: "Parts", label: "Part", rows: parts },
+    { heading: "Slots", label: "Slot", rows: slots },
+  ]
+    .filter((table) => table.rows.length > 0)
+    .map((table) => (
+      <Fragment>
+        <SlotsHeading>{table.heading}</SlotsHeading>
+        <div class="table-scroll">
+          <Table>
+            <Table.ColumnGroup>
+              <Table.Column width="min-width: 20%" />
+              <Table.Column width="min-width: 300px" />
+            </Table.ColumnGroup>
+            <Table.Head>
+              <Table.Row>
+                <Table.HeaderCell>{table.label}</Table.HeaderCell>
+                <Table.HeaderCell>Description</Table.HeaderCell>
+              </Table.Row>
+            </Table.Head>
+            <Table.Body>
+              {table.rows.map((row) => (
+                <Table.Row>
+                  <Table.Cell>
+                    <code>{row.name}</code>
+                  </Table.Cell>
+                  <Table.Cell set:html={formatInline(row.description)} />
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        </div>
+      </Fragment>
+    ))
 }
 
 {note && <p set:html={formatInline(note)} />}

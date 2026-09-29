@@ -2,11 +2,15 @@
 
 Chips are compact elements that represent an input, attribute, or action.
 
-**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+**Quick start**
+
+Run `npm install opui-css open-props` and import the styles, or copy the CSS source further down.
 
 ```css
 @import "opui-css/css/components/chip.css";
 ```
+
+[Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) · [CSS source](#installation)
 
 ## Variants
 

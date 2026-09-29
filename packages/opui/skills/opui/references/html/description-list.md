@@ -1,10 +1,14 @@
 # Description list
 
-**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+**Quick start**
+
+Run `npm install opui-css open-props` and import the styles, or copy the CSS source further down.
 
 ```css
 @import "opui-css/css/components/description-list.css";
 ```
+
+[Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) · [CSS source](#installation)
 
 ```html
 <dl class="ui-description-list">

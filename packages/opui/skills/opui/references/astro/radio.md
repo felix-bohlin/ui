@@ -2,7 +2,9 @@
 
 See also: [Form documentation](https://open-props-ui.netlify.app/astro/components/form.md).
 
-**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+**Quick start**
+
+Run `npm install opui-css open-props`, then import the component and its styles.
 
 ```astro
 ---
@@ -10,6 +12,8 @@ import "opui-css/css/components/radio.css"
 import { Radio, RadioInput } from "opui-css/astro"
 ---
 ```
+
+[Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) · [CSS source](#installation)
 
 The `name` prop will get passed down to each radio button in the group.
 

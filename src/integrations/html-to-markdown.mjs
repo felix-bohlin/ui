@@ -91,6 +91,18 @@ const codeGroup = (node) => {
   )
 }
 
+const detailsSummary = (node) =>
+  element("p", {}, [element("strong", {}, node.children)])
+
+const actionRow = (node) =>
+  element(
+    "p",
+    {},
+    node.children
+      .filter((child) => child.type === "element")
+      .flatMap((child, i) => (i ? [text(" · "), child] : [child])),
+  )
+
 const ENGINES = { chromium: "Chromium", gecko: "Firefox", webkit: "Safari" }
 
 const browserSupport = (node) =>
@@ -189,6 +201,8 @@ export async function articleToMarkdown(
   replace(article, isClass("browser-support-chips"), browserSupport)
   replace(article, isClass("code-group"), codeGroup)
   replace(article, isClass("expressive-code"), codeBlock)
+  replace(article, (node) => node.tagName === "summary", detailsSummary)
+  replace(article, isClass("ui-actions"), actionRow)
   prune(article, new Set(selectAll(REMOVE_SELECTORS.join(", "), article)))
 
   for (const link of selectAll("a[href]", article)) {

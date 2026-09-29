@@ -1,6 +1,8 @@
 # List
 
-**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+**Quick start**
+
+Run `npm install opui-css open-props`, then import the component and its styles.
 
 ```astro
 ---
@@ -8,6 +10,8 @@ import "opui-css/css/components/list.css"
 import { List, ListItem } from "opui-css/astro"
 ---
 ```
+
+[Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) · [CSS source](#installation)
 
 ```astro
 ---

@@ -2,7 +2,9 @@
 
 A popover [List](https://open-props-ui.netlify.app/astro/components/list.md), anchored to a[Button](https://open-props-ui.netlify.app/astro/components/button.md).
 
-**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+**Quick start**
+
+Run `npm install opui-css open-props`, then import the component and its styles.
 
 ```astro
 ---
@@ -11,6 +13,8 @@ import "opui-css/css/components/menu.css"
 import { Menu } from "opui-css/astro"
 ---
 ```
+
+[Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) · [CSS source](#installation)
 
 ## Basics
 

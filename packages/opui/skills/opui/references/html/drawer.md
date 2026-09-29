@@ -2,11 +2,15 @@
 
 Slides in from the sides, top or bottom of the screen.
 
-**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+**Quick start**
+
+Run `npm install opui-css open-props` and import the styles, or copy the CSS source further down.
 
 ```css
 @import "opui-css/css/components/drawer.css";
 ```
+
+[Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) · [CSS source](#installation)
 
 ## Usage
 

@@ -2,13 +2,17 @@
 
 Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in `.ui-rich-text`.
 
-**Quick start.** Run `npm install opui-css open-props`, then import the styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+**Quick start**
+
+Run `npm install opui-css open-props`, then import the styles.
 
 ```astro
 ---
 import "opui-css/css/components/typography.css"
 ---
 ```
+
+[Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) · [CSS source](#installation)
 
 ## Class-based
 

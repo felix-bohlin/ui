@@ -2,11 +2,15 @@
 
 The card is extremely versatile and can be used on its own, or as a building block for [accordions](https://open-props-ui.netlify.app/html/components/accordion.md), [dialogs](https://open-props-ui.netlify.app/html/components/dialog.md) and more.
 
-**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+**Quick start**
+
+Run `npm install opui-css open-props` and import the styles, or copy the CSS source further down.
 
 ```css
 @import "opui-css/css/components/card.css";
 ```
+
+[Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) · [CSS source](#installation)
 
 ## Variants
 

@@ -2,7 +2,9 @@
 
 Let's you show and hide stuff. Uses the native HTML arrow, check out how to add your own [custom marker](#custom-marker).
 
-**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+**Quick start**
+
+Run `npm install opui-css open-props`, then import the component and its styles.
 
 ```astro
 ---
@@ -11,6 +13,8 @@ import "opui-css/css/components/card.css"
 import { Accordion } from "opui-css/astro"
 ---
 ```
+
+[Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) · [CSS source](#installation)
 
 ## Basics
 

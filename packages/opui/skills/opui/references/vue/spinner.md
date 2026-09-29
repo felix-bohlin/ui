@@ -2,13 +2,17 @@
 
 Add it to an element with `aria-busy="true"`. Spinners are always indeterminate. See also: [Progress bar](https://open-props-ui.netlify.app/vue/components/progress.md).
 
-**Quick start.** Run `npm install opui-css open-props`, then import the styles. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) for the full setup.
+**Quick start**
+
+Run `npm install opui-css open-props`, then import the styles.
 
 ```vue
 <script setup lang="ts">
 import "opui-css/css/components/spinner.css"
 </script>
 ```
+
+[Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) · [CSS source](#installation)
 
 ```vue
 <template>

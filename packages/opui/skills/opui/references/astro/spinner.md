@@ -2,13 +2,17 @@
 
 Add it to an element with `aria-busy="true"`. Spinners are always indeterminate. See also: [Progress bar](https://open-props-ui.netlify.app/astro/components/progress.md).
 
-**Quick start.** Run `npm install opui-css open-props`, then import the styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+**Quick start**
+
+Run `npm install opui-css open-props`, then import the styles.
 
 ```astro
 ---
 import "opui-css/css/components/spinner.css"
 ---
 ```
+
+[Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) · [CSS source](#installation)
 
 ```astro
 <div aria-busy="true"></div>

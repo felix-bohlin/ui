@@ -2,7 +2,9 @@
 
 Callouts call out for user attention. Should be part of the flow and used **without** interrupting the user's task.
 
-**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) for the full setup.
+**Quick start**
+
+Run `npm install opui-css open-props`, then import the component and its styles.
 
 ```vue
 <script setup lang="ts">
@@ -10,6 +12,8 @@ import "opui-css/css/components/callout.css"
 import { Callout } from "opui-css/vue"
 </script>
 ```
+
+[Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) · [CSS source](#installation)
 
 ### Alternatives
 

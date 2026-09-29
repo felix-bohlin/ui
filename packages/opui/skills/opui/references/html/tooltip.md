@@ -2,12 +2,16 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md).
 
-**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+**Quick start**
+
+Run `npm install opui-css open-props` and import the styles, or copy the CSS source further down.
 
 ```css
 @import "opui-css/css/components/anchor.css";
 @import "opui-css/css/components/tooltip.css";
 ```
+
+[Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) · [CSS source](#installation)
 
 Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Wire `interestfor` on the trigger to the`.ui-anchor-floating[popover="hint"]` element's ID.
 

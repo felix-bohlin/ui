@@ -2,7 +2,9 @@
 
 A way to build structured forms.
 
-**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) for the full setup.
+**Quick start**
+
+Run `npm install opui-css open-props`, then import the component and its styles.
 
 ```vue
 <script setup lang="ts">
@@ -10,6 +12,8 @@ import "opui-css/css/components/form.css"
 import { Form } from "opui-css/vue"
 </script>
 ```
+
+[Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) · [CSS source](#installation)
 
 ## Usage
 

@@ -1,6 +1,6 @@
 ---
 import { Code } from "astro-expressive-code/components"
-import DocLink from "./DocLink.astro"
+import { Accordion, Button } from "@opui/astro"
 import type { Tab } from "./Installation.astro"
 import { componentExportsFor } from "../utils/package-exports"
 import { DEFAULT_FRAMEWORK, type FrameworkId } from "../utils/framework-routing"
@@ -11,6 +11,7 @@ type Props = {
 }
 
 const { slug, tabs } = Astro.props
+const { link } = Astro.locals
 
 const framework = (Astro.currentLocale ?? DEFAULT_FRAMEWORK) as FrameworkId
 
@@ -61,27 +62,33 @@ const snippets: Record<FrameworkId, { code: string; lang: string }> = {
 const { code, lang } = snippets[framework]
 ---
 
-<div class="quick-start">
-  {
-    framework === "html" ? (
-      <p>
-        <strong>Quick start.</strong> Run{" "}
-        <code>npm install opui-css open-props</code> and import the styles, or
-        copy the <a href="#installation">source</a> further down. See{" "}
-        <DocLink href="/guide/getting-started">Getting started</DocLink> for the
-        CDN link and full setup.
-      </p>
-    ) : (
-      <p>
-        <strong>Quick start.</strong> Run{" "}
-        <code>npm install opui-css open-props</code>, then import{" "}
-        {exports.length > 0 ? "the component and its styles" : "the styles"}.
-        See <DocLink href="/guide/getting-started">Getting started</DocLink> for
-        the full setup.
-      </p>
-    )
-  }
-  <Code code={code} lang={lang} />
+<div class="quick-start ui-not-rich-text">
+  <Accordion variant="outlined">
+    <Fragment slot="summary">Quick start</Fragment>
+    <div class="ui-rich-text">
+      {
+        framework === "html" ? (
+          <p>
+            Run <code>npm install opui-css open-props</code> and import the
+            styles, or copy the CSS source further down.
+          </p>
+        ) : (
+          <p>
+            Run <code>npm install opui-css open-props</code>, then import{" "}
+            {exports.length > 0 ? "the component and its styles" : "the styles"}
+            .
+          </p>
+        )
+      }
+      <Code code={code} lang={lang} />
+    </div>
+    <Fragment slot="actions">
+      <Button href={link("/guide/getting-started")} size="small">
+        Getting started
+      </Button>
+      <Button href="#installation" size="small">CSS source</Button>
+    </Fragment>
+  </Accordion>
 </div>
 
 <style>

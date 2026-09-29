@@ -20,13 +20,16 @@ const apiList = Array.isArray(apis) ? apis : apis ? [apis] : []
 const currentFramework = (Astro.currentLocale ??
   DEFAULT_FRAMEWORK) as FrameworkId
 
+const frameworkKeys = (value: any) =>
+  Object.keys(value).filter((k) => k !== "id" && k !== "title")
+
 const isFrameworkKeyedApi = (value: any) =>
   value &&
   !Array.isArray(value) &&
   typeof value === "object" &&
   !value.rows &&
-  Object.keys(value).length > 0 &&
-  Object.keys(value).every((k) => FRAMEWORK_IDS.includes(k as FrameworkId))
+  frameworkKeys(value).length > 0 &&
+  frameworkKeys(value).every((k) => FRAMEWORK_IDS.includes(k as FrameworkId))
 
 // Pick the framework-keyed API entry for the active framework, falling back
 // to the default framework, then the first authored variant - same fallback

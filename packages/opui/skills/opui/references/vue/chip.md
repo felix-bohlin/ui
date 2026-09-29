@@ -2,6 +2,15 @@
 
 Chips are compact elements that represent an input, attribute, or action.
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) for the full setup.
+
+```vue
+<script setup lang="ts">
+import "opui-css/css/components/chip.css"
+import { Chip } from "opui-css/vue"
+</script>
+```
+
 ## Variants
 
 The Chip has two variants: `tonal` (default) and `outlined`.
@@ -181,7 +190,7 @@ import { Chip } from "opui-css/vue"
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/chip.css`
 

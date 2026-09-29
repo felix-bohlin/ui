@@ -2,6 +2,12 @@
 
 See also: [Spinner](https://open-props-ui.netlify.app/html/components/spinner.md).
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/progress.css";
+```
+
 ## Indeterminate
 
 ```html
@@ -60,7 +66,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 | **Indeterminate** | No `value` attribute                                    | -       | Display an indeterminate loading state.                         |
 | **Variant**       | `.ui-filled`, `.ui-default`, `.ui-tonal`                | -       | Modifiers on the wrapper div for different background surfaces. |
 
-## Installation
+## Source
 
 - `opui-css/css/components/progress.css`
 

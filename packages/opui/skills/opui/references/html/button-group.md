@@ -2,6 +2,12 @@
 
 Groups related buttons by wrapping them with `class="ui-button-group"` and `role="group"`.
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/button-group.css";
+```
+
 - Button groups should consist of 2-5 buttons.
 - Don't allow them to wrap onto a new line.
 - If an icon is used without label text make sure the button communicates clearly what it does.
@@ -449,7 +455,7 @@ Disable individual buttons within a group by adding the `disabled`attribute to e
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/button-group.css`
 

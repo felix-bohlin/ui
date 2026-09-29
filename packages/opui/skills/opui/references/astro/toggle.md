@@ -2,6 +2,16 @@
 
 Buttons (disguised as input checkbox/radio) that can be toggled on and off.
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/toggle-button.css"
+import "opui-css/css/components/toggle-group.css"
+import { ToggleButton, ToggleGroup } from "opui-css/astro"
+---
+```
+
 ## Toggle button
 
 ```astro
@@ -260,7 +270,7 @@ Container for grouping multiple toggle buttons.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/toggle-group.css`
 - `opui-css/css/components/toggle-button.css`

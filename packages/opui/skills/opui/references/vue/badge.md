@@ -1,5 +1,15 @@
 # Badge
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) for the full setup.
+
+```vue
+<script setup lang="ts">
+import "opui-css/css/components/anchor.css"
+import "opui-css/css/components/badge.css"
+import { Badge } from "opui-css/vue"
+</script>
+```
+
 ## Variants
 
 Default, and `dot`.
@@ -283,7 +293,7 @@ The badge is composed of an anchored element (default slot), and an indicator (`
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
 
-## Installation
+## Source
 
 ### Dependencies
 

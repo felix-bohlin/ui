@@ -2,6 +2,15 @@
 
 See also: [Checkbox field group](#field-group).
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/checkbox.css"
+import { Checkbox, CheckboxInput } from "opui-css/astro"
+---
+```
+
 ```astro
 ---
 import { Checkbox } from "opui-css/astro"
@@ -427,7 +436,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 ### See also
 

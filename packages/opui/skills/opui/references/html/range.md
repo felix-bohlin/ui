@@ -1,5 +1,11 @@
 # Range
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/range.css";
+```
+
 ```html
 <label class="ui-range">
   <span class="ui-label">Label</span>
@@ -197,7 +203,7 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/range.css`
 

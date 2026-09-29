@@ -1,5 +1,11 @@
 # Carousel
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/carousel.css";
+```
+
 ## Basics
 
 `.ui-with-buttons`, and `.ui-with-markers` to navigate.
@@ -491,7 +497,7 @@ Announces item position. Buttons and markers are named.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/carousel.css`
 

@@ -2,6 +2,15 @@
 
 Groups related buttons.
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/button-group.css"
+import { ButtonGroup } from "opui-css/astro"
+---
+```
+
 - Button groups should consist of 2-5 buttons.
 - Don't allow them to wrap onto a new line.
 - If an icon is used without label text make sure the button communicates clearly what it does.
@@ -308,7 +317,7 @@ import { Button } from "opui-css/astro"
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/button-group.css`
 

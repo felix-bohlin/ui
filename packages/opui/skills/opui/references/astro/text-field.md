@@ -1,5 +1,15 @@
 # Text field
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/text-field.css"
+import "opui-css/css/components/text-input.css"
+import { TextField } from "opui-css/astro"
+---
+```
+
 ## Variants
 
 ```astro
@@ -431,7 +441,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/text-field.css`
 - `opui-css/css/components/text-input.css`

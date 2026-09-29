@@ -1,5 +1,11 @@
 # Button
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/button.css";
+```
+
 ## Variants
 
 Change the button variant with the `.ui-outlined`, `.ui-tonal`, and `.ui-filled` classes.
@@ -456,7 +462,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/button.css`
 

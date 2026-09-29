@@ -2,6 +2,15 @@
 
 The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' `:checked` state.
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/tabs.css"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/astro"
+---
+```
+
 ## Basics
 
 ```astro
@@ -96,7 +105,7 @@ The content area for the tab.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/tabs.css`
 

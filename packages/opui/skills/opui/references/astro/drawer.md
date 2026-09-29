@@ -2,6 +2,15 @@
 
 Slides in from the sides, top or bottom of the screen.
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/drawer.css"
+import { Drawer, DrawerFooter, DrawerHeader } from "opui-css/astro"
+---
+```
+
 ## Usage
 
 Change the opening side with the `side` prop.
@@ -225,7 +234,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/drawer.css`
 

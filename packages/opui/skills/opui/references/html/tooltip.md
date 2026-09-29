@@ -2,6 +2,13 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md).
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/anchor.css";
+@import "opui-css/css/components/tooltip.css";
+```
+
 Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Wire `interestfor` on the trigger to the`.ui-anchor-floating[popover="hint"]` element's ID.
 
 ## Basics
@@ -185,7 +192,7 @@ Add the `.ui-with-arrow` class on the `.ui-tooltip`. This would be cool to solve
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/tooltip.css`
 - `opui-css/css/components/anchor.css`

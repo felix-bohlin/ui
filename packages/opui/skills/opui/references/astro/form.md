@@ -2,6 +2,15 @@
 
 A way to build structured forms.
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/form.css"
+import { Form } from "opui-css/astro"
+---
+```
+
 ## Usage
 
 ```astro
@@ -580,7 +589,7 @@ import {
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 This doesn't include all the styles for all form elements, just the scaffolding around them.
 

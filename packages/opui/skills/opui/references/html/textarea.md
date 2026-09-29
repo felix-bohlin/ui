@@ -1,5 +1,12 @@
 # Textarea
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/text-field.css";
+@import "opui-css/css/components/textarea.css";
+```
+
 ## Variants
 
 ```html
@@ -290,7 +297,7 @@ When enabled the Field changes size depending on its content.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 
-## Installation
+## Source
 
 ### Dependencies
 

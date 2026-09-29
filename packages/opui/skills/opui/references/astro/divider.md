@@ -2,6 +2,15 @@
 
 It's just a line.
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/divider.css"
+import { Divider } from "opui-css/astro"
+---
+```
+
 ## Default
 
 ```astro
@@ -41,7 +50,7 @@ Primary
 | --------- | ---------------------------------- | ------- | ---------------------------------- |
 | `variant` | `"tonal" \| "filled" \| "primary"` | -       | The visual variant of the divider. |
 
-## Installation
+## Source
 
 - `opui-css/css/components/divider.css`
 

@@ -2,6 +2,15 @@
 
 Chips are compact elements that represent an input, attribute, or action.
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/chip.css"
+import { Chip } from "opui-css/astro"
+---
+```
+
 ## Variants
 
 The Chip has two variants: `tonal` (default) and `outlined`.
@@ -171,7 +180,7 @@ import { Chip } from "opui-css/astro"
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/chip.css`
 

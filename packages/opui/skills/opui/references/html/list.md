@@ -1,5 +1,11 @@
 # List
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/list.css";
+```
+
 ```html
 <ul class="ui-list">
   <li>
@@ -908,7 +914,7 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/list.css`
 

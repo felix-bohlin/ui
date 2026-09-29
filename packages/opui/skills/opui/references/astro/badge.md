@@ -1,5 +1,15 @@
 # Badge
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/anchor.css"
+import "opui-css/css/components/badge.css"
+import { Badge } from "opui-css/astro"
+---
+```
+
 ## Variants
 
 Default, and `dot`.
@@ -260,7 +270,7 @@ The badge is composed of an anchored element (default slot), and an indicator (`
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 ### Dependencies
 

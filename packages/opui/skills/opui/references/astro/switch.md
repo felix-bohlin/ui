@@ -2,6 +2,15 @@
 
 See also: [Switch field group](#field-group).
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/switch.css"
+import { Switch, SwitchInput } from "opui-css/astro"
+---
+```
+
 All switches should have an accessible name. Either provide a visible or visually-hidden label inside the component, or set `aria-label` on the input. Both approaches are fine.
 
 ```astro
@@ -425,7 +434,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 ### See also
 

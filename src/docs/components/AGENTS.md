@@ -132,7 +132,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 - `apis`: (Optional) Either a single imported API module, an array of `{ title, component }` objects, or a framework-keyed object `{ astro, html }` (preferred when API tables differ per framework).
 - `browserSupport`: (Optional) Array of feature IDs (e.g., `["has", "light-dark"]`).
 - `changelogPaths`: (Optional) Array of `{ path, type }` entries used to render the per-component changelog.
-- `installationTabs`: (Optional) Array of `{ title, code, lang }` objects.
+- `installationTabs`: (Optional) Array of `{ title, code, lang }` objects. Rendered as the "Source" section at the end of the page. Tabs whose `title` is a file in `packages/opui/css/components/` also feed the "Quick start" block under the preamble, which lists the framework import for the component and the CSS imports for it and its dependencies.
 - `overline`: (Optional) Sidebar/breadcrumb overline. Defaults to `"Components"`.
 - `seeAlsoLinks`: (Optional) Array of `{ name, href }` entries rendered in a "See also" section.
 
@@ -143,7 +143,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 - `default`: Main documentation content.
 - `anatomy`: (Optional) Component's internal structure visualization.
 - `accessibility`: (Optional) Accessibility notes.
-- `installation`: (Optional) Extra context above installation tabs.
+- `installation`: (Optional) Extra context above the source tabs.
 
 ## 5. Components & Patterns
 

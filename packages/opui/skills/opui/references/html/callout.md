@@ -2,6 +2,12 @@
 
 Callouts call out for user attention. Should be part of the flow and used **without** interrupting the user's task.
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/callout.css";
+```
+
 ### Alternatives
 
 You might want to check out:
@@ -194,7 +200,7 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/callout.css`
 `theme tokens (snippet)`

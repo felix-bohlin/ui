@@ -1,5 +1,23 @@
 # Table
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) for the full setup.
+
+```vue
+<script setup lang="ts">
+import "opui-css/css/components/table.css"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableColumnGroup,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/vue"
+</script>
+```
+
 ## Variants
 
 ### Default
@@ -144,3 +162,8 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 - Safari: Full support Supported since v18.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+
+## Source
+
+- `opui-css/css/components/table.css`
+

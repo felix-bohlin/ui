@@ -2,6 +2,12 @@
 
 See also: [Form documentation](https://open-props-ui.netlify.app/html/components/form.md).
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/radio.css";
+```
+
 Give every `<input type="radio">` in the group the same`name` attribute. Browsers use that shared name to enforce mutual exclusivity within the group.
 
 ```html
@@ -181,7 +187,7 @@ Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` ele
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 
-## Installation
+## Source
 
 ### See also
 

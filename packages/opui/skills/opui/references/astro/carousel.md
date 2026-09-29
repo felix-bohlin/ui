@@ -1,5 +1,14 @@
 # Carousel
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/carousel.css"
+import { Carousel } from "opui-css/astro"
+---
+```
+
 ## Basics
 
 `markers` to add markers.
@@ -362,7 +371,7 @@ Announces item position. Buttons and markers are named.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/carousel.css`
 

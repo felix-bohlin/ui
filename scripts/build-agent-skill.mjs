@@ -19,13 +19,11 @@ function readComponents(llmsTxt) {
 }
 
 const stripInstallationCode = (markdown) =>
-  markdown.replace(
-    /^## Installation\n[\s\S]*?(?=^## |(?![\s\S]))/m,
-    (section) =>
-      section
-        .replace(/^```[\s\S]*?^```\n*/gm, "")
-        .replace(/^`([\w-]+\.css)`\n+/gm, "- `opui-css/css/components/$1`\n")
-        .replace(/\n*$/, "\n\n"),
+  markdown.replace(/^## Source\n[\s\S]*?(?=^## |(?![\s\S]))/m, (section) =>
+    section
+      .replace(/^```[\s\S]*?^```\n*/gm, "")
+      .replace(/^`([\w-]+\.css)`\n+/gm, "- `opui-css/css/components/$1`\n")
+      .replace(/\n*$/, "\n\n"),
   )
 
 function copyReference(from, to) {

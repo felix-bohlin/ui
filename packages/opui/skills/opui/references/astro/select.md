@@ -2,6 +2,17 @@
 
 Leverages the [List component](https://open-props-ui.netlify.app/astro/components/list.md) to provide markup for the Select popover.
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/list.css"
+import "opui-css/css/components/select.css"
+import "opui-css/css/components/text-field.css"
+import { Select } from "opui-css/astro"
+---
+```
+
 ## Variants
 
 ```astro
@@ -335,7 +346,7 @@ import { ClassicSelect } from "opui-css/astro"
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 ### Dependencies
 

@@ -2,6 +2,15 @@
 
 Groups related buttons.
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) for the full setup.
+
+```vue
+<script setup lang="ts">
+import "opui-css/css/components/button-group.css"
+import { ButtonGroup } from "opui-css/vue"
+</script>
+```
+
 - Button groups should consist of 2-5 buttons.
 - Don't allow them to wrap onto a new line.
 - If an icon is used without label text make sure the button communicates clearly what it does.
@@ -464,7 +473,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/button-group.css`
 

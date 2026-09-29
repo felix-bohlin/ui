@@ -1,5 +1,15 @@
 # Textarea
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/text-field.css"
+import "opui-css/css/components/textarea.css"
+import { Textarea } from "opui-css/astro"
+---
+```
+
 ## Variants
 
 ```astro
@@ -233,7 +243,7 @@ import { Textarea } from "opui-css/astro"
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 ### Dependencies
 

@@ -2,6 +2,12 @@
 
 The card is extremely versatile and can be used on its own, or as a building block for [accordions](https://open-props-ui.netlify.app/html/components/accordion.md), [dialogs](https://open-props-ui.netlify.app/html/components/dialog.md) and more.
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/card.css";
+```
+
 ## Variants
 
 Change the card variant with the `.ui-text`, `.ui-outlined`, `.ui-tonal`, and `.ui-elevated` classes.
@@ -211,7 +217,7 @@ Open Props UI include these complementary utility components to handle various u
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 
-## Installation
+## Source
 
 Other components might depend on the card component. Be mindful when making changes. [Accordion](https://open-props-ui.netlify.app/html/components/accordion.md), [Dialog](https://open-props-ui.netlify.app/html/components/dialog.md)
 

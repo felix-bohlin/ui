@@ -2,6 +2,13 @@
 
 Let's you show and hide stuff. Uses the native HTML arrow, check out how to add your own [custom marker](#custom-marker).
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/accordion.css";
+@import "opui-css/css/components/card.css";
+```
+
 ## Basics
 
 ```html
@@ -288,7 +295,7 @@ The [WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) f
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 
-## Installation
+## Source
 
 ### Dependencies
 

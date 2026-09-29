@@ -1,0 +1,91 @@
+---
+import { Code } from "astro-expressive-code/components"
+import DocLink from "./DocLink.astro"
+import type { Tab } from "./Installation.astro"
+import { componentExportsFor } from "../utils/package-exports"
+import { DEFAULT_FRAMEWORK, type FrameworkId } from "../utils/framework-routing"
+
+type Props = {
+  slug: string
+  tabs: Tab[]
+}
+
+const { slug, tabs } = Astro.props
+
+const framework = (Astro.currentLocale ?? DEFAULT_FRAMEWORK) as FrameworkId
+
+const cssFiles = Object.keys(
+  import.meta.glob("../../packages/opui/css/components/*.css"),
+).map((path) => path.split("/").pop() ?? "")
+
+const styles = tabs
+  .filter((tab) => tab.code && !tab.seeAlso && cssFiles.includes(tab.title))
+  .map((tab) => `opui-css/css/components/${tab.title}`)
+  .sort((a, b) => a.localeCompare(b))
+
+const exports = componentExportsFor(framework, slug)
+
+const componentImport = () => {
+  if (exports.length === 0) return []
+  const names = exports.join(", ")
+  const line = `import { ${names} } from "opui-css/${framework}"`
+  return line.length <= 80
+    ? [line]
+    : [
+        "import {",
+        ...exports.map((name) => `  ${name},`),
+        `} from "opui-css/${framework}"`,
+      ]
+}
+
+const imports = [
+  ...styles.map((style) => `import "${style}"`),
+  ...componentImport(),
+]
+
+const snippets: Record<FrameworkId, { code: string; lang: string }> = {
+  astro: {
+    code: ["---", ...imports, "---"].join("\n"),
+    lang: "astro",
+  },
+  html: {
+    code: styles.map((style) => `@import "${style}";`).join("\n"),
+    lang: "css",
+  },
+  vue: {
+    code: ['<script setup lang="ts">', ...imports, "</script>"].join("\n"),
+    lang: "vue",
+  },
+}
+
+const { code, lang } = snippets[framework]
+---
+
+<div class="quick-start">
+  {
+    framework === "html" ? (
+      <p>
+        <strong>Quick start.</strong> Run{" "}
+        <code>npm install opui-css open-props</code> and import the styles, or
+        copy the <a href="#installation">source</a> further down. See{" "}
+        <DocLink href="/guide/getting-started">Getting started</DocLink> for the
+        CDN link and full setup.
+      </p>
+    ) : (
+      <p>
+        <strong>Quick start.</strong> Run{" "}
+        <code>npm install opui-css open-props</code>, then import{" "}
+        {exports.length > 0 ? "the component and its styles" : "the styles"}.
+        See <DocLink href="/guide/getting-started">Getting started</DocLink> for
+        the full setup.
+      </p>
+    )
+  }
+  <Code code={code} lang={lang} />
+</div>
+
+<style>
+  .quick-start {
+    margin-block-end: var(--size-4);
+  }
+</style>

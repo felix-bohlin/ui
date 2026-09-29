@@ -6,6 +6,7 @@ import BrowserSupport from "../components/BrowserSupport.astro"
 import BrowserSupportChips from "../components/BrowserSupportChips.astro"
 import ComponentAPI from "../components/ComponentAPI.astro"
 import Installation, { type Tab } from "../components/Installation.astro"
+import QuickStart from "../components/QuickStart.astro"
 import { Button, Chip, Divider, List, ListItem } from "@opui/astro"
 import {
   getComponentChangelog,
@@ -126,6 +127,12 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
   <slot name="preamble" slot="preamble" />
 
   {browserSupport && <BrowserSupportChips ids={browserSupport} />}
+
+  {
+    installationTabs && currentSlug && (
+      <QuickStart slug={currentSlug} tabs={installationTabs} />
+    )
+  }
 
   <slot />
 

@@ -1,5 +1,11 @@
 # Toast
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/toast.css";
+```
+
 ### Alpha stage
 
 This is in no way finished, just an idea put out in the open.
@@ -172,7 +178,7 @@ Control how long the toast stays visible using `data-duration`. Supports CSS tim
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/toast.css`
 

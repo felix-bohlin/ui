@@ -1,5 +1,11 @@
 # Table
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/table.css";
+```
+
 ## Variants
 
 ### Default
@@ -141,3 +147,8 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 - Safari: Full support Supported since v18.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+
+## Source
+
+- `opui-css/css/components/table.css`
+

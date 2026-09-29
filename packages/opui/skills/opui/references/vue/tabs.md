@@ -2,6 +2,15 @@
 
 The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' `:checked` state.
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) for the full setup.
+
+```vue
+<script setup lang="ts">
+import "opui-css/css/components/tabs.css"
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
+</script>
+```
+
 ## Basics
 
 ```vue
@@ -98,7 +107,7 @@ The content area for the tab.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/tabs.css`
 

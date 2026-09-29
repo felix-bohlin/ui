@@ -2,6 +2,12 @@
 
 Chips are compact elements that represent an input, attribute, or action.
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/chip.css";
+```
+
 ## Variants
 
 The Chip has two variants: tonal (default) and `.ui-outlined`.
@@ -177,7 +183,7 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/chip.css`
 

@@ -2,6 +2,12 @@
 
 It's just a line.
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/divider.css";
+```
+
 ## Default
 
 ```html
@@ -31,7 +37,7 @@ Primary
 | ------- | ------------------------------------------------------------- | ------- | ------------------------- |
 | Variant | `.ui-border-tonal`, `.ui-border-filled`, `.ui-border-primary` | -       | Visual variant modifiers. |
 
-## Installation
+## Source
 
 - `opui-css/css/components/divider.css`
 

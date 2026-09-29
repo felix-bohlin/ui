@@ -2,6 +2,14 @@
 
 Add it to an element with `aria-busy="true"`. Spinners are always indeterminate. See also: [Progress bar](https://open-props-ui.netlify.app/vue/components/progress.md).
 
+**Quick start.** Run `npm install opui-css open-props`, then import the styles. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) for the full setup.
+
+```vue
+<script setup lang="ts">
+import "opui-css/css/components/spinner.css"
+</script>
+```
+
 ```vue
 <template>
   <div aria-busy="true"></div>
@@ -80,7 +88,7 @@ See [progress accessibility](https://open-props-ui.netlify.app/vue/components/pr
 | Sizes       | `font-size`                                                                                   | `1em`   | Spinner size follows the element's computed font size.              |
 | Excluded    | `<input>`, `<select>`, `<textarea>`, `<html>`, `<progress>`, elements with `aria-describedby` | -       | Elements that never receive a spinner.                              |
 
-## Installation
+## Source
 
 - `opui-css/css/components/spinner.css`
 

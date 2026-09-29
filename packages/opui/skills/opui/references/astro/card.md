@@ -2,6 +2,15 @@
 
 The card is extremely versatile and can be used on its own, or as a building block for [accordions](https://open-props-ui.netlify.app/astro/components/accordion.md), [dialogs](https://open-props-ui.netlify.app/astro/components/dialog.md) and more.
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/card.css"
+import { Card } from "opui-css/astro"
+---
+```
+
 ## Variants
 
 Change the card variant with the `variant` prop.
@@ -209,7 +218,7 @@ Open Props UI include these complementary utility components to handle various u
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 Other components might depend on the card component. Be mindful when making changes. [Accordion](https://open-props-ui.netlify.app/astro/components/accordion.md), [Dialog](https://open-props-ui.netlify.app/astro/components/dialog.md)
 

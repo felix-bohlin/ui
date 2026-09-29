@@ -2,6 +2,16 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/astro/components/anchor.md).
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/anchor.css"
+import "opui-css/css/components/tooltip.css"
+import { Tooltip } from "opui-css/astro"
+---
+```
+
 Wrap the trigger in `<Tooltip>` and pass a stable`id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like`<button>` or `<a>`). Pass a`label` prop for plain text or use the `content` slot for richer markup.
 
 ## Basics
@@ -153,7 +163,7 @@ import { Button, Tooltip } from "opui-css/astro"
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/tooltip.css`
 - `opui-css/css/components/anchor.css`

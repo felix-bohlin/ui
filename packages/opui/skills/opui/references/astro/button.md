@@ -1,5 +1,14 @@
 # Button
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/button.css"
+import { Button } from "opui-css/astro"
+---
+```
+
 ## Variants
 
 Change the button variant with the `variant` prop.
@@ -236,7 +245,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/button.css`
 

@@ -4,6 +4,8 @@ import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
 import { ToggleGroup, ToggleButton } from "@opui/astro"
 
+import TableCSS from "@opui/css/components/table.css?raw"
+
 import Default from "../../component-examples/table/Default.astro"
 import DefaultVue from "../../component-examples/table/Default.vue"
 import DefaultAstro from "../../component-examples/table/Default.astro?raw"
@@ -31,6 +33,7 @@ export const description =
     },
     { path: "src/component-api/table", type: "api" },
   ]}
+  installationTabs={[{ title: "table.css", code: TableCSS, lang: "css" }]}
 >
   <Fragment slot="title">Table</Fragment>
 

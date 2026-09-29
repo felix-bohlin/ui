@@ -2,6 +2,15 @@
 
 Callouts call out for user attention. Should be part of the flow and used **without** interrupting the user's task.
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/astro/guide/getting-started.md) for the full setup.
+
+```astro
+---
+import "opui-css/css/components/callout.css"
+import { Callout } from "opui-css/astro"
+---
+```
+
 ### Alternatives
 
 You might want to check out:
@@ -194,7 +203,7 @@ import { Callout } from "opui-css/astro"
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/callout.css`
 `theme tokens (snippet)`

@@ -2,6 +2,12 @@
 
 A structural primitive to enable CSS Anchor Positioning on stuff.
 
+**Quick start.** Run `npm install opui-css open-props` and import the styles, or copy the [source](#installation) further down. See [Getting started](https://open-props-ui.netlify.app/html/guide/getting-started.md) for the CDN link and full setup.
+
+```css
+@import "opui-css/css/components/anchor.css";
+```
+
 ## Always Visible
 
 Floating content that is always shown.
@@ -66,7 +72,7 @@ Add `interestfor`, `commandfor`, and `command="toggle-popover"` to the anchor tr
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 
-## Installation
+## Source
 
 - `opui-css/css/components/anchor.css`
 

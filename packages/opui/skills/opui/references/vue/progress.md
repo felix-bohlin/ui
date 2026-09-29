@@ -2,6 +2,15 @@
 
 See also: [Spinner](https://open-props-ui.netlify.app/vue/components/spinner.md).
 
+**Quick start.** Run `npm install opui-css open-props`, then import the component and its styles. See [Getting started](https://open-props-ui.netlify.app/vue/guide/getting-started.md) for the full setup.
+
+```vue
+<script setup lang="ts">
+import "opui-css/css/components/progress.css"
+import { Progress } from "opui-css/vue"
+</script>
+```
+
 ## Indeterminate
 
 ```vue
@@ -81,7 +90,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 | `aria-label` | `string`                           | -           | Accessible label for the progress bar.                                               |
 | `variant`    | `'filled' \| 'default' \| 'tonal'` | `'default'` | Adjusts the progress bar background color for better contrast on different surfaces. |
 
-## Installation
+## Source
 
 - `opui-css/css/components/progress.css`
 

@@ -1,14 +1,26 @@
 ---
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
+import Anatomy from "../../components/Anatomy.astro"
+import {
+  ToggleButton as UIToggleButton,
+  ToggleGroup as UIToggleGroup,
+} from "@opui/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import ToggleGroupCSS from "@opui/css/components/toggle-group.css?raw"
 import ToggleButtonCSS from "@opui/css/components/toggle-button.css?raw"
 import Conditional from "../../components/Conditional.astro"
+
+import toggleButtonApi from "../../component-api/toggle-button/api"
+import toggleGroupApi from "../../component-api/toggle-group/api"
 ---
 
 <Component
   slug="toggle"
+  heroAnatomy
+  apis={[
+    { title: "Toggle group API", api: toggleGroupApi },
+    { title: "Toggle button API", api: toggleButtonApi },
+  ]}
   browserSupport={["color-mix", "light-dark", "relative-color"]}
   changelogPaths={[
     {
@@ -131,45 +143,17 @@ import Conditional from "../../components/Conditional.astro"
   </section>
 
   <Fragment slot="anatomy">
-    <Example centered>
-      <div role="radiogroup" class="ui-toggle-group anatomy">
-        <label class="ui-toggle-button">
-          <input type="radio" checked />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            ><path
-              fill="currentColor"
-              d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
-            ></path></svg
-          >
-          Selected
-        </label>
-        <label class="ui-toggle-button">
-          <input type="radio" />
-          Enabled
-        </label>
-      </div>
-    </Example>
+    <Anatomy api={toggleGroupApi} zoom={1.25}>
+      <UIToggleGroup name="toggle-anatomy" selection="single">
+        <UIToggleButton pressed type="radio">Day</UIToggleButton>
+        <UIToggleButton type="radio">Week</UIToggleButton>
+        <UIToggleButton type="radio">Month</UIToggleButton>
+      </UIToggleGroup>
+    </Anatomy>
   </Fragment>
 </Component>
 
 <style is:global>
-  .ui-toggle-group.anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: 4px;
-
-    .ui-toggle-button:first-of-type {
-      outline: var(--_anatomy-border-red);
-
-      & > * {
-        outline: var(--_anatomy-border-red);
-      }
-    }
-  }
-
   .ui-toggle-group
     .ui-toggle-button:has(input:checked).has-text
     svg:nth-of-type(2) {

@@ -26,6 +26,7 @@ type Props = {
   slug?: string
   apis?: any | any[] | "auto"
   changelogPaths?: ChangelogPathEntry[]
+  heroAnatomy?: boolean
   installationTabs?: Tab[]
   seeAlsoLinks?: { name: string; href: string }[]
   showToc?: boolean
@@ -35,6 +36,7 @@ const {
   apis: apisProp,
   browserSupport,
   changelogPaths,
+  heroAnatomy,
   installationTabs,
   seeAlsoLinks,
   overline = "Components",
@@ -126,6 +128,17 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 
   {browserSupport && <BrowserSupportChips ids={browserSupport} />}
 
+  {
+    heroAnatomy && Astro.slots.has("anatomy") && (
+      <section class="component-hero">
+        <h2 id="anatomy" class="ui-sr-only">
+          Anatomy
+        </h2>
+        <slot name="anatomy" />
+      </section>
+    )
+  }
+
   <slot />
 
   {
@@ -138,7 +151,7 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
   }
 
   {
-    Astro.slots.has("anatomy") && (
+    !heroAnatomy && Astro.slots.has("anatomy") && (
       <section>
         <h2 id="anatomy">Anatomy</h2>
         <slot name="anatomy" />
@@ -298,6 +311,15 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
   </footer>
 
   <style>
+    .component-hero {
+      --anatomy-hero: 1;
+    }
+
+    .component-hero > h2 {
+      margin: 0;
+      position: absolute;
+    }
+
     .component-footer {
       display: grid;
       gap: var(--size-4);

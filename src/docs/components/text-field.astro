@@ -1,8 +1,13 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
-import { Callout as UICallout, Switch as UISwitch } from "@opui/astro"
+import {
+  Callout as UICallout,
+  Switch as UISwitch,
+  TextField as UITextField,
+} from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
 
 import InputTypes from "../../component-examples/text-field/InputTypes.astro"
@@ -47,6 +52,7 @@ export const description =
 
 <Component
   description={description}
+  heroAnatomy
   slug="text-field"
   browserSupport={[
     "datalist",
@@ -396,37 +402,20 @@ export const description =
   </Fragment>
 
   <Fragment slot="anatomy">
-    <ol>
-      <li><code>label.ui-text-field</code>: Container element</li>
-      <li><code>.ui-label</code>: Field label element</li>
-      <li><code>.ui-field</code>: The boxed input area</li>
-      <li>
-        <code>.ui-header</code>: Optional inside-border header strip (with
-        divider)
-      </li>
-      <li><code>.ui-prefix</code>: Optional inline-start affix</li>
-      <li><code>&lt;input&gt;</code>: Input element</li>
-      <li><code>.ui-suffix</code>: Optional inline-end affix</li>
-      <li>
-        <code>.ui-footer</code>: Optional inside-border footer strip (with
-        divider)
-      </li>
-      <li><code>.ui-end-text</code>: Supporting text element</li>
-    </ol>
-
-    <Example>
-      <label class="ui-text-field anatomy">
-        <span class="ui-label">Label</span>
-        <span class="ui-field">
-          <span class="ui-header">Header</span>
-          <span class="ui-prefix">¢</span>
-          <input type="text" value="Value" placeholder="Placeholder" />
-          <span class="ui-suffix">EUR</span>
-          <span class="ui-footer">Footer</span>
-        </span>
-        <span class="ui-end-text">Supporting text</span>
-      </label>
-    </Example>
+    <Anatomy zoom={1.25}>
+      <UITextField
+        description="Description"
+        endText="Supporting text"
+        label="Label"
+        placeholder="Placeholder"
+        value="Value"
+      >
+        <span slot="header">Header</span>
+        <span slot="prefix">¢</span>
+        <span slot="suffix">EUR</span>
+        <span slot="footer">Footer</span>
+      </UITextField>
+    </Anatomy>
   </Fragment>
 </Component>
 
@@ -468,14 +457,3 @@ export const description =
   setupInputTypesControls()
   document.addEventListener("astro:after-swap", setupInputTypesControls)
 </script>
-
-<style is:global>
-  .ui-text-field.anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: 6px;
-
-    & > * {
-      outline: var(--_anatomy-border-red);
-    }
-  }
-</style>

@@ -5,9 +5,7 @@ import AutoExample from "../../components/AutoExample.astro"
 import RadioCSS from "@opui/css/components/radio.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
-import FieldGroupAPIAstro from "../../component-api/field-group/Astro.astro"
-import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
-import FieldGroupAPIVue from "../../component-api/field-group/Vue.astro"
+import fieldGroupApi from "../../component-api/field-group/api"
 
 import Conditional from "../../components/Conditional.astro"
 ---
@@ -15,11 +13,7 @@ import Conditional from "../../components/Conditional.astro"
 <Component
   slug="radio"
   browserSupport={["has"]}
-  apis={{
-    astro: FieldGroupAPIAstro,
-    html: FieldGroupAPIHTML,
-    vue: FieldGroupAPIVue,
-  }}
+  apis={[{ title: "Field group API", api: fieldGroupApi }]}
   changelogPaths={[
     {
       path: "packages/opui/components/Radio",

@@ -90,7 +90,7 @@ import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
 `src/component-api/<slug>/api.ts` default-exports a `ComponentApi` ([types.ts](types.ts)) and replaces the hand-written tables for every framework. [text-field/api.ts](text-field/api.ts) is the reference implementation.
 
 - `source`: the component folder in `packages/opui/components/`.
-- `page`: the docs page slug when it differs from the folder, such as `tabs` for `tabs-item`. The API index links to it.
+- `page`: the docs page slug when it differs from the folder, such as `tabs` for `tabs-item`. The API index links to it, and the build warns when it does not exist.
 - `file`: the component file name when it differs from `component`, such as `TabsItem` for `Tabs.Item`. Props are read from the `<file>Props` type, or `Props`.
 - `root` and `parts`: structural elements with a `selector` and a `description`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Set `anchorName` when the part's CSS already sets an `anchor-name`, so `<Anatomy>` keeps it. Set `component` when a sub-component renders the part, such as `{ astro: "DescriptionList.Term", vue: "DescriptionListTerm" }`. Keep parts in visual order; they also drive the `<Anatomy>` diagram and the HTML parts table.
 - `options`: props and their HTML equivalent (`class` or `attribute`, `group` for the HTML table). Use `frameworks` to limit an option to some frameworks and `type` to override the resolved type.
@@ -102,7 +102,7 @@ import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
 
 Prop names and types are read from each framework's types file, and Astro/Vue slots from the component source, so they are never written by hand. Framework syntax lives in [frameworks.ts](frameworks.ts). The build warns (`[component-api]`) when a prop or slot is missing from `api.ts` or documented but not in the source.
 
-Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`. `<Anatomy>` finds it from the page slug.
+Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`. `<Anatomy>` finds it from the page slug. `tests/e2e/anatomy.spec.ts` checks every page with `heroAnatomy` for overflow, spacing and axe violations.
 
 ## Example Reference
 

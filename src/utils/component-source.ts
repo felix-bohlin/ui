@@ -187,6 +187,13 @@ const warn = (message: string) => {
 }
 
 export const checkApi = (api: ComponentApi) => {
+  if (
+    api.page &&
+    !fs.existsSync(path.resolve("src/docs/components", `${api.page}.astro`))
+  ) {
+    warn(`${api.component}: page "${api.page}" does not exist`)
+  }
+
   const all = Object.keys(frameworks) as ComponentFramework[]
   all
     .filter((framework) => shipped(api, framework))

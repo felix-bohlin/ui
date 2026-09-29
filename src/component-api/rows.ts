@@ -101,7 +101,7 @@ export const partLabel = (
 ) => {
   const fallback = part.code ?? part.selector
   if (framework === "html") return fallback
-  if (root) return `<${api.component}>`
+  if (root) return `<${part.component?.[framework] ?? api.component}>`
   if (part.component?.[framework]) return `<${part.component[framework]}>`
 
   const syntax = frameworks[framework]

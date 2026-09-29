@@ -33,7 +33,10 @@ export type ComponentApi = {
   notes?: Partial<Record<Framework, string>>
   options: ApiOption[]
   parts: ApiPart[]
-  root: Pick<ApiPart, "anchorName" | "code" | "description" | "selector">
+  root: Pick<
+    ApiPart,
+    "anchorName" | "code" | "component" | "description" | "selector"
+  >
   slots?: { description: string; name: string }[]
   source: string
 }

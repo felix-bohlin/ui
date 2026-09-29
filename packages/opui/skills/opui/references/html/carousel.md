@@ -8,6 +8,7 @@
 <ul
   class="ui-carousel ui-buttons-outside ui-with-buttons ui-with-markers"
   aria-label="Destinations"
+  tabindex="0"
 >
   <li>
     <div class="ui-card ui-tonal">
@@ -65,6 +66,7 @@
 <ul
   class="ui-carousel ui-buttons-outside ui-with-buttons"
   aria-label="Destinations"
+  tabindex="0"
   style="--_per-view: 3"
 >
   <li>
@@ -123,6 +125,7 @@
 <ul
   class="ui-carousel ui-align-center ui-peek ui-with-markers"
   aria-label="Destinations"
+  tabindex="0"
 >
   <li>
     <div class="ui-card ui-tonal">
@@ -177,7 +180,11 @@
 `--_media-aspect-ratio` to crop images.
 
 ```html
-<ul class="ui-carousel ui-with-buttons ui-with-markers" aria-label="Photos">
+<ul
+  class="ui-carousel ui-with-buttons ui-with-markers"
+  aria-label="Photos"
+  tabindex="0"
+>
   <li>
     <img
       alt="A deep blue fjord between steep mountains"
@@ -230,6 +237,7 @@
 <ul
   class="ui-carousel ui-with-buttons"
   aria-label="Gallery"
+  tabindex="0"
   style="--_per-view: 3; --_media-aspect-ratio: 1"
 >
   <li>
@@ -285,7 +293,11 @@
 `video` and `iframe` fill the item too.
 
 ```html
-<ul class="ui-carousel ui-with-buttons ui-with-markers" aria-label="Videos">
+<ul
+  class="ui-carousel ui-with-buttons ui-with-markers"
+  aria-label="Videos"
+  tabindex="0"
+>
   <li>
     <video
       aria-label="A red flower bud opening"
@@ -308,7 +320,11 @@
 ```
 
 ```html
-<ul class="ui-carousel ui-with-buttons ui-with-markers" aria-label="Tutorials">
+<ul
+  class="ui-carousel ui-with-buttons ui-with-markers"
+  aria-label="Tutorials"
+  tabindex="0"
+>
   <li>
     <iframe
       allow="encrypted-media; fullscreen; picture-in-picture"
@@ -350,6 +366,7 @@
 <ul
   class="ui-carousel ui-buttons-outside ui-with-buttons"
   aria-label="Plans"
+  tabindex="0"
   style="--_per-view: 2"
 >
   <li>
@@ -407,6 +424,7 @@
 <ul
   class="ui-carousel ui-buttons-outside ui-with-buttons carousel-custom-buttons"
   aria-label="Destinations"
+  tabindex="0"
   style="--_per-view: 2"
 >
   <li>
@@ -472,16 +490,16 @@ Announces item position. Buttons and markers are named.
 
 ## API
 
-| Type           | Modifiers             | Default | Description                           |
-| -------------- | --------------------- | ------- | ------------------------------------- |
-| Part           | `ul.ui-carousel`      | -       | The scroller. Needs an `aria-label`.  |
-| Children       | `li`                  | -       | The items.                            |
-| Alignment      | `.ui-align-center`    | -       | Where items snap.                     |
-| Buttons        | `.ui-with-buttons`    | -       | Previous and next buttons.            |
-| Buttons        | `.ui-buttons-outside` | -       | Buttons beside the items.             |
-| Markers        | `.ui-with-markers`    | -       | One marker per item, after the list.  |
-| Peek           | `.ui-peek`            | -       | Shows part of the neighbouring items. |
-| Items per view | `--_per-view`         | `1`     | Number of visible items.              |
+| Type           | Modifiers             | Default | Description                                             |
+| -------------- | --------------------- | ------- | ------------------------------------------------------- |
+| Part           | `ul.ui-carousel`      | -       | The scroller. Needs an `aria-label` and `tabindex="0"`. |
+| Children       | `li`                  | -       | The items.                                              |
+| Alignment      | `.ui-align-center`    | -       | Where items snap.                                       |
+| Buttons        | `.ui-with-buttons`    | -       | Previous and next buttons.                              |
+| Buttons        | `.ui-buttons-outside` | -       | Buttons beside the items.                               |
+| Markers        | `.ui-with-markers`    | -       | One marker per item, after the list.                    |
+| Peek           | `.ui-peek`            | -       | Shows part of the neighbouring items.                   |
+| Items per view | `--_per-view`         | `1`     | Number of visible items.                                |
 
 ## Browser support
 

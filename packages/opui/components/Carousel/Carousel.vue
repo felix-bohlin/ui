@@ -27,6 +27,7 @@ defineSlots<Slots>()
       $props.class,
     ]"
     :style="perView ? { '--_per-view': perView } : undefined"
+    tabindex="0"
   >
     <slot></slot>
   </ul>

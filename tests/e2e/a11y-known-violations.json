@@ -17,9 +17,6 @@
   "astro/checkbox": [
     "color-contrast"
   ],
-  "astro/drawer": [
-    "scrollable-region-focusable"
-  ],
   "astro/list": [
     "aria-allowed-attr",
     "button-name",
@@ -102,9 +99,6 @@
   ],
   "vue/checkbox": [
     "color-contrast"
-  ],
-  "vue/drawer": [
-    "scrollable-region-focusable"
   ],
   "vue/list": [
     "aria-allowed-attr",

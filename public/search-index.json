@@ -1328,7 +1328,7 @@
     "id": "api-carousel-html",
     "title": "Carousel API",
     "description": "Reference for Carousel HTML component.",
-    "headings": "Part ul.ui-carousel - The scroller. Needs an aria-label. Children li - The items. Alignment .ui-align-center - Where items snap. Buttons .ui-with-buttons - Previous and next buttons. Buttons .ui-buttons-outside - Buttons beside the items. Markers .ui-with-markers - One marker per item, after the list. Peek .ui-peek - Shows part of the neighbouring items. Items per view --_per-view 1 Number of visible items.",
+    "headings": "Part ul.ui-carousel - The scroller. Needs an aria-label and tabindex=\"0\". Children li - The items. Alignment .ui-align-center - Where items snap. Buttons .ui-with-buttons - Previous and next buttons. Buttons .ui-buttons-outside - Buttons beside the items. Markers .ui-with-markers - One marker per item, after the list. Peek .ui-peek - Shows part of the neighbouring items. Items per view --_per-view 1 Number of visible items.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",

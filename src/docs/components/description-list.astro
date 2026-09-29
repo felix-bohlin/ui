@@ -1,30 +1,23 @@
 ---
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
+import Anatomy from "../../components/Anatomy.astro"
+import { DescriptionList as UIDescriptionList } from "@opui/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 import DescriptionListCSS from "@opui/css/components/description-list.css?raw"
-import ExampleAnatomy from "../../component-examples/description-list/Anatomy.astro"
 import Conditional from "../../components/Conditional.astro"
+
+import descriptionListApi from "../../component-api/description-list/api"
 
 export const description =
   "Description lists are used to display a list of terms and their descriptions."
 ---
 
-<style is:global>
-  .ui-description-list.anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: 6px;
-    .ui-item * {
-      outline: var(--_anatomy-border-red);
-      outline-offset: -2px;
-    }
-  }
-</style>
-
 <Component
   description={description}
   slug="description-list"
+  heroAnatomy
+  apis={[{ title: "Description list API", api: descriptionListApi }]}
   browserSupport={["container-queries", "has"]}
   changelogPaths={[
     {
@@ -79,55 +72,15 @@ export const description =
   </section>
 
   <Fragment slot="anatomy">
-    <Conditional>
-      <Fragment slot="astro">
-        <ol>
-          <li>List (<code>&lt;DescriptionList&gt;</code>)</li>
-          <li>
-            Term-description group (<code>&lt;DescriptionList.Item&gt;</code>)
-          </li>
-          <li>Term (<code>&lt;DescriptionList.Term&gt;</code>)</li>
-          <li>
-            Separator - rendered via CSS when <code>bordered</code> is set on the
-            list (optional)
-          </li>
-          <li>
-            Description (<code>&lt;DescriptionList.Description&gt;</code>)
-          </li>
-        </ol>
-      </Fragment>
-      <Fragment slot="html">
-        <ol>
-          <li>List (<code>&lt;dl&gt;</code>)</li>
-          <li>Term-description group (<code>&lt;div&gt;</code>)</li>
-          <li>Term (<code>&lt;dt&gt;</code>)</li>
-          <li>
-            Separator - rendered via CSS when <code>.ui-bordered</code> is set on
-            the list (optional)
-          </li>
-          <li>Description (<code>&lt;dd&gt;</code>)</li>
-        </ol>
-      </Fragment>
-      <Fragment slot="vue">
-        <ol>
-          <li>List (<code>&lt;DescriptionList&gt;</code>)</li>
-          <li>
-            Term-description group (<code>&lt;DescriptionList.Item&gt;</code>)
-          </li>
-          <li>Term (<code>&lt;DescriptionList.Term&gt;</code>)</li>
-          <li>
-            Separator - rendered via CSS when <code>bordered</code> is set on the
-            list (optional)
-          </li>
-          <li>
-            Description (<code>&lt;DescriptionList.Description&gt;</code>)
-          </li>
-        </ol>
-      </Fragment>
-    </Conditional>
-
-    <Example>
-      <Example.Preview slot="preview-astro" code={ExampleAnatomy} />
-    </Example>
+    <Anatomy zoom={1.25}>
+      <UIDescriptionList bordered="dotted" style="inline-size: 16rem">
+        <UIDescriptionList.Item>
+          <UIDescriptionList.Term>Price</UIDescriptionList.Term>
+          <UIDescriptionList.Description
+            >6 950 000</UIDescriptionList.Description
+          >
+        </UIDescriptionList.Item>
+      </UIDescriptionList>
+    </Anatomy>
   </Fragment>
 </Component>

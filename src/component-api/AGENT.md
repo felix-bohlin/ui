@@ -90,8 +90,11 @@ import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
 `src/component-api/<slug>/api.ts` default-exports a `ComponentApi` ([types.ts](types.ts)) and replaces the hand-written tables for every framework. [text-field/api.ts](text-field/api.ts) is the reference implementation.
 
 - `source`: the component folder in `packages/opui/components/`.
-- `root` and `parts`: structural elements with a `selector` and a `description`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Keep parts in visual order; they also drive the `<Anatomy>` diagram.
+- `root` and `parts`: structural elements with a `selector` and a `description`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Set `anchorName` when the part's CSS already sets an `anchor-name`, so `<Anatomy>` keeps it. Keep parts in visual order; they also drive the `<Anatomy>` diagram.
 - `options`: props and their HTML equivalent (`class` or `attribute`, `group` for the HTML table). Use `frameworks` to limit an option to some frameworks and `type` to override the resolved type.
+  - `values` maps each value of an enum prop to its modifier, or `null` when the value adds none (shown as `default`). The build warns when the keys don't match the prop's type.
+  - `part` is the selector of the part that gets the modifier, such as `.ui-actions` for `actionsAlign`.
+  - `cssVar` is the custom property an option sets, such as `--anchor-position-area`. It can be combined with a class or `values`.
 - `slots`: slots that aren't parts, such as `default`.
 - `model` and `notes`: the bound value and per-framework notes.
 

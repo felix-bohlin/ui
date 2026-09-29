@@ -4,10 +4,34 @@ import {
   type ComponentFramework,
   type Framework,
 } from "./frameworks"
-import type { ApiPart, ComponentApi } from "./types"
+import type { ApiOption, ApiPart, ComponentApi } from "./types"
 
 const byName = (a: { name: string }, b: { name: string }) =>
   a.name.localeCompare(b.name)
+
+const on = (option: ApiOption, modifier: string | null) =>
+  modifier && option.part ? `${option.part}${modifier}` : modifier
+
+export const modifiers = (option: ApiOption) => {
+  const values = option.values
+    ? Object.values(option.values).map((modifier) => on(option, modifier))
+    : [option.class ?? option.attribute].flatMap((modifier) =>
+        modifier ? [on(option, modifier)] : [],
+      )
+  return [
+    ...values.sort((a, b) => (a ?? "").localeCompare(b ?? "")),
+    ...(option.cssVar ? [option.cssVar] : []),
+  ]
+}
+
+export const htmlDefault = (option: ApiOption) => {
+  const value = option.default?.replace(/^"(.*)"$/, "$1")
+  if (value === undefined) return undefined
+  if (option.values) {
+    return value in option.values ? on(option, option.values[value]) : undefined
+  }
+  return option.cssVar ? value : undefined
+}
 
 export const htmlRows = (api: ComponentApi) =>
   api.options
@@ -15,12 +39,13 @@ export const htmlRows = (api: ComponentApi) =>
       (option) => !option.frameworks || option.frameworks.includes("html"),
     )
     .flatMap((option) => {
-      const modifier = option.class ?? option.attribute
-      return modifier
+      const list = modifiers(option)
+      return list.length > 0
         ? [
             {
+              default: htmlDefault(option),
               description: option.description,
-              modifier,
+              modifiers: list,
               name: option.group ?? option.prop,
             },
           ]

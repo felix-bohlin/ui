@@ -50,9 +50,22 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
             <Table.Row>
               <Table.Cell>{row.name}</Table.Cell>
               <Table.Cell>
-                <code>{row.modifier}</code>
+                {row.modifiers.map((modifier, i) => (
+                  <Fragment>
+                    {i > 0 && ", "}
+                    {modifier ? <code>{modifier}</code> : "default"}
+                  </Fragment>
+                ))}
               </Table.Cell>
-              <Table.Cell>-</Table.Cell>
+              <Table.Cell>
+                {row.default === undefined ? (
+                  "-"
+                ) : row.default ? (
+                  <code>{row.default}</code>
+                ) : (
+                  "default"
+                )}
+              </Table.Cell>
               <Table.Cell set:html={formatInline(row.description)} />
             </Table.Row>
           ))}

@@ -1,6 +1,7 @@
 import type { Framework } from "./frameworks"
 
 export type ApiPart = {
+  anchorName?: string
   code?: string
   description: string
   legacy?: { props?: string[]; slots?: string[] }
@@ -13,12 +14,15 @@ export type ApiPart = {
 export type ApiOption = {
   attribute?: string
   class?: string
+  cssVar?: string
   default?: string
   description: string
   frameworks?: Framework[]
   group?: string
+  part?: string
   prop: string
   type?: string
+  values?: Record<string, string | null>
 }
 
 export type ComponentApi = {
@@ -27,7 +31,7 @@ export type ComponentApi = {
   notes?: Partial<Record<Framework, string>>
   options: ApiOption[]
   parts: ApiPart[]
-  root: { description: string; selector: string }
+  root: { anchorName?: string; description: string; selector: string }
   slots?: { description: string; name: string }[]
   source: string
 }

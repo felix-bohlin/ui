@@ -196,6 +196,28 @@ export const checkApi = (api: ComponentApi) => {
             )
           }
         })
+      api.options.forEach((option) => {
+        const type = props.get(option.prop)
+        if (!option.values || !type) return
+        const literals = [...type.matchAll(/"([^"]+)"/g)].map(
+          ([, value]) => value,
+        )
+        const values = Object.keys(option.values)
+        literals
+          .filter((value) => !values.includes(value))
+          .forEach((value) =>
+            warn(
+              `${api.component} (${framework}): value "${value}" of "${option.prop}" is not documented`,
+            ),
+          )
+        values
+          .filter((value) => !literals.includes(value))
+          .forEach((value) =>
+            warn(
+              `${api.component} (${framework}): value "${value}" of "${option.prop}" does not exist`,
+            ),
+          )
+      })
 
       if (frameworks[framework].slotsAreProps) return
 

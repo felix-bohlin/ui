@@ -223,7 +223,14 @@ async function generateIndex() {
         ]),
         ...options.flatMap((option) =>
           html
-            ? [option.class, option.attribute, option.group, option.description]
+            ? [
+                option.class,
+                option.attribute,
+                option.cssVar,
+                ...Object.values(option.values ?? {}),
+                option.group,
+                option.description,
+              ]
             : [option.prop, option.description],
         ),
       ].filter(Boolean)

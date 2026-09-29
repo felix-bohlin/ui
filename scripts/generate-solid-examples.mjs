@@ -25,17 +25,20 @@ const CriticalIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height=
 const MailIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"/></svg>`
 const PlusIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"/></svg>`
 const ChevronDownIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><path fill="currentColor" d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"/></svg>`
-const CheckIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><path fill="currentColor" d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"/></svg>`
 const StarIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"/></svg>`
 const UserIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4S7.2 4.5 7.2 7.2S9.3 12 12 12m0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8"/></svg>`
 const BusIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M16.25 3A3.75 3.75 0 0 1 20 6.75v9a3.75 3.75 0 0 1-2.89 3.651l2.462 1.172a.75.75 0 0 1-.55 1.392l-.095-.038L13.83 19.5h-3.661l-5.097 2.427a.75.75 0 1 1-.645-1.354L6.89 19.4A3.75 3.75 0 0 1 4 15.75v-9A3.75 3.75 0 0 1 7.75 3zM8 15a1 1 0 1 0 0 2a1 1 0 0 0 0-2m8 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2m.25-10.5h-8.5A2.25 2.25 0 0 0 5.5 6.75v5.75h13V6.75a2.25 2.25 0 0 0-2.25-2.25m-3 1.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1 0-1.5z"/></svg>`
 const ExternalLinkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><path fill="currentColor" d="M7.75 5.5A2.25 2.25 0 0 0 5.5 7.75v16.5a2.25 2.25 0 0 0 2.25 2.25h16.5a2.25 2.25 0 0 0 2.25-2.25v-5a1.25 1.25 0 1 1 2.5 0v5A4.75 4.75 0 0 1 24.25 29H7.75A4.75 4.75 0 0 1 3 24.25V7.75A4.75 4.75 0 0 1 7.75 3h5a1.25 1.25 0 1 1 0 2.5zM18 4.25c0-.69.56-1.25 1.25-1.25h8.5c.69 0 1.25.56 1.25 1.25v8.5a1.25 1.25 0 1 1-2.5 0V7.268l-6.366 6.366a1.25 1.25 0 1 1-1.768-1.768L24.732 5.5H19.25c-.69 0-1.25-.56-1.25-1.25"/></svg>`
-const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis neque ante id justo."
+const lorem =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis neque ante id justo."
 
 console.log("Generating Solid component examples...\n")
 
 // ─── ACCORDION ──────────────────────────────────────────────────────────────
-write("accordion", "Basics", `
+write(
+  "accordion",
+  "Basics",
+  `
 /* @jsxImportSource solid-js */
 import { Accordion } from "opui-css/solid"
 
@@ -45,9 +48,13 @@ export default function Example() {
       <p>${lorem}</p>
     </Accordion>
   )
-}`)
+}`,
+)
 
-write("accordion", "Variants", `
+write(
+  "accordion",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { Accordion } from "opui-css/solid"
 
@@ -60,9 +67,13 @@ export default function Example() {
       <Accordion variant="tonal" summary="Tonal"><p>${lorem.slice(0, 80)}</p></Accordion>
     </>
   )
-}`)
+}`,
+)
 
-write("accordion", "Actions", `
+write(
+  "accordion",
+  "Actions",
+  `
 /* @jsxImportSource solid-js */
 import { Accordion, Button } from "opui-css/solid"
 
@@ -73,9 +84,13 @@ export default function Example() {
       <p>${lorem.slice(0, 100)}</p>
     </Accordion>
   )
-}`)
+}`,
+)
 
-write("accordion", "Group", `
+write(
+  "accordion",
+  "Group",
+  `
 /* @jsxImportSource solid-js */
 import { Accordion, Card } from "opui-css/solid"
 
@@ -87,9 +102,13 @@ export default function Example() {
       <Accordion summary="Accordion title"><p>${lorem.slice(0, 80)}</p></Accordion>
     </Card>
   )
-}`)
+}`,
+)
 
-write("accordion", "GroupSingle", `
+write(
+  "accordion",
+  "GroupSingle",
+  `
 /* @jsxImportSource solid-js */
 import { Accordion, Card } from "opui-css/solid"
 
@@ -101,9 +120,13 @@ export default function Example() {
       <Accordion name="example-group" summary="Accordion title"><p>${lorem.slice(0, 80)}</p></Accordion>
     </Card>
   )
-}`)
+}`,
+)
 
-write("accordion", "CustomMarker", `
+write(
+  "accordion",
+  "CustomMarker",
+  `
 /* @jsxImportSource solid-js */
 import { Accordion } from "opui-css/solid"
 
@@ -114,10 +137,14 @@ export default function Example() {
       <p>${lorem}</p>
     </Accordion>
   )
-}`)
+}`,
+)
 
 // ─── ANCHOR ─────────────────────────────────────────────────────────────────
-write("anchor", "AlwaysVisible", `
+write(
+  "anchor",
+  "AlwaysVisible",
+  `
 /* @jsxImportSource solid-js */
 import { Anchor } from "opui-css/solid"
 
@@ -127,9 +154,13 @@ export default function Example() {
       <button>Hover me</button>
     </Anchor>
   )
-}`)
+}`,
+)
 
-write("anchor", "Hover", `
+write(
+  "anchor",
+  "Hover",
+  `
 /* @jsxImportSource solid-js */
 import { Anchor } from "opui-css/solid"
 
@@ -140,10 +171,14 @@ export default function Example() {
       <button interestfor="anchor-hover" commandfor="anchor-hover" command="toggle-popover">Hover me</button>
     </Anchor>
   )
-}`)
+}`,
+)
 
 // ─── AVATAR ─────────────────────────────────────────────────────────────────
-write("avatar", "Variants", `
+write(
+  "avatar",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { Avatar } from "opui-css/solid"
 
@@ -155,9 +190,13 @@ export default function Example() {
       <Avatar variant="squircle" src="https://plus.unsplash.com/premium_photo-1770631651199-d92007477b6f?q=80&w=200&auto=format&fit=crop" alt="Avatar" />
     </>
   )
-}`)
+}`,
+)
 
-write("avatar", "Letter", `
+write(
+  "avatar",
+  "Letter",
+  `
 /* @jsxImportSource solid-js */
 import { Avatar } from "opui-css/solid"
 
@@ -169,9 +208,13 @@ export default function Example() {
       <Avatar variant="squircle">EF</Avatar>
     </>
   )
-}`)
+}`,
+)
 
-write("avatar", "Icon", `
+write(
+  "avatar",
+  "Icon",
+  `
 /* @jsxImportSource solid-js */
 import { Avatar } from "opui-css/solid"
 
@@ -183,9 +226,13 @@ export default function Example() {
       <Avatar variant="squircle">${UserIcon}</Avatar>
     </>
   )
-}`)
+}`,
+)
 
-write("avatar", "Image", `
+write(
+  "avatar",
+  "Image",
+  `
 /* @jsxImportSource solid-js */
 import { Avatar } from "opui-css/solid"
 
@@ -197,9 +244,13 @@ export default function Example() {
       <Avatar variant="squircle" src="https://images.unsplash.com/photo-1616286608358-0e1b143f7d2f?q=80&w=200&auto=format&fit=crop" alt="Avatar" />
     </>
   )
-}`)
+}`,
+)
 
-write("avatar", "Grouped", `
+write(
+  "avatar",
+  "Grouped",
+  `
 /* @jsxImportSource solid-js */
 import { Avatar } from "opui-css/solid"
 
@@ -211,10 +262,14 @@ export default function Example() {
       <Avatar>AB</Avatar>
     </div>
   )
-}`)
+}`,
+)
 
 // ─── BADGE ──────────────────────────────────────────────────────────────────
-write("badge", "Variants", `
+write(
+  "badge",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { Badge } from "opui-css/solid"
 
@@ -225,9 +280,13 @@ export default function Example() {
       <Badge dot>${MailIcon}</Badge>
     </>
   )
-}`)
+}`,
+)
 
-write("badge", "Color", `
+write(
+  "badge",
+  "Color",
+  `
 /* @jsxImportSource solid-js */
 import { Badge } from "opui-css/solid"
 
@@ -241,9 +300,13 @@ export default function Example() {
       <Badge color="neutral" label="5">${MailIcon}</Badge>
     </>
   )
-}`)
+}`,
+)
 
-write("badge", "Visibility", `
+write(
+  "badge",
+  "Visibility",
+  `
 /* @jsxImportSource solid-js */
 import { Badge } from "opui-css/solid"
 
@@ -254,10 +317,14 @@ export default function Example() {
       <Badge dot invisible>${MailIcon}</Badge>
     </>
   )
-}`)
+}`,
+)
 
 // ─── BUTTON ─────────────────────────────────────────────────────────────────
-write("button", "Text", `
+write(
+  "button",
+  "Text",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -269,9 +336,13 @@ export default function Example() {
       <Button href="#text">Link</Button>
     </>
   )
-}`)
+}`,
+)
 
-write("button", "Variants", `
+write(
+  "button",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -300,9 +371,13 @@ export default function Example() {
       </div>
     </>
   )
-}`)
+}`,
+)
 
-write("button", "Sizes", `
+write(
+  "button",
+  "Sizes",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -321,9 +396,13 @@ export default function Example() {
       </div>
     </>
   )
-}`)
+}`,
+)
 
-write("button", "Colors", `
+write(
+  "button",
+  "Colors",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -342,9 +421,13 @@ export default function Example() {
       </div>
     </>
   )
-}`)
+}`,
+)
 
-write("button", "Disabled", `
+write(
+  "button",
+  "Disabled",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -357,9 +440,13 @@ export default function Example() {
       <Button variant="filled" disabled>Filled</Button>
     </>
   )
-}`)
+}`,
+)
 
-write("button", "Outlined", `
+write(
+  "button",
+  "Outlined",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -371,9 +458,13 @@ export default function Example() {
       <Button variant="outlined" href="#">Link</Button>
     </>
   )
-}`)
+}`,
+)
 
-write("button", "Filled", `
+write(
+  "button",
+  "Filled",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -385,9 +476,13 @@ export default function Example() {
       <Button variant="filled" href="#">Link</Button>
     </>
   )
-}`)
+}`,
+)
 
-write("button", "Tonal", `
+write(
+  "button",
+  "Tonal",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -399,9 +494,13 @@ export default function Example() {
       <Button variant="tonal" href="#">Link</Button>
     </>
   )
-}`)
+}`,
+)
 
-write("button", "IconAndLabel", `
+write(
+  "button",
+  "IconAndLabel",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -422,9 +521,13 @@ export default function Example() {
       </Button>
     </>
   )
-}`)
+}`,
+)
 
-write("button", "Keyboard", `
+write(
+  "button",
+  "Keyboard",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -434,10 +537,14 @@ export default function Example() {
       Save <kbd>Ctrl</kbd><kbd>S</kbd>
     </Button>
   )
-}`)
+}`,
+)
 
 // ─── BUTTON GROUP ────────────────────────────────────────────────────────────
-write("button-group", "Variants", `
+write(
+  "button-group",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -461,9 +568,13 @@ export default function Example() {
       </div>
     </>
   )
-}`)
+}`,
+)
 
-write("button-group", "Colors", `
+write(
+  "button-group",
+  "Colors",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -482,9 +593,13 @@ export default function Example() {
       </div>
     </>
   )
-}`)
+}`,
+)
 
-write("button-group", "Disabled", `
+write(
+  "button-group",
+  "Disabled",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -496,9 +611,13 @@ export default function Example() {
       <Button variant="outlined">Right</Button>
     </div>
   )
-}`)
+}`,
+)
 
-write("button-group", "Size", `
+write(
+  "button-group",
+  "Size",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -517,9 +636,13 @@ export default function Example() {
       </div>
     </>
   )
-}`)
+}`,
+)
 
-write("button-group", "Vertical", `
+write(
+  "button-group",
+  "Vertical",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -531,9 +654,13 @@ export default function Example() {
       <Button variant="outlined">Bottom</Button>
     </div>
   )
-}`)
+}`,
+)
 
-write("button-group", "WithIcons", `
+write(
+  "button-group",
+  "WithIcons",
+  `
 /* @jsxImportSource solid-js */
 import { Button } from "opui-css/solid"
 
@@ -544,10 +671,14 @@ export default function Example() {
       <Button variant="outlined">${StarIcon} Favorite</Button>
     </div>
   )
-}`)
+}`,
+)
 
 // ─── CALLOUT ────────────────────────────────────────────────────────────────
-write("callout", "Variants", `
+write(
+  "callout",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { Callout } from "opui-css/solid"
 
@@ -558,9 +689,13 @@ export default function Example() {
       <Callout variant="outlined" title="Another Callout"><p>This is an outlined Callout.</p></Callout>
     </>
   )
-}`)
+}`,
+)
 
-write("callout", "Icon", `
+write(
+  "callout",
+  "Icon",
+  `
 /* @jsxImportSource solid-js */
 import { Callout } from "opui-css/solid"
 
@@ -570,9 +705,13 @@ export default function Example() {
       This is a tonal Callout with an icon.
     </Callout>
   )
-}`)
+}`,
+)
 
-write("callout", "Severities", `
+write(
+  "callout",
+  "Severities",
+  `
 /* @jsxImportSource solid-js */
 import { Callout } from "opui-css/solid"
 
@@ -587,10 +726,14 @@ export default function Example() {
       <Callout variant="outlined" severity="warning" icon={${WarningIcon}}>Outlined Warning</Callout>
     </>
   )
-}`)
+}`,
+)
 
 // ─── CARD ───────────────────────────────────────────────────────────────────
-write("card", "Variants", `
+write(
+  "card",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { Card } from "opui-css/solid"
 
@@ -603,9 +746,13 @@ export default function Example() {
       <Card variant="tonal"><p>Tonal</p></Card>
     </>
   )
-}`)
+}`,
+)
 
-write("card", "Header", `
+write(
+  "card",
+  "Header",
+  `
 /* @jsxImportSource solid-js */
 import { Card } from "opui-css/solid"
 
@@ -615,9 +762,13 @@ export default function Example() {
       <p>${lorem.slice(0, 100)}</p>
     </Card>
   )
-}`)
+}`,
+)
 
-write("card", "Actions", `
+write(
+  "card",
+  "Actions",
+  `
 /* @jsxImportSource solid-js */
 import { Button, Card } from "opui-css/solid"
 
@@ -629,9 +780,13 @@ export default function Example() {
       <p>${lorem.slice(0, 100)}</p>
     </Card>
   )
-}`)
+}`,
+)
 
-write("card", "Alignment", `
+write(
+  "card",
+  "Alignment",
+  `
 /* @jsxImportSource solid-js */
 import { Button, Card } from "opui-css/solid"
 
@@ -648,10 +803,14 @@ export default function Example() {
       </Card>
     </>
   )
-}`)
+}`,
+)
 
 // ─── CHECKBOX ───────────────────────────────────────────────────────────────
-write("checkbox", "Variants", `
+write(
+  "checkbox",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox } from "opui-css/solid"
 
@@ -665,9 +824,13 @@ export default function Example() {
       <Checkbox checked disabled name="checkbox" hideLabel>Checked and disabled</Checkbox>
     </>
   )
-}`)
+}`,
+)
 
-write("checkbox", "Sizes", `
+write(
+  "checkbox",
+  "Sizes",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox } from "opui-css/solid"
 
@@ -686,9 +849,13 @@ export default function Example() {
       </div>
     </>
   )
-}`)
+}`,
+)
 
-write("checkbox", "LabelPosition", `
+write(
+  "checkbox",
+  "LabelPosition",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox } from "opui-css/solid"
 
@@ -699,25 +866,37 @@ export default function Example() {
       <Checkbox name="checkbox">Label end (default)</Checkbox>
     </>
   )
-}`)
+}`,
+)
 
-write("checkbox", "VisibleLabel", `
+write(
+  "checkbox",
+  "VisibleLabel",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox } from "opui-css/solid"
 
 export default function Example() {
   return <Checkbox name="checkbox">Visible label</Checkbox>
-}`)
+}`,
+)
 
-write("checkbox", "SupportingText", `
+write(
+  "checkbox",
+  "SupportingText",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox } from "opui-css/solid"
 
 export default function Example() {
   return <Checkbox name="checkbox" supportingText="Supporting text below the label">Label</Checkbox>
-}`)
+}`,
+)
 
-write("checkbox", "Validation", `
+write(
+  "checkbox",
+  "Validation",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox } from "opui-css/solid"
 
@@ -728,17 +907,25 @@ export default function Example() {
       <Checkbox name="checkbox" valid>Valid</Checkbox>
     </>
   )
-}`)
+}`,
+)
 
-write("checkbox", "Indeterminate", `
+write(
+  "checkbox",
+  "Indeterminate",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox } from "opui-css/solid"
 
 export default function Example() {
   return <Checkbox indeterminate name="checkbox">Indeterminate</Checkbox>
-}`)
+}`,
+)
 
-write("checkbox", "Spread", `
+write(
+  "checkbox",
+  "Spread",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox, CheckboxInput } from "opui-css/solid"
 
@@ -749,9 +936,13 @@ export default function Example() {
       Custom label content
     </Checkbox>
   )
-}`)
+}`,
+)
 
-write("checkbox", "FieldGroup", `
+write(
+  "checkbox",
+  "FieldGroup",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
 
@@ -768,9 +959,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("checkbox", "FieldGroupDirection", `
+write(
+  "checkbox",
+  "FieldGroupDirection",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
 
@@ -787,9 +982,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("checkbox", "FieldGroupDisabled", `
+write(
+  "checkbox",
+  "FieldGroupDisabled",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
 
@@ -805,9 +1004,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("checkbox", "FieldGroupRequired", `
+write(
+  "checkbox",
+  "FieldGroupRequired",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
 
@@ -823,9 +1026,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("checkbox", "FieldGroupFieldDescription", `
+write(
+  "checkbox",
+  "FieldGroupFieldDescription",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox, FieldDescription, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
 
@@ -842,9 +1049,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("checkbox", "FieldGroupValidation", `
+write(
+  "checkbox",
+  "FieldGroupValidation",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
 
@@ -860,10 +1071,14 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
 // ─── CHIP ───────────────────────────────────────────────────────────────────
-write("chip", "Variants", `
+write(
+  "chip",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { Chip } from "opui-css/solid"
 
@@ -874,9 +1089,13 @@ export default function Example() {
       <Chip variant="outlined" label="Outlined" />
     </>
   )
-}`)
+}`,
+)
 
-write("chip", "Sizes", `
+write(
+  "chip",
+  "Sizes",
+  `
 /* @jsxImportSource solid-js */
 import { Chip } from "opui-css/solid"
 
@@ -887,9 +1106,13 @@ export default function Example() {
       <Chip label="Default" />
     </>
   )
-}`)
+}`,
+)
 
-write("chip", "Button", `
+write(
+  "chip",
+  "Button",
+  `
 /* @jsxImportSource solid-js */
 import { Chip } from "opui-css/solid"
 
@@ -900,9 +1123,13 @@ export default function Example() {
       <Chip as="button" variant="outlined" label="Outlined button" />
     </div>
   )
-}`)
+}`,
+)
 
-write("chip", "Icon", `
+write(
+  "chip",
+  "Icon",
+  `
 /* @jsxImportSource solid-js */
 import { Chip } from "opui-css/solid"
 
@@ -913,9 +1140,13 @@ export default function Example() {
       <Chip variant="outlined"><span class="text">Outlined</span>{${BusIcon}}</Chip>
     </>
   )
-}`)
+}`,
+)
 
-write("chip", "Link", `
+write(
+  "chip",
+  "Link",
+  `
 /* @jsxImportSource solid-js */
 import { Chip } from "opui-css/solid"
 
@@ -926,10 +1157,14 @@ export default function Example() {
       <Chip as="a" href="#" variant="outlined"><span class="text">Outlined link</span>{${ExternalLinkIcon}}</Chip>
     </>
   )
-}`)
+}`,
+)
 
 // ─── DESCRIPTION LIST ───────────────────────────────────────────────────────
-write("description-list", "Default", `
+write(
+  "description-list",
+  "Default",
+  `
 /* @jsxImportSource solid-js */
 import { DescriptionList } from "opui-css/solid"
 
@@ -944,9 +1179,13 @@ export default function Example() {
       <dd>Description three</dd>
     </DescriptionList>
   )
-}`)
+}`,
+)
 
-write("description-list", "Bordered", `
+write(
+  "description-list",
+  "Bordered",
+  `
 /* @jsxImportSource solid-js */
 import { DescriptionList } from "opui-css/solid"
 
@@ -959,10 +1198,14 @@ export default function Example() {
       <dd>Description two</dd>
     </DescriptionList>
   )
-}`)
+}`,
+)
 
 // ─── DIALOG ─────────────────────────────────────────────────────────────────
-write("dialog", "Usage", `
+write(
+  "dialog",
+  "Usage",
+  `
 /* @jsxImportSource solid-js */
 import { Button, Dialog } from "opui-css/solid"
 
@@ -984,9 +1227,13 @@ export default function Example() {
       />
     </>
   )
-}`)
+}`,
+)
 
-write("dialog", "CloseBehaviors", `
+write(
+  "dialog",
+  "CloseBehaviors",
+  `
 /* @jsxImportSource solid-js */
 import { Button, Dialog } from "opui-css/solid"
 
@@ -1001,10 +1248,14 @@ export default function Example() {
       />
     </>
   )
-}`)
+}`,
+)
 
 // ─── DIVIDER ────────────────────────────────────────────────────────────────
-write("divider", "Default", `
+write(
+  "divider",
+  "Default",
+  `
 /* @jsxImportSource solid-js */
 import { Divider } from "opui-css/solid"
 
@@ -1016,9 +1267,13 @@ export default function Example() {
       <p>Below divider</p>
     </>
   )
-}`)
+}`,
+)
 
-write("divider", "Variants", `
+write(
+  "divider",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { Divider } from "opui-css/solid"
 
@@ -1030,10 +1285,14 @@ export default function Example() {
       <Divider variant="middle" />
     </>
   )
-}`)
+}`,
+)
 
 // ─── DRAWER ─────────────────────────────────────────────────────────────────
-write("drawer", "Usage", `
+write(
+  "drawer",
+  "Usage",
+  `
 /* @jsxImportSource solid-js */
 import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/solid"
 
@@ -1056,10 +1315,14 @@ export default function Example() {
       />
     </>
   )
-}`)
+}`,
+)
 
 // ─── FORM ────────────────────────────────────────────────────────────────────
-write("form", "Usage", `
+write(
+  "form",
+  "Usage",
+  `
 /* @jsxImportSource solid-js */
 import { Button, Form, TextField } from "opui-css/solid"
 
@@ -1071,9 +1334,13 @@ export default function Example() {
       <Button variant="filled" color="primary" type="submit">Submit</Button>
     </Form>
   )
-}`)
+}`,
+)
 
-write("form", "FieldGroup", `
+write(
+  "form",
+  "FieldGroup",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
 
@@ -1090,9 +1357,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("form", "FieldGroupRow", `
+write(
+  "form",
+  "FieldGroupRow",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
 
@@ -1109,9 +1380,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("form", "FieldLegend", `
+write(
+  "form",
+  "FieldLegend",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
 
@@ -1127,9 +1402,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("form", "FieldDescription", `
+write(
+  "form",
+  "FieldDescription",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox, FieldDescription, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
 
@@ -1146,9 +1425,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("form", "FieldsetDisabled", `
+write(
+  "form",
+  "FieldsetDisabled",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
 
@@ -1164,9 +1447,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("form", "FieldsetRequired", `
+write(
+  "form",
+  "FieldsetRequired",
+  `
 /* @jsxImportSource solid-js */
 import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/solid"
 
@@ -1182,9 +1469,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("form", "FieldsetStacked", `
+write(
+  "form",
+  "FieldsetStacked",
+  `
 /* @jsxImportSource solid-js */
 import { Form, TextField } from "opui-css/solid"
 
@@ -1195,9 +1486,13 @@ export default function Example() {
       <TextField label="Last name" placeholder="Last" />
     </Form>
   )
-}`)
+}`,
+)
 
-write("form", "Divider", `
+write(
+  "form",
+  "Divider",
+  `
 /* @jsxImportSource solid-js */
 import { Divider, Form, TextField } from "opui-css/solid"
 
@@ -1209,10 +1504,14 @@ export default function Example() {
       <TextField label="Password" type="password" />
     </Form>
   )
-}`)
+}`,
+)
 
 // ─── ICON BUTTON ────────────────────────────────────────────────────────────
-write("icon-button", "Default", `
+write(
+  "icon-button",
+  "Default",
+  `
 /* @jsxImportSource solid-js */
 import { IconButton } from "opui-css/solid"
 
@@ -1220,9 +1519,13 @@ export default function Example() {
   return (
     <IconButton label="Add">${PlusIcon}</IconButton>
   )
-}`)
+}`,
+)
 
-write("icon-button", "Variants", `
+write(
+  "icon-button",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { IconButton } from "opui-css/solid"
 
@@ -1235,9 +1538,13 @@ export default function Example() {
       <IconButton label="Add" variant="filled">${PlusIcon}</IconButton>
     </>
   )
-}`)
+}`,
+)
 
-write("icon-button", "Sizes", `
+write(
+  "icon-button",
+  "Sizes",
+  `
 /* @jsxImportSource solid-js */
 import { IconButton } from "opui-css/solid"
 
@@ -1249,9 +1556,13 @@ export default function Example() {
       <IconButton label="Add" size="large">${PlusIcon}</IconButton>
     </>
   )
-}`)
+}`,
+)
 
-write("icon-button", "Colors", `
+write(
+  "icon-button",
+  "Colors",
+  `
 /* @jsxImportSource solid-js */
 import { IconButton } from "opui-css/solid"
 
@@ -1262,9 +1573,13 @@ export default function Example() {
       <IconButton label="Add" variant="tonal" color="critical">${PlusIcon}</IconButton>
     </>
   )
-}`)
+}`,
+)
 
-write("icon-button", "Disabled", `
+write(
+  "icon-button",
+  "Disabled",
+  `
 /* @jsxImportSource solid-js */
 import { IconButton } from "opui-css/solid"
 
@@ -1277,10 +1592,14 @@ export default function Example() {
       <IconButton label="Add" variant="filled" disabled>${PlusIcon}</IconButton>
     </>
   )
-}`)
+}`,
+)
 
 // ─── LIST ───────────────────────────────────────────────────────────────────
-write("list", "Default", `
+write(
+  "list",
+  "Default",
+  `
 /* @jsxImportSource solid-js */
 import { List } from "opui-css/solid"
 
@@ -1292,9 +1611,13 @@ export default function Example() {
       <li>Item three</li>
     </List>
   )
-}`)
+}`,
+)
 
-write("list", "Variants", `
+write(
+  "list",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { List } from "opui-css/solid"
 
@@ -1311,9 +1634,13 @@ export default function Example() {
       </List>
     </>
   )
-}`)
+}`,
+)
 
-write("list", "Dense", `
+write(
+  "list",
+  "Dense",
+  `
 /* @jsxImportSource solid-js */
 import { List } from "opui-css/solid"
 
@@ -1325,9 +1652,13 @@ export default function Example() {
       <li>Dense item three</li>
     </List>
   )
-}`)
+}`,
+)
 
-write("list", "Divided", `
+write(
+  "list",
+  "Divided",
+  `
 /* @jsxImportSource solid-js */
 import { List } from "opui-css/solid"
 
@@ -1339,9 +1670,13 @@ export default function Example() {
       <li>Item three</li>
     </List>
   )
-}`)
+}`,
+)
 
-write("list", "Bordered", `
+write(
+  "list",
+  "Bordered",
+  `
 /* @jsxImportSource solid-js */
 import { List } from "opui-css/solid"
 
@@ -1353,9 +1688,13 @@ export default function Example() {
       <li>Item three</li>
     </List>
   )
-}`)
+}`,
+)
 
-write("list", "Text", `
+write(
+  "list",
+  "Text",
+  `
 /* @jsxImportSource solid-js */
 import { List, ListItem } from "opui-css/solid"
 
@@ -1367,9 +1706,13 @@ export default function Example() {
       <ListItem headline="Headline" supportingText="Supporting text" />
     </List>
   )
-}`)
+}`,
+)
 
-write("list", "Clickable", `
+write(
+  "list",
+  "Clickable",
+  `
 /* @jsxImportSource solid-js */
 import { List, ListItem } from "opui-css/solid"
 
@@ -1381,9 +1724,13 @@ export default function Example() {
       <ListItem type="button" headline="Clickable item" />
     </List>
   )
-}`)
+}`,
+)
 
-write("list", "Selected", `
+write(
+  "list",
+  "Selected",
+  `
 /* @jsxImportSource solid-js */
 import { List, ListItem } from "opui-css/solid"
 
@@ -1395,9 +1742,13 @@ export default function Example() {
       <ListItem type="button" headline="Unselected item" />
     </List>
   )
-}`)
+}`,
+)
 
-write("list", "Inset", `
+write(
+  "list",
+  "Inset",
+  `
 /* @jsxImportSource solid-js */
 import { List, ListItem } from "opui-css/solid"
 
@@ -1409,9 +1760,13 @@ export default function Example() {
       <ListItem headline="Normal item" />
     </List>
   )
-}`)
+}`,
+)
 
-write("list", "Gutterless", `
+write(
+  "list",
+  "Gutterless",
+  `
 /* @jsxImportSource solid-js */
 import { List } from "opui-css/solid"
 
@@ -1423,9 +1778,13 @@ export default function Example() {
       <li>Item three</li>
     </List>
   )
-}`)
+}`,
+)
 
-write("list", "StartIcon", `
+write(
+  "list",
+  "StartIcon",
+  `
 /* @jsxImportSource solid-js */
 import { List, ListItem } from "opui-css/solid"
 
@@ -1437,9 +1796,13 @@ export default function Example() {
       <ListItem headline="With icon" start={${UserIcon}} />
     </List>
   )
-}`)
+}`,
+)
 
-write("list", "StartAvatar", `
+write(
+  "list",
+  "StartAvatar",
+  `
 /* @jsxImportSource solid-js */
 import { Avatar, List, ListItem } from "opui-css/solid"
 
@@ -1451,9 +1814,13 @@ export default function Example() {
       <ListItem headline="Bob Wilson" start={<Avatar>BW</Avatar>} />
     </List>
   )
-}`)
+}`,
+)
 
-write("list", "SingleBorder", `
+write(
+  "list",
+  "SingleBorder",
+  `
 /* @jsxImportSource solid-js */
 import { List } from "opui-css/solid"
 
@@ -1465,10 +1832,14 @@ export default function Example() {
       <li>Item three</li>
     </List>
   )
-}`)
+}`,
+)
 
 // ─── PROGRESS ───────────────────────────────────────────────────────────────
-write("progress", "Determinate", `
+write(
+  "progress",
+  "Determinate",
+  `
 /* @jsxImportSource solid-js */
 import { Progress } from "opui-css/solid"
 
@@ -1480,17 +1851,25 @@ export default function Example() {
       <Progress value={75} max={100} label="Loading..." />
     </>
   )
-}`)
+}`,
+)
 
-write("progress", "Indeterminate", `
+write(
+  "progress",
+  "Indeterminate",
+  `
 /* @jsxImportSource solid-js */
 import { Progress } from "opui-css/solid"
 
 export default function Example() {
   return <Progress label="Loading..." />
-}`)
+}`,
+)
 
-write("progress", "Surfaces", `
+write(
+  "progress",
+  "Surfaces",
+  `
 /* @jsxImportSource solid-js */
 import { Progress } from "opui-css/solid"
 
@@ -1503,10 +1882,14 @@ export default function Example() {
       </div>
     </>
   )
-}`)
+}`,
+)
 
 // ─── RADIO ──────────────────────────────────────────────────────────────────
-write("radio", "FieldGroup", `
+write(
+  "radio",
+  "FieldGroup",
+  `
 /* @jsxImportSource solid-js */
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/solid"
 
@@ -1523,9 +1906,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("radio", "FieldGroupDirection", `
+write(
+  "radio",
+  "FieldGroupDirection",
+  `
 /* @jsxImportSource solid-js */
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/solid"
 
@@ -1542,9 +1929,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("radio", "FieldGroupDisabled", `
+write(
+  "radio",
+  "FieldGroupDisabled",
+  `
 /* @jsxImportSource solid-js */
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/solid"
 
@@ -1560,9 +1951,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("radio", "FieldGroupRequired", `
+write(
+  "radio",
+  "FieldGroupRequired",
+  `
 /* @jsxImportSource solid-js */
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/solid"
 
@@ -1578,9 +1973,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("radio", "FieldGroupFieldDescription", `
+write(
+  "radio",
+  "FieldGroupFieldDescription",
+  `
 /* @jsxImportSource solid-js */
 import { FieldDescription, FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/solid"
 
@@ -1597,9 +1996,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("radio", "FieldGroupValidation", `
+write(
+  "radio",
+  "FieldGroupValidation",
+  `
 /* @jsxImportSource solid-js */
 import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/solid"
 
@@ -1615,26 +2018,38 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
 // ─── RANGE ───────────────────────────────────────────────────────────────────
-write("range", "Default", `
+write(
+  "range",
+  "Default",
+  `
 /* @jsxImportSource solid-js */
 import { Range } from "opui-css/solid"
 
 export default function Example() {
   return <Range label="Volume" />
-}`)
+}`,
+)
 
-write("range", "Disabled", `
+write(
+  "range",
+  "Disabled",
+  `
 /* @jsxImportSource solid-js */
 import { Range } from "opui-css/solid"
 
 export default function Example() {
   return <Range label="Volume" disabled />
-}`)
+}`,
+)
 
-write("range", "Validation", `
+write(
+  "range",
+  "Validation",
+  `
 /* @jsxImportSource solid-js */
 import { Range } from "opui-css/solid"
 
@@ -1645,18 +2060,26 @@ export default function Example() {
       <Range label="Valid" valid />
     </>
   )
-}`)
+}`,
+)
 
-write("range", "Value", `
+write(
+  "range",
+  "Value",
+  `
 /* @jsxImportSource solid-js */
 import { Range } from "opui-css/solid"
 
 export default function Example() {
   return <Range label="Volume" value={50} min={0} max={100} />
-}`)
+}`,
+)
 
 // ─── SELECT ─────────────────────────────────────────────────────────────────
-write("select", "Variants", `
+write(
+  "select",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { Select } from "opui-css/solid"
 
@@ -1675,9 +2098,13 @@ export default function Example() {
       </Select>
     </>
   )
-}`)
+}`,
+)
 
-write("select", "Sizes", `
+write(
+  "select",
+  "Sizes",
+  `
 /* @jsxImportSource solid-js */
 import { Select } from "opui-css/solid"
 
@@ -1695,9 +2122,13 @@ export default function Example() {
       </Select>
     </>
   )
-}`)
+}`,
+)
 
-write("select", "Dense", `
+write(
+  "select",
+  "Dense",
+  `
 /* @jsxImportSource solid-js */
 import { Select } from "opui-css/solid"
 
@@ -1708,9 +2139,13 @@ export default function Example() {
       <option>Option two</option>
     </Select>
   )
-}`)
+}`,
+)
 
-write("select", "Validation", `
+write(
+  "select",
+  "Validation",
+  `
 /* @jsxImportSource solid-js */
 import { Select } from "opui-css/solid"
 
@@ -1725,9 +2160,13 @@ export default function Example() {
       </Select>
     </>
   )
-}`)
+}`,
+)
 
-write("select", "SupportingText", `
+write(
+  "select",
+  "SupportingText",
+  `
 /* @jsxImportSource solid-js */
 import { Select } from "opui-css/solid"
 
@@ -1738,9 +2177,13 @@ export default function Example() {
       <option>Option two</option>
     </Select>
   )
-}`)
+}`,
+)
 
-write("select", "Orientation", `
+write(
+  "select",
+  "Orientation",
+  `
 /* @jsxImportSource solid-js */
 import { Select } from "opui-css/solid"
 
@@ -1755,9 +2198,13 @@ export default function Example() {
       </Select>
     </>
   )
-}`)
+}`,
+)
 
-write("select", "Grouped", `
+write(
+  "select",
+  "Grouped",
+  `
 /* @jsxImportSource solid-js */
 import { Select } from "opui-css/solid"
 
@@ -1774,9 +2221,13 @@ export default function Example() {
       </optgroup>
     </Select>
   )
-}`)
+}`,
+)
 
-write("select", "Classic", `
+write(
+  "select",
+  "Classic",
+  `
 /* @jsxImportSource solid-js */
 import { ClassicSelect } from "opui-css/solid"
 
@@ -1788,10 +2239,14 @@ export default function Example() {
       <option>Option three</option>
     </ClassicSelect>
   )
-}`)
+}`,
+)
 
 // ─── SWITCH ─────────────────────────────────────────────────────────────────
-write("switch", "Variants", `
+write(
+  "switch",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { Switch } from "opui-css/solid"
 
@@ -1804,9 +2259,13 @@ export default function Example() {
       <Switch name="switch" checked disabled hideLabel>Checked and disabled</Switch>
     </>
   )
-}`)
+}`,
+)
 
-write("switch", "Sizes", `
+write(
+  "switch",
+  "Sizes",
+  `
 /* @jsxImportSource solid-js */
 import { Switch } from "opui-css/solid"
 
@@ -1818,9 +2277,13 @@ export default function Example() {
       <Switch size="large" checked name="switch">Large</Switch>
     </>
   )
-}`)
+}`,
+)
 
-write("switch", "LabelPosition", `
+write(
+  "switch",
+  "LabelPosition",
+  `
 /* @jsxImportSource solid-js */
 import { Switch } from "opui-css/solid"
 
@@ -1831,25 +2294,37 @@ export default function Example() {
       <Switch name="switch">Label end (default)</Switch>
     </>
   )
-}`)
+}`,
+)
 
-write("switch", "VisibleLabel", `
+write(
+  "switch",
+  "VisibleLabel",
+  `
 /* @jsxImportSource solid-js */
 import { Switch } from "opui-css/solid"
 
 export default function Example() {
   return <Switch name="switch">Visible label</Switch>
-}`)
+}`,
+)
 
-write("switch", "SupportingText", `
+write(
+  "switch",
+  "SupportingText",
+  `
 /* @jsxImportSource solid-js */
 import { Switch } from "opui-css/solid"
 
 export default function Example() {
   return <Switch name="switch" supportingText="Additional info">Dark mode</Switch>
-}`)
+}`,
+)
 
-write("switch", "Validation", `
+write(
+  "switch",
+  "Validation",
+  `
 /* @jsxImportSource solid-js */
 import { Switch } from "opui-css/solid"
 
@@ -1860,17 +2335,25 @@ export default function Example() {
       <Switch name="switch" valid>Valid</Switch>
     </>
   )
-}`)
+}`,
+)
 
-write("switch", "Icons", `
+write(
+  "switch",
+  "Icons",
+  `
 /* @jsxImportSource solid-js */
 import { Switch } from "opui-css/solid"
 
 export default function Example() {
   return <Switch name="switch" withIcons checked>With icons</Switch>
-}`)
+}`,
+)
 
-write("switch", "Spread", `
+write(
+  "switch",
+  "Spread",
+  `
 /* @jsxImportSource solid-js */
 import { Switch, SwitchInput } from "opui-css/solid"
 
@@ -1881,9 +2364,13 @@ export default function Example() {
       Custom label
     </Switch>
   )
-}`)
+}`,
+)
 
-write("switch", "FieldGroup", `
+write(
+  "switch",
+  "FieldGroup",
+  `
 /* @jsxImportSource solid-js */
 import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/solid"
 
@@ -1900,9 +2387,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("switch", "FieldGroupDirection", `
+write(
+  "switch",
+  "FieldGroupDirection",
+  `
 /* @jsxImportSource solid-js */
 import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/solid"
 
@@ -1918,9 +2409,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("switch", "FieldGroupDisabled", `
+write(
+  "switch",
+  "FieldGroupDisabled",
+  `
 /* @jsxImportSource solid-js */
 import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/solid"
 
@@ -1936,9 +2431,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("switch", "FieldGroupRequired", `
+write(
+  "switch",
+  "FieldGroupRequired",
+  `
 /* @jsxImportSource solid-js */
 import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/solid"
 
@@ -1954,9 +2453,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("switch", "FieldGroupFieldDescription", `
+write(
+  "switch",
+  "FieldGroupFieldDescription",
+  `
 /* @jsxImportSource solid-js */
 import { FieldDescription, FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/solid"
 
@@ -1973,9 +2476,13 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
-write("switch", "FieldGroupValidation", `
+write(
+  "switch",
+  "FieldGroupValidation",
+  `
 /* @jsxImportSource solid-js */
 import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/solid"
 
@@ -1991,10 +2498,14 @@ export default function Example() {
       </FieldSet>
     </Form>
   )
-}`)
+}`,
+)
 
 // ─── TABLE ───────────────────────────────────────────────────────────────────
-write("table", "Default", `
+write(
+  "table",
+  "Default",
+  `
 /* @jsxImportSource solid-js */
 import { Table } from "opui-css/solid"
 
@@ -2027,9 +2538,13 @@ export default function Example() {
       </Table.Body>
     </Table>
   )
-}`)
+}`,
+)
 
-write("table", "Dense", `
+write(
+  "table",
+  "Dense",
+  `
 /* @jsxImportSource solid-js */
 import { Table } from "opui-css/solid"
 
@@ -2049,9 +2564,13 @@ export default function Example() {
       </Table.Body>
     </Table>
   )
-}`)
+}`,
+)
 
-write("table", "Spacious", `
+write(
+  "table",
+  "Spacious",
+  `
 /* @jsxImportSource solid-js */
 import { Table } from "opui-css/solid"
 
@@ -2070,10 +2589,14 @@ export default function Example() {
       </Table.Body>
     </Table>
   )
-}`)
+}`,
+)
 
 // ─── TABS ───────────────────────────────────────────────────────────────────
-write("tabs", "Basics", `
+write(
+  "tabs",
+  "Basics",
+  `
 /* @jsxImportSource solid-js */
 import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/solid"
 
@@ -2094,10 +2617,14 @@ export default function Example() {
       </TabsItem>
     </Tabs>
   )
-}`)
+}`,
+)
 
 // ─── TEXT FIELD ─────────────────────────────────────────────────────────────
-write("text-field", "Variants", `
+write(
+  "text-field",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { TextField } from "opui-css/solid"
 
@@ -2108,9 +2635,13 @@ export default function Example() {
       <TextField label="Filled" placeholder="Placeholder" filled />
     </>
   )
-}`)
+}`,
+)
 
-write("text-field", "Sizes", `
+write(
+  "text-field",
+  "Sizes",
+  `
 /* @jsxImportSource solid-js */
 import { TextField } from "opui-css/solid"
 
@@ -2122,9 +2653,13 @@ export default function Example() {
       <TextField label="Large" size="large" placeholder="Placeholder" />
     </>
   )
-}`)
+}`,
+)
 
-write("text-field", "Orientation", `
+write(
+  "text-field",
+  "Orientation",
+  `
 /* @jsxImportSource solid-js */
 import { TextField } from "opui-css/solid"
 
@@ -2135,9 +2670,13 @@ export default function Example() {
       <TextField label="Horizontal" orientation="horizontal" placeholder="Placeholder" />
     </>
   )
-}`)
+}`,
+)
 
-write("text-field", "SupportingText", `
+write(
+  "text-field",
+  "SupportingText",
+  `
 /* @jsxImportSource solid-js */
 import { TextField } from "opui-css/solid"
 
@@ -2145,9 +2684,13 @@ export default function Example() {
   return (
     <TextField label="Email" type="email" placeholder="your@email.com" supportingText="We'll never share your email." />
   )
-}`)
+}`,
+)
 
-write("text-field", "Validation", `
+write(
+  "text-field",
+  "Validation",
+  `
 /* @jsxImportSource solid-js */
 import { TextField } from "opui-css/solid"
 
@@ -2158,9 +2701,13 @@ export default function Example() {
       <TextField label="Valid" valid />
     </>
   )
-}`)
+}`,
+)
 
-write("text-field", "InputTypes", `
+write(
+  "text-field",
+  "InputTypes",
+  `
 /* @jsxImportSource solid-js */
 import { TextField } from "opui-css/solid"
 
@@ -2173,9 +2720,13 @@ export default function Example() {
       <TextField label="Number" type="number" placeholder="0" />
     </>
   )
-}`)
+}`,
+)
 
-write("text-field", "NoLabel", `
+write(
+  "text-field",
+  "NoLabel",
+  `
 /* @jsxImportSource solid-js */
 import { TextField } from "opui-css/solid"
 
@@ -2183,9 +2734,13 @@ export default function Example() {
   return (
     <TextField aria-label="Search" placeholder="Search..." />
   )
-}`)
+}`,
+)
 
-write("text-field", "Headers", `
+write(
+  "text-field",
+  "Headers",
+  `
 /* @jsxImportSource solid-js */
 import { TextField } from "opui-css/solid"
 
@@ -2195,9 +2750,13 @@ export default function Example() {
       <TextField label="With header" header="Section title" placeholder="Placeholder" />
     </>
   )
-}`)
+}`,
+)
 
-write("text-field", "Affix", `
+write(
+  "text-field",
+  "Affix",
+  `
 /* @jsxImportSource solid-js */
 import { TextField } from "opui-css/solid"
 
@@ -2208,9 +2767,13 @@ export default function Example() {
       <TextField label="With suffix" suffix="kg" placeholder="Weight" />
     </>
   )
-}`)
+}`,
+)
 
-write("text-field", "AutoFit", `
+write(
+  "text-field",
+  "AutoFit",
+  `
 /* @jsxImportSource solid-js */
 import { TextField } from "opui-css/solid"
 
@@ -2218,9 +2781,13 @@ export default function Example() {
   return (
     <TextField label="Auto-fit" autoFit placeholder="Grows to content" />
   )
-}`)
+}`,
+)
 
-write("text-field", "File", `
+write(
+  "text-field",
+  "File",
+  `
 /* @jsxImportSource solid-js */
 import { TextField } from "opui-css/solid"
 
@@ -2228,9 +2795,13 @@ export default function Example() {
   return (
     <TextField label="File upload" type="file" />
   )
-}`)
+}`,
+)
 
-write("text-field", "Numeric", `
+write(
+  "text-field",
+  "Numeric",
+  `
 /* @jsxImportSource solid-js */
 import { TextField } from "opui-css/solid"
 
@@ -2238,10 +2809,14 @@ export default function Example() {
   return (
     <TextField label="Quantity" type="number" min={0} max={100} step={1} value={1} />
   )
-}`)
+}`,
+)
 
 // ─── TEXTAREA ───────────────────────────────────────────────────────────────
-write("textarea", "Variants", `
+write(
+  "textarea",
+  "Variants",
+  `
 /* @jsxImportSource solid-js */
 import { Textarea } from "opui-css/solid"
 
@@ -2252,9 +2827,13 @@ export default function Example() {
       <Textarea label="Filled" placeholder="Placeholder" filled />
     </>
   )
-}`)
+}`,
+)
 
-write("textarea", "Sizes", `
+write(
+  "textarea",
+  "Sizes",
+  `
 /* @jsxImportSource solid-js */
 import { Textarea } from "opui-css/solid"
 
@@ -2266,9 +2845,13 @@ export default function Example() {
       <Textarea label="Large" size="large" placeholder="Placeholder" />
     </>
   )
-}`)
+}`,
+)
 
-write("textarea", "Orientation", `
+write(
+  "textarea",
+  "Orientation",
+  `
 /* @jsxImportSource solid-js */
 import { Textarea } from "opui-css/solid"
 
@@ -2279,9 +2862,13 @@ export default function Example() {
       <Textarea label="Horizontal" orientation="horizontal" placeholder="Placeholder" />
     </>
   )
-}`)
+}`,
+)
 
-write("textarea", "SupportingText", `
+write(
+  "textarea",
+  "SupportingText",
+  `
 /* @jsxImportSource solid-js */
 import { Textarea } from "opui-css/solid"
 
@@ -2289,9 +2876,13 @@ export default function Example() {
   return (
     <Textarea label="Message" supportingText="Maximum 500 characters." placeholder="Your message..." />
   )
-}`)
+}`,
+)
 
-write("textarea", "Validation", `
+write(
+  "textarea",
+  "Validation",
+  `
 /* @jsxImportSource solid-js */
 import { Textarea } from "opui-css/solid"
 
@@ -2302,9 +2893,13 @@ export default function Example() {
       <Textarea label="Valid" valid />
     </>
   )
-}`)
+}`,
+)
 
-write("textarea", "AutoFit", `
+write(
+  "textarea",
+  "AutoFit",
+  `
 /* @jsxImportSource solid-js */
 import { Textarea } from "opui-css/solid"
 
@@ -2312,9 +2907,13 @@ export default function Example() {
   return (
     <Textarea label="Auto-fit" autoFit placeholder="Grows as you type..." />
   )
-}`)
+}`,
+)
 
-write("textarea", "Headers", `
+write(
+  "textarea",
+  "Headers",
+  `
 /* @jsxImportSource solid-js */
 import { Textarea } from "opui-css/solid"
 
@@ -2322,9 +2921,13 @@ export default function Example() {
   return (
     <Textarea label="Description" header="Product details" placeholder="Describe your product..." />
   )
-}`)
+}`,
+)
 
-write("textarea", "Affix", `
+write(
+  "textarea",
+  "Affix",
+  `
 /* @jsxImportSource solid-js */
 import { Textarea } from "opui-css/solid"
 
@@ -2332,10 +2935,14 @@ export default function Example() {
   return (
     <Textarea label="With suffix" suffix="chars" placeholder="Type here..." />
   )
-}`)
+}`,
+)
 
 // ─── TOGGLE ─────────────────────────────────────────────────────────────────
-write("toggle", "Default", `
+write(
+  "toggle",
+  "Default",
+  `
 /* @jsxImportSource solid-js */
 import { ToggleButton } from "opui-css/solid"
 
@@ -2343,9 +2950,13 @@ export default function Example() {
   return (
     <ToggleButton value="notifications">Notifications</ToggleButton>
   )
-}`)
+}`,
+)
 
-write("toggle", "Standalone", `
+write(
+  "toggle",
+  "Standalone",
+  `
 /* @jsxImportSource solid-js */
 import { ToggleButton } from "opui-css/solid"
 
@@ -2357,9 +2968,13 @@ export default function Example() {
       <ToggleButton value="underline" aria-label="Underline"><u>U</u></ToggleButton>
     </>
   )
-}`)
+}`,
+)
 
-write("toggle", "MultiSelect", `
+write(
+  "toggle",
+  "MultiSelect",
+  `
 /* @jsxImportSource solid-js */
 import { ToggleButton, ToggleGroup } from "opui-css/solid"
 
@@ -2371,9 +2986,13 @@ export default function Example() {
       <ToggleButton value="underline" aria-label="Underline"><u>U</u></ToggleButton>
     </ToggleGroup>
   )
-}`)
+}`,
+)
 
-write("toggle", "Interactive", `
+write(
+  "toggle",
+  "Interactive",
+  `
 /* @jsxImportSource solid-js */
 import { ToggleButton, ToggleGroup } from "opui-css/solid"
 
@@ -2385,9 +3004,13 @@ export default function Example() {
       <ToggleButton value="commuting">${BusIcon} Commuting</ToggleButton>
     </ToggleGroup>
   )
-}`)
+}`,
+)
 
-write("toggle", "Sizes", `
+write(
+  "toggle",
+  "Sizes",
+  `
 /* @jsxImportSource solid-js */
 import { ToggleButton, ToggleGroup } from "opui-css/solid"
 
@@ -2404,9 +3027,13 @@ export default function Example() {
       </ToggleGroup>
     </>
   )
-}`)
+}`,
+)
 
-write("toggle", "Vertical", `
+write(
+  "toggle",
+  "Vertical",
+  `
 /* @jsxImportSource solid-js */
 import { ToggleButton, ToggleGroup } from "opui-css/solid"
 
@@ -2418,9 +3045,13 @@ export default function Example() {
       <ToggleButton value="bottom">Bottom</ToggleButton>
     </ToggleGroup>
   )
-}`)
+}`,
+)
 
-write("toggle", "Alignment", `
+write(
+  "toggle",
+  "Alignment",
+  `
 /* @jsxImportSource solid-js */
 import { ToggleButton, ToggleGroup } from "opui-css/solid"
 
@@ -2437,10 +3068,14 @@ export default function Example() {
       </ToggleGroup>
     </>
   )
-}`)
+}`,
+)
 
 // ─── TOOLTIP ─────────────────────────────────────────────────────────────────
-write("tooltip", "Basics", `
+write(
+  "tooltip",
+  "Basics",
+  `
 /* @jsxImportSource solid-js */
 import { Button, Tooltip } from "opui-css/solid"
 
@@ -2450,9 +3085,13 @@ export default function Example() {
       <Button interestfor="solid-tooltip-basic" commandfor="solid-tooltip-basic" command="toggle-popover" variant="outlined">Save</Button>
     </Tooltip>
   )
-}`)
+}`,
+)
 
-write("tooltip", "Arrow", `
+write(
+  "tooltip",
+  "Arrow",
+  `
 /* @jsxImportSource solid-js */
 import { Button, Tooltip } from "opui-css/solid"
 
@@ -2462,9 +3101,13 @@ export default function Example() {
       <Button interestfor="solid-tooltip-arrow" commandfor="solid-tooltip-arrow" command="toggle-popover" variant="outlined">Hover me</Button>
     </Tooltip>
   )
-}`)
+}`,
+)
 
-write("tooltip", "Alignment", `
+write(
+  "tooltip",
+  "Alignment",
+  `
 /* @jsxImportSource solid-js */
 import { Button, Tooltip } from "opui-css/solid"
 
@@ -2479,9 +3122,13 @@ export default function Example() {
       </Tooltip>
     </>
   )
-}`)
+}`,
+)
 
-write("tooltip", "RichContent", `
+write(
+  "tooltip",
+  "RichContent",
+  `
 /* @jsxImportSource solid-js */
 import { Button, Tooltip } from "opui-css/solid"
 
@@ -2494,6 +3141,7 @@ export default function Example() {
       <Button interestfor="solid-tooltip-rich" commandfor="solid-tooltip-rich" command="toggle-popover" variant="outlined">Rich tooltip</Button>
     </Tooltip>
   )
-}`)
+}`,
+)
 
 console.log("\nDone! All Solid example files generated.")

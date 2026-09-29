@@ -32,7 +32,7 @@ export default function Range(props: RangeProps) {
   const startTextUid = createUniqueId()
   const endTextUid = createUniqueId()
 
-  let label!: HTMLLabelElement
+  let label: HTMLLabelElement | undefined
   const [current, setCurrent] = createSignal(() => props.value)
 
   const hasLabel = () => !!(props.label || props.children)
@@ -50,13 +50,13 @@ export default function Range(props: RangeProps) {
     [startTextId(), endTextId()].filter(Boolean).join(" ") || undefined
 
   onSettled(() => {
-    const input = label.querySelector("input")
+    const input = label?.querySelector("input")
     if (input) setCurrent(input.value)
   })
 
   return (
     <label
-      ref={label}
+      ref={(el) => (label = el)}
       class={[
         "ui-range",
         props.variant && `ui-${props.variant}`,

@@ -9,11 +9,14 @@ function check(Component, props, children) {
   const componentStr = Component.toString()
   if (componentStr.includes("$$payload") || componentStr.includes("$$renderer"))
     return false
-  const isSolid = /\b(?:createComponent|ssr|ssrElement|ssrHydrationKey)\)?\(/.test(
-    componentStr,
-  )
+  const isSolid =
+    /\b(?:createComponent|ssr|ssrElement|ssrHydrationKey)\)?\(/.test(
+      componentStr,
+    )
   try {
-    return typeof renderToStaticMarkup(Component, props, children).html === "string"
+    return (
+      typeof renderToStaticMarkup(Component, props, children).html === "string"
+    )
   } catch (error) {
     if (isSolid) throw error
     return false

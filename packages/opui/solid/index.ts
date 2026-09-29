@@ -1,4 +1,4 @@
-/// <reference path="./jsx.d.ts" />
+import type {} from "./jsx.d.ts"
 
 export { default as Accordion } from "../components/Accordion/Accordion"
 export { default as Anchor } from "../components/Anchor/Anchor"

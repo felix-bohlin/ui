@@ -27,7 +27,7 @@ async function mountAll() {
     el.setAttribute("data-solid-mounted", "")
     const mod = await loader()
     el.innerHTML = ""
-    render(mod.default, el)
+    render(() => mod.default({}), el)
   }
 }
 

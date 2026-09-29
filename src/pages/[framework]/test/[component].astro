@@ -2,7 +2,7 @@
 import "@opui/css/imports.css"
 import { FRAMEWORK_IDS } from "../../../utils/framework-routing"
 
-type Framework = (typeof FRAMEWORK_IDS)[number]
+type Framework = Exclude<(typeof FRAMEWORK_IDS)[number], "solid">
 
 const astroModules = import.meta.glob<{ default: any }>(
   "../../../component-examples/*/*.astro",
@@ -50,8 +50,9 @@ export function getStaticPaths() {
     ),
   ].toSorted()
 
-  return FRAMEWORK_IDS.flatMap((framework) =>
-    slugs.map((component) => ({ params: { component, framework } })),
+  return FRAMEWORK_IDS.filter((framework) => framework !== "solid").flatMap(
+    (framework) =>
+      slugs.map((component) => ({ params: { component, framework } })),
   )
 }
 

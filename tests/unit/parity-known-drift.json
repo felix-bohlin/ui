@@ -61,7 +61,7 @@
     "toggle/Standalone": "d2f53aeb47b75d7a",
     "ToggleGroupInteractive": "7b4d73d1bc716aa9",
     "typography/Blockquote": "963f8fdd6c969e39",
-    "typography/Default": "8c2396e217265334"
+    "typography/Default": "308ee601e247bb31"
   },
   "html": {
     "accordion/Group": "9a372d6fed1d2828",
@@ -211,6 +211,6 @@
     "tooltip/Basics": "eff9ebf070a9c130",
     "tooltip/RichContent": "de101c47637ff365",
     "typography/Blockquote": "63b8cb08b8acd2f7",
-    "typography/Default": "c95a3b53d8a681ee"
+    "typography/Default": "e510987e750b98c0"
   }
 }

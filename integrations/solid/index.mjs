@@ -12,8 +12,12 @@ export default function solidIntegration(options = {}) {
       "astro:config:setup": ({ addRenderer, updateConfig }) => {
         addRenderer({
           name: "opui-solid",
-          clientEntrypoint: fileURLToPath(new URL("./client.js", import.meta.url)),
-          serverEntrypoint: fileURLToPath(new URL("./server.js", import.meta.url)),
+          clientEntrypoint: fileURLToPath(
+            new URL("./client.js", import.meta.url),
+          ),
+          serverEntrypoint: fileURLToPath(
+            new URL("./server.js", import.meta.url),
+          ),
         })
         updateConfig({
           vite: {

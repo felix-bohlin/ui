@@ -1,5 +1,11 @@
 export default {
   ignoreFiles: ["**/dist/**", "**/node_modules/**"],
+  overrides: [
+    {
+      files: ["src/**/*.css"],
+      rules: { "selector-class-pattern": null },
+    },
+  ],
   rules: {
     "block-no-empty": true,
     "color-no-invalid-hex": true,

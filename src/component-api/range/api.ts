@@ -15,7 +15,15 @@ export default {
   },
   options: [
     {
-      description: "The id of the `<input>`. Generated when omitted.",
+      attribute: "[data-invalid]",
+      default: "false",
+      description: "Shows error styles.",
+      group: "Validation",
+      prop: "error",
+    },
+    {
+      description:
+        "The id of the `<input>`. Generated when omitted and the value is shown.",
       prop: "id",
     },
     {

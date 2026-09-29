@@ -1,5 +1,12 @@
 <label class="ui-range">
-  <span class="ui-label">Hue</span>
+  <span class="ui-label" id="range-value-1-label">Hue</span>
   <output class="ui-value" for="hueRange" data-suffix="°">250°</output>
-  <input type="range" id="hueRange" min="0" max="360" value="250" />
+  <input
+    aria-labelledby="range-value-1-label"
+    type="range"
+    id="hueRange"
+    min="0"
+    max="360"
+    value="250"
+  />
 </label>

@@ -1,4 +1,4 @@
-import { readdirSync } from "node:fs"
+import { existsSync, readdirSync } from "node:fs"
 import type { Page } from "@playwright/test"
 
 const examplesDir = new URL("../../src/component-examples/", import.meta.url)
@@ -11,6 +11,12 @@ export const COMPONENTS = readdirSync(examplesDir, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
   .toSorted()
+
+export const hasExample = (
+  framework: Framework,
+  component: string,
+  name: string,
+) => existsSync(new URL(`${component}/${name}.${framework}`, examplesDir))
 
 export const openFixture = async (
   page: Page,

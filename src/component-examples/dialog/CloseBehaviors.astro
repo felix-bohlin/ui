@@ -17,16 +17,14 @@ import { FieldLegend } from "@opui/astro"
 
 <Dialog id="closing-behaviors-dialog" closedby="any">
   <h2 class="ui-h4" slot="header">How to close</h2>
-  <div slot="content">
-    <Fieldset>
-      <FieldLegend>Choose a closing behavior:</FieldLegend>
-      <FieldGroup name="closedby-demo">
-        <Radio value="any" checked>any</Radio>
-        <Radio value="closerequest">closerequest</Radio>
-        <Radio value="none">none</Radio>
-      </FieldGroup>
-    </Fieldset>
-  </div>
+  <Fieldset slot="content">
+    <FieldLegend>Choose a closing behavior:</FieldLegend>
+    <FieldGroup name="closedby-demo">
+      <Radio value="any" checked>any</Radio>
+      <Radio value="closerequest">closerequest</Radio>
+      <Radio value="none">none</Radio>
+    </FieldGroup>
+  </Fieldset>
   <Fragment slot="actions">
     <Button commandfor="closing-behaviors-dialog" command="close">
       Close manually

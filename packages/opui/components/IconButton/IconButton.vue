@@ -5,7 +5,6 @@ const { as, color, disabled, href, size, variant } = defineProps<Props>()
 defineSlots<Slots>()
 
 const Tag = as || (href ? "a" : "button")
-const isButton = Tag === "button"
 </script>
 
 <template>
@@ -18,7 +17,7 @@ const isButton = Tag === "button"
       color && `ui-${color}`,
       $props.class,
     ]"
-    :disabled="isButton ? disabled : undefined"
+    :disabled="disabled"
     :href="href"
   >
     <slot></slot>

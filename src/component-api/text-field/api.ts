@@ -36,7 +36,7 @@ export default {
       prop: "filled",
     },
     {
-      description: "The id of the `<input>`. Generated when omitted.",
+      description: "The id of the `<input>`.",
       frameworks: ["astro", "vue"],
       prop: "id",
       type: "string",

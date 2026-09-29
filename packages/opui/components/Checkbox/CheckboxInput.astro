@@ -6,7 +6,7 @@ const { indeterminate, ...rest } = Astro.props as Props
 
 <input
   type="checkbox"
-  data-indeterminate={indeterminate || undefined}
+  data-indeterminate={indeterminate ? "" : undefined}
   {...rest}
 />
 

@@ -30,7 +30,7 @@ export default {
       prop: "error",
     },
     {
-      description: "The id of the `<select>`. Generated when omitted.",
+      description: "The id of the `<select>`.",
       frameworks: ["astro", "vue"],
       prop: "id",
       type: "string",

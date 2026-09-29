@@ -9,7 +9,9 @@ defineOptions({
 
 const props = defineProps<CheckboxProps>()
 defineSlots<Slots>()
-const modelValue = defineModel<boolean | (string | number)[]>()
+const modelValue = defineModel<boolean | (string | number)[] | undefined>({
+  default: undefined,
+})
 
 const endTextId = useId()
 </script>
@@ -25,7 +27,7 @@ const endTextId = useId()
       },
       props.class,
     ]"
-    :data-invalid="props.error || undefined"
+    :data-invalid="props.error ? '' : undefined"
   >
     <CheckboxInput
       v-bind="$attrs"

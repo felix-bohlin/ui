@@ -22,7 +22,8 @@ export default {
       prop: "arrow",
     },
     {
-      description: "The id of the tooltip. Generated when omitted.",
+      description:
+        "The id of the tooltip. Add `interestfor` with the same id to the trigger.",
       prop: "id",
     },
   ],

@@ -33,7 +33,7 @@ const labelId = $id("select-label")
     },
     className,
   ]}
-  data-invalid={error || undefined}
+  data-invalid={error ? "" : undefined}
 >
   {
     label && (
@@ -44,7 +44,7 @@ const labelId = $id("select-label")
   }
   <span class="ui-field">
     <select
-      aria-labelledby={label ? labelId : undefined}
+      aria-labelledby={label || Astro.slots.has("label") ? labelId : undefined}
       disabled={disabled}
       id={selectId}
       name={name}

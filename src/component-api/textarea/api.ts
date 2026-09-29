@@ -35,7 +35,7 @@ export default {
       prop: "filled",
     },
     {
-      description: "The id of the `<textarea>`. Generated when omitted.",
+      description: "The id of the `<textarea>`.",
       frameworks: ["astro", "vue"],
       prop: "id",
       type: "string",

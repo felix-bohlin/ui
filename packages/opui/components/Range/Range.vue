@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { RangeProps, Slots } from "./types.d.vue"
-import { useId } from "vue"
+import { computed, useId, useSlots } from "vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -10,7 +10,19 @@ const props = defineProps<RangeProps>()
 defineSlots<Slots>()
 const modelValue = defineModel<number | string>()
 
-const inputId = props.id || useId()
+const model = computed({
+  get: () => modelValue.value ?? props.value,
+  set: (value) => {
+    modelValue.value = value
+  },
+})
+
+const uid = useId()
+const slots = useSlots()
+const hasValue = computed(
+  () => props.valueSuffix !== undefined || !!slots.value,
+)
+const inputId = computed(() => props.id || (hasValue.value ? uid : undefined))
 const labelId = useId()
 const startTextId = useId()
 const endTextId = useId()
@@ -24,6 +36,7 @@ const endTextId = useId()
       { 'ui-spread': props.spread },
       props.class,
     ]"
+    :data-invalid="props.error ? '' : undefined"
   >
     <span v-if="props.label || $slots.default" class="ui-label" :id="labelId">
       <slot>{{ props.label }}</slot>
@@ -34,7 +47,7 @@ const endTextId = useId()
       :for="inputId"
       :data-suffix="props.valueSuffix"
     >
-      <slot name="value">{{ modelValue ?? props.value }}</slot>
+      <slot name="value">{{ model }}{{ props.valueSuffix }}</slot>
     </output>
     <span
       v-if="props.startText || $slots['start-text']"
@@ -58,7 +71,7 @@ const endTextId = useId()
       :list="props.list"
       type="range"
       v-bind="$attrs"
-      v-model="modelValue"
+      v-model="model"
     />
 
     <datalist v-if="props.options || $slots.datalist" :id="props.list">

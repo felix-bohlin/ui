@@ -142,7 +142,7 @@ const tour = `@keyframes ${id}-tour {
 
   .subject {
     anchor-name: var(--subject);
-    max-inline-size: 100%;
+    max-inline-size: calc(100% / var(--zoom));
     zoom: var(--zoom);
 
     > :global(*) {
@@ -272,12 +272,13 @@ const tour = `@keyframes ${id}-tour {
     --anatomy-on: 1;
   }
 
-  @container (inline-size < 40rem) {
+  @container (inline-size < 46rem) {
     .layout {
       grid-template-columns: minmax(0, 1fr);
     }
 
     .subject {
+      max-inline-size: 100%;
       zoom: 1;
     }
 
@@ -327,7 +328,7 @@ const tour = `@keyframes ${id}-tour {
         z-index: -1;
       }
 
-      @container (inline-size < 40rem) {
+      @container (inline-size < 46rem) {
         padding-inline: 0;
 
         &:before,

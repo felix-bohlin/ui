@@ -82,18 +82,18 @@
 
   @keyframes indeterminate {
     0% {
-      inset-inline-start: -200%;
       inset-inline-end: 100%;
+      inset-inline-start: -200%;
     }
 
     60% {
-      inset-inline-start: 107%;
       inset-inline-end: -8%;
+      inset-inline-start: 107%;
     }
 
     100% {
-      inset-inline-start: 107%;
       inset-inline-end: -8%;
+      inset-inline-start: 107%;
     }
   }
 }

@@ -27,11 +27,11 @@
       display: grid;
       grid-column: 1/-1;
       grid-row: 2;
-      grid-template-columns: auto 1fr auto;
       grid-template-areas:
         "header header header"
         "prefix input  suffix"
         "footer footer footer";
+      grid-template-columns: auto 1fr auto;
       min-block-size: var(--_height);
 
       transition: border-color calc(0.2s * var(--_motion))

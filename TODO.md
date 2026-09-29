@@ -20,16 +20,21 @@
 - [x] Carousel: browsers with scroll buttons but no `if()` (Chrome 135-136) show both the glyph and the image icon
 - [?] Running pnpm scripts adds `@pnpm/exe` to `pnpm-lock.yaml`
 - [x] Icon button disabled text color never applies: `rgb(0, 0, 0/0.3)` mixes comma and slash syntax
+- [] `Installation.astro` resolves dependency and see-also tabs with `href.endsWith(slug)`, so `list.css` links to Description List on the Select page (compare `slug` instead)
+- [] `pnpm lint` reports 6 `no-duplicate-selectors` warnings in `button.css`, `switch.css` and `table.css`
 
 ## Docs
 
 - [x] Drawer API lists `heading` and `actions` as slots (they aren't) and has a stray row after the table
 - [x] Carousel: `--_button-prev-icon`/`--_button-next-icon`/`--_button-icon-size` aren't documented anywhere since the custom properties table was removed
 - [x] Dialog docs callout still says "No JavaScript required" (positive wording: "HTML only")
+- [] 14 component pages put content before their first `<h2>` (lead examples, and `<h3>` notes like Callout "Alternatives", Dialog "Modal vs Dialog", Toast "Alpha stage"), so those `<h3>`s nest directly under the `<h1>` in the `.md` output. Wrap them in headed sections
+- [] Quick start has no heading, so it isn't listed in "On this page". Give it an `<h2>` once the lead content above is in sections, otherwise it swallows that content
 
 ## To check
 
 - [] Test Menu and Carousel in Firefox and Safari (only checked in Chromium)
+- [?] `pnpm build` logs "Failed to fetch web-features data" for the browser-support guide (checked offline, may be network only)
 
 ## Limitations
 

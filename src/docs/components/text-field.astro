@@ -38,12 +38,8 @@ import NoLabelHtml from "../../component-examples/text-field/NoLabel.html?raw"
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextFieldCSS from "@opui/css/components/text-input.css?raw"
 
-import TextFieldAPIAstro from "../../component-api/text-field/Astro.astro"
-import TextFieldAPIHTML from "../../component-api/text-field/HTML.astro"
-import TextFieldAPIVue from "../../component-api/text-field/Vue.astro"
-import TextInputAPIAstro from "../../component-api/text-input/Astro.astro"
+import textFieldApi from "../../component-api/text-field/api"
 import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
-import TextInputAPIVue from "../../component-api/text-input/Vue.astro"
 
 export const description =
   "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states."
@@ -60,18 +56,8 @@ export const description =
     "relative-color",
   ]}
   apis={[
-    {
-      title: "Text field API",
-      astro: TextFieldAPIAstro,
-      html: TextFieldAPIHTML,
-      vue: TextFieldAPIVue,
-    },
-    {
-      title: "Text input API",
-      astro: TextInputAPIAstro,
-      html: TextInputAPIHTML,
-      vue: TextInputAPIVue,
-    },
+    { title: "Text field API", api: textFieldApi },
+    { title: "Text input API", html: TextInputAPIHTML },
   ]}
   changelogPaths={[
     {

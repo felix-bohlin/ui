@@ -6,7 +6,7 @@ This guide defines the standards for documenting Astro UI component APIs in `src
 
 When creating or updating a component API table, ensure:
 
-- [ ] **File Format**: All API files must be `.astro` files.
+- [ ] **File Format**: Either an `api.ts` data file (preferred, see [Data-driven APIs](#data-driven-apis-apits)) or `.astro` table files.
 - [ ] **Folder Structure**: If a component has different APIs for Astro and HTML, use a folder (e.g., `src/component-api/button/`) with `Astro.astro` and `HTML.astro`.
 - [ ] **Table Component**: Use the `Table` component from `../../ui-components/Table` (adjust path as needed).
 - [ ] **Table Sub-components**: Use `Table.Head`, `Table.Body`, `Table.Row`, `Table.Cell`, `Table.HeaderCell`, `Table.ColumnGroup`, and `Table.Column` for table structure.
@@ -84,6 +84,20 @@ import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
   ]}>...</Component
 >
 ```
+
+## Data-driven APIs (`api.ts`)
+
+`src/component-api/<slug>/api.ts` default-exports a `ComponentApi` ([types.ts](types.ts)) and replaces the hand-written tables for every framework. [text-field/api.ts](text-field/api.ts) is the reference implementation.
+
+- `source`: the component folder in `packages/opui/components/`.
+- `root` and `parts`: structural elements with a `selector` and a `description`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Keep parts in visual order; they also drive the `<Anatomy>` diagram.
+- `options`: props and their HTML equivalent (`class` or `attribute`, `group` for the HTML table). Use `frameworks` to limit an option to some frameworks and `type` to override the resolved type.
+- `slots`: slots that aren't parts, such as `default`.
+- `model` and `notes`: the bound value and per-framework notes.
+
+Prop names and types are read from each framework's types file, and Astro/Vue slots from the component source, so they are never written by hand. Framework syntax lives in [frameworks.ts](frameworks.ts). The build warns (`[component-api]`) when a prop or slot is missing from `api.ts` or documented but not in the source.
+
+Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`. `<Anatomy>` finds it from the page slug.
 
 ## Example Reference
 

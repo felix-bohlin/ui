@@ -3,9 +3,15 @@ import Document from "../layouts/Document.astro"
 import FrameworkPicker from "./FrameworkPicker.astro"
 import ComponentAPI from "./ComponentAPI.astro"
 import { FRAMEWORKS, type FrameworkId } from "../utils/framework-routing"
+import type { ComponentApi } from "../component-api/types"
 
 const apiModules = import.meta.glob("../component-api/**/*.astro", {
   eager: true,
+})
+
+const apiData = import.meta.glob<ComponentApi>("../component-api/*/api.ts", {
+  eager: true,
+  import: "default",
 })
 
 const API_LABEL_PATTERN = FRAMEWORKS.map((f) => f.label).join("|")
@@ -16,7 +22,7 @@ const LABEL_TO_ID = Object.fromEntries(
 type ApiGroup = {
   folder: string
   prefix: string
-  apis: Partial<Record<FrameworkId, any>>
+  apis: Partial<Record<FrameworkId, any>> | { api: ComponentApi }[]
 }
 
 const groups: Record<string, ApiGroup> = {}
@@ -39,7 +45,14 @@ for (const path in apiModules) {
   if (!groups[key]) {
     groups[key] = { folder, prefix, apis: {} }
   }
-  groups[key].apis[frameworkId] = (apiModules[path] as any).default
+  ;(groups[key].apis as Record<string, any>)[frameworkId] = (
+    apiModules[path] as any
+  ).default
+}
+
+for (const path in apiData) {
+  const folder = path.split("/").at(-2)!
+  groups[`${folder}/`] = { folder, prefix: "", apis: [{ api: apiData[path] }] }
 }
 
 const { link } = Astro.locals

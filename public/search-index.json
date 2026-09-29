@@ -1848,7 +1848,7 @@
     "id": "api-text-field-astro",
     "title": "Text Field API",
     "description": "Reference for Text Field Astro component.",
-    "headings": "autoFit boolean false Automatically adjusts its width to content. description string - Description text displayed above the field. error boolean false label string - The label for the field. size \"small\" - The size of the field. spread boolean false endText string - Supporting text displayed below the field. variant \"filled\" - The visual variant of the field. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
+    "headings": "TextField Container element. The label for the field. label label Description text displayed above the field. description description The boxed input area. Content above the input, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The input element. Content at the inline-end of the field, inside the border. suffix Content below the input, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text autoFit Changes size depending on its content. error Shows error styles. filled The variant to use. id The id of the `<input>`. Generated when omitted. small The size of the element. spread Pushes the label and description to one side and the input to the other. type The input type. `\"numeric\"` renders a text input with a numeric keyboard.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1858,7 +1858,7 @@
     "id": "api-text-field-html",
     "title": "Text Field API",
     "description": "Reference for Text Field HTML component.",
-    "headings": "Auto-fit .ui-auto-fit - Children - Direct children of the root element. Field children - Layout .ui-spread, default - Sizes .ui-small - The size of the element. Validation [data-invalid] - Variants default, .ui-filled - The variant to use.",
+    "headings": "label.ui-text-field Container element. The label for the field. .ui-label Description text displayed above the field. .ui-start-text The boxed input area. .ui-field Content above the input, inside the border, with a divider. .ui-header Content at the inline-start of the field, inside the border. .ui-prefix The input element. input Content at the inline-end of the field, inside the border. .ui-suffix Content below the input, inside the border, with a divider. .ui-footer Supporting text displayed below the field. .ui-end-text .ui-auto-fit Auto-fit Changes size depending on its content. [data-invalid] Validation Shows error styles. .ui-filled Variants The variant to use. .ui-small Sizes The size of the element. .ui-spread Layout Pushes the label and description to one side and the input to the other.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -1868,21 +1868,11 @@
     "id": "api-text-field-vue",
     "title": "Text Field API",
     "description": "Reference for Text Field Vue component.",
-    "headings": "autoFit boolean false Automatically adjusts its width to content. description string - Description text displayed above the field. error boolean false label string - The label for the field. size \"small\" - The size of the field. spread boolean false endText string - Supporting text displayed below the field. variant \"filled\" - The visual variant of the field. label Slot for the label element. description prefix suffix header footer end-text Slot for the supporting text (end text) element. supporting-text Legacy slot for the supporting text element.",
+    "headings": "TextField Container element. The label for the field. label label Description text displayed above the field. description description The boxed input area. Content above the input, inside the border, with a divider. header Content at the inline-start of the field, inside the border. prefix The input element. Content at the inline-end of the field, inside the border. suffix Content below the input, inside the border, with a divider. footer Supporting text displayed below the field. endText end-text autoFit Changes size depending on its content. error Shows error styles. filled The variant to use. id The id of the `<input>`. Generated when omitted. small The size of the element. spread Pushes the label and description to one side and the input to the other. type The input type. `\"numeric\"` renders a text input with a numeric keyboard.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#text-field"
-  },
-  {
-    "id": "api-text-input-astro",
-    "title": "Text Input API",
-    "description": "Reference for Text Input Astro component.",
-    "headings": "autoFit boolean false Automatically adjusts its width to content. size \"small\" - The size of the text field. variant \"filled\" - The visual variant of the text field.",
-    "category": "API",
-    "frameworkId": "astro",
-    "type": "Astro",
-    "url": "/astro/api#text-input"
   },
   {
     "id": "api-text-input-html",
@@ -1893,16 +1883,6 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#text-input"
-  },
-  {
-    "id": "api-text-input-vue",
-    "title": "Text Input API",
-    "description": "Reference for Text Input Vue component.",
-    "headings": "autoFit boolean false Automatically adjusts its width to content. size \"small\" - The size of the text field. variant \"filled\" - The visual variant of the text field.",
-    "category": "API",
-    "frameworkId": "vue",
-    "type": "Vue",
-    "url": "/vue/api#text-input"
   },
   {
     "id": "api-textarea-astro",

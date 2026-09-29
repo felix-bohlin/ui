@@ -5,7 +5,7 @@
   "scripts": {
     "astro": "astro",
     "build": "pnpm build-search-index && pnpm check-browser-support && astro build",
-    "build-search-index": "node scripts/generate-search-index.mjs",
+    "build-search-index": "node --experimental-strip-types scripts/generate-search-index.mjs",
     "check": "pnpm format:check && pnpm lint && pnpm check-components && pnpm typecheck && pnpm test && pnpm build",
     "check-browser-support": "node scripts/check-browser-support.mjs",
     "check-components": "node scripts/check-components.mjs",

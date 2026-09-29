@@ -10,6 +10,7 @@ export default {
       prop: "as",
     },
   ],
+  page: "form",
   parts: [],
   root: {
     description: "The label of a fieldset.",

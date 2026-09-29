@@ -60,6 +60,7 @@ export default {
       type: "string",
     },
   ],
+  page: "toggle",
   parts: [
     {
       code: "<input>",

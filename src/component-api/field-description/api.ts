@@ -3,6 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "FieldDescription",
   options: [],
+  page: "form",
   parts: [],
   root: {
     description: "Supporting text for a fieldset.",

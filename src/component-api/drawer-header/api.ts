@@ -3,6 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "DrawerHeader",
   options: [],
+  page: "drawer",
   parts: [
     {
       code: "<span>",

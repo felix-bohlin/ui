@@ -43,6 +43,7 @@ export default {
       values: { filled: ".ui-filled", outlined: null },
     },
   ],
+  page: "select",
   parts: [
     {
       description: "The label for the field.",

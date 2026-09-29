@@ -32,6 +32,7 @@ export type ComponentApi = {
   model?: { description: string; prop: string; type: string }
   notes?: Partial<Record<Framework, string>>
   options: ApiOption[]
+  page?: string
   parts: ApiPart[]
   root: Pick<
     ApiPart,

@@ -9,6 +9,7 @@ export default {
       prop: "tabId",
     },
   ],
+  page: "tabs",
   parts: [],
   root: {
     component: { astro: "Tabs.Tab", vue: "TabsTab" },

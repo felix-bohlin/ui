@@ -4,6 +4,7 @@ import FrameworkPicker from "./FrameworkPicker.astro"
 import ComponentAPI from "./ComponentAPI.astro"
 import { FRAMEWORKS, type FrameworkId } from "../utils/framework-routing"
 import type { ComponentApi } from "../component-api/types"
+import { components } from "../utils/components"
 
 const apiModules = import.meta.glob("../component-api/**/*.astro", {
   eager: true,
@@ -21,6 +22,7 @@ const LABEL_TO_ID = Object.fromEntries(
 
 type ApiGroup = {
   folder: string
+  page?: string
   prefix: string
   apis: Partial<Record<FrameworkId, any>> | { api: ComponentApi }[]
 }
@@ -52,10 +54,16 @@ for (const path in apiModules) {
 
 for (const path in apiData) {
   const folder = path.split("/").at(-2)!
-  groups[`${folder}/`] = { folder, prefix: "", apis: [{ api: apiData[path] }] }
+  groups[`${folder}/`] = {
+    apis: [{ api: apiData[path] }],
+    folder,
+    page: apiData[path].page,
+    prefix: "",
+  }
 }
 
 const { link } = Astro.locals
+const pages = new Set(components.map((component) => component.slug))
 
 const apiList = Object.values(groups)
   .map((group) => {
@@ -66,10 +74,13 @@ const apiList = Object.values(groups)
       .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ")
 
+    const page = group.page ?? slug
+
     return {
       title,
       slug,
       apis: group.apis,
+      href: pages.has(page) ? link(`/components/${page}`) : undefined,
     }
   })
   .sort((a, b) => a.title.localeCompare(b.title))
@@ -94,11 +105,9 @@ const apiList = Object.values(groups)
   </style>
 
   {
-    apiList.map(({ title, slug, apis }) => (
+    apiList.map(({ title, slug, apis, href }) => (
       <section>
-        <h2 id={slug}>
-          <a href={link(`/components/${slug}`)}>{title}</a>
-        </h2>
+        <h2 id={slug}>{href ? <a href={href}>{title}</a> : title}</h2>
         <ComponentAPI apis={apis} hideTitle />
       </section>
     ))

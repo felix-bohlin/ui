@@ -29,6 +29,7 @@ export default {
       values: { default: null, small: ".ui-small", "x-small": ".ui-x-small" },
     },
   ],
+  page: "toggle",
   parts: [
     {
       code: ".ui-toggle-button",

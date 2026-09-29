@@ -25,6 +25,7 @@ export default {
       type: "boolean",
     },
   ],
+  page: "form",
   parts: [
     {
       code: "<legend>",

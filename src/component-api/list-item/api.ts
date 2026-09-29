@@ -46,6 +46,7 @@ export default {
       },
     },
   ],
+  page: "list",
   parts: [
     {
       description: "Optional content at the start, such as an icon or avatar.",

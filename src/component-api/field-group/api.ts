@@ -17,6 +17,7 @@ export default {
       prop: "name",
     },
   ],
+  page: "form",
   parts: [],
   root: {
     description: "Container element.",

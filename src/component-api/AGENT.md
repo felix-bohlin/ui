@@ -90,6 +90,7 @@ import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
 `src/component-api/<slug>/api.ts` default-exports a `ComponentApi` ([types.ts](types.ts)) and replaces the hand-written tables for every framework. [text-field/api.ts](text-field/api.ts) is the reference implementation.
 
 - `source`: the component folder in `packages/opui/components/`.
+- `page`: the docs page slug when it differs from the folder, such as `tabs` for `tabs-item`. The API index links to it.
 - `file`: the component file name when it differs from `component`, such as `TabsItem` for `Tabs.Item`. Props are read from the `<file>Props` type, or `Props`.
 - `root` and `parts`: structural elements with a `selector` and a `description`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Set `anchorName` when the part's CSS already sets an `anchor-name`, so `<Anatomy>` keeps it. Set `component` when a sub-component renders the part, such as `{ astro: "DescriptionList.Term", vue: "DescriptionListTerm" }`. Keep parts in visual order; they also drive the `<Anatomy>` diagram and the HTML parts table.
 - `options`: props and their HTML equivalent (`class` or `attribute`, `group` for the HTML table). Use `frameworks` to limit an option to some frameworks and `type` to override the resolved type.

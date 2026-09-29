@@ -81,20 +81,26 @@ const cleanType = (text: string) => {
     .join(" | ")
 }
 
-export const shipped = (source: string, framework: ComponentFramework) =>
-  read(source, frameworks[framework].component(source)) !== undefined
+type Target = Pick<ComponentApi, "component" | "file" | "source">
+
+const componentFile = (target: Target, framework: ComponentFramework) =>
+  frameworks[framework].component(target.file ?? target.component)
+
+export const shipped = (target: Target, framework: ComponentFramework) =>
+  read(target.source, componentFile(target, framework)) !== undefined
 
 export const frameworkProps = (
-  source: string,
+  target: Target,
   framework: ComponentFramework,
 ) => {
   const props = new Map<string, string>()
-  const filePath = path.join(root, source, frameworks[framework].types)
-  const file = program().getSourceFile(filePath)
-  const alias = file?.statements.find(
-    (statement) =>
-      ts.isTypeAliasDeclaration(statement) && statement.name.text === "Props",
-  )
+  const filePath = path.join(root, target.source, frameworks[framework].types)
+  const aliases = program()
+    .getSourceFile(filePath)
+    ?.statements.filter(ts.isTypeAliasDeclaration)
+  const alias = [`${target.file ?? target.component}Props`, "Props"]
+    .map((name) => aliases?.find((statement) => statement.name.text === name))
+    .find(Boolean)
   if (!alias) return props
 
   const checker = program().getTypeChecker()
@@ -121,14 +127,20 @@ export const frameworkProps = (
   return props
 }
 
-export const slotNames = (source: string, framework: ComponentFramework) => {
+export const slotNames = (target: Target, framework: ComponentFramework) => {
   if (frameworks[framework].slotsAreProps) return []
-  const text = read(source, frameworks[framework].component(source))
+  const text = read(target.source, componentFile(target, framework))
   if (!text) return []
 
-  const names = [...text.matchAll(/<slot\b([^>]*)>/g)].map(
-    ([, attributes]) => attributes.match(/\bname="([^"]+)"/)?.[1] ?? "default",
-  )
+  const names = [
+    ...[...text.matchAll(/<slot\b([^>]*)>/g)].map(
+      ([, attributes]) =>
+        attributes.match(/\bname="([^"]+)"/)?.[1] ?? "default",
+    ),
+    ...[...text.matchAll(/Astro\.slots\.render\("([^"]+)"/g)].map(
+      ([, name]) => name,
+    ),
+  ]
   return [...new Set(names)].sort()
 }
 
@@ -177,9 +189,9 @@ const warn = (message: string) => {
 export const checkApi = (api: ComponentApi) => {
   const all = Object.keys(frameworks) as ComponentFramework[]
   all
-    .filter((framework) => shipped(api.source, framework))
+    .filter((framework) => shipped(api, framework))
     .forEach((framework) => {
-      const props = frameworkProps(api.source, framework)
+      const props = frameworkProps(api, framework)
       props.forEach((_, prop) => {
         if (!describe(api, prop, framework, "prop")) {
           warn(
@@ -221,7 +233,7 @@ export const checkApi = (api: ComponentApi) => {
 
       if (frameworks[framework].slotsAreProps) return
 
-      const slots = slotNames(api.source, framework)
+      const slots = slotNames(api, framework)
       slots.forEach((slot) => {
         if (!describe(api, slot, framework, "slot")) {
           warn(

@@ -54,7 +54,7 @@ export const htmlRows = (api: ComponentApi) =>
     .sort(byName)
 
 export const propRows = (api: ComponentApi, framework: ComponentFramework) => {
-  const props = frameworkProps(api.source, framework)
+  const props = frameworkProps(api, framework)
   const option = (name: string) =>
     api.options.find((option) => option.prop === name)
   const scoped = api.options
@@ -83,7 +83,7 @@ export const propRows = (api: ComponentApi, framework: ComponentFramework) => {
 }
 
 export const slotRows = (api: ComponentApi, framework: ComponentFramework) =>
-  slotNames(api.source, framework)
+  slotNames(api, framework)
     .map((name) => ({
       description: describe(api, name, framework, "slot") ?? "-",
       name,

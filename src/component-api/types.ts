@@ -27,6 +27,7 @@ export type ApiOption = {
 
 export type ComponentApi = {
   component: string
+  file?: string
   model?: { description: string; prop: string; type: string }
   notes?: Partial<Record<Framework, string>>
   options: ApiOption[]

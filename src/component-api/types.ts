@@ -23,7 +23,7 @@ export type ApiOption = {
   part?: string
   prop: string
   type?: string
-  values?: Record<string, string | null>
+  values?: Partial<Record<string, string | null>>
 }
 
 export type ComponentApi = {

@@ -18,7 +18,7 @@ export const modifiers = (option: ApiOption) => {
       modifier ? [on(option, modifier)] : [],
     ),
     ...Object.values(option.values ?? {}).map((modifier) =>
-      on(option, modifier),
+      on(option, modifier ?? null),
     ),
   ]
   return [
@@ -31,7 +31,9 @@ export const htmlDefault = (option: ApiOption) => {
   const value = option.default?.replace(/^"(.*)"$/, "$1")
   if (value === undefined) return undefined
   if (option.values) {
-    return value in option.values ? on(option, option.values[value]) : undefined
+    return value in option.values
+      ? on(option, option.values[value] ?? null)
+      : undefined
   }
   return option.cssVar ? value : undefined
 }

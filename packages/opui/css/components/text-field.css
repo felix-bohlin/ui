@@ -266,6 +266,24 @@
       padding-inline: 0 1ex;
     }
 
+    :where(.ui-start-text) {
+      color: var(--_end-text-color);
+      font-size: var(--font-size-0);
+      grid-column: 1/-1;
+      grid-row: 2;
+      line-height: 1.5;
+    }
+
+    &:not(.ui-spread):has(> .ui-start-text) {
+      .ui-field {
+        grid-row: 3;
+      }
+
+      :where(.ui-end-text) {
+        grid-row: 4;
+      }
+    }
+
     /* End text */
     :where(.ui-end-text) {
       color: var(--_end-text-color);

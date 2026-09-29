@@ -34,7 +34,7 @@
 ## To check
 
 - [] Test Menu and Carousel in Firefox and Safari (only checked in Chromium)
-- [?] `pnpm build` logs "Failed to fetch web-features data" for the browser-support guide (checked offline, may be network only)
+- [x] `pnpm build` logs "Failed to fetch web-features data" for the browser-support guide (fetched from jsDelivr instead of the installed `web-features` package, so offline builds put every feature under "limited")
 
 ## Limitations
 

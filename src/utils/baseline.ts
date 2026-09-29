@@ -1,3 +1,5 @@
+import { features } from "web-features"
+
 export async function getBaselineMappings() {
   const modules = import.meta.glob("../docs/components/*.astro", {
     query: "raw",
@@ -53,23 +55,9 @@ export async function getBaselineMappings() {
   return { featureToComponents, componentToFeatures }
 }
 
-export async function getBaselineData() {
-  try {
-    const response = await fetch(
-      "https://cdn.jsdelivr.net/npm/web-features/data.json",
-    )
-    if (!response.ok) throw new Error("Failed to fetch web-features data")
-    return await response.json()
-  } catch (error) {
-    console.error("Error fetching baseline data:", error)
-    return { features: {} }
-  }
-}
-
 export async function getCategorizedBaselineIds() {
   const { featureToComponents } = await getBaselineMappings()
   const ids = Object.keys(featureToComponents)
-  const data = await getBaselineData()
 
   const categories: Record<string, string[]> = {
     limited: [],
@@ -77,10 +65,15 @@ export async function getCategorizedBaselineIds() {
   }
 
   ids.forEach((id) => {
-    const feature = data.features[id]
+    const feature = features[id]
     categories.all.push(id)
 
-    if (!feature || !feature.status || !feature.status.baseline) {
+    if (
+      !feature ||
+      feature.kind !== "feature" ||
+      !feature.status.baseline ||
+      !feature.status.baseline_low_date
+    ) {
       categories.limited.push(id)
     } else {
       const year = feature.status.baseline_low_date.split("-")[0]

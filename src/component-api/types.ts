@@ -1,8 +1,9 @@
-import type { Framework } from "./frameworks"
+import type { ComponentFramework, Framework } from "./frameworks"
 
 export type ApiPart = {
   anchorName?: string
   code?: string
+  component?: Partial<Record<ComponentFramework, string>>
   description: string
   legacy?: { props?: string[]; slots?: string[] }
   model?: boolean

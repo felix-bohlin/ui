@@ -13,11 +13,14 @@ const on = (option: ApiOption, modifier: string | null) =>
   modifier && option.part ? `${option.part}${modifier}` : modifier
 
 export const modifiers = (option: ApiOption) => {
-  const values = option.values
-    ? Object.values(option.values).map((modifier) => on(option, modifier))
-    : [option.class ?? option.attribute].flatMap((modifier) =>
-        modifier ? [on(option, modifier)] : [],
-      )
+  const values = [
+    ...[option.class ?? option.attribute].flatMap((modifier) =>
+      modifier ? [on(option, modifier)] : [],
+    ),
+    ...Object.values(option.values ?? {}).map((modifier) =>
+      on(option, modifier),
+    ),
+  ]
   return [
     ...values.sort((a, b) => (a ?? "").localeCompare(b ?? "")),
     ...(option.cssVar ? [option.cssVar] : []),
@@ -99,6 +102,7 @@ export const partLabel = (
   const fallback = part.code ?? part.selector
   if (framework === "html") return fallback
   if (root) return `<${api.component}>`
+  if (part.component?.[framework]) return `<${part.component[framework]}>`
 
   const syntax = frameworks[framework]
   const handles = [

@@ -9,8 +9,8 @@ export type SwitchProps = {
 export type SwitchSlots<S> = {
   children?: S
   endText?: string | S
-  iconUnchecked?: S
   iconChecked?: S
+  iconUnchecked?: S
 }
 
 export type SwitchInputProps = {}

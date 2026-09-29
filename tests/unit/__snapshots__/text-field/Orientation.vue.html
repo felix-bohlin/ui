@@ -1,0 +1,80 @@
+<label class="ui-spread ui-text-field">
+  <span class="ui-label">Name</span>
+  <span class="ui-start-text">Provide your full name for identification</span>
+  <span class="ui-field">
+    <input id="id-1" placeholder="Evil Rabbit" type="text">
+  </span>
+</label>
+<label class="ui-filled ui-spread ui-text-field">
+  <span class="ui-label">Email</span>
+  <span class="ui-start-text">We'll use this to contact you</span>
+  <span class="ui-field">
+    <input id="id-2" placeholder="you@example.com" type="email">
+  </span>
+  <span class="ui-end-text">Please use a valid email address</span>
+</label>
+<label class="ui-spread ui-text-field">
+  <span class="ui-label">Required</span>
+  <span class="ui-start-text">You must fill this in</span>
+  <span class="ui-field">
+    <input id="id-3" required type="text">
+  </span>
+</label>
+<label class="ui-spread ui-text-field">
+  <span class="ui-label">Disabled</span>
+  <span class="ui-start-text">This field is disabled</span>
+  <span class="ui-field">
+    <input disabled id="id-4" type="text">
+  </span>
+</label>
+<label class="ui-spread ui-text-field" data-invalid="true">
+  <span class="ui-label">Invalid Name</span>
+  <span class="ui-start-text">This field has an error</span>
+  <span class="ui-field">
+    <input id="id-5" type="text">
+  </span>
+  <span class="ui-end-text">This value is too short.</span>
+</label>
+<label class="ui-spread ui-text-field">
+  <span class="ui-label">Amount</span>
+  <span class="ui-start-text">Daily spending limit</span>
+  <span class="ui-field">
+    <input id="id-6" placeholder="0.00" type="text">
+    <span class="ui-prefix">¢</span>
+    <span class="ui-suffix">EUR</span>
+  </span>
+</label>
+<label class="ui-filled ui-spread ui-text-field">
+  <span class="ui-label">Website</span>
+  <span class="ui-start-text">Your public profile URL</span>
+  <span class="ui-field">
+    <input id="id-7" placeholder="example.com" type="text">
+    <span class="ui-prefix">https://</span>
+  </span>
+  <span class="ui-end-text">Must include a valid domain</span>
+</label>
+<label class="ui-spread ui-text-field">
+  <span class="ui-label">Project name</span>
+  <span class="ui-start-text">Used to generate the project URL</span>
+  <span class="ui-field">
+    <input id="id-8" placeholder="my-project" type="text">
+    <span class="ui-header">acme.dev/</span>
+    <span class="ui-footer">Lowercase letters and dashes only</span>
+  </span>
+</label>
+<label class="ui-filled ui-spread ui-text-field">
+  <span class="ui-label">API key</span>
+  <span class="ui-start-text">Stored encrypted at rest</span>
+  <span class="ui-field">
+    <input id="id-9" placeholder="Paste your key" type="password">
+    <span class="ui-prefix">
+      <svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="16">
+        <rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+    </span>
+    <span class="ui-header">Secret</span>
+    <span class="ui-footer">Rotates every 90 days</span>
+  </span>
+  <span class="ui-end-text">Treat like a password</span>
+</label>

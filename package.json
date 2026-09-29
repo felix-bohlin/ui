@@ -3,12 +3,25 @@
   "type": "module",
   "version": "2.0.0",
   "scripts": {
-    "dev": "astro dev",
-    "build": "pnpm build-search-index && pnpm check-browser-support && astro build",
-    "preview": "astro preview",
     "astro": "astro",
+    "build": "pnpm build-search-index && pnpm check-browser-support && astro build",
     "build-search-index": "node scripts/generate-search-index.mjs",
-    "check-browser-support": "node scripts/check-browser-support.mjs"
+    "check": "pnpm format:check && pnpm lint && pnpm check-components && pnpm typecheck && pnpm test && pnpm build",
+    "check-browser-support": "node scripts/check-browser-support.mjs",
+    "check-components": "node scripts/check-components.mjs",
+    "dev": "astro dev",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "oxlint --deny-warnings . && stylelint \"packages/opui/**/*.css\"",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:record-a11y": "A11Y_RECORD=1 playwright test a11y --project=light --workers=1",
+    "test:e2e:serve": "OPUI_TEST_PAGES=1 astro build --outDir dist-test && astro preview --outDir dist-test --port 4322",
+    "test:e2e:update": "playwright test --update-snapshots=all",
+    "test:record-drift": "PARITY_RECORD=1 vitest run",
+    "test:update": "vitest run --update",
+    "typecheck": "astro check && vue-tsc --noEmit -p tsconfig.vue.json"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
@@ -26,10 +39,17 @@
   "devDependencies": {
     "@astrojs/sitemap": "^3.7.4",
     "@astrojs/vue": "^7.0.3",
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "oxlint": "^1.85.0",
+    "parse5": "^8.0.1",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "0.14.1",
     "solid-js": "catalog:",
-    "vue": "catalog:"
+    "stylelint": "^17.15.0",
+    "vitest": "^5.0.2",
+    "vue": "catalog:",
+    "vue-tsc": "^3.3.11"
   },
   "pnpm": {
     "onlyBuiltDependencies": []

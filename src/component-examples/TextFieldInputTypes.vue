@@ -3,8 +3,12 @@ import { onMounted } from "vue"
 
 onMounted(() => {
   function setupInputTypesControls() {
-    const filledToggle = document.querySelector("#text-field-filled-toggle")
-    const smallToggle = document.querySelector("#text-field-small-toggle")
+    const filledToggle = document.querySelector<HTMLInputElement>(
+      "#text-field-filled-toggle",
+    )
+    const smallToggle = document.querySelector<HTMLInputElement>(
+      "#text-field-small-toggle",
+    )
     const fields = document.querySelectorAll(
       "#text-field-input-types-example .input-type-field",
     )

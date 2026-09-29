@@ -26,7 +26,9 @@ async function mountAll() {
     el.setAttribute("data-vue-mounted", "")
     const mod = await loader()
     el.innerHTML = ""
-    createApp(mod.default as Parameters<typeof createApp>[0]).mount(el)
+    const app = createApp(mod.default as Parameters<typeof createApp>[0])
+    app.config.idPrefix = id.replace(/[^\w-]/g, "-")
+    app.mount(el)
   }
 }
 

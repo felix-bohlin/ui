@@ -16,9 +16,10 @@ function toggleAll() {
 </script>
 
 <template>
-  <FieldSet>
+  <FieldSet class="indeterminate-demo">
     <FieldLegend>
       <Checkbox
+        class="parent"
         :model-value="allChecked"
         :indeterminate="indeterminate"
         @update:model-value="toggleAll"
@@ -27,6 +28,7 @@ function toggleAll() {
     </FieldLegend>
     <FieldGroup name="indeterminate-children">
       <Checkbox
+        class="child"
         v-for="(item, index) in items"
         :key="item"
         v-model="checked[index]"

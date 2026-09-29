@@ -15,23 +15,23 @@
     <h2 class="ui-h4">How to close</h2>
   </hgroup>
   <div class="ui-content">
-    <div class="ui-fieldset">
-      <p class="ui-legend">Choose a closing behavior:</p>
+    <fieldset class="ui-fieldset">
+      <legend>Choose a closing behavior:</legend>
       <div class="ui-field-group" role="group">
         <label class="ui-radio">
-          <input type="radio" name="closedby-demo-html" value="any" checked />
-          <span>any</span>
+          <input type="radio" name="closedby-demo" value="any" checked />
+          <span class="ui-label">any</span>
         </label>
         <label class="ui-radio">
-          <input type="radio" name="closedby-demo-html" value="closerequest" />
-          <span>closerequest</span>
+          <input type="radio" name="closedby-demo" value="closerequest" />
+          <span class="ui-label">closerequest</span>
         </label>
         <label class="ui-radio">
-          <input type="radio" name="closedby-demo-html" value="none" />
-          <span>none</span>
+          <input type="radio" name="closedby-demo" value="none" />
+          <span class="ui-label">none</span>
         </label>
       </div>
-    </div>
+    </fieldset>
   </div>
   <div class="ui-actions">
     <button
@@ -45,7 +45,7 @@
 </dialog>
 
 <script>
-  const radios = document.querySelectorAll('input[name="closedby-demo-html"]')
+  const radios = document.querySelectorAll('input[name="closedby-demo"]')
 
   radios.forEach((radio) => {
     radio.addEventListener("change", () => {

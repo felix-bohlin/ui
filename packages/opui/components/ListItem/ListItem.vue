@@ -22,6 +22,9 @@ const Tag = computed(() => props.as)
 
 const liAttrs = computed(() => (Tag.value ? {} : attrs))
 const innerAttrs = computed(() => (Tag.value ? attrs : {}))
+const disabled = computed(() =>
+  "disabled" in props ? props.disabled : undefined,
+)
 </script>
 
 <template>
@@ -57,7 +60,13 @@ const innerAttrs = computed(() => (Tag.value ? attrs : {}))
       <slot></slot>
     </label>
 
-    <component :is="Tag" v-else-if="Tag" v-bind="innerAttrs">
+    <component
+      :is="Tag"
+      v-else-if="Tag"
+      :disabled="disabled"
+      :href="props.href"
+      v-bind="innerAttrs"
+    >
       <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>

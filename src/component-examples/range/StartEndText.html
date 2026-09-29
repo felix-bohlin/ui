@@ -1,6 +1,14 @@
 <label class="ui-range">
-  <span class="ui-label">Label</span>
-  <span class="ui-start-text">Start helper text</span>
-  <input type="range" />
-  <span class="ui-end-text">End helper text</span>
+  <span class="ui-label" id="range-start-end-1-label">Label</span>
+  <span class="ui-start-text" id="range-start-end-1-start-text"
+    >Start helper text</span
+  >
+  <input
+    aria-describedby="range-start-end-1-start-text range-start-end-1-end-text"
+    aria-labelledby="range-start-end-1-label"
+    type="range"
+  />
+  <span class="ui-end-text" id="range-start-end-1-end-text"
+    >End helper text</span
+  >
 </label>

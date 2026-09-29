@@ -6,7 +6,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
   <Form>
     <FieldSet data-invalid>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="switch-group-validation-astro">
+      <FieldGroup direction="row" name="switch-field-group-validation">
         <Switch>Switch 1</Switch>
         <Switch>Switch 2</Switch>
         <Switch>Switch 3</Switch>

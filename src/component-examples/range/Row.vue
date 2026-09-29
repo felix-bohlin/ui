@@ -15,7 +15,7 @@ import { Range } from "opui-css/vue"
     <template #end-text>End text</template>
   </Range>
 
-  <Range spread data-invalid endText="This value is incorrect.">
+  <Range spread error endText="This value is incorrect.">
     Invalid Range
     <template #start-text>Start text</template>
   </Range>

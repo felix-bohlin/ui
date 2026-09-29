@@ -1,0 +1,25 @@
+import type { ComponentApi } from "../types"
+
+export default {
+  component: "FieldLegend",
+  options: [
+    {
+      default: '"legend"',
+      description:
+        'The element to render. Adds `.ui-legend` when not `"legend"`.',
+      prop: "as",
+    },
+  ],
+  parts: [],
+  root: {
+    description: "The label of a fieldset.",
+    selector: ":is(legend, .ui-legend)",
+  },
+  slots: [
+    {
+      description: "The label.",
+      name: "default",
+    },
+  ],
+  source: "FieldLegend",
+} satisfies ComponentApi

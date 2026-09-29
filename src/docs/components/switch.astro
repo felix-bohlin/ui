@@ -1,38 +1,25 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import { Switch as UISwitch } from "@opui/astro"
 import DocLink from "../../components/DocLink.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
 import SwitchCSS from "@opui/css/components/switch.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
-import SwitchAPIAstro from "../../component-api/switch/Astro.astro"
-import SwitchAPIHTML from "../../component-api/switch/HTML.astro"
-import SwitchAPIVue from "../../component-api/switch/Vue.astro"
-import FieldGroupAPIAstro from "../../component-api/field-group/Astro.astro"
-import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
-import FieldGroupAPIVue from "../../component-api/field-group/Vue.astro"
+import fieldGroupApi from "../../component-api/field-group/api"
+import switchApi from "../../component-api/switch/api"
 
-import ExampleAnatomy from "../../component-examples/switch/Anatomy.astro"
 import Conditional from "../../components/Conditional.astro"
 ---
 
 <Component
   slug="switch"
   browserSupport={["has", "light-dark"]}
+  heroAnatomy
   apis={[
-    {
-      title: "Switch API",
-      astro: SwitchAPIAstro,
-      html: SwitchAPIHTML,
-      vue: SwitchAPIVue,
-    },
-    {
-      title: "Field group API",
-      astro: FieldGroupAPIAstro,
-      html: FieldGroupAPIHTML,
-      vue: FieldGroupAPIVue,
-    },
+    { title: "Switch API", api: switchApi },
+    { title: "Field group API", api: fieldGroupApi },
   ]}
   changelogPaths={[
     {
@@ -336,16 +323,49 @@ import Conditional from "../../components/Conditional.astro"
   </Fragment>
 
   <Fragment slot="anatomy">
-    <ol>
-      <li>Container: <code>label</code> element</li>
-      <li>Switch: <code>& input type="checkbox" role="switch"</code></li>
-      <li>Label (optional): & <code>.ui-label</code></li>
-      <li>End text (optional): <code>.ui-end-text</code></li>
-    </ol>
-
-    <Example row>
-      <Example.Preview slot="preview-astro" code={ExampleAnatomy} />
-    </Example>
+    <Anatomy zoom={1.5}>
+      <div class="switch-anatomy">
+        <UISwitch aria-label="Theme">
+          <svg
+            slot="icon-unchecked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            ><path
+              fill="currentColor"
+              d="M20.026 17.001c-2.762 4.784-8.879 6.423-13.663 3.661A10 10 0 0 1 3.13 17.68a.75.75 0 0 1 .365-1.132c3.767-1.348 5.785-2.91 6.956-5.146c1.233-2.353 1.551-4.93.689-8.463a.75.75 0 0 1 .769-.927a9.96 9.96 0 0 1 4.457 1.327c4.784 2.762 6.423 8.879 3.66 13.662"
+            ></path></svg
+          >
+        </UISwitch>
+        <UISwitch checked>
+          <svg
+            slot="icon-unchecked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            ><path
+              fill="currentColor"
+              d="M20.026 17.001c-2.762 4.784-8.879 6.423-13.663 3.661A10 10 0 0 1 3.13 17.68a.75.75 0 0 1 .365-1.132c3.767-1.348 5.785-2.91 6.956-5.146c1.233-2.353 1.551-4.93.689-8.463a.75.75 0 0 1 .769-.927a9.96 9.96 0 0 1 4.457 1.327c4.784 2.762 6.423 8.879 3.66 13.662"
+            ></path></svg
+          >
+          <svg
+            slot="icon-checked"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            ><path
+              fill="currentColor"
+              d="M12 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 2m5 10a5 5 0 1 1-10 0a5 5 0 0 1 10 0m4.25.75a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5zM12 19a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 19m-7.75-6.25a.75.75 0 0 0 0-1.5h-1.5a.75.75 0 0 0 0 1.5zm-.03-8.53a.75.75 0 0 1 1.06 0l1.5 1.5a.75.75 0 0 1-1.06 1.06l-1.5-1.5a.75.75 0 0 1 0-1.06m1.06 15.56a.75.75 0 1 1-1.06-1.06l1.5-1.5a.75.75 0 1 1 1.06 1.06zm14.5-15.56a.75.75 0 0 0-1.06 0l-1.5 1.5a.75.75 0 0 0 1.06 1.06l1.5-1.5a.75.75 0 0 0 0-1.06m-1.06 15.56a.75.75 0 1 0 1.06-1.06l-1.5-1.5a.75.75 0 1 0-1.06 1.06z"
+            ></path></svg
+          >
+          Label
+          <Fragment slot="end-text">End text</Fragment>
+        </UISwitch>
+      </div>
+    </Anatomy>
   </Fragment>
 </Component>
 
@@ -359,20 +379,9 @@ import Conditional from "../../components/Conditional.astro"
     gap: var(--size-6);
   }
 
-  .ui-switch.anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: 8px;
-
-    .ui-label,
-    .ui-end-text,
-    input {
-      outline: var(--_anatomy-border-red);
-      outline-offset: -3px;
-    }
-
-    input {
-      border-radius: var(--radius-round);
-      outline-offset: -2px;
-    }
+  .switch-anatomy {
+    align-items: start;
+    display: flex;
+    gap: var(--size-5);
   }
 </style>

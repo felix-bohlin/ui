@@ -1,13 +1,14 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
-import { Callout as UICallout } from "@opui/astro"
+import { Callout as UICallout, IconButton as UIIconButton } from "@opui/astro"
 import IconButtonCSS from "@opui/css/components/icon-button.css?raw"
-import ExampleAnatomy from "../../component-examples/icon-button/Anatomy.astro"
 
 import Conditional from "../../components/Conditional.astro"
+
+import iconButtonApi from "../../component-api/icon-button/api"
 
 export const description =
   "Icon buttons are used to trigger actions and are typically found in toolbars, cards, and dialogs."
@@ -16,6 +17,8 @@ export const description =
 <Component
   description={description}
   slug="icon-button"
+  heroAnatomy
+  apis={[{ title: "Icon button API", api: iconButtonApi }]}
   browserSupport={["light-dark", "relative-color"]}
   changelogPaths={[
     {
@@ -100,14 +103,16 @@ export const description =
   </section>
 
   <Fragment slot="anatomy">
-    <ol>
-      <li>Container: <code>&lt;button class="ui-icon-button"&gt;</code></li>
-      <li>Icon: <code>&lt;svg&gt;</code></li>
-      <li>Label text: <code>&lt;button aria-label=""&gt;</code></li>
-    </ol>
-    <Example row>
-      <Example.Preview code={ExampleAnatomy} />
-    </Example>
+    <Anatomy zoom={2}>
+      <UIIconButton aria-label="Add" variant="tonal">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path>
+        </svg>
+      </UIIconButton>
+    </Anatomy>
   </Fragment>
 
   <Fragment slot="accessibility">
@@ -148,15 +153,3 @@ export const description =
     </table>
   </Fragment>
 </Component>
-
-<style is:global>
-  .anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: -2px;
-
-    svg {
-      outline: var(--_anatomy-border-red);
-      outline-offset: -3px;
-    }
-  }
-</style>

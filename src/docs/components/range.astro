@@ -1,16 +1,20 @@
 ---
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
+import Anatomy from "../../components/Anatomy.astro"
+import { Range as UIRange } from "@opui/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
-import ExampleAnatomy from "../../component-examples/range/Anatomy.astro"
 
 import RangeCSS from "@opui/css/components/range.css?raw"
 import Conditional from "../../components/Conditional.astro"
+
+import rangeApi from "../../component-api/range/api"
 ---
 
 <Component
   slug="range"
+  heroAnatomy
+  apis={[{ title: "Range API", api: rangeApi }]}
   browserSupport={["light-dark", "relative-color", "container-queries"]}
   changelogPaths={[
     {
@@ -134,17 +138,16 @@ import Conditional from "../../components/Conditional.astro"
   </section>
 
   <Fragment slot="anatomy">
-    <ol>
-      <li>Container</li>
-      <li>Label (optional)</li>
-      <li>Value (optional)</li>
-      <li>Start text (optional)</li>
-      <li>Input</li>
-      <li>End text (optional)</li>
-    </ol>
-    <Example>
-      <Example.Preview code={ExampleAnatomy} />
-    </Example>
+    <Anatomy zoom={1.25}>
+      <UIRange
+        endText="End text"
+        label="Label"
+        startText="Start text"
+        style="inline-size: 18rem"
+        value="50"
+        valueSuffix=""
+      />
+    </Anatomy>
   </Fragment>
 
   <Fragment slot="accessibility">
@@ -178,13 +181,3 @@ import Conditional from "../../components/Conditional.astro"
     </ul>
   </Fragment>
 </Component>
-
-<style is:global>
-  .anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: 2px;
-    & > * {
-      outline: var(--_anatomy-border-red);
-    }
-  }
-</style>

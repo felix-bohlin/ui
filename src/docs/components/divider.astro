@@ -2,10 +2,13 @@
 import Component from "../../layouts/Component.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import DividerCSS from "@opui/css/components/divider.css?raw"
+
+import dividerApi from "../../component-api/divider/api"
 ---
 
 <Component
   slug="divider"
+  apis={[{ title: "Divider API", api: dividerApi }]}
   changelogPaths={[
     {
       path: "packages/opui/components/Divider/Divider.astro",

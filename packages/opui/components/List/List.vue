@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
-const { bordered, dense, divided, gutterless, variant } = defineProps<Props>()
+const { bordered, dense, gutterless, variant } = defineProps<Props>()
 defineSlots<Slots>()
 
 defineOptions({
@@ -16,7 +16,6 @@ defineOptions({
       {
         'ui-bordered': bordered,
         'ui-dense': dense,
-        'ui-divided': divided,
         'ui-gutterless': gutterless,
       },
       variant && `ui-${variant}`,

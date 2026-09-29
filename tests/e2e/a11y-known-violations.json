@@ -29,9 +29,6 @@
   "dark/button/Colors": [
     "color-contrast"
   ],
-  "dark/callout/Anatomy": [
-    "aria-allowed-role"
-  ],
   "dark/callout/Icon": [
     "aria-allowed-role"
   ],
@@ -76,9 +73,6 @@
   ],
   "dark/range/Validation": [
     "color-contrast"
-  ],
-  "dark/select/Anatomy": [
-    "button-name"
   ],
   "dark/select/Orientation": [
     "color-contrast"
@@ -152,9 +146,6 @@
   "light/button/Colors": [
     "color-contrast"
   ],
-  "light/callout/Anatomy": [
-    "aria-allowed-role"
-  ],
   "light/callout/Icon": [
     "aria-allowed-role"
   ],
@@ -184,9 +175,6 @@
   ],
   "light/list/StartAvatar": [
     "color-contrast"
-  ],
-  "light/select/Anatomy": [
-    "button-name"
   ],
   "light/spinner/Sizes": [
     "color-contrast",

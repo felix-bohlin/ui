@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
@@ -13,6 +14,9 @@ import ListDenseVue from "../../component-examples/ListDense.vue"
 import ListDenseVueRaw from "../../component-examples/ListDense.vue?raw"
 import Conditional from "../../components/Conditional.astro"
 
+import listApi from "../../component-api/list/api"
+import listItemApi from "../../component-api/list-item/api"
+
 export const description =
   "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it."
 ---
@@ -20,6 +24,11 @@ export const description =
 <Component
   description={description}
   slug="list"
+  heroAnatomy
+  apis={[
+    { title: "List API", api: listApi },
+    { title: "List item API", api: listItemApi },
+  ]}
   browserSupport={["has", "light-dark", "relative-color"]}
   changelogPaths={[
     {
@@ -381,56 +390,25 @@ export const description =
   </section>
 
   <Fragment slot="anatomy">
-    <ol>
-      <li>Container: <code>ul.ui-list</code></li>
-      <li>List item: <code>li</code></li>
-      <li>
-        Content wrapper (optional): <code>a</code>, <code>button</code>, <code
-          >label</code
-        >
-      </li>
-      <li>
-        Start content (optional): <code>.ui-start</code> &gt; <code>svg</code>, <code
-          >img</code
-        >, <code>video</code>
-      </li>
-      <li>
-        Text content: <code>.ui-text</code> &gt; <code>p</code>, <code
-          >p + p</code
-        >
-      </li>
-      <li>
-        End content (optional): <code>.ui-end</code> &gt; <code>svg</code>, <code
-          >p</code
-        >, <code>button</code>, <code>a</code>, <code>input</code>
-      </li>
-    </ol>
-
-    <Example>
-      <Example.Preview slot="preview-astro">
-        <UIList class="anatomy">
-          <ListItem
-            class="anatomy"
-            headline="Headline"
-            description="Supporting text"
+    <Anatomy api={listItemApi} zoom={1.25}>
+      <UIList style="inline-size: 18rem">
+        <ListItem headline="Headline" description="Supporting text">
+          <svg
+            slot="start"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
           >
-            <svg
-              slot="start"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-            >
-              <path
-                fill="currentColor"
-                d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
-              ></path>
-            </svg>
-            <div slot="end">100+</div>
-          </ListItem>
-        </UIList>
-      </Example.Preview>
-    </Example>
+            <path
+              fill="currentColor"
+              d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
+            ></path>
+          </svg>
+          <div slot="end">100+</div>
+        </ListItem>
+      </UIList>
+    </Anatomy>
   </Fragment>
 </Component>
 
@@ -478,23 +456,5 @@ export const description =
   .tab-panel ul {
     margin: 0 auto;
     max-inline-size: 40ch;
-  }
-
-  .anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: -2px;
-
-    .ui-text,
-    svg,
-    img,
-    video,
-    .ui-start,
-    .ui-end,
-    a,
-    button,
-    label {
-      outline: var(--_anatomy-border-red);
-      outline-offset: -3px;
-    }
   }
 </style>

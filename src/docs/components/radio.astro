@@ -1,13 +1,14 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import { Radio as UIRadio } from "@opui/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import RadioCSS from "@opui/css/components/radio.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
-import FieldGroupAPIAstro from "../../component-api/field-group/Astro.astro"
-import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
-import FieldGroupAPIVue from "../../component-api/field-group/Vue.astro"
+import fieldGroupApi from "../../component-api/field-group/api"
+import radioApi from "../../component-api/radio/api"
 
 import Conditional from "../../components/Conditional.astro"
 ---
@@ -15,11 +16,11 @@ import Conditional from "../../components/Conditional.astro"
 <Component
   slug="radio"
   browserSupport={["has"]}
-  apis={{
-    astro: FieldGroupAPIAstro,
-    html: FieldGroupAPIHTML,
-    vue: FieldGroupAPIVue,
-  }}
+  heroAnatomy
+  apis={[
+    { title: "Radio API", api: radioApi },
+    { title: "Field group API", api: fieldGroupApi },
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Radio",
@@ -133,6 +134,15 @@ import Conditional from "../../components/Conditional.astro"
 
     <AutoExample name="FieldGroupValidation" row />
   </section>
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={1.5}>
+      <UIRadio checked name="radio-anatomy">
+        Label
+        <Fragment slot="end-text">End text</Fragment>
+      </UIRadio>
+    </Anatomy>
+  </Fragment>
 </Component>
 
 <style is:global>

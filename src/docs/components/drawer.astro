@@ -4,9 +4,8 @@ import Example from "../../components/Example"
 import { Switch, Table } from "@opui/astro"
 
 import DrawerCSS from "@opui/css/components/drawer.css?raw"
-import DrawerAPIAstro from "../../component-api/drawer/Astro.astro"
-import DrawerAPIHTML from "../../component-api/drawer/HTML.astro"
-import DrawerAPIVue from "../../component-api/drawer/Vue.astro"
+import drawerApi from "../../component-api/drawer/api"
+import drawerHeaderApi from "../../component-api/drawer-header/api"
 
 import ExampleUsage from "../../component-examples/drawer/Usage.astro"
 import ExampleUsageVue from "../../component-examples/drawer/Usage.vue"
@@ -26,11 +25,10 @@ import Conditional from "../../components/Conditional.astro"
     "starting-style",
     "transition-behavior",
   ]}
-  apis={{
-    astro: DrawerAPIAstro,
-    html: DrawerAPIHTML,
-    vue: DrawerAPIVue,
-  }}
+  apis={[
+    { title: "Drawer API", api: drawerApi },
+    { title: "Drawer header API", api: drawerHeaderApi },
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Drawer",

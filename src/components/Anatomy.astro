@@ -1,0 +1,359 @@
+---
+import { List, ListItem } from "@opui/astro"
+import type { Framework } from "../component-api/frameworks"
+import { partLabel } from "../component-api/rows"
+import type { ComponentApi } from "../component-api/types"
+import { formatInline } from "../utils/format-inline"
+import { DEFAULT_FRAMEWORK } from "../utils/framework-routing"
+
+type Props = {
+  api?: ComponentApi
+  zoom?: number
+}
+
+const apis = import.meta.glob<ComponentApi>("../component-api/*/api.ts", {
+  eager: true,
+  import: "default",
+})
+
+const {
+  api = apis[`../component-api/${Astro.locals.componentSlug}/api.ts`],
+  zoom = 1,
+} = Astro.props
+const { $id } = Astro.locals
+
+const id = $id("anatomy")
+const framework = (Astro.currentLocale ?? DEFAULT_FRAMEWORK) as Framework
+
+const parts = [
+  { ...api.root, label: partLabel(api, api.root, framework, true) },
+  ...api.parts.map((part) => ({
+    ...part,
+    label: partLabel(api, part, framework),
+  })),
+]
+
+const anchors = parts
+  .map(
+    (part, i) =>
+      `[data-anatomy="${id}"] .subject :is(${part.selector}) { anchor-name: ${[part.anchorName, `--${id}-part-${i + 1}`].filter(Boolean).join(", ")}; }`,
+  )
+  .join("\n")
+
+const step = 100 / parts.length
+const tour = `@keyframes ${id}-tour {
+  0%, ${step}%, 100% { --anatomy-on: 0; }
+  ${step * 0.2}%, ${step * 0.8}% { --anatomy-on: 1; }
+}`
+---
+
+<figure
+  class="anatomy-diagram ui-card ui-outlined ui-not-rich-text"
+  data-anatomy={id}
+>
+  <style is:inline set:html={anchors + tour}></style>
+  <div
+    class="layout"
+    style={`--count: ${parts.length}; --subject: --${id}-subject; --tour: ${id}-tour;`}
+  >
+    <div class="stage">
+      <div class="subject" inert style={`--zoom: ${zoom};`}>
+        <slot />
+      </div>
+    </div>
+
+    <List class="legend" dense variant="transparent">
+      {
+        parts.map((part, i) => (
+          <ListItem
+            class="part"
+            tabindex="0"
+            style={`--i: ${i}; --part: --${id}-part-${i + 1}; --marker: --${id}-marker-${i + 1};`}
+          >
+            <span slot="start" class="marker" />
+            <Fragment slot="text">
+              <p>
+                <code>{part.label}</code>
+              </p>
+              <p set:html={formatInline(part.description)} />
+            </Fragment>
+            <span class="frame" aria-hidden="true" />
+            <span class="leader" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
+          </ListItem>
+        ))
+      }
+    </List>
+  </div>
+</figure>
+
+<style>
+  @property --anatomy-on {
+    inherits: true;
+    initial-value: 0;
+    syntax: "<number>";
+  }
+
+  .anatomy-diagram {
+    box-shadow: var(--shadow-2);
+    container-type: inline-size;
+    margin-block: var(--size-4);
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .layout {
+    --_accent: var(--primary);
+    --_idle: color-mix(in oklch, var(--text-muted) 45%, transparent);
+    --_knee: var(--size-5);
+    --_line: 1.5px;
+    --_step: 2.4s;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
+    position: relative;
+  }
+
+  .stage {
+    display: grid;
+    isolation: isolate;
+    min-block-size: var(--size-12);
+    padding: var(--size-5);
+    place-items: center;
+    position: relative;
+
+    &:before {
+      background-image: radial-gradient(
+        var(--text-muted) 1.45px,
+        transparent 1.45px
+      );
+      background-size: 20px 20px;
+      content: "";
+      inset: 0;
+      opacity: 0.05;
+      pointer-events: none;
+      position: absolute;
+      z-index: -1;
+    }
+  }
+
+  .subject {
+    anchor-name: var(--subject);
+    max-inline-size: calc(100% / var(--zoom));
+    zoom: var(--zoom);
+
+    > :global(*) {
+      max-inline-size: 100%;
+    }
+  }
+
+  .layout :global(.legend) {
+    align-content: center;
+    border-inline-start: var(--border-width) solid var(--border-color);
+    display: grid;
+    margin: 0;
+    padding: var(--size-3);
+  }
+
+  .layout :global(.part) {
+    animation: var(--tour) calc(var(--count) * var(--_step)) ease-in-out
+      calc(var(--i) * var(--_step)) infinite;
+    background-color: color-mix(
+      in oklch,
+      var(--_accent) calc(var(--anatomy-on) * 8%),
+      transparent
+    );
+    border-radius: var(--radius-2);
+    cursor: default;
+    outline-offset: -2px;
+    position: static;
+    transition: --anatomy-on 0.45s ease-out;
+  }
+
+  .marker {
+    anchor-name: var(--marker);
+    background-color: color-mix(
+      in oklch,
+      var(--_accent) calc(var(--anatomy-on) * 100%),
+      transparent
+    );
+    block-size: 0.5rem;
+    border: var(--_line) solid
+      color-mix(
+        in oklch,
+        var(--_accent) calc(var(--anatomy-on) * 100%),
+        var(--_idle)
+      );
+    border-radius: 50%;
+    inline-size: 0.5rem;
+  }
+
+  .frame {
+    background-color: color-mix(
+      in oklch,
+      var(--_accent) calc(var(--anatomy-on) * 12%),
+      transparent
+    );
+    border: 1px solid
+      color-mix(
+        in oklch,
+        var(--_accent) calc(var(--anatomy-on) * 100%),
+        transparent
+      );
+    border-radius: var(--radius-1);
+    bottom: anchor(bottom);
+    left: anchor(left);
+    position: absolute;
+    position-anchor: var(--part);
+    right: anchor(right);
+    top: anchor(top);
+  }
+
+  .leader {
+    display: contents;
+
+    > * {
+      border: 0 solid var(--_accent);
+      pointer-events: none;
+      position: absolute;
+    }
+
+    > :nth-child(1) {
+      border-block-start-width: var(--_line);
+      left: calc(anchor(var(--subject) right) + var(--_knee));
+      right: anchor(var(--marker) left);
+      scale: clamp(0, var(--anatomy-on) * 3, 1) 1;
+      top: anchor(var(--marker) center);
+      transform-origin: right;
+      translate: 0 calc(var(--_line) / -2);
+    }
+
+    > :nth-child(2) {
+      border-inline-start-width: var(--_line);
+      bottom: min(anchor(var(--marker) center), anchor(var(--part) center));
+      left: calc(anchor(var(--subject) right) + var(--_knee));
+      scale: 1 clamp(0, var(--anatomy-on) * 3 - 1, 1);
+      top: min(anchor(var(--marker) center), anchor(var(--part) center));
+      translate: calc(var(--_line) / -2) 0;
+    }
+
+    > :nth-child(3) {
+      border-block-start-width: var(--_line);
+      left: anchor(var(--part) right);
+      right: calc(anchor(var(--subject) right) - var(--_knee));
+      scale: clamp(0, var(--anatomy-on) * 3 - 2, 1) 1;
+      top: anchor(var(--part) center);
+      transform-origin: right;
+      translate: 0 calc(var(--_line) / -2);
+
+      &:after {
+        background-color: var(--_accent);
+        block-size: 7px;
+        border-radius: 50%;
+        content: "";
+        inline-size: 7px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        translate: -50% calc(-50% - var(--_line) / 2);
+      }
+    }
+  }
+
+  .layout:global(:has(.part:hover, .part:focus)) :global(.part) {
+    animation: none;
+  }
+
+  .layout :global(.part:hover),
+  .layout:global(:not(:has(.part:hover))) :global(.part:focus) {
+    --anatomy-on: 1;
+  }
+
+  @container (inline-size < 40rem) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .subject {
+      max-inline-size: 100%;
+      zoom: 1;
+    }
+
+    .stage {
+      padding-inline: var(--size-3);
+    }
+
+    .layout :global(.legend) {
+      border-block-start: var(--border-width) solid var(--border-color);
+      border-inline-start: 0;
+    }
+
+    .leader {
+      display: none;
+    }
+  }
+
+  @container style(--anatomy-hero: 1) {
+    .anatomy-diagram {
+      background: none;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      margin-block: var(--size-2) 0;
+      overflow: visible;
+    }
+
+    .stage {
+      padding-inline: 0 var(--size-9);
+
+      &:before {
+        inset: calc(var(--size-8) * -1);
+        mask-image: radial-gradient(closest-side, #000 30%, transparent);
+        opacity: 0.15;
+      }
+
+      &:after {
+        background: radial-gradient(
+          closest-side,
+          color-mix(in oklch, var(--_accent) 22%, transparent),
+          transparent
+        );
+        content: "";
+        inset: -10%;
+        pointer-events: none;
+        position: absolute;
+        z-index: -1;
+      }
+
+      @container (inline-size < 40rem) {
+        padding-inline: 0;
+
+        &:before,
+        &:after {
+          inset: 0;
+        }
+      }
+    }
+
+    .layout :global(.legend) {
+      border: 0;
+    }
+  }
+
+  @supports not (anchor-name: --a) {
+    .frame,
+    .leader {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .layout :global(.part) {
+      animation: none;
+      transition: none;
+    }
+  }
+</style>

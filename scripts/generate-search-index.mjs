@@ -1,5 +1,6 @@
 import fs from "fs"
 import path from "path"
+import { pathToFileURL } from "url"
 import { globby } from "globby"
 
 import { FRAMEWORKS } from "../src/utils/framework.js"
@@ -14,7 +15,7 @@ function frameworkUrl(framework, sharedPath) {
 }
 
 function readMeta(file) {
-  const content = fs.readFileSync(file, "utf-8")
+  const content = fs.readFileSync(file, "utf-8").replace(/\r\n/g, "\n")
   const titleMatch = content.match(/<Fragment slot="title">(.*?)<\/Fragment>/s)
   const descriptionExportMatch = content.match(
     /export const description\s*=\s*("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/s,
@@ -56,6 +57,7 @@ async function generateIndex() {
   ).sort()
   const homePages = await globby(["src/pages/index.astro"])
   const apiFiles = (await globby(["src/component-api/**/*.astro"])).sort()
+  const apiDataFiles = (await globby(["src/component-api/*/api.ts"])).sort()
 
   const index = []
 
@@ -142,6 +144,8 @@ async function generateIndex() {
     })
   }
 
+  const apiEntries = []
+
   // Component API tables: index the cell content per framework. The API page
   // itself is framework-aware (lives at /api and /astro/api).
   for (const file of apiFiles) {
@@ -176,17 +180,79 @@ async function generateIndex() {
 
     const apiUrl = frameworkUrl(frameworkId, "/api") + `#${folder}`
 
-    index.push({
-      id: `api-${folder}-${frameworkId}`,
-      title: `${componentName} API`,
-      description: `Reference for ${componentName} ${type} component.`,
-      headings: apiContent.join(" "),
-      category: "API",
-      frameworkId,
-      type,
-      url: apiUrl,
-    })
+    apiEntries.push([
+      `${folder}/${type}`,
+      {
+        id: `api-${folder}-${frameworkId}`,
+        title: `${componentName} API`,
+        description: `Reference for ${componentName} ${type} component.`,
+        headings: apiContent.join(" "),
+        category: "API",
+        frameworkId,
+        type,
+        url: apiUrl,
+      },
+    ])
   }
+
+  for (const file of apiDataFiles) {
+    const { default: api } = await import(
+      pathToFileURL(path.resolve(file)).href
+    )
+    const folder = path.basename(path.dirname(file))
+
+    const componentName = folder
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ")
+
+    for (const framework of FRAMEWORKS) {
+      const html = framework.id === "html"
+      const options = api.options.filter(
+        (option) =>
+          !option.frameworks || option.frameworks.includes(framework.id),
+      )
+      const terms = [
+        html ? api.root.selector : api.component,
+        api.root.description,
+        ...api.parts.flatMap((part) => [
+          part.description,
+          ...(html
+            ? [part.selector]
+            : [...(part.props ?? []), ...(part.slots ?? [])]),
+        ]),
+        ...options.flatMap((option) =>
+          html
+            ? [
+                option.class,
+                option.attribute,
+                option.cssVar,
+                ...Object.values(option.values ?? {}),
+                option.group,
+                option.description,
+              ]
+            : [option.prop, option.description],
+        ),
+      ].filter(Boolean)
+
+      apiEntries.push([
+        `${folder}/${framework.label}`,
+        {
+          id: `api-${folder}-${framework.id}`,
+          title: `${componentName} API`,
+          description: `Reference for ${componentName} ${framework.label} component.`,
+          headings: terms.join(" "),
+          category: "API",
+          frameworkId: framework.id,
+          type: framework.label,
+          url: frameworkUrl(framework.id, "/api") + `#${folder}`,
+        },
+      ])
+    }
+  }
+
+  apiEntries.sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
+  index.push(...apiEntries.map(([, entry]) => entry))
 
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(index, null, 2))
   console.log(`Generated index with ${index.length} items at ${OUTPUT_FILE}`)

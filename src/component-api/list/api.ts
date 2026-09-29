@@ -18,11 +18,6 @@ export default {
       prop: "dense",
     },
     {
-      default: "false",
-      description: "Currently has no effect.",
-      prop: "divided",
-    },
-    {
       class: ".ui-gutterless",
       default: "false",
       description: "Removes the inline padding.",

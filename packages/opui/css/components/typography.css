@@ -142,12 +142,12 @@
 
   /* Code */
   :where(.ui-kbd) {
-    font-family: var(--font-mono);
     background-color: var(--text-muted);
     border-color: var(--text-muted);
     border-radius: var(--radius-2);
     border-width: var(--border-size-1);
     color: var(--text-muted-contrast);
+    font-family: var(--font-mono);
     padding: 0.1ex 0.3ex;
     word-break: break-word;
   }
@@ -180,12 +180,12 @@
   }
 
   :where(.ui-var) {
-    font-family: var(--font-mono);
     background-color: var(--text-muted);
     border-color: var(--text-muted);
     border-radius: var(--radius-2);
     border-width: var(--border-size-1);
     color: var(--text-muted-contrast);
+    font-family: var(--font-mono);
     padding: 0.1ex 0.3ex;
     word-break: break-word;
   }

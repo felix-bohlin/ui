@@ -1,6 +1,7 @@
 export type RangeProps = {
   [key: string]: any
   endText?: string
+  error?: boolean
   id?: string
   label?: string
   spread?: boolean

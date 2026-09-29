@@ -1,5 +1,11 @@
 <label class="ui-range" data-invalid>
-  <span class="ui-label">Invalid Range</span>
-  <input type="range" />
-  <span class="ui-end-text">This value is incorrect.</span>
+  <span class="ui-label" id="range-validation-1-label">Invalid Range</span>
+  <input
+    aria-describedby="range-validation-1-end-text"
+    aria-labelledby="range-validation-1-label"
+    type="range"
+  />
+  <span class="ui-end-text" id="range-validation-1-end-text"
+    >This value is incorrect.</span
+  >
 </label>

@@ -4,16 +4,16 @@ import { Switch } from "opui-css/vue"
 
 <template>
   <div class="example-row ui-spacious">
-    <Switch required>Default</Switch>
-    <Switch required stack>Stack</Switch>
+    <Switch name="switch-validation" required>Default</Switch>
+    <Switch name="switch-validation" required stack>Stack</Switch>
   </div>
 
   <div class="example-row ui-spacious">
-    <Switch error>
+    <Switch name="switch-validation" error>
       Default
       <template #end-text>Supporting text</template>
     </Switch>
-    <Switch error stack>
+    <Switch name="switch-validation" error stack>
       Stack
       <template #end-text>Supporting text</template>
     </Switch>

@@ -3,7 +3,7 @@ import { Switch } from "opui-css/vue"
 </script>
 
 <template>
-  <Switch class="anatomy">
+  <Switch name="switch-anatomy" class="anatomy">
     Label
     <template #end-text>End text</template>
   </Switch>

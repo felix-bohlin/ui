@@ -2,7 +2,7 @@
   <div class="anatomy">
     <div class="ui-select">
       <div>
-        <button class="anatomy">
+        <button class="anatomy" v-pre>
           <selectedcontent></selectedcontent>
         </button>
         <div class="ui-list">

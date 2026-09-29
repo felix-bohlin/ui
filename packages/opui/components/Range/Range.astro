@@ -7,6 +7,7 @@ const {
   class: className,
   disabled,
   endText,
+  error,
   id,
   label,
   list,
@@ -29,8 +30,11 @@ const hasLabel = !!label || Astro.slots.has("default")
 const hasStartText = !!startText || Astro.slots.has("start-text")
 const hasEndText = !!endText || Astro.slots.has("end-text")
 const hasValue = valueSuffix !== undefined || Astro.slots.has("value")
+const valueText = [value, valueSuffix]
+  .filter((part) => part !== undefined)
+  .join("")
 
-const inputId = id || $id("range")
+const inputId = id || (hasValue ? $id("range") : undefined)
 const labelId = hasLabel ? $id("range-label") : undefined
 const startTextId = hasStartText ? $id("range-start") : undefined
 const endTextId = hasEndText ? $id("range-end") : undefined
@@ -46,6 +50,7 @@ const describedBy =
     { "ui-spread": spread },
     className,
   ]}
+  data-invalid={error ? "" : undefined}
 >
   {
     hasLabel && (
@@ -58,7 +63,7 @@ const describedBy =
   {
     hasValue && (
       <output class="ui-value" for={inputId} data-suffix={valueSuffix}>
-        <slot name="value">{value}</slot>
+        <slot name="value">{valueText}</slot>
       </output>
     )
   }

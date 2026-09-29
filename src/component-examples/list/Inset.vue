@@ -22,8 +22,8 @@ import { List, ListItem } from "opui-css/vue"
       <p>Makes the text line up nicely</p>
     </ListItem>
     <ListItem inset headline="Inset class">
-      <template #start><div>Hidden</div></template>
-      <p>Any <code>div.start</code> will be hidden when inset</p>
+      <template #start>Hidden</template>
+      <p>Any <code>div.ui-start</code> will be hidden when inset</p>
     </ListItem>
   </List>
 </template>

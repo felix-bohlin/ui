@@ -25,9 +25,6 @@ const {
   value,
   ...rest
 } = Astro.props
-
-const { $id } = Astro.locals
-const fieldId = id || $id("textarea")
 ---
 
 <label
@@ -41,7 +38,7 @@ const fieldId = id || $id("textarea")
     },
     className,
   ]}
-  data-invalid={error || undefined}
+  data-invalid={error ? "" : undefined}
   {...rest}
 >
   {
@@ -65,7 +62,7 @@ const fieldId = id || $id("textarea")
     <textarea
       cols={cols}
       disabled={disabled}
-      id={fieldId}
+      id={id}
       maxlength={maxlength}
       minlength={minlength}
       name={name}

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject } from "vue"
+import { computed, inject, useAttrs } from "vue"
 import type { SwitchInputProps } from "./types"
 import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
@@ -8,8 +8,20 @@ defineOptions({
 })
 
 defineProps<SwitchInputProps>()
-const modelValue = defineModel<boolean | (string | number)[]>()
+const attrs = useAttrs()
+const modelValue = defineModel<boolean | (string | number)[] | undefined>({
+  default: undefined,
+})
 const currentFieldName = inject(CurrentFieldNameKey, undefined)
+
+const model = computed({
+  get: () =>
+    modelValue.value ??
+    (attrs.checked !== undefined && attrs.checked !== false),
+  set: (value) => {
+    modelValue.value = value
+  },
+})
 </script>
 
 <template>
@@ -18,6 +30,6 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
     role="switch"
     :name="currentFieldName"
     v-bind="$attrs"
-    v-model="modelValue"
+    v-model="model"
   />
 </template>

@@ -3,7 +3,7 @@ import { Badge } from "opui-css/vue"
 </script>
 
 <template>
-  <Badge label="5">
+  <Badge label="5" invisible>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -17,7 +17,7 @@ import { Badge } from "opui-css/vue"
     </svg>
   </Badge>
 
-  <Badge dot>
+  <Badge dot invisible>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"

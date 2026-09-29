@@ -14,7 +14,7 @@ export default function Example() {
             />
           </video>
         }
-        end={<div>13:37</div>}
+        end="13:37"
       />
       <ListItem
         headline="Headline"
@@ -27,7 +27,7 @@ export default function Example() {
             />
           </video>
         }
-        end={<div>90s</div>}
+        end="90s"
       />
     </List>
   )

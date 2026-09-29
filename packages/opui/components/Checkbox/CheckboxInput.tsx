@@ -9,7 +9,7 @@ export default function CheckboxInput(props: CheckboxInputProps) {
   return (
     <input
       type="checkbox"
-      data-indeterminate={props.indeterminate || undefined}
+      data-indeterminate={props.indeterminate ? "" : undefined}
       name={props.name ?? fieldGroup.name}
       prop:indeterminate={!!props.indeterminate}
       {...rest}

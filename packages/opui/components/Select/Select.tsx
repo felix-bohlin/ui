@@ -26,11 +26,8 @@ export default function Select(rawProps: Props) {
     "variant",
   )
 
-  const uid = createUniqueId()
   const labelId = createUniqueId()
   const endTextId = createUniqueId()
-
-  const selectId = () => props.id ?? uid
 
   return (
     <label
@@ -43,7 +40,7 @@ export default function Select(rawProps: Props) {
         },
         props.class,
       ]}
-      data-invalid={props.error || undefined}
+      data-invalid={props.error ? "" : undefined}
     >
       <Show when={props.label}>
         <span class="ui-label" id={labelId}>
@@ -56,7 +53,7 @@ export default function Select(rawProps: Props) {
       <span class="ui-field">
         <select
           aria-labelledby={props.label ? labelId : undefined}
-          id={selectId()}
+          id={props.id}
           name={props.name ?? fieldGroup.name}
           {...rest}
         >

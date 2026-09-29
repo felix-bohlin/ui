@@ -4,6 +4,7 @@ export default function Example() {
   return (
     <>
       <Switch
+        name="switch-icons"
         small
         aria-label="Toggle theme"
         iconUnchecked={
@@ -35,6 +36,7 @@ export default function Example() {
       />
 
       <Switch
+        name="switch-icons"
         checked
         aria-label="Toggle theme"
         iconUnchecked={

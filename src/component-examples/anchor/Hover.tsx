@@ -3,11 +3,7 @@ import { Anchor } from "opui-css/solid"
 export default function Example() {
   return (
     <Anchor
-      anchored={
-        <span>
-          <div class="ui-card ui-elevated">Tooltip content</div>
-        </span>
-      }
+      anchored={<div class="ui-card ui-elevated">Tooltip content</div>}
       id="anchor-hover"
       trigger="hover"
     >

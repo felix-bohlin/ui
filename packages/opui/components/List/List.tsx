@@ -20,6 +20,7 @@ export default function List(props: Props) {
         {
           "ui-bordered": !!props.bordered,
           "ui-dense": !!props.dense,
+          "ui-divided": !!props.divided,
           "ui-gutterless": !!props.gutterless,
         },
         props.variant && `ui-${props.variant}`,

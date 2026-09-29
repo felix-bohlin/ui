@@ -2,7 +2,7 @@ import { Switch } from "opui-css/solid"
 
 export default function Example() {
   return (
-    <Switch class="anatomy" endText="End text">
+    <Switch name="switch-anatomy" class="anatomy" endText="End text">
       Label
     </Switch>
   )

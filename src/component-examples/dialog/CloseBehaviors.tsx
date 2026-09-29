@@ -32,22 +32,20 @@ export default function Example() {
         closedby={closedby()}
         header={<h2 class="ui-h4">How to close</h2>}
         content={
-          <div>
-            <FieldSet>
-              <FieldLegend>Choose a closing behavior:</FieldLegend>
-              <FieldGroup name="closedby-demo">
-                <Radio value="any" checked onChange={onChange}>
-                  any
-                </Radio>
-                <Radio value="closerequest" onChange={onChange}>
-                  closerequest
-                </Radio>
-                <Radio value="none" onChange={onChange}>
-                  none
-                </Radio>
-              </FieldGroup>
-            </FieldSet>
-          </div>
+          <FieldSet>
+            <FieldLegend>Choose a closing behavior:</FieldLegend>
+            <FieldGroup name="closedby-demo">
+              <Radio value="any" checked onChange={onChange}>
+                any
+              </Radio>
+              <Radio value="closerequest" onChange={onChange}>
+                closerequest
+              </Radio>
+              <Radio value="none" onChange={onChange}>
+                none
+              </Radio>
+            </FieldGroup>
+          </FieldSet>
         }
         actions={
           <Button commandfor="closing-behaviors-dialog" command="close">

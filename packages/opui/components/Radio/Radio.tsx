@@ -26,7 +26,7 @@ export default function Radio(props: RadioProps) {
         { "ui-stack": !!props.stack },
         props.class,
       ]}
-      data-invalid={props.error || undefined}
+      data-invalid={props.error ? "" : undefined}
     >
       <RadioInput aria-describedby={endTextId()} name={props.name} {...rest} />
       <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>

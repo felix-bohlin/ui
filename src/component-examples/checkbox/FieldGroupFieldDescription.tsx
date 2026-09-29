@@ -13,10 +13,7 @@ export default function Example() {
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
         <FieldDescription>Field description above fields</FieldDescription>
-        <FieldGroup
-          direction="row"
-          name="checkbox-group-field-description-1-astro"
-        >
+        <FieldGroup direction="row" name="checkbox-group-field-description-1">
           <Checkbox checked>Checkbox 1</Checkbox>
           <Checkbox>Checkbox 2</Checkbox>
           <Checkbox>Checkbox 3</Checkbox>
@@ -25,10 +22,7 @@ export default function Example() {
 
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup
-          direction="row"
-          name="checkbox-group-field-description-2-astro"
-        >
+        <FieldGroup direction="row" name="checkbox-group-field-description-2">
           <Checkbox checked>Checkbox 1</Checkbox>
           <Checkbox>Checkbox 2</Checkbox>
           <Checkbox>Checkbox 3</Checkbox>

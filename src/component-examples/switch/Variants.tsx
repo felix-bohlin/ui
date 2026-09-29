@@ -3,14 +3,16 @@ import { Switch } from "opui-css/solid"
 export default function Example() {
   return (
     <>
-      <Switch checked hideLabel>
+      <Switch name="switch-variants" checked hideLabel>
         Label
       </Switch>
-      <Switch hideLabel>Label</Switch>
-      <Switch checked disabled hideLabel>
+      <Switch name="switch-variants" hideLabel>
         Label
       </Switch>
-      <Switch disabled hideLabel>
+      <Switch name="switch-variants" checked disabled hideLabel>
+        Label
+      </Switch>
+      <Switch name="switch-variants" disabled hideLabel>
         Label
       </Switch>
     </>

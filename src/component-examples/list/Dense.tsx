@@ -1,10 +1,10 @@
-import { List } from "opui-css/solid"
-import ListDense from "../ListDense.tsx"
+import { List, ListItem } from "opui-css/solid"
 
 export default function Example() {
   return (
     <List dense>
-      <ListDense />
+      <ListItem headline="Dense list item" />
+      <ListItem headline="Dense list item" />
     </List>
   )
 }

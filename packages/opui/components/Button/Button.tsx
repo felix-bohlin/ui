@@ -23,7 +23,6 @@ export default function Button(props: Props) {
       component={Tag()}
       class={[
         "ui-button",
-        { "ui-disabled": isButton() && !!props.disabled },
         props.size && `ui-${props.size}`,
         props.variant && `ui-${props.variant}`,
         props.color && `ui-${props.color}`,

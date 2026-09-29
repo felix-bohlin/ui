@@ -5,10 +5,16 @@ export default function Example() {
     <Form>
       <FieldSet>
         <FieldLegend>These are required!</FieldLegend>
-        <FieldGroup direction="row" name="fieldset-required-1-astro">
-          <Radio required>Radio 1</Radio>
-          <Radio required>Radio 2</Radio>
-          <Radio required>Radio 3</Radio>
+        <FieldGroup direction="row" name="radio-group-required">
+          <Radio value="1" required>
+            Radio 1
+          </Radio>
+          <Radio value="2" required>
+            Radio 2
+          </Radio>
+          <Radio value="3" required>
+            Radio 3
+          </Radio>
         </FieldGroup>
       </FieldSet>
     </Form>

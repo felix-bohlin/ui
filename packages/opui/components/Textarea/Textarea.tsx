@@ -1,4 +1,4 @@
-import { createUniqueId, omit, Show, useContext } from "solid-js"
+import { omit, Show, useContext } from "solid-js"
 import { FieldGroupContext } from "../FieldGroup/context"
 import type { Props } from "./types.solid"
 
@@ -25,9 +25,6 @@ export default function Textarea(props: Props) {
     "supportingText",
   )
 
-  const uid = createUniqueId()
-  const fieldId = () => props.id || uid
-
   return (
     <label
       class={[
@@ -40,7 +37,7 @@ export default function Textarea(props: Props) {
         },
         props.class,
       ]}
-      data-invalid={props.error ? "true" : undefined}
+      data-invalid={props.error ? "" : undefined}
     >
       <Show when={props.label}>
         <span class="ui-label">{props.label}</span>
@@ -52,7 +49,7 @@ export default function Textarea(props: Props) {
 
       <span class="ui-field">
         <textarea
-          id={fieldId()}
+          id={props.id}
           name={props.name ?? fieldGroup.name}
           {...rest}
         ></textarea>

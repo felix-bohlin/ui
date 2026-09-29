@@ -30,7 +30,7 @@ export default function Checkbox(props: CheckboxProps) {
         },
         props.class,
       ]}
-      data-invalid={props.error || undefined}
+      data-invalid={props.error ? "" : undefined}
     >
       <CheckboxInput
         aria-describedby={endTextId()}

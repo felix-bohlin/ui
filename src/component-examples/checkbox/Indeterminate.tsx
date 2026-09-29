@@ -20,9 +20,10 @@ export default function Example() {
   }
 
   return (
-    <FieldSet>
+    <FieldSet class="indeterminate-demo">
       <FieldLegend>
         <Checkbox
+          class="parent"
           checked={allChecked()}
           indeterminate={indeterminate()}
           onChange={toggleAll}
@@ -34,6 +35,7 @@ export default function Example() {
         <For each={items}>
           {(item, index) => (
             <Checkbox
+              class="child"
               checked={checked()[index()]}
               onChange={(event) => toggle(index(), event.currentTarget.checked)}
             >

@@ -3,19 +3,19 @@ import { Checkbox } from "opui-css/solid"
 export default function Example() {
   return (
     <>
-      <Checkbox checked name="checkbox" hideLabel>
+      <Checkbox checked name="checkbox-variants" hideLabel>
         Checked
       </Checkbox>
-      <Checkbox name="checkbox" hideLabel>
+      <Checkbox name="checkbox-variants" hideLabel>
         Unchecked
       </Checkbox>
-      <Checkbox indeterminate name="checkbox" hideLabel>
+      <Checkbox indeterminate name="checkbox-variants" hideLabel>
         Indeterminate
       </Checkbox>
-      <Checkbox disabled name="checkbox" hideLabel>
+      <Checkbox disabled name="checkbox-variants" hideLabel>
         Disabled
       </Checkbox>
-      <Checkbox checked disabled name="checkbox" hideLabel>
+      <Checkbox checked disabled name="checkbox-variants" hideLabel>
         Checked and disabled
       </Checkbox>
     </>

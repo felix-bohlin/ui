@@ -15,6 +15,7 @@ export default function Range(props: RangeProps) {
     "class",
     "datalist",
     "endText",
+    "error",
     "id",
     "label",
     "list",
@@ -41,7 +42,7 @@ export default function Range(props: RangeProps) {
   const hasValue = () =>
     props.valueSuffix !== undefined || props.valueText !== undefined
 
-  const inputId = () => props.id ?? uid
+  const inputId = () => props.id ?? (hasValue() ? uid : undefined)
   const labelId = () => (hasLabel() ? labelUid : undefined)
   const startTextId = () => (hasStartText() ? startTextUid : undefined)
   const endTextId = () => (hasEndText() ? endTextUid : undefined)
@@ -63,6 +64,7 @@ export default function Range(props: RangeProps) {
         { "ui-spread": !!props.spread },
         props.class,
       ]}
+      data-invalid={props.error ? "" : undefined}
       onInput={(e) => {
         if (e.target instanceof HTMLInputElement) setCurrent(e.target.value)
       }}

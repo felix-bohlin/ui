@@ -4,18 +4,20 @@ export default function Example() {
   return (
     <>
       <div class="example-row">
-        <Switch small checked hideLabel>
+        <Switch name="switch-sizes" small checked hideLabel>
           Small
         </Switch>
-        <Switch checked hideLabel>
+        <Switch name="switch-sizes" checked hideLabel>
           Default
         </Switch>
       </div>
       <div class="example-row">
-        <Switch small checked>
+        <Switch name="switch-sizes" small checked>
           Small
         </Switch>
-        <Switch checked>Default</Switch>
+        <Switch name="switch-sizes" checked>
+          Default
+        </Switch>
       </div>
     </>
   )

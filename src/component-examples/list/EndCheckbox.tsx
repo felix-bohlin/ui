@@ -6,13 +6,13 @@ export default function Example() {
       <ListItem
         type="checkbox"
         for="checkbox-example-1"
-        text={<div>Checkbox 1</div>}
+        text="Checkbox 1"
         end={<CheckboxInput id="checkbox-example-1" />}
       />
       <ListItem
         type="checkbox"
         for="checkbox-example-2"
-        text={<div>Checkbox 2</div>}
+        text="Checkbox 2"
         end={<CheckboxInput id="checkbox-example-2" />}
       />
     </List>

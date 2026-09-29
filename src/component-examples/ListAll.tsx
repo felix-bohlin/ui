@@ -19,15 +19,11 @@ export default function ListAll(rawProps: { prefix?: string }) {
         description="Supporting text that truly is quite long enough to fill up multiple lines."
       />
 
-      <ListItem headline="Trailing supporting text" end={<div>100+</div>} />
+      <ListItem headline="Trailing supporting text" end="100+" />
 
       <ListItem
         headline="Trailing keyboard command"
-        end={
-          <div>
-            <kbd>CTRL+Shift+X</kbd>
-          </div>
-        }
+        end={<kbd>CTRL+Shift+X</kbd>}
       />
 
       <ListItem
@@ -98,6 +94,8 @@ export default function ListAll(rawProps: { prefix?: string }) {
             <img
               src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt=""
+              decoding="async"
+              loading="lazy"
             />
           </Avatar>
         }
@@ -169,22 +167,20 @@ export default function ListAll(rawProps: { prefix?: string }) {
       <ListItem
         headline="End icon button"
         end={
-          <div>
-            <button class="ui-icon-button">
-              <span class="ui-sr-only">More</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-              >
-                <path
-                  fill="currentColor"
-                  d="M16 9.5a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5m0 9a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5M13.5 25a2.5 2.5 0 1 0 5 0a2.5 2.5 0 0 0-5 0"
-                ></path>
-              </svg>
-            </button>
-          </div>
+          <button class="ui-icon-button">
+            <span class="ui-sr-only">More</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M16 9.5a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5m0 9a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5M13.5 25a2.5 2.5 0 1 0 5 0a2.5 2.5 0 0 0-5 0"
+              ></path>
+            </svg>
+          </button>
         }
       />
 
@@ -192,7 +188,7 @@ export default function ListAll(rawProps: { prefix?: string }) {
         borderTop
         type="checkbox"
         for={`${props.prefix}checkbox-all`}
-        text={<div>Checkbox</div>}
+        text="Checkbox"
         end={<CheckboxInput id={`${props.prefix}checkbox-all`} />}
       />
 
@@ -200,11 +196,12 @@ export default function ListAll(rawProps: { prefix?: string }) {
         borderTop
         type="radio"
         for={`${props.prefix}radio-all-1`}
-        text={<div>Radio 1</div>}
+        text="Radio 1"
         end={
           <RadioInput
             id={`${props.prefix}radio-all-1`}
             name={`${props.prefix}radio-group-all`}
+            value="1"
           />
         }
       />
@@ -212,11 +209,12 @@ export default function ListAll(rawProps: { prefix?: string }) {
       <ListItem
         type="radio"
         for={`${props.prefix}radio-all-2`}
-        text={<div>Radio 2</div>}
+        text="Radio 2"
         end={
           <RadioInput
             id={`${props.prefix}radio-all-2`}
             name={`${props.prefix}radio-group-all`}
+            value="2"
           />
         }
       />
@@ -225,7 +223,7 @@ export default function ListAll(rawProps: { prefix?: string }) {
         borderTop
         type="switch"
         for={`${props.prefix}switch-all-1`}
-        text={<div>Switch 1</div>}
+        text="Switch 1"
         end={<SwitchInput id={`${props.prefix}switch-all-1`} />}
       />
     </>

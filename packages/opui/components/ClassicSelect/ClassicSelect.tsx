@@ -29,7 +29,7 @@ export default function ClassicSelect(rawProps: ClassicSelectProps) {
         { "ui-filled": props.variant === "filled" },
         props.class,
       ]}
-      data-invalid={props.error || undefined}
+      data-invalid={props.error ? "" : undefined}
     >
       <Show when={props.label}>
         <span class="ui-label" id={labelId}>

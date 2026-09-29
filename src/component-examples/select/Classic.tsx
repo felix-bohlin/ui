@@ -5,8 +5,8 @@ export default function Example() {
     <>
       <ClassicSelect label="Label">
         <option value="">-</option>
-        <option>Option</option>
-        <option>Option</option>
+        <option>Option 1</option>
+        <option>Option 2</option>
       </ClassicSelect>
 
       <ClassicSelect label="Label" variant="filled">

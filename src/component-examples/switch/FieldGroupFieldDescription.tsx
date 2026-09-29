@@ -13,10 +13,7 @@ export default function Example() {
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
         <FieldDescription>Field description above fields</FieldDescription>
-        <FieldGroup
-          direction="row"
-          name="switch-group-field-description-1-astro"
-        >
+        <FieldGroup direction="row" name="switch-group-field-description-1">
           <Switch>Switch 1</Switch>
           <Switch>Switch 2</Switch>
           <Switch>Switch 3</Switch>
@@ -25,10 +22,7 @@ export default function Example() {
 
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup
-          direction="row"
-          name="switch-group-field-description-2-astro"
-        >
+        <FieldGroup direction="row" name="switch-group-field-description-2">
           <Switch>Switch 1</Switch>
           <Switch>Switch 2</Switch>
           <Switch>Switch 3</Switch>

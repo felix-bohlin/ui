@@ -6,14 +6,26 @@ export default function Example() {
       <ListItem
         type="radio"
         for="radio-example-1"
-        text={<div>Radio 1</div>}
-        end={<RadioInput id="radio-example-1" name="radio-example-group" />}
+        text="Radio 1"
+        end={
+          <RadioInput
+            id="radio-example-1"
+            name="radio-example-group"
+            value="1"
+          />
+        }
       />
       <ListItem
         type="radio"
         for="radio-example-2"
-        text={<div>Radio 2</div>}
-        end={<RadioInput id="radio-example-2" name="radio-example-group" />}
+        text="Radio 2"
+        end={
+          <RadioInput
+            id="radio-example-2"
+            name="radio-example-group"
+            value="2"
+          />
+        }
       />
     </List>
   )

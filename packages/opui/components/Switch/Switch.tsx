@@ -32,7 +32,7 @@ export default function Switch(props: SwitchProps) {
         },
         props.class,
       ]}
-      data-invalid={props.error || undefined}
+      data-invalid={props.error ? "" : undefined}
     >
       <Show when={props.iconUnchecked}>
         <span class="ui-icon-unchecked" aria-hidden="true">

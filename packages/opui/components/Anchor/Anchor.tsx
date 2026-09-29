@@ -1,4 +1,4 @@
-import { createUniqueId, merge, omit, Show } from "solid-js"
+import { createUniqueId, merge, omit } from "solid-js"
 import type { Props } from "./types.solid"
 
 const insetMap: Record<string, string> = {
@@ -34,9 +34,7 @@ export default function Anchor(rawProps: Props) {
 
   return (
     <span class={["ui-anchor", props.class]} style={positionArea()} {...rest}>
-      <Show when={isHover()} fallback={props.children}>
-        <span interestfor={id() || undefined}>{props.children}</span>
-      </Show>
+      {props.children}
       <span
         class="ui-anchor-floating"
         id={id()}

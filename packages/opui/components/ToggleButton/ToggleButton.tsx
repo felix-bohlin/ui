@@ -35,7 +35,7 @@ export default function ToggleButton(props: Props) {
     >
       <input
         aria-pressed={
-          finalType() === "checkbox" ? `${!!props.pressed}` : undefined
+          finalType() === "checkbox" && props.pressed ? "true" : undefined
         }
         checked={props.pressed}
         disabled={props.disabled}

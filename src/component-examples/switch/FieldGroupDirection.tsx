@@ -5,7 +5,7 @@ export default function Example() {
     <Form>
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup direction="row" name="switch-group-direction-astro">
+        <FieldGroup direction="row" name="switch-group-direction">
           <Switch>Switch 1</Switch>
           <Switch>Switch 2</Switch>
           <Switch>Switch 3</Switch>

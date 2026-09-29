@@ -22,9 +22,9 @@ export default function Example() {
       <ListItem inset headline="Inset class">
         <p>Makes the text line up nicely</p>
       </ListItem>
-      <ListItem inset headline="Inset class" start={<div>Hidden</div>}>
+      <ListItem inset headline="Inset class" start="Hidden">
         <p>
-          Any <code>div.start</code> will be hidden when inset
+          Any <code>div.ui-start</code> will be hidden when inset
         </p>
       </ListItem>
     </List>

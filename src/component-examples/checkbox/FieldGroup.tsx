@@ -11,7 +11,7 @@ export default function Example() {
     <Form>
       <FieldSet>
         <FieldLegend>Legend</FieldLegend>
-        <FieldGroup name="checkbox-group-astro">
+        <FieldGroup name="checkbox-group">
           <Checkbox checked>Checkbox 1</Checkbox>
           <Checkbox>Checkbox 2</Checkbox>
           <Checkbox>Checkbox 3</Checkbox>

@@ -13,7 +13,7 @@ export default function Example() {
 
       <Range
         spread
-        data-invalid
+        error
         endText="This value is incorrect."
         startText="Start text"
       >

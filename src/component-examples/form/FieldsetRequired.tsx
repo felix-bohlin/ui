@@ -13,7 +13,7 @@ export default function Example() {
       <FieldLegend>Pet info</FieldLegend>
       <FieldDescription>We must know your pet's information.</FieldDescription>
       <FieldGroup name="bio">
-        <TextField label="Name" />
+        <TextField label="Name" name="name" />
         <Textarea required label="Life story" />
       </FieldGroup>
     </FieldSet>

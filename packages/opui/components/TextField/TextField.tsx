@@ -1,4 +1,4 @@
-import { createUniqueId, merge, omit, Show, useContext } from "solid-js"
+import { merge, omit, Show, useContext } from "solid-js"
 import { FieldGroupContext } from "../FieldGroup/context"
 import type { Props } from "./types.solid"
 
@@ -28,8 +28,6 @@ export default function TextField(rawProps: Props) {
     "type",
   )
 
-  const uid = createUniqueId()
-  const fieldId = () => props.id || uid
   const isNumeric = () => props.type === "numeric"
   const startTextValue = () => props.description || props.startText
 
@@ -45,7 +43,7 @@ export default function TextField(rawProps: Props) {
         },
         props.class,
       ]}
-      data-invalid={props.error ? "true" : undefined}
+      data-invalid={props.error ? "" : undefined}
     >
       <Show when={props.label}>
         <span class="ui-label">{props.label}</span>
@@ -57,7 +55,7 @@ export default function TextField(rawProps: Props) {
 
       <span class="ui-field">
         <input
-          id={fieldId()}
+          id={props.id}
           name={props.name ?? fieldGroup.name}
           inputmode={isNumeric() ? "numeric" : undefined}
           pattern={isNumeric() ? "[0-9]*" : undefined}

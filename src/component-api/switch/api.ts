@@ -56,6 +56,16 @@ export default {
       selector: "input",
     },
     {
+      description: "An optional icon in the thumb when unchecked.",
+      selector: ".ui-icon-unchecked",
+      slots: ["icon-unchecked"],
+    },
+    {
+      description: "An optional icon in the thumb when checked.",
+      selector: ".ui-icon-checked",
+      slots: ["icon-checked"],
+    },
+    {
       description: "The label.",
       selector: ".ui-label",
       slots: ["default"],
@@ -70,16 +80,5 @@ export default {
     description: "Container element.",
     selector: "label.ui-switch",
   },
-  slots: [
-    {
-      description: "An icon in the thumb when checked, in `.ui-icon-checked`.",
-      name: "icon-checked",
-    },
-    {
-      description:
-        "An icon in the thumb when unchecked, in `.ui-icon-unchecked`.",
-      name: "icon-unchecked",
-    },
-  ],
   source: "Switch",
 } satisfies ComponentApi

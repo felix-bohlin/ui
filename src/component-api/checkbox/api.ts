@@ -10,7 +10,7 @@ export default {
   notes: {
     astro:
       "Other attributes, such as `checked`, `disabled`, `name` and `required`, go to the `<input>`.",
-    html: "Use `.ui-sr-only` instead of `.ui-label` to hide the label visually.",
+    html: "Use `.ui-sr-only` instead of `.ui-label` to hide the label visually. `data-indeterminate` needs `checkbox.js`, which sets the `indeterminate` property.",
     vue: "Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`.",
   },
   options: [
@@ -27,9 +27,12 @@ export default {
       prop: "hideLabel",
     },
     {
+      attribute: "[data-indeterminate]",
       default: "false",
       description:
         "Shows a partially checked state. Sets the `indeterminate` property on the `<input>`.",
+      group: "State",
+      part: "input",
       prop: "indeterminate",
     },
     {

@@ -3,8 +3,8 @@
 }
 
 *::selection {
-  color: var(--color-1);
   background: var(--color-12);
+  color: var(--color-1);
 }
 
 :where(h1, h2, h3, h4, h5, h6, hgroup h1 + p) {
@@ -18,8 +18,8 @@
   pointer-events: none;
 
   .show-code-button {
-    pointer-events: auto;
     outline: none !important;
+    pointer-events: auto;
 
     * {
       outline: none !important;

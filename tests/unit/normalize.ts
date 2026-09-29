@@ -7,7 +7,7 @@ type Element = DefaultTreeAdapterMap["element"]
 const DROPPED_ELEMENTS = new Set(["script", "style"])
 
 const DROPPED_ATTRIBUTE =
-  /^(data-astro-|data-v-|data-vue-|data-server-rendered$|slot$)/
+  /^(data-astro-|data-v-|data-vue-|data-server-rendered$|on[a-z]+$|slot$)/
 
 const ID_REFERENCE_ATTRIBUTES = new Set([
   "anchor",
@@ -93,6 +93,12 @@ const normalizeAttribute = (
       .split(";")
       .map((declaration) => declaration.trim())
       .filter(Boolean)
+      .map((declaration) => {
+        const colon = declaration.indexOf(":")
+        return colon === -1
+          ? declaration
+          : `${declaration.slice(0, colon).trim()}: ${declaration.slice(colon + 1).trim()}`
+      })
       .join("; ")
   }
   return value.trim()

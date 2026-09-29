@@ -89,9 +89,9 @@
   :where(fieldset) {
     border: var(--field-border-width) solid var(--field-border-color);
     border-radius: var(--field-border-radius);
-    padding: var(--size-3);
     display: grid;
     gap: var(--size-3);
+    padding: var(--size-3);
   }
 
   :where(input, button, textarea),
@@ -145,8 +145,8 @@
   }
 
   :where(:not(:active):focus-visible) {
-    transition-duration: calc(0.15s * var(--motion));
     outline-offset: var(--outline-offset, 0px);
+    transition-duration: calc(0.15s * var(--motion));
   }
 
   :where(

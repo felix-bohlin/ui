@@ -2,24 +2,24 @@
 import { Checkbox } from "@opui/astro"
 ---
 
-<Checkbox spread>
+<Checkbox name="checkbox-spread" spread>
   Accept Terms & Conditions
   <Fragment slot="end-text"
     >I have read and agree to the privacy policy.</Fragment
   >
 </Checkbox>
 
-<Checkbox spread required>
+<Checkbox name="checkbox-spread" spread required>
   Required
   <Fragment slot="end-text">You must accept this to continue.</Fragment>
 </Checkbox>
 
-<Checkbox spread disabled>
+<Checkbox name="checkbox-spread" spread disabled>
   Disabled
   <Fragment slot="end-text">This checkbox is disabled.</Fragment>
 </Checkbox>
 
-<Checkbox spread error>
+<Checkbox name="checkbox-spread" spread error>
   Invalid Checkbox
   <Fragment slot="end-text">There is an error with this checkbox.</Fragment>
 </Checkbox>

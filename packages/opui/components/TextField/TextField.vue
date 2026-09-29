@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useId, computed, inject } from "vue"
+import { computed, inject, useAttrs } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
@@ -11,9 +11,16 @@ const props = withDefaults(defineProps<Props>(), {
   type: "text",
 })
 defineSlots<Slots>()
+const attrs = useAttrs()
 const modelValue = defineModel<string | number>()
 
-const fieldId = props.id || useId()
+const model = computed({
+  get: () => modelValue.value ?? (attrs.value as string | number | undefined),
+  set: (value) => {
+    modelValue.value = value
+  },
+})
+
 const currentFieldName = inject(CurrentFieldNameKey, undefined)
 const startTextValue = computed(() => props.description || props.startText)
 </script>
@@ -30,7 +37,7 @@ const startTextValue = computed(() => props.description || props.startText)
       },
       props.class,
     ]"
-    :data-invalid="props.error || undefined"
+    :data-invalid="props.error ? '' : undefined"
   >
     <span v-if="props.label || $slots.label" class="ui-label">
       <slot name="label">{{ props.label }}</slot>
@@ -42,13 +49,13 @@ const startTextValue = computed(() => props.description || props.startText)
 
     <span class="ui-field">
       <input
-        :id="fieldId"
+        :id="props.id"
         :name="currentFieldName"
         :inputmode="props.type === 'numeric' ? 'numeric' : undefined"
         :pattern="props.type === 'numeric' ? '[0-9]*' : undefined"
         :type="props.type === 'numeric' ? 'text' : props.type"
         v-bind="$attrs"
-        v-model="modelValue"
+        v-model="model"
       />
       <span class="ui-prefix" v-if="$slots.prefix"
         ><slot name="prefix"></slot

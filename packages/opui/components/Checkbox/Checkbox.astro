@@ -7,7 +7,6 @@ export const title = "Checkbox"
 const {
   class: className,
   error,
-  disabled,
   hideLabel,
   name,
   size,
@@ -30,7 +29,7 @@ const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
     },
     className,
   ]}
-  data-invalid={error || undefined}
+  data-invalid={error ? "" : undefined}
 >
   <CheckboxInput aria-describedby={endTextId} name={name} {...rest} />
   <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>

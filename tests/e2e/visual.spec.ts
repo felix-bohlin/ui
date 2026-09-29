@@ -13,7 +13,7 @@ for (const component of COMPONENTS) {
       const example = examples.nth(index)
       const name = await example.getAttribute("data-example")
       await expect.soft(example).toHaveScreenshot(`${component}/${name}.png`, {
-        mask: [example.locator("img")],
+        mask: [example.locator("img"), example.locator("video")],
       })
     }
   })

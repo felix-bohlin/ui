@@ -15,13 +15,11 @@ const { prefix = "" } = Astro.props
 />
 
 <ListItem headline="Trailing supporting text">
-  <div slot="end">100+</div>
+  <Fragment slot="end">100+</Fragment>
 </ListItem>
 
 <ListItem headline="Trailing keyboard command">
-  <div slot="end">
-    <kbd>CTRL+Shift+X</kbd>
-  </div>
+  <kbd slot="end">CTRL+Shift+X</kbd>
 </ListItem>
 
 <ListItem borderTop headline="Headline with start icon">
@@ -158,48 +156,48 @@ const { prefix = "" } = Astro.props
 </ListItem>
 
 <ListItem headline="End icon button">
-  <div slot="end">
-    <button class="ui-icon-button">
-      <span class="ui-sr-only">More</span>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M16 9.5a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5m0 9a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5M13.5 25a2.5 2.5 0 1 0 5 0a2.5 2.5 0 0 0-5 0"
-        ></path>
-      </svg>
-    </button>
-  </div>
+  <button slot="end" class="ui-icon-button">
+    <span class="ui-sr-only">More</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="M16 9.5a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5m0 9a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5M13.5 25a2.5 2.5 0 1 0 5 0a2.5 2.5 0 0 0-5 0"
+      ></path>
+    </svg>
+  </button>
 </ListItem>
 
 <ListItem borderTop type="checkbox" for={`${prefix}checkbox-all`}>
-  <div slot="text">Checkbox</div>
+  <Fragment slot="text">Checkbox</Fragment>
   <CheckboxInput slot="end" id={`${prefix}checkbox-all`} />
 </ListItem>
 
 <ListItem borderTop type="radio" for={`${prefix}radio-all-1`}>
-  <div slot="text">Radio 1</div>
+  <Fragment slot="text">Radio 1</Fragment>
   <RadioInput
     slot="end"
     id={`${prefix}radio-all-1`}
     name={`${prefix}radio-group-all`}
+    value="1"
   />
 </ListItem>
 
 <ListItem type="radio" for={`${prefix}radio-all-2`}>
-  <div slot="text">Radio 2</div>
+  <Fragment slot="text">Radio 2</Fragment>
   <RadioInput
     slot="end"
     id={`${prefix}radio-all-2`}
     name={`${prefix}radio-group-all`}
+    value="2"
   />
 </ListItem>
 
 <ListItem borderTop type="switch" for={`${prefix}switch-all-1`}>
-  <div slot="text">Switch 1</div>
+  <Fragment slot="text">Switch 1</Fragment>
   <SwitchInput slot="end" id={`${prefix}switch-all-1`} />
 </ListItem>

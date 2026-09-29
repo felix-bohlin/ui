@@ -27,7 +27,7 @@ const labelId = useId()
       },
       props.class,
     ]"
-    :data-invalid="props.error || undefined"
+    :data-invalid="props.error ? '' : undefined"
   >
     <span v-if="props.label" class="ui-label" :id="labelId">{{
       props.label

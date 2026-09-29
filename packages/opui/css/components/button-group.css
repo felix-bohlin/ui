@@ -164,13 +164,13 @@
         }
 
         &:first-of-type {
-          border-start-start-radius: var(--_border-radius);
           border-start-end-radius: var(--_border-radius);
+          border-start-start-radius: var(--_border-radius);
         }
 
         &:last-of-type {
-          border-end-start-radius: var(--_border-radius);
           border-end-end-radius: var(--_border-radius);
+          border-end-start-radius: var(--_border-radius);
         }
 
         & + & {

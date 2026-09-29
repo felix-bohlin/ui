@@ -32,7 +32,7 @@
       praxis craft beer snackwave bitters swag hexagon tattooed tousled.
     </p>
 
-    <hr />
+    <hr class="ui-divider" />
 
     <h2>Mumblecore tbh snackwave pork belly</h2>
     <p>
@@ -67,6 +67,8 @@
       <img
         src="https://images.unsplash.com/photo-1774268184985-f1af67b38179?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="Lush green hills surround dark blue lakes under cloudy sky"
+        decoding="async"
+        loading="lazy"
       />
       <figcaption>
         Taxidermy tousled heirloom letterpress mixtape hashtag. Yr pabst cliche

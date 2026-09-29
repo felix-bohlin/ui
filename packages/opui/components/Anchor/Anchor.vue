@@ -21,15 +21,15 @@ const positionArea = alignment
       "--anchor-position-area": alignment,
       "--_anchor-inset": insetMap[alignment],
     }
-  : {}
+  : undefined
 </script>
 
 <template>
-  <span :class="['ui-anchor', $props.class]" :style="positionArea">
-    <span v-if="isHover" :interestfor="id">
-      <slot></slot>
-    </span>
-    <slot v-else></slot>
+  <span
+    :class="['ui-anchor', $props.class]"
+    v-bind="positionArea && { style: positionArea }"
+  >
+    <slot></slot>
     <span
       class="ui-anchor-floating"
       :id="id"

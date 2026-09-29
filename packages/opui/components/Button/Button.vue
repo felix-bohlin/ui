@@ -13,7 +13,6 @@ const isButton = Tag === "button"
     :is="Tag"
     :class="[
       'ui-button',
-      { 'ui-disabled': isButton && disabled },
       size && `ui-${size}`,
       variant && `ui-${variant}`,
       color && `ui-${color}`,

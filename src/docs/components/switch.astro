@@ -1,30 +1,24 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import { Switch as UISwitch } from "@opui/astro"
 import DocLink from "../../components/DocLink.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
 import SwitchCSS from "@opui/css/components/switch.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
-import SwitchAPIAstro from "../../component-api/switch/Astro.astro"
-import SwitchAPIHTML from "../../component-api/switch/HTML.astro"
-import SwitchAPIVue from "../../component-api/switch/Vue.astro"
 import fieldGroupApi from "../../component-api/field-group/api"
+import switchApi from "../../component-api/switch/api"
 
-import ExampleAnatomy from "../../component-examples/switch/Anatomy.astro"
 import Conditional from "../../components/Conditional.astro"
 ---
 
 <Component
   slug="switch"
   browserSupport={["has", "light-dark"]}
+  heroAnatomy
   apis={[
-    {
-      title: "Switch API",
-      astro: SwitchAPIAstro,
-      html: SwitchAPIHTML,
-      vue: SwitchAPIVue,
-    },
+    { title: "Switch API", api: switchApi },
     { title: "Field group API", api: fieldGroupApi },
   ]}
   changelogPaths={[
@@ -329,16 +323,12 @@ import Conditional from "../../components/Conditional.astro"
   </Fragment>
 
   <Fragment slot="anatomy">
-    <ol>
-      <li>Container: <code>label</code> element</li>
-      <li>Switch: <code>& input type="checkbox" role="switch"</code></li>
-      <li>Label (optional): & <code>.ui-label</code></li>
-      <li>End text (optional): <code>.ui-end-text</code></li>
-    </ol>
-
-    <Example row>
-      <Example.Preview slot="preview-astro" code={ExampleAnatomy} />
-    </Example>
+    <Anatomy zoom={1.5}>
+      <UISwitch checked>
+        Label
+        <Fragment slot="end-text">End text</Fragment>
+      </UISwitch>
+    </Anatomy>
   </Fragment>
 </Component>
 
@@ -350,22 +340,5 @@ import Conditional from "../../components/Conditional.astro"
   }
   .example-row.ui-spacious {
     gap: var(--size-6);
-  }
-
-  .ui-switch.anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: 8px;
-
-    .ui-label,
-    .ui-end-text,
-    input {
-      outline: var(--_anatomy-border-red);
-      outline-offset: -3px;
-    }
-
-    input {
-      border-radius: var(--radius-round);
-      outline-offset: -2px;
-    }
   }
 </style>

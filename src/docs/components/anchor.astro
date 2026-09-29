@@ -1,14 +1,24 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
+import {
+  Anchor as UIAnchor,
+  Button as UIButton,
+  Card as UICard,
+} from "@opui/astro"
 
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
+
+import anchorApi from "../../component-api/anchor/api"
 ---
 
 <Component
   slug="anchor"
+  heroAnatomy
+  apis={[{ title: "Anchor API", api: anchorApi }]}
   browserSupport={["anchor-positioning", "popover-hint"]}
   changelogPaths={[
     {
@@ -71,4 +81,15 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
       <li><DocLink href="/components/tooltip">Tooltip</DocLink></li>
     </ul>
   </section>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIAnchor alignment="start center">
+        <UIButton variant="outlined">Anchor</UIButton>
+        <UICard slot="anchored" variant="tonal">
+          <div class="ui-content">Floating content</div>
+        </UICard>
+      </UIAnchor>
+    </Anatomy>
+  </Fragment>
 </Component>

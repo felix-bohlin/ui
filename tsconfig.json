@@ -3,6 +3,8 @@
   "include": [".astro/types.d.ts", "**/*"],
   "exclude": ["dist", "dist-test", "playwright-report", "test-results"],
   "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "@solidjs/web",
     "paths": {
       "@opui/*": ["./packages/opui/*"],
       "@opui/astro": ["./packages/opui/astro/index.ts"]

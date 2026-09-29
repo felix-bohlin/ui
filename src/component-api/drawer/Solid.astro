@@ -1,0 +1,144 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>backdrop</code></Table.Cell>
+      <Table.Cell><code>"transparent"</code>, <code>"blurred"</code></Table.Cell
+      >
+      <Table.Cell><code>"blurred"</code></Table.Cell>
+      <Table.Cell>The backdrop style.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>children</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional child content.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>closedby</code></Table.Cell>
+      <Table.Cell
+        ><code>"any"</code>, <code>"closerequest"</code>, <code>"none"</code
+        ></Table.Cell
+      >
+      <Table.Cell><code>"any"</code></Table.Cell>
+      <Table.Cell>How the drawer can be closed.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>content</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Content, wrapped in <code>.ui-content</code>.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>footer</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Footer, e.g. a <code>DrawerFooter</code>.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>header</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Header, e.g. a <code>DrawerHeader</code>.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>id</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>auto-generated</Table.Cell>
+      <Table.Cell>Unique identifier.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>scrollLock</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>true</code></Table.Cell>
+      <Table.Cell>Locks page scroll while open.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>side</code></Table.Cell>
+      <Table.Cell
+        ><code>"inline-start"</code>, <code>"inline-end"</code>, <code
+          >"block-start"</code
+        >, <code>"block-end"</code></Table.Cell
+      >
+      <Table.Cell><code>"inline-start"</code></Table.Cell>
+      <Table.Cell>The side it opens from.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="drawer-header">DrawerHeader</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>children</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional child content.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>heading</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The drawer title.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+
+<h3 id="drawer-footer">DrawerFooter</h3>
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><code>children</code></Table.Cell>
+      <Table.Cell><code>JSX.Element</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional child content.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

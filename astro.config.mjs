@@ -10,6 +10,8 @@ import sitemap from "@astrojs/sitemap"
 import expressiveCode from "astro-expressive-code"
 import vue from "@astrojs/vue"
 
+import solid from "./integrations/solid/index.mjs"
+
 import { DEFAULT_FRAMEWORK, FRAMEWORK_IDS } from "./src/utils/framework.js"
 
 /** @param {string} relDir */
@@ -45,6 +47,7 @@ export default defineConfig({
   },
   redirects: legacyRedirects,
   integrations: [
+    solid(),
     vue(),
     sitemap(),
     expressiveCode({

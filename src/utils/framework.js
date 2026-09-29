@@ -8,7 +8,7 @@
 //
 // Order convention: default framework first.
 
-/** @typedef {"html" | "astro" | "vue"} FrameworkId */
+/** @typedef {"html" | "astro" | "solid" | "vue"} FrameworkId */
 
 /** @type {FrameworkId} */
 export const DEFAULT_FRAMEWORK = "html"
@@ -17,12 +17,13 @@ export const DEFAULT_FRAMEWORK = "html"
 export const FRAMEWORKS = [
   { id: "html", label: "HTML" },
   { id: "astro", label: "Astro" },
+  { id: "solid", label: "Solid" },
   { id: "vue", label: "Vue" },
 ]
 
 /** @type {FrameworkId[]} */
 export const FRAMEWORK_IDS = FRAMEWORKS.map(
-  (l) => /** @type {FrameworkId} */ (l.id),
+  (l) => /** @type {FrameworkId} */ l.id,
 )
 
 /**

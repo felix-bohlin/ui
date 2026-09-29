@@ -8,9 +8,11 @@ import FormCSS from "@opui/css/components/form.css?raw"
 
 import SwitchAPIAstro from "../../component-api/switch/Astro.astro"
 import SwitchAPIHTML from "../../component-api/switch/HTML.astro"
+import SwitchAPISolid from "../../component-api/switch/Solid.astro"
 import SwitchAPIVue from "../../component-api/switch/Vue.astro"
 import FieldGroupAPIAstro from "../../component-api/field-group/Astro.astro"
 import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
+import FieldGroupAPISolid from "../../component-api/field-group/Solid.astro"
 import FieldGroupAPIVue from "../../component-api/field-group/Vue.astro"
 
 import ExampleAnatomy from "../../component-examples/switch/Anatomy.astro"
@@ -25,12 +27,14 @@ import Conditional from "../../components/Conditional.astro"
       title: "Switch API",
       astro: SwitchAPIAstro,
       html: SwitchAPIHTML,
+      solid: SwitchAPISolid,
       vue: SwitchAPIVue,
     },
     {
       title: "Field group API",
       astro: FieldGroupAPIAstro,
       html: FieldGroupAPIHTML,
+      solid: FieldGroupAPISolid,
       vue: FieldGroupAPIVue,
     },
   ]}
@@ -106,6 +110,10 @@ import Conditional from "../../components/Conditional.astro"
           Add the <code>required</code> attribute on the component. It is forwarded
           to the underlying <code>&lt;input&gt;</code>.
         </li>
+        <li slot="solid">
+          Add the <code>required</code> attribute on the component. It is forwarded
+          to the underlying <code>&lt;input&gt;</code>.
+        </li>
         <li slot="html">
           Add <code>[required]</code> to the <code>&lt;input&gt;</code> element to
           toggle required styles.
@@ -118,6 +126,11 @@ import Conditional from "../../components/Conditional.astro"
           to give extra feedback on the error.
         </li>
         <li slot="vue">
+          Use the <code>error</code> prop to toggle invalid styles. It renders
+          <code>data-invalid</code> on the root element. Make use of the end text
+          to give extra feedback on the error.
+        </li>
+        <li slot="solid">
           Use the <code>error</code> prop to toggle invalid styles. It renders
           <code>data-invalid</code> on the root element. Make use of the end text
           to give extra feedback on the error.
@@ -150,6 +163,10 @@ import Conditional from "../../components/Conditional.astro"
         Use the <code>spread</code> prop to push the label to the left and the switch
         to the right. This is useful for full-width items like lists and menus.
       </Fragment>
+      <Fragment slot="solid">
+        Use the <code>spread</code> prop to push the label to the left and the switch
+        to the right. This is useful for full-width items like lists and menus.
+      </Fragment>
     </Conditional>
 
     <AutoExample name="Spread" column />
@@ -168,6 +185,9 @@ import Conditional from "../../components/Conditional.astro"
         for a smaller Switch variant.
       </Fragment>
       <Fragment slot="vue">
+        Set the <code>small</code> prop for a smaller Switch variant.
+      </Fragment>
+      <Fragment slot="solid">
         Set the <code>small</code> prop for a smaller Switch variant.
       </Fragment>
     </Conditional>
@@ -194,6 +214,9 @@ import Conditional from "../../components/Conditional.astro"
         attribute so they're submitted together.
       </p>
       <p slot="vue">
+        The <code>name</code> prop will get passed down to each switch in the group.
+      </p>
+      <p slot="solid">
         The <code>name</code> prop will get passed down to each switch in the group.
       </p>
     </Conditional>
@@ -241,6 +264,11 @@ import Conditional from "../../components/Conditional.astro"
         > component.
       </p>
       <p slot="vue">
+        Attach the <code>data-invalid</code> attribute to your <code
+          >Fieldset</code
+        > component.
+      </p>
+      <p slot="solid">
         Attach the <code>data-invalid</code> attribute to your <code
           >Fieldset</code
         > component.

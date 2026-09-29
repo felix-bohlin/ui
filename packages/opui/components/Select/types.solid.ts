@@ -1,6 +1,8 @@
+import type { JSX } from "@solidjs/web"
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
 
-export type Props = Base.Props &
-  Omit<JSX.SelectHTMLAttributes<HTMLSelectElement>, "size"> &
-  Base.Slots<JSX.Element>
+type Slots = Base.Slots<JSX.Element>
+
+export type Props = Omit<Base.Props, keyof Slots> &
+  Slots &
+  Omit<JSX.SelectHTMLAttributes<HTMLSelectElement>, "prefix" | "size">

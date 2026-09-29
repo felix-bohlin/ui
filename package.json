@@ -36,19 +36,21 @@
     "open-props": "catalog:",
     "opui-css": "workspace:*",
     "typescript": "^6.0.3",
-    "web-features": "^3.29.0"
+    "web-features": "^3.30.0"
   },
   "devDependencies": {
     "@astrojs/sitemap": "^3.7.4",
     "@astrojs/vue": "^7.0.3",
     "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.63.0",
+    "@solidjs/vite-plugin": "^3.0.0-next.46",
+    "@solidjs/web": "catalog:",
     "css-declaration-sorter": "^7.4.0",
     "diff": "^9.0.0",
     "oxlint": "^1.85.0",
     "parse5": "^8.0.1",
     "postcss": "^8.5.28",
-    "prettier": "^3.8.3",
+    "prettier": "^3.8.4",
     "prettier-plugin-astro": "0.14.1",
     "solid-js": "catalog:",
     "stylelint": "^17.15.0",

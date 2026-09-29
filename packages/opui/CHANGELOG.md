@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.6.0 - Unreleased
+
+### Added
+
+- Solid components, imported from `opui-css/solid`. Built for Solid 2 (`solid-js` and `@solidjs/web` `^2.0.0-rc.11`). Named slots from the Astro and Vue components are props in Solid.
+
 ## 5.5.0 - 2026-09-28
 
 ### Removed

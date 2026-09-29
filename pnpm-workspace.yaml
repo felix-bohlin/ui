@@ -8,6 +8,7 @@ allowBuilds:
 catalog:
   astro: ^7.0.6
   open-props: ^1.7.23
-  solid-js: ^1.9.13
+  "@solidjs/web": ^2.0.0-rc.11
+  solid-js: ^2.0.0-rc.11
   svelte: ^5.56.4
   vue: ^3.5.39

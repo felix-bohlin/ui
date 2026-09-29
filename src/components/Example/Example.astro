@@ -46,6 +46,7 @@ type Props = {
   richText?: "rich-text" | "not-rich-text"
   row?: boolean
   showCode?: boolean
+  solidExampleId?: string
   spacious?: boolean
   vueExampleId?: string
   wrapperClass?: string
@@ -61,6 +62,7 @@ const {
   richText = "not-rich-text",
   row,
   showCode = true,
+  solidExampleId,
   spacious,
   vueExampleId,
   wrapperClass,
@@ -113,6 +115,8 @@ const hasPreview = Astro.slots.has("default") || !!previewSlot
 // examples actually run in the browser. The SSR string is kept as the initial
 // markup and replaced on mount.
 const isLivePreview = previewSlot?.name === "preview-vue" && !!vueExampleId
+const isLiveSolidPreview =
+  previewSlot?.name === "preview-solid" && !!solidExampleId
 
 // Render the chosen preview as HTML for the rendered output. Used both for the
 // visible preview and (when output="toggled") as the "Output" tab content for
@@ -194,6 +198,12 @@ const outputPanelId = `${groupName}-output-panel`
             data-vue-example={vueExampleId}
             set:html={previewHtml}
           />
+        ) : isLiveSolidPreview ? (
+          <div
+            class="preview-render"
+            data-solid-example={solidExampleId}
+            set:html={previewHtml}
+          />
         ) : (
           previewHtml && <div class="preview-render" set:html={previewHtml} />
         )}
@@ -258,7 +268,9 @@ const outputPanelId = `${groupName}-output-panel`
                       ? "astro"
                       : codeLangId === "html"
                         ? "html"
-                        : codeLangId
+                        : codeLangId === "solid"
+                          ? "tsx"
+                          : codeLangId
                   }
                   mark={marks[codeLangId]}
                 />
@@ -450,6 +462,7 @@ const outputPanelId = `${groupName}-output-panel`
 </style>
 
 <script>
+  import "./mount-solid-examples"
   import "./mount-vue-examples"
 
   // Tab interactivity for the source/output toggle and the show-code button.

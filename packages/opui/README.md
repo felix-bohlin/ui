@@ -1,6 +1,6 @@
 # Open Props UI
 
-A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Built on top of [Open Props](https://open-props.style/) and ships HTML, [Astro](https://astro.build/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS.
+A CSS UI library exploring how next-gen HTML & CSS features can change the way we create components. Built on top of [Open Props](https://open-props.style/) and ships HTML, [Astro](https://astro.build/), [Solid](https://www.solidjs.com/) and [Vue](https://vuejs.org/) components alongside framework-agnostic CSS.
 
 - Docs: [open-props-ui.netlify.app](https://open-props-ui.netlify.app/)
 - Source: [github.com/felix-bohlin/ui](https://github.com/felix-bohlin/ui)
@@ -13,7 +13,8 @@ pnpm add opui-css open-props
 
 Peer dependencies:
 
-- `astro` `^6` (only required if you use the Astro components)
+- `astro` `^7` (only required if you use the Astro components)
+- `solid-js` and `@solidjs/web` `^2` (only required if you use the Solid components)
 - `vue` `^3` (only required if you use the Vue components)
 - `open-props` `^1`
 
@@ -30,6 +31,21 @@ import { Button, Card } from "opui-css/astro"
 <Card>
   <Button variant="primary">Click me</Button>
 </Card>
+```
+
+### Solid components
+
+```tsx
+import "opui-css/css/imports.css"
+import { Button, Card } from "opui-css/solid"
+
+export default function App() {
+  return (
+    <Card>
+      <Button variant="filled">Click me</Button>
+    </Card>
+  )
+}
 ```
 
 ### Plain HTML + CSS (no build step)
@@ -81,6 +97,7 @@ Wrap your own styles in a layer above `utils` (or unlayered) to override.
 | `opui-css/core/utils.css`           | Utility classes                               |
 | `opui-css/astro`                    | All Astro components                          |
 | `opui-css/components/*`             | Individual Astro component sources            |
+| `opui-css/solid`                    | All Solid components                          |
 
 ## License
 

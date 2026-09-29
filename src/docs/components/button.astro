@@ -11,18 +11,24 @@ import ExampleIconAndLabelVue from "../../component-examples/button/IconAndLabel
 import ExampleIconAndLabelCodeAstro from "../../component-examples/button/IconAndLabelCode.astro?raw"
 import ExampleIconAndLabelCodeVue from "../../component-examples/button/IconAndLabelCode.vue?raw"
 import ExampleIconAndLabelHTML from "../../component-examples/button/IconAndLabel.html?raw"
+import ExampleIconAndLabelSolid from "../../component-examples/button/IconAndLabel.tsx"
+import ExampleIconAndLabelCodeSolid from "../../component-examples/button/IconAndLabelCode.tsx?raw"
 
 import ExampleSizes from "../../component-examples/button/Sizes.astro"
 import ExampleSizesVue from "../../component-examples/button/Sizes.vue"
 import ExampleSizesCodeAstro from "../../component-examples/button/SizesCode.astro?raw"
 import ExampleSizesCodeVue from "../../component-examples/button/SizesCode.vue?raw"
 import ExampleSizesHTML from "../../component-examples/button/Sizes.html?raw"
+import ExampleSizesSolid from "../../component-examples/button/Sizes.tsx"
+import ExampleSizesCodeSolid from "../../component-examples/button/SizesCode.tsx?raw"
 
 import ExampleDisabled from "../../component-examples/button/Disabled.astro"
 import ExampleDisabledVue from "../../component-examples/button/Disabled.vue"
 import ExampleDisabledCodeAstro from "../../component-examples/button/DisabledCode.astro?raw"
 import ExampleDisabledCodeVue from "../../component-examples/button/DisabledCode.vue?raw"
 import ExampleDisabledHTML from "../../component-examples/button/Disabled.html?raw"
+import ExampleDisabledSolid from "../../component-examples/button/Disabled.tsx"
+import ExampleDisabledCodeSolid from "../../component-examples/button/DisabledCode.tsx?raw"
 
 import Conditional from "../../components/Conditional.astro"
 
@@ -62,6 +68,9 @@ export const description =
           >.ui-tonal</code
         >, and <code>.ui-filled</code> classes.
       </Fragment>
+      <Fragment slot="solid">
+        Change the button variant with the <code>variant</code> prop.
+      </Fragment>
       <Fragment slot="vue">
         Change the button variant with the <code>variant</code> prop.
       </Fragment>
@@ -80,6 +89,11 @@ export const description =
       <Fragment slot="html">
         Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to apply
         a brand or destructive color. The default is a neutral gray.
+      </Fragment>
+      <Fragment slot="solid">
+        Pass <code>color</code> to apply a brand or destructive color: <code
+          >primary</code
+        > or <code>critical</code>. The default is a neutral gray.
       </Fragment>
       <Fragment slot="vue">
         Pass <code>color</code> to apply a brand or destructive color: <code
@@ -100,16 +114,21 @@ export const description =
         Include an icon alongside text by nesting an SVG element within the
         button.
       </Fragment>
+      <Fragment slot="solid">
+        Include an icon alongside text by nesting it within the component.
+      </Fragment>
       <Fragment slot="vue">
         Include an icon alongside text by nesting it within the component.
       </Fragment>
     </Conditional>
-    <Example column>
+    <Example column solidExampleId="button/IconAndLabel">
       <Example.Preview slot="preview-astro" code={ExampleIconAndLabel} />
       <Example.Preview slot="preview-html" code={ExampleIconAndLabelHTML} />
+      <Example.Preview slot="preview-solid" code={ExampleIconAndLabelSolid} />
       <Example.Preview slot="preview-vue" code={ExampleIconAndLabelVue} />
       <Example.Code slot="code-html" code={ExampleIconAndLabelHTML} />
       <Example.Code slot="code-astro" code={ExampleIconAndLabelCodeAstro} />
+      <Example.Code slot="code-solid" code={ExampleIconAndLabelCodeSolid} />
       <Example.Code slot="code-vue" code={ExampleIconAndLabelCodeVue} />
     </Example>
   </section>
@@ -142,16 +161,21 @@ export const description =
         >
         classes.
       </Fragment>
+      <Fragment slot="solid">
+        Resize any button using the <code>size</code> prop.
+      </Fragment>
       <Fragment slot="vue">
         Resize any button using the <code>size</code> prop.
       </Fragment>
     </Conditional>
-    <Example column>
+    <Example column solidExampleId="button/Sizes">
       <Example.Preview slot="preview-astro" code={ExampleSizes} />
       <Example.Preview slot="preview-html" code={ExampleSizesHTML} />
+      <Example.Preview slot="preview-solid" code={ExampleSizesSolid} />
       <Example.Preview slot="preview-vue" code={ExampleSizesVue} />
       <Example.Code slot="code-html" code={ExampleSizesHTML} />
       <Example.Code slot="code-astro" code={ExampleSizesCodeAstro} />
+      <Example.Code slot="code-solid" code={ExampleSizesCodeSolid} />
       <Example.Code slot="code-vue" code={ExampleSizesCodeVue} />
     </Example>
   </section>
@@ -167,16 +191,21 @@ export const description =
           >.ui-disabled</code
         > class.
       </Fragment>
+      <Fragment slot="solid">
+        Disable the button with the <code>disabled</code> prop.
+      </Fragment>
       <Fragment slot="vue">
         Disable the button with the <code>disabled</code> prop.
       </Fragment>
     </Conditional>
-    <Example column>
+    <Example column solidExampleId="button/Disabled">
       <Example.Preview slot="preview-astro" code={ExampleDisabled} />
       <Example.Preview slot="preview-html" code={ExampleDisabledHTML} />
+      <Example.Preview slot="preview-solid" code={ExampleDisabledSolid} />
       <Example.Preview slot="preview-vue" code={ExampleDisabledVue} />
       <Example.Code slot="code-html" code={ExampleDisabledHTML} />
       <Example.Code slot="code-astro" code={ExampleDisabledCodeAstro} />
+      <Example.Code slot="code-solid" code={ExampleDisabledCodeSolid} />
       <Example.Code slot="code-vue" code={ExampleDisabledCodeVue} />
     </Example>
   </section>

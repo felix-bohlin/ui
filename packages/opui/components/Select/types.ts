@@ -1,12 +1,12 @@
 export type Props = {
-  error?: boolean
   dense?: boolean
   description?: string
+  endText?: string
+  error?: boolean
   items?: Item[]
   label?: string
-  spread?: boolean
   size?: "small"
-  endText?: string
+  spread?: boolean
   variant?: "outlined" | "filled"
 }
 

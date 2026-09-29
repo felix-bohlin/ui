@@ -1,0 +1,147 @@
+---
+import "@opui/css/imports.css"
+import { FRAMEWORK_IDS } from "../../../utils/framework-routing"
+
+type Framework = (typeof FRAMEWORK_IDS)[number]
+
+const astroModules = import.meta.glob<{ default: any }>(
+  "../../../component-examples/*/*.astro",
+  { eager: true },
+)
+const vueModules = import.meta.glob<{ default: any }>(
+  "../../../component-examples/*/*.vue",
+  { eager: true },
+)
+const htmlSources = import.meta.glob<string>(
+  "../../../component-examples/*/*.html",
+  { eager: true, import: "default", query: "?raw" },
+)
+
+const parse = (path: string) => {
+  const [, slug, name] = path.match(
+    /component-examples\/([^/]+)\/([^/]+)\.\w+$/,
+  )!
+  return { name, slug }
+}
+
+const examplesFor = (framework: Framework, slug: string) => {
+  const modules = { astro: astroModules, html: htmlSources, vue: vueModules }[
+    framework
+  ]
+  return Object.entries(modules)
+    .map(([path, module]) => ({ ...parse(path), module }))
+    .filter(
+      (example) => example.slug === slug && !example.name.endsWith("Code"),
+    )
+    .toSorted((a, b) => a.name.localeCompare(b.name))
+}
+
+export function getStaticPaths() {
+  if (!process.env.OPUI_TEST_PAGES) return []
+
+  const paths = import.meta.glob(
+    "../../../component-examples/*/*.{astro,html,vue}",
+  )
+  const slugs = [
+    ...new Set(
+      Object.keys(paths).map(
+        (path) => path.match(/component-examples\/([^/]+)\//)![1],
+      ),
+    ),
+  ].toSorted()
+
+  return FRAMEWORK_IDS.flatMap((framework) =>
+    slugs.map((component) => ({ params: { component, framework } })),
+  )
+}
+
+const { component, framework } = Astro.params as {
+  component: string
+  framework: Framework
+}
+const examples = examplesFor(framework, component)
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex" />
+    <title>{`${component} - ${framework}`}</title>
+  </head>
+  <body>
+    <main>
+      {
+        examples.map(({ module, name }) => (
+          <section class="fixture">
+            <h2>{name}</h2>
+            <div class="fixture-preview" data-example={name}>
+              {framework === "astro" && <module.default />}
+              {framework === "html" && <Fragment set:html={module} />}
+              {framework === "vue" && (
+                <div
+                  class="preview-render"
+                  data-vue-example={`${component}/${name}`}
+                >
+                  <module.default />
+                </div>
+              )}
+            </div>
+          </section>
+        ))
+      }
+    </main>
+    {
+      component === "toast" && (
+        <output
+          aria-live="polite"
+          id="toast-manager"
+          popover="manual"
+          role="status"
+        />
+      )
+    }
+    <script>
+      import "../../../components/Example/mount-vue-examples"
+      import { initToastManager } from "@opui/css/js/toast.js"
+
+      initToastManager()
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  body {
+    margin: 0;
+    padding: var(--size-4);
+  }
+
+  .fixture h2 {
+    font-size: var(--font-size-1);
+    margin-block: var(--size-4) var(--size-2);
+  }
+
+  .fixture-preview {
+    display: grid;
+    gap: var(--size-3);
+    padding: var(--size-4);
+  }
+
+  .preview-render {
+    display: contents;
+  }
+
+  .example-column {
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .example-row {
+    align-items: start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    justify-content: center;
+  }
+</style>

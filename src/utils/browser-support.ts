@@ -56,8 +56,7 @@ function getSupportForFeature(
   if (directSupport !== undefined) return directSupport
 
   const byCompat = feature.status?.by_compat_key as
-    | Record<string, { support?: Record<string, SupportValue> }>
-    | undefined
+    Record<string, { support?: Record<string, SupportValue> }> | undefined
 
   if (!byCompat) return undefined
 

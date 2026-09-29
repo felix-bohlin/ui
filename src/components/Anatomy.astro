@@ -57,7 +57,7 @@ const tour = `@keyframes ${id}-tour {
     style={`--count: ${parts.length}; --subject: --${id}-subject; --tour: ${id}-tour;`}
   >
     <div class="stage">
-      <div class="subject" inert style={`zoom: ${zoom};`}>
+      <div class="subject" inert style={`--zoom: ${zoom};`}>
         <slot />
       </div>
     </div>
@@ -113,7 +113,7 @@ const tour = `@keyframes ${id}-tour {
     --_step: 2.4s;
 
     display: grid;
-    grid-template-columns: 1fr minmax(14rem, 18rem);
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
     position: relative;
   }
 
@@ -142,6 +142,12 @@ const tour = `@keyframes ${id}-tour {
 
   .subject {
     anchor-name: var(--subject);
+    max-inline-size: 100%;
+    zoom: var(--zoom);
+
+    > :global(*) {
+      max-inline-size: 100%;
+    }
   }
 
   .layout :global(.legend) {
@@ -268,7 +274,11 @@ const tour = `@keyframes ${id}-tour {
 
   @container (inline-size < 40rem) {
     .layout {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .subject {
+      zoom: 1;
     }
 
     .stage {

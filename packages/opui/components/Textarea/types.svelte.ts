@@ -2,11 +2,7 @@ import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
 import type { Snippet } from "svelte"
 
-type InputProps = {
-  type?: SvelteHTMLElements["input"]["type"] | "numeric"
-}
-
-type Snippets = Base.Slots<Snippet>
+type Snippets = Partial<Base.Slots<Snippet>>
 
 export type Props =
   // Unique component props, except snippets
@@ -15,7 +11,5 @@ export type Props =
     Omit<SvelteHTMLElements["label"], "prefix"> &
     // Some input attributes for spreading
     Pick<SvelteHTMLElements["textarea"], Base.TextareaProps> &
-    // Special input type attribute with 'numeric'
-    InputProps &
     // Snippets
-    Snippets
+    Snippets & { ref?: HTMLLabelElement | null }

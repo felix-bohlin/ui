@@ -20,6 +20,16 @@
     "url": "/astro/components/accordion"
   },
   {
+    "id": "component-accordion-svelte",
+    "title": "Accordion",
+    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
+    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/accordion"
+  },
+  {
     "id": "component-accordion-vue",
     "title": "Accordion",
     "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
@@ -48,6 +58,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/anchor"
+  },
+  {
+    "id": "component-anchor-svelte",
+    "title": "Anchor",
+    "description": "",
+    "headings": "Always Visible Hover Trigger Used By",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/anchor"
   },
   {
     "id": "component-anchor-vue",
@@ -80,6 +100,16 @@
     "url": "/astro/components/avatar"
   },
   {
+    "id": "component-avatar-svelte",
+    "title": "Avatar",
+    "description": "",
+    "headings": "Image Letter Icon Variants Grouped",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/avatar"
+  },
+  {
     "id": "component-avatar-vue",
     "title": "Avatar",
     "description": "",
@@ -108,6 +138,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/badge"
+  },
+  {
+    "id": "component-badge-svelte",
+    "title": "Badge",
+    "description": "A badge is a small status indicator that can be placed on other elements.",
+    "headings": "Variants Indicator Severities Visibility Alignment",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/badge"
   },
   {
     "id": "component-badge-vue",
@@ -140,6 +180,16 @@
     "url": "/astro/components/button-group"
   },
   {
+    "id": "component-button-group-svelte",
+    "title": "Button group",
+    "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
+    "headings": "Variants Colors Icons Sizes Vertical orientation Disabled",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/button-group"
+  },
+  {
     "id": "component-button-group-vue",
     "title": "Button group",
     "description": "Groups related buttons by wrapping them with class=\"ui-button-group\" and role=\"group\".",
@@ -168,6 +218,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/button"
+  },
+  {
+    "id": "component-button-svelte",
+    "title": "Button",
+    "description": "Buttons allow users to take actions, and make choices, with a single tap.",
+    "headings": "Variants Colors Buttons with icon and label Keyboard Icon-only Sizes Disabled File upload",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/button"
   },
   {
     "id": "component-button-vue",
@@ -200,6 +260,16 @@
     "url": "/astro/components/callout"
   },
   {
+    "id": "component-callout-svelte",
+    "title": "Callout",
+    "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
+    "headings": "Variants Icon Severities",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/callout"
+  },
+  {
     "id": "component-callout-vue",
     "title": "Callout",
     "description": "Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task.",
@@ -228,6 +298,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/card"
+  },
+  {
+    "id": "component-card-svelte",
+    "title": "Card",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "headings": "Variants Header Actions Alignment",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/card"
   },
   {
     "id": "component-card-vue",
@@ -260,6 +340,16 @@
     "url": "/astro/components/checkbox"
   },
   {
+    "id": "component-checkbox-svelte",
+    "title": "Checkbox",
+    "description": "See also: Checkbox field group.",
+    "headings": "Visible label Label position End text Validation Indeterminate Spread Sizes Field group Direction Field description Disabled Required Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/checkbox"
+  },
+  {
     "id": "component-checkbox-vue",
     "title": "Checkbox",
     "description": "See also: Checkbox field group.",
@@ -288,6 +378,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/chip"
+  },
+  {
+    "id": "component-chip-svelte",
+    "title": "Chip",
+    "description": "Chips are compact elements that represent an input, attribute, or action.",
+    "headings": "Variants Icon Button Link Sizes",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/chip"
   },
   {
     "id": "component-chip-vue",
@@ -320,6 +420,16 @@
     "url": "/astro/components/description-list"
   },
   {
+    "id": "component-description-list-svelte",
+    "title": "Description list",
+    "description": "Description lists are used to display a list of terms and their descriptions.",
+    "headings": "Bordered",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/description-list"
+  },
+  {
     "id": "component-description-list-vue",
     "title": "Description list",
     "description": "Description lists are used to display a list of terms and their descriptions.",
@@ -348,6 +458,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/dialog"
+  },
+  {
+    "id": "component-dialog-svelte",
+    "title": "Dialog",
+    "description": "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use.",
+    "headings": "Usage Non-modal Modal How to close a dialog Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/dialog"
   },
   {
     "id": "component-dialog-vue",
@@ -380,6 +500,16 @@
     "url": "/astro/components/divider"
   },
   {
+    "id": "component-divider-svelte",
+    "title": "Divider",
+    "description": "It's just a line.",
+    "headings": "Variants",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/divider"
+  },
+  {
     "id": "component-divider-vue",
     "title": "Divider",
     "description": "It's just a line.",
@@ -408,6 +538,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/drawer"
+  },
+  {
+    "id": "component-drawer-svelte",
+    "title": "Drawer",
+    "description": "Slides in from the sides, top or bottom of the screen.",
+    "headings": "Usage How to close a drawer Role & attributes Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/drawer"
   },
   {
     "id": "component-drawer-vue",
@@ -440,6 +580,16 @@
     "url": "/astro/components/form"
   },
   {
+    "id": "component-form-svelte",
+    "title": "Form",
+    "description": "A way to build structured forms.",
+    "headings": "Usage Non-semantic elements Fieldset Required Disabled Field Legend Field Description Field Group Row Divider Kitchen Sink",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/form"
+  },
+  {
     "id": "component-form-vue",
     "title": "Form",
     "description": "A way to build structured forms.",
@@ -468,6 +618,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/icon-button"
+  },
+  {
+    "id": "component-icon-button-svelte",
+    "title": "Icon Button",
+    "description": "Icon buttons are used to trigger actions and are typically found in toolbars, cards, and dialogs.",
+    "headings": "Variants Colors Sizes Disabled",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/icon-button"
   },
   {
     "id": "component-icon-button-vue",
@@ -500,6 +660,16 @@
     "url": "/astro/components/list"
   },
   {
+    "id": "component-list-svelte",
+    "title": "List",
+    "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
+    "headings": "Configurations Variants Clickable list item Selected item Text Start items Icon Avatar Image Video End items Keyboard command Checkbox Radio Switch Inset Gutterless Borders On every item On one item Dense",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/list"
+  },
+  {
     "id": "component-list-vue",
     "title": "List",
     "description": "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it.",
@@ -528,6 +698,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/progress"
+  },
+  {
+    "id": "component-progress-svelte",
+    "title": "Progress",
+    "description": "See also: Spinner.",
+    "headings": "Indeterminate Determinate Variants",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/progress"
   },
   {
     "id": "component-progress-vue",
@@ -560,6 +740,16 @@
     "url": "/astro/components/radio"
   },
   {
+    "id": "component-radio-svelte",
+    "title": "Radio",
+    "description": "See also: Form documentation.",
+    "headings": "Direction Field description Disabled Required Validation",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/radio"
+  },
+  {
     "id": "component-radio-vue",
     "title": "Radio",
     "description": "See also: Form documentation.",
@@ -588,6 +778,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/range"
+  },
+  {
+    "id": "component-range-svelte",
+    "title": "Range",
+    "description": "",
+    "headings": "Start text & End text Value Tick marks Variants Disabled Validation Spread",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/range"
   },
   {
     "id": "component-range-vue",
@@ -620,6 +820,16 @@
     "url": "/astro/components/select"
   },
   {
+    "id": "component-select-svelte",
+    "title": "Select",
+    "description": "Leverages the List component to provide markup for the Select popover.",
+    "headings": "Variants End text Affix Validation Spread Sizes Classic select",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/select"
+  },
+  {
     "id": "component-select-vue",
     "title": "Select",
     "description": "Leverages the List component to provide markup for the Select popover.",
@@ -648,6 +858,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/spinner"
+  },
+  {
+    "id": "component-spinner-svelte",
+    "title": "Spinner",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/spinner"
   },
   {
     "id": "component-spinner-vue",
@@ -680,6 +900,16 @@
     "url": "/astro/components/switch"
   },
   {
+    "id": "component-switch-svelte",
+    "title": "Switch",
+    "description": "See also: Switch field group.",
+    "headings": "Visible label Label position End text Validation Spread Sizes Icons Field group Direction Field description Disabled Required Role & attributes Labels Keyboard support",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/switch"
+  },
+  {
     "id": "component-switch-vue",
     "title": "Switch",
     "description": "See also: Switch field group.",
@@ -708,6 +938,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/table"
+  },
+  {
+    "id": "component-table-svelte",
+    "title": "Table",
+    "description": "Displays tabular data. Basic tables with row and column headers, and optional captions and footers.",
+    "headings": "Variants Default Advanced",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/table"
   },
   {
     "id": "component-table-vue",
@@ -740,6 +980,16 @@
     "url": "/astro/components/tabs"
   },
   {
+    "id": "component-tabs-svelte",
+    "title": "Tabs",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
+    "headings": "Basics",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/tabs"
+  },
+  {
     "id": "component-tabs-vue",
     "title": "Tabs",
     "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
@@ -768,6 +1018,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/text-field"
+  },
+  {
+    "id": "component-text-field-svelte",
+    "title": "Text field",
+    "description": "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states.",
+    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit Input types File Autosuggest",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/text-field"
   },
   {
     "id": "component-text-field-vue",
@@ -800,6 +1060,16 @@
     "url": "/astro/components/textarea"
   },
   {
+    "id": "component-textarea-svelte",
+    "title": "Textarea",
+    "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
+    "headings": "Variants Sizes End text Affix Headers and footers Validation Spread Auto-fit",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/textarea"
+  },
+  {
     "id": "component-textarea-vue",
     "title": "Textarea",
     "description": "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states.",
@@ -828,6 +1098,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/toast"
+  },
+  {
+    "id": "component-toast-svelte",
+    "title": "Toast",
+    "description": "Non-interruptive and stackable notifications. They pop up like... toast.",
+    "headings": "How it works HTML JavaScript Severities Title + description Duration",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/toast"
   },
   {
     "id": "component-toast-vue",
@@ -860,6 +1140,16 @@
     "url": "/astro/components/toggle"
   },
   {
+    "id": "component-toggle-svelte",
+    "title": "Toggle",
+    "description": "",
+    "headings": "Toggle button Toggle group Multi-select Single-select Text + icon Vertical orientation Sizes",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/toggle"
+  },
+  {
     "id": "component-toggle-vue",
     "title": "Toggle",
     "description": "",
@@ -888,6 +1178,16 @@
     "frameworkId": "astro",
     "type": "Astro",
     "url": "/astro/components/tooltip"
+  },
+  {
+    "id": "component-tooltip-svelte",
+    "title": "Tooltip",
+    "description": "Built on top of Anchor.",
+    "headings": "Basics Text only... ... or any markup you want Alignment Arrow",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/tooltip"
   },
   {
     "id": "component-tooltip-vue",
@@ -920,6 +1220,16 @@
     "url": "/astro/components/typography"
   },
   {
+    "id": "component-typography-svelte",
+    "title": "Typography",
+    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
+    "category": "Component",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/components/typography"
+  },
+  {
     "id": "component-typography-vue",
     "title": "Typography",
     "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
@@ -946,6 +1256,15 @@
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/acknowledgments"
+  },
+  {
+    "id": "guide-acknowledgments-svelte",
+    "title": "Acknowledgments",
+    "description": "",
+    "headings": "Contributors Thank you to Sources of inspiration/theft Other amazing resources",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/acknowledgments"
   },
   {
     "id": "guide-acknowledgments-vue",
@@ -975,6 +1294,15 @@
     "url": "/astro/guide/browser-support"
   },
   {
+    "id": "guide-browser-support-svelte",
+    "title": "Browser support",
+    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/browser-support"
+  },
+  {
     "id": "guide-browser-support-vue",
     "title": "Browser support",
     "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
@@ -1000,6 +1328,15 @@
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/theme-generator"
+  },
+  {
+    "id": "guide-theme-generator-svelte",
+    "title": "Theme generator",
+    "description": "",
+    "headings": "",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/theme-generator"
   },
   {
     "id": "guide-theme-generator-vue",
@@ -1029,6 +1366,15 @@
     "url": "/astro/guide/why-opui"
   },
   {
+    "id": "guide-why-opui-svelte",
+    "title": "Why Open Props UI?",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
+    "headings": "Backstory The goal of OPUI",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/why-opui"
+  },
+  {
     "id": "guide-why-opui-vue",
     "title": "Why Open Props UI?",
     "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
@@ -1054,6 +1400,15 @@
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/getting-started"
+  },
+  {
+    "id": "guide-getting-started-svelte",
+    "title": "Getting started",
+    "description": "",
+    "headings": "Install via NPM Import the CSS How to use",
+    "category": "Guide",
+    "frameworkId": "svelte",
+    "url": "/svelte/guide/getting-started"
   },
   {
     "id": "guide-getting-started-vue",
@@ -1083,6 +1438,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#accordion"
+  },
+  {
+    "id": "api-accordion-svelte",
+    "title": "Accordion API",
+    "description": "Reference for Accordion Svelte component.",
+    "headings": "Group Card[role=\"group\"] - Snippets - name string - open boolean false Accordion open state. ref HTMLDetailsElement - Bindable reference to the root element. variant - The visual variant of the accordion.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#accordion"
   },
   {
     "id": "api-accordion-vue",
@@ -1115,6 +1480,16 @@
     "url": "/html/api#anchor"
   },
   {
+    "id": "api-anchor-svelte",
+    "title": "Anchor API",
+    "description": "Reference for Anchor Svelte component.",
+    "headings": "Snippets anchored, children - alignment string \"start end\" ref HTMLSpanElement - Bindable reference to the root element. trigger \"always\", \"hover\" \"always\"",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#anchor"
+  },
+  {
     "id": "api-anchor-vue",
     "title": "Anchor API",
     "description": "Reference for Anchor Vue component.",
@@ -1143,6 +1518,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#avatar"
+  },
+  {
+    "id": "api-avatar-svelte",
+    "title": "Avatar API",
+    "description": "Reference for Avatar Svelte component.",
+    "headings": "Snippets children - Optional snippets. alt string - The alternative text for the avatar image. as The element to render as. href string - The link to use if the avatar is an anchor. isGroup boolean false Renders the avatar as a group. ref - Bindable reference to the root element. src string - The image source for the avatar. variant - The visual style of the avatar.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#avatar"
   },
   {
     "id": "api-avatar-vue",
@@ -1175,6 +1560,16 @@
     "url": "/html/api#badge"
   },
   {
+    "id": "api-badge-svelte",
+    "title": "Badge API",
+    "description": "Reference for Badge Svelte component.",
+    "headings": "Snippets children, indicator - alignment - color - The color variant of the badge. dot boolean false Renders the badge as a simple dot. invisible boolean false Hides the badge. label string, number - ref HTMLSpanElement - Bindable reference to the root element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#badge"
+  },
+  {
     "id": "api-badge-vue",
     "title": "Badge API",
     "description": "Reference for Badge Vue component.",
@@ -1203,6 +1598,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#button-group"
+  },
+  {
+    "id": "api-button-group-svelte",
+    "title": "Button Group API",
+    "description": "Reference for Button Group Svelte component.",
+    "headings": "Snippets children - Optional snippets. color \"critical\", \"primary\" - orientation \"vertical\" - The layout orientation of the group. ref HTMLDivElement - Bindable reference to the root element. size \"small\", \"large\" - The size of the buttons in the group. variant - The visual style of the buttons in the group.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#button-group"
   },
   {
     "id": "api-button-group-vue",
@@ -1235,6 +1640,16 @@
     "url": "/html/api#button"
   },
   {
+    "id": "api-button-svelte",
+    "title": "Button API",
+    "description": "Reference for Button Svelte component.",
+    "headings": "Snippets children - Optional snippets. as \"button\", \"a\" - The element to render as. color \"critical\", \"primary\" - disabled boolean - Button disabled state. href string - ref - Bindable reference to the root element. size - The size of the button. variant - The visual variant of the button.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#button"
+  },
+  {
     "id": "api-button-vue",
     "title": "Button API",
     "description": "Reference for Button Vue component.",
@@ -1263,6 +1678,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#callout"
+  },
+  {
+    "id": "api-callout-svelte",
+    "title": "Callout API",
+    "description": "Reference for Callout Svelte component.",
+    "headings": "Snippets - ref HTMLElement - Bindable reference to the root element. severity - The severity level, affecting the color and icon. variant \"tonal\", \"outlined\" \"tonal\" The visual style of the callout.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#callout"
   },
   {
     "id": "api-callout-vue",
@@ -1295,6 +1720,16 @@
     "url": "/html/api#card"
   },
   {
+    "id": "api-card-svelte",
+    "title": "Card API",
+    "description": "Reference for Card Svelte component.",
+    "headings": "Snippets - Optional snippets. actionsAlign \"start\", \"end\" - Alignment for the actions snippet. ref HTMLDivElement - Bindable reference to the root element. variant - The variant to use.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#card"
+  },
+  {
     "id": "api-card-vue",
     "title": "Card API",
     "description": "Reference for Card Vue component.",
@@ -1323,6 +1758,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#checkbox"
+  },
+  {
+    "id": "api-checkbox-svelte",
+    "title": "Checkbox API",
+    "description": "Reference for Checkbox Svelte component.",
+    "headings": "Snippets children, endText - checked boolean - Input checked state. Bindable. disabled boolean - Input disabled state. error boolean - Input error state. group (string | number)[] - hideLabel boolean - Visually hides the label. indeterminate boolean - ref HTMLLabelElement - Bindable reference to the root element. required boolean - Input required state. size \"small\", \"large\" - The size of the input. spread boolean - Spreads the label and input to opposite ends. stack boolean - Stacks the label under the input.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#checkbox"
   },
   {
     "id": "api-checkbox-vue",
@@ -1355,6 +1800,16 @@
     "url": "/html/api#chip"
   },
   {
+    "id": "api-chip-svelte",
+    "title": "Chip API",
+    "description": "Reference for Chip Svelte component.",
+    "headings": "Snippets - Optional snippets. as The underlying HTML element. label string - The text label to display. multiline boolean false Allows multiline text. ref - Bindable reference to the root element. size \"small\" - The size of the chip. variant \"tonal\", \"outlined\" \"tonal\" The visual variant.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#chip"
+  },
+  {
     "id": "api-chip-vue",
     "title": "Chip API",
     "description": "Reference for Chip Vue component.",
@@ -1383,6 +1838,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#classic-select"
+  },
+  {
+    "id": "api-classic-select-svelte",
+    "title": "Classic Select API",
+    "description": "Reference for Classic Select Svelte component.",
+    "headings": "Snippets children - disabled boolean - Select disabled state. endText string - Helper text below the select. error boolean - Select error state. items Item[] [] label string - The label for the select. ref HTMLLabelElement - Bindable reference to the root element. required boolean - Select required state. size \"small\" - The size of the select. value any - The selected value. Bindable. variant \"outlined\", \"filled\" \"outlined\" The visual variant of the select.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#classic-select"
   },
   {
     "id": "api-classic-select-vue",
@@ -1415,6 +1880,16 @@
     "url": "/html/api#description-list"
   },
   {
+    "id": "api-description-list-svelte",
+    "title": "Description List API",
+    "description": "Reference for Description List Svelte component.",
+    "headings": "Snippets children - Optional snippets. bordered boolean, \"dotted\" - ref HTMLDListElement - Bindable reference to the root element. Snippets children - Optional snippets. ref HTMLDivElement - Bindable reference to the root element. Snippets children - Optional snippets. ref HTMLElement - Bindable reference to the root element. Snippets children - Optional snippets. ref HTMLElement - Bindable reference to the root element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#description-list"
+  },
+  {
     "id": "api-description-list-vue",
     "title": "Description List API",
     "description": "Reference for Description List Vue component.",
@@ -1443,6 +1918,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#dialog"
+  },
+  {
+    "id": "api-dialog-svelte",
+    "title": "Dialog API",
+    "description": "Reference for Dialog Svelte component.",
+    "headings": "Snippets - actionsAlign \"start\", \"end\" - Alignment of the actions snippet. closedby - ref HTMLDialogElement - Bindable reference to the root element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#dialog"
   },
   {
     "id": "api-dialog-vue",
@@ -1475,6 +1960,16 @@
     "url": "/html/api#divider"
   },
   {
+    "id": "api-divider-svelte",
+    "title": "Divider API",
+    "description": "Reference for Divider Svelte component.",
+    "headings": "ref HTMLHRElement - Bindable reference to the root element. variant - The visual variant of the divider.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#divider"
+  },
+  {
     "id": "api-divider-vue",
     "title": "Divider API",
     "description": "Reference for Divider Vue component.",
@@ -1503,6 +1998,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#drawer"
+  },
+  {
+    "id": "api-drawer-svelte",
+    "title": "Drawer API",
+    "description": "Reference for Drawer Svelte component.",
+    "headings": "Snippets - backdrop \"transparent\", \"blurred\" \"blurred\" The backdrop style. closedby \"any\" How the drawer is closed. id string auto-generated Unique identifier. ref HTMLDialogElement - Bindable reference to the root element. scrollLock boolean true Whether to lock page scroll. side \"inline-start\" The side it opens from. Snippets children - Optional snippets. heading string - ref HTMLDivElement - Bindable reference to the root element. Snippets children - Optional snippets. ref HTMLDivElement - Bindable reference to the root element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#drawer"
   },
   {
     "id": "api-drawer-vue",
@@ -1535,6 +2040,16 @@
     "url": "/html/api#field-group"
   },
   {
+    "id": "api-field-group-svelte",
+    "title": "Field Group API",
+    "description": "Reference for Field Group Svelte component.",
+    "headings": "Snippets children - Optional snippets. direction \"row\", \"column\" - The orientation of the field group. name string - Shared name for nested input components. ref HTMLDivElement - Bindable reference to the root element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#field-group"
+  },
+  {
     "id": "api-field-group-vue",
     "title": "Field Group API",
     "description": "Reference for Field Group Vue component.",
@@ -1563,6 +2078,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#form"
+  },
+  {
+    "id": "api-form-svelte",
+    "title": "Form API",
+    "description": "Reference for Form Svelte component.",
+    "headings": "Snippets children - Optional snippets. as keyof SvelteHTMLElements \"form\" The HTML element to render. ref HTMLElement - Bindable reference to the root element. Snippets children - Optional snippets. as keyof SvelteHTMLElements \"fieldset\" The HTML element to render. disabled boolean - Whether the field set is disabled. ref HTMLElement - Bindable reference to the root element. Snippets children - Optional snippets. as keyof SvelteHTMLElements \"legend\" The HTML element to render. ref HTMLElement - Bindable reference to the root element. Snippets children - ref HTMLParagraphElement - Bindable reference to the root element. Snippets children - Optional snippets. direction \"row\", \"column\" - The orientation of the field group. name string - Shared name for nested input components. ref HTMLDivElement - Bindable reference to the root element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#form"
   },
   {
     "id": "api-form-vue",
@@ -1595,6 +2120,16 @@
     "url": "/html/api#icon-button"
   },
   {
+    "id": "api-icon-button-svelte",
+    "title": "Icon Button API",
+    "description": "Reference for Icon Button Svelte component.",
+    "headings": "Snippets children - Optional snippets. as \"button\", \"a\" - The underlying HTML element. color \"critical\", \"primary\" - disabled boolean - Whether the icon button is disabled. href string - ref - Bindable reference to the root element. size \"small\" - The size of the icon button. variant - The style of the icon button.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#icon-button"
+  },
+  {
     "id": "api-icon-button-vue",
     "title": "Icon Button API",
     "description": "Reference for Icon Button Vue component.",
@@ -1623,6 +2158,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#list"
+  },
+  {
+    "id": "api-list-svelte",
+    "title": "List API",
+    "description": "Reference for List Svelte component.",
+    "headings": "Snippets children - Optional snippets. bordered boolean false Adds a border between list items. dense boolean false Packs the list tighter. gutterless boolean false Removes list inline padding. ref HTMLUListElement - Bindable reference to the root element. variant - The background color variant of the list. Snippets - as - borderTop boolean false List item top border. for string - inset boolean false Aligns with items that have a start icon. ref HTMLLIElement - Bindable reference to the root element. type -",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#list"
   },
   {
     "id": "api-list-vue",
@@ -1655,6 +2200,16 @@
     "url": "/html/api#progress"
   },
   {
+    "id": "api-progress-svelte",
+    "title": "Progress API",
+    "description": "Reference for Progress Svelte component.",
+    "headings": "Snippets children - Optional fallback content. aria-busy - aria-label string - Accessible label for the progress bar. max number, string - The maximum value of the progress bar. ref HTMLDivElement - Bindable reference to the root element. value number, string - The current value of the progress bar. variant -",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#progress"
+  },
+  {
     "id": "api-progress-vue",
     "title": "Progress API",
     "description": "Reference for Progress Vue component.",
@@ -1683,6 +2238,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#range"
+  },
+  {
+    "id": "api-range-svelte",
+    "title": "Range API",
+    "description": "Reference for Range Svelte component.",
+    "headings": "Snippets - label string - The label for the range input. list string - max number, string - The maximum value. min number, string - The minimum value. options (string | number | object)[] - ref HTMLLabelElement - Bindable reference to the root element. spread boolean - Spreads the label/text and input to opposite ends. step number, string - The step increment. value number, string - The current value. Bindable. valueSuffix string - variant -",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#range"
   },
   {
     "id": "api-range-vue",
@@ -1715,6 +2280,16 @@
     "url": "/html/api#select"
   },
   {
+    "id": "api-select-svelte",
+    "title": "Select API",
+    "description": "Reference for Select Svelte component.",
+    "headings": "Snippets - dense boolean - Select dense state. disabled boolean - Select disabled state. error boolean - items Item[] [] ref HTMLLabelElement - Bindable reference to the root element. required boolean - Select required state. size \"small\" - The size of the select. spread boolean - value any - The selected value. Bindable. variant \"outlined\", \"filled\" \"outlined\" The visual variant of the select.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#select"
+  },
+  {
     "id": "api-select-vue",
     "title": "Select API",
     "description": "Reference for Select Vue component.",
@@ -1743,6 +2318,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#spinner"
+  },
+  {
+    "id": "api-spinner-svelte",
+    "title": "Spinner API",
+    "description": "Reference for Spinner Svelte component.",
+    "headings": "aria-busy - Sizes font-size 1em Excluded - Elements that never receive a spinner.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#spinner"
   },
   {
     "id": "api-spinner-vue",
@@ -1775,6 +2360,16 @@
     "url": "/html/api#switch"
   },
   {
+    "id": "api-switch-svelte",
+    "title": "Switch API",
+    "description": "Reference for Switch Svelte component.",
+    "headings": "Snippets - aria-label string - aria-labelledby string - ID of an external element that labels the switch. checked boolean - Whether the switch is checked. Bindable. disabled boolean - Whether the switch is disabled. error boolean - Switch error state. group (string | number)[] - hideLabel boolean - Visually hides the label but keeps it accessible. ref HTMLLabelElement - Bindable reference to the root element. required boolean - Whether the switch is required. small boolean - Reduces the size of the switch. spread boolean - Spreads the label and switch to opposite ends. stack boolean - Labels are stacked under the element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#switch"
+  },
+  {
     "id": "api-switch-vue",
     "title": "Switch API",
     "description": "Reference for Switch Vue component.",
@@ -1803,6 +2398,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#table"
+  },
+  {
+    "id": "api-table-svelte",
+    "title": "Table API",
+    "description": "Reference for Table Svelte component.",
+    "headings": "Snippets children - Optional snippets. ref HTMLTableElement - Bindable reference to the root element. variant \"dense\", \"spacious\" - The variant to use. ref HTMLTableColElement - Bindable reference to the root element. width string -",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#table"
   },
   {
     "id": "api-table-vue",
@@ -1835,6 +2440,16 @@
     "url": "/html/api#tabs"
   },
   {
+    "id": "api-tabs-svelte",
+    "title": "Tabs API",
+    "description": "Reference for Tabs Svelte component.",
+    "headings": "Snippets children - Optional snippets. name string auto-generated ref HTMLDivElement - Bindable reference to the root element. Snippets children - Optional snippets. name string - Overrides the group name from Tabs. open boolean false Whether this tab is initially active. panelId string auto-generated ref HTMLInputElement - Bindable reference to the root element. tabId string auto-generated Snippets children - Optional snippets. ref HTMLLabelElement - Bindable reference to the root element. tabId string - Overrides the tab id from TabsItem. Snippets children - Optional snippets. panelId string - Overrides the panel id from TabsItem. ref HTMLDivElement - Bindable reference to the root element. tabId string - Overrides the tab id from TabsItem.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#tabs"
+  },
+  {
     "id": "api-tabs-vue",
     "title": "Tabs API",
     "description": "Reference for Tabs Vue component.",
@@ -1863,6 +2478,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#text-field"
+  },
+  {
+    "id": "api-text-field-svelte",
+    "title": "Text Field API",
+    "description": "Reference for Text Field Svelte component.",
+    "headings": "Snippets - Input props - autoFit boolean - Automatically adjusts its width to content. error boolean - filled boolean - The filled visual variant. ref HTMLLabelElement - Bindable reference to the root element. small boolean - The small size variant. spread boolean - type Input types, \"numeric\" \"text\" value string, number - The input value. Bindable.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#text-field"
   },
   {
     "id": "api-text-field-vue",
@@ -1895,6 +2520,16 @@
     "url": "/html/api#text-input"
   },
   {
+    "id": "api-text-input-svelte",
+    "title": "Text Input API",
+    "description": "Reference for Text Input Svelte component.",
+    "headings": "autoFit boolean - Automatically adjusts its width to content. filled boolean - The filled visual variant. small boolean - The small size variant.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#text-input"
+  },
+  {
     "id": "api-text-input-vue",
     "title": "Text Input API",
     "description": "Reference for Text Input Vue component.",
@@ -1923,6 +2558,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#textarea"
+  },
+  {
+    "id": "api-textarea-svelte",
+    "title": "Textarea API",
+    "description": "Reference for Textarea Svelte component.",
+    "headings": "Snippets - Textarea props - autoFit boolean - Automatically adjusts its height to content. error boolean - filled boolean - The filled visual variant. ref HTMLLabelElement - Bindable reference to the root element. small boolean - The small size variant. spread boolean - value string - The textarea value. Bindable.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#textarea"
   },
   {
     "id": "api-textarea-vue",
@@ -1965,6 +2610,16 @@
     "url": "/html/api#toggle"
   },
   {
+    "id": "api-toggle-svelte",
+    "title": "Toggle API",
+    "description": "Reference for Toggle Svelte component.",
+    "headings": "Snippets children - Optional snippets. disabled boolean - Whether the toggle button is disabled. label string - name string - pressed boolean - ref HTMLLabelElement - Bindable reference to the root element. size \"small\", \"x-small\" - The size of the toggle button. type \"checkbox\", \"radio\" \"checkbox\" value string - Snippets children - Required snippet with the toggle buttons. name string - orientation \"vertical\" - Changes the layout direction of the group. ref HTMLDivElement - Bindable reference to the root element. selection \"single\", \"multiple\" \"multiple\" size \"default\" The size of the toggle group.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#toggle"
+  },
+  {
     "id": "api-toggle-vue",
     "title": "Toggle API",
     "description": "Reference for Toggle Vue component.",
@@ -1995,6 +2650,16 @@
     "url": "/html/api#tooltip"
   },
   {
+    "id": "api-tooltip-svelte",
+    "title": "Tooltip API",
+    "description": "Reference for Tooltip Svelte component.",
+    "headings": "Snippets children, content - alignment string \"block-start\" arrow boolean false Renders an arrow pointing toward the trigger. id string auto-generated label string - Plain-text tooltip content. ref HTMLSpanElement - Bindable reference to the root element.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#tooltip"
+  },
+  {
     "id": "api-tooltip-vue",
     "title": "Tooltip API",
     "description": "Reference for Tooltip Vue component.",
@@ -2023,6 +2688,16 @@
     "frameworkId": "html",
     "type": "HTML",
     "url": "/html/api#typography"
+  },
+  {
+    "id": "api-typography-svelte",
+    "title": "Typography API",
+    "description": "Reference for Typography Svelte component.",
+    "headings": "Classes - Sizes .ui-small, .ui-large - Size modifiers on .ui-p.",
+    "category": "API",
+    "frameworkId": "svelte",
+    "type": "Svelte",
+    "url": "/svelte/api#typography"
   },
   {
     "id": "api-typography-vue",

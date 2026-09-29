@@ -1,0 +1,74 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Snippets</Table.Cell>
+      <Table.Cell
+        ><code>children</code>, <code>end</code>, <code>start</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Optional snippets.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>as</code></Table.Cell>
+      <Table.Cell
+        ><code>"a"</code>, <code>"button"</code>, <code>"div"</code></Table.Cell
+      >
+      <Table.Cell
+        ><code>"div"</code> (or <code>"a"</code> if <code>href</code> present)</Table.Cell
+      >
+      <Table.Cell>The underlying HTML element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>label</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The text label to display.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>multiline</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Allows multiline text.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>ref</code></Table.Cell>
+      <Table.Cell
+        ><code>HTMLAnchorElement</code>, <code>HTMLButtonElement</code>, <code
+          >HTMLDivElement</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Bindable reference to the root element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>size</code></Table.Cell>
+      <Table.Cell><code>"small"</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The size of the chip.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>variant</code></Table.Cell>
+      <Table.Cell><code>"tonal"</code>, <code>"outlined"</code></Table.Cell>
+      <Table.Cell><code>"tonal"</code></Table.Cell>
+      <Table.Cell>The visual variant.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

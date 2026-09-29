@@ -43,7 +43,7 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
 
     <span class="ui-field">
       <select
-        :aria-labelledby="props.label ? labelId : undefined"
+        :aria-labelledby="props.label || $slots.label ? labelId : undefined"
         :id="selectId"
         :name="currentFieldName"
         v-bind="$attrs"

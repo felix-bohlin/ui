@@ -4,8 +4,9 @@ import type { Snippet } from "svelte"
 
 export type Props = Base.Props &
   Base.Slots<Snippet> &
-  Pick<SvelteHTMLElements["img"], Base.ImageProps> &
-  (
+  Pick<SvelteHTMLElements["img"], Base.ImageProps> & {
+    ref?: HTMLAnchorElement | HTMLButtonElement | HTMLDivElement | null
+  } & (
     | ({ as?: "div" } & SvelteHTMLElements["div"])
     | ({ as?: "button" } & SvelteHTMLElements["button"])
     | ({ as?: "a" } & SvelteHTMLElements["a"])

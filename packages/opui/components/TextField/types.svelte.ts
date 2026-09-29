@@ -9,7 +9,7 @@ type InputProps = {
   // include the rest
   Pick<SvelteHTMLElements["input"], Exclude<Base.InputProps, "type">>
 
-type Snippets = Base.Slots<Snippet>
+type Snippets = Partial<Base.Slots<Snippet>>
 
 export type Props =
   // Unique component props, except snippets
@@ -19,4 +19,4 @@ export type Props =
     // Input attributes
     InputProps &
     // Snippets
-    Snippets
+    Snippets & { ref?: HTMLLabelElement | null }

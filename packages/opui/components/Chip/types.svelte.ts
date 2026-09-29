@@ -6,7 +6,9 @@ type Snippets = Base.Slots<Snippet>
 
 // prettier-ignore
 export type Props = Base.Props &
-  Snippets &
+  Snippets & {
+    ref?: HTMLAnchorElement | HTMLButtonElement | HTMLDivElement | null
+  } &
   (
     | ({ as?: "a" } & SvelteHTMLElements["a"])
     | ({ as?: "button" } & SvelteHTMLElements["button"])

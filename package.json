@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/svelte": "^9.0.1",
     "@astrojs/vue": "^7.0.3",
     "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.63.0",
@@ -45,8 +46,10 @@
     "parse5": "^8.0.1",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "0.14.1",
+    "prettier-plugin-svelte": "^3.5.2",
     "solid-js": "catalog:",
     "stylelint": "^17.15.0",
+    "svelte": "catalog:",
     "vitest": "^5.0.2",
     "vue": "catalog:",
     "vue-tsc": "^3.3.11"

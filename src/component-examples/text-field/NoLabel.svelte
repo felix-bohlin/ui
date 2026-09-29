@@ -1,0 +1,3 @@
+<div class="ui-text-field">
+  <input type="text" placeholder="Placeholder" />
+</div>

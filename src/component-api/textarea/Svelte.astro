@@ -1,0 +1,99 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Snippets</Table.Cell>
+      <Table.Cell
+        ><code>children</code>, <code>description</code>, <code>endText</code>, <code
+          >footer</code
+        >, <code>header</code>, <code>label</code>, <code>prefix</code>, <code
+          >suffix</code
+        >, <code>supportingText</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Optional snippets. All except <code>children</code> also accept a <code
+          >string</code
+        >.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Textarea props</Table.Cell>
+      <Table.Cell
+        ><code>cols</code>, <code>disabled</code>, <code>maxlength</code>, <code
+          >minlength</code
+        >, <code>name</code>, <code>placeholder</code>, <code>required</code>, <code
+          >rows</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Forwarded to the inner <code>&lt;textarea&gt;</code>. Other attributes
+        go on the root <code>&lt;label&gt;</code>.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>autoFit</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Automatically adjusts its height to content.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>error</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Field error state. Sets <code>[data-invalid]</code> on the root element.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>filled</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The filled visual variant.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>ref</code></Table.Cell>
+      <Table.Cell><code>HTMLLabelElement</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Bindable reference to the root element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>small</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The small size variant.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>spread</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Spreads the label/description and textarea to opposite ends.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>value</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The textarea value. Bindable.</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>

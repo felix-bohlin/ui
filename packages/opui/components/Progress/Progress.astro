@@ -3,29 +3,11 @@ import type { Props } from "./types.astro"
 
 export const title = "Progress"
 
-const {
-  "aria-busy": ariaBusy,
-  "aria-describedby": ariaDescribedby,
-  "aria-label": ariaLabel,
-  class: className,
-  id,
-  max,
-  value,
-  variant,
-  ...rest
-} = Astro.props
+const { class: className, max, value, variant, ...rest } = Astro.props
 ---
 
 <div class:list={["ui-progress", className, variant && `ui-${variant}`]}>
-  <progress
-    aria-busy={ariaBusy}
-    aria-describedby={ariaDescribedby}
-    aria-label={ariaLabel}
-    id={id}
-    max={max}
-    value={value}
-    {...rest}
-  >
+  <progress max={max} value={value} {...rest}>
     <slot />
   </progress>
 </div>

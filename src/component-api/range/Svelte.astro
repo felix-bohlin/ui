@@ -1,0 +1,121 @@
+---
+import { Table } from "@opui/astro"
+---
+
+<Table>
+  <Table.ColumnGroup>
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 20%" />
+    <Table.Column width="min-width: 300px" />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Prop</Table.HeaderCell>
+      <Table.HeaderCell>Type</Table.HeaderCell>
+      <Table.HeaderCell>Default</Table.HeaderCell>
+      <Table.HeaderCell>Description</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Snippets</Table.Cell>
+      <Table.Cell
+        ><code>children</code>, <code>datalist</code>, <code>endText</code>, <code
+          >startText</code
+        >, <code>valueText</code></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Optional snippets. <code>children</code> is the label content. <code
+          >endText</code
+        > and <code>startText</code> also accept a <code>string</code>. <code
+          >valueText</code
+        > replaces the value readout before hydration.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>label</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The label for the range input.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>list</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >The id of the rendered <code>&lt;datalist&gt;</code>. Required with <code
+          >options</code
+        >.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>max</code></Table.Cell>
+      <Table.Cell><code>number</code>, <code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The maximum value.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>min</code></Table.Cell>
+      <Table.Cell><code>number</code>, <code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The minimum value.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>options</code></Table.Cell>
+      <Table.Cell><code>(string | number | object)[]</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Options rendered in a <code>&lt;datalist&gt;</code>. Objects take <code
+          >value</code
+        > and an optional <code>label</code>.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>ref</code></Table.Cell>
+      <Table.Cell><code>HTMLLabelElement</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Bindable reference to the root element.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>spread</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>Spreads the label/text and input to opposite ends.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>step</code></Table.Cell>
+      <Table.Cell><code>number</code>, <code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The step increment.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>value</code></Table.Cell>
+      <Table.Cell><code>number</code>, <code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell>The current value. Bindable.</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>valueSuffix</code></Table.Cell>
+      <Table.Cell><code>string</code></Table.Cell>
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Renders a live <code>&lt;output&gt;</code> next to the label with the suffix
+        appended to the value.</Table.Cell
+      >
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell><code>variant</code></Table.Cell>
+      <Table.Cell
+        ><code>"filled"</code>, <code>"default"</code>, <code>"tonal"</code
+        ></Table.Cell
+      >
+      <Table.Cell>-</Table.Cell>
+      <Table.Cell
+        >Adjusts the track color for better contrast on different surfaces.</Table.Cell
+      >
+    </Table.Row>
+  </Table.Body>
+</Table>

@@ -9,9 +9,11 @@ import TextareaCSS from "@opui/css/components/textarea.css?raw"
 
 import TextFieldAPIAstro from "../../component-api/text-field/Astro.astro"
 import TextFieldAPIHTML from "../../component-api/text-field/HTML.astro"
+import TextFieldAPISvelte from "../../component-api/text-field/Svelte.astro"
 import TextFieldAPIVue from "../../component-api/text-field/Vue.astro"
 import TextareaAPIAstro from "../../component-api/textarea/Astro.astro"
 import TextareaAPIHTML from "../../component-api/textarea/HTML.astro"
+import TextareaAPISvelte from "../../component-api/textarea/Svelte.astro"
 import TextareaAPIVue from "../../component-api/textarea/Vue.astro"
 
 export const description =
@@ -33,12 +35,14 @@ export const description =
       title: "Text field API",
       astro: TextFieldAPIAstro,
       html: TextFieldAPIHTML,
+      svelte: TextFieldAPISvelte,
       vue: TextFieldAPIVue,
     },
     {
       title: "Textarea API",
       astro: TextareaAPIAstro,
       html: TextareaAPIHTML,
+      svelte: TextareaAPISvelte,
       vue: TextareaAPIVue,
     },
   ]}
@@ -95,6 +99,12 @@ export const description =
         and <code>footer</code> slots to affix content inside the textarea's border.
         Header and footer are particularly useful for filenames and character counters.
       </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> props or snippets to affix content inside the textarea's
+        border. Header and footer are particularly useful for filenames and character
+        counters.
+      </Fragment>
       <Fragment slot="vue">
         Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
         and <code>footer</code> slots to affix content inside the textarea's border.
@@ -123,6 +133,10 @@ export const description =
         Set <code>required</code> on the component to toggle required styles on the
         textarea.
       </Fragment>
+      <Fragment slot="svelte">
+        Set the <code>required</code> prop on the component. It is passed to the underlying
+        <code>&lt;textarea&gt;</code>.
+      </Fragment>
       <Fragment slot="vue">
         Add the <code>required</code> attribute on the component. It is forwarded
         to the underlying <code>&lt;textarea&gt;</code>.
@@ -137,6 +151,11 @@ export const description =
         Use the <code>error</code> prop to toggle invalid styles. It renders the
         <code>data-invalid</code> attribute on the root element. Make use of the end
         text to give extra feedback on the error.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>error</code> prop to toggle invalid styles. It renders
+        <code>data-invalid</code> on the root element. Make use of the end text to
+        give extra feedback on the error.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>error</code> prop to toggle invalid styles. It renders
@@ -162,6 +181,11 @@ export const description =
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-spread</code> class to display the label and description
+        on the left with the textarea on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
+      <Fragment slot="svelte">
+        Use the <code>spread</code> boolean prop to display the label and description
         on the left with the textarea on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>

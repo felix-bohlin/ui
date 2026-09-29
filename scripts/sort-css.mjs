@@ -14,7 +14,9 @@ const files = await globby(["packages/opui/**/*.css", "src/**/*.css"], {
   ignore: ["**/dist/**", "**/node_modules/**"],
 })
 
-const sorter = postcss([cssDeclarationSorter({ order: "alphabetical" })])
+const sorter = postcss([
+  cssDeclarationSorter({ keepOverrides: true, order: "alphabetical" }),
+])
 const unsorted = []
 
 for (const file of files.toSorted()) {

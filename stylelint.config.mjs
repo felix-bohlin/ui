@@ -7,6 +7,7 @@ export default {
       true,
       { ignore: ["consecutive-duplicates-with-different-values"] },
     ],
+    "declaration-block-no-shorthand-property-overrides": true,
     "function-no-unknown": null,
     "no-duplicate-selectors": [true, { severity: "warning" }],
     "no-invalid-double-slash-comments": true,

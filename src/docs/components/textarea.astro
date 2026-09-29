@@ -1,25 +1,17 @@
 ---
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
+import Anatomy from "../../components/Anatomy.astro"
+import { Textarea as UITextarea } from "@opui/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
-import { DEFAULT_FRAMEWORK } from "../../utils/framework-routing"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
 
-import textFieldApi from "../../component-api/text-field/api"
-import TextareaAPIAstro from "../../component-api/textarea/Astro.astro"
-import TextareaAPIHTML from "../../component-api/textarea/HTML.astro"
-import TextareaAPIVue from "../../component-api/textarea/Vue.astro"
+import textareaApi from "../../component-api/textarea/api"
 
 export const description =
   "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states."
-
-const fieldApi =
-  (Astro.currentLocale ?? DEFAULT_FRAMEWORK) === "html"
-    ? [{ title: "Text field API", api: textFieldApi }]
-    : []
 ---
 
 <Component
@@ -32,15 +24,8 @@ const fieldApi =
     "light-dark",
     "relative-color",
   ]}
-  apis={[
-    ...fieldApi,
-    {
-      title: "Textarea API",
-      astro: TextareaAPIAstro,
-      html: TextareaAPIHTML,
-      vue: TextareaAPIVue,
-    },
-  ]}
+  heroAnatomy
+  apis={[{ title: "Textarea API", api: textareaApi }]}
   changelogPaths={[
     {
       path: "packages/opui/components/Textarea/Textarea.astro",
@@ -184,47 +169,18 @@ const fieldApi =
   </section>
 
   <Fragment slot="anatomy">
-    <ol>
-      <li><code>label.ui-textarea</code>: Container element</li>
-      <li><code>.ui-label</code>: Field label element</li>
-      <li><code>.ui-field</code>: The boxed input area</li>
-      <li>
-        <code>.ui-header</code>: Optional inside-border header strip (with
-        divider)
-      </li>
-      <li><code>.ui-prefix</code>: Optional inline-start affix</li>
-      <li><code>&lt;textarea&gt;</code>: Textarea element</li>
-      <li><code>.ui-suffix</code>: Optional inline-end affix</li>
-      <li>
-        <code>.ui-footer</code>: Optional inside-border footer strip (with
-        divider)
-      </li>
-      <li><code>.ui-end-text</code>: Supporting text element</li>
-    </ol>
-
-    <Example>
-      <label class="ui-textarea anatomy">
-        <span class="ui-label">Label</span>
-        <span class="ui-field">
-          <span class="ui-header">Header</span>
-          <span class="ui-prefix">@</span>
-          <textarea placeholder="Placeholder"></textarea>
-          <span class="ui-suffix">.com</span>
-          <span class="ui-footer">Footer</span>
-        </span>
-        <span class="ui-end-text">Supporting text</span>
-      </label>
-    </Example>
+    <Anatomy zoom={1.25}>
+      <UITextarea
+        description="Description"
+        endText="Supporting text"
+        label="Label"
+        placeholder="Placeholder"
+      >
+        <span slot="header">Header</span>
+        <span slot="prefix">¢</span>
+        <span slot="suffix">EUR</span>
+        <span slot="footer">Footer</span>
+      </UITextarea>
+    </Anatomy>
   </Fragment>
 </Component>
-
-<style is:global>
-  .ui-textarea.anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: 6px;
-
-    & > * {
-      outline: var(--_anatomy-border-red);
-    }
-  }
-</style>

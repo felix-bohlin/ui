@@ -1,29 +1,24 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
-import { Callout as UICallout } from "@opui/astro"
-import Example from "../../components/Example"
+import {
+  Button as UIButton,
+  Callout as UICallout,
+  Card as UICard,
+} from "@opui/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
 import CardCSS from "@opui/css/components/card.css?raw"
-import ExampleAnatomy from "../../component-examples/card/Anatomy.astro"
 import Conditional from "../../components/Conditional.astro"
+
+import cardApi from "../../component-api/card/api"
 ---
-
-<style is:global>
-  .ui-card.anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: 3px;
-
-    :is(hgroup, .ui-content, .ui-actions) {
-      outline: var(--_anatomy-border-red);
-      outline-offset: -2px;
-    }
-  }
-</style>
 
 <Component
   slug="card"
+  heroAnatomy
+  apis={[{ title: "Card API", api: cardApi }]}
   browserSupport={["container-style-queries"]}
   changelogPaths={[
     {
@@ -130,67 +125,23 @@ import Conditional from "../../components/Conditional.astro"
   </section>
 
   <Fragment slot="anatomy">
-    <p>
-      Open Props UI include these complementary utility components to handle
-      various use cases:
-    </p>
-
-    <Conditional>
-      <Fragment slot="astro">
-        <ol>
-          <li>Container</li>
-          <li>
-            <code>header</code> slot (optional): a wrapper for the card header
-          </li>
-          <li>
-            <code>content</code> slot (optional): a wrapper for the card content
-          </li>
-          <li>
-            <code>default</code> slot (optional): raw content placed directly in the
-            card
-          </li>
-          <li>
-            <code>actions</code> slot (optional): a wrapper that groups a set of buttons
-          </li>
-        </ol>
-      </Fragment>
-      <Fragment slot="html">
-        <ol>
-          <li>Container</li>
-          <li>
-            <code>&lt;hgroup&gt;</code> (optional): a wrapper for the card header
-          </li>
-          <li>
-            <code>.ui-content</code> (optional): a wrapper for the card content
-          </li>
-          <li>
-            <code>.ui-actions</code> (optional): a wrapper that groups a set of buttons
-          </li>
-        </ol>
-      </Fragment>
-      <Fragment slot="vue">
-        <ol>
-          <li>Container</li>
-          <li>
-            <code>header</code> slot (optional): a wrapper for the card header
-          </li>
-          <li>
-            <code>content</code> slot (optional): a wrapper for the card content
-          </li>
-          <li>
-            <code>default</code> slot (optional): raw content placed directly in the
-            card
-          </li>
-          <li>
-            <code>actions</code> slot (optional): a wrapper that groups a set of buttons
-          </li>
-        </ol>
-      </Fragment>
-    </Conditional>
-
-    <Example column>
-      <Example.Preview slot="preview-astro" code={ExampleAnatomy} />
-    </Example>
+    <Anatomy>
+      <UICard variant="elevated">
+        <Fragment slot="header">
+          <p>Overline</p>
+          <h2 class="ui-h3">Headline</h2>
+          <p>Subhead</p>
+        </Fragment>
+        <Fragment slot="content">
+          Explain more about the topic shown in the headline and subhead through
+          supporting text.
+        </Fragment>
+        <Fragment slot="actions">
+          <UIButton>Share</UIButton>
+          <UIButton>Learn more</UIButton>
+        </Fragment>
+      </UICard>
+    </Anatomy>
   </Fragment>
 
   <div slot="installation" class="ui-not-rich-text">

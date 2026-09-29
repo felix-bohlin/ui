@@ -26,9 +26,6 @@
     "color-contrast",
     "list"
   ],
-  "astro/select": [
-    "button-name"
-  ],
   "astro/spinner": [
     "color-contrast",
     "heading-order"
@@ -82,9 +79,6 @@
   "html/typography": [
     "color-contrast"
   ],
-  "vue/accordion": [
-    "landmark-unique"
-  ],
   "vue/avatar": [
     "color-contrast"
   ],
@@ -111,9 +105,6 @@
     "button-name",
     "color-contrast",
     "list"
-  ],
-  "vue/select": [
-    "button-name"
   ],
   "vue/spinner": [
     "color-contrast",

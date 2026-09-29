@@ -1,38 +1,28 @@
 ---
 import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
-import { Accordion as UIAccordion } from "@opui/astro"
+import Anatomy from "../../components/Anatomy.astro"
+import {
+  Accordion as UIAccordion,
+  Button as UIButton,
+  ButtonGroup as UIButtonGroup,
+} from "@opui/astro"
 
 import ButtonGroupCSS from "@opui/css/components/button-group.css?raw"
-import ButtonGroupAPIAstro from "../../component-api/button-group/Astro.astro"
-import ButtonGroupAPIHTML from "../../component-api/button-group/HTML.astro"
-import ButtonGroupAPIVue from "../../component-api/button-group/Vue.astro"
-import ButtonAPIAstro from "../../component-api/button/Astro.astro"
-import ButtonAPIHTML from "../../component-api/button/HTML.astro"
-import ButtonAPIVue from "../../component-api/button/Vue.astro"
+import buttonGroupApi from "../../component-api/button-group/api"
+import buttonApi from "../../component-api/button/api"
 
-import ExampleAnatomy from "../../component-examples/button-group/Anatomy.astro"
 import Conditional from "../../components/Conditional.astro"
 ---
 
 <Component
   slug="button-group"
   browserSupport={["color-mix"]}
+  heroAnatomy
   apis={[
-    {
-      title: "Button group",
-      astro: ButtonGroupAPIAstro,
-      html: ButtonGroupAPIHTML,
-      vue: ButtonGroupAPIVue,
-    },
-    {
-      title: "Button",
-      astro: ButtonAPIAstro,
-      html: ButtonAPIHTML,
-      vue: ButtonAPIVue,
-    },
+    { title: "Button group", api: buttonGroupApi },
+    { title: "Button", api: buttonApi },
   ]}
   changelogPaths={[
     {
@@ -207,33 +197,12 @@ import Conditional from "../../components/Conditional.astro"
   </section>
 
   <Fragment slot="anatomy">
-    <ol>
-      <li>
-        Container: <code
-          >&lt;element role="group" class="ui-button-group"&gt;</code
-        >
-      </li>
-      <li>
-        Buttons: <DocLink href="/components/button" class="ui-link"
-          >Button</DocLink
-        >
-      </li>
-    </ol>
-
-    <Example row>
-      <Example.Preview slot="preview-astro" code={ExampleAnatomy} />
-    </Example>
+    <Anatomy zoom={1.25}>
+      <UIButtonGroup variant="outlined">
+        <UIButton>Day</UIButton>
+        <UIButton>Week</UIButton>
+        <UIButton>Month</UIButton>
+      </UIButtonGroup>
+    </Anatomy>
   </Fragment>
-
-  <style is:global>
-    .ui-button-group.anatomy {
-      outline: var(--_anatomy-border-gray);
-      outline-offset: 4px;
-
-      & > * {
-        outline: var(--_anatomy-border-red);
-        outline-offset: -5px;
-      }
-    }
-  </style>
 </Component>

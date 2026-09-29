@@ -146,4 +146,4 @@ import { Table } from "@opui/astro"
 </Table>
 ```
 
-Refer to [card/Astro.astro](card/Astro.astro) and [card/HTML.astro](card/HTML.astro) for the preferred implementations of multi-language APIs.
+Refer to [card/api.ts](card/api.ts) and [text-field/api.ts](text-field/api.ts) for the preferred implementations of multi-language APIs.

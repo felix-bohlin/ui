@@ -1,5 +1,39 @@
 # Carousel
 
+## Anatomy
+
+- Destination
+
+  ### Kyoto
+
+- Destination
+
+  ### Lima
+
+- Destination
+
+  ### Lisbon
+
+* `<Carousel>`
+
+  The scroller.
+
+* `slot="default"`
+
+  An item.
+
+* `buttons`
+
+  The previous button.
+
+* `buttons`
+
+  The next button.
+
+* `markers`
+
+  A marker, one per item.
+
 ## Basics
 
 `markers` to add markers.
@@ -344,15 +378,22 @@ Announces item position. Buttons and markers are named.
 
 ## API
 
-| Prop      | Type                   | Default   | Description                           |
-| --------- | ---------------------- | --------- | ------------------------------------- |
-| `align`   | `"start"`, `"center"`  | `"start"` | Where items snap.                     |
-| `buttons` | `boolean`, `"outside"` | `true`    | Previous and next buttons.            |
-| `label`   | `string`               | -         | Accessible name of the carousel.      |
-| `markers` | `boolean`              | `false`   | One marker per item, after the list.  |
-| `peek`    | `boolean`              | `false`   | Shows part of the neighbouring items. |
-| `perView` | `number`               | `1`       | Number of visible items.              |
-| default   | -                      | -         | `<li>` items.                         |
+### Carousel API
+
+| Prop      | Type                   | Default   | Description                                                          |
+| --------- | ---------------------- | --------- | -------------------------------------------------------------------- |
+| `align`   | `"start"`, `"center"`  | `"start"` | Where items snap.                                                    |
+| `buttons` | `boolean`, `"outside"` | `true`    | Previous and next buttons. `"outside"` places them beside the items. |
+| `label`   | `string`               | -         | Accessible name of the carousel.                                     |
+| `markers` | `boolean`              | `false`   | One marker per item, after the list.                                 |
+| `peek`    | `boolean`              | `false`   | Shows part of the neighbouring items.                                |
+| `perView` | `number`               | `1`       | Number of visible items.                                             |
+
+#### Slots
+
+| Slot      | Description |
+| --------- | ----------- |
+| `default` | An item.    |
 
 ## Browser support
 

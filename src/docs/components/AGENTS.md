@@ -27,10 +27,9 @@ Before creating or refactoring a page, perform the following research:
     - Modifier classes (e.g., `.ui-filled`, `.ui-outlined`, `.ui-small`).
     - Modern CSS features being used (to populate `browserSupport`).
     - Internal part classes (the `parts` in `api.ts`, which drive the `anatomy` diagram).
-3.  **Check for API Metadata**: Verify if a corresponding API file or folder exists in `src/component-api/`.
-    - For single APIs: `src/component-api/[name]-api.astro`.
-    - For multi-framework APIs: `src/component-api/[name]/Astro.astro` and `src/component-api/[name]/HTML.astro`.
-    - If not, create them based on the props identified in step 1. Note that some components share APIs (e.g., `field-api.astro`).
+3.  **Check for API Metadata**: Verify if `src/component-api/[name]/api.ts` exists.
+    - If not, create it from the props, parts and slots identified in steps 1 and 2, following [src/component-api/AGENT.md](../../component-api/AGENT.md). Props and slots are read from the component source, so the build warns when `api.ts` and the source disagree.
+    - A few components still use hand-written tables (`src/component-api/[name]/Astro.astro` and `HTML.astro`). Convert them to `api.ts` when touching them.
 4.  **Identify Dependencies**: Determine if the component relies on other components.
     - **Field-based components** (`TextField`, `Select`, `Textarea`): Usually depend on `field.css`.
     - **Group-based components** (`CheckboxGroup`, `RadioGroup`): Usually depend on `form.css`.
@@ -90,7 +89,7 @@ import ComponentCSS from "@opui/css/components/component.css?raw"
 What the conventions handle automatically:
 
 - **`<AutoExample name="Basics">`** globs `src/component-examples/<slug>/Basics.{astro,html}` for every framework registered in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Drop a file in the right folder and the section picks it up.
-- **API tables** are auto-resolved from `src/component-api/<slug>/<Label>.astro` (where `<Label>` is the framework's display label, e.g. `Astro.astro`, `HTML.astro`). No `apis={{ ... }}` prop needed unless you have a non-standard layout.
+- **API tables** come from `src/component-api/<slug>/api.ts`, passed as `apis={[{ title: "Button API", api: buttonApi }]}`. Pages that still have hand-written `src/component-api/<slug>/<Label>.astro` tables get them auto-resolved without an `apis` prop.
 - The layout sets `Astro.locals.componentSlug = slug`, which `<AutoExample>` reads - so each example only repeats `name`, never the slug.
 
 CSS imports use the `@opui/css/...` package alias. UI-component imports use `@opui/astro` (e.g. `import { Button } from "@opui/astro"`). Avoid hand-rolled relative paths into the package.
@@ -128,7 +127,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 
 ### 4.1 Props
 
-- `apis`: (Optional) Either a single imported API module, an array of `{ title, component }` objects, or a framework-keyed object `{ astro, html }` (preferred when API tables differ per framework).
+- `apis`: (Optional) An array of `{ title, api }` objects, where `api` is the default export of a `src/component-api/<slug>/api.ts`. Use several entries when a page documents more than one component (e.g. Tabs and its `Tabs.Item`). Hand-written `.astro` tables can still be passed as `{ title, component }` objects or a framework-keyed `{ astro, html }` object.
 - `browserSupport`: (Optional) Array of feature IDs (e.g., `["has", "light-dark"]`).
 - `changelogPaths`: (Optional) Array of `{ path, type }` entries used to render the per-component changelog.
 - `heroAnatomy`: (Optional) Renders the `anatomy` slot at the top of the page, above the content, instead of in its own section.
@@ -157,10 +156,19 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 
 ### 5.2 API Documentation
 
-**DO NOT hardcode API tables.** API resolution is automatic when the page sets `slug="..."` on `<Component>`: the layout globs `src/component-api/<slug>/<Label>.astro` for every framework in `FRAMEWORKS`. You only need the `apis` prop for non-standard layouts (e.g., shared API folders like `field-api.astro`, or multiple API tables per page).
+**DO NOT hardcode API tables.** Describe the component once in `src/component-api/<slug>/api.ts` ([src/component-api/AGENT.md](../../component-api/AGENT.md)) and pass it to the layout:
 
-- Markdown files in `src/component-api/` should use tables with: `Type`, `Modifiers`, `Default`, `Description`.
-- Link `Type` values to relevant sections (e.g., `[Variants](#variants)`).
+```astro
+---
+import buttonApi from "../../component-api/button/api"
+---
+
+<Component slug="button" apis={[{ title: "Button API", api: buttonApi }]} />
+```
+
+- One `api.ts` renders the props, slots and parts tables for every framework, the HTML modifiers table, and the `<Anatomy>` diagram.
+- Keep descriptions short. Use backticks for classes, props and selectors; they are formatted by `formatInline`.
+- Pages that still have hand-written `src/component-api/<slug>/<Label>.astro` tables get them auto-resolved from the `slug` without an `apis` prop. Convert them to `api.ts` when touching them.
 
 ### 5.3 `<UICallout>` (Alerts & Info)
 
@@ -223,7 +231,7 @@ Use `<Conditional>` to display different text or HTML content for different fram
 ## 7. Key Learnings & Debugging
 
 - **Framework Routing**: Every framework lives under its own prefix (e.g. `/html/components/button`, `/astro/components/button`). The active framework comes from `Astro.currentLocale` and flows into `<Conditional>`, `<Example>`, and `<ComponentAPI>` automatically. Legacy unprefixed URLs redirect to the default framework variant.
-- **Adding a New Framework**: Add the framework to `FRAMEWORKS` in [src/utils/framework.js](../../utils/framework.js) and a row to the `FRAMEWORK_BRANDING` map in [src/pages/index.astro](../../pages/index.astro). Then drop the per-component content into the right folders - `src/component-examples/<component>/<Name>.<ext>` for each example and `src/component-api/<component>/<Label>.astro` for the API table. `<AutoExample>` and the auto-API resolver pick those up without doc-page edits. Any sections still using the manual `<Example>` form will need `preview-<id>` / `code-<id>` slots added alongside the existing ones.
+- **Adding a New Framework**: Add the framework to `FRAMEWORKS` in [src/utils/framework.js](../../utils/framework.js) and a row to the `FRAMEWORK_BRANDING` map in [src/pages/index.astro](../../pages/index.astro). Then drop the per-component content into the right folders - `src/component-examples/<component>/<Name>.<ext>` for each example and `packages/opui/components/<Name>/types.<framework>.ts` for the props `api.ts` reads (see [src/component-api/frameworks.ts](../../component-api/frameworks.ts)). `<AutoExample>` and `api.ts` pick those up without doc-page edits. Any sections still using the manual `<Example>` form will need `preview-<id>` / `code-<id>` slots added alongside the existing ones.
 - **Line Highlighting**: Use the `ins`, `del`, or `mark` props with array syntax (e.g., `mark={[1, 5, 10]}`).
   - **1-indexed**: Highlights are 1-indexed. The opening `---` of an Astro file is line 1.
   - **Validation**: Cross-check that highlighted lines in Astro correspond to the same functionality in HTML.

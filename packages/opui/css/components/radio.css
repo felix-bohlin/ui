@@ -85,7 +85,7 @@
       aspect-ratio: 1;
       background-color: var(--surface-default);
       block-size: var(--_input-size);
-      border: 1px solid var(--field-border-color);
+      border: var(--field-border-width) solid var(--field-border-color);
       border-radius: var(--radius-round);
       box-sizing: border-box;
       cursor: pointer;

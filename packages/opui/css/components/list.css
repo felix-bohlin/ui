@@ -42,7 +42,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &::before {
           block-size: 1px;
-          border-block-start: 1px solid var(--border-color);
+          border-block-start: var(--border-width) solid var(--border-color);
           content: "";
           display: block;
           inline-size: 100%;
@@ -249,7 +249,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &::before {
           block-size: 1px;
-          border-block-start: 1px solid var(--border-color);
+          border-block-start: var(--border-width) solid var(--border-color);
           content: "";
           display: block;
           inline-size: 100%;

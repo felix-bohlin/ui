@@ -10,7 +10,7 @@
     /* Ripple effect */
     background-position: center;
     block-size: var(--size-7, 2rem);
-    border: 1px solid var(--_border-color);
+    border: var(--border-width) solid var(--_border-color);
     border-radius: var(--radius-2, 0.5rem);
     color: var(--_color);
     display: inline-flex;

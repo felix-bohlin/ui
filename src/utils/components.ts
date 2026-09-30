@@ -8,12 +8,13 @@ const pageModules = import.meta.glob("../pages/components/*.astro")
 const docModules = import.meta.glob("../docs/components/*.astro")
 
 const newSlugs = new Set([
+  "accordion",
   "button",
   "button-group",
   "carousel",
   "drawer",
-  "icon-button",
   "menu",
+  "tabs",
 ])
 
 const slugs = new Set<string>()

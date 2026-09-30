@@ -1,0 +1,144 @@
+[data-theme="elegant"] {
+  --palette-hue: 190;
+  --palette-chroma: 0.35;
+  --palette-hue-rotate-by: 0;
+  --gray-chroma: 0.012;
+  --gray-hue: 70;
+  --border-radius: var(--size-1);
+  --field-border-radius: 0;
+  --button-border-radius: var(--size-1);
+
+  --elegant-shadow:
+    0 24px 48px -24px light-dark(oklch(0.2 0.02 70 / 0.35), oklch(0 0 0 / 0.7)),
+    0 1px 0 0 light-dark(oklch(0.2 0.02 70 / 0.06), oklch(1 0 0 / 0.06));
+
+  --font-serif:
+    "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia,
+    "Times New Roman", serif;
+  --font-sans: var(--font-serif);
+  --font-heading: var(--font-serif);
+  --border-width: 1px;
+  --field-border-width: 1px;
+  --focus-ring-width: 1px;
+  --focus-ring-offset: 4px;
+  --primary: light-dark(var(--color-11), var(--color-5));
+  --primary-light: light-dark(var(--color-9), var(--color-3));
+  --primary-dark: light-dark(var(--color-13), var(--color-7));
+  --primary-contrast: light-dark(var(--gray-1), var(--gray-16));
+  --text-primary: light-dark(var(--gray-15), var(--gray-2));
+  --text-muted: light-dark(var(--gray-12), var(--gray-5));
+  --surface-default: light-dark(var(--gray-1), var(--gray-15));
+  --surface-filled: light-dark(var(--gray-2), var(--gray-16));
+  --surface-tonal: light-dark(var(--gray-3), var(--gray-13));
+  --surface-elevated: light-dark(var(--gray-1), var(--gray-14));
+  --border-color: light-dark(var(--gray-6), var(--gray-11));
+  --field-border-color: light-dark(var(--gray-9), var(--gray-8));
+  --shadow-2: var(--elegant-shadow);
+  --shadow-3: var(--elegant-shadow);
+  --shadow-4: var(--elegant-shadow);
+
+  font-family: var(--font-sans);
+  font-variant-numeric: oldstyle-nums;
+  letter-spacing: 0.005em;
+
+  :is(h1, h2, h3, h4, h5, h6, .ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+  }
+
+  :is(h1, .ui-h1) {
+    font-style: italic;
+  }
+
+  :is(
+    :is(.ui-text-field, .ui-textarea, .ui-select) .ui-label,
+    .ui-overline,
+    legend,
+    th
+  ) {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  :is(.ui-button, .ui-toggle-button, .ui-chip) {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .ui-button {
+    font-size: 0.8rem;
+    padding-inline: 2.5ex;
+
+    &.ui-small {
+      font-size: 0.7rem;
+    }
+
+    &.ui-x-small {
+      font-size: 0.65rem;
+    }
+  }
+
+  .ui-tabs > .ui-tab-label {
+    border-bottom-width: 1px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  :is(.ui-text-field, .ui-textarea, .ui-select) {
+    .ui-field {
+      background-color: transparent;
+      border-radius: 0;
+      border-width: 0 0 var(--field-border-width);
+
+      &:focus-within {
+        border-color: var(--primary);
+        box-shadow: 0 1px 0 0 var(--primary);
+      }
+
+      :is(input, textarea, select) {
+        padding-inline: 0;
+      }
+
+      .ui-prefix {
+        padding-inline-start: 0;
+      }
+
+      .ui-suffix {
+        padding-inline-end: 0;
+      }
+    }
+  }
+
+  .ui-chip {
+    border-radius: var(--radius-round);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+
+  .ui-card.ui-outlined {
+    box-shadow: var(--elegant-shadow);
+  }
+
+  .ui-link {
+    text-decoration-color: color-mix(in oklch, currentColor 40%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+
+    &:hover {
+      text-decoration-color: currentColor;
+    }
+  }
+
+  *::selection {
+    background: var(--primary);
+    color: var(--primary-contrast);
+  }
+}

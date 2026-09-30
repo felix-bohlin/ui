@@ -1,0 +1,228 @@
+@font-face {
+  font-display: swap;
+  font-family: "Norican";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/Norican.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Gabriela";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/Gabriela.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Mukta";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/fonts/Mukta-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Mukta";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/fonts/Mukta-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Mukta";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/fonts/Mukta-700.woff2") format("woff2");
+}
+
+[data-theme="wedding"] {
+  --palette-hue: 189;
+  --palette-chroma: 0.13;
+  --palette-hue-rotate-by: 0;
+  --gray-chroma: 0.013;
+  --gray-hue: 248;
+  --border-radius: var(--size-1);
+  --field-border-radius: var(--size-1);
+  --button-border-radius: var(--size-1);
+
+  --wedding-teal: oklch(41.977% 0.02723 189.321);
+  --wedding-teal-hover: oklch(50.79% 0.0286 190.107);
+  --wedding-cream: oklch(98.069% 0.01049 100.928);
+  --wedding-ink: oklch(34.127% 0.01336 248.29);
+  --wedding-rose: oklch(74.693% 0.06839 27.933);
+  --wedding-blue: oklch(40.46% 0.12289 254.873);
+  --wedding-grey-blue: oklch(71.796% 0.03396 224.537);
+  --wedding-script: Norican, "Snell Roundhand", "Apple Chancery", cursive;
+  --wedding-serif: Gabriela, Georgia, "Times New Roman", serif;
+  --wedding-sans: Mukta, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  --wedding-shadow: 0 3px 12px 0 oklch(26.977% 0.02723 189.321 / 0.18);
+  --wedding-wipe-easing: cubic-bezier(0, 0.53, 0.3, 0.92);
+
+  --font-sans: var(--wedding-sans);
+  --font-serif: var(--wedding-serif);
+  --font-heading: var(--wedding-serif);
+  --font-size-h1: calc(var(--font-size-fluid-3) * 1.25);
+  --border-width: 1px;
+  --field-border-width: 1px;
+  --button-size-x-small: 2rem;
+  --button-size-small: 2.5rem;
+  --button-size: 3.125rem;
+  --button-size-large: 3.5rem;
+  --focus-ring-color: var(--primary);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --primary: light-dark(var(--wedding-teal), var(--color-4));
+  --primary-light: light-dark(var(--wedding-teal-hover), var(--color-3));
+  --primary-dark: light-dark(var(--color-13), var(--color-6));
+  --primary-contrast: light-dark(var(--wedding-cream), var(--gray-16));
+  --info: var(--wedding-blue);
+  --critical: light-dark(oklch(0.6 0.13 27), var(--wedding-rose));
+  --neutral: var(--wedding-grey-blue);
+  --text-primary: light-dark(var(--wedding-ink), var(--gray-1));
+  --text-muted: light-dark(
+    oklch(from var(--wedding-ink) calc(l + 0.14) c h),
+    var(--gray-4)
+  );
+  --surface-default: light-dark(white, var(--gray-15));
+  --surface-filled: light-dark(var(--wedding-cream), var(--gray-16));
+  --surface-tonal: light-dark(
+    oklch(from var(--wedding-cream) calc(l - 0.03) c h),
+    var(--gray-13)
+  );
+  --surface-elevated: light-dark(white, var(--gray-14));
+  --border-color: light-dark(
+    oklch(from var(--wedding-teal) l c h / 0.2),
+    var(--gray-12)
+  );
+  --field-border-color: light-dark(
+    oklch(from var(--wedding-teal) l c h / 0.35),
+    var(--gray-11)
+  );
+  --shadow-2: var(--wedding-shadow);
+  --shadow-3: var(--wedding-shadow);
+  --shadow-4: 0 12px 32px -8px oklch(26.977% 0.02723 189.321 / 0.3);
+
+  font-family: var(--font-sans);
+  line-height: 1.4;
+
+  :is(h1, .ui-h1) {
+    color: var(--primary);
+    font-family: var(--wedding-script);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.09;
+  }
+
+  :is(h2, h3, h4, h5, h6, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
+    color: var(--primary);
+    font-family: var(--wedding-serif);
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+
+  :is(.ui-overline, legend) {
+    font-family: var(--wedding-serif);
+    letter-spacing: 0.04em;
+  }
+
+  .ui-button {
+    font-family: var(--wedding-sans);
+    font-size: var(--font-size-2);
+    font-weight: 500;
+    isolation: isolate;
+    overflow: hidden;
+    padding-inline: var(--size-4);
+    position: relative;
+    transition:
+      color 80ms var(--ease-sine-out),
+      border-color 80ms var(--ease-sine-out);
+
+    &.ui-small {
+      font-size: var(--font-size-1);
+      padding-inline: var(--size-3);
+    }
+
+    &.ui-x-small {
+      font-size: var(--font-size-05);
+      padding-inline: var(--size-2);
+    }
+
+    &.ui-large {
+      font-size: var(--font-size-3);
+      padding-inline: var(--size-5);
+    }
+
+    &:is(.ui-filled, .ui-outlined, .ui-tonal) {
+      &::after {
+        background-color: var(--primary);
+        content: "";
+        inset: 0;
+        position: absolute;
+        transition: translate 0.2s var(--wedding-wipe-easing);
+        translate: -116% 0;
+        z-index: -1;
+      }
+
+      &:not([disabled]):hover::after {
+        translate: 0 0;
+      }
+    }
+
+    &.ui-filled {
+      &::after {
+        background-color: var(--primary-light);
+      }
+
+      &:not([disabled]):hover {
+        background-color: var(--primary);
+      }
+    }
+
+    &.ui-outlined {
+      border-width: 2px;
+
+      &:not([disabled]):hover {
+        background-color: transparent;
+        border-color: var(--primary);
+        color: var(--primary-contrast);
+      }
+    }
+
+    &.ui-tonal:not([disabled]):hover {
+      background-color: var(--surface-tonal);
+      color: var(--primary-contrast);
+    }
+  }
+
+  .ui-chip {
+    font-family: var(--wedding-sans);
+    font-weight: 500;
+  }
+
+  .ui-tabs > .ui-tab-label {
+    font-family: var(--wedding-serif);
+    font-weight: 700;
+  }
+
+  .ui-link {
+    background: linear-gradient(currentColor, currentColor) no-repeat 50% 100% /
+      0 1px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-size 0.2s var(--ease-2);
+
+    &:hover {
+      background-size: 100% 1px;
+      color: var(--primary);
+    }
+  }
+
+  *::selection {
+    background: var(--primary);
+    color: var(--primary-contrast);
+  }
+}

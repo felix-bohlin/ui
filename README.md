@@ -19,6 +19,7 @@ The project is managed as a monorepo with two main parts:
   - `css/`: Component styles, theme, and entry-point imports.
   - `astro/`: Public entry point and barrel exports for Astro-based projects.
 - **The Documentation Site (`src/`)**: The Astro site implementation, located in `src/pages`, `src/layouts`, and `src/components`.
+  - `styles/themes/`: Docs-only theme presets (brutalist, elegant, pixelated, shadcn clone, wedding). Each file is one stylesheet scoped to `[data-theme="<name>"]`; the site rewrites that to `:root` when serving it from `/themes/<name>.css`. None of these ship with the library.
 
 ### Development
 

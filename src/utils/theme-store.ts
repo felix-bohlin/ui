@@ -14,50 +14,30 @@
  * "true"/"false" to stay byte-compatible with previously-saved configs.
  */
 
+import {
+  RADIUS_OPTIONS,
+  TOKENS,
+  TOKEN_DEFAULTS,
+  type Token,
+} from "./theme-tokens"
+import {
+  isPresetId,
+  presetById,
+  PRESET_ATTRIBUTE,
+  PRESET_STORAGE_KEY,
+  type PresetId,
+} from "./theme-presets"
+
 export type Mode = "light" | "dark"
 
-export type Token =
-  | "--palette-hue"
-  | "--palette-chroma"
-  | "--palette-hue-rotate-by"
-  | "--gray-chroma"
-  | "--gray-hue"
-  | "--border-radius"
-  | "--field-border-radius"
-  | "--button-border-radius"
-
-export const TOKENS = [
-  "--palette-hue",
-  "--palette-chroma",
-  "--palette-hue-rotate-by",
-  "--gray-chroma",
-  "--gray-hue",
-  "--border-radius",
-  "--field-border-radius",
-  "--button-border-radius",
-] as const satisfies readonly Token[]
-
-// Defaults must mirror what `packages/opui/css/theme.css` ships
-// so the configurators (drawer + generator) reflect the live site palette
-// before the user has tweaked anything. theme.css hardcodes
-//   --palette-source: oklch(0.58 calc(0.21 * 0.5) var(--hue-blue))
-// where Open Props' --hue-blue is 240, hence chroma 0.5 / hue 240.
-export const TOKEN_DEFAULTS: Record<Token, string> = {
-  "--palette-hue": "240",
-  "--palette-chroma": "0.5",
-  "--palette-hue-rotate-by": "0",
-  "--gray-chroma": "0.01",
-  "--gray-hue": "255",
-  "--border-radius": "var(--radius-2)",
-  "--field-border-radius": "var(--radius-2)",
-  "--button-border-radius": "var(--radius-2)",
-}
+export { RADIUS_OPTIONS, TOKENS, TOKEN_DEFAULTS, type Token }
 
 export type ModeConfig = Partial<Record<Token, string>> & {
   "enable-grays"?: "true" | "false"
 }
 
-export type ChangeType = "set" | "reset" | "applyMode" | "enable-grays"
+export type ChangeType =
+  "set" | "reset" | "applyMode" | "enable-grays" | "preset"
 
 export type ThemeChangeDetail = {
   mode: Mode
@@ -84,6 +64,10 @@ function readConfig(mode: Mode): ModeConfig {
     if ("--gray-hue-offset" in parsed) {
       delete parsed["--gray-hue-offset"]
     }
+    for (const key of Object.keys(parsed) as Token[]) {
+      const radius = /^var\(--radius-(\d)\)$/.exec(parsed[key] ?? "")
+      if (radius) parsed[key] = `var(--size-${radius[1]})`
+    }
     return parsed
   } catch {
     return {}
@@ -100,6 +84,31 @@ function emit(detail: ThemeChangeDetail): void {
   document.dispatchEvent(new CustomEvent(EVENT_NAME, { detail }))
 }
 
+function readPreset(): PresetId | null {
+  if (!isBrowser) return null
+  try {
+    const raw = localStorage.getItem(PRESET_STORAGE_KEY)
+    return isPresetId(raw) ? raw : null
+  } catch {
+    return null
+  }
+}
+
+function clearTokens(): void {
+  if (!isBrowser) return
+  localStorage.removeItem(STORAGE_KEY("light"))
+  localStorage.removeItem(STORAGE_KEY("dark"))
+  localStorage.removeItem("opui-custom-theme") // legacy
+
+  const html = document.documentElement
+  TOKENS.forEach((t) => html.style.removeProperty(t))
+  html.classList.remove("no-grays")
+}
+
+function defaults(): Record<Token, string> {
+  return { ...TOKEN_DEFAULTS, ...presetById(readPreset())?.tokens }
+}
+
 function getActiveSiteMode(): Mode {
   if (!isBrowser) return "light"
   return document.documentElement.classList.contains("ui-dark")
@@ -114,9 +123,27 @@ export const themeStore = {
 
   getActiveSiteMode,
 
+  getPreset: readPreset,
+
+  defaults,
+
   /** Resolve a token's effective value for `mode`, falling back to the default. */
   effective(mode: Mode, token: Token): string {
-    return readConfig(mode)[token] ?? TOKEN_DEFAULTS[token]
+    return readConfig(mode)[token] ?? defaults()[token]
+  },
+
+  setPreset(id: PresetId | null): void {
+    if (!isBrowser) return
+    clearTokens()
+    const html = document.documentElement
+    if (id) {
+      localStorage.setItem(PRESET_STORAGE_KEY, id)
+      html.setAttribute(PRESET_ATTRIBUTE, id)
+    } else {
+      localStorage.removeItem(PRESET_STORAGE_KEY)
+      html.removeAttribute(PRESET_ATTRIBUTE)
+    }
+    emit({ mode: getActiveSiteMode(), type: "preset", value: id ?? undefined })
   },
 
   isGraysEnabled(mode: Mode): boolean {
@@ -171,13 +198,9 @@ export const themeStore = {
 
   reset(): void {
     if (!isBrowser) return
-    localStorage.removeItem(STORAGE_KEY("light"))
-    localStorage.removeItem(STORAGE_KEY("dark"))
-    localStorage.removeItem("opui-custom-theme") // legacy
-
-    const html = document.documentElement
-    TOKENS.forEach((t) => html.style.removeProperty(t))
-    html.classList.remove("no-grays")
+    clearTokens()
+    localStorage.removeItem(PRESET_STORAGE_KEY)
+    document.documentElement.removeAttribute(PRESET_ATTRIBUTE)
 
     emit({ mode: getActiveSiteMode(), type: "reset" })
   },

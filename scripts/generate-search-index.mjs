@@ -52,6 +52,7 @@ async function generateIndex() {
 
   const componentDocs = (await globby(["src/docs/components/*.astro"])).sort()
   const guidePages = (await globby(["src/docs/guide/*.astro"])).sort()
+  const themesPages = (await globby(["src/docs/Themes.astro"])).sort()
   const gettingStartedPages = (
     await globby(["src/docs/guide/getting-started/[A-Z]*.astro"])
   ).sort()
@@ -97,6 +98,24 @@ async function generateIndex() {
       const url = frameworkUrl(framework.id, sharedPath)
       index.push({
         id: `guide-${slug}-${framework.id}`,
+        title: meta.title,
+        description: meta.preamble,
+        headings: meta.headings.join(" "),
+        category: "Guide",
+        frameworkId: framework.id,
+        url,
+      })
+    }
+  }
+
+  for (const file of themesPages) {
+    const meta = readMeta(file)
+    if (!meta) continue
+
+    for (const framework of FRAMEWORKS) {
+      const url = frameworkUrl(framework.id, "/themes")
+      index.push({
+        id: `themes-${framework.id}`,
         title: meta.title,
         description: meta.preamble,
         headings: meta.headings.join(" "),

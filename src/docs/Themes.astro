@@ -1,0 +1,188 @@
+---
+import { Accordion, Button, Callout, Divider } from "@opui/astro"
+import { Code } from "astro-expressive-code/components"
+import FrameworkPicker from "../components/FrameworkPicker.astro"
+import ThemePreview from "../components/ThemePreview.astro"
+import Document from "../layouts/Document.astro"
+import { portableCss, PRESETS, type Preset } from "../utils/theme-presets"
+
+const { link } = Astro.locals
+const siteOrigin = new URL(Astro.site ?? "https://open-props-ui.netlify.app/")
+  .origin
+
+type ThemeOption = {
+  id: string
+  label: string
+  tagline: string
+  description: string
+  preset?: Preset
+}
+
+const options: ThemeOption[] = [
+  {
+    id: "",
+    label: "Default",
+    tagline: "The library as it ships.",
+    description:
+      "Blue primary, cool grays, five pixel corners and Bricolage Grotesque headings. Every other theme on this page is a single stylesheet loaded on top of this one.",
+  },
+  ...PRESETS.map((preset) => ({ ...preset, preset })),
+].sort((a, b) => a.label.localeCompare(b.label))
+
+const anchorFor = (option: ThemeOption) => option.id || "default"
+---
+
+<Document overline="Themes">
+  <FrameworkPicker size="small" slot="sidebar" />
+
+  <Divider variant="tonal" slot="sidebar" />
+
+  <nav slot="sidebar">
+    <h3>Themes</h3>
+    <menu>
+      {
+        options.map((option) => (
+          <li>
+            <a href={`#${anchorFor(option)}`}>{option.label}</a>
+          </li>
+        ))
+      }
+    </menu>
+  </nav>
+
+  <Fragment slot="title">Themes</Fragment>
+  <Fragment slot="preamble">
+    The same components, five very different looks. Each theme is one stylesheet
+    that only sets tokens and overrides a handful of selectors, so you can see
+    how far the library bends without forking it.
+  </Fragment>
+
+  <Callout variant="outlined" severity="info">
+    <Fragment slot="title">Docs only</Fragment>
+    None of these ship with the package. Pick one and the whole site switches to it,
+    the sliders in the theme config menu keep working on top of it, and the CSS for
+    every theme is below if you want it in your own project.
+  </Callout>
+
+  {
+    options.map((option) => (
+      <section class="theme-section" id={`${anchorFor(option)}-section`}>
+        <h2 id={anchorFor(option)}>{option.label}</h2>
+        <p class="theme-tagline">{option.tagline}</p>
+        <p>{option.description}</p>
+
+        <div class="theme-actions">
+          <Button
+            variant="filled"
+            color="primary"
+            size="small"
+            data-apply-preset={option.id}
+          >
+            Use this theme
+          </Button>
+          {option.preset && (
+            <Button
+              href={`/themes/${option.preset.id}.css`}
+              variant="outlined"
+              size="small"
+              target="_blank"
+            >
+              Open stylesheet
+            </Button>
+          )}
+        </div>
+
+        <ThemePreview id={anchorFor(option)} label={option.label} />
+
+        {option.preset && (
+          <Accordion variant="outlined" class="theme-css">
+            <Fragment slot="summary">
+              <code>{option.preset.id}.css</code>
+            </Fragment>
+            <Code
+              code={portableCss(option.preset, siteOrigin)}
+              lang="css"
+              title={`${option.preset.id}.css`}
+            />
+          </Accordion>
+        )}
+      </section>
+    ))
+  }
+
+  <section>
+    <h2 id="make-your-own">Make your own</h2>
+    <p>
+      A theme is just a stylesheet loaded after the library. Start from the
+      <a class="ui-link" href={link("/guide/theme-generator")}
+        >theme generator</a
+      > for the palette and radii, then override whatever selectors you need. Because
+      the library's own styles sit in cascade layers, plain unlayered rules win without
+      a single <code>!important</code>.
+    </p>
+  </section>
+</Document>
+
+<script>
+  import { isPresetId, presetById } from "../utils/theme-presets"
+  import { themeStore } from "../utils/theme-store"
+
+  const buttons = document.querySelectorAll<HTMLButtonElement>(
+    "[data-apply-preset]",
+  )
+
+  function syncButtons() {
+    const active = themeStore.getPreset() ?? ""
+    buttons.forEach((button) => {
+      const selected = (button.dataset.applyPreset ?? "") === active
+      button.setAttribute("aria-pressed", String(selected))
+      button.classList.toggle("ui-filled", !selected)
+      button.classList.toggle("ui-tonal", selected)
+      button.textContent = selected ? "Active" : "Use this theme"
+    })
+  }
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const id = button.dataset.applyPreset
+      const preset = isPresetId(id) ? id : null
+      if (preset === (themeStore.getPreset() ?? null)) return
+      themeStore.setPreset(preset)
+      ;(window as any).showToast?.({
+        title: `${presetById(preset)?.label ?? "Default"} theme applied`,
+        description: "It sticks around until you switch again or reset.",
+        duration: "3s",
+      })
+    })
+  })
+
+  themeStore.subscribe(syncButtons)
+  syncButtons()
+</script>
+
+<style>
+  .theme-section {
+    margin-block-end: var(--size-9);
+
+    .theme-tagline {
+      color: var(--text-muted);
+      font-size: var(--font-size-2);
+      margin-block-start: calc(-1 * var(--size-3));
+    }
+
+    .theme-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+      margin-block: var(--size-4);
+    }
+  }
+
+  .theme-css {
+    margin-block-start: var(--size-4);
+
+    summary code {
+      font-size: var(--font-size-05);
+    }
+  }
+</style>

@@ -1,0 +1,178 @@
+[data-theme="shadcn"] {
+  --palette-hue: 286;
+  --palette-chroma: 0.04;
+  --palette-hue-rotate-by: 0;
+  --gray-chroma: 0.005;
+  --gray-hue: 286;
+  --border-radius: 0.625rem;
+  --field-border-radius: 0.5rem;
+  --button-border-radius: 0.5rem;
+
+  --shadcn-ring: light-dark(var(--gray-8), var(--gray-9));
+  --shadcn-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+
+  --font-sans:
+    Inter, Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-heading: var(--font-sans);
+  --border-width: 1px;
+  --field-border-width: 1px;
+  --control-size-x-small: 28px;
+  --control-size-small: 32px;
+  --control-size: 36px;
+  --control-size-large: 40px;
+  --focus-ring-color: oklch(from var(--shadcn-ring) l c h / 0.5);
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 0;
+  --primary: light-dark(var(--gray-15), var(--gray-2));
+  --primary-light: light-dark(var(--gray-13), var(--gray-1));
+  --primary-dark: light-dark(var(--gray-16), var(--gray-4));
+  --primary-contrast: light-dark(var(--gray-1), var(--gray-15));
+  --text-primary: light-dark(var(--gray-15), var(--gray-1));
+  --text-muted: light-dark(var(--gray-10), var(--gray-6));
+  --surface-default: light-dark(white, var(--gray-15));
+  --surface-filled: light-dark(var(--gray-2), var(--gray-13));
+  --surface-tonal: light-dark(var(--gray-2), var(--gray-13));
+  --surface-elevated: light-dark(white, var(--gray-14));
+  --border-color: light-dark(var(--gray-3), var(--gray-12));
+  --field-border-color: var(--border-color);
+  --shadow-2: var(--shadcn-shadow-xs);
+  --shadow-3: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-4:
+    0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-sans);
+
+  :is(h1, h2, h3, h4, h5, h6, .ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  .ui-label {
+    font-size: var(--font-size-05);
+    font-weight: 500;
+  }
+
+  .ui-button {
+    font-size: var(--font-size-05);
+    font-weight: 500;
+    padding-inline: 1rem;
+
+    &.ui-small {
+      padding-inline: 0.75rem;
+    }
+
+    &.ui-x-small {
+      font-size: var(--font-size-0);
+      padding-inline: 0.5rem;
+    }
+
+    &.ui-large {
+      padding-inline: 1.5rem;
+    }
+
+    &:is(.ui-filled, .ui-outlined, .ui-tonal) {
+      box-shadow: var(--shadcn-shadow-xs);
+    }
+
+    &.ui-filled:not([disabled]):hover {
+      background-color: oklch(from var(--primary) l c h / 0.9);
+    }
+
+    &.ui-outlined {
+      background-color: var(--surface-default);
+      border-color: var(--border-color);
+      color: var(--text-primary);
+
+      &:not([disabled]):hover {
+        background-color: var(--surface-tonal);
+        border-color: var(--border-color);
+        color: var(--text-primary);
+      }
+    }
+
+    &.ui-tonal {
+      background-color: var(--surface-tonal);
+      color: var(--text-primary);
+
+      &:not([disabled]):hover {
+        background-color: oklch(from var(--surface-tonal) calc(l - 0.03) c h);
+        color: var(--text-primary);
+      }
+    }
+  }
+
+  .ui-tabs > .ui-tab-label {
+    font-size: var(--font-size-05);
+    font-weight: 500;
+  }
+
+  :is(.ui-text-field, .ui-textarea, .ui-select) {
+    .ui-field {
+      box-shadow: var(--shadcn-shadow-xs);
+
+      &:focus-within {
+        border-color: var(--shadcn-ring);
+        box-shadow: 0 0 0 3px oklch(from var(--shadcn-ring) l c h / 0.5);
+      }
+
+      :is(input, textarea, select) {
+        font-size: var(--font-size-05);
+
+        &::placeholder {
+          color: var(--text-muted);
+        }
+      }
+    }
+  }
+
+  .ui-chip {
+    border-radius: 0.5rem;
+    font-weight: 500;
+  }
+
+  .ui-card {
+    border-radius: 0.75rem;
+    gap: var(--size-4);
+
+    &:is(.ui-outlined, .ui-tonal) {
+      box-shadow: var(--shadcn-shadow-xs);
+    }
+
+    & > :is(hgroup, .ui-content, .ui-actions) {
+      padding-inline: var(--size-5);
+    }
+
+    & > hgroup {
+      padding-block-start: var(--size-5);
+    }
+
+    & > :is(hgroup, .ui-content):last-child,
+    & > .ui-actions {
+      padding-block-end: var(--size-5);
+    }
+
+    & > .ui-content:where(:only-child, :first-child) {
+      padding-block: var(--size-5);
+    }
+  }
+
+  .ui-checkbox input {
+    block-size: 1rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    inline-size: 1rem;
+  }
+
+  .ui-switch {
+    --_dot-size: 1rem;
+    --_track-height: 1.25rem;
+    --_track-width: 2.25rem;
+  }
+
+  .ui-link {
+    text-underline-offset: 4px;
+  }
+}

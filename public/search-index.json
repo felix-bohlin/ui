@@ -1038,6 +1038,33 @@
     "url": "/vue/guide/why-opui"
   },
   {
+    "id": "themes-html",
+    "title": "Themes",
+    "description": "The same components, five very different looks. Each theme is one stylesheet\n    that only sets tokens and overrides a handful of selectors, so you can see\n    how far the library bends without forking it.",
+    "headings": "Make your own",
+    "category": "Guide",
+    "frameworkId": "html",
+    "url": "/html/themes"
+  },
+  {
+    "id": "themes-astro",
+    "title": "Themes",
+    "description": "The same components, five very different looks. Each theme is one stylesheet\n    that only sets tokens and overrides a handful of selectors, so you can see\n    how far the library bends without forking it.",
+    "headings": "Make your own",
+    "category": "Guide",
+    "frameworkId": "astro",
+    "url": "/astro/themes"
+  },
+  {
+    "id": "themes-vue",
+    "title": "Themes",
+    "description": "The same components, five very different looks. Each theme is one stylesheet\n    that only sets tokens and overrides a handful of selectors, so you can see\n    how far the library bends without forking it.",
+    "headings": "Make your own",
+    "category": "Guide",
+    "frameworkId": "vue",
+    "url": "/vue/themes"
+  },
+  {
     "id": "guide-getting-started-astro",
     "title": "Getting started",
     "description": "OPUI ships first-class Astro components. Install the package, import what\n    you need, and you're set.",

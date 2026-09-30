@@ -116,7 +116,7 @@
         }
 
         &:focus-visible {
-          outline-offset: -1px;
+          outline-offset: var(--focus-ring-inset);
         }
       }
     }

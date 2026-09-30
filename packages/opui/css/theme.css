@@ -95,10 +95,11 @@
     --border-width: 1px;
 
     /* 9. Focus ring */
-    --focus-ring-color: var(--primary);
+    --focus-ring-color: var(--text-primary);
     --focus-ring-width: 2px;
     --focus-ring-offset: 2px;
     --focus-ring-style: solid;
+    --focus-ring-inset: calc(-1 * var(--focus-ring-width));
 
     /* 10. Typography */
     --font-size-h1: var(--font-size-fluid-3);

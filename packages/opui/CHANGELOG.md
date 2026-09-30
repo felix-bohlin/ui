@@ -5,10 +5,13 @@
 ### Added
 
 - Motion tokens: `--duration-fast`, `--duration`, `--duration-slow`, `--ease`, `--ease-enter` and `--ease-exit`. Every component transition and animation reads them, multiplied by `--motion`.
+- `--focus-ring-inset` for focus rings drawn inside a control, read by `ButtonGroup`, `List` and `Select`.
 - State and text tokens: `--disabled-opacity`, `--state-hover-alpha`, `--state-hover-alpha-dark`, `--state-active-alpha`, `--state-active-alpha-dark`, `--state-hover-alpha-accent`, `--state-active-alpha-accent`, `--text-disabled`, `--invalid-color`, `--font-weight-medium`, `--font-weight-semibold` and `--font-weight-bold`.
 - Field text tokens: `--field-label-color`, `--field-label-font-size`, `--field-label-font-weight`, `--field-helper-color`, `--field-helper-font-size`, `--field-helper-line-height` and `--field-required-color`, read by `Checkbox`, `Form`, `Radio`, `Range`, `Switch` and `TextField`.
 
 ### Fixed
+
+- The global focus ring in `core/normalize.css` reads `--focus-ring-color`, `--focus-ring-width`, `--focus-ring-style` and `--focus-ring-offset`. It used to hardcode a 2px ring in an inverted page color. The default `--focus-ring-color` is `--text-primary`, which matches the previous look.
 
 - `--palette-hue` is green in light mode and blue in dark mode as intended. The previous `light-dark()` value never applied to the numeric property, so both modes rendered blue.
 - `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.

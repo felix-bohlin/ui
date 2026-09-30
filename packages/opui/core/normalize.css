@@ -111,14 +111,10 @@
   }
 
   :focus-visible {
-    /* Inverts the --_page-bg-color */
-    --_focus-visible-color: rgb(
-      from var(--_page-bg-color) calc(255 - r) calc(255 - g) calc(255 - b)
-    );
-
-    border-radius: var(--border-radius, 0px);
-    outline: 2px solid var(--_focus-visible-color);
-    outline-offset: 2px;
+    border-radius: var(--border-radius);
+    outline: var(--focus-ring-width) var(--focus-ring-style)
+      var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
     transition: outline-offset calc(var(--duration) * var(--motion)) var(--ease);
   }
 

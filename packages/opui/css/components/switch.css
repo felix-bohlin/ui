@@ -259,7 +259,7 @@
     &[data-invalid] {
       input {
         border-radius: var(--radius-round);
-        outline: 2px solid var(--color-9);
+        outline: var(--focus-ring-width) solid var(--color-9);
       }
 
       .ui-end-text {

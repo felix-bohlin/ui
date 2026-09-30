@@ -235,7 +235,7 @@ const outputPanelId = `${groupName}-output-panel`
   {
     hasCode && (
       <div class="example-code-area">
-        <Tabs class="source-tabs" name={groupName}>
+        <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
           <Tabs.Item
             tabId={sourceId}
             panelId={sourcePanelId}
@@ -433,14 +433,6 @@ const outputPanelId = `${groupName}-output-panel`
 <style is:global>
   .ui-tab-panel .expressive-code pre {
     border-radius: 0;
-  }
-
-  .source-tabs > .ui-tab-label {
-    margin-block-start: var(--size-2);
-
-    &:first-of-type {
-      margin-inline-start: var(--size-2);
-    }
   }
 
   .example-column {

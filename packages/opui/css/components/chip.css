@@ -52,7 +52,7 @@
     &:has(svg) {
       svg {
         flex-shrink: 0;
-        inline-size: var(--size-3);
+        inline-size: var(--icon-size-small);
       }
     }
 

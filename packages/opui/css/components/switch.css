@@ -7,11 +7,11 @@
     --_dot-bg-color: light-dark(var(--gray-11), var(--gray-14));
     --_dot-inset: var(--size-1) auto auto var(--size-1);
     --_dot-outline-size: 0;
-    --_dot-size: var(--size-3);
+    --_dot-size: var(--switch-dot-size);
 
     --_track-bg-color: light-dark(var(--gray-3), var(--gray-8));
-    --_track-height: var(--size-5);
-    --_track-width: var(--size-8);
+    --_track-height: var(--switch-track-height);
+    --_track-width: var(--switch-track-width);
     --_transition-tf: var(--ease);
     --_transition-time: calc(var(--duration) * var(--_motion));
 
@@ -198,9 +198,9 @@
 
     /* Size */
     &.ui-small {
-      --_dot-size: 0.75rem;
-      --_track-height: var(--size-4);
-      --_track-width: 2.5rem;
+      --_dot-size: var(--switch-dot-size-small);
+      --_track-height: var(--switch-track-height-small);
+      --_track-width: var(--switch-track-width-small);
     }
 
     /* Spread layout */

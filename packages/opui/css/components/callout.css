@@ -11,7 +11,7 @@
     --_content-gap: var(--size-2);
     --_font-size: var(--font-size-05);
     --_title-font-size: var(--font-size-1);
-    --_icon-size: var(--size-4);
+    --_icon-size: var(--icon-size);
     --_surface-bg: var(--surface-default);
 
     --_outlined-bg-color: var(--surface-default);

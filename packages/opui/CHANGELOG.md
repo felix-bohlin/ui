@@ -6,6 +6,9 @@
 
 - Motion tokens: `--duration-fast`, `--duration`, `--duration-slow`, `--ease`, `--ease-enter` and `--ease-exit`. Every component transition and animation reads them, multiplied by `--motion`.
 - `--focus-ring-inset` for focus rings drawn inside a control, read by `ButtonGroup`, `List` and `Select`.
+- Icon tokens: `--icon-size-small`, `--icon-size` and `--icon-size-large`.
+- Choice control tokens: `--choice-size-small`, `--choice-size`, `--choice-size-large`, `--switch-dot-size`, `--switch-dot-size-small`, `--switch-track-height`, `--switch-track-height-small`, `--switch-track-width` and `--switch-track-width-small`.
+- Overlay tokens: `--backdrop-color` and `--backdrop-blur`. Inverse surface tokens: `--surface-inverse` and `--text-inverse`.
 - State and text tokens: `--disabled-opacity`, `--state-hover-alpha`, `--state-hover-alpha-dark`, `--state-active-alpha`, `--state-active-alpha-dark`, `--state-hover-alpha-accent`, `--state-active-alpha-accent`, `--text-disabled`, `--invalid-color`, `--font-weight-medium`, `--font-weight-semibold` and `--font-weight-bold`.
 - Field text tokens: `--field-label-color`, `--field-label-font-size`, `--field-label-font-weight`, `--field-helper-color`, `--field-helper-font-size`, `--field-helper-line-height` and `--field-required-color`, read by `Checkbox`, `Form`, `Radio`, `Range`, `Switch` and `TextField`.
 
@@ -19,6 +22,8 @@
 - Autofilled fields use `--surface-default` instead of the undefined `--well-1`.
 
 ### Internal
+
+- `Avatar`, `IconButton`, `List` and `ButtonGroup` read `--control-size` and `--button-size-*` instead of repeating their pixel values.
 
 - `Button`, `IconButton` and `ButtonGroup` share one accent recipe in `css/components/button.css` instead of three copies.
 

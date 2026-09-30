@@ -19,8 +19,8 @@
     opacity: 0;
 
     &::backdrop {
-      backdrop-filter: blur(1px);
-      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(var(--backdrop-blur));
+      background-color: var(--backdrop-color);
     }
 
     &:not([open]) {

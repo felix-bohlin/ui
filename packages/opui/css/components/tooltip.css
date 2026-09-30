@@ -2,7 +2,7 @@
   :where(.ui-tooltip) {
     --_motion: var(--motion, 1);
     --_tooltip-bg: light-dark(var(--gray-13), var(--gray-3));
-    --_tooltip-color: light-dark(var(--gray-1), var(--gray-15));
+    --_tooltip-color: var(--text-inverse);
     --_tooltip-offset: var(--size-2);
 
     & > .ui-anchor-floating {

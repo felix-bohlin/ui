@@ -124,13 +124,13 @@
     /* Sizes */
     &.ui-small {
       input[type="radio"] {
-        --_input-size: var(--size-3);
+        --_input-size: var(--choice-size-small);
       }
     }
 
     &.ui-large {
       input[type="radio"] {
-        --_input-size: var(--size-4);
+        --_input-size: var(--choice-size);
       }
     }
 

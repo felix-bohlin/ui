@@ -41,7 +41,7 @@
     animation-delay:
       0s, var(--_anim-enter),
       calc(var(--_anim-enter) + attr(data-duration type(<time>), 5s));
-    background-color: light-dark(var(--gray-15), var(--gray-2));
+    background-color: var(--surface-inverse);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-3);
     color: var(--text-primary-contrast);
@@ -62,9 +62,9 @@
 
     .ui-icon {
       background: no-repeat center / contain;
-      block-size: var(--size-4);
+      block-size: var(--icon-size);
       flex-shrink: 0;
-      inline-size: var(--size-4);
+      inline-size: var(--icon-size);
     }
 
     /* Hide the icon slot when there's no severity to render against. */

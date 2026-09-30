@@ -9,12 +9,12 @@
     align-items: center;
     aspect-ratio: 1;
     background-color: var(--_bg-color);
-    block-size: var(--size-6);
+    block-size: var(--button-size-x-small);
     border: var(--_border-width) solid var(--_border-color);
     border-radius: var(--radius-round);
     color: var(--_text-color);
     display: inline-flex;
-    inline-size: var(--size-6);
+    inline-size: var(--button-size-x-small);
     justify-content: center;
     padding: 0;
     transform-style: preserve-3d;
@@ -33,8 +33,8 @@
     svg {
       block-size: auto;
       inline-size: auto;
-      max-block-size: var(--size-5);
-      max-inline-size: var(--size-5);
+      max-block-size: var(--icon-size-large);
+      max-inline-size: var(--icon-size-large);
       pointer-events: none;
     }
 
@@ -75,8 +75,8 @@
       inline-size: var(--size-4);
 
       svg {
-        max-block-size: var(--size-4);
-        max-inline-size: var(--size-4);
+        max-block-size: var(--icon-size);
+        max-inline-size: var(--icon-size);
       }
     }
 

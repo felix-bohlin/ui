@@ -1,6 +1,6 @@
 @layer components.root {
   label.ui-checkbox {
-    --_input-size: var(--size-4);
+    --_input-size: var(--choice-size);
 
     align-items: center;
     color: var(--text-primary);
@@ -106,7 +106,7 @@
 
     /* Input */
     input[type="checkbox"] {
-      --_input-size: var(--size-4);
+      --_input-size: var(--choice-size);
 
       appearance: none;
       aspect-ratio: 1;
@@ -165,13 +165,13 @@
     /* Sizes */
     &.ui-small {
       input[type="checkbox"] {
-        --_input-size: var(--size-3);
+        --_input-size: var(--choice-size-small);
       }
     }
 
     &.ui-large {
       input[type="checkbox"] {
-        --_input-size: var(--size-5);
+        --_input-size: var(--choice-size-large);
       }
     }
 
@@ -188,7 +188,7 @@
     /* Touch devices */
     @media (pointer: coarse) {
       input {
-        --_input-size: var(--size-4);
+        --_input-size: var(--choice-size);
       }
     }
 

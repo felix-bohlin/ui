@@ -70,7 +70,7 @@ export default {
       selector: ".ui-carousel::scroll-button(inline-end)",
     },
     {
-      code: "& > *::scroll-marker",
+      code: "li::scroll-marker",
       description: "A marker, one per item.",
       props: ["markers"],
       selector: ".ui-carousel > :first-child::scroll-marker",

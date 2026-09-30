@@ -71,7 +71,7 @@
     & > summary {
       background-color: inherit;
       cursor: pointer;
-      font-weight: 700;
+      font-weight: var(--font-weight-bold);
       padding-block: var(--_summary-padding-block);
       padding-inline: var(--_summary-padding-inline);
       user-select: none;

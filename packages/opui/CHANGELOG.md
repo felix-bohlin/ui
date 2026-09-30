@@ -5,6 +5,8 @@
 ### Added
 
 - Motion tokens: `--duration-fast`, `--duration`, `--duration-slow`, `--ease`, `--ease-enter` and `--ease-exit`. Every component transition and animation reads them, multiplied by `--motion`.
+- State and text tokens: `--disabled-opacity`, `--text-disabled`, `--invalid-color`, `--font-weight-medium`, `--font-weight-semibold` and `--font-weight-bold`.
+- Field text tokens: `--field-label-color`, `--field-label-font-size`, `--field-label-font-weight`, `--field-helper-color`, `--field-helper-font-size`, `--field-helper-line-height` and `--field-required-color`, read by `Checkbox`, `Form`, `Radio`, `Range`, `Switch` and `TextField`.
 
 ### Fixed
 

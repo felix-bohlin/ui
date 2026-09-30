@@ -46,7 +46,7 @@
     color: var(--_text-color);
     display: inline-flex;
     font-size: var(--_font-size);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     gap: var(--size-2);
     justify-content: center;
     min-block-size: var(--_min-height);
@@ -86,14 +86,10 @@
 
     /* Disabled */
     &:where([disabled]) {
-      --_text-color: color-mix(
-        in oklch,
-        var(--text-muted) 50%,
-        var(--surface-default)
-      );
+      --_text-color: var(--text-disabled);
 
       cursor: not-allowed;
-      opacity: 0.64;
+      opacity: var(--disabled-opacity);
     }
 
     /* Hover & Active */

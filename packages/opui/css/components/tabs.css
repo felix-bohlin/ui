@@ -57,7 +57,7 @@
       color: var(--text-muted);
       cursor: pointer;
       display: inline-flex;
-      font-weight: 600;
+      font-weight: var(--font-weight-semibold);
       justify-content: center;
       line-height: var(--font-lineheight-4);
       order: 1;

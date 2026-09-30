@@ -81,12 +81,8 @@
 
     /* Disabled */
     &:where([disabled]) {
-      opacity: 0.64;
-      --_color: color-mix(
-        in oklch,
-        var(--text-muted) 50%,
-        var(--surface-default)
-      );
+      opacity: var(--disabled-opacity);
+      --_color: var(--text-disabled);
       cursor: not-allowed;
     }
   }

@@ -23,8 +23,8 @@
     /* Legend */
     :where(legend, .ui-legend) {
       all: unset;
-      color: var(--text-primary);
-      font-weight: 600;
+      color: var(--field-label-color);
+      font-weight: var(--field-label-font-weight);
       margin-block-end: var(--size-3);
       padding: 0;
 
@@ -46,9 +46,9 @@
 
     /* End text */
     :where(.ui-end-text) {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
-      line-height: var(--font-lineheight-3);
+      color: var(--field-helper-color);
+      font-size: var(--field-helper-font-size);
+      line-height: var(--field-helper-line-height);
     }
 
     &:has(.ui-text-field.ui-row) {
@@ -57,7 +57,7 @@
 
     /* Disabled */
     &[disabled] {
-      opacity: 0.64;
+      opacity: var(--disabled-opacity);
       user-select: none;
 
       input,
@@ -70,21 +70,21 @@
     /* Error / validation */
     &[data-invalid] {
       :where(.ui-end-text) {
-        color: var(--critical);
+        color: var(--invalid-color);
       }
 
       :where(.ui-checkbox, .ui-radio, .ui-switch) {
-        --primary: var(--critical);
+        --primary: var(--invalid-color);
 
         :where(.ui-end-text) {
-          color: var(--critical);
+          color: var(--invalid-color);
         }
       }
 
       :where(.ui-switch) {
         input {
           border-radius: var(--radius-round);
-          outline: 2px solid var(--critical);
+          outline: 2px solid var(--invalid-color);
         }
       }
     }
@@ -96,7 +96,7 @@
         position: relative;
 
         &::after {
-          color: var(--red);
+          color: var(--field-required-color);
           content: "*";
           inset: 0 -0.25ex auto auto;
           position: absolute;

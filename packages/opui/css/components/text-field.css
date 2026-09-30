@@ -13,7 +13,7 @@
     --_filled-border-color: var(--text-primary);
     --_height: var(--field-size);
     --_label-color: var(--text-muted);
-    --_end-text-color: var(--text-muted);
+    --_end-text-color: var(--field-helper-color);
 
     display: grid;
     gap: var(--size-1) 0;
@@ -115,7 +115,7 @@
     /* Required/Invalid */
     &:has(:invalid) {
       .ui-label:after {
-        color: var(--red);
+        color: var(--field-required-color);
         content: "*";
         margin: -0.25em auto auto 0.25em;
       }
@@ -258,9 +258,9 @@
 
     /* Label */
     .ui-label {
-      color: var(--text-primary);
-      font-size: var(--font-size-05);
-      font-weight: 600;
+      color: var(--field-label-color);
+      font-size: var(--field-label-font-size);
+      font-weight: var(--field-label-font-weight);
       grid-column: 1/-1;
       grid-row: 1;
       padding-inline: 0 1ex;
@@ -268,10 +268,10 @@
 
     :where(.ui-start-text) {
       color: var(--_end-text-color);
-      font-size: var(--font-size-0);
+      font-size: var(--field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 2;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
     }
 
     &:not(.ui-spread):has(> .ui-start-text) {
@@ -287,10 +287,10 @@
     /* End text */
     :where(.ui-end-text) {
       color: var(--_end-text-color);
-      font-size: var(--font-size-0);
+      font-size: var(--field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 3;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
     }
 
     /* Auto-fit */
@@ -338,7 +338,7 @@
     /* Disabled */
     &:where(:has([disabled])) {
       cursor: not-allowed;
-      opacity: 0.64;
+      opacity: var(--disabled-opacity);
       user-select: none;
 
       &::before {
@@ -386,7 +386,7 @@
 
       &:has(input[type="color"]) {
         .ui-label {
-          line-height: 1.5;
+          line-height: var(--font-lineheight-3);
         }
       }
     }
@@ -399,17 +399,17 @@
       grid-template-columns: 1fr auto;
 
       .ui-label {
-        font-weight: 600;
+        font-weight: var(--field-label-font-weight);
         grid-column: 1;
         grid-row: 1;
       }
 
       .ui-start-text {
         color: var(--_end-text-color);
-        font-size: var(--font-size-0);
+        font-size: var(--field-helper-font-size);
         grid-column: 1;
         grid-row: 2;
-        line-height: 1.5;
+        line-height: var(--field-helper-line-height);
       }
 
       .ui-field {

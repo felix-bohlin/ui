@@ -11,14 +11,14 @@
     grid-auto-columns: auto;
     grid-auto-flow: column;
     inline-size: fit-content;
-    line-height: 1.5;
+    line-height: var(--font-lineheight-3);
     transform: translateZ(0);
     user-select: none;
 
     /* Disabled */
     &:has([disabled]) {
       cursor: not-allowed;
-      opacity: 0.64;
+      opacity: var(--disabled-opacity);
       user-select: none;
 
       input {
@@ -29,7 +29,7 @@
     /* Required dot */
     &:has(:invalid) {
       .ui-label:after {
-        color: var(--red);
+        color: var(--field-required-color);
         content: "*";
         inset: 0 -0.25ex auto auto;
         position: absolute;
@@ -38,8 +38,8 @@
 
     /* Label */
     .ui-label {
-      color: var(--text-primary);
-      font-size: var(--font-size-05);
+      color: var(--field-label-color);
+      font-size: var(--field-label-font-size);
       grid-column: 2;
       grid-row: 1;
       padding-inline: 0 1ex;
@@ -48,11 +48,11 @@
 
     /* End text */
     :where(.ui-end-text) {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
+      color: var(--field-helper-color);
+      font-size: var(--field-helper-font-size);
       grid-column: 2;
       grid-row: 2;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
       z-index: 1;
     }
 
@@ -137,10 +137,10 @@
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {
-      --primary: var(--critical);
+      --primary: var(--invalid-color);
 
       :where(.ui-end-text) {
-        color: var(--critical);
+        color: var(--invalid-color);
       }
     }
 

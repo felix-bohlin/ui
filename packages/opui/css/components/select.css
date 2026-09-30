@@ -79,7 +79,7 @@
             oklch(from var(--text-primary) calc(l * 0.75) c h),
             oklch(from var(--text-primary) calc(l * 1.25) c h)
           );
-          font-weight: 500;
+          font-weight: var(--font-weight-medium);
           overflow: hidden;
           padding-inline: var(--size-2);
           text-overflow: ellipsis;

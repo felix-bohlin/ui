@@ -76,7 +76,7 @@
       h6 {
         color: inherit;
         font-size: var(--_title-font-size);
-        font-weight: 600;
+        font-weight: var(--font-weight-semibold);
 
         * {
           font-size: inherit;

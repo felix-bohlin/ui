@@ -22,6 +22,12 @@
   initial-value: 0.3s;
 }
 
+@property --disabled-opacity {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.64;
+}
+
 @layer theme {
   /* 1. Color scheme */
   .ui-light {
@@ -58,6 +64,7 @@
     --warning: var(--orange);
     --critical: var(--red);
     --neutral: var(--gray-9);
+    --invalid-color: var(--critical);
 
     /* 5. Primary */
     --primary: var(--color-8);
@@ -70,6 +77,11 @@
     --text-primary-contrast: light-dark(var(--gray-2), var(--gray-15));
     --text-muted: light-dark(var(--gray-13), var(--gray-4));
     --text-muted-contrast: light-dark(var(--gray-4), var(--gray-13));
+    --text-disabled: color-mix(
+      in oklch,
+      var(--text-muted) 50%,
+      var(--surface-default)
+    );
 
     /* 7. Surfaces */
     --surface-default: light-dark(var(--gray-1), var(--gray-13));
@@ -99,6 +111,10 @@
     /* Sneaking in an extra font size I want but Open Props doesn't provide. You can do whatever you want with your own theme. It's just CSS. */
     --font-size-05: 0.875rem;
 
+    --font-weight-medium: var(--font-weight-5);
+    --font-weight-semibold: var(--font-weight-6);
+    --font-weight-bold: var(--font-weight-7);
+
     /* 11. Control sizes - shared scale for fields and buttons so they line up. */
     --control-size-x-small: 28px;
     --control-size-small: 32px;
@@ -119,6 +135,13 @@
     --field-border-color: var(--border-color);
     --field-border-radius: var(--size-2);
     --field-border-width: 1px;
+    --field-label-color: var(--text-primary);
+    --field-label-font-size: var(--font-size-05);
+    --field-label-font-weight: var(--font-weight-semibold);
+    --field-helper-color: var(--text-muted);
+    --field-helper-font-size: var(--font-size-0);
+    --field-helper-line-height: var(--font-lineheight-3);
+    --field-required-color: var(--invalid-color);
 
     /* 13. Button */
     --button-border-radius: var(--size-2);
@@ -131,6 +154,9 @@
     --ease: ease;
     --ease-enter: var(--ease-out-3);
     --ease-exit: var(--ease-in-3);
+
+    /* 16. State */
+    --disabled-opacity: 0.64;
   }
 
   @media (prefers-reduced-motion: reduce) {

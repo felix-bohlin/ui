@@ -9,7 +9,8 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const groupName = name || useId()
+const uid = useId()
+const groupName = name || uid
 provide(TabsGroupNameKey, groupName)
 </script>
 

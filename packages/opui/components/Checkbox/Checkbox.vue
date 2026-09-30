@@ -32,7 +32,11 @@ const endTextId = useId()
     <CheckboxInput
       v-bind="$attrs"
       v-model="modelValue"
-      :aria-describedby="$slots['end-text'] ? endTextId : undefined"
+      :aria-describedby="
+        [$slots['end-text'] ? endTextId : undefined, $attrs['aria-describedby']]
+          .filter(Boolean)
+          .join(' ') || undefined
+      "
       :indeterminate="props.indeterminate"
     />
     <span :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"

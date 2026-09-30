@@ -66,7 +66,7 @@ const endTextId = useId()
           .filter(Boolean)
           .join(' ') || undefined
       "
-      :aria-labelledby="labelId"
+      :aria-labelledby="props.label || $slots.default ? labelId : undefined"
       :id="inputId"
       :list="props.list"
       type="range"

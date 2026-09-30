@@ -15,6 +15,7 @@ export type Props = {
   id?: string
   items?: MenuItem[]
   placement?: "block-end" | "block-start" | "inline-end" | "inline-start"
+  popover?: "auto" | "manual"
 }
 
 export type Slots<S> = {

@@ -1,10 +1,22 @@
 <script setup lang="ts">
+import { computed } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const { alt, as, href, isGroup, src, variant } = defineProps<Props>()
+const {
+  alt,
+  as,
+  command,
+  commandfor,
+  disabled,
+  href,
+  interestfor,
+  isGroup,
+  src,
+  variant,
+} = defineProps<Props>()
 defineSlots<Slots>()
 
-const Tag = as || (href ? "a" : "div")
+const Tag = computed(() => as || (href ? "a" : "div"))
 </script>
 
 <template>
@@ -15,7 +27,11 @@ const Tag = as || (href ? "a" : "div")
       !isGroup && variant && `ui-${variant}`,
       $props.class,
     ]"
+    :command="command"
+    :commandfor="commandfor"
+    :disabled="disabled"
     :href="href"
+    :interestfor="interestfor"
     :role="isGroup ? 'group' : undefined"
   >
     <img v-if="src" :src="src" :alt="alt" />

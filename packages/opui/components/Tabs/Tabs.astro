@@ -1,9 +1,10 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Tabs"
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const { class: className, name, ...rest } = Astro.props
 
 const groupName = name || $id("tabs")

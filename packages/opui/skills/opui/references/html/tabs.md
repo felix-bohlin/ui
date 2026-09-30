@@ -2,6 +2,11 @@
 
 The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' `:checked` state.
 
+### What's new
+
+- Restyled as a segmented control.
+- [Line variant](#line) with `.ui-line`.
+
 ## Anatomy
 
 Profile settings and information.
@@ -86,6 +91,74 @@ General account settings.
 </div>
 ```
 
+## Filled
+
+Use `variant="filled"` (`.ui-filled`) to fill the selected tab with the primary color.
+
+```html
+<div class="ui-tabs ui-filled" role="tablist">
+  <input
+    type="radio"
+    name="filled-tabs"
+    id="filled-tab-profile"
+    class="ui-tab-input"
+    checked
+    aria-controls="filled-panel-profile"
+  />
+  <label for="filled-tab-profile" class="ui-tab-label" role="tab"
+    >Profile</label
+  >
+  <div
+    id="filled-panel-profile"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="filled-tab-profile"
+  >
+    Profile settings and information.
+  </div>
+
+
+  <input
+    type="radio"
+    name="filled-tabs"
+    id="filled-tab-settings"
+    class="ui-tab-input"
+    aria-controls="filled-panel-settings"
+  />
+  <label for="filled-tab-settings" class="ui-tab-label" role="tab"
+    >Settings</label
+  >
+  <div
+    id="filled-panel-settings"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="filled-tab-settings"
+  >
+    General account settings.
+  </div>
+
+
+  <input
+    type="radio"
+    name="filled-tabs"
+    id="filled-tab-notifications"
+    class="ui-tab-input"
+    aria-controls="filled-panel-notifications"
+  />
+  <label for="filled-tab-notifications" class="ui-tab-label" role="tab"
+    >Notifications</label
+  >
+  <div
+    id="filled-panel-notifications"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="filled-tab-notifications"
+  >
+    Manage your notifications.
+  </div>
+</div>
+```
+
 ## Line
 
 Use `variant="line"` (`.ui-line`) for tabs without a background, marking the selected tab with a line.
@@ -118,7 +191,9 @@ Use `variant="line"` (`.ui-line`) for tabs without a background, marking the sel
     class="ui-tab-input"
     aria-controls="line-panel-settings"
   />
-  <label for="line-tab-settings" class="ui-tab-label" role="tab">Settings</label>
+  <label for="line-tab-settings" class="ui-tab-label" role="tab"
+    >Settings</label
+  >
   <div
     id="line-panel-settings"
     class="ui-tab-panel"
@@ -144,6 +219,74 @@ Use `variant="line"` (`.ui-line`) for tabs without a background, marking the sel
     class="ui-tab-panel"
     role="tabpanel"
     aria-labelledby="line-tab-notifications"
+  >
+    Manage your notifications.
+  </div>
+</div>
+```
+
+## Outlined
+
+Use `variant="outlined"` (`.ui-outlined`) for a bordered track without a background.
+
+```html
+<div class="ui-tabs ui-outlined" role="tablist">
+  <input
+    type="radio"
+    name="outlined-tabs"
+    id="outlined-tab-profile"
+    class="ui-tab-input"
+    checked
+    aria-controls="outlined-panel-profile"
+  />
+  <label for="outlined-tab-profile" class="ui-tab-label" role="tab"
+    >Profile</label
+  >
+  <div
+    id="outlined-panel-profile"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="outlined-tab-profile"
+  >
+    Profile settings and information.
+  </div>
+
+
+  <input
+    type="radio"
+    name="outlined-tabs"
+    id="outlined-tab-settings"
+    class="ui-tab-input"
+    aria-controls="outlined-panel-settings"
+  />
+  <label for="outlined-tab-settings" class="ui-tab-label" role="tab"
+    >Settings</label
+  >
+  <div
+    id="outlined-panel-settings"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="outlined-tab-settings"
+  >
+    General account settings.
+  </div>
+
+
+  <input
+    type="radio"
+    name="outlined-tabs"
+    id="outlined-tab-notifications"
+    class="ui-tab-input"
+    aria-controls="outlined-panel-notifications"
+  />
+  <label for="outlined-tab-notifications" class="ui-tab-label" role="tab"
+    >Notifications</label
+  >
+  <div
+    id="outlined-panel-notifications"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="outlined-tab-notifications"
   >
     Manage your notifications.
   </div>
@@ -181,10 +324,10 @@ The content area associated with a tab:
 
 ### Tabs API
 
-| Type     | Modifiers             | Default | Description                                                |
-| -------- | --------------------- | ------- | ---------------------------------------------------------- |
-| Group    | `.ui-tab-input[name]` | -       | The name shared by the tab inputs. Generated when omitted. |
-| Variants | `.ui-line`            | -       | The variant to use.                                        |
+| Type     | Modifiers                                | Default | Description                                                |
+| -------- | ---------------------------------------- | ------- | ---------------------------------------------------------- |
+| Group    | `.ui-tab-input[name]`                    | -       | The name shared by the tab inputs. Generated when omitted. |
+| Variants | `.ui-filled`, `.ui-line`, `.ui-outlined` | -       | The variant to use.                                        |
 
 #### Parts
 

@@ -17,7 +17,11 @@ export default {
       description: "The variant to use.",
       group: "Variants",
       prop: "variant",
-      values: { line: ".ui-line" },
+      values: {
+        filled: ".ui-filled",
+        line: ".ui-line",
+        outlined: ".ui-outlined",
+      },
     },
   ],
   parts: [

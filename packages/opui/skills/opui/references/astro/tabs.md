@@ -2,6 +2,11 @@
 
 The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' `:checked` state.
 
+### What's new
+
+- Restyled as a segmented control.
+- [Line variant](#line) with `variant="line"`.
+
 ## Anatomy
 
 Profile settings and information.
@@ -48,6 +53,32 @@ import { Tabs } from "opui-css/astro"
 </Tabs>
 ```
 
+## Filled
+
+Use `variant="filled"` (`.ui-filled`) to fill the selected tab with the primary color.
+
+```astro
+---
+import { Tabs } from "opui-css/astro"
+---
+
+
+<Tabs name="filled-tabs" variant="filled">
+  <Tabs.Item open>
+    <Tabs.Tab>Profile</Tabs.Tab>
+    <Tabs.Panel>Profile settings and information.</Tabs.Panel>
+  </Tabs.Item>
+  <Tabs.Item>
+    <Tabs.Tab>Settings</Tabs.Tab>
+    <Tabs.Panel>General account settings.</Tabs.Panel>
+  </Tabs.Item>
+  <Tabs.Item>
+    <Tabs.Tab>Notifications</Tabs.Tab>
+    <Tabs.Panel>Manage your notifications.</Tabs.Panel>
+  </Tabs.Item>
+</Tabs>
+```
+
 ## Line
 
 Use `variant="line"` (`.ui-line`) for tabs without a background, marking the selected tab with a line.
@@ -59,6 +90,32 @@ import { Tabs } from "opui-css/astro"
 
 
 <Tabs name="line-tabs" variant="line">
+  <Tabs.Item open>
+    <Tabs.Tab>Profile</Tabs.Tab>
+    <Tabs.Panel>Profile settings and information.</Tabs.Panel>
+  </Tabs.Item>
+  <Tabs.Item>
+    <Tabs.Tab>Settings</Tabs.Tab>
+    <Tabs.Panel>General account settings.</Tabs.Panel>
+  </Tabs.Item>
+  <Tabs.Item>
+    <Tabs.Tab>Notifications</Tabs.Tab>
+    <Tabs.Panel>Manage your notifications.</Tabs.Panel>
+  </Tabs.Item>
+</Tabs>
+```
+
+## Outlined
+
+Use `variant="outlined"` (`.ui-outlined`) for a bordered track without a background.
+
+```astro
+---
+import { Tabs } from "opui-css/astro"
+---
+
+
+<Tabs name="outlined-tabs" variant="outlined">
   <Tabs.Item open>
     <Tabs.Tab>Profile</Tabs.Tab>
     <Tabs.Panel>Profile settings and information.</Tabs.Panel>
@@ -105,10 +162,10 @@ The content area associated with a tab:
 
 ### Tabs API
 
-| Prop      | Type     | Default | Description                                                |
-| --------- | -------- | ------- | ---------------------------------------------------------- |
-| `name`    | `string` | -       | The name shared by the tab inputs. Generated when omitted. |
-| `variant` | `"line"` | -       | The variant to use.                                        |
+| Prop      | Type                               | Default | Description                                                |
+| --------- | ---------------------------------- | ------- | ---------------------------------------------------------- |
+| `name`    | `string`                           | -       | The name shared by the tab inputs. Generated when omitted. |
+| `variant` | `"outlined"`, `"filled"`, `"line"` | -       | The variant to use.                                        |
 
 #### Slots
 

@@ -7,10 +7,13 @@
     );
     --_active-border-color: light-dark(transparent, oklch(100% 0 0 / 0.08));
     --_active-shadow: var(--shadow-1);
+    --_active-text-color: var(--text-primary);
     --_border-radius: var(--border-radius);
     --_indicator-color: transparent;
     --_inset: 3px;
     --_text-color: color-mix(in oklch, var(--text-primary) 60%, transparent);
+    --_track-border-color: transparent;
+    --_track-border-width: 1px;
     --_track-color: var(--surface-tonal);
 
     align-items: flex-start;
@@ -33,7 +36,7 @@
         /* Checked Tab */
         & + [role="tab"],
         & + .ui-tab-label {
-          color: var(--text-primary);
+          color: var(--_active-text-color);
 
           &::before {
             background-color: var(--_active-bg-color);
@@ -69,6 +72,7 @@
     & > .ui-tab-label {
       align-items: center;
       background-color: var(--_track-color);
+      border-block: var(--_track-border-width) solid var(--_track-border-color);
       color: var(--_text-color);
       cursor: pointer;
       display: inline-flex;
@@ -79,7 +83,8 @@
       justify-content: center;
       line-height: var(--font-lineheight-4);
       order: 1;
-      padding: calc(var(--size-1) + var(--_inset)) var(--size-3);
+      padding: calc(var(--size-1) + var(--_inset) - var(--_track-border-width))
+        var(--size-3);
       position: relative;
       transition: color calc(0.1s * var(--_motion));
       user-select: none;
@@ -87,7 +92,9 @@
 
       &::before {
         border: 1px solid transparent;
-        border-radius: calc(var(--_border-radius) - var(--_inset));
+        border-radius: calc(
+          var(--_border-radius) - var(--_inset) - var(--_track-border-width)
+        );
         content: "";
         inset: var(--_inset) 0;
         position: absolute;
@@ -111,8 +118,12 @@
 
       &:nth-child(1 of [role="tab"], .ui-tab-label) {
         border-end-start-radius: var(--_border-radius);
+        border-inline-start: var(--_track-border-width) solid
+          var(--_track-border-color);
         border-start-start-radius: var(--_border-radius);
-        padding-inline-start: calc(var(--size-3) + var(--_inset));
+        padding-inline-start: calc(
+          var(--size-3) + var(--_inset) - var(--_track-border-width)
+        );
 
         &::before {
           inset-inline-start: var(--_inset);
@@ -121,8 +132,12 @@
 
       &:nth-last-child(1 of [role="tab"], .ui-tab-label) {
         border-end-end-radius: var(--_border-radius);
+        border-inline-end: var(--_track-border-width) solid
+          var(--_track-border-color);
         border-start-end-radius: var(--_border-radius);
-        padding-inline-end: calc(var(--size-3) + var(--_inset));
+        padding-inline-end: calc(
+          var(--size-3) + var(--_inset) - var(--_track-border-width)
+        );
 
         &::before {
           inset-inline-end: var(--_inset);
@@ -145,15 +160,30 @@
       order: 2;
     }
 
+    &.ui-filled {
+      --_active-bg-color: var(--primary);
+      --_active-border-color: transparent;
+      --_active-text-color: var(--primary-contrast);
+    }
+
     &.ui-line {
       --_active-bg-color: transparent;
       --_active-border-color: transparent;
       --_active-shadow: none;
       --_indicator-color: var(--text-primary);
       --_inset: 0px;
+      --_track-border-width: 0px;
       --_track-color: transparent;
 
       column-gap: var(--size-1);
+    }
+
+    &.ui-outlined {
+      --_active-bg-color: var(--surface-tonal);
+      --_active-border-color: transparent;
+      --_active-shadow: none;
+      --_track-border-color: var(--border-color);
+      --_track-color: transparent;
     }
   }
 }

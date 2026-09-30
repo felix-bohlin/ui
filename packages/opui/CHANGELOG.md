@@ -29,6 +29,7 @@
 ### Changed
 
 - `Tabs` look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill.
+- Rich text only styles headings without a class, like lists. Component parts such as the `Callout` title keep their own styles.
 
 ### Fixed
 
@@ -47,6 +48,8 @@
 - Vue `DrawerHeader` closes the drawer without hydration.
 - `FieldGroup` `name` only applies to its own fields in Astro and Vue.
 - `Tabs` and `ToggleGroup` context only applies to their own children in Astro.
+- Rich text removes the top margin of the first child and the bottom margin of the last child in a component's `.ui-content`.
+- Rich text lists after a heading or `hr` no longer get a top margin, and nested lists get their smaller margins.
 
 ## 5.5.0 - 2026-09-28
 

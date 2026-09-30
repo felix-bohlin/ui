@@ -323,50 +323,52 @@
     }
 
     :is(h1, h2, h3, h4, h5, h6) {
-      color: var(--text-primary);
-      font-weight: 700;
-      text-wrap: pretty;
-
       & + *:not(&) {
         margin-block-start: 0;
       }
     }
 
-    h1 {
+    :is(h1, h2, h3, h4, h5, h6):where(:not([class])) {
+      color: var(--text-primary);
+      font-weight: 700;
+      text-wrap: pretty;
+    }
+
+    h1:where(:not([class])) {
       font-size: var(--font-size-h1, var(--font-size-7));
       letter-spacing: -0.02em;
       line-height: 1.1111111;
       margin-block: 0 0.8888889em;
     }
 
-    h2 {
+    h2:where(:not([class])) {
       font-size: var(--font-size-h2, var(--font-size-5, 2rem));
       letter-spacing: -0.02em;
       line-height: 1.3333333;
       margin-block: 2em 1em;
     }
 
-    h3 {
+    h3:where(:not([class])) {
       font-size: var(--font-size-h3, var(--font-size-4, 1.5rem));
       letter-spacing: -0.01em;
       line-height: 1.6;
       margin-block: 1.6em 0.6em;
     }
 
-    h4 {
+    h4:where(:not([class])) {
       font-size: var(--font-size-h4, var(--font-size-3, 1.25rem));
       letter-spacing: -0.01em;
       line-height: 1.5;
       margin-block: 1.5em 0.5em;
     }
 
-    h5 {
+    h5:where(:not([class])) {
       font-size: var(--font-size-h5, var(--font-size-2, 1.1rem));
       line-height: 1;
       margin-block: 0 var(--size-1);
     }
 
-    h6 {
+    h6:where(:not([class])) {
       font-size: var(--font-size-h6, var(--font-size-1, 1rem));
       line-height: 1;
       margin-block: 0 var(--size-1);
@@ -418,7 +420,7 @@
       list-style-type: decimal;
     }
 
-    :where(ul, ol):not([class]) {
+    :where(ul, ol):where(:not([class])) {
       display: grid;
       font-size: inherit;
       gap: 0.5em;
@@ -484,6 +486,16 @@
     /* Remove bottom margin from last child */
     & > :last-child {
       margin-block-end: 0;
+    }
+
+    :where(.ui-content) {
+      & > :first-child {
+        margin-block-start: 0;
+      }
+
+      & > :last-child {
+        margin-block-end: 0;
+      }
     }
 
     /* Horizontal rules */

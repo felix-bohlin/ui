@@ -137,11 +137,7 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 
   {
     whatsNew.length > 0 && (
-      <Callout
-        severity="info"
-        variant="tonal"
-        class="whats-new ui-not-rich-text"
-      >
+      <Callout severity="info" variant="tonal" class="whats-new">
         <Fragment slot="title">What's new</Fragment>
         <ul>
           {whatsNew.map((note) => (
@@ -439,11 +435,6 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 
     .whats-new {
       margin-block-end: var(--size-8);
-
-      ul {
-        margin: 0;
-        padding-inline-start: var(--size-4);
-      }
     }
   </style>
 </Document>

@@ -142,7 +142,8 @@ const tour = `@keyframes ${id}-tour {
 
   .subject {
     anchor-name: var(--subject);
-    max-inline-size: calc(100% / var(--zoom));
+    max-inline-size: 100%;
+    min-inline-size: 0;
     zoom: var(--zoom);
 
     > :global(*) {
@@ -278,7 +279,6 @@ const tour = `@keyframes ${id}-tour {
     }
 
     .subject {
-      max-inline-size: 100%;
       zoom: 1;
     }
 

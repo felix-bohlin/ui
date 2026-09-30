@@ -1,0 +1,181 @@
+[data-theme="brutalist"] {
+  --palette-hue: 100;
+  --palette-chroma: 1;
+  --palette-hue-rotate-by: 0;
+  --gray-chroma: 0;
+  --gray-hue: 0;
+  --border-radius: 0;
+  --field-border-radius: 0;
+  --button-border-radius: 0;
+
+  --brutalist-ink: light-dark(black, white);
+  --brutalist-paper: light-dark(white, black);
+  --brutalist-unit: 4px;
+  --brutalist-shadow: var(--brutalist-unit) var(--brutalist-unit) 0 0
+    var(--brutalist-ink);
+  --brutalist-shadow-raised: calc(var(--brutalist-unit) * 1.5)
+    calc(var(--brutalist-unit) * 1.5) 0 0 var(--brutalist-ink);
+  --brutalist-display-font:
+    Impact, "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --font-sans: var(--font-monospace-slab-serif);
+  --font-heading: var(--brutalist-display-font);
+  --radius-1: 0;
+  --radius-2: 0;
+  --radius-3: 0;
+  --radius-4: 0;
+  --radius-5: 0;
+  --radius-6: 0;
+  --radius-round: 0;
+  --border-width: 3px;
+  --field-border-width: 3px;
+  --focus-ring-color: var(--brutalist-ink);
+  --focus-ring-width: 4px;
+  --focus-ring-offset: 0;
+  --motion: 0;
+  --primary: var(--color-5);
+  --primary-light: var(--color-4);
+  --primary-dark: var(--color-7);
+  --primary-contrast: var(--gray-16);
+  --neutral: var(--brutalist-ink);
+  --text-primary: var(--brutalist-ink);
+  --text-primary-contrast: var(--brutalist-paper);
+  --text-muted: var(--brutalist-ink);
+  --text-muted-contrast: var(--brutalist-paper);
+  --surface-default: var(--brutalist-paper);
+  --surface-filled: light-dark(var(--gray-3), var(--gray-14));
+  --surface-tonal: light-dark(var(--gray-3), var(--gray-13));
+  --surface-elevated: var(--brutalist-paper);
+  --border-color: var(--brutalist-ink);
+  --field-border-color: var(--brutalist-ink);
+  --shadow-1: var(--brutalist-shadow);
+  --shadow-2: var(--brutalist-shadow);
+  --shadow-3: var(--brutalist-shadow);
+  --shadow-4: var(--brutalist-shadow);
+  --shadow-5: var(--brutalist-shadow-raised);
+  --shadow-6: var(--brutalist-shadow-raised);
+
+  font-family: var(--font-sans);
+
+  :is(h1, h2, h3, h4, h5, h6, .ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
+    font-family: var(--brutalist-display-font);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  :is(.ui-button, .ui-toggle-button, .ui-chip, .ui-overline, legend) {
+    font-family: var(--brutalist-display-font);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .ui-tabs > .ui-tab-label {
+    border-bottom-width: var(--brutalist-unit);
+    font-family: var(--brutalist-display-font);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .ui-button {
+    border: var(--border-width) solid var(--brutalist-ink);
+    color: var(--brutalist-ink);
+
+    &.ui-filled {
+      background-color: var(--primary);
+      color: var(--primary-contrast);
+
+      &:not([disabled]):hover {
+        background-color: var(--primary-light);
+      }
+    }
+
+    &.ui-outlined {
+      background-color: var(--brutalist-paper);
+
+      &:not([disabled]):hover {
+        background-color: var(--primary);
+        border-color: var(--brutalist-ink);
+        color: var(--primary-contrast);
+      }
+    }
+
+    &.ui-tonal {
+      background-color: var(--surface-tonal);
+      color: var(--brutalist-ink);
+
+      &:not([disabled]):hover {
+        background-color: var(--primary);
+        color: var(--primary-contrast);
+      }
+    }
+
+    &.ui-critical {
+      border-color: var(--critical);
+      color: var(--critical);
+
+      &.ui-filled {
+        background-color: var(--critical);
+        color: var(--brutalist-paper);
+      }
+    }
+  }
+
+  :is(
+    .ui-button,
+    .ui-icon-button:is(.ui-filled, .ui-outlined, .ui-tonal),
+    .ui-chip,
+    .ui-card:is(.ui-outlined, .ui-elevated, .ui-tonal),
+    .ui-callout,
+    .ui-field,
+    .ui-toggle-group
+  ) {
+    border-color: var(--brutalist-ink);
+    box-shadow: var(--brutalist-shadow);
+  }
+
+  :is(.ui-button, .ui-icon-button, .ui-chip:is(a, button)):not([disabled]) {
+    &:hover {
+      box-shadow: var(--brutalist-shadow-raised);
+      translate: calc(-0.5 * var(--brutalist-unit))
+        calc(-0.5 * var(--brutalist-unit));
+    }
+
+    &:active {
+      box-shadow: none;
+      translate: var(--brutalist-unit) var(--brutalist-unit);
+    }
+  }
+
+  .ui-chip {
+    font-size: 0.7rem;
+  }
+
+  .ui-field:focus-within {
+    background-color: var(--primary);
+    color: var(--primary-contrast);
+  }
+
+  .ui-link {
+    color: var(--brutalist-ink);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 0.15em;
+
+    &:hover {
+      background-color: var(--primary);
+      color: var(--primary-contrast);
+    }
+  }
+
+  .ui-divider {
+    block-size: var(--border-width);
+  }
+
+  *::selection {
+    background: var(--brutalist-ink);
+    color: var(--brutalist-paper);
+  }
+}

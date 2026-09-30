@@ -21,11 +21,16 @@ const slugsIn = (relDir) =>
 const componentSlugs = slugsIn("./src/docs/components")
 const guideSlugs = ["getting-started", ...slugsIn("./src/docs/guide")]
 
+const themePresetsDir = fileURLToPath(
+  new URL("./src/styles/themes/", import.meta.url),
+).replace(/\\/g, "/")
+
 const d = `/${DEFAULT_FRAMEWORK}`
 const legacyRedirects = {
   "/components": `${d}/components`,
   "/api": `${d}/api`,
   "/guide": `${d}/guide/getting-started`,
+  "/themes": `${d}/themes`,
   ...Object.fromEntries(
     componentSlugs.map((s) => [`/components/${s}`, `${d}/components/${s}`]),
   ),
@@ -53,6 +58,33 @@ export default defineConfig({
   ],
   vite: {
     plugins: [
+      {
+        name: "opui-theme-preset-scope",
+        enforce: "pre",
+        transform(code, id) {
+          const file = id.replace(/\\/g, "/")
+          if (!file.startsWith(themePresetsDir) || !file.endsWith(".css")) {
+            return
+          }
+          const preset = file.slice(themePresetsDir.length, -".css".length)
+          const fontFacePattern = /@font-face\s*\{[^}]*\}/g
+          const fontFaces = code.match(fontFacePattern) ?? []
+          const body = code
+            .replace(fontFacePattern, "")
+            .replaceAll(`[data-theme="${preset}"]`, ":scope")
+            .trim()
+          return {
+            code: [
+              ...fontFaces,
+              `@scope ([data-theme="${preset}"]) to (:scope [data-theme]) {`,
+              body,
+              "}",
+              "",
+            ].join("\n"),
+            map: null,
+          }
+        },
+      },
       {
         name: "opui-package-astro-hmr",
         handleHotUpdate({ file, server }) {

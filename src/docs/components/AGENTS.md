@@ -26,7 +26,7 @@ Before creating or refactoring a page, perform the following research:
 2.  **Analyze the CSS**: Read `packages/opui/css/components/[name].css` to identify:
     - Modifier classes (e.g., `.ui-filled`, `.ui-outlined`, `.ui-small`).
     - Modern CSS features being used (to populate `browserSupport`).
-    - Internal part classes (to target for the `anatomy` section).
+    - Internal part classes (the `parts` in `api.ts`, which drive the `anatomy` diagram).
 3.  **Check for API Metadata**: Verify if a corresponding API file or folder exists in `src/component-api/`.
     - For single APIs: `src/component-api/[name]-api.astro`.
     - For multi-framework APIs: `src/component-api/[name]/Astro.astro` and `src/component-api/[name]/HTML.astro`.
@@ -102,7 +102,6 @@ CSS imports use the `@opui/css/...` package alias. UI-component imports use `@op
 - A `<slot name="controls">` for interactive switches.
 - A `code-js` slot (JS-driven demos like Toast).
 - A `*Code.astro` source override that differs from the rendered preview (used to hide doc-only wrappers).
-- Inline JSX content as the preview (used by some `anatomy` slots).
 
 The manual form remains supported and unchanged:
 
@@ -132,6 +131,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 - `apis`: (Optional) Either a single imported API module, an array of `{ title, component }` objects, or a framework-keyed object `{ astro, html }` (preferred when API tables differ per framework).
 - `browserSupport`: (Optional) Array of feature IDs (e.g., `["has", "light-dark"]`).
 - `changelogPaths`: (Optional) Array of `{ path, type }` entries used to render the per-component changelog.
+- `heroAnatomy`: (Optional) Renders the `anatomy` slot at the top of the page, above the content, instead of in its own section.
 - `installationTabs`: (Optional) Array of `{ title, code, lang }` objects.
 - `overline`: (Optional) Sidebar/breadcrumb overline. Defaults to `"Components"`.
 - `seeAlsoLinks`: (Optional) Array of `{ name, href }` entries rendered in a "See also" section.
@@ -141,7 +141,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 - `title`: (Required) The page heading.
 - `preamble`: (Optional) Introductory text.
 - `default`: Main documentation content.
-- `anatomy`: (Optional) Component's internal structure visualization.
+- `anatomy`: (Optional) An `<Anatomy>` diagram of the component's parts (see 5.4).
 - `accessibility`: (Optional) Accessibility notes.
 - `installation`: (Optional) Extra context above installation tabs.
 
@@ -170,11 +170,28 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 
 ### 5.4 Anatomy Section
 
-Use the `anatomy` slot for internal structure visualization.
+Use the `anatomy` slot with the `<Anatomy>` component ([src/components/Anatomy.astro](../../components/Anatomy.astro)) to draw the component's parts.
 
-- **Only Astro**: The anatomy section is purely visual documentation. Do not provide multiple templating-language examples (HTML, Vue, React, etc.). Use a single `.astro` file with the `.anatomy` class applied to the component instance. Use `slot="preview-astro"` on `Example.Preview`. Do not provide an `Example.Code` snippet.
-- **Visuals**: Apply an `.anatomy` class to the UI component instance.
-- **Styles**: Use `<style is:global>` to define diagnostic outlines (e.g., `outline: var(--_anatomy-border-gray)`).
+- **Data-driven**: The diagram reads `root` and `parts` from the component's `api.ts` ([src/component-api/AGENT.md](../../component-api/AGENT.md)), found from the page `slug`. Every part needs a `selector` that matches inside the rendered instance; keep parts in visual order. Pass `api={...}` when the diagram documents another component's parts, such as `listItemApi` on the List page.
+- **Subject**: Wrap one instance of the UI component from `@opui/astro` in `<Anatomy>`. Fill every part so each one has a box to frame, and use props or inline `style` to keep normally hidden parts visible (e.g. `open` on Accordion, `--_button-disabled-opacity: 1` on Carousel).
+- **Only Astro**: The subject is rendered once and shown on every framework page. Do not add HTML or Vue variants, `<Example>` wrappers or code snippets.
+- **Sizing**: Constrain the subject with `style` (e.g. `inline-size: 18rem`) when it would otherwise stretch, and use `zoom` for small components.
+- **Placement**: Set `heroAnatomy` on `<Component>` to render the diagram at the top of the page instead of in an "Anatomy" section.
+- **Checks**: `tests/e2e/anatomy.spec.ts` checks every `heroAnatomy` page for overflow, spacing and axe violations at 390, 920 and 1280px.
+
+```astro
+<Fragment slot="anatomy">
+  <Anatomy>
+    <UIAccordion open variant="outlined">
+      <Fragment slot="summary">Accordion title</Fragment>
+      <p>Supporting text.</p>
+      <Fragment slot="actions">
+        <UIButton>Agree</UIButton>
+      </Fragment>
+    </UIAccordion>
+  </Anatomy>
+</Fragment>
+```
 
 ### 5.5 Interactivity (JavaScript)
 

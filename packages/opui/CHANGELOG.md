@@ -19,6 +19,8 @@
 - `--palette-hue` is green in light mode and blue in dark mode as intended. The previous `light-dark()` value never applied to the numeric property, so both modes rendered blue.
 - `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.
 - `Badge`, `Chip`, `Tabs`, `Toast` and `Tooltip` respect `--motion` and `prefers-reduced-motion`.
+- Package exports resolve `opui-css/css/imports.css`, `opui-css/core/palette.css` and `opui-css/css/js/toast.js` as written. The `./css/*` and `./core/*` patterns appended a second `.css`.
+- `dist/opui.components.css` starts with the `@layer` order statement.
 - Autofilled fields use `--surface-default` instead of the undefined `--well-1`.
 
 ### Internal

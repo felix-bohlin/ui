@@ -118,7 +118,7 @@ Astro components emit prefixed `ui-` classes (see the v4 → v5 section at the t
 v4 declares the layer order in `css/imports.css` / `dist/opui.css`:
 
 ```css
-@layer openprops, normalize, theme, components.root, components.extended, utils;
+@layer openprops, theme, normalize, components.root, components.extended, utils;
 ```
 
 Put your overrides in a later layer or unlayered. If your app already declared `@layer` with a different order, reconcile or import `dist/opui.components.css` and own the layer order yourself.

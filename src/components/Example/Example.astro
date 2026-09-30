@@ -435,6 +435,14 @@ const outputPanelId = `${groupName}-output-panel`
     border-radius: 0;
   }
 
+  .source-tabs > .ui-tab-label {
+    margin-block-start: var(--size-2);
+
+    &:first-of-type {
+      margin-inline-start: var(--size-2);
+    }
+  }
+
   .example-column {
     display: grid;
     gap: var(--size-3);

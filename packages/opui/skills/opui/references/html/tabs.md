@@ -86,6 +86,70 @@ General account settings.
 </div>
 ```
 
+## Line
+
+Use `variant="line"` (`.ui-line`) for tabs without a background, marking the selected tab with a line.
+
+```html
+<div class="ui-tabs ui-line" role="tablist">
+  <input
+    type="radio"
+    name="line-tabs"
+    id="line-tab-profile"
+    class="ui-tab-input"
+    checked
+    aria-controls="line-panel-profile"
+  />
+  <label for="line-tab-profile" class="ui-tab-label" role="tab">Profile</label>
+  <div
+    id="line-panel-profile"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="line-tab-profile"
+  >
+    Profile settings and information.
+  </div>
+
+
+  <input
+    type="radio"
+    name="line-tabs"
+    id="line-tab-settings"
+    class="ui-tab-input"
+    aria-controls="line-panel-settings"
+  />
+  <label for="line-tab-settings" class="ui-tab-label" role="tab">Settings</label>
+  <div
+    id="line-panel-settings"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="line-tab-settings"
+  >
+    General account settings.
+  </div>
+
+
+  <input
+    type="radio"
+    name="line-tabs"
+    id="line-tab-notifications"
+    class="ui-tab-input"
+    aria-controls="line-panel-notifications"
+  />
+  <label for="line-tab-notifications" class="ui-tab-label" role="tab"
+    >Notifications</label
+  >
+  <div
+    id="line-panel-notifications"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="line-tab-notifications"
+  >
+    Manage your notifications.
+  </div>
+</div>
+```
+
 ## Accessibility
 
 The tab system uses standard radio inputs and labels, so we get group management and keyboard support for free!
@@ -117,9 +181,10 @@ The content area associated with a tab:
 
 ### Tabs API
 
-| Type  | Modifiers             | Default | Description                                                |
-| ----- | --------------------- | ------- | ---------------------------------------------------------- |
-| Group | `.ui-tab-input[name]` | -       | The name shared by the tab inputs. Generated when omitted. |
+| Type     | Modifiers             | Default | Description                                                |
+| -------- | --------------------- | ------- | ---------------------------------------------------------- |
+| Group    | `.ui-tab-input[name]` | -       | The name shared by the tab inputs. Generated when omitted. |
+| Variants | `.ui-line`            | -       | The variant to use.                                        |
 
 #### Parts
 

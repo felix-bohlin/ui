@@ -50,6 +50,34 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 </template>
 ```
 
+## Line
+
+Use `variant="line"` (`.ui-line`) for tabs without a background, marking the selected tab with a line.
+
+```vue
+<script setup lang="ts">
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
+</script>
+
+
+<template>
+  <Tabs name="line-tabs" variant="line">
+    <TabsItem open>
+      <TabsTab>Profile</TabsTab>
+      <TabsPanel>Profile settings and information.</TabsPanel>
+    </TabsItem>
+    <TabsItem>
+      <TabsTab>Settings</TabsTab>
+      <TabsPanel>General account settings.</TabsPanel>
+    </TabsItem>
+    <TabsItem>
+      <TabsTab>Notifications</TabsTab>
+      <TabsPanel>Manage your notifications.</TabsPanel>
+    </TabsItem>
+  </Tabs>
+</template>
+```
+
 ## Accessibility
 
 The tab system uses standard radio inputs and labels, so we get group management and keyboard support for free!
@@ -81,9 +109,10 @@ The content area associated with a tab:
 
 ### Tabs API
 
-| Prop   | Type     | Default | Description                                                |
-| ------ | -------- | ------- | ---------------------------------------------------------- |
-| `name` | `string` | -       | The name shared by the tab inputs. Generated when omitted. |
+| Prop      | Type     | Default | Description                                                |
+| --------- | -------- | ------- | ---------------------------------------------------------- |
+| `name`    | `string` | -       | The name shared by the tab inputs. Generated when omitted. |
+| `variant` | `"line"` | -       | The variant to use.                                        |
 
 #### Slots
 

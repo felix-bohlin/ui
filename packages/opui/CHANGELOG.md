@@ -22,12 +22,13 @@
 - `Button` padding scales with `--_padding-inline`, and the icon side gets tighter padding when a direct child `svg` sits next to a wrapped label (e.g. `<span>`).
 - `Button` and `IconButton` support `.ui-disabled`. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.
 - `Carousel` buttons take image icons via `--_button-prev-icon` and `--_button-next-icon`, sized with `--_button-icon-size`. The glyph is hidden when an icon is set, and the icons swap in RTL.
+- `Tabs` take a `variant` prop. `line` (`.ui-line`) drops the track and marks the selected tab with a line.
 - `layers.css` with the `@layer` order, for importing single component files.
 - The package ships an agent skill in `skills/opui` with a reference for every component.
 
 ### Changed
 
-- `Tabs` use a folder style: the selected tab is outlined with an accent top edge and joins a baseline under the tab list. Selected text uses `--text-primary`, and hover uses a neutral background with rounded top corners.
+- `Tabs` look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill.
 
 ### Fixed
 

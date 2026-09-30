@@ -48,6 +48,32 @@ import { Tabs } from "opui-css/astro"
 </Tabs>
 ```
 
+## Line
+
+Use `variant="line"` (`.ui-line`) for tabs without a background, marking the selected tab with a line.
+
+```astro
+---
+import { Tabs } from "opui-css/astro"
+---
+
+
+<Tabs name="line-tabs" variant="line">
+  <Tabs.Item open>
+    <Tabs.Tab>Profile</Tabs.Tab>
+    <Tabs.Panel>Profile settings and information.</Tabs.Panel>
+  </Tabs.Item>
+  <Tabs.Item>
+    <Tabs.Tab>Settings</Tabs.Tab>
+    <Tabs.Panel>General account settings.</Tabs.Panel>
+  </Tabs.Item>
+  <Tabs.Item>
+    <Tabs.Tab>Notifications</Tabs.Tab>
+    <Tabs.Panel>Manage your notifications.</Tabs.Panel>
+  </Tabs.Item>
+</Tabs>
+```
+
 ## Accessibility
 
 The tab system uses standard radio inputs and labels, so we get group management and keyboard support for free!
@@ -79,9 +105,10 @@ The content area associated with a tab:
 
 ### Tabs API
 
-| Prop   | Type     | Default | Description                                                |
-| ------ | -------- | ------- | ---------------------------------------------------------- |
-| `name` | `string` | -       | The name shared by the tab inputs. Generated when omitted. |
+| Prop      | Type     | Default | Description                                                |
+| --------- | -------- | ------- | ---------------------------------------------------------- |
+| `name`    | `string` | -       | The name shared by the tab inputs. Generated when omitted. |
+| `variant` | `"line"` | -       | The variant to use.                                        |
 
 #### Slots
 

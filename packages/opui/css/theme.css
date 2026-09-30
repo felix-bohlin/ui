@@ -12,7 +12,7 @@
     color-scheme: var(--color-scheme, light dark);
 
     /* 2. Palette - override the values in core/palette.css */
-    --palette-hue: light-dark(var(--hue-green), var(--hue-blue));
+    --palette-hue: var(--hue-blue);
     --palette-chroma: 0.5;
     /* --palette-source: oklch(.58 calc(.21 * .5) var(--hue-blue));   */
 
@@ -98,6 +98,16 @@
 
     /* 13. Button */
     --button-border-radius: var(--size-2);
+  }
+
+  :where(html.ui-light) {
+    --palette-hue: var(--hue-green);
+  }
+
+  @media (prefers-color-scheme: light) {
+    :where(html:not(.ui-dark)) {
+      --palette-hue: var(--hue-green);
+    }
   }
 
   /* 14. Severity scope classes */

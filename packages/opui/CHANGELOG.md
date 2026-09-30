@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- `--palette-hue` is green in light mode and blue in dark mode as intended. The previous `light-dark()` value never applied to the numeric property, so both modes rendered blue.
+
 ### Changed
 
 - Component borders read `--border-width` (and `--field-border-width` for `Checkbox`, `Radio`, `Switch` and `TextField`) instead of a hardcoded `1px`. This affects `Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton` and `ToggleGroup`.

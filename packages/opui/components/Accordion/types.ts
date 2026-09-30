@@ -1,4 +1,5 @@
 export type Props = {
+  icon?: "flip" | "rotate" | "turn"
   variant?: "default" | "outlined" | "elevated" | "tonal"
 }
 

@@ -1,6 +1,6 @@
 # Accordion
 
-Let's you show and hide stuff. Uses the native HTML arrow, check out how to add your own [custom marker](#custom-marker).
+Let's you show and hide stuff. Comes with a chevron marker, check out how to add your own [custom marker](#custom-marker).
 
 ## Basics
 
@@ -177,7 +177,7 @@ import { Button } from "opui-css/astro"
 
 ## Custom marker
 
-Replace the default marker by adding an SVG inside the `summary`.
+Replace the default marker with the `marker` slot.
 
 ```astro
 ---
@@ -193,10 +193,7 @@ import { Accordion } from "opui-css/astro"
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      ><path
-        fill="currentColor"
-        d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
-      ></path></svg
+      ><path fill="currentColor" d="M7 10l5 5 5-5z"></path></svg
     >
   </Fragment>
   <p>
@@ -205,6 +202,58 @@ import { Accordion } from "opui-css/astro"
     neque ante id justo. Nam tempor euismod nisi ac ornare. Pellentesque id
     sapien lacinia, venenatis est aliquam, dignissim elit. Suspendisse potenti.
     Cras ut ante in libero tempus sodales sed quis dolor.
+  </p>
+</Accordion>
+```
+
+## Icon animation
+
+Set the `icon` prop to change how the marker animates when the accordion opens.
+
+```astro
+---
+import { Accordion } from "opui-css/astro"
+---
+
+
+<Accordion icon="flip" variant="outlined">
+  <Fragment slot="summary">Flip</Fragment>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+    nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+    neque ante id justo.
+  </p>
+</Accordion>
+
+
+<Accordion icon="rotate" variant="outlined">
+  <Fragment slot="summary">Rotate</Fragment>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+    nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+    neque ante id justo.
+  </p>
+</Accordion>
+
+
+<Accordion icon="turn" variant="outlined">
+  <Fragment slot="summary">Turn</Fragment>
+  <Fragment slot="marker">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      ><path
+        fill="currentColor"
+        d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12 8.293 5.707a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+      ></path></svg
+    >
+  </Fragment>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+    nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
+    neque ante id justo.
   </p>
 </Accordion>
 ```
@@ -233,6 +282,7 @@ The [WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) f
 | Prop      | Type                                               | Default     | Description                                                                                                                 |
 | --------- | -------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------- |
 | Group     | `Card[role="group"]`                               | -           | Optional wrapper for accordion groups. To theme the entire group, apply the `variant` prop to this component.               |
+| `icon`    | `"flip" \| "rotate" \| "turn"`                     | `"rotate"`  | How the marker animates when the accordion opens.                                                                           |
 | `name`    | `string`                                           | -           | The name of the accordion (used for grouping multiple accordions). Works best when wrapped in a `Card` with `role="group"`. |
 | `open`    | `boolean`                                          | `false`     | Accordion open state.                                                                                                       |
 | `variant` | `"default" \| "outlined" \| "elevated" \| "tonal"` | `"default"` | The visual variant of the accordion.                                                                                        |

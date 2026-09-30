@@ -2,8 +2,8 @@
   {
     "id": "component-accordion-html",
     "title": "Accordion",
-    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
-    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
+    "description": "Let's you show and hide stuff. Comes with a chevron marker, check out how to\n    add your own custom marker.",
+    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker Icon animation",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -12,8 +12,8 @@
   {
     "id": "component-accordion-astro",
     "title": "Accordion",
-    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
-    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
+    "description": "Let's you show and hide stuff. Comes with a chevron marker, check out how to\n    add your own custom marker.",
+    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker Icon animation",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
@@ -22,8 +22,8 @@
   {
     "id": "component-accordion-vue",
     "title": "Accordion",
-    "description": "Let's you show and hide stuff. Uses the native HTML arrow, check out how to\n    add your own custom marker.",
-    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker",
+    "description": "Let's you show and hide stuff. Comes with a chevron marker, check out how to\n    add your own custom marker.",
+    "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker Icon animation",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",
@@ -212,7 +212,7 @@
   {
     "id": "component-card-html",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment",
     "category": "Component",
     "frameworkId": "html",
@@ -222,7 +222,7 @@
   {
     "id": "component-card-astro",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment",
     "category": "Component",
     "frameworkId": "astro",
@@ -232,7 +232,7 @@
   {
     "id": "component-card-vue",
     "title": "Card",
-    "description": "The card is extremely versatile and can be used on its own, or as a building\n    block for accordions, dialogs and more.",
+    "description": "The card is extremely versatile and can be used on its own, or as a building\r\n    block for accordions, dialogs and more.",
     "headings": "Variants Header Actions Alignment",
     "category": "Component",
     "frameworkId": "vue",
@@ -662,7 +662,7 @@
   {
     "id": "component-spinner-html",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
     "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "html",
@@ -672,7 +672,7 @@
   {
     "id": "component-spinner-astro",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
     "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "astro",
@@ -682,7 +682,7 @@
   {
     "id": "component-spinner-vue",
     "title": "Spinner",
-    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\n    indeterminate. See also: Progress bar.",
+    "description": "Add it to an element with aria-busy=\"true\". Spinners are always\r\n    indeterminate. See also: Progress bar.",
     "headings": "Sizes Buttons When not to use aria-busy=\"true\" 2. Because it doesn't make sense",
     "category": "Component",
     "frameworkId": "vue",
@@ -752,7 +752,7 @@
   {
     "id": "component-tabs-html",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
     "headings": "Basics",
     "category": "Component",
     "frameworkId": "html",
@@ -762,7 +762,7 @@
   {
     "id": "component-tabs-astro",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
     "headings": "Basics",
     "category": "Component",
     "frameworkId": "astro",
@@ -772,7 +772,7 @@
   {
     "id": "component-tabs-vue",
     "title": "Tabs",
-    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\n    based on the radio inputs' :checked state.",
+    "description": "The Tabs are radio inputs and the Panels are just divs that show and hide\r\n    based on the radio inputs' :checked state.",
     "headings": "Basics",
     "category": "Component",
     "frameworkId": "vue",
@@ -912,7 +912,7 @@
   {
     "id": "component-typography-html",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .ui-rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "html",
@@ -922,7 +922,7 @@
   {
     "id": "component-typography-astro",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .ui-rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "astro",
@@ -932,7 +932,7 @@
   {
     "id": "component-typography-vue",
     "title": "Typography",
-    "description": "Styles for headings, body text, and other text content. Use util classes\n    anywhere or wrap content in .ui-rich-text.",
+    "description": "Styles for headings, body text, and other text content. Use util classes\r\n    anywhere or wrap content in .ui-rich-text.",
     "headings": "Class-based Variants Heading group Blockquote Code block Inline text elements Classless Classless showcase",
     "category": "Component",
     "frameworkId": "vue",
@@ -969,7 +969,7 @@
   {
     "id": "guide-browser-support-html",
     "title": "Browser support",
-    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
+    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "html",
@@ -978,7 +978,7 @@
   {
     "id": "guide-browser-support-astro",
     "title": "Browser support",
-    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
+    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "astro",
@@ -987,7 +987,7 @@
   {
     "id": "guide-browser-support-vue",
     "title": "Browser support",
-    "description": "These are the (most interesting) web platform features used by Open Props\n    UI! If you're here concerned about what components you actually can use\n    today, this should hopefully get you more informed.",
+    "description": "These are the (most interesting) web platform features used by Open Props\r\n    UI! If you're here concerned about what components you actually can use\r\n    today, this should hopefully get you more informed.",
     "headings": "",
     "category": "Guide",
     "frameworkId": "vue",
@@ -1023,7 +1023,7 @@
   {
     "id": "guide-why-opui-html",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
     "headings": "Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "html",
@@ -1032,7 +1032,7 @@
   {
     "id": "guide-why-opui-astro",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
     "headings": "Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1041,7 +1041,7 @@
   {
     "id": "guide-why-opui-vue",
     "title": "Why Open Props UI?",
-    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",
+    "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\r\n    way we create components. Designed to be used by professional teams as well\r\n    as tinkering hobbyists.",
     "headings": "Backstory The goal of OPUI",
     "category": "Guide",
     "frameworkId": "vue",
@@ -1050,7 +1050,7 @@
   {
     "id": "guide-getting-started-astro",
     "title": "Getting started",
-    "description": "OPUI ships first-class Astro components. Install the package, import what\n    you need, and you're set.",
+    "description": "OPUI ships first-class Astro components. Install the package, import what\r\n    you need, and you're set.",
     "headings": "Install via NPM Import the CSS How to use",
     "category": "Guide",
     "frameworkId": "astro",
@@ -1059,7 +1059,7 @@
   {
     "id": "guide-getting-started-html",
     "title": "Getting started",
-    "description": "Open Props UI is a CSS UI library exploring how next-gen HTML & CSS features\n    can change the way we create components. Designed to be used by professional\n    teams as well as tinkering hobbyists.",
+    "description": "Open Props UI is a CSS UI library exploring how next-gen HTML & CSS features\r\n    can change the way we create components. Designed to be used by professional\r\n    teams as well as tinkering hobbyists.",
     "headings": "Install manually theme.css generator Install via NPM Usage Install via CDN",
     "category": "Guide",
     "frameworkId": "html",
@@ -1078,7 +1078,7 @@
     "id": "api-accordion-astro",
     "title": "Accordion API",
     "description": "Reference for Accordion Astro component.",
-    "headings": "Group Card[role=\"group\"] - Optional wrapper for accordion groups. To theme the entire group, apply the variant prop to this component. name string - The name of the accordion (used for grouping multiple accordions). Works best when wrapped in a Card with role=\"group\". open boolean false Accordion open state. variant \"default\" | \"outlined\" | \"elevated\" | \"tonal\" \"default\" The visual variant of the accordion.",
+    "headings": "Group Card[role=\"group\"] - Optional wrapper for accordion groups. To theme the entire group, apply the variant prop to this component. icon \"flip\" | \"rotate\" | \"turn\" \"rotate\" How the marker animates when the accordion opens. name string - The name of the accordion (used for grouping multiple accordions). Works best when wrapped in a Card with role=\"group\". open boolean false Accordion open state. variant \"default\" | \"outlined\" | \"elevated\" | \"tonal\" \"default\" The visual variant of the accordion.",
     "category": "API",
     "frameworkId": "astro",
     "type": "Astro",
@@ -1088,7 +1088,7 @@
     "id": "api-accordion-html",
     "title": "Accordion API",
     "description": "Reference for Accordion HTML component.",
-    "headings": "Accordion details.ui-accordion - The root element for the accordion. Requires the .ui-accordion class and optionally the .ui-card class for styling. Group .ui-card[role=\"group\"] - Optional wrapper for accordion groups. To theme the entire group, apply the variant class to this element. Attribute name - The name of the accordion (used for grouping multiple accordions). Part & > summary, & > .ui-content, & > .ui-actions - Optional wrappers for child content. Variants .ui-text, .ui-elevated, .ui-tonal, .ui-outlined .ui-text The variant to use.",
+    "headings": "Accordion details.ui-accordion - The root element for the accordion. Requires the .ui-accordion class and optionally the .ui-card class for styling. Group .ui-card[role=\"group\"] - Optional wrapper for accordion groups. To theme the entire group, apply the variant class to this element. Attribute name - The name of the accordion (used for grouping multiple accordions). Icon .ui-icon-flip, .ui-icon-rotate, .ui-icon-turn - How the marker animates when the accordion opens. Part & > summary, & > .ui-content, & > .ui-actions - Optional wrappers for child content. Variants .ui-text, .ui-elevated, .ui-tonal, .ui-outlined .ui-text The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",
@@ -1098,7 +1098,7 @@
     "id": "api-accordion-vue",
     "title": "Accordion API",
     "description": "Reference for Accordion Vue component.",
-    "headings": "Group Card[role=\"group\"] - Optional wrapper for accordion groups. To theme the entire group, apply the variant prop to this component. name string - The name of the accordion (used for grouping multiple accordions). Works best when wrapped in a Card with role=\"group\". open boolean false Accordion open state. variant \"default\" | \"outlined\" | \"elevated\" | \"tonal\" \"default\" The visual variant of the accordion.",
+    "headings": "Group Card[role=\"group\"] - Optional wrapper for accordion groups. To theme the entire group, apply the variant prop to this component. icon \"flip\" | \"rotate\" | \"turn\" \"rotate\" How the marker animates when the accordion opens. name string - The name of the accordion (used for grouping multiple accordions). Works best when wrapped in a Card with role=\"group\". open boolean false Accordion open state. variant \"default\" | \"outlined\" | \"elevated\" | \"tonal\" \"default\" The visual variant of the accordion.",
     "category": "API",
     "frameworkId": "vue",
     "type": "Vue",

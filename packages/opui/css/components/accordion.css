@@ -89,12 +89,22 @@
       }
 
       svg {
-        transition: rotate var(--_svg-transition);
+        transition:
+          rotate var(--_svg-transition),
+          scale var(--_svg-transition);
       }
     }
 
-    &[open] > summary svg {
+    &.ui-icon-flip[open] > summary svg {
+      scale: 1 -1;
+    }
+
+    &.ui-icon-rotate[open] > summary svg {
       rotate: 180deg;
+    }
+
+    &.ui-icon-turn[open] > summary svg {
+      rotate: 90deg;
     }
 
     & > .ui-content {

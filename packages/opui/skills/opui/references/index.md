@@ -4,7 +4,7 @@ Each component has one reference per listed framework: `html/<file>`, `astro/<fi
 
 | Component | File | Frameworks | Description |
 | --- | --- | --- | --- |
-| Accordion | `accordion.md` | html, astro, vue | Let's you show and hide stuff. Uses the native HTML arrow, check out how to add your own custom marker. |
+| Accordion | `accordion.md` | html, astro, vue | Let's you show and hide stuff. Comes with a chevron marker, check out how to add your own custom marker. |
 | Anchor | `anchor.md` | html, astro, vue | A structural primitive to enable CSS Anchor Positioning on stuff. |
 | Avatar | `avatar.md` | html, astro, vue |  |
 | Badge | `badge.md` | html, astro, vue |  |

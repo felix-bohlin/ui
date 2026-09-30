@@ -60,7 +60,7 @@ import Conditional from "../../components/Conditional.astro"
 >
   <Fragment slot="title">Accordion</Fragment>
   <Fragment slot="preamble">
-    Let's you show and hide stuff. Uses the native HTML arrow, check out how to
+    Let's you show and hide stuff. Comes with a chevron marker, check out how to
     add your own <a class="ui-link" href="#custom-marker">custom marker</a>.
   </Fragment>
 
@@ -140,12 +140,43 @@ import Conditional from "../../components/Conditional.astro"
   <section>
     <h2 id="custom-marker">Custom marker</h2>
 
-    <p>
-      Replace the default marker by adding an SVG inside the <code>summary</code
-      >.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Replace the default marker with the <code>marker</code> slot.
+      </Fragment>
+      <Fragment slot="html">
+        Replace the SVG inside the <code>summary</code> to change the marker. Leave
+        it out to fall back to the native arrow.
+      </Fragment>
+      <Fragment slot="vue">
+        Replace the default marker with the <code>marker</code> slot.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="CustomMarker" column />
+  </section>
+
+  <section>
+    <h2 id="icon-animation">Icon animation</h2>
+
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set the <code>icon</code> prop to change how the marker animates when the
+        accordion opens.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-icon-flip</code>, <code>.ui-icon-rotate</code> or <code
+          >.ui-icon-turn</code
+        > to the <code>&lt;details&gt;</code> element to animate the marker when the
+        accordion opens.
+      </Fragment>
+      <Fragment slot="vue">
+        Set the <code>icon</code> prop to change how the marker animates when the
+        accordion opens.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="IconAnimation" column />
   </section>
 
   <Fragment slot="accessibility">

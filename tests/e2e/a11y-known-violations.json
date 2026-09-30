@@ -38,30 +38,6 @@
   "dark/callout/Variants": [
     "aria-allowed-role"
   ],
-  "dark/carousel/Basics": [
-    "scrollable-region-focusable"
-  ],
-  "dark/carousel/CustomButtons": [
-    "scrollable-region-focusable"
-  ],
-  "dark/carousel/Embeds": [
-    "scrollable-region-focusable"
-  ],
-  "dark/carousel/Gallery": [
-    "scrollable-region-focusable"
-  ],
-  "dark/carousel/Images": [
-    "scrollable-region-focusable"
-  ],
-  "dark/carousel/Peek": [
-    "scrollable-region-focusable"
-  ],
-  "dark/carousel/PerView": [
-    "scrollable-region-focusable"
-  ],
-  "dark/carousel/Videos": [
-    "scrollable-region-focusable"
-  ],
   "dark/checkbox/FieldGroupValidation": [
     "color-contrast"
   ],
@@ -175,30 +151,6 @@
   ],
   "light/callout/Variants": [
     "aria-allowed-role"
-  ],
-  "light/carousel/Basics": [
-    "scrollable-region-focusable"
-  ],
-  "light/carousel/CustomButtons": [
-    "scrollable-region-focusable"
-  ],
-  "light/carousel/Embeds": [
-    "scrollable-region-focusable"
-  ],
-  "light/carousel/Gallery": [
-    "scrollable-region-focusable"
-  ],
-  "light/carousel/Images": [
-    "scrollable-region-focusable"
-  ],
-  "light/carousel/Peek": [
-    "scrollable-region-focusable"
-  ],
-  "light/carousel/PerView": [
-    "scrollable-region-focusable"
-  ],
-  "light/carousel/Videos": [
-    "scrollable-region-focusable"
   ],
   "light/checkbox/VisibleLabel": [
     "color-contrast"

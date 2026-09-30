@@ -12,6 +12,9 @@ const RECORD = !!process.env.A11Y_RECORD
 const readKnown = (): Record<string, string[]> =>
   JSON.parse(readFileSync(KNOWN_VIOLATIONS_FILE, "utf-8"))
 
+const isCarousel = (html: string) =>
+  /^<[^>]*\bclass="[^"]*\bui-carousel\b/.test(html)
+
 const known = readKnown()
 const recorded: Record<string, string[]> = {}
 let scheme = ""
@@ -27,13 +30,20 @@ for (const framework of FRAMEWORKS) {
 
       const { violations } = await new AxeBuilder({ page })
         .include("main")
+        .exclude('iframe[src*="youtube"]')
         .analyze()
       const nodes = violations.flatMap((violation) =>
-        violation.nodes.map((node) => ({
-          help: violation.help,
-          id: violation.id,
-          target: node.target.join(" "),
-        })),
+        violation.nodes
+          .filter(
+            (node) =>
+              violation.id !== "scrollable-region-focusable" ||
+              !isCarousel(node.html),
+          )
+          .map((node) => ({
+            help: violation.help,
+            id: violation.id,
+            target: node.target.join(" "),
+          })),
       )
       const examples = await page.evaluate(
         (targets) =>

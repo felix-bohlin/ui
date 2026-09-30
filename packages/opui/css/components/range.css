@@ -261,7 +261,8 @@
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        transition: box-shadow calc(0.1s * var(--_motion)) ease;
+        transition: box-shadow calc(var(--duration-fast) * var(--_motion))
+          var(--ease);
 
         .ui-fieldset-item:focus-within & {
           border-color: var(--gray-14);
@@ -280,7 +281,8 @@
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        transition: box-shadow calc(0.1s * var(--_motion)) ease;
+        transition: box-shadow calc(var(--duration-fast) * var(--_motion))
+          var(--ease);
 
         .ui-fieldset-item:focus-within & {
           border-color: var(--gray-14);

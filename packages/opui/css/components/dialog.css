@@ -39,9 +39,9 @@
     &[open] {
       opacity: 1;
       transition:
-        display calc(0.2s * var(--_motion)) allow-discrete,
-        overlay calc(0.2s * var(--_motion)) allow-discrete,
-        opacity calc(0.2s * var(--_motion)) var(--ease-out-1);
+        display calc(var(--duration) * var(--_motion)) allow-discrete,
+        overlay calc(var(--duration) * var(--_motion)) allow-discrete,
+        opacity calc(var(--duration) * var(--_motion)) var(--ease-enter);
 
       @starting-style {
         opacity: 0;

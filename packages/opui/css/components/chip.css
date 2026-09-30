@@ -1,5 +1,6 @@
 @layer components.root {
   :where(.ui-chip) {
+    --_motion: var(--motion, 1);
     --_bg-color: var(--surface-tonal);
     --_border-color: var(--border-color);
     --_color: var(--text-primary);
@@ -69,7 +70,7 @@
         --_ripple: radial-gradient(circle, transparent 1%, var(--_bg-color) 1%)
           center/15000%;
 
-        transition: background 0.3s;
+        transition: background calc(var(--duration-slow) * var(--_motion));
       }
 
       &:where(:hover:active) {

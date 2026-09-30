@@ -34,8 +34,8 @@
       grid-template-columns: auto 1fr auto;
       min-block-size: var(--_height);
 
-      transition: border-color calc(0.2s * var(--_motion))
-        cubic-bezier(0.4, 0, 0.2, 1);
+      transition: border-color calc(var(--duration) * var(--_motion))
+        var(--ease);
     }
 
     :where(.ui-field) :where(input, textarea, select) {
@@ -133,7 +133,7 @@
         cursor: inherit;
         max-inline-size: 100%;
         padding: 0;
-        transition: font-size 0.2s var(--ease-3);
+        transition: font-size calc(var(--duration) * var(--_motion)) var(--ease);
 
         &::-webkit-file-upload-button,
         &::file-selector-button {

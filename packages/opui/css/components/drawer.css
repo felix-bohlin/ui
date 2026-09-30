@@ -15,8 +15,8 @@
     --_header-padding: var(--size-3);
     --_inline-size: min(375px, 100vi);
     --_shadow: var(--shadow-2);
-    --_transition-duration: calc(0.2s * var(--_motion));
-    --_transition-timing: var(--ease-out-3);
+    --_transition-duration: calc(var(--duration) * var(--_motion));
+    --_transition-timing: var(--ease-enter);
 
     background-color: var(--_bg-color);
     border: none;

@@ -2,13 +2,20 @@
 
 ## Unreleased
 
+### Added
+
+- Motion tokens: `--duration-fast`, `--duration`, `--duration-slow`, `--ease`, `--ease-enter` and `--ease-exit`. Every component transition and animation reads them, multiplied by `--motion`.
+
 ### Fixed
 
 - `--palette-hue` is green in light mode and blue in dark mode as intended. The previous `light-dark()` value never applied to the numeric property, so both modes rendered blue.
 - `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.
+- `Badge`, `Chip`, `Tabs`, `Toast` and `Tooltip` respect `--motion` and `prefers-reduced-motion`.
 - Autofilled fields use `--surface-default` instead of the undefined `--well-1`.
 
 ### Internal
+
+- `--motion` and its `prefers-reduced-motion` default moved from `core/normalize.css` to `css/theme.css`. The `.ui-motion-*` classes moved to `core/utils.css`.
 
 - Ripple internals in `core/utils.css` are private: `--isLTR`, `--isRTL`, `--thumb-scale` and `--highlight-size` are now `--_dir-ltr`, `--_dir-rtl`, `--_thumb-scale` and `--_highlight-size`. `Chip` uses `--_ripple` instead of `--ripple`.
 - Removed dead fallbacks for `--border-radius`, `--button-border-radius`, `--size-7` and `--font-size-0`, the no-op `z-index` on `Drawer` and `Toast`, and an unreachable `:focus-visible` rule in `core/normalize.css`.

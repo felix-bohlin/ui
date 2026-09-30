@@ -29,14 +29,15 @@
   }
 
   :where(.ui-toast) {
-    --_anim-enter: 0.3s;
-    --_anim-exit: 0.3s;
+    --_motion: var(--motion, 1);
+    --_anim-enter: calc(var(--duration-slow) * var(--_motion));
+    --_anim-exit: calc(var(--duration-slow) * var(--_motion));
 
     align-items: center;
     animation:
-      toast-enter var(--_anim-enter) var(--ease-out-3) both,
+      toast-enter var(--_anim-enter) var(--ease-enter) both,
       toast-hold attr(data-duration type(<time>), 5s) linear both,
-      toast-exit var(--_anim-exit) var(--ease-in-3) both;
+      toast-exit var(--_anim-exit) var(--ease-exit) both;
     animation-delay:
       0s, var(--_anim-enter),
       calc(var(--_anim-enter) + attr(data-duration type(<time>), 5s));
@@ -56,7 +57,7 @@
     }
 
     &.ui-exiting {
-      animation: toast-exit var(--_anim-exit) var(--ease-in-3) forwards;
+      animation: toast-exit var(--_anim-exit) var(--ease-exit) forwards;
     }
 
     .ui-icon {
@@ -94,7 +95,7 @@
       opacity: 0.7;
       padding: var(--size-1);
       place-items: center;
-      transition: opacity 0.2s;
+      transition: opacity calc(var(--duration) * var(--_motion));
 
       &:hover {
         opacity: 1;

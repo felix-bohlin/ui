@@ -1,5 +1,6 @@
 @layer components.extended {
   :where(.ui-badge) {
+    --_motion: var(--motion, 1);
     --_anchor-tx: -50%;
     --_anchor-ty: 50%;
     --_badge-inset: auto auto 100% 100%;
@@ -37,7 +38,8 @@
       padding-inline: var(--size-1);
       place-items: center;
       text-align: center;
-      transition: opacity 0.2s var(--ease-out-1);
+      transition: opacity calc(var(--duration) * var(--_motion))
+        var(--ease-enter);
     }
 
     /* Colors */

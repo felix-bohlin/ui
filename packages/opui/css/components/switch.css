@@ -12,8 +12,8 @@
     --_track-bg-color: light-dark(var(--gray-3), var(--gray-8));
     --_track-height: var(--size-5);
     --_track-width: var(--size-8);
-    --_transition-tf: var(--ease-4);
-    --_transition-time: calc(0.2s * var(--_motion));
+    --_transition-tf: var(--ease);
+    --_transition-time: calc(var(--duration) * var(--_motion));
 
     align-items: center;
     color: var(--text-primary);

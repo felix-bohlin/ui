@@ -55,10 +55,10 @@
     text-align: center;
     text-decoration: none;
     transition:
-      background-color calc(0.1s * var(--_motion)) ease,
-      color calc(0.1s * var(--_motion)) ease,
-      border-color calc(0.1s * var(--_motion)) ease,
-      box-shadow calc(0.1s * var(--_motion)) ease;
+      background-color calc(var(--duration-fast) * var(--_motion)) var(--ease),
+      color calc(var(--duration-fast) * var(--_motion)) var(--ease),
+      border-color calc(var(--duration-fast) * var(--_motion)) var(--ease),
+      box-shadow calc(var(--duration-fast) * var(--_motion)) var(--ease);
     user-select: none;
 
     &.ui-critical,

@@ -84,7 +84,7 @@ import { Code } from "astro-expressive-code/components"
       Additionally, this is how you could include <code>--motion</code> in your CSS:
     </p>
     <Code
-      code={`transition: transform calc(0.2s * var(--motion, 1)) ease;`}
+      code={`transition: transform calc(var(--duration) * var(--motion, 1)) var(--ease);`}
       lang="css"
     />
   </section>

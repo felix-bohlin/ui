@@ -1,3 +1,27 @@
+@property --motion {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --duration-fast {
+  syntax: "<time>";
+  inherits: true;
+  initial-value: 0.1s;
+}
+
+@property --duration {
+  syntax: "<time>";
+  inherits: true;
+  initial-value: 0.2s;
+}
+
+@property --duration-slow {
+  syntax: "<time>";
+  inherits: true;
+  initial-value: 0.3s;
+}
+
 @layer theme {
   /* 1. Color scheme */
   .ui-light {
@@ -98,6 +122,21 @@
 
     /* 13. Button */
     --button-border-radius: var(--size-2);
+
+    /* 15. Motion */
+    --motion: 1;
+    --duration-fast: 0.1s;
+    --duration: 0.2s;
+    --duration-slow: 0.3s;
+    --ease: ease;
+    --ease-enter: var(--ease-out-3);
+    --ease-exit: var(--ease-in-3);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where(html) {
+      --motion: 0;
+    }
   }
 
   :where(html.ui-light) {

@@ -21,12 +21,12 @@ export default {
     {
       default: '"rotate"',
       description: "How the marker animates when the accordion opens.",
-      group: "Icon",
-      prop: "icon",
+      group: "Marker",
+      prop: "markerAnimation",
       values: {
-        flip: ".ui-icon-flip",
-        rotate: ".ui-icon-rotate",
-        turn: ".ui-icon-turn",
+        flip: ".ui-marker-flip",
+        rotate: ".ui-marker-rotate",
+        turn: ".ui-marker-turn",
       },
     },
     {

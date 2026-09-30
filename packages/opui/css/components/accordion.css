@@ -95,15 +95,15 @@
       }
     }
 
-    &.ui-icon-flip[open] > summary svg {
+    &.ui-marker-flip[open] > summary svg {
       scale: 1 -1;
     }
 
-    &.ui-icon-rotate[open] > summary svg {
+    &.ui-marker-rotate[open] > summary svg {
       rotate: 180deg;
     }
 
-    &.ui-icon-turn[open] > summary svg {
+    &.ui-marker-turn[open] > summary svg {
       rotate: 90deg;
     }
 

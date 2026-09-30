@@ -1,5 +1,5 @@
 export type Props = {
-  icon?: "flip" | "rotate" | "turn"
+  markerAnimation?: "flip" | "rotate" | "turn"
   variant?: "default" | "outlined" | "elevated" | "tonal"
 }
 

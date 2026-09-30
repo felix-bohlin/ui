@@ -4,7 +4,7 @@ import type { Props, Slots } from "./types.d.vue"
 
 const {
   class: className,
-  icon = "rotate",
+  markerAnimation = "rotate",
   name,
   open,
   variant,
@@ -21,7 +21,7 @@ const contentId = useId()
     :class="[
       'ui-accordion',
       'ui-card',
-      icon && `ui-icon-${icon}`,
+      markerAnimation && `ui-marker-${markerAnimation}`,
       variant && `ui-${variant}`,
       className,
     ]"

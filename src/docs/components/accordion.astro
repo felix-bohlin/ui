@@ -147,26 +147,26 @@ import accordionApi from "../../component-api/accordion/api"
   </section>
 
   <section>
-    <h2 id="icon-animation">Icon animation</h2>
+    <h2 id="marker-animation">Marker animation</h2>
 
     <Conditional as="p">
       <Fragment slot="astro">
-        Set the <code>icon</code> prop to change how the marker animates when the
-        accordion opens.
+        Set the <code>markerAnimation</code> prop to change how the marker animates
+        when the accordion opens.
       </Fragment>
       <Fragment slot="html">
-        Add <code>.ui-icon-flip</code>, <code>.ui-icon-rotate</code> or <code
-          >.ui-icon-turn</code
+        Add <code>.ui-marker-flip</code>, <code>.ui-marker-rotate</code> or <code
+          >.ui-marker-turn</code
         > to the <code>&lt;details&gt;</code> element to animate the marker when the
         accordion opens.
       </Fragment>
       <Fragment slot="vue">
-        Set the <code>icon</code> prop to change how the marker animates when the
-        accordion opens.
+        Set the <code>markerAnimation</code> prop to change how the marker animates
+        when the accordion opens.
       </Fragment>
     </Conditional>
 
-    <AutoExample name="IconAnimation" column />
+    <AutoExample name="MarkerAnimation" column />
   </section>
 
   <Fragment slot="accessibility">

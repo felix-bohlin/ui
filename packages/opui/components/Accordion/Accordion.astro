@@ -6,7 +6,7 @@ export const title = "Accordion"
 const { $id } = Astro.locals
 const {
   class: className,
-  icon = "rotate",
+  markerAnimation = "rotate",
   name,
   open,
   variant,
@@ -22,7 +22,7 @@ const contentId = $id("content")
   class:list={[
     "ui-accordion",
     "ui-card",
-    icon && `ui-icon-${icon}`,
+    markerAnimation && `ui-marker-${markerAnimation}`,
     variant && `ui-${variant}`,
     className,
   ]}

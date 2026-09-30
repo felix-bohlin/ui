@@ -228,7 +228,11 @@ import { Accordion } from "opui-css/vue"
         height="24"
         viewBox="0 0 24 24"
       >
-        <path fill="currentColor" d="M7 10l5 5 5-5z"></path>
+        <!-- Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE -->
+        <path
+          fill="currentColor"
+          d="M12 3.25a.75.75 0 0 1 .75.75v7.25H20a.75.75 0 0 1 0 1.5h-7.25V20a.75.75 0 0 1-1.5 0v-7.25H4a.75.75 0 0 1 0-1.5h7.25V4a.75.75 0 0 1 .75-.75"
+        ></path>
       </svg>
     </template>
     <p>
@@ -242,9 +246,9 @@ import { Accordion } from "opui-css/vue"
 </template>
 ```
 
-## Icon animation
+## Marker animation
 
-Set the `icon` prop to change how the marker animates when the accordion opens.
+Set the `markerAnimation` prop to change how the marker animates when the accordion opens.
 
 ```vue
 <script setup lang="ts">
@@ -253,7 +257,7 @@ import { Accordion } from "opui-css/vue"
 
 
 <template>
-  <Accordion icon="flip" variant="outlined">
+  <Accordion markerAnimation="flip" variant="outlined">
     <template #summary>Flip</template>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
@@ -263,7 +267,7 @@ import { Accordion } from "opui-css/vue"
   </Accordion>
 
 
-  <Accordion icon="rotate" variant="outlined">
+  <Accordion markerAnimation="rotate" variant="outlined">
     <template #summary>Rotate</template>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
@@ -273,7 +277,7 @@ import { Accordion } from "opui-css/vue"
   </Accordion>
 
 
-  <Accordion icon="turn" variant="outlined">
+  <Accordion markerAnimation="turn" variant="outlined">
     <template #summary>Turn</template>
     <template #marker>
       <svg
@@ -313,12 +317,12 @@ The [WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) f
 
 ### Accordion API
 
-| Prop      | Type                                               | Default     | Description                                                  |
-| --------- | -------------------------------------------------- | ----------- | ------------------------------------------------------------ |
-| `icon`    | `"flip"`, `"rotate"`, `"turn"`                     | `"rotate"`  | How the marker animates when the accordion opens.            |
-| `name`    | `string`                                           | -           | Groups accordions so only one of them can be open at a time. |
-| `open`    | `boolean`                                          | `false`     | Whether the accordion is open.                               |
-| `variant` | `"default"`, `"outlined"`, `"elevated"`, `"tonal"` | `"default"` | The variant to use.                                          |
+| Prop              | Type                                               | Default     | Description                                                  |
+| ----------------- | -------------------------------------------------- | ----------- | ------------------------------------------------------------ |
+| `markerAnimation` | `"flip"`, `"rotate"`, `"turn"`                     | `"rotate"`  | How the marker animates when the accordion opens.            |
+| `name`            | `string`                                           | -           | Groups accordions so only one of them can be open at a time. |
+| `open`            | `boolean`                                          | `false`     | Whether the accordion is open.                               |
+| `variant`         | `"default"`, `"outlined"`, `"elevated"`, `"tonal"` | `"default"` | The variant to use.                                          |
 
 #### Slots
 

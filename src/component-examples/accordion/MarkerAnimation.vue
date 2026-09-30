@@ -3,7 +3,7 @@ import { Accordion } from "opui-css/vue"
 </script>
 
 <template>
-  <Accordion icon="flip" variant="outlined">
+  <Accordion markerAnimation="flip" variant="outlined">
     <template #summary>Flip</template>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
@@ -12,7 +12,7 @@ import { Accordion } from "opui-css/vue"
     </p>
   </Accordion>
 
-  <Accordion icon="rotate" variant="outlined">
+  <Accordion markerAnimation="rotate" variant="outlined">
     <template #summary>Rotate</template>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
@@ -21,7 +21,7 @@ import { Accordion } from "opui-css/vue"
     </p>
   </Accordion>
 
-  <Accordion icon="turn" variant="outlined">
+  <Accordion markerAnimation="turn" variant="outlined">
     <template #summary>Turn</template>
     <template #marker>
       <svg

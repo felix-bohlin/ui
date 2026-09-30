@@ -1148,7 +1148,7 @@
     "id": "api-avatar-html",
     "title": "Avatar API",
     "description": "Reference for Avatar HTML component.",
-    "headings": ".ui-avatar Container element. The avatar image. img The element to render. Defaults to `\"a\"` with `href`, otherwise `\"div\"`. The command to send to the `commandfor` target. The id of the element the command targets. Disables the avatar when `as` is `\"button\"`. The link to use. Renders an `<a>`. The id of the element to show on interest. [role=\"group\"] Group Renders a container that groups avatars. .ui-rounded .ui-squared .ui-squircle Variants The variant to use.",
+    "headings": ".ui-avatar Container element. The avatar image. img The element to render. Defaults to `\"a\"` with `href`, otherwise `\"div\"`. The command to send to the `commandfor` target. The id of the element the command targets. Disables the avatar when `as` is `\"button\"`. The link to use. Renders an `<a>`. The id of the element to show on interest. .ui-avatar-group Group Renders a container that groups avatars. .ui-rounded .ui-squared .ui-squircle Variants The variant to use.",
     "category": "API",
     "frameworkId": "html",
     "type": "HTML",

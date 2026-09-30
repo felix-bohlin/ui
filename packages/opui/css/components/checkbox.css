@@ -26,11 +26,12 @@
     }
 
     /* Required dot */
-    &:has(:invalid) {
+    &:has(:required) {
       .ui-label:after {
-        color: var(--red);
+        color: var(--critical);
         content: "*";
-        inset: 0 -0.25ex auto auto;
+        inset-block: 0 auto;
+        inset-inline: auto -0.25ex;
         position: absolute;
       }
     }
@@ -106,7 +107,7 @@
 
     /* Input */
     input[type="checkbox"] {
-      --_input-size: var(--size-4);
+      --_ripple-size: 175%;
 
       appearance: none;
       aspect-ratio: 1;
@@ -156,10 +157,6 @@
       &:indeterminate::after {
         clip-path: polygon(20% 45%, 80% 45%, 80% 55%, 20% 55%);
       }
-
-      &::before {
-        --highlight-size: 175%;
-      }
     }
 
     /* Sizes */
@@ -182,13 +179,6 @@
 
       :where(.ui-end-text) {
         color: var(--critical);
-      }
-    }
-
-    /* Touch devices */
-    @media (pointer: coarse) {
-      input {
-        --_input-size: var(--size-4);
       }
     }
 

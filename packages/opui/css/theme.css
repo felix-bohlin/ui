@@ -2,17 +2,21 @@
   /* 1. Color scheme */
   .ui-light {
     --color-scheme: light;
+
+    color-scheme: light;
   }
 
   .ui-dark {
     --color-scheme: dark;
+
+    color-scheme: dark;
   }
 
   :where(html) {
     color-scheme: var(--color-scheme, light dark);
 
     /* 2. Palette - override the values in core/palette.css */
-    --palette-hue: light-dark(var(--hue-green), var(--hue-blue));
+    --palette-hue: var(--hue-green);
     --palette-chroma: 0.5;
     /* --palette-source: oklch(.58 calc(.21 * .5) var(--hue-blue));   */
 
@@ -100,6 +104,16 @@
     --button-border-radius: var(--size-2);
   }
 
+  @media (prefers-color-scheme: dark) {
+    :where(html:not(.ui-light)) {
+      --palette-hue: var(--hue-blue);
+    }
+  }
+
+  :where(html.ui-dark) {
+    --palette-hue: var(--hue-blue);
+  }
+
   /* 14. Severity scope classes */
   :where(.ui-critical, [data-invalid], del) {
     --palette-source: oklch(0.58 0.21 var(--hue-red));
@@ -119,5 +133,10 @@
   :where(.ui-warning) {
     --palette-source: oklch(0.58 0.21 var(--hue-orange));
     --palette-hue-rotate-by: 1;
+  }
+
+  :where(.ui-neutral) {
+    --palette-source: oklch(0.58 var(--gray-chroma) var(--gray-hue));
+    --palette-hue-rotate-by: 0;
   }
 }

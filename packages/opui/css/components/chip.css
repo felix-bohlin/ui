@@ -1,5 +1,7 @@
 @layer components.root {
   :where(.ui-chip) {
+    --_ripple-duration: calc(0.4s * var(--motion, 1));
+    --_ripple-size: 100%;
     --_bg-color: var(--surface-tonal);
     --_border-color: var(--border-color);
     --_color: var(--text-primary);
@@ -69,11 +71,11 @@
         --ripple: radial-gradient(circle, transparent 1%, var(--_bg-color) 1%)
           center/15000%;
 
-        transition: background var(--button-ripple-duration);
+        transition: background var(--_ripple-duration);
       }
 
       &:where(:hover:active) {
-        background-size: var(--button-ripple-size);
+        background-size: var(--_ripple-size);
         transition: background 0s;
       }
     }

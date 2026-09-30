@@ -32,12 +32,19 @@
   :where(.ui-toast) {
     --_anim-enter: 0.3s;
     --_anim-exit: 0.3s;
+    --_duration: 5s;
 
     align-items: center;
     animation:
       toast-enter var(--_anim-enter) var(--ease-out-3) both,
+      toast-hold var(--_duration) linear both,
+      toast-exit var(--_anim-exit) var(--ease-in-3) both;
+    animation:
+      toast-enter var(--_anim-enter) var(--ease-out-3) both,
       toast-hold attr(data-duration type(<time>), 5s) linear both,
       toast-exit var(--_anim-exit) var(--ease-in-3) both;
+    animation-delay:
+      0s, var(--_anim-enter), calc(var(--_anim-enter) + var(--_duration));
     animation-delay:
       0s, var(--_anim-enter),
       calc(var(--_anim-enter) + attr(data-duration type(<time>), 5s));

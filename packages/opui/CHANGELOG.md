@@ -25,6 +25,10 @@
 - `layers.css` with the `@layer` order, for importing single component files.
 - The package ships an agent skill in `skills/opui` with a reference for every component.
 
+### Changed
+
+- `Tabs` use a folder style: the selected tab is outlined with an accent top edge and joins a baseline under the tab list. Selected text uses `--text-primary`, and hover uses a neutral background with rounded top corners.
+
 ### Fixed
 
 - Documented source imports with a `.css` extension (`opui-css/css/imports.css`, `opui-css/core/normalize.css`, `opui-css/css/components/button.css`, …) now resolve through `exports`. Previously they resolved to `*.css.css`.

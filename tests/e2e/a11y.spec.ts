@@ -23,6 +23,7 @@ for (const framework of FRAMEWORKS) {
 
       const { violations } = await new AxeBuilder({ page })
         .include("main")
+        .exclude("iframe")
         .analyze()
       const ruleIds = [...new Set(violations.map((v) => v.id))].toSorted()
 

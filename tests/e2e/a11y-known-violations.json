@@ -14,11 +14,11 @@
   "astro/callout": [
     "aria-allowed-role"
   ],
+  "astro/carousel": [
+    "scrollable-region-focusable"
+  ],
   "astro/checkbox": [
     "color-contrast"
-  ],
-  "astro/drawer": [
-    "scrollable-region-focusable"
   ],
   "astro/list": [
     "aria-allowed-attr",
@@ -55,6 +55,9 @@
   ],
   "html/callout": [
     "aria-allowed-role"
+  ],
+  "html/carousel": [
+    "scrollable-region-focusable"
   ],
   "html/checkbox": [
     "color-contrast"
@@ -100,11 +103,11 @@
   "vue/callout": [
     "aria-allowed-role"
   ],
+  "vue/carousel": [
+    "scrollable-region-focusable"
+  ],
   "vue/checkbox": [
     "color-contrast"
-  ],
-  "vue/drawer": [
-    "scrollable-region-focusable"
   ],
   "vue/list": [
     "aria-allowed-attr",

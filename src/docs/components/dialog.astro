@@ -19,6 +19,8 @@ const hasToast = componentHasFramework(
   "toast",
 )
 
+import dialogApi from "../../component-api/dialog/api"
+
 export const description =
   "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use."
 ---
@@ -26,6 +28,7 @@ export const description =
 <Component
   description={description}
   slug="dialog"
+  apis={[{ title: "Dialog API", api: dialogApi }]}
   browserSupport={[
     "container-style-queries",
     "dialog-closedby",
@@ -358,7 +361,7 @@ export const description =
 </Component>
 
 <style is:global>
-  .anatomy {
+  .ui-dialog.anatomy {
     outline: var(--_anatomy-border-gray);
     outline-offset: -2px;
   }

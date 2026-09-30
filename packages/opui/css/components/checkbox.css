@@ -41,8 +41,8 @@
       font-size: var(--font-size-05);
       grid-column: 2;
       grid-row: 1;
-      position: relative;
       padding-inline: 0 1ex;
+      position: relative;
     }
 
     /* End text */
@@ -83,8 +83,8 @@
 
     /* Stacked layout */
     &.ui-stack {
-      justify-items: center;
       grid-auto-columns: unset;
+      justify-items: center;
 
       .ui-label {
         grid-column: 1/-1;
@@ -112,8 +112,8 @@
       aspect-ratio: 1;
       background-color: var(--surface-default);
       block-size: var(--_input-size);
-      border-radius: var(--radius-1);
       border: 1px solid var(--border-color);
+      border-radius: var(--radius-1);
       box-sizing: border-box;
       cursor: pointer;
       display: grid;

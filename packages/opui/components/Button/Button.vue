@@ -15,7 +15,6 @@ const isButton = Tag === "button"
     :class="[
       'ui-button',
       {
-        'ui-disabled': isButton && disabled,
         'ui-ripple': ripple,
         'ui-rounded': rounded,
       },

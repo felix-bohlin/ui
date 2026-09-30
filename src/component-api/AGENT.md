@@ -6,7 +6,7 @@ This guide defines the standards for documenting Astro UI component APIs in `src
 
 When creating or updating a component API table, ensure:
 
-- [ ] **File Format**: All API files must be `.astro` files.
+- [ ] **File Format**: Either an `api.ts` data file (preferred, see [Data-driven APIs](#data-driven-apis-apits)) or `.astro` table files.
 - [ ] **Folder Structure**: If a component has different APIs for Astro and HTML, use a folder (e.g., `src/component-api/button/`) with `Astro.astro` and `HTML.astro`.
 - [ ] **Table Component**: Use the `Table` component from `../../ui-components/Table` (adjust path as needed).
 - [ ] **Table Sub-components**: Use `Table.Head`, `Table.Body`, `Table.Row`, `Table.Cell`, `Table.HeaderCell`, `Table.ColumnGroup`, and `Table.Column` for table structure.
@@ -85,6 +85,25 @@ import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
 >
 ```
 
+## Data-driven APIs (`api.ts`)
+
+`src/component-api/<slug>/api.ts` default-exports a `ComponentApi` ([types.ts](types.ts)) and replaces the hand-written tables for every framework. [text-field/api.ts](text-field/api.ts) is the reference implementation.
+
+- `source`: the component folder in `packages/opui/components/`.
+- `page`: the docs page slug when it differs from the folder, such as `tabs` for `tabs-item`. The API index links to it, and the build warns when it does not exist.
+- `file`: the component file name when it differs from `component`, such as `TabsItem` for `Tabs.Item`. Props are read from the `<file>Props` type, or `Props`.
+- `root` and `parts`: structural elements with a `selector` and a `description`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Set `anchorName` when the part's CSS already sets an `anchor-name`, so `<Anatomy>` keeps it. Set `component` when a sub-component renders the part, such as `{ astro: "DescriptionList.Term", vue: "DescriptionListTerm" }`. Keep parts in visual order; they also drive the `<Anatomy>` diagram and the HTML parts table.
+- `options`: props and their HTML equivalent (`class` or `attribute`, `group` for the HTML table). Use `frameworks` to limit an option to some frameworks and `type` to override the resolved type.
+  - `values` maps each value of an enum prop to its modifier, or `null` when the value adds none (shown as `default`). The build warns when the keys don't match the prop's type.
+  - `part` is the selector of the part that gets the modifier, such as `.ui-actions` for `actionsAlign`.
+  - `cssVar` is the custom property an option sets, such as `--anchor-position-area`. It can be combined with a class or `values`.
+- `slots`: slots that aren't parts, such as `default`.
+- `model` and `notes`: the bound value and per-framework notes.
+
+Prop names and types are read from each framework's types file, and Astro/Vue slots from the component source, so they are never written by hand. Framework syntax lives in [frameworks.ts](frameworks.ts). The build warns (`[component-api]`) when a prop or slot is missing from `api.ts` or documented but not in the source.
+
+Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`. `<Anatomy>` finds it from the page slug. `tests/e2e/anatomy.spec.ts` checks every page with `heroAnatomy` for overflow, spacing and axe violations.
+
 ## Example Reference
 
 **Button Astro (src/component-api/button/Astro.astro)**
@@ -129,4 +148,4 @@ import { Table } from "@opui/astro"
 </Table>
 ```
 
-Refer to [card/Astro.astro](card/Astro.astro) and [card/HTML.astro](card/HTML.astro) for the preferred implementations of multi-language APIs.
+Refer to [card/api.ts](card/api.ts) and [text-field/api.ts](text-field/api.ts) for the preferred implementations of multi-language APIs.

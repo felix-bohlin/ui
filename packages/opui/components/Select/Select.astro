@@ -20,7 +20,6 @@ const {
 } = Astro.props
 
 const { $id } = Astro.locals
-const selectId = id || $id("select")
 const labelId = $id("select-label")
 ---
 
@@ -34,7 +33,7 @@ const labelId = $id("select-label")
     },
     className,
   ]}
-  data-invalid={error || undefined}
+  data-invalid={error ? "" : undefined}
 >
   {
     (label || Astro.slots.has("label")) && (
@@ -54,8 +53,8 @@ const labelId = $id("select-label")
   }
   <span class="ui-field">
     <select
-      aria-labelledby={label ? labelId : undefined}
-      id={selectId}
+      aria-labelledby={label || Astro.slots.has("label") ? labelId : undefined}
+      id={id}
       name={name}
       {...rest}
     >

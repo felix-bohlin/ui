@@ -12,9 +12,7 @@ import { Anchor } from "opui-css/vue"
       Hover me
     </button>
     <template #anchored
-      ><span
-        ><div class="ui-card ui-elevated">Tooltip content</div></span
-      ></template
+      ><div class="ui-card ui-elevated">Tooltip content</div></template
     >
   </Anchor>
 </template>

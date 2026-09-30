@@ -33,8 +33,8 @@
 
 - [] Test Menu and Carousel in Firefox and Safari (only checked in Chromium)
 - [] Test anatomy heroes in Firefox, Safari and with Windows fonts
-- [] Merging main brings back IconButton docs from #395 (`icon-button/api.ts`, `icon-button.astro` with its hero): delete them, and add `rounded` and ripple to Button's `api.ts`
-- [] Remove the orphaned `icon-button-*.png` visual baselines (the examples are gone)
+- [x] Merging main brings back IconButton docs from #395 (`icon-button/api.ts`, `icon-button.astro` with its hero): delete them, and add `rounded` and ripple to Button's `api.ts`
+- [x] Remove the orphaned `icon-button-*.png` visual baselines (the examples are gone)
 
 ## Limitations
 

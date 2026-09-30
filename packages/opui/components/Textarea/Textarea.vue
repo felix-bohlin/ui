@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, useId } from "vue"
+import { computed, inject, useAttrs } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
@@ -9,9 +9,16 @@ defineOptions({
 
 const props = defineProps<Props>()
 defineSlots<Slots>()
+const attrs = useAttrs()
 const modelValue = defineModel<string>()
 
-const fieldId = props.id || useId()
+const model = computed({
+  get: () => modelValue.value ?? (attrs.value as string | undefined),
+  set: (value) => {
+    modelValue.value = value
+  },
+})
+
 const currentFieldName = inject(CurrentFieldNameKey, undefined)
 </script>
 
@@ -27,7 +34,7 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
       },
       props.class,
     ]"
-    :data-invalid="props.error || undefined"
+    :data-invalid="props.error ? '' : undefined"
   >
     <span v-if="props.label || $slots.label" class="ui-label">
       <slot name="label">{{ props.label }}</slot>
@@ -39,10 +46,10 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
 
     <span class="ui-field">
       <textarea
-        :id="fieldId"
+        :id="props.id"
         :name="currentFieldName"
         v-bind="$attrs"
-        v-model="modelValue"
+        v-model="model"
       ></textarea>
       <span class="ui-prefix" v-if="$slots.prefix"
         ><slot name="prefix"></slot

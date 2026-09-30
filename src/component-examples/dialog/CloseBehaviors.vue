@@ -37,18 +37,16 @@ onMounted(() => {
 
   <Dialog id="closing-behaviors-dialog" closedby="any">
     <template #header><h2 class="ui-h4">How to close</h2></template>
-    <template #content
-      ><div>
-        <FieldSet>
-          <FieldLegend>Choose a closing behavior:</FieldLegend>
-          <FieldGroup name="closedby-demo">
-            <Radio value="any" checked>any</Radio>
-            <Radio value="closerequest">closerequest</Radio>
-            <Radio value="none">none</Radio>
-          </FieldGroup>
-        </FieldSet>
-      </div></template
-    >
+    <template #content>
+      <FieldSet>
+        <FieldLegend>Choose a closing behavior:</FieldLegend>
+        <FieldGroup name="closedby-demo">
+          <Radio value="any" checked>any</Radio>
+          <Radio value="closerequest">closerequest</Radio>
+          <Radio value="none">none</Radio>
+        </FieldGroup>
+      </FieldSet>
+    </template>
     <template #actions>
       <Button commandfor="closing-behaviors-dialog" command="close">
         Close manually

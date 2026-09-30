@@ -1,21 +1,16 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import { Select as UISelect } from "@opui/astro"
 import DocLink from "../../components/DocLink.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
-
-import ExampleAnatomy from "../../component-examples/select/Anatomy.astro"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import SelectCSS from "@opui/css/components/select.css?raw"
 import ListCSS from "@opui/css/components/list.css?raw"
-import SelectAPIAstro from "../../component-api/select/Astro.astro"
-import SelectAPIHTML from "../../component-api/select/HTML.astro"
-import SelectAPIVue from "../../component-api/select/Vue.astro"
-import ClassicSelectAPIAstro from "../../component-api/classic-select/Astro.astro"
-import ClassicSelectAPIHTML from "../../component-api/classic-select/HTML.astro"
-import ClassicSelectAPIVue from "../../component-api/classic-select/Vue.astro"
+import classicSelectApi from "../../component-api/classic-select/api"
+import selectApi from "../../component-api/select/api"
 ---
 
 <Component
@@ -29,18 +24,10 @@ import ClassicSelectAPIVue from "../../component-api/classic-select/Vue.astro"
     "starting-style",
     "transition-behavior",
   ]}
+  heroAnatomy
   apis={[
-    {
-      astro: SelectAPIAstro,
-      html: SelectAPIHTML,
-      vue: SelectAPIVue,
-    },
-    {
-      title: "Classic Select API",
-      astro: ClassicSelectAPIAstro,
-      html: ClassicSelectAPIHTML,
-      vue: ClassicSelectAPIVue,
-    },
+    { title: "Select API", api: selectApi },
+    { title: "Classic Select API", api: classicSelectApi },
   ]}
   installationTabs={[
     {
@@ -200,43 +187,22 @@ import ClassicSelectAPIVue from "../../component-api/classic-select/Vue.astro"
   </section>
 
   <Fragment slot="anatomy">
-    <ol>
-      <li>Select container: <code>&lt;select&gt;</code></li>
-      <li>Select button: <code>&lt;button&gt;</code></li>
-      <li>
-        Select button selected option: <code>&lt;selectedcontent&gt;</code>
-      </li>
-      <li>Select button arrow</li>
-      <li>Popover list: <code>.ui-list</code></li>
-      <li>List option/s: <code>&lt;option&gt;</code></li>
-      <li>List option group/s (optional): <code>&lt;optgroup&gt;</code></li>
-    </ol>
-
-    <Example column>
-      <Example.Preview slot="preview-astro" code={ExampleAnatomy} />
-    </Example>
+    <Anatomy zoom={1.25}>
+      <UISelect
+        description="Description"
+        endText="Supporting text"
+        items={[
+          { text: "Option one", value: "1" },
+          { text: "Option two", value: "2" },
+        ]}
+        label="Label"
+        name="select-anatomy"
+      >
+        <span slot="header">Header</span>
+        <span slot="prefix">¢</span>
+        <span slot="suffix">EUR</span>
+        <span slot="footer">Footer</span>
+      </UISelect>
+    </Anatomy>
   </Fragment>
 </Component>
-
-<style is:global>
-  .anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: -2px;
-
-    & > * {
-      outline: var(--_anatomy-border-red);
-    }
-
-    button.anatomy {
-      selectedcontent {
-        outline: var(--_anatomy-border-red);
-        outline-offset: -2px;
-      }
-
-      &:after {
-        outline: var(--_anatomy-border-red);
-        outline-offset: 2px;
-      }
-    }
-  }
-</style>

@@ -137,7 +137,11 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 
   {
     whatsNew.length > 0 && (
-      <Callout severity="info" variant="tonal" class="whats-new">
+      <Callout
+        severity="info"
+        variant="tonal"
+        class="whats-new ui-not-rich-text"
+      >
         <Fragment slot="title">What's new</Fragment>
         <ul>
           {whatsNew.map((note) => (
@@ -433,21 +437,12 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
       display: none;
     }
 
-    :global(.ui-callout.whats-new) {
+    .whats-new {
       margin-block-end: var(--size-8);
-
-      :global(.ui-title) {
-        font-size: var(--font-size-2);
-        margin: 0;
-      }
 
       ul {
         margin: 0;
         padding-inline-start: var(--size-4);
-      }
-
-      li {
-        margin: 0;
       }
     }
   </style>

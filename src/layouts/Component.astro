@@ -116,6 +116,7 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
                 }
               >
                 {component.name}
+                {component.isNew && <span class="new-badge">New</span>}
               </a>
             </li>
           )

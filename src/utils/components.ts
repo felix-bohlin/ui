@@ -7,6 +7,15 @@ import {
 const pageModules = import.meta.glob("../pages/components/*.astro")
 const docModules = import.meta.glob("../docs/components/*.astro")
 
+const newSlugs = new Set([
+  "button",
+  "button-group",
+  "carousel",
+  "drawer",
+  "icon-button",
+  "menu",
+])
+
 const slugs = new Set<string>()
 
 for (const path of Object.keys(pageModules)) {
@@ -29,7 +38,12 @@ export const components = Array.from(slugs)
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ")
 
-    return { name, slug, href: `/components/${slug}` }
+    return {
+      name,
+      slug,
+      href: `/components/${slug}`,
+      isNew: newSlugs.has(slug),
+    }
   })
   .sort((a, b) => a.name.localeCompare(b.name))
 

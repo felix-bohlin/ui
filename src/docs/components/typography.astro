@@ -7,8 +7,6 @@ import AutoExample from "../../components/AutoExample.astro"
 import BlockquoteHtml from "../../component-examples/typography/Blockquote.html?raw"
 import CodeBlockHtml from "../../component-examples/typography/CodeBlock.html?raw"
 
-import ExampleDefaultHTML from "../../component-examples/typography/Default.html?raw"
-
 import TypographyCSS from "@opui/css/components/typography.css?raw"
 ---
 
@@ -176,9 +174,6 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
       Let's put everything together and see how all elements look in a
       classless, rich-text context.
     </p>
-    <Example>
-      <Example.Preview slot="preview-html" code={ExampleDefaultHTML} />
-      <Example.Preview slot="preview-astro" code={ExampleDefaultHTML} />
-    </Example>
+    <AutoExample name="Default" />
   </section>
 </Component>

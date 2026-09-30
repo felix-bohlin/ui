@@ -157,6 +157,12 @@
 
     /* 16. State */
     --disabled-opacity: 0.64;
+    --state-hover-alpha: 10%;
+    --state-hover-alpha-dark: 20%;
+    --state-active-alpha: 20%;
+    --state-active-alpha-dark: 30%;
+    --state-hover-alpha-accent: 15%;
+    --state-active-alpha-accent: 25%;
   }
 
   @media (prefers-reduced-motion: reduce) {

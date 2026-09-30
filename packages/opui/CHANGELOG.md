@@ -5,7 +5,7 @@
 ### Added
 
 - Motion tokens: `--duration-fast`, `--duration`, `--duration-slow`, `--ease`, `--ease-enter` and `--ease-exit`. Every component transition and animation reads them, multiplied by `--motion`.
-- State and text tokens: `--disabled-opacity`, `--text-disabled`, `--invalid-color`, `--font-weight-medium`, `--font-weight-semibold` and `--font-weight-bold`.
+- State and text tokens: `--disabled-opacity`, `--state-hover-alpha`, `--state-hover-alpha-dark`, `--state-active-alpha`, `--state-active-alpha-dark`, `--state-hover-alpha-accent`, `--state-active-alpha-accent`, `--text-disabled`, `--invalid-color`, `--font-weight-medium`, `--font-weight-semibold` and `--font-weight-bold`.
 - Field text tokens: `--field-label-color`, `--field-label-font-size`, `--field-label-font-weight`, `--field-helper-color`, `--field-helper-font-size`, `--field-helper-line-height` and `--field-required-color`, read by `Checkbox`, `Form`, `Radio`, `Range`, `Switch` and `TextField`.
 
 ### Fixed
@@ -16,6 +16,8 @@
 - Autofilled fields use `--surface-default` instead of the undefined `--well-1`.
 
 ### Internal
+
+- `Button`, `IconButton` and `ButtonGroup` share one accent recipe in `css/components/button.css` instead of three copies.
 
 - `--motion` and its `prefers-reduced-motion` default moved from `core/normalize.css` to `css/theme.css`. The `.ui-motion-*` classes moved to `core/utils.css`.
 

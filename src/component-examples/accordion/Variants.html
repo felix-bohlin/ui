@@ -1,6 +1,6 @@
 <!-- Text (default) -->
 <details class="ui-accordion ui-card ui-icon-rotate">
-  <summary>
+  <summary id="accordion-text-summary" aria-controls="accordion-text-content">
     Text
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -14,7 +14,12 @@
       />
     </svg>
   </summary>
-  <div class="ui-content">
+  <div
+    id="accordion-text-content"
+    class="ui-content"
+    role="region"
+    aria-labelledby="accordion-text-summary"
+  >
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -25,7 +30,10 @@
 
 <!-- Elevated -->
 <details class="ui-accordion ui-card ui-icon-rotate ui-elevated">
-  <summary>
+  <summary
+    id="accordion-elevated-summary"
+    aria-controls="accordion-elevated-content"
+  >
     Elevated
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +47,12 @@
       />
     </svg>
   </summary>
-  <div class="ui-content">
+  <div
+    id="accordion-elevated-content"
+    class="ui-content"
+    role="region"
+    aria-labelledby="accordion-elevated-summary"
+  >
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -50,7 +63,10 @@
 
 <!-- Outlined -->
 <details class="ui-accordion ui-card ui-icon-rotate ui-outlined">
-  <summary>
+  <summary
+    id="accordion-outlined-summary"
+    aria-controls="accordion-outlined-content"
+  >
     Outlined
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +80,12 @@
       />
     </svg>
   </summary>
-  <div class="ui-content">
+  <div
+    id="accordion-outlined-content"
+    class="ui-content"
+    role="region"
+    aria-labelledby="accordion-outlined-summary"
+  >
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -75,7 +96,7 @@
 
 <!-- Tonal -->
 <details class="ui-accordion ui-card ui-icon-rotate ui-tonal">
-  <summary>
+  <summary id="accordion-tonal-summary" aria-controls="accordion-tonal-content">
     Tonal
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +110,12 @@
       />
     </svg>
   </summary>
-  <div class="ui-content">
+  <div
+    id="accordion-tonal-content"
+    class="ui-content"
+    role="region"
+    aria-labelledby="accordion-tonal-summary"
+  >
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis

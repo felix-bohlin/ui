@@ -32,13 +32,13 @@
       inset: auto;
       margin: var(--_margin);
       min-inline-size: max(var(--_min-inline-size), anchor-size(inline));
+
+      opacity: 0;
       position-area: var(--anchor-position-area, var(--_position-area));
       position-try-fallbacks:
         flip-block,
         flip-inline,
         flip-block flip-inline;
-
-      opacity: 0;
       scale: 0.96;
       transition:
         display var(--_transition-duration) allow-discrete,

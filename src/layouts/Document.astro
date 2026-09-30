@@ -122,7 +122,11 @@ const descText =
       heading.appendChild(span)
     }
 
-    if (!heading.querySelector(".header-anchor") && heading.id) {
+    if (
+      !heading.querySelector(".header-anchor") &&
+      heading.id &&
+      !heading.matches(".ui-sr-only")
+    ) {
       const anchor = document.createElement("a")
       anchor.className = "header-anchor"
       anchor.href = `#${heading.id}`

@@ -9,7 +9,9 @@ defineOptions({
 
 const props = defineProps<RadioProps>()
 defineSlots<Slots>()
-const modelValue = defineModel<string | number | boolean>()
+const modelValue = defineModel<string | number | boolean | undefined>({
+  default: undefined,
+})
 
 const endTextId = useId()
 </script>
@@ -24,7 +26,7 @@ const endTextId = useId()
       },
       props.class,
     ]"
-    :data-invalid="props.error || undefined"
+    :data-invalid="props.error ? '' : undefined"
   >
     <RadioInput
       v-bind="$attrs"

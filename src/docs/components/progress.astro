@@ -7,10 +7,13 @@ import { Progress as UIProgress } from "@opui/astro"
 
 import ProgressCSS from "@opui/css/components/progress.css?raw"
 import Conditional from "../../components/Conditional.astro"
+
+import progressApi from "../../component-api/progress/api"
 ---
 
 <Component
   slug="progress"
+  apis={[{ title: "Progress API", api: progressApi }]}
   changelogPaths={[
     {
       path: "packages/opui/components/Progress/Progress.astro",

@@ -21,4 +21,19 @@ import {
       </FieldGroup>
     </FieldSet>
   </Form>
+
+  <!-- or -->
+
+  <Form as="div">
+    <FieldSet as="div">
+      <FieldLegend as="p"><!-- --></FieldLegend>
+      <FieldDescription><!-- --></FieldDescription>
+      <FieldGroup>
+        <!-- -->
+      </FieldGroup>
+      <FieldGroup>
+        <!-- -->
+      </FieldGroup>
+    </FieldSet>
+  </Form>
 </template>

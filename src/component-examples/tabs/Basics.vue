@@ -3,7 +3,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 </script>
 
 <template>
-  <Tabs>
+  <Tabs name="basic-tabs">
     <TabsItem open>
       <TabsTab>Profile</TabsTab>
       <TabsPanel>Profile settings and information.</TabsPanel>

@@ -6,7 +6,6 @@ export const title = "Radio"
 
 const {
   class: className,
-  disabled,
   error,
   hideLabel,
   name,
@@ -28,7 +27,7 @@ const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
     },
     className,
   ]}
-  data-invalid={error || undefined}
+  data-invalid={error ? "" : undefined}
 >
   <RadioInput aria-describedby={endTextId} name={name} {...rest} />
   <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>

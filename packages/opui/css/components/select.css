@@ -164,6 +164,10 @@
         pointer-events: none;
         position: relative;
       }
+
+      &:not(.ui-spread):has(> .ui-start-text)::after {
+        grid-row: 3;
+      }
     }
   }
 

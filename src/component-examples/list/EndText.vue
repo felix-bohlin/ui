@@ -5,16 +5,16 @@ import { List, ListItem } from "opui-css/vue"
 <template>
   <List>
     <ListItem headline="Headline">
-      <template #end><div>30kB</div></template>
+      <template #end>30kB</template>
     </ListItem>
     <ListItem headline="Headline" description="Supporting text">
-      <template #end><div>99%</div></template>
+      <template #end>99%</template>
     </ListItem>
     <ListItem
       headline="Headline"
       description="Supporting text that truly is quite long enough to fill up multiple lines."
     >
-      <template #end><div>100+</div></template>
+      <template #end>100+</template>
     </ListItem>
   </List>
 </template>

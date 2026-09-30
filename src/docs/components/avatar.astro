@@ -5,10 +5,13 @@ import AutoExample from "../../components/AutoExample.astro"
 import AvatarCSS from "@opui/css/components/avatar.css?raw"
 
 import Conditional from "../../components/Conditional.astro"
+
+import avatarApi from "../../component-api/avatar/api"
 ---
 
 <Component
   slug="avatar"
+  apis={[{ title: "Avatar API", api: avatarApi }]}
   browserSupport={["has"]}
   changelogPaths={[
     {

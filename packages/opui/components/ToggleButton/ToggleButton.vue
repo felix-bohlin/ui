@@ -27,7 +27,7 @@ const inputId = id || useId()
     ]"
   >
     <input
-      :aria-pressed="finalType === 'checkbox' ? pressed : undefined"
+      :aria-pressed="finalType === 'checkbox' && pressed ? true : undefined"
       :checked="pressed"
       :disabled="disabled"
       :id="inputId"

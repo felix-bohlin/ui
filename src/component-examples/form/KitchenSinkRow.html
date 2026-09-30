@@ -18,9 +18,9 @@
         </span>
       </label>
       <label class="ui-select ui-spread">
-        <span class="ui-label">Role</span>
+        <span class="ui-label" id="kitchen-sink-row-role-label">Role</span>
         <span class="ui-field">
-          <select>
+          <select aria-labelledby="kitchen-sink-row-role-label">
             <button>
               <selectedcontent></selectedcontent>
             </button>
@@ -59,7 +59,7 @@
   <fieldset class="ui-fieldset">
     <legend>Theme Preference</legend>
     <p class="ui-field-description">Select your preferred visual style.</p>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-row" role="group">
       <label class="ui-radio">
         <input type="radio" name="theme" value="light" checked />
         <span class="ui-label">Light Theme</span>
@@ -84,11 +84,21 @@
     </p>
     <div class="ui-field-group" role="group">
       <label class="ui-range ui-spread">
-        <span class="ui-label">Professional Experience</span>
-        <span class="ui-start-text"
+        <span class="ui-label" id="kitchen-sink-row-experience-label"
+          >Professional Experience</span
+        >
+        <span class="ui-start-text" id="kitchen-sink-row-experience-start-text"
           >Drag the slider to match your total tenure.</span
         >
-        <input type="range" min="0" max="20" step="1" value="5" />
+        <input
+          type="range"
+          aria-describedby="kitchen-sink-row-experience-start-text"
+          aria-labelledby="kitchen-sink-row-experience-label"
+          min="0"
+          max="20"
+          step="1"
+          value="5"
+        />
       </label>
     </div>
   </fieldset>
@@ -102,7 +112,11 @@
       <label class="ui-textarea ui-spread">
         <span class="ui-label">Biography</span>
         <span class="ui-field">
-          <textarea placeholder="Tell us about yourself..." rows="4"></textarea>
+          <textarea
+            name="details"
+            placeholder="Tell us about yourself..."
+            rows="4"
+          ></textarea>
         </span>
       </label>
     </div>
@@ -114,9 +128,16 @@
     <legend>Legal</legend>
     <div class="ui-field-group" role="group">
       <label class="ui-checkbox ui-spread">
-        <input type="checkbox" name="terms" required />
+        <input
+          aria-describedby="kitchen-sink-row-terms-1-end-text"
+          type="checkbox"
+          name="terms"
+          required
+        />
         <span class="ui-label">I agree to the terms and conditions</span>
-        <span class="ui-end-text">Support this text</span>
+        <span class="ui-end-text" id="kitchen-sink-row-terms-1-end-text"
+          >Support this text</span
+        >
       </label>
     </div>
   </fieldset>

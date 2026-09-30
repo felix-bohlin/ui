@@ -23,9 +23,11 @@ import ExampleKitchenSinkRowCodeAstro from "../../component-examples/form/Kitche
 import ExampleKitchenSinkRowCodeVue from "../../component-examples/form/KitchenSinkRow.vue?raw"
 import ExampleKitchenSinkRowHTML from "../../component-examples/form/KitchenSinkRow.html?raw"
 
-import FormAPIAstro from "../../component-api/form/Astro.astro"
-import FormAPIHTML from "../../component-api/form/HTML.astro"
-import FormAPIVue from "../../component-api/form/Vue.astro"
+import fieldDescriptionApi from "../../component-api/field-description/api"
+import fieldGroupApi from "../../component-api/field-group/api"
+import fieldLegendApi from "../../component-api/field-legend/api"
+import fieldSetApi from "../../component-api/field-set/api"
+import formApi from "../../component-api/form/api"
 
 import { Switch as UISwitch } from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
@@ -49,12 +51,11 @@ import { DescriptionList } from "@opui/astro"
     { title: "text-field.css", seeAlso: true },
   ]}
   apis={[
-    {
-      title: "Form",
-      astro: FormAPIAstro,
-      html: FormAPIHTML,
-      vue: FormAPIVue,
-    },
+    { title: "Form API", api: formApi },
+    { title: "Field set API", api: fieldSetApi },
+    { title: "Field legend API", api: fieldLegendApi },
+    { title: "Field description API", api: fieldDescriptionApi },
+    { title: "Field group API", api: fieldGroupApi },
   ]}
   changelogPaths={[
     {

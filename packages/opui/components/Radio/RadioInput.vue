@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject } from "vue"
+import { computed, inject, useAttrs } from "vue"
 import type { RadioInputProps } from "./types"
 import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
@@ -8,8 +8,20 @@ defineOptions({
 })
 
 defineProps<RadioInputProps>()
-const modelValue = defineModel<string | number | boolean>()
+const attrs = useAttrs()
+const modelValue = defineModel<string | number | boolean | undefined>({
+  default: undefined,
+})
 const currentFieldName = inject(CurrentFieldNameKey, undefined)
+
+const checked = computed(() =>
+  modelValue.value === undefined
+    ? attrs.checked !== undefined && attrs.checked !== false
+    : modelValue.value === (attrs.value ?? true),
+)
+const select = () => {
+  modelValue.value = (attrs.value as string | number | undefined) ?? true
+}
 </script>
 
 <template>
@@ -17,6 +29,7 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
     type="radio"
     :name="currentFieldName"
     v-bind="$attrs"
-    v-model="modelValue"
+    :checked="checked || undefined"
+    @change="select"
   />
 </template>

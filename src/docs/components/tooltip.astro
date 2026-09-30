@@ -6,10 +6,13 @@ import Conditional from "../../components/Conditional.astro"
 
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
 import TooltipCSS from "@opui/css/components/tooltip.css?raw"
+
+import tooltipApi from "../../component-api/tooltip/api"
 ---
 
 <Component
   slug="tooltip"
+  apis={[{ title: "Tooltip API", api: tooltipApi }]}
   browserSupport={["anchor-positioning", "popover-hint"]}
   changelogPaths={[
     {

@@ -3,16 +3,16 @@ import { Switch } from "@opui/astro"
 ---
 
 <div class="example-row ui-spacious">
-  <Switch required>Default</Switch>
-  <Switch required stack>Stack</Switch>
+  <Switch name="switch-validation" required>Default</Switch>
+  <Switch name="switch-validation" required stack>Stack</Switch>
 </div>
 
 <div class="example-row ui-spacious">
-  <Switch error>
+  <Switch name="switch-validation" error>
     Default
     <Fragment slot="end-text">Supporting text</Fragment>
   </Switch>
-  <Switch error stack>
+  <Switch name="switch-validation" error stack>
     Stack
     <Fragment slot="end-text">Supporting text</Fragment>
   </Switch>

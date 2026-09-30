@@ -2,6 +2,32 @@
 
 Let's you show and hide stuff. Comes with a chevron marker, check out how to add your own [custom marker](#custom-marker).
 
+## Anatomy
+
+Accordion title
+
+Explain more about the topic shown in the summary through supporting text.
+
+- `<Accordion>`
+
+  Container element.
+
+- `slot="summary"`
+
+  The always visible header.
+
+- `slot="marker"`
+
+  The marker. Astro and Vue render a chevron by default.
+
+- `slot="default"`
+
+  The collapsible content.
+
+- `slot="actions"`
+
+  A group of actions, such as buttons.
+
 ## Basics
 
 ```astro
@@ -270,22 +296,27 @@ The [WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) f
 - content wrapper
   - adding id, role and aria-labelledby
 
-## Anatomy
-
-1. `<details class="ui-accordion">`: a wrapper for the accordion
-2. `<summary>`: a wrapper for the accordion header
-3. `& > .ui-content` (optional): a wrapper for the accordion content
-4. `& > .ui-actions` (optional): a wrapper that groups a set of buttons
-
 ## API
 
-| Prop      | Type                                               | Default     | Description                                                                                                                 |
-| --------- | -------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Group     | `Card[role="group"]`                               | -           | Optional wrapper for accordion groups. To theme the entire group, apply the `variant` prop to this component.               |
-| `icon`    | `"flip" \| "rotate" \| "turn"`                     | `"rotate"`  | How the marker animates when the accordion opens.                                                                           |
-| `name`    | `string`                                           | -           | The name of the accordion (used for grouping multiple accordions). Works best when wrapped in a `Card` with `role="group"`. |
-| `open`    | `boolean`                                          | `false`     | Accordion open state.                                                                                                       |
-| `variant` | `"default" \| "outlined" \| "elevated" \| "tonal"` | `"default"` | The visual variant of the accordion.                                                                                        |
+### Accordion API
+
+| Prop      | Type                                               | Default     | Description                                                  |
+| --------- | -------------------------------------------------- | ----------- | ------------------------------------------------------------ |
+| `icon`    | `"flip"`, `"rotate"`, `"turn"`                     | `"rotate"`  | How the marker animates when the accordion opens.            |
+| `name`    | `string`                                           | -           | Groups accordions so only one of them can be open at a time. |
+| `open`    | `boolean`                                          | `false`     | Whether the accordion is open.                               |
+| `variant` | `"default"`, `"outlined"`, `"elevated"`, `"tonal"` | `"default"` | The variant to use.                                          |
+
+#### Slots
+
+| Slot      | Description                                            |
+| --------- | ------------------------------------------------------ |
+| `actions` | A group of actions, such as buttons.                   |
+| `default` | The collapsible content.                               |
+| `marker`  | The marker. Astro and Vue render a chevron by default. |
+| `summary` | The always visible header.                             |
+
+Group accordions in a `<Card role="group">`. Set its `variant` to theme the whole group.
 
 ## Browser support
 

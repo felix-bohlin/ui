@@ -1,13 +1,26 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
-import { Table } from "@opui/astro"
+import { Table, Tabs as UITabs } from "@opui/astro"
 
 import TabsCSS from "@opui/css/components/tabs.css?raw"
+
+import tabsItemApi from "../../component-api/tabs-item/api"
+import tabsPanelApi from "../../component-api/tabs-panel/api"
+import tabsTabApi from "../../component-api/tabs-tab/api"
+import tabsApi from "../../component-api/tabs/api"
 ---
 
 <Component
   slug="tabs"
+  heroAnatomy
+  apis={[
+    { title: "Tabs API", api: tabsApi },
+    { title: "Tabs item API", api: tabsItemApi },
+    { title: "Tabs tab API", api: tabsTabApi },
+    { title: "Tabs panel API", api: tabsPanelApi },
+  ]}
   browserSupport={["light-dark"]}
   installationTabs={[{ title: "tabs.css", code: TabsCSS, lang: "css" }]}
   changelogPaths={[
@@ -25,6 +38,21 @@ import TabsCSS from "@opui/css/components/tabs.css?raw"
   ]}
 >
   <Fragment slot="title">Tabs</Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UITabs name="tabs-anatomy">
+        <UITabs.Item open>
+          <UITabs.Tab>Profile</UITabs.Tab>
+          <UITabs.Panel>Profile settings and information.</UITabs.Panel>
+        </UITabs.Item>
+        <UITabs.Item>
+          <UITabs.Tab>Settings</UITabs.Tab>
+          <UITabs.Panel>General account settings.</UITabs.Panel>
+        </UITabs.Item>
+      </UITabs>
+    </Anatomy>
+  </Fragment>
   <Fragment slot="preamble">
     The Tabs are radio inputs and the Panels are just divs that show and hide
     based on the radio inputs' <code>:checked</code> state.

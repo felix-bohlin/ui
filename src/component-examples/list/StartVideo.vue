@@ -12,7 +12,7 @@ import { List, ListItem } from "opui-css/vue"
             type="video/mp4"
           /></video
       ></template>
-      <template #end><div>13:37</div></template>
+      <template #end>13:37</template>
     </ListItem>
     <ListItem headline="Headline" description="Supporting text">
       <template #start
@@ -22,7 +22,7 @@ import { List, ListItem } from "opui-css/vue"
             type="video/mp4"
           /></video
       ></template>
-      <template #end><div>90s</div></template>
+      <template #end>90s</template>
     </ListItem>
   </List>
 </template>

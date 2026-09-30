@@ -1,0 +1,28 @@
+<button class="ui-button ui-outlined" command="show-modal" commandfor="id-1">Open dialog</button>
+<dialog class="ui-card ui-dialog ui-elevated" closedby="any" id="id-1">
+  <hgroup>
+    <h2 class="ui-h4">How to close</h2>
+  </hgroup>
+  <div class="ui-content">
+    <fieldset class="ui-fieldset">
+      <legend>Choose a closing behavior:</legend>
+      <div class="ui-field-group" role="group">
+        <label class="ui-radio">
+          <input checked name="closedby-demo" type="radio" value="any">
+          <span class="ui-label">any</span>
+        </label>
+        <label class="ui-radio">
+          <input name="closedby-demo" type="radio" value="closerequest">
+          <span class="ui-label">closerequest</span>
+        </label>
+        <label class="ui-radio">
+          <input name="closedby-demo" type="radio" value="none">
+          <span class="ui-label">none</span>
+        </label>
+      </div>
+    </fieldset>
+  </div>
+  <div class="ui-actions">
+    <button class="ui-button" command="close" commandfor="id-1">Close manually</button>
+  </div>
+</dialog>

@@ -1,14 +1,17 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
-import { ToggleGroup, ToggleButton } from "@opui/astro"
+import { Table as UITable, ToggleGroup, ToggleButton } from "@opui/astro"
 
 import Default from "../../component-examples/table/Default.astro"
 import DefaultVue from "../../component-examples/table/Default.vue"
 import DefaultAstro from "../../component-examples/table/Default.astro?raw"
 import DefaultVueRaw from "../../component-examples/table/Default.vue?raw"
 import DefaultHtml from "../../component-examples/table/Default.html?raw"
+
+import tableApi from "../../component-api/table/api"
 
 export const description =
   "Displays tabular data. Basic tables with row and column headers, and optional captions and footers."
@@ -17,6 +20,8 @@ export const description =
 <Component
   description={description}
   slug="table"
+  heroAnatomy
+  apis={[{ title: "Table API", api: tableApi }]}
   browserSupport={["has", "container-queries", "relative-color"]}
   changelogPaths={[
     {
@@ -33,6 +38,29 @@ export const description =
   ]}
 >
   <Fragment slot="title">Table</Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={1.25}>
+      <UITable>
+        <UITable.Head>
+          <UITable.Row>
+            <UITable.HeaderCell>Name</UITable.HeaderCell>
+            <UITable.HeaderCell>Size</UITable.HeaderCell>
+          </UITable.Row>
+        </UITable.Head>
+        <UITable.Body>
+          <UITable.Row>
+            <UITable.Cell>Card</UITable.Cell>
+            <UITable.Cell>2 kB</UITable.Cell>
+          </UITable.Row>
+          <UITable.Row>
+            <UITable.Cell>Dialog</UITable.Cell>
+            <UITable.Cell>3 kB</UITable.Cell>
+          </UITable.Row>
+        </UITable.Body>
+      </UITable>
+    </Anatomy>
+  </Fragment>
 
   <section>
     <h2 id="variants">Variants</h2>

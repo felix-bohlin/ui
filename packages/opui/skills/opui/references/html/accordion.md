@@ -2,6 +2,32 @@
 
 Let's you show and hide stuff. Comes with a chevron marker, check out how to add your own [custom marker](#custom-marker).
 
+## Anatomy
+
+Accordion title
+
+Explain more about the topic shown in the summary through supporting text.
+
+- `details.ui-accordion`
+
+  Container element.
+
+- `<summary>`
+
+  The always visible header.
+
+- `<svg>`
+
+  The marker. Astro and Vue render a chevron by default.
+
+- `.ui-content`
+
+  The collapsible content.
+
+- `.ui-actions`
+
+  A group of actions, such as buttons.
+
 ## Basics
 
 ```html
@@ -44,7 +70,7 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
 ```html
 <!-- Text (default) -->
 <details class="ui-accordion ui-card ui-icon-rotate">
-  <summary>
+  <summary id="accordion-text-summary" aria-controls="accordion-text-content">
     Text
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +84,12 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
       />
     </svg>
   </summary>
-  <div class="ui-content">
+  <div
+    id="accordion-text-content"
+    class="ui-content"
+    role="region"
+    aria-labelledby="accordion-text-summary"
+  >
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -70,7 +101,10 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
 
 <!-- Elevated -->
 <details class="ui-accordion ui-card ui-icon-rotate ui-elevated">
-  <summary>
+  <summary
+    id="accordion-elevated-summary"
+    aria-controls="accordion-elevated-content"
+  >
     Elevated
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +118,12 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
       />
     </svg>
   </summary>
-  <div class="ui-content">
+  <div
+    id="accordion-elevated-content"
+    class="ui-content"
+    role="region"
+    aria-labelledby="accordion-elevated-summary"
+  >
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -96,7 +135,10 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
 
 <!-- Outlined -->
 <details class="ui-accordion ui-card ui-icon-rotate ui-outlined">
-  <summary>
+  <summary
+    id="accordion-outlined-summary"
+    aria-controls="accordion-outlined-content"
+  >
     Outlined
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +152,12 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
       />
     </svg>
   </summary>
-  <div class="ui-content">
+  <div
+    id="accordion-outlined-content"
+    class="ui-content"
+    role="region"
+    aria-labelledby="accordion-outlined-summary"
+  >
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -122,7 +169,7 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
 
 <!-- Tonal -->
 <details class="ui-accordion ui-card ui-icon-rotate ui-tonal">
-  <summary>
+  <summary id="accordion-tonal-summary" aria-controls="accordion-tonal-content">
     Tonal
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +183,12 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
       />
     </svg>
   </summary>
-  <div class="ui-content">
+  <div
+    id="accordion-tonal-content"
+    class="ui-content"
+    role="region"
+    aria-labelledby="accordion-tonal-summary"
+  >
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -153,7 +205,10 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
 ```html
 <div class="ui-card ui-outlined" role="group">
   <details class="ui-accordion ui-card ui-icon-rotate">
-    <summary>
+    <summary
+      id="accordion-group-1-summary"
+      aria-controls="accordion-group-1-content"
+    >
       Accordion title
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -167,7 +222,12 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
         />
       </svg>
     </summary>
-    <div class="ui-content">
+    <div
+      id="accordion-group-1-content"
+      class="ui-content"
+      role="region"
+      aria-labelledby="accordion-group-1-summary"
+    >
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
@@ -176,7 +236,10 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
     </div>
   </details>
   <details class="ui-accordion ui-card ui-icon-rotate">
-    <summary>
+    <summary
+      id="accordion-group-2-summary"
+      aria-controls="accordion-group-2-content"
+    >
       Accordion title
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -190,7 +253,12 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
         />
       </svg>
     </summary>
-    <div class="ui-content">
+    <div
+      id="accordion-group-2-content"
+      class="ui-content"
+      role="region"
+      aria-labelledby="accordion-group-2-summary"
+    >
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
@@ -199,7 +267,10 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
     </div>
   </details>
   <details class="ui-accordion ui-card ui-icon-rotate">
-    <summary>
+    <summary
+      id="accordion-group-3-summary"
+      aria-controls="accordion-group-3-content"
+    >
       Accordion title
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -213,7 +284,12 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
         />
       </svg>
     </summary>
-    <div class="ui-content">
+    <div
+      id="accordion-group-3-content"
+      class="ui-content"
+      role="region"
+      aria-labelledby="accordion-group-3-summary"
+    >
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
@@ -231,7 +307,10 @@ Set the `name` prop to allow only one accordion in a group to be open at a time.
 ```html
 <div class="ui-card ui-outlined" role="group">
   <details class="ui-accordion ui-card ui-icon-rotate" name="example-group">
-    <summary>
+    <summary
+      id="accordion-single-1-summary"
+      aria-controls="accordion-single-1-content"
+    >
       Accordion title
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -245,7 +324,12 @@ Set the `name` prop to allow only one accordion in a group to be open at a time.
         />
       </svg>
     </summary>
-    <div class="ui-content">
+    <div
+      id="accordion-single-1-content"
+      class="ui-content"
+      role="region"
+      aria-labelledby="accordion-single-1-summary"
+    >
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
@@ -254,7 +338,10 @@ Set the `name` prop to allow only one accordion in a group to be open at a time.
     </div>
   </details>
   <details class="ui-accordion ui-card ui-icon-rotate" name="example-group">
-    <summary>
+    <summary
+      id="accordion-single-2-summary"
+      aria-controls="accordion-single-2-content"
+    >
       Accordion title
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -268,7 +355,12 @@ Set the `name` prop to allow only one accordion in a group to be open at a time.
         />
       </svg>
     </summary>
-    <div class="ui-content">
+    <div
+      id="accordion-single-2-content"
+      class="ui-content"
+      role="region"
+      aria-labelledby="accordion-single-2-summary"
+    >
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
@@ -277,7 +369,10 @@ Set the `name` prop to allow only one accordion in a group to be open at a time.
     </div>
   </details>
   <details class="ui-accordion ui-card ui-icon-rotate" name="example-group">
-    <summary>
+    <summary
+      id="accordion-single-3-summary"
+      aria-controls="accordion-single-3-content"
+    >
       Accordion title
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -291,7 +386,12 @@ Set the `name` prop to allow only one accordion in a group to be open at a time.
         />
       </svg>
     </summary>
-    <div class="ui-content">
+    <div
+      id="accordion-single-3-content"
+      class="ui-content"
+      role="region"
+      aria-labelledby="accordion-single-3-summary"
+    >
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
@@ -482,62 +582,28 @@ The [WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) f
 - content wrapper
   - adding id, role and aria-labelledby
 
-## Anatomy
-
-1. `<details class="ui-accordion">`: a wrapper for the accordion
-2. `<summary>`: a wrapper for the accordion header
-3. `& > .ui-content` (optional): a wrapper for the accordion content
-4. `& > .ui-actions` (optional): a wrapper that groups a set of buttons
-
-```html
-<details class="ui-accordion ui-card ui-icon-rotate anatomy" open>
-  <!-- Summary -->
-  <summary id="summary-1" aria-controls="content-1">
-    Accordion title<svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
-      ></path>
-    </svg>
-  </summary>
-  <!-- Content -->
-  <div
-    id="content-1"
-    class="ui-content"
-    role="region"
-    aria-labelledby="summary-1"
-  >
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
-      neque ante id justo. Nam tempor euismod nisi ac ornare. Pellentesque id
-      sapien lacinia, venenatis est aliquam, dignissim elit. Suspendisse
-      potenti. Cras ut ante in libero tempus sodales sed quis dolor.
-    </p>
-  </div>
-  <!-- Actions -->
-  <div class="ui-actions">
-    <button class="ui-button">Cancel</button
-    ><button class="ui-button">Agree</button>
-  </div>
-</details>
-```
-
 ## API
 
-| Type      | Modifiers                                               | Default    | Description                                                                                                             |
-| --------- | ------------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |
-| Accordion | `details.ui-accordion`                                  | -          | The root element for the accordion. Requires the `.ui-accordion` class and optionally the `.ui-card` class for styling. |
-| Group     | `.ui-card[role="group"]`                                | -          | Optional wrapper for accordion groups. To theme the entire group, apply the variant class to this element.              |
-| Attribute | `name`                                                  | -          | The name of the accordion (used for grouping multiple accordions).                                                      |
-| Icon      | `.ui-icon-flip`, `.ui-icon-rotate`, `.ui-icon-turn`     | -          | How the marker animates when the accordion opens.                                                                       |
-| Part      | `& > summary`, `& > .ui-content`, `& > .ui-actions`     | -          | Optional wrappers for child content.                                                                                    |
-| Variants  | `.ui-text`, `.ui-elevated`, `.ui-tonal`, `.ui-outlined` | `.ui-text` | The variant to use.                                                                                                     |
+### Accordion API
+
+| Type     | Modifiers                                            | Default           | Description                                                  |
+| -------- | ---------------------------------------------------- | ----------------- | ------------------------------------------------------------ |
+| Grouping | `[name]`                                             | -                 | Groups accordions so only one of them can be open at a time. |
+| Icon     | `.ui-icon-flip`, `.ui-icon-rotate`, `.ui-icon-turn`  | `.ui-icon-rotate` | How the marker animates when the accordion opens.            |
+| State    | `[open]`                                             | -                 | Whether the accordion is open.                               |
+| Variants | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal` | default           | The variant to use.                                          |
+
+#### Parts
+
+| Part                   | Description                                            |
+| ---------------------- | ------------------------------------------------------ |
+| `details.ui-accordion` | Container element.                                     |
+| `<summary>`            | The always visible header.                             |
+| `<svg>`                | The marker. Astro and Vue render a chevron by default. |
+| `.ui-content`          | The collapsible content.                               |
+| `.ui-actions`          | A group of actions, such as buttons.                   |
+
+Add `.ui-card` to the root for card styles. Group accordions in a `.ui-card[role="group"]` and set the variant on it to theme the whole group.
 
 ## Browser support
 

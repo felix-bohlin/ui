@@ -27,6 +27,10 @@
     margin-inline: var(--_margin-inline);
     transition: all var(--_transition) ease-out;
 
+    /* Accordion animation */
+    /* https://nerdy.dev/open-and-close-transitions-for-the-details-element */
+    interpolate-size: allow-keywords;
+
     &.ui-elevated {
       --_bg-color: var(--surface-elevated);
       --_margin-inline: 0;
@@ -47,10 +51,6 @@
       --_margin-inline: 0;
       --_padding-inline: var(--size-3);
     }
-
-    /* Accordion animation */
-    /* https://nerdy.dev/open-and-close-transitions-for-the-details-element */
-    interpolate-size: allow-keywords;
 
     &::details-content {
       block-size: 0;

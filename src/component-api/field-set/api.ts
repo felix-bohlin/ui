@@ -1,0 +1,53 @@
+import type { ComponentApi } from "../types"
+
+export default {
+  component: "FieldSet",
+  options: [
+    {
+      default: '"fieldset"',
+      description: "The element to render.",
+      prop: "as",
+    },
+    {
+      attribute: "[data-invalid]",
+      description: "Shows error styles on the fields inside.",
+      frameworks: ["html"],
+      group: "Validation",
+      prop: "data-invalid",
+    },
+    {
+      attribute: "[disabled]",
+      default: "false",
+      description: "Disables every field inside.",
+      frameworks: ["astro", "html", "vue"],
+      group: "State",
+      prop: "disabled",
+      type: "boolean",
+    },
+  ],
+  page: "form",
+  parts: [
+    {
+      code: "<legend>",
+      component: { astro: "FieldLegend", vue: "FieldLegend" },
+      description: "The label of the fieldset.",
+      selector: ":is(legend, .ui-legend)",
+    },
+    {
+      component: { astro: "FieldDescription", vue: "FieldDescription" },
+      description: "Supporting text displayed below the legend.",
+      selector: ".ui-field-description",
+    },
+  ],
+  root: {
+    description: "Container element.",
+    selector: ".ui-fieldset",
+  },
+  slots: [
+    {
+      description: "The legend, description and fields.",
+      name: "default",
+    },
+  ],
+  source: "FieldSet",
+} satisfies ComponentApi

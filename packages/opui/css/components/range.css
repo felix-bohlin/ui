@@ -185,13 +185,15 @@
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {
-      --_thumb-bg: var(--color-9);
-      --_thumb-highlight-color: oklch(from var(--color-9) 70% 100% h / 20%);
+      --_thumb-bg: var(--invalid-color);
+      --_thumb-highlight-color: oklch(
+        from var(--invalid-color) 70% 100% h / 20%
+      );
 
       .ui-start-text,
       .ui-end-text,
       .ui-value {
-        color: var(--color-9);
+        color: var(--invalid-color);
       }
     }
 
@@ -292,7 +294,7 @@
       /* Element state */
       .ui-range:has(:user-invalid) &,
       .ui-range[data-invalid] & {
-        --_track-fill-color: var(--color-9);
+        --_track-fill-color: var(--invalid-color);
       }
 
       &:not([disabled]) {

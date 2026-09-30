@@ -1,6 +1,6 @@
 @layer components.root {
   label.ui-radio {
-    --_input-size: 1.125rem;
+    --_input-size: var(--choice-size);
     --_indicator-size: 50%;
 
     align-items: center;

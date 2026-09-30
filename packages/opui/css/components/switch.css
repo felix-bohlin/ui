@@ -259,11 +259,11 @@
     &[data-invalid] {
       input {
         border-radius: var(--radius-round);
-        outline: var(--focus-ring-width) solid var(--color-9);
+        outline: var(--focus-ring-width) solid var(--invalid-color);
       }
 
       .ui-end-text {
-        color: var(--color-9);
+        color: var(--invalid-color);
       }
     }
   }

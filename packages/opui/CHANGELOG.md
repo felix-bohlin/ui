@@ -34,6 +34,15 @@
 
 ### Changed
 
+- `Chip` uses `--border-radius` (8px) instead of Open Props `--radius-2` (5px).
+- `Radio` is `--choice-size` (20px) like `Checkbox`, instead of 18px.
+- `ButtonGroup` small buttons are `--button-size-small` (32px) instead of 30px.
+- `IconButton` disabled text uses `--text-disabled`. The previous value had invalid syntax and never applied.
+- `Range`, `Switch` and `TextField` invalid states use `--invalid-color` instead of the palette step `--color-9`.
+- `Toast` severity icons are masks filled with `--success`, `--info`, `--warning` and `--critical` instead of hardcoded hex colors.
+- `Tooltip` uses `--surface-inverse` and `--text-inverse`. `Avatar` and `Badge` use `--primary-contrast`.
+- `Drawer` backdrop reads `--backdrop-color` and `--backdrop-blur` like `Dialog`. `.ui-backdrop-transparent` still removes it.
+
 - Component borders read `--border-width` (and `--field-border-width` for `Checkbox`, `Radio`, `Switch` and `TextField`) instead of a hardcoded `1px`. This affects `Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton` and `ToggleGroup`.
 
 ## 5.5.0 - 2026-09-28

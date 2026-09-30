@@ -8,7 +8,7 @@
     --_border-color: var(--primary);
     --_dot-size: var(--size-2);
     --_size: var(--size-4);
-    --_text-color: var(--gray-1);
+    --_text-color: var(--primary-contrast);
 
     display: inline-flex;
     position: relative;

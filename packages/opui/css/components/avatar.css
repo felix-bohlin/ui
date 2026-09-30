@@ -1,7 +1,7 @@
 @layer components.root {
   :where(.ui-avatar) {
     --_bg-color: var(--primary);
-    --_color: var(--color-1);
+    --_color: var(--primary-contrast);
     --_width: var(--control-size);
 
     align-items: center;

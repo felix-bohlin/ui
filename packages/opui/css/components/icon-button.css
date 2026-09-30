@@ -25,7 +25,7 @@
       box-shadow calc(var(--duration-fast) * var(--_motion)) var(--ease);
 
     &:where([disabled]) {
-      --_text-color: light-dark(rgb(0, 0, 0/0.3), rgb(255, 255, 255/0.26));
+      --_text-color: var(--text-disabled);
       cursor: not-allowed;
       opacity: var(--disabled-opacity);
     }

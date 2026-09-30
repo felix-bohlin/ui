@@ -1,7 +1,7 @@
 @layer components.extended {
   :where(.ui-tooltip) {
     --_motion: var(--motion, 1);
-    --_tooltip-bg: light-dark(var(--gray-13), var(--gray-3));
+    --_tooltip-bg: var(--surface-inverse);
     --_tooltip-color: var(--text-inverse);
     --_tooltip-offset: var(--size-2);
 

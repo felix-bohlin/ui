@@ -310,11 +310,11 @@
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {
-      --_accent-color: var(--color-9);
-      --_border-color: var(--color-9);
-      --_filled-border-color: var(--color-9);
-      --_label-color: var(--color-9);
-      --_end-text-color: var(--color-9);
+      --_accent-color: var(--invalid-color);
+      --_border-color: var(--invalid-color);
+      --_filled-border-color: var(--invalid-color);
+      --_label-color: var(--invalid-color);
+      --_end-text-color: var(--invalid-color);
     }
 
     /*

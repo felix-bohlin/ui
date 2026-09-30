@@ -66,7 +66,7 @@
 
     /* Ripple effect, utils.css */
     &::before {
-      --highlight-size: 130%;
+      --_highlight-size: 130%;
       background-color: transparent;
       transition:
         transform calc(0.2s * var(--_motion)) ease,

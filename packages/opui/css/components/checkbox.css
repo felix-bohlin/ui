@@ -158,7 +158,7 @@
       }
 
       &::before {
-        --highlight-size: 175%;
+        --_highlight-size: 175%;
       }
     }
 

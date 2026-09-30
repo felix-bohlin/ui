@@ -5,16 +5,16 @@
     --_color: var(--text-primary);
 
     align-items: center;
-    background: var(--_bg-color) var(--ripple, none);
+    background: var(--_bg-color) var(--_ripple, none);
 
     /* Ripple effect */
     background-position: center;
-    block-size: var(--size-7, 2rem);
+    block-size: var(--size-7);
     border: var(--border-width) solid var(--_border-color);
     border-radius: var(--radius-2, 0.5rem);
     color: var(--_color);
     display: inline-flex;
-    font-size: var(--font-size-0, 0.75rem);
+    font-size: var(--font-size-0);
     gap: var(--size-1);
     padding-inline: var(--size-2);
     text-decoration: none;
@@ -66,14 +66,14 @@
 
     &:where(:not([disabled])) {
       &:where(:not(:active):hover) {
-        --ripple: radial-gradient(circle, transparent 1%, var(--_bg-color) 1%)
+        --_ripple: radial-gradient(circle, transparent 1%, var(--_bg-color) 1%)
           center/15000%;
 
-        transition: background var(--button-ripple-duration);
+        transition: background 0.3s;
       }
 
       &:where(:hover:active) {
-        background-size: var(--button-ripple-size);
+        background-size: 100%;
         transition: background 0s;
       }
     }

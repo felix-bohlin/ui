@@ -120,7 +120,7 @@
   :where(select):autofill:hover,
   :where(select):autofill:focus {
     -webkit-text-fill-color: var(--text-muted, var(--text-color-2));
-    -webkit-box-shadow: 0 0 0px 1e5px var(--well-1) inset;
+    -webkit-box-shadow: 0 0 0px 1e5px var(--surface-default) inset;
     transition: background-color 5000s ease-in-out 0s;
   }
 
@@ -142,11 +142,6 @@
     outline: 2px solid var(--_focus-visible-color);
     outline-offset: 2px;
     transition: outline-offset calc(0.15s * var(--motion)) var(--ease-2);
-  }
-
-  :where(:not(:active):focus-visible) {
-    outline-offset: var(--outline-offset, 0px);
-    transition-duration: calc(0.15s * var(--motion));
   }
 
   :where(

@@ -6,7 +6,7 @@
 
     background-color: var(--_bg-color);
     block-size: var(--size-1);
-    border-radius: var(--border-radius, 0.25rem);
+    border-radius: var(--border-radius);
     display: inline-block;
     inline-size: 100%;
     overflow: hidden;
@@ -36,7 +36,7 @@
 
       &::-webkit-progress-bar {
         background: none;
-        border-radius: var(--border-radius, 0.25rem);
+        border-radius: var(--border-radius);
       }
 
       &[value]::-webkit-progress-value {

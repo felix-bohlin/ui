@@ -7,7 +7,7 @@
     --_actions-padding-inline: var(--size-3) var(--size-1);
     --_bg-color: transparent;
     --_border-color: transparent;
-    --_border-radius: var(--border-radius, 4px);
+    --_border-radius: var(--border-radius);
     --_border-width: 0;
     --_content-padding-block: var(--size-2) var(--size-3);
     --_content-padding-inline: var(--_padding-inline);

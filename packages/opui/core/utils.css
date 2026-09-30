@@ -24,40 +24,40 @@ Add `.ui-scroll-lock` to any element that uses the [open] attribute (native <dia
 
   /* Hover and active effect for checkbox, radio and icon buttons */
   :where(.ui-checkbox input, .ui-radio input, .ui-icon-button) {
-    --isLTR: 1;
-    --isRTL: -1;
+    --_dir-ltr: 1;
+    --_dir-rtl: -1;
 
     position: relative;
     transform-style: preserve-3d;
 
     &:dir(rtl) {
-      --isLTR: -1;
-      --isRTL: 1;
+      --_dir-ltr: -1;
+      --_dir-rtl: 1;
     }
 
     &:where(:not([disabled])) {
       &:hover:before {
-        --thumb-scale: 1;
+        --_thumb-scale: 1;
       }
 
       &:active:before {
-        --thumb-scale: 1.1;
+        --_thumb-scale: 1.1;
       }
 
       &::before {
-        --thumb-scale: 0.01;
-        --highlight-size: 150%;
+        --_thumb-scale: 0.01;
+        --_highlight-size: 150%;
 
         background-color: oklch(0.6 0 0 / 0.2);
-        block-size: var(--highlight-size);
+        block-size: var(--_highlight-size);
         clip-path: circle(50%);
         content: "";
-        inline-size: var(--highlight-size);
+        inline-size: var(--_highlight-size);
         inset-block-start: 50%;
         inset-inline-start: 50%;
         position: absolute;
-        transform: translateX(calc(var(--isRTL) * 50%)) translateY(-50%)
-          translateZ(-1px) scale(var(--thumb-scale));
+        transform: translateX(calc(var(--_dir-rtl) * 50%)) translateY(-50%)
+          translateZ(-1px) scale(var(--_thumb-scale));
         transform-origin: center center;
 
         transition: transform calc(0.2s * var(--motion, 1)) ease;

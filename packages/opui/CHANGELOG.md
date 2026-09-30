@@ -5,6 +5,13 @@
 ### Fixed
 
 - `--palette-hue` is green in light mode and blue in dark mode as intended. The previous `light-dark()` value never applied to the numeric property, so both modes rendered blue.
+- `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.
+- Autofilled fields use `--surface-default` instead of the undefined `--well-1`.
+
+### Internal
+
+- Ripple internals in `core/utils.css` are private: `--isLTR`, `--isRTL`, `--thumb-scale` and `--highlight-size` are now `--_dir-ltr`, `--_dir-rtl`, `--_thumb-scale` and `--_highlight-size`. `Chip` uses `--_ripple` instead of `--ripple`.
+- Removed dead fallbacks for `--border-radius`, `--button-border-radius`, `--size-7` and `--font-size-0`, the no-op `z-index` on `Drawer` and `Toast`, and an unreachable `:focus-visible` rule in `core/normalize.css`.
 
 ### Changed
 

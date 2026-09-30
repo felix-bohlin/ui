@@ -34,7 +34,7 @@
     --_border-width: var(--border-size-1);
     --_font-size: var(--font-size-1);
     --_min-height: var(--button-size);
-    --_border-radius: var(--button-border-radius, var(--radius-2));
+    --_border-radius: var(--button-border-radius);
     --_text-color: var(--_accent);
 
     -webkit-tap-highlight-color: transparent;

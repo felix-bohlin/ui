@@ -32,7 +32,6 @@
       display var(--_transition-duration) allow-discrete,
       overlay var(--_transition-duration) allow-discrete,
       translate var(--_transition-duration) var(--_transition-timing);
-    z-index: 1000;
 
     &::backdrop {
       backdrop-filter: var(--_backdrop-blur);

@@ -26,10 +26,15 @@
 - [x] Drawer API lists `heading` and `actions` as slots (they aren't) and has a stray row after the table
 - [x] Carousel: `--_button-prev-icon`/`--_button-next-icon`/`--_button-icon-size` aren't documented anywhere since the custom properties table was removed
 - [x] Dialog docs callout still says "No JavaScript required" (positive wording: "HTML only")
+- [] Changelog: `divided` removed from `List`, use `bordered` (#395)
+- [] Hand-written API tables left: Spinner, Text input, Toast, Typography
 
 ## To check
 
 - [] Test Menu and Carousel in Firefox and Safari (only checked in Chromium)
+- [] Test anatomy heroes in Firefox, Safari and with Windows fonts
+- [] Merging main brings back IconButton docs from #395 (`icon-button/api.ts`, `icon-button.astro` with its hero): delete them, and add `rounded` and ripple to Button's `api.ts`
+- [] Remove the orphaned `icon-button-*.png` visual baselines (the examples are gone)
 
 ## Limitations
 

@@ -1,5 +1,27 @@
 # Description list
 
+## Anatomy
+
+- Price
+
+  6 950 000
+
+* `dl.ui-description-list`
+
+  Container element.
+
+* `.ui-item`
+
+  Groups a term with its description.
+
+* `<dt>`
+
+  The term.
+
+* `<dd>`
+
+  The description.
+
 ```html
 <dl class="ui-description-list">
   <div class="ui-item">
@@ -54,28 +76,22 @@ Add `.ui-bordered` to the `<dl>` element. For a dotted style, also add `.ui-dott
 </dl>
 ```
 
-## Anatomy
-
-1. List (`<dl>`)
-2. Term-description group (`<div>`)
-3. Term (`<dt>`)
-4. Separator - rendered via CSS when `.ui-bordered` is set on the list (optional)
-5. Description (`<dd>`)
-
-```html
-<dl class="ui-description-list ui-bordered ui-dotted anatomy">
-  <div class="ui-item">
-    <dt class="ui-term">Price</dt>
-    <dd class="ui-description">6 950 000</dd>
-  </div>
-</dl>
-```
-
 ## API
 
-| Type     | Modifiers                                | Default | Description                                                                                          |
-| -------- | ---------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
-| Bordered | `.ui-bordered`, `.ui-bordered.ui-dotted` | -       | Adds a separator between the term and description on all items. Add `.ui-dotted` for a dotted style. |
+### Description list API
+
+| Type     | Modifiers                                | Default | Description                                         |
+| -------- | ---------------------------------------- | ------- | --------------------------------------------------- |
+| Bordered | `.ui-bordered`, `.ui-bordered.ui-dotted` | -       | Adds a border between the term and the description. |
+
+#### Parts
+
+| Part                     | Description                         |
+| ------------------------ | ----------------------------------- |
+| `dl.ui-description-list` | Container element.                  |
+| `.ui-item`               | Groups a term with its description. |
+| `<dt>`                   | The term.                           |
+| `<dd>`                   | The description.                    |
 
 ## Browser support
 

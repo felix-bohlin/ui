@@ -1,5 +1,36 @@
 # Table
 
+## Anatomy
+
+| Name   | Size |
+| ------ | ---- |
+| Card   | 2 kB |
+| Dialog | 3 kB |
+
+- `table.ui-table`
+
+  Container element.
+
+- `<thead>`
+
+  The header rows.
+
+- `<th>`
+
+  A header cell.
+
+- `<tbody>`
+
+  The body rows.
+
+- `<tr>`
+
+  A row.
+
+- `<td>`
+
+  A data cell.
+
 ## Variants
 
 ### Default
@@ -128,11 +159,22 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 
 ## API
 
-| Type         | Modifiers                  | Default | Description                                       |
-| ------------ | -------------------------- | ------- | ------------------------------------------------- |
-| **Table**    | `<table class="ui-table">` | -       | The native HTML table element.                    |
-| **Dense**    | `.ui-dense`                | -       | When applied the table will appear denser.        |
-| **Spacious** | `.ui-spacious`             | -       | When applied the table will appear more spacious. |
+### Table API
+
+| Type     | Modifiers                   | Default | Description         |
+| -------- | --------------------------- | ------- | ------------------- |
+| Variants | `.ui-dense`, `.ui-spacious` | -       | The variant to use. |
+
+#### Parts
+
+| Part             | Description        |
+| ---------------- | ------------------ |
+| `table.ui-table` | Container element. |
+| `<thead>`        | The header rows.   |
+| `<th>`           | A header cell.     |
+| `<tbody>`        | The body rows.     |
+| `<tr>`           | A row.             |
+| `<td>`           | A data cell.       |
 
 ## Browser support
 

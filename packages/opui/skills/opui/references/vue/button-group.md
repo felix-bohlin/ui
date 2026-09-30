@@ -2,9 +2,19 @@
 
 Groups related buttons.
 
-- Button groups should consist of 2-5 buttons.
-- Don't allow them to wrap onto a new line.
-- If an icon is used without label text make sure the button communicates clearly what it does.
+## Anatomy
+
+- `<ButtonGroup>`
+
+  Container element.
+
+- `v-slot:default`
+
+  The buttons.
+
+* Button groups should consist of 2-5 buttons.
+* Don't allow them to wrap onto a new line.
+* If an icon is used without label text make sure the button communicates clearly what it does.
 
 Button group or Toggle group?
 
@@ -445,16 +455,41 @@ import { Button, ButtonGroup } from "opui-css/vue"
 </template>
 ```
 
-## Anatomy
-
-1. Container: `<element role="group" class="ui-button-group">`
-2. Buttons: [Button](https://open-props-ui.netlify.app/vue/components/button.md)
-
 ## API
 
 ### Button group
 
+| Prop          | Type                                | Default | Description                      |
+| ------------- | ----------------------------------- | ------- | -------------------------------- |
+| `color`       | `"critical"`, `"primary"`           | -       | Optional colors for the buttons. |
+| `orientation` | `"vertical"`                        | -       | The orientation of the element.  |
+| `size`        | `"small"`, `"large"`                | -       | The size of the buttons.         |
+| `variant`     | `"outlined"`, `"tonal"`, `"filled"` | -       | The variant of the buttons.      |
+
+#### Slots
+
+| Slot      | Description  |
+| --------- | ------------ |
+| `default` | The buttons. |
+
 ### Button
+
+| Prop       | Type                                | Default | Description                                                                 |
+| ---------- | ----------------------------------- | ------- | --------------------------------------------------------------------------- |
+| `as`       | `"button"`, `"a"`                   | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
+| `color`    | `"critical"`, `"primary"`           | -       | Optional colors.                                                            |
+| `disabled` | `boolean`                           | `false` | Disables the button.                                                        |
+| `href`     | `string`                            | -       | The link to use. Renders an `<a>`.                                          |
+| `ripple`   | `boolean`                           | `false` | A halo behind the button on hover instead of a background change.           |
+| `rounded`  | `boolean`                           | `false` | Fully rounded corners, a circle when icon-only.                             |
+| `size`     | `"x-small"`, `"small"`, `"large"`   | -       | The size of the element.                                                    |
+| `variant`  | `"outlined"`, `"tonal"`, `"filled"` | -       | The variant to use.                                                         |
+
+#### Slots
+
+| Slot      | Description                     |
+| --------- | ------------------------------- |
+| `default` | The label and an optional icon. |
 
 ## Browser support
 

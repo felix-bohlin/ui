@@ -138,14 +138,26 @@ import { Avatar } from "opui-css/astro"
 
 ## API
 
-| Prop      | Type                                   | Default     | Description                                 |
-| --------- | -------------------------------------- | ----------- | ------------------------------------------- |
-| `as`      | `any`                                  | -           | The element or component to render as.      |
-| `href`    | `string`                               | -           | The link to use if the avatar is an anchor. |
-| `variant` | `"squared" \| "rounded" \| "squircle"` | `"default"` | The visual style of the avatar.             |
-| `isGroup` | `boolean`                              | `false`     | Renders the avatar as a group.              |
-| `src`     | `string`                               | -           | The image source for the avatar.            |
-| `alt`     | `string`                               | -           | The alternative text for the avatar image.  |
+### Avatar API
+
+| Prop          | Type                                   | Default | Description                                                              |
+| ------------- | -------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| `alt`         | `string`                               | -       | Alternative text for the image.                                          |
+| `as`          | `"div"`, `"button"`, `"a"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`. |
+| `command`     | `string`                               | -       | The command to send to the `commandfor` target.                          |
+| `commandfor`  | `string`                               | -       | The id of the element the command targets.                               |
+| `disabled`    | `boolean`                              | -       | Disables the avatar when `as` is `"button"`.                             |
+| `href`        | `string`                               | -       | The link to use. Renders an `<a>`.                                       |
+| `interestfor` | `string`                               | -       | The id of the element to show on interest.                               |
+| `isGroup`     | `boolean`                              | `false` | Renders a container that groups avatars.                                 |
+| `src`         | `string`                               | -       | The image source. Replaces the default slot.                             |
+| `variant`     | `"squared"`, `"rounded"`, `"squircle"` | -       | The variant to use.                                                      |
+
+#### Slots
+
+| Slot      | Description                                |
+| --------- | ------------------------------------------ |
+| `default` | Letters or an icon, when there's no image. |
 
 ## Browser support
 

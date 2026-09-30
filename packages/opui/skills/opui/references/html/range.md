@@ -1,10 +1,42 @@
 # Range
 
+## Anatomy
+
+Label50Start textEnd text
+
+- `label.ui-range`
+
+  Container element.
+
+- `.ui-label`
+
+  The label for the range.
+
+- `<output>`
+
+  Shows the current value, with an optional `valueSuffix`.
+
+- `.ui-start-text`
+
+  Description text displayed above the input.
+
+- `<input>`
+
+  The range input.
+
+- `.ui-end-text`
+
+  Supporting text displayed below the input.
+
 ```html
 <label class="ui-range">
-  <span class="ui-label">Label</span>
-  <span class="ui-start-text">Min</span>
-  <input type="range" />
+  <span class="ui-label" id="range-default-1-label">Label</span>
+  <span class="ui-start-text" id="range-default-1-start-text">Min</span>
+  <input
+    aria-describedby="range-default-1-start-text"
+    aria-labelledby="range-default-1-label"
+    type="range"
+  />
 </label>
 ```
 
@@ -12,10 +44,18 @@
 
 ```html
 <label class="ui-range">
-  <span class="ui-label">Label</span>
-  <span class="ui-start-text">Start helper text</span>
-  <input type="range" />
-  <span class="ui-end-text">End helper text</span>
+  <span class="ui-label" id="range-start-end-1-label">Label</span>
+  <span class="ui-start-text" id="range-start-end-1-start-text"
+    >Start helper text</span
+  >
+  <input
+    aria-describedby="range-start-end-1-start-text range-start-end-1-end-text"
+    aria-labelledby="range-start-end-1-label"
+    type="range"
+  />
+  <span class="ui-end-text" id="range-start-end-1-end-text"
+    >End helper text</span
+  >
 </label>
 ```
 
@@ -25,9 +65,16 @@ Add an `<output class="ui-value">` sibling to the`.ui-label` with `for` pointing
 
 ```html
 <label class="ui-range">
-  <span class="ui-label">Hue</span>
+  <span class="ui-label" id="range-value-1-label">Hue</span>
   <output class="ui-value" for="hueRange" data-suffix="°">250°</output>
-  <input type="range" id="hueRange" min="0" max="360" value="250" />
+  <input
+    aria-labelledby="range-value-1-label"
+    type="range"
+    id="hueRange"
+    min="0"
+    max="360"
+    value="250"
+  />
 </label>
 ```
 
@@ -37,8 +84,14 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
 
 ```html
 <label class="ui-range">
-  <span class="ui-label">Tick marks with labels</span>
-  <input list="labeled-markers" type="range" />
+  <span class="ui-label" id="range-tick-marks-1-label"
+    >Tick marks with labels</span
+  >
+  <input
+    aria-labelledby="range-tick-marks-1-label"
+    list="labeled-markers"
+    type="range"
+  />
   <datalist id="labeled-markers">
     <option value="0" label="0%"></option>
     <option value="25" label="25%"></option>
@@ -55,26 +108,26 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 
 ```html
 <label class="ui-range">
-  <input type="range" />
-  <span class="ui-label">Default</span>
+  <span class="ui-label" id="range-surfaces-1-label">Default</span>
+  <input aria-labelledby="range-surfaces-1-label" type="range" />
 </label>
 <label class="ui-range ui-default">
-  <input type="range" />
-  <span class="ui-label"
+  <span class="ui-label" id="range-surfaces-2-label"
     ><code>default</code> = <code>var(--surface-default)</code></span
   >
+  <input aria-labelledby="range-surfaces-2-label" type="range" />
 </label>
 <label class="ui-range ui-filled">
-  <input type="range" />
-  <span class="ui-label"
+  <span class="ui-label" id="range-surfaces-3-label"
     ><code>filled</code> = <code>var(--surface-filled)</code></span
   >
+  <input aria-labelledby="range-surfaces-3-label" type="range" />
 </label>
 <label class="ui-range ui-tonal">
-  <input type="range" />
-  <span class="ui-label"
+  <span class="ui-label" id="range-surfaces-4-label"
     ><code>tonal</code> = <code>var(--surface-tonal)</code></span
   >
+  <input aria-labelledby="range-surfaces-4-label" type="range" />
 </label>
 ```
 
@@ -82,8 +135,8 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 
 ```html
 <label class="ui-range">
-  <span class="ui-label">Disabled</span>
-  <input type="range" disabled />
+  <span class="ui-label" id="range-disabled-1-label">Disabled</span>
+  <input aria-labelledby="range-disabled-1-label" type="range" disabled />
 </label>
 ```
 
@@ -91,9 +144,15 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 
 ```html
 <label class="ui-range" data-invalid>
-  <span class="ui-label">Invalid Range</span>
-  <input type="range" />
-  <span class="ui-end-text">This value is incorrect.</span>
+  <span class="ui-label" id="range-validation-1-label">Invalid Range</span>
+  <input
+    aria-describedby="range-validation-1-end-text"
+    aria-labelledby="range-validation-1-label"
+    type="range"
+  />
+  <span class="ui-end-text" id="range-validation-1-end-text"
+    >This value is incorrect.</span
+  >
 </label>
 ```
 
@@ -101,33 +160,52 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 
 ```html
 <label class="ui-range ui-spread">
-  <span class="ui-label">Spread Layout</span>
-  <span class="ui-start-text">Start text</span>
-  <input type="range" />
-  <span class="ui-end-text">End text</span>
+  <span class="ui-label" id="range-row-1-label">Spread Layout</span>
+  <span class="ui-start-text" id="range-row-1-start-text">Start text</span>
+  <input
+    aria-describedby="range-row-1-start-text range-row-1-end-text"
+    aria-labelledby="range-row-1-label"
+    type="range"
+  />
+  <span class="ui-end-text" id="range-row-1-end-text">End text</span>
 </label>
 
 
 <label class="ui-range ui-spread">
-  <span class="ui-label">Disabled</span>
-  <span class="ui-start-text">Start text</span>
-  <input type="range" disabled />
-  <span class="ui-end-text">End text</span>
+  <span class="ui-label" id="range-row-2-label">Disabled</span>
+  <span class="ui-start-text" id="range-row-2-start-text">Start text</span>
+  <input
+    aria-describedby="range-row-2-start-text range-row-2-end-text"
+    aria-labelledby="range-row-2-label"
+    type="range"
+    disabled
+  />
+  <span class="ui-end-text" id="range-row-2-end-text">End text</span>
 </label>
 
 
 <label class="ui-range ui-spread" data-invalid>
-  <span class="ui-label">Invalid Range</span>
-  <span class="ui-start-text">Start text</span>
-  <input type="range" />
-  <span class="ui-end-text">This value is incorrect.</span>
+  <span class="ui-label" id="range-row-3-label">Invalid Range</span>
+  <span class="ui-start-text" id="range-row-3-start-text">Start text</span>
+  <input
+    aria-describedby="range-row-3-start-text range-row-3-end-text"
+    aria-labelledby="range-row-3-label"
+    type="range"
+  />
+  <span class="ui-end-text" id="range-row-3-end-text"
+    >This value is incorrect.</span
+  >
 </label>
 
 
 <label class="ui-range ui-spread">
-  <span class="ui-label">Tick marks with labels</span>
-  <input list="labeled-markers-spread-html" type="range" />
-  <datalist id="labeled-markers-spread-html">
+  <span class="ui-label" id="range-row-4-label">Tick marks with labels</span>
+  <input
+    aria-labelledby="range-row-4-label"
+    list="labeled-markers-spread"
+    type="range"
+  />
+  <datalist id="labeled-markers-spread">
     <option value="0" label="0%"></option>
     <option value="25" label="25%"></option>
     <option value="50" label="50%"></option>
@@ -140,19 +218,32 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 ### Disabled
 
 ```html
-<div class="ui-range ui-spread" disabled>
-  <label class="ui-label">Volume</label>
-  <input type="range" min="0" max="100" value="50" disabled />
-</div>
+<label class="ui-range ui-spread">
+  <span class="ui-label" id="range-row-disabled-label">Volume</span>
+  <input
+    type="range"
+    aria-labelledby="range-row-disabled-label"
+    min="0"
+    max="100"
+    value="50"
+    disabled
+  />
+</label>
 ```
 
 ### Validation
 
 ```html
-<div class="ui-range ui-spread" data-invalid>
-  <label class="ui-label">Volume</label>
-  <input type="range" min="0" max="100" value="50" />
-</div>
+<label class="ui-range ui-spread" data-invalid>
+  <span class="ui-label" id="range-row-validation-label">Volume</span>
+  <input
+    type="range"
+    aria-labelledby="range-row-validation-label"
+    min="0"
+    max="100"
+    value="50"
+  />
+</label>
 ```
 
 ## Accessibility
@@ -166,28 +257,28 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 - `Page Up` (Optional): Increase the slider value by an amount larger than the step change made by `Up Arrow`.
 - `Page Down` (Optional): Decrease the slider value by an amount larger than the step change made by `Down Arrow`.
 
-## Anatomy
-
-1. Container
-2. Label (optional)
-3. Value (optional)
-4. Start text (optional)
-5. Input
-6. End text (optional)
-
 ## API
 
-| Type           | Modifiers                                | Default | Description                                                                                                                                              |
-| -------------- | ---------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Input**      | `input[type="range"]`                    | -       | The native range input element.                                                                                                                          |
-| **Range**      | `.ui-range`                              | -       | Wrapper for label and input styling.                                                                                                                     |
-| **Spread**     | `.ui-spread`                             | -       | Modifier for a spread layout.                                                                                                                            |
-| **Variant**    | `.ui-filled`, `.ui-default`, `.ui-tonal` | -       | Modifiers for different background surfaces.                                                                                                             |
-| **Label**      | `.ui-label`                              | -       | The label element for the range.                                                                                                                         |
-| **Value**      | `output.value`                           | -       | Optional `<output>` showing the input's current value. Use`for` to associate it with the input and an optional`data-suffix` attribute for a unit suffix. |
-| **Start text** | `.ui-start-text`                         | -       | Optional text displayed between label and the range input (often used with spread layout).                                                               |
-| **End text**   | `.ui-end-text`                           | -       | Optional text displayed below the range input.                                                                                                           |
-| **Spread**     | `.ui-spread`                             | -       | Modifier class to layout label and input on opposite sides.                                                                                              |
+### Range API
+
+| Type       | Modifiers                                | Default | Description                                                              |
+| ---------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| Layout     | `.ui-spread`                             | -       | Pushes the label and description to one side and the input to the other. |
+| Validation | `[data-invalid]`                         | -       | Shows error styles.                                                      |
+| Variants   | `.ui-default`, `.ui-filled`, `.ui-tonal` | -       | The variant to use.                                                      |
+
+#### Parts
+
+| Part             | Description                                              |
+| ---------------- | -------------------------------------------------------- |
+| `label.ui-range` | Container element.                                       |
+| `.ui-label`      | The label for the range.                                 |
+| `<output>`       | Shows the current value, with an optional `valueSuffix`. |
+| `.ui-start-text` | Description text displayed above the input.              |
+| `<input>`        | The range input.                                         |
+| `.ui-end-text`   | Supporting text displayed below the input.               |
+
+Add a `<datalist>` after the input for tick marks.
 
 ## Browser support
 

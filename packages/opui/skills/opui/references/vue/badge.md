@@ -1,5 +1,21 @@
 # Badge
 
+## Anatomy
+
+5
+
+- `<Badge>`
+
+  Container element. Also takes `.ui-anchor`.
+
+- `v-slot:default`
+
+  The element the badge is anchored to.
+
+- `v-slot:indicator`
+
+  The indicator, inside `.ui-anchor-floating`.
+
 ## Variants
 
 Default, and `dot`.
@@ -254,26 +270,24 @@ import { Badge } from "opui-css/vue"
 </template>
 ```
 
-## Anatomy
-
-The badge is composed of an anchored element (default slot), and an indicator (`label` prop or `indicator` slot).
-
 ## API
 
-| Prop        | Type                                                          | Default | Description                                                                                       |
-| ----------- | ------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------- |
-| `alignment` | `"start-start"`, `"end-start"`, `"end-end"`                   | -       | Position of the badge relative to its container. Omit for the default (centered on the end edge). |
-| `color`     | `"critical"`, `"info"`, `"neutral"`, `"success"`, `"warning"` | -       | The color variant of the badge.                                                                   |
-| `dot`       | `boolean`                                                     | `false` | Renders the badge as a simple dot.                                                                |
-| `invisible` | `boolean`                                                     | `false` | Hides the badge.                                                                                  |
-| `label`     | `string \| number`                                            | -       | Visible badge text. Also sets `aria-label` on the indicator.                                      |
+### Badge API
 
-### Slots
+| Prop        | Type                                                          | Default | Description                                      |
+| ----------- | ------------------------------------------------------------- | ------- | ------------------------------------------------ |
+| `alignment` | `"start-start"`, `"end-start"`, `"end-end"`                   | -       | Where the indicator is placed.                   |
+| `color`     | `"critical"`, `"info"`, `"neutral"`, `"success"`, `"warning"` | -       | Optional colors.                                 |
+| `dot`       | `boolean`                                                     | `false` | Renders the indicator as a dot, without a label. |
+| `invisible` | `boolean`                                                     | `false` | Hides the indicator.                             |
+| `label`     | `string`, `number`                                            | -       | The indicator, inside `.ui-anchor-floating`.     |
 
-| Slot        | Description                                               |
-| ----------- | --------------------------------------------------------- |
-| default     | The element the badge is anchored to.                     |
-| `indicator` | Badge indicator content. Alternative to the `label` prop. |
+#### Slots
+
+| Slot        | Description                                  |
+| ----------- | -------------------------------------------- |
+| `default`   | The element the badge is anchored to.        |
+| `indicator` | The indicator, inside `.ui-anchor-floating`. |
 
 ## Browser support
 

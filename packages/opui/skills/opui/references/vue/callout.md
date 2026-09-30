@@ -2,6 +2,28 @@
 
 Callouts call out for user attention. Should be part of the flow and used **without** interrupting the user's task.
 
+## Anatomy
+
+### Title
+
+Supporting text that explains the callout in more detail.
+
+- `<Callout>`
+
+  Container element.
+
+- `v-slot:icon`
+
+  An optional icon. `info`, `warning` and `critical` have a default icon.
+
+- `v-slot:default`
+
+  The content.
+
+- `v-slot:title`
+
+  An optional title inside the content.
+
 ### Alternatives
 
 You might want to check out:
@@ -185,18 +207,22 @@ import { Callout } from "opui-css/vue"
 - Use both color and icon to help distinguish between Callout [severities](#severities).
 - Don't interrupt the user with a Callout. In that case, use [Dialog](https://open-props-ui.netlify.app/vue/components/dialog.md).
 
-## Anatomy
-
-1. Container: the `<Callout>` component.
-2. Content: text, or wrapper with `.ui-content` class.
-3. Icon (optional): `<svg slot="icon">` element.
-
 ## API
 
-| Prop       | Type                                                          | Default   | Description                                       |
-| ---------- | ------------------------------------------------------------- | --------- | ------------------------------------------------- |
-| `variant`  | `"tonal" \| "outlined"`                                       | `"tonal"` | The visual style of the callout.                  |
-| `severity` | `"critical"`, `"info"`, `"neutral"`, `"success"`, `"warning"` | -         | The severity level, affecting the color and icon. |
+### Callout API
+
+| Prop       | Type                                                          | Default   | Description                                        |
+| ---------- | ------------------------------------------------------------- | --------- | -------------------------------------------------- |
+| `severity` | `"critical"`, `"info"`, `"neutral"`, `"success"`, `"warning"` | -         | The severity. Sets the color and the default icon. |
+| `variant`  | `"outlined"`, `"tonal"`                                       | `"tonal"` | The variant to use.                                |
+
+#### Slots
+
+| Slot      | Description                                                             |
+| --------- | ----------------------------------------------------------------------- |
+| `default` | The content.                                                            |
+| `icon`    | An optional icon. `info`, `warning` and `critical` have a default icon. |
+| `title`   | An optional title inside the content.                                   |
 
 ## Browser support
 

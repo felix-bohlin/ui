@@ -2,6 +2,22 @@
 
 A structural primitive to enable CSS Anchor Positioning on stuff.
 
+## Anatomy
+
+Floating content
+
+- `.ui-anchor`
+
+  Container element. Scopes the anchor to its content.
+
+- `& > :first-child`
+
+  The content the floating content is anchored to.
+
+- `.ui-anchor-floating`
+
+  The floating content.
+
 ## Always Visible
 
 Floating content that is always shown.
@@ -51,12 +67,22 @@ Add `interestfor`, `commandfor`, and `command="toggle-popover"` to the anchor tr
 
 ## API
 
-| Type      | Modifiers                | Default     | Description                                                                                                               |
-| --------- | ------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Container | `.ui-anchor`             | -           | Wrapper element. Provides `anchor-scope` and sets`anchor-name` on its first child.                                        |
-| Floating  | `.ui-anchor-floating`    | -           | Positioned floating element. Uses `position-anchor` and`position-area`.                                                   |
-| Position  | `--anchor-position-area` | `start end` | CSS custom property. Any valid `position-area` value.                                                                     |
-| Trigger   | `data-trigger="hover"`   | -           | Shows floating content on hover/focus. Add `interestfor` on the trigger element pointing to the `.ui-anchor-floating` ID. |
+### Anchor API
+
+| Type     | Modifiers                                      | Default     | Description                                                                     |
+| -------- | ---------------------------------------------- | ----------- | ------------------------------------------------------------------------------- |
+| Position | `--anchor-position-area`                       | `start end` | Any valid `position-area` value. Controls where the floating content is placed. |
+| Trigger  | default, `.ui-anchor-floating[popover="hint"]` | default     | Shows the floating content always, or on hover and focus with `popover="hint"`. |
+
+#### Parts
+
+| Part                  | Description                                          |
+| --------------------- | ---------------------------------------------------- |
+| `.ui-anchor`          | Container element. Scopes the anchor to its content. |
+| `& > :first-child`    | The content the floating content is anchored to.     |
+| `.ui-anchor-floating` | The floating content.                                |
+
+For a hover trigger, add `popover="hint"` and an id to `.ui-anchor-floating`, and `interestfor` with that id to the anchor content.
 
 ## Browser support
 

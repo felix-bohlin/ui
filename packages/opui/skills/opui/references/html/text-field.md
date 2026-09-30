@@ -1,5 +1,49 @@
 # Text field
 
+## Anatomy
+
+LabelDescription¢EURHeaderFooterSupporting text
+
+- `label.ui-text-field`
+
+  Container element.
+
+- `.ui-label`
+
+  The label for the field.
+
+- `.ui-start-text`
+
+  Description text displayed above the field.
+
+- `.ui-field`
+
+  The boxed input area.
+
+- `.ui-header`
+
+  Content above the input, inside the border, with a divider.
+
+- `.ui-prefix`
+
+  Content at the inline-start of the field, inside the border.
+
+- `<input>`
+
+  The input element.
+
+- `.ui-suffix`
+
+  Content at the inline-end of the field, inside the border.
+
+- `.ui-footer`
+
+  Content below the input, inside the border, with a divider.
+
+- `.ui-end-text`
+
+  Supporting text displayed below the field.
+
 ## Variants
 
 ```html
@@ -425,18 +469,20 @@ Use `aria-label` instead of the `<label>` element.
 File is a weird one. Should it really be an `<input>` element? Well, it's what we've got :sweat_smile:
 
 ```html
-<div class="ui-text-field" aria-label="Label">
+<label class="ui-text-field">
+  <span class="ui-label">Label</span>
   <span class="ui-field">
     <input type="file" placeholder="File" />
   </span>
-</div>
+</label>
 
 
-<div class="ui-text-field ui-filled" aria-label="Label">
+<label class="ui-text-field ui-filled">
+  <span class="ui-label">Label</span>
   <span class="ui-field">
     <input type="file" placeholder="File" />
   </span>
-</div>
+</label>
 ```
 
 ## Autosuggest
@@ -495,23 +541,43 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 - [Don't use `<input type="number">`](#numeric-vs-input-type-number) unless your user research tells you to.
 
-## Anatomy
-
-1. `label.ui-text-field`: Container element
-2. `.ui-label`: Field label element
-3. `.ui-field`: The boxed input area
-4. `.ui-header`: Optional inside-border header strip (with divider)
-5. `.ui-prefix`: Optional inline-start affix
-6. `<input>`: Input element
-7. `.ui-suffix`: Optional inline-end affix
-8. `.ui-footer`: Optional inside-border footer strip (with divider)
-9. `.ui-end-text`: Supporting text element
-
 ## API
 
 ### Text field API
 
+| Type       | Modifiers        | Default | Description                                                              |
+| ---------- | ---------------- | ------- | ------------------------------------------------------------------------ |
+| Auto-fit   | `.ui-auto-fit`   | -       | Changes size depending on its content.                                   |
+| Layout     | `.ui-spread`     | -       | Pushes the label and description to one side and the input to the other. |
+| Sizes      | `.ui-small`      | -       | The size of the element.                                                 |
+| Validation | `[data-invalid]` | -       | Shows error styles.                                                      |
+| Variants   | `.ui-filled`     | -       | The variant to use.                                                      |
+
+#### Parts
+
+| Part                  | Description                                                  |
+| --------------------- | ------------------------------------------------------------ |
+| `label.ui-text-field` | Container element.                                           |
+| `.ui-label`           | The label for the field.                                     |
+| `.ui-start-text`      | Description text displayed above the field.                  |
+| `.ui-field`           | The boxed input area.                                        |
+| `.ui-header`          | Content above the input, inside the border, with a divider.  |
+| `.ui-prefix`          | Content at the inline-start of the field, inside the border. |
+| `<input>`             | The input element.                                           |
+| `.ui-suffix`          | Content at the inline-end of the field, inside the border.   |
+| `.ui-footer`          | Content below the input, inside the border, with a divider.  |
+| `.ui-end-text`        | Supporting text displayed below the field.                   |
+
+The control can also be a `<select>` or `<textarea>`. A `<datalist>` can be placed inside the root.
+
 ### Text input API
+
+| Type     | Modifiers             | Default | Description                                                                                                                                                       |
+| -------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Wrapper  | `.ui-field`           | -       | The `<input>` must be wrapped in a `<span class="ui-field">` element. Border, background, and focus styling are inherited from `.ui-field`, not the input itself. |
+| Auto-fit | `.ui-auto-fit`        | -       | When enabled, the element changes size depending on its content.                                                                                                  |
+| Sizes    | `.ui-small`           | -       | The size of the element.                                                                                                                                          |
+| Variants | default, `.ui-filled` | -       | The variant to use.                                                                                                                                               |
 
 ## Browser support
 

@@ -1,5 +1,36 @@
 # Table
 
+## Anatomy
+
+| Name   | Size |
+| ------ | ---- |
+| Card   | 2 kB |
+| Dialog | 3 kB |
+
+- `<Table>`
+
+  Container element.
+
+- `<Table.Head>`
+
+  The header rows.
+
+- `<Table.HeaderCell>`
+
+  A header cell.
+
+- `<Table.Body>`
+
+  The body rows.
+
+- `<Table.Row>`
+
+  A row.
+
+- `<Table.Cell>`
+
+  A data cell.
+
 ## Variants
 
 ### Default
@@ -134,10 +165,19 @@ import { Table } from "opui-css/astro"
 
 ## API
 
-| Prop      | Type                    | Default | Description                                   |
-| --------- | ----------------------- | ------- | --------------------------------------------- |
-| `class`   | `string`                | -       | Additional CSS classes to apply to the table. |
-| `variant` | `"dense" \| "spacious"` | -       | The variant to use.                           |
+### Table API
+
+| Prop      | Type                    | Default | Description         |
+| --------- | ----------------------- | ------- | ------------------- |
+| `variant` | `"dense"`, `"spacious"` | -       | The variant to use. |
+
+#### Slots
+
+| Slot      | Description         |
+| --------- | ------------------- |
+| `default` | The table sections. |
+
+Set column widths with `Table.ColumnGroup` and `Table.Column`, which takes a `width`.
 
 ## Browser support
 

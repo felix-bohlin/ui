@@ -2,13 +2,35 @@
 
 The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' `:checked` state.
 
+## Anatomy
+
+Profile settings and information.
+
+General account settings.
+
+- `.ui-tabs`
+
+  Container element.
+
+- `.ui-tab-input`
+
+  A visually hidden radio input that holds a tab's state.
+
+- `.ui-tab-label`
+
+  A tab.
+
+- `.ui-tab-panel`
+
+  The panel of the selected tab.
+
 ## Basics
 
 ```html
 <div class="ui-tabs" role="tablist">
   <input
     type="radio"
-    name="basic-tabs-html"
+    name="basic-tabs"
     id="tab-profile"
     class="ui-tab-input"
     checked
@@ -21,13 +43,13 @@ The Tabs are radio inputs and the Panels are just divs that show and hide based 
     role="tabpanel"
     aria-labelledby="tab-profile"
   >
-    Profile panel.
+    Profile settings and information.
   </div>
 
 
   <input
     type="radio"
-    name="basic-tabs-html"
+    name="basic-tabs"
     id="tab-settings"
     class="ui-tab-input"
     aria-controls="panel-settings"
@@ -39,13 +61,13 @@ The Tabs are radio inputs and the Panels are just divs that show and hide based 
     role="tabpanel"
     aria-labelledby="tab-settings"
   >
-    Settings panel
+    General account settings.
   </div>
 
 
   <input
     type="radio"
-    name="basic-tabs-html"
+    name="basic-tabs"
     id="tab-notifications"
     class="ui-tab-input"
     aria-controls="panel-notifications"
@@ -59,7 +81,7 @@ The Tabs are radio inputs and the Panels are just divs that show and hide based 
     role="tabpanel"
     aria-labelledby="tab-notifications"
   >
-    Notifications panel
+    Manage your notifications.
   </div>
 </div>
 ```
@@ -93,42 +115,50 @@ The content area associated with a tab:
 
 ## API
 
-### Tabs container
+### Tabs API
 
-The container that organizes the tab grid.
+| Type  | Modifiers             | Default | Description                                                |
+| ----- | --------------------- | ------- | ---------------------------------------------------------- |
+| Group | `.ui-tab-input[name]` | -       | The name shared by the tab inputs. Generated when omitted. |
 
-| Attribute | Value       | Description                              |
-| --------- | ----------- | ---------------------------------------- |
-| `class`   | `"ui-tabs"` | Required class for the parent container. |
-| `role`    | `"tablist"` | Required for accessibility.              |
+#### Parts
 
-### Tab State (input)
+| Part            | Description                                             |
+| --------------- | ------------------------------------------------------- |
+| `.ui-tabs`      | Container element.                                      |
+| `.ui-tab-input` | A visually hidden radio input that holds a tab's state. |
+| `.ui-tab-label` | A tab.                                                  |
+| `.ui-tab-panel` | The panel of the selected tab.                          |
 
-A hidden radio button that manages the selection state.
+The root needs `role="tablist"`. Each tab is an `input.ui-tab-input[type="radio"]`, followed by its `label.ui-tab-label[role="tab"]` and `.ui-tab-panel[role="tabpanel"]`.
 
-| Attribute       | Value            | Description                                     |
-| --------------- | ---------------- | ----------------------------------------------- |
-| `type`          | `"radio"`        | Required for state management.                  |
-| `class`         | `"ui-tab-input"` | Required for behavior and styling.              |
-| `name`          | `string`         | Shared across all tabs in the group.            |
-| `checked`       | `boolean`        | Applied to the initially active tab.            |
-| `aria-controls` | `ID`             | Should match the ID of the corresponding panel. |
+### Tabs item API
 
-### Tab Trigger (label)
+| Type  | Modifiers   | Default | Description                |
+| ----- | ----------- | ------- | -------------------------- |
+| State | `[checked]` | -       | Selects the tab initially. |
 
-| Attribute | Value            | Description                           |
-| --------- | ---------------- | ------------------------------------- |
-| `class`   | `"ui-tab-label"` | Required for behavior and styling.    |
-| `for`     | `ID`             | Must match the ID of the radio input. |
-| `role`    | `"tab"`          | Required for accessibility.           |
+#### Parts
 
-### Tab Panel (div)
+| Part                 | Description                                                   |
+| -------------------- | ------------------------------------------------------------- |
+| `input.ui-tab-input` | The radio input for a tab, followed by the tab and the panel. |
 
-| Attribute         | Value            | Description                                       |
-| ----------------- | ---------------- | ------------------------------------------------- |
-| `class`           | `"ui-tab-panel"` | Required for behavior and styling.                |
-| `role`            | `"tabpanel"`     | Required for accessibility.                       |
-| `aria-labelledby` | `ID`             | Should match the ID of the corresponding trigger. |
+### Tabs tab API
+
+#### Parts
+
+| Part                 | Description |
+| -------------------- | ----------- |
+| `label.ui-tab-label` | The tab.    |
+
+### Tabs panel API
+
+#### Parts
+
+| Part            | Description |
+| --------------- | ----------- |
+| `.ui-tab-panel` | The panel.  |
 
 ## Browser support
 

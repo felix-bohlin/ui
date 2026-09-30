@@ -2,54 +2,68 @@
 
 See also: [Switch field group](#field-group).
 
+## Anatomy
+
+LabelEnd text
+
+- `label.ui-switch`
+
+  Container element.
+
+- `<input>`
+
+  The switch input.
+
+- `.ui-icon-unchecked`
+
+  An optional icon in the thumb when unchecked.
+
+- `.ui-icon-checked`
+
+  An optional icon in the thumb when checked.
+
+- `.ui-label`
+
+  The label.
+
+- `.ui-end-text`
+
+  Supporting text displayed below the label.
+
 All switches should have an accessible name. Either provide a visible or visually-hidden label inside the component, or set `aria-label` on the input. Both approaches are fine.
 
 ```html
 <!-- Checked -->
 <label class="ui-switch">
-  <input
-    name="switch-variants-html"
-    type="checkbox"
-    role="switch"
-    checked
-    aria-label="Label"
-  />
+  <input name="switch-variants" type="checkbox" role="switch" checked />
+  <span class="ui-sr-only">Label</span>
 </label>
 
 
 <!-- Unchecked -->
 <label class="ui-switch">
-  <input
-    name="switch-variants-html"
-    type="checkbox"
-    role="switch"
-    aria-label="Label"
-  />
+  <input name="switch-variants" type="checkbox" role="switch" />
+  <span class="ui-sr-only">Label</span>
 </label>
 
 
 <!-- Checked & disabled -->
 <label class="ui-switch">
   <input
-    name="switch-variants-html"
+    name="switch-variants"
     type="checkbox"
     role="switch"
     checked
     disabled
-    aria-label="Label"
   />
+  <span class="ui-sr-only">Label</span>
 </label>
 
 
 <!-- Unchecked & disabled -->
 <label class="ui-switch">
-  <input
-    name="switch-variants-html"
-    type="checkbox"
-    role="switch"
-    disabled
-    aria-label="Label"
-  />
+  <input name="switch-variants" type="checkbox" role="switch" disabled />
+  <span class="ui-sr-only">Label</span>
 </label>
 ```
 
@@ -59,19 +73,19 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
 ```html
 <label class="ui-switch">
-  <input name="switch-visible-label-html" type="checkbox" role="switch" />
+  <input name="switch-visible-label" type="checkbox" role="switch" />
   <span class="ui-label">Label</span>
 </label>
 
 
 <label class="ui-switch">
-  <input type="checkbox" role="switch" disabled />
+  <input name="switch-visible-label" type="checkbox" role="switch" disabled />
   <span class="ui-label">Disabled</span>
 </label>
 
 
 <label class="ui-switch">
-  <input type="checkbox" role="switch" />
+  <input name="switch-visible-label" type="checkbox" role="switch" />
   <span class="ui-label"
     >Long text bacon ipsum dolor amet prosciutto tenderloin biltong leberkas
     ribeye short ribs shankle tri-tip doner buffalo chislic meatloaf
@@ -84,13 +98,13 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
 ```html
 <label class="ui-switch">
-  <input name="switch-label-position-html" type="checkbox" role="switch" />
+  <input name="switch-label-position" type="checkbox" role="switch" />
   <span class="ui-label">Default</span>
 </label>
 
 
 <label class="ui-switch ui-stack">
-  <input name="switch-label-position-html" type="checkbox" role="switch" />
+  <input name="switch-label-position" type="checkbox" role="switch" />
   <span class="ui-label">Stack</span>
 </label>
 ```
@@ -99,16 +113,30 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
 ```html
 <label class="ui-switch">
-  <input name="switch-supporting-text-html" type="checkbox" role="switch" />
+  <input
+    name="switch-supporting-text"
+    type="checkbox"
+    role="switch"
+    aria-describedby="switch-supporting-text-end-text-1"
+  />
   <span class="ui-label">Default</span>
-  <span class="ui-end-text">Supporting text</span>
+  <span class="ui-end-text" id="switch-supporting-text-end-text-1"
+    >Supporting text</span
+  >
 </label>
 
 
 <label class="ui-switch ui-stack">
-  <input name="switch-supporting-text-html" type="checkbox" role="switch" />
+  <input
+    name="switch-supporting-text"
+    type="checkbox"
+    role="switch"
+    aria-describedby="switch-supporting-text-end-text-2"
+  />
   <span class="ui-label">Stack</span>
-  <span class="ui-end-text">Supporting text</span>
+  <span class="ui-end-text" id="switch-supporting-text-end-text-2"
+    >Supporting text</span
+  >
 </label>
 ```
 
@@ -120,23 +148,13 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 ```html
 <div class="example-row ui-spacious">
   <label class="ui-switch">
-    <input
-      name="switch-validation-html"
-      type="checkbox"
-      role="switch"
-      required
-    />
+    <input name="switch-validation" type="checkbox" role="switch" required />
     <span class="ui-label">Default</span>
   </label>
 
 
   <label class="ui-switch ui-stack">
-    <input
-      name="switch-validation-html"
-      type="checkbox"
-      role="switch"
-      required
-    />
+    <input name="switch-validation" type="checkbox" role="switch" required />
     <span class="ui-label">Stack</span>
   </label>
 </div>
@@ -144,16 +162,30 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
 <div class="example-row ui-spacious">
   <label class="ui-switch" data-invalid>
-    <input name="switch-validation-html" type="checkbox" role="switch" />
+    <input
+      name="switch-validation"
+      type="checkbox"
+      role="switch"
+      aria-describedby="switch-validation-end-text-1"
+    />
     <span class="ui-label">Default</span>
-    <span class="ui-end-text">Supporting text</span>
+    <span class="ui-end-text" id="switch-validation-end-text-1"
+      >Supporting text</span
+    >
   </label>
 
 
   <label class="ui-switch ui-stack" data-invalid>
-    <input name="switch-validation-html" type="checkbox" role="switch" />
+    <input
+      name="switch-validation"
+      type="checkbox"
+      role="switch"
+      aria-describedby="switch-validation-end-text-2"
+    />
     <span class="ui-label">Stack</span>
-    <span class="ui-end-text">Supporting text</span>
+    <span class="ui-end-text" id="switch-validation-end-text-2"
+      >Supporting text</span
+    >
   </label>
 </div>
 ```
@@ -164,30 +196,60 @@ Add the `.ui-spread` class to the `<label class="ui-switch">`to push the label t
 
 ```html
 <label class="ui-switch ui-spread">
-  <input name="switch-spread-html" type="checkbox" role="switch" />
+  <input
+    name="switch-spread"
+    type="checkbox"
+    role="switch"
+    aria-describedby="switch-spread-end-text-1"
+  />
   <span class="ui-label">Notifications</span>
-  <span class="ui-end-text">Receive alerts when someone mentions you.</span>
+  <span class="ui-end-text" id="switch-spread-end-text-1"
+    >Receive alerts when someone mentions you.</span
+  >
 </label>
 
 
 <label class="ui-switch ui-spread">
-  <input name="switch-spread-html" type="checkbox" role="switch" required />
+  <input
+    name="switch-spread"
+    type="checkbox"
+    role="switch"
+    required
+    aria-describedby="switch-spread-end-text-2"
+  />
   <span class="ui-label">Required</span>
-  <span class="ui-end-text">You must accept this to proceed.</span>
+  <span class="ui-end-text" id="switch-spread-end-text-2"
+    >You must accept this to proceed.</span
+  >
 </label>
 
 
 <label class="ui-switch ui-spread">
-  <input name="switch-spread-html" type="checkbox" role="switch" disabled />
+  <input
+    name="switch-spread"
+    type="checkbox"
+    role="switch"
+    disabled
+    aria-describedby="switch-spread-end-text-3"
+  />
   <span class="ui-label">Disabled</span>
-  <span class="ui-end-text">This switch is disabled.</span>
+  <span class="ui-end-text" id="switch-spread-end-text-3"
+    >This switch is disabled.</span
+  >
 </label>
 
 
 <label class="ui-switch ui-spread" data-invalid>
-  <input name="switch-spread-html" type="checkbox" role="switch" />
+  <input
+    name="switch-spread"
+    type="checkbox"
+    role="switch"
+    aria-describedby="switch-spread-end-text-4"
+  />
   <span class="ui-label">Invalid Switch</span>
-  <span class="ui-end-text">There is an error with this switch.</span>
+  <span class="ui-end-text" id="switch-spread-end-text-4"
+    >There is an error with this switch.</span
+  >
 </label>
 ```
 
@@ -198,37 +260,27 @@ Add the `.ui-small` class on the `<label class="ui-switch">`for a smaller Switch
 ```html
 <div class="example-row">
   <label class="ui-switch ui-small">
-    <input
-      name="switch-sizes-html"
-      type="checkbox"
-      role="switch"
-      checked
-      aria-label="Small"
-    />
+    <input name="switch-sizes" type="checkbox" role="switch" checked />
+    <span class="ui-sr-only">Small</span>
   </label>
 
 
   <label class="ui-switch">
-    <input
-      name="switch-sizes-html"
-      type="checkbox"
-      role="switch"
-      checked
-      aria-label="Default"
-    />
+    <input name="switch-sizes" type="checkbox" role="switch" checked />
+    <span class="ui-sr-only">Default</span>
   </label>
 </div>
 
 
 <div class="example-row">
   <label class="ui-switch ui-small">
-    <input name="switch-sizes-html" type="checkbox" role="switch" checked />
+    <input name="switch-sizes" type="checkbox" role="switch" checked />
     <span class="ui-label">Small</span>
   </label>
 
 
   <label class="ui-switch">
-    <input name="switch-sizes-html" type="checkbox" role="switch" checked />
+    <input name="switch-sizes" type="checkbox" role="switch" checked />
     <span class="ui-label">Default</span>
   </label>
 </div>
@@ -238,7 +290,7 @@ Add the `.ui-small` class on the `<label class="ui-switch">`for a smaller Switch
 
 ```html
 <label class="ui-switch ui-small">
-  <span class="ui-icon-unchecked">
+  <span class="ui-icon-unchecked" aria-hidden="true">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -251,7 +303,7 @@ Add the `.ui-small` class on the `<label class="ui-switch">`for a smaller Switch
       ></path>
     </svg>
   </span>
-  <span class="ui-icon-checked">
+  <span class="ui-icon-checked" aria-hidden="true">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -265,7 +317,7 @@ Add the `.ui-small` class on the `<label class="ui-switch">`for a smaller Switch
     </svg>
   </span>
   <input
-    name="switch-icons-html"
+    name="switch-icons"
     type="checkbox"
     role="switch"
     aria-label="Toggle theme"
@@ -274,7 +326,7 @@ Add the `.ui-small` class on the `<label class="ui-switch">`for a smaller Switch
 
 
 <label class="ui-switch">
-  <span class="ui-icon-unchecked">
+  <span class="ui-icon-unchecked" aria-hidden="true">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -287,7 +339,7 @@ Add the `.ui-small` class on the `<label class="ui-switch">`for a smaller Switch
       ></path>
     </svg>
   </span>
-  <span class="ui-icon-checked">
+  <span class="ui-icon-checked" aria-hidden="true">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -301,7 +353,7 @@ Add the `.ui-small` class on the `<label class="ui-switch">`for a smaller Switch
     </svg>
   </span>
   <input
-    name="switch-icons-html"
+    name="switch-icons"
     type="checkbox"
     role="switch"
     checked
@@ -319,45 +371,49 @@ Give every `<input>` in the group the same `name`attribute so they're submitted 
 See also: [Form documentation](https://open-props-ui.netlify.app/html/components/form.md).
 
 ```html
-<fieldset class="ui-fieldset">
-  <legend>Legend</legend>
-  <div class="ui-field-group" role="group">
-    <label class="ui-switch">
-      <input name="switch-group-html" type="checkbox" role="switch" />
-      <span class="ui-label">Switch 1</span>
-    </label>
-    <label class="ui-switch">
-      <input name="switch-group-html" type="checkbox" role="switch" />
-      <span class="ui-label">Switch 2</span>
-    </label>
-    <label class="ui-switch">
-      <input name="switch-group-html" type="checkbox" role="switch" />
-      <span class="ui-label">Switch 3</span>
-    </label>
-  </div>
-</fieldset>
+<div class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Legend</legend>
+    <div class="ui-field-group" role="group">
+      <label class="ui-switch">
+        <input name="switch-group" type="checkbox" role="switch" />
+        <span class="ui-label">Switch 1</span>
+      </label>
+      <label class="ui-switch">
+        <input name="switch-group" type="checkbox" role="switch" />
+        <span class="ui-label">Switch 2</span>
+      </label>
+      <label class="ui-switch">
+        <input name="switch-group" type="checkbox" role="switch" />
+        <span class="ui-label">Switch 3</span>
+      </label>
+    </div>
+  </fieldset>
+</div>
 ```
 
 ### Direction
 
 ```html
-<fieldset class="ui-fieldset">
-  <legend>Legend</legend>
-  <div class="ui-field-group ui-row" role="group">
-    <label class="ui-switch">
-      <input name="switch-group-direction-html" type="checkbox" role="switch" />
-      <span class="ui-label">Switch 1</span>
-    </label>
-    <label class="ui-switch">
-      <input name="switch-group-direction-html" type="checkbox" role="switch" />
-      <span class="ui-label">Switch 2</span>
-    </label>
-    <label class="ui-switch">
-      <input name="switch-group-direction-html" type="checkbox" role="switch" />
-      <span class="ui-label">Switch 3</span>
-    </label>
-  </div>
-</fieldset>
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Legend</legend>
+    <div class="ui-field-group ui-row" role="group">
+      <label class="ui-switch">
+        <input name="switch-group-direction" type="checkbox" role="switch" />
+        <span class="ui-label">Switch 1</span>
+      </label>
+      <label class="ui-switch">
+        <input name="switch-group-direction" type="checkbox" role="switch" />
+        <span class="ui-label">Switch 2</span>
+      </label>
+      <label class="ui-switch">
+        <input name="switch-group-direction" type="checkbox" role="switch" />
+        <span class="ui-label">Switch 3</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
 ```
 
 ### Field description
@@ -365,68 +421,70 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 Can be placed above and below the fields.
 
 ```html
-<fieldset class="ui-fieldset">
-  <legend>Legend</legend>
-  <span class="ui-field-description">Field description above fields</span>
-  <div class="ui-field-group ui-row" role="group">
-    <label class="ui-switch">
-      <input
-        name="switch-group-field-description-1-html"
-        type="checkbox"
-        role="switch"
-      />
-      <span class="ui-label">Switch 1</span>
-    </label>
-    <label class="ui-switch">
-      <input
-        name="switch-group-field-description-1-html"
-        type="checkbox"
-        role="switch"
-      />
-      <span class="ui-label">Switch 2</span>
-    </label>
-    <label class="ui-switch">
-      <input
-        name="switch-group-field-description-1-html"
-        type="checkbox"
-        role="switch"
-      />
-      <span class="ui-label">Switch 3</span>
-    </label>
-  </div>
-</fieldset>
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Legend</legend>
+    <p class="ui-field-description">Field description above fields</p>
+    <div class="ui-field-group ui-row" role="group">
+      <label class="ui-switch">
+        <input
+          name="switch-group-field-description-1"
+          type="checkbox"
+          role="switch"
+        />
+        <span class="ui-label">Switch 1</span>
+      </label>
+      <label class="ui-switch">
+        <input
+          name="switch-group-field-description-1"
+          type="checkbox"
+          role="switch"
+        />
+        <span class="ui-label">Switch 2</span>
+      </label>
+      <label class="ui-switch">
+        <input
+          name="switch-group-field-description-1"
+          type="checkbox"
+          role="switch"
+        />
+        <span class="ui-label">Switch 3</span>
+      </label>
+    </div>
+  </fieldset>
 
 
-<fieldset class="ui-fieldset">
-  <legend>Legend</legend>
-  <div class="ui-field-group ui-row" role="group">
-    <label class="ui-switch">
-      <input
-        name="switch-group-field-description-2-html"
-        type="checkbox"
-        role="switch"
-      />
-      <span class="ui-label">Switch 1</span>
-    </label>
-    <label class="ui-switch">
-      <input
-        name="switch-group-field-description-2-html"
-        type="checkbox"
-        role="switch"
-      />
-      <span class="ui-label">Switch 2</span>
-    </label>
-    <label class="ui-switch">
-      <input
-        name="switch-group-field-description-2-html"
-        type="checkbox"
-        role="switch"
-      />
-      <span class="ui-label">Switch 3</span>
-    </label>
-  </div>
-  <span class="ui-field-description">Field description below fields</span>
-</fieldset>
+  <fieldset class="ui-fieldset">
+    <legend>Legend</legend>
+    <div class="ui-field-group ui-row" role="group">
+      <label class="ui-switch">
+        <input
+          name="switch-group-field-description-2"
+          type="checkbox"
+          role="switch"
+        />
+        <span class="ui-label">Switch 1</span>
+      </label>
+      <label class="ui-switch">
+        <input
+          name="switch-group-field-description-2"
+          type="checkbox"
+          role="switch"
+        />
+        <span class="ui-label">Switch 2</span>
+      </label>
+      <label class="ui-switch">
+        <input
+          name="switch-group-field-description-2"
+          type="checkbox"
+          role="switch"
+        />
+        <span class="ui-label">Switch 3</span>
+      </label>
+    </div>
+    <p class="ui-field-description">Field description below fields</p>
+  </fieldset>
+</form>
 ```
 
 ### Disabled
@@ -434,23 +492,25 @@ Can be placed above and below the fields.
 Attach the `disabled` attribute to the `<fieldset>` element.
 
 ```html
-<fieldset class="ui-fieldset" disabled>
-  <legend>Legend</legend>
-  <div class="ui-field-group ui-row" role="group">
-    <label class="ui-switch">
-      <input name="switch-group-disabled-html" type="checkbox" role="switch" />
-      <span class="ui-label">Switch 1</span>
-    </label>
-    <label class="ui-switch">
-      <input name="switch-group-disabled-html" type="checkbox" role="switch" />
-      <span class="ui-label">Switch 2</span>
-    </label>
-    <label class="ui-switch">
-      <input name="switch-group-disabled-html" type="checkbox" role="switch" />
-      <span class="ui-label">Switch 3</span>
-    </label>
-  </div>
-</fieldset>
+<form class="ui-form">
+  <fieldset class="ui-fieldset" disabled>
+    <legend>Legend</legend>
+    <div class="ui-field-group ui-row" role="group">
+      <label class="ui-switch">
+        <input name="switch-group-disabled" type="checkbox" role="switch" />
+        <span class="ui-label">Switch 1</span>
+      </label>
+      <label class="ui-switch">
+        <input name="switch-group-disabled" type="checkbox" role="switch" />
+        <span class="ui-label">Switch 2</span>
+      </label>
+      <label class="ui-switch">
+        <input name="switch-group-disabled" type="checkbox" role="switch" />
+        <span class="ui-label">Switch 3</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
 ```
 
 ### Required
@@ -458,38 +518,40 @@ Attach the `disabled` attribute to the `<fieldset>` element.
 Attach the `required` attribute to at least one of your `<input>` elements.
 
 ```html
-<fieldset class="ui-fieldset">
-  <legend>These are required!</legend>
-  <div class="ui-field-group ui-row" role="group">
-    <label class="ui-switch">
-      <input
-        name="switch-group-required-html"
-        type="checkbox"
-        role="switch"
-        required
-      />
-      <span class="ui-label">Switch 1</span>
-    </label>
-    <label class="ui-switch">
-      <input
-        name="switch-group-required-html"
-        type="checkbox"
-        role="switch"
-        required
-      />
-      <span class="ui-label">Switch 2</span>
-    </label>
-    <label class="ui-switch">
-      <input
-        name="switch-group-required-html"
-        type="checkbox"
-        role="switch"
-        required
-      />
-      <span class="ui-label">Switch 3</span>
-    </label>
-  </div>
-</fieldset>
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>These are required!</legend>
+    <div class="ui-field-group ui-row" role="group">
+      <label class="ui-switch">
+        <input
+          name="switch-group-required"
+          type="checkbox"
+          role="switch"
+          required
+        />
+        <span class="ui-label">Switch 1</span>
+      </label>
+      <label class="ui-switch">
+        <input
+          name="switch-group-required"
+          type="checkbox"
+          role="switch"
+          required
+        />
+        <span class="ui-label">Switch 2</span>
+      </label>
+      <label class="ui-switch">
+        <input
+          name="switch-group-required"
+          type="checkbox"
+          role="switch"
+          required
+        />
+        <span class="ui-label">Switch 3</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
 ```
 
 ### Validation
@@ -497,36 +559,38 @@ Attach the `required` attribute to at least one of your `<input>` elements.
 Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` element.
 
 ```html
-<fieldset class="ui-fieldset" data-invalid>
-  <legend>Legend</legend>
-  <div class="ui-field-group ui-row" role="group">
-    <label class="ui-switch">
-      <input
-        name="switch-field-group-validation-html"
-        type="checkbox"
-        role="switch"
-      />
-      <span class="ui-label">Switch 1</span>
-    </label>
-    <label class="ui-switch">
-      <input
-        name="switch-field-group-validation-html"
-        type="checkbox"
-        role="switch"
-      />
-      <span class="ui-label">Switch 2</span>
-    </label>
-    <label class="ui-switch">
-      <input
-        name="switch-field-group-validation-html"
-        type="checkbox"
-        role="switch"
-      />
-      <span class="ui-label">Switch 3</span>
-    </label>
-  </div>
-  <span class="ui-end-text">Something went wrong!</span>
-</fieldset>
+<form class="ui-form">
+  <fieldset class="ui-fieldset" data-invalid>
+    <legend>Legend</legend>
+    <div class="ui-field-group ui-row" role="group">
+      <label class="ui-switch">
+        <input
+          name="switch-field-group-validation"
+          type="checkbox"
+          role="switch"
+        />
+        <span class="ui-label">Switch 1</span>
+      </label>
+      <label class="ui-switch">
+        <input
+          name="switch-field-group-validation"
+          type="checkbox"
+          role="switch"
+        />
+        <span class="ui-label">Switch 2</span>
+      </label>
+      <label class="ui-switch">
+        <input
+          name="switch-field-group-validation"
+          type="checkbox"
+          role="switch"
+        />
+        <span class="ui-label">Switch 3</span>
+      </label>
+    </div>
+    <span class="ui-end-text">Something went wrong!</span>
+  </fieldset>
+</form>
 ```
 
 ## Accessibility
@@ -554,27 +618,43 @@ Accessible switches should have a label. The first two approaches are equally ok
 | `Space` | When Switch is focused it changes its state.            |
 | `Enter` | (Optional) When Switch is focused it changes its state. |
 
-## Anatomy
-
-1. Container: `label` element
-2. Switch: `& input type="checkbox" role="switch"`
-3. Label (optional): & `.ui-label`
-4. End text (optional): `.ui-end-text`
-
-```html
-<label class="ui-switch anatomy"
-  ><input type="checkbox" role="switch" aria-describedby="end-text-1" /><span
-    class="ui-label"
-    >Label</span
-  ><span id="end-text-1" class="ui-end-text">End text</span></label
->
-```
-
 ## API
 
 ### Switch API
 
+| Type       | Modifiers        | Default | Description                                       |
+| ---------- | ---------------- | ------- | ------------------------------------------------- |
+| Layout     | `.ui-spread`     | -       | Pushes the label and the switch to opposite ends. |
+| Layout     | `.ui-stack`      | -       | Stacks the label under the switch.                |
+| Sizes      | `.ui-small`      | -       | The size of the element.                          |
+| Validation | `[data-invalid]` | -       | Shows error styles.                               |
+
+#### Parts
+
+| Part                 | Description                                   |
+| -------------------- | --------------------------------------------- |
+| `label.ui-switch`    | Container element.                            |
+| `<input>`            | The switch input.                             |
+| `.ui-icon-unchecked` | An optional icon in the thumb when unchecked. |
+| `.ui-icon-checked`   | An optional icon in the thumb when checked.   |
+| `.ui-label`          | The label.                                    |
+| `.ui-end-text`       | Supporting text displayed below the label.    |
+
+The input needs `type="checkbox"` and `role="switch"`. Use `.ui-sr-only` instead of `.ui-label` to hide the label visually.
+
 ### Field group API
+
+| Type        | Modifiers          | Default | Description                     |
+| ----------- | ------------------ | ------- | ------------------------------- |
+| Orientation | default, `.ui-row` | -       | The orientation of the element. |
+
+#### Parts
+
+| Part              | Description        |
+| ----------------- | ------------------ |
+| `.ui-field-group` | Container element. |
+
+The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
 
 ## Browser support
 

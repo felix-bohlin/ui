@@ -2,6 +2,26 @@
 
 Chips are compact elements that represent an input, attribute, or action.
 
+## Anatomy
+
+Chip
+
+- `<Chip>`
+
+  Container element. Can be a `<div>`, `<a>` or `<button>`.
+
+- `v-slot:start`
+
+  Optional content at the start, such as an icon.
+
+- `label`
+
+  The label.
+
+- `v-slot:end`
+
+  Optional content at the end, such as an icon.
+
 ## Variants
 
 The Chip has two variants: `tonal` (default) and `outlined`.
@@ -157,21 +177,25 @@ import { Chip } from "opui-css/vue"
 </template>
 ```
 
-## Anatomy
-
-1\. Container: `<Chip>` (renders as `div`, `a` or `button`)\
-2\. Text: `label` prop or `default slot`\
-3\. Icon (optional): `<svg>` element in the `start` or `end` slot
-
 ## API
 
-| Prop        | Type                       | Default                              | Description                  |
-| ----------- | -------------------------- | ------------------------------------ | ---------------------------- |
-| `as`        | `"div" \| "a" \| "button"` | `"div"` (or `"a"` if `href` present) | The underlying HTML element. |
-| `label`     | `string`                   | -                                    | The text label to display.   |
-| `multiline` | `boolean`                  | `false`                              | Allows multiline text.       |
-| `size`      | `"small"`                  | -                                    | The size of the chip.        |
-| `variant`   | `"tonal" \| "outlined"`    | `"tonal"`                            | The visual variant.          |
+### Chip API
+
+| Prop        | Type                    | Default   | Description                                           |
+| ----------- | ----------------------- | --------- | ----------------------------------------------------- |
+| `as`        | `string`                | `"div"`   | The element to render. Defaults to `"a"` with `href`. |
+| `label`     | `string`                | -         | The label.                                            |
+| `multiline` | `boolean`               | `false`   | Lets the label wrap to multiple lines.                |
+| `size`      | `"small"`               | -         | The size of the element.                              |
+| `variant`   | `"outlined"`, `"tonal"` | `"tonal"` | The variant to use.                                   |
+
+#### Slots
+
+| Slot      | Description                                     |
+| --------- | ----------------------------------------------- |
+| `default` | Content placed before the label.                |
+| `end`     | Optional content at the end, such as an icon.   |
+| `start`   | Optional content at the start, such as an icon. |
 
 ## Browser support
 

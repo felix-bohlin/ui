@@ -187,7 +187,7 @@ Use `.ui-field-group` to wrap related fields.
         <span class="ui-label">In Rainbows</span>
       </label>
       <label class="ui-radio">
-        <input type="radio" name="albums" value="the-king-of-limbs" />
+        <input type="radio" name="albums" value="king-of-limbs" />
         <span class="ui-label">The King of Limbs</span>
       </label>
     </div>
@@ -199,31 +199,64 @@ Use `.ui-field-group` to wrap related fields.
     <p class="ui-field-description">Some are better than others.</p>
     <div class="ui-field-group" role="group">
       <label class="ui-checkbox">
-        <input type="checkbox" name="projects" value="the-smile" />
+        <input
+          aria-describedby="field-group-projects-1-end-text"
+          type="checkbox"
+          name="projects"
+          value="the-smile"
+        />
         <span class="ui-label">The Smile</span>
-        <span class="ui-end-text"
+        <span class="ui-end-text" id="field-group-projects-1-end-text"
           >Thom Yorke, Jonny Greenwood, Tom Skinner</span
         >
       </label>
       <label class="ui-checkbox">
-        <input type="checkbox" name="projects" value="atoms-for-peace" />
+        <input
+          aria-describedby="field-group-projects-2-end-text"
+          type="checkbox"
+          name="projects"
+          value="atoms-for-peace"
+        />
         <span class="ui-label">Atoms for Peace</span>
-        <span class="ui-end-text">Thom Yorke, Flea, Nigel Godrich</span>
+        <span class="ui-end-text" id="field-group-projects-2-end-text"
+          >Thom Yorke, Flea, Nigel Godrich</span
+        >
       </label>
       <label class="ui-checkbox">
-        <input type="checkbox" name="projects" value="eob" />
+        <input
+          aria-describedby="field-group-projects-3-end-text"
+          type="checkbox"
+          name="projects"
+          value="eob"
+        />
         <span class="ui-label">EOB</span>
-        <span class="ui-end-text">Ed O'Brien solo</span>
+        <span class="ui-end-text" id="field-group-projects-3-end-text"
+          >Ed O'Brien solo</span
+        >
       </label>
       <label class="ui-checkbox">
-        <input type="checkbox" name="projects" value="jonny-scores" />
+        <input
+          aria-describedby="field-group-projects-4-end-text"
+          type="checkbox"
+          name="projects"
+          value="jonny-scores"
+        />
         <span class="ui-label">Film Scores</span>
-        <span class="ui-end-text">Film compositions by Jonny Greenwood</span>
+        <span class="ui-end-text" id="field-group-projects-4-end-text"
+          >Film compositions by Jonny Greenwood</span
+        >
       </label>
       <label class="ui-checkbox">
-        <input type="checkbox" name="projects" value="selway-solo" />
+        <input
+          aria-describedby="field-group-projects-5-end-text"
+          type="checkbox"
+          name="projects"
+          value="selway-solo"
+        />
         <span class="ui-label">Philip Selway</span>
-        <span class="ui-end-text">Philip Selway solo albums</span>
+        <span class="ui-end-text" id="field-group-projects-5-end-text"
+          >Philip Selway solo albums</span
+        >
       </label>
     </div>
   </fieldset>
@@ -238,7 +271,7 @@ Use the `.ui-row` class to lay out fields horizontally.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Options</legend>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-row" role="group">
       <label class="ui-checkbox">
         <input type="checkbox" />
         <span class="ui-label">Option 1</span>
@@ -268,7 +301,7 @@ Use a `<hr />` to create a visual break between sections of your form.
       <label class="ui-text-field">
         <span class="ui-label">Title</span>
         <span class="ui-field">
-          <input name="New post" placeholder="My new post" type="text" />
+          <input placeholder="My new post" type="text" />
         </span>
       </label>
     </div>
@@ -309,9 +342,9 @@ Everything all at once.
         </span>
       </label>
       <label class="ui-select">
-        <span class="ui-label">Role</span>
+        <span class="ui-label" id="kitchen-sink-role-label">Role</span>
         <span class="ui-field">
-          <select>
+          <select aria-labelledby="kitchen-sink-role-label">
             <button>
               <selectedcontent></selectedcontent>
             </button>
@@ -354,7 +387,7 @@ Everything all at once.
   <fieldset class="ui-fieldset">
     <legend>Theme Preference</legend>
     <p class="ui-field-description">Select your preferred visual style.</p>
-    <div class="ui-field-group">
+    <div class="ui-field-group" role="group">
       <label class="ui-radio">
         <input type="radio" name="theme" value="light" checked />
         <span class="ui-label">Light Theme</span>
@@ -381,11 +414,21 @@ Everything all at once.
     </p>
     <div class="ui-field-group" role="group">
       <label class="ui-range">
-        <span class="ui-label">Professional Experience</span>
-        <span class="ui-start-text"
+        <span class="ui-label" id="kitchen-sink-experience-label"
+          >Professional Experience</span
+        >
+        <span class="ui-start-text" id="kitchen-sink-experience-start-text"
           >Drag the slider to match your total tenure.</span
         >
-        <input type="range" min="0" max="20" step="1" value="5" />
+        <input
+          type="range"
+          aria-describedby="kitchen-sink-experience-start-text"
+          aria-labelledby="kitchen-sink-experience-label"
+          min="0"
+          max="20"
+          step="1"
+          value="5"
+        />
       </label>
     </div>
   </fieldset>
@@ -401,7 +444,11 @@ Everything all at once.
       <label class="ui-textarea">
         <span class="ui-label">Biography</span>
         <span class="ui-field">
-          <textarea placeholder="Tell us about yourself..." rows="4"></textarea>
+          <textarea
+            name="details"
+            placeholder="Tell us about yourself..."
+            rows="4"
+          ></textarea>
         </span>
       </label>
     </div>
@@ -415,9 +462,16 @@ Everything all at once.
     <legend>Legal</legend>
     <div class="ui-field-group" role="group">
       <label class="ui-checkbox">
-        <input type="checkbox" name="terms" required />
+        <input
+          aria-describedby="kitchen-sink-terms-1-end-text"
+          type="checkbox"
+          name="terms"
+          required
+        />
         <span class="ui-label">I agree to the terms and conditions</span>
-        <span class="ui-end-text">Support this text</span>
+        <span class="ui-end-text" id="kitchen-sink-terms-1-end-text"
+          >Support this text</span
+        >
       </label>
     </div>
   </fieldset>
@@ -458,9 +512,9 @@ Everything all at once, but horizontally.
         </span>
       </label>
       <label class="ui-select ui-spread">
-        <span class="ui-label">Role</span>
+        <span class="ui-label" id="kitchen-sink-row-role-label">Role</span>
         <span class="ui-field">
-          <select>
+          <select aria-labelledby="kitchen-sink-row-role-label">
             <button>
               <selectedcontent></selectedcontent>
             </button>
@@ -503,7 +557,7 @@ Everything all at once, but horizontally.
   <fieldset class="ui-fieldset">
     <legend>Theme Preference</legend>
     <p class="ui-field-description">Select your preferred visual style.</p>
-    <div class="ui-field-group ui-row">
+    <div class="ui-field-group ui-row" role="group">
       <label class="ui-radio">
         <input type="radio" name="theme" value="light" checked />
         <span class="ui-label">Light Theme</span>
@@ -530,11 +584,21 @@ Everything all at once, but horizontally.
     </p>
     <div class="ui-field-group" role="group">
       <label class="ui-range ui-spread">
-        <span class="ui-label">Professional Experience</span>
-        <span class="ui-start-text"
+        <span class="ui-label" id="kitchen-sink-row-experience-label"
+          >Professional Experience</span
+        >
+        <span class="ui-start-text" id="kitchen-sink-row-experience-start-text"
           >Drag the slider to match your total tenure.</span
         >
-        <input type="range" min="0" max="20" step="1" value="5" />
+        <input
+          type="range"
+          aria-describedby="kitchen-sink-row-experience-start-text"
+          aria-labelledby="kitchen-sink-row-experience-label"
+          min="0"
+          max="20"
+          step="1"
+          value="5"
+        />
       </label>
     </div>
   </fieldset>
@@ -550,7 +614,11 @@ Everything all at once, but horizontally.
       <label class="ui-textarea ui-spread">
         <span class="ui-label">Biography</span>
         <span class="ui-field">
-          <textarea placeholder="Tell us about yourself..." rows="4"></textarea>
+          <textarea
+            name="details"
+            placeholder="Tell us about yourself..."
+            rows="4"
+          ></textarea>
         </span>
       </label>
     </div>
@@ -564,9 +632,16 @@ Everything all at once, but horizontally.
     <legend>Legal</legend>
     <div class="ui-field-group" role="group">
       <label class="ui-checkbox ui-spread">
-        <input type="checkbox" name="terms" required />
+        <input
+          aria-describedby="kitchen-sink-row-terms-1-end-text"
+          type="checkbox"
+          name="terms"
+          required
+        />
         <span class="ui-label">I agree to the terms and conditions</span>
-        <span class="ui-end-text">Support this text</span>
+        <span class="ui-end-text" id="kitchen-sink-row-terms-1-end-text"
+          >Support this text</span
+        >
       </label>
     </div>
   </fieldset>
@@ -584,7 +659,58 @@ Everything all at once, but horizontally.
 
 ## API
 
-### Form
+### Form API
+
+#### Parts
+
+| Part       | Description                                         |
+| ---------- | --------------------------------------------------- |
+| `.ui-form` | Container element. Spaces its fieldsets and fields. |
+
+### Field set API
+
+| Type       | Modifiers        | Default | Description                              |
+| ---------- | ---------------- | ------- | ---------------------------------------- |
+| State      | `[disabled]`     | -       | Disables every field inside.             |
+| Validation | `[data-invalid]` | -       | Shows error styles on the fields inside. |
+
+#### Parts
+
+| Part                    | Description                                 |
+| ----------------------- | ------------------------------------------- |
+| `.ui-fieldset`          | Container element.                          |
+| `<legend>`              | The label of the fieldset.                  |
+| `.ui-field-description` | Supporting text displayed below the legend. |
+
+### Field legend API
+
+#### Parts
+
+| Part                      | Description              |
+| ------------------------- | ------------------------ |
+| `:is(legend, .ui-legend)` | The label of a fieldset. |
+
+### Field description API
+
+#### Parts
+
+| Part                    | Description                     |
+| ----------------------- | ------------------------------- |
+| `.ui-field-description` | Supporting text for a fieldset. |
+
+### Field group API
+
+| Type        | Modifiers          | Default | Description                     |
+| ----------- | ------------------ | ------- | ------------------------------- |
+| Orientation | default, `.ui-row` | -       | The orientation of the element. |
+
+#### Parts
+
+| Part              | Description        |
+| ----------------- | ------------------ |
+| `.ui-field-group` | Container element. |
+
+The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
 
 ## Browser support
 

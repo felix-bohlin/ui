@@ -169,13 +169,22 @@ Add the `.ui-with-arrow` class on the `.ui-tooltip`. This would be cool to solve
 
 ## API
 
-| Type      | Modifiers                             | Default       | Description                                                                                                                                |
-| --------- | ------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| Container | `.ui-anchor.ui-tooltip`               | -             | Wrapper element. Combines the anchor primitive with the tooltip styling.                                                                   |
-| Floating  | `.ui-anchor-floating[popover="hint"]` | -             | Floating tooltip surface. Uses the `hint`popover so it auto-shows on `interestfor` hover/focus.                                            |
-| Trigger   | `interestfor="id"`                    | -             | Add to the trigger element pointing to the floating element's ID. Pair with `commandfor` and `command="toggle-popover"` for touch support. |
-| Arrow     | `.ui-with-arrow`                      | -             | Add to the `.ui-tooltip` wrapper to render an arrow pointing from the tooltip toward the trigger.                                          |
-| Position  | `--anchor-position-area`              | `block-start` | CSS custom property. Any valid `position-area` value.                                                                                      |
+### Tooltip API
+
+| Type     | Modifiers                | Default       | Description                                                            |
+| -------- | ------------------------ | ------------- | ---------------------------------------------------------------------- |
+| Arrow    | `.ui-with-arrow`         | -             | Adds an arrow that points to the trigger.                              |
+| Position | `--anchor-position-area` | `block-start` | Any valid `position-area` value. Controls where the tooltip is placed. |
+
+#### Parts
+
+| Part                  | Description                                            |
+| --------------------- | ------------------------------------------------------ |
+| `.ui-tooltip`         | Container element.                                     |
+| `& > :first-child`    | The trigger that shows the tooltip on hover and focus. |
+| `.ui-anchor-floating` | The tooltip, a `popover="hint"`.                       |
+
+Also add `.ui-anchor` to the root. Give `.ui-anchor-floating` `popover="hint"` and an id, and add `interestfor` with that id to the trigger.
 
 ## Browser support
 

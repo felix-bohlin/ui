@@ -1,5 +1,49 @@
 # Textarea
 
+## Anatomy
+
+LabelDescription¢EURHeaderFooterSupporting text
+
+- `label.ui-textarea`
+
+  Container element.
+
+- `.ui-label`
+
+  The label for the field.
+
+- `.ui-start-text`
+
+  Description text displayed above the field.
+
+- `.ui-field`
+
+  The boxed textarea area.
+
+- `.ui-header`
+
+  Content above the textarea, inside the border, with a divider.
+
+- `.ui-prefix`
+
+  Content at the inline-start of the field, inside the border.
+
+- `<textarea>`
+
+  The textarea element.
+
+- `.ui-suffix`
+
+  Content at the inline-end of the field, inside the border.
+
+- `.ui-footer`
+
+  Content below the textarea, inside the border, with a divider.
+
+- `.ui-end-text`
+
+  Supporting text displayed below the field.
+
 ## Variants
 
 ```html
@@ -264,23 +308,32 @@ When enabled the Field changes size depending on its content.
 </label>
 ```
 
-## Anatomy
-
-1. `label.ui-textarea`: Container element
-2. `.ui-label`: Field label element
-3. `.ui-field`: The boxed input area
-4. `.ui-header`: Optional inside-border header strip (with divider)
-5. `.ui-prefix`: Optional inline-start affix
-6. `<textarea>`: Textarea element
-7. `.ui-suffix`: Optional inline-end affix
-8. `.ui-footer`: Optional inside-border footer strip (with divider)
-9. `.ui-end-text`: Supporting text element
-
 ## API
 
-### Text field API
-
 ### Textarea API
+
+| Type       | Modifiers        | Default | Description                                                                 |
+| ---------- | ---------------- | ------- | --------------------------------------------------------------------------- |
+| Auto-fit   | `.ui-auto-fit`   | -       | Changes height depending on its content.                                    |
+| Layout     | `.ui-spread`     | -       | Pushes the label and description to one side and the textarea to the other. |
+| Sizes      | `.ui-small`      | -       | The size of the element.                                                    |
+| Validation | `[data-invalid]` | -       | Shows error styles.                                                         |
+| Variants   | `.ui-filled`     | -       | The variant to use.                                                         |
+
+#### Parts
+
+| Part                | Description                                                    |
+| ------------------- | -------------------------------------------------------------- |
+| `label.ui-textarea` | Container element.                                             |
+| `.ui-label`         | The label for the field.                                       |
+| `.ui-start-text`    | Description text displayed above the field.                    |
+| `.ui-field`         | The boxed textarea area.                                       |
+| `.ui-header`        | Content above the textarea, inside the border, with a divider. |
+| `.ui-prefix`        | Content at the inline-start of the field, inside the border.   |
+| `<textarea>`        | The textarea element.                                          |
+| `.ui-suffix`        | Content at the inline-end of the field, inside the border.     |
+| `.ui-footer`        | Content below the textarea, inside the border, with a divider. |
+| `.ui-end-text`      | Supporting text displayed below the field.                     |
 
 ## Browser support
 

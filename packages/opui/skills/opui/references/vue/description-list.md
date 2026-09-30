@@ -1,5 +1,27 @@
 # Description list
 
+## Anatomy
+
+- Price
+
+  6 950 000
+
+* `<DescriptionList>`
+
+  Container element.
+
+* `<DescriptionListItem>`
+
+  Groups a term with its description.
+
+* `<DescriptionListTerm>`
+
+  The term.
+
+* `<Description>`
+
+  The description.
+
 ```vue
 <script setup lang="ts">
 import {
@@ -78,38 +100,19 @@ import {
 </template>
 ```
 
-## Anatomy
-
-1. List (`<DescriptionList>`)
-2. Term-description group (`<DescriptionList.Item>`)
-3. Term (`<DescriptionList.Term>`)
-4. Separator - rendered via CSS when `bordered` is set on the list (optional)
-5. Description (`<DescriptionList.Description>`)
-
 ## API
 
-| Prop       | Type                  | Default | Description                                                                                        |
-| ---------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------- |
-| `bordered` | `boolean \| "dotted"` | -       | Adds a separator between the term and description on all items. Use `"dotted"` for a dotted style. |
-| `class`    | `string`              | -       | Custom CSS classes.                                                                                |
+### Description list API
 
-### DescriptionList.Item
+| Prop       | Type                  | Default | Description                                         |
+| ---------- | --------------------- | ------- | --------------------------------------------------- |
+| `bordered` | `boolean`, `"dotted"` | `false` | Adds a border between the term and the description. |
 
-| Prop    | Type     | Default | Description         |
-| ------- | -------- | ------- | ------------------- |
-| `class` | `string` | -       | Custom CSS classes. |
+#### Slots
 
-### DescriptionList.Term
-
-| Prop    | Type     | Default | Description         |
-| ------- | -------- | ------- | ------------------- |
-| `class` | `string` | -       | Custom CSS classes. |
-
-### DescriptionList.Description
-
-| Prop    | Type     | Default | Description         |
-| ------- | -------- | ------- | ------------------- |
-| `class` | `string` | -       | Custom CSS classes. |
+| Slot      | Description |
+| --------- | ----------- |
+| `default` | The items.  |
 
 ## Browser support
 

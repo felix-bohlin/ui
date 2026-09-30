@@ -2,6 +2,18 @@
 
 Buttons (disguised as input checkbox/radio) that can be toggled on and off.
 
+## Anatomy
+
+DayWeekMonth
+
+- `<ToggleGroup>`
+
+  Container element.
+
+- `<ToggleButton>`
+
+  A toggle button.
+
 ## Toggle button
 
 ```vue
@@ -247,34 +259,41 @@ import { ToggleButton } from "opui-css/vue"
 </template>
 ```
 
-## Anatomy
-
 ## API
 
-### Toggle Button
+### Toggle group API
 
-Individual toggle button component.
+| Prop          | Type                                | Default      | Description                                                                   |
+| ------------- | ----------------------------------- | ------------ | ----------------------------------------------------------------------------- |
+| `name`        | `string`                            | -            | The name shared by the inputs. Generated when omitted.                        |
+| `orientation` | `"vertical"`                        | -            | The orientation of the element.                                               |
+| `selection`   | `"multiple"`, `"single"`            | `"multiple"` | Whether one or several buttons can be selected. `"single"` uses radio inputs. |
+| `size`        | `"default"`, `"x-small"`, `"small"` | `"default"`  | The size of the buttons.                                                      |
 
-| Prop       | Type                                | Default      | Description                                                                                                            |
-| ---------- | ----------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `boolean`                           | `false`      | Whether the toggle button is disabled.                                                                                 |
-| `label`    | `string`                            | -            | The label text for the toggle button.                                                                                  |
-| `name`     | `string`                            | -            | The name of the input element. Inherited from ToggleGroup if used within one.                                          |
-| `pressed`  | `boolean`                           | `false`      | Whether the toggle button is pressed. Maps to `aria-pressed`in checkbox mode and to `checked` on the underlying input. |
-| `size`     | `"default" \| "small" \| "x-small"` | `"default"`  | The size of the toggle button.                                                                                         |
-| `type`     | `"checkbox" \| "radio"`             | `"checkbox"` | The type of input element. Inherited from ToggleGroup (driven by the`selection` prop) if used within one.              |
-| `value`    | `string`                            | -            | The value attribute of the input element. Defaults to `label` if not provided.                                         |
+#### Slots
 
-### Toggle Group
+| Slot      | Description         |
+| --------- | ------------------- |
+| `default` | The toggle buttons. |
 
-Container for grouping multiple toggle buttons.
+### Toggle button API
 
-| Prop          | Type                                | Default      | Description                                                                               |
-| ------------- | ----------------------------------- | ------------ | ----------------------------------------------------------------------------------------- |
-| `name`        | `string`                            | -            | The name property for child inputs. Used for native form submission.                      |
-| `size`        | `"default" \| "small" \| "x-small"` | `"default"`  | The size of the toggle group.                                                             |
-| `orientation` | `"vertical"`                        | -            | Changes the layout direction of the group.                                                |
-| `selection`   | `"single" \| "multiple"`            | `"multiple"` | The selection mode. `"single"` maps to radio inputs;`"multiple"` maps to checkbox inputs. |
+| Prop       | Type                    | Default      | Description                                                |
+| ---------- | ----------------------- | ------------ | ---------------------------------------------------------- |
+| `disabled` | `boolean`               | `false`      | Disables the button.                                       |
+| `id`       | `string`                | -            | The id of the `<input>`. Generated when omitted.           |
+| `label`    | `string`                | -            | The input value when `value` is omitted.                   |
+| `name`     | `string`                | -            | The name of the input. Set by the group.                   |
+| `pressed`  | `boolean`               | `false`      | Selects the button.                                        |
+| `size`     | `"x-small"`, `"small"`  | -            | The size of the element.                                   |
+| `type`     | `"checkbox"`, `"radio"` | `"checkbox"` | The input type. `"radio"` allows one selection in a group. |
+| `value`    | `string`                | -            | The value of the input.                                    |
+
+#### Slots
+
+| Slot      | Description                     |
+| --------- | ------------------------------- |
+| `default` | The label and an optional icon. |
 
 ## Browser support
 

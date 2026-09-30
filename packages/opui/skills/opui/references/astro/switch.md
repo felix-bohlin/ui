@@ -2,6 +2,34 @@
 
 See also: [Switch field group](#field-group).
 
+## Anatomy
+
+LabelEnd text
+
+- `<Switch>`
+
+  Container element.
+
+- `<input>`
+
+  The switch input.
+
+- `slot="icon-unchecked"`
+
+  An optional icon in the thumb when unchecked.
+
+- `slot="icon-checked"`
+
+  An optional icon in the thumb when checked.
+
+- `slot="default"`
+
+  The label.
+
+- `slot="end-text"`
+
+  Supporting text displayed below the label.
+
 All switches should have an accessible name. Either provide a visible or visually-hidden label inside the component, or set `aria-label` on the input. Both approaches are fine.
 
 ```astro
@@ -10,10 +38,10 @@ import { Switch } from "opui-css/astro"
 ---
 
 
-<Switch checked hideLabel>Label</Switch>
-<Switch hideLabel>Label</Switch>
-<Switch checked disabled hideLabel>Label</Switch>
-<Switch disabled hideLabel>Label</Switch>
+<Switch name="switch-variants" checked hideLabel>Label</Switch>
+<Switch name="switch-variants" hideLabel>Label</Switch>
+<Switch name="switch-variants" checked disabled hideLabel>Label</Switch>
+<Switch name="switch-variants" disabled hideLabel>Label</Switch>
 ```
 
 ## Visible label
@@ -26,9 +54,9 @@ import { Switch } from "opui-css/astro"
 ---
 
 
-<Switch>Label</Switch>
-<Switch disabled>Disabled</Switch>
-<Switch>
+<Switch name="switch-visible-label">Label</Switch>
+<Switch name="switch-visible-label" disabled>Disabled</Switch>
+<Switch name="switch-visible-label">
   Long text bacon ipsum dolor amet prosciutto tenderloin biltong leberkas ribeye
   short ribs shankle tri-tip doner buffalo chislic meatloaf meatball.
 </Switch>
@@ -42,8 +70,8 @@ import { Switch } from "opui-css/astro"
 ---
 
 
-<Switch>Default</Switch>
-<Switch stack>Stack</Switch>
+<Switch name="switch-label-position">Default</Switch>
+<Switch name="switch-label-position" stack>Stack</Switch>
 ```
 
 ### End text
@@ -54,11 +82,11 @@ import { Switch } from "opui-css/astro"
 ---
 
 
-<Switch>
+<Switch name="switch-supporting-text">
   Default
   <Fragment slot="end-text">Supporting text</Fragment>
 </Switch>
-<Switch stack>
+<Switch name="switch-supporting-text" stack>
   Stack
   <Fragment slot="end-text">Supporting text</Fragment>
 </Switch>
@@ -76,17 +104,17 @@ import { Switch } from "opui-css/astro"
 
 
 <div class="example-row ui-spacious">
-  <Switch required>Default</Switch>
-  <Switch required stack>Stack</Switch>
+  <Switch name="switch-validation" required>Default</Switch>
+  <Switch name="switch-validation" required stack>Stack</Switch>
 </div>
 
 
 <div class="example-row ui-spacious">
-  <Switch error>
+  <Switch name="switch-validation" error>
     Default
     <Fragment slot="end-text">Supporting text</Fragment>
   </Switch>
-  <Switch error stack>
+  <Switch name="switch-validation" error stack>
     Stack
     <Fragment slot="end-text">Supporting text</Fragment>
   </Switch>
@@ -103,25 +131,25 @@ import { Switch } from "opui-css/astro"
 ---
 
 
-<Switch spread>
+<Switch name="switch-spread" spread>
   Notifications
   <Fragment slot="end-text">Receive alerts when someone mentions you.</Fragment>
 </Switch>
 
 
-<Switch spread required>
+<Switch name="switch-spread" spread required>
   Required
   <Fragment slot="end-text">You must accept this to proceed.</Fragment>
 </Switch>
 
 
-<Switch spread disabled>
+<Switch name="switch-spread" spread disabled>
   Disabled
   <Fragment slot="end-text">This switch is disabled.</Fragment>
 </Switch>
 
 
-<Switch spread error>
+<Switch name="switch-spread" spread error>
   Invalid Switch
   <Fragment slot="end-text">There is an error with this switch.</Fragment>
 </Switch>
@@ -138,12 +166,12 @@ import { Switch } from "opui-css/astro"
 
 
 <div class="example-row">
-  <Switch small checked hideLabel>Small</Switch>
-  <Switch checked hideLabel>Default</Switch>
+  <Switch name="switch-sizes" small checked hideLabel>Small</Switch>
+  <Switch name="switch-sizes" checked hideLabel>Default</Switch>
 </div>
 <div class="example-row">
-  <Switch small checked>Small</Switch>
-  <Switch checked>Default</Switch>
+  <Switch name="switch-sizes" small checked>Small</Switch>
+  <Switch name="switch-sizes" checked>Default</Switch>
 </div>
 ```
 
@@ -155,7 +183,7 @@ import { Switch } from "opui-css/astro"
 ---
 
 
-<Switch small aria-label="Toggle theme">
+<Switch name="switch-icons" small aria-label="Toggle theme">
   <svg
     slot="icon-unchecked"
     xmlns="http://www.w3.org/2000/svg"
@@ -181,7 +209,7 @@ import { Switch } from "opui-css/astro"
 </Switch>
 
 
-<Switch checked aria-label="Toggle theme">
+<Switch name="switch-icons" checked aria-label="Toggle theme">
   <svg
     slot="icon-unchecked"
     xmlns="http://www.w3.org/2000/svg"
@@ -228,7 +256,7 @@ import { Form } from "opui-css/astro"
 <Form as="div">
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup name="switch-group-astro">
+    <FieldGroup name="switch-group">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
@@ -252,7 +280,7 @@ import { Form } from "opui-css/astro"
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="switch-group-direction-astro">
+    <FieldGroup direction="row" name="switch-group-direction">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
@@ -280,7 +308,7 @@ import { Form } from "opui-css/astro"
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
-    <FieldGroup direction="row" name="switch-group-field-description-1-astro">
+    <FieldGroup direction="row" name="switch-group-field-description-1">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
@@ -290,7 +318,7 @@ import { Form } from "opui-css/astro"
 
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="switch-group-field-description-2-astro">
+    <FieldGroup direction="row" name="switch-group-field-description-2">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
@@ -317,7 +345,7 @@ import { Form } from "opui-css/astro"
 <Form>
   <FieldSet disabled>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="switch-group-disabled-astro">
+    <FieldGroup direction="row" name="switch-group-disabled">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
@@ -343,7 +371,7 @@ import { Form } from "opui-css/astro"
 <Form>
   <FieldSet>
     <FieldLegend>These are required!</FieldLegend>
-    <FieldGroup direction="row" name="switch-group-required-astro">
+    <FieldGroup direction="row" name="switch-group-required">
       <Switch required>Switch 1</Switch>
       <Switch required>Switch 2</Switch>
       <Switch required>Switch 3</Switch>
@@ -367,9 +395,9 @@ import { Form } from "opui-css/astro"
 
 
 <Form>
-  <FieldSet data-invalid>
+  <FieldSet data-invalid="">
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="switch-group-validation-astro">
+    <FieldGroup direction="row" name="switch-field-group-validation">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
@@ -404,18 +432,41 @@ Accessible switches should have a label. The first two approaches are equally ok
 | `Space` | When Switch is focused it changes its state.            |
 | `Enter` | (Optional) When Switch is focused it changes its state. |
 
-## Anatomy
-
-1. Container: `label` element
-2. Switch: `& input type="checkbox" role="switch"`
-3. Label (optional): & `.ui-label`
-4. End text (optional): `.ui-end-text`
-
 ## API
 
 ### Switch API
 
+| Prop        | Type      | Default | Description                                       |
+| ----------- | --------- | ------- | ------------------------------------------------- |
+| `error`     | `boolean` | `false` | Shows error styles.                               |
+| `hideLabel` | `boolean` | `false` | Visually hides the label.                         |
+| `small`     | `boolean` | `false` | The size of the element.                          |
+| `spread`    | `boolean` | `false` | Pushes the label and the switch to opposite ends. |
+| `stack`     | `boolean` | `false` | Stacks the label under the switch.                |
+
+#### Slots
+
+| Slot             | Description                                   |
+| ---------------- | --------------------------------------------- |
+| `default`        | The label.                                    |
+| `end-text`       | Supporting text displayed below the label.    |
+| `icon-checked`   | An optional icon in the thumb when checked.   |
+| `icon-unchecked` | An optional icon in the thumb when unchecked. |
+
+Other attributes, such as `checked`, `disabled`, `name` and `required`, go to the `<input>`. Without a label, set `aria-label` or `aria-labelledby`.
+
 ### Field group API
+
+| Prop        | Type                | Default | Description                                             |
+| ----------- | ------------------- | ------- | ------------------------------------------------------- |
+| `direction` | `"row"`, `"column"` | -       | The orientation of the element.                         |
+| `name`      | `string`            | -       | Sets `name` on every input, select and textarea inside. |
+
+#### Slots
+
+| Slot      | Description                                         |
+| --------- | --------------------------------------------------- |
+| `default` | The fields, such as checkboxes, radios or switches. |
 
 ## Browser support
 

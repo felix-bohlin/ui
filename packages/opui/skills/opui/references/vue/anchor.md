@@ -2,6 +2,22 @@
 
 A structural primitive to enable CSS Anchor Positioning on stuff.
 
+## Anatomy
+
+Floating content
+
+- `<Anchor>`
+
+  Container element. Scopes the anchor to its content.
+
+- `v-slot:default`
+
+  The content the floating content is anchored to.
+
+- `v-slot:anchored`
+
+  The floating content.
+
 ## Always Visible
 
 Floating content that is always shown.
@@ -32,7 +48,7 @@ import { Anchor } from "opui-css/vue"
 
 ## Hover Trigger
 
-Set `trigger="hover"`. The component adds `interestfor` and `popover="hint"` declaratively.
+Set `trigger="hover"` and an `id`, and add `interestfor` with that id to the trigger. The component adds `popover="hint"`.
 
 Add `interestfor`, `commandfor`, and `command="toggle-popover"` to the anchor trigger so touch devices can tap to show the floating content.
 
@@ -52,9 +68,7 @@ import { Anchor } from "opui-css/vue"
       Hover me
     </button>
     <template #anchored
-      ><span
-        ><div class="ui-card ui-elevated">Tooltip content</div></span
-      ></template
+      ><div class="ui-card ui-elevated">Tooltip content</div></template
     >
   </Anchor>
 </template>
@@ -67,10 +81,20 @@ import { Anchor } from "opui-css/vue"
 
 ## API
 
-| Prop        | Type                  | Default       | Description                                                                                                                |
-| ----------- | --------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `alignment` | `string`              | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                            |
-| `trigger`   | `"always" \| "hover"` | `"always"`    | When set to `"hover"`, wraps the anchor slot in an`interestfor` invoker and uses `popover="hint"` on the floating element. |
+### Anchor API
+
+| Prop        | Type                  | Default       | Description                                                                                                    |
+| ----------- | --------------------- | ------------- | -------------------------------------------------------------------------------------------------------------- |
+| `alignment` | `string`              | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                |
+| `id`        | `string`              | -             | The id of the floating content when `trigger` is `"hover"`. Add `interestfor` with the same id to the trigger. |
+| `trigger`   | `"always"`, `"hover"` | `"always"`    | Shows the floating content always, or on hover and focus with `popover="hint"`.                                |
+
+#### Slots
+
+| Slot       | Description                                      |
+| ---------- | ------------------------------------------------ |
+| `anchored` | The floating content.                            |
+| `default`  | The content the floating content is anchored to. |
 
 ## Browser support
 

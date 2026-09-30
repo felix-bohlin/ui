@@ -1,5 +1,36 @@
 # Table
 
+## Anatomy
+
+| Name   | Size |
+| ------ | ---- |
+| Card   | 2 kB |
+| Dialog | 3 kB |
+
+- `<Table>`
+
+  Container element.
+
+- `<TableHead>`
+
+  The header rows.
+
+- `<TableHeaderCell>`
+
+  A header cell.
+
+- `<TableBody>`
+
+  The body rows.
+
+- `<TableRow>`
+
+  A row.
+
+- `<TableCell>`
+
+  A data cell.
+
 ## Variants
 
 ### Default
@@ -132,10 +163,19 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 
 ## API
 
-| Prop      | Type                    | Default | Description                                   |
-| --------- | ----------------------- | ------- | --------------------------------------------- |
-| `class`   | `string`                | -       | Additional CSS classes to apply to the table. |
-| `variant` | `"dense" \| "spacious"` | -       | The variant to use.                           |
+### Table API
+
+| Prop      | Type                    | Default | Description         |
+| --------- | ----------------------- | ------- | ------------------- |
+| `variant` | `"dense"`, `"spacious"` | -       | The variant to use. |
+
+#### Slots
+
+| Slot      | Description         |
+| --------- | ------------------- |
+| `default` | The table sections. |
+
+Set column widths with `TableColumnGroup` and `TableColumn`, which takes a `width`.
 
 ## Browser support
 

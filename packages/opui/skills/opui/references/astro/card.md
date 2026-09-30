@@ -2,6 +2,32 @@
 
 The card is extremely versatile and can be used on its own, or as a building block for [accordions](https://open-props-ui.netlify.app/astro/components/accordion.md), [dialogs](https://open-props-ui.netlify.app/astro/components/dialog.md) and more.
 
+## Anatomy
+
+Overline
+
+## Headline
+
+Subhead
+
+Explain more about the topic shown in the headline and subhead through supporting text.
+
+- `<Card>`
+
+  Container element.
+
+- `slot="header"`
+
+  The card header.
+
+- `slot="content"`
+
+  The card content.
+
+- `slot="actions"`
+
+  A group of actions, such as buttons.
+
 ## Variants
 
 Change the card variant with the `variant` prop.
@@ -183,23 +209,23 @@ import { Button } from "opui-css/astro"
 </Card>
 ```
 
-## Anatomy
-
-Open Props UI include these complementary utility components to handle various use cases:
-
-1. Container
-2. `header` slot (optional): a wrapper for the card header
-3. `content` slot (optional): a wrapper for the card content
-4. `default` slot (optional): raw content placed directly in the card
-5. `actions` slot (optional): a wrapper that groups a set of buttons
-
 ## API
 
-| Prop           | Type                                           | Default | Description                       |
-| -------------- | ---------------------------------------------- | ------- | --------------------------------- |
-| Slots          | `header`, `content`, `actions`,`default`       | -       | Optional slots.                   |
-| `actionsAlign` | `"start"`, `"end"`                             | -       | Alignment for the `actions` slot. |
-| `variant`      | `"text"`, `"outlined"`, `"tonal"`,`"elevated"` | -       | The variant to use.               |
+### Card API
+
+| Prop           | Type                                            | Default | Description                |
+| -------------- | ----------------------------------------------- | ------- | -------------------------- |
+| `actionsAlign` | `"start"`, `"end"`                              | -       | Alignment for the actions. |
+| `variant`      | `"outlined"`, `"elevated"`, `"tonal"`, `"text"` | -       | The variant to use.        |
+
+#### Slots
+
+| Slot      | Description                              |
+| --------- | ---------------------------------------- |
+| `actions` | A group of actions, such as buttons.     |
+| `content` | The card content.                        |
+| `default` | Raw content placed directly in the card. |
+| `header`  | The card header.                         |
 
 ## Browser support
 

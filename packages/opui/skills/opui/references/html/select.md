@@ -2,17 +2,62 @@
 
 Leverages the [List component](https://open-props-ui.netlify.app/html/components/list.md) to provide markup for the Select popover.
 
+## Anatomy
+
+LabelDescriptionOption one (1)¢EURHeaderFooterSupporting text
+
+- `label.ui-select`
+
+  Container element.
+
+- `.ui-label`
+
+  The label for the field.
+
+- `.ui-start-text`
+
+  Description text displayed above the field.
+
+- `.ui-field`
+
+  The boxed select area.
+
+- `.ui-header`
+
+  Content above the select, inside the border, with a divider.
+
+- `.ui-prefix`
+
+  Content at the inline-start of the field, inside the border.
+
+- `<select>`
+
+  The select. Its options are in a popover list.
+
+- `.ui-suffix`
+
+  Content at the inline-end of the field, inside the border.
+
+- `.ui-footer`
+
+  Content below the select, inside the border, with a divider.
+
+- `.ui-end-text`
+
+  Supporting text displayed below the field.
+
 ## Variants
 
 ```html
 <label class="ui-select">
-  <span class="ui-label">Label</span>
+  <span class="ui-label" id="select-variants-1-label">Label</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-variants-1-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
+        <option value="">-</option>
         <option>Outlined (default)</option>
         <option>Option Two</option>
         <option>Option Three</option>
@@ -23,13 +68,14 @@ Leverages the [List component](https://open-props-ui.netlify.app/html/components
 
 
 <label class="ui-select ui-filled">
-  <span class="ui-label">Label</span>
+  <span class="ui-label" id="select-variants-2-label">Label</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-variants-2-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
+        <option value="">-</option>
         <option>Filled</option>
         <option>Option Two</option>
         <option>Option Three</option>
@@ -45,38 +91,44 @@ Leverages the [List component](https://open-props-ui.netlify.app/html/components
 
 ```html
 <label class="ui-select">
-  <span class="ui-label">Label</span>
+  <span class="ui-label" id="select-supporting-1-label">Label</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-supporting-1-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
+        <option value="">-</option>
         <option>Outlined (default)</option>
         <option>Option Two</option>
         <option>Option Three</option>
       </div>
     </select>
   </span>
-  <span class="ui-end-text">Supporting text</span>
+  <span class="ui-end-text" id="select-supporting-1-end-text"
+    >Supporting text</span
+  >
 </label>
 
 
 <label class="ui-select ui-filled">
-  <span class="ui-label">Label</span>
+  <span class="ui-label" id="select-supporting-2-label">Label</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-supporting-2-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
+        <option value="">-</option>
         <option>Filled</option>
         <option>Option Two</option>
         <option>Option Three</option>
       </div>
     </select>
   </span>
-  <span class="ui-end-text">Supporting text</span>
+  <span class="ui-end-text" id="select-supporting-2-end-text"
+    >Supporting text</span
+  >
 </label>
 ```
 
@@ -86,9 +138,9 @@ Add a `.ui-prefix` or `.ui-suffix` element inside`.ui-field` to affix content al
 
 ```html
 <label class="ui-select">
-  <span class="ui-label">Currency</span>
+  <span class="ui-label" id="select-affix-1-label">Currency</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-affix-1-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -105,9 +157,9 @@ Add a `.ui-prefix` or `.ui-suffix` element inside`.ui-field` to affix content al
 
 
 <label class="ui-select">
-  <span class="ui-label">Country</span>
+  <span class="ui-label" id="select-affix-2-label">Country</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-affix-2-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -146,74 +198,86 @@ Add a `.ui-prefix` or `.ui-suffix` element inside`.ui-field` to affix content al
 - Add `data-invalid` on the root element to toggle invalid styles. Make use of the end text to give extra feedback on the error.
 
 ```html
-<label class="ui-select">
-  <span class="ui-label">Label</span>
-  <span class="ui-field">
-    <select required>
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option>Pick me!</option>
-        <option>No me!!</option>
-        <option>Come on!</option>
-      </div>
-    </select>
-  </span>
-</label>
+<div class="example-row">
+  <label class="ui-select">
+    <span class="ui-label" id="select-validation-1-label">Label</span>
+    <span class="ui-field">
+      <select aria-labelledby="select-validation-1-label" required>
+        <button>
+          <selectedcontent></selectedcontent>
+        </button>
+        <div class="ui-list">
+          <option value="">-</option>
+          <option>Pick me!</option>
+          <option>No me!!</option>
+          <option>Come on!</option>
+        </div>
+      </select>
+    </span>
+  </label>
 
 
-<label class="ui-select ui-filled">
-  <span class="ui-label">Label</span>
-  <span class="ui-field">
-    <select required>
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option>Pick me!</option>
-        <option>No me!!</option>
-        <option>Come on!</option>
-      </div>
-    </select>
-  </span>
-</label>
+  <label class="ui-select ui-filled">
+    <span class="ui-label" id="select-validation-2-label">Label</span>
+    <span class="ui-field">
+      <select aria-labelledby="select-validation-2-label" required>
+        <button>
+          <selectedcontent></selectedcontent>
+        </button>
+        <div class="ui-list">
+          <option value="">-</option>
+          <option>Pick me!</option>
+          <option>No me!!</option>
+          <option>Come on!</option>
+        </div>
+      </select>
+    </span>
+  </label>
+</div>
 
 
-<label class="ui-select" data-invalid>
-  <span class="ui-label">Label</span>
-  <span class="ui-field">
-    <select>
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option selected>Wrong option</option>
-        <option>Also wrong!</option>
-        <option>Nothing's right!</option>
-      </div>
-    </select>
-  </span>
-  <span class="ui-end-text">Supporting text</span>
-</label>
+<div class="example-row">
+  <label class="ui-select" data-invalid>
+    <span class="ui-label" id="select-validation-3-label">Label</span>
+    <span class="ui-field">
+      <select aria-labelledby="select-validation-3-label">
+        <button>
+          <selectedcontent></selectedcontent>
+        </button>
+        <div class="ui-list">
+          <option value="">-</option>
+          <option selected>Wrong option</option>
+          <option>Also wrong!</option>
+          <option>Nothing's right!</option>
+        </div>
+      </select>
+    </span>
+    <span class="ui-end-text" id="select-validation-3-end-text"
+      >Supporting text</span
+    >
+  </label>
 
 
-<label class="ui-select ui-filled" data-invalid>
-  <span class="ui-label">Label</span>
-  <span class="ui-field">
-    <select>
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option selected>Wrong option</option>
-        <option>Also wrong!</option>
-        <option>Nothing's right!</option>
-      </div>
-    </select>
-  </span>
-  <span class="ui-end-text">Supporting text</span>
-</label>
+  <label class="ui-select ui-filled" data-invalid>
+    <span class="ui-label" id="select-validation-4-label">Label</span>
+    <span class="ui-field">
+      <select aria-labelledby="select-validation-4-label">
+        <button>
+          <selectedcontent></selectedcontent>
+        </button>
+        <div class="ui-list">
+          <option value="">-</option>
+          <option selected>Wrong option</option>
+          <option>Also wrong!</option>
+          <option>Nothing's right!</option>
+        </div>
+      </select>
+    </span>
+    <span class="ui-end-text" id="select-validation-4-end-text"
+      >Supporting text</span
+    >
+  </label>
+</div>
 ```
 
 ## Spread
@@ -222,10 +286,10 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 ```html
 <label class="ui-select ui-spread">
-  <span class="ui-label">Country</span>
+  <span class="ui-label" id="select-orientation-1-label">Country</span>
   <span class="ui-start-text">Select your country of residence</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-orientation-1-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -243,10 +307,10 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 
 <label class="ui-select ui-spread ui-filled">
-  <span class="ui-label">Language</span>
+  <span class="ui-label" id="select-orientation-2-label">Language</span>
   <span class="ui-start-text">Choose your preferred language</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-orientation-2-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -260,15 +324,17 @@ Add the `.ui-spread` class to display the label and description on the left with
       </div>
     </select>
   </span>
-  <span class="ui-end-text">This affects UI translations</span>
+  <span class="ui-end-text" id="select-orientation-2-end-text"
+    >This affects UI translations</span
+  >
 </label>
 
 
 <label class="ui-select ui-spread">
-  <span class="ui-label">Required</span>
+  <span class="ui-label" id="select-orientation-3-label">Required</span>
   <span class="ui-start-text">You must select an option</span>
   <span class="ui-field">
-    <select required>
+    <select aria-labelledby="select-orientation-3-label" required>
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -283,10 +349,10 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 
 <label class="ui-select ui-spread">
-  <span class="ui-label">Disabled</span>
+  <span class="ui-label" id="select-orientation-4-label">Disabled</span>
   <span class="ui-start-text">This select is disabled</span>
   <span class="ui-field">
-    <select disabled>
+    <select aria-labelledby="select-orientation-4-label" disabled>
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -299,10 +365,10 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 
 <label class="ui-select ui-spread" data-invalid>
-  <span class="ui-label">Invalid Select</span>
+  <span class="ui-label" id="select-orientation-5-label">Invalid Select</span>
   <span class="ui-start-text">This select has an error</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-orientation-5-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -311,15 +377,17 @@ Add the `.ui-spread` class to display the label and description on the left with
       </div>
     </select>
   </span>
-  <span class="ui-end-text">Please select a valid option.</span>
+  <span class="ui-end-text" id="select-orientation-5-end-text"
+    >Please select a valid option.</span
+  >
 </label>
 
 
 <label class="ui-select ui-spread">
-  <span class="ui-label">Currency</span>
+  <span class="ui-label" id="select-orientation-6-label">Currency</span>
   <span class="ui-start-text">Used for billing</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-orientation-6-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -336,10 +404,10 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 
 <label class="ui-select ui-spread ui-filled">
-  <span class="ui-label">Region</span>
+  <span class="ui-label" id="select-orientation-7-label">Region</span>
   <span class="ui-start-text">Affects data residency and latency</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-orientation-7-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -369,7 +437,9 @@ Add the `.ui-spread` class to display the label and description on the left with
       </svg>
     </span>
   </span>
-  <span class="ui-end-text">Cannot be changed after deploy</span>
+  <span class="ui-end-text" id="select-orientation-7-end-text"
+    >Cannot be changed after deploy</span
+  >
 </label>
 ```
 
@@ -377,14 +447,14 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 ```html
 <label class="ui-select ui-small">
-  <span class="ui-label">Small</span>
+  <span class="ui-label" id="select-sizes-1-label">Small</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-sizes-1-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
-        <option>Small</option>
+        <option value="">Small</option>
         <option>Option Two</option>
         <option>Option Three</option>
       </div>
@@ -394,14 +464,14 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 
 <label class="ui-select">
-  <span class="ui-label">Default</span>
+  <span class="ui-label" id="select-sizes-2-label">Default</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-sizes-2-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
-        <option>Default</option>
+        <option value="">Default</option>
         <option>Option Two</option>
         <option>Option Three</option>
       </div>
@@ -416,9 +486,9 @@ Bog-standard native HTML `<select>` without customized option list.
 
 ```html
 <label class="ui-select">
-  <span class="ui-label">Label</span>
+  <span class="ui-label" id="select-classic-1-label">Label</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-classic-1-label" id="select-classic-1">
       <option value="">-</option>
       <option>Option 1</option>
       <option>Option 2</option>
@@ -428,9 +498,9 @@ Bog-standard native HTML `<select>` without customized option list.
 
 
 <label class="ui-select ui-filled">
-  <span class="ui-label">Label</span>
+  <span class="ui-label" id="select-classic-2-label">Label</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-classic-2-label" id="select-classic-2">
       <option value="">-</option>
       <option>Option 1</option>
       <option>Option 2</option>
@@ -439,32 +509,52 @@ Bog-standard native HTML `<select>` without customized option list.
 </label>
 ```
 
-## Anatomy
-
-1. Select container: `<select>`
-2. Select button: `<button>`
-3. Select button selected option: `<selectedcontent>`
-4. Select button arrow
-5. Popover list: `.ui-list`
-6. List option/s: `<option>`
-7. List option group/s (optional): `<optgroup>`
-
-```html
-<div class="anatomy"><div class="ui-select"><div><button class="anatomy"><selectedcontent></button><div class="ui-list"><option>Option One</option></div></div></div><div class="ui-list"><option selected>Option One</option><option>Option Two</option><option>Option Three</option></div></div>
-```
-
 ## API
 
-| Type           | Modifiers                                                         | Default | Description                                                                                                 |
-| -------------- | ----------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
-| Children       | `.ui-label`, `.ui-start-text`, `.ui-field`, `.ui-end-text`        | -       | Direct children of the root element.                                                                        |
-| Field children | `<select>`, `.ui-prefix`, `.ui-suffix`,`.ui-header`, `.ui-footer` | -       | Children of `.ui-field`. The `<select>` comes first, then optional affixes.                                 |
-| Layout         | `.ui-spread`, default                                             | -       | The layout of the component. `.ui-spread` pushes label and description to the left and select to the right. |
-| Sizes          | `.ui-small`                                                       | -       | The size of the element.                                                                                    |
-| Variants       | default, `.ui-filled`                                             | -       | The variant to use.                                                                                         |
-| Validation     | `[data-invalid]`                                                  | -       | Add the `data-invalid` attribute to the root element to show error styles.                                  |
+### Select API
+
+| Type       | Modifiers             | Default | Description                                                               |
+| ---------- | --------------------- | ------- | ------------------------------------------------------------------------- |
+| Dense      | `.ui-list.ui-dense`   | -       | Packs the options tighter.                                                |
+| Layout     | `.ui-spread`          | -       | Pushes the label and description to one side and the select to the other. |
+| Sizes      | `.ui-small`           | -       | The size of the element.                                                  |
+| Validation | `[data-invalid]`      | -       | Shows error styles.                                                       |
+| Variants   | default, `.ui-filled` | default | The variant to use.                                                       |
+
+#### Parts
+
+| Part              | Description                                                  |
+| ----------------- | ------------------------------------------------------------ |
+| `label.ui-select` | Container element.                                           |
+| `.ui-label`       | The label for the field.                                     |
+| `.ui-start-text`  | Description text displayed above the field.                  |
+| `.ui-field`       | The boxed select area.                                       |
+| `.ui-header`      | Content above the select, inside the border, with a divider. |
+| `.ui-prefix`      | Content at the inline-start of the field, inside the border. |
+| `<select>`        | The select. Its options are in a popover list.               |
+| `.ui-suffix`      | Content at the inline-end of the field, inside the border.   |
+| `.ui-footer`      | Content below the select, inside the border, with a divider. |
+| `.ui-end-text`    | Supporting text displayed below the field.                   |
+
+The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` with the options. Browsers without customizable selects show a native select.
 
 ### Classic Select API
+
+| Type       | Modifiers             | Default | Description              |
+| ---------- | --------------------- | ------- | ------------------------ |
+| Sizes      | `.ui-small`           | -       | The size of the element. |
+| Validation | `[data-invalid]`      | -       | Shows error styles.      |
+| Variants   | default, `.ui-filled` | default | The variant to use.      |
+
+#### Parts
+
+| Part              | Description                                |
+| ----------------- | ------------------------------------------ |
+| `label.ui-select` | Container element.                         |
+| `.ui-label`       | The label for the field.                   |
+| `.ui-field`       | The boxed select area.                     |
+| `<select>`        | A native select.                           |
+| `.ui-end-text`    | Supporting text displayed below the field. |
 
 ## Browser support
 

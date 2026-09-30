@@ -331,22 +331,35 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ## API
 
-### Classes
+### Drawer API
 
-| Type           | Modifiers                                                               | Default            | Description                                                                                                                   |
-| -------------- | ----------------------------------------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
-| Sides          | `.ui-inline-start`, `.ui-inline-end`,`.ui-block-start`, `.ui-block-end` | `.ui-inline-start` | The side it opens from.                                                                                                       |
-| Close behavior | `closedby="any"`, `closedby="closerequest"`,`closedby="none"`           | `closedby="any"`   | How the drawer is closed.                                                                                                     |
-| Backdrop       | `.ui-backdrop-transparent`                                              | -                  | Removes the backdrop blur.                                                                                                    |
-| Autofocus      | `autofocus`                                                             | -                  | Focuses the drawer container (or a specific element) when opened. Prevents focus from jumping to the first focusable element. |
+| Type           | Modifiers                                                                | Default            | Description                                                              |
+| -------------- | ------------------------------------------------------------------------ | ------------------ | ------------------------------------------------------------------------ |
+| Backdrop       | default, `.ui-backdrop-transparent`                                      | default            | The backdrop style.                                                      |
+| Close behavior | `[closedby]`                                                             | -                  | How the drawer can be closed. `"any"` also closes it on a click outside. |
+| Scroll lock    | `.ui-scroll-lock`                                                        | -                  | Locks page scroll while the drawer is open.                              |
+| Sides          | `.ui-block-end`, `.ui-block-start`, `.ui-inline-end`, `.ui-inline-start` | `.ui-inline-start` | The side it opens from.                                                  |
 
-### Children
+#### Parts
 
-| Class         | - | - | Description          |
-| ------------- | - | - | -------------------- |
-| `.ui-content` | - | - | Main content area.   |
-| `.ui-footer`  | - | - | Bottom action area.  |
-| `.ui-header`  | - | - | Top area for titles. |
+| Part               | Description                                                |
+| ------------------ | ---------------------------------------------------------- |
+| `dialog.ui-drawer` | Container element.                                         |
+| `.ui-header`       | The header. `DrawerHeader` renders it with a close button. |
+| `.ui-content`      | The scrollable content.                                    |
+| `.ui-footer`       | The footer. `DrawerFooter` renders it.                     |
+
+Add `autofocus` to the root, or to an element inside, to choose what gets focus when it opens.
+
+### Drawer header API
+
+#### Parts
+
+| Part         | Description        |
+| ------------ | ------------------ |
+| `.ui-header` | Container element. |
+| `<span>`     | The heading.       |
+| `<button>`   | Closes the drawer. |
 
 ## Browser support
 

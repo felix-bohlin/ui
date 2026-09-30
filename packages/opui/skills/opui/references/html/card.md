@@ -2,6 +2,32 @@
 
 The card is extremely versatile and can be used on its own, or as a building block for [accordions](https://open-props-ui.netlify.app/html/components/accordion.md), [dialogs](https://open-props-ui.netlify.app/html/components/dialog.md) and more.
 
+## Anatomy
+
+Overline
+
+## Headline
+
+Subhead
+
+Explain more about the topic shown in the headline and subhead through supporting text.
+
+- `.ui-card`
+
+  Container element.
+
+- `<hgroup>`
+
+  The card header.
+
+- `.ui-content`
+
+  The card content.
+
+- `.ui-actions`
+
+  A group of actions, such as buttons.
+
 ## Variants
 
 Change the card variant with the `.ui-text`, `.ui-outlined`, `.ui-tonal`, and `.ui-elevated` classes.
@@ -168,40 +194,23 @@ Align actions to the end with the `.ui-align-end` class.
 </div>
 ```
 
-## Anatomy
-
-Open Props UI include these complementary utility components to handle various use cases:
-
-1. Container
-2. `<hgroup>` (optional): a wrapper for the card header
-3. `.ui-content` (optional): a wrapper for the card content
-4. `.ui-actions` (optional): a wrapper that groups a set of buttons
-
-```html
-<div class="ui-card ui-elevated anatomy">
-  <hgroup>
-    <p>Overline</p>
-    <h2 class="ui-h3">Headline</h2>
-    <p>Subhead</p>
-  </hgroup>
-  <div class="ui-content">
-    Explain more about the topic shown in the headline and subhead through
-    supporting text.
-  </div>
-  <div class="ui-actions">
-    <button class="ui-button">Share</button
-    ><button class="ui-button">Learn more</button>
-  </div>
-</div>
-```
-
 ## API
 
-| Type      | Modifiers                                               | Default | Description                          |
-| --------- | ------------------------------------------------------- | ------- | ------------------------------------ |
-| Children  | `& > hgroup`, `& > .ui-content`, `& > .ui-actions`      | -       | Optional wrappers for child content. |
-| Variants  | `.ui-text`, `.ui-outlined`, `.ui-tonal`, `.ui-elevated` | -       | The variant to use.                  |
-| Alignment | `.ui-align-end`                                         | -       | Align actions to the end.            |
+### Card API
+
+| Type      | Modifiers                                               | Default | Description                |
+| --------- | ------------------------------------------------------- | ------- | -------------------------- |
+| Alignment | default, `.ui-actions.ui-align-end`                     | -       | Alignment for the actions. |
+| Variants  | `.ui-elevated`, `.ui-outlined`, `.ui-text`, `.ui-tonal` | -       | The variant to use.        |
+
+#### Parts
+
+| Part          | Description                          |
+| ------------- | ------------------------------------ |
+| `.ui-card`    | Container element.                   |
+| `<hgroup>`    | The card header.                     |
+| `.ui-content` | The card content.                    |
+| `.ui-actions` | A group of actions, such as buttons. |
 
 ## Browser support
 

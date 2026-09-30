@@ -1,5 +1,19 @@
 # Button
 
+## Anatomy
+
+- `.ui-button`
+
+  Container element.
+
+- `<svg>`
+
+  An optional icon.
+
+- `<span>`
+
+  The label.
+
 ## Variants
 
 Change the button variant with the `.ui-outlined`, `.ui-tonal`, and `.ui-filled` classes.
@@ -432,21 +446,26 @@ Add disabled styling with the `disabled` attribute or the `.ui-disabled` class.
 
 Is it a button? Is it an input? You can find the [docs for it here](https://open-props-ui.netlify.app/html/components/text-field.md#file) at least.
 
-## Anatomy
-
-1. Container
-2. Label text (optional)
-3. Icon (optional)
-
 ## API
 
-| Type     | Modifiers                                          | Default | Description                                                       |
-| -------- | -------------------------------------------------- | ------- | ----------------------------------------------------------------- |
-| Sizes    | `.ui-small`, default, `.ui-large`                  | -       | The size of the element.                                          |
-| Variants | default, `.ui-outlined`, `.ui-tonal`, `.ui-filled` | -       | The variant to use.                                               |
-| Colors   | `.ui-critical`, `.ui-primary`                      | -       | Color modifiers. Default is a neutral gray.                       |
-| Shape    | `.ui-rounded`                                      | -       | Fully rounded corners, a circle when icon-only.                   |
-| Hover    | `.ui-ripple`                                       | -       | A halo behind the button on hover instead of a background change. |
+### Button API
+
+| Type     | Modifiers                                 | Default | Description                                                       |
+| -------- | ----------------------------------------- | ------- | ----------------------------------------------------------------- |
+| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                                  |
+| Hover    | `.ui-ripple`                              | -       | A halo behind the button on hover instead of a background change. |
+| Shape    | `.ui-rounded`                             | -       | Fully rounded corners, a circle when icon-only.                   |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                                          |
+| State    | `[disabled]`                              | -       | Disables the button.                                              |
+| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                                               |
+
+#### Parts
+
+| Part         | Description        |
+| ------------ | ------------------ |
+| `.ui-button` | Container element. |
+| `<svg>`      | An optional icon.  |
+| `<span>`     | The label.         |
 
 ## Browser support
 

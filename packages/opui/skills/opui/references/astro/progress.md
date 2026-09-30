@@ -66,13 +66,25 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 ## API
 
-| Prop         | Type                               | Default     | Description                                                                          |
-| ------------ | ---------------------------------- | ----------- | ------------------------------------------------------------------------------------ |
-| `value`      | `number \| string`                 | -           | The current value of the progress bar.                                               |
-| `max`        | `number \| string`                 | -           | The maximum value of the progress bar.                                               |
-| `aria-busy`  | `"true" \| "false" \| boolean`     | -           | Indicates that the element or its content is being modified.                         |
-| `aria-label` | `string`                           | -           | Accessible label for the progress bar.                                               |
-| `variant`    | `'filled' \| 'default' \| 'tonal'` | `'default'` | Adjusts the progress bar background color for better contrast on different surfaces. |
+### Progress API
+
+| Prop               | Type                                      | Default | Description                                                                   |
+| ------------------ | ----------------------------------------- | ------- | ----------------------------------------------------------------------------- |
+| `aria-busy`        | `boolean`, `"true"`, `"false"`            | -       | Whether the progress is busy. Passed to the `<progress>`.                     |
+| `aria-describedby` | `string`                                  | -       | The id of an element that describes the progress. Passed to the `<progress>`. |
+| `aria-label`       | `string`                                  | -       | The accessible label. Passed to the `<progress>`.                             |
+| `id`               | `string`                                  | -       | The id of the `<progress>`.                                                   |
+| `max`              | `string`, `number`                        | -       | The maximum value.                                                            |
+| `value`            | `string`, `number`, `(number & string[])` | -       | The current value. Omit it for an indeterminate state.                        |
+| `variant`          | `"default"`, `"tonal"`, `"filled"`        | -       | The variant to use.                                                           |
+
+#### Slots
+
+| Slot      | Description                               |
+| --------- | ----------------------------------------- |
+| `default` | Fallback content inside the `<progress>`. |
+
+Other attributes also go to the `<progress>`.
 
 ## Installation
 

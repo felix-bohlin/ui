@@ -194,32 +194,39 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ## API
 
-### Props
+### Drawer API
 
-| Prop         | Type                                                            | Default          | Description                                                             |
-| ------------ | --------------------------------------------------------------- | ---------------- | ----------------------------------------------------------------------- |
-| `id`         | `string`                                                        | auto-generated   | Unique identifier. Defaults to a stable auto-generated id when omitted. |
-| `side`       | `"inline-start"`, `"inline-end"`,`"block-start"`, `"block-end"` | `"inline-start"` | The side it opens from.                                                 |
-| `backdrop`   | `"transparent"`, `"blurred"`                                    | `"blurred"`      | The backdrop style.                                                     |
-| `scrollLock` | `boolean`                                                       | `true`           | Whether to lock page scroll.                                            |
-| `class`      | `string`                                                        | -                | Optional CSS class.                                                     |
-| `closedby`   | `"any"`, `"closerequest"`, `"none"`                             | `"any"`          | How the drawer is closed.                                               |
+| Prop         | Type                                                             | Default          | Description                                                              |
+| ------------ | ---------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------------ |
+| `backdrop`   | `"transparent"`, `"blurred"`                                     | `"blurred"`      | The backdrop style.                                                      |
+| `closedby`   | `"none"`, `"any"`, `"closerequest"`                              | `"any"`          | How the drawer can be closed. `"any"` also closes it on a click outside. |
+| `id`         | `string`                                                         | -                | The id of the `<dialog>`. Generated when omitted.                        |
+| `scrollLock` | `boolean`                                                        | `true`           | Locks page scroll while the drawer is open.                              |
+| `side`       | `"inline-start"`, `"inline-end"`, `"block-start"`, `"block-end"` | `"inline-start"` | The side it opens from.                                                  |
 
-### DrawerHeader props
+#### Slots
 
-| Prop         | Type     | Default | Description               |
-| ------------ | -------- | ------- | ------------------------- |
-| `commandfor` | `string` | -       | The drawer `id` to close. |
-| `heading`    | `string` | -       | The drawer title.         |
+| Slot      | Description                                                |
+| --------- | ---------------------------------------------------------- |
+| `content` | The scrollable content.                                    |
+| `default` | Raw content placed directly in the drawer.                 |
+| `footer`  | The footer. `DrawerFooter` renders it.                     |
+| `header`  | The header. `DrawerHeader` renders it with a close button. |
 
-### Slots
+Attributes that aren't props go to the `<dialog>`.
 
-| Slot      | - | - | Description                                                     |
-| --------- | - | - | --------------------------------------------------------------- |
-| `content` | - | - | Main content area, wrapped in a `div` with a`ui-content` class. |
-| `default` | - | - | Unwrapped content.                                              |
-| `footer`  | - | - | Bottom area, e.g. a `DrawerFooter`.                             |
-| `header`  | - | - | Top area, e.g. a `DrawerHeader`.                                |
+### Drawer header API
+
+| Prop         | Type     | Default | Description                                                                                                            |
+| ------------ | -------- | ------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `commandfor` | `string` | -       | The id of the drawer to close with the `close` command. Without it, the button closes the nearest `<dialog>` on click. |
+| `heading`    | `string` | -       | The heading.                                                                                                           |
+
+#### Slots
+
+| Slot      | Description                                              |
+| --------- | -------------------------------------------------------- |
+| `default` | Content placed between the heading and the close button. |
 
 ## Browser support
 

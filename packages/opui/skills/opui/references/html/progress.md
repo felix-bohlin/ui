@@ -14,7 +14,7 @@ See also: [Spinner](https://open-props-ui.netlify.app/html/components/spinner.md
 
 ```html
 <div class="ui-progress">
-  <progress value="10" max="100"></progress>
+  <progress id="determinate-progress" value="10" max="100"></progress>
 </div>
 ```
 
@@ -54,11 +54,19 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 ## API
 
-| Type              | Modifiers                                               | Default | Description                                                     |
-| ----------------- | ------------------------------------------------------- | ------- | --------------------------------------------------------------- |
-| **Progress**      | `<div class="ui-progress"><progress>…</progress></div>` | -       | Wrapper div with the native HTML progress element inside.       |
-| **Indeterminate** | No `value` attribute                                    | -       | Display an indeterminate loading state.                         |
-| **Variant**       | `.ui-filled`, `.ui-default`, `.ui-tonal`                | -       | Modifiers on the wrapper div for different background surfaces. |
+### Progress API
+
+| Type     | Modifiers                                | Default | Description                                            |
+| -------- | ---------------------------------------- | ------- | ------------------------------------------------------ |
+| Value    | `progress[value]`                        | -       | The current value. Omit it for an indeterminate state. |
+| Variants | `.ui-default`, `.ui-filled`, `.ui-tonal` | -       | The variant to use.                                    |
+
+#### Parts
+
+| Part           | Description        |
+| -------------- | ------------------ |
+| `.ui-progress` | Container element. |
+| `<progress>`   | The progress bar.  |
 
 ## Installation
 

@@ -1,5 +1,49 @@
 # Textarea
 
+## Anatomy
+
+LabelDescription¢EURHeaderFooterSupporting text
+
+- `<Textarea>`
+
+  Container element.
+
+- `slot="label"`
+
+  The label for the field.
+
+- `slot="description"`
+
+  Description text displayed above the field.
+
+- `.ui-field`
+
+  The boxed textarea area.
+
+- `slot="header"`
+
+  Content above the textarea, inside the border, with a divider.
+
+- `slot="prefix"`
+
+  Content at the inline-start of the field, inside the border.
+
+- `<textarea>`
+
+  The textarea element.
+
+- `slot="suffix"`
+
+  Content at the inline-end of the field, inside the border.
+
+- `slot="footer"`
+
+  Content below the textarea, inside the border, with a divider.
+
+- `slot="end-text"`
+
+  Supporting text displayed below the field.
+
 ## Variants
 
 ```astro
@@ -207,23 +251,37 @@ import { Textarea } from "opui-css/astro"
 <Textarea label="Auto-fit" placeholder="Auto-fit" autoFit />
 ```
 
-## Anatomy
-
-1. `label.ui-textarea`: Container element
-2. `.ui-label`: Field label element
-3. `.ui-field`: The boxed input area
-4. `.ui-header`: Optional inside-border header strip (with divider)
-5. `.ui-prefix`: Optional inline-start affix
-6. `<textarea>`: Textarea element
-7. `.ui-suffix`: Optional inline-end affix
-8. `.ui-footer`: Optional inside-border footer strip (with divider)
-9. `.ui-end-text`: Supporting text element
-
 ## API
 
-### Text field API
-
 ### Textarea API
+
+| Prop          | Type      | Default | Description                                                                 |
+| ------------- | --------- | ------- | --------------------------------------------------------------------------- |
+| `autoFit`     | `boolean` | `false` | Changes height depending on its content.                                    |
+| `description` | `string`  | -       | Description text displayed above the field.                                 |
+| `endText`     | `string`  | -       | Supporting text displayed below the field.                                  |
+| `error`       | `boolean` | `false` | Shows error styles.                                                         |
+| `filled`      | `boolean` | `false` | The variant to use.                                                         |
+| `id`          | `string`  | -       | The id of the `<textarea>`.                                                 |
+| `label`       | `string`  | -       | The label for the field.                                                    |
+| `small`       | `boolean` | `false` | The size of the element.                                                    |
+| `spread`      | `boolean` | `false` | Pushes the label and description to one side and the textarea to the other. |
+
+#### Slots
+
+| Slot              | Description                                                    |
+| ----------------- | -------------------------------------------------------------- |
+| `default`         | Extra content inside the root.                                 |
+| `description`     | Description text displayed above the field.                    |
+| `end-text`        | Supporting text displayed below the field.                     |
+| `footer`          | Content below the textarea, inside the border, with a divider. |
+| `header`          | Content above the textarea, inside the border, with a divider. |
+| `label`           | The label for the field.                                       |
+| `prefix`          | Content at the inline-start of the field, inside the border.   |
+| `suffix`          | Content at the inline-end of the field, inside the border.     |
+| `supporting-text` | Legacy alias of the `end-text` slot.                           |
+
+Textarea attributes (`cols`, `disabled`, `maxlength`, `minlength`, `name`, `placeholder`, `required`, `rows`, `value`) go to the `<textarea>`. Other attributes go to the root `<label>`.
 
 ## Browser support
 

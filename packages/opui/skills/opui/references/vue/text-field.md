@@ -1,5 +1,49 @@
 # Text field
 
+## Anatomy
+
+LabelDescription¢EURHeaderFooterSupporting text
+
+- `<TextField>`
+
+  Container element.
+
+- `v-slot:label`
+
+  The label for the field.
+
+- `v-slot:description`
+
+  Description text displayed above the field.
+
+- `.ui-field`
+
+  The boxed input area.
+
+- `v-slot:header`
+
+  Content above the input, inside the border, with a divider.
+
+- `v-slot:prefix`
+
+  Content at the inline-start of the field, inside the border.
+
+- `v-model`
+
+  The input element.
+
+- `v-slot:suffix`
+
+  Content at the inline-end of the field, inside the border.
+
+- `v-slot:footer`
+
+  Content below the input, inside the border, with a divider.
+
+- `v-slot:end-text`
+
+  Supporting text displayed below the field.
+
 ## Variants
 
 ```vue
@@ -264,31 +308,45 @@ import { TextField } from "opui-css/vue"
   <div class="example-column">
     <label class="ui-text-field input-type-field">
       <span class="ui-label">Color</span>
-      <input type="color" placeholder="Color" />
+      <span class="ui-field">
+        <input type="color" placeholder="Color" />
+      </span>
     </label>
     <label class="ui-text-field input-type-field">
       <span class="ui-label">Email</span>
-      <input type="email" placeholder="name@email.com" />
+      <span class="ui-field">
+        <input type="email" placeholder="name@email.com" />
+      </span>
     </label>
     <label class="ui-text-field input-type-field">
       <span class="ui-label">Password</span>
-      <input type="password" placeholder="Password" />
+      <span class="ui-field">
+        <input type="password" placeholder="Password" />
+      </span>
     </label>
     <label class="ui-text-field input-type-field">
       <span class="ui-label">Search</span>
-      <input type="search" placeholder="Search" />
+      <span class="ui-field">
+        <input type="search" placeholder="Search" />
+      </span>
     </label>
     <label class="ui-text-field input-type-field">
       <span class="ui-label">Phone</span>
-      <input type="tel" placeholder="(666) 666-1337" />
+      <span class="ui-field">
+        <input type="tel" placeholder="(666) 666-1337" />
+      </span>
     </label>
     <label class="ui-text-field input-type-field">
       <span class="ui-label">Text</span>
-      <input type="text" placeholder="Text" />
+      <span class="ui-field">
+        <input type="text" placeholder="Text" />
+      </span>
     </label>
     <label class="ui-text-field input-type-field">
       <span class="ui-label">URL</span>
-      <input type="url" placeholder="https://yoursite.com" />
+      <span class="ui-field">
+        <input type="url" placeholder="https://yoursite.com" />
+      </span>
     </label>
   </div>
 
@@ -296,23 +354,33 @@ import { TextField } from "opui-css/vue"
   <div class="example-column">
     <label class="ui-text-field input-type-field">
       <span class="ui-label">Date</span>
-      <input type="date" placeholder="Date" />
+      <span class="ui-field">
+        <input type="date" placeholder="Date" />
+      </span>
     </label>
     <label class="ui-text-field input-type-field">
       <span class="ui-label">Datetime local</span>
-      <input type="datetime-local" placeholder="Datetime local" />
+      <span class="ui-field">
+        <input type="datetime-local" placeholder="Datetime local" />
+      </span>
     </label>
     <label class="ui-text-field input-type-field">
       <span class="ui-label">Month</span>
-      <input type="month" placeholder="Month" />
+      <span class="ui-field">
+        <input type="month" placeholder="Month" />
+      </span>
     </label>
     <label class="ui-text-field input-type-field">
       <span class="ui-label">Time</span>
-      <input type="time" placeholder="Time" />
+      <span class="ui-field">
+        <input type="time" placeholder="Time" />
+      </span>
     </label>
     <label class="ui-text-field input-type-field">
       <span class="ui-label">Week</span>
-      <input type="week" placeholder="Week" />
+      <span class="ui-field">
+        <input type="week" placeholder="Week" />
+      </span>
     </label>
   </div>
 </template>
@@ -434,23 +502,49 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 - [Don't use `<input type="number">`](#numeric-vs-input-type-number) unless your user research tells you to.
 
-## Anatomy
-
-1. `label.ui-text-field`: Container element
-2. `.ui-label`: Field label element
-3. `.ui-field`: The boxed input area
-4. `.ui-header`: Optional inside-border header strip (with divider)
-5. `.ui-prefix`: Optional inline-start affix
-6. `<input>`: Input element
-7. `.ui-suffix`: Optional inline-end affix
-8. `.ui-footer`: Optional inside-border footer strip (with divider)
-9. `.ui-end-text`: Supporting text element
-
 ## API
 
 ### Text field API
 
+| Prop          | Type                  | Default  | Description                                                               |
+| ------------- | --------------------- | -------- | ------------------------------------------------------------------------- |
+| `autoFit`     | `boolean`             | `false`  | Changes size depending on its content.                                    |
+| `description` | `string`              | -        | Description text displayed above the field.                               |
+| `endText`     | `string`              | -        | Supporting text displayed below the field.                                |
+| `error`       | `boolean`             | `false`  | Shows error styles.                                                       |
+| `filled`      | `boolean`             | `false`  | The variant to use.                                                       |
+| `id`          | `string`              | -        | The id of the `<input>`.                                                  |
+| `label`       | `string`              | -        | The label for the field.                                                  |
+| `small`       | `boolean`             | `false`  | The size of the element.                                                  |
+| `spread`      | `boolean`             | `false`  | Pushes the label and description to one side and the input to the other.  |
+| `startText`   | `string`              | -        | Legacy alias of `description`.                                            |
+| `type`        | `"numeric"`, `string` | `"text"` | The input type. `"numeric"` renders a text input with a numeric keyboard. |
+| `v-model`     | `string`, `number`    | -        | The input value.                                                          |
+
+#### Slots
+
+| Slot              | Description                                                  |
+| ----------------- | ------------------------------------------------------------ |
+| `default`         | Extra content inside the root, such as a `<datalist>`.       |
+| `description`     | Description text displayed above the field.                  |
+| `end-text`        | Supporting text displayed below the field.                   |
+| `footer`          | Content below the input, inside the border, with a divider.  |
+| `header`          | Content above the input, inside the border, with a divider.  |
+| `label`           | The label for the field.                                     |
+| `prefix`          | Content at the inline-start of the field, inside the border. |
+| `suffix`          | Content at the inline-end of the field, inside the border.   |
+| `supporting-text` | Legacy alias of the `end-text` slot.                         |
+
+Attributes that aren't props, such as `placeholder` or `disabled`, go to the `<input>`.
+
 ### Text input API
+
+| Type     | Modifiers             | Default | Description                                                                                                                                                       |
+| -------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Wrapper  | `.ui-field`           | -       | The `<input>` must be wrapped in a `<span class="ui-field">` element. Border, background, and focus styling are inherited from `.ui-field`, not the input itself. |
+| Auto-fit | `.ui-auto-fit`        | -       | When enabled, the element changes size depending on its content.                                                                                                  |
+| Sizes    | `.ui-small`           | -       | The size of the element.                                                                                                                                          |
+| Variants | default, `.ui-filled` | -       | The variant to use.                                                                                                                                               |
 
 ## Browser support
 

@@ -1,5 +1,37 @@
 # List
 
+## Anatomy
+
+- Headline
+
+  Supporting text
+
+  100+
+
+* `<li>`
+
+  The list item.
+
+* `.ui-start`
+
+  Optional content at the start, such as an icon or avatar.
+
+* `.ui-text`
+
+  The text content.
+
+* `<p>`
+
+  The headline, the first paragraph.
+
+* `<p>`
+
+  Supporting text, the second paragraph.
+
+* `.ui-end`
+
+  Optional content at the end, such as a value or an action.
+
 ```html
 <ul class="ui-list">
   <li>
@@ -206,7 +238,12 @@
     <label class="ui-radio" for="radio-all-1-html">
       <div class="ui-text">Radio 1</div>
       <div class="ui-end">
-        <input type="radio" id="radio-all-1-html" name="radio-group-all-html" />
+        <input
+          type="radio"
+          id="radio-all-1-html"
+          value="1"
+          name="default-radio-group-all"
+        />
       </div>
     </label>
   </li>
@@ -214,7 +251,12 @@
     <label class="ui-radio" for="radio-all-2-html">
       <div class="ui-text">Radio 2</div>
       <div class="ui-end">
-        <input type="radio" id="radio-all-2-html" name="radio-group-all-html" />
+        <input
+          type="radio"
+          id="radio-all-2-html"
+          value="2"
+          name="default-radio-group-all"
+        />
       </div>
     </label>
   </li>
@@ -315,7 +357,7 @@ Wrap the elements of your List item with a `a`, `button`or `label` depending on 
 ```html
 <ul class="ui-list">
   <li>
-    <button type="button">
+    <button>
       <div class="ui-text">
         <p>Button list item</p>
       </div>
@@ -334,11 +376,7 @@ Wrap the elements of your List item with a `a`, `button`or `label` depending on 
         <p>Checkbox list item</p>
       </div>
       <div class="ui-end">
-        <input
-          type="checkbox"
-          class="ui-checkbox"
-          id="clickable-checkbox-html"
-        />
+        <input type="checkbox" id="clickable-checkbox-html" />
       </div>
     </label>
   </li>
@@ -355,7 +393,7 @@ Add `aria-selected="true"` to the `li`.
     <a href="#">
       <div class="ui-text">
         <p>Selected item</p>
-        <p>This item has aria-selected="true" applied to the li</p>
+        <p>This item has aria-selected="true" applied to the ListItem</p>
       </div>
     </a>
   </li>
@@ -652,7 +690,8 @@ Read more: [Radio](https://open-props-ui.netlify.app/html/components/radio.md)
       <div class="ui-end">
         <input
           id="radio-example-1-html"
-          name="radio-example-group-html"
+          value="1"
+          name="radio-example-group"
           type="radio"
         />
       </div>
@@ -664,7 +703,8 @@ Read more: [Radio](https://open-props-ui.netlify.app/html/components/radio.md)
       <div class="ui-end">
         <input
           id="radio-example-2-html"
-          name="radio-example-group-html"
+          value="2"
+          name="radio-example-group"
           type="radio"
         />
       </div>
@@ -847,58 +887,44 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 </ul>
 ```
 
-## Anatomy
-
-1. Container: `ul.ui-list`
-2. List item: `li`
-3. Content wrapper (optional): `a`, `button`, `label`
-4. Start content (optional): `.ui-start` > `svg`, `img`, `video`
-5. Text content: `.ui-text` > `p`, `p + p`
-6. End content (optional): `.ui-end` > `svg`, `p`, `button`, `a`, `input`
-
-```html
-<ul class="ui-list anatomy">
-  <li class="anatomy">
-    <div class="ui-start">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-      >
-        <path
-          fill="currentColor"
-          d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
-        ></path>
-      </svg>
-    </div>
-    <div class="ui-text">
-      <p>Headline</p>
-      <p>Supporting text</p>
-    </div>
-    <div class="ui-end"><div>100+</div></div>
-  </li>
-</ul>
-```
-
 ## API
 
-### List
+### List API
 
-| Type       | Modifiers                                     | Default | Description                                          |
-| ---------- | --------------------------------------------- | ------- | ---------------------------------------------------- |
-| Dense      | `.ui-dense`                                   | -       | When enabled list appears tighter packed.            |
-| Gutterless | `.ui-gutterless`                              | -       | When enabled list inline padding is removed.         |
-| Bordered   | `.ui-bordered`                                | -       | When enabled a border is rendered on all list items. |
-| Variants   | `.ui-default`, `.ui-tonal`, `.ui-transparent` | -       | Background color variants.                           |
+| Type       | Modifiers                                     | Default | Description                       |
+| ---------- | --------------------------------------------- | ------- | --------------------------------- |
+| Bordered   | `.ui-bordered`                                | -       | Adds a border between list items. |
+| Dense      | `.ui-dense`                                   | -       | Packs the list tighter.           |
+| Gutterless | `.ui-gutterless`                              | -       | Removes the inline padding.       |
+| Variants   | `.ui-default`, `.ui-tonal`, `.ui-transparent` | -       | The background color variant.     |
 
-### List item
+#### Parts
 
-| Type       | Modifiers                                         | Default | Description                                                              |
-| ---------- | ------------------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| Main parts | `li > .ui-start`, `li > .ui-text`, `li > .ui-end` | -       | Building blocks in List item.                                            |
-| Inset      | `.ui-inset`                                       | -       | When enabled a list item without a start icon aligns with items that do. |
-| Border top | `.ui-border-top`                                  | -       | When enabled the list item will get a top border.                        |
+| Part         | Description        |
+| ------------ | ------------------ |
+| `ul.ui-list` | Container element. |
+| `<li>`       | A list item.       |
+
+### List item API
+
+| Type       | Modifiers                                                         | Default | Description                                                       |
+| ---------- | ----------------------------------------------------------------- | ------- | ----------------------------------------------------------------- |
+| Border top | `.ui-border-top`                                                  | -       | Adds a border above the item.                                     |
+| Controls   | default, `label.ui-checkbox`, `label.ui-radio`, `label.ui-switch` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. |
+| Inset      | `.ui-inset`                                                       | -       | Aligns the text with items that have start content.               |
+
+#### Parts
+
+| Part        | Description                                                |
+| ----------- | ---------------------------------------------------------- |
+| `<li>`      | The list item.                                             |
+| `.ui-start` | Optional content at the start, such as an icon or avatar.  |
+| `.ui-text`  | The text content.                                          |
+| `<p>`       | The headline, the first paragraph.                         |
+| `<p>`       | Supporting text, the second paragraph.                     |
+| `.ui-end`   | Optional content at the end, such as a value or an action. |
+
+Wrap the content in an `<a>`, `<button>` or `<label>` to make the item interactive.
 
 ## Browser support
 

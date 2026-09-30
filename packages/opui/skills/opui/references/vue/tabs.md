@@ -2,6 +2,28 @@
 
 The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' `:checked` state.
 
+## Anatomy
+
+Profile settings and information.
+
+General account settings.
+
+- `<Tabs>`
+
+  Container element.
+
+- `<TabsItem>`
+
+  A visually hidden radio input that holds a tab's state.
+
+- `<TabsTab>`
+
+  A tab.
+
+- `<TabsPanel>`
+
+  The panel of the selected tab.
+
 ## Basics
 
 ```vue
@@ -11,7 +33,7 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 
 
 <template>
-  <Tabs>
+  <Tabs name="basic-tabs">
     <TabsItem open>
       <TabsTab>Profile</TabsTab>
       <TabsPanel>Profile settings and information.</TabsPanel>
@@ -57,38 +79,57 @@ The content area associated with a tab:
 
 ## API
 
-### Tabs
+### Tabs API
 
-The main container for the tab items.
+| Prop   | Type     | Default | Description                                                |
+| ------ | -------- | ------- | ---------------------------------------------------------- |
+| `name` | `string` | -       | The name shared by the tab inputs. Generated when omitted. |
 
-| Prop    | Type     | Default       | Description                                                      |
-| ------- | -------- | ------------- | ---------------------------------------------------------------- |
-| `class` | `string` | -             | Additional class names.                                          |
-| `name`  | `string` | `"tabs-XXXX"` | A unique name for the exclusive group. Shared with all children. |
+#### Slots
 
-### Tabs.Item
+| Slot      | Description    |
+| --------- | -------------- |
+| `default` | The tab items. |
 
-A logical grouping for a tab trigger and its content. Handles state synchronization.
+### Tabs item API
 
-| Prop   | Type      | Default | Description                           |
-| ------ | --------- | ------- | ------------------------------------- |
-| `open` | `boolean` | `false` | Whether this tab is initially active. |
+| Prop      | Type      | Default | Description                                  |
+| --------- | --------- | ------- | -------------------------------------------- |
+| `name`    | `string`  | -       | Overrides the name shared by the tab inputs. |
+| `open`    | `boolean` | `false` | Selects the tab initially.                   |
+| `panelId` | `string`  | -       | The id of the panel. Generated when omitted. |
+| `tabId`   | `string`  | -       | The id of the input. Generated when omitted. |
 
-### Tabs.Tab
+#### Slots
 
-The visible trigger for the tab.
+| Slot      | Description            |
+| --------- | ---------------------- |
+| `default` | The tab and the panel. |
 
-| Prop    | Type     | Default | Description          |
-| ------- | -------- | ------- | -------------------- |
-| `class` | `string` | -       | Optional class name. |
+### Tabs tab API
 
-### Tabs.Panel
+| Prop    | Type     | Default | Description                                     |
+| ------- | -------- | ------- | ----------------------------------------------- |
+| `tabId` | `string` | -       | The id of the input it labels. Set by the item. |
 
-The content area for the tab.
+#### Slots
 
-| Prop    | Type     | Default | Description          |
-| ------- | -------- | ------- | -------------------- |
-| `class` | `string` | -       | Optional class name. |
+| Slot      | Description    |
+| --------- | -------------- |
+| `default` | The tab label. |
+
+### Tabs panel API
+
+| Prop      | Type     | Default | Description                                              |
+| --------- | -------- | ------- | -------------------------------------------------------- |
+| `panelId` | `string` | -       | The id of the panel. Set by the item.                    |
+| `tabId`   | `string` | -       | The id of the tab input that labels it. Set by the item. |
+
+#### Slots
+
+| Slot      | Description        |
+| --------- | ------------------ |
+| `default` | The panel content. |
 
 ## Browser support
 

@@ -2,6 +2,26 @@
 
 Chips are compact elements that represent an input, attribute, or action.
 
+## Anatomy
+
+Chip
+
+- `.ui-chip`
+
+  Container element. Can be a `<div>`, `<a>` or `<button>`.
+
+- `<svg>`
+
+  Optional content at the start, such as an icon.
+
+- `.ui-text`
+
+  The label.
+
+- `<svg>`
+
+  Optional content at the end, such as an icon.
+
 ## Variants
 
 The Chip has two variants: tonal (default) and `.ui-outlined`.
@@ -125,17 +145,17 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
 ## Sizes
 
 ```html
-<div class="ui-chip ui-small">
+<div class="ui-chip ui-tonal ui-small">
   <span class="ui-text">Small</span>
 </div>
 
 
-<div class="ui-chip">
+<div class="ui-chip ui-tonal">
   <span class="ui-text">Default</span>
 </div>
 
 
-<div class="ui-chip ui-multiline" style="max-width: 30ch">
+<div class="ui-chip ui-tonal ui-multiline" style="max-width: 30ch">
   <span class="ui-text"
     >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
     sodales.</span
@@ -143,31 +163,24 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
 </div>
 ```
 
-## Anatomy
-
-1\. Container: `div`, `a` or `button` with`.ui-chip` class\
-2\. Text: `.ui-text` wrapper\
-3\. Icon (optional): `<svg>` element
-
-```html
-<div class="ui-chip ui-tonal anatomy">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-    <path
-      fill="currentColor"
-      d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
-    ></path></svg
-  ><span class="ui-text">Chip example</span>
-</div>
-```
-
 ## API
 
-| Type      | Modifiers                                 | Default     | Description              |
-| --------- | ----------------------------------------- | ----------- | ------------------------ |
-| Container | `.ui-chip`, `a.ui-chip`, `button.ui-chip` | -           | Container element type.  |
-| Children  | `& > .ui-text`, `& > svg`                 | -           | Optional child content.  |
-| Sizes     | `.ui-small`, default, `.ui-multiline`     | -           | The size of the element. |
-| Variants  | `.ui-tonal`, `.ui-outlined`               | `.ui-tonal` | The variant to use.      |
+### Chip API
+
+| Type     | Modifiers                   | Default     | Description                            |
+| -------- | --------------------------- | ----------- | -------------------------------------- |
+| Layout   | `.ui-multiline`             | -           | Lets the label wrap to multiple lines. |
+| Sizes    | `.ui-small`                 | -           | The size of the element.               |
+| Variants | `.ui-outlined`, `.ui-tonal` | `.ui-tonal` | The variant to use.                    |
+
+#### Parts
+
+| Part       | Description                                               |
+| ---------- | --------------------------------------------------------- |
+| `.ui-chip` | Container element. Can be a `<div>`, `<a>` or `<button>`. |
+| `<svg>`    | Optional content at the start, such as an icon.           |
+| `.ui-text` | The label.                                                |
+| `<svg>`    | Optional content at the end, such as an icon.             |
 
 ## Browser support
 

@@ -37,9 +37,11 @@ Primary
 
 ## API
 
-| Prop      | Type                               | Default | Description                        |
-| --------- | ---------------------------------- | ------- | ---------------------------------- |
-| `variant` | `"tonal" \| "filled" \| "primary"` | -       | The visual variant of the divider. |
+### Divider API
+
+| Prop      | Type                               | Default | Description         |
+| --------- | ---------------------------------- | ------- | ------------------- |
+| `variant` | `"tonal"`, `"primary"`, `"filled"` | -       | The variant to use. |
 
 ## Installation
 

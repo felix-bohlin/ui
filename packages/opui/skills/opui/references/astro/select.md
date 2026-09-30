@@ -2,6 +2,50 @@
 
 Leverages the [List component](https://open-props-ui.netlify.app/astro/components/list.md) to provide markup for the Select popover.
 
+## Anatomy
+
+LabelDescriptionOption one (1)¢EURHeaderFooterSupporting text
+
+- `<Select>`
+
+  Container element.
+
+- `slot="label"`
+
+  The label for the field.
+
+- `slot="description"`
+
+  Description text displayed above the field.
+
+- `.ui-field`
+
+  The boxed select area.
+
+- `slot="header"`
+
+  Content above the select, inside the border, with a divider.
+
+- `slot="prefix"`
+
+  Content at the inline-start of the field, inside the border.
+
+- `<select>`
+
+  The select. Its options are in a popover list.
+
+- `slot="suffix"`
+
+  Content at the inline-end of the field, inside the border.
+
+- `slot="footer"`
+
+  Content below the select, inside the border, with a divider.
+
+- `slot="end-text"`
+
+  Supporting text displayed below the field.
+
 ## Variants
 
 ```astro
@@ -274,8 +318,8 @@ import { ClassicSelect } from "opui-css/astro"
 
 <ClassicSelect label="Label">
   <option value="">-</option>
-  <option>Option</option>
-  <option>Option</option>
+  <option>Option 1</option>
+  <option>Option 2</option>
 </ClassicSelect>
 
 
@@ -286,46 +330,57 @@ import { ClassicSelect } from "opui-css/astro"
 </ClassicSelect>
 ```
 
-## Anatomy
-
-1. Select container: `<select>`
-2. Select button: `<button>`
-3. Select button selected option: `<selectedcontent>`
-4. Select button arrow
-5. Popover list: `.ui-list`
-6. List option/s: `<option>`
-7. List option group/s (optional): `<optgroup>`
-
 ## API
 
-| Prop          | Type                     | Default      | Description                                                    |
-| ------------- | ------------------------ | ------------ | -------------------------------------------------------------- |
-| `dense`       | `boolean`                | `false`      | Select dense state.                                            |
-| `disabled`    | `boolean`                | -            | Select disabled state.                                         |
-| `description` | `string`                 | -            | Description text displayed above the select.                   |
-| `endText`     | `string`                 | -            | Supporting text displayed below the select.                    |
-| `error`       | `boolean`                | -            | Select error state. Sets `[data-invalid]` on the root element. |
-| `items`       | `Item[]`                 | `[]`         | An array of objects with `text` and `value` properties.        |
-| `label`       | `string`                 | -            | The label for the select.                                      |
-| `required`    | `boolean`                | -            | Select required state.                                         |
-| `size`        | `"small"`                | -            | The size of the select.                                        |
-| `spread`      | `boolean`                | `false`      | Spreads the label/description and select to opposite ends.     |
-| `variant`     | `"outlined" \| "filled"` | `"outlined"` | The visual variant of the select.                              |
+### Select API
 
-### Slots
+| Prop          | Type                     | Default      | Description                                                               |
+| ------------- | ------------------------ | ------------ | ------------------------------------------------------------------------- |
+| `dense`       | `boolean`                | `false`      | Packs the options tighter.                                                |
+| `description` | `string`                 | -            | Description text displayed above the field.                               |
+| `endText`     | `string`                 | -            | Supporting text displayed below the field.                                |
+| `error`       | `boolean`                | `false`      | Shows error styles.                                                       |
+| `id`          | `string`                 | -            | The id of the `<select>`.                                                 |
+| `items`       | `Item[]`                 | `[]`         | The options, as `{ text, value }` objects.                                |
+| `label`       | `string`                 | -            | The label for the field.                                                  |
+| `size`        | `"small"`                | -            | The size of the element.                                                  |
+| `spread`      | `boolean`                | `false`      | Pushes the label and description to one side and the select to the other. |
+| `variant`     | `"outlined"`, `"filled"` | `"outlined"` | The variant to use.                                                       |
 
-| Slot          | Description                                                               |
-| ------------- | ------------------------------------------------------------------------- |
-| `default`     | Alternative way to define options (using `<option>` elements).            |
-| `label`       | Slot for the label element.                                               |
-| `description` | Slot for the description (start text) element, displayed above the field. |
-| `prefix`      | Content placed at the inline-start of the field, inside the border.       |
-| `suffix`      | Content placed at the inline-end of the field, inside the border.         |
-| `header`      | Content placed above the select, inside the border, with a divider.       |
-| `footer`      | Content placed below the select, inside the border, with a divider.       |
-| `end-text`    | Slot for the supporting text (end text) element.                          |
+#### Slots
+
+| Slot          | Description                                                  |
+| ------------- | ------------------------------------------------------------ |
+| `default`     | Extra `<option>` and `<optgroup>` elements.                  |
+| `description` | Description text displayed above the field.                  |
+| `end-text`    | Supporting text displayed below the field.                   |
+| `footer`      | Content below the select, inside the border, with a divider. |
+| `header`      | Content above the select, inside the border, with a divider. |
+| `label`       | The label for the field.                                     |
+| `prefix`      | Content at the inline-start of the field, inside the border. |
+| `suffix`      | Content at the inline-end of the field, inside the border.   |
+
+Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to the `<select>`.
 
 ### Classic Select API
+
+| Prop      | Type                     | Default      | Description                                       |
+| --------- | ------------------------ | ------------ | ------------------------------------------------- |
+| `endText` | `string`                 | -            | Supporting text displayed below the field.        |
+| `error`   | `boolean`                | `false`      | Shows error styles.                               |
+| `id`      | `string`                 | -            | The id of the `<select>`. Generated when omitted. |
+| `items`   | `Item[]`                 | `[]`         | The options, as `{ text, value }` objects.        |
+| `label`   | `string`                 | -            | The label for the field.                          |
+| `size`    | `"small"`                | -            | The size of the element.                          |
+| `variant` | `"outlined"`, `"filled"` | `"outlined"` | The variant to use.                               |
+
+#### Slots
+
+| Slot      | Description                                 |
+| --------- | ------------------------------------------- |
+| `default` | Extra `<option>` and `<optgroup>` elements. |
+
+Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to the `<select>`.
 
 ## Browser support
 

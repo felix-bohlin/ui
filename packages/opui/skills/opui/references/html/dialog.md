@@ -37,8 +37,11 @@ In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/
     <h2 id="dialog-heading" class="ui-h4">Are you sure?</h2>
   </hgroup>
   <div class="ui-content">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-    nulla sit amet porttitor rhoncus.
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
+      nulla sit amet porttitor rhoncus. Lorem ipsum dolor sit amet, consectetur
+      adipiscing elit. Vivamus sodales, nulla sit amet porttitor rhoncus.
+    </p>
   </div>
   <div class="ui-actions">
     <button
@@ -90,23 +93,23 @@ You can use it like this: `<dialog closedby="">` and give it the following value
     <h2 class="ui-h4">How to close</h2>
   </hgroup>
   <div class="ui-content">
-    <div class="ui-fieldset">
-      <p class="ui-legend">Choose a closing behavior:</p>
+    <fieldset class="ui-fieldset">
+      <legend>Choose a closing behavior:</legend>
       <div class="ui-field-group" role="group">
         <label class="ui-radio">
-          <input type="radio" name="closedby-demo-html" value="any" checked />
-          <span>any</span>
+          <input type="radio" name="closedby-demo" value="any" checked />
+          <span class="ui-label">any</span>
         </label>
         <label class="ui-radio">
-          <input type="radio" name="closedby-demo-html" value="closerequest" />
-          <span>closerequest</span>
+          <input type="radio" name="closedby-demo" value="closerequest" />
+          <span class="ui-label">closerequest</span>
         </label>
         <label class="ui-radio">
-          <input type="radio" name="closedby-demo-html" value="none" />
-          <span>none</span>
+          <input type="radio" name="closedby-demo" value="none" />
+          <span class="ui-label">none</span>
         </label>
       </div>
-    </div>
+    </fieldset>
   </div>
   <div class="ui-actions">
     <button
@@ -121,7 +124,7 @@ You can use it like this: `<dialog closedby="">` and give it the following value
 
 
 <script>
-  const radios = document.querySelectorAll('input[name="closedby-demo-html"]')
+  const radios = document.querySelectorAll('input[name="closedby-demo"]')
 
 
   radios.forEach((radio) => {
@@ -165,10 +168,23 @@ Source: [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/
 
 ## API
 
-| Type          | Modifiers                        | Default  | Description                                   |
-| ------------- | -------------------------------- | -------- | --------------------------------------------- |
-| **Styles**    | `.ui-dialog.ui-card.ui-elevated` | Included | The dialog uses card styles by default.       |
-| **Closed by** | `closedby` attribute             | -        | The attribute used to control close behavior. |
+### Dialog API
+
+| Type           | Modifiers                           | Default | Description                                                              |
+| -------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------ |
+| Alignment      | default, `.ui-actions.ui-align-end` | -       | Alignment for the actions.                                               |
+| Close behavior | `[closedby]`                        | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
+
+#### Parts
+
+| Part               | Description                          |
+| ------------------ | ------------------------------------ |
+| `dialog.ui-dialog` | Container element.                   |
+| `<hgroup>`         | The dialog header.                   |
+| `.ui-content`      | The dialog content.                  |
+| `.ui-actions`      | A group of actions, such as buttons. |
+
+Add `.ui-card` and `.ui-elevated` to the root for card styles.
 
 ## Browser support
 

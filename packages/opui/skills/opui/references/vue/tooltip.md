@@ -153,12 +153,21 @@ import { Button, Tooltip } from "opui-css/vue"
 
 ## API
 
-| Prop        | Type      | Default         | Description                                                                                                                                             |
-| ----------- | --------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `alignment` | `string`  | `"block-start"` | Any valid `position-area` value. Controls where the tooltip is placed relative to the trigger.                                                          |
-| `arrow`     | `boolean` | `false`         | When `true`, renders an arrow pointing from the tooltip toward the trigger. The arrow flips automatically with the tooltip via`position-try-fallbacks`. |
-| `id`        | `string`  | auto-generated  | Identifier used to wire `interestfor` on the trigger to the floating element.                                                                           |
-| `label`     | `string`  | —               | Plain-text tooltip content. For richer markup, use the `content` slot instead.                                                                          |
+### Tooltip API
+
+| Prop        | Type      | Default         | Description                                                               |
+| ----------- | --------- | --------------- | ------------------------------------------------------------------------- |
+| `alignment` | `string`  | `"block-start"` | Any valid `position-area` value. Controls where the tooltip is placed.    |
+| `arrow`     | `boolean` | `false`         | Adds an arrow that points to the trigger.                                 |
+| `id`        | `string`  | -               | The id of the tooltip. Add `interestfor` with the same id to the trigger. |
+| `label`     | `string`  | -               | The tooltip, a `popover="hint"`.                                          |
+
+#### Slots
+
+| Slot      | Description                                            |
+| --------- | ------------------------------------------------------ |
+| `content` | The tooltip, a `popover="hint"`.                       |
+| `default` | The trigger that shows the tooltip on hover and focus. |
 
 ## Browser support
 

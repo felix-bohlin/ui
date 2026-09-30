@@ -2,9 +2,19 @@
 
 Groups related buttons by wrapping them with `class="ui-button-group"` and `role="group"`.
 
-- Button groups should consist of 2-5 buttons.
-- Don't allow them to wrap onto a new line.
-- If an icon is used without label text make sure the button communicates clearly what it does.
+## Anatomy
+
+- `.ui-button-group`
+
+  Container element.
+
+- `& > button`
+
+  The buttons.
+
+* Button groups should consist of 2-5 buttons.
+* Don't allow them to wrap onto a new line.
+* If an icon is used without label text make sure the button communicates clearly what it does.
 
 Button group or Toggle group?
 
@@ -24,24 +34,24 @@ Change the appearance of the entire group with the `.ui-outlined`, `.ui-tonal`, 
 </div>
 
 
-<div role="group" class="ui-button-group">
-  <button class="ui-button ui-outlined">Outlined</button>
-  <button class="ui-button ui-outlined">Outlined</button>
-  <button class="ui-button ui-outlined">Outlined</button>
+<div role="group" class="ui-button-group ui-outlined">
+  <button class="ui-button">Outlined</button>
+  <button class="ui-button">Outlined</button>
+  <button class="ui-button">Outlined</button>
 </div>
 
 
-<div role="group" class="ui-button-group">
-  <button class="ui-button ui-tonal">Tonal</button>
-  <button class="ui-button ui-tonal">Tonal</button>
-  <button class="ui-button ui-tonal">Tonal</button>
+<div role="group" class="ui-button-group ui-tonal">
+  <button class="ui-button">Tonal</button>
+  <button class="ui-button">Tonal</button>
+  <button class="ui-button">Tonal</button>
 </div>
 
 
-<div role="group" class="ui-button-group">
-  <button class="ui-button ui-filled">Filled</button>
-  <button class="ui-button ui-filled">Filled</button>
-  <button class="ui-button ui-filled">Filled</button>
+<div role="group" class="ui-button-group ui-filled">
+  <button class="ui-button">Filled</button>
+  <button class="ui-button">Filled</button>
+  <button class="ui-button">Filled</button>
 </div>
 ```
 
@@ -422,24 +432,44 @@ Disable individual buttons within a group by adding the `disabled`attribute to e
 </div>
 ```
 
-## Anatomy
-
-1. Container: `<element role="group" class="ui-button-group">`
-2. Buttons: [Button](https://open-props-ui.netlify.app/html/components/button.md)
-
-```html
-<div class="ui-button-group anatomy" role="group">
-  <button class="ui-button">Button</button
-  ><button class="ui-button">Button</button
-  ><button class="ui-button">Button</button>
-</div>
-```
-
 ## API
 
 ### Button group
 
+| Type        | Modifiers                                 | Default | Description                      |
+| ----------- | ----------------------------------------- | ------- | -------------------------------- |
+| Colors      | `.ui-critical`, `.ui-primary`             | -       | Optional colors for the buttons. |
+| Orientation | `.ui-vertical`                            | -       | The orientation of the element.  |
+| Sizes       | `.ui-large`, `.ui-small`                  | -       | The size of the buttons.         |
+| Variants    | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant of the buttons.      |
+
+#### Parts
+
+| Part               | Description        |
+| ------------------ | ------------------ |
+| `.ui-button-group` | Container element. |
+| `& > button`       | The buttons.       |
+
+The root needs `role="group"`.
+
 ### Button
+
+| Type     | Modifiers                                 | Default | Description                                                       |
+| -------- | ----------------------------------------- | ------- | ----------------------------------------------------------------- |
+| Colors   | `.ui-critical`, `.ui-primary`             | -       | Optional colors.                                                  |
+| Hover    | `.ui-ripple`                              | -       | A halo behind the button on hover instead of a background change. |
+| Shape    | `.ui-rounded`                             | -       | Fully rounded corners, a circle when icon-only.                   |
+| Sizes    | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the element.                                          |
+| State    | `[disabled]`                              | -       | Disables the button.                                              |
+| Variants | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant to use.                                               |
+
+#### Parts
+
+| Part         | Description        |
+| ------------ | ------------------ |
+| `.ui-button` | Container element. |
+| `<svg>`      | An optional icon.  |
+| `<span>`     | The label.         |
 
 ## Browser support
 

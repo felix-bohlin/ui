@@ -2,15 +2,27 @@
 
 Buttons (disguised as input checkbox/radio) that can be toggled on and off.
 
+## Anatomy
+
+DayWeekMonth
+
+- `.ui-toggle-group`
+
+  Container element.
+
+- `.ui-toggle-button`
+
+  A toggle button.
+
 ## Toggle button
 
 ```html
 <label class="ui-toggle-button">
-  <input type="checkbox" name="standalone-demo-1" />
+  <input type="checkbox" id="standalone-demo-1" name="standalone-demo-1" />
   Toggle me
 </label>
 <label class="ui-toggle-button">
-  <input type="checkbox" name="standalone-demo-2" />
+  <input type="checkbox" id="standalone-demo-2" name="standalone-demo-2" />
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -41,15 +53,33 @@ Use `type="checkbox"` for multi-select groups.
 ```html
 <div role="group" class="ui-toggle-group">
   <label class="ui-toggle-button">
-    <input type="checkbox" name="text-style" value="bold" />
+    <input
+      type="checkbox"
+      id="text-style-bold"
+      name="text-style"
+      value="bold"
+      aria-label="Bold"
+    />
     <strong>B</strong>
   </label>
   <label class="ui-toggle-button">
-    <input type="checkbox" name="text-style" value="italic" />
+    <input
+      type="checkbox"
+      id="text-style-italic"
+      name="text-style"
+      value="italic"
+      aria-label="Italic"
+    />
     <i>I</i>
   </label>
   <label class="ui-toggle-button">
-    <input type="checkbox" name="text-style" value="underline" />
+    <input
+      type="checkbox"
+      id="text-style-underline"
+      name="text-style"
+      value="underline"
+      aria-label="Underline"
+    />
     <u>U</u>
   </label>
 </div>
@@ -62,7 +92,13 @@ Use `type="radio"` for single-select groups.
 ```html
 <div role="radiogroup" class="ui-toggle-group">
   <label class="ui-toggle-button">
-    <input type="radio" name="alignment" value="left" />
+    <input
+      type="radio"
+      id="alignment-left"
+      name="alignment"
+      value="left"
+      aria-label="Align left"
+    />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -76,7 +112,14 @@ Use `type="radio"` for single-select groups.
     </svg>
   </label>
   <label class="ui-toggle-button">
-    <input type="radio" checked name="alignment" value="center" />
+    <input
+      type="radio"
+      id="alignment-center"
+      checked
+      name="alignment"
+      value="center"
+      aria-label="Align center"
+    />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -90,7 +133,13 @@ Use `type="radio"` for single-select groups.
     </svg>
   </label>
   <label class="ui-toggle-button">
-    <input type="radio" name="alignment" value="right" />
+    <input
+      type="radio"
+      id="alignment-right"
+      name="alignment"
+      value="right"
+      aria-label="Align right"
+    />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -111,7 +160,13 @@ Use `type="radio"` for single-select groups.
 ```html
 <div role="radiogroup" class="ui-toggle-group">
   <label class="ui-toggle-button">
-    <input type="radio" checked name="transport" value="walking" />
+    <input
+      type="radio"
+      id="transport-walking"
+      checked
+      name="transport"
+      value="walking"
+    />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -126,7 +181,12 @@ Use `type="radio"` for single-select groups.
     Walking
   </label>
   <label class="ui-toggle-button">
-    <input type="radio" name="transport" value="cycling" />
+    <input
+      type="radio"
+      id="transport-cycling"
+      name="transport"
+      value="cycling"
+    />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -141,7 +201,12 @@ Use `type="radio"` for single-select groups.
     Cycling
   </label>
   <label class="ui-toggle-button">
-    <input type="radio" name="transport" value="commuting" />
+    <input
+      type="radio"
+      id="transport-commuting"
+      name="transport"
+      value="commuting"
+    />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -165,7 +230,13 @@ Change the layout of the group with the `.ui-vertical` class.
 ```html
 <div role="radiogroup" class="ui-toggle-group ui-vertical">
   <label class="ui-toggle-button">
-    <input type="radio" name="alignment-vertical" value="left" />
+    <input
+      type="radio"
+      id="alignment-vertical-left"
+      name="alignment-vertical"
+      value="left"
+      aria-label="Align left"
+    />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -179,7 +250,14 @@ Change the layout of the group with the `.ui-vertical` class.
     </svg>
   </label>
   <label class="ui-toggle-button">
-    <input type="radio" checked name="alignment-vertical" value="center" />
+    <input
+      type="radio"
+      id="alignment-vertical-center"
+      checked
+      name="alignment-vertical"
+      value="center"
+      aria-label="Align center"
+    />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -193,7 +271,13 @@ Change the layout of the group with the `.ui-vertical` class.
     </svg>
   </label>
   <label class="ui-toggle-button">
-    <input type="radio" name="alignment-vertical" value="right" />
+    <input
+      type="radio"
+      id="alignment-vertical-right"
+      name="alignment-vertical"
+      value="right"
+      aria-label="Align right"
+    />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -215,40 +299,57 @@ Choose between three sizes: default, `.ui-x-small` and `.ui-small`.
 
 ```html
 <label class="ui-toggle-button ui-x-small">
-  <input type="checkbox" />
+  <input type="checkbox" id="toggle-size-1" />
   x-small
 </label>
 
 
 <label class="ui-toggle-button ui-small">
-  <input type="checkbox" />
+  <input type="checkbox" id="toggle-size-2" />
   small
 </label>
 
 
 <label class="ui-toggle-button">
-  <input type="checkbox" />
+  <input type="checkbox" id="toggle-size-3" />
   default
 </label>
 ```
 
-## Anatomy
-
 ## API
 
-### Toggle Button
+### Toggle group API
 
-| Type       | Modifiers                           | Default | Description              |
-| ---------- | ----------------------------------- | ------- | ------------------------ |
-| **Sizes**  | default, `.ui-small`, `.ui-x-small` | -       | The size of the button.  |
-| **States** | `.ui-disabled`                      | -       | The state of the button. |
+| Type        | Modifiers                               | Default          | Description                                                                   |
+| ----------- | --------------------------------------- | ---------------- | ----------------------------------------------------------------------------- |
+| Orientation | `.ui-vertical`                          | -                | The orientation of the element.                                               |
+| Selection   | `[role="group"]`, `[role="radiogroup"]` | `[role="group"]` | Whether one or several buttons can be selected. `"single"` uses radio inputs. |
+| Sizes       | default, `.ui-small`, `.ui-x-small`     | default          | The size of the buttons.                                                      |
 
-### Toggle Group
+#### Parts
 
-| Type         | Modifiers                                                              | Default | Description                                                                             |
-| ------------ | ---------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------- |
-| **Sizes**    | default, `.ui-small`, `.ui-x-small`                                    | -       | The size of the group. Children inherit the size if desired through CSS variables.      |
-| **Children** | `label.ui-toggle-button` containing an `input[type="radio\|checkbox"]` | -       | The interactive elements within the group. Visual states are driven by `input:checked`. |
+| Part                | Description        |
+| ------------------- | ------------------ |
+| `.ui-toggle-group`  | Container element. |
+| `.ui-toggle-button` | A toggle button.   |
+
+### Toggle button API
+
+| Type  | Modifiers                                       | Default                  | Description                                                |
+| ----- | ----------------------------------------------- | ------------------------ | ---------------------------------------------------------- |
+| Sizes | `.ui-small`, `.ui-x-small`                      | -                        | The size of the element.                                   |
+| State | `.ui-disabled`                                  | -                        | Disables the button.                                       |
+| State | `input[checked]`                                | -                        | Selects the button.                                        |
+| Type  | `input[type="checkbox"]`, `input[type="radio"]` | `input[type="checkbox"]` | The input type. `"radio"` allows one selection in a group. |
+
+#### Parts
+
+| Part                     | Description                                |
+| ------------------------ | ------------------------------------------ |
+| `label.ui-toggle-button` | Container element.                         |
+| `<input>`                | A visually hidden checkbox or radio input. |
+
+Set `disabled` on the input too. Checkbox inputs also need `aria-pressed`.
 
 ## Browser support
 

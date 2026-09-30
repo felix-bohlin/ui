@@ -2,38 +2,58 @@
 
 See also: [Checkbox field group](#field-group).
 
+## Anatomy
+
+LabelEnd text
+
+- `label.ui-checkbox`
+
+  Container element.
+
+- `<input>`
+
+  The checkbox input.
+
+- `.ui-label`
+
+  The label.
+
+- `.ui-end-text`
+
+  Supporting text displayed below the label.
+
 ```html
 <!-- Checked -->
 <label class="ui-checkbox">
-  <input name="checkbox-variants-html" type="checkbox" checked />
+  <input name="checkbox-variants" type="checkbox" checked />
   <span class="ui-sr-only">Checked</span>
 </label>
 
 
 <!-- Unchecked -->
 <label class="ui-checkbox">
-  <input name="checkbox-variants-html" type="checkbox" />
+  <input name="checkbox-variants" type="checkbox" />
   <span class="ui-sr-only">Unchecked</span>
 </label>
 
 
 <!-- Indeterminate -->
 <label class="ui-checkbox">
-  <input name="checkbox-variants-html" type="checkbox" data-indeterminate />
+  <input name="checkbox-variants" type="checkbox" data-indeterminate />
   <span class="ui-sr-only">Indeterminate</span>
 </label>
 
 
 <!-- Disabled -->
 <label class="ui-checkbox">
-  <input name="checkbox-variants-html" type="checkbox" disabled />
+  <input name="checkbox-variants" type="checkbox" disabled />
   <span class="ui-sr-only">Disabled</span>
 </label>
 
 
 <!-- Checked and disabled -->
 <label class="ui-checkbox">
-  <input name="checkbox-variants-html" type="checkbox" checked disabled />
+  <input name="checkbox-variants" type="checkbox" checked disabled />
   <span class="ui-sr-only">Checked and disabled</span>
 </label>
 ```
@@ -44,25 +64,25 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
 ```html
 <label class="ui-checkbox">
-  <input name="checkbox-visible-label-html" type="checkbox" checked />
+  <input name="checkbox-visible-label" type="checkbox" checked />
   <span class="ui-label">Choice A</span>
 </label>
 
 
 <label class="ui-checkbox">
-  <input name="checkbox-visible-label-html" type="checkbox" disabled />
+  <input name="checkbox-visible-label" type="checkbox" disabled />
   <span class="ui-label">Disabled</span>
 </label>
 
 
 <label class="ui-checkbox">
-  <input name="checkbox-visible-label-html" type="checkbox" checked disabled />
+  <input name="checkbox-visible-label" type="checkbox" checked disabled />
   <span class="ui-label">Checked and disabled</span>
 </label>
 
 
 <label class="ui-checkbox">
-  <input name="checkbox-visible-label-html" type="checkbox" />
+  <input name="checkbox-visible-label" type="checkbox" />
   <span class="ui-label">
     Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
     semiotics artisan synth stumptown gastropub cornhole
@@ -75,13 +95,13 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
 ```html
 <label class="ui-checkbox">
-  <input name="checkbox-label-position-html" type="checkbox" />
+  <input name="checkbox-label-position" type="checkbox" />
   <span class="ui-label">Default</span>
 </label>
 
 
 <label class="ui-checkbox ui-stack">
-  <input name="checkbox-label-position-html" type="checkbox" />
+  <input name="checkbox-label-position" type="checkbox" />
   <span class="ui-label">Stack</span>
 </label>
 ```
@@ -90,16 +110,28 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
 ```html
 <label class="ui-checkbox">
-  <input name="checkbox-supporting-text-html" type="checkbox" />
+  <input
+    name="checkbox-supporting-text"
+    type="checkbox"
+    aria-describedby="checkbox-supporting-text-end-text-1"
+  />
   <span class="ui-label">Default</span>
-  <span class="ui-end-text">Supporting text</span>
+  <span class="ui-end-text" id="checkbox-supporting-text-end-text-1"
+    >Supporting text</span
+  >
 </label>
 
 
 <label class="ui-checkbox ui-stack">
-  <input name="checkbox-supporting-text-html" type="checkbox" />
+  <input
+    name="checkbox-supporting-text"
+    type="checkbox"
+    aria-describedby="checkbox-supporting-text-end-text-2"
+  />
   <span class="ui-label">Stack</span>
-  <span class="ui-end-text">Supporting text</span>
+  <span class="ui-end-text" id="checkbox-supporting-text-end-text-2"
+    >Supporting text</span
+  >
 </label>
 ```
 
@@ -111,13 +143,13 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 ```html
 <div class="example-row ui-spacious">
   <label class="ui-checkbox">
-    <input name="checkbox-validation-html" type="checkbox" required />
+    <input name="checkbox-validation" type="checkbox" required />
     <span class="ui-label">Default</span>
   </label>
 
 
   <label class="ui-checkbox ui-stack">
-    <input name="checkbox-validation-html" type="checkbox" required />
+    <input name="checkbox-validation" type="checkbox" required />
     <span class="ui-label">Stack</span>
   </label>
 </div>
@@ -125,16 +157,29 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
 <div class="example-row ui-spacious">
   <label class="ui-checkbox" data-invalid>
-    <input name="checkbox-validation-html" type="checkbox" checked />
+    <input
+      name="checkbox-validation"
+      type="checkbox"
+      checked
+      aria-describedby="checkbox-validation-end-text-1"
+    />
     <span class="ui-label">Default</span>
-    <span class="ui-end-text">Check yourself</span>
+    <span class="ui-end-text" id="checkbox-validation-end-text-1"
+      >Check yourself</span
+    >
   </label>
 
 
   <label class="ui-checkbox ui-stack" data-invalid>
-    <input name="checkbox-validation-html" type="checkbox" />
+    <input
+      name="checkbox-validation"
+      type="checkbox"
+      aria-describedby="checkbox-validation-end-text-2"
+    />
     <span class="ui-label">Stack</span>
-    <span class="ui-end-text">Before you wreck yourself</span>
+    <span class="ui-end-text" id="checkbox-validation-end-text-2"
+      >Before you wreck yourself</span
+    >
   </label>
 </div>
 ```
@@ -148,24 +193,24 @@ Add `data-indeterminate` to the `<input type="checkbox">` and run a script that 
 The `indeterminate` state cannot be set with HTML or CSS alone. The browser only exposes it as a property on `HTMLInputElement`, so a small script is needed to flip `el.indeterminate = true` after the element is in the DOM. The `:indeterminate` CSS pseudo-class then matches and the dash glyph appears.
 
 ```html
-<fieldset class="ui-fieldset indeterminate-demo-html">
+<fieldset class="ui-fieldset indeterminate-demo">
   <legend>
     <label class="ui-checkbox parent">
-      <input type="checkbox" />
+      <input type="checkbox" data-indeterminate />
       <span class="ui-label">Select all</span>
     </label>
   </legend>
   <div class="ui-field-group" role="group">
     <label class="ui-checkbox child">
-      <input name="indeterminate-children-html" type="checkbox" checked />
+      <input name="indeterminate-children" type="checkbox" checked />
       <span class="ui-label">Apples</span>
     </label>
     <label class="ui-checkbox child">
-      <input name="indeterminate-children-html" type="checkbox" />
+      <input name="indeterminate-children" type="checkbox" />
       <span class="ui-label">Bananas</span>
     </label>
     <label class="ui-checkbox child">
-      <input name="indeterminate-children-html" type="checkbox" />
+      <input name="indeterminate-children" type="checkbox" />
       <span class="ui-label">Cherries</span>
     </label>
   </div>
@@ -174,7 +219,7 @@ The `indeterminate` state cannot be set with HTML or CSS alone. The browser only
 
 <script>
   function setupIndeterminateDemoHtml() {
-    document.querySelectorAll(".indeterminate-demo-html").forEach((root) => {
+    document.querySelectorAll(".indeterminate-demo").forEach((root) => {
       const parent = root.querySelector('.parent input[type="checkbox"]')
       const children = Array.from(
         root.querySelectorAll('.child input[type="checkbox"]'),
@@ -211,30 +256,56 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">`to push the label
 
 ```html
 <label class="ui-checkbox ui-spread">
-  <input name="checkbox-spread-html" type="checkbox" />
+  <input
+    name="checkbox-spread"
+    type="checkbox"
+    aria-describedby="checkbox-spread-end-text-1"
+  />
   <span class="ui-label">Accept Terms & Conditions</span>
-  <span class="ui-end-text">I have read and agree to the privacy policy.</span>
+  <span class="ui-end-text" id="checkbox-spread-end-text-1"
+    >I have read and agree to the privacy policy.</span
+  >
 </label>
 
 
 <label class="ui-checkbox ui-spread">
-  <input name="checkbox-spread-html" type="checkbox" required />
+  <input
+    name="checkbox-spread"
+    type="checkbox"
+    required
+    aria-describedby="checkbox-spread-end-text-2"
+  />
   <span class="ui-label">Required</span>
-  <span class="ui-end-text">You must accept this to continue.</span>
+  <span class="ui-end-text" id="checkbox-spread-end-text-2"
+    >You must accept this to continue.</span
+  >
 </label>
 
 
 <label class="ui-checkbox ui-spread">
-  <input name="checkbox-spread-html" type="checkbox" disabled />
+  <input
+    name="checkbox-spread"
+    type="checkbox"
+    disabled
+    aria-describedby="checkbox-spread-end-text-3"
+  />
   <span class="ui-label">Disabled</span>
-  <span class="ui-end-text">This checkbox is disabled.</span>
+  <span class="ui-end-text" id="checkbox-spread-end-text-3"
+    >This checkbox is disabled.</span
+  >
 </label>
 
 
 <label class="ui-checkbox ui-spread" data-invalid>
-  <input name="checkbox-spread-html" type="checkbox" />
+  <input
+    name="checkbox-spread"
+    type="checkbox"
+    aria-describedby="checkbox-spread-end-text-4"
+  />
   <span class="ui-label">Invalid Checkbox</span>
-  <span class="ui-end-text">There is an error with this checkbox.</span>
+  <span class="ui-end-text" id="checkbox-spread-end-text-4"
+    >There is an error with this checkbox.</span
+  >
 </label>
 ```
 
@@ -243,19 +314,19 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">`to push the label
 ```html
 <div class="example-row">
   <label class="ui-checkbox ui-small">
-    <input name="checkbox-sizes-html" type="checkbox" checked />
+    <input name="checkbox-sizes" type="checkbox" checked />
     <span class="ui-sr-only">Label</span>
   </label>
 
 
   <label class="ui-checkbox">
-    <input name="checkbox-sizes-html" type="checkbox" checked />
+    <input name="checkbox-sizes" type="checkbox" checked />
     <span class="ui-sr-only">Label</span>
   </label>
 
 
   <label class="ui-checkbox ui-large">
-    <input name="checkbox-sizes-html" type="checkbox" checked />
+    <input name="checkbox-sizes" type="checkbox" checked />
     <span class="ui-sr-only">Label</span>
   </label>
 </div>
@@ -263,19 +334,19 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">`to push the label
 
 <div class="example-row">
   <label class="ui-checkbox ui-small">
-    <input name="checkbox-sizes-html" type="checkbox" checked />
+    <input name="checkbox-sizes" type="checkbox" checked />
     <span class="ui-label">Small</span>
   </label>
 
 
   <label class="ui-checkbox">
-    <input name="checkbox-sizes-html" type="checkbox" checked />
+    <input name="checkbox-sizes" type="checkbox" checked />
     <span class="ui-label">Default</span>
   </label>
 
 
   <label class="ui-checkbox ui-large">
-    <input name="checkbox-sizes-html" type="checkbox" checked />
+    <input name="checkbox-sizes" type="checkbox" checked />
     <span class="ui-label">Large</span>
   </label>
 </div>
@@ -290,45 +361,49 @@ Give every `<input type="checkbox">` in the group the same`name` attribute so th
 See also: [Form documentation](https://open-props-ui.netlify.app/html/components/form.md).
 
 ```html
-<fieldset class="ui-fieldset">
-  <legend>Legend</legend>
-  <div class="ui-field-group" role="group">
-    <label class="ui-checkbox">
-      <input name="checkbox-group-html" type="checkbox" checked />
-      <span class="ui-label">Checkbox 1</span>
-    </label>
-    <label class="ui-checkbox">
-      <input name="checkbox-group-html" type="checkbox" />
-      <span class="ui-label">Checkbox 2</span>
-    </label>
-    <label class="ui-checkbox">
-      <input name="checkbox-group-html" type="checkbox" />
-      <span class="ui-label">Checkbox 3</span>
-    </label>
-  </div>
-</fieldset>
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Legend</legend>
+    <div class="ui-field-group" role="group">
+      <label class="ui-checkbox">
+        <input name="checkbox-group" type="checkbox" checked />
+        <span class="ui-label">Checkbox 1</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-group" type="checkbox" />
+        <span class="ui-label">Checkbox 2</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-group" type="checkbox" />
+        <span class="ui-label">Checkbox 3</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
 ```
 
 ### Direction
 
 ```html
-<fieldset class="ui-fieldset">
-  <legend>Legend</legend>
-  <div class="ui-field-group ui-row" role="group">
-    <label class="ui-checkbox">
-      <input name="checkbox-group-direction-html" type="checkbox" checked />
-      <span class="ui-label">Checkbox 1</span>
-    </label>
-    <label class="ui-checkbox">
-      <input name="checkbox-group-direction-html" type="checkbox" />
-      <span class="ui-label">Checkbox 2</span>
-    </label>
-    <label class="ui-checkbox">
-      <input name="checkbox-group-direction-html" type="checkbox" />
-      <span class="ui-label">Checkbox 3</span>
-    </label>
-  </div>
-</fieldset>
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Legend</legend>
+    <div class="ui-field-group ui-row" role="group">
+      <label class="ui-checkbox">
+        <input name="checkbox-group-direction" type="checkbox" checked />
+        <span class="ui-label">Checkbox 1</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-group-direction" type="checkbox" />
+        <span class="ui-label">Checkbox 2</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-group-direction" type="checkbox" />
+        <span class="ui-label">Checkbox 3</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
 ```
 
 ### Field description
@@ -336,52 +411,54 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 Can be placed above and below the fields.
 
 ```html
-<fieldset class="ui-fieldset">
-  <legend>Legend</legend>
-  <span class="ui-field-description">Field description above fields</span>
-  <div class="ui-field-group ui-row" role="group">
-    <label class="ui-checkbox">
-      <input
-        name="checkbox-group-field-description-1-html"
-        type="checkbox"
-        checked
-      />
-      <span class="ui-label">Checkbox 1</span>
-    </label>
-    <label class="ui-checkbox">
-      <input name="checkbox-group-field-description-1-html" type="checkbox" />
-      <span class="ui-label">Checkbox 2</span>
-    </label>
-    <label class="ui-checkbox">
-      <input name="checkbox-group-field-description-1-html" type="checkbox" />
-      <span class="ui-label">Checkbox 3</span>
-    </label>
-  </div>
-</fieldset>
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Legend</legend>
+    <p class="ui-field-description">Field description above fields</p>
+    <div class="ui-field-group ui-row" role="group">
+      <label class="ui-checkbox">
+        <input
+          name="checkbox-group-field-description-1"
+          type="checkbox"
+          checked
+        />
+        <span class="ui-label">Checkbox 1</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-group-field-description-1" type="checkbox" />
+        <span class="ui-label">Checkbox 2</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-group-field-description-1" type="checkbox" />
+        <span class="ui-label">Checkbox 3</span>
+      </label>
+    </div>
+  </fieldset>
 
 
-<fieldset class="ui-fieldset">
-  <legend>Legend</legend>
-  <div class="ui-field-group ui-row" role="group">
-    <label class="ui-checkbox">
-      <input
-        name="checkbox-group-field-description-2-html"
-        type="checkbox"
-        checked
-      />
-      <span class="ui-label">Checkbox 1</span>
-    </label>
-    <label class="ui-checkbox">
-      <input name="checkbox-group-field-description-2-html" type="checkbox" />
-      <span class="ui-label">Checkbox 2</span>
-    </label>
-    <label class="ui-checkbox">
-      <input name="checkbox-group-field-description-2-html" type="checkbox" />
-      <span class="ui-label">Checkbox 3</span>
-    </label>
-  </div>
-  <span class="ui-field-description">Field description below fields</span>
-</fieldset>
+  <fieldset class="ui-fieldset">
+    <legend>Legend</legend>
+    <div class="ui-field-group ui-row" role="group">
+      <label class="ui-checkbox">
+        <input
+          name="checkbox-group-field-description-2"
+          type="checkbox"
+          checked
+        />
+        <span class="ui-label">Checkbox 1</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-group-field-description-2" type="checkbox" />
+        <span class="ui-label">Checkbox 2</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-group-field-description-2" type="checkbox" />
+        <span class="ui-label">Checkbox 3</span>
+      </label>
+    </div>
+    <p class="ui-field-description">Field description below fields</p>
+  </fieldset>
+</form>
 ```
 
 ### Disabled
@@ -389,23 +466,25 @@ Can be placed above and below the fields.
 Attach the `disabled` attribute to the `<fieldset>` element.
 
 ```html
-<fieldset class="ui-fieldset" disabled>
-  <legend>Legend</legend>
-  <div class="ui-field-group ui-row" role="group">
-    <label class="ui-checkbox">
-      <input name="checkbox-group-disabled-html" type="checkbox" checked />
-      <span class="ui-label">Checkbox 1</span>
-    </label>
-    <label class="ui-checkbox">
-      <input name="checkbox-group-disabled-html" type="checkbox" />
-      <span class="ui-label">Checkbox 2</span>
-    </label>
-    <label class="ui-checkbox">
-      <input name="checkbox-group-disabled-html" type="checkbox" />
-      <span class="ui-label">Checkbox 3</span>
-    </label>
-  </div>
-</fieldset>
+<form class="ui-form">
+  <fieldset class="ui-fieldset" disabled>
+    <legend>Legend</legend>
+    <div class="ui-field-group ui-row" role="group">
+      <label class="ui-checkbox">
+        <input name="checkbox-group-disabled" type="checkbox" checked />
+        <span class="ui-label">Checkbox 1</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-group-disabled" type="checkbox" />
+        <span class="ui-label">Checkbox 2</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-group-disabled" type="checkbox" />
+        <span class="ui-label">Checkbox 3</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
 ```
 
 ### Required
@@ -413,23 +492,25 @@ Attach the `disabled` attribute to the `<fieldset>` element.
 Attach the `required` attribute to at least one of your `<input>` elements.
 
 ```html
-<fieldset class="ui-fieldset">
-  <legend>These are required!</legend>
-  <div class="ui-field-group ui-row" role="group">
-    <label class="ui-checkbox">
-      <input name="checkbox-group-required-html" type="checkbox" required />
-      <span class="ui-label">Checkbox 1</span>
-    </label>
-    <label class="ui-checkbox">
-      <input name="checkbox-group-required-html" type="checkbox" required />
-      <span class="ui-label">Checkbox 2</span>
-    </label>
-    <label class="ui-checkbox">
-      <input name="checkbox-group-required-html" type="checkbox" required />
-      <span class="ui-label">Checkbox 3</span>
-    </label>
-  </div>
-</fieldset>
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>These are required!</legend>
+    <div class="ui-field-group ui-row" role="group">
+      <label class="ui-checkbox">
+        <input name="checkbox-group-required" type="checkbox" required />
+        <span class="ui-label">Checkbox 1</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-group-required" type="checkbox" required />
+        <span class="ui-label">Checkbox 2</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-group-required" type="checkbox" required />
+        <span class="ui-label">Checkbox 3</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
 ```
 
 ### Validation
@@ -437,24 +518,26 @@ Attach the `required` attribute to at least one of your `<input>` elements.
 Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` element
 
 ```html
-<fieldset class="ui-fieldset" data-invalid>
-  <legend>Legend</legend>
-  <div class="ui-field-group ui-row" role="group">
-    <label class="ui-checkbox">
-      <input name="checkbox-group-validation-html" type="checkbox" checked />
-      <span class="ui-label">Checkbox 1</span>
-    </label>
-    <label class="ui-checkbox">
-      <input name="checkbox-group-validation-html" type="checkbox" />
-      <span class="ui-label">Checkbox 2</span>
-    </label>
-    <label class="ui-checkbox">
-      <input name="checkbox-group-validation-html" type="checkbox" />
-      <span class="ui-label">Checkbox 3</span>
-    </label>
-  </div>
-  <span class="ui-end-text">Something went wrong!</span>
-</fieldset>
+<form class="ui-form">
+  <fieldset class="ui-fieldset" data-invalid>
+    <legend>Legend</legend>
+    <div class="ui-field-group ui-row" role="group">
+      <label class="ui-checkbox">
+        <input name="checkbox-group-validation" type="checkbox" checked />
+        <span class="ui-label">Checkbox 1</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-group-validation" type="checkbox" />
+        <span class="ui-label">Checkbox 2</span>
+      </label>
+      <label class="ui-checkbox">
+        <input name="checkbox-group-validation" type="checkbox" />
+        <span class="ui-label">Checkbox 3</span>
+      </label>
+    </div>
+    <span class="ui-end-text">Something went wrong!</span>
+  </fieldset>
+</form>
 ```
 
 ### Labels
@@ -474,37 +557,42 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `Space` | When Checkbox is focused it changes its state.            |
 | `Enter` | (Optional) When Checkbox is focused it changes its state. |
 
-1. Container
-2. Input
-3. Label (optional)
-4. End text (optional)
-
-```html
-<label class="ui-checkbox anatomy"
-  ><input type="checkbox" aria-describedby="end-text-1" checked />
-  <script type="module">
-    function e(e = document) {
-      e.querySelectorAll(`input[type="checkbox"][data-indeterminate]`).forEach(
-        (e) => {
-          e.indeterminate = !0;
-        },
-      );
-    }
-    function t() {
-      (e(), document.addEventListener(`astro:after-swap`, () => e()));
-    }
-    t();
-  </script>
-  <span class="ui-label">Label</span
-  ><span id="end-text-1" class="ui-end-text">End text</span></label
->
-```
-
 ## API
 
 ### Checkbox API
 
+| Type       | Modifiers                   | Default | Description                                                                          |
+| ---------- | --------------------------- | ------- | ------------------------------------------------------------------------------------ |
+| Layout     | `.ui-spread`                | -       | Pushes the label and the input to opposite ends.                                     |
+| Layout     | `.ui-stack`                 | -       | Stacks the label under the input.                                                    |
+| Sizes      | `.ui-large`, `.ui-small`    | -       | The size of the element.                                                             |
+| State      | `input[data-indeterminate]` | -       | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+| Validation | `[data-invalid]`            | -       | Shows error styles.                                                                  |
+
+#### Parts
+
+| Part                | Description                                |
+| ------------------- | ------------------------------------------ |
+| `label.ui-checkbox` | Container element.                         |
+| `<input>`           | The checkbox input.                        |
+| `.ui-label`         | The label.                                 |
+| `.ui-end-text`      | Supporting text displayed below the label. |
+
+Use `.ui-sr-only` instead of `.ui-label` to hide the label visually. `data-indeterminate` needs `checkbox.js`, which sets the `indeterminate` property.
+
 ### Field group API
+
+| Type        | Modifiers          | Default | Description                     |
+| ----------- | ------------------ | ------- | ------------------------------- |
+| Orientation | default, `.ui-row` | -       | The orientation of the element. |
+
+#### Parts
+
+| Part              | Description        |
+| ----------------- | ------------------ |
+| `.ui-field-group` | Container element. |
+
+The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
 
 ## Browser support
 

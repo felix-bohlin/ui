@@ -27,9 +27,17 @@ Primary
 
 ## API
 
-| Type    | Modifiers                                                     | Default | Description               |
-| ------- | ------------------------------------------------------------- | ------- | ------------------------- |
-| Variant | `.ui-border-tonal`, `.ui-border-filled`, `.ui-border-primary` | -       | Visual variant modifiers. |
+### Divider API
+
+| Type     | Modifiers                                                     | Default | Description         |
+| -------- | ------------------------------------------------------------- | ------- | ------------------- |
+| Variants | `.ui-border-filled`, `.ui-border-primary`, `.ui-border-tonal` | -       | The variant to use. |
+
+#### Parts
+
+| Part            | Description       |
+| --------------- | ----------------- |
+| `hr.ui-divider` | The divider line. |
 
 ## Installation
 

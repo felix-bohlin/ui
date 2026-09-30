@@ -1,5 +1,37 @@
 # List
 
+## Anatomy
+
+- Headline
+
+  Supporting text
+
+  100+
+
+* `<ListItem>`
+
+  The list item.
+
+* `v-slot:start`
+
+  Optional content at the start, such as an icon or avatar.
+
+* `v-slot:text`
+
+  The text content.
+
+* `headline`
+
+  The headline, the first paragraph.
+
+* `description`
+
+  Supporting text, the second paragraph.
+
+* `v-slot:end`
+
+  Optional content at the end, such as a value or an action.
+
 ```vue
 <script setup lang="ts">
 import { List } from "opui-css/vue"
@@ -80,13 +112,14 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem as="button" type="button" headline="Button list item" />
+    <ListItem as="button" headline="Button list item" />
     <ListItem as="a" href="#clickable-list-item" headline="Link list item" />
-    <ListItem type="checkbox" for="clickable-checkbox">
-      <template #text><div>Checkbox list item</div></template>
-      <template #end
-        ><CheckboxInput id="clickable-checkbox" name="checkbox"
-      /></template>
+    <ListItem
+      type="checkbox"
+      for="clickable-checkbox"
+      headline="Checkbox list item"
+    >
+      <template #end><CheckboxInput id="clickable-checkbox" /></template>
     </ListItem>
   </List>
 </template>
@@ -215,6 +248,8 @@ import { Avatar, List, ListItem } from "opui-css/vue"
           <img
             src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt=""
+            decoding="async"
+            loading="lazy"
           /> </Avatar
       ></template>
     </ListItem>
@@ -237,6 +272,8 @@ import { List, ListItem } from "opui-css/vue"
         ><img
           src="https://images.unsplash.com/photo-1504579264001-833438f93df2?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt=""
+          decoding="async"
+          loading="lazy"
       /></template>
     </ListItem>
     <ListItem headline="Headline" description="Supporting text">
@@ -244,6 +281,8 @@ import { List, ListItem } from "opui-css/vue"
         ><img
           src="https://images.unsplash.com/photo-1504579264001-833438f93df2?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt=""
+          decoding="async"
+          loading="lazy"
       /></template>
     </ListItem>
   </List>
@@ -268,7 +307,7 @@ import { List, ListItem } from "opui-css/vue"
             type="video/mp4"
           /></video
       ></template>
-      <template #end><div>13:37</div></template>
+      <template #end>13:37</template>
     </ListItem>
     <ListItem headline="Headline" description="Supporting text">
       <template #start
@@ -278,7 +317,7 @@ import { List, ListItem } from "opui-css/vue"
             type="video/mp4"
           /></video
       ></template>
-      <template #end><div>90s</div></template>
+      <template #end>90s</template>
     </ListItem>
   </List>
 </template>
@@ -299,16 +338,16 @@ import { List, ListItem } from "opui-css/vue"
 <template>
   <List>
     <ListItem headline="Headline">
-      <template #end><div>30kB</div></template>
+      <template #end>30kB</template>
     </ListItem>
     <ListItem headline="Headline" description="Supporting text">
-      <template #end><div>99%</div></template>
+      <template #end>99%</template>
     </ListItem>
     <ListItem
       headline="Headline"
       description="Supporting text that truly is quite long enough to fill up multiple lines."
     >
-      <template #end><div>100+</div></template>
+      <template #end>100+</template>
     </ListItem>
   </List>
 </template>
@@ -325,14 +364,10 @@ import { List, ListItem } from "opui-css/vue"
 <template>
   <List>
     <ListItem headline="Save all">
-      <template #end
-        ><div><kbd>CTRL+ALT+DEL</kbd></div></template
-      >
+      <template #end><kbd>CTRL+ALT+DEL</kbd></template>
     </ListItem>
     <ListItem headline="Save">
-      <template #end
-        ><div><kbd>CTRL+S</kbd></div></template
-      >
+      <template #end><kbd>CTRL+S</kbd></template>
     </ListItem>
   </List>
 </template>
@@ -353,11 +388,11 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
 <template>
   <List>
     <ListItem type="checkbox" for="checkbox-example-1">
-      <template #text><div>Checkbox 1</div></template>
+      <template #text>Checkbox 1</template>
       <template #end><CheckboxInput id="checkbox-example-1" /></template>
     </ListItem>
     <ListItem type="checkbox" for="checkbox-example-2">
-      <template #text><div>Checkbox 2</div></template>
+      <template #text>Checkbox 2</template>
       <template #end><CheckboxInput id="checkbox-example-2" /></template>
     </ListItem>
   </List>
@@ -381,15 +416,15 @@ import { List, ListItem, RadioInput } from "opui-css/vue"
 <template>
   <List>
     <ListItem type="radio" for="radio-example-1">
-      <template #text><div>Radio 1</div></template>
+      <template #text>Radio 1</template>
       <template #end
-        ><RadioInput id="radio-example-1" name="radio-example-group"
+        ><RadioInput id="radio-example-1" name="radio-example-group" value="1"
       /></template>
     </ListItem>
     <ListItem type="radio" for="radio-example-2">
-      <template #text><div>Radio 2</div></template>
+      <template #text>Radio 2</template>
       <template #end
-        ><RadioInput id="radio-example-2" name="radio-example-group"
+        ><RadioInput id="radio-example-2" name="radio-example-group" value="2"
       /></template>
     </ListItem>
   </List>
@@ -409,11 +444,11 @@ import { List, ListItem, SwitchInput } from "opui-css/vue"
 <template>
   <List>
     <ListItem type="switch" for="switch-example-1">
-      <template #text><div>Switch 1</div></template>
+      <template #text>Switch 1</template>
       <template #end><SwitchInput id="switch-example-1" /></template>
     </ListItem>
     <ListItem type="switch" for="switch-example-2">
-      <template #text><div>Switch 2</div></template>
+      <template #text>Switch 2</template>
       <template #end><SwitchInput id="switch-example-2" /></template>
     </ListItem>
   </List>
@@ -450,8 +485,8 @@ import { List, ListItem } from "opui-css/vue"
       <p>Makes the text line up nicely</p>
     </ListItem>
     <ListItem inset headline="Inset class">
-      <template #start><div>Hidden</div></template>
-      <p>Any <code>div.start</code> will be hidden when inset</p>
+      <template #start>Hidden</template>
+      <p>Any <code>div.ui-start</code> will be hidden when inset</p>
     </ListItem>
   </List>
 </template>
@@ -470,22 +505,21 @@ import { List, ListItem } from "opui-css/vue"
 <template>
   <List gutterless>
     <ListItem headline="Gutterless list item">
-      <template #end
-        ><div>
-          <button class="ui-button ui-rounded ui-ripple ui-small" type="button">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-            >
-              <path
-                fill="currentColor"
-                d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
-              ></path>
-            </svg>
-          </button></div
-      ></template>
+      <template #end>
+        <button class="ui-button ui-rounded ui-ripple ui-small" type="button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M12 12h2v12h-2zm6 0h2v12h-2zM6 28h20V10H6zm16-22V4H10v2H4v2h24V6zM12 4h8v2h-8z"
+            ></path>
+          </svg>
+        </button>
+      </template>
     </ListItem>
     <ListItem headline="Headline" description="Supporting text">
       <template #start
@@ -500,7 +534,7 @@ import { List, ListItem } from "opui-css/vue"
             d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
           ></path></svg
       ></template>
-      <template #end><div>100+</div></template>
+      <template #end>100+</template>
     </ListItem>
   </List>
 </template>
@@ -564,35 +598,44 @@ import ListAll from "./ListAll.vue"
 </template>
 ```
 
-## Anatomy
-
-1. Container: `ul.ui-list`
-2. List item: `li`
-3. Content wrapper (optional): `a`, `button`, `label`
-4. Start content (optional): `.ui-start` > `svg`, `img`, `video`
-5. Text content: `.ui-text` > `p`, `p + p`
-6. End content (optional): `.ui-end` > `svg`, `p`, `button`, `a`, `input`
-
 ## API
 
-### List
+### List API
 
-| Prop         | Type                                    | Default | Description                               |
-| ------------ | --------------------------------------- | ------- | ----------------------------------------- |
-| `bordered`   | `boolean`                               | `false` | Adds a border between list items.         |
-| `dense`      | `boolean`                               | `false` | Packs the list tighter.                   |
-| `gutterless` | `boolean`                               | `false` | Removes list inline padding.              |
-| `variant`    | `"default" \| "tonal" \| "transparent"` | -       | The background color variant of the list. |
+| Prop         | Type                                    | Default | Description                       |
+| ------------ | --------------------------------------- | ------- | --------------------------------- |
+| `bordered`   | `boolean`                               | `false` | Adds a border between list items. |
+| `dense`      | `boolean`                               | `false` | Packs the list tighter.           |
+| `gutterless` | `boolean`                               | `false` | Removes the inline padding.       |
+| `variant`    | `"default"`, `"tonal"`, `"transparent"` | -       | The background color variant.     |
 
-### List item
+#### Slots
 
-| Prop             | Type      | Default | Description                                                                                                                                                      |
-| ---------------- | --------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `as`             | `string`  | -       | Renders an inner element of the given tag (e.g. `"a"`, `"button"`). All extra props are forwarded to it, so any HTML attribute is supported without enumeration. |
-| `borderTop`      | `boolean` | `false` | List item top border.                                                                                                                                            |
-| `headline`       | `string`  | -       | The main text for the list item.                                                                                                                                 |
-| `inset`          | `boolean` | `false` | Aligns with items that have a start icon.                                                                                                                        |
-| `supportingText` | `string`  | -       | Extra text displayed below the headline.                                                                                                                         |
+| Slot      | Description     |
+| --------- | --------------- |
+| `default` | The list items. |
+
+### List item API
+
+| Prop          | Type                                            | Default | Description                                                           |
+| ------------- | ----------------------------------------------- | ------- | --------------------------------------------------------------------- |
+| `as`          | `string`                                        | -       | The element to render inside the `<li>`, such as `"a"` or `"button"`. |
+| `borderTop`   | `boolean`                                       | `false` | Adds a border above the item.                                         |
+| `description` | `string`                                        | -       | Supporting text, the second paragraph.                                |
+| `for`         | `string`                                        | -       | The `for` attribute of the `<label>` when `type` is set.              |
+| `headline`    | `string`                                        | -       | The headline, the first paragraph.                                    |
+| `href`        | `string`                                        | -       | The link to use, with `as="a"`.                                       |
+| `inset`       | `boolean`                                       | `false` | Aligns the text with items that have start content.                   |
+| `type`        | `"button"`, `"checkbox"`, `"radio"`, `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.     |
+
+#### Slots
+
+| Slot      | Description                                                               |
+| --------- | ------------------------------------------------------------------------- |
+| `default` | Extra content inside `.ui-text`, or all the content when there's no text. |
+| `end`     | Optional content at the end, such as a value or an action.                |
+| `start`   | Optional content at the start, such as an icon or avatar.                 |
+| `text`    | The text content.                                                         |
 
 ## Browser support
 

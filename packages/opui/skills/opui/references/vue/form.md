@@ -29,6 +29,23 @@ import {
       </FieldGroup>
     </FieldSet>
   </Form>
+
+
+  <!-- or -->
+
+
+  <Form as="div">
+    <FieldSet as="div">
+      <FieldLegend as="p"><!-- --></FieldLegend>
+      <FieldDescription><!-- --></FieldDescription>
+      <FieldGroup>
+        <!-- -->
+      </FieldGroup>
+      <FieldGroup>
+        <!-- -->
+      </FieldGroup>
+    </FieldSet>
+  </Form>
 </template>
 ```
 
@@ -121,7 +138,7 @@ import {
     <FieldLegend>Pet info</FieldLegend>
     <FieldDescription>We must know your pet's information.</FieldDescription>
     <FieldGroup name="bio">
-      <TextField label="Name" />
+      <TextField label="Name" name="name" />
       <Textarea required label="Life story" />
     </FieldGroup>
   </FieldSet>
@@ -622,7 +639,63 @@ const experience = ref(5)
 
 ## API
 
-### Form
+### Form API
+
+| Prop | Type     | Default  | Description            |
+| ---- | -------- | -------- | ---------------------- |
+| `as` | `string` | `"form"` | The element to render. |
+
+#### Slots
+
+| Slot      | Description               |
+| --------- | ------------------------- |
+| `default` | The fieldsets and fields. |
+
+### Field set API
+
+| Prop       | Type      | Default      | Description                  |
+| ---------- | --------- | ------------ | ---------------------------- |
+| `as`       | `string`  | `"fieldset"` | The element to render.       |
+| `disabled` | `boolean` | `false`      | Disables every field inside. |
+
+#### Slots
+
+| Slot      | Description                         |
+| --------- | ----------------------------------- |
+| `default` | The legend, description and fields. |
+
+### Field legend API
+
+| Prop | Type     | Default    | Description                                                   |
+| ---- | -------- | ---------- | ------------------------------------------------------------- |
+| `as` | `string` | `"legend"` | The element to render. Adds `.ui-legend` when not `"legend"`. |
+
+#### Slots
+
+| Slot      | Description |
+| --------- | ----------- |
+| `default` | The label.  |
+
+### Field description API
+
+#### Slots
+
+| Slot      | Description |
+| --------- | ----------- |
+| `default` | The text.   |
+
+### Field group API
+
+| Prop        | Type                | Default | Description                                             |
+| ----------- | ------------------- | ------- | ------------------------------------------------------- |
+| `direction` | `"row"`, `"column"` | -       | The orientation of the element.                         |
+| `name`      | `string`            | -       | Sets `name` on every input, select and textarea inside. |
+
+#### Slots
+
+| Slot      | Description                                         |
+| --------- | --------------------------------------------------- |
+| `default` | The fields, such as checkboxes, radios or switches. |
 
 ## Browser support
 

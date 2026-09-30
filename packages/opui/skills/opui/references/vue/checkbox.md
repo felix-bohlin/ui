@@ -2,6 +2,26 @@
 
 See also: [Checkbox field group](#field-group).
 
+## Anatomy
+
+LabelEnd text
+
+- `<Checkbox>`
+
+  Container element.
+
+- `v-model`
+
+  The checkbox input.
+
+- `v-slot:default`
+
+  The label.
+
+- `v-slot:end-text`
+
+  Supporting text displayed below the label.
+
 ```vue
 <script setup lang="ts">
 import { Checkbox } from "opui-css/vue"
@@ -9,11 +29,13 @@ import { Checkbox } from "opui-css/vue"
 
 
 <template>
-  <Checkbox checked name="checkbox" hideLabel>Checked</Checkbox>
-  <Checkbox name="checkbox" hideLabel>Unchecked</Checkbox>
-  <Checkbox indeterminate name="checkbox" hideLabel>Indeterminate</Checkbox>
-  <Checkbox disabled name="checkbox" hideLabel>Disabled</Checkbox>
-  <Checkbox checked disabled name="checkbox" hideLabel
+  <Checkbox checked name="checkbox-variants" hideLabel>Checked</Checkbox>
+  <Checkbox name="checkbox-variants" hideLabel>Unchecked</Checkbox>
+  <Checkbox indeterminate name="checkbox-variants" hideLabel
+    >Indeterminate</Checkbox
+  >
+  <Checkbox disabled name="checkbox-variants" hideLabel>Disabled</Checkbox>
+  <Checkbox checked disabled name="checkbox-variants" hideLabel
     >Checked and disabled</Checkbox
   >
 </template>
@@ -30,15 +52,15 @@ import { Checkbox } from "opui-css/vue"
 
 
 <template>
-  <Checkbox checked name="checkbox">Choice A</Checkbox>
-  <Checkbox disabled name="checkbox">Disabled</Checkbox>
-  <Checkbox checked disabled name="checkbox">Checked and disabled</Checkbox>
-  <Checkbox name="checkbox">
-    <span
-      >Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
-      semiotics artisan synth stumptown gastropub cornhole
-      <a class="ui-link" href="#visible-label">privacy policy ipsum</a></span
-    >
+  <Checkbox checked name="checkbox-visible-label">Choice A</Checkbox>
+  <Checkbox disabled name="checkbox-visible-label">Disabled</Checkbox>
+  <Checkbox checked disabled name="checkbox-visible-label"
+    >Checked and disabled</Checkbox
+  >
+  <Checkbox name="checkbox-visible-label">
+    Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
+    semiotics artisan synth stumptown gastropub cornhole
+    <a class="ui-link" href="#visible-label">privacy policy ipsum</a>
   </Checkbox>
 </template>
 ```
@@ -52,8 +74,8 @@ import { Checkbox } from "opui-css/vue"
 
 
 <template>
-  <Checkbox name="checkbox">Default</Checkbox>
-  <Checkbox stack name="checkbox">Stack</Checkbox>
+  <Checkbox name="checkbox-label-position">Default</Checkbox>
+  <Checkbox stack name="checkbox-label-position">Stack</Checkbox>
 </template>
 ```
 
@@ -66,11 +88,11 @@ import { Checkbox } from "opui-css/vue"
 
 
 <template>
-  <Checkbox name="checkbox">
+  <Checkbox name="checkbox-supporting-text">
     Default
     <template #end-text>Supporting text</template>
   </Checkbox>
-  <Checkbox stack name="checkbox">
+  <Checkbox stack name="checkbox-supporting-text">
     Stack
     <template #end-text>Supporting text</template>
   </Checkbox>
@@ -90,15 +112,15 @@ import { Checkbox } from "opui-css/vue"
 
 <template>
   <div class="example-row ui-spacious">
-    <Checkbox required name="checkbox">Default</Checkbox>
-    <Checkbox stack required name="checkbox">Stack</Checkbox>
+    <Checkbox required name="checkbox-validation">Default</Checkbox>
+    <Checkbox stack required name="checkbox-validation">Stack</Checkbox>
   </div>
   <div class="example-row ui-spacious">
-    <Checkbox error checked name="checkbox">
+    <Checkbox error checked name="checkbox-validation">
       Default
       <template #end-text>Check yourself</template>
     </Checkbox>
-    <Checkbox stack error name="checkbox">
+    <Checkbox stack error name="checkbox-validation">
       Stack
       <template #end-text>Before you wreck yourself</template>
     </Checkbox>
@@ -133,9 +155,10 @@ function toggleAll() {
 
 
 <template>
-  <FieldSet>
+  <FieldSet class="indeterminate-demo">
     <FieldLegend>
       <Checkbox
+        class="parent"
         :model-value="allChecked"
         :indeterminate="indeterminate"
         @update:model-value="toggleAll"
@@ -144,6 +167,7 @@ function toggleAll() {
     </FieldLegend>
     <FieldGroup name="indeterminate-children">
       <Checkbox
+        class="child"
         v-for="(item, index) in items"
         :key="item"
         v-model="checked[index]"
@@ -165,25 +189,25 @@ import { Checkbox } from "opui-css/vue"
 
 
 <template>
-  <Checkbox spread>
+  <Checkbox name="checkbox-spread" spread>
     Accept Terms & Conditions
     <template #end-text>I have read and agree to the privacy policy.</template>
   </Checkbox>
 
 
-  <Checkbox spread required>
+  <Checkbox name="checkbox-spread" spread required>
     Required
     <template #end-text>You must accept this to continue.</template>
   </Checkbox>
 
 
-  <Checkbox spread disabled>
+  <Checkbox name="checkbox-spread" spread disabled>
     Disabled
     <template #end-text>This checkbox is disabled.</template>
   </Checkbox>
 
 
-  <Checkbox spread error>
+  <Checkbox name="checkbox-spread" spread error>
     Invalid Checkbox
     <template #end-text>There is an error with this checkbox.</template>
   </Checkbox>
@@ -200,14 +224,18 @@ import { Checkbox } from "opui-css/vue"
 
 <template>
   <div class="example-row">
-    <Checkbox hideLabel size="small" checked name="checkbox">Label</Checkbox>
-    <Checkbox hideLabel checked name="checkbox">Label</Checkbox>
-    <Checkbox hideLabel size="large" checked name="checkbox">Label</Checkbox>
+    <Checkbox hideLabel size="small" checked name="checkbox-sizes"
+      >Label</Checkbox
+    >
+    <Checkbox hideLabel checked name="checkbox-sizes">Label</Checkbox>
+    <Checkbox hideLabel size="large" checked name="checkbox-sizes"
+      >Label</Checkbox
+    >
   </div>
   <div class="example-row">
-    <Checkbox size="small" checked name="checkbox">Small</Checkbox>
-    <Checkbox checked name="checkbox">Default</Checkbox>
-    <Checkbox size="large" checked name="checkbox">Large</Checkbox>
+    <Checkbox size="small" checked name="checkbox-sizes">Small</Checkbox>
+    <Checkbox checked name="checkbox-sizes">Default</Checkbox>
+    <Checkbox size="large" checked name="checkbox-sizes">Large</Checkbox>
   </div>
 </template>
 ```
@@ -230,7 +258,7 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
   <Form>
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup name="checkbox-group-astro">
+      <FieldGroup name="checkbox-group">
         <Checkbox checked>Checkbox 1</Checkbox>
         <Checkbox>Checkbox 2</Checkbox>
         <Checkbox>Checkbox 3</Checkbox>
@@ -252,7 +280,7 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
   <Form>
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="checkbox-group-direction-astro">
+      <FieldGroup direction="row" name="checkbox-group-direction">
         <Checkbox checked>Checkbox 1</Checkbox>
         <Checkbox>Checkbox 2</Checkbox>
         <Checkbox>Checkbox 3</Checkbox>
@@ -284,10 +312,7 @@ import {
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
       <FieldDescription>Field description above fields</FieldDescription>
-      <FieldGroup
-        direction="row"
-        name="checkbox-group-field-description-1-astro"
-      >
+      <FieldGroup direction="row" name="checkbox-group-field-description-1">
         <Checkbox checked>Checkbox 1</Checkbox>
         <Checkbox>Checkbox 2</Checkbox>
         <Checkbox>Checkbox 3</Checkbox>
@@ -297,10 +322,7 @@ import {
 
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup
-        direction="row"
-        name="checkbox-group-field-description-2-astro"
-      >
+      <FieldGroup direction="row" name="checkbox-group-field-description-2">
         <Checkbox checked>Checkbox 1</Checkbox>
         <Checkbox>Checkbox 2</Checkbox>
         <Checkbox>Checkbox 3</Checkbox>
@@ -325,7 +347,7 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
   <Form>
     <FieldSet disabled>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="checkbox-group-disabled-astro">
+      <FieldGroup direction="row" name="checkbox-group-disabled">
         <Checkbox checked>Checkbox 1</Checkbox>
         <Checkbox>Checkbox 2</Checkbox>
         <Checkbox>Checkbox 3</Checkbox>
@@ -349,7 +371,7 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
   <Form>
     <FieldSet>
       <FieldLegend>These are required!</FieldLegend>
-      <FieldGroup direction="row" name="checkbox-group-required-astro">
+      <FieldGroup direction="row" name="checkbox-group-required">
         <Checkbox required>Checkbox 1</Checkbox>
         <Checkbox required>Checkbox 2</Checkbox>
         <Checkbox required>Checkbox 3</Checkbox>
@@ -373,7 +395,7 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
   <Form>
     <FieldSet data-invalid>
       <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="checkbox-group-validation-astro">
+      <FieldGroup direction="row" name="checkbox-group-validation">
         <Checkbox checked>Checkbox 1</Checkbox>
         <Checkbox>Checkbox 2</Checkbox>
         <Checkbox>Checkbox 3</Checkbox>
@@ -401,16 +423,41 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `Space` | When Checkbox is focused it changes its state.            |
 | `Enter` | (Optional) When Checkbox is focused it changes its state. |
 
-1. Container
-2. Input
-3. Label (optional)
-4. End text (optional)
-
 ## API
 
 ### Checkbox API
 
+| Prop            | Type                              | Default | Description                                                                          |
+| --------------- | --------------------------------- | ------- | ------------------------------------------------------------------------------------ |
+| `error`         | `boolean`                         | `false` | Shows error styles.                                                                  |
+| `hideLabel`     | `boolean`                         | `false` | Visually hides the label.                                                            |
+| `indeterminate` | `boolean`                         | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+| `size`          | `"small"`, `"large"`              | -       | The size of the element.                                                             |
+| `spread`        | `boolean`                         | `false` | Pushes the label and the input to opposite ends.                                     |
+| `stack`         | `boolean`                         | `false` | Stacks the label under the input.                                                    |
+| `v-model`       | `boolean`, `(string`, `number)[]` | -       | The checked state, or the checked values of a group.                                 |
+
+#### Slots
+
+| Slot       | Description                                |
+| ---------- | ------------------------------------------ |
+| `default`  | The label.                                 |
+| `end-text` | Supporting text displayed below the label. |
+
+Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`.
+
 ### Field group API
+
+| Prop        | Type                | Default | Description                                             |
+| ----------- | ------------------- | ------- | ------------------------------------------------------- |
+| `direction` | `"row"`, `"column"` | -       | The orientation of the element.                         |
+| `name`      | `string`            | -       | Sets `name` on every input, select and textarea inside. |
+
+#### Slots
+
+| Slot      | Description                                         |
+| --------- | --------------------------------------------------- |
+| `default` | The fields, such as checkboxes, radios or switches. |
 
 ## Browser support
 

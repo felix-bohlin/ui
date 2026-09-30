@@ -1,5 +1,33 @@
 # Range
 
+## Anatomy
+
+Label50Start textEnd text
+
+- `<Range>`
+
+  Container element.
+
+- `v-slot:default`
+
+  The label for the range.
+
+- `v-slot:value`
+
+  Shows the current value, with an optional `valueSuffix`.
+
+- `v-slot:start-text`
+
+  Description text displayed above the input.
+
+- `v-model`
+
+  The range input.
+
+- `v-slot:end-text`
+
+  Supporting text displayed below the input.
+
 ```vue
 <script setup lang="ts">
 import { Range } from "opui-css/vue"
@@ -114,11 +142,7 @@ import { Range } from "opui-css/vue"
 
 
 <template>
-  <Range
-    label="Invalid Range"
-    data-invalid
-    endText="This value is incorrect."
-  />
+  <Range label="Invalid Range" error endText="This value is incorrect." />
 </template>
 ```
 
@@ -145,7 +169,7 @@ import { Range } from "opui-css/vue"
   </Range>
 
 
-  <Range spread data-invalid endText="This value is incorrect.">
+  <Range spread error endText="This value is incorrect.">
     Invalid Range
     <template #start-text>Start text</template>
   </Range>
@@ -188,7 +212,7 @@ import { Range } from "opui-css/vue"
 
 
 <template>
-  <Range label="Volume" :min="0" :max="100" :value="50" spread data-invalid />
+  <Range label="Volume" :min="0" :max="100" :value="50" spread error />
 </template>
 ```
 
@@ -203,38 +227,36 @@ import { Range } from "opui-css/vue"
 - `Page Up` (Optional): Increase the slider value by an amount larger than the step change made by `Up Arrow`.
 - `Page Down` (Optional): Decrease the slider value by an amount larger than the step change made by `Down Arrow`.
 
-## Anatomy
-
-1. Container
-2. Label (optional)
-3. Value (optional)
-4. Start text (optional)
-5. Input
-6. End text (optional)
-
 ## API
 
-| Prop          | Type                               | Default     | Description                                                                                                                                                                                           |
-| ------------- | ---------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `label`       | `string`                           | -           | The label for the range input.                                                                                                                                                                        |
-| `startText`   | `string`                           | -           | Informational text between label and the range input.                                                                                                                                                 |
-| `endText`     | `string`                           | -           | Informational text below the range input.                                                                                                                                                             |
-| `spread`      | `boolean`                          | `false`     | Spreads the label/text and input to opposite ends.                                                                                                                                                    |
-| `variant`     | `'filled' \| 'default' \| 'tonal'` | `'default'` | Adjusts the track color for better contrast on different surfaces.                                                                                                                                    |
-| `min`         | `number \| string`                 | -           | The minimum value.                                                                                                                                                                                    |
-| `max`         | `number \| string`                 | -           | The maximum value.                                                                                                                                                                                    |
-| `step`        | `number \| string`                 | -           | The step increment.                                                                                                                                                                                   |
-| `value`       | `number \| string`                 | -           | The current value.                                                                                                                                                                                    |
-| `valueSuffix` | `string`                           | -           | Renders a live `<output>` next to the label showing the current input value. The suffix (e.g. `°`, `px`) is appended to the value and the component keeps the readout in sync on every `input` event. |
+### Range API
 
-### Slots
+| Prop          | Type                                                                                | Default | Description                                                              |
+| ------------- | ----------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| `endText`     | `string`                                                                            | -       | Supporting text displayed below the input.                               |
+| `error`       | `boolean`                                                                           | `false` | Shows error styles.                                                      |
+| `id`          | `string`                                                                            | -       | The id of the `<input>`. Generated when omitted and the value is shown.  |
+| `label`       | `string`                                                                            | -       | The label for the range.                                                 |
+| `list`        | `string`                                                                            | -       | The id of the `<datalist>`. Needed with `options`.                       |
+| `options`     | `(string`, `number`, `{ value: string`, `number; label?: string`, `undefined; })[]` | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.           |
+| `spread`      | `boolean`                                                                           | `false` | Pushes the label and description to one side and the input to the other. |
+| `startText`   | `string`                                                                            | -       | Description text displayed above the input.                              |
+| `v-model`     | `number`, `string`                                                                  | -       | The current value.                                                       |
+| `value`       | `number`, `string`                                                                  | -       | The current value.                                                       |
+| `valueSuffix` | `string`                                                                            | -       | Shows the current value, with an optional `valueSuffix`.                 |
+| `variant`     | `"default"`, `"tonal"`, `"filled"`                                                  | -       | The variant to use.                                                      |
 
-| Slot         | Description                                                                                                                                                                                                        |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `default`    | Slot for the label element.                                                                                                                                                                                        |
-| `start-text` | Slot for the text between label and input.                                                                                                                                                                         |
-| `end-text`   | Slot for the text below the input.                                                                                                                                                                                 |
-| `value`      | Custom content for the live value readout. When set, replaces the default rendering of the `value` prop inside `<output>`. The auto-update script still mirrors the input's value into the element's text content. |
+#### Slots
+
+| Slot         | Description                                              |
+| ------------ | -------------------------------------------------------- |
+| `datalist`   | Extra `<option>` elements for the `<datalist>`.          |
+| `default`    | The label for the range.                                 |
+| `end-text`   | Supporting text displayed below the input.               |
+| `start-text` | Description text displayed above the input.              |
+| `value`      | Shows the current value, with an optional `valueSuffix`. |
+
+Attributes that aren't props, such as `max`, `min` or `step`, go to the `<input>`.
 
 ## Browser support
 

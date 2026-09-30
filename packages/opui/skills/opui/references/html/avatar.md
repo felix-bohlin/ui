@@ -5,30 +5,24 @@
 ```html
 <div class="ui-avatar">
   <img
-    src="https://picsum.photos/100"
+    src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     alt="Avatar"
-    decoding="async"
-    loading="lazy"
   />
 </div>
 
 
 <div class="ui-avatar">
   <img
-    src="https://picsum.photos/101"
+    src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     alt="Avatar"
-    decoding="async"
-    loading="lazy"
   />
 </div>
 
 
 <div class="ui-avatar">
   <img
-    src="https://picsum.photos/102"
+    src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?q=80&w=1885&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     alt="Avatar"
-    decoding="async"
-    loading="lazy"
   />
 </div>
 ```
@@ -101,8 +95,6 @@ Change the shape of the avatar with the `.ui-squared`, `.ui-rounded` and `.ui-sq
   <img
     src="https://images.unsplash.com/photo-1616286608358-0e1b143f7d2f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     alt="Avatar"
-    decoding="async"
-    loading="lazy"
   />
 </div>
 
@@ -111,8 +103,6 @@ Change the shape of the avatar with the `.ui-squared`, `.ui-rounded` and `.ui-sq
   <img
     src="https://plus.unsplash.com/premium_photo-1770631651199-d92007477b6f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     alt="Avatar"
-    decoding="async"
-    loading="lazy"
   />
 </div>
 ```
@@ -134,15 +124,19 @@ Group multiple avatars by adding `role="group"` to a parent container.
 
 ## API
 
-| Type     | Modifiers                                    | Default | Description                   |
-| -------- | -------------------------------------------- | ------- | ----------------------------- |
-| Variants | `.ui-squared`, `.ui-rounded`, `.ui-squircle` | -       | Sets the shape of the avatar. |
+### Avatar API
 
-### Avatar group
+| Type     | Modifiers                                    | Default | Description                              |
+| -------- | -------------------------------------------- | ------- | ---------------------------------------- |
+| Group    | `[role="group"]`                             | -       | Renders a container that groups avatars. |
+| Variants | `.ui-rounded`, `.ui-squared`, `.ui-squircle` | -       | The variant to use.                      |
 
-| Type      | Modifiers        | Default | Description                   |
-| --------- | ---------------- | ------- | ----------------------------- |
-| Container | `[role="group"]` | -       | Required for grouped avatars. |
+#### Parts
+
+| Part         | Description        |
+| ------------ | ------------------ |
+| `.ui-avatar` | Container element. |
+| `<img>`      | The avatar image.  |
 
 ## Browser support
 

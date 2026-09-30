@@ -1,5 +1,19 @@
 # Button
 
+## Anatomy
+
+- `<Button>`
+
+  Container element.
+
+- `<svg>`
+
+  An optional icon.
+
+- `<span>`
+
+  The label.
+
 ## Variants
 
 Change the button variant with the `variant` prop.
@@ -210,23 +224,26 @@ import { Button } from "opui-css/astro"
 
 Is it a button? Is it an input? You can find the [docs for it here](https://open-props-ui.netlify.app/astro/components/text-field.md#file) at least.
 
-## Anatomy
-
-1. Container
-2. Label text (optional)
-3. Icon (optional)
-
 ## API
 
-| Prop       | Type                                | Default | Description                                                       |
-| ---------- | ----------------------------------- | ------- | ----------------------------------------------------------------- |
-| `size`     | `"small"`, `"large"`                | -       | The size of the button.                                           |
-| `variant`  | `"outlined"`, `"tonal"`, `"filled"` | -       | The visual variant of the button.                                 |
-| `color`    | `"critical"`, `"primary"`           | -       | The color of the button. Default is a neutral gray.               |
-| `href`     | `string`                            | -       | Renders as an `<a>` tag if an href is provided.                   |
-| `ripple`   | `boolean`                           | `false` | A halo behind the button on hover instead of a background change. |
-| `rounded`  | `boolean`                           | `false` | Fully rounded corners, a circle when icon-only.                   |
-| `disabled` | `boolean`                           | -       | Button disabled state.                                            |
+### Button API
+
+| Prop       | Type                                | Default | Description                                                                 |
+| ---------- | ----------------------------------- | ------- | --------------------------------------------------------------------------- |
+| `as`       | `"button"`, `"a"`                   | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
+| `color`    | `"critical"`, `"primary"`           | -       | Optional colors.                                                            |
+| `disabled` | `boolean`                           | `false` | Disables the button.                                                        |
+| `href`     | `string`                            | -       | The link to use. Renders an `<a>`.                                          |
+| `ripple`   | `boolean`                           | `false` | A halo behind the button on hover instead of a background change.           |
+| `rounded`  | `boolean`                           | `false` | Fully rounded corners, a circle when icon-only.                             |
+| `size`     | `"x-small"`, `"small"`, `"large"`   | -       | The size of the element.                                                    |
+| `variant`  | `"outlined"`, `"tonal"`, `"filled"` | -       | The variant to use.                                                         |
+
+#### Slots
+
+| Slot      | Description                     |
+| --------- | ------------------------------- |
+| `default` | The label and an optional icon. |
 
 ## Browser support
 

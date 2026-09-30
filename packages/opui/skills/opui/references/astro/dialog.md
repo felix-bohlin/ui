@@ -84,16 +84,14 @@ import { FieldLegend } from "opui-css/astro"
 
 <Dialog id="closing-behaviors-dialog" closedby="any">
   <h2 class="ui-h4" slot="header">How to close</h2>
-  <div slot="content">
-    <Fieldset>
-      <FieldLegend>Choose a closing behavior:</FieldLegend>
-      <FieldGroup name="closedby-demo">
-        <Radio value="any" checked>any</Radio>
-        <Radio value="closerequest">closerequest</Radio>
-        <Radio value="none">none</Radio>
-      </FieldGroup>
-    </Fieldset>
-  </div>
+  <Fieldset slot="content">
+    <FieldLegend>Choose a closing behavior:</FieldLegend>
+    <FieldGroup name="closedby-demo">
+      <Radio value="any" checked>any</Radio>
+      <Radio value="closerequest">closerequest</Radio>
+      <Radio value="none">none</Radio>
+    </FieldGroup>
+  </Fieldset>
   <Fragment slot="actions">
     <Button commandfor="closing-behaviors-dialog" command="close">
       Close manually
@@ -148,21 +146,21 @@ Source: [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/
 
 ## API
 
-### Props
+### Dialog API
 
-| Prop           | Type                                | Default | Description                                                      |
-| -------------- | ----------------------------------- | ------- | ---------------------------------------------------------------- |
-| `actionsAlign` | `"start"`, `"end"`                  | -       | Alignment of the actions slot.                                   |
-| `closedby`     | `"any" \| "closerequest" \| "none"` | -       | Specifies how the dialog can be closed (e.g., clicking outside). |
+| Prop           | Type                                | Default | Description                                                              |
+| -------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------ |
+| `actionsAlign` | `"start"`, `"end"`                  | -       | Alignment for the actions.                                               |
+| `closedby`     | `"any"`, `"closerequest"`, `"none"` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
 
-### Slots
+#### Slots
 
-| Slot      | Description                                                     |
-| --------- | --------------------------------------------------------------- |
-| `header`  | The header content, wrapped in an `hgroup`.                     |
-| `content` | The main content, wrapped in a `div` with a `content` class.    |
-| `actions` | The footer actions, wrapped in a `div` with an `actions` class. |
-| `default` | Any content not assigned to a named slot.                       |
+| Slot      | Description                                |
+| --------- | ------------------------------------------ |
+| `actions` | A group of actions, such as buttons.       |
+| `content` | The dialog content.                        |
+| `default` | Raw content placed directly in the dialog. |
+| `header`  | The dialog header.                         |
 
 ## Browser support
 

@@ -5,6 +5,7 @@ import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocLink from "../../components/DocLink.astro"
 import CarouselBuild from "../../components/HowItsMade/CarouselBuild.astro"
+import ReadMore from "../../components/HowItsMade/ReadMore.astro"
 import { Card as UICard, Carousel as UICarousel } from "@opui/astro"
 
 import CarouselCSS from "@opui/css/components/carousel.css?raw"
@@ -157,5 +158,7 @@ export const description =
   <section>
     <h2 id="how-its-made">How it's made</h2>
     <CarouselBuild />
+    <h3 id="read-more">Read more</h3>
+    <ReadMore topic="carousel" />
   </section>
 </Component>

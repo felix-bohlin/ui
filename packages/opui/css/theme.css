@@ -53,6 +53,7 @@
     /* 2. Palette - override the values in core/palette.css */
     --palette-hue: var(--hue-green);
     --palette-chroma: 0.5;
+    --palette-hue-rotate-by: 0;
     /* --palette-source: oklch(.58 calc(.21 * .5) var(--hue-blue));   */
 
     /* Gray palette also lives in core/palette.css. */
@@ -60,6 +61,8 @@
       --gray-hue: 255;
       --gray-chroma: 0.01;
     */
+    --gray-chroma: 0.01;
+    --gray-hue: 255;
 
     /* 8. Borders */
     --border-radius: var(--size-2);

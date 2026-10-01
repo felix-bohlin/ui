@@ -10,7 +10,6 @@
     --_border-color: var(--field-border-color);
     --_field-padding-block: var(--size-2);
     --_field-padding-inline: var(--size-2);
-    --_filled-border-color: var(--text-primary);
     --_height: var(--field-size);
     --_label-color: var(--text-muted);
     --_end-text-color: var(--text-muted);
@@ -113,11 +112,12 @@
     }
 
     /* Required/Invalid */
-    &:has(:invalid) {
+    &:has(:required) {
       .ui-label:after {
-        color: var(--red);
+        color: var(--critical);
         content: "*";
-        margin: -0.25em auto auto 0.25em;
+        margin-block: -0.25em auto;
+        margin-inline: 0.25em auto;
       }
     }
 
@@ -241,11 +241,9 @@
     }
 
     /* Element states */
-    &:hover {
-      &:not([data-invalid]) {
-        .ui-field {
-          border-color: var(--text-primary);
-        }
+    &:hover:not([data-invalid], :focus-within, :has(:user-invalid, :disabled)) {
+      .ui-field {
+        border-color: var(--text-primary);
       }
     }
 
@@ -311,11 +309,10 @@
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {
-      --_accent-color: var(--color-9);
-      --_border-color: var(--color-9);
-      --_filled-border-color: var(--color-9);
-      --_label-color: var(--color-9);
-      --_end-text-color: var(--color-9);
+      --_accent-color: var(--critical);
+      --_border-color: var(--critical);
+      --_label-color: var(--critical);
+      --_end-text-color: var(--critical);
     }
 
     /*
@@ -324,7 +321,7 @@
     &.ui-filled {
       --_bg-color: var(--surface-tonal);
 
-      &:not(:has([disabled], :has(input[type="color"]))) {
+      &:not(:has([disabled], input[type="color"])) {
         /* Hover */
         &:hover {
           --_bg-color: light-dark(
@@ -340,10 +337,6 @@
       cursor: not-allowed;
       opacity: 0.64;
       user-select: none;
-
-      &::before {
-        display: none;
-      }
 
       .ui-field {
         cursor: not-allowed;
@@ -366,12 +359,8 @@
 
     /* Read-only */
     &:where(:has([readonly])) {
-      &::before {
-        display: none;
-      }
-
       :where(input, textarea, select) {
-        cursor: not-allowed;
+        cursor: text;
 
         * {
           pointer-events: none;
@@ -381,7 +370,6 @@
 
     /* Sizes */
     &.ui-small {
-      --_field-padding-block: var(--size-2);
       --_height: var(--field-size-small);
 
       &:has(input[type="color"]) {
@@ -395,7 +383,6 @@
     &.ui-spread {
       align-items: start;
       column-gap: var(--size-4);
-      container-type: inline-size;
       grid-template-columns: 1fr auto;
 
       .ui-label {

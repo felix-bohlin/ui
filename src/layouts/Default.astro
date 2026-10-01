@@ -18,7 +18,9 @@ const { title, description, hasMarkdown, image } = Astro.props
   hasMarkdown={hasMarkdown}
   image={image}
 >
-  <a href="#main-content" class="ui-sr-only">Skip to main content</a>
+  <a href="#main-content" class="ui-sr-only ui-focusable"
+    >Skip to main content</a
+  >
 
   <Header>
     <slot name="toolbar" slot="toolbar" />

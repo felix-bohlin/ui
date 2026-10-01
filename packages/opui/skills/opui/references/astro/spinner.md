@@ -12,7 +12,7 @@ The spinner's size is set to `1em`, which means it will adjust to its current fo
 
 ```astro
 <h2 aria-busy="true">h2</h2>
-<h4 aria-busy="true">h4</h4>
+<h3 aria-busy="true">h3</h3>
 <p aria-busy="true">Paragraph</p>
 <span aria-busy="true">Span</span>
 <a href="#sizes" aria-busy="true" class="ui-link">Link</a>

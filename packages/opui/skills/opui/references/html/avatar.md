@@ -112,7 +112,7 @@ Change the shape of the avatar with the `.ui-squared`, `.ui-rounded` and `.ui-sq
 Group multiple avatars by adding `role="group"` to a parent container.
 
 ```html
-<div role="group">
+<div class="ui-avatar-group" role="group">
   <div class="ui-avatar">AB</div>
   <div class="ui-avatar">CD</div>
   <button class="ui-avatar">EF</button>
@@ -128,7 +128,7 @@ Group multiple avatars by adding `role="group"` to a parent container.
 
 | Type     | Modifiers                                    | Default | Description                              |
 | -------- | -------------------------------------------- | ------- | ---------------------------------------- |
-| Group    | `[role="group"]`                             | -       | Renders a container that groups avatars. |
+| Group    | `.ui-avatar-group`                           | -       | Renders a container that groups avatars. |
 | Variants | `.ui-rounded`, `.ui-squared`, `.ui-squircle` | -       | The variant to use.                      |
 
 #### Parts

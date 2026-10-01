@@ -1,3 +1,5 @@
+@import "./layers.css";
+
 /*
 * Components are divided into two categories - if they are stand-alone (root) or if they are built on top of others (extended).
 */

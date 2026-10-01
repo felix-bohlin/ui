@@ -398,7 +398,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
 
 ### Validation
 
-Attach the `data-invalid` attribute to your `Fieldset` component.
+Attach the `data-invalid` attribute to your `FieldSet` component.
 
 ```vue
 <script setup lang="ts">
@@ -441,10 +441,9 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Keyboard support
 
-| Key     | Function                                                |
-| ------- | ------------------------------------------------------- |
-| `Space` | When Switch is focused it changes its state.            |
-| `Enter` | (Optional) When Switch is focused it changes its state. |
+| Key     | Function                                     |
+| ------- | -------------------------------------------- |
+| `Space` | When Switch is focused it changes its state. |
 
 ## API
 

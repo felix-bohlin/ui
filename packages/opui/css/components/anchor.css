@@ -21,6 +21,11 @@
       margin: 0;
       position: absolute;
       position-area: var(--anchor-position-area, start end);
+      position-try-fallbacks:
+        flip-block,
+        flip-inline,
+        flip-block flip-inline;
+      position-visibility: anchors-visible;
       translate: var(--_anchor-tx, 0) var(--_anchor-ty, 0);
     }
   }

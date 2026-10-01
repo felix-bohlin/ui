@@ -9,14 +9,15 @@ import drawerHeaderApi from "../../component-api/drawer-header/api"
 
 import ExampleUsage from "../../component-examples/drawer/Usage.astro"
 import ExampleUsageVue from "../../component-examples/drawer/Usage.vue"
-import ExampleUsageAstro from "/src/component-examples/drawer/Usage.astro?raw"
-import ExampleUsageVueRaw from "/src/component-examples/drawer/Usage.vue?raw"
-import ExampleUsageHTML from "/src/component-examples/drawer/Usage.html?raw"
+import ExampleUsageAstro from "../../component-examples/drawer/Usage.astro?raw"
+import ExampleUsageVueRaw from "../../component-examples/drawer/Usage.vue?raw"
+import ExampleUsageHTML from "../../component-examples/drawer/Usage.html?raw"
 
 import Conditional from "../../components/Conditional.astro"
 ---
 
 <Component
+  slug="drawer"
   browserSupport={[
     "dialog-closedby",
     "has",

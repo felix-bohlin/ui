@@ -4,16 +4,23 @@ import type { Props } from "./types.astro"
 export const title = "Dialog"
 
 const { actionsAlign, class: className, closedby, ...rest } = Astro.props
+
+const { $id } = Astro.locals
+const headerId =
+  Astro.slots.has("header") && !rest["aria-labelledby"]
+    ? $id("dialog-header")
+    : undefined
 ---
 
 <dialog
+  aria-labelledby={headerId}
   class:list={["ui-dialog ui-card ui-elevated", className]}
   closedby={closedby}
   {...rest}
 >
   {
     Astro.slots.has("header") && (
-      <hgroup>
+      <hgroup id={headerId}>
         <slot name="header" />
       </hgroup>
     )

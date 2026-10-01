@@ -19,7 +19,7 @@ import anchorApi from "../../component-api/anchor/api"
   slug="anchor"
   heroAnatomy
   apis={[{ title: "Anchor API", api: anchorApi }]}
-  browserSupport={["anchor-positioning", "popover-hint"]}
+  browserSupport={["anchor-positioning", "interest-invokers", "popover-hint"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Anchor/Anchor.astro",
@@ -41,14 +41,14 @@ import anchorApi from "../../component-api/anchor/api"
   >
 
   <section>
-    <h2 id="always-visible">Always Visible</h2>
+    <h2 id="always-visible">Always visible</h2>
     <p>Floating content that is always shown.</p>
 
     <AutoExample name="AlwaysVisible" />
   </section>
 
   <section>
-    <h2 id="hover-trigger">Hover Trigger</h2>
+    <h2 id="hover-trigger">Hover trigger</h2>
     <Conditional as="p">
       <Fragment slot="html">
         Add <code>interestfor</code> on the trigger element pointing to the
@@ -79,7 +79,7 @@ import anchorApi from "../../component-api/anchor/api"
   </section>
 
   <section>
-    <h2 id="used-by">Used By</h2>
+    <h2 id="used-by">Used by</h2>
     <ul>
       <li><DocLink href="/components/badge">Badge</DocLink></li>
       <li><DocLink href="/components/tooltip">Tooltip</DocLink></li>

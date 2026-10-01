@@ -24,6 +24,7 @@
     max-block-size: var(--_max-block-size);
     min-inline-size: var(--_min-inline-size);
     overflow-y: auto;
+    overscroll-behavior: contain;
     padding-block: var(--size-1);
     padding-inline: 0;
 

@@ -23,7 +23,7 @@ for (const { input, out } of targets) {
   const from = resolve(root, input)
   const to = resolve(dist, out)
   const result = await processor.process(`@import "${from}";`, {
-    from: root,
+    from,
     to,
     map: { inline: false, annotation: `${out}.map` },
   })

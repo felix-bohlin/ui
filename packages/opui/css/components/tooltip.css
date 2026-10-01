@@ -42,10 +42,10 @@
         content: "";
         inline-size: var(--_arrow-size);
         inset-block-end: calc(var(--_arrow-size) / -2);
-        inset-inline-start: 50%;
+        inset-inline: 0;
+        margin-inline: auto;
         position: absolute;
         rotate: 45deg;
-        translate: -50% 0;
       }
     }
 

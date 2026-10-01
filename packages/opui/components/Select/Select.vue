@@ -52,6 +52,10 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
 
     <span class="ui-field">
       <select
+        :aria-describedby="
+          props.endText || $slots['end-text'] ? endTextId : undefined
+        "
+        :aria-invalid="props.error ? 'true' : undefined"
         :aria-labelledby="props.label || $slots.label ? labelId : undefined"
         :id="props.id"
         :name="currentFieldName"

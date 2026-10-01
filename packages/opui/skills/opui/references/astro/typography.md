@@ -575,6 +575,66 @@ cold-brew 1.0.0</samp></pre>
 </article>
 ```
 
+## How it's made
+
+**Vertical rhythm with round()**`typography.css`
+
+Step 1: Unsnapped
+
+- Stripes mark each line box (`1lh`), dotted lines mark `--rhythm-step`
+- A plain `line-height` lands between grid lines at most sizes
+
+```css
+.prose h2 {
+  font-size: var(--size);
+  line-height: 1.2;
+}
+```
+
+Step 2: Snap line height
+
+- `round(up, …, step)` snaps the line height to the next step
+- `1em + 0.5rem`: tight for large headings, roomy for small ones
+- One rule for every heading level
+
+```css
+.prose h2 {
+  line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
+}
+```
+
+Step 3: Snap font size
+
+- Fluid sizes land on half a step
+- Drag **Font size**: it moves in steps, not pixels
+
+```css
+.prose h2 {
+  font-size: round(var(--size), var(--rhythm-step) / 2);
+}
+```
+
+Step 4: Flow space
+
+- One flow space derived from the body text
+- More space above a heading than below: it sits with the text it introduces
+
+```css
+.prose {
+  --flow-space: 1.25em;
+}
+
+
+.prose > * {
+  margin-block: 0 var(--flow-space);
+}
+
+
+.prose h2 {
+  margin-block: calc(var(--flow-space) * 1.5) calc(var(--flow-space) * 0.5);
+}
+```
+
 ## API
 
 | Prop    | Type                                                                                                                                              | Default | Description                                                                      |

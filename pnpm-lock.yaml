@@ -290,9 +290,6 @@ importers:
       astro:
         specifier: ^7.0.6
         version: 7.0.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.2)(@types/node@24.13.2)(yaml@2.9.0)
-      open-props:
-        specifier: ^1.7.23
-        version: 1.7.23
       svelte:
         specifier: ^5.56.4
         version: 5.56.4
@@ -300,6 +297,9 @@ importers:
         specifier: ^3.5.39
         version: 3.5.39(typescript@6.0.3)
     devDependencies:
+      open-props:
+        specifier: ^1.7.23
+        version: 1.7.23
       postcss:
         specifier: ^8.4.0
         version: 8.5.16

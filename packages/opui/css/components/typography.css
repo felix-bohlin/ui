@@ -82,7 +82,7 @@
     }
 
     & > :where(h1, h2, h3, h4, h5, h6) {
-      margin-block: 0 0.4em;
+      margin-block: 0 round(0.4em, var(--rhythm-step, 0.25rem));
     }
 
     /* First p element (overline) */
@@ -101,11 +101,11 @@
     & > p:not(:first-of-type:first-child) {
       color: oklch(from currentColor l c h / 75%);
       font-size: var(--font-size-3);
-      line-height: 1.6;
+      line-height: round(up, 1.6em, var(--rhythm-step, 0.25rem));
     }
 
     & > p + p {
-      margin-block-start: 0.75em;
+      margin-block-start: round(0.75em, var(--rhythm-step, 0.25rem));
     }
   }
 
@@ -533,7 +533,7 @@
       & > p:not(:first-of-type:first-child) {
         color: oklch(from currentColor l c h / 75%);
         font-size: var(--font-size-3);
-        line-height: 1.6;
+        line-height: round(up, 1.6em, var(--rhythm-step, 0.25rem));
       }
 
       & > p + p {

@@ -2,7 +2,7 @@ import type { FrameworkId } from "./framework-routing"
 
 type Note = string | Partial<Record<FrameworkId | "default", string>>
 
-export const whatsNew = {
+const whatsNew = {
   accordion: [
     {
       astro: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,

@@ -34,7 +34,6 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 - Use `html`, `astro` and `vue` keys when the notes differ per framework (classes vs props). A framework without a note gets no callout or badge.
 - Link to the section on the page that documents the change (`<a href="#line">`).
 - Keep the notes in sync when a change is reworked, and only remove notes when asked.
-- `tests/unit/whats-new.test.ts` fails when a component in those sections has no notes.
 
 ## Testing
 

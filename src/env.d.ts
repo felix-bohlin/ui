@@ -31,6 +31,5 @@ declare namespace App {
      * without each doc page repeating the slug on every example.
      */
     componentSlug?: string
-    browserSupport?: string[]
   }
 }

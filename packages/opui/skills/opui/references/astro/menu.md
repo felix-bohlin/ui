@@ -316,15 +316,11 @@ Step 4 of 4: Animate
 }
 ```
 
-### Browser support
+## Browser support
 
-Modern CSS and HTML features this component uses.
-
-- [Anchor positioning](https://webstatus.dev/features/anchor-positioning) (Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
-- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
-- [Popover](https://webstatus.dev/features/popover) (Newly available): Chrome 116+, Edge 116+, Firefox 125+, Safari 17+
-- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
-- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+- Chromium: Full support Supported since v144.
+- Firefox: Full support Supported since v151.
+- Safari: Full support Supported since v26.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 

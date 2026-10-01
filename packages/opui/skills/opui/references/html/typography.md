@@ -678,16 +678,11 @@ Step 4 of 4: Flow space
 }
 ```
 
-### Browser support
+## Browser support
 
-Modern CSS and HTML features this component uses.
-
-- [`box-decoration-break`](https://webstatus.dev/features/box-decoration-break) (Limited availability): Chrome 130+, Edge 130+, Firefox 32+, Safari not supported
-- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
-- [Registered custom properties](https://webstatus.dev/features/registered-custom-properties) (Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
-- [`round(), mod(), and rem()`](https://webstatus.dev/features/round-mod-rem) (Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
-- [`@scope`](https://webstatus.dev/features/scope) (Newly available): Chrome 143+, Edge 143+, Firefox 146+, Safari 26.2+
+- Chromium: Full support Supported since v143.
+- Firefox: Full support Supported since v146.
+- Safari: Partial support Missing: box-decoration-break.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 

@@ -542,16 +542,11 @@ Step 4 of 4: Scroll markers
 }
 ```
 
-### Browser support
+## Browser support
 
-Modern CSS and HTML features this component uses.
-
-- [Anchor positioning](https://webstatus.dev/features/anchor-positioning) (Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
-- [Container style queries](https://webstatus.dev/features/container-style-queries) (Newly available): Chrome 111+, Edge 111+, Firefox 151+, Safari 18+
-- [`if()`](https://webstatus.dev/features/if) (Limited availability): Chrome 137+, Edge 137+, Firefox not supported, Safari not supported
-- [`::scroll-button`](https://webstatus.dev/features/scroll-buttons) (Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari not supported
-- [Scroll markers](https://webstatus.dev/features/scroll-markers) (Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari not supported
-- [Scroll snap](https://webstatus.dev/features/scroll-snap) (Widely available): Chrome 69+, Edge 79+, Firefox 68+, Safari 11+
+- Chromium: Full support Supported since v144.
+- Firefox: Partial support Missing: if, scroll-buttons, scroll-markers.
+- Safari: Partial support Missing: if, scroll-buttons, scroll-markers.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 

@@ -606,17 +606,11 @@ Step 3 of 3: Marker
 }
 ```
 
-### Browser support
+## Browser support
 
-Modern CSS and HTML features this component uses.
-
-- [Container style queries](https://webstatus.dev/features/container-style-queries) (Newly available): Chrome 111+, Edge 111+, Firefox 151+, Safari 18+
-- [`content-visibility`](https://webstatus.dev/features/content-visibility) (Newly available): Chrome 108+, Edge 108+, Firefox 130+, Safari 26+
-- [`::details-content`](https://webstatus.dev/features/details-content) (Newly available): Chrome 131+, Edge 131+, Firefox 143+, Safari 18.4+
-- [Mutually exclusive \<details> elements](https://webstatus.dev/features/details-name) (Newly available): Chrome 120+, Edge 120+, Firefox 130+, Safari 17.2+
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [`interpolate-size`](https://webstatus.dev/features/interpolate-size) (Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
-- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+- Chromium: Full support Supported since v131.
+- Firefox: Partial support Missing: interpolate-size.
+- Safari: Partial support Missing: interpolate-size.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 

@@ -29,8 +29,6 @@ type Props = {
 
 const { id, knobs = [], steps } = Astro.props
 
-const features = Astro.locals.browserSupport ?? []
-
 const values = (from: number) =>
   steps
     .slice(from)
@@ -150,18 +148,6 @@ const stepId = (index: number, part: string) =>
       </Button>
     </ButtonGroup>
   </div>
-
-  {
-    features.length > 0 && (
-      <footer class="build-up-support">
-        <hgroup>
-          <h3 id="browser-support">Browser support</h3>
-          <p>Modern CSS and HTML features this component uses.</p>
-        </hgroup>
-        <FeatureSupport ids={features} />
-      </footer>
-    )
-  }
 </section>
 
 <style is:inline set:html={gatedCss}></style>
@@ -179,10 +165,9 @@ const stepId = (index: number, part: string) =>
     grid-template-areas:
       "stage steps"
       "knobs steps"
-      "detail detail"
-      "support support";
+      "detail detail";
     grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
-    grid-template-rows: 1fr auto auto auto;
+    grid-template-rows: 1fr auto auto;
     margin-block: var(--size-6);
     margin-inline: 0;
     min-inline-size: 0;
@@ -404,31 +389,6 @@ const stepId = (index: number, part: string) =>
     }
   }
 
-  .build-up-support {
-    border-block-start: var(--border-width, 1px) solid var(--border-color);
-    display: grid;
-    gap: var(--size-3);
-    grid-area: support;
-    padding: var(--size-3) var(--size-4) var(--size-4);
-
-    & hgroup {
-      display: grid;
-      gap: var(--size-1);
-    }
-
-    & h3 {
-      font-size: var(--font-size-1);
-      font-weight: 700;
-      margin: 0;
-    }
-
-    & p {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
-      margin: 0;
-    }
-  }
-
   .build-up-nav {
     align-self: start;
     grid-column: 2;
@@ -446,8 +406,7 @@ const stepId = (index: number, part: string) =>
         "stage"
         "knobs"
         "steps"
-        "detail"
-        "support";
+        "detail";
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: auto;
     }
@@ -457,8 +416,7 @@ const stepId = (index: number, part: string) =>
       border-inline-start: 0;
     }
 
-    .build-up-detail,
-    .build-up-support {
+    .build-up-detail {
       padding-inline: var(--size-3);
     }
 

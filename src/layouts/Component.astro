@@ -5,7 +5,6 @@ import FrameworkPicker from "../components/FrameworkPicker.astro"
 import BrowserSupport from "../components/BrowserSupport.astro"
 import BrowserSupportChips from "../components/BrowserSupportChips.astro"
 import ComponentAPI from "../components/ComponentAPI.astro"
-import DocLink from "../components/DocLink.astro"
 import Installation, { type Tab } from "../components/Installation.astro"
 import { Button, Callout, Chip, Divider, List, ListItem } from "@opui/astro"
 import {
@@ -62,7 +61,6 @@ const urlSlug = Astro.url.pathname
 
 const currentSlug = slugProp ?? urlSlug
 Astro.locals.componentSlug = currentSlug
-Astro.locals.browserSupport = browserSupport
 
 const apiModules = import.meta.glob("../component-api/**/*.astro", {
   eager: true,
@@ -185,22 +183,15 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
   {apis && <ComponentAPI apis={apis} />}
 
   {
-    Astro.slots.has("under-the-hood") ? (
+    Astro.slots.has("under-the-hood") && (
       <section>
         <h2 id="under-the-hood">Under the hood</h2>
         <slot name="under-the-hood" />
-        <p>
-          See also the{" "}
-          <DocLink href="/guide/browser-support">
-            full browser support guide
-          </DocLink>
-          .
-        </p>
       </section>
-    ) : (
-      browserSupport && <BrowserSupport ids={browserSupport} />
     )
   }
+
+  {browserSupport && <BrowserSupport ids={browserSupport} />}
 
   {
     installationTabs ? (

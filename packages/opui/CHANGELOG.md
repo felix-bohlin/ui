@@ -62,6 +62,7 @@
 - `Typography` rich text inline `code` styles no longer apply to `code` inside `pre`.
 - `Typography` rich text `ol[type]` keeps its marker type, and consecutive `dt` elements are no longer spaced apart.
 - `Typography` rich text no longer styles an `a` without `href` as a link.
+- `Typography` rich text `code` inside a link gets a darker background in dark mode, so the link color keeps its contrast.
 
 ## 5.5.0 - 2026-09-28
 

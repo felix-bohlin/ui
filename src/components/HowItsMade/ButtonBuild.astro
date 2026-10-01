@@ -121,13 +121,7 @@ const knobs = [
 const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>`
 ---
 
-<BuildUp
-  id="build-button"
-  knobs={knobs}
-  source="button.css"
-  steps={steps}
-  title="Button: one class, every shape"
->
+<BuildUp id="build-button" knobs={knobs} steps={steps}>
   <div class="row">
     <button class="button">Download</button>
     <button class="button" aria-label="Download"

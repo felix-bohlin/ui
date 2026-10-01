@@ -7,7 +7,6 @@ import { select, selectAll } from "hast-util-select"
 
 const REMOVE_SELECTORS = [
   ".build-up-knobs",
-  ".build-up-overline",
   ".build-up-stage",
   ".build-up-steps legend",
   ".component-footer",

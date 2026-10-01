@@ -137,13 +137,7 @@ const knobs = [
 const slides = ["Kyoto", "Lima", "Lisbon", "Oslo", "Tbilisi"]
 ---
 
-<BuildUp
-  id="build-carousel"
-  knobs={knobs}
-  source="carousel.css"
-  steps={steps}
-  title="Carousel without JavaScript"
->
+<BuildUp id="build-carousel" knobs={knobs} steps={steps}>
   <div class="frame">
     <ul class="carousel" aria-label="Destinations" tabindex="0">
       {

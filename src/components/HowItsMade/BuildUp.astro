@@ -1,5 +1,5 @@
 ---
-import { Button, Chip, List, ListItem, RadioInput, Range } from "@opui/astro"
+import { Button, ButtonGroup, ListItem, RadioInput, Range } from "@opui/astro"
 import { Code } from "astro-expressive-code/components"
 
 type Step = {
@@ -22,12 +22,10 @@ type Knob = {
 type Props = {
   id: string
   knobs?: Knob[]
-  source?: string
   steps: Step[]
-  title: string
 }
 
-const { id, knobs = [], source, steps, title } = Astro.props
+const { id, knobs = [], steps } = Astro.props
 
 const values = (from: number) =>
   steps
@@ -51,91 +49,68 @@ const knobStyle = knobs
   .map((knob) => `${knob.property}: ${knob.value}${knob.unit ?? ""}`)
   .join("; ")
 
-const stepId = (index: number, part?: string) =>
-  [`${id}-step-${index + 1}`, part].filter(Boolean).join("-")
+const stepId = (index: number, part: string) =>
+  `${id}-step-${index + 1}-${part}`
 ---
 
 <figure class="build-up ui-card ui-outlined ui-not-rich-text" id={id}>
-  <figcaption class="build-up-header">
-    <p>
-      <span class="build-up-overline">How it's made</span>
-      <strong class="build-up-title">{title}</strong>
-    </p>
-    {
-      source && (
-        <Chip class="build-up-source" size="small" variant="outlined">
-          <code>{source}</code>
-        </Chip>
-      )
-    }
-  </figcaption>
+  <div class="build-up-stage" style={knobStyle}>
+    <slot />
+  </div>
 
-  <div class="build-up-layout">
-    <div class="build-up-preview">
-      <div class="build-up-stage" style={knobStyle}>
-        <slot />
-      </div>
+  {
+    knobs.length > 0 && (
+      <fieldset class="build-up-knobs">
+        <legend class="ui-sr-only">Custom properties</legend>
+        {knobs.map((knob) => (
+          <Range
+            data-property={knob.property}
+            data-unit={knob.unit ?? ""}
+            label={knob.label}
+            max={knob.max}
+            min={knob.min}
+            step={knob.step ?? 1}
+            value={knob.value}
+            valueSuffix={knob.unit ?? ""}
+          >
+            <code slot="start-text">{knob.property}</code>
+          </Range>
+        ))}
+      </fieldset>
+    )
+  }
 
+  <fieldset class="build-up-steps">
+    <legend class="ui-sr-only">Steps</legend>
+    <ol class="ui-list ui-dense ui-transparent">
       {
-        knobs.length > 0 && (
-          <div class="build-up-knobs">
-            {knobs.map((knob) => (
-              <Range
-                data-property={knob.property}
-                data-unit={knob.unit ?? ""}
-                label={knob.label}
-                max={knob.max}
-                min={knob.min}
-                step={knob.step ?? 1}
-                value={knob.value}
-                valueSuffix={knob.unit ?? ""}
-              >
-                <code slot="start-text">{knob.property}</code>
-              </Range>
-            ))}
-          </div>
-        )
-      }
-    </div>
-
-    <fieldset class="build-up-steps">
-      <legend class="ui-sr-only">Steps</legend>
-      <List dense variant="transparent">
-        {
-          steps.map((step, index) => (
-            <ListItem for={stepId(index)} type="radio">
-              <span class="build-up-marker" slot="start" />
-              <Fragment slot="text">
-                <p class="build-up-step-name" id={stepId(index, "title")}>
-                  {step.title}
-                </p>
-                {step.notes && (
-                  <div class="build-up-notes">
-                    <ul id={stepId(index, "notes")}>
-                      {step.notes.map((note) => (
-                        <li set:html={note} />
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </Fragment>
+        steps.map((step, index) => (
+          <ListItem>
+            <label>
               <RadioInput
                 aria-describedby={
                   step.notes ? stepId(index, "notes") : undefined
                 }
-                aria-labelledby={stepId(index, "title")}
                 checked={index === 0}
                 class="ui-sr-only"
-                id={stepId(index)}
                 name={`${id}-step`}
                 value={index + 1}
               />
-            </ListItem>
-          ))
-        }
-      </List>
-    </fieldset>
-  </div>
+              <span aria-hidden="true" class="build-up-marker" />
+              <span class="build-up-step-name">{step.title}</span>
+            </label>
+            {step.notes && (
+              <ul class="build-up-notes" id={stepId(index, "notes")}>
+                {step.notes.map((note) => (
+                  <li set:html={note} />
+                ))}
+              </ul>
+            )}
+          </ListItem>
+        ))
+      }
+    </ol>
+  </fieldset>
 
   <div class="build-up-detail">
     {
@@ -144,28 +119,31 @@ const stepId = (index: number, part?: string) =>
           <p class="build-up-step-title">
             Step {index + 1} of {steps.length}: {step.title}
           </p>
-          <div class="build-up-code">
-            {step.html && <Code code={step.html.trim()} lang="html" />}
-            <Code code={step.css.trim()} lang="css" />
-          </div>
+          {step.html && <Code code={step.html.trim()} lang="html" />}
+          <Code code={step.css.trim()} lang="css" />
         </div>
       ))
     }
 
-    <div class="build-up-nav">
-      <Button data-direction="-1" disabled size="small" variant="outlined">
+    <ButtonGroup
+      aria-label="Step navigation"
+      class="build-up-nav"
+      size="small"
+      variant="outlined"
+    >
+      <Button data-direction="-1" disabled>
         <svg aria-hidden="true" viewBox="0 0 24 24">
           <path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4-4.6-4.6z"></path>
         </svg>
         <span>Previous</span>
       </Button>
-      <Button data-direction="1" size="small" variant="outlined">
+      <Button data-direction="1">
         <span>Next</span>
         <svg aria-hidden="true" viewBox="0 0 24 24">
           <path d="M8.6 16.6 10 18l6-6-6-6-1.4 1.4 4.6 4.6z"></path>
         </svg>
       </Button>
-    </div>
+    </ButtonGroup>
   </div>
 </figure>
 
@@ -177,83 +155,46 @@ const stepId = (index: number, part?: string) =>
     --_marker: 1.75rem;
     --_pad: var(--size-2);
 
-    align-items: stretch;
     box-shadow: var(--shadow-2);
     container-type: inline-size;
+    display: grid;
     gap: 0;
+    grid-template-areas:
+      "stage steps"
+      "knobs steps"
+      "detail detail";
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
+    grid-template-rows: 1fr auto auto;
     margin-block: var(--size-6);
     margin-inline: 0;
     min-inline-size: 0;
     padding: 0;
+    place-items: stretch;
     text-align: start;
 
-    svg {
-      fill: currentColor;
-    }
-  }
-
-  .build-up-header {
-    align-items: center;
-    border-block-end: var(--border-width, 1px) solid var(--border-color);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-2) var(--size-3);
-    justify-content: space-between;
-    padding: var(--size-3) var(--size-4);
-
-    & p {
-      display: grid;
-      gap: var(--size-1);
+    & fieldset {
+      border: 0;
+      border-radius: 0;
       margin: 0;
+      min-inline-size: 0;
     }
-  }
 
-  .build-up-overline {
-    color: var(--text-muted);
-    font-size: var(--font-size-0);
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .build-up-title {
-    font-size: var(--font-size-3);
-    font-weight: 700;
-    line-height: var(--font-lineheight-1);
-  }
-
-  .build-up-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
-  }
-
-  .build-up-preview {
-    display: grid;
-    grid-template-rows: 1fr auto;
-    isolation: isolate;
-    min-inline-size: 0;
-    position: relative;
-
-    &:before {
-      background-image: radial-gradient(
-        var(--text-muted) 1.45px,
-        transparent 1.45px
-      );
-      background-size: 20px 20px;
-      content: "";
-      inset: 0;
-      opacity: 0.05;
-      pointer-events: none;
-      position: absolute;
-      z-index: -1;
+    & svg {
+      fill: currentColor;
     }
   }
 
   .build-up-stage {
     align-items: center;
+    background-image: radial-gradient(
+      color-mix(in oklch, var(--text-muted) 5%, transparent) 1.45px,
+      transparent 1.45px
+    );
+    background-size: 20px 20px;
     display: flex;
     flex-direction: column;
     gap: var(--size-3);
+    grid-area: stage;
     justify-content: center;
     min-block-size: 12rem;
     min-inline-size: 0;
@@ -262,10 +203,10 @@ const stepId = (index: number, part?: string) =>
   }
 
   .build-up-knobs {
-    background-color: var(--surface-default);
     border-block-start: var(--border-width, 1px) solid var(--border-color);
     display: grid;
     gap: var(--size-3) var(--size-5);
+    grid-area: knobs;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
     padding: var(--size-3) var(--size-4);
 
@@ -275,20 +216,24 @@ const stepId = (index: number, part?: string) =>
   }
 
   .build-up-steps {
-    border: 0;
     border-inline-start: var(--border-width, 1px) solid var(--border-color);
-    border-radius: 0;
-    margin: 0;
-    min-inline-size: 0;
+    grid-area: steps;
     padding: var(--size-3);
 
     & .ui-list {
       counter-reset: build-up-step;
+      margin: 0;
       padding: 0;
     }
 
     & .ui-list > li {
+      border-radius: var(--radius-2);
       counter-increment: build-up-step;
+      transition: background-color 0.3s;
+
+      &:has(:checked) {
+        background-color: color-mix(in oklch, var(--_accent) 8%, transparent);
+      }
 
       &:not(:last-child):after {
         border-inline-start: 2px solid var(--border-color);
@@ -318,18 +263,9 @@ const stepId = (index: number, part?: string) =>
         }
 
         &:has(:checked) {
-          background-color: color-mix(in oklch, var(--_accent) 8%, transparent);
+          background-color: transparent;
         }
       }
-    }
-
-    & .ui-start {
-      align-self: start;
-    }
-
-    & .ui-text {
-      min-inline-size: 0;
-      padding-block-start: calc((var(--_marker) - 1lh) / 2);
     }
   }
 
@@ -341,6 +277,7 @@ const stepId = (index: number, part?: string) =>
     box-sizing: border-box;
     color: var(--text-muted);
     display: grid;
+    flex-shrink: 0;
     font-size: var(--font-size-0);
     font-variant-numeric: tabular-nums;
     font-weight: 700;
@@ -368,10 +305,11 @@ const stepId = (index: number, part?: string) =>
     }
   }
 
-  .build-up-steps .ui-text .build-up-step-name {
+  .build-up-step-name {
     color: var(--text-muted);
     font-weight: 600;
-    margin: 0;
+    min-inline-size: 0;
+    padding-block-start: calc((var(--_marker) - 1lh) / 2);
     transition: color 0.3s;
 
     label:has(:checked) &,
@@ -381,28 +319,25 @@ const stepId = (index: number, part?: string) =>
   }
 
   .build-up-notes {
+    block-size: 0;
+    color: var(--text-muted);
     display: grid;
-    grid-template-rows: 0fr;
+    font-size: var(--font-size-0);
+    gap: var(--size-1);
+    interpolate-size: allow-keywords;
+    list-style: disc;
+    margin: 0;
+    margin-inline-start: calc(var(--_pad) + var(--_marker) + var(--size-2));
+    overflow: hidden;
+    padding: 0 var(--_pad) 0 var(--size-3);
     transition:
-      grid-template-rows 0.3s ease,
+      block-size 0.3s ease,
       visibility 0.3s;
     visibility: hidden;
 
-    label:has(:checked) & {
-      grid-template-rows: 1fr;
+    li:has(:checked) > & {
+      block-size: auto;
       visibility: visible;
-    }
-
-    & ul {
-      color: var(--text-muted);
-      display: grid;
-      font-size: var(--font-size-0);
-      gap: var(--size-1);
-      list-style: disc;
-      margin: 0;
-      min-block-size: 0;
-      overflow: hidden;
-      padding-inline-start: var(--size-3);
     }
 
     & li {
@@ -412,8 +347,8 @@ const stepId = (index: number, part?: string) =>
       min-block-size: 0;
       padding: 0;
 
-      &:first-child {
-        margin-block-start: var(--size-1);
+      &:last-child {
+        margin-block-end: var(--_pad);
       }
     }
   }
@@ -422,38 +357,37 @@ const stepId = (index: number, part?: string) =>
     border-block-start: var(--border-width, 1px) solid var(--border-color);
     display: grid;
     gap: var(--size-3) var(--size-2);
+    grid-area: detail;
     grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-rows: auto auto;
+    min-inline-size: 0;
     padding: var(--size-3) var(--size-4) var(--size-4);
   }
 
   .build-up-step {
     display: none;
+    gap: var(--size-3) var(--size-2);
     grid-column: 1 / -1;
-    grid-row: 1 / span 2;
+    grid-row: 1;
     grid-template-columns: subgrid;
-    grid-template-rows: subgrid;
     min-inline-size: 0;
 
+    & > * {
+      grid-column: 1 / -1;
+    }
+
     & .build-up-step-title {
-      align-self: center;
+      align-items: center;
+      display: flex;
       font-size: var(--font-size-1);
       font-weight: 700;
+      grid-column: 1;
       margin: 0;
+      min-block-size: var(--button-size-small);
     }
   }
 
-  .build-up-code {
-    display: grid;
-    gap: var(--size-3);
-    grid-column: 1 / -1;
-    min-inline-size: 0;
-  }
-
   .build-up-nav {
-    align-self: center;
-    display: flex;
-    gap: var(--size-2);
+    align-self: start;
     grid-column: 2;
     grid-row: 1;
 
@@ -464,8 +398,14 @@ const stepId = (index: number, part?: string) =>
   }
 
   @container (inline-size < 40rem) {
-    .build-up-layout {
+    .build-up {
+      grid-template-areas:
+        "stage"
+        "knobs"
+        "steps"
+        "detail";
       grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto;
     }
 
     .build-up-steps {
@@ -473,7 +413,6 @@ const stepId = (index: number, part?: string) =>
       border-inline-start: 0;
     }
 
-    .build-up-header,
     .build-up-detail {
       padding-inline: var(--size-3);
     }
@@ -492,6 +431,7 @@ const stepId = (index: number, part?: string) =>
     .build-up-notes,
     .build-up-marker,
     .build-up-step-name,
+    .build-up-steps .ui-list > li,
     .build-up-steps .ui-list > li:after {
       transition: none;
     }

@@ -42,7 +42,7 @@ const years = Object.keys(categorized)
           type="button"
           id="clear-features"
           class="ui-button ui-small"
-          style="display: none;"
+          hidden
         >
           Clear
         </button>
@@ -76,7 +76,7 @@ const years = Object.keys(categorized)
           type="button"
           id="clear-components"
           class="ui-button ui-small"
-          style="display: none;"
+          hidden
         >
           Clear
         </button>
@@ -110,7 +110,7 @@ const years = Object.keys(categorized)
           type="button"
           id="clear-years"
           class="ui-button ui-small"
-          style="display: none;"
+          hidden
         >
           Clear
         </button>
@@ -152,7 +152,7 @@ const years = Object.keys(categorized)
       </p>
       <article
         id="explorer-wrapper"
-        class="ui-card ui-outlined ui-not-rich-text"
+        class="feature-list ui-card ui-outlined ui-not-rich-text"
       >
         {
           allFeatures.map((id) => (
@@ -216,6 +216,10 @@ const years = Object.keys(categorized)
       h2 {
         margin: 0;
       }
+
+      [hidden] {
+        display: none;
+      }
     }
   }
 
@@ -226,22 +230,15 @@ const years = Object.keys(categorized)
   }
 
   .filter-chip {
-    cursor: pointer;
-    transition: all 0.1s var(--ease-3);
     user-select: none;
 
-    &:active {
-      transform: scale(0.95);
-    }
-
-    &.selected {
+    &[aria-pressed="true"] {
       background-color: var(--surface-tonal);
       border-color: var(--primary);
       box-shadow: var(--shadow-2);
     }
 
     &[aria-disabled="true"] {
-      filter: grayscale(1);
       opacity: 0.3;
       pointer-events: none;
     }
@@ -257,22 +254,14 @@ const years = Object.keys(categorized)
     margin: 0;
   }
 
-  #explorer-wrapper {
-    display: flex;
-    flex-direction: column;
+  .feature-list {
     gap: 0;
   }
 
   .feature {
-    display: grid;
-    gap: 0;
     padding: var(--size-3);
 
-    &[hidden] {
-      display: none;
-    }
-
-    &:not([hidden]):nth-child(even of :not([hidden])) {
+    &:nth-child(even of :not([hidden])) {
       background-color: var(--surface-tonal);
     }
 
@@ -361,7 +350,6 @@ const years = Object.keys(categorized)
     isSelected: boolean,
     isValid: boolean,
   ) {
-    chip.classList.toggle("selected", isSelected)
     chip.setAttribute("aria-pressed", String(isSelected))
     if (!isValid && !isSelected) chip.setAttribute("aria-disabled", "true")
     else chip.removeAttribute("aria-disabled")
@@ -378,16 +366,13 @@ const years = Object.keys(categorized)
     const clearComponentsBtn = document.getElementById("clear-components")
     const clearYearsBtn = document.getElementById("clear-years")
     if (clearFeaturesBtn) {
-      clearFeaturesBtn.style.display =
-        state.selectedFeatures.size > 0 ? "block" : "none"
+      clearFeaturesBtn.hidden = state.selectedFeatures.size === 0
     }
     if (clearComponentsBtn) {
-      clearComponentsBtn.style.display =
-        state.selectedComponents.size > 0 ? "block" : "none"
+      clearComponentsBtn.hidden = state.selectedComponents.size === 0
     }
     if (clearYearsBtn) {
-      clearYearsBtn.style.display =
-        state.selectedYears.size > 0 ? "block" : "none"
+      clearYearsBtn.hidden = state.selectedYears.size === 0
     }
 
     // A. Calculate Valid Interaction Sets

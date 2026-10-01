@@ -146,6 +146,7 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 <label class="ui-range" data-invalid>
   <span class="ui-label" id="range-validation-1-label">Invalid Range</span>
   <input
+    aria-invalid="true"
     aria-describedby="range-validation-1-end-text"
     aria-labelledby="range-validation-1-label"
     type="range"
@@ -188,6 +189,7 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
   <span class="ui-label" id="range-row-3-label">Invalid Range</span>
   <span class="ui-start-text" id="range-row-3-start-text">Start text</span>
   <input
+    aria-invalid="true"
     aria-describedby="range-row-3-start-text range-row-3-end-text"
     aria-labelledby="range-row-3-label"
     type="range"
@@ -237,6 +239,7 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 <label class="ui-range ui-spread" data-invalid>
   <span class="ui-label" id="range-row-validation-label">Volume</span>
   <input
+    aria-invalid="true"
     type="range"
     aria-labelledby="range-row-validation-label"
     min="0"

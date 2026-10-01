@@ -85,11 +85,12 @@ You can use it like this: `<dialog closedby="">` and give it the following value
 
 
 <dialog
+  aria-labelledby="dialog-header"
   id="closing-behaviors-dialog-html"
   class="ui-dialog ui-card ui-elevated"
   closedby="any"
 >
-  <hgroup>
+  <hgroup id="dialog-header">
     <h2 class="ui-h4">How to close</h2>
   </hgroup>
   <div class="ui-content">

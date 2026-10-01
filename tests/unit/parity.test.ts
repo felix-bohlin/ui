@@ -95,7 +95,6 @@ const renderers: Record<
     container.renderToString(loaded.default, {
       locals: {
         $id: createIdGenerator(),
-        _isInsideForm: false,
         componentSlug: key.split("/")[0],
         link: (path: string) => path,
       },

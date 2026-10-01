@@ -2,7 +2,8 @@
 import Anchor from "../Anchor/Anchor.vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const { alignment, color, dot, invisible, label } = defineProps<Props>()
+const { alignment, color, dot, invisible, label, srLabel } =
+  defineProps<Props>()
 defineSlots<Slots>()
 
 const positionArea =
@@ -31,9 +32,10 @@ const positionArea =
   >
     <slot></slot>
     <template #anchored>
-      <span class="ui-badge-indicator" :aria-label="label?.toString()">
+      <span class="ui-badge-indicator">
         {{ dot ? "" : label }}
         <slot v-if="!dot" name="indicator"></slot>
+        <span v-if="srLabel" class="ui-sr-only">{{ srLabel }}</span>
       </span>
     </template>
   </Anchor>

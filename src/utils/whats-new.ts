@@ -2,7 +2,7 @@ import type { FrameworkId } from "./framework-routing"
 
 type Note = string | Partial<Record<FrameworkId | "default", string>>
 
-const whatsNew = {
+export const whatsNew = {
   accordion: [
     {
       astro: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
@@ -49,8 +49,8 @@ const whatsNew = {
   tabs: [
     `Restyled as a segmented control.`,
     {
-      default: `<a href="#line">Line variant</a> with <code>variant="line"</code>.`,
-      html: `<a href="#line">Line variant</a> with <code>.ui-line</code>.`,
+      default: `<a href="#filled">Filled</a>, <a href="#line">line</a> and <a href="#outlined">outlined</a> variants with the <code>variant</code> prop.`,
+      html: `<a href="#filled">Filled</a>, <a href="#line">line</a> and <a href="#outlined">outlined</a> variants with <code>.ui-filled</code>, <code>.ui-line</code> and <code>.ui-outlined</code>.`,
     },
   ],
 } satisfies Record<string, Note[]>

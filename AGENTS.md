@@ -26,6 +26,16 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 - Keep it short
 - ONLY explain what, NOT why.
 
+## Changelog and What's new
+
+- Log every user-facing change to the package in `packages/opui/CHANGELOG.md` under `## Unreleased`, in `Breaking`, `Removed`, `Added`, `Changed` or `Fixed`.
+- Start the entry with the component name in backticks, e.g. "- `Tabs` take a `variant` prop.".
+- For `Added`, `Breaking` and `Changed` entries, add or update a short note for the component page in `src/utils/whats-new.ts`. It renders the What's new callout on the page and the New badge in the sidebar.
+- Use `html`, `astro` and `vue` keys when the notes differ per framework (classes vs props). A framework without a note gets no callout or badge.
+- Link to the section on the page that documents the change (`<a href="#line">`).
+- Keep the notes in sync when a change is reworked, and only remove notes when asked.
+- `tests/unit/whats-new.test.ts` fails when a component in those sections has no notes.
+
 ## Testing
 
 - ALWAYS run `pnpm check` before finishing a change. It runs formatting, linting, CSS declaration order, component checks, type checks, unit tests and the build.

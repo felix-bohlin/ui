@@ -184,3 +184,8 @@ Set column widths with `TableColumnGroup` and `TableColumn`, which takes a `widt
 - Safari: Full support Supported since v18.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+
+## Installation
+
+- `opui-css/css/components/table.css`
+

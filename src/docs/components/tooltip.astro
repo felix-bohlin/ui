@@ -13,7 +13,7 @@ import tooltipApi from "../../component-api/tooltip/api"
 <Component
   slug="tooltip"
   apis={[{ title: "Tooltip API", api: tooltipApi }]}
-  browserSupport={["anchor-positioning", "popover-hint"]}
+  browserSupport={["anchor-positioning", "interest-invokers", "popover-hint"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Tooltip/Tooltip.astro",
@@ -93,11 +93,11 @@ import tooltipApi from "../../component-api/tooltip/api"
           >, not only text.
         </Fragment>
         <Fragment slot="astro">
-          Use the <code>content</code> slot instead, and it let's you put anything
+          Use the <code>content</code> slot instead, and it lets you put anything
           in the tooltip.
         </Fragment>
         <Fragment slot="vue">
-          Use the <code>content</code> slot instead, and it let's you put anything
+          Use the <code>content</code> slot instead, and it lets you put anything
           in the tooltip.
         </Fragment>
       </Conditional>

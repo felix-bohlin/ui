@@ -8,7 +8,7 @@ import { Anchor } from "opui-css/vue"
     <template #anchored
       ><span
         style="
-          background: var(--surface-2);
+          background: var(--surface-elevated);
           padding: var(--size-2) var(--size-3);
           border-radius: var(--radius-2);
           box-shadow: var(--shadow-3);

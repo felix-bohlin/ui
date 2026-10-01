@@ -30,7 +30,7 @@ import { Button, Tooltip } from "opui-css/vue"
 
 ### ... or any markup you want
 
-Use the `content` slot instead, and it let's you put anything in the tooltip.
+Use the `content` slot instead, and it lets you put anything in the tooltip.
 
 ```vue
 <script setup lang="ts">
@@ -172,8 +172,8 @@ import { Button, Tooltip } from "opui-css/vue"
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Full support Supported since v151.
-- Safari: Partial support Missing: popover-hint.
+- Firefox: Partial support Missing: interest-invokers.
+- Safari: Partial support Missing: interest-invokers, popover-hint.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
 

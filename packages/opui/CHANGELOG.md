@@ -9,6 +9,7 @@
 ### Removed
 
 - `IconButton`. Use `Button`: an icon-only button is square by default, `rounded` (`.ui-rounded`) makes it a circle and `ripple` (`.ui-ripple`) gives it the hover halo. The old default size is `size="small"`, the old `small` is `x-small`.
+- `palette.css` no longer registers the palette variables (`--color-*`, `--gray-*`, `--palette-source` and `--palette-hue`) with `@property`.
 
 ### Added
 
@@ -29,6 +30,14 @@
 - `Typography` reads a `--rhythm-step` theme token (`0.25rem`). Heading font sizes snap to half a step and heading line heights to a full step with `round()`.
 - `Typography` rich text styles `hr`, tables, `pre > samp` and preformatted text without `code`.
 - `Typography` rich text task lists (an `li` that starts with a checkbox) show the checkbox in place of the bullet.
+- `theme.css` adds motion tokens: `--duration-fast`, `--duration`, `--duration-slow`, `--ease`, `--ease-enter` and `--ease-exit`. Every component transition and animation reads them, multiplied by `--motion`.
+- `theme.css` adds `--focus-ring-inset` for focus rings drawn inside a control, read by `ButtonGroup`, `List` and `Select`.
+- `theme.css` adds icon tokens: `--icon-size-small`, `--icon-size` and `--icon-size-large`.
+- `theme.css` adds choice control tokens: `--choice-size-small`, `--choice-size`, `--choice-size-large`, `--switch-dot-size`, `--switch-dot-size-small`, `--switch-track-height`, `--switch-track-height-small`, `--switch-track-width` and `--switch-track-width-small`.
+- `theme.css` adds overlay tokens, `--backdrop-color` and `--backdrop-blur`, read by `Dialog` and `Drawer`, and inverse surface tokens, `--surface-inverse` and `--text-inverse`.
+- `theme.css` adds state and text tokens: `--disabled-opacity`, `--state-hover-alpha`, `--state-hover-alpha-dark`, `--state-active-alpha`, `--state-active-alpha-dark`, `--state-hover-alpha-accent`, `--state-active-alpha-accent`, `--text-disabled`, `--invalid-color`, `--font-weight-medium`, `--font-weight-semibold` and `--font-weight-bold`.
+- `theme.css` adds field text tokens: `--field-label-color`, `--field-label-font-size`, `--field-label-font-weight`, `--field-helper-color`, `--field-helper-font-size`, `--field-helper-line-height` and `--field-required-color`, read by `Checkbox`, `Form`, `Radio`, `Range`, `Switch` and `TextField`.
+- `theme.css` re-derives every color token (`--primary`, `--surface-*`, `--text-*`, `--border-color`, `--field-border-color` and the named and intent colors) inside `.ui-palette` from its own palette. A subtree with `class="ui-palette" style="--palette-hue: 30"` is a complete second theme.
 
 ### Changed
 
@@ -42,6 +51,18 @@
 - `Typography` heading group subtitle line heights and spacing, in rich text `hgroup` and `.ui-hgroup`, snap to `--rhythm-step`.
 - `Typography` headings share one line height, `1em + 0.5rem` rounded to `--rhythm-step`, in rich text and in the `.ui-h1`–`.ui-h6` classes.
 - `Typography` theme tokens `--font-size-h3` and `--font-size-h4` are fluid with higher minimums and `--font-size-h6` is `--font-size-1`, so heading sizes no longer invert or drop below body text on narrow viewports.
+- `Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton` and `ToggleGroup` borders read `--border-width`, and `Checkbox`, `Radio`, `Switch` and `TextField` borders read `--field-border-width`, instead of a hardcoded `1px`.
+- `Chip` uses `--border-radius` (8px) instead of Open Props `--radius-2` (5px).
+- `Radio` is `--choice-size` (20px) like `Checkbox`, instead of 18px.
+- `ButtonGroup` small buttons are `--button-size-small` (32px) instead of 30px.
+- `Range`, `Switch` and `TextField` invalid states use `--invalid-color`.
+- `Toast` severity icons are masks filled with `--success`, `--info`, `--warning` and `--critical` instead of hardcoded hex colors.
+- `Tooltip` uses `--surface-inverse` and `--text-inverse`.
+- `Avatar` and `Badge` text uses `--primary-contrast`.
+- `Drawer` backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`. `.ui-backdrop-transparent` still removes it.
+- `Avatar`, `List` and `ButtonGroup` sizes follow `--control-size` and `--button-size-*`.
+- `theme.css` holds `--motion` and its `prefers-reduced-motion` default, which moved from `core/normalize.css`. The `.ui-motion-*` classes moved to `core/utils.css`.
+- `theme.css` declares `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma` so every theme knob lives in one file.
 
 ### Fixed
 
@@ -66,6 +87,12 @@
 - `Typography` rich text no longer styles an `a` without `href` as a link.
 - `Typography` rich text `code` inside a link gets a darker background in dark mode, so the link color keeps its contrast.
 - `Range` track is visible again. `linear-gradient(to inline-end, …)` is not supported, so the track background was dropped. The track color is now a `background-color` and the fill a separate image that starts from the right in RTL. `--_track-fill` inherits so the fill reaches the track.
+- `theme.css` gives `.ui-light` and `.ui-dark` on an element other than `html` the page surface and text color. `--color-scheme` follows the OS preference, so `Card` elevated shadows are correct in dark mode without a class.
+- `core/palette.css` lets `.ui-palette` and the severity scopes inherit `--palette-hue`, `--palette-chroma`, `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma` from their ancestors. It used to reset them to the defaults in every scope.
+- `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.
+- `Badge`, `Chip`, `Tabs` and `Toast` respect `--motion` and `prefers-reduced-motion`.
+- `dist/opui.components.css` starts with the `@layer` order statement.
+- `normalize.css` gives autofilled fields `--surface-default` instead of the undefined `--well-1`.
 
 ## 5.5.0 - 2026-09-28
 

@@ -1,5 +1,6 @@
 ---
 import { Code } from "astro-expressive-code/components"
+import DocLink from "../../../components/DocLink.astro"
 ---
 
 <section>
@@ -25,7 +26,8 @@ import { Code } from "astro-expressive-code/components"
   <ul>
     <li>
       <strong><code>--palette-hue</code></strong> is a hue angle in degrees. Open
-      Props' <code>--hue-*</code> tokens work here.
+      Props' <code>--hue-*</code> tokens work here. The default is green in light
+      mode and blue in dark mode.
     </li>
     <li>
       <strong><code>--palette-chroma</code></strong> scales the saturation, from
@@ -48,6 +50,27 @@ import { Code } from "astro-expressive-code/components"
   --palette-source: oklch(0.58 0.21 var(--hue-orange));
 }`}
     lang="css"
+  />
+
+  <p>
+    Every token with its default is listed on the
+    <DocLink href="/guide/theme-tokens">theme tokens</DocLink> page.
+  </p>
+
+  <h3 id="theming-scopes">Scopes</h3>
+  <p>
+    <code>.ui-light</code> and <code>.ui-dark</code> force a color scheme. Put them
+    on <code>html</code> to control the whole page, or on any element to force a subtree.
+    <code>.ui-palette</code> re-derives the palette and all color tokens from the
+    knobs set on that element, so one page can carry several brands.
+  </p>
+  <Code
+    code={`<aside class="ui-dark">Always dark</aside>
+
+<section class="ui-palette" style="--palette-hue: 30">
+  <button class="ui-button ui-primary ui-filled">Orange brand</button>
+</section>`}
+    lang="html"
   />
 </section>
 
@@ -94,7 +117,7 @@ import { Code } from "astro-expressive-code/components"
     Additionally, this is how you could include <code>--motion</code> in your CSS:
   </p>
   <Code
-    code={`transition: transform calc(0.2s * var(--motion, 1)) ease;`}
+    code={`transition: transform calc(var(--duration) * var(--motion, 1)) var(--ease);`}
     lang="css"
   />
 </section>

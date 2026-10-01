@@ -126,9 +126,9 @@ Wrap your own styles in a layer above `utils` (or unlayered) to override.
 | `opui-css/css/layers.css`           | `@layer` order only                                                        |
 | `opui-css/css/components.css`       | All component styles (no tokens / reset)                                   |
 | `opui-css/css/components/*.css`     | One component at a time                                                    |
-| `opui-css/css/theme.css`            | Theme tokens (primary, surfaces, text, …)                                  |
+| `opui-css/css/theme.css`            | Theme tokens (colors, sizes, motion, state)                                |
 | `opui-css/core/normalize.css`       | CSS reset                                                                  |
-| `opui-css/core/palette.css`         | Extra OKLCH palette                                                        |
+| `opui-css/core/palette.css`         | OKLCH palette (required by the components)                                 |
 | `opui-css/core/utils.css`           | Utility classes                                                            |
 | `opui-css/css/js/toast.js`          | `initToastManager()` and `showToast()` for the HTML Toast                  |
 | `opui-css/css/js/checkbox.js`       | `activateIndeterminate()` for indeterminate checkboxes without a framework |

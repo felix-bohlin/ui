@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Select",
+  css: ["select", "text-field"],
   model: {
     description: "The selected value, or values with `multiple`.",
     prop: "value",

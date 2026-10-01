@@ -1,5 +1,4 @@
 export type MenuItem = {
-  [key: string]: unknown
   borderTop?: boolean
   closeOnClick?: boolean
   critical?: boolean

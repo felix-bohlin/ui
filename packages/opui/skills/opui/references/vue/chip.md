@@ -181,13 +181,14 @@ import { Chip } from "opui-css/vue"
 
 ### Chip API
 
-| Prop        | Type                    | Default   | Description                                           |
-| ----------- | ----------------------- | --------- | ----------------------------------------------------- |
-| `as`        | `string`                | `"div"`   | The element to render. Defaults to `"a"` with `href`. |
-| `label`     | `string`                | -         | The label.                                            |
-| `multiline` | `boolean`               | `false`   | Lets the label wrap to multiple lines.                |
-| `size`      | `"small"`               | -         | The size of the element.                              |
-| `variant`   | `"outlined"`, `"tonal"` | `"tonal"` | The variant to use.                                   |
+| Prop        | Type                                        | Default   | Description                                           |
+| ----------- | ------------------------------------------- | --------- | ----------------------------------------------------- |
+| `as`        | `"div"`, `"button"`, `"a"`, `(string & {})` | `"div"`   | The element to render. Defaults to `"a"` with `href`. |
+| `href`      | `string`                                    | -         | The link to use. Renders an `<a>`.                    |
+| `label`     | `string`                                    | -         | The label.                                            |
+| `multiline` | `boolean`                                   | `false`   | Lets the label wrap to multiple lines.                |
+| `size`      | `"small"`                                   | -         | The size of the element.                              |
+| `variant`   | `"outlined"`, `"tonal"`                     | `"tonal"` | The variant to use.                                   |
 
 #### Slots
 

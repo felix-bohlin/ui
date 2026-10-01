@@ -48,7 +48,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
   Content here is loading.
 </div>
 <div class="ui-progress">
-  <progress aria-label="Content loading…" id="progress-bar"></progress>
+  <progress id="progress-bar" aria-label="Content loading…"></progress>
 </div>
 ```
 

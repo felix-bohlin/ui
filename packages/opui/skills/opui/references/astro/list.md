@@ -598,16 +598,16 @@ Just add the `dense` prop to the `List`!
 
 ### List item API
 
-| Prop          | Type                                            | Default | Description                                                           |
-| ------------- | ----------------------------------------------- | ------- | --------------------------------------------------------------------- |
-| `as`          | `"div"`, `"button"`, `"a"`, `"li"`              | -       | The element to render inside the `<li>`, such as `"a"` or `"button"`. |
-| `borderTop`   | `boolean`                                       | `false` | Adds a border above the item.                                         |
-| `description` | `string`                                        | -       | Supporting text, the second paragraph.                                |
-| `for`         | `string`                                        | -       | The `for` attribute of the `<label>` when `type` is set.              |
-| `headline`    | `string`                                        | -       | The headline, the first paragraph.                                    |
-| `href`        | `string`                                        | -       | The link to use, with `as="a"`.                                       |
-| `inset`       | `boolean`                                       | `false` | Aligns the text with items that have start content.                   |
-| `type`        | `"button"`, `"checkbox"`, `"radio"`, `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.     |
+| Prop          | Type                                | Default | Description                                                           |
+| ------------- | ----------------------------------- | ------- | --------------------------------------------------------------------- |
+| `as`          | `"div"`, `"button"`, `"a"`, `"li"`  | -       | The element to render inside the `<li>`, such as `"a"` or `"button"`. |
+| `borderTop`   | `boolean`                           | `false` | Adds a border above the item.                                         |
+| `description` | `string`                            | -       | Supporting text, the second paragraph.                                |
+| `for`         | `string`                            | -       | The `for` attribute of the `<label>` when `type` is set.              |
+| `headline`    | `string`                            | -       | The headline, the first paragraph.                                    |
+| `href`        | `string`                            | -       | The link to use, with `as="a"`.                                       |
+| `inset`       | `boolean`                           | `false` | Aligns the text with items that have start content.                   |
+| `type`        | `"checkbox"`, `"radio"`, `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.     |
 
 #### Slots
 

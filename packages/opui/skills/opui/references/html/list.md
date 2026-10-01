@@ -907,11 +907,11 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 
 ### List item API
 
-| Type       | Modifiers                                                         | Default | Description                                                       |
-| ---------- | ----------------------------------------------------------------- | ------- | ----------------------------------------------------------------- |
-| Border top | `.ui-border-top`                                                  | -       | Adds a border above the item.                                     |
-| Controls   | default, `label.ui-checkbox`, `label.ui-radio`, `label.ui-switch` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. |
-| Inset      | `.ui-inset`                                                       | -       | Aligns the text with items that have start content.               |
+| Type       | Modifiers                                                | Default | Description                                                       |
+| ---------- | -------------------------------------------------------- | ------- | ----------------------------------------------------------------- |
+| Border top | `.ui-border-top`                                         | -       | Adds a border above the item.                                     |
+| Controls   | `label.ui-checkbox`, `label.ui-radio`, `label.ui-switch` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. |
+| Inset      | `.ui-inset`                                              | -       | Aligns the text with items that have start content.               |
 
 #### Parts
 

@@ -1,6 +1,6 @@
 export type Props = {
-  [key: string]: any
-  as?: "a" | "button" | "div" | string
+  as?: "a" | "button" | "div" | (string & {})
+  href?: string
   label?: string
   multiline?: boolean
   size?: "small"

@@ -388,6 +388,7 @@
 
       & > * {
         margin-block: 0;
+        min-inline-size: 0;
       }
 
       &:not([class]) > :where(blockquote, pre, table) {
@@ -563,6 +564,10 @@
       &:has(> li > :where(blockquote, figure, p, pre)) {
         gap: var(--_flow-space);
       }
+
+      & > li {
+        min-inline-size: 0;
+      }
     }
 
     :where(ul):where(:not([class])) {
@@ -638,6 +643,7 @@
 
       :where(th, td) {
         border-block-end: var(--border-size-1) solid var(--border-color);
+        overflow-wrap: anywhere;
         padding-block: 0.5em;
         padding-inline: 0.75em;
         text-align: start;

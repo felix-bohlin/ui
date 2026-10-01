@@ -1,6 +1,11 @@
 import themeSource from "@opui/css/theme.css?raw"
 
-export type ThemeToken = { dark?: string; name: string; value: string }
+export type ThemeToken = {
+  dark?: string
+  name: string
+  optional?: boolean
+  value: string
+}
 
 export type ThemeSection = {
   note?: string
@@ -11,6 +16,7 @@ export type ThemeSection = {
 
 const HEADER = /^\s*\/\*\s*(\d+)\.\s*(.*?)\s*\*\/\s*$/
 const DECLARATION = /^(\s*)(--[\w-]+):\s*(.*)$/
+const OPTIONAL = /^\s*\/\*\s*(--[\w-]+):\s*(.*?);?\s*\*\/\s*$/
 const DARK_SCOPE = /\.ui-dark|prefers-color-scheme:\s*dark/
 const THEME_SCOPE = /\bhtml\b/
 
@@ -26,6 +32,7 @@ type Line =
       value: string
     }
   | { kind: "header"; note?: string; number: number; title: string }
+  | { kind: "optional"; name: string; value: string }
   | { kind: "open" }
   | { kind: "other" }
 
@@ -48,6 +55,14 @@ function* walk(lines: string[]): Generator<[number, Line]> {
     if (line.includes("/*") && !line.includes("*/")) {
       inComment = true
       yield [index, { kind: "comment" }]
+      continue
+    }
+    const optional = line.match(OPTIONAL)
+    if (optional && scopes.some((scope) => THEME_SCOPE.test(scope))) {
+      yield [
+        index,
+        { kind: "optional", name: optional[1], value: optional[2].trim() },
+      ]
       continue
     }
     if (/^\s*\/\*.*\*\/\s*$/.test(line)) {
@@ -105,10 +120,25 @@ export const parseThemeTokens = (css = themeSource): ThemeSection[] => {
       }
       continue
     }
+    if (line.kind === "optional" && section) {
+      if (!themeTokensIn(sections).some((token) => token.name === line.name)) {
+        section.tokens.push({
+          name: line.name,
+          optional: true,
+          value: line.value,
+        })
+      }
+      continue
+    }
     if (line.kind !== "declaration" || !section) continue
     const existing = sections
       .flatMap((candidate) => candidate.tokens)
       .find((token) => token.name === line.name)
+    if (existing?.optional && !line.dark) {
+      existing.optional = undefined
+      existing.value = line.value
+      continue
+    }
     if (existing) {
       if (line.dark) existing.dark = line.value
       continue
@@ -118,6 +148,9 @@ export const parseThemeTokens = (css = themeSource): ThemeSection[] => {
   }
   return sections.toSorted((a, b) => a.number - b.number)
 }
+
+const themeTokensIn = (sections: ThemeSection[]) =>
+  sections.flatMap((section) => section.tokens)
 
 export const themeTokens = (css = themeSource) =>
   parseThemeTokens(css).flatMap((section) => section.tokens)

@@ -122,7 +122,7 @@ export const cssVarRows = (api: ComponentApi) => {
   return THEME_TOKENS.filter((token) => reads.has(token.name))
     .map((token) => ({
       dark: token.dark,
-      default: token.value,
+      default: token.optional ? undefined : token.value,
       description: themeTokenDescriptions[token.name] ?? "",
       name: token.name,
     }))

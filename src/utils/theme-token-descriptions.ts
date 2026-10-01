@@ -52,7 +52,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--field-size-large": "Field height with `.ui-large`.",
   "--field-size-small": "Field height with `.ui-small`.",
   "--field-size-x-small": "Field height with `.ui-x-small`.",
-  "--focus-ring-color": "Color of the keyboard focus ring.",
+  "--focus-ring-color":
+    "Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.",
   "--focus-ring-inset":
     "Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.",
   "--focus-ring-offset": "Distance between a control and its focus ring.",
@@ -89,12 +90,16 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Hue of the palette source color in degrees. Green in light mode and blue in dark mode by default.",
   "--palette-hue-rotate-by":
     "Degrees of hue drift per palette step, for warm or cool ramps.",
+  "--palette-source":
+    "The source color the palette is derived from. Set it to one `oklch()` color to replace `--palette-hue` and `--palette-chroma`.",
   "--primary": "Brand color for primary actions and accents.",
   "--primary-contrast": "Text color on a `--primary` background.",
   "--primary-dark": "A darker `--primary`.",
   "--primary-light": "A lighter `--primary`.",
   "--red":
     "A literal red derived from the palette lightness. No severity meaning.",
+  "--rhythm-step":
+    "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
   "--state-active-alpha":
     "Alpha of the pressed state layer on neutral buttons in light mode.",
   "--state-active-alpha-accent":

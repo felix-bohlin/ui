@@ -197,7 +197,7 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
                   <code>{row.name}</code>
                 </Table.Cell>
                 <Table.Cell>
-                  <code>{row.default}</code>
+                  {row.default ? <code>{row.default}</code> : "Unset"}
                   {row.dark && (
                     <Fragment>
                       <br />

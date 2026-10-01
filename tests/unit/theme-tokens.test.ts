@@ -39,7 +39,8 @@ describe("theme tokens", () => {
     expect(find("--motion")?.value).toBe("1")
     expect(find("--motion")?.dark).toBeUndefined()
     expect(find("--palette-hue-rotate-by")?.value).toBe("0")
-    expect(find("--palette-source")).toBeUndefined()
+    expect(find("--palette-source")?.optional).toBe(true)
+    expect(find("--focus-ring-color")?.optional).toBe(true)
     expect(find("--color-scheme")).toBeUndefined()
   })
 

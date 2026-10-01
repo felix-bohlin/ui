@@ -88,7 +88,13 @@ const slug = (title: string) =>
                     <code>{token.name}</code>
                   </Table.Cell>
                   <Table.Cell>
-                    <code>{token.value}</code>
+                    {token.optional ? (
+                      <Fragment>
+                        Unset. For example <code>{token.value}</code>
+                      </Fragment>
+                    ) : (
+                      <code>{token.value}</code>
+                    )}
                     {token.dark && (
                       <Fragment>
                         <br />

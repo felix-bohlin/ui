@@ -1,12 +1,25 @@
 @layer components.root {
   :where(.ui-tabs) {
-    --_accent-color: var(--primary);
-    --_bg-color: transparent;
+    --_motion: var(--motion, 1);
+    --_active-bg-color: light-dark(
+      var(--surface-default),
+      oklch(100% 0 0 / 0.1)
+    );
+    --_active-border-color: light-dark(transparent, oklch(100% 0 0 / 0.08));
+    --_active-shadow: var(--shadow-1);
+    --_active-text-color: var(--text-primary);
+    --_border-radius: var(--border-radius);
+    --_indicator-color: transparent;
+    --_inset: 3px;
+    --_text-color: color-mix(in oklch, var(--text-primary) 60%, transparent);
+    --_track-border-color: transparent;
+    --_track-border-width: 1px;
+    --_track-color: var(--surface-tonal);
 
     align-items: flex-start;
     display: flex;
     flex-wrap: wrap;
-    gap: 0 var(--size-1);
+    gap: 0;
     position: relative;
     reading-flow: flex-visual;
 
@@ -24,8 +37,17 @@
         /* Checked Tab */
         & + [role="tab"],
         & + .ui-tab-label {
-          border-block-end-color: var(--_accent-color);
-          color: var(--_accent-color);
+          color: var(--_active-text-color);
+
+          &::before {
+            background-color: var(--_active-bg-color);
+            border-color: var(--_active-border-color);
+            box-shadow: var(--_active-shadow);
+          }
+
+          &::after {
+            opacity: 1;
+          }
 
           /* Checked Panel */
           & + [role="tabpanel"],
@@ -36,13 +58,12 @@
       }
 
       &:focus-visible {
-        & + [role="tab"],
-        & + .ui-tab-label {
+        & + [role="tab"]::before,
+        & + .ui-tab-label::before {
           --focus-ring-color: var(--text-muted);
-          --focus-ring-offset: calc(-1 * var(--size-2));
           outline: var(--focus-ring-width) var(--focus-ring-style)
             var(--focus-ring-color);
-          outline-offset: var(--focus-ring-offset);
+          outline-offset: var(--focus-ring-offset, 0);
         }
       }
     }
@@ -51,26 +72,83 @@
     & > [role="tab"],
     & > .ui-tab-label {
       align-items: center;
-      background-color: transparent;
-      border-bottom: 2px solid transparent;
-      border-radius: 0;
-      color: var(--text-muted);
+      background-color: var(--_track-color);
+      border-block: var(--_track-border-width) solid var(--_track-border-color);
+      color: var(--_text-color);
       cursor: pointer;
       display: inline-flex;
-      font-weight: 600;
+      font-size: var(--font-size-1);
+      font-weight: 500;
+      gap: var(--size-2);
+      isolation: isolate;
       justify-content: center;
       line-height: var(--font-lineheight-4);
       order: 1;
-      padding: var(--size-2) var(--size-3);
+      padding: calc(var(--size-1) + var(--_inset) - var(--_track-border-width))
+        var(--size-3);
       position: relative;
-      transition: color 0.1s;
+      transition: color calc(0.1s * var(--_motion));
       user-select: none;
+      white-space: nowrap;
 
-      &:hover {
-        background-color: light-dark(
-          oklch(from var(--_accent-color) calc(l * 0.75) none h / 5%),
-          oklch(from var(--_accent-color) calc(l * 1.25) none h / 5%)
+      &::before {
+        border: 1px solid transparent;
+        border-radius: calc(
+          var(--_border-radius) - var(--_inset) - var(--_track-border-width)
         );
+        content: "";
+        inset: var(--_inset) 0;
+        position: absolute;
+        transition:
+          background-color calc(0.1s * var(--_motion)),
+          box-shadow calc(0.1s * var(--_motion));
+        z-index: -1;
+      }
+
+      &::after {
+        background-color: var(--_indicator-color);
+        block-size: 2px;
+        border-radius: 2px;
+        content: "";
+        inset-block-end: 0;
+        inset-inline: 0;
+        opacity: 0;
+        position: absolute;
+        transition: opacity calc(0.1s * var(--_motion));
+      }
+
+      &:nth-child(1 of [role="tab"], .ui-tab-label) {
+        border-end-start-radius: var(--_border-radius);
+        border-inline-start: var(--_track-border-width) solid
+          var(--_track-border-color);
+        border-start-start-radius: var(--_border-radius);
+        padding-inline-start: calc(
+          var(--size-3) + var(--_inset) - var(--_track-border-width)
+        );
+
+        &::before {
+          inset-inline-start: var(--_inset);
+        }
+      }
+
+      &:nth-last-child(1 of [role="tab"], .ui-tab-label) {
+        border-end-end-radius: var(--_border-radius);
+        border-inline-end: var(--_track-border-width) solid
+          var(--_track-border-color);
+        border-start-end-radius: var(--_border-radius);
+        padding-inline-end: calc(
+          var(--size-3) + var(--_inset) - var(--_track-border-width)
+        );
+
+        &::before {
+          inset-inline-end: var(--_inset);
+        }
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          color: var(--text-primary);
+        }
       }
     }
 
@@ -79,7 +157,34 @@
     & > .ui-tab-panel {
       display: none;
       inline-size: 100%;
+      margin-block-start: var(--size-2);
       order: 2;
+    }
+
+    &.ui-filled {
+      --_active-bg-color: var(--primary);
+      --_active-border-color: transparent;
+      --_active-text-color: var(--primary-contrast);
+    }
+
+    &.ui-line {
+      --_active-bg-color: transparent;
+      --_active-border-color: transparent;
+      --_active-shadow: none;
+      --_indicator-color: var(--text-primary);
+      --_inset: 0px;
+      --_track-border-width: 0px;
+      --_track-color: transparent;
+
+      column-gap: var(--size-1);
+    }
+
+    &.ui-outlined {
+      --_active-bg-color: var(--surface-tonal);
+      --_active-border-color: transparent;
+      --_active-shadow: none;
+      --_track-border-color: var(--border-color);
+      --_track-color: transparent;
     }
   }
 }

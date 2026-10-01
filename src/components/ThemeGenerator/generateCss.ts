@@ -195,10 +195,15 @@ export function generateCss({
   lines.push("    /* 10. Typography */")
   lines.push("    --font-size-h1: var(--font-size-fluid-3);")
   lines.push("    --font-size-h2: var(--font-size-fluid-2);")
-  lines.push("    --font-size-h3: var(--font-size-fluid-1);")
-  lines.push("    --font-size-h4: var(--font-size-3);")
+  lines.push(
+    "    --font-size-h3: clamp(var(--font-size-3), 4vw, var(--font-size-4));",
+  )
+  lines.push(
+    "    --font-size-h4: clamp(var(--font-size-2), 3vw, var(--font-size-3));",
+  )
   lines.push("    --font-size-h5: var(--font-size-2);")
-  lines.push("    --font-size-h6: var(--font-size-fluid-0);")
+  lines.push("    --font-size-h6: var(--font-size-1);")
+  lines.push("    --rhythm-step: 0.25rem;")
   lines.push("    --font-size-05: 0.875rem;")
   lines.push("")
   lines.push(

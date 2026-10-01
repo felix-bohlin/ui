@@ -1,0 +1,530 @@
+---
+import Blog from "../../layouts/Blog.astro"
+import DocLink from "../../components/DocLink.astro"
+import AccordionBuild from "../../components/HowItsMade/AccordionBuild.astro"
+import ButtonBuild from "../../components/HowItsMade/ButtonBuild.astro"
+import CarouselBuild from "../../components/HowItsMade/CarouselBuild.astro"
+import MenuBuild from "../../components/HowItsMade/MenuBuild.astro"
+import ReadMore from "../../components/HowItsMade/ReadMore.astro"
+import RhythmBuild from "../../components/HowItsMade/RhythmBuild.astro"
+import TabsBuild from "../../components/HowItsMade/TabsBuild.astro"
+import { formatDate, posts } from "../../utils/blog"
+
+const post = posts.find((entry) => entry.slug === "new-components-and-fixes")!
+
+const pr = (number: number) =>
+  `https://github.com/felix-bohlin/ui/pull/${number}`
+
+const stats = [
+  { label: "Commits", value: "55" },
+  { label: "Files", value: "529" },
+  { label: "Lines added", value: "+41,744" },
+  { label: "Lines removed", value: "−3,216" },
+  { label: "PRs opened in 3 days", value: "50" },
+  { label: "Audit findings", value: "195" },
+]
+
+const audits = [
+  { area: "Package CSS bugs", findings: 31, fixed: 28, high: 8, number: 403 },
+  { area: "Astro and Vue bugs", findings: 15, fixed: 11, high: 4, number: 404 },
+  {
+    area: "Inconsistencies and types",
+    findings: 33,
+    fixed: 8,
+    high: 0,
+    number: 405,
+  },
+  { area: "Accessibility", findings: 18, fixed: 7, high: 4, number: 406 },
+  {
+    area: "Missing features and modern CSS",
+    findings: 40,
+    fixed: 3,
+    high: 4,
+    number: 407,
+  },
+  {
+    area: "Package docs and config",
+    findings: 11,
+    fixed: 7,
+    high: 1,
+    number: 408,
+  },
+  { area: "Docs site", findings: 38, fixed: 0, high: 4, number: 409 },
+  { area: "Tests and CI", findings: 9, fixed: 0, high: 2, number: 410 },
+]
+---
+
+<Blog
+  description={post.description}
+  overline={formatDate(post.date)}
+  title={post.title}
+>
+  <Fragment slot="title">{post.title}</Fragment>
+  <Fragment slot="preamble">
+    Pull request <a href={pr(400)}>#400</a> from <code
+      >feat/new-components-and-fixes</code
+    >
+  </Fragment>
+
+  <dl class="post-stats ui-not-rich-text">
+    {
+      stats.map((stat) => (
+        <div>
+          <dt>{stat.label}</dt>
+          <dd>{stat.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  <section>
+    <h2 id="outline">Outline</h2>
+    <ul>
+      <li><a href="#breaking">Breaking changes</a></li>
+      <li><a href="#new-components">New components</a></li>
+      <li><a href="#component-changes">Component changes</a></li>
+      <li><a href="#how-its-made">How it's made</a> (interactive)</li>
+      <li><a href="#docs-site">Docs site</a></li>
+      <li><a href="#tooling">Tooling and tests</a></li>
+      <li>
+        <a href="#other-branches">Other branches from the last three days</a>
+      </li>
+      <li><a href="#still-open">Still open</a></li>
+      <li><a href="#read-more">Read more</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="breaking">Breaking changes</h2>
+    <ul>
+      <li>
+        <code>IconButton</code> removed
+        <ul>
+          <li>
+            <code>Button</code> is square when its only child is an <code
+              >svg</code
+            >
+          </li>
+          <li><code>rounded</code> / <code>.ui-rounded</code>: circle</li>
+          <li><code>ripple</code> / <code>.ui-ripple</code>: hover halo</li>
+          <li>
+            Old default size → <code>size="small"</code>, old <code>small</code> →
+            <code>x-small</code>
+          </li>
+          <li>
+            Old <code>/components/icon-button</code> URLs redirect to <DocLink
+              href="/components/button#icon-only">Button: icon-only</DocLink
+            >
+          </li>
+        </ul>
+      </li>
+      <li>
+        <code>Accordion</code> markers only animate with a marker class
+        <ul>
+          <li>Add <code>.ui-marker-rotate</code> to keep the old rotation</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="new-components">New components</h2>
+    <h3 id="menu">Menu</h3>
+    <ul>
+      <li><code>menu.ui-menu.ui-list[popover]</code>, HTML and CSS only</li>
+      <li>
+        Opens with Invoker Commands (<code>commandfor</code>, <code
+          >command</code
+        >)
+      </li>
+      <li>Anchors to its trigger, no <code>anchor-name</code></li>
+      <li>Flips with <code>position-try-fallbacks</code></li>
+      <li>Placements, end alignment, <code>--anchor-position-area</code></li>
+      <li>Group labels, critical items, submenus, <code>items</code> prop</li>
+      <li>Split button with <code>ButtonGroup</code></li>
+      <li><DocLink href="/components/menu">Menu docs</DocLink></li>
+    </ul>
+
+    <h3 id="carousel">Carousel</h3>
+    <ul>
+      <li><code>ul.ui-carousel</code>, CSS only</li>
+      <li>
+        Scroll snap, <code>::scroll-button()</code>, <code>::scroll-marker</code
+        >
+      </li>
+      <li>
+        Buttons over or beside the items (<code>.ui-buttons-outside</code>),
+        inverted colors
+      </li>
+      <li>Items per view, peek, center alignment, RTL</li>
+      <li>Images, videos and iframes fill the item with an aspect ratio</li>
+      <li>
+        Custom button icons, <code>if()</code> with an <code
+          >@container style()</code
+        > fallback
+      </li>
+      <li>Falls back to a snapping scroller</li>
+      <li><DocLink href="/components/carousel">Carousel docs</DocLink></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="component-changes">Component changes</h2>
+    <ul>
+      <li>
+        <DocLink href="/components/button">Button</DocLink>
+        <ul>
+          <li>Padding scale via <code>--_padding-inline</code></li>
+          <li>
+            Tighter padding on the icon side when the label is in a <code
+              >&lt;span&gt;</code
+            >
+          </li>
+          <li>
+            <code>.ui-disabled</code> and <code>aria-disabled</code> styles, disabled
+            links ignore clicks
+          </li>
+          <li>Hover only on hover-capable devices</li>
+        </ul>
+      </li>
+      <li>
+        <DocLink href="/components/accordion">Accordion</DocLink>
+        <ul>
+          <li>Chevron marker by default, <code>marker</code> slot</li>
+          <li>
+            <code>markerAnimation</code>: <code>flip</code>, <code>rotate</code
+            >, <code>turn</code>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <DocLink href="/components/tabs">Tabs</DocLink>
+        <ul>
+          <li>Segmented control: rounded track, raised pill</li>
+          <li>
+            <code>variant</code>: <code>filled</code>, <code>line</code>, <code
+              >outlined</code
+            >
+          </li>
+        </ul>
+      </li>
+      <li>
+        <DocLink href="/components/button-group">ButtonGroup</DocLink>
+        <ul>
+          <li>Only styles direct child buttons</li>
+          <li>Dividers no longer double thick</li>
+        </ul>
+      </li>
+      <li>
+        <DocLink href="/components/drawer">Drawer</DocLink> /
+        <DocLink href="/components/dialog">Dialog</DocLink>
+        <ul>
+          <li>
+            <code>DrawerHeader</code>
+            <code>commandfor</code>: close without JavaScript
+          </li>
+          <li>Dialog backdrop tokens, scroll-lock without layout shift</li>
+        </ul>
+      </li>
+      <li>
+        <DocLink href="/components/typography">Rich text and typography</DocLink
+        >
+        <ul>
+          <li>
+            <code>--rhythm-step</code> token, headings snap with <code
+              >round()</code
+            >
+          </li>
+          <li>
+            One flow space (<code>1.25em</code>), more space above headings than
+            below
+          </li>
+          <li>
+            Fluid <code>h3</code>/<code>h4</code> minimums, no inverted sizes on narrow
+            screens
+          </li>
+          <li>
+            Styles for <code>hr</code>, tables, <code>pre &gt; samp</code>
+          </li>
+          <li>Component parts keep their own styles</li>
+          <li>Task lists: the checkbox replaces the bullet</li>
+          <li>
+            <code>sup</code> / <code>sub</code> no longer change the line height
+          </li>
+          <li>List gutters in <code>ch</code>, two-digit markers fit</li>
+        </ul>
+      </li>
+      <li>
+        Everything else
+        <ul>
+          <li>Tooltip respects <code>--motion</code></li>
+          <li>
+            Global <code>:focus-visible</code> reads the focus ring tokens
+          </li>
+          <li>
+            <code>FieldGroup</code>, <code>Tabs</code>, <code>ToggleGroup</code> context
+            scoped to their children
+          </li>
+          <li><code>layers.css</code> for single component imports</li>
+          <li>
+            <code>.css</code> source imports resolve through <code>exports</code
+            >
+          </li>
+          <li>Agent skill in <code>skills/opui</code></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="how-its-made">How it's made</h2>
+    <ul>
+      <li>Pick a step: the demo runs only the CSS up to that step</li>
+      <li>The code shown is the code that runs</li>
+      <li>Sliders write custom properties on the demo</li>
+      <li>
+        The stepper itself: radio inputs + <code>:has()</code>, no JavaScript
+      </li>
+    </ul>
+
+    <h3 id="how-carousel">Carousel</h3>
+    <CarouselBuild />
+
+    <h3 id="how-menu">Menu</h3>
+    <MenuBuild />
+
+    <h3 id="how-button">Button</h3>
+    <ButtonBuild />
+
+    <h3 id="how-accordion">Accordion</h3>
+    <AccordionBuild />
+
+    <h3 id="how-tabs">Tabs</h3>
+    <TabsBuild />
+
+    <h3 id="how-rhythm">Vertical rhythm</h3>
+    <RhythmBuild />
+  </section>
+
+  <section>
+    <h2 id="docs-site">Docs site</h2>
+    <ul>
+      <li>Anatomy heroes on component pages</li>
+      <li>
+        API tables generated from <code>api.ts</code> (<a href={pr(395)}>#395</a
+        >)
+      </li>
+      <li>
+        "What's new" callout on component pages, "New" badges in the sidebar
+      </li>
+      <li>
+        <code>llms.txt</code>, Markdown pages and agent skill (<a href={pr(389)}
+          >#389</a
+        >)
+      </li>
+      <li>
+        Theme generator: <code>theme.css</code> download, per-mode grays (<a
+          href={pr(386)}>#386</a
+        >)
+      </li>
+      <li>Toast docs limited to HTML (<a href={pr(387)}>#387</a>)</li>
+      <li>Code tabs use the <code>line</code> Tabs variant</li>
+      <li>Classless typography showcase rewritten</li>
+      <li>"How it's made" sections on component pages</li>
+      <li>This blog</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="tooling">Tooling and tests</h2>
+    <ul>
+      <li>
+        CI, linting and the component test suite (<a href={pr(396)}>#396</a>)
+      </li>
+      <li>
+        CSS declarations sorted alphabetically, <code>pnpm sort-css</code> (<a
+          href={pr(397)}>#397</a
+        >)
+      </li>
+      <li>
+        Parity drift driven to zero, reworked test ledgers (<a href={pr(398)}
+          >#398</a
+        >)
+      </li>
+      <li>LF line endings everywhere (<a href={pr(375)}>#375</a>)</li>
+      <li>Parity tests: Astro must match HTML, Vue must match Astro</li>
+      <li>Visual, accessibility and interaction tests per fixture page</li>
+      <li>Visual baselines only generated in CI</li>
+      <li>Anatomy layout and axe checks at 390, 920 and 1280px</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="other-branches">Other branches from the last three days</h2>
+
+    <h3 id="split-stack">Split stack</h3>
+    <ul>
+      <li>
+        An earlier version of this PR split into 16 stacked PRs (<a
+          href={pr(375)}>#375</a
+        >–<a href={pr(390)}>#390</a>), all merged back
+      </li>
+      <li>
+        TODO fixes as one PR each (<a href={pr(361)}>#361</a>–<a href={pr(373)}
+          >#373</a
+        >)
+      </li>
+      <li>
+        <code>IconButton</code> → <code>Button</code> (<a href={pr(392)}>#392</a
+        >)
+      </li>
+    </ul>
+
+    <h3 id="open-prs">Open</h3>
+    <ul>
+      <li>
+        <a href={pr(374)}>#374</a> Toast imperative API (draft)
+        <ul>
+          <li>
+            <code>toast(title, options)</code>, <code>toast.promise()</code>
+          </li>
+          <li>Creates its own <code>#toast-manager</code>, no template</li>
+          <li><code>loading</code> severity</li>
+        </ul>
+      </li>
+      <li>
+        <a href={pr(394)}>#394</a> Solid 2 components
+        <ul>
+          <li>Every component, <code>opui-css/solid</code></li>
+          <li>Local Astro renderer for Solid 2</li>
+          <li>Part of the parity tests, zero drift</li>
+        </ul>
+      </li>
+      <li>
+        <a href={pr(401)}>#401</a> Border width tokens
+        <ul>
+          <li>
+            Component borders read <code>--border-width</code> / <code
+              >--field-border-width</code
+            >
+          </li>
+          <li>Default look unchanged</li>
+        </ul>
+      </li>
+      <li>
+        <a href={pr(402)}>#402</a> Theme presets and Themes page (stacked on #401)
+        <ul>
+          <li>Brutalist, elegant, pixelated, shadcn, wedding</li>
+          <li>
+            Downloadable per preset, scoped with <code>[data-theme]</code>
+          </li>
+          <li><code>--font-heading</code>, pixel style switcher</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3 id="audits">Audits</h3>
+    <ul>
+      <li>Eight audit PRs against this branch, one per area</li>
+      <li>Each adds a findings table with severity and a potential fix</li>
+      <li>Some already fix their findings on the audit branch</li>
+    </ul>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">PR</th>
+            <th scope="col">Area</th>
+            <th scope="col">Findings</th>
+            <th scope="col">High</th>
+            <th scope="col">Fixed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            audits.map((audit) => (
+              <tr>
+                <td>
+                  <a href={pr(audit.number)}>#{audit.number}</a>
+                </td>
+                <td>{audit.area}</td>
+                <td>{audit.findings}</td>
+                <td>{audit.high}</td>
+                <td>{audit.fixed}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="still-open">Still open</h2>
+    <ul>
+      <li>
+        <code>--primary-contrast</code> on <code>--primary</code> is 3.97:1 (filled
+        Tabs, primary filled Buttons)
+      </li>
+      <li>
+        Menu arrow key navigation: needs JavaScript or <code>focusgroup</code>
+      </li>
+      <li>Carousel vertical orientation</li>
+      <li>Menu, Carousel and anatomy heroes untested in Firefox and Safari</li>
+      <li>
+        Hand-written API tables left: Spinner, Text input, Toast, Typography
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2 id="read-more">Read more</h2>
+    <h3 id="read-more-carousel">Carousel</h3>
+    <ReadMore topic="carousel" />
+    <h3 id="read-more-menu">Menu</h3>
+    <ReadMore topic="menu" />
+    <h3 id="read-more-button">Button</h3>
+    <ReadMore topic="button" />
+    <h3 id="read-more-accordion">Accordion</h3>
+    <ReadMore topic="accordion" />
+    <h3 id="read-more-tabs">Tabs</h3>
+    <ReadMore topic="tabs" />
+    <h3 id="read-more-rhythm">Vertical rhythm</h3>
+    <ReadMore topic="rhythm" />
+    <h3 id="read-more-stepper">The stepper</h3>
+    <ReadMore topic="stepper" />
+  </section>
+</Blog>
+
+<style>
+  .post-stats {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+    margin-block: var(--size-6);
+
+    & div {
+      background-color: var(--surface-tonal);
+      border-radius: var(--radius-2);
+      display: grid;
+      gap: var(--size-1);
+      padding: var(--size-3);
+    }
+
+    & dt {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+    }
+
+    & dd {
+      font-size: var(--font-size-4);
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+      margin: 0;
+    }
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+</style>

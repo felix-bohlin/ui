@@ -26,6 +26,12 @@ export default {
       prop: "href",
     },
     {
+      description: "The accessible name. Use it on icon-only buttons.",
+      frameworks: ["astro", "vue"],
+      prop: "label",
+      type: "string",
+    },
+    {
       class: ".ui-ripple",
       default: "false",
       description:

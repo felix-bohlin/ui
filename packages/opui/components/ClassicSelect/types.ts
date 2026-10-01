@@ -4,7 +4,6 @@ export type Item = {
 }
 
 export type ClassicSelectProps = {
-  [key: string]: any
   endText?: string
   error?: boolean
   id?: string

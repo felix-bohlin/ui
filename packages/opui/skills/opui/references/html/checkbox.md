@@ -158,6 +158,7 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 <div class="example-row ui-spacious">
   <label class="ui-checkbox" data-invalid>
     <input
+      aria-invalid="true"
       name="checkbox-validation"
       type="checkbox"
       checked
@@ -172,6 +173,7 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
   <label class="ui-checkbox ui-stack" data-invalid>
     <input
+      aria-invalid="true"
       name="checkbox-validation"
       type="checkbox"
       aria-describedby="checkbox-validation-end-text-2"
@@ -298,6 +300,7 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">`to push the label
 
 <label class="ui-checkbox ui-spread" data-invalid>
   <input
+    aria-invalid="true"
     name="checkbox-spread"
     type="checkbox"
     aria-describedby="checkbox-spread-end-text-4"
@@ -540,6 +543,8 @@ Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` ele
 </form>
 ```
 
+## Accessibility
+
 ### Labels
 
 Accessible checkboxes must have a label. You can choose between three approaches:
@@ -552,10 +557,9 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Keyboard support
 
-| Key     | Function                                                  |
-| ------- | --------------------------------------------------------- |
-| `Space` | When Checkbox is focused it changes its state.            |
-| `Enter` | (Optional) When Checkbox is focused it changes its state. |
+| Key     | Function                                       |
+| ------- | ---------------------------------------------- |
+| `Space` | When Checkbox is focused it changes its state. |
 
 ## API
 

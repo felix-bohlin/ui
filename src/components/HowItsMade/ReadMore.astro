@@ -1,0 +1,23 @@
+---
+import { references } from "./references"
+
+type Props = {
+  topic: keyof typeof references
+}
+
+const { topic } = Astro.props
+---
+
+<ul class="read-more">
+  {
+    references[topic]
+      .toSorted((a, b) => a.label.localeCompare(b.label))
+      .map((reference) => (
+        <li>
+          <a href={reference.href} rel="noopener noreferrer" target="_blank">
+            {reference.code ? <code>{reference.label}</code> : reference.label}
+          </a>
+        </li>
+      ))
+  }
+</ul>

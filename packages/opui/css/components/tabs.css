@@ -21,6 +21,7 @@
     flex-wrap: wrap;
     gap: 0;
     position: relative;
+    reading-flow: flex-visual;
 
     & > .ui-tab-input[type="radio"] {
       /* utils > .ui-sr-only */
@@ -62,7 +63,7 @@
           --focus-ring-color: var(--text-muted);
           outline: var(--focus-ring-width) var(--focus-ring-style)
             var(--focus-ring-color);
-          outline-offset: var(--focus-ring-offset, 0);
+          outline-offset: calc(-1 * var(--focus-ring-width));
         }
       }
     }
@@ -76,19 +77,39 @@
       color: var(--_text-color);
       cursor: pointer;
       display: inline-flex;
+      flex: 1 1 0;
       font-size: var(--font-size-1);
       font-weight: 500;
       gap: var(--size-2);
       isolation: isolate;
       justify-content: center;
       line-height: var(--font-lineheight-4);
+      max-inline-size: max-content;
+      min-inline-size: 0;
       order: 1;
+      overflow: hidden;
       padding: calc(var(--size-1) + var(--_inset) - var(--_track-border-width))
         var(--size-3);
       position: relative;
+      text-overflow: ellipsis;
       transition: color calc(0.1s * var(--_motion));
       user-select: none;
       white-space: nowrap;
+
+      &:not(:has(> *)) {
+        display: block;
+        text-align: center;
+      }
+
+      & > span {
+        min-inline-size: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      & > svg {
+        flex-shrink: 0;
+      }
 
       &::before {
         border: 1px solid transparent;

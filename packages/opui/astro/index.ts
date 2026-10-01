@@ -12,6 +12,11 @@ export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.a
 export { default as Chip } from "../components/Chip/Chip.astro"
 export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.astro"
 export { default as DescriptionList } from "../components/DescriptionList/index"
+export {
+  Description as DescriptionListDescription,
+  Item as DescriptionListItem,
+  Term as DescriptionListTerm,
+} from "../components/DescriptionList/index"
 export { default as Dialog } from "../components/Dialog/Dialog.astro"
 export { default as Divider } from "../components/Divider/Divider.astro"
 export { default as Drawer } from "../components/Drawer/Drawer.astro"
@@ -32,15 +37,24 @@ export { default as Range } from "../components/Range/Range.astro"
 export { default as Select } from "../components/Select/Select.astro"
 export { default as Switch } from "../components/Switch/Switch.astro"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.astro"
+export { default as Table } from "../components/Table/index"
+export {
+  Body as TableBody,
+  Cell as TableCell,
+  Column as TableColumn,
+  ColumnGroup as TableColumnGroup,
+  Head as TableHead,
+  HeaderCell as TableHeaderCell,
+  Row as TableRow,
+} from "../components/Table/index"
 export { default as Tabs } from "../components/Tabs/index"
 export {
   TabsItem,
-  Tab as TabsTab,
   Panel as TabsPanel,
+  Tab as TabsTab,
 } from "../components/Tabs/index"
-export { default as Table } from "../components/Table/index"
 export { default as Textarea } from "../components/Textarea/Textarea.astro"
 export { default as TextField } from "../components/TextField/TextField.astro"
-export { default as Tooltip } from "../components/Tooltip/Tooltip.astro"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.astro"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.astro"
+export { default as Tooltip } from "../components/Tooltip/Tooltip.astro"

@@ -1,0 +1,121 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.prose h2 {
+  font-size: var(--size);
+  line-height: 1.2;
+}`,
+    notes: [
+      "Stripes mark each line box (<code>1lh</code>), dotted lines mark <code>--rhythm-step</code>",
+      "A plain <code>line-height</code> lands between grid lines at most sizes",
+    ],
+    title: "Unsnapped",
+  },
+  {
+    css: `
+.prose h2 {
+  line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
+}`,
+    notes: [
+      "<code>round(up, …, step)</code> snaps the line height to the next step",
+      "<code>1em + 0.5rem</code>: tight for large headings, roomy for small ones",
+      "One rule for every heading level",
+    ],
+    title: "Snap line height",
+  },
+  {
+    css: `
+.prose h2 {
+  font-size: round(var(--size), var(--rhythm-step) / 2);
+}`,
+    notes: [
+      "Fluid sizes land on half a step",
+      "Drag <strong>Font size</strong>: it moves in steps, not pixels",
+    ],
+    title: "Snap font size",
+  },
+  {
+    css: `
+.prose {
+  --flow-space: 1.25em;
+}
+
+.prose > * {
+  margin-block: 0 var(--flow-space);
+}
+
+.prose h2 {
+  margin-block: calc(var(--flow-space) * 1.5) calc(var(--flow-space) * 0.5);
+}`,
+    notes: [
+      "One flow space derived from the body text",
+      "More space above a heading than below: it sits with the text it introduces",
+    ],
+    title: "Flow space",
+  },
+]
+
+const knobs = [
+  {
+    label: "Font size",
+    max: 48,
+    min: 16,
+    property: "--size",
+    step: 1,
+    unit: "px",
+    value: 29,
+  },
+  {
+    label: "Rhythm step",
+    max: 12,
+    min: 4,
+    property: "--rhythm-step",
+    step: 2,
+    unit: "px",
+    value: 8,
+  },
+]
+---
+
+<BuildUp
+  id="build-rhythm"
+  knobs={knobs}
+  source="typography.css"
+  steps={steps}
+  title="Vertical rhythm with round()"
+>
+  <div class="prose">
+    <p>Body text sets the flow space for everything around it.</p>
+    <h2>A heading that wraps onto two lines</h2>
+    <p>Text that follows the heading it belongs to.</p>
+  </div>
+</BuildUp>
+
+<style>
+  .prose {
+    background-image: linear-gradient(
+      to bottom,
+      oklch(from var(--primary) l c h / 35%) 1px,
+      transparent 1px
+    );
+    background-repeat: repeat;
+    background-size: 100% var(--rhythm-step);
+    inline-size: min(100%, 20rem);
+
+    & > * {
+      margin: 0;
+    }
+
+    & h2 {
+      background-image: repeating-linear-gradient(
+        to bottom,
+        oklch(from var(--primary) l c h / 15%) 0 1lh,
+        transparent 1lh 2lh
+      );
+      text-wrap: balance;
+    }
+  }
+</style>

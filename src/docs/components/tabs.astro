@@ -2,6 +2,8 @@
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import TabsBuild from "../../components/HowItsMade/TabsBuild.astro"
+import ReadMore from "../../components/HowItsMade/ReadMore.astro"
 import { Table, Tabs as UITabs } from "@opui/astro"
 
 import TabsCSS from "@opui/css/components/tabs.css?raw"
@@ -88,6 +90,16 @@ import tabsApi from "../../component-api/tabs/api"
       bordered track without a background.
     </p>
     <AutoExample name="Outlined" />
+  </section>
+
+  <section>
+    <h2 id="narrow-spaces">Narrow spaces</h2>
+    <p>
+      Tabs that don't fit shrink to share the space, and long labels end with an
+      ellipsis. Keep labels short and tabs few. Wrap the label in a <code
+        >&lt;span&gt;</code
+      > when a tab has an icon, so the label shortens and the icon stays.
+    </p>
   </section>
 
   <Fragment slot="accessibility">
@@ -184,4 +196,10 @@ import tabsApi from "../../component-api/tabs/api"
       </li>
     </ul>
   </Fragment>
+  <section>
+    <h2 id="how-its-made">How it's made</h2>
+    <TabsBuild />
+    <h3 id="read-more">Read more</h3>
+    <ReadMore topic="tabs" />
+  </section>
 </Component>

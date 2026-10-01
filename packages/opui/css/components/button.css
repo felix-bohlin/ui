@@ -145,10 +145,10 @@
     }
 
     /* Keyboard input */
-    :is(kbd) {
-      background-color: oklch(from currentColor l c h / 10%);
+    kbd {
+      background-color: color-mix(in oklch, currentColor 10%, transparent);
       border: 0;
-      color: oklch(from currentColor l c h / 80%);
+      color: color-mix(in oklch, currentColor 80%, transparent);
       font-size: 0.8em;
       font-weight: 400;
       line-height: 1.2;

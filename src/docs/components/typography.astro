@@ -4,6 +4,8 @@ import { Code } from "astro-expressive-code/components"
 import Component from "../../layouts/Component.astro"
 import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
+import RhythmBuild from "../../components/HowItsMade/RhythmBuild.astro"
+import ReadMore from "../../components/HowItsMade/ReadMore.astro"
 import BlockquoteHtml from "../../component-examples/typography/Blockquote.html?raw"
 import CodeBlockHtml from "../../component-examples/typography/CodeBlock.html?raw"
 
@@ -177,5 +179,11 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
       classless, rich-text context.
     </p>
     <AutoExample name="Default" />
+  </section>
+  <section>
+    <h2 id="how-its-made">How it's made</h2>
+    <RhythmBuild />
+    <h3 id="read-more">Read more</h3>
+    <ReadMore topic="rhythm" />
   </section>
 </Component>

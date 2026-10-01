@@ -1,0 +1,133 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.menu {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-3);
+  padding: 0.25rem 0;
+}`,
+    html: `
+<button commandfor="menu" command="toggle-popover">Options</button>
+
+<menu class="menu" id="menu" popover>
+  <li>
+    <button commandfor="menu" command="hide-popover">Edit</button>
+  </li>
+</menu>`,
+    notes: [
+      "<code>popover</code>: top layer, light dismiss, <kbd>Esc</kbd> to close",
+      "Invoker Commands: <code>commandfor</code> + <code>command</code>, no JavaScript",
+      "Without positioning it opens in the middle of the viewport",
+    ],
+    title: "Popover",
+  },
+  {
+    css: `
+.menu {
+  inset: auto;
+  margin: 0.25rem 0;
+  min-inline-size: max(10rem, anchor-size(inline));
+  position-area: block-end span-inline-end;
+}`,
+    notes: [
+      "The invoker is the implicit anchor: no <code>anchor-name</code>, no ids to wire",
+      "<code>position-area</code> places it below, spanning towards the end",
+      "<code>anchor-size(inline)</code> keeps it at least as wide as the trigger",
+    ],
+    title: "Anchor",
+  },
+  {
+    css: `
+.menu {
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
+}`,
+    notes: [
+      "Scroll the trigger to the bottom of the window and open it again",
+      "The browser tries each fallback when the menu would overflow",
+    ],
+    title: "Flip",
+  },
+  {
+    css: `
+.menu {
+  opacity: 0;
+  scale: 0.96;
+  transition:
+    display 0.15s allow-discrete,
+    opacity 0.15s,
+    overlay 0.15s allow-discrete,
+    scale 0.15s;
+}
+
+.menu:popover-open {
+  opacity: 1;
+  scale: 1;
+
+  @starting-style {
+    opacity: 0;
+    scale: 0.96;
+  }
+}`,
+    notes: [
+      "<code>@starting-style</code> gives the entry transition a starting point",
+      "<code>allow-discrete</code> keeps <code>display</code> and <code>overlay</code> alive during the exit",
+    ],
+    title: "Animate",
+  },
+]
+---
+
+<BuildUp
+  id="build-menu"
+  source="menu.css"
+  steps={steps}
+  title="Menu without JavaScript"
+>
+  <button
+    class="ui-button ui-outlined"
+    commandfor="build-menu-popover"
+    command="toggle-popover"
+  >
+    Options
+  </button>
+  <menu class="menu" id="build-menu-popover" popover>
+    {
+      ["Edit", "Duplicate", "Share"].map((item) => (
+        <li>
+          <button commandfor="build-menu-popover" command="hide-popover">
+            {item}
+          </button>
+        </li>
+      ))
+    }
+  </menu>
+</BuildUp>
+
+<style>
+  .menu {
+    list-style: none;
+
+    & button {
+      background: none;
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+      font: inherit;
+      inline-size: 100%;
+      padding: var(--size-2) var(--size-3);
+      text-align: start;
+
+      &:hover {
+        background-color: var(--surface-tonal);
+      }
+    }
+  }
+</style>

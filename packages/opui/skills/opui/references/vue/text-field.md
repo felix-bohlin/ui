@@ -425,7 +425,7 @@ The British Government has a [great article](https://technology.blog.gov.uk/2020
 
 Use `aria-label` instead of the `<label>` element.
 
-File is a weird one. Should it really be an `<input>` element? Well, it's what we've got :sweat_smile:
+File is a weird one. Should it really be an `<input>` element? Well, it's what we've got.
 
 ```vue
 <script setup lang="ts">

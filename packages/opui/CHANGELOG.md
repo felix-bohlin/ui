@@ -28,6 +28,13 @@
 - `Typography` reads a `--rhythm-step` theme token (`0.25rem`). Heading font sizes snap to half a step and heading line heights to a full step with `round()`.
 - `Typography` rich text styles `hr`, tables, `pre > samp` and preformatted text without `code`.
 - `Typography` rich text task lists (an `li` that starts with a checkbox) show the checkbox in place of the bullet.
+- Motion tokens: `--duration-fast`, `--duration`, `--duration-slow`, `--ease`, `--ease-enter` and `--ease-exit`. Every component transition and animation reads them, multiplied by `--motion`.
+- `--focus-ring-inset` for focus rings drawn inside a control, read by `ButtonGroup`, `List` and `Select`.
+- Icon tokens: `--icon-size-small`, `--icon-size` and `--icon-size-large`.
+- Choice control tokens: `--choice-size-small`, `--choice-size`, `--choice-size-large`, `--switch-dot-size`, `--switch-dot-size-small`, `--switch-track-height`, `--switch-track-height-small`, `--switch-track-width` and `--switch-track-width-small`.
+- Overlay tokens: `--backdrop-color` and `--backdrop-blur`, read by `Dialog` and `Drawer`. Inverse surface tokens: `--surface-inverse` and `--text-inverse`.
+- State and text tokens: `--disabled-opacity`, `--state-hover-alpha`, `--state-hover-alpha-dark`, `--state-active-alpha`, `--state-active-alpha-dark`, `--state-hover-alpha-accent`, `--state-active-alpha-accent`, `--text-disabled`, `--invalid-color`, `--font-weight-medium`, `--font-weight-semibold` and `--font-weight-bold`.
+- Field text tokens: `--field-label-color`, `--field-label-font-size`, `--field-label-font-weight`, `--field-helper-color`, `--field-helper-font-size`, `--field-helper-line-height` and `--field-required-color`, read by `Checkbox`, `Form`, `Radio`, `Range`, `Switch` and `TextField`.
 
 ### Changed
 
@@ -40,6 +47,14 @@
 - `Typography` heading group subtitle line heights and spacing, in rich text `hgroup` and `.ui-hgroup`, snap to `--rhythm-step`.
 - `Typography` headings share one line height, `1em + 0.5rem` rounded to `--rhythm-step`, in rich text and in the `.ui-h1`–`.ui-h6` classes.
 - `Typography` theme tokens `--font-size-h3` and `--font-size-h4` are fluid with higher minimums and `--font-size-h6` is `--font-size-1`, so heading sizes no longer invert or drop below body text on narrow viewports.
+- Component borders read `--border-width` (and `--field-border-width` for `Checkbox`, `Radio`, `Switch` and `TextField`) instead of a hardcoded `1px`. This affects `Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton` and `ToggleGroup`.
+- `Chip` uses `--border-radius` (8px) instead of Open Props `--radius-2` (5px).
+- `Radio` is `--choice-size` (20px) like `Checkbox`, instead of 18px.
+- `ButtonGroup` small buttons are `--button-size-small` (32px) instead of 30px.
+- `Range`, `Switch` and `TextField` invalid states use `--invalid-color`.
+- `Toast` severity icons are masks filled with `--success`, `--info`, `--warning` and `--critical` instead of hardcoded hex colors.
+- `Tooltip` uses `--surface-inverse` and `--text-inverse`. `Avatar` and `Badge` use `--primary-contrast`.
+- `Drawer` backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`. `.ui-backdrop-transparent` still removes it.
 
 ### Fixed
 
@@ -62,6 +77,18 @@
 - `Typography` rich text inline `code` styles no longer apply to `code` inside `pre`.
 - `Typography` rich text `ol[type]` keeps its marker type, and consecutive `dt` elements are no longer spaced apart.
 - `Typography` rich text no longer styles an `a` without `href` as a link.
+- `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.
+- `Badge`, `Chip`, `Tabs` and `Toast` respect `--motion` and `prefers-reduced-motion`.
+- `dist/opui.components.css` starts with the `@layer` order statement.
+- Autofilled fields use `--surface-default` instead of the undefined `--well-1`.
+
+### Internal
+
+- `Avatar`, `List` and `ButtonGroup` read `--control-size` and `--button-size-*` instead of repeating their pixel values.
+- `--motion` and its `prefers-reduced-motion` default moved from `core/normalize.css` to `css/theme.css`. The `.ui-motion-*` classes moved to `core/utils.css`.
+- Ripple internals in `core/utils.css` are private: `--isRTL` and `--thumb-scale` are now `--_dir-rtl` and `--_thumb-scale`. `Chip` uses `--_ripple` instead of `--ripple`.
+- Removed dead fallbacks for `--border-radius`, `--button-border-radius`, `--size-7` and `--font-size-0`, and the no-op `z-index` on `Drawer` and `Toast`.
+- `pnpm check:fast` runs `check-css-vars`, which fails on `var()` reads of custom properties that nothing defines.
 
 ## 5.5.0 - 2026-09-28
 

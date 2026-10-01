@@ -11,28 +11,6 @@
     scrollbar-width: thin;
   }
 
-  html {
-    --motion: 1;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      --motion: 0;
-    }
-  }
-
-  .ui-motion-off {
-    --motion: 0;
-  }
-
-  .ui-motion-on {
-    --motion: 1;
-  }
-
-  .ui-motion-debug {
-    --motion: 10;
-  }
-
   :where(html) {
     --_page-bg-color: var(--surface-default);
 
@@ -120,7 +98,7 @@
   :where(select):autofill:hover,
   :where(select):autofill:focus {
     -webkit-text-fill-color: var(--text-muted, var(--text-color-2));
-    -webkit-box-shadow: 0 0 0px 1e5px var(--_page-bg-color) inset;
+    -webkit-box-shadow: 0 0 0px 1e5px var(--surface-default) inset;
     transition: background-color 5000s ease-in-out 0s;
   }
 
@@ -141,7 +119,7 @@
     outline: var(--focus-ring-width, 2px) var(--focus-ring-style, solid)
       var(--focus-ring-color, var(--_focus-visible-color));
     outline-offset: var(--focus-ring-offset, 2px);
-    transition: outline-offset calc(0.15s * var(--motion)) var(--ease-2);
+    transition: outline-offset calc(var(--duration) * var(--motion)) var(--ease);
   }
 
   :where(

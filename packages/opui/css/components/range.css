@@ -13,45 +13,45 @@
     position: relative;
 
     .ui-label {
-      color: var(--text-primary);
-      font-size: var(--font-size-05);
-      font-weight: 600;
+      color: var(--field-label-color);
+      font-size: var(--field-label-font-size);
+      font-weight: var(--field-label-font-weight);
       grid-column: 1;
       grid-row: 1;
     }
 
     :where(.ui-value) {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
+      color: var(--field-helper-color);
+      font-size: var(--field-helper-font-size);
       font-variant-numeric: tabular-nums;
-      font-weight: 600;
+      font-weight: var(--font-weight-semibold);
       grid-column: 2;
       grid-row: 1;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
       text-align: end;
     }
 
     .ui-start-text {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
+      color: var(--field-helper-color);
+      font-size: var(--field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 2;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
     }
 
     :where(.ui-end-text) {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
+      color: var(--field-helper-color);
+      font-size: var(--field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 5;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
     }
 
     /* Datalist (tick mark labels) */
     :where(datalist) {
-      color: var(--text-muted);
+      color: var(--field-helper-color);
       display: flex;
-      font-size: var(--font-size-0);
+      font-size: var(--field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 4;
       justify-content: space-between;
@@ -70,7 +70,7 @@
     /* Disabled */
     &:has([disabled]) {
       cursor: not-allowed;
-      opacity: 0.64;
+      opacity: var(--disabled-opacity);
       user-select: none;
 
       .ui-label,
@@ -106,12 +106,12 @@
       }
 
       .ui-start-text {
-        color: var(--text-muted);
+        color: var(--field-helper-color);
         display: block;
-        font-size: var(--font-size-0);
+        font-size: var(--field-helper-font-size);
         grid-column: 1;
         grid-row: 2;
-        line-height: 1.5;
+        line-height: var(--field-helper-line-height);
       }
 
       input[type="range"] {
@@ -190,13 +190,15 @@
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {
-      --_thumb-bg: var(--critical);
-      --_thumb-highlight-color: oklch(from var(--critical) 70% 100% h / 20%);
+      --_thumb-bg: var(--invalid-color);
+      --_thumb-highlight-color: oklch(
+        from var(--invalid-color) 70% 100% h / 20%
+      );
 
       .ui-start-text,
       .ui-end-text,
       .ui-value {
-        color: var(--critical);
+        color: var(--invalid-color);
       }
     }
 
@@ -266,7 +268,8 @@
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        transition: box-shadow calc(0.1s * var(--_motion)) ease;
+        transition: box-shadow calc(var(--duration-fast) * var(--_motion))
+          var(--ease);
       }
 
       &::-moz-range-thumb {
@@ -281,13 +284,14 @@
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        transition: box-shadow calc(0.1s * var(--_motion)) ease;
+        transition: box-shadow calc(var(--duration-fast) * var(--_motion))
+          var(--ease);
       }
 
       /* Element state */
       .ui-range:has(:user-invalid) &,
       .ui-range[data-invalid] & {
-        --_track-fill-color: var(--critical);
+        --_track-fill-color: var(--invalid-color);
       }
 
       &:not([disabled]) {

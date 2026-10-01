@@ -388,7 +388,7 @@ import { Form } from "opui-css/astro"
 
 ### Validation
 
-Attach the `data-invalid` attribute to your `Fieldset` component.
+Attach the `data-invalid` attribute to your `FieldSet` component.
 
 ```astro
 ---
@@ -413,6 +413,8 @@ import { Form } from "opui-css/astro"
 </Form>
 ```
 
+## Accessibility
+
 ### Labels
 
 Accessible checkboxes must have a label. You can choose between three approaches:
@@ -425,10 +427,9 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Keyboard support
 
-| Key     | Function                                                  |
-| ------- | --------------------------------------------------------- |
-| `Space` | When Checkbox is focused it changes its state.            |
-| `Enter` | (Optional) When Checkbox is focused it changes its state. |
+| Key     | Function                                       |
+| ------- | ---------------------------------------------- |
+| `Space` | When Checkbox is focused it changes its state. |
 
 ## API
 

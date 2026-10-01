@@ -27,7 +27,7 @@ import { Button, Tooltip } from "opui-css/astro"
 
 ### ... or any markup you want
 
-Use the `content` slot instead, and it let's you put anything in the tooltip.
+Use the `content` slot instead, and it lets you put anything in the tooltip.
 
 ```astro
 ---
@@ -157,8 +157,8 @@ import { Button, Tooltip } from "opui-css/astro"
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Full support Supported since v151.
-- Safari: Partial support Missing: popover-hint.
+- Firefox: Partial support Missing: interest-invokers.
+- Safari: Partial support Missing: interest-invokers, popover-hint.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 

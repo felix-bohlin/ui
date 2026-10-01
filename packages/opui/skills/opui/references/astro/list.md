@@ -60,9 +60,9 @@ The List component is *extremely* flexible and versatile. Be careful if you star
 
 Change background color with the `variant` prop.
 
-### Filled as default?!
+### Filled by default
 
-Yeah it's a bit weird, but normally you would use a list in a popover/select scenario that needs to contrast against the background. If nothing else, just change it yourself.
+Without a color class the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `default` or `tonal` to match the page surface instead.
 
 ```astro
 ---
@@ -123,7 +123,7 @@ import { CheckboxInput } from "opui-css/astro"
 
 ### Selected item
 
-Add `aria-selected="true"` to the `ListItem`.
+Add `aria-current="page"` to the link inside the `ListItem`.
 
 ```astro
 ---

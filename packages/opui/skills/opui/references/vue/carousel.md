@@ -514,8 +514,8 @@ Announces item position. Buttons and markers are named.
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Partial support Missing: scroll-buttons, scroll-markers.
-- Safari: Partial support Missing: scroll-buttons, scroll-markers.
+- Firefox: Partial support Missing: if, scroll-buttons, scroll-markers.
+- Safari: Partial support Missing: if, scroll-buttons, scroll-markers.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
 

@@ -10,11 +10,12 @@ import { posts } from "../utils/blog"
 
 type Props = {
   description?: string
+  overline?: string
   showToc?: boolean
   title?: string
 }
 
-const { description, showToc = true, title } = Astro.props
+const { description, overline = "Blog", showToc = true, title } = Astro.props
 
 const currentFramework = (Astro.currentLocale ??
   DEFAULT_FRAMEWORK) as FrameworkId
@@ -35,7 +36,7 @@ const links = [
 
 <Document
   description={description}
-  overline="Blog"
+  overline={overline}
   showToc={showToc}
   title={title}
 >

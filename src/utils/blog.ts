@@ -7,3 +7,7 @@ export const posts = [
     title: "Menu, Carousel and one Button",
   },
 ].toSorted((a, b) => a.date.localeCompare(b.date))
+
+const dateFormat = new Intl.DateTimeFormat("en", { dateStyle: "long" })
+
+export const formatDate = (date: string) => dateFormat.format(new Date(date))

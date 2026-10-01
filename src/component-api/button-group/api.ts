@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ButtonGroup",
+  css: ["button", "button-group"],
   notes: {
     html: 'The root needs `role="group"`.',
   },

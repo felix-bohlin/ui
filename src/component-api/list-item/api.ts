@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ListItem",
+  css: ["list"],
   notes: {
     html: "Wrap the content in an `<a>`, `<button>` or `<label>` to make the item interactive.",
   },

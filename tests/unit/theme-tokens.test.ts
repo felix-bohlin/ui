@@ -1,4 +1,7 @@
+import { existsSync } from "node:fs"
 import { describe, expect, test } from "vitest"
+import { cssVarRows, stylesheets } from "../../src/component-api/rows"
+import type { ComponentApi } from "../../src/component-api/types"
 import { generateCss } from "../../src/components/ThemeGenerator/generateCss"
 import { TOKENS, tokenDefaults } from "../../src/utils/theme-store"
 import { themeTokenDescriptions } from "../../src/utils/theme-token-descriptions"
@@ -106,5 +109,31 @@ describe("generateCss", () => {
     expect(css).toContain(
       "--neutral: light-dark(var(--color-9), var(--gray-9));",
     )
+  })
+})
+
+describe("component css variables", () => {
+  const apis = Object.values(
+    import.meta.glob<{ default: ComponentApi }>(
+      "../../src/component-api/*/api.ts",
+      { eager: true },
+    ),
+  ).map((module) => module.default)
+
+  test("every api maps to existing stylesheets", () => {
+    for (const api of apis) {
+      for (const file of stylesheets(api)) {
+        expect(existsSync(file), `${api.component}: ${file}`).toBe(true)
+      }
+    }
+  })
+
+  test("button reads its size and radius tokens", () => {
+    const button = apis.find((api) => api.component === "Button")!
+    const names = cssVarRows(button).map((row) => row.name)
+    expect(names).toContain("--button-border-radius")
+    expect(names).toContain("--button-size")
+    expect(names).toContain("--disabled-opacity")
+    expect(names).toEqual(names.toSorted())
   })
 })

@@ -98,6 +98,7 @@ import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
   - `part` is the selector of the part that gets the modifier, such as `.ui-actions` for `actionsAlign`.
   - `cssVar` is the custom property an option sets, such as `--anchor-position-area`. It can be combined with a class or `values`.
 - `slots`: slots that aren't parts, such as `default`.
+- `css`: the stylesheets under `packages/opui/css/components/` the component is styled by, without the extension. Defaults to the kebab-cased `source`. The CSS variables table lists every theme token those files read, with the default from `theme.css` and the description from `src/utils/theme-token-descriptions.ts`.
 - `model` and `notes`: the bound value and per-framework notes.
 
 Prop names and types are read from each framework's types file, and Astro/Vue slots from the component source, so they are never written by hand. Framework syntax lives in [frameworks.ts](frameworks.ts). The build warns (`[component-api]`) when a prop or slot is missing from `api.ts` or documented but not in the source.

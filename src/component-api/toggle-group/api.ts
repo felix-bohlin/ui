@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ToggleGroup",
+  css: ["toggle-button", "toggle-group"],
   options: [
     {
       description: "The name shared by the inputs. Generated when omitted.",

@@ -563,7 +563,7 @@ const radiusGroups = [
   import {
     themeStore,
     TOKENS,
-    tokenDefaults,
+    TOKEN_DEFAULTS,
     type Mode,
     type ModeConfig,
     type Token,
@@ -634,10 +634,9 @@ const radiusGroups = [
 
   let suppressInputHandler = false
 
-  function syncFormFromConfig(mode: Mode, config: ModeConfig) {
-    const defaults = tokenDefaults(mode)
+  function syncFormFromConfig(config: ModeConfig) {
     TOKENS.forEach((token) => {
-      const value = config[token] ?? defaults[token]
+      const value = config[token] ?? TOKEN_DEFAULTS[token]
       const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
       if (input && input.type !== "checkbox") {
         input.value = value
@@ -683,10 +682,10 @@ const radiusGroups = [
     )
     if (colorPicker) {
       const hue = parseFloat(
-        config["--palette-hue"] ?? defaults["--palette-hue"],
+        config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
       )
       const chroma = parseFloat(
-        config["--palette-chroma"] ?? defaults["--palette-chroma"],
+        config["--palette-chroma"] ?? TOKEN_DEFAULTS["--palette-chroma"],
       )
       colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
     }
@@ -695,13 +694,12 @@ const radiusGroups = [
   function applyToPreview() {
     const mode = previewMode()
     const config = themeStore.get(mode)
-    const defaults = tokenDefaults(mode)
     preview.classList.toggle("ui-dark", mode === "dark")
     preview.classList.toggle("ui-light", mode === "light")
     preview.classList.toggle("no-grays", config["enable-grays"] === "false")
 
     PALETTE_TOKENS.forEach((token) => {
-      const value = config[token] ?? defaults[token]
+      const value = config[token] ?? TOKEN_DEFAULTS[token]
       preview.style.setProperty(token, value)
     })
 
@@ -711,7 +709,7 @@ const radiusGroups = [
       "--button-border-radius",
     ]
     radiusTokens.forEach((token) => {
-      const value = config[token] ?? defaults[token]
+      const value = config[token] ?? TOKEN_DEFAULTS[token]
       preview.style.setProperty(token, value)
     })
   }
@@ -725,7 +723,7 @@ const radiusGroups = [
   }
 
   function refreshAll() {
-    syncFormFromConfig(formMode(), themeStore.get(formMode()))
+    syncFormFromConfig(themeStore.get(formMode()))
     applyToPreview()
     rerenderCode()
   }

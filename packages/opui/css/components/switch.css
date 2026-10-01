@@ -7,13 +7,13 @@
     --_dot-bg-color: light-dark(var(--gray-11), var(--gray-14));
     --_dot-inset: var(--size-1) auto auto var(--size-1);
     --_dot-outline-size: 0;
-    --_dot-size: var(--switch-dot-size);
+    --_dot-size: var(--size-3);
 
     --_track-bg-color: light-dark(var(--gray-3), var(--gray-8));
-    --_track-height: var(--switch-track-height);
-    --_track-width: var(--switch-track-width);
-    --_transition-tf: var(--ease);
-    --_transition-time: calc(var(--duration) * var(--_motion));
+    --_track-height: var(--size-5);
+    --_track-width: var(--size-8);
+    --_transition-tf: var(--ease-4);
+    --_transition-time: calc(0.2s * var(--_motion));
 
     align-items: center;
     color: var(--text-primary);
@@ -35,7 +35,7 @@
       &::before {
         background-color: var(--_track-bg-color);
         block-size: var(--_track-height);
-        border: var(--field-border-width) solid var(--_dot-bg-color);
+        border: 1px solid var(--_dot-bg-color);
         border-radius: var(--radius-round);
         content: "";
         inline-size: var(--_track-width);
@@ -156,7 +156,7 @@
     /* Required dot */
     &:has(:invalid) {
       .ui-label:after {
-        color: var(--field-required-color);
+        color: var(--red);
         content: "*";
         inset: 0 -0.25ex auto auto;
         position: absolute;
@@ -166,7 +166,7 @@
     /* Disabled */
     &:has([disabled]) {
       cursor: not-allowed;
-      opacity: var(--disabled-opacity);
+      opacity: 0.64;
       user-select: none;
 
       input {
@@ -176,8 +176,8 @@
 
     /* Label */
     .ui-label {
-      color: var(--field-label-color);
-      font-size: var(--field-label-font-size);
+      color: var(--text-primary);
+      font-size: var(--font-size-05);
       grid-column: 2;
       grid-row: 1;
       min-width: 0;
@@ -188,19 +188,19 @@
 
     /* End text */
     :where(.ui-end-text) {
-      color: var(--field-helper-color);
-      font-size: var(--field-helper-font-size);
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
       grid-column: 2;
       grid-row: 2;
-      line-height: var(--field-helper-line-height);
+      line-height: 1.5;
       z-index: 1;
     }
 
     /* Size */
     &.ui-small {
-      --_dot-size: var(--switch-dot-size-small);
-      --_track-height: var(--switch-track-height-small);
-      --_track-width: var(--switch-track-width-small);
+      --_dot-size: 0.75rem;
+      --_track-height: var(--size-4);
+      --_track-width: 2.5rem;
     }
 
     /* Spread layout */
@@ -212,7 +212,7 @@
       inline-size: 100%;
 
       .ui-label {
-        font-weight: var(--field-label-font-weight);
+        font-weight: 600;
         grid-column: 1;
         grid-row: 1;
         inline-size: fit-content;
@@ -259,11 +259,11 @@
     &[data-invalid] {
       input {
         border-radius: var(--radius-round);
-        outline: var(--focus-ring-width) solid var(--invalid-color);
+        outline: 2px solid var(--color-9);
       }
 
       .ui-end-text {
-        color: var(--invalid-color);
+        color: var(--color-9);
       }
     }
   }

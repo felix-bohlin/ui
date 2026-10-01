@@ -1,6 +1,5 @@
 @layer components.root {
   :where(.ui-tabs) {
-    --_motion: var(--motion, 1);
     --_accent-color: var(--primary);
     --_bg-color: transparent;
 
@@ -57,13 +56,13 @@
       color: var(--text-muted);
       cursor: pointer;
       display: inline-flex;
-      font-weight: var(--font-weight-semibold);
+      font-weight: 600;
       justify-content: center;
       line-height: var(--font-lineheight-4);
       order: 1;
       padding: var(--size-2) var(--size-3);
       position: relative;
-      transition: color calc(var(--duration-fast) * var(--_motion)) var(--ease);
+      transition: color 0.1s;
       user-select: none;
 
       &:hover {

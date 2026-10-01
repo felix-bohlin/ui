@@ -40,7 +40,7 @@
 
     &.ui-tonal {
       --_card-bg-color: var(--_bg-tonal);
-      --_card-border-width: var(--border-width);
+      --_card-border-width: 1px;
     }
 
     &.ui-elevated {
@@ -51,7 +51,7 @@
     &.ui-outlined {
       --_card-bg-color: var(--_bg-surface);
       --_card-border-color: var(--_border-color);
-      --_card-border-width: var(--border-width);
+      --_card-border-width: 1px;
     }
 
     & > :where(hgroup, .ui-content) {

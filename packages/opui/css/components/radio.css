@@ -1,6 +1,6 @@
 @layer components.root {
   label.ui-radio {
-    --_input-size: var(--choice-size);
+    --_input-size: 1.125rem;
     --_indicator-size: 50%;
 
     align-items: center;
@@ -11,14 +11,14 @@
     grid-auto-columns: auto;
     grid-auto-flow: column;
     inline-size: fit-content;
-    line-height: var(--font-lineheight-3);
+    line-height: 1.5;
     transform: translateZ(0);
     user-select: none;
 
     /* Disabled */
     &:has([disabled]) {
       cursor: not-allowed;
-      opacity: var(--disabled-opacity);
+      opacity: 0.64;
       user-select: none;
 
       input {
@@ -29,7 +29,7 @@
     /* Required dot */
     &:has(:invalid) {
       .ui-label:after {
-        color: var(--field-required-color);
+        color: var(--red);
         content: "*";
         inset: 0 -0.25ex auto auto;
         position: absolute;
@@ -38,8 +38,8 @@
 
     /* Label */
     .ui-label {
-      color: var(--field-label-color);
-      font-size: var(--field-label-font-size);
+      color: var(--text-primary);
+      font-size: var(--font-size-05);
       grid-column: 2;
       grid-row: 1;
       padding-inline: 0 1ex;
@@ -48,11 +48,11 @@
 
     /* End text */
     :where(.ui-end-text) {
-      color: var(--field-helper-color);
-      font-size: var(--field-helper-font-size);
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
       grid-column: 2;
       grid-row: 2;
-      line-height: var(--field-helper-line-height);
+      line-height: 1.5;
       z-index: 1;
     }
 
@@ -85,7 +85,7 @@
       aspect-ratio: 1;
       background-color: var(--surface-default);
       block-size: var(--_input-size);
-      border: var(--field-border-width) solid var(--field-border-color);
+      border: 1px solid var(--field-border-color);
       border-radius: var(--radius-round);
       box-sizing: border-box;
       cursor: pointer;
@@ -117,30 +117,30 @@
       }
 
       &::before {
-        --_highlight-size: 175%;
+        --highlight-size: 175%;
       }
     }
 
     /* Sizes */
     &.ui-small {
       input[type="radio"] {
-        --_input-size: var(--choice-size-small);
+        --_input-size: var(--size-3);
       }
     }
 
     &.ui-large {
       input[type="radio"] {
-        --_input-size: var(--choice-size);
+        --_input-size: var(--size-4);
       }
     }
 
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {
-      --primary: var(--invalid-color);
+      --primary: var(--critical);
 
       :where(.ui-end-text) {
-        color: var(--invalid-color);
+        color: var(--critical);
       }
     }
 

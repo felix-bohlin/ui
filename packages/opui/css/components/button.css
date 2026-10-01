@@ -1,5 +1,6 @@
 @layer components.root {
-  :where(.ui-button, .ui-icon-button) {
+  :where(.ui-button) {
+    --_motion: var(--motion, 1);
     --_color: light-dark(var(--color-16), var(--color-1));
     --_color-contrast: light-dark(var(--color-1), var(--color-16));
     --_color-tonal: var(--surface-tonal);
@@ -10,12 +11,12 @@
     --_accent-tonal-contrast: var(--_color);
 
     --_default-hover-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.01 h / var(--state-hover-alpha)),
-      oklch(from var(--_accent) l 0.01 h / var(--state-hover-alpha-dark))
+      oklch(from var(--_accent) l 0.01 h / 10%),
+      oklch(from var(--_accent) l 0.01 h / 20%)
     );
     --_default-active-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.06 h / var(--state-active-alpha)),
-      oklch(from var(--_accent) l 0.06 h / var(--state-active-alpha-dark))
+      oklch(from var(--_accent) l 0.06 h / 20%),
+      oklch(from var(--_accent) l 0.06 h / 30%)
     );
 
     --_filled-hover-bg-color: light-dark(
@@ -28,45 +29,12 @@
     );
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
 
-    /* Color inherited from Button Group. */
-    &:is(.ui-critical, .ui-primary),
-    :where(.ui-button-group:is(.ui-critical, .ui-primary)) & {
-      --_color-contrast: var(--primary-contrast);
-      --_color-tonal: var(--color-6);
-      --_accent-tonal-contrast: var(--text-primary-contrast);
-
-      --_default-hover-bg-color: oklch(
-        from var(--_accent) l c h / var(--state-hover-alpha-accent)
-      );
-      --_default-active-bg-color: oklch(
-        from var(--_accent) l c h / var(--state-active-alpha-accent)
-      );
-
-      --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-      --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
-
-      --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-    }
-
-    &.ui-critical,
-    :where(.ui-button-group.ui-critical) & {
-      --_color: var(--critical);
-    }
-
-    &.ui-primary,
-    :where(.ui-button-group.ui-primary) & {
-      --_color: var(--primary);
-    }
-  }
-
-  :where(.ui-button) {
-    --_motion: var(--motion, 1);
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-width: var(--border-size-1);
     --_font-size: var(--font-size-1);
     --_min-height: var(--button-size);
-    --_border-radius: var(--button-border-radius);
+    --_border-radius: var(--button-border-radius, var(--radius-2));
     --_text-color: var(--_accent);
 
     -webkit-tap-highlight-color: transparent;
@@ -78,7 +46,7 @@
     color: var(--_text-color);
     display: inline-flex;
     font-size: var(--_font-size);
-    font-weight: var(--font-weight-bold);
+    font-weight: 700;
     gap: var(--size-2);
     justify-content: center;
     min-block-size: var(--_min-height);
@@ -87,18 +55,45 @@
     text-align: center;
     text-decoration: none;
     transition:
-      background-color calc(var(--duration-fast) * var(--_motion)) var(--ease),
-      color calc(var(--duration-fast) * var(--_motion)) var(--ease),
-      border-color calc(var(--duration-fast) * var(--_motion)) var(--ease),
-      box-shadow calc(var(--duration-fast) * var(--_motion)) var(--ease);
+      background-color calc(0.1s * var(--_motion)) ease,
+      color calc(0.1s * var(--_motion)) ease,
+      border-color calc(0.1s * var(--_motion)) ease,
+      box-shadow calc(0.1s * var(--_motion)) ease;
     user-select: none;
+
+    &.ui-critical,
+    &.ui-primary {
+      --_color-contrast: var(--gray-1);
+      --_color-tonal: var(--color-6);
+      --_accent-tonal-contrast: var(--text-primary-contrast);
+
+      --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
+      --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
+
+      --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+      --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
+
+      --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+    }
+
+    &.ui-critical {
+      --_color: var(--critical);
+    }
+
+    &.ui-primary {
+      --_color: var(--primary);
+    }
 
     /* Disabled */
     &:where([disabled]) {
-      --_text-color: var(--text-disabled);
+      --_text-color: color-mix(
+        in oklch,
+        var(--text-muted) 50%,
+        var(--surface-default)
+      );
 
       cursor: not-allowed;
-      opacity: var(--disabled-opacity);
+      opacity: 0.64;
     }
 
     /* Hover & Active */

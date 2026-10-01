@@ -7,45 +7,45 @@
     position: relative;
 
     .ui-label {
-      color: var(--field-label-color);
-      font-size: var(--field-label-font-size);
-      font-weight: var(--field-label-font-weight);
+      color: var(--text-primary);
+      font-size: var(--font-size-05);
+      font-weight: 600;
       grid-column: 1;
       grid-row: 1;
     }
 
     :where(.ui-value) {
-      color: var(--field-helper-color);
-      font-size: var(--field-helper-font-size);
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
       font-variant-numeric: tabular-nums;
-      font-weight: var(--font-weight-semibold);
+      font-weight: 600;
       grid-column: 2;
       grid-row: 1;
-      line-height: var(--field-helper-line-height);
+      line-height: 1.5;
       text-align: end;
     }
 
     .ui-start-text {
-      color: var(--field-helper-color);
-      font-size: var(--field-helper-font-size);
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
       grid-column: 1/-1;
       grid-row: 2;
-      line-height: var(--field-helper-line-height);
+      line-height: 1.5;
     }
 
     :where(.ui-end-text) {
-      color: var(--field-helper-color);
-      font-size: var(--field-helper-font-size);
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
       grid-column: 1/-1;
       grid-row: 5;
-      line-height: var(--field-helper-line-height);
+      line-height: 1.5;
     }
 
     /* Datalist (tick mark labels) */
     :where(datalist) {
-      color: var(--field-helper-color);
+      color: var(--text-muted);
       display: flex;
-      font-size: var(--field-helper-font-size);
+      font-size: var(--font-size-0);
       grid-column: 1/-1;
       grid-row: 4;
       justify-content: space-between;
@@ -64,7 +64,7 @@
     /* Disabled */
     &:has([disabled]) {
       cursor: not-allowed;
-      opacity: var(--disabled-opacity);
+      opacity: 0.64;
       user-select: none;
 
       .ui-label,
@@ -101,12 +101,12 @@
       }
 
       .ui-start-text {
-        color: var(--field-helper-color);
+        color: var(--text-muted);
         display: block;
-        font-size: var(--field-helper-font-size);
+        font-size: var(--font-size-0);
         grid-column: 1;
         grid-row: 2;
-        line-height: var(--field-helper-line-height);
+        line-height: 1.5;
       }
 
       input[type="range"] {
@@ -185,15 +185,13 @@
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {
-      --_thumb-bg: var(--invalid-color);
-      --_thumb-highlight-color: oklch(
-        from var(--invalid-color) 70% 100% h / 20%
-      );
+      --_thumb-bg: var(--color-9);
+      --_thumb-highlight-color: oklch(from var(--color-9) 70% 100% h / 20%);
 
       .ui-start-text,
       .ui-end-text,
       .ui-value {
-        color: var(--invalid-color);
+        color: var(--color-9);
       }
     }
 
@@ -263,8 +261,7 @@
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        transition: box-shadow calc(var(--duration-fast) * var(--_motion))
-          var(--ease);
+        transition: box-shadow calc(0.1s * var(--_motion)) ease;
 
         .ui-fieldset-item:focus-within & {
           border-color: var(--gray-14);
@@ -283,8 +280,7 @@
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        transition: box-shadow calc(var(--duration-fast) * var(--_motion))
-          var(--ease);
+        transition: box-shadow calc(0.1s * var(--_motion)) ease;
 
         .ui-fieldset-item:focus-within & {
           border-color: var(--gray-14);
@@ -294,7 +290,7 @@
       /* Element state */
       .ui-range:has(:user-invalid) &,
       .ui-range[data-invalid] & {
-        --_track-fill-color: var(--invalid-color);
+        --_track-fill-color: var(--color-9);
       }
 
       &:not([disabled]) {

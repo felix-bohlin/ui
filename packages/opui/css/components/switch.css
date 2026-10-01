@@ -256,7 +256,8 @@
     }
 
     /* Validation */
-    &[data-invalid] {
+    &[data-invalid],
+    &:has(:user-invalid) {
       input {
         border-radius: var(--radius-round);
         outline: 2px solid var(--color-9);

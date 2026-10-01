@@ -14,7 +14,7 @@
   :where(.ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
     color: var(--text-primary);
     font-weight: 700;
-    text-wrap: pretty;
+    text-wrap: balance;
   }
 
   :where(.ui-h1) {

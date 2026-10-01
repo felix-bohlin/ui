@@ -122,10 +122,11 @@
     --rhythm-step: 0.25rem;
 
     /* Control sizes - shared scale for fields and buttons so they line up. */
-    --control-size-x-small: 28px;
-    --control-size-small: 32px;
-    --control-size: 40px;
-    --control-size-large: 46px;
+    --density: 1;
+    --control-size-x-small: round(calc(28px * var(--density)), 1px);
+    --control-size-small: round(calc(32px * var(--density)), 1px);
+    --control-size: round(calc(40px * var(--density)), 1px);
+    --control-size-large: round(calc(46px * var(--density)), 1px);
 
     --field-size-x-small: var(--control-size-x-small);
     --field-size-small: var(--control-size-small);

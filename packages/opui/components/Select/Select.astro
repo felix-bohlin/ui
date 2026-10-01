@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Select"
 
@@ -19,7 +20,7 @@ const {
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const labelId = $id("select-label")
 const endTextId =
   endText || Astro.slots.has("end-text") ? $id("end-text") : undefined

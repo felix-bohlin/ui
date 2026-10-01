@@ -8,6 +8,7 @@ import AutoExample from "../../components/AutoExample.astro"
 import AccordionCSS from "@opui/css/components/accordion.css?raw"
 import CardCSS from "@opui/css/components/card.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import AccordionBuild from "../../components/HowItsMade/AccordionBuild.astro"
 
 import accordionApi from "../../component-api/accordion/api"
 ---
@@ -210,4 +211,8 @@ import accordionApi from "../../component-api/accordion/api"
       </UIAccordion>
     </Anatomy>
   </Fragment>
+  <section>
+    <h2 id="how-its-made">How it's made</h2>
+    <AccordionBuild />
+  </section>
 </Component>

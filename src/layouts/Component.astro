@@ -6,7 +6,7 @@ import BrowserSupport from "../components/BrowserSupport.astro"
 import BrowserSupportChips from "../components/BrowserSupportChips.astro"
 import ComponentAPI from "../components/ComponentAPI.astro"
 import Installation, { type Tab } from "../components/Installation.astro"
-import { Button, Chip, Divider, List, ListItem } from "@opui/astro"
+import { Button, Callout, Chip, Divider, List, ListItem } from "@opui/astro"
 import {
   getComponentChangelog,
   type ChangelogPathEntry,
@@ -16,6 +16,7 @@ import {
   FRAMEWORKS,
   type FrameworkId,
 } from "../utils/framework-routing"
+import { whatsNewFor } from "../utils/whats-new"
 
 type Props = {
   title?: string
@@ -86,6 +87,8 @@ const nextComponent = components[currentIndex + 1]
 const githubRepo = "https://github.com/felix-bohlin/ui"
 const editUrl = `${githubRepo}/edit/main/src/docs/components/${currentSlug}.astro`
 
+const whatsNew = currentSlug ? whatsNewFor(currentFramework, currentSlug) : []
+
 const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 ---
 
@@ -116,6 +119,9 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
                 }
               >
                 {component.name}
+                {whatsNewFor(currentFramework, component.slug).length > 0 && (
+                  <span class="new-badge">New</span>
+                )}
               </a>
             </li>
           )
@@ -128,6 +134,19 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
   <slot name="preamble" slot="preamble" />
 
   {browserSupport && <BrowserSupportChips ids={browserSupport} />}
+
+  {
+    whatsNew.length > 0 && (
+      <Callout severity="info" variant="tonal" class="whats-new">
+        <Fragment slot="title">What's new</Fragment>
+        <ul>
+          {whatsNew.map((note) => (
+            <li set:html={note} />
+          ))}
+        </ul>
+      </Callout>
+    )
+  }
 
   {
     heroAnatomy && Astro.slots.has("anatomy") && (
@@ -412,6 +431,10 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 
     :global(#changelog-list:not([data-expanded]) .changelog-extra) {
       display: none;
+    }
+
+    .whats-new {
+      margin-block-end: var(--size-8);
     }
   </style>
 </Document>

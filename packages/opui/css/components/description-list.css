@@ -43,10 +43,6 @@
         dt,
         .ui-term {
           inline-size: max-content;
-
-          &::after {
-            display: inline-block;
-          }
         }
 
         dd {

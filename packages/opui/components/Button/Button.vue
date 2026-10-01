@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import { computed } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
 const { as, color, disabled, href, label, ripple, rounded, size, variant } =
   defineProps<Props>()
 defineSlots<Slots>()
 
-const Tag = as || (href ? "a" : "button")
-const isButton = Tag === "button"
+const Tag = computed(() => as || (href ? "a" : "button"))
+const isButton = computed(() => Tag.value === "button")
 </script>
 
 <template>

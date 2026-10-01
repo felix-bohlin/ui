@@ -1,5 +1,6 @@
 ---
 import type { RangeProps as Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Range"
 
@@ -24,7 +25,7 @@ const {
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 
 const hasLabel = !!label || Astro.slots.has("default")
 const hasStartText = !!startText || Astro.slots.has("start-text")
@@ -123,10 +124,14 @@ const describedBy =
     const output = range.querySelector<HTMLOutputElement>(
       ":scope > output.ui-value",
     )
-    if (!input || !output) continue
-    const suffix = output.dataset.suffix ?? ""
+    if (!input) continue
+    const suffix = output?.dataset.suffix ?? ""
     const update = () => {
-      output.textContent = `${input.value}${suffix}`
+      const min = Number(input.min || 0)
+      const max = Number(input.max || 100)
+      const fill = ((Number(input.value) - min) / (max - min || 1)) * 100
+      input.style.setProperty("--_track-fill", `${fill}%`)
+      if (output) output.textContent = `${input.value}${suffix}`
     }
     input.addEventListener("input", update)
     update()

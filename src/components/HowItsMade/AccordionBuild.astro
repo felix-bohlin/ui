@@ -1,0 +1,146 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.accordion > summary {
+  cursor: pointer;
+  font-weight: 700;
+}`,
+    notes: [
+      "<code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code>: keyboard, focus and state for free",
+      "Opens and closes instantly",
+    ],
+    title: "Details",
+  },
+  {
+    css: `
+.accordion {
+  interpolate-size: allow-keywords;
+}
+
+.accordion::details-content {
+  block-size: 0;
+  opacity: 0;
+  overflow-y: clip;
+  transition:
+    block-size 0.2s,
+    content-visibility 0.2s allow-discrete,
+    opacity 0.2s;
+}
+
+.accordion[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}`,
+    notes: [
+      "<code>interpolate-size: allow-keywords</code> lets <code>block-size</code> transition to <code>auto</code>",
+      "<code>::details-content</code> targets the hidden part",
+      "<code>allow-discrete</code> keeps the content visible until the close transition ends",
+    ],
+    title: "Animate to auto",
+  },
+  {
+    css: `
+.accordion > summary {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.accordion > summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion > summary svg {
+  transition:
+    rotate 0.2s,
+    scale 0.2s;
+}
+
+.marker-flip[open] > summary svg {
+  scale: 1 -1;
+}
+
+.marker-rotate[open] > summary svg {
+  rotate: 180deg;
+}
+
+.marker-turn[open] > summary svg {
+  rotate: 90deg;
+}`,
+    notes: [
+      "<code>list-style: none</code> removes the native marker",
+      "Three marker animations: <code>flip</code>, <code>rotate</code>, <code>turn</code>",
+      "Individual transform properties (<code>rotate</code>, <code>scale</code>) transition independently",
+    ],
+    title: "Marker",
+  },
+]
+
+const markers = [
+  { className: "marker-flip", icon: "M7 10l5 5 5-5", label: "Flip" },
+  { className: "marker-rotate", icon: "M7 10l5 5 5-5", label: "Rotate" },
+  { className: "marker-turn", icon: "M10 7l5 5-5 5", label: "Turn" },
+]
+---
+
+<BuildUp
+  id="build-accordion"
+  source="accordion.css"
+  steps={steps}
+  title="Accordion that animates to auto"
+>
+  <div class="stack">
+    {
+      markers.map((marker) => (
+        <details class:list={["accordion", marker.className]}>
+          <summary>
+            {marker.label}
+            <svg
+              aria-hidden="true"
+              height="20"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d={marker.icon}
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </summary>
+          <p>
+            Panel content with enough text to show the height transition as it
+            opens and closes.
+          </p>
+        </details>
+      ))
+    }
+  </div>
+</BuildUp>
+
+<style>
+  .stack {
+    display: grid;
+    gap: var(--size-2);
+    inline-size: min(100%, 24rem);
+  }
+
+  .accordion {
+    background-color: var(--surface-default);
+    border: var(--border-width, 1px) solid var(--border-color);
+    border-radius: var(--radius-2);
+    padding: var(--size-2) var(--size-3);
+
+    & p {
+      margin: var(--size-2) 0 0;
+    }
+  }
+</style>

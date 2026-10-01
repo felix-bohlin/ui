@@ -53,10 +53,10 @@
 
   :where(.ui-progress):has(> progress:indeterminate) {
     &::after {
-      animation: indeterminate calc(2s * var(--motion, 1)) linear infinite;
+      animation: ui-indeterminate calc(2s * var(--motion, 1)) linear infinite;
       background-color: var(--_accent-color);
       content: "";
-      inset: 0 auto 0 0;
+      inset-block: 0;
       position: absolute;
       will-change: inset-inline-start, inset-inline-end;
     }
@@ -72,15 +72,7 @@
     }
   }
 
-  [dir="rtl"] {
-    :where(.ui-progress):has(> progress:indeterminate) {
-      &::after {
-        animation-direction: reverse;
-      }
-    }
-  }
-
-  @keyframes indeterminate {
+  @keyframes ui-indeterminate {
     0% {
       inset-inline-end: 100%;
       inset-inline-start: -200%;

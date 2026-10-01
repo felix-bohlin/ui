@@ -2,17 +2,21 @@
   /* 1. Color scheme */
   .ui-light {
     --color-scheme: light;
+
+    color-scheme: light;
   }
 
   .ui-dark {
     --color-scheme: dark;
+
+    color-scheme: dark;
   }
 
   :where(html) {
     color-scheme: var(--color-scheme, light dark);
 
     /* 2. Palette - override the values in core/palette.css */
-    --palette-hue: light-dark(var(--hue-green), var(--hue-blue));
+    --palette-hue: var(--hue-green);
     --palette-chroma: 0.5;
     /* --palette-source: oklch(.58 calc(.21 * .5) var(--hue-blue));   */
 
@@ -67,10 +71,11 @@
     /* 10. Typography */
     --font-size-h1: var(--font-size-fluid-3);
     --font-size-h2: var(--font-size-fluid-2);
-    --font-size-h3: var(--font-size-fluid-1);
-    --font-size-h4: var(--font-size-3);
+    --font-size-h3: clamp(var(--font-size-3), 4vw, var(--font-size-4));
+    --font-size-h4: clamp(var(--font-size-2), 3vw, var(--font-size-3));
     --font-size-h5: var(--font-size-2);
-    --font-size-h6: var(--font-size-fluid-0);
+    --font-size-h6: var(--font-size-1);
+    --rhythm-step: 0.25rem;
 
     /* Sneaking in an extra font size I want but Open Props doesn't provide. You can do whatever you want with your own theme. It's just CSS. */
     --font-size-05: 0.875rem;
@@ -100,6 +105,16 @@
     --button-border-radius: var(--size-2);
   }
 
+  @media (prefers-color-scheme: dark) {
+    :where(html:not(.ui-light)) {
+      --palette-hue: var(--hue-blue);
+    }
+  }
+
+  :where(html.ui-dark) {
+    --palette-hue: var(--hue-blue);
+  }
+
   /* 14. Severity scope classes */
   :where(.ui-critical, [data-invalid], del) {
     --palette-source: oklch(0.58 0.21 var(--hue-red));
@@ -119,5 +134,10 @@
   :where(.ui-warning) {
     --palette-source: oklch(0.58 0.21 var(--hue-orange));
     --palette-hue-rotate-by: 1;
+  }
+
+  :where(.ui-neutral) {
+    --palette-source: oklch(0.58 var(--gray-chroma) var(--gray-hue));
+    --palette-hue-rotate-by: 0;
   }
 }

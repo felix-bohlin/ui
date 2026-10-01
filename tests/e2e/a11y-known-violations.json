@@ -76,8 +76,19 @@
   ],
   "dark/tabs/Basics": [
     "aria-allowed-role",
-    "aria-required-children",
-    "color-contrast"
+    "aria-required-children"
+  ],
+  "dark/tabs/Filled": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
+  "dark/tabs/Line": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
+  "dark/tabs/Outlined": [
+    "aria-allowed-role",
+    "aria-required-children"
   ],
   "dark/text-field/Orientation": [
     "color-contrast"
@@ -144,8 +155,19 @@
   ],
   "light/tabs/Basics": [
     "aria-allowed-role",
-    "aria-required-children",
-    "color-contrast"
+    "aria-required-children"
+  ],
+  "light/tabs/Filled": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
+  "light/tabs/Line": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
+  "light/tabs/Outlined": [
+    "aria-allowed-role",
+    "aria-required-children"
   ],
   "light/typography/Default": [
     "color-contrast"

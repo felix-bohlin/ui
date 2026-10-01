@@ -37,7 +37,7 @@
     }
 
     /* Element states */
-    @media (pointer: fine) {
+    @media (hover: hover) {
       &:hover:not(.ui-disabled) {
         --_button-bg-color: light-dark(
           oklch(0% 0 0 / 0.04),
@@ -72,7 +72,7 @@
     &:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
       --_button-bg-color: oklch(from var(--primary) l c h / 25%);
 
-      @media (pointer: fine) {
+      @media (hover: hover) {
         &:hover {
           --_button-bg-color: oklch(from var(--primary) l c h / 35%);
         }

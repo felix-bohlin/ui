@@ -76,8 +76,8 @@ const endTextId =
       name={name}
       placeholder={placeholder}
       required={required}
-      rows={rows}
-      value={value}></textarea>
+      rows={rows}>{value}</textarea
+    >
     {
       Astro.slots.has("prefix") && (
         <span class="ui-prefix">

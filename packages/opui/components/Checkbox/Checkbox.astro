@@ -1,5 +1,6 @@
 ---
 import type { CheckboxProps as Props } from "./types.astro"
+import { createId } from "../id"
 import CheckboxInput from "./CheckboxInput.astro"
 
 export const title = "Checkbox"
@@ -15,8 +16,10 @@ const {
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
+const describedBy =
+  [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
 ---
 
 <label
@@ -32,10 +35,10 @@ const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
   data-invalid={error ? "" : undefined}
 >
   <CheckboxInput
-    aria-describedby={endTextId}
+    {...rest}
+    aria-describedby={describedBy}
     aria-invalid={error ? "true" : undefined}
     name={name}
-    {...rest}
   />
   <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>
   {

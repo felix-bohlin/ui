@@ -12,10 +12,8 @@
     position: relative;
 
     /* Rows */
-    tr {
-      &:hover {
-        background-color: oklch(from var(--surface-filled) l c h / 75%);
-      }
+    tr:hover > :is(td, th) {
+      background-color: oklch(from var(--surface-filled) l c h / 75%);
     }
 
     /* Cells */
@@ -109,10 +107,6 @@
     }
 
     /* Header */
-    thead {
-      z-index: 1;
-    }
-
     /* Remove bottom border of the row above the footer to stay single-line */
     tbody:has(+ tfoot) tr:last-child td {
       border-block-end: none;
@@ -160,13 +154,6 @@
       caption {
         margin-inline-start: var(--size-1);
         padding: var(--size-1) 0;
-      }
-
-      @container (width < 60ch) {
-        th,
-        td {
-          padding: var(--size-1);
-        }
       }
     }
   }

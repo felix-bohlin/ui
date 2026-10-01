@@ -1,4 +1,5 @@
 ---
+import { Button } from "@opui/astro"
 import BuildUp from "./BuildUp.astro"
 
 const steps = [
@@ -91,13 +92,13 @@ const steps = [
   steps={steps}
   title="Menu without JavaScript"
 >
-  <button
-    class="ui-button ui-outlined"
-    commandfor="build-menu-popover"
+  <Button
     command="toggle-popover"
+    commandfor="build-menu-popover"
+    variant="outlined"
   >
     Options
-  </button>
+  </Button>
   <menu class="menu" id="build-menu-popover" popover>
     {
       ["Edit", "Duplicate", "Share"].map((item) => (

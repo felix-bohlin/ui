@@ -9,7 +9,7 @@ const REMOVE_SELECTORS = [
   ".build-up-knobs",
   ".build-up-overline",
   ".build-up-stage",
-  ".build-up-steps",
+  ".build-up-steps legend",
   ".component-footer",
   ".controls",
   ".example-preview",

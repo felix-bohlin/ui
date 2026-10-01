@@ -19,7 +19,12 @@ test("form controls of one size share one height", async ({ page }) => {
         const size = row.getAttribute("data-size")!
         const token =
           size === "default" ? "--control-size" : `--control-size-${size}`
-        const expected = getComputedStyle(row).getPropertyValue(token).trim()
+        const probe = document.createElement("div")
+        probe.style.blockSize = `var(${token})`
+        probe.style.position = "absolute"
+        row.append(probe)
+        const expected = `${probe.getBoundingClientRect().height}px`
+        probe.remove()
         const controls = [...row.querySelectorAll<HTMLElement>(selector)]
         return {
           controls: controls.map((control) => ({

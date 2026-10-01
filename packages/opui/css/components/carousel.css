@@ -4,7 +4,11 @@
     --_button-bg-color: var(--text-primary);
     --_button-border-color: transparent;
     --_button-color: var(--text-primary-contrast);
+    --_button-disabled-bg-color: var(--surface-default);
+    --_button-disabled-border-color: var(--border-color);
+    --_button-disabled-color: var(--text-muted);
     --_button-disabled-opacity: 0;
+    --_button-disabled-shadow: none;
     --_button-icon-size: 60%;
     --_button-inset: var(--size-2);
     --_button-next-content: "\276F";
@@ -98,6 +102,9 @@
         position: absolute;
         position-anchor: auto;
         transition:
+          background-color calc(0.15s * var(--_motion)) ease,
+          border-color calc(0.15s * var(--_motion)) ease,
+          color calc(0.15s * var(--_motion)) ease,
           opacity calc(0.15s * var(--_motion)) ease,
           scale calc(0.1s * var(--_motion)) ease;
         translate: 0 -50%;
@@ -167,8 +174,16 @@
 
       &::scroll-button(inline-start):disabled,
       &::scroll-button(inline-end):disabled {
+        background-color: var(--_button-disabled-bg-color);
+        border-color: var(--_button-disabled-border-color);
+        box-shadow: var(--_button-disabled-shadow);
+        color: var(--_button-disabled-color);
         cursor: default;
         opacity: var(--_button-disabled-opacity);
+      }
+
+      &.ui-buttons-persistent {
+        --_button-disabled-opacity: 1;
       }
 
       /* Buttons outside the items */

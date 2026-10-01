@@ -43,6 +43,14 @@ export default {
       prop: "peek",
     },
     {
+      class: ".ui-buttons-persistent",
+      default: "false",
+      description:
+        "Keeps the buttons visible at the ends. A disabled button is outlined instead of filled.",
+      group: "Persistent buttons",
+      prop: "persistentButtons",
+    },
+    {
       cssVar: "--_per-view",
       default: "1",
       description: "Number of visible items.",

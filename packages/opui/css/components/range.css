@@ -225,11 +225,13 @@
       /* Track */
       &::-webkit-slider-runnable-track {
         appearance: none;
-        background: linear-gradient(
-          to right,
-          var(--_track-fill-color) var(--_track-fill, 0%),
-          var(--_track-color) 0%
+        background-color: var(--_track-color);
+        background-image: linear-gradient(
+          var(--_track-fill-color),
+          var(--_track-fill-color)
         );
+        background-repeat: no-repeat;
+        background-size: var(--_track-fill, 0%) 100%;
         block-size: var(--_track-height);
         border-radius: var(--_track-radius);
       }

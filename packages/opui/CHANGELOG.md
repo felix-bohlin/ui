@@ -58,6 +58,7 @@
 - Rich text no longer overflows grid and flex parents with long words, URLs or code lines.
 - Rich text inline `code` styles no longer apply to `code` inside `pre`.
 - Rich text `ol[type]` keeps its marker type, and consecutive `dt` elements are no longer spaced apart.
+- `Range` track no longer disappears in browsers that fail to resolve `light-dark()` inside a gradient. The track color is set as `background-color` and the fill as a separate image.
 
 ## 5.5.0 - 2026-09-28
 

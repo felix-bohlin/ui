@@ -48,6 +48,7 @@ const whatsNew = {
   ],
   tabs: [
     `Restyled as a segmented control.`,
+    `<a href="#narrow-spaces">Shrinks to fit</a> narrow spaces, with an ellipsis on long labels.`,
     {
       default: `<a href="#filled">Filled</a>, <a href="#line">line</a> and <a href="#outlined">outlined</a> variants with the <code>variant</code> prop.`,
       html: `<a href="#filled">Filled</a>, <a href="#line">line</a> and <a href="#outlined">outlined</a> variants with <code>.ui-filled</code>, <code>.ui-line</code> and <code>.ui-outlined</code>.`,

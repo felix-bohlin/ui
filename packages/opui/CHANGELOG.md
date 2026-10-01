@@ -32,6 +32,7 @@
 ### Changed
 
 - `Tabs` look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill.
+- `Tabs` shrink to share the space instead of wrapping when they don't fit, and long labels end with an ellipsis. Wrap the label in a `<span>` next to an icon. The focus ring sits inside the tab.
 - `Typography` rich text only styles headings without a class, like lists. Component parts such as the `Callout` title keep their own styles.
 - `Typography` rich text spacing derives from one flow space (`1.25em` of the body text), and every margin derived from it snaps to `--rhythm-step`. Headings get more space above than below, so they sit closer to the text they introduce, and lists with block content, description lists, `details`, `address`, code blocks and figures follow the same rhythm.
 - `Typography` rich text list gutters are measured in `ch`, so two-digit markers fit, and ordered lists with 100 or more items get a wider gutter. Bulleted and numbered list text starts at the same position.

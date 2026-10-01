@@ -157,6 +157,24 @@
       &:not(.ui-spread):has(> .ui-start-text)::after {
         grid-row: 3;
       }
+
+      &.ui-spread::after {
+        align-self: start;
+        grid-row: 1 / span 2;
+        margin-block-start: calc((var(--_height) - var(--_arrow-size)) / 2);
+      }
+
+      @container (width < 400px) {
+        &.ui-spread::after {
+          align-self: center;
+          grid-row: 2;
+          margin-block-start: 0;
+        }
+
+        &.ui-spread:has(> .ui-start-text)::after {
+          grid-row: 3;
+        }
+      }
     }
   }
 

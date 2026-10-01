@@ -90,6 +90,8 @@
 - `Range` track is visible again. `linear-gradient(to inline-end, …)` is not supported, so the track background was dropped. The track color is now a `background-color` and the fill a separate image that starts from the right in RTL. `--_track-fill` inherits so the fill reaches the track.
 - `theme.css` gives `.ui-light` and `.ui-dark` on an element other than `html` the page surface and text color. `--color-scheme` follows the OS preference, so `Card` elevated shadows are correct in dark mode without a class.
 - `core/palette.css` lets `.ui-palette` and the severity scopes inherit `--palette-hue`, `--palette-chroma`, `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma` from their ancestors. It used to reset them to the defaults in every scope.
+- `TextField`, `Textarea` and `Select` with `spread` (`.ui-spread`) collapse to a column when narrower than 400px. Previously the field was squeezed next to the label.
+- `Select` with `spread` centers its arrow on the field.
 - `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.
 - `Badge`, `Chip`, `Tabs` and `Toast` respect `--motion` and `prefers-reduced-motion`.
 - `dist/opui.components.css` starts with the `@layer` order statement.

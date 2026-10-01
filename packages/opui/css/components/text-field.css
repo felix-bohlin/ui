@@ -382,7 +382,9 @@
     &.ui-spread {
       align-items: start;
       column-gap: var(--size-4);
+      container-type: inline-size;
       grid-template-columns: 1fr auto;
+      inline-size: 100%;
 
       .ui-label {
         font-weight: var(--field-label-font-weight);
@@ -423,29 +425,38 @@
 
       /* Collapse to column on narrow containers */
       @container (width < 400px) {
-        column-gap: 0;
-        grid-template-columns: 1fr;
-
-        .ui-label {
-          grid-column: 1;
-          grid-row: 1;
-        }
-
-        .ui-start-text {
-          grid-column: 1;
-          grid-row: 2;
+        .ui-label,
+        .ui-start-text,
+        .ui-field,
+        :where(.ui-end-text) {
+          grid-column: 1 / -1;
         }
 
         .ui-field,
         .ui-field:has(textarea) {
-          grid-column: 1;
-          grid-row: 3;
+          grid-row: 2;
         }
 
-        :where(.ui-end-text) {
-          grid-column: 1;
-          grid-row: 4;
+        :where(.ui-end-text),
+        .ui-field:has(textarea) + .ui-end-text {
+          grid-row: 3;
           text-align: start;
+        }
+
+        &:has(> .ui-start-text) {
+          .ui-field,
+          .ui-field:has(textarea) {
+            grid-row: 3;
+          }
+
+          :where(.ui-end-text),
+          .ui-field:has(textarea) + .ui-end-text {
+            grid-row: 4;
+          }
+        }
+
+        :where(textarea) {
+          min-inline-size: 0;
         }
       }
     }

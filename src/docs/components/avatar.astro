@@ -7,9 +7,12 @@ import AvatarCSS from "@opui/css/components/avatar.css?raw"
 import Conditional from "../../components/Conditional.astro"
 
 import avatarApi from "../../component-api/avatar/api"
+export const description =
+  "Avatars show a person or entity as an image, initials or icon."
 ---
 
 <Component
+  description={description}
   slug="avatar"
   apis={[{ title: "Avatar API", api: avatarApi }]}
   browserSupport={["has"]}

@@ -1,6 +1,6 @@
 # Accordion
 
-Let's you show and hide stuff. Comes with a chevron marker, check out how to add your own [custom marker](#custom-marker).
+Lets you show and hide content. Comes with a chevron marker, check out how to add your own [custom marker](#custom-marker).
 
 ### What's new
 

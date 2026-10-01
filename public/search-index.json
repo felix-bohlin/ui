@@ -2,7 +2,7 @@
   {
     "id": "component-accordion-html",
     "title": "Accordion",
-    "description": "Let's you show and hide stuff. Comes with a chevron marker, check out how to\n    add your own custom marker.",
+    "description": "Lets you show and hide content. Comes with a chevron marker and a custom marker slot.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker Marker animation How it's made",
     "category": "Component",
     "frameworkId": "html",
@@ -12,7 +12,7 @@
   {
     "id": "component-accordion-astro",
     "title": "Accordion",
-    "description": "Let's you show and hide stuff. Comes with a chevron marker, check out how to\n    add your own custom marker.",
+    "description": "Lets you show and hide content. Comes with a chevron marker and a custom marker slot.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker Marker animation How it's made",
     "category": "Component",
     "frameworkId": "astro",
@@ -22,7 +22,7 @@
   {
     "id": "component-accordion-vue",
     "title": "Accordion",
-    "description": "Let's you show and hide stuff. Comes with a chevron marker, check out how to\n    add your own custom marker.",
+    "description": "Lets you show and hide content. Comes with a chevron marker and a custom marker slot.",
     "headings": "Basics Variants Accordion group Mutually exclusive Actions Custom marker Marker animation How it's made",
     "category": "Component",
     "frameworkId": "vue",
@@ -62,7 +62,7 @@
   {
     "id": "component-avatar-html",
     "title": "Avatar",
-    "description": "",
+    "description": "Avatars show a person or entity as an image, initials or icon.",
     "headings": "Image Letter Icon Variants Grouped",
     "category": "Component",
     "frameworkId": "html",
@@ -72,7 +72,7 @@
   {
     "id": "component-avatar-astro",
     "title": "Avatar",
-    "description": "",
+    "description": "Avatars show a person or entity as an image, initials or icon.",
     "headings": "Image Letter Icon Variants Grouped",
     "category": "Component",
     "frameworkId": "astro",
@@ -82,7 +82,7 @@
   {
     "id": "component-avatar-vue",
     "title": "Avatar",
-    "description": "",
+    "description": "Avatars show a person or entity as an image, initials or icon.",
     "headings": "Image Letter Icon Variants Grouped",
     "category": "Component",
     "frameworkId": "vue",
@@ -92,7 +92,7 @@
   {
     "id": "component-badge-html",
     "title": "Badge",
-    "description": "",
+    "description": "Badges attach a small count or status dot to another element.",
     "headings": "Variants Indicator Severities Visibility Alignment",
     "category": "Component",
     "frameworkId": "html",
@@ -102,7 +102,7 @@
   {
     "id": "component-badge-astro",
     "title": "Badge",
-    "description": "",
+    "description": "Badges attach a small count or status dot to another element.",
     "headings": "Variants Indicator Severities Visibility Alignment",
     "category": "Component",
     "frameworkId": "astro",
@@ -112,7 +112,7 @@
   {
     "id": "component-badge-vue",
     "title": "Badge",
-    "description": "",
+    "description": "Badges attach a small count or status dot to another element.",
     "headings": "Variants Indicator Severities Visibility Alignment",
     "category": "Component",
     "frameworkId": "vue",
@@ -602,7 +602,7 @@
   {
     "id": "component-range-html",
     "title": "Range",
-    "description": "",
+    "description": "Range lets users pick a number by sliding a thumb along a track.",
     "headings": "Start text & End text Value Tick marks Variants Disabled Validation Spread",
     "category": "Component",
     "frameworkId": "html",
@@ -612,7 +612,7 @@
   {
     "id": "component-range-astro",
     "title": "Range",
-    "description": "",
+    "description": "Range lets users pick a number by sliding a thumb along a track.",
     "headings": "Start text & End text Value Tick marks Variants Disabled Validation Spread",
     "category": "Component",
     "frameworkId": "astro",
@@ -622,7 +622,7 @@
   {
     "id": "component-range-vue",
     "title": "Range",
-    "description": "",
+    "description": "Range lets users pick a number by sliding a thumb along a track.",
     "headings": "Start text & End text Value Tick marks Variants Disabled Validation Spread",
     "category": "Component",
     "frameworkId": "vue",
@@ -852,7 +852,7 @@
   {
     "id": "component-toggle-html",
     "title": "Toggle",
-    "description": "",
+    "description": "Toggle buttons and toggle groups switch options on and off, alone or as a set.",
     "headings": "Toggle button Toggle group Multi-select Single-select Text + icon Vertical orientation Sizes",
     "category": "Component",
     "frameworkId": "html",
@@ -862,7 +862,7 @@
   {
     "id": "component-toggle-astro",
     "title": "Toggle",
-    "description": "",
+    "description": "Toggle buttons and toggle groups switch options on and off, alone or as a set.",
     "headings": "Toggle button Toggle group Multi-select Single-select Text + icon Vertical orientation Sizes",
     "category": "Component",
     "frameworkId": "astro",
@@ -872,7 +872,7 @@
   {
     "id": "component-toggle-vue",
     "title": "Toggle",
-    "description": "",
+    "description": "Toggle buttons and toggle groups switch options on and off, alone or as a set.",
     "headings": "Toggle button Toggle group Multi-select Single-select Text + icon Vertical orientation Sizes",
     "category": "Component",
     "frameworkId": "vue",

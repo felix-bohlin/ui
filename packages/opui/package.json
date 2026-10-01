@@ -16,13 +16,16 @@
   },
   "keywords": [
     "astro",
+    "astro-component",
     "components",
     "css",
     "design-system",
     "html",
     "open-props",
     "ui",
-    "vue"
+    "vue",
+    "vue-components",
+    "withastro"
   ],
   "sideEffects": [
     "*.css",
@@ -67,6 +70,7 @@
     "release:major": "pnpm version major && pnpm publish && git push --follow-tags"
   },
   "devDependencies": {
+    "open-props": "^1.7.23",
     "postcss": "^8.4.0",
     "postcss-import": "^16.1.0"
   },

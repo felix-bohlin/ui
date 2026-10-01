@@ -5,7 +5,7 @@ description: Build UI with Open Props UI (the opui-css package). Use when a proj
 
 # Open Props UI
 
-A CSS UI library built on [Open Props](https://open-props.style/). It ships framework-agnostic CSS plus Astro and Vue components that render the same markup.
+A CSS UI library built on [Open Props](https://open-props.style/). It ships framework-agnostic CSS plus Astro and Vue components that render matching markup; a parity test suite keeps the three in step.
 
 ## Setup
 

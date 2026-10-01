@@ -440,7 +440,7 @@
 
 ## Persistent buttons
 
-`.ui-buttons-persistent` to keep both buttons visible. A disabled button is outlined instead of filled.
+`.ui-buttons-persistent` to keep both buttons visible. A disabled button has a muted border.
 
 ```html
 <ul
@@ -562,15 +562,15 @@ Announces item position. Buttons and markers are named.
 
 ### Carousel API
 
-| Type               | Modifiers                                 | Default | Description                                                                             |
-| ------------------ | ----------------------------------------- | ------- | --------------------------------------------------------------------------------------- |
-| Alignment          | default, `.ui-align-center`               | default | Where items snap.                                                                       |
-| Buttons            | `.ui-buttons-outside`, `.ui-with-buttons` | -       | Previous and next buttons. `"outside"` places them beside the items.                    |
-| Items per view     | `--_per-view`                             | `1`     | Number of visible items.                                                                |
-| Label              | `[aria-label]`                            | -       | Accessible name of the carousel.                                                        |
-| Markers            | `.ui-with-markers`                        | -       | One marker per item, after the list.                                                    |
-| Peek               | `.ui-peek`                                | -       | Shows part of the neighbouring items.                                                   |
-| Persistent buttons | `.ui-buttons-persistent`                  | -       | Keeps the buttons visible at the ends. A disabled button is outlined instead of filled. |
+| Type               | Modifiers                                 | Default | Description                                                                  |
+| ------------------ | ----------------------------------------- | ------- | ---------------------------------------------------------------------------- |
+| Alignment          | default, `.ui-align-center`               | default | Where items snap.                                                            |
+| Buttons            | `.ui-buttons-outside`, `.ui-with-buttons` | -       | Previous and next buttons. `"outside"` places them beside the items.         |
+| Items per view     | `--_per-view`                             | `1`     | Number of visible items.                                                     |
+| Label              | `[aria-label]`                            | -       | Accessible name of the carousel.                                             |
+| Markers            | `.ui-with-markers`                        | -       | One marker per item, after the list.                                         |
+| Peek               | `.ui-peek`                                | -       | Shows part of the neighbouring items.                                        |
+| Persistent buttons | `.ui-buttons-persistent`                  | -       | Keeps the buttons visible at the ends. A disabled button has a muted border. |
 
 #### Parts
 

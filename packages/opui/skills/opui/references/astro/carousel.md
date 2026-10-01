@@ -329,7 +329,7 @@ const plans = [
 
 ## Persistent buttons
 
-`persistentButtons` to keep both buttons visible. A disabled button is outlined instead of filled.
+`persistentButtons` to keep both buttons visible. A disabled button has a muted border.
 
 ```astro
 ---
@@ -420,15 +420,15 @@ Announces item position. Buttons and markers are named.
 
 ### Carousel API
 
-| Prop                | Type                   | Default   | Description                                                                             |
-| ------------------- | ---------------------- | --------- | --------------------------------------------------------------------------------------- |
-| `align`             | `"start"`, `"center"`  | `"start"` | Where items snap.                                                                       |
-| `buttons`           | `boolean`, `"outside"` | `true`    | Previous and next buttons. `"outside"` places them beside the items.                    |
-| `label`             | `string`               | -         | Accessible name of the carousel.                                                        |
-| `markers`           | `boolean`              | `false`   | One marker per item, after the list.                                                    |
-| `peek`              | `boolean`              | `false`   | Shows part of the neighbouring items.                                                   |
-| `persistentButtons` | `boolean`              | `false`   | Keeps the buttons visible at the ends. A disabled button is outlined instead of filled. |
-| `perView`           | `number`               | `1`       | Number of visible items.                                                                |
+| Prop                | Type                   | Default   | Description                                                                  |
+| ------------------- | ---------------------- | --------- | ---------------------------------------------------------------------------- |
+| `align`             | `"start"`, `"center"`  | `"start"` | Where items snap.                                                            |
+| `buttons`           | `boolean`, `"outside"` | `true`    | Previous and next buttons. `"outside"` places them beside the items.         |
+| `label`             | `string`               | -         | Accessible name of the carousel.                                             |
+| `markers`           | `boolean`              | `false`   | One marker per item, after the list.                                         |
+| `peek`              | `boolean`              | `false`   | Shows part of the neighbouring items.                                        |
+| `persistentButtons` | `boolean`              | `false`   | Keeps the buttons visible at the ends. A disabled button has a muted border. |
+| `perView`           | `number`               | `1`       | Number of visible items.                                                     |
 
 #### Slots
 

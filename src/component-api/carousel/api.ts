@@ -46,7 +46,7 @@ export default {
       class: ".ui-buttons-persistent",
       default: "false",
       description:
-        "Keeps the buttons visible at the ends. A disabled button is outlined instead of filled.",
+        "Keeps the buttons visible at the ends. A disabled button has a muted border.",
       group: "Persistent buttons",
       prop: "persistentButtons",
     },

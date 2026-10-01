@@ -34,11 +34,11 @@ const startTextValue = computed(() => props.description || props.startText)
   <label
     :class="[
       'ui-text-field',
+      props.size && `ui-${props.size}`,
       {
         'ui-auto-fit': props.autoFit,
         'ui-filled': props.filled,
         'ui-spread': props.spread,
-        'ui-small': props.small,
       },
       props.class,
     ]"

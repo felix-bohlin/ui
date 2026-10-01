@@ -10,10 +10,12 @@
     --_border-color: var(--field-border-color);
     --_field-padding-block: var(--size-2);
     --_field-padding-inline: var(--size-2);
+    --_font-size: var(--font-size-1);
     --_height: var(--field-size);
     --_label-color: var(--text-muted);
     --_end-text-color: var(--field-helper-color);
 
+    align-content: start;
     display: grid;
     gap: var(--size-1) 0;
     position: relative;
@@ -42,7 +44,7 @@
       border: 0;
       color: var(--text-primary);
       font-family: var(--font-sans);
-      font-size: var(--font-size-1);
+      font-size: var(--_font-size);
       grid-area: input;
       inline-size: 100%;
       line-height: var(--font-lineheight-1);
@@ -53,6 +55,12 @@
       &:focus-visible {
         outline: 0;
       }
+
+      &::-webkit-calendar-picker-indicator,
+      &::-webkit-datetime-edit,
+      &::-webkit-datetime-edit-fields-wrapper {
+        padding-block: 0;
+      }
     }
 
     /* Affixes */
@@ -61,8 +69,16 @@
       align-items: center;
       color: var(--_label-color);
       display: inline-flex;
+      font-size: var(--_font-size);
       padding-inline: var(--_field-padding-inline);
       white-space: nowrap;
+
+      & > svg {
+        block-size: auto;
+        flex-shrink: 0;
+        inline-size: auto;
+        max-block-size: var(--icon-size);
+      }
     }
 
     .ui-prefix {
@@ -127,7 +143,7 @@
 
       input {
         align-self: flex-start;
-        block-size: var(--_height);
+        block-size: calc(var(--_height) - var(--field-border-width) * 2);
         box-shadow: none;
         color: var(--text-primary);
         cursor: inherit;
@@ -163,7 +179,8 @@
       }
 
       /* Sizes */
-      &.ui-small {
+      &.ui-small,
+      &.ui-x-small {
         input {
           font-size: var(--font-size-05);
 
@@ -368,9 +385,25 @@
     }
 
     /* Sizes */
-    &.ui-small {
-      --_height: var(--field-size-small);
+    &.ui-x-small {
+      --_field-padding-block: var(--size-1);
+      --_font-size: var(--font-size-05);
+      --_height: var(--field-size-x-small);
+    }
 
+    &.ui-small {
+      --_field-padding-block: var(--size-1);
+      --_height: var(--field-size-small);
+    }
+
+    &.ui-large {
+      --_field-padding-block: 0.75rem;
+      --_field-padding-inline: var(--size-3);
+      --_height: var(--field-size-large);
+    }
+
+    &.ui-small,
+    &.ui-x-small {
       &:has(input[type="color"]) {
         .ui-label {
           line-height: var(--font-lineheight-3);
@@ -382,7 +415,9 @@
     &.ui-spread {
       align-items: start;
       column-gap: var(--size-4);
+      container-type: inline-size;
       grid-template-columns: 1fr auto;
+      inline-size: 100%;
 
       .ui-label {
         font-weight: var(--field-label-font-weight);
@@ -423,29 +458,38 @@
 
       /* Collapse to column on narrow containers */
       @container (width < 400px) {
-        column-gap: 0;
-        grid-template-columns: 1fr;
-
-        .ui-label {
-          grid-column: 1;
-          grid-row: 1;
-        }
-
-        .ui-start-text {
-          grid-column: 1;
-          grid-row: 2;
+        .ui-label,
+        .ui-start-text,
+        .ui-field,
+        :where(.ui-end-text) {
+          grid-column: 1 / -1;
         }
 
         .ui-field,
         .ui-field:has(textarea) {
-          grid-column: 1;
-          grid-row: 3;
+          grid-row: 2;
         }
 
-        :where(.ui-end-text) {
-          grid-column: 1;
-          grid-row: 4;
+        :where(.ui-end-text),
+        .ui-field:has(textarea) + .ui-end-text {
+          grid-row: 3;
           text-align: start;
+        }
+
+        &:has(> .ui-start-text) {
+          .ui-field,
+          .ui-field:has(textarea) {
+            grid-row: 3;
+          }
+
+          :where(.ui-end-text),
+          .ui-field:has(textarea) + .ui-end-text {
+            grid-row: 4;
+          }
+        }
+
+        :where(textarea) {
+          min-inline-size: 0;
         }
       }
     }

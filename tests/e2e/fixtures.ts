@@ -17,7 +17,14 @@ export const COMPONENTS = readdirSync(examplesDir, { withFileTypes: true })
   .map((entry) => entry.name)
   .toSorted()
 
-export const FIXTURES = [...COMPONENTS, "theming"].toSorted()
+export const STRESS_TESTS = readdirSync(
+  new URL("../../src/stress-tests/", import.meta.url),
+)
+  .filter((file) => file.endsWith(".html"))
+  .map((file) => `stress/${file.replace(/\.html$/, "")}`)
+  .toSorted()
+
+export const FIXTURES = [...COMPONENTS, ...STRESS_TESTS, "theming"].toSorted()
 
 export const hasExample = (
   framework: Framework,

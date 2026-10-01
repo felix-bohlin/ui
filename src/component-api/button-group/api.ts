@@ -23,7 +23,11 @@ export default {
       description: "The size of the buttons.",
       group: "Sizes",
       prop: "size",
-      values: { large: ".ui-large", small: ".ui-small" },
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       description: "The variant of the buttons.",

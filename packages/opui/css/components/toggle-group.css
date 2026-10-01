@@ -14,13 +14,22 @@
     /* Sizes */
     &.ui-small {
       .ui-toggle-button {
+        --_font-size: var(--font-size-05);
         --_size: var(--field-size-small);
       }
     }
 
     &.ui-x-small {
       .ui-toggle-button {
+        --_font-size: var(--font-size-0);
         --_size: var(--field-size-x-small);
+      }
+    }
+
+    &.ui-large {
+      .ui-toggle-button {
+        --_size: var(--field-size-large);
+        padding-inline: var(--size-3);
       }
     }
 
@@ -28,11 +37,13 @@
     .ui-toggle-button {
       border: 0;
       border-radius: 0;
+      flex: auto;
       margin: 0;
     }
 
     &:not(.ui-vertical) {
       .ui-toggle-button {
+        block-size: calc(var(--_size) - var(--border-width) * 2);
         border-inline-end: var(--border-width) solid var(--_border-color);
 
         &:last-of-type {

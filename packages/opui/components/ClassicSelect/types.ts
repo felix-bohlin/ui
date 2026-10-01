@@ -9,6 +9,6 @@ export type ClassicSelectProps = {
   id?: string
   items?: Item[]
   label?: string
-  size?: "small"
+  size?: "x-small" | "small" | "large"
   variant?: "outlined" | "filled"
 }

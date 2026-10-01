@@ -28,7 +28,15 @@
         outline-offset: var(--focus-ring-inset);
       }
 
+      :where(.ui-button-group.ui-x-small) & {
+        --_font-size: var(--font-size-0);
+        --_min-height: var(--button-size-x-small);
+        --_padding-inline: 1ex;
+        padding-block: 0;
+      }
+
       :where(.ui-button-group.ui-small) & {
+        --_font-size: var(--font-size-05);
         --_min-height: var(--button-size-small);
         --_padding-inline: 1.25ex;
         padding-block: 0;

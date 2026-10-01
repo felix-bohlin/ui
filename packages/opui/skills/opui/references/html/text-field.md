@@ -1,5 +1,9 @@
 # Text field
 
+### What's new
+
+- [X-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
+
 ## Anatomy
 
 LabelDescription¢EURHeaderFooterSupporting text
@@ -66,16 +70,32 @@ LabelDescription¢EURHeaderFooterSupporting text
 ## Sizes
 
 ```html
-<label class="ui-text-field ui-small">
-  <span class="ui-label">Small outlined</span>
+<label class="ui-text-field ui-x-small">
+  <span class="ui-label">X-small</span>
   <span class="ui-field">
     <input type="text" placeholder="Placeholder" />
   </span>
 </label>
 
 
-<label class="ui-text-field ui-filled ui-small">
-  <span class="ui-label">Small filled</span>
+<label class="ui-text-field ui-small">
+  <span class="ui-label">Small</span>
+  <span class="ui-field">
+    <input type="text" placeholder="Placeholder" />
+  </span>
+</label>
+
+
+<label class="ui-text-field">
+  <span class="ui-label">Default</span>
+  <span class="ui-field">
+    <input type="text" placeholder="Placeholder" />
+  </span>
+</label>
+
+
+<label class="ui-text-field ui-large">
+  <span class="ui-label">Large</span>
   <span class="ui-field">
     <input type="text" placeholder="Placeholder" />
   </span>
@@ -573,13 +593,13 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 ### Text field API
 
-| Type       | Modifiers        | Default | Description                                                              |
-| ---------- | ---------------- | ------- | ------------------------------------------------------------------------ |
-| Auto-fit   | `.ui-auto-fit`   | -       | Changes size depending on its content.                                   |
-| Layout     | `.ui-spread`     | -       | Pushes the label and description to one side and the input to the other. |
-| Sizes      | `.ui-small`      | -       | The size of the element.                                                 |
-| Validation | `[data-invalid]` | -       | Shows error styles.                                                      |
-| Variants   | `.ui-filled`     | -       | The variant to use.                                                      |
+| Type       | Modifiers                               | Default | Description                                                              |
+| ---------- | --------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| Auto-fit   | `.ui-auto-fit`                          | -       | Changes size depending on its content.                                   |
+| Layout     | `.ui-spread`                            | -       | Pushes the label and description to one side and the input to the other. |
+| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                 |
+| Validation | `[data-invalid]`                        | -       | Shows error styles.                                                      |
+| Variants   | `.ui-filled`                            | -       | The variant to use.                                                      |
 
 #### Parts
 
@@ -614,8 +634,11 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                                       |
 | `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                                            |
 | `--field-size`               | `var(--control-size)`                       | Default field height.                                                                                                      |
+| `--field-size-large`         | `var(--control-size-large)`                 | Field height with `.ui-large`.                                                                                             |
 | `--field-size-small`         | `var(--control-size-small)`                 | Field height with `.ui-small`.                                                                                             |
+| `--field-size-x-small`       | `var(--control-size-x-small)`               | Field height with `.ui-x-small`.                                                                                           |
 | `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--icon-size`                | `var(--size-4)`                             | Default icon size inside components.                                                                                       |
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                                          |
 | `--motion`                   | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                  | `var(--color-8)`                            | Brand color for primary actions and accents.                                                                               |

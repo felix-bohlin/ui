@@ -6,6 +6,8 @@ Groups related buttons.
 
 - [Split button](#split-button) with a `Menu`.
 - Icon-only buttons stay square.
+- [X-small](#sizes) size with `size="x-small"`.
+- [Small](#sizes) groups use the same text size as a small `Button`.
 
 ## Anatomy
 
@@ -232,6 +234,13 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 
 <template>
+  <ButtonGroup size="x-small" variant="outlined">
+    <Button>X-small</Button>
+    <Button>X-small</Button>
+    <Button>X-small</Button>
+  </ButtonGroup>
+
+
   <ButtonGroup size="small" variant="outlined">
     <Button>Small</Button>
     <Button>Small</Button>
@@ -468,7 +477,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 | ------------- | ----------------------------------- | ------- | -------------------------------- |
 | `color`       | `"critical"`, `"primary"`           | -       | Optional colors for the buttons. |
 | `orientation` | `"vertical"`                        | -       | The orientation of the element.  |
-| `size`        | `"small"`, `"large"`                | -       | The size of the buttons.         |
+| `size`        | `"x-small"`, `"small"`, `"large"`   | -       | The size of the buttons.         |
 | `variant`     | `"outlined"`, `"tonal"`, `"filled"` | -       | The variant of the buttons.      |
 
 #### Slots

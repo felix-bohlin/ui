@@ -189,8 +189,8 @@ Also add `.ui-anchor` to the root. Give `.ui-anchor-floating` `popover="hint"` a
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Full support Supported since v151.
-- Safari: Partial support Missing: popover-hint.
+- Firefox: Partial support Missing: interest-invokers.
+- Safari: Partial support Missing: interest-invokers, popover-hint.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 

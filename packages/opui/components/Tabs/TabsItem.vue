@@ -15,11 +15,14 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const tabsGroupName = name || inject(TabsGroupNameKey, undefined) || useId()
+const groupUid = useId()
+const tabUid = useId()
+const panelUid = useId()
+const tabsGroupName = name || inject(TabsGroupNameKey, undefined) || groupUid
 provide(TabsGroupNameKey, tabsGroupName)
 
-const computedTabId = tabId || useId()
-const computedPanelId = panelId || useId()
+const computedTabId = tabId || tabUid
+const computedPanelId = panelId || panelUid
 
 provide(CurrentTabIdKey, computedTabId)
 provide(CurrentPanelIdKey, computedPanelId)

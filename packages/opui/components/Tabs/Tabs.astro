@@ -1,9 +1,10 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Tabs"
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const { class: className, name, variant, ...rest } = Astro.props
 
 const groupName = name || $id("tabs")
@@ -17,7 +18,7 @@ const html = slotHtml.replace(
 ---
 
 <div
-  class:list={["ui-tabs", className, variant && `ui-${variant}`]}
+  class:list={["ui-tabs", variant && `ui-${variant}`, className]}
   role="tablist"
   {...rest}
   set:html={html}

@@ -34,7 +34,7 @@ Default, and `.ui-dot`.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 
@@ -75,7 +75,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 
@@ -116,7 +116,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 
@@ -134,7 +134,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 
@@ -152,7 +152,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 
@@ -170,7 +170,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 
@@ -188,7 +188,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 ```
@@ -211,7 +211,7 @@ Change the badge's visibility using the `.ui-invisible`class.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 
@@ -260,7 +260,7 @@ Where the badge should be placed over the child.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="35">35</span>
+    <span class="ui-badge-indicator">35</span>
   </span>
 </span>
 
@@ -278,7 +278,7 @@ Where the badge should be placed over the child.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="99+">99+</span>
+    <span class="ui-badge-indicator">99+</span>
   </span>
 </span>
 
@@ -302,7 +302,7 @@ Where the badge should be placed over the child.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="OK!">OK!</span>
+    <span class="ui-badge-indicator">OK!</span>
   </span>
 </span>
 
@@ -323,7 +323,7 @@ Where the badge should be placed over the child.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="3K">3K</span>
+    <span class="ui-badge-indicator">3K</span>
   </span>
 </span>
 ```

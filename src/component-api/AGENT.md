@@ -7,8 +7,8 @@ This guide defines the standards for documenting Astro UI component APIs in `src
 When creating or updating a component API table, ensure:
 
 - [ ] **File Format**: Either an `api.ts` data file (preferred, see [Data-driven APIs](#data-driven-apis-apits)) or `.astro` table files.
-- [ ] **Folder Structure**: If a component has different APIs for Astro and HTML, use a folder (e.g., `src/component-api/button/`) with `Astro.astro` and `HTML.astro`.
-- [ ] **Table Component**: Use the `Table` component from `../../ui-components/Table` (adjust path as needed).
+- [ ] **Folder Structure**: One folder per component (e.g., `src/component-api/button/`) holding `api.ts`, or the legacy `Astro.astro`, `HTML.astro` and `Vue.astro` tables.
+- [ ] **Table Component**: Legacy `.astro` tables use the `Table` component from `@opui/astro`.
 - [ ] **Table Sub-components**: Use `Table.Head`, `Table.Body`, `Table.Row`, `Table.Cell`, `Table.HeaderCell`, `Table.ColumnGroup`, and `Table.Column` for table structure.
 - [ ] **Column Widths**: Use `Table.ColumnGroup` and `Table.Column` to specify widths: `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 300px"`.
 - [ ] **CSS Verified**: All modifiers and selectors (e.g., `& > .content`) exist in the component's CSS file in `packages/opui/css/components/`.

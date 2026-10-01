@@ -52,19 +52,13 @@ Used to show a relationship between form elements.
 
 - `<legend>`
 
-  ---
-
   to describe what it's about.
 
 - `.ui-field-description`(optional)
 
-  ---
-
   to give extra context about the fieldset.
 
 - `.ui-field-group`
-
-  ---
 
   groups related fields.
 
@@ -143,7 +137,7 @@ Turns out you can disable an entire fieldset.
 </fieldset>
 ```
 
-## Field Legend
+## Field legend
 
 Use `FieldLegend` (or `<legend>`) to describe the fieldset.
 
@@ -153,7 +147,7 @@ Use `FieldLegend` (or `<legend>`) to describe the fieldset.
 </fieldset>
 ```
 
-## Field Description
+## Field description
 
 Use `FieldDescription` (or `.ui-field-description`) to give extra context about the fieldset.
 
@@ -164,7 +158,7 @@ Use `FieldDescription` (or `.ui-field-description`) to give extra context about 
 </fieldset>
 ```
 
-## Field Group
+## Field group
 
 Use `.ui-field-group` to wrap related fields.
 
@@ -317,7 +311,7 @@ Use a `<hr />` to create a visual break between sections of your form.
 </form>
 ```
 
-## Kitchen Sink
+## Kitchen sink
 
 Everything all at once.
 

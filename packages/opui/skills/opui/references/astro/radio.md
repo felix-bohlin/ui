@@ -163,7 +163,7 @@ import { Form } from "opui-css/astro"
 
 ## Validation
 
-Attach the `data-invalid` attribute to your `Fieldset` component.
+Attach the `data-invalid` attribute to your `FieldSet` component.
 
 ```astro
 ---

@@ -5,7 +5,7 @@ The Tabs are radio inputs and the Panels are just divs that show and hide based 
 ### What's new
 
 - Restyled as a segmented control.
-- [Line variant](#line) with `variant="line"`.
+- [Filled](#filled), [line](#line) and [outlined](#outlined) variants with the `variant` prop.
 
 ## Anatomy
 
@@ -137,6 +137,134 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
     </TabsItem>
   </Tabs>
 </template>
+```
+
+## How it's made
+
+**Tabs from a radio group**`tabs.css`
+
+Step 1: Radios
+
+- One radio group holds the state
+- `:checked + label + panel` shows the matching panel
+
+```html
+<div class="tabs">
+  <input class="tab-input" type="radio" name="tabs" id="tab-1" checked />
+  <label class="tab-label" for="tab-1">Profile</label>
+  <div class="tab-panel">…</div>
+  …
+</div>
+```
+
+```css
+.tab-panel {
+  display: none;
+}
+
+
+.tab-input:checked + .tab-label + .tab-panel {
+  display: block;
+}
+```
+
+Step 2: Order
+
+- The markup interleaves label, panel, label, panel
+- `order` pulls every label into one row and drops the panel below
+
+```css
+.tabs {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.tab-label {
+  order: 1;
+}
+
+
+.tab-panel {
+  inline-size: 100%;
+  order: 2;
+}
+```
+
+Step 3: Hide radios
+
+- Visually hidden, still focusable: arrow keys move between tabs
+- Focus ring drawn on the label
+
+```css
+.tab-input {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+
+.tab-input:focus-visible + .tab-label {
+  outline: 2px solid var(--text-muted);
+}
+```
+
+Step 4: Segmented
+
+- Each label paints its slice of the track
+- The pill is a `::before` inset from the track
+- `:nth-child(1 of .tab-label)` finds the first label among the radios and panels
+- Inner radius = outer radius − inset
+
+```css
+.tab-label {
+  background-color: var(--surface-tonal);
+  isolation: isolate;
+  padding: calc(0.25rem + var(--inset)) 0.75rem;
+  position: relative;
+}
+
+
+.tab-label::before {
+  border-radius: calc(var(--radius) - var(--inset));
+  content: "";
+  inset: var(--inset) 0;
+  position: absolute;
+  transition: background-color 0.1s;
+  z-index: -1;
+}
+
+
+.tab-label:nth-child(1 of .tab-label) {
+  border-radius: var(--radius) 0 0 var(--radius);
+  padding-inline-start: calc(0.75rem + var(--inset));
+
+
+  &::before {
+    inset-inline-start: var(--inset);
+  }
+}
+
+
+.tab-label:nth-last-child(1 of .tab-label) {
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding-inline-end: calc(0.75rem + var(--inset));
+
+
+  &::before {
+    inset-inline-end: var(--inset);
+  }
+}
+
+
+.tab-input:checked + .tab-label::before {
+  background-color: var(--surface-default);
+  box-shadow: var(--shadow-1);
+}
 ```
 
 ## Accessibility

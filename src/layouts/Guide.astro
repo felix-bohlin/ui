@@ -82,13 +82,13 @@ const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
 <style is:global>
   .guide-nav-list {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
 
     & a {
+      color: var(--text-muted);
       display: block;
       padding-block: var(--size-1);
-      color: var(--text-muted);
       text-decoration: none;
 
       &:hover {

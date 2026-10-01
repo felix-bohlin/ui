@@ -170,170 +170,164 @@ import Conditional from "../../components/Conditional.astro"
     </Conditional>
 
     <AutoExample name="Indeterminate" column centered spacious />
+  </section>
 
-    <section>
-      <h2 id="spread">Spread</h2>
-      <Conditional as="p">
-        <Fragment slot="astro">
-          Use the <code>spread</code> prop to push the label to the left and the checkbox
-          to the right. This is useful for full-width items like lists and menus.
-        </Fragment>
-        <Fragment slot="html">
-          Add the <code>.ui-spread</code> class to the <code
-            >&lt;label class="ui-checkbox"&gt;</code
-          >
-          to push the label to the left and the checkbox to the right. This is useful
-          for full-width items like lists and menus.
-        </Fragment>
-        <Fragment slot="vue">
-          Use the <code>spread</code> prop to push the label to the left and the checkbox
-          to the right. This is useful for full-width items like lists and menus.
-        </Fragment>
-      </Conditional>
+  <section>
+    <h2 id="spread">Spread</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>spread</code> prop to push the label to the left and the checkbox
+        to the right. This is useful for full-width items like lists and menus.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.ui-spread</code> class to the <code
+          >&lt;label class="ui-checkbox"&gt;</code
+        >
+        to push the label to the left and the checkbox to the right. This is useful
+        for full-width items like lists and menus.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>spread</code> prop to push the label to the left and the checkbox
+        to the right. This is useful for full-width items like lists and menus.
+      </Fragment>
+    </Conditional>
 
-      <AutoExample name="Spread" column />
-    </section>
+    <AutoExample name="Spread" column />
+  </section>
 
-    <section>
-      <h2 id="sizes">Sizes</h2>
-      <AutoExample name="Sizes" column centered spacious />
-    </section>
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <AutoExample name="Sizes" column centered spacious />
+  </section>
 
-    <section>
-      <h2 id="field-group">Field group</h2>
-      <p>Use field groups to group related checkboxes.</p>
-      <Conditional>
-        <p slot="astro">
-          The <code>name</code> prop will get passed down to each checkbox in the
-          group.
-        </p>
-        <p slot="html">
-          Give every <code>&lt;input type="checkbox"&gt;</code> in the group the same
-          <code>name</code> attribute so they're submitted together.
-        </p>
-        <p slot="vue">
-          The <code>name</code> prop will get passed down to each checkbox in the
-          group.
-        </p>
-      </Conditional>
-      <p>
-        See also: <DocLink href="/components/form" class="ui-link"
-          >Form documentation</DocLink
-        >.
+  <section>
+    <h2 id="field-group">Field group</h2>
+    <p>Use field groups to group related checkboxes.</p>
+    <Conditional>
+      <p slot="astro">
+        The <code>name</code> prop will get passed down to each checkbox in the group.
       </p>
-
-      <AutoExample name="FieldGroup" centered column />
-
-      <h3 id="field-group-direction">Direction</h3>
-      <AutoExample name="FieldGroupDirection" row />
-
-      <h3 id="field-group-field-description">Field description</h3>
-      <p>Can be placed above and below the fields.</p>
-      <AutoExample name="FieldGroupFieldDescription" column centered spacious />
-
-      <h3 id="field-group-disabled">Disabled</h3>
-      <p>
-        Attach the <code>disabled</code> attribute to the <code
-          >&lt;fieldset&gt;</code
-        > element.
+      <p slot="html">
+        Give every <code>&lt;input type="checkbox"&gt;</code> in the group the same
+        <code>name</code> attribute so they're submitted together.
       </p>
-      <AutoExample name="FieldGroupDisabled" row />
-
-      <h3 id="field-group-required">Required</h3>
-      <p>
-        Attach the <code>required</code> attribute to at least one of your <code
-          >&lt;input&gt;</code
-        > elements.
+      <p slot="vue">
+        The <code>name</code> prop will get passed down to each checkbox in the group.
       </p>
-      <AutoExample name="FieldGroupRequired" row />
+    </Conditional>
+    <p>
+      See also: <DocLink href="/components/form" class="ui-link"
+        >Form documentation</DocLink
+      >.
+    </p>
 
-      <h3 id="field-group-validation">Validation</h3>
-      <Conditional>
-        <p slot="html">
-          Attach the <code>data-invalid</code> attribute to your <code
-            >&lt;fieldset class="ui-fieldset"&gt;</code
-          > element
-        </p>
-        <p slot="astro">
-          Attach the <code>data-invalid</code> attribute to your <code
-            >Fieldset</code
-          > component.
-        </p>
-        <p slot="vue">
-          Attach the <code>data-invalid</code> attribute to your <code
-            >FieldSet</code
-          > component.
-        </p>
-      </Conditional>
-      <AutoExample name="FieldGroupValidation" row />
-    </section>
+    <AutoExample name="FieldGroup" centered column />
 
-    <Fragment slot="accessibility">
-      <h3 id="labels">Labels</h3>
-      <p>
-        Accessible checkboxes must have a label. You can choose between three
-        approaches:
+    <h3 id="field-group-direction">Direction</h3>
+    <AutoExample name="FieldGroupDirection" row />
+
+    <h3 id="field-group-field-description">Field description</h3>
+    <p>Can be placed above and below the fields.</p>
+    <AutoExample name="FieldGroupFieldDescription" column centered spacious />
+
+    <h3 id="field-group-disabled">Disabled</h3>
+    <p>
+      Attach the <code>disabled</code> attribute to the <code
+        >&lt;fieldset&gt;</code
+      > element.
+    </p>
+    <AutoExample name="FieldGroupDisabled" row />
+
+    <h3 id="field-group-required">Required</h3>
+    <p>
+      Attach the <code>required</code> attribute to at least one of your <code
+        >&lt;input&gt;</code
+      > elements.
+    </p>
+    <AutoExample name="FieldGroupRequired" row />
+
+    <h3 id="field-group-validation">Validation</h3>
+    <Conditional>
+      <p slot="html">
+        Attach the <code>data-invalid</code> attribute to your <code
+          >&lt;fieldset class="ui-fieldset"&gt;</code
+        > element
       </p>
+      <p slot="astro">
+        Attach the <code>data-invalid</code> attribute to your <code
+          >FieldSet</code
+        > component.
+      </p>
+      <p slot="vue">
+        Attach the <code>data-invalid</code> attribute to your <code
+          >FieldSet</code
+        > component.
+      </p>
+    </Conditional>
+    <AutoExample name="FieldGroupValidation" row />
+  </section>
+
+  <Fragment slot="accessibility">
+    <h3 id="labels">Labels</h3>
+    <p>
+      Accessible checkboxes must have a label. You can choose between three
+      approaches:
+    </p>
+    <table class="ui-table">
+      <thead>
+        <tr>
+          <th>Approach</th>
+          <th>Usage in Checkbox component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Provide a label text inside the <code>label</code>/<code
+              >role="checkbox"</code
+            > element
+          </td>
+          <td>Default</td>
+        </tr>
+        <tr>
+          <td>Add a <code>aria-label</code> on the input element</td>
+          <td>Not used</td>
+        </tr>
+        <tr>
+          <td>
+            Have a visible label that you reference with <code
+              >aria-labelledby</code
+            >
+          </td>
+          <td>Not used</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 id="keyboard-support">Keyboard support</h3>
+    <div class="ui-not-rich-text">
       <table class="ui-table">
         <thead>
           <tr>
-            <th>Approach</th>
-            <th>Usage in Checkbox component</th>
+            <th>Key</th>
+            <th>Function</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
-              Provide a label text inside the <code>label</code>/<code
-                >role="checkbox"</code
-              > element
-            </td>
-            <td>Default</td>
-          </tr>
-          <tr>
-            <td>Add a <code>aria-label</code> on the input element</td>
-            <td>Not used</td>
-          </tr>
-          <tr>
-            <td>
-              Have a visible label that you reference with <code
-                >aria-labelledby</code
-              >
-            </td>
-            <td>Not used</td>
+            <td><kbd>Space</kbd></td>
+            <td>When Checkbox is focused it changes its state.</td>
           </tr>
         </tbody>
       </table>
-
-      <h3 id="keyboard-support">Keyboard support</h3>
-      <div class="ui-not-rich-text">
-        <table class="ui-table">
-          <thead>
-            <tr>
-              <th>Key</th>
-              <th>Function</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><kbd>Space</kbd></td>
-              <td>When Checkbox is focused it changes its state.</td>
-            </tr>
-            <tr>
-              <td><kbd>Enter</kbd></td>
-              <td>(Optional) When Checkbox is focused it changes its state.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </Fragment>
-  </section>
+    </div>
+  </Fragment>
 
   <style is:global>
     .example-row {
+      align-items: center;
       display: flex;
       gap: var(--size-3);
-      align-items: center;
     }
     .example-row.ui-spacious {
       gap: var(--size-6);

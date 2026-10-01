@@ -36,7 +36,7 @@ You might want to check out:
 Tonal (default) and `.ui-outlined` variants.
 
 ```html
-<article role="note" class="ui-callout">
+<article class="ui-callout">
   <div class="ui-content">
     <h3 class="ui-title">Note</h3>
     <p>
@@ -47,7 +47,7 @@ Tonal (default) and `.ui-outlined` variants.
 </article>
 
 
-<article role="note" class="ui-callout ui-outlined">
+<article class="ui-callout ui-outlined">
   <div class="ui-content">
     <h3 class="ui-title">Another Callout</h3>
     <p>
@@ -65,8 +65,9 @@ Tonal (default) and `.ui-outlined` variants.
 Icon must be placed before the content.
 
 ```html
-<article role="note" class="ui-callout">
+<article class="ui-callout">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -90,13 +91,14 @@ Severity modifiers - `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-critical` - 
 Omitting an icon is possible. However, it helps having one if you need to convey a specific kind of severity in your Callout message. For instance, colorblind users might be left confused if there's not enough visual guidance.
 
 ```html
-<article role="note" class="ui-callout ui-neutral">
+<article class="ui-callout ui-neutral">
   <div class="ui-content">This is a tonal neutral Callout</div>
 </article>
 
 
-<article role="note" class="ui-callout ui-info">
+<article class="ui-callout ui-info">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -111,8 +113,9 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 </article>
 
 
-<article role="note" class="ui-callout ui-warning">
+<article class="ui-callout ui-warning">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -127,8 +130,9 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 </article>
 
 
-<article role="note" class="ui-callout ui-critical">
+<article class="ui-callout ui-critical">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -143,13 +147,14 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 </article>
 
 
-<article role="note" class="ui-callout ui-outlined ui-neutral">
+<article class="ui-callout ui-outlined ui-neutral">
   <div class="ui-content">This is an outlined neutral Callout</div>
 </article>
 
 
-<article role="note" class="ui-callout ui-outlined ui-info">
+<article class="ui-callout ui-outlined ui-info">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -164,8 +169,9 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 </article>
 
 
-<article role="note" class="ui-callout ui-outlined ui-warning">
+<article class="ui-callout ui-outlined ui-warning">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -180,8 +186,9 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 </article>
 
 
-<article role="note" class="ui-callout ui-outlined ui-critical">
+<article class="ui-callout ui-outlined ui-critical">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -219,8 +226,6 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 | `<svg>`       | An optional icon. `info`, `warning` and `critical` have a default icon. |
 | `.ui-content` | The content.                                                            |
 | `<h3>`        | An optional title inside the content.                                   |
-
-The root needs `role="note"`.
 
 ## Browser support
 

@@ -1,0 +1,329 @@
+---
+import { Code } from "astro-expressive-code/components"
+
+type Step = {
+  css: string
+  html?: string
+  notes?: string[]
+  title: string
+}
+
+type Knob = {
+  label: string
+  max: number
+  min: number
+  property: string
+  step?: number
+  unit?: string
+  value: number
+}
+
+type Props = {
+  id: string
+  knobs?: Knob[]
+  source?: string
+  steps: Step[]
+  title: string
+}
+
+const { id, knobs = [], source, steps, title } = Astro.props
+
+const values = (from: number) =>
+  steps
+    .slice(from)
+    .map((_, offset) => `[value="${from + offset + 1}"]`)
+    .join(", ")
+
+const gatedCss = steps
+  .map(
+    (step, index) => `
+#${id}:has(.build-up-steps :is(${values(index)}):checked) .build-up-stage {
+${step.css}
+}
+#${id}:has(.build-up-steps [value="${index + 1}"]:checked) .build-up-step[data-step="${index + 1}"] {
+  display: grid;
+}`,
+  )
+  .join("\n")
+
+const knobStyle = knobs
+  .map((knob) => `${knob.property}: ${knob.value}${knob.unit ?? ""}`)
+  .join("; ")
+---
+
+<figure class="build-up ui-not-rich-text" id={id}>
+  <figcaption class="build-up-header">
+    <span class="build-up-overline">How it's made</span>
+    <p>
+      <strong class="build-up-title">{title}</strong>
+      {source && <code class="build-up-source">{source}</code>}
+    </p>
+  </figcaption>
+
+  <fieldset class="build-up-steps">
+    <legend class="ui-sr-only">Steps</legend>
+    {
+      steps.map((step, index) => (
+        <label>
+          <input
+            checked={index === 0}
+            class="ui-sr-only"
+            name={`${id}-step`}
+            type="radio"
+            value={index + 1}
+          />
+          <span class="build-up-number">{index + 1}</span>
+          {step.title}
+        </label>
+      ))
+    }
+  </fieldset>
+
+  <div class="build-up-stage" style={knobStyle}>
+    <slot />
+  </div>
+
+  {
+    knobs.length > 0 && (
+      <div class="build-up-knobs">
+        {knobs.map((knob) => (
+          <label>
+            <span>
+              <code>{knob.property}</code>
+              {knob.label}
+            </span>
+            <input
+              data-property={knob.property}
+              data-unit={knob.unit ?? ""}
+              max={knob.max}
+              min={knob.min}
+              step={knob.step ?? 1}
+              type="range"
+              value={knob.value}
+            />
+            <output>
+              {knob.value}
+              {knob.unit}
+            </output>
+          </label>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    steps.map((step, index) => (
+      <div class="build-up-step" data-step={index + 1}>
+        <p class="build-up-step-title">
+          Step {index + 1}: {step.title}
+        </p>
+        {step.notes && (
+          <ul>
+            {step.notes.map((note) => (
+              <li set:html={note} />
+            ))}
+          </ul>
+        )}
+        {step.html && <Code code={step.html.trim()} lang="html" />}
+        <Code code={step.css.trim()} lang="css" />
+      </div>
+    ))
+  }
+</figure>
+
+<style is:inline set:html={gatedCss}></style>
+
+<style>
+  .build-up {
+    background-color: var(--surface-default);
+    border: var(--border-width, 1px) solid var(--border-color);
+    border-radius: var(--radius-3);
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: stretch;
+    margin-block: var(--size-6);
+    margin-inline: 0;
+    min-inline-size: 0;
+    padding: var(--size-4);
+    text-align: start;
+  }
+
+  .build-up-header {
+    display: grid;
+    gap: var(--size-1);
+
+    & p {
+      align-items: baseline;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-1) var(--size-3);
+      margin: 0;
+    }
+  }
+
+  .build-up-overline {
+    color: var(--text-muted);
+    font-size: var(--font-size-0);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .build-up-title {
+    font-size: var(--font-size-3);
+    font-weight: 700;
+  }
+
+  .build-up-source {
+    color: var(--text-muted);
+    font-size: var(--font-size-0);
+  }
+
+  .build-up-steps {
+    border: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+    margin: 0;
+    padding: 0;
+
+    & label {
+      align-items: center;
+      background-color: var(--surface-tonal);
+      border: var(--border-width, 1px) solid transparent;
+      border-radius: var(--radius-round);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      font-size: var(--font-size-1);
+      gap: var(--size-2);
+      padding: var(--size-1) var(--size-3) var(--size-1) var(--size-1);
+      transition: color 0.15s;
+
+      &:hover {
+        color: var(--text-primary);
+      }
+
+      &:has(:checked) {
+        border-color: var(--primary);
+        color: var(--text-primary);
+      }
+
+      &:has(:focus-visible) {
+        outline: var(--focus-ring-width, 2px) solid
+          var(--focus-ring-color, var(--primary));
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  .build-up-number {
+    aspect-ratio: 1;
+    background-color: var(--surface-default);
+    border-radius: var(--radius-round);
+    display: grid;
+    font-size: var(--font-size-0);
+    font-weight: 700;
+    inline-size: 1.75em;
+    place-items: center;
+  }
+
+  label:has(:checked) .build-up-number {
+    background-color: var(--primary);
+    color: var(--primary-contrast);
+  }
+
+  .build-up-stage {
+    align-items: center;
+    border: var(--border-width, 1px) dashed var(--border-color);
+    border-radius: var(--radius-2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
+    justify-content: center;
+    min-block-size: 10rem;
+    min-inline-size: 0;
+    padding: var(--size-5) var(--size-4);
+    position: relative;
+  }
+
+  .build-up-knobs {
+    display: grid;
+    gap: var(--size-2) var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+
+    & label {
+      align-items: center;
+      display: grid;
+      font-size: var(--font-size-0);
+      gap: var(--size-1) var(--size-2);
+      grid-template-columns: 1fr auto;
+    }
+
+    & span {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+      grid-column: 1 / -1;
+    }
+
+    & input {
+      accent-color: var(--primary);
+      min-inline-size: 0;
+    }
+
+    & output {
+      font-variant-numeric: tabular-nums;
+      min-inline-size: 5ch;
+      text-align: end;
+    }
+  }
+
+  .build-up-step {
+    display: none;
+    gap: var(--size-3);
+    grid-template-columns: minmax(0, 1fr);
+    min-inline-size: 0;
+
+    & .build-up-step-title {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+      font-weight: 700;
+      margin: 0;
+    }
+
+    & ul {
+      display: grid;
+      gap: var(--size-1);
+      margin: 0;
+      padding-inline-start: var(--size-4);
+    }
+
+    & li {
+      line-height: var(--font-lineheight-3);
+    }
+  }
+</style>
+
+<script>
+  function initBuildUps() {
+    document
+      .querySelectorAll<HTMLInputElement>(".build-up-knobs input[type=range]")
+      .forEach((input) => {
+        const stage = input
+          .closest(".build-up")
+          ?.querySelector<HTMLElement>(".build-up-stage")
+        const output = input.parentElement?.querySelector("output")
+        const update = () => {
+          const value = `${input.value}${input.dataset.unit ?? ""}`
+          stage?.style.setProperty(input.dataset.property ?? "", value)
+          if (output) output.textContent = value
+        }
+        input.addEventListener("input", update)
+      })
+  }
+
+  initBuildUps()
+  document.addEventListener("astro:after-swap", initBuildUps)
+</script>

@@ -9,6 +9,7 @@
 ### Removed
 
 - `IconButton`. Use `Button`: an icon-only button is square by default, `rounded` (`.ui-rounded`) makes it a circle and `ripple` (`.ui-ripple`) gives it the hover halo. The old default size is `size="small"`, the old `small` is `x-small`.
+- `palette.css` no longer registers the palette variables (`--color-*`, `--gray-*`, `--palette-source` and `--palette-hue`) with `@property`.
 
 ### Added
 

@@ -11,10 +11,19 @@ const style = (locator: Locator, property: string) =>
     property,
   )
 
-const lightDark = (value: string) => {
-  const [, light, dark] = value.match(/^light-dark\((.*?),\s*(.*)\)$/) ?? []
-  return { dark, light }
-}
+const resolve = (locator: Locator, token: string, scheme = "normal") =>
+  locator.evaluate(
+    (element, [name, colorScheme]) => {
+      const probe = document.createElement("div")
+      probe.style.colorScheme = colorScheme
+      probe.style.backgroundColor = `var(${name})`
+      element.append(probe)
+      const value = getComputedStyle(probe).backgroundColor
+      probe.remove()
+      return value
+    },
+    [token, scheme],
+  )
 
 test.beforeEach(async ({ page }) => {
   await openFixture(page, "html", "theming")
@@ -27,7 +36,10 @@ test("a .ui-dark subtree renders dark", async ({ page }) => {
 
   expect(await style(scope, "color-scheme")).toBe("dark")
   expect(await style(scope, "background-color")).toBe(
-    lightDark(await style(scope, "--surface-default")).dark,
+    await resolve(scope, "--surface-default", "dark"),
+  )
+  expect(await style(scope, "background-color")).not.toBe(
+    await resolve(scope, "--surface-default", "light"),
   )
   expect(await style(card, "background-color")).not.toBe(
     await style(reference, "background-color"),
@@ -39,7 +51,10 @@ test("a .ui-light subtree renders light", async ({ page }) => {
 
   expect(await style(scope, "color-scheme")).toBe("light")
   expect(await style(scope, "background-color")).toBe(
-    lightDark(await style(scope, "--surface-default")).light,
+    await resolve(scope, "--surface-default", "light"),
+  )
+  expect(await style(scope, "background-color")).not.toBe(
+    await resolve(scope, "--surface-default", "dark"),
   )
 })
 
@@ -52,7 +67,7 @@ test("a .ui-palette subtree re-derives its colors", async ({ page }) => {
   expect(await style(button, "background-color")).not.toBe(
     await style(reference, "background-color"),
   )
-  expect(await style(scope, "--primary")).toMatch(/ 120\)$/)
+  expect(await resolve(scope, "--primary")).toMatch(/ 120\)$/)
 })
 
 test(".ui-motion-off removes transitions", async ({ page }) => {

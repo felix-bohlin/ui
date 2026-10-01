@@ -1,33 +1,3 @@
-@property --motion {
-  syntax: "<number>";
-  inherits: true;
-  initial-value: 1;
-}
-
-@property --duration-fast {
-  syntax: "<time>";
-  inherits: true;
-  initial-value: 0.1s;
-}
-
-@property --duration {
-  syntax: "<time>";
-  inherits: true;
-  initial-value: 0.2s;
-}
-
-@property --duration-slow {
-  syntax: "<time>";
-  inherits: true;
-  initial-value: 0.3s;
-}
-
-@property --disabled-opacity {
-  syntax: "<number>";
-  inherits: true;
-  initial-value: 0.64;
-}
-
 @layer theme {
   /* 1. Color scheme */
   .ui-light {

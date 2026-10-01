@@ -29,6 +29,7 @@
       }
 
       :where(.ui-button-group.ui-small) & {
+        --_font-size: var(--font-size-05);
         --_min-height: var(--button-size-small);
         --_padding-inline: 1.25ex;
         padding-block: 0;

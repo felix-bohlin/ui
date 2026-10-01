@@ -55,7 +55,8 @@
 - `Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton` and `ToggleGroup` borders read `--border-width`, and `Checkbox`, `Radio`, `Switch` and `TextField` borders read `--field-border-width`, instead of a hardcoded `1px`.
 - `Chip` uses `--border-radius` (8px) instead of Open Props `--radius-2` (5px).
 - `Radio` is `--choice-size` (20px) like `Checkbox`, instead of 18px.
-- `ButtonGroup` small buttons are `--button-size-small` (32px) instead of 30px.
+- `ButtonGroup` small buttons are `--button-size-small` (32px) instead of 30px, with the same `--font-size-05` text as a small `Button`.
+- `ToggleButton` and `ToggleGroup` text shrinks with the size like `Button`: `--font-size-05` when small and `--font-size-0` when x-small.
 - `Range`, `Switch` and `TextField` invalid states use `--invalid-color`.
 - `Toast` severity icons are masks filled with `--success`, `--info`, `--warning` and `--critical` instead of hardcoded hex colors.
 - `Tooltip` uses `--surface-inverse` and `--text-inverse`.
@@ -92,6 +93,10 @@
 - `core/palette.css` lets `.ui-palette` and the severity scopes inherit `--palette-hue`, `--palette-chroma`, `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma` from their ancestors. It used to reset them to the defaults in every scope.
 - `TextField`, `Textarea` and `Select` with `spread` (`.ui-spread`) collapse to a column when narrower than 400px. Previously the field was squeezed next to the label.
 - `Select` with `spread` centers its arrow on the field.
+- `TextField` and `Select` small fields are `--field-size-small` (32px) high, like a small `Button`. They were 38px.
+- `TextField` date, time, week and month inputs no longer grow taller than the field, so small ones are 32px and time inputs are no longer 41px.
+- `TextField` file inputs are `--field-size` high. They were 2px taller.
+- `ToggleGroup` is as high as a `ToggleButton` of the same size. The group border made it 2px taller.
 - `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.
 - `Badge`, `Chip`, `Tabs` and `Toast` respect `--motion` and `prefers-reduced-motion`.
 - `dist/opui.components.css` starts with the `@layer` order statement.

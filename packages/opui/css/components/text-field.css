@@ -53,6 +53,12 @@
       &:focus-visible {
         outline: 0;
       }
+
+      &::-webkit-calendar-picker-indicator,
+      &::-webkit-datetime-edit,
+      &::-webkit-datetime-edit-fields-wrapper {
+        padding-block: 0;
+      }
     }
 
     /* Affixes */
@@ -127,7 +133,7 @@
 
       input {
         align-self: flex-start;
-        block-size: var(--_height);
+        block-size: calc(var(--_height) - var(--field-border-width) * 2);
         box-shadow: none;
         color: var(--text-primary);
         cursor: inherit;
@@ -369,6 +375,7 @@
 
     /* Sizes */
     &.ui-small {
+      --_field-padding-block: var(--size-1);
       --_height: var(--field-size-small);
 
       &:has(input[type="color"]) {

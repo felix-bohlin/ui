@@ -4,6 +4,7 @@
 @layer components.root {
   :where(.ui-toggle-button) {
     --_button-bg-color: transparent;
+    --_font-size: var(--font-size-1);
     --_size: var(--field-size);
     --_svg-size: var(--icon-size);
 
@@ -16,6 +17,7 @@
     cursor: pointer;
     display: inline-flex;
     flex: auto;
+    font-size: var(--_font-size);
     gap: var(--size-2);
     inline-size: fit-content;
     justify-content: center;
@@ -81,10 +83,12 @@
 
     /* Sizes */
     &.ui-small {
+      --_font-size: var(--font-size-05);
       --_size: var(--field-size-small);
     }
 
     &.ui-x-small {
+      --_font-size: var(--font-size-0);
       --_size: var(--field-size-x-small);
     }
   }

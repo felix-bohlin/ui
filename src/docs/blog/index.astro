@@ -1,9 +1,7 @@
 ---
 import Blog from "../../layouts/Blog.astro"
 import DocLink from "../../components/DocLink.astro"
-import { posts } from "../../utils/blog"
-
-const dateFormat = new Intl.DateTimeFormat("en", { dateStyle: "long" })
+import { formatDate, posts } from "../../utils/blog"
 ---
 
 <Blog showToc={false}>
@@ -16,9 +14,7 @@ const dateFormat = new Intl.DateTimeFormat("en", { dateStyle: "long" })
     {
       posts.map((post) => (
         <li>
-          <time datetime={post.date}>
-            {dateFormat.format(new Date(post.date))}
-          </time>
+          <time datetime={post.date}>{formatDate(post.date)}</time>
           <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
           <p>{post.description}</p>
         </li>

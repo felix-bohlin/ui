@@ -7,7 +7,7 @@ import CarouselBuild from "../../components/HowItsMade/CarouselBuild.astro"
 import MenuBuild from "../../components/HowItsMade/MenuBuild.astro"
 import RhythmBuild from "../../components/HowItsMade/RhythmBuild.astro"
 import TabsBuild from "../../components/HowItsMade/TabsBuild.astro"
-import { posts } from "../../utils/blog"
+import { formatDate, posts } from "../../utils/blog"
 
 const post = posts.find((entry) => entry.slug === "new-components-and-fixes")!
 
@@ -53,11 +53,15 @@ const audits = [
 ]
 ---
 
-<Blog description={post.description} title={post.title}>
+<Blog
+  description={post.description}
+  overline={formatDate(post.date)}
+  title={post.title}
+>
   <Fragment slot="title">{post.title}</Fragment>
   <Fragment slot="preamble">
-    <a href={pr(400)}>#400</a> · <code>feat/new-components-and-fixes</code> · <time
-      datetime={post.date}>{post.date}</time
+    Pull request <a href={pr(400)}>#400</a> from <code
+      >feat/new-components-and-fixes</code
     >
   </Fragment>
 

@@ -77,6 +77,7 @@
 - `Typography` rich text inline `code` styles no longer apply to `code` inside `pre`.
 - `Typography` rich text `ol[type]` keeps its marker type, and consecutive `dt` elements are no longer spaced apart.
 - `Typography` rich text no longer styles an `a` without `href` as a link.
+- `Typography` rich text `code` inside a link gets a darker background in dark mode, so the link color keeps its contrast.
 - `.ui-light` and `.ui-dark` on an element other than `html` give it the page surface and text color. `--color-scheme` follows the OS preference, so `Card` elevated shadows are correct in dark mode without a class.
 - `.ui-palette` re-derives every color token (`--primary`, `--surface-*`, `--text-*`, `--border-color`, `--field-border-color` and the named and intent colors) from its own palette. A subtree with `class="ui-palette" style="--palette-hue: 30"` is a complete second theme.
 - `theme.css` declares `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma` so every theme knob lives in one file.

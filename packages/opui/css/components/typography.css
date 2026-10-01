@@ -735,6 +735,10 @@
       padding: 0.1ex 0.3ex;
     }
 
+    a[href] code {
+      background-color: light-dark(oklch(0 0 0 / 12%), oklch(0 0 0 / 24%));
+    }
+
     :where(kbd, var) {
       background-color: var(--text-muted);
       border-color: var(--text-muted);

@@ -90,6 +90,10 @@
     "aria-allowed-role",
     "aria-required-children"
   ],
+  "dark/tabs/Scrollable": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
   "dark/text-field/Orientation": [
     "color-contrast"
   ],
@@ -166,6 +170,10 @@
     "aria-required-children"
   ],
   "light/tabs/Outlined": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
+  "light/tabs/Scrollable": [
     "aria-allowed-role",
     "aria-required-children"
   ],

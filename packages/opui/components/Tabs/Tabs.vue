@@ -2,7 +2,7 @@
 import { provide, useId } from "vue"
 import { TabsGroupNameKey, type Props, type Slots } from "./types.d.vue"
 
-const { name, variant } = defineProps<Props>()
+const { name, scrollable, variant } = defineProps<Props>()
 defineSlots<Slots>()
 
 defineOptions({
@@ -16,7 +16,12 @@ provide(TabsGroupNameKey, groupName)
 
 <template>
   <div
-    :class="['ui-tabs', variant && `ui-${variant}`, $props.class]"
+    :class="[
+      'ui-tabs',
+      { 'ui-scrollable': scrollable },
+      variant && `ui-${variant}`,
+      $props.class,
+    ]"
     role="tablist"
     v-bind="$attrs"
   >

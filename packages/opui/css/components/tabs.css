@@ -63,7 +63,7 @@
           --focus-ring-color: var(--text-muted);
           outline: var(--focus-ring-width) var(--focus-ring-style)
             var(--focus-ring-color);
-          outline-offset: calc(-1 * var(--focus-ring-width));
+          outline-offset: var(--focus-ring-offset, 0);
         }
       }
     }
@@ -77,39 +77,19 @@
       color: var(--_text-color);
       cursor: pointer;
       display: inline-flex;
-      flex: 1 1 0;
       font-size: var(--font-size-1);
       font-weight: 500;
       gap: var(--size-2);
       isolation: isolate;
       justify-content: center;
       line-height: var(--font-lineheight-4);
-      max-inline-size: max-content;
-      min-inline-size: 0;
       order: 1;
-      overflow: hidden;
       padding: calc(var(--size-1) + var(--_inset) - var(--_track-border-width))
         var(--size-3);
       position: relative;
-      text-overflow: ellipsis;
       transition: color calc(0.1s * var(--_motion));
       user-select: none;
       white-space: nowrap;
-
-      &:not(:has(> *)) {
-        display: block;
-        text-align: center;
-      }
-
-      & > span {
-        min-inline-size: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      & > svg {
-        flex-shrink: 0;
-      }
 
       &::before {
         border: 1px solid transparent;
@@ -205,6 +185,134 @@
       --_active-shadow: none;
       --_track-border-color: var(--border-color);
       --_track-color: transparent;
+    }
+
+    &.ui-scrollable {
+      column-gap: 0;
+      container-type: inline-size;
+      display: grid;
+      grid-template-columns: repeat(20, max-content) minmax(0, 1fr);
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      reading-flow: grid-rows;
+      scrollbar-width: thin;
+
+      & > .ui-tab-input[type="radio"] {
+        grid-row: 1 / span 1;
+        inset-block-start: 50%;
+        inset-inline-start: 50%;
+        margin: 0;
+
+        &:focus-visible {
+          & + [role="tab"]::before,
+          & + .ui-tab-label::before {
+            outline-offset: calc(-1 * var(--focus-ring-width));
+          }
+        }
+      }
+
+      & > .ui-tab-input:nth-of-type(1) {
+        grid-column: 1 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(2) {
+        grid-column: 2 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(3) {
+        grid-column: 3 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(4) {
+        grid-column: 4 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(5) {
+        grid-column: 5 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(6) {
+        grid-column: 6 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(7) {
+        grid-column: 7 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(8) {
+        grid-column: 8 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(9) {
+        grid-column: 9 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(10) {
+        grid-column: 10 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(11) {
+        grid-column: 11 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(12) {
+        grid-column: 12 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(13) {
+        grid-column: 13 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(14) {
+        grid-column: 14 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(15) {
+        grid-column: 15 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(16) {
+        grid-column: 16 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(17) {
+        grid-column: 17 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(18) {
+        grid-column: 18 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(19) {
+        grid-column: 19 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(20) {
+        grid-column: 20 / span 1;
+      }
+
+      & > [role="tab"],
+      & > .ui-tab-label {
+        grid-row: 1;
+      }
+
+      & > [role="tabpanel"],
+      & > .ui-tab-panel {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        inline-size: 100cqi;
+        inset-inline-start: 0;
+        position: sticky;
+      }
+
+      &.ui-line {
+        & > [role="tab"],
+        & > .ui-tab-label {
+          &:not(:nth-last-child(1 of [role="tab"], .ui-tab-label)) {
+            margin-inline-end: var(--size-1);
+          }
+        }
+      }
     }
   }
 }

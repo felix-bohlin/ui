@@ -92,13 +92,15 @@ import tabsApi from "../../component-api/tabs/api"
   </section>
 
   <section>
-    <h2 id="narrow-spaces">Narrow spaces</h2>
+    <h2 id="scrollable">Scrollable</h2>
     <p>
-      Tabs that don't fit shrink to share the space, and long labels end with an
-      ellipsis. Keep labels short and tabs few. Wrap the label in a <code
-        >&lt;span&gt;</code
-      > when a tab has an icon, so the label shortens and the icon stays.
+      Tabs wrap onto more rows when they don't fit. Use <code>scrollable</code>
+      (<code>.ui-scrollable</code>) to keep them on one row and scroll them
+      sideways instead. The open panel stays in view, and up to 20 tabs are
+      supported. The tabs size to their container, so give them a width inside
+      flex and grid layouts that size to their content.
     </p>
+    <AutoExample name="Scrollable" />
   </section>
 
   <Fragment slot="accessibility">

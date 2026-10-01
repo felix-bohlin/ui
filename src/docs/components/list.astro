@@ -131,11 +131,12 @@ export const description =
     </Conditional>
 
     <Callout class="ui-not-rich-text">
-      <Fragment slot="title">Filled as default?!</Fragment>
+      <Fragment slot="title">Filled by default</Fragment>
       <p>
-        Yeah it's a bit weird, but normally you would use a list in a
-        popover/select scenario that needs to contrast against the background.
-        If nothing else, just change it yourself.
+        Without a color class the list uses the filled surface, because lists
+        usually sit in popovers and selects that need to contrast against the
+        page. Pick <code>default</code> or <code>tonal</code> to match the page surface
+        instead.
       </p>
     </Callout>
 
@@ -156,13 +157,19 @@ export const description =
     <h3 id="selected">Selected item</h3>
     <Conditional>
       <p slot="html">
-        Add <code>aria-selected="true"</code> to the <code>li</code>.
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >li</code
+        >.
       </p>
       <p slot="astro">
-        Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >ListItem</code
+        >.
       </p>
       <p slot="vue">
-        Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >ListItem</code
+        >.
       </p>
     </Conditional>
     <AutoExample name="Selected" />

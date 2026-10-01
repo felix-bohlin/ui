@@ -16,8 +16,17 @@ for (const file of files.sort()) {
   const content = await readFile(join(componentsDir, file), "utf-8")
   const match = content.match(/browserSupport=\{\[([\s\S]*?)\]\}/)
   if (!match) continue
-  const ids = [...match[1].matchAll(/"([^"]+)"/g)].map((m) => m[1])
+  const ids = [...match[1].matchAll(/["']([^"']+)["']/g)].map((m) => m[1])
   if (ids.length > 0) components[name] = ids
+}
+
+const unknown = Object.entries(components).flatMap(([comp, ids]) =>
+  ids.filter((id) => !features[id]).map((id) => `${comp}: "${id}"`),
+)
+if (unknown.length > 0) {
+  console.error("Unknown web-features ids in browserSupport:")
+  for (const entry of unknown) console.error(`  ${entry}`)
+  process.exit(1)
 }
 
 const BROWSERS = ["chrome", "edge", "firefox", "safari"]

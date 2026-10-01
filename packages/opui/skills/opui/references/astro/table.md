@@ -186,3 +186,8 @@ Set column widths with `Table.ColumnGroup` and `Table.Column`, which takes a `wi
 - Safari: Full support Supported since v18.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+
+## Installation
+
+- `opui-css/css/components/table.css`
+

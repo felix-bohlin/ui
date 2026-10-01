@@ -17,9 +17,12 @@ import BadgeCSS from "@opui/css/components/badge.css?raw"
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
 
 import badgeApi from "../../component-api/badge/api"
+export const description =
+  "Badges attach a small count or status dot to another element."
 ---
 
 <Component
+  description={description}
   slug="badge"
   heroAnatomy
   apis={[{ title: "Badge API", api: badgeApi }]}

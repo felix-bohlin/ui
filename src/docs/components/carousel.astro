@@ -4,6 +4,7 @@ import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocLink from "../../components/DocLink.astro"
+import CarouselBuild from "../../components/UnderTheHood/CarouselBuild.astro"
 import { Card as UICard, Carousel as UICarousel } from "@opui/astro"
 
 import CarouselCSS from "@opui/css/components/carousel.css?raw"
@@ -21,6 +22,8 @@ export const description =
   apis={[{ title: "Carousel API", api: carouselApi }]}
   browserSupport={[
     "anchor-positioning",
+    "container-style-queries",
+    "if",
     "scroll-buttons",
     "scroll-markers",
     "scroll-snap",
@@ -46,7 +49,7 @@ export const description =
         label="Destinations"
         markers
         perView={2}
-        style="--_button-disabled-opacity: 1"
+        persistentButtons
       >
         {
           ["Kyoto", "Lima", "Lisbon"].map((title) => (
@@ -139,6 +142,26 @@ export const description =
   </section>
 
   <section>
+    <h2 id="persistent-buttons">Persistent buttons</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-buttons-persistent</code> to keep both buttons visible. A disabled
+        button has a muted border.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>persistentButtons</code> to keep both buttons visible. A disabled button
+        has a muted border.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>persistentButtons</code> to keep both buttons visible. A disabled button
+        has a muted border.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="PersistentButtons" />
+  </section>
+
+  <section>
     <h2 id="custom-buttons">Custom buttons</h2>
     <p>
       <code>--_button-prev-icon</code> and <code>--_button-next-icon</code> for custom
@@ -151,4 +174,5 @@ export const description =
   <Fragment slot="accessibility">
     <p>Announces item position. Buttons and markers are named.</p>
   </Fragment>
+  <CarouselBuild slot="under-the-hood" />
 </Component>

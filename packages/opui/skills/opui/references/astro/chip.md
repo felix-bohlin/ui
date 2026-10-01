@@ -174,6 +174,7 @@ import { Chip } from "opui-css/astro"
 | Prop        | Type                       | Default   | Description                                           |
 | ----------- | -------------------------- | --------- | ----------------------------------------------------- |
 | `as`        | `"div"`, `"button"`, `"a"` | `"div"`   | The element to render. Defaults to `"a"` with `href`. |
+| `href`      | `string`                   | -         | The link to use. Renders an `<a>`.                    |
 | `label`     | `string`                   | -         | The label.                                            |
 | `multiline` | `boolean`                  | `false`   | Lets the label wrap to multiple lines.                |
 | `size`      | `"small"`                  | -         | The size of the element.                              |

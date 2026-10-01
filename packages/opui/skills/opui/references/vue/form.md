@@ -75,19 +75,13 @@ Used to show a relationship between form elements.
 
 - `FieldLegend`
 
-  ---
-
   to describe what it's about.
 
 - `FieldDescription`(optional)
 
-  ---
-
   to give extra context about the fieldset.
 
 - `FieldGroup`
-
-  ---
 
   groups related fields.
 
@@ -173,7 +167,7 @@ import {
 </template>
 ```
 
-## Field Legend
+## Field legend
 
 Use `FieldLegend` (or `<legend>`) to describe the fieldset.
 
@@ -190,7 +184,7 @@ import { FieldLegend, FieldSet } from "opui-css/vue"
 </template>
 ```
 
-## Field Description
+## Field description
 
 Use `FieldDescription` (or `.ui-field-description`) to give extra context about the fieldset.
 
@@ -208,7 +202,7 @@ import { FieldDescription, FieldLegend, FieldSet } from "opui-css/vue"
 </template>
 ```
 
-## Field Group
+## Field group
 
 Use `FieldGroup` to wrap related fields. It provides a shared`name` to all nested inputs.
 
@@ -334,7 +328,7 @@ import {
 </template>
 ```
 
-## Kitchen Sink
+## Kitchen sink
 
 Everything all at once.
 

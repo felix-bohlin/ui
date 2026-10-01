@@ -485,6 +485,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 | `color`    | `"critical"`, `"primary"`           | -       | Optional colors.                                                            |
 | `disabled` | `boolean`                           | `false` | Disables the button.                                                        |
 | `href`     | `string`                            | -       | The link to use. Renders an `<a>`.                                          |
+| `label`    | `string`                            | -       | The accessible name. Use it on icon-only buttons.                           |
 | `ripple`   | `boolean`                           | `false` | A halo behind the button on hover instead of a background change.           |
 | `rounded`  | `boolean`                           | `false` | Fully rounded corners, a circle when icon-only.                             |
 | `size`     | `"x-small"`, `"small"`, `"large"`   | -       | The size of the element.                                                    |

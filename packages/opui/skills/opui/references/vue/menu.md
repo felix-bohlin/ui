@@ -233,6 +233,109 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
 | `shortcut`     | `string`  | -       | Keyboard shortcut hint.             |
 | any other key  | `unknown` | -       | Passed to the item element.         |
 
+## Under the hood
+
+1. Popover
+
+   - `popover`: top layer, light dismiss, `Esc` to close
+   - Invoker Commands: `commandfor` + `command`, no JavaScript
+   - Without positioning it opens in the middle of the viewport
+
+2. Anchor
+
+   - The invoker is the implicit anchor: no `anchor-name`, no ids to wire
+   - `position-area` places it below, spanning towards the end
+   - `anchor-size(inline)` keeps it at least as wide as the trigger
+
+3. Flip
+
+   - Scroll the trigger to the bottom of the window and open it again
+   - The browser tries each fallback when the menu would overflow
+
+4. Animate
+
+   - `@starting-style` gives the entry transition a starting point
+   - `allow-discrete` keeps `display` and `overlay` alive during the exit
+
+Step 1 of 4: Popover
+
+- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [Popover](https://webstatus.dev/features/popover) (Newly available): Chrome 116+, Edge 116+, Firefox 125+, Safari 17+
+
+```html
+<button commandfor="menu" command="toggle-popover">Options</button>
+
+
+<menu class="menu" id="menu" popover>
+  <li>
+    <button commandfor="menu" command="hide-popover">Edit</button>
+  </li>
+</menu>
+```
+
+```css
+.menu {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-3);
+  padding: 0.25rem 0;
+}
+```
+
+Step 2 of 4: Anchor
+
+- [Anchor positioning](https://webstatus.dev/features/anchor-positioning) (Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+
+```css
+.menu {
+  inset: auto;
+  margin: 0.25rem 0;
+  min-inline-size: max(10rem, anchor-size(inline));
+  position-area: block-end span-inline-end;
+}
+```
+
+Step 3 of 4: Flip
+
+```css
+.menu {
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
+}
+```
+
+Step 4 of 4: Animate
+
+- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
+- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+
+```css
+.menu {
+  opacity: 0;
+  scale: 0.96;
+  transition:
+    display 0.15s allow-discrete,
+    opacity 0.15s,
+    overlay 0.15s allow-discrete,
+    scale 0.15s;
+}
+
+
+.menu:popover-open {
+  opacity: 1;
+  scale: 1;
+
+
+  @starting-style {
+    opacity: 0;
+    scale: 0.96;
+  }
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v144.

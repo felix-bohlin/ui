@@ -19,7 +19,7 @@ const Tag = (as || (href ? "a" : "div")) as any
 
 <Tag
   class:list={[
-    { "ui-avatar": !isGroup },
+    { "ui-avatar": !isGroup, "ui-avatar-group": isGroup },
     !isGroup && variant && `ui-${variant}`,
     className,
   ]}

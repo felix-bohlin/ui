@@ -2,6 +2,7 @@
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import TabsBuild from "../../components/UnderTheHood/TabsBuild.astro"
 import { Table, Tabs as UITabs } from "@opui/astro"
 
 import TabsCSS from "@opui/css/components/tabs.css?raw"
@@ -88,6 +89,18 @@ import tabsApi from "../../component-api/tabs/api"
       bordered track without a background.
     </p>
     <AutoExample name="Outlined" />
+  </section>
+
+  <section>
+    <h2 id="scrollable">Scrollable</h2>
+    <p>
+      Tabs wrap onto more rows when they don't fit. Use <code>scrollable</code>
+      (<code>.ui-scrollable</code>) to keep them on one row and scroll them
+      sideways instead. The open panel stays in view, and up to 20 tabs are
+      supported. The tabs size to their container, so give them a width inside
+      flex and grid layouts that size to their content.
+    </p>
+    <AutoExample name="Scrollable" />
   </section>
 
   <Fragment slot="accessibility">
@@ -184,4 +197,5 @@ import tabsApi from "../../component-api/tabs/api"
       </li>
     </ul>
   </Fragment>
+  <TabsBuild slot="under-the-hood" />
 </Component>

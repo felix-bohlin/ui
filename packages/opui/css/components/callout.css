@@ -19,7 +19,7 @@
     --_outlined-color: var(--text-primary);
     --_outlined-icon-color: currentColor;
 
-    background-color: var(--_bg-color, var(--_surface-bg));
+    background-color: var(--_surface-bg);
     border: 1px solid var(--_border-color, var(--border-color));
     border-radius: var(--_border-radius);
     color: var(--_color);

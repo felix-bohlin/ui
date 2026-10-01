@@ -132,11 +132,11 @@ import { List, ListItem } from "opui-css/astro"
 
 
 <List>
-  <ListItem aria-selected="true">
-    <a href="#">
+  <ListItem>
+    <a href="#" aria-current="page">
       <div class="ui-text">
         <p>Selected item</p>
-        <p>This item has aria-selected="true" applied to the ListItem</p>
+        <p>This item has aria-current="page" on its link</p>
       </div>
     </a>
   </ListItem>
@@ -497,6 +497,7 @@ import { ListItem } from "opui-css/astro"
   <ListItem headline="Gutterless list item">
     <button
       slot="end"
+      aria-label="Delete"
       class="ui-button ui-rounded ui-ripple ui-small"
       type="button"
     >

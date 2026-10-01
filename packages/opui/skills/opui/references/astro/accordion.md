@@ -293,6 +293,93 @@ import { Accordion } from "opui-css/astro"
 </Accordion>
 ```
 
+## How it's made
+
+**Accordion that animates to auto**`accordion.css`
+
+Step 1: Details
+
+- `<details>` and `<summary>`: keyboard, focus and state for free
+- Opens and closes instantly
+
+```css
+.accordion > summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+```
+
+Step 2: Animate to auto
+
+- `interpolate-size: allow-keywords` lets `block-size` transition to `auto`
+- `::details-content` targets the hidden part
+- `allow-discrete` keeps the content visible until the close transition ends
+
+```css
+.accordion {
+  interpolate-size: allow-keywords;
+}
+
+
+.accordion::details-content {
+  block-size: 0;
+  opacity: 0;
+  overflow-y: clip;
+  transition:
+    block-size 0.2s,
+    content-visibility 0.2s allow-discrete,
+    opacity 0.2s;
+}
+
+
+.accordion[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}
+```
+
+Step 3: Marker
+
+- `list-style: none` removes the native marker
+- Three marker animations: `flip`, `rotate`, `turn`
+- Individual transform properties (`rotate`, `scale`) transition independently
+
+```css
+.accordion > summary {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+
+
+.accordion > summary::-webkit-details-marker {
+  display: none;
+}
+
+
+.accordion > summary svg {
+  transition:
+    rotate 0.2s,
+    scale 0.2s;
+}
+
+
+.marker-flip[open] > summary svg {
+  scale: 1 -1;
+}
+
+
+.marker-rotate[open] > summary svg {
+  rotate: 180deg;
+}
+
+
+.marker-turn[open] > summary svg {
+  rotate: 90deg;
+}
+```
+
 ## Accessibility
 
 The [WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) for accordions recommend:

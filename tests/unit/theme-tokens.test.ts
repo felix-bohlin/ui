@@ -1,6 +1,7 @@
 import { describe, expect, test } from "vitest"
 import { generateCss } from "../../src/components/ThemeGenerator/generateCss"
 import { TOKENS, tokenDefaults } from "../../src/utils/theme-store"
+import { themeTokenDescriptions } from "../../src/utils/theme-token-descriptions"
 import {
   parseThemeTokens,
   setThemeToken,
@@ -37,6 +38,19 @@ describe("theme tokens", () => {
     expect(find("--palette-hue-rotate-by")?.value).toBe("0")
     expect(find("--palette-source")).toBeUndefined()
     expect(find("--color-scheme")).toBeUndefined()
+  })
+
+  test("every token has a description and no description is stale", () => {
+    const names = tokens.map((token) => token.name)
+    for (const name of names) {
+      expect(themeTokenDescriptions[name], name).toBeTruthy()
+    }
+    for (const name of Object.keys(themeTokenDescriptions)) {
+      expect(names, name).toContain(name)
+    }
+    expect(Object.keys(themeTokenDescriptions)).toEqual(
+      Object.keys(themeTokenDescriptions).toSorted(),
+    )
   })
 
   test("every store token exists in theme.css", () => {

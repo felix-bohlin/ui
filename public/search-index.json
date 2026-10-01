@@ -1021,6 +1021,33 @@
     "url": "/vue/guide/theme-generator"
   },
   {
+    "id": "guide-theme-tokens-html",
+    "title": "Theme tokens",
+    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, in a layer above theme or unlayered.",
+    "headings": "Overriding tokens",
+    "category": "Guide",
+    "frameworkId": "html",
+    "url": "/html/guide/theme-tokens"
+  },
+  {
+    "id": "guide-theme-tokens-astro",
+    "title": "Theme tokens",
+    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, in a layer above theme or unlayered.",
+    "headings": "Overriding tokens",
+    "category": "Guide",
+    "frameworkId": "astro",
+    "url": "/astro/guide/theme-tokens"
+  },
+  {
+    "id": "guide-theme-tokens-vue",
+    "title": "Theme tokens",
+    "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, in a layer above theme or unlayered.",
+    "headings": "Overriding tokens",
+    "category": "Guide",
+    "frameworkId": "vue",
+    "url": "/vue/guide/theme-tokens"
+  },
+  {
     "id": "guide-why-opui-html",
     "title": "Why Open Props UI?",
     "description": "A CSS UI library exploring how next-gen HTML & CSS features can change the\n    way we create components. Designed to be used by professional teams as well\n    as tinkering hobbyists.",

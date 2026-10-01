@@ -38,7 +38,9 @@
       position-try-fallbacks:
         flip-block,
         flip-inline,
-        flip-block flip-inline;
+        flip-block flip-inline,
+        --ui-menu-block-end,
+        --ui-menu-block-start;
       scale: 0.96;
       transition:
         display var(--_transition-duration) allow-discrete,
@@ -111,4 +113,14 @@
       padding-block: var(--size-2) var(--size-1);
     }
   }
+}
+
+@position-try --ui-menu-block-end {
+  margin: var(--_offset) 0;
+  position-area: block-end span-all;
+}
+
+@position-try --ui-menu-block-start {
+  margin: var(--_offset) 0;
+  position-area: block-start span-all;
 }

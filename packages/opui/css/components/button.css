@@ -11,12 +11,12 @@
     --_accent-tonal-contrast: var(--_color);
 
     --_default-hover-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.01 h / 10%),
-      oklch(from var(--_accent) l 0.01 h / 20%)
+      oklch(from var(--_accent) l 0.01 h / var(--state-hover-alpha)),
+      oklch(from var(--_accent) l 0.01 h / var(--state-hover-alpha-dark))
     );
     --_default-active-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.06 h / 20%),
-      oklch(from var(--_accent) l 0.06 h / 30%)
+      oklch(from var(--_accent) l 0.06 h / var(--state-active-alpha)),
+      oklch(from var(--_accent) l 0.06 h / var(--state-active-alpha-dark))
     );
 
     --_filled-hover-bg-color: light-dark(
@@ -33,12 +33,16 @@
     &.ui-primary,
     /* Color inherited from Button Group. */
     :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) > & {
-      --_color-contrast: var(--gray-1);
+      --_color-contrast: var(--primary-contrast);
       --_color-tonal: var(--color-6);
       --_accent-tonal-contrast: var(--text-primary-contrast);
 
-      --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
-      --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
+      --_default-hover-bg-color: oklch(
+        from var(--_accent) l c h / var(--state-hover-alpha-accent)
+      );
+      --_default-active-bg-color: oklch(
+        from var(--_accent) l c h / var(--state-active-alpha-accent)
+      );
 
       --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
       --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
@@ -64,7 +68,7 @@
     --_font-size: var(--font-size-1);
     --_icon-size: 0.7lh;
     --_min-height: var(--button-size);
-    --_border-radius: var(--button-border-radius, var(--radius-2));
+    --_border-radius: var(--button-border-radius);
     --_padding-inline: 1.5ex;
     --_text-color: var(--_accent);
 
@@ -77,7 +81,7 @@
     color: var(--_text-color);
     display: inline-flex;
     font-size: var(--_font-size);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     gap: var(--size-2);
     justify-content: center;
     min-block-size: var(--_min-height);
@@ -86,21 +90,17 @@
     text-align: center;
     text-decoration: none;
     transition:
-      background-color calc(0.1s * var(--_motion)) ease,
-      color calc(0.1s * var(--_motion)) ease,
-      border-color calc(0.1s * var(--_motion)) ease;
+      background-color calc(var(--duration-fast) * var(--_motion)) var(--ease),
+      color calc(var(--duration-fast) * var(--_motion)) var(--ease),
+      border-color calc(var(--duration-fast) * var(--_motion)) var(--ease);
     user-select: none;
 
     /* Disabled */
     &:where([disabled], [aria-disabled="true"], .ui-disabled) {
-      --_text-color: color-mix(
-        in oklch,
-        var(--text-muted) 50%,
-        var(--surface-default)
-      );
+      --_text-color: var(--text-disabled);
 
       cursor: not-allowed;
-      opacity: 0.64;
+      opacity: var(--disabled-opacity);
     }
 
     &:where(a):where([aria-disabled="true"], .ui-disabled) {
@@ -267,7 +267,7 @@
         position: absolute;
         transform: translate(-50%, -50%) translateZ(-1px)
           scale(var(--_ripple-scale));
-        transition: transform calc(0.2s * var(--_motion)) ease;
+        transition: transform calc(var(--duration) * var(--_motion)) var(--ease);
       }
 
       &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {

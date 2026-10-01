@@ -17,6 +17,8 @@ export const COMPONENTS = readdirSync(examplesDir, { withFileTypes: true })
   .map((entry) => entry.name)
   .toSorted()
 
+export const FIXTURES = [...COMPONENTS, "theming"].toSorted()
+
 export const hasExample = (
   framework: Framework,
   component: string,

@@ -1,7 +1,14 @@
 ---
 import { Table } from "@opui/astro"
 import type { Framework } from "../component-api/frameworks"
-import { htmlRows, partLabel, propRows, slotRows } from "../component-api/rows"
+import {
+  cssVarRows,
+  htmlRows,
+  partLabel,
+  propRows,
+  slotRows,
+} from "../component-api/rows"
+import DocLink from "./DocLink.astro"
 import type { ComponentApi } from "../component-api/types"
 import { checkApi } from "../utils/component-source"
 import { formatInline } from "../utils/format-inline"
@@ -29,6 +36,7 @@ const parts = component
       name: partLabel(api, part, "html"),
     }))
 const note = api.notes?.[framework]
+const cssVars = cssVarRows(api)
 
 const splitType = (type: string) => type.split("|").map((part) => part.trim())
 ---
@@ -162,6 +170,55 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
         </div>
       </Fragment>
     ))
+}
+
+{
+  cssVars.length > 0 && (
+    <Fragment>
+      <SlotsHeading>CSS variables</SlotsHeading>
+      <div class="table-scroll wide">
+        <Table>
+          <Table.ColumnGroup>
+            <Table.Column width="min-width: 20%" />
+            <Table.Column width="min-width: 20%" />
+            <Table.Column width="min-width: 300px" />
+          </Table.ColumnGroup>
+          <Table.Head>
+            <Table.Row>
+              <Table.HeaderCell>Variable</Table.HeaderCell>
+              <Table.HeaderCell>Default</Table.HeaderCell>
+              <Table.HeaderCell>Description</Table.HeaderCell>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            {cssVars.map((row) => (
+              <Table.Row>
+                <Table.Cell>
+                  <code>{row.name}</code>
+                </Table.Cell>
+                <Table.Cell>
+                  {row.default ? <code>{row.default}</code> : "Unset"}
+                  {row.dark && (
+                    <Fragment>
+                      <br />
+                      <code>{row.dark}</code> in dark mode
+                    </Fragment>
+                  )}
+                </Table.Cell>
+                <Table.Cell set:html={formatInline(row.description)} />
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </div>
+      <p>
+        Theme tokens this component reads. Override them on <code>html</code>
+        or on a wrapper. See{" "}
+        <DocLink href="/guide/theme-tokens">theme tokens</DocLink>
+        for the full list.
+      </p>
+    </Fragment>
+  )
 }
 
 {note && <p set:html={formatInline(note)} />}

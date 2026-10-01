@@ -155,9 +155,9 @@ const descText =
       content: "";
       inset: 0;
       opacity: 0.3;
+      pointer-events: none;
       position: fixed;
       z-index: -1;
-      pointer-events: none;
     }
 
     .sidebar,
@@ -258,6 +258,10 @@ const descText =
     }
 
     .sidebar:not(#sidebar-drawer) {
+      animation-fill-mode: none;
+
+      animation-name: sidebar-detect-scroll;
+      animation-timeline: --sidebar-scroll;
       /* Scroll-driven gradient shadows */
       scroll-timeline: --sidebar-scroll y;
 
@@ -276,7 +280,10 @@ const descText =
       }
 
       &::before {
-        inset-block-start: 0;
+        animation-fill-mode: both;
+        animation-name: sidebar-shadow-reveal;
+        animation-range: 0 150px;
+        animation-timeline: --sidebar-scroll;
         background: radial-gradient(
           farthest-side at 50% 0%,
           color-mix(
@@ -286,14 +293,15 @@ const descText =
           ),
           transparent
         );
-        animation-name: sidebar-shadow-reveal;
-        animation-timeline: --sidebar-scroll;
-        animation-fill-mode: both;
-        animation-range: 0 150px;
+        inset-block-start: 0;
       }
 
       &::after {
-        inset-block-end: 0;
+        animation-direction: reverse;
+        animation-fill-mode: both;
+        animation-name: sidebar-shadow-reveal;
+        animation-range: calc(100% - 150px) 100%;
+        animation-timeline: --sidebar-scroll;
         background: radial-gradient(
           farthest-side at 50% 100%,
           color-mix(
@@ -303,16 +311,8 @@ const descText =
           ),
           transparent
         );
-        animation-name: sidebar-shadow-reveal;
-        animation-timeline: --sidebar-scroll;
-        animation-fill-mode: both;
-        animation-direction: reverse;
-        animation-range: calc(100% - 150px) 100%;
+        inset-block-end: 0;
       }
-
-      animation-name: sidebar-detect-scroll;
-      animation-timeline: --sidebar-scroll;
-      animation-fill-mode: none;
 
       &::before,
       &::after {
@@ -385,8 +385,8 @@ const descText =
 
       @scope (&) to (.example-container) {
         :where(h2, h3, h4, h5, h6) {
-          display: flex;
           align-items: center;
+          display: flex;
           gap: var(--size-2);
 
           .header-anchor {

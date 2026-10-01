@@ -2,10 +2,14 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Callout",
-  notes: {
-    html: 'The root needs `role="note"`.',
-  },
   options: [
+    {
+      default: "3",
+      description: "The heading level of the title.",
+      frameworks: ["astro", "vue"],
+      prop: "headingLevel",
+      type: "2 | 3 | 4 | 5 | 6",
+    },
     {
       description: "The severity. Sets the color and the default icon.",
       group: "Severities",

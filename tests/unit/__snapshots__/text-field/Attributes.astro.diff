@@ -1,0 +1,12 @@
+===================================================================
+--- html
++++ astro
+@@ -1,6 +1,6 @@
+-<label class="ui-text-field">
++<label class="ui-text-field" data-testid="email">
+   <span class="ui-label">Email</span>
+   <span class="ui-field">
+-    <input data-testid="email" placeholder="name@example.com" required type="email">
++    <input placeholder="name@example.com" required type="email">
+   </span>
+ </label>

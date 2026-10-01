@@ -183,3 +183,8 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 - Safari: Full support Supported since v18.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+
+## Installation
+
+- `opui-css/css/components/table.css`
+

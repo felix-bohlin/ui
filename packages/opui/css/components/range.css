@@ -1,3 +1,9 @@
+@property --_track-fill {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
 @layer components.root {
   :where(.ui-range) {
     --_motion: var(--motion, 1);
@@ -92,7 +98,6 @@
     &.ui-spread {
       align-items: center;
       column-gap: var(--size-4);
-      container-type: inline-size;
       grid-template-columns: 1fr auto;
 
       .ui-label {
@@ -185,13 +190,13 @@
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {
-      --_thumb-bg: var(--color-9);
-      --_thumb-highlight-color: oklch(from var(--color-9) 70% 100% h / 20%);
+      --_thumb-bg: var(--critical);
+      --_thumb-highlight-color: oklch(from var(--critical) 70% 100% h / 20%);
 
       .ui-start-text,
       .ui-end-text,
       .ui-value {
-        color: var(--color-9);
+        color: var(--critical);
       }
     }
 
@@ -225,13 +230,19 @@
       /* Track */
       &::-webkit-slider-runnable-track {
         appearance: none;
-        background: linear-gradient(
-          to right,
-          var(--_track-fill-color) var(--_track-fill, 0%),
-          var(--_track-color) 0%
+        background-color: var(--_track-color);
+        background-image: linear-gradient(
+          var(--_track-fill-color),
+          var(--_track-fill-color)
         );
+        background-repeat: no-repeat;
+        background-size: var(--_track-fill, 0%) 100%;
         block-size: var(--_track-height);
         border-radius: var(--_track-radius);
+      }
+
+      &:dir(rtl)::-webkit-slider-runnable-track {
+        background-position: right;
       }
 
       &::-moz-range-track {
@@ -262,10 +273,6 @@
         margin-block-start: var(--_thumb-offset);
 
         transition: box-shadow calc(0.1s * var(--_motion)) ease;
-
-        .ui-fieldset-item:focus-within & {
-          border-color: var(--gray-14);
-        }
       }
 
       &::-moz-range-thumb {
@@ -281,16 +288,12 @@
         margin-block-start: var(--_thumb-offset);
 
         transition: box-shadow calc(0.1s * var(--_motion)) ease;
-
-        .ui-fieldset-item:focus-within & {
-          border-color: var(--gray-14);
-        }
       }
 
       /* Element state */
       .ui-range:has(:user-invalid) &,
       .ui-range[data-invalid] & {
-        --_track-fill-color: var(--color-9);
+        --_track-fill-color: var(--critical);
       }
 
       &:not([disabled]) {

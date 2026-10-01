@@ -49,24 +49,27 @@ import { Button } from "opui-css/astro"
 
 ## Theming
 
-The basic idea is to define one source color, `--palette-source`, and then derive the rest of the 16-step palette from it.
+The basic idea is to pick one hue and chroma, and derive a 16-step palette from them. `theme.css` sets `--palette-hue` and `--palette-chroma`, and `core/palette.css` turns them into a source color, `--palette-source`, and the `--color-1` to `--color-16` steps.
 
 ```css
 :where(html) {
-  --palette-source: oklch(0.58 0.18 264);
+  --palette-hue: 264;
+  --palette-chroma: 0.5;
   --palette-hue-rotate-by: 0;
 }
 ```
 
-- **Must be `oklch()`.**
+- **`--palette-hue`** is a hue angle in degrees. Open Props' `--hue-*` tokens work here.
+- **`--palette-chroma`** scales the saturation, from`0` (gray) to `1`.
 - **`--palette-hue-rotate-by`** is a separate knob for per-step warm/cool drift, in degrees.
 
-  You can override the source color anywhere you want for useful or cool effect:
-  ```css
-  :where(.ui-warning) {
-    --palette-source: oklch(0.58 0.21 var(--hue-orange));
-  }
-  ```
+You can also set `--palette-source` directly (it must be an `oklch()` color), and you can override it anywhere you want for useful or cool effect:
+
+```css
+:where(.ui-warning) {
+  --palette-source: oklch(0.58 0.21 var(--hue-orange));
+}
+```
 
 ## Motion
 

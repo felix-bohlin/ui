@@ -274,13 +274,14 @@ import { Badge } from "opui-css/vue"
 
 ### Badge API
 
-| Prop        | Type                                                          | Default | Description                                      |
-| ----------- | ------------------------------------------------------------- | ------- | ------------------------------------------------ |
-| `alignment` | `"start-start"`, `"end-start"`, `"end-end"`                   | -       | Where the indicator is placed.                   |
-| `color`     | `"critical"`, `"info"`, `"neutral"`, `"success"`, `"warning"` | -       | Optional colors.                                 |
-| `dot`       | `boolean`                                                     | `false` | Renders the indicator as a dot, without a label. |
-| `invisible` | `boolean`                                                     | `false` | Hides the indicator.                             |
-| `label`     | `string`, `number`                                            | -       | The indicator, inside `.ui-anchor-floating`.     |
+| Prop        | Type                                                          | Default | Description                                                                                |
+| ----------- | ------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------ |
+| `alignment` | `"start-start"`, `"end-start"`, `"end-end"`                   | -       | Where the indicator is placed.                                                             |
+| `color`     | `"critical"`, `"info"`, `"neutral"`, `"success"`, `"warning"` | -       | Optional colors.                                                                           |
+| `dot`       | `boolean`                                                     | `false` | Renders the indicator as a dot, without a label.                                           |
+| `invisible` | `boolean`                                                     | `false` | Hides the indicator.                                                                       |
+| `label`     | `string`, `number`                                            | -       | The indicator, inside `.ui-anchor-floating`.                                               |
+| `srLabel`   | `string`                                                      | -       | Visually hidden text that describes the badge to assistive technology, such as "3 unread". |
 
 #### Slots
 

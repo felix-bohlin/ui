@@ -5,7 +5,6 @@
     --_accent-contrast: var(--primary-contrast);
 
     --_dot-bg-color: light-dark(var(--gray-11), var(--gray-14));
-    --_dot-inset: var(--size-1) auto auto var(--size-1);
     --_dot-outline-size: 0;
     --_dot-size: var(--size-3);
 
@@ -57,7 +56,8 @@
         border-radius: var(--radius-round);
         content: "";
         inline-size: var(--_dot-size);
-        inset: var(--_dot-inset);
+        inset-block-start: var(--size-1);
+        inset-inline-start: var(--size-1);
         outline: var(--_dot-outline-size) solid var(--_dot-bg-color);
         outline-offset: -1px;
         position: absolute;
@@ -99,12 +99,6 @@
 
       &:active:after {
         --_dot-outline-size: calc(var(--size-1) + 1px);
-      }
-
-      &:checked {
-        &:active:after {
-          --_dot-outline-size: calc(var(--size-1) + 1px);
-        }
       }
     }
 
@@ -154,11 +148,12 @@
     }
 
     /* Required dot */
-    &:has(:invalid) {
+    &:has(:required) {
       .ui-label:after {
-        color: var(--red);
+        color: var(--critical);
         content: "*";
-        inset: 0 -0.25ex auto auto;
+        inset-block: 0 auto;
+        inset-inline: auto -0.25ex;
         position: absolute;
       }
     }
@@ -256,7 +251,8 @@
     }
 
     /* Validation */
-    &[data-invalid] {
+    &[data-invalid],
+    &:has(:user-invalid) {
       input {
         border-radius: var(--radius-round);
         outline: 2px solid var(--color-9);

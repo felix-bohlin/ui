@@ -60,9 +60,9 @@ The List component is *extremely* flexible and versatile. Be careful if you star
 
 Change background color with the `variant` prop.
 
-### Filled as default?!
+### Filled by default
 
-Yeah it's a bit weird, but normally you would use a list in a popover/select scenario that needs to contrast against the background. If nothing else, just change it yourself.
+Without a color class the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `default` or `tonal` to match the page surface instead.
 
 ```astro
 ---
@@ -123,7 +123,7 @@ import { CheckboxInput } from "opui-css/astro"
 
 ### Selected item
 
-Add `aria-selected="true"` to the `ListItem`.
+Add `aria-current="page"` to the link inside the `ListItem`.
 
 ```astro
 ---
@@ -132,11 +132,11 @@ import { List, ListItem } from "opui-css/astro"
 
 
 <List>
-  <ListItem aria-selected="true">
-    <a href="#">
+  <ListItem>
+    <a href="#" aria-current="page">
       <div class="ui-text">
         <p>Selected item</p>
-        <p>This item has aria-selected="true" applied to the ListItem</p>
+        <p>This item has aria-current="page" on its link</p>
       </div>
     </a>
   </ListItem>
@@ -497,6 +497,7 @@ import { ListItem } from "opui-css/astro"
   <ListItem headline="Gutterless list item">
     <button
       slot="end"
+      aria-label="Delete"
       class="ui-button ui-rounded ui-ripple ui-small"
       type="button"
     >
@@ -598,16 +599,16 @@ Just add the `dense` prop to the `List`!
 
 ### List item API
 
-| Prop          | Type                                            | Default | Description                                                           |
-| ------------- | ----------------------------------------------- | ------- | --------------------------------------------------------------------- |
-| `as`          | `"div"`, `"button"`, `"a"`, `"li"`              | -       | The element to render inside the `<li>`, such as `"a"` or `"button"`. |
-| `borderTop`   | `boolean`                                       | `false` | Adds a border above the item.                                         |
-| `description` | `string`                                        | -       | Supporting text, the second paragraph.                                |
-| `for`         | `string`                                        | -       | The `for` attribute of the `<label>` when `type` is set.              |
-| `headline`    | `string`                                        | -       | The headline, the first paragraph.                                    |
-| `href`        | `string`                                        | -       | The link to use, with `as="a"`.                                       |
-| `inset`       | `boolean`                                       | `false` | Aligns the text with items that have start content.                   |
-| `type`        | `"button"`, `"checkbox"`, `"radio"`, `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.     |
+| Prop          | Type                                | Default | Description                                                           |
+| ------------- | ----------------------------------- | ------- | --------------------------------------------------------------------- |
+| `as`          | `"div"`, `"button"`, `"a"`, `"li"`  | -       | The element to render inside the `<li>`, such as `"a"` or `"button"`. |
+| `borderTop`   | `boolean`                           | `false` | Adds a border above the item.                                         |
+| `description` | `string`                            | -       | Supporting text, the second paragraph.                                |
+| `for`         | `string`                            | -       | The `for` attribute of the `<label>` when `type` is set.              |
+| `headline`    | `string`                            | -       | The headline, the first paragraph.                                    |
+| `href`        | `string`                            | -       | The link to use, with `as="a"`.                                       |
+| `inset`       | `boolean`                           | `false` | Aligns the text with items that have start content.                   |
+| `type`        | `"checkbox"`, `"radio"`, `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.     |
 
 #### Slots
 

@@ -69,19 +69,13 @@ Used to show a relationship between form elements.
 
 - `FieldLegend`
 
-  ---
-
   to describe what it's about.
 
 - `FieldDescription`(optional)
 
-  ---
-
   to give extra context about the fieldset.
 
 - `FieldGroup`
-
-  ---
 
   groups related fields.
 
@@ -153,7 +147,7 @@ import { Checkbox } from "opui-css/astro"
 </FieldSet>
 ```
 
-## Field Legend
+## Field legend
 
 Use `FieldLegend` (or `<legend>`) to describe the fieldset.
 
@@ -169,7 +163,7 @@ import { FieldLegend } from "opui-css/astro"
 </FieldSet>
 ```
 
-## Field Description
+## Field description
 
 Use `FieldDescription` (or `.ui-field-description`) to give extra context about the fieldset.
 
@@ -187,7 +181,7 @@ import { FieldDescription } from "opui-css/astro"
 </FieldSet>
 ```
 
-## Field Group
+## Field group
 
 Use `FieldGroup` to wrap related fields. It provides a shared`name` to all nested inputs.
 
@@ -308,7 +302,7 @@ import { Divider } from "opui-css/astro"
 </Form>
 ```
 
-## Kitchen Sink
+## Kitchen sink
 
 Everything all at once.
 

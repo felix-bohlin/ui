@@ -2,6 +2,12 @@
 
 Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in `.ui-rich-text`.
 
+### What's new
+
+- [Rich text](#classless) spacing comes from one flow space, with more room above headings than below.
+- Heading sizes and line heights snap to `--rhythm-step`, and the heading scale no longer inverts on narrow screens.
+- [Rich text](#rich-text-showcase) styles tables, `hr` and task lists.
+
 ## Class-based
 
 Utils that you can plop down wherever.
@@ -599,11 +605,84 @@ cold-brew 1.0.0</samp></pre>
 | Classes | `.ui-h1`–`.ui-h6`, `.ui-p`, `.ui-overline`, `.ui-caption`, `.ui-hgroup`, `.ui-blockquote`, `pre.ui-code-block`, inline utilities, `.ui-rich-text` | -       | CSS-only typography. Apply classes on elements in templates; no Astro component. |
 | Sizes   | `.ui-small`, `.ui-large`                                                                                                                          | -       | Size modifiers on `.ui-p`.                                                       |
 
-## Browser support
+## Under the hood
 
-- Chromium: Full support Supported since v143.
-- Firefox: Full support Supported since v146.
-- Safari: Partial support Missing: box-decoration-break.
+1. Unsnapped
+
+   - Stripes mark each line box (`1lh`), dotted lines mark `--rhythm-step`
+   - A plain `line-height` lands between grid lines at most sizes
+
+2. Snap line height
+
+   - `round(up, …, step)` snaps the line height to the next step
+   - `1em + 0.5rem`: tight for large headings, roomy for small ones
+   - One rule for every heading level
+
+3. Snap font size
+
+   - Fluid sizes land on half a step
+   - Drag **Font size**: it moves in steps, not pixels
+
+4. Flow space
+
+   - One flow space derived from the body text
+   - More space above a heading than below: it sits with the text it introduces
+
+Step 1 of 4: Unsnapped
+
+```css
+.prose h2 {
+  font-size: var(--size);
+  line-height: 1.2;
+}
+```
+
+Step 2 of 4: Snap line height
+
+- [`round(), mod(), and rem()`](https://webstatus.dev/features/round-mod-rem) (Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
+
+```css
+.prose h2 {
+  line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
+}
+```
+
+Step 3 of 4: Snap font size
+
+```css
+.prose h2 {
+  font-size: round(var(--size), var(--rhythm-step) / 2);
+}
+```
+
+Step 4 of 4: Flow space
+
+```css
+.prose {
+  --flow-space: 1.25em;
+}
+
+
+.prose > * {
+  margin-block: 0 var(--flow-space);
+}
+
+
+.prose h2 {
+  margin-block: calc(var(--flow-space) * 1.5) calc(var(--flow-space) * 0.5);
+}
+```
+
+### Browser support
+
+Modern CSS and HTML features this component uses.
+
+- [`box-decoration-break`](https://webstatus.dev/features/box-decoration-break) (Limited availability): Chrome 130+, Edge 130+, Firefox 32+, Safari not supported
+- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Registered custom properties](https://webstatus.dev/features/registered-custom-properties) (Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
+- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [`round(), mod(), and rem()`](https://webstatus.dev/features/round-mod-rem) (Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
+- [`@scope`](https://webstatus.dev/features/scope) (Newly available): Chrome 143+, Edge 143+, Firefox 146+, Safari 26.2+
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
 

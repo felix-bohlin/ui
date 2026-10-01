@@ -1,7 +1,8 @@
 ---
 import type { TabsItemProps as Props } from "./types.astro"
+import { createId } from "../id"
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const {
   class: className,
   name,

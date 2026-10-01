@@ -10,7 +10,7 @@
     position: relative;
 
     &::before {
-      animation: spin 0.7s linear infinite;
+      animation: ui-spin 0.7s linear infinite;
       block-size: 1em;
       border-color: transparent currentColor currentColor;
       border-radius: 50%;
@@ -30,7 +30,7 @@
     }
   }
 
-  @keyframes spin {
+  @keyframes ui-spin {
     to {
       transform: rotate(1turn);
     }

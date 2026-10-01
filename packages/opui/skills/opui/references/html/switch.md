@@ -163,6 +163,7 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 <div class="example-row ui-spacious">
   <label class="ui-switch" data-invalid>
     <input
+      aria-invalid="true"
       name="switch-validation"
       type="checkbox"
       role="switch"
@@ -177,6 +178,7 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
   <label class="ui-switch ui-stack" data-invalid>
     <input
+      aria-invalid="true"
       name="switch-validation"
       type="checkbox"
       role="switch"
@@ -241,6 +243,7 @@ Add the `.ui-spread` class to the `<label class="ui-switch">`to push the label t
 
 <label class="ui-switch ui-spread" data-invalid>
   <input
+    aria-invalid="true"
     name="switch-spread"
     type="checkbox"
     role="switch"
@@ -613,10 +616,9 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Keyboard support
 
-| Key     | Function                                                |
-| ------- | ------------------------------------------------------- |
-| `Space` | When Switch is focused it changes its state.            |
-| `Enter` | (Optional) When Switch is focused it changes its state. |
+| Key     | Function                                     |
+| ------- | -------------------------------------------- |
+| `Space` | When Switch is focused it changes its state. |
 
 ## API
 

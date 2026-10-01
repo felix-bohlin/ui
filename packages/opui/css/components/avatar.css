@@ -51,7 +51,7 @@
     }
   }
 
-  :where([role="group"]) {
+  :where(.ui-avatar-group) {
     --_margin: var(--size-3);
     --_outline-color: var(--surface-default);
 

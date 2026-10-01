@@ -474,11 +474,126 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `<svg>`      | An optional icon.  |
 | `<span>`     | The label.         |
 
-## Browser support
+## Under the hood
 
-- Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
-- Safari: Full support Supported since v18.
+1. Base
+
+   - Padding in `ex` so it scales with the font
+   - One custom property per size, every size reuses the same rules
+
+2. Icon-only
+
+   - `:has(> svg:only-child)` spots an icon-only button
+   - Square at every size: no `IconButton`, no extra class
+
+3. Icon side
+
+   - Tighter padding on the icon side balances the optical weight
+   - Text nodes aren't elements, so the label needs a `<span>`
+
+4. Ripple
+
+   - `translateZ(-1px)` + `preserve-3d` puts the halo behind the button, no `z-index`
+   - `clip-path: circle()` keeps the halo round
+   - Hover the last button
+
+Step 1 of 4: Base
+
+```css
+.button {
+  align-items: center;
+  background-color: var(--surface-tonal);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2);
+  color: var(--text-primary);
+  display: inline-flex;
+  gap: 1ex;
+  min-block-size: var(--size);
+  padding-inline: var(--padding-inline);
+}
+
+
+.button > svg {
+  flex-shrink: 0;
+  max-block-size: 1.25em;
+}
+```
+
+Step 2 of 4: Icon-only
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+
+```css
+.button:has(> svg:only-child) {
+  justify-content: center;
+  min-inline-size: var(--size);
+  padding-inline: 0;
+}
+```
+
+Step 3 of 4: Icon side
+
+```html
+<button class="button">
+  <svg>…</svg>
+  <span>Download</span>
+</button>
+```
+
+```css
+.button:has(> svg:first-child + *) {
+  padding-inline-start: calc(var(--padding-inline) * 0.75);
+}
+
+
+.button:has(> * + svg:last-child) {
+  padding-inline-end: calc(var(--padding-inline) * 0.75);
+}
+```
+
+Step 4 of 4: Ripple
+
+```css
+.ripple {
+  --ripple-scale: 0.01;
+  border-radius: 50%;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+
+.ripple::before {
+  background-color: oklch(0.6 0 0 / 0.2);
+  block-size: 130%;
+  clip-path: circle(50%);
+  content: "";
+  inline-size: 130%;
+  inset: 50% auto auto 50%;
+  position: absolute;
+  transform: translate(-50%, -50%) translateZ(-1px)
+    scale(var(--ripple-scale));
+  transition: transform 0.2s ease;
+}
+
+
+.ripple:hover {
+  --ripple-scale: 1;
+}
+
+
+.ripple:hover:active {
+  --ripple-scale: 1.1;
+}
+```
+
+### Browser support
+
+Modern CSS and HTML features this component uses.
+
+- [`color-mix()`](https://webstatus.dev/features/color-mix) (Widely available): Chrome 111+, Edge 111+, Firefox 113+, Safari 16.2+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 

@@ -1,5 +1,6 @@
 export type Props = {
   name?: string
+  scrollable?: boolean
   variant?: "filled" | "line" | "outlined"
 }
 

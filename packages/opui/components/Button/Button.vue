@@ -2,7 +2,7 @@
 import { computed } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const { as, color, disabled, href, ripple, rounded, size, variant } =
+const { as, color, disabled, href, label, ripple, rounded, size, variant } =
   defineProps<Props>()
 defineSlots<Slots>()
 
@@ -24,6 +24,8 @@ const isButton = computed(() => Tag.value === "button")
       color && `ui-${color}`,
       $props.class,
     ]"
+    :aria-disabled="!isButton && disabled ? 'true' : undefined"
+    :aria-label="label"
     :disabled="isButton ? disabled : undefined"
     :href="href"
   >

@@ -34,7 +34,12 @@ const describedBy =
   ]}
   data-invalid={error ? "" : undefined}
 >
-  <CheckboxInput {...rest} aria-describedby={describedBy} name={name} />
+  <CheckboxInput
+    {...rest}
+    aria-describedby={describedBy}
+    aria-invalid={error ? "true" : undefined}
+    name={name}
+  />
   <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>
   {
     Astro.slots.has("end-text") && (

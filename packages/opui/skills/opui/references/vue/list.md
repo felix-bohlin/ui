@@ -137,11 +137,11 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem aria-selected="true">
-      <a href="#">
+    <ListItem>
+      <a href="#" aria-current="page">
         <div class="ui-text">
           <p>Selected item</p>
-          <p>This item has aria-selected="true" applied to the ListItem</p>
+          <p>This item has aria-current="page" on its link</p>
         </div>
       </a>
     </ListItem>
@@ -506,7 +506,11 @@ import { List, ListItem } from "opui-css/vue"
   <List gutterless>
     <ListItem headline="Gutterless list item">
       <template #end>
-        <button class="ui-button ui-rounded ui-ripple ui-small" type="button">
+        <button
+          aria-label="Delete"
+          class="ui-button ui-rounded ui-ripple ui-small"
+          type="button"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"

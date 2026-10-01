@@ -93,7 +93,10 @@ LabelDescriptionOption one (1)¢EURHeaderFooterSupporting text
 <label class="ui-select">
   <span class="ui-label" id="select-supporting-1-label">Label</span>
   <span class="ui-field">
-    <select aria-labelledby="select-supporting-1-label">
+    <select
+      aria-describedby="select-supporting-1-end-text"
+      aria-labelledby="select-supporting-1-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -114,7 +117,10 @@ LabelDescriptionOption one (1)¢EURHeaderFooterSupporting text
 <label class="ui-select ui-filled">
   <span class="ui-label" id="select-supporting-2-label">Label</span>
   <span class="ui-field">
-    <select aria-labelledby="select-supporting-2-label">
+    <select
+      aria-describedby="select-supporting-2-end-text"
+      aria-labelledby="select-supporting-2-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -240,7 +246,11 @@ Add a `.ui-prefix` or `.ui-suffix` element inside`.ui-field` to affix content al
   <label class="ui-select" data-invalid>
     <span class="ui-label" id="select-validation-3-label">Label</span>
     <span class="ui-field">
-      <select aria-labelledby="select-validation-3-label">
+      <select
+        aria-describedby="select-validation-3-end-text"
+        aria-invalid="true"
+        aria-labelledby="select-validation-3-label"
+      >
         <button>
           <selectedcontent></selectedcontent>
         </button>
@@ -261,7 +271,11 @@ Add a `.ui-prefix` or `.ui-suffix` element inside`.ui-field` to affix content al
   <label class="ui-select ui-filled" data-invalid>
     <span class="ui-label" id="select-validation-4-label">Label</span>
     <span class="ui-field">
-      <select aria-labelledby="select-validation-4-label">
+      <select
+        aria-describedby="select-validation-4-end-text"
+        aria-invalid="true"
+        aria-labelledby="select-validation-4-label"
+      >
         <button>
           <selectedcontent></selectedcontent>
         </button>
@@ -310,7 +324,10 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label" id="select-orientation-2-label">Language</span>
   <span class="ui-start-text">Choose your preferred language</span>
   <span class="ui-field">
-    <select aria-labelledby="select-orientation-2-label">
+    <select
+      aria-describedby="select-orientation-2-end-text"
+      aria-labelledby="select-orientation-2-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -368,7 +385,11 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label" id="select-orientation-5-label">Invalid Select</span>
   <span class="ui-start-text">This select has an error</span>
   <span class="ui-field">
-    <select aria-labelledby="select-orientation-5-label">
+    <select
+      aria-describedby="select-orientation-5-end-text"
+      aria-invalid="true"
+      aria-labelledby="select-orientation-5-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -407,7 +428,10 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label" id="select-orientation-7-label">Region</span>
   <span class="ui-start-text">Affects data residency and latency</span>
   <span class="ui-field">
-    <select aria-labelledby="select-orientation-7-label">
+    <select
+      aria-describedby="select-orientation-7-end-text"
+      aria-labelledby="select-orientation-7-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>

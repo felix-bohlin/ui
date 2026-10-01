@@ -84,6 +84,7 @@ const endTextId = useId()
           .filter(Boolean)
           .join(' ') || undefined
       "
+      :aria-invalid="props.error ? 'true' : undefined"
       :aria-labelledby="props.label || $slots.default ? labelId : undefined"
       :id="inputId"
       :list="props.list"

@@ -1,10 +1,8 @@
 ---
 import type { Props } from "./types.astro"
-import { createId } from "../id"
 
 export const title = "Accordion"
 
-const $id = createId(Astro.locals)
 const {
   class: className,
   markerAnimation = "rotate",
@@ -13,9 +11,6 @@ const {
   variant,
   ...rest
 } = Astro.props
-
-const summaryId = $id("summary")
-const contentId = $id("content")
 ---
 
 <details
@@ -30,9 +25,7 @@ const contentId = $id("content")
   open={open}
   {...rest}
 >
-  <!-- Summary -->
-
-  <summary id={summaryId} aria-controls={contentId}
+  <summary
     ><slot name="summary" /><slot name="marker"
       ><svg
         xmlns="http://www.w3.org/2000/svg"
@@ -47,17 +40,10 @@ const contentId = $id("content")
     ></summary
   >
 
-  <!-- Content -->
-  <div
-    id={contentId}
-    class="ui-content"
-    role="region"
-    aria-labelledby={summaryId}
-  >
+  <div class="ui-content">
     <slot />
   </div>
 
-  <!-- Actions -->
   {
     Astro.slots.has("actions") && (
       <div class="ui-actions">

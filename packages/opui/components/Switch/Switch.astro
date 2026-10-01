@@ -59,7 +59,12 @@ if (
       </span>
     )
   }
-  <SwitchInput {...rest} aria-describedby={describedBy} name={name} />
+  <SwitchInput
+    {...rest}
+    aria-describedby={describedBy}
+    aria-invalid={error ? "true" : undefined}
+    name={name}
+  />
   {
     Astro.slots.has("default") && (
       <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>

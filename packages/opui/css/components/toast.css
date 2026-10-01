@@ -59,7 +59,8 @@
     padding: var(--size-3) var(--size-4);
     pointer-events: auto;
 
-    &:hover {
+    &:hover,
+    &:focus-within {
       animation-play-state: paused;
     }
 

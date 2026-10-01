@@ -71,6 +71,7 @@ import { Callout } from "opui-css/astro"
 
 <Callout>
   <svg
+    aria-hidden="true"
     slot="icon"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -102,6 +103,7 @@ import { Callout } from "opui-css/astro"
 <Callout severity="neutral">This is a tonal neutral Callout</Callout>
 <Callout severity="info">
   <svg
+    aria-hidden="true"
     slot="icon"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -116,6 +118,7 @@ import { Callout } from "opui-css/astro"
 </Callout>
 <Callout severity="warning">
   <svg
+    aria-hidden="true"
     slot="icon"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -130,6 +133,7 @@ import { Callout } from "opui-css/astro"
 </Callout>
 <Callout severity="critical">
   <svg
+    aria-hidden="true"
     slot="icon"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -148,6 +152,7 @@ import { Callout } from "opui-css/astro"
 >
 <Callout variant="outlined" severity="info">
   <svg
+    aria-hidden="true"
     slot="icon"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -162,6 +167,7 @@ import { Callout } from "opui-css/astro"
 </Callout>
 <Callout variant="outlined" severity="warning">
   <svg
+    aria-hidden="true"
     slot="icon"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -176,6 +182,7 @@ import { Callout } from "opui-css/astro"
 </Callout>
 <Callout variant="outlined" severity="critical">
   <svg
+    aria-hidden="true"
     slot="icon"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -199,10 +206,11 @@ import { Callout } from "opui-css/astro"
 
 ### Callout API
 
-| Prop       | Type                                                          | Default   | Description                                        |
-| ---------- | ------------------------------------------------------------- | --------- | -------------------------------------------------- |
-| `severity` | `"critical"`, `"info"`, `"neutral"`, `"success"`, `"warning"` | -         | The severity. Sets the color and the default icon. |
-| `variant`  | `"outlined"`, `"tonal"`                                       | `"tonal"` | The variant to use.                                |
+| Prop           | Type                                                          | Default   | Description                                        |
+| -------------- | ------------------------------------------------------------- | --------- | -------------------------------------------------- |
+| `headingLevel` | `2`, `3`, `4`, `5`, `6`                                       | `3`       | The heading level of the title.                    |
+| `severity`     | `"critical"`, `"info"`, `"neutral"`, `"success"`, `"warning"` | -         | The severity. Sets the color and the default icon. |
+| `variant`      | `"outlined"`, `"tonal"`                                       | `"tonal"` | The variant to use.                                |
 
 #### Slots
 

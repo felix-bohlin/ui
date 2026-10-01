@@ -46,6 +46,7 @@ const endTextId = useId()
     </span>
 
     <SwitchInput
+      :aria-invalid="props.error ? 'true' : undefined"
       v-bind="$attrs"
       v-model="modelValue"
       :aria-describedby="

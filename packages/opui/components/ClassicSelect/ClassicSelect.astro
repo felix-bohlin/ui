@@ -23,6 +23,7 @@ const {
 const $id = createId(Astro.locals)
 const selectId = id || $id("select")
 const labelId = $id("select-label")
+const endTextId = endText ? $id("end-text") : undefined
 ---
 
 <label
@@ -45,6 +46,8 @@ const labelId = $id("select-label")
   }
   <span class="ui-field">
     <select
+      aria-describedby={endTextId}
+      aria-invalid={error ? "true" : undefined}
       aria-labelledby={label || Astro.slots.has("label") ? labelId : undefined}
       disabled={disabled}
       id={selectId}
@@ -65,5 +68,11 @@ const labelId = $id("select-label")
       <slot />
     </select>
   </span>
-  {endText && <span class="ui-end-text">{endText}</span>}
+  {
+    endText && (
+      <span class="ui-end-text" id={endTextId}>
+        {endText}
+      </span>
+    )
+  }
 </label>

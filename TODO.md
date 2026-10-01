@@ -19,6 +19,7 @@
 - [?] Running pnpm scripts adds `@pnpm/exe` to `pnpm-lock.yaml`
 - [x] Icon button disabled text color never applies: `rgb(0, 0, 0/0.3)` mixes comma and slash syntax
 - [] `--primary-contrast` on `--primary` is 3.97:1 (AA needs 4.5:1): filled Tabs selected tab and primary filled Buttons. Axe misses the Tabs case because the fill is a pseudo-element
+- [] 47 `color-contrast` entries in `a11y-known-violations.json` can't be fixed in `theme.css` alone: dark mode needs `--primary-contrast` to flip and components (Button, TextField, Typography) to read it instead of `--gray-1` / `--color-9`. Also the Anchor fixture's unstyled `<button>` and List `kbd`
 
 ## Docs
 

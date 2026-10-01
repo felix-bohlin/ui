@@ -6,39 +6,18 @@
       oklch(from var(--_button-bg-color) calc(l + 0.3) c h),
       oklch(from var(--_button-bg-color) calc(l - 0.3) c h)
     );
-    --_button-chevron-arm: calc(var(--_button-size) * 3 / 16);
-    --_button-chevron-falling: linear-gradient(
-      to top right,
-      transparent calc(50% - var(--_button-chevron-stroke) / 2 - 0.5px),
-      var(--_button-color) calc(50% - var(--_button-chevron-stroke) / 2 + 0.5px)
-        calc(50% + var(--_button-chevron-stroke) / 2 - 0.5px),
-      transparent calc(50% + var(--_button-chevron-stroke) / 2 + 0.5px)
-    );
-    --_button-chevron-rising: linear-gradient(
-      to bottom right,
-      transparent calc(50% - var(--_button-chevron-stroke) / 2 - 0.5px),
-      var(--_button-color) calc(50% - var(--_button-chevron-stroke) / 2 + 0.5px)
-        calc(50% + var(--_button-chevron-stroke) / 2 - 0.5px),
-      transparent calc(50% + var(--_button-chevron-stroke) / 2 + 0.5px)
-    );
-    --_button-chevron-stroke: calc(var(--_button-size) / 16);
-    --_button-color: light-dark(var(--gray-1), var(--gray-15));
     --_button-disabled-border-color: light-dark(
       oklch(from var(--_button-bg-color) calc(l + 0.12) c h),
       oklch(from var(--_button-bg-color) calc(l - 0.12) c h)
     );
     --_button-disabled-opacity: 0;
-    --_button-end-chevron:
-      var(--_button-chevron-falling), var(--_button-chevron-rising);
     --_button-end-icon: var(--_button-next-icon);
     --_button-icon-size: 60%;
     --_button-inset: var(--size-2);
-    --_button-next-icon: none;
-    --_button-prev-icon: none;
+    --_button-next-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cstyle%3Epath{fill:oklch(0.98 0.01 255)}@media (prefers-color-scheme: dark){path{fill:oklch(0.16 0.01 255)}}@media (forced-colors: active){path{fill:CanvasText}}%3C/style%3E%3Cpath d='M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0'/%3E%3C/svg%3E");
+    --_button-prev-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cstyle%3Epath{fill:oklch(0.98 0.01 255)}@media (prefers-color-scheme: dark){path{fill:oklch(0.16 0.01 255)}}@media (forced-colors: active){path{fill:CanvasText}}%3C/style%3E%3Cpath d='M15.707 4.293a1 1 0 0 1 0 1.414L9.414 12l6.293 6.293a1 1 0 0 1-1.414 1.414l-7-7a1 1 0 0 1 0-1.414l7-7a1 1 0 0 1 1.414 0'/%3E%3C/svg%3E");
     --_button-shadow: var(--shadow-2);
     --_button-size: var(--button-size-small);
-    --_button-start-chevron:
-      var(--_button-chevron-rising), var(--_button-chevron-falling);
     --_button-start-icon: var(--_button-prev-icon);
     --_gap: var(--size-3);
     --_item-size: calc(
@@ -106,24 +85,17 @@
       &::scroll-button(inline-start),
       &::scroll-button(inline-end) {
         background-color: var(--_button-bg-color);
-        background-position:
-          50% calc(50% - var(--_button-chevron-arm) / 2),
-          50% calc(50% + var(--_button-chevron-arm) / 2);
+        background-position: center;
         background-repeat: no-repeat;
-        background-size: var(--_button-chevron-arm) var(--_button-chevron-arm);
+        background-size: var(--_button-icon-size);
         block-size: var(--_button-size);
         border: var(--border-width) solid var(--_button-border-color);
         border-radius: var(--radius-round);
         box-shadow: var(--_button-shadow);
-        color: var(--_button-color);
         cursor: pointer;
-        display: grid;
-        font-size: calc(var(--_button-size) * 0.4);
         inline-size: var(--_button-size);
         inset-block-start: anchor(center);
-        line-height: 1;
         padding: 0;
-        place-items: center;
         position: absolute;
         position-anchor: auto;
         transition:
@@ -134,39 +106,19 @@
       }
 
       &::scroll-button(inline-start) {
-        background-image: var(--_button-start-chevron);
+        background-image: var(--_button-start-icon);
         content: "" / var(--_button-prev-label);
         inset-inline-start: calc(anchor(self-start) + var(--_button-inset));
       }
 
       &::scroll-button(inline-end) {
-        background-image: var(--_button-end-chevron);
+        background-image: var(--_button-end-icon);
         content: "" / var(--_button-next-label);
         inset-inline-end: calc(anchor(self-end) + var(--_button-inset));
       }
 
-      @container not style(--_button-start-icon: none) {
-        &::scroll-button(inline-start) {
-          background-image: var(--_button-start-icon);
-          background-position: center;
-          background-size: var(--_button-icon-size);
-        }
-      }
-
-      @container not style(--_button-end-icon: none) {
-        &::scroll-button(inline-end) {
-          background-image: var(--_button-end-icon);
-          background-position: center;
-          background-size: var(--_button-icon-size);
-        }
-      }
-
       &:dir(rtl) {
-        --_button-end-chevron:
-          var(--_button-chevron-rising), var(--_button-chevron-falling);
         --_button-end-icon: var(--_button-prev-icon);
-        --_button-start-chevron:
-          var(--_button-chevron-falling), var(--_button-chevron-rising);
         --_button-start-icon: var(--_button-next-icon);
       }
 

@@ -60,7 +60,7 @@ const stepId = (index: number, part: string) =>
   `${id}-step-${index + 1}-${part}`
 ---
 
-<figure class="build-up ui-card ui-outlined ui-not-rich-text" id={id}>
+<section class="build-up ui-card ui-outlined ui-not-rich-text" id={id}>
   <div class="build-up-stage" style={knobStyle}>
     <slot />
   </div>
@@ -162,7 +162,7 @@ const stepId = (index: number, part: string) =>
       </footer>
     )
   }
-</figure>
+</section>
 
 <style is:inline set:html={gatedCss}></style>
 

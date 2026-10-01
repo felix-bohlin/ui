@@ -99,10 +99,6 @@
         padding-inline: var(--size-1) var(--size-3);
       }
 
-      &:has(.ui-button:not([class="ui-button"])) {
-        padding-block-end: var(--size-2);
-      }
-
       /* Alignment */
       &.ui-align-end {
         justify-content: end;

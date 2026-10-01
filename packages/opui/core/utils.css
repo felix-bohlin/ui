@@ -16,7 +16,7 @@ Scroll-lock
 Add `.ui-scroll-lock` to any element that uses the [open] attribute (native <dialog>,
 <details>, or any custom element). When that element is open, the page is locked.
 */
-  html:has(.ui-scroll-lock[open]) {
+  html:has(.ui-scroll-lock[open]:not(.ui-backdrop-transparent)) {
     overflow: clip;
     overscroll-behavior: contain;
     scrollbar-gutter: stable;
@@ -24,14 +24,12 @@ Add `.ui-scroll-lock` to any element that uses the [open] attribute (native <dia
 
   /* Hover and active effect for checkbox and radio */
   :where(.ui-checkbox input, .ui-radio input) {
-    --isLTR: 1;
     --isRTL: -1;
 
     position: relative;
     transform-style: preserve-3d;
 
     &:dir(rtl) {
-      --isLTR: -1;
       --isRTL: 1;
     }
 
@@ -46,13 +44,12 @@ Add `.ui-scroll-lock` to any element that uses the [open] attribute (native <dia
 
       &::before {
         --thumb-scale: 0.01;
-        --highlight-size: 150%;
 
         background-color: oklch(0.6 0 0 / 0.2);
-        block-size: var(--highlight-size);
+        block-size: var(--_ripple-size, 150%);
         clip-path: circle(50%);
         content: "";
-        inline-size: var(--highlight-size);
+        inline-size: var(--_ripple-size, 150%);
         inset-block-start: 50%;
         inset-inline-start: 50%;
         position: absolute;

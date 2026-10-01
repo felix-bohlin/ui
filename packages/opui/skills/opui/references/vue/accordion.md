@@ -306,14 +306,60 @@ import { Accordion } from "opui-css/vue"
 </template>
 ```
 
-## How it's made
+## Accessibility
 
-**Accordion that animates to auto**`accordion.css`
+The [WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) for accordions recommend:
 
-Step 1: Details
+- `summary` element
 
-- `<details>` and `<summary>`: keyboard, focus and state for free
-- Opens and closes instantly
+  - adding id and aria-controls
+  - adding aria-expanded (if using JS)
+
+- content wrapper
+  - adding id, role and aria-labelledby
+
+## API
+
+### Accordion API
+
+| Prop              | Type                                               | Default     | Description                                                  |
+| ----------------- | -------------------------------------------------- | ----------- | ------------------------------------------------------------ |
+| `markerAnimation` | `"flip"`, `"rotate"`, `"turn"`                     | `"rotate"`  | How the marker animates when the accordion opens.            |
+| `name`            | `string`                                           | -           | Groups accordions so only one of them can be open at a time. |
+| `open`            | `boolean`                                          | `false`     | Whether the accordion is open.                               |
+| `variant`         | `"default"`, `"outlined"`, `"elevated"`, `"tonal"` | `"default"` | The variant to use.                                          |
+
+#### Slots
+
+| Slot      | Description                                            |
+| --------- | ------------------------------------------------------ |
+| `actions` | A group of actions, such as buttons.                   |
+| `default` | The collapsible content.                               |
+| `marker`  | The marker. Astro and Vue render a chevron by default. |
+| `summary` | The always visible header.                             |
+
+Group accordions in a `<Card role="group">`. Set its `variant` to theme the whole group.
+
+## Under the hood
+
+1. Details
+
+   - `<details>` and `<summary>`: keyboard, focus and state for free
+   - Opens and closes instantly
+
+2. Animate to auto
+
+   - `interpolate-size: allow-keywords` lets `block-size` transition to `auto`
+   - `::details-content` targets the hidden part
+   - `allow-discrete` keeps the content visible until the close transition ends
+
+3. Marker
+
+   - `list-style: none` removes the native marker
+   - Three marker animations: `flip`, `rotate`, `turn`
+   - Individual transform properties (`rotate`, `scale`) transition independently
+
+Step 1 of 3: Details
 
 ```css
 .accordion > summary {
@@ -322,11 +368,12 @@ Step 1: Details
 }
 ```
 
-Step 2: Animate to auto
+Step 2 of 3: Animate to auto
 
-- `interpolate-size: allow-keywords` lets `block-size` transition to `auto`
-- `::details-content` targets the hidden part
-- `allow-discrete` keeps the content visible until the close transition ends
+- [`content-visibility`](https://webstatus.dev/features/content-visibility) (Newly available): Chrome 108+, Edge 108+, Firefox 130+, Safari 26+
+- [`::details-content`](https://webstatus.dev/features/details-content) (Newly available): Chrome 131+, Edge 131+, Firefox 143+, Safari 18.4+
+- [`interpolate-size`](https://webstatus.dev/features/interpolate-size) (Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
+- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 
 ```css
 .accordion {
@@ -351,11 +398,7 @@ Step 2: Animate to auto
 }
 ```
 
-Step 3: Marker
-
-- `list-style: none` removes the native marker
-- Three marker animations: `flip`, `rotate`, `turn`
-- Individual transform properties (`rotate`, `scale`) transition independently
+Step 3 of 3: Marker
 
 ```css
 .accordion > summary {
@@ -393,45 +436,17 @@ Step 3: Marker
 }
 ```
 
-## Accessibility
+### Browser support
 
-The [WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) for accordions recommend:
+Modern CSS and HTML features this component uses.
 
-- `summary` element
-
-  - adding id and aria-controls
-  - adding aria-expanded (if using JS)
-
-- content wrapper
-  - adding id, role and aria-labelledby
-
-## API
-
-### Accordion API
-
-| Prop              | Type                                               | Default     | Description                                                  |
-| ----------------- | -------------------------------------------------- | ----------- | ------------------------------------------------------------ |
-| `markerAnimation` | `"flip"`, `"rotate"`, `"turn"`                     | `"rotate"`  | How the marker animates when the accordion opens.            |
-| `name`            | `string`                                           | -           | Groups accordions so only one of them can be open at a time. |
-| `open`            | `boolean`                                          | `false`     | Whether the accordion is open.                               |
-| `variant`         | `"default"`, `"outlined"`, `"elevated"`, `"tonal"` | `"default"` | The variant to use.                                          |
-
-#### Slots
-
-| Slot      | Description                                            |
-| --------- | ------------------------------------------------------ |
-| `actions` | A group of actions, such as buttons.                   |
-| `default` | The collapsible content.                               |
-| `marker`  | The marker. Astro and Vue render a chevron by default. |
-| `summary` | The always visible header.                             |
-
-Group accordions in a `<Card role="group">`. Set its `variant` to theme the whole group.
-
-## Browser support
-
-- Chromium: Full support Supported since v131.
-- Firefox: Partial support Missing: interpolate-size.
-- Safari: Partial support Missing: interpolate-size.
+- [Container style queries](https://webstatus.dev/features/container-style-queries) (Newly available): Chrome 111+, Edge 111+, Firefox 151+, Safari 18+
+- [`content-visibility`](https://webstatus.dev/features/content-visibility) (Newly available): Chrome 108+, Edge 108+, Firefox 130+, Safari 26+
+- [`::details-content`](https://webstatus.dev/features/details-content) (Newly available): Chrome 131+, Edge 131+, Firefox 143+, Safari 18.4+
+- [Mutually exclusive \<details> elements](https://webstatus.dev/features/details-name) (Newly available): Chrome 120+, Edge 120+, Firefox 130+, Safari 17.2+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`interpolate-size`](https://webstatus.dev/features/interpolate-size) (Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
+- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
 

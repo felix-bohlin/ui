@@ -185,10 +185,10 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
   {apis && <ComponentAPI apis={apis} />}
 
   {
-    Astro.slots.has("how-its-made") ? (
+    Astro.slots.has("under-the-hood") ? (
       <section>
-        <h2 id="how-its-made">How it's made</h2>
-        <slot name="how-its-made" />
+        <h2 id="under-the-hood">Under the hood</h2>
+        <slot name="under-the-hood" />
         <p>
           See also the{" "}
           <DocLink href="/guide/browser-support">

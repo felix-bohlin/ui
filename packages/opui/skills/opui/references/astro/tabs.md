@@ -5,6 +5,7 @@ The Tabs are radio inputs and the Panels are just divs that show and hide based 
 ### What's new
 
 - Restyled as a segmented control.
+- [Scrollable](#scrollable) tabs with the `scrollable` prop.
 - [Filled](#filled), [line](#line) and [outlined](#outlined) variants with the `variant` prop.
 
 ## Anatomy
@@ -131,14 +132,160 @@ import { Tabs } from "opui-css/astro"
 </Tabs>
 ```
 
-## How it's made
+## Scrollable
 
-**Tabs from a radio group**`tabs.css`
+Tabs wrap onto more rows when they don't fit. Use `scrollable`(`.ui-scrollable`) to keep them on one row and scroll them sideways instead. The open panel stays in view, and up to 20 tabs are supported. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
 
-Step 1: Radios
+```astro
+---
+import { Tabs } from "opui-css/astro"
+---
 
-- One radio group holds the state
-- `:checked + label + panel` shows the matching panel
+
+<Tabs name="scrollable-tabs" scrollable>
+  <Tabs.Item open>
+    <Tabs.Tab>Profile</Tabs.Tab>
+    <Tabs.Panel>Profile settings and information.</Tabs.Panel>
+  </Tabs.Item>
+  <Tabs.Item>
+    <Tabs.Tab>Settings</Tabs.Tab>
+    <Tabs.Panel>General account settings.</Tabs.Panel>
+  </Tabs.Item>
+  <Tabs.Item>
+    <Tabs.Tab>Notifications</Tabs.Tab>
+    <Tabs.Panel>Manage your notifications.</Tabs.Panel>
+  </Tabs.Item>
+  <Tabs.Item>
+    <Tabs.Tab>Billing</Tabs.Tab>
+    <Tabs.Panel>Plans, invoices and payment methods.</Tabs.Panel>
+  </Tabs.Item>
+  <Tabs.Item>
+    <Tabs.Tab>Security</Tabs.Tab>
+    <Tabs.Panel>Passwords, sessions and two-factor authentication.</Tabs.Panel>
+  </Tabs.Item>
+  <Tabs.Item>
+    <Tabs.Tab>Integrations</Tabs.Tab>
+    <Tabs.Panel>Connected apps and webhooks.</Tabs.Panel>
+  </Tabs.Item>
+  <Tabs.Item>
+    <Tabs.Tab>Team</Tabs.Tab>
+    <Tabs.Panel>Members and roles.</Tabs.Panel>
+  </Tabs.Item>
+  <Tabs.Item>
+    <Tabs.Tab>Advanced</Tabs.Tab>
+    <Tabs.Panel>Export data or delete the account.</Tabs.Panel>
+  </Tabs.Item>
+</Tabs>
+```
+
+## Accessibility
+
+The tab system uses standard radio inputs and labels, so we get group management and keyboard support for free!
+
+### Tab List
+
+| Element    | Attribute        | Description                                                |
+| ---------- | ---------------- | ---------------------------------------------------------- |
+| `.ui-tabs` | `role="tablist"` | Identifies the element as a container for a set of tabs.   |
+| `input`    | `name`           | Groups the radio buttons together for exclusive selection. |
+| `label`    | `role="tab"`     | Identifies the element as a tab to assistive technology.   |
+
+### Tab Panel
+
+The content area associated with a tab:
+
+| Attribute         | Value        | Description                            |
+| ----------------- | ------------ | -------------------------------------- |
+| `role`            | `"tabpanel"` | Identifies the element as a tab panel. |
+| `aria-labelledby` | `string`     | Links the panel to its trigger ID.     |
+
+### Keyboard Interaction
+
+- **Tab**: Moves focus to the active tab trigger (the radio button). Pressing Tab again moves focus out of the tab list to the next focusable element.
+- **Right Arrow / Down Arrow**: Moves focus to the next tab and activates it.
+- **Left Arrow / Up Arrow**: Moves focus to the previous tab and activates it.
+
+## API
+
+### Tabs API
+
+| Prop         | Type                               | Default | Description                                                                                      |
+| ------------ | ---------------------------------- | ------- | ------------------------------------------------------------------------------------------------ |
+| `name`       | `string`                           | -       | The name shared by the tab inputs. Generated when omitted.                                       |
+| `scrollable` | `boolean`                          | `false` | Keeps the tabs on one row and scrolls them sideways when they don't fit. Supports up to 20 tabs. |
+| `variant`    | `"outlined"`, `"filled"`, `"line"` | -       | The variant to use.                                                                              |
+
+#### Slots
+
+| Slot      | Description    |
+| --------- | -------------- |
+| `default` | The tab items. |
+
+### Tabs item API
+
+| Prop      | Type      | Default | Description                                  |
+| --------- | --------- | ------- | -------------------------------------------- |
+| `name`    | `string`  | -       | Overrides the name shared by the tab inputs. |
+| `open`    | `boolean` | `false` | Selects the tab initially.                   |
+| `panelId` | `string`  | -       | The id of the panel. Generated when omitted. |
+| `tabId`   | `string`  | -       | The id of the input. Generated when omitted. |
+
+#### Slots
+
+| Slot      | Description            |
+| --------- | ---------------------- |
+| `default` | The tab and the panel. |
+
+### Tabs tab API
+
+| Prop    | Type     | Default | Description                                     |
+| ------- | -------- | ------- | ----------------------------------------------- |
+| `tabId` | `string` | -       | The id of the input it labels. Set by the item. |
+
+#### Slots
+
+| Slot      | Description    |
+| --------- | -------------- |
+| `default` | The tab label. |
+
+### Tabs panel API
+
+| Prop      | Type     | Default | Description                                              |
+| --------- | -------- | ------- | -------------------------------------------------------- |
+| `panelId` | `string` | -       | The id of the panel. Set by the item.                    |
+| `tabId`   | `string` | -       | The id of the tab input that labels it. Set by the item. |
+
+#### Slots
+
+| Slot      | Description        |
+| --------- | ------------------ |
+| `default` | The panel content. |
+
+## Under the hood
+
+1. Radios
+
+   - One radio group holds the state
+   - `:checked + label + panel` shows the matching panel
+
+2. Order
+
+   - The markup interleaves label, panel, label, panel
+   - `order` pulls every label into one row and drops the panel below
+
+3. Hide radios
+
+   - Visually hidden, still focusable: arrow keys move between tabs
+   - Focus ring drawn on the label
+
+4. Segmented
+
+   - Each label paints its slice of the track
+   - The pill is a `::before` inset from the track
+   - `:nth-child(1 of .tab-label)` finds the first label among the radios and panels
+   - Inner radius = outer radius − inset
+
+Step 1 of 4: Radios
 
 ```html
 <div class="tabs">
@@ -160,10 +307,7 @@ Step 1: Radios
 }
 ```
 
-Step 2: Order
-
-- The markup interleaves label, panel, label, panel
-- `order` pulls every label into one row and drops the panel below
+Step 2 of 4: Order
 
 ```css
 .tabs {
@@ -184,10 +328,7 @@ Step 2: Order
 }
 ```
 
-Step 3: Hide radios
-
-- Visually hidden, still focusable: arrow keys move between tabs
-- Focus ring drawn on the label
+Step 3 of 4: Hide radios
 
 ```css
 .tab-input {
@@ -205,12 +346,7 @@ Step 3: Hide radios
 }
 ```
 
-Step 4: Segmented
-
-- Each label paints its slice of the track
-- The pill is a `::before` inset from the track
-- `:nth-child(1 of .tab-label)` finds the first label among the radios and panels
-- Inner radius = outer radius − inset
+Step 4 of 4: Segmented
 
 ```css
 .tab-label {
@@ -259,93 +395,11 @@ Step 4: Segmented
 }
 ```
 
-## Accessibility
+### Browser support
 
-The tab system uses standard radio inputs and labels, so we get group management and keyboard support for free!
+Modern CSS and HTML features this component uses.
 
-### Tab List
-
-| Element    | Attribute        | Description                                                |
-| ---------- | ---------------- | ---------------------------------------------------------- |
-| `.ui-tabs` | `role="tablist"` | Identifies the element as a container for a set of tabs.   |
-| `input`    | `name`           | Groups the radio buttons together for exclusive selection. |
-| `label`    | `role="tab"`     | Identifies the element as a tab to assistive technology.   |
-
-### Tab Panel
-
-The content area associated with a tab:
-
-| Attribute         | Value        | Description                            |
-| ----------------- | ------------ | -------------------------------------- |
-| `role`            | `"tabpanel"` | Identifies the element as a tab panel. |
-| `aria-labelledby` | `string`     | Links the panel to its trigger ID.     |
-
-### Keyboard Interaction
-
-- **Tab**: Moves focus to the active tab trigger (the radio button). Pressing Tab again moves focus out of the tab list to the next focusable element.
-- **Right Arrow / Down Arrow**: Moves focus to the next tab and activates it.
-- **Left Arrow / Up Arrow**: Moves focus to the previous tab and activates it.
-
-## API
-
-### Tabs API
-
-| Prop      | Type                               | Default | Description                                                |
-| --------- | ---------------------------------- | ------- | ---------------------------------------------------------- |
-| `name`    | `string`                           | -       | The name shared by the tab inputs. Generated when omitted. |
-| `variant` | `"outlined"`, `"filled"`, `"line"` | -       | The variant to use.                                        |
-
-#### Slots
-
-| Slot      | Description    |
-| --------- | -------------- |
-| `default` | The tab items. |
-
-### Tabs item API
-
-| Prop      | Type      | Default | Description                                  |
-| --------- | --------- | ------- | -------------------------------------------- |
-| `name`    | `string`  | -       | Overrides the name shared by the tab inputs. |
-| `open`    | `boolean` | `false` | Selects the tab initially.                   |
-| `panelId` | `string`  | -       | The id of the panel. Generated when omitted. |
-| `tabId`   | `string`  | -       | The id of the input. Generated when omitted. |
-
-#### Slots
-
-| Slot      | Description            |
-| --------- | ---------------------- |
-| `default` | The tab and the panel. |
-
-### Tabs tab API
-
-| Prop    | Type     | Default | Description                                     |
-| ------- | -------- | ------- | ----------------------------------------------- |
-| `tabId` | `string` | -       | The id of the input it labels. Set by the item. |
-
-#### Slots
-
-| Slot      | Description    |
-| --------- | -------------- |
-| `default` | The tab label. |
-
-### Tabs panel API
-
-| Prop      | Type     | Default | Description                                              |
-| --------- | -------- | ------- | -------------------------------------------------------- |
-| `panelId` | `string` | -       | The id of the panel. Set by the item.                    |
-| `tabId`   | `string` | -       | The id of the tab input that labels it. Set by the item. |
-
-#### Slots
-
-| Slot      | Description        |
-| --------- | ------------------ |
-| `default` | The panel content. |
-
-## Browser support
-
-- Chromium: Full support Supported since v123.
-- Firefox: Full support Supported since v120.
-- Safari: Full support Supported since v17.5.
+- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 

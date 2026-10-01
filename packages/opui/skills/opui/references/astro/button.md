@@ -231,14 +231,52 @@ import { Button } from "opui-css/astro"
 
 Is it a button? Is it an input? You can find the [docs for it here](https://open-props-ui.netlify.app/astro/components/text-field.md#file) at least.
 
-## How it's made
+## API
 
-**Button: one class, every shape**`button.css`
+### Button API
 
-Step 1: Base
+| Prop       | Type                                | Default | Description                                                                 |
+| ---------- | ----------------------------------- | ------- | --------------------------------------------------------------------------- |
+| `as`       | `"button"`, `"a"`                   | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
+| `color`    | `"critical"`, `"primary"`           | -       | Optional colors.                                                            |
+| `disabled` | `boolean`                           | `false` | Disables the button.                                                        |
+| `href`     | `string`                            | -       | The link to use. Renders an `<a>`.                                          |
+| `label`    | `string`                            | -       | The accessible name. Use it on icon-only buttons.                           |
+| `ripple`   | `boolean`                           | `false` | A halo behind the button on hover instead of a background change.           |
+| `rounded`  | `boolean`                           | `false` | Fully rounded corners, a circle when icon-only.                             |
+| `size`     | `"x-small"`, `"small"`, `"large"`   | -       | The size of the element.                                                    |
+| `variant`  | `"outlined"`, `"tonal"`, `"filled"` | -       | The variant to use.                                                         |
 
-- Padding in `ex` so it scales with the font
-- One custom property per size, every size reuses the same rules
+#### Slots
+
+| Slot      | Description                     |
+| --------- | ------------------------------- |
+| `default` | The label and an optional icon. |
+
+## Under the hood
+
+1. Base
+
+   - Padding in `ex` so it scales with the font
+   - One custom property per size, every size reuses the same rules
+
+2. Icon-only
+
+   - `:has(> svg:only-child)` spots an icon-only button
+   - Square at every size: no `IconButton`, no extra class
+
+3. Icon side
+
+   - Tighter padding on the icon side balances the optical weight
+   - Text nodes aren't elements, so the label needs a `<span>`
+
+4. Ripple
+
+   - `translateZ(-1px)` + `preserve-3d` puts the halo behind the button, no `z-index`
+   - `clip-path: circle()` keeps the halo round
+   - Hover the last button
+
+Step 1 of 4: Base
 
 ```css
 .button {
@@ -260,10 +298,9 @@ Step 1: Base
 }
 ```
 
-Step 2: Icon-only
+Step 2 of 4: Icon-only
 
-- `:has(> svg:only-child)` spots an icon-only button
-- Square at every size: no `IconButton`, no extra class
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```css
 .button:has(> svg:only-child) {
@@ -273,10 +310,7 @@ Step 2: Icon-only
 }
 ```
 
-Step 3: Icon side
-
-- Tighter padding on the icon side balances the optical weight
-- Text nodes aren't elements, so the label needs a `<span>`
+Step 3 of 4: Icon side
 
 ```html
 <button class="button">
@@ -296,11 +330,7 @@ Step 3: Icon side
 }
 ```
 
-Step 4: Ripple
-
-- `translateZ(-1px)` + `preserve-3d` puts the halo behind the button, no `z-index`
-- `clip-path: circle()` keeps the halo round
-- Hover the last button
+Step 4 of 4: Ripple
 
 ```css
 .ripple {
@@ -335,33 +365,14 @@ Step 4: Ripple
 }
 ```
 
-## API
+### Browser support
 
-### Button API
+Modern CSS and HTML features this component uses.
 
-| Prop       | Type                                | Default | Description                                                                 |
-| ---------- | ----------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `as`       | `"button"`, `"a"`                   | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
-| `color`    | `"critical"`, `"primary"`           | -       | Optional colors.                                                            |
-| `disabled` | `boolean`                           | `false` | Disables the button.                                                        |
-| `href`     | `string`                            | -       | The link to use. Renders an `<a>`.                                          |
-| `label`    | `string`                            | -       | The accessible name. Use it on icon-only buttons.                           |
-| `ripple`   | `boolean`                           | `false` | A halo behind the button on hover instead of a background change.           |
-| `rounded`  | `boolean`                           | `false` | Fully rounded corners, a circle when icon-only.                             |
-| `size`     | `"x-small"`, `"small"`, `"large"`   | -       | The size of the element.                                                    |
-| `variant`  | `"outlined"`, `"tonal"`, `"filled"` | -       | The variant to use.                                                         |
-
-#### Slots
-
-| Slot      | Description                     |
-| --------- | ------------------------------- |
-| `default` | The label and an optional icon. |
-
-## Browser support
-
-- Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
-- Safari: Full support Supported since v18.
+- [`color-mix()`](https://webstatus.dev/features/color-mix) (Widely available): Chrome 111+, Edge 111+, Firefox 113+, Safari 16.2+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 

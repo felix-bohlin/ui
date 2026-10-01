@@ -345,15 +345,54 @@ A menu inside a list item.
 </menu>
 ```
 
-## How it's made
+## Accessibility
 
-**Menu without JavaScript**`menu.css`
+`Tab` to navigate, and `Esc` to close.
 
-Step 1: Popover
+## API
 
-- `popover`: top layer, light dismiss, `Esc` to close
-- Invoker Commands: `commandfor` + `command`, no JavaScript
-- Without positioning it opens in the middle of the viewport
+| Type      | Modifiers                                             | Default                     | Description                           |
+| --------- | ----------------------------------------------------- | --------------------------- | ------------------------------------- |
+| Part      | `menu.ui-menu.ui-list[popover]`                       | -                           | The menu surface.                     |
+| Trigger   | `commandfor="id"`, `command="toggle-popover"`         | -                           | Opens the menu.                       |
+| Children  | `li > button`, `li > a`                               | -                           | Menu items.                           |
+| Children  | `command="hide-popover"`                              | -                           | Closes the menu on click.             |
+| Children  | `li.ui-label`                                         | -                           | Group label.                          |
+| Children  | `.ui-start`, `.ui-end`                                | -                           | Icons and shortcuts.                  |
+| Colors    | `.ui-critical`                                        | -                           | Destructive item.                     |
+| Placement | `.ui-block-start`,`.ui-inline-start`,`.ui-inline-end` | default                     | Where the menu opens.                 |
+| Placement | `.ui-align-end`                                       | -                           | Lines up with the trigger's end edge. |
+| Placement | `--anchor-position-area`                              | `block-end span-inline-end` | Any valid `position-area` value.      |
+| Sizes     | `.ui-dense`                                           | -                           | Less spacing.                         |
+
+## Under the hood
+
+1. Popover
+
+   - `popover`: top layer, light dismiss, `Esc` to close
+   - Invoker Commands: `commandfor` + `command`, no JavaScript
+   - Without positioning it opens in the middle of the viewport
+
+2. Anchor
+
+   - The invoker is the implicit anchor: no `anchor-name`, no ids to wire
+   - `position-area` places it below, spanning towards the end
+   - `anchor-size(inline)` keeps it at least as wide as the trigger
+
+3. Flip
+
+   - Scroll the trigger to the bottom of the window and open it again
+   - The browser tries each fallback when the menu would overflow
+
+4. Animate
+
+   - `@starting-style` gives the entry transition a starting point
+   - `allow-discrete` keeps `display` and `overlay` alive during the exit
+
+Step 1 of 4: Popover
+
+- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [Popover](https://webstatus.dev/features/popover) (Newly available): Chrome 116+, Edge 116+, Firefox 125+, Safari 17+
 
 ```html
 <button commandfor="menu" command="toggle-popover">Options</button>
@@ -376,11 +415,9 @@ Step 1: Popover
 }
 ```
 
-Step 2: Anchor
+Step 2 of 4: Anchor
 
-- The invoker is the implicit anchor: no `anchor-name`, no ids to wire
-- `position-area` places it below, spanning towards the end
-- `anchor-size(inline)` keeps it at least as wide as the trigger
+- [Anchor positioning](https://webstatus.dev/features/anchor-positioning) (Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
 
 ```css
 .menu {
@@ -391,10 +428,7 @@ Step 2: Anchor
 }
 ```
 
-Step 3: Flip
-
-- Scroll the trigger to the bottom of the window and open it again
-- The browser tries each fallback when the menu would overflow
+Step 3 of 4: Flip
 
 ```css
 .menu {
@@ -405,10 +439,10 @@ Step 3: Flip
 }
 ```
 
-Step 4: Animate
+Step 4 of 4: Animate
 
-- `@starting-style` gives the entry transition a starting point
-- `allow-discrete` keeps `display` and `overlay` alive during the exit
+- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
+- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 
 ```css
 .menu {
@@ -434,31 +468,15 @@ Step 4: Animate
 }
 ```
 
-## Accessibility
+### Browser support
 
-`Tab` to navigate, and `Esc` to close.
+Modern CSS and HTML features this component uses.
 
-## API
-
-| Type      | Modifiers                                             | Default                     | Description                           |
-| --------- | ----------------------------------------------------- | --------------------------- | ------------------------------------- |
-| Part      | `menu.ui-menu.ui-list[popover]`                       | -                           | The menu surface.                     |
-| Trigger   | `commandfor="id"`, `command="toggle-popover"`         | -                           | Opens the menu.                       |
-| Children  | `li > button`, `li > a`                               | -                           | Menu items.                           |
-| Children  | `command="hide-popover"`                              | -                           | Closes the menu on click.             |
-| Children  | `li.ui-label`                                         | -                           | Group label.                          |
-| Children  | `.ui-start`, `.ui-end`                                | -                           | Icons and shortcuts.                  |
-| Colors    | `.ui-critical`                                        | -                           | Destructive item.                     |
-| Placement | `.ui-block-start`,`.ui-inline-start`,`.ui-inline-end` | default                     | Where the menu opens.                 |
-| Placement | `.ui-align-end`                                       | -                           | Lines up with the trigger's end edge. |
-| Placement | `--anchor-position-area`                              | `block-end span-inline-end` | Any valid `position-area` value.      |
-| Sizes     | `.ui-dense`                                           | -                           | Less spacing.                         |
-
-## Browser support
-
-- Chromium: Full support Supported since v144.
-- Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v26.
+- [Anchor positioning](https://webstatus.dev/features/anchor-positioning) (Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [Popover](https://webstatus.dev/features/popover) (Newly available): Chrome 116+, Edge 116+, Firefox 125+, Safari 17+
+- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
+- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 

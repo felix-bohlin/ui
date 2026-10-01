@@ -22,12 +22,6 @@ for (const component of COMPONENTS) {
           })
         }, label)
       const lines = [await probe("initial")]
-      await page.setViewportSize({ width: 1280, height: 9400 })
-      await page.waitForTimeout(500)
-      lines.push(await probe("tall"))
-      await page.setViewportSize({ width: 1280, height: 720 })
-      await page.waitForTimeout(500)
-      lines.push(await probe("restored"))
       await page.locator('[data-example="Default"]').screenshot()
       await page.waitForTimeout(500)
       lines.push(await probe("after-screenshot"))

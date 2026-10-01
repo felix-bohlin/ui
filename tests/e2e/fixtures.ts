@@ -58,5 +58,5 @@ export const openFixture = async (
     ),
   )
   await page.waitForLoadState("networkidle")
-  await page.screenshot({ fullPage: true })
+  await page.screenshot()
 }

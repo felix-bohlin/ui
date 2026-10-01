@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "FieldSet",
+  css: ["form"],
   options: [
     {
       default: '"fieldset"',

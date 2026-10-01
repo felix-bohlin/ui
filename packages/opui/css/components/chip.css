@@ -1,22 +1,23 @@
 @layer components.root {
   :where(.ui-chip) {
-    --_ripple-duration: calc(0.4s * var(--motion, 1));
+    --_motion: var(--motion, 1);
+    --_ripple-duration: calc(0.4s * var(--_motion));
     --_ripple-size: 100%;
     --_bg-color: var(--surface-tonal);
     --_border-color: var(--border-color);
     --_color: var(--text-primary);
 
     align-items: center;
-    background: var(--_bg-color) var(--ripple, none);
+    background: var(--_bg-color) var(--_ripple, none);
 
     /* Ripple effect */
     background-position: center;
-    block-size: var(--size-7, 2rem);
-    border: 1px solid var(--_border-color);
-    border-radius: var(--radius-2, 0.5rem);
+    block-size: var(--size-7);
+    border: var(--border-width) solid var(--_border-color);
+    border-radius: var(--border-radius);
     color: var(--_color);
     display: inline-flex;
-    font-size: var(--font-size-0, 0.75rem);
+    font-size: var(--font-size-0);
     gap: var(--size-1);
     padding-inline: var(--size-2);
     text-decoration: none;
@@ -53,7 +54,7 @@
     &:has(svg) {
       svg {
         flex-shrink: 0;
-        inline-size: var(--size-3);
+        inline-size: var(--icon-size-small);
       }
     }
 
@@ -68,7 +69,7 @@
 
     &:where(:not([disabled])) {
       &:where(:not(:active):hover) {
-        --ripple: radial-gradient(circle, transparent 1%, var(--_bg-color) 1%)
+        --_ripple: radial-gradient(circle, transparent 1%, var(--_bg-color) 1%)
           center/15000%;
 
         transition: background var(--_ripple-duration);
@@ -82,12 +83,8 @@
 
     /* Disabled */
     &:where([disabled]) {
-      opacity: 0.64;
-      --_color: color-mix(
-        in oklch,
-        var(--text-muted) 50%,
-        var(--surface-default)
-      );
+      opacity: var(--disabled-opacity);
+      --_color: var(--text-disabled);
       cursor: not-allowed;
     }
   }

@@ -78,7 +78,7 @@
       cursor: pointer;
       display: inline-flex;
       font-size: var(--font-size-1);
-      font-weight: 500;
+      font-weight: var(--font-weight-medium);
       gap: var(--size-2);
       isolation: isolate;
       justify-content: center;
@@ -87,7 +87,7 @@
       padding: calc(var(--size-1) + var(--_inset) - var(--_track-border-width))
         var(--size-3);
       position: relative;
-      transition: color calc(0.1s * var(--_motion));
+      transition: color calc(var(--duration-fast) * var(--_motion)) var(--ease);
       user-select: none;
       white-space: nowrap;
 
@@ -100,8 +100,9 @@
         inset: var(--_inset) 0;
         position: absolute;
         transition:
-          background-color calc(0.1s * var(--_motion)),
-          box-shadow calc(0.1s * var(--_motion));
+          background-color calc(var(--duration-fast) * var(--_motion))
+            var(--ease),
+          box-shadow calc(var(--duration-fast) * var(--_motion)) var(--ease);
         z-index: -1;
       }
 
@@ -114,7 +115,8 @@
         inset-inline: 0;
         opacity: 0;
         position: absolute;
-        transition: opacity calc(0.1s * var(--_motion));
+        transition: opacity calc(var(--duration-fast) * var(--_motion))
+          var(--ease);
       }
 
       &:nth-child(1 of [role="tab"], .ui-tab-label) {

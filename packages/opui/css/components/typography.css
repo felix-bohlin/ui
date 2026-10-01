@@ -13,7 +13,7 @@
 
   :where(.ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
     color: var(--text-primary);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
     text-wrap: pretty;
   }
@@ -71,7 +71,7 @@
       oklch(from var(--text-muted) calc(l * 0.75) c h)
     );
     font-size: var(--font-size-0);
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
@@ -92,7 +92,7 @@
         oklch(from var(--text-muted) calc(l * 0.75) c h)
       );
       font-size: var(--font-size-0);
-      font-weight: 500;
+      font-weight: var(--font-weight-medium);
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
@@ -306,7 +306,7 @@
       color: var(--primary);
       cursor: pointer;
       font-size: inherit;
-      font-weight: 700;
+      font-weight: var(--font-weight-bold);
       line-height: inherit;
       text-decoration: underline;
       text-decoration-color: var(--primary);
@@ -437,7 +437,7 @@
 
     :is(h1, h2, h3, h4, h5, h6):where(:not([class])) {
       color: var(--text-primary);
-      font-weight: 700;
+      font-weight: var(--font-weight-bold);
       line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
       text-wrap: pretty;
     }
@@ -506,7 +506,7 @@
         oklch(from var(--text-muted) calc(l * 0.75) c h)
       );
       font-size: var(--font-size-0);
-      font-weight: 500;
+      font-weight: var(--font-weight-medium);
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
@@ -613,7 +613,7 @@
       line-height: inherit;
 
       dt {
-        font-weight: 700;
+        font-weight: var(--font-weight-bold);
         margin-block-start: 0;
       }
 

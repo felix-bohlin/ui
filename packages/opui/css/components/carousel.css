@@ -15,7 +15,7 @@
     --_button-prev-content: "\276E";
     --_button-prev-icon: none;
     --_button-shadow: var(--shadow-2);
-    --_button-size: var(--button-size-small, 32px);
+    --_button-size: var(--button-size-small);
     --_gap: var(--size-3);
     --_item-size: calc(
       (100% - (var(--_per-view) - 1) * var(--_gap)) / var(--_per-view)
@@ -29,7 +29,7 @@
     --_marker-size: var(--size-2);
     --_markers-margin-block-start: var(--size-3);
     --_media-aspect-ratio: 16 / 9;
-    --_media-border-radius: var(--border-radius, var(--radius-2));
+    --_media-border-radius: var(--border-radius);
     --_padding-inline: 0px;
     --_per-view: 1;
     --_snap-align: start;
@@ -86,7 +86,7 @@
         background-repeat: no-repeat;
         background-size: var(--_button-icon-size);
         block-size: var(--_button-size);
-        border: var(--border-width, 1px) solid var(--_button-border-color);
+        border: var(--border-width) solid var(--_button-border-color);
         border-radius: var(--radius-round);
         box-shadow: var(--_button-shadow);
         color: var(--_button-color);
@@ -101,9 +101,9 @@
         position: absolute;
         position-anchor: auto;
         transition:
-          border-color calc(0.15s * var(--_motion)) ease,
-          opacity calc(0.15s * var(--_motion)) ease,
-          scale calc(0.1s * var(--_motion)) ease;
+          border-color calc(var(--duration) * var(--_motion)) var(--ease),
+          opacity calc(var(--duration) * var(--_motion)) var(--ease),
+          scale calc(var(--duration-fast) * var(--_motion)) var(--ease);
         translate: 0 -50%;
       }
 
@@ -219,7 +219,8 @@
         content: "" / var(--_marker-label) counter(ui-carousel-item);
         cursor: pointer;
         inline-size: var(--_marker-size);
-        transition: background-color calc(0.15s * var(--_motion)) ease;
+        transition: background-color calc(var(--duration) * var(--_motion))
+          var(--ease);
       }
 
       & > *::scroll-marker:target-current {

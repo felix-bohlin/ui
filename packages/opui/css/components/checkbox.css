@@ -1,6 +1,6 @@
 @layer components.root {
   label.ui-checkbox {
-    --_input-size: var(--size-4);
+    --_input-size: var(--choice-size);
 
     align-items: center;
     color: var(--text-primary);
@@ -10,14 +10,14 @@
     grid-auto-columns: auto;
     grid-auto-flow: column;
     inline-size: fit-content;
-    line-height: 1.5;
+    line-height: var(--font-lineheight-3);
     transform: translateZ(0);
     user-select: none;
 
     /* Disabled */
     &:has([disabled]) {
       cursor: not-allowed;
-      opacity: 0.64;
+      opacity: var(--disabled-opacity);
       user-select: none;
 
       input {
@@ -28,7 +28,7 @@
     /* Required dot */
     &:has(:required) {
       .ui-label:after {
-        color: var(--critical);
+        color: var(--field-required-color);
         content: "*";
         inset-block: 0 auto;
         inset-inline: auto -0.25ex;
@@ -38,8 +38,8 @@
 
     /* Label */
     .ui-label {
-      color: var(--text-primary);
-      font-size: var(--font-size-05);
+      color: var(--field-label-color);
+      font-size: var(--field-label-font-size);
       grid-column: 2;
       grid-row: 1;
       padding-inline: 0 1ex;
@@ -48,11 +48,11 @@
 
     /* End text */
     :where(.ui-end-text) {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
+      color: var(--field-helper-color);
+      font-size: var(--field-helper-font-size);
       grid-column: 2;
       grid-row: 2;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
       z-index: 1;
     }
 
@@ -65,7 +65,7 @@
       inline-size: 100%;
 
       .ui-label {
-        font-weight: 600;
+        font-weight: var(--field-label-font-weight);
         grid-column: 1;
         grid-row: 1;
         inline-size: fit-content;
@@ -113,7 +113,7 @@
       aspect-ratio: 1;
       background-color: var(--surface-default);
       block-size: var(--_input-size);
-      border: 1px solid var(--border-color);
+      border: var(--field-border-width) solid var(--border-color);
       border-radius: var(--radius-1);
       box-sizing: border-box;
       cursor: pointer;
@@ -162,23 +162,23 @@
     /* Sizes */
     &.ui-small {
       input[type="checkbox"] {
-        --_input-size: var(--size-3);
+        --_input-size: var(--choice-size-small);
       }
     }
 
     &.ui-large {
       input[type="checkbox"] {
-        --_input-size: var(--size-5);
+        --_input-size: var(--choice-size-large);
       }
     }
 
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {
-      --primary: var(--critical);
+      --primary: var(--invalid-color);
 
       :where(.ui-end-text) {
-        color: var(--critical);
+        color: var(--invalid-color);
       }
     }
 

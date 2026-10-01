@@ -27,12 +27,12 @@ Before creating or refactoring a page, perform the following research:
     - Modifier classes (e.g., `.ui-filled`, `.ui-outlined`, `.ui-small`).
     - Modern CSS features being used (to populate `browserSupport`).
     - Internal part classes (to target for the `anatomy` section).
-3.  **Check for API Metadata**: Verify if a corresponding API file or folder exists in `src/component-api/`.
-    - For single APIs: `src/component-api/[name]-api.astro`.
-    - For multi-framework APIs: `src/component-api/[name]/Astro.astro` and `src/component-api/[name]/HTML.astro`.
-    - If not, create them based on the props identified in step 1. Note that some components share APIs (e.g., `field-api.astro`).
+3.  **Check for API Metadata**: Verify if a corresponding API folder exists in `src/component-api/`.
+    - Data-driven APIs: `src/component-api/[name]/api.ts` (one file per component, rendered for every framework).
+    - Legacy hand-written tables: `src/component-api/[name]/Astro.astro`, `HTML.astro` and `Vue.astro`.
+    - If not, create an `api.ts` based on the props identified in step 1.
 4.  **Identify Dependencies**: Determine if the component relies on other components.
-    - **Field-based components** (`TextField`, `Select`, `Textarea`): Usually depend on `field.css`.
+    - **Field-based components** (`TextField`, `Select`, `Textarea`): Usually depend on `text-field.css`.
     - **Group-based components** (`CheckboxGroup`, `RadioGroup`): Usually depend on `form.css`.
     - **Popover-based components** (`Select`): Usually depend on `list.css`.
 5.  **Examine Patterns**: Read a similar existing module (e.g., `src/docs/components/accordion.astro`) to ensure UI and content parity.
@@ -157,7 +157,7 @@ The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.as
 
 ### 5.2 API Documentation
 
-**DO NOT hardcode API tables.** API resolution is automatic when the page sets `slug="..."` on `<Component>`: the layout globs `src/component-api/<slug>/<Label>.astro` for every framework in `FRAMEWORKS`. You only need the `apis` prop for non-standard layouts (e.g., shared API folders like `field-api.astro`, or multiple API tables per page).
+**DO NOT hardcode API tables.** Describe the API in `src/component-api/<slug>/api.ts` and pass it through the `apis` prop (`apis={[{ title: "Button API", api: buttonApi }]}`); `<ApiTables>` renders it for the active framework. Legacy hand-written tables (`src/component-api/<slug>/<Label>.astro`) are still picked up automatically when the page sets `slug="..."` and passes no `apis`.
 
 - Markdown files in `src/component-api/` should use tables with: `Type`, `Modifiers`, `Default`, `Description`.
 - Link `Type` values to relevant sections (e.g., `[Variants](#variants)`).
@@ -181,13 +181,13 @@ Use the `anatomy` slot for internal structure visualization.
 Place logic in a `<script>` tag.
 
 - Use specific IDs to avoid global conflicts.
-- Wrap logic in a function and call it on `astro:after-swap` for View Transitions.
+- The site uses cross-document view transitions (`@view-transition` in `base.css`), not `<ClientRouter>`, so scripts run on every page load. Do not listen for `astro:after-swap`.
 
 ### 5.6 `<Conditional>` (Framework-Specific Content)
 
 Use `<Conditional>` to display different text or HTML content for different frameworks. This is ideal for descriptions or instructions that only apply to a specific framework (e.g., explaining an `aria-label` attribute for HTML vs. a `label` prop for Astro).
 
-- **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`.
+- **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `vue`.
 - **Props**: `as` (optional). Defaults to `span` for inline content. Use `as="div"` or `as="p"` for block-level content.
 - **Resolution**: Server-rendered. The component reads `Astro.currentLocale` (driven by URL routing) and emits only the matching slot. Falls back to the default framework's slot if the active framework's slot is not authored.
 
@@ -206,7 +206,7 @@ Use `<Conditional>` to display different text or HTML content for different fram
 ## 7. Key Learnings & Debugging
 
 - **Framework Routing**: Every framework lives under its own prefix (e.g. `/html/components/button`, `/astro/components/button`). The active framework comes from `Astro.currentLocale` and flows into `<Conditional>`, `<Example>`, and `<ComponentAPI>` automatically. Legacy unprefixed URLs redirect to the default framework variant.
-- **Adding a New Framework**: Add the framework to `FRAMEWORKS` in [src/utils/framework.js](../../utils/framework.js) and a row to the `FRAMEWORK_BRANDING` map in [src/pages/index.astro](../../pages/index.astro). Then drop the per-component content into the right folders - `src/component-examples/<component>/<Name>.<ext>` for each example and `src/component-api/<component>/<Label>.astro` for the API table. `<AutoExample>` and the auto-API resolver pick those up without doc-page edits. Any sections still using the manual `<Example>` form will need `preview-<id>` / `code-<id>` slots added alongside the existing ones.
+- **Adding a New Framework**: Add the framework to `FRAMEWORKS` in [src/utils/framework.js](../../utils/framework.js) and a row to the `FRAMEWORK_BRANDING` map in [src/docs/Home.astro](../Home.astro). Then drop the per-component content into the right folders - `src/component-examples/<component>/<Name>.<ext>` for each example, and add the framework to the `frameworks` column of each `src/component-api/<component>/api.ts`. `<AutoExample>` and `<ApiTables>` pick those up without doc-page edits. Any sections still using the manual `<Example>` form will need `preview-<id>` / `code-<id>` slots added alongside the existing ones.
 - **Line Highlighting**: Use the `ins`, `del`, or `mark` props with array syntax (e.g., `mark={[1, 5, 10]}`).
   - **1-indexed**: Highlights are 1-indexed. The opening `---` of an Astro file is line 1.
   - **Validation**: Cross-check that highlighted lines in Astro correspond to the same functionality in HTML.

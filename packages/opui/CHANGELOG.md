@@ -78,6 +78,7 @@
 - `Typography` rich text `ol[type]` keeps its marker type, and consecutive `dt` elements are no longer spaced apart.
 - `Typography` rich text no longer styles an `a` without `href` as a link.
 - `.ui-light` and `.ui-dark` on an element other than `html` give it the page surface and text color. `--color-scheme` follows the OS preference, so `Card` elevated shadows are correct in dark mode without a class.
+- `.ui-palette` re-derives every color token (`--primary`, `--surface-*`, `--text-*`, `--border-color`, `--field-border-color` and the named and intent colors) from its own palette. A subtree with `class="ui-palette" style="--palette-hue: 30"` is a complete second theme.
 - `.ui-palette` and the severity scopes inherit `--palette-hue`, `--palette-chroma`, `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma` from their ancestors. `core/palette.css` used to reset them to the defaults in every scope.
 - `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.
 - `Badge`, `Chip`, `Tabs` and `Toast` respect `--motion` and `prefers-reduced-motion`.

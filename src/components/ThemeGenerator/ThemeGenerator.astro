@@ -381,29 +381,6 @@ const previewStyle = Object.entries(tokenDefaults("light"))
 
   .preview-card {
     color: var(--text-primary);
-    color-scheme: light;
-
-    --primary: var(--color-8);
-    --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
-    --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
-    --primary-contrast: var(--gray-1);
-    --neutral: var(--gray-9);
-
-    --text-primary: light-dark(var(--gray-15), var(--gray-1));
-    --text-primary-contrast: light-dark(var(--gray-2), var(--gray-15));
-    --text-muted: light-dark(var(--gray-13), var(--gray-4));
-    --text-muted-contrast: light-dark(var(--gray-4), var(--gray-13));
-
-    --surface-default: light-dark(var(--gray-1), var(--gray-13));
-    --surface-filled: light-dark(var(--gray-4), var(--gray-15));
-    --surface-tonal: light-dark(var(--gray-3), var(--gray-12));
-    --surface-elevated: light-dark(var(--gray-1), var(--gray-12));
-    --border-color: light-dark(var(--gray-4), var(--gray-12));
-    --field-border-color: var(--border-color);
-
-    &.ui-dark {
-      color-scheme: dark;
-    }
 
     &.no-grays {
       --primary-contrast: var(--color-1);

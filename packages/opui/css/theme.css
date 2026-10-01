@@ -61,47 +61,7 @@
       --gray-chroma: 0.01;
     */
 
-    /* 3. Named colors (no severity meaning) - use when you literally want a green/red/etc. dot */
-    --blue: oklch(from var(--color-9) l 0.2 210);
-    --green: oklch(from var(--color-9) l 0.2 145);
-    --orange: oklch(from var(--color-7) l 0.2 75);
-    --red: oklch(from var(--color-9) l 0.2 25);
-
-    /* 4. Intent tokens */
-    --success: var(--green);
-    --info: var(--blue);
-    --warning: var(--orange);
-    --critical: var(--red);
-    --neutral: var(--gray-9);
-    --invalid-color: var(--critical);
-
-    /* 5. Primary */
-    --primary: var(--color-8);
-    --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
-    --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
-    --primary-contrast: var(--gray-1);
-
-    /* 6. Text */
-    --text-primary: light-dark(var(--gray-15), var(--gray-1));
-    --text-primary-contrast: light-dark(var(--gray-2), var(--gray-15));
-    --text-muted: light-dark(var(--gray-13), var(--gray-4));
-    --text-muted-contrast: light-dark(var(--gray-4), var(--gray-13));
-    --text-inverse: light-dark(var(--gray-1), var(--gray-15));
-    --text-disabled: color-mix(
-      in oklch,
-      var(--text-muted) 50%,
-      var(--surface-default)
-    );
-
-    /* 7. Surfaces */
-    --surface-default: light-dark(var(--gray-1), var(--gray-13));
-    --surface-filled: light-dark(var(--gray-4), var(--gray-15));
-    --surface-tonal: light-dark(var(--gray-3), var(--gray-12));
-    --surface-elevated: light-dark(var(--gray-1), var(--gray-12));
-    --surface-inverse: light-dark(var(--gray-15), var(--gray-2));
-
     /* 8. Borders */
-    --border-color: light-dark(var(--gray-4), var(--gray-12));
     --border-radius: var(--size-2);
     --border-width: 1px;
 
@@ -145,7 +105,6 @@
     --button-size-large: var(--control-size-large);
 
     /* 12. Field / input */
-    --field-border-color: var(--border-color);
     --field-border-radius: var(--size-2);
     --field-border-width: 1px;
     --field-label-color: var(--text-primary);
@@ -196,6 +155,53 @@
     /* 19. Overlays */
     --backdrop-color: rgb(0 0 0 / 0.5);
     --backdrop-blur: 1px;
+  }
+
+  :where(html, .ui-palette) {
+    /* 3. Named colors (no severity meaning) - use when you literally want a green/red/etc. dot */
+    --blue: oklch(from var(--color-9) l 0.2 210);
+    --green: oklch(from var(--color-9) l 0.2 145);
+    --orange: oklch(from var(--color-7) l 0.2 75);
+    --red: oklch(from var(--color-9) l 0.2 25);
+
+    /* 4. Intent tokens */
+    --success: var(--green);
+    --info: var(--blue);
+    --warning: var(--orange);
+    --critical: var(--red);
+    --neutral: var(--gray-9);
+    --invalid-color: var(--critical);
+
+    /* 5. Primary */
+    --primary: var(--color-8);
+    --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
+    --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
+    --primary-contrast: var(--gray-1);
+
+    /* 6. Text */
+    --text-primary: light-dark(var(--gray-15), var(--gray-1));
+    --text-primary-contrast: light-dark(var(--gray-2), var(--gray-15));
+    --text-muted: light-dark(var(--gray-13), var(--gray-4));
+    --text-muted-contrast: light-dark(var(--gray-4), var(--gray-13));
+    --text-inverse: light-dark(var(--gray-1), var(--gray-15));
+    --text-disabled: color-mix(
+      in oklch,
+      var(--text-muted) 50%,
+      var(--surface-default)
+    );
+
+    /* 7. Surfaces */
+    --surface-default: light-dark(var(--gray-1), var(--gray-13));
+    --surface-filled: light-dark(var(--gray-4), var(--gray-15));
+    --surface-tonal: light-dark(var(--gray-3), var(--gray-12));
+    --surface-elevated: light-dark(var(--gray-1), var(--gray-12));
+    --surface-inverse: light-dark(var(--gray-15), var(--gray-2));
+
+    /* 8. Borders */
+    --border-color: light-dark(var(--gray-4), var(--gray-12));
+
+    /* 12. Field / input */
+    --field-border-color: var(--border-color);
   }
 
   @media (prefers-reduced-motion: reduce) {

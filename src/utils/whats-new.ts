@@ -56,9 +56,11 @@ const whatsNew = {
     },
   ],
   checkbox: [
+    `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, and <code>--isLTR</code> and <code>--isRTL</code> are <code>--_dir-rtl</code>.`,
     `Borders follow <code>--field-border-width</code>. See <a href="#api">CSS variables</a>.`,
   ],
   chip: [
+    `Breaking: <code>--ripple</code> is <code>--_ripple</code>.`,
     `Corners follow <code>--border-radius</code> (8px), and borders follow <code>--border-width</code>. See <a href="#api">CSS variables</a>.`,
   ],
   "description-list": [
@@ -78,6 +80,7 @@ const whatsNew = {
     `New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.`,
   ],
   radio: [
+    `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, and <code>--isLTR</code> and <code>--isRTL</code> are <code>--_dir-rtl</code>.`,
     `The input is <code>--choice-size</code> (20px) like <code>Checkbox</code>, and borders follow <code>--field-border-width</code>. See <a href="#api">CSS variables</a>.`,
   ],
   range: [

@@ -1,10 +1,11 @@
 # Changelog
 
-## Unreleased
+## 6.0.0 - Unreleased
 
 ### Breaking
 
 - `Accordion` markers only animate with a marker class on `details`. Add `.ui-marker-rotate` to keep the previous rotation.
+- Internal variables are private (`--_` prefix): `--isLTR` and `--isRTL` are `--_dir-rtl`, `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale` (`Checkbox`, `Radio`), and `--ripple` is `--_ripple` (`Chip`). Rename any overrides to the new names.
 
 ### Removed
 

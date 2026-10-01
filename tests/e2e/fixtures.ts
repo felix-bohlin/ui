@@ -3,6 +3,11 @@ import type { Page } from "@playwright/test"
 
 const examplesDir = new URL("../../src/component-examples/", import.meta.url)
 
+const PIXEL = Buffer.from(
+  "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+  "base64",
+)
+
 export const FRAMEWORKS = ["astro", "html", "vue"] as const
 
 export type Framework = (typeof FRAMEWORKS)[number]
@@ -11,6 +16,8 @@ export const COMPONENTS = readdirSync(examplesDir, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
   .toSorted()
+
+export const FIXTURES = [...COMPONENTS, "theming"].toSorted()
 
 export const hasExample = (
   framework: Framework,
@@ -25,7 +32,10 @@ export const openFixture = async (
 ) => {
   await page.route(
     (url) => url.hostname !== "localhost",
-    (route) => route.abort(),
+    (route) =>
+      route.request().resourceType() === "image"
+        ? route.fulfill({ body: PIXEL, contentType: "image/png" })
+        : route.abort(),
   )
   await page.goto(`/${framework}/test/${component}/`)
   if (framework === "vue") {
@@ -36,5 +46,19 @@ export const openFixture = async (
     )
   }
   await page.evaluate(() => document.fonts.ready)
+  await page.evaluate(() =>
+    Promise.all(
+      [...document.images].map((image) => {
+        image.loading = "eager"
+        return image.complete
+          ? undefined
+          : new Promise<void>((resolve) => {
+              image.addEventListener("load", () => resolve(), { once: true })
+              image.addEventListener("error", () => resolve(), { once: true })
+            })
+      }),
+    ),
+  )
   await page.waitForLoadState("networkidle")
+  await page.screenshot({ fullPage: true })
 }

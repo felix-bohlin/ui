@@ -85,11 +85,12 @@ You can use it like this: `<dialog closedby="">` and give it the following value
 
 
 <dialog
+  aria-labelledby="dialog-header"
   id="closing-behaviors-dialog-html"
   class="ui-dialog ui-card ui-elevated"
   closedby="any"
 >
-  <hgroup>
+  <hgroup id="dialog-header">
     <h2 class="ui-h4">How to close</h2>
   </hgroup>
   <div class="ui-content">
@@ -184,15 +185,27 @@ Source: [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/
 | `.ui-content`      | The dialog content.                  |
 | `.ui-actions`      | A group of actions, such as buttons. |
 
+#### CSS variables
+
+| Variable           | Default             | Description                                                                                                                |
+| ------------------ | ------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`  | `1px`               | Blur radius behind an open `Dialog` or `Drawer`.                                                                           |
+| `--backdrop-color` | `rgb(0 0 0 / 0.5)`  | Overlay color behind an open `Dialog` or `Drawer`.                                                                         |
+| `--duration`       | `0.2s`              | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`     | `var(--ease-out-3)` | Easing for elements entering the screen.                                                                                   |
+| `--motion`         | `1`                 | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+
 Add `.ui-card` and `.ui-elevated` to the root for card styles.
 
 ## Browser support
 
 - Chromium: Full support Supported since v135.
-- Firefox: Partial support Missing: overlay.
+- Firefox: Partial support Missing: display-animation, overlay.
 - Safari: Partial support Missing: dialog-closedby, overlay.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Dialog.md).
 
 ## Installation
 

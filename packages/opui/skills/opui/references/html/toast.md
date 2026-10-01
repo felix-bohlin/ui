@@ -170,7 +170,7 @@ Control how long the toast stays visible using `data-duration`. Supports CSS tim
 - Firefox: Full support Supported since v144.
 - Safari: Full support Supported since v26.2.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Toast.md).
 
 ## Installation
 

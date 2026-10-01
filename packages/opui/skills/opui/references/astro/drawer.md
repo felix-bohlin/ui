@@ -2,10 +2,6 @@
 
 Slides in from the sides, top or bottom of the screen.
 
-### What's new
-
-- `DrawerHeader` takes a `commandfor` prop, so the close button works without JavaScript.
-
 ## Usage
 
 Change the opening side with the `side` prop.
@@ -213,12 +209,29 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 | `footer`  | The footer. `DrawerFooter` renders it.                     |
 | `header`  | The header. `DrawerHeader` renders it with a close button. |
 
+#### CSS variables
+
+| Variable            | Default                                     | Description                                                                                                                |
+| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                           |
+| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                         |
+| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                    |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+
 ### Drawer header API
 
-| Prop         | Type     | Default | Description                                                                                                            |
-| ------------ | -------- | ------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `commandfor` | `string` | -       | The id of the drawer to close with the `close` command. Without it, the button closes the nearest `<dialog>` on click. |
-| `heading`    | `string` | -       | The heading.                                                                                                           |
+| Prop         | Type     | Default   | Description                                                                                                            |
+| ------------ | -------- | --------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `closeLabel` | `string` | `"Close"` | The accessible name of the close button.                                                                               |
+| `commandfor` | `string` | -         | The id of the drawer to close with the `close` command. Without it, the button closes the nearest `<dialog>` on click. |
+| `heading`    | `string` | -         | The heading.                                                                                                           |
 
 #### Slots
 
@@ -226,13 +239,29 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 | --------- | -------------------------------------------------------- |
 | `default` | Content placed between the heading and the close button. |
 
+#### CSS variables
+
+| Variable            | Default                                     | Description                                                                                                                |
+| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                           |
+| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                         |
+| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                    |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+
 ## Browser support
 
 - Chromium: Full support Supported since v135.
-- Firefox: Partial support Missing: overlay.
+- Firefox: Partial support Missing: display-animation, overlay.
 - Safari: Partial support Missing: dialog-closedby, overlay.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Drawer.md).
 
 ## Installation
 

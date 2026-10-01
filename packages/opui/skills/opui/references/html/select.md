@@ -93,7 +93,10 @@ LabelDescriptionOption one (1)¢EURHeaderFooterSupporting text
 <label class="ui-select">
   <span class="ui-label" id="select-supporting-1-label">Label</span>
   <span class="ui-field">
-    <select aria-labelledby="select-supporting-1-label">
+    <select
+      aria-describedby="select-supporting-1-end-text"
+      aria-labelledby="select-supporting-1-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -114,7 +117,10 @@ LabelDescriptionOption one (1)¢EURHeaderFooterSupporting text
 <label class="ui-select ui-filled">
   <span class="ui-label" id="select-supporting-2-label">Label</span>
   <span class="ui-field">
-    <select aria-labelledby="select-supporting-2-label">
+    <select
+      aria-describedby="select-supporting-2-end-text"
+      aria-labelledby="select-supporting-2-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -240,7 +246,11 @@ Add a `.ui-prefix` or `.ui-suffix` element inside`.ui-field` to affix content al
   <label class="ui-select" data-invalid>
     <span class="ui-label" id="select-validation-3-label">Label</span>
     <span class="ui-field">
-      <select aria-labelledby="select-validation-3-label">
+      <select
+        aria-describedby="select-validation-3-end-text"
+        aria-invalid="true"
+        aria-labelledby="select-validation-3-label"
+      >
         <button>
           <selectedcontent></selectedcontent>
         </button>
@@ -261,7 +271,11 @@ Add a `.ui-prefix` or `.ui-suffix` element inside`.ui-field` to affix content al
   <label class="ui-select ui-filled" data-invalid>
     <span class="ui-label" id="select-validation-4-label">Label</span>
     <span class="ui-field">
-      <select aria-labelledby="select-validation-4-label">
+      <select
+        aria-describedby="select-validation-4-end-text"
+        aria-invalid="true"
+        aria-labelledby="select-validation-4-label"
+      >
         <button>
           <selectedcontent></selectedcontent>
         </button>
@@ -310,7 +324,10 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label" id="select-orientation-2-label">Language</span>
   <span class="ui-start-text">Choose your preferred language</span>
   <span class="ui-field">
-    <select aria-labelledby="select-orientation-2-label">
+    <select
+      aria-describedby="select-orientation-2-end-text"
+      aria-labelledby="select-orientation-2-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -368,7 +385,11 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label" id="select-orientation-5-label">Invalid Select</span>
   <span class="ui-start-text">This select has an error</span>
   <span class="ui-field">
-    <select aria-labelledby="select-orientation-5-label">
+    <select
+      aria-describedby="select-orientation-5-end-text"
+      aria-invalid="true"
+      aria-labelledby="select-orientation-5-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -407,7 +428,10 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label" id="select-orientation-7-label">Region</span>
   <span class="ui-start-text">Affects data residency and latency</span>
   <span class="ui-field">
-    <select aria-labelledby="select-orientation-7-label">
+    <select
+      aria-describedby="select-orientation-7-end-text"
+      aria-labelledby="select-orientation-7-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -536,6 +560,39 @@ Bog-standard native HTML `<select>` without customized option list.
 | `.ui-footer`      | Content below the select, inside the border, with a divider. |
 | `.ui-end-text`    | Supporting text displayed below the field.                   |
 
+#### CSS variables
+
+| Variable                     | Default                                     | Description                                                                                                                |
+| ---------------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                      | Opacity applied to disabled controls.                                                                                      |
+| `--duration`                 | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease`                     | `ease`                                      | Default easing for transitions.                                                                                            |
+| `--field-border-color`       | `var(--border-color)`                       | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                   |
+| `--field-border-radius`      | `var(--size-2)`                             | Corner radius for fields.                                                                                                  |
+| `--field-border-width`       | `1px`                                       | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                 |
+| `--field-helper-color`       | `var(--text-muted)`                         | Text color for helper and end text under a field.                                                                          |
+| `--field-helper-font-size`   | `var(--font-size-0)`                        | Font size for helper and end text under a field.                                                                           |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                  | Line height for helper and end text under a field.                                                                         |
+| `--field-label-color`        | `var(--text-primary)`                       | Text color for field labels.                                                                                               |
+| `--field-label-font-size`    | `var(--font-size-05)`                       | Font size for field labels.                                                                                                |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                                       |
+| `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                                            |
+| `--field-size`               | `var(--control-size)`                       | Default field height.                                                                                                      |
+| `--field-size-small`         | `var(--control-size-small)`                 | Field height with `.ui-small`.                                                                                             |
+| `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`        | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.          |
+| `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--font-weight-medium`       | `var(--font-weight-5)`                      | Font weight for badges, overlines and group labels.                                                                        |
+| `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                                          |
+| `--motion`                   | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`                  | `var(--color-8)`                            | Brand color for primary actions and accents.                                                                               |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                                      |
+| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                              |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+
 The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` with the options. Browsers without customizable selects show a native select.
 
 ### Classic Select API
@@ -556,13 +613,46 @@ The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` wit
 | `<select>`        | A native select.                           |
 | `.ui-end-text`    | Supporting text displayed below the field. |
 
+#### CSS variables
+
+| Variable                     | Default                                     | Description                                                                                                                |
+| ---------------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                      | Opacity applied to disabled controls.                                                                                      |
+| `--duration`                 | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease`                     | `ease`                                      | Default easing for transitions.                                                                                            |
+| `--field-border-color`       | `var(--border-color)`                       | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                   |
+| `--field-border-radius`      | `var(--size-2)`                             | Corner radius for fields.                                                                                                  |
+| `--field-border-width`       | `1px`                                       | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                 |
+| `--field-helper-color`       | `var(--text-muted)`                         | Text color for helper and end text under a field.                                                                          |
+| `--field-helper-font-size`   | `var(--font-size-0)`                        | Font size for helper and end text under a field.                                                                           |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                  | Line height for helper and end text under a field.                                                                         |
+| `--field-label-color`        | `var(--text-primary)`                       | Text color for field labels.                                                                                               |
+| `--field-label-font-size`    | `var(--font-size-05)`                       | Font size for field labels.                                                                                                |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                                       |
+| `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                                            |
+| `--field-size`               | `var(--control-size)`                       | Default field height.                                                                                                      |
+| `--field-size-small`         | `var(--control-size-small)`                 | Field height with `.ui-small`.                                                                                             |
+| `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`        | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.          |
+| `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--font-weight-medium`       | `var(--font-weight-5)`                      | Font weight for badges, overlines and group labels.                                                                        |
+| `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                                          |
+| `--motion`                   | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`                  | `var(--color-8)`                            | Brand color for primary actions and accents.                                                                               |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                                      |
+| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                              |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+
 ## Browser support
 
 - Chromium: Full support Supported since v135.
-- Firefox: Partial support Missing: customizable-select, overlay.
+- Firefox: Partial support Missing: customizable-select, display-animation, overlay.
 - Safari: Partial support Missing: customizable-select, overlay.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Select.md).
 
 ## Installation
 

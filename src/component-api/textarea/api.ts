@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Textarea",
+  css: ["text-field", "textarea"],
   model: {
     description: "The textarea value.",
     prop: "value",

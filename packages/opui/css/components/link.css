@@ -2,7 +2,7 @@
   :where(.ui-link) {
     color: var(--primary);
     cursor: pointer;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     text-decoration: underline;
     text-decoration-color: var(--primary);
     text-underline-offset: 2px;

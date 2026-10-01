@@ -112,7 +112,7 @@ Change the shape of the avatar with the `.ui-squared`, `.ui-rounded` and `.ui-sq
 Group multiple avatars by adding `role="group"` to a parent container.
 
 ```html
-<div role="group">
+<div class="ui-avatar-group" role="group">
   <div class="ui-avatar">AB</div>
   <div class="ui-avatar">CD</div>
   <button class="ui-avatar">EF</button>
@@ -128,7 +128,7 @@ Group multiple avatars by adding `role="group"` to a parent container.
 
 | Type     | Modifiers                                    | Default | Description                              |
 | -------- | -------------------------------------------- | ------- | ---------------------------------------- |
-| Group    | `[role="group"]`                             | -       | Renders a container that groups avatars. |
+| Group    | `.ui-avatar-group`                           | -       | Renders a container that groups avatars. |
 | Variants | `.ui-rounded`, `.ui-squared`, `.ui-squircle` | -       | The variant to use.                      |
 
 #### Parts
@@ -138,13 +138,25 @@ Group multiple avatars by adding `role="group"` to a parent container.
 | `.ui-avatar` | Container element. |
 | `<img>`      | The avatar image.  |
 
+#### CSS variables
+
+| Variable             | Default                                     | Description                                                   |
+| -------------------- | ------------------------------------------- | ------------------------------------------------------------- |
+| `--control-size`     | `40px`                                      | Shared default height for fields and buttons so they line up. |
+| `--icon-size-large`  | `var(--size-5)`                             | Icon size inside `IconButton`, `Avatar` and `List`.           |
+| `--primary`          | `var(--color-8)`                            | Brand color for primary actions and accents.                  |
+| `--primary-contrast` | `var(--gray-1)`                             | Text color on a `--primary` background.                       |
+| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+
 ## Browser support
 
-- Chromium: Full support Supported since v105.
-- Firefox: Full support Supported since v121.
-- Safari: Full support Supported since v15.4.
+- Chromium: Full support Supported since v139.
+- Firefox: Partial support Missing: corner-shape.
+- Safari: Partial support Missing: corner-shape.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Avatar.md).
 
 ## Installation
 

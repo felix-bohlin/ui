@@ -5,12 +5,12 @@
   :where(.ui-toggle-button) {
     --_button-bg-color: transparent;
     --_size: var(--field-size);
-    --_svg-size: var(--size-4);
+    --_svg-size: var(--icon-size);
 
     align-items: center;
     background-color: var(--_button-bg-color);
     block-size: var(--_size);
-    border: 1px solid var(--border-color);
+    border: var(--border-width) solid var(--border-color);
     border-radius: var(--button-border-radius);
     color: var(--text-primary);
     cursor: pointer;
@@ -37,7 +37,7 @@
     }
 
     /* Element states */
-    @media (pointer: fine) {
+    @media (hover: hover) {
       &:hover:not(.ui-disabled) {
         --_button-bg-color: light-dark(
           oklch(0% 0 0 / 0.04),
@@ -72,7 +72,7 @@
     &:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
       --_button-bg-color: oklch(from var(--primary) l c h / 25%);
 
-      @media (pointer: fine) {
+      @media (hover: hover) {
         &:hover {
           --_button-bg-color: oklch(from var(--primary) l c h / 35%);
         }

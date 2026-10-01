@@ -13,7 +13,7 @@ import {
   Switch,
   TextField,
 } from "@opui/astro"
-import { RADIUS_OPTIONS, TOKEN_DEFAULTS } from "../utils/theme-store"
+import { RADIUS_OPTIONS, tokenDefaults } from "../utils/theme-store"
 
 const radiusGroups = [
   { name: "--border-radius", label: "Border radius" },
@@ -152,7 +152,8 @@ const { link } = Astro.locals
                   <span class="ui-label">{group.label}</span>
                   <div class="chip-group">
                     {RADIUS_OPTIONS.map((item) => {
-                      const pressed = item.value === TOKEN_DEFAULTS[group.name]
+                      const pressed =
+                        item.value === tokenDefaults("light")[group.name]
                       return (
                         <Chip
                           as="button"
@@ -196,11 +197,12 @@ const { link } = Astro.locals
   import {
     themeStore,
     TOKENS,
-    TOKEN_DEFAULTS,
+    tokenDefaults,
     type Mode,
     type Token,
   } from "../utils/theme-store"
   import { hexToOklch, oklchToHex } from "../utils/color-utils"
+  import { skipOffscreenRendering } from "../utils/skip-offscreen-rendering"
 
   const TOKEN_SET = new Set<string>(TOKENS)
 
@@ -222,9 +224,10 @@ const { link } = Astro.locals
   function syncFormFromStore(mode: Mode = themeStore.getActiveSiteMode()) {
     if (!form) return
     const config = themeStore.get(mode)
+    const defaults = tokenDefaults(mode)
 
     TOKENS.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token] ?? ""
+      const value = config[token] ?? defaults[token] ?? ""
       if (!value) return
       const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
       if (input && input.type !== "checkbox") {
@@ -248,10 +251,10 @@ const { link } = Astro.locals
     )
     if (colorPicker) {
       const hue = parseFloat(
-        config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
+        config["--palette-hue"] ?? defaults["--palette-hue"],
       )
       const chroma = parseFloat(
-        config["--palette-chroma"] ?? TOKEN_DEFAULTS["--palette-chroma"],
+        config["--palette-chroma"] ?? defaults["--palette-chroma"],
       )
       colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
     }
@@ -301,6 +304,27 @@ const { link } = Astro.locals
 
     if (TOKEN_SET.has(name)) {
       themeStore.setToken(mode, name as Token, target.value)
+    }
+  })
+
+  let endDrag: (() => void) | undefined
+
+  form?.addEventListener("pointerdown", (e) => {
+    const target = e.target as HTMLInputElement
+    if (target.type !== "range" || endDrag) return
+
+    const restore = skipOffscreenRendering()
+    const controller = new AbortController()
+    endDrag = () => {
+      controller.abort()
+      restore()
+      endDrag = undefined
+    }
+    for (const type of ["pointerup", "pointercancel", "resize", "scroll"]) {
+      window.addEventListener(type, () => endDrag?.(), {
+        passive: true,
+        signal: controller.signal,
+      })
     }
   })
 

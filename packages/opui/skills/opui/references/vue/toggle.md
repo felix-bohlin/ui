@@ -276,6 +276,28 @@ import { ToggleButton } from "opui-css/vue"
 | --------- | ------------------- |
 | `default` | The toggle buttons. |
 
+#### CSS variables
+
+| Variable                 | Default                                     | Description                                                                                     |
+| ------------------------ | ------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                     |
+| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                         |
+| `--button-border-radius` | `var(--size-2)`                             | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                    |
+| `--field-size`           | `var(--control-size)`                       | Default field height.                                                                           |
+| `--field-size-small`     | `var(--control-size-small)`                 | Field height with `.ui-small`.                                                                  |
+| `--field-size-x-small`   | `var(--control-size-x-small)`               | Field height with `.ui-x-small`.                                                                |
+| `--focus-ring-color`     | Unset                                       | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted. |
+| `--focus-ring-offset`    | `2px`                                       | Distance between a control and its focus ring.                                                  |
+| `--focus-ring-style`     | `solid`                                     | Outline style of the focus ring.                                                                |
+| `--focus-ring-width`     | `2px`                                       | Width of the focus ring.                                                                        |
+| `--icon-size`            | `var(--size-4)`                             | Default icon size inside components.                                                            |
+| `--primary`              | `var(--color-8)`                            | Brand color for primary actions and accents.                                                    |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                       |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                          |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+
 ### Toggle button API
 
 | Prop       | Type                    | Default      | Description                                                |
@@ -295,13 +317,34 @@ import { ToggleButton } from "opui-css/vue"
 | --------- | ------------------------------- |
 | `default` | The label and an optional icon. |
 
+#### CSS variables
+
+| Variable                 | Default                                     | Description                                                                                     |
+| ------------------------ | ------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                     |
+| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                         |
+| `--button-border-radius` | `var(--size-2)`                             | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                    |
+| `--field-size`           | `var(--control-size)`                       | Default field height.                                                                           |
+| `--field-size-small`     | `var(--control-size-small)`                 | Field height with `.ui-small`.                                                                  |
+| `--field-size-x-small`   | `var(--control-size-x-small)`               | Field height with `.ui-x-small`.                                                                |
+| `--focus-ring-color`     | Unset                                       | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted. |
+| `--focus-ring-offset`    | `2px`                                       | Distance between a control and its focus ring.                                                  |
+| `--focus-ring-style`     | `solid`                                     | Outline style of the focus ring.                                                                |
+| `--focus-ring-width`     | `2px`                                       | Width of the focus ring.                                                                        |
+| `--icon-size`            | `var(--size-4)`                             | Default icon size inside components.                                                            |
+| `--primary`              | `var(--color-8)`                            | Brand color for primary actions and accents.                                                    |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                          |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+
 ## Browser support
 
 - Chromium: Full support Supported since v125.
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Toggle.md).
 
 ## Installation
 

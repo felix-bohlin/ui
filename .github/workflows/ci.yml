@@ -22,6 +22,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
+      - run: git diff --exit-code -- public/search-index.json
 
   e2e:
     runs-on: ubuntu-latest

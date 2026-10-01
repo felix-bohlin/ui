@@ -175,15 +175,27 @@ Source: [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/
 | `default` | Raw content placed directly in the dialog. |
 | `header`  | The dialog header.                         |
 
+#### CSS variables
+
+| Variable           | Default             | Description                                                                                                                |
+| ------------------ | ------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`  | `1px`               | Blur radius behind an open `Dialog` or `Drawer`.                                                                           |
+| `--backdrop-color` | `rgb(0 0 0 / 0.5)`  | Overlay color behind an open `Dialog` or `Drawer`.                                                                         |
+| `--duration`       | `0.2s`              | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`     | `var(--ease-out-3)` | Easing for elements entering the screen.                                                                                   |
+| `--motion`         | `1`                 | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+
 Attributes that aren't props, such as `closedby` or `id`, go to the `<dialog>`.
 
 ## Browser support
 
 - Chromium: Full support Supported since v135.
-- Firefox: Partial support Missing: overlay.
+- Firefox: Partial support Missing: display-animation, overlay.
 - Safari: Partial support Missing: dialog-closedby, overlay.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Dialog.md).
 
 ## Installation
 

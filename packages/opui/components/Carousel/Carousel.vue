@@ -7,6 +7,7 @@ const {
   label,
   markers,
   peek,
+  persistentButtons,
   perView,
 } = defineProps<Props>()
 defineSlots<Slots>()
@@ -19,6 +20,7 @@ defineSlots<Slots>()
       'ui-carousel',
       {
         'ui-buttons-outside': buttons === 'outside',
+        'ui-buttons-persistent': persistentButtons,
         'ui-peek': peek,
         'ui-with-buttons': buttons,
         'ui-with-markers': markers,

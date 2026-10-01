@@ -15,6 +15,7 @@ const modelValue = defineModel<string | number | (string | number)[]>()
 
 const selectId = props.id || useId()
 const labelId = useId()
+const endTextId = useId()
 </script>
 
 <template>
@@ -34,6 +35,8 @@ const labelId = useId()
     }}</span>
     <span class="ui-field">
       <select
+        :aria-describedby="props.endText ? endTextId : undefined"
+        :aria-invalid="props.error ? 'true' : undefined"
         :aria-labelledby="props.label ? labelId : undefined"
         :id="selectId"
         v-bind="$attrs"
@@ -49,6 +52,8 @@ const labelId = useId()
         <slot></slot>
       </select>
     </span>
-    <span v-if="props.endText" class="ui-end-text">{{ props.endText }}</span>
+    <span v-if="props.endText" :id="endTextId" class="ui-end-text">{{
+      props.endText
+    }}</span>
   </label>
 </template>

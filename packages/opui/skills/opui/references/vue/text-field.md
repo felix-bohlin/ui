@@ -535,6 +535,36 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `suffix`          | Content at the inline-end of the field, inside the border.   |
 | `supporting-text` | Legacy alias of the `end-text` slot.                         |
 
+#### CSS variables
+
+| Variable                     | Default                                     | Description                                                                                                                |
+| ---------------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                      | Opacity applied to disabled controls.                                                                                      |
+| `--duration`                 | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease`                     | `ease`                                      | Default easing for transitions.                                                                                            |
+| `--field-border-color`       | `var(--border-color)`                       | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                   |
+| `--field-border-radius`      | `var(--size-2)`                             | Corner radius for fields.                                                                                                  |
+| `--field-border-width`       | `1px`                                       | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                 |
+| `--field-helper-color`       | `var(--text-muted)`                         | Text color for helper and end text under a field.                                                                          |
+| `--field-helper-font-size`   | `var(--font-size-0)`                        | Font size for helper and end text under a field.                                                                           |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                  | Line height for helper and end text under a field.                                                                         |
+| `--field-label-color`        | `var(--text-primary)`                       | Text color for field labels.                                                                                               |
+| `--field-label-font-size`    | `var(--font-size-05)`                       | Font size for field labels.                                                                                                |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                                       |
+| `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                                            |
+| `--field-size`               | `var(--control-size)`                       | Default field height.                                                                                                      |
+| `--field-size-small`         | `var(--control-size-small)`                 | Field height with `.ui-small`.                                                                                             |
+| `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                                          |
+| `--motion`                   | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`                  | `var(--color-8)`                            | Brand color for primary actions and accents.                                                                               |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                              |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+
 Attributes that aren't props, such as `placeholder` or `disabled`, go to the `<input>`.
 
 ### Text input API
@@ -552,7 +582,7 @@ Attributes that aren't props, such as `placeholder` or `disabled`, go to the `<i
 - Firefox: Full support Supported since v152.
 - Safari: Full support Supported since v26.2.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Text+Field.md).
 
 ## Installation
 

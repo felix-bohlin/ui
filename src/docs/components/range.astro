@@ -18,7 +18,14 @@ export const description =
   slug="range"
   heroAnatomy
   apis={[{ title: "Range API", api: rangeApi }]}
-  browserSupport={["container-queries", "light-dark", "relative-color"]}
+  browserSupport={[
+    "container-queries",
+    "datalist",
+    "has",
+    "light-dark",
+    "registered-custom-properties",
+    "relative-color",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Range/Range.astro",

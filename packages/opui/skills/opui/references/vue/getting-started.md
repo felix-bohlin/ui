@@ -59,7 +59,7 @@ The basic idea is to pick one hue and chroma, and derive a 16-step palette from 
 }
 ```
 
-- **`--palette-hue`** is a hue angle in degrees. Open Props' `--hue-*` tokens work here.
+- **`--palette-hue`** is a hue angle in degrees. Open Props' `--hue-*` tokens work here. The default is green in light mode and blue in dark mode.
 - **`--palette-chroma`** scales the saturation, from`0` (gray) to `1`.
 - **`--palette-hue-rotate-by`** is a separate knob for per-step warm/cool drift, in degrees.
 
@@ -69,6 +69,21 @@ You can also set `--palette-source` directly (it must be an `oklch()` color), an
 :where(.ui-warning) {
   --palette-source: oklch(0.58 0.21 var(--hue-orange));
 }
+```
+
+Every token with its default is listed on the[theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) page.
+
+### Scopes
+
+`.ui-light` and `.ui-dark` force a color scheme. Put them on `html` to control the whole page, or on any element to force a subtree.`.ui-palette` re-derives the palette and all color tokens from the knobs set on that element, so one page can carry several brands.
+
+```html
+<aside class="ui-dark">Always dark</aside>
+
+
+<section class="ui-palette" style="--palette-hue: 30">
+  <button class="ui-button ui-primary ui-filled">Orange brand</button>
+</section>
 ```
 
 ## Motion
@@ -100,5 +115,5 @@ Components use a local `--_motion` variable that allows you to disable motion fo
 Additionally, this is how you could include `--motion` in your CSS:
 
 ```css
-transition: transform calc(0.2s * var(--motion, 1)) ease;
+transition: transform calc(var(--duration) * var(--motion, 1)) var(--ease);
 ```

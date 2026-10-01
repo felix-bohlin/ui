@@ -227,13 +227,26 @@ import { Button } from "opui-css/astro"
 | `default` | Raw content placed directly in the card. |
 | `header`  | The card header.                         |
 
+#### CSS variables
+
+| Variable             | Default                                     | Description                                                       |
+| -------------------- | ------------------------------------------- | ----------------------------------------------------------------- |
+| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.       |
+| `--border-radius`    | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions. |
+| `--border-width`     | `1px`                                       | Default border width for components that draw a border.           |
+| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                         |
+| `--surface-elevated` | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                      |
+| `--surface-tonal`    | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+
 ## Browser support
 
 - Chromium: Full support Supported since v111.
 - Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Card.md).
 
 ## Installation
 

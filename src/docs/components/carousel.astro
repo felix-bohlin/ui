@@ -22,10 +22,13 @@ export const description =
   apis={[{ title: "Carousel API", api: carouselApi }]}
   browserSupport={[
     "anchor-positioning",
-    "container-style-queries",
+    "light-dark",
+    "relative-color",
     "scroll-buttons",
+    "scroll-marker-targets",
     "scroll-markers",
     "scroll-snap",
+    "scrollbar-width",
   ]}
   changelogPaths={[
     {
@@ -163,8 +166,9 @@ export const description =
   <section>
     <h2 id="custom-buttons">Custom buttons</h2>
     <p>
-      <code>--_button-prev-icon</code> and <code>--_button-next-icon</code> for custom
-      icons, <code>--_button-icon-size</code> to scale them.
+      <code>--_button-prev-icon</code> and <code>--_button-next-icon</code> take any
+      SVG, e.g. from your icon library, <code>--_button-icon-size</code> to scale
+      them.
     </p>
 
     <AutoExample name="CustomButtons" />

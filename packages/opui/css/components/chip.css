@@ -33,7 +33,9 @@
       --_color: var(--text-primary);
     }
 
-    &:where(button, a):where(:not([disabled])) {
+    &:where(button, a):where(
+        :not([disabled], [aria-disabled="true"], .ui-disabled)
+      ) {
       &:where(:not(:active)):hover {
         --_bg-color: light-dark(
           oklch(from var(--surface-tonal) calc(l * 0.98) c h),
@@ -67,7 +69,7 @@
       block-size: auto;
     }
 
-    &:where(:not([disabled])) {
+    &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
       &:where(:not(:active):hover) {
         --_ripple: radial-gradient(circle, transparent 1%, var(--_bg-color) 1%)
           center/15000%;
@@ -82,10 +84,14 @@
     }
 
     /* Disabled */
-    &:where([disabled]) {
+    &:where([disabled], [aria-disabled="true"], .ui-disabled) {
       opacity: var(--disabled-opacity);
       --_color: var(--text-disabled);
       cursor: not-allowed;
+    }
+
+    &:where(a):where([aria-disabled="true"], .ui-disabled) {
+      pointer-events: none;
     }
   }
 }

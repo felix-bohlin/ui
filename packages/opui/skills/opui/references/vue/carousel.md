@@ -351,7 +351,7 @@ const places = [
 
 ## Custom buttons
 
-`--_button-prev-icon` and `--_button-next-icon` for custom icons, `--_button-icon-size` to scale them.
+`--_button-prev-icon` and `--_button-next-icon` take any SVG, e.g. from your icon library, `--_button-icon-size` to scale them.
 
 ```vue
 <script setup lang="ts">
@@ -391,8 +391,8 @@ const places = [
 <style>
 .carousel-custom-buttons {
   --_button-bg-color: var(--primary);
-  --_button-next-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0'/%3E%3C/svg%3E");
-  --_button-prev-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M15.707 4.293a1 1 0 0 1 0 1.414L9.414 12l6.293 6.293a1 1 0 0 1-1.414 1.414l-7-7a1 1 0 0 1 0-1.414l7-7a1 1 0 0 1 1.414 0'/%3E%3C/svg%3E");
+  --_button-next-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 12h14m-6-6 6 6-6 6'/%3E%3C/svg%3E");
+  --_button-prev-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 12H5m6-6-6 6 6 6'/%3E%3C/svg%3E");
 }
 </style>
 ```
@@ -583,10 +583,10 @@ Step 4 of 4: Scroll markers
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Partial support Missing: scroll-buttons, scroll-markers.
-- Safari: Partial support Missing: scroll-buttons, scroll-markers.
+- Firefox: Partial support Missing: scroll-buttons, scroll-marker-targets, scroll-markers.
+- Safari: Partial support Missing: scroll-buttons, scroll-marker-targets, scroll-markers.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Carousel.md).
 
 ## Installation
 

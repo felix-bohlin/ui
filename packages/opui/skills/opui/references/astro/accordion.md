@@ -325,6 +325,23 @@ The [WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) f
 | `marker`  | The marker. Astro and Vue render a chevron by default. |
 | `summary` | The always visible header.                             |
 
+#### CSS variables
+
+| Variable             | Default                                     | Description                                                                                                                |
+| -------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`    | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--border-width`     | `1px`                                       | Default border width for components that draw a border.                                                                    |
+| `--duration`         | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease`             | `ease`                                      | Default easing for transitions.                                                                                            |
+| `--font-weight-bold` | `var(--font-weight-7)`                      | Font weight for headings, buttons and terms.                                                                               |
+| `--motion`           | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--surface-elevated` | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                                                                               |
+| `--surface-tonal`    | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                              |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+
 Group accordions in a `<Card role="group">`. Set its `variant` to theme the whole group.
 
 ## Under the hood
@@ -429,7 +446,7 @@ Step 3 of 3: Marker
 - Firefox: Partial support Missing: interpolate-size.
 - Safari: Partial support Missing: interpolate-size.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Accordion.md).
 
 ## Installation
 

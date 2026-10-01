@@ -445,6 +445,31 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `default`  | The label.                                 |
 | `end-text` | Supporting text displayed below the label. |
 
+#### CSS variables
+
+| Variable                     | Default                                     | Description                                                           |
+| ---------------------------- | ------------------------------------------- | --------------------------------------------------------------------- |
+| `--border-color`             | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.           |
+| `--choice-size`              | `var(--size-4)`                             | Default `Checkbox` and `Radio` input size.                            |
+| `--choice-size-large`        | `var(--size-5)`                             | `Checkbox` and `Radio` input size with `.ui-large`.                   |
+| `--choice-size-small`        | `var(--size-3)`                             | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`. |
+| `--disabled-opacity`         | `0.64`                                      | Opacity applied to disabled controls.                                 |
+| `--field-border-width`       | `1px`                                       | Border width for fields, `Checkbox`, `Radio` and `Switch`.            |
+| `--field-helper-color`       | `var(--text-muted)`                         | Text color for helper and end text under a field.                     |
+| `--field-helper-font-size`   | `var(--font-size-0)`                        | Font size for helper and end text under a field.                      |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                  | Line height for helper and end text under a field.                    |
+| `--field-label-color`        | `var(--text-primary)`                       | Text color for field labels.                                          |
+| `--field-label-font-size`    | `var(--font-size-05)`                       | Font size for field labels.                                           |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                  |
+| `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                       |
+| `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                     |
+| `--primary`                  | `var(--color-8)`                            | Brand color for primary actions and accents.                          |
+| `--primary-contrast`         | `var(--gray-1)`                             | Text color on a `--primary` background.                               |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                             |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+
 Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`.
 
 ### Field group API
@@ -460,13 +485,31 @@ Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`.
 | --------- | --------------------------------------------------- |
 | `default` | The fields, such as checkboxes, radios or switches. |
 
+#### CSS variables
+
+| Variable                     | Default                                     | Description                                                                                           |
+| ---------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                      | Opacity applied to disabled controls.                                                                 |
+| `--field-helper-color`       | `var(--text-muted)`                         | Text color for helper and end text under a field.                                                     |
+| `--field-helper-font-size`   | `var(--font-size-0)`                        | Font size for helper and end text under a field.                                                      |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                  | Line height for helper and end text under a field.                                                    |
+| `--field-label-color`        | `var(--text-primary)`                       | Text color for field labels.                                                                          |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                  |
+| `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                       |
+| `--focus-ring-width`         | `2px`                                       | Width of the focus ring.                                                                              |
+| `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
+| `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+
 ## Browser support
 
 - Chromium: Full support Supported since v105.
 - Firefox: Full support Supported since v121.
 - Safari: Full support Supported since v15.4.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Checkbox.md).
 
 ## Installation
 

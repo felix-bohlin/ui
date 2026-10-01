@@ -2,20 +2,44 @@
   :where(.ui-carousel) {
     --_motion: var(--motion, 1);
     --_button-bg-color: light-dark(var(--gray-13), var(--gray-3));
-    --_button-border-color: var(--text-primary-contrast);
+    --_button-border-color: light-dark(
+      oklch(from var(--_button-bg-color) calc(l + 0.3) c h),
+      oklch(from var(--_button-bg-color) calc(l - 0.3) c h)
+    );
+    --_button-chevron-arm: calc(var(--_button-size) * 3 / 16);
+    --_button-chevron-falling: linear-gradient(
+      to top right,
+      transparent calc(50% - var(--_button-chevron-stroke) / 2 - 0.5px),
+      var(--_button-color) calc(50% - var(--_button-chevron-stroke) / 2 + 0.5px)
+        calc(50% + var(--_button-chevron-stroke) / 2 - 0.5px),
+      transparent calc(50% + var(--_button-chevron-stroke) / 2 + 0.5px)
+    );
+    --_button-chevron-rising: linear-gradient(
+      to bottom right,
+      transparent calc(50% - var(--_button-chevron-stroke) / 2 - 0.5px),
+      var(--_button-color) calc(50% - var(--_button-chevron-stroke) / 2 + 0.5px)
+        calc(50% + var(--_button-chevron-stroke) / 2 - 0.5px),
+      transparent calc(50% + var(--_button-chevron-stroke) / 2 + 0.5px)
+    );
+    --_button-chevron-stroke: calc(var(--_button-size) / 16);
     --_button-color: light-dark(var(--gray-1), var(--gray-15));
-    --_button-disabled-border-color: oklch(
-      from var(--_button-border-color) l c h / 35%
+    --_button-disabled-border-color: light-dark(
+      oklch(from var(--_button-bg-color) calc(l + 0.12) c h),
+      oklch(from var(--_button-bg-color) calc(l - 0.12) c h)
     );
     --_button-disabled-opacity: 0;
+    --_button-end-chevron:
+      var(--_button-chevron-falling), var(--_button-chevron-rising);
+    --_button-end-icon: var(--_button-next-icon);
     --_button-icon-size: 60%;
     --_button-inset: var(--size-2);
-    --_button-next-content: "\276F";
     --_button-next-icon: none;
-    --_button-prev-content: "\276E";
     --_button-prev-icon: none;
     --_button-shadow: var(--shadow-2);
     --_button-size: var(--button-size-small, 32px);
+    --_button-start-chevron:
+      var(--_button-chevron-rising), var(--_button-chevron-falling);
+    --_button-start-icon: var(--_button-prev-icon);
     --_gap: var(--size-3);
     --_item-size: calc(
       (100% - (var(--_per-view) - 1) * var(--_gap)) / var(--_per-view)
@@ -82,9 +106,11 @@
       &::scroll-button(inline-start),
       &::scroll-button(inline-end) {
         background-color: var(--_button-bg-color);
-        background-position: center;
+        background-position:
+          50% calc(50% - var(--_button-chevron-arm) / 2),
+          50% calc(50% + var(--_button-chevron-arm) / 2);
         background-repeat: no-repeat;
-        background-size: var(--_button-icon-size);
+        background-size: var(--_button-chevron-arm) var(--_button-chevron-arm);
         block-size: var(--_button-size);
         border: var(--border-width, 1px) solid var(--_button-border-color);
         border-radius: var(--radius-round);
@@ -108,60 +134,40 @@
       }
 
       &::scroll-button(inline-start) {
-        background-image: var(--_button-prev-icon);
-        content: var(--_button-prev-content) / var(--_button-prev-label);
+        background-image: var(--_button-start-chevron);
+        content: "" / var(--_button-prev-label);
         inset-inline-start: calc(anchor(self-start) + var(--_button-inset));
       }
 
       &::scroll-button(inline-end) {
-        background-image: var(--_button-next-icon);
-        content: var(--_button-next-content) / var(--_button-next-label);
+        background-image: var(--_button-end-chevron);
+        content: "" / var(--_button-next-label);
         inset-inline-end: calc(anchor(self-end) + var(--_button-inset));
       }
 
-      @supports (content: if(style(--x: none): "a" ; else: "b")) {
+      @container not style(--_button-start-icon: none) {
         &::scroll-button(inline-start) {
-          content: if(
-              style(--_button-prev-icon: none): var(--_button-prev-content) ;
-                else: ""
-            ) /
-            var(--_button-prev-label);
-        }
-
-        &::scroll-button(inline-end) {
-          content: if(
-              style(--_button-next-icon: none): var(--_button-next-content) ;
-                else: ""
-            ) /
-            var(--_button-next-label);
+          background-image: var(--_button-start-icon);
+          background-position: center;
+          background-size: var(--_button-icon-size);
         }
       }
 
-      @supports not (content: if(style(--x: none): "a" ; else: "b")) {
-        @container not style(--_button-prev-icon: none) {
-          &::scroll-button(inline-start) {
-            content: "" / var(--_button-prev-label);
-          }
-        }
-
-        @container not style(--_button-next-icon: none) {
-          &::scroll-button(inline-end) {
-            content: "" / var(--_button-next-label);
-          }
+      @container not style(--_button-end-icon: none) {
+        &::scroll-button(inline-end) {
+          background-image: var(--_button-end-icon);
+          background-position: center;
+          background-size: var(--_button-icon-size);
         }
       }
 
       &:dir(rtl) {
-        --_button-next-content: "\276E";
-        --_button-prev-content: "\276F";
-
-        &::scroll-button(inline-start) {
-          background-image: var(--_button-next-icon);
-        }
-
-        &::scroll-button(inline-end) {
-          background-image: var(--_button-prev-icon);
-        }
+        --_button-end-chevron:
+          var(--_button-chevron-rising), var(--_button-chevron-falling);
+        --_button-end-icon: var(--_button-prev-icon);
+        --_button-start-chevron:
+          var(--_button-chevron-falling), var(--_button-chevron-rising);
+        --_button-start-icon: var(--_button-next-icon);
       }
 
       &::scroll-button(inline-start):active,

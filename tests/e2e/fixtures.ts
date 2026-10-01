@@ -36,5 +36,18 @@ export const openFixture = async (
     )
   }
   await page.evaluate(() => document.fonts.ready)
+  await page.evaluate(() =>
+    Promise.all(
+      [...document.images].map((image) => {
+        image.loading = "eager"
+        return image.complete
+          ? undefined
+          : new Promise<void>((resolve) => {
+              image.addEventListener("load", () => resolve(), { once: true })
+              image.addEventListener("error", () => resolve(), { once: true })
+            })
+      }),
+    ),
+  )
   await page.waitForLoadState("networkidle")
 }

@@ -19,7 +19,13 @@ import anchorApi from "../../component-api/anchor/api"
   slug="anchor"
   heroAnatomy
   apis={[{ title: "Anchor API", api: anchorApi }]}
-  browserSupport={["anchor-positioning", "interest-invokers", "popover-hint"]}
+  browserSupport={[
+    "anchor-positioning",
+    "interest-invokers",
+    "invoker-commands",
+    "popover",
+    "popover-hint",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Anchor/Anchor.astro",

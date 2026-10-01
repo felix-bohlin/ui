@@ -64,6 +64,7 @@
 - `Typography` rich text `ol[type]` keeps its marker type, and consecutive `dt` elements are no longer spaced apart.
 - `Typography` rich text no longer styles an `a` without `href` as a link.
 - `Typography` rich text `code` inside a link gets a darker background in dark mode, so the link color keeps its contrast.
+- `Range` track is visible again. `linear-gradient(to inline-end, …)` is not supported, so the track background was dropped. The track color is now a `background-color` and the fill a separate image that starts from the right in RTL. `--_track-fill` inherits so the fill reaches the track.
 
 ## 5.5.0 - 2026-09-28
 

@@ -65,6 +65,15 @@
   "dark/spinner/Sizes": [
     "color-contrast"
   ],
+  "dark/stress/forms/KitchenSink": [
+    "color-contrast"
+  ],
+  "dark/stress/forms/States": [
+    "color-contrast"
+  ],
+  "dark/stress/forms/Toolbar": [
+    "color-contrast"
+  ],
   "dark/switch/FieldGroupValidation": [
     "color-contrast"
   ],
@@ -155,6 +164,9 @@
     "color-contrast"
   ],
   "light/spinner/Sizes": [
+    "color-contrast"
+  ],
+  "light/stress/forms/Toolbar": [
     "color-contrast"
   ],
   "light/tabs/Basics": [

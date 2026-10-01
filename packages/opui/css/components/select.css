@@ -135,6 +135,7 @@
     &:not(:has(button)) {
       select {
         appearance: none;
+        text-overflow: ellipsis;
       }
 
       /* Arrow */

@@ -7,6 +7,7 @@ Groups related buttons.
 - [Split button](#split-button) with a `Menu`.
 - Icon-only buttons stay square.
 - [X-small](#sizes) size with `size="x-small"`.
+- [Small](#sizes) groups use the same text size as a small `Button`.
 
 ## Anatomy
 

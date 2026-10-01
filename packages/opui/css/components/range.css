@@ -98,6 +98,7 @@
     &.ui-spread {
       align-items: center;
       column-gap: var(--size-4);
+      container-type: inline-size;
       grid-template-columns: 1fr auto;
 
       .ui-label {
@@ -150,8 +151,6 @@
       }
 
       @container (width < 400px) {
-        grid-template-columns: 1fr;
-
         * {
           grid-column: 1/-1;
         }
@@ -173,6 +172,7 @@
         input[type="range"] {
           grid-column: 1/-1;
           grid-row: 3;
+          min-inline-size: 0;
         }
 
         datalist {

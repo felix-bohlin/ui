@@ -5,6 +5,7 @@ Buttons (disguised as input checkbox/radio) that can be toggled on and off.
 ### What's new
 
 - [Large](#sizes) size with `.ui-large`.
+- [Small and x-small](#sizes) toggles use smaller text, like `Button`.
 
 ## Anatomy
 

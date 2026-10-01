@@ -7,6 +7,7 @@ Groups related buttons by wrapping them with `class="ui-button-group"` and `role
 - [Split button](#split-button) with a `Menu`.
 - Icon-only buttons stay square.
 - [X-small](#sizes) size with `.ui-x-small`.
+- [Small](#sizes) groups use the same text size as a small `Button`.
 
 ## Anatomy
 

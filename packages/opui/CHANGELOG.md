@@ -104,6 +104,8 @@
 - `TextField` prefix and suffix icons are capped at `--icon-size`, so a large icon no longer makes the field taller.
 - `TextField` autosuggest arrow sits at the inline end in RTL. It overlapped the text.
 - `ToggleButton` only grows inside a `ToggleGroup`. On its own in a flex container it stretched to fill the row.
+- `Range` with `spread` (`.ui-spread`) collapses to a column when narrower than 400px, like `TextField`. The container query had no container, so it never applied, and the slider's minimum width could push its parent wider.
+- `ClassicSelect` truncates a long selected option with an ellipsis instead of clipping it.
 - `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.
 - `Badge`, `Chip`, `Tabs` and `Toast` respect `--motion` and `prefers-reduced-motion`.
 - `dist/opui.components.css` starts with the `@layer` order statement.

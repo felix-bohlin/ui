@@ -421,6 +421,22 @@ Announces item position. Buttons and markers are named.
 | --------- | ----------- |
 | `default` | An item.    |
 
+#### CSS variables
+
+| Variable              | Default                                     | Description                                                                                                                |
+| --------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-radius`     | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--border-width`      | `1px`                                       | Default border width for components that draw a border.                                                                    |
+| `--button-size-small` | `var(--control-size-small)`                 | `Button` height with `.ui-small`.                                                                                          |
+| `--duration`          | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--duration-fast`     | `0.1s`                                      | Transition duration for hover and press feedback.                                                                          |
+| `--ease`              | `ease`                                      | Default easing for transitions.                                                                                            |
+| `--motion`            | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`           | `var(--color-8)`                            | Brand color for primary actions and accents.                                                                               |
+| `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+
 ## Under the hood
 
 1. Grid track
@@ -567,8 +583,8 @@ Step 4 of 4: Scroll markers
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Partial support Missing: if, scroll-buttons, scroll-markers.
-- Safari: Partial support Missing: if, scroll-buttons, scroll-markers.
+- Firefox: Partial support Missing: scroll-buttons, scroll-markers.
+- Safari: Partial support Missing: scroll-buttons, scroll-markers.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
 

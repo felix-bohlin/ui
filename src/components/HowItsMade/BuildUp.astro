@@ -29,10 +29,7 @@ type Props = {
 
 const { id, knobs = [], steps } = Astro.props
 
-const stepFeatures = steps.flatMap((step) => step.features ?? [])
-const moreFeatures = (Astro.locals.browserSupport ?? []).filter(
-  (feature) => !stepFeatures.includes(feature),
-)
+const features = Astro.locals.browserSupport ?? []
 
 const values = (from: number) =>
   steps
@@ -155,10 +152,13 @@ const stepId = (index: number, part: string) =>
   </div>
 
   {
-    moreFeatures.length > 0 && (
-      <footer class="build-up-more">
-        <p>More in this component</p>
-        <FeatureSupport ids={moreFeatures} />
+    features.length > 0 && (
+      <footer class="build-up-support">
+        <hgroup>
+          <h3 id="browser-support">Browser support</h3>
+          <p>Modern CSS and HTML features this component uses.</p>
+        </hgroup>
+        <FeatureSupport ids={features} />
       </footer>
     )
   }
@@ -180,7 +180,7 @@ const stepId = (index: number, part: string) =>
       "stage steps"
       "knobs steps"
       "detail detail"
-      "more more";
+      "support support";
     grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
     grid-template-rows: 1fr auto auto auto;
     margin-block: var(--size-6);
@@ -404,16 +404,27 @@ const stepId = (index: number, part: string) =>
     }
   }
 
-  .build-up-more {
+  .build-up-support {
     border-block-start: var(--border-width, 1px) solid var(--border-color);
     display: grid;
-    gap: var(--size-2);
-    grid-area: more;
+    gap: var(--size-3);
+    grid-area: support;
     padding: var(--size-3) var(--size-4) var(--size-4);
 
-    & p {
+    & hgroup {
+      display: grid;
+      gap: var(--size-1);
+    }
+
+    & h3 {
       font-size: var(--font-size-1);
       font-weight: 700;
+      margin: 0;
+    }
+
+    & p {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
       margin: 0;
     }
   }
@@ -436,7 +447,7 @@ const stepId = (index: number, part: string) =>
         "knobs"
         "steps"
         "detail"
-        "more";
+        "support";
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: auto;
     }
@@ -447,7 +458,7 @@ const stepId = (index: number, part: string) =>
     }
 
     .build-up-detail,
-    .build-up-more {
+    .build-up-support {
       padding-inline: var(--size-3);
     }
 

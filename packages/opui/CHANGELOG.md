@@ -25,11 +25,16 @@
 - `Tabs` take a `variant` prop. `filled` (`.ui-filled`) fills the selected tab with the primary color, `line` (`.ui-line`) drops the track and marks the selected tab with a line, and `outlined` (`.ui-outlined`) uses a bordered track without a background.
 - `layers.css` with the `@layer` order, for importing single component files.
 - The package ships an agent skill in `skills/opui` with a reference for every component.
+- `--rhythm-step` theme token (`0.25rem`). Heading font sizes snap to half a step and heading line heights to a full step with `round()`.
+- Rich text styles `hr`, tables, `pre > samp` and preformatted text without `code`.
 
 ### Changed
 
 - `Tabs` look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill.
 - Rich text only styles headings without a class, like lists. Component parts such as the `Callout` title keep their own styles.
+- Rich text spacing derives from one flow space (`1.25em` of the body text). Headings get more space above than below, so they sit closer to the text they introduce, and lists with block content, description lists, `details`, `address`, code blocks and figures follow the same rhythm.
+- Headings share one line height, `1em + 0.5rem` rounded to `--rhythm-step`, in rich text and in the `.ui-h1`–`.ui-h6` classes.
+- `--font-size-h3` and `--font-size-h4` are fluid with higher minimums and `--font-size-h6` is `--font-size-1`, so heading sizes no longer invert or drop below body text on narrow viewports.
 
 ### Fixed
 
@@ -50,6 +55,9 @@
 - `Tabs` and `ToggleGroup` context only applies to their own children in Astro.
 - Rich text removes the top margin of the first child and the bottom margin of the last child in a component's `.ui-content`.
 - Rich text lists after a heading or `hr` no longer get a top margin, and nested lists get their smaller margins.
+- Rich text no longer overflows grid and flex parents with long words, URLs or code lines.
+- Rich text inline `code` styles no longer apply to `code` inside `pre`.
+- Rich text `ol[type]` keeps its marker type, and consecutive `dt` elements are no longer spaced apart.
 
 ## 5.5.0 - 2026-09-28
 

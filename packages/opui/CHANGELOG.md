@@ -27,12 +27,16 @@
 - The package ships an agent skill in `skills/opui` with a reference for every component.
 - `--rhythm-step` theme token (`0.25rem`). Heading font sizes snap to half a step and heading line heights to a full step with `round()`.
 - Rich text styles `hr`, tables, `pre > samp` and preformatted text without `code`.
+- Rich text task lists (an `li` that starts with a checkbox) show the checkbox in place of the bullet.
 
 ### Changed
 
 - `Tabs` look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill.
 - Rich text only styles headings without a class, like lists. Component parts such as the `Callout` title keep their own styles.
-- Rich text spacing derives from one flow space (`1.25em` of the body text). Headings get more space above than below, so they sit closer to the text they introduce, and lists with block content, description lists, `details`, `address`, code blocks and figures follow the same rhythm.
+- Rich text spacing derives from one flow space (`1.25em` of the body text), and every margin derived from it snaps to `--rhythm-step`. Headings get more space above than below, so they sit closer to the text they introduce, and lists with block content, description lists, `details`, `address`, code blocks and figures follow the same rhythm.
+- Rich text list gutters are measured in `ch`, so two-digit markers fit, and ordered lists with 100 or more items get a wider gutter. Bulleted and numbered list text starts at the same position.
+- `sup` and `sub` are `0.75em` in rich text and in `.ui-sup` and `.ui-sub`, and no longer change the line height.
+- Rich text figure captions are muted and start-aligned under quotes, code blocks and tables.
 - Headings share one line height, `1em + 0.5rem` rounded to `--rhythm-step`, in rich text and in the `.ui-h1`–`.ui-h6` classes.
 - `--font-size-h3` and `--font-size-h4` are fluid with higher minimums and `--font-size-h6` is `--font-size-1`, so heading sizes no longer invert or drop below body text on narrow viewports.
 
@@ -58,6 +62,7 @@
 - Rich text no longer overflows grid and flex parents with long words, URLs or code lines.
 - Rich text inline `code` styles no longer apply to `code` inside `pre`.
 - Rich text `ol[type]` keeps its marker type, and consecutive `dt` elements are no longer spaced apart.
+- Rich text no longer styles an `a` without `href` as a link.
 
 ## 5.5.0 - 2026-09-28
 

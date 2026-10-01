@@ -1,9 +1,11 @@
 ---
 import { Button, ButtonGroup, ListItem, RadioInput, Range } from "@opui/astro"
 import { Code } from "astro-expressive-code/components"
+import FeatureSupport from "./FeatureSupport.astro"
 
 type Step = {
   css: string
+  features?: string[]
   html?: string
   notes?: string[]
   title: string
@@ -26,6 +28,11 @@ type Props = {
 }
 
 const { id, knobs = [], steps } = Astro.props
+
+const stepFeatures = steps.flatMap((step) => step.features ?? [])
+const moreFeatures = (Astro.locals.browserSupport ?? []).filter(
+  (feature) => !stepFeatures.includes(feature),
+)
 
 const values = (from: number) =>
   steps
@@ -119,6 +126,7 @@ const stepId = (index: number, part: string) =>
           <p class="build-up-step-title">
             Step {index + 1} of {steps.length}: {step.title}
           </p>
+          {step.features && <FeatureSupport ids={step.features} />}
           {step.html && <Code code={step.html.trim()} lang="html" />}
           <Code code={step.css.trim()} lang="css" />
         </div>
@@ -145,6 +153,15 @@ const stepId = (index: number, part: string) =>
       </Button>
     </ButtonGroup>
   </div>
+
+  {
+    moreFeatures.length > 0 && (
+      <footer class="build-up-more">
+        <p>More in this component</p>
+        <FeatureSupport ids={moreFeatures} />
+      </footer>
+    )
+  }
 </figure>
 
 <style is:inline set:html={gatedCss}></style>
@@ -162,9 +179,10 @@ const stepId = (index: number, part: string) =>
     grid-template-areas:
       "stage steps"
       "knobs steps"
-      "detail detail";
+      "detail detail"
+      "more more";
     grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
-    grid-template-rows: 1fr auto auto;
+    grid-template-rows: 1fr auto auto auto;
     margin-block: var(--size-6);
     margin-inline: 0;
     min-inline-size: 0;
@@ -386,6 +404,20 @@ const stepId = (index: number, part: string) =>
     }
   }
 
+  .build-up-more {
+    border-block-start: var(--border-width, 1px) solid var(--border-color);
+    display: grid;
+    gap: var(--size-2);
+    grid-area: more;
+    padding: var(--size-3) var(--size-4) var(--size-4);
+
+    & p {
+      font-size: var(--font-size-1);
+      font-weight: 700;
+      margin: 0;
+    }
+  }
+
   .build-up-nav {
     align-self: start;
     grid-column: 2;
@@ -403,7 +435,8 @@ const stepId = (index: number, part: string) =>
         "stage"
         "knobs"
         "steps"
-        "detail";
+        "detail"
+        "more";
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: auto;
     }
@@ -413,7 +446,8 @@ const stepId = (index: number, part: string) =>
       border-inline-start: 0;
     }
 
-    .build-up-detail {
+    .build-up-detail,
+    .build-up-more {
       padding-inline: var(--size-3);
     }
 

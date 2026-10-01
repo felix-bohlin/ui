@@ -3,7 +3,6 @@ import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import TabsBuild from "../../components/HowItsMade/TabsBuild.astro"
-import ReadMore from "../../components/HowItsMade/ReadMore.astro"
 import { Table, Tabs as UITabs } from "@opui/astro"
 
 import TabsCSS from "@opui/css/components/tabs.css?raw"
@@ -198,10 +197,5 @@ import tabsApi from "../../component-api/tabs/api"
       </li>
     </ul>
   </Fragment>
-  <section>
-    <h2 id="how-its-made">How it's made</h2>
-    <TabsBuild />
-    <h3 id="read-more">Read more</h3>
-    <ReadMore topic="tabs" />
-  </section>
+  <TabsBuild slot="how-its-made" />
 </Component>

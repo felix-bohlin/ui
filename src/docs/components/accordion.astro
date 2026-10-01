@@ -9,7 +9,6 @@ import AccordionCSS from "@opui/css/components/accordion.css?raw"
 import CardCSS from "@opui/css/components/card.css?raw"
 import Conditional from "../../components/Conditional.astro"
 import AccordionBuild from "../../components/HowItsMade/AccordionBuild.astro"
-import ReadMore from "../../components/HowItsMade/ReadMore.astro"
 
 import accordionApi from "../../component-api/accordion/api"
 export const description =
@@ -215,10 +214,5 @@ export const description =
       </UIAccordion>
     </Anatomy>
   </Fragment>
-  <section>
-    <h2 id="how-its-made">How it's made</h2>
-    <AccordionBuild />
-    <h3 id="read-more">Read more</h3>
-    <ReadMore topic="accordion" />
-  </section>
+  <AccordionBuild slot="how-its-made" />
 </Component>

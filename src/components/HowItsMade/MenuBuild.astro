@@ -12,6 +12,7 @@ const steps = [
   box-shadow: var(--shadow-3);
   padding: 0.25rem 0;
 }`,
+    features: ["invoker-commands", "popover"],
     html: `
 <button commandfor="menu" command="toggle-popover">Options</button>
 
@@ -35,6 +36,7 @@ const steps = [
   min-inline-size: max(10rem, anchor-size(inline));
   position-area: block-end span-inline-end;
 }`,
+    features: ["anchor-positioning"],
     notes: [
       "The invoker is the implicit anchor: no <code>anchor-name</code>, no ids to wire",
       "<code>position-area</code> places it below, spanning towards the end",
@@ -77,6 +79,7 @@ const steps = [
     scale: 0.96;
   }
 }`,
+    features: ["starting-style", "transition-behavior"],
     notes: [
       "<code>@starting-style</code> gives the entry transition a starting point",
       "<code>allow-discrete</code> keeps <code>display</code> and <code>overlay</code> alive during the exit",

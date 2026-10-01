@@ -42,6 +42,11 @@
     color-scheme: dark;
   }
 
+  :where(.ui-light, .ui-dark):where(:not(html)) {
+    background-color: var(--surface-default);
+    color: var(--text-muted);
+  }
+
   :where(html) {
     color-scheme: var(--color-scheme, light dark);
 
@@ -199,14 +204,18 @@
     }
   }
 
+  :where(html.ui-dark) {
+    --palette-hue: var(--hue-blue);
+  }
+
   @media (prefers-color-scheme: dark) {
+    :where(html) {
+      --color-scheme: dark;
+    }
+
     :where(html:not(.ui-light)) {
       --palette-hue: var(--hue-blue);
     }
-  }
-
-  :where(html.ui-dark) {
-    --palette-hue: var(--hue-blue);
   }
 
   /* 14. Severity scope classes */

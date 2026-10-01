@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Anchor"
 
@@ -7,12 +8,13 @@ const {
   alignment,
   class: className,
   id: idProp,
+  style,
   trigger = "always",
   ...rest
 } = Astro.props
 
 const isHover = trigger === "hover"
-const id = isHover ? (idProp ?? Astro.locals.$id("anchor")) : undefined
+const id = isHover ? (idProp ?? createId(Astro.locals)("anchor")) : undefined
 
 const insetMap: Record<string, string> = {
   "start start": "auto 100% 100% auto",
@@ -27,9 +29,17 @@ const positionArea = alignment
       "--_anchor-inset": insetMap[alignment],
     }
   : undefined
+const positionAreaString = Object.entries(positionArea ?? {})
+  .filter(([, value]) => value !== undefined)
+  .map(([name, value]) => `${name}: ${value};`)
+  .join(" ")
+const mergedStyle =
+  typeof style === "string" || !style
+    ? `${positionAreaString}${style ?? ""}` || undefined
+    : { ...positionArea, ...style }
 ---
 
-<span class:list={["ui-anchor", className]} style={positionArea} {...rest}>
+<span class:list={["ui-anchor", className]} style={mergedStyle} {...rest}>
   <slot />
   <span
     class="ui-anchor-floating"

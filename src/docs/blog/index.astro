@@ -1,0 +1,57 @@
+---
+import Blog from "../../layouts/Blog.astro"
+import DocLink from "../../components/DocLink.astro"
+import { posts } from "../../utils/blog"
+
+const dateFormat = new Intl.DateTimeFormat("en", { dateStyle: "long" })
+---
+
+<Blog showToc={false}>
+  <Fragment slot="title">Blog</Fragment>
+  <Fragment slot="preamble">
+    Release notes and how the components are made.
+  </Fragment>
+
+  <ul class="blog-posts ui-not-rich-text">
+    {
+      posts.map((post) => (
+        <li>
+          <time datetime={post.date}>
+            {dateFormat.format(new Date(post.date))}
+          </time>
+          <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
+          <p>{post.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+</Blog>
+
+<style>
+  .blog-posts {
+    display: grid;
+    gap: var(--size-5);
+    list-style: none;
+    padding: 0;
+
+    & li {
+      display: grid;
+      gap: var(--size-1);
+    }
+
+    & time {
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+    }
+
+    & a {
+      font-size: var(--font-size-4);
+      font-weight: 700;
+    }
+
+    & p {
+      color: var(--text-muted);
+      margin: 0;
+    }
+  }
+</style>

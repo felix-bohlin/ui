@@ -1,5 +1,12 @@
 # Button
 
+### What's new
+
+- [Icon-only](#icon-only) buttons are square. `rounded` makes them round and `ripple` adds a hover halo.
+- Replaces `IconButton`.
+- Wrap the label in a `<span>` to [tighten the padding](#buttons-with-icon-and-label) next to an icon.
+- Links with `aria-disabled="true"` look and act disabled.
+
 ## Anatomy
 
 - `<Button>`

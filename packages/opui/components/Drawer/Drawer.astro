@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Drawer"
 
@@ -13,7 +14,7 @@ const {
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const drawerId = id || $id("drawer")
 ---
 

@@ -1,5 +1,6 @@
 ---
 import type { ClassicSelectProps as Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Classic Select"
 
@@ -19,7 +20,7 @@ const {
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const selectId = id || $id("select")
 const labelId = $id("select-label")
 ---
@@ -49,10 +50,18 @@ const labelId = $id("select-label")
       id={selectId}
       name={name}
       required={required}
-      value={value}
       {...rest}
     >
-      {items.map((item) => <option value={item.value}>{item.text}</option>)}
+      {
+        items.map((item) => (
+          <option
+            selected={item.value === value || undefined}
+            value={item.value}
+          >
+            {item.text}
+          </option>
+        ))
+      }
       <slot />
     </select>
   </span>

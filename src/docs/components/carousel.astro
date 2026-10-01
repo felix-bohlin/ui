@@ -1,10 +1,15 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocLink from "../../components/DocLink.astro"
+import CarouselBuild from "../../components/HowItsMade/CarouselBuild.astro"
+import { Card as UICard, Carousel as UICarousel } from "@opui/astro"
 
 import CarouselCSS from "@opui/css/components/carousel.css?raw"
+
+import carouselApi from "../../component-api/carousel/api"
 
 export const description =
   "A scrolling list with snap points, buttons and markers."
@@ -13,6 +18,8 @@ export const description =
 <Component
   description={description}
   slug="carousel"
+  heroAnatomy
+  apis={[{ title: "Carousel API", api: carouselApi }]}
   browserSupport={[
     "anchor-positioning",
     "scroll-buttons",
@@ -32,6 +39,31 @@ export const description =
   installationTabs={[{ title: "carousel.css", code: CarouselCSS, lang: "css" }]}
 >
   <Fragment slot="title">Carousel</Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UICarousel
+        buttons="outside"
+        label="Destinations"
+        markers
+        perView={2}
+        style="--_button-disabled-opacity: 1"
+      >
+        {
+          ["Kyoto", "Lima", "Lisbon"].map((title) => (
+            <li>
+              <UICard variant="tonal">
+                <Fragment slot="header">
+                  <p>Destination</p>
+                  <h3>{title}</h3>
+                </Fragment>
+              </UICard>
+            </li>
+          ))
+        }
+      </UICarousel>
+    </Anatomy>
+  </Fragment>
 
   <section>
     <h2 id="basics">Basics</h2>
@@ -120,4 +152,8 @@ export const description =
   <Fragment slot="accessibility">
     <p>Announces item position. Buttons and markers are named.</p>
   </Fragment>
+  <section>
+    <h2 id="how-its-made">How it's made</h2>
+    <CarouselBuild />
+  </section>
 </Component>

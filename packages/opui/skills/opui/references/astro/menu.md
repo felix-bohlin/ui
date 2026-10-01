@@ -2,6 +2,10 @@
 
 A popover [List](https://open-props-ui.netlify.app/astro/components/list.md), anchored to a[Button](https://open-props-ui.netlify.app/astro/components/button.md).
 
+### What's new
+
+- New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.
+
 ## Basics
 
 `items` with `borderTop`, `critical`, `disabled` and `shortcut`.

@@ -2,6 +2,7 @@
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import TabsBuild from "../../components/HowItsMade/TabsBuild.astro"
 import { Table, Tabs as UITabs } from "@opui/astro"
 
 import TabsCSS from "@opui/css/components/tabs.css?raw"
@@ -61,6 +62,33 @@ import tabsApi from "../../component-api/tabs/api"
   <section>
     <h2 id="basics">Basics</h2>
     <AutoExample name="Basics" />
+  </section>
+
+  <section>
+    <h2 id="filled">Filled</h2>
+    <p>
+      Use <code>variant="filled"</code> (<code>.ui-filled</code>) to fill the
+      selected tab with the primary color.
+    </p>
+    <AutoExample name="Filled" />
+  </section>
+
+  <section>
+    <h2 id="line">Line</h2>
+    <p>
+      Use <code>variant="line"</code> (<code>.ui-line</code>) for tabs without a
+      background, marking the selected tab with a line.
+    </p>
+    <AutoExample name="Line" />
+  </section>
+
+  <section>
+    <h2 id="outlined">Outlined</h2>
+    <p>
+      Use <code>variant="outlined"</code> (<code>.ui-outlined</code>) for a
+      bordered track without a background.
+    </p>
+    <AutoExample name="Outlined" />
   </section>
 
   <Fragment slot="accessibility">
@@ -157,4 +185,8 @@ import tabsApi from "../../component-api/tabs/api"
       </li>
     </ul>
   </Fragment>
+  <section>
+    <h2 id="how-its-made">How it's made</h2>
+    <TabsBuild />
+  </section>
 </Component>

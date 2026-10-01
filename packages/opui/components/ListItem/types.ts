@@ -5,7 +5,7 @@ export type Props = {
   for?: string
   headline?: string
   inset?: boolean
-  type?: "checkbox" | "radio" | "switch" | "button"
+  type?: "checkbox" | "radio" | "switch"
 } & (
   | {
       as?: "a"

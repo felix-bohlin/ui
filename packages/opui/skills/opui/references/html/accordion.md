@@ -2,6 +2,11 @@
 
 Let's you show and hide stuff. Comes with a chevron marker, check out how to add your own [custom marker](#custom-marker).
 
+### What's new
+
+- [Marker animation](#marker-animation) with `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn`.
+- Breaking: markers only animate with a marker class. Add `.ui-marker-rotate` to keep the previous rotation.
+
 ## Anatomy
 
 Accordion title

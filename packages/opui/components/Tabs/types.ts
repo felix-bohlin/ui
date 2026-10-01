@@ -1,5 +1,6 @@
 export type Props = {
   name?: string
+  variant?: "filled" | "line" | "outlined"
 }
 
 export type TabsItemProps = {

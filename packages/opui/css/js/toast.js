@@ -19,9 +19,20 @@ const FALLBACK_TEMPLATE = `<div class="ui-toast" role="alert">
   </button>
 </div>`
 
+/**
+ * @typedef {object} ToastOptions
+ * @property {string} [closeLabel] Accessible name for the close button.
+ * @property {string} [description]
+ * @property {string} [duration] A CSS time such as "3s" or "3000ms".
+ * @property {"critical" | "info" | "success" | "warning"} [severity]
+ * @property {string} [template] The id of a <template> to clone.
+ * @property {string} [title]
+ */
+
 export function initToastManager() {
   const manager = document.getElementById("toast-manager")
-  if (!manager) return
+  if (!manager || manager.dataset.toastManager) return
+  manager.dataset.toastManager = ""
 
   try {
     manager.showPopover()
@@ -37,6 +48,7 @@ export function initToastManager() {
     const data = trigger.dataset || {}
     showToast(
       {
+        closeLabel: data.closeLabel,
         description: data.description,
         duration: data.duration,
         severity: data.severity,
@@ -50,7 +62,15 @@ export function initToastManager() {
   window.showToast = (options) => showToast(options || {}, manager)
 }
 
-function showToast(options, manager) {
+/**
+ * @param {ToastOptions} [options]
+ * @param {HTMLElement | null} [manager]
+ */
+export function showToast(
+  options = {},
+  manager = document.getElementById("toast-manager"),
+) {
+  if (!manager) return
   const node = buildToast(options.template || "toast-template")
   if (!node) return
 
@@ -59,6 +79,11 @@ function showToast(options, manager) {
 
   if (options.severity) node.dataset.severity = options.severity
   if (options.duration) node.dataset.duration = options.duration
+  if (options.closeLabel) {
+    node
+      .querySelector("[data-toast-close]")
+      ?.setAttribute("aria-label", options.closeLabel)
+  }
 
   wireToast(node)
   manager.appendChild(node)

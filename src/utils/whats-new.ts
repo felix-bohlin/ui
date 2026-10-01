@@ -53,6 +53,11 @@ const whatsNew = {
       html: `<a href="#filled">Filled</a>, <a href="#line">line</a> and <a href="#outlined">outlined</a> variants with <code>.ui-filled</code>, <code>.ui-line</code> and <code>.ui-outlined</code>.`,
     },
   ],
+  typography: [
+    `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below.`,
+    `Heading sizes and line heights snap to <code>--rhythm-step</code>, and the heading scale no longer inverts on narrow screens.`,
+    `<a href="#rich-text-showcase">Rich text</a> styles tables, <code>hr</code> and task lists.`,
+  ],
 } satisfies Record<string, Note[]>
 
 export function whatsNewFor(framework: FrameworkId, slug: string) {

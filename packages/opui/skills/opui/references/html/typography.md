@@ -2,6 +2,12 @@
 
 Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in `.ui-rich-text`.
 
+### What's new
+
+- [Rich text](#classless) spacing comes from one flow space, with more room above headings than below.
+- Heading sizes and line heights snap to `--rhythm-step`, and the heading scale no longer inverts on narrow screens.
+- [Rich text](#rich-text-showcase) styles tables, `hr` and task lists.
+
 ## Class-based
 
 Utils that you can plop down wherever.

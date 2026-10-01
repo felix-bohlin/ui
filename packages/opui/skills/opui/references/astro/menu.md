@@ -2,6 +2,10 @@
 
 A popover [List](https://open-props-ui.netlify.app/astro/components/list.md), anchored to a[Button](https://open-props-ui.netlify.app/astro/components/button.md).
 
+### What's new
+
+- New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.
+
 ## Basics
 
 `items` with `borderTop`, `critical`, `disabled` and `shortcut`.
@@ -177,6 +181,95 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
     <Menu id="menu-export" items={formats} placement="inline-end" />
   </li>
 </Menu>
+```
+
+## How it's made
+
+**Menu without JavaScript**`menu.css`
+
+Step 1: Popover
+
+- `popover`: top layer, light dismiss, `Esc` to close
+- Invoker Commands: `commandfor` + `command`, no JavaScript
+- Without positioning it opens in the middle of the viewport
+
+```html
+<button commandfor="menu" command="toggle-popover">Options</button>
+
+
+<menu class="menu" id="menu" popover>
+  <li>
+    <button commandfor="menu" command="hide-popover">Edit</button>
+  </li>
+</menu>
+```
+
+```css
+.menu {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-3);
+  padding: 0.25rem 0;
+}
+```
+
+Step 2: Anchor
+
+- The invoker is the implicit anchor: no `anchor-name`, no ids to wire
+- `position-area` places it below, spanning towards the end
+- `anchor-size(inline)` keeps it at least as wide as the trigger
+
+```css
+.menu {
+  inset: auto;
+  margin: 0.25rem 0;
+  min-inline-size: max(10rem, anchor-size(inline));
+  position-area: block-end span-inline-end;
+}
+```
+
+Step 3: Flip
+
+- Scroll the trigger to the bottom of the window and open it again
+- The browser tries each fallback when the menu would overflow
+
+```css
+.menu {
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
+}
+```
+
+Step 4: Animate
+
+- `@starting-style` gives the entry transition a starting point
+- `allow-discrete` keeps `display` and `overlay` alive during the exit
+
+```css
+.menu {
+  opacity: 0;
+  scale: 0.96;
+  transition:
+    display 0.15s allow-discrete,
+    opacity 0.15s,
+    overlay 0.15s allow-discrete,
+    scale 0.15s;
+}
+
+
+.menu:popover-open {
+  opacity: 1;
+  scale: 1;
+
+
+  @starting-style {
+    opacity: 0;
+    scale: 0.96;
+  }
+}
 ```
 
 ## Accessibility

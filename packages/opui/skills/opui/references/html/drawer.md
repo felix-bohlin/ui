@@ -49,14 +49,15 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   closedby="any"
 >
   <div class="ui-header">
-    <span>Inline Start</span>
+    <h2>Inline Start</h2>
     <button
       class="ui-button ui-rounded ui-ripple ui-small"
-      title="Close"
+      aria-label="Close"
       commandfor="drawer-inline-start-html"
       command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -105,14 +106,15 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   closedby="any"
 >
   <div class="ui-header">
-    <span>Inline End</span>
+    <h2>Inline End</h2>
     <button
       class="ui-button ui-rounded ui-ripple ui-small"
-      title="Close"
+      aria-label="Close"
       commandfor="drawer-inline-end-html"
       command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -161,14 +163,15 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   closedby="any"
 >
   <div class="ui-header">
-    <span>Block Start</span>
+    <h2>Block Start</h2>
     <button
       class="ui-button ui-rounded ui-ripple ui-small"
-      title="Close"
+      aria-label="Close"
       commandfor="drawer-block-start-html"
       command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -212,14 +215,15 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   closedby="any"
 >
   <div class="ui-header">
-    <span>Block End</span>
+    <h2>Block End</h2>
     <button
       class="ui-button ui-rounded ui-ripple ui-small"
-      title="Close"
+      aria-label="Close"
       commandfor="drawer-block-end-html"
       command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -358,7 +362,7 @@ Add `autofocus` to the root, or to an element inside, to choose what gets focus 
 | Part         | Description        |
 | ------------ | ------------------ |
 | `.ui-header` | Container element. |
-| `<span>`     | The heading.       |
+| `<h2>`       | The heading.       |
 | `<button>`   | Closes the drawer. |
 
 ## Browser support

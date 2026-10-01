@@ -88,18 +88,18 @@ LabelDescription¢EURHeaderFooterSupporting text
 <label class="ui-textarea">
   <span class="ui-label">Label</span>
   <span class="ui-field">
-    <textarea placeholder="Default"></textarea>
+    <textarea aria-describedby="end-text-1" placeholder="Default"></textarea>
   </span>
-  <span class="ui-end-text">Supporting text</span>
+  <span class="ui-end-text" id="end-text-1">Supporting text</span>
 </label>
 
 
 <label class="ui-textarea ui-filled">
   <span class="ui-label">Label</span>
   <span class="ui-field">
-    <textarea placeholder="Filled"></textarea>
+    <textarea aria-describedby="end-text-2" placeholder="Filled"></textarea>
   </span>
-  <span class="ui-end-text">Supporting text</span>
+  <span class="ui-end-text" id="end-text-2">Supporting text</span>
 </label>
 ```
 
@@ -183,16 +183,26 @@ Add `data-invalid` on the root element to toggle invalid styles. Make use of the
   <label class="ui-textarea" data-invalid>
     <span class="ui-label">Label</span>
     <span class="ui-field">
-      <textarea placeholder="Default"></textarea>
+      <textarea
+        aria-describedby="end-text-1"
+        aria-invalid="true"
+        placeholder="Default"
+      ></textarea>
     </span>
-    <span class="ui-end-text">Only double-negatives are allowed.</span>
+    <span class="ui-end-text" id="end-text-1"
+      >Only double-negatives are allowed.</span
+    >
   </label>
   <label class="ui-textarea ui-filled" data-invalid>
     <span class="ui-label">Label</span>
     <span class="ui-field">
-      <textarea placeholder="Filled"></textarea>
+      <textarea
+        aria-describedby="end-text-2"
+        aria-invalid="true"
+        placeholder="Filled"
+      ></textarea>
     </span>
-    <span class="ui-end-text"
+    <span class="ui-end-text" id="end-text-2"
       >Only letters from the first half of the alphabet are allowed.</span
     >
   </label>
@@ -220,9 +230,12 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Notes</span>
   <span class="ui-start-text">Add any additional notes or comments</span>
   <span class="ui-field">
-    <textarea placeholder="Additional notes..."></textarea>
+    <textarea
+      aria-describedby="end-text-1"
+      placeholder="Additional notes..."
+    ></textarea>
   </span>
-  <span class="ui-end-text">Maximum 500 characters</span>
+  <span class="ui-end-text" id="end-text-1">Maximum 500 characters</span>
 </label>
 
 
@@ -248,9 +261,9 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Invalid Message</span>
   <span class="ui-start-text">This textarea has an error</span>
   <span class="ui-field">
-    <textarea></textarea>
+    <textarea aria-describedby="end-text-2" aria-invalid="true"></textarea>
   </span>
-  <span class="ui-end-text">This value is too short.</span>
+  <span class="ui-end-text" id="end-text-2">This value is too short.</span>
 </label>
 
 
@@ -287,11 +300,14 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Release notes</span>
   <span class="ui-start-text">Shown on the changelog page</span>
   <span class="ui-field">
-    <textarea placeholder="Markdown supported..."></textarea>
+    <textarea
+      aria-describedby="end-text-3"
+      placeholder="Markdown supported..."
+    ></textarea>
     <span class="ui-header">v1.4.0</span>
     <span class="ui-footer">Saved 2 minutes ago</span>
   </span>
-  <span class="ui-end-text">Drafts are auto-saved</span>
+  <span class="ui-end-text" id="end-text-3">Drafts are auto-saved</span>
 </label>
 ```
 

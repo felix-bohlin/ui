@@ -56,9 +56,11 @@
     "./components/*": "./components/*",
     "./core/*.css": "./core/*.css",
     "./core/*": "./core/*.css",
+    "./css/js/*": "./css/js/*",
     "./css/*.css": "./css/*.css",
     "./css/*": "./css/*.css",
-    "./dist/*": "./dist/*"
+    "./dist/*": "./dist/*",
+    "./package.json": "./package.json"
   },
   "scripts": {
     "build": "node scripts/build.mjs",

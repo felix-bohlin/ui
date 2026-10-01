@@ -7,7 +7,7 @@ export type Props = {
 } & (
   | {
       as?: "div"
-      href: never
+      href?: never
       disabled?: never
     }
   | {

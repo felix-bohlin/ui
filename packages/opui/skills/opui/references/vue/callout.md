@@ -74,6 +74,7 @@ import { Callout } from "opui-css/vue"
   <Callout>
     <template #icon
       ><svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -108,6 +109,7 @@ import { Callout } from "opui-css/vue"
   <Callout severity="info">
     <template #icon
       ><svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -123,6 +125,7 @@ import { Callout } from "opui-css/vue"
   <Callout severity="warning">
     <template #icon
       ><svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -138,6 +141,7 @@ import { Callout } from "opui-css/vue"
   <Callout severity="critical">
     <template #icon
       ><svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -157,6 +161,7 @@ import { Callout } from "opui-css/vue"
   <Callout variant="outlined" severity="info">
     <template #icon
       ><svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -172,6 +177,7 @@ import { Callout } from "opui-css/vue"
   <Callout variant="outlined" severity="warning">
     <template #icon
       ><svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -187,6 +193,7 @@ import { Callout } from "opui-css/vue"
   <Callout variant="outlined" severity="critical">
     <template #icon
       ><svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -211,10 +218,11 @@ import { Callout } from "opui-css/vue"
 
 ### Callout API
 
-| Prop       | Type                                                          | Default   | Description                                        |
-| ---------- | ------------------------------------------------------------- | --------- | -------------------------------------------------- |
-| `severity` | `"critical"`, `"info"`, `"neutral"`, `"success"`, `"warning"` | -         | The severity. Sets the color and the default icon. |
-| `variant`  | `"outlined"`, `"tonal"`                                       | `"tonal"` | The variant to use.                                |
+| Prop           | Type                                                          | Default   | Description                                        |
+| -------------- | ------------------------------------------------------------- | --------- | -------------------------------------------------- |
+| `headingLevel` | `2`, `3`, `4`, `5`, `6`                                       | `3`       | The heading level of the title.                    |
+| `severity`     | `"critical"`, `"info"`, `"neutral"`, `"success"`, `"warning"` | -         | The severity. Sets the color and the default icon. |
+| `variant`      | `"outlined"`, `"tonal"`                                       | `"tonal"` | The variant to use.                                |
 
 #### Slots
 

@@ -4,10 +4,9 @@ import { Code } from "astro-expressive-code/components"
 import Component from "../../layouts/Component.astro"
 import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
+import RhythmBuild from "../../components/HowItsMade/RhythmBuild.astro"
 import BlockquoteHtml from "../../component-examples/typography/Blockquote.html?raw"
 import CodeBlockHtml from "../../component-examples/typography/CodeBlock.html?raw"
-
-import ExampleDefaultHTML from "../../component-examples/typography/Default.html?raw"
 
 import TypographyCSS from "@opui/css/components/typography.css?raw"
 ---
@@ -17,7 +16,9 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
   browserSupport={[
     "box-decoration-break",
     "light-dark",
+    "registered-custom-properties",
     "relative-color",
+    "round-mod-rem",
     "scope",
   ]}
   changelogPaths={[
@@ -176,9 +177,10 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
       Let's put everything together and see how all elements look in a
       classless, rich-text context.
     </p>
-    <Example>
-      <Example.Preview slot="preview-html" code={ExampleDefaultHTML} />
-      <Example.Preview slot="preview-astro" code={ExampleDefaultHTML} />
-    </Example>
+    <AutoExample name="Default" />
+  </section>
+  <section>
+    <h2 id="how-its-made">How it's made</h2>
+    <RhythmBuild />
   </section>
 </Component>

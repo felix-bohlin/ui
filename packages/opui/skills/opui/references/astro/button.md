@@ -1,5 +1,12 @@
 # Button
 
+### What's new
+
+- [Icon-only](#icon-only) buttons are square. `rounded` makes them round and `ripple` adds a hover halo.
+- Replaces `IconButton`.
+- Wrap the label in a `<span>` to [tighten the padding](#buttons-with-icon-and-label) next to an icon.
+- Links with `aria-disabled="true"` look and act disabled.
+
 ## Anatomy
 
 - `<Button>`
@@ -224,6 +231,110 @@ import { Button } from "opui-css/astro"
 
 Is it a button? Is it an input? You can find the [docs for it here](https://open-props-ui.netlify.app/astro/components/text-field.md#file) at least.
 
+## How it's made
+
+**Button: one class, every shape**`button.css`
+
+Step 1: Base
+
+- Padding in `ex` so it scales with the font
+- One custom property per size, every size reuses the same rules
+
+```css
+.button {
+  align-items: center;
+  background-color: var(--surface-tonal);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2);
+  color: var(--text-primary);
+  display: inline-flex;
+  gap: 1ex;
+  min-block-size: var(--size);
+  padding-inline: var(--padding-inline);
+}
+
+
+.button > svg {
+  flex-shrink: 0;
+  max-block-size: 1.25em;
+}
+```
+
+Step 2: Icon-only
+
+- `:has(> svg:only-child)` spots an icon-only button
+- Square at every size: no `IconButton`, no extra class
+
+```css
+.button:has(> svg:only-child) {
+  justify-content: center;
+  min-inline-size: var(--size);
+  padding-inline: 0;
+}
+```
+
+Step 3: Icon side
+
+- Tighter padding on the icon side balances the optical weight
+- Text nodes aren't elements, so the label needs a `<span>`
+
+```html
+<button class="button">
+  <svg>…</svg>
+  <span>Download</span>
+</button>
+```
+
+```css
+.button:has(> svg:first-child + *) {
+  padding-inline-start: calc(var(--padding-inline) * 0.75);
+}
+
+
+.button:has(> * + svg:last-child) {
+  padding-inline-end: calc(var(--padding-inline) * 0.75);
+}
+```
+
+Step 4: Ripple
+
+- `translateZ(-1px)` + `preserve-3d` puts the halo behind the button, no `z-index`
+- `clip-path: circle()` keeps the halo round
+- Hover the last button
+
+```css
+.ripple {
+  --ripple-scale: 0.01;
+  border-radius: 50%;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+
+.ripple::before {
+  background-color: oklch(0.6 0 0 / 0.2);
+  block-size: 130%;
+  clip-path: circle(50%);
+  content: "";
+  inline-size: 130%;
+  inset: 50% auto auto 50%;
+  position: absolute;
+  transform: translate(-50%, -50%) translateZ(-1px)
+    scale(var(--ripple-scale));
+  transition: transform 0.2s ease;
+}
+
+
+.ripple:hover {
+  --ripple-scale: 1;
+}
+
+
+.ripple:hover:active {
+  --ripple-scale: 1.1;
+}
+```
+
 ## API
 
 ### Button API
@@ -234,6 +345,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `color`    | `"critical"`, `"primary"`           | -       | Optional colors.                                                            |
 | `disabled` | `boolean`                           | `false` | Disables the button.                                                        |
 | `href`     | `string`                            | -       | The link to use. Renders an `<a>`.                                          |
+| `label`    | `string`                            | -       | The accessible name. Use it on icon-only buttons.                           |
 | `ripple`   | `boolean`                           | `false` | A halo behind the button on hover instead of a background change.           |
 | `rounded`  | `boolean`                           | `false` | Fully rounded corners, a circle when icon-only.                             |
 | `size`     | `"x-small"`, `"small"`, `"large"`   | -       | The size of the element.                                                    |

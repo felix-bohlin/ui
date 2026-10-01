@@ -36,7 +36,7 @@ const parts = [
 const anchors = parts
   .map(
     (part, i) =>
-      `[data-anatomy="${id}"] .subject :is(${part.selector}) { anchor-name: ${[part.anchorName, `--${id}-part-${i + 1}`].filter(Boolean).join(", ")}; }`,
+      `[data-anatomy="${id}"] .subject ${part.selector.includes("::") ? part.selector : `:is(${part.selector})`} { anchor-name: ${[part.anchorName, `--${id}-part-${i + 1}`].filter(Boolean).join(", ")}; }`,
   )
   .join("\n")
 

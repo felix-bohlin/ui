@@ -7,6 +7,7 @@ export type Props = {
 }
 
 export type DrawerHeaderProps = {
+  closeLabel?: string
   commandfor?: string
   heading?: string
 }

@@ -2,6 +2,11 @@
 
 The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' `:checked` state.
 
+### What's new
+
+- Restyled as a segmented control.
+- [Filled](#filled), [line](#line) and [outlined](#outlined) variants with `.ui-filled`, `.ui-line` and `.ui-outlined`.
+
 ## Anatomy
 
 Profile settings and information.
@@ -86,6 +91,336 @@ General account settings.
 </div>
 ```
 
+## Filled
+
+Use `variant="filled"` (`.ui-filled`) to fill the selected tab with the primary color.
+
+```html
+<div class="ui-tabs ui-filled" role="tablist">
+  <input
+    type="radio"
+    name="filled-tabs"
+    id="filled-tab-profile"
+    class="ui-tab-input"
+    checked
+    aria-controls="filled-panel-profile"
+  />
+  <label for="filled-tab-profile" class="ui-tab-label" role="tab"
+    >Profile</label
+  >
+  <div
+    id="filled-panel-profile"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="filled-tab-profile"
+  >
+    Profile settings and information.
+  </div>
+
+
+  <input
+    type="radio"
+    name="filled-tabs"
+    id="filled-tab-settings"
+    class="ui-tab-input"
+    aria-controls="filled-panel-settings"
+  />
+  <label for="filled-tab-settings" class="ui-tab-label" role="tab"
+    >Settings</label
+  >
+  <div
+    id="filled-panel-settings"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="filled-tab-settings"
+  >
+    General account settings.
+  </div>
+
+
+  <input
+    type="radio"
+    name="filled-tabs"
+    id="filled-tab-notifications"
+    class="ui-tab-input"
+    aria-controls="filled-panel-notifications"
+  />
+  <label for="filled-tab-notifications" class="ui-tab-label" role="tab"
+    >Notifications</label
+  >
+  <div
+    id="filled-panel-notifications"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="filled-tab-notifications"
+  >
+    Manage your notifications.
+  </div>
+</div>
+```
+
+## Line
+
+Use `variant="line"` (`.ui-line`) for tabs without a background, marking the selected tab with a line.
+
+```html
+<div class="ui-tabs ui-line" role="tablist">
+  <input
+    type="radio"
+    name="line-tabs"
+    id="line-tab-profile"
+    class="ui-tab-input"
+    checked
+    aria-controls="line-panel-profile"
+  />
+  <label for="line-tab-profile" class="ui-tab-label" role="tab">Profile</label>
+  <div
+    id="line-panel-profile"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="line-tab-profile"
+  >
+    Profile settings and information.
+  </div>
+
+
+  <input
+    type="radio"
+    name="line-tabs"
+    id="line-tab-settings"
+    class="ui-tab-input"
+    aria-controls="line-panel-settings"
+  />
+  <label for="line-tab-settings" class="ui-tab-label" role="tab"
+    >Settings</label
+  >
+  <div
+    id="line-panel-settings"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="line-tab-settings"
+  >
+    General account settings.
+  </div>
+
+
+  <input
+    type="radio"
+    name="line-tabs"
+    id="line-tab-notifications"
+    class="ui-tab-input"
+    aria-controls="line-panel-notifications"
+  />
+  <label for="line-tab-notifications" class="ui-tab-label" role="tab"
+    >Notifications</label
+  >
+  <div
+    id="line-panel-notifications"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="line-tab-notifications"
+  >
+    Manage your notifications.
+  </div>
+</div>
+```
+
+## Outlined
+
+Use `variant="outlined"` (`.ui-outlined`) for a bordered track without a background.
+
+```html
+<div class="ui-tabs ui-outlined" role="tablist">
+  <input
+    type="radio"
+    name="outlined-tabs"
+    id="outlined-tab-profile"
+    class="ui-tab-input"
+    checked
+    aria-controls="outlined-panel-profile"
+  />
+  <label for="outlined-tab-profile" class="ui-tab-label" role="tab"
+    >Profile</label
+  >
+  <div
+    id="outlined-panel-profile"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="outlined-tab-profile"
+  >
+    Profile settings and information.
+  </div>
+
+
+  <input
+    type="radio"
+    name="outlined-tabs"
+    id="outlined-tab-settings"
+    class="ui-tab-input"
+    aria-controls="outlined-panel-settings"
+  />
+  <label for="outlined-tab-settings" class="ui-tab-label" role="tab"
+    >Settings</label
+  >
+  <div
+    id="outlined-panel-settings"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="outlined-tab-settings"
+  >
+    General account settings.
+  </div>
+
+
+  <input
+    type="radio"
+    name="outlined-tabs"
+    id="outlined-tab-notifications"
+    class="ui-tab-input"
+    aria-controls="outlined-panel-notifications"
+  />
+  <label for="outlined-tab-notifications" class="ui-tab-label" role="tab"
+    >Notifications</label
+  >
+  <div
+    id="outlined-panel-notifications"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="outlined-tab-notifications"
+  >
+    Manage your notifications.
+  </div>
+</div>
+```
+
+## How it's made
+
+**Tabs from a radio group**`tabs.css`
+
+Step 1: Radios
+
+- One radio group holds the state
+- `:checked + label + panel` shows the matching panel
+
+```html
+<div class="tabs">
+  <input class="tab-input" type="radio" name="tabs" id="tab-1" checked />
+  <label class="tab-label" for="tab-1">Profile</label>
+  <div class="tab-panel">…</div>
+  …
+</div>
+```
+
+```css
+.tab-panel {
+  display: none;
+}
+
+
+.tab-input:checked + .tab-label + .tab-panel {
+  display: block;
+}
+```
+
+Step 2: Order
+
+- The markup interleaves label, panel, label, panel
+- `order` pulls every label into one row and drops the panel below
+
+```css
+.tabs {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.tab-label {
+  order: 1;
+}
+
+
+.tab-panel {
+  inline-size: 100%;
+  order: 2;
+}
+```
+
+Step 3: Hide radios
+
+- Visually hidden, still focusable: arrow keys move between tabs
+- Focus ring drawn on the label
+
+```css
+.tab-input {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+
+.tab-input:focus-visible + .tab-label {
+  outline: 2px solid var(--text-muted);
+}
+```
+
+Step 4: Segmented
+
+- Each label paints its slice of the track
+- The pill is a `::before` inset from the track
+- `:nth-child(1 of .tab-label)` finds the first label among the radios and panels
+- Inner radius = outer radius − inset
+
+```css
+.tab-label {
+  background-color: var(--surface-tonal);
+  isolation: isolate;
+  padding: calc(0.25rem + var(--inset)) 0.75rem;
+  position: relative;
+}
+
+
+.tab-label::before {
+  border-radius: calc(var(--radius) - var(--inset));
+  content: "";
+  inset: var(--inset) 0;
+  position: absolute;
+  transition: background-color 0.1s;
+  z-index: -1;
+}
+
+
+.tab-label:nth-child(1 of .tab-label) {
+  border-radius: var(--radius) 0 0 var(--radius);
+  padding-inline-start: calc(0.75rem + var(--inset));
+
+
+  &::before {
+    inset-inline-start: var(--inset);
+  }
+}
+
+
+.tab-label:nth-last-child(1 of .tab-label) {
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding-inline-end: calc(0.75rem + var(--inset));
+
+
+  &::before {
+    inset-inline-end: var(--inset);
+  }
+}
+
+
+.tab-input:checked + .tab-label::before {
+  background-color: var(--surface-default);
+  box-shadow: var(--shadow-1);
+}
+```
+
 ## Accessibility
 
 The tab system uses standard radio inputs and labels, so we get group management and keyboard support for free!
@@ -117,9 +452,10 @@ The content area associated with a tab:
 
 ### Tabs API
 
-| Type  | Modifiers             | Default | Description                                                |
-| ----- | --------------------- | ------- | ---------------------------------------------------------- |
-| Group | `.ui-tab-input[name]` | -       | The name shared by the tab inputs. Generated when omitted. |
+| Type     | Modifiers                                | Default | Description                                                |
+| -------- | ---------------------------------------- | ------- | ---------------------------------------------------------- |
+| Group    | `.ui-tab-input[name]`                    | -       | The name shared by the tab inputs. Generated when omitted. |
+| Variants | `.ui-filled`, `.ui-line`, `.ui-outlined` | -       | The variant to use.                                        |
 
 #### Parts
 

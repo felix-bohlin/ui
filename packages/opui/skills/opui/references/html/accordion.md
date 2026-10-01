@@ -2,6 +2,11 @@
 
 Lets you show and hide content. Comes with a chevron marker, check out how to add your own [custom marker](#custom-marker).
 
+### What's new
+
+- [Marker animation](#marker-animation) with `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn`.
+- Breaking: markers only animate with a marker class. Add `.ui-marker-rotate` to keep the previous rotation.
+
 ## Anatomy
 
 Accordion title
@@ -32,7 +37,7 @@ Explain more about the topic shown in the summary through supporting text.
 
 ```html
 <details class="ui-accordion ui-card ui-marker-rotate">
-  <summary id="summary-id" aria-controls="content-id">
+  <summary>
     Accordion
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -46,12 +51,7 @@ Explain more about the topic shown in the summary through supporting text.
       />
     </svg>
   </summary>
-  <div
-    id="content-id"
-    class="ui-content"
-    role="region"
-    aria-labelledby="summary-id"
-  >
+  <div class="ui-content">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -70,7 +70,7 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
 ```html
 <!-- Text (default) -->
 <details class="ui-accordion ui-card ui-marker-rotate">
-  <summary id="accordion-text-summary" aria-controls="accordion-text-content">
+  <summary>
     Text
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -84,12 +84,7 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
       />
     </svg>
   </summary>
-  <div
-    id="accordion-text-content"
-    class="ui-content"
-    role="region"
-    aria-labelledby="accordion-text-summary"
-  >
+  <div class="ui-content">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -101,10 +96,7 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
 
 <!-- Elevated -->
 <details class="ui-accordion ui-card ui-marker-rotate ui-elevated">
-  <summary
-    id="accordion-elevated-summary"
-    aria-controls="accordion-elevated-content"
-  >
+  <summary>
     Elevated
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -118,12 +110,7 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
       />
     </svg>
   </summary>
-  <div
-    id="accordion-elevated-content"
-    class="ui-content"
-    role="region"
-    aria-labelledby="accordion-elevated-summary"
-  >
+  <div class="ui-content">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -135,10 +122,7 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
 
 <!-- Outlined -->
 <details class="ui-accordion ui-card ui-marker-rotate ui-outlined">
-  <summary
-    id="accordion-outlined-summary"
-    aria-controls="accordion-outlined-content"
-  >
+  <summary>
     Outlined
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -152,12 +136,7 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
       />
     </svg>
   </summary>
-  <div
-    id="accordion-outlined-content"
-    class="ui-content"
-    role="region"
-    aria-labelledby="accordion-outlined-summary"
-  >
+  <div class="ui-content">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -169,7 +148,7 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
 
 <!-- Tonal -->
 <details class="ui-accordion ui-card ui-marker-rotate ui-tonal">
-  <summary id="accordion-tonal-summary" aria-controls="accordion-tonal-content">
+  <summary>
     Tonal
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -183,12 +162,7 @@ Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui
       />
     </svg>
   </summary>
-  <div
-    id="accordion-tonal-content"
-    class="ui-content"
-    role="region"
-    aria-labelledby="accordion-tonal-summary"
-  >
+  <div class="ui-content">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -205,10 +179,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
 ```html
 <div class="ui-card ui-outlined" role="group">
   <details class="ui-accordion ui-card ui-marker-rotate">
-    <summary
-      id="accordion-group-1-summary"
-      aria-controls="accordion-group-1-content"
-    >
+    <summary>
       Accordion title
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -222,12 +193,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
         />
       </svg>
     </summary>
-    <div
-      id="accordion-group-1-content"
-      class="ui-content"
-      role="region"
-      aria-labelledby="accordion-group-1-summary"
-    >
+    <div class="ui-content">
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
@@ -236,10 +202,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
     </div>
   </details>
   <details class="ui-accordion ui-card ui-marker-rotate">
-    <summary
-      id="accordion-group-2-summary"
-      aria-controls="accordion-group-2-content"
-    >
+    <summary>
       Accordion title
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -253,12 +216,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
         />
       </svg>
     </summary>
-    <div
-      id="accordion-group-2-content"
-      class="ui-content"
-      role="region"
-      aria-labelledby="accordion-group-2-summary"
-    >
+    <div class="ui-content">
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
@@ -267,10 +225,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
     </div>
   </details>
   <details class="ui-accordion ui-card ui-marker-rotate">
-    <summary
-      id="accordion-group-3-summary"
-      aria-controls="accordion-group-3-content"
-    >
+    <summary>
       Accordion title
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -284,12 +239,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
         />
       </svg>
     </summary>
-    <div
-      id="accordion-group-3-content"
-      class="ui-content"
-      role="region"
-      aria-labelledby="accordion-group-3-summary"
-    >
+    <div class="ui-content">
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
@@ -307,10 +257,7 @@ Set the `name` prop to allow only one accordion in a group to be open at a time.
 ```html
 <div class="ui-card ui-outlined" role="group">
   <details class="ui-accordion ui-card ui-marker-rotate" name="example-group">
-    <summary
-      id="accordion-single-1-summary"
-      aria-controls="accordion-single-1-content"
-    >
+    <summary>
       Accordion title
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -324,12 +271,7 @@ Set the `name` prop to allow only one accordion in a group to be open at a time.
         />
       </svg>
     </summary>
-    <div
-      id="accordion-single-1-content"
-      class="ui-content"
-      role="region"
-      aria-labelledby="accordion-single-1-summary"
-    >
+    <div class="ui-content">
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
@@ -338,10 +280,7 @@ Set the `name` prop to allow only one accordion in a group to be open at a time.
     </div>
   </details>
   <details class="ui-accordion ui-card ui-marker-rotate" name="example-group">
-    <summary
-      id="accordion-single-2-summary"
-      aria-controls="accordion-single-2-content"
-    >
+    <summary>
       Accordion title
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -355,12 +294,7 @@ Set the `name` prop to allow only one accordion in a group to be open at a time.
         />
       </svg>
     </summary>
-    <div
-      id="accordion-single-2-content"
-      class="ui-content"
-      role="region"
-      aria-labelledby="accordion-single-2-summary"
-    >
+    <div class="ui-content">
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
@@ -369,10 +303,7 @@ Set the `name` prop to allow only one accordion in a group to be open at a time.
     </div>
   </details>
   <details class="ui-accordion ui-card ui-marker-rotate" name="example-group">
-    <summary
-      id="accordion-single-3-summary"
-      aria-controls="accordion-single-3-content"
-    >
+    <summary>
       Accordion title
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -386,12 +317,7 @@ Set the `name` prop to allow only one accordion in a group to be open at a time.
         />
       </svg>
     </summary>
-    <div
-      id="accordion-single-3-content"
-      class="ui-content"
-      role="region"
-      aria-labelledby="accordion-single-3-summary"
-    >
+    <div class="ui-content">
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
         sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
@@ -408,7 +334,7 @@ Include interactive elements in the header by using the `.ui-actions` class.
 
 ```html
 <details open class="ui-accordion ui-card ui-marker-rotate ui-elevated">
-  <summary id="summary1" aria-controls="content1">
+  <summary>
     Accordion with actions
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -422,12 +348,7 @@ Include interactive elements in the header by using the `.ui-actions` class.
       />
     </svg>
   </summary>
-  <div
-    id="content1"
-    class="ui-content"
-    role="region"
-    aria-labelledby="summary1"
-  >
+  <div class="ui-content">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -447,7 +368,7 @@ Replace the SVG inside the `summary` to change the marker. Leave it out to fall 
 
 ```html
 <details class="ui-accordion ui-card ui-marker-rotate ui-outlined">
-  <summary id="summary1" aria-controls="content1">
+  <summary>
     Custom marker
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -462,12 +383,7 @@ Replace the SVG inside the `summary` to change the marker. Leave it out to fall 
       />
     </svg>
   </summary>
-  <div
-    id="content1"
-    class="ui-content"
-    role="region"
-    aria-labelledby="summary1"
-  >
+  <div class="ui-content">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -485,7 +401,7 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
 
 ```html
 <details class="ui-accordion ui-card ui-marker-flip ui-outlined">
-  <summary id="summary1" aria-controls="content1">
+  <summary>
     Flip
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -499,12 +415,7 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
       />
     </svg>
   </summary>
-  <div
-    id="content1"
-    class="ui-content"
-    role="region"
-    aria-labelledby="summary1"
-  >
+  <div class="ui-content">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -515,7 +426,7 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
 
 
 <details class="ui-accordion ui-card ui-marker-rotate ui-outlined">
-  <summary id="summary2" aria-controls="content2">
+  <summary>
     Rotate
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -529,12 +440,7 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
       />
     </svg>
   </summary>
-  <div
-    id="content2"
-    class="ui-content"
-    role="region"
-    aria-labelledby="summary2"
-  >
+  <div class="ui-content">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -545,7 +451,7 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
 
 
 <details class="ui-accordion ui-card ui-marker-turn ui-outlined">
-  <summary id="summary3" aria-controls="content3">
+  <summary>
     Turn
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -559,12 +465,7 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
       />
     </svg>
   </summary>
-  <div
-    id="content3"
-    class="ui-content"
-    role="region"
-    aria-labelledby="summary3"
-  >
+  <div class="ui-content">
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
       nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis
@@ -572,6 +473,93 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
     </p>
   </div>
 </details>
+```
+
+## How it's made
+
+**Accordion that animates to auto**`accordion.css`
+
+Step 1: Details
+
+- `<details>` and `<summary>`: keyboard, focus and state for free
+- Opens and closes instantly
+
+```css
+.accordion > summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+```
+
+Step 2: Animate to auto
+
+- `interpolate-size: allow-keywords` lets `block-size` transition to `auto`
+- `::details-content` targets the hidden part
+- `allow-discrete` keeps the content visible until the close transition ends
+
+```css
+.accordion {
+  interpolate-size: allow-keywords;
+}
+
+
+.accordion::details-content {
+  block-size: 0;
+  opacity: 0;
+  overflow-y: clip;
+  transition:
+    block-size 0.2s,
+    content-visibility 0.2s allow-discrete,
+    opacity 0.2s;
+}
+
+
+.accordion[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}
+```
+
+Step 3: Marker
+
+- `list-style: none` removes the native marker
+- Three marker animations: `flip`, `rotate`, `turn`
+- Individual transform properties (`rotate`, `scale`) transition independently
+
+```css
+.accordion > summary {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+
+
+.accordion > summary::-webkit-details-marker {
+  display: none;
+}
+
+
+.accordion > summary svg {
+  transition:
+    rotate 0.2s,
+    scale 0.2s;
+}
+
+
+.marker-flip[open] > summary svg {
+  scale: 1 -1;
+}
+
+
+.marker-rotate[open] > summary svg {
+  rotate: 180deg;
+}
+
+
+.marker-turn[open] > summary svg {
+  rotate: 90deg;
+}
 ```
 
 ## Accessibility

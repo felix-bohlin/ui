@@ -405,11 +405,11 @@ Step 4 of 4: Segmented
 }
 ```
 
-### Browser support
+## Browser support
 
-Modern CSS and HTML features this component uses.
-
-- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- Chromium: Full support Supported since v123.
+- Firefox: Full support Supported since v120.
+- Safari: Full support Supported since v17.5.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
 

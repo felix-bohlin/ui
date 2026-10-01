@@ -428,14 +428,11 @@ Step 4 of 4: Ripple
 }
 ```
 
-### Browser support
+## Browser support
 
-Modern CSS and HTML features this component uses.
-
-- [`color-mix()`](https://webstatus.dev/features/color-mix) (Widely available): Chrome 111+, Edge 111+, Firefox 113+, Safari 16.2+
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- Chromium: Full support Supported since v125.
+- Firefox: Full support Supported since v128.
+- Safari: Full support Supported since v18.
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
 

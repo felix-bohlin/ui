@@ -49,7 +49,7 @@ export const description =
         label="Destinations"
         markers
         perView={2}
-        style="--_button-disabled-opacity: 1"
+        persistentButtons
       >
         {
           ["Kyoto", "Lima", "Lisbon"].map((title) => (
@@ -139,6 +139,26 @@ export const description =
     </Conditional>
 
     <AutoExample name="Actions" />
+  </section>
+
+  <section>
+    <h2 id="persistent-buttons">Persistent buttons</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-buttons-persistent</code> to keep both buttons visible. A disabled
+        button has a muted border.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>persistentButtons</code> to keep both buttons visible. A disabled button
+        has a muted border.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>persistentButtons</code> to keep both buttons visible. A disabled button
+        has a muted border.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="PersistentButtons" />
   </section>
 
   <section>

@@ -1,9 +1,12 @@
 @layer components.root {
   :where(.ui-carousel) {
     --_motion: var(--motion, 1);
-    --_button-bg-color: var(--surface-inverse);
-    --_button-border-color: transparent;
-    --_button-color: var(--text-inverse);
+    --_button-bg-color: light-dark(var(--gray-13), var(--gray-3));
+    --_button-border-color: var(--text-primary-contrast);
+    --_button-color: light-dark(var(--gray-1), var(--gray-15));
+    --_button-disabled-border-color: oklch(
+      from var(--_button-border-color) l c h / 35%
+    );
     --_button-disabled-opacity: 0;
     --_button-icon-size: 60%;
     --_button-inset: var(--size-2);
@@ -98,6 +101,7 @@
         position: absolute;
         position-anchor: auto;
         transition:
+          border-color calc(var(--duration) * var(--_motion)) var(--ease),
           opacity calc(var(--duration) * var(--_motion)) var(--ease),
           scale calc(var(--duration-fast) * var(--_motion)) var(--ease);
         translate: 0 -50%;
@@ -167,8 +171,13 @@
 
       &::scroll-button(inline-start):disabled,
       &::scroll-button(inline-end):disabled {
+        border-color: var(--_button-disabled-border-color);
         cursor: default;
         opacity: var(--_button-disabled-opacity);
+      }
+
+      &.ui-buttons-persistent {
+        --_button-disabled-opacity: 1;
       }
 
       /* Buttons outside the items */

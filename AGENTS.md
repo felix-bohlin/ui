@@ -37,8 +37,9 @@ Use ascending order (lowest to highest, A-Ö, oldest to newest) as the default s
 
 ## Testing
 
-- ALWAYS run `pnpm check` before finishing a change. It runs formatting, linting, CSS declaration order, component checks, type checks, unit tests and the build.
-- CSS declarations are sorted alphabetically. Run `pnpm sort-css` to fix order.
+- ALWAYS run `pnpm check` before finishing a change. It runs formatting, linting, CSS declaration order, component checks, type checks, unit tests and the build. `pnpm check:fast` runs everything except the build while iterating.
+- CSS declarations are sorted alphabetically, in `.css` files and in `<style>` blocks. Run `pnpm sort-css` to fix order.
+- The docs build fails on `[component-api]` errors: every prop and slot a component exposes must be described in its `api.ts`, and every documented prop must exist.
 - Run `pnpm test:e2e` when a change affects rendering or behavior. It runs visual, accessibility and interaction tests against the fixture pages at `/<framework>/test/<component>`, and layout and accessibility checks on every `heroAnatomy` docs page.
 - Parity tests render every example in `src/component-examples/` for Astro, Vue and HTML and compare the markup. Astro output must match the HTML example and Vue output must match Astro. One markup snapshot per example lives in `tests/unit/__snapshots__/`; accepted drift is recorded next to it as a `.diff` file per framework.
 - NEVER update snapshots, add or change `.diff` files, or edit `tests/e2e/a11y-known-violations.json` to make a failing test pass unless the change is intended. Say so in the commit message when you do.

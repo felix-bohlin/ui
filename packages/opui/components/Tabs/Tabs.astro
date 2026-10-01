@@ -18,7 +18,7 @@ const html = slotHtml.replace(
 ---
 
 <div
-  class:list={["ui-tabs", className, variant && `ui-${variant}`]}
+  class:list={["ui-tabs", variant && `ui-${variant}`, className]}
   role="tablist"
   {...rest}
   set:html={html}

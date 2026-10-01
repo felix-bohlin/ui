@@ -178,8 +178,8 @@ const years = Object.keys(categorized)
 
   .filter-chip {
     cursor: pointer;
-    user-select: none;
     transition: all 0.1s var(--ease-3);
+    user-select: none;
 
     &:active {
       transform: scale(0.95);
@@ -192,9 +192,9 @@ const years = Object.keys(categorized)
     }
 
     &.ui-disabled {
+      filter: grayscale(1);
       opacity: 0.3;
       pointer-events: none;
-      filter: grayscale(1);
     }
   }
 

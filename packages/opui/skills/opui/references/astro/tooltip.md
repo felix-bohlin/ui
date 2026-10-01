@@ -91,6 +91,7 @@ import { Button, Tooltip } from "opui-css/astro"
 
 <style>
   .tooltip-alignment-grid {
+    align-items: center;
     display: grid;
     gap: var(--size-3);
     grid-template-areas:
@@ -98,7 +99,6 @@ import { Button, Tooltip } from "opui-css/astro"
       "start .      end"
       ".     bottom .  ";
     justify-items: center;
-    align-items: center;
   }
 
 

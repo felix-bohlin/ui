@@ -23,7 +23,7 @@ const Tag = computed(() => as || (href ? "a" : "div"))
   <component
     :is="Tag"
     :class="[
-      { 'ui-avatar': !isGroup },
+      { 'ui-avatar': !isGroup, 'ui-avatar-group': isGroup },
       !isGroup && variant && `ui-${variant}`,
       $props.class,
     ]"

@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import type { RangeProps, Slots } from "./types.d.vue"
-import { computed, useId, useSlots } from "vue"
+import {
+  computed,
+  onMounted,
+  useId,
+  useSlots,
+  useTemplateRef,
+  watch,
+} from "vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -23,6 +30,17 @@ const hasValue = computed(
   () => props.valueSuffix !== undefined || !!slots.value,
 )
 const inputId = computed(() => props.id || (hasValue.value ? uid : undefined))
+
+const input = useTemplateRef<HTMLInputElement>("input")
+const fillTrack = () => {
+  if (!input.value) return
+  const min = Number(input.value.min || 0)
+  const max = Number(input.value.max || 100)
+  const fill = ((Number(input.value.value) - min) / (max - min || 1)) * 100
+  input.value.style.setProperty("--_track-fill", `${fill}%`)
+}
+onMounted(fillTrack)
+watch(model, fillTrack, { flush: "post" })
 const labelId = useId()
 const startTextId = useId()
 const endTextId = useId()
@@ -69,6 +87,7 @@ const endTextId = useId()
       :aria-labelledby="props.label || $slots.default ? labelId : undefined"
       :id="inputId"
       :list="props.list"
+      ref="input"
       type="range"
       v-bind="$attrs"
       v-model="model"

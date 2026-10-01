@@ -20,6 +20,8 @@
     --_marker-color: oklch(from var(--text-primary) l c h / 25%);
     --_marker-color-active: var(--primary);
     --_marker-gap: var(--size-2);
+    --_button-next-label: "Next";
+    --_button-prev-label: "Previous";
     --_marker-label: "Slide ";
     --_marker-size: var(--size-2);
     --_markers-margin-block-start: var(--size-3);
@@ -103,13 +105,13 @@
 
       &::scroll-button(inline-start) {
         background-image: var(--_button-prev-icon);
-        content: var(--_button-prev-content) / "Previous";
+        content: var(--_button-prev-content) / var(--_button-prev-label);
         inset-inline-start: calc(anchor(self-start) + var(--_button-inset));
       }
 
       &::scroll-button(inline-end) {
         background-image: var(--_button-next-icon);
-        content: var(--_button-next-content) / "Next";
+        content: var(--_button-next-content) / var(--_button-next-label);
         inset-inline-end: calc(anchor(self-end) + var(--_button-inset));
       }
 
@@ -119,7 +121,7 @@
               style(--_button-prev-icon: none): var(--_button-prev-content) ;
                 else: ""
             ) /
-            "Previous";
+            var(--_button-prev-label);
         }
 
         &::scroll-button(inline-end) {
@@ -127,20 +129,20 @@
               style(--_button-next-icon: none): var(--_button-next-content) ;
                 else: ""
             ) /
-            "Next";
+            var(--_button-next-label);
         }
       }
 
       @supports not (content: if(style(--x: none): "a" ; else: "b")) {
         @container not style(--_button-prev-icon: none) {
           &::scroll-button(inline-start) {
-            content: "" / "Previous";
+            content: "" / var(--_button-prev-label);
           }
         }
 
         @container not style(--_button-next-icon: none) {
           &::scroll-button(inline-end) {
-            content: "" / "Next";
+            content: "" / var(--_button-next-label);
           }
         }
       }

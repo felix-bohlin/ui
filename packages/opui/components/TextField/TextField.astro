@@ -29,6 +29,11 @@ const {
 } = Astro.props
 
 const startTextValue = description || startText
+const { $id } = Astro.locals
+const endTextId =
+  endText || Astro.slots.has("end-text") || Astro.slots.has("supporting-text")
+    ? $id("end-text")
+    : undefined
 ---
 
 <label
@@ -63,6 +68,8 @@ const startTextValue = description || startText
   }
   <span class="ui-field">
     <input
+      aria-describedby={endTextId}
+      aria-invalid={error ? "true" : undefined}
       disabled={disabled}
       id={id}
       inputmode={type === "numeric" ? "numeric" : undefined}
@@ -110,7 +117,7 @@ const startTextValue = description || startText
     (endText ||
       Astro.slots.has("end-text") ||
       Astro.slots.has("supporting-text")) && (
-      <span class="ui-end-text">
+      <span class="ui-end-text" id={endTextId}>
         {endText}
         <slot name="end-text" />
         <slot name="supporting-text" />

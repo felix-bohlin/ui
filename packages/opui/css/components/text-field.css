@@ -371,7 +371,7 @@
       }
 
       :where(input, textarea, select) {
-        cursor: not-allowed;
+        cursor: text;
 
         * {
           pointer-events: none;

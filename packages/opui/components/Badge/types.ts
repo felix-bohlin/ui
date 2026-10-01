@@ -5,6 +5,7 @@ export type Props = {
   dot?: boolean
   invisible?: boolean
   label?: string | number
+  srLabel?: string
 }
 
 export type Slots<S> = {

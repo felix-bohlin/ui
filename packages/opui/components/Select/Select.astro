@@ -21,6 +21,8 @@ const {
 
 const { $id } = Astro.locals
 const labelId = $id("select-label")
+const endTextId =
+  endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
 ---
 
 <label
@@ -53,6 +55,8 @@ const labelId = $id("select-label")
   }
   <span class="ui-field">
     <select
+      aria-describedby={endTextId}
+      aria-invalid={error ? "true" : undefined}
       aria-labelledby={label || Astro.slots.has("label") ? labelId : undefined}
       id={id}
       name={name}
@@ -97,7 +101,7 @@ const labelId = $id("select-label")
   </span>
   {
     (endText || Astro.slots.has("end-text")) && (
-      <span id={$id("end-text")} class="ui-end-text">
+      <span id={endTextId} class="ui-end-text">
         {endText}
         <slot name="end-text" />
       </span>

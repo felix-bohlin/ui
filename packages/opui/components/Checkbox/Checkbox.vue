@@ -30,6 +30,7 @@ const endTextId = useId()
     :data-invalid="props.error ? '' : undefined"
   >
     <CheckboxInput
+      :aria-invalid="props.error ? 'true' : undefined"
       v-bind="$attrs"
       v-model="modelValue"
       :aria-describedby="$slots['end-text'] ? endTextId : undefined"

@@ -29,7 +29,12 @@ const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
   ]}
   data-invalid={error ? "" : undefined}
 >
-  <RadioInput aria-describedby={endTextId} name={name} {...rest} />
+  <RadioInput
+    aria-describedby={endTextId}
+    aria-invalid={error ? "true" : undefined}
+    name={name}
+    {...rest}
+  />
   <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>
   {
     Astro.slots.has("end-text") && (

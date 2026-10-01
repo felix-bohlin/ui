@@ -14,7 +14,8 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const groupName = name || useId()
+const uid = useId()
+const groupName = name || uid
 const inputType = selection === "single" ? "radio" : "checkbox"
 
 provide(ToggleGroupKey, { name: groupName, type: inputType })

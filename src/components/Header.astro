@@ -30,6 +30,7 @@ const navItems: { label: string; href: string }[] = [
   { label: "Guide", href: "/guide/getting-started" },
   { label: "Components", href: "/components" },
   { label: "API", href: "/api" },
+  { label: "Blog", href: "/blog" },
 ]
 
 const resolvedNavItems = navItems.map((item) => ({
@@ -194,13 +195,14 @@ const { link } = Astro.locals
           href="https://github.com/felix-bohlin/ui"
           target="_blank"
           class="github-link ui-button ui-rounded ui-ripple ui-small"
-          aria-label="Github repo"
+          aria-label="GitHub repository"
         >
           <GithubLogo />
         </a>
 
         <!-- Mobile menu button -->
         <button
+          aria-label="Menu"
           class="mobile-menu-button ui-button ui-rounded ui-ripple ui-small"
           commandfor="mobile-menu-drawer"
           command="show-modal"

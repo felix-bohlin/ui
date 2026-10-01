@@ -1,0 +1,87 @@
+---
+import Document from "./Document.astro"
+import {
+  DEFAULT_FRAMEWORK,
+  hrefFor,
+  stripFrameworkPrefix,
+  type FrameworkId,
+} from "../utils/framework-routing"
+import { posts } from "../utils/blog"
+
+type Props = {
+  description?: string
+  showToc?: boolean
+  title?: string
+}
+
+const { description, showToc = true, title } = Astro.props
+
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+
+const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
+  /\/$/,
+  "",
+)
+
+const links = [
+  { href: "/blog", label: "All posts" },
+  ...posts.map((post) => ({ href: `/blog/${post.slug}`, label: post.title })),
+].map((link) => ({
+  ...link,
+  resolvedHref: hrefFor(currentFramework, link.href),
+}))
+---
+
+<Document
+  description={description}
+  overline="Blog"
+  showToc={showToc}
+  title={title}
+>
+  <nav slot="sidebar">
+    <h3>Blog</h3>
+    <menu class="blog-nav-list">
+      {
+        links.map((link) => (
+          <li>
+            <a
+              aria-current={canonicalPath === link.href ? "page" : undefined}
+              href={link.resolvedHref}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </menu>
+  </nav>
+
+  <slot slot="title" name="title" />
+  <slot slot="preamble" name="preamble" />
+  <slot />
+</Document>
+
+<style is:global>
+  .blog-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & a {
+      color: var(--text-muted);
+      display: block;
+      padding-block: var(--size-1);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--text-primary);
+      }
+
+      &[aria-current="page"] {
+        color: var(--link);
+        font-weight: var(--font-weight-6);
+      }
+    }
+  }
+</style>

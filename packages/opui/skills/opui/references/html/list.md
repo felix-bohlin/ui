@@ -389,11 +389,11 @@ Add `aria-selected="true"` to the `li`.
 
 ```html
 <ul class="ui-list">
-  <li aria-selected="true">
-    <a href="#">
+  <li>
+    <a href="#" aria-current="page">
       <div class="ui-text">
         <p>Selected item</p>
-        <p>This item has aria-selected="true" applied to the ListItem</p>
+        <p>This item has aria-current="page" on its link</p>
       </div>
     </a>
   </li>
@@ -789,7 +789,11 @@ Apply the `.ui-gutterless` class on the `ul.ui-list` element to remove the inlin
       <p>Gutterless list item</p>
     </div>
     <div class="ui-end">
-      <button class="ui-button ui-rounded ui-ripple ui-small" type="button">
+      <button
+        aria-label="Delete"
+        class="ui-button ui-rounded ui-ripple ui-small"
+        type="button"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -907,11 +911,11 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 
 ### List item API
 
-| Type       | Modifiers                                                         | Default | Description                                                       |
-| ---------- | ----------------------------------------------------------------- | ------- | ----------------------------------------------------------------- |
-| Border top | `.ui-border-top`                                                  | -       | Adds a border above the item.                                     |
-| Controls   | default, `label.ui-checkbox`, `label.ui-radio`, `label.ui-switch` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. |
-| Inset      | `.ui-inset`                                                       | -       | Aligns the text with items that have start content.               |
+| Type       | Modifiers                                                | Default | Description                                                       |
+| ---------- | -------------------------------------------------------- | ------- | ----------------------------------------------------------------- |
+| Border top | `.ui-border-top`                                         | -       | Adds a border above the item.                                     |
+| Controls   | `label.ui-checkbox`, `label.ui-radio`, `label.ui-switch` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch. |
+| Inset      | `.ui-inset`                                              | -       | Aligns the text with items that have start content.               |
 
 #### Parts
 

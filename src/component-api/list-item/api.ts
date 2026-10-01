@@ -39,7 +39,6 @@ export default {
       group: "Controls",
       prop: "type",
       values: {
-        button: null,
         checkbox: "label.ui-checkbox",
         radio: "label.ui-radio",
         switch: "label.ui-switch",

@@ -3,10 +3,15 @@ import type { ColumnProps as Props } from "./types.astro"
 
 export const title = "Table Column"
 
-const { width, ...rest } = Astro.props
+const { style, width, ...rest } = Astro.props
+
+const widthStyle = width
+  ? `${width.includes(":") ? width : `width: ${width}`};`
+  : ""
+const mergedStyle =
+  typeof style === "string" || !style
+    ? `${widthStyle}${style ?? ""}` || undefined
+    : style
 ---
 
-<col
-  style={width ? (width.includes(":") ? width : `width: ${width}`) : undefined}
-  {...rest}
-/>
+<col style={mergedStyle} {...rest} />

@@ -8,11 +8,15 @@ import AutoExample from "../../components/AutoExample.astro"
 import AccordionCSS from "@opui/css/components/accordion.css?raw"
 import CardCSS from "@opui/css/components/card.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import AccordionBuild from "../../components/HowItsMade/AccordionBuild.astro"
 
 import accordionApi from "../../component-api/accordion/api"
+export const description =
+  "Lets you show and hide content. Comes with a chevron marker and a custom marker slot."
 ---
 
 <Component
+  description={description}
   slug="accordion"
   heroAnatomy
   apis={[{ title: "Accordion API", api: accordionApi }]}
@@ -210,4 +214,8 @@ import accordionApi from "../../component-api/accordion/api"
       </UIAccordion>
     </Anatomy>
   </Fragment>
+  <section>
+    <h2 id="how-its-made">How it's made</h2>
+    <AccordionBuild />
+  </section>
 </Component>

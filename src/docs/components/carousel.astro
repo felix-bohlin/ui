@@ -4,6 +4,7 @@ import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocLink from "../../components/DocLink.astro"
+import CarouselBuild from "../../components/HowItsMade/CarouselBuild.astro"
 import { Card as UICard, Carousel as UICarousel } from "@opui/astro"
 
 import CarouselCSS from "@opui/css/components/carousel.css?raw"
@@ -153,4 +154,8 @@ export const description =
   <Fragment slot="accessibility">
     <p>Announces item position. Buttons and markers are named.</p>
   </Fragment>
+  <section>
+    <h2 id="how-its-made">How it's made</h2>
+    <CarouselBuild />
+  </section>
 </Component>

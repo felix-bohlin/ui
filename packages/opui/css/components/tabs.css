@@ -21,6 +21,7 @@
     flex-wrap: wrap;
     gap: 0;
     position: relative;
+    reading-flow: flex-visual;
 
     & > .ui-tab-input[type="radio"] {
       /* utils > .ui-sr-only */

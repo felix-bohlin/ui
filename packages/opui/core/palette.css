@@ -199,7 +199,7 @@
 @property --palette-hue {
   syntax: "<number>";
   inherits: true;
-  initial-value: 240;
+  initial-value: 250;
 }
 
 @layer theme.palette {
@@ -209,6 +209,7 @@
     .ui-critical,
     .ui-info,
     .ui-success,
+    .ui-neutral,
     [data-invalid],
     del,
     ins,

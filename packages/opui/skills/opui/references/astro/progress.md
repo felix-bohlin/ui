@@ -68,15 +68,11 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 ### Progress API
 
-| Prop               | Type                                      | Default | Description                                                                   |
-| ------------------ | ----------------------------------------- | ------- | ----------------------------------------------------------------------------- |
-| `aria-busy`        | `boolean`, `"true"`, `"false"`            | -       | Whether the progress is busy. Passed to the `<progress>`.                     |
-| `aria-describedby` | `string`                                  | -       | The id of an element that describes the progress. Passed to the `<progress>`. |
-| `aria-label`       | `string`                                  | -       | The accessible label. Passed to the `<progress>`.                             |
-| `id`               | `string`                                  | -       | The id of the `<progress>`.                                                   |
-| `max`              | `string`, `number`                        | -       | The maximum value.                                                            |
-| `value`            | `string`, `number`, `(number & string[])` | -       | The current value. Omit it for an indeterminate state.                        |
-| `variant`          | `"default"`, `"tonal"`, `"filled"`        | -       | The variant to use.                                                           |
+| Prop      | Type                                      | Default | Description                                            |
+| --------- | ----------------------------------------- | ------- | ------------------------------------------------------ |
+| `max`     | `string`, `number`                        | -       | The maximum value.                                     |
+| `value`   | `string`, `number`, `(number & string[])` | -       | The current value. Omit it for an indeterminate state. |
+| `variant` | `"default"`, `"tonal"`, `"filled"`        | -       | The variant to use.                                    |
 
 #### Slots
 
@@ -84,7 +80,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 | --------- | ----------------------------------------- |
 | `default` | Fallback content inside the `<progress>`. |
 
-Other attributes also go to the `<progress>`.
+Other attributes, such as `id`, `aria-label` and `aria-busy`, go to the `<progress>`.
 
 ## Installation
 

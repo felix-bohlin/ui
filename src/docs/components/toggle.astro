@@ -12,9 +12,12 @@ import Conditional from "../../components/Conditional.astro"
 
 import toggleButtonApi from "../../component-api/toggle-button/api"
 import toggleGroupApi from "../../component-api/toggle-group/api"
+export const description =
+  "Toggle buttons and toggle groups switch options on and off, alone or as a set."
 ---
 
 <Component
+  description={description}
   slug="toggle"
   heroAnatomy
   apis={[

@@ -3,7 +3,7 @@ import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
-import MenuBuild from "../../components/HowItsMade/MenuBuild.astro"
+import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
 
 import ListCSS from "@opui/css/components/list.css?raw"
 import MenuCSS from "@opui/css/components/menu.css?raw"
@@ -107,8 +107,5 @@ export const description = "A popover list of actions or links."
   <Fragment slot="accessibility">
     <p><kbd>Tab</kbd> to navigate, and <kbd>Esc</kbd> to close.</p>
   </Fragment>
-  <section>
-    <h2 id="how-its-made">How it's made</h2>
-    <MenuBuild />
-  </section>
+  <MenuBuild slot="under-the-hood" />
 </Component>

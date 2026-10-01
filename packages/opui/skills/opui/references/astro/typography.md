@@ -581,14 +581,37 @@ cold-brew 1.0.0</samp></pre>
 </article>
 ```
 
-## How it's made
+## API
 
-**Vertical rhythm with round()**`typography.css`
+| Prop    | Type                                                                                                                                              | Default | Description                                                                      |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------- |
+| Classes | `.ui-h1`–`.ui-h6`, `.ui-p`, `.ui-overline`, `.ui-caption`, `.ui-hgroup`, `.ui-blockquote`, `pre.ui-code-block`, inline utilities, `.ui-rich-text` | -       | CSS-only typography. Apply classes on elements in templates; no Astro component. |
+| Sizes   | `.ui-small`, `.ui-large`                                                                                                                          | -       | Size modifiers on `.ui-p`.                                                       |
 
-Step 1: Unsnapped
+## Under the hood
 
-- Stripes mark each line box (`1lh`), dotted lines mark `--rhythm-step`
-- A plain `line-height` lands between grid lines at most sizes
+1. Unsnapped
+
+   - Stripes mark each line box (`1lh`), dotted lines mark `--rhythm-step`
+   - A plain `line-height` lands between grid lines at most sizes
+
+2. Snap line height
+
+   - `round(up, …, step)` snaps the line height to the next step
+   - `1em + 0.5rem`: tight for large headings, roomy for small ones
+   - One rule for every heading level
+
+3. Snap font size
+
+   - Fluid sizes land on half a step
+   - Drag **Font size**: it moves in steps, not pixels
+
+4. Flow space
+
+   - One flow space derived from the body text
+   - More space above a heading than below: it sits with the text it introduces
+
+Step 1 of 4: Unsnapped
 
 ```css
 .prose h2 {
@@ -597,11 +620,9 @@ Step 1: Unsnapped
 }
 ```
 
-Step 2: Snap line height
+Step 2 of 4: Snap line height
 
-- `round(up, …, step)` snaps the line height to the next step
-- `1em + 0.5rem`: tight for large headings, roomy for small ones
-- One rule for every heading level
+- [`round(), mod(), and rem()`](https://webstatus.dev/features/round-mod-rem) (Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
 
 ```css
 .prose h2 {
@@ -609,10 +630,7 @@ Step 2: Snap line height
 }
 ```
 
-Step 3: Snap font size
-
-- Fluid sizes land on half a step
-- Drag **Font size**: it moves in steps, not pixels
+Step 3 of 4: Snap font size
 
 ```css
 .prose h2 {
@@ -620,10 +638,7 @@ Step 3: Snap font size
 }
 ```
 
-Step 4: Flow space
-
-- One flow space derived from the body text
-- More space above a heading than below: it sits with the text it introduces
+Step 4 of 4: Flow space
 
 ```css
 .prose {
@@ -641,18 +656,16 @@ Step 4: Flow space
 }
 ```
 
-## API
+### Browser support
 
-| Prop    | Type                                                                                                                                              | Default | Description                                                                      |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------- |
-| Classes | `.ui-h1`–`.ui-h6`, `.ui-p`, `.ui-overline`, `.ui-caption`, `.ui-hgroup`, `.ui-blockquote`, `pre.ui-code-block`, inline utilities, `.ui-rich-text` | -       | CSS-only typography. Apply classes on elements in templates; no Astro component. |
-| Sizes   | `.ui-small`, `.ui-large`                                                                                                                          | -       | Size modifiers on `.ui-p`.                                                       |
+Modern CSS and HTML features this component uses.
 
-## Browser support
-
-- Chromium: Full support Supported since v143.
-- Firefox: Full support Supported since v146.
-- Safari: Partial support Missing: box-decoration-break.
+- [`box-decoration-break`](https://webstatus.dev/features/box-decoration-break) (Limited availability): Chrome 130+, Edge 130+, Firefox 32+, Safari not supported
+- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Registered custom properties](https://webstatus.dev/features/registered-custom-properties) (Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
+- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [`round(), mod(), and rem()`](https://webstatus.dev/features/round-mod-rem) (Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
+- [`@scope`](https://webstatus.dev/features/scope) (Newly available): Chrome 143+, Edge 143+, Firefox 146+, Safari 26.2+
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
 

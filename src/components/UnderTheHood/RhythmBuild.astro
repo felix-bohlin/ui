@@ -19,6 +19,7 @@ const steps = [
 .prose h2 {
   line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
 }`,
+    features: ["round-mod-rem"],
     notes: [
       "<code>round(up, …, step)</code> snaps the line height to the next step",
       "<code>1em + 0.5rem</code>: tight for large headings, roomy for small ones",
@@ -80,13 +81,7 @@ const knobs = [
 ]
 ---
 
-<BuildUp
-  id="build-rhythm"
-  knobs={knobs}
-  source="typography.css"
-  steps={steps}
-  title="Vertical rhythm with round()"
->
+<BuildUp id="build-rhythm" knobs={knobs} steps={steps}>
   <div class="prose">
     <p>Body text sets the flow space for everything around it.</p>
     <h2>A heading that wraps onto two lines</h2>

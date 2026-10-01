@@ -34,6 +34,12 @@ const steps = [
   block-size: auto;
   opacity: 1;
 }`,
+    features: [
+      "content-visibility",
+      "details-content",
+      "interpolate-size",
+      "transition-behavior",
+    ],
     notes: [
       "<code>interpolate-size: allow-keywords</code> lets <code>block-size</code> transition to <code>auto</code>",
       "<code>::details-content</code> targets the hidden part",
@@ -87,12 +93,7 @@ const markers = [
 ]
 ---
 
-<BuildUp
-  id="build-accordion"
-  source="accordion.css"
-  steps={steps}
-  title="Accordion that animates to auto"
->
+<BuildUp id="build-accordion" steps={steps}>
   <div class="stack">
     {
       markers.map((marker) => (

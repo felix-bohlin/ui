@@ -1,6 +1,6 @@
 @property --_track-fill {
   syntax: "<percentage>";
-  inherits: false;
+  inherits: true;
   initial-value: 0%;
 }
 
@@ -232,13 +232,19 @@
       /* Track */
       &::-webkit-slider-runnable-track {
         appearance: none;
-        background: linear-gradient(
-          to inline-end,
-          var(--_track-fill-color) var(--_track-fill, 0%),
-          var(--_track-color) 0%
+        background-color: var(--_track-color);
+        background-image: linear-gradient(
+          var(--_track-fill-color),
+          var(--_track-fill-color)
         );
+        background-repeat: no-repeat;
+        background-size: var(--_track-fill, 0%) 100%;
         block-size: var(--_track-height);
         border-radius: var(--_track-radius);
+      }
+
+      &:dir(rtl)::-webkit-slider-runnable-track {
+        background-position: right;
       }
 
       &::-moz-range-track {

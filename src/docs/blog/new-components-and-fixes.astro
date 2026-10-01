@@ -1,12 +1,13 @@
 ---
 import Blog from "../../layouts/Blog.astro"
 import DocLink from "../../components/DocLink.astro"
-import AccordionBuild from "../../components/HowItsMade/AccordionBuild.astro"
-import ButtonBuild from "../../components/HowItsMade/ButtonBuild.astro"
-import CarouselBuild from "../../components/HowItsMade/CarouselBuild.astro"
-import MenuBuild from "../../components/HowItsMade/MenuBuild.astro"
-import RhythmBuild from "../../components/HowItsMade/RhythmBuild.astro"
-import TabsBuild from "../../components/HowItsMade/TabsBuild.astro"
+import AccordionBuild from "../../components/UnderTheHood/AccordionBuild.astro"
+import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
+import CarouselBuild from "../../components/UnderTheHood/CarouselBuild.astro"
+import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
+import ReadMore from "../../components/UnderTheHood/ReadMore.astro"
+import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
+import TabsBuild from "../../components/UnderTheHood/TabsBuild.astro"
 import { formatDate, posts } from "../../utils/blog"
 
 const post = posts.find((entry) => entry.slug === "new-components-and-fixes")!
@@ -82,13 +83,14 @@ const audits = [
       <li><a href="#breaking">Breaking changes</a></li>
       <li><a href="#new-components">New components</a></li>
       <li><a href="#component-changes">Component changes</a></li>
-      <li><a href="#how-its-made">How it's made</a> (interactive)</li>
+      <li><a href="#under-the-hood">Under the hood</a> (interactive)</li>
       <li><a href="#docs-site">Docs site</a></li>
       <li><a href="#tooling">Tooling and tests</a></li>
       <li>
         <a href="#other-branches">Other branches from the last three days</a>
       </li>
       <li><a href="#still-open">Still open</a></li>
+      <li><a href="#read-more">Read more</a></li>
     </ul>
   </section>
 
@@ -275,7 +277,7 @@ const audits = [
   </section>
 
   <section>
-    <h2 id="how-its-made">How it's made</h2>
+    <h2 id="under-the-hood">Under the hood</h2>
     <ul>
       <li>Pick a step: the demo runs only the CSS up to that step</li>
       <li>The code shown is the code that runs</li>
@@ -328,7 +330,7 @@ const audits = [
       <li>Toast docs limited to HTML (<a href={pr(387)}>#387</a>)</li>
       <li>Code tabs use the <code>line</code> Tabs variant</li>
       <li>Classless typography showcase rewritten</li>
-      <li>"How it's made" sections on component pages</li>
+      <li>"Under the hood" sections on component pages</li>
       <li>This blog</li>
     </ul>
   </section>
@@ -474,6 +476,23 @@ const audits = [
         Hand-written API tables left: Spinner, Text input, Toast, Typography
       </li>
     </ul>
+  </section>
+  <section>
+    <h2 id="read-more">Read more</h2>
+    <h3 id="read-more-carousel">Carousel</h3>
+    <ReadMore topic="carousel" />
+    <h3 id="read-more-menu">Menu</h3>
+    <ReadMore topic="menu" />
+    <h3 id="read-more-button">Button</h3>
+    <ReadMore topic="button" />
+    <h3 id="read-more-accordion">Accordion</h3>
+    <ReadMore topic="accordion" />
+    <h3 id="read-more-tabs">Tabs</h3>
+    <ReadMore topic="tabs" />
+    <h3 id="read-more-rhythm">Vertical rhythm</h3>
+    <ReadMore topic="rhythm" />
+    <h3 id="read-more-stepper">The stepper</h3>
+    <ReadMore topic="stepper" />
   </section>
 </Blog>
 

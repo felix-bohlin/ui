@@ -5,6 +5,7 @@ The Tabs are radio inputs and the Panels are just divs that show and hide based 
 ### What's new
 
 - Restyled as a segmented control.
+- [Scrollable](#scrollable) tabs with `.ui-scrollable`.
 - [Filled](#filled), [line](#line) and [outlined](#outlined) variants with `.ui-filled`, `.ui-line` and `.ui-outlined`.
 
 ## Anatomy
@@ -293,14 +294,273 @@ Use `variant="outlined"` (`.ui-outlined`) for a bordered track without a backgro
 </div>
 ```
 
-## How it's made
+## Scrollable
 
-**Tabs from a radio group**`tabs.css`
+Tabs wrap onto more rows when they don't fit. Use `scrollable`(`.ui-scrollable`) to keep them on one row and scroll them sideways instead. The open panel stays in view, and up to 20 tabs are supported. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
 
-Step 1: Radios
+```html
+<div class="ui-tabs ui-scrollable" role="tablist">
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-profile"
+    class="ui-tab-input"
+    checked
+    aria-controls="scrollable-panel-profile"
+  />
+  <label for="scrollable-tab-profile" class="ui-tab-label" role="tab"
+    >Profile</label
+  >
+  <div
+    id="scrollable-panel-profile"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="scrollable-tab-profile"
+  >
+    Profile settings and information.
+  </div>
 
-- One radio group holds the state
-- `:checked + label + panel` shows the matching panel
+
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-settings"
+    class="ui-tab-input"
+    aria-controls="scrollable-panel-settings"
+  />
+  <label for="scrollable-tab-settings" class="ui-tab-label" role="tab"
+    >Settings</label
+  >
+  <div
+    id="scrollable-panel-settings"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="scrollable-tab-settings"
+  >
+    General account settings.
+  </div>
+
+
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-notifications"
+    class="ui-tab-input"
+    aria-controls="scrollable-panel-notifications"
+  />
+  <label for="scrollable-tab-notifications" class="ui-tab-label" role="tab"
+    >Notifications</label
+  >
+  <div
+    id="scrollable-panel-notifications"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="scrollable-tab-notifications"
+  >
+    Manage your notifications.
+  </div>
+
+
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-billing"
+    class="ui-tab-input"
+    aria-controls="scrollable-panel-billing"
+  />
+  <label for="scrollable-tab-billing" class="ui-tab-label" role="tab"
+    >Billing</label
+  >
+  <div
+    id="scrollable-panel-billing"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="scrollable-tab-billing"
+  >
+    Plans, invoices and payment methods.
+  </div>
+
+
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-security"
+    class="ui-tab-input"
+    aria-controls="scrollable-panel-security"
+  />
+  <label for="scrollable-tab-security" class="ui-tab-label" role="tab"
+    >Security</label
+  >
+  <div
+    id="scrollable-panel-security"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="scrollable-tab-security"
+  >
+    Passwords, sessions and two-factor authentication.
+  </div>
+
+
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-integrations"
+    class="ui-tab-input"
+    aria-controls="scrollable-panel-integrations"
+  />
+  <label for="scrollable-tab-integrations" class="ui-tab-label" role="tab"
+    >Integrations</label
+  >
+  <div
+    id="scrollable-panel-integrations"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="scrollable-tab-integrations"
+  >
+    Connected apps and webhooks.
+  </div>
+
+
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-team"
+    class="ui-tab-input"
+    aria-controls="scrollable-panel-team"
+  />
+  <label for="scrollable-tab-team" class="ui-tab-label" role="tab">Team</label>
+  <div
+    id="scrollable-panel-team"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="scrollable-tab-team"
+  >
+    Members and roles.
+  </div>
+
+
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-advanced"
+    class="ui-tab-input"
+    aria-controls="scrollable-panel-advanced"
+  />
+  <label for="scrollable-tab-advanced" class="ui-tab-label" role="tab"
+    >Advanced</label
+  >
+  <div
+    id="scrollable-panel-advanced"
+    class="ui-tab-panel"
+    role="tabpanel"
+    aria-labelledby="scrollable-tab-advanced"
+  >
+    Export data or delete the account.
+  </div>
+</div>
+```
+
+## Accessibility
+
+The tab system uses standard radio inputs and labels, so we get group management and keyboard support for free!
+
+### Tab List
+
+| Element    | Attribute        | Description                                                |
+| ---------- | ---------------- | ---------------------------------------------------------- |
+| `.ui-tabs` | `role="tablist"` | Identifies the element as a container for a set of tabs.   |
+| `input`    | `name`           | Groups the radio buttons together for exclusive selection. |
+| `label`    | `role="tab"`     | Identifies the element as a tab to assistive technology.   |
+
+### Tab Panel
+
+The content area associated with a tab:
+
+| Attribute         | Value        | Description                            |
+| ----------------- | ------------ | -------------------------------------- |
+| `role`            | `"tabpanel"` | Identifies the element as a tab panel. |
+| `aria-labelledby` | `string`     | Links the panel to its trigger ID.     |
+
+### Keyboard Interaction
+
+- **Tab**: Moves focus to the active tab trigger (the radio button). Pressing Tab again moves focus out of the tab list to the next focusable element.
+- **Right Arrow / Down Arrow**: Moves focus to the next tab and activates it.
+- **Left Arrow / Up Arrow**: Moves focus to the previous tab and activates it.
+
+## API
+
+### Tabs API
+
+| Type     | Modifiers                                | Default | Description                                                                                      |
+| -------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------------------------------ |
+| Group    | `.ui-tab-input[name]`                    | -       | The name shared by the tab inputs. Generated when omitted.                                       |
+| Overflow | `.ui-scrollable`                         | -       | Keeps the tabs on one row and scrolls them sideways when they don't fit. Supports up to 20 tabs. |
+| Variants | `.ui-filled`, `.ui-line`, `.ui-outlined` | -       | The variant to use.                                                                              |
+
+#### Parts
+
+| Part            | Description                                             |
+| --------------- | ------------------------------------------------------- |
+| `.ui-tabs`      | Container element.                                      |
+| `.ui-tab-input` | A visually hidden radio input that holds a tab's state. |
+| `.ui-tab-label` | A tab.                                                  |
+| `.ui-tab-panel` | The panel of the selected tab.                          |
+
+The root needs `role="tablist"`. Each tab is an `input.ui-tab-input[type="radio"]`, followed by its `label.ui-tab-label[role="tab"]` and `.ui-tab-panel[role="tabpanel"]`.
+
+### Tabs item API
+
+| Type  | Modifiers   | Default | Description                |
+| ----- | ----------- | ------- | -------------------------- |
+| State | `[checked]` | -       | Selects the tab initially. |
+
+#### Parts
+
+| Part                 | Description                                                   |
+| -------------------- | ------------------------------------------------------------- |
+| `input.ui-tab-input` | The radio input for a tab, followed by the tab and the panel. |
+
+### Tabs tab API
+
+#### Parts
+
+| Part                 | Description |
+| -------------------- | ----------- |
+| `label.ui-tab-label` | The tab.    |
+
+### Tabs panel API
+
+#### Parts
+
+| Part            | Description |
+| --------------- | ----------- |
+| `.ui-tab-panel` | The panel.  |
+
+## Under the hood
+
+1. Radios
+
+   - One radio group holds the state
+   - `:checked + label + panel` shows the matching panel
+
+2. Order
+
+   - The markup interleaves label, panel, label, panel
+   - `order` pulls every label into one row and drops the panel below
+
+3. Hide radios
+
+   - Visually hidden, still focusable: arrow keys move between tabs
+   - Focus ring drawn on the label
+
+4. Segmented
+
+   - Each label paints its slice of the track
+   - The pill is a `::before` inset from the track
+   - `:nth-child(1 of .tab-label)` finds the first label among the radios and panels
+   - Inner radius = outer radius − inset
+
+Step 1 of 4: Radios
 
 ```html
 <div class="tabs">
@@ -322,10 +582,7 @@ Step 1: Radios
 }
 ```
 
-Step 2: Order
-
-- The markup interleaves label, panel, label, panel
-- `order` pulls every label into one row and drops the panel below
+Step 2 of 4: Order
 
 ```css
 .tabs {
@@ -346,10 +603,7 @@ Step 2: Order
 }
 ```
 
-Step 3: Hide radios
-
-- Visually hidden, still focusable: arrow keys move between tabs
-- Focus ring drawn on the label
+Step 3 of 4: Hide radios
 
 ```css
 .tab-input {
@@ -367,12 +621,7 @@ Step 3: Hide radios
 }
 ```
 
-Step 4: Segmented
-
-- Each label paints its slice of the track
-- The pill is a `::before` inset from the track
-- `:nth-child(1 of .tab-label)` finds the first label among the radios and panels
-- Inner radius = outer radius − inset
+Step 4 of 4: Segmented
 
 ```css
 .tab-label {
@@ -421,86 +670,11 @@ Step 4: Segmented
 }
 ```
 
-## Accessibility
+### Browser support
 
-The tab system uses standard radio inputs and labels, so we get group management and keyboard support for free!
+Modern CSS and HTML features this component uses.
 
-### Tab List
-
-| Element    | Attribute        | Description                                                |
-| ---------- | ---------------- | ---------------------------------------------------------- |
-| `.ui-tabs` | `role="tablist"` | Identifies the element as a container for a set of tabs.   |
-| `input`    | `name`           | Groups the radio buttons together for exclusive selection. |
-| `label`    | `role="tab"`     | Identifies the element as a tab to assistive technology.   |
-
-### Tab Panel
-
-The content area associated with a tab:
-
-| Attribute         | Value        | Description                            |
-| ----------------- | ------------ | -------------------------------------- |
-| `role`            | `"tabpanel"` | Identifies the element as a tab panel. |
-| `aria-labelledby` | `string`     | Links the panel to its trigger ID.     |
-
-### Keyboard Interaction
-
-- **Tab**: Moves focus to the active tab trigger (the radio button). Pressing Tab again moves focus out of the tab list to the next focusable element.
-- **Right Arrow / Down Arrow**: Moves focus to the next tab and activates it.
-- **Left Arrow / Up Arrow**: Moves focus to the previous tab and activates it.
-
-## API
-
-### Tabs API
-
-| Type     | Modifiers                                | Default | Description                                                |
-| -------- | ---------------------------------------- | ------- | ---------------------------------------------------------- |
-| Group    | `.ui-tab-input[name]`                    | -       | The name shared by the tab inputs. Generated when omitted. |
-| Variants | `.ui-filled`, `.ui-line`, `.ui-outlined` | -       | The variant to use.                                        |
-
-#### Parts
-
-| Part            | Description                                             |
-| --------------- | ------------------------------------------------------- |
-| `.ui-tabs`      | Container element.                                      |
-| `.ui-tab-input` | A visually hidden radio input that holds a tab's state. |
-| `.ui-tab-label` | A tab.                                                  |
-| `.ui-tab-panel` | The panel of the selected tab.                          |
-
-The root needs `role="tablist"`. Each tab is an `input.ui-tab-input[type="radio"]`, followed by its `label.ui-tab-label[role="tab"]` and `.ui-tab-panel[role="tabpanel"]`.
-
-### Tabs item API
-
-| Type  | Modifiers   | Default | Description                |
-| ----- | ----------- | ------- | -------------------------- |
-| State | `[checked]` | -       | Selects the tab initially. |
-
-#### Parts
-
-| Part                 | Description                                                   |
-| -------------------- | ------------------------------------------------------------- |
-| `input.ui-tab-input` | The radio input for a tab, followed by the tab and the panel. |
-
-### Tabs tab API
-
-#### Parts
-
-| Part                 | Description |
-| -------------------- | ----------- |
-| `label.ui-tab-label` | The tab.    |
-
-### Tabs panel API
-
-#### Parts
-
-| Part            | Description |
-| --------------- | ----------- |
-| `.ui-tab-panel` | The panel.  |
-
-## Browser support
-
-- Chromium: Full support Supported since v123.
-- Firefox: Full support Supported since v120.
-- Safari: Full support Supported since v17.5.
+- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
 
 See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
 

@@ -202,6 +202,7 @@ const { link } = Astro.locals
     type Token,
   } from "../utils/theme-store"
   import { hexToOklch, oklchToHex } from "../utils/color-utils"
+  import { skipOffscreenRendering } from "../utils/skip-offscreen-rendering"
 
   const TOKEN_SET = new Set<string>(TOKENS)
 
@@ -303,6 +304,27 @@ const { link } = Astro.locals
 
     if (TOKEN_SET.has(name)) {
       themeStore.setToken(mode, name as Token, target.value)
+    }
+  })
+
+  let endDrag: (() => void) | undefined
+
+  form?.addEventListener("pointerdown", (e) => {
+    const target = e.target as HTMLInputElement
+    if (target.type !== "range" || endDrag) return
+
+    const restore = skipOffscreenRendering()
+    const controller = new AbortController()
+    endDrag = () => {
+      controller.abort()
+      restore()
+      endDrag = undefined
+    }
+    for (const type of ["pointerup", "pointercancel", "resize", "scroll"]) {
+      window.addEventListener(type, () => endDrag?.(), {
+        passive: true,
+        signal: controller.signal,
+      })
     }
   })
 

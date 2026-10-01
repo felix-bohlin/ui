@@ -143,13 +143,7 @@ const tabs = [
 ]
 ---
 
-<BuildUp
-  id="build-tabs"
-  knobs={knobs}
-  source="tabs.css"
-  steps={steps}
-  title="Tabs from a radio group"
->
+<BuildUp id="build-tabs" knobs={knobs} steps={steps}>
   <div class="tabs">
     {
       tabs.map((tab, index) => (

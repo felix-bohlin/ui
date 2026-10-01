@@ -40,6 +40,7 @@
 ### Changed
 
 - `Tabs` look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill.
+- `Tabs` take a `scrollable` prop (`.ui-scrollable`). The tabs stay on one row and scroll sideways when they don't fit, and the open panel stays in view. Supports up to 20 tabs.
 - `Typography` rich text only styles headings without a class, like lists. Component parts such as the `Callout` title keep their own styles.
 - `Typography` rich text spacing derives from one flow space (`1.25em` of the body text), and every margin derived from it snaps to `--rhythm-step`. Headings get more space above than below, so they sit closer to the text they introduce, and lists with block content, description lists, `details`, `address`, code blocks and figures follow the same rhythm.
 - `Typography` rich text list gutters are measured in `ch`, so two-digit markers fit, and ordered lists with 100 or more items get a wider gutter. Bulleted and numbered list text starts at the same position.
@@ -84,6 +85,7 @@
 - `Typography` rich text `ol[type]` keeps its marker type, and consecutive `dt` elements are no longer spaced apart.
 - `Typography` rich text no longer styles an `a` without `href` as a link.
 - `Typography` rich text `code` inside a link gets a darker background in dark mode, so the link color keeps its contrast.
+- `Range` track is visible again. `linear-gradient(to inline-end, …)` is not supported, so the track background was dropped. The track color is now a `background-color` and the fill a separate image that starts from the right in RTL. `--_track-fill` inherits so the fill reaches the track.
 - `theme.css` gives `.ui-light` and `.ui-dark` on an element other than `html` the page surface and text color. `--color-scheme` follows the OS preference, so `Card` elevated shadows are correct in dark mode without a class.
 - `core/palette.css` lets `.ui-palette` and the severity scopes inherit `--palette-hue`, `--palette-chroma`, `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma` from their ancestors. It used to reset them to the defaults in every scope.
 - `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.

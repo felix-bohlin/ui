@@ -72,6 +72,7 @@
     .ui-content {
       flex: 1;
       overflow-y: auto;
+      overscroll-behavior: contain;
       padding: var(--_content-padding);
     }
 

@@ -121,7 +121,9 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
               >
                 {component.name}
                 {whatsNewFor(currentFramework, component.slug).length > 0 && (
-                  <span class="new-badge">New</span>
+                  <span class="new-dot">
+                    <span class="ui-sr-only">New</span>
+                  </span>
                 )}
               </a>
             </li>

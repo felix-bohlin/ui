@@ -22,7 +22,13 @@ import tabsApi from "../../component-api/tabs/api"
     { title: "Tabs tab API", api: tabsTabApi },
     { title: "Tabs panel API", api: tabsPanelApi },
   ]}
-  browserSupport={["light-dark"]}
+  browserSupport={[
+    "color-mix",
+    "container-queries",
+    "light-dark",
+    "reading-flow",
+    "scrollbar-width",
+  ]}
   installationTabs={[{ title: "tabs.css", code: TabsCSS, lang: "css" }]}
   changelogPaths={[
     {

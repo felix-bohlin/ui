@@ -3,6 +3,11 @@ import type { Page } from "@playwright/test"
 
 const examplesDir = new URL("../../src/component-examples/", import.meta.url)
 
+const PIXEL = Buffer.from(
+  "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+  "base64",
+)
+
 export const FRAMEWORKS = ["astro", "html", "vue"] as const
 
 export type Framework = (typeof FRAMEWORKS)[number]
@@ -25,7 +30,10 @@ export const openFixture = async (
 ) => {
   await page.route(
     (url) => url.hostname !== "localhost",
-    (route) => route.abort(),
+    (route) =>
+      route.request().resourceType() === "image"
+        ? route.fulfill({ body: PIXEL, contentType: "image/png" })
+        : route.abort(),
   )
   await page.goto(`/${framework}/test/${component}/`)
   if (framework === "vue") {

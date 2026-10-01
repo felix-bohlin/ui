@@ -2,6 +2,10 @@
 
 Chips are compact elements that represent an input, attribute, or action.
 
+### What's new
+
+- Corners follow `--border-radius` (8px), and borders follow `--border-width`. See [CSS variables](#api).
+
 ## Anatomy
 
 Chip
@@ -197,6 +201,23 @@ import { Chip } from "opui-css/vue"
 | `default` | Content placed before the label.                |
 | `end`     | Optional content at the end, such as an icon.   |
 | `start`   | Optional content at the start, such as an icon. |
+
+#### CSS variables
+
+| Variable             | Default                                                                | Description                                                                                                                |
+| -------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))`                            | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`    | `var(--size-2)`                                                        | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--border-width`     | `1px`                                                                  | Default border width for components that draw a border.                                                                    |
+| `--disabled-opacity` | `0.64`                                                                 | Opacity applied to disabled controls.                                                                                      |
+| `--icon-size-small`  | `var(--size-3)`                                                        | Icon size inside `Chip`.                                                                                                   |
+| `--motion`           | `1`                                                                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                            | Page and card background.                                                                                                  |
+| `--surface-tonal`    | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                                              |
+| `--text-disabled`    | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                                                  |
+| `--text-primary`     | `light-dark(var(--gray-15), var(--gray-1))`                            | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
 
 ## Browser support
 

@@ -2,6 +2,10 @@
 
 Slides in from the sides, top or bottom of the screen.
 
+### What's new
+
+- The backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`. See [CSS variables](#api).
+
 ## Usage
 
 Change the opening side with the `.ui-inline-start`, `.ui-inline-end`, `.ui-block-start`, and `.ui-block-end` classes.
@@ -353,6 +357,22 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 | `.ui-content`      | The scrollable content.                                    |
 | `.ui-footer`       | The footer. `DrawerFooter` renders it.                     |
 
+#### CSS variables
+
+| Variable            | Default                                     | Description                                                                                                                |
+| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                           |
+| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                         |
+| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                    |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+
 Add `autofocus` to the root, or to an element inside, to choose what gets focus when it opens.
 
 ### Drawer header API
@@ -364,6 +384,22 @@ Add `autofocus` to the root, or to an element inside, to choose what gets focus 
 | `.ui-header` | Container element. |
 | `<h2>`       | The heading.       |
 | `<button>`   | Closes the drawer. |
+
+#### CSS variables
+
+| Variable            | Default                                     | Description                                                                                                                |
+| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                           |
+| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                         |
+| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                    |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
 
 ## Browser support
 

@@ -1,5 +1,9 @@
 # Badge
 
+### What's new
+
+- Text uses `--primary-contrast`. See [CSS variables](#api).
+
 ## Anatomy
 
 5
@@ -346,6 +350,24 @@ Where the badge should be placed over the child.
 | `.ui-badge`           | Container element. Also takes `.ui-anchor`.  |
 | `& > :first-child`    | The element the badge is anchored to.        |
 | `.ui-badge-indicator` | The indicator, inside `.ui-anchor-floating`. |
+
+#### CSS variables
+
+| Variable               | Default                | Description                                                                                                                |
+| ---------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--critical`           | `var(--red)`           | Severity color for errors and destructive actions.                                                                         |
+| `--duration`           | `0.2s`                 | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`         | `var(--ease-out-3)`    | Easing for elements entering the screen.                                                                                   |
+| `--font-weight-medium` | `var(--font-weight-5)` | Font weight for badges, overlines and group labels.                                                                        |
+| `--info`               | `var(--blue)`          | Severity color for informational messages.                                                                                 |
+| `--motion`             | `1`                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--neutral`            | `var(--gray-9)`        | Severity color for neutral messages.                                                                                       |
+| `--primary`            | `var(--color-8)`       | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`   | `var(--gray-1)`        | Text color on a `--primary` background.                                                                                    |
+| `--success`            | `var(--green)`         | Severity color for success messages.                                                                                       |
+| `--warning`            | `var(--orange)`        | Severity color for warnings.                                                                                               |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
 
 With an alignment class, also set `--anchor-position-area` to the same position, such as `start start`.
 

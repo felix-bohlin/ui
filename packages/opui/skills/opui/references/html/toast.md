@@ -1,5 +1,9 @@
 # Toast
 
+### What's new
+
+- Severity icons follow `--success`, `--info`, `--warning` and `--critical`. See [CSS variables](#api).
+
 ### Alpha stage
 
 This is in no way finished, just an idea put out in the open.

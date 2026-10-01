@@ -2,6 +2,10 @@
 
 Callouts call out for user attention. Should be part of the flow and used **without** interrupting the user's task.
 
+### What's new
+
+- Borders follow `--border-width`. See [CSS variables](#api).
+
 ## Anatomy
 
 ### Title
@@ -219,6 +223,23 @@ import { Callout } from "opui-css/astro"
 | `default` | The content.                                                            |
 | `icon`    | An optional icon. `info`, `warning` and `critical` have a default icon. |
 | `title`   | An optional title inside the content.                                   |
+
+#### CSS variables
+
+| Variable                 | Default                                     | Description                                                                                           |
+| ------------------------ | ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                           |
+| `--border-radius`        | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                     |
+| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                               |
+| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
+| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                     |
+| `--icon-size`            | `var(--size-4)`                             | Default icon size inside components.                                                                  |
+| `--primary`              | `var(--color-8)`                            | Brand color for primary actions and accents.                                                          |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                             |
+| `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                         |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
 
 ## Browser support
 

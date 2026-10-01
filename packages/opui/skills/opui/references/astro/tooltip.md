@@ -2,6 +2,10 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/astro/components/anchor.md).
 
+### What's new
+
+- Uses `--surface-inverse` and `--text-inverse`. See [CSS variables](#api).
+
 Wrap the trigger in `<Tooltip>` and pass a stable`id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like`<button>` or `<a>`). Pass a`label` prop for plain text or use the `content` slot for richer markup.
 
 ## Basics
@@ -153,6 +157,19 @@ import { Button, Tooltip } from "opui-css/astro"
 | --------- | ------------------------------------------------------ |
 | `content` | The tooltip, a `popover="hint"`.                       |
 | `default` | The trigger that shows the tooltip on hover and focus. |
+
+#### CSS variables
+
+| Variable            | Default                                     | Description                                                                                                                |
+| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
+| `--font-size-05`    | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-inverse` | `light-dark(var(--gray-15), var(--gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                            |
+| `--text-inverse`    | `light-dark(var(--gray-1), var(--gray-15))` | Text color on `--surface-inverse`.                                                                                         |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
 
 ## Browser support
 

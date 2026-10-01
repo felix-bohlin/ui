@@ -253,6 +253,39 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | --------- | ------------------------------- |
 | `default` | The label and an optional icon. |
 
+#### CSS variables
+
+| Variable                      | Default                                                                | Description                                                                                                                |
+| ----------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--button-border-radius`      | `var(--size-2)`                                                        | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                                               |
+| `--button-size`               | `var(--control-size)`                                                  | Default `Button` height.                                                                                                   |
+| `--button-size-large`         | `var(--control-size-large)`                                            | `Button` height with `.ui-large`.                                                                                          |
+| `--button-size-small`         | `var(--control-size-small)`                                            | `Button` height with `.ui-small`.                                                                                          |
+| `--button-size-x-small`       | `var(--control-size-x-small)`                                          | `Button` and `IconButton` height with `.ui-x-small`.                                                                       |
+| `--critical`                  | `var(--red)`                                                           | Severity color for errors and destructive actions.                                                                         |
+| `--disabled-opacity`          | `0.64`                                                                 | Opacity applied to disabled controls.                                                                                      |
+| `--duration`                  | `0.2s`                                                                 | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--duration-fast`             | `0.1s`                                                                 | Transition duration for hover and press feedback.                                                                          |
+| `--ease`                      | `ease`                                                                 | Default easing for transitions.                                                                                            |
+| `--font-size-05`              | `0.875rem`                                                             | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--font-weight-bold`          | `var(--font-weight-7)`                                                 | Font weight for headings, buttons and terms.                                                                               |
+| `--motion`                    | `1`                                                                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`                   | `var(--color-8)`                                                       | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`          | `var(--gray-1)`                                                        | Text color on a `--primary` background.                                                                                    |
+| `--state-active-alpha`        | `20%`                                                                  | Alpha of the pressed state layer on neutral buttons in light mode.                                                         |
+| `--state-active-alpha-accent` | `25%`                                                                  | Alpha of the pressed state layer on primary and critical buttons.                                                          |
+| `--state-active-alpha-dark`   | `30%`                                                                  | Alpha of the pressed state layer on neutral buttons in dark mode.                                                          |
+| `--state-hover-alpha`         | `10%`                                                                  | Alpha of the hover state layer on neutral buttons in light mode.                                                           |
+| `--state-hover-alpha-accent`  | `15%`                                                                  | Alpha of the hover state layer on primary and critical buttons.                                                            |
+| `--state-hover-alpha-dark`    | `20%`                                                                  | Alpha of the hover state layer on neutral buttons in dark mode.                                                            |
+| `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`                            | Background of filled areas such as progress tracks and table stripes.                                                      |
+| `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                                              |
+| `--text-disabled`             | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                                                  |
+| `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                            | Muted text color on an inverted surface.                                                                                   |
+| `--text-primary-contrast`     | `light-dark(var(--gray-2), var(--gray-15))`                            | Emphasized text color on an inverted surface.                                                                              |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+
 ## Under the hood
 
 1. Base

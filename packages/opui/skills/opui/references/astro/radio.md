@@ -2,6 +2,10 @@
 
 See also: [Form documentation](https://open-props-ui.netlify.app/astro/components/form.md).
 
+### What's new
+
+- The input is `--choice-size` (20px) like `Checkbox`, and borders follow `--field-border-width`. See [CSS variables](#api).
+
 ## Anatomy
 
 LabelEnd text
@@ -206,6 +210,29 @@ import { Form } from "opui-css/astro"
 | `default`  | The label.                                 |
 | `end-text` | Supporting text displayed below the label. |
 
+#### CSS variables
+
+| Variable                     | Default                                     | Description                                                              |
+| ---------------------------- | ------------------------------------------- | ------------------------------------------------------------------------ |
+| `--choice-size`              | `var(--size-4)`                             | Default `Checkbox` and `Radio` input size.                               |
+| `--choice-size-small`        | `var(--size-3)`                             | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.    |
+| `--disabled-opacity`         | `0.64`                                      | Opacity applied to disabled controls.                                    |
+| `--field-border-color`       | `var(--border-color)`                       | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`. |
+| `--field-border-width`       | `1px`                                       | Border width for fields, `Checkbox`, `Radio` and `Switch`.               |
+| `--field-helper-color`       | `var(--text-muted)`                         | Text color for helper and end text under a field.                        |
+| `--field-helper-font-size`   | `var(--font-size-0)`                        | Font size for helper and end text under a field.                         |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                  | Line height for helper and end text under a field.                       |
+| `--field-label-color`        | `var(--text-primary)`                       | Text color for field labels.                                             |
+| `--field-label-font-size`    | `var(--font-size-05)`                       | Font size for field labels.                                              |
+| `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                          |
+| `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                        |
+| `--primary`                  | `var(--color-8)`                            | Brand color for primary actions and accents.                             |
+| `--primary-contrast`         | `var(--gray-1)`                             | Text color on a `--primary` background.                                  |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                   |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+
 Other attributes, such as `checked`, `disabled`, `name` and `value`, go to the `<input>`.
 
 ### Field group API
@@ -220,6 +247,24 @@ Other attributes, such as `checked`, `disabled`, `name` and `value`, go to the `
 | Slot      | Description                                         |
 | --------- | --------------------------------------------------- |
 | `default` | The fields, such as checkboxes, radios or switches. |
+
+#### CSS variables
+
+| Variable                     | Default                                     | Description                                                                                           |
+| ---------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                      | Opacity applied to disabled controls.                                                                 |
+| `--field-helper-color`       | `var(--text-muted)`                         | Text color for helper and end text under a field.                                                     |
+| `--field-helper-font-size`   | `var(--font-size-0)`                        | Font size for helper and end text under a field.                                                      |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                  | Line height for helper and end text under a field.                                                    |
+| `--field-label-color`        | `var(--text-primary)`                       | Text color for field labels.                                                                          |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                  |
+| `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                       |
+| `--focus-ring-width`         | `2px`                                       | Width of the focus ring.                                                                              |
+| `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
+| `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
 
 ## Browser support
 

@@ -13,7 +13,7 @@
     --_filled-border-color: var(--text-primary);
     --_height: var(--field-size);
     --_label-color: var(--text-muted);
-    --_end-text-color: var(--text-muted);
+    --_end-text-color: var(--field-helper-color);
 
     display: grid;
     gap: var(--size-1) 0;
@@ -34,8 +34,8 @@
       grid-template-columns: auto 1fr auto;
       min-block-size: var(--_height);
 
-      transition: border-color calc(0.2s * var(--_motion))
-        cubic-bezier(0.4, 0, 0.2, 1);
+      transition: border-color calc(var(--duration) * var(--_motion))
+        var(--ease);
     }
 
     :where(.ui-field) :where(input, textarea, select) {
@@ -85,12 +85,12 @@
     }
 
     .ui-header {
-      border-block-end: 1px solid var(--_border-color);
+      border-block-end: var(--field-border-width) solid var(--_border-color);
       grid-area: header;
     }
 
     .ui-footer {
-      border-block-start: 1px solid var(--_border-color);
+      border-block-start: var(--field-border-width) solid var(--_border-color);
       grid-area: footer;
     }
 
@@ -115,7 +115,7 @@
     /* Required/Invalid */
     &:has(:invalid) {
       .ui-label:after {
-        color: var(--red);
+        color: var(--field-required-color);
         content: "*";
         margin: -0.25em auto auto 0.25em;
       }
@@ -133,7 +133,7 @@
         cursor: inherit;
         max-inline-size: 100%;
         padding: 0;
-        transition: font-size 0.2s var(--ease-3);
+        transition: font-size calc(var(--duration) * var(--_motion)) var(--ease);
 
         &::-webkit-file-upload-button,
         &::file-selector-button {
@@ -252,15 +252,14 @@
     &:focus-within {
       .ui-field {
         border-color: var(--_accent-color);
-        outline-offset: -2px;
       }
     }
 
     /* Label */
     .ui-label {
-      color: var(--text-primary);
-      font-size: var(--font-size-05);
-      font-weight: 600;
+      color: var(--field-label-color);
+      font-size: var(--field-label-font-size);
+      font-weight: var(--field-label-font-weight);
       grid-column: 1/-1;
       grid-row: 1;
       padding-inline: 0 1ex;
@@ -268,10 +267,10 @@
 
     :where(.ui-start-text) {
       color: var(--_end-text-color);
-      font-size: var(--font-size-0);
+      font-size: var(--field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 2;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
     }
 
     &:not(.ui-spread):has(> .ui-start-text) {
@@ -287,10 +286,10 @@
     /* End text */
     :where(.ui-end-text) {
       color: var(--_end-text-color);
-      font-size: var(--font-size-0);
+      font-size: var(--field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 3;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
     }
 
     /* Auto-fit */
@@ -311,11 +310,11 @@
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {
-      --_accent-color: var(--color-9);
-      --_border-color: var(--color-9);
-      --_filled-border-color: var(--color-9);
-      --_label-color: var(--color-9);
-      --_end-text-color: var(--color-9);
+      --_accent-color: var(--invalid-color);
+      --_border-color: var(--invalid-color);
+      --_filled-border-color: var(--invalid-color);
+      --_label-color: var(--invalid-color);
+      --_end-text-color: var(--invalid-color);
     }
 
     /*
@@ -338,7 +337,7 @@
     /* Disabled */
     &:where(:has([disabled])) {
       cursor: not-allowed;
-      opacity: 0.64;
+      opacity: var(--disabled-opacity);
       user-select: none;
 
       &::before {
@@ -386,7 +385,7 @@
 
       &:has(input[type="color"]) {
         .ui-label {
-          line-height: 1.5;
+          line-height: var(--font-lineheight-3);
         }
       }
     }
@@ -399,17 +398,17 @@
       grid-template-columns: 1fr auto;
 
       .ui-label {
-        font-weight: 600;
+        font-weight: var(--field-label-font-weight);
         grid-column: 1;
         grid-row: 1;
       }
 
       .ui-start-text {
         color: var(--_end-text-color);
-        font-size: var(--font-size-0);
+        font-size: var(--field-helper-font-size);
         grid-column: 1;
         grid-row: 2;
-        line-height: 1.5;
+        line-height: var(--field-helper-line-height);
       }
 
       .ui-field {

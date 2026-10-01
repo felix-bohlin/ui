@@ -5,12 +5,12 @@
   :where(.ui-toggle-button) {
     --_button-bg-color: transparent;
     --_size: var(--field-size);
-    --_svg-size: var(--size-4);
+    --_svg-size: var(--icon-size);
 
     align-items: center;
     background-color: var(--_button-bg-color);
     block-size: var(--_size);
-    border: 1px solid var(--border-color);
+    border: var(--border-width) solid var(--border-color);
     border-radius: var(--button-border-radius);
     color: var(--text-primary);
     cursor: pointer;

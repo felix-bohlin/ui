@@ -247,7 +247,7 @@ const { link } = Astro.locals
   import {
     themeStore,
     TOKENS,
-    TOKEN_DEFAULTS,
+    tokenDefaults,
     type Mode,
     type Token,
   } from "../utils/theme-store"
@@ -267,9 +267,10 @@ const { link } = Astro.locals
   function syncFormFromStore(mode: Mode = themeStore.getActiveSiteMode()) {
     if (!form) return
     const config = themeStore.get(mode)
+    const defaults = tokenDefaults(mode)
 
     TOKENS.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token] ?? ""
+      const value = config[token] ?? defaults[token] ?? ""
       if (!value) return
       const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
       if (input && input.type !== "checkbox") {
@@ -310,10 +311,10 @@ const { link } = Astro.locals
     )
     if (colorPicker) {
       const hue = parseFloat(
-        config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
+        config["--palette-hue"] ?? defaults["--palette-hue"],
       )
       const chroma = parseFloat(
-        config["--palette-chroma"] ?? TOKEN_DEFAULTS["--palette-chroma"],
+        config["--palette-chroma"] ?? defaults["--palette-chroma"],
       )
       colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
     }

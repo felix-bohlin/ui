@@ -13,7 +13,7 @@
 
   :where(.ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
     color: var(--text-primary);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     text-wrap: pretty;
   }
 
@@ -58,7 +58,7 @@
       oklch(from var(--text-muted) calc(l * 0.75) c h)
     );
     font-size: var(--font-size-0);
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
@@ -79,7 +79,7 @@
         oklch(from var(--text-muted) calc(l * 0.75) c h)
       );
       font-size: var(--font-size-0);
-      font-weight: 500;
+      font-weight: var(--font-weight-medium);
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
@@ -247,7 +247,7 @@
       color: var(--primary);
       cursor: pointer;
       font-size: inherit;
-      font-weight: 700;
+      font-weight: var(--font-weight-bold);
       line-height: inherit;
       text-decoration: underline;
       text-decoration-color: var(--primary);
@@ -324,7 +324,7 @@
 
     :is(h1, h2, h3, h4, h5, h6) {
       color: var(--text-primary);
-      font-weight: 700;
+      font-weight: var(--font-weight-bold);
       text-wrap: pretty;
 
       & + *:not(&) {
@@ -356,7 +356,7 @@
     h4 {
       font-size: var(--font-size-h4, var(--font-size-3, 1.25rem));
       letter-spacing: -0.01em;
-      line-height: 1.5;
+      line-height: var(--font-lineheight-3);
       margin-block: 1.5em 0.5em;
     }
 
@@ -379,7 +379,7 @@
         oklch(from var(--text-muted) calc(l * 0.75) c h)
       );
       font-size: var(--font-size-0);
-      font-weight: 500;
+      font-weight: var(--font-weight-medium);
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
@@ -449,7 +449,7 @@
       margin-block-start: 1.25em;
 
       dt {
-        font-weight: 700;
+        font-weight: var(--font-weight-bold);
         margin-block-start: 1.25em;
       }
 

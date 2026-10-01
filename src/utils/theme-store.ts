@@ -39,18 +39,25 @@ export const TOKENS = [
 
 // Defaults must mirror what `packages/opui/css/theme.css` ships
 // so the configurators (drawer + generator) reflect the live site palette
-// before the user has tweaked anything. theme.css hardcodes
-//   --palette-source: oklch(0.58 calc(0.21 * 0.5) var(--hue-blue))
-// where Open Props' --hue-blue is 240, hence chroma 0.5 / hue 240.
-export const TOKEN_DEFAULTS: Record<Token, string> = {
-  "--palette-hue": "240",
+// before the user has tweaked anything. theme.css sets --palette-hue to
+// Open Props' --hue-green (145) in light mode and --hue-blue (240) in dark.
+const SHARED_DEFAULTS = {
   "--palette-chroma": "0.5",
   "--palette-hue-rotate-by": "0",
   "--gray-chroma": "0.01",
   "--gray-hue": "255",
-  "--border-radius": "var(--radius-2)",
-  "--field-border-radius": "var(--radius-2)",
-  "--button-border-radius": "var(--radius-2)",
+  "--border-radius": "var(--size-2)",
+  "--field-border-radius": "var(--size-2)",
+  "--button-border-radius": "var(--size-2)",
+} satisfies Omit<Record<Token, string>, "--palette-hue">
+
+const TOKEN_DEFAULTS_BY_MODE: Record<Mode, Record<Token, string>> = {
+  dark: { ...SHARED_DEFAULTS, "--palette-hue": "240" },
+  light: { ...SHARED_DEFAULTS, "--palette-hue": "145" },
+}
+
+export function tokenDefaults(mode: Mode): Record<Token, string> {
+  return TOKEN_DEFAULTS_BY_MODE[mode]
 }
 
 export type ModeConfig = Partial<Record<Token, string>> & {
@@ -116,7 +123,7 @@ export const themeStore = {
 
   /** Resolve a token's effective value for `mode`, falling back to the default. */
   effective(mode: Mode, token: Token): string {
-    return readConfig(mode)[token] ?? TOKEN_DEFAULTS[token]
+    return readConfig(mode)[token] ?? tokenDefaults(mode)[token]
   },
 
   isGraysEnabled(mode: Mode): boolean {

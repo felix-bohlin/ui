@@ -10,10 +10,12 @@
     --_border-color: var(--field-border-color);
     --_field-padding-block: var(--size-2);
     --_field-padding-inline: var(--size-2);
+    --_font-size: var(--font-size-1);
     --_height: var(--field-size);
     --_label-color: var(--text-muted);
     --_end-text-color: var(--field-helper-color);
 
+    align-content: start;
     display: grid;
     gap: var(--size-1) 0;
     position: relative;
@@ -42,7 +44,7 @@
       border: 0;
       color: var(--text-primary);
       font-family: var(--font-sans);
-      font-size: var(--font-size-1);
+      font-size: var(--_font-size);
       grid-area: input;
       inline-size: 100%;
       line-height: var(--font-lineheight-1);
@@ -67,8 +69,16 @@
       align-items: center;
       color: var(--_label-color);
       display: inline-flex;
+      font-size: var(--_font-size);
       padding-inline: var(--_field-padding-inline);
       white-space: nowrap;
+
+      & > svg {
+        block-size: auto;
+        flex-shrink: 0;
+        inline-size: auto;
+        max-block-size: var(--icon-size);
+      }
     }
 
     .ui-prefix {
@@ -169,7 +179,8 @@
       }
 
       /* Sizes */
-      &.ui-small {
+      &.ui-small,
+      &.ui-x-small {
         input {
           font-size: var(--font-size-05);
 
@@ -374,10 +385,25 @@
     }
 
     /* Sizes */
+    &.ui-x-small {
+      --_field-padding-block: var(--size-1);
+      --_font-size: var(--font-size-05);
+      --_height: var(--field-size-x-small);
+    }
+
     &.ui-small {
       --_field-padding-block: var(--size-1);
       --_height: var(--field-size-small);
+    }
 
+    &.ui-large {
+      --_field-padding-block: 0.75rem;
+      --_field-padding-inline: var(--size-3);
+      --_height: var(--field-size-large);
+    }
+
+    &.ui-small,
+    &.ui-x-small {
       &:has(input[type="color"]) {
         .ui-label {
           line-height: var(--font-lineheight-3);

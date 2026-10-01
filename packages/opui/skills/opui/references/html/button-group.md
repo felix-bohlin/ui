@@ -6,6 +6,7 @@ Groups related buttons by wrapping them with `class="ui-button-group"` and `role
 
 - [Split button](#split-button) with a `Menu`.
 - Icon-only buttons stay square.
+- [X-small](#sizes) size with `.ui-x-small`.
 
 ## Anatomy
 
@@ -227,9 +228,16 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
 
 ## Sizes
 
-Adjust the size of all buttons in the group using the `.ui-small` and `.ui-large` classes.
+Adjust the size of all buttons in the group using the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
 
 ```html
+<div role="group" class="ui-button-group ui-x-small ui-outlined">
+  <button class="ui-button">X-small</button>
+  <button class="ui-button">X-small</button>
+  <button class="ui-button">X-small</button>
+</div>
+
+
 <div role="group" class="ui-button-group ui-small ui-outlined">
   <button class="ui-button">Small</button>
   <button class="ui-button">Small</button>
@@ -445,7 +453,7 @@ Disable individual buttons within a group by adding the `disabled`attribute to e
 | ----------- | ----------------------------------------- | ------- | -------------------------------- |
 | Colors      | `.ui-critical`, `.ui-primary`             | -       | Optional colors for the buttons. |
 | Orientation | `.ui-vertical`                            | -       | The orientation of the element.  |
-| Sizes       | `.ui-large`, `.ui-small`                  | -       | The size of the buttons.         |
+| Sizes       | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the buttons.         |
 | Variants    | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant of the buttons.      |
 
 #### Parts

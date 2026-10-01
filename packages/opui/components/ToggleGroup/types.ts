@@ -2,7 +2,7 @@ export type Props = {
   name?: string
   orientation?: "vertical"
   selection?: "single" | "multiple"
-  size?: "default" | "small" | "x-small"
+  size?: "default" | "x-small" | "small" | "large"
 }
 
 export type Slots<S> = {

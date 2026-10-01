@@ -2,6 +2,10 @@
 
 Leverages the [List component](https://open-props-ui.netlify.app/astro/components/list.md) to provide markup for the Select popover.
 
+### What's new
+
+- [X-small and large](#sizes) sizes with the `size` prop.
+
 ## Anatomy
 
 LabelDescriptionOption one (1)¢EURHeaderFooterSupporting text
@@ -294,6 +298,11 @@ import { Select } from "opui-css/astro"
 ---
 
 
+<Select label="X-small" size="x-small">
+  <option value="">X-small</option>
+  <option>Option Two</option>
+  <option>Option Three</option>
+</Select>
 <Select label="Small" size="small">
   <option value="">Small</option>
   <option>Option Two</option>
@@ -301,6 +310,11 @@ import { Select } from "opui-css/astro"
 </Select>
 <Select label="Default">
   <option value="">Default</option>
+  <option>Option Two</option>
+  <option>Option Three</option>
+</Select>
+<Select label="Large" size="large">
+  <option value="">Large</option>
   <option>Option Two</option>
   <option>Option Three</option>
 </Select>
@@ -334,18 +348,18 @@ import { ClassicSelect } from "opui-css/astro"
 
 ### Select API
 
-| Prop          | Type                     | Default      | Description                                                               |
-| ------------- | ------------------------ | ------------ | ------------------------------------------------------------------------- |
-| `dense`       | `boolean`                | `false`      | Packs the options tighter.                                                |
-| `description` | `string`                 | -            | Description text displayed above the field.                               |
-| `endText`     | `string`                 | -            | Supporting text displayed below the field.                                |
-| `error`       | `boolean`                | `false`      | Shows error styles.                                                       |
-| `id`          | `string`                 | -            | The id of the `<select>`.                                                 |
-| `items`       | `Item[]`                 | `[]`         | The options, as `{ text, value }` objects.                                |
-| `label`       | `string`                 | -            | The label for the field.                                                  |
-| `size`        | `"small"`                | -            | The size of the element.                                                  |
-| `spread`      | `boolean`                | `false`      | Pushes the label and description to one side and the select to the other. |
-| `variant`     | `"outlined"`, `"filled"` | `"outlined"` | The variant to use.                                                       |
+| Prop          | Type                              | Default      | Description                                                               |
+| ------------- | --------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `dense`       | `boolean`                         | `false`      | Packs the options tighter.                                                |
+| `description` | `string`                          | -            | Description text displayed above the field.                               |
+| `endText`     | `string`                          | -            | Supporting text displayed below the field.                                |
+| `error`       | `boolean`                         | `false`      | Shows error styles.                                                       |
+| `id`          | `string`                          | -            | The id of the `<select>`.                                                 |
+| `items`       | `Item[]`                          | `[]`         | The options, as `{ text, value }` objects.                                |
+| `label`       | `string`                          | -            | The label for the field.                                                  |
+| `size`        | `"x-small"`, `"small"`, `"large"` | -            | The size of the element.                                                  |
+| `spread`      | `boolean`                         | `false`      | Pushes the label and description to one side and the select to the other. |
+| `variant`     | `"outlined"`, `"filled"`          | `"outlined"` | The variant to use.                                                       |
 
 #### Slots
 
@@ -378,10 +392,13 @@ import { ClassicSelect } from "opui-css/astro"
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                                       |
 | `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                                            |
 | `--field-size`               | `var(--control-size)`                       | Default field height.                                                                                                      |
+| `--field-size-large`         | `var(--control-size-large)`                 | Field height with `.ui-large`.                                                                                             |
 | `--field-size-small`         | `var(--control-size-small)`                 | Field height with `.ui-small`.                                                                                             |
+| `--field-size-x-small`       | `var(--control-size-x-small)`               | Field height with `.ui-x-small`.                                                                                           |
 | `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`        | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.          |
 | `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
 | `--font-weight-medium`       | `var(--font-weight-5)`                      | Font weight for badges, overlines and group labels.                                                                        |
+| `--icon-size`                | `var(--size-4)`                             | Default icon size inside components.                                                                                       |
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                                          |
 | `--motion`                   | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                  | `var(--color-8)`                            | Brand color for primary actions and accents.                                                                               |
@@ -397,15 +414,15 @@ Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to t
 
 ### Classic Select API
 
-| Prop      | Type                     | Default      | Description                                       |
-| --------- | ------------------------ | ------------ | ------------------------------------------------- |
-| `endText` | `string`                 | -            | Supporting text displayed below the field.        |
-| `error`   | `boolean`                | `false`      | Shows error styles.                               |
-| `id`      | `string`                 | -            | The id of the `<select>`. Generated when omitted. |
-| `items`   | `Item[]`                 | `[]`         | The options, as `{ text, value }` objects.        |
-| `label`   | `string`                 | -            | The label for the field.                          |
-| `size`    | `"small"`                | -            | The size of the element.                          |
-| `variant` | `"outlined"`, `"filled"` | `"outlined"` | The variant to use.                               |
+| Prop      | Type                              | Default      | Description                                       |
+| --------- | --------------------------------- | ------------ | ------------------------------------------------- |
+| `endText` | `string`                          | -            | Supporting text displayed below the field.        |
+| `error`   | `boolean`                         | `false`      | Shows error styles.                               |
+| `id`      | `string`                          | -            | The id of the `<select>`. Generated when omitted. |
+| `items`   | `Item[]`                          | `[]`         | The options, as `{ text, value }` objects.        |
+| `label`   | `string`                          | -            | The label for the field.                          |
+| `size`    | `"x-small"`, `"small"`, `"large"` | -            | The size of the element.                          |
+| `variant` | `"outlined"`, `"filled"`          | `"outlined"` | The variant to use.                               |
 
 #### Slots
 
@@ -431,10 +448,13 @@ Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to t
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                                       |
 | `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                                            |
 | `--field-size`               | `var(--control-size)`                       | Default field height.                                                                                                      |
+| `--field-size-large`         | `var(--control-size-large)`                 | Field height with `.ui-large`.                                                                                             |
 | `--field-size-small`         | `var(--control-size-small)`                 | Field height with `.ui-small`.                                                                                             |
+| `--field-size-x-small`       | `var(--control-size-x-small)`               | Field height with `.ui-x-small`.                                                                                           |
 | `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`        | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.          |
 | `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
 | `--font-weight-medium`       | `var(--font-weight-5)`                      | Font weight for badges, overlines and group labels.                                                                        |
+| `--icon-size`                | `var(--size-4)`                             | Default icon size inside components.                                                                                       |
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                                          |
 | `--motion`                   | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                  | `var(--color-8)`                            | Brand color for primary actions and accents.                                                                               |

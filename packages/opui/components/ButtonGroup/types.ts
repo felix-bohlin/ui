@@ -1,6 +1,6 @@
 export type Props = {
   color?: "critical" | "primary"
   orientation?: "vertical"
-  size?: "small" | "large"
+  size?: "x-small" | "small" | "large"
   variant?: "outlined" | "tonal" | "filled"
 }

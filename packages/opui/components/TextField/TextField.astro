@@ -19,7 +19,7 @@ const {
   name,
   placeholder,
   required,
-  small,
+  size,
   spread,
   startText,
   step,
@@ -39,11 +39,11 @@ const endTextId =
 <label
   class:list={[
     "ui-text-field",
+    size && `ui-${size}`,
     {
       "ui-auto-fit": autoFit,
       "ui-filled": filled,
       "ui-spread": spread,
-      "ui-small": small,
     },
     className,
   ]}

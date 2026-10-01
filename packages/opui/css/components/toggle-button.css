@@ -16,7 +16,6 @@
     color: var(--text-primary);
     cursor: pointer;
     display: inline-flex;
-    flex: auto;
     font-size: var(--_font-size);
     gap: var(--size-2);
     inline-size: fit-content;
@@ -90,6 +89,11 @@
     &.ui-x-small {
       --_font-size: var(--font-size-0);
       --_size: var(--field-size-x-small);
+    }
+
+    &.ui-large {
+      --_size: var(--field-size-large);
+      padding-inline: var(--size-3);
     }
   }
 }

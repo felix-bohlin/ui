@@ -20,7 +20,7 @@ const {
   placeholder,
   required,
   rows,
-  small,
+  size,
   endText,
   value,
   ...rest
@@ -36,11 +36,11 @@ const endTextId =
 <label
   class:list={[
     "ui-textarea",
+    size && `ui-${size}`,
     {
       "ui-auto-fit": autoFit,
       "ui-filled": filled,
       "ui-spread": spread,
-      "ui-small": small,
     },
     className,
   ]}

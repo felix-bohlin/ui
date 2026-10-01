@@ -26,10 +26,18 @@
       }
     }
 
+    &.ui-large {
+      .ui-toggle-button {
+        --_size: var(--field-size-large);
+        padding-inline: var(--size-3);
+      }
+    }
+
     /* Toggle button */
     .ui-toggle-button {
       border: 0;
       border-radius: 0;
+      flex: auto;
       margin: 0;
     }
 

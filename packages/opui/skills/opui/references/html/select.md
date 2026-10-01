@@ -2,6 +2,10 @@
 
 Leverages the [List component](https://open-props-ui.netlify.app/html/components/list.md) to provide markup for the Select popover.
 
+### What's new
+
+- [X-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
+
 ## Anatomy
 
 LabelDescriptionOption one (1)¢EURHeaderFooterSupporting text
@@ -470,10 +474,27 @@ Add the `.ui-spread` class to display the label and description on the left with
 ## Sizes
 
 ```html
-<label class="ui-select ui-small">
-  <span class="ui-label" id="select-sizes-1-label">Small</span>
+<label class="ui-select ui-x-small">
+  <span class="ui-label" id="select-sizes-1-label">X-small</span>
   <span class="ui-field">
     <select aria-labelledby="select-sizes-1-label">
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option value="">X-small</option>
+        <option>Option Two</option>
+        <option>Option Three</option>
+      </div>
+    </select>
+  </span>
+</label>
+
+
+<label class="ui-select ui-small">
+  <span class="ui-label" id="select-sizes-2-label">Small</span>
+  <span class="ui-field">
+    <select aria-labelledby="select-sizes-2-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -488,14 +509,31 @@ Add the `.ui-spread` class to display the label and description on the left with
 
 
 <label class="ui-select">
-  <span class="ui-label" id="select-sizes-2-label">Default</span>
+  <span class="ui-label" id="select-sizes-3-label">Default</span>
   <span class="ui-field">
-    <select aria-labelledby="select-sizes-2-label">
+    <select aria-labelledby="select-sizes-3-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
         <option value="">Default</option>
+        <option>Option Two</option>
+        <option>Option Three</option>
+      </div>
+    </select>
+  </span>
+</label>
+
+
+<label class="ui-select ui-large">
+  <span class="ui-label" id="select-sizes-4-label">Large</span>
+  <span class="ui-field">
+    <select aria-labelledby="select-sizes-4-label">
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option value="">Large</option>
         <option>Option Two</option>
         <option>Option Three</option>
       </div>
@@ -537,13 +575,13 @@ Bog-standard native HTML `<select>` without customized option list.
 
 ### Select API
 
-| Type       | Modifiers             | Default | Description                                                               |
-| ---------- | --------------------- | ------- | ------------------------------------------------------------------------- |
-| Dense      | `.ui-list.ui-dense`   | -       | Packs the options tighter.                                                |
-| Layout     | `.ui-spread`          | -       | Pushes the label and description to one side and the select to the other. |
-| Sizes      | `.ui-small`           | -       | The size of the element.                                                  |
-| Validation | `[data-invalid]`      | -       | Shows error styles.                                                       |
-| Variants   | default, `.ui-filled` | default | The variant to use.                                                       |
+| Type       | Modifiers                               | Default | Description                                                               |
+| ---------- | --------------------------------------- | ------- | ------------------------------------------------------------------------- |
+| Dense      | `.ui-list.ui-dense`                     | -       | Packs the options tighter.                                                |
+| Layout     | `.ui-spread`                            | -       | Pushes the label and description to one side and the select to the other. |
+| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                  |
+| Validation | `[data-invalid]`                        | -       | Shows error styles.                                                       |
+| Variants   | default, `.ui-filled`                   | default | The variant to use.                                                       |
 
 #### Parts
 
@@ -578,10 +616,13 @@ Bog-standard native HTML `<select>` without customized option list.
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                                       |
 | `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                                            |
 | `--field-size`               | `var(--control-size)`                       | Default field height.                                                                                                      |
+| `--field-size-large`         | `var(--control-size-large)`                 | Field height with `.ui-large`.                                                                                             |
 | `--field-size-small`         | `var(--control-size-small)`                 | Field height with `.ui-small`.                                                                                             |
+| `--field-size-x-small`       | `var(--control-size-x-small)`               | Field height with `.ui-x-small`.                                                                                           |
 | `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`        | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.          |
 | `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
 | `--font-weight-medium`       | `var(--font-weight-5)`                      | Font weight for badges, overlines and group labels.                                                                        |
+| `--icon-size`                | `var(--size-4)`                             | Default icon size inside components.                                                                                       |
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                                          |
 | `--motion`                   | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                  | `var(--color-8)`                            | Brand color for primary actions and accents.                                                                               |
@@ -597,11 +638,11 @@ The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` wit
 
 ### Classic Select API
 
-| Type       | Modifiers             | Default | Description              |
-| ---------- | --------------------- | ------- | ------------------------ |
-| Sizes      | `.ui-small`           | -       | The size of the element. |
-| Validation | `[data-invalid]`      | -       | Shows error styles.      |
-| Variants   | default, `.ui-filled` | default | The variant to use.      |
+| Type       | Modifiers                               | Default | Description              |
+| ---------- | --------------------------------------- | ------- | ------------------------ |
+| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element. |
+| Validation | `[data-invalid]`                        | -       | Shows error styles.      |
+| Variants   | default, `.ui-filled`                   | default | The variant to use.      |
 
 #### Parts
 
@@ -631,10 +672,13 @@ The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` wit
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                                       |
 | `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                                            |
 | `--field-size`               | `var(--control-size)`                       | Default field height.                                                                                                      |
+| `--field-size-large`         | `var(--control-size-large)`                 | Field height with `.ui-large`.                                                                                             |
 | `--field-size-small`         | `var(--control-size-small)`                 | Field height with `.ui-small`.                                                                                             |
+| `--field-size-x-small`       | `var(--control-size-x-small)`               | Field height with `.ui-x-small`.                                                                                           |
 | `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`        | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.          |
 | `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
 | `--font-weight-medium`       | `var(--font-weight-5)`                      | Font weight for badges, overlines and group labels.                                                                        |
+| `--icon-size`                | `var(--size-4)`                             | Default icon size inside components.                                                                                       |
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                                          |
 | `--motion`                   | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                  | `var(--color-8)`                            | Brand color for primary actions and accents.                                                                               |

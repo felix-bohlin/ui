@@ -5,6 +5,7 @@
 ### Breaking
 
 - `Accordion` markers only animate with a marker class on `details`. Add `.ui-marker-rotate` to keep the previous rotation.
+- `TextField` and `Textarea` take a `size` prop instead of `small`. Replace `small` with `size="small"`.
 
 ### Removed
 
@@ -28,6 +29,8 @@
 - `Tabs` take a `variant` prop. `filled` (`.ui-filled`) fills the selected tab with the primary color, `line` (`.ui-line`) drops the track and marks the selected tab with a line, and `outlined` (`.ui-outlined`) uses a bordered track without a background.
 - `layers.css` with the `@layer` order, for importing single component files.
 - The package ships an agent skill in `skills/opui` with a reference for every component.
+- `TextField`, `Textarea`, `Select` and `ClassicSelect` take `x-small` (`.ui-x-small`, 28px) and `large` (`.ui-large`, 46px) sizes, so every field size has a matching `Button` size. X-small fields use `--font-size-05` text.
+- `ToggleButton` and `ToggleGroup` take a `large` size (`.ui-large`), and `ButtonGroup` takes `x-small` (`.ui-x-small`).
 - `Typography` reads a `--rhythm-step` theme token (`0.25rem`). Heading font sizes snap to half a step and heading line heights to a full step with `round()`.
 - `Typography` rich text styles `hr`, tables, `pre > samp` and preformatted text without `code`.
 - `Typography` rich text task lists (an `li` that starts with a checkbox) show the checkbox in place of the bullet.
@@ -97,6 +100,10 @@
 - `TextField` date, time, week and month inputs no longer grow taller than the field, so small ones are 32px and time inputs are no longer 41px.
 - `TextField` file inputs are `--field-size` high. They were 2px taller.
 - `ToggleGroup` is as high as a `ToggleButton` of the same size. The group border made it 2px taller.
+- `TextField`, `Textarea` and `Select` keep their field height when a grid or flex parent stretches them, e.g. next to a field with end text. The extra space went into the field.
+- `TextField` prefix and suffix icons are capped at `--icon-size`, so a large icon no longer makes the field taller.
+- `TextField` autosuggest arrow sits at the inline end in RTL. It overlapped the text.
+- `ToggleButton` only grows inside a `ToggleGroup`. On its own in a flex container it stretched to fill the row.
 - `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.
 - `Badge`, `Chip`, `Tabs` and `Toast` respect `--motion` and `prefers-reduced-motion`.
 - `dist/opui.components.css` starts with the `@layer` order statement.

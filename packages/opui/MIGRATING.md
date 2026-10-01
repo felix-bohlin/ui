@@ -14,6 +14,13 @@
 
 `icon-button.css` is gone, so drop its import if you import single component files.
 
+`TextField` and `Textarea` take a `size` prop like `Select`, with `x-small`, `small` and `large`.
+
+```diff
+- <TextField small label="Name" />
++ <TextField size="small" label="Name" />
+```
+
 # Migrating from v5.4 to v5.5
 
 `Toast` is no longer exported from `opui-css/astro` or `opui-css/vue`. It is still available in HTML as an alpha: import `opui-css/css/components/toast.css` and `opui-css/css/js/toast.js`, and call `initToastManager()` once.

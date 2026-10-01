@@ -31,11 +31,11 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
   <label
     :class="[
       'ui-textarea',
+      props.size && `ui-${props.size}`,
       {
         'ui-auto-fit': props.autoFit,
         'ui-filled': props.filled,
         'ui-spread': props.spread,
-        'ui-small': props.small,
       },
       props.class,
     ]"

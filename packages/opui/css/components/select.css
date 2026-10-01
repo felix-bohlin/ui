@@ -120,7 +120,8 @@
     --_arrow-size: 5px;
 
     /* Size */
-    &.ui-small {
+    &.ui-small,
+    &.ui-x-small {
       button {
         padding-inline: var(--size-2) var(--size-7);
       }

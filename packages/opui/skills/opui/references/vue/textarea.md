@@ -1,5 +1,9 @@
 # Textarea
 
+### What's new
+
+- [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
+
 ## Anatomy
 
 LabelDescription¢EURHeaderFooterSupporting text
@@ -67,8 +71,10 @@ import { Textarea } from "opui-css/vue"
 
 
 <template>
-  <Textarea label="Small outlined" placeholder="Placeholder" small />
-  <Textarea label="Small filled" placeholder="Placeholder" small filled />
+  <Textarea label="X-small" placeholder="Placeholder" size="x-small" />
+  <Textarea label="Small" placeholder="Placeholder" size="small" />
+  <Textarea label="Default" placeholder="Placeholder" />
+  <Textarea label="Large" placeholder="Placeholder" size="large" />
 </template>
 ```
 
@@ -283,18 +289,18 @@ import { Textarea } from "opui-css/vue"
 
 ### Textarea API
 
-| Prop          | Type      | Default | Description                                                                 |
-| ------------- | --------- | ------- | --------------------------------------------------------------------------- |
-| `autoFit`     | `boolean` | `false` | Changes height depending on its content.                                    |
-| `description` | `string`  | -       | Description text displayed above the field.                                 |
-| `endText`     | `string`  | -       | Supporting text displayed below the field.                                  |
-| `error`       | `boolean` | `false` | Shows error styles.                                                         |
-| `filled`      | `boolean` | `false` | The variant to use.                                                         |
-| `id`          | `string`  | -       | The id of the `<textarea>`.                                                 |
-| `label`       | `string`  | -       | The label for the field.                                                    |
-| `small`       | `boolean` | `false` | The size of the element.                                                    |
-| `spread`      | `boolean` | `false` | Pushes the label and description to one side and the textarea to the other. |
-| `v-model`     | `string`  | -       | The textarea value.                                                         |
+| Prop          | Type                              | Default | Description                                                                 |
+| ------------- | --------------------------------- | ------- | --------------------------------------------------------------------------- |
+| `autoFit`     | `boolean`                         | `false` | Changes height depending on its content.                                    |
+| `description` | `string`                          | -       | Description text displayed above the field.                                 |
+| `endText`     | `string`                          | -       | Supporting text displayed below the field.                                  |
+| `error`       | `boolean`                         | `false` | Shows error styles.                                                         |
+| `filled`      | `boolean`                         | `false` | The variant to use.                                                         |
+| `id`          | `string`                          | -       | The id of the `<textarea>`.                                                 |
+| `label`       | `string`                          | -       | The label for the field.                                                    |
+| `size`        | `"x-small"`, `"small"`, `"large"` | -       | The size of the element.                                                    |
+| `spread`      | `boolean`                         | `false` | Pushes the label and description to one side and the textarea to the other. |
+| `v-model`     | `string`                          | -       | The textarea value.                                                         |
 
 #### Slots
 
@@ -329,8 +335,11 @@ import { Textarea } from "opui-css/vue"
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                                       |
 | `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                                            |
 | `--field-size`               | `var(--control-size)`                       | Default field height.                                                                                                      |
+| `--field-size-large`         | `var(--control-size-large)`                 | Field height with `.ui-large`.                                                                                             |
 | `--field-size-small`         | `var(--control-size-small)`                 | Field height with `.ui-small`.                                                                                             |
+| `--field-size-x-small`       | `var(--control-size-x-small)`               | Field height with `.ui-x-small`.                                                                                           |
 | `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--icon-size`                | `var(--size-4)`                             | Default icon size inside components.                                                                                       |
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                                          |
 | `--motion`                   | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                  | `var(--color-8)`                            | Brand color for primary actions and accents.                                                                               |

@@ -2,6 +2,11 @@
 
 Groups related buttons by wrapping them with `class="ui-button-group"` and `role="group"`.
 
+### What's new
+
+- [Split button](#split-button) with a `Menu`.
+- Icon-only buttons stay square.
+
 ## Anatomy
 
 - `.ui-button-group`

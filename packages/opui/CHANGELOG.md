@@ -53,7 +53,7 @@
 - `ButtonGroup` small buttons are `--button-size-small` (32px) instead of 30px.
 - `Range`, `Switch` and `TextField` invalid states use `--invalid-color`.
 - `Toast` severity icons are masks filled with `--success`, `--info`, `--warning` and `--critical` instead of hardcoded hex colors.
-- `Tooltip` uses `--surface-inverse` and `--text-inverse`. `Avatar` and `Badge` use `--primary-contrast`.
+- `Tooltip` and the `Carousel` buttons use `--surface-inverse` and `--text-inverse`. `Avatar` and `Badge` use `--primary-contrast`.
 - `Drawer` backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`. `.ui-backdrop-transparent` still removes it.
 
 ### Fixed

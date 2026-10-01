@@ -3,8 +3,8 @@
     --_motion: var(--motion, 1);
     --_bg-color: var(--surface-elevated);
     --_border-color: var(--border-color);
-    --_border-radius: var(--border-radius, var(--radius-2));
-    --_border-width: var(--border-width, 1px);
+    --_border-radius: var(--border-radius);
+    --_border-width: var(--border-width);
     --_margin: var(--_offset) 0;
     --_max-block-size: 60dvb;
     --_min-inline-size: 12rem;
@@ -13,7 +13,7 @@
     --_span: span-inline-end;
     --_position-area: var(--_side) var(--_span);
     --_shadow: var(--shadow-3);
-    --_transition-duration: calc(0.15s * var(--_motion));
+    --_transition-duration: calc(var(--duration) * var(--_motion));
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
@@ -43,9 +43,9 @@
       scale: 0.96;
       transition:
         display var(--_transition-duration) allow-discrete,
-        opacity var(--_transition-duration) var(--ease-out-1),
+        opacity var(--_transition-duration) var(--ease-enter),
         overlay var(--_transition-duration) allow-discrete,
-        scale var(--_transition-duration) var(--ease-out-1);
+        scale var(--_transition-duration) var(--ease-enter);
 
       &:popover-open {
         opacity: 1;
@@ -86,7 +86,7 @@
     /* Items */
     li > :is(a, button):is([disabled], [aria-disabled="true"]) {
       cursor: not-allowed;
-      opacity: 0.64;
+      opacity: var(--disabled-opacity);
 
       &:hover {
         background-color: transparent;
@@ -95,7 +95,9 @@
 
     :where(li.ui-critical),
     li > :is(a, button).ui-critical {
-      --_bg-color-hover: oklch(from var(--critical) l c h / 15%);
+      --_bg-color-hover: oklch(
+        from var(--critical) l c h / var(--state-hover-alpha-accent)
+      );
       color: var(--critical);
     }
 
@@ -107,7 +109,7 @@
     :where(li.ui-label) {
       color: var(--text-muted);
       font-size: var(--font-size-0);
-      font-weight: 700;
+      font-weight: var(--font-weight-bold);
       min-block-size: auto;
       padding-block: var(--size-2) var(--size-1);
     }

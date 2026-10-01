@@ -35,9 +35,11 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm test:e2e
+      - run: pnpm test:e2e visual -g typography
         env:
           HOME: /root
+      - run: cat diag.txt
+        if: always()
       - uses: actions/upload-artifact@v7
         if: failure()
         with:

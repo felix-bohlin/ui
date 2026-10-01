@@ -9,12 +9,11 @@ export type ThemeToken = {
 
 export type ThemeSection = {
   note?: string
-  number: number
   title: string
   tokens: ThemeToken[]
 }
 
-const HEADER = /^\s*\/\*\s*(\d+)\.\s*(.*?)\s*\*\/\s*$/
+const HEADER = /^\s*\/\*\s*([^-.\s][^.]*?)(?:\s+-\s+(.*?))?\s*\*\/\s*$/
 const DECLARATION = /^(\s*)(--[\w-]+):\s*(.*)$/
 const OPTIONAL = /^\s*\/\*\s*(--[\w-]+):\s*(.*?);?\s*\*\/\s*$/
 const DARK_SCOPE = /\.ui-dark|prefers-color-scheme:\s*dark/
@@ -31,7 +30,7 @@ type Line =
       name: string
       value: string
     }
-  | { kind: "header"; note?: string; number: number; title: string }
+  | { kind: "header"; note?: string; title: string }
   | { kind: "optional"; name: string; value: string }
   | { kind: "open" }
   | { kind: "other" }
@@ -48,8 +47,7 @@ function* walk(lines: string[]): Generator<[number, Line]> {
     }
     const header = line.match(HEADER)
     if (header) {
-      const [title, note] = header[2].split(/\s+-\s+/, 2)
-      yield [index, { kind: "header", note, number: Number(header[1]), title }]
+      yield [index, { kind: "header", note: header[2], title: header[1] }]
       continue
     }
     if (line.includes("/*") && !line.includes("*/")) {
@@ -108,11 +106,10 @@ export const parseThemeTokens = (css = themeSource): ThemeSection[] => {
   let section: ThemeSection | undefined
   for (const [, line] of walk(css.split("\n"))) {
     if (line.kind === "header") {
-      section = sections.find((candidate) => candidate.number === line.number)
+      section = sections.find((candidate) => candidate.title === line.title)
       if (!section) {
         section = {
           note: line.note,
-          number: line.number,
           title: line.title,
           tokens: [],
         }
@@ -146,7 +143,7 @@ export const parseThemeTokens = (css = themeSource): ThemeSection[] => {
     if (line.dark) continue
     section.tokens.push({ name: line.name, value: line.value })
   }
-  return sections.toSorted((a, b) => a.number - b.number)
+  return sections
 }
 
 const themeTokensIn = (sections: ThemeSection[]) =>

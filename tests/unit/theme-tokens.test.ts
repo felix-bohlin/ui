@@ -16,11 +16,30 @@ const tokens = themeTokens()
 const find = (name: string) => tokens.find((token) => token.name === name)
 
 describe("theme tokens", () => {
-  test("sections are numbered and sorted", () => {
-    const numbers = sections.map((section) => section.number)
-    expect(numbers).toEqual(numbers.toSorted((a, b) => a - b))
-    expect(new Set(numbers).size).toBe(numbers.length)
-    expect(sections.map((section) => section.title)).toContain("Motion")
+  test("sections follow the headers in theme.css", () => {
+    expect(
+      sections
+        .filter((section) => section.tokens.length > 0)
+        .map((section) => section.title),
+    ).toEqual([
+      "Palette",
+      "Named colors (no severity meaning)",
+      "Intent tokens",
+      "Primary",
+      "Text",
+      "Surfaces",
+      "Borders",
+      "Field / input",
+      "Focus ring",
+      "Typography",
+      "Control sizes",
+      "Button",
+      "Motion",
+      "State",
+      "Icons",
+      "Choice controls",
+      "Overlays",
+    ])
   })
 
   test("every token is declared once", () => {

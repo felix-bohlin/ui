@@ -2,6 +2,11 @@
 
 Groups related buttons.
 
+### What's new
+
+- [Split button](#split-button) with a `Menu`.
+- Icon-only buttons stay square.
+
 ## Anatomy
 
 - `<ButtonGroup>`

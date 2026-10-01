@@ -2,6 +2,10 @@
 
 Slides in from the sides, top or bottom of the screen.
 
+### What's new
+
+- `DrawerHeader` takes a `commandfor` prop, so the close button works without JavaScript.
+
 ## Usage
 
 Change the opening side with the `side` prop.

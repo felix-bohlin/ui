@@ -91,3 +91,13 @@
     margin-inline: auto var(--_gap);
   }
 }
+
+.code-tabs {
+  & > .ui-tab-label:first-of-type {
+    margin-inline-start: var(--size-2);
+  }
+
+  & > .ui-tab-panel {
+    margin-block-start: 0;
+  }
+}

@@ -2,6 +2,11 @@
 
 The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' `:checked` state.
 
+### What's new
+
+- Restyled as a segmented control.
+- [Line variant](#line) with `variant="line"`.
+
 ## Anatomy
 
 Profile settings and information.
@@ -50,6 +55,90 @@ import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
 </template>
 ```
 
+## Filled
+
+Use `variant="filled"` (`.ui-filled`) to fill the selected tab with the primary color.
+
+```vue
+<script setup lang="ts">
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
+</script>
+
+
+<template>
+  <Tabs name="filled-tabs" variant="filled">
+    <TabsItem open>
+      <TabsTab>Profile</TabsTab>
+      <TabsPanel>Profile settings and information.</TabsPanel>
+    </TabsItem>
+    <TabsItem>
+      <TabsTab>Settings</TabsTab>
+      <TabsPanel>General account settings.</TabsPanel>
+    </TabsItem>
+    <TabsItem>
+      <TabsTab>Notifications</TabsTab>
+      <TabsPanel>Manage your notifications.</TabsPanel>
+    </TabsItem>
+  </Tabs>
+</template>
+```
+
+## Line
+
+Use `variant="line"` (`.ui-line`) for tabs without a background, marking the selected tab with a line.
+
+```vue
+<script setup lang="ts">
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
+</script>
+
+
+<template>
+  <Tabs name="line-tabs" variant="line">
+    <TabsItem open>
+      <TabsTab>Profile</TabsTab>
+      <TabsPanel>Profile settings and information.</TabsPanel>
+    </TabsItem>
+    <TabsItem>
+      <TabsTab>Settings</TabsTab>
+      <TabsPanel>General account settings.</TabsPanel>
+    </TabsItem>
+    <TabsItem>
+      <TabsTab>Notifications</TabsTab>
+      <TabsPanel>Manage your notifications.</TabsPanel>
+    </TabsItem>
+  </Tabs>
+</template>
+```
+
+## Outlined
+
+Use `variant="outlined"` (`.ui-outlined`) for a bordered track without a background.
+
+```vue
+<script setup lang="ts">
+import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/vue"
+</script>
+
+
+<template>
+  <Tabs name="outlined-tabs" variant="outlined">
+    <TabsItem open>
+      <TabsTab>Profile</TabsTab>
+      <TabsPanel>Profile settings and information.</TabsPanel>
+    </TabsItem>
+    <TabsItem>
+      <TabsTab>Settings</TabsTab>
+      <TabsPanel>General account settings.</TabsPanel>
+    </TabsItem>
+    <TabsItem>
+      <TabsTab>Notifications</TabsTab>
+      <TabsPanel>Manage your notifications.</TabsPanel>
+    </TabsItem>
+  </Tabs>
+</template>
+```
+
 ## Accessibility
 
 The tab system uses standard radio inputs and labels, so we get group management and keyboard support for free!
@@ -81,9 +170,10 @@ The content area associated with a tab:
 
 ### Tabs API
 
-| Prop   | Type     | Default | Description                                                |
-| ------ | -------- | ------- | ---------------------------------------------------------- |
-| `name` | `string` | -       | The name shared by the tab inputs. Generated when omitted. |
+| Prop      | Type                               | Default | Description                                                |
+| --------- | ---------------------------------- | ------- | ---------------------------------------------------------- |
+| `name`    | `string`                           | -       | The name shared by the tab inputs. Generated when omitted. |
+| `variant` | `"outlined"`, `"filled"`, `"line"` | -       | The variant to use.                                        |
 
 #### Slots
 

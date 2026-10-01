@@ -5,7 +5,7 @@ import { createId } from "../id"
 export const title = "Tabs"
 
 const $id = createId(Astro.locals)
-const { class: className, name, ...rest } = Astro.props
+const { class: className, name, variant, ...rest } = Astro.props
 
 const groupName = name || $id("tabs")
 const escapedName = groupName.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
@@ -18,7 +18,7 @@ const html = slotHtml.replace(
 ---
 
 <div
-  class:list={["ui-tabs", className]}
+  class:list={["ui-tabs", className, variant && `ui-${variant}`]}
   role="tablist"
   {...rest}
   set:html={html}

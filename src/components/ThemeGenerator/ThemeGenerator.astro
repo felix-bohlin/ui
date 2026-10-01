@@ -379,9 +379,8 @@ const previewStyle = Object.entries(TOKEN_DEFAULTS)
   }
 
   .preview-card {
-    color-scheme: light;
-
     color: var(--text-primary);
+    color-scheme: light;
 
     --primary: var(--color-8);
     --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
@@ -482,14 +481,14 @@ const previewStyle = Object.entries(TOKEN_DEFAULTS)
     span {
       aspect-ratio: 1;
       background-color: oklch(from var(--text-primary) l c h / 0.65);
-      color: var(--text-primary-contrast);
       border-radius: var(--radius-round);
+      color: var(--text-primary-contrast);
       display: grid;
       min-inline-size: 1lh;
       opacity: 0;
       padding-inline: 1ex;
-      pointer-events: none;
       place-items: center;
+      pointer-events: none;
       text-align: center;
       transition: opacity 0.2s ease-out;
     }

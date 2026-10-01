@@ -41,6 +41,7 @@ import { Button, Tooltip } from "opui-css/vue"
 
 <style>
 .tooltip-alignment-grid {
+  align-items: center;
   display: grid;
   gap: var(--size-3);
   grid-template-areas:
@@ -48,7 +49,6 @@ import { Button, Tooltip } from "opui-css/vue"
     "start .      end"
     ".     bottom .  ";
   justify-items: center;
-  align-items: center;
 }
 
 .tooltip-alignment-grid > :nth-child(1) {

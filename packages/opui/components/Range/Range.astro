@@ -1,5 +1,6 @@
 ---
 import type { RangeProps as Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Range"
 
@@ -24,7 +25,7 @@ const {
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 
 const hasLabel = !!label || Astro.slots.has("default")
 const hasStartText = !!startText || Astro.slots.has("start-text")

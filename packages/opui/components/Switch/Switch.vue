@@ -48,7 +48,11 @@ const endTextId = useId()
     <SwitchInput
       v-bind="$attrs"
       v-model="modelValue"
-      :aria-describedby="$slots['end-text'] ? endTextId : undefined"
+      :aria-describedby="
+        [$slots['end-text'] ? endTextId : undefined, $attrs['aria-describedby']]
+          .filter(Boolean)
+          .join(' ') || undefined
+      "
     />
 
     <span

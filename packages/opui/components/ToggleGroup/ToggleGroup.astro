@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Toggle Group"
 
@@ -12,7 +13,7 @@ const {
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const groupName = name || $id("toggle-group")
 const escapedName = groupName.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
 

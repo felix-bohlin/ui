@@ -1,9 +1,5 @@
 # Badge
 
-### What's new
-
-- Text uses `--primary-contrast`. See [CSS variables](#api).
-
 ## Anatomy
 
 5
@@ -318,7 +314,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 - Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v26.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Badge.md).
 
 ## Installation
 

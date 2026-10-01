@@ -1,9 +1,5 @@
 # List
 
-### What's new
-
-- Item height follows `--control-size`, and borders follow `--border-width`. See [CSS variables](#api).
-
 ## Anatomy
 
 - Headline
@@ -988,7 +984,7 @@ Wrap the content in an `<a>`, `<button>` or `<label>` to make the item interacti
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=List.md).
 
 ## Installation
 

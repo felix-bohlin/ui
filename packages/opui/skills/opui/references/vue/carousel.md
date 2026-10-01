@@ -583,10 +583,10 @@ Step 4 of 4: Scroll markers
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Partial support Missing: scroll-buttons, scroll-markers.
-- Safari: Partial support Missing: scroll-buttons, scroll-markers.
+- Firefox: Partial support Missing: scroll-buttons, scroll-marker-targets, scroll-markers.
+- Safari: Partial support Missing: scroll-buttons, scroll-marker-targets, scroll-markers.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Carousel.md).
 
 ## Installation
 

@@ -2,10 +2,6 @@
 
 The card is extremely versatile and can be used on its own, or as a building block for [accordions](https://open-props-ui.netlify.app/vue/components/accordion.md), [dialogs](https://open-props-ui.netlify.app/vue/components/dialog.md) and more.
 
-### What's new
-
-- Borders follow `--border-width`. See [CSS variables](#api).
-
 ## Anatomy
 
 Overline
@@ -256,7 +252,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 - Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Card.md).
 
 ## Installation
 

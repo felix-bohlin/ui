@@ -2,10 +2,6 @@
 
 Slides in from the sides, top or bottom of the screen.
 
-### What's new
-
-- The backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`. See [CSS variables](#api).
-
 ## Usage
 
 Change the opening side with the `.ui-inline-start`, `.ui-inline-end`, `.ui-block-start`, and `.ui-block-end` classes.
@@ -404,10 +400,10 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 ## Browser support
 
 - Chromium: Full support Supported since v135.
-- Firefox: Partial support Missing: overlay.
+- Firefox: Partial support Missing: display-animation, overlay.
 - Safari: Partial support Missing: dialog-closedby, overlay.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Drawer.md).
 
 ## Installation
 

@@ -1,9 +1,5 @@
 # Description list
 
-### What's new
-
-- Borders follow `--border-width`. See [CSS variables](#api).
-
 ## Anatomy
 
 - Price
@@ -118,10 +114,10 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 ## Browser support
 
 - Chromium: Full support Supported since v105.
-- Firefox: Full support Supported since v121.
+- Firefox: Full support Supported since v110.
 - Safari: Full support Supported since v16.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Description+List.md).
 
 ## Installation
 

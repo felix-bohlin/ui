@@ -1,9 +1,5 @@
 # Text field
 
-### What's new
-
-- Invalid states use `--invalid-color`, and borders follow `--field-border-width`. See [CSS variables](#api).
-
 ## Anatomy
 
 LabelDescription¢EURHeaderFooterSupporting text
@@ -558,7 +554,7 @@ Input attributes (`disabled`, `list`, `max`, `min`, `name`, `placeholder`, `requ
 - Firefox: Full support Supported since v152.
 - Safari: Full support Supported since v26.2.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Text+Field.md).
 
 ## Installation
 

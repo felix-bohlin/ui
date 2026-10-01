@@ -349,7 +349,7 @@ Attributes that aren't props, such as `placeholder` or `rows`, go to the `<texta
 - Firefox: Full support Supported since v152.
 - Safari: Full support Supported since v26.2.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Textarea.md).
 
 ## Installation
 

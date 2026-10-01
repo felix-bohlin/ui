@@ -1,9 +1,5 @@
 # Range
 
-### What's new
-
-- Invalid states use `--invalid-color`. See [CSS variables](#api).
-
 ## Anatomy
 
 Label50Start textEnd text
@@ -293,7 +289,7 @@ Attributes that aren't props, such as `max`, `min` or `step`, go to the `<input>
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Range.md).
 
 ## Installation
 

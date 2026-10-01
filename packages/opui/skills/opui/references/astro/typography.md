@@ -659,10 +659,10 @@ Step 4 of 4: Flow space
 ## Browser support
 
 - Chromium: Full support Supported since v143.
-- Firefox: Full support Supported since v146.
+- Firefox: Partial support Missing: text-wrap-pretty.
 - Safari: Partial support Missing: box-decoration-break.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Typography.md).
 
 ## Installation
 

@@ -1,9 +1,5 @@
 # Table
 
-### What's new
-
-- Borders follow `--border-width`. See [CSS variables](#api).
-
 ## Anatomy
 
 | Name   | Size |
@@ -205,7 +201,7 @@ Set column widths with `Table.ColumnGroup` and `Table.Column`, which takes a `wi
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Table.md).
 
 ## Installation
 

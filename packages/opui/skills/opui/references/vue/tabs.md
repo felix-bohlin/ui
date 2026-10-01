@@ -499,11 +499,11 @@ Step 4 of 4: Segmented
 
 ## Browser support
 
-- Chromium: Full support Supported since v123.
-- Firefox: Full support Supported since v120.
-- Safari: Full support Supported since v17.5.
+- Chromium: Full support Supported since v137.
+- Firefox: Partial support Missing: reading-flow.
+- Safari: Partial support Missing: reading-flow.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Tabs.md).
 
 ## Installation
 

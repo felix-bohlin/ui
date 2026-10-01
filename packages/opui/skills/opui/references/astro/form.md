@@ -735,7 +735,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 - Firefox: Full support Supported since v121.
 - Safari: Full support Supported since v15.4.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Form.md).
 
 ## Installation
 

@@ -2,10 +2,6 @@
 
 See also: [Switch field group](#field-group).
 
-### What's new
-
-- Invalid states use `--invalid-color`, and borders follow `--field-border-width`. See [CSS variables](#api).
-
 ## Anatomy
 
 LabelEnd text
@@ -543,7 +539,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 - Firefox: Full support Supported since v121.
 - Safari: Full support Supported since v17.5.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Switch.md).
 
 ## Installation
 

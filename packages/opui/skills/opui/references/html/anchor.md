@@ -90,7 +90,7 @@ For a hover trigger, add `popover="hint"` and an id to `.ui-anchor-floating`, an
 - Firefox: Partial support Missing: interest-invokers.
 - Safari: Partial support Missing: interest-invokers, popover-hint.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Anchor.md).
 
 ## Installation
 

@@ -1,9 +1,5 @@
 # Avatar
 
-### What's new
-
-- Size follows `--control-size` and the text uses `--primary-contrast`. See [CSS variables](#api).
-
 ## Image
 
 ```html
@@ -156,11 +152,11 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 
 ## Browser support
 
-- Chromium: Full support Supported since v105.
-- Firefox: Full support Supported since v121.
-- Safari: Full support Supported since v15.4.
+- Chromium: Full support Supported since v139.
+- Firefox: Partial support Missing: corner-shape.
+- Safari: Partial support Missing: corner-shape.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Avatar.md).
 
 ## Installation
 

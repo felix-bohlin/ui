@@ -2,10 +2,6 @@
 
 Buttons (disguised as input checkbox/radio) that can be toggled on and off.
 
-### What's new
-
-- `ToggleButton` and `ToggleGroup` borders follow `--border-width`. See [CSS variables](#api).
-
 ## Anatomy
 
 DayWeekMonth
@@ -348,7 +344,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Toggle.md).
 
 ## Installation
 

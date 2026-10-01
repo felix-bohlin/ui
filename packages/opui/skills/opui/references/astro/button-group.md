@@ -6,7 +6,6 @@ Groups related buttons.
 
 - [Split button](#split-button) with a `Menu`.
 - Icon-only buttons stay square.
-- Small groups are `--button-size-small` (32px), and borders follow `--border-width`. See [CSS variables](#api).
 
 ## Anatomy
 
@@ -412,11 +411,11 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 
 ## Browser support
 
-- Chromium: Full support Supported since v111.
-- Firefox: Full support Supported since v113.
-- Safari: Full support Supported since v16.2.
+- Chromium: Full support Supported since v125.
+- Firefox: Full support Supported since v128.
+- Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Button+Group.md).
 
 ## Installation
 

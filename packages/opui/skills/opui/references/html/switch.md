@@ -2,10 +2,6 @@
 
 See also: [Switch field group](#field-group).
 
-### What's new
-
-- Invalid states use `--invalid-color`, and borders follow `--field-border-width`. See [CSS variables](#api).
-
 ## Anatomy
 
 LabelEnd text
@@ -719,7 +715,7 @@ The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to 
 - Firefox: Full support Supported since v121.
 - Safari: Full support Supported since v17.5.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Switch.md).
 
 ## Installation
 

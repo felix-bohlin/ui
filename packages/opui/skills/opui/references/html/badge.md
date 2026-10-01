@@ -1,9 +1,5 @@
 # Badge
 
-### What's new
-
-- Text uses `--primary-contrast`. See [CSS variables](#api).
-
 ## Anatomy
 
 5
@@ -377,7 +373,7 @@ With an alignment class, also set `--anchor-position-area` to the same position,
 - Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v26.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Badge.md).
 
 ## Installation
 

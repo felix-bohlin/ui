@@ -177,10 +177,10 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 ## Browser support
 
 - Chromium: Full support Supported since v135.
-- Firefox: Partial support Missing: overlay.
+- Firefox: Partial support Missing: display-animation, overlay.
 - Safari: Partial support Missing: dialog-closedby, overlay.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Dialog.md).
 
 ## Installation
 

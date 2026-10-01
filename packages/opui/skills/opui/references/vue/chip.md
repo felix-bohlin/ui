@@ -2,10 +2,6 @@
 
 Chips are compact elements that represent an input, attribute, or action.
 
-### What's new
-
-- Corners follow `--border-radius` (8px), and borders follow `--border-width`. See [CSS variables](#api).
-
 ## Anatomy
 
 Chip
@@ -181,6 +177,24 @@ import { Chip } from "opui-css/vue"
 </template>
 ```
 
+## Disabled
+
+Disable a button chip with the `disabled` attribute.
+
+```vue
+<script setup lang="ts">
+import { Chip } from "opui-css/vue"
+</script>
+
+
+<template>
+  <div class="example-row">
+    <Chip as="button" variant="tonal" label="Tonal" disabled />
+    <Chip as="button" variant="outlined" label="Outlined" disabled />
+  </div>
+</template>
+```
+
 ## API
 
 ### Chip API
@@ -225,7 +239,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Chip.md).
 
 ## Installation
 

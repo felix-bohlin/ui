@@ -467,10 +467,10 @@ Attributes that aren't props, such as `disabled` or `name`, go to the `<select>`
 ## Browser support
 
 - Chromium: Full support Supported since v135.
-- Firefox: Partial support Missing: customizable-select, overlay.
+- Firefox: Partial support Missing: customizable-select, display-animation, overlay.
 - Safari: Partial support Missing: customizable-select, overlay.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Select.md).
 
 ## Installation
 

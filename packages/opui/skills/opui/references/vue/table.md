@@ -1,9 +1,5 @@
 # Table
 
-### What's new
-
-- Borders follow `--border-width`. See [CSS variables](#api).
-
 ## Anatomy
 
 | Name   | Size |
@@ -203,7 +199,7 @@ Set column widths with `TableColumnGroup` and `TableColumn`, which takes a `widt
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Table.md).
 
 ## Installation
 

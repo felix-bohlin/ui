@@ -2,10 +2,6 @@
 
 Chips are compact elements that represent an input, attribute, or action.
 
-### What's new
-
-- Corners follow `--border-radius` (8px), and borders follow `--border-width`. See [CSS variables](#api).
-
 ## Anatomy
 
 Chip
@@ -167,6 +163,21 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
 </div>
 ```
 
+## Disabled
+
+Add disabled styling with the `disabled` attribute, `aria-disabled="true"` or the `.ui-disabled` class.
+
+```html
+<div class="example-row">
+  <button class="ui-chip ui-tonal" disabled>
+    <span class="ui-text">Tonal</span>
+  </button>
+  <button class="ui-chip ui-outlined" disabled>
+    <span class="ui-text">Outlined</span>
+  </button>
+</div>
+```
+
 ## API
 
 ### Chip API
@@ -209,7 +220,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Chip.md).
 
 ## Installation
 

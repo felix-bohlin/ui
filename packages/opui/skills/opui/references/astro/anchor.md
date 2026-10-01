@@ -92,7 +92,7 @@ import { Anchor } from "opui-css/astro"
 - Firefox: Partial support Missing: interest-invokers.
 - Safari: Partial support Missing: interest-invokers, popover-hint.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Anchor.md).
 
 ## Installation
 

@@ -320,7 +320,7 @@ Textarea attributes (`cols`, `disabled`, `maxlength`, `minlength`, `name`, `plac
 - Firefox: Full support Supported since v152.
 - Safari: Full support Supported since v26.2.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Textarea.md).
 
 ## Installation
 

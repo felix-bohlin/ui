@@ -1,9 +1,5 @@
 # Text field
 
-### What's new
-
-- Invalid states use `--invalid-color`, and borders follow `--field-border-width`. See [CSS variables](#api).
-
 ## Anatomy
 
 LabelDescription¢EURHeaderFooterSupporting text
@@ -586,7 +582,7 @@ Attributes that aren't props, such as `placeholder` or `disabled`, go to the `<i
 - Firefox: Full support Supported since v152.
 - Safari: Full support Supported since v26.2.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Text+Field.md).
 
 ## Installation
 

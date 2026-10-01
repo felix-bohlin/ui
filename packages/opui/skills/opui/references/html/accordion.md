@@ -6,7 +6,6 @@ Lets you show and hide content. Comes with a chevron marker, check out how to ad
 
 - [Marker animation](#marker-animation) with `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn`.
 - Breaking: markers only animate with a marker class. Add `.ui-marker-rotate` to keep the previous rotation.
-- Borders follow `--border-width`. See [CSS variables](#api).
 
 ## Anatomy
 
@@ -630,7 +629,7 @@ Step 3 of 3: Marker
 - Firefox: Partial support Missing: interpolate-size.
 - Safari: Partial support Missing: interpolate-size.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Accordion.md).
 
 ## Installation
 

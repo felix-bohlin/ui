@@ -471,10 +471,10 @@ Step 4 of 4: Animate
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v26.
+- Firefox: Partial support Missing: display-animation, overlay.
+- Safari: Partial support Missing: overlay.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Menu.md).
 
 ## Installation
 

@@ -2,10 +2,6 @@
 
 Buttons (disguised as input checkbox/radio) that can be toggled on and off.
 
-### What's new
-
-- `ToggleButton` and `ToggleGroup` borders follow `--border-width`. See [CSS variables](#api).
-
 ## Anatomy
 
 DayWeekMonth
@@ -404,7 +400,7 @@ Set `disabled` on the input too. Checkbox inputs also need `aria-pressed`.
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Toggle.md).
 
 ## Installation
 

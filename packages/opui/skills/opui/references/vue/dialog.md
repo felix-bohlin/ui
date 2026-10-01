@@ -192,10 +192,10 @@ Attributes that aren't props, such as `closedby` or `id`, go to the `<dialog>`.
 ## Browser support
 
 - Chromium: Full support Supported since v135.
-- Firefox: Partial support Missing: overlay.
+- Firefox: Partial support Missing: display-animation, overlay.
 - Safari: Partial support Missing: dialog-closedby, overlay.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Dialog.md).
 
 ## Installation
 

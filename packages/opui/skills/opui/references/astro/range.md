@@ -1,9 +1,5 @@
 # Range
 
-### What's new
-
-- Invalid states use `--invalid-color`. See [CSS variables](#api).
-
 ## Anatomy
 
 Label50Start textEnd text
@@ -268,7 +264,7 @@ Input attributes, such as `disabled`, `max`, `min`, `name` and `step`, go to the
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Range.md).
 
 ## Installation
 

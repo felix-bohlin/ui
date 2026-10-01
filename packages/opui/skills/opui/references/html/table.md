@@ -1,9 +1,5 @@
 # Table
 
-### What's new
-
-- Borders follow `--border-width`. See [CSS variables](#api).
-
 ## Anatomy
 
 | Name   | Size |
@@ -202,7 +198,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Table.md).
 
 ## Installation
 

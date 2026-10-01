@@ -83,6 +83,14 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
 
+## Browser support
+
+- Chromium: Full support Supported since v105.
+- Firefox: Full support Supported since v121.
+- Safari: Full support Supported since v15.4.
+
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Progress.md).
+
 ## Installation
 
 - `opui-css/css/components/progress.css`

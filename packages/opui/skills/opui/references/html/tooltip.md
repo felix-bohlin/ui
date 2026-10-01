@@ -2,10 +2,6 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md).
 
-### What's new
-
-- Uses `--surface-inverse` and `--text-inverse`. See [CSS variables](#api).
-
 Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Wire `interestfor` on the trigger to the`.ui-anchor-floating[popover="hint"]` element's ID.
 
 ## Basics
@@ -206,10 +202,10 @@ Also add `.ui-anchor` to the root. Give `.ui-anchor-floating` `popover="hint"` a
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Partial support Missing: interest-invokers.
-- Safari: Partial support Missing: interest-invokers, popover-hint.
+- Firefox: Partial support Missing: display-animation, interest-invokers, overlay, text-wrap-pretty.
+- Safari: Partial support Missing: interest-invokers, overlay, popover-hint.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Tooltip.md).
 
 ## Installation
 

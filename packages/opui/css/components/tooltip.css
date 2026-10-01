@@ -1,8 +1,7 @@
 @layer components.extended {
   :where(.ui-tooltip) {
-    --_motion: var(--motion, 1);
-    --_tooltip-bg: var(--surface-inverse);
-    --_tooltip-color: var(--text-inverse);
+    --_tooltip-bg: light-dark(var(--gray-13), var(--gray-3));
+    --_tooltip-color: light-dark(var(--gray-1), var(--gray-15));
     --_tooltip-offset: var(--size-2);
 
     & > .ui-anchor-floating {
@@ -53,9 +52,9 @@
     & > .ui-anchor-floating[popover] {
       opacity: 0;
       transition:
-        display calc(var(--duration) * var(--_motion)) allow-discrete,
-        opacity calc(var(--duration) * var(--_motion)) var(--ease-enter),
-        overlay calc(var(--duration) * var(--_motion)) allow-discrete;
+        display 0.15s allow-discrete,
+        opacity 0.15s var(--ease-out-1),
+        overlay 0.15s allow-discrete;
 
       &:popover-open {
         opacity: 1;

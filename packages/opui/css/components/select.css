@@ -39,10 +39,10 @@
       }
 
       transition:
-        display calc(var(--duration) * var(--_motion)) allow-discrete,
-        opacity calc(var(--duration) * var(--_motion)) var(--ease),
-        overlay calc(var(--duration) * var(--_motion)) allow-discrete,
-        scale calc(var(--duration) * var(--_motion)) var(--ease);
+        display calc(0.2s * var(--_motion)) allow-discrete,
+        opacity calc(0.2s * var(--_motion)) var(--ease-3),
+        overlay calc(0.2s * var(--_motion)) allow-discrete,
+        scale calc(0.2s * var(--_motion)) var(--ease-3);
     }
 
     /* Animation off-stage styles */
@@ -79,7 +79,7 @@
             oklch(from var(--text-primary) calc(l * 0.75) c h),
             oklch(from var(--text-primary) calc(l * 1.25) c h)
           );
-          font-weight: var(--font-weight-medium);
+          font-weight: 500;
           overflow: hidden;
           padding-inline: var(--size-2);
           text-overflow: ellipsis;
@@ -116,7 +116,7 @@
         }
 
         &:focus-visible {
-          outline-offset: var(--focus-ring-inset);
+          outline-offset: -1px;
         }
       }
     }

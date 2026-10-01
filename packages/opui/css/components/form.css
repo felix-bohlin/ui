@@ -23,8 +23,8 @@
     /* Legend */
     :where(legend, .ui-legend) {
       all: unset;
-      color: var(--field-label-color);
-      font-weight: var(--field-label-font-weight);
+      color: var(--text-primary);
+      font-weight: 600;
       margin-block-end: var(--size-3);
       padding: 0;
 
@@ -46,9 +46,9 @@
 
     /* End text */
     :where(.ui-end-text) {
-      color: var(--field-helper-color);
-      font-size: var(--field-helper-font-size);
-      line-height: var(--field-helper-line-height);
+      color: var(--text-muted);
+      font-size: var(--font-size-0);
+      line-height: var(--font-lineheight-3);
     }
 
     &:has(.ui-text-field.ui-row) {
@@ -57,7 +57,7 @@
 
     /* Disabled */
     &[disabled] {
-      opacity: var(--disabled-opacity);
+      opacity: 0.64;
       user-select: none;
 
       input,
@@ -70,21 +70,21 @@
     /* Error / validation */
     &[data-invalid] {
       :where(.ui-end-text) {
-        color: var(--invalid-color);
+        color: var(--critical);
       }
 
       :where(.ui-checkbox, .ui-radio, .ui-switch) {
-        --primary: var(--invalid-color);
+        --primary: var(--critical);
 
         :where(.ui-end-text) {
-          color: var(--invalid-color);
+          color: var(--critical);
         }
       }
 
       :where(.ui-switch) {
         input {
           border-radius: var(--radius-round);
-          outline: var(--focus-ring-width) solid var(--invalid-color);
+          outline: 2px solid var(--critical);
         }
       }
     }
@@ -96,7 +96,7 @@
         position: relative;
 
         &::after {
-          color: var(--field-required-color);
+          color: var(--red);
           content: "*";
           inset: 0 -0.25ex auto auto;
           position: absolute;

@@ -5,7 +5,7 @@
     --_border-radius: var(--button-border-radius);
 
     background-color: var(--_bg-color);
-    border: var(--border-width) solid var(--_border-color);
+    border: 1px solid var(--_border-color);
     border-radius: var(--_border-radius);
     display: inline-flex;
     inline-size: fit-content;
@@ -33,7 +33,7 @@
 
     &:not(.ui-vertical) {
       .ui-toggle-button {
-        border-inline-end: var(--border-width) solid var(--_border-color);
+        border-inline-end: 1px solid var(--_border-color);
 
         &:last-of-type {
           border-inline-end: 0;
@@ -45,7 +45,7 @@
       flex-direction: column;
 
       .ui-toggle-button {
-        border-block-end: var(--border-width) solid var(--_border-color);
+        border-block-end: 1px solid var(--_border-color);
 
         &:last-of-type {
           border-block-end: 0;

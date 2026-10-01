@@ -49,10 +49,7 @@
     "./astro": "./astro/index.ts",
     "./vue": "./vue/index.ts",
     "./components/*": "./components/*",
-    "./core/*.css": "./core/*.css",
     "./core/*": "./core/*.css",
-    "./css/js/*": "./css/js/*",
-    "./css/*.css": "./css/*.css",
     "./css/*": "./css/*.css",
     "./dist/*": "./dist/*"
   },

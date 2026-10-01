@@ -14,8 +14,7 @@
  */
 
 import {
-  tokenDefaults,
-  type Mode,
+  TOKEN_DEFAULTS,
   type ModeConfig,
   type Token,
 } from "../../utils/theme-store"
@@ -30,8 +29,8 @@ const PALETTE_TOKENS = [
 
 type Snapshot = Record<Token, string>
 
-function snapshotFor(mode: Mode, config: ModeConfig): Snapshot {
-  const out = { ...tokenDefaults(mode) }
+function snapshotFor(config: ModeConfig): Snapshot {
+  const out = { ...TOKEN_DEFAULTS }
   for (const [key, value] of Object.entries(config)) {
     if (key in out && typeof value === "string") {
       out[key as Token] = value
@@ -55,8 +54,8 @@ export function generateCss({
   light: ModeConfig
   dark: ModeConfig
 }): string {
-  const lightSnap = snapshotFor("light", light)
-  const darkSnap = snapshotFor("dark", dark)
+  const lightSnap = snapshotFor(light)
+  const darkSnap = snapshotFor(dark)
   const graysEnabled = isGraysEnabled(light)
 
   const palettesDiffer = PALETTE_TOKENS.some(

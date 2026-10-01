@@ -13,7 +13,7 @@ pnpm add opui-css open-props
 
 Peer dependencies:
 
-- `astro` `^7` (only required if you use the Astro components)
+- `astro` `^6` (only required if you use the Astro components)
 - `vue` `^3` (only required if you use the Vue components)
 - `open-props` `^1`
 
@@ -75,10 +75,9 @@ Wrap your own styles in a layer above `utils` (or unlayered) to override.
 | `opui-css/dist/op.css`              | Same as `opui-css/open-props` - explicit path |
 | `opui-css/css/imports.css`          | Source: everything (resolved by your bundler) |
 | `opui-css/css/components.css`       | All component styles (no tokens / reset)      |
-| `opui-css/css/theme.css`            | Theme tokens (colors, sizes, motion, state)   |
 | `opui-css/css/components/*.css`     | One component at a time                       |
 | `opui-css/core/normalize.css`       | CSS reset                                     |
-| `opui-css/core/palette.css`         | OKLCH palette (required by the components)    |
+| `opui-css/core/palette.css`         | Extra OKLCH palette                           |
 | `opui-css/core/utils.css`           | Utility classes                               |
 | `opui-css/astro`                    | All Astro components                          |
 | `opui-css/components/*`             | Individual Astro component sources            |

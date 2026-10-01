@@ -1,52 +1,5 @@
 # Changelog
 
-## Unreleased
-
-### Added
-
-- Motion tokens: `--duration-fast`, `--duration`, `--duration-slow`, `--ease`, `--ease-enter` and `--ease-exit`. Every component transition and animation reads them, multiplied by `--motion`.
-- `--focus-ring-inset` for focus rings drawn inside a control, read by `ButtonGroup`, `List` and `Select`.
-- Icon tokens: `--icon-size-small`, `--icon-size` and `--icon-size-large`.
-- Choice control tokens: `--choice-size-small`, `--choice-size`, `--choice-size-large`, `--switch-dot-size`, `--switch-dot-size-small`, `--switch-track-height`, `--switch-track-height-small`, `--switch-track-width` and `--switch-track-width-small`.
-- Overlay tokens: `--backdrop-color` and `--backdrop-blur`. Inverse surface tokens: `--surface-inverse` and `--text-inverse`.
-- State and text tokens: `--disabled-opacity`, `--state-hover-alpha`, `--state-hover-alpha-dark`, `--state-active-alpha`, `--state-active-alpha-dark`, `--state-hover-alpha-accent`, `--state-active-alpha-accent`, `--text-disabled`, `--invalid-color`, `--font-weight-medium`, `--font-weight-semibold` and `--font-weight-bold`.
-- Field text tokens: `--field-label-color`, `--field-label-font-size`, `--field-label-font-weight`, `--field-helper-color`, `--field-helper-font-size`, `--field-helper-line-height` and `--field-required-color`, read by `Checkbox`, `Form`, `Radio`, `Range`, `Switch` and `TextField`.
-
-### Fixed
-
-- The global focus ring in `core/normalize.css` reads `--focus-ring-color`, `--focus-ring-width`, `--focus-ring-style` and `--focus-ring-offset`. It used to hardcode a 2px ring in an inverted page color. The default `--focus-ring-color` is `--text-primary`, which matches the previous look.
-
-- `--palette-hue` is green in light mode and blue in dark mode as intended. The previous `light-dark()` value never applied to the numeric property, so both modes rendered blue.
-- `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.
-- `Badge`, `Chip`, `Tabs`, `Toast` and `Tooltip` respect `--motion` and `prefers-reduced-motion`.
-- Package exports resolve `opui-css/css/imports.css`, `opui-css/core/palette.css` and `opui-css/css/js/toast.js` as written. The `./css/*` and `./core/*` patterns appended a second `.css`.
-- `dist/opui.components.css` starts with the `@layer` order statement.
-- Autofilled fields use `--surface-default` instead of the undefined `--well-1`.
-
-### Internal
-
-- `Avatar`, `IconButton`, `List` and `ButtonGroup` read `--control-size` and `--button-size-*` instead of repeating their pixel values.
-
-- `Button`, `IconButton` and `ButtonGroup` share one accent recipe in `css/components/button.css` instead of three copies.
-
-- `--motion` and its `prefers-reduced-motion` default moved from `core/normalize.css` to `css/theme.css`. The `.ui-motion-*` classes moved to `core/utils.css`.
-
-- Ripple internals in `core/utils.css` are private: `--isLTR`, `--isRTL`, `--thumb-scale` and `--highlight-size` are now `--_dir-ltr`, `--_dir-rtl`, `--_thumb-scale` and `--_highlight-size`. `Chip` uses `--_ripple` instead of `--ripple`.
-- Removed dead fallbacks for `--border-radius`, `--button-border-radius`, `--size-7` and `--font-size-0`, the no-op `z-index` on `Drawer` and `Toast`, and an unreachable `:focus-visible` rule in `core/normalize.css`.
-
-### Changed
-
-- `Chip` uses `--border-radius` (8px) instead of Open Props `--radius-2` (5px).
-- `Radio` is `--choice-size` (20px) like `Checkbox`, instead of 18px.
-- `ButtonGroup` small buttons are `--button-size-small` (32px) instead of 30px.
-- `IconButton` disabled text uses `--text-disabled`. The previous value had invalid syntax and never applied.
-- `Range`, `Switch` and `TextField` invalid states use `--invalid-color` instead of the palette step `--color-9`.
-- `Toast` severity icons are masks filled with `--success`, `--info`, `--warning` and `--critical` instead of hardcoded hex colors.
-- `Tooltip` uses `--surface-inverse` and `--text-inverse`. `Avatar` and `Badge` use `--primary-contrast`.
-- `Drawer` backdrop reads `--backdrop-color` and `--backdrop-blur` like `Dialog`. `.ui-backdrop-transparent` still removes it.
-
-- Component borders read `--border-width` (and `--field-border-width` for `Checkbox`, `Radio`, `Switch` and `TextField`) instead of a hardcoded `1px`. This affects `Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton` and `ToggleGroup`.
-
 ## 5.5.0 - 2026-09-28
 
 ### Removed

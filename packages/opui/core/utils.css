@@ -1,16 +1,4 @@
 @layer utils {
-  .ui-motion-off {
-    --motion: 0 !important;
-  }
-
-  .ui-motion-on {
-    --motion: 1 !important;
-  }
-
-  .ui-motion-debug {
-    --motion: 10 !important;
-  }
-
   /*
 Screen-reader only
 */
@@ -36,44 +24,43 @@ Add `.ui-scroll-lock` to any element that uses the [open] attribute (native <dia
 
   /* Hover and active effect for checkbox, radio and icon buttons */
   :where(.ui-checkbox input, .ui-radio input, .ui-icon-button) {
-    --_dir-ltr: 1;
-    --_dir-rtl: -1;
+    --isLTR: 1;
+    --isRTL: -1;
 
     position: relative;
     transform-style: preserve-3d;
 
     &:dir(rtl) {
-      --_dir-ltr: -1;
-      --_dir-rtl: 1;
+      --isLTR: -1;
+      --isRTL: 1;
     }
 
     &:where(:not([disabled])) {
       &:hover:before {
-        --_thumb-scale: 1;
+        --thumb-scale: 1;
       }
 
       &:active:before {
-        --_thumb-scale: 1.1;
+        --thumb-scale: 1.1;
       }
 
       &::before {
-        --_thumb-scale: 0.01;
-        --_highlight-size: 150%;
+        --thumb-scale: 0.01;
+        --highlight-size: 150%;
 
         background-color: oklch(0.6 0 0 / 0.2);
-        block-size: var(--_highlight-size);
+        block-size: var(--highlight-size);
         clip-path: circle(50%);
         content: "";
-        inline-size: var(--_highlight-size);
+        inline-size: var(--highlight-size);
         inset-block-start: 50%;
         inset-inline-start: 50%;
         position: absolute;
-        transform: translateX(calc(var(--_dir-rtl) * 50%)) translateY(-50%)
-          translateZ(-1px) scale(var(--_thumb-scale));
+        transform: translateX(calc(var(--isRTL) * 50%)) translateY(-50%)
+          translateZ(-1px) scale(var(--thumb-scale));
         transform-origin: center center;
 
-        transition: transform calc(var(--duration) * var(--motion, 1))
-          var(--ease);
+        transition: transform calc(0.2s * var(--motion, 1)) ease;
         will-change: transform;
       }
     }

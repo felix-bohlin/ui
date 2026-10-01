@@ -1,9 +1,9 @@
 @layer components.root {
   :where(.ui-carousel) {
     --_motion: var(--motion, 1);
-    --_button-bg-color: light-dark(var(--gray-13), var(--gray-3));
+    --_button-bg-color: var(--text-primary);
     --_button-border-color: transparent;
-    --_button-color: light-dark(var(--gray-1), var(--gray-15));
+    --_button-color: var(--text-primary-contrast);
     --_button-disabled-opacity: 0;
     --_button-icon-size: 60%;
     --_button-inset: var(--size-2);

@@ -89,6 +89,24 @@ import chipApi from "../../component-api/chip/api"
     <AutoExample name="Sizes" row />
   </section>
 
+  <section>
+    <h2 id="disabled">Disabled</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Disable a button chip with the <code>disabled</code> attribute.
+      </Fragment>
+      <Fragment slot="html">
+        Add disabled styling with the <code>disabled</code> attribute, <code
+          >aria-disabled="true"</code
+        > or the <code>.ui-disabled</code> class.
+      </Fragment>
+      <Fragment slot="vue">
+        Disable a button chip with the <code>disabled</code> attribute.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Disabled" row />
+  </section>
+
   <Fragment slot="anatomy">
     <Anatomy zoom={1.5}>
       <UIChip label="Chip">

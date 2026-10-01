@@ -41,6 +41,9 @@ const whatsNew = {
       html: `<a href="#persistent-buttons">Persistent buttons</a> with <code>.ui-buttons-persistent</code>.`,
     },
   ],
+  chip: [
+    `<a href="#disabled">Disabled</a> styling with <code>aria-disabled="true"</code> and <code>.ui-disabled</code>.`,
+  ],
   drawer: [
     {
       astro: `<code>DrawerHeader</code> takes a <code>commandfor</code> prop, so the close button works without JavaScript.`,

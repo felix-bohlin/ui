@@ -2,6 +2,11 @@
 
 Let's you show and hide stuff. Comes with a chevron marker, check out how to add your own [custom marker](#custom-marker).
 
+### What's new
+
+- [Marker animation](#marker-animation) with the `markerAnimation` prop.
+- A chevron marker by default. The `marker` slot replaces it.
+
 ## Anatomy
 
 Accordion title

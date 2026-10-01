@@ -13,6 +13,16 @@ export default {
       part: ".ui-tab-input",
       prop: "name",
     },
+    {
+      description: "The variant to use.",
+      group: "Variants",
+      prop: "variant",
+      values: {
+        filled: ".ui-filled",
+        line: ".ui-line",
+        outlined: ".ui-outlined",
+      },
+    },
   ],
   parts: [
     {

@@ -2,6 +2,10 @@
 
 A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anchored to a[Button](https://open-props-ui.netlify.app/html/components/button.md).
 
+### What's new
+
+- New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.
+
 ## Basics
 
 `command="toggle-popover"` to open, and `command="hide-popover"` to close.

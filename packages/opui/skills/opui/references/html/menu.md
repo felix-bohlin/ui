@@ -282,7 +282,7 @@ If you want to decide yourself what goes into your list.
 
 ## Submenu
 
-A menu inside a list item.
+A menu inside a list item. Put any icon in `.ui-end` to mark the item that opens it, like an SVG from your icon library.
 
 ```html
 <button
@@ -310,7 +310,19 @@ A menu inside a list item.
       command="toggle-popover"
     >
       Export
-      <span class="ui-end" aria-hidden="true">▸</span>
+      <span class="ui-end" aria-hidden="true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M11.293 5.293a1 1 0 0 1 1.414 0l10 10a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414-1.414L20.586 16l-9.293-9.293a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </span>
     </button>
     <menu class="ui-menu ui-list ui-inline-end" id="menu-export-html" popover>
       <li>

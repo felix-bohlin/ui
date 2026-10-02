@@ -9,8 +9,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
 ## Bugs
 
-- [] (2) Tooltips more than one viewport down the page never show: `position-visibility: anchors-visible` in `tooltip.css` (`overlays` LongContent, `tests/e2e/stress-overlays.spec.ts`)
-- [] (3) A tall menu runs off the viewport when neither side has `60dvb` of space (`menu.css` `--_max-block-size`) (`overlays` LongContent)
+- [] (2) Tooltips more than one viewport down the page never show: `position-visibility: anchors-visible` in `tooltip.css` (`overlays` LongContent, `tests/e2e/stress-overlays.spec.ts`). Chromium 153 (CI) only fails `tooltip at top start`; Chromium 141 fails all four tooltip scenarios
+- [] (3) A tall menu runs off the viewport when neither side has `60dvb` of space (`menu.css` `--_max-block-size`) (`overlays` LongContent). Passes in Chromium 153 (CI), fails in Chromium 141
 - [] (3) Card actions don't stick to the bottom of stretched cards, never wrap, and get clipped by the card's `overflow: hidden` (`layout` UnevenGrid)
 - [] (3) Rich text link styles apply to component links inside prose: `a.ui-button`, `a.ui-chip` and `a.ui-avatar` get underlined primary text (`typography` ComponentsInProse)
 - [] (3) Toasts are inert or under the backdrop while a modal dialog is open (`overlays` ToastLayering)

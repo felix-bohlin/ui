@@ -29,9 +29,6 @@ const scroll = (name: string, block: ScrollLogicalPosition): Step => ({
   scroll: name,
 })
 
-const ANCHORS_VISIBLE =
-  "position-visibility: anchors-visible hides tooltips whose trigger is more than one viewport down the page"
-
 const SCENARIOS: Scenario[] = [
   { name: "dialog", steps: [open("dialog")], top: id("dialog") },
   {
@@ -136,7 +133,6 @@ const SCENARIOS: Scenario[] = [
     top: id("edge-top-start"),
   },
   {
-    failing: ANCHORS_VISIBLE,
     name: "tooltip at top start",
     steps: [
       scroll("edge-top-start-tooltip", "start"),
@@ -176,7 +172,6 @@ const SCENARIOS: Scenario[] = [
     top: id("edge-bottom-end"),
   },
   {
-    failing: ANCHORS_VISIBLE,
     name: "inline end tooltip at bottom end",
     steps: [
       scroll("edge-bottom-end-tooltip", "end"),
@@ -219,13 +214,11 @@ const SCENARIOS: Scenario[] = [
     top: `${id("long-country")} option:checked`,
   },
   {
-    failing: "a 60dvb menu overflows the viewport when neither side fits it",
     name: "30 item menu in the middle of the viewport",
     steps: [scroll("long-menu", "center"), open("long-menu")],
     top: id("long-menu"),
   },
   {
-    failing: ANCHORS_VISIBLE,
     name: "long tooltip",
     steps: [open("long-tooltip")],
     top: id("long-tooltip"),
@@ -275,7 +268,6 @@ const SCENARIOS: Scenario[] = [
     top: id("rtl-end-menu"),
   },
   {
-    failing: ANCHORS_VISIBLE,
     name: "rtl tooltip",
     steps: [open("rtl-tooltip")],
     top: id("rtl-tooltip"),

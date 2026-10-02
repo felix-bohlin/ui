@@ -90,7 +90,10 @@
     gap: var(--size-2);
     justify-content: center;
     min-block-size: var(--_min-height);
-    padding-block: 0.5ex;
+    padding-block: min(
+      0.5ex,
+      max(0px, (var(--_min-height) - 1lh - var(--_border-width) * 2) / 2)
+    );
     padding-inline: var(--_padding-inline);
     text-align: center;
     text-decoration: none;

@@ -30,6 +30,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--control-size-small": "Shared small height for fields and buttons.",
   "--control-size-x-small": "Shared x-small height for fields and buttons.",
   "--critical": "Severity color for errors and destructive actions.",
+  "--density":
+    "Multiplier for the `--control-size*` scale. `0.875` is compact, `1.125` is comfortable.",
   "--disabled-opacity": "Opacity applied to disabled controls.",
   "--duration": "Default transition duration. Multiplied by `--motion`.",
   "--duration-fast": "Transition duration for hover and press feedback.",

@@ -9,6 +9,7 @@ export default defineConfig({
       caret: "hide",
       maxDiffPixels: 100,
       scale: "css",
+      threshold: 0.05,
     },
   },
   forbidOnly: !!process.env.CI,

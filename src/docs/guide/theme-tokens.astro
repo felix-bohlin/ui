@@ -63,6 +63,22 @@ const slug = (title: string) =>
     />
   </section>
 
+  <section>
+    <h2 id="density">Density</h2>
+    <p>
+      <code>--density</code> scales the <code>--control-size*</code> tokens, so fields,
+      buttons and list items grow or shrink together. Field and button padding shrinks
+      to fit, down to the height of the text. The sizes resolve on
+      <code>html</code>, so set <code>--density</code> there.
+    </p>
+    <Code
+      code={`:where(html) {
+  --density: 0.875;
+}`}
+      lang="css"
+    />
+  </section>
+
   {
     sections.map((section) => (
       <section>

@@ -260,6 +260,25 @@
       }
     }
 
+    &.ui-vertical.ui-with-markers {
+      anchor-name: --ui-carousel;
+      anchor-scope: --ui-carousel;
+      margin-inline-end: calc(
+        var(--_marker-size) + var(--_markers-margin-block-start)
+      );
+
+      &::scroll-marker-group {
+        flex-direction: column;
+        inset-block-start: anchor(--ui-carousel center);
+        inset-inline-start: calc(
+          anchor(--ui-carousel end) + var(--_markers-margin-block-start)
+        );
+        margin: 0;
+        position: absolute;
+        translate: 0 -50%;
+      }
+    }
+
     @supports selector(::scroll-button(*)) {
       &:is(.ui-with-buttons, .ui-with-markers) {
         scrollbar-width: none;

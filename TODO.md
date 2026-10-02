@@ -8,14 +8,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fixed: `dialog.ui-drawer:not([open])` is `display: none`. The close transition still runs (`display` transitions with `allow-discrete`).
 - [x] (3) Dark mode: `--border-color`, `--surface-tonal` and `--surface-elevated` are the same gray, so borders (field borders too) vanish on tonal and elevated surfaces and tonal/elevated cards look the same (`layout` Surfaces, SidebarLayout)
   > borders on tonal and elevated should have the same color as the background
-  - Fixed: tonal and elevated cards (and dialogs, which are elevated cards) set `--border-color` and `--field-border-color` to the page background in dark mode (`gray-13`, theme section 15 "Raised surfaces"). Light mode is unchanged. The theme generator emits the same block.
+  - Fixed: tonal and elevated cards (and dialogs, which are elevated cards) have a border in the page background color, so a tonal card on a tonal surface stays visible. Inside them, `--border-color` and `--field-border-color` are the page background in dark mode, so dividers and field borders show too (`theme.css` "Raised surfaces"). Light mode only changes the card's own border. The theme generator copies the block from `theme.css`.
 
 ## Bugs
 
 - [x] (2) Tooltips more than one viewport down the page never show: `position-visibility: anchors-visible` in `tooltip.css` (`overlays` LongContent, `tests/e2e/stress-overlays.spec.ts`)
   > fix it. what I also noticed was that dialogs that are scrollable should have fixed header and footer - fix that too.
   - Fixed: the cause was `position: absolute` on hover popovers in `anchor.css` (top-layer boxes below the initial containing block are not painted). They are `position: fixed` now. `anchors-visible` stays, so a tooltip hides when its trigger scrolls out of view.
-  - Fixed: `Dialog` has a max height (`100dvb - 15dvi - var(--size-4)`). The header and actions stay put and `.ui-content` scrolls.
+  - Fixed: `Dialog` already had a max height (`85dvb - var(--size-4)`), but the whole dialog scrolled. Now the header and actions stay put and only `.ui-content` scrolls.
 - [?] (3) A tall menu runs off the viewport when neither side has `60dvb` of space (`menu.css` `--_max-block-size`) (`overlays` LongContent)
   > give a better example
   - Example: a laptop viewport 700px tall. A toolbar button sits in the middle of the page, at `y = 330`, and opens a 12-item menu (about 480px of items).
@@ -39,7 +39,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (4) Cards clip long unbroken words instead of wrapping them (`layout` UnevenGrid)
   - Fixed: cards have `overflow-wrap: break-word` and `min-inline-size: 0`, so they also stop growing their grid column.
 - [x] (4) Rich text tables break short words letter by letter: `overflow-wrap: anywhere` lowers the min-content width (`typography` EveryElement)
-  - Already fixed by the rich text rework: the scope uses `overflow-wrap: break-word`. Checked in Chromium.
+  - Fixed: cells wrap at word boundaries (`overflow-wrap: break-word`) and a table that still doesn't fit scrolls sideways instead of widening the page (`display: block; overflow-x: auto` on the classless `table`, one anonymous table inside so columns stay aligned). The catch: a table with short content is as wide as its content instead of the full width. `display: grid` would keep the stretch, but it splits `thead` and `tbody` into separate tables with misaligned columns. Checked at 390px and 1100px.
 - [x] (4) Sticky table headers don't stick: `.ui-table { overflow: hidden }` should be `overflow: clip` (`data-display` TableStickyHeader)
   > remove the ability to do sticky table headers - they need to be rethought. create a todo for doing a second pass on sticky headers. skip this for now.
   - Removed the leftover `thead { z-index: 1 }`. Sticky headers were never documented. Follow-up below.
@@ -88,7 +88,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (5) Long description list terms squeeze values into one word per line, and unbroken values overflow (`data-display` DescriptionLists)
   - Fixed: wide items use `auto auto` columns with `justify-content: space-between`, so a long term and a long value share the space. Items get `overflow-wrap: anywhere`, so unbroken values wrap.
 - [x] (5) Rich text `kbd` overrides the `kbd` inside `.ui-button`, and a `.ui-checkbox` first in a classless `li` matches the task list rule (`typography` ComponentsInProse)
-  - Fixed by the `components.prose` layer. The task list rule was already gone after the rich text rework.
+  - Fixed: the `kbd` part by the `components.prose` layer. The task list rule only matches a classless `label`, so a `.ui-checkbox` keeps its bullet and its own styles.
 - [x] (5) `span.ui-mark` has no background, and `.ui-del`/`.ui-ins` don't get the critical/success palette (`typography` HeadingClasses)
   - Fixed: `.ui-mark` uses `Mark`/`MarkText` like `<mark>`. `.ui-del` and `.ui-ins` join `del`/`ins` in the palette and severity scopes (`palette.css`, `theme.css`, theme generator).
 - [x] (6) A menu in a dialog blends into it in dark mode (`overlays` DialogNesting)
@@ -101,17 +101,17 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [?] (6) Callout `.ui-content` grid gap doubles rich text margins, and a classless `h3` in a callout is full size (`typography` ProseInComponents)
   > is the solution to set gap: 0 on .ui-content.ui-rich-text? what's the plan?
   - The `h3` is fixed: rich text is in a lower layer now, so the callout's title size wins.
-  - Gap: yes, `gap: 0`, but only where rich text actually applies. Otherwise a callout with plain children loses its spacing. A callout can be rich text itself (`.ui-content.ui-rich-text`) or sit inside a rich text article, so use the same scope as rich text instead of a class check:
+  - Gap: close. `gap: 0` alone isn't enough, because margins don't collapse between grid items, so two paragraphs still get both margins. Make the content a block where rich text applies, so the flow margins collapse like everywhere else in prose. Only where rich text applies, otherwise a callout with plain children loses its spacing. A callout can be rich text itself (`.ui-content.ui-rich-text`) or sit inside a rich text article, so use the same scope as rich text instead of a class check:
     ```css
     @layer components.root {
       @scope (.ui-rich-text) to (.ui-not-rich-text) {
         .ui-callout > .ui-content {
-          gap: 0;
+          display: block;
         }
       }
     }
     ```
-    Flow margins then handle the spacing, and the first and last child margins are already trimmed inside `.ui-content`.
+    The first and last child margins are already trimmed inside `.ui-content`.
 - [x] (6) Chip labels wrap and overflow the fixed chip height without `.ui-multiline` (`data-display` TableCellContent)
   > ellipsis ... should solve it
   - Fixed: chips are `max-inline-size: 100%`, and `.ui-text` truncates with an ellipsis unless the chip is `.ui-multiline`.
@@ -158,12 +158,33 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - It was wrong. Each line runs left to right, but punctuation at the ends gets moved by the bidi algorithm: `const x = add(1, 2);` showed as `;const x = add(1, 2)`, `x++` as `++x` and `// comment.` as `.comment //`, and lines were right-aligned. Fixed: rich text `pre` and inline `code` are `direction: ltr` with `unicode-bidi: isolate`, unless they have their own `dir`.
 - [x] (6) Rich text `p` overrides `.ui-p.ui-large`, `.ui-p.ui-small` and `.ui-caption` inside `.ui-rich-text` (`typography` HeadingClasses)
   - Fixed by the `components.prose` layer.
-- [x] (6) Second-level submenus don't keep the flipped direction, and the submenu arrow doesn't mirror in RTL (`overlays` Submenus, Rtl)
-  - Fixed: menus are anchored containers (`container-type: anchored`). When a menu flips inline, its submenus open on the same side, and deeper levels inherit that. Needs anchored container queries (Chromium 143+). Older browsers keep the current behavior. Checked in Chromium with experimental features on.
+- [?] (6) Second-level submenus don't keep the flipped direction, and the submenu arrow doesn't mirror in RTL (`overlays` Submenus, Rtl)
   - Fixed: the end icon of an item that holds a submenu (`li:has(> .ui-menu)`) mirrors in RTL.
+  - Blocked: keeping the flipped direction needs anchored container queries (Chromium 143+). It worked in Chromium with experimental features on, but lightningcss, Vite's CSS minifier, can't parse `@container anchored(…)` and fails the whole build, so the docs build and any Vite user would break. Removed until lightningcss supports it. The CSS for later:
+    ```css
+    .ui-menu[popover] {
+      container-type: anchored;
+    }
+
+    .ui-menu.ui-inline-end {
+      --_side: var(--_submenu-inline-end, inline-end);
+    }
+
+    .ui-menu.ui-inline-start {
+      --_side: var(--_submenu-inline-start, inline-start);
+    }
+
+    @container anchored(fallback: flip-inline) or anchored(fallback: flip-block flip-inline) {
+      .ui-menu .ui-menu {
+        --_submenu-inline-end: inline-start;
+        --_submenu-inline-start: inline-end;
+      }
+    }
+    ```
+    Submenus of a flipped menu open on the same side, and deeper levels inherit it.
 - [x] (7) A tooltip at the inline-end edge squeezes into a narrow column instead of flipping (no minimum width) (`overlays` EdgeTriggers)
-  - Fixed: tooltips have `min-inline-size: min(max-content, 10rem)` and shift along the edge instead (`@position-try --ui-tooltip-shift-start`/`-end`, also flipped to the other side). Tooltips with `--anchor-position-area: inline-start`/`inline-end` try `flip-inline` first.
-  - The arrow keeps pointing at the trigger when the tooltip shifts or flips, using anchored container queries (Chromium 143+). Without them, the arrow stays centered on the bottom edge, like before.
+  - Fixed: tooltips have `min-inline-size: calc-size(max-content, min(size, 10rem))` and shift along the edge instead (`@position-try --ui-tooltip-shift-start`/`-end`, also flipped to the other side). Tooltips with `--anchor-position-area: inline-start`/`inline-end` try `flip-inline` first.
+  - Tooltips with an arrow only flip, like before, so the arrow never ends up off-center. Moving the arrow with the shift needs anchored container queries, which break the build for now (see Submenus).
   - Chromium only tries the first five fallbacks, so the list is kept at five.
 - [x] (7) Components ship `types.solid.ts` importing `solid-js`, but `solid-js` isn't an optional peer dependency like `svelte`, `vue` and `astro`
   - Fixed.
@@ -196,7 +217,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (8) `.ui-dense` tables are as tall as default ones (only inline padding changes) (`data-display` TableInlineEditing)
   - Fixed: dense cells use half the block padding and a tighter line height.
 - [x] (8) `ol[start]` with 4-digit markers overflows: the wider gutter only applies at 100+ items (`typography` DeepLists)
-  - Fixed: the gutter is sized by digit count, the larger of the item count (100+, 1000+) and `start` (read with `attr(start type(<number>))` where supported, 4 digits otherwise).
+  - Fixed: the `ch` gutter is sized by digit count, the larger of the item count (100+, 1000+) and `start` (read with `attr(start type(<number>))` where supported, 4 digits otherwise).
 - [?] (8) Carousel slides aren't equal height when they contain cards (`layout` CarouselOfCards)
   > what's best to do here? The library has no opinion on what to put in the carousel. should we have a stretch modifier? What's most elegant and scalable here?
   - The items (`li`) already stretch to the tallest one, because they're grid items. The card inside an item just doesn't fill it.
@@ -234,8 +255,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
 ## Docs
 
 - [x] (3) Changelog: `divided` removed from `List`, use `bordered` (#395). Removed after 5.5.0 and missing from Unreleased
-- [ ] (6) Hand-written API tables left: Spinner, Text input, Toast, Typography
+- [x] (6) Hand-written API tables left: Spinner, Text input, Toast, Typography
   > They're probably unique and that's why but if they can be not hand written then make it so (if the solution is elegant and scalable).
+  - Done for Spinner, Text input and Typography: they're `api.ts` files now. `source` is optional for CSS-only components, which show the HTML tables in every framework plus a note (for example "no Astro component"). Their CSS variables tables come from `css`.
+  - Toast stays hand-written, since toasts are on hold. It fits the same model later: `[data-severity]` and `[data-duration]` as attribute options.
 
 ## Limitations
 
@@ -243,7 +266,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > what do you mean? explain.
   - Today a menu is a list of buttons, and each item is its own Tab stop. That's valid, and it's why we don't use `role="menu"`.
   - The ARIA menu pattern works differently: the whole menu is one Tab stop, arrow keys move between items, Home/End jump to the first and last, typing a letter jumps to a matching item, and Tab leaves the menu. Desktop apps behave like that and screen reader users expect it from `role="menu"`.
-  - That "roving focus" needs JavaScript today (track the active item, move focus on keydown, toggle `tabindex`). [`focusgroup`](https://open-ui.org/components/scoped-focusgroup.explainer/) is a proposed HTML attribute that gives arrow key navigation without JS, e.g. `<menu focusgroup="menu">`. It's behind a flag in Chromium. When it ships we can add it to `Menu` and keep it HTML and CSS only.
+  - That "roving focus" needs JavaScript today (track the active item, move focus on keydown, toggle `tabindex`). [focusgroup](https://open-ui.org/components/scoped-focusgroup.explainer/) is a proposed HTML attribute that gives arrow key navigation without JS, e.g. `<menu focusgroup="menu">`. It's behind a flag in Chromium. When it ships we can add it to `Menu` and keep it HTML and CSS only.
 - [x] (8) Carousel: vertical orientation
   - Added `.ui-vertical` / `orientation="vertical"`. It scrolls and snaps on the block axis, needs a height (`--_block-size`, default `24rem`), and supports buttons (`::scroll-button(block-start/end)`, rotated glyphs and icons, also outside), markers and peek. Docs section and example added.
   - Scroll and snap are checked in Chromium 141. The button positions aren't: Carousel buttons need Chromium 144+. Check them in the docs.
@@ -384,8 +407,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [] (7) Button `kbd` looks weird on Mac
 - [?] (8) Auto-suggest arrow: vertically centered in Chromium, but sits closer to the edge at `x-small`/`small` than at default/`large`. Check Firefox and Safari too
   > honestly auto-suggest should look more like select and the arrow should be any svg you choose. is that possible? if you think so explain how it would work and if it would nicely slot into how other field components, ex select and text field work
-  - Yes. Today the arrow is the browser's own datalist indicator (`::-webkit-calendar-picker-indicator`). Only Chromium shows it, Firefox shows nothing and Safari draws its own, which is why it can't be aligned consistently.
-  - Plan: hide the native indicator and use the suffix slot that text fields already have, with the same default arrow as Select and an `svg` to override it:
+  - Yes, and most of it is in place. `text-input.css` already hides the browser's datalist indicator (Chromium only, Firefox has none and Safari draws its own) and draws a CSS triangle with `.ui-field::after`, like Select's `::picker-icon`. The arrow sits closer to the edge at `x-small`/`small` on purpose: the inset drops from `--size-3` to `--size-2` with the field padding.
+  - Plan: an `svg` in the suffix slot that text fields already have replaces the triangle. The field grid already has a suffix column (prefix, input, suffix), so the arrow lines up and scales like any other suffix:
     ```html
     <label class="ui-text-field">
       <span class="ui-label">Users</span>
@@ -397,18 +420,15 @@ Findings with a page and section in brackets come from the stress pages in `src/
     </label>
     ```
     ```css
-    .ui-text-field input[list]::-webkit-calendar-picker-indicator {
-      display: none;
-    }
+    :where(.ui-text-field:has(input[list])) .ui-field:has(> .ui-suffix) {
+      &::after {
+        content: none;
+      }
 
-    /* Default arrow when there's no svg, drawn like Select's ::picker-icon */
-    .ui-text-field:has(input[list]) .ui-field:not(:has(> .ui-suffix))::after {
-      block-size: 0;
-      border-block-start: var(--_arrow-size) solid;
-      border-inline: var(--_arrow-size) solid transparent;
-      content: "";
-      /* placed in the suffix column of the field grid, centered */
+      input[list] {
+        padding-inline-end: var(--_field-padding-inline);
+      }
     }
     ```
-  - It fits the field model: the field grid already has a suffix column (prefix, input, suffix), and Select puts its arrow in the same place. Astro and Vue get an `arrow` slot that renders into `.ui-suffix`.
-  - Trade-off: the native indicator opens the list on click. A decorative arrow doesn't (it would be `pointer-events: none`), but typing or pressing the down arrow key in the input still opens the list. A clickable arrow would need `input.showPicker()`, which is JavaScript.
+  - It fits how Select and TextField work: the default arrow stays CSS-only, and a custom one uses the same slot as any icon. Astro and Vue get an `arrow` slot that renders into `.ui-suffix`. Select could take the same slot later, hiding `::picker-icon` when it's filled.
+  - Trade-off: the arrow is decorative (`pointer-events: none`), like today. Typing or pressing the down arrow key opens the list. A clickable arrow would need `input.showPicker()`, which is JavaScript.

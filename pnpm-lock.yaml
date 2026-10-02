@@ -293,6 +293,9 @@ importers:
       open-props:
         specifier: ^1.7.23
         version: 1.7.23
+      solid-js:
+        specifier: ^1.9.13
+        version: 1.9.14
       svelte:
         specifier: ^5.56.4
         version: 5.56.4

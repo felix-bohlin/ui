@@ -23,7 +23,7 @@ The most flexible way to use OPUI. Download these files from the [`packages/opui
 Put it all together something like this in your main CSS. If you have your files in a different folder structure you'd of course need to change the paths.
 
 ```css
-@layer openprops, theme, normalize, components.root, components.extended, utils;
+@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
 
 
 @import "./open-props.css";

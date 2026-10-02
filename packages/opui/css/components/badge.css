@@ -2,9 +2,11 @@
   :where(.ui-badge) {
     --_anchor-tx: -50%;
     --_anchor-ty: 50%;
-    --_badge-inset: auto auto 100% 100%;
+    --_badge-inset-block: auto 100%;
+    --_badge-inset-inline: 100% auto;
     --_bg-color: var(--primary);
     --_border-color: var(--primary);
+    --_dir: 1;
     --_dot-size: var(--size-2);
     --_size: var(--size-4);
     --_text-color: var(--gray-1);
@@ -16,9 +18,15 @@
     /* Floating wrapper: traditional inset-based positioning so this works
        in browsers without position-area support (Firefox, older Safari). */
     & > .ui-anchor-floating:not([popover]) {
-      inset: var(--_badge-inset);
+      inset-block: var(--_badge-inset-block);
+      inset-inline: var(--_badge-inset-inline);
       position-anchor: auto;
       position-area: none;
+      translate: calc(var(--_anchor-tx) * var(--_dir)) var(--_anchor-ty);
+    }
+
+    &:dir(rtl) {
+      --_dir: -1;
     }
 
     /* Indicator */
@@ -70,19 +78,20 @@
     &.ui-start-start {
       --_anchor-tx: 50%;
       --_anchor-ty: 50%;
-      --_badge-inset: auto 100% 100% auto;
+      --_badge-inset-inline: auto 100%;
     }
 
     &.ui-end-start {
       --_anchor-tx: 50%;
       --_anchor-ty: -50%;
-      --_badge-inset: 100% 100% auto auto;
+      --_badge-inset-block: 100% auto;
+      --_badge-inset-inline: auto 100%;
     }
 
     &.ui-end-end {
       --_anchor-tx: -50%;
       --_anchor-ty: -50%;
-      --_badge-inset: 100% auto auto 100%;
+      --_badge-inset-block: 100% auto;
     }
 
     /* Dot */

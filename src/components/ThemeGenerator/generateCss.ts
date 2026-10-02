@@ -59,6 +59,7 @@ const RAMPS = {
   "--surface-tonal": { gray: ["3", "12"], color: ["4", "12"] },
   "--surface-elevated": { gray: ["1", "12"], color: ["1", "12"] },
   "--border-color": { gray: ["4", "12"], color: ["4", "12"] },
+  "--border-color-raised": { gray: ["4", "13"], color: ["4", "14"] },
   "--neutral": { gray: ["9", "9"], color: ["9", "9"] },
   "--primary-contrast": { gray: ["1", "1"], color: ["1", "1"] },
 } satisfies Record<string, Ramp>
@@ -292,7 +293,7 @@ export function generateCss({
   lines.push(
     "  /* 14. Severity scope classes - re-source the palette inside these contexts. */",
   )
-  lines.push("  :where(.ui-critical, [data-invalid], del) {")
+  lines.push("  :where(.ui-critical, .ui-del, [data-invalid], del) {")
   lines.push("    --palette-source: oklch(0.58 0.21 var(--hue-red));")
   lines.push("    --palette-hue-rotate-by: 1;")
   lines.push("  }")
@@ -302,7 +303,7 @@ export function generateCss({
   lines.push("    --palette-hue-rotate-by: 1;")
   lines.push("  }")
   lines.push("")
-  lines.push("  :where(.ui-success, ins) {")
+  lines.push("  :where(.ui-success, .ui-ins, ins) {")
   lines.push("    --palette-source: oklch(0.58 0.21 var(--hue-green));")
   lines.push("    --palette-hue-rotate-by: 1;")
   lines.push("  }")
@@ -310,6 +311,14 @@ export function generateCss({
   lines.push("  :where(.ui-warning) {")
   lines.push("    --palette-source: oklch(0.58 0.21 var(--hue-orange));")
   lines.push("    --palette-hue-rotate-by: 1;")
+  lines.push("  }")
+  lines.push("")
+  lines.push("  /* 15. Raised surfaces */")
+  lines.push("  :where(.ui-card.ui-elevated, .ui-card.ui-tonal) {")
+  lines.push(
+    `    --border-color: ${rampValue(RAMPS["--border-color-raised"], grays)};`,
+  )
+  lines.push("    --field-border-color: var(--border-color);")
   lines.push("  }")
   lines.push("}")
 

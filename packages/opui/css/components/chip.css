@@ -16,8 +16,16 @@
     display: inline-flex;
     font-size: var(--font-size-0, 0.75rem);
     gap: var(--size-1);
+    max-inline-size: 100%;
     padding-inline: var(--size-2);
     text-decoration: none;
+
+    &:not(.ui-multiline) > .ui-text {
+      min-inline-size: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     /* Variants */
     &.ui-tonal {

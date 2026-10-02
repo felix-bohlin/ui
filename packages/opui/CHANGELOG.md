@@ -5,6 +5,7 @@
 ### Breaking
 
 - `Accordion` markers only animate with a marker class on `details`. Add `.ui-marker-rotate` to keep the previous rotation.
+- `List` no longer takes `divided`. Use `bordered` (`.ui-bordered`) ([#395](https://github.com/felix-bohlin/ui/issues/395)).
 
 ### Removed
 
@@ -27,6 +28,7 @@
 - The package ships an agent skill in `skills/opui` with a reference for every component.
 - `--rhythm-step` theme token (`0.25rem`). Heading font sizes snap to half a step and heading line heights to a full step with `round()`.
 - Rich text styles `hr`, tables, `pre > samp` and preformatted text without `code`.
+- `Carousel` takes `orientation="vertical"` (`.ui-vertical`) to scroll on the block axis. Set its height with `--_block-size`.
 
 ### Changed
 
@@ -35,6 +37,15 @@
 - Rich text spacing derives from one flow space (`1.25em` of the body text). Headings get more space above than below, so they sit closer to the text they introduce, and lists with block content, description lists, `details`, `address`, code blocks and figures follow the same rhythm.
 - Headings share one line height, `1em + 0.5rem` rounded to `--rhythm-step`, in rich text and in the `.ui-h1`–`.ui-h6` classes.
 - `--font-size-h3` and `--font-size-h4` are fluid with higher minimums and `--font-size-h6` is `--font-size-1`, so heading sizes no longer invert or drop below body text on narrow viewports.
+- Rich text lives in a new `components.prose` layer, below `components.root`, so component styles inside rich text win over prose styles. The layer order is `openprops, theme, normalize, components.prose, components.root, components.extended, utils`.
+- Tonal and elevated `Card`s (and `Dialog`) use the page background for borders and field borders in dark mode, so they stay visible.
+- `Menu` has a light gray border in dark mode.
+- `Dialog` has a maximum height. The header and actions stay in place and the content scrolls.
+- `Card` actions stick to the bottom of stretched cards and wrap.
+- `Chip` labels truncate with an ellipsis unless the chip is `multiline`.
+- Dense `List` rows keep the default inline padding, so they line up with `Card` content.
+- Dense `Table` cells have less block padding.
+- Rich text headings, `pre` and `small` scale with the inherited font size.
 
 ### Fixed
 
@@ -58,6 +69,22 @@
 - Rich text no longer overflows grid and flex parents with long words, URLs or code lines.
 - Rich text inline `code` styles no longer apply to `code` inside `pre`.
 - Rich text `ol[type]` keeps its marker type, and consecutive `dt` elements are no longer spaced apart.
+- Closed `Drawer`s are hidden (`display: none`), so they are no longer keyboard focusable.
+- `Tooltip`s show when their trigger is more than one viewport down the page, and shift along the viewport edge instead of squeezing. The arrow follows the trigger in browsers with anchored container queries.
+- Submenus open on the same side as a flipped parent menu (in browsers with anchored container queries), and the submenu arrow mirrors in RTL.
+- `Badge` indicators mirror in RTL.
+- `Callout` only uses the icon layout for a direct child `svg`, keeps its content at the top when stretched, and no longer shows lighter corners.
+- `Card` wraps long words.
+- `DescriptionList` switches layout based on its own width instead of the page, shares space between long terms and values, and wraps long values.
+- `Table` padding no longer grows in narrow containers.
+- `List` text can shrink below its longest word, and `.ui-inset` follows the dense gap.
+- `Avatar` doesn't shrink in flex rows.
+- Disabled `Button` text color applies to every variant.
+- `Button` `kbd` follows the button's text color on hover.
+- `.ui-mark` has a background, and `.ui-del`/`.ui-ins` use the critical/success palette.
+- Rich text `pre` and inline `code` run left to right in RTL.
+- Rich text ordered lists widen their gutter for long numbers, including `ol[start]`.
+- `solid-js` is an optional peer dependency.
 
 ## 5.5.0 - 2026-09-28
 

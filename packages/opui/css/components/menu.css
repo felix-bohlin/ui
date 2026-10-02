@@ -2,7 +2,7 @@
   :where(.ui-menu) {
     --_motion: var(--motion, 1);
     --_bg-color: var(--surface-elevated);
-    --_border-color: var(--border-color);
+    --_border-color: light-dark(var(--border-color), var(--gray-6));
     --_border-radius: var(--border-radius, var(--radius-2));
     --_border-width: var(--border-width, 1px);
     --_margin: var(--_offset) 0;
@@ -29,6 +29,7 @@
 
     /* Popover - positioned against its invoker (implicit anchor) */
     &[popover] {
+      container-type: anchored;
       inset: auto;
       margin: var(--_margin);
       min-inline-size: max(var(--_min-inline-size), anchor-size(inline));
@@ -64,13 +65,13 @@
 
     &.ui-inline-end {
       --_margin: 0 var(--_offset);
-      --_side: inline-end;
+      --_side: var(--_submenu-inline-end, inline-end);
       --_span: span-block-end;
     }
 
     &.ui-inline-start {
       --_margin: 0 var(--_offset);
-      --_side: inline-start;
+      --_side: var(--_submenu-inline-start, inline-start);
       --_span: span-block-end;
     }
 
@@ -80,6 +81,17 @@
       &:is(.ui-inline-end, .ui-inline-start) {
         --_span: span-block-start;
       }
+    }
+
+    @container anchored(fallback: flip-inline) or anchored(fallback: flip-block flip-inline) {
+      .ui-menu {
+        --_submenu-inline-end: inline-start;
+        --_submenu-inline-start: inline-end;
+      }
+    }
+
+    &:dir(rtl) li:has(> .ui-menu) > :is(a, button) > .ui-end {
+      scale: -1 1;
     }
 
     /* Items */

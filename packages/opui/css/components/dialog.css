@@ -7,6 +7,7 @@
     inset: 0;
     margin: auto;
     margin-block-start: 15%;
+    max-block-size: calc(100dvb - 15dvi - var(--size-4));
     max-inline-size: calc(100% - var(--size-4));
     padding-block: 0;
     pointer-events: none;
@@ -27,6 +28,15 @@
 
     &:not([open]) {
       display: none;
+    }
+
+    & > :where(:not(.ui-content)) {
+      flex-shrink: 0;
+    }
+
+    & > .ui-content {
+      overflow-y: auto;
+      overscroll-behavior: contain;
     }
 
     .ui-actions {

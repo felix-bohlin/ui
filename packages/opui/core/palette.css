@@ -209,6 +209,8 @@
     .ui-critical,
     .ui-info,
     .ui-success,
+    .ui-del,
+    .ui-ins,
     [data-invalid],
     del,
     ins,

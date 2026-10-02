@@ -20,7 +20,7 @@ Install with `npm install opui-css open-props`.
 - Every class is prefixed with `ui-`: a base class (`.ui-button`) plus modifiers (`.ui-filled`, `.ui-small`, `.ui-primary`).
 - Astro and Vue props mirror the modifiers without the prefix: `<Button variant="filled" size="small" color="primary">`.
 - Components lean on native HTML: `<dialog>`, `popover`, invoker commands (`commandfor` / `command`), `<details>`. Prefer these over custom JavaScript.
-- Styles live in cascade layers (`openprops, theme, normalize, components.root, components.extended, utils`). Put overrides in a later layer or leave them unlayered.
+- Styles live in cascade layers (`openprops, theme, normalize, components.prose, components.root, components.extended, utils`). Put overrides in a later layer or leave them unlayered.
 
 ## References
 

@@ -31,6 +31,20 @@ const { source } = Astro.props
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="noindex" />
     <title>{`${name} stress test`}</title>
+    <script is:inline>
+      {
+        const params = new URLSearchParams(location.search)
+        const example = params.get("example")
+        const scheme = params.get("scheme")
+        if (scheme === "dark" || scheme === "light")
+          document.documentElement.classList.add(`ui-${scheme}`)
+        if (example) {
+          const style = document.createElement("style")
+          style.textContent = `main > h1, .stress:not([data-example="${CSS.escape(example)}"]) { display: none; } .stress { border: 0; padding-block-start: 0; }`
+          document.head.append(style)
+        }
+      }
+    </script>
   </head>
   <body>
     <main>

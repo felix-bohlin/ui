@@ -1,7 +1,13 @@
 ---
-import { Button, Checkbox, Chip, Textarea } from "@opui/astro"
+import { Accordion, Button, Checkbox, Chip, Textarea } from "@opui/astro"
 import Document from "../../layouts/Document.astro"
-import { parseTodo, slugify, splitInlineCode } from "../../utils/todo"
+import {
+  parseTodo,
+  slugify,
+  splitInlineCode,
+  stressRefs,
+} from "../../utils/todo"
+import { todoExamplesFor } from "../../utils/todo-examples"
 import source from "../../../TODO.md?raw"
 
 export function getStaticPaths() {
@@ -14,6 +20,54 @@ const plainText = (text: string) =>
   splitInlineCode(text)
     .map((part) => part.value)
     .join("")
+
+const stressPages = Object.fromEntries(
+  Object.entries(
+    import.meta.glob<string>("../../stress-tests/*.html", {
+      eager: true,
+      import: "default",
+      query: "?raw",
+    }),
+  ).map(([path, html]) => [
+    path.match(/stress-tests\/([^/]+)\.html$/)![1],
+    new Set(
+      [...html.matchAll(/data-example="([^"]+)"/g)].map(([, name]) => name),
+    ),
+  ]),
+)
+
+const examplesFor = (text: string) => {
+  const scheme = /\bdark mode\b/i.test(text)
+    ? "dark"
+    : /\blight mode\b/i.test(text)
+      ? "light"
+      : undefined
+  const query = scheme ? `scheme=${scheme}` : ""
+
+  return [
+    ...stressRefs(text)
+      .filter(({ example, page }) => stressPages[page]?.has(example))
+      .map(({ example, page }) => ({
+        label: `${page} ${example}`,
+        scheme,
+        src: `/tests/${page}/?example=${example}${query && `&${query}`}`,
+      })),
+    ...todoExamplesFor(text).map((name) => ({
+      label: name,
+      scheme,
+      src: `/todo/example/${name}/${query && `?${query}`}`,
+    })),
+  ]
+}
+
+const todoSections = sections.map((section) => ({
+  ...section,
+  items: section.items.map((item) => ({
+    ...item,
+    examples: examplesFor(item.text),
+  })),
+}))
+
 const count = sections.reduce(
   (total, section) => total + section.items.length,
   0,
@@ -42,7 +96,7 @@ const count = sections.reduce(
   }
 
   {
-    sections.map((section) => (
+    todoSections.map((section) => (
       <section data-todo-section={section.title}>
         <h2 id={slugify(section.title)}>{section.title}</h2>
         <ol class="todo-list ui-not-rich-text">
@@ -63,10 +117,40 @@ const count = sections.reduce(
                   )}
                 </span>
               </div>
+              {item.examples.length > 0 && (
+                <Accordion class="todo-examples" variant="outlined">
+                  <Fragment slot="summary">
+                    {item.examples.length === 1
+                      ? "Example"
+                      : `Examples (${item.examples.length})`}
+                  </Fragment>
+                  {item.examples.map((example) => (
+                    <figure class="todo-example">
+                      <figcaption>
+                        <code>{example.label}</code>
+                        <a
+                          class="ui-link"
+                          href={example.src}
+                          rel="noopener"
+                          target="_blank"
+                        >
+                          Open in a new tab
+                        </a>
+                      </figcaption>
+                      <iframe
+                        data-scheme={example.scheme}
+                        data-src={example.src}
+                        title={`${example.label} example`}
+                      />
+                    </figure>
+                  ))}
+                </Accordion>
+              )}
               <Textarea autoFit placeholder="Comment" rows={1} size="small">
                 <span class="ui-sr-only" slot="label">
                   {`Comment on: ${plainText(item.text)}`}
                 </span>
+                <span class="todo-saved" slot="end-text" />
               </Textarea>
             </li>
           ))}
@@ -103,7 +187,10 @@ const count = sections.reduce(
   const writeComments = (comments: Record<string, string>) => {
     try {
       localStorage.setItem(storageKey, JSON.stringify(comments))
-    } catch {}
+      return true
+    } catch {
+      return false
+    }
   }
 
   const items = [...document.querySelectorAll<HTMLElement>(".todo-item")]
@@ -113,17 +200,48 @@ const count = sections.reduce(
     "#todo-only-commented",
   )!
 
+  const pending = new Map<HTMLElement, number>()
+
+  const save = (item: HTMLElement) => {
+    clearTimeout(pending.get(item))
+    pending.delete(item)
+    const line = item.dataset.todoLine!
+    const value = fieldOf(item).value
+    const comments = readComments()
+    if (value.trim()) comments[line] = value
+    else delete comments[line]
+    const savedText = item.querySelector(".todo-saved")!
+    if (writeComments(comments)) {
+      savedText.textContent = value.trim() ? "Saved" : ""
+    } else {
+      savedText.textContent = "Not saved"
+      status.textContent =
+        "Comments can't be saved in this browser. Copy them before leaving the page."
+    }
+  }
+
+  const saveAll = () => [...pending.keys()].forEach(save)
+
   const saved = readComments()
   for (const item of items) {
     const field = fieldOf(item)
     field.value = saved[item.dataset.todoLine!] ?? ""
     field.addEventListener("input", () => {
-      const comments = readComments()
-      if (field.value.trim()) comments[item.dataset.todoLine!] = field.value
-      else delete comments[item.dataset.todoLine!]
-      writeComments(comments)
+      clearTimeout(pending.get(item))
+      pending.set(
+        item,
+        window.setTimeout(() => save(item), 500),
+      )
+    })
+    field.addEventListener("blur", () => {
+      if (pending.has(item)) save(item)
     })
   }
+
+  addEventListener("pagehide", saveAll)
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") saveAll()
+  })
 
   const buildText = () => {
     const blocks: string[] = []
@@ -173,6 +291,48 @@ const count = sections.reduce(
     }
   }
 
+  const syncScheme = (frame: HTMLIFrameElement) => {
+    const root = frame.contentDocument?.documentElement
+    if (!root || frame.dataset.scheme) return
+    for (const scheme of ["dark", "light"])
+      root.classList.toggle(
+        `ui-${scheme}`,
+        document.documentElement.classList.contains(`ui-${scheme}`),
+      )
+  }
+
+  const frames = [
+    ...document.querySelectorAll<HTMLIFrameElement>(".todo-example iframe"),
+  ]
+
+  for (const frame of frames) {
+    frame.addEventListener("load", () => {
+      const root = frame.contentDocument?.documentElement
+      if (!root) return
+      syncScheme(frame)
+      new ResizeObserver(() => {
+        frame.style.blockSize = `${root.scrollHeight}px`
+      }).observe(root)
+    })
+  }
+
+  for (const details of document.querySelectorAll<HTMLDetailsElement>(
+    ".todo-examples",
+  )) {
+    details.addEventListener("toggle", () => {
+      if (!details.open) return
+      for (const frame of details.querySelectorAll<HTMLIFrameElement>(
+        "iframe:not([src])",
+      ))
+        frame.src = frame.dataset.src!
+    })
+  }
+
+  new MutationObserver(() => frames.forEach(syncScheme)).observe(
+    document.documentElement,
+    { attributeFilter: ["class"] },
+  )
+
   document.querySelector("#todo-copy")!.addEventListener("click", async () => {
     const { commented, text } = buildText()
     if (onlyCommented.checked && !commented) {
@@ -186,7 +346,12 @@ const count = sections.reduce(
 
   document.querySelector("#todo-clear")!.addEventListener("click", () => {
     if (!confirm("Clear all comments?")) return
-    for (const item of items) fieldOf(item).value = ""
+    for (const item of items) {
+      clearTimeout(pending.get(item))
+      fieldOf(item).value = ""
+      item.querySelector(".todo-saved")!.textContent = ""
+    }
+    pending.clear()
     writeComments({})
     status.textContent = "Comments cleared."
   })
@@ -219,6 +384,33 @@ const count = sections.reduce(
     }
   }
 
+  .todo-example {
+    display: grid;
+    gap: var(--size-2);
+    margin: 0;
+
+    & + & {
+      margin-block-start: var(--size-4);
+    }
+
+    figcaption {
+      align-items: baseline;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2) var(--size-3);
+      justify-content: space-between;
+    }
+
+    iframe {
+      background-color: var(--surface-default);
+      block-size: var(--size-13);
+      border: var(--border-width) solid var(--border-color);
+      border-radius: var(--border-radius);
+      inline-size: 100%;
+      max-block-size: 80dvb;
+    }
+  }
+
   .todo-actions {
     display: grid;
     gap: var(--size-3);
@@ -229,6 +421,10 @@ const count = sections.reduce(
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-2);
+  }
+
+  .todo-saved:empty {
+    display: none;
   }
 
   .todo-status {

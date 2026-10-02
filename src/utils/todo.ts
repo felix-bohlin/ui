@@ -52,6 +52,19 @@ export const parseTodo = (source: string) => {
 export const splitInlineCode = (text: string) =>
   text.split("`").map((value, index) => ({ code: index % 2 === 1, value }))
 
+export const stressRefs = (text: string) =>
+  [...text.matchAll(/\(([^()]*)\)/g)].flatMap(([, group]) =>
+    splitInlineCode(group).flatMap((part, index, parts) =>
+      part.code
+        ? (parts[index + 1]?.value ?? "")
+            .split(",")
+            .map((name) => name.trim())
+            .filter((name) => /^[A-Z][A-Za-z0-9]*$/.test(name))
+            .map((example) => ({ example, page: part.value }))
+        : [],
+    ),
+  )
+
 export const slugify = (text: string) =>
   text
     .toLowerCase()

@@ -1,6 +1,11 @@
 import { readFileSync } from "node:fs"
 import { describe, expect, test } from "vitest"
-import { parseTodo, slugify, splitInlineCode } from "../../src/utils/todo"
+import {
+  parseTodo,
+  slugify,
+  splitInlineCode,
+  stressRefs,
+} from "../../src/utils/todo"
 
 describe("parseTodo", () => {
   test("parses intro, sections and items", () => {
@@ -60,6 +65,24 @@ describe("splitInlineCode", () => {
       { code: true, value: "b" },
       { code: false, value: " c" },
     ])
+  })
+})
+
+describe("stressRefs", () => {
+  test("finds stress page sections in brackets", () => {
+    expect(
+      stressRefs(
+        "Menus run off (`menu.css` `--_max-block-size`) (`layout` Surfaces, SidebarLayout, `data-display` Tables, `tests/e2e/a.spec.ts`)",
+      ),
+    ).toEqual([
+      { example: "Surfaces", page: "layout" },
+      { example: "SidebarLayout", page: "layout" },
+      { example: "Tables", page: "data-display" },
+    ])
+  })
+
+  test("ignores brackets without sections", () => {
+    expect(stressRefs("Avatars shrink (no `flex-shrink: 0`)")).toEqual([])
   })
 })
 

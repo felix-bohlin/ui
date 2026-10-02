@@ -25,7 +25,8 @@ const SlotsHeading = `h${headingLevel}` as const
 checkApi(api)
 
 const framework = (Astro.currentLocale ?? DEFAULT_FRAMEWORK) as Framework
-const component = framework === "html" ? undefined : framework
+const view = api.source ? framework : "html"
+const component = view === "html" ? undefined : view
 const html = component ? [] : htmlRows(api)
 const rows = component ? propRows(api, component) : []
 const slots = component ? slotRows(api, component) : []
@@ -35,7 +36,9 @@ const parts = component
       description: part.description,
       name: partLabel(api, part, "html"),
     }))
-const note = api.notes?.[framework]
+const notes = [...new Set([view, framework])].flatMap(
+  (key) => api.notes?.[key] ?? [],
+)
 const cssVars = cssVarRows(api)
 
 const splitType = (type: string) => type.split("|").map((part) => part.trim())
@@ -221,7 +224,7 @@ const splitType = (type: string) => type.split("|").map((part) => part.trim())
   )
 }
 
-{note && <p set:html={formatInline(note)} />}
+{notes.map((note) => <p set:html={formatInline(note)} />)}
 
 <style>
   .table-scroll {

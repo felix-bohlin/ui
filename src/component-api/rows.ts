@@ -105,7 +105,7 @@ const kebab = (name: string) =>
 const THEME_TOKENS = themeTokens()
 
 export const stylesheets = (api: ComponentApi) =>
-  (api.css ?? [kebab(api.source)]).map((file) =>
+  (api.css ?? (api.source ? [kebab(api.source)] : [])).map((file) =>
     path.resolve("packages/opui/css/components", `${file}.css`),
   )
 
@@ -136,7 +136,7 @@ export const partLabel = (
   root = false,
 ) => {
   const fallback = part.code ?? part.selector
-  if (framework === "html") return fallback
+  if (framework === "html" || !api.source) return fallback
   if (root) return `<${part.component?.[framework] ?? api.component}>`
   if (part.component?.[framework]) return `<${part.component[framework]}>`
 

@@ -40,5 +40,5 @@ export type ComponentApi = {
     "anchorName" | "code" | "component" | "description" | "selector"
   >
   slots?: { description: string; name: string }[]
-  source: string
+  source?: string
 }

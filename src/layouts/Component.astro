@@ -5,6 +5,7 @@ import FrameworkPicker from "../components/FrameworkPicker.astro"
 import BrowserSupport from "../components/BrowserSupport.astro"
 import BrowserSupportChips from "../components/BrowserSupportChips.astro"
 import ComponentAPI from "../components/ComponentAPI.astro"
+import type { ComponentApi } from "../component-api/types"
 import Installation, { type Tab } from "../components/Installation.astro"
 import { Button, Callout, Chip, Divider, List, ListItem } from "@opui/astro"
 import {
@@ -66,8 +67,15 @@ const apiModules = import.meta.glob("../component-api/**/*.astro", {
   eager: true,
 }) as Record<string, { default: any }>
 
+const apiData = import.meta.glob<ComponentApi>("../component-api/*/api.ts", {
+  eager: true,
+  import: "default",
+})
+
 const autoApis = (() => {
   if (!currentSlug) return null
+  const api = apiData[`../component-api/${currentSlug}/api.ts`]
+  if (api) return [{ api }]
   const entries = FRAMEWORKS.map((f) => {
     const mod = apiModules[`../component-api/${currentSlug}/${f.label}.astro`]
     return [f.id, mod?.default] as const

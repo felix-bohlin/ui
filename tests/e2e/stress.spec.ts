@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test"
+import { expect, type Page, test } from "@playwright/test"
 import { openFixture } from "./fixtures"
 
 const CONTROLS = [
@@ -11,10 +11,8 @@ const CONTROLS = [
   ":scope > .ui-toggle-group",
 ].join(", ")
 
-test("form controls of one size share one height", async ({ page }) => {
-  await openFixture(page, "html", "stress/forms")
-
-  const rows = await page.locator("[data-size]").evaluateAll(
+const measureRows = (page: Page) =>
+  page.locator("[data-size]").evaluateAll(
     (elements, selector) =>
       elements.map((row) => {
         const size = row.getAttribute("data-size")!
@@ -34,11 +32,13 @@ test("form controls of one size share one height", async ({ page }) => {
           })),
           expected,
           row: `${row.closest("[data-example]")!.getAttribute("data-example")} ${size}`,
+          size,
         }
       }),
     CONTROLS,
   )
 
+const expectSharedHeights = (rows: Awaited<ReturnType<typeof measureRows>>) => {
   expect(rows.length).toBeGreaterThan(0)
   for (const { controls, expected, row } of rows) {
     expect(controls.length, row).toBeGreaterThan(0)
@@ -47,4 +47,29 @@ test("form controls of one size share one height", async ({ page }) => {
       `${row} should be ${expected}`,
     ).toEqual([])
   }
+}
+
+test("form controls of one size share one height", async ({ page }) => {
+  await openFixture(page, "html", "stress/forms")
+
+  expectSharedHeights(await measureRows(page))
+})
+
+test("form controls scale with --density", async ({ page }) => {
+  await openFixture(page, "html", "stress/forms")
+  await page.evaluate(() =>
+    document.documentElement.style.setProperty("--density", "1.125"),
+  )
+
+  const rows = await measureRows(page)
+  const heights = {
+    default: "45px",
+    large: "51.75px",
+    small: "36px",
+    "x-small": "31.5px",
+  }
+  for (const { expected, row, size } of rows) {
+    expect(expected, row).toBe(heights[size as keyof typeof heights])
+  }
+  expectSharedHeights(rows)
 })

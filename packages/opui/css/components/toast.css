@@ -1,88 +1,118 @@
+@property --_toast-presence {
+  inherits: false;
+  initial-value: 1;
+  syntax: "<number>";
+}
+
 @layer components.extended {
-  :where(#toast-manager) {
+  :where(.ui-toaster) {
+    --_gap: var(--size-2);
+    --_inline-size: 24rem;
+    --_motion: var(--motion, 1);
+    --_offset: var(--size-4);
+    --_shift: var(--size-4);
+
     background: none;
-    block-size: auto;
+    block-size: fit-content;
     border: none;
-    display: none;
-    flex-direction: column-reverse;
-    gap: var(--size-3);
-    inline-size: auto;
-    inset: auto var(--size-4) var(--size-4) auto;
-    margin: 0;
-    max-inline-size: calc(100vi - var(--size-8));
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    inline-size: min(var(--_inline-size), 100% - 2 * var(--_offset));
+    inset-block: calc(var(--_offset) - var(--_gap) / 2);
+    inset-inline: var(--_offset);
+    margin: auto 0 0 auto;
     overflow: visible;
     padding: 0;
     pointer-events: none;
     position: fixed;
+    z-index: var(--layer-important);
 
-    &:popover-open {
-      display: flex;
+    &.ui-block-start {
+      --_shift: calc(var(--size-4) * -1);
+
+      flex-direction: column-reverse;
+      margin-block: 0 auto;
     }
 
-    &::backdrop {
-      display: none;
+    &.ui-inline-start {
+      margin-inline: 0 auto;
     }
 
-    /* Optional cap on visible toasts. Older toasts beyond this depth are hidden
+    &.ui-center {
+      margin-inline: auto;
+    }
+
+    & > .ui-toast {
+      --_duration: var(--toast-duration, 5s);
+
+      animation: toast-expire calc(var(--duration) * var(--_motion))
+        var(--ease-exit) var(--_duration) forwards;
+      block-size: calc-size(auto, size * var(--_toast-presence));
+      margin-block: calc(var(--_gap) / 2 * var(--_toast-presence));
+      min-block-size: 0;
+      opacity: var(--_toast-presence);
+      overflow: clip;
+      padding-block: calc(var(--_padding-block) * var(--_toast-presence));
+      pointer-events: auto;
+      transition:
+        --_toast-presence calc(var(--duration-slow) * var(--_motion))
+          var(--ease-enter),
+        visibility calc(var(--duration-slow) * var(--_motion));
+      translate: 0 calc(var(--_shift) * (1 - var(--_toast-presence)));
+
+      @starting-style {
+        --_toast-presence: 0;
+      }
+
+      /* Cap on visible toasts. Older toasts beyond this depth are hidden
 		   but still in the DOM so they animate cleanly when newer ones are removed. */
-    /* > .toast:nth-last-child(n + 6) { display: none; } */
-  }
+      &[hidden],
+      &:nth-last-child(n + 4 of .ui-toast:not([hidden])) {
+        --_toast-presence: 0;
 
-  :where(.ui-toast) {
-    --_motion: var(--motion, 1);
-    --_anim-enter: calc(var(--duration-slow) * var(--_motion));
-    --_anim-exit: calc(var(--duration-slow) * var(--_motion));
-    --_duration: 5s;
+        visibility: hidden;
+      }
 
-    align-items: center;
-    animation:
-      toast-enter var(--_anim-enter) var(--ease-enter) both,
-      toast-hold var(--_duration) linear both,
-      toast-exit var(--_anim-exit) var(--ease-exit) both;
-    animation:
-      toast-enter var(--_anim-enter) var(--ease-enter) both,
-      toast-hold attr(data-duration type(<time>), 5s) linear both,
-      toast-exit var(--_anim-exit) var(--ease-exit) both;
-    animation-delay:
-      0s, var(--_anim-enter), calc(var(--_anim-enter) + var(--_duration));
-    animation-delay:
-      0s, var(--_anim-enter),
-      calc(var(--_anim-enter) + attr(data-duration type(<time>), 5s));
-    background-color: var(--surface-inverse);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-3);
-    color: var(--text-primary-contrast);
-    display: flex;
-    gap: var(--size-3);
-    justify-content: space-between;
-    min-inline-size: 30ch;
-    padding: var(--size-3) var(--size-4);
-    pointer-events: auto;
+      &[hidden],
+      &.ui-persistent {
+        animation: none;
+      }
+    }
 
-    &:hover,
-    &:focus-within {
+    &:focus-within > .ui-toast {
       animation-play-state: paused;
     }
 
-    &.ui-exiting {
-      animation: toast-exit var(--_anim-exit) var(--ease-exit) forwards;
+    @media (hover: hover) {
+      &:hover > .ui-toast {
+        animation-play-state: paused;
+      }
     }
+  }
 
-    .ui-icon {
-      block-size: var(--icon-size);
-      flex-shrink: 0;
-      inline-size: var(--icon-size);
-      mask: center / contain no-repeat;
-    }
+  :where(.ui-toast) {
+    --_icon-color: currentColor;
+    --_icon-size: var(--icon-size);
+    --_padding-block: var(--size-3);
 
-    /* Hide the icon slot when there's no severity to render against. */
-    &:not([data-severity]) .ui-icon {
-      display: none;
-    }
+    align-items: center;
+    background-color: var(--surface-elevated);
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-4);
+    color: var(--text-primary);
+    display: flex;
+    font-size: var(--font-size-05);
+    gap: var(--size-3);
+    padding: var(--_padding-block) var(--size-4);
 
-    .ui-content {
-      font-size: var(--font-size-05);
-      word-break: break-word;
+    & > .ui-content {
+      display: grid;
+      flex: 1;
+      gap: var(--size-1);
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
     }
 
     .ui-title {
@@ -90,80 +120,56 @@
     }
 
     .ui-description {
-      color: oklch(from currentColor l c h / 75%);
+      color: var(--text-muted);
       font-size: var(--font-size-0);
     }
 
-    .ui-close-button {
-      background: none;
-      border: none;
-      color: inherit;
-      cursor: pointer;
-      display: grid;
-      opacity: 0.7;
-      padding: var(--size-1);
-      place-items: center;
-      transition: opacity calc(var(--duration) * var(--_motion));
-
-      &:hover {
-        opacity: 1;
-      }
+    & > .ui-button {
+      flex-shrink: 0;
     }
 
-    &[data-severity="success"] .ui-icon {
-      background-color: var(--success);
-      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><path d='m9 11 3 3L22 4'/></svg>");
+    & > svg,
+    &:is(.ui-critical, .ui-info, .ui-success, .ui-warning)::before {
+      block-size: var(--_icon-size);
+      color: var(--_icon-color);
+      flex-shrink: 0;
+      inline-size: var(--_icon-size);
     }
 
-    &[data-severity="info"] .ui-icon {
-      background-color: var(--info);
-      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M12 16v-4'/><path d='M12 8h.01'/></svg>");
+    &:is(.ui-critical, .ui-info, .ui-success, .ui-warning):not(
+        :has(> svg)
+      )::before {
+      background-color: currentColor;
+      content: "";
+      mask: var(--_icon) center / contain no-repeat;
     }
 
-    &[data-severity="warning"] .ui-icon {
-      background-color: var(--warning);
-      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/><path d='M12 9v4'/><path d='M12 17h.01'/></svg>");
+    &.ui-critical {
+      --_icon-color: var(--critical);
+      --_icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>");
     }
 
-    &[data-severity="critical"] .ui-icon {
-      background-color: var(--critical);
-      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>");
-    }
-  }
-
-  @keyframes toast-enter {
-    from {
-      opacity: 0;
-      translate: var(--size-4) 0;
+    &.ui-info {
+      --_icon-color: var(--info);
+      --_icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M12 16v-4'/><path d='M12 8h.01'/></svg>");
     }
 
-    to {
-      opacity: 1;
-      translate: 0 0;
+    &.ui-success {
+      --_icon-color: var(--success);
+      --_icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><path d='m9 11 3 3L22 4'/></svg>");
+    }
+
+    &.ui-warning {
+      --_icon-color: var(--warning);
+      --_icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/><path d='M12 9v4'/><path d='M12 17h.01'/></svg>");
     }
   }
 
-  @keyframes toast-hold {
-    from {
-      opacity: 1;
-    }
-
+  @keyframes toast-expire {
     to {
-      opacity: 1;
-    }
-  }
+      --_toast-presence: 0;
 
-  @keyframes toast-exit {
-    from {
-      opacity: 1;
-      scale: 1;
-      translate: 0 0;
-    }
-
-    to {
-      opacity: 0;
-      scale: 0.9;
-      translate: 0 var(--size-4);
+      visibility: hidden;
     }
   }
 }

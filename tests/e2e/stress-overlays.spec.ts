@@ -241,20 +241,20 @@ const SCENARIOS: Scenario[] = [
   {
     name: "dialog over toasts",
     steps: [
-      { click: '[commandfor="toast-manager"][command="toggle-popover"]' },
+      { click: '[commandfor="toaster"][command="--show-toast"]' },
       open("toast-dialog"),
     ],
     top: id("toast-dialog"),
   },
   {
-    failing:
-      "the toast manager sits outside the modal dialog, so its toasts are inert while the dialog is open",
     name: "toasts shown from a dialog",
     steps: [
       open("toast-dialog"),
-      { click: '[commandfor="toast-manager"][command="show-popover"]' },
+      {
+        click: `${id("toast-dialog")} [commandfor="toaster"][command="--show-toast"]`,
+      },
     ],
-    top: "#toast-manager .ui-toast",
+    top: "#toaster .ui-toast:last-child",
   },
   { name: "rtl menu", steps: [open("rtl-menu")], top: id("rtl-menu") },
   {

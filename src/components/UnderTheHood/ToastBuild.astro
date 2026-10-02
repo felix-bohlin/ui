@@ -2,138 +2,132 @@
 import { Button } from "@opui/astro"
 import BuildUp from "./BuildUp.astro"
 
-const successIcon = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><path d='m9 11 3 3L22 4'/></svg>")`
-
-const criticalIcon = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>")`
-
 const steps = [
   {
     css: `
 .stack {
   display: flex;
-  flex-direction: column-reverse;
-  gap: 0.75rem;
+  flex-direction: column;
+  justify-content: end;
 }
 
 .toast {
   align-items: center;
-  background-color: var(--surface-inverse);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-2);
-  box-shadow: var(--shadow-3);
-  color: var(--text-primary-contrast);
+  box-shadow: var(--shadow-4);
   display: flex;
   gap: 0.75rem;
-  justify-content: space-between;
-  min-inline-size: 30ch;
+  margin-block: 0.375rem;
   padding: 0.75rem 1rem;
 }`,
-    features: ["invoker-commands", "template"],
+    features: ["invoker-commands", "popover", "template"],
     html: `
 <button
-  commandfor="stack"
+  commandfor="toaster"
   command="--show-toast"
   data-title="Draft saved"
 >
   Default
 </button>
 
-<output class="stack" id="stack" role="status"></output>
-
-<template id="toast-template">
-  <div class="toast" role="alert">…</div>
-</template>`,
+<section class="toaster" id="toaster" popover="manual" aria-live="polite">
+  <template>
+    <div class="toast">…</div>
+  </template>
+</section>`,
     notes: [
-      "Custom commands start with <code>--</code> and fire a <code>command</code> event on the stack",
-      "A few lines of JS clone the <code>&lt;template&gt;</code> and fill it with <code>textContent</code>",
-      "<code>column-reverse</code> puts the newest on top",
+      "A toast is a plain element in the toaster, a manual popover in the top layer",
+      "Custom commands start with <code>--</code>. A few lines of JS clone the <code>&lt;template&gt;</code> and fill it with <code>textContent</code>",
+      "The newest toast is last, closest to the edge",
       "Nothing removes them yet",
     ],
     title: "Stack",
   },
   {
     css: `
+@property --presence {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
 .toast {
-  animation:
-    build-toast-enter 0.3s both,
-    build-toast-hold attr(data-duration type(<time>), 5s) linear both,
-    build-toast-exit 0.3s both;
-  animation-delay:
-    0s,
-    0.3s,
-    calc(0.3s + attr(data-duration type(<time>), 5s));
+  block-size: calc-size(auto, size * var(--presence));
+  margin-block: calc(0.375rem * var(--presence));
+  opacity: var(--presence);
+  overflow: clip;
+  padding-block: calc(0.75rem * var(--presence));
+  transition: --presence 0.3s;
+  translate: 0 calc(1rem * (1 - var(--presence)));
+
+  @starting-style {
+    --presence: 0;
+  }
 }`,
-    features: ["animations-css", "attr"],
+    features: ["calc-size", "registered-custom-properties", "starting-style"],
     notes: [
-      "Three animations in a row: enter, hold, exit",
-      "<code>hold</code> changes nothing, it only takes time",
-      "<code>attr(data-duration type(&lt;time&gt;))</code> reads the lifetime from HTML",
-      "JS removes the toast on <code>animationend</code>, no <code>setTimeout</code>",
+      "One registered number says how present a toast is: <code>0</code> is gone, <code>1</code> is here",
+      "Opacity, slide, margins and height all derive from it, so one transition animates them all",
+      "<code>@starting-style</code> starts new toasts at <code>0</code>",
+      "<code>calc-size()</code> grows the height from <code>0</code>, so the stack makes room instead of jumping",
+    ],
+    title: "Presence",
+  },
+  {
+    css: `
+.toast {
+  animation: build-toast-expire 0.2s var(--duration, 5s) forwards;
+}
+
+.stack:is(:hover, :focus-within) .toast {
+  animation-play-state: paused;
+}
+
+@keyframes build-toast-expire {
+  to {
+    --presence: 0;
+    visibility: hidden;
+  }
+}`,
+    features: ["animations-css", "focus-within"],
+    notes: [
+      "The lifetime is the delay of the exit animation, no <code>setTimeout</code>",
+      "Hover or focus the stack to stop every clock",
+      "JS removes the toast on <code>animationend</code>",
     ],
     title: "Lifetime",
   },
   {
     css: `
-.toast:hover,
-.toast:focus-within {
-  animation-play-state: paused;
+.toast[hidden],
+.toast:nth-last-child(n + 4 of .toast:not([hidden])) {
+  --presence: 0;
+  visibility: hidden;
 }
 
-.toast.exiting {
-  animation: build-toast-exit 0.3s forwards;
+.toast[hidden] {
+  animation: none;
 }`,
-    features: ["focus-within"],
+    features: ["nth-child-of"],
     notes: [
-      "Hover or focus a toast to stop its clock",
-      "Close adds <code>.exiting</code>, which swaps the chain for the exit animation alone",
+      "Close sets <code>hidden</code>, and <code>--presence</code> transitions back to <code>0</code>",
+      "Only the three newest show. Older ones collapse and come back when there is room",
     ],
-    title: "Pause",
-  },
-  {
-    css: `
-.toast .icon {
-  block-size: 1.25rem;
-  flex-shrink: 0;
-  inline-size: 1.25rem;
-  mask: center / contain no-repeat;
-}
-
-.toast:not([data-severity]) .icon {
-  display: none;
-}
-
-.toast[data-severity="success"] .icon {
-  background-color: var(--success);
-  mask-image: ${successIcon};
-}
-
-.toast[data-severity="critical"] .icon {
-  background-color: var(--critical);
-  mask-image: ${criticalIcon};
-}
-
-.toast .description {
-  color: oklch(from currentColor l c h / 75%);
-}`,
-    features: ["masks", "relative-color"],
-    notes: [
-      "One empty <code>&lt;span&gt;</code>: <code>background-color</code> paints it, <code>mask-image</code> cuts out the shape",
-      "<code>oklch(from currentColor l c h / 75%)</code> fades the description, whatever the text color",
-    ],
-    title: "Icons",
+    title: "Leave",
   },
 ]
 
 const triggers = [
   { label: "Default", title: "Draft saved" },
   {
-    description: "Your post is live",
     duration: "3s",
     label: "Success",
     severity: "success",
     title: "Published",
   },
   {
-    description: "The file is larger than 10 MB",
     duration: "8s",
     label: "Critical",
     severity: "critical",
@@ -149,7 +143,6 @@ const triggers = [
         <Button
           command="--show-toast"
           commandfor="build-toast-stack"
-          data-description={trigger.description}
           data-duration={trigger.duration}
           data-severity={trigger.severity}
           data-title={trigger.title}
@@ -160,16 +153,12 @@ const triggers = [
       ))
     }
   </div>
-  <output aria-live="polite" class="stack" id="build-toast-stack" role="status"
-  ></output>
+  <div aria-live="polite" class="stack" id="build-toast-stack"></div>
   <template id="build-toast-template">
-    <div class="toast" role="alert">
+    <div class="toast">
       <span class="icon"></span>
-      <div class="content">
-        <div class="title"></div>
-        <div class="description"></div>
-      </div>
-      <button aria-label="Close" class="close" type="button">
+      <div class="title"></div>
+      <button aria-label="Dismiss" class="close" type="button">
         <svg
           aria-hidden="true"
           fill="none"
@@ -198,22 +187,43 @@ const triggers = [
 
   .stack {
     font-size: var(--font-size-05);
-    min-block-size: 9rem;
+    margin-inline: auto;
+    max-inline-size: 24rem;
+    min-block-size: 12rem;
   }
 </style>
 
 <style is:global>
+  @property --presence {
+    inherits: false;
+    initial-value: 1;
+    syntax: "<number>";
+  }
+
   #build-toast-stack {
-    & > :nth-last-child(n + 4) {
+    & .icon {
+      block-size: var(--icon-size);
       display: none;
+      flex-shrink: 0;
+      inline-size: var(--icon-size);
+      mask: center / contain no-repeat;
+    }
+
+    & [data-severity="critical"] .icon {
+      background-color: var(--critical);
+      display: block;
+      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>");
+    }
+
+    & [data-severity="success"] .icon {
+      background-color: var(--success);
+      display: block;
+      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><path d='m9 11 3 3L22 4'/></svg>");
     }
 
     & .title {
-      font-weight: 600;
-    }
-
-    & .description {
-      font-size: var(--font-size-0);
+      flex: 1;
+      font-weight: var(--font-weight-semibold);
     }
 
     & .close {
@@ -227,28 +237,11 @@ const triggers = [
     }
   }
 
-  @keyframes build-toast-enter {
-    from {
-      opacity: 0;
-      translate: 1rem 0;
-    }
-  }
-
-  @keyframes build-toast-hold {
-    from {
-      opacity: 1;
-    }
-
+  @keyframes build-toast-expire {
     to {
-      opacity: 1;
-    }
-  }
+      --presence: 0;
 
-  @keyframes build-toast-exit {
-    to {
-      opacity: 0;
-      scale: 0.9;
-      translate: 0 1rem;
+      visibility: hidden;
     }
   }
 </style>
@@ -266,28 +259,25 @@ const triggers = [
       if (event.command !== "--show-toast") return
       if (!(event.source instanceof HTMLElement)) return
 
-      const { description, duration, severity, title } = event.source.dataset
+      const { duration, severity, title } = event.source.dataset
       const toast = template.content.firstElementChild?.cloneNode(true)
       if (!(toast instanceof HTMLElement)) return
 
-      const fill = (selector: string, text?: string) => {
-        const slot = toast.querySelector(selector)
-        if (!slot) return
-        if (text) slot.textContent = text
-        else slot.remove()
-      }
-      fill(".title", title)
-      fill(".description", description)
-      if (duration) toast.dataset.duration = duration
+      toast.querySelector(".title")!.textContent = title ?? ""
+      if (duration) toast.style.setProperty("--duration", duration)
       if (severity) toast.dataset.severity = severity
 
-      toast
-        .querySelector(".close")
-        ?.addEventListener("click", () => toast.classList.add("exiting"))
-      toast.addEventListener("animationend", (end) => {
-        if (end.animationName === "build-toast-exit") toast.remove()
+      toast.querySelector(".close")?.addEventListener("click", async () => {
+        toast.hidden = true
+        await Promise.allSettled(toast.getAnimations().map((a) => a.finished))
+        toast.remove()
       })
       stack.append(toast)
+    })
+
+    stack.addEventListener("animationend", (event) => {
+      if (event.animationName !== "build-toast-expire") return
+      if (event.target instanceof HTMLElement) event.target.remove()
     })
   }
 

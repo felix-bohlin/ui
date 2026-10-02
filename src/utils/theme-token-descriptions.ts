@@ -144,5 +144,6 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--text-muted-contrast": "Muted text color on an inverted surface.",
   "--text-primary": "Emphasized text color for headings, labels and values.",
   "--text-primary-contrast": "Emphasized text color on an inverted surface.",
+  "--toast-duration": "How long a `Toast` stays before it leaves.",
   "--warning": "Severity color for warnings.",
 }

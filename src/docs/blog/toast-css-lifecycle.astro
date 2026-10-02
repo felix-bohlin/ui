@@ -1,0 +1,102 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import ToastBuild from "../../components/UnderTheHood/ToastBuild.astro"
+import { Code } from "astro-expressive-code/components"
+---
+
+<TechniquePost slug="toast-css-lifecycle">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      A toast enters, waits a few seconds and leaves, and the stack around it
+      moves to make room. That usually means a <code>setTimeout</code> per toast,
+      measuring heights for the stack, and clearing and restarting timers to pause
+      on hover.
+    </p>
+    <p>
+      CSS already has a clock that pauses, and now it can animate a height from
+      zero. The whole lifecycle fits in CSS.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        A registered <code>--presence</code> number, <code>0</code> for gone and <code
+          >1</code
+        > for here. Opacity, slide, margins and height all derive from it
+      </li>
+      <li>
+        <code>@starting-style</code> starts a new toast at <code>0</code>, and a
+        transition takes it to <code>1</code>
+      </li>
+      <li>
+        The lifetime is the delay of an exit animation that takes <code
+          >--presence</code
+        > back to <code>0</code>. <code>animation-play-state: paused</code> on hover
+        and focus stops the clock
+      </li>
+      <li>
+        <code>calc-size(auto, size * var(--presence))</code> grows and shrinks the
+        height, so the stack moves instead of jumping
+      </li>
+      <li>
+        JS only appends toasts and removes them on <code>animationend</code>, no
+        timers
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`@property --presence {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+.toast {
+  animation: toast-expire 0.2s var(--duration, 5s) forwards;
+  block-size: calc-size(auto, size * var(--presence));
+  opacity: var(--presence);
+  overflow: clip;
+  transition: --presence 0.3s;
+
+  @starting-style {
+    --presence: 0;
+  }
+}
+
+.toaster:is(:hover, :focus-within) .toast {
+  animation-play-state: paused;
+}
+
+@keyframes toast-expire {
+  to {
+    --presence: 0;
+    visibility: hidden;
+  }
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <ToastBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Browsers without <code>calc-size()</code> drop the <code
+          >block-size</code
+        >
+        {" "}declaration and keep <code>auto</code>
+      </li>
+      <li>
+        Toasts still fade, slide, pause and leave. The stack snaps into place
+        instead of sliding
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

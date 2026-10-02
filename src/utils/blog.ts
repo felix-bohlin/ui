@@ -179,9 +179,9 @@ export const posts = [
     component: "toast",
     date: "2026-10-02",
     description:
-      "attr() with a type() reads the toast duration straight from HTML.",
-    slug: "toast-attr-duration",
-    title: "Toast timing with typed attr()",
+      "@property, @starting-style and an animation delay give toasts their whole life in CSS.",
+    slug: "toast-css-lifecycle",
+    title: "A toast lifecycle in CSS",
   },
   {
     component: "tooltip",

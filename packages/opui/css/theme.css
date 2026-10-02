@@ -198,6 +198,7 @@
     /* Overlays */
     --backdrop-blur: 1px;
     --backdrop-color: rgb(0 0 0 / 0.5);
+    --toast-duration: 5s;
   }
 
   @media (prefers-reduced-motion: reduce) {

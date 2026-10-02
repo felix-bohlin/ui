@@ -1,22 +1,18 @@
-<button class="ui-button" id="js-trigger-html">Trigger from JS</button>
+<button class="ui-button" id="toast-js-demo">Save</button>
 
 <script>
-  function setupToastDemoHtml() {
-    const btn = document.getElementById("js-trigger-html")
-    if (btn) {
-      btn.addEventListener("click", () => {
-        if (window.showToast) {
-          window.showToast({
-            title: "Triggered from JS!",
-            description: "With an optional description",
-            severity: "success",
-            duration: "3000ms",
-          })
-        }
-      })
-    }
+  function setupToastDemo() {
+    const button = document.getElementById("toast-js-demo")
+    button?.addEventListener("click", () => {
+      const { dismiss, toast } = window.opui
+      const saving = toast("Saving…", { persistent: true })
+      setTimeout(() => {
+        dismiss(saving)
+        toast("Changes saved", { severity: "success" })
+      }, 1500)
+    })
   }
 
-  setupToastDemoHtml()
-  document.addEventListener("astro:after-swap", setupToastDemoHtml)
+  setupToastDemo()
+  document.addEventListener("astro:after-swap", setupToastDemo)
 </script>

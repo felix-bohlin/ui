@@ -3024,19 +3024,20 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
 <section class="stress" data-example="ToastLayering">
   <h2>Toasts and modals</h2>
   <p>
-    Static toasts in the toast manager, shown without JavaScript. Show them and
-    then open the dialog: the manager is already in the top layer, so the dialog
-    and its backdrop cover it. Hide and show them again from inside the dialog
-    to bring them above.
+    Show a toast, then open the dialog: the dialog and its backdrop cover it.
+    Publish from inside the dialog: the toaster moves into the dialog, so the
+    toast shows above it and its buttons still work.
   </p>
   <div class="stress-row">
     <button
       class="ui-button ui-outlined"
       type="button"
-      commandfor="toast-manager"
-      command="toggle-popover"
+      commandfor="toaster"
+      command="--show-toast"
+      data-persistent
+      data-title="Copied link"
     >
-      Toggle toasts</button
+      Show toast</button
     ><button
       class="ui-button ui-outlined"
       type="button"
@@ -3062,17 +3063,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
       <button
         class="ui-button"
         type="button"
-        commandfor="toast-manager"
-        command="hide-popover"
+        commandfor="toaster"
+        command="--show-toast"
+        data-description="Your project is live."
+        data-persistent
+        data-severity="success"
+        data-title="Published"
       >
-        Hide toasts</button
-      ><button
-        class="ui-button"
-        type="button"
-        commandfor="toast-manager"
-        command="show-popover"
-      >
-        Show toasts</button
+        Publish</button
       ><button
         class="ui-button ui-filled"
         type="button"
@@ -3083,107 +3081,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
       </button>
     </div>
   </dialog>
-  <output aria-live="polite" id="toast-manager" popover="manual" role="status"
-    ><div
-      class="ui-toast"
-      role="alert"
-      data-severity="success"
-      data-duration="600s"
-    >
-      <span class="ui-icon"></span>
-      <div class="ui-content">
-        <div class="ui-title">Published</div>
-        <div class="ui-description">Your project is live.</div>
-      </div>
-      <button
-        class="ui-close-button"
-        type="button"
-        aria-label="Close published toast"
-        commandfor="toast-manager"
-        command="hide-popover"
-      >
-        <svg
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M18 6 6 18" />
-          <path d="m6 6 12 12" />
-        </svg>
-      </button>
-    </div>
-    <div
-      class="ui-toast"
-      role="alert"
-      data-severity="critical"
-      data-duration="600s"
-    >
-      <span class="ui-icon"></span>
-      <div class="ui-content">
-        <div class="ui-title">Sync failed</div>
-        <div class="ui-description">
-          The connection dropped while saving the last 12 changes. They are kept
-          on this device and retried as soon as you are back online.
-        </div>
-      </div>
-      <button
-        class="ui-close-button"
-        type="button"
-        aria-label="Close sync toast"
-        commandfor="toast-manager"
-        command="hide-popover"
-      >
-        <svg
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M18 6 6 18" />
-          <path d="m6 6 12 12" />
-        </svg>
-      </button>
-    </div>
-    <div class="ui-toast" role="alert" data-duration="600s">
-      <span class="ui-icon"></span>
-      <div class="ui-content"><div class="ui-title">Copied link</div></div>
-      <button
-        class="ui-close-button"
-        type="button"
-        aria-label="Close copied toast"
-        commandfor="toast-manager"
-        command="hide-popover"
-      >
-        <svg
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M18 6 6 18" />
-          <path d="m6 6 12 12" />
-        </svg>
-      </button></div
-  ></output>
+  <section
+    aria-label="Notifications"
+    aria-live="polite"
+    class="ui-toaster"
+    id="toaster"
+    popover="manual"
+  ></section>
 </section>
 
 <section class="stress" data-example="Rtl">

@@ -35,8 +35,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fixed: `.ui-actions` gets `margin-block-start: auto` and `flex-wrap: wrap`. Its top spacing moved from margin to padding, so non-stretched cards look the same.
 - [x] (3) Rich text link styles apply to component links inside prose: `a.ui-button`, `a.ui-chip` and `a.ui-avatar` get underlined primary text (`typography` ComponentsInProse)
   - Fixed: rich text moved to a new `components.prose` layer, below `components.root`, so component styles always beat classless prose styles. Layer order is now `openprops, theme, normalize, components.prose, components.root, components.extended, utils` (README, getting started and skill updated). Rich text links also skip elements with a `ui-` class, so `a.ui-chip` isn't bold.
-- [] (3) Toasts are inert or under the backdrop while a modal dialog is open (`overlays` ToastLayering)
+- [x] (3) Toasts are inert or under the backdrop while a modal dialog is open (`overlays` ToastLayering)
   > don't do anything with toasts just yet - skip
+  - Fixed in the toast rebuild: `toast.js` moves the toaster into the open modal dialog before it shows a toast, and back when the dialog closes, so toasts sit above the backdrop and stay interactive.
 - [x] (4) Cards clip long unbroken words instead of wrapping them (`layout` UnevenGrid)
   - Fixed: cards have `overflow-wrap: break-word` and `min-inline-size: 0`, so they also stop growing their grid column.
 - [?] (4) Rich text tables break short words letter by letter: `overflow-wrap: anywhere` lowers the min-content width (`typography` EveryElement)

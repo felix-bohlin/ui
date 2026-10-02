@@ -1,11 +1,15 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Example from "../../components/Example"
+import { Code } from "astro-expressive-code/components"
 
 import AutoExample from "../../components/AutoExample.astro"
 import JavascriptHtml from "../../component-examples/toast/Javascript.html?raw"
 import JavascriptJS from "../../component-examples/toast/Javascript.js?raw"
+import ServerCode from "../../component-examples/toast/ServerCode.html?raw"
+import ToasterCode from "../../component-examples/toast/ToasterCode.html?raw"
 import ToastCSS from "@opui/css/components/toast.css?raw"
+import ToastJS from "@opui/css/js/toast.js?raw"
 import { Badge, Callout as UICallout } from "@opui/astro"
 import ToastBuild from "../../components/UnderTheHood/ToastBuild.astro"
 
@@ -16,7 +20,12 @@ export const description =
 <Component
   description={description}
   slug="toast"
-  browserSupport={["attr", "invoker-commands", "popover", "relative-color"]}
+  browserSupport={[
+    "invoker-commands",
+    "popover",
+    "registered-custom-properties",
+    "starting-style",
+  ]}
   changelogPaths={[
     { path: "src/docs/components/toast.astro", type: "docs" },
     { path: "src/component-examples/toast", type: "docs" },
@@ -24,9 +33,13 @@ export const description =
       path: "packages/opui/css/components/toast.css",
       type: "css",
     },
+    { path: "packages/opui/css/js/toast.js", type: "component" },
     { path: "src/component-api/toast", type: "api" },
   ]}
-  installationTabs={[{ title: "toast.css", code: ToastCSS, lang: "css" }]}
+  installationTabs={[
+    { title: "toast.css", code: ToastCSS, lang: "css" },
+    { title: "toast.js", code: ToastJS, lang: "js" },
+  ]}
 >
   <Fragment slot="title">
     <Badge color="warning" label="ALPHA">Toast</Badge>
@@ -42,118 +55,165 @@ export const description =
   <section>
     <h2 id="how-it-works">How it works</h2>
     <p>
-      Toasts are managed by a global container. Trigger them either completely
-      with HTML (using <a
-        href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
-        class="ui-link">invoker commands</a
-      >) or with JavaScript.
+      A toast is a plain element. Put it in the toaster and CSS does the rest:
+      it enters, stacks, counts down, pauses while the toaster is hovered or
+      focused, and leaves. <code>toast.js</code> only puts toasts in the toaster and
+      removes them once they are gone.
     </p>
+
+    <h3 id="toaster">Toaster</h3>
     <p>
-      Structure lives in HTML via a default <code
-        >&lt;template id="toast-template"&gt;</code
-      >. CSS owns the lifetime through <code
-        >attr(data-duration type(&lt;time&gt;))</code
-      >. JS only clones the template, fills the structural slots (<code
-        >[data-toast-title]</code
-      >, <code>[data-toast-description]</code>, <code>[data-toast-icon]</code>,
-      {" "}<code>[data-toast-close]</code>) using <code>textContent</code>, and
-      removes the toast on <code>animationend</code>. Provide your own <code
-        >&lt;template&gt;</code
-      > with the same slot markers and reference it via <code
-        >data-template</code
+      Add the toaster once, at the end of <code>&lt;body&gt;</code>. It is a
+      {" "}<code>popover="manual"</code> so it sits in the top layer, and a polite
+      live region so new toasts are announced. Its <code>&lt;template&gt;</code> is
+      the default toast, with <code>.ui-title</code> and <code
+        >.ui-description</code
       >
-      {" "}on the trigger to override the default look.
+      {" "}as slots. Without a toaster, <code>toast.js</code> creates a plain one.
     </p>
+
+    <Code code={ToasterCode} lang="html" />
 
     <h3 id="html">HTML</h3>
     <p>
-      Use <code>commandfor="toast-manager"</code> and <code
-        >command="--show-toast"</code
-      >
-      {" "}on a button. The <code>data-title</code> attribute will be used as the
-      message.
+      Point a button at the toaster with <code>commandfor="toaster"</code> and
+      {" "}<code>command="--show-toast"</code>. <code>data-title</code>, <code
+        >data-description</code
+      >, <code>data-severity</code>, <code>data-duration</code> and <code
+        >data-persistent</code
+      > fill in the default toast.
     </p>
 
-    <AutoExample name="HTML" centered />
+    <AutoExample name="Basics" centered />
 
     <h3 id="javascript">JavaScript</h3>
     <p>
-      This is arguably the most common way. After some kind of fetch you might
-      want to display some kind of message.
-    </p>
-    <p>
-      Use the <code>showToast</code> helper or by dispatching a <code
-        >CommandEvent</code
-      >.
+      <code>toast()</code> takes a title, a <code>&lt;template&gt;</code> or an element,
+      and the same options as the data attributes. It returns the toast, so <code
+        >dismiss()</code
+      > can remove it later, such as a loading toast once the work is done.
     </p>
 
     <Example centered>
       <Example.Preview slot="preview-html" code={JavascriptHtml} />
       <Example.Code slot="code-js" code={JavascriptJS} />
     </Example>
+
+    <h3 id="server">Server</h3>
+    <p>
+      Toasts rendered inside the toaster show, count down and leave on page load
+      without any JavaScript, such as a message after a form redirect.
+    </p>
+
+    <Code code={ServerCode} lang="html" />
+  </section>
+
+  <section>
+    <h2 id="actions">Actions</h2>
+    <p>
+      Point the button at a <code>&lt;template&gt;</code> instead to show any markup.
+      A button with <code>commandfor="toaster"</code> and <code
+        >command="--dismiss-toast"</code
+      > dismisses the toast it is in. Outside a toast, it dismisses them all.
+    </p>
+
+    <AutoExample name="Actions" centered />
   </section>
 
   <section>
     <h2 id="severities">Severities</h2>
     <p>
-      Use the <code>data-severity</code> attribute to change the appearance of the
-      toast.
+      Add <code>.ui-info</code>, <code>.ui-success</code>, <code
+        >.ui-warning</code
+      > or <code>.ui-critical</code> to the toast for a colored icon. Outside a toaster,
+      a toast renders in place.
     </p>
 
-    <AutoExample name="Severity" row centered />
+    <AutoExample name="Severity" column />
   </section>
 
   <section>
     <h2 id="title-description">Title + description</h2>
-    <p>
-      Use <code>data-title</code> for a single-line toast, or add <code
-        >data-description</code
-      > for a two-line toast with additional context.
-    </p>
 
-    <AutoExample name="TitleDescription" row centered />
+    <AutoExample name="TitleDescription" column />
   </section>
 
   <section>
     <h2 id="duration">Duration</h2>
     <p>
-      Control how long the toast stays visible using <code>data-duration</code>.
-      Supports CSS time units such as <code>ms</code> or <code>s</code>.
+      Set <code>--toast-duration</code> on a toast, or on the toaster for all of them.
+      It defaults to <code>5s</code>. <code>.ui-persistent</code> toasts stay until
+      they are dismissed.
     </p>
 
     <AutoExample name="Duration" row centered />
   </section>
 
+  <section>
+    <h2 id="position">Position</h2>
+    <p>
+      The toaster sits at the bottom end of the screen. Add <code
+        >.ui-block-start</code
+      > to move it to the top, and <code>.ui-inline-start</code> or <code
+        >.ui-center</code
+      > to move it along the inline axis. The newest toast is always closest to the
+      edge.
+    </p>
+  </section>
+
   <ToastBuild slot="under-the-hood" />
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        The toaster is a polite live region. Use toasts for messages that can be
+        missed, and a <code>&lt;dialog&gt;</code> for anything that needs an answer.
+      </li>
+      <li>
+        Toasts pause while the toaster is hovered or has focus, so there is time
+        to read them and reach their buttons.
+      </li>
+      <li>
+        Only the three newest toasts are visible. Older ones are hidden until
+        there is room again.
+      </li>
+      <li>
+        While a modal <code>&lt;dialog&gt;</code> is open, the toaster moves into
+        it so its toasts are not inert.
+      </li>
+      <li>
+        With <code>--motion: 0</code>, toasts show and leave without animating.
+      </li>
+    </ul>
+  </Fragment>
 
   <Fragment slot="anatomy">
     <p>
-      1. Container (Manager)<br />
-      2. Individual Toast Body<br />
-      3. Content Area<br />
-      4. Close Button (Optional)
+      1. Toast<br />
+      2. Icon (optional)<br />
+      3. Content<br />
+      4. Buttons (optional)
     </p>
 
     <Example>
-      <div
-        class="anatomy-demo"
-        style="position: relative; inset: auto; display: flex; z-index: 1;"
-      >
-        <div class="ui-toast ui-info anatomy">
-          <div class="ui-content">Notification message content</div>
-          <button class="ui-close-button" aria-label="Close">
+      <div class="anatomy-demo">
+        <div class="ui-toast ui-success anatomy">
+          <div class="ui-content">
+            <p class="ui-title">Changes saved</p>
+            <p class="ui-description">Your profile is up to date.</p>
+          </div>
+          <button class="ui-button ui-rounded ui-small" aria-label="Dismiss">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
             >
+              <path
+                fill="currentColor"
+                d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+              ></path>
+            </svg>
           </button>
         </div>
       </div>
@@ -161,22 +221,17 @@ export const description =
 
     <style is:global>
       .anatomy-demo {
-        outline: var(--_anatomy-border-gray);
-        outline-offset: -2px;
+        inline-size: min(24rem, 100%);
 
         .ui-toast.anatomy {
           outline: var(--_anatomy-border-red);
           outline-offset: -4px;
-        }
 
-        .ui-content {
-          outline: var(--_anatomy-border-red);
-          outline-offset: 2px;
-        }
-
-        .ui-close-button {
-          outline: var(--_anatomy-border-red);
-          outline-offset: 2px;
+          .ui-button,
+          .ui-content {
+            outline: var(--_anatomy-border-red);
+            outline-offset: 2px;
+          }
         }
       }
     </style>

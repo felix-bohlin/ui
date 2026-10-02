@@ -12,6 +12,7 @@ Next release: 6.0.0 (major).
 - `Switch` takes `size="small"` instead of `small`, like `Checkbox`.
 - `ButtonGroup` variants apply to the whole group. A variant class on a single button inside a group is no longer supported.
 - `List` no longer takes `divided`. Use `bordered` (`.ui-bordered`) ([#395](https://github.com/felix-bohlin/ui/issues/395)).
+- `Toast` is rebuilt. The container is `.ui-toaster` (`id="toaster"`) instead of `#toast-manager`, and its `<template>` replaces `#toast-template` and the `data-toast-*` slots. `toast.js` exports `toast()` and `dismiss()` instead of `initToastManager()` and `window.showToast`, and sets itself up on import. Severities are classes (`.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning`) and the duration is `--toast-duration`.
 
 ### Removed
 
@@ -54,6 +55,10 @@ Next release: 6.0.0 (major).
 - `theme.css` re-derives every color token (`--primary`, `--surface-*`, `--text-*`, `--border-color`, `--field-border-color` and the named and intent colors) inside `.ui-palette` from its own palette. A subtree with `class="ui-palette" style="--palette-hue: 30"` is a complete second theme.
 - `theme.css` adds `--density`, a multiplier for `--control-size-x-small`, `--control-size-small`, `--control-size` and `--control-size-large`. Defaults to `1`. `Button`, `Select`, `Textarea` and `TextField` padding shrinks to fit a smaller control size, down to the height of the text.
 - `Carousel` takes `orientation="vertical"` (`.ui-vertical`) to scroll on the block axis. Set its height with `--_block-size`. Markers sit in a column beside the items.
+- `Toast` lifecycle in CSS: toasts enter, stack, count down, pause while the toaster is hovered or focused, and leave without JavaScript timers. Only the three newest are visible. Toasts rendered inside the toaster work without JavaScript.
+- `Toast` triggers with Invoker Commands: `command="--show-toast"` on the toaster (with `data-title`, `data-description`, `data-severity`, `data-duration`, `data-persistent`) or on any `<template>`, and `command="--dismiss-toast"`.
+- `Toast` positions on the toaster (`.ui-block-start`, `.ui-inline-start`, `.ui-center`) and `.ui-persistent` toasts.
+- `toast.js` moves the toaster into an open modal `dialog` so its toasts stay interactive.
 
 ### Changed
 

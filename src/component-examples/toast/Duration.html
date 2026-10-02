@@ -1,19 +1,29 @@
 <button
   class="ui-button"
-  commandfor="toast-manager"
+  commandfor="toaster"
   command="--show-toast"
+  data-duration="1.5s"
   data-title="I disappear quickly"
-  data-duration="1500ms"
 >
-  1.5s Toast
+  1.5s
 </button>
 
 <button
   class="ui-button"
-  commandfor="toast-manager"
+  commandfor="toaster"
   command="--show-toast"
-  data-title="I stay for a while"
   data-duration="10s"
+  data-title="I stay for a while"
 >
-  10s Toast
+  10s
+</button>
+
+<button
+  class="ui-button"
+  commandfor="toaster"
+  command="--show-toast"
+  data-persistent
+  data-title="I stay until dismissed"
+>
+  Persistent
 </button>

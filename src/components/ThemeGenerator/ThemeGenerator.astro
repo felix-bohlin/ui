@@ -575,6 +575,7 @@ const previewStyle = Object.entries(tokenDefaults("light"))
     type ModeConfig,
     type Token,
   } from "../../utils/theme-store"
+  import { toast } from "@opui/css/js/toast.js"
   import { generateCss } from "./generateCss"
   import { hexToOklch, oklchToHex } from "../../utils/color-utils"
 
@@ -815,17 +816,15 @@ const previewStyle = Object.entries(tokenDefaults("light"))
   copyBtn?.addEventListener("click", async () => {
     try {
       await navigator.clipboard.writeText(generatedCss)
-      ;(window as any).showToast?.({
-        title: "Copied theme.css",
+      toast("Copied theme.css", {
         description: "Paste it into your project's stylesheet.",
         duration: "3s",
       })
     } catch {
-      ;(window as any).showToast?.({
-        title: "Copy failed",
+      toast("Copy failed", {
         description: "Your browser blocked clipboard access.",
-        severity: "error",
         duration: "4s",
+        severity: "critical",
       })
     }
   })

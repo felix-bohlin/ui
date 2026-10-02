@@ -455,6 +455,12 @@ export const references = {
     { code: true, href: mdn("Web/CSS/resize"), label: "resize" },
   ],
   toast: [
+    { code: true, href: mdn("Web/CSS/@property"), label: "@property" },
+    {
+      code: true,
+      href: mdn("Web/CSS/@starting-style"),
+      label: "@starting-style",
+    },
     { code: true, href: mdn("Web/HTML/Element/template"), label: "<template>" },
     {
       code: true,
@@ -466,12 +472,13 @@ export const references = {
       href: mdn("Web/CSS/animation-play-state"),
       label: "animation-play-state",
     },
+    { code: true, href: mdn("Web/CSS/calc-size"), label: "calc-size()" },
     {
-      code: true,
-      href: mdn("Web/API/Element/animationend_event"),
-      label: "animationend",
+      code: false,
+      href: mdn("Web/API/Invoker_Commands_API"),
+      label: "Invoker Commands API",
     },
-    { code: true, href: mdn("Web/CSS/attr"), label: "attr()" },
+    { code: false, href: mdn("Web/API/Popover_API"), label: "Popover API" },
   ],
   tooltip: [
     { code: true, href: mdn("Web/CSS/@position-try"), label: "@position-try" },

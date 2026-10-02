@@ -6,198 +6,268 @@ This is in no way finished, just an idea put out in the open.
 
 ## How it works
 
-Toasts are managed by a global container. Trigger them either completely with HTML (using [invoker commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API)) or with JavaScript.
+A toast is a plain element. Put it in the toaster and CSS does the rest: it enters, stacks, counts down, pauses while the toaster is hovered or focused, and leaves. `toast.js` only puts toasts in the toaster and removes them once they are gone.
 
-Structure lives in HTML via a default `<template id="toast-template">`. CSS owns the lifetime through `attr(data-duration type(<time>))`. JS only clones the template, fills the structural slots (`[data-toast-title]`, `[data-toast-description]`, `[data-toast-icon]`, `[data-toast-close]`) using `textContent`, and removes the toast on `animationend`. Provide your own `<template>` with the same slot markers and reference it via `data-template` on the trigger to override the default look.
+### Toaster
+
+Add the toaster once, at the end of `<body>`. It is a `popover="manual"` so it sits in the top layer, and a polite live region so new toasts are announced. Its `<template>` is the default toast, with `.ui-title` and `.ui-description` as slots. Without a toaster, `toast.js` creates a plain one.
+
+```html
+<section
+  aria-label="Notifications"
+  aria-live="polite"
+  class="ui-toaster"
+  id="toaster"
+  popover="manual"
+>
+  <template>
+    <div class="ui-toast">
+      <div class="ui-content">
+        <p class="ui-title"></p>
+        <p class="ui-description"></p>
+      </div>
+      <button
+        aria-label="Dismiss"
+        class="ui-button ui-rounded ui-small"
+        command="--dismiss-toast"
+        commandfor="toaster"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+          />
+        </svg>
+      </button>
+    </div>
+  </template>
+</section>
+
+
+<script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/opui-css/css/js/toast.js"
+></script>
+```
 
 ### HTML
 
-Use `commandfor="toast-manager"` and `command="--show-toast"` on a button. The `data-title` attribute will be used as the message.
+Point a button at the toaster with `commandfor="toaster"` and `command="--show-toast"`. `data-title`, `data-description`, `data-severity`, `data-duration` and `data-persistent` fill in the default toast.
 
 ```html
 <button
   class="ui-button"
-  commandfor="toast-manager"
+  commandfor="toaster"
   command="--show-toast"
-  data-title="Default Notification"
+  data-title="Changes saved"
 >
-  Show Default Toast
+  Save
 </button>
 ```
 
 ### JavaScript
 
-This is arguably the most common way. After some kind of fetch you might want to display some kind of message.
-
-Use the `showToast` helper or by dispatching a `CommandEvent`.
+`toast()` takes a title, a `<template>` or an element, and the same options as the data attributes. It returns the toast, so `dismiss()` can remove it later, such as a loading toast once the work is done.
 
 ```js
-// Using the helper
-window.showToast({
-  title: "Triggered from JS!",
-  description: "With an optional description",
-  severity: "success",
-  duration: "3000ms",
-})
+import { dismiss, toast } from "opui-css/css/js/toast.js"
 
 
-// Or using native CommandEvent
-const btn = document.createElement("button")
-btn.setAttribute("data-title", "Triggered from JS!")
-btn.setAttribute("data-description", "With an optional description")
-btn.setAttribute("data-severity", "success")
-btn.setAttribute("data-duration", "3000ms")
-document.getElementById("toast-manager").dispatchEvent(
-  new CommandEvent("command", {
-    command: "--show-toast",
-    source: btn,
-  }),
-)
+const saving = toast("Saving…", { persistent: true })
+
+
+try {
+  await save()
+  toast("Changes saved", { severity: "success" })
+} catch (error) {
+  toast("Couldn't save", { description: error.message, severity: "critical" })
+} finally {
+  dismiss(saving)
+}
+```
+
+### Server
+
+Toasts rendered inside the toaster show, count down and leave on page load without any JavaScript, such as a message after a form redirect.
+
+```html
+<section
+  aria-label="Notifications"
+  aria-live="polite"
+  class="ui-toaster"
+  id="toaster"
+  popover="manual"
+>
+  <div class="ui-toast ui-success">Welcome back, Ada</div>
+</section>
+```
+
+## Actions
+
+Point the button at a `<template>` instead to show any markup. A button with `commandfor="toaster"` and `command="--dismiss-toast"` dismisses the toast it is in. Outside a toast, it dismisses them all.
+
+```html
+<button class="ui-button" commandfor="toast-archived" command="--show-toast">
+  Archive
+</button>
+
+
+<template id="toast-archived">
+  <div class="ui-toast">
+    <div class="ui-content">Conversation archived</div>
+    <button
+      class="ui-button ui-small"
+      commandfor="toaster"
+      command="--dismiss-toast"
+    >
+      Undo
+    </button>
+  </div>
+</template>
 ```
 
 ## Severities
 
-Use the `data-severity` attribute to change the appearance of the toast.
+Add `.ui-info`, `.ui-success`, `.ui-warning` or `.ui-critical` to the toast for a colored icon. Outside a toaster, a toast renders in place.
 
 ```html
-<button
-  class="ui-button ui-filled green"
-  commandfor="toast-manager"
-  command="--show-toast"
-  data-title="Success!"
-  data-severity="success"
->
-  Success
-</button>
-
-
-<button
-  class="ui-button ui-filled red"
-  commandfor="toast-manager"
-  command="--show-toast"
-  data-title="Something went wrong"
-  data-severity="critical"
->
-  Error
-</button>
-
-
-<button
-  class="ui-button ui-filled blue"
-  commandfor="toast-manager"
-  command="--show-toast"
-  data-title="Did you know?"
-  data-severity="info"
->
-  Info
-</button>
+<div class="ui-toast ui-info">A new version is available</div>
+<div class="ui-toast ui-success">Changes saved</div>
+<div class="ui-toast ui-warning">Your session expires in 5 minutes</div>
+<div class="ui-toast ui-critical">Couldn't reach the server</div>
 ```
 
 ## Title + description
 
-Use `data-title` for a single-line toast, or add `data-description` for a two-line toast with additional context.
-
 ```html
-<button
-  class="ui-button"
-  commandfor="toast-manager"
-  command="--show-toast"
-  data-title="Title only"
->
-  Title only
-</button>
+<div class="ui-toast">
+  <div class="ui-content">
+    <p class="ui-title">Title only</p>
+  </div>
+</div>
 
 
-<button
-  class="ui-button"
-  commandfor="toast-manager"
-  command="--show-toast"
-  data-title="Title with description"
-  data-description="This is additional context information"
->
-  Title + description
-</button>
+<div class="ui-toast">
+  <div class="ui-content">
+    <p class="ui-title">Title with description</p>
+    <p class="ui-description">This is additional context information</p>
+  </div>
+</div>
 ```
 
 ## Duration
 
-Control how long the toast stays visible using `data-duration`. Supports CSS time units such as `ms` or `s`.
+Set `--toast-duration` on a toast, or on the toaster for all of them. It defaults to `5s`. `.ui-persistent` toasts stay until they are dismissed.
 
 ```html
 <button
   class="ui-button"
-  commandfor="toast-manager"
+  commandfor="toaster"
   command="--show-toast"
+  data-duration="1.5s"
   data-title="I disappear quickly"
-  data-duration="1500ms"
 >
-  1.5s Toast
+  1.5s
 </button>
 
 
 <button
   class="ui-button"
-  commandfor="toast-manager"
+  commandfor="toaster"
   command="--show-toast"
-  data-title="I stay for a while"
   data-duration="10s"
+  data-title="I stay for a while"
 >
-  10s Toast
+  10s
+</button>
+
+
+<button
+  class="ui-button"
+  commandfor="toaster"
+  command="--show-toast"
+  data-persistent
+  data-title="I stay until dismissed"
+>
+  Persistent
 </button>
 ```
 
+## Position
+
+The toaster sits at the bottom end of the screen. Add `.ui-block-start` to move it to the top, and `.ui-inline-start` or `.ui-center` to move it along the inline axis. The newest toast is always closest to the edge.
+
+## Accessibility
+
+- The toaster is a polite live region. Use toasts for messages that can be missed, and a `<dialog>` for anything that needs an answer.
+- Toasts pause while the toaster is hovered or has focus, so there is time to read them and reach their buttons.
+- Only the three newest toasts are visible. Older ones are hidden until there is room again.
+- While a modal `<dialog>` is open, the toaster moves into it so its toasts are not inert.
+- With `--motion: 0`, toasts show and leave without animating.
+
 ## Anatomy
 
-1\. Container (Manager)\
-2\. Individual Toast Body\
-3\. Content Area\
-4\. Close Button (Optional)
+1\. Toast\
+2\. Icon (optional)\
+3\. Content\
+4\. Buttons (optional)
 
 ## API
 
-| Type          | Modifiers               | Default  | Description                                                                     |
-| ------------- | ----------------------- | -------- | ------------------------------------------------------------------------------- |
-| **Command**   | `--show-toast`          | -        | Custom invoker command to trigger a toast notification.                         |
-| **Message**   | `value` / `textContent` | -        | The message to display in the toast.                                            |
-| **Severity**  | `data-severity`         | `info`   | Modifies the toast appearance. Options: `success`, `critical`, `info`.          |
-| **Duration**  | `data-duration`         | `5000ms` | Determines how long the toast remains visible. Supports CSS time units (ms, s). |
-| **Container** | `#toast-manager`        | -        | The global fixed container that manages the stack of toasts.                    |
-| **Component** | `.ui-toast`             | -        | Individual notification element within the container.                           |
+| Type           | Modifiers                                                                             | Default | Description                                                                              |
+| -------------- | ------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+| **Part**       | `.ui-toaster`                                                                         | -       | The fixed, top layer container. Needs `popover="manual"` and `id="toaster"`.             |
+| **Positions**  | default, `.ui-block-start`, `.ui-inline-start`, `.ui-center`                          | default | Where the toaster sits. Set on `.ui-toaster`.                                            |
+| **Part**       | `.ui-toast`                                                                           | -       | A toast. Lives while it is inside the toaster.                                           |
+| **Children**   | `.ui-content`, `.ui-title`, `.ui-description`                                         | -       | Optional child content.                                                                  |
+| **Severities** | `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-critical`                              | -       | Adds a colored icon.                                                                     |
+| **Duration**   | `--toast-duration`                                                                    | `5s`    | How long the toast stays. Set on a toast or the toaster.                                 |
+| **Persistent** | `.ui-persistent`                                                                      | -       | The toast stays until it is dismissed.                                                   |
+| **Command**    | `--show-toast`                                                                        | -       | Shows the `<template>` or toaster that `commandfor` points to.                           |
+| **Command**    | `--dismiss-toast`                                                                     | -       | Dismisses the toast the button is in, or all toasts. `commandfor` points to the toaster. |
+| **Data**       | `data-title`, `data-description`, `data-severity`, `data-duration`, `data-persistent` | -       | Fill in the toast that `--show-toast` shows.                                             |
 
 ## Under the hood
 
 1. Stack
 
-   - Custom commands start with `--` and fire a `command` event on the stack
-   - A few lines of JS clone the `<template>` and fill it with `textContent`
-   - `column-reverse` puts the newest on top
+   - A toast is a plain element in the toaster, a manual popover in the top layer
+   - Custom commands start with `--`. A few lines of JS clone the `<template>` and fill it with `textContent`
+   - The newest toast is last, closest to the edge
    - Nothing removes them yet
 
-2. Lifetime
+2. Presence
 
-   - Three animations in a row: enter, hold, exit
-   - `hold` changes nothing, it only takes time
-   - `attr(data-duration type(<time>))` reads the lifetime from HTML
-   - JS removes the toast on `animationend`, no `setTimeout`
+   - One registered number says how present a toast is: `0` is gone, `1` is here
+   - Opacity, slide, margins and height all derive from it, so one transition animates them all
+   - `@starting-style` starts new toasts at `0`
+   - `calc-size()` grows the height from `0`, so the stack makes room instead of jumping
 
-3. Pause
+3. Lifetime
 
-   - Hover or focus a toast to stop its clock
-   - Close adds `.exiting`, which swaps the chain for the exit animation alone
+   - The lifetime is the delay of the exit animation, no `setTimeout`
+   - Hover or focus the stack to stop every clock
+   - JS removes the toast on `animationend`
 
-4. Icons
+4. Leave
 
-   - One empty `<span>`: `background-color` paints it, `mask-image` cuts out the shape
-   - `oklch(from currentColor l c h / 75%)` fades the description, whatever the text color
+   - Close sets `hidden`, and `--presence` transitions back to `0`
+   - Only the three newest show. Older ones collapse and come back when there is room
 
 Step 1 of 4: Stack
 
 - [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [Popover](https://webstatus.dev/features/popover) (Newly available): Chrome 116+, Edge 116+, Firefox 125+, Safari 17+
 - [\<template>](https://webstatus.dev/features/template) (Widely available): Chrome 26+, Edge 13+, Firefox 22+, Safari 8+
 
 ```html
 <button
-  commandfor="stack"
+  commandfor="toaster"
   command="--show-toast"
   data-title="Draft saved"
 >
@@ -205,103 +275,102 @@ Step 1 of 4: Stack
 </button>
 
 
-<output class="stack" id="stack" role="status"></output>
-
-
-<template id="toast-template">
-  <div class="toast" role="alert">…</div>
-</template>
+<section class="toaster" id="toaster" popover="manual" aria-live="polite">
+  <template>
+    <div class="toast">…</div>
+  </template>
+</section>
 ```
 
 ```css
 .stack {
   display: flex;
-  flex-direction: column-reverse;
-  gap: 0.75rem;
+  flex-direction: column;
+  justify-content: end;
 }
 
 
 .toast {
   align-items: center;
-  background-color: var(--surface-inverse);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-2);
-  box-shadow: var(--shadow-3);
-  color: var(--text-primary-contrast);
+  box-shadow: var(--shadow-4);
   display: flex;
   gap: 0.75rem;
-  justify-content: space-between;
-  min-inline-size: 30ch;
+  margin-block: 0.375rem;
   padding: 0.75rem 1rem;
 }
 ```
 
-Step 2 of 4: Lifetime
+Step 2 of 4: Presence
 
-- [`Animations (CSS)`](https://webstatus.dev/features/animations-css) (Widely available): Chrome 43+, Edge 12+, Firefox 16+, Safari 9+
-- [`attr()`](https://webstatus.dev/features/attr) (Limited availability): Chrome 133+, Edge 133+, Firefox 119+, Safari 18.4+
+- [`calc-size()`](https://webstatus.dev/features/calc-size) (Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
+- [Registered custom properties](https://webstatus.dev/features/registered-custom-properties) (Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
+- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
 
 ```css
+@property --presence {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+
 .toast {
-  animation:
-    build-toast-enter 0.3s both,
-    build-toast-hold attr(data-duration type(<time>), 5s) linear both,
-    build-toast-exit 0.3s both;
-  animation-delay:
-    0s,
-    0.3s,
-    calc(0.3s + attr(data-duration type(<time>), 5s));
+  block-size: calc-size(auto, size * var(--presence));
+  margin-block: calc(0.375rem * var(--presence));
+  opacity: var(--presence);
+  overflow: clip;
+  padding-block: calc(0.75rem * var(--presence));
+  transition: --presence 0.3s;
+  translate: 0 calc(1rem * (1 - var(--presence)));
+
+
+  @starting-style {
+    --presence: 0;
+  }
 }
 ```
 
-Step 3 of 4: Pause
+Step 3 of 4: Lifetime
 
+- [`Animations (CSS)`](https://webstatus.dev/features/animations-css) (Widely available): Chrome 43+, Edge 12+, Firefox 16+, Safari 9+
 - [`:focus-within`](https://webstatus.dev/features/focus-within) (Widely available): Chrome 60+, Edge 79+, Firefox 52+, Safari 10.1+
 
 ```css
-.toast:hover,
-.toast:focus-within {
+.toast {
+  animation: build-toast-expire 0.2s var(--duration, 5s) forwards;
+}
+
+
+.stack:is(:hover, :focus-within) .toast {
   animation-play-state: paused;
 }
 
 
-.toast.exiting {
-  animation: build-toast-exit 0.3s forwards;
+@keyframes build-toast-expire {
+  to {
+    --presence: 0;
+    visibility: hidden;
+  }
 }
 ```
 
-Step 4 of 4: Icons
+Step 4 of 4: Leave
 
-- [Masks](https://webstatus.dev/features/masks) (Widely available): Chrome 120+, Edge 120+, Firefox 53+, Safari 15.4+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [`:nth-child() of <selector>`](https://webstatus.dev/features/nth-child-of) (Widely available): Chrome 111+, Edge 111+, Firefox 113+, Safari 9+
 
 ```css
-.toast .icon {
-  block-size: 1.25rem;
-  flex-shrink: 0;
-  inline-size: 1.25rem;
-  mask: center / contain no-repeat;
+.toast[hidden],
+.toast:nth-last-child(n + 4 of .toast:not([hidden])) {
+  --presence: 0;
+  visibility: hidden;
 }
 
 
-.toast:not([data-severity]) .icon {
-  display: none;
-}
-
-
-.toast[data-severity="success"] .icon {
-  background-color: var(--success);
-  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><path d='m9 11 3 3L22 4'/></svg>");
-}
-
-
-.toast[data-severity="critical"] .icon {
-  background-color: var(--critical);
-  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>");
-}
-
-
-.toast .description {
-  color: oklch(from currentColor l c h / 75%);
+.toast[hidden] {
+  animation: none;
 }
 ```
 
@@ -316,4 +385,5 @@ Explore these features in the [browser support guide](https://open-props-ui.netl
 ## Installation
 
 - `opui-css/css/components/toast.css`
+`toast.js`
 

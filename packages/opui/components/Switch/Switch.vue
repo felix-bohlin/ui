@@ -20,8 +20,8 @@ const endTextId = useId()
   <label
     :class="[
       'ui-switch',
+      props.size && `ui-${props.size}`,
       {
-        'ui-small': props.small,
         'ui-stack': props.stack,
         'ui-spread': props.spread,
       },

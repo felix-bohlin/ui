@@ -1,4 +1,5 @@
 ---
+import { Code } from "astro-expressive-code/components"
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
@@ -16,7 +17,7 @@ import Conditional from "../../components/Conditional.astro"
 <Component
   slug="checkbox"
   heroAnatomy
-  browserSupport={["has"]}
+  browserSupport={["has", "text-box"]}
   apis={[
     { title: "Checkbox API", api: checkboxApi },
     { title: "Field group API", api: fieldGroupApi },
@@ -198,6 +199,18 @@ import Conditional from "../../components/Conditional.astro"
   <section>
     <h2 id="sizes">Sizes</h2>
     <AutoExample name="Sizes" column centered spacious />
+  </section>
+
+  <section>
+    <h2 id="label-alignment">Label alignment</h2>
+    <p>
+      The checkbox lines up with the first line of its label and centers on the
+      label's capital letters, so it looks centered in any font and at any size.
+      If a font still looks off, nudge the label with
+      <code>--choice-label-offset</code>, in <code>em</code> or
+      <code>cap</code> so it scales with the label.
+    </p>
+    <Code lang="css" code={`:root {\n  --choice-label-offset: 0.05em;\n}`} />
   </section>
 
   <section>

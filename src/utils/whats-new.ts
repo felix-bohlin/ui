@@ -46,14 +46,32 @@ const whatsNew = {
       html: `<a href="#persistent-buttons">Persistent buttons</a> with <code>.ui-buttons-persistent</code>.`,
     },
   ],
+  checkbox: [
+    `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
+  ],
+  chip: [
+    {
+      default: `<a href="#sizes">Large</a> size with <code>size="large"</code>, and small chips are 28px to match the control sizes.`,
+      html: `<a href="#sizes">Large</a> size with <code>.ui-large</code>, and small chips are 28px to match the control sizes.`,
+    },
+  ],
   menu: [
     `New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.`,
+  ],
+  radio: [
+    `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
   ],
   select: [
     {
       default: `<a href="#sizes">X-small and large</a> sizes with the <code>size</code> prop.`,
       html: `<a href="#sizes">X-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
     },
+  ],
+  switch: [
+    {
+      default: `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
+    },
+    `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
   ],
   tabs: [
     `Restyled as a segmented control.`,

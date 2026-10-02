@@ -15,6 +15,11 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--button-size-small": "`Button` height with `.ui-small`.",
   "--button-size-x-small":
     "`Button` and `IconButton` height with `.ui-x-small`.",
+  "--chip-size": "Default `Chip` height.",
+  "--chip-size-large": "`Chip` height with `.ui-large`.",
+  "--chip-size-small": "`Chip` height with `.ui-small`.",
+  "--choice-label-offset":
+    "Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.",
   "--choice-size": "Default `Checkbox` and `Radio` input size.",
   "--choice-size-large": "`Checkbox` and `Radio` input size with `.ui-large`.",
   "--choice-size-small":
@@ -78,7 +83,9 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--icon-size-large": "Icon size inside `IconButton`, `Avatar` and `List`.",
   "--icon-size-small": "Icon size inside `Chip`.",
   "--info": "Severity color for informational messages.",
-  "--invalid-color": "Color for invalid fields and validation messages.",
+  "--invalid-color": "Color for invalid field borders, fills and outlines.",
+  "--invalid-text-color":
+    "Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.",
   "--motion":
     "Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`.",
   "--neutral": "Severity color for neutral messages.",

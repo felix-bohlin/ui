@@ -6,6 +6,7 @@
 
 - `Accordion` markers only animate with a marker class on `details`. Add `.ui-marker-rotate` to keep the previous rotation.
 - `TextField` and `Textarea` take a `size` prop instead of `small`. Replace `small` with `size="small"`.
+- `Switch` takes `size="small"` instead of `small`, like `Checkbox`.
 
 ### Removed
 
@@ -29,7 +30,9 @@
 - `Tabs` take a `variant` prop. `filled` (`.ui-filled`) fills the selected tab with the primary color, `line` (`.ui-line`) drops the track and marks the selected tab with a line, and `outlined` (`.ui-outlined`) uses a bordered track without a background.
 - `layers.css` with the `@layer` order, for importing single component files.
 - The package ships an agent skill in `skills/opui` with a reference for every component.
-- `TextField`, `Textarea`, `Select` and `ClassicSelect` take `x-small` (`.ui-x-small`, 28px) and `large` (`.ui-large`, 46px) sizes, so every field size has a matching `Button` size. X-small fields use `--font-size-05` text.
+- `TextField`, `Textarea`, `Select` and `ClassicSelect` take `x-small` (`.ui-x-small`, 28px) and `large` (`.ui-large`, 46px) sizes, so every field size has a matching `Button` size.
+- `Chip` takes a `large` size (`.ui-large`, 40px) for chips next to default-size fields and buttons. Chip heights come from `--chip-size-small`, `--chip-size` and `--chip-size-large`, which follow the control size scale.
+- `theme.css` adds `--choice-label-offset` to nudge `Checkbox`, `Radio` and `Switch` labels against their control for fonts with unusual metrics, and `--invalid-text-color` for validation messages.
 - `ToggleButton` and `ToggleGroup` take a `large` size (`.ui-large`), and `ButtonGroup` takes `x-small` (`.ui-x-small`).
 - `Typography` reads a `--rhythm-step` theme token (`0.25rem`). Heading font sizes snap to half a step and heading line heights to a full step with `round()`.
 - `Typography` rich text styles `hr`, tables, `pre > samp` and preformatted text without `code`.
@@ -60,6 +63,9 @@
 - `Radio` is `--choice-size` (20px) like `Checkbox`, instead of 18px.
 - `ButtonGroup` small buttons are `--button-size-small` (32px) instead of 30px, with the same `--font-size-05` text as a small `Button`.
 - `ToggleButton` and `ToggleGroup` text shrinks with the size like `Button`: `--font-size-05` when small and `--font-size-0` when x-small.
+- `Checkbox`, `Radio` and `Switch` line up with the first line of their label, and center on its capital letters instead of the line box, so the control looks centered in any font and at any size. Browsers without `text-box` center on the first line box.
+- `Chip` small is `--chip-size-small` (28px, the x-small control size) instead of 24px.
+- `Textarea` minimum height is three lines plus padding at every size. Small was a fixed 64px.
 - `Range`, `Switch` and `TextField` invalid states use `--invalid-color`.
 - `Toast` severity icons are masks filled with `--success`, `--info`, `--warning` and `--critical` instead of hardcoded hex colors.
 - `Tooltip` uses `--surface-inverse` and `--text-inverse`.
@@ -106,6 +112,11 @@
 - `ToggleButton` only grows inside a `ToggleGroup`. On its own in a flex container it stretched to fill the row.
 - `Range` with `spread` (`.ui-spread`) collapses to a column when narrower than 400px, like `TextField`. The container query had no container, so it never applied, and the slider's minimum width could push its parent wider.
 - `ClassicSelect` truncates a long selected option with an ellipsis instead of clipping it.
+- `TextField` and `Select` without a label are as high as their field. The empty label row added 4px above it.
+- `TextField` prefix and suffix use the field line height, so they no longer make the field taller on pages with a large line height.
+- `Radio` large (`.ui-large`) uses `--choice-size-large`. It was the same size as the default.
+- `Select` and `ClassicSelect` keep their arrow and its space at the inline end in RTL. The arrow covered the text.
+- `Checkbox`, `Radio`, `Switch`, `Range`, `TextField`, `Textarea` and `Select` validation messages and invalid labels use `--invalid-text-color`, which is lighter in dark mode. They failed contrast on dark surfaces.
 - `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.
 - `Badge`, `Chip`, `Tabs` and `Toast` respect `--motion` and `prefers-reduced-motion`.
 - `dist/opui.components.css` starts with the `@layer` order statement.

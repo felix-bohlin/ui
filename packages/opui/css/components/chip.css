@@ -12,7 +12,7 @@
 
     /* Ripple effect */
     background-position: center;
-    block-size: var(--size-7);
+    block-size: var(--chip-size);
     border: var(--border-width) solid var(--_border-color);
     border-radius: var(--border-radius);
     color: var(--_color);
@@ -62,7 +62,25 @@
 
     /* Sizes */
     &.ui-small {
-      block-size: var(--size-5);
+      block-size: var(--chip-size-small);
+    }
+
+    &.ui-large {
+      block-size: var(--chip-size-large);
+      font-size: var(--font-size-05);
+      padding-inline: var(--size-3);
+
+      &:has(svg:first-child) {
+        padding-inline: var(--size-2) var(--size-3);
+      }
+
+      &:has(svg:last-child) {
+        padding-inline: var(--size-3) var(--size-2);
+      }
+
+      svg {
+        inline-size: var(--icon-size);
+      }
     }
 
     &.ui-multiline {

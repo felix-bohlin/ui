@@ -1,4 +1,5 @@
 ---
+import { Code } from "astro-expressive-code/components"
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import { Switch as UISwitch } from "@opui/astro"
@@ -15,7 +16,7 @@ import Conditional from "../../components/Conditional.astro"
 
 <Component
   slug="switch"
-  browserSupport={["has", "light-dark"]}
+  browserSupport={["has", "light-dark", "text-box"]}
   heroAnatomy
   apis={[
     { title: "Switch API", api: switchApi },
@@ -146,7 +147,7 @@ import Conditional from "../../components/Conditional.astro"
     <h2 id="sizes">Sizes</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Set the <code>small</code> prop for a smaller Switch variant.
+        Set <code>size="small"</code> for a smaller Switch variant.
       </Fragment>
       <Fragment slot="html">
         Add the <code>.ui-small</code> class on the <code
@@ -155,11 +156,23 @@ import Conditional from "../../components/Conditional.astro"
         {" "}for a smaller Switch variant.
       </Fragment>
       <Fragment slot="vue">
-        Set the <code>small</code> prop for a smaller Switch variant.
+        Set <code>size="small"</code> for a smaller Switch variant.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Sizes" column centered spacious />
+  </section>
+
+  <section>
+    <h2 id="label-alignment">Label alignment</h2>
+    <p>
+      The switch lines up with the first line of its label and centers on the
+      label's capital letters, so it looks centered in any font and at any size.
+      If a font still looks off, nudge the label with
+      <code>--choice-label-offset</code>, in <code>em</code> or
+      <code>cap</code> so it scales with the label.
+    </p>
+    <Code lang="css" code={`:root {\n  --choice-label-offset: 0.05em;\n}`} />
   </section>
 
   <section>

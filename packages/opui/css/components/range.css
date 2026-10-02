@@ -198,7 +198,7 @@
       .ui-start-text,
       .ui-end-text,
       .ui-value {
-        color: var(--invalid-color);
+        color: var(--invalid-text-color);
       }
     }
 

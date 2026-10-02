@@ -13,10 +13,16 @@ import source from "../../../TODO.md?raw"
 
 export function getStaticPaths() {
   if (!process.env.OPUI_TEST_PAGES && !import.meta.env.DEV) return []
-  return [{ params: { index: undefined } }]
+  return [{ params: { index: undefined } }, { params: { index: "done" } }]
 }
 
-const { intro, sections } = parseTodo(source)
+const showDone = Astro.params.index === "done"
+const { done, intro, sections: open } = parseTodo(source)
+const sections = showDone ? done : open
+const doneCount = done.reduce(
+  (total, section) => total + section.items.length,
+  0,
+)
 const inline = (text: string) =>
   splitInlineCode(text).flatMap((part) =>
     part.code
@@ -83,15 +89,34 @@ const count = sections.reduce(
 ---
 
 <Document
-  description="Comment on the todos in TODO.md and copy them with your comments."
+  description={showDone
+    ? "Check the fixed todos in TODO.md against their examples."
+    : "Comment on the todos in TODO.md and copy them with your comments."}
   showToc
 >
-  <Fragment slot="title">TODO</Fragment>
-  <p slot="preamble">
-    {count} open todos from <code>TODO.md</code>. Comment on any of them, then
-    copy the todos with your comments at the bottom of the page. Comments are
-    saved in this browser.
-  </p>
+  <Fragment slot="title">{showDone ? "Done" : "TODO"}</Fragment>
+  {
+    showDone ? (
+      <p slot="preamble">
+        {count} fixed todos from <code>TODO.md</code>. Open the examples to
+        check each fix, and comment on any that need another look. Back to the{" "}
+        <a class="ui-link" href="/todo/">
+          open todos
+        </a>
+        .
+      </p>
+    ) : (
+      <p slot="preamble">
+        {count} open todos from <code>TODO.md</code>. Comment on any of them,
+        then copy the todos with your comments at the bottom of the page.
+        Comments are saved in this browser. The {doneCount} fixed todos are on{" "}
+        <a class="ui-link" href="/todo/done/">
+          Done
+        </a>
+        .
+      </p>
+    )
+  }
 
   {
     intro.map((paragraph) => (

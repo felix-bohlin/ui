@@ -50,6 +50,27 @@ describe("parseTodo", () => {
     ])
   })
 
+  test("collects done items separately", () => {
+    const { done } = parseTodo(
+      ["## Bugs", "", "- [] Open", "- [x] (3) Fixed", "  - Note"].join("\n"),
+    )
+
+    expect(done).toEqual([
+      {
+        items: [
+          {
+            line: "- [x] (3) Fixed",
+            notes: [{ kind: "item", level: 0, text: "Note" }],
+            severity: 3,
+            status: "x",
+            text: "Fixed",
+          },
+        ],
+        title: "Bugs",
+      },
+    ])
+  })
+
   test("parses indented notes under an item", () => {
     const { sections } = parseTodo(
       [

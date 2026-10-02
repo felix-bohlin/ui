@@ -2,7 +2,10 @@
   :where(.ui-menu) {
     --_motion: var(--motion, 1);
     --_bg-color: var(--surface-elevated);
-    --_border-color: light-dark(var(--border-color), var(--gray-6));
+    --_border-color: light-dark(
+      var(--border-color),
+      oklch(from var(--gray-6) l c h / 40%)
+    );
     --_border-radius: var(--border-radius);
     --_border-width: var(--border-width);
     --_margin: var(--_offset) 0;

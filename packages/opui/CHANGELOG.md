@@ -86,7 +86,7 @@
 - `theme.css` declares `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma` so every theme knob lives in one file.
 - `Typography` rich text lives in a new `components.prose` layer, below `components.root`, so component styles inside rich text win over prose styles. The layer order is `openprops, theme, normalize, components.prose, components.root, components.extended, utils`.
 - `Card` tonal and elevated variants (and `Dialog`) have a border in the page background color, so they stay visible on tonal surfaces. In dark mode, borders and field borders inside them also use the page background.
-- `Menu` has a light gray border in dark mode.
+- `Menu` has a subtle light gray border in dark mode (`--gray-6` at 40% opacity).
 - `Dialog` has a maximum height. The header and actions stay in place and the content scrolls.
 - `Card` actions stick to the bottom of stretched cards and wrap.
 - `Chip` labels truncate with an ellipsis unless the chip is `multiline`.

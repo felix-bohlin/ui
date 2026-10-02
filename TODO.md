@@ -99,7 +99,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fixed: `.ui-mark` uses `Mark`/`MarkText` like `<mark>`. `.ui-del` and `.ui-ins` join `del`/`ins` in the palette and severity scopes (`palette.css`, `theme.css`). Their text uses `--color-11` in light mode and `--color-6` in dark mode, so `del`, `ins` and both classes pass contrast (the old `--color-9` failed). With the `components.prose` layer this also removed three color-contrast entries for the typography stress page from the a11y ledger.
 - [x] (6) A menu in a dialog blends into it in dark mode (`overlays` DialogNesting)
   > give it the same border treatment as the carousel prev/next buttons, ie a light gray border. that way it's consistent with the theme.
-  - Fixed: menus use a light gray border in dark mode (`light-dark(var(--border-color), var(--gray-6))`), in dialogs and everywhere else.
+  - Fixed: menus use a subtle light gray border in dark mode (`--gray-6` at 40% opacity), in dialogs and everywhere else.
 - [x] (6) Avatars shrink in flex rows (no `flex-shrink: 0`), and avatar group overflow counts like "+128" don't fit (`data-display` TableCellContent, InlineAlignment)
   > fix the avatar shrikage. don't worry about "+128", but if you have a scalable and elegant solution for it let me know.
   - Fixed: avatars have `flex-shrink: 0`.

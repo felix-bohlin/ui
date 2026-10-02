@@ -1,0 +1,1296 @@
+@layer components.extended {
+  :where(.ui-data-grid) {
+    --_motion: var(--motion, 1);
+    --_bg-color: var(--surface-default);
+    --_border-color: var(--border-color);
+    --_border-radius: var(--border-radius, var(--radius-2));
+    --_border-width: var(--border-width, 1px);
+    --_cell-padding-block: var(--size-2);
+    --_column-inline-size: 10rem;
+    --_cell-padding-inline: var(--size-3);
+    --_head-bg-color: color-mix(
+      in oklch,
+      var(--_bg-color),
+      var(--surface-filled) 40%
+    );
+    --_hover-bg-color: color-mix(
+      in oklch,
+      var(--_bg-color),
+      var(--text-primary) 5%
+    );
+    --_inline-direction: 1;
+    --_max-block-size: none;
+    --_pin-shadow-color: light-dark(oklch(0% 0 0 / 12%), oklch(0% 0 0 / 48%));
+    --_pin-shadow-size: var(--size-2);
+    --_row-bg-color: var(--_bg-color);
+    --_row-min-block-size: 3.25rem;
+    --_selected-bg-color: color-mix(
+      in oklch,
+      var(--_bg-color),
+      var(--primary) 12%
+    );
+    --_selected-hover-bg-color: color-mix(
+      in oklch,
+      var(--_bg-color),
+      var(--primary) 18%
+    );
+    --_sort-icon-size: 1.125rem;
+    --_track: minmax(max-content, 1fr);
+    --_transition-duration: calc(0.2s * var(--_motion));
+    --_utility-size: 3.25rem;
+
+    background-color: var(--_bg-color);
+    border: var(--_border-width) solid var(--_border-color);
+    border-radius: var(--_border-radius);
+    color: var(--text-primary);
+    container-type: inline-size;
+    display: grid;
+    font-size: var(--font-size-05);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    interpolate-size: allow-keywords;
+    isolation: isolate;
+    overflow: clip;
+
+    [role="table"] {
+      align-content: start;
+      container: ui-data-grid / scroll-state;
+      counter-reset: ui-data-grid-rows ui-data-grid-selected ui-data-grid-sum-1
+        ui-data-grid-sum-2 ui-data-grid-sum-3 ui-data-grid-sum-4
+        ui-data-grid-sum-5 ui-data-grid-sum-6 ui-data-grid-sum-7
+        ui-data-grid-sum-8 ui-data-grid-sum-9 ui-data-grid-sum-10
+        ui-data-grid-sum-11 ui-data-grid-sum-12;
+      display: grid;
+      grid-template-columns:
+        var(--_track-1,) var(--_track-2,) var(--_track-3,)
+        var(--_track-4,) var(--_track-5,) var(--_track-6,) var(--_track-7,)
+        var(--_track-8,) var(--_track-9,) var(--_track-10,) var(--_track-11,)
+        var(--_track-12,) var(--_track-filler,);
+      max-block-size: var(--_max-block-size);
+      overflow: auto;
+      overscroll-behavior-inline: contain;
+      position: relative;
+
+      &:focus-visible {
+        outline-offset: calc(-1 * var(--focus-ring-width, 2px));
+      }
+    }
+
+    :is(.ui-head, .ui-body, .ui-foot),
+    :is(.ui-head, .ui-body, .ui-foot) > [role="row"] {
+      display: grid;
+      grid-column: 1 / -1;
+      grid-template-columns: subgrid;
+    }
+
+    .ui-head {
+      border-block-end: var(--_border-width) solid var(--_border-color);
+      inset-block-start: 0;
+      position: sticky;
+      transition: box-shadow var(--_transition-duration) ease;
+      z-index: 2;
+
+      & > [role="row"] {
+        --_row-bg-color: var(--_head-bg-color);
+      }
+
+      @container ui-data-grid scroll-state(scrollable: block-start) {
+        box-shadow: 0 var(--_pin-shadow-size) var(--_pin-shadow-size)
+          calc(var(--_pin-shadow-size) * -1) var(--_pin-shadow-color);
+      }
+    }
+
+    .ui-body {
+      background-color: var(--_border-color);
+      reading-flow: grid-order;
+      row-gap: var(--_border-width);
+    }
+
+    .ui-foot {
+      border-block-start: var(--_border-width) solid var(--_border-color);
+      inset-block-end: 0;
+      position: sticky;
+      z-index: 2;
+
+      & > [role="row"] {
+        --_row-bg-color: var(--_head-bg-color);
+        font-weight: 600;
+      }
+    }
+
+    [role="row"] {
+      background-color: var(--_row-bg-color);
+      min-block-size: var(--_row-min-block-size);
+      transition: background-color var(--_transition-duration) ease;
+    }
+
+    .ui-body > [role="row"] {
+      counter-increment: ui-data-grid-rows ui-data-grid-sum-1 var(--_sum-1, 0)
+        ui-data-grid-sum-2 var(--_sum-2, 0) ui-data-grid-sum-3 var(--_sum-3, 0)
+        ui-data-grid-sum-4 var(--_sum-4, 0) ui-data-grid-sum-5 var(--_sum-5, 0)
+        ui-data-grid-sum-6 var(--_sum-6, 0) ui-data-grid-sum-7 var(--_sum-7, 0)
+        ui-data-grid-sum-8 var(--_sum-8, 0) ui-data-grid-sum-9 var(--_sum-9, 0)
+        ui-data-grid-sum-10 var(--_sum-10, 0) ui-data-grid-sum-11
+        var(--_sum-11, 0) ui-data-grid-sum-12 var(--_sum-12, 0);
+
+      &:has(> .ui-select :checked) {
+        --_row-bg-color: var(--_selected-bg-color);
+        counter-increment: ui-data-grid-rows ui-data-grid-selected
+          ui-data-grid-sum-1 var(--_sum-1, 0) ui-data-grid-sum-2
+          var(--_sum-2, 0) ui-data-grid-sum-3 var(--_sum-3, 0)
+          ui-data-grid-sum-4 var(--_sum-4, 0) ui-data-grid-sum-5
+          var(--_sum-5, 0) ui-data-grid-sum-6 var(--_sum-6, 0)
+          ui-data-grid-sum-7 var(--_sum-7, 0) ui-data-grid-sum-8
+          var(--_sum-8, 0) ui-data-grid-sum-9 var(--_sum-9, 0)
+          ui-data-grid-sum-10 var(--_sum-10, 0) ui-data-grid-sum-11
+          var(--_sum-11, 0) ui-data-grid-sum-12 var(--_sum-12, 0);
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          --_row-bg-color: var(--_hover-bg-color);
+        }
+
+        &:has(> .ui-select :checked):hover {
+          --_row-bg-color: var(--_selected-hover-bg-color);
+        }
+      }
+    }
+
+    [role="row"]
+      > :is([role="cell"], [role="columnheader"], [role="rowheader"]) {
+      align-content: center;
+      background-color: inherit;
+      min-inline-size: 0;
+      overflow: hidden;
+      padding: var(--_cell-padding-block) var(--_cell-padding-inline);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    [role="rowheader"] {
+      font-weight: 600;
+      text-align: start;
+    }
+
+    [role="columnheader"] {
+      align-items: center;
+      color: var(--text-primary);
+      display: flex;
+      font-weight: 600;
+      gap: var(--size-1);
+      text-align: start;
+
+      & > span:first-child {
+        flex: 0 1 auto;
+        min-inline-size: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &.ui-numeric {
+        flex-direction: row-reverse;
+        justify-content: flex-start;
+      }
+
+      & > .ui-button {
+        --_size: var(--button-size-x-small, 24px);
+        flex: none;
+        opacity: 0;
+        transition: opacity var(--_transition-duration) ease;
+      }
+
+      &:is(:hover, :focus-within) > .ui-button,
+      & > .ui-button:is(:focus-visible, :has(+ :popover-open)) {
+        opacity: 1;
+      }
+
+      @media (hover: none) {
+        & > .ui-button {
+          opacity: 1;
+        }
+      }
+    }
+
+    .ui-numeric {
+      font-variant-numeric: tabular-nums;
+      text-align: end;
+    }
+
+    .ui-sort {
+      display: inline-flex;
+      flex: none;
+
+      label {
+        block-size: var(--_sort-icon-size);
+        border-radius: var(--radius-round);
+        color: var(--text-muted);
+        cursor: pointer;
+        display: grid;
+        inline-size: var(--_sort-icon-size);
+        opacity: 0;
+        place-items: center;
+        transition:
+          color var(--_transition-duration) ease,
+          opacity var(--_transition-duration) ease;
+
+        &::before {
+          background-color: currentColor;
+          block-size: 100%;
+          content: "";
+          inline-size: 100%;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 4l-7 7 1.4 1.4 4.6-4.6V20h2V7.8l4.6 4.6L19 11z'/%3E%3C/svg%3E")
+            center / contain no-repeat;
+        }
+
+        &:has([value="desc"])::before {
+          rotate: 180deg;
+        }
+
+        &:hover {
+          color: var(--text-primary);
+        }
+
+        &:has(:checked) {
+          color: var(--primary);
+          opacity: 1;
+        }
+
+        &:has(:focus-visible) {
+          opacity: 1;
+          outline: var(--focus-ring-width, 2px) var(--focus-ring-style, solid)
+            var(--focus-ring-color, var(--primary));
+        }
+
+        input {
+          block-size: 1px;
+          clip-path: inset(50%);
+          inline-size: 1px;
+          margin: 0;
+          overflow: hidden;
+          position: absolute;
+          white-space: nowrap;
+        }
+      }
+
+      &:has(:checked) label:not(:has(:checked)) {
+        display: none;
+      }
+    }
+
+    [role="columnheader"]:hover .ui-sort label,
+    [role="columnheader"]:focus-within .ui-sort label {
+      opacity: 1;
+    }
+
+    @media (hover: none) {
+      .ui-sort label {
+        opacity: 1;
+      }
+    }
+
+    .ui-sort:has(:checked):hover label:not(:has(:checked)),
+    .ui-sort:has(:checked):focus-within label:not(:has(:checked)) {
+      display: grid;
+    }
+
+    :is(.ui-expand, .ui-select) {
+      display: grid;
+      padding-inline: 0;
+      place-items: center;
+      text-overflow: clip;
+    }
+
+    .ui-select .ui-checkbox {
+      margin: 0;
+    }
+
+    :is([role="cell"], [role="rowheader"]):has(
+      > .ui-avatar,
+      > .ui-button,
+      > .ui-chip
+    ) {
+      align-items: center;
+      display: flex;
+      gap: var(--size-2);
+    }
+
+    [role="cell"] > .ui-avatar,
+    [role="rowheader"] > .ui-avatar {
+      --_bg-color: var(--surface-tonal);
+      --_color: var(--text-primary);
+      --_width: var(--size-7);
+      flex: none;
+      font-size: var(--font-size-0);
+    }
+
+    [role="cell"] > .ui-progress {
+      inline-size: 100%;
+      min-inline-size: 6rem;
+    }
+
+    [role="cell"] > input:not([type="checkbox"], [type="radio"]) {
+      background-color: transparent;
+      border: 0;
+      border-radius: var(--radius-1);
+      color: inherit;
+      field-sizing: content;
+      font: inherit;
+      inline-size: 100%;
+      min-inline-size: 4ch;
+      padding: var(--size-1);
+      text-align: inherit;
+
+      &:hover {
+        background-color: oklch(from var(--text-primary) l c h / 6%);
+      }
+
+      &:focus-visible {
+        background-color: var(--surface-default);
+        outline: var(--focus-ring-width, 2px) var(--focus-ring-style, solid)
+          var(--focus-ring-color, var(--primary));
+        outline-offset: 0;
+      }
+
+      &:user-invalid {
+        color: var(--critical);
+        outline-color: var(--critical);
+      }
+    }
+
+    [role="cell"]:has(> input:not([type="checkbox"], [type="radio"])) {
+      padding-inline: calc(var(--_cell-padding-inline) - var(--size-1));
+    }
+
+    .ui-expand:has(> details) {
+      display: contents;
+    }
+
+    .ui-expand details {
+      background-color: inherit;
+      display: contents;
+
+      &::details-content {
+        block-size: 0;
+        grid-column: 1 / -1;
+        grid-row: 2;
+        overflow: clip;
+        transition:
+          block-size var(--_transition-duration) ease,
+          content-visibility var(--_transition-duration) allow-discrete;
+      }
+
+      &[open]::details-content {
+        block-size: auto;
+      }
+
+      summary {
+        --_hover-size: 0px;
+        background-color: inherit;
+        background-image: radial-gradient(
+          circle var(--_hover-size),
+          oklch(from var(--text-primary) l c h / 8%) 100%,
+          transparent 100%
+        );
+        cursor: pointer;
+        display: grid;
+        list-style: none;
+        place-items: center;
+
+        &::-webkit-details-marker {
+          display: none;
+        }
+
+        &::before {
+          background-color: currentColor;
+          block-size: 1.25rem;
+          content: "";
+          inline-size: 1.25rem;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.6 16.6 13.2 12 8.6 7.4 10 6l6 6-6 6z'/%3E%3C/svg%3E")
+            center / contain no-repeat;
+          transition: rotate var(--_transition-duration) ease;
+        }
+
+        &:dir(rtl)::before {
+          scale: -1 1;
+        }
+
+        &:hover {
+          --_hover-size: calc(var(--button-size-small, 32px) / 2);
+        }
+
+        &:focus-visible {
+          outline-offset: calc(var(--focus-ring-width, 2px) * -1);
+        }
+      }
+
+      &[open] summary::before {
+        rotate: 90deg;
+      }
+    }
+
+    [role="row"]:has(> .ui-expand details) {
+      grid-template-rows: auto;
+    }
+
+    .ui-detail {
+      background-color: var(--_bg-color);
+      border-block-start: var(--_border-width) dashed var(--_border-color);
+      box-sizing: border-box;
+      inset-inline-start: 0;
+      max-inline-size: 100cqi;
+      padding: var(--size-3) var(--_cell-padding-inline) var(--size-4)
+        var(--_utility-size);
+      position: sticky;
+      white-space: normal;
+    }
+
+    .ui-empty {
+      min-block-size: calc(var(--_row-min-block-size) * 3);
+
+      & > * {
+        color: var(--text-muted);
+        grid-column: 1 / -1;
+        text-align: center;
+        white-space: normal;
+      }
+    }
+
+    &:not(:has(.ui-body > [role="row"]:not(.ui-empty))) .ui-empty {
+      display: grid;
+    }
+
+    .ui-body > [role="row"].ui-empty {
+      counter-increment: none;
+      display: none;
+      order: 0;
+    }
+
+    &:has(.ui-filters input[value="selected"]:checked) {
+      .ui-body > [role="row"]:not(.ui-empty, :has(> .ui-select :checked)) {
+        display: none;
+      }
+
+      &:not(:has(.ui-body > [role="row"] > .ui-select :checked)) .ui-empty {
+        display: grid;
+      }
+    }
+
+    &:has(.ui-filters input[value="1"]:checked) {
+      .ui-body > [role="row"]:not(.ui-empty, [data-filters~="1"]) {
+        display: none;
+      }
+
+      &:not(:has(.ui-body > [role="row"][data-filters~="1"])) .ui-empty {
+        display: grid;
+      }
+    }
+
+    &:has(.ui-filters input[value="2"]:checked) {
+      .ui-body > [role="row"]:not(.ui-empty, [data-filters~="2"]) {
+        display: none;
+      }
+
+      &:not(:has(.ui-body > [role="row"][data-filters~="2"])) .ui-empty {
+        display: grid;
+      }
+    }
+
+    &:has(.ui-filters input[value="3"]:checked) {
+      .ui-body > [role="row"]:not(.ui-empty, [data-filters~="3"]) {
+        display: none;
+      }
+
+      &:not(:has(.ui-body > [role="row"][data-filters~="3"])) .ui-empty {
+        display: grid;
+      }
+    }
+
+    &:has(.ui-filters input[value="4"]:checked) {
+      .ui-body > [role="row"]:not(.ui-empty, [data-filters~="4"]) {
+        display: none;
+      }
+
+      &:not(:has(.ui-body > [role="row"][data-filters~="4"])) .ui-empty {
+        display: grid;
+      }
+    }
+
+    &:has(.ui-filters input[value="5"]:checked) {
+      .ui-body > [role="row"]:not(.ui-empty, [data-filters~="5"]) {
+        display: none;
+      }
+
+      &:not(:has(.ui-body > [role="row"][data-filters~="5"])) .ui-empty {
+        display: grid;
+      }
+    }
+
+    &:has(.ui-filters input[value="6"]:checked) {
+      .ui-body > [role="row"]:not(.ui-empty, [data-filters~="6"]) {
+        display: none;
+      }
+
+      &:not(:has(.ui-body > [role="row"][data-filters~="6"])) .ui-empty {
+        display: grid;
+      }
+    }
+
+    &.ui-pin-start
+      [role="row"]
+      > :is(
+        :nth-child(1 of :not(.ui-expand, .ui-select)),
+        :is(.ui-expand, .ui-select):not(
+          :nth-child(1 of :not(.ui-expand, .ui-select)) ~ *
+        )
+      ) {
+      inset-inline-start: calc((sibling-index() - 1) * var(--_utility-size));
+      position: sticky;
+      z-index: 1;
+    }
+
+    @supports not (order: sibling-index()) {
+      &.ui-pin-start [role="row"] > :first-child {
+        inset-inline-start: 0;
+      }
+
+      &.ui-pin-start [role="row"] > :is(.ui-expand, .ui-select) + * {
+        inset-inline-start: var(--_utility-size);
+      }
+
+      &.ui-pin-start
+        [role="row"]
+        > :is(.ui-expand, .ui-select)
+        + :is(.ui-expand, .ui-select)
+        + * {
+        inset-inline-start: calc(var(--_utility-size) * 2);
+      }
+    }
+
+    &.ui-pin-start .ui-expand summary {
+      inset-inline-start: 0;
+      position: sticky;
+      z-index: 1;
+    }
+
+    &.ui-pin-start :is(.ui-expand, .ui-select) + .ui-expand summary {
+      inset-inline-start: var(--_utility-size);
+    }
+
+    &.ui-pin-start
+      [role="row"]
+      > :nth-child(1 of :not(.ui-expand, .ui-select)) {
+      transition: box-shadow var(--_transition-duration) ease;
+
+      @container ui-data-grid scroll-state(scrollable: inline-start) {
+        box-shadow: calc(var(--_pin-shadow-size) * var(--_inline-direction)) 0
+          var(--_pin-shadow-size) calc(var(--_pin-shadow-size) * -1)
+          var(--_pin-shadow-color);
+      }
+    }
+
+    &.ui-pin-end [role="row"]:not(.ui-empty) > :last-child {
+      inset-inline-end: 0;
+      position: sticky;
+      transition: box-shadow var(--_transition-duration) ease;
+      z-index: 1;
+
+      @container ui-data-grid scroll-state(scrollable: inline-end) {
+        box-shadow: calc(
+            var(--_pin-shadow-size) * var(--_inline-direction) * -1
+          )
+          0 var(--_pin-shadow-size) calc(var(--_pin-shadow-size) * -1)
+          var(--_pin-shadow-color);
+      }
+    }
+
+    &:dir(rtl) {
+      --_inline-direction: -1;
+    }
+
+    @container (width < 36rem) {
+      &.ui-pin-end [role="row"]:not(.ui-empty) > :last-child {
+        box-shadow: none;
+        position: static;
+      }
+    }
+
+    .ui-head [role="row"] > [role="columnheader"][aria-colspan] {
+      border-inline-start: var(--_border-width) solid var(--_border-color);
+      justify-content: center;
+    }
+
+    .ui-head > [role="row"] + [role="row"] {
+      border-block-start: var(--_border-width) solid var(--_border-color);
+    }
+
+    &.ui-resizable {
+      --_track: max-content;
+      --_track-filler: minmax(0, 1fr);
+
+      [role="columnheader"]:not(.ui-expand, .ui-select, [aria-colspan]) {
+        inline-size: var(--_column-inline-size);
+        min-inline-size: 4rem;
+        resize: horizontal;
+      }
+
+      :is(.ui-body, .ui-foot) [role="row"] > * {
+        contain: inline-size;
+      }
+    }
+
+    &.ui-compact,
+    &:has(.ui-density input[value="compact"]:checked) {
+      --_cell-padding-block: var(--size-1);
+      --_row-min-block-size: 2.25rem;
+    }
+
+    &.ui-comfortable,
+    &:has(.ui-density input[value="comfortable"]:checked) {
+      --_cell-padding-block: var(--size-3);
+      --_row-min-block-size: 4rem;
+    }
+
+    &.ui-wrap [role="row"] > [role="cell"] {
+      white-space: normal;
+    }
+
+    [role="table"][aria-busy="true"] {
+      &::before {
+        content: none;
+      }
+
+      .ui-body {
+        opacity: 0.6;
+        pointer-events: none;
+      }
+
+      .ui-head::after {
+        animation: ui-data-grid-loading calc(1.4s * var(--_motion)) ease-in-out
+          infinite;
+        background-color: var(--primary);
+        block-size: 2px;
+        content: "";
+        inline-size: 30%;
+        inset-block-end: calc(var(--_border-width) * -1);
+        inset-inline-start: 0;
+        position: absolute;
+      }
+    }
+
+    .ui-toolbar,
+    .ui-footer {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2) var(--size-3);
+      padding: var(--size-2) var(--size-3);
+    }
+
+    .ui-toolbar {
+      border-block-end: var(--_border-width) solid var(--_border-color);
+      justify-content: flex-end;
+
+      & > .ui-filters {
+        margin-inline-end: auto;
+      }
+    }
+
+    .ui-footer {
+      border-block-start: var(--_border-width) solid var(--_border-color);
+      color: var(--text-muted);
+      justify-content: flex-end;
+
+      & > .ui-selection {
+        margin-inline-end: auto;
+      }
+    }
+
+    .ui-selected-count,
+    .ui-row-count {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ui-selected-count::before {
+      content: counter(ui-data-grid-selected);
+    }
+
+    .ui-row-count::before {
+      content: counter(ui-data-grid-rows);
+    }
+
+    &:not(:has(.ui-body > [role="row"] > .ui-select :checked))
+      .ui-footer
+      .ui-selection {
+      visibility: hidden;
+    }
+
+    .ui-columns {
+      --_min-inline-size: 14rem;
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > :nth-child(1)) {
+      --_track-1: var(--_col-1, var(--_track));
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > .ui-fit:nth-child(1)) {
+      --_track-1: var(--_col-1, max-content);
+    }
+
+    &:has(
+      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(1)
+    ) {
+      --_track-1: var(--_utility-size);
+    }
+
+    &:has(.ui-columns input[value="1"]:not(:checked)) {
+      --_track-1: initial;
+
+      [role="row"]:not(.ui-empty, :has(> [aria-colspan])) > :nth-child(1) {
+        display: none;
+      }
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(1)
+          input[value="asc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: var(--_rank-1, 0);
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(1)
+          input[value="desc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: calc(var(--_rank-1, 0) * -1);
+    }
+
+    .ui-foot > [role="row"] > .ui-sum:nth-child(1)::after {
+      content: counter(ui-data-grid-sum-1);
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > :nth-child(2)) {
+      --_track-2: var(--_col-2, var(--_track));
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > .ui-fit:nth-child(2)) {
+      --_track-2: var(--_col-2, max-content);
+    }
+
+    &:has(
+      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(2)
+    ) {
+      --_track-2: var(--_utility-size);
+    }
+
+    &:has(.ui-columns input[value="2"]:not(:checked)) {
+      --_track-2: initial;
+
+      [role="row"]:not(.ui-empty, :has(> [aria-colspan])) > :nth-child(2) {
+        display: none;
+      }
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(2)
+          input[value="asc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: var(--_rank-2, 0);
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(2)
+          input[value="desc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: calc(var(--_rank-2, 0) * -1);
+    }
+
+    .ui-foot > [role="row"] > .ui-sum:nth-child(2)::after {
+      content: counter(ui-data-grid-sum-2);
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > :nth-child(3)) {
+      --_track-3: var(--_col-3, var(--_track));
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > .ui-fit:nth-child(3)) {
+      --_track-3: var(--_col-3, max-content);
+    }
+
+    &:has(
+      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(3)
+    ) {
+      --_track-3: var(--_utility-size);
+    }
+
+    &:has(.ui-columns input[value="3"]:not(:checked)) {
+      --_track-3: initial;
+
+      [role="row"]:not(.ui-empty, :has(> [aria-colspan])) > :nth-child(3) {
+        display: none;
+      }
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(3)
+          input[value="asc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: var(--_rank-3, 0);
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(3)
+          input[value="desc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: calc(var(--_rank-3, 0) * -1);
+    }
+
+    .ui-foot > [role="row"] > .ui-sum:nth-child(3)::after {
+      content: counter(ui-data-grid-sum-3);
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > :nth-child(4)) {
+      --_track-4: var(--_col-4, var(--_track));
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > .ui-fit:nth-child(4)) {
+      --_track-4: var(--_col-4, max-content);
+    }
+
+    &:has(
+      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(4)
+    ) {
+      --_track-4: var(--_utility-size);
+    }
+
+    &:has(.ui-columns input[value="4"]:not(:checked)) {
+      --_track-4: initial;
+
+      [role="row"]:not(.ui-empty, :has(> [aria-colspan])) > :nth-child(4) {
+        display: none;
+      }
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(4)
+          input[value="asc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: var(--_rank-4, 0);
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(4)
+          input[value="desc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: calc(var(--_rank-4, 0) * -1);
+    }
+
+    .ui-foot > [role="row"] > .ui-sum:nth-child(4)::after {
+      content: counter(ui-data-grid-sum-4);
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > :nth-child(5)) {
+      --_track-5: var(--_col-5, var(--_track));
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > .ui-fit:nth-child(5)) {
+      --_track-5: var(--_col-5, max-content);
+    }
+
+    &:has(
+      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(5)
+    ) {
+      --_track-5: var(--_utility-size);
+    }
+
+    &:has(.ui-columns input[value="5"]:not(:checked)) {
+      --_track-5: initial;
+
+      [role="row"]:not(.ui-empty, :has(> [aria-colspan])) > :nth-child(5) {
+        display: none;
+      }
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(5)
+          input[value="asc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: var(--_rank-5, 0);
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(5)
+          input[value="desc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: calc(var(--_rank-5, 0) * -1);
+    }
+
+    .ui-foot > [role="row"] > .ui-sum:nth-child(5)::after {
+      content: counter(ui-data-grid-sum-5);
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > :nth-child(6)) {
+      --_track-6: var(--_col-6, var(--_track));
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > .ui-fit:nth-child(6)) {
+      --_track-6: var(--_col-6, max-content);
+    }
+
+    &:has(
+      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(6)
+    ) {
+      --_track-6: var(--_utility-size);
+    }
+
+    &:has(.ui-columns input[value="6"]:not(:checked)) {
+      --_track-6: initial;
+
+      [role="row"]:not(.ui-empty, :has(> [aria-colspan])) > :nth-child(6) {
+        display: none;
+      }
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(6)
+          input[value="asc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: var(--_rank-6, 0);
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(6)
+          input[value="desc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: calc(var(--_rank-6, 0) * -1);
+    }
+
+    .ui-foot > [role="row"] > .ui-sum:nth-child(6)::after {
+      content: counter(ui-data-grid-sum-6);
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > :nth-child(7)) {
+      --_track-7: var(--_col-7, var(--_track));
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > .ui-fit:nth-child(7)) {
+      --_track-7: var(--_col-7, max-content);
+    }
+
+    &:has(
+      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(7)
+    ) {
+      --_track-7: var(--_utility-size);
+    }
+
+    &:has(.ui-columns input[value="7"]:not(:checked)) {
+      --_track-7: initial;
+
+      [role="row"]:not(.ui-empty, :has(> [aria-colspan])) > :nth-child(7) {
+        display: none;
+      }
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(7)
+          input[value="asc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: var(--_rank-7, 0);
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(7)
+          input[value="desc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: calc(var(--_rank-7, 0) * -1);
+    }
+
+    .ui-foot > [role="row"] > .ui-sum:nth-child(7)::after {
+      content: counter(ui-data-grid-sum-7);
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > :nth-child(8)) {
+      --_track-8: var(--_col-8, var(--_track));
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > .ui-fit:nth-child(8)) {
+      --_track-8: var(--_col-8, max-content);
+    }
+
+    &:has(
+      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(8)
+    ) {
+      --_track-8: var(--_utility-size);
+    }
+
+    &:has(.ui-columns input[value="8"]:not(:checked)) {
+      --_track-8: initial;
+
+      [role="row"]:not(.ui-empty, :has(> [aria-colspan])) > :nth-child(8) {
+        display: none;
+      }
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(8)
+          input[value="asc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: var(--_rank-8, 0);
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(8)
+          input[value="desc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: calc(var(--_rank-8, 0) * -1);
+    }
+
+    .ui-foot > [role="row"] > .ui-sum:nth-child(8)::after {
+      content: counter(ui-data-grid-sum-8);
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > :nth-child(9)) {
+      --_track-9: var(--_col-9, var(--_track));
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > .ui-fit:nth-child(9)) {
+      --_track-9: var(--_col-9, max-content);
+    }
+
+    &:has(
+      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(9)
+    ) {
+      --_track-9: var(--_utility-size);
+    }
+
+    &:has(.ui-columns input[value="9"]:not(:checked)) {
+      --_track-9: initial;
+
+      [role="row"]:not(.ui-empty, :has(> [aria-colspan])) > :nth-child(9) {
+        display: none;
+      }
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(9)
+          input[value="asc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: var(--_rank-9, 0);
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(9)
+          input[value="desc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: calc(var(--_rank-9, 0) * -1);
+    }
+
+    .ui-foot > [role="row"] > .ui-sum:nth-child(9)::after {
+      content: counter(ui-data-grid-sum-9);
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > :nth-child(10)) {
+      --_track-10: var(--_col-10, var(--_track));
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > .ui-fit:nth-child(10)) {
+      --_track-10: var(--_col-10, max-content);
+    }
+
+    &:has(
+      :where(.ui-head > [role="row"])
+        > :is(.ui-expand, .ui-select):nth-child(10)
+    ) {
+      --_track-10: var(--_utility-size);
+    }
+
+    &:has(.ui-columns input[value="10"]:not(:checked)) {
+      --_track-10: initial;
+
+      [role="row"]:not(.ui-empty, :has(> [aria-colspan])) > :nth-child(10) {
+        display: none;
+      }
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(10)
+          input[value="asc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: var(--_rank-10, 0);
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(10)
+          input[value="desc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: calc(var(--_rank-10, 0) * -1);
+    }
+
+    .ui-foot > [role="row"] > .ui-sum:nth-child(10)::after {
+      content: counter(ui-data-grid-sum-10);
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > :nth-child(11)) {
+      --_track-11: var(--_col-11, var(--_track));
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > .ui-fit:nth-child(11)) {
+      --_track-11: var(--_col-11, max-content);
+    }
+
+    &:has(
+      :where(.ui-head > [role="row"])
+        > :is(.ui-expand, .ui-select):nth-child(11)
+    ) {
+      --_track-11: var(--_utility-size);
+    }
+
+    &:has(.ui-columns input[value="11"]:not(:checked)) {
+      --_track-11: initial;
+
+      [role="row"]:not(.ui-empty, :has(> [aria-colspan])) > :nth-child(11) {
+        display: none;
+      }
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(11)
+          input[value="asc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: var(--_rank-11, 0);
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(11)
+          input[value="desc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: calc(var(--_rank-11, 0) * -1);
+    }
+
+    .ui-foot > [role="row"] > .ui-sum:nth-child(11)::after {
+      content: counter(ui-data-grid-sum-11);
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > :nth-child(12)) {
+      --_track-12: var(--_col-12, var(--_track));
+    }
+
+    &:has(:where(.ui-head > [role="row"]) > .ui-fit:nth-child(12)) {
+      --_track-12: var(--_col-12, max-content);
+    }
+
+    &:has(
+      :where(.ui-head > [role="row"])
+        > :is(.ui-expand, .ui-select):nth-child(12)
+    ) {
+      --_track-12: var(--_utility-size);
+    }
+
+    &:has(.ui-columns input[value="12"]:not(:checked)) {
+      --_track-12: initial;
+
+      [role="row"]:not(.ui-empty, :has(> [aria-colspan])) > :nth-child(12) {
+        display: none;
+      }
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(12)
+          input[value="asc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: var(--_rank-12, 0);
+    }
+
+    &:has(
+        :where(.ui-head > [role="row"])
+          > :nth-child(12)
+          input[value="desc"]:checked
+      )
+      .ui-body
+      > [role="row"] {
+      order: calc(var(--_rank-12, 0) * -1);
+    }
+
+    .ui-foot > [role="row"] > .ui-sum:nth-child(12)::after {
+      content: counter(ui-data-grid-sum-12);
+    }
+  }
+
+  @keyframes ui-data-grid-loading {
+    from {
+      translate: -100%;
+    }
+
+    to {
+      translate: 340%;
+    }
+  }
+}

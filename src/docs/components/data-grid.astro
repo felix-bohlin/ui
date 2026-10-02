@@ -1,0 +1,470 @@
+---
+import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+import DocLink from "../../components/DocLink.astro"
+import { DataGrid as UIDataGrid, Table } from "@opui/astro"
+import type { DataGridRow } from "@opui/astro"
+
+import DataGridCSS from "@opui/css/components/data-grid.css?raw"
+
+import dataGridApi from "../../component-api/data-grid/api"
+import { people } from "../../component-examples/data-grid/data"
+
+export const description =
+  "A data grid with sorting, filtering, selection, pinned columns and detail panels. HTML and CSS only."
+
+const anatomyColumns = [
+  { key: "name", label: "Name", rowHeader: true, sortable: true },
+  { key: "tickets", label: "Tickets", numeric: true, sum: true },
+]
+
+const anatomyFilters = [
+  { label: "Active", match: (row: DataGridRow) => row.status === "Active" },
+]
+
+const techniques = [
+  [
+    "Column alignment",
+    "Rows are subgrids of one grid, so every row shares the column tracks.",
+    "subgrid",
+  ],
+  [
+    "Selection",
+    "Checked rows are styled and counted with :has().",
+    ":has(:checked)",
+  ],
+  [
+    "Counts and totals",
+    "Visible rows, selected rows and column totals are CSS counters. Hidden rows don't count.",
+    "counter-increment",
+  ],
+  [
+    "Sorting",
+    "Each row stores its rank per column. The checked sort radio picks which rank becomes the row's order.",
+    "order, reading-flow",
+  ],
+  [
+    "Filtering",
+    "The checked filter radio hides rows that don't match.",
+    ":has(), ~=",
+  ],
+  [
+    "Column visibility",
+    "An unchecked column removes its track from the template and hides its cells.",
+    "var(--x,)",
+  ],
+  [
+    "Sticky header and totals",
+    "The header and totals row stick to the scroll container.",
+    "position: sticky",
+  ],
+  [
+    "Pinned columns",
+    "Pinned cells stick to the inline edges. Each one is offset by its index.",
+    "sibling-index()",
+  ],
+  [
+    "Scroll shadows",
+    "Shadows appear only when there is content to scroll back to.",
+    "scroll-state()",
+  ],
+  [
+    "Detail panels",
+    "The details content spans the whole row and animates to its auto height.",
+    "::details-content, interpolate-size",
+  ],
+  [
+    "Column resizing",
+    "Header cells are resizable. Body cells don't contribute to the column width.",
+    "resize, contain: inline-size",
+  ],
+  ["Editable cells", "Inputs grow with their value.", "field-sizing: content"],
+  [
+    "Column menu",
+    "A popover anchored to its button, opened without JavaScript.",
+    "popover, commandfor",
+  ],
+]
+---
+
+<Component
+  description={description}
+  slug="data-grid"
+  heroAnatomy
+  apis={[{ title: "Data grid API", api: dataGridApi }]}
+  browserSupport={[
+    "align-content-block",
+    "anchor-positioning",
+    "container-scroll-state-queries",
+    "counters",
+    "details-content",
+    "field-sizing",
+    "has",
+    "interpolate-size",
+    "nth-child-of",
+    "reading-flow",
+    "sibling-count",
+    "subgrid",
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/DataGrid/DataGrid.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/data-grid.astro", type: "docs" },
+    { path: "src/component-examples/data-grid", type: "docs" },
+    { path: "packages/opui/css/components/data-grid.css", type: "css" },
+    { path: "src/component-api/data-grid", type: "api" },
+  ]}
+  installationTabs={[
+    { title: "data-grid.css", code: DataGridCSS, lang: "css" },
+  ]}
+>
+  <Fragment slot="title">Data grid</Fragment>
+  <Fragment slot="preamble">
+    Sorting, filtering, selection, totals, pinned columns, resizing and detail
+    panels without JavaScript. For static data, see <DocLink
+      class="ui-link"
+      href="/components/table">Table</DocLink
+    >.
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UIDataGrid
+        columns={anatomyColumns}
+        columnsMenu
+        densityToggle
+        filters={anatomyFilters}
+        footer
+        label="Team"
+        rows={people.slice(0, 2)}
+        selectable
+        style="inline-size: 24rem"
+      >
+        <fragment slot="detail">
+          {(row: DataGridRow) => <p>{row.email}</p>}
+        </fragment>
+      </UIDataGrid>
+    </Anatomy>
+  </Fragment>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Rows and cells use ARIA table roles. Rows are subgrids, so column
+        widths are shared across the header, body and totals.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>columns</code> and <code>rows</code>. Rows are subgrids, so
+        column widths are shared across the header, body and totals.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>columns</code> and <code>rows</code>. Rows are subgrids, so
+        column widths are shared across the header, body and totals.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Basics" />
+  </section>
+
+  <section>
+    <h2 id="custom-cells">Custom cells</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Cells can hold other components, such as <code>.ui-avatar</code>,
+        <code>.ui-chip</code> and <code>.ui-progress</code>.</Fragment
+      >
+      <Fragment slot="astro"
+        >A <code>cell-[key]</code> slot with a function renders a column's cells.</Fragment
+      >
+      <Fragment slot="vue"
+        >A <code>#cell-[key]</code> slot renders a column's cells.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="CustomCells" />
+  </section>
+
+  <section>
+    <h2 id="sorting">Sorting</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Sort radios in a header with <code>value="asc"</code> and
+        <code>value="desc"</code>. Each row sets <code>--_rank-[n]</code>, its
+        position when sorted by column <code>n</code>.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>sortable</code> on a column, and <code>sort</code> for the initial
+        sort.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>sortable</code> on a column, and <code>sort</code> for the initial
+        sort.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Sorting" />
+  </section>
+
+  <section>
+    <h2 id="selection">Selection</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >A <code>.ui-select</code> cell with a checkbox. <code
+          >.ui-selected-count</code
+        > and <code>.ui-row-count</code> in <code>.ui-footer</code> count with CSS
+        counters.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>selectable</code>, and <code>footer</code> for the counts.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>selectable</code>, and <code>footer</code> for the counts.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Selection" />
+  </section>
+
+  <section>
+    <h2 id="filtering">Filtering</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Radios in <code>.ui-filters</code>. A row with
+        <code>data-filters="1"</code> matches the radio with
+        <code>value="1"</code>. <code>value="selected"</code> shows selected rows.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>filters</code>. A filter's <code>match</code> is a function, or
+        <code>"selected"</code>.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>filters</code>. A filter's <code>match</code> is a function, or
+        <code>"selected"</code>.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Filtering" />
+  </section>
+
+  <section>
+    <h2 id="column-visibility">Column visibility</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Checkboxes in <code>.ui-columns</code> with the column number as
+        <code>value</code>.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>columnsMenu</code>, and <code>hideable: false</code> to leave a column
+        out.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>columns-menu</code>, and <code>hideable: false</code> to leave a column
+        out.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="ColumnVisibility" />
+  </section>
+
+  <section>
+    <h2 id="density">Density</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-compact</code> or <code>.ui-comfortable</code>, or radios in
+        <code>.ui-density</code>.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>density</code>, and <code>densityToggle</code> to switch it.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>density</code>, and <code>density-toggle</code> to switch it.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Density" />
+  </section>
+
+  <section>
+    <h2 id="column-widths">Column widths</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Columns share the space and never get narrower than their content.
+        <code>--_col-[n]</code> sets a track size, and <code>.ui-fit</code> on a header
+        fits the column to its content.</Fragment
+      >
+      <Fragment slot="astro"
+        >Columns share the space and never get narrower than their content.
+        <code>width</code> sets a track size, and <code>fit</code> fits the column
+        to its content.</Fragment
+      >
+      <Fragment slot="vue"
+        >Columns share the space and never get narrower than their content.
+        <code>width</code> sets a track size, and <code>fit</code> fits the column
+        to its content.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="ColumnWidths" />
+  </section>
+
+  <section>
+    <h2 id="resizable">Resizable</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-resizable</code>. Drag the corner of a header.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>resizable</code>. Drag the corner of a header.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>resizable</code>. Drag the corner of a header.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Resizable" />
+  </section>
+
+  <section>
+    <h2 id="pinned-columns">Pinned columns</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-pin-start</code> and <code>.ui-pin-end</code>, and
+        <code>--_max-block-size</code> for a sticky header. Shadows show when there
+        is more to scroll.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>pinStart</code> and <code>pinEnd</code>, and
+        <code>maxBlockSize</code> for a sticky header. Shadows show when there is
+        more to scroll.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>pin-start</code> and <code>pin-end</code>, and
+        <code>max-block-size</code> for a sticky header. Shadows show when there is
+        more to scroll.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Pinned" />
+  </section>
+
+  <section>
+    <h2 id="detail-panel">Detail panel</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >A <code>.ui-expand</code> cell with a <code>details</code> element. Its content
+        spans the row.</Fragment
+      >
+      <Fragment slot="astro"
+        >A <code>detail</code> slot with a function.</Fragment
+      >
+      <Fragment slot="vue">A <code>#detail</code> slot.</Fragment>
+    </Conditional>
+
+    <AutoExample name="DetailPanel" />
+  </section>
+
+  <section>
+    <h2 id="editable">Editable cells</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >An <code>input</code> in a cell looks like text until hovered or focused.</Fragment
+      >
+      <Fragment slot="astro"><code>editable</code> on a column.</Fragment>
+      <Fragment slot="vue"><code>editable</code> on a column.</Fragment>
+    </Conditional>
+
+    <AutoExample name="Editable" />
+  </section>
+
+  <section>
+    <h2 id="column-groups">Column groups</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >A header row with <code>aria-colspan</code> and a matching
+        <code>grid-column</code> span.</Fragment
+      >
+      <Fragment slot="astro"><code>columnGroups</code>.</Fragment>
+      <Fragment slot="vue"><code>column-groups</code>.</Fragment>
+    </Conditional>
+
+    <AutoExample name="ColumnGroups" />
+  </section>
+
+  <section>
+    <h2 id="totals">Totals</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Each row sets <code>--_sum-[n]</code>, and a <code>.ui-sum</code> cell in
+        <code>.ui-foot</code> shows the total of column <code>n</code>. Totals
+        follow the filters.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>sum</code> on a column with whole numbers. Totals follow the filters.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>sum</code> on a column with whole numbers. Totals follow the filters.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Totals" />
+  </section>
+
+  <section>
+    <h2 id="loading">Loading</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>aria-busy="true"</code> on the table.</Fragment
+      >
+      <Fragment slot="astro"><code>loading</code>.</Fragment>
+      <Fragment slot="vue"><code>loading</code>.</Fragment>
+    </Conditional>
+
+    <AutoExample name="Loading" />
+  </section>
+
+  <section>
+    <h2 id="all-features">All features</h2>
+
+    <AutoExample name="AllFeatures" />
+  </section>
+
+  <section>
+    <h2 id="how-it-works">How it works</h2>
+    <Table>
+      <Table.Head>
+        <Table.Row>
+          <Table.HeaderCell>Feature</Table.HeaderCell>
+          <Table.HeaderCell>How</Table.HeaderCell>
+          <Table.HeaderCell>CSS</Table.HeaderCell>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        {
+          techniques.map(([feature, how, css]) => (
+            <Table.Row>
+              <Table.Cell>{feature}</Table.Cell>
+              <Table.Cell>{how}</Table.Cell>
+              <Table.Cell>
+                <code>{css}</code>
+              </Table.Cell>
+            </Table.Row>
+          ))
+        }
+      </Table.Body>
+    </Table>
+  </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      Uses ARIA table roles, and the table scrolls with the keyboard. Every
+      control is a native checkbox, radio or input with a name. CSS can't update
+      <code>aria-sort</code>, and sorting changes the visual order, so
+      <code>reading-flow</code> keeps the reading and focus order in step where supported.
+    </p>
+  </Fragment>
+</Component>

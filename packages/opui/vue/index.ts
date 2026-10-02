@@ -11,6 +11,7 @@ export { default as Checkbox } from "../components/Checkbox/Checkbox.vue"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.vue"
 export { default as Chip } from "../components/Chip/Chip.vue"
 export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.vue"
+export { default as DataGrid } from "../components/DataGrid/DataGrid.vue"
 export { default as Description } from "../components/DescriptionList/Description.vue"
 export { default as DescriptionList } from "../components/DescriptionList/DescriptionList.vue"
 export { default as DescriptionListItem } from "../components/DescriptionList/Item.vue"
@@ -52,3 +53,10 @@ export { default as TextField } from "../components/TextField/TextField.vue"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.vue"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.vue"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.vue"
+export type {
+  DataGridColumn,
+  DataGridColumnGroup,
+  DataGridFilter,
+  DataGridRow,
+  DataGridSort,
+} from "../components/DataGrid/types"

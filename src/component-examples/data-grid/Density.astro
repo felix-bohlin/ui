@@ -1,0 +1,12 @@
+---
+import { DataGrid } from "@opui/astro"
+import { columns, people } from "./data"
+---
+
+<DataGrid
+  columns={columns}
+  density="compact"
+  densityToggle
+  label="Team"
+  rows={people}
+/>

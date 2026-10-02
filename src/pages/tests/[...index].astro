@@ -26,7 +26,7 @@ const pages = Object.keys(import.meta.glob("../../stress-tests/*.html"))
         {
           pages.map((name) => (
             <li>
-              <a href={`./${name}/`}>{name}</a>
+              <a href={`/tests/${name}/`}>{name}</a>
             </li>
           ))
         }

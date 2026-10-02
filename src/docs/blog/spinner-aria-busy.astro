@@ -1,0 +1,88 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import SpinnerBuild from "../../components/UnderTheHood/SpinnerBuild.astro"
+import { Code } from "astro-expressive-code/components"
+---
+
+<TechniquePost slug="spinner-aria-busy">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      A loading state is usually two things to keep in sync: a spinner element
+      or class for sighted users, and <code>aria-busy</code> for assistive technology.
+      Forget one and the two disagree.
+    </p>
+    <p>If the attribute is already there, it can be the only switch.</p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        <code>[aria-busy="true"]</code> is the selector, no class and no extra element
+      </li>
+      <li>
+        A <code>::before</code> circle with one transparent border side is the ring,
+        <code>rotate(1turn)</code> in a <code>linear</code>, <code
+          >infinite</code
+        > loop spins it
+      </li>
+      <li>
+        <code>1em</code> sizes it from the font and <code>currentColor</code> colors
+        it from the text
+      </li>
+      <li>
+        <code>:not(…)</code> skips form fields, <code>&lt;progress&gt;</code>,
+        the root and anything with <code>aria-describedby</code>, such as a
+        section pointing to its progress bar
+      </li>
+      <li><code>:not(:empty)</code> adds a gap only next to text</li>
+    </ul>
+    <Code
+      lang="css"
+      code={`[aria-busy="true"]:not(input, select, textarea, html, progress, [aria-describedby]) {
+  &::before {
+    animation: spin 0.7s linear infinite;
+    block-size: 1em;
+    border: 3px solid;
+    border-color: transparent currentColor currentColor;
+    border-radius: 50%;
+    content: "";
+    display: inline-block;
+    inline-size: 1em;
+    opacity: 0.5;
+    vertical-align: -0.14em;
+  }
+
+  &:not(:empty)::before {
+    margin-inline-end: 0.5em;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <SpinnerBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        <code>:not()</code> with a selector list is Selectors Level 4. A browser without
+        it drops the rule: no spinner, but <code>aria-busy</code> is still announced
+      </li>
+      <li>
+        The animation isn't scaled by <code>--motion</code>, so it keeps
+        spinning under reduced motion
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

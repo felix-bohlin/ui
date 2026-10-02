@@ -1,0 +1,92 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
+import { Code } from "astro-expressive-code/components"
+---
+
+<TechniquePost slug="switch-checkbox">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      A switch is a checkbox that reads as on and off. Libraries tend to build
+      it from a <code>&lt;button&gt;</code> with <code>aria-checked</code> toggled
+      in JavaScript, or a hidden checkbox plus extra spans for the track and the dot.
+    </p>
+    <p>
+      Both throw away what the checkbox already does: toggling, Space to press,
+      <code>:checked</code>, a form value and validation.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        <code>&lt;input type="checkbox" role="switch"&gt;</code> keeps the native
+        behavior, the role makes assistive technology announce on and off
+      </li>
+      <li>
+        <code>appearance: none</code> frees the input to draw its own pseudo-elements:
+        <code>::before</code> is the track, <code>::after</code> is the dot
+      </li>
+      <li>
+        <code>:checked</code> moves the dot with <code>inset-inline-start</code
+        >: track width minus dot minus gap, mirrored in right-to-left
+      </li>
+      <li>
+        An <code>outline</code> in the dot's own color grows it without touching its
+        box. <code>:active</code> grows it a little more
+      </li>
+      <li><code>light-dark()</code> picks the colors per color scheme</li>
+    </ul>
+    <Code
+      lang="css"
+      code={`[role="switch"] {
+  appearance: none;
+  position: relative;
+}
+
+[role="switch"]::after {
+  background-color: var(--dot-color);
+  border-radius: var(--radius-round);
+  content: "";
+  inset-inline-start: var(--size-1);
+  outline: var(--dot-outline-size) solid var(--dot-color);
+  outline-offset: -1px;
+  position: absolute;
+  transition: all 0.2s var(--ease);
+}
+
+[role="switch"]:checked::after {
+  --dot-outline-size: calc(var(--size-1) - 1px);
+
+  inset-inline-start: calc(var(--track-width) - var(--dot-size) - var(--size-1));
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <SwitchBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        There is no <code>@supports</code>: <code>appearance: none</code>,
+        pseudo-elements on a checkbox and logical insets work in every current
+        engine
+      </li>
+      <li>
+        The colors come from <code>light-dark()</code>. A browser without it
+        can't resolve those custom properties, and the track and dot lose their
+        colors
+      </li>
+      <li>
+        Under reduced motion <code>--motion</code> is <code>0</code> and the dot jumps
+        instead of sliding
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

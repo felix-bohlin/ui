@@ -39,11 +39,11 @@ const expectFocusWithin = (locator: Locator) =>
 
 interaction(
   "anchor",
-  "ProfileCard",
+  "RepoCard",
   "hover card shows on hover",
   async ({ page, root }) => {
-    const trigger = root.getByRole("link", { name: "@adalindqvist" })
-    const card = root.getByText("Ada Lindqvist")
+    const trigger = root.getByRole("link", { name: "felix-bohlin/ui" })
+    const card = root.getByText("Public repository")
 
     const supportsInterest = await page.evaluate(
       () => "interestForElement" in HTMLAnchorElement.prototype,

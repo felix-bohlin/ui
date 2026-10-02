@@ -2,7 +2,7 @@
   "dark/anchor/LinkPreview": [
     "color-contrast"
   ],
-  "dark/anchor/ProfileCard": [
+  "dark/anchor/RepoCard": [
     "color-contrast"
   ],
   "dark/avatar/Grouped": [
@@ -130,7 +130,7 @@
   "light/anchor/LinkPreview": [
     "color-contrast"
   ],
-  "light/anchor/ProfileCard": [
+  "light/anchor/RepoCard": [
     "color-contrast"
   ],
   "light/avatar/Grouped": [

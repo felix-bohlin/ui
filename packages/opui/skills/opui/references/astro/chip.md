@@ -2,6 +2,10 @@
 
 Chips are compact elements that represent an input, attribute, or action.
 
+### What's new
+
+- [Large](#sizes) size with `size="large"`, and small chips are 28px to match the control sizes.
+
 ## Anatomy
 
 Chip
@@ -38,7 +42,7 @@ import { Chip } from "opui-css/astro"
 
 ## Icon
 
-The icon can be placed before or after the text using the`start` and `end` slots.
+The icon can be placed before or after the text using the `start` and `end` slots.
 
 ```astro
 ---
@@ -160,11 +164,28 @@ import { Chip } from "opui-css/astro"
 
 <Chip size="small" label="Small" />
 <Chip label="Default" />
+<Chip size="large" label="Large" />
 <Chip
   multiline
   style="max-width: 30ch;"
   label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales."
 />
+```
+
+## Disabled
+
+Disable a button chip with the `disabled` attribute.
+
+```astro
+---
+import { Chip } from "opui-css/astro"
+---
+
+
+<div class="example-row">
+  <Chip as="button" variant="tonal" label="Tonal" disabled />
+  <Chip as="button" variant="outlined" label="Outlined" disabled />
+</div>
 ```
 
 ## API
@@ -174,9 +195,10 @@ import { Chip } from "opui-css/astro"
 | Prop        | Type                       | Default   | Description                                           |
 | ----------- | -------------------------- | --------- | ----------------------------------------------------- |
 | `as`        | `"div"`, `"button"`, `"a"` | `"div"`   | The element to render. Defaults to `"a"` with `href`. |
+| `href`      | `string`                   | -         | The link to use. Renders an `<a>`.                    |
 | `label`     | `string`                   | -         | The label.                                            |
 | `multiline` | `boolean`                  | `false`   | Lets the label wrap to multiple lines.                |
-| `size`      | `"small"`                  | -         | The size of the element.                              |
+| `size`      | `"small"`, `"large"`       | -         | The size of the element.                              |
 | `variant`   | `"outlined"`, `"tonal"`    | `"tonal"` | The variant to use.                                   |
 
 #### Slots
@@ -187,13 +209,35 @@ import { Chip } from "opui-css/astro"
 | `end`     | Optional content at the end, such as an icon.   |
 | `start`   | Optional content at the start, such as an icon. |
 
+#### CSS variables
+
+| Variable             | Default                                                                | Description                                                                                                                |
+| -------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))`                            | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`    | `var(--size-2)`                                                        | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--border-width`     | `1px`                                                                  | Default border width for components that draw a border.                                                                    |
+| `--chip-size`        | `var(--control-size-small)`                                            | Default `Chip` height.                                                                                                     |
+| `--chip-size-large`  | `var(--control-size)`                                                  | `Chip` height with `.ui-large`.                                                                                            |
+| `--chip-size-small`  | `var(--control-size-x-small)`                                          | `Chip` height with `.ui-small`.                                                                                            |
+| `--disabled-opacity` | `0.64`                                                                 | Opacity applied to disabled controls.                                                                                      |
+| `--font-size-05`     | `0.875rem`                                                             | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--icon-size`        | `var(--size-4)`                                                        | Default icon size inside components.                                                                                       |
+| `--icon-size-small`  | `var(--size-3)`                                                        | Icon size inside `Chip`.                                                                                                   |
+| `--motion`           | `1`                                                                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                            | Page and card background.                                                                                                  |
+| `--surface-tonal`    | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                                              |
+| `--text-disabled`    | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                                                  |
+| `--text-primary`     | `light-dark(var(--gray-15), var(--gray-1))`                            | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+
 ## Browser support
 
 - Chromium: Full support Supported since v125.
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Chip.md).
 
 ## Installation
 

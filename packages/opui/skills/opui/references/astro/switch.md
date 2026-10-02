@@ -2,6 +2,11 @@
 
 See also: [Switch field group](#field-group).
 
+### What's new
+
+- Breaking: [`size="small"`](#sizes) replaces `small`.
+- [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
+
 ## Anatomy
 
 LabelEnd text
@@ -95,7 +100,7 @@ import { Switch } from "opui-css/astro"
 ### Validation
 
 - Set `required` on the component to toggle required styles on the input.
-- Use the `error` prop to toggle invalid styles. It renders`data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
+- Use the `error` prop to toggle invalid styles. It renders `data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
 
 ```astro
 ---
@@ -157,7 +162,7 @@ import { Switch } from "opui-css/astro"
 
 ## Sizes
 
-Set the `small` prop for a smaller Switch variant.
+Set `size="small"` for a smaller Switch variant.
 
 ```astro
 ---
@@ -166,13 +171,23 @@ import { Switch } from "opui-css/astro"
 
 
 <div class="example-row">
-  <Switch name="switch-sizes" small checked hideLabel>Small</Switch>
+  <Switch name="switch-sizes" size="small" checked hideLabel>Small</Switch>
   <Switch name="switch-sizes" checked hideLabel>Default</Switch>
 </div>
 <div class="example-row">
-  <Switch name="switch-sizes" small checked>Small</Switch>
+  <Switch name="switch-sizes" size="small" checked>Small</Switch>
   <Switch name="switch-sizes" checked>Default</Switch>
 </div>
+```
+
+## Label alignment
+
+The switch lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with`--choice-label-offset`, in `em` or`cap` so it scales with the label.
+
+```css
+:root {
+  --choice-label-offset: 0.05em;
+}
 ```
 
 ## Icons
@@ -183,7 +198,7 @@ import { Switch } from "opui-css/astro"
 ---
 
 
-<Switch name="switch-icons" small aria-label="Toggle theme">
+<Switch name="switch-icons" size="small" aria-label="Toggle theme">
   <svg
     slot="icon-unchecked"
     xmlns="http://www.w3.org/2000/svg"
@@ -382,7 +397,7 @@ import { Form } from "opui-css/astro"
 
 ### Validation
 
-Attach the `data-invalid` attribute to your `Fieldset` component.
+Attach the `data-invalid` attribute to your `FieldSet` component.
 
 ```astro
 ---
@@ -427,10 +442,9 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Keyboard support
 
-| Key     | Function                                                |
-| ------- | ------------------------------------------------------- |
-| `Space` | When Switch is focused it changes its state.            |
-| `Enter` | (Optional) When Switch is focused it changes its state. |
+| Key     | Function                                     |
+| ------- | -------------------------------------------- |
+| `Space` | When Switch is focused it changes its state. |
 
 ## API
 
@@ -440,7 +454,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 | ----------- | --------- | ------- | ------------------------------------------------- |
 | `error`     | `boolean` | `false` | Shows error styles.                               |
 | `hideLabel` | `boolean` | `false` | Visually hides the label.                         |
-| `small`     | `boolean` | `false` | The size of the element.                          |
+| `size`      | `"small"` | -       | The size of the element.                          |
 | `spread`    | `boolean` | `false` | Pushes the label and the switch to opposite ends. |
 | `stack`     | `boolean` | `false` | Stacks the label under the switch.                |
 
@@ -452,6 +466,41 @@ Accessible switches should have a label. The first two approaches are equally ok
 | `end-text`       | Supporting text displayed below the label.    |
 | `icon-checked`   | An optional icon in the thumb when checked.   |
 | `icon-unchecked` | An optional icon in the thumb when unchecked. |
+
+#### CSS variables
+
+| Variable                      | Default                                                                                 | Description                                                                                                                                           |
+| ----------------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--choice-label-offset`       | `0px`                                                                                   | Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font. |
+| `--disabled-opacity`          | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                 |
+| `--duration`                  | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                |
+| `--ease`                      | `ease`                                                                                  | Default easing for transitions.                                                                                                                       |
+| `--field-border-width`        | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                            |
+| `--field-helper-color`        | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                     |
+| `--field-helper-font-size`    | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                      |
+| `--field-helper-line-height`  | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                    |
+| `--field-label-color`         | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                          |
+| `--field-label-font-size`     | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                           |
+| `--field-label-font-weight`   | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                  |
+| `--field-required-color`      | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                       |
+| `--focus-ring-color`          | Unset                                                                                   | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                                                       |
+| `--focus-ring-offset`         | `2px`                                                                                   | Distance between a control and its focus ring.                                                                                                        |
+| `--focus-ring-style`          | `solid`                                                                                 | Outline style of the focus ring.                                                                                                                      |
+| `--focus-ring-width`          | `2px`                                                                                   | Width of the focus ring.                                                                                                                              |
+| `--invalid-color`             | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                  |
+| `--invalid-text-color`        | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                             |
+| `--motion`                    | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`.                            |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                          |
+| `--primary-contrast`          | `light-dark(var(--gray-1), var(--gray-15))`                                             | Text color on a `--primary` background.                                                                                                               |
+| `--switch-dot-size`           | `var(--size-3)`                                                                         | Diameter of the `Switch` dot.                                                                                                                         |
+| `--switch-dot-size-small`     | `0.75rem`                                                                               | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                      |
+| `--switch-track-height`       | `var(--size-5)`                                                                         | Height of the `Switch` track.                                                                                                                         |
+| `--switch-track-height-small` | `var(--size-4)`                                                                         | Height of the `Switch` track with `.ui-small` and inside `List`.                                                                                      |
+| `--switch-track-width`        | `var(--size-8)`                                                                         | Width of the `Switch` track.                                                                                                                          |
+| `--switch-track-width-small`  | `2.5rem`                                                                                | Width of the `Switch` track with `.ui-small` and inside `List`.                                                                                       |
+| `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 Other attributes, such as `checked`, `disabled`, `name` and `required`, go to the `<input>`. Without a label, set `aria-label` or `aria-labelledby`.
 
@@ -468,13 +517,32 @@ Other attributes, such as `checked`, `disabled`, `name` and `required`, go to th
 | --------- | --------------------------------------------------- |
 | `default` | The fields, such as checkboxes, radios or switches. |
 
+#### CSS variables
+
+| Variable                     | Default                                                                                 | Description                                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                     |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                         |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                          |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                        |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+
 ## Browser support
 
-- Chromium: Full support Supported since v123.
-- Firefox: Full support Supported since v121.
-- Safari: Full support Supported since v17.5.
+- Chromium: Full support Supported since v133.
+- Firefox: Partial support Missing: text-box.
+- Safari: Full support Supported since v18.2.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Switch.md).
 
 ## Installation
 

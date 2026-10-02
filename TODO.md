@@ -1,3 +1,7 @@
+Severity 1-10, 1 is the most severe.
+
+Findings with a page and section in brackets come from the stress pages in `src/stress-tests/`. Open the section named in brackets to see each one.
+
 ## Accessibility
 
 - [x] (1) Closed drawers are rendered off-screen and keyboard focusable: `dialog.ui-drawer` needs `display: none` when closed (`overlays` DrawerSides)
@@ -36,9 +40,10 @@
   - Fixed: cards have `overflow-wrap: break-word` and `min-inline-size: 0`, so they also stop growing their grid column.
 - [x] (4) Rich text tables break short words letter by letter: `overflow-wrap: anywhere` lowers the min-content width (`typography` EveryElement)
   - Already fixed by the rich text rework: the scope uses `overflow-wrap: break-word`. Checked in Chromium.
-- [] (4) Sticky table headers don't stick: `.ui-table { overflow: hidden }` should be `overflow: clip` (`data-display` TableStickyHeader)
+- [x] (4) Sticky table headers don't stick: `.ui-table { overflow: hidden }` should be `overflow: clip` (`data-display` TableStickyHeader)
   > remove the ability to do sticky table headers - they need to be rethought. create a todo for doing a second pass on sticky headers. skip this for now.
-  - Removed the leftover `thead { z-index: 1 }`. Sticky headers were never documented. Follow-up added under "Not now".
+  - Removed the leftover `thead { z-index: 1 }`. Sticky headers were never documented. Follow-up below.
+- [] (4) Sticky table headers: second pass. Needs `overflow: clip` instead of `hidden` on `.ui-table` (or a scroll wrapper that is the sticky container), a header background and border that survive `border-collapse: separate`, and an opt-in class. See the scroll-state suggestion for the stuck shadow.
 - [?] (5) `.ui-list` styles nested classless lists as list rows (descendant `li` selector), and rich text `p` margins make list rows tall (`typography` ProseInComponents)
   > what is the proposed solution? Honestly it's weird to expect rich-text inside ui-list to begin with. It has constraints for a reason.
   - Agreed. We shouldn't support rich text inside list rows. Two small changes would just stop it from breaking:
@@ -86,6 +91,32 @@
   - Fixed by the `components.prose` layer. The task list rule was already gone after the rich text rework.
 - [x] (5) `span.ui-mark` has no background, and `.ui-del`/`.ui-ins` don't get the critical/success palette (`typography` HeadingClasses)
   - Fixed: `.ui-mark` uses `Mark`/`MarkText` like `<mark>`. `.ui-del` and `.ui-ins` join `del`/`ins` in the palette and severity scopes (`palette.css`, `theme.css`, theme generator).
+- [x] (6) A menu in a dialog blends into it in dark mode (`overlays` DialogNesting)
+  > give it the same border treatment as the carousel prev/next buttons, ie a light gray border. that way it's consistent with the theme.
+  - Fixed: menus use a light gray border in dark mode (`light-dark(var(--border-color), var(--gray-6))`), in dialogs and everywhere else.
+- [x] (6) Avatars shrink in flex rows (no `flex-shrink: 0`), and avatar group overflow counts like "+128" don't fit (`data-display` TableCellContent, InlineAlignment)
+  > fix the avatar shrikage. don't worry about "+128", but if you have a scalable and elegant solution for it let me know.
+  - Fixed: avatars have `flex-shrink: 0`.
+  - "+128": the scalable fix is in the content, not CSS: cap overflow counts at "99+", like most avatar groups and notification badges do. If CSS has to handle any length, size the text with container units: `.ui-avatar { container-type: inline-size }` and `font-size: clamp(0.5rem, 100cqi / 3, 1rem)` on the text inside. That fits about 4 characters at any avatar size, but every initials avatar gets the same smaller text.
+- [?] (6) Callout `.ui-content` grid gap doubles rich text margins, and a classless `h3` in a callout is full size (`typography` ProseInComponents)
+  > is the solution to set gap: 0 on .ui-content.ui-rich-text? what's the plan?
+  - The `h3` is fixed: rich text is in a lower layer now, so the callout's title size wins.
+  - Gap: yes, `gap: 0`, but only where rich text actually applies. Otherwise a callout with plain children loses its spacing. A callout can be rich text itself (`.ui-content.ui-rich-text`) or sit inside a rich text article, so use the same scope as rich text instead of a class check:
+    ```css
+    @layer components.root {
+      @scope (.ui-rich-text) to (.ui-not-rich-text) {
+        .ui-callout > .ui-content {
+          gap: 0;
+        }
+      }
+    }
+    ```
+    Flow margins then handle the spacing, and the first and last child margins are already trimmed inside `.ui-content`.
+- [x] (6) Chip labels wrap and overflow the fixed chip height without `.ui-multiline` (`data-display` TableCellContent)
+  > ellipsis ... should solve it
+  - Fixed: chips are `max-inline-size: 100%`, and `.ui-text` truncates with an ellipsis unless the chip is `.ui-multiline`.
+- [x] (6) Disabled button text color only applies to the text variant: the disabled block is wrapped in `:where()`, so `.ui-filled`/`.ui-tonal`/`.ui-outlined` override its `--_text-color` (only `opacity` dims them). Fix or confirm it's intended
+  - Fixed: the disabled block comes after the variants and uses `:is()`, so it wins for every variant.
 - [?] (6) Light mode: `--border-color` and `--surface-filled` are the same gray, so table header borders and filled bordered list dividers vanish (`data-display` TableStructure, ListSurfaces)
   > what is the most scalable and elegant solution for this?
   - The root cause is the same as the dark mode item: one global border color can't contrast with every surface. Borders need to be relative to the surface they sit on. Two ways to do that:
@@ -122,32 +153,6 @@
        ```
        The catch: the derivation has to live where the border is drawn, in every component, and themes lose the single `--border-color` knob.
   - Recommendation: option 1. It matches how theme.css already works (severity scopes, raised surfaces) and keeps one place to theme borders. Filled is a one-block addition.
-- [x] (6) A menu in a dialog blends into it in dark mode (`overlays` DialogNesting)
-  > give it the same border treatment as the carousel prev/next buttons, ie a light gray border. that way it's consistent with the theme.
-  - Fixed: menus use a light gray border in dark mode (`light-dark(var(--border-color), var(--gray-6))`), in dialogs and everywhere else.
-- [x] (6) Avatars shrink in flex rows (no `flex-shrink: 0`), and avatar group overflow counts like "+128" don't fit (`data-display` TableCellContent, InlineAlignment)
-  > fix the avatar shrikage. don't worry about "+128", but if you have a scalable and elegant solution for it let me know.
-  - Fixed: avatars have `flex-shrink: 0`.
-  - "+128": the scalable fix is in the content, not CSS: cap overflow counts at "99+", like most avatar groups and notification badges do. If CSS has to handle any length, size the text with container units: `.ui-avatar { container-type: inline-size }` and `font-size: clamp(0.5rem, 100cqi / 3, 1rem)` on the text inside. That fits about 4 characters at any avatar size, but every initials avatar gets the same smaller text.
-- [?] (6) Callout `.ui-content` grid gap doubles rich text margins, and a classless `h3` in a callout is full size (`typography` ProseInComponents)
-  > is the solution to set gap: 0 on .ui-content.ui-rich-text? what's the plan?
-  - The `h3` is fixed: rich text is in a lower layer now, so the callout's title size wins.
-  - Gap: yes, `gap: 0`, but only where rich text actually applies. Otherwise a callout with plain children loses its spacing. A callout can be rich text itself (`.ui-content.ui-rich-text`) or sit inside a rich text article, so use the same scope as rich text instead of a class check:
-    ```css
-    @layer components.root {
-      @scope (.ui-rich-text) to (.ui-not-rich-text) {
-        .ui-callout > .ui-content {
-          gap: 0;
-        }
-      }
-    }
-    ```
-    Flow margins then handle the spacing, and the first and last child margins are already trimmed inside `.ui-content`.
-- [x] (6) Chip labels wrap and overflow the fixed chip height without `.ui-multiline` (`data-display` TableCellContent)
-  > ellipsis ... should solve it
-  - Fixed: chips are `max-inline-size: 100%`, and `.ui-text` truncates with an ellipsis unless the chip is `.ui-multiline`.
-- [x] (6) Disabled button text color only applies to the text variant: the disabled block is wrapped in `:where()`, so `.ui-filled`/`.ui-tonal`/`.ui-outlined` override its `--_text-color` (only `opacity` dims them). Fix or confirm it's intended
-  - Fixed: the disabled block comes after the variants and uses `:is()`, so it wins for every variant.
 - [x] (6) `pre` inside `dir="rtl"` runs code right to left (`typography` Bidi)
   > in this example I can see code inside RTL run left to right. if that's wrong then fix it.
   - It was wrong. Each line runs left to right, but punctuation at the ends gets moved by the bidi algorithm: `const x = add(1, 2);` showed as `;const x = add(1, 2)`, `x++` as `++x` and `// comment.` as `.comment //`, and lines were right-aligned. Fixed: rich text `pre` and inline `code` are `direction: ltr` with `unicode-bidi: isolate`, unless they have their own `dir`.
@@ -207,7 +212,7 @@
     }
     ```
 - [x] (8) Stretched callouts spread title and text apart (needs `align-content: start`), and the `::before` shows lighter corners inside the border (`layout` UnevenGrid, Nesting)
-  - Fixed: the icon layout has `align-content: start`. The `::before` radius is the inner radius (`border-radius - 1px`), so it covers the corners.
+  - Fixed: the icon layout has `align-content: start`. The `::before` radius is the inner radius (`border-radius - border-width`), so it covers the corners.
 - [x] (9) Dense list padding doesn't line up with card padding, and `.ui-inset` text offset assumes default gaps (`data-display` ListSurfaces)
   - Fixed: dense rows keep the card's inline padding (`--size-3`). Item gap and leading size are `--_item-gap` and `--_start-size`, which dense sets, and `.ui-inset` uses both.
 - [?] (9) Dividers inside cards have very large margins (`--size-fluid-3`) (`layout` SidebarLayout)
@@ -370,9 +375,13 @@
 
 ## To check
 
+- [] (3) Test Menu and Carousel in Firefox and Safari (only checked in Chromium)
 - [x] (4) Check button changes in the browser: new padding scale, icon side padding with wrapped labels, icon sizing, icon-only, button groups
   > - keyboard on hover is buggy (the kbd disappears on outlined and tonal buttons; the kbd on outlined and tonal buttons don't inherit the button text color)
   - Fixed: the `kbd` color was `oklch(from currentColor …)`. Chromium resolved it once and didn't update it while the button's color transitioned on hover, so it kept the old color. It now inherits `color` and dims with `opacity: 0.8`, and the background is `color-mix()` with `currentColor`.
+- [] (5) Review `feat/pixel-style` (Pixel style switcher in theme drawer): check every component in light/dark, no flash on reload, Default unchanged vs main, logo font now uses `--font-heading`. Rebase may conflict in button-group.css and CHANGELOG.md
+- [] (5) Test anatomy heroes in Firefox, Safari and with Windows fonts
+- [] (7) Button `kbd` looks weird on Mac
 - [?] (8) Auto-suggest arrow: vertically centered in Chromium, but sits closer to the edge at `x-small`/`small` than at default/`large`. Check Firefox and Safari too
   > honestly auto-suggest should look more like select and the arrow should be any svg you choose. is that possible? if you think so explain how it would work and if it would nicely slot into how other field components, ex select and text field work
   - Yes. Today the arrow is the browser's own datalist indicator (`::-webkit-calendar-picker-indicator`). Only Chromium shows it, Firefox shows nothing and Safari draws its own, which is why it can't be aligned consistently.
@@ -403,13 +412,3 @@
     ```
   - It fits the field model: the field grid already has a suffix column (prefix, input, suffix), and Select puts its arrow in the same place. Astro and Vue get an `arrow` slot that renders into `.ui-suffix`.
   - Trade-off: the native indicator opens the list on click. A decorative arrow doesn't (it would be `pointer-events: none`), but typing or pressing the down arrow key in the input still opens the list. A clickable arrow would need `input.showPicker()`, which is JavaScript.
-
-## Not now
-
-- [ ] Sticky table headers: second pass. Needs `overflow: clip` instead of `hidden` on `.ui-table` (or a scroll wrapper that is the sticky container), a header background and border that survive `border-collapse: separate`, and an opt-in class. See the scroll-state example above for the stuck shadow.
-- [ ] Review `feat/pixel-style` (Pixel style switcher in theme drawer): check every component in light/dark, no flash on reload, Default unchanged vs main, logo font now uses `--font-heading`. Rebase may conflict in button-group.css and CHANGELOG.md
-- [ ] `--primary-contrast` on `--primary` is 3.97:1 (AA needs 4.5:1): filled Tabs selected tab and primary filled Buttons. Axe misses the Tabs case because the fill is a pseudo-element
-- [ ] Test Menu and Carousel in Firefox and Safari (only checked in Chromium)
-- [ ] Test anatomy heroes in Firefox, Safari and with Windows fonts
-- [?] Running pnpm scripts adds `@pnpm/exe` to `pnpm-lock.yaml`
-- [?] `svelte` peer dependency but no Svelte components: remove it, or keep it for planned Svelte support?

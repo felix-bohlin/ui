@@ -175,6 +175,22 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 | --------- | ------------------- |
 | `default` | The table sections. |
 
+#### CSS variables
+
+| Variable                 | Default                                     | Description                                                                                           |
+| ------------------------ | ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                           |
+| `--border-radius`        | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                     |
+| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                               |
+| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
+| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                     |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                             |
+| `--surface-filled`       | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                 |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+
 Set column widths with `TableColumnGroup` and `TableColumn`, which takes a `width`.
 
 ## Browser support
@@ -183,4 +199,9 @@ Set column widths with `TableColumnGroup` and `TableColumn`, which takes a `widt
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Table.md).
+
+## Installation
+
+- `opui-css/css/components/table.css`
+

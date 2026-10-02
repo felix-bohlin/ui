@@ -7,7 +7,7 @@ const { class: className, variant, ...rest } = Astro.props
 ---
 
 <table
-  class:list={["ui-table", className, variant && `ui-${variant}`]}
+  class:list={["ui-table", variant && `ui-${variant}`, className]}
   {...rest}
 >
   <slot />

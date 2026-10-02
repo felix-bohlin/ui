@@ -9,13 +9,23 @@ import RangeCSS from "@opui/css/components/range.css?raw"
 import Conditional from "../../components/Conditional.astro"
 
 import rangeApi from "../../component-api/range/api"
+export const description =
+  "Range lets users pick a number by sliding a thumb along a track."
 ---
 
 <Component
+  description={description}
   slug="range"
   heroAnatomy
   apis={[{ title: "Range API", api: rangeApi }]}
-  browserSupport={["light-dark", "relative-color", "container-queries"]}
+  browserSupport={[
+    "container-queries",
+    "datalist",
+    "has",
+    "light-dark",
+    "registered-custom-properties",
+    "relative-color",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Range/Range.astro",
@@ -50,9 +60,9 @@ import rangeApi from "../../component-api/range/api"
         text in sync with the input.
       </p>
       <p slot="html">
-        Add an <code>&lt;output class="ui-value"&gt;</code> sibling to the
+        Add an <code>&lt;output class="ui-value"&gt;</code> sibling to the{" "}
         <code>.ui-label</code> with <code>for</code> pointing at the input's id. Optionally
-        set <code>data-suffix</code> for a unit (e.g. <code>°</code>,
+        set <code>data-suffix</code> for a unit (e.g. <code>°</code>,{" "}
         <code>px</code>). Updating its text content is the consumer's
         responsibility.
       </p>
@@ -73,21 +83,21 @@ import rangeApi from "../../component-api/range/api"
         Pass an id to the <code>list</code> prop together with an <code
           >options</code
         >
-        array - <code>{"options=[{ value, label }]"}</code> - and the component renders
-        a matching <code>&lt;datalist&gt;</code>.
+        {" "}array - <code>{"options=[{ value, label }]"}</code> - and the component
+        renders a matching <code>&lt;datalist&gt;</code>.
       </p>
       <p slot="html">
         Use the <code>list</code> attribute on the <code>&lt;input&gt;</code> and
-        follow it with a <code>&lt;datalist&gt;</code> element containing
-        <code>&lt;option&gt;</code> elements with <code>value</code> and
+        follow it with a <code>&lt;datalist&gt;</code> element containing{" "}
+        <code>&lt;option&gt;</code> elements with <code>value</code> and{" "}
         <code>label</code> attributes.
       </p>
       <p slot="vue">
         Pass an id to the <code>list</code> prop together with an <code
           >options</code
         >
-        array - <code>{"options=[{ value, label }]"}</code> - and the component renders
-        a matching <code>&lt;datalist&gt;</code>.
+        {" "}array - <code>{"options=[{ value, label }]"}</code> - and the component
+        renders a matching <code>&lt;datalist&gt;</code>.
       </p>
     </Conditional>
     <AutoExample name="TickMarksLabels" column />
@@ -104,7 +114,8 @@ import rangeApi from "../../component-api/range/api"
         Use the <code>.ui-filled</code>, <code>.ui-default</code>, or <code
           >.ui-tonal</code
         >
-        class to swap the track surface for better contrast on different backgrounds.
+        {" "}class to swap the track surface for better contrast on different
+        backgrounds.
       </p>
       <p slot="vue">
         Use the <code>variant</code> prop to swap the track surface for better contrast

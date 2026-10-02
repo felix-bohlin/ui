@@ -81,8 +81,9 @@ const components = componentsFor(currentFramework)
 const currentIndex = components.findIndex(
   (component) => component.slug === currentSlug,
 )
-const prevComponent = components[currentIndex - 1]
-const nextComponent = components[currentIndex + 1]
+const isComponentPage = currentIndex !== -1
+const prevComponent = isComponentPage ? components[currentIndex - 1] : undefined
+const nextComponent = isComponentPage ? components[currentIndex + 1] : undefined
 
 const githubRepo = "https://github.com/felix-bohlin/ui"
 const editUrl = `${githubRepo}/edit/main/src/docs/components/${currentSlug}.astro`
@@ -120,7 +121,9 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
               >
                 {component.name}
                 {whatsNewFor(currentFramework, component.slug).length > 0 && (
-                  <span class="new-badge">New</span>
+                  <span class="new-dot">
+                    <span class="ui-sr-only">New</span>
+                  </span>
                 )}
               </a>
             </li>
@@ -180,6 +183,15 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
   }
 
   {apis && <ComponentAPI apis={apis} />}
+
+  {
+    Astro.slots.has("under-the-hood") && (
+      <section>
+        <h2 id="under-the-hood">Under the hood</h2>
+        <slot name="under-the-hood" />
+      </section>
+    )
+  }
 
   {browserSupport && <BrowserSupport ids={browserSupport} />}
 
@@ -259,20 +271,24 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
   <footer class="component-footer ui-not-rich-text">
     <hr class="ui-divider" />
 
-    <Button href={editUrl} target="_blank" size="small">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 32 32"
-        width="1.2em"
-        height="1.2em"
-      >
-        <path
-          fill="currentColor"
-          d="M28.565 3.434a4.89 4.89 0 0 0-6.915 0L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l17.295-17.295a4.89 4.89 0 0 0 0-6.914m-5.5 1.414a2.89 2.89 0 0 1 4.085 4.086l-.9.9l-4.086-4.085zm-2.316 2.315l4.086 4.086L9.857 26.23a1.7 1.7 0 0 1-.846.46L4.3 27.7l1.01-4.71a1.7 1.7 0 0 1 .46-.846z"
-        ></path></svg
-      >
-      <span>Edit page</span>
-    </Button>
+    {
+      isComponentPage && (
+        <Button href={editUrl} target="_blank" size="small">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 32 32"
+            width="1.2em"
+            height="1.2em"
+          >
+            <path
+              fill="currentColor"
+              d="M28.565 3.434a4.89 4.89 0 0 0-6.915 0L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l17.295-17.295a4.89 4.89 0 0 0 0-6.914m-5.5 1.414a2.89 2.89 0 0 1 4.085 4.086l-.9.9l-4.086-4.085zm-2.316 2.315l4.086 4.086L9.857 26.23a1.7 1.7 0 0 1-.846.46L4.3 27.7l1.01-4.71a1.7 1.7 0 0 1 .46-.846z"
+            />
+          </svg>
+          <span>Edit page</span>
+        </Button>
+      )
+    }
 
     <nav class="pagination">
       {
@@ -360,8 +376,8 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
 
         .pagination-link {
           align-items: center;
-          border-radius: var(--radius-3);
           border: 1px solid var(--border-color);
+          border-radius: var(--radius-3);
           color: var(--text-primary);
           display: flex;
           gap: var(--size-4);

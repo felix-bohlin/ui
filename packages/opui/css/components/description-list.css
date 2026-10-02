@@ -1,7 +1,7 @@
 @layer components.root {
   :where(.ui-description-list) {
     --_border-style: solid;
-    --_border-width: 1px;
+    --_border-width: var(--border-width);
 
     container-type: inline-size;
     display: grid;
@@ -27,7 +27,7 @@
       dt,
       .ui-term {
         display: block;
-        font-weight: 700;
+        font-weight: var(--font-weight-bold);
         overflow: hidden;
         position: relative;
       }
@@ -47,13 +47,6 @@
 
         & + .ui-item {
           margin-block-start: var(--size-1);
-        }
-
-        dt,
-        .ui-term {
-          &::after {
-            display: inline-block;
-          }
         }
 
         dd {

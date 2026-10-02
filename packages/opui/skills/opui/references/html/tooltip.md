@@ -2,7 +2,7 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md).
 
-Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Wire `interestfor` on the trigger to the`.ui-anchor-floating[popover="hint"]` element's ID.
+Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Wire `interestfor` on the trigger to the `.ui-anchor-floating[popover="hint"]` element's ID.
 
 ## Basics
 
@@ -48,7 +48,7 @@ You can place any markup you want (famous last words) inside `.ui-anchor-floatin
 
 ## Alignment
 
-Set `--anchor-position-area` on the parent with your preferred`position-area` value.
+Set `--anchor-position-area` on the parent with your preferred `position-area` value.
 
 ```html
 <div class="tooltip-alignment-grid">
@@ -184,15 +184,28 @@ Add the `.ui-with-arrow` class on the `.ui-tooltip`. This would be cool to solve
 | `& > :first-child`    | The trigger that shows the tooltip on hover and focus. |
 | `.ui-anchor-floating` | The tooltip, a `popover="hint"`.                       |
 
+#### CSS variables
+
+| Variable            | Default                                     | Description                                                                                                                |
+| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
+| `--font-size-05`    | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-inverse` | `light-dark(var(--gray-15), var(--gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                            |
+| `--text-inverse`    | `light-dark(var(--gray-1), var(--gray-15))` | Text color on `--surface-inverse`.                                                                                         |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+
 Also add `.ui-anchor` to the root. Give `.ui-anchor-floating` `popover="hint"` and an id, and add `interestfor` with that id to the trigger.
 
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Full support Supported since v151.
-- Safari: Partial support Missing: popover-hint.
+- Firefox: Partial support Missing: display-animation, interest-invokers, overlay, text-wrap-pretty.
+- Safari: Partial support Missing: interest-invokers, overlay, popover-hint.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Tooltip.md).
 
 ## Installation
 

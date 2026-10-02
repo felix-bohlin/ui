@@ -62,9 +62,9 @@ The List component is *extremely* flexible and versatile. Be careful if you star
 
 Change background color with the `variant` prop.
 
-### Filled as default?!
+### Filled by default
 
-Yeah it's a bit weird, but normally you would use a list in a popover/select scenario that needs to contrast against the background. If nothing else, just change it yourself.
+Without a color class the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `default` or `tonal` to match the page surface instead.
 
 ```vue
 <script setup lang="ts">
@@ -102,7 +102,7 @@ import { List, ListItem } from "opui-css/vue"
 
 ## Clickable list item
 
-Wrap the elements of your List item with a `a`, `button`or `label` depending on use-case.
+Wrap the elements of your List item with a `a`, `button` or `label` depending on use-case.
 
 ```vue
 <script setup lang="ts">
@@ -127,7 +127,7 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
 
 ### Selected item
 
-Add `aria-selected="true"` to the `ListItem`.
+Add `aria-current="page"` to the link inside the `ListItem`.
 
 ```vue
 <script setup lang="ts">
@@ -137,11 +137,11 @@ import { List, ListItem } from "opui-css/vue"
 
 <template>
   <List>
-    <ListItem aria-selected="true">
-      <a href="#">
+    <ListItem>
+      <a href="#" aria-current="page">
         <div class="ui-text">
           <p>Selected item</p>
-          <p>This item has aria-selected="true" applied to the ListItem</p>
+          <p>This item has aria-current="page" on its link</p>
         </div>
       </a>
     </ListItem>
@@ -158,7 +158,7 @@ import { List, ListItem } from "opui-css/vue"
 
 ## Text
 
-Main text lives in the `text` slot, or pass `headline`and `description` props directly on `ListItem`.
+Main text lives in the `text` slot, or pass `headline` and `description` props directly on `ListItem`.
 
 ```vue
 <script setup lang="ts">
@@ -375,7 +375,7 @@ import { List, ListItem } from "opui-css/vue"
 
 ### Checkbox
 
-Wrap the List item content with a `<label class="ui-checkbox" for="INPUTID">`to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-checkbox" for="INPUTID">` to make the entire surface clickable.
 
 Read more: [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md)
 
@@ -401,7 +401,7 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
 
 ### Radio
 
-Wrap the List item content with a `<label class="ui-radio" for="INPUTID">`to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-radio" for="INPUTID">` to make the entire surface clickable.
 
 Radio group: Add a common name to each `<input>` for radio group behavior.
 
@@ -506,7 +506,11 @@ import { List, ListItem } from "opui-css/vue"
   <List gutterless>
     <ListItem headline="Gutterless list item">
       <template #end>
-        <button class="ui-button ui-rounded ui-ripple ui-small" type="button">
+        <button
+          aria-label="Delete"
+          class="ui-button ui-rounded ui-ripple ui-small"
+          type="button"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"
@@ -615,27 +619,76 @@ import ListAll from "./ListAll.vue"
 | --------- | --------------- |
 | `default` | The list items. |
 
+#### CSS variables
+
+| Variable                      | Default                                      | Description                                                                                                       |
+| ----------------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                       |
+| `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                           |
+| `--choice-size-small`         | `var(--size-3)`                              | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                             |
+| `--control-size`              | `40px`                                       | Shared default height for fields and buttons so they line up.                                                     |
+| `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
+| `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
+| `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
+| `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `IconButton`, `Avatar` and `List`.                                                               |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
+| `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                         |
+| `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
+| `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                     |
+| `--switch-dot-size-small`     | `0.75rem`                                    | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                  |
+| `--switch-track-height-small` | `var(--size-4)`                              | Height of the `Switch` track with `.ui-small` and inside `List`.                                                  |
+| `--switch-track-width-small`  | `2.5rem`                                     | Width of the `Switch` track with `.ui-small` and inside `List`.                                                   |
+| `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                  |
+| `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                            |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+
 ### List item API
 
-| Prop          | Type                                            | Default | Description                                                           |
-| ------------- | ----------------------------------------------- | ------- | --------------------------------------------------------------------- |
-| `as`          | `string`                                        | -       | The element to render inside the `<li>`, such as `"a"` or `"button"`. |
-| `borderTop`   | `boolean`                                       | `false` | Adds a border above the item.                                         |
-| `description` | `string`                                        | -       | Supporting text, the second paragraph.                                |
-| `for`         | `string`                                        | -       | The `for` attribute of the `<label>` when `type` is set.              |
-| `headline`    | `string`                                        | -       | The headline, the first paragraph.                                    |
-| `href`        | `string`                                        | -       | The link to use, with `as="a"`.                                       |
-| `inset`       | `boolean`                                       | `false` | Aligns the text with items that have start content.                   |
-| `type`        | `"button"`, `"checkbox"`, `"radio"`, `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.     |
+| Prop          | Type                                | Default | Description                                                           |
+| ------------- | ----------------------------------- | ------- | --------------------------------------------------------------------- |
+| `as`          | `string`                            | -       | The element to render inside the `<li>`, such as `"a"` or `"button"`. |
+| `borderTop`   | `boolean`                           | `false` | Adds a border above the item.                                         |
+| `description` | `string`                            | -       | Supporting text, the second paragraph.                                |
+| `for`         | `string`                            | -       | The `for` attribute of the `<label>` when `type` is set.              |
+| `headline`    | `string`                            | -       | The headline, the first paragraph.                                    |
+| `href`        | `string`                            | -       | The link to use, with `as="a"`.                                       |
+| `inset`       | `boolean`                           | `false` | Aligns the text with items that have start content.                   |
+| `type`        | `"checkbox"`, `"radio"`, `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.     |
 
 #### Slots
 
-| Slot      | Description                                                               |
-| --------- | ------------------------------------------------------------------------- |
-| `default` | Extra content inside `.ui-text`, or all the content when there's no text. |
-| `end`     | Optional content at the end, such as a value or an action.                |
-| `start`   | Optional content at the start, such as an icon or avatar.                 |
-| `text`    | The text content.                                                         |
+| Slot      | Description                                                                 |
+| --------- | --------------------------------------------------------------------------- |
+| `default` | Extra content inside `.ui-text`, or all the content when there's no text.   |
+| `end`     | Optional content at the end, such as a value or an action.                  |
+| `start`   | Optional content at the start, such as an icon or avatar.                   |
+| `submenu` | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`. |
+| `text`    | The text content.                                                           |
+
+#### CSS variables
+
+| Variable                      | Default                                      | Description                                                                                                       |
+| ----------------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                       |
+| `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                           |
+| `--choice-size-small`         | `var(--size-3)`                              | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                             |
+| `--control-size`              | `40px`                                       | Shared default height for fields and buttons so they line up.                                                     |
+| `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
+| `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
+| `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
+| `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `IconButton`, `Avatar` and `List`.                                                               |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
+| `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                         |
+| `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
+| `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                     |
+| `--switch-dot-size-small`     | `0.75rem`                                    | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                  |
+| `--switch-track-height-small` | `var(--size-4)`                              | Height of the `Switch` track with `.ui-small` and inside `List`.                                                  |
+| `--switch-track-width-small`  | `2.5rem`                                     | Width of the `Switch` track with `.ui-small` and inside `List`.                                                   |
+| `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                  |
+| `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                            |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 
@@ -643,7 +696,7 @@ import ListAll from "./ListAll.vue"
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=List.md).
 
 ## Installation
 

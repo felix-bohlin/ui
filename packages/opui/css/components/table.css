@@ -1,7 +1,7 @@
 @layer components.root {
   :where(.ui-table) {
     --_table-border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
+    border: var(--border-width) solid var(--border-color);
 
     border-collapse: separate;
     border-radius: var(--_table-border-radius);
@@ -12,10 +12,8 @@
     position: relative;
 
     /* Rows */
-    tr {
-      &:hover {
-        background-color: oklch(from var(--surface-filled) l c h / 75%);
-      }
+    tr:hover > :is(td, th) {
+      background-color: oklch(from var(--surface-filled) l c h / 75%);
     }
 
     /* Cells */
@@ -43,7 +41,7 @@
       background-color: var(--surface-filled);
       color: var(--text-primary);
       font-size: var(--font-size-05);
-      font-weight: 600;
+      font-weight: var(--font-weight-semibold);
       text-align: start;
     }
 
@@ -94,7 +92,7 @@
       td {
         border-top: var(--border-width) solid var(--border-color);
         color: var(--text-primary);
-        font-weight: 600;
+        font-weight: var(--font-weight-semibold);
       }
     }
 

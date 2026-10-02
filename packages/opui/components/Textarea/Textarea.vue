@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, useAttrs } from "vue"
+import { computed, inject, useAttrs, useId } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
@@ -8,7 +8,7 @@ defineOptions({
 })
 
 const props = defineProps<Props>()
-defineSlots<Slots>()
+const slots = defineSlots<Slots>()
 const attrs = useAttrs()
 const modelValue = defineModel<string>()
 
@@ -19,6 +19,11 @@ const model = computed({
   },
 })
 
+const uid = useId()
+const hasEndText = computed(
+  () => !!props.endText || !!slots["end-text"] || !!slots["supporting-text"],
+)
+const endTextId = computed(() => (hasEndText.value ? uid : undefined))
 const currentFieldName = inject(CurrentFieldNameKey, undefined)
 </script>
 
@@ -26,11 +31,11 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
   <label
     :class="[
       'ui-textarea',
+      props.size && `ui-${props.size}`,
       {
         'ui-auto-fit': props.autoFit,
         'ui-filled': props.filled,
         'ui-spread': props.spread,
-        'ui-small': props.small,
       },
       props.class,
     ]"
@@ -46,6 +51,11 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
 
     <span class="ui-field">
       <textarea
+        :aria-describedby="
+          [endTextId, $attrs['aria-describedby']].filter(Boolean).join(' ') ||
+          undefined
+        "
+        :aria-invalid="props.error ? 'true' : undefined"
         :id="props.id"
         :name="currentFieldName"
         v-bind="$attrs"
@@ -67,6 +77,7 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
 
     <span
       v-if="props.endText || $slots['end-text'] || $slots['supporting-text']"
+      :id="endTextId"
       class="ui-end-text"
     >
       <slot name="end-text">{{ props.endText }}</slot

@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ClassicSelect",
+  css: ["select", "text-field"],
   model: {
     description: "The selected value, or values with `multiple`.",
     prop: "value",
@@ -33,7 +34,11 @@ export default {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { small: ".ui-small" },
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       default: '"outlined"',

@@ -17,10 +17,20 @@
 
     /* Hover-triggered */
     & > .ui-anchor-floating[popover] {
+      background-color: transparent;
+      border: 0;
+      color: inherit;
       inset: unset;
       margin: 0;
+      overflow: visible;
+      padding: 0;
       position: fixed;
       position-area: var(--anchor-position-area, start end);
+      position-try-fallbacks:
+        flip-block,
+        flip-inline,
+        flip-block flip-inline;
+      position-visibility: anchors-visible;
       translate: var(--_anchor-tx, 0) var(--_anchor-ty, 0);
     }
   }

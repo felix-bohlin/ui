@@ -30,11 +30,14 @@ export const description =
   slug="dialog"
   apis={[{ title: "Dialog API", api: dialogApi }]}
   browserSupport={[
+    "backdrop-filter",
     "container-style-queries",
     "dialog-closedby",
+    "display-animation",
     "has",
     "invoker-commands",
     "overlay",
+    "scrollbar-gutter",
     "starting-style",
     "transition-behavior",
   ]}
@@ -108,7 +111,7 @@ export const description =
             href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
             class="ui-link">Invoker Commands</a
           > you can toggle a <code>&lt;dialog&gt;</code> with HTML only, using the
-          <code>commandfor</code> and <code>command</code> attributes.
+          {" "}<code>commandfor</code> and <code>command</code> attributes.
         </p>
       </UICallout>
     </div>
@@ -243,7 +246,7 @@ export const description =
     <ul>
       <li>
         The <code>tabindex</code> attribute must <strong>not</strong> be used on the
-        <code>&lt;dialog&gt;</code> element.
+        {" "}<code>&lt;dialog&gt;</code> element.
       </li>
     </ul>
 

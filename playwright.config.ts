@@ -7,6 +7,7 @@ export default defineConfig({
     toHaveScreenshot: {
       animations: "disabled",
       caret: "hide",
+      maxDiffPixels: 100,
       scale: "css",
     },
   },

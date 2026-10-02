@@ -5,6 +5,7 @@ export type Props = {
   markers?: boolean
   orientation?: "horizontal" | "vertical"
   peek?: boolean
+  persistentButtons?: boolean
   perView?: number
 }
 

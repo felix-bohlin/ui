@@ -10,7 +10,7 @@ Lists meant to be used stand-alone or as part of Select elements
     --_bg-color: var(--surface-filled);
     --_bg-color-hover: oklch(from var(--primary) l c h / 15%);
     --_item-gap: var(--size-3);
-    --_start-size: var(--size-5);
+    --_start-size: var(--icon-size-large);
 
     background-color: var(--_bg-color);
     color: var(--text-primary);
@@ -44,7 +44,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &::before {
           block-size: 1px;
-          border-block-start: 1px solid var(--border-color);
+          border-block-start: var(--border-width) solid var(--border-color);
           content: "";
           display: block;
           inline-size: 100%;
@@ -59,7 +59,7 @@ Lists meant to be used stand-alone or as part of Select elements
     /* Dense - less gaps and spacing */
     &.ui-dense {
       --_item-gap: var(--size-2);
-      --_start-size: var(--size-4);
+      --_start-size: var(--icon-size);
 
       :where(li, option) {
         min-block-size: var(--size-7);
@@ -91,7 +91,7 @@ Lists meant to be used stand-alone or as part of Select elements
           }
 
           &:where(.ui-checkbox, .ui-radio) {
-            --_input-size: var(--size-3);
+            --_input-size: var(--choice-size-small);
           }
         }
 
@@ -109,7 +109,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
           .ui-checkbox,
           .ui-radio {
-            --_input-size: var(--size-3);
+            --_input-size: var(--choice-size-small);
           }
         }
       }
@@ -134,7 +134,7 @@ Lists meant to be used stand-alone or as part of Select elements
       font-size: var(--font-size-05);
       gap: var(--_item-gap);
       isolation: isolate;
-      min-block-size: 40px;
+      min-block-size: var(--control-size);
       padding: var(--size-2) var(--size-3);
       position: relative;
 
@@ -171,7 +171,7 @@ Lists meant to be used stand-alone or as part of Select elements
         gap: var(--_item-gap);
         inline-size: 100%;
         margin: 0;
-        min-block-size: 40px;
+        min-block-size: var(--control-size);
         padding: var(--size-2) var(--size-3);
         text-align: start;
         text-decoration: none;
@@ -202,8 +202,8 @@ Lists meant to be used stand-alone or as part of Select elements
         gap: var(--_item-gap);
         inline-size: 100%;
         margin: 0;
-        min-block-size: 40px;
-        outline-offset: -3px;
+        min-block-size: var(--control-size);
+        outline-offset: var(--focus-ring-inset);
         padding: var(--size-2) var(--size-3);
         text-align: start;
         text-decoration: none;
@@ -235,9 +235,9 @@ Lists meant to be used stand-alone or as part of Select elements
 
         /* Switches look comically big in lists, so it's better to use a smaller variant  */
         &.ui-switch {
-          --_dot-size: 0.75rem;
-          --_track-height: var(--size-4);
-          --_track-width: 2.5rem;
+          --_dot-size: var(--switch-dot-size-small);
+          --_track-height: var(--switch-track-height-small);
+          --_track-width: var(--switch-track-width-small);
         }
       }
 
@@ -252,7 +252,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &::before {
           block-size: 1px;
-          border-block-start: 1px solid var(--border-color);
+          border-block-start: var(--border-width) solid var(--border-color);
           content: "";
           display: block;
           inline-size: 100%;
@@ -327,7 +327,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         svg {
           inline-size: 100%;
-          max-inline-size: var(--size-5);
+          max-inline-size: var(--icon-size-large);
         }
       }
 

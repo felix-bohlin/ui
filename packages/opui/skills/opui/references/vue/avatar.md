@@ -172,13 +172,25 @@ import { Avatar } from "opui-css/vue"
 | --------- | ------------------------------------------ |
 | `default` | Letters or an icon, when there's no image. |
 
+#### CSS variables
+
+| Variable             | Default                                      | Description                                                   |
+| -------------------- | -------------------------------------------- | ------------------------------------------------------------- |
+| `--control-size`     | `40px`                                       | Shared default height for fields and buttons so they line up. |
+| `--icon-size-large`  | `var(--size-5)`                              | Icon size inside `IconButton`, `Avatar` and `List`.           |
+| `--primary`          | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                  |
+| `--primary-contrast` | `light-dark(var(--gray-1), var(--gray-15))`  | Text color on a `--primary` background.                       |
+| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                     |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+
 ## Browser support
 
-- Chromium: Full support Supported since v105.
-- Firefox: Full support Supported since v121.
-- Safari: Full support Supported since v15.4.
+- Chromium: Full support Supported since v139.
+- Firefox: Partial support Missing: corner-shape.
+- Safari: Partial support Missing: corner-shape.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Avatar.md).
 
 ## Installation
 

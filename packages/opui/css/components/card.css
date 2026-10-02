@@ -42,7 +42,7 @@
 
     &.ui-tonal {
       --_card-bg-color: var(--_bg-tonal);
-      --_card-border-width: 1px;
+      --_card-border-width: var(--border-width);
     }
 
     &.ui-elevated {
@@ -53,7 +53,7 @@
     &.ui-outlined {
       --_card-bg-color: var(--_bg-surface);
       --_card-border-color: var(--_border-color);
-      --_card-border-width: 1px;
+      --_card-border-width: var(--border-width);
     }
 
     & > :where(hgroup, .ui-content) {
@@ -100,10 +100,6 @@
 
       &:has(.ui-button:first-child[class="ui-button"]) {
         padding-inline: var(--size-1) var(--size-3);
-      }
-
-      &:has(.ui-button:not([class="ui-button"])) {
-        padding-block-end: var(--size-2);
       }
 
       /* Alignment */

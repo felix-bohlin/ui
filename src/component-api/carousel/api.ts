@@ -51,6 +51,14 @@ export default {
       prop: "peek",
     },
     {
+      class: ".ui-buttons-persistent",
+      default: "false",
+      description:
+        "Keeps the buttons visible at the ends. A disabled button has a muted border.",
+      group: "Persistent buttons",
+      prop: "persistentButtons",
+    },
+    {
       cssVar: "--_per-view",
       default: "1",
       description: "Number of visible items.",

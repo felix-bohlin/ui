@@ -183,6 +183,7 @@ const warned = new Set<string>()
 const warn = (message: string) => {
   if (warned.has(message)) return
   warned.add(message)
+  if (import.meta.env.PROD) throw new Error(`[component-api] ${message}`)
   console.warn(`[component-api] ${message}`)
 }
 

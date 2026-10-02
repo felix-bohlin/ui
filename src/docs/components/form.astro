@@ -126,23 +126,20 @@ import { DescriptionList } from "@opui/astro"
           <DescriptionList.Item>
             <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term
             >
-            <hr class="ui-dotted" />
             <DescriptionList.Description>
               to describe what it's about.
             </DescriptionList.Description>
           </DescriptionList.Item>
           <DescriptionList.Item>
             <DescriptionList.Term
-              ><code>FieldDescription</code>(optional)</DescriptionList.Term
+              ><code>FieldDescription</code> (optional)</DescriptionList.Term
             >
-            <hr class="ui-dotted" />
             <DescriptionList.Description>
               to give extra context about the fieldset.
             </DescriptionList.Description>
           </DescriptionList.Item>
           <DescriptionList.Item>
             <DescriptionList.Term><code>FieldGroup</code></DescriptionList.Term>
-            <hr class="ui-dotted" />
             <DescriptionList.Description>
               groups related fields.
             </DescriptionList.Description>
@@ -153,17 +150,14 @@ import { DescriptionList } from "@opui/astro"
             <DescriptionList.Term
               ><code>&lt;legend&gt;</code></DescriptionList.Term
             >
-            <hr class="ui-dotted" />
             <DescriptionList.Description>
               to describe what it's about.
             </DescriptionList.Description>
           </DescriptionList.Item>
           <DescriptionList.Item>
             <DescriptionList.Term
-              ><code>.ui-field-description</code
-              >(optional)</DescriptionList.Term
+              ><code>.ui-field-description</code> (optional)</DescriptionList.Term
             >
-            <hr class="ui-dotted" />
             <DescriptionList.Description>
               to give extra context about the fieldset.
             </DescriptionList.Description>
@@ -172,7 +166,6 @@ import { DescriptionList } from "@opui/astro"
             <DescriptionList.Term
               ><code>.ui-field-group</code></DescriptionList.Term
             >
-            <hr class="ui-dotted" />
             <DescriptionList.Description>
               groups related fields.
             </DescriptionList.Description>
@@ -182,23 +175,20 @@ import { DescriptionList } from "@opui/astro"
           <DescriptionList.Item>
             <DescriptionList.Term><code>FieldLegend</code></DescriptionList.Term
             >
-            <hr class="ui-dotted" />
             <DescriptionList.Description>
               to describe what it's about.
             </DescriptionList.Description>
           </DescriptionList.Item>
           <DescriptionList.Item>
             <DescriptionList.Term
-              ><code>FieldDescription</code>(optional)</DescriptionList.Term
+              ><code>FieldDescription</code> (optional)</DescriptionList.Term
             >
-            <hr class="ui-dotted" />
             <DescriptionList.Description>
               to give extra context about the fieldset.
             </DescriptionList.Description>
           </DescriptionList.Item>
           <DescriptionList.Item>
             <DescriptionList.Term><code>FieldGroup</code></DescriptionList.Term>
-            <hr class="ui-dotted" />
             <DescriptionList.Description>
               groups related fields.
             </DescriptionList.Description>
@@ -218,7 +208,7 @@ import { DescriptionList } from "@opui/astro"
   </section>
 
   <section>
-    <h2 id="field-legend">Field Legend</h2>
+    <h2 id="field-legend">Field legend</h2>
     <p>
       Use <code>FieldLegend</code> (or <code>&lt;legend&gt;</code>) to describe
       the fieldset.
@@ -227,7 +217,7 @@ import { DescriptionList } from "@opui/astro"
   </section>
 
   <section>
-    <h2 id="field-description">Field Description</h2>
+    <h2 id="field-description">Field description</h2>
     <p>
       Use <code>FieldDescription</code> (or <code>.ui-field-description</code>)
       to give extra context about the fieldset.
@@ -236,18 +226,18 @@ import { DescriptionList } from "@opui/astro"
   </section>
 
   <section>
-    <h2 id="field-group">Field Group</h2>
+    <h2 id="field-group">Field group</h2>
     <Conditional>
       <p slot="astro">
         Use <code>FieldGroup</code> to wrap related fields. It provides a shared
-        <code>name</code> to all nested inputs.
+        {" "}<code>name</code> to all nested inputs.
       </p>
       <p slot="html">
         Use <code>.ui-field-group</code> to wrap related fields.
       </p>
       <p slot="vue">
         Use <code>FieldGroup</code> to wrap related fields. It provides a shared
-        <code>name</code> to all nested inputs.
+        {" "}<code>name</code> to all nested inputs.
       </p>
     </Conditional>
 
@@ -291,7 +281,7 @@ import { DescriptionList } from "@opui/astro"
   </section>
 
   <section>
-    <h2 id="kitchen-sink">Kitchen Sink</h2>
+    <h2 id="kitchen-sink">Kitchen sink</h2>
     <p>Everything all at once.</p>
     <Example>
       <Fragment slot="controls">
@@ -398,7 +388,7 @@ import { DescriptionList } from "@opui/astro"
 </script>
 
 <style is:global>
-  /* This is here becuase the examples don't remove the hr, they just put display none. In real life though they wouldn't be there so it will look right at least. */
+  /* This is here because the examples don't remove the hr, they just put display none. In real life though they wouldn't be there so it will look right at least. */
   .ui-field-group {
     &:has(.ui-button):not(:has(*:not(.ui-button))) {
       &:not(hr:not([style*="display: none"]) + &) {

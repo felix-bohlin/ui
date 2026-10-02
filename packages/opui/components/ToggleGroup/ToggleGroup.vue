@@ -5,7 +5,9 @@ import { ToggleGroupKey, type Props, type Slots } from "./types.d.vue"
 const {
   name,
   orientation,
+  scrollable,
   selection = "multiple",
+  shrink,
   size = "default",
 } = defineProps<Props>()
 defineSlots<Slots>()
@@ -14,7 +16,8 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const groupName = name || useId()
+const uid = useId()
+const groupName = name || uid
 const inputType = selection === "single" ? "radio" : "checkbox"
 
 provide(ToggleGroupKey, { name: groupName, type: inputType })
@@ -26,6 +29,7 @@ provide(ToggleGroupKey, { name: groupName, type: inputType })
       'ui-toggle-group',
       size !== 'default' && size && `ui-${size}`,
       orientation && `ui-${orientation}`,
+      { 'ui-scrollable': scrollable, 'ui-shrink': shrink },
       $props.class,
     ]"
     :role="selection === 'single' ? 'radiogroup' : 'group'"

@@ -15,7 +15,8 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const drawerId = id || useId()
+const uid = useId()
+const drawerId = id || uid
 </script>
 
 <template>

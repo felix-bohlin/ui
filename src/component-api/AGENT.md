@@ -7,8 +7,8 @@ This guide defines the standards for documenting Astro UI component APIs in `src
 When creating or updating a component API table, ensure:
 
 - [ ] **File Format**: Either an `api.ts` data file (preferred, see [Data-driven APIs](#data-driven-apis-apits)) or `.astro` table files.
-- [ ] **Folder Structure**: If a component has different APIs for Astro and HTML, use a folder (e.g., `src/component-api/button/`) with `Astro.astro` and `HTML.astro`.
-- [ ] **Table Component**: Use the `Table` component from `../../ui-components/Table` (adjust path as needed).
+- [ ] **Folder Structure**: One folder per component (e.g., `src/component-api/button/`) holding `api.ts`, or the legacy `Astro.astro`, `HTML.astro` and `Vue.astro` tables.
+- [ ] **Table Component**: Legacy `.astro` tables use the `Table` component from `@opui/astro`.
 - [ ] **Table Sub-components**: Use `Table.Head`, `Table.Body`, `Table.Row`, `Table.Cell`, `Table.HeaderCell`, `Table.ColumnGroup`, and `Table.Column` for table structure.
 - [ ] **Column Widths**: Use `Table.ColumnGroup` and `Table.Column` to specify widths: `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 300px"`.
 - [ ] **CSS Verified**: All modifiers and selectors (e.g., `& > .content`) exist in the component's CSS file in `packages/opui/css/components/`.
@@ -98,6 +98,7 @@ import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
   - `part` is the selector of the part that gets the modifier, such as `.ui-actions` for `actionsAlign`.
   - `cssVar` is the custom property an option sets, such as `--anchor-position-area`. It can be combined with a class or `values`.
 - `slots`: slots that aren't parts, such as `default`.
+- `css`: the stylesheets under `packages/opui/css/components/` the component is styled by, without the extension. Defaults to the kebab-cased `source`. The CSS variables table lists every theme token those files read, with the default from `theme.css` and the description from `src/utils/theme-token-descriptions.ts`.
 - `model` and `notes`: the bound value and per-framework notes.
 
 Prop names and types are read from each framework's types file, and Astro/Vue slots from the component source, so they are never written by hand. Framework syntax lives in [frameworks.ts](frameworks.ts). The build warns (`[component-api]`) when a prop or slot is missing from `api.ts` or documented but not in the source.

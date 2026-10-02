@@ -11,7 +11,7 @@
     --_content-gap: var(--size-2);
     --_font-size: var(--font-size-05);
     --_title-font-size: var(--font-size-1);
-    --_icon-size: var(--size-4);
+    --_icon-size: var(--icon-size);
     --_surface-bg: var(--surface-default);
 
     --_outlined-bg-color: var(--surface-default);
@@ -19,8 +19,8 @@
     --_outlined-color: var(--text-primary);
     --_outlined-icon-color: currentColor;
 
-    background-color: var(--_bg-color, var(--_surface-bg));
-    border: 1px solid var(--_border-color, var(--border-color));
+    background-color: var(--_surface-bg);
+    border: var(--border-width) solid var(--_border-color, var(--border-color));
     border-radius: var(--_border-radius);
     color: var(--_color);
     isolation: isolate;
@@ -55,7 +55,7 @@
 
     &::before {
       background-color: var(--_bg-color);
-      border-radius: max(0px, calc(var(--_border-radius) - 1px));
+      border-radius: max(0px, calc(var(--_border-radius) - var(--border-width)));
       content: "";
       inset: 0;
       pointer-events: none;
@@ -76,7 +76,7 @@
       h6 {
         color: inherit;
         font-size: var(--_title-font-size);
-        font-weight: 600;
+        font-weight: var(--font-weight-semibold);
 
         * {
           font-size: inherit;

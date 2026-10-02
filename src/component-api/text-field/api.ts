@@ -42,11 +42,14 @@ export default {
       type: "string",
     },
     {
-      class: ".ui-small",
-      default: "false",
       description: "The size of the element.",
       group: "Sizes",
-      prop: "small",
+      prop: "size",
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       class: ".ui-spread",

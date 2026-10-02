@@ -31,6 +31,7 @@ const currentFramework = (Astro.currentLocale ??
 const links = [
   { href: "/guide/getting-started", label: "Getting started" },
   { href: "/guide/theme-generator", label: "Theme generator" },
+  { href: "/guide/theme-tokens", label: "Theme tokens" },
   { href: "/guide/why-opui", label: "Why Open Props UI?" },
   { href: "/guide/browser-support", label: "Browser support" },
   { href: "/guide/acknowledgments", label: "Acknowledgments" },
@@ -82,13 +83,13 @@ const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
 <style is:global>
   .guide-nav-list {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
 
     & a {
+      color: var(--text-muted);
       display: block;
       padding-block: var(--size-1);
-      color: var(--text-muted);
       text-decoration: none;
 
       &:hover {

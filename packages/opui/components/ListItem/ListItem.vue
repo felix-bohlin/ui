@@ -103,5 +103,6 @@ const disabled = computed(() =>
         <slot name="end"></slot>
       </div>
     </template>
+    <slot name="submenu"></slot>
   </li>
 </template>

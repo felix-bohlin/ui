@@ -1,6 +1,6 @@
 # Menu
 
-A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anchored to a[Button](https://open-props-ui.netlify.app/html/components/button.md).
+A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anchored to a [Button](https://open-props-ui.netlify.app/html/components/button.md).
 
 ### What's new
 
@@ -21,22 +21,24 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 <menu class="ui-menu ui-list" id="menu-basics-html" popover>
   <li>
     <button type="button" commandfor="menu-basics-html" command="hide-popover">
-      Edit
-      <span class="ui-end"><kbd>E</kbd></span>
+      <div class="ui-text"><p>Edit</p></div>
+      <div class="ui-end"><kbd>E</kbd></div>
     </button>
   </li>
   <li>
     <button type="button" commandfor="menu-basics-html" command="hide-popover">
-      Duplicate
-      <span class="ui-end"><kbd>D</kbd></span>
+      <div class="ui-text"><p>Duplicate</p></div>
+      <div class="ui-end"><kbd>D</kbd></div>
     </button>
   </li>
   <li>
-    <button type="button" disabled>Archive</button>
+    <button type="button" disabled>
+      <div class="ui-text"><p>Archive</p></div>
+    </button>
   </li>
   <li class="ui-border-top ui-critical">
     <button type="button" commandfor="menu-basics-html" command="hide-popover">
-      Delete
+      <div class="ui-text"><p>Delete</p></div>
     </button>
   </li>
 </menu>
@@ -72,7 +74,7 @@ If you want to decide yourself what goes into your list.
           />
         </svg>
       </div>
-      Rename
+      <div class="ui-text"><p>Rename</p></div>
       <div class="ui-end"><kbd>F2</kbd></div>
     </button>
   </li>
@@ -86,7 +88,7 @@ If you want to decide yourself what goes into your list.
           />
         </svg>
       </div>
-      Copy
+      <div class="ui-text"><p>Copy</p></div>
       <div class="ui-end"><kbd>Ctrl C</kbd></div>
     </button>
   </li>
@@ -100,7 +102,7 @@ If you want to decide yourself what goes into your list.
           />
         </svg>
       </div>
-      Open in new tab
+      <div class="ui-text"><p>Open in new tab</p></div>
     </a>
   </li>
   <li class="ui-border-top ui-critical">
@@ -113,7 +115,7 @@ If you want to decide yourself what goes into your list.
           />
         </svg>
       </div>
-      Delete
+      <div class="ui-text"><p>Delete</p></div>
     </button>
   </li>
 </menu>
@@ -138,7 +140,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-block-start-html"
     >
-      First
+      <div class="ui-text"><p>First</p></div>
     </button>
   </li>
   <li>
@@ -147,7 +149,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-block-start-html"
     >
-      Second
+      <div class="ui-text"><p>Second</p></div>
     </button>
   </li>
   <li>
@@ -156,7 +158,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-block-start-html"
     >
-      Third
+      <div class="ui-text"><p>Third</p></div>
     </button>
   </li>
 </menu>
@@ -176,7 +178,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-block-end-html"
     >
-      First
+      <div class="ui-text"><p>First</p></div>
     </button>
   </li>
   <li>
@@ -185,7 +187,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-block-end-html"
     >
-      Second
+      <div class="ui-text"><p>Second</p></div>
     </button>
   </li>
   <li>
@@ -194,7 +196,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-block-end-html"
     >
-      Third
+      <div class="ui-text"><p>Third</p></div>
     </button>
   </li>
 </menu>
@@ -218,7 +220,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-inline-start-html"
     >
-      First
+      <div class="ui-text"><p>First</p></div>
     </button>
   </li>
   <li>
@@ -227,7 +229,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-inline-start-html"
     >
-      Second
+      <div class="ui-text"><p>Second</p></div>
     </button>
   </li>
   <li>
@@ -236,7 +238,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-inline-start-html"
     >
-      Third
+      <div class="ui-text"><p>Third</p></div>
     </button>
   </li>
 </menu>
@@ -256,7 +258,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-inline-end-html"
     >
-      First
+      <div class="ui-text"><p>First</p></div>
     </button>
   </li>
   <li>
@@ -265,7 +267,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-inline-end-html"
     >
-      Second
+      <div class="ui-text"><p>Second</p></div>
     </button>
   </li>
   <li>
@@ -274,7 +276,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-inline-end-html"
     >
-      Third
+      <div class="ui-text"><p>Third</p></div>
     </button>
   </li>
 </menu>
@@ -282,7 +284,7 @@ If you want to decide yourself what goes into your list.
 
 ## Submenu
 
-A menu inside a list item.
+Put a `menu` in the `li`, after its button. Mark the item with an icon from your icon library in `div.ui-end`.
 
 ```html
 <button
@@ -295,22 +297,30 @@ A menu inside a list item.
 <menu class="ui-menu ui-list" id="menu-file-html" popover>
   <li>
     <button type="button" commandfor="menu-file-html" command="hide-popover">
-      New
+      <div class="ui-text"><p>New</p></div>
     </button>
   </li>
   <li>
     <button type="button" commandfor="menu-file-html" command="hide-popover">
-      Open
+      <div class="ui-text"><p>Open</p></div>
     </button>
   </li>
   <li>
-    <button
-      type="button"
-      commandfor="menu-export-html"
-      command="toggle-popover"
-    >
-      Export
-      <span class="ui-end" aria-hidden="true">▸</span>
+    <button commandfor="menu-export-html" command="toggle-popover">
+      <div class="ui-text"><p>Export</p></div>
+      <div class="ui-end">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12l-6.293-6.293a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+          />
+        </svg>
+      </div>
     </button>
     <menu class="ui-menu ui-list ui-inline-end" id="menu-export-html" popover>
       <li>
@@ -319,7 +329,7 @@ A menu inside a list item.
           commandfor="menu-file-html"
           command="hide-popover"
         >
-          PDF
+          <div class="ui-text"><p>PDF</p></div>
         </button>
       </li>
       <li>
@@ -328,7 +338,7 @@ A menu inside a list item.
           commandfor="menu-file-html"
           command="hide-popover"
         >
-          PNG
+          <div class="ui-text"><p>PNG</p></div>
         </button>
       </li>
       <li>
@@ -337,7 +347,7 @@ A menu inside a list item.
           commandfor="menu-file-html"
           command="hide-popover"
         >
-          SVG
+          <div class="ui-text"><p>SVG</p></div>
         </button>
       </li>
     </menu>
@@ -351,27 +361,130 @@ A menu inside a list item.
 
 ## API
 
-| Type      | Modifiers                                             | Default                     | Description                           |
-| --------- | ----------------------------------------------------- | --------------------------- | ------------------------------------- |
-| Part      | `menu.ui-menu.ui-list[popover]`                       | -                           | The menu surface.                     |
-| Trigger   | `commandfor="id"`, `command="toggle-popover"`         | -                           | Opens the menu.                       |
-| Children  | `li > button`, `li > a`                               | -                           | Menu items.                           |
-| Children  | `command="hide-popover"`                              | -                           | Closes the menu on click.             |
-| Children  | `li.ui-label`                                         | -                           | Group label.                          |
-| Children  | `.ui-start`, `.ui-end`                                | -                           | Icons and shortcuts.                  |
-| Colors    | `.ui-critical`                                        | -                           | Destructive item.                     |
-| Placement | `.ui-block-start`,`.ui-inline-start`,`.ui-inline-end` | default                     | Where the menu opens.                 |
-| Placement | `.ui-align-end`                                       | -                           | Lines up with the trigger's end edge. |
-| Placement | `--anchor-position-area`                              | `block-end span-inline-end` | Any valid `position-area` value.      |
-| Sizes     | `.ui-dense`                                           | -                           | Less spacing.                         |
+| Type      | Modifiers                                               | Default                     | Description                                   |
+| --------- | ------------------------------------------------------- | --------------------------- | --------------------------------------------- |
+| Part      | `menu.ui-menu.ui-list[popover]`                         | -                           | The menu surface.                             |
+| Trigger   | `commandfor="id"`, `command="toggle-popover"`           | -                           | Opens the menu.                               |
+| Children  | `li > button`, `li > a`                                 | -                           | Menu items.                                   |
+| Children  | `command="hide-popover"`                                | -                           | Closes the menu on click.                     |
+| Children  | `li.ui-label`                                           | -                           | Group label.                                  |
+| Children  | `.ui-start`, `.ui-text`, `.ui-end`                      | -                           | Icons, text and shortcuts, as in a List item. |
+| Colors    | `.ui-critical`                                          | -                           | Destructive item.                             |
+| Placement | `.ui-block-start`, `.ui-inline-start`, `.ui-inline-end` | default                     | Where the menu opens.                         |
+| Placement | `.ui-align-end`                                         | -                           | Lines up with the trigger's end edge.         |
+| Placement | `--anchor-position-area`                                | `block-end span-inline-end` | Any valid `position-area` value.              |
+| Sizes     | `.ui-dense`                                             | -                           | Less spacing.                                 |
+
+## Under the hood
+
+1. Popover
+
+   - `popover`: top layer, light dismiss, `Esc` to close
+   - Invoker Commands: `commandfor` + `command`, no JavaScript
+   - Without positioning it opens in the middle of the viewport
+
+2. Anchor
+
+   - The invoker is the implicit anchor: no `anchor-name`, no ids to wire
+   - `position-area` places it below, spanning towards the end
+   - `anchor-size(inline)` keeps it at least as wide as the trigger
+
+3. Flip
+
+   - Scroll the trigger to the bottom of the window and open it again
+   - The browser tries each fallback when the menu would overflow
+
+4. Animate
+
+   - `@starting-style` gives the entry transition a starting point
+   - `allow-discrete` keeps `display` and `overlay` alive during the exit
+
+Step 1 of 4: Popover
+
+- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [Popover](https://webstatus.dev/features/popover) (Newly available): Chrome 116+, Edge 116+, Firefox 125+, Safari 17+
+
+```html
+<button commandfor="menu" command="toggle-popover">Options</button>
+
+
+<menu class="menu" id="menu" popover>
+  <li>
+    <button commandfor="menu" command="hide-popover">Edit</button>
+  </li>
+</menu>
+```
+
+```css
+.menu {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-3);
+  padding: 0.25rem 0;
+}
+```
+
+Step 2 of 4: Anchor
+
+- [Anchor positioning](https://webstatus.dev/features/anchor-positioning) (Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+
+```css
+.menu {
+  inset: auto;
+  margin: 0.25rem 0;
+  min-inline-size: max(10rem, anchor-size(inline));
+  position-area: block-end span-inline-end;
+}
+```
+
+Step 3 of 4: Flip
+
+```css
+.menu {
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
+}
+```
+
+Step 4 of 4: Animate
+
+- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
+- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+
+```css
+.menu {
+  opacity: 0;
+  scale: 0.96;
+  transition:
+    display 0.15s allow-discrete,
+    opacity 0.15s,
+    overlay 0.15s allow-discrete,
+    scale 0.15s;
+}
+
+
+.menu:popover-open {
+  opacity: 1;
+  scale: 1;
+
+
+  @starting-style {
+    opacity: 0;
+    scale: 0.96;
+  }
+}
+```
 
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Full support Supported since v151.
-- Safari: Full support Supported since v26.
+- Firefox: Partial support Missing: display-animation, overlay.
+- Safari: Partial support Missing: overlay.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Menu.md).
 
 ## Installation
 

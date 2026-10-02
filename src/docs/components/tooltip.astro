@@ -8,6 +8,7 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
 import TooltipCSS from "@opui/css/components/tooltip.css?raw"
 
 import tooltipApi from "../../component-api/tooltip/api"
+import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
 ---
 
 <Component
@@ -158,4 +159,6 @@ import tooltipApi from "../../component-api/tooltip/api"
 
     <AutoExample name="Arrow" centered />
   </section>
+
+  <TooltipBuild slot="under-the-hood" />
 </Component>

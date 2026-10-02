@@ -20,6 +20,7 @@ const hasToast = componentHasFramework(
 )
 
 import dialogApi from "../../component-api/dialog/api"
+import DialogBuild from "../../components/UnderTheHood/DialogBuild.astro"
 
 export const description =
   "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use."
@@ -241,6 +242,8 @@ export const description =
 
     <AutoExample name="CloseBehaviors" row />
   </section>
+
+  <DialogBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
     <ul>

@@ -7,6 +7,7 @@ import JavascriptHtml from "../../component-examples/toast/Javascript.html?raw"
 import JavascriptJS from "../../component-examples/toast/Javascript.js?raw"
 import ToastCSS from "@opui/css/components/toast.css?raw"
 import { Badge, Callout as UICallout } from "@opui/astro"
+import ToastBuild from "../../components/UnderTheHood/ToastBuild.astro"
 
 export const description =
   "Non-interruptive and stackable notifications. They pop up like... toast."
@@ -122,6 +123,8 @@ export const description =
 
     <AutoExample name="Duration" row centered />
   </section>
+
+  <ToastBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <p>

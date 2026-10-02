@@ -6,6 +6,7 @@ import { Switch, Table } from "@opui/astro"
 import DrawerCSS from "@opui/css/components/drawer.css?raw"
 import drawerApi from "../../component-api/drawer/api"
 import drawerHeaderApi from "../../component-api/drawer-header/api"
+import DrawerBuild from "../../components/UnderTheHood/DrawerBuild.astro"
 
 import ExampleUsage from "../../component-examples/drawer/Usage.astro"
 import ExampleUsageVue from "../../component-examples/drawer/Usage.vue"
@@ -246,6 +247,8 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
     </Conditional>
   </section>
+
+  <DrawerBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
     <ul>

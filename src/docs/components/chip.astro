@@ -7,6 +7,7 @@ import ChipCSS from "@opui/css/components/chip.css?raw"
 import Conditional from "../../components/Conditional.astro"
 
 import chipApi from "../../component-api/chip/api"
+import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
 ---
 
 <Component
@@ -106,6 +107,8 @@ import chipApi from "../../component-api/chip/api"
     </Conditional>
     <AutoExample name="Disabled" row />
   </section>
+
+  <ChipBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.5}>

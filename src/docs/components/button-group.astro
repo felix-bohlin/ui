@@ -14,6 +14,7 @@ import buttonGroupApi from "../../component-api/button-group/api"
 import buttonApi from "../../component-api/button/api"
 
 import Conditional from "../../components/Conditional.astro"
+import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.astro"
 ---
 
 <Component
@@ -246,6 +247,8 @@ import Conditional from "../../components/Conditional.astro"
     </Conditional>
     <AutoExample name="Disabled" column centered />
   </section>
+
+  <ButtonGroupBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>

@@ -12,6 +12,7 @@ import Conditional from "../../components/Conditional.astro"
 
 import toggleButtonApi from "../../component-api/toggle-button/api"
 import toggleGroupApi from "../../component-api/toggle-group/api"
+import ToggleBuild from "../../components/UnderTheHood/ToggleBuild.astro"
 export const description =
   "Toggle buttons and toggle groups switch options on and off, alone or as a set."
 ---
@@ -172,6 +173,8 @@ export const description =
     </Conditional>
     <AutoExample name="Overflow" />
   </section>
+
+  <ToggleBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy api={toggleGroupApi} zoom={1.25}>

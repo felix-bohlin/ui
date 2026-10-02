@@ -1,0 +1,130 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.chip {
+  --bg: var(--surface-tonal);
+  align-items: center;
+  background-color: var(--bg);
+  block-size: var(--chip-size);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  display: inline-flex;
+  font-size: var(--font-size-0);
+  gap: var(--size-1);
+  padding-inline: var(--size-2);
+  text-decoration: none;
+}`,
+    html: `
+<div class="chip">
+  <span class="text">Design</span>
+</div>
+
+<button class="chip">…</button>`,
+    notes: [
+      "One class for a <code>&lt;div&gt;</code>, <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>: the element decides what it does",
+      "Fixed <code>block-size</code> from <code>--chip-size</code>, width from the content",
+    ],
+    title: "Base",
+  },
+  {
+    css: `
+.chip:has(svg:first-child) {
+  padding-inline: var(--size-1) var(--size-2);
+}
+
+.chip:has(svg:last-child) {
+  padding-inline: var(--size-2) var(--size-1);
+}
+
+.chip svg {
+  flex-shrink: 0;
+  inline-size: var(--icon-size-small);
+}`,
+    features: ["has"],
+    notes: [
+      "<code>:has(svg:first-child)</code> and <code>:has(svg:last-child)</code> find the icon side",
+      "Less padding next to the icon balances its optical weight",
+      "No <code>start-icon</code> or <code>end-icon</code> classes",
+    ],
+    title: "Icon",
+  },
+  {
+    css: `
+.chip {
+  max-inline-size: 100%;
+}
+
+.chip > .text {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}`,
+    features: ["text-overflow"],
+    notes: [
+      "<code>max-inline-size: 100%</code> caps the chip at its container",
+      "<code>min-inline-size: 0</code> lets the text shrink below its content width",
+      "That's why the label needs its own <code>.text</code> wrapper",
+    ],
+    title: "Truncate",
+  },
+  {
+    css: `
+.chip:where(button, a):hover {
+  --bg: light-dark(
+    oklch(from var(--surface-tonal) calc(l * 0.98) c h),
+    oklch(from var(--surface-tonal) calc(l * 1.1) c h)
+  );
+}`,
+    features: ["light-dark", "relative-color"],
+    notes: [
+      "<code>:where(button, a)</code>: only interactive chips react",
+      "Relative color derives the hover shade from the surface",
+      "<code>light-dark()</code> darkens in light mode, lightens in dark",
+      "Hover the button chips",
+    ],
+    title: "Hover",
+  },
+]
+
+const check = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><path fill="currentColor" d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"/></svg>`
+
+const close = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><path fill="currentColor" d="M6.293 6.293a1 1 0 0 1 1.414 0L16 14.586l8.293-8.293a1 1 0 1 1 1.414 1.414L17.414 16l8.293 8.293a1 1 0 0 1-1.414 1.414L16 17.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L14.586 16L6.293 7.707a1 1 0 0 1 0-1.414"/></svg>`
+---
+
+<BuildUp id="build-chip" steps={steps}>
+  <div class="row">
+    <div class="chip"><span class="text">Design</span></div>
+    <div class="chip">
+      <Fragment set:html={check} /><span class="text">Approved</span>
+    </div>
+    <button class="chip" type="button">
+      <span class="text">Filter</span><Fragment set:html={close} />
+    </button>
+    <button class="chip" type="button">
+      <span class="text"
+        >A label far too long to fit on one line inside the chip</span
+      >
+    </button>
+  </div>
+</BuildUp>
+
+<style>
+  .row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+    inline-size: min(100%, 18rem);
+    justify-content: center;
+  }
+
+  button.chip {
+    cursor: pointer;
+    font-family: inherit;
+  }
+</style>

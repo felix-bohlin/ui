@@ -1,0 +1,157 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.avatar {
+  align-items: center;
+  aspect-ratio: 1;
+  background-color: var(--primary);
+  border-radius: var(--radius-round);
+  color: var(--primary-contrast);
+  display: inline-flex;
+  flex-shrink: 0;
+  inline-size: var(--size);
+  justify-content: center;
+  overflow: clip;
+  position: relative;
+}
+
+.avatar svg {
+  max-inline-size: 1.5rem;
+}`,
+    features: ["aspect-ratio"],
+    notes: [
+      "<code>aspect-ratio: 1</code>: set the width, the height follows",
+      "Letters and icons center with flexbox",
+      "<code>overflow: clip</code> cuts everything to the circle",
+    ],
+    title: "Circle",
+  },
+  {
+    css: `
+.avatar:has(img) {
+  background-color: transparent;
+}
+
+.avatar img {
+  block-size: 100%;
+  inline-size: 100%;
+  inset: 0;
+  object-fit: cover;
+  position: absolute;
+}`,
+    features: ["has", "object-fit"],
+    html: `
+<div class="avatar">
+  <img src="…" alt="…" />
+</div>`,
+    notes: [
+      "<code>object-fit: cover</code> crops a photo of any aspect ratio",
+      "Absolutely positioned, so the image never sizes the avatar",
+      "<code>:has(img)</code> drops the fallback color behind the photo",
+    ],
+    title: "Image",
+  },
+  {
+    css: `
+.avatar.rounded {
+  border-radius: var(--radius-2);
+}
+
+.avatar.squircle {
+  border-radius: var(--radius-3);
+
+  @supports (corner-shape: squircle) {
+    border-radius: var(--radius-round);
+    corner-shape: squircle;
+  }
+}`,
+    features: ["corner-shape"],
+    notes: [
+      "A shape is just a different <code>border-radius</code>",
+      "<code>corner-shape: squircle</code> turns a full radius into a superellipse",
+      "<code>@supports</code> falls back to a rounded square",
+    ],
+    title: "Shapes",
+  },
+  {
+    css: `
+.avatar-group {
+  display: flex;
+}
+
+.avatar-group .avatar {
+  box-shadow: 0 0 0 2px var(--surface-default);
+  margin-inline-end: calc(-1 * var(--overlap));
+}`,
+    html: `
+<div class="avatar-group" role="group">
+  <div class="avatar">AB</div>
+  …
+</div>`,
+    notes: [
+      "A negative <code>margin-inline-end</code> stacks each avatar under the next",
+      "A <code>box-shadow</code> ring in the surface color fakes a cutout",
+      "Logical margin, so the stack flips in right-to-left",
+    ],
+    title: "Group",
+  },
+]
+
+const knobs = [
+  {
+    label: "Overlap",
+    max: 24,
+    min: 0,
+    property: "--overlap",
+    step: 2,
+    unit: "px",
+    value: 12,
+  },
+  {
+    label: "Size",
+    max: 64,
+    min: 32,
+    property: "--size",
+    step: 4,
+    unit: "px",
+    value: 48,
+  },
+]
+
+const photo =
+  "https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=240&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+
+const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 2c-2.7 0-8 1.3-8 4v2h16v-2c0-2.7-5.3-4-8-4z"/></svg>`
+---
+
+<BuildUp id="build-avatar" knobs={knobs} steps={steps}>
+  <div class="row">
+    <div class="avatar"><img alt="Avatar" src={photo} /></div>
+    <div class="avatar">FB</div>
+    <div class="avatar rounded"><Fragment set:html={icon} /></div>
+    <div class="avatar squircle">OP</div>
+  </div>
+  <div class="avatar-group" role="group">
+    <div class="avatar">AB</div>
+    <div class="avatar">CD</div>
+    <div class="avatar">EF</div>
+    <div class="avatar">GH</div>
+  </div>
+</BuildUp>
+
+<style>
+  .row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    justify-content: center;
+  }
+
+  .avatar {
+    font-weight: 600;
+  }
+</style>

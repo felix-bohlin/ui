@@ -111,7 +111,10 @@
       --_bg-color-hover: oklch(
         from var(--critical) l c h / var(--state-hover-alpha-accent)
       );
-      color: var(--critical);
+      color: light-dark(
+        var(--critical),
+        oklch(from var(--critical) max(l, 0.75) c h)
+      );
     }
 
     :where(li) > :where(a, button) > .ui-end {

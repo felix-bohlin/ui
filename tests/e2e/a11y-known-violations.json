@@ -1,95 +1,19 @@
 {
-  "dark/anchor/LinkPreview": [
-    "color-contrast"
-  ],
-  "dark/anchor/RepoCard": [
-    "color-contrast"
-  ],
-  "dark/avatar/Grouped": [
-    "color-contrast"
-  ],
-  "dark/avatar/Letter": [
-    "color-contrast"
-  ],
-  "dark/avatar/Variants": [
-    "color-contrast"
-  ],
-  "dark/badge/Alignment": [
-    "color-contrast"
-  ],
-  "dark/badge/Indicator": [
-    "color-contrast"
-  ],
-  "dark/button-group/Colors": [
-    "color-contrast"
-  ],
-  "dark/button-group/Disabled": [
-    "color-contrast"
-  ],
-  "dark/button/Colors": [
-    "color-contrast"
-  ],
-  "dark/checkbox/VisibleLabel": [
-    "color-contrast"
-  ],
-  "dark/list/Default": [
-    "color-contrast"
-  ],
-  "dark/list/StartAvatar": [
-    "color-contrast"
-  ],
-  "dark/spinner/Sizes": [
-    "color-contrast"
-  ],
-  "dark/stress/data-display/DescriptionLists": [
-    "color-contrast"
-  ],
   "dark/stress/data-display/InlineAlignment": [
-    "color-contrast"
-  ],
-  "dark/stress/data-display/ListContent": [
-    "color-contrast"
-  ],
-  "dark/stress/data-display/ListSurfaces": [
-    "color-contrast"
-  ],
-  "dark/stress/data-display/TableCellContent": [
-    "color-contrast"
-  ],
-  "dark/stress/data-display/Tooltips": [
-    "color-contrast"
-  ],
-  "dark/stress/forms/KitchenSink": [
-    "color-contrast"
-  ],
-  "dark/stress/forms/Toolbar": [
     "color-contrast"
   ],
   "dark/stress/layout/Badges": [
     "color-contrast"
   ],
-  "dark/stress/layout/Columns": [
-    "color-contrast"
-  ],
-  "dark/stress/layout/DashboardHeader": [
-    "color-contrast"
-  ],
   "dark/stress/layout/RightToLeft": [
     "aria-allowed-role",
-    "aria-required-children",
-    "color-contrast"
+    "aria-required-children"
   ],
   "dark/stress/layout/SettingsPage": [
     "aria-allowed-role",
     "aria-required-children"
   ],
-  "dark/stress/layout/SidebarLayout": [
-    "color-contrast"
-  ],
   "dark/stress/typography/Bidi": [
-    "color-contrast"
-  ],
-  "dark/stress/typography/Columns": [
     "color-contrast"
   ],
   "dark/stress/typography/ComponentsInProse": [
@@ -99,12 +23,6 @@
     "color-contrast"
   ],
   "dark/stress/typography/HeadingClasses": [
-    "color-contrast"
-  ],
-  "dark/stress/typography/HostileContent": [
-    "color-contrast"
-  ],
-  "dark/stress/typography/ProseInComponents": [
     "color-contrast"
   ],
   "dark/stress/typography/VerticalRhythm": [
@@ -142,106 +60,30 @@
   "dark/typography/Variants": [
     "color-contrast"
   ],
-  "light/anchor/LinkPreview": [
-    "color-contrast"
-  ],
-  "light/anchor/RepoCard": [
-    "color-contrast"
-  ],
-  "light/avatar/Grouped": [
-    "color-contrast"
-  ],
-  "light/avatar/Letter": [
-    "color-contrast"
-  ],
-  "light/avatar/Variants": [
-    "color-contrast"
-  ],
-  "light/badge/Alignment": [
-    "color-contrast"
-  ],
-  "light/badge/Indicator": [
-    "color-contrast"
-  ],
-  "light/button-group/Colors": [
-    "color-contrast"
-  ],
-  "light/button-group/Disabled": [
-    "color-contrast"
-  ],
-  "light/button/Colors": [
-    "color-contrast"
-  ],
-  "light/checkbox/VisibleLabel": [
-    "color-contrast"
-  ],
   "light/list/Default": [
     "color-contrast"
   ],
   "light/list/EndKeyboard": [
     "color-contrast"
   ],
-  "light/list/StartAvatar": [
-    "color-contrast"
-  ],
-  "light/spinner/Sizes": [
-    "color-contrast"
-  ],
-  "light/stress/data-display/DescriptionLists": [
-    "color-contrast"
-  ],
   "light/stress/data-display/InlineAlignment": [
-    "color-contrast"
-  ],
-  "light/stress/data-display/ListContent": [
-    "color-contrast"
-  ],
-  "light/stress/data-display/ListSurfaces": [
-    "color-contrast"
-  ],
-  "light/stress/data-display/TableCellContent": [
-    "color-contrast"
-  ],
-  "light/stress/data-display/Tooltips": [
-    "color-contrast"
-  ],
-  "light/stress/forms/Toolbar": [
     "color-contrast"
   ],
   "light/stress/layout/Badges": [
     "color-contrast"
   ],
-  "light/stress/layout/Columns": [
-    "color-contrast"
-  ],
-  "light/stress/layout/DashboardHeader": [
-    "color-contrast"
-  ],
   "light/stress/layout/RightToLeft": [
     "aria-allowed-role",
-    "aria-required-children",
-    "color-contrast"
+    "aria-required-children"
   ],
   "light/stress/layout/SettingsPage": [
     "aria-allowed-role",
     "aria-required-children"
   ],
-  "light/stress/layout/SidebarLayout": [
-    "color-contrast"
-  ],
-  "light/stress/typography/Bidi": [
-    "color-contrast"
-  ],
-  "light/stress/typography/Columns": [
-    "color-contrast"
-  ],
   "light/stress/typography/ComponentsInProse": [
     "color-contrast"
   ],
   "light/stress/typography/EveryElement": [
-    "color-contrast"
-  ],
-  "light/stress/typography/HostileContent": [
     "color-contrast"
   ],
   "light/stress/typography/ProseInComponents": [

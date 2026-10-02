@@ -7,6 +7,7 @@ import { Progress as UIProgress } from "@opui/astro"
 
 import ProgressCSS from "@opui/css/components/progress.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import ProgressBuild from "../../components/UnderTheHood/ProgressBuild.astro"
 
 import progressApi from "../../component-api/progress/api"
 ---
@@ -68,6 +69,8 @@ import progressApi from "../../component-api/progress/api"
     </Conditional>
     <AutoExample name="Surfaces" column />
   </section>
+
+  <ProgressBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
     <p>

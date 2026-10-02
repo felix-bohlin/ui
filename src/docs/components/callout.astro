@@ -10,6 +10,7 @@ import CalloutCSS from "@opui/css/components/callout.css?raw"
 import calloutApi from "../../component-api/callout/api"
 
 import Conditional from "../../components/Conditional.astro"
+import CalloutBuild from "../../components/UnderTheHood/CalloutBuild.astro"
 import {
   componentHasFramework,
   DEFAULT_FRAMEWORK,
@@ -197,6 +198,8 @@ const ThemeCSS = `/* ... */
 
     <AutoExample name="Severities" column />
   </section>
+
+  <CalloutBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
     <ul>

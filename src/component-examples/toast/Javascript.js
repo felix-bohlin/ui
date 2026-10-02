@@ -1,20 +1,12 @@
-// Using the helper
-window.showToast({
-  title: "Triggered from JS!",
-  description: "With an optional description",
-  severity: "success",
-  duration: "3000ms",
-})
+import { dismiss, toast } from "opui-css/css/js/toast.js"
 
-// Or using native CommandEvent
-const btn = document.createElement("button")
-btn.setAttribute("data-title", "Triggered from JS!")
-btn.setAttribute("data-description", "With an optional description")
-btn.setAttribute("data-severity", "success")
-btn.setAttribute("data-duration", "3000ms")
-document.getElementById("toast-manager").dispatchEvent(
-  new CommandEvent("command", {
-    command: "--show-toast",
-    source: btn,
-  }),
-)
+const saving = toast("Saving…", { persistent: true })
+
+try {
+  await save()
+  toast("Changes saved", { severity: "success" })
+} catch (error) {
+  toast("Couldn't save", { description: error.message, severity: "critical" })
+} finally {
+  dismiss(saving)
+}

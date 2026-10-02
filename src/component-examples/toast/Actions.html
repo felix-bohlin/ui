@@ -1,0 +1,16 @@
+<button class="ui-button" commandfor="toast-archived" command="--show-toast">
+  Archive
+</button>
+
+<template id="toast-archived">
+  <div class="ui-toast">
+    <div class="ui-content">Conversation archived</div>
+    <button
+      class="ui-button ui-small"
+      commandfor="toaster"
+      command="--dismiss-toast"
+    >
+      Undo
+    </button>
+  </div>
+</template>

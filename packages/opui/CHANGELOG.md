@@ -5,6 +5,7 @@
 ### Breaking
 
 - `Accordion` markers only animate with a marker class on `details`. Add `.ui-marker-rotate` to keep the previous rotation.
+- `Toast` is rebuilt. The container is `.ui-toaster` (`id="toaster"`) instead of `#toast-manager`, and its `<template>` replaces `#toast-template` and the `data-toast-*` slots. `toast.js` exports `toast()` and `dismiss()` instead of `initToastManager()` and `window.showToast`, and sets itself up on import. Severities are classes (`.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning`) and the duration is `--toast-duration`.
 
 ### Removed
 
@@ -27,6 +28,11 @@
 - The package ships an agent skill in `skills/opui` with a reference for every component.
 - `--rhythm-step` theme token (`0.25rem`). Heading font sizes snap to half a step and heading line heights to a full step with `round()`.
 - Rich text styles `hr`, tables, `pre > samp` and preformatted text without `code`.
+- `Toast` lifecycle in CSS: toasts enter, stack, count down, pause while the toaster is hovered or focused, and leave without JavaScript timers. Only the three newest are visible. Toasts rendered inside the toaster work without JavaScript.
+- `Toast` triggers with Invoker Commands: `command="--show-toast"` on the toaster (with `data-title`, `data-description`, `data-severity`, `data-duration`, `data-persistent`) or on any `<template>`, and `command="--dismiss-toast"`.
+- `Toast` positions on the toaster (`.ui-block-start`, `.ui-inline-start`, `.ui-center`) and `.ui-persistent` toasts.
+- `toast.js` moves the toaster into an open modal `dialog` so its toasts stay interactive.
+- `opui-css/css/js/*.js` exports, for `toast.js` and `checkbox.js`.
 
 ### Changed
 

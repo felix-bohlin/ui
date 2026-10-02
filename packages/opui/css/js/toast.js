@@ -1,94 +1,142 @@
 /**
- * Toast manager.
+ * Toast runtime.
  *
- * - HTML owns structure (via <template id="toast-template">).
- * - CSS owns lifetime (via attr(data-duration type(<time>))).
- * - JS owns lifecycle (clone template, fill slots, append, remove on animationend).
+ * - HTML owns structure (a <template> in the toaster, or one a trigger points to).
+ * - CSS owns lifetime (enter, stack, expire, pause on hover and focus, leave).
+ * - JS only puts toasts in the toaster and takes them out again.
  *
- * No setTimeout. No popovertargetaction. No innerHTML of user data.
+ * No setTimeout. No innerHTML of user data.
  */
 
-const FALLBACK_TEMPLATE = `<div class="ui-toast" role="alert">
-  <span class="ui-icon" data-toast-icon></span>
+const FALLBACK_TEMPLATE = `<div class="ui-toast">
   <div class="ui-content">
-    <div class="ui-title" data-toast-title></div>
-    <div class="ui-description" data-toast-description></div>
+    <p class="ui-title"></p>
+    <p class="ui-description"></p>
   </div>
-  <button class="ui-close-button" data-toast-close type="button" aria-label="Close">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-  </button>
 </div>`
 
-export function initToastManager() {
-  const manager = document.getElementById("toast-manager")
-  if (!manager) return
+export function toast(content, options = {}) {
+  const toaster = getToaster()
+  const node = toToast(content, toaster)
+  const { description, duration, persistent, severity } = options
 
-  try {
-    manager.showPopover()
-  } catch {
-    /* already open or unsupported */
-  }
+  fillSlot(
+    node,
+    ".ui-title",
+    typeof content === "string" ? content : options.title,
+  )
+  fillSlot(node, ".ui-description", description)
 
-  manager.addEventListener("command", (event) => {
-    if (event.command !== "--show-toast") return
-    const trigger = event.source
-    if (!trigger) return
-
-    const data = trigger.dataset || {}
-    showToast(
-      {
-        description: data.description,
-        duration: data.duration,
-        severity: data.severity,
-        template: data.template,
-        title: data.title || trigger.textContent?.trim() || "",
-      },
-      manager,
+  if (severity) node.classList.add(`ui-${severity}`)
+  if (persistent) node.classList.add("ui-persistent")
+  if (duration) {
+    node.style.setProperty(
+      "--toast-duration",
+      typeof duration === "number" ? `${duration}ms` : duration,
     )
-  })
-
-  window.showToast = (options) => showToast(options || {}, manager)
-}
-
-function showToast(options, manager) {
-  const node = buildToast(options.template || "toast-template")
-  if (!node) return
-
-  fillSlot(node, "[data-toast-title]", options.title)
-  fillSlot(node, "[data-toast-description]", options.description)
-
-  if (options.severity) node.dataset.severity = options.severity
-  if (options.duration) node.dataset.duration = options.duration
-
-  wireToast(node)
-  manager.appendChild(node)
-}
-
-function buildToast(templateId) {
-  const tpl = document.getElementById(templateId)
-  if (tpl?.content?.firstElementChild) {
-    return tpl.content.firstElementChild.cloneNode(true)
   }
-  const wrap = document.createElement("div")
-  wrap.innerHTML = FALLBACK_TEMPLATE.trim()
-  return wrap.firstElementChild
+
+  raise(toaster)
+  toaster.append(node)
+  return node
+}
+
+export function dismiss(node) {
+  node.hidden = true
+  Promise.allSettled(node.getAnimations().map((a) => a.finished)).then(() =>
+    node.remove(),
+  )
+}
+
+function getToaster() {
+  return document.querySelector(".ui-toaster") ?? createToaster()
+}
+
+function createToaster() {
+  const toaster = Object.assign(document.createElement("section"), {
+    ariaLabel: "Notifications",
+    ariaLive: "polite",
+    className: "ui-toaster",
+    id: "toaster",
+    popover: "manual",
+  })
+  document.body.append(toaster)
+  return toaster
+}
+
+function toToast(content, toaster) {
+  if (content instanceof Element && !(content instanceof HTMLTemplateElement)) {
+    return content
+  }
+  const template =
+    content instanceof HTMLTemplateElement
+      ? content
+      : (toaster.querySelector(":scope > template") ?? fallbackTemplate())
+  return template.content.firstElementChild.cloneNode(true)
+}
+
+function fallbackTemplate() {
+  const template = document.createElement("template")
+  template.innerHTML = FALLBACK_TEMPLATE
+  return template
 }
 
 function fillSlot(root, selector, text) {
   const el = root.querySelector(selector)
   if (!el) return
-  if (text == null || text === "") {
-    el.remove()
-    return
-  }
-  el.textContent = text
+  if (text) el.textContent = text
+  else if (!el.textContent.trim()) el.remove()
 }
 
-function wireToast(node) {
-  node.querySelector("[data-toast-close]")?.addEventListener("click", () => {
-    node.classList.add("ui-exiting")
+function raise(toaster) {
+  const modal = [...document.querySelectorAll("dialog:modal")].at(-1)
+  if (modal && toaster.parentElement !== modal) {
+    const home = toaster.parentElement
+    move(toaster, modal)
+    modal.addEventListener(
+      "close",
+      () => {
+        move(toaster, home)
+        raise(toaster)
+      },
+      { once: true },
+    )
+  }
+  if (toaster.popover) {
+    toaster.hidePopover()
+    toaster.showPopover()
+  }
+}
+
+function move(node, parent) {
+  if ("moveBefore" in parent) parent.moveBefore(node, null)
+  else parent.append(node)
+}
+
+if (typeof document !== "undefined") {
+  document.addEventListener(
+    "command",
+    ({ command, source, target }) => {
+      if (command === "--show-toast") {
+        const { dataset } = source
+        toast(target.matches(".ui-toaster") ? dataset.title : target, {
+          ...dataset,
+          persistent: "persistent" in dataset,
+        })
+      }
+      if (command === "--dismiss-toast" && target.matches(".ui-toaster")) {
+        const own = source.closest(".ui-toast")
+        for (const node of own ? [own] : target.querySelectorAll(".ui-toast")) {
+          dismiss(node)
+        }
+      }
+    },
+    { capture: true },
+  )
+
+  document.addEventListener("animationend", ({ animationName, target }) => {
+    if (animationName === "toast-expire") target.remove()
   })
-  node.addEventListener("animationend", (event) => {
-    if (event.animationName === "toast-exit") node.remove()
-  })
+
+  raise(getToaster())
 }

@@ -183,15 +183,45 @@ interaction(
 
 interaction(
   "toast",
-  "HTML",
+  "Actions",
+  "toast action dismisses its toast",
+  async ({ page, root }) => {
+    await root.getByRole("button", { name: "Archive" }).click()
+    const toast = page.locator("#toaster .ui-toast")
+    await expect(toast).toContainText("Conversation archived")
+
+    await toast.getByRole("button", { name: "Undo" }).click()
+    await expect(toast).toHaveCount(0)
+  },
+)
+
+interaction(
+  "toast",
+  "Basics",
   "toast shows and can be dismissed",
   async ({ page, root }) => {
-    await root.getByRole("button", { name: "Show Default Toast" }).click()
-    const toast = page.locator("#toast-manager .ui-toast")
+    await root.getByRole("button", { name: "Save" }).click()
+    const toast = page.locator("#toaster .ui-toast")
     await expect(toast).toHaveCount(1)
-    await expect(toast).toContainText("Default Notification")
+    await expect(toast).toContainText("Changes saved")
 
-    await toast.getByRole("button", { name: "Close" }).click()
+    await toast.getByRole("button", { name: "Dismiss" }).click()
+    await expect(toast).toHaveCount(0)
+  },
+)
+
+interaction(
+  "toast",
+  "Duration",
+  "toast expires and pauses while hovered",
+  async ({ page, root }) => {
+    await root.getByRole("button", { name: "1.5s" }).click()
+    const toast = page.locator("#toaster .ui-toast")
+    await toast.hover()
+    await page.waitForTimeout(2000)
+    await expect(toast).toHaveCount(1)
+
+    await page.mouse.move(0, 0)
     await expect(toast).toHaveCount(0)
   },
 )

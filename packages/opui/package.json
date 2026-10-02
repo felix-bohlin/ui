@@ -54,6 +54,7 @@
     "./core/*.css": "./core/*.css",
     "./core/*": "./core/*.css",
     "./css/*.css": "./css/*.css",
+    "./css/js/*.js": "./css/js/*.js",
     "./css/*": "./css/*.css",
     "./dist/*": "./dist/*"
   },

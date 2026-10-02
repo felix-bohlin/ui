@@ -8,6 +8,7 @@ import DescriptionListCSS from "@opui/css/components/description-list.css?raw"
 import Conditional from "../../components/Conditional.astro"
 
 import descriptionListApi from "../../component-api/description-list/api"
+import DescriptionListBuild from "../../components/UnderTheHood/DescriptionListBuild.astro"
 
 export const description =
   "Description lists are used to display a list of terms and their descriptions."
@@ -70,6 +71,8 @@ export const description =
     </Conditional>
     <AutoExample name="Bordered" column spacious />
   </section>
+
+  <DescriptionListBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>

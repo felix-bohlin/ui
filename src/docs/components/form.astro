@@ -28,6 +28,7 @@ import fieldGroupApi from "../../component-api/field-group/api"
 import fieldLegendApi from "../../component-api/field-legend/api"
 import fieldSetApi from "../../component-api/field-set/api"
 import formApi from "../../component-api/form/api"
+import FormBuild from "../../components/UnderTheHood/FormBuild.astro"
 
 import { Switch as UISwitch } from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
@@ -323,6 +324,8 @@ import { DescriptionList } from "@opui/astro"
       <Example.Code slot="code-vue" code={ExampleKitchenSinkRowCodeVue} />
     </Example>
   </section>
+
+  <FormBuild slot="under-the-hood" />
 
   <p slot="installation">
     This doesn't include all the styles for all form elements, just the

@@ -16,6 +16,7 @@ import Conditional from "../../components/Conditional.astro"
 
 import listApi from "../../component-api/list/api"
 import listItemApi from "../../component-api/list-item/api"
+import ListBuild from "../../components/UnderTheHood/ListBuild.astro"
 
 export const description =
   "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it."
@@ -397,6 +398,8 @@ export const description =
       <Example.Code slot="code-vue" code={ListDenseVueRaw} />
     </Example>
   </section>
+
+  <ListBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy api={listItemApi} zoom={1.25}>

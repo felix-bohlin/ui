@@ -9,6 +9,7 @@ import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
 
 import textareaApi from "../../component-api/textarea/api"
+import TextareaBuild from "../../components/UnderTheHood/TextareaBuild.astro"
 
 export const description =
   "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states."
@@ -167,6 +168,8 @@ export const description =
 
     <div class="ui-not-rich-text"></div>
   </section>
+
+  <TextareaBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy>

@@ -45,6 +45,7 @@ import TextFieldCSS from "@opui/css/components/text-input.css?raw"
 
 import textFieldApi from "../../component-api/text-field/api"
 import textInputApi from "../../component-api/text-input/api"
+import TextFieldBuild from "../../components/UnderTheHood/TextFieldBuild.astro"
 
 export const description =
   "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states."
@@ -391,6 +392,8 @@ export const description =
       <Example.Code slot="code-html" code={NoLabelHtml} />
     </Example>
   </section>
+
+  <TextFieldBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
     <ul>

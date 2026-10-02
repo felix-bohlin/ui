@@ -418,7 +418,7 @@
       align-items: start;
       column-gap: var(--size-4);
       container-type: inline-size;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       inline-size: 100%;
 
       .ui-label {
@@ -447,10 +447,6 @@
         + .ui-end-text {
           grid-row: 4;
         }
-      }
-
-      :where(textarea) {
-        min-inline-size: 30ch;
       }
 
       :where(.ui-end-text) {
@@ -488,10 +484,6 @@
           .ui-field:has(textarea) + .ui-end-text {
             grid-row: 4;
           }
-        }
-
-        :where(textarea) {
-          min-inline-size: 0;
         }
       }
     }

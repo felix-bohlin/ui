@@ -18,10 +18,10 @@
 - [x] Carousel: browsers with scroll buttons but no `if()` (Chrome 135-136) show both the glyph and the image icon
 - [x] Running pnpm scripts adds `@pnpm/exe` to `pnpm-lock.yaml` (expected: pnpm 12 records the `packageManager` version and its per-platform binaries in the lockfile, so commit it)
 - [x] Icon button disabled text color never applies: `rgb(0, 0, 0/0.3)` mixes comma and slash syntax
-- [] `--primary-contrast` on `--primary` is 3.97:1 (AA needs 4.5:1): filled Tabs selected tab and primary filled Buttons. Axe misses the Tabs case because the fill is a pseudo-element
-- [] Most `color-contrast` entries in `a11y-known-violations.json` can't be fixed in `theme.css` alone: dark mode needs `--primary-contrast` to flip and components (Button, TextField, Typography) to read it instead of `--gray-1` / `--color-9`. Also the Anchor fixture's unstyled `<button>` and List `kbd`
+- [x] `--primary-contrast` on `--primary` is 3.97:1 (AA needs 4.5:1): filled Tabs selected tab and primary filled Buttons. Axe misses the Tabs case because the fill is a pseudo-element
+- [] Remaining `color-contrast` entries in `a11y-known-violations.json`: Typography (muted overline in dark, `code`, `ins`, `del` and `mark` combinations), List `kbd` and Badges in the stress pages
 - [x] Invalid end text fails contrast in dark mode (`stress/forms` States and KitchenSink in the a11y ledger)
-- [] ButtonGroup and ToggleGroup overflow narrow containers instead of wrapping or shrinking (`stress/forms` LongContent). Proposal: wrap by default with the group drawing its outer edge, opt-in `.ui-scrollable` (like Tabs) and `.ui-shrink`
+- [x] ButtonGroup and ToggleGroup overflow narrow containers instead of wrapping or shrinking (`stress/forms` LongContent). Proposal: wrap by default with the group drawing its outer edge, opt-in `.ui-scrollable` (like Tabs) and `.ui-shrink`
 
 ## Docs
 
@@ -60,7 +60,7 @@
 - [x] X-small fields use 16px text
 - [x] `Switch` takes `size` like the other components
 - [x] Checkbox, Radio and Switch align with the first line of their label, centered on its capitals (`--choice-label-offset` to nudge)
-- [?] Spread field widths follow their content, so a Select is narrower than a TextField. Give spread fields one width?
+- [x] Spread field widths follow their content, so a Select is narrower than a TextField. Give spread fields one width?
 - [x] Chip sizes follow the control size scale (small 28px, default 32px, large 40px)
 - [x] Stress pages for typography, layout, overlays and data display (HTML only, they test the CSS)
 
@@ -98,7 +98,7 @@ Found by the stress pages in `src/stress-tests/`. Open the section named in brac
 - [] Long description list terms squeeze values into one word per line, and unbroken values overflow (`data-display` DescriptionLists)
 - [] Dense list padding doesn't line up with card padding, and `.ui-inset` text offset assumes default gaps (`data-display` ListSurfaces)
 - [] Narrow-container table padding grows instead of shrinking (`data-display` TableOverflow)
-- [] Outlined and text critical buttons fail contrast in dark mode (2.56:1), like primary (`forms` KitchenSink)
+- [x] Outlined and text critical buttons fail contrast in dark mode (2.56:1), like primary (`forms` KitchenSink)
 - [] Tooltips more than one viewport down the page never show: `position-visibility: anchors-visible` in `tooltip.css` (`overlays` LongContent, `tests/e2e/stress-overlays.spec.ts`)
 - [] A tooltip at the inline-end edge squeezes into a narrow column instead of flipping (no minimum width) (`overlays` EdgeTriggers)
 - [] A tall menu runs off the viewport when neither side has `60dvb` of space (`menu.css` `--_max-block-size`) (`overlays` LongContent)
@@ -107,4 +107,5 @@ Found by the stress pages in `src/stress-tests/`. Open the section named in brac
 - [] Toasts have no maximum width, and a toast with an icon centers its text (`overlays` ToastLayering)
 - [] Drawer header can't hold two icon buttons: every icon-only button gets `margin-inline-start: auto` (`overlays` DrawerNesting)
 - [] Second-level submenus don't keep the flipped direction, and the submenu arrow doesn't mirror in RTL (`overlays` Submenus, Rtl)
-- [] Critical menu items fail contrast in dark mode (1.92:1), and a menu in a dialog blends into it (`overlays` DialogNesting)
+- [x] Critical menu items fail contrast in dark mode (1.92:1)
+- [] A menu in a dialog blends into it in dark mode (`overlays` DialogNesting)

@@ -9,6 +9,10 @@
     --_accent-contrast: var(--_color-contrast);
     --_accent-tonal: var(--_color-tonal);
     --_accent-tonal-contrast: var(--_color);
+    --_accent-text: light-dark(
+      var(--_accent),
+      oklch(from var(--_accent) max(l, 0.75) c h)
+    );
 
     --_default-hover-bg-color: light-dark(
       oklch(from var(--_accent) l 0.01 h / var(--state-hover-alpha)),
@@ -34,8 +38,8 @@
     /* Color inherited from Button Group. */
     :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) > & {
       --_color-contrast: var(--primary-contrast);
-      --_color-tonal: var(--color-6);
-      --_accent-tonal-contrast: var(--text-primary-contrast);
+      --_color-tonal: light-dark(var(--color-6), var(--color-11));
+      --_accent-tonal-contrast: light-dark(var(--gray-15), var(--gray-1));
 
       --_default-hover-bg-color: oklch(
         from var(--_accent) l c h / var(--state-hover-alpha-accent)
@@ -53,6 +57,7 @@
     &.ui-critical,
     :where(.ui-button-group.ui-critical) > & {
       --_color: var(--critical);
+      --_color-contrast: var(--gray-1);
     }
 
     &.ui-primary,
@@ -70,7 +75,7 @@
     --_min-height: var(--button-size);
     --_border-radius: var(--button-border-radius);
     --_padding-inline: 1.5ex;
-    --_text-color: var(--_accent);
+    --_text-color: var(--_accent-text);
 
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
@@ -184,7 +189,7 @@
     &.ui-outlined {
       --_bg-color: transparent;
       --_border-color: var(--_accent);
-      --_text-color: var(--_accent);
+      --_text-color: var(--_accent-text);
 
       &:where(
         :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)

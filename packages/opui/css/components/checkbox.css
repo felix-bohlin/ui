@@ -1,5 +1,10 @@
 @layer components.root {
   label.ui-checkbox {
+    --_accent: light-dark(
+      var(--primary),
+      oklch(from var(--primary) min(l, 0.62) c h)
+    );
+    --_accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
     --_input-size: var(--choice-size);
 
     align-items: start;
@@ -139,13 +144,13 @@
 
       &:checked,
       &:indeterminate {
-        background-color: var(--primary);
-        border-color: var(--primary);
+        background-color: var(--_accent);
+        border-color: var(--_accent);
       }
 
       /* Checkmark */
       &::after {
-        background-color: var(--primary-contrast);
+        background-color: var(--_accent-contrast);
         clip-path: polygon(
           15% 52%,
           40% 77%,

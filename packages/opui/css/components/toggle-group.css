@@ -5,10 +5,13 @@
     --_border-radius: var(--button-border-radius);
 
     background-color: var(--_bg-color);
-    border: var(--border-width) solid var(--_border-color);
     border-radius: var(--_border-radius);
     display: inline-flex;
+    flex-wrap: wrap;
     inline-size: fit-content;
+    max-inline-size: 100%;
+    outline: var(--border-width) solid var(--_border-color);
+    outline-offset: calc(-1 * var(--border-width));
     overflow: hidden;
 
     /* Sizes */
@@ -37,29 +40,43 @@
     .ui-toggle-button {
       border: 0;
       border-radius: 0;
+      box-shadow:
+        calc(-1 * var(--border-width)) 0 0 0 var(--_border-color),
+        0 calc(-1 * var(--border-width)) 0 0 var(--_border-color);
       flex: auto;
       margin: 0;
     }
 
-    &:not(.ui-vertical) {
-      .ui-toggle-button {
-        block-size: calc(var(--_size) - var(--border-width) * 2);
-        border-inline-end: var(--border-width) solid var(--_border-color);
+    &.ui-vertical {
+      flex-direction: column;
+    }
 
-        &:last-of-type {
-          border-inline-end: 0;
-        }
+    /* Overflow */
+    &.ui-scrollable {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      overscroll-behavior-inline: contain;
+      scrollbar-width: thin;
+
+      .ui-toggle-button {
+        flex: none;
       }
     }
 
-    &.ui-vertical {
-      flex-direction: column;
+    &.ui-shrink {
+      flex-wrap: nowrap;
 
       .ui-toggle-button {
-        border-block-end: var(--border-width) solid var(--_border-color);
+        min-inline-size: 0;
+        overflow: hidden;
+        white-space: nowrap;
 
-        &:last-of-type {
-          border-block-end: 0;
+        &:not(:has(svg)) {
+          align-content: center;
+          display: block;
+          text-align: center;
+          text-overflow: ellipsis;
         }
       }
     }

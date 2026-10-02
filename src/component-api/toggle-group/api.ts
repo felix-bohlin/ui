@@ -15,12 +15,28 @@ export default {
       values: { vertical: ".ui-vertical" },
     },
     {
+      class: ".ui-scrollable",
+      default: "false",
+      description:
+        "Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.",
+      group: "Overflow",
+      prop: "scrollable",
+    },
+    {
       default: '"multiple"',
       description:
         'Whether one or several buttons can be selected. `"single"` uses radio inputs.',
       group: "Selection",
       prop: "selection",
       values: { multiple: '[role="group"]', single: '[role="radiogroup"]' },
+    },
+    {
+      class: ".ui-shrink",
+      default: "false",
+      description:
+        "Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size.",
+      group: "Overflow",
+      prop: "shrink",
     },
     {
       default: '"default"',

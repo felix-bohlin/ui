@@ -99,7 +99,7 @@
       align-items: center;
       column-gap: var(--size-4);
       container-type: inline-size;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 
       .ui-label {
         grid-column: 1;
@@ -119,7 +119,6 @@
         align-self: center;
         grid-column: 2;
         grid-row: 1;
-        min-inline-size: 25ch;
       }
 
       :where(.ui-value) {
@@ -156,23 +155,25 @@
         }
 
         .ui-label {
+          grid-column: 1/-1;
           grid-row: 1;
         }
 
         :where(.ui-value) {
+          grid-column: 1/-1;
           grid-row: 1;
           justify-self: end;
           text-align: end;
         }
 
         .ui-start-text {
+          grid-column: 1/-1;
           grid-row: 2;
         }
 
         input[type="range"] {
           grid-column: 1/-1;
           grid-row: 3;
-          min-inline-size: 0;
         }
 
         datalist {
@@ -181,6 +182,7 @@
         }
 
         :where(.ui-end-text) {
+          grid-column: 1/-1;
           grid-row: 5;
           text-align: start;
         }

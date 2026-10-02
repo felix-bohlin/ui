@@ -65,8 +65,8 @@
     --warning: var(--orange);
 
     /* Primary */
-    --primary: var(--color-8);
-    --primary-contrast: var(--gray-1);
+    --primary: light-dark(var(--color-9), var(--color-6));
+    --primary-contrast: light-dark(var(--gray-1), var(--gray-15));
     --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
     --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
 

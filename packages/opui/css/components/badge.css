@@ -46,26 +46,31 @@
     &.ui-critical {
       --_bg-color: var(--critical);
       --_border-color: var(--critical);
+      --_text-color: var(--gray-1);
     }
 
     &.ui-success {
       --_bg-color: var(--success);
       --_border-color: var(--success);
+      --_text-color: var(--gray-1);
     }
 
     &.ui-info {
       --_bg-color: var(--info);
       --_border-color: var(--info);
+      --_text-color: var(--gray-1);
     }
 
     &.ui-warning {
       --_bg-color: var(--warning);
       --_border-color: var(--warning);
+      --_text-color: var(--gray-15);
     }
 
     &.ui-neutral {
       --_bg-color: var(--neutral);
       --_border-color: var(--neutral);
+      --_text-color: var(--gray-1);
     }
 
     /* Alignment */

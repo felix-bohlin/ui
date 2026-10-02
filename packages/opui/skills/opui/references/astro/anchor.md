@@ -51,9 +51,9 @@ import { Anchor, Button, Card } from "opui-css/astro"
 
 Set `trigger="hover"` and an `id`, and add `interestfor` with that id to the trigger. The component adds `popover="hint"`.
 
-The trigger has to be a `button` or a link with an `href`, since those are the elements that support `interestfor`. Pointer and keyboard users show interest by hovering or focusing the trigger. Add `commandfor` and `command="toggle-popover"` to a button trigger so touch devices can tap to show the floating content. A link can't take `commandfor`, so tapping it follows the link instead.
+[Under the hood](#under-the-hood) shows how hover, focus and tap open the card.
 
-Put a [Card](https://open-props-ui.netlify.app/astro/components/card.md) in the floating content for hover cards like GitHub's profile previews. Align the card below the trigger with `block-end span-inline-end`. It flips to the other side when there isn't room.
+Put a [Card](https://open-props-ui.netlify.app/astro/components/card.md) in the floating content for hover cards like GitHub's repository previews. Align the card below the trigger with `block-end span-inline-end`. It flips to the other side when there isn't room.
 
 ```astro
 ---
@@ -62,59 +62,65 @@ import { Anchor, Avatar, Button, Card } from "opui-css/astro"
 
 
 <div>
+  The source lives in
   <Anchor
     alignment="block-end span-inline-end"
     trigger="hover"
-    id="profile-card"
+    id="anchor-repo-card"
   >
-    <a class="ui-link" href="#" interestfor="profile-card">@adalindqvist</a>
-    <Card slot="anchored" variant="elevated" class="profile-card">
+    <a
+      class="ui-link"
+      href="https://github.com/felix-bohlin/ui"
+      interestfor="anchor-repo-card">felix-bohlin/ui</a
+    >
+    <Card slot="anchored" variant="elevated" class="repo-card">
       <Fragment slot="content">
-        <div class="profile-card-identity">
+        <div class="repo-card-identity">
           <Avatar
-            src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="https://github.com/felix-bohlin.png"
             alt=""
+            variant="rounded"
           />
           <div>
-            <strong>Ada Lindqvist</strong>
-            <span class="ui-caption">@adalindqvist</span>
+            <strong>felix-bohlin/ui</strong>
+            <span class="ui-caption">Public repository</span>
           </div>
         </div>
         <p>
-          Design engineer. Building accessible component libraries and writing
-          about CSS.
+          A CSS UI library exploring how next-gen HTML & CSS features can
+          change the way we create components.
         </p>
-        <p class="ui-caption">Stockholm · Joined March 2024</p>
+        <p class="ui-caption">CSS · MIT license</p>
       </Fragment>
-      <Button slot="actions" variant="outlined" size="small">Follow</Button>
+      <Button slot="actions" variant="outlined" size="small">Star</Button>
     </Card>
   </Anchor>
-  approved these changes.
+  on GitHub.
 </div>
 
 
 <style>
-  .profile-card {
+  .repo-card {
     font-size: var(--font-size-05);
     inline-size: 280px;
     margin-block-start: var(--size-2);
   }
 
 
-  .profile-card .ui-content {
+  .repo-card .ui-content {
     display: grid;
     gap: var(--size-2);
   }
 
 
-  .profile-card-identity {
+  .repo-card-identity {
     align-items: center;
     display: flex;
     gap: var(--size-3);
   }
 
 
-  .profile-card-identity > div {
+  .repo-card-identity > div {
     display: grid;
   }
 </style>
@@ -135,12 +141,12 @@ import { Anchor, Card } from "opui-css/astro"
   <Anchor
     alignment="block-end span-inline-end"
     trigger="hover"
-    id="link-preview"
+    id="anchor-link-preview"
   >
     <a
       class="ui-link"
       href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
-      interestfor="link-preview">CSS anchor positioning</a
+      interestfor="anchor-link-preview">CSS anchor positioning</a
     >
     <Card slot="anchored" variant="elevated" class="link-preview">
       <img src="https://picsum.photos/id/1018/800/450" alt="" />
@@ -204,6 +210,106 @@ import { Anchor, Card } from "opui-css/astro"
 | ---------- | ------------------------------------------------ |
 | `anchored` | The floating content.                            |
 | `default`  | The content the floating content is anchored to. |
+
+## Under the hood
+
+1. Hint
+
+   - `interestfor` opens it on hover and keyboard focus, no JavaScript
+   - Only `<button>` and `<a href>` can be interest invokers
+   - `popover="hint"` leaves open menus and dialogs alone
+   - Without positioning it opens in the middle of the viewport
+
+2. Tap
+
+   - Touch screens can't hover, so a tap toggles the card instead
+   - A link can't take `commandfor`, so tapping a link follows it
+
+3. Anchor
+
+   - `anchor-name` on the wrapper, `position-anchor` on the card
+   - `anchor-scope` keeps the name local, so every anchor can reuse `--anchor`
+   - `position-area` places it below, spanning towards the end
+
+4. Flip
+
+   - Scroll the trigger to the bottom of the window and hover it again
+   - The browser tries each fallback when the card would overflow
+
+Step 1 of 4: Hint
+
+- [Interest invokers](https://webstatus.dev/features/interest-invokers) (Limited availability): Chrome 142+, Edge 142+, Firefox not supported, Safari not supported
+- [popover="hint"](https://webstatus.dev/features/popover-hint) (Limited availability): Chrome 133+, Edge 133+, Firefox 149+, Safari not supported
+
+```html
+<button interestfor="card">felix-bohlin/ui</button>
+
+
+<div class="card" id="card" popover="hint">…</div>
+```
+
+```css
+.card {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-3);
+  color: inherit;
+  inline-size: 18rem;
+  padding: 1rem;
+}
+```
+
+Step 2 of 4: Tap
+
+- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+
+```html
+<button
+  interestfor="card"
+  commandfor="card"
+  command="toggle-popover"
+>
+  felix-bohlin/ui
+</button>
+```
+
+Step 3 of 4: Anchor
+
+- [Anchor positioning](https://webstatus.dev/features/anchor-positioning) (Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+
+```html
+<span class="anchor">
+  <button interestfor="card" …>felix-bohlin/ui</button>
+  <div class="card" id="card" popover="hint">…</div>
+</span>
+```
+
+```css
+.anchor {
+  anchor-name: --anchor;
+  anchor-scope: --anchor;
+}
+
+
+.card {
+  inset: auto;
+  margin: 0.5rem 0 0;
+  position-anchor: --anchor;
+  position-area: block-end span-inline-end;
+}
+```
+
+Step 4 of 4: Flip
+
+```css
+.card {
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
+}
+```
 
 ## Browser support
 

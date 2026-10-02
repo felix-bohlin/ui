@@ -8,6 +8,7 @@ Groups related buttons by wrapping them with `class="ui-button-group"` and `role
 - Icon-only buttons stay square.
 - [X-small](#sizes) size with `.ui-x-small`.
 - [Small](#sizes) groups use the same text size as a small `Button`.
+- [Wraps](#overflow) when it doesn't fit, or scrolls with `.ui-scrollable` or truncates with `.ui-shrink`.
 
 ## Anatomy
 
@@ -427,6 +428,33 @@ Change the layout of the group with the `.ui-vertical` class.
 </div>
 ```
 
+## Overflow
+
+Buttons wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep them on one row and scroll them sideways, or `.ui-shrink` to keep them on one row and truncate their labels. Icon-only items keep their size.
+
+```html
+<div style="display: grid; gap: var(--size-3); max-inline-size: 18rem">
+  <div role="group" class="ui-button-group ui-outlined">
+    <button class="ui-button">Archive</button>
+    <button class="ui-button">Move to folder</button>
+    <button class="ui-button">Mark as unread</button>
+    <button class="ui-button">Delete</button>
+  </div>
+  <div role="group" class="ui-button-group ui-outlined ui-scrollable">
+    <button class="ui-button">Archive</button>
+    <button class="ui-button">Move to folder</button>
+    <button class="ui-button">Mark as unread</button>
+    <button class="ui-button">Delete</button>
+  </div>
+  <div role="group" class="ui-button-group ui-outlined ui-shrink">
+    <button class="ui-button">Archive</button>
+    <button class="ui-button">Move to folder</button>
+    <button class="ui-button">Mark as unread</button>
+    <button class="ui-button">Delete</button>
+  </div>
+</div>
+```
+
 ## Disabled
 
 Disable individual buttons within a group by adding the `disabled` attribute to each `<button>`.
@@ -450,12 +478,14 @@ Disable individual buttons within a group by adding the `disabled` attribute to 
 
 ### Button group
 
-| Type        | Modifiers                                 | Default | Description                      |
-| ----------- | ----------------------------------------- | ------- | -------------------------------- |
-| Colors      | `.ui-critical`, `.ui-primary`             | -       | Optional colors for the buttons. |
-| Orientation | `.ui-vertical`                            | -       | The orientation of the element.  |
-| Sizes       | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the buttons.         |
-| Variants    | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant of the buttons.      |
+| Type        | Modifiers                                 | Default | Description                                                                                                       |
+| ----------- | ----------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
+| Colors      | `.ui-critical`, `.ui-primary`             | -       | Optional colors for the buttons.                                                                                  |
+| Orientation | `.ui-vertical`                            | -       | The orientation of the element.                                                                                   |
+| Overflow    | `.ui-scrollable`                          | -       | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| Overflow    | `.ui-shrink`                              | -       | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| Sizes       | `.ui-large`, `.ui-small`, `.ui-x-small`   | -       | The size of the buttons.                                                                                          |
+| Variants    | `.ui-filled`, `.ui-outlined`, `.ui-tonal` | -       | The variant of the buttons.                                                                                       |
 
 #### Parts
 
@@ -483,8 +513,8 @@ Disable individual buttons within a group by adding the `disabled` attribute to 
 | `--font-size-05`              | `0.875rem`                                                             | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
 | `--font-weight-bold`          | `var(--font-weight-7)`                                                 | Font weight for headings, buttons and terms.                                                                               |
 | `--motion`                    | `1`                                                                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--primary`                   | `var(--color-8)`                                                       | Brand color for primary actions and accents.                                                                               |
-| `--primary-contrast`          | `var(--gray-1)`                                                        | Text color on a `--primary` background.                                                                                    |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                           | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`          | `light-dark(var(--gray-1), var(--gray-15))`                            | Text color on a `--primary` background.                                                                                    |
 | `--state-active-alpha`        | `20%`                                                                  | Alpha of the pressed state layer on neutral buttons in light mode.                                                         |
 | `--state-active-alpha-accent` | `25%`                                                                  | Alpha of the pressed state layer on primary and critical buttons.                                                          |
 | `--state-active-alpha-dark`   | `30%`                                                                  | Alpha of the pressed state layer on neutral buttons in dark mode.                                                          |
@@ -495,7 +525,6 @@ Disable individual buttons within a group by adding the `disabled` attribute to 
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                                              |
 | `--text-disabled`             | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                                                  |
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                            | Muted text color on an inverted surface.                                                                                   |
-| `--text-primary-contrast`     | `light-dark(var(--gray-2), var(--gray-15))`                            | Emphasized text color on an inverted surface.                                                                              |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
@@ -537,8 +566,8 @@ The root needs `role="group"`.
 | `--font-size-05`              | `0.875rem`                                                             | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
 | `--font-weight-bold`          | `var(--font-weight-7)`                                                 | Font weight for headings, buttons and terms.                                                                               |
 | `--motion`                    | `1`                                                                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--primary`                   | `var(--color-8)`                                                       | Brand color for primary actions and accents.                                                                               |
-| `--primary-contrast`          | `var(--gray-1)`                                                        | Text color on a `--primary` background.                                                                                    |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                           | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`          | `light-dark(var(--gray-1), var(--gray-15))`                            | Text color on a `--primary` background.                                                                                    |
 | `--state-active-alpha`        | `20%`                                                                  | Alpha of the pressed state layer on neutral buttons in light mode.                                                         |
 | `--state-active-alpha-accent` | `25%`                                                                  | Alpha of the pressed state layer on primary and critical buttons.                                                          |
 | `--state-active-alpha-dark`   | `30%`                                                                  | Alpha of the pressed state layer on neutral buttons in dark mode.                                                          |
@@ -549,7 +578,6 @@ The root needs `role="group"`.
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                                              |
 | `--text-disabled`             | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                                                  |
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                            | Muted text color on an inverted surface.                                                                                   |
-| `--text-primary-contrast`     | `light-dark(var(--gray-2), var(--gray-15))`                            | Emphasized text color on an inverted surface.                                                                              |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 

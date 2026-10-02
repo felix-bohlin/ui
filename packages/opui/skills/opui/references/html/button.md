@@ -6,6 +6,7 @@
 - Replaces `IconButton`.
 - Wrap the label in a `<span>` to [tighten the padding](#buttons-with-icon-and-label) next to an icon.
 - Links with `.ui-disabled` or `aria-disabled="true"` look and act disabled.
+- [Primary and critical](#colors) colors pass contrast in light and dark mode.
 
 ## Anatomy
 
@@ -491,8 +492,8 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `--font-size-05`              | `0.875rem`                                                             | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
 | `--font-weight-bold`          | `var(--font-weight-7)`                                                 | Font weight for headings, buttons and terms.                                                                               |
 | `--motion`                    | `1`                                                                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--primary`                   | `var(--color-8)`                                                       | Brand color for primary actions and accents.                                                                               |
-| `--primary-contrast`          | `var(--gray-1)`                                                        | Text color on a `--primary` background.                                                                                    |
+| `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                           | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`          | `light-dark(var(--gray-1), var(--gray-15))`                            | Text color on a `--primary` background.                                                                                    |
 | `--state-active-alpha`        | `20%`                                                                  | Alpha of the pressed state layer on neutral buttons in light mode.                                                         |
 | `--state-active-alpha-accent` | `25%`                                                                  | Alpha of the pressed state layer on primary and critical buttons.                                                          |
 | `--state-active-alpha-dark`   | `30%`                                                                  | Alpha of the pressed state layer on neutral buttons in dark mode.                                                          |
@@ -503,7 +504,6 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                                              |
 | `--text-disabled`             | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                                                  |
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                            | Muted text color on an inverted surface.                                                                                   |
-| `--text-primary-contrast`     | `light-dark(var(--gray-2), var(--gray-15))`                            | Emphasized text color on an inverted surface.                                                                              |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 

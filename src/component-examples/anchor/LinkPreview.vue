@@ -8,12 +8,12 @@ import { Anchor, Card } from "opui-css/vue"
     <Anchor
       alignment="block-end span-inline-end"
       trigger="hover"
-      id="link-preview"
+      id="anchor-link-preview"
     >
       <a
         class="ui-link"
         href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning"
-        interestfor="link-preview"
+        interestfor="anchor-link-preview"
         >CSS anchor positioning</a
       >
       <template #anchored>

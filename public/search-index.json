@@ -1024,7 +1024,7 @@
     "id": "guide-theme-tokens-html",
     "title": "Theme tokens",
     "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, in a layer above theme or unlayered.",
-    "headings": "Overriding tokens",
+    "headings": "Overriding tokens Density",
     "category": "Guide",
     "frameworkId": "html",
     "url": "/html/guide/theme-tokens"
@@ -1033,7 +1033,7 @@
     "id": "guide-theme-tokens-astro",
     "title": "Theme tokens",
     "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, in a layer above theme or unlayered.",
-    "headings": "Overriding tokens",
+    "headings": "Overriding tokens Density",
     "category": "Guide",
     "frameworkId": "astro",
     "url": "/astro/guide/theme-tokens"
@@ -1042,7 +1042,7 @@
     "id": "guide-theme-tokens-vue",
     "title": "Theme tokens",
     "description": "Every custom property that theme.css declares, with its default.\n    Override any of them on html, or on a subtree, in a layer above theme or unlayered.",
-    "headings": "Overriding tokens",
+    "headings": "Overriding tokens Density",
     "category": "Guide",
     "frameworkId": "vue",
     "url": "/vue/guide/theme-tokens"

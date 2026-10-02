@@ -9,6 +9,10 @@
     --_bg-color: var(--surface-default);
     --_border-color: var(--field-border-color);
     --_field-padding-block: var(--size-2);
+    --_field-padding-block-fit: min(
+      var(--_field-padding-block),
+      max(0px, (var(--_height) - 1lh - var(--field-border-width) * 2) / 2)
+    );
     --_field-padding-inline: var(--size-2);
     --_font-size: var(--font-size-1);
     --_height: var(--field-size);
@@ -48,7 +52,7 @@
       inline-size: 100%;
       line-height: var(--font-lineheight-1);
       min-inline-size: 0;
-      padding: var(--_field-padding-block) var(--_field-padding-inline);
+      padding: var(--_field-padding-block-fit) var(--_field-padding-inline);
 
       &:focus,
       &:focus-visible {
@@ -123,7 +127,7 @@
       .ui-prefix,
       .ui-suffix {
         align-self: start;
-        padding-block: var(--_field-padding-block);
+        padding-block: var(--_field-padding-block-fit);
       }
     }
 
@@ -212,11 +216,12 @@
     /* Customizable Select */
     &:has(select button) {
       select {
+        min-block-size: 0;
         padding: 0;
 
         button {
           outline: 0;
-          padding-block: var(--_field-padding-block);
+          padding-block: var(--_field-padding-block-fit);
           padding-inline: var(--_field-padding-inline) var(--size-8);
         }
       }
@@ -225,7 +230,7 @@
     /* Non-customizable Select */
     &:has(select):not(:has(button)) {
       select {
-        padding-block: var(--_field-padding-block);
+        padding-block: var(--_field-padding-block-fit);
         padding-inline: var(--_field-padding-inline) var(--size-8);
       }
     }

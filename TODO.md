@@ -9,6 +9,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (3) Dark mode: `--border-color`, `--surface-tonal` and `--surface-elevated` are the same gray, so borders (field borders too) vanish on tonal and elevated surfaces and tonal/elevated cards look the same (`layout` Surfaces, SidebarLayout)
   > borders on tonal and elevated should have the same color as the background
   - Fixed: tonal and elevated cards (and dialogs, which are elevated cards) have a border in the page background color, so a tonal card on a tonal surface stays visible. Inside them, `--border-color` and `--field-border-color` are the page background in dark mode, so dividers and field borders show too (`theme.css` "Raised surfaces"). Light mode only changes the card's own border. The theme generator copies the block from `theme.css`.
+- [] (4) Remaining `color-contrast` entries in `a11y-known-violations.json`: Typography (muted overline and heading group text in dark mode, `typography` stress page), List `kbd`, Badges (`layout` Badges) and `data-display` InlineAlignment
 
 ## Bugs
 

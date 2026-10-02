@@ -61,6 +61,7 @@ const whatsNew = {
   ],
   checkbox: [
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
+    `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code>, and <code>--isLTR</code> and <code>--isRTL</code> are <code>--_dir-rtl</code>.`,
   ],
   chip: [
     {
@@ -71,6 +72,7 @@ const whatsNew = {
       default: `Long labels truncate with an ellipsis unless the chip is <code>multiline</code>.`,
       html: `Long labels truncate with an ellipsis unless the chip is <code>.ui-multiline</code>.`,
     },
+    `Breaking: <code>--ripple</code> is <code>--_ripple</code>.`,
   ],
   dialog: [
     `<a href="#modal">Long content</a> scrolls between a fixed header and actions.`,
@@ -92,6 +94,7 @@ const whatsNew = {
   ],
   radio: [
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
+    `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code>, and <code>--isLTR</code> and <code>--isRTL</code> are <code>--_dir-rtl</code>.`,
   ],
   range: [
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,

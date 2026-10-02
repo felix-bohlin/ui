@@ -429,7 +429,7 @@ Change the layout of the group with the `.ui-vertical` class.
 
 ## Disabled
 
-Disable individual buttons within a group by adding the `disabled`attribute to each `<button>`.
+Disable individual buttons within a group by adding the `disabled` attribute to each `<button>`.
 
 ```html
 <div role="group" class="ui-button-group ui-filled">
@@ -497,7 +497,7 @@ Disable individual buttons within a group by adding the `disabled`attribute to e
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                            | Muted text color on an inverted surface.                                                                                   |
 | `--text-primary-contrast`     | `light-dark(var(--gray-2), var(--gray-15))`                            | Emphasized text color on an inverted surface.                                                                              |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 The root needs `role="group"`.
 
@@ -551,7 +551,7 @@ The root needs `role="group"`.
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                            | Muted text color on an inverted surface.                                                                                   |
 | `--text-primary-contrast`     | `light-dark(var(--gray-2), var(--gray-15))`                            | Emphasized text color on an inverted surface.                                                                              |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

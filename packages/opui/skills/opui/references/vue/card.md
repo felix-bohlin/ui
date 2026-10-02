@@ -62,7 +62,7 @@ import { Card } from "opui-css/vue"
 
 **Why does a text variant exist?**
 
-It really doesn't make sense to use the text variant unless you really need to. The [accordion group](https://open-props-ui.netlify.app/vue/components/accordion.md#accordion-group) is a great example where Open Props UI leverages the text variant of the`.ui-card` component.
+It really doesn't make sense to use the text variant unless you really need to. The [accordion group](https://open-props-ui.netlify.app/vue/components/accordion.md#accordion-group) is a great example where Open Props UI leverages the text variant of the `.ui-card` component.
 
 ## Header
 
@@ -244,7 +244,7 @@ import { Button, Card } from "opui-css/vue"
 | `--surface-elevated` | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                      |
 | `--surface-tonal`    | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

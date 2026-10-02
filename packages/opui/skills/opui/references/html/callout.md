@@ -84,7 +84,7 @@ Icon must be placed before the content.
 
 ## Severities
 
-Severity modifiers - `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-critical` - plus the non-severity `.ui-neutral`tone for brand-tinted attention. The default is a plain surface.
+Severity modifiers - `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-critical` - plus the non-severity `.ui-neutral` tone for brand-tinted attention. The default is a plain surface.
 
 **Icons and accessibility**
 
@@ -242,7 +242,7 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 | `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                         |
 | `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

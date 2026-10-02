@@ -163,7 +163,7 @@ import { TextField } from "opui-css/vue"
 
 Add the `required` attribute on the component. It is forwarded to the underlying `<input>`.
 
-Use the `error` prop to toggle invalid styles. It renders`data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
+Use the `error` prop to toggle invalid styles. It renders `data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
 
 ```vue
 <script setup lang="ts">
@@ -411,7 +411,7 @@ import { TextField } from "opui-css/vue"
 
 ### You most likely don't need `<input type="number">`
 
-While `<input type="number">` may seem logical for numeric data it should only be used when mathematical operations are needed on the input (which is... never). Data like credit card numbers, IDs or social security numbers - are actually text that happen to be numeric rather than mathematical values. Therefore, consider using`<input type="text" inputmode="numeric" pattern="[0-9]*">` instead.
+While `<input type="number">` may seem logical for numeric data it should only be used when mathematical operations are needed on the input (which is... never). Data like credit card numbers, IDs or social security numbers - are actually text that happen to be numeric rather than mathematical values. Therefore, consider using `<input type="text" inputmode="numeric" pattern="[0-9]*">` instead.
 
 **You will have a bad time.**
 
@@ -572,7 +572,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 Attributes that aren't props, such as `placeholder` or `disabled`, go to the `<input>`.
 

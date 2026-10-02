@@ -31,7 +31,7 @@ If you just need to group a bunch of "dumb" (uncontrolled) buttons - use Button 
 
 ## Variants
 
-Change the appearance of the entire group with the `variant`prop.
+Change the appearance of the entire group with the `variant` prop.
 
 ```astro
 ---
@@ -168,7 +168,7 @@ const chevronIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="
 
 ## Sizes
 
-Adjust the size of all buttons in the group using the `size`prop.
+Adjust the size of all buttons in the group using the `size` prop.
 
 ```astro
 ---
@@ -290,7 +290,7 @@ const minusIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24
 
 ## Disabled
 
-Disable individual buttons within a group by setting the `disabled`prop on each `Button`.
+Disable individual buttons within a group by setting the `disabled` prop on each `Button`.
 
 ```astro
 ---
@@ -363,7 +363,7 @@ import { Button } from "opui-css/astro"
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                            | Muted text color on an inverted surface.                                                                                   |
 | `--text-primary-contrast`     | `light-dark(var(--gray-2), var(--gray-15))`                            | Emphasized text color on an inverted surface.                                                                              |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ### Button
 
@@ -416,7 +416,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                            | Muted text color on an inverted surface.                                                                                   |
 | `--text-primary-contrast`     | `light-dark(var(--gray-2), var(--gray-15))`                            | Emphasized text color on an inverted surface.                                                                              |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

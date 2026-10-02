@@ -116,7 +116,7 @@ LabelDescription¢EURHeaderFooterSupporting text
 
 ## Affix
 
-Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or`.ui-footer` elements inside `.ui-field` to affix content inside the field's border. Prefix and suffix sit beside the input, while header and footer span the field's full width with a divider.
+Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.ui-field` to affix content inside the field's border. Prefix and suffix sit beside the input, while header and footer span the field's full width with a divider.
 
 ```html
 <label class="ui-text-field">
@@ -494,7 +494,7 @@ Date-related inputs never show as empty, so the label is always visible. There a
 
 ### You most likely don't need `<input type="number">`
 
-While `<input type="number">` may seem logical for numeric data it should only be used when mathematical operations are needed on the input (which is... never). Data like credit card numbers, IDs or social security numbers - are actually text that happen to be numeric rather than mathematical values. Therefore, consider using`<input type="text" inputmode="numeric" pattern="[0-9]*">` instead.
+While `<input type="number">` may seem logical for numeric data it should only be used when mathematical operations are needed on the input (which is... never). Data like credit card numbers, IDs or social security numbers - are actually text that happen to be numeric rather than mathematical values. Therefore, consider using `<input type="text" inputmode="numeric" pattern="[0-9]*">` instead.
 
 **You will have a bad time.**
 
@@ -647,7 +647,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 The control can also be a `<select>` or `<textarea>`. A `<datalist>` can be placed inside the root.
 

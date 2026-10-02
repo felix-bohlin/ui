@@ -29,9 +29,10 @@ const slug = (title: string) =>
   <section>
     <h2 id="overriding">Overriding tokens</h2>
     <p>
-      Tokens cascade like any custom property. Set them once on
+      Tokens cascade like any custom property. Set them once on{" "}
       <code>html</code> for a whole site, or on an element to theme a part of the
-      page. The <DocLink href="/guide/theme-generator">theme generator</DocLink>
+      page. The <DocLink href="/guide/theme-generator">theme generator</DocLink
+      >{" "}
       writes a complete <code>theme.css</code> for you.
     </p>
     <Code
@@ -45,9 +46,9 @@ const slug = (title: string) =>
       lang="css"
     />
     <p>
-      Color tokens are derived from the palette. A subtree with
+      Color tokens are derived from the palette. A subtree with{" "}
       <code>.ui-palette</code> and its own <code>--palette-hue</code> re-derives all
-      of them, so one page can carry several brands. <code>.ui-light</code>
+      of them, so one page can carry several brands. <code>.ui-light</code>{" "}
       and <code>.ui-dark</code> force a color scheme on a subtree.
     </p>
     <Code

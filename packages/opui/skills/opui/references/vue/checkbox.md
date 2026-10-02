@@ -102,7 +102,7 @@ import { Checkbox } from "opui-css/vue"
 ### Validation
 
 - Add the `required` attribute on the component. It is forwarded to the underlying `<input>`.
-- Use the `error` prop to toggle invalid styles. It renders`data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
+- Use the `error` prop to toggle invalid styles. It renders `data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
 
 ```vue
 <script setup lang="ts">
@@ -130,7 +130,7 @@ import { Checkbox } from "opui-css/vue"
 
 ## Indeterminate
 
-Set the `indeterminate` prop to render a partially-selected state.`indeterminate` is a JavaScript-only property on `HTMLInputElement`, so the component renders `data-indeterminate` and applies the property at runtime.
+Set the `indeterminate` prop to render a partially-selected state. `indeterminate` is a JavaScript-only property on `HTMLInputElement`, so the component renders `data-indeterminate` and applies the property at runtime.
 
 ```vue
 <script setup lang="ts">
@@ -468,7 +468,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                             |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`.
 
@@ -501,7 +501,7 @@ Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`.
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

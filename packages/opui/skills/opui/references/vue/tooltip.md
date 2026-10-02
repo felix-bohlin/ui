@@ -2,7 +2,7 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/vue/components/anchor.md).
 
-Wrap the trigger in `<Tooltip>` and pass a stable`id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like`<button>` or `<a>`). Pass a`label` prop for plain text or use the `content` slot for richer markup.
+Wrap the trigger in `<Tooltip>` and pass a stable `id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like `<button>` or `<a>`). Pass a `label` prop for plain text or use the `content` slot for richer markup.
 
 ## Basics
 
@@ -131,7 +131,7 @@ import { Button, Tooltip } from "opui-css/vue"
 
 ## Arrow
 
-Set the `arrow` prop. This would be cool to solve with `corner-shape`one day.
+Set the `arrow` prop. This would be cool to solve with `corner-shape` one day.
 
 ```vue
 <script setup lang="ts">
@@ -180,7 +180,7 @@ import { Button, Tooltip } from "opui-css/vue"
 | `--surface-inverse` | `light-dark(var(--gray-15), var(--gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                            |
 | `--text-inverse`    | `light-dark(var(--gray-1), var(--gray-15))` | Text color on `--surface-inverse`.                                                                                         |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

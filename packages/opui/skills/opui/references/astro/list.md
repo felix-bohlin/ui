@@ -98,7 +98,7 @@ import { List, ListItem } from "opui-css/astro"
 
 ## Clickable list item
 
-Wrap the elements of your List item with a `a`, `button`or `label` depending on use-case.
+Wrap the elements of your List item with a `a`, `button` or `label` depending on use-case.
 
 ```astro
 ---
@@ -152,7 +152,7 @@ import { List, ListItem } from "opui-css/astro"
 
 ## Text
 
-Main text lives in the `text` slot, or pass `headline`and `description` props directly on `ListItem`.
+Main text lives in the `text` slot, or pass `headline` and `description` props directly on `ListItem`.
 
 ```astro
 ---
@@ -360,7 +360,7 @@ import { ListItem } from "opui-css/astro"
 
 ### Checkbox
 
-Wrap the List item content with a `<label class="ui-checkbox" for="INPUTID">`to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-checkbox" for="INPUTID">` to make the entire surface clickable.
 
 Read more: [Checkbox](https://open-props-ui.netlify.app/astro/components/checkbox.md)
 
@@ -386,7 +386,7 @@ import { CheckboxInput } from "opui-css/astro"
 
 ### Radio
 
-Wrap the List item content with a `<label class="ui-radio" for="INPUTID">`to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-radio" for="INPUTID">` to make the entire surface clickable.
 
 Radio group: Add a common name to each `<input>` for radio group behavior.
 
@@ -619,7 +619,7 @@ Just add the `dense` prop to the `List`!
 | `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                  |
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                            |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ### List item API
 
@@ -665,7 +665,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 | `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                  |
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                            |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

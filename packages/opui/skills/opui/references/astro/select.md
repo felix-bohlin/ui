@@ -147,7 +147,7 @@ import { Select } from "opui-css/astro"
 ## Validation
 
 - Set `required` on the component to toggle required styles on the select.
-- Use the `error` prop to toggle invalid styles. It renders the`data-invalid` attribute on the root element. Make use of the end text to give extra feedback on the error.
+- Use the `error` prop to toggle invalid styles. It renders the `data-invalid` attribute on the root element. Make use of the end text to give extra feedback on the error.
 
 ```astro
 ---
@@ -408,7 +408,7 @@ import { ClassicSelect } from "opui-css/astro"
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to the `<select>`.
 
@@ -464,7 +464,7 @@ Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to t
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to the `<select>`.
 

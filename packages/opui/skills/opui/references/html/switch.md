@@ -194,7 +194,7 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
 ## Spread
 
-Add the `.ui-spread` class to the `<label class="ui-switch">`to push the label to the left and the switch to the right. This is useful for full-width items like lists and menus.
+Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label to the left and the switch to the right. This is useful for full-width items like lists and menus.
 
 ```html
 <label class="ui-switch ui-spread">
@@ -258,7 +258,7 @@ Add the `.ui-spread` class to the `<label class="ui-switch">`to push the label t
 
 ## Sizes
 
-Add the `.ui-small` class on the `<label class="ui-switch">`for a smaller Switch variant.
+Add the `.ui-small` class on the `<label class="ui-switch">` for a smaller Switch variant.
 
 ```html
 <div class="example-row">
@@ -369,7 +369,7 @@ Add the `.ui-small` class on the `<label class="ui-switch">`for a smaller Switch
 
 Use field groups to group related switches.
 
-Give every `<input>` in the group the same `name`attribute so they're submitted together.
+Give every `<input>` in the group the same `name` attribute so they're submitted together.
 
 See also: [Form documentation](https://open-props-ui.netlify.app/html/components/form.md).
 
@@ -673,7 +673,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 | `--switch-track-width-small`  | `2.5rem`                                    | Width of the `Switch` track with `.ui-small` and inside `List`.                                                            |
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 The input needs `type="checkbox"` and `role="switch"`. Use `.ui-sr-only` instead of `.ui-label` to hide the label visually.
 
@@ -705,7 +705,7 @@ The input needs `type="checkbox"` and `role="switch"`. Use `.ui-sr-only` instead
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
 

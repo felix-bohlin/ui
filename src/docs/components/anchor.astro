@@ -52,7 +52,8 @@ import anchorApi from "../../component-api/anchor/api"
       <Fragment slot="html">
         Floating content that is always shown, like a coach mark beside a
         button. Set <code>--anchor-position-area</code> on
-        <code>.ui-anchor</code> to any <code>position-area</code> value to place it.
+        {" "}<code>.ui-anchor</code> to any <code>position-area</code> value to place
+        it.
       </Fragment>
       <Fragment slot="astro">
         Floating content that is always shown, like a coach mark beside a
@@ -74,8 +75,8 @@ import anchorApi from "../../component-api/anchor/api"
     <Conditional as="p">
       <Fragment slot="html">
         Add <code>popover="hint"</code> and an id to
-        <code>.ui-anchor-floating</code>, and <code>interestfor</code> with that id
-        on the trigger.
+        {" "}<code>.ui-anchor-floating</code>, and <code>interestfor</code> with that
+        id on the trigger.
       </Fragment>
       <Fragment slot="astro">
         Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
@@ -100,9 +101,9 @@ import anchorApi from "../../component-api/anchor/api"
       trigger. Add <code>commandfor</code> and <code
         >command="toggle-popover"</code
       >
-      to a button trigger so touch devices can tap to show the floating content. A
-      link can't take <code>commandfor</code>, so tapping it follows the link
-      instead.
+      {" "}to a button trigger so touch devices can tap to show the floating
+      content. A link can't take <code>commandfor</code>, so tapping it follows
+      the link instead.
     </p>
     <p>
       Put a <DocLink href="/components/card">Card</DocLink> in the floating content

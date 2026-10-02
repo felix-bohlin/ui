@@ -54,24 +54,24 @@ import tooltipApi from "../../component-api/tooltip/api"
   <Conditional as="p">
     <Fragment slot="html">
       Add the <code>.ui-tooltip</code> class alongside <code>.ui-anchor</code> on
-      the wrapper. Wire <code>interestfor</code> on the trigger to the
+      the wrapper. Wire <code>interestfor</code> on the trigger to the{" "}
       <code>.ui-anchor-floating[popover="hint"]</code> element's ID.
     </Fragment>
     <Fragment slot="astro">
-      Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable
+      Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable{" "}
       <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
       and <code>command="toggle-popover"</code> on the trigger element itself (these
-      attributes are only valid on real invokers like
-      <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a
+      attributes are only valid on real invokers like{" "}
+      <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a{" "}
       <code>label</code> prop for plain text or use the <code>content</code> slot
       for richer markup.
     </Fragment>
     <Fragment slot="vue">
-      Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable
+      Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable{" "}
       <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
       and <code>command="toggle-popover"</code> on the trigger element itself (these
-      attributes are only valid on real invokers like
-      <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a
+      attributes are only valid on real invokers like{" "}
+      <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a{" "}
       <code>label</code> prop for plain text or use the <code>content</code> slot
       for richer markup.
     </Fragment>
@@ -122,7 +122,7 @@ import tooltipApi from "../../component-api/tooltip/api"
     <Conditional as="p">
       <Fragment slot="html">
         Set <code>--anchor-position-area</code> on the parent with your preferred
-        <code>position-area</code> value.
+        {" "}<code>position-area</code> value.
       </Fragment>
       <Fragment slot="astro">
         Use the <code>alignment</code> prop.
@@ -146,13 +146,13 @@ import tooltipApi from "../../component-api/tooltip/api"
         Set the <code>arrow</code> prop. This would be cool to solve with <code
           >corner-shape</code
         >
-        one day.
+        {" "}one day.
       </Fragment>
       <Fragment slot="vue">
         Set the <code>arrow</code> prop. This would be cool to solve with <code
           >corner-shape</code
         >
-        one day.
+        {" "}one day.
       </Fragment>
     </Conditional>
 

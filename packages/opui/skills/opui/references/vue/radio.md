@@ -222,7 +222,7 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
 | `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                   |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 Attributes that aren't props, such as `disabled`, `name` or `value`, go to the `<input>`.
 
@@ -255,7 +255,7 @@ Attributes that aren't props, such as `disabled`, `name` or `value`, go to the `
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

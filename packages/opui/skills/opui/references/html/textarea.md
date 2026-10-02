@@ -125,7 +125,7 @@ LabelDescription¢EURHeaderFooterSupporting text
 
 ## Affix
 
-Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or`.ui-footer` elements inside `.ui-field` to affix content inside the textarea's border.
+Add `.ui-prefix`, `.ui-suffix`, `.ui-header`, or `.ui-footer` elements inside `.ui-field` to affix content inside the textarea's border.
 
 ```html
 <label class="ui-textarea">
@@ -403,7 +403,7 @@ When enabled the Field changes size depending on its content.
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

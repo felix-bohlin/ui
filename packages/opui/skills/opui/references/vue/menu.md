@@ -1,6 +1,6 @@
 # Menu
 
-A popover [List](https://open-props-ui.netlify.app/vue/components/list.md), anchored to a[Button](https://open-props-ui.netlify.app/vue/components/button.md).
+A popover [List](https://open-props-ui.netlify.app/vue/components/list.md), anchored to a [Button](https://open-props-ui.netlify.app/vue/components/button.md).
 
 ### What's new
 
@@ -209,16 +209,16 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
 
 ## API
 
-| Prop        | Type                                                          | Default        | Description                                       |
-| ----------- | ------------------------------------------------------------- | -------------- | ------------------------------------------------- |
-| `align`     | `"start"`, `"end"`                                            | `"start"`      | Which edge of the trigger the menu lines up with. |
-| `class`     | `string`                                                      | -              | Optional CSS class.                               |
-| `dense`     | `boolean`                                                     | `false`        | Less spacing.                                     |
-| `id`        | `string`                                                      | auto-generated | The trigger's `commandfor`.                       |
-| `items`     | `MenuItem[]`                                                  | -              | Menu items.                                       |
-| `placement` | `"block-end"`,`"block-start"`,`"inline-end"`,`"inline-start"` | `"block-end"`  | Where the menu opens.                             |
-| `popover`   | `"auto"`, `"manual"`                                          | `"auto"`       | The popover type.                                 |
-| default     | -                                                             | -              | Optional child content.                           |
+| Prop        | Type                                                             | Default        | Description                                       |
+| ----------- | ---------------------------------------------------------------- | -------------- | ------------------------------------------------- |
+| `align`     | `"start"`, `"end"`                                               | `"start"`      | Which edge of the trigger the menu lines up with. |
+| `class`     | `string`                                                         | -              | Optional CSS class.                               |
+| `dense`     | `boolean`                                                        | `false`        | Less spacing.                                     |
+| `id`        | `string`                                                         | auto-generated | The trigger's `commandfor`.                       |
+| `items`     | `MenuItem[]`                                                     | -              | Menu items.                                       |
+| `placement` | `"block-end"`, `"block-start"`, `"inline-end"`, `"inline-start"` | `"block-end"`  | Where the menu opens.                             |
+| `popover`   | `"auto"`, `"manual"`                                             | `"auto"`       | The popover type.                                 |
+| default     | -                                                                | -              | Optional child content.                           |
 
 ### MenuItem
 

@@ -296,7 +296,7 @@ Use `variant="outlined"` (`.ui-outlined`) for a bordered track without a backgro
 
 ## Scrollable
 
-Tabs wrap onto more rows when they don't fit. Use `scrollable`(`.ui-scrollable`) to keep them on one row and scroll them sideways instead. The open panel stays in view, and up to 20 tabs are supported. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
+Tabs wrap onto more rows when they don't fit. Use `scrollable` (`.ui-scrollable`) to keep them on one row and scroll them sideways instead. The open panel stays in view, and up to 20 tabs are supported. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
 
 ```html
 <div class="ui-tabs ui-scrollable" role="tablist">
@@ -527,7 +527,7 @@ The content area associated with a tab:
 | `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
 | `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 The root needs `role="tablist"`. Each tab is an `input.ui-tab-input[type="radio"]`, followed by its `label.ui-tab-label[role="tab"]` and `.ui-tab-panel[role="tabpanel"]`.
 
@@ -564,7 +564,7 @@ The root needs `role="tablist"`. Each tab is an `input.ui-tab-input[type="radio"
 | `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
 | `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ### Tabs tab API
 
@@ -595,7 +595,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 | `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
 | `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ### Tabs panel API
 
@@ -626,7 +626,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 | `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
 | `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
 

@@ -54,7 +54,7 @@ Used to show a relationship between form elements.
 
   to describe what it's about.
 
-- `.ui-field-description`(optional)
+- `.ui-field-description` (optional)
 
   to give extra context about the fieldset.
 
@@ -677,7 +677,7 @@ Everything all at once, but horizontally.
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ### Field set API
 
@@ -710,7 +710,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ### Field legend API
 
@@ -736,7 +736,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ### Field description API
 
@@ -762,7 +762,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ### Field group API
 
@@ -792,7 +792,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
 

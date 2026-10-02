@@ -56,7 +56,7 @@ import { Checkbox } from "opui-css/astro"
 >
 <Checkbox name="checkbox-visible-label">
   Long text dolor amet mustache knausgaard +1, blue bottle waistcoat tbh
-  semiotics artisan synth stumptown gastropub cornhole
+  semiotics artisan synth stumptown gastropub cornhole{" "}
   <a class="ui-link" href="#visible-label">privacy policy ipsum</a>
 </Checkbox>
 ```
@@ -94,7 +94,7 @@ import { Checkbox } from "opui-css/astro"
 ### Validation
 
 - Set `required` on the component to toggle required styles on the input.
-- Use the `error` prop to toggle invalid styles. It renders`data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
+- Use the `error` prop to toggle invalid styles. It renders `data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
 
 ```astro
 ---
@@ -120,7 +120,7 @@ import { Checkbox } from "opui-css/astro"
 
 ## Indeterminate
 
-Set the `indeterminate` prop to render a partially-selected state.`indeterminate` is a JavaScript-only property on `HTMLInputElement`, so the component renders `data-indeterminate` and applies the property at runtime.
+Set the `indeterminate` prop to render a partially-selected state. `indeterminate` is a JavaScript-only property on `HTMLInputElement`, so the component renders `data-indeterminate` and applies the property at runtime.
 
 ### JavaScript required
 
@@ -474,7 +474,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                             |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 Other attributes, such as `checked`, `disabled`, `name` and `required`, go to the `<input>`.
 
@@ -507,7 +507,7 @@ Other attributes, such as `checked`, `disabled`, `name` and `required`, go to th
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

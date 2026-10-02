@@ -144,7 +144,7 @@ LabelDescriptionOption one (1)¢EURHeaderFooterSupporting text
 
 ## Affix
 
-Add a `.ui-prefix` or `.ui-suffix` element inside`.ui-field` to affix content alongside the select.
+Add a `.ui-prefix` or `.ui-suffix` element inside `.ui-field` to affix content alongside the select.
 
 ```html
 <label class="ui-select">
@@ -632,7 +632,7 @@ Bog-standard native HTML `<select>` without customized option list.
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` with the options. Browsers without customizable selects show a native select.
 
@@ -688,7 +688,7 @@ The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` wit
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

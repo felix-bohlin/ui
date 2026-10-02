@@ -88,13 +88,13 @@ import Conditional from "../../components/Conditional.astro"
       <Conditional>
         <li slot="astro">
           Use the <code>error</code> prop to toggle invalid styles. It renders
-          <code>data-invalid</code> on the root element. Make use of the end text
-          to give extra feedback on the error.
+          {" "}<code>data-invalid</code> on the root element. Make use of the end
+          text to give extra feedback on the error.
         </li>
         <li slot="vue">
           Use the <code>error</code> prop to toggle invalid styles. It renders
-          <code>data-invalid</code> on the root element. Make use of the end text
-          to give extra feedback on the error.
+          {" "}<code>data-invalid</code> on the root element. Make use of the end
+          text to give extra feedback on the error.
         </li>
         <li slot="html">
           Add <code>data-invalid</code> on the root element to toggle invalid styles.
@@ -112,7 +112,7 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="astro">
         <p>
           Set the <code>indeterminate</code> prop to render a partially-selected state.
-          <code>indeterminate</code> is a JavaScript-only property on <code
+          {" "}<code>indeterminate</code> is a JavaScript-only property on <code
             >HTMLInputElement</code
           >, so the component renders <code>data-indeterminate</code> and applies
           the property at runtime.
@@ -137,7 +137,7 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="vue">
         <p>
           Set the <code>indeterminate</code> prop to render a partially-selected state.
-          <code>indeterminate</code> is a JavaScript-only property on <code
+          {" "}<code>indeterminate</code> is a JavaScript-only property on <code
             >HTMLInputElement</code
           >, so the component renders <code>data-indeterminate</code> and applies
           the property at runtime.
@@ -183,8 +183,8 @@ import Conditional from "../../components/Conditional.astro"
         Add the <code>.ui-spread</code> class to the <code
           >&lt;label class="ui-checkbox"&gt;</code
         >
-        to push the label to the left and the checkbox to the right. This is useful
-        for full-width items like lists and menus.
+        {" "}to push the label to the left and the checkbox to the right. This
+        is useful for full-width items like lists and menus.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>spread</code> prop to push the label to the left and the checkbox
@@ -209,7 +209,7 @@ import Conditional from "../../components/Conditional.astro"
       </p>
       <p slot="html">
         Give every <code>&lt;input type="checkbox"&gt;</code> in the group the same
-        <code>name</code> attribute so they're submitted together.
+        {" "}<code>name</code> attribute so they're submitted together.
       </p>
       <p slot="vue">
         The <code>name</code> prop will get passed down to each checkbox in the group.

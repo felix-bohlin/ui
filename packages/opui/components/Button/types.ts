@@ -1,5 +1,6 @@
 export type Props = {
   color?: "critical" | "primary"
+  label?: string
   ripple?: boolean
   rounded?: boolean
   size?: "x-small" | "small" | "large"
@@ -8,7 +9,7 @@ export type Props = {
   | {
       as?: "a"
       href: string
-      disabled?: never
+      disabled?: boolean
     }
   | {
       as?: "button"

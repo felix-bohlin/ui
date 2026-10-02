@@ -18,7 +18,7 @@ Floating content
 
   The floating content.
 
-## Always Visible
+## Always visible
 
 Floating content that is always shown.
 
@@ -32,13 +32,13 @@ import { Anchor } from "opui-css/astro"
   <button>Hover me</button>
   <span
     slot="anchored"
-    style="background: var(--surface-2); padding: var(--size-2) var(--size-3); border-radius: var(--radius-2); box-shadow: var(--shadow-3);"
+    style="background: var(--surface-elevated); padding: var(--size-2) var(--size-3); border-radius: var(--radius-2); box-shadow: var(--shadow-3);"
     >Floating content</span
   >
 </Anchor>
 ```
 
-## Hover Trigger
+## Hover trigger
 
 Set `trigger="hover"` and an `id`, and add `interestfor` with that id to the trigger. The component adds `popover="hint"`.
 
@@ -64,7 +64,7 @@ import { Anchor } from "opui-css/astro"
 </Anchor>
 ```
 
-## Used By
+## Used by
 
 - [Badge](https://open-props-ui.netlify.app/astro/components/badge.md)
 - [Tooltip](https://open-props-ui.netlify.app/astro/components/tooltip.md)
@@ -89,10 +89,10 @@ import { Anchor } from "opui-css/astro"
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Full support Supported since v151.
-- Safari: Partial support Missing: popover-hint.
+- Firefox: Partial support Missing: interest-invokers.
+- Safari: Partial support Missing: interest-invokers, popover-hint.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Anchor.md).
 
 ## Installation
 

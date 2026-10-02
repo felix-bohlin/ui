@@ -36,10 +36,11 @@ pnpm dev
 
 ### Adding New Components
 
-1. Create a folder in `packages/opui/components/[ComponentName]`.
-2. Add `[ComponentName].astro` to that folder.
-3. Export the component from the barrel in `packages/opui/astro/index.ts`.
-4. (Optional) Implement the component CSS in `packages/opui/css/components/`.
+1. Create a folder in `packages/opui/components/[ComponentName]` with `[ComponentName].astro`, `[ComponentName].vue` and the `types*.ts` files (see `packages/opui/components/AGENTS.md`).
+2. Export the component from both barrels, `packages/opui/astro/index.ts` and `packages/opui/vue/index.ts`, in alphabetical order.
+3. Add the CSS in `packages/opui/css/components/[component-name].css` and list it in `packages/opui/css/components.css`.
+4. Add the docs page `src/docs/components/[component-name].astro`, one example per framework in `src/component-examples/[component-name]/` and the API data in `src/component-api/[component-name]/api.ts` (see `src/docs/components/AGENTS.md` and `src/component-api/AGENT.md`).
+5. Run `pnpm check` and `pnpm test:e2e`; record the new parity snapshots with `pnpm test:update`.
 
 ### Agent skill
 

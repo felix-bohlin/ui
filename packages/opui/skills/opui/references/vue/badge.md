@@ -274,13 +274,14 @@ import { Badge } from "opui-css/vue"
 
 ### Badge API
 
-| Prop        | Type                                                          | Default | Description                                      |
-| ----------- | ------------------------------------------------------------- | ------- | ------------------------------------------------ |
-| `alignment` | `"start-start"`, `"end-start"`, `"end-end"`                   | -       | Where the indicator is placed.                   |
-| `color`     | `"critical"`, `"info"`, `"neutral"`, `"success"`, `"warning"` | -       | Optional colors.                                 |
-| `dot`       | `boolean`                                                     | `false` | Renders the indicator as a dot, without a label. |
-| `invisible` | `boolean`                                                     | `false` | Hides the indicator.                             |
-| `label`     | `string`, `number`                                            | -       | The indicator, inside `.ui-anchor-floating`.     |
+| Prop        | Type                                                          | Default | Description                                                                                |
+| ----------- | ------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------ |
+| `alignment` | `"start-start"`, `"end-start"`, `"end-end"`                   | -       | Where the indicator is placed.                                                             |
+| `color`     | `"critical"`, `"info"`, `"neutral"`, `"success"`, `"warning"` | -       | Optional colors.                                                                           |
+| `dot`       | `boolean`                                                     | `false` | Renders the indicator as a dot, without a label.                                           |
+| `invisible` | `boolean`                                                     | `false` | Hides the indicator.                                                                       |
+| `label`     | `string`, `number`                                            | -       | The indicator, inside `.ui-anchor-floating`.                                               |
+| `srLabel`   | `string`                                                      | -       | Visually hidden text that describes the badge to assistive technology, such as "3 unread". |
 
 #### Slots
 
@@ -289,13 +290,31 @@ import { Badge } from "opui-css/vue"
 | `default`   | The element the badge is anchored to.        |
 | `indicator` | The indicator, inside `.ui-anchor-floating`. |
 
+#### CSS variables
+
+| Variable               | Default                | Description                                                                                                                |
+| ---------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--critical`           | `var(--red)`           | Severity color for errors and destructive actions.                                                                         |
+| `--duration`           | `0.2s`                 | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`         | `var(--ease-out-3)`    | Easing for elements entering the screen.                                                                                   |
+| `--font-weight-medium` | `var(--font-weight-5)` | Font weight for badges, overlines and group labels.                                                                        |
+| `--info`               | `var(--blue)`          | Severity color for informational messages.                                                                                 |
+| `--motion`             | `1`                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--neutral`            | `var(--gray-9)`        | Severity color for neutral messages.                                                                                       |
+| `--primary`            | `var(--color-8)`       | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`   | `var(--gray-1)`        | Text color on a `--primary` background.                                                                                    |
+| `--success`            | `var(--green)`         | Severity color for success messages.                                                                                       |
+| `--warning`            | `var(--orange)`        | Severity color for warnings.                                                                                               |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+
 ## Browser support
 
 - Chromium: Full support Supported since v144.
 - Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v26.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Badge.md).
 
 ## Installation
 

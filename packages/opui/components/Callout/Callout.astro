@@ -3,11 +3,18 @@ import type { Props } from "./types.astro"
 
 export const title = "Callout"
 
-const { class: className, severity, variant, ...rest } = Astro.props
+const {
+  class: className,
+  headingLevel = 3,
+  severity,
+  variant,
+  ...rest
+} = Astro.props
+
+const Heading = `h${headingLevel}` as "h2" | "h3" | "h4" | "h5" | "h6"
 ---
 
 <article
-  role="note"
   class:list={[
     "ui-callout",
     variant && `ui-${variant}`,
@@ -20,6 +27,7 @@ const { class: className, severity, variant, ...rest } = Astro.props
     {
       severity === "info" && (
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -35,6 +43,7 @@ const { class: className, severity, variant, ...rest } = Astro.props
     {
       severity === "warning" && (
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -50,6 +59,7 @@ const { class: className, severity, variant, ...rest } = Astro.props
     {
       severity === "critical" && (
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
@@ -66,9 +76,9 @@ const { class: className, severity, variant, ...rest } = Astro.props
   <div class="ui-content">
     {
       Astro.slots.has("title") && (
-        <h3 class="ui-title">
+        <Heading class="ui-title">
           <slot name="title" />
-        </h3>
+        </Heading>
       )
     }
     <slot />

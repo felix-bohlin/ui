@@ -9,13 +9,23 @@ import RangeCSS from "@opui/css/components/range.css?raw"
 import Conditional from "../../components/Conditional.astro"
 
 import rangeApi from "../../component-api/range/api"
+export const description =
+  "Range lets users pick a number by sliding a thumb along a track."
 ---
 
 <Component
+  description={description}
   slug="range"
   heroAnatomy
   apis={[{ title: "Range API", api: rangeApi }]}
-  browserSupport={["light-dark", "relative-color", "container-queries"]}
+  browserSupport={[
+    "container-queries",
+    "datalist",
+    "has",
+    "light-dark",
+    "registered-custom-properties",
+    "relative-color",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Range/Range.astro",

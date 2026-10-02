@@ -2,14 +2,22 @@
 import { useId } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
-const { align, dense, id, items, placement } = defineProps<Props>()
+const {
+  align,
+  dense,
+  id,
+  items,
+  placement,
+  popover = "auto",
+} = defineProps<Props>()
 defineSlots<Slots>()
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const menuId = id || useId()
+const uid = useId()
+const menuId = id || uid
 </script>
 
 <template>
@@ -22,7 +30,7 @@ const menuId = id || useId()
       placement && placement !== 'block-end' && `ui-${placement}`,
       $props.class,
     ]"
-    popover=""
+    :popover="popover === 'auto' ? '' : popover"
     v-bind="$attrs"
   >
     <li

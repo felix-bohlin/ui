@@ -19,6 +19,8 @@
 - [?] Running pnpm scripts adds `@pnpm/exe` to `pnpm-lock.yaml`
 - [x] Icon button disabled text color never applies: `rgb(0, 0, 0/0.3)` mixes comma and slash syntax
 - [] `--primary-contrast` on `--primary` is 3.97:1 (AA needs 4.5:1): filled Tabs selected tab and primary filled Buttons. Axe misses the Tabs case because the fill is a pseudo-element
+- [] Invalid end text fails contrast in dark mode (`stress/forms` States and KitchenSink in the a11y ledger)
+- [] ButtonGroup and ToggleGroup overflow narrow containers instead of wrapping or shrinking (`stress/forms` LongContent)
 
 ## Docs
 
@@ -32,6 +34,7 @@
 
 - [] Test Menu and Carousel in Firefox and Safari (only checked in Chromium)
 - [] Test anatomy heroes in Firefox, Safari and with Windows fonts
+- [] Nested `pnpm` calls (`pnpm check`) fail in the cloud container with "Exec format error", maybe related to `@pnpm/exe` in the lockfile
 - [x] Merging main brings back IconButton docs from #395 (`icon-button/api.ts`, `icon-button.astro` with its hero): delete them, and add `rounded` and ripple to Button's `api.ts`
 - [x] Remove the orphaned `icon-button-*.png` visual baselines (the examples are gone)
 
@@ -53,3 +56,9 @@
 
 - [?] `svelte` peer dependency but no Svelte components: remove it, or keep it for planned Svelte support?
 - [?] Section comments I added in `carousel.css` and `menu.css` (e.g. `/* Buttons */`): keep or remove per the no-new-comments rule?
+- [?] X-small fields use 14px text, and iOS zooms in on inputs under 16px. Keep 14px, or 16px in 28px?
+- [?] `Switch` takes `small` while other components take `size`. Rename it in v6 like `TextField` and `Textarea`?
+- [?] Checkbox, Radio and Switch center on multi-line labels. Align them with the first line instead?
+- [?] Spread field widths follow their content, so a Select is narrower than a TextField. Give spread fields one width?
+- [?] Chip sizes (32px, 24px) are off the control size scale. Move them onto it?
+- [?] Stress pages: which next (classless typography, cards and layout, overlays, data display), and Astro/Vue versions too?

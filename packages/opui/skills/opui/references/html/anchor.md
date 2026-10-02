@@ -18,7 +18,7 @@ Floating content
 
   The floating content.
 
-## Always Visible
+## Always visible
 
 Floating content that is always shown.
 
@@ -28,7 +28,7 @@ Floating content that is always shown.
   <span class="ui-anchor-floating">
     <span
       style="
-        background: var(--surface-2);
+        background: var(--surface-elevated);
         padding: var(--size-2) var(--size-3);
         border-radius: var(--radius-2);
         box-shadow: var(--shadow-3);
@@ -39,7 +39,7 @@ Floating content that is always shown.
 </span>
 ```
 
-## Hover Trigger
+## Hover trigger
 
 Add `interestfor` on the trigger element pointing to the`.ui-anchor-floating` ID.
 
@@ -60,7 +60,7 @@ Add `interestfor`, `commandfor`, and `command="toggle-popover"` to the anchor tr
 </span>
 ```
 
-## Used By
+## Used by
 
 - [Badge](https://open-props-ui.netlify.app/html/components/badge.md)
 - [Tooltip](https://open-props-ui.netlify.app/html/components/tooltip.md)
@@ -87,10 +87,10 @@ For a hover trigger, add `popover="hint"` and an id to `.ui-anchor-floating`, an
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Full support Supported since v151.
-- Safari: Partial support Missing: popover-hint.
+- Firefox: Partial support Missing: interest-invokers.
+- Safari: Partial support Missing: interest-invokers, popover-hint.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Anchor.md).
 
 ## Installation
 

@@ -34,7 +34,7 @@ Default, and `.ui-dot`.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 
@@ -75,7 +75,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 
@@ -116,7 +116,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 
@@ -134,7 +134,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 
@@ -152,7 +152,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 
@@ -170,7 +170,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 
@@ -188,7 +188,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 ```
@@ -211,7 +211,7 @@ Change the badge's visibility using the `.ui-invisible`class.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="5">5</span>
+    <span class="ui-badge-indicator">5</span>
   </span>
 </span>
 
@@ -260,7 +260,7 @@ Where the badge should be placed over the child.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="35">35</span>
+    <span class="ui-badge-indicator">35</span>
   </span>
 </span>
 
@@ -278,7 +278,7 @@ Where the badge should be placed over the child.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="99+">99+</span>
+    <span class="ui-badge-indicator">99+</span>
   </span>
 </span>
 
@@ -302,7 +302,7 @@ Where the badge should be placed over the child.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="OK!">OK!</span>
+    <span class="ui-badge-indicator">OK!</span>
   </span>
 </span>
 
@@ -323,7 +323,7 @@ Where the badge should be placed over the child.
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator" aria-label="3K">3K</span>
+    <span class="ui-badge-indicator">3K</span>
   </span>
 </span>
 ```
@@ -347,6 +347,24 @@ Where the badge should be placed over the child.
 | `& > :first-child`    | The element the badge is anchored to.        |
 | `.ui-badge-indicator` | The indicator, inside `.ui-anchor-floating`. |
 
+#### CSS variables
+
+| Variable               | Default                | Description                                                                                                                |
+| ---------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--critical`           | `var(--red)`           | Severity color for errors and destructive actions.                                                                         |
+| `--duration`           | `0.2s`                 | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`         | `var(--ease-out-3)`    | Easing for elements entering the screen.                                                                                   |
+| `--font-weight-medium` | `var(--font-weight-5)` | Font weight for badges, overlines and group labels.                                                                        |
+| `--info`               | `var(--blue)`          | Severity color for informational messages.                                                                                 |
+| `--motion`             | `1`                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--neutral`            | `var(--gray-9)`        | Severity color for neutral messages.                                                                                       |
+| `--primary`            | `var(--color-8)`       | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`   | `var(--gray-1)`        | Text color on a `--primary` background.                                                                                    |
+| `--success`            | `var(--green)`         | Severity color for success messages.                                                                                       |
+| `--warning`            | `var(--orange)`        | Severity color for warnings.                                                                                               |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+
 With an alignment class, also set `--anchor-position-area` to the same position, such as `start start`.
 
 ## Browser support
@@ -355,7 +373,7 @@ With an alignment class, also set `--anchor-position-area` to the same position,
 - Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v26.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Badge.md).
 
 ## Installation
 

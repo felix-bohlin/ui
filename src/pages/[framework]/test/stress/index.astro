@@ -1,0 +1,43 @@
+---
+import "@opui/css/imports.css"
+
+export function getStaticPaths() {
+  if (!process.env.OPUI_TEST_PAGES && !import.meta.env.DEV) return []
+  return [{ params: { framework: "html" } }]
+}
+
+const pages = Object.keys(import.meta.glob("../../../../stress-tests/*.html"))
+  .map((path) => path.match(/stress-tests\/([^/]+)\.html$/)![1])
+  .toSorted()
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex" />
+    <title>Stress tests</title>
+  </head>
+  <body>
+    <main class="ui-rich-text">
+      <h1>Stress tests</h1>
+      <ul>
+        {
+          pages.map((name) => (
+            <li>
+              <a href={`./${name}/`}>{name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  body {
+    margin: 0;
+    padding: var(--size-4);
+  }
+</style>

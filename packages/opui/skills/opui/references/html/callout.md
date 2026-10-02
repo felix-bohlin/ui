@@ -36,7 +36,7 @@ You might want to check out:
 Tonal (default) and `.ui-outlined` variants.
 
 ```html
-<article role="note" class="ui-callout">
+<article class="ui-callout">
   <div class="ui-content">
     <h3 class="ui-title">Note</h3>
     <p>
@@ -47,7 +47,7 @@ Tonal (default) and `.ui-outlined` variants.
 </article>
 
 
-<article role="note" class="ui-callout ui-outlined">
+<article class="ui-callout ui-outlined">
   <div class="ui-content">
     <h3 class="ui-title">Another Callout</h3>
     <p>
@@ -65,8 +65,9 @@ Tonal (default) and `.ui-outlined` variants.
 Icon must be placed before the content.
 
 ```html
-<article role="note" class="ui-callout">
+<article class="ui-callout">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -90,13 +91,14 @@ Severity modifiers - `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-critical` - 
 Omitting an icon is possible. However, it helps having one if you need to convey a specific kind of severity in your Callout message. For instance, colorblind users might be left confused if there's not enough visual guidance.
 
 ```html
-<article role="note" class="ui-callout ui-neutral">
+<article class="ui-callout ui-neutral">
   <div class="ui-content">This is a tonal neutral Callout</div>
 </article>
 
 
-<article role="note" class="ui-callout ui-info">
+<article class="ui-callout ui-info">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -111,8 +113,9 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 </article>
 
 
-<article role="note" class="ui-callout ui-warning">
+<article class="ui-callout ui-warning">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -127,8 +130,9 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 </article>
 
 
-<article role="note" class="ui-callout ui-critical">
+<article class="ui-callout ui-critical">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -143,13 +147,14 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 </article>
 
 
-<article role="note" class="ui-callout ui-outlined ui-neutral">
+<article class="ui-callout ui-outlined ui-neutral">
   <div class="ui-content">This is an outlined neutral Callout</div>
 </article>
 
 
-<article role="note" class="ui-callout ui-outlined ui-info">
+<article class="ui-callout ui-outlined ui-info">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -164,8 +169,9 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 </article>
 
 
-<article role="note" class="ui-callout ui-outlined ui-warning">
+<article class="ui-callout ui-outlined ui-warning">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -180,8 +186,9 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 </article>
 
 
-<article role="note" class="ui-callout ui-outlined ui-critical">
+<article class="ui-callout ui-outlined ui-critical">
   <svg
+    aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
     height="32"
@@ -220,7 +227,22 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 | `.ui-content` | The content.                                                            |
 | `<h3>`        | An optional title inside the content.                                   |
 
-The root needs `role="note"`.
+#### CSS variables
+
+| Variable                 | Default                                     | Description                                                                                           |
+| ------------------------ | ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                           |
+| `--border-radius`        | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                     |
+| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                               |
+| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
+| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                     |
+| `--icon-size`            | `var(--size-4)`                             | Default icon size inside components.                                                                  |
+| `--primary`              | `var(--color-8)`                            | Brand color for primary actions and accents.                                                          |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                             |
+| `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                         |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
 
 ## Browser support
 
@@ -228,7 +250,7 @@ The root needs `role="note"`.
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Callout.md).
 
 ## Installation
 

@@ -49,14 +49,15 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   closedby="any"
 >
   <div class="ui-header">
-    <span>Inline Start</span>
+    <h2>Inline Start</h2>
     <button
       class="ui-button ui-rounded ui-ripple ui-small"
-      title="Close"
+      aria-label="Close"
       commandfor="drawer-inline-start-html"
       command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -105,14 +106,15 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   closedby="any"
 >
   <div class="ui-header">
-    <span>Inline End</span>
+    <h2>Inline End</h2>
     <button
       class="ui-button ui-rounded ui-ripple ui-small"
-      title="Close"
+      aria-label="Close"
       commandfor="drawer-inline-end-html"
       command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -161,14 +163,15 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   closedby="any"
 >
   <div class="ui-header">
-    <span>Block Start</span>
+    <h2>Block Start</h2>
     <button
       class="ui-button ui-rounded ui-ripple ui-small"
-      title="Close"
+      aria-label="Close"
       commandfor="drawer-block-start-html"
       command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -212,14 +215,15 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   closedby="any"
 >
   <div class="ui-header">
-    <span>Block End</span>
+    <h2>Block End</h2>
     <button
       class="ui-button ui-rounded ui-ripple ui-small"
-      title="Close"
+      aria-label="Close"
       commandfor="drawer-block-end-html"
       command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -349,6 +353,22 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 | `.ui-content`      | The scrollable content.                                    |
 | `.ui-footer`       | The footer. `DrawerFooter` renders it.                     |
 
+#### CSS variables
+
+| Variable            | Default                                     | Description                                                                                                                |
+| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                           |
+| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                         |
+| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                    |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+
 Add `autofocus` to the root, or to an element inside, to choose what gets focus when it opens.
 
 ### Drawer header API
@@ -358,16 +378,32 @@ Add `autofocus` to the root, or to an element inside, to choose what gets focus 
 | Part         | Description        |
 | ------------ | ------------------ |
 | `.ui-header` | Container element. |
-| `<span>`     | The heading.       |
+| `<h2>`       | The heading.       |
 | `<button>`   | Closes the drawer. |
+
+#### CSS variables
+
+| Variable            | Default                                     | Description                                                                                                                |
+| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                           |
+| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                         |
+| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                    |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
 
 ## Browser support
 
 - Chromium: Full support Supported since v135.
-- Firefox: Partial support Missing: overlay.
+- Firefox: Partial support Missing: display-animation, overlay.
 - Safari: Partial support Missing: dialog-closedby, overlay.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Drawer.md).
 
 ## Installation
 

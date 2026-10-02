@@ -1,6 +1,6 @@
 # Accordion
 
-Let's you show and hide stuff. Comes with a chevron marker, check out how to add your own [custom marker](#custom-marker).
+Lets you show and hide content. Comes with a chevron marker, check out how to add your own [custom marker](#custom-marker).
 
 ### What's new
 
@@ -325,7 +325,120 @@ The [WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) f
 | `marker`  | The marker. Astro and Vue render a chevron by default. |
 | `summary` | The always visible header.                             |
 
+#### CSS variables
+
+| Variable             | Default                                     | Description                                                                                                                |
+| -------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`    | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--border-width`     | `1px`                                       | Default border width for components that draw a border.                                                                    |
+| `--duration`         | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease`             | `ease`                                      | Default easing for transitions.                                                                                            |
+| `--font-weight-bold` | `var(--font-weight-7)`                      | Font weight for headings, buttons and terms.                                                                               |
+| `--motion`           | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--surface-elevated` | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                                                                               |
+| `--surface-tonal`    | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                              |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+
 Group accordions in a `<Card role="group">`. Set its `variant` to theme the whole group.
+
+## Under the hood
+
+1. Details
+
+   - `<details>` and `<summary>`: keyboard, focus and state for free
+   - Opens and closes instantly
+
+2. Animate to auto
+
+   - `interpolate-size: allow-keywords` lets `block-size` transition to `auto`
+   - `::details-content` targets the hidden part
+   - `allow-discrete` keeps the content visible until the close transition ends
+
+3. Marker
+
+   - `list-style: none` removes the native marker
+   - Three marker animations: `flip`, `rotate`, `turn`
+   - Individual transform properties (`rotate`, `scale`) transition independently
+
+Step 1 of 3: Details
+
+```css
+.accordion > summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+```
+
+Step 2 of 3: Animate to auto
+
+- [`content-visibility`](https://webstatus.dev/features/content-visibility) (Newly available): Chrome 108+, Edge 108+, Firefox 130+, Safari 26+
+- [`::details-content`](https://webstatus.dev/features/details-content) (Newly available): Chrome 131+, Edge 131+, Firefox 143+, Safari 18.4+
+- [`interpolate-size`](https://webstatus.dev/features/interpolate-size) (Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
+- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+
+```css
+.accordion {
+  interpolate-size: allow-keywords;
+}
+
+
+.accordion::details-content {
+  block-size: 0;
+  opacity: 0;
+  overflow-y: clip;
+  transition:
+    block-size 0.2s,
+    content-visibility 0.2s allow-discrete,
+    opacity 0.2s;
+}
+
+
+.accordion[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+}
+```
+
+Step 3 of 3: Marker
+
+```css
+.accordion > summary {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+
+
+.accordion > summary::-webkit-details-marker {
+  display: none;
+}
+
+
+.accordion > summary svg {
+  transition:
+    rotate 0.2s,
+    scale 0.2s;
+}
+
+
+.marker-flip[open] > summary svg {
+  scale: 1 -1;
+}
+
+
+.marker-rotate[open] > summary svg {
+  rotate: 180deg;
+}
+
+
+.marker-turn[open] > summary svg {
+  rotate: 90deg;
+}
+```
 
 ## Browser support
 
@@ -333,7 +446,7 @@ Group accordions in a `<Card role="group">`. Set its `variant` to theme the whol
 - Firefox: Partial support Missing: interpolate-size.
 - Safari: Partial support Missing: interpolate-size.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Accordion.md).
 
 ## Installation
 

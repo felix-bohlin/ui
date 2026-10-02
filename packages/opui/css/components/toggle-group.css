@@ -5,7 +5,7 @@
     --_border-radius: var(--button-border-radius);
 
     background-color: var(--_bg-color);
-    border: 1px solid var(--_border-color);
+    border: var(--border-width) solid var(--_border-color);
     border-radius: var(--_border-radius);
     display: inline-flex;
     inline-size: fit-content;
@@ -14,13 +14,22 @@
     /* Sizes */
     &.ui-small {
       .ui-toggle-button {
+        --_font-size: var(--font-size-05);
         --_size: var(--field-size-small);
       }
     }
 
     &.ui-x-small {
       .ui-toggle-button {
+        --_font-size: var(--font-size-0);
         --_size: var(--field-size-x-small);
+      }
+    }
+
+    &.ui-large {
+      .ui-toggle-button {
+        --_size: var(--field-size-large);
+        padding-inline: var(--size-3);
       }
     }
 
@@ -28,12 +37,14 @@
     .ui-toggle-button {
       border: 0;
       border-radius: 0;
+      flex: auto;
       margin: 0;
     }
 
     &:not(.ui-vertical) {
       .ui-toggle-button {
-        border-inline-end: 1px solid var(--_border-color);
+        block-size: calc(var(--_size) - var(--border-width) * 2);
+        border-inline-end: var(--border-width) solid var(--_border-color);
 
         &:last-of-type {
           border-inline-end: 0;
@@ -45,7 +56,7 @@
       flex-direction: column;
 
       .ui-toggle-button {
-        border-block-end: 1px solid var(--_border-color);
+        border-block-end: var(--border-width) solid var(--_border-color);
 
         &:last-of-type {
           border-block-end: 0;

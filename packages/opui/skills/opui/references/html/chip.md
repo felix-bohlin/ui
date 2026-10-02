@@ -163,6 +163,21 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
 </div>
 ```
 
+## Disabled
+
+Add disabled styling with the `disabled` attribute, `aria-disabled="true"` or the `.ui-disabled` class.
+
+```html
+<div class="example-row">
+  <button class="ui-chip ui-tonal" disabled>
+    <span class="ui-text">Tonal</span>
+  </button>
+  <button class="ui-chip ui-outlined" disabled>
+    <span class="ui-text">Outlined</span>
+  </button>
+</div>
+```
+
 ## API
 
 ### Chip API
@@ -182,13 +197,30 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
 | `.ui-text` | The label.                                                |
 | `<svg>`    | Optional content at the end, such as an icon.             |
 
+#### CSS variables
+
+| Variable             | Default                                                                | Description                                                                                                                |
+| -------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))`                            | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`    | `var(--size-2)`                                                        | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--border-width`     | `1px`                                                                  | Default border width for components that draw a border.                                                                    |
+| `--disabled-opacity` | `0.64`                                                                 | Opacity applied to disabled controls.                                                                                      |
+| `--icon-size-small`  | `var(--size-3)`                                                        | Icon size inside `Chip`.                                                                                                   |
+| `--motion`           | `1`                                                                    | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                            | Page and card background.                                                                                                  |
+| `--surface-tonal`    | `light-dark(var(--gray-3), var(--gray-12))`                            | Background of tonal variants.                                                                                              |
+| `--text-disabled`    | `color-mix( in oklch, var(--text-muted) 50%, var(--surface-default) )` | Text color of disabled buttons and chips.                                                                                  |
+| `--text-primary`     | `light-dark(var(--gray-15), var(--gray-1))`                            | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+
 ## Browser support
 
 - Chromium: Full support Supported since v125.
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Chip.md).
 
 ## Installation
 

@@ -25,17 +25,25 @@
       }
 
       &:focus-visible {
-        outline-offset: -4px;
+        outline-offset: var(--focus-ring-inset);
+      }
+
+      :where(.ui-button-group.ui-x-small) & {
+        --_font-size: var(--font-size-0);
+        --_min-height: var(--button-size-x-small);
+        --_padding-inline: 1ex;
+        padding-block: 0;
       }
 
       :where(.ui-button-group.ui-small) & {
-        --_min-height: 1.875rem;
+        --_font-size: var(--font-size-05);
+        --_min-height: var(--button-size-small);
         --_padding-inline: 1.25ex;
         padding-block: 0;
       }
 
       :where(.ui-button-group.ui-large) & {
-        --_min-height: 2.875rem;
+        --_min-height: var(--button-size-large);
         --_padding-inline: 2.5ex;
       }
 
@@ -117,7 +125,7 @@
 
     &:not(.ui-vertical) {
       & > button {
-        border-inline-width: 1px 0;
+        border-inline-width: var(--border-width) 0;
 
         &:first-of-type {
           border-end-start-radius: var(--_border-radius);
@@ -127,7 +135,7 @@
         &:last-of-type {
           border-end-end-radius: var(--_border-radius);
           /* TODO: make sure this is the fix */
-          border-inline-width: 1px;
+          border-inline-width: var(--border-width);
           border-start-end-radius: var(--_border-radius);
         }
 
@@ -150,7 +158,7 @@
       flex-direction: column;
 
       & > button {
-        border-block-width: 1px 0;
+        border-block-width: var(--border-width) 0;
         padding: var(--size-2);
 
         &:has(svg) {
@@ -165,13 +173,13 @@
 
         &:last-of-type {
           /* TODO: make sure this is a good fix */
-          border-block-width: 1px;
+          border-block-width: var(--border-width);
           border-end-end-radius: var(--_border-radius);
           border-end-start-radius: var(--_border-radius);
         }
 
         & + & {
-          border-block-start: 1px solid var(--_divider-color);
+          border-block-start: var(--border-width) solid var(--_divider-color);
 
           &:is([disabled], [aria-disabled="true"], .ui-disabled) {
             border-block-start-color: color-mix(

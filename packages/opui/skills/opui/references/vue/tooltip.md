@@ -30,7 +30,7 @@ import { Button, Tooltip } from "opui-css/vue"
 
 ### ... or any markup you want
 
-Use the `content` slot instead, and it let's you put anything in the tooltip.
+Use the `content` slot instead, and it lets you put anything in the tooltip.
 
 ```vue
 <script setup lang="ts">
@@ -103,6 +103,7 @@ import { Button, Tooltip } from "opui-css/vue"
 
 <style>
 .tooltip-alignment-grid {
+  align-items: center;
   display: grid;
   gap: var(--size-3);
   grid-template-areas:
@@ -110,7 +111,6 @@ import { Button, Tooltip } from "opui-css/vue"
     "start .      end"
     ".     bottom .  ";
   justify-items: center;
-  align-items: center;
 }
 
 
@@ -169,13 +169,26 @@ import { Button, Tooltip } from "opui-css/vue"
 | `content` | The tooltip, a `popover="hint"`.                       |
 | `default` | The trigger that shows the tooltip on hover and focus. |
 
+#### CSS variables
+
+| Variable            | Default                                     | Description                                                                                                                |
+| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
+| `--font-size-05`    | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-inverse` | `light-dark(var(--gray-15), var(--gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                            |
+| `--text-inverse`    | `light-dark(var(--gray-1), var(--gray-15))` | Text color on `--surface-inverse`.                                                                                         |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Full support Supported since v151.
-- Safari: Partial support Missing: popover-hint.
+- Firefox: Partial support Missing: display-animation, interest-invokers, overlay, text-wrap-pretty.
+- Safari: Partial support Missing: interest-invokers, overlay, popover-hint.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Tooltip.md).
 
 ## Installation
 

@@ -1,5 +1,9 @@
 # Text field
 
+### What's new
+
+- [X-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
+
 ## Anatomy
 
 LabelDescription¢EURHeaderFooterSupporting text
@@ -66,16 +70,32 @@ LabelDescription¢EURHeaderFooterSupporting text
 ## Sizes
 
 ```html
-<label class="ui-text-field ui-small">
-  <span class="ui-label">Small outlined</span>
+<label class="ui-text-field ui-x-small">
+  <span class="ui-label">X-small</span>
   <span class="ui-field">
     <input type="text" placeholder="Placeholder" />
   </span>
 </label>
 
 
-<label class="ui-text-field ui-filled ui-small">
-  <span class="ui-label">Small filled</span>
+<label class="ui-text-field ui-small">
+  <span class="ui-label">Small</span>
+  <span class="ui-field">
+    <input type="text" placeholder="Placeholder" />
+  </span>
+</label>
+
+
+<label class="ui-text-field">
+  <span class="ui-label">Default</span>
+  <span class="ui-field">
+    <input type="text" placeholder="Placeholder" />
+  </span>
+</label>
+
+
+<label class="ui-text-field ui-large">
+  <span class="ui-label">Large</span>
   <span class="ui-field">
     <input type="text" placeholder="Placeholder" />
   </span>
@@ -88,9 +108,9 @@ LabelDescription¢EURHeaderFooterSupporting text
 <label class="ui-text-field">
   <span class="ui-label">Label</span>
   <span class="ui-field">
-    <input type="text" placeholder="Outlined" />
+    <input aria-describedby="end-text-1" type="text" placeholder="Outlined" />
   </span>
-  <span class="ui-end-text">Supporting text</span>
+  <span class="ui-end-text" id="end-text-1">Supporting text</span>
 </label>
 ```
 
@@ -200,16 +220,30 @@ Add `data-invalid` on the root element to toggle invalid styles. Make use of the
   <label class="ui-text-field" data-invalid>
     <span class="ui-label">Label</span>
     <span class="ui-field">
-      <input type="text" placeholder="Placeholder" value="This isn't right" />
+      <input
+        aria-describedby="end-text-1"
+        aria-invalid="true"
+        type="text"
+        placeholder="Placeholder"
+        value="This isn't right"
+      />
     </span>
-    <span class="ui-end-text">Only double-negatives are allowed.</span>
+    <span class="ui-end-text" id="end-text-1"
+      >Only double-negatives are allowed.</span
+    >
   </label>
   <label class="ui-text-field ui-filled" data-invalid>
     <span class="ui-label">Label</span>
     <span class="ui-field">
-      <input type="text" placeholder="Placeholder" value="Uh-oh" />
+      <input
+        aria-describedby="end-text-2"
+        aria-invalid="true"
+        type="text"
+        placeholder="Placeholder"
+        value="Uh-oh"
+      />
     </span>
-    <span class="ui-end-text"
+    <span class="ui-end-text" id="end-text-2"
       >Only letters from the first half of the alphabet are allowed.</span
     >
   </label>
@@ -234,9 +268,15 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Email</span>
   <span class="ui-start-text">We'll use this to contact you</span>
   <span class="ui-field">
-    <input type="email" placeholder="you@example.com" />
+    <input
+      aria-describedby="end-text-1"
+      type="email"
+      placeholder="you@example.com"
+    />
   </span>
-  <span class="ui-end-text">Please use a valid email address</span>
+  <span class="ui-end-text" id="end-text-1"
+    >Please use a valid email address</span
+  >
 </label>
 
 
@@ -262,9 +302,9 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Invalid Name</span>
   <span class="ui-start-text">This field has an error</span>
   <span class="ui-field">
-    <input type="text" />
+    <input aria-describedby="end-text-2" aria-invalid="true" type="text" />
   </span>
-  <span class="ui-end-text">This value is too short.</span>
+  <span class="ui-end-text" id="end-text-2">This value is too short.</span>
 </label>
 
 
@@ -283,10 +323,14 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">Website</span>
   <span class="ui-start-text">Your public profile URL</span>
   <span class="ui-field">
-    <input type="text" placeholder="example.com" />
+    <input
+      aria-describedby="end-text-3"
+      type="text"
+      placeholder="example.com"
+    />
     <span class="ui-prefix">https://</span>
   </span>
-  <span class="ui-end-text">Must include a valid domain</span>
+  <span class="ui-end-text" id="end-text-3">Must include a valid domain</span>
 </label>
 
 
@@ -305,7 +349,11 @@ Add the `.ui-spread` class to display the label and description on the left with
   <span class="ui-label">API key</span>
   <span class="ui-start-text">Stored encrypted at rest</span>
   <span class="ui-field">
-    <input type="password" placeholder="Paste your key" />
+    <input
+      aria-describedby="end-text-4"
+      type="password"
+      placeholder="Paste your key"
+    />
     <span class="ui-prefix">
       <svg
         width="16"
@@ -324,7 +372,7 @@ Add the `.ui-spread` class to display the label and description on the left with
     <span class="ui-header">Secret</span>
     <span class="ui-footer">Rotates every 90 days</span>
   </span>
-  <span class="ui-end-text">Treat like a password</span>
+  <span class="ui-end-text" id="end-text-4">Treat like a password</span>
 </label>
 ```
 
@@ -466,7 +514,7 @@ The British Government has a [great article](https://technology.blog.gov.uk/2020
 
 Use `aria-label` instead of the `<label>` element.
 
-File is a weird one. Should it really be an `<input>` element? Well, it's what we've got :sweat_smile:
+File is a weird one. Should it really be an `<input>` element? Well, it's what we've got.
 
 ```html
 <label class="ui-text-field">
@@ -545,13 +593,13 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 ### Text field API
 
-| Type       | Modifiers        | Default | Description                                                              |
-| ---------- | ---------------- | ------- | ------------------------------------------------------------------------ |
-| Auto-fit   | `.ui-auto-fit`   | -       | Changes size depending on its content.                                   |
-| Layout     | `.ui-spread`     | -       | Pushes the label and description to one side and the input to the other. |
-| Sizes      | `.ui-small`      | -       | The size of the element.                                                 |
-| Validation | `[data-invalid]` | -       | Shows error styles.                                                      |
-| Variants   | `.ui-filled`     | -       | The variant to use.                                                      |
+| Type       | Modifiers                               | Default | Description                                                              |
+| ---------- | --------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| Auto-fit   | `.ui-auto-fit`                          | -       | Changes size depending on its content.                                   |
+| Layout     | `.ui-spread`                            | -       | Pushes the label and description to one side and the input to the other. |
+| Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                 |
+| Validation | `[data-invalid]`                        | -       | Shows error styles.                                                      |
+| Variants   | `.ui-filled`                            | -       | The variant to use.                                                      |
 
 #### Parts
 
@@ -567,6 +615,39 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `.ui-suffix`          | Content at the inline-end of the field, inside the border.   |
 | `.ui-footer`          | Content below the input, inside the border, with a divider.  |
 | `.ui-end-text`        | Supporting text displayed below the field.                   |
+
+#### CSS variables
+
+| Variable                     | Default                                     | Description                                                                                                                |
+| ---------------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                      | Opacity applied to disabled controls.                                                                                      |
+| `--duration`                 | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease`                     | `ease`                                      | Default easing for transitions.                                                                                            |
+| `--field-border-color`       | `var(--border-color)`                       | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                   |
+| `--field-border-radius`      | `var(--size-2)`                             | Corner radius for fields.                                                                                                  |
+| `--field-border-width`       | `1px`                                       | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                 |
+| `--field-helper-color`       | `var(--text-muted)`                         | Text color for helper and end text under a field.                                                                          |
+| `--field-helper-font-size`   | `var(--font-size-0)`                        | Font size for helper and end text under a field.                                                                           |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                  | Line height for helper and end text under a field.                                                                         |
+| `--field-label-color`        | `var(--text-primary)`                       | Text color for field labels.                                                                                               |
+| `--field-label-font-size`    | `var(--font-size-05)`                       | Font size for field labels.                                                                                                |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                                       |
+| `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                                            |
+| `--field-size`               | `var(--control-size)`                       | Default field height.                                                                                                      |
+| `--field-size-large`         | `var(--control-size-large)`                 | Field height with `.ui-large`.                                                                                             |
+| `--field-size-small`         | `var(--control-size-small)`                 | Field height with `.ui-small`.                                                                                             |
+| `--field-size-x-small`       | `var(--control-size-x-small)`               | Field height with `.ui-x-small`.                                                                                           |
+| `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--icon-size`                | `var(--size-4)`                             | Default icon size inside components.                                                                                       |
+| `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                                          |
+| `--motion`                   | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`                  | `var(--color-8)`                            | Brand color for primary actions and accents.                                                                               |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                              |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
 
 The control can also be a `<select>` or `<textarea>`. A `<datalist>` can be placed inside the root.
 
@@ -585,7 +666,7 @@ The control can also be a `<select>` or `<textarea>`. A `<datalist>` can be plac
 - Firefox: Full support Supported since v152.
 - Safari: Full support Supported since v26.2.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Text+Field.md).
 
 ## Installation
 

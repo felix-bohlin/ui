@@ -10,6 +10,7 @@ const {
   label,
   markers,
   peek,
+  persistentButtons,
   perView,
   style,
   ...rest
@@ -28,6 +29,7 @@ const mergedStyle =
     "ui-carousel",
     {
       "ui-buttons-outside": buttons === "outside",
+      "ui-buttons-persistent": persistentButtons,
       "ui-peek": peek,
       "ui-with-buttons": buttons,
       "ui-with-markers": markers,

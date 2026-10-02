@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ToggleGroup",
+  css: ["toggle-button", "toggle-group"],
   options: [
     {
       description: "The name shared by the inputs. Generated when omitted.",
@@ -26,7 +27,12 @@ export default {
       description: "The size of the buttons.",
       group: "Sizes",
       prop: "size",
-      values: { default: null, small: ".ui-small", "x-small": ".ui-x-small" },
+      values: {
+        default: null,
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
   ],
   page: "toggle",

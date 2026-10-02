@@ -49,24 +49,42 @@ import { Button } from "opui-css/astro"
 
 ## Theming
 
-The basic idea is to define one source color, `--palette-source`, and then derive the rest of the 16-step palette from it.
+The basic idea is to pick one hue and chroma, and derive a 16-step palette from them. `theme.css` sets `--palette-hue` and `--palette-chroma`, and `core/palette.css` turns them into a source color, `--palette-source`, and the `--color-1` to `--color-16` steps.
 
 ```css
 :where(html) {
-  --palette-source: oklch(0.58 0.18 264);
+  --palette-hue: 264;
+  --palette-chroma: 0.5;
   --palette-hue-rotate-by: 0;
 }
 ```
 
-- **Must be `oklch()`.**
+- **`--palette-hue`** is a hue angle in degrees. Open Props' `--hue-*` tokens work here. The default is green in light mode and blue in dark mode.
+- **`--palette-chroma`** scales the saturation, from`0` (gray) to `1`.
 - **`--palette-hue-rotate-by`** is a separate knob for per-step warm/cool drift, in degrees.
 
-  You can override the source color anywhere you want for useful or cool effect:
-  ```css
-  :where(.ui-warning) {
-    --palette-source: oklch(0.58 0.21 var(--hue-orange));
-  }
-  ```
+You can also set `--palette-source` directly (it must be an `oklch()` color), and you can override it anywhere you want for useful or cool effect:
+
+```css
+:where(.ui-warning) {
+  --palette-source: oklch(0.58 0.21 var(--hue-orange));
+}
+```
+
+Every token with its default is listed on the[theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) page.
+
+### Scopes
+
+`.ui-light` and `.ui-dark` force a color scheme. Put them on `html` to control the whole page, or on any element to force a subtree.`.ui-palette` re-derives the palette and all color tokens from the knobs set on that element, so one page can carry several brands.
+
+```html
+<aside class="ui-dark">Always dark</aside>
+
+
+<section class="ui-palette" style="--palette-hue: 30">
+  <button class="ui-button ui-primary ui-filled">Orange brand</button>
+</section>
+```
 
 ## Motion
 
@@ -97,5 +115,5 @@ Components use a local `--_motion` variable that allows you to disable motion fo
 Additionally, this is how you could include `--motion` in your CSS:
 
 ```css
-transition: transform calc(0.2s * var(--motion, 1)) ease;
+transition: transform calc(var(--duration) * var(--motion, 1)) var(--ease);
 ```

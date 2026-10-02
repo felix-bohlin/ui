@@ -4,6 +4,7 @@ export type Props = {
   label?: string
   markers?: boolean
   peek?: boolean
+  persistentButtons?: boolean
   perView?: number
 }
 

@@ -1,15 +1,17 @@
 {
   "name": "open-props-ui-docs",
   "type": "module",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "scripts": {
     "astro": "astro",
     "build": "pnpm build-search-index && pnpm check-browser-support && astro build",
     "build-search-index": "node --experimental-strip-types scripts/generate-search-index.mjs",
     "build-skill": "node scripts/build-agent-skill.mjs",
-    "check": "pnpm format:check && pnpm lint && pnpm sort-css:check && pnpm check-components && pnpm typecheck && pnpm test && pnpm build",
+    "check": "pnpm check:fast && pnpm build",
+    "check:fast": "pnpm format:check && pnpm lint && pnpm sort-css:check && pnpm check-components && pnpm check-css-vars && pnpm typecheck && pnpm test",
     "check-browser-support": "node scripts/check-browser-support.mjs",
     "check-components": "node scripts/check-components.mjs",
+    "check-css-vars": "node scripts/check-css-vars.mjs",
     "dev": "astro dev",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -64,5 +66,5 @@
     "vue": "catalog:",
     "vue-tsc": "^3.3.11"
   },
-  "packageManager": "pnpm@12.4.2+sha512.08adc6613180275c7c9edada39dcf08c9c61ad4e7eaf330a4f3461f102b0f907423454d117f98e72d47fef0616070644d7bffc973a6a57f5090a6d7c368b07c9"
+  "packageManager": "pnpm@12.8.1"
 }

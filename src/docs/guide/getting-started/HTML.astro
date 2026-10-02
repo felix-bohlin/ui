@@ -45,7 +45,14 @@ import Theming from "./_theming.astro"
      ├─ palette.css
      └─ utils.css
   └─ css
+     ├─ components
+     │  ├─ accordion.css
+     │  └─ ...
+     ├─ js
+     │  ├─ checkbox.js
+     │  └─ toast.js
      ├─ components.css
+     ├─ layers.css
      └─ theme.css
   └─ open-props.css`}
       lang="text"
@@ -57,7 +64,7 @@ import Theming from "./_theming.astro"
       paths.
     </p>
     <Code
-      code={`@layer openprops, theme, normalize, components.root, components.extended, utils;
+      code={`@import "./css/layers.css";
 
 @import "./open-props.css";
 @import "./core/palette.css";
@@ -85,12 +92,12 @@ import Theming from "./_theming.astro"
       tabs={[
         {
           title: "pnpm",
-          code: "pnpm add opui-css open-props -S",
+          code: "pnpm add opui-css open-props",
           lang: "sh",
         },
         {
           title: "npm",
-          code: "npm install opui-css open-props -S",
+          code: "npm install opui-css open-props",
           lang: "sh",
         },
       ]}

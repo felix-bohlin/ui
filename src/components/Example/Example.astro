@@ -347,14 +347,14 @@ const outputPanelId = `${groupName}-output-panel`
 
     .show-code-button {
       align-items: center;
+      bottom: anchor(bottom);
       display: flex;
       gap: var(--size-2);
-      position: fixed;
-      position-anchor: --example-preview;
-      bottom: anchor(bottom);
-      right: anchor(right);
       margin: var(--size-2);
       opacity: 0.64;
+      position: fixed;
+      position-anchor: --example-preview;
+      right: anchor(right);
       z-index: 10;
 
       &[aria-expanded="true"] svg {

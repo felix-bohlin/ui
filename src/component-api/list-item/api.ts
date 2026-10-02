@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ListItem",
+  css: ["list"],
   notes: {
     html: "Wrap the content in an `<a>`, `<button>` or `<label>` to make the item interactive.",
   },
@@ -39,7 +40,6 @@ export default {
       group: "Controls",
       prop: "type",
       values: {
-        button: null,
         checkbox: "label.ui-checkbox",
         radio: "label.ui-radio",
         switch: "label.ui-switch",

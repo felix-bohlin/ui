@@ -14,6 +14,17 @@
 
 `icon-button.css` is gone, so drop its import if you import single component files.
 
+`TextField` and `Textarea` take a `size` prop like `Select`, with `x-small`, `small` and `large`.
+
+```diff
+- <TextField small label="Name" />
++ <TextField size="small" label="Name" />
+```
+
+# Migrating from v5.4 to v5.5
+
+`Toast` is no longer exported from `opui-css/astro` or `opui-css/vue`. It is still available in HTML as an alpha: import `opui-css/css/components/toast.css` and `opui-css/css/js/toast.js`, and call `initToastManager()` once.
+
 # Migrating from v5.0 to v5.1
 
 In v5.1.0, the `critical` prop has been renamed to `error` on all form components (`TextField`, `Checkbox`, `Radio`, `Switch`, `Select`, `ClassicSelect`, `Textarea`).
@@ -122,7 +133,7 @@ pnpm add open-props
 import { Button, Dialog, Tabs } from "opui-css/astro"
 ---
 
-<Button variant="primary">Save</Button>
+<Button color="primary">Save</Button>
 ```
 
 `astro` is an _optional_ peer - only required if you actually import from `opui-css/astro`. Pure-CSS consumers won't see a peer warning.
@@ -134,7 +145,7 @@ Astro components emit prefixed `ui-` classes (see the v4 → v5 section at the t
 v4 declares the layer order in `css/imports.css` / `dist/opui.css`:
 
 ```css
-@layer openprops, normalize, theme, components.root, components.extended, utils;
+@layer openprops, theme, normalize, components.root, components.extended, utils;
 ```
 
 Put your overrides in a later layer or unlayered. If your app already declared `@layer` with a different order, reconcile or import `dist/opui.components.css` and own the layer order yourself.

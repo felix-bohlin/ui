@@ -61,11 +61,13 @@ const menuId = id || $id("menu")
               type={href ? undefined : "button"}
               {...(itemRest as any)}
             >
-              {label}{" "}
+              <div class="ui-text">
+                <p>{label}</p>
+              </div>
               {shortcut && (
-                <span class="ui-end">
+                <div class="ui-end">
                   <kbd>{shortcut}</kbd>
-                </span>
+                </div>
               )}
             </Tag>
           </li>

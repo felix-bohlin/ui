@@ -62,10 +62,12 @@ const menuId = id || uid
         :type="href ? undefined : 'button'"
         v-bind="itemRest"
       >
-        {{ label }}
-        <span v-if="shortcut" class="ui-end">
+        <div class="ui-text">
+          <p>{{ label }}</p>
+        </div>
+        <div v-if="shortcut" class="ui-end">
           <kbd>{{ shortcut }}</kbd>
-        </span>
+        </div>
       </component>
     </li>
     <slot></slot>

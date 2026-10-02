@@ -211,7 +211,7 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
         command="hide-popover"
         commandfor="split-button-menu-html"
       >
-        Save as draft
+        <div class="ui-text"><p>Save as draft</p></div>
       </button>
     </li>
     <li>
@@ -220,7 +220,7 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
         command="hide-popover"
         commandfor="split-button-menu-html"
       >
-        Save and publish
+        <div class="ui-text"><p>Save and publish</p></div>
       </button>
     </li>
   </menu>

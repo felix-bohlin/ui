@@ -21,22 +21,24 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 <menu class="ui-menu ui-list" id="menu-basics-html" popover>
   <li>
     <button type="button" commandfor="menu-basics-html" command="hide-popover">
-      Edit
-      <span class="ui-end"><kbd>E</kbd></span>
+      <div class="ui-text"><p>Edit</p></div>
+      <div class="ui-end"><kbd>E</kbd></div>
     </button>
   </li>
   <li>
     <button type="button" commandfor="menu-basics-html" command="hide-popover">
-      Duplicate
-      <span class="ui-end"><kbd>D</kbd></span>
+      <div class="ui-text"><p>Duplicate</p></div>
+      <div class="ui-end"><kbd>D</kbd></div>
     </button>
   </li>
   <li>
-    <button type="button" disabled>Archive</button>
+    <button type="button" disabled>
+      <div class="ui-text"><p>Archive</p></div>
+    </button>
   </li>
   <li class="ui-border-top ui-critical">
     <button type="button" commandfor="menu-basics-html" command="hide-popover">
-      Delete
+      <div class="ui-text"><p>Delete</p></div>
     </button>
   </li>
 </menu>
@@ -72,7 +74,7 @@ If you want to decide yourself what goes into your list.
           />
         </svg>
       </div>
-      Rename
+      <div class="ui-text"><p>Rename</p></div>
       <div class="ui-end"><kbd>F2</kbd></div>
     </button>
   </li>
@@ -86,7 +88,7 @@ If you want to decide yourself what goes into your list.
           />
         </svg>
       </div>
-      Copy
+      <div class="ui-text"><p>Copy</p></div>
       <div class="ui-end"><kbd>Ctrl C</kbd></div>
     </button>
   </li>
@@ -100,7 +102,7 @@ If you want to decide yourself what goes into your list.
           />
         </svg>
       </div>
-      Open in new tab
+      <div class="ui-text"><p>Open in new tab</p></div>
     </a>
   </li>
   <li class="ui-border-top ui-critical">
@@ -113,7 +115,7 @@ If you want to decide yourself what goes into your list.
           />
         </svg>
       </div>
-      Delete
+      <div class="ui-text"><p>Delete</p></div>
     </button>
   </li>
 </menu>
@@ -138,7 +140,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-block-start-html"
     >
-      First
+      <div class="ui-text"><p>First</p></div>
     </button>
   </li>
   <li>
@@ -147,7 +149,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-block-start-html"
     >
-      Second
+      <div class="ui-text"><p>Second</p></div>
     </button>
   </li>
   <li>
@@ -156,7 +158,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-block-start-html"
     >
-      Third
+      <div class="ui-text"><p>Third</p></div>
     </button>
   </li>
 </menu>
@@ -176,7 +178,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-block-end-html"
     >
-      First
+      <div class="ui-text"><p>First</p></div>
     </button>
   </li>
   <li>
@@ -185,7 +187,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-block-end-html"
     >
-      Second
+      <div class="ui-text"><p>Second</p></div>
     </button>
   </li>
   <li>
@@ -194,7 +196,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-block-end-html"
     >
-      Third
+      <div class="ui-text"><p>Third</p></div>
     </button>
   </li>
 </menu>
@@ -218,7 +220,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-inline-start-html"
     >
-      First
+      <div class="ui-text"><p>First</p></div>
     </button>
   </li>
   <li>
@@ -227,7 +229,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-inline-start-html"
     >
-      Second
+      <div class="ui-text"><p>Second</p></div>
     </button>
   </li>
   <li>
@@ -236,7 +238,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-inline-start-html"
     >
-      Third
+      <div class="ui-text"><p>Third</p></div>
     </button>
   </li>
 </menu>
@@ -256,7 +258,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-inline-end-html"
     >
-      First
+      <div class="ui-text"><p>First</p></div>
     </button>
   </li>
   <li>
@@ -265,7 +267,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-inline-end-html"
     >
-      Second
+      <div class="ui-text"><p>Second</p></div>
     </button>
   </li>
   <li>
@@ -274,7 +276,7 @@ If you want to decide yourself what goes into your list.
       command="hide-popover"
       commandfor="menu-inline-end-html"
     >
-      Third
+      <div class="ui-text"><p>Third</p></div>
     </button>
   </li>
 </menu>
@@ -295,22 +297,27 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
 <menu class="ui-menu ui-list" id="menu-file-html" popover>
   <li>
     <button type="button" commandfor="menu-file-html" command="hide-popover">
-      New
+      <div class="ui-text"><p>New</p></div>
     </button>
   </li>
   <li>
     <button type="button" commandfor="menu-file-html" command="hide-popover">
-      Open
+      <div class="ui-text"><p>Open</p></div>
     </button>
   </li>
   <li>
     <button commandfor="menu-export-html" command="toggle-popover">
-      Export
+      <div class="ui-text"><p>Export</p></div>
       <div class="ui-end">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
           <path
             fill="currentColor"
-            d="M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0"
+            d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12l-6.293-6.293a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
           />
         </svg>
       </div>
@@ -322,7 +329,7 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
           commandfor="menu-file-html"
           command="hide-popover"
         >
-          PDF
+          <div class="ui-text"><p>PDF</p></div>
         </button>
       </li>
       <li>
@@ -331,7 +338,7 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
           commandfor="menu-file-html"
           command="hide-popover"
         >
-          PNG
+          <div class="ui-text"><p>PNG</p></div>
         </button>
       </li>
       <li>
@@ -340,7 +347,7 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
           commandfor="menu-file-html"
           command="hide-popover"
         >
-          SVG
+          <div class="ui-text"><p>SVG</p></div>
         </button>
       </li>
     </menu>
@@ -354,19 +361,19 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
 
 ## API
 
-| Type      | Modifiers                                               | Default                     | Description                           |
-| --------- | ------------------------------------------------------- | --------------------------- | ------------------------------------- |
-| Part      | `menu.ui-menu.ui-list[popover]`                         | -                           | The menu surface.                     |
-| Trigger   | `commandfor="id"`, `command="toggle-popover"`           | -                           | Opens the menu.                       |
-| Children  | `li > button`, `li > a`                                 | -                           | Menu items.                           |
-| Children  | `command="hide-popover"`                                | -                           | Closes the menu on click.             |
-| Children  | `li.ui-label`                                           | -                           | Group label.                          |
-| Children  | `.ui-start`, `.ui-end`                                  | -                           | Icons and shortcuts.                  |
-| Colors    | `.ui-critical`                                          | -                           | Destructive item.                     |
-| Placement | `.ui-block-start`, `.ui-inline-start`, `.ui-inline-end` | default                     | Where the menu opens.                 |
-| Placement | `.ui-align-end`                                         | -                           | Lines up with the trigger's end edge. |
-| Placement | `--anchor-position-area`                                | `block-end span-inline-end` | Any valid `position-area` value.      |
-| Sizes     | `.ui-dense`                                             | -                           | Less spacing.                         |
+| Type      | Modifiers                                               | Default                     | Description                                   |
+| --------- | ------------------------------------------------------- | --------------------------- | --------------------------------------------- |
+| Part      | `menu.ui-menu.ui-list[popover]`                         | -                           | The menu surface.                             |
+| Trigger   | `commandfor="id"`, `command="toggle-popover"`           | -                           | Opens the menu.                               |
+| Children  | `li > button`, `li > a`                                 | -                           | Menu items.                                   |
+| Children  | `command="hide-popover"`                                | -                           | Closes the menu on click.                     |
+| Children  | `li.ui-label`                                           | -                           | Group label.                                  |
+| Children  | `.ui-start`, `.ui-text`, `.ui-end`                      | -                           | Icons, text and shortcuts, as in a List item. |
+| Colors    | `.ui-critical`                                          | -                           | Destructive item.                             |
+| Placement | `.ui-block-start`, `.ui-inline-start`, `.ui-inline-end` | default                     | Where the menu opens.                         |
+| Placement | `.ui-align-end`                                         | -                           | Lines up with the trigger's end edge.         |
+| Placement | `--anchor-position-area`                                | `block-end span-inline-end` | Any valid `position-area` value.              |
+| Sizes     | `.ui-dense`                                             | -                           | Less spacing.                                 |
 
 ## Under the hood
 

@@ -20,7 +20,7 @@ See also: [Spinner](https://open-props-ui.netlify.app/html/components/spinner.md
 
 ## Variants
 
-Use the modifier classes `.ui-filled`, `.ui-default`, or`.ui-tonal` on the wrapper `<div>` to swap the progress bar track surface for better contrast on different backgrounds.
+Use the modifier classes `.ui-filled`, `.ui-default`, or `.ui-tonal` on the wrapper `<div>` to swap the progress bar track surface for better contrast on different backgrounds.
 
 ```html
 <div class="ui-progress ui-default">
@@ -48,7 +48,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
   Content here is loading.
 </div>
 <div class="ui-progress">
-  <progress aria-label="Content loading…" id="progress-bar"></progress>
+  <progress id="progress-bar" aria-label="Content loading…"></progress>
 </div>
 ```
 
@@ -67,6 +67,142 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 | -------------- | ------------------ |
 | `.ui-progress` | Container element. |
 | `<progress>`   | The progress bar.  |
+
+#### CSS variables
+
+| Variable            | Default                                      | Description                                                                                                                |
+| ------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-radius`   | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--duration`        | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`      | `var(--ease-out-3)`                          | Easing for elements entering the screen.                                                                                   |
+| `--motion`          | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`         | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                               |
+| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                                  |
+| `--surface-filled`  | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                      |
+| `--surface-tonal`   | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                              |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+
+## Under the hood
+
+1. Native
+
+   - `<progress>`: role, value and an indeterminate state for free
+   - No `value` means indeterminate
+   - Every browser draws it differently
+
+2. Track
+
+   - `appearance: none` drops the native look
+   - The wrapper draws the track, so it can round and clip
+   - The bar is left with the browser's default fill
+
+3. Value
+
+   - Chromium and Safari: `::-webkit-progress-value`, Firefox: `::-moz-progress-bar`
+   - Separate rules: one unknown pseudo-element would drop a whole selector list
+   - Value changes transition `inline-size`
+
+4. Indeterminate
+
+   - `:has(> progress:indeterminate)` lets the wrapper react to the missing `value`
+   - Its `::after` slides across by animating `inset-inline-start` and `inset-inline-end`
+   - Logical insets flip the direction in right-to-left
+   - `--motion` is `0` under reduced motion
+
+Step 1 of 4: Native
+
+- [\<progress>](https://webstatus.dev/features/progress) (Widely available): Chrome 6+, Edge 12+, Firefox 6+, Safari 6+
+
+```html
+<div class="progress">
+  <progress max="100" value="60"></progress>
+</div>
+
+
+<div class="progress">
+  <progress></progress>
+</div>
+```
+
+Step 2 of 4: Track
+
+- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+
+```css
+.progress {
+  background-color: var(--surface-tonal);
+  block-size: 0.25rem;
+  border-radius: var(--radius-2);
+  display: inline-block;
+  inline-size: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+
+.progress > progress {
+  appearance: none;
+  background: none;
+  block-size: 100%;
+  border: 0;
+  display: block;
+  inline-size: 100%;
+}
+
+
+.progress > progress::-webkit-progress-bar {
+  background: none;
+}
+```
+
+Step 3 of 4: Value
+
+```css
+.progress > progress[value]::-webkit-progress-value {
+  background-color: var(--primary);
+  transition: inline-size 0.2s ease-out;
+}
+
+
+.progress > progress::-moz-progress-bar {
+  background-color: var(--primary);
+}
+```
+
+Step 4 of 4: Indeterminate
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:indeterminate`](https://webstatus.dev/features/indeterminate) (Widely available): Chrome 39+, Edge 79+, Firefox 51+, Safari 10+
+- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+
+```css
+.progress:has(> progress:indeterminate)::after {
+  animation: build-progress-slide calc(2s * var(--motion, 1)) linear infinite;
+  background-color: var(--primary);
+  content: "";
+  inset-block: 0;
+  position: absolute;
+}
+
+
+.progress > progress:indeterminate::-webkit-progress-value {
+  background-color: transparent;
+}
+
+
+.progress > progress:indeterminate::-moz-progress-bar {
+  background-color: transparent;
+}
+```
+
+## Browser support
+
+- Chromium: Full support Supported since v105.
+- Firefox: Full support Supported since v121.
+- Safari: Full support Supported since v15.4.
+
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Progress.md).
 
 ## Installation
 

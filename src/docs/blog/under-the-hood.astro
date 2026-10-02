@@ -1,0 +1,86 @@
+---
+import Blog from "../../layouts/Blog.astro"
+import DocLink from "../../components/DocLink.astro"
+import { formatDate, posts } from "../../utils/blog"
+import {
+  componentHasFramework,
+  DEFAULT_FRAMEWORK,
+  hrefFor,
+  type FrameworkId,
+} from "../../utils/framework-routing"
+
+const post = posts.find((entry) => entry.slug === "under-the-hood")!
+
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+
+const modules = import.meta.glob<{ default: any }>(
+  "../../components/UnderTheHood/*Build.astro",
+  { eager: true },
+)
+
+const builds = Object.entries(modules)
+  .map(([path, module]) => {
+    const fileName = path.split("/").pop()!.replace("Build.astro", "")
+    const slug =
+      fileName === "Rhythm"
+        ? "typography"
+        : fileName.replace(/(?<!^)([A-Z])/g, "-$1").toLowerCase()
+    const name = slug.charAt(0).toUpperCase() + slug.slice(1).replace("-", " ")
+    return {
+      Build: module.default,
+      docsHref: hrefFor(
+        componentHasFramework(currentFramework, slug)
+          ? currentFramework
+          : DEFAULT_FRAMEWORK,
+        `/components/${slug}`,
+      ),
+      name,
+      post: posts.find((entry) => entry.component === slug),
+      slug,
+    }
+  })
+  .toSorted((a, b) => a.name.localeCompare(b.name))
+---
+
+<Blog
+  description={post.description}
+  overline={formatDate(post.date)}
+  title={post.title}
+>
+  <Fragment slot="title">{post.title}</Fragment>
+  <Fragment slot="preamble">{post.description}</Fragment>
+
+  <section>
+    <h2 id="how-it-works">How it works</h2>
+    <ul>
+      <li>Pick a step: the demo runs only the CSS up to that step</li>
+      <li>The code shown is the code that runs</li>
+      <li>Sliders write custom properties on the demo</li>
+      <li>Browser support for each new feature, per step</li>
+      <li>
+        The stepper itself: radio inputs + <code>:has()</code>, no JavaScript
+      </li>
+    </ul>
+  </section>
+
+  {
+    builds.map(({ Build, docsHref, name, post: buildPost, slug }) => (
+      <section>
+        <h2 id={slug}>{name}</h2>
+        <p>
+          <a href={docsHref}>{name} docs</a>
+          {buildPost && (
+            <>
+              {" · "}
+              <DocLink href={`/blog/${buildPost.slug}`}>
+                {buildPost.title}
+              </DocLink>
+            </>
+          )}
+        </p>
+        <Build />
+      </section>
+    ))
+  }
+</Blog>

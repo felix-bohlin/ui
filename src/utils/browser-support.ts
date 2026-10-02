@@ -164,3 +164,21 @@ export function computeEngineBrowserSupport(
     }
   })
 }
+
+export function computeFeatureSupport(featureId: string) {
+  const feature = (features as Record<string, any>)[featureId]
+  const baseline: "high" | "low" | false = feature?.status?.baseline ?? false
+
+  return {
+    baseline,
+    browsers: computeBrowserSupport([featureId]).map(
+      ({ browser, label, sinceVersion }) => ({
+        browser,
+        label,
+        version: sinceVersion,
+      }),
+    ),
+    id: featureId,
+    name: (feature?.name as string | undefined) ?? featureId,
+  }
+}

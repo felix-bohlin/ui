@@ -27,11 +27,10 @@ export default {
       prop: "hideLabel",
     },
     {
-      class: ".ui-small",
-      default: "false",
       description: "The size of the element.",
       group: "Sizes",
-      prop: "small",
+      prop: "size",
+      values: { small: ".ui-small" },
     },
     {
       class: ".ui-spread",

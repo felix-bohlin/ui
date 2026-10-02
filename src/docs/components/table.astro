@@ -11,7 +11,9 @@ import DefaultAstro from "../../component-examples/table/Default.astro?raw"
 import DefaultVueRaw from "../../component-examples/table/Default.vue?raw"
 import DefaultHtml from "../../component-examples/table/Default.html?raw"
 
+import TableCSS from "@opui/css/components/table.css?raw"
 import tableApi from "../../component-api/table/api"
+import TableBuild from "../../components/UnderTheHood/TableBuild.astro"
 
 export const description =
   "Displays tabular data. Basic tables with row and column headers, and optional captions and footers."
@@ -22,7 +24,8 @@ export const description =
   slug="table"
   heroAnatomy
   apis={[{ title: "Table API", api: tableApi }]}
-  browserSupport={["has", "container-queries", "relative-color"]}
+  installationTabs={[{ title: "table.css", code: TableCSS, lang: "css" }]}
+  browserSupport={["container-queries", "has", "relative-color"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Table",
@@ -97,6 +100,8 @@ export const description =
 
     <AutoExample name="Advanced" />
   </section>
+
+  <TableBuild slot="under-the-hood" />
 </Component>
 
 <script>

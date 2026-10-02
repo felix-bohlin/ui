@@ -15,7 +15,7 @@ import {
   ToggleButton,
   ToggleGroup,
 } from "@opui/astro"
-import { RADIUS_OPTIONS, TOKEN_DEFAULTS } from "../../utils/theme-store"
+import { RADIUS_OPTIONS, tokenDefaults } from "../../utils/theme-store"
 import { PLACEHOLDER_CSS } from "./generateCss"
 
 const surfaces = ["default", "tonal", "filled", "elevated"]
@@ -28,7 +28,7 @@ const radiusGroups = [
   { name: "--button-border-radius", label: "Button Border Radius" },
 ] as const
 
-const previewStyle = Object.entries(TOKEN_DEFAULTS)
+const previewStyle = Object.entries(tokenDefaults("light"))
   .map(([token, value]) => `${token}: ${value}`)
   .join("; ")
 ---
@@ -77,7 +77,7 @@ const previewStyle = Object.entries(TOKEN_DEFAULTS)
               name="--palette-source-color"
               value="#000000"
               spread
-              small
+              size="small"
             />
             <Range
               label="Hue"
@@ -114,7 +114,9 @@ const previewStyle = Object.entries(TOKEN_DEFAULTS)
         <FieldSet>
           <FieldLegend>Grays</FieldLegend>
           <FieldGroup>
-            <Switch name="enable-grays" checked small spread>Enable</Switch>
+            <Switch name="enable-grays" checked size="small" spread
+              >Enable</Switch
+            >
             <Range
               label="Gray Chroma"
               name="--gray-chroma"
@@ -145,7 +147,8 @@ const previewStyle = Object.entries(TOKEN_DEFAULTS)
               <FieldGroup>
                 <div class="chip-group">
                   {RADIUS_OPTIONS.map((item) => {
-                    const pressed = item.value === TOKEN_DEFAULTS[group.name]
+                    const pressed =
+                      item.value === tokenDefaults("light")[group.name]
                     return (
                       <Chip
                         as="button"
@@ -379,31 +382,7 @@ const previewStyle = Object.entries(TOKEN_DEFAULTS)
   }
 
   .preview-card {
-    color-scheme: light;
-
     color: var(--text-primary);
-
-    --primary: var(--color-8);
-    --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
-    --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
-    --primary-contrast: var(--gray-1);
-    --neutral: var(--gray-9);
-
-    --text-primary: light-dark(var(--gray-15), var(--gray-1));
-    --text-primary-contrast: light-dark(var(--gray-2), var(--gray-15));
-    --text-muted: light-dark(var(--gray-13), var(--gray-4));
-    --text-muted-contrast: light-dark(var(--gray-4), var(--gray-13));
-
-    --surface-default: light-dark(var(--gray-1), var(--gray-13));
-    --surface-filled: light-dark(var(--gray-4), var(--gray-15));
-    --surface-tonal: light-dark(var(--gray-3), var(--gray-12));
-    --surface-elevated: light-dark(var(--gray-1), var(--gray-12));
-    --border-color: light-dark(var(--gray-4), var(--gray-12));
-    --field-border-color: var(--border-color);
-
-    &.ui-dark {
-      color-scheme: dark;
-    }
 
     &.no-grays {
       --primary-contrast: var(--color-1);
@@ -482,14 +461,14 @@ const previewStyle = Object.entries(TOKEN_DEFAULTS)
     span {
       aspect-ratio: 1;
       background-color: oklch(from var(--text-primary) l c h / 0.65);
-      color: var(--text-primary-contrast);
       border-radius: var(--radius-round);
+      color: var(--text-primary-contrast);
       display: grid;
       min-inline-size: 1lh;
       opacity: 0;
       padding-inline: 1ex;
-      pointer-events: none;
       place-items: center;
+      pointer-events: none;
       text-align: center;
       transition: opacity 0.2s ease-out;
     }
@@ -591,7 +570,7 @@ const previewStyle = Object.entries(TOKEN_DEFAULTS)
   import {
     themeStore,
     TOKENS,
-    TOKEN_DEFAULTS,
+    tokenDefaults,
     type Mode,
     type ModeConfig,
     type Token,
@@ -657,8 +636,8 @@ const previewStyle = Object.entries(TOKEN_DEFAULTS)
         themeStore.isGraysEnabled("dark") ||
       TOKENS.some(
         (token) =>
-          (light[token] ?? TOKEN_DEFAULTS[token]) !==
-          (dark[token] ?? TOKEN_DEFAULTS[token]),
+          (light[token] ?? tokenDefaults("light")[token]) !==
+          (dark[token] ?? tokenDefaults("dark")[token]),
       )
     )
   }
@@ -680,9 +659,10 @@ const previewStyle = Object.entries(TOKEN_DEFAULTS)
 
   let suppressInputHandler = false
 
-  function syncFormFromConfig(config: ModeConfig) {
+  function syncFormFromConfig(mode: Mode, config: ModeConfig) {
+    const defaults = tokenDefaults(mode)
     TOKENS.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token]
+      const value = config[token] ?? defaults[token]
       const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
       if (input && input.type !== "checkbox") {
         input.value = value
@@ -711,10 +691,10 @@ const previewStyle = Object.entries(TOKEN_DEFAULTS)
     )
     if (colorPicker && !pickingColor) {
       const hue = parseFloat(
-        config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
+        config["--palette-hue"] ?? defaults["--palette-hue"],
       )
       const chroma = parseFloat(
-        config["--palette-chroma"] ?? TOKEN_DEFAULTS["--palette-chroma"],
+        config["--palette-chroma"] ?? defaults["--palette-chroma"],
       )
       colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
     }
@@ -723,12 +703,13 @@ const previewStyle = Object.entries(TOKEN_DEFAULTS)
   function applyToPreview() {
     const mode = previewMode()
     const config = themeStore.get(mode)
+    const defaults = tokenDefaults(mode)
     preview.classList.toggle("ui-dark", mode === "dark")
     preview.classList.toggle("ui-light", mode === "light")
     preview.classList.toggle("no-grays", config["enable-grays"] === "false")
 
     TOKENS.forEach((token) => {
-      preview.style.setProperty(token, config[token] ?? TOKEN_DEFAULTS[token])
+      preview.style.setProperty(token, config[token] ?? defaults[token])
     })
 
     if (previewModeText) {
@@ -745,7 +726,7 @@ const previewStyle = Object.entries(TOKEN_DEFAULTS)
   }
 
   function refreshAll() {
-    syncFormFromConfig(themeStore.get(previewMode()))
+    syncFormFromConfig(previewMode(), themeStore.get(previewMode()))
     applyToPreview()
     rerenderCode()
     if (divergedNote) {

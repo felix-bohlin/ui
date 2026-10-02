@@ -71,6 +71,7 @@ import { Callout } from "opui-css/astro"
 
 <Callout>
   <svg
+    aria-hidden="true"
     slot="icon"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -87,7 +88,7 @@ import { Callout } from "opui-css/astro"
 
 ## Severities
 
-The `severity` prop accepts `info`, `success`, `warning`, and `critical`, plus a non-severity`neutral` tone for brand-tinted attention. The default is a plain surface.
+The `severity` prop accepts `info`, `success`, `warning`, and `critical`, plus a non-severity `neutral` tone for brand-tinted attention. The default is a plain surface.
 
 **Icons and accessibility**
 
@@ -102,6 +103,7 @@ import { Callout } from "opui-css/astro"
 <Callout severity="neutral">This is a tonal neutral Callout</Callout>
 <Callout severity="info">
   <svg
+    aria-hidden="true"
     slot="icon"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -116,6 +118,7 @@ import { Callout } from "opui-css/astro"
 </Callout>
 <Callout severity="warning">
   <svg
+    aria-hidden="true"
     slot="icon"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -130,6 +133,7 @@ import { Callout } from "opui-css/astro"
 </Callout>
 <Callout severity="critical">
   <svg
+    aria-hidden="true"
     slot="icon"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -148,6 +152,7 @@ import { Callout } from "opui-css/astro"
 >
 <Callout variant="outlined" severity="info">
   <svg
+    aria-hidden="true"
     slot="icon"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -162,6 +167,7 @@ import { Callout } from "opui-css/astro"
 </Callout>
 <Callout variant="outlined" severity="warning">
   <svg
+    aria-hidden="true"
     slot="icon"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -176,6 +182,7 @@ import { Callout } from "opui-css/astro"
 </Callout>
 <Callout variant="outlined" severity="critical">
   <svg
+    aria-hidden="true"
     slot="icon"
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -199,10 +206,11 @@ import { Callout } from "opui-css/astro"
 
 ### Callout API
 
-| Prop       | Type                                                          | Default   | Description                                        |
-| ---------- | ------------------------------------------------------------- | --------- | -------------------------------------------------- |
-| `severity` | `"critical"`, `"info"`, `"neutral"`, `"success"`, `"warning"` | -         | The severity. Sets the color and the default icon. |
-| `variant`  | `"outlined"`, `"tonal"`                                       | `"tonal"` | The variant to use.                                |
+| Prop           | Type                                                          | Default   | Description                                        |
+| -------------- | ------------------------------------------------------------- | --------- | -------------------------------------------------- |
+| `headingLevel` | `2`, `3`, `4`, `5`, `6`                                       | `3`       | The heading level of the title.                    |
+| `severity`     | `"critical"`, `"info"`, `"neutral"`, `"success"`, `"warning"` | -         | The severity. Sets the color and the default icon. |
+| `variant`      | `"outlined"`, `"tonal"`                                       | `"tonal"` | The variant to use.                                |
 
 #### Slots
 
@@ -212,13 +220,165 @@ import { Callout } from "opui-css/astro"
 | `icon`    | An optional icon. `info`, `warning` and `critical` have a default icon. |
 | `title`   | An optional title inside the content.                                   |
 
+#### CSS variables
+
+| Variable                 | Default                                      | Description                                                                                           |
+| ------------------------ | -------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                           |
+| `--border-radius`        | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                     |
+| `--border-width`         | `1px`                                        | Default border width for components that draw a border.                                               |
+| `--font-size-05`         | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
+| `--font-weight-semibold` | `var(--font-weight-6)`                       | Font weight for labels, table headers and titles.                                                     |
+| `--icon-size`            | `var(--size-4)`                              | Default icon size inside components.                                                                  |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                          |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                             |
+| `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                         |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+
+## Under the hood
+
+1. Surface
+
+   - `role="note"`: part of the flow, not an interruption
+   - An opaque surface first, the tint comes next
+   - Colors live in custom properties so variants only swap values
+
+2. Tint layer
+
+   - The tint is a `::before` layer, so it can be translucent over the opaque surface
+   - `z-index: -1` puts it behind the text, `isolation: isolate` keeps it from falling behind the callout
+   - Inner radius = outer radius − border width
+
+3. Icon
+
+   - `:has(> svg)` switches to a two-column grid only when there's an icon
+   - No icon prop or modifier class: put an `<svg>` first and the layout follows
+
+4. Severity
+
+   - One source color per severity, every shade derived with `oklch(from …)`
+   - `light-dark()` picks the shade for each color scheme, no media query
+   - A 20% tint in light, 5% in dark: the opaque surface underneath does the rest
+   - The real palette derives 16 shades from `--palette-source`, here four are inlined
+
+Step 1 of 4: Surface
+
+```html
+<article class="callout" role="note">
+  <div class="content">
+    <h3>Heads up</h3>
+    <p>…</p>
+  </div>
+</article>
+```
+
+```css
+.callout {
+  --border: var(--surface-tonal);
+  background-color: var(--surface-default);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2);
+  color: var(--text-primary);
+  padding: 0.75rem;
+}
+
+
+.callout > .content {
+  display: grid;
+  font-size: var(--font-size-05);
+  gap: 0.5rem;
+}
+```
+
+Step 2 of 4: Tint layer
+
+- [`::before and ::after`](https://webstatus.dev/features/before-after) (Widely available): Chrome 1+, Edge 12+, Firefox 1.5+, Safari 4+
+- [`isolation`](https://webstatus.dev/features/isolation) (Widely available): Chrome 41+, Edge 79+, Firefox 36+, Safari 8+
+
+```css
+.callout {
+  --bg: var(--surface-tonal);
+  isolation: isolate;
+  position: relative;
+}
+
+
+.callout::before {
+  background-color: var(--bg);
+  border-radius: calc(var(--radius-2) - 1px);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+```
+
+Step 3 of 4: Icon
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+
+```css
+.callout:has(> svg) {
+  align-content: start;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: var(--icon-size) 1fr;
+}
+
+
+.callout > svg {
+  margin-block-start: 0.15rem;
+}
+```
+
+Step 4 of 4: Severity
+
+- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+
+```css
+.info {
+  --tone: oklch(58% 0.21 var(--hue-blue));
+}
+
+
+.warning {
+  --tone: oklch(58% 0.21 var(--hue-orange));
+}
+
+
+.callout:is(.info, .warning) {
+  --bg: light-dark(
+    oklch(from var(--tone) 97% 0.06 h / 20%),
+    oklch(from var(--tone) 71% 0.19 h / 5%)
+  );
+  --border: light-dark(
+    oklch(from var(--tone) 80% 0.16 h),
+    oklch(from var(--tone) 42% 0.17 h)
+  );
+  --icon: oklch(from var(--tone) 53% 0.2 h);
+  color: light-dark(
+    oklch(from var(--tone) 10% 0.05 h),
+    oklch(from var(--tone) 98% 0.03 h)
+  );
+}
+
+
+.callout > svg {
+  stroke: var(--icon, currentColor);
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v125.
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Callout.md).
 
 ## Installation
 

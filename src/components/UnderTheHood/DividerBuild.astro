@@ -1,0 +1,91 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    features: ["hr"],
+    html: `
+<p>Above the line</p>
+<hr class="divider" />
+<p>Below the line</p>`,
+    notes: [
+      "<code>&lt;hr&gt;</code>: a thematic break, semantics included",
+      "The normalize removes its border, so you are now looking at nothing",
+      "Some would call this the purest divider",
+    ],
+    title: "Element",
+  },
+  {
+    css: `
+.divider {
+  block-size: 1px;
+}`,
+    notes: [
+      "It has a height now",
+      "You still can't see it",
+      "Trust the process",
+    ],
+    title: "Height",
+  },
+  {
+    css: `
+.divider {
+  background-color: var(--border-color);
+}`,
+    features: ["background-color"],
+    notes: ["There it is", "Please hold your applause"],
+    title: "Paint",
+  },
+  {
+    css: `
+.divider {
+  margin-block: var(--size-fluid-3);
+}`,
+    features: ["logical-properties", "margin"],
+    notes: [
+      "Keeps the text from touching the line",
+      "Without it the divider still divides, just aggressively",
+    ],
+    title: "Breathe",
+  },
+  {
+    notes: [
+      "No JavaScript, no <code>:has()</code>, no anchor positioning",
+      "Drag <strong>Excitement</strong>: nothing reads it, and nothing changes",
+      "Coming in v3: a second line",
+    ],
+    title: "Ship it",
+  },
+]
+
+const knobs = [
+  {
+    label: "Excitement",
+    max: 100,
+    min: 0,
+    property: "--excitement",
+    step: 10,
+    unit: "%",
+    value: 50,
+  },
+]
+---
+
+<BuildUp id="build-divider" knobs={knobs} steps={steps}>
+  <div class="prose">
+    <p>Above the line</p>
+    <hr class="divider" />
+    <p>Below the line</p>
+  </div>
+</BuildUp>
+
+<style>
+  .prose {
+    inline-size: min(100%, 20rem);
+
+    & p {
+      margin: 0;
+      text-align: center;
+    }
+  }
+</style>

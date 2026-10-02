@@ -4,6 +4,7 @@ import { Code } from "astro-expressive-code/components"
 import Component from "../../layouts/Component.astro"
 import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
+import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
 import BlockquoteHtml from "../../component-examples/typography/Blockquote.html?raw"
 import CodeBlockHtml from "../../component-examples/typography/CodeBlock.html?raw"
 
@@ -14,11 +15,14 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
   slug="typography"
   browserSupport={[
     "box-decoration-break",
+    "has",
     "light-dark",
     "registered-custom-properties",
     "relative-color",
     "round-mod-rem",
     "scope",
+    "scrollbar-width",
+    "text-wrap-pretty",
   ]}
   changelogPaths={[
     { path: "src/docs/components/typography.astro", type: "docs" },
@@ -178,4 +182,5 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
     </p>
     <AutoExample name="Default" />
   </section>
+  <RhythmBuild slot="under-the-hood" />
 </Component>

@@ -10,7 +10,7 @@ A toast is a plain element. Put it in the toaster and CSS does the rest: it ente
 
 ### Toaster
 
-Add the toaster once, at the end of `<body>`. It is a`popover="manual"` so it sits in the top layer, and a polite live region so new toasts are announced. Its `<template>` is the default toast, with `.ui-title` and `.ui-description`as slots. Without a toaster, `toast.js` creates a plain one.
+Add the toaster once, at the end of `<body>`. It is a `popover="manual"` so it sits in the top layer, and a polite live region so new toasts are announced. Its `<template>` is the default toast, with `.ui-title` and `.ui-description` as slots. Without a toaster, `toast.js` creates a plain one.
 
 ```html
 <section
@@ -57,7 +57,7 @@ Add the toaster once, at the end of `<body>`. It is a`popover="manual"` so it si
 
 ### HTML
 
-Point a button at the toaster with `commandfor="toaster"` and`command="--show-toast"`. `data-title`, `data-description`, `data-severity`, `data-duration` and `data-persistent` fill in the default toast.
+Point a button at the toaster with `commandfor="toaster"` and `command="--show-toast"`. `data-title`, `data-description`, `data-severity`, `data-duration` and `data-persistent` fill in the default toast.
 
 ```html
 <button
@@ -232,13 +232,155 @@ The toaster sits at the bottom end of the screen. Add `.ui-block-start` to move 
 | **Command**    | `--dismiss-toast`                                                                     | -       | Dismisses the toast the button is in, or all toasts. `commandfor` points to the toaster. |
 | **Data**       | `data-title`, `data-description`, `data-severity`, `data-duration`, `data-persistent` | -       | Fill in the toast that `--show-toast` shows.                                             |
 
+## Under the hood
+
+1. Stack
+
+   - A toast is a plain element in the toaster, a manual popover in the top layer
+   - Custom commands start with `--`. A few lines of JS clone the `<template>` and fill it with `textContent`
+   - The newest toast is last, closest to the edge
+   - Nothing removes them yet
+
+2. Presence
+
+   - One registered number says how present a toast is: `0` is gone, `1` is here
+   - Opacity, slide, margins and height all derive from it, so one transition animates them all
+   - `@starting-style` starts new toasts at `0`
+   - `calc-size()` grows the height from `0`, so the stack makes room instead of jumping
+
+3. Lifetime
+
+   - The lifetime is the delay of the exit animation, no `setTimeout`
+   - Hover or focus the stack to stop every clock
+   - JS removes the toast on `animationend`
+
+4. Leave
+
+   - Close sets `hidden`, and `--presence` transitions back to `0`
+   - Only the three newest show. Older ones collapse and come back when there is room
+
+Step 1 of 4: Stack
+
+- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [Popover](https://webstatus.dev/features/popover) (Newly available): Chrome 116+, Edge 116+, Firefox 125+, Safari 17+
+- [\<template>](https://webstatus.dev/features/template) (Widely available): Chrome 26+, Edge 13+, Firefox 22+, Safari 8+
+
+```html
+<button
+  commandfor="toaster"
+  command="--show-toast"
+  data-title="Draft saved"
+>
+  Default
+</button>
+
+
+<section class="toaster" id="toaster" popover="manual" aria-live="polite">
+  <template>
+    <div class="toast">…</div>
+  </template>
+</section>
+```
+
+```css
+.stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+
+.toast {
+  align-items: center;
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-4);
+  display: flex;
+  gap: 0.75rem;
+  margin-block: 0.375rem;
+  padding: 0.75rem 1rem;
+}
+```
+
+Step 2 of 4: Presence
+
+- [`calc-size()`](https://webstatus.dev/features/calc-size) (Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
+- [Registered custom properties](https://webstatus.dev/features/registered-custom-properties) (Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
+- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
+
+```css
+@property --presence {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+
+.toast {
+  block-size: calc-size(auto, size * var(--presence));
+  margin-block: calc(0.375rem * var(--presence));
+  opacity: var(--presence);
+  overflow: clip;
+  padding-block: calc(0.75rem * var(--presence));
+  transition: --presence 0.3s;
+  translate: 0 calc(1rem * (1 - var(--presence)));
+
+
+  @starting-style {
+    --presence: 0;
+  }
+}
+```
+
+Step 3 of 4: Lifetime
+
+- [`Animations (CSS)`](https://webstatus.dev/features/animations-css) (Widely available): Chrome 43+, Edge 12+, Firefox 16+, Safari 9+
+- [`:focus-within`](https://webstatus.dev/features/focus-within) (Widely available): Chrome 60+, Edge 79+, Firefox 52+, Safari 10.1+
+
+```css
+.toast {
+  animation: build-toast-expire 0.2s var(--duration, 5s) forwards;
+}
+
+
+.stack:is(:hover, :focus-within) .toast {
+  animation-play-state: paused;
+}
+
+
+@keyframes build-toast-expire {
+  to {
+    --presence: 0;
+    visibility: hidden;
+  }
+}
+```
+
+Step 4 of 4: Leave
+
+- [`:nth-child() of <selector>`](https://webstatus.dev/features/nth-child-of) (Widely available): Chrome 111+, Edge 111+, Firefox 113+, Safari 9+
+
+```css
+.toast[hidden],
+.toast:nth-last-child(n + 4 of .toast:not([hidden])) {
+  --presence: 0;
+  visibility: hidden;
+}
+
+
+.toast[hidden] {
+  animation: none;
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v135.
 - Firefox: Full support Supported since v144.
 - Safari: Full support Supported since v26.2.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Toast.md).
 
 ## Installation
 

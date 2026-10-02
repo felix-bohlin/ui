@@ -5,6 +5,7 @@ import { Chip } from "opui-css/vue"
 <template>
   <Chip size="small" label="Small" />
   <Chip label="Default" />
+  <Chip size="large" label="Large" />
   <Chip
     multiline
     style="max-width: 30ch"

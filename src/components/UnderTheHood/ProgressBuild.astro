@@ -1,0 +1,132 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    features: ["progress"],
+    html: `
+<div class="progress">
+  <progress max="100" value="60"></progress>
+</div>
+
+<div class="progress">
+  <progress></progress>
+</div>`,
+    notes: [
+      "<code>&lt;progress&gt;</code>: role, value and an indeterminate state for free",
+      "No <code>value</code> means indeterminate",
+      "Every browser draws it differently",
+    ],
+    title: "Native",
+  },
+  {
+    css: `
+.progress {
+  background-color: var(--surface-tonal);
+  block-size: 0.25rem;
+  border-radius: var(--radius-2);
+  display: inline-block;
+  inline-size: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress > progress {
+  appearance: none;
+  background: none;
+  block-size: 100%;
+  border: 0;
+  display: block;
+  inline-size: 100%;
+}
+
+.progress > progress::-webkit-progress-bar {
+  background: none;
+}`,
+    features: ["appearance"],
+    notes: [
+      "<code>appearance: none</code> drops the native look",
+      "The wrapper draws the track, so it can round and clip",
+      "The bar is left with the browser's default fill",
+    ],
+    title: "Track",
+  },
+  {
+    css: `
+.progress > progress[value]::-webkit-progress-value {
+  background-color: var(--primary);
+  transition: inline-size 0.2s ease-out;
+}
+
+.progress > progress::-moz-progress-bar {
+  background-color: var(--primary);
+}`,
+    notes: [
+      "Chromium and Safari: <code>::-webkit-progress-value</code>, Firefox: <code>::-moz-progress-bar</code>",
+      "Separate rules: one unknown pseudo-element would drop a whole selector list",
+      "Value changes transition <code>inline-size</code>",
+    ],
+    title: "Value",
+  },
+  {
+    css: `
+.progress:has(> progress:indeterminate)::after {
+  animation: build-progress-slide calc(2s * var(--motion, 1)) linear infinite;
+  background-color: var(--primary);
+  content: "";
+  inset-block: 0;
+  position: absolute;
+}
+
+.progress > progress:indeterminate::-webkit-progress-value {
+  background-color: transparent;
+}
+
+.progress > progress:indeterminate::-moz-progress-bar {
+  background-color: transparent;
+}`,
+    features: ["has", "indeterminate", "logical-properties"],
+    notes: [
+      "<code>:has(&gt; progress:indeterminate)</code> lets the wrapper react to the missing <code>value</code>",
+      "Its <code>::after</code> slides across by animating <code>inset-inline-start</code> and <code>inset-inline-end</code>",
+      "Logical insets flip the direction in right-to-left",
+      "<code>--motion</code> is <code>0</code> under reduced motion",
+    ],
+    title: "Indeterminate",
+  },
+]
+---
+
+<BuildUp id="build-progress" steps={steps}>
+  <div class="stack">
+    <div class="progress">
+      <progress aria-label="Uploading" max="100" value="60"></progress>
+    </div>
+    <div class="progress">
+      <progress aria-label="Loading"></progress>
+    </div>
+  </div>
+</BuildUp>
+
+<style>
+  .stack {
+    display: grid;
+    gap: var(--size-5);
+    inline-size: min(100%, 20rem);
+  }
+</style>
+
+<style is:global>
+  @keyframes build-progress-slide {
+    0% {
+      inset-inline-end: 100%;
+      inset-inline-start: -200%;
+    }
+
+    60%,
+    100% {
+      inset-inline-end: -8%;
+      inset-inline-start: 107%;
+    }
+  }
+</style>

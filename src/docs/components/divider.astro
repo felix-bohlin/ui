@@ -2,6 +2,7 @@
 import Component from "../../layouts/Component.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import DividerCSS from "@opui/css/components/divider.css?raw"
+import DividerBuild from "../../components/UnderTheHood/DividerBuild.astro"
 
 import dividerApi from "../../component-api/divider/api"
 ---
@@ -36,4 +37,6 @@ import dividerApi from "../../component-api/divider/api"
     <h2 id="variants">Variants</h2>
     <AutoExample name="Variants" />
   </section>
+
+  <DividerBuild slot="under-the-hood" />
 </Component>

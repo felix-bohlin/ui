@@ -1,0 +1,135 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.radio {
+  appearance: none;
+  aspect-ratio: 1;
+  background-color: var(--surface-default);
+  block-size: 1.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  box-sizing: border-box;
+  inline-size: 1.25rem;
+  margin: 0;
+}
+
+.radio:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}`,
+    features: ["appearance"],
+    notes: [
+      "<code>appearance: none</code> drops the native circle",
+      "Still a radio group: one shared <code>name</code>, arrow keys move the selection",
+    ],
+    title: "Appearance",
+  },
+  {
+    css: `
+.radio {
+  display: grid;
+  place-items: center;
+}
+
+.radio::after {
+  background-color: var(--primary-contrast);
+  block-size: var(--dot);
+  border-radius: 50%;
+  content: "";
+  inline-size: var(--dot);
+  margin: auto;
+  opacity: 0;
+}
+
+.radio:checked::after {
+  opacity: 1;
+}`,
+    notes: [
+      "<code>::after</code> is the dot, centered by the input's own grid",
+      "Sized in percent of the box, so it follows every size",
+    ],
+    title: "Dot",
+  },
+  {
+    css: `
+.label {
+  align-items: start;
+  cursor: pointer;
+  display: inline-grid;
+  gap: 0 0.5rem;
+  grid-auto-flow: column;
+}
+
+.label:has(:disabled) {
+  cursor: not-allowed;
+  opacity: var(--disabled-opacity);
+}
+
+.label > span {
+  margin-block-start: calc((1.25rem - 1cap) / 2);
+  text-box: trim-start cap alphabetic;
+}`,
+    features: ["has", "text-box"],
+    notes: [
+      "The <code>&lt;label&gt;</code> wraps the input, so the text is part of the hit area",
+      "<code>:has(:disabled)</code> dims the whole row from the input's state",
+      "<code>text-box: trim-start cap</code> + a <code>1cap</code> offset centers the capitals on the circle",
+    ],
+    title: "Label",
+  },
+]
+
+const knobs = [
+  {
+    label: "Dot",
+    max: 70,
+    min: 20,
+    property: "--dot",
+    step: 5,
+    unit: "%",
+    value: 50,
+  },
+]
+
+const items = [
+  { checked: true, label: "Monthly" },
+  { label: "Yearly" },
+  { disabled: true, label: "Lifetime" },
+]
+---
+
+<BuildUp id="build-radio" knobs={knobs} steps={steps}>
+  <div class="stack">
+    {
+      items.map((item) => (
+        <label class="label">
+          <input
+            checked={item.checked}
+            class="radio"
+            disabled={item.disabled}
+            name="build-radio-plan"
+            type="radio"
+          />
+          <span>{item.label}</span>
+        </label>
+      ))
+    }
+  </div>
+</BuildUp>
+
+<style>
+  .stack {
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+  }
+
+  .label {
+    align-items: start;
+    display: flex;
+    gap: var(--size-2);
+  }
+</style>

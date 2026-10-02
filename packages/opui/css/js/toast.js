@@ -15,6 +15,20 @@ const FALLBACK_TEMPLATE = `<div class="ui-toast">
   </div>
 </div>`
 
+/**
+ * @typedef {object} ToastOptions
+ * @property {string} [description]
+ * @property {number | string} [duration] Milliseconds, or a CSS time such as "3s".
+ * @property {boolean} [persistent] Stays until it is dismissed.
+ * @property {"critical" | "info" | "success" | "warning"} [severity]
+ * @property {string} [title]
+ */
+
+/**
+ * @param {string | HTMLTemplateElement | HTMLElement} [content] A title, a <template> to clone or an element.
+ * @param {ToastOptions} [options]
+ * @returns {HTMLElement}
+ */
 export function toast(content, options = {}) {
   const toaster = getToaster()
   const node = toToast(content, toaster)
@@ -41,6 +55,7 @@ export function toast(content, options = {}) {
   return node
 }
 
+/** @param {HTMLElement} node */
 export function dismiss(node) {
   node.hidden = true
   Promise.allSettled(node.getAnimations().map((a) => a.finished)).then(() =>
@@ -117,14 +132,18 @@ if (typeof document !== "undefined") {
   document.addEventListener(
     "command",
     ({ command, source, target }) => {
-      if (command === "--show-toast") {
+      const isToaster = target.matches(".ui-toaster")
+      if (
+        command === "--show-toast" &&
+        (isToaster || target instanceof HTMLTemplateElement)
+      ) {
         const { dataset } = source
-        toast(target.matches(".ui-toaster") ? dataset.title : target, {
+        toast(isToaster ? dataset.title : target, {
           ...dataset,
           persistent: "persistent" in dataset,
         })
       }
-      if (command === "--dismiss-toast" && target.matches(".ui-toaster")) {
+      if (command === "--dismiss-toast" && isToaster) {
         const own = source.closest(".ui-toast")
         for (const node of own ? [own] : target.querySelectorAll(".ui-toast")) {
           dismiss(node)

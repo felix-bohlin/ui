@@ -1,0 +1,147 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.textarea {
+  display: grid;
+}
+
+.label {
+  font-size: var(--font-size-05);
+  font-weight: 600;
+  margin-block-end: 0.25rem;
+}
+
+.field {
+  background-color: var(--surface-default);
+  border: 1px solid var(--field-border-color);
+  border-radius: var(--radius-2);
+  display: grid;
+}
+
+.field textarea {
+  background: transparent;
+  border: 0;
+  color: var(--text-primary);
+  font: inherit;
+  inline-size: 100%;
+  line-height: 1.5;
+  outline: 0;
+  padding: 0.5rem;
+}
+
+.textarea:focus-within .field {
+  border-color: var(--primary);
+}`,
+    features: ["textarea"],
+    html: `
+<label class="textarea">
+  <span class="label">Notes</span>
+  <span class="field">
+    <textarea rows="2">…</textarea>
+  </span>
+</label>`,
+    notes: [
+      "Same wrapper and field box as the text field",
+      "<code>rows</code> fixes the height, the content scrolls",
+    ],
+    title: "Field",
+  },
+  {
+    css: `
+.field textarea {
+  block-size: auto;
+  field-sizing: content;
+}`,
+    features: ["field-sizing"],
+    notes: [
+      "<code>field-sizing: content</code> sizes the box to its text",
+      "Type a few lines: it grows, delete them: it shrinks",
+      "No resize observer, no JavaScript",
+    ],
+    title: "Grow",
+  },
+  {
+    css: `
+.field textarea {
+  max-block-size: var(--max-block-size, 20lh);
+  min-block-size: calc(0.5rem * 2 + 3lh);
+  resize: vertical;
+}`,
+    features: ["lh"],
+    notes: [
+      "<code>lh</code> is one line of the textarea's own text",
+      "At least three lines plus padding, so an empty field still looks like a textarea",
+      "<code>--max-block-size</code> overrides the 20 line cap, then it scrolls",
+    ],
+    title: "Limits",
+  },
+  {
+    css: `
+.auto-fit {
+  inline-size: fit-content;
+}
+
+.auto-fit textarea {
+  inline-size: auto;
+  min-inline-size: 25ch;
+  resize: both;
+}`,
+    notes: [
+      "Without a fixed width, <code>field-sizing</code> grows sideways too",
+      "<code>min-inline-size: 25ch</code> keeps short text from collapsing the box",
+      "<code>resize: both</code> once the width is free",
+    ],
+    title: "Auto-fit",
+  },
+]
+
+const knobs = [
+  {
+    label: "Max lines",
+    max: 12,
+    min: 4,
+    property: "--max-block-size",
+    step: 1,
+    unit: "lh",
+    value: 6,
+  },
+]
+
+const notes = [
+  "Agenda",
+  "- Changelog",
+  "- Docs review",
+  "- Release date",
+  "- Roadmap",
+  "- Support tickets",
+  "- Wrap-up",
+].join("\n")
+---
+
+<BuildUp id="build-textarea" knobs={knobs} steps={steps}>
+  <div class="stack">
+    <label class="textarea">
+      <span class="label">Notes</span>
+      <span class="field">
+        <textarea name="build-textarea-notes" rows="2">{notes}</textarea>
+      </span>
+    </label>
+    <label class="textarea auto-fit">
+      <span class="label">Title</span>
+      <span class="field">
+        <textarea name="build-textarea-title" rows="2">Short</textarea>
+      </span>
+    </label>
+  </div>
+</BuildUp>
+
+<style>
+  .stack {
+    display: grid;
+    gap: var(--size-4);
+    inline-size: min(100%, 22rem);
+  }
+</style>

@@ -19,7 +19,8 @@
     display: flex;
     flex-direction: column;
     inline-size: min(var(--_inline-size), 100% - 2 * var(--_offset));
-    inset: calc(var(--_offset) - var(--_gap) / 2) var(--_offset);
+    inset-block: calc(var(--_offset) - var(--_gap) / 2);
+    inset-inline: var(--_offset);
     margin: auto 0 0 auto;
     overflow: visible;
     padding: 0;
@@ -45,8 +46,8 @@
     & > .ui-toast {
       --_duration: var(--toast-duration, 5s);
 
-      animation: toast-expire calc(0.2s * var(--_motion)) var(--ease-in-2)
-        var(--_duration) forwards;
+      animation: toast-expire calc(var(--duration) * var(--_motion))
+        var(--ease-exit) var(--_duration) forwards;
       block-size: calc-size(auto, size * var(--_toast-presence));
       margin-block: calc(var(--_gap) / 2 * var(--_toast-presence));
       min-block-size: 0;
@@ -55,8 +56,9 @@
       padding-block: calc(var(--_padding-block) * var(--_toast-presence));
       pointer-events: auto;
       transition:
-        --_toast-presence calc(0.3s * var(--_motion)) var(--ease-3),
-        visibility calc(0.3s * var(--_motion));
+        --_toast-presence calc(var(--duration-slow) * var(--_motion))
+          var(--ease-enter),
+        visibility calc(var(--duration-slow) * var(--_motion));
       translate: 0 calc(var(--_shift) * (1 - var(--_toast-presence)));
 
       @starting-style {
@@ -78,13 +80,20 @@
       }
     }
 
-    &:is(:hover, :focus-within) > .ui-toast {
+    &:focus-within > .ui-toast {
       animation-play-state: paused;
+    }
+
+    @media (hover: hover) {
+      &:hover > .ui-toast {
+        animation-play-state: paused;
+      }
     }
   }
 
   :where(.ui-toast) {
-    --_icon-size: 1.25em;
+    --_icon-color: currentColor;
+    --_icon-size: var(--icon-size);
     --_padding-block: var(--size-3);
 
     align-items: center;
@@ -107,7 +116,7 @@
     }
 
     .ui-title {
-      font-weight: 600;
+      font-weight: var(--font-weight-semibold);
     }
 
     .ui-description {
@@ -122,7 +131,7 @@
     & > svg,
     &:is(.ui-critical, .ui-info, .ui-success, .ui-warning)::before {
       block-size: var(--_icon-size);
-      color: var(--color-9);
+      color: var(--_icon-color);
       flex-shrink: 0;
       inline-size: var(--_icon-size);
     }
@@ -136,18 +145,22 @@
     }
 
     &.ui-critical {
+      --_icon-color: var(--critical);
       --_icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>");
     }
 
     &.ui-info {
+      --_icon-color: var(--info);
       --_icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M12 16v-4'/><path d='M12 8h.01'/></svg>");
     }
 
     &.ui-success {
+      --_icon-color: var(--success);
       --_icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><path d='m9 11 3 3L22 4'/></svg>");
     }
 
     &.ui-warning {
+      --_icon-color: var(--warning);
       --_icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/><path d='M12 9v4'/><path d='M12 17h.01'/></svg>");
     }
   }

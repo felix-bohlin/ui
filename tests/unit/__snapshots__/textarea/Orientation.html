@@ -9,9 +9,9 @@
   <span class="ui-label">Notes</span>
   <span class="ui-start-text">Add any additional notes or comments</span>
   <span class="ui-field">
-    <textarea placeholder="Additional notes..."></textarea>
+    <textarea aria-describedby="id-1" placeholder="Additional notes..."></textarea>
   </span>
-  <span class="ui-end-text">Maximum 500 characters</span>
+  <span class="ui-end-text" id="id-1">Maximum 500 characters</span>
 </label>
 <label class="ui-spread ui-textarea">
   <span class="ui-label">Required</span>
@@ -31,9 +31,9 @@
   <span class="ui-label">Invalid Message</span>
   <span class="ui-start-text">This textarea has an error</span>
   <span class="ui-field">
-    <textarea></textarea>
+    <textarea aria-describedby="id-2" aria-invalid="true"></textarea>
   </span>
-  <span class="ui-end-text">This value is too short.</span>
+  <span class="ui-end-text" id="id-2">This value is too short.</span>
 </label>
 <label class="ui-spread ui-textarea">
   <span class="ui-label">Bio</span>
@@ -53,9 +53,9 @@
   <span class="ui-label">Release notes</span>
   <span class="ui-start-text">Shown on the changelog page</span>
   <span class="ui-field">
-    <textarea placeholder="Markdown supported..."></textarea>
+    <textarea aria-describedby="id-3" placeholder="Markdown supported..."></textarea>
     <span class="ui-header">v1.4.0</span>
     <span class="ui-footer">Saved 2 minutes ago</span>
   </span>
-  <span class="ui-end-text">Drafts are auto-saved</span>
+  <span class="ui-end-text" id="id-3">Drafts are auto-saved</span>
 </label>

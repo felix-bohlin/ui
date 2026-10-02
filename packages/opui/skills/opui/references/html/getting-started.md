@@ -15,7 +15,14 @@ The most flexible way to use OPUI. Download these files from the [`packages/opui
      ├─ palette.css
      └─ utils.css
   └─ css
+     ├─ components
+     │  ├─ accordion.css
+     │  └─ ...
+     ├─ js
+     │  ├─ checkbox.js
+     │  └─ toast.js
      ├─ components.css
+     ├─ layers.css
      └─ theme.css
   └─ open-props.css
 ```
@@ -23,7 +30,7 @@ The most flexible way to use OPUI. Download these files from the [`packages/opui
 Put it all together something like this in your main CSS. If you have your files in a different folder structure you'd of course need to change the paths.
 
 ```css
-@layer openprops, theme, normalize, components.root, components.extended, utils;
+@import "./css/layers.css";
 
 
 @import "./open-props.css";
@@ -40,28 +47,46 @@ There's a WIP visual editor for editing `theme.css` - [try it out](https://open-
 
 ## Theming
 
-The basic idea is to define one source color, `--palette-source`, and then derive the rest of the 16-step palette from it.
+The basic idea is to pick one hue and chroma, and derive a 16-step palette from them. `theme.css` sets `--palette-hue` and `--palette-chroma`, and `core/palette.css` turns them into a source color, `--palette-source`, and the `--color-1` to `--color-16` steps.
 
 ```css
 :where(html) {
-  --palette-source: oklch(0.58 0.18 264);
+  --palette-hue: 264;
+  --palette-chroma: 0.5;
   --palette-hue-rotate-by: 0;
 }
 ```
 
-- **Must be `oklch()`.**
+- **`--palette-hue`** is a hue angle in degrees. Open Props' `--hue-*` tokens work here. The default is green in light mode and blue in dark mode.
+- **`--palette-chroma`** scales the saturation, from `0` (gray) to `1`.
 - **`--palette-hue-rotate-by`** is a separate knob for per-step warm/cool drift, in degrees.
 
-  You can override the source color anywhere you want for useful or cool effect:
-  ```css
-  :where(.ui-warning) {
-    --palette-source: oklch(0.58 0.21 var(--hue-orange));
-  }
-  ```
+You can also set `--palette-source` directly (it must be an `oklch()` color), and you can override it anywhere you want for useful or cool effect:
+
+```css
+:where(.ui-warning) {
+  --palette-source: oklch(0.58 0.21 var(--hue-orange));
+}
+```
+
+Every token with its default is listed on the [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) page.
+
+### Scopes
+
+`.ui-light` and `.ui-dark` force a color scheme. Put them on `html` to control the whole page, or on any element to force a subtree. `.ui-palette` re-derives the palette and all color tokens from the knobs set on that element, so one page can carry several brands.
+
+```html
+<aside class="ui-dark">Always dark</aside>
+
+
+<section class="ui-palette" style="--palette-hue: 30">
+  <button class="ui-button ui-primary ui-filled">Orange brand</button>
+</section>
+```
 
 ## Motion
 
-Use the `--motion` variable to turn motion on or off. The default value is `1`. If a user has `prefers-reduced-motion: reduce` enabled,`--motion` will be set to `0` by default.
+Use the `--motion` variable to turn motion on or off. The default value is `1`. If a user has `prefers-reduced-motion: reduce` enabled, `--motion` will be set to `0` by default.
 
 ### Global Classes
 
@@ -88,7 +113,7 @@ Components use a local `--_motion` variable that allows you to disable motion fo
 Additionally, this is how you could include `--motion` in your CSS:
 
 ```css
-transition: transform calc(0.2s * var(--motion, 1)) ease;
+transition: transform calc(var(--duration) * var(--motion, 1)) var(--ease);
 ```
 
 ## Install via NPM
@@ -96,13 +121,13 @@ transition: transform calc(0.2s * var(--motion, 1)) ease;
 `pnpm`
 
 ```sh
-pnpm add opui-css open-props -S
+pnpm add opui-css open-props
 ```
 
 `npm`
 
 ```sh
-npm install opui-css open-props -S
+npm install opui-css open-props
 ```
 
 ### Usage

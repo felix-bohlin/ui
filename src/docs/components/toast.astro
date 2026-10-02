@@ -11,6 +11,7 @@ import ToasterCode from "../../component-examples/toast/ToasterCode.html?raw"
 import ToastCSS from "@opui/css/components/toast.css?raw"
 import ToastJS from "@opui/css/js/toast.js?raw"
 import { Badge, Callout as UICallout } from "@opui/astro"
+import ToastBuild from "../../components/UnderTheHood/ToastBuild.astro"
 
 export const description =
   "Non-interruptive and stackable notifications. They pop up like... toast."
@@ -63,11 +64,12 @@ export const description =
     <h3 id="toaster">Toaster</h3>
     <p>
       Add the toaster once, at the end of <code>&lt;body&gt;</code>. It is a
-      <code>popover="manual"</code> so it sits in the top layer, and a polite live
-      region so new toasts are announced. Its <code>&lt;template&gt;</code> is the
-      default toast, with <code>.ui-title</code> and <code>.ui-description</code
+      {" "}<code>popover="manual"</code> so it sits in the top layer, and a polite
+      live region so new toasts are announced. Its <code>&lt;template&gt;</code> is
+      the default toast, with <code>.ui-title</code> and <code
+        >.ui-description</code
       >
-      as slots. Without a toaster, <code>toast.js</code> creates a plain one.
+      {" "}as slots. Without a toaster, <code>toast.js</code> creates a plain one.
     </p>
 
     <Code code={ToasterCode} lang="html" />
@@ -75,7 +77,7 @@ export const description =
     <h3 id="html">HTML</h3>
     <p>
       Point a button at the toaster with <code>commandfor="toaster"</code> and
-      <code>command="--show-toast"</code>. <code>data-title</code>, <code
+      {" "}<code>command="--show-toast"</code>. <code>data-title</code>, <code
         >data-description</code
       >, <code>data-severity</code>, <code>data-duration</code> and <code
         >data-persistent</code
@@ -158,6 +160,8 @@ export const description =
       edge.
     </p>
   </section>
+
+  <ToastBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
     <ul>

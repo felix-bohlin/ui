@@ -5,6 +5,7 @@ import {
   parseTodo,
   slugify,
   splitInlineCode,
+  splitLinks,
   stressRefs,
 } from "../../utils/todo"
 import { todoExamplesFor } from "../../utils/todo-examples"
@@ -16,6 +17,13 @@ export function getStaticPaths() {
 }
 
 const { intro, sections } = parseTodo(source)
+const inline = (text: string) =>
+  splitInlineCode(text).flatMap((part) =>
+    part.code
+      ? [{ code: true, href: undefined, value: part.value }]
+      : splitLinks(part.value).map((link) => ({ code: false, ...link })),
+  )
+
 const plainText = (text: string) =>
   splitInlineCode(text)
     .map((part) => part.value)
@@ -117,6 +125,36 @@ const count = sections.reduce(
                   )}
                 </span>
               </div>
+              {item.notes.length > 0 && (
+                <div class="todo-notes">
+                  {item.notes.map((note) =>
+                    note.kind === "code" ? (
+                      <pre
+                        class="todo-note ui-code-block"
+                        set:text={note.code}
+                        style={`--level: ${note.level}`}
+                      />
+                    ) : (
+                      <p
+                        class:list={["todo-note", `todo-note-${note.kind}`]}
+                        style={`--level: ${note.level}`}
+                      >
+                        {inline(note.text).map((part) =>
+                          part.code ? (
+                            <code>{part.value}</code>
+                          ) : part.href ? (
+                            <a class="ui-link" href={part.href}>
+                              {part.value}
+                            </a>
+                          ) : (
+                            part.value
+                          ),
+                        )}
+                      </p>
+                    ),
+                  )}
+                </div>
+              )}
               {item.examples.length > 0 && (
                 <Accordion class="todo-examples" variant="outlined">
                   <Fragment slot="summary">
@@ -382,6 +420,45 @@ const count = sections.reduce(
       font-size: 0.875em;
       overflow-wrap: anywhere;
     }
+  }
+
+  .todo-notes {
+    display: grid;
+    font-size: var(--font-size-05);
+    gap: var(--size-2);
+
+    code {
+      font-size: 0.875em;
+      overflow-wrap: anywhere;
+    }
+
+    pre code {
+      overflow-wrap: normal;
+    }
+  }
+
+  .todo-note {
+    margin: 0;
+    margin-inline-start: calc(var(--level) * var(--size-4));
+    min-inline-size: 0;
+  }
+
+  .todo-note-item {
+    padding-inline-start: var(--size-3);
+    position: relative;
+
+    &::before {
+      content: "•";
+      inset-inline-start: 0;
+      position: absolute;
+    }
+  }
+
+  .todo-note-comment {
+    border-inline-start: var(--border-size-3) solid var(--border-color);
+    color: var(--text-muted);
+    font-style: italic;
+    padding-inline-start: var(--size-3);
   }
 
   .todo-example {

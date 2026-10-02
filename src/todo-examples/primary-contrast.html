@@ -1,0 +1,38 @@
+<style>
+  .todo-swatches {
+    display: grid;
+    gap: var(--size-2);
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-swatch {
+    --primary-contrast: oklch(
+      from var(--primary) clamp(0.15, (0.62 - l) * 1000, 0.98) calc(c * 0.15) h
+    );
+
+    background-color: var(--primary);
+    border-radius: var(--border-radius);
+    color: var(--primary-contrast);
+    font-weight: var(--font-weight-bold);
+    padding: var(--size-3);
+  }
+</style>
+<p>
+  Each swatch sets its own <code>--primary</code> and derives
+  <code>--primary-contrast</code> with relative color.
+</p>
+<div class="todo-swatches">
+  <div class="todo-swatch" style="--primary: oklch(0.45 0.15 260)">
+    Deep blue
+  </div>
+  <div class="todo-swatch" style="--primary: oklch(0.58 0.2 25)">Red</div>
+  <div class="todo-swatch" style="--primary: oklch(0.7 0.15 145)">Green</div>
+  <div class="todo-swatch" style="--primary: oklch(0.85 0.17 95)">Yellow</div>
+  <div class="todo-swatch" style="--primary: oklch(0.75 0.12 200)">Cyan</div>
+  <div class="todo-swatch" style="--primary: oklch(0.35 0.1 300)">Purple</div>
+  <div class="todo-swatch" style="--primary: oklch(0.6 0.02 255)">Gray</div>
+  <div class="todo-swatch" style="--primary: oklch(0.62 0.18 50)">
+    Orange, on the threshold
+  </div>
+</div>

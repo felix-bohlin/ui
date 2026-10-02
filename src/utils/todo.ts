@@ -1,5 +1,10 @@
+export type TodoNote =
+  | { code: string; kind: "code"; level: number }
+  | { kind: "comment" | "item" | "text"; level: number; text: string }
+
 export type TodoItem = {
   line: string
+  notes: TodoNote[]
   severity?: number
   status: string
   text: string
@@ -16,7 +21,10 @@ export const parseTodo = (source: string) => {
   const intro: string[] = []
   const sections: TodoSection[] = []
 
-  for (const line of source.split("\n")) {
+  const lines = source.split("\n")
+
+  for (let index = 0; index < lines.length; index++) {
+    const line = lines[index]
     const heading = line.match(/^## (.+)$/)
     if (heading) {
       sections.push({ items: [], title: heading[1] })
@@ -26,8 +34,20 @@ export const parseTodo = (source: string) => {
     const item = line.match(itemPattern)
     const section = sections.at(-1)
     if (item && section) {
+      const indented = []
+      while (
+        index + 1 < lines.length &&
+        (lines[index + 1].startsWith("  ") || !lines[index + 1].trim())
+      ) {
+        indented.push(lines[++index])
+      }
+      while (indented.length && !indented.at(-1)!.trim()) {
+        index--
+        indented.pop()
+      }
       section.items.push({
         line,
+        notes: parseNotes(indented.map((note) => note.slice(2))),
         severity: item[2] ? Number(item[2]) : undefined,
         status: item[1],
         text: item[3],
@@ -48,6 +68,59 @@ export const parseTodo = (source: string) => {
       .filter((section) => section.items.length),
   }
 }
+
+const indentOf = (line: string) => line.length - line.trimStart().length
+
+export const parseNotes = (lines: string[]) => {
+  const notes: TodoNote[] = []
+
+  for (let index = 0; index < lines.length; index++) {
+    const line = lines[index]
+    const text = line.trim()
+    if (!text) continue
+
+    const level = Math.floor(indentOf(line) / 2)
+
+    if (text.startsWith("```")) {
+      const code = []
+      while (
+        index + 1 < lines.length &&
+        !lines[index + 1].trim().startsWith("```")
+      ) {
+        code.push(lines[++index].slice(indentOf(line)))
+      }
+      index++
+      notes.push({ code: code.join("\n"), kind: "code", level })
+      continue
+    }
+
+    const comment = text.match(/^>\s?(?:- )?(.*)$/)
+    if (comment) {
+      notes.push({ kind: "comment", level, text: comment[1] })
+      continue
+    }
+
+    const listItem = text.match(/^(?:-|\d+\.) (.*)$/)
+    notes.push(
+      listItem
+        ? { kind: "item", level, text: listItem[1] }
+        : { kind: "text", level, text },
+    )
+  }
+
+  return notes
+}
+
+export const splitLinks = (text: string) =>
+  text
+    .split(/(\[[^\]]+\]\([^)]+\))/)
+    .filter(Boolean)
+    .map((part) => {
+      const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+      return link
+        ? { href: link[2], value: link[1] }
+        : { href: undefined, value: part }
+    })
 
 export const splitInlineCode = (text: string) =>
   text.split("`").map((value, index) => ({ code: index % 2 === 1, value }))

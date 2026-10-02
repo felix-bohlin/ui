@@ -4,6 +4,7 @@ import {
   parseTodo,
   slugify,
   splitInlineCode,
+  splitLinks,
   stressRefs,
 } from "../../src/utils/todo"
 
@@ -31,12 +32,14 @@ describe("parseTodo", () => {
         items: [
           {
             line: "- [] (2) Tooltips `never` show",
+            notes: [],
             severity: 2,
             status: "",
             text: "Tooltips `never` show",
           },
           {
             line: "- [?] Unscored",
+            notes: [],
             severity: undefined,
             status: "?",
             text: "Unscored",
@@ -44,6 +47,39 @@ describe("parseTodo", () => {
         ],
         title: "Bugs",
       },
+    ])
+  })
+
+  test("parses indented notes under an item", () => {
+    const { sections } = parseTodo(
+      [
+        "## Bugs",
+        "",
+        "- [?] (2) Menus run off",
+        "  > give a better example",
+        "  - Example: a `600px` viewport",
+        "    - Nested [link](https://example.com)",
+        "    ```css",
+        "    .a {",
+        "",
+        "      b: c;",
+        "    }",
+        "    ```",
+        "  Plain text",
+        "",
+        "- [] Next",
+      ].join("\n"),
+    )
+
+    expect(sections[0].items.map((item) => item.notes)).toEqual([
+      [
+        { kind: "comment", level: 0, text: "give a better example" },
+        { kind: "item", level: 0, text: "Example: a `600px` viewport" },
+        { kind: "item", level: 1, text: "Nested [link](https://example.com)" },
+        { code: ".a {\n\n  b: c;\n}", kind: "code", level: 1 },
+        { kind: "text", level: 0, text: "Plain text" },
+      ],
+      [],
     ])
   })
 
@@ -55,6 +91,16 @@ describe("parseTodo", () => {
     expect(sections.flatMap((section) => section.items)).toHaveLength(
       open.length,
     )
+  })
+})
+
+describe("splitLinks", () => {
+  test("splits markdown links from text", () => {
+    expect(splitLinks("see [docs](https://example.com) here")).toEqual([
+      { href: undefined, value: "see " },
+      { href: "https://example.com", value: "docs" },
+      { href: undefined, value: " here" },
+    ])
   })
 })
 

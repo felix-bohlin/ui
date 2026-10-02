@@ -23,7 +23,7 @@
     --_pin-shadow-color: light-dark(oklch(0% 0 0 / 12%), oklch(0% 0 0 / 48%));
     --_pin-shadow-size: var(--size-2);
     --_row-bg-color: var(--_bg-color);
-    --_row-min-block-size: 3.25rem;
+    --_row-min-block-size: calc(3.25rem * var(--density, 1));
     --_selected-bg-color: color-mix(
       in oklch,
       var(--_bg-color),
@@ -641,13 +641,13 @@
     &.ui-compact,
     &:has(.ui-density input[value="compact"]:checked) {
       --_cell-padding-block: var(--size-1);
-      --_row-min-block-size: 2.25rem;
+      --_row-min-block-size: calc(2.25rem * var(--density, 1));
     }
 
     &.ui-comfortable,
     &:has(.ui-density input[value="comfortable"]:checked) {
       --_cell-padding-block: var(--size-3);
-      --_row-min-block-size: 4rem;
+      --_row-min-block-size: calc(4rem * var(--density, 1));
     }
 
     &.ui-wrap [role="row"] > [role="cell"] {

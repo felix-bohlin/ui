@@ -1,0 +1,284 @@
+---
+import { people } from "../../component-examples/data-grid/data"
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.grid {
+  display: grid;
+  grid-template-columns: auto minmax(max-content, 1fr) var(--role-track,) auto;
+}
+
+.body,
+.row {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+}
+
+.body {
+  background-color: var(--border-color);
+  row-gap: 1px;
+}
+
+.row {
+  background-color: var(--surface-default);
+}
+
+.row > * {
+  padding: var(--pad);
+}`,
+    features: ["subgrid"],
+    html: `
+<div class="grid" role="table" aria-label="Team">
+  <div class="row head" role="row">
+    <span role="columnheader">Select</span>
+    <span role="columnheader">Name</span>
+    <span role="columnheader">Role</span>
+    <span role="columnheader">Tickets</span>
+  </div>
+  <div class="body" role="rowgroup">
+    <div class="row" role="row" style="--by-name: 1; --by-tickets: 3">
+      <span role="cell"><input type="checkbox" /></span>
+      <span role="rowheader">Ada Lovelace</span>
+      <span role="cell">Engineer</span>
+      <span role="cell">42</span>
+    </div>
+  </div>
+</div>`,
+    notes: [
+      "One grid holds the column tracks",
+      "Row groups and rows span every track and inherit them with <code>subgrid</code>",
+      "The longest name widens the column in every row, like a table",
+      "Rows are still real boxes, with their own background",
+    ],
+    title: "Subgrid",
+  },
+  {
+    css: `
+.row:has(:checked) {
+  background-color: color-mix(
+    in oklch,
+    var(--surface-default),
+    var(--primary) 14%
+  );
+}`,
+    features: ["has"],
+    notes: [
+      "Check a row: the checkbox holds the state",
+      "<code>:has(:checked)</code> styles the row that contains it",
+    ],
+    title: "Selection",
+  },
+  {
+    css: `
+.demo:has([value="name"]:checked) .body > .row {
+  order: var(--by-name);
+}
+
+.demo:has([value="tickets"]:checked) .body > .row {
+  order: calc(var(--by-tickets) * -1);
+}
+
+.body {
+  reading-flow: grid-order;
+}`,
+    features: ["reading-flow"],
+    notes: [
+      "Each row stores its position per column, such as <code>--by-name</code>",
+      "The checked radio picks which one becomes the row's <code>order</code>",
+      "Negate it to sort descending",
+      "<code>reading-flow: grid-order</code> makes focus follow the new order",
+    ],
+    title: "Sorting",
+  },
+  {
+    css: `
+.grid {
+  counter-reset: rows selected;
+}
+
+.body > .row {
+  counter-increment: rows;
+}
+
+.body > .row:has(:checked) {
+  counter-increment: rows selected;
+}
+
+.footer::before {
+  content: counter(selected) " of " counter(rows) " selected";
+}`,
+    features: ["counters"],
+    notes: [
+      "Rows and checked rows increment counters",
+      "The footer comes after the grid, so it reads the final totals",
+      "Rows with <code>display: none</code> don't count, so totals can follow filters",
+    ],
+    title: "Counters",
+  },
+  {
+    css: `
+.grid {
+  container-type: scroll-state;
+  max-block-size: var(--height);
+  overflow: auto;
+}
+
+.head {
+  background-color: var(--surface-filled);
+  inset-block-start: 0;
+  position: sticky;
+  transition: box-shadow 0.2s;
+  z-index: 1;
+
+  @container scroll-state(scrollable: block-start) {
+    box-shadow: 0 8px 8px -8px oklch(0% 0 0 / 40%);
+  }
+}`,
+    features: ["container-scroll-state-queries"],
+    notes: [
+      "The grid scrolls and the header row sticks",
+      "Drag <strong>Height</strong> down and scroll the rows",
+      "<code>scroll-state(scrollable: block-start)</code> shows the shadow only when there is content above",
+    ],
+    title: "Sticky header",
+  },
+  {
+    css: `
+.demo:has(.show-role:not(:checked)) {
+  --role-track: initial;
+
+  .row > :nth-child(3) {
+    display: none;
+  }
+}`,
+    features: ["custom-properties"],
+    notes: [
+      "Uncheck <strong>Role</strong>",
+      "<code>initial</code> makes <code>--role-track</code> invalid, so <code>var(--role-track,)</code> falls back to nothing",
+      "The track leaves the template and the remaining cells keep their columns",
+    ],
+    title: "Hide a column",
+  },
+]
+
+const knobs = [
+  {
+    label: "Height",
+    max: 320,
+    min: 120,
+    property: "--height",
+    step: 20,
+    unit: "px",
+    value: 320,
+  },
+  {
+    label: "Padding",
+    max: 16,
+    min: 4,
+    property: "--pad",
+    step: 2,
+    unit: "px",
+    value: 8,
+  },
+]
+
+const rows = people.slice(0, 5)
+const rankOf = (key: "name" | "tickets", row: (typeof rows)[number]) =>
+  rows
+    .toSorted((a, b) =>
+      key === "name" ? a.name.localeCompare(b.name) : a.tickets - b.tickets,
+    )
+    .indexOf(row) + 1
+---
+
+<BuildUp id="build-data-grid" knobs={knobs} steps={steps}>
+  <div class="demo">
+    <fieldset class="controls">
+      <legend class="ui-sr-only">Sort and columns</legend>
+      <label>
+        <input checked name="build-data-grid-sort" type="radio" value="none" />
+        Unsorted
+      </label>
+      <label>
+        <input name="build-data-grid-sort" type="radio" value="name" />
+        Name
+      </label>
+      <label>
+        <input name="build-data-grid-sort" type="radio" value="tickets" />
+        Tickets
+      </label>
+      <label>
+        <input checked class="show-role" type="checkbox" />
+        Role
+      </label>
+    </fieldset>
+    <div aria-label="Team" class="grid" role="table" tabindex="0">
+      <div class="row head" role="row">
+        <span role="columnheader"><span class="ui-sr-only">Select</span></span>
+        <span role="columnheader">Name</span>
+        <span role="columnheader">Role</span>
+        <span role="columnheader">Tickets</span>
+      </div>
+      <div class="body" role="rowgroup">
+        {
+          rows.map((row) => (
+            <div
+              class="row"
+              role="row"
+              style={`--by-name: ${rankOf("name", row)}; --by-tickets: ${rankOf("tickets", row)}`}
+            >
+              <span role="cell">
+                <input aria-label={`Select ${row.name}`} type="checkbox" />
+              </span>
+              <span role="rowheader">{row.name}</span>
+              <span role="cell">{row.role}</span>
+              <span role="cell">{row.tickets}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <p class="footer"></p>
+  </div>
+</BuildUp>
+
+<style>
+  .demo {
+    --role-track: auto;
+
+    font-size: var(--font-size-05);
+    inline-size: min(100%, 30rem);
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-1) var(--size-3);
+    margin-block-end: var(--size-2);
+    padding: 0;
+
+    & label {
+      align-items: center;
+      display: flex;
+      gap: var(--size-1);
+    }
+  }
+
+  .grid {
+    border: var(--border-width, 1px) solid var(--border-color);
+    border-radius: var(--radius-2);
+  }
+
+  .head {
+    font-weight: 600;
+  }
+
+  .footer {
+    color: var(--text-muted);
+    margin-block: var(--size-2) 0;
+    min-block-size: 1lh;
+  }
+</style>

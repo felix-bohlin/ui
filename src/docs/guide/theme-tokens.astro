@@ -67,14 +67,13 @@ const slug = (title: string) =>
     <h2 id="density">Density</h2>
     <p>
       <code>--density</code> scales the <code>--control-size*</code> tokens, so fields,
-      buttons and list items grow together. Below <code>1</code>, fields and
-      buttons stop shrinking at the height of their padding and text. The sizes
-      resolve on
+      buttons and list items grow or shrink together. Field and button padding shrinks
+      to fit, down to the height of the text. The sizes resolve on
       <code>html</code>, so set <code>--density</code> there.
     </p>
     <Code
       code={`:where(html) {
-  --density: 1.125;
+  --density: 0.875;
 }`}
       lang="css"
     />

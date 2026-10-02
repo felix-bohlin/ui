@@ -55,21 +55,33 @@ test("form controls of one size share one height", async ({ page }) => {
   expectSharedHeights(await measureRows(page))
 })
 
-test("form controls scale with --density", async ({ page }) => {
-  await openFixture(page, "html", "stress/forms")
-  await page.evaluate(() =>
-    document.documentElement.style.setProperty("--density", "1.125"),
-  )
-
-  const rows = await measureRows(page)
-  const heights = {
+const DENSITIES = {
+  "0.875": {
+    default: "35px",
+    large: "40.25px",
+    small: "28px",
+    "x-small": "24.5px",
+  },
+  "1.125": {
     default: "45px",
     large: "51.75px",
     small: "36px",
     "x-small": "31.5px",
-  }
-  for (const { expected, row, size } of rows) {
-    expect(expected, row).toBe(heights[size as keyof typeof heights])
-  }
-  expectSharedHeights(rows)
-})
+  },
+}
+
+for (const [density, heights] of Object.entries(DENSITIES)) {
+  test(`form controls scale with --density: ${density}`, async ({ page }) => {
+    await openFixture(page, "html", "stress/forms")
+    await page.evaluate(
+      (value) => document.documentElement.style.setProperty("--density", value),
+      density,
+    )
+
+    const rows = await measureRows(page)
+    for (const { expected, row, size } of rows) {
+      expect(expected, row).toBe(heights[size as keyof typeof heights])
+    }
+    expectSharedHeights(rows)
+  })
+}

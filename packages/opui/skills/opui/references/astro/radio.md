@@ -5,6 +5,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/astro/component
 ### What's new
 
 - [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
+- Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl`.
 
 ## Anatomy
 

@@ -921,7 +921,7 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 | `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                       |
 | `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                           |
 | `--choice-size-small`         | `var(--size-3)`                              | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                             |
-| `--control-size`              | `40px`                                       | Shared default height for fields and buttons so they line up.                                                     |
+| `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                     |
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
@@ -964,7 +964,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--border-color`              | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                       |
 | `--border-width`              | `1px`                                        | Default border width for components that draw a border.                                                           |
 | `--choice-size-small`         | `var(--size-3)`                              | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                             |
-| `--control-size`              | `40px`                                       | Shared default height for fields and buttons so they line up.                                                     |
+| `--control-size`              | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up.                                                     |
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |

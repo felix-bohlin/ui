@@ -6,6 +6,7 @@ Chips are compact elements that represent an input, attribute, or action.
 
 - [Large](#sizes) size with `.ui-large`, and small chips are 28px to match the control sizes.
 - Long labels truncate with an ellipsis unless the chip is `.ui-multiline`.
+- Breaking: `--ripple` is `--_ripple`.
 
 ## Anatomy
 

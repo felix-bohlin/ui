@@ -142,7 +142,7 @@ Group multiple avatars by adding `role="group"` to a parent container.
 
 | Variable             | Default                                      | Description                                                   |
 | -------------------- | -------------------------------------------- | ------------------------------------------------------------- |
-| `--control-size`     | `40px`                                       | Shared default height for fields and buttons so they line up. |
+| `--control-size`     | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up. |
 | `--icon-size-large`  | `var(--size-5)`                              | Icon size inside `IconButton`, `Avatar` and `List`.           |
 | `--primary`          | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                  |
 | `--primary-contrast` | `light-dark(var(--gray-1), var(--gray-15))`  | Text color on a `--primary` background.                       |

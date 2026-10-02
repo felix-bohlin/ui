@@ -4,6 +4,7 @@ import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocLink from "../../components/DocLink.astro"
+import { Code } from "astro-expressive-code/components"
 import { DataGrid as UIDataGrid, Table } from "@opui/astro"
 import type { DataGridRow } from "@opui/astro"
 
@@ -23,6 +24,109 @@ const anatomyColumns = [
 const anatomyFilters = [
   { label: "Active", match: (row: DataGridRow) => row.status === "Active" },
 ]
+
+const snippets = {
+  columns: `.ui-data-grid {
+  &:has(.ui-head > [role="row"] > :nth-child(3)) {
+    --_track-3: var(--_col-3, var(--_track));
+  }
+
+  &:has(.ui-columns input[value="3"]:not(:checked)) {
+    --_track-3: initial;
+
+    [role="row"] > :nth-child(3) {
+      display: none;
+    }
+  }
+}
+
+[role="table"] {
+  grid-template-columns: var(--_track-1,) var(--_track-2,) var(--_track-3,);
+}`,
+  counters: `[role="table"] {
+  counter-reset: ui-data-grid-rows ui-data-grid-selected ui-data-grid-sum-4;
+}
+
+.ui-body > [role="row"] {
+  counter-increment: ui-data-grid-rows ui-data-grid-sum-4 var(--_sum-4, 0);
+}
+
+.ui-row-count::before {
+  content: counter(ui-data-grid-rows);
+}
+
+.ui-foot .ui-sum:nth-child(4)::after {
+  content: counter(ui-data-grid-sum-4);
+}`,
+  details: `.ui-expand:has(> details),
+.ui-expand details {
+  display: contents;
+}
+
+.ui-expand details::details-content {
+  block-size: 0;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  transition:
+    block-size 0.2s,
+    content-visibility 0.2s allow-discrete;
+}
+
+.ui-expand details[open]::details-content {
+  block-size: auto;
+}`,
+  pinned: `.ui-pin-start [role="row"] > :first-child {
+  inset-inline-start: calc((sibling-index() - 1) * var(--_utility-size));
+  position: sticky;
+
+  @container ui-data-grid scroll-state(scrollable: inline-start) {
+    box-shadow: 8px 0 8px -8px var(--_pin-shadow-color);
+  }
+}`,
+  resizing: `.ui-resizable {
+  [role="columnheader"] {
+    resize: horizontal;
+  }
+
+  .ui-body [role="row"] > * {
+    contain: inline-size;
+  }
+}
+
+[role="cell"] > input {
+  field-sizing: content;
+}`,
+  sorting: `.ui-data-grid:has(
+    .ui-head [role="row"] > :nth-child(3) input[value="asc"]:checked
+  )
+  .ui-body > [role="row"] {
+  order: var(--_rank-3, 0);
+}
+
+.ui-body {
+  reading-flow: grid-order;
+}`,
+  state: `.ui-body > [role="row"]:has(> .ui-select :checked) {
+  --_row-bg-color: var(--_selected-bg-color);
+}
+
+.ui-data-grid:has(.ui-filters input[value="selected"]:checked)
+  .ui-body > [role="row"]:not(:has(> .ui-select :checked)) {
+  display: none;
+}`,
+  subgrid: `[role="table"] {
+  display: grid;
+  grid-template-columns: var(--_track-1,) var(--_track-2,);
+}
+
+.ui-head,
+.ui-body,
+[role="row"] {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+}`,
+}
 
 const techniques = [
   [
@@ -434,7 +538,12 @@ const techniques = [
   </section>
 
   <section>
-    <h2 id="how-it-works">How it works</h2>
+    <h2 id="under-the-hood">Under the hood</h2>
+    <p>
+      Every feature is a native control and a CSS rule that reacts to it. The
+      table maps each feature to the CSS behind it, and the sections below show
+      the rules.
+    </p>
     <Table>
       <Table.Head>
         <Table.Row>
@@ -457,6 +566,91 @@ const techniques = [
         }
       </Table.Body>
     </Table>
+
+    <h3 id="subgrid-rows">Rows are subgrids</h3>
+    <p>
+      The table is one grid with a track per column. Row groups and rows span
+      every track and inherit them with <code>subgrid</code>, so a wide cell in
+      one row widens the column in all rows. Rows are still real boxes, so they
+      can have backgrounds, borders, <code>order</code> and
+      <code>position: sticky</code>, which <code>&lt;tr&gt;</code> can't.
+    </p>
+    <Code lang="css" code={snippets.subgrid} />
+
+    <h3 id="state-in-controls">State lives in form controls</h3>
+    <p>
+      Checkboxes and radios hold all the state: selection, sort, filter, column
+      visibility and density. The root reads them with <code>:has()</code>, so
+      any control inside the grid can change any part of it.
+    </p>
+    <Code lang="css" code={snippets.state} />
+
+    <h3 id="sorting-with-order">Sorting with order</h3>
+    <p>
+      Each row stores its position for every sortable column in
+      <code>--_rank-[n]</code>. The checked radio in column <code>n</code> picks which
+      rank becomes the row's <code>order</code>, and descending negates it. <code
+        >reading-flow: grid-order</code
+      > makes focus and screen readers follow the visual order.
+    </p>
+    <Code lang="css" code={snippets.sorting} />
+
+    <h3 id="hiding-columns">Hiding columns</h3>
+    <p>
+      The column template is a list of <code>var()</code> calls with empty fallbacks.
+      A track exists only when the header has a cell at that position. Unchecking
+      a column sets its track to <code>initial</code>, the empty fallback
+      removes it from the template, and its cells are hidden.
+    </p>
+    <Code lang="css" code={snippets.columns} />
+
+    <h3 id="counters">Counting with counters</h3>
+    <p>
+      Every visible row increments a row counter, checked rows a selection
+      counter, and <code>--_sum-[n]</code> is added to a counter per column. Rows
+      hidden by a filter have <code>display: none</code> and don't count, so the footer
+      and totals follow the filters. The counters are reset on the table, not the
+      root. The root is a size container, and its style containment would scope them
+      away from the footer.
+    </p>
+    <Code lang="css" code={snippets.counters} />
+
+    <h3 id="pinned-columns-and-shadows">Pinned columns and scroll shadows</h3>
+    <p>
+      Pinned cells are sticky. <code>sibling-index()</code> offsets each pinned checkbox,
+      expand and first column by the ones before it, with
+      <code>:nth-child()</code> rules as a fallback. The table is a
+      <code>scroll-state</code> container, so shadows only appear when there is content
+      to scroll back to.
+    </p>
+    <Code lang="css" code={snippets.pinned} />
+
+    <h3 id="detail-panels">Detail panels</h3>
+    <p>
+      The expand cell and its <code>details</code> are
+      <code>display: contents</code>, so the summary becomes a grid item in the
+      row and <code>::details-content</code> moves to a second grid row that spans
+      all columns. <code>interpolate-size</code> animates it to its auto height.
+    </p>
+    <Code lang="css" code={snippets.details} />
+
+    <h3 id="resizing-and-editing">Resizing and editing</h3>
+    <p>
+      Resizable headers use <code>resize: horizontal</code>. Body cells get
+      <code>contain: inline-size</code> so they stop contributing to the column width,
+      and the header alone sets it. Editable cells are inputs with
+      <code>field-sizing: content</code>, so a column fits its longest value.
+    </p>
+    <Code lang="css" code={snippets.resizing} />
+
+    <h3 id="fallbacks">Fallbacks</h3>
+    <p>
+      Browsers without <code>reading-flow</code>, scroll-state queries or
+      <code>interpolate-size</code> still sort, pin columns and open detail panels,
+      without the synced focus order, the shadows or the animation. Astro and Vue
+      compute ranks, sums and filter matches when rendering. In HTML they are written
+      in the markup.
+    </p>
   </section>
 
   <Fragment slot="accessibility">

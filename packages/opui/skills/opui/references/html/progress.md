@@ -20,7 +20,7 @@ See also: [Spinner](https://open-props-ui.netlify.app/html/components/spinner.md
 
 ## Variants
 
-Use the modifier classes `.ui-filled`, `.ui-default`, or`.ui-tonal` on the wrapper `<div>` to swap the progress bar track surface for better contrast on different backgrounds.
+Use the modifier classes `.ui-filled`, `.ui-default`, or `.ui-tonal` on the wrapper `<div>` to swap the progress bar track surface for better contrast on different backgrounds.
 
 ```html
 <div class="ui-progress ui-default">
@@ -81,7 +81,7 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 | `--surface-filled`  | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                                      |
 | `--surface-tonal`   | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                              |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

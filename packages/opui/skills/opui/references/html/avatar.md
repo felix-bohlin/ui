@@ -148,7 +148,7 @@ Group multiple avatars by adding `role="group"` to a parent container.
 | `--primary-contrast` | `var(--gray-1)`                             | Text color on a `--primary` background.                       |
 | `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

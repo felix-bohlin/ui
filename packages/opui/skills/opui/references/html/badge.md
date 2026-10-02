@@ -100,7 +100,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
 
 ## Severities
 
-`.ui-critical`, `.ui-info`, `.ui-neutral`,`.ui-success`, `.ui-warning`.
+`.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`.
 
 ```html
 <span class="ui-anchor ui-badge ui-critical">
@@ -195,7 +195,7 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
 
 ## Visibility
 
-Change the badge's visibility using the `.ui-invisible`class.
+Change the badge's visibility using the `.ui-invisible` class.
 
 ```html
 <span class="ui-anchor ui-badge ui-invisible">
@@ -363,7 +363,7 @@ Where the badge should be placed over the child.
 | `--success`            | `var(--green)`         | Severity color for success messages.                                                                                       |
 | `--warning`            | `var(--orange)`        | Severity color for warnings.                                                                                               |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 With an alignment class, also set `--anchor-position-area` to the same position, such as `start start`.
 

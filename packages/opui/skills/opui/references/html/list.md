@@ -285,7 +285,7 @@ The List component is *extremely* flexible and versatile. Be careful if you star
 
 ## Variants
 
-Use`.ui-default`, `.ui-tonal`, and `.ui-transparent` to change the background color.
+Use `.ui-default`, `.ui-tonal`, and `.ui-transparent` to change the background color.
 
 ### Filled by default
 
@@ -352,7 +352,7 @@ Without a color class the list uses the filled surface, because lists usually si
 
 ## Clickable list item
 
-Wrap the elements of your List item with a `a`, `button`or `label` depending on use-case.
+Wrap the elements of your List item with a `a`, `button` or `label` depending on use-case.
 
 ```html
 <ul class="ui-list">
@@ -649,7 +649,7 @@ Found in `div.ui-end`.
 
 ### Checkbox
 
-Wrap the List item content with a `<label class="ui-checkbox" for="INPUTID">`to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-checkbox" for="INPUTID">` to make the entire surface clickable.
 
 Read more: [Checkbox](https://open-props-ui.netlify.app/html/components/checkbox.md)
 
@@ -676,7 +676,7 @@ Read more: [Checkbox](https://open-props-ui.netlify.app/html/components/checkbox
 
 ### Radio
 
-Wrap the List item content with a `<label class="ui-radio" for="INPUTID">`to make the entire surface clickable.
+Wrap the List item content with a `<label class="ui-radio" for="INPUTID">` to make the entire surface clickable.
 
 Radio group: Add a common name to each `<input>` for radio group behavior.
 
@@ -931,7 +931,7 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 | `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                  |
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                            |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ### List item API
 
@@ -974,7 +974,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 | `--text-muted`                | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                  |
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                            |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 Wrap the content in an `<a>`, `<button>` or `<label>` to make the item interactive.
 

@@ -61,7 +61,7 @@ Label50Start textEnd text
 
 ## Value
 
-Add an `<output class="ui-value">` sibling to the`.ui-label` with `for` pointing at the input's id. Optionally set `data-suffix` for a unit (e.g. `°`,`px`). Updating its text content is the consumer's responsibility.
+Add an `<output class="ui-value">` sibling to the `.ui-label` with `for` pointing at the input's id. Optionally set `data-suffix` for a unit (e.g. `°`, `px`). Updating its text content is the consumer's responsibility.
 
 ```html
 <label class="ui-range">
@@ -80,7 +80,7 @@ Add an `<output class="ui-value">` sibling to the`.ui-label` with `for` pointing
 
 ## Tick marks
 
-Use the `list` attribute on the `<input>` and follow it with a `<datalist>` element containing`<option>` elements with `value` and`label` attributes.
+Use the `list` attribute on the `<input>` and follow it with a `<datalist>` element containing `<option>` elements with `value` and `label` attributes.
 
 ```html
 <label class="ui-range">
@@ -104,7 +104,7 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
 
 ## Variants
 
-Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surface for better contrast on different backgrounds.
+Use the `.ui-filled`, `.ui-default`, or `.ui-tonal` class to swap the track surface for better contrast on different backgrounds.
 
 ```html
 <label class="ui-range">
@@ -304,7 +304,7 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 | `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                              |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 Add a `<datalist>` after the input for tick marks.
 

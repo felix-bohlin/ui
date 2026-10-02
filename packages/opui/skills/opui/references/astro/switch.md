@@ -95,7 +95,7 @@ import { Switch } from "opui-css/astro"
 ### Validation
 
 - Set `required` on the component to toggle required styles on the input.
-- Use the `error` prop to toggle invalid styles. It renders`data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
+- Use the `error` prop to toggle invalid styles. It renders `data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
 
 ```astro
 ---
@@ -483,7 +483,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 | `--switch-track-width-small`  | `2.5rem`                                    | Width of the `Switch` track with `.ui-small` and inside `List`.                                                            |
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 Other attributes, such as `checked`, `disabled`, `name` and `required`, go to the `<input>`. Without a label, set `aria-label` or `aria-labelledby`.
 
@@ -516,7 +516,7 @@ Other attributes, such as `checked`, `disabled`, `name` and `required`, go to th
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

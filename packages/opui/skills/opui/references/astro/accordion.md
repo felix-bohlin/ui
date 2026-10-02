@@ -105,7 +105,7 @@ import { Accordion } from "opui-css/astro"
 
 ## Accordion group
 
-Group multiple accordions by wrapping them in a `Card`component with `role="group"`. To theme the entire group, apply the `variant` prop to the parent container.
+Group multiple accordions by wrapping them in a `Card` component with `role="group"`. To theme the entire group, apply the `variant` prop to the parent container.
 
 ```astro
 ---
@@ -340,7 +340,7 @@ The [WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) f
 | `--surface-elevated` | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                                                                               |
 | `--surface-tonal`    | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                              |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 Group accordions in a `<Card role="group">`. Set its `variant` to theme the whole group.
 

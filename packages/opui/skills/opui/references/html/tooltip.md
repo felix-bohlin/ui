@@ -2,7 +2,7 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md).
 
-Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Wire `interestfor` on the trigger to the`.ui-anchor-floating[popover="hint"]` element's ID.
+Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Wire `interestfor` on the trigger to the `.ui-anchor-floating[popover="hint"]` element's ID.
 
 ## Basics
 
@@ -48,7 +48,7 @@ You can place any markup you want (famous last words) inside `.ui-anchor-floatin
 
 ## Alignment
 
-Set `--anchor-position-area` on the parent with your preferred`position-area` value.
+Set `--anchor-position-area` on the parent with your preferred `position-area` value.
 
 ```html
 <div class="tooltip-alignment-grid">
@@ -195,7 +195,7 @@ Add the `.ui-with-arrow` class on the `.ui-tooltip`. This would be cool to solve
 | `--surface-inverse` | `light-dark(var(--gray-15), var(--gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                            |
 | `--text-inverse`    | `light-dark(var(--gray-1), var(--gray-15))` | Text color on `--surface-inverse`.                                                                                         |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 Also add `.ui-anchor` to the root. Give `.ui-anchor-floating` `popover="hint"` and an id, and add `interestfor` with that id to the trigger.
 

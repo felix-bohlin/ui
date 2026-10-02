@@ -92,7 +92,7 @@ import { Callout } from "opui-css/vue"
 
 ## Severities
 
-The `severity` prop accepts `info`, `success`, `warning`, and `critical`, plus a non-severity`neutral` tone for brand-tinted attention. The default is a plain surface.
+The `severity` prop accepts `info`, `success`, `warning`, and `critical`, plus a non-severity `neutral` tone for brand-tinted attention. The default is a plain surface.
 
 **Icons and accessibility**
 
@@ -247,7 +247,7 @@ import { Callout } from "opui-css/vue"
 | `--surface-tonal`        | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                         |
 | `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

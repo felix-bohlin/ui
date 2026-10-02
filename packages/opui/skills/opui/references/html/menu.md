@@ -1,6 +1,6 @@
 # Menu
 
-A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anchored to a[Button](https://open-props-ui.netlify.app/html/components/button.md).
+A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anchored to a [Button](https://open-props-ui.netlify.app/html/components/button.md).
 
 ### What's new
 
@@ -351,19 +351,19 @@ A menu inside a list item.
 
 ## API
 
-| Type      | Modifiers                                             | Default                     | Description                           |
-| --------- | ----------------------------------------------------- | --------------------------- | ------------------------------------- |
-| Part      | `menu.ui-menu.ui-list[popover]`                       | -                           | The menu surface.                     |
-| Trigger   | `commandfor="id"`, `command="toggle-popover"`         | -                           | Opens the menu.                       |
-| Children  | `li > button`, `li > a`                               | -                           | Menu items.                           |
-| Children  | `command="hide-popover"`                              | -                           | Closes the menu on click.             |
-| Children  | `li.ui-label`                                         | -                           | Group label.                          |
-| Children  | `.ui-start`, `.ui-end`                                | -                           | Icons and shortcuts.                  |
-| Colors    | `.ui-critical`                                        | -                           | Destructive item.                     |
-| Placement | `.ui-block-start`,`.ui-inline-start`,`.ui-inline-end` | default                     | Where the menu opens.                 |
-| Placement | `.ui-align-end`                                       | -                           | Lines up with the trigger's end edge. |
-| Placement | `--anchor-position-area`                              | `block-end span-inline-end` | Any valid `position-area` value.      |
-| Sizes     | `.ui-dense`                                           | -                           | Less spacing.                         |
+| Type      | Modifiers                                               | Default                     | Description                           |
+| --------- | ------------------------------------------------------- | --------------------------- | ------------------------------------- |
+| Part      | `menu.ui-menu.ui-list[popover]`                         | -                           | The menu surface.                     |
+| Trigger   | `commandfor="id"`, `command="toggle-popover"`           | -                           | Opens the menu.                       |
+| Children  | `li > button`, `li > a`                                 | -                           | Menu items.                           |
+| Children  | `command="hide-popover"`                                | -                           | Closes the menu on click.             |
+| Children  | `li.ui-label`                                           | -                           | Group label.                          |
+| Children  | `.ui-start`, `.ui-end`                                  | -                           | Icons and shortcuts.                  |
+| Colors    | `.ui-critical`                                          | -                           | Destructive item.                     |
+| Placement | `.ui-block-start`, `.ui-inline-start`, `.ui-inline-end` | default                     | Where the menu opens.                 |
+| Placement | `.ui-align-end`                                         | -                           | Lines up with the trigger's end edge. |
+| Placement | `--anchor-position-area`                                | `block-end span-inline-end` | Any valid `position-area` value.      |
+| Sizes     | `.ui-dense`                                             | -                           | Less spacing.                         |
 
 ## Under the hood
 

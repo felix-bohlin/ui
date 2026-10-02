@@ -254,7 +254,7 @@ The `indeterminate` state cannot be set with HTML or CSS alone. The browser only
 
 ## Spread
 
-Add the `.ui-spread` class to the `<label class="ui-checkbox">`to push the label to the left and the checkbox to the right. This is useful for full-width items like lists and menus.
+Add the `.ui-spread` class to the `<label class="ui-checkbox">` to push the label to the left and the checkbox to the right. This is useful for full-width items like lists and menus.
 
 ```html
 <label class="ui-checkbox ui-spread">
@@ -359,7 +359,7 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">`to push the label
 
 Use field groups to group related checkboxes.
 
-Give every `<input type="checkbox">` in the group the same`name` attribute so they're submitted together.
+Give every `<input type="checkbox">` in the group the same `name` attribute so they're submitted together.
 
 See also: [Form documentation](https://open-props-ui.netlify.app/html/components/form.md).
 
@@ -605,7 +605,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                             |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 Use `.ui-sr-only` instead of `.ui-label` to hide the label visually. `data-indeterminate` needs `checkbox.js`, which sets the `indeterminate` property.
 
@@ -637,7 +637,7 @@ Use `.ui-sr-only` instead of `.ui-label` to hide the label visually. `data-indet
 | `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
 

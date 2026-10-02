@@ -149,7 +149,7 @@ import { Button } from "opui-css/astro"
 
 ## Icon-only
 
-A button whose only child is an `svg` is square. Give it an`aria-label`. Add `rounded` for a circle and `ripple` for a hover halo instead of a background change.
+A button whose only child is an `svg` is square. Give it an `aria-label`. Add `rounded` for a circle and `ripple` for a hover halo instead of a background change.
 
 ```astro
 ---
@@ -284,7 +284,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                            | Muted text color on an inverted surface.                                                                                   |
 | `--text-primary-contrast`     | `light-dark(var(--gray-2), var(--gray-15))`                            | Emphasized text color on an inverted surface.                                                                              |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
 

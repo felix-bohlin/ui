@@ -248,10 +248,12 @@
 
     /* Disabled */
     &:is([disabled], [aria-disabled="true"], .ui-disabled) {
-      --_text-color: var(--text-disabled);
-
       cursor: not-allowed;
       opacity: var(--disabled-opacity);
+
+      &:not(.ui-filled, .ui-tonal) {
+        --_text-color: var(--text-disabled);
+      }
     }
 
     &.ui-rounded {

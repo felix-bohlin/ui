@@ -100,7 +100,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fixed: `.ui-mark` uses `Mark`/`MarkText` like `<mark>`. `.ui-del` and `.ui-ins` join `del`/`ins` in the palette and severity scopes (`palette.css`, `theme.css`). Their text uses `--color-11` in light mode and `--color-6` in dark mode, so `del`, `ins` and both classes pass contrast (the old `--color-9` failed). With the `components.prose` layer this also removed three color-contrast entries for the typography stress page from the a11y ledger.
 - [x] (6) A menu in a dialog blends into it in dark mode (`overlays` DialogNesting)
   > give it the same border treatment as the carousel prev/next buttons, ie a light gray border. that way it's consistent with the theme.
-  - Fixed: menus use a light gray border in dark mode (`light-dark(var(--border-color), var(--gray-6))`), in dialogs and everywhere else.
+  - Fixed: menus use a subtle light gray border in dark mode (`--gray-6` at 40% opacity), in dialogs and everywhere else.
 - [x] (6) Avatars shrink in flex rows (no `flex-shrink: 0`), and avatar group overflow counts like "+128" don't fit (`data-display` TableCellContent, InlineAlignment)
   > fix the avatar shrikage. don't worry about "+128", but if you have a scalable and elegant solution for it let me know.
   - Fixed: avatars have `flex-shrink: 0`.
@@ -123,7 +123,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > ellipsis ... should solve it
   - Fixed: chips are `max-inline-size: 100%`, and `.ui-text` truncates with an ellipsis unless the chip is `.ui-multiline`.
 - [x] (6) Disabled button text color only applies to the text variant: the disabled block is wrapped in `:where()`, so `.ui-filled`/`.ui-tonal`/`.ui-outlined` override its `--_text-color` (only `opacity` dims them). Fix or confirm it's intended
-  - Fixed: the disabled block comes after the variants and uses `:is()`, so it wins for every variant.
+  - Fixed: the disabled block comes after the variants and uses `:is()`, so text and outlined buttons get `--text-disabled` in every color. Filled and tonal keep their own text color and only dim with `--disabled-opacity`, since gray text on a colored fill was unreadable.
 - [?] (6) Light mode: `--border-color` and `--surface-filled` are the same gray, so table header borders and filled bordered list dividers vanish (`data-display` TableStructure, ListSurfaces)
   > what is the most scalable and elegant solution for this?
   - The root cause is the same as the dark mode item: one global border color can't contrast with every surface. Borders need to be relative to the surface they sit on. Two ways to do that:
@@ -275,7 +275,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - The ARIA menu pattern works differently: the whole menu is one Tab stop, arrow keys move between items, Home/End jump to the first and last, typing a letter jumps to a matching item, and Tab leaves the menu. Desktop apps behave like that and screen reader users expect it from `role="menu"`.
   - That "roving focus" needs JavaScript today (track the active item, move focus on keydown, toggle `tabindex`). [focusgroup](https://open-ui.org/components/scoped-focusgroup.explainer/) is a proposed HTML attribute that gives arrow key navigation without JS, e.g. `<menu focusgroup="menu">`. It's behind a flag in Chromium. When it ships we can add it to `Menu` and keep it HTML and CSS only.
 - [x] (8) Carousel: vertical orientation
-  - Added `.ui-vertical` / `orientation="vertical"`. It scrolls and snaps on the block axis, needs a height (`--_block-size`, default `24rem`), and supports buttons (`::scroll-button(block-start/end)`, rotated glyphs and icons, also outside), markers and peek. Docs section and example added.
+  - Added `.ui-vertical` / `orientation="vertical"`. It scrolls and snaps on the block axis, needs a height (`--_block-size`, default `24rem`), and supports buttons (`::scroll-button(block-start/end)`, rotated icons, also outside), markers and peek. Markers sit in a column at the inline end of the items, centered (anchored to the carousel, so they follow RTL). Docs section and example added.
   - Scroll and snap are checked in Chromium 141. The button positions aren't: Carousel buttons need Chromium 144+. Check them in the docs.
 - [] (9) Toast has no loading state. The loading example only exists on the unmerged `claude/toast-simplify` branch, and isn't a real component there
   > skip toast fixes for now.

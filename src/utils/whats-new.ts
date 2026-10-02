@@ -90,7 +90,7 @@ const whatsNew = {
       astro: `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
       vue: `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
     },
-    `A light gray border in dark mode, so menus stand out on dialogs and other raised surfaces.`,
+    `A subtle light gray border in dark mode, so menus stand out on dialogs and other raised surfaces.`,
   ],
   radio: [
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,

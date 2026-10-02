@@ -53,7 +53,7 @@ Next release: 6.0.0 (major).
 - `theme.css` adds field text tokens: `--field-label-color`, `--field-label-font-size`, `--field-label-font-weight`, `--field-helper-color`, `--field-helper-font-size`, `--field-helper-line-height` and `--field-required-color`, read by `Checkbox`, `Form`, `Radio`, `Range`, `Switch` and `TextField`.
 - `theme.css` re-derives every color token (`--primary`, `--surface-*`, `--text-*`, `--border-color`, `--field-border-color` and the named and intent colors) inside `.ui-palette` from its own palette. A subtree with `class="ui-palette" style="--palette-hue: 30"` is a complete second theme.
 - `theme.css` adds `--density`, a multiplier for `--control-size-x-small`, `--control-size-small`, `--control-size` and `--control-size-large`. Defaults to `1`. `Button`, `Select`, `Textarea` and `TextField` padding shrinks to fit a smaller control size, down to the height of the text.
-- `Carousel` takes `orientation="vertical"` (`.ui-vertical`) to scroll on the block axis. Set its height with `--_block-size`.
+- `Carousel` takes `orientation="vertical"` (`.ui-vertical`) to scroll on the block axis. Set its height with `--_block-size`. Markers sit in a column beside the items.
 
 ### Changed
 
@@ -90,7 +90,7 @@ Next release: 6.0.0 (major).
 - `theme.css` declares `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma` so every theme knob lives in one file.
 - `Typography` rich text lives in a new `components.prose` layer, below `components.root`, so component styles inside rich text win over prose styles. The layer order is `openprops, theme, normalize, components.prose, components.root, components.extended, utils`.
 - `Card` tonal and elevated variants (and `Dialog`) have a border in the page background color, so they stay visible on tonal surfaces. In dark mode, borders and field borders inside them also use the page background.
-- `Menu` has a light gray border in dark mode.
+- `Menu` has a subtle light gray border in dark mode (`--gray-6` at 40% opacity).
 - `Dialog` has a maximum height. The header and actions stay in place and the content scrolls.
 - `Card` actions stick to the bottom of stretched cards and wrap.
 - `Chip` labels truncate with an ellipsis unless the chip is `multiline`.
@@ -151,11 +151,11 @@ Next release: 6.0.0 (major).
 - `Badge` indicators mirror in RTL.
 - `Callout` only uses the icon layout for a direct child `svg`, keeps its content at the top when stretched, and no longer shows lighter corners.
 - `Card` wraps long words.
-- `DescriptionList` switches layout based on its own width instead of the page, shares space between long terms and values, and wraps long values.
+- `DescriptionList` switches layout based on its own width instead of the page, shares space between long terms and values, and wraps long values. A nested list sizes to its content and follows the outer list's layout, and `.ui-bordered` leaders only apply to the list's own items.
 - `Table` padding no longer grows in narrow containers.
 - `List` text can shrink below its longest word, and `.ui-inset` follows the dense gap.
 - `Avatar` doesn't shrink in flex rows.
-- `Button` disabled text color applies to every variant.
+- `Button` disabled text color applies to text and outlined buttons in every color. Filled and tonal buttons keep their own text color and dim with the disabled opacity, so the label stays readable on the fill.
 - `Button` `kbd` follows the button's text color on hover.
 - `Typography` `.ui-mark` has a background, `.ui-del`/`.ui-ins` use the critical/success palette, and `del`/`ins` text passes contrast in light and dark mode.
 - `Typography` rich text `pre` and inline `code` run left to right in RTL.

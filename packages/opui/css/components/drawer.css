@@ -131,6 +131,10 @@
       translate: 0 100%;
     }
 
+    &:not([open]) {
+      display: none;
+    }
+
     &[open] {
       translate: 0 0;
 

@@ -106,7 +106,6 @@
       text-align: start;
     }
 
-    /* Header */
     /* Remove bottom border of the row above the footer to stay single-line */
     tbody:has(+ tfoot) tr:last-child td {
       border-block-end: none;
@@ -115,13 +114,6 @@
     /* Column group */
     colgroup col {
       border: none;
-    }
-
-    @container (width < 60ch) {
-      th,
-      td {
-        padding: var(--size-1) 0.875rem;
-      }
     }
 
     /* Spacious */
@@ -135,20 +127,14 @@
         margin-inline-start: var(--size-3);
         padding: var(--size-2) 0;
       }
-
-      @container (width < 60ch) {
-        th,
-        td {
-          padding: var(--size-3);
-        }
-      }
     }
 
     /* Dense */
     &.ui-dense {
       th,
       td {
-        padding: var(--size-1);
+        line-height: var(--font-lineheight-1);
+        padding: calc(var(--size-1) / 2) var(--size-1);
       }
 
       caption {

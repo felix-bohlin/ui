@@ -105,7 +105,7 @@ If you do have a bundler that resolves CSS `@import`s (Vite, Astro, webpack, …
 The library defines this layer order:
 
 ```css
-@layer openprops, theme, normalize, components.root, components.extended, utils;
+@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
 ```
 
 Import `opui-css/css/layers.css` first to set this order when you import single files.

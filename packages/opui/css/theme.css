@@ -207,7 +207,7 @@
   }
 
   /* Severity scope classes */
-  :where(.ui-critical, [data-invalid], del) {
+  :where(.ui-critical, .ui-del, [data-invalid], del) {
     --palette-source: oklch(0.58 0.21 var(--hue-red));
     --palette-hue-rotate-by: 1;
   }
@@ -217,7 +217,7 @@
     --palette-hue-rotate-by: 1;
   }
 
-  :where(.ui-success, ins) {
+  :where(.ui-success, .ui-ins, ins) {
     --palette-source: oklch(0.58 0.21 var(--hue-green));
     --palette-hue-rotate-by: 1;
   }
@@ -230,5 +230,11 @@
   :where(.ui-neutral) {
     --palette-source: oklch(0.58 var(--gray-chroma) var(--gray-hue));
     --palette-hue-rotate-by: 0;
+  }
+
+  /* Raised surfaces */
+  :where(.ui-card.ui-elevated, .ui-card.ui-tonal) {
+    --border-color: light-dark(var(--gray-4), var(--surface-default));
+    --field-border-color: var(--border-color);
   }
 }

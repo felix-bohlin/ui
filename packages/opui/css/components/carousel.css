@@ -1,6 +1,7 @@
 @layer components.root {
   :where(.ui-carousel) {
     --_motion: var(--motion, 1);
+    --_block-size: 24rem;
     --_button-bg-color: light-dark(var(--gray-13), var(--gray-3));
     --_button-border-color: light-dark(
       oklch(from var(--_button-bg-color) calc(l + 0.3) c h),
@@ -33,6 +34,7 @@
     --_markers-margin-block-start: var(--size-3);
     --_media-aspect-ratio: 16 / 9;
     --_media-border-radius: var(--border-radius);
+    --_padding-block: 0px;
     --_padding-inline: 0px;
     --_per-view: 1;
     --_snap-align: start;
@@ -80,10 +82,32 @@
       --_padding-inline: var(--size-8);
     }
 
+    /* Vertical */
+    &.ui-vertical {
+      block-size: var(--_block-size);
+      grid-auto-columns: auto;
+      grid-auto-flow: row;
+      grid-auto-rows: var(--_item-size);
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior-y: contain;
+      padding-block: var(--_padding-block);
+      padding-inline: 0;
+      scroll-padding-block: var(--_padding-block);
+      scroll-padding-inline: 0;
+      scroll-snap-type: y mandatory;
+
+      &.ui-peek {
+        --_padding-block: var(--size-8);
+      }
+    }
+
     /* Buttons */
     &.ui-with-buttons {
       &::scroll-button(inline-start),
-      &::scroll-button(inline-end) {
+      &::scroll-button(inline-end),
+      &.ui-vertical::scroll-button(block-start),
+      &.ui-vertical::scroll-button(block-end) {
         background-color: var(--_button-bg-color);
         background-position: center;
         background-repeat: no-repeat;
@@ -122,13 +146,63 @@
         --_button-start-icon: var(--_button-next-icon);
       }
 
+      &.ui-vertical {
+        &::scroll-button(inline-start),
+        &::scroll-button(inline-end) {
+          content: none;
+        }
+
+        &::scroll-button(block-start),
+        &::scroll-button(block-end) {
+          inset-inline-start: calc(anchor(center) - var(--_button-size) / 2);
+          rotate: 90deg;
+          translate: none;
+        }
+
+        &::scroll-button(block-start) {
+          background-image: var(--_button-prev-icon);
+          content: "" / var(--_button-prev-label);
+          inset-block-start: calc(anchor(self-start) + var(--_button-inset));
+        }
+
+        &::scroll-button(block-end) {
+          background-image: var(--_button-next-icon);
+          content: "" / var(--_button-next-label);
+          inset-block-end: calc(anchor(self-end) + var(--_button-inset));
+          inset-block-start: auto;
+        }
+
+        &.ui-buttons-outside {
+          @supports selector(::scroll-button(*)) {
+            margin-block: calc(var(--_button-size) + var(--_button-inset));
+            margin-inline: 0;
+          }
+
+          &::scroll-button(block-start) {
+            inset-block-start: calc(
+              anchor(self-start) - var(--_button-size) - var(--_button-inset)
+            );
+          }
+
+          &::scroll-button(block-end) {
+            inset-block-end: calc(
+              anchor(self-end) - var(--_button-size) - var(--_button-inset)
+            );
+          }
+        }
+      }
+
       &::scroll-button(inline-start):active,
-      &::scroll-button(inline-end):active {
+      &::scroll-button(inline-end):active,
+      &.ui-vertical::scroll-button(block-start):active,
+      &.ui-vertical::scroll-button(block-end):active {
         scale: 0.94;
       }
 
       &::scroll-button(inline-start):disabled,
-      &::scroll-button(inline-end):disabled {
+      &::scroll-button(inline-end):disabled,
+      &.ui-vertical::scroll-button(block-start):disabled,
+      &.ui-vertical::scroll-button(block-end):disabled {
         border-color: var(--_button-disabled-border-color);
         cursor: default;
         opacity: var(--_button-disabled-opacity);

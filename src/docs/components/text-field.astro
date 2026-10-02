@@ -44,7 +44,7 @@ import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextFieldCSS from "@opui/css/components/text-input.css?raw"
 
 import textFieldApi from "../../component-api/text-field/api"
-import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
+import textInputApi from "../../component-api/text-input/api"
 
 export const description =
   "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states."
@@ -64,7 +64,7 @@ export const description =
   ]}
   apis={[
     { title: "Text field API", api: textFieldApi },
-    { title: "Text input API", html: TextInputAPIHTML },
+    { title: "Text input API", api: textInputApi },
   ]}
   changelogPaths={[
     {

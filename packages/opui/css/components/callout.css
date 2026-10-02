@@ -55,7 +55,10 @@
 
     &::before {
       background-color: var(--_bg-color);
-      border-radius: inherit;
+      border-radius: max(
+        0px,
+        calc(var(--_border-radius) - var(--border-width))
+      );
       content: "";
       inset: 0;
       pointer-events: none;
@@ -98,12 +101,13 @@
     }
 
     /* Icon */
-    &:has(svg) {
+    &:has(> svg) {
+      align-content: start;
       display: grid;
       gap: var(--_gap);
       grid-template-columns: var(--_icon-size) 1fr;
 
-      svg {
+      & > svg {
         margin-block-start: 0.15rem;
         stroke: var(--_icon-color);
       }

@@ -3,8 +3,9 @@
     --_border-style: solid;
     --_border-width: var(--border-width);
 
+    container-type: inline-size;
     display: grid;
-    gap: var(--size-3);
+    inline-size: 100%;
     margin: 0;
     padding: 0;
 
@@ -16,7 +17,12 @@
     .ui-item {
       display: grid;
       margin: 0;
+      overflow-wrap: anywhere;
       padding: 0;
+
+      & + .ui-item {
+        margin-block-start: var(--size-3);
+      }
 
       dt,
       .ui-term {
@@ -32,17 +38,15 @@
     }
 
     @container (width > 45ch) {
-      gap: var(--size-1);
-
       .ui-item {
         align-items: baseline;
         display: grid;
         gap: var(--size-1);
-        grid-template-columns: 1fr auto;
+        grid-template-columns: auto auto;
+        justify-content: space-between;
 
-        dt,
-        .ui-term {
-          inline-size: max-content;
+        & + .ui-item {
+          margin-block-start: var(--size-1);
         }
 
         dd {

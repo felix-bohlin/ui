@@ -130,6 +130,7 @@
       .ui-icon-checked {
         grid-column: 1;
         grid-row: 1;
+        margin-block-start: var(--size-1);
         pointer-events: none;
         z-index: 1;
 

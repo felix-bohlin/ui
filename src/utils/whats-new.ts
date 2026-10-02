@@ -50,6 +50,14 @@ const whatsNew = {
       default: `<a href="#persistent-buttons">Persistent buttons</a> with the <code>persistentButtons</code> prop.`,
       html: `<a href="#persistent-buttons">Persistent buttons</a> with <code>.ui-buttons-persistent</code>.`,
     },
+    {
+      default: `<a href="#vertical">Vertical</a> carousels with <code>orientation="vertical"</code>.`,
+      html: `<a href="#vertical">Vertical</a> carousels with <code>.ui-vertical</code>.`,
+    },
+  ],
+  card: [
+    `<a href="#variants">Tonal and elevated</a> cards have a border in the page background color, so they stay visible on tonal surfaces.`,
+    `<a href="#actions">Actions</a> stick to the bottom of stretched cards and wrap when they don't fit.`,
   ],
   checkbox: [
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
@@ -60,7 +68,21 @@ const whatsNew = {
       default: `<a href="#sizes">Large</a> size with <code>size="large"</code>, and small chips are 28px to match the control sizes.`,
       html: `<a href="#sizes">Large</a> size with <code>.ui-large</code>, and small chips are 28px to match the control sizes.`,
     },
+    {
+      default: `Long labels truncate with an ellipsis unless the chip is <code>multiline</code>.`,
+      html: `Long labels truncate with an ellipsis unless the chip is <code>.ui-multiline</code>.`,
+    },
     `Breaking: <code>--ripple</code> is <code>--_ripple</code>.`,
+  ],
+  dialog: [
+    `<a href="#modal">Long content</a> scrolls between a fixed header and actions.`,
+  ],
+  list: [
+    {
+      default: `Breaking: <code>divided</code> is removed. Use <a href="#on-every-item"><code>bordered</code></a>.`,
+      html: `Breaking: <code>.divided</code> is removed. Use <a href="#on-every-item"><code>.ui-bordered</code></a>.`,
+    },
+    `<a href="#dense">Dense</a> rows keep the default inline padding, so they line up with card content.`,
   ],
   menu: [
     `New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.`,
@@ -68,6 +90,7 @@ const whatsNew = {
       astro: `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
       vue: `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
     },
+    `A light gray border in dark mode, so menus stand out on dialogs and other raised surfaces.`,
   ],
   radio: [
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
@@ -88,6 +111,12 @@ const whatsNew = {
       default: `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
     },
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
+  ],
+  table: [
+    {
+      default: `<a href="#variants">Dense</a> tables have less block padding.`,
+      html: `<a href="#variants">Dense</a> tables (<code>.ui-dense</code>) have less block padding.`,
+    },
   ],
   tabs: [
     `Restyled as a segmented control.`,
@@ -129,6 +158,8 @@ const whatsNew = {
     `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below.`,
     `Heading sizes and line heights snap to <code>--rhythm-step</code>, and the heading scale no longer inverts on narrow screens.`,
     `<a href="#rich-text-showcase">Rich text</a> styles tables, <code>hr</code> and task lists.`,
+    `Rich text sits in the <code>components.prose</code> layer, below components, so components inside prose keep their own styles.`,
+    `Rich text headings, <code>pre</code> and <code>small</code> scale with the surrounding font size.`,
   ],
 } satisfies Record<string, Note[]>
 

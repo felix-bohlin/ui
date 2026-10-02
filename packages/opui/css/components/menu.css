@@ -2,7 +2,7 @@
   :where(.ui-menu) {
     --_motion: var(--motion, 1);
     --_bg-color: var(--surface-elevated);
-    --_border-color: var(--border-color);
+    --_border-color: light-dark(var(--border-color), var(--gray-6));
     --_border-radius: var(--border-radius);
     --_border-width: var(--border-width);
     --_margin: var(--_offset) 0;
@@ -83,6 +83,10 @@
       &:is(.ui-inline-end, .ui-inline-start) {
         --_span: span-block-start;
       }
+    }
+
+    &:dir(rtl) li:has(> .ui-menu) > :is(a, button) > .ui-end {
+      scale: -1 1;
     }
 
     @supports (-webkit-touch-callout: none) {

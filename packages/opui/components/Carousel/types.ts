@@ -3,6 +3,7 @@ export type Props = {
   buttons?: boolean | "outside"
   label?: string
   markers?: boolean
+  orientation?: "horizontal" | "vertical"
   peek?: boolean
   persistentButtons?: boolean
   perView?: number

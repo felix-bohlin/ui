@@ -169,8 +169,10 @@
   }
 
   :where(.ui-mark) {
+    background-color: Mark;
     border-radius: var(--radius-2);
     box-decoration-break: clone;
+    color: MarkText;
     padding: 0.1ex 0.3ex;
     vertical-align: baseline;
   }
@@ -188,12 +190,12 @@
   }
 
   :where(.ui-del) {
-    color: var(--color-9);
+    color: light-dark(var(--color-11), var(--color-6));
     text-decoration: line-through;
   }
 
   :where(.ui-ins) {
-    color: var(--color-9);
+    color: light-dark(var(--color-11), var(--color-6));
     text-decoration: underline;
     text-underline-offset: 1px;
   }
@@ -266,7 +268,7 @@
   syntax: "<length>";
 }
 
-@layer components.extended {
+@layer components.prose {
   @scope (.ui-rich-text) to (.ui-not-rich-text) {
     :scope {
       --_flow-space: round(1.25em, var(--rhythm-step, 0.25rem));
@@ -302,7 +304,7 @@
       }
     }
 
-    a[href] {
+    a[href]:where(:not([class*="ui-"])) {
       color: var(--primary);
       cursor: pointer;
       font-size: inherit;
@@ -345,7 +347,7 @@
       background-color: var(--color-15);
       border-radius: var(--border-radius);
       color: var(--color-1);
-      font-size: var(--font-size-05);
+      font-size: 0.875em;
       line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
       margin-block: round(
         var(--_flow-space) * 1.5,
@@ -436,6 +438,10 @@
     }
 
     :is(h1, h2, h3, h4, h5, h6):where(:not([class])) {
+      @supports (width: calc(1px * 1em / 1rem)) {
+        --_font-scale: calc(1em / 1rem);
+      }
+
       color: var(--text-primary);
       font-weight: var(--font-weight-bold);
       line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
@@ -444,7 +450,7 @@
 
     h1:where(:not([class])) {
       font-size: round(
-        var(--font-size-h1, var(--font-size-7)),
+        calc(var(--font-size-h1, var(--font-size-7)) * var(--_font-scale, 1)),
         var(--rhythm-step, 0.25rem) / 2
       );
       letter-spacing: -0.02em;
@@ -453,7 +459,9 @@
 
     h2:where(:not([class])) {
       font-size: round(
-        var(--font-size-h2, var(--font-size-5, 2rem)),
+        calc(
+          var(--font-size-h2, var(--font-size-5, 2rem)) * var(--_font-scale, 1)
+        ),
         var(--rhythm-step, 0.25rem) / 2
       );
       letter-spacing: -0.02em;
@@ -463,7 +471,10 @@
 
     h3:where(:not([class])) {
       font-size: round(
-        var(--font-size-h3, var(--font-size-4, 1.5rem)),
+        calc(
+          var(--font-size-h3, var(--font-size-4, 1.5rem)) *
+            var(--_font-scale, 1)
+        ),
         var(--rhythm-step, 0.25rem) / 2
       );
       letter-spacing: -0.01em;
@@ -473,7 +484,10 @@
 
     h4:where(:not([class])) {
       font-size: round(
-        var(--font-size-h4, var(--font-size-3, 1.25rem)),
+        calc(
+          var(--font-size-h4, var(--font-size-3, 1.25rem)) *
+            var(--_font-scale, 1)
+        ),
         var(--rhythm-step, 0.25rem) / 2
       );
       letter-spacing: -0.01em;
@@ -483,7 +497,10 @@
 
     h5:where(:not([class])) {
       font-size: round(
-        var(--font-size-h5, var(--font-size-2, 1.1rem)),
+        calc(
+          var(--font-size-h5, var(--font-size-2, 1.1rem)) *
+            var(--_font-scale, 1)
+        ),
         var(--rhythm-step, 0.25rem) / 2
       );
       margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step, 0.25rem))
@@ -492,7 +509,9 @@
 
     h6:where(:not([class])) {
       font-size: round(
-        var(--font-size-h6, var(--font-size-1, 1rem)),
+        calc(
+          var(--font-size-h6, var(--font-size-1, 1rem)) * var(--_font-scale, 1)
+        ),
         var(--rhythm-step, 0.25rem) / 2
       );
       margin-block: round(var(--_flow-space) * 1.5, var(--rhythm-step, 0.25rem))
@@ -579,8 +598,29 @@
     }
 
     :where(ol):where(:not([class])) {
+      --_count-digits: 2;
+      --_start-digits: 2;
+
+      padding-inline-start: calc(
+        max(var(--_count-digits), var(--_start-digits)) * 1ch + 1em
+      );
+
       &:has(> li:nth-child(100)) {
-        padding-inline-start: calc(3ch + 1em);
+        --_count-digits: 3;
+      }
+
+      &:has(> li:nth-child(1000)) {
+        --_count-digits: 4;
+      }
+
+      &[start] {
+        --_start-digits: 4;
+
+        @supports (x: attr(x type(*))) {
+          --_start-digits: calc(
+            round(down, log(attr(start type(<number>), 1) + 9, 10)) + 1
+          );
+        }
       }
 
       & > li::marker {
@@ -590,7 +630,8 @@
 
     li:has(
       > input[type="checkbox"]:first-child,
-      > label:first-child > input[type="checkbox"]:first-child
+      > label:where(:not([class])):first-child
+        > input[type="checkbox"]:first-child
     ) {
       list-style-type: none;
 
@@ -712,11 +753,11 @@
     }
 
     :where(del, ins) {
-      color: var(--color-9);
+      color: light-dark(var(--color-11), var(--color-6));
     }
 
     small {
-      font-size: max(0.5em, var(--font-size-0, 0.75rem));
+      font-size: max(0.75em, var(--font-size-0, 0.75rem));
     }
 
     cite {
@@ -757,6 +798,11 @@
       border-radius: var(--border-radius, var(--radius-2));
       padding: 0.5ex;
       writing-mode: horizontal-tb;
+    }
+
+    :where(pre, :not(pre) > code):where(:not([dir])) {
+      direction: ltr;
+      unicode-bidi: isolate;
     }
 
     mark {

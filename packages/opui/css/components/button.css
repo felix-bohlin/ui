@@ -103,14 +103,6 @@
       border-color calc(var(--duration-fast) * var(--_motion)) var(--ease);
     user-select: none;
 
-    /* Disabled */
-    &:where([disabled], [aria-disabled="true"], .ui-disabled) {
-      --_text-color: var(--text-disabled);
-
-      cursor: not-allowed;
-      opacity: var(--disabled-opacity);
-    }
-
     &:where(a):where([aria-disabled="true"], .ui-disabled) {
       pointer-events: none;
     }
@@ -154,12 +146,13 @@
 
     /* Keyboard input */
     kbd {
-      background-color: color-mix(in oklch, currentColor 10%, transparent);
+      background-color: color-mix(in oklch, currentColor 12%, transparent);
       border: 0;
-      color: color-mix(in oklch, currentColor 80%, transparent);
+      color: inherit;
       font-size: 0.8em;
       font-weight: 400;
       line-height: 1.2;
+      opacity: 0.8;
     }
 
     /* Sizes */
@@ -251,6 +244,14 @@
           --_bg-color: var(--_filled-active-bg-color);
         }
       }
+    }
+
+    /* Disabled */
+    &:is([disabled], [aria-disabled="true"], .ui-disabled) {
+      --_text-color: var(--text-disabled);
+
+      cursor: not-allowed;
+      opacity: var(--disabled-opacity);
     }
 
     &.ui-rounded {

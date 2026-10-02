@@ -31,6 +31,15 @@
       display: none;
     }
 
+    & > :where(:not(.ui-content)) {
+      flex-shrink: 0;
+    }
+
+    & > .ui-content {
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
     .ui-actions {
       justify-content: end;
       padding-inline: var(--size-3) var(--size-1);

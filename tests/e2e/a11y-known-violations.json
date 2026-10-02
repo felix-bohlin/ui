@@ -16,9 +16,6 @@
   "dark/stress/typography/Bidi": [
     "color-contrast"
   ],
-  "dark/stress/typography/ComponentsInProse": [
-    "color-contrast"
-  ],
   "dark/stress/typography/EveryElement": [
     "color-contrast"
   ],
@@ -79,12 +76,6 @@
   "light/stress/layout/SettingsPage": [
     "aria-allowed-role",
     "aria-required-children"
-  ],
-  "light/stress/typography/ComponentsInProse": [
-    "color-contrast"
-  ],
-  "light/stress/typography/EveryElement": [
-    "color-contrast"
   ],
   "light/stress/typography/ProseInComponents": [
     "color-contrast"

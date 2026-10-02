@@ -10,7 +10,8 @@ import type { ComponentApi } from "../component-api/types"
 
 const root = path.resolve("packages/opui/components")
 
-const read = (source: string, file: string) => {
+const read = (source: string | undefined, file: string) => {
+  if (!source) return undefined
   const filePath = path.join(root, source, file)
   return fs.existsSync(filePath)
     ? fs.readFileSync(filePath, "utf-8")
@@ -94,6 +95,7 @@ export const frameworkProps = (
   framework: ComponentFramework,
 ) => {
   const props = new Map<string, string>()
+  if (!target.source) return props
   const filePath = path.join(root, target.source, frameworks[framework].types)
   const aliases = program()
     .getSourceFile(filePath)

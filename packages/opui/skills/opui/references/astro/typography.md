@@ -7,6 +7,8 @@ Styles for headings, body text, and other text content. Use util classes anywher
 - [Rich text](#classless) spacing comes from one flow space, with more room above headings than below.
 - Heading sizes and line heights snap to `--rhythm-step`, and the heading scale no longer inverts on narrow screens.
 - [Rich text](#rich-text-showcase) styles tables, `hr` and task lists.
+- Rich text sits in the `components.prose` layer, below components, so components inside prose keep their own styles.
+- Rich text headings, `pre` and `small` scale with the surrounding font size.
 
 ## Class-based
 
@@ -583,10 +585,25 @@ cold-brew 1.0.0</samp></pre>
 
 ## API
 
-| Prop    | Type                                                                                                                                              | Default | Description                                                                      |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------- |
-| Classes | `.ui-h1`–`.ui-h6`, `.ui-p`, `.ui-overline`, `.ui-caption`, `.ui-hgroup`, `.ui-blockquote`, `pre.ui-code-block`, inline utilities, `.ui-rich-text` | -       | CSS-only typography. Apply classes on elements in templates; no Astro component. |
-| Sizes   | `.ui-small`, `.ui-large`                                                                                                                          | -       | Size modifiers on `.ui-p`.                                                       |
+| Type          | Modifiers                                                                                                                                                  | Default | Description                                          |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------- |
+| Blockquote    | `.ui-blockquote`                                                                                                                                           | -       | Quoted block with a start border.                    |
+| Caption       | `.ui-caption`                                                                                                                                              | -       | Muted supporting text.                               |
+| Code block    | `pre.ui-code-block`                                                                                                                                        | -       | Monospace preformatted block.                        |
+| Heading group | `.ui-hgroup`                                                                                                                                               | -       | Groups an overline, heading, and optional body copy. |
+| Headings      | `.ui-h1`, `.ui-h2`, `.ui-h3`, `.ui-h4`, `.ui-h5`, `.ui-h6`                                                                                                 | -       | Heading styles for any element.                      |
+| Inline        | `.ui-abbr`, `.ui-cite`, `.ui-del`, `.ui-dfn`, `.ui-ins`, `.ui-kbd`, `.ui-mark`, `.ui-s`, `.ui-samp`, `.ui-small`, `.ui-sub`, `.ui-sup`, `.ui-u`, `.ui-var` | -       | Inline text element utilities.                       |
+| Overline      | `.ui-overline`                                                                                                                                             | -       | Small uppercase label text.                          |
+| Paragraph     | `.ui-p`                                                                                                                                                    | -       | Body paragraph styling.                              |
+| Sizes         | `.ui-large`, `.ui-small`                                                                                                                                   | -       | Size modifiers on `.ui-p`.                           |
+
+### Parts
+
+| Part            | Description                                         |
+| --------------- | --------------------------------------------------- |
+| `.ui-rich-text` | Classless typography for uncontrolled child markup. |
+
+CSS-only typography. Apply the classes on elements in templates; no Astro component.
 
 ## Under the hood
 

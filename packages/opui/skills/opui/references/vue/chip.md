@@ -5,6 +5,7 @@ Chips are compact elements that represent an input, attribute, or action.
 ### What's new
 
 - [Large](#sizes) size with `size="large"`, and small chips are 28px to match the control sizes.
+- Long labels truncate with an ellipsis unless the chip is `multiline`.
 
 ## Anatomy
 
@@ -242,6 +243,113 @@ import { Chip } from "opui-css/vue"
 | `--text-primary`     | `light-dark(var(--gray-15), var(--gray-1))`                            | Emphasized text color for headings, labels and values.                                                                     |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+
+## Under the hood
+
+1. Base
+
+   - One class for a `<div>`, `<button>` or `<a>`: the element decides what it does
+   - Fixed `block-size` from `--chip-size`, width from the content
+
+2. Icon
+
+   - `:has(svg:first-child)` and `:has(svg:last-child)` find the icon side
+   - Less padding next to the icon balances its optical weight
+   - No `start-icon` or `end-icon` classes
+
+3. Truncate
+
+   - `max-inline-size: 100%` caps the chip at its container
+   - `min-inline-size: 0` lets the text shrink below its content width
+   - That's why the label needs its own `.text` wrapper
+
+4. Hover
+
+   - `:where(button, a)`: only interactive chips react
+   - Relative color derives the hover shade from the surface
+   - `light-dark()` darkens in light mode, lightens in dark
+   - Hover the button chips
+
+Step 1 of 4: Base
+
+```html
+<div class="chip">
+  <span class="text">Design</span>
+</div>
+
+
+<button class="chip">…</button>
+```
+
+```css
+.chip {
+  --bg: var(--surface-tonal);
+  align-items: center;
+  background-color: var(--bg);
+  block-size: var(--chip-size);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  display: inline-flex;
+  font-size: var(--font-size-0);
+  gap: var(--size-1);
+  padding-inline: var(--size-2);
+  text-decoration: none;
+}
+```
+
+Step 2 of 4: Icon
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+
+```css
+.chip:has(svg:first-child) {
+  padding-inline: var(--size-1) var(--size-2);
+}
+
+
+.chip:has(svg:last-child) {
+  padding-inline: var(--size-2) var(--size-1);
+}
+
+
+.chip svg {
+  flex-shrink: 0;
+  inline-size: var(--icon-size-small);
+}
+```
+
+Step 3 of 4: Truncate
+
+- [Text overflow](https://webstatus.dev/features/text-overflow) (Widely available): Chrome 1+, Edge 12+, Firefox 7+, Safari 1.3+
+
+```css
+.chip {
+  max-inline-size: 100%;
+}
+
+
+.chip > .text {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+```
+
+Step 4 of 4: Hover
+
+- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+
+```css
+.chip:where(button, a):hover {
+  --bg: light-dark(
+    oklch(from var(--surface-tonal) calc(l * 0.98) c h),
+    oklch(from var(--surface-tonal) calc(l * 1.1) c h)
+  );
+}
+```
 
 ## Browser support
 

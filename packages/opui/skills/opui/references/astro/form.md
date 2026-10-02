@@ -734,6 +734,124 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
+## Under the hood
+
+1. Fieldset
+
+   - `<fieldset>` and `<legend>` name the group for assistive tech
+   - `all: unset` drops the border, padding and the legend notch
+   - What's left is a plain grid
+
+2. Description
+
+   - `:has(+ .description)`: the legend knows a description follows
+   - The spacing moves from the legend to the description
+
+3. Groups
+
+   - `:has(> .check):not(:has(> :not(.check)))`: only checkboxes, nothing else
+   - A list of choices gets a tighter gap
+   - A group of only buttons becomes a row
+
+4. Required
+
+   - One `required` input anywhere inside marks the legend
+   - No prop to keep in sync with the inputs
+
+Step 1 of 4: Fieldset
+
+- [`all`](https://webstatus.dev/features/all) (Widely available): Chrome 37+, Edge 79+, Firefox 27+, Safari 9.1+
+- [\<fieldset> and \<legend>](https://webstatus.dev/features/fieldset) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
+
+```html
+<fieldset class="fieldset">
+  <legend>Account</legend>
+  …
+</fieldset>
+```
+
+```css
+.fieldset {
+  all: unset;
+  display: grid;
+  gap: 0.25rem;
+}
+
+
+.fieldset legend {
+  all: unset;
+  font-weight: 600;
+  margin-block-end: 0.75rem;
+}
+```
+
+Step 2 of 4: Description
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+
+```css
+.fieldset legend:has(+ .description) {
+  margin-block-end: 0;
+}
+
+
+.description {
+  color: var(--text-muted);
+  font-size: var(--font-size-05);
+  margin: 0;
+}
+
+
+.description:has(+ *) {
+  margin-block-end: 0.75rem;
+}
+```
+
+Step 3 of 4: Groups
+
+```css
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
+.group + .group {
+  margin-block-start: 1.25rem;
+}
+
+
+.group:has(> .check):not(:has(> :not(.check))) {
+  gap: 0.5rem;
+}
+
+
+.group:has(> button):not(:has(> :not(button))) {
+  align-items: center;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+```
+
+Step 4 of 4: Required
+
+```css
+.fieldset:has(:required) legend {
+  padding-inline-end: 1ex;
+  position: relative;
+}
+
+
+.fieldset:has(:required) legend::after {
+  color: var(--field-required-color);
+  content: "*";
+  inset-block: 0 auto;
+  inset-inline: auto -0.25ex;
+  position: absolute;
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v105.

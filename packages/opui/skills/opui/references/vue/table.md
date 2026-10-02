@@ -1,5 +1,9 @@
 # Table
 
+### What's new
+
+- [Dense](#variants) tables have less block padding.
+
 ## Anatomy
 
 | Name   | Size |
@@ -192,6 +196,120 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 Set column widths with `TableColumnGroup` and `TableColumn`, which takes a `width`.
+
+## Under the hood
+
+1. Separate
+
+   - `border-radius` is ignored on a `border-collapse: collapse` table
+   - `separate` + `border-spacing: 0` keeps the corners round
+
+2. Cells
+
+   - Each cell draws only its end sides, so lines never double up
+   - The last column and the last row drop theirs
+   - The cell backgrounds now poke out of the rounded corners
+
+3. Corners
+
+   - The four corner cells take the same radius as the table
+   - `border-start-start-radius` follows the writing direction
+   - Drag **Radius**: the corners stay in sync
+
+4. Footer
+
+   - The footer draws its own top border
+   - `tbody:has(+ tfoot)` removes the one above it, so it stays a single line
+
+Step 1 of 4: Separate
+
+- [`border-radius`](https://webstatus.dev/features/border-radius) (Widely available): Chrome 4+, Edge 12+, Firefox 4+, Safari 5+
+- [Tables](https://webstatus.dev/features/table) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
+
+```css
+.table {
+  border: 1px solid var(--border-color);
+  border-collapse: separate;
+  border-radius: var(--radius);
+  border-spacing: 0;
+  inline-size: 100%;
+}
+```
+
+Step 2 of 4: Cells
+
+- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+
+```css
+.table :is(th, td) {
+  background-color: var(--surface-default);
+  border-block-end: 1px solid var(--border-color);
+  border-inline-end: 1px solid var(--border-color);
+  padding: 0.25rem 0.5rem;
+  text-align: start;
+}
+
+
+.table th {
+  background-color: var(--surface-filled);
+}
+
+
+.table :is(th, td):last-child {
+  border-inline-end: none;
+}
+
+
+.table > :last-child tr:last-child > * {
+  border-block-end: none;
+}
+
+
+.table tr:hover > :is(th, td) {
+  background-color: oklch(from var(--surface-filled) l c h / 75%);
+}
+```
+
+Step 3 of 4: Corners
+
+```css
+.table > thead tr:first-child th:first-child {
+  border-start-start-radius: var(--radius);
+}
+
+
+.table > thead tr:first-child th:last-child {
+  border-start-end-radius: var(--radius);
+}
+
+
+.table > :last-child tr:last-child > :first-child {
+  border-end-start-radius: var(--radius);
+}
+
+
+.table > :last-child tr:last-child > :last-child {
+  border-end-end-radius: var(--radius);
+}
+```
+
+Step 4 of 4: Footer
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+
+```css
+.table tfoot td {
+  background-color: var(--surface-filled);
+  border-block-start: 1px solid var(--border-color);
+  font-weight: 600;
+}
+
+
+.table tbody:has(+ tfoot) tr:last-child td {
+  border-block-end: none;
+}
+```
 
 ## Browser support
 

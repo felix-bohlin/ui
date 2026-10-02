@@ -655,12 +655,182 @@ The control can also be a `<select>` or `<textarea>`. A `<datalist>` can be plac
 
 ### Text input API
 
-| Type     | Modifiers             | Default | Description                                                                                                                                                       |
-| -------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Wrapper  | `.ui-field`           | -       | The `<input>` must be wrapped in a `<span class="ui-field">` element. Border, background, and focus styling are inherited from `.ui-field`, not the input itself. |
-| Auto-fit | `.ui-auto-fit`        | -       | When enabled, the element changes size depending on its content.                                                                                                  |
-| Sizes    | `.ui-small`           | -       | The size of the element.                                                                                                                                          |
-| Variants | default, `.ui-filled` | -       | The variant to use.                                                                                                                                               |
+| Type     | Modifiers             | Default | Description                                                      |
+| -------- | --------------------- | ------- | ---------------------------------------------------------------- |
+| Auto-fit | `.ui-auto-fit`        | -       | When enabled, the element changes size depending on its content. |
+| Sizes    | `.ui-small`           | -       | The size of the element.                                         |
+| Variants | default, `.ui-filled` | default | The variant to use.                                              |
+
+#### Parts
+
+| Part                   | Description                                                                                                      |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `.ui-text-field input` | The input, wrapped in a `<span class="ui-field">`.                                                               |
+| `.ui-field`            | Wraps the `<input>`. Border, background, and focus styling are inherited from `.ui-field`, not the input itself. |
+
+## Under the hood
+
+1. Wrapper
+
+   - `<label>` wraps everything: no `for` and `id` to wire
+   - The box is drawn on a wrapper, the input itself is borderless
+   - `:focus-within` moves the focus color to the box
+
+2. Affixes
+
+   - The input comes first in the markup, `grid-area` places the affixes around it
+   - `:has(> .prefix)` drops the input padding next to an affix
+
+3. Required
+
+   - `:has(:required)` marks the label from the input's own attribute
+   - Nothing to keep in sync
+
+4. Validation
+
+   - `:user-invalid` waits until the user has edited the field, not on page load
+   - `[data-invalid]` for errors from the server
+   - Only the private custom properties change, every rule above follows
+
+Step 1 of 4: Wrapper
+
+- [`:focus-within`](https://webstatus.dev/features/focus-within) (Widely available): Chrome 60+, Edge 79+, Firefox 52+, Safari 10.1+
+- [\<label>](https://webstatus.dev/features/label) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
+
+```html
+<label class="text-field">
+  <span class="label">Price</span>
+  <span class="field">
+    <input />
+  </span>
+</label>
+```
+
+```css
+.text-field {
+  --accent: var(--primary);
+  --border: var(--field-border-color);
+  --helper: var(--field-helper-color);
+
+
+  display: grid;
+}
+
+
+.label {
+  font-size: var(--font-size-05);
+  font-weight: 600;
+  margin-block-end: 0.25rem;
+}
+
+
+.field {
+  background-color: var(--surface-default);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2);
+  display: grid;
+  min-block-size: var(--field-size);
+}
+
+
+.field input {
+  background: transparent;
+  border: 0;
+  color: var(--text-primary);
+  font: inherit;
+  min-inline-size: 0;
+  outline: 0;
+  padding: 0.5rem;
+}
+
+
+.text-field:focus-within .field {
+  border-color: var(--accent);
+}
+
+
+.end-text {
+  color: var(--helper);
+  font-size: var(--font-size-0);
+  margin-block-start: 0.25rem;
+}
+```
+
+Step 2 of 4: Affixes
+
+- [Grid](https://webstatus.dev/features/grid) (Widely available): Chrome 57+, Edge 16+, Firefox 52+, Safari 10.1+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+
+```html
+<span class="field">
+  <input />
+  <span class="prefix">€</span>
+  <span class="suffix">per month</span>
+</span>
+```
+
+```css
+.field {
+  grid-template-areas: "prefix input suffix";
+  grid-template-columns: auto 1fr auto;
+}
+
+
+.field input {
+  grid-area: input;
+}
+
+
+.prefix,
+.suffix {
+  align-items: center;
+  color: var(--text-muted);
+  display: inline-flex;
+  padding-inline: 0.5rem;
+}
+
+
+.prefix {
+  grid-area: prefix;
+}
+
+
+.suffix {
+  grid-area: suffix;
+}
+
+
+.field:has(> .prefix) input {
+  padding-inline-start: 0;
+}
+
+
+.field:has(> .suffix) input {
+  padding-inline-end: 0;
+}
+```
+
+Step 3 of 4: Required
+
+```css
+.text-field:has(:required) .label::after {
+  color: var(--field-required-color);
+  content: "*";
+  margin-inline-start: 0.25em;
+}
+```
+
+Step 4 of 4: Validation
+
+- [`:user-valid and :user-invalid`](https://webstatus.dev/features/user-pseudos) (Widely available): Chrome 119+, Edge 119+, Firefox 88+, Safari 16.5+
+
+```css
+.text-field:is([data-invalid], :has(:user-invalid)) {
+  --accent: var(--invalid-color);
+  --border: var(--invalid-color);
+  --helper: var(--invalid-text-color);
+}
+```
 
 ## Browser support
 

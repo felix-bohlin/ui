@@ -285,6 +285,116 @@ import { Badge } from "opui-css/astro"
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
+## Under the hood
+
+1. Indicator
+
+   - `min-inline-size` equals `block-size`: a circle for one digit, a pill for more
+   - `max-content` keeps `99+` on one line
+
+2. Corner
+
+   - Insets of `100%` park the indicator just outside the top end corner
+   - `translate` pulls its center back onto the corner
+   - Built on Anchor, but plain insets: works without `position-area`
+
+3. Direction
+
+   - Logical insets flip in right-to-left, `translate` doesn't
+   - `:dir(rtl)` sets `--dir: -1` and the offset follows
+   - Offsets live in custom properties, so alignments only swap values
+
+4. Dot
+
+   - Same indicator, emptied and shrunk
+   - New `--tx` and `--ty` tuck it inside the corner, no new positioning rules
+
+Step 1 of 4: Indicator
+
+```html
+<span class="badge">
+  <svg>…</svg>
+  <span class="indicator">5</span>
+</span>
+```
+
+```css
+.indicator {
+  background-color: var(--primary);
+  block-size: var(--size);
+  border-radius: var(--radius-round);
+  color: var(--primary-contrast);
+  display: grid;
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-medium);
+  inline-size: max-content;
+  min-inline-size: var(--size);
+  padding-inline: 0.25rem;
+  place-items: center;
+}
+```
+
+Step 2 of 4: Corner
+
+- [Individual transform properties](https://webstatus.dev/features/individual-transforms) (Widely available): Chrome 104+, Edge 104+, Firefox 72+, Safari 14.1+
+- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+
+```css
+.badge {
+  display: inline-flex;
+  position: relative;
+  vertical-align: middle;
+}
+
+
+.indicator {
+  inset-block: auto 100%;
+  inset-inline: 100% auto;
+  position: absolute;
+  translate: -50% 50%;
+}
+```
+
+Step 3 of 4: Direction
+
+- [`:dir()`](https://webstatus.dev/features/dir-pseudo) (Widely available): Chrome 120+, Edge 120+, Firefox 49+, Safari 16.4+
+
+```css
+.badge {
+  --dir: 1;
+  --tx: -50%;
+  --ty: 50%;
+}
+
+
+.badge:dir(rtl) {
+  --dir: -1;
+}
+
+
+.indicator {
+  translate: calc(var(--tx) * var(--dir)) var(--ty);
+}
+```
+
+Step 4 of 4: Dot
+
+```css
+.badge.dot {
+  --dot: 0.5rem;
+  --tx: calc((var(--dot) - 2px) * -1);
+  --ty: var(--dot);
+}
+
+
+.badge.dot .indicator {
+  block-size: var(--dot);
+  inline-size: var(--dot);
+  min-inline-size: var(--dot);
+  padding: 0;
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v144.

@@ -526,6 +526,133 @@ Other attributes, such as `checked`, `disabled`, `name` and `required`, go to th
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
+## Under the hood
+
+1. Appearance
+
+   - `appearance: none` drops the native box, the input keeps focus, keyboard and form value
+   - `:checked` still matches: the fill is plain CSS
+
+2. Checkmark
+
+   - Without native appearance the input can take a `::after`
+   - The check is a `clip-path: polygon()` over a solid fill, no SVG
+   - Points in percentages, so it scales with the box
+
+3. Indeterminate
+
+   - Same pseudo-element, a different polygon: a dash
+   - `indeterminate` is a JavaScript-only property, there is no attribute
+   - The component renders `data-indeterminate` and sets the property on load
+
+4. Label
+
+   - The `<label>` wraps the input, so the text is part of the hit area
+   - `:has(:disabled)` dims the whole row from the input's state
+   - `text-box: trim-start cap` + a `1cap` offset centers the capitals on the box
+   - Drag the size: the text stays centered
+
+Step 1 of 4: Appearance
+
+- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+
+```css
+.checkbox {
+  appearance: none;
+  aspect-ratio: 1;
+  background-color: var(--surface-default);
+  block-size: var(--size);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-1);
+  box-sizing: border-box;
+  display: grid;
+  inline-size: var(--size);
+  margin: 0;
+  position: relative;
+}
+
+
+.checkbox:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+```
+
+Step 2 of 4: Checkmark
+
+- [`clip-path`](https://webstatus.dev/features/clip-path) (Widely available): Chrome 88+, Edge 88+, Firefox 71+, Safari 13.1+
+
+```css
+.checkbox::after {
+  background-color: var(--primary-contrast);
+  clip-path: polygon(15% 52%, 40% 77%, 85% 32%, 75% 22%, 40% 57%, 25% 42%);
+  content: "";
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+}
+
+
+.checkbox:checked::after {
+  opacity: 1;
+}
+```
+
+Step 3 of 4: Indeterminate
+
+- [`:indeterminate`](https://webstatus.dev/features/indeterminate) (Widely available): Chrome 39+, Edge 79+, Firefox 51+, Safari 10+
+
+```html
+<input class="checkbox" type="checkbox" data-indeterminate />
+
+
+<script>
+  for (const input of document.querySelectorAll("[data-indeterminate]")) {
+    input.indeterminate = true
+  }
+</script>
+```
+
+```css
+.checkbox:indeterminate {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+
+.checkbox:indeterminate::after {
+  clip-path: polygon(20% 45%, 80% 45%, 80% 55%, 20% 55%);
+  opacity: 1;
+}
+```
+
+Step 4 of 4: Label
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`text-box`](https://webstatus.dev/features/text-box) (Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari 18.2+
+
+```css
+.label {
+  align-items: start;
+  cursor: pointer;
+  display: inline-grid;
+  gap: 0 0.5rem;
+  grid-auto-flow: column;
+}
+
+
+.label:has(:disabled) {
+  cursor: not-allowed;
+  opacity: var(--disabled-opacity);
+}
+
+
+.label > span {
+  margin-block-start: calc((var(--size) - 1cap) / 2);
+  text-box: trim-start cap alphabetic;
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v133.

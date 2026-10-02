@@ -300,6 +300,100 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
 
+## Under the hood
+
+1. Appearance
+
+   - `appearance: none` drops the native circle
+   - Still a radio group: one shared `name`, arrow keys move the selection
+
+2. Dot
+
+   - `::after` is the dot, centered by the input's own grid
+   - Sized in percent of the box, so it follows every size
+
+3. Label
+
+   - The `<label>` wraps the input, so the text is part of the hit area
+   - `:has(:disabled)` dims the whole row from the input's state
+   - `text-box: trim-start cap` + a `1cap` offset centers the capitals on the circle
+
+Step 1 of 3: Appearance
+
+- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+
+```css
+.radio {
+  appearance: none;
+  aspect-ratio: 1;
+  background-color: var(--surface-default);
+  block-size: 1.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  box-sizing: border-box;
+  inline-size: 1.25rem;
+  margin: 0;
+}
+
+
+.radio:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+```
+
+Step 2 of 3: Dot
+
+```css
+.radio {
+  display: grid;
+  place-items: center;
+}
+
+
+.radio::after {
+  background-color: var(--primary-contrast);
+  block-size: var(--dot);
+  border-radius: 50%;
+  content: "";
+  inline-size: var(--dot);
+  margin: auto;
+  opacity: 0;
+}
+
+
+.radio:checked::after {
+  opacity: 1;
+}
+```
+
+Step 3 of 3: Label
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`text-box`](https://webstatus.dev/features/text-box) (Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari 18.2+
+
+```css
+.label {
+  align-items: start;
+  cursor: pointer;
+  display: inline-grid;
+  gap: 0 0.5rem;
+  grid-auto-flow: column;
+}
+
+
+.label:has(:disabled) {
+  cursor: not-allowed;
+  opacity: var(--disabled-opacity);
+}
+
+
+.label > span {
+  margin-block-start: calc((1.25rem - 1cap) / 2);
+  text-box: trim-start cap alphabetic;
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v133.

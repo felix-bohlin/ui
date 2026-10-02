@@ -693,6 +693,175 @@ The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` wit
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
+## Under the hood
+
+1. Base select
+
+   - `appearance: base-select` on the select and its picker opts in to the stylable version
+   - The `<button>` is the trigger, `<selectedcontent>` mirrors the chosen option
+   - Browsers without support ignore the button and render a native select
+
+2. Arrow
+
+   - `::picker-icon` is the arrow, redrawn here as a border triangle
+   - `:open` matches while the picker is showing, so the arrow flips
+
+3. Picker
+
+   - `::picker(select)` is the dropdown, a popover anchored to the select
+   - Options are ordinary boxes now: padding, `:hover`, `:checked`
+   - `::checkmark` hidden, the checked background marks the choice
+   - Open the select
+
+4. Animate
+
+   - `@starting-style` gives the entry transition a starting point
+   - `allow-discrete` keeps `display` and `overlay` alive during the exit
+   - `:not(:open)` is the exit state
+
+Step 1 of 4: Base select
+
+- [Customizable \<select>](https://webstatus.dev/features/customizable-select) (Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari not supported
+
+```html
+<select class="select">
+  <button>
+    <selectedcontent></selectedcontent>
+  </button>
+  <div class="list">
+    <option value="apple">Apple</option>
+    …
+  </div>
+</select>
+```
+
+```css
+.select,
+.select::picker(select) {
+  appearance: base-select;
+}
+
+
+.select {
+  background-color: var(--surface-default);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2);
+  inline-size: 100%;
+  padding: 0;
+}
+
+
+.select > button {
+  align-items: center;
+  display: flex;
+  padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+}
+
+
+selectedcontent {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+```
+
+Step 2 of 4: Arrow
+
+- [`:open`](https://webstatus.dev/features/open-pseudo) (Newly available): Chrome 133+, Edge 133+, Firefox 136+, Safari 26.5+
+
+```css
+.select {
+  position: relative;
+}
+
+
+.select::picker-icon {
+  block-size: 0;
+  border-block-start: 5px solid;
+  border-inline: 5px solid transparent;
+  content: "";
+  inline-size: 0;
+  inset-block: 50% auto;
+  inset-inline: auto 0.75rem;
+  position: absolute;
+  translate: 0 -50%;
+}
+
+
+.select:open::picker-icon {
+  rotate: 180deg;
+}
+```
+
+Step 3 of 4: Picker
+
+- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+
+```css
+.select::picker(select) {
+  border: 0;
+  box-shadow: var(--shadow-2);
+  padding: 0;
+}
+
+
+.list {
+  background-color: var(--surface-filled);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2);
+  padding: 0.5rem 0;
+}
+
+
+.list > option {
+  padding: 0.5rem 0.75rem;
+}
+
+
+.list > option:hover {
+  background-color: oklch(from var(--primary) l c h / 15%);
+}
+
+
+.list > option:checked {
+  background-color: oklch(from var(--primary) l c h / 30%);
+}
+
+
+.list > option::checkmark {
+  display: none;
+}
+```
+
+Step 4 of 4: Animate
+
+- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
+- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+
+```css
+.select::picker(select) {
+  opacity: 1;
+  scale: 1;
+  transition:
+    display 0.2s allow-discrete,
+    opacity 0.2s,
+    overlay 0.2s allow-discrete,
+    scale 0.2s;
+
+
+  @starting-style {
+    opacity: 0;
+    scale: 0.9;
+  }
+}
+
+
+.select:not(:open)::picker(select) {
+  opacity: 0;
+  scale: 0.9;
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v135.

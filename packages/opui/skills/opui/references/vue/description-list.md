@@ -125,6 +125,134 @@ import {
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
+## Under the hood
+
+1. Stacked
+
+   - A `<div>` around each `<dt>` and `<dd>` pair is valid HTML
+   - One box per pair: easy to lay out, easy to space
+   - Stacked by default, so it works in any width
+
+2. Container query
+
+   - The list measures itself, not the viewport
+   - Wider than `45ch`: term and description share a row
+   - Drag **Width** below the breakpoint and it stacks again
+
+3. Leader line
+
+   - `::after` is a grid item too
+   - `order` slots it between term and description
+   - The `1fr` middle column stretches the line to fill the gap
+
+4. Dotted
+
+   - The variant only sets two custom properties
+   - The leader line rule stays the same
+
+Step 1 of 4: Stacked
+
+```html
+<dl class="dl">
+  <div class="item">
+    <dt>Price</dt>
+    <dd>6 950 000</dd>
+  </div>
+  …
+</dl>
+```
+
+```css
+.dl {
+  display: grid;
+  margin: 0;
+}
+
+
+.item {
+  display: grid;
+}
+
+
+.item + .item {
+  margin-block-start: 0.75rem;
+}
+
+
+.item dt {
+  font-weight: 700;
+}
+
+
+.item dd {
+  margin: 0;
+}
+```
+
+Step 2 of 4: Container query
+
+- [Container queries](https://webstatus.dev/features/container-queries) (Widely available): Chrome 105+, Edge 105+, Firefox 110+, Safari 16+
+
+```css
+.dl {
+  container-type: inline-size;
+}
+
+
+@container (width > 45ch) {
+  .item {
+    align-items: baseline;
+    gap: 0.25rem;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+  }
+
+
+  .item + .item {
+    margin-block-start: 0.25rem;
+  }
+
+
+  .item dd {
+    color: var(--text-muted);
+    text-align: end;
+  }
+}
+```
+
+Step 3 of 4: Leader line
+
+```css
+@container (width > 45ch) {
+  .bordered > .item {
+    grid-template-columns: auto 1fr auto;
+  }
+
+
+  .bordered > .item::after {
+    block-size: 2px;
+    border-block-end: var(--line-width, 1px) var(--line-style, solid)
+      var(--border-color);
+    content: "";
+    order: 1;
+  }
+
+
+  .bordered > .item dd {
+    order: 2;
+  }
+}
+```
+
+Step 4 of 4: Dotted
+
+```css
+.dotted {
+  --line-style: dotted;
+  --line-width: 2px;
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v105.

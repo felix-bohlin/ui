@@ -354,6 +354,120 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Attributes that aren't props, such as `placeholder` or `rows`, go to the `<textarea>`.
 
+## Under the hood
+
+1. Field
+
+   - Same wrapper and field box as the text field
+   - `rows` fixes the height, the content scrolls
+
+2. Grow
+
+   - `field-sizing: content` sizes the box to its text
+   - Type a few lines: it grows, delete them: it shrinks
+   - No resize observer, no JavaScript
+
+3. Limits
+
+   - `lh` is one line of the textarea's own text
+   - At least three lines plus padding, so an empty field still looks like a textarea
+   - `--max-block-size` overrides the 20 line cap, then it scrolls
+
+4. Auto-fit
+
+   - Without a fixed width, `field-sizing` grows sideways too
+   - `min-inline-size: 25ch` keeps short text from collapsing the box
+   - `resize: both` once the width is free
+
+Step 1 of 4: Field
+
+- [\<textarea>](https://webstatus.dev/features/textarea) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
+
+```html
+<label class="textarea">
+  <span class="label">Notes</span>
+  <span class="field">
+    <textarea rows="2">…</textarea>
+  </span>
+</label>
+```
+
+```css
+.textarea {
+  display: grid;
+}
+
+
+.label {
+  font-size: var(--font-size-05);
+  font-weight: 600;
+  margin-block-end: 0.25rem;
+}
+
+
+.field {
+  background-color: var(--surface-default);
+  border: 1px solid var(--field-border-color);
+  border-radius: var(--radius-2);
+  display: grid;
+}
+
+
+.field textarea {
+  background: transparent;
+  border: 0;
+  color: var(--text-primary);
+  font: inherit;
+  inline-size: 100%;
+  line-height: 1.5;
+  outline: 0;
+  padding: 0.5rem;
+}
+
+
+.textarea:focus-within .field {
+  border-color: var(--primary);
+}
+```
+
+Step 2 of 4: Grow
+
+- [`field-sizing`](https://webstatus.dev/features/field-sizing) (Newly available): Chrome 123+, Edge 123+, Firefox 152+, Safari 26.2+
+
+```css
+.field textarea {
+  block-size: auto;
+  field-sizing: content;
+}
+```
+
+Step 3 of 4: Limits
+
+- [lh unit](https://webstatus.dev/features/lh) (Widely available): Chrome 109+, Edge 109+, Firefox 120+, Safari 16.4+
+
+```css
+.field textarea {
+  max-block-size: var(--max-block-size, 20lh);
+  min-block-size: calc(0.5rem * 2 + 3lh);
+  resize: vertical;
+}
+```
+
+Step 4 of 4: Auto-fit
+
+```css
+.auto-fit {
+  inline-size: fit-content;
+}
+
+
+.auto-fit textarea {
+  inline-size: auto;
+  min-inline-size: 25ch;
+  resize: both;
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v125.

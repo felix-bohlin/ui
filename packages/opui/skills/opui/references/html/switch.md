@@ -727,6 +727,183 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
 
+## Under the hood
+
+1. Track
+
+   - A checkbox with `role="switch"`: announced as on/off, same form value
+   - `appearance: none` frees both pseudo-elements, `::before` is the track
+   - `light-dark()` picks the colors per color scheme
+
+2. Dot
+
+   - `::after` is the dot
+   - `:checked` moves it to the end: track − dot − gap
+   - Logical insets, so it slides the other way in RTL
+
+3. Motion
+
+   - An `outline` in the dot's own color grows it without touching its box
+   - Press and hold: `:active` grows it a little more
+   - `transition: all` animates position, color and outline together
+
+4. Icons
+
+   - Icons and input share one grid cell, stacked on the track
+   - `:has(:checked)` on the label swaps which icon shows
+   - Each icon sits on the side the dot is not
+   - `pointer-events: none` lets clicks through to the input
+
+Step 1 of 4: Track
+
+- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+
+```html
+<label class="label">
+  <input class="switch" type="checkbox" role="switch" />
+  <span>Wi-Fi</span>
+</label>
+```
+
+```css
+.switch {
+  --dot-color: light-dark(var(--gray-11), var(--gray-14));
+
+
+  appearance: none;
+  block-size: 1.5rem;
+  cursor: pointer;
+  inline-size: var(--track-width);
+  margin: 0;
+  position: relative;
+}
+
+
+.switch::before {
+  background-color: light-dark(var(--gray-3), var(--gray-8));
+  border: 1px solid var(--dot-color);
+  border-radius: 1e5px;
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+```
+
+Step 2 of 4: Dot
+
+- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+
+```css
+.switch::after {
+  background-color: var(--dot-color);
+  block-size: 1rem;
+  border-radius: 50%;
+  content: "";
+  inline-size: 1rem;
+  inset-block-start: 0.25rem;
+  inset-inline-start: 0.25rem;
+  position: absolute;
+}
+
+
+.switch:checked::before {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+
+.switch:checked::after {
+  --dot-color: var(--primary-contrast);
+
+
+  inset-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
+}
+```
+
+Step 3 of 4: Motion
+
+```css
+.switch::before {
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+
+.switch::after {
+  --ring: 0px;
+
+
+  outline: var(--ring) solid var(--dot-color);
+  outline-offset: -1px;
+  transition: all 0.2s var(--ease);
+}
+
+
+.switch:checked::after {
+  --ring: 3px;
+}
+
+
+.switch:active::after {
+  --ring: 5px;
+}
+```
+
+Step 4 of 4: Icons
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+
+```html
+<label class="label">
+  <span class="icon icon-unchecked" aria-hidden="true"><svg>…</svg></span>
+  <span class="icon icon-checked" aria-hidden="true"><svg>…</svg></span>
+  <input class="switch" type="checkbox" role="switch" aria-label="Light theme" />
+</label>
+```
+
+```css
+.label:has(.icon) {
+  .icon {
+    grid-column: 1;
+    grid-row: 1;
+    margin-block-start: 0.25rem;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+
+  .icon-checked {
+    display: none;
+    margin-inline-start: 0.25rem;
+  }
+
+
+  .icon-unchecked {
+    margin-inline-start: calc(var(--track-width) - 1rem - 0.25rem);
+  }
+
+
+  .switch {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+
+  &:has(:checked) {
+    .icon-checked {
+      display: block;
+    }
+
+
+    .icon-unchecked {
+      display: none;
+    }
+  }
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v133.

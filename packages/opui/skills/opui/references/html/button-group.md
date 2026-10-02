@@ -581,6 +581,89 @@ The root needs `role="group"`.
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
+## Under the hood
+
+1. Join
+
+   - Buttons drop their own radius, `overflow: hidden` on the group rounds the outer corners
+   - `flex: auto` stretches the buttons to fill a wrapped row
+   - `role="group"` tells assistive tech the buttons belong together
+
+2. Dividers
+
+   - Each button draws a line along its start and top edge
+   - The group clips the lines on the outer edges, so only the gaps between buttons show one
+   - Drag **Width**: wrapped rows get a divider on top for free
+   - Relative color: one shade darker in light mode, lighter in dark
+
+3. Outline
+
+   - `outline` takes no space and `overflow` can't clip it
+   - `outline-offset: -1px` pulls it in on top of the buttons' outer edge
+   - The dividers switch to the same color, nothing else changes
+
+Step 1 of 3: Join
+
+```html
+<div class="group" role="group">
+  <button>Day</button>
+  <button>Week</button>
+  …
+</div>
+```
+
+```css
+.group {
+  border-radius: var(--radius-2);
+  display: inline-flex;
+  flex-wrap: wrap;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  overflow: hidden;
+}
+
+
+.group > button {
+  border-radius: 0;
+  flex: auto;
+}
+```
+
+Step 2 of 3: Dividers
+
+- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+
+```css
+.group > button {
+  --divider: light-dark(
+    oklch(from var(--surface-tonal) calc(l - 0.1) c h),
+    oklch(from var(--surface-tonal) calc(l + 0.1) c h)
+  );
+  box-shadow:
+    -1px 0 0 0 var(--divider),
+    0 -1px 0 0 var(--divider);
+}
+```
+
+Step 3 of 3: Outline
+
+```html
+<div class="group outlined" role="group">…</div>
+```
+
+```css
+.group.outlined {
+  outline: 1px solid var(--border-color);
+  outline-offset: -1px;
+}
+
+
+.group.outlined > button {
+  --divider: var(--border-color);
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v125.

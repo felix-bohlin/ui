@@ -382,6 +382,136 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
+## Under the hood
+
+1. Label
+
+   - A `<label>` wrapping a checkbox: click, keyboard and form value for free
+   - The checkbox holds the state, no `aria-pressed` to keep in sync
+
+2. Pressed
+
+   - `:has(input:checked)`: the label styles itself from the checkbox state
+   - Relative color turns `--primary` into a 25% tint
+   - `light-dark()` picks the hover tint per color scheme
+
+3. Hide input
+
+   - Visually hidden, still focusable and announced
+   - `:has(input:focus-visible)` draws an inset focus ring on the label
+   - `Tab` to a toggle and press `Space`
+
+4. Group
+
+   - Radios with a shared `name`: single select, no JavaScript
+   - Checkboxes for multi-select, with `role="group"`
+   - Each toggle draws a divider on its start and top edge, the group clips the outer ones
+
+Step 1 of 4: Label
+
+```html
+<label class="toggle">
+  <input type="checkbox" />
+  Bold
+</label>
+```
+
+```css
+.toggle {
+  align-items: center;
+  block-size: var(--field-size);
+  border: 1px solid var(--border-color);
+  border-radius: var(--button-border-radius);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: inline-flex;
+  gap: var(--size-2);
+  justify-content: center;
+  min-inline-size: var(--field-size);
+  padding: 0 var(--size-2);
+  position: relative;
+  user-select: none;
+}
+```
+
+Step 2 of 4: Pressed
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+
+```css
+.toggle {
+  --bg: transparent;
+  background-color: var(--bg);
+}
+
+
+.toggle:hover {
+  --bg: light-dark(oklch(0% 0 0 / 0.04), oklch(100% 0 0 / 0.08));
+}
+
+
+.toggle:has(input:checked) {
+  --bg: oklch(from var(--primary) l c h / 25%);
+}
+```
+
+Step 3 of 4: Hide input
+
+- [`:focus-visible`](https://webstatus.dev/features/focus-visible) (Widely available): Chrome 86+, Edge 86+, Firefox 85+, Safari 15.4+
+
+```css
+.toggle input {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+
+.toggle:has(input:focus-visible) {
+  outline: 2px solid var(--text-muted);
+  outline-offset: -6px;
+}
+```
+
+Step 4 of 4: Group
+
+```html
+<div class="toggle-group" role="radiogroup">
+  <label class="toggle">
+    <input type="radio" name="view" checked />
+    Day
+  </label>
+  …
+</div>
+```
+
+```css
+.toggle-group {
+  background-color: var(--surface-default);
+  border-radius: var(--button-border-radius);
+  display: inline-flex;
+  flex-wrap: wrap;
+  outline: 1px solid var(--border-color);
+  outline-offset: -1px;
+  overflow: hidden;
+}
+
+
+.toggle-group .toggle {
+  border: 0;
+  border-radius: 0;
+  box-shadow:
+    -1px 0 0 0 var(--border-color),
+    0 -1px 0 0 var(--border-color);
+  flex: auto;
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v125.

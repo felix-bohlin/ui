@@ -97,6 +97,119 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Other attributes, such as `id`, `aria-label` and `aria-busy`, go to the `<progress>`.
 
+## Under the hood
+
+1. Native
+
+   - `<progress>`: role, value and an indeterminate state for free
+   - No `value` means indeterminate
+   - Every browser draws it differently
+
+2. Track
+
+   - `appearance: none` drops the native look
+   - The wrapper draws the track, so it can round and clip
+   - The bar is left with the browser's default fill
+
+3. Value
+
+   - Chromium and Safari: `::-webkit-progress-value`, Firefox: `::-moz-progress-bar`
+   - Separate rules: one unknown pseudo-element would drop a whole selector list
+   - Value changes transition `inline-size`
+
+4. Indeterminate
+
+   - `:has(> progress:indeterminate)` lets the wrapper react to the missing `value`
+   - Its `::after` slides across by animating `inset-inline-start` and `inset-inline-end`
+   - Logical insets flip the direction in right-to-left
+   - `--motion` is `0` under reduced motion
+
+Step 1 of 4: Native
+
+- [\<progress>](https://webstatus.dev/features/progress) (Widely available): Chrome 6+, Edge 12+, Firefox 6+, Safari 6+
+
+```html
+<div class="progress">
+  <progress max="100" value="60"></progress>
+</div>
+
+
+<div class="progress">
+  <progress></progress>
+</div>
+```
+
+Step 2 of 4: Track
+
+- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+
+```css
+.progress {
+  background-color: var(--surface-tonal);
+  block-size: 0.25rem;
+  border-radius: var(--radius-2);
+  display: inline-block;
+  inline-size: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+
+.progress > progress {
+  appearance: none;
+  background: none;
+  block-size: 100%;
+  border: 0;
+  display: block;
+  inline-size: 100%;
+}
+
+
+.progress > progress::-webkit-progress-bar {
+  background: none;
+}
+```
+
+Step 3 of 4: Value
+
+```css
+.progress > progress[value]::-webkit-progress-value {
+  background-color: var(--primary);
+  transition: inline-size 0.2s ease-out;
+}
+
+
+.progress > progress::-moz-progress-bar {
+  background-color: var(--primary);
+}
+```
+
+Step 4 of 4: Indeterminate
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:indeterminate`](https://webstatus.dev/features/indeterminate) (Widely available): Chrome 39+, Edge 79+, Firefox 51+, Safari 10+
+- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+
+```css
+.progress:has(> progress:indeterminate)::after {
+  animation: build-progress-slide calc(2s * var(--motion, 1)) linear infinite;
+  background-color: var(--primary);
+  content: "";
+  inset-block: 0;
+  position: absolute;
+}
+
+
+.progress > progress:indeterminate::-webkit-progress-value {
+  background-color: transparent;
+}
+
+
+.progress > progress:indeterminate::-moz-progress-bar {
+  background-color: transparent;
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v105.

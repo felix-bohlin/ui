@@ -6,6 +6,7 @@ A popover [List](https://open-props-ui.netlify.app/astro/components/list.md), an
 
 - New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.
 - [Submenus](#submenu) with the `submenu` slot on `ListItem`.
+- A subtle light gray border in dark mode, so menus stand out on dialogs and other raised surfaces.
 
 ## Basics
 

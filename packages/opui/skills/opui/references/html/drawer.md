@@ -397,6 +397,186 @@ Add `autofocus` to the root, or to an element inside, to choose what gets focus 
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
+## Under the hood
+
+1. Modal
+
+   - A drawer is a modal `<dialog>`: top layer, focus trap and `Esc` for free
+   - `closedby="any"` closes it on a click outside
+   - `:not([open])` brings back the `display: none` that `display: flex` overrode
+
+2. Edge
+
+   - `margin: 0` undoes the centering, `inset` pins it to an edge
+   - Logical properties: `inline-start` is the left in LTR and the right in RTL
+   - `dvb` and `dvi` follow the mobile browser toolbar
+
+3. Slide
+
+   - Closed, it waits just past its edge
+   - `@starting-style` slides it in from there
+   - `allow-discrete` keeps `display` and `overlay` alive until it has slid out
+   - `--dir` flips to `-1` under `:dir(rtl)`
+
+4. Backdrop
+
+   - `::backdrop` gets its own transition, in step with the drawer
+   - `backdrop-filter` blurs the page behind it
+
+Step 1 of 4: Modal
+
+- [\<dialog>](https://webstatus.dev/features/dialog) (Widely available): Chrome 37+, Edge 79+, Firefox 98+, Safari 15.4+
+- [\<dialog closedby>](https://webstatus.dev/features/dialog-closedby) (Limited availability): Chrome 134+, Edge 134+, Firefox 141+, Safari not supported
+- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+
+```html
+<button commandfor="drawer" command="show-modal">Start</button>
+
+
+<dialog class="drawer inline-start" id="drawer" closedby="any">
+  <div class="header">…</div>
+  <div class="content">…</div>
+  <div class="footer">…</div>
+</dialog>
+```
+
+```css
+.drawer {
+  background-color: var(--surface-default);
+  border: none;
+  box-shadow: var(--shadow-2);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+
+.drawer:not([open]) {
+  display: none;
+}
+
+
+.drawer > .content {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+```
+
+Step 2 of 4: Edge
+
+- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [Small, large, and dynamic viewport units](https://webstatus.dev/features/viewport-unit-variants) (Widely available): Chrome 108+, Edge 108+, Firefox 101+, Safari 15.4+
+
+```css
+.drawer {
+  margin: 0;
+  max-inline-size: 100%;
+  position: fixed;
+}
+
+
+.drawer.inline-start {
+  block-size: 100dvb;
+  border-inline-end: 1px solid var(--border-color);
+  inline-size: min(375px, 100vi);
+  inset-block: 0;
+  inset-inline: 0 auto;
+  max-block-size: 100%;
+}
+
+
+.drawer.block-end {
+  block-size: min(80vb, 650px);
+  border-block-start: 1px solid var(--border-color);
+  inline-size: 100dvi;
+  inset-block: auto 0;
+  inset-inline: 0;
+  max-block-size: 80dvb;
+}
+```
+
+Step 3 of 4: Slide
+
+- [`:dir()`](https://webstatus.dev/features/dir-pseudo) (Widely available): Chrome 120+, Edge 120+, Firefox 49+, Safari 16.4+
+- [`overlay`](https://webstatus.dev/features/overlay) (Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari not supported
+- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
+- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+
+```css
+.drawer {
+  --dir: 1;
+  transition:
+    display 0.2s allow-discrete,
+    overlay 0.2s allow-discrete,
+    translate 0.2s;
+}
+
+
+.drawer:dir(rtl) {
+  --dir: -1;
+}
+
+
+.drawer.inline-start {
+  translate: calc(-100% * var(--dir)) 0;
+}
+
+
+.drawer.block-end {
+  translate: 0 100%;
+}
+
+
+.drawer[open] {
+  translate: 0 0;
+
+
+  @starting-style {
+    &.inline-start {
+      translate: calc(-100% * var(--dir)) 0;
+    }
+
+
+    &.block-end {
+      translate: 0 100%;
+    }
+  }
+}
+```
+
+Step 4 of 4: Backdrop
+
+- [`::backdrop`](https://webstatus.dev/features/backdrop) (Widely available): Chrome 37+, Edge 79+, Firefox 47+, Safari 15.4+
+- [`backdrop-filter`](https://webstatus.dev/features/backdrop-filter) (Newly available): Chrome 76+, Edge 79+, Firefox 103+, Safari 18+
+
+```css
+.drawer::backdrop {
+  backdrop-filter: blur(var(--backdrop-blur));
+  background-color: var(--backdrop-color);
+  opacity: 0;
+  transition:
+    display 0.2s allow-discrete,
+    opacity 0.2s,
+    overlay 0.2s allow-discrete;
+}
+
+
+.drawer[open] {
+  &::backdrop {
+    opacity: 1;
+  }
+
+
+  @starting-style {
+    &::backdrop {
+      opacity: 0;
+    }
+  }
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v135.

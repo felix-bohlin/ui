@@ -68,11 +68,94 @@ See [progress accessibility](https://open-props-ui.netlify.app/astro/components/
 
 ## API
 
-| Prop        | Type                                                                                          | Default | Description                                                         |
-| ----------- | --------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------- |
-| `aria-busy` | `"true"`, `"false"`, `boolean`                                                                | -       | Set on any element to show a spinner. CSS-only; no Astro component. |
-| Sizes       | `font-size`                                                                                   | `1em`   | Spinner size follows the element's computed font size.              |
-| Excluded    | `<input>`, `<select>`, `<textarea>`, `<html>`, `<progress>`, elements with `aria-describedby` | -       | Elements that never receive a spinner.                              |
+| Type  | Modifiers   | Default | Description                                            |
+| ----- | ----------- | ------- | ------------------------------------------------------ |
+| Sizes | `font-size` | `1em`   | Spinner size follows the element's computed font size. |
+
+### Parts
+
+| Part                 | Description                                                            |
+| -------------------- | ---------------------------------------------------------------------- |
+| `[aria-busy="true"]` | Renders a spinner pseudo-element on the element. Always indeterminate. |
+
+Elements that never receive a spinner: `<input>`, `<select>`, `<textarea>`, `<html>`, `<progress>`, elements with `aria-describedby`.
+
+Set `aria-busy` on any element to show a spinner. CSS-only; no Astro component.
+
+## Under the hood
+
+1. Ring
+
+   - The state is the API: `aria-busy="true"`, no class
+   - `:not(…)` skips form fields, `<progress>` and sections described by a progress bar
+   - One transparent border side makes the gap in the ring
+   - `1em` sizes it from the font: drag **Font size**
+
+2. Spin
+
+   - `rotate(1turn)` in a `linear`, `infinite` loop
+   - Always indeterminate: nothing to track, nothing to update
+
+3. Gap
+
+   - `:not(:empty)`: only a spinner next to text gets a gap
+   - `0.5em` scales with the font, like the ring
+   - The library also skips `.ui-button`, which has its own `gap`
+
+Step 1 of 3: Ring
+
+- [`::before and ::after`](https://webstatus.dev/features/before-after) (Widely available): Chrome 1+, Edge 12+, Firefox 1.5+, Safari 4+
+- [`:not()`](https://webstatus.dev/features/not) (Widely available): Chrome 88+, Edge 88+, Firefox 84+, Safari 9+
+
+```html
+<p aria-busy="true">Loading results</p>
+```
+
+```css
+[aria-busy="true"]:not(
+  input,
+  select,
+  textarea,
+  html,
+  progress,
+  [aria-describedby]
+) {
+  &::before {
+    block-size: 1em;
+    border-color: transparent currentColor currentColor;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 3px;
+    content: "";
+    display: inline-block;
+    inline-size: 1em;
+    opacity: 0.5;
+    vertical-align: -0.14em;
+  }
+}
+```
+
+Step 2 of 3: Spin
+
+- [`Animations (CSS)`](https://webstatus.dev/features/animations-css) (Widely available): Chrome 43+, Edge 12+, Firefox 16+, Safari 9+
+- [2D transforms](https://webstatus.dev/features/transforms2d) (Widely available): Chrome 36+, Edge 12+, Firefox 16+, Safari 9+
+
+```css
+[aria-busy="true"]::before {
+  animation: build-spinner-spin 0.7s linear infinite;
+}
+```
+
+Step 3 of 3: Gap
+
+- [`:empty`](https://webstatus.dev/features/empty) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3.1+
+- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+
+```css
+[aria-busy="true"]:not(:empty)::before {
+  margin-inline-end: 0.5em;
+}
+```
 
 ## Installation
 

@@ -1,5 +1,10 @@
 # List
 
+### What's new
+
+- Breaking: `divided` is removed. Use [`bordered`](#on-every-item).
+- [Dense](#dense) rows keep the default inline padding, so they line up with card content.
+
 ## Anatomy
 
 - Headline
@@ -667,6 +672,129 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--text-primary`              | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                            |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+
+## Under the hood
+
+1. Row
+
+   - Start, text and end slots in one flex row
+   - `--gap` and `--start-size` drive the spacing and the icon column
+   - The button is padded too, so the padding doubles
+
+2. Clickable
+
+   - `:has(> a, > button)` moves the padding onto the button
+   - The whole row is the hit target
+   - Hover tint derived from `--primary`
+
+3. Inset
+
+   - An item without an icon lines up with the ones that have one
+   - Same two custom properties, so it follows the knobs
+
+4. Bordered
+
+   - `li + li`: a line between items, never above the first
+   - The line sits in the margin, outside the hover area
+
+Step 1 of 4: Row
+
+```html
+<ul class="list">
+  <li>
+    <button>
+      <span class="start"><svg>…</svg></span>
+      <span class="text">
+        <span>Inbox</span>
+        <span>3 unread</span>
+      </span>
+      <span class="end">⌘I</span>
+    </button>
+  </li>
+</ul>
+```
+
+```css
+.list {
+  background-color: var(--surface-default);
+  list-style: none;
+  padding: 0.5rem 0;
+}
+
+
+.list li,
+.list li > button {
+  align-items: center;
+  display: flex;
+  gap: var(--gap);
+  min-block-size: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  position: relative;
+}
+
+
+.start {
+  display: grid;
+  inline-size: var(--start-size);
+}
+
+
+.text {
+  display: grid;
+  flex: 1;
+}
+
+
+.text > * + * {
+  color: var(--text-muted);
+  font-size: var(--font-size-0);
+}
+```
+
+Step 2 of 4: Clickable
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+
+```css
+.list li:has(> a, > button) {
+  padding: 0;
+}
+
+
+.list li > button {
+  inline-size: 100%;
+}
+
+
+.list li > button:hover {
+  background-color: oklch(from var(--primary) l c h / 15%);
+}
+```
+
+Step 3 of 4: Inset
+
+```css
+.inset .text {
+  padding-inline-start: calc(var(--start-size) + var(--gap));
+}
+```
+
+Step 4 of 4: Bordered
+
+```css
+.bordered li + li {
+  margin-block-start: 0.75rem;
+}
+
+
+.bordered li + li::before {
+  border-block-start: 1px solid var(--border-color);
+  content: "";
+  inset: -0.5rem 0 auto 0;
+  position: absolute;
+}
+```
 
 ## Browser support
 

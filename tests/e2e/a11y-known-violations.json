@@ -29,15 +29,6 @@
   "dark/button/Colors": [
     "color-contrast"
   ],
-  "dark/checkbox/FieldGroupValidation": [
-    "color-contrast"
-  ],
-  "dark/checkbox/Spread": [
-    "color-contrast"
-  ],
-  "dark/checkbox/Validation": [
-    "color-contrast"
-  ],
   "dark/checkbox/VisibleLabel": [
     "color-contrast"
   ],
@@ -47,40 +38,76 @@
   "dark/list/StartAvatar": [
     "color-contrast"
   ],
-  "dark/radio/FieldGroupValidation": [
-    "color-contrast"
-  ],
-  "dark/range/Row": [
-    "color-contrast"
-  ],
-  "dark/range/Validation": [
-    "color-contrast"
-  ],
-  "dark/select/Orientation": [
-    "color-contrast"
-  ],
-  "dark/select/Validation": [
-    "color-contrast"
-  ],
   "dark/spinner/Sizes": [
+    "color-contrast"
+  ],
+  "dark/stress/data-display/DescriptionLists": [
+    "color-contrast"
+  ],
+  "dark/stress/data-display/InlineAlignment": [
+    "color-contrast"
+  ],
+  "dark/stress/data-display/ListContent": [
+    "color-contrast"
+  ],
+  "dark/stress/data-display/ListSurfaces": [
+    "color-contrast"
+  ],
+  "dark/stress/data-display/TableCellContent": [
+    "color-contrast"
+  ],
+  "dark/stress/data-display/Tooltips": [
     "color-contrast"
   ],
   "dark/stress/forms/KitchenSink": [
     "color-contrast"
   ],
-  "dark/stress/forms/States": [
-    "color-contrast"
-  ],
   "dark/stress/forms/Toolbar": [
     "color-contrast"
   ],
-  "dark/switch/FieldGroupValidation": [
+  "dark/stress/layout/Badges": [
     "color-contrast"
   ],
-  "dark/switch/Spread": [
+  "dark/stress/layout/Columns": [
     "color-contrast"
   ],
-  "dark/switch/Validation": [
+  "dark/stress/layout/DashboardHeader": [
+    "color-contrast"
+  ],
+  "dark/stress/layout/RightToLeft": [
+    "aria-allowed-role",
+    "aria-required-children",
+    "color-contrast"
+  ],
+  "dark/stress/layout/SettingsPage": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
+  "dark/stress/layout/SidebarLayout": [
+    "color-contrast"
+  ],
+  "dark/stress/typography/Bidi": [
+    "color-contrast"
+  ],
+  "dark/stress/typography/Columns": [
+    "color-contrast"
+  ],
+  "dark/stress/typography/ComponentsInProse": [
+    "color-contrast"
+  ],
+  "dark/stress/typography/EveryElement": [
+    "color-contrast"
+  ],
+  "dark/stress/typography/HeadingClasses": [
+    "color-contrast"
+  ],
+  "dark/stress/typography/HostileContent": [
+    "color-contrast"
+  ],
+  "dark/stress/typography/ProseInComponents": [
+    "color-contrast"
+  ],
+  "dark/stress/typography/VerticalRhythm": [
     "color-contrast"
   ],
   "dark/tabs/Basics": [
@@ -102,18 +129,6 @@
   "dark/tabs/Scrollable": [
     "aria-allowed-role",
     "aria-required-children"
-  ],
-  "dark/text-field/Orientation": [
-    "color-contrast"
-  ],
-  "dark/text-field/Validation": [
-    "color-contrast"
-  ],
-  "dark/textarea/Orientation": [
-    "color-contrast"
-  ],
-  "dark/textarea/Validation": [
-    "color-contrast"
   ],
   "dark/typography/Default": [
     "color-contrast"
@@ -172,7 +187,64 @@
   "light/spinner/Sizes": [
     "color-contrast"
   ],
+  "light/stress/data-display/DescriptionLists": [
+    "color-contrast"
+  ],
+  "light/stress/data-display/InlineAlignment": [
+    "color-contrast"
+  ],
+  "light/stress/data-display/ListContent": [
+    "color-contrast"
+  ],
+  "light/stress/data-display/ListSurfaces": [
+    "color-contrast"
+  ],
+  "light/stress/data-display/TableCellContent": [
+    "color-contrast"
+  ],
+  "light/stress/data-display/Tooltips": [
+    "color-contrast"
+  ],
   "light/stress/forms/Toolbar": [
+    "color-contrast"
+  ],
+  "light/stress/layout/Badges": [
+    "color-contrast"
+  ],
+  "light/stress/layout/Columns": [
+    "color-contrast"
+  ],
+  "light/stress/layout/DashboardHeader": [
+    "color-contrast"
+  ],
+  "light/stress/layout/RightToLeft": [
+    "aria-allowed-role",
+    "aria-required-children",
+    "color-contrast"
+  ],
+  "light/stress/layout/SettingsPage": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
+  "light/stress/layout/SidebarLayout": [
+    "color-contrast"
+  ],
+  "light/stress/typography/Bidi": [
+    "color-contrast"
+  ],
+  "light/stress/typography/Columns": [
+    "color-contrast"
+  ],
+  "light/stress/typography/ComponentsInProse": [
+    "color-contrast"
+  ],
+  "light/stress/typography/EveryElement": [
+    "color-contrast"
+  ],
+  "light/stress/typography/HostileContent": [
+    "color-contrast"
+  ],
+  "light/stress/typography/ProseInComponents": [
     "color-contrast"
   ],
   "light/tabs/Basics": [

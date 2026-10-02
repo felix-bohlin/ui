@@ -16,11 +16,11 @@
 - [x] Getting-started docs (HTML, Astro, Vue) import `opui-css/open-props.css`, which isn't in `exports`
 - [x] DrawerHeader's `@click` close fallback never runs in server-rendered Vue without hydration (only `commandfor` works there)
 - [x] Carousel: browsers with scroll buttons but no `if()` (Chrome 135-136) show both the glyph and the image icon
-- [?] Running pnpm scripts adds `@pnpm/exe` to `pnpm-lock.yaml`
+- [x] Running pnpm scripts adds `@pnpm/exe` to `pnpm-lock.yaml` (expected: pnpm 12 records the `packageManager` version and its per-platform binaries in the lockfile, so commit it)
 - [x] Icon button disabled text color never applies: `rgb(0, 0, 0/0.3)` mixes comma and slash syntax
 - [] `--primary-contrast` on `--primary` is 3.97:1 (AA needs 4.5:1): filled Tabs selected tab and primary filled Buttons. Axe misses the Tabs case because the fill is a pseudo-element
-- [] Invalid end text fails contrast in dark mode (`stress/forms` States and KitchenSink in the a11y ledger)
-- [] ButtonGroup and ToggleGroup overflow narrow containers instead of wrapping or shrinking (`stress/forms` LongContent)
+- [x] Invalid end text fails contrast in dark mode (`stress/forms` States and KitchenSink in the a11y ledger)
+- [] ButtonGroup and ToggleGroup overflow narrow containers instead of wrapping or shrinking (`stress/forms` LongContent). Proposal: wrap by default with the group drawing its outer edge, opt-in `.ui-scrollable` (like Tabs) and `.ui-shrink`
 
 ## Docs
 
@@ -34,7 +34,7 @@
 
 - [] Test Menu and Carousel in Firefox and Safari (only checked in Chromium)
 - [] Test anatomy heroes in Firefox, Safari and with Windows fonts
-- [] Nested `pnpm` calls (`pnpm check`) fail in the cloud container with "Exec format error", maybe related to `@pnpm/exe` in the lockfile
+- [x] Nested `pnpm` calls (`pnpm check`) fail in the cloud container with "Exec format error": pnpm's self-managed copy keeps its shebang-less placeholder when install scripts are blocked, and `shellEmulator` execs it directly. The session-start hook now relinks the native binary
 - [x] Merging main brings back IconButton docs from #395 (`icon-button/api.ts`, `icon-button.astro` with its hero): delete them, and add `rounded` and ripple to Button's `api.ts`
 - [x] Remove the orphaned `icon-button-*.png` visual baselines (the examples are gone)
 
@@ -56,9 +56,54 @@
 
 - [?] `svelte` peer dependency but no Svelte components: remove it, or keep it for planned Svelte support?
 - [?] Section comments I added in `carousel.css` and `menu.css` (e.g. `/* Buttons */`): keep or remove per the no-new-comments rule?
-- [?] X-small fields use 14px text, and iOS zooms in on inputs under 16px. Keep 14px, or 16px in 28px?
-- [?] `Switch` takes `small` while other components take `size`. Rename it in v6 like `TextField` and `Textarea`?
-- [?] Checkbox, Radio and Switch center on multi-line labels. Align them with the first line instead?
+- [x] X-small fields use 16px text
+- [x] `Switch` takes `size` like the other components
+- [x] Checkbox, Radio and Switch align with the first line of their label, centered on its capitals (`--choice-label-offset` to nudge)
 - [?] Spread field widths follow their content, so a Select is narrower than a TextField. Give spread fields one width?
-- [?] Chip sizes (32px, 24px) are off the control size scale. Move them onto it?
-- [?] Stress pages: which next (classless typography, cards and layout, overlays, data display), and Astro/Vue versions too?
+- [x] Chip sizes follow the control size scale (small 28px, default 32px, large 40px)
+- [x] Stress pages for typography, layout, overlays and data display (HTML only, they test the CSS)
+
+## Stress test findings
+
+Found by the stress pages in `src/stress-tests/`. Open the section named in brackets to see each one.
+
+- [] Rich text link styles apply to component links inside prose: `a.ui-button`, `a.ui-chip` and `a.ui-avatar` get underlined primary text (`typography` ComponentsInProse)
+- [] Rich text `p` overrides `.ui-p.ui-large`, `.ui-p.ui-small` and `.ui-caption` inside `.ui-rich-text` (`typography` HeadingClasses)
+- [] Rich text tables break short words letter by letter: `overflow-wrap: anywhere` lowers the min-content width (`typography` EveryElement)
+- [] `ol[start]` with 4-digit markers overflows: the wider gutter only applies at 100+ items (`typography` DeepLists)
+- [] Rich text headings, `pre` and `small` don't follow the inherited font size (`typography` InheritedSizes)
+- [] Callout `.ui-content` grid gap doubles rich text margins, and a classless `h3` in a callout is full size (`typography` ProseInComponents)
+- [] `.ui-list` styles nested classless lists as list rows (descendant `li` selector), and rich text `p` margins make list rows tall (`typography` ProseInComponents)
+- [] `span.ui-mark` has no background, and `.ui-del`/`.ui-ins` don't get the critical/success palette (`typography` HeadingClasses)
+- [] `pre` inside `dir="rtl"` runs code right to left (`typography` Bidi)
+- [] Rich text `kbd` overrides the `kbd` inside `.ui-button`, and a `.ui-checkbox` first in a classless `li` matches the task list rule (`typography` ComponentsInProse)
+- [] Card actions don't stick to the bottom of stretched cards, never wrap, and get clipped by the card's `overflow: hidden` (`layout` UnevenGrid)
+- [] Cards clip long unbroken words instead of wrapping them (`layout` UnevenGrid)
+- [] List rows can't shrink below their longest word: `li .ui-text` needs `min-inline-size: 0` (`layout` Columns)
+- [] Callout switches to the icon layout when any nested `svg` exists: `&:has(svg)` should be `&:has(> svg)` (`layout` Nesting)
+- [] Stretched callouts spread title and text apart (needs `align-content: start`), and the `::before` shows lighter corners inside the border (`layout` UnevenGrid, Nesting)
+- [] Dark mode: `--border-color`, `--surface-tonal` and `--surface-elevated` are the same gray, so borders vanish on tonal and elevated surfaces and tonal/elevated cards look the same (`layout` Surfaces, SidebarLayout)
+- [] Light mode: `--border-color` and `--surface-filled` are the same gray, so table header borders and filled bordered list dividers vanish (`data-display` TableStructure, ListSurfaces)
+- [] DescriptionList and Table container queries resolve against `body` (a size container in `normalize.css`), not their own column (`layout` DescriptionListContainer, `data-display` DescriptionLists, TableOverflow)
+- [] Dividers inside cards have very large margins (`--size-fluid-3`) (`layout` SidebarLayout)
+- [] Badge indicators on primary avatars blend in, badges don't mirror in RTL, and a badge on a direct card child is clipped (`layout` Badges, RightToLeft)
+- [] Carousel slides aren't equal height when they contain cards (`layout` CarouselOfCards)
+- [] Sticky table headers don't stick: `.ui-table { overflow: hidden }` should be `overflow: clip` (`data-display` TableStickyHeader)
+- [] `.ui-dense` tables are as tall as default ones (only inline padding changes) (`data-display` TableInlineEditing)
+- [] Label-less checkboxes, switches and progress bars sit off-center in table cells (`vertical-align: baseline`) (`data-display` TableCellContent)
+- [] Fields and selects collapse to a few characters in auto-layout tables (`data-display` TableInlineEditing)
+- [] Avatars shrink in flex rows (no `flex-shrink: 0`), and avatar group overflow counts like "+128" don't fit (`data-display` TableCellContent, InlineAlignment)
+- [] Chip labels wrap and overflow the fixed chip height without `.ui-multiline` (`data-display` TableCellContent)
+- [] Long description list terms squeeze values into one word per line, and unbroken values overflow (`data-display` DescriptionLists)
+- [] Dense list padding doesn't line up with card padding, and `.ui-inset` text offset assumes default gaps (`data-display` ListSurfaces)
+- [] Narrow-container table padding grows instead of shrinking (`data-display` TableOverflow)
+- [] Outlined and text critical buttons fail contrast in dark mode (2.56:1), like primary (`forms` KitchenSink)
+- [] Tooltips more than one viewport down the page never show: `position-visibility: anchors-visible` in `tooltip.css` (`overlays` LongContent, `tests/e2e/stress-overlays.spec.ts`)
+- [] A tooltip at the inline-end edge squeezes into a narrow column instead of flipping (no minimum width) (`overlays` EdgeTriggers)
+- [] A tall menu runs off the viewport when neither side has `60dvb` of space (`menu.css` `--_max-block-size`) (`overlays` LongContent)
+- [] Closed drawers are rendered off-screen and keyboard focusable: `dialog.ui-drawer` needs `display: none` when closed (`overlays` DrawerSides)
+- [] Toasts are inert or under the backdrop while a modal dialog is open (`overlays` ToastLayering)
+- [] Toasts have no maximum width, and a toast with an icon centers its text (`overlays` ToastLayering)
+- [] Drawer header can't hold two icon buttons: every icon-only button gets `margin-inline-start: auto` (`overlays` DrawerNesting)
+- [] Second-level submenus don't keep the flipped direction, and the submenu arrow doesn't mirror in RTL (`overlays` Submenus, Rtl)
+- [] Critical menu items fail contrast in dark mode (1.92:1), and a menu in a dialog blends into it (`overlays` DialogNesting)

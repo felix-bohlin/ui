@@ -54,9 +54,10 @@ export const posts = [
   {
     component: "card",
     date: "2026-10-02",
-    description: "Container style queries let children react to a variant.",
+    description:
+      "A container style query gives elevated cards a heavier shadow on dark surfaces.",
     slug: "card-style-queries",
-    title: "Cards that know their variant",
+    title: "Cards that know their color scheme",
   },
   {
     component: "carousel",

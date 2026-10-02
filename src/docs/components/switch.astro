@@ -12,6 +12,7 @@ import fieldGroupApi from "../../component-api/field-group/api"
 import switchApi from "../../component-api/switch/api"
 
 import Conditional from "../../components/Conditional.astro"
+import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 ---
 
 <Component
@@ -248,6 +249,8 @@ import Conditional from "../../components/Conditional.astro"
     </Conditional>
     <AutoExample name="FieldGroupValidation" row />
   </section>
+
+  <SwitchBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
     <h3 id="role-attributes">Role & attributes</h3>

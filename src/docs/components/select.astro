@@ -11,6 +11,7 @@ import SelectCSS from "@opui/css/components/select.css?raw"
 import ListCSS from "@opui/css/components/list.css?raw"
 import classicSelectApi from "../../component-api/classic-select/api"
 import selectApi from "../../component-api/select/api"
+import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
 ---
 
 <Component
@@ -189,6 +190,8 @@ import selectApi from "../../component-api/select/api"
 
     <AutoExample name="Classic" row spacious />
   </section>
+
+  <SelectBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>

@@ -7,6 +7,7 @@ import AutoExample from "../../components/AutoExample.astro"
 
 import RangeCSS from "@opui/css/components/range.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import RangeBuild from "../../components/UnderTheHood/RangeBuild.astro"
 
 import rangeApi from "../../component-api/range/api"
 export const description =
@@ -147,6 +148,8 @@ export const description =
 
     <AutoExample name="RowValidation" column />
   </section>
+
+  <RangeBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>

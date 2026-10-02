@@ -12,6 +12,7 @@ import checkboxApi from "../../component-api/checkbox/api"
 import fieldGroupApi from "../../component-api/field-group/api"
 
 import Conditional from "../../components/Conditional.astro"
+import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 ---
 
 <Component
@@ -279,6 +280,8 @@ import Conditional from "../../components/Conditional.astro"
     </Conditional>
     <AutoExample name="FieldGroupValidation" row />
   </section>
+
+  <CheckboxBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
     <h3 id="labels">Labels</h3>

@@ -12,6 +12,7 @@ import fieldGroupApi from "../../component-api/field-group/api"
 import radioApi from "../../component-api/radio/api"
 
 import Conditional from "../../components/Conditional.astro"
+import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
 ---
 
 <Component
@@ -147,6 +148,8 @@ import Conditional from "../../components/Conditional.astro"
 
     <AutoExample name="FieldGroupValidation" row />
   </section>
+
+  <RadioBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.5}>

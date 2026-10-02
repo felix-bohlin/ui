@@ -58,14 +58,18 @@ export const parseTodo = (source: string) => {
     if (!section && line.trim()) intro.push(line)
   }
 
-  return {
-    intro,
-    sections: sections
+  const byStatus = (done: boolean) =>
+    sections
       .map((section) => ({
         ...section,
-        items: section.items.filter((item) => item.status !== "x"),
+        items: section.items.filter((item) => (item.status === "x") === done),
       }))
-      .filter((section) => section.items.length),
+      .filter((section) => section.items.length)
+
+  return {
+    done: byStatus(true),
+    intro,
+    sections: byStatus(false),
   }
 }
 

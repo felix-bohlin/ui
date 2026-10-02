@@ -151,7 +151,7 @@
 - `Table` padding no longer grows in narrow containers.
 - `List` text can shrink below its longest word, and `.ui-inset` follows the dense gap.
 - `Avatar` doesn't shrink in flex rows.
-- `Button` disabled text color applies to every variant.
+- `Button` disabled text color applies to text and outlined buttons in every color. Filled and tonal buttons keep their own text color and dim with the disabled opacity, so the label stays readable on the fill.
 - `Button` `kbd` follows the button's text color on hover.
 - `Typography` `.ui-mark` has a background, `.ui-del`/`.ui-ins` use the critical/success palette, and `del`/`ins` text passes contrast in light and dark mode.
 - `Typography` rich text `pre` and inline `code` run left to right in RTL.

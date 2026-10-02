@@ -15,7 +15,19 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
     <li>
       <button type="button" commandfor="menu-export" command="toggle-popover">
         Export
-        <span class="ui-end" aria-hidden="true">▸</span>
+        <span class="ui-end" aria-hidden="true">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M11.293 5.293a1 1 0 0 1 1.414 0l10 10a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414-1.414L20.586 16l-9.293-9.293a1 1 0 0 1 0-1.414"
+            ></path>
+          </svg>
+        </span>
       </button>
       <Menu id="menu-export" :items="formats" placement="inline-end" />
     </li>

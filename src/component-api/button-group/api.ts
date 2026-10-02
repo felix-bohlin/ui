@@ -20,6 +20,22 @@ export default {
       values: { vertical: ".ui-vertical" },
     },
     {
+      class: ".ui-scrollable",
+      default: "false",
+      description:
+        "Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.",
+      group: "Overflow",
+      prop: "scrollable",
+    },
+    {
+      class: ".ui-shrink",
+      default: "false",
+      description:
+        "Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size.",
+      group: "Overflow",
+      prop: "shrink",
+    },
+    {
       description: "The size of the buttons.",
       group: "Sizes",
       prop: "size",

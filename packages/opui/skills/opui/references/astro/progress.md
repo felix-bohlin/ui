@@ -82,16 +82,16 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 #### CSS variables
 
-| Variable            | Default                                     | Description                                                                                                                |
-| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--border-radius`   | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                          |
-| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
-| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
-| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--primary`         | `var(--color-8)`                            | Brand color for primary actions and accents.                                                                               |
-| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
-| `--surface-filled`  | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                                      |
-| `--surface-tonal`   | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                                                                              |
+| Variable            | Default                                      | Description                                                                                                                |
+| ------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-radius`   | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--duration`        | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`      | `var(--ease-out-3)`                          | Easing for elements entering the screen.                                                                                   |
+| `--motion`          | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`         | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                               |
+| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                                  |
+| `--surface-filled`  | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                      |
+| `--surface-tonal`   | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                              |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 

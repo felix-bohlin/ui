@@ -8,7 +8,9 @@ const {
   class: className,
   name,
   orientation,
+  scrollable,
   selection = "multiple",
+  shrink,
   size = "default",
   ...rest
 } = Astro.props
@@ -39,6 +41,7 @@ const html = slotHtml.replace(
     "ui-toggle-group",
     size !== "default" && size && `ui-${size}`,
     orientation && `ui-${orientation}`,
+    { "ui-scrollable": scrollable, "ui-shrink": shrink },
     className,
   ]}
   role={selection === "single" ? "radiogroup" : "group"}

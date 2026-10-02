@@ -28,6 +28,15 @@
 + <Switch size="small">Notifications</Switch>
 ```
 
+`ButtonGroup` variants apply to the whole group. Move a variant from a button inside a group to the group.
+
+```diff
+- <div role="group" class="ui-button-group">
+-   <button class="ui-button ui-outlined">One</button>
++ <div role="group" class="ui-button-group ui-outlined">
++   <button class="ui-button">One</button>
+```
+
 # Migrating from v5.4 to v5.5
 
 `Toast` is no longer exported from `opui-css/astro` or `opui-css/vue`. It is still available in HTML as an alpha: import `opui-css/css/components/toast.css` and `opui-css/css/js/toast.js`, and call `initToastManager()` once.

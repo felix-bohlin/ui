@@ -7,6 +7,7 @@
 - `Accordion` markers only animate with a marker class on `details`. Add `.ui-marker-rotate` to keep the previous rotation.
 - `TextField` and `Textarea` take a `size` prop instead of `small`. Replace `small` with `size="small"`.
 - `Switch` takes `size="small"` instead of `small`, like `Checkbox`.
+- `ButtonGroup` variants apply to the whole group. A variant class on a single button inside a group is no longer supported.
 
 ### Removed
 
@@ -33,6 +34,7 @@
 - The package ships an agent skill in `skills/opui` with a reference for every component.
 - `TextField`, `Textarea`, `Select` and `ClassicSelect` take `x-small` (`.ui-x-small`, 28px) and `large` (`.ui-large`, 46px) sizes, so every field size has a matching `Button` size.
 - `Chip` takes a `large` size (`.ui-large`, 40px) for chips next to default-size fields and buttons. Chip heights come from `--chip-size-small`, `--chip-size` and `--chip-size-large`, which follow the control size scale.
+- `ButtonGroup` and `ToggleGroup` take `scrollable` (`.ui-scrollable`) to keep their items on one row and scroll sideways, and `shrink` (`.ui-shrink`) to keep them on one row and truncate labels with an ellipsis.
 - `theme.css` adds `--choice-label-offset` to nudge `Checkbox`, `Radio` and `Switch` labels against their control for fonts with unusual metrics, and `--invalid-text-color` for validation messages.
 - `ToggleButton` and `ToggleGroup` take a `large` size (`.ui-large`), and `ButtonGroup` takes `x-small` (`.ui-x-small`).
 - `Typography` reads a `--rhythm-step` theme token (`0.25rem`). Heading font sizes snap to half a step and heading line heights to a full step with `round()`.
@@ -49,6 +51,11 @@
 
 ### Changed
 
+- `theme.css` `--primary` is `--color-9` in light mode and `--color-6` in dark mode, and `--primary-contrast` is dark in dark mode, so text on primary and primary text both pass WCAG AA in light and dark.
+- `Checkbox`, `Radio` and `Switch` keep a light marker in dark mode on a fill darkened to keep 3:1 contrast.
+- `Button` critical keeps light text on its fill, tonal primary and critical buttons use dark text on a light container in light mode and light text on a dark container in dark mode, and text and outlined buttons use a lighter accent for text in dark mode. `Menu` critical items do the same.
+- `ButtonGroup` and `ToggleGroup` wrap onto more rows when they don't fit, instead of overflowing. The group draws its outer edge and rounded corners, and dividers sit between items in every row.
+- `TextField`, `Textarea`, `Select` and `Range` with `spread` split their container into equal label and field columns, so spread fields line up at one width. The fixed `30ch` textarea and `25ch` range minimums are gone.
 - `Tabs` look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill.
 - `Tabs` take a `scrollable` prop (`.ui-scrollable`). The tabs stay on one row and scroll sideways when they don't fit, and the open panel stays in view. Supports up to 20 tabs.
 - `Typography` rich text only styles headings without a class, like lists. Component parts such as the `Callout` title keep their own styles.
@@ -117,6 +124,7 @@
 - `TextField` prefix and suffix use the field line height, so they no longer make the field taller on pages with a large line height.
 - `Radio` large (`.ui-large`) uses `--choice-size-large`. It was the same size as the default.
 - `Select` and `ClassicSelect` keep their arrow and its space at the inline end in RTL. The arrow covered the text.
+- `Badge` severity colors use their own text color instead of `--primary-contrast`, and warning badges use dark text for contrast.
 - `Checkbox`, `Radio`, `Switch`, `Range`, `TextField`, `Textarea` and `Select` validation messages and invalid labels use `--invalid-text-color`, which is lighter in dark mode. They failed contrast on dark surfaces.
 - `Chip` ripple animates again. It read `--button-ripple-duration` and `--button-ripple-size`, which were never defined.
 - `Badge`, `Chip`, `Tabs` and `Toast` respect `--motion` and `prefers-reduced-motion`.

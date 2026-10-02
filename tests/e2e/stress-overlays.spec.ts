@@ -29,9 +29,6 @@ const scroll = (name: string, block: ScrollLogicalPosition): Step => ({
   scroll: name,
 })
 
-const ANCHORS_VISIBLE =
-  "position-visibility: anchors-visible hides tooltips whose trigger is more than one viewport down the page"
-
 const SCENARIOS: Scenario[] = [
   { name: "dialog", steps: [open("dialog")], top: id("dialog") },
   {
@@ -136,7 +133,6 @@ const SCENARIOS: Scenario[] = [
     top: id("edge-top-start"),
   },
   {
-    failing: ANCHORS_VISIBLE,
     name: "tooltip at top start",
     steps: [
       scroll("edge-top-start-tooltip", "start"),

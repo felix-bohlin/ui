@@ -61,7 +61,12 @@ import { Button, ListItem, Menu } from "opui-css/vue"
   </Button>
   <Menu id="menu-custom">
     <li class="ui-label">Document</li>
-    <ListItem as="button" commandfor="menu-custom" command="hide-popover">
+    <ListItem
+      as="button"
+      headline="Rename"
+      commandfor="menu-custom"
+      command="hide-popover"
+    >
       <template #start>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -70,10 +75,14 @@ import { Button, ListItem, Menu } from "opui-css/vue"
           ></path>
         </svg>
       </template>
-      Rename
       <template #end><kbd>F2</kbd></template>
     </ListItem>
-    <ListItem as="button" commandfor="menu-custom" command="hide-popover">
+    <ListItem
+      as="button"
+      headline="Copy"
+      commandfor="menu-custom"
+      command="hide-popover"
+    >
       <template #start>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -82,10 +91,9 @@ import { Button, ListItem, Menu } from "opui-css/vue"
           ></path>
         </svg>
       </template>
-      Copy
       <template #end><kbd>Ctrl C</kbd></template>
     </ListItem>
-    <ListItem as="a" href="#menu">
+    <ListItem as="a" headline="Open in new tab" href="#menu">
       <template #start>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -94,10 +102,10 @@ import { Button, ListItem, Menu } from "opui-css/vue"
           ></path>
         </svg>
       </template>
-      Open in new tab
     </ListItem>
     <ListItem
       as="button"
+      headline="Delete"
       border-top
       class="ui-critical"
       commandfor="menu-custom"
@@ -111,7 +119,6 @@ import { Button, ListItem, Menu } from "opui-css/vue"
           ></path>
         </svg>
       </template>
-      Delete
     </ListItem>
   </Menu>
 </template>
@@ -193,13 +200,22 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
     File
   </Button>
   <Menu id="menu-file" :items="[{ label: 'New' }, { label: 'Open' }]">
-    <ListItem as="button" commandfor="menu-export" command="toggle-popover">
-      Export
+    <ListItem
+      as="button"
+      headline="Export"
+      commandfor="menu-export"
+      command="toggle-popover"
+    >
       <template #end>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
           <path
             fill="currentColor"
-            d="M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0"
+            d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12l-6.293-6.293a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
           ></path>
         </svg>
       </template>

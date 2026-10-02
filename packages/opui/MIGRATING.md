@@ -21,6 +21,13 @@
 + <TextField size="small" label="Name" />
 ```
 
+`Switch` takes `size="small"` instead of `small` too.
+
+```diff
+- <Switch small>Notifications</Switch>
++ <Switch size="small">Notifications</Switch>
+```
+
 # Migrating from v5.4 to v5.5
 
 `Toast` is no longer exported from `opui-css/astro` or `opui-css/vue`. It is still available in HTML as an alpha: import `opui-css/css/components/toast.css` and `opui-css/css/js/toast.js`, and call `initToastManager()` once.

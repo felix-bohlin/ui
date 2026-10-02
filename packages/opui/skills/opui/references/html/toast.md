@@ -8,11 +8,11 @@ This is in no way finished, just an idea put out in the open.
 
 Toasts are managed by a global container. Trigger them either completely with HTML (using [invoker commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API)) or with JavaScript.
 
-Structure lives in HTML via a default `<template id="toast-template">`. CSS owns the lifetime through `attr(data-duration type(<time>))`. JS only clones the template, fills the structural slots (`[data-toast-title]`, `[data-toast-description]`, `[data-toast-icon]`,`[data-toast-close]`) using `textContent`, and removes the toast on `animationend`. Provide your own `<template>` with the same slot markers and reference it via `data-template`on the trigger to override the default look.
+Structure lives in HTML via a default `<template id="toast-template">`. CSS owns the lifetime through `attr(data-duration type(<time>))`. JS only clones the template, fills the structural slots (`[data-toast-title]`, `[data-toast-description]`, `[data-toast-icon]`, `[data-toast-close]`) using `textContent`, and removes the toast on `animationend`. Provide your own `<template>` with the same slot markers and reference it via `data-template` on the trigger to override the default look.
 
 ### HTML
 
-Use `commandfor="toast-manager"` and `command="--show-toast"`on a button. The `data-title` attribute will be used as the message.
+Use `commandfor="toast-manager"` and `command="--show-toast"` on a button. The `data-title` attribute will be used as the message.
 
 ```html
 <button

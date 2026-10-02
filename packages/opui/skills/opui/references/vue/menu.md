@@ -1,10 +1,11 @@
 # Menu
 
-A popover [List](https://open-props-ui.netlify.app/vue/components/list.md), anchored to a[Button](https://open-props-ui.netlify.app/vue/components/button.md).
+A popover [List](https://open-props-ui.netlify.app/vue/components/list.md), anchored to a [Button](https://open-props-ui.netlify.app/vue/components/button.md).
 
 ### What's new
 
 - New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.
+- [Submenus](#submenu) with the `submenu` slot on `ListItem`.
 
 ## Basics
 
@@ -173,11 +174,11 @@ const items = [{ label: "First" }, { label: "Second" }, { label: "Third" }]
 
 ## Submenu
 
-A menu inside a list item.
+Pass a `Menu` to the `submenu` slot of a `ListItem`. Mark the item with an icon from your icon library in the `end` slot.
 
 ```vue
 <script setup lang="ts">
-import { Button, Menu } from "opui-css/vue"
+import { Button, ListItem, Menu } from "opui-css/vue"
 
 
 const formats = ["PDF", "PNG", "SVG"].map((label) => ({
@@ -192,13 +193,20 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
     File
   </Button>
   <Menu id="menu-file" :items="[{ label: 'New' }, { label: 'Open' }]">
-    <li>
-      <button type="button" commandfor="menu-export" command="toggle-popover">
-        Export
-        <span class="ui-end" aria-hidden="true">▸</span>
-      </button>
-      <Menu id="menu-export" :items="formats" placement="inline-end" />
-    </li>
+    <ListItem as="button" commandfor="menu-export" command="toggle-popover">
+      Export
+      <template #end>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0"
+          ></path>
+        </svg>
+      </template>
+      <template #submenu>
+        <Menu id="menu-export" :items="formats" placement="inline-end" />
+      </template>
+    </ListItem>
   </Menu>
 </template>
 ```
@@ -209,16 +217,16 @@ const formats = ["PDF", "PNG", "SVG"].map((label) => ({
 
 ## API
 
-| Prop        | Type                                                          | Default        | Description                                       |
-| ----------- | ------------------------------------------------------------- | -------------- | ------------------------------------------------- |
-| `align`     | `"start"`, `"end"`                                            | `"start"`      | Which edge of the trigger the menu lines up with. |
-| `class`     | `string`                                                      | -              | Optional CSS class.                               |
-| `dense`     | `boolean`                                                     | `false`        | Less spacing.                                     |
-| `id`        | `string`                                                      | auto-generated | The trigger's `commandfor`.                       |
-| `items`     | `MenuItem[]`                                                  | -              | Menu items.                                       |
-| `placement` | `"block-end"`,`"block-start"`,`"inline-end"`,`"inline-start"` | `"block-end"`  | Where the menu opens.                             |
-| `popover`   | `"auto"`, `"manual"`                                          | `"auto"`       | The popover type.                                 |
-| default     | -                                                             | -              | Optional child content.                           |
+| Prop        | Type                                                             | Default        | Description                                       |
+| ----------- | ---------------------------------------------------------------- | -------------- | ------------------------------------------------- |
+| `align`     | `"start"`, `"end"`                                               | `"start"`      | Which edge of the trigger the menu lines up with. |
+| `class`     | `string`                                                         | -              | Optional CSS class.                               |
+| `dense`     | `boolean`                                                        | `false`        | Less spacing.                                     |
+| `id`        | `string`                                                         | auto-generated | The trigger's `commandfor`.                       |
+| `items`     | `MenuItem[]`                                                     | -              | Menu items.                                       |
+| `placement` | `"block-end"`, `"block-start"`, `"inline-end"`, `"inline-start"` | `"block-end"`  | Where the menu opens.                             |
+| `popover`   | `"auto"`, `"manual"`                                             | `"auto"`       | The popover type.                                 |
+| default     | -                                                                | -              | Optional child content.                           |
 
 ### MenuItem
 

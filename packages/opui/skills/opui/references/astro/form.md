@@ -71,7 +71,7 @@ Used to show a relationship between form elements.
 
   to describe what it's about.
 
-- `FieldDescription`(optional)
+- `FieldDescription` (optional)
 
   to give extra context about the fieldset.
 
@@ -183,7 +183,7 @@ import { FieldDescription } from "opui-css/astro"
 
 ## Field group
 
-Use `FieldGroup` to wrap related fields. It provides a shared`name` to all nested inputs.
+Use `FieldGroup` to wrap related fields. It provides a shared `name` to all nested inputs.
 
 ```astro
 ---
@@ -595,21 +595,22 @@ import {
 
 #### CSS variables
 
-| Variable                     | Default                                     | Description                                                                                           |
-| ---------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `--disabled-opacity`         | `0.64`                                      | Opacity applied to disabled controls.                                                                 |
-| `--field-helper-color`       | `var(--text-muted)`                         | Text color for helper and end text under a field.                                                     |
-| `--field-helper-font-size`   | `var(--font-size-0)`                        | Font size for helper and end text under a field.                                                      |
-| `--field-helper-line-height` | `var(--font-lineheight-3)`                  | Line height for helper and end text under a field.                                                    |
-| `--field-label-color`        | `var(--text-primary)`                       | Text color for field labels.                                                                          |
-| `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                  |
-| `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                       |
-| `--focus-ring-width`         | `2px`                                       | Width of the focus ring.                                                                              |
-| `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
-| `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
-| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
+| Variable                     | Default                                                                                 | Description                                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                     |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                         |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                          |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                        |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ### Field set API
 
@@ -626,21 +627,22 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 
 #### CSS variables
 
-| Variable                     | Default                                     | Description                                                                                           |
-| ---------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `--disabled-opacity`         | `0.64`                                      | Opacity applied to disabled controls.                                                                 |
-| `--field-helper-color`       | `var(--text-muted)`                         | Text color for helper and end text under a field.                                                     |
-| `--field-helper-font-size`   | `var(--font-size-0)`                        | Font size for helper and end text under a field.                                                      |
-| `--field-helper-line-height` | `var(--font-lineheight-3)`                  | Line height for helper and end text under a field.                                                    |
-| `--field-label-color`        | `var(--text-primary)`                       | Text color for field labels.                                                                          |
-| `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                  |
-| `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                       |
-| `--focus-ring-width`         | `2px`                                       | Width of the focus ring.                                                                              |
-| `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
-| `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
-| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
+| Variable                     | Default                                                                                 | Description                                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                     |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                         |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                          |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                        |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ### Field legend API
 
@@ -656,21 +658,22 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 
 #### CSS variables
 
-| Variable                     | Default                                     | Description                                                                                           |
-| ---------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `--disabled-opacity`         | `0.64`                                      | Opacity applied to disabled controls.                                                                 |
-| `--field-helper-color`       | `var(--text-muted)`                         | Text color for helper and end text under a field.                                                     |
-| `--field-helper-font-size`   | `var(--font-size-0)`                        | Font size for helper and end text under a field.                                                      |
-| `--field-helper-line-height` | `var(--font-lineheight-3)`                  | Line height for helper and end text under a field.                                                    |
-| `--field-label-color`        | `var(--text-primary)`                       | Text color for field labels.                                                                          |
-| `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                  |
-| `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                       |
-| `--focus-ring-width`         | `2px`                                       | Width of the focus ring.                                                                              |
-| `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
-| `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
-| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
+| Variable                     | Default                                                                                 | Description                                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                     |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                         |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                          |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                        |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ### Field description API
 
@@ -682,21 +685,22 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 
 #### CSS variables
 
-| Variable                     | Default                                     | Description                                                                                           |
-| ---------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `--disabled-opacity`         | `0.64`                                      | Opacity applied to disabled controls.                                                                 |
-| `--field-helper-color`       | `var(--text-muted)`                         | Text color for helper and end text under a field.                                                     |
-| `--field-helper-font-size`   | `var(--font-size-0)`                        | Font size for helper and end text under a field.                                                      |
-| `--field-helper-line-height` | `var(--font-lineheight-3)`                  | Line height for helper and end text under a field.                                                    |
-| `--field-label-color`        | `var(--text-primary)`                       | Text color for field labels.                                                                          |
-| `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                  |
-| `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                       |
-| `--focus-ring-width`         | `2px`                                       | Width of the focus ring.                                                                              |
-| `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
-| `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
-| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
+| Variable                     | Default                                                                                 | Description                                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                     |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                         |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                          |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                        |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ### Field group API
 
@@ -713,21 +717,22 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 
 #### CSS variables
 
-| Variable                     | Default                                     | Description                                                                                           |
-| ---------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `--disabled-opacity`         | `0.64`                                      | Opacity applied to disabled controls.                                                                 |
-| `--field-helper-color`       | `var(--text-muted)`                         | Text color for helper and end text under a field.                                                     |
-| `--field-helper-font-size`   | `var(--font-size-0)`                        | Font size for helper and end text under a field.                                                      |
-| `--field-helper-line-height` | `var(--font-lineheight-3)`                  | Line height for helper and end text under a field.                                                    |
-| `--field-label-color`        | `var(--text-primary)`                       | Text color for field labels.                                                                          |
-| `--field-label-font-weight`  | `var(--font-weight-semibold)`               | Font weight for emphasized field labels and legends.                                                  |
-| `--field-required-color`     | `var(--invalid-color)`                      | Color of the required asterisk.                                                                       |
-| `--focus-ring-width`         | `2px`                                       | Width of the focus ring.                                                                              |
-| `--font-size-05`             | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
-| `--invalid-color`            | `var(--critical)`                           | Color for invalid fields and validation messages.                                                     |
-| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
+| Variable                     | Default                                                                                 | Description                                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                     |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                         |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                          |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                        |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

@@ -17,7 +17,6 @@
 
     align-content: start;
     display: grid;
-    gap: var(--size-1) 0;
     position: relative;
 
     /* Field - the actual input with a border around it */
@@ -70,6 +69,7 @@
       color: var(--_label-color);
       display: inline-flex;
       font-size: var(--_font-size);
+      line-height: var(--font-lineheight-1);
       padding-inline: var(--_field-padding-inline);
       white-space: nowrap;
 
@@ -216,8 +216,8 @@
 
         button {
           outline: 0;
-          padding: var(--_field-padding-block) var(--size-8)
-            var(--_field-padding-block) var(--_field-padding-inline);
+          padding-block: var(--_field-padding-block);
+          padding-inline: var(--_field-padding-inline) var(--size-8);
         }
       }
     }
@@ -225,8 +225,8 @@
     /* Non-customizable Select */
     &:has(select):not(:has(button)) {
       select {
-        padding: var(--_field-padding-block) var(--size-8)
-          var(--_field-padding-block) var(--_field-padding-inline);
+        padding-block: var(--_field-padding-block);
+        padding-inline: var(--_field-padding-inline) var(--size-8);
       }
     }
 
@@ -277,6 +277,7 @@
       font-weight: var(--field-label-font-weight);
       grid-column: 1/-1;
       grid-row: 1;
+      margin-block-end: var(--size-1);
       padding-inline: 0 1ex;
     }
 
@@ -286,6 +287,7 @@
       grid-column: 1/-1;
       grid-row: 2;
       line-height: var(--field-helper-line-height);
+      margin-block-end: var(--size-1);
     }
 
     &:not(.ui-spread):has(> .ui-start-text) {
@@ -305,6 +307,7 @@
       grid-column: 1/-1;
       grid-row: 3;
       line-height: var(--field-helper-line-height);
+      margin-block-start: var(--size-1);
     }
 
     /* Auto-fit */
@@ -327,8 +330,8 @@
     &:has(:user-invalid) {
       --_accent-color: var(--invalid-color);
       --_border-color: var(--invalid-color);
-      --_label-color: var(--invalid-color);
-      --_end-text-color: var(--invalid-color);
+      --_label-color: var(--invalid-text-color);
+      --_end-text-color: var(--invalid-text-color);
     }
 
     /*
@@ -386,8 +389,7 @@
 
     /* Sizes */
     &.ui-x-small {
-      --_field-padding-block: var(--size-1);
-      --_font-size: var(--font-size-05);
+      --_field-padding-block: 0.1875rem;
       --_height: var(--field-size-x-small);
     }
 

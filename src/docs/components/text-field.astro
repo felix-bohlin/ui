@@ -129,7 +129,7 @@ export const description =
       <Fragment slot="html">
         Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
           >.ui-header</code
-        >, or
+        >, or{" "}
         <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
         inside the field's border. Prefix and suffix sit beside the input, while header
         and footer span the field's full width with a divider.
@@ -166,13 +166,13 @@ export const description =
     <Conditional as="p">
       <Fragment slot="astro">
         Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
+        {" "}<code>data-invalid</code> on the root element. Make use of the end text
+        to give extra feedback on the error.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
+        {" "}<code>data-invalid</code> on the root element. Make use of the end text
+        to give extra feedback on the error.
       </Fragment>
       <Fragment slot="html">
         Add <code>data-invalid</code> on the root element to toggle invalid styles.
@@ -216,10 +216,10 @@ export const description =
   <section>
     <h2 id="input-types">Input types</h2>
     <Example row>
-      <UISwitch small slot="controls" id="text-field-filled-toggle"
+      <UISwitch size="small" slot="controls" id="text-field-filled-toggle"
         >Filled</UISwitch
       >
-      <UISwitch small slot="controls" id="text-field-small-toggle"
+      <UISwitch size="small" slot="controls" id="text-field-small-toggle"
         >Small</UISwitch
       >
 
@@ -268,7 +268,7 @@ export const description =
             data it should only be used when mathematical operations are needed on
             the input (which is... never). Data like credit card numbers, IDs or social
             security numbers - are actually text that happen to be numeric rather
-            than mathematical values. Therefore, consider using
+            than mathematical values. Therefore, consider using{" "}
             <code
               >&lt;input type="text" inputmode="numeric" pattern="[0-9]*"&gt;</code
             > instead.

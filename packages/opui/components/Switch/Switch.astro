@@ -10,7 +10,7 @@ const {
   error,
   hideLabel,
   name,
-  small,
+  size,
   spread,
   stack,
   ...rest
@@ -36,8 +36,8 @@ if (
 <label
   class:list={[
     "ui-switch",
+    size && `ui-${size}`,
     {
-      "ui-small": small,
       "ui-stack": stack,
       "ui-spread": spread,
     },

@@ -7,9 +7,13 @@
     <button command="hide-popover" commandfor="id-1" type="button">Open</button>
   </li>
   <li>
-    <button command="toggle-popover" commandfor="id-2" type="button">
+    <button command="toggle-popover" commandfor="id-2">
       Export
-      <span aria-hidden="true" class="ui-end">▸</span>
+      <div class="ui-end">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0" fill="currentColor"></path>
+        </svg>
+      </div>
     </button>
     <menu class="ui-inline-end ui-list ui-menu" id="id-2" popover>
       <li>

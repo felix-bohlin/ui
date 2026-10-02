@@ -167,7 +167,7 @@ import { Badge } from "opui-css/astro"
 
 ## Visibility
 
-Change the badge's visibility using the `invisible`prop.
+Change the badge's visibility using the `invisible` prop.
 
 ```astro
 ---
@@ -189,7 +189,7 @@ import { Badge } from "opui-css/astro"
 
 Where the badge should be placed over the child.
 
-`start-start`, default,`end-start`, `end-end`.
+`start-start`, default, `end-start`, `end-end`.
 
 ```astro
 ---
@@ -283,7 +283,7 @@ import { Badge } from "opui-css/astro"
 | `--success`            | `var(--green)`         | Severity color for success messages.                                                                                       |
 | `--warning`            | `var(--orange)`        | Severity color for warnings.                                                                                               |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

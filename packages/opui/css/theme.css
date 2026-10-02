@@ -56,6 +56,10 @@
     --critical: var(--red);
     --info: var(--blue);
     --invalid-color: var(--critical);
+    --invalid-text-color: light-dark(
+      var(--invalid-color),
+      oklch(from var(--invalid-color) max(l, 0.75) c h)
+    );
     --neutral: var(--gray-9);
     --success: var(--green);
     --warning: var(--orange);
@@ -138,6 +142,10 @@
     --button-size: var(--control-size);
     --button-size-large: var(--control-size-large);
 
+    --chip-size-small: var(--control-size-x-small);
+    --chip-size: var(--control-size-small);
+    --chip-size-large: var(--control-size);
+
     /* Field / input */
     --field-border-radius: var(--size-2);
     --field-border-width: 1px;
@@ -147,7 +155,7 @@
     --field-label-color: var(--text-primary);
     --field-label-font-size: var(--font-size-05);
     --field-label-font-weight: var(--font-weight-semibold);
-    --field-required-color: var(--invalid-color);
+    --field-required-color: var(--invalid-text-color);
 
     /* Button */
     --button-border-radius: var(--size-2);
@@ -176,6 +184,7 @@
     --icon-size-large: var(--size-5);
 
     /* Choice controls */
+    --choice-label-offset: 0px;
     --choice-size-small: var(--size-3);
     --choice-size: var(--size-4);
     --choice-size-large: var(--size-5);

@@ -28,5 +28,6 @@ export type Slots<S> = {
   end?: string | S
   headline?: string | S
   start?: string | S
+  submenu?: string | S
   text?: string | S
 }

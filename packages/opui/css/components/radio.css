@@ -3,7 +3,7 @@
     --_input-size: var(--choice-size);
     --_indicator-size: 50%;
 
-    align-items: center;
+    align-items: start;
     color: var(--text-primary);
     cursor: pointer;
     display: inline-grid;
@@ -34,6 +34,7 @@
         inset-block: 0 auto;
         inset-inline: auto -0.25ex;
         position: absolute;
+        text-box: inherit;
       }
     }
 
@@ -43,8 +44,18 @@
       font-size: var(--field-label-font-size);
       grid-column: 2;
       grid-row: 1;
+      margin-block-start: calc(
+        (var(--_input-size) - 1lh) / 2 + var(--choice-label-offset)
+      );
       padding-inline: 0 1ex;
       position: relative;
+
+      @supports (text-box: trim-start cap alphabetic) {
+        margin-block-start: calc(
+          (var(--_input-size) - 1cap) / 2 + var(--choice-label-offset)
+        );
+        text-box: trim-start cap alphabetic;
+      }
     }
 
     /* End text */
@@ -67,6 +78,7 @@
         grid-row: 2;
         margin-block-start: var(--size-1);
         padding-inline: 1ex;
+        text-box: normal;
 
         /* Required dot */
         &::after {
@@ -122,15 +134,11 @@
 
     /* Sizes */
     &.ui-small {
-      input[type="radio"] {
-        --_input-size: var(--choice-size-small);
-      }
+      --_input-size: var(--choice-size-small);
     }
 
     &.ui-large {
-      input[type="radio"] {
-        --_input-size: var(--choice-size);
-      }
+      --_input-size: var(--choice-size-large);
     }
 
     /* Validation */
@@ -139,7 +147,7 @@
       --primary: var(--invalid-color);
 
       :where(.ui-end-text) {
-        color: var(--invalid-color);
+        color: var(--invalid-text-color);
       }
     }
 

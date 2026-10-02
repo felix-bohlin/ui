@@ -60,7 +60,7 @@ The basic idea is to pick one hue and chroma, and derive a 16-step palette from 
 ```
 
 - **`--palette-hue`** is a hue angle in degrees. Open Props' `--hue-*` tokens work here. The default is green in light mode and blue in dark mode.
-- **`--palette-chroma`** scales the saturation, from`0` (gray) to `1`.
+- **`--palette-chroma`** scales the saturation, from `0` (gray) to `1`.
 - **`--palette-hue-rotate-by`** is a separate knob for per-step warm/cool drift, in degrees.
 
 You can also set `--palette-source` directly (it must be an `oklch()` color), and you can override it anywhere you want for useful or cool effect:
@@ -71,11 +71,11 @@ You can also set `--palette-source` directly (it must be an `oklch()` color), an
 }
 ```
 
-Every token with its default is listed on the[theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) page.
+Every token with its default is listed on the [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) page.
 
 ### Scopes
 
-`.ui-light` and `.ui-dark` force a color scheme. Put them on `html` to control the whole page, or on any element to force a subtree.`.ui-palette` re-derives the palette and all color tokens from the knobs set on that element, so one page can carry several brands.
+`.ui-light` and `.ui-dark` force a color scheme. Put them on `html` to control the whole page, or on any element to force a subtree. `.ui-palette` re-derives the palette and all color tokens from the knobs set on that element, so one page can carry several brands.
 
 ```html
 <aside class="ui-dark">Always dark</aside>
@@ -88,7 +88,7 @@ Every token with its default is listed on the[theme tokens](https://open-props-u
 
 ## Motion
 
-Use the `--motion` variable to turn motion on or off. The default value is `1`. If a user has `prefers-reduced-motion: reduce` enabled,`--motion` will be set to `0` by default.
+Use the `--motion` variable to turn motion on or off. The default value is `1`. If a user has `prefers-reduced-motion: reduce` enabled, `--motion` will be set to `0` by default.
 
 ### Global Classes
 

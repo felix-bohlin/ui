@@ -44,7 +44,11 @@ export const openFixture = async (
         ? route.fulfill({ body: PIXEL, contentType: "image/png" })
         : route.abort(),
   )
-  await page.goto(`/${framework}/test/${component}/`)
+  await page.goto(
+    component.startsWith("stress/")
+      ? `/tests/${component.slice("stress/".length)}/`
+      : `/${framework}/test/${component}/`,
+  )
   if (framework === "vue") {
     await page.waitForFunction(() =>
       [...document.querySelectorAll("[data-vue-example]")].every(

@@ -85,6 +85,17 @@
       }
     }
 
+    @supports (-webkit-touch-callout: none) {
+      &:has(.ui-menu[popover]) {
+        anchor-name: --ui-menu;
+        anchor-scope: --ui-menu;
+      }
+
+      & .ui-menu[popover] {
+        position-anchor: --ui-menu;
+      }
+    }
+
     /* Items */
     li > :is(a, button):is([disabled], [aria-disabled="true"]) {
       cursor: not-allowed;

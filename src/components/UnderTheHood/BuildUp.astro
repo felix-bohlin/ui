@@ -4,7 +4,7 @@ import { Code } from "astro-expressive-code/components"
 import FeatureSupport from "./FeatureSupport.astro"
 
 type Step = {
-  css: string
+  css?: string
   features?: string[]
   html?: string
   notes?: string[]
@@ -39,7 +39,7 @@ const gatedCss = steps
   .map(
     (step, index) => `
 #${id}:has(.build-up-steps :is(${values(index)}):checked) .build-up-stage {
-${step.css}
+${step.css ?? ""}
 }
 #${id}:has(.build-up-steps [value="${index + 1}"]:checked) .build-up-step[data-step="${index + 1}"] {
   display: grid;
@@ -123,7 +123,7 @@ const stepId = (index: number, part: string) =>
           </p>
           {step.features && <FeatureSupport ids={step.features} />}
           {step.html && <Code code={step.html.trim()} lang="html" />}
-          <Code code={step.css.trim()} lang="css" />
+          {step.css && <Code code={step.css.trim()} lang="css" />}
         </div>
       ))
     }

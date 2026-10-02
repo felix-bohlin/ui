@@ -6,6 +6,7 @@ const CONTROLS = [
   ":scope > .ui-button-group",
   ":scope > .ui-select > .ui-field",
   ":scope > .ui-text-field > .ui-field",
+  ":scope > :is(.ui-select, .ui-text-field):not(:has(> .ui-label))",
   ":scope > .ui-toggle-button",
   ":scope > .ui-toggle-group",
 ].join(", ")

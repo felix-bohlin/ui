@@ -70,14 +70,14 @@
     /* Error / validation */
     &[data-invalid] {
       :where(.ui-end-text) {
-        color: var(--invalid-color);
+        color: var(--invalid-text-color);
       }
 
       :where(.ui-checkbox, .ui-radio, .ui-switch) {
         --primary: var(--invalid-color);
 
         :where(.ui-end-text) {
-          color: var(--invalid-color);
+          color: var(--invalid-text-color);
         }
       }
 

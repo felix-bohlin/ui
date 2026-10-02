@@ -1,6 +1,6 @@
 # Menu
 
-A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anchored to a[Button](https://open-props-ui.netlify.app/html/components/button.md).
+A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anchored to a [Button](https://open-props-ui.netlify.app/html/components/button.md).
 
 ### What's new
 
@@ -282,7 +282,7 @@ If you want to decide yourself what goes into your list.
 
 ## Submenu
 
-A menu inside a list item.
+Put a `menu` in the `li`, after its button. Mark the item with an icon from your icon library in `div.ui-end`.
 
 ```html
 <button
@@ -304,13 +304,16 @@ A menu inside a list item.
     </button>
   </li>
   <li>
-    <button
-      type="button"
-      commandfor="menu-export-html"
-      command="toggle-popover"
-    >
+    <button commandfor="menu-export-html" command="toggle-popover">
       Export
-      <span class="ui-end" aria-hidden="true">▸</span>
+      <div class="ui-end">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0"
+          />
+        </svg>
+      </div>
     </button>
     <menu class="ui-menu ui-list ui-inline-end" id="menu-export-html" popover>
       <li>
@@ -351,19 +354,19 @@ A menu inside a list item.
 
 ## API
 
-| Type      | Modifiers                                             | Default                     | Description                           |
-| --------- | ----------------------------------------------------- | --------------------------- | ------------------------------------- |
-| Part      | `menu.ui-menu.ui-list[popover]`                       | -                           | The menu surface.                     |
-| Trigger   | `commandfor="id"`, `command="toggle-popover"`         | -                           | Opens the menu.                       |
-| Children  | `li > button`, `li > a`                               | -                           | Menu items.                           |
-| Children  | `command="hide-popover"`                              | -                           | Closes the menu on click.             |
-| Children  | `li.ui-label`                                         | -                           | Group label.                          |
-| Children  | `.ui-start`, `.ui-end`                                | -                           | Icons and shortcuts.                  |
-| Colors    | `.ui-critical`                                        | -                           | Destructive item.                     |
-| Placement | `.ui-block-start`,`.ui-inline-start`,`.ui-inline-end` | default                     | Where the menu opens.                 |
-| Placement | `.ui-align-end`                                       | -                           | Lines up with the trigger's end edge. |
-| Placement | `--anchor-position-area`                              | `block-end span-inline-end` | Any valid `position-area` value.      |
-| Sizes     | `.ui-dense`                                           | -                           | Less spacing.                         |
+| Type      | Modifiers                                               | Default                     | Description                           |
+| --------- | ------------------------------------------------------- | --------------------------- | ------------------------------------- |
+| Part      | `menu.ui-menu.ui-list[popover]`                         | -                           | The menu surface.                     |
+| Trigger   | `commandfor="id"`, `command="toggle-popover"`           | -                           | Opens the menu.                       |
+| Children  | `li > button`, `li > a`                                 | -                           | Menu items.                           |
+| Children  | `command="hide-popover"`                                | -                           | Closes the menu on click.             |
+| Children  | `li.ui-label`                                           | -                           | Group label.                          |
+| Children  | `.ui-start`, `.ui-end`                                  | -                           | Icons and shortcuts.                  |
+| Colors    | `.ui-critical`                                          | -                           | Destructive item.                     |
+| Placement | `.ui-block-start`, `.ui-inline-start`, `.ui-inline-end` | default                     | Where the menu opens.                 |
+| Placement | `.ui-align-end`                                         | -                           | Lines up with the trigger's end edge. |
+| Placement | `--anchor-position-area`                                | `block-end span-inline-end` | Any valid `position-area` value.      |
+| Sizes     | `.ui-dense`                                             | -                           | Less spacing.                         |
 
 ## Under the hood
 

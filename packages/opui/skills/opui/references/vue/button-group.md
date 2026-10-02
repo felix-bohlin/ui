@@ -31,7 +31,7 @@ If you just need to group a bunch of "dumb" (uncontrolled) buttons - use Button 
 
 ## Variants
 
-Change the appearance of the entire group with the `variant`prop.
+Change the appearance of the entire group with the `variant` prop.
 
 ```vue
 <script setup lang="ts">
@@ -225,7 +225,7 @@ import { Button, ButtonGroup, Menu } from "opui-css/vue"
 
 ## Sizes
 
-Adjust the size of all buttons in the group using the `size`prop.
+Adjust the size of all buttons in the group using the `size` prop.
 
 ```vue
 <script setup lang="ts">
@@ -445,7 +445,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 ## Disabled
 
-Disable individual buttons within a group by setting the `disabled`prop on each `Button`.
+Disable individual buttons within a group by setting the `disabled` prop on each `Button`.
 
 ```vue
 <script setup lang="ts">
@@ -519,7 +519,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                            | Muted text color on an inverted surface.                                                                                   |
 | `--text-primary-contrast`     | `light-dark(var(--gray-2), var(--gray-15))`                            | Emphasized text color on an inverted surface.                                                                              |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 ### Button
 
@@ -572,7 +572,7 @@ Theme tokens this component reads. Override them on `html`or on a wrapper. See [
 | `--text-muted-contrast`       | `light-dark(var(--gray-4), var(--gray-13))`                            | Muted text color on an inverted surface.                                                                                   |
 | `--text-primary-contrast`     | `light-dark(var(--gray-2), var(--gray-15))`                            | Emphasized text color on an inverted surface.                                                                              |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

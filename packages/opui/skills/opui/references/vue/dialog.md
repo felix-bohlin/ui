@@ -10,7 +10,7 @@ The term "modal" and "dialog" are often used interchangeably, but there's an imp
 
 ### HTML only
 
-In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the`commandfor` and `command` attributes.
+In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
 ```vue
 <script setup lang="ts">
@@ -133,7 +133,7 @@ onMounted(() => {
 
 ## Accessibility
 
-- The `tabindex` attribute must **not** be used on the`<dialog>` element.
+- The `tabindex` attribute must **not** be used on the `<dialog>` element.
 
 ### Role & attributes
 
@@ -185,7 +185,7 @@ Source: [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/
 | `--ease-enter`     | `var(--ease-out-3)` | Easing for elements entering the screen.                                                                                   |
 | `--motion`         | `1`                 | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 Attributes that aren't props, such as `closedby` or `id`, go to the `<dialog>`.
 

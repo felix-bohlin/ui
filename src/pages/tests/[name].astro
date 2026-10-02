@@ -4,7 +4,7 @@ import "@opui/css/imports.css"
 export function getStaticPaths() {
   if (!process.env.OPUI_TEST_PAGES && !import.meta.env.DEV) return []
 
-  const sources = import.meta.glob<string>("../../../../stress-tests/*.html", {
+  const sources = import.meta.glob<string>("../../stress-tests/*.html", {
     eager: true,
     import: "default",
     query: "?raw",
@@ -13,7 +13,6 @@ export function getStaticPaths() {
   return Object.entries(sources)
     .map(([path, source]) => ({
       params: {
-        framework: "html",
         name: path.match(/stress-tests\/([^/]+)\.html$/)![1],
       },
       props: { source },
@@ -69,7 +68,7 @@ const { source } = Astro.props
       max-inline-size: 70ch;
     }
 
-    h3 {
+    > h3 {
       font-size: var(--font-size-1);
       margin: 0;
     }

@@ -182,7 +182,7 @@ import { Badge } from "opui-css/vue"
 
 ## Visibility
 
-Change the badge's visibility using the `invisible`prop.
+Change the badge's visibility using the `invisible` prop.
 
 ```vue
 <script setup lang="ts">
@@ -206,7 +206,7 @@ import { Badge } from "opui-css/vue"
 
 Where the badge should be placed over the child.
 
-`start-start`, default,`end-start`, `end-end`.
+`start-start`, default, `end-start`, `end-end`.
 
 ```vue
 <script setup lang="ts">
@@ -306,7 +306,7 @@ import { Badge } from "opui-css/vue"
 | `--success`            | `var(--green)`         | Severity color for success messages.                                                                                       |
 | `--warning`            | `var(--orange)`        | Severity color for warnings.                                                                                               |
 
-Theme tokens this component reads. Override them on `html`or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md)for the full list.
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
 ## Browser support
 

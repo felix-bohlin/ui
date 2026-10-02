@@ -10,13 +10,6 @@
       resize: vertical;
     }
 
-    /* Size */
-    &.ui-small {
-      textarea {
-        min-block-size: var(--size-9);
-      }
-    }
-
     /* Auto-fit */
     &.ui-auto-fit {
       textarea {

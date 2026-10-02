@@ -147,7 +147,7 @@
 - `Badge` indicators mirror in RTL.
 - `Callout` only uses the icon layout for a direct child `svg`, keeps its content at the top when stretched, and no longer shows lighter corners.
 - `Card` wraps long words.
-- `DescriptionList` switches layout based on its own width instead of the page, shares space between long terms and values, and wraps long values.
+- `DescriptionList` switches layout based on its own width instead of the page, shares space between long terms and values, and wraps long values. A nested list sizes to its content and follows the outer list's layout, and `.ui-bordered` leaders only apply to the list's own items.
 - `Table` padding no longer grows in narrow containers.
 - `List` text can shrink below its longest word, and `.ui-inset` follows the dense gap.
 - `Avatar` doesn't shrink in flex rows.

@@ -42,11 +42,14 @@
 
     &.ui-tonal {
       --_card-bg-color: var(--_bg-tonal);
+      --_card-border-color: var(--_bg-surface);
       --_card-border-width: var(--border-width);
     }
 
     &.ui-elevated {
       --_card-bg-color: var(--_bg-elevated);
+      --_card-border-color: var(--_bg-surface);
+      --_card-border-width: var(--border-width);
       --_card-shadow: var(--_shadow-elevated);
     }
 

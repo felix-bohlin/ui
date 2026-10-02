@@ -84,15 +84,15 @@
 - `Avatar`, `List` and `ButtonGroup` sizes follow `--control-size` and `--button-size-*`.
 - `theme.css` holds `--motion` and its `prefers-reduced-motion` default, which moved from `core/normalize.css`. The `.ui-motion-*` classes moved to `core/utils.css`.
 - `theme.css` declares `--palette-hue-rotate-by`, `--gray-hue` and `--gray-chroma` so every theme knob lives in one file.
-- Rich text lives in a new `components.prose` layer, below `components.root`, so component styles inside rich text win over prose styles. The layer order is `openprops, theme, normalize, components.prose, components.root, components.extended, utils`.
-- Tonal and elevated `Card`s (and `Dialog`) use the page background for borders and field borders in dark mode, so they stay visible.
+- `Typography` rich text lives in a new `components.prose` layer, below `components.root`, so component styles inside rich text win over prose styles. The layer order is `openprops, theme, normalize, components.prose, components.root, components.extended, utils`.
+- `Card` tonal and elevated variants (and `Dialog`) have a border in the page background color, so they stay visible on tonal surfaces. In dark mode, borders and field borders inside them also use the page background.
 - `Menu` has a light gray border in dark mode.
 - `Dialog` has a maximum height. The header and actions stay in place and the content scrolls.
 - `Card` actions stick to the bottom of stretched cards and wrap.
 - `Chip` labels truncate with an ellipsis unless the chip is `multiline`.
-- Dense `List` rows keep the default inline padding, so they line up with `Card` content.
-- Dense `Table` cells have less block padding.
-- Rich text headings, `pre` and `small` scale with the inherited font size.
+- `List` dense rows keep the default inline padding, so they line up with `Card` content.
+- `Table` dense cells have less block padding.
+- `Typography` rich text headings, `pre` and `small` scale with the inherited font size.
 
 ### Fixed
 
@@ -141,9 +141,9 @@
 - `Badge`, `Chip`, `Tabs` and `Toast` respect `--motion` and `prefers-reduced-motion`.
 - `dist/opui.components.css` starts with the `@layer` order statement.
 - `normalize.css` gives autofilled fields `--surface-default` instead of the undefined `--well-1`.
-- Closed `Drawer`s are hidden (`display: none`), so they are no longer keyboard focusable.
-- `Tooltip`s show when their trigger is more than one viewport down the page, and shift along the viewport edge instead of squeezing. The arrow follows the trigger in browsers with anchored container queries.
-- Submenus open on the same side as a flipped parent menu (in browsers with anchored container queries), and the submenu arrow mirrors in RTL.
+- `Drawer` is hidden (`display: none`) when closed, so it is no longer keyboard focusable.
+- `Tooltip` shows when its trigger is more than one viewport down the page, and shifts along the viewport edge instead of squeezing. Tooltips with an arrow only flip.
+- `Menu` submenu arrows mirror in RTL.
 - `Badge` indicators mirror in RTL.
 - `Callout` only uses the icon layout for a direct child `svg`, keeps its content at the top when stretched, and no longer shows lighter corners.
 - `Card` wraps long words.
@@ -151,12 +151,13 @@
 - `Table` padding no longer grows in narrow containers.
 - `List` text can shrink below its longest word, and `.ui-inset` follows the dense gap.
 - `Avatar` doesn't shrink in flex rows.
-- Disabled `Button` text color applies to every variant.
+- `Button` disabled text color applies to every variant.
 - `Button` `kbd` follows the button's text color on hover.
-- `.ui-mark` has a background, and `.ui-del`/`.ui-ins` use the critical/success palette.
-- Rich text `pre` and inline `code` run left to right in RTL.
-- Rich text ordered lists widen their gutter for long numbers, including `ol[start]`.
-- `solid-js` is an optional peer dependency.
+- `Typography` `.ui-mark` has a background, and `.ui-del`/`.ui-ins` use the critical/success palette.
+- `Typography` rich text `pre` and inline `code` run left to right in RTL.
+- `Typography` rich text tables no longer break short words letter by letter. A table that doesn't fit scrolls sideways.
+- `Typography` rich text ordered lists widen their gutter for long numbers, including `ol[start]`, and task lists only match a classless `label`, so a `Checkbox` in a list keeps its own styles.
+- `package.json` lists `solid-js` as an optional peer dependency, like `astro`, `svelte` and `vue`.
 
 ## 5.5.0 - 2026-09-28
 

@@ -55,7 +55,10 @@
 
     &::before {
       background-color: var(--_bg-color);
-      border-radius: max(0px, calc(var(--_border-radius) - var(--border-width)));
+      border-radius: max(
+        0px,
+        calc(var(--_border-radius) - var(--border-width))
+      );
       content: "";
       inset: 0;
       pointer-events: none;

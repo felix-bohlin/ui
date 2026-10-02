@@ -671,8 +671,10 @@
     /* Tables */
     table:not([class]) {
       border-collapse: collapse;
+      display: block;
       font-variant-numeric: tabular-nums;
-      inline-size: 100%;
+      max-inline-size: 100%;
+      overflow-x: auto;
 
       caption {
         color: var(--text-muted);
@@ -684,7 +686,7 @@
 
       :where(th, td) {
         border-block-end: var(--border-size-1) solid var(--border-color);
-        overflow-wrap: anywhere;
+        overflow-wrap: break-word;
         padding-block: 0.5em;
         padding-inline: 0.75em;
         text-align: start;

@@ -1,5 +1,5 @@
 export type Props = {
-  [key: string]: any
+  headingLevel?: 2 | 3 | 4 | 5 | 6
   severity?: "critical" | "info" | "neutral" | "success" | "warning"
   variant?: "tonal" | "outlined"
 }

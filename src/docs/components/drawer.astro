@@ -6,19 +6,23 @@ import { Switch, Table } from "@opui/astro"
 import DrawerCSS from "@opui/css/components/drawer.css?raw"
 import drawerApi from "../../component-api/drawer/api"
 import drawerHeaderApi from "../../component-api/drawer-header/api"
+import DrawerBuild from "../../components/UnderTheHood/DrawerBuild.astro"
 
 import ExampleUsage from "../../component-examples/drawer/Usage.astro"
 import ExampleUsageVue from "../../component-examples/drawer/Usage.vue"
-import ExampleUsageAstro from "/src/component-examples/drawer/Usage.astro?raw"
-import ExampleUsageVueRaw from "/src/component-examples/drawer/Usage.vue?raw"
-import ExampleUsageHTML from "/src/component-examples/drawer/Usage.html?raw"
+import ExampleUsageAstro from "../../component-examples/drawer/Usage.astro?raw"
+import ExampleUsageVueRaw from "../../component-examples/drawer/Usage.vue?raw"
+import ExampleUsageHTML from "../../component-examples/drawer/Usage.html?raw"
 
 import Conditional from "../../components/Conditional.astro"
 ---
 
 <Component
+  slug="drawer"
   browserSupport={[
+    "backdrop-filter",
     "dialog-closedby",
+    "display-animation",
     "has",
     "invoker-commands",
     "overlay",
@@ -62,11 +66,11 @@ import Conditional from "../../components/Conditional.astro"
           The backdrop is blurred by default. Use <code
             >backdrop="transparent"</code
           >
-          to remove the blur effect.
+          {" "}to remove the blur effect.
         </p>
         <p>
           Page scrolling is locked by default when the drawer is open. Use the
-          <code>scrollLock={false}</code> prop to allow scrolling while the drawer
+          {" "}<code>scrollLock={false}</code> prop to allow scrolling while the drawer
           is open.
         </p>
       </Fragment>
@@ -80,7 +84,7 @@ import Conditional from "../../components/Conditional.astro"
           The backdrop is blurred by default. Use the <code
             >.ui-backdrop-transparent</code
           >
-          class to remove the blur effect.
+          {" "}class to remove the blur effect.
         </p>
         <p>
           Add the <code>.ui-scroll-lock</code> utility class to the drawer to lock
@@ -97,11 +101,11 @@ import Conditional from "../../components/Conditional.astro"
           The backdrop is blurred by default. Use <code
             >backdrop="transparent"</code
           >
-          to remove the blur effect.
+          {" "}to remove the blur effect.
         </p>
         <p>
           Page scrolling is locked by default when the drawer is open. Use the
-          <code>scrollLock={false}</code> prop to allow scrolling while the drawer
+          {" "}<code>scrollLock={false}</code> prop to allow scrolling while the drawer
           is open.
         </p>
       </Fragment>
@@ -244,6 +248,8 @@ import Conditional from "../../components/Conditional.astro"
     </Conditional>
   </section>
 
+  <DrawerBuild slot="under-the-hood" />
+
   <Fragment slot="accessibility">
     <ul>
       <li>
@@ -254,7 +260,7 @@ import Conditional from "../../components/Conditional.astro"
         user is expected to click/activate it to dismiss.
       </li>
       <li>
-        Do not add the <code>tabindex</code> property to the
+        Do not add the <code>tabindex</code> property to the{" "}
         <code>&lt;dialog&gt;</code> element as it is not interactive and does not
         receive focus. The dialog's contents, including the close button contained
         in the dialog, can receive focus and be interactive.
@@ -393,14 +399,14 @@ import Conditional from "../../components/Conditional.astro"
 
 <style is:global>
   .drawer-examples {
+    align-items: center;
     display: grid;
+    gap: var(--size-3);
     grid-template-areas:
       ". top ."
       "left . right"
       ". bottom .";
-    gap: var(--size-3);
     justify-items: center;
-    align-items: center;
     margin: var(--size-8) auto;
     width: fit-content;
   }

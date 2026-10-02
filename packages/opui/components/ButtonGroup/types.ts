@@ -1,7 +1,8 @@
 export type Props = {
-  [key: string]: any
   color?: "critical" | "primary"
   orientation?: "vertical"
-  size?: "small" | "large"
+  scrollable?: boolean
+  shrink?: boolean
+  size?: "x-small" | "small" | "large"
   variant?: "outlined" | "tonal" | "filled"
 }

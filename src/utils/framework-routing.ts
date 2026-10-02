@@ -48,7 +48,7 @@ export function stripFrameworkPrefix(pathname: string): string {
 
 /**
  * Build the URL for the same logical page on a specific framework. Honors the
- * Astro i18n config (default framework is unprefixed). Preserves any query
+ * Astro i18n config (every framework has its own prefix). Preserves any query
  * string and hash fragment on the input - Astro's `getRelativeLocaleUrl`
  * treats its input as a single path segment and would otherwise mangle them
  * (e.g. append a trailing slash *after* the hash).

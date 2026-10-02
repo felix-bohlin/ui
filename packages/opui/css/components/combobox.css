@@ -12,7 +12,7 @@
       cursor: pointer;
       display: flex;
       font-family: var(--font-sans);
-      font-size: var(--font-size-1);
+      font-size: var(--_font-size);
       gap: var(--size-2);
       grid-column: 1 / -1;
       grid-row: 2;
@@ -21,8 +21,8 @@
       margin: 0;
       min-inline-size: 0;
       outline: 0;
-      padding: var(--_field-padding-block) var(--size-3)
-        var(--_field-padding-block) var(--_field-padding-inline);
+      padding: var(--_field-padding-block-fit) var(--size-3)
+        var(--_field-padding-block-fit) var(--_field-padding-inline);
       text-align: start;
 
       &:disabled {
@@ -55,7 +55,7 @@
       --_bg-color: var(--surface-elevated);
 
       color: var(--text-primary);
-      font-size: var(--font-size-1);
+      font-size: var(--_font-size);
 
       & > label {
         align-items: center;

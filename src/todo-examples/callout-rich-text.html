@@ -1,0 +1,42 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-proposed .ui-callout > .ui-content {
+    display: block;
+  }
+</style>
+<div class="todo-compare">
+  <div class="ui-rich-text">
+    <p class="ui-caption">Current: gap plus flow margins</p>
+    <article role="note" class="ui-callout ui-info">
+      <div class="ui-content">
+        <h3>Before you start</h3>
+        <p>Back up your data. The migration rewrites every record.</p>
+        <p>It takes about ten minutes.</p>
+      </div>
+    </article>
+  </div>
+  <div class="ui-rich-text todo-proposed">
+    <p class="ui-caption">
+      Proposed: <code>display: block</code> where rich text applies
+    </p>
+    <article role="note" class="ui-callout ui-info">
+      <div class="ui-content">
+        <h3>Before you start</h3>
+        <p>Back up your data. The migration rewrites every record.</p>
+        <p>It takes about ten minutes.</p>
+      </div>
+    </article>
+  </div>
+</div>

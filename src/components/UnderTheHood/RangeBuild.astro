@@ -1,0 +1,227 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.range {
+  appearance: none;
+  background: transparent;
+  block-size: 1.25rem;
+  inline-size: 100%;
+}
+
+.range::-webkit-slider-runnable-track {
+  appearance: none;
+  background-color: var(--border-color);
+  block-size: 0.75ex;
+  border-radius: 1e5px;
+}
+
+.range::-moz-range-track {
+  appearance: none;
+  background-color: var(--border-color);
+  block-size: 0.75ex;
+  border-radius: 1e5px;
+}`,
+    features: ["appearance", "input-range"],
+    notes: [
+      "<code>appearance: none</code> on the input, then style the track pseudo-element",
+      "Chromium and Safari: <code>::-webkit-slider-runnable-track</code>, Firefox: <code>::-moz-range-track</code>",
+      "A <code>1e5px</code> radius is always a pill",
+    ],
+    title: "Track",
+  },
+  {
+    css: `
+.range::-webkit-slider-thumb {
+  appearance: none;
+  background: var(--primary);
+  block-size: 3ex;
+  border: 3px solid var(--surface-default);
+  border-radius: 50%;
+  cursor: ew-resize;
+  inline-size: 3ex;
+  margin-block-start: -1.125ex;
+}
+
+.range::-moz-range-thumb {
+  appearance: none;
+  background: var(--primary);
+  block-size: 3ex;
+  border: 3px solid var(--surface-default);
+  border-radius: 50%;
+  cursor: ew-resize;
+  inline-size: 3ex;
+}`,
+    notes: [
+      "The thumb needs its own <code>appearance: none</code>",
+      "WebKit pins it to the top of the track: (track − thumb) ÷ 2 centers it",
+      "A border in the surface color cuts it out of the track",
+    ],
+    title: "Thumb",
+  },
+  {
+    css: `
+.range::-webkit-slider-runnable-track {
+  background-image: linear-gradient(var(--primary), var(--primary));
+  background-repeat: no-repeat;
+  background-size: var(--fill) 100%;
+}
+
+.range::-moz-range-progress {
+  background-color: var(--primary);
+  block-size: 0.75ex;
+  border-radius: 1e5px;
+}`,
+    features: ["gradients"],
+    html: `
+<input class="range" type="range" min="0" max="100" value="40" />
+
+<script>
+  const update = () => {
+    const fill = ((input.value - input.min) / (input.max - input.min)) * 100
+    input.style.setProperty("--fill", fill + "%")
+  }
+  input.addEventListener("input", update)
+  update()
+</script>`,
+    notes: [
+      "Firefox draws the filled part with <code>::-moz-range-progress</code>",
+      "Elsewhere a one-color <code>linear-gradient</code>, sized to <code>--fill</code>, paints it",
+      "A few lines of JavaScript keep <code>--fill</code> in sync with the value",
+    ],
+    title: "Fill",
+  },
+  {
+    css: `
+.range {
+  --halo: 0px;
+}
+
+.range:hover {
+  --halo: 0.25rem;
+}
+
+.range:active {
+  --halo: 0.5rem;
+}
+
+.range::-webkit-slider-thumb {
+  box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
+  transition: box-shadow 0.2s var(--ease);
+}
+
+.range::-moz-range-thumb {
+  box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
+  transition: box-shadow 0.2s var(--ease);
+}`,
+    features: ["relative-color"],
+    notes: [
+      "A <code>box-shadow</code> spread draws the ring, no extra element",
+      "Relative color: the primary hue at a fixed lightness and 20% alpha",
+      "The pseudo-elements inherit <code>--halo</code> from the input's <code>:hover</code> and <code>:active</code>",
+      "Hover and drag the thumb",
+    ],
+    title: "Halo",
+  },
+  {
+    css: `
+.ticks {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 1.5ex;
+}
+
+.ticks > option {
+  display: flex;
+  inline-size: 0;
+  justify-content: center;
+  padding: 0;
+  white-space: nowrap;
+}`,
+    features: ["datalist"],
+    html: `
+<input class="range" type="range" list="ticks" … />
+<datalist class="ticks" id="ticks">
+  <option value="0" label="0"></option>
+  <option value="25" label="25"></option>
+  …
+</datalist>`,
+    notes: [
+      "A <code>&lt;datalist&gt;</code> is hidden by default, <code>display: flex</code> brings it back",
+      "Zero-width options with centered labels sit exactly on each step",
+      "Half a thumb of padding lines the ends up with the thumb's center",
+    ],
+    title: "Ticks",
+  },
+]
+
+const ticks = [0, 25, 50, 75, 100]
+---
+
+<BuildUp id="build-range" steps={steps}>
+  <label class="field">
+    <span>Volume</span>
+    <output class="value" for="build-range-input">40</output>
+    <input
+      class="range"
+      id="build-range-input"
+      list="build-range-ticks"
+      max="100"
+      min="0"
+      type="range"
+      value="40"
+    />
+    <datalist class="ticks" id="build-range-ticks">
+      {ticks.map((tick) => <option label={String(tick)} value={tick} />)}
+    </datalist>
+  </label>
+</BuildUp>
+
+<style>
+  .field {
+    display: grid;
+    gap: var(--size-1) 0;
+    grid-template-columns: 1fr auto;
+    inline-size: min(100%, 20rem);
+  }
+
+  .value {
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .range,
+  .ticks {
+    grid-column: 1 / -1;
+  }
+
+  .ticks {
+    color: var(--text-muted);
+    font-size: var(--font-size-0);
+  }
+</style>
+
+<script>
+  function initRangeBuild() {
+    const input = document.querySelector<HTMLInputElement>("#build-range-input")
+    const output = document.querySelector<HTMLOutputElement>(
+      "#build-range .value",
+    )
+    if (!input || input.dataset.ready) return
+    input.dataset.ready = ""
+    const update = () => {
+      const min = Number(input.min || 0)
+      const max = Number(input.max || 100)
+      const fill = ((Number(input.value) - min) / (max - min || 1)) * 100
+      input.style.setProperty("--fill", `${fill}%`)
+      if (output) output.textContent = input.value
+    }
+    input.addEventListener("input", update)
+    update()
+  }
+
+  initRangeBuild()
+  document.addEventListener("astro:after-swap", initRangeBuild)
+</script>

@@ -20,7 +20,12 @@ import { Button, ListItem, Menu } from "opui-css/vue"
   </Button>
   <Menu id="menu-custom">
     <li class="ui-label">Document</li>
-    <ListItem as="button" commandfor="menu-custom" command="hide-popover">
+    <ListItem
+      as="button"
+      headline="Rename"
+      commandfor="menu-custom"
+      command="hide-popover"
+    >
       <template #start>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -29,10 +34,14 @@ import { Button, ListItem, Menu } from "opui-css/vue"
           ></path>
         </svg>
       </template>
-      Rename
       <template #end><kbd>F2</kbd></template>
     </ListItem>
-    <ListItem as="button" commandfor="menu-custom" command="hide-popover">
+    <ListItem
+      as="button"
+      headline="Copy"
+      commandfor="menu-custom"
+      command="hide-popover"
+    >
       <template #start>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -41,10 +50,9 @@ import { Button, ListItem, Menu } from "opui-css/vue"
           ></path>
         </svg>
       </template>
-      Copy
       <template #end><kbd>Ctrl C</kbd></template>
     </ListItem>
-    <ListItem as="a" href="#menu">
+    <ListItem as="a" headline="Open in new tab" href="#menu">
       <template #start>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -53,10 +61,10 @@ import { Button, ListItem, Menu } from "opui-css/vue"
           ></path>
         </svg>
       </template>
-      Open in new tab
     </ListItem>
     <ListItem
       as="button"
+      headline="Delete"
       border-top
       class="ui-critical"
       commandfor="menu-custom"
@@ -70,7 +78,6 @@ import { Button, ListItem, Menu } from "opui-css/vue"
           ></path>
         </svg>
       </template>
-      Delete
     </ListItem>
   </Menu>
 </template>

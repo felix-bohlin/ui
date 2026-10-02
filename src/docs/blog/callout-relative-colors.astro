@@ -1,0 +1,82 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import CalloutBuild from "../../components/UnderTheHood/CalloutBuild.astro"
+import { Code } from "astro-expressive-code/components"
+---
+
+<TechniquePost slug="callout-relative-colors">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      A callout with severities needs a background, border, text and icon color
+      for each one, in light and in dark. Five severities times four colors
+      times two schemes is 40 hand-picked values, plus a media query or theme
+      class to switch between them.
+    </p>
+    <p>
+      Add a severity or tweak a hue and you pick them all again. Preprocessors
+      could compute shades, but only at build time, not from a custom property.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        Each severity class sets a single <code>--palette-source</code> color
+      </li>
+      <li>
+        The palette derives 16 shades from it with <code>oklch(from …)</code>: a
+        fixed lightness per step, chroma scaled from the source, the hue nudged
+        a degree per step
+      </li>
+      <li>
+        The callout picks shades with <code>light-dark()</code>, so dark mode
+        needs no media query
+      </li>
+      <li>
+        The tint sits on a translucent <code>::before</code> layer over the opaque
+        surface
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.info {
+  --palette-source: oklch(0.58 0.21 var(--hue-blue));
+  --color-2: oklch(from var(--palette-source) 97% calc(0.06 * c / 0.21) h);
+  --color-5: oklch(from var(--palette-source) 80% calc(0.16 * c / 0.21) h);
+  --color-9: oklch(from var(--palette-source) 53% calc(0.2 * c / 0.21) h);
+}
+
+.callout.info {
+  --bg-color: light-dark(
+    oklch(from var(--color-2) l c h / 20%),
+    oklch(from var(--color-6) l c h / 5%)
+  );
+  --border-color: light-dark(var(--color-5), var(--color-11));
+  --icon-color: var(--color-9);
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <CalloutBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        There's no <code>@supports</code> fallback. The whole palette, grays included,
+        is built from relative colors
+      </li>
+      <li>
+        Without relative colors or <code>light-dark()</code>, the declarations
+        that use them are invalid at computed-value time and fall back to their
+        initial or inherited values, so the theme loses its colors, not just the
+        callout
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

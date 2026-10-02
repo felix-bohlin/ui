@@ -1,0 +1,94 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import ProgressBuild from "../../components/UnderTheHood/ProgressBuild.astro"
+import { Code } from "astro-expressive-code/components"
+---
+
+<TechniquePost slug="progress-native">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      <code>&lt;progress&gt;</code> comes with the right role, a value screen readers
+      announce and an indeterminate state when there is no <code>value</code>.
+      But every engine draws it differently, and the indeterminate animation is
+      whatever the browser ships.
+    </p>
+    <p>
+      So most libraries swap it for a <code>&lt;div role="progressbar"&gt;</code
+      >{" "}
+      and keep the ARIA attributes in sync by hand.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        <code>appearance: none</code> drops the native look, a wrapper draws the track
+        and clips the bar to its radius
+      </li>
+      <li>
+        The value is a vendor pseudo-element: <code
+          >::-webkit-progress-value</code
+        > in Chromium and Safari, <code>::-moz-progress-bar</code> in Firefox
+      </li>
+      <li>
+        <code>:indeterminate</code> matches a <code>&lt;progress&gt;</code> without
+        a <code>value</code>, and <code>:has()</code> lets the wrapper react to it
+      </li>
+      <li>
+        The wrapper's <code>::after</code> slides across by animating <code
+          >inset-inline-start</code
+        > and <code>inset-inline-end</code>, so it runs the other way in
+        right-to-left
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.progress > progress {
+  appearance: none;
+  background: none;
+  border: 0;
+}
+
+.progress > progress[value]::-webkit-progress-value {
+  background-color: var(--primary);
+}
+
+.progress > progress::-moz-progress-bar {
+  background-color: var(--primary);
+}
+
+.progress:has(> progress:indeterminate)::after {
+  animation: indeterminate 2s linear infinite;
+  background-color: var(--primary);
+  content: "";
+  inset-block: 0;
+  position: absolute;
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <ProgressBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Each vendor pseudo-element has its own rule, so an engine drops only the
+        one it doesn't know instead of the whole selector list
+      </li>
+      <li>
+        Without <code>:has()</code> the indeterminate rules drop out and the wrapper
+        never draws its sliding bar
+      </li>
+      <li>
+        Under reduced motion <code>--motion</code> is <code>0</code>, the
+        animation duration becomes <code>0s</code> and the bar doesn't slide
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

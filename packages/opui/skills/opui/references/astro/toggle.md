@@ -2,6 +2,12 @@
 
 Buttons (disguised as input checkbox/radio) that can be toggled on and off.
 
+### What's new
+
+- [Large](#sizes) size with `size="large"`.
+- [Small and x-small](#sizes) toggles use smaller text, like `Button`.
+- [Groups wrap](#overflow) when they don't fit, or scrolls with `scrollable` or truncates with `shrink`.
+
 ## Anatomy
 
 DayWeekMonth
@@ -222,7 +228,7 @@ import { ToggleGroup, ToggleButton } from "opui-css/astro"
 
 ### Sizes
 
-Choose between three sizes: default, `.ui-x-small` and `.ui-small`.
+Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
 
 ```astro
 ---
@@ -233,18 +239,50 @@ import { ToggleButton } from "opui-css/astro"
 <ToggleButton size="x-small"> x-small </ToggleButton>
 <ToggleButton size="small"> small </ToggleButton>
 <ToggleButton> default </ToggleButton>
+<ToggleButton size="large"> large </ToggleButton>
+```
+
+### Overflow
+
+Toggle buttons in a group wrap onto more rows when they don't fit. Use `scrollable` to keep them on one row and scroll them sideways, or `shrink` to keep them on one row and truncate their labels. Icon-only items keep their size.
+
+```astro
+---
+import { ToggleButton, ToggleGroup } from "opui-css/astro"
+---
+
+
+<div style="display: grid; gap: var(--size-3); max-inline-size: 18rem">
+  <ToggleGroup name="overflow-wrap">
+    <ToggleButton value="all">Everything</ToggleButton>
+    <ToggleButton value="mentions">Mentions</ToggleButton>
+    <ToggleButton value="none">Nothing at all</ToggleButton>
+  </ToggleGroup>
+  <ToggleGroup name="overflow-scrollable" scrollable>
+    <ToggleButton value="all">Everything</ToggleButton>
+    <ToggleButton value="mentions">Mentions</ToggleButton>
+    <ToggleButton value="none">Nothing at all</ToggleButton>
+  </ToggleGroup>
+  <ToggleGroup name="overflow-shrink" shrink>
+    <ToggleButton value="all">Everything</ToggleButton>
+    <ToggleButton value="mentions">Mentions</ToggleButton>
+    <ToggleButton value="none">Nothing at all</ToggleButton>
+  </ToggleGroup>
+</div>
 ```
 
 ## API
 
 ### Toggle group API
 
-| Prop          | Type                                | Default      | Description                                                                   |
-| ------------- | ----------------------------------- | ------------ | ----------------------------------------------------------------------------- |
-| `name`        | `string`                            | -            | The name shared by the inputs. Generated when omitted.                        |
-| `orientation` | `"vertical"`                        | -            | The orientation of the element.                                               |
-| `selection`   | `"multiple"`, `"single"`            | `"multiple"` | Whether one or several buttons can be selected. `"single"` uses radio inputs. |
-| `size`        | `"default"`, `"x-small"`, `"small"` | `"default"`  | The size of the buttons.                                                      |
+| Prop          | Type                                           | Default      | Description                                                                                                       |
+| ------------- | ---------------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
+| `name`        | `string`                                       | -            | The name shared by the inputs. Generated when omitted.                                                            |
+| `orientation` | `"vertical"`                                   | -            | The orientation of the element.                                                                                   |
+| `scrollable`  | `boolean`                                      | `false`      | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| `selection`   | `"multiple"`, `"single"`                       | `"multiple"` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
+| `shrink`      | `boolean`                                      | `false`      | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| `size`        | `"default"`, `"x-small"`, `"small"`, `"large"` | `"default"`  | The size of the buttons.                                                                                          |
 
 #### Slots
 
@@ -252,18 +290,42 @@ import { ToggleButton } from "opui-css/astro"
 | --------- | ------------------- |
 | `default` | The toggle buttons. |
 
+#### CSS variables
+
+| Variable                 | Default                                      | Description                                                                                           |
+| ------------------------ | -------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                           |
+| `--border-width`         | `1px`                                        | Default border width for components that draw a border.                                               |
+| `--button-border-radius` | `var(--size-2)`                              | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                          |
+| `--field-size`           | `var(--control-size)`                        | Default field height.                                                                                 |
+| `--field-size-large`     | `var(--control-size-large)`                  | Field height with `.ui-large`.                                                                        |
+| `--field-size-small`     | `var(--control-size-small)`                  | Field height with `.ui-small`.                                                                        |
+| `--field-size-x-small`   | `var(--control-size-x-small)`                | Field height with `.ui-x-small`.                                                                      |
+| `--focus-ring-color`     | Unset                                        | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.       |
+| `--focus-ring-offset`    | `2px`                                        | Distance between a control and its focus ring.                                                        |
+| `--focus-ring-style`     | `solid`                                      | Outline style of the focus ring.                                                                      |
+| `--focus-ring-width`     | `2px`                                        | Width of the focus ring.                                                                              |
+| `--font-size-05`         | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
+| `--icon-size`            | `var(--size-4)`                              | Default icon size inside components.                                                                  |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                          |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                             |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                      |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+
 ### Toggle button API
 
-| Prop       | Type                    | Default      | Description                                                |
-| ---------- | ----------------------- | ------------ | ---------------------------------------------------------- |
-| `disabled` | `boolean`               | `false`      | Disables the button.                                       |
-| `id`       | `string`                | -            | The id of the `<input>`. Generated when omitted.           |
-| `label`    | `string`                | -            | The input value when `value` is omitted.                   |
-| `name`     | `string`                | -            | The name of the input. Set by the group.                   |
-| `pressed`  | `boolean`               | `false`      | Selects the button.                                        |
-| `size`     | `"x-small"`, `"small"`  | -            | The size of the element.                                   |
-| `type`     | `"checkbox"`, `"radio"` | `"checkbox"` | The input type. `"radio"` allows one selection in a group. |
-| `value`    | `string`                | -            | The value of the input.                                    |
+| Prop       | Type                              | Default      | Description                                                |
+| ---------- | --------------------------------- | ------------ | ---------------------------------------------------------- |
+| `disabled` | `boolean`                         | `false`      | Disables the button.                                       |
+| `id`       | `string`                          | -            | The id of the `<input>`. Generated when omitted.           |
+| `label`    | `string`                          | -            | The input value when `value` is omitted.                   |
+| `name`     | `string`                          | -            | The name of the input. Set by the group.                   |
+| `pressed`  | `boolean`                         | `false`      | Selects the button.                                        |
+| `size`     | `"x-small"`, `"small"`, `"large"` | -            | The size of the element.                                   |
+| `type`     | `"checkbox"`, `"radio"`           | `"checkbox"` | The input type. `"radio"` allows one selection in a group. |
+| `value`    | `string`                          | -            | The value of the input.                                    |
 
 #### Slots
 
@@ -271,13 +333,166 @@ import { ToggleButton } from "opui-css/astro"
 | --------- | ------------------------------- |
 | `default` | The label and an optional icon. |
 
+#### CSS variables
+
+| Variable                 | Default                                      | Description                                                                                           |
+| ------------------------ | -------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                           |
+| `--border-width`         | `1px`                                        | Default border width for components that draw a border.                                               |
+| `--button-border-radius` | `var(--size-2)`                              | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                          |
+| `--field-size`           | `var(--control-size)`                        | Default field height.                                                                                 |
+| `--field-size-large`     | `var(--control-size-large)`                  | Field height with `.ui-large`.                                                                        |
+| `--field-size-small`     | `var(--control-size-small)`                  | Field height with `.ui-small`.                                                                        |
+| `--field-size-x-small`   | `var(--control-size-x-small)`                | Field height with `.ui-x-small`.                                                                      |
+| `--focus-ring-color`     | Unset                                        | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.       |
+| `--focus-ring-offset`    | `2px`                                        | Distance between a control and its focus ring.                                                        |
+| `--focus-ring-style`     | `solid`                                      | Outline style of the focus ring.                                                                      |
+| `--focus-ring-width`     | `2px`                                        | Width of the focus ring.                                                                              |
+| `--font-size-05`         | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
+| `--icon-size`            | `var(--size-4)`                              | Default icon size inside components.                                                                  |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                          |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                      |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+
+## Under the hood
+
+1. Label
+
+   - A `<label>` wrapping a checkbox: click, keyboard and form value for free
+   - The checkbox holds the state, no `aria-pressed` to keep in sync
+
+2. Pressed
+
+   - `:has(input:checked)`: the label styles itself from the checkbox state
+   - Relative color turns `--primary` into a 25% tint
+   - `light-dark()` picks the hover tint per color scheme
+
+3. Hide input
+
+   - Visually hidden, still focusable and announced
+   - `:has(input:focus-visible)` draws an inset focus ring on the label
+   - `Tab` to a toggle and press `Space`
+
+4. Group
+
+   - Radios with a shared `name`: single select, no JavaScript
+   - Checkboxes for multi-select, with `role="group"`
+   - Each toggle draws a divider on its start and top edge, the group clips the outer ones
+
+Step 1 of 4: Label
+
+```html
+<label class="toggle">
+  <input type="checkbox" />
+  Bold
+</label>
+```
+
+```css
+.toggle {
+  align-items: center;
+  block-size: var(--field-size);
+  border: 1px solid var(--border-color);
+  border-radius: var(--button-border-radius);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: inline-flex;
+  gap: var(--size-2);
+  justify-content: center;
+  min-inline-size: var(--field-size);
+  padding: 0 var(--size-2);
+  position: relative;
+  user-select: none;
+}
+```
+
+Step 2 of 4: Pressed
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+
+```css
+.toggle {
+  --bg: transparent;
+  background-color: var(--bg);
+}
+
+
+.toggle:hover {
+  --bg: light-dark(oklch(0% 0 0 / 0.04), oklch(100% 0 0 / 0.08));
+}
+
+
+.toggle:has(input:checked) {
+  --bg: oklch(from var(--primary) l c h / 25%);
+}
+```
+
+Step 3 of 4: Hide input
+
+- [`:focus-visible`](https://webstatus.dev/features/focus-visible) (Widely available): Chrome 86+, Edge 86+, Firefox 85+, Safari 15.4+
+
+```css
+.toggle input {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+
+.toggle:has(input:focus-visible) {
+  outline: 2px solid var(--text-muted);
+  outline-offset: -6px;
+}
+```
+
+Step 4 of 4: Group
+
+```html
+<div class="toggle-group" role="radiogroup">
+  <label class="toggle">
+    <input type="radio" name="view" checked />
+    Day
+  </label>
+  …
+</div>
+```
+
+```css
+.toggle-group {
+  background-color: var(--surface-default);
+  border-radius: var(--button-border-radius);
+  display: inline-flex;
+  flex-wrap: wrap;
+  outline: 1px solid var(--border-color);
+  outline-offset: -1px;
+  overflow: hidden;
+}
+
+
+.toggle-group .toggle {
+  border: 0;
+  border-radius: 0;
+  box-shadow:
+    -1px 0 0 0 var(--border-color),
+    0 -1px 0 0 var(--border-color);
+  flex: auto;
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v125.
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Toggle.md).
 
 ## Installation
 

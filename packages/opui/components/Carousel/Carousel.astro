@@ -9,7 +9,9 @@ const {
   class: className,
   label,
   markers,
+  orientation,
   peek,
+  persistentButtons,
   perView,
   style,
   ...rest
@@ -28,7 +30,9 @@ const mergedStyle =
     "ui-carousel",
     {
       "ui-buttons-outside": buttons === "outside",
+      "ui-buttons-persistent": persistentButtons,
       "ui-peek": peek,
+      "ui-vertical": orientation === "vertical",
       "ui-with-buttons": buttons,
       "ui-with-markers": markers,
     },

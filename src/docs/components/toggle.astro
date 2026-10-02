@@ -12,16 +12,20 @@ import Conditional from "../../components/Conditional.astro"
 
 import toggleButtonApi from "../../component-api/toggle-button/api"
 import toggleGroupApi from "../../component-api/toggle-group/api"
+import ToggleBuild from "../../components/UnderTheHood/ToggleBuild.astro"
+export const description =
+  "Toggle buttons and toggle groups switch options on and off, alone or as a set."
 ---
 
 <Component
+  description={description}
   slug="toggle"
   heroAnatomy
   apis={[
     { title: "Toggle group API", api: toggleGroupApi },
     { title: "Toggle button API", api: toggleButtonApi },
   ]}
-  browserSupport={["color-mix", "light-dark", "relative-color"]}
+  browserSupport={["color-mix", "has", "light-dark", "relative-color"]}
   changelogPaths={[
     {
       path: "packages/opui/components/ToggleButton/ToggleButton.astro",
@@ -134,13 +138,43 @@ import toggleGroupApi from "../../component-api/toggle-group/api"
 
     <h3 id="sizes">Sizes</h3>
     <p>
-      Choose between three sizes: default, <code>.ui-x-small</code> and <code
-        >.ui-small</code
-      >.
+      Choose between four sizes: <code>.ui-x-small</code>, <code>.ui-small</code
+      >, default and <code>.ui-large</code>.
     </p>
 
     <AutoExample name="Sizes" centered row />
+
+    <h3 id="overflow">Overflow</h3>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Toggle buttons in a group wrap onto more rows when they don't fit. Use <code
+          >scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+      <Fragment slot="html">
+        Toggle buttons in a group wrap onto more rows when they don't fit. Add <code
+          >.ui-scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >.ui-shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+      <Fragment slot="vue">
+        Toggle buttons in a group wrap onto more rows when they don't fit. Use <code
+          >scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Overflow" />
   </section>
+
+  <ToggleBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy api={toggleGroupApi} zoom={1.25}>

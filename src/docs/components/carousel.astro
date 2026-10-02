@@ -106,6 +106,26 @@ export const description =
   </section>
 
   <section>
+    <h2 id="vertical">Vertical</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-vertical</code> scrolls on the block axis. Set its height with
+        <code>--_block-size</code>.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>orientation="vertical"</code> scrolls on the block axis. Set its height
+        with <code>--_block-size</code>.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>orientation="vertical"</code> scrolls on the block axis. Set its height
+        with <code>--_block-size</code>.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Vertical" />
+  </section>
+
+  <section>
     <h2 id="images">Images</h2>
     <p><code>--_media-aspect-ratio</code> to crop images.</p>
 

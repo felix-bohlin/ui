@@ -25,6 +25,8 @@
     --_markers-margin-block-start: var(--size-3);
     --_media-aspect-ratio: 16 / 9;
     --_media-border-radius: var(--border-radius, var(--radius-2));
+    --_block-size: 24rem;
+    --_padding-block: 0px;
     --_padding-inline: 0px;
     --_per-view: 1;
     --_snap-align: start;
@@ -72,10 +74,32 @@
       --_padding-inline: var(--size-8);
     }
 
+    /* Vertical */
+    &.ui-vertical {
+      block-size: var(--_block-size);
+      grid-auto-columns: auto;
+      grid-auto-flow: row;
+      grid-auto-rows: var(--_item-size);
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior-y: contain;
+      padding-block: var(--_padding-block);
+      padding-inline: 0;
+      scroll-padding-block: var(--_padding-block);
+      scroll-padding-inline: 0;
+      scroll-snap-type: y mandatory;
+
+      &.ui-peek {
+        --_padding-block: var(--size-8);
+      }
+    }
+
     /* Buttons */
     &.ui-with-buttons {
       &::scroll-button(inline-start),
-      &::scroll-button(inline-end) {
+      &::scroll-button(inline-end),
+      &.ui-vertical::scroll-button(block-start),
+      &.ui-vertical::scroll-button(block-end) {
         background-color: var(--_button-bg-color);
         background-position: center;
         background-repeat: no-repeat;
@@ -114,7 +138,8 @@
       }
 
       @supports (content: if(style(--x: none): "a" ; else: "b")) {
-        &::scroll-button(inline-start) {
+        &::scroll-button(inline-start),
+        &.ui-vertical::scroll-button(block-start) {
           content: if(
               style(--_button-prev-icon: none): var(--_button-prev-content) ;
                 else: ""
@@ -122,7 +147,8 @@
             "Previous";
         }
 
-        &::scroll-button(inline-end) {
+        &::scroll-button(inline-end),
+        &.ui-vertical::scroll-button(block-end) {
           content: if(
               style(--_button-next-icon: none): var(--_button-next-content) ;
                 else: ""
@@ -133,13 +159,15 @@
 
       @supports not (content: if(style(--x: none): "a" ; else: "b")) {
         @container not style(--_button-prev-icon: none) {
-          &::scroll-button(inline-start) {
+          &::scroll-button(inline-start),
+          &.ui-vertical::scroll-button(block-start) {
             content: "" / "Previous";
           }
         }
 
         @container not style(--_button-next-icon: none) {
-          &::scroll-button(inline-end) {
+          &::scroll-button(inline-end),
+          &.ui-vertical::scroll-button(block-end) {
             content: "" / "Next";
           }
         }
@@ -158,13 +186,68 @@
         }
       }
 
+      &.ui-vertical {
+        &::scroll-button(inline-start),
+        &::scroll-button(inline-end) {
+          content: none;
+        }
+
+        &::scroll-button(block-start),
+        &::scroll-button(block-end) {
+          inset-inline-start: calc(anchor(center) - var(--_button-size) / 2);
+          rotate: 90deg;
+          translate: none;
+        }
+
+        &::scroll-button(block-start) {
+          background-image: var(--_button-prev-icon);
+          content: var(--_button-prev-content) / "Previous";
+          inset-block-start: calc(anchor(self-start) + var(--_button-inset));
+        }
+
+        &::scroll-button(block-end) {
+          background-image: var(--_button-next-icon);
+          content: var(--_button-next-content) / "Next";
+          inset-block-end: calc(anchor(self-end) + var(--_button-inset));
+          inset-block-start: auto;
+        }
+
+        &:dir(rtl) {
+          --_button-next-content: "\276F";
+          --_button-prev-content: "\276E";
+        }
+
+        &.ui-buttons-outside {
+          @supports selector(::scroll-button(*)) {
+            margin-block: calc(var(--_button-size) + var(--_button-inset));
+            margin-inline: 0;
+          }
+
+          &::scroll-button(block-start) {
+            inset-block-start: calc(
+              anchor(self-start) - var(--_button-size) - var(--_button-inset)
+            );
+          }
+
+          &::scroll-button(block-end) {
+            inset-block-end: calc(
+              anchor(self-end) - var(--_button-size) - var(--_button-inset)
+            );
+          }
+        }
+      }
+
       &::scroll-button(inline-start):active,
-      &::scroll-button(inline-end):active {
+      &::scroll-button(inline-end):active,
+      &.ui-vertical::scroll-button(block-start):active,
+      &.ui-vertical::scroll-button(block-end):active {
         scale: 0.94;
       }
 
       &::scroll-button(inline-start):disabled,
-      &::scroll-button(inline-end):disabled {
+      &::scroll-button(inline-end):disabled,
+      &.ui-vertical::scroll-button(block-start):disabled,
+      &.ui-vertical::scroll-button(block-end):disabled {
         cursor: default;
         opacity: var(--_button-disabled-opacity);
       }

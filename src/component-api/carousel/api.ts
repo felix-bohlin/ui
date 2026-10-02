@@ -36,6 +36,14 @@ export default {
       prop: "markers",
     },
     {
+      default: '"horizontal"',
+      description:
+        "Scroll direction. Vertical carousels need a block size, set with `--_block-size`.",
+      group: "Orientation",
+      prop: "orientation",
+      values: { horizontal: null, vertical: ".ui-vertical" },
+    },
+    {
       class: ".ui-peek",
       default: "false",
       description: "Shows part of the neighbouring items.",

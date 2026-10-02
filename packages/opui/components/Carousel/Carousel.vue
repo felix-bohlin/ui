@@ -6,6 +6,7 @@ const {
   buttons = true,
   label,
   markers,
+  orientation,
   peek,
   perView,
 } = defineProps<Props>()
@@ -20,6 +21,7 @@ defineSlots<Slots>()
       {
         'ui-buttons-outside': buttons === 'outside',
         'ui-peek': peek,
+        'ui-vertical': orientation === 'vertical',
         'ui-with-buttons': buttons,
         'ui-with-markers': markers,
       },

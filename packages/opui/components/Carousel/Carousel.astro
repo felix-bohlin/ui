@@ -9,6 +9,7 @@ const {
   class: className,
   label,
   markers,
+  orientation,
   peek,
   perView,
   style,
@@ -29,6 +30,7 @@ const mergedStyle =
     {
       "ui-buttons-outside": buttons === "outside",
       "ui-peek": peek,
+      "ui-vertical": orientation === "vertical",
       "ui-with-buttons": buttons,
       "ui-with-markers": markers,
     },

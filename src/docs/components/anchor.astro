@@ -42,7 +42,23 @@ import anchorApi from "../../component-api/anchor/api"
 
   <section>
     <h2 id="always-visible">Always Visible</h2>
-    <p>Floating content that is always shown.</p>
+    <Conditional as="p">
+      <Fragment slot="html">
+        Floating content that is always shown, like a coach mark beside a
+        button. Set <code>--anchor-position-area</code> on
+        <code>.ui-anchor</code> to any <code>position-area</code> value to place it.
+      </Fragment>
+      <Fragment slot="astro">
+        Floating content that is always shown, like a coach mark beside a
+        button. Set <code>alignment</code> to any <code>position-area</code> value
+        to place it.
+      </Fragment>
+      <Fragment slot="vue">
+        Floating content that is always shown, like a coach mark beside a
+        button. Set <code>alignment</code> to any <code>position-area</code> value
+        to place it.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="AlwaysVisible" />
   </section>
@@ -51,8 +67,9 @@ import anchorApi from "../../component-api/anchor/api"
     <h2 id="hover-trigger">Hover Trigger</h2>
     <Conditional as="p">
       <Fragment slot="html">
-        Add <code>interestfor</code> on the trigger element pointing to the
-        <code>.ui-anchor-floating</code> ID.
+        Add <code>popover="hint"</code> and an id to
+        <code>.ui-anchor-floating</code>, and <code>interestfor</code> with that id
+        on the trigger.
       </Fragment>
       <Fragment slot="astro">
         Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
@@ -70,12 +87,36 @@ import anchorApi from "../../component-api/anchor/api"
       </Fragment>
     </Conditional>
     <p>
-      Add <code>interestfor</code>, <code>commandfor</code>, and <code
+      The trigger has to be a <code>button</code> or a link with an <code
+        >href</code
+      >, since those are the elements that support <code>interestfor</code>.
+      Pointer and keyboard users show interest by hovering or focusing the
+      trigger. Add <code>commandfor</code> and <code
         >command="toggle-popover"</code
-      > to the anchor trigger so touch devices can tap to show the floating content.
+      >
+      to a button trigger so touch devices can tap to show the floating content. A
+      link can't take <code>commandfor</code>, so tapping it follows the link
+      instead.
+    </p>
+    <p>
+      Put a <DocLink href="/components/card">Card</DocLink> in the floating content
+      for hover cards like GitHub's profile previews. Align the card below the trigger
+      with <code>block-end span-inline-end</code>. It flips to the other side
+      when there isn't room.
     </p>
 
-    <AutoExample name="Hover" />
+    <AutoExample name="ProfileCard" />
+  </section>
+
+  <section>
+    <h2 id="link-preview">Link Preview</h2>
+    <p>
+      Preview where a link goes before following it. The card keeps its
+      interactive content reachable, so the pointer can move from the link into
+      the card without closing it.
+    </p>
+
+    <AutoExample name="LinkPreview" />
   </section>
 
   <section>

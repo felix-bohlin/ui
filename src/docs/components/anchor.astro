@@ -13,6 +13,7 @@ import {
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
 
 import anchorApi from "../../component-api/anchor/api"
+import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
 ---
 
 <Component
@@ -94,16 +95,8 @@ import anchorApi from "../../component-api/anchor/api"
       </Fragment>
     </Conditional>
     <p>
-      The trigger has to be a <code>button</code> or a link with an <code
-        >href</code
-      >, since those are the elements that support <code>interestfor</code>.
-      Pointer and keyboard users show interest by hovering or focusing the
-      trigger. Add <code>commandfor</code> and <code
-        >command="toggle-popover"</code
-      >
-      {" "}to a button trigger so touch devices can tap to show the floating
-      content. A link can't take <code>commandfor</code>, so tapping it follows
-      the link instead.
+      <a href="#under-the-hood">Under the hood</a> shows how hover, focus and tap
+      open the card.
     </p>
     <p>
       Put a <DocLink href="/components/card">Card</DocLink> in the floating content
@@ -133,6 +126,8 @@ import anchorApi from "../../component-api/anchor/api"
       <li><DocLink href="/components/tooltip">Tooltip</DocLink></li>
     </ul>
   </section>
+
+  <AnchorBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy>

@@ -127,14 +127,14 @@ const FRAMEWORK_BRANDING: Record<
         transparent 1.4500000000000002px
       );
       background-size: 20px 20px;
-      content: "";
-      top: 0;
-      right: 0;
       bottom: 0;
+      content: "";
       left: 0;
       opacity: 0.05;
       pointer-events: none;
       position: fixed;
+      right: 0;
+      top: 0;
     }
   }
 </style>
@@ -145,8 +145,8 @@ const FRAMEWORK_BRANDING: Record<
   }
 
   .hero-description {
-    line-height: var(--font-lineheight-4);
     font-size: var(--font-size-2);
+    line-height: var(--font-lineheight-4);
   }
 
   .hero-ctas {
@@ -196,9 +196,9 @@ const FRAMEWORK_BRANDING: Record<
       content: "";
       inset: 0;
       opacity: 0.3;
+      pointer-events: none;
       position: fixed;
       z-index: -1;
-      pointer-events: none;
     }
   }
 </style>

@@ -9,6 +9,10 @@ export default {
       prop: "as",
     },
     {
+      description: "The link to use. Renders an `<a>`.",
+      prop: "href",
+    },
+    {
       class: ".ui-multiline",
       default: "false",
       description: "Lets the label wrap to multiple lines.",
@@ -19,7 +23,7 @@ export default {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { small: ".ui-small" },
+      values: { large: ".ui-large", small: ".ui-small" },
     },
     {
       default: '"tonal"',

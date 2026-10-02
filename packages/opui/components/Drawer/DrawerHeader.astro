@@ -5,7 +5,13 @@ import type { DrawerHeaderProps as Props } from "./types.astro"
 
 export const title = "Drawer Header"
 
-const { class: className, commandfor, heading, ...rest } = Astro.props
+const {
+  class: className,
+  closeLabel = "Close",
+  commandfor,
+  heading,
+  ...rest
+} = Astro.props
 
 const closeAttrs = commandfor
   ? { command: "close", commandfor }
@@ -13,10 +19,11 @@ const closeAttrs = commandfor
 ---
 
 <div class:list={["ui-header", className]} {...rest}>
-  {heading && <span>{heading}</span>}
+  {heading && <h2>{heading}</h2>}
   <slot />
-  <Button ripple rounded size="small" title="Close" {...closeAttrs}>
+  <Button aria-label={closeLabel} ripple rounded size="small" {...closeAttrs}>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"

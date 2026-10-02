@@ -1,0 +1,94 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-proposed > * {
+    display: grid;
+  }
+</style>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">Current: items stretch, cards don't</p>
+    <ul class="ui-carousel" aria-label="Current" style="--_per-view: 3">
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <p>Destination</p>
+            <h3>Kyoto</h3>
+            <p>Temples, gardens and quiet lanes.</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <p>Destination</p>
+            <h3>Lima</h3>
+            <p>
+              Ceviche by the Pacific, and a long description that wraps onto
+              several lines to make this card taller.
+            </p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <p>Destination</p>
+            <h3>Oslo</h3>
+          </hgroup>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <p class="ui-caption">
+      Proposed: <code>.ui-carousel &gt; * { display: grid }</code>
+    </p>
+    <ul
+      class="ui-carousel todo-proposed"
+      aria-label="Proposed"
+      style="--_per-view: 3"
+    >
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <p>Destination</p>
+            <h3>Kyoto</h3>
+            <p>Temples, gardens and quiet lanes.</p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <p>Destination</p>
+            <h3>Lima</h3>
+            <p>
+              Ceviche by the Pacific, and a long description that wraps onto
+              several lines to make this card taller.
+            </p>
+          </hgroup>
+        </div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <p>Destination</p>
+            <h3>Oslo</h3>
+          </hgroup>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Toggle Group"
 
@@ -7,12 +8,14 @@ const {
   class: className,
   name,
   orientation,
+  scrollable,
   selection = "multiple",
+  shrink,
   size = "default",
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const groupName = name || $id("toggle-group")
 const escapedName = groupName.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
 
@@ -38,6 +41,7 @@ const html = slotHtml.replace(
     "ui-toggle-group",
     size !== "default" && size && `ui-${size}`,
     orientation && `ui-${orientation}`,
+    { "ui-scrollable": scrollable, "ui-shrink": shrink },
     className,
   ]}
   role={selection === "single" ? "radiogroup" : "group"}

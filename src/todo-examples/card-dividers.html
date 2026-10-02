@@ -1,0 +1,46 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-proposed .ui-divider {
+    margin-block: var(--divider-space, var(--size-fluid-3));
+  }
+
+  .todo-proposed :where(.ui-card, .ui-dialog, .ui-drawer, .ui-callout) {
+    --divider-space: var(--size-3);
+  }
+</style>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">Current: <code>--size-fluid-3</code></p>
+    <div class="ui-card ui-outlined">
+      <hgroup><h3 class="ui-h5">Account</h3></hgroup>
+      <div class="ui-content">
+        <p>Signed in as ada@example.com.</p>
+        <hr class="ui-divider" />
+        <p>Plan: Pro, renews in May.</p>
+      </div>
+    </div>
+  </div>
+  <div class="todo-proposed">
+    <p class="ui-caption">Proposed: cards set <code>--divider-space</code></p>
+    <div class="ui-card ui-outlined">
+      <hgroup><h3 class="ui-h5">Account</h3></hgroup>
+      <div class="ui-content">
+        <p>Signed in as ada@example.com.</p>
+        <hr class="ui-divider" />
+        <p>Plan: Pro, renews in May.</p>
+      </div>
+    </div>
+  </div>
+</div>

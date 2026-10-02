@@ -14,6 +14,14 @@ export default {
       prop: "name",
     },
     {
+      class: ".ui-scrollable",
+      default: "false",
+      description:
+        "Keeps the tabs on one row and scrolls them sideways when they don't fit. Supports up to 20 tabs.",
+      group: "Overflow",
+      prop: "scrollable",
+    },
+    {
       description: "The variant to use.",
       group: "Variants",
       prop: "variant",

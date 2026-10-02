@@ -1,30 +1,4 @@
 @layer components.extended {
-  :where(
-    .ui-text-field:has(
-      :where(
-        input[type="date"],
-        input[type="datetime-local"],
-        input[type="email"],
-        input[type="month"],
-        input[type="number"],
-        input[type="password"],
-        input[type="search"],
-        input[type="tel"],
-        input[type="text"],
-        input[type="time"],
-        input[type="url"],
-        input[type="week"]
-      )
-    )
-  ) {
-    /* Sizes */
-    &.ui-small {
-      input {
-        padding-inline: var(--size-2);
-      }
-    }
-  }
-
   /* Autosuggest */
   :where(.ui-text-field:has(input[list])) {
     .ui-field {
@@ -49,13 +23,15 @@
       border-inline: 5px solid transparent;
       content: "";
       inline-size: 0;
-      inset: 50% var(--size-3) auto auto;
+      inset-block: 50% auto;
+      inset-inline: auto var(--size-3);
       pointer-events: none;
       position: absolute;
       translate: 0 -50%;
     }
 
-    &.ui-small {
+    &.ui-small,
+    &.ui-x-small {
       input[list] {
         padding-inline-end: var(--size-7);
       }

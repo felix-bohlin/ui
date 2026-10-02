@@ -3,7 +3,7 @@ import { Switch } from "opui-css/vue"
 </script>
 
 <template>
-  <Switch name="switch-icons" small aria-label="Toggle theme">
+  <Switch name="switch-icons" size="small" aria-label="Toggle theme">
     <template #icon-unchecked
       ><svg
         xmlns="http://www.w3.org/2000/svg"

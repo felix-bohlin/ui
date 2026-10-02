@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed, useAttrs, useId } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
 const { actionsAlign } = defineProps<Props>()
@@ -8,14 +9,20 @@ defineOptions({
 })
 
 const slots = defineSlots<Slots>()
+const attrs = useAttrs()
+const uid = useId()
+const headerId = computed(() =>
+  slots.header && !attrs["aria-labelledby"] ? uid : undefined,
+)
 </script>
 
 <template>
   <dialog
+    :aria-labelledby="headerId"
     :class="['ui-dialog', 'ui-card', 'ui-elevated', $props.class]"
     v-bind="$attrs"
   >
-    <hgroup v-if="slots.header">
+    <hgroup v-if="slots.header" :id="headerId">
       <slot name="header"></slot>
     </hgroup>
 

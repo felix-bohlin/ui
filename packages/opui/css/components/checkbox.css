@@ -1,8 +1,13 @@
 @layer components.root {
   label.ui-checkbox {
-    --_input-size: var(--size-4);
+    --_accent: light-dark(
+      var(--primary),
+      oklch(from var(--primary) min(l, 0.62) c h)
+    );
+    --_accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
+    --_input-size: var(--choice-size);
 
-    align-items: center;
+    align-items: start;
     color: var(--text-primary);
     cursor: pointer;
     display: inline-grid;
@@ -10,14 +15,14 @@
     grid-auto-columns: auto;
     grid-auto-flow: column;
     inline-size: fit-content;
-    line-height: 1.5;
+    line-height: var(--font-lineheight-3);
     transform: translateZ(0);
     user-select: none;
 
     /* Disabled */
     &:has([disabled]) {
       cursor: not-allowed;
-      opacity: 0.64;
+      opacity: var(--disabled-opacity);
       user-select: none;
 
       input {
@@ -26,45 +31,57 @@
     }
 
     /* Required dot */
-    &:has(:invalid) {
+    &:has(:required) {
       .ui-label:after {
-        color: var(--red);
+        color: var(--field-required-color);
         content: "*";
-        inset: 0 -0.25ex auto auto;
+        inset-block: 0 auto;
+        inset-inline: auto -0.25ex;
         position: absolute;
+        text-box: inherit;
       }
     }
 
     /* Label */
     .ui-label {
-      color: var(--text-primary);
-      font-size: var(--font-size-05);
+      color: var(--field-label-color);
+      font-size: var(--field-label-font-size);
       grid-column: 2;
       grid-row: 1;
+      margin-block-start: calc(
+        (var(--_input-size) - 1lh) / 2 + var(--choice-label-offset)
+      );
       padding-inline: 0 1ex;
       position: relative;
+
+      @supports (text-box: trim-start cap alphabetic) {
+        margin-block-start: calc(
+          (var(--_input-size) - 1cap) / 2 + var(--choice-label-offset)
+        );
+        text-box: trim-start cap alphabetic;
+      }
     }
 
     /* End text */
     :where(.ui-end-text) {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
+      color: var(--field-helper-color);
+      font-size: var(--field-helper-font-size);
       grid-column: 2;
       grid-row: 2;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
       z-index: 1;
     }
 
     /* Spread layout */
     &.ui-spread {
-      align-items: center;
+      align-items: start;
       column-gap: var(--size-4);
       grid-auto-flow: unset;
       grid-template-columns: 1fr auto;
       inline-size: 100%;
 
       .ui-label {
-        font-weight: 600;
+        font-weight: var(--field-label-font-weight);
         grid-column: 1;
         grid-row: 1;
         inline-size: fit-content;
@@ -91,6 +108,7 @@
         grid-row: 2;
         margin-block-start: var(--size-1);
         padding-inline: 1ex;
+        text-box: normal;
 
         /* Required dot */
         &::after {
@@ -106,13 +124,13 @@
 
     /* Input */
     input[type="checkbox"] {
-      --_input-size: var(--size-4);
+      --_ripple-size: 175%;
 
       appearance: none;
       aspect-ratio: 1;
       background-color: var(--surface-default);
       block-size: var(--_input-size);
-      border: 1px solid var(--border-color);
+      border: var(--field-border-width) solid var(--border-color);
       border-radius: var(--radius-1);
       box-sizing: border-box;
       cursor: pointer;
@@ -126,13 +144,13 @@
 
       &:checked,
       &:indeterminate {
-        background-color: var(--primary);
-        border-color: var(--primary);
+        background-color: var(--_accent);
+        border-color: var(--_accent);
       }
 
       /* Checkmark */
       &::after {
-        background-color: var(--primary-contrast);
+        background-color: var(--_accent-contrast);
         clip-path: polygon(
           15% 52%,
           40% 77%,
@@ -156,39 +174,24 @@
       &:indeterminate::after {
         clip-path: polygon(20% 45%, 80% 45%, 80% 55%, 20% 55%);
       }
-
-      &::before {
-        --highlight-size: 175%;
-      }
     }
 
     /* Sizes */
     &.ui-small {
-      input[type="checkbox"] {
-        --_input-size: var(--size-3);
-      }
+      --_input-size: var(--choice-size-small);
     }
 
     &.ui-large {
-      input[type="checkbox"] {
-        --_input-size: var(--size-5);
-      }
+      --_input-size: var(--choice-size-large);
     }
 
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {
-      --primary: var(--critical);
+      --primary: var(--invalid-color);
 
       :where(.ui-end-text) {
-        color: var(--critical);
-      }
-    }
-
-    /* Touch devices */
-    @media (pointer: coarse) {
-      input {
-        --_input-size: var(--size-4);
+        color: var(--invalid-text-color);
       }
     }
 

@@ -1,0 +1,159 @@
+<style>
+  .todo-scroll-state {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-scroll-state .ui-card {
+    max-block-size: 18rem;
+  }
+
+  .todo-scroll-state .ui-card > .ui-content {
+    container-type: scroll-state;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    &::before,
+    &::after {
+      block-size: 0;
+      content: "";
+      display: block;
+      margin-inline: calc(-1 * var(--size-3));
+      position: sticky;
+      transition: box-shadow 0.2s;
+    }
+
+    &::before {
+      inset-block-start: 0;
+    }
+
+    &::after {
+      inset-block-end: 0;
+    }
+  }
+
+  @container scroll-state(scrollable: top) {
+    .todo-scroll-state .ui-card > .ui-content::before {
+      box-shadow: 0 0 12px 6px rgb(0 0 0 / 0.35);
+    }
+  }
+
+  @container scroll-state(scrollable: bottom) {
+    .todo-scroll-state .ui-card > .ui-content::after {
+      box-shadow: 0 0 12px 6px rgb(0 0 0 / 0.35);
+    }
+  }
+
+  .todo-scroll-state .todo-table-scroll {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    container-type: scroll-state;
+    max-block-size: 14rem;
+    overflow: auto;
+  }
+
+  .todo-scroll-state table {
+    border-collapse: separate;
+    border-spacing: 0;
+    inline-size: 100%;
+  }
+
+  .todo-scroll-state :is(th, td) {
+    border-block-end: 1px solid var(--border-color);
+    padding: var(--size-1) var(--size-2);
+    text-align: start;
+  }
+
+  .todo-scroll-state thead th {
+    background-color: var(--surface-filled);
+    container-type: scroll-state;
+    inset-block-start: 0;
+    position: sticky;
+    transition: box-shadow 0.2s;
+  }
+
+  @container scroll-state(stuck: top) {
+    .todo-scroll-state thead th {
+      box-shadow: 0 6px 8px -4px rgb(0 0 0 / 0.35);
+    }
+  }
+</style>
+<p>
+  Scroll the card content and the table. The shadows only show while there is
+  content hidden on that side, or while the header is stuck.
+</p>
+<div class="todo-scroll-state">
+  <div class="ui-card ui-elevated">
+    <hgroup><h2 class="ui-h5">Terms of service</h2></hgroup>
+    <div class="ui-content">
+      <p>1. These terms apply to every use of the service.</p>
+      <p>2. You keep the rights to everything you upload.</p>
+      <p>3. We may update these terms and will tell you when we do.</p>
+      <p>4. Accounts are personal and can't be shared.</p>
+      <p>5. We delete inactive accounts after two years.</p>
+      <p>6. Payments are billed monthly in advance.</p>
+      <p>7. You can cancel at any time from your settings.</p>
+      <p>8. Refunds are handled case by case.</p>
+      <p>9. Abuse of the service ends your account.</p>
+      <p>10. These terms are governed by Swedish law.</p>
+    </div>
+    <div class="ui-actions ui-align-end">
+      <button class="ui-button">Decline</button>
+      <button class="ui-button ui-filled">Accept</button>
+    </div>
+  </div>
+  <div class="todo-table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ada Lovelace</td>
+          <td>Engineer</td>
+        </tr>
+        <tr>
+          <td>Alan Turing</td>
+          <td>Researcher</td>
+        </tr>
+        <tr>
+          <td>Grace Hopper</td>
+          <td>Admiral</td>
+        </tr>
+        <tr>
+          <td>Hedy Lamarr</td>
+          <td>Inventor</td>
+        </tr>
+        <tr>
+          <td>Katherine Johnson</td>
+          <td>Mathematician</td>
+        </tr>
+        <tr>
+          <td>Margaret Hamilton</td>
+          <td>Engineer</td>
+        </tr>
+        <tr>
+          <td>Radia Perlman</td>
+          <td>Engineer</td>
+        </tr>
+        <tr>
+          <td>Tim Berners-Lee</td>
+          <td>Engineer</td>
+        </tr>
+        <tr>
+          <td>Vint Cerf</td>
+          <td>Engineer</td>
+        </tr>
+        <tr>
+          <td>Barbara Liskov</td>
+          <td>Professor</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

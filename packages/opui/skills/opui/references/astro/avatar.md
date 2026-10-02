@@ -159,13 +159,144 @@ import { Avatar } from "opui-css/astro"
 | --------- | ------------------------------------------ |
 | `default` | Letters or an icon, when there's no image. |
 
+#### CSS variables
+
+| Variable             | Default                                      | Description                                                   |
+| -------------------- | -------------------------------------------- | ------------------------------------------------------------- |
+| `--control-size`     | `40px`                                       | Shared default height for fields and buttons so they line up. |
+| `--icon-size-large`  | `var(--size-5)`                              | Icon size inside `IconButton`, `Avatar` and `List`.           |
+| `--primary`          | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                  |
+| `--primary-contrast` | `light-dark(var(--gray-1), var(--gray-15))`  | Text color on a `--primary` background.                       |
+| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                     |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+
+## Under the hood
+
+1. Circle
+
+   - `aspect-ratio: 1`: set the width, the height follows
+   - Letters and icons center with flexbox
+   - `overflow: clip` cuts everything to the circle
+
+2. Image
+
+   - `object-fit: cover` crops a photo of any aspect ratio
+   - Absolutely positioned, so the image never sizes the avatar
+   - `:has(img)` drops the fallback color behind the photo
+
+3. Shapes
+
+   - A shape is just a different `border-radius`
+   - `corner-shape: squircle` turns a full radius into a superellipse
+   - `@supports` falls back to a rounded square
+
+4. Group
+
+   - A negative `margin-inline-end` stacks each avatar under the next
+   - A `box-shadow` ring in the surface color fakes a cutout
+   - Logical margin, so the stack flips in right-to-left
+
+Step 1 of 4: Circle
+
+- [`aspect-ratio`](https://webstatus.dev/features/aspect-ratio) (Widely available): Chrome 88+, Edge 88+, Firefox 89+, Safari 15+
+
+```css
+.avatar {
+  align-items: center;
+  aspect-ratio: 1;
+  background-color: var(--primary);
+  border-radius: var(--radius-round);
+  color: var(--primary-contrast);
+  display: inline-flex;
+  flex-shrink: 0;
+  inline-size: var(--size);
+  justify-content: center;
+  overflow: clip;
+  position: relative;
+}
+
+
+.avatar svg {
+  max-inline-size: 1.5rem;
+}
+```
+
+Step 2 of 4: Image
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`object-fit`](https://webstatus.dev/features/object-fit) (Widely available): Chrome 32+, Edge 79+, Firefox 36+, Safari 10+
+
+```html
+<div class="avatar">
+  <img src="…" alt="…" />
+</div>
+```
+
+```css
+.avatar:has(img) {
+  background-color: transparent;
+}
+
+
+.avatar img {
+  block-size: 100%;
+  inline-size: 100%;
+  inset: 0;
+  object-fit: cover;
+  position: absolute;
+}
+```
+
+Step 3 of 4: Shapes
+
+- [`corner-shape`](https://webstatus.dev/features/corner-shape) (Limited availability): Chrome 139+, Edge 139+, Firefox not supported, Safari not supported
+
+```css
+.avatar.rounded {
+  border-radius: var(--radius-2);
+}
+
+
+.avatar.squircle {
+  border-radius: var(--radius-3);
+
+
+  @supports (corner-shape: squircle) {
+    border-radius: var(--radius-round);
+    corner-shape: squircle;
+  }
+}
+```
+
+Step 4 of 4: Group
+
+```html
+<div class="avatar-group" role="group">
+  <div class="avatar">AB</div>
+  …
+</div>
+```
+
+```css
+.avatar-group {
+  display: flex;
+}
+
+
+.avatar-group .avatar {
+  box-shadow: 0 0 0 2px var(--surface-default);
+  margin-inline-end: calc(-1 * var(--overlap));
+}
+```
+
 ## Browser support
 
-- Chromium: Full support Supported since v105.
-- Firefox: Full support Supported since v121.
-- Safari: Full support Supported since v15.4.
+- Chromium: Full support Supported since v139.
+- Firefox: Partial support Missing: corner-shape.
+- Safari: Partial support Missing: corner-shape.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Avatar.md).
 
 ## Installation
 

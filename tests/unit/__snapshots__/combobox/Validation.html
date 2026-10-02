@@ -1,0 +1,44 @@
+<div class="ui-combobox">
+  <span class="ui-label" id="id-1">Fruit</span>
+  <span class="ui-field">
+    <button aria-describedby="id-3" aria-labelledby="id-1 id-2" command="toggle-popover" commandfor="id-2" type="button">
+      <span class="ui-placeholder">Pick a fruit</span>
+    </button>
+    <div aria-labelledby="id-1" class="ui-list" id="id-2" popover role="radiogroup">
+      <label>
+        <input name="validation-required" required type="radio" value="apple">
+        Apple
+      </label>
+      <label>
+        <input name="validation-required" required type="radio" value="banana">
+        Banana
+      </label>
+      <label>
+        <input name="validation-required" required type="radio" value="cherry">
+        Cherry
+      </label>
+    </div>
+  </span>
+  <span class="ui-end-text" id="id-3">Pick one to continue.</span>
+</div>
+<div class="ui-combobox" data-invalid>
+  <span class="ui-label" id="id-4">Fruit</span>
+  <span class="ui-field">
+    <button aria-describedby="id-6" aria-labelledby="id-4 id-5" command="toggle-popover" commandfor="id-5" type="button"></button>
+    <div aria-labelledby="id-4" class="ui-list" id="id-5" popover role="radiogroup">
+      <label>
+        <input name="validation-error" type="radio" value="apple">
+        Apple
+      </label>
+      <label>
+        <input name="validation-error" type="radio" value="banana">
+        Banana
+      </label>
+      <label>
+        <input checked name="validation-error" type="radio" value="mango">
+        Mango
+      </label>
+    </div>
+  </span>
+  <span class="ui-end-text" id="id-6">Mango is out of stock.</span>
+</div>

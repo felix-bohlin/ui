@@ -1,0 +1,219 @@
+---
+import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import { Combobox as UICombobox } from "@opui/astro"
+import DocLink from "../../components/DocLink.astro"
+import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
+
+import ComboboxCSS from "@opui/css/components/combobox.css?raw"
+import FieldCSS from "@opui/css/components/text-field.css?raw"
+import ListCSS from "@opui/css/components/list.css?raw"
+import comboboxApi from "../../component-api/combobox/api"
+
+export const description =
+  "A select-only combobox with single or multiple selection. HTML and CSS only."
+---
+
+<Component
+  description={description}
+  slug="combobox"
+  browserSupport={[
+    "anchor-positioning",
+    "has",
+    "invoker-commands",
+    "popover",
+    "starting-style",
+  ]}
+  heroAnatomy
+  apis={[{ title: "Combobox API", api: comboboxApi }]}
+  installationTabs={[
+    {
+      title: "text-field.css",
+      code: FieldCSS,
+      lang: "css",
+      isDependency: true,
+    },
+    { title: "combobox.css", code: ComboboxCSS, lang: "css" },
+    { title: "list.css", code: ListCSS, lang: "css", isDependency: true },
+  ]}
+  changelogPaths={[
+    {
+      path: "packages/opui/components/Combobox/Combobox.astro",
+      type: "component",
+    },
+    { path: "src/docs/components/combobox.astro", type: "docs" },
+    { path: "src/component-examples/combobox", type: "docs" },
+    { path: "packages/opui/css/components/combobox.css", type: "css" },
+    { path: "src/component-api/combobox", type: "api" },
+  ]}
+  seeAlsoLinks={[
+    { name: "Select", href: "/components/select" },
+    {
+      name: "Select-only combobox (APG)",
+      href: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/",
+    },
+  ]}
+>
+  <Fragment slot="title">Combobox</Fragment>
+  <Fragment slot="preamble">
+    A <DocLink href="/components/list">List</DocLink> of radios or checkboxes in a
+    popover. The field shows the checked options, without JavaScript.
+  </Fragment>
+
+  <section>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >A <code>&lt;button&gt;</code> with <code>command="toggle-popover"</code
+        > opens the <code>.ui-list</code>. Each option is a <code
+          >&lt;label&gt;</code
+        > with a radio.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>items</code> as <code>{"{ text, value }"}</code> objects, and a <code
+          >placeholder</code
+        > until an option is checked.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>items</code> as <code>{"{ text, value }"}</code> objects, and a <code
+          >placeholder</code
+        > until an option is checked. Bind the value with <code>v-model</code
+        >.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Basics" column spacious />
+  </section>
+
+  <section>
+    <h2 id="multiple">Multiple</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Checkboxes instead of radios. The checked options show as chips.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>multiple</code> renders checkboxes. The checked options show as chips.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>multiple</code> renders checkboxes. The checked options show as chips.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Multiple" column spacious />
+  </section>
+
+  <section>
+    <h2 id="variants">Variants and sizes</h2>
+    <AutoExample name="Variants" column spacious />
+  </section>
+
+  <section>
+    <h2 id="validation">Validation</h2>
+    <Conditional>
+      <Fragment slot="html">
+        <ul>
+          <li>
+            Add <code>[required]</code> to the radios to require an option.
+          </li>
+          <li>
+            Add <code>data-invalid</code> on the root element to toggle invalid styles.
+          </li>
+        </ul>
+      </Fragment>
+      <Fragment slot="astro">
+        <ul>
+          <li><code>required</code> requires an option.</li>
+          <li><code>error</code> toggles invalid styles.</li>
+        </ul>
+      </Fragment>
+      <Fragment slot="vue">
+        <ul>
+          <li><code>required</code> requires an option.</li>
+          <li><code>error</code> toggles invalid styles.</li>
+        </ul>
+      </Fragment>
+    </Conditional>
+    <p>
+      The options are hidden while the list is closed, so the browser can't
+      focus one to show its validation message. The field shows its invalid
+      styles instead, so say what is missing in the end text.
+    </p>
+
+    <AutoExample name="Validation" column spacious />
+  </section>
+
+  <section>
+    <h2 id="disabled">Disabled</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >Add <code>disabled</code> to the <code>&lt;button&gt;</code> and the inputs,
+        or to a single input.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>disabled</code> on the component, or on an item.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>disabled</code> on the component, or on an item.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Disabled" column spacious />
+  </section>
+
+  <section>
+    <h2 id="how-it-works">How it works</h2>
+    <ul>
+      <li>
+        A closed popover is only <code>display: none</code> in the user agent styles.
+        The combobox lays it out in the field instead, and hides the options that
+        aren't checked.
+      </li>
+      <li>
+        When it opens, the popover moves to the top layer and covers the field
+        with anchor positioning. It flips above the field when there's no room
+        below.
+      </li>
+      <li>
+        The button is labelled by the label and the list, so it reads out the
+        checked options.
+      </li>
+      <li>
+        Choosing an option doesn't close the list. <kbd>Esc</kbd> or a click outside
+        does.
+      </li>
+      <li>
+        There is no text input, so the options can't be filtered. CSS can't read
+        what you type. For a filterable text input, use a <DocLink
+          href="/components/text-field">Text field</DocLink
+        > with a <code>&lt;datalist&gt;</code>.
+      </li>
+    </ul>
+  </section>
+
+  <Fragment slot="accessibility">
+    <p>
+      <kbd>Enter</kbd> or <kbd>Space</kbd> opens the list, <kbd>Tab</kbd> moves into
+      it and <kbd>Esc</kbd> closes it. Arrow keys move between radios and <kbd
+        >Space</kbd
+      > toggles checkboxes.
+    </p>
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={1.25}>
+      <UICombobox
+        description="Description"
+        endText="Supporting text"
+        items={[
+          { text: "Apple", value: "apple" },
+          { text: "Banana", value: "banana" },
+        ]}
+        label="Label"
+        multiple
+        name="combobox-anatomy"
+        value={["apple", "banana"]}
+      />
+    </Anatomy>
+  </Fragment>
+</Component>

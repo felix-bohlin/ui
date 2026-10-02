@@ -37,6 +37,7 @@
 @import "./components/form.css";
 @import "./components/text-field.css";
 @import "./components/select.css";
+@import "./components/combobox.css";
 @import "./components/text-input.css";
 @import "./components/textarea.css";
 @import "./components/tooltip.css";

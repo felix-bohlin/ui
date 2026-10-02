@@ -1,0 +1,95 @@
+<div class="ui-combobox">
+  <span class="ui-label" id="combobox-validation-required-label">Fruit</span>
+  <span class="ui-field">
+    <button
+      aria-describedby="combobox-validation-required-end-text"
+      aria-labelledby="combobox-validation-required-label combobox-validation-required-list"
+      command="toggle-popover"
+      commandfor="combobox-validation-required-list"
+      type="button"
+    >
+      <span class="ui-placeholder">Pick a fruit</span>
+    </button>
+    <div
+      aria-labelledby="combobox-validation-required-label"
+      class="ui-list"
+      id="combobox-validation-required-list"
+      popover
+      role="radiogroup"
+    >
+      <label
+        ><input
+          name="validation-required"
+          required
+          type="radio"
+          value="apple"
+        />Apple</label
+      >
+      <label
+        ><input
+          name="validation-required"
+          required
+          type="radio"
+          value="banana"
+        />Banana</label
+      >
+      <label
+        ><input
+          name="validation-required"
+          required
+          type="radio"
+          value="cherry"
+        />Cherry</label
+      >
+    </div>
+  </span>
+  <span class="ui-end-text" id="combobox-validation-required-end-text"
+    >Pick one to continue.</span
+  >
+</div>
+
+<div class="ui-combobox" data-invalid>
+  <span class="ui-label" id="combobox-validation-error-label">Fruit</span>
+  <span class="ui-field">
+    <button
+      aria-describedby="combobox-validation-error-end-text"
+      aria-labelledby="combobox-validation-error-label combobox-validation-error-list"
+      command="toggle-popover"
+      commandfor="combobox-validation-error-list"
+      type="button"
+    ></button>
+    <div
+      aria-labelledby="combobox-validation-error-label"
+      class="ui-list"
+      id="combobox-validation-error-list"
+      popover
+      role="radiogroup"
+    >
+      <label
+        ><input
+          name="validation-error"
+          type="radio"
+          value="apple"
+        />Apple</label
+      >
+      <label
+        ><input
+          name="validation-error"
+          type="radio"
+          value="banana"
+        />Banana</label
+      >
+      <label
+        ><input
+          checked
+          name="validation-error"
+          type="radio"
+          value="mango"
+        />Mango</label
+      >
+    </div>
+  </span>
+  <span class="ui-end-text" id="combobox-validation-error-end-text"
+    >Mango is out of stock.</span
+  >
+</div>

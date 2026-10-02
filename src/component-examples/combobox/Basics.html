@@ -1,0 +1,26 @@
+<div class="ui-combobox">
+  <span class="ui-label" id="combobox-basics-label">Fruit</span>
+  <span class="ui-field">
+    <button
+      aria-labelledby="combobox-basics-label combobox-basics-list"
+      command="toggle-popover"
+      commandfor="combobox-basics-list"
+      type="button"
+    >
+      <span class="ui-placeholder">Pick a fruit</span>
+    </button>
+    <div
+      aria-labelledby="combobox-basics-label"
+      class="ui-list"
+      id="combobox-basics-list"
+      popover
+      role="radiogroup"
+    >
+      <label><input name="fruit" type="radio" value="apple" />Apple</label>
+      <label><input name="fruit" type="radio" value="banana" />Banana</label>
+      <label><input name="fruit" type="radio" value="cherry" />Cherry</label>
+      <label><input name="fruit" type="radio" value="grape" />Grape</label>
+      <label><input name="fruit" type="radio" value="mango" />Mango</label>
+    </div>
+  </span>
+</div>

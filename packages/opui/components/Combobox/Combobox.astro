@@ -1,0 +1,109 @@
+---
+import type { Props } from "./types.astro"
+
+export const title = "Combobox"
+
+const {
+  class: className,
+  description,
+  disabled,
+  endText,
+  error,
+  id,
+  items = [],
+  label,
+  multiple,
+  name,
+  placeholder,
+  required,
+  size,
+  spread,
+  value,
+  variant = "outlined",
+  ...rest
+} = Astro.props
+
+const { $id } = Astro.locals
+const labelId = $id("combobox-label")
+const listId = id || $id("combobox-list")
+const endTextId = $id("end-text")
+const fieldName = name || $id("combobox")
+const values = [value ?? []].flat()
+const hasLabel = label || Astro.slots.has("label")
+const hasEndText = endText || Astro.slots.has("end-text")
+---
+
+<div
+  class:list={[
+    "ui-combobox",
+    size && `ui-${size}`,
+    {
+      "ui-filled": variant === "filled",
+      "ui-spread": spread,
+    },
+    className,
+  ]}
+  data-invalid={error ? "" : undefined}
+  {...rest}
+>
+  {
+    hasLabel && (
+      <span class="ui-label" id={labelId}>
+        {label}
+        <slot name="label" />
+      </span>
+    )
+  }
+  {
+    (description || Astro.slots.has("description")) && (
+      <span class="ui-start-text">
+        {description}
+        <slot name="description" />
+      </span>
+    )
+  }
+  <span class="ui-field">
+    <button
+      aria-describedby={hasEndText ? endTextId : undefined}
+      aria-labelledby={hasLabel ? `${labelId} ${listId}` : listId}
+      command="toggle-popover"
+      commandfor={listId}
+      disabled={disabled}
+      type="button"
+    >
+      {placeholder && <span class="ui-placeholder">{placeholder}</span>}
+    </button>
+    <div
+      aria-labelledby={hasLabel ? labelId : undefined}
+      class="ui-list"
+      id={listId}
+      popover
+      role={multiple ? "group" : "radiogroup"}
+    >
+      {
+        items.map((item) => (
+          <label>
+            <input
+              checked={values.includes(item.value)}
+              disabled={disabled || item.disabled}
+              name={fieldName}
+              required={!multiple && required}
+              type={multiple ? "checkbox" : "radio"}
+              value={item.value}
+            />
+            {item.text}
+          </label>
+        ))
+      }
+      <slot />
+    </div>
+  </span>
+  {
+    hasEndText && (
+      <span class="ui-end-text" id={endTextId}>
+        {endText}
+        <slot name="end-text" />
+      </span>
+    )
+  }
+</div>

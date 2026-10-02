@@ -1,0 +1,26 @@
+---
+import { Combobox } from "@opui/astro"
+---
+
+<Combobox
+  disabled
+  items={[
+    { text: "Apple", value: "apple" },
+    { text: "Banana", value: "banana" },
+    { text: "Cherry", value: "cherry" },
+  ]}
+  label="Disabled"
+  name="disabled"
+  value="banana"
+/>
+
+<Combobox
+  items={[
+    { text: "Apple", value: "apple" },
+    { disabled: true, text: "Banana", value: "banana" },
+    { text: "Cherry", value: "cherry" },
+  ]}
+  label="Disabled option"
+  name="disabled-option"
+  placeholder="Pick a fruit"
+/>

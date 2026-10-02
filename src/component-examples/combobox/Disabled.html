@@ -1,0 +1,87 @@
+<div class="ui-combobox">
+  <span class="ui-label" id="combobox-disabled-label">Disabled</span>
+  <span class="ui-field">
+    <button
+      aria-labelledby="combobox-disabled-label combobox-disabled-list"
+      command="toggle-popover"
+      commandfor="combobox-disabled-list"
+      disabled
+      type="button"
+    ></button>
+    <div
+      aria-labelledby="combobox-disabled-label"
+      class="ui-list"
+      id="combobox-disabled-list"
+      popover
+      role="radiogroup"
+    >
+      <label
+        ><input
+          disabled
+          name="disabled"
+          type="radio"
+          value="apple"
+        />Apple</label
+      >
+      <label
+        ><input
+          checked
+          disabled
+          name="disabled"
+          type="radio"
+          value="banana"
+        />Banana</label
+      >
+      <label
+        ><input
+          disabled
+          name="disabled"
+          type="radio"
+          value="cherry"
+        />Cherry</label
+      >
+    </div>
+  </span>
+</div>
+
+<div class="ui-combobox">
+  <span class="ui-label" id="combobox-disabled-option-label"
+    >Disabled option</span
+  >
+  <span class="ui-field">
+    <button
+      aria-labelledby="combobox-disabled-option-label combobox-disabled-option-list"
+      command="toggle-popover"
+      commandfor="combobox-disabled-option-list"
+      type="button"
+    >
+      <span class="ui-placeholder">Pick a fruit</span>
+    </button>
+    <div
+      aria-labelledby="combobox-disabled-option-label"
+      class="ui-list"
+      id="combobox-disabled-option-list"
+      popover
+      role="radiogroup"
+    >
+      <label
+        ><input name="disabled-option" type="radio" value="apple" />Apple</label
+      >
+      <label
+        ><input
+          disabled
+          name="disabled-option"
+          type="radio"
+          value="banana"
+        />Banana</label
+      >
+      <label
+        ><input
+          name="disabled-option"
+          type="radio"
+          value="cherry"
+        />Cherry</label
+      >
+    </div>
+  </span>
+</div>

@@ -69,6 +69,71 @@ interaction(
 )
 
 interaction(
+  "combobox",
+  "Basics",
+  "combobox shows the checked option in the field",
+  async ({ page, root }) => {
+    const trigger = root.getByRole("button", { name: "Fruit" })
+    const list = root.locator(".ui-list")
+
+    await trigger.click()
+    await expect(list).toBeVisible()
+    await list.getByText("Cherry").click()
+    await expect(root.getByRole("radio", { name: "Cherry" })).toBeChecked()
+
+    await page.keyboard.press("Escape")
+    await expect(trigger).toBeFocused()
+    await expect(trigger).toHaveAccessibleName("Fruit Cherry")
+    await expect(root.getByText("Cherry")).toBeVisible()
+    await expect(root.getByText("Apple")).toBeHidden()
+    await expect(root.getByText("Pick a fruit")).toBeHidden()
+  },
+)
+
+interaction(
+  "combobox",
+  "Basics",
+  "combobox picks an option with the keyboard",
+  async ({ page, root }) => {
+    const trigger = root.getByRole("button", { name: "Fruit" })
+
+    await trigger.focus()
+    await page.keyboard.press("Enter")
+    await page.keyboard.press("Tab")
+    await expect(root.getByRole("radio", { name: "Apple" })).toBeFocused()
+    await page.keyboard.press("ArrowDown")
+    await expect(root.getByRole("radio", { name: "Banana" })).toBeChecked()
+
+    await page.keyboard.press("Escape")
+    await expect(trigger).toBeFocused()
+    await expect(trigger).toHaveAccessibleName("Fruit Banana")
+    await page.keyboard.press("Tab")
+    await expect
+      .poll(() => root.evaluate((el) => el.contains(document.activeElement)))
+      .toBe(false)
+  },
+)
+
+interaction(
+  "combobox",
+  "Multiple",
+  "combobox checks several options",
+  async ({ page, root }) => {
+    const trigger = root.getByRole("button", { name: "Toppings" })
+
+    await expect(trigger).toHaveAccessibleName("Toppings Basil Mozzarella")
+    await trigger.click()
+    await root.getByText("Olives").click()
+    await root.getByText("Basil").click()
+    await expect(root.getByRole("checkbox", { checked: true })).toHaveCount(2)
+
+    await page.keyboard.press("Escape")
+    await expect(trigger).toHaveAccessibleName("Toppings Mozzarella Olives")
+    await expect(root.getByText("Mushrooms")).toBeHidden()
+  },
+)
+
+interaction(
   "dialog",
   "Usage",
   "dialog opens, traps focus and closes with Escape",

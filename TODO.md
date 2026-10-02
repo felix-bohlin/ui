@@ -18,6 +18,7 @@
 - [x] Carousel: browsers with scroll buttons but no `if()` (Chrome 135-136) show both the glyph and the image icon
 - [?] Running pnpm scripts adds `@pnpm/exe` to `pnpm-lock.yaml`
 - [x] Icon button disabled text color never applies: `rgb(0, 0, 0/0.3)` mixes comma and slash syntax
+- [] `avatar.css` styles every `[role="group"]` as `display: flex`, not only avatar groups (Combobox overrides it)
 - [] `--primary-contrast` on `--primary` is 3.97:1 (AA needs 4.5:1): filled Tabs selected tab and primary filled Buttons. Axe misses the Tabs case because the fill is a pseudo-element
 
 ## Docs
@@ -32,6 +33,7 @@
 
 - [] Test Menu and Carousel in Firefox and Safari (only checked in Chromium)
 - [] Test anatomy heroes in Firefox, Safari and with Windows fonts
+- [] Test Combobox in Firefox and Safari (only checked in Chromium)
 - [x] Merging main brings back IconButton docs from #395 (`icon-button/api.ts`, `icon-button.astro` with its hero): delete them, and add `rounded` and ripple to Button's `api.ts`
 - [x] Remove the orphaned `icon-button-*.png` visual baselines (the examples are gone)
 

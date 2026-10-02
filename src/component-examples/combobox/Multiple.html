@@ -1,0 +1,61 @@
+<div class="ui-combobox">
+  <span class="ui-label" id="combobox-multiple-label">Toppings</span>
+  <span class="ui-field">
+    <button
+      aria-labelledby="combobox-multiple-label combobox-multiple-list"
+      command="toggle-popover"
+      commandfor="combobox-multiple-list"
+      type="button"
+    >
+      <span class="ui-placeholder">Pick toppings</span>
+    </button>
+    <div
+      aria-labelledby="combobox-multiple-label"
+      class="ui-list"
+      id="combobox-multiple-list"
+      popover
+      role="group"
+    >
+      <label
+        ><input
+          checked
+          name="toppings"
+          type="checkbox"
+          value="basil"
+        />Basil</label
+      >
+      <label
+        ><input
+          checked
+          name="toppings"
+          type="checkbox"
+          value="mozzarella"
+        />Mozzarella</label
+      >
+      <label
+        ><input
+          name="toppings"
+          type="checkbox"
+          value="mushrooms"
+        />Mushrooms</label
+      >
+      <label
+        ><input name="toppings" type="checkbox" value="olives" />Olives</label
+      >
+      <label
+        ><input
+          name="toppings"
+          type="checkbox"
+          value="pepperoni"
+        />Pepperoni</label
+      >
+      <label
+        ><input
+          name="toppings"
+          type="checkbox"
+          value="pineapple"
+        />Pineapple</label
+      >
+    </div>
+  </span>
+</div>

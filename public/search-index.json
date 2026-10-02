@@ -330,6 +330,36 @@
     "url": "/vue/components/chip"
   },
   {
+    "id": "component-combobox-html",
+    "title": "Combobox",
+    "description": "A select-only combobox with single or multiple selection. HTML and CSS only.",
+    "headings": "Basics Multiple Variants and sizes Validation Disabled How it works",
+    "category": "Component",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/components/combobox"
+  },
+  {
+    "id": "component-combobox-astro",
+    "title": "Combobox",
+    "description": "A select-only combobox with single or multiple selection. HTML and CSS only.",
+    "headings": "Basics Multiple Variants and sizes Validation Disabled How it works",
+    "category": "Component",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/components/combobox"
+  },
+  {
+    "id": "component-combobox-vue",
+    "title": "Combobox",
+    "description": "A select-only combobox with single or multiple selection. HTML and CSS only.",
+    "headings": "Basics Multiple Variants and sizes Validation Disabled How it works",
+    "category": "Component",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/components/combobox"
+  },
+  {
     "id": "component-description-list-html",
     "title": "Description list",
     "description": "Description lists are used to display a list of terms and their descriptions.",
@@ -1433,6 +1463,36 @@
     "frameworkId": "vue",
     "type": "Vue",
     "url": "/vue/api#classic-select"
+  },
+  {
+    "id": "api-combobox-astro",
+    "title": "Combobox API",
+    "description": "Reference for Combobox Astro component.",
+    "headings": "Combobox Container element. The label for the field. label label Description text displayed above the field. description description The boxed area. Opens the list with `command=\"toggle-popover\"`. Covers the field. Shown until an option is checked. placeholder The options. Shows the checked ones in the field when closed, and covers the field when open. Supporting text displayed below the field. endText end-text disabled Disables the button and every option. error Shows error styles. id The id of the list. items The options, as `{ disabled, text, value }` objects. multiple Lets several options be checked. name The name of the options. required Requires an option to be checked. Single select only. size The size of the element. spread Pushes the label and description to one side and the field to the other. value The checked value, or values with `multiple`. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "astro",
+    "type": "Astro",
+    "url": "/astro/api#combobox"
+  },
+  {
+    "id": "api-combobox-html",
+    "title": "Combobox API",
+    "description": "Reference for Combobox HTML component.",
+    "headings": "div.ui-combobox Container element. The label for the field. .ui-label Description text displayed above the field. .ui-start-text The boxed area. .ui-field Opens the list with `command=\"toggle-popover\"`. Covers the field. button Shown until an option is checked. .ui-placeholder The options. Shows the checked ones in the field when closed, and covers the field when open. .ui-list[popover] Supporting text displayed below the field. .ui-end-text [disabled] Disabled Disables the button and every option. [data-invalid] Validation Shows error styles. The options, as `{ disabled, text, value }` objects. [type=\"checkbox\"] Multiple Lets several options be checked. The name of the options. [required] Validation Requires an option to be checked. Single select only. .ui-small Sizes The size of the element. .ui-spread Layout Pushes the label and description to one side and the field to the other. .ui-filled Variants The variant to use.",
+    "category": "API",
+    "frameworkId": "html",
+    "type": "HTML",
+    "url": "/html/api#combobox"
+  },
+  {
+    "id": "api-combobox-vue",
+    "title": "Combobox API",
+    "description": "Reference for Combobox Vue component.",
+    "headings": "Combobox Container element. The label for the field. label label Description text displayed above the field. description description The boxed area. Opens the list with `command=\"toggle-popover\"`. Covers the field. Shown until an option is checked. placeholder The options. Shows the checked ones in the field when closed, and covers the field when open. Supporting text displayed below the field. endText end-text disabled Disables the button and every option. error Shows error styles. id The id of the list. items The options, as `{ disabled, text, value }` objects. multiple Lets several options be checked. name The name of the options. required Requires an option to be checked. Single select only. size The size of the element. spread Pushes the label and description to one side and the field to the other. variant The variant to use.",
+    "category": "API",
+    "frameworkId": "vue",
+    "type": "Vue",
+    "url": "/vue/api#combobox"
   },
   {
     "id": "api-description-list-astro",

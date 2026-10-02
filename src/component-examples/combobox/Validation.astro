@@ -1,0 +1,29 @@
+---
+import { Combobox } from "@opui/astro"
+---
+
+<Combobox
+  endText="Pick one to continue."
+  items={[
+    { text: "Apple", value: "apple" },
+    { text: "Banana", value: "banana" },
+    { text: "Cherry", value: "cherry" },
+  ]}
+  label="Fruit"
+  name="validation-required"
+  placeholder="Pick a fruit"
+  required
+/>
+
+<Combobox
+  endText="Mango is out of stock."
+  error
+  items={[
+    { text: "Apple", value: "apple" },
+    { text: "Banana", value: "banana" },
+    { text: "Mango", value: "mango" },
+  ]}
+  label="Fruit"
+  name="validation-error"
+  value="mango"
+/>

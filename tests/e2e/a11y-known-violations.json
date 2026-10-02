@@ -50,6 +50,9 @@
   "dark/checkbox/VisibleLabel": [
     "color-contrast"
   ],
+  "dark/combobox/Validation": [
+    "color-contrast"
+  ],
   "dark/list/Default": [
     "color-contrast"
   ],

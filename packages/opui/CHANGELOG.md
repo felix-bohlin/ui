@@ -153,9 +153,8 @@
 - `Avatar` doesn't shrink in flex rows.
 - `Button` disabled text color applies to every variant.
 - `Button` `kbd` follows the button's text color on hover.
-- `Typography` `.ui-mark` has a background, and `.ui-del`/`.ui-ins` use the critical/success palette.
+- `Typography` `.ui-mark` has a background, `.ui-del`/`.ui-ins` use the critical/success palette, and `del`/`ins` text passes contrast in light and dark mode.
 - `Typography` rich text `pre` and inline `code` run left to right in RTL.
-- `Typography` rich text tables no longer break short words letter by letter. A table that doesn't fit scrolls sideways.
 - `Typography` rich text ordered lists widen their gutter for long numbers, including `ol[start]`, and task lists only match a classless `label`, so a `Checkbox` in a list keeps its own styles.
 - `package.json` lists `solid-js` as an optional peer dependency, like `astro`, `svelte` and `vue`.
 

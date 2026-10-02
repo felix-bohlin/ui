@@ -38,8 +38,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > don't do anything with toasts just yet - skip
 - [x] (4) Cards clip long unbroken words instead of wrapping them (`layout` UnevenGrid)
   - Fixed: cards have `overflow-wrap: break-word` and `min-inline-size: 0`, so they also stop growing their grid column.
-- [x] (4) Rich text tables break short words letter by letter: `overflow-wrap: anywhere` lowers the min-content width (`typography` EveryElement)
-  - Fixed: cells wrap at word boundaries (`overflow-wrap: break-word`) and a table that still doesn't fit scrolls sideways instead of widening the page (`display: block; overflow-x: auto` on the classless `table`, one anonymous table inside so columns stay aligned). The catch: a table with short content is as wide as its content instead of the full width. `display: grid` would keep the stretch, but it splits `thead` and `tbody` into separate tables with misaligned columns. Checked at 390px and 1100px.
+- [?] (4) Rich text tables break short words letter by letter: `overflow-wrap: anywhere` lowers the min-content width (`typography` EveryElement)
+  - Not fixed, needs a decision. `anywhere` is there so a table never pushes the article wider than the screen. Every fix trades something:
+    1. Scroll: `display: block; overflow-x: auto` on the classless `table` plus `overflow-wrap: break-word` on cells. Words stay whole and the table scrolls when it doesn't fit (tried it, checked at 390px and 1100px). But axe flags the scroll region (`scrollable-region-focusable`): Chromium and Firefox make scrollers keyboard focusable, Safari doesn't, and classless markup can't add `tabindex`. Tables also stop stretching to full width when their content is short.
+    2. `display: grid` keeps the full width, but splits `thead` and `tbody` into separate tables, so columns don't line up. Not usable.
+    3. `hyphens: auto` with `overflow-wrap: break-word`: breaks at syllables instead of letters, but only where the browser has a hyphenation dictionary, and long URLs and numbers would overflow again.
+    4. Keep `anywhere` (current). Never overflows, breaks short words on narrow screens.
+  - Recommendation: 1, if you accept the Safari keyboard gap for wide tables (it would go in the a11y ledger), otherwise 4. Authors can always wrap a table in a focusable scroll container themselves.
+
 - [x] (4) Sticky table headers don't stick: `.ui-table { overflow: hidden }` should be `overflow: clip` (`data-display` TableStickyHeader)
   > remove the ability to do sticky table headers - they need to be rethought. create a todo for doing a second pass on sticky headers. skip this for now.
   - Removed the leftover `thead { z-index: 1 }`. Sticky headers were never documented. Follow-up below.
@@ -90,7 +96,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (5) Rich text `kbd` overrides the `kbd` inside `.ui-button`, and a `.ui-checkbox` first in a classless `li` matches the task list rule (`typography` ComponentsInProse)
   - Fixed: the `kbd` part by the `components.prose` layer. The task list rule only matches a classless `label`, so a `.ui-checkbox` keeps its bullet and its own styles.
 - [x] (5) `span.ui-mark` has no background, and `.ui-del`/`.ui-ins` don't get the critical/success palette (`typography` HeadingClasses)
-  - Fixed: `.ui-mark` uses `Mark`/`MarkText` like `<mark>`. `.ui-del` and `.ui-ins` join `del`/`ins` in the palette and severity scopes (`palette.css`, `theme.css`, theme generator).
+  - Fixed: `.ui-mark` uses `Mark`/`MarkText` like `<mark>`. `.ui-del` and `.ui-ins` join `del`/`ins` in the palette and severity scopes (`palette.css`, `theme.css`). Their text uses `--color-11` in light mode and `--color-6` in dark mode, so `del`, `ins` and both classes pass contrast (the old `--color-9` failed). With the `components.prose` layer this also removed three color-contrast entries for the typography stress page from the a11y ledger.
 - [x] (6) A menu in a dialog blends into it in dark mode (`overlays` DialogNesting)
   > give it the same border treatment as the carousel prev/next buttons, ie a light gray border. that way it's consistent with the theme.
   - Fixed: menus use a light gray border in dark mode (`light-dark(var(--border-color), var(--gray-6))`), in dialogs and everywhere else.

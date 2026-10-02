@@ -190,12 +190,12 @@
   }
 
   :where(.ui-del) {
-    color: var(--color-9);
+    color: light-dark(var(--color-11), var(--color-6));
     text-decoration: line-through;
   }
 
   :where(.ui-ins) {
-    color: var(--color-9);
+    color: light-dark(var(--color-11), var(--color-6));
     text-decoration: underline;
     text-underline-offset: 1px;
   }
@@ -671,10 +671,8 @@
     /* Tables */
     table:not([class]) {
       border-collapse: collapse;
-      display: block;
       font-variant-numeric: tabular-nums;
-      max-inline-size: 100%;
-      overflow-x: auto;
+      inline-size: 100%;
 
       caption {
         color: var(--text-muted);
@@ -686,7 +684,7 @@
 
       :where(th, td) {
         border-block-end: var(--border-size-1) solid var(--border-color);
-        overflow-wrap: break-word;
+        overflow-wrap: anywhere;
         padding-block: 0.5em;
         padding-inline: 0.75em;
         text-align: start;
@@ -755,7 +753,7 @@
     }
 
     :where(del, ins) {
-      color: var(--color-9);
+      color: light-dark(var(--color-11), var(--color-6));
     }
 
     small {

@@ -82,12 +82,13 @@ select:not(:open)::picker(select) {
     <ul>
       <li>
         Older parsers drop the <code>&lt;button&gt;</code> and wrapper elements inside
-        <code>&lt;select&gt;</code> and keep the options: a native select with the
-        same value
+        {" "}<code>&lt;select&gt;</code> and keep the options: a native select with
+        the same value
       </li>
       <li>
         With no button left, <code>:not(:has(button))</code> matches: the select gets
-        <code>appearance: none</code> and the wrapper's <code>::after</code>
+        {" "}<code>appearance: none</code> and the wrapper's <code>::after</code
+        >{" "}
         draws the same arrow
       </li>
       <li>

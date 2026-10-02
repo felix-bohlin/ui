@@ -15,7 +15,7 @@ import { Code } from "astro-expressive-code/components"
     <p>
       Animating it out was the hard part: <code>display: none</code> can't transition,
       so a class had to be removed only after
-      <code>transitionend</code>.
+      {" "}<code>transitionend</code>.
     </p>
   </section>
 
@@ -36,12 +36,12 @@ import { Code } from "astro-expressive-code/components"
       </li>
       <li>
         <code>allow-discrete</code> on <code>display</code> and
-        <code>overlay</code> keeps it rendered and in the top layer until it has slid
-        out
+        {" "}<code>overlay</code> keeps it rendered and in the top layer until it
+        has slid out
       </li>
       <li>
         <code>--dir</code> flips to <code>-1</code> under
-        <code>:dir(rtl)</code>, so the start edge works both ways
+        {" "}<code>:dir(rtl)</code>, so the start edge works both ways
       </li>
     </ul>
     <Code

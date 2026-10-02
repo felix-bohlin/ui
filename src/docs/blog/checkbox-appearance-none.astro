@@ -9,7 +9,8 @@ import { Code } from "astro-expressive-code/components"
     <h2 id="the-problem">The problem</h2>
     <p>
       A native checkbox is drawn by the browser. You can tint it with
-      <code>accent-color</code>, but not its size, border, radius or checkmark.
+      {" "}<code>accent-color</code>, but not its size, border, radius or
+      checkmark.
     </p>
     <p>
       The usual fix hides the input and draws a fake box next to it, with an SVG
@@ -34,7 +35,8 @@ import { Code } from "astro-expressive-code/components"
       </li>
       <li><code>:indeterminate</code> swaps the polygon for a dash</li>
       <li>
-        <code>text-box: trim-start cap alphabetic</code> and a <code>1cap</code>
+        <code>text-box: trim-start cap alphabetic</code> and a <code>1cap</code
+        >{" "}
         offset center the label's capitals on the box
       </li>
     </ul>
@@ -86,8 +88,8 @@ input:checked::after {
       </li>
       <li>
         In forced colors mode the box and the check switch to
-        <code>CanvasText</code>, <code>SelectedItem</code> and
-        <code>SelectedItemText</code>
+        {" "}<code>CanvasText</code>, <code>SelectedItem</code> and
+        {" "}<code>SelectedItemText</code>
       </li>
     </ul>
   </section>

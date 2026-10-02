@@ -9,9 +9,9 @@ import { Code } from "astro-expressive-code/components"
     <h2 id="the-problem">The problem</h2>
     <p>
       A dropdown menu used to be all JavaScript: toggle it, close it on
-      <kbd>Esc</kbd> and on a click outside, fight <code>z-index</code> and
-      <code>overflow: hidden</code> ancestors, and run a positioning library that
-      measures the trigger and flips the menu near the viewport edge.
+      {" "}<kbd>Esc</kbd> and on a click outside, fight <code>z-index</code> and
+      {" "}<code>overflow: hidden</code> ancestors, and run a positioning library
+      that measures the trigger and flips the menu near the viewport edge.
     </p>
   </section>
 
@@ -20,24 +20,24 @@ import { Code } from "astro-expressive-code/components"
     <ul>
       <li>
         <code>popover</code> puts the menu in the top layer, with light dismiss and
-        <kbd>Esc</kbd>
+        {" "}<kbd>Esc</kbd>
       </li>
       <li>
         <code>commandfor</code> and
-        <code>command=&quot;toggle-popover&quot;</code> open it from a button
+        {" "}<code>command=&quot;toggle-popover&quot;</code> open it from a button
       </li>
       <li>
         The invoker is the implicit anchor, so there is no
-        <code>anchor-name</code> to wire up
+        {" "}<code>anchor-name</code> to wire up
       </li>
       <li>
         <code>position-area</code> places it below the trigger, and
-        <code>anchor-size(inline)</code> keeps it at least as wide
+        {" "}<code>anchor-size(inline)</code> keeps it at least as wide
       </li>
       <li>
         <code>position-try-fallbacks</code> flips it when it would overflow. Two
-        <code>@position-try</code> rules move it below or above, spanning both sides,
-        when neither side fits
+        {" "}<code>@position-try</code> rules move it below or above, spanning both
+        sides, when neither side fits
       </li>
     </ul>
     <Code
@@ -76,8 +76,8 @@ import { Code } from "astro-expressive-code/components"
       </li>
       <li>
         Without Invoker Commands the button does nothing.
-        <code>popovertarget</code> or <code>showPopover()</code> are the older ways
-        in
+        {" "}<code>popovertarget</code> or <code>showPopover()</code> are the older
+        ways in
       </li>
       <li>
         On iOS, submenus anchor to their parent menu instead of their trigger

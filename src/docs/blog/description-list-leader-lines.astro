@@ -25,16 +25,17 @@ import { Code } from "astro-expressive-code/components"
       <li>
         Each <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> pair is wrapped in
         a <code>&lt;div&gt;</code>, which is valid in a
-        <code>&lt;dl&gt;</code>, so every pair is its own grid
+        {" "}<code>&lt;dl&gt;</code>, so every pair is its own grid
       </li>
       <li>
         <code>container-type: inline-size</code> on the list: wider than
-        <code>45ch</code>, term and description share a row
+        {" "}<code>45ch</code>, term and description share a row
       </li>
       <li>
         The pair's <code>::after</code> is a grid item too.
-        <code>order: 1</code> puts it between the term and the description, and the
-        <code>1fr</code> column stretches it
+        {" "}<code>order: 1</code> puts it between the term and the description, and
+        the
+        {" "}<code>1fr</code> column stretches it
       </li>
       <li>
         Its bottom border is the line. The dotted variant only swaps the border

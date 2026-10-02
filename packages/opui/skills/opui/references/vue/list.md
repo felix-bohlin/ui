@@ -658,12 +658,13 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 #### Slots
 
-| Slot      | Description                                                               |
-| --------- | ------------------------------------------------------------------------- |
-| `default` | Extra content inside `.ui-text`, or all the content when there's no text. |
-| `end`     | Optional content at the end, such as a value or an action.                |
-| `start`   | Optional content at the start, such as an icon or avatar.                 |
-| `text`    | The text content.                                                         |
+| Slot      | Description                                                                 |
+| --------- | --------------------------------------------------------------------------- |
+| `default` | Extra content inside `.ui-text`, or all the content when there's no text.   |
+| `end`     | Optional content at the end, such as a value or an action.                  |
+| `start`   | Optional content at the start, such as an icon or avatar.                   |
+| `submenu` | A submenu `Menu`, rendered inside the `<li>` after the element set by `as`. |
+| `text`    | The text content.                                                           |
 
 #### CSS variables
 

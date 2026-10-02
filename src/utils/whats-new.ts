@@ -57,6 +57,10 @@ const whatsNew = {
   ],
   menu: [
     `New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.`,
+    {
+      astro: `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
+      vue: `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
+    },
   ],
   radio: [
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,

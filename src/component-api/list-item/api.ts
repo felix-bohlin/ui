@@ -87,6 +87,11 @@ export default {
         "Extra content inside `.ui-text`, or all the content when there's no text.",
       name: "default",
     },
+    {
+      description:
+        "A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.",
+      name: "submenu",
+    },
   ],
   source: "ListItem",
 } satisfies ComponentApi

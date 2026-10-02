@@ -282,7 +282,7 @@ If you want to decide yourself what goes into your list.
 
 ## Submenu
 
-A menu inside a list item. Put any icon in `.ui-end` to mark the item that opens it, like an SVG from your icon library.
+Put a `menu` in the `li`, after its button. Mark the item with an icon from your icon library in `div.ui-end`.
 
 ```html
 <button
@@ -304,25 +304,16 @@ A menu inside a list item. Put any icon in `.ui-end` to mark the item that opens
     </button>
   </li>
   <li>
-    <button
-      type="button"
-      commandfor="menu-export-html"
-      command="toggle-popover"
-    >
+    <button commandfor="menu-export-html" command="toggle-popover">
       Export
-      <span class="ui-end" aria-hidden="true">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 32 32"
-        >
+      <div class="ui-end">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
             fill="currentColor"
-            d="M11.293 5.293a1 1 0 0 1 1.414 0l10 10a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414-1.414L20.586 16l-9.293-9.293a1 1 0 0 1 0-1.414"
-          ></path>
+            d="M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0"
+          />
         </svg>
-      </span>
+      </div>
     </button>
     <menu class="ui-menu ui-list ui-inline-end" id="menu-export-html" popover>
       <li>

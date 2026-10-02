@@ -103,10 +103,26 @@ export const description = "A popover list of actions or links."
 
   <section>
     <h2 id="submenu">Submenu</h2>
-    <p>
-      A menu inside a list item. Put any icon in <code>.ui-end</code> to mark the
-      item that opens it, like an SVG from your icon library.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Pass a <code>Menu</code> to the <code>submenu</code> slot of a <code
+          >ListItem</code
+        >. Mark the item with an icon from your icon library in the <code
+          >end</code
+        > slot.
+      </Fragment>
+      <Fragment slot="html">
+        Put a <code>menu</code> in the <code>li</code>, after its button. Mark
+        the item with an icon from your icon library in <code>div.ui-end</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Pass a <code>Menu</code> to the <code>submenu</code> slot of a <code
+          >ListItem</code
+        >. Mark the item with an icon from your icon library in the <code
+          >end</code
+        > slot.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Submenu" centered />
   </section>

@@ -199,6 +199,7 @@ const filterCss = [
   description="Updates, and short posts on the HTML and CSS behind each component."
   overline=""
   showToc={false}
+  wide
 >
   <Fragment slot="title">Blog</Fragment>
 
@@ -477,6 +478,10 @@ const filterCss = [
     list-style: none;
     margin: 0;
     padding: 0;
+
+    @supports (display: grid-lanes) {
+      display: grid-lanes;
+    }
   }
 
   .blog-post {

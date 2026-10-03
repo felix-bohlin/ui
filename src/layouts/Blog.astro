@@ -13,9 +13,16 @@ type Props = {
   overline?: string
   showToc?: boolean
   title?: string
+  wide?: boolean
 }
 
-const { description, overline = "Blog", showToc = true, title } = Astro.props
+const {
+  description,
+  overline = "Blog",
+  showToc = true,
+  title,
+  wide,
+} = Astro.props
 
 const currentFramework = (Astro.currentLocale ??
   DEFAULT_FRAMEWORK) as FrameworkId
@@ -58,6 +65,7 @@ const groups = [
   overline={overline}
   showToc={showToc}
   title={title}
+  wide={wide}
 >
   <nav slot="sidebar">
     {

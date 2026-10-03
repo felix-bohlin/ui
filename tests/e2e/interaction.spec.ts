@@ -214,7 +214,9 @@ interaction(
 
     await root.getByRole("button", { name: "Options for Tickets" }).click()
     await expect(menu).toBeVisible()
-    await menu.getByText("Sort descending").evaluate((label) => label.click())
+    await menu
+      .getByText("Sort descending")
+      .evaluate((label: HTMLLabelElement) => label.click())
     await expect
       .poll(() => visibleRows(root))
       .toEqual([
@@ -229,7 +231,9 @@ interaction(
 
     await root.getByRole("button", { name: "Options for Role" }).click()
     await expect(menu).toBeVisible()
-    await menu.getByText("Hide column").evaluate((label) => label.click())
+    await menu
+      .getByText("Hide column")
+      .evaluate((label: HTMLLabelElement) => label.click())
     await expect(root.getByRole("columnheader", { name: /^Role/ })).toBeHidden()
   },
 )

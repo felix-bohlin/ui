@@ -5,7 +5,6 @@ import {
   Accordion,
   Button,
   Card,
-  Chip,
   FieldLegend,
   FieldSet,
   Select,
@@ -80,6 +79,8 @@ const entries = posts
 const present = (values: (string | undefined)[]) =>
   [...new Set(values.filter((value): value is string => !!value))].sort()
 
+const inputId = (attr: string, id: string) => `filter-${attr}-${id}`
+
 const featureOptions = [
   ...new Map(
     entries.flatMap((post) =>
@@ -100,18 +101,6 @@ const filters = [
     ),
   },
   {
-    attr: "feature",
-    control: "select",
-    label: "Platform feature",
-    options: featureOptions,
-  },
-  {
-    attr: "series",
-    control: "select",
-    label: "Series",
-    options: series.map(({ id, label }) => ({ id, label })),
-  },
-  {
     attr: "month",
     control: "select",
     label: "Archive",
@@ -128,6 +117,27 @@ const filters = [
       id: author.toLowerCase().replaceAll(" ", "-"),
       label: author,
     })),
+  },
+  {
+    attr: "component",
+    control: "chips",
+    label: "Component",
+    options: present(entries.map((post) => post.component)).map((id) => ({
+      id,
+      label: componentName(id),
+    })),
+  },
+  {
+    attr: "feature",
+    control: "chips",
+    label: "Platform feature",
+    options: featureOptions,
+  },
+  {
+    attr: "series",
+    control: "toggle",
+    label: "Series",
+    options: series.map(({ id, label }) => ({ id, label })),
   },
   { attr: "level", control: "toggle", label: "Level", options: levels },
   {
@@ -147,35 +157,41 @@ const filters = [
   },
 ].filter((filter) => filter.options.length > 0)
 
+const chipFilters = filters.filter((filter) =>
+  ["component", "feature", "series"].includes(filter.attr),
+)
+
 const hide = (checked: string, attr: string, id: string) =>
   `.blog:has(${checked}) .blog-post:not([data-${attr}~="${id}"]) { display: none; }`
 
 const filterCss = [
-  ...categories.flatMap((category) => [
+  ...categories.map((category) =>
     hide(
-      `input[name="category"][value="${category.id}"]:checked`,
+      `#${inputId("category", category.id)}:checked`,
       "category",
       category.id,
     ),
-    ...(posts.some(
-      (post) => post.category === category.id && post.features?.length,
-    )
-      ? []
-      : [
-          `.blog:has(input[name="category"][value="${category.id}"]:checked) .blog-legend { display: none; }`,
-        ]),
-  ]),
+  ),
   ...filters.flatMap((filter) =>
     filter.options.map((option) =>
       hide(
         filter.control === "select"
           ? `select[name="${filter.attr}"] option[value="${option.id}"]:checked`
-          : `input[name="${filter.attr}"][value="${option.id}"]:checked`,
+          : `#${inputId(filter.attr, option.id)}:checked`,
         filter.attr,
         option.id,
       ),
     ),
   ),
+  ...[
+    ...categories.map((category) => inputId("category", category.id)),
+    ...chipFilters.flatMap((filter) =>
+      filter.options.map((option) => inputId(filter.attr, option.id)),
+    ),
+  ].flatMap((id) => [
+    `.blog:has(#${id}:checked) label.blog-chip[for="${id}"] { --_bg-color: var(--primary); --_border-color: var(--primary); --_color: var(--primary-contrast); }`,
+    `.blog:has(#${id}:checked) .blog-active [data-for="${id}"] { display: inline-flex; }`,
+  ]),
 ].join("\n")
 ---
 
@@ -195,10 +211,17 @@ const filterCss = [
           selection="single"
           size="small"
         >
-          <ToggleButton checked value="all">All</ToggleButton>
+          <ToggleButton checked id={inputId("category", "all")} value="all">
+            All
+          </ToggleButton>
           {
             categories.map((category) => (
-              <ToggleButton value={category.id}>{category.label}</ToggleButton>
+              <ToggleButton
+                id={inputId("category", category.id)}
+                value={category.id}
+              >
+                {category.label}
+              </ToggleButton>
             ))
           }
         </ToggleGroup>
@@ -223,19 +246,47 @@ const filterCss = [
                   name={filter.attr}
                   size="small"
                 />
+              ) : filter.control === "chips" ? (
+                <FieldSet class="blog-filter-group">
+                  <FieldLegend>{filter.label}</FieldLegend>
+                  <div class="blog-chip-cloud">
+                    {[{ id: "any", label: "Any" }, ...filter.options].map(
+                      (option) => (
+                        <label class="ui-chip ui-small ui-outlined">
+                          <input
+                            checked={option.id === "any"}
+                            class="ui-sr-only"
+                            id={inputId(filter.attr, option.id)}
+                            name={filter.attr}
+                            type="radio"
+                            value={option.id}
+                          />
+                          {option.label}
+                        </label>
+                      ),
+                    )}
+                  </div>
+                </FieldSet>
               ) : (
-                <FieldSet class="blog-filter-toggles">
+                <FieldSet class="blog-filter-group">
                   <FieldLegend>{filter.label}</FieldLegend>
                   <ToggleGroup
                     name={filter.attr}
                     selection="single"
                     size="small"
                   >
-                    <ToggleButton checked value="any">
+                    <ToggleButton
+                      checked
+                      id={inputId(filter.attr, "any")}
+                      value="any"
+                    >
                       Any
                     </ToggleButton>
                     {filter.options.map((option) => (
-                      <ToggleButton value={option.id}>
+                      <ToggleButton
+                        id={inputId(filter.attr, option.id)}
+                        value={option.id}
+                      >
                         {option.label}
                       </ToggleButton>
                     ))}
@@ -248,6 +299,27 @@ const filterCss = [
       </Accordion>
     </form>
 
+    <ul aria-label="Active filters" class="blog-active">
+      {
+        chipFilters.flatMap((filter) =>
+          filter.options.map((option) => (
+            <li data-for={inputId(filter.attr, option.id)}>
+              <label
+                class="ui-chip ui-small ui-tonal"
+                for={inputId(filter.attr, "any")}
+              >
+                {option.label}
+                <span class="ui-sr-only">, remove filter</span>
+                <svg aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
+              </label>
+            </li>
+          )),
+        )
+      }
+    </ul>
+
     <ul class="blog-posts">
       {
         entries.map((post) => (
@@ -259,6 +331,7 @@ const filterCss = [
             data-author={post.author.toLowerCase().replaceAll(" ", "-")}
             data-baseline={post.baseline}
             data-category={post.category}
+            data-component={post.component}
             data-feature={post.features.map((feature) => feature.id).join(" ")}
             data-level={post.level}
             data-month={post.month}
@@ -279,23 +352,32 @@ const filterCss = [
               <Fragment slot="content">
                 <ul aria-label="Tags" class="blog-tags">
                   <li>
-                    <Chip size="small">
+                    <label
+                      class="blog-chip ui-chip ui-small ui-tonal"
+                      for={inputId("category", post.category)}
+                    >
                       {labelOf(categories, post.category)}
-                    </Chip>
+                    </label>
                   </li>
                   {post.component && (
                     <li>
-                      <Chip size="small" variant="outlined">
+                      <label
+                        class="blog-chip ui-chip ui-small ui-outlined"
+                        for={inputId("component", post.component)}
+                      >
                         {componentName(post.component)}
-                      </Chip>
+                      </label>
                     </li>
                   )}
                   {post.series && (
                     <li>
-                      <Chip size="small" variant="outlined">
+                      <label
+                        class="blog-chip ui-chip ui-small ui-outlined"
+                        for={inputId("series", post.series.id)}
+                      >
                         {post.series.label} · {post.series.part}/
                         {post.series.total}
-                      </Chip>
+                      </label>
                     </li>
                   )}
                 </ul>
@@ -303,16 +385,12 @@ const filterCss = [
                   <ul aria-label="Features" class="blog-features">
                     {post.features.map((feature) => (
                       <li>
-                        <Chip
-                          data-status={feature.status}
-                          size="small"
-                          variant="outlined"
+                        <label
+                          class="blog-chip ui-chip ui-small ui-outlined"
+                          for={inputId("feature", feature.id)}
                         >
                           {feature.name}
-                          <span class="ui-sr-only">
-                            , {STATUS[feature.status]}
-                          </span>
-                        </Chip>
+                        </label>
                       </li>
                     ))}
                   </ul>
@@ -339,14 +417,6 @@ const filterCss = [
     </ul>
 
     <p class="blog-count" aria-hidden="true"></p>
-
-    <ul aria-label="Browser support" class="blog-legend">
-      {
-        (["high", "low", "limited"] as const).map((status) => (
-          <li data-status={status}>{STATUS[status]}</li>
-        ))
-      }
-    </ul>
   </div>
 </Blog>
 
@@ -380,7 +450,7 @@ const filterCss = [
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
   }
 
-  .blog-filter-toggles {
+  .blog-filter-group {
     grid-column: 1 / -1;
 
     & legend {
@@ -478,43 +548,58 @@ const filterCss = [
     margin: auto 0 0;
   }
 
-  [data-status] {
-    &::before {
-      background-color: var(--_status-color);
-      block-size: 0.5rem;
-      border-radius: var(--radius-round);
-      content: "";
-      flex-shrink: 0;
-      inline-size: 0.5rem;
-    }
+  .blog-chip-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-1);
 
-    &[data-status="high"] {
-      --_status-color: var(--text-ok, #2e7d32);
-    }
+    & label {
+      cursor: pointer;
 
-    &[data-status="low"] {
-      --_status-color: var(--text-info, #1565c0);
-    }
+      &:has(:checked) {
+        --_bg-color: var(--primary);
+        --_border-color: var(--primary);
+        --_color: var(--primary-contrast);
+      }
 
-    &[data-status="limited"] {
-      --_status-color: var(--text-warning, #ed6c02);
+      &:has(:focus-visible) {
+        outline: var(--focus-ring-width, 2px) solid
+          var(--focus-ring-color, var(--primary));
+        outline-offset: 2px;
+      }
     }
   }
 
-  .blog-legend {
-    color: var(--text-muted);
+  .blog-chip {
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+  }
+
+  .blog-active {
     display: flex;
     flex-wrap: wrap;
-    font-size: var(--font-size-0);
-    gap: var(--size-1) var(--size-4);
+    gap: var(--size-1);
     list-style: none;
     margin: 0;
+    order: -1;
     padding: 0;
 
     & li {
-      align-items: center;
-      display: inline-flex;
-      gap: var(--size-2);
+      display: none;
+    }
+
+    & label {
+      cursor: pointer;
+    }
+
+    & svg {
+      block-size: 1em;
+      fill: none;
+      inline-size: 1em;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-width: 2;
     }
   }
 </style>

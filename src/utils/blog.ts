@@ -11,12 +11,6 @@ export const levels = [
   { id: "advanced", label: "Advanced" },
 ]
 
-export const readingTimes = [
-  { id: "short", label: "3 min or less", max: 3 },
-  { id: "medium", label: "4–10 min", max: 10 },
-  { id: "long", label: "Over 10 min", max: Infinity },
-]
-
 export const series = [
   {
     id: "modals",
@@ -100,10 +94,3 @@ export const readingMinutes = (slug: string) => {
 const dateFormat = new Intl.DateTimeFormat("en", { dateStyle: "long" })
 
 export const formatDate = (date: string) => dateFormat.format(new Date(date))
-
-const monthFormat = new Intl.DateTimeFormat("en", {
-  month: "long",
-  year: "numeric",
-})
-
-export const formatMonth = (date: string) => monthFormat.format(new Date(date))

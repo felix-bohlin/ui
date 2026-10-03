@@ -56,6 +56,9 @@ import Command from "./Command.astro"
     <Chip size="small" variant="outlined" class="filter-chip" data-filter="API"
       >API</Chip
     >
+    <Chip size="small" variant="outlined" class="filter-chip" data-filter="Blog"
+      >Blog</Chip
+    >
   </div>
 
   <div id="search-results">
@@ -297,7 +300,7 @@ import Command from "./Command.astro"
       return acc
     }, {})
 
-    const categoryOrder = ["Component", "Guide", "API"]
+    const categoryOrder = ["Component", "Guide", "API", "Blog"]
     const sortedCategories = Object.keys(grouped).sort((a, b) => {
       const indexA = categoryOrder.indexOf(a)
       const indexB = categoryOrder.indexOf(b)

@@ -66,18 +66,18 @@ const { link } = Astro.locals
       z-index: 0;
     }
 
-    &.wide {
+    &.ui-wide {
       grid-column: span 2;
     }
 
-    &.xl {
+    &.ui-xl {
       grid-column: span 2;
       grid-row: span 2;
     }
 
     @media (width <= 600px) {
-      &.wide,
-      &.xl {
+      &.ui-wide,
+      &.ui-xl {
         grid-column: auto;
         grid-row: auto;
       }

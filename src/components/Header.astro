@@ -30,7 +30,7 @@ const navItems: { label: string; href: string }[] = [
   { label: "Guide", href: "/guide/getting-started" },
   { label: "Components", href: "/components" },
   { label: "API", href: "/api" },
-  { label: "Blog", href: "/blog" },
+  { label: "Learn", href: "/learn" },
 ]
 
 const resolvedNavItems = navItems.map((item) => ({
@@ -300,12 +300,14 @@ const { link } = Astro.locals
     }
   }
 
-  .site-header:has(.header-toolbar:has(.local-nav)) header .ui-content {
-    border-block-end-color: transparent;
-  }
+  @media (width < 1140px) {
+    .site-header:has(.local-nav) header .ui-content {
+      border-block-end: none;
+    }
 
-  .site-header:has(.header-toolbar:has(.local-nav)) header .ui-content::before {
-    border-block-end: none;
+    .site-header:has(.local-nav) header .ui-content::before {
+      border-block-end: none;
+    }
   }
 
   header {

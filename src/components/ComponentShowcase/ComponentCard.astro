@@ -1,6 +1,6 @@
 ---
 import { Button, Card } from "@opui/astro"
-import { posts } from "../../utils/blog"
+import { posts } from "../../utils/learn"
 
 type Props = {
   href: string
@@ -40,7 +40,7 @@ const post = posts.find(
   </Button>
   {
     post?.technique ? (
-      <a class="showcase-technique" href={link(`/blog/${post.slug}`)}>
+      <a class="showcase-technique" href={link(`/learn/${post.slug}`)}>
         <span class="ui-sr-only">How {name} works: </span>
         <code>{post.technique}</code>
       </a>

@@ -1,22 +1,16 @@
-import { posts } from "./blog-posts"
+import { posts } from "./learn-posts"
 
 export { posts }
 
 export const categories = [
+  { id: "release-notes", label: "Release notes" },
   { id: "under-the-hood", label: "Under the hood" },
-  { id: "updates", label: "Updates" },
 ].filter((category) => posts.some((post) => post.category === category.id))
 
 export const levels = [
   { id: "beginner", label: "Beginner" },
   { id: "intermediate", label: "Intermediate" },
   { id: "advanced", label: "Advanced" },
-]
-
-export const readingTimes = [
-  { id: "short", label: "3 min or less", max: 3 },
-  { id: "medium", label: "4–10 min", max: 10 },
-  { id: "long", label: "Over 10 min", max: Infinity },
 ]
 
 export const series = [
@@ -62,7 +56,7 @@ export const topics = [
 export const componentName = (slug: string) =>
   slug.charAt(0).toUpperCase() + slug.slice(1).replaceAll("-", " ")
 
-const postSources = import.meta.glob<string>("../docs/blog/*.astro", {
+const postSources = import.meta.glob<string>("../docs/learn/*.astro", {
   eager: true,
   import: "default",
   query: "?raw",
@@ -139,10 +133,3 @@ export const excerpt = (slug: string, maxLength = 400) => {
 const dateFormat = new Intl.DateTimeFormat("en", { dateStyle: "long" })
 
 export const formatDate = (date: string) => dateFormat.format(new Date(date))
-
-const monthFormat = new Intl.DateTimeFormat("en", {
-  month: "long",
-  year: "numeric",
-})
-
-export const formatMonth = (date: string) => monthFormat.format(new Date(date))

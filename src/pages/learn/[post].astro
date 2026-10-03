@@ -1,12 +1,12 @@
 ---
-const docs = import.meta.glob("../../docs/blog/*.astro", {
+const docs = import.meta.glob("../../docs/learn/*.astro", {
   eager: true,
 })
 
 const slugOf = (path: string) => path.split("/").pop()!.replace(".astro", "")
 
 export function getStaticPaths() {
-  return Object.keys(import.meta.glob("../../docs/blog/*.astro"))
+  return Object.keys(import.meta.glob("../../docs/learn/*.astro"))
     .map((path) => path.split("/").pop()!.replace(".astro", ""))
     .filter((slug) => slug !== "index")
     .sort()

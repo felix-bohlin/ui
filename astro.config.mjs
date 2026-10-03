@@ -19,7 +19,7 @@ const slugsIn = (relDir) =>
     .filter((f) => f.endsWith(".astro"))
     .map((f) => f.replace(/\.astro$/, ""))
 
-const blogSlugs = slugsIn("./src/docs/blog").filter((s) => s !== "index")
+const learnSlugs = slugsIn("./src/docs/learn").filter((s) => s !== "index")
 const componentSlugs = slugsIn("./src/docs/components")
 const guideSlugs = ["getting-started", ...slugsIn("./src/docs/guide")]
 
@@ -42,9 +42,9 @@ const legacyRedirects = {
     guideSlugs.map((s) => [`/guide/${s}`, `${d}/guide/${s}`]),
   ),
   ...Object.fromEntries(
-    FRAMEWORK_IDS.flatMap((f) => [
-      [`/${f}/blog`, "/blog"],
-      ...blogSlugs.map((s) => [`/${f}/blog/${s}`, `/blog/${s}`]),
+    ["/blog", ...FRAMEWORK_IDS.map((f) => `/${f}/blog`)].flatMap((prefix) => [
+      [prefix, "/learn"],
+      ...learnSlugs.map((s) => [`${prefix}/${s}`, `/learn/${s}`]),
     ]),
   ),
 }

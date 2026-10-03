@@ -1,8 +1,8 @@
 ---
-import Blog from "./Blog.astro"
+import Learn from "./Learn.astro"
 import ReadMore from "../components/UnderTheHood/ReadMore.astro"
 import { references } from "../components/UnderTheHood/references"
-import { componentName, formatDate, posts } from "../utils/blog"
+import { componentName, formatDate, posts } from "../utils/learn"
 import {
   componentHasFramework,
   DEFAULT_FRAMEWORK,
@@ -36,7 +36,7 @@ const topic =
   (component in references ? (component as keyof typeof references) : undefined)
 ---
 
-<Blog
+<Learn
   description={post.description}
   overline={formatDate(post.date)}
   title={post.title}
@@ -51,11 +51,11 @@ const topic =
     <ul>
       <li><a href={docsHref}>{name} docs</a></li>
       <li>
-        <a href={hrefFor(currentFramework, "/blog/under-the-hood")}
+        <a href={hrefFor(currentFramework, "/learn/under-the-hood")}
           >Every component, under the hood</a
         >
       </li>
     </ul>
     {topic && <ReadMore topic={topic} />}
   </section>
-</Blog>
+</Learn>

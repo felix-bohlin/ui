@@ -296,7 +296,7 @@ Add the `.ui-small` class on the `<label class="ui-switch">` for a smaller Switc
 
 ## Label alignment
 
-The switch lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with`--choice-label-offset`, in `em` or`cap` so it scales with the label.
+The switch lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
 
 ```css
 :root {

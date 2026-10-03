@@ -3,7 +3,7 @@ import path from "path"
 import { pathToFileURL } from "url"
 import { globby } from "globby"
 
-import { posts } from "../src/utils/blog-posts.ts"
+import { posts } from "../src/utils/learn-posts.ts"
 import { componentHasFramework, FRAMEWORKS } from "../src/utils/framework.js"
 
 const API_LABEL_PATTERN = FRAMEWORKS.map((f) => f.label).join("|")

@@ -1,5 +1,5 @@
 ---
-import Blog from "../../layouts/Blog.astro"
+import Learn from "../../layouts/Learn.astro"
 import DocLink from "../../components/DocLink.astro"
 import { Card, Chip } from "@opui/astro"
 import { computeFeatureSupport } from "../../utils/browser-support"
@@ -12,7 +12,7 @@ import {
   readingMinutes,
   series,
   topics,
-} from "../../utils/blog"
+} from "../../utils/learn"
 
 const buildCount = Object.keys(
   import.meta.glob("../../components/UnderTheHood/*Build.astro"),
@@ -45,7 +45,7 @@ const entries = posts
   })
 ---
 
-<Blog
+<Learn
   description="Release notes, and short posts on the HTML and CSS behind each component."
   overline=""
   showToc={false}
@@ -53,11 +53,14 @@ const entries = posts
 >
   <Fragment slot="title">Learn</Fragment>
 
-  <ul class="blog-posts ui-not-rich-text">
+  <ul class="learn-posts ui-not-rich-text">
     {
       entries.map((post) => (
         <li
-          class:list={["blog-post", { "blog-post-featured": !post.component }]}
+          class:list={[
+            "learn-post",
+            { "learn-post-featured": !post.component },
+          ]}
         >
           <Card variant={post.component ? "outlined" : "tonal"}>
             <Fragment slot="header">
@@ -70,7 +73,7 @@ const entries = posts
               <p>{post.description}</p>
             </Fragment>
             <Fragment slot="content">
-              <ul aria-label="Tags" class="blog-chips">
+              <ul aria-label="Tags" class="learn-chips">
                 <li>
                   <Chip size="small">{labelOf(categories, post.category)}</Chip>
                 </li>
@@ -85,7 +88,7 @@ const entries = posts
                   <li>
                     <Chip size="small" variant="outlined">
                       {post.series.label}
-                      <span class="blog-chip-part">
+                      <span class="learn-chip-part">
                         {post.series.part}/{post.series.total}
                       </span>
                     </Chip>
@@ -99,7 +102,7 @@ const entries = posts
                   </li>
                 ))}
               </ul>
-              <dl class="blog-meta">
+              <dl class="learn-meta">
                 {[
                   { label: "Reading time", value: `${post.minutes} min` },
                   post.level && {
@@ -131,10 +134,10 @@ const entries = posts
       ))
     }
   </ul>
-</Blog>
+</Learn>
 
 <style>
-  .blog-posts {
+  .learn-posts {
     display: grid;
     gap: var(--size-4);
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
@@ -147,7 +150,7 @@ const entries = posts
     }
   }
 
-  .blog-post {
+  .learn-post {
     container-type: inline-size;
     display: grid;
 
@@ -218,7 +221,7 @@ const entries = posts
     }
   }
 
-  .blog-post-featured {
+  .learn-post-featured {
     grid-column: 1 / -1;
 
     & h2 {
@@ -230,7 +233,7 @@ const entries = posts
     }
   }
 
-  .blog-chips {
+  .learn-chips {
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-1);
@@ -239,11 +242,11 @@ const entries = posts
     padding: 0;
   }
 
-  .blog-chip-part {
+  .learn-chip-part {
     opacity: 0.7;
   }
 
-  .blog-meta {
+  .learn-meta {
     display: flex;
     flex-wrap: wrap;
     font-size: var(--font-size-0);

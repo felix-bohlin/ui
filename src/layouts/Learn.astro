@@ -6,7 +6,7 @@ import {
   stripFrameworkPrefix,
   type FrameworkId,
 } from "../utils/framework-routing"
-import { categories, componentName, posts } from "../utils/blog"
+import { categories, componentName, posts } from "../utils/learn"
 
 type Props = {
   description?: string
@@ -72,7 +72,7 @@ const groups = [
       groups.map((group) => (
         <>
           <h3>{group.label}</h3>
-          <menu class="blog-nav-list">
+          <menu class="learn-nav-list">
             {group.links.map((link) => (
               <li>
                 <a
@@ -95,11 +95,11 @@ const groups = [
 </Document>
 
 <style is:global>
-  .blog-nav-list + h3 {
+  .learn-nav-list + h3 {
     margin-block-start: var(--size-5);
   }
 
-  .blog-nav-list {
+  .learn-nav-list {
     list-style: none;
     margin: 0;
     padding: 0;

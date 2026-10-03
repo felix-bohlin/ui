@@ -1,4 +1,4 @@
-export { posts } from "./blog-posts"
+export { posts } from "./learn-posts"
 
 export const categories = [
   { id: "release-notes", label: "Release notes" },

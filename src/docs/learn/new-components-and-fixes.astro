@@ -1,5 +1,5 @@
 ---
-import Blog from "../../layouts/Blog.astro"
+import Learn from "../../layouts/Learn.astro"
 import DocLink from "../../components/DocLink.astro"
 import AccordionBuild from "../../components/UnderTheHood/AccordionBuild.astro"
 import ButtonBuild from "../../components/UnderTheHood/ButtonBuild.astro"
@@ -8,7 +8,7 @@ import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
 import ReadMore from "../../components/UnderTheHood/ReadMore.astro"
 import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
 import TabsBuild from "../../components/UnderTheHood/TabsBuild.astro"
-import { formatDate, posts } from "../../utils/blog"
+import { formatDate, posts } from "../../utils/learn"
 
 const post = posts.find((entry) => entry.slug === "new-components-and-fixes")!
 
@@ -54,7 +54,7 @@ const audits = [
 ]
 ---
 
-<Blog
+<Learn
   description={post.description}
   overline={formatDate(post.date)}
   title={post.title}
@@ -495,7 +495,7 @@ const audits = [
     <h3 id="read-more-stepper">The stepper</h3>
     <ReadMore topic="stepper" />
   </section>
-</Blog>
+</Learn>
 
 <style>
   .post-stats {

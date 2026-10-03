@@ -11,4 +11,4 @@ const Tabs = Object.assign(TabsOrig, {
   Panel: TabsPanel,
 })
 
-export default Tabs as any
+export default Tabs

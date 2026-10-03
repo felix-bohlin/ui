@@ -1,0 +1,271 @@
+---
+import Learn from "../../layouts/Learn.astro"
+import DocLink from "../../components/DocLink.astro"
+import { Card, Chip } from "@opui/astro"
+import { computeFeatureSupport } from "../../utils/browser-support"
+import {
+  categories,
+  componentName,
+  formatDate,
+  levels,
+  posts,
+  readingMinutes,
+  series,
+  topics,
+} from "../../utils/learn"
+
+const buildCount = Object.keys(
+  import.meta.glob("../../components/UnderTheHood/*Build.astro"),
+).length
+
+const labelOf = (list: { id: string; label: string }[], id: string) =>
+  list.find((entry) => entry.id === id)?.label ?? id
+
+const entries = posts
+  .toSorted(
+    (a, b) =>
+      Number(!!a.component) - Number(!!b.component) ||
+      (a.component ?? "").localeCompare(b.component ?? ""),
+  )
+  .map((post) => {
+    const inSeries = series.find((entry) => entry.posts.includes(post.slug))
+    return {
+      ...post,
+      features: (post.features ?? []).map((id) => ({
+        id,
+        name: computeFeatureSupport(id).name,
+      })),
+      minutes: readingMinutes(post.slug),
+      series: inSeries && {
+        label: inSeries.label,
+        part: inSeries.posts.indexOf(post.slug) + 1,
+        total: inSeries.posts.length,
+      },
+    }
+  })
+---
+
+<Learn
+  description="Release notes, and short posts on the HTML and CSS behind each component."
+  overline=""
+  showToc={false}
+  wide
+>
+  <Fragment slot="title">Learn</Fragment>
+
+  <ul class="learn-posts ui-not-rich-text">
+    {
+      entries.map((post) => (
+        <li
+          class:list={[
+            "learn-post",
+            { "learn-post-featured": !post.component },
+          ]}
+        >
+          <Card variant={post.component ? "outlined" : "tonal"}>
+            <Fragment slot="header">
+              <p>
+                <time datetime={post.date}>{formatDate(post.date)}</time>
+              </p>
+              <h2>
+                <DocLink href={`/learn/${post.slug}`}>{post.title}</DocLink>
+              </h2>
+              <p>{post.description}</p>
+            </Fragment>
+            <Fragment slot="content">
+              <ul aria-label="Tags" class="learn-chips">
+                <li>
+                  <Chip size="small">{labelOf(categories, post.category)}</Chip>
+                </li>
+                {post.component && (
+                  <li>
+                    <Chip size="small" variant="outlined">
+                      {componentName(post.component)}
+                    </Chip>
+                  </li>
+                )}
+                {post.series && (
+                  <li>
+                    <Chip size="small" variant="outlined">
+                      {post.series.label}
+                      <span class="learn-chip-part">
+                        {post.series.part}/{post.series.total}
+                      </span>
+                    </Chip>
+                  </li>
+                )}
+                {post.features.map((feature) => (
+                  <li>
+                    <Chip size="small" variant="outlined">
+                      {feature.name}
+                    </Chip>
+                  </li>
+                ))}
+              </ul>
+              <dl class="learn-meta">
+                {[
+                  { label: "Reading time", value: `${post.minutes} min` },
+                  post.level && {
+                    label: "Level",
+                    value: labelOf(levels, post.level),
+                  },
+                  post.topics && {
+                    label: "Topics",
+                    value: post.topics
+                      .map((topic) => labelOf(topics, topic))
+                      .join(", "),
+                  },
+                  post.slug === "under-the-hood" && {
+                    label: "Build-ups",
+                    value: String(buildCount),
+                  },
+                ]
+                  .filter((item) => !!item)
+                  .map((item) => (
+                    <div>
+                      <dt>{item.label}</dt>
+                      <dd>{item.value}</dd>
+                    </div>
+                  ))}
+              </dl>
+            </Fragment>
+          </Card>
+        </li>
+      ))
+    }
+  </ul>
+</Learn>
+
+<style>
+  .learn-posts {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    @supports (display: grid-lanes) {
+      display: grid-lanes;
+    }
+  }
+
+  .learn-post {
+    container-type: inline-size;
+    display: grid;
+
+    & .ui-card {
+      gap: var(--size-3);
+      position: relative;
+      transition: border-color 0.2s;
+
+      &:has(a:hover) {
+        border-color: var(--primary);
+      }
+
+      &:has(a:focus-visible) {
+        outline: var(--focus-ring-width, 2px) solid
+          var(--focus-ring-color, var(--primary));
+        outline-offset: 2px;
+      }
+    }
+
+    & hgroup {
+      display: grid;
+      gap: var(--size-1);
+
+      & > * {
+        margin: 0;
+      }
+
+      & > p:first-child {
+        color: var(--text-muted);
+        font-size: var(--font-size-0);
+        line-height: 1.3;
+      }
+
+      & > p:last-child {
+        color: var(--text-muted);
+        font-size: clamp(0.8125rem, 0.75rem + 0.6cqi, 0.9375rem);
+        line-height: 1.45;
+        text-wrap: pretty;
+      }
+    }
+
+    & h2 {
+      color: var(--text-primary);
+      font-size: clamp(1rem, 0.8rem + 2.5cqi, 1.25rem);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      text-wrap: balance;
+    }
+
+    & .ui-content {
+      display: grid;
+      gap: var(--size-3);
+    }
+
+    & a {
+      color: inherit;
+      text-decoration: none;
+
+      &::after {
+        content: "";
+        inset: 0;
+        position: absolute;
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+  }
+
+  .learn-post-featured {
+    grid-column: 1 / -1;
+
+    & h2 {
+      font-size: clamp(1.25rem, 0.75rem + 2.5cqi, 1.875rem);
+    }
+
+    & hgroup > p:last-child {
+      max-inline-size: 65ch;
+    }
+  }
+
+  .learn-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .learn-chip-part {
+    opacity: 0.7;
+  }
+
+  .learn-meta {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--font-size-0);
+    gap: var(--size-1) var(--size-4);
+    line-height: 1.3;
+    margin: 0;
+
+    & div {
+      display: grid;
+    }
+
+    & dt {
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    & dd {
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+</style>

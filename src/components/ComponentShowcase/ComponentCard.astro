@@ -1,5 +1,6 @@
 ---
 import { Button, Card } from "@opui/astro"
+import { posts } from "../../utils/learn"
 
 type Props = {
   href: string
@@ -9,6 +10,10 @@ type Props = {
 
 const { href, name, size } = Astro.props
 const { link } = Astro.locals
+
+const post = posts.find(
+  (entry) => entry.component && href === `/components/${entry.component}`,
+)
 ---
 
 <Card variant="elevated" class:list={["showcase-card", size && `ui-${size}`]}>
@@ -33,6 +38,16 @@ const { link } = Astro.locals
       <path d="m12 5 7 7-7 7"></path>
     </svg>
   </Button>
+  {
+    post?.technique ? (
+      <a class="showcase-technique" href={link(`/learn/${post.slug}`)}>
+        <span class="ui-sr-only">How {name} works: </span>
+        <code>{post.technique}</code>
+      </a>
+    ) : (
+      <span aria-hidden="true" class="showcase-technique" />
+    )
+  }
 </Card>
 
 <style is:global>
@@ -40,7 +55,7 @@ const { link } = Astro.locals
     block-size: 100%;
     display: grid;
     gap: var(--size-3);
-    grid-template-rows: 1fr auto;
+    grid-template-rows: 1fr auto auto;
     isolation: isolate;
     overflow: hidden;
     padding: var(--size-4);
@@ -66,18 +81,18 @@ const { link } = Astro.locals
       z-index: 0;
     }
 
-    &.wide {
+    &.ui-wide {
       grid-column: span 2;
     }
 
-    &.xl {
+    &.ui-xl {
       grid-column: span 2;
       grid-row: span 2;
     }
 
     @media (width <= 600px) {
-      &.wide,
-      &.xl {
+      &.ui-wide,
+      &.ui-xl {
         grid-column: auto;
         grid-row: auto;
       }
@@ -108,6 +123,29 @@ const { link } = Astro.locals
 
     & select {
       min-inline-size: 20ch;
+    }
+  }
+
+  .showcase-technique {
+    color: var(--text-muted);
+    font-size: var(--font-size-0);
+    line-height: 1.5;
+    margin-block-start: calc(var(--size-2) * -1);
+    min-block-size: 1.5em;
+    position: relative;
+    text-decoration: none;
+    z-index: 1;
+
+    & code {
+      background: none;
+      color: inherit;
+      font-size: inherit;
+      padding: 0;
+    }
+
+    &:where(a):hover {
+      color: var(--text-primary);
+      text-decoration: underline;
     }
   }
 

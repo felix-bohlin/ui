@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
-const { severity, variant } = defineProps<Props>()
+const { headingLevel = 3, severity, variant } = defineProps<Props>()
 const slots = defineSlots<Slots>()
 </script>
 
 <template>
   <article
-    role="note"
     :class="[
       'ui-callout',
       variant && `ui-${variant}`,
@@ -17,6 +16,7 @@ const slots = defineSlots<Slots>()
   >
     <slot name="icon">
       <svg
+        aria-hidden="true"
         v-if="severity === 'info'"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -29,6 +29,7 @@ const slots = defineSlots<Slots>()
         />
       </svg>
       <svg
+        aria-hidden="true"
         v-if="severity === 'warning'"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -41,6 +42,7 @@ const slots = defineSlots<Slots>()
         />
       </svg>
       <svg
+        aria-hidden="true"
         v-if="severity === 'critical'"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -54,9 +56,9 @@ const slots = defineSlots<Slots>()
       </svg>
     </slot>
     <div class="ui-content">
-      <h3 v-if="slots.title" class="ui-title">
+      <component :is="`h${headingLevel}`" v-if="slots.title" class="ui-title">
         <slot name="title"></slot>
-      </h3>
+      </component>
       <slot></slot>
     </div>
   </article>

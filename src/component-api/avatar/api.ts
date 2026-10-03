@@ -35,7 +35,7 @@ export default {
       prop: "interestfor",
     },
     {
-      attribute: '[role="group"]',
+      class: ".ui-avatar-group",
       default: "false",
       description: "Renders a container that groups avatars.",
       group: "Group",

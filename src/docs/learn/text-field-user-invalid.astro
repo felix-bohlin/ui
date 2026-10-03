@@ -1,0 +1,88 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import TextFieldBuild from "../../components/UnderTheHood/TextFieldBuild.astro"
+import { Code } from "astro-expressive-code/components"
+---
+
+<TechniquePost slug="text-field-user-invalid">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      <code>:invalid</code> matches as soon as the page loads. A required field that
+      is still empty turns red before anyone has typed a thing, and the form opens
+      looking like it already failed.
+    </p>
+    <p>
+      The usual fix is JavaScript that adds a <code>touched</code> or <code
+        >dirty</code
+      > class on blur and styles errors off that class. Not anymore.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        <code>:user-invalid</code> only matches after the user has changed the field
+        and left it, or tried to submit the form
+      </li>
+      <li>
+        <code>:has(:user-invalid)</code> lifts that state to the wrapper, so the label,
+        border and helper text all react
+      </li>
+      <li>
+        <code>[data-invalid]</code> covers errors the browser can't know about, like
+        ones from the server
+      </li>
+      <li>
+        Only private custom properties change, every rule that reads them
+        follows
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.text-field {
+  --accent: var(--primary);
+  --border: var(--field-border-color);
+  --helper: var(--field-helper-color);
+  --label: var(--text-muted);
+}
+
+.text-field:focus-within .field {
+  border-color: var(--accent);
+}
+
+.text-field[data-invalid],
+.text-field:has(:user-invalid) {
+  --accent: var(--invalid-color);
+  --border: var(--invalid-color);
+  --helper: var(--invalid-text-color);
+  --label: var(--invalid-text-color);
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <TextFieldBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        <code>:user-invalid</code> is Baseline since 2023, so this works in every
+        current browser
+      </li>
+      <li>
+        <code>[data-invalid]</code> and <code>:has(:user-invalid)</code> share one
+        selector list, so a browser that can't parse <code>:user-invalid</code> drops
+        the whole rule and the field stays neutral
+      </li>
+      <li>
+        Native validation still runs: the form won't submit and the browser
+        shows its own message
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

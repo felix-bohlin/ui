@@ -43,6 +43,13 @@ export default {
       group: "Visibility",
       prop: "invisible",
     },
+    {
+      description:
+        'Visually hidden text that describes the badge to assistive technology, such as "3 unread".',
+      frameworks: ["astro", "vue"],
+      prop: "srLabel",
+      type: "string",
+    },
   ],
   parts: [
     {

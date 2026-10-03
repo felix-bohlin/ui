@@ -5,7 +5,7 @@ export type Props = {
   error?: boolean
   filled?: boolean
   label?: string
-  small?: boolean
+  size?: "x-small" | "small" | "large"
   spread?: boolean
   startText?: string
 }

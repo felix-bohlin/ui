@@ -27,14 +27,6 @@ function baselineFor(source: string): BaselineStatus | undefined {
   return "widely"
 }
 
-function stageFor(source: string) {
-  const label = source.match(
-    /<Fragment slot="title">\s*<Badge[^>]*label="([^"]+)"/,
-  )?.[1]
-  if (!label) return undefined
-  return label.charAt(0).toUpperCase() + label.slice(1).toLowerCase()
-}
-
 export function componentStatusFor(framework: FrameworkId, slug: string) {
   const source = docSources[`../docs/components/${slug}.astro`] ?? ""
   const notes = whatsNewFor(framework, slug)
@@ -43,7 +35,7 @@ export function componentStatusFor(framework: FrameworkId, slug: string) {
   if (notes.some((note) => note.startsWith("New component"))) release = "new"
   else if (notes.length > 0) release = "updated"
 
-  return { baseline: baselineFor(source), release, stage: stageFor(source) }
+  return { baseline: baselineFor(source), release }
 }
 
 export const BASELINE_LABELS: Record<BaselineStatus, string> = {

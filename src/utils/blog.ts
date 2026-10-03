@@ -17,6 +17,18 @@ export const readingTimes = [
 
 export const series = [
   {
+    id: "modals",
+    label: "Modals and popovers",
+    posts: [
+      "dialog-closedby",
+      "drawer-starting-style",
+      "menu-popover-anchor",
+      "anchor-hover-cards",
+      "tooltip-interest-invokers",
+      "toast-attr-duration",
+    ],
+  },
+  {
     id: "native-controls",
     label: "Styling native controls",
     posts: [
@@ -30,18 +42,6 @@ export const series = [
       "form-fieldset-has",
     ],
   },
-  {
-    id: "top-layer",
-    label: "The top layer",
-    posts: [
-      "dialog-closedby",
-      "drawer-starting-style",
-      "menu-popover-anchor",
-      "anchor-hover-cards",
-      "tooltip-interest-invokers",
-      "toast-attr-duration",
-    ],
-  },
 ]
 
 export const topics = [
@@ -50,13 +50,14 @@ export const topics = [
   { id: "forms", label: "Forms" },
   { id: "layout", label: "Layout" },
   { id: "motion", label: "Motion" },
-  { id: "overlays", label: "Overlays" },
+  { id: "popups", label: "Popups" },
   { id: "selectors", label: "Selectors" },
   { id: "typography", label: "Typography" },
 ]
 
 export const posts = [
   {
+    author: "Felix Bohlin",
     category: "updates",
     date: "2026-10-01",
     description:
@@ -65,6 +66,7 @@ export const posts = [
     title: "Menu, Carousel and one Button",
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     date: "2026-10-02",
     description:
@@ -74,6 +76,7 @@ export const posts = [
     title: "Under the hood",
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "accordion",
     date: "2026-10-02",
@@ -86,6 +89,7 @@ export const posts = [
     topics: ["layout", "motion"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "anchor",
     date: "2026-10-02",
@@ -95,9 +99,10 @@ export const posts = [
     level: "advanced",
     slug: "anchor-hover-cards",
     title: "Hover cards without JavaScript",
-    topics: ["overlays"],
+    topics: ["popups"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "avatar",
     date: "2026-10-02",
@@ -109,6 +114,7 @@ export const posts = [
     topics: ["layout", "selectors"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "button",
     date: "2026-10-02",
@@ -120,6 +126,7 @@ export const posts = [
     topics: ["selectors"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "callout",
     date: "2026-10-02",
@@ -132,6 +139,7 @@ export const posts = [
     topics: ["color"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "card",
     date: "2026-10-02",
@@ -144,6 +152,7 @@ export const posts = [
     topics: ["color", "selectors"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "carousel",
     date: "2026-10-02",
@@ -156,6 +165,7 @@ export const posts = [
     topics: ["layout", "motion"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "checkbox",
     date: "2026-10-02",
@@ -168,6 +178,7 @@ export const posts = [
     topics: ["accessibility", "forms"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "description-list",
     date: "2026-10-02",
@@ -180,6 +191,7 @@ export const posts = [
     topics: ["layout", "typography"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "dialog",
     date: "2026-10-02",
@@ -189,9 +201,10 @@ export const posts = [
     level: "intermediate",
     slug: "dialog-closedby",
     title: "Dialogs without JavaScript",
-    topics: ["motion", "overlays"],
+    topics: ["motion", "popups"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "drawer",
     date: "2026-10-02",
@@ -201,9 +214,10 @@ export const posts = [
     level: "intermediate",
     slug: "drawer-starting-style",
     title: "Sliding drawers with @starting-style",
-    topics: ["motion", "overlays"],
+    topics: ["motion", "popups"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "form",
     date: "2026-10-02",
@@ -216,6 +230,7 @@ export const posts = [
     topics: ["forms", "selectors"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "menu",
     date: "2026-10-02",
@@ -225,9 +240,10 @@ export const posts = [
     level: "intermediate",
     slug: "menu-popover-anchor",
     title: "Menus with popover and anchor positioning",
-    topics: ["overlays"],
+    topics: ["popups"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "progress",
     date: "2026-10-02",
@@ -240,6 +256,7 @@ export const posts = [
     topics: ["accessibility", "forms", "motion"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "range",
     date: "2026-10-02",
@@ -251,6 +268,7 @@ export const posts = [
     topics: ["forms"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "select",
     date: "2026-10-02",
@@ -260,9 +278,10 @@ export const posts = [
     level: "advanced",
     slug: "select-base-select",
     title: "A select you can style",
-    topics: ["forms", "overlays"],
+    topics: ["forms", "popups"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "spinner",
     date: "2026-10-02",
@@ -274,6 +293,7 @@ export const posts = [
     topics: ["accessibility", "motion"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "switch",
     date: "2026-10-02",
@@ -285,6 +305,7 @@ export const posts = [
     topics: ["color", "forms"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "tabs",
     date: "2026-10-02",
@@ -296,6 +317,7 @@ export const posts = [
     topics: ["layout", "selectors"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "text-field",
     date: "2026-10-02",
@@ -308,6 +330,7 @@ export const posts = [
     topics: ["accessibility", "forms", "selectors"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "textarea",
     date: "2026-10-02",
@@ -320,6 +343,7 @@ export const posts = [
     topics: ["forms", "typography"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "toast",
     date: "2026-10-02",
@@ -329,9 +353,10 @@ export const posts = [
     level: "advanced",
     slug: "toast-attr-duration",
     title: "Toast timing with typed attr()",
-    topics: ["motion", "overlays"],
+    topics: ["motion", "popups"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "tooltip",
     date: "2026-10-02",
@@ -341,9 +366,10 @@ export const posts = [
     level: "advanced",
     slug: "tooltip-interest-invokers",
     title: "Tooltips with interestfor",
-    topics: ["overlays"],
+    topics: ["popups"],
   },
   {
+    author: "Felix Bohlin",
     category: "under-the-hood",
     component: "typography",
     date: "2026-10-02",

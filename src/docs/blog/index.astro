@@ -59,7 +59,6 @@ const entries = posts
     const inSeries = series.find((entry) => entry.posts.includes(post.slug))
     return {
       ...post,
-      author: "author" in post ? String(post.author) : undefined,
       baseline: features.length
         ? STATUS_ORDER.find((status) =>
             features.some((feature) => feature.status === status),
@@ -146,7 +145,7 @@ const filters = [
     label: "Reading time",
     options: readingTimes.map(({ id, label }) => ({ id, label })),
   },
-].filter((filter) => filter.options.length > 1)
+].filter((filter) => filter.options.length > 0)
 
 const hide = (checked: string, attr: string, id: string) =>
   `.blog:has(${checked}) .blog-post:not([data-${attr}~="${id}"]) { display: none; }`
@@ -256,7 +255,7 @@ const filterCss = [
               "blog-post",
               { "blog-post-featured": !post.component },
             ]}
-            data-author={post.author?.toLowerCase().replaceAll(" ", "-")}
+            data-author={post.author.toLowerCase().replaceAll(" ", "-")}
             data-baseline={post.baseline}
             data-category={post.category}
             data-feature={post.features.map((feature) => feature.id).join(" ")}
@@ -319,6 +318,7 @@ const filterCss = [
                 )}
                 <p class="blog-meta">
                   {[
+                    post.author,
                     `${post.minutes} min read`,
                     post.level && labelOf(levels, post.level),
                     post.topics

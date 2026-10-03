@@ -2,7 +2,7 @@
 import Blog from "./Blog.astro"
 import ReadMore from "../components/UnderTheHood/ReadMore.astro"
 import { references } from "../components/UnderTheHood/references"
-import { formatDate, posts } from "../utils/blog"
+import { componentName, formatDate, posts } from "../utils/blog"
 import {
   componentHasFramework,
   DEFAULT_FRAMEWORK,
@@ -29,12 +29,7 @@ const docsHref = hrefFor(
   `/components/${component}`,
 )
 
-const name = component
-  .split("-")
-  .map((word, index) =>
-    index === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word,
-  )
-  .join(" ")
+const name = componentName(component)
 
 const topic =
   topicProp ??

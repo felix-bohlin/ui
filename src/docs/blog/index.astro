@@ -1,53 +1,275 @@
 ---
 import Blog from "../../layouts/Blog.astro"
 import DocLink from "../../components/DocLink.astro"
-import { formatDate, posts } from "../../utils/blog"
+import { Card, Chip, ToggleButton, ToggleGroup } from "@opui/astro"
+import { computeFeatureSupport } from "../../utils/browser-support"
+import { categories, componentName, formatDate, posts } from "../../utils/blog"
+
+const STATUS = {
+  high: "Widely available",
+  limited: "Limited availability",
+  low: "Newly available",
+}
+
+const buildCount = Object.keys(
+  import.meta.glob("../../components/UnderTheHood/*Build.astro"),
+).length
+
+const categoryLabel = (id: string) =>
+  categories.find((category) => category.id === id)?.label ?? id
+
+const entries = posts
+  .toSorted(
+    (a, b) =>
+      Number(!!a.component) - Number(!!b.component) ||
+      (a.component ?? "").localeCompare(b.component ?? ""),
+  )
+  .map((post) => ({
+    ...post,
+    features: (post.features ?? []).map((id) => {
+      const entry = computeFeatureSupport(id)
+      return {
+        name: entry.name,
+        status: (entry.baseline || "limited") as keyof typeof STATUS,
+      }
+    }),
+    overline: post.component
+      ? componentName(post.component)
+      : `${categoryLabel(post.category)} · ${formatDate(post.date)}`,
+  }))
+
+const filterCss = categories
+  .flatMap((category) => {
+    const checked = `.blog:has(.blog-filter [value="${category.id}"]:checked)`
+    const hasFeatures = posts.some(
+      (post) => post.category === category.id && post.features?.length,
+    )
+    return [
+      `${checked} .blog-post:not([data-category="${category.id}"]) { display: none; }`,
+      ...(hasFeatures ? [] : [`${checked} .blog-legend { display: none; }`]),
+    ]
+  })
+  .join("\n")
 ---
 
 <Blog showToc={false}>
   <Fragment slot="title">Blog</Fragment>
   <Fragment slot="preamble">
-    Release notes and how the components are made.
+    Updates, and short posts on the HTML and CSS behind each component.
   </Fragment>
 
-  <ul class="blog-posts ui-not-rich-text">
-    {
-      posts.map((post) => (
-        <li>
-          <time datetime={post.date}>{formatDate(post.date)}</time>
-          <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
-          <p>{post.description}</p>
-        </li>
-      ))
-    }
-  </ul>
+  <div class="blog ui-not-rich-text">
+    <ToggleGroup
+      aria-label="Filter posts"
+      class="blog-filter"
+      name="blog-filter"
+      selection="single"
+      size="small"
+    >
+      <ToggleButton checked value="all">All</ToggleButton>
+      {
+        categories.map((category) => (
+          <ToggleButton value={category.id}>{category.label}</ToggleButton>
+        ))
+      }
+    </ToggleGroup>
+
+    <ul class="blog-posts">
+      {
+        entries.map((post) => (
+          <li
+            class:list={[
+              "blog-post",
+              { "blog-post-featured": !post.component },
+            ]}
+            data-category={post.category}
+          >
+            <Card variant={post.component ? "outlined" : "tonal"}>
+              <Fragment slot="header">
+                <p>{post.overline}</p>
+                <h2>
+                  <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
+                </h2>
+                <p>{post.description}</p>
+              </Fragment>
+              {(post.features.length > 0 || post.slug === "under-the-hood") && (
+                <Fragment slot="content">
+                  {post.features.length > 0 && (
+                    <ul aria-label="Features" class="blog-features">
+                      {post.features.map((feature) => (
+                        <li>
+                          <Chip
+                            data-status={feature.status}
+                            size="small"
+                            variant="outlined"
+                          >
+                            {feature.name}
+                            <span class="ui-sr-only">
+                              , {STATUS[feature.status]}
+                            </span>
+                          </Chip>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {post.slug === "under-the-hood" && (
+                    <p class="blog-meta">{buildCount} interactive build-ups</p>
+                  )}
+                </Fragment>
+              )}
+            </Card>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="blog-count" aria-hidden="true"></p>
+
+    <ul aria-label="Baseline status" class="blog-legend">
+      {
+        (["high", "low", "limited"] as const).map((status) => (
+          <li data-status={status}>{STATUS[status]}</li>
+        ))
+      }
+    </ul>
+  </div>
 </Blog>
 
+<style is:inline set:html={filterCss}></style>
+
 <style>
+  .blog {
+    counter-reset: posts;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+  }
+
+  .blog-filter {
+    align-self: start;
+    order: -2;
+  }
+
+  .blog-count {
+    color: var(--text-muted);
+    font-size: var(--font-size-0);
+    margin: 0;
+    order: -1;
+
+    &::before {
+      content: "Posts: " counter(posts);
+    }
+  }
+
   .blog-posts {
     display: grid;
-    gap: var(--size-5);
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
     list-style: none;
+    margin: 0;
     padding: 0;
+  }
 
-    & li {
-      display: grid;
-      gap: var(--size-1);
+  .blog-post {
+    counter-increment: posts;
+    display: grid;
+
+    & .ui-card {
+      position: relative;
+      transition: border-color 0.2s;
+
+      &:has(a:hover) {
+        border-color: var(--primary);
+      }
+
+      &:has(a:focus-visible) {
+        outline: var(--focus-ring-width, 2px) solid
+          var(--focus-ring-color, var(--primary));
+        outline-offset: 2px;
+      }
     }
 
-    & time {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
+    & h2 {
+      font-size: var(--font-size-3);
+      line-height: 1.25;
     }
 
     & a {
-      font-size: var(--font-size-4);
-      font-weight: 700;
+      color: inherit;
+      text-decoration: none;
+
+      &::after {
+        content: "";
+        inset: 0;
+        position: absolute;
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+  }
+
+  .blog-post-featured {
+    grid-column: 1 / -1;
+
+    & h2 {
+      font-size: var(--font-size-5);
+    }
+  }
+
+  .blog-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-1);
+    list-style: none;
+    margin: auto 0 0;
+    padding: 0;
+  }
+
+  .blog-meta {
+    color: var(--text-muted);
+    font-size: var(--font-size-0);
+    margin: auto 0 0;
+  }
+
+  [data-status] {
+    &::before {
+      background-color: var(--_status-color);
+      block-size: 0.5rem;
+      border-radius: var(--radius-round);
+      content: "";
+      flex-shrink: 0;
+      inline-size: 0.5rem;
     }
 
-    & p {
-      color: var(--text-muted);
-      margin: 0;
+    &[data-status="high"] {
+      --_status-color: var(--text-ok, #2e7d32);
+    }
+
+    &[data-status="low"] {
+      --_status-color: var(--text-info, #1565c0);
+    }
+
+    &[data-status="limited"] {
+      --_status-color: var(--text-warning, #ed6c02);
+    }
+  }
+
+  .blog-legend {
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--font-size-0);
+    gap: var(--size-1) var(--size-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      align-items: center;
+      display: inline-flex;
+      gap: var(--size-2);
     }
   }
 </style>

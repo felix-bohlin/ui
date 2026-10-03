@@ -1,7 +1,7 @@
 ---
 import Blog from "../../layouts/Blog.astro"
 import DocLink from "../../components/DocLink.astro"
-import { formatDate, posts } from "../../utils/blog"
+import { componentName, formatDate, posts } from "../../utils/blog"
 import {
   componentHasFramework,
   DEFAULT_FRAMEWORK,
@@ -26,7 +26,7 @@ const builds = Object.entries(modules)
       fileName === "Rhythm"
         ? "typography"
         : fileName.replace(/(?<!^)([A-Z])/g, "-$1").toLowerCase()
-    const name = slug.charAt(0).toUpperCase() + slug.slice(1).replace("-", " ")
+    const name = componentName(slug)
     return {
       Build: module.default,
       docsHref: hrefFor(

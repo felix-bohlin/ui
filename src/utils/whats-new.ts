@@ -55,6 +55,8 @@ const whatsNew = {
   ],
 } satisfies Record<string, Note[]>
 
+const highlighted = new Set(["button", "carousel", "menu", "tabs"])
+
 export function whatsNewFor(framework: FrameworkId, slug: string) {
   const notes: Note[] = whatsNew[slug as keyof typeof whatsNew] ?? []
 
@@ -63,4 +65,8 @@ export function whatsNewFor(framework: FrameworkId, slug: string) {
       typeof note === "string" ? note : (note[framework] ?? note.default),
     )
     .filter((note) => note !== undefined)
+}
+
+export function isWhatsNewHighlighted(framework: FrameworkId, slug: string) {
+  return highlighted.has(slug) && whatsNewFor(framework, slug).length > 0
 }

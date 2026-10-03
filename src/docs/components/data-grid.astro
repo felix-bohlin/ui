@@ -277,13 +277,15 @@ const techniques = [
     <Conditional as="p">
       <Fragment slot="html"
         >A <code>.ui-row-number</code> cell in each row. The number follows the sort
-        order.</Fragment
+        order and stays with the row when a filter hides others.</Fragment
       >
       <Fragment slot="astro"
-        ><code>numbered</code>. The number follows the sort order.</Fragment
+        ><code>numbered</code>. The number follows the sort order and stays with
+        the row when a filter hides others.</Fragment
       >
       <Fragment slot="vue"
-        ><code>numbered</code>. The number follows the sort order.</Fragment
+        ><code>numbered</code>. The number follows the sort order and stays with
+        the row when a filter hides others.</Fragment
       >
     </Conditional>
 
@@ -669,6 +671,16 @@ const techniques = [
       and pin columns, without the synced focus order or the shadows. Astro and Vue
       compute ranks, sums and filter matches when rendering. In HTML they are written
       in the markup.
+    </p>
+
+    <h3 id="performance">Performance</h3>
+    <p>
+      The state lives in <code>:has()</code> on the root, so every sort, filter, selection
+      or column toggle restyles every cell. Hovering and scrolling only restyle the
+      row under the pointer. The cost grows with rows times columns: a four column
+      grid with 1,000 rows restyles about 5,000 elements per toggle, which takes around
+      150 ms on a slow CPU. Counters only run on grids that print numbers or totals.
+      Keep grids to a few hundred rows and paginate beyond that.
     </p>
   </Fragment>
 

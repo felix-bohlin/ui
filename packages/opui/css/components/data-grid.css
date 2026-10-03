@@ -127,26 +127,11 @@
 
     .ui-body > [role="row"] {
       --_position: sibling-index();
-      counter-increment: ui-data-grid-rows ui-data-grid-sum-1 var(--_sum-1, 0)
-        ui-data-grid-sum-2 var(--_sum-2, 0) ui-data-grid-sum-3 var(--_sum-3, 0)
-        ui-data-grid-sum-4 var(--_sum-4, 0) ui-data-grid-sum-5 var(--_sum-5, 0)
-        ui-data-grid-sum-6 var(--_sum-6, 0) ui-data-grid-sum-7 var(--_sum-7, 0)
-        ui-data-grid-sum-8 var(--_sum-8, 0) ui-data-grid-sum-9 var(--_sum-9, 0)
-        ui-data-grid-sum-10 var(--_sum-10, 0) ui-data-grid-sum-11
-        var(--_sum-11, 0) ui-data-grid-sum-12 var(--_sum-12, 0);
-      counter-reset: ui-data-grid-index var(--_position);
+      counter-increment: ui-data-grid-rows;
 
       &:has(> .ui-row-select :checked) {
         --_row-bg-color: var(--_selected-bg-color);
-        counter-increment: ui-data-grid-rows ui-data-grid-selected
-          ui-data-grid-sum-1 var(--_sum-1, 0) ui-data-grid-sum-2
-          var(--_sum-2, 0) ui-data-grid-sum-3 var(--_sum-3, 0)
-          ui-data-grid-sum-4 var(--_sum-4, 0) ui-data-grid-sum-5
-          var(--_sum-5, 0) ui-data-grid-sum-6 var(--_sum-6, 0)
-          ui-data-grid-sum-7 var(--_sum-7, 0) ui-data-grid-sum-8
-          var(--_sum-8, 0) ui-data-grid-sum-9 var(--_sum-9, 0)
-          ui-data-grid-sum-10 var(--_sum-10, 0) ui-data-grid-sum-11
-          var(--_sum-11, 0) ui-data-grid-sum-12 var(--_sum-12, 0);
+        counter-increment: ui-data-grid-rows ui-data-grid-selected;
       }
 
       @media (hover: hover) {
@@ -157,6 +142,32 @@
         &:has(> .ui-row-select :checked):hover {
           --_row-bg-color: var(--_selected-hover-bg-color);
         }
+      }
+    }
+
+    &:has(> [role="table"] > .ui-head .ui-row-number) .ui-body > [role="row"] {
+      counter-reset: ui-data-grid-index var(--_position);
+    }
+
+    &:has(> [role="table"] > .ui-foot) .ui-body > [role="row"] {
+      counter-increment: ui-data-grid-rows ui-data-grid-sum-1 var(--_sum-1, 0)
+        ui-data-grid-sum-2 var(--_sum-2, 0) ui-data-grid-sum-3 var(--_sum-3, 0)
+        ui-data-grid-sum-4 var(--_sum-4, 0) ui-data-grid-sum-5 var(--_sum-5, 0)
+        ui-data-grid-sum-6 var(--_sum-6, 0) ui-data-grid-sum-7 var(--_sum-7, 0)
+        ui-data-grid-sum-8 var(--_sum-8, 0) ui-data-grid-sum-9 var(--_sum-9, 0)
+        ui-data-grid-sum-10 var(--_sum-10, 0) ui-data-grid-sum-11
+        var(--_sum-11, 0) ui-data-grid-sum-12 var(--_sum-12, 0);
+
+      &:has(> .ui-row-select :checked) {
+        counter-increment: ui-data-grid-rows ui-data-grid-selected
+          ui-data-grid-sum-1 var(--_sum-1, 0) ui-data-grid-sum-2
+          var(--_sum-2, 0) ui-data-grid-sum-3 var(--_sum-3, 0)
+          ui-data-grid-sum-4 var(--_sum-4, 0) ui-data-grid-sum-5
+          var(--_sum-5, 0) ui-data-grid-sum-6 var(--_sum-6, 0)
+          ui-data-grid-sum-7 var(--_sum-7, 0) ui-data-grid-sum-8
+          var(--_sum-8, 0) ui-data-grid-sum-9 var(--_sum-9, 0)
+          ui-data-grid-sum-10 var(--_sum-10, 0) ui-data-grid-sum-11
+          var(--_sum-11, 0) ui-data-grid-sum-12 var(--_sum-12, 0);
       }
     }
 
@@ -327,11 +338,7 @@
       margin: 0;
     }
 
-    :is([role="cell"], [role="rowheader"]):has(
-      > .ui-avatar,
-      > .ui-button,
-      > .ui-chip
-    ) {
+    :is([role="cell"], [role="rowheader"]):has(> .ui-button, > .ui-chip) {
       align-items: center;
       display: flex;
       gap: var(--size-2);
@@ -344,6 +351,8 @@
       --_width: var(--size-7);
       flex: none;
       font-size: var(--font-size-0);
+      margin-inline-end: var(--size-2);
+      vertical-align: middle;
     }
 
     [role="cell"] > .ui-progress {
@@ -702,7 +711,11 @@
       --_row-min-block-size: calc(var(--control-size) + var(--size-5));
     }
 
-    &.ui-wrap [role="row"] > [role="cell"] {
+    &.ui-wrap:not(.ui-resizable) {
+      --_track: minmax(min-content, auto);
+    }
+
+    &.ui-wrap [role="row"] > :is([role="cell"], [role="rowheader"]) {
       white-space: normal;
     }
 

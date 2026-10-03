@@ -157,7 +157,7 @@ const directions = ["asc", "desc"] as const
             v-for="name in grid.utilityCells"
             :key="name"
             :class="name"
-            role="columnheader"
+            role="cell"
           ></div>
           <div
             v-for="(group, index) in columnGroups"

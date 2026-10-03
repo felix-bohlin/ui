@@ -1,5 +1,5 @@
 ---
-import { Chip, TextField, ToggleButton, ToggleGroup } from "@opui/astro"
+import { ToggleButton, ToggleGroup } from "@opui/astro"
 import { componentsFor, componentHrefFor } from "../utils/components"
 import {
   BASELINE_LABELS,
@@ -15,19 +15,9 @@ const items = componentsFor(currentFramework).map((component) => {
   const status = componentStatusFor(currentFramework, component.slug)
   return {
     ...component,
-    ...status,
     filters: [status.release, status.baseline].filter(Boolean),
   }
 })
-
-const BASELINE_ICONS = {
-  limited:
-    "M5.82 2.275c.956-1.7 3.404-1.7 4.36 0l4.496 8.004c.936 1.667-.269 3.725-2.18 3.725H3.503c-1.911 0-3.115-2.058-2.179-3.725zm3.488.49a1.5 1.5 0 0 0-2.616 0L2.195 10.77a1.5 1.5 0 0 0 1.308 2.234h8.993a1.5 1.5 0 0 0 1.308-2.234zM8 9.5A.75.75 0 1 1 8 11a.75.75 0 0 1 0-1.5M8 5a.5.5 0 0 1 .5.5V8a.5.5 0 0 1-1 0V5.5A.5.5 0 0 1 8 5",
-  newly:
-    "M4.101 2.248a2 2 0 0 1 2.647-1.083l.887.385c.25.108.534.11.786.003l.89-.376a2 2 0 0 1 2.636 1.105l.356.899a1 1 0 0 0 .553.558l.896.363a2 2 0 0 1 1.083 2.646l-.384.887a1 1 0 0 0-.004.786l.377.89a2 2 0 0 1-1.105 2.636l-.899.356a1 1 0 0 0-.558.553l-.364.896a2 2 0 0 1-2.645 1.083l-.887-.384a1 1 0 0 0-.787-.004l-.89.377a2 2 0 0 1-2.636-1.105l-.356-.899a1 1 0 0 0-.554-.558l-.895-.364a2 2 0 0 1-1.083-2.645l.385-.887a1 1 0 0 0 .003-.787l-.376-.89a2 2 0 0 1 1.105-2.636l.898-.356a1 1 0 0 0 .56-.553zm2.25-.166a1 1 0 0 0-1.324.541l-.362.896a2 2 0 0 1-1.117 1.108l-.899.354A1 1 0 0 0 2.096 6.3l.376.89c.213.504.21 1.071-.006 1.573l-.384.886a1 1 0 0 0 .54 1.324l.896.363a2 2 0 0 1 1.109 1.117l.354.899a1 1 0 0 0 1.319.552l.89-.377a2 2 0 0 1 1.573.007l.886.384a1 1 0 0 0 1.324-.54l.363-.896a2 2 0 0 1 1.117-1.108l.899-.355a1 1 0 0 0 .552-1.319l-.377-.89a2 2 0 0 1 .007-1.573l.384-.886a1 1 0 0 0-.541-1.324l-.896-.362a2 2 0 0 1-1.107-1.117l-.356-.899A1 1 0 0 0 9.7 2.097l-.89.376a2 2 0 0 1-1.573-.007zm3.795 4.065a.5.5 0 0 1 .707.707l-3.25 3.25a.5.5 0 0 1-.707 0l-1.75-1.75a.5.5 0 0 1 .707-.707L7.25 9.043z",
-  widely:
-    "M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8m9.854-1.146a.5.5 0 0 0-.708-.708L7.25 9.043L5.854 7.646a.5.5 0 1 0-.708.708l1.75 1.75a.5.5 0 0 0 .708 0z",
-}
 
 const filters = [
   { label: "All", value: "all" },
@@ -47,31 +37,22 @@ const filters = [
 ---
 
 <div class="component-browser">
-  <div class="component-filters">
-    <TextField
-      class="component-search"
-      type="search"
-      placeholder="Search components"
-    >
-      <span slot="label" class="ui-sr-only">Search components</span>
-    </TextField>
-    <ToggleGroup
-      class="component-status-filter"
-      name="component-status"
-      selection="single"
-      size="small"
-      scrollable
-      aria-label="Filter by status"
-    >
-      {
-        filters.map(({ label, value }) => (
-          <ToggleButton value={value} pressed={value === "all"}>
-            {label}
-          </ToggleButton>
-        ))
-      }
-    </ToggleGroup>
-  </div>
+  <ToggleGroup
+    class="component-status-filter"
+    name="component-status"
+    selection="single"
+    size="small"
+    scrollable
+    aria-label="Filter by status"
+  >
+    {
+      filters.map(({ label, value }) => (
+        <ToggleButton value={value} pressed={value === "all"}>
+          {label}
+        </ToggleButton>
+      ))
+    }
+  </ToggleGroup>
 
   <p class="component-count" aria-live="polite">
     {items.length} components
@@ -80,81 +61,31 @@ const filters = [
   <ul class="card-grid">
     {
       items.map((item) => (
-        <li
-          data-name={item.name.toLowerCase()}
-          data-filters={item.filters.join(" ")}
-        >
+        <li data-filters={item.filters.join(" ")}>
           <a
             class="ui-card ui-outlined"
             href={componentHrefFor(currentFramework, item.slug)}
           >
             <div class="ui-content">
               <p>{item.name}</p>
-              <div class="component-chips">
-                {item.stage && (
-                  <Chip size="small" class="component-chip-stage">
-                    {item.stage}
-                  </Chip>
-                )}
-                {item.release && (
-                  <Chip
-                    size="small"
-                    class:list={[`component-chip-${item.release}`]}
-                  >
-                    {RELEASE_LABELS[item.release]}
-                  </Chip>
-                )}
-                {item.baseline && (
-                  <Chip
-                    size="small"
-                    variant="outlined"
-                    class:list={[
-                      "component-chip-baseline",
-                      `component-chip-${item.baseline}`,
-                    ]}
-                  >
-                    <svg
-                      slot="start"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      aria-hidden="true"
-                    >
-                      <path
-                        fill="currentColor"
-                        d={BASELINE_ICONS[item.baseline]}
-                      />
-                    </svg>
-                    {BASELINE_LABELS[item.baseline]}
-                  </Chip>
-                )}
-              </div>
             </div>
           </a>
         </li>
       ))
     }
   </ul>
-
-  <p class="component-empty" hidden>No components match your search.</p>
 </div>
 
 <script>
   document
     .querySelectorAll<HTMLElement>(".component-browser")
     .forEach((browser) => {
-      const search = browser.querySelector<HTMLInputElement>(
-        ".component-search input",
-      )
       const items = [
         ...browser.querySelectorAll<HTMLLIElement>(".card-grid > li"),
       ]
       const count = browser.querySelector(".component-count")
-      const empty = browser.querySelector<HTMLElement>(".component-empty")
 
       const update = () => {
-        const query = search?.value.trim().toLowerCase() ?? ""
         const filter =
           browser.querySelector<HTMLInputElement>(
             ".component-status-filter input:checked",
@@ -162,11 +93,9 @@ const filters = [
 
         let visible = 0
         for (const item of items) {
-          const matchesQuery = (item.dataset.name ?? "").includes(query)
-          const matchesFilter =
-            filter === "all" ||
-            (item.dataset.filters ?? "").split(" ").includes(filter)
-          item.hidden = !(matchesQuery && matchesFilter)
+          item.hidden =
+            filter !== "all" &&
+            !(item.dataset.filters ?? "").split(" ").includes(filter)
           if (!item.hidden) visible++
         }
 
@@ -176,10 +105,8 @@ const filters = [
               ? `${items.length} components`
               : `${visible} of ${items.length} components`
         }
-        if (empty) empty.hidden = visible > 0
       }
 
-      search?.addEventListener("input", update)
       browser
         .querySelector(".component-status-filter")
         ?.addEventListener("change", update)
@@ -188,35 +115,15 @@ const filters = [
 </script>
 
 <style>
-  .component-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-3);
+  .component-status-filter {
     margin-block-start: var(--size-3);
-
-    .component-search {
-      flex: 1 1 16rem;
-
-      :global(.ui-label:has(> .ui-sr-only)) {
-        display: contents;
-      }
-    }
-
-    .component-status-filter {
-      max-inline-size: 100%;
-    }
+    max-inline-size: 100%;
   }
 
   .component-count {
     color: var(--text-muted);
     font-size: var(--font-size-0);
     margin-block: var(--size-3) 0;
-  }
-
-  .component-empty {
-    color: var(--text-muted);
-    margin-block-start: var(--size-5);
-    text-align: center;
   }
 
   .card-grid {
@@ -245,53 +152,11 @@ const filters = [
       }
 
       .ui-content {
-        display: flex;
-        flex-direction: column;
-        gap: var(--size-2);
-
         p {
           font-weight: 600;
           margin: 0;
         }
       }
-    }
-  }
-
-  .component-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size-1);
-
-    &:empty {
-      display: none;
-    }
-
-    .component-chip-new {
-      --_bg-color: var(--primary);
-      --_border-color: var(--primary);
-      --_color: var(--primary-contrast);
-    }
-
-    .component-chip-stage {
-      --_bg-color: var(--warning);
-      --_border-color: var(--warning);
-      --_color: var(--gray-15);
-    }
-
-    .component-chip-baseline svg {
-      color: var(--_icon-color);
-    }
-
-    .component-chip-limited {
-      --_icon-color: var(--warning);
-    }
-
-    .component-chip-newly {
-      --_icon-color: var(--info);
-    }
-
-    .component-chip-widely {
-      --_icon-color: var(--success);
     }
   }
 </style>

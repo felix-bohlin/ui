@@ -169,7 +169,10 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Chip" href="/components/chip">
-    <Chip aria-hidden="true" variant="outlined">CSS</Chip>
+    <div aria-hidden="true" class="showcase-chips">
+      <Chip variant="outlined">HTML</Chip>
+      <Chip variant="outlined">CSS</Chip>
+    </div>
   </ComponentCard>
 
   <ComponentCard name="Description List" href="/components/description-list">
@@ -459,6 +462,11 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       & h3 {
         font-size: var(--font-size-2);
       }
+    }
+
+    .showcase-chips {
+      display: flex;
+      gap: var(--size-2);
     }
 
     .showcase-drawer {

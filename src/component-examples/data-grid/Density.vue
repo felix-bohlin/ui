@@ -6,7 +6,7 @@ import { columns, people } from "./data"
 <template>
   <DataGrid
     :columns="columns"
-    density="compact"
+    density="dense"
     density-toggle
     label="Team"
     :rows="people"

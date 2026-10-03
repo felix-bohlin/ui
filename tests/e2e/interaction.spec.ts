@@ -176,6 +176,62 @@ interaction(
 
 interaction(
   "data-grid",
+  "BulkActions",
+  "data grid submits the selection and clears it with reset",
+  async ({ root }) => {
+    const actions = root.locator(".ui-bulk-actions")
+
+    await expect(actions).toBeHidden()
+    await root
+      .getByRole("checkbox", { name: "Select Grace Hopper" })
+      .check({ force: true })
+    await root
+      .getByRole("checkbox", { name: "Select Hedy Lamarr" })
+      .check({ force: true })
+    await expect(actions).toBeVisible()
+    await expect
+      .poll(() =>
+        root
+          .locator("form")
+          .evaluate((form: HTMLFormElement) =>
+            new FormData(form).getAll("selected"),
+          ),
+      )
+      .toEqual(["grace", "hedy"])
+
+    await actions.getByRole("button", { name: "Clear selection" }).click()
+    await expect(root.locator(".ui-body input:checked")).toHaveCount(0)
+    await expect(actions).toBeHidden()
+  },
+)
+
+interaction(
+  "data-grid",
+  "HeaderMenus",
+  "data grid sorts and hides columns from header menus",
+  async ({ page, root }) => {
+    await root.getByRole("button", { name: "Options for Tickets" }).click()
+    await root.locator("menu:popover-open").getByText("Sort descending").click()
+    await expect
+      .poll(() => visibleRows(root))
+      .toEqual([
+        "Margaret Hamilton",
+        "Grace Hopper",
+        "Katherine Johnson",
+        "Ada Lovelace",
+        "Alan Turing",
+        "Hedy Lamarr",
+      ])
+    await page.keyboard.press("Escape")
+
+    await root.getByRole("button", { name: "Options for Role" }).click()
+    await root.locator("menu:popover-open").getByText("Hide column").click()
+    await expect(root.getByRole("columnheader", { name: /^Role/ })).toBeHidden()
+  },
+)
+
+interaction(
+  "data-grid",
   "DetailPanel",
   "data grid expands a detail panel",
   async ({ root }) => {

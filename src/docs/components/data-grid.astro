@@ -296,7 +296,7 @@ const techniques = [
       <Fragment slot="html"
         >A <code>.ui-row-select</code> cell with a checkbox. <code
           >.ui-selected-count</code
-        > and <code>.ui-row-count</code> in <code>.ui-footer</code> count with CSS
+        > and <code>.ui-row-count</code> in <code>.ui-status</code> count with CSS
         counters.</Fragment
       >
       <Fragment slot="astro"
@@ -308,6 +308,35 @@ const techniques = [
     </Conditional>
 
     <AutoExample name="Selection" />
+  </section>
+
+  <section>
+    <h2 id="bulk-actions">Bulk actions and forms</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-bulk-actions</code> in <code>.ui-toolbar</code> only shows while
+        rows are selected. Give checkboxes a <code>name</code> and
+        <code>value</code>, and editable inputs a <code>name</code>, to submit
+        them. <code>form</code> ties them to a form outside the grid, so a reset button
+        clears the selection without touching sorting or filters.</Fragment
+      >
+      <Fragment slot="astro"
+        >An <code>actions</code> slot only shows while rows are selected.
+        <code>rowKey</code> names the checkboxes and editable inputs, such as
+        <code>selected=ada</code> and <code>role[ada]</code>, and
+        <code>form</code> ties them to a form, so a reset button clears the selection
+        without touching sorting or filters.</Fragment
+      >
+      <Fragment slot="vue"
+        >An <code>#actions</code> slot only shows while rows are selected.
+        <code>row-key</code> names the checkboxes and editable inputs, such as
+        <code>selected=ada</code> and <code>role[ada]</code>, and
+        <code>form</code> ties them to a form, so a reset button clears the selection
+        without touching sorting or filters.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="BulkActions" />
   </section>
 
   <section>
@@ -352,10 +381,29 @@ const techniques = [
   </section>
 
   <section>
+    <h2 id="header-menus">Header menus</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >A popover menu in each header. Its items are <code>label</code> elements
+        pointing at the sort radios and column checkboxes by <code>id</code
+        >.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>headerMenus</code> adds a menu to sort or hide each column.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>header-menus</code> adds a menu to sort or hide each column.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="HeaderMenus" />
+  </section>
+
+  <section>
     <h2 id="density">Density</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        ><code>.ui-compact</code> or <code>.ui-spacious</code>, or radios in
+        ><code>.ui-dense</code> or <code>.ui-spacious</code>, or radios in
         <code>.ui-density</code>.</Fragment
       >
       <Fragment slot="astro"
@@ -505,6 +553,33 @@ const techniques = [
     </Conditional>
 
     <AutoExample name="Loading" />
+  </section>
+
+  <section>
+    <h2 id="empty-state">Empty state</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >The <code>.ui-empty</code> row shows when no rows match.</Fragment
+      >
+      <Fragment slot="astro"
+        >The <code>empty</code> slot replaces the text shown when no rows match.</Fragment
+      >
+      <Fragment slot="vue"
+        >The <code>#empty</code> slot replaces the text shown when no rows match.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="EmptyState" />
+  </section>
+
+  <section>
+    <h2 id="rtl">Right to left</h2>
+    <p>
+      <code>dir="rtl"</code> mirrors pinned columns, scroll shadows, sort arrows and
+      the detail toggle.
+    </p>
+
+    <AutoExample name="RTL" />
   </section>
 
   <section>

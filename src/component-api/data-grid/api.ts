@@ -5,7 +5,7 @@ export default {
   notes: {
     astro:
       "Each column has a `key` and a `label`, plus optional `editable`, `fit`, `hideable`, `numeric`, `rowHeader`, `sortable`, `sum` and `width`. Sort ranks, sums and filter matches are computed when rendering.",
-    html: 'Cells are matched to columns by position, up to 12 columns. Selection, sorting, filtering, column visibility and density are radio buttons and checkboxes read with `:has()`. Sort radios go in the column header with `value="asc"` or `value="desc"`, filter and density radios in `.ui-filters` and `.ui-density`, and column checkboxes in `.ui-columns` with the column number as `value`.',
+    html: 'Cells are matched to columns by position, up to 12 columns. Selection, sorting, filtering, column visibility and density are radio buttons and checkboxes read with `:has()`. Sort radios go in the column header with `value="asc"` or `value="desc"`, filter and density radios in `.ui-filters` and `.ui-density`, and column checkboxes in `.ui-columns` with the column number as `value`. `.ui-bulk-actions` in `.ui-toolbar` only shows while rows are selected. A header menu is a popover of `label` elements pointing at those controls by `id`.',
     vue: "Each column has a `key` and a `label`, plus optional `editable`, `fit`, `hideable`, `numeric`, `rowHeader`, `sortable`, `sum` and `width`. Sort ranks, sums and filter matches are computed when rendering.",
   },
   options: [
@@ -40,7 +40,7 @@ export default {
       group: "Density",
       prop: "density",
       values: {
-        compact: ".ui-compact",
+        dense: ".ui-dense",
         spacious: ".ui-spacious",
         standard: null,
       },
@@ -52,6 +52,28 @@ export default {
       group: "Fit",
       part: '[role="columnheader"]',
       prop: "fit",
+    },
+    {
+      description:
+        "The `id` of a form for the selection checkboxes and editable inputs.",
+      frameworks: ["astro", "vue"],
+      prop: "form",
+    },
+    {
+      attribute: "[form]",
+      description:
+        "Associates selection checkboxes and editable inputs with a form outside the grid.",
+      frameworks: ["html"],
+      group: "Form",
+      part: ".ui-body input",
+      prop: "formAttribute",
+    },
+    {
+      default: "false",
+      description:
+        "A menu in each header to sort or hide the column, made of labels for the existing controls.",
+      frameworks: ["astro", "vue"],
+      prop: "headerMenus",
     },
     {
       attribute: "[aria-label]",
@@ -123,6 +145,12 @@ export default {
       group: "Filters",
       part: '[role="row"]',
       prop: "rowFilters",
+    },
+    {
+      description:
+        'The row field used as the checkbox `value` and in editable input names, such as `name="role[ada]"`.',
+      frameworks: ["astro", "vue"],
+      prop: "rowKey",
     },
     {
       description: "The rows. Each row is an object keyed by column.",
@@ -213,12 +241,22 @@ export default {
     {
       description: "Selected and visible row counts.",
       props: ["footer"],
-      selector: ".ui-footer",
+      selector: ".ui-status",
     },
   ],
   root: {
     description: "The grid and its toolbar and footer.",
     selector: ".ui-data-grid",
   },
+  slots: [
+    {
+      description: "Actions shown in the toolbar while rows are selected.",
+      name: "actions",
+    },
+    {
+      description: "Content shown when no rows match.",
+      name: "empty",
+    },
+  ],
   source: "DataGrid",
 } satisfies ComponentApi

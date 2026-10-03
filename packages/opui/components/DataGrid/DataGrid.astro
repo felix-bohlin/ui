@@ -13,6 +13,8 @@ const {
   densityToggle,
   filters,
   footer,
+  form,
+  headerMenus,
   label,
   labels: customLabels,
   loading,
@@ -21,6 +23,7 @@ const {
   pinEnd,
   pinStart,
   resizable,
+  rowKey,
   rows,
   selectable,
   sort,
@@ -38,6 +41,7 @@ const grid = createGrid({
   labels: customLabels,
   maxBlockSize,
   numbered,
+  rowKey,
   rows,
   selectable,
   sort,
@@ -47,7 +51,10 @@ const filterName = $id("filter")
 const densityName = $id("density")
 const menuId = $id("columns")
 const sortName = $id("sort")
-const toolbar = grid.filters.length > 0 || densityToggle || columnsMenu
+const headerMenuId = $id("header-menu")
+const hasActions = Astro.slots.has("actions")
+const toolbar =
+  hasActions || grid.filters.length > 0 || densityToggle || columnsMenu
 const mergedStyle =
   typeof style === "string" || !style
     ? [grid.style, style].filter(Boolean).join("; ") || undefined
@@ -72,6 +79,11 @@ const mergedStyle =
   {
     toolbar && (
       <div class="ui-toolbar">
+        {hasActions && (
+          <div class="ui-bulk-actions">
+            <slot name="actions" />
+          </div>
+        )}
         {grid.filters.length > 0 && (
           <div
             aria-label={labels.filter}
@@ -96,7 +108,7 @@ const mergedStyle =
             class="ui-toggle-group ui-small ui-density"
             role="radiogroup"
           >
-            {(["compact", "standard", "spacious"] as const).map((value) => (
+            {(["dense", "standard", "spacious"] as const).map((value) => (
               <label class="ui-toggle-button">
                 <input
                   checked={(density ?? "standard") === value}
@@ -129,7 +141,12 @@ const mergedStyle =
                 .map((column) => (
                   <li>
                     <label class="ui-checkbox">
-                      <input checked type="checkbox" value={column.position} />
+                      <input
+                        checked
+                        id={`${menuId}-${column.position}`}
+                        type="checkbox"
+                        value={column.position}
+                      />
                       {column.label}
                     </label>
                   </li>
@@ -202,6 +219,7 @@ const mergedStyle =
                     <label>
                       <input
                         checked={grid.sorted(column, direction)}
+                        id={`${sortName}-${column.position}-${direction}`}
                         name={sortName}
                         type="radio"
                         value={direction}
@@ -216,6 +234,53 @@ const mergedStyle =
                   ))}
                 </span>
               )}
+              {headerMenus &&
+                (column.sortable ||
+                  (columnsMenu && column.hideable !== false)) && (
+                  <Fragment>
+                    <button
+                      aria-label={`${labels.menu} ${column.label}`}
+                      class="ui-button ui-rounded ui-small"
+                      command="toggle-popover"
+                      commandfor={`${headerMenuId}-${column.position}`}
+                      type="button"
+                    >
+                      <svg aria-hidden="true" viewBox="0 0 24 24">
+                        <path
+                          d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </button>
+                    <menu
+                      class="ui-menu ui-list ui-dense ui-align-end"
+                      id={`${headerMenuId}-${column.position}`}
+                      popover
+                    >
+                      {column.sortable && (
+                        <Fragment>
+                          <li>
+                            <label for={`${sortName}-${column.position}-asc`}>
+                              {labels.sortAscending}
+                            </label>
+                          </li>
+                          <li>
+                            <label for={`${sortName}-${column.position}-desc`}>
+                              {labels.sortDescending}
+                            </label>
+                          </li>
+                        </Fragment>
+                      )}
+                      {columnsMenu && column.hideable !== false && (
+                        <li>
+                          <label for={`${menuId}-${column.position}`}>
+                            {labels.hideColumn}
+                          </label>
+                        </li>
+                      )}
+                    </menu>
+                  </Fragment>
+                )}
             </div>
           ))
         }
@@ -232,7 +297,12 @@ const mergedStyle =
             {selectable && (
               <div class="ui-row-select" role="cell">
                 <label class="ui-checkbox">
-                  <input type="checkbox" />
+                  <input
+                    form={form}
+                    name={rowKey ? "selected" : undefined}
+                    type="checkbox"
+                    value={grid.rowKey(row)}
+                  />
                   <span class="ui-sr-only">
                     {labels.select} {grid.rowName(row)}
                   </span>
@@ -269,6 +339,10 @@ const mergedStyle =
                 ) : column.editable ? (
                   <input
                     aria-label={`${column.label}, ${grid.rowName(row)}`}
+                    form={form}
+                    name={
+                      rowKey ? `${column.key}[${grid.rowKey(row)}]` : undefined
+                    }
                     value={String(row[column.key] ?? "")}
                   />
                 ) : (
@@ -280,7 +354,9 @@ const mergedStyle =
         ))
       }
       <div class="ui-empty" role="row">
-        <div role="cell">{labels.empty}</div>
+        <div role="cell">
+          <slot name="empty">{labels.empty}</slot>
+        </div>
       </div>
     </div>
     {
@@ -309,7 +385,7 @@ const mergedStyle =
   </div>
   {
     footer && (
-      <div class="ui-footer">
+      <div class="ui-status">
         {selectable && (
           <span class="ui-selection">
             <span class="ui-selected-count" /> {labels.selected}

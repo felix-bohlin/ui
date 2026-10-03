@@ -6,10 +6,12 @@ export type Props = BaseProps & {
 }
 
 export type Slots = {
+  actions?: Slot
   [name: `cell-${string}`]: Slot<{
     column: DataGridColumn
     row: DataGridRow
     value: unknown
   }>
   detail?: Slot<{ row: DataGridRow }>
+  empty?: Slot
 }

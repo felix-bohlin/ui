@@ -25,17 +25,21 @@ export type DataGridLabels = {
   all: string
   ascending: string
   columns: string
-  compact: string
+  dense: string
   density: string
   descending: string
   details: string
   empty: string
   filter: string
+  hideColumn: string
+  menu: string
   rowNumber: string
   rows: string
   select: string
   selected: string
+  sortAscending: string
   sortBy: string
+  sortDescending: string
   spacious: string
   standard: string
   total: string
@@ -52,10 +56,12 @@ export type Props = {
   columnGroups?: DataGridColumnGroup[]
   columns: DataGridColumn[]
   columnsMenu?: boolean
-  density?: "compact" | "spacious" | "standard"
+  density?: "dense" | "spacious" | "standard"
   densityToggle?: boolean
   filters?: DataGridFilter[]
   footer?: boolean
+  form?: string
+  headerMenus?: boolean
   label: string
   labels?: Partial<DataGridLabels>
   loading?: boolean
@@ -64,6 +70,7 @@ export type Props = {
   pinEnd?: boolean
   pinStart?: boolean
   resizable?: boolean
+  rowKey?: string
   rows: DataGridRow[]
   selectable?: boolean
   sort?: DataGridSort
@@ -71,5 +78,7 @@ export type Props = {
 }
 
 export type Slots<S> = {
+  actions?: S
   detail?: S
+  empty?: S
 }

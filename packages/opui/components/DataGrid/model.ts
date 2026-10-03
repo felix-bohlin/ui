@@ -10,17 +10,21 @@ export const defaultLabels: DataGridLabels = {
   all: "All",
   ascending: "ascending",
   columns: "Columns",
-  compact: "Compact",
+  dense: "Dense",
   density: "Density",
   descending: "descending",
   details: "Show details for",
   empty: "No rows",
   filter: "Filter rows",
+  hideColumn: "Hide column",
+  menu: "Options for",
   rowNumber: "Row number",
   rows: "rows",
   select: "Select",
   selected: "selected",
+  sortAscending: "Sort ascending",
   sortBy: "Sort by",
+  sortDescending: "Sort descending",
   spacious: "Spacious",
   standard: "Standard",
   total: "Total",
@@ -56,6 +60,7 @@ export function createGrid(
     | "labels"
     | "maxBlockSize"
     | "numbered"
+    | "rowKey"
     | "rows"
     | "selectable"
     | "sort"
@@ -66,6 +71,7 @@ export function createGrid(
     expandable,
     filters = [],
     numbered,
+    rowKey,
     rows,
     selectable,
     sort,
@@ -101,6 +107,8 @@ export function createGrid(
         )
         .filter(Boolean)
         .join(" ") || undefined,
+    rowKey: (row: DataGridRow) =>
+      rowKey === undefined ? undefined : String(row[rowKey] ?? ""),
     rowName: (row: DataGridRow) => String(row[rowHeader?.key] ?? ""),
     rowStyle: (row: DataGridRow, rowIndex: number) =>
       declarations(

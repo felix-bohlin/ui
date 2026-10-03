@@ -448,7 +448,7 @@
       }
 
       &[open] summary::before {
-        rotate: 90deg;
+        rotate: calc(90deg * var(--_inline-direction));
       }
     }
 
@@ -690,8 +690,8 @@
       }
     }
 
-    &.ui-compact,
-    &:has(.ui-density input[value="compact"]:checked) {
+    &.ui-dense,
+    &:has(.ui-density input[value="dense"]:checked) {
       --_cell-padding-block: var(--size-1);
       --_row-min-block-size: calc(var(--control-size-small) + var(--size-1));
     }
@@ -730,7 +730,7 @@
     }
 
     .ui-toolbar,
-    .ui-footer {
+    .ui-status {
       align-items: center;
       display: flex;
       flex-wrap: wrap;
@@ -747,7 +747,7 @@
       }
     }
 
-    .ui-footer {
+    .ui-status {
       border-block-start: var(--_border-width) solid var(--_border-color);
       color: var(--text-muted);
       justify-content: flex-end;
@@ -755,6 +755,17 @@
       & > .ui-selection {
         margin-inline-end: auto;
       }
+    }
+
+    .ui-bulk-actions {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-2);
+    }
+
+    &:not(:has(.ui-body .ui-row-select :checked)) .ui-bulk-actions {
+      display: none;
     }
 
     .ui-selected-count,
@@ -771,7 +782,7 @@
     }
 
     &:not(:has(.ui-body > [role="row"] > .ui-row-select :checked))
-      .ui-footer
+      .ui-status
       .ui-selection {
       visibility: hidden;
     }

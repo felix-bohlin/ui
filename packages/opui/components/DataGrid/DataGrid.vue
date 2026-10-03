@@ -46,7 +46,7 @@ const labels = computed(() => grid.value.labels)
 const toolbar = computed(
   () => grid.value.filters.length > 0 || densityToggle || columnsMenu,
 )
-const densities = ["compact", "standard", "comfortable"] as const
+const densities = ["compact", "standard", "spacious"] as const
 const directions = ["asc", "desc"] as const
 </script>
 
@@ -151,7 +151,7 @@ const directions = ["asc", "desc"] as const
           </div>
         </div>
         <div role="row">
-          <div v-if="selectable" class="ui-select" role="columnheader">
+          <div v-if="selectable" class="ui-row-select" role="columnheader">
             <span class="ui-sr-only">{{ labels.select }}</span>
           </div>
           <div v-if="slots.detail" class="ui-expand" role="columnheader">
@@ -191,7 +191,7 @@ const directions = ["asc", "desc"] as const
           role="row"
           :style="grid.rowStyle(row, rowIndex)"
         >
-          <div v-if="selectable" class="ui-select" role="cell">
+          <div v-if="selectable" class="ui-row-select" role="cell">
             <label class="ui-checkbox">
               <input type="checkbox" />
               <span class="ui-sr-only">

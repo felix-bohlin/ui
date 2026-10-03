@@ -36,7 +36,7 @@
     );
     --_sort-icon-size: 1.125rem;
     --_track: minmax(max-content, 1fr);
-    --_transition-duration: calc(0.2s * var(--_motion));
+    --_transition-duration: calc(var(--duration) * var(--_motion));
     --_utility-size: 3.25rem;
 
     background-color: var(--_bg-color);
@@ -47,7 +47,6 @@
     display: grid;
     font-size: var(--font-size-05);
     grid-template-rows: auto minmax(0, 1fr) auto;
-    interpolate-size: allow-keywords;
     isolation: isolate;
     overflow: clip;
 
@@ -86,7 +85,7 @@
       border-block-end: var(--_border-width) solid var(--_border-color);
       inset-block-start: 0;
       position: sticky;
-      transition: box-shadow var(--_transition-duration) ease;
+      transition: box-shadow var(--_transition-duration) var(--ease);
       z-index: 2;
 
       & > [role="row"] {
@@ -120,7 +119,7 @@
     [role="row"] {
       background-color: var(--_row-bg-color);
       min-block-size: var(--_row-min-block-size);
-      transition: background-color var(--_transition-duration) ease;
+      transition: background-color var(--_transition-duration) var(--ease);
     }
 
     .ui-body > [role="row"] {
@@ -132,7 +131,7 @@
         ui-data-grid-sum-10 var(--_sum-10, 0) ui-data-grid-sum-11
         var(--_sum-11, 0) ui-data-grid-sum-12 var(--_sum-12, 0);
 
-      &:has(> .ui-select :checked) {
+      &:has(> .ui-row-select :checked) {
         --_row-bg-color: var(--_selected-bg-color);
         counter-increment: ui-data-grid-rows ui-data-grid-selected
           ui-data-grid-sum-1 var(--_sum-1, 0) ui-data-grid-sum-2
@@ -150,7 +149,7 @@
           --_row-bg-color: var(--_hover-bg-color);
         }
 
-        &:has(> .ui-select :checked):hover {
+        &:has(> .ui-row-select :checked):hover {
           --_row-bg-color: var(--_selected-hover-bg-color);
         }
       }
@@ -196,7 +195,7 @@
         --_size: var(--button-size-x-small, 24px);
         flex: none;
         opacity: 0;
-        transition: opacity var(--_transition-duration) ease;
+        transition: opacity var(--_transition-duration) var(--ease);
       }
 
       &:is(:hover, :focus-within) > .ui-button,
@@ -230,8 +229,8 @@
         opacity: 0;
         place-items: center;
         transition:
-          color var(--_transition-duration) ease,
-          opacity var(--_transition-duration) ease;
+          color var(--_transition-duration) var(--ease),
+          opacity var(--_transition-duration) var(--ease);
 
         &::before {
           background-color: currentColor;
@@ -293,14 +292,14 @@
       display: grid;
     }
 
-    :is(.ui-expand, .ui-select) {
+    :is(.ui-expand, .ui-row-select) {
       display: grid;
       padding-inline: 0;
       place-items: center;
       text-overflow: clip;
     }
 
-    .ui-select .ui-checkbox {
+    .ui-row-select .ui-checkbox {
       margin: 0;
     }
 
@@ -370,17 +369,16 @@
       display: contents;
 
       &::details-content {
-        block-size: 0;
         grid-column: 1 / -1;
         grid-row: 2;
-        overflow: clip;
+        opacity: 0;
         transition:
-          block-size var(--_transition-duration) ease,
-          content-visibility var(--_transition-duration) allow-discrete;
+          content-visibility var(--_transition-duration) allow-discrete,
+          opacity var(--_transition-duration) var(--ease);
       }
 
       &[open]::details-content {
-        block-size: auto;
+        opacity: 1;
       }
 
       summary {
@@ -407,7 +405,7 @@
           inline-size: 1.25rem;
           mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.6 16.6 13.2 12 8.6 7.4 10 6l6 6-6 6z'/%3E%3C/svg%3E")
             center / contain no-repeat;
-          transition: rotate var(--_transition-duration) ease;
+          transition: rotate var(--_transition-duration) var(--ease);
         }
 
         &:dir(rtl)::before {
@@ -466,11 +464,11 @@
     }
 
     &:has(.ui-filters input[value="selected"]:checked) {
-      .ui-body > [role="row"]:not(.ui-empty, :has(> .ui-select :checked)) {
+      .ui-body > [role="row"]:not(.ui-empty, :has(> .ui-row-select :checked)) {
         display: none;
       }
 
-      &:not(:has(.ui-body > [role="row"] > .ui-select :checked)) .ui-empty {
+      &:not(:has(.ui-body > [role="row"] > .ui-row-select :checked)) .ui-empty {
         display: grid;
       }
     }
@@ -538,9 +536,9 @@
     &.ui-pin-start
       [role="row"]
       > :is(
-        :nth-child(1 of :not(.ui-expand, .ui-select)),
-        :is(.ui-expand, .ui-select):not(
-          :nth-child(1 of :not(.ui-expand, .ui-select)) ~ *
+        :nth-child(1 of :not(.ui-expand, .ui-row-select)),
+        :is(.ui-expand, .ui-row-select):not(
+          :nth-child(1 of :not(.ui-expand, .ui-row-select)) ~ *
         )
       ) {
       inset-inline-start: calc((sibling-index() - 1) * var(--_utility-size));
@@ -553,14 +551,14 @@
         inset-inline-start: 0;
       }
 
-      &.ui-pin-start [role="row"] > :is(.ui-expand, .ui-select) + * {
+      &.ui-pin-start [role="row"] > :is(.ui-expand, .ui-row-select) + * {
         inset-inline-start: var(--_utility-size);
       }
 
       &.ui-pin-start
         [role="row"]
-        > :is(.ui-expand, .ui-select)
-        + :is(.ui-expand, .ui-select)
+        > :is(.ui-expand, .ui-row-select)
+        + :is(.ui-expand, .ui-row-select)
         + * {
         inset-inline-start: calc(var(--_utility-size) * 2);
       }
@@ -572,14 +570,14 @@
       z-index: 1;
     }
 
-    &.ui-pin-start :is(.ui-expand, .ui-select) + .ui-expand summary {
+    &.ui-pin-start :is(.ui-expand, .ui-row-select) + .ui-expand summary {
       inset-inline-start: var(--_utility-size);
     }
 
     &.ui-pin-start
       [role="row"]
-      > :nth-child(1 of :not(.ui-expand, .ui-select)) {
-      transition: box-shadow var(--_transition-duration) ease;
+      > :nth-child(1 of :not(.ui-expand, .ui-row-select)) {
+      transition: box-shadow var(--_transition-duration) var(--ease);
 
       @container ui-data-grid scroll-state(scrollable: inline-start) {
         box-shadow: calc(var(--_pin-shadow-size) * var(--_inline-direction)) 0
@@ -591,7 +589,7 @@
     &.ui-pin-end [role="row"]:not(.ui-empty) > :last-child {
       inset-inline-end: 0;
       position: sticky;
-      transition: box-shadow var(--_transition-duration) ease;
+      transition: box-shadow var(--_transition-duration) var(--ease);
       z-index: 1;
 
       @container ui-data-grid scroll-state(scrollable: inline-end) {
@@ -627,7 +625,7 @@
       --_track: max-content;
       --_track-filler: minmax(0, 1fr);
 
-      [role="columnheader"]:not(.ui-expand, .ui-select, [aria-colspan]) {
+      [role="columnheader"]:not(.ui-expand, .ui-row-select, [aria-colspan]) {
         inline-size: var(--_column-inline-size);
         min-inline-size: 4rem;
         resize: horizontal;
@@ -644,8 +642,8 @@
       --_row-min-block-size: calc(2.25rem * var(--density, 1));
     }
 
-    &.ui-comfortable,
-    &:has(.ui-density input[value="comfortable"]:checked) {
+    &.ui-spacious,
+    &:has(.ui-density input[value="spacious"]:checked) {
       --_cell-padding-block: var(--size-3);
       --_row-min-block-size: calc(4rem * var(--density, 1));
     }
@@ -718,7 +716,7 @@
       content: counter(ui-data-grid-rows);
     }
 
-    &:not(:has(.ui-body > [role="row"] > .ui-select :checked))
+    &:not(:has(.ui-body > [role="row"] > .ui-row-select :checked))
       .ui-footer
       .ui-selection {
       visibility: hidden;
@@ -737,7 +735,8 @@
     }
 
     &:has(
-      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(1)
+      :where(.ui-head > [role="row"])
+        > :is(.ui-expand, .ui-row-select):nth-child(1)
     ) {
       --_track-1: var(--_utility-size);
     }
@@ -783,7 +782,8 @@
     }
 
     &:has(
-      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(2)
+      :where(.ui-head > [role="row"])
+        > :is(.ui-expand, .ui-row-select):nth-child(2)
     ) {
       --_track-2: var(--_utility-size);
     }
@@ -829,7 +829,8 @@
     }
 
     &:has(
-      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(3)
+      :where(.ui-head > [role="row"])
+        > :is(.ui-expand, .ui-row-select):nth-child(3)
     ) {
       --_track-3: var(--_utility-size);
     }
@@ -875,7 +876,8 @@
     }
 
     &:has(
-      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(4)
+      :where(.ui-head > [role="row"])
+        > :is(.ui-expand, .ui-row-select):nth-child(4)
     ) {
       --_track-4: var(--_utility-size);
     }
@@ -921,7 +923,8 @@
     }
 
     &:has(
-      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(5)
+      :where(.ui-head > [role="row"])
+        > :is(.ui-expand, .ui-row-select):nth-child(5)
     ) {
       --_track-5: var(--_utility-size);
     }
@@ -967,7 +970,8 @@
     }
 
     &:has(
-      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(6)
+      :where(.ui-head > [role="row"])
+        > :is(.ui-expand, .ui-row-select):nth-child(6)
     ) {
       --_track-6: var(--_utility-size);
     }
@@ -1013,7 +1017,8 @@
     }
 
     &:has(
-      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(7)
+      :where(.ui-head > [role="row"])
+        > :is(.ui-expand, .ui-row-select):nth-child(7)
     ) {
       --_track-7: var(--_utility-size);
     }
@@ -1059,7 +1064,8 @@
     }
 
     &:has(
-      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(8)
+      :where(.ui-head > [role="row"])
+        > :is(.ui-expand, .ui-row-select):nth-child(8)
     ) {
       --_track-8: var(--_utility-size);
     }
@@ -1105,7 +1111,8 @@
     }
 
     &:has(
-      :where(.ui-head > [role="row"]) > :is(.ui-expand, .ui-select):nth-child(9)
+      :where(.ui-head > [role="row"])
+        > :is(.ui-expand, .ui-row-select):nth-child(9)
     ) {
       --_track-9: var(--_utility-size);
     }
@@ -1152,7 +1159,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-select):nth-child(10)
+        > :is(.ui-expand, .ui-row-select):nth-child(10)
     ) {
       --_track-10: var(--_utility-size);
     }
@@ -1199,7 +1206,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-select):nth-child(11)
+        > :is(.ui-expand, .ui-row-select):nth-child(11)
     ) {
       --_track-11: var(--_utility-size);
     }
@@ -1246,7 +1253,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-select):nth-child(12)
+        > :is(.ui-expand, .ui-row-select):nth-child(12)
     ) {
       --_track-12: var(--_utility-size);
     }

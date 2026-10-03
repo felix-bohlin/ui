@@ -94,7 +94,7 @@ const mergedStyle =
             class="ui-toggle-group ui-small ui-density"
             role="radiogroup"
           >
-            {(["compact", "standard", "comfortable"] as const).map((value) => (
+            {(["compact", "standard", "spacious"] as const).map((value) => (
               <label class="ui-toggle-button">
                 <input
                   checked={(density ?? "standard") === value}
@@ -166,7 +166,7 @@ const mergedStyle =
       <div role="row">
         {
           selectable && (
-            <div class="ui-select" role="columnheader">
+            <div class="ui-row-select" role="columnheader">
               <span class="ui-sr-only">{labels.select}</span>
             </div>
           )
@@ -221,7 +221,7 @@ const mergedStyle =
             style={grid.rowStyle(row, rowIndex)}
           >
             {selectable && (
-              <div class="ui-select" role="cell">
+              <div class="ui-row-select" role="cell">
                 <label class="ui-checkbox">
                   <input type="checkbox" />
                   <span class="ui-sr-only">

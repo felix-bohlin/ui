@@ -33,16 +33,16 @@ const snippets = {
 }
 
 .ui-expand details::details-content {
-  block-size: 0;
   grid-column: 1 / -1;
   grid-row: 2;
+  opacity: 0;
   transition:
-    block-size 0.2s,
-    content-visibility 0.2s allow-discrete;
+    content-visibility 0.2s allow-discrete,
+    opacity 0.2s;
 }
 
 .ui-expand details[open]::details-content {
-  block-size: auto;
+  opacity: 1;
 }`,
   pinned: `.ui-pin-start [role="row"] > :first-child {
   inset-inline-start: calc((sibling-index() - 1) * var(--_utility-size));
@@ -115,8 +115,8 @@ const techniques = [
   ],
   [
     "Detail panels",
-    "The details content spans the whole row and animates to its auto height.",
-    "::details-content, interpolate-size",
+    "The details content spans the whole row and fades in.",
+    "::details-content, display: contents",
   ],
   [
     "Column resizing",
@@ -145,7 +145,6 @@ const techniques = [
     "details-content",
     "field-sizing",
     "has",
-    "interpolate-size",
     "nth-child-of",
     "reading-flow",
     "sibling-count",
@@ -257,7 +256,7 @@ const techniques = [
     <h2 id="selection">Selection</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >A <code>.ui-select</code> cell with a checkbox. <code
+        >A <code>.ui-row-select</code> cell with a checkbox. <code
           >.ui-selected-count</code
         > and <code>.ui-row-count</code> in <code>.ui-footer</code> count with CSS
         counters.</Fragment
@@ -318,7 +317,7 @@ const techniques = [
     <h2 id="density">Density</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        ><code>.ui-compact</code> or <code>.ui-comfortable</code>, or radios in
+        ><code>.ui-compact</code> or <code>.ui-spacious</code>, or radios in
         <code>.ui-density</code>.</Fragment
       >
       <Fragment slot="astro"
@@ -526,7 +525,8 @@ const techniques = [
       The expand cell and its <code>details</code> are
       <code>display: contents</code>, so the summary becomes a grid item in the
       row and <code>::details-content</code> moves to a second grid row that spans
-      all columns. <code>interpolate-size</code> animates it to its auto height.
+      all columns. It fades in instead of animating its height: every frame of a height
+      animation would lay out the whole grid again.
     </p>
     <Code lang="css" code={snippets.details} />
 
@@ -541,9 +541,8 @@ const techniques = [
 
     <h3 id="fallbacks">Fallbacks</h3>
     <p>
-      Browsers without <code>reading-flow</code>, scroll-state queries or
-      <code>interpolate-size</code> still sort, pin columns and open detail panels,
-      without the synced focus order, the shadows or the animation. Astro and Vue
+      Browsers without <code>reading-flow</code> or scroll-state queries still sort
+      and pin columns, without the synced focus order or the shadows. Astro and Vue
       compute ranks, sums and filter matches when rendering. In HTML they are written
       in the markup.
     </p>

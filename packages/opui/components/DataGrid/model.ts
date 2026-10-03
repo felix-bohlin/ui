@@ -10,7 +10,6 @@ export const defaultLabels: DataGridLabels = {
   all: "All",
   ascending: "ascending",
   columns: "Columns",
-  comfortable: "Comfortable",
   compact: "Compact",
   density: "Density",
   descending: "descending",
@@ -21,6 +20,7 @@ export const defaultLabels: DataGridLabels = {
   select: "Select",
   selected: "selected",
   sortBy: "Sort by",
+  spacious: "Spacious",
   standard: "Standard",
   total: "Total",
 }
@@ -109,8 +109,9 @@ export function createGrid(
       ),
       props.maxBlockSize && `--_max-block-size: ${props.maxBlockSize}`,
     ]),
-    utilityCells: [selectable && "ui-select", expandable && "ui-expand"].filter(
-      (name): name is string => !!name,
-    ),
+    utilityCells: [
+      selectable && "ui-row-select",
+      expandable && "ui-expand",
+    ].filter((name): name is string => !!name),
   }
 }

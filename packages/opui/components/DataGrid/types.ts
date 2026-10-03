@@ -25,7 +25,6 @@ export type DataGridLabels = {
   all: string
   ascending: string
   columns: string
-  comfortable: string
   compact: string
   density: string
   descending: string
@@ -36,6 +35,7 @@ export type DataGridLabels = {
   select: string
   selected: string
   sortBy: string
+  spacious: string
   standard: string
   total: string
 }
@@ -51,7 +51,7 @@ export type Props = {
   columnGroups?: DataGridColumnGroup[]
   columns: DataGridColumn[]
   columnsMenu?: boolean
-  density?: "comfortable" | "compact" | "standard"
+  density?: "compact" | "spacious" | "standard"
   densityToggle?: boolean
   filters?: DataGridFilter[]
   footer?: boolean

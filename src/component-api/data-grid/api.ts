@@ -40,8 +40,8 @@ export default {
       group: "Density",
       prop: "density",
       values: {
-        comfortable: ".ui-comfortable",
         compact: ".ui-compact",
+        spacious: ".ui-spacious",
         standard: null,
       },
     },
@@ -188,7 +188,7 @@ export default {
     {
       description: "Row selection checkboxes.",
       props: ["selectable"],
-      selector: ".ui-body .ui-select",
+      selector: ".ui-body .ui-row-select",
     },
     {
       description: "Expandable detail panel.",

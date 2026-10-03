@@ -52,9 +52,6 @@ const FRAMEWORK_BRANDING: Record<
           </Button>
         </div>
 
-        <p class="hero-learn">
-          <a href={learnHref}>See how they work, one CSS rule at a time</a>
-        </p>
         <p class="framework-support" aria-label="Supported frameworks">
           <span class="ui-label">Works with</span>
           {
@@ -147,25 +144,6 @@ const FRAMEWORK_BRANDING: Record<
     font-size: var(--font-size-2);
     line-height: var(--font-lineheight-4);
     text-wrap: balance;
-  }
-
-  .hero-learn {
-    font-size: var(--font-size-05);
-    margin-block-start: var(--size-4);
-
-    & a {
-      color: var(--text-muted);
-      text-decoration-color: color-mix(in oklch, currentColor 40%, transparent);
-      text-underline-offset: 0.2em;
-
-      &::after {
-        content: " →" / "";
-      }
-
-      &:hover {
-        color: var(--text-primary);
-      }
-    }
   }
 
   .hero-ctas {

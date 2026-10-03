@@ -1102,6 +1102,214 @@
     "url": "/vue/guide/getting-started"
   },
   {
+    "id": "learn-accordion-height-auto",
+    "title": "An accordion that animates to auto",
+    "description": "interpolate-size and ::details-content let a details element transition to its natural height.",
+    "headings": "The problem The trick Try it Fallback interpolate-size details-content interpolate-size",
+    "category": "Learn",
+    "url": "/learn/accordion-height-auto"
+  },
+  {
+    "id": "learn-anchor-hover-cards",
+    "title": "Hover cards without JavaScript",
+    "description": "interestfor, popover=hint and anchor positioning open a hover card on hover and focus.",
+    "headings": "The problem The trick Try it Fallback interestfor anchor-positioning interest-invokers popover-hint",
+    "category": "Learn",
+    "url": "/learn/anchor-hover-cards"
+  },
+  {
+    "id": "learn-avatar-squircles",
+    "title": "Squircle avatars with corner-shape",
+    "description": "aspect-ratio, :has(img) and corner-shape for avatars.",
+    "headings": "The problem The trick Try it Fallback corner-shape aspect-ratio corner-shape has",
+    "category": "Learn",
+    "url": "/learn/avatar-squircles"
+  },
+  {
+    "id": "learn-button-icon-only-has",
+    "title": "One Button, no IconButton",
+    "description": ":has(> svg:only-child) turns any Button into an icon button.",
+    "headings": "The problem The trick Try it Fallback Gotchas :has() has",
+    "category": "Learn",
+    "url": "/learn/button-icon-only-has"
+  },
+  {
+    "id": "learn-callout-relative-colors",
+    "title": "Severity colors from one source color",
+    "description": "Relative colors and light-dark() derive every severity shade from one color.",
+    "headings": "The problem The trick Try it Fallback oklch(from …) light-dark relative-color",
+    "category": "Learn",
+    "url": "/learn/callout-relative-colors"
+  },
+  {
+    "id": "learn-card-style-queries",
+    "title": "Cards that know their color scheme",
+    "description": "A container style query gives elevated cards a heavier shadow on dark surfaces.",
+    "headings": "The problem The trick Try it Fallback Actions @container style() container-style-queries",
+    "category": "Learn",
+    "url": "/learn/card-style-queries"
+  },
+  {
+    "id": "learn-carousel-css-only",
+    "title": "A carousel made of CSS",
+    "description": "Scroll snap, ::scroll-button() and ::scroll-marker: a carousel without JavaScript.",
+    "headings": "The problem The trick Try it Fallback ::scroll-button() scroll-buttons scroll-markers scroll-snap",
+    "category": "Learn",
+    "url": "/learn/carousel-css-only"
+  },
+  {
+    "id": "learn-checkbox-appearance-none",
+    "title": "Drawing a checkbox",
+    "description": "appearance: none, a clip-path checkmark and text-box for a native checkbox.",
+    "headings": "The problem The trick Try it Fallback appearance: none appearance text-box",
+    "category": "Learn",
+    "url": "/learn/checkbox-appearance-none"
+  },
+  {
+    "id": "learn-description-list-leader-lines",
+    "title": "Leader lines with grid",
+    "description": "A container query and a grid pseudo-element draw dotted leader lines.",
+    "headings": "The problem The trick Try it Fallback @container container-queries",
+    "category": "Learn",
+    "url": "/learn/description-list-leader-lines"
+  },
+  {
+    "id": "learn-dialog-closedby",
+    "title": "Dialogs without JavaScript",
+    "description": "Invoker commands, closedby and @starting-style for modal dialogs.",
+    "headings": "The problem The trick Try it Scroll lock Fallback closedby dialog-closedby invoker-commands starting-style",
+    "category": "Learn",
+    "url": "/learn/dialog-closedby"
+  },
+  {
+    "id": "learn-drawer-starting-style",
+    "title": "Sliding drawers with @starting-style",
+    "description": "A dialog that slides in from any edge, and out again with allow-discrete.",
+    "headings": "The problem The trick Try it Fallback @starting-style overlay starting-style transition-behavior",
+    "category": "Learn",
+    "url": "/learn/drawer-starting-style"
+  },
+  {
+    "id": "learn-form-fieldset-has",
+    "title": "Smarter fieldsets with :has()",
+    "description": ":has() lets fieldsets and legends style themselves from what they contain.",
+    "headings": "The problem The trick Try it Fallback :has(:required) has",
+    "category": "Learn",
+    "url": "/learn/form-fieldset-has"
+  },
+  {
+    "id": "learn-menu-popover-anchor",
+    "title": "Menus with popover and anchor positioning",
+    "description": "Popover, invoker commands and anchor positioning: a menu with no JavaScript.",
+    "headings": "The problem The trick Try it Fallback popover anchor-positioning invoker-commands popover",
+    "category": "Learn",
+    "url": "/learn/menu-popover-anchor"
+  },
+  {
+    "id": "learn-new-components-and-fixes",
+    "title": "Menu, Carousel and one Button",
+    "description": "Menu, Carousel, Button without IconButton, and everything else from three days of branches.",
+    "headings": "Outline Breaking changes New components Menu Carousel Component changes Under the hood Button Accordion Tabs Vertical rhythm Docs site Tooling and tests Other branches from the last three days Split stack Open Audits Still open Read more The stepper",
+    "category": "Learn",
+    "url": "/learn/new-components-and-fixes"
+  },
+  {
+    "id": "learn-progress-native",
+    "title": "Styling the native progress bar",
+    "description": "appearance: none and :indeterminate on the native progress element.",
+    "headings": "The problem The trick Try it Fallback :indeterminate appearance container-style-queries indeterminate",
+    "category": "Learn",
+    "url": "/learn/progress-native"
+  },
+  {
+    "id": "learn-range-tick-marks",
+    "title": "Range sliders with datalist ticks",
+    "description": "A gradient fill and datalist tick marks for input range.",
+    "headings": "The problem The trick Try it Fallback <datalist> datalist input-range",
+    "category": "Learn",
+    "url": "/learn/range-tick-marks"
+  },
+  {
+    "id": "learn-select-base-select",
+    "title": "A select you can style",
+    "description": "appearance: base-select, ::picker(select) and :open for a fully styled select.",
+    "headings": "The problem The trick Try it Fallback base-select customizable-select open-pseudo",
+    "category": "Learn",
+    "url": "/learn/select-base-select"
+  },
+  {
+    "id": "learn-spinner-aria-busy",
+    "title": "Spinners from aria-busy",
+    "description": "aria-busy=true is all it takes to show a spinner.",
+    "headings": "The problem The trick Try it Fallback aria-busy animations-css not",
+    "category": "Learn",
+    "url": "/learn/spinner-aria-busy"
+  },
+  {
+    "id": "learn-switch-checkbox",
+    "title": "A switch from a checkbox",
+    "description": "A native checkbox, appearance: none and an outline trick.",
+    "headings": "The problem The trick Try it Fallback light-dark() appearance light-dark",
+    "category": "Learn",
+    "url": "/learn/switch-checkbox"
+  },
+  {
+    "id": "learn-tabs-radio-buttons",
+    "title": "Tabs from radio buttons",
+    "description": "Radio inputs, order and :nth-child(of S) for CSS-only tabs.",
+    "headings": "The problem The trick Try it Fallback :nth-child(of S) nth-child-of",
+    "category": "Learn",
+    "url": "/learn/tabs-radio-buttons"
+  },
+  {
+    "id": "learn-text-field-user-invalid",
+    "title": "Validation that waits with :user-invalid",
+    "description": ":user-invalid shows errors after the user interacts, not on page load.",
+    "headings": "The problem The trick Try it Fallback :user-invalid user-pseudos",
+    "category": "Learn",
+    "url": "/learn/text-field-user-invalid"
+  },
+  {
+    "id": "learn-textarea-field-sizing",
+    "title": "Textareas that grow with field-sizing",
+    "description": "field-sizing: content and lh units for auto-growing textareas.",
+    "headings": "The problem The trick Try it Fallback field-sizing field-sizing lh",
+    "category": "Learn",
+    "url": "/learn/textarea-field-sizing"
+  },
+  {
+    "id": "learn-toast-attr-duration",
+    "title": "Toast timing with typed attr()",
+    "description": "attr() with a type() reads the toast duration straight from HTML.",
+    "headings": "The problem The trick Try it Fallback attr() attr invoker-commands template",
+    "category": "Learn",
+    "url": "/learn/toast-attr-duration"
+  },
+  {
+    "id": "learn-tooltip-interest-invokers",
+    "title": "Tooltips with interestfor",
+    "description": "interestfor, calc-size() and @position-try for tooltips that stay on screen.",
+    "headings": "The problem The trick Staying on screen Try it Fallback calc-size() calc-size interest-invokers popover-hint",
+    "category": "Learn",
+    "url": "/learn/tooltip-interest-invokers"
+  },
+  {
+    "id": "learn-under-the-hood",
+    "title": "Under the hood",
+    "description": "Every component, built one step at a time. Pick a step and the demo runs only the CSS up to it.",
+    "headings": "How it works",
+    "category": "Learn",
+    "url": "/learn/under-the-hood"
+  },
+  {
+    "id": "learn-vertical-rhythm-round",
+    "title": "Vertical rhythm with round()",
+    "description": "round() snaps line heights and font sizes to a rhythm step.",
+    "headings": "The problem The trick Try it Fallback round() lh round-mod-rem",
+    "category": "Learn",
+    "url": "/learn/vertical-rhythm-round"
+  },
+  {
     "id": "api-accordion-astro",
     "title": "Accordion API",
     "description": "Reference for Accordion Astro component.",

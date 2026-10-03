@@ -6,16 +6,23 @@ import {
   stripFrameworkPrefix,
   type FrameworkId,
 } from "../utils/framework-routing"
-import { posts } from "../utils/blog"
+import { categories, componentName, posts } from "../utils/blog"
 
 type Props = {
   description?: string
   overline?: string
   showToc?: boolean
   title?: string
+  wide?: boolean
 }
 
-const { description, overline = "Blog", showToc = true, title } = Astro.props
+const {
+  description,
+  overline = "Blog",
+  showToc = true,
+  title,
+  wide,
+} = Astro.props
 
 const currentFramework = (Astro.currentLocale ??
   DEFAULT_FRAMEWORK) as FrameworkId
@@ -25,13 +32,32 @@ const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
   "",
 )
 
-const links = [
-  { href: "/blog", label: "All posts" },
-  ...posts.map((post) => ({ href: `/blog/${post.slug}`, label: post.title })),
-].map((link) => ({
-  ...link,
-  resolvedHref: hrefFor(currentFramework, link.href),
-}))
+const linkTo = (href: string, label: string) => ({
+  current: canonicalPath === href,
+  href: hrefFor(currentFramework, href),
+  label,
+})
+
+const groups = [
+  { label: "Blog", links: [linkTo("/blog", "All posts")] },
+  ...categories.map((category) => ({
+    label: category.label,
+    links: posts
+      .filter((post) => post.category === category.id)
+      .toSorted(
+        (a, b) =>
+          Number(!!a.component) - Number(!!b.component) ||
+          (a.component ?? "").localeCompare(b.component ?? ""),
+      )
+      .map((post) =>
+        linkTo(
+          `/blog/${post.slug}`,
+          post.navLabel ??
+            (post.component ? componentName(post.component) : post.title),
+        ),
+      ),
+  })),
+]
 ---
 
 <Document
@@ -39,23 +65,28 @@ const links = [
   overline={overline}
   showToc={showToc}
   title={title}
+  wide={wide}
 >
   <nav slot="sidebar">
-    <h3>Blog</h3>
-    <menu class="blog-nav-list">
-      {
-        links.map((link) => (
-          <li>
-            <a
-              aria-current={canonicalPath === link.href ? "page" : undefined}
-              href={link.resolvedHref}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))
-      }
-    </menu>
+    {
+      groups.map((group) => (
+        <>
+          <h3>{group.label}</h3>
+          <menu class="blog-nav-list">
+            {group.links.map((link) => (
+              <li>
+                <a
+                  aria-current={link.current ? "page" : undefined}
+                  href={link.href}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </menu>
+        </>
+      ))
+    }
   </nav>
 
   <slot slot="title" name="title" />
@@ -64,6 +95,10 @@ const links = [
 </Document>
 
 <style is:global>
+  .blog-nav-list + h3 {
+    margin-block-start: var(--size-5);
+  }
+
   .blog-nav-list {
     list-style: none;
     margin: 0;

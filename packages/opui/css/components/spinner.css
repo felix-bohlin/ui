@@ -10,7 +10,9 @@
     position: relative;
 
     &::before {
-      animation: ui-spin 0.7s linear infinite;
+      animation: ui-spin
+        max(0.7s * var(--motion, 1), 1.5s - 0.8s * var(--motion, 1)) linear
+        infinite;
       block-size: 1em;
       border-color: transparent currentColor currentColor;
       border-radius: 50%;

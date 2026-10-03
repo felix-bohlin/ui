@@ -214,7 +214,7 @@
 
 ## Vertical
 
-`.ui-vertical` scrolls on the block axis. Set its height with`--_block-size`.
+`.ui-vertical` scrolls on the block axis. Set its height with `--_block-size`.
 
 ```html
 <ul

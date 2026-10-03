@@ -1,17 +1,23 @@
 ---
 import {
   Accordion,
+  Anchor,
   Avatar,
   Badge,
   Button,
   ButtonGroup,
   Callout,
   Card,
+  Carousel,
   Checkbox,
   Chip,
   DescriptionList,
   Divider,
+  FieldDescription,
   FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Form,
   List,
   ListItem,
   Progress,
@@ -19,6 +25,8 @@ import {
   Range,
   Select,
   Switch,
+  Table,
+  Tabs,
   TextField,
   Textarea,
   ToggleButton,
@@ -34,7 +42,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </div>
 
   <ComponentCard name="Accordion" href="/components/accordion" size="wide">
-    <Accordion aria-hidden="true" variant="outlined">
+    <Accordion aria-hidden="true" inert variant="outlined">
       <Fragment slot="summary">How does it work?</Fragment>
       It's pretty simple, actually.
     </Accordion>
@@ -101,11 +109,11 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Button" href="/components/button">
-    <Button aria-hidden="true" variant="filled">Get started</Button>
+    <Button aria-hidden="true" inert variant="filled">Get started</Button>
   </ComponentCard>
 
   <ComponentCard name="Button Group" href="/components/button-group">
-    <ButtonGroup aria-hidden="true" variant="outlined" size="small">
+    <ButtonGroup aria-hidden="true" inert variant="outlined" size="small">
       <Button>Day</Button>
       <Button>Week</Button>
     </ButtonGroup>
@@ -119,7 +127,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Card" href="/components/card" size="xl">
-    <Card aria-hidden="true" variant="outlined">
+    <Card aria-hidden="true" inert variant="outlined">
       <Fragment slot="header">
         <p>Article</p>
         <h3>Build something nice</h3>
@@ -133,12 +141,38 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     </Card>
   </ComponentCard>
 
+  <ComponentCard name="Carousel" href="/components/carousel" size="wide">
+    <Carousel
+      aria-hidden="true"
+      inert
+      buttons={false}
+      class="showcase-carousel"
+      label="Destinations"
+    >
+      {
+        ["Kyoto", "Lima", "Lisbon", "Oslo", "Tunis"].map((title) => (
+          <li>
+            <Card variant="tonal">
+              <Fragment slot="header">
+                <p>Destination</p>
+                <h3>{title}</h3>
+              </Fragment>
+            </Card>
+          </li>
+        ))
+      }
+    </Carousel>
+  </ComponentCard>
+
   <ComponentCard name="Checkbox" href="/components/checkbox">
-    <Checkbox aria-hidden="true" checked>This checks out</Checkbox>
+    <Checkbox aria-hidden="true" inert checked>This checks out</Checkbox>
   </ComponentCard>
 
   <ComponentCard name="Chip" href="/components/chip">
-    <Chip aria-hidden="true" variant="outlined">CSS</Chip>
+    <div aria-hidden="true" class="showcase-chips">
+      <Chip variant="outlined">HTML</Chip>
+      <Chip variant="outlined">CSS</Chip>
+    </div>
   </ComponentCard>
 
   <ComponentCard name="Description List" href="/components/description-list">
@@ -154,8 +188,46 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     </DescriptionList>
   </ComponentCard>
 
+  <ComponentCard name="Dialog" href="/components/dialog" size="wide">
+    <div class="showcase-backdrop" aria-hidden="true" inert>
+      <Card variant="elevated" class="showcase-dialog">
+        <Fragment slot="header">
+          <h3>Discard draft?</h3>
+        </Fragment>
+        <Fragment slot="content">You can't undo this.</Fragment>
+        <Fragment slot="actions">
+          <Button size="small">Cancel</Button>
+          <Button size="small" variant="filled">Discard</Button>
+        </Fragment>
+      </Card>
+    </div>
+  </ComponentCard>
+
   <ComponentCard name="Divider" href="/components/divider">
     <Divider variant="filled" aria-hidden="true" />
+  </ComponentCard>
+
+  <ComponentCard name="Drawer" href="/components/drawer">
+    <div class="showcase-backdrop showcase-drawer" aria-hidden="true" inert>
+      <div class="showcase-drawer-panel">
+        <p>Filters</p>
+        <Checkbox checked>In stock</Checkbox>
+        <Checkbox>On sale</Checkbox>
+      </div>
+    </div>
+  </ComponentCard>
+
+  <ComponentCard name="Form" href="/components/form" size="wide">
+    <Form aria-hidden="true" inert class="showcase-form">
+      <FieldSet>
+        <FieldLegend>Newsletter</FieldLegend>
+        <FieldDescription>One email a month. No spam.</FieldDescription>
+        <div class="showcase-form-row">
+          <TextField placeholder="you@example.com" />
+          <Button variant="filled">Subscribe</Button>
+        </div>
+      </FieldSet>
+    </Form>
   </ComponentCard>
 
   <ComponentCard name="List" href="/components/list" size="wide">
@@ -174,19 +246,48 @@ import FrameworkPicker from "../FrameworkPicker.astro"
     </List>
   </ComponentCard>
 
-  <ComponentCard name="Progress" href="/components/progress" size="wide">
+  <ComponentCard name="Menu" href="/components/menu">
+    <menu class="ui-menu ui-list showcase-menu" aria-hidden="true" inert>
+      <li>
+        <button type="button">
+          <div class="ui-text"><p>Edit</p></div>
+          <div class="ui-end"><kbd>E</kbd></div>
+        </button>
+      </li>
+      <li>
+        <button type="button">
+          <div class="ui-text"><p>Duplicate</p></div>
+          <div class="ui-end"><kbd>D</kbd></div>
+        </button>
+      </li>
+      <li class="ui-border-top ui-critical">
+        <button type="button">
+          <div class="ui-text"><p>Delete</p></div>
+        </button>
+      </li>
+    </menu>
+  </ComponentCard>
+
+  <ComponentCard name="Progress" href="/components/progress">
     <Progress variant="filled" aria-busy="true" aria-hidden="true" />
   </ComponentCard>
 
   <ComponentCard name="Radio" href="/components/radio">
-    <FieldGroup name="index-radio-showcase" aria-hidden="true">
+    <FieldGroup name="index-radio-showcase" aria-hidden="true" inert>
       <Radio checked>Whoa</Radio>
       <Radio>Nice</Radio>
     </FieldGroup>
   </ComponentCard>
 
   <ComponentCard name="Range" href="/components/range" size="wide">
-    <Range variant="filled" aria-hidden="true" value={50} min={0} max={100} />
+    <Range
+      variant="filled"
+      aria-hidden="true"
+      inert
+      value={50}
+      min={0}
+      max={100}
+    />
   </ComponentCard>
 
   <ComponentCard name="Select" href="/components/select">
@@ -194,24 +295,80 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Spinner" href="/components/spinner">
-    <p aria-busy="true">Loading</p>
-    <Button variant="filled" aria-busy="true">Loading</Button>
+    <p aria-busy="true" aria-hidden="true">Loading</p>
+    <Button variant="filled" aria-busy="true" aria-hidden="true" inert>
+      Loading
+    </Button>
   </ComponentCard>
 
   <ComponentCard name="Switch" href="/components/switch">
-    <Switch id="showcase-theme-switcher" aria-hidden="true">Dark mode</Switch>
+    <Switch id="showcase-theme-switcher">Dark mode</Switch>
   </ComponentCard>
 
-  <ComponentCard name="TextField" href="/components/text-field">
-    <TextField aria-hidden="true" placeholder="you@example.com" />
+  <ComponentCard name="Table" href="/components/table" size="wide">
+    <Table aria-hidden="true" variant="dense">
+      <Table.Head>
+        <Table.Row>
+          <Table.HeaderCell>Band</Table.HeaderCell>
+          <Table.HeaderCell>Name</Table.HeaderCell>
+          <Table.HeaderCell>Instrument</Table.HeaderCell>
+        </Table.Row>
+      </Table.Head>
+      <Table.Body>
+        <Table.Row>
+          <Table.Cell>Broken Bells</Table.Cell>
+          <Table.Cell>James Mercer</Table.Cell>
+          <Table.Cell>Vocals</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>Radiohead</Table.Cell>
+          <Table.Cell>Ed O'Brien</Table.Cell>
+          <Table.Cell>Guitar</Table.Cell>
+        </Table.Row>
+      </Table.Body>
+    </Table>
+  </ComponentCard>
+
+  <ComponentCard name="Tabs" href="/components/tabs" size="wide">
+    <Tabs aria-hidden="true" inert name="index-tabs-showcase">
+      <Tabs.Item open>
+        <Tabs.Tab>Profile</Tabs.Tab>
+        <Tabs.Panel>Profile settings and information.</Tabs.Panel>
+      </Tabs.Item>
+      <Tabs.Item>
+        <Tabs.Tab>Settings</Tabs.Tab>
+        <Tabs.Panel>General account settings.</Tabs.Panel>
+      </Tabs.Item>
+      <Tabs.Item>
+        <Tabs.Tab>Notifications</Tabs.Tab>
+        <Tabs.Panel>Manage your notifications.</Tabs.Panel>
+      </Tabs.Item>
+    </Tabs>
+  </ComponentCard>
+
+  <ComponentCard name="Text Field" href="/components/text-field">
+    <TextField aria-hidden="true" inert placeholder="you@example.com" />
   </ComponentCard>
 
   <ComponentCard name="Textarea" href="/components/textarea">
-    <Textarea aria-hidden="true" placeholder="Write a comment…" />
+    <Textarea aria-hidden="true" inert placeholder="Write a comment…" />
   </ComponentCard>
 
-  <ComponentCard name="Toggle Group" href="/components/toggle">
-    <ToggleGroup aria-hidden="true">
+  <ComponentCard name="Toast" href="/components/toast">
+    <div
+      class="ui-toast showcase-toast"
+      data-severity="success"
+      aria-hidden="true"
+    >
+      <span class="ui-icon"></span>
+      <div class="ui-content">
+        <div class="ui-title">Changes saved</div>
+      </div>
+    </div>
+  </ComponentCard>
+
+  <ComponentCard name="Toggle" href="/components/toggle">
+    <ToggleGroup aria-hidden="true" inert>
       <ToggleButton pressed size="small" aria-label="Bold">
         <strong>B</strong>
       </ToggleButton>
@@ -222,6 +379,25 @@ import FrameworkPicker from "../FrameworkPicker.astro"
         <u>U</u>
       </ToggleButton>
     </ToggleGroup>
+  </ComponentCard>
+
+  <ComponentCard name="Tooltip" href="/components/tooltip">
+    <Anchor
+      class="ui-tooltip ui-with-arrow showcase-tooltip"
+      aria-hidden="true"
+    >
+      <Button variant="outlined" inert>Save</Button>
+      <Fragment slot="anchored">Save your changes</Fragment>
+    </Anchor>
+  </ComponentCard>
+
+  <ComponentCard name="Typography" href="/components/typography">
+    <div class="ui-rich-text showcase-typography" aria-hidden="true">
+      <hgroup>
+        <p>Chapter one</p>
+        <h3>The quick brown fox</h3>
+      </hgroup>
+    </div>
   </ComponentCard>
 
   <style is:global>
@@ -259,6 +435,97 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       .component-showcase {
         grid-auto-rows: minmax(160px, auto);
       }
+    }
+
+    .showcase-backdrop {
+      background-color: oklch(from var(--backdrop-color) l c h / 15%);
+      block-size: 100%;
+      border-radius: var(--radius-3);
+      display: grid;
+      inline-size: 100%;
+      min-block-size: 140px;
+      overflow: hidden;
+      padding: var(--size-3);
+      place-items: center;
+    }
+
+    .showcase-carousel {
+      --_per-view: 2.5;
+
+      inline-size: 100%;
+      mask-image: linear-gradient(to right, black 75%, transparent);
+      scrollbar-width: none;
+
+      &:dir(rtl) {
+        mask-image: linear-gradient(to left, black 75%, transparent);
+      }
+    }
+
+    .showcase-dialog {
+      box-shadow: var(--shadow-3);
+      max-inline-size: 28ch;
+
+      & h3 {
+        font-size: var(--font-size-2);
+      }
+    }
+
+    .showcase-chips {
+      display: flex;
+      gap: var(--size-3);
+    }
+
+    .showcase-drawer {
+      justify-items: end;
+      padding: 0;
+    }
+
+    .showcase-drawer-panel {
+      background-color: var(--surface-default);
+      block-size: 100%;
+      box-shadow: var(--shadow-2);
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-2);
+      inline-size: 65%;
+      padding: var(--size-3);
+
+      & p {
+        font-weight: var(--font-weight-6);
+        margin: 0;
+      }
+    }
+
+    .showcase-form {
+      inline-size: 100%;
+    }
+
+    .showcase-form-row {
+      align-items: end;
+      display: flex;
+      gap: var(--size-2);
+
+      & > .ui-text-field {
+        flex: 1;
+      }
+    }
+
+    .showcase-menu {
+      inline-size: 100%;
+      max-inline-size: 14rem;
+    }
+
+    .showcase-toast {
+      animation: none;
+      min-inline-size: 0;
+    }
+
+    .showcase-tooltip {
+      margin-block-start: var(--size-7);
+    }
+
+    .showcase-typography hgroup {
+      margin: 0;
     }
   </style>
 </div>

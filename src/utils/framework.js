@@ -47,6 +47,15 @@ export function pathHasFramework(framework, sharedPath) {
   return !slug || componentHasFramework(framework, slug)
 }
 
+export const FRAMEWORK_FREE_PREFIXES = ["/blog"]
+
+/** @param {string} sharedPath */
+export function isFrameworkFree(sharedPath) {
+  return FRAMEWORK_FREE_PREFIXES.some(
+    (prefix) => sharedPath === prefix || sharedPath.startsWith(`${prefix}/`),
+  )
+}
+
 /**
  * Build a fresh regex that matches a framework prefix at the start of a
  * pathname (e.g. `/astro/` or `/astro`). Returns a new instance each call so

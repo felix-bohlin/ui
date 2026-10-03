@@ -122,9 +122,15 @@ Other attributes, such as `id`, `aria-label` and `aria-busy`, go to the `<progre
    - `:has(> progress:indeterminate)` lets the wrapper react to the missing `value`
    - Its `::after` slides across by animating `inset-inline-start` and `inset-inline-end`
    - Logical insets flip the direction in right-to-left
-   - `--motion` is `0` under reduced motion
 
-Step 1 of 4: Native
+5. Reduced motion
+
+   - `--motion` is `0` under reduced motion and with `.ui-motion-off`
+   - A style query swaps the slide for an opacity pulse: still busy, nothing moves
+   - Scaling the slide by `--motion` alone would give `0s` and freeze the bar
+   - This step sets `--motion: 0` on the demo
+
+Step 1 of 5: Native
 
 - [\<progress>](https://webstatus.dev/features/progress) (Widely available): Chrome 6+, Edge 12+, Firefox 6+, Safari 6+
 
@@ -139,7 +145,7 @@ Step 1 of 4: Native
 </div>
 ```
 
-Step 2 of 4: Track
+Step 2 of 5: Track
 
 - [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
 
@@ -170,7 +176,7 @@ Step 2 of 4: Track
 }
 ```
 
-Step 3 of 4: Value
+Step 3 of 5: Value
 
 ```css
 .progress > progress[value]::-webkit-progress-value {
@@ -184,7 +190,7 @@ Step 3 of 4: Value
 }
 ```
 
-Step 4 of 4: Indeterminate
+Step 4 of 5: Indeterminate
 
 - [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 - [`:indeterminate`](https://webstatus.dev/features/indeterminate) (Widely available): Chrome 39+, Edge 79+, Firefox 51+, Safari 10+
@@ -207,6 +213,26 @@ Step 4 of 4: Indeterminate
 
 .progress > progress:indeterminate::-moz-progress-bar {
   background-color: transparent;
+}
+```
+
+Step 5 of 5: Reduced motion
+
+- [Container style queries](https://webstatus.dev/features/container-style-queries) (Newly available): Chrome 111+, Edge 111+, Firefox 151+, Safari 18+
+
+```css
+.stack {
+  --motion: 0;
+}
+
+
+.progress:has(> progress:indeterminate) {
+  @container style(--motion: 0) {
+    &::after {
+      animation: build-progress-pulse 2s ease-in-out infinite;
+      inset-inline: 0;
+    }
+  }
 }
 ```
 

@@ -118,3 +118,56 @@ const markdownUrl = hasMarkdown
   import { initToastManager } from "@opui/css/js/toast.js"
   initToastManager()
 </script>
+
+<script>
+  import {
+    DEFAULT_FRAMEWORK,
+    FRAMEWORK_IDS,
+    frameworkPrefixPattern,
+    isFrameworkFree,
+    pathHasFramework,
+    type FrameworkId,
+  } from "../utils/framework"
+
+  const KEY = "opui-last-framework"
+
+  const isFramework = (value: string | null): value is FrameworkId =>
+    (FRAMEWORK_IDS as (string | null)[]).includes(value)
+
+  function rememberFramework() {
+    const framework = location.pathname.match(frameworkPrefixPattern())?.[1]
+    if (!isFramework(framework ?? null)) return
+    try {
+      sessionStorage.setItem(KEY, framework!)
+    } catch (_) {}
+  }
+
+  function preferredFramework() {
+    try {
+      const last = sessionStorage.getItem(KEY)
+      if (isFramework(last)) return last
+      const saved = localStorage.getItem("opui-framework")
+      if (isFramework(saved)) return saved
+    } catch (_) {}
+    return DEFAULT_FRAMEWORK
+  }
+
+  function relinkDocs() {
+    if (!isFrameworkFree(location.pathname)) return
+    const framework = preferredFramework()
+    if (framework === DEFAULT_FRAMEWORK) return
+    const prefix = `/${DEFAULT_FRAMEWORK}`
+    document
+      .querySelectorAll<HTMLAnchorElement>(`a[href^="${prefix}/"]`)
+      .forEach((anchor) => {
+        const href = anchor.getAttribute("href")!.slice(prefix.length)
+        const path = href.split(/[?#]/)[0]
+        if (pathHasFramework(framework, path)) {
+          anchor.setAttribute("href", `/${framework}${href}`)
+        }
+      })
+  }
+
+  rememberFramework()
+  relinkDocs()
+</script>

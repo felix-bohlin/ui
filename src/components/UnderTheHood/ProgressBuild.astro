@@ -90,9 +90,31 @@ const steps = [
       "<code>:has(&gt; progress:indeterminate)</code> lets the wrapper react to the missing <code>value</code>",
       "Its <code>::after</code> slides across by animating <code>inset-inline-start</code> and <code>inset-inline-end</code>",
       "Logical insets flip the direction in right-to-left",
-      "<code>--motion</code> is <code>0</code> under reduced motion",
     ],
     title: "Indeterminate",
+  },
+  {
+    css: `
+.stack {
+  --motion: 0;
+}
+
+.progress:has(> progress:indeterminate) {
+  @container style(--motion: 0) {
+    &::after {
+      animation: build-progress-pulse 2s ease-in-out infinite;
+      inset-inline: 0;
+    }
+  }
+}`,
+    features: ["container-style-queries"],
+    notes: [
+      "<code>--motion</code> is <code>0</code> under reduced motion and with <code>.ui-motion-off</code>",
+      "A style query swaps the slide for an opacity pulse: still busy, nothing moves",
+      "Scaling the slide by <code>--motion</code> alone would give <code>0s</code> and freeze the bar",
+      "This step sets <code>--motion: 0</code> on the demo",
+    ],
+    title: "Reduced motion",
   },
 ]
 ---
@@ -117,6 +139,12 @@ const steps = [
 </style>
 
 <style is:global>
+  @keyframes build-progress-pulse {
+    50% {
+      opacity: 0.4;
+    }
+  }
+
   @keyframes build-progress-slide {
     0% {
       inset-inline-end: 100%;

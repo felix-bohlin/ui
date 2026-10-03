@@ -84,6 +84,14 @@ See [progress accessibility](https://open-props-ui.netlify.app/vue/components/pr
 | -------------------- | ---------------------------------------------------------------------- |
 | `[aria-busy="true"]` | Renders a spinner pseudo-element on the element. Always indeterminate. |
 
+### CSS variables
+
+| Variable   | Default | Description                                                                                                                |
+| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--motion` | `1`     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+
 Elements that never receive a spinner: `<input>`, `<select>`, `<textarea>`, `<html>`, `<progress>`, elements with `aria-describedby`.
 
 Set `aria-busy` on any element to show a spinner. CSS-only; no Vue component.
@@ -108,7 +116,14 @@ Set `aria-busy` on any element to show a spinner. CSS-only; no Vue component.
    - `0.5em` scales with the font, like the ring
    - The library also skips `.ui-button`, which has its own `gap`
 
-Step 1 of 3: Ring
+4. Reduced motion
+
+   - `--motion` is `0` under reduced motion and with `.ui-motion-off`
+   - Slower, not stopped: a frozen spinner looks like a broken page
+   - `max()` gives `0.7s` at `1`, `1.5s` at `0`, and never `0s`
+   - This step sets `--motion: 0` on the demo
+
+Step 1 of 4: Ring
 
 - [`::before and ::after`](https://webstatus.dev/features/before-after) (Widely available): Chrome 1+, Edge 12+, Firefox 1.5+, Safari 4+
 - [`:not()`](https://webstatus.dev/features/not) (Widely available): Chrome 88+, Edge 88+, Firefox 84+, Safari 9+
@@ -141,7 +156,7 @@ Step 1 of 3: Ring
 }
 ```
 
-Step 2 of 3: Spin
+Step 2 of 4: Spin
 
 - [`Animations (CSS)`](https://webstatus.dev/features/animations-css) (Widely available): Chrome 43+, Edge 12+, Firefox 16+, Safari 9+
 - [2D transforms](https://webstatus.dev/features/transforms2d) (Widely available): Chrome 36+, Edge 12+, Firefox 16+, Safari 9+
@@ -152,7 +167,7 @@ Step 2 of 3: Spin
 }
 ```
 
-Step 3 of 3: Gap
+Step 3 of 4: Gap
 
 - [`:empty`](https://webstatus.dev/features/empty) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3.1+
 - [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
@@ -160,6 +175,24 @@ Step 3 of 3: Gap
 ```css
 [aria-busy="true"]:not(:empty)::before {
   margin-inline-end: 0.5em;
+}
+```
+
+Step 4 of 4: Reduced motion
+
+- [`min(), max(), and clamp()`](https://webstatus.dev/features/min-max-clamp) (Widely available): Chrome 79+, Edge 79+, Firefox 75+, Safari 13.1+
+
+```css
+.demo {
+  --motion: 0;
+}
+
+
+[aria-busy="true"]::before {
+  animation-duration: max(
+    0.7s * var(--motion, 1),
+    1.5s - 0.8s * var(--motion, 1)
+  );
 }
 ```
 

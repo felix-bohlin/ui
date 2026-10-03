@@ -68,19 +68,34 @@ const builds = Object.entries(modules)
     builds.map(({ Build, docsHref, name, post: buildPost, slug }) => (
       <section>
         <h2 id={slug}>{name}</h2>
-        <p>
-          <a href={docsHref}>{name} docs</a>
+        <ul class="build-links">
+          <li>
+            <a href={docsHref}>{name} docs</a>
+          </li>
           {buildPost && (
-            <>
-              {" · "}
+            <li>
               <DocLink href={`/blog/${buildPost.slug}`}>
                 {buildPost.title}
               </DocLink>
-            </>
+            </li>
           )}
-        </p>
+        </ul>
         <Build />
       </section>
     ))
   }
 </Blog>
+
+<style>
+  .build-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-1) var(--size-5);
+    list-style: none;
+    padding: 0;
+
+    & li {
+      padding: 0;
+    }
+  }
+</style>

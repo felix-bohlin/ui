@@ -109,15 +109,7 @@ const filters = [
       label: formatMonth(`${month}-01`),
     })),
   },
-  {
-    attr: "author",
-    control: "select",
-    label: "Author",
-    options: present(entries.map((post) => post.author)).map((author) => ({
-      id: author.toLowerCase().replaceAll(" ", "-"),
-      label: author,
-    })),
-  },
+
   {
     attr: "component",
     control: "chips",
@@ -329,7 +321,6 @@ const filterCss = [
               "blog-post",
               { "blog-post-featured": !post.component },
             ]}
-            data-author={post.author.toLowerCase().replaceAll(" ", "-")}
             data-baseline={post.baseline}
             data-category={post.category}
             data-component={post.component}
@@ -351,7 +342,7 @@ const filterCss = [
                 <p>{post.description}</p>
               </Fragment>
               <Fragment slot="content">
-                <ul aria-label="Tags" class="blog-tags">
+                <ul aria-label="Tags" class="blog-chips">
                   <li>
                     <label
                       class="blog-chip ui-chip ui-small ui-tonal"
@@ -376,40 +367,50 @@ const filterCss = [
                         class="blog-chip ui-chip ui-small ui-outlined"
                         for={inputId("series", post.series.id)}
                       >
-                        {post.series.label} · {post.series.part}/
-                        {post.series.total}
+                        {post.series.label}
+                        <span class="blog-chip-part">
+                          {post.series.part}/{post.series.total}
+                        </span>
                       </label>
                     </li>
                   )}
+                  {post.features.map((feature) => (
+                    <li>
+                      <label
+                        class="blog-chip ui-chip ui-small ui-outlined"
+                        for={inputId("feature", feature.id)}
+                      >
+                        {feature.name}
+                      </label>
+                    </li>
+                  ))}
                 </ul>
-                {post.features.length > 0 && (
-                  <ul aria-label="Features" class="blog-features">
-                    {post.features.map((feature) => (
-                      <li>
-                        <label
-                          class="blog-chip ui-chip ui-small ui-outlined"
-                          for={inputId("feature", feature.id)}
-                        >
-                          {feature.name}
-                        </label>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <p class="blog-meta">
+                <dl class="blog-meta">
                   {[
-                    post.author,
-                    `${post.minutes} min read`,
-                    post.level && labelOf(levels, post.level),
-                    post.topics
-                      ?.map((topic) => labelOf(topics, topic))
-                      .join(", "),
-                    post.slug === "under-the-hood" &&
-                      `${buildCount} interactive build-ups`,
+                    { label: "Reading time", value: `${post.minutes} min` },
+                    post.level && {
+                      label: "Level",
+                      value: labelOf(levels, post.level),
+                    },
+                    post.topics && {
+                      label: "Topics",
+                      value: post.topics
+                        .map((topic) => labelOf(topics, topic))
+                        .join(", "),
+                    },
+                    post.slug === "under-the-hood" && {
+                      label: "Build-ups",
+                      value: String(buildCount),
+                    },
                   ]
-                    .filter(Boolean)
-                    .join(" · ")}
-                </p>
+                    .filter((item) => !!item)
+                    .map((item) => (
+                      <div>
+                        <dt>{item.label}</dt>
+                        <dd>{item.value}</dd>
+                      </div>
+                    ))}
+                </dl>
               </Fragment>
             </Card>
           </li>
@@ -485,10 +486,12 @@ const filterCss = [
   }
 
   .blog-post {
+    container-type: inline-size;
     counter-increment: posts;
     display: grid;
 
     & .ui-card {
+      gap: var(--size-3);
       position: relative;
       transition: border-color 0.2s;
 
@@ -503,14 +506,39 @@ const filterCss = [
       }
     }
 
-    & .ui-content {
+    & hgroup {
       display: grid;
-      gap: var(--size-2);
+      gap: var(--size-1);
+
+      & > * {
+        margin: 0;
+      }
+
+      & > p:first-child {
+        color: var(--text-muted);
+        font-size: var(--font-size-0);
+        line-height: 1.3;
+      }
+
+      & > p:last-child {
+        color: var(--text-muted);
+        font-size: clamp(0.8125rem, 0.75rem + 0.6cqi, 0.9375rem);
+        line-height: 1.45;
+        text-wrap: pretty;
+      }
     }
 
     & h2 {
-      font-size: var(--font-size-3);
-      line-height: 1.25;
+      color: var(--text-primary);
+      font-size: clamp(1rem, 0.8rem + 2.5cqi, 1.25rem);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      text-wrap: balance;
+    }
+
+    & .ui-content {
+      display: grid;
+      gap: var(--size-3);
     }
 
     & a {
@@ -533,12 +561,15 @@ const filterCss = [
     grid-column: 1 / -1;
 
     & h2 {
-      font-size: var(--font-size-5);
+      font-size: clamp(1.25rem, 0.75rem + 2.5cqi, 1.875rem);
+    }
+
+    & hgroup > p:last-child {
+      max-inline-size: 65ch;
     }
   }
 
-  .blog-tags,
-  .blog-features {
+  .blog-chips {
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-1);
@@ -547,10 +578,31 @@ const filterCss = [
     padding: 0;
   }
 
+  .blog-chip-part {
+    opacity: 0.7;
+  }
+
   .blog-meta {
-    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
     font-size: var(--font-size-0);
-    margin: auto 0 0;
+    gap: var(--size-1) var(--size-4);
+    line-height: 1.3;
+    margin: 0;
+
+    & div {
+      display: grid;
+    }
+
+    & dt {
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    & dd {
+      font-weight: 600;
+      margin: 0;
+    }
   }
 
   .blog-chip-cloud {

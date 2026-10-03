@@ -39,12 +39,8 @@ const FRAMEWORK_BRANDING: Record<
         <h1 class="ui-h1">Open Props UI</h1>
 
         <p class="hero-description">
-          Components you can copy-paste into your project. <br /> Like if <a
-            class="ui-link"
-            href="https://ui.shadcn.com/">shadcn</a
-          > and <a class="ui-link" href="https://open-props.style/"
-            >Open Props</a
-          > had a baby. <br /> Using as modern CSS & HTML as possible.
+          Showcasing how modern CSS & HTML can be used to better solve UI.
+          <br />
         </p>
 
         <div class="hero-ctas">
@@ -147,6 +143,7 @@ const FRAMEWORK_BRANDING: Record<
   .hero-description {
     font-size: var(--font-size-2);
     line-height: var(--font-lineheight-4);
+    text-wrap: balance;
   }
 
   .hero-ctas {
@@ -169,7 +166,6 @@ const FRAMEWORK_BRANDING: Record<
     .ui-label {
       font-weight: var(--font-weight-6);
       letter-spacing: var(--font-letterspacing-3);
-      text-transform: uppercase;
     }
 
     & :global(.astro-logo) {

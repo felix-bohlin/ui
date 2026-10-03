@@ -453,6 +453,12 @@ import FrameworkPicker from "../FrameworkPicker.astro"
       --_per-view: 2.5;
 
       inline-size: 100%;
+      mask-image: linear-gradient(to right, black 75%, transparent);
+      scrollbar-width: none;
+
+      &:dir(rtl) {
+        mask-image: linear-gradient(to left, black 75%, transparent);
+      }
     }
 
     .showcase-dialog {

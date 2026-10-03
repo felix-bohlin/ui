@@ -1,9 +1,11 @@
-export { posts } from "./blog-posts"
+import { posts } from "./blog-posts"
+
+export { posts }
 
 export const categories = [
   { id: "under-the-hood", label: "Under the hood" },
   { id: "updates", label: "Updates" },
-]
+].filter((category) => posts.some((post) => post.category === category.id))
 
 export const levels = [
   { id: "beginner", label: "Beginner" },
@@ -77,11 +79,13 @@ const countWords = (source: string) =>
     .replace(/<[^>]+>/g, " ")
     .match(/[A-Za-z0-9][\w'’-]*/g)?.length ?? 0
 
+const sourceOf = (slug: string) =>
+  Object.entries(postSources).find(([path]) =>
+    path.endsWith(`/${slug}.astro`),
+  )?.[1] ?? ""
+
 export const readingMinutes = (slug: string) => {
-  const source =
-    Object.entries(postSources).find(([path]) =>
-      path.endsWith(`/${slug}.astro`),
-    )?.[1] ?? ""
+  const source = sourceOf(slug)
   const builds = source.includes("*Build.astro")
     ? Object.values(buildSources)
     : [...source.matchAll(/UnderTheHood\/(\w+Build)\.astro/g)].map(
@@ -95,6 +99,41 @@ export const readingMinutes = (slug: string) => {
     0,
   )
   return Math.max(1, Math.ceil(words / 200))
+}
+
+const decodeEntities = (text: string) =>
+  text
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&nbsp;", " ")
+    .replaceAll("&quot;", `"`)
+    .replaceAll("&amp;", "&")
+
+export const excerpt = (slug: string, maxLength = 400) => {
+  const body = (sourceOf(slug).split(/^---$/m)[2] ?? "")
+    .replace(/code=\{`[\s\S]*?`\}/g, "")
+    .replace(/<(script|style)\b[\s\S]*?<\/\1>/g, "")
+    .replace(/<section>\s*<h2 id="(outline|read-more)"[\s\S]*?<\/section>/g, "")
+  const text = [
+    ...body.matchAll(/<(?:li|p)\b[^>]*>([\s\S]*?)(?=<\/?(?:li|ol|p|ul)\b)/g),
+  ]
+    .map(([, html]) => html.trim())
+    .filter((html) => !/^<a\b[^>]*>[\s\S]*<\/a>$/.test(html))
+    .map((html) =>
+      decodeEntities(
+        html
+          .replace(/\{[^{}]*\}/g, "")
+          .replace(/<[^>]+>/g, "")
+          .replace(/\s+/g, " ")
+          .trim(),
+      ),
+    )
+    .filter(Boolean)
+    .map((line) => (/[.:!?…]$/.test(line) ? line : `${line}.`))
+    .join(" ")
+  if (text.length <= maxLength) return text
+  const cut = text.slice(0, maxLength)
+  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[\s,.:;–-]+$/, "")}…`
 }
 
 const dateFormat = new Intl.DateTimeFormat("en", { dateStyle: "long" })

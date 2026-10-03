@@ -1206,14 +1206,6 @@
     "url": "/blog/menu-popover-anchor"
   },
   {
-    "id": "blog-new-components-and-fixes",
-    "title": "Menu, Carousel and one Button",
-    "description": "Menu, Carousel, Button without IconButton, and everything else from three days of branches.",
-    "headings": "Outline Breaking changes New components Menu Carousel Component changes Under the hood Button Accordion Tabs Vertical rhythm Docs site Tooling and tests Other branches from the last three days Split stack Open Audits Still open Read more The stepper",
-    "category": "Blog",
-    "url": "/blog/new-components-and-fixes"
-  },
-  {
     "id": "blog-progress-native",
     "title": "Styling the native progress bar",
     "description": "appearance: none and :indeterminate on the native progress element.",

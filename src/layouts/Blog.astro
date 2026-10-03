@@ -32,6 +32,8 @@ const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
   "",
 )
 
+const currentPost = posts.find((post) => canonicalPath === `/blog/${post.slug}`)
+
 const linkTo = (href: string, label: string) => ({
   current: canonicalPath === href,
   href: hrefFor(currentFramework, href),
@@ -65,6 +67,7 @@ const groups = [
   overline={overline}
   showToc={showToc}
   title={title}
+  transitionName={currentPost && `blog-${currentPost.slug}`}
   wide={wide}
 >
   <nav slot="sidebar">

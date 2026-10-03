@@ -1,13 +1,5 @@
 export const posts = [
   {
-    category: "updates",
-    date: "2026-10-01",
-    description:
-      "Menu, Carousel, Button without IconButton, and everything else from three days of branches.",
-    slug: "new-components-and-fixes",
-    title: "Menu, Carousel and one Button",
-  },
-  {
     category: "under-the-hood",
     date: "2026-10-02",
     description:

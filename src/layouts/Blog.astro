@@ -18,7 +18,7 @@ type Props = {
 
 const {
   description,
-  overline = "Blog",
+  overline = "Learn",
   showToc = true,
   title,
   wide,
@@ -39,7 +39,7 @@ const linkTo = (href: string, label: string) => ({
 })
 
 const groups = [
-  { label: "Blog", links: [linkTo("/blog", "All posts")] },
+  { label: "Learn", links: [linkTo("/learn", "All posts")] },
   ...categories.map((category) => ({
     label: category.label,
     links: posts
@@ -51,7 +51,7 @@ const groups = [
       )
       .map((post) =>
         linkTo(
-          `/blog/${post.slug}`,
+          `/learn/${post.slug}`,
           post.navLabel ??
             (post.component ? componentName(post.component) : post.title),
         ),

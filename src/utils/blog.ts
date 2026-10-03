@@ -1,6 +1,6 @@
 export const categories = [
+  { id: "release-notes", label: "Release notes" },
   { id: "under-the-hood", label: "Under the hood" },
-  { id: "updates", label: "Updates" },
 ]
 
 export const levels = [
@@ -57,7 +57,7 @@ export const topics = [
 
 export const posts = [
   {
-    category: "updates",
+    category: "release-notes",
     date: "2026-10-01",
     description:
       "Menu, Carousel, Button without IconButton, and everything else from three days of branches.",
@@ -385,7 +385,7 @@ export const posts = [
 export const componentName = (slug: string) =>
   slug.charAt(0).toUpperCase() + slug.slice(1).replaceAll("-", " ")
 
-const postSources = import.meta.glob<string>("../docs/blog/*.astro", {
+const postSources = import.meta.glob<string>("../docs/learn/*.astro", {
   eager: true,
   import: "default",
   query: "?raw",

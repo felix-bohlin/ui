@@ -188,12 +188,12 @@ const filterCss = [
 ---
 
 <Blog
-  description="Updates, and short posts on the HTML and CSS behind each component."
+  description="Release notes, and short posts on the HTML and CSS behind each component."
   overline=""
   showToc={false}
   wide
 >
-  <Fragment slot="title">Blog</Fragment>
+  <Fragment slot="title">Learn</Fragment>
 
   <div class="blog ui-not-rich-text">
     <form aria-label="Filter posts" class="blog-filters">
@@ -337,7 +337,7 @@ const filterCss = [
                   <time datetime={post.date}>{formatDate(post.date)}</time>
                 </p>
                 <h2>
-                  <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
+                  <DocLink href={`/learn/${post.slug}`}>{post.title}</DocLink>
                 </h2>
                 <p>{post.description}</p>
               </Fragment>

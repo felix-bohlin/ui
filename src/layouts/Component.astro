@@ -17,7 +17,7 @@ import {
   FRAMEWORKS,
   type FrameworkId,
 } from "../utils/framework-routing"
-import { whatsNewFor } from "../utils/whats-new"
+import { isWhatsNewHighlighted, whatsNewFor } from "../utils/whats-new"
 
 type Props = {
   title?: string
@@ -128,7 +128,7 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
                 }
               >
                 {component.name}
-                {whatsNewFor(currentFramework, component.slug).length > 0 && (
+                {isWhatsNewHighlighted(currentFramework, component.slug) && (
                   <span class="new-dot">
                     <span class="ui-sr-only">New</span>
                   </span>

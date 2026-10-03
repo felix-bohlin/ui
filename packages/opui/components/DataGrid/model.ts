@@ -121,8 +121,8 @@ export function createGrid(
       props.maxBlockSize && `--_max-block-size: ${props.maxBlockSize}`,
     ]),
     utilityCells: [
-      numbered && "ui-row-number",
       selectable && "ui-row-select",
+      numbered && "ui-row-number",
       expandable && "ui-expand",
     ].filter((name): name is string => !!name),
   }

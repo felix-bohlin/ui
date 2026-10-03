@@ -167,16 +167,16 @@ const mergedStyle =
       }
       <div role="row">
         {
-          numbered && (
-            <div class="ui-row-number" role="columnheader">
-              <span class="ui-sr-only">{labels.rowNumber}</span>
+          selectable && (
+            <div class="ui-row-select" role="columnheader">
+              <span class="ui-sr-only">{labels.select}</span>
             </div>
           )
         }
         {
-          selectable && (
-            <div class="ui-row-select" role="columnheader">
-              <span class="ui-sr-only">{labels.select}</span>
+          numbered && (
+            <div class="ui-row-number" role="columnheader">
+              <span class="ui-sr-only">{labels.rowNumber}</span>
             </div>
           )
         }
@@ -229,7 +229,6 @@ const mergedStyle =
             role="row"
             style={grid.rowStyle(row, rowIndex)}
           >
-            {numbered && <div class="ui-row-number" role="cell" />}
             {selectable && (
               <div class="ui-row-select" role="cell">
                 <label class="ui-checkbox">
@@ -240,6 +239,7 @@ const mergedStyle =
                 </label>
               </div>
             )}
+            {numbered && <div class="ui-row-number" role="cell" />}
             {expandable && (
               <div class="ui-expand" role="cell">
                 <details>

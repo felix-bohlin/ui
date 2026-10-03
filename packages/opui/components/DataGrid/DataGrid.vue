@@ -153,11 +153,11 @@ const directions = ["asc", "desc"] as const
           </div>
         </div>
         <div role="row">
-          <div v-if="numbered" class="ui-row-number" role="columnheader">
-            <span class="ui-sr-only">{{ labels.rowNumber }}</span>
-          </div>
           <div v-if="selectable" class="ui-row-select" role="columnheader">
             <span class="ui-sr-only">{{ labels.select }}</span>
+          </div>
+          <div v-if="numbered" class="ui-row-number" role="columnheader">
+            <span class="ui-sr-only">{{ labels.rowNumber }}</span>
           </div>
           <div v-if="slots.detail" class="ui-expand" role="columnheader">
             <span class="ui-sr-only">{{ labels.details }}</span>
@@ -196,7 +196,6 @@ const directions = ["asc", "desc"] as const
           role="row"
           :style="grid.rowStyle(row, rowIndex)"
         >
-          <div v-if="numbered" class="ui-row-number" role="cell"></div>
           <div v-if="selectable" class="ui-row-select" role="cell">
             <label class="ui-checkbox">
               <input type="checkbox" />
@@ -205,6 +204,7 @@ const directions = ["asc", "desc"] as const
               </span>
             </label>
           </div>
+          <div v-if="numbered" class="ui-row-number" role="cell"></div>
           <div v-if="slots.detail" class="ui-expand" role="cell">
             <details>
               <summary>

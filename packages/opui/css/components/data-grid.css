@@ -409,7 +409,7 @@
 
       summary {
         --_hover-size: 0;
-        background-color: inherit;
+        background-color: var(--_row-bg-color);
         background-image: radial-gradient(
           circle var(--_hover-size),
           oklch(from var(--text-primary) l c h / var(--state-hover-alpha)) 100%,

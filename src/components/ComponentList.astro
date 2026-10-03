@@ -20,6 +20,15 @@ const items = componentsFor(currentFramework).map((component) => {
   }
 })
 
+const BASELINE_ICONS = {
+  limited:
+    "M5.82 2.275c.956-1.7 3.404-1.7 4.36 0l4.496 8.004c.936 1.667-.269 3.725-2.18 3.725H3.503c-1.911 0-3.115-2.058-2.179-3.725zm3.488.49a1.5 1.5 0 0 0-2.616 0L2.195 10.77a1.5 1.5 0 0 0 1.308 2.234h8.993a1.5 1.5 0 0 0 1.308-2.234zM8 9.5A.75.75 0 1 1 8 11a.75.75 0 0 1 0-1.5M8 5a.5.5 0 0 1 .5.5V8a.5.5 0 0 1-1 0V5.5A.5.5 0 0 1 8 5",
+  newly:
+    "M4.101 2.248a2 2 0 0 1 2.647-1.083l.887.385c.25.108.534.11.786.003l.89-.376a2 2 0 0 1 2.636 1.105l.356.899a1 1 0 0 0 .553.558l.896.363a2 2 0 0 1 1.083 2.646l-.384.887a1 1 0 0 0-.004.786l.377.89a2 2 0 0 1-1.105 2.636l-.899.356a1 1 0 0 0-.558.553l-.364.896a2 2 0 0 1-2.645 1.083l-.887-.384a1 1 0 0 0-.787-.004l-.89.377a2 2 0 0 1-2.636-1.105l-.356-.899a1 1 0 0 0-.554-.558l-.895-.364a2 2 0 0 1-1.083-2.645l.385-.887a1 1 0 0 0 .003-.787l-.376-.89a2 2 0 0 1 1.105-2.636l.898-.356a1 1 0 0 0 .56-.553zm2.25-.166a1 1 0 0 0-1.324.541l-.362.896a2 2 0 0 1-1.117 1.108l-.899.354A1 1 0 0 0 2.096 6.3l.376.89c.213.504.21 1.071-.006 1.573l-.384.886a1 1 0 0 0 .54 1.324l.896.363a2 2 0 0 1 1.109 1.117l.354.899a1 1 0 0 0 1.319.552l.89-.377a2 2 0 0 1 1.573.007l.886.384a1 1 0 0 0 1.324-.54l.363-.896a2 2 0 0 1 1.117-1.108l.899-.355a1 1 0 0 0 .552-1.319l-.377-.89a2 2 0 0 1 .007-1.573l.384-.886a1 1 0 0 0-.541-1.324l-.896-.362a2 2 0 0 1-1.107-1.117l-.356-.899A1 1 0 0 0 9.7 2.097l-.89.376a2 2 0 0 1-1.573-.007zm3.795 4.065a.5.5 0 0 1 .707.707l-3.25 3.25a.5.5 0 0 1-.707 0l-1.75-1.75a.5.5 0 0 1 .707-.707L7.25 9.043z",
+  widely:
+    "M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8m9.854-1.146a.5.5 0 0 0-.708-.708L7.25 9.043L5.854 7.646a.5.5 0 1 0-.708.708l1.75 1.75a.5.5 0 0 0 .708 0z",
+}
+
 const filters = [
   { label: "All", value: "all" },
   ...(["new", "updated"] as const).map((value) => ({
@@ -104,6 +113,19 @@ const filters = [
                       `component-chip-${item.baseline}`,
                     ]}
                   >
+                    <svg
+                      slot="start"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill="currentColor"
+                        d={BASELINE_ICONS[item.baseline]}
+                      />
+                    </svg>
                     {BASELINE_LABELS[item.baseline]}
                   </Chip>
                 )}
@@ -256,25 +278,20 @@ const filters = [
       --_color: var(--gray-15);
     }
 
-    .component-chip-baseline::before {
-      background-color: var(--_dot-color);
-      block-size: 0.5em;
-      border-radius: var(--radius-round);
-      content: "";
-      flex-shrink: 0;
-      inline-size: 0.5em;
+    .component-chip-baseline svg {
+      color: var(--_icon-color);
     }
 
     .component-chip-limited {
-      --_dot-color: var(--warning);
+      --_icon-color: var(--warning);
     }
 
     .component-chip-newly {
-      --_dot-color: var(--info);
+      --_icon-color: var(--info);
     }
 
     .component-chip-widely {
-      --_dot-color: var(--success);
+      --_icon-color: var(--success);
     }
   }
 </style>

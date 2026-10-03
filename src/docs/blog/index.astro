@@ -1,22 +1,44 @@
 ---
 import Blog from "../../layouts/Blog.astro"
 import DocLink from "../../components/DocLink.astro"
-import { Card, Chip, ToggleButton, ToggleGroup } from "@opui/astro"
+import {
+  Accordion,
+  Button,
+  Card,
+  Chip,
+  FieldLegend,
+  FieldSet,
+  Select,
+  ToggleButton,
+  ToggleGroup,
+} from "@opui/astro"
 import { computeFeatureSupport } from "../../utils/browser-support"
-import { categories, componentName, formatDate, posts } from "../../utils/blog"
+import {
+  categories,
+  componentName,
+  formatDate,
+  formatMonth,
+  levels,
+  posts,
+  readingMinutes,
+  readingTimes,
+  series,
+  topics,
+} from "../../utils/blog"
 
 const STATUS = {
   high: "Widely available",
   limited: "Limited availability",
   low: "Newly available",
 }
+const STATUS_ORDER = ["limited", "low", "high"] as const
 
 const buildCount = Object.keys(
   import.meta.glob("../../components/UnderTheHood/*Build.astro"),
 ).length
 
-const categoryLabel = (id: string) =>
-  categories.find((category) => category.id === id)?.label ?? id
+const labelOf = (list: { id: string; label: string }[], id: string) =>
+  list.find((entry) => entry.id === id)?.label ?? id
 
 const entries = posts
   .toSorted(
@@ -24,32 +46,138 @@ const entries = posts
       Number(!!a.component) - Number(!!b.component) ||
       (a.component ?? "").localeCompare(b.component ?? ""),
   )
-  .map((post) => ({
-    ...post,
-    features: (post.features ?? []).map((id) => {
+  .map((post) => {
+    const features = (post.features ?? []).map((id) => {
       const entry = computeFeatureSupport(id)
       return {
+        id,
         name: entry.name,
         status: (entry.baseline || "limited") as keyof typeof STATUS,
       }
-    }),
-    overline: post.component
-      ? componentName(post.component)
-      : `${categoryLabel(post.category)} · ${formatDate(post.date)}`,
-  }))
+    })
+    const minutes = readingMinutes(post.slug)
+    const inSeries = series.find((entry) => entry.posts.includes(post.slug))
+    return {
+      ...post,
+      author: "author" in post ? String(post.author) : undefined,
+      baseline: features.length
+        ? STATUS_ORDER.find((status) =>
+            features.some((feature) => feature.status === status),
+          )
+        : undefined,
+      features,
+      minutes,
+      month: post.date.slice(0, 7),
+      reading: readingTimes.find((entry) => minutes <= entry.max)!.id,
+      series: inSeries && {
+        id: inSeries.id,
+        label: inSeries.label,
+        part: inSeries.posts.indexOf(post.slug) + 1,
+        total: inSeries.posts.length,
+      },
+    }
+  })
 
-const filterCss = categories
-  .flatMap((category) => {
-    const checked = `.blog:has(.blog-filter [value="${category.id}"]:checked)`
-    const hasFeatures = posts.some(
+const present = (values: (string | undefined)[]) =>
+  [...new Set(values.filter((value): value is string => !!value))].sort()
+
+const featureOptions = [
+  ...new Map(
+    entries.flatMap((post) =>
+      post.features.map((feature) => [feature.id, feature.name] as const),
+    ),
+  ),
+]
+  .map(([id, label]) => ({ id, label }))
+  .toSorted((a, b) => a.label.localeCompare(b.label))
+
+const filters = [
+  {
+    attr: "topic",
+    control: "select",
+    label: "Topic",
+    options: topics.filter((topic) =>
+      entries.some((post) => post.topics?.includes(topic.id)),
+    ),
+  },
+  {
+    attr: "feature",
+    control: "select",
+    label: "Platform feature",
+    options: featureOptions,
+  },
+  {
+    attr: "series",
+    control: "select",
+    label: "Series",
+    options: series.map(({ id, label }) => ({ id, label })),
+  },
+  {
+    attr: "month",
+    control: "select",
+    label: "Archive",
+    options: present(entries.map((post) => post.month)).map((month) => ({
+      id: month,
+      label: formatMonth(`${month}-01`),
+    })),
+  },
+  {
+    attr: "author",
+    control: "select",
+    label: "Author",
+    options: present(entries.map((post) => post.author)).map((author) => ({
+      id: author.toLowerCase().replaceAll(" ", "-"),
+      label: author,
+    })),
+  },
+  { attr: "level", control: "toggle", label: "Level", options: levels },
+  {
+    attr: "baseline",
+    control: "toggle",
+    label: "Browser support",
+    options: (["high", "low", "limited"] as const).map((status) => ({
+      id: status,
+      label: STATUS[status],
+    })),
+  },
+  {
+    attr: "reading",
+    control: "toggle",
+    label: "Reading time",
+    options: readingTimes.map(({ id, label }) => ({ id, label })),
+  },
+].filter((filter) => filter.options.length > 1)
+
+const hide = (checked: string, attr: string, id: string) =>
+  `.blog:has(${checked}) .blog-post:not([data-${attr}~="${id}"]) { display: none; }`
+
+const filterCss = [
+  ...categories.flatMap((category) => [
+    hide(
+      `input[name="category"][value="${category.id}"]:checked`,
+      "category",
+      category.id,
+    ),
+    ...(posts.some(
       (post) => post.category === category.id && post.features?.length,
     )
-    return [
-      `${checked} .blog-post:not([data-category="${category.id}"]) { display: none; }`,
-      ...(hasFeatures ? [] : [`${checked} .blog-legend { display: none; }`]),
-    ]
-  })
-  .join("\n")
+      ? []
+      : [
+          `.blog:has(input[name="category"][value="${category.id}"]:checked) .blog-legend { display: none; }`,
+        ]),
+  ]),
+  ...filters.flatMap((filter) =>
+    filter.options.map((option) =>
+      hide(
+        filter.control === "select"
+          ? `select[name="${filter.attr}"] option[value="${option.id}"]:checked`
+          : `input[name="${filter.attr}"][value="${option.id}"]:checked`,
+        filter.attr,
+        option.id,
+      ),
+    ),
+  ),
+].join("\n")
 ---
 
 <Blog showToc={false}>
@@ -59,20 +187,66 @@ const filterCss = categories
   </Fragment>
 
   <div class="blog ui-not-rich-text">
-    <ToggleGroup
-      aria-label="Filter posts"
-      class="blog-filter"
-      name="blog-filter"
-      selection="single"
-      size="small"
-    >
-      <ToggleButton checked value="all">All</ToggleButton>
-      {
-        categories.map((category) => (
-          <ToggleButton value={category.id}>{category.label}</ToggleButton>
-        ))
-      }
-    </ToggleGroup>
+    <form aria-label="Filter posts" class="blog-filters">
+      <div class="blog-filters-row">
+        <ToggleGroup
+          aria-label="Category"
+          name="category"
+          selection="single"
+          size="small"
+        >
+          <ToggleButton checked value="all">All</ToggleButton>
+          {
+            categories.map((category) => (
+              <ToggleButton value={category.id}>{category.label}</ToggleButton>
+            ))
+          }
+        </ToggleGroup>
+        <Button size="small" type="reset">Clear filters</Button>
+      </div>
+
+      <Accordion variant="outlined">
+        <Fragment slot="summary">More filters</Fragment>
+        <div class="blog-filters-grid">
+          {
+            filters.map((filter) =>
+              filter.control === "select" ? (
+                <Select
+                  items={[
+                    { text: "Any", value: "" },
+                    ...filter.options.map((option) => ({
+                      text: option.label,
+                      value: option.id,
+                    })),
+                  ]}
+                  label={filter.label}
+                  name={filter.attr}
+                  size="small"
+                />
+              ) : (
+                <FieldSet class="blog-filter-toggles">
+                  <FieldLegend>{filter.label}</FieldLegend>
+                  <ToggleGroup
+                    name={filter.attr}
+                    selection="single"
+                    size="small"
+                  >
+                    <ToggleButton checked value="any">
+                      Any
+                    </ToggleButton>
+                    {filter.options.map((option) => (
+                      <ToggleButton value={option.id}>
+                        {option.label}
+                      </ToggleButton>
+                    ))}
+                  </ToggleGroup>
+                </FieldSet>
+              ),
+            )
+          }
+        </div>
+      </Accordion>
+    </form>
 
     <ul class="blog-posts">
       {
@@ -82,41 +256,81 @@ const filterCss = categories
               "blog-post",
               { "blog-post-featured": !post.component },
             ]}
+            data-author={post.author?.toLowerCase().replaceAll(" ", "-")}
+            data-baseline={post.baseline}
             data-category={post.category}
+            data-feature={post.features.map((feature) => feature.id).join(" ")}
+            data-level={post.level}
+            data-month={post.month}
+            data-reading={post.reading}
+            data-series={post.series?.id}
+            data-topic={post.topics?.join(" ")}
           >
             <Card variant={post.component ? "outlined" : "tonal"}>
               <Fragment slot="header">
-                <p>{post.overline}</p>
+                <p>
+                  <time datetime={post.date}>{formatDate(post.date)}</time>
+                </p>
                 <h2>
                   <DocLink href={`/blog/${post.slug}`}>{post.title}</DocLink>
                 </h2>
                 <p>{post.description}</p>
               </Fragment>
-              {(post.features.length > 0 || post.slug === "under-the-hood") && (
-                <Fragment slot="content">
-                  {post.features.length > 0 && (
-                    <ul aria-label="Features" class="blog-features">
-                      {post.features.map((feature) => (
-                        <li>
-                          <Chip
-                            data-status={feature.status}
-                            size="small"
-                            variant="outlined"
-                          >
-                            {feature.name}
-                            <span class="ui-sr-only">
-                              , {STATUS[feature.status]}
-                            </span>
-                          </Chip>
-                        </li>
-                      ))}
-                    </ul>
+              <Fragment slot="content">
+                <ul aria-label="Tags" class="blog-tags">
+                  <li>
+                    <Chip size="small">
+                      {labelOf(categories, post.category)}
+                    </Chip>
+                  </li>
+                  {post.component && (
+                    <li>
+                      <Chip size="small" variant="outlined">
+                        {componentName(post.component)}
+                      </Chip>
+                    </li>
                   )}
-                  {post.slug === "under-the-hood" && (
-                    <p class="blog-meta">{buildCount} interactive build-ups</p>
+                  {post.series && (
+                    <li>
+                      <Chip size="small" variant="outlined">
+                        {post.series.label} · {post.series.part}/
+                        {post.series.total}
+                      </Chip>
+                    </li>
                   )}
-                </Fragment>
-              )}
+                </ul>
+                {post.features.length > 0 && (
+                  <ul aria-label="Features" class="blog-features">
+                    {post.features.map((feature) => (
+                      <li>
+                        <Chip
+                          data-status={feature.status}
+                          size="small"
+                          variant="outlined"
+                        >
+                          {feature.name}
+                          <span class="ui-sr-only">
+                            , {STATUS[feature.status]}
+                          </span>
+                        </Chip>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <p class="blog-meta">
+                  {[
+                    `${post.minutes} min read`,
+                    post.level && labelOf(levels, post.level),
+                    post.topics
+                      ?.map((topic) => labelOf(topics, topic))
+                      .join(", "),
+                    post.slug === "under-the-hood" &&
+                      `${buildCount} interactive build-ups`,
+                  ]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </p>
+              </Fragment>
             </Card>
           </li>
         ))
@@ -125,7 +339,7 @@ const filterCss = categories
 
     <p class="blog-count" aria-hidden="true"></p>
 
-    <ul aria-label="Baseline status" class="blog-legend">
+    <ul aria-label="Browser support" class="blog-legend">
       {
         (["high", "low", "limited"] as const).map((status) => (
           <li data-status={status}>{STATUS[status]}</li>
@@ -145,9 +359,33 @@ const filterCss = categories
     gap: var(--size-4);
   }
 
-  .blog-filter {
-    align-self: start;
+  .blog-filters {
+    display: grid;
+    gap: var(--size-3);
     order: -2;
+  }
+
+  .blog-filters-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    justify-content: space-between;
+  }
+
+  .blog-filters-grid {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+  }
+
+  .blog-filter-toggles {
+    grid-column: 1 / -1;
+
+    & legend {
+      font-size: var(--field-label-font-size);
+      margin-block-end: var(--size-1);
+    }
   }
 
   .blog-count {
@@ -189,6 +427,11 @@ const filterCss = categories
       }
     }
 
+    & .ui-content {
+      display: grid;
+      gap: var(--size-2);
+    }
+
     & h2 {
       font-size: var(--font-size-3);
       line-height: 1.25;
@@ -218,12 +461,13 @@ const filterCss = categories
     }
   }
 
+  .blog-tags,
   .blog-features {
     display: flex;
     flex-wrap: wrap;
     gap: var(--size-1);
     list-style: none;
-    margin: auto 0 0;
+    margin: 0;
     padding: 0;
   }
 

@@ -80,8 +80,8 @@ import { Code } from "astro-expressive-code/components"
         it drops the rule: no spinner, but <code>aria-busy</code> is still announced
       </li>
       <li>
-        The animation isn't scaled by <code>--motion</code>, so it keeps
-        spinning under reduced motion
+        Under reduced motion it spins at half speed instead of stopping, so it
+        still reads as busy
       </li>
     </ul>
   </section>

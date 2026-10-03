@@ -61,6 +61,13 @@
       will-change: inset-inline-start, inset-inline-end;
     }
 
+    @container style(--motion: 0) {
+      &::after {
+        animation: ui-indeterminate-pulse 2s ease-in-out infinite;
+        inset-inline: 0;
+      }
+    }
+
     & > progress {
       &::-webkit-progress-value {
         background-color: transparent;
@@ -69,6 +76,12 @@
       &::-moz-progress-bar {
         background-color: transparent;
       }
+    }
+  }
+
+  @keyframes ui-indeterminate-pulse {
+    50% {
+      opacity: 0.4;
     }
   }
 

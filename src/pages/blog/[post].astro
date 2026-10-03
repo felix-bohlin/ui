@@ -1,21 +1,16 @@
 ---
-import { FRAMEWORK_IDS } from "../../../utils/framework-routing"
-
-const docs = import.meta.glob("../../../docs/blog/*.astro", {
+const docs = import.meta.glob("../../docs/blog/*.astro", {
   eager: true,
 })
 
 const slugOf = (path: string) => path.split("/").pop()!.replace(".astro", "")
 
 export function getStaticPaths() {
-  const slugs = Object.keys(import.meta.glob("../../../docs/blog/*.astro"))
+  return Object.keys(import.meta.glob("../../docs/blog/*.astro"))
     .map((path) => path.split("/").pop()!.replace(".astro", ""))
     .filter((slug) => slug !== "index")
     .sort()
-
-  return FRAMEWORK_IDS.flatMap((framework) =>
-    slugs.map((slug) => ({ params: { framework, post: slug } })),
-  )
+    .map((slug) => ({ params: { post: slug } }))
 }
 
 const { post } = Astro.params

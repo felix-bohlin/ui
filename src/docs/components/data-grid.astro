@@ -52,6 +52,21 @@ const snippets = {
     box-shadow: 8px 0 8px -8px var(--_pin-shadow-color);
   }
 }`,
+  numbers: `.ui-body > [role="row"] {
+  --_position: sibling-index();
+  counter-reset: ui-data-grid-index var(--_position);
+}
+
+.ui-data-grid:has(
+    .ui-head [role="row"] > :nth-child(3) input[value="desc"]:checked
+  )
+  .ui-body > [role="row"] {
+  --_position: calc(sibling-count() - var(--_rank-3));
+}
+
+.ui-row-number::before {
+  content: counter(ui-data-grid-index);
+}`,
   resizing: `.ui-resizable {
   [role="columnheader"] {
     resize: horizontal;
@@ -87,6 +102,11 @@ const techniques = [
     "Sorting",
     "Each row stores its rank per column. The checked sort radio picks which rank becomes the row's order.",
     "order, reading-flow",
+  ],
+  [
+    "Row numbers",
+    "Each row resets a counter to its sibling-index(), its rank when sorted ascending, or sibling-count() minus its rank when sorted descending.",
+    "sibling-index(), counter-reset",
   ],
   [
     "Filtering",
@@ -250,6 +270,24 @@ const techniques = [
     </Conditional>
 
     <AutoExample name="Sorting" />
+  </section>
+
+  <section>
+    <h2 id="row-numbers">Row numbers</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        >A <code>.ui-row-number</code> cell in each row. The number follows the sort
+        order.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>numbered</code>. The number follows the sort order.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>numbered</code>. The number follows the sort order.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="RowNumbers" />
   </section>
 
   <section>
@@ -529,6 +567,17 @@ const techniques = [
       animation would lay out the whole grid again.
     </p>
     <Code lang="css" code={snippets.details} />
+
+    <h3 id="row-numbers-under-the-hood">Row numbers</h3>
+    <p>
+      <code>content</code> can't print a number, but a counter can. Each row resets
+      a counter to its position: <code>sibling-index()</code> when unsorted, its rank
+      when sorted ascending, and
+      <code>sibling-count()</code> minus its rank when sorted descending. The number
+      cell prints the counter. Without <code>sibling-index()</code>, it falls
+      back to the visible row counter.
+    </p>
+    <Code lang="css" code={snippets.numbers} />
 
     <h3 id="resizing-and-editing">Resizing and editing</h3>
     <p>

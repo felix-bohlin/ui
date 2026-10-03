@@ -35,6 +35,7 @@ const filters = [
     footer
     label="Team"
     max-block-size="24rem"
+    numbered
     pin-end
     pin-start
     :rows="people"

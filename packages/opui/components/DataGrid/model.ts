@@ -16,6 +16,7 @@ export const defaultLabels: DataGridLabels = {
   details: "Show details for",
   empty: "No rows",
   filter: "Filter rows",
+  rowNumber: "Row number",
   rows: "rows",
   select: "Select",
   selected: "selected",
@@ -54,14 +55,24 @@ export function createGrid(
     | "filters"
     | "labels"
     | "maxBlockSize"
+    | "numbered"
     | "rows"
     | "selectable"
     | "sort"
   > & { expandable?: boolean },
 ) {
-  const { columns, expandable, filters = [], rows, selectable, sort } = props
+  const {
+    columns,
+    expandable,
+    filters = [],
+    numbered,
+    rows,
+    selectable,
+    sort,
+  } = props
   const labels = { ...defaultLabels, ...props.labels }
-  const offset = Number(!!selectable) + Number(!!expandable)
+  const offset =
+    Number(!!numbered) + Number(!!selectable) + Number(!!expandable)
   const position = (index: number) => index + offset + 1
   const rowHeader = columns.find((column) => column.rowHeader) ?? columns[0]
   const ranks = new Map(
@@ -110,6 +121,7 @@ export function createGrid(
       props.maxBlockSize && `--_max-block-size: ${props.maxBlockSize}`,
     ]),
     utilityCells: [
+      numbered && "ui-row-number",
       selectable && "ui-row-select",
       expandable && "ui-expand",
     ].filter((name): name is string => !!name),

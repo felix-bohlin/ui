@@ -31,6 +31,7 @@ export type DataGridLabels = {
   details: string
   empty: string
   filter: string
+  rowNumber: string
   rows: string
   select: string
   selected: string
@@ -59,6 +60,7 @@ export type Props = {
   labels?: Partial<DataGridLabels>
   loading?: boolean
   maxBlockSize?: string
+  numbered?: boolean
   pinEnd?: boolean
   pinStart?: boolean
   resizable?: boolean

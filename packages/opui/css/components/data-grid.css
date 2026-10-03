@@ -4,9 +4,9 @@
     --_bg-color: var(--surface-default);
     --_border-color: var(--border-color);
     --_border-radius: var(--border-radius, var(--radius-2));
-    --_border-width: var(--border-width, 1px);
+    --_border-width: var(--border-width);
     --_cell-padding-block: var(--size-2);
-    --_column-inline-size: 10rem;
+    --_column-inline-size: var(--size-12);
     --_cell-padding-inline: var(--size-3);
     --_head-bg-color: color-mix(
       in oklch,
@@ -16,28 +16,31 @@
     --_hover-bg-color: color-mix(
       in oklch,
       var(--_bg-color),
-      var(--text-primary) 5%
+      var(--text-primary) calc(var(--state-hover-alpha) / 2)
     );
     --_inline-direction: 1;
     --_max-block-size: none;
-    --_pin-shadow-color: light-dark(oklch(0% 0 0 / 12%), oklch(0% 0 0 / 48%));
+    --_pin-shadow-color: hsl(
+      var(--shadow-color) /
+        calc(var(--shadow-strength) + var(--state-hover-alpha))
+    );
     --_pin-shadow-size: var(--size-2);
     --_row-bg-color: var(--_bg-color);
-    --_row-min-block-size: calc(3.25rem * var(--density, 1));
+    --_row-min-block-size: calc(var(--control-size-small) + var(--size-4));
     --_selected-bg-color: color-mix(
       in oklch,
       var(--_bg-color),
-      var(--primary) 12%
+      var(--primary) var(--state-hover-alpha-accent)
     );
     --_selected-hover-bg-color: color-mix(
       in oklch,
       var(--_bg-color),
-      var(--primary) 18%
+      var(--primary) var(--state-active-alpha)
     );
-    --_sort-icon-size: 1.125rem;
+    --_sort-icon-size: var(--icon-size);
     --_track: minmax(max-content, 1fr);
     --_transition-duration: calc(var(--duration) * var(--_motion));
-    --_utility-size: 3.25rem;
+    --_utility-size: calc(var(--choice-size) + var(--size-3) * 2);
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
@@ -70,7 +73,7 @@
       position: relative;
 
       &:focus-visible {
-        outline-offset: calc(-1 * var(--focus-ring-width, 2px));
+        outline-offset: var(--focus-ring-inset);
       }
     }
 
@@ -112,7 +115,7 @@
 
       & > [role="row"] {
         --_row-bg-color: var(--_head-bg-color);
-        font-weight: 600;
+        font-weight: var(--font-weight-semibold);
       }
     }
 
@@ -123,6 +126,7 @@
     }
 
     .ui-body > [role="row"] {
+      --_position: sibling-index();
       counter-increment: ui-data-grid-rows ui-data-grid-sum-1 var(--_sum-1, 0)
         ui-data-grid-sum-2 var(--_sum-2, 0) ui-data-grid-sum-3 var(--_sum-3, 0)
         ui-data-grid-sum-4 var(--_sum-4, 0) ui-data-grid-sum-5 var(--_sum-5, 0)
@@ -130,6 +134,7 @@
         ui-data-grid-sum-8 var(--_sum-8, 0) ui-data-grid-sum-9 var(--_sum-9, 0)
         ui-data-grid-sum-10 var(--_sum-10, 0) ui-data-grid-sum-11
         var(--_sum-11, 0) ui-data-grid-sum-12 var(--_sum-12, 0);
+      counter-reset: ui-data-grid-index var(--_position);
 
       &:has(> .ui-row-select :checked) {
         --_row-bg-color: var(--_selected-bg-color);
@@ -167,7 +172,7 @@
     }
 
     [role="rowheader"] {
-      font-weight: 600;
+      font-weight: var(--font-weight-semibold);
       text-align: start;
     }
 
@@ -175,7 +180,7 @@
       align-items: center;
       color: var(--text-primary);
       display: flex;
-      font-weight: 600;
+      font-weight: var(--font-weight-semibold);
       gap: var(--size-1);
       text-align: start;
 
@@ -192,7 +197,7 @@
       }
 
       & > .ui-button {
-        --_size: var(--button-size-x-small, 24px);
+        --_size: var(--button-size-x-small);
         flex: none;
         opacity: 0;
         transition: opacity var(--_transition-duration) var(--ease);
@@ -256,7 +261,7 @@
 
         &:has(:focus-visible) {
           opacity: 1;
-          outline: var(--focus-ring-width, 2px) var(--focus-ring-style, solid)
+          outline: var(--focus-ring-width) var(--focus-ring-style)
             var(--focus-ring-color, var(--primary));
         }
 
@@ -292,11 +297,30 @@
       display: grid;
     }
 
-    :is(.ui-expand, .ui-row-select) {
+    :is(.ui-expand, .ui-row-number, .ui-row-select) {
       display: grid;
       padding-inline: 0;
       place-items: center;
       text-overflow: clip;
+    }
+
+    .ui-row-number {
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ui-body > [role="row"] > .ui-row-number::before {
+      content: counter(ui-data-grid-index);
+    }
+
+    @supports not (order: sibling-index()) {
+      .ui-body > [role="row"] > .ui-row-number::before {
+        content: counter(ui-data-grid-rows);
+      }
+    }
+
+    .ui-body:has(> .ui-empty) > [role="row"] {
+      --_empty-rows: 1;
     }
 
     .ui-row-select .ui-checkbox {
@@ -324,7 +348,7 @@
 
     [role="cell"] > .ui-progress {
       inline-size: 100%;
-      min-inline-size: 6rem;
+      min-inline-size: var(--size-10);
     }
 
     [role="cell"] > input:not([type="checkbox"], [type="radio"]) {
@@ -340,12 +364,14 @@
       text-align: inherit;
 
       &:hover {
-        background-color: oklch(from var(--text-primary) l c h / 6%);
+        background-color: oklch(
+          from var(--text-primary) l c h / var(--state-hover-alpha)
+        );
       }
 
       &:focus-visible {
         background-color: var(--surface-default);
-        outline: var(--focus-ring-width, 2px) var(--focus-ring-style, solid)
+        outline: var(--focus-ring-width) var(--focus-ring-style)
           var(--focus-ring-color, var(--primary));
         outline-offset: 0;
       }
@@ -382,11 +408,11 @@
       }
 
       summary {
-        --_hover-size: 0px;
+        --_hover-size: 0;
         background-color: inherit;
         background-image: radial-gradient(
           circle var(--_hover-size),
-          oklch(from var(--text-primary) l c h / 8%) 100%,
+          oklch(from var(--text-primary) l c h / var(--state-hover-alpha)) 100%,
           transparent 100%
         );
         cursor: pointer;
@@ -400,9 +426,9 @@
 
         &::before {
           background-color: currentColor;
-          block-size: 1.25rem;
+          block-size: var(--icon-size);
           content: "";
-          inline-size: 1.25rem;
+          inline-size: var(--icon-size);
           mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8.6 16.6 13.2 12 8.6 7.4 10 6l6 6-6 6z'/%3E%3C/svg%3E")
             center / contain no-repeat;
           transition: rotate var(--_transition-duration) var(--ease);
@@ -413,11 +439,11 @@
         }
 
         &:hover {
-          --_hover-size: calc(var(--button-size-small, 32px) / 2);
+          --_hover-size: calc(var(--button-size-small) / 2);
         }
 
         &:focus-visible {
-          outline-offset: calc(var(--focus-ring-width, 2px) * -1);
+          outline-offset: var(--focus-ring-inset);
         }
       }
 
@@ -536,9 +562,9 @@
     &.ui-pin-start
       [role="row"]
       > :is(
-        :nth-child(1 of :not(.ui-expand, .ui-row-select)),
-        :is(.ui-expand, .ui-row-select):not(
-          :nth-child(1 of :not(.ui-expand, .ui-row-select)) ~ *
+        :nth-child(1 of :not(.ui-expand, .ui-row-number, .ui-row-select)),
+        :is(.ui-expand, .ui-row-number, .ui-row-select):not(
+          :nth-child(1 of :not(.ui-expand, .ui-row-number, .ui-row-select)) ~ *
         )
       ) {
       inset-inline-start: calc((sibling-index() - 1) * var(--_utility-size));
@@ -551,16 +577,28 @@
         inset-inline-start: 0;
       }
 
-      &.ui-pin-start [role="row"] > :is(.ui-expand, .ui-row-select) + * {
+      &.ui-pin-start
+        [role="row"]
+        > :is(.ui-expand, .ui-row-number, .ui-row-select)
+        + * {
         inset-inline-start: var(--_utility-size);
       }
 
       &.ui-pin-start
         [role="row"]
-        > :is(.ui-expand, .ui-row-select)
-        + :is(.ui-expand, .ui-row-select)
+        > :is(.ui-expand, .ui-row-number, .ui-row-select)
+        + :is(.ui-expand, .ui-row-number, .ui-row-select)
         + * {
         inset-inline-start: calc(var(--_utility-size) * 2);
+      }
+
+      &.ui-pin-start
+        [role="row"]
+        > :is(.ui-expand, .ui-row-number, .ui-row-select)
+        + :is(.ui-expand, .ui-row-number, .ui-row-select)
+        + :is(.ui-expand, .ui-row-number, .ui-row-select)
+        + * {
+        inset-inline-start: calc(var(--_utility-size) * 3);
       }
     }
 
@@ -570,13 +608,24 @@
       z-index: 1;
     }
 
-    &.ui-pin-start :is(.ui-expand, .ui-row-select) + .ui-expand summary {
+    &.ui-pin-start
+      :is(.ui-expand, .ui-row-number, .ui-row-select)
+      + .ui-expand
+      summary {
       inset-inline-start: var(--_utility-size);
     }
 
     &.ui-pin-start
+      :is(.ui-expand, .ui-row-number, .ui-row-select)
+      + :is(.ui-expand, .ui-row-number, .ui-row-select)
+      + .ui-expand
+      summary {
+      inset-inline-start: calc(var(--_utility-size) * 2);
+    }
+
+    &.ui-pin-start
       [role="row"]
-      > :nth-child(1 of :not(.ui-expand, .ui-row-select)) {
+      > :nth-child(1 of :not(.ui-expand, .ui-row-number, .ui-row-select)) {
       transition: box-shadow var(--_transition-duration) var(--ease);
 
       @container ui-data-grid scroll-state(scrollable: inline-start) {
@@ -625,9 +674,14 @@
       --_track: max-content;
       --_track-filler: minmax(0, 1fr);
 
-      [role="columnheader"]:not(.ui-expand, .ui-row-select, [aria-colspan]) {
+      [role="columnheader"]:not(
+        .ui-expand,
+        .ui-row-number,
+        .ui-row-select,
+        [aria-colspan]
+      ) {
         inline-size: var(--_column-inline-size);
-        min-inline-size: 4rem;
+        min-inline-size: var(--size-9);
         resize: horizontal;
       }
 
@@ -639,13 +693,13 @@
     &.ui-compact,
     &:has(.ui-density input[value="compact"]:checked) {
       --_cell-padding-block: var(--size-1);
-      --_row-min-block-size: calc(2.25rem * var(--density, 1));
+      --_row-min-block-size: calc(var(--control-size-small) + var(--size-1));
     }
 
     &.ui-spacious,
     &:has(.ui-density input[value="spacious"]:checked) {
       --_cell-padding-block: var(--size-3);
-      --_row-min-block-size: calc(4rem * var(--density, 1));
+      --_row-min-block-size: calc(var(--control-size) + var(--size-5));
     }
 
     &.ui-wrap [role="row"] > [role="cell"] {
@@ -658,15 +712,15 @@
       }
 
       .ui-body {
-        opacity: 0.6;
+        opacity: var(--disabled-opacity);
         pointer-events: none;
       }
 
       .ui-head::after {
-        animation: ui-data-grid-loading calc(1.4s * var(--_motion)) ease-in-out
-          infinite;
+        animation: ui-data-grid-loading calc(1.4s * var(--_motion))
+          var(--ease-in-out-3) infinite;
         background-color: var(--primary);
-        block-size: 2px;
+        block-size: var(--border-size-2);
         content: "";
         inline-size: 30%;
         inset-block-end: calc(var(--_border-width) * -1);
@@ -723,7 +777,7 @@
     }
 
     .ui-columns {
-      --_min-inline-size: 14rem;
+      --_min-inline-size: var(--size-13);
     }
 
     &:has(:where(.ui-head > [role="row"]) > :nth-child(1)) {
@@ -736,7 +790,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-row-select):nth-child(1)
+        > :is(.ui-expand, .ui-row-number, .ui-row-select):nth-child(1)
     ) {
       --_track-1: var(--_utility-size);
     }
@@ -757,6 +811,7 @@
       .ui-body
       > [role="row"] {
       order: var(--_rank-1, 0);
+      --_position: var(--_rank-1, 0);
     }
 
     &:has(
@@ -767,6 +822,9 @@
       .ui-body
       > [role="row"] {
       order: calc(var(--_rank-1, 0) * -1);
+      --_position: calc(
+        sibling-count() + 1 - var(--_empty-rows, 0) - var(--_rank-1, 0)
+      );
     }
 
     .ui-foot > [role="row"] > .ui-sum:nth-child(1)::after {
@@ -783,7 +841,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-row-select):nth-child(2)
+        > :is(.ui-expand, .ui-row-number, .ui-row-select):nth-child(2)
     ) {
       --_track-2: var(--_utility-size);
     }
@@ -804,6 +862,7 @@
       .ui-body
       > [role="row"] {
       order: var(--_rank-2, 0);
+      --_position: var(--_rank-2, 0);
     }
 
     &:has(
@@ -814,6 +873,9 @@
       .ui-body
       > [role="row"] {
       order: calc(var(--_rank-2, 0) * -1);
+      --_position: calc(
+        sibling-count() + 1 - var(--_empty-rows, 0) - var(--_rank-2, 0)
+      );
     }
 
     .ui-foot > [role="row"] > .ui-sum:nth-child(2)::after {
@@ -830,7 +892,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-row-select):nth-child(3)
+        > :is(.ui-expand, .ui-row-number, .ui-row-select):nth-child(3)
     ) {
       --_track-3: var(--_utility-size);
     }
@@ -851,6 +913,7 @@
       .ui-body
       > [role="row"] {
       order: var(--_rank-3, 0);
+      --_position: var(--_rank-3, 0);
     }
 
     &:has(
@@ -861,6 +924,9 @@
       .ui-body
       > [role="row"] {
       order: calc(var(--_rank-3, 0) * -1);
+      --_position: calc(
+        sibling-count() + 1 - var(--_empty-rows, 0) - var(--_rank-3, 0)
+      );
     }
 
     .ui-foot > [role="row"] > .ui-sum:nth-child(3)::after {
@@ -877,7 +943,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-row-select):nth-child(4)
+        > :is(.ui-expand, .ui-row-number, .ui-row-select):nth-child(4)
     ) {
       --_track-4: var(--_utility-size);
     }
@@ -898,6 +964,7 @@
       .ui-body
       > [role="row"] {
       order: var(--_rank-4, 0);
+      --_position: var(--_rank-4, 0);
     }
 
     &:has(
@@ -908,6 +975,9 @@
       .ui-body
       > [role="row"] {
       order: calc(var(--_rank-4, 0) * -1);
+      --_position: calc(
+        sibling-count() + 1 - var(--_empty-rows, 0) - var(--_rank-4, 0)
+      );
     }
 
     .ui-foot > [role="row"] > .ui-sum:nth-child(4)::after {
@@ -924,7 +994,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-row-select):nth-child(5)
+        > :is(.ui-expand, .ui-row-number, .ui-row-select):nth-child(5)
     ) {
       --_track-5: var(--_utility-size);
     }
@@ -945,6 +1015,7 @@
       .ui-body
       > [role="row"] {
       order: var(--_rank-5, 0);
+      --_position: var(--_rank-5, 0);
     }
 
     &:has(
@@ -955,6 +1026,9 @@
       .ui-body
       > [role="row"] {
       order: calc(var(--_rank-5, 0) * -1);
+      --_position: calc(
+        sibling-count() + 1 - var(--_empty-rows, 0) - var(--_rank-5, 0)
+      );
     }
 
     .ui-foot > [role="row"] > .ui-sum:nth-child(5)::after {
@@ -971,7 +1045,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-row-select):nth-child(6)
+        > :is(.ui-expand, .ui-row-number, .ui-row-select):nth-child(6)
     ) {
       --_track-6: var(--_utility-size);
     }
@@ -992,6 +1066,7 @@
       .ui-body
       > [role="row"] {
       order: var(--_rank-6, 0);
+      --_position: var(--_rank-6, 0);
     }
 
     &:has(
@@ -1002,6 +1077,9 @@
       .ui-body
       > [role="row"] {
       order: calc(var(--_rank-6, 0) * -1);
+      --_position: calc(
+        sibling-count() + 1 - var(--_empty-rows, 0) - var(--_rank-6, 0)
+      );
     }
 
     .ui-foot > [role="row"] > .ui-sum:nth-child(6)::after {
@@ -1018,7 +1096,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-row-select):nth-child(7)
+        > :is(.ui-expand, .ui-row-number, .ui-row-select):nth-child(7)
     ) {
       --_track-7: var(--_utility-size);
     }
@@ -1039,6 +1117,7 @@
       .ui-body
       > [role="row"] {
       order: var(--_rank-7, 0);
+      --_position: var(--_rank-7, 0);
     }
 
     &:has(
@@ -1049,6 +1128,9 @@
       .ui-body
       > [role="row"] {
       order: calc(var(--_rank-7, 0) * -1);
+      --_position: calc(
+        sibling-count() + 1 - var(--_empty-rows, 0) - var(--_rank-7, 0)
+      );
     }
 
     .ui-foot > [role="row"] > .ui-sum:nth-child(7)::after {
@@ -1065,7 +1147,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-row-select):nth-child(8)
+        > :is(.ui-expand, .ui-row-number, .ui-row-select):nth-child(8)
     ) {
       --_track-8: var(--_utility-size);
     }
@@ -1086,6 +1168,7 @@
       .ui-body
       > [role="row"] {
       order: var(--_rank-8, 0);
+      --_position: var(--_rank-8, 0);
     }
 
     &:has(
@@ -1096,6 +1179,9 @@
       .ui-body
       > [role="row"] {
       order: calc(var(--_rank-8, 0) * -1);
+      --_position: calc(
+        sibling-count() + 1 - var(--_empty-rows, 0) - var(--_rank-8, 0)
+      );
     }
 
     .ui-foot > [role="row"] > .ui-sum:nth-child(8)::after {
@@ -1112,7 +1198,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-row-select):nth-child(9)
+        > :is(.ui-expand, .ui-row-number, .ui-row-select):nth-child(9)
     ) {
       --_track-9: var(--_utility-size);
     }
@@ -1133,6 +1219,7 @@
       .ui-body
       > [role="row"] {
       order: var(--_rank-9, 0);
+      --_position: var(--_rank-9, 0);
     }
 
     &:has(
@@ -1143,6 +1230,9 @@
       .ui-body
       > [role="row"] {
       order: calc(var(--_rank-9, 0) * -1);
+      --_position: calc(
+        sibling-count() + 1 - var(--_empty-rows, 0) - var(--_rank-9, 0)
+      );
     }
 
     .ui-foot > [role="row"] > .ui-sum:nth-child(9)::after {
@@ -1159,7 +1249,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-row-select):nth-child(10)
+        > :is(.ui-expand, .ui-row-number, .ui-row-select):nth-child(10)
     ) {
       --_track-10: var(--_utility-size);
     }
@@ -1180,6 +1270,7 @@
       .ui-body
       > [role="row"] {
       order: var(--_rank-10, 0);
+      --_position: var(--_rank-10, 0);
     }
 
     &:has(
@@ -1190,6 +1281,9 @@
       .ui-body
       > [role="row"] {
       order: calc(var(--_rank-10, 0) * -1);
+      --_position: calc(
+        sibling-count() + 1 - var(--_empty-rows, 0) - var(--_rank-10, 0)
+      );
     }
 
     .ui-foot > [role="row"] > .ui-sum:nth-child(10)::after {
@@ -1206,7 +1300,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-row-select):nth-child(11)
+        > :is(.ui-expand, .ui-row-number, .ui-row-select):nth-child(11)
     ) {
       --_track-11: var(--_utility-size);
     }
@@ -1227,6 +1321,7 @@
       .ui-body
       > [role="row"] {
       order: var(--_rank-11, 0);
+      --_position: var(--_rank-11, 0);
     }
 
     &:has(
@@ -1237,6 +1332,9 @@
       .ui-body
       > [role="row"] {
       order: calc(var(--_rank-11, 0) * -1);
+      --_position: calc(
+        sibling-count() + 1 - var(--_empty-rows, 0) - var(--_rank-11, 0)
+      );
     }
 
     .ui-foot > [role="row"] > .ui-sum:nth-child(11)::after {
@@ -1253,7 +1351,7 @@
 
     &:has(
       :where(.ui-head > [role="row"])
-        > :is(.ui-expand, .ui-row-select):nth-child(12)
+        > :is(.ui-expand, .ui-row-number, .ui-row-select):nth-child(12)
     ) {
       --_track-12: var(--_utility-size);
     }
@@ -1274,6 +1372,7 @@
       .ui-body
       > [role="row"] {
       order: var(--_rank-12, 0);
+      --_position: var(--_rank-12, 0);
     }
 
     &:has(
@@ -1284,6 +1383,9 @@
       .ui-body
       > [role="row"] {
       order: calc(var(--_rank-12, 0) * -1);
+      --_position: calc(
+        sibling-count() + 1 - var(--_empty-rows, 0) - var(--_rank-12, 0)
+      );
     }
 
     .ui-foot > [role="row"] > .ui-sum:nth-child(12)::after {

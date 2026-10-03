@@ -17,6 +17,7 @@ const {
   labels: customLabels,
   loading,
   maxBlockSize,
+  numbered,
   pinEnd,
   pinStart,
   resizable,
@@ -36,6 +37,7 @@ const grid = createGrid({
   filters,
   labels: customLabels,
   maxBlockSize,
+  numbered,
   rows,
   selectable,
   sort,
@@ -165,6 +167,13 @@ const mergedStyle =
       }
       <div role="row">
         {
+          numbered && (
+            <div class="ui-row-number" role="columnheader">
+              <span class="ui-sr-only">{labels.rowNumber}</span>
+            </div>
+          )
+        }
+        {
           selectable && (
             <div class="ui-row-select" role="columnheader">
               <span class="ui-sr-only">{labels.select}</span>
@@ -220,6 +229,7 @@ const mergedStyle =
             role="row"
             style={grid.rowStyle(row, rowIndex)}
           >
+            {numbered && <div class="ui-row-number" role="cell" />}
             {selectable && (
               <div class="ui-row-select" role="cell">
                 <label class="ui-checkbox">

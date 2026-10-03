@@ -186,6 +186,11 @@ export default {
       selector: ".ui-sort",
     },
     {
+      description: "Row numbers, in sorted order.",
+      props: ["numbered"],
+      selector: ".ui-body .ui-row-number",
+    },
+    {
       description: "Row selection checkboxes.",
       props: ["selectable"],
       selector: ".ui-body .ui-row-select",

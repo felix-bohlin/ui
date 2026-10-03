@@ -1,39 +1,217 @@
 ---
+import { Chip, TextField, ToggleButton, ToggleGroup } from "@opui/astro"
 import { componentsFor, componentHrefFor } from "../utils/components"
+import {
+  BASELINE_LABELS,
+  RELEASE_LABELS,
+  componentStatusFor,
+} from "../utils/component-status"
 import { DEFAULT_FRAMEWORK, type FrameworkId } from "../utils/framework-routing"
 
 const currentFramework = (Astro.currentLocale ??
   DEFAULT_FRAMEWORK) as FrameworkId
+
+const items = componentsFor(currentFramework).map((component) => {
+  const status = componentStatusFor(currentFramework, component.slug)
+  return {
+    ...component,
+    ...status,
+    filters: [status.release, status.baseline].filter(Boolean),
+  }
+})
+
+const filters = [
+  { label: "All", value: "all" },
+  ...(["new", "updated"] as const).map((value) => ({
+    label: RELEASE_LABELS[value],
+    value,
+  })),
+  ...(["widely", "newly", "limited"] as const).map((value) => ({
+    label: BASELINE_LABELS[value],
+    value,
+  })),
+].filter(
+  ({ value }) =>
+    value === "all" ||
+    items.some((item) => item.filters.includes(value as never)),
+)
 ---
 
-<ul class="card-grid">
-  {
-    componentsFor(currentFramework).map((component) => (
-      <li>
-        <a
-          class="ui-card ui-outlined"
-          href={componentHrefFor(currentFramework, component.slug)}
+<div class="component-browser">
+  <div class="component-filters">
+    <TextField
+      class="component-search"
+      type="search"
+      placeholder="Search components"
+    >
+      <span slot="label" class="ui-sr-only">Search components</span>
+    </TextField>
+    <ToggleGroup
+      class="component-status-filter"
+      name="component-status"
+      selection="single"
+      size="small"
+      scrollable
+      aria-label="Filter by status"
+    >
+      {
+        filters.map(({ label, value }) => (
+          <ToggleButton value={value} pressed={value === "all"}>
+            {label}
+          </ToggleButton>
+        ))
+      }
+    </ToggleGroup>
+  </div>
+
+  <p class="component-count" aria-live="polite">
+    {items.length} components
+  </p>
+
+  <ul class="card-grid">
+    {
+      items.map((item) => (
+        <li
+          data-name={item.name.toLowerCase()}
+          data-filters={item.filters.join(" ")}
         >
-          <div class="ui-content">
-            <p>{component.name}</p>
-          </div>
-        </a>
-      </li>
-    ))
-  }
-</ul>
+          <a
+            class="ui-card ui-outlined"
+            href={componentHrefFor(currentFramework, item.slug)}
+          >
+            <div class="ui-content">
+              <p>{item.name}</p>
+              <div class="component-chips">
+                {item.stage && (
+                  <Chip size="small" class="component-chip-stage">
+                    {item.stage}
+                  </Chip>
+                )}
+                {item.release && (
+                  <Chip
+                    size="small"
+                    class:list={[`component-chip-${item.release}`]}
+                  >
+                    {RELEASE_LABELS[item.release]}
+                  </Chip>
+                )}
+                {item.baseline && (
+                  <Chip
+                    size="small"
+                    variant="outlined"
+                    class:list={[
+                      "component-chip-baseline",
+                      `component-chip-${item.baseline}`,
+                    ]}
+                  >
+                    {BASELINE_LABELS[item.baseline]}
+                  </Chip>
+                )}
+              </div>
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="component-empty" hidden>No components match your search.</p>
+</div>
+
+<script>
+  document
+    .querySelectorAll<HTMLElement>(".component-browser")
+    .forEach((browser) => {
+      const search = browser.querySelector<HTMLInputElement>(
+        ".component-search input",
+      )
+      const items = [
+        ...browser.querySelectorAll<HTMLLIElement>(".card-grid > li"),
+      ]
+      const count = browser.querySelector(".component-count")
+      const empty = browser.querySelector<HTMLElement>(".component-empty")
+
+      const update = () => {
+        const query = search?.value.trim().toLowerCase() ?? ""
+        const filter =
+          browser.querySelector<HTMLInputElement>(
+            ".component-status-filter input:checked",
+          )?.value ?? "all"
+
+        let visible = 0
+        for (const item of items) {
+          const matchesQuery = (item.dataset.name ?? "").includes(query)
+          const matchesFilter =
+            filter === "all" ||
+            (item.dataset.filters ?? "").split(" ").includes(filter)
+          item.hidden = !(matchesQuery && matchesFilter)
+          if (!item.hidden) visible++
+        }
+
+        if (count) {
+          count.textContent =
+            visible === items.length
+              ? `${items.length} components`
+              : `${visible} of ${items.length} components`
+        }
+        if (empty) empty.hidden = visible > 0
+      }
+
+      search?.addEventListener("input", update)
+      browser
+        .querySelector(".component-status-filter")
+        ?.addEventListener("change", update)
+      update()
+    })
+</script>
 
 <style>
+  .component-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    margin-block-start: var(--size-3);
+
+    .component-search {
+      flex: 1 1 16rem;
+
+      :global(.ui-label:has(> .ui-sr-only)) {
+        display: contents;
+      }
+    }
+
+    .component-status-filter {
+      max-inline-size: 100%;
+    }
+  }
+
+  .component-count {
+    color: var(--text-muted);
+    font-size: var(--font-size-0);
+    margin-block: var(--size-3) 0;
+  }
+
+  .component-empty {
+    color: var(--text-muted);
+    margin-block-start: var(--size-5);
+    text-align: center;
+  }
+
   .card-grid {
     align-items: stretch;
     display: grid;
     gap: var(--size-3);
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
     list-style-type: none;
     margin-block-start: var(--size-3);
     padding: 0;
 
+    & > li[hidden] {
+      display: none;
+    }
+
     .ui-card {
+      block-size: 100%;
       color: inherit;
       display: block;
       text-decoration: none;
@@ -45,15 +223,58 @@ const currentFramework = (Astro.currentLocale ??
       }
 
       .ui-content {
-        align-items: center;
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: var(--size-2);
 
         p {
           font-weight: 600;
           margin: 0;
         }
       }
+    }
+  }
+
+  .component-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-1);
+
+    &:empty {
+      display: none;
+    }
+
+    .component-chip-new {
+      --_bg-color: var(--primary);
+      --_border-color: var(--primary);
+      --_color: var(--primary-contrast);
+    }
+
+    .component-chip-stage {
+      --_bg-color: var(--warning);
+      --_border-color: var(--warning);
+      --_color: var(--gray-15);
+    }
+
+    .component-chip-baseline::before {
+      background-color: var(--_dot-color);
+      block-size: 0.5em;
+      border-radius: var(--radius-round);
+      content: "";
+      flex-shrink: 0;
+      inline-size: 0.5em;
+    }
+
+    .component-chip-limited {
+      --_dot-color: var(--warning);
+    }
+
+    .component-chip-newly {
+      --_dot-color: var(--info);
+    }
+
+    .component-chip-widely {
+      --_dot-color: var(--success);
     }
   }
 </style>

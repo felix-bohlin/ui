@@ -42,7 +42,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </div>
 
   <ComponentCard name="Accordion" href="/components/accordion" size="wide">
-    <Accordion aria-hidden="true" variant="outlined">
+    <Accordion aria-hidden="true" inert variant="outlined">
       <Fragment slot="summary">How does it work?</Fragment>
       It's pretty simple, actually.
     </Accordion>
@@ -109,11 +109,11 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Button" href="/components/button">
-    <Button aria-hidden="true" variant="filled">Get started</Button>
+    <Button aria-hidden="true" inert variant="filled">Get started</Button>
   </ComponentCard>
 
   <ComponentCard name="Button Group" href="/components/button-group">
-    <ButtonGroup aria-hidden="true" variant="outlined" size="small">
+    <ButtonGroup aria-hidden="true" inert variant="outlined" size="small">
       <Button>Day</Button>
       <Button>Week</Button>
     </ButtonGroup>
@@ -127,7 +127,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Card" href="/components/card" size="xl">
-    <Card aria-hidden="true" variant="outlined">
+    <Card aria-hidden="true" inert variant="outlined">
       <Fragment slot="header">
         <p>Article</p>
         <h3>Build something nice</h3>
@@ -165,7 +165,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Checkbox" href="/components/checkbox">
-    <Checkbox aria-hidden="true" checked>This checks out</Checkbox>
+    <Checkbox aria-hidden="true" inert checked>This checks out</Checkbox>
   </ComponentCard>
 
   <ComponentCard name="Chip" href="/components/chip">
@@ -270,14 +270,21 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Radio" href="/components/radio">
-    <FieldGroup name="index-radio-showcase" aria-hidden="true">
+    <FieldGroup name="index-radio-showcase" aria-hidden="true" inert>
       <Radio checked>Whoa</Radio>
       <Radio>Nice</Radio>
     </FieldGroup>
   </ComponentCard>
 
   <ComponentCard name="Range" href="/components/range" size="wide">
-    <Range variant="filled" aria-hidden="true" value={50} min={0} max={100} />
+    <Range
+      variant="filled"
+      aria-hidden="true"
+      inert
+      value={50}
+      min={0}
+      max={100}
+    />
   </ComponentCard>
 
   <ComponentCard name="Select" href="/components/select">
@@ -285,12 +292,14 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Spinner" href="/components/spinner">
-    <p aria-busy="true">Loading</p>
-    <Button variant="filled" aria-busy="true">Loading</Button>
+    <p aria-busy="true" aria-hidden="true">Loading</p>
+    <Button variant="filled" aria-busy="true" aria-hidden="true" inert>
+      Loading
+    </Button>
   </ComponentCard>
 
   <ComponentCard name="Switch" href="/components/switch">
-    <Switch id="showcase-theme-switcher" aria-hidden="true">Dark mode</Switch>
+    <Switch id="showcase-theme-switcher">Dark mode</Switch>
   </ComponentCard>
 
   <ComponentCard name="Table" href="/components/table" size="wide">
@@ -335,11 +344,11 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Text Field" href="/components/text-field">
-    <TextField aria-hidden="true" placeholder="you@example.com" />
+    <TextField aria-hidden="true" inert placeholder="you@example.com" />
   </ComponentCard>
 
   <ComponentCard name="Textarea" href="/components/textarea">
-    <Textarea aria-hidden="true" placeholder="Write a comment…" />
+    <Textarea aria-hidden="true" inert placeholder="Write a comment…" />
   </ComponentCard>
 
   <ComponentCard name="Toast" href="/components/toast">
@@ -356,7 +365,7 @@ import FrameworkPicker from "../FrameworkPicker.astro"
   </ComponentCard>
 
   <ComponentCard name="Toggle" href="/components/toggle">
-    <ToggleGroup aria-hidden="true">
+    <ToggleGroup aria-hidden="true" inert>
       <ToggleButton pressed size="small" aria-label="Bold">
         <strong>B</strong>
       </ToggleButton>

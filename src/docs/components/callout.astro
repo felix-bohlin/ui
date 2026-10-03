@@ -10,6 +10,17 @@ import CalloutCSS from "@opui/css/components/callout.css?raw"
 import calloutApi from "../../component-api/callout/api"
 
 import Conditional from "../../components/Conditional.astro"
+import CalloutBuild from "../../components/UnderTheHood/CalloutBuild.astro"
+import {
+  componentHasFramework,
+  DEFAULT_FRAMEWORK,
+  type FrameworkId,
+} from "../../utils/framework-routing"
+
+const hasToast = componentHasFramework(
+  (Astro.currentLocale ?? DEFAULT_FRAMEWORK) as FrameworkId,
+  "toast",
+)
 
 const ThemeCSS = `/* ... */
 .ui-critical {
@@ -81,10 +92,18 @@ const ThemeCSS = `/* ... */
           <DocLink href="/components/dialog" class="ui-link">Dialog</DocLink>:
           takes over completely
         </li>
-        <li>
-          <DocLink href="/components/toast" class="ui-link">Toast</DocLink>:
-          informative but non-interruptive
-        </li>
+        {
+          hasToast && (
+            <li>
+              <DocLink
+                href="/components/toast"
+                class="ui-link"
+                set:text="Toast"
+              />
+              : informative but non-interruptive
+            </li>
+          )
+        }
       </ul>
     </UICallout>
   </div>
@@ -134,8 +153,8 @@ const ThemeCSS = `/* ... */
         The <code>severity</code> prop accepts <code>info</code>, <code
           >success</code
         >, <code>warning</code>, and <code>critical</code>, plus a non-severity
-        <code>neutral</code> tone for brand-tinted attention. The default is a plain
-        surface.
+        {" "}<code>neutral</code> tone for brand-tinted attention. The default is
+        a plain surface.
       </Fragment>
       <Fragment slot="html">
         Severity modifiers - <code>.ui-info</code>, <code>.ui-success</code>, <code
@@ -143,14 +162,14 @@ const ThemeCSS = `/* ... */
         >, <code>.ui-critical</code> - plus the non-severity <code
           >.ui-neutral</code
         >
-        tone for brand-tinted attention. The default is a plain surface.
+        {" "}tone for brand-tinted attention. The default is a plain surface.
       </Fragment>
       <Fragment slot="vue">
         The <code>severity</code> prop accepts <code>info</code>, <code
           >success</code
         >, <code>warning</code>, and <code>critical</code>, plus a non-severity
-        <code>neutral</code> tone for brand-tinted attention. The default is a plain
-        surface.
+        {" "}<code>neutral</code> tone for brand-tinted attention. The default is
+        a plain surface.
       </Fragment>
     </Conditional>
 
@@ -180,6 +199,8 @@ const ThemeCSS = `/* ... */
     <AutoExample name="Severities" column />
   </section>
 
+  <CalloutBuild slot="under-the-hood" />
+
   <Fragment slot="accessibility">
     <ul>
       <li>
@@ -205,7 +226,14 @@ const ThemeCSS = `/* ... */
       <li>
         Don't interrupt the user with a Callout. In that case, use <DocLink
           href="/components/dialog">Dialog</DocLink
-        > or <DocLink href="/components/toast">Toast</DocLink>.
+        >{
+          hasToast && (
+            <>
+              {" "}
+              or <DocLink href="/components/toast">Toast</DocLink>
+            </>
+          )
+        }.
       </li>
     </ul>
   </Fragment>

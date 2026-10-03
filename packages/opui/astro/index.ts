@@ -6,11 +6,17 @@ export { default as Button } from "../components/Button/Button.astro"
 export { default as ButtonGroup } from "../components/ButtonGroup/ButtonGroup.astro"
 export { default as Callout } from "../components/Callout/Callout.astro"
 export { default as Card } from "../components/Card/Card.astro"
+export { default as Carousel } from "../components/Carousel/Carousel.astro"
 export { default as Checkbox } from "../components/Checkbox/Checkbox.astro"
 export { default as CheckboxInput } from "../components/Checkbox/CheckboxInput.astro"
 export { default as Chip } from "../components/Chip/Chip.astro"
 export { default as ClassicSelect } from "../components/ClassicSelect/ClassicSelect.astro"
 export { default as DescriptionList } from "../components/DescriptionList/index"
+export {
+  Description as DescriptionListDescription,
+  Item as DescriptionListItem,
+  Term as DescriptionListTerm,
+} from "../components/DescriptionList/index"
 export { default as Dialog } from "../components/Dialog/Dialog.astro"
 export { default as Divider } from "../components/Divider/Divider.astro"
 export { default as Drawer } from "../components/Drawer/Drawer.astro"
@@ -21,9 +27,9 @@ export { default as FieldGroup } from "../components/FieldGroup/FieldGroup.astro
 export { default as FieldLegend } from "../components/FieldLegend/FieldLegend.astro"
 export { default as FieldSet } from "../components/FieldSet/FieldSet.astro"
 export { default as Form } from "../components/Form/Form.astro"
-export { default as IconButton } from "../components/IconButton/IconButton.astro"
 export { default as List } from "../components/List/List.astro"
 export { default as ListItem } from "../components/ListItem/ListItem.astro"
+export { default as Menu } from "../components/Menu/Menu.astro"
 export { default as Progress } from "../components/Progress/Progress.astro"
 export { default as Radio } from "../components/Radio/Radio.astro"
 export { default as RadioInput } from "../components/Radio/RadioInput.astro"
@@ -31,15 +37,24 @@ export { default as Range } from "../components/Range/Range.astro"
 export { default as Select } from "../components/Select/Select.astro"
 export { default as Switch } from "../components/Switch/Switch.astro"
 export { default as SwitchInput } from "../components/Switch/SwitchInput.astro"
+export { default as Table } from "../components/Table/index"
+export {
+  Body as TableBody,
+  Cell as TableCell,
+  Column as TableColumn,
+  ColumnGroup as TableColumnGroup,
+  Head as TableHead,
+  HeaderCell as TableHeaderCell,
+  Row as TableRow,
+} from "../components/Table/index"
 export { default as Tabs } from "../components/Tabs/index"
 export {
   TabsItem,
-  Tab as TabsTab,
   Panel as TabsPanel,
+  Tab as TabsTab,
 } from "../components/Tabs/index"
-export { default as Table } from "../components/Table/index"
 export { default as Textarea } from "../components/Textarea/Textarea.astro"
 export { default as TextField } from "../components/TextField/TextField.astro"
-export { default as Tooltip } from "../components/Tooltip/Tooltip.astro"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.astro"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.astro"
+export { default as Tooltip } from "../components/Tooltip/Tooltip.astro"

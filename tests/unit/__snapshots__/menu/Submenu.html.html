@@ -1,0 +1,26 @@
+<button class="ui-button ui-outlined" command="toggle-popover" commandfor="id-1">File</button>
+<menu class="ui-list ui-menu" id="id-1" popover>
+  <li>
+    <button command="hide-popover" commandfor="id-1" type="button">New</button>
+  </li>
+  <li>
+    <button command="hide-popover" commandfor="id-1" type="button">Open</button>
+  </li>
+  <li>
+    <button command="toggle-popover" commandfor="id-2" type="button">
+      Export
+      <span aria-hidden="true" class="ui-end">▸</span>
+    </button>
+    <menu class="ui-inline-end ui-list ui-menu" id="id-2" popover>
+      <li>
+        <button command="hide-popover" commandfor="id-1" type="button">PDF</button>
+      </li>
+      <li>
+        <button command="hide-popover" commandfor="id-1" type="button">PNG</button>
+      </li>
+      <li>
+        <button command="hide-popover" commandfor="id-1" type="button">SVG</button>
+      </li>
+    </menu>
+  </li>
+</menu>

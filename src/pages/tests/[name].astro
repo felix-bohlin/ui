@@ -1,0 +1,175 @@
+---
+import "@opui/css/imports.css"
+
+export function getStaticPaths() {
+  if (!process.env.OPUI_TEST_PAGES && !import.meta.env.DEV) return []
+
+  const sources = import.meta.glob<string>("../../stress-tests/*.html", {
+    eager: true,
+    import: "default",
+    query: "?raw",
+  })
+
+  return Object.entries(sources)
+    .map(([path, source]) => ({
+      params: {
+        name: path.match(/stress-tests\/([^/]+)\.html$/)![1],
+      },
+      props: { source },
+    }))
+    .toSorted((a, b) => a.params.name.localeCompare(b.params.name))
+}
+
+const { name } = Astro.params
+const { source } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex" />
+    <title>{`${name} stress test`}</title>
+    <script is:inline>
+      {
+        const params = new URLSearchParams(location.search)
+        const example = params.get("example")
+        const scheme = params.get("scheme")
+        if (scheme === "dark" || scheme === "light")
+          document.documentElement.classList.add(`ui-${scheme}`)
+        if (example) {
+          const style = document.createElement("style")
+          style.textContent = `main > h1, .stress:not([data-example="${CSS.escape(example)}"]) { display: none; } .stress { border: 0; padding-block-start: 0; }`
+          document.head.append(style)
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main>
+      <h1>{name}</h1>
+      <Fragment set:html={source} />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  body {
+    margin: 0;
+    padding: var(--size-4);
+  }
+
+  main > h1 {
+    font-size: var(--font-size-4);
+    margin-block: 0 var(--size-4);
+  }
+
+  .stress {
+    border-block-end: var(--border-width) solid var(--border-color);
+    display: grid;
+    gap: var(--size-4);
+    padding-block: var(--size-5);
+
+    > h2 {
+      font-size: var(--font-size-3);
+      margin: 0;
+    }
+
+    > p {
+      color: var(--text-muted);
+      margin: 0;
+      max-inline-size: 70ch;
+    }
+
+    > h3 {
+      font-size: var(--font-size-1);
+      margin: 0;
+    }
+  }
+
+  .stress-row {
+    align-items: end;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+
+    > :is(.ui-text-field, .ui-select) {
+      inline-size: 10rem;
+    }
+
+    > .stress-wide {
+      inline-size: 16rem;
+    }
+
+    > .stress-auto {
+      inline-size: auto;
+    }
+  }
+
+  .stress-center {
+    align-items: center;
+  }
+
+  .stress-tag {
+    color: var(--text-muted);
+    flex-basis: 100%;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-0);
+  }
+
+  .stress-grid {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  }
+
+  .stress-stack {
+    align-content: start;
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .stress-columns {
+    align-items: start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-6);
+  }
+
+  .stress-narrow {
+    align-content: start;
+    display: grid;
+    gap: var(--size-4);
+    inline-size: 16rem;
+    outline: var(--border-width) dashed var(--border-color);
+    outline-offset: var(--size-2);
+  }
+
+  .stress-wide-column {
+    inline-size: min(100%, 40rem);
+  }
+
+  .stress-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-1);
+    grid-column: 1 / -1;
+  }
+
+  .stress-form {
+    max-inline-size: 40rem;
+  }
+
+  .stress-actions,
+  .stress-actions-end {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+  }
+
+  .stress-actions {
+    justify-content: space-between;
+  }
+</style>

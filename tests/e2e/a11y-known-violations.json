@@ -1,114 +1,49 @@
 {
-  "dark/anchor/AlwaysVisible": [
+  "dark/stress/data-display/InlineAlignment": [
     "color-contrast"
   ],
-  "dark/anchor/Hover": [
+  "dark/stress/layout/Badges": [
     "color-contrast"
   ],
-  "dark/avatar/Grouped": [
+  "dark/stress/layout/RightToLeft": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
+  "dark/stress/layout/SettingsPage": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
+  "dark/stress/typography/Bidi": [
     "color-contrast"
   ],
-  "dark/avatar/Letter": [
+  "dark/stress/typography/EveryElement": [
     "color-contrast"
   ],
-  "dark/avatar/Variants": [
+  "dark/stress/typography/HeadingClasses": [
     "color-contrast"
   ],
-  "dark/badge/Alignment": [
-    "color-contrast"
-  ],
-  "dark/badge/Indicator": [
-    "color-contrast"
-  ],
-  "dark/button-group/Colors": [
-    "color-contrast"
-  ],
-  "dark/button-group/Disabled": [
-    "color-contrast"
-  ],
-  "dark/button/Colors": [
-    "color-contrast"
-  ],
-  "dark/callout/Icon": [
-    "aria-allowed-role"
-  ],
-  "dark/callout/Severities": [
-    "aria-allowed-role"
-  ],
-  "dark/callout/Variants": [
-    "aria-allowed-role"
-  ],
-  "dark/checkbox/FieldGroupValidation": [
-    "color-contrast"
-  ],
-  "dark/checkbox/Spread": [
-    "color-contrast"
-  ],
-  "dark/checkbox/Validation": [
-    "color-contrast"
-  ],
-  "dark/checkbox/VisibleLabel": [
-    "color-contrast"
-  ],
-  "dark/drawer/Usage": [
-    "scrollable-region-focusable"
-  ],
-  "dark/list/Default": [
-    "color-contrast"
-  ],
-  "dark/list/Gutterless": [
-    "button-name"
-  ],
-  "dark/list/Selected": [
-    "aria-allowed-attr"
-  ],
-  "dark/list/StartAvatar": [
-    "color-contrast"
-  ],
-  "dark/radio/FieldGroupValidation": [
-    "color-contrast"
-  ],
-  "dark/range/Row": [
-    "color-contrast"
-  ],
-  "dark/range/Validation": [
-    "color-contrast"
-  ],
-  "dark/select/Orientation": [
-    "color-contrast"
-  ],
-  "dark/select/Validation": [
-    "color-contrast"
-  ],
-  "dark/spinner/Sizes": [
-    "color-contrast",
-    "heading-order"
-  ],
-  "dark/switch/FieldGroupValidation": [
-    "color-contrast"
-  ],
-  "dark/switch/Spread": [
-    "color-contrast"
-  ],
-  "dark/switch/Validation": [
+  "dark/stress/typography/VerticalRhythm": [
     "color-contrast"
   ],
   "dark/tabs/Basics": [
     "aria-allowed-role",
-    "aria-required-children",
-    "color-contrast"
+    "aria-required-children"
   ],
-  "dark/text-field/Orientation": [
-    "color-contrast"
+  "dark/tabs/Filled": [
+    "aria-allowed-role",
+    "aria-required-children"
   ],
-  "dark/text-field/Validation": [
-    "color-contrast"
+  "dark/tabs/Line": [
+    "aria-allowed-role",
+    "aria-required-children"
   ],
-  "dark/textarea/Orientation": [
-    "color-contrast"
+  "dark/tabs/Outlined": [
+    "aria-allowed-role",
+    "aria-required-children"
   ],
-  "dark/textarea/Validation": [
-    "color-contrast"
+  "dark/tabs/Scrollable": [
+    "aria-allowed-role",
+    "aria-required-children"
   ],
   "dark/typography/Default": [
     "color-contrast"
@@ -122,68 +57,48 @@
   "dark/typography/Variants": [
     "color-contrast"
   ],
-  "light/avatar/Grouped": [
-    "color-contrast"
-  ],
-  "light/avatar/Letter": [
-    "color-contrast"
-  ],
-  "light/avatar/Variants": [
-    "color-contrast"
-  ],
-  "light/badge/Alignment": [
-    "color-contrast"
-  ],
-  "light/badge/Indicator": [
-    "color-contrast"
-  ],
-  "light/button-group/Colors": [
-    "color-contrast"
-  ],
-  "light/button-group/Disabled": [
-    "color-contrast"
-  ],
-  "light/button/Colors": [
-    "color-contrast"
-  ],
-  "light/callout/Icon": [
-    "aria-allowed-role"
-  ],
-  "light/callout/Severities": [
-    "aria-allowed-role"
-  ],
-  "light/callout/Variants": [
-    "aria-allowed-role"
-  ],
-  "light/checkbox/VisibleLabel": [
-    "color-contrast"
-  ],
-  "light/drawer/Usage": [
-    "scrollable-region-focusable"
-  ],
   "light/list/Default": [
     "color-contrast"
   ],
   "light/list/EndKeyboard": [
     "color-contrast"
   ],
-  "light/list/Gutterless": [
-    "button-name"
-  ],
-  "light/list/Selected": [
-    "aria-allowed-attr"
-  ],
-  "light/list/StartAvatar": [
+  "light/stress/data-display/InlineAlignment": [
     "color-contrast"
   ],
-  "light/spinner/Sizes": [
-    "color-contrast",
-    "heading-order"
+  "light/stress/layout/Badges": [
+    "color-contrast"
+  ],
+  "light/stress/layout/RightToLeft": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
+  "light/stress/layout/SettingsPage": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
+  "light/stress/typography/ProseInComponents": [
+    "color-contrast"
   ],
   "light/tabs/Basics": [
     "aria-allowed-role",
-    "aria-required-children",
-    "color-contrast"
+    "aria-required-children"
+  ],
+  "light/tabs/Filled": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
+  "light/tabs/Line": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
+  "light/tabs/Outlined": [
+    "aria-allowed-role",
+    "aria-required-children"
+  ],
+  "light/tabs/Scrollable": [
+    "aria-allowed-role",
+    "aria-required-children"
   ],
   "light/typography/Default": [
     "color-contrast"

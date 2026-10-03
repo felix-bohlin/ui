@@ -1,13 +1,27 @@
 @layer components.root {
   :where(.ui-tabs) {
-    --_accent-color: var(--primary);
-    --_bg-color: transparent;
+    --_motion: var(--motion, 1);
+    --_active-bg-color: light-dark(
+      var(--surface-default),
+      oklch(100% 0 0 / 0.1)
+    );
+    --_active-border-color: light-dark(transparent, oklch(100% 0 0 / 0.08));
+    --_active-shadow: var(--shadow-1);
+    --_active-text-color: var(--text-primary);
+    --_border-radius: var(--border-radius);
+    --_indicator-color: transparent;
+    --_inset: 3px;
+    --_text-color: color-mix(in oklch, var(--text-primary) 60%, transparent);
+    --_track-border-color: transparent;
+    --_track-border-width: 1px;
+    --_track-color: var(--surface-tonal);
 
     align-items: flex-start;
     display: flex;
     flex-wrap: wrap;
-    gap: 0 var(--size-1);
+    gap: 0;
     position: relative;
+    reading-flow: flex-visual;
 
     & > .ui-tab-input[type="radio"] {
       /* utils > .ui-sr-only */
@@ -23,8 +37,17 @@
         /* Checked Tab */
         & + [role="tab"],
         & + .ui-tab-label {
-          border-block-end-color: var(--_accent-color);
-          color: var(--_accent-color);
+          color: var(--_active-text-color);
+
+          &::before {
+            background-color: var(--_active-bg-color);
+            border-color: var(--_active-border-color);
+            box-shadow: var(--_active-shadow);
+          }
+
+          &::after {
+            opacity: 1;
+          }
 
           /* Checked Panel */
           & + [role="tabpanel"],
@@ -35,13 +58,12 @@
       }
 
       &:focus-visible {
-        & + [role="tab"],
-        & + .ui-tab-label {
+        & + [role="tab"]::before,
+        & + .ui-tab-label::before {
           --focus-ring-color: var(--text-muted);
-          --focus-ring-offset: calc(-1 * var(--size-2));
           outline: var(--focus-ring-width) var(--focus-ring-style)
             var(--focus-ring-color);
-          outline-offset: var(--focus-ring-offset);
+          outline-offset: var(--focus-ring-offset, 0);
         }
       }
     }
@@ -50,26 +72,85 @@
     & > [role="tab"],
     & > .ui-tab-label {
       align-items: center;
-      background-color: transparent;
-      border-bottom: 2px solid transparent;
-      border-radius: 0;
-      color: var(--text-muted);
+      background-color: var(--_track-color);
+      border-block: var(--_track-border-width) solid var(--_track-border-color);
+      color: var(--_text-color);
       cursor: pointer;
       display: inline-flex;
-      font-weight: 600;
+      font-size: var(--font-size-1);
+      font-weight: var(--font-weight-medium);
+      gap: var(--size-2);
+      isolation: isolate;
       justify-content: center;
       line-height: var(--font-lineheight-4);
       order: 1;
-      padding: var(--size-2) var(--size-3);
+      padding: calc(var(--size-1) + var(--_inset) - var(--_track-border-width))
+        var(--size-3);
       position: relative;
-      transition: color 0.1s;
+      transition: color calc(var(--duration-fast) * var(--_motion)) var(--ease);
       user-select: none;
+      white-space: nowrap;
 
-      &:hover {
-        background-color: light-dark(
-          oklch(from var(--_accent-color) calc(l * 0.75) none h / 5%),
-          oklch(from var(--_accent-color) calc(l * 1.25) none h / 5%)
+      &::before {
+        border: 1px solid transparent;
+        border-radius: calc(
+          var(--_border-radius) - var(--_inset) - var(--_track-border-width)
         );
+        content: "";
+        inset: var(--_inset) 0;
+        position: absolute;
+        transition:
+          background-color calc(var(--duration-fast) * var(--_motion))
+            var(--ease),
+          box-shadow calc(var(--duration-fast) * var(--_motion)) var(--ease);
+        z-index: -1;
+      }
+
+      &::after {
+        background-color: var(--_indicator-color);
+        block-size: 2px;
+        border-radius: 2px;
+        content: "";
+        inset-block-end: 0;
+        inset-inline: 0;
+        opacity: 0;
+        position: absolute;
+        transition: opacity calc(var(--duration-fast) * var(--_motion))
+          var(--ease);
+      }
+
+      &:nth-child(1 of [role="tab"], .ui-tab-label) {
+        border-end-start-radius: var(--_border-radius);
+        border-inline-start: var(--_track-border-width) solid
+          var(--_track-border-color);
+        border-start-start-radius: var(--_border-radius);
+        padding-inline-start: calc(
+          var(--size-3) + var(--_inset) - var(--_track-border-width)
+        );
+
+        &::before {
+          inset-inline-start: var(--_inset);
+        }
+      }
+
+      &:nth-last-child(1 of [role="tab"], .ui-tab-label) {
+        border-end-end-radius: var(--_border-radius);
+        border-inline-end: var(--_track-border-width) solid
+          var(--_track-border-color);
+        border-start-end-radius: var(--_border-radius);
+        padding-inline-end: calc(
+          var(--size-3) + var(--_inset) - var(--_track-border-width)
+        );
+
+        &::before {
+          inset-inline-end: var(--_inset);
+        }
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          color: var(--text-primary);
+        }
       }
     }
 
@@ -78,7 +159,162 @@
     & > .ui-tab-panel {
       display: none;
       inline-size: 100%;
+      margin-block-start: var(--size-2);
       order: 2;
+    }
+
+    &.ui-filled {
+      --_active-bg-color: var(--primary);
+      --_active-border-color: transparent;
+      --_active-text-color: var(--primary-contrast);
+    }
+
+    &.ui-line {
+      --_active-bg-color: transparent;
+      --_active-border-color: transparent;
+      --_active-shadow: none;
+      --_indicator-color: var(--text-primary);
+      --_inset: 0px;
+      --_track-border-width: 0px;
+      --_track-color: transparent;
+
+      column-gap: var(--size-1);
+    }
+
+    &.ui-outlined {
+      --_active-bg-color: var(--surface-tonal);
+      --_active-border-color: transparent;
+      --_active-shadow: none;
+      --_track-border-color: var(--border-color);
+      --_track-color: transparent;
+    }
+
+    &.ui-scrollable {
+      column-gap: 0;
+      container-type: inline-size;
+      display: grid;
+      grid-template-columns: repeat(20, max-content) minmax(0, 1fr);
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      reading-flow: grid-rows;
+      scrollbar-width: thin;
+
+      & > .ui-tab-input[type="radio"] {
+        grid-row: 1 / span 1;
+        inset-block-start: 50%;
+        inset-inline-start: 50%;
+        margin: 0;
+
+        &:focus-visible {
+          & + [role="tab"]::before,
+          & + .ui-tab-label::before {
+            outline-offset: calc(-1 * var(--focus-ring-width));
+          }
+        }
+      }
+
+      & > .ui-tab-input:nth-of-type(1) {
+        grid-column: 1 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(2) {
+        grid-column: 2 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(3) {
+        grid-column: 3 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(4) {
+        grid-column: 4 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(5) {
+        grid-column: 5 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(6) {
+        grid-column: 6 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(7) {
+        grid-column: 7 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(8) {
+        grid-column: 8 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(9) {
+        grid-column: 9 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(10) {
+        grid-column: 10 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(11) {
+        grid-column: 11 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(12) {
+        grid-column: 12 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(13) {
+        grid-column: 13 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(14) {
+        grid-column: 14 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(15) {
+        grid-column: 15 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(16) {
+        grid-column: 16 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(17) {
+        grid-column: 17 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(18) {
+        grid-column: 18 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(19) {
+        grid-column: 19 / span 1;
+      }
+
+      & > .ui-tab-input:nth-of-type(20) {
+        grid-column: 20 / span 1;
+      }
+
+      & > [role="tab"],
+      & > .ui-tab-label {
+        grid-row: 1;
+      }
+
+      & > [role="tabpanel"],
+      & > .ui-tab-panel {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        inline-size: 100cqi;
+        inset-inline-start: 0;
+        position: sticky;
+      }
+
+      &.ui-line {
+        & > [role="tab"],
+        & > .ui-tab-label {
+          &:not(:nth-last-child(1 of [role="tab"], .ui-tab-label)) {
+            margin-inline-end: var(--size-1);
+          }
+        }
+      }
     }
   }
 }

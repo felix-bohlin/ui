@@ -14,11 +14,12 @@ import buttonGroupApi from "../../component-api/button-group/api"
 import buttonApi from "../../component-api/button/api"
 
 import Conditional from "../../components/Conditional.astro"
+import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.astro"
 ---
 
 <Component
   slug="button-group"
-  browserSupport={["color-mix"]}
+  browserSupport={["color-mix", "has", "light-dark", "relative-color"]}
   heroAnatomy
   apis={[
     { title: "Button group", api: buttonGroupApi },
@@ -83,7 +84,7 @@ import Conditional from "../../components/Conditional.astro"
     <Conditional as="p">
       <Fragment slot="astro">
         Change the appearance of the entire group with the <code>variant</code>
-        prop.
+        {" "}prop.
       </Fragment>
       <Fragment slot="html">
         Change the appearance of the entire group with the <code
@@ -92,7 +93,7 @@ import Conditional from "../../components/Conditional.astro"
       </Fragment>
       <Fragment slot="vue">
         Change the appearance of the entire group with the <code>variant</code>
-        prop.
+        {" "}prop.
       </Fragment>
     </Conditional>
     <AutoExample name="Variants" column centered />
@@ -125,9 +126,29 @@ import Conditional from "../../components/Conditional.astro"
       Yes of course, they're just <DocLink
         href="/components/button"
         class="ui-link">buttons.</DocLink
-      >
+      > Wrap labels in a <code>&lt;span&gt;</code> so buttons with an icon keep their
+      padding.
     </p>
     <AutoExample name="WithIcons" column centered />
+  </section>
+
+  <section>
+    <h2 id="split-button">Split button</h2>
+    <Conditional as="p">
+      <Fragment slot="html">
+        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
+        last button. <code>.ui-align-end</code> lines it up with the group.
+      </Fragment>
+      <Fragment slot="astro">
+        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
+        last button. <code>align="end"</code> lines it up with the group.
+      </Fragment>
+      <Fragment slot="vue">
+        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
+        last button. <code>align="end"</code> lines it up with the group.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="SplitButton" centered />
   </section>
 
   <section>
@@ -135,16 +156,16 @@ import Conditional from "../../components/Conditional.astro"
     <Conditional as="p">
       <Fragment slot="astro">
         Adjust the size of all buttons in the group using the <code>size</code>
-        prop.
+        {" "}prop.
       </Fragment>
       <Fragment slot="html">
         Adjust the size of all buttons in the group using the <code
-          >.ui-small</code
-        > and <code>.ui-large</code> classes.
+          >.ui-x-small</code
+        >, <code>.ui-small</code> and <code>.ui-large</code> classes.
       </Fragment>
       <Fragment slot="vue">
         Adjust the size of all buttons in the group using the <code>size</code>
-        prop.
+        {" "}prop.
       </Fragment>
     </Conditional>
     <AutoExample name="Size" column centered />
@@ -172,29 +193,62 @@ import Conditional from "../../components/Conditional.astro"
   </section>
 
   <section>
+    <h2 id="overflow">Overflow</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Buttons wrap onto more rows when they don't fit. Use <code
+          >scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+      <Fragment slot="html">
+        Buttons wrap onto more rows when they don't fit. Add <code
+          >.ui-scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >.ui-shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+      <Fragment slot="vue">
+        Buttons wrap onto more rows when they don't fit. Use <code
+          >scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Overflow" />
+  </section>
+
+  <section>
     <h2 id="disabled">Disabled</h2>
     <Conditional as="p">
       <Fragment slot="astro">
         Disable individual buttons within a group by setting the <code
           >disabled</code
         >
-        prop on each <code>Button</code>.
+        {" "}prop on each <code>Button</code>.
       </Fragment>
       <Fragment slot="html">
         Disable individual buttons within a group by adding the <code
           >disabled</code
         >
-        attribute to each <code>&lt;button&gt;</code>.
+        {" "}attribute to each <code>&lt;button&gt;</code>.
       </Fragment>
       <Fragment slot="vue">
         Disable individual buttons within a group by setting the <code
           >disabled</code
         >
-        prop on each <code>Button</code>.
+        {" "}prop on each <code>Button</code>.
       </Fragment>
     </Conditional>
     <AutoExample name="Disabled" column centered />
   </section>
+
+  <ButtonGroupBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>

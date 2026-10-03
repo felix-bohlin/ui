@@ -1,17 +1,23 @@
 ---
 import { Code } from "astro-expressive-code/components"
+import DocLink from "../../../components/DocLink.astro"
 ---
 
 <section>
   <h2 id="theming">Theming</h2>
   <p>
-    The basic idea is to define one source color, <code>--palette-source</code>,
-    and then derive the rest of the 16-step palette from it.
+    The basic idea is to pick one hue and chroma, and derive a 16-step palette
+    from them. <code>theme.css</code> sets <code>--palette-hue</code> and <code
+      >--palette-chroma</code
+    >, and <code>core/palette.css</code> turns them into a source color, <code
+      >--palette-source</code
+    >, and the <code>--color-1</code> to <code>--color-16</code> steps.
   </p>
 
   <Code
     code={`:where(html) {
-  --palette-source: oklch(0.58 0.18 264);
+  --palette-hue: 264;
+  --palette-chroma: 0.5;
   --palette-hue-rotate-by: 0;
 }`}
     lang="css"
@@ -19,73 +25,99 @@ import { Code } from "astro-expressive-code/components"
 
   <ul>
     <li>
-      <strong>Must be <code>oklch()</code>. </strong>
-      <li>
-        <strong><code>--palette-hue-rotate-by</code></strong> is a separate knob for
-        per-step warm/cool drift, in degrees.
-      </li>
+      <strong><code>--palette-hue</code></strong> is a hue angle in degrees. Open
+      Props' <code>--hue-*</code> tokens work here. The default is green in light
+      mode and blue in dark mode.
     </li>
-
-    <p>
-      You can override the source color anywhere you want for useful or cool
-      effect:
-    </p>
-
-    <Code
-      code={`:where(.ui-warning) {
-  --palette-source: oklch(0.58 0.21 var(--hue-orange));
-}`}
-      lang="css"
-    />
+    <li>
+      <strong><code>--palette-chroma</code></strong> scales the saturation, from
+      {" "}<code>0</code> (gray) to <code>1</code>.
+    </li>
+    <li>
+      <strong><code>--palette-hue-rotate-by</code></strong> is a separate knob for
+      per-step warm/cool drift, in degrees.
+    </li>
   </ul>
 
-  <section>
-    <h2 id="motion">Motion</h2>
-    <p>
-      Use the <code>--motion</code> variable to turn motion on or off. The default
-      value is <code>1</code>. If a user has <code
-        >prefers-reduced-motion: reduce</code
-      > enabled,
-      <code>--motion</code> will be set to <code>0</code> by default.
-    </p>
+  <p>
+    You can also set <code>--palette-source</code> directly (it must be an <code
+      >oklch()</code
+    > color), and you can override it anywhere you want for useful or cool effect:
+  </p>
 
-    <h3 id="motion-global">Global Classes</h3>
-    <p>
-      Adding these utility classes to the <code>html</code> element will override
-      the OS preference.
-    </p>
-    <ul>
-      <li>
-        <code>.ui-motion-off</code>: sets <code>--motion: 0</code>.
-      </li>
-      <li>
-        <code>.ui-motion-on</code>: sets <code>--motion: 1</code>.
-      </li>
-      <li>
-        <code>.ui-motion-debug</code>: sets <code>--motion: 10</code> (slows down
-        transitions 10x).
-      </li>
-    </ul>
-    <Code code={`<html lang="en" class="ui-motion-debug">`} lang="html" />
+  <Code
+    code={`:where(.ui-warning) {
+  --palette-source: oklch(0.58 0.21 var(--hue-orange));
+}`}
+    lang="css"
+  />
 
-    <h3 id="motion-local">Local Overrides</h3>
-    <p>
-      Components use a local <code>--_motion</code> variable that allows you to disable
-      motion for each component individually if you want.
-    </p>
-    <Code
-      code={`<button class="ui-button" style="--_motion: 0">
+  <p>
+    Every token with its default is listed on the{" "}
+    <DocLink href="/guide/theme-tokens">theme tokens</DocLink> page.
+  </p>
+
+  <h3 id="theming-scopes">Scopes</h3>
+  <p>
+    <code>.ui-light</code> and <code>.ui-dark</code> force a color scheme. Put them
+    on <code>html</code> to control the whole page, or on any element to force a subtree.
+    {" "}<code>.ui-palette</code> re-derives the palette and all color tokens from
+    the knobs set on that element, so one page can carry several brands.
+  </p>
+  <Code
+    code={`<aside class="ui-dark">Always dark</aside>
+
+<section class="ui-palette" style="--palette-hue: 30">
+  <button class="ui-button ui-primary ui-filled">Orange brand</button>
+</section>`}
+    lang="html"
+  />
+</section>
+
+<section>
+  <h2 id="motion">Motion</h2>
+  <p>
+    Use the <code>--motion</code> variable to turn motion on or off. The default value
+    is <code>1</code>. If a user has <code>prefers-reduced-motion: reduce</code> enabled,
+    {" "}<code>--motion</code> will be set to <code>0</code> by default.
+  </p>
+
+  <h3 id="motion-global">Global Classes</h3>
+  <p>
+    Adding these utility classes to the <code>html</code> element will override the
+    OS preference.
+  </p>
+  <ul>
+    <li>
+      <code>.ui-motion-off</code>: sets <code>--motion: 0</code>.
+    </li>
+    <li>
+      <code>.ui-motion-on</code>: sets <code>--motion: 1</code>.
+    </li>
+    <li>
+      <code>.ui-motion-debug</code>: sets <code>--motion: 10</code> (slows down transitions
+      10x).
+    </li>
+  </ul>
+  <Code code={`<html lang="en" class="ui-motion-debug">`} lang="html" />
+
+  <h3 id="motion-local">Local Overrides</h3>
+  <p>
+    Components use a local <code>--_motion</code> variable that allows you to disable
+    motion for each component individually if you want.
+  </p>
+  <Code
+    code={`<button class="ui-button" style="--_motion: 0">
   Instant interaction
 </button>`}
-      lang="html"
-    />
+    lang="html"
+  />
 
-    <p>
-      Additionally, this is how you could include <code>--motion</code> in your CSS:
-    </p>
-    <Code
-      code={`transition: transform calc(0.2s * var(--motion, 1)) ease;`}
-      lang="css"
-    />
-  </section>
+  <p>
+    Additionally, this is how you could include <code>--motion</code> in your CSS:
+  </p>
+  <Code
+    code={`transition: transform calc(var(--duration) * var(--motion, 1)) var(--ease);`}
+    lang="css"
+  />
 </section>

@@ -11,14 +11,19 @@ import SelectCSS from "@opui/css/components/select.css?raw"
 import ListCSS from "@opui/css/components/list.css?raw"
 import classicSelectApi from "../../component-api/classic-select/api"
 import selectApi from "../../component-api/select/api"
+import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
 ---
 
 <Component
   slug="select"
   browserSupport={[
+    "container-queries",
     "customizable-select",
+    "display-animation",
+    "field-sizing",
     "has",
     "light-dark",
+    "open-pseudo",
     "overlay",
     "relative-color",
     "starting-style",
@@ -91,7 +96,7 @@ import selectApi from "../../component-api/select/api"
       </Fragment>
       <Fragment slot="html">
         Add a <code>.ui-prefix</code> or <code>.ui-suffix</code> element inside
-        <code>.ui-field</code> to affix content alongside the select.
+        {" "}<code>.ui-field</code> to affix content alongside the select.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>prefix</code> and <code>suffix</code> slots to affix icons or
@@ -113,8 +118,8 @@ import selectApi from "../../component-api/select/api"
           </li>
           <li>
             Use the <code>error</code> prop to toggle invalid styles. It renders the
-            <code>data-invalid</code> attribute on the root element. Make use of the
-            end text to give extra feedback on the error.
+            {" "}<code>data-invalid</code> attribute on the root element. Make use
+            of the end text to give extra feedback on the error.
           </li>
         </ul>
       </Fragment>
@@ -126,8 +131,8 @@ import selectApi from "../../component-api/select/api"
           </li>
           <li>
             Use the <code>error</code> prop to toggle invalid styles. It renders
-            <code>data-invalid</code> on the root element. Make use of the end text
-            to give extra feedback on the error.
+            {" "}<code>data-invalid</code> on the root element. Make use of the end
+            text to give extra feedback on the error.
           </li>
         </ul>
       </Fragment>
@@ -185,6 +190,8 @@ import selectApi from "../../component-api/select/api"
 
     <AutoExample name="Classic" row spacious />
   </section>
+
+  <SelectBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>

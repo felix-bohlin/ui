@@ -1,0 +1,1215 @@
+<style>
+  .stress-typography-columns {
+    align-items: start;
+    display: grid;
+    gap: var(--size-6);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 40ch) minmax(0, 20ch);
+  }
+
+  .stress-typography-box {
+    align-self: start;
+    outline: var(--border-width) dashed var(--border-color);
+    outline-offset: 0;
+  }
+
+  .stress-typography-huge {
+    font-size: var(--font-size-5);
+  }
+
+  .stress-typography-pair {
+    align-items: start;
+    display: grid;
+    gap: var(--size-6);
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  }
+
+  .stress-typography-tiny {
+    font-size: var(--font-size-0);
+  }
+
+  .stress-typography-wide {
+    max-inline-size: 48rem;
+  }
+</style>
+
+<section class="stress" data-example="EveryElement">
+  <h2>Every element</h2>
+  <p>
+    One article with every block and inline element back to back. Headings
+    should hug the content they introduce, and nested blocks should keep the
+    same rhythm as top-level ones.
+  </p>
+  <article class="ui-rich-text stress-typography-wide">
+    <hgroup>
+      <p>Overline in an hgroup</p>
+      <h1>Every element, one after another, with nothing in between</h1>
+      <p>A subtitle paragraph that runs long enough to wrap onto a new line.</p>
+    </hgroup>
+    <h1>Heading level one</h1>
+    <h2>Heading level two</h2>
+    <h3>Heading level three</h3>
+    <h4>Heading level four</h4>
+    <h5>Heading level five</h5>
+    <h6>Heading level six</h6>
+    <p>
+      Paragraph right after an <code>h6</code>, with <strong>strong</strong>,
+      <em>em</em>, <b>b</b>, <i>i</i>, <u>u</u>, <s>s</s>, <del>del</del>,
+      <ins>ins</ins>, <mark>mark</mark>, <small>small</small>, x<sub>2</sub>,
+      x<sup>2</sup>, <abbr title="Cascading Style Sheets">CSS</abbr>,
+      <dfn>dfn</dfn>, <q>q with a <q>nested q</q></q
+      >, <cite>cite</cite>, <code>code</code>, <kbd>kbd</kbd>,
+      <samp>samp</samp>, <var>var</var>,
+      <time datetime="2026-10-02">2 October</time>,
+      <data value="7">data</data> and an
+      <a href="#stress-typo-every-end">anchor link</a>.
+    </p>
+    <h2>A heading followed by a blockquote</h2>
+    <blockquote>
+      <p>A quote that holds a nested quote, a list and a code block.</p>
+      <blockquote>
+        <p>The nested quote, with <code>inline code</code>.</p>
+        <ul>
+          <li>A list inside the nested quote.</li>
+          <li>Second item.</li>
+        </ul>
+      </blockquote>
+      <pre><code>const quoted = true</code></pre>
+      <footer>— <cite>Nobody in particular</cite></footer>
+    </blockquote>
+    <h3>A heading followed by a figure</h3>
+    <figure>
+      <svg
+        role="img"
+        aria-label="A placeholder landscape"
+        xmlns="http://www.w3.org/2000/svg"
+        width="480"
+        height="160"
+        viewBox="0 0 480 160"
+      >
+        <rect width="480" height="160" fill="currentColor" opacity="0.15" />
+        <path
+          fill="currentColor"
+          opacity="0.4"
+          d="M0 160 L120 60 L200 120 L300 40 L480 160 Z"
+        />
+      </svg>
+      <figcaption>
+        A figure with an inline SVG and a caption long enough to wrap onto a
+        second line in a narrower viewport.
+      </figcaption>
+    </figure>
+    <figure>
+      <pre><code>figure &gt; pre {
+  justify-self: stretch;
+}</code></pre>
+      <figcaption>
+        A captioned code block stretches to the full width.
+      </figcaption>
+    </figure>
+    <h3>A heading followed by a table</h3>
+    <table>
+      <caption>
+        Quarterly numbers with a caption
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Region</th>
+          <th scope="col">Q1</th>
+          <th scope="col">Q2</th>
+          <th scope="col">Q3</th>
+          <th scope="col">Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">North</th>
+          <td>1 204.50</td>
+          <td>98.00</td>
+          <td>11 111.11</td>
+          <td>Short.</td>
+        </tr>
+        <tr>
+          <th scope="row">South</th>
+          <td>7.25</td>
+          <td>100 000.00</td>
+          <td>0.01</td>
+          <td>
+            A long note that has to wrap inside its cell, next to numbers that
+            should stay aligned at the top.
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="row">Total</th>
+          <td>1 211.75</td>
+          <td>100 098.00</td>
+          <td>11 111.12</td>
+          <td>—</td>
+        </tr>
+      </tfoot>
+    </table>
+    <h4>A heading followed by a description list</h4>
+    <dl>
+      <dt>Term</dt>
+      <dd>Description.</dd>
+      <dt>Term with a <code>code</code> span</dt>
+      <dd>
+        <p>A description with a paragraph,</p>
+        <blockquote>a quote</blockquote>
+        <pre><code>and a code block</code></pre>
+      </dd>
+    </dl>
+    <h5>A heading followed by details</h5>
+    <details open>
+      <summary>An open disclosure</summary>
+      <p>With a paragraph inside.</p>
+      <details open>
+        <summary>A nested open disclosure</summary>
+        <ul>
+          <li>With a list inside.</li>
+        </ul>
+      </details>
+    </details>
+    <details>
+      <summary>A closed disclosure right after an open one</summary>
+      <p>Hidden.</p>
+    </details>
+    <h6>A heading followed by an address</h6>
+    <address>
+      Typography Lane 1<br />
+      00100 Helsinki
+    </address>
+    <hr />
+    <pre><code>pre right after an hr</code></pre>
+    <hr />
+    <hr />
+    <p id="stress-typo-every-end">
+      A paragraph after two hr elements in a row.
+    </p>
+  </article>
+</section>
+
+<section class="stress" data-example="DeepLists">
+  <h2>Deep lists</h2>
+  <p>
+    Six levels of mixed ordered and unordered lists, typed, started, reversed
+    and three-digit markers, plus task lists. Markers should never overlap the
+    text or leave the article.
+  </p>
+  <div class="stress-typography-pair">
+    <div class="ui-rich-text">
+      <ol>
+        <li>
+          Level one, decimal.
+          <ul>
+            <li>
+              Level two, disc.
+              <ol type="a">
+                <li>
+                  Level three, <code>type="a"</code>.
+                  <ul>
+                    <li>
+                      Level four, unordered.
+                      <ol type="i">
+                        <li>
+                          Level five, <code>type="i"</code>.
+                          <ol type="A" start="25">
+                            <li>
+                              Level six, <code>type="A" start="25"</code>.
+                            </li>
+                            <li>Z.</li>
+                            <li>AA, a two-letter marker.</li>
+                          </ol>
+                        </li>
+                        <li>ii.</li>
+                        <li>iii.</li>
+                        <li>iv.</li>
+                        <li>v.</li>
+                        <li>vi.</li>
+                        <li>vii.</li>
+                        <li>viii, the widest roman numeral so far.</li>
+                      </ol>
+                    </li>
+                  </ul>
+                </li>
+                <li>Back at level three.</li>
+              </ol>
+            </li>
+          </ul>
+        </li>
+        <li>Back at level one.</li>
+      </ol>
+      <ol start="997">
+        <li>Starts at 997.</li>
+        <li>998.</li>
+        <li>999.</li>
+        <li>1000, a four-digit marker.</li>
+      </ol>
+      <ol reversed start="3">
+        <li>Reversed three.</li>
+        <li>Reversed two.</li>
+        <li>Reversed one.</li>
+        <li>Reversed zero.</li>
+        <li>Reversed minus one.</li>
+      </ol>
+    </div>
+    <div class="ui-rich-text">
+      <p>A task list with nested tasks:</p>
+      <ul>
+        <li>
+          <label><input type="checkbox" checked disabled /> Done</label>
+        </li>
+        <li>
+          <label
+            ><input type="checkbox" disabled /> A pending task with a label long
+            enough to wrap onto a second line, which should line up with the
+            first.</label
+          >
+          <ul>
+            <li>
+              <label
+                ><input type="checkbox" checked disabled /> Nested done</label
+              >
+            </li>
+            <li>
+              <label><input type="checkbox" disabled /> Nested pending</label>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <input type="checkbox" disabled aria-label="Bare checkbox" /> A
+          checkbox with no label wrapper
+        </li>
+      </ul>
+      <p>A task list inside an ordered list:</p>
+      <ol>
+        <li>
+          <label><input type="checkbox" checked disabled /> First step</label>
+        </li>
+        <li>
+          <label><input type="checkbox" disabled /> Second step</label>
+        </li>
+      </ol>
+      <p>A list right after a list:</p>
+      <ul>
+        <li>One.</li>
+      </ul>
+      <ul>
+        <li>Two, in a separate list.</li>
+      </ul>
+      <p>List items with block children mixed with plain ones:</p>
+      <ul>
+        <li>Plain item.</li>
+        <li>
+          <p>Paragraph item.</p>
+          <p>Second paragraph.</p>
+        </li>
+        <li>Plain item again.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="stress" data-example="HostileContent">
+  <h2>Hostile content</h2>
+  <p>
+    Unbroken words, URLs, code, emoji and other scripts in narrow columns.
+    Nothing should overflow the dashed outline, except code blocks and tables
+    that scroll.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-narrow">
+      <article class="ui-rich-text">
+        <h3>Supercalifragilisticexpialidocious­Antidisestablishmentarianism</h3>
+        <p>
+          Pneumonoultramicroscopicsilicovolcanoconiosis is a word, and so is
+          Rindfleischetikettierungsüberwachungsaufgabenübertragungsgesetz.
+        </p>
+        <p>
+          https://example.com/a/very/long/path/that/never/breaks/naturally?with=query&amp;and=more&amp;utm_campaign=stress
+        </p>
+        <p>
+          <a href="#stress-typo-hostile-end"
+            >https://example.com/a/very/long/linked/url/that/never/breaks</a
+          >
+        </p>
+        <p>
+          <code
+            >document.querySelector(".ui-rich-text").getBoundingClientRect()</code
+          >
+        </p>
+        <p>
+          <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Delete</kbd>+<kbd
+            >PageDown</kbd
+          >
+        </p>
+        <p>
+          <mark>averyveryverylongunbrokenhighlightedwordthatneverends</mark>
+        </p>
+      </article>
+    </div>
+    <div class="stress-narrow">
+      <article class="ui-rich-text">
+        <pre
+          tabindex="0"
+        ><code>const aVeryLongIdentifierName = someFunctionWithAVeryLongName(argumentNumberOne, argumentNumberTwo)</code></pre>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Key</th>
+              <th scope="col">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hash</td>
+              <td>
+                9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+              </td>
+            </tr>
+            <tr>
+              <td>URL</td>
+              <td>https://example.com/very/long/path</td>
+            </tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>averyveryverylongunbrokenlistitemthatneverbreaks</li>
+          <li>
+            <code>--a-very-long-custom-property-name-in-a-list-item</code>
+          </li>
+        </ul>
+        <dl>
+          <dt>averyveryverylongtermthatneverbreaks</dt>
+          <dd>averyveryverylongdescriptionthatneverbreaks</dd>
+        </dl>
+        <blockquote>
+          averyveryverylongquotewithoutanyspacesatallinsideit
+        </blockquote>
+      </article>
+    </div>
+    <div class="stress-narrow">
+      <article class="ui-rich-text">
+        <h3>Emoji 🎉🧪🔥 and symbols ✓ ✗ → ⌘</h3>
+        <p>
+          👩‍👩‍👧‍👦👨🏽‍💻🏳️‍🌈🇫🇮🇸🇪 Family, flags and skin tones should sit on the baseline
+          without stretching the line. 🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉
+        </p>
+        <p lang="ja">
+          日本語の文章は単語の間にスペースがないので、どこでも改行できる必要があります。
+        </p>
+        <p lang="zh">
+          中文段落也没有空格，<code>代码</code>和<strong>粗体</strong>应该正常显示。
+        </p>
+        <p lang="ko">한국어 문장은 띄어쓰기가 있지만 아주 긴단어도있습니다.</p>
+        <ul lang="ja">
+          <li>リストの項目</li>
+          <li>二番目の項目はとても長くて何行にもわたって折り返されます。</li>
+        </ul>
+        <p>Combining marks: Z̤͔ͧ̑̓ä͖̭̈̇lͮ̒ͫǧ̗͚̚o̙̔ͮ̇͐̇ and math: ∑ᵢ xᵢ² ≤ ∞, ½ ⅓ ¼.</p>
+        <p id="stress-typo-hostile-end">
+          A&nbsp;sentence&nbsp;made&nbsp;entirely&nbsp;of&nbsp;non-breaking&nbsp;spaces&nbsp;so&nbsp;it&nbsp;cannot&nbsp;wrap.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="stress" data-example="Bidi">
+  <h2>Right to left and mixed direction</h2>
+  <p>
+    Arabic and Hebrew articles with lists, quotes, tables and task lists. List
+    markers, blockquote borders, table alignment and checkbox offsets should all
+    flip to the right side.
+  </p>
+  <div class="stress-typography-pair">
+    <article class="ui-rich-text" dir="rtl" lang="ar">
+      <hgroup>
+        <p>عنوان علوي</p>
+        <h3>مقالة من اليمين إلى اليسار</h3>
+        <p>عنوان فرعي يشرح المقالة.</p>
+      </hgroup>
+      <p>
+        فقرة عربية تحتوي على <code>inline code</code> و
+        <a href="#stress-typo-bidi-ltr">رابط</a> وكلمة English في المنتصف، ثم
+        رقم 1234 وتاريخ 2026-10-02.
+      </p>
+      <ol>
+        <li>
+          العنصر الأول
+          <ul>
+            <li>عنصر متداخل</li>
+          </ul>
+        </li>
+        <li>العنصر الثاني</li>
+      </ol>
+      <ul>
+        <li>
+          <label><input type="checkbox" checked disabled /> مهمة منجزة</label>
+        </li>
+        <li>
+          <label><input type="checkbox" disabled /> مهمة معلقة</label>
+        </li>
+      </ul>
+      <blockquote>
+        <p>اقتباس مع حد على الجانب الأيمن.</p>
+        <footer>— <cite>مؤلف</cite></footer>
+      </blockquote>
+      <dl>
+        <dt>مصطلح</dt>
+        <dd>وصف المصطلح.</dd>
+      </dl>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">الاسم</th>
+            <th scope="col">القيمة</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ألف</td>
+            <td>1 200</td>
+          </tr>
+        </tbody>
+      </table>
+      <pre><code>// Code stays left to right
+const x = 1</code></pre>
+    </article>
+    <article class="ui-rich-text" id="stress-typo-bidi-ltr">
+      <h3>Mixed direction inside left to right</h3>
+      <p>
+        An English sentence with an Arabic phrase
+        <span lang="ar" dir="rtl">مرحبا بالعالم</span> and a Hebrew one
+        <span lang="he" dir="rtl">שלום עולם</span> in the middle, then
+        <bdi>إيان</bdi> scored 90 points.
+      </p>
+      <blockquote dir="rtl" lang="he">
+        ציטוט בעברית בתוך מאמר משמאל לימין, עם <code>code</code> בפנים.
+      </blockquote>
+      <ul>
+        <li>A left to right item.</li>
+        <li>Another left to right item.</li>
+      </ul>
+      <p dir="auto">
+        <span lang="ar">نص يبدأ بالعربية</span> and continues in English, with
+        <code>dir="auto"</code>.
+      </p>
+    </article>
+  </div>
+</section>
+
+<section class="stress" data-example="InheritedSizes">
+  <h2>Inherited font sizes</h2>
+  <p>
+    The same snippet with a tiny, default and huge inherited font size. All
+    spacing is em based, so each should look like a scaled copy of the others.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-narrow">
+      <article class="ui-rich-text stress-typography-tiny">
+        <h3>Tiny inherited size</h3>
+        <p>
+          Body copy with <code>code</code>, <kbd>Esc</kbd>,
+          <small>small</small>, x<sup>2</sup> and <mark>mark</mark>.
+        </p>
+        <ul>
+          <li>
+            <label><input type="checkbox" checked disabled /> Task</label>
+          </li>
+          <li>Item</li>
+        </ul>
+        <blockquote>A quote.</blockquote>
+        <pre><code>pre { }</code></pre>
+      </article>
+    </div>
+    <div class="stress-narrow">
+      <article class="ui-rich-text">
+        <h3>Default size</h3>
+        <p>
+          Body copy with <code>code</code>, <kbd>Esc</kbd>,
+          <small>small</small>, x<sup>2</sup> and <mark>mark</mark>.
+        </p>
+        <ul>
+          <li>
+            <label><input type="checkbox" checked disabled /> Task</label>
+          </li>
+          <li>Item</li>
+        </ul>
+        <blockquote>A quote.</blockquote>
+        <pre><code>pre { }</code></pre>
+      </article>
+    </div>
+    <article class="ui-rich-text stress-typography-huge">
+      <h3>Huge inherited size</h3>
+      <p>
+        Body copy with <code>code</code>, <kbd>Esc</kbd>, <small>small</small>,
+        x<sup>2</sup> and <mark>mark</mark>.
+      </p>
+      <ul>
+        <li>
+          <label><input type="checkbox" checked disabled /> Task</label>
+        </li>
+        <li>Item</li>
+      </ul>
+      <blockquote>A quote.</blockquote>
+      <pre><code>pre { }</code></pre>
+    </article>
+  </div>
+</section>
+
+<section class="stress" data-example="HeadingClasses">
+  <h2>Heading classes next to classless headings</h2>
+  <p>
+    Classless headings on the left, <code>.ui-h1</code> to
+    <code>.ui-h6</code> on the right, both inside rich text. Sizes should match
+    row for row; a class opts out of rich text margins, so the right column is
+    tighter.
+  </p>
+  <div class="stress-typography-pair">
+    <div class="ui-rich-text">
+      <h3>Classless h3</h3>
+      <p>Paragraph.</p>
+      <h4>Classless h4</h4>
+      <p>Paragraph.</p>
+      <h5>Classless h5</h5>
+      <p>Paragraph.</p>
+      <h6>Classless h6</h6>
+      <p>Paragraph.</p>
+      <hgroup>
+        <p>Overline</p>
+        <h3>Classless hgroup</h3>
+        <p>Subtitle.</p>
+      </hgroup>
+      <p>Paragraph after the hgroup.</p>
+    </div>
+    <div class="ui-rich-text">
+      <h3 class="ui-h3">Classed h3</h3>
+      <p>Paragraph.</p>
+      <h4 class="ui-h4">Classed h4</h4>
+      <p>Paragraph.</p>
+      <h5 class="ui-h5">Classed h5</h5>
+      <p>Paragraph.</p>
+      <h6 class="ui-h6">Classed h6</h6>
+      <p>Paragraph.</p>
+      <div class="ui-hgroup">
+        <p class="ui-overline">Overline</p>
+        <h3 class="ui-h3">Classed hgroup</h3>
+        <p class="ui-p">Subtitle.</p>
+      </div>
+      <p>Paragraph after the classed hgroup.</p>
+    </div>
+  </div>
+  <div class="stress-typography-pair">
+    <div class="ui-rich-text">
+      <h3 class="ui-h1">An h3 that looks like an h1</h3>
+      <p>Paragraph under a visually large but semantically small heading.</p>
+      <h4 class="ui-h6">An h4 that looks like an h6</h4>
+      <p class="ui-p ui-large">A large paragraph.</p>
+      <p class="ui-p ui-small">A small paragraph.</p>
+      <p class="ui-caption">A caption.</p>
+      <p class="ui-overline">An overline outside an hgroup</p>
+      <h3>A classless h3 straight after an overline</h3>
+      <p>Paragraph.</p>
+    </div>
+    <div>
+      <h3 class="ui-h2">Outside rich text, an h3 as h2</h3>
+      <p class="ui-p">A classed paragraph outside rich text.</p>
+      <h4 class="ui-h4">Classed h4 outside rich text</h4>
+      <p class="ui-p">
+        Inline classes: <span class="ui-mark">ui-mark</span>,
+        <span class="ui-kbd">ui-kbd</span>, <span class="ui-var">ui-var</span>,
+        <span class="ui-samp">ui-samp</span>,
+        <span class="ui-abbr" title="Abbreviation">ui-abbr</span>,
+        <span class="ui-dfn">ui-dfn</span>, <span class="ui-u">ui-u</span>,
+        <span class="ui-s">ui-s</span>, <span class="ui-del">ui-del</span>,
+        <span class="ui-ins">ui-ins</span>,
+        <span class="ui-cite">ui-cite</span>, x<span class="ui-sup">sup</span>,
+        x<span class="ui-sub">sub</span> and
+        <span class="ui-small">ui-small</span>.
+      </p>
+      <blockquote class="ui-blockquote">
+        <p>A classed blockquote outside rich text.</p>
+        <footer>— <cite>Someone</cite></footer>
+      </blockquote>
+      <pre
+        class="ui-code-block"
+      ><code>.ui-code-block { outside: rich-text; }</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="stress" data-example="VerticalRhythm">
+  <h2>Vertical rhythm at the edges</h2>
+  <p>
+    Each dashed box is a rich text block or a <code>.ui-content</code> inside
+    one. The first and last child should touch the dashed edge: no margin should
+    leak above the first block or below the last.
+  </p>
+  <div class="stress-grid">
+    <div class="ui-rich-text stress-typography-box">
+      <h1>Starts with h1</h1>
+      <p>Ends with a paragraph.</p>
+    </div>
+    <div class="ui-rich-text stress-typography-box">
+      <hgroup>
+        <p>Overline</p>
+        <h2>Starts with hgroup</h2>
+      </hgroup>
+      <pre><code>ends with pre</code></pre>
+    </div>
+    <div class="ui-rich-text stress-typography-box">
+      <figure>
+        <blockquote>Starts with a figure.</blockquote>
+        <figcaption>Caption</figcaption>
+      </figure>
+      <figure>
+        <pre><code>ends with a figure</code></pre>
+      </figure>
+    </div>
+    <div class="ui-rich-text stress-typography-box">
+      <hr />
+      <p>Starts with an hr, ends with a heading.</p>
+      <h3>Trailing heading</h3>
+    </div>
+    <div class="ui-rich-text stress-typography-box">
+      <ul>
+        <li>Starts with a list</li>
+      </ul>
+      <table>
+        <tbody>
+          <tr>
+            <td>Ends with</td>
+            <td>a table</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ui-rich-text stress-typography-box">
+      <details open>
+        <summary>Starts with details</summary>
+        <p>Paragraph.</p>
+      </details>
+      <address>Ends with an address.</address>
+    </div>
+    <div class="ui-rich-text">
+      <p>A paragraph before a nested content block.</p>
+      <div class="ui-content stress-typography-box">
+        <h2>Nested .ui-content starts with h2</h2>
+        <p>And ends with a paragraph.</p>
+      </div>
+      <p>A paragraph after it.</p>
+    </div>
+    <div class="ui-rich-text">
+      <section class="stress-typography-box">
+        <h3>Plain section, starts with h3</h3>
+        <p>Not a .ui-content, so margins may leak.</p>
+      </section>
+      <p>A paragraph after the section.</p>
+    </div>
+    <div class="ui-rich-text stress-typography-box">
+      <p>
+        Wrapped in a single paragraph, nothing else. Lumbersexual praxis
+        distillery cold-pressed tilde keffiyeh cred vinyl.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="stress" data-example="ProseInComponents">
+  <h2>Prose inside components</h2>
+  <p>
+    Rich text inside a Card, Callout, Accordion, dialog-style Card, Table cells
+    and List items. Content should start and end flush with each component's
+    padding, with no doubled gaps.
+  </p>
+  <div class="stress-grid">
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <p>Card</p>
+        <h3>Rich text in a card</h3>
+        <p>Header subtitle.</p>
+      </hgroup>
+      <div class="ui-content ui-rich-text">
+        <h4>Content starts with a heading</h4>
+        <p>
+          A paragraph with <code>code</code> and
+          <a href="#stress-typo-prose-dialog">a link</a>.
+        </p>
+        <ul>
+          <li>One</li>
+          <li>Two</li>
+        </ul>
+        <pre><code>ends with pre</code></pre>
+      </div>
+      <div class="ui-actions">
+        <button class="ui-button" type="button">Cancel</button>
+        <button class="ui-button ui-filled" type="button">Save</button>
+      </div>
+    </div>
+    <div class="ui-card ui-tonal">
+      <div class="ui-content ui-rich-text">
+        <blockquote>
+          A tonal card that starts with a blockquote and ends with a table.
+        </blockquote>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Key</th>
+              <th scope="col">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Alpha</td>
+              <td>1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <article class="ui-callout ui-info">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+        ></path>
+      </svg>
+      <div class="ui-content ui-rich-text">
+        <h3 class="ui-title">Callout with rich text</h3>
+        <p>
+          A paragraph with <code>code</code>, <kbd>Esc</kbd> and
+          <a href="#stress-typo-prose-dialog">a link</a>.
+        </p>
+        <ol>
+          <li>First step</li>
+          <li>Second step</li>
+        </ol>
+        <pre tabindex="0"><code>npm install @opui/css</code></pre>
+      </div>
+    </article>
+    <article class="ui-callout ui-warning ui-outlined">
+      <div class="ui-content ui-rich-text">
+        <h3>Classless heading in a callout</h3>
+        <blockquote>A quote inside an outlined warning callout.</blockquote>
+        <dl>
+          <dt>Term</dt>
+          <dd>Description.</dd>
+        </dl>
+      </div>
+    </article>
+    <details class="ui-accordion ui-card ui-outlined ui-marker-rotate" open>
+      <summary>
+        Accordion with rich text
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+          />
+        </svg>
+      </summary>
+      <div class="ui-content ui-rich-text">
+        <h4>Starts with a heading</h4>
+        <p>Paragraph with <mark>a highlight</mark>.</p>
+        <ul>
+          <li>
+            <label><input type="checkbox" checked disabled /> Task</label>
+          </li>
+        </ul>
+        <figure>
+          <pre><code>ends with a figure</code></pre>
+          <figcaption>Caption</figcaption>
+        </figure>
+      </div>
+    </details>
+    <div
+      class="ui-card ui-elevated"
+      role="group"
+      aria-labelledby="stress-typo-prose-dialog"
+    >
+      <hgroup>
+        <h3 id="stress-typo-prose-dialog" class="ui-h4">Dialog-style card</h3>
+      </hgroup>
+      <div class="ui-content ui-rich-text">
+        <p>
+          Same markup as a dialog: an hgroup, rich text content and actions.
+        </p>
+        <ul>
+          <li>This removes 3 files.</li>
+          <li>It can't be undone.</li>
+        </ul>
+      </div>
+      <div class="ui-actions ui-align-end">
+        <button class="ui-button" type="button">Cancel</button>
+        <button class="ui-button ui-filled" type="button">Delete</button>
+      </div>
+    </div>
+  </div>
+  <table class="ui-table">
+    <caption>
+      Rich text inside table cells
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Feature</th>
+        <th scope="col">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Lists</th>
+        <td>
+          <div class="ui-rich-text">
+            <p>A cell with a paragraph and a list:</p>
+            <ul>
+              <li>One</li>
+              <li>Two</li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Code</th>
+        <td>
+          <div class="ui-rich-text">
+            <pre><code>cell &gt; pre</code></pre>
+            <p>A paragraph after the code block.</p>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ul class="ui-list ui-bordered">
+    <li>
+      <div class="ui-start">
+        <div class="ui-avatar">RT</div>
+      </div>
+      <div class="ui-text ui-rich-text">
+        <p>List item with <strong>rich text</strong></p>
+        <p>
+          Supporting text with <code>code</code> and
+          <a href="#stress-typo-prose-dialog">a link</a>.
+        </p>
+      </div>
+    </li>
+    <li>
+      <div class="ui-start">
+        <div class="ui-avatar">UL</div>
+      </div>
+      <div class="ui-text ui-rich-text">
+        <p>A list item with a nested list</p>
+        <ul>
+          <li>Nested one</li>
+          <li>Nested two</li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<section class="stress" data-example="ComponentsInProse">
+  <h2>Components inside prose</h2>
+  <p>
+    Components dropped into an article. Rich text should not restyle them: links
+    styled as buttons or chips keep their own color and decoration, component
+    lists and tables keep their own spacing, and inline components don't break
+    the line height.
+  </p>
+  <article class="ui-rich-text stress-typography-wide">
+    <h3>Inline components</h3>
+    <p>
+      A paragraph with an inline
+      <button class="ui-button ui-small ui-outlined" type="button">
+        Button
+      </button>
+      and a
+      <a class="ui-button ui-small ui-filled" href="#stress-typo-cip-end"
+        >link button</a
+      >
+      in the middle of the line, followed by enough text to wrap onto a second
+      line so we can see whether the line height stays even. A
+      <button class="ui-button ui-small" type="button">
+        Search <kbd>⌘K</kbd>
+      </button>
+      button with a keyboard hint, and a
+      <a class="ui-link" href="#stress-typo-cip-end">ui-link</a> next to a plain
+      <a href="#stress-typo-cip-end">rich text link</a>.
+    </p>
+    <p>
+      Chips:
+      <span class="ui-chip ui-tonal"><span class="ui-text">Tonal</span></span>
+      <a class="ui-chip ui-outlined" href="#stress-typo-cip-end"
+        ><span class="ui-text">Link chip</span></a
+      >
+      <button class="ui-chip ui-tonal" type="button">
+        <span class="ui-text">Button chip</span>
+      </button>
+      and avatars
+      <span class="ui-avatar">AB</span>
+      <a class="ui-avatar" href="#stress-typo-cip-end" aria-label="Profile"
+        >CD</a
+      >
+      inline with text, then a badge
+      <span class="ui-anchor ui-badge">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span class="ui-anchor-floating">
+          <span class="ui-badge-indicator">12</span>
+        </span>
+      </span>
+      on an icon, and the paragraph keeps going so it wraps onto another line.
+    </p>
+    <article class="ui-callout ui-success">
+      <div class="ui-content">
+        <h4 class="ui-title">A callout between paragraphs</h4>
+        <p>
+          Callout content that is not marked as rich text, sitting in the flow
+          of an article.
+        </p>
+      </div>
+    </article>
+    <p>A paragraph after the callout, then a form in the middle of the text:</p>
+    <form class="stress-stack">
+      <label class="ui-text-field">
+        <span class="ui-label">Name</span>
+        <span class="ui-field">
+          <input
+            type="text"
+            placeholder="Your name"
+            aria-describedby="stress-typo-cip-help"
+          />
+        </span>
+        <span class="ui-end-text" id="stress-typo-cip-help"
+          >Supporting text</span
+        >
+      </label>
+      <label class="ui-select">
+        <span class="ui-label" id="stress-typo-cip-select-label">Roast</span>
+        <span class="ui-field">
+          <select aria-labelledby="stress-typo-cip-select-label">
+            <option>Light</option>
+            <option>Medium</option>
+            <option>Dark</option>
+          </select>
+        </span>
+      </label>
+      <label class="ui-checkbox">
+        <input type="checkbox" checked />
+        <span class="ui-label">Subscribe to the newsletter</span>
+      </label>
+    </form>
+    <p>Component checkboxes inside a classless list:</p>
+    <ul>
+      <li>
+        <label class="ui-checkbox">
+          <input type="checkbox" checked />
+          <span class="ui-label"
+            >A .ui-checkbox as the first child of a li</span
+          >
+        </label>
+      </li>
+      <li>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-label">Another one</span>
+        </label>
+      </li>
+    </ul>
+    <p>A component list and table in the flow:</p>
+    <ul class="ui-list ui-bordered">
+      <li>
+        <div class="ui-start"><div class="ui-avatar">EF</div></div>
+        <div class="ui-text">
+          <p>Headline</p>
+          <p>Supporting text</p>
+        </div>
+      </li>
+      <li>
+        <div class="ui-start"><div class="ui-avatar">GH</div></div>
+        <div class="ui-text">
+          <p>Headline</p>
+          <p>Supporting text</p>
+        </div>
+      </li>
+    </ul>
+    <table class="ui-table">
+      <thead>
+        <tr>
+          <th scope="col">Band</th>
+          <th scope="col">Members</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Radiohead</td>
+          <td>5</td>
+        </tr>
+      </tbody>
+    </table>
+    <dl class="ui-description-list">
+      <div class="ui-item">
+        <dt class="ui-term">Price</dt>
+        <dd class="ui-description">6 950 000</dd>
+      </div>
+      <div class="ui-item">
+        <dt class="ui-term">Size</dt>
+        <dd class="ui-description">64 m²</dd>
+      </div>
+    </dl>
+    <hr class="ui-divider" />
+    <p>A paragraph after a component divider.</p>
+    <blockquote class="ui-blockquote">
+      A classed blockquote inside rich text.
+    </blockquote>
+    <pre
+      class="ui-code-block"
+    ><code>.ui-code-block { inside: rich-text; }</code></pre>
+    <div class="ui-not-rich-text">
+      <p>
+        Opted out with <code>.ui-not-rich-text</code>:
+        <a href="#stress-typo-cip-end">an unstyled link</a>.
+      </p>
+    </div>
+    <p id="stress-typo-cip-end">The last paragraph of the article.</p>
+  </article>
+</section>
+
+<section class="stress" data-example="Columns">
+  <h2>Columns at different widths</h2>
+  <p>
+    The same article at a fluid width, 40ch and 20ch. Headings, lists, tables
+    and code should adapt without overflowing their column.
+  </p>
+  <div class="stress-typography-columns">
+    <article class="ui-rich-text stress-typography-box">
+      <h3>A heading that wraps in narrower columns</h3>
+      <p>
+        Paragraph with <code>inline code</code>, <kbd>Ctrl</kbd> +
+        <kbd>K</kbd> and <a href="#stress-typo-columns-end">a link</a>.
+      </p>
+      <ol>
+        <li>
+          First item
+          <ul>
+            <li>Nested item that is long enough to wrap</li>
+          </ul>
+        </li>
+        <li>Second item</li>
+      </ol>
+      <blockquote>A short quote that wraps in narrow columns.</blockquote>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Share</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alpha</td>
+            <td>1 024.00</td>
+            <td>12.5%</td>
+          </tr>
+        </tbody>
+      </table>
+      <pre><code>const columns = ["wide", "40ch", "20ch"]</code></pre>
+    </article>
+    <article class="ui-rich-text stress-typography-box">
+      <h3>A heading that wraps in narrower columns</h3>
+      <p>
+        Paragraph with <code>inline code</code>, <kbd>Ctrl</kbd> +
+        <kbd>K</kbd> and <a href="#stress-typo-columns-end">a link</a>.
+      </p>
+      <ol>
+        <li>
+          First item
+          <ul>
+            <li>Nested item that is long enough to wrap</li>
+          </ul>
+        </li>
+        <li>Second item</li>
+      </ol>
+      <blockquote>A short quote that wraps in narrow columns.</blockquote>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Share</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alpha</td>
+            <td>1 024.00</td>
+            <td>12.5%</td>
+          </tr>
+        </tbody>
+      </table>
+      <pre
+        tabindex="0"
+      ><code>const columns = ["wide", "40ch", "20ch"]</code></pre>
+    </article>
+    <article class="ui-rich-text stress-typography-box">
+      <h3>A heading that wraps in narrower columns</h3>
+      <p>
+        Paragraph with <code>inline code</code>, <kbd>Ctrl</kbd> +
+        <kbd>K</kbd> and <a href="#stress-typo-columns-end">a link</a>.
+      </p>
+      <ol>
+        <li>
+          First item
+          <ul>
+            <li>Nested item that is long enough to wrap</li>
+          </ul>
+        </li>
+        <li>Second item</li>
+      </ol>
+      <blockquote>A short quote that wraps in narrow columns.</blockquote>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Share</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alpha</td>
+            <td>1 024.00</td>
+            <td>12.5%</td>
+          </tr>
+        </tbody>
+      </table>
+      <pre
+        tabindex="0"
+      ><code>const columns = ["wide", "40ch", "20ch"]</code></pre>
+      <p id="stress-typo-columns-end">End.</p>
+    </article>
+  </div>
+</section>

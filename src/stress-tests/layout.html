@@ -1,0 +1,1996 @@
+<style>
+  .stress-layout-container {
+    container-type: inline-size;
+  }
+
+  .stress-layout-header {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+  }
+
+  .stress-layout-header-title {
+    flex: 1 1 12rem;
+    min-inline-size: 0;
+  }
+
+  .stress-layout-medium {
+    align-content: start;
+    display: grid;
+    gap: var(--size-4);
+    inline-size: 24rem;
+    outline: var(--border-width) dashed var(--border-color);
+    outline-offset: var(--size-2);
+  }
+
+  .stress-layout-scheme {
+    align-content: start;
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-3);
+    inline-size: min(100%, 22rem);
+    padding: var(--size-4);
+  }
+
+  .stress-layout-sidebar {
+    align-items: start;
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: 16rem minmax(0, 1fr);
+  }
+
+  .stress-layout-tonal {
+    background-color: var(--surface-tonal);
+  }
+</style>
+<section class="stress" data-example="CardParts">
+  <h2>Card parts</h2>
+  <p>
+    Every card variant with every combination of header, content and actions,
+    plus an empty card. Padding should be the same on all sides, text buttons
+    should line up with the text and the empty card should not collapse into a
+    stray line.
+  </p>
+  <span class="stress-tag">Text</span>
+  <div class="stress-grid">
+    <div class="ui-card ui-text">
+      <hgroup>
+        <p>Overline</p>
+        <h3>Headline</h3>
+        <p>Subhead</p>
+      </hgroup>
+      <div class="ui-content">Supporting text below the header.</div>
+      <div class="ui-actions">
+        <button class="ui-button" type="button">Share</button
+        ><button class="ui-button" type="button">Learn more</button>
+      </div>
+    </div>
+    <div class="ui-card ui-text">
+      <hgroup>
+        <h3>Header only</h3>
+      </hgroup>
+    </div>
+    <div class="ui-card ui-text">
+      <div class="ui-content">Content only.</div>
+    </div>
+    <div class="ui-card ui-text">
+      <div class="ui-actions">
+        <button class="ui-button" type="button">Only</button
+        ><button class="ui-button" type="button">Actions</button>
+      </div>
+    </div>
+    <div class="ui-card ui-text"></div>
+  </div>
+  <span class="stress-tag">Outlined</span>
+  <div class="stress-grid">
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <p>Overline</p>
+        <h3>Headline</h3>
+        <p>Subhead</p>
+      </hgroup>
+      <div class="ui-content">Supporting text below the header.</div>
+      <div class="ui-actions">
+        <button class="ui-button" type="button">Share</button
+        ><button class="ui-button" type="button">Learn more</button>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <h3>Header only</h3>
+      </hgroup>
+    </div>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content">Content only.</div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <div class="ui-actions">
+        <button class="ui-button" type="button">Only</button
+        ><button class="ui-button" type="button">Actions</button>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined"></div>
+  </div>
+  <span class="stress-tag">Tonal</span>
+  <div class="stress-grid">
+    <div class="ui-card ui-tonal">
+      <hgroup>
+        <p>Overline</p>
+        <h3>Headline</h3>
+        <p>Subhead</p>
+      </hgroup>
+      <div class="ui-content">Supporting text below the header.</div>
+      <div class="ui-actions ui-align-end">
+        <button class="ui-button ui-outlined" type="button">Cancel</button
+        ><button class="ui-button ui-filled" type="button">Save</button>
+      </div>
+    </div>
+    <div class="ui-card ui-tonal">
+      <hgroup>
+        <h3>Header only</h3>
+      </hgroup>
+    </div>
+    <div class="ui-card ui-tonal">
+      <div class="ui-content">Content only.</div>
+    </div>
+    <div class="ui-card ui-tonal">
+      <div class="ui-actions ui-align-end">
+        <button class="ui-button ui-outlined" type="button">Only</button
+        ><button class="ui-button ui-filled" type="button">Actions</button>
+      </div>
+    </div>
+    <div class="ui-card ui-tonal"></div>
+  </div>
+  <span class="stress-tag">Elevated</span>
+  <div class="stress-grid">
+    <div class="ui-card ui-elevated">
+      <hgroup>
+        <p>Overline</p>
+        <h3>Headline</h3>
+        <p>Subhead</p>
+      </hgroup>
+      <div class="ui-content">Supporting text below the header.</div>
+      <div class="ui-actions">
+        <button
+          class="ui-button ui-rounded ui-ripple ui-small"
+          type="button"
+          aria-label="Favorite"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M3.384 7.13c2.972-4.17 9.167-4.174 12.146-.008l.465.65l.417-.593c2.955-4.195 9.16-4.236 12.17-.081A7.48 7.48 0 0 1 28 16.583L16.732 28.681a1 1 0 0 1-1.464 0L3.992 16.54a7.46 7.46 0 0 1-.608-9.41m10.52 1.155c-2.181-3.05-6.716-3.046-8.892.007a5.46 5.46 0 0 0 .446 6.887L16.002 26.53l10.534-11.31a5.48 5.48 0 0 0 .427-6.95c-2.205-3.044-6.751-3.013-8.916.06l-1.229 1.744a1 1 0 0 1-1.63.006z"
+            ></path>
+          </svg></button
+        ><button
+          class="ui-button ui-rounded ui-ripple ui-small"
+          type="button"
+          aria-label="More"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="ui-card ui-elevated">
+      <hgroup>
+        <h3>Header only</h3>
+      </hgroup>
+    </div>
+    <div class="ui-card ui-elevated">
+      <div class="ui-content">Content only.</div>
+    </div>
+    <div class="ui-card ui-elevated">
+      <div class="ui-actions ui-align-end">
+        <button class="ui-button" type="button">Only</button
+        ><button class="ui-button" type="button">Actions</button>
+      </div>
+    </div>
+    <div class="ui-card ui-elevated"></div>
+  </div>
+</section>
+<section class="stress" data-example="UnevenGrid">
+  <h2>Uneven card grid</h2>
+  <p>
+    An auto-fill grid of cards with very different content. Cards in a row
+    stretch to the same height; look at whether the actions line up along the
+    bottom and how images with odd aspect ratios fit.
+  </p>
+  <div class="stress-grid">
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <p>Short</p>
+        <h3>Tiny card</h3>
+      </hgroup>
+      <div class="ui-actions">
+        <button class="ui-button" type="button">Open</button>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <p>Long</p>
+        <h3>A card with a lot to say</h3>
+        <p>And a subhead that also goes on for a while</p>
+      </hgroup>
+      <div class="ui-content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+        sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
+        ac mollis neque ante id justo. Nam tempor euismod nisi ac ornare.
+        Pellentesque id sapien lacinia, venenatis est aliquam, dignissim elit.
+      </div>
+      <div class="ui-actions">
+        <button class="ui-button" type="button">Open</button>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='200' viewBox='0 0 600 200'%3E%3Crect width='600' height='200' fill='%2393c5fd'/%3E%3Ccircle cx='300' cy='100' r='66' fill='%231e3a8a'/%3E%3C/svg%3E"
+        alt="Wide banner, three to one"
+      />
+      <hgroup>
+        <h3>Wide image</h3>
+      </hgroup>
+      <div class="ui-actions">
+        <button class="ui-button" type="button">Open</button>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='400' viewBox='0 0 200 400'%3E%3Crect width='200' height='400' fill='%23fcd34d'/%3E%3Ccircle cx='100' cy='200' r='66' fill='%2392400e'/%3E%3C/svg%3E"
+        alt="Tall portrait, one to two"
+      />
+      <hgroup>
+        <h3>Tall image</h3>
+      </hgroup>
+      <div class="ui-actions">
+        <button class="ui-button" type="button">Open</button>
+      </div>
+    </div>
+    <div class="ui-card ui-elevated">
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2400' height='600' viewBox='0 0 2400 600'%3E%3Crect width='2400' height='600' fill='%23f9a8d4'/%3E%3Ccircle cx='1200' cy='300' r='200' fill='%23831843'/%3E%3C/svg%3E"
+        alt="Very large panorama, four to one"
+      />
+      <div class="ui-content">Image much wider than the card.</div>
+    </div>
+    <div class="ui-card ui-elevated">
+      <hgroup>
+        <h3>Image after the content</h3>
+      </hgroup>
+      <div class="ui-content">The image sits at the bottom edge.</div>
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%2386efac'/%3E%3Ccircle cx='150' cy='150' r='100' fill='%2314532d'/%3E%3C/svg%3E"
+        alt="Square tile"
+      />
+    </div>
+    <div class="ui-card ui-tonal">
+      <hgroup>
+        <p>Overline_that_never_breaks_because_it_has_no_spaces_at_all</p>
+        <h3>Pneumonoultramicroscopicsilicovolcanoconiosis</h3>
+      </hgroup>
+      <div class="ui-content">
+        https://example.com/a/very/long/url/without/any/spaces/that/keeps/going
+      </div>
+      <div class="ui-actions">
+        <button class="ui-button" type="button">Open</button>
+      </div>
+    </div>
+    <div class="ui-card ui-tonal">
+      <div class="ui-content">Content only, no actions.</div>
+    </div>
+    <article class="ui-callout ui-info">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+        ></path>
+      </svg>
+      <div class="ui-content">
+        <h3 class="ui-title">Callout in the grid</h3>
+        <p>
+          Stretched to the row height, its title and text should stay together
+          at the top.
+        </p>
+      </div>
+    </article>
+    <div class="ui-card ui-outlined">
+      <div class="ui-actions ui-align-end">
+        <button class="ui-button ui-outlined" type="button">
+          Only actions
+        </button>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <h3>Too many actions</h3>
+      </hgroup>
+      <div class="ui-actions">
+        <button class="ui-button ui-outlined" type="button">Archive</button
+        ><button class="ui-button ui-outlined" type="button">Duplicate</button
+        ><button class="ui-button ui-filled" type="button">Publish</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="Columns">
+  <h2>Narrow, medium and wide columns</h2>
+  <p>
+    The same profile block in a 16rem, 24rem and 40rem column. Nothing should
+    overflow its column, and the description list should only go side by side
+    when the column is wide.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-narrow">
+      <div class="ui-card ui-outlined">
+        <hgroup>
+          <p>Team member</p>
+          <h3>Maria Johanna Lindqvist-Andersson</h3>
+          <p>Senior principal staff engineer, platform</p>
+        </hgroup>
+        <ul class="ui-list ui-transparent">
+          <li>
+            <div class="ui-start"><div class="ui-avatar">ML</div></div>
+            <div class="ui-text">
+              <p>maria.lindqvist-andersson@example.com</p>
+              <p>Work email</p>
+            </div>
+            <div class="ui-end">Primary</div>
+          </li>
+        </ul>
+        <div class="ui-content stress-layout-container">
+          <dl class="ui-description-list ui-bordered ui-dotted">
+            <div class="ui-item">
+              <dt class="ui-term">Location</dt>
+              <dd class="ui-description">Helsinki</dd>
+            </div>
+            <div class="ui-item">
+              <dt class="ui-term">Time zone</dt>
+              <dd class="ui-description">Europe/Helsinki (UTC+3)</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="ui-actions">
+          <button class="ui-button" type="button">Message</button
+          ><button class="ui-button" type="button">Schedule</button>
+        </div>
+      </div>
+      <article class="ui-callout ui-info">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+          ></path>
+        </svg>
+        <div class="ui-content">
+          <h3 class="ui-title">Out of office</h3>
+          <p>Back on Monday. Responses may be slower until then.</p>
+        </div>
+      </article>
+      <div role="group" aria-label="View" class="ui-button-group ui-outlined">
+        <button class="ui-button" type="button">Day</button
+        ><button class="ui-button" type="button">Week</button
+        ><button class="ui-button" type="button">Month</button
+        ><button class="ui-button" type="button">Year</button>
+      </div>
+    </div>
+    <div class="stress-layout-medium">
+      <div class="ui-card ui-outlined">
+        <hgroup>
+          <p>Team member</p>
+          <h3>Maria Johanna Lindqvist-Andersson</h3>
+          <p>Senior principal staff engineer, platform</p>
+        </hgroup>
+        <ul class="ui-list ui-transparent">
+          <li>
+            <div class="ui-start"><div class="ui-avatar">ML</div></div>
+            <div class="ui-text">
+              <p>maria.lindqvist-andersson@example.com</p>
+              <p>Work email</p>
+            </div>
+            <div class="ui-end">Primary</div>
+          </li>
+        </ul>
+        <div class="ui-content stress-layout-container">
+          <dl class="ui-description-list ui-bordered ui-dotted">
+            <div class="ui-item">
+              <dt class="ui-term">Location</dt>
+              <dd class="ui-description">Helsinki</dd>
+            </div>
+            <div class="ui-item">
+              <dt class="ui-term">Time zone</dt>
+              <dd class="ui-description">Europe/Helsinki (UTC+3)</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="ui-actions">
+          <button class="ui-button" type="button">Message</button
+          ><button class="ui-button" type="button">Schedule</button>
+        </div>
+      </div>
+      <article class="ui-callout ui-info">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+          ></path>
+        </svg>
+        <div class="ui-content">
+          <h3 class="ui-title">Out of office</h3>
+          <p>Back on Monday. Responses may be slower until then.</p>
+        </div>
+      </article>
+      <div role="group" aria-label="View" class="ui-button-group ui-outlined">
+        <button class="ui-button" type="button">Day</button
+        ><button class="ui-button" type="button">Week</button
+        ><button class="ui-button" type="button">Month</button
+        ><button class="ui-button" type="button">Year</button>
+      </div>
+    </div>
+    <div class="stress-wide-column stress-stack">
+      <div class="ui-card ui-outlined">
+        <hgroup>
+          <p>Team member</p>
+          <h3>Maria Johanna Lindqvist-Andersson</h3>
+          <p>Senior principal staff engineer, platform</p>
+        </hgroup>
+        <ul class="ui-list ui-transparent">
+          <li>
+            <div class="ui-start"><div class="ui-avatar">ML</div></div>
+            <div class="ui-text">
+              <p>maria.lindqvist-andersson@example.com</p>
+              <p>Work email</p>
+            </div>
+            <div class="ui-end">Primary</div>
+          </li>
+        </ul>
+        <div class="ui-content stress-layout-container">
+          <dl class="ui-description-list ui-bordered ui-dotted">
+            <div class="ui-item">
+              <dt class="ui-term">Location</dt>
+              <dd class="ui-description">Helsinki</dd>
+            </div>
+            <div class="ui-item">
+              <dt class="ui-term">Time zone</dt>
+              <dd class="ui-description">Europe/Helsinki (UTC+3)</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="ui-actions">
+          <button class="ui-button" type="button">Message</button
+          ><button class="ui-button" type="button">Schedule</button>
+        </div>
+      </div>
+      <article class="ui-callout ui-info">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+          ></path>
+        </svg>
+        <div class="ui-content">
+          <h3 class="ui-title">Out of office</h3>
+          <p>Back on Monday. Responses may be slower until then.</p>
+        </div>
+      </article>
+      <div role="group" aria-label="View" class="ui-button-group ui-outlined">
+        <button class="ui-button" type="button">Day</button
+        ><button class="ui-button" type="button">Week</button
+        ><button class="ui-button" type="button">Month</button
+        ><button class="ui-button" type="button">Year</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="DescriptionListContainer">
+  <h2>Description list with and without a container</h2>
+  <p>
+    The description list goes side by side through a container query. In 16rem
+    columns, the list without its own size container follows the page width and
+    goes side by side anyway; the one with a container stays stacked.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-narrow">
+      <div class="ui-card ui-outlined">
+        <hgroup>
+          <h3>No container</h3>
+        </hgroup>
+        <div class="ui-content">
+          <dl class="ui-description-list ui-bordered">
+            <div class="ui-item">
+              <dt class="ui-term">Price</dt>
+              <dd class="ui-description">6 950 000</dd>
+            </div>
+            <div class="ui-item">
+              <dt class="ui-term">Time zone</dt>
+              <dd class="ui-description">Europe/Helsinki (UTC+3)</dd>
+            </div>
+            <div class="ui-item">
+              <dt class="ui-term">Rooms</dt>
+              <dd class="ui-description">3</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="stress-narrow">
+      <div class="ui-card ui-outlined">
+        <hgroup>
+          <h3>Inline size container</h3>
+        </hgroup>
+        <div class="ui-content stress-layout-container">
+          <dl class="ui-description-list ui-bordered">
+            <div class="ui-item">
+              <dt class="ui-term">Price</dt>
+              <dd class="ui-description">6 950 000</dd>
+            </div>
+            <div class="ui-item">
+              <dt class="ui-term">Time zone</dt>
+              <dd class="ui-description">Europe/Helsinki (UTC+3)</dd>
+            </div>
+            <div class="ui-item">
+              <dt class="ui-term">Rooms</dt>
+              <dd class="ui-description">3</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="Nesting">
+  <h2>Nesting</h2>
+  <p>
+    Containers inside containers: card in card, list, accordion group and
+    callout in a card, card inside an accordion. Inner surfaces should stay
+    distinguishable from the outer ones and padding should not double up.
+  </p>
+  <div class="stress-grid">
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <h3>Card in card</h3>
+      </hgroup>
+      <div class="ui-content stress-stack">
+        <div class="ui-card ui-tonal">
+          <hgroup>
+            <h4>Inner tonal</h4>
+          </hgroup>
+          <div class="ui-content">Nested content.</div>
+        </div>
+        <div class="ui-card ui-elevated">
+          <hgroup>
+            <h4>Inner elevated</h4>
+          </hgroup>
+          <div class="ui-actions">
+            <button class="ui-button" type="button">Action</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <h3>List in card</h3>
+      </hgroup>
+      <ul class="ui-list">
+        <li>
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text">
+            <p>Filled list</p>
+            <p>Edge to edge inside the card</p>
+          </div>
+        </li>
+        <li>
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text"><p>Second item</p></div>
+          <div class="ui-end">12</div>
+        </li>
+      </ul>
+      <div class="ui-content">
+        <ul class="ui-list ui-bordered ui-tonal">
+          <li>
+            <div class="ui-text"><p>Tonal list</p></div>
+          </li>
+          <li>
+            <div class="ui-text"><p>Inside content</p></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="ui-card ui-elevated">
+      <hgroup>
+        <h3>Accordion group in card</h3>
+      </hgroup>
+      <div class="ui-content">
+        <div class="ui-card ui-outlined" role="group">
+          <details class="ui-accordion ui-card ui-marker-rotate" open>
+            <summary>
+              First
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content"><p>Open by default.</p></div>
+          </details>
+          <details class="ui-accordion ui-card ui-marker-rotate">
+            <summary>
+              Second
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                ></path>
+              </svg>
+            </summary>
+            <div class="ui-content"><p>Closed.</p></div>
+          </details>
+        </div>
+      </div>
+    </div>
+    <div class="ui-card ui-tonal">
+      <hgroup>
+        <h3>Callout in tonal card</h3>
+      </hgroup>
+      <div class="ui-content stress-stack">
+        <article class="ui-callout">
+          <div class="ui-content">Tonal callout on a tonal card.</div>
+        </article>
+        <article class="ui-callout ui-warning ui-outlined">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M17.25 22a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0M16 9a1 1 0 0 0-1 1v8a1 1 0 1 0 2 0v-8a1 1 0 0 0-1-1m-3.064-5.191c1.332-2.41 4.796-2.41 6.128 0l10.493 18.999C30.846 25.14 29.158 28 26.494 28H5.507c-2.665 0-4.352-2.86-3.064-5.192zm4.377.967a1.5 1.5 0 0 0-2.626 0L4.194 23.775A1.5 1.5 0 0 0 5.507 26h20.987a1.5 1.5 0 0 0 1.313-2.225z"
+            ></path>
+          </svg>
+          <div class="ui-content">Outlined warning on a tonal card.</div>
+        </article>
+      </div>
+    </div>
+    <div class="stress-stack">
+      <details class="ui-accordion ui-card ui-marker-rotate ui-outlined" open>
+        <summary>
+          Card inside accordion
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+            ></path>
+          </svg>
+        </summary>
+        <div class="ui-content">
+          <div class="ui-card ui-elevated">
+            <hgroup>
+              <h3>Nested card</h3>
+            </hgroup>
+            <div class="ui-content">Lives in the accordion content.</div>
+            <div class="ui-actions">
+              <button class="ui-button" type="button">Action</button>
+            </div>
+          </div>
+        </div>
+        <div class="ui-actions">
+          <button class="ui-button" type="button">Cancel</button
+          ><button class="ui-button" type="button">Agree</button>
+        </div>
+      </details>
+      <details class="ui-accordion ui-card ui-marker-rotate">
+        <summary>
+          Text accordion, closed
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+            ></path>
+          </svg>
+        </summary>
+        <div class="ui-content"><p>Hidden content.</p></div>
+      </details>
+    </div>
+    <div class="stress-stack">
+      <article class="ui-callout">
+        <div class="ui-content">
+          <h3 class="ui-title">Callout with a chip, no leading icon</h3>
+          <p>
+            The chip has an icon. The callout should not reserve an icon column.
+          </p>
+          <p>
+            <button class="ui-chip ui-tonal" type="button">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+              >
+                <path
+                  fill="currentColor"
+                  d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
+                ></path></svg
+              ><span class="ui-text">Got it</span>
+            </button>
+          </p>
+        </div>
+      </article>
+      <article class="ui-callout ui-info">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+          ></path>
+        </svg>
+        <div class="ui-content">
+          <h3 class="ui-title">Callout with a list</h3>
+          <ul class="ui-list ui-transparent ui-dense ui-gutterless">
+            <li>
+              <div class="ui-text"><p>First point</p></div>
+            </li>
+            <li>
+              <div class="ui-text"><p>Second point</p></div>
+            </li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="DashboardHeader">
+  <h2>Dashboard header</h2>
+  <p>
+    A header row with avatar, title, badges, a button group and a menu trigger,
+    at three widths. Items should wrap cleanly, the title should truncate or
+    wrap without pushing controls out, and everything should be vertically
+    centered.
+  </p>
+  <div class="stress-stack">
+    <span class="stress-tag">Wide</span>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content stress-layout-header">
+        <span class="ui-anchor ui-badge ui-dot ui-success"
+          ><span class="ui-avatar ui-squircle">PR</span
+          ><span class="ui-anchor-floating"
+            ><span class="ui-badge-indicator"></span></span
+        ></span>
+        <div class="stress-layout-header-title">
+          <h3>Project Resonance quarterly overview</h3>
+          <div class="stress-chips">
+            <span class="ui-chip ui-tonal ui-small"
+              ><span class="ui-text">Production</span></span
+            ><span class="ui-chip ui-outlined ui-small"
+              ><span class="ui-text">v2.14.0</span></span
+            >
+          </div>
+        </div>
+        <div
+          role="group"
+          aria-label="Range"
+          class="ui-button-group ui-outlined ui-small"
+        >
+          <button class="ui-button" type="button">7d</button
+          ><button class="ui-button" type="button">30d</button
+          ><button class="ui-button" type="button">90d</button>
+        </div>
+        <span class="ui-anchor ui-badge ui-critical"
+          ><button class="ui-button ui-tonal ui-small" type="button">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span>Alerts</span></button
+          ><span class="ui-anchor-floating"
+            ><span class="ui-badge-indicator">3</span></span
+          ></span
+        >
+        <button
+          class="ui-button ui-rounded ui-ripple ui-small"
+          type="button"
+          aria-label="More actions"
+          commandfor="stress-layout-menu-1"
+          command="toggle-popover"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+            ></path>
+          </svg>
+        </button>
+        <menu class="ui-menu ui-list" id="stress-layout-menu-1" popover>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-layout-menu-1"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Export</p></div>
+            </button>
+          </li>
+        </menu>
+      </div>
+    </div>
+    <span class="stress-tag">Medium</span>
+    <div class="stress-layout-medium">
+      <div class="ui-card ui-outlined">
+        <div class="ui-content stress-layout-header">
+          <span class="ui-anchor ui-badge ui-dot ui-success"
+            ><span class="ui-avatar ui-squircle">PR</span
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator"></span></span
+          ></span>
+          <div class="stress-layout-header-title">
+            <h3>Project Resonance quarterly overview</h3>
+            <div class="stress-chips">
+              <span class="ui-chip ui-tonal ui-small"
+                ><span class="ui-text">Production</span></span
+              ><span class="ui-chip ui-outlined ui-small"
+                ><span class="ui-text">v2.14.0</span></span
+              >
+            </div>
+          </div>
+          <div
+            role="group"
+            aria-label="Range"
+            class="ui-button-group ui-outlined ui-small"
+          >
+            <button class="ui-button" type="button">7d</button
+            ><button class="ui-button" type="button">30d</button
+            ><button class="ui-button" type="button">90d</button>
+          </div>
+          <span class="ui-anchor ui-badge ui-critical"
+            ><button class="ui-button ui-tonal ui-small" type="button">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+              >
+                <path
+                  fill="currentColor"
+                  d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+                ></path></svg
+              ><span>Alerts</span></button
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">3</span></span
+            ></span
+          >
+          <button
+            class="ui-button ui-rounded ui-ripple ui-small"
+            type="button"
+            aria-label="More actions"
+            commandfor="stress-layout-menu-2"
+            command="toggle-popover"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+              ></path>
+            </svg>
+          </button>
+          <menu class="ui-menu ui-list" id="stress-layout-menu-2" popover>
+            <li>
+              <button
+                type="button"
+                commandfor="stress-layout-menu-2"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>Export</p></div>
+              </button>
+            </li>
+          </menu>
+        </div>
+      </div>
+    </div>
+    <span class="stress-tag">Narrow</span>
+    <div class="stress-narrow">
+      <div class="ui-card ui-outlined">
+        <div class="ui-content stress-layout-header">
+          <span class="ui-anchor ui-badge ui-dot ui-success"
+            ><span class="ui-avatar ui-squircle">PR</span
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator"></span></span
+          ></span>
+          <div class="stress-layout-header-title">
+            <h3>Project Resonance quarterly overview</h3>
+            <div class="stress-chips">
+              <span class="ui-chip ui-tonal ui-small"
+                ><span class="ui-text">Production</span></span
+              ><span class="ui-chip ui-outlined ui-small"
+                ><span class="ui-text">v2.14.0</span></span
+              >
+            </div>
+          </div>
+          <div
+            role="group"
+            aria-label="Range"
+            class="ui-button-group ui-outlined ui-small"
+          >
+            <button class="ui-button" type="button">7d</button
+            ><button class="ui-button" type="button">30d</button
+            ><button class="ui-button" type="button">90d</button>
+          </div>
+          <span class="ui-anchor ui-badge ui-critical"
+            ><button class="ui-button ui-tonal ui-small" type="button">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+              >
+                <path
+                  fill="currentColor"
+                  d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+                ></path></svg
+              ><span>Alerts</span></button
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">3</span></span
+            ></span
+          >
+          <button
+            class="ui-button ui-rounded ui-ripple ui-small"
+            type="button"
+            aria-label="More actions"
+            commandfor="stress-layout-menu-3"
+            command="toggle-popover"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+              ></path>
+            </svg>
+          </button>
+          <menu class="ui-menu ui-list" id="stress-layout-menu-3" popover>
+            <li>
+              <button
+                type="button"
+                commandfor="stress-layout-menu-3"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>Export</p></div>
+              </button>
+            </li>
+          </menu>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="SidebarLayout">
+  <h2>Sidebar and content</h2>
+  <p>
+    A navigation list in a fixed sidebar next to a card grid. The selected item,
+    counts and avatars should line up, and the cards should reflow in the
+    remaining space.
+  </p>
+  <div class="stress-layout-sidebar">
+    <nav aria-label="Workspace" class="ui-card ui-tonal">
+      <hgroup>
+        <p>Workspace</p>
+        <h3>Northwind</h3>
+      </hgroup>
+      <ul class="ui-list ui-transparent ui-dense">
+        <li>
+          <a href="#stress-layout-sidebar-inbox" aria-current="page">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+              >
+                <path
+                  fill="currentColor"
+                  d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>Inbox</p></div>
+            <div class="ui-end">1 284</div>
+          </a>
+        </li>
+        <li>
+          <a href="#stress-layout-sidebar-people">
+            <div class="ui-start">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+              >
+                <path
+                  fill="currentColor"
+                  d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
+                ></path>
+              </svg>
+            </div>
+            <div class="ui-text"><p>People and organisations directory</p></div>
+            <div class="ui-end">99+</div>
+          </a>
+        </li>
+        <li class="ui-border-top">
+          <a href="#stress-layout-sidebar-ada">
+            <div class="ui-start"><div class="ui-avatar">AL</div></div>
+            <div class="ui-text">
+              <p>Ada Lovelace</p>
+              <p>Online</p>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="#stress-layout-sidebar-grace">
+            <div class="ui-start">
+              <div class="ui-avatar ui-rounded">GH</div>
+            </div>
+            <div class="ui-text">
+              <p>Grace Hopper</p>
+              <p>Away for the rest of the afternoon</p>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <hr class="ui-divider" />
+      <div class="ui-actions">
+        <button class="ui-button ui-outlined ui-small" type="button">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+            ></path></svg
+          ><span>New project</span>
+        </button>
+      </div>
+    </nav>
+    <div class="stress-stack">
+      <article class="ui-callout ui-warning">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M17.25 22a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0M16 9a1 1 0 0 0-1 1v8a1 1 0 1 0 2 0v-8a1 1 0 0 0-1-1m-3.064-5.191c1.332-2.41 4.796-2.41 6.128 0l10.493 18.999C30.846 25.14 29.158 28 26.494 28H5.507c-2.665 0-4.352-2.86-3.064-5.192zm4.377.967a1.5 1.5 0 0 0-2.626 0L4.194 23.775A1.5 1.5 0 0 0 5.507 26h20.987a1.5 1.5 0 0 0 1.313-2.225z"
+          ></path>
+        </svg>
+        <div class="ui-content">Your trial ends in 3 days.</div>
+      </article>
+      <div class="stress-grid">
+        <div class="ui-card ui-elevated">
+          <hgroup>
+            <p>Revenue</p>
+            <h3>€ 48 210</h3>
+            <p>+12% from last month</p>
+          </hgroup>
+        </div>
+        <div class="ui-card ui-elevated">
+          <hgroup>
+            <p>Active users</p>
+            <h3>2 931</h3>
+            <p>−3% from last month</p>
+          </hgroup>
+        </div>
+        <div class="ui-card ui-elevated">
+          <hgroup>
+            <p>Open tickets</p>
+            <h3>17</h3>
+          </hgroup>
+          <div class="ui-actions">
+            <button class="ui-button" type="button">View all</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="SettingsPage">
+  <h2>Settings page</h2>
+  <p>
+    Tabs containing cards, which contain lists with switches and trailing text.
+    The tab panel should not add extra space above the first card, and the list
+    rows should line up with the card header.
+  </p>
+  <div class="ui-tabs ui-line" role="tablist">
+    <input
+      type="radio"
+      name="stress-layout-settings"
+      id="stress-layout-tab-general"
+      class="ui-tab-input"
+      checked
+      aria-controls="stress-layout-panel-general"
+    />
+    <label for="stress-layout-tab-general" class="ui-tab-label" role="tab"
+      >General</label
+    >
+    <div
+      id="stress-layout-panel-general"
+      class="ui-tab-panel"
+      role="tabpanel"
+      aria-labelledby="stress-layout-tab-general"
+    >
+      <div class="stress-grid">
+        <div class="ui-card ui-outlined">
+          <hgroup>
+            <h3>Notifications</h3>
+            <p>Choose what reaches you.</p>
+          </hgroup>
+          <ul class="ui-list ui-transparent">
+            <li>
+              <label class="ui-switch" for="stress-layout-switch-1">
+                <div class="ui-text">Email digests</div>
+                <div class="ui-end">
+                  <input
+                    id="stress-layout-switch-1"
+                    type="checkbox"
+                    role="switch"
+                    checked
+                  />
+                </div>
+              </label>
+            </li>
+            <li>
+              <label class="ui-switch" for="stress-layout-switch-2">
+                <div class="ui-text">
+                  Push notifications for mentions and direct replies
+                </div>
+                <div class="ui-end">
+                  <input
+                    id="stress-layout-switch-2"
+                    type="checkbox"
+                    role="switch"
+                  />
+                </div>
+              </label>
+            </li>
+          </ul>
+        </div>
+        <div class="ui-card ui-outlined">
+          <hgroup>
+            <h3>Storage</h3>
+          </hgroup>
+          <ul class="ui-list ui-transparent ui-bordered">
+            <li>
+              <div class="ui-text"><p>Documents</p></div>
+              <div class="ui-end">2.4 GB</div>
+            </li>
+            <li>
+              <div class="ui-text"><p>Photos</p></div>
+              <div class="ui-end">812 MB</div>
+            </li>
+            <li>
+              <div class="ui-text"><p>Backups</p></div>
+              <div class="ui-end">14 GB</div>
+            </li>
+          </ul>
+          <div class="ui-actions ui-align-end">
+            <button class="ui-button" type="button">Manage</button>
+          </div>
+        </div>
+        <div class="ui-card ui-outlined">
+          <hgroup>
+            <h3>Danger zone</h3>
+          </hgroup>
+          <div class="ui-content">
+            <article class="ui-callout ui-critical ui-outlined">
+              <div class="ui-content">
+                Deleting the workspace cannot be undone.
+              </div>
+            </article>
+          </div>
+          <div class="ui-actions ui-align-end">
+            <button class="ui-button ui-critical ui-filled" type="button">
+              Delete workspace
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input
+      type="radio"
+      name="stress-layout-settings"
+      id="stress-layout-tab-members"
+      class="ui-tab-input"
+      aria-controls="stress-layout-panel-members"
+    />
+    <label for="stress-layout-tab-members" class="ui-tab-label" role="tab"
+      ><span class="ui-anchor ui-badge ui-neutral"
+        ><span>Members</span
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator">12</span></span
+        ></span
+      ></label
+    >
+    <div
+      id="stress-layout-panel-members"
+      class="ui-tab-panel"
+      role="tabpanel"
+      aria-labelledby="stress-layout-tab-members"
+    >
+      Members.
+    </div>
+    <input
+      type="radio"
+      name="stress-layout-settings"
+      id="stress-layout-tab-billing"
+      class="ui-tab-input"
+      aria-controls="stress-layout-panel-billing"
+    />
+    <label for="stress-layout-tab-billing" class="ui-tab-label" role="tab"
+      ><span class="ui-anchor ui-badge ui-dot ui-critical"
+        ><span>Billing</span
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span></span></span
+    ></label>
+    <div
+      id="stress-layout-panel-billing"
+      class="ui-tab-panel"
+      role="tabpanel"
+      aria-labelledby="stress-layout-tab-billing"
+    >
+      Billing.
+    </div>
+  </div>
+  <div class="ui-card ui-outlined">
+    <div class="ui-tabs ui-outlined" role="tablist">
+      <input
+        type="radio"
+        name="stress-layout-card-tabs"
+        id="stress-layout-card-tab-1"
+        class="ui-tab-input"
+        checked
+        aria-controls="stress-layout-card-panel-1"
+      />
+      <label for="stress-layout-card-tab-1" class="ui-tab-label" role="tab"
+        >Tabs in a card</label
+      >
+      <div
+        id="stress-layout-card-panel-1"
+        class="ui-tab-panel"
+        role="tabpanel"
+        aria-labelledby="stress-layout-card-tab-1"
+      >
+        The tabs are a direct child of the card, so they get no padding from it.
+      </div>
+      <input
+        type="radio"
+        name="stress-layout-card-tabs"
+        id="stress-layout-card-tab-2"
+        class="ui-tab-input"
+        aria-controls="stress-layout-card-panel-2"
+      />
+      <label for="stress-layout-card-tab-2" class="ui-tab-label" role="tab"
+        >Second</label
+      >
+      <div
+        id="stress-layout-card-panel-2"
+        class="ui-tab-panel"
+        role="tabpanel"
+        aria-labelledby="stress-layout-card-tab-2"
+      >
+        Second panel.
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="Surfaces">
+  <h2>Surfaces and color schemes</h2>
+  <p>
+    Cards, lists, callouts and chips on a tonal background and inside forced
+    light and dark subtrees. Tonal cards must still be visible on a tonal
+    background, and each subtree should look the same in both page color
+    schemes.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-layout-scheme stress-layout-tonal">
+      <span class="stress-tag">Tonal background</span>
+      <div class="ui-card ui-tonal">
+        <div class="ui-content">Tonal card</div>
+      </div>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">Outlined card</div>
+      </div>
+      <div class="ui-card ui-elevated">
+        <div class="ui-content">Elevated card</div>
+      </div>
+      <div class="ui-card ui-text"><div class="ui-content">Text card</div></div>
+      <ul class="ui-list ui-tonal">
+        <li>
+          <div class="ui-text"><p>Tonal list</p></div>
+        </li>
+      </ul>
+      <article class="ui-callout">
+        <div class="ui-content">Tonal callout</div>
+      </article>
+      <div class="stress-chips">
+        <span class="ui-chip ui-tonal"
+          ><span class="ui-text">Tonal chip</span></span
+        ><span class="ui-chip ui-outlined"
+          ><span class="ui-text">Outlined chip</span></span
+        >
+      </div>
+      <hr class="ui-divider ui-border-tonal" />
+    </div>
+    <div class="stress-layout-scheme ui-light">
+      <span class="stress-tag">.ui-light</span>
+      <div class="ui-card ui-tonal">
+        <div class="ui-content">Tonal card</div>
+      </div>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">Outlined card</div>
+      </div>
+      <div class="ui-card ui-elevated">
+        <div class="ui-content">Elevated card</div>
+      </div>
+      <ul class="ui-list">
+        <li>
+          <div class="ui-text"><p>Filled list</p></div>
+        </li>
+      </ul>
+      <article class="ui-callout ui-success">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
+          ></path>
+        </svg>
+        <div class="ui-content">Success callout</div>
+      </article>
+      <div class="stress-chips">
+        <span class="ui-chip ui-tonal"
+          ><span class="ui-text">Tonal chip</span></span
+        ><span class="ui-chip ui-outlined"
+          ><span class="ui-text">Outlined chip</span></span
+        >
+      </div>
+      <div
+        role="group"
+        aria-label="Light actions"
+        class="ui-button-group ui-tonal"
+      >
+        <button class="ui-button" type="button">One</button
+        ><button class="ui-button" type="button">Two</button>
+      </div>
+    </div>
+    <div class="stress-layout-scheme ui-dark">
+      <span class="stress-tag">.ui-dark</span>
+      <div class="ui-card ui-tonal">
+        <div class="ui-content">Tonal card</div>
+      </div>
+      <div class="ui-card ui-outlined">
+        <div class="ui-content">Outlined card</div>
+      </div>
+      <div class="ui-card ui-elevated">
+        <div class="ui-content">Elevated card</div>
+      </div>
+      <ul class="ui-list">
+        <li>
+          <div class="ui-text"><p>Filled list</p></div>
+        </li>
+      </ul>
+      <article class="ui-callout ui-success">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
+          ></path>
+        </svg>
+        <div class="ui-content">Success callout</div>
+      </article>
+      <div class="stress-chips">
+        <span class="ui-chip ui-tonal"
+          ><span class="ui-text">Tonal chip</span></span
+        ><span class="ui-chip ui-outlined"
+          ><span class="ui-text">Outlined chip</span></span
+        >
+      </div>
+      <div
+        role="group"
+        aria-label="Dark actions"
+        class="ui-button-group ui-tonal"
+      >
+        <button class="ui-button" type="button">One</button
+        ><button class="ui-button" type="button">Two</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="Badges">
+  <h2>Badges on things</h2>
+  <p>
+    Badges anchored to avatars, icon buttons, text buttons and chips, inside a
+    card that clips its overflow. Indicators should sit on the corner and not be
+    cut off by the card edge.
+  </p>
+  <div class="ui-card ui-outlined">
+    <div class="ui-content stress-row stress-center">
+      <span class="ui-anchor ui-badge"
+        ><span class="ui-avatar">AB</span
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator">4</span></span
+        ></span
+      >
+      <span class="ui-anchor ui-badge ui-dot ui-success"
+        ><span class="ui-avatar ui-rounded"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
+            ></path></svg></span
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span></span
+      ></span>
+      <span class="ui-anchor ui-badge ui-end-end"
+        ><span class="ui-avatar ui-squared">CD</span
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator">99+</span></span
+        ></span
+      >
+      <span class="ui-anchor ui-badge ui-critical"
+        ><button
+          class="ui-button ui-rounded ui-small"
+          type="button"
+          aria-label="Mail"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+            ></path>
+          </svg></button
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator">12</span></span
+        ></span
+      >
+      <span class="ui-anchor ui-badge ui-info"
+        ><button class="ui-button ui-outlined" type="button">Updates</button
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator">New</span></span
+        ></span
+      >
+      <span class="ui-anchor ui-badge ui-warning ui-dot"
+        ><span class="ui-chip ui-outlined"
+          ><span class="ui-text">Pending</span></span
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span></span
+      ></span>
+      <div class="ui-avatar-group" role="group" aria-label="Reviewers">
+        <span class="ui-avatar">EF</span>
+        <span class="ui-anchor ui-badge ui-dot ui-success"
+          ><span class="ui-avatar">GH</span
+          ><span class="ui-anchor-floating"
+            ><span class="ui-badge-indicator"></span></span
+        ></span>
+        <span class="ui-avatar">IJ</span>
+      </div>
+    </div>
+  </div>
+  <div class="stress-grid">
+    <div class="ui-card ui-elevated">
+      <span class="ui-anchor ui-badge ui-start-start"
+        ><span class="ui-avatar">TL</span
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator">2</span></span
+        ></span
+      >
+      <div class="ui-content">Badge at the top left corner of the card.</div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="ChipsAndDividers">
+  <h2>Chips and dividers</h2>
+  <p>
+    Many chips in a card footer and in the actions row, and dividers between
+    mixed content. Chips should wrap instead of overflowing, and dividers should
+    span the content width with even spacing above and below.
+  </p>
+  <div class="stress-grid">
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <h3>Chips in content</h3>
+      </hgroup>
+      <div class="ui-content">
+        <div class="stress-chips">
+          <span class="ui-chip ui-tonal"
+            ><span class="ui-text">Design</span></span
+          ><span class="ui-chip ui-tonal"
+            ><span class="ui-text">Engineering</span></span
+          ><span class="ui-chip ui-tonal"
+            ><span class="ui-text">Research</span></span
+          ><span class="ui-chip ui-tonal"
+            ><span class="ui-text">Marketing</span></span
+          ><span class="ui-chip ui-outlined"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
+              ></path></svg
+            ><span class="ui-text">Verified</span></span
+          ><span class="ui-chip ui-outlined ui-small"
+            ><span class="ui-text">+4</span></span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <h3>Chips in actions</h3>
+      </hgroup>
+      <div class="ui-actions">
+        <button class="ui-chip ui-tonal" type="button">
+          <span class="ui-text">Design</span></button
+        ><button class="ui-chip ui-tonal" type="button">
+          <span class="ui-text">Engineering</span></button
+        ><button class="ui-chip ui-tonal" type="button">
+          <span class="ui-text">Research</span></button
+        ><button class="ui-chip ui-tonal" type="button">
+          <span class="ui-text">Marketing</span>
+        </button>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <h3>Multiline chip</h3>
+      </hgroup>
+      <div class="ui-content">
+        <span class="ui-chip ui-tonal ui-multiline"
+          ><span class="ui-text"
+            >A chip with enough text to wrap onto several lines inside a narrow
+            card.</span
+          ></span
+        >
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <h3>Dividers between content</h3>
+      </hgroup>
+      <div class="ui-content">
+        Plain text above.
+        <hr class="ui-divider" />
+        <dl class="ui-description-list">
+          <div class="ui-item">
+            <dt class="ui-term">Owner</dt>
+            <dd class="ui-description">Ada</dd>
+          </div>
+        </dl>
+        <hr class="ui-divider ui-border-primary" />
+        <ul class="ui-list ui-transparent ui-gutterless">
+          <li>
+            <div class="ui-text"><p>A list item</p></div>
+          </li>
+        </ul>
+        <hr class="ui-divider ui-border-filled" />
+        <article class="ui-callout">
+          <div class="ui-content">A callout.</div>
+        </article>
+      </div>
+    </div>
+    <div class="ui-card ui-tonal">
+      <hgroup>
+        <h3>Divider as a direct child</h3>
+      </hgroup>
+      <hr class="ui-divider" />
+      <div class="ui-content">Text between dividers.</div>
+      <hr class="ui-divider ui-border-tonal" />
+      <div class="ui-actions">
+        <button class="ui-button" type="button">Action</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="CarouselOfCards">
+  <h2>Carousel of cards</h2>
+  <p>
+    Cards with uneven content in a carousel inside a card. Slides should be
+    equally tall, the buttons should sit outside the slides without overflowing
+    the outer card, and the markers should be centered.
+  </p>
+  <div class="ui-card ui-outlined">
+    <hgroup>
+      <h3>Plans</h3>
+    </hgroup>
+    <div class="ui-content">
+      <ul
+        class="ui-carousel ui-buttons-outside ui-with-buttons ui-with-markers"
+        aria-label="Plans"
+        style="--_per-view: 2"
+      >
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup>
+              <p>Free</p>
+              <h4>Basic</h4>
+            </hgroup>
+            <div class="ui-actions">
+              <button class="ui-button ui-filled" type="button">
+                Choose Basic
+              </button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='200' viewBox='0 0 600 200'%3E%3Crect width='600' height='200' fill='%2393c5fd'/%3E%3Ccircle cx='300' cy='100' r='66' fill='%231e3a8a'/%3E%3C/svg%3E"
+              alt="Pro plan illustration"
+            />
+            <hgroup>
+              <p>€ 12 per month</p>
+              <h4>Pro</h4>
+              <p>
+                For growing teams that need more seats, more storage and
+                priority support.
+              </p>
+            </hgroup>
+            <div class="ui-actions">
+              <button class="ui-button ui-filled" type="button">
+                Choose Pro
+              </button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <hgroup>
+              <p>Custom</p>
+              <h4>Enterprise</h4>
+            </hgroup>
+            <div class="ui-content">
+              <dl class="ui-description-list">
+                <div class="ui-item">
+                  <dt class="ui-term">Seats</dt>
+                  <dd class="ui-description">Unlimited</dd>
+                </div>
+              </dl>
+            </div>
+            <div class="ui-actions">
+              <button class="ui-button ui-filled" type="button">
+                Contact sales
+              </button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="RightToLeft">
+  <h2>Right to left</h2>
+  <p>
+    The same card, list, callout, accordion, description list, tabs and badges
+    with dir="rtl". Padding, icons, actions and badge positions should mirror.
+  </p>
+  <div class="stress-grid" dir="rtl">
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <p>Overline</p>
+        <h3>Right to left card</h3>
+        <p>Subhead</p>
+      </hgroup>
+      <div class="ui-content">Supporting text that starts on the right.</div>
+      <div class="ui-actions">
+        <button class="ui-button" type="button">Share</button
+        ><button class="ui-button" type="button">Learn more</button>
+      </div>
+    </div>
+    <ul class="ui-list">
+      <li>
+        <div class="ui-start"><div class="ui-avatar">RT</div></div>
+        <div class="ui-text">
+          <p>Headline</p>
+          <p>Supporting text</p>
+        </div>
+        <div class="ui-end">12</div>
+      </li>
+      <li class="ui-border-top">
+        <a href="#stress-layout-rtl-link">
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text"><p>Link with end icon</p></div>
+          <div class="ui-end">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M11.116 26.634a1.25 1.25 0 0 1 0-1.768L19.982 16l-8.866-8.866a1.25 1.25 0 0 1 1.768-1.768l9.75 9.75a1.25 1.25 0 0 1 0 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0"
+              ></path>
+            </svg>
+          </div>
+        </a>
+      </li>
+      <li class="ui-inset">
+        <div class="ui-text"><p>Inset item</p></div>
+      </li>
+    </ul>
+    <article class="ui-callout ui-info">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+        ></path>
+      </svg>
+      <div class="ui-content">
+        <h3 class="ui-title">Right to left callout</h3>
+        <p>The icon should be on the right.</p>
+      </div>
+    </article>
+    <div class="stress-stack">
+      <details class="ui-accordion ui-card ui-marker-rotate ui-outlined" open>
+        <summary>
+          Accordion
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+            ></path>
+          </svg>
+        </summary>
+        <div class="ui-content"><p>The marker sits on the left.</p></div>
+      </details>
+      <div class="stress-layout-container">
+        <dl class="ui-description-list ui-bordered ui-dotted">
+          <div class="ui-item">
+            <dt class="ui-term">Location</dt>
+            <dd class="ui-description">Helsinki</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <div class="stress-stack">
+      <div class="ui-tabs" role="tablist">
+        <input
+          type="radio"
+          name="stress-layout-rtl-tabs"
+          id="stress-layout-rtl-tab-1"
+          class="ui-tab-input"
+          checked
+          aria-controls="stress-layout-rtl-panel-1"
+        />
+        <label for="stress-layout-rtl-tab-1" class="ui-tab-label" role="tab"
+          >First</label
+        >
+        <div
+          id="stress-layout-rtl-panel-1"
+          class="ui-tab-panel"
+          role="tabpanel"
+          aria-labelledby="stress-layout-rtl-tab-1"
+        >
+          First panel.
+        </div>
+        <input
+          type="radio"
+          name="stress-layout-rtl-tabs"
+          id="stress-layout-rtl-tab-2"
+          class="ui-tab-input"
+          aria-controls="stress-layout-rtl-panel-2"
+        />
+        <label for="stress-layout-rtl-tab-2" class="ui-tab-label" role="tab"
+          >Second</label
+        >
+        <div
+          id="stress-layout-rtl-panel-2"
+          class="ui-tab-panel"
+          role="tabpanel"
+          aria-labelledby="stress-layout-rtl-tab-2"
+        >
+          Second panel.
+        </div>
+      </div>
+      <div class="stress-row stress-center">
+        <span class="ui-anchor ui-badge"
+          ><span class="ui-avatar">AB</span
+          ><span class="ui-anchor-floating"
+            ><span class="ui-badge-indicator">4</span></span
+          ></span
+        >
+        <div
+          role="group"
+          aria-label="Pager"
+          class="ui-button-group ui-outlined"
+        >
+          <button class="ui-button" type="button">First</button
+          ><button class="ui-button" type="button">Last</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

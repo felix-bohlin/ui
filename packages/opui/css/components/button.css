@@ -9,14 +9,18 @@
     --_accent-contrast: var(--_color-contrast);
     --_accent-tonal: var(--_color-tonal);
     --_accent-tonal-contrast: var(--_color);
+    --_accent-text: light-dark(
+      var(--_accent),
+      oklch(from var(--_accent) max(l, 0.75) c h)
+    );
 
     --_default-hover-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.01 h / 10%),
-      oklch(from var(--_accent) l 0.01 h / 20%)
+      oklch(from var(--_accent) l 0.01 h / var(--state-hover-alpha)),
+      oklch(from var(--_accent) l 0.01 h / var(--state-hover-alpha-dark))
     );
     --_default-active-bg-color: light-dark(
-      oklch(from var(--_accent) l 0.06 h / 20%),
-      oklch(from var(--_accent) l 0.06 h / 30%)
+      oklch(from var(--_accent) l 0.06 h / var(--state-active-alpha)),
+      oklch(from var(--_accent) l 0.06 h / var(--state-active-alpha-dark))
     );
 
     --_filled-hover-bg-color: light-dark(
@@ -29,13 +33,49 @@
     );
     --_outlined-active-bg-color: var(--_filled-active-bg-color);
 
+    &.ui-critical,
+    &.ui-primary,
+    /* Color inherited from Button Group. */
+    :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) > & {
+      --_color-contrast: var(--primary-contrast);
+      --_color-tonal: light-dark(var(--color-6), var(--color-11));
+      --_accent-tonal-contrast: light-dark(var(--gray-15), var(--gray-1));
+
+      --_default-hover-bg-color: oklch(
+        from var(--_accent) l c h / var(--state-hover-alpha-accent)
+      );
+      --_default-active-bg-color: oklch(
+        from var(--_accent) l c h / var(--state-active-alpha-accent)
+      );
+
+      --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+      --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
+
+      --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
+    }
+
+    &.ui-critical,
+    :where(.ui-button-group.ui-critical) > & {
+      --_color: var(--critical);
+      --_color-contrast: var(--gray-1);
+    }
+
+    &.ui-primary,
+    :where(.ui-button-group.ui-primary) > & {
+      --_color: var(--primary);
+    }
+  }
+
+  :where(.ui-button) {
     --_bg-color: transparent;
     --_border-color: transparent;
     --_border-width: var(--border-size-1);
     --_font-size: var(--font-size-1);
+    --_icon-size: 0.7lh;
     --_min-height: var(--button-size);
-    --_border-radius: var(--button-border-radius, var(--radius-2));
-    --_text-color: var(--_accent);
+    --_border-radius: var(--button-border-radius);
+    --_padding-inline: 1.5ex;
+    --_text-color: var(--_accent-text);
 
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
@@ -46,60 +86,35 @@
     color: var(--_text-color);
     display: inline-flex;
     font-size: var(--_font-size);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     gap: var(--size-2);
     justify-content: center;
     min-block-size: var(--_min-height);
-    padding-block: 0.5ex;
-    padding-inline: 1.5ex;
+    padding-block: min(
+      0.5ex,
+      max(0px, (var(--_min-height) - 1lh - var(--_border-width) * 2) / 2)
+    );
+    padding-inline: var(--_padding-inline);
     text-align: center;
     text-decoration: none;
     transition:
-      background-color calc(0.1s * var(--_motion)) ease,
-      color calc(0.1s * var(--_motion)) ease,
-      border-color calc(0.1s * var(--_motion)) ease,
-      box-shadow calc(0.1s * var(--_motion)) ease;
+      background-color calc(var(--duration-fast) * var(--_motion)) var(--ease),
+      color calc(var(--duration-fast) * var(--_motion)) var(--ease),
+      border-color calc(var(--duration-fast) * var(--_motion)) var(--ease);
     user-select: none;
 
-    &.ui-critical,
-    &.ui-primary {
-      --_color-contrast: var(--gray-1);
-      --_color-tonal: var(--color-6);
-      --_accent-tonal-contrast: var(--text-primary-contrast);
-
-      --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
-      --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
-
-      --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-      --_filled-active-bg-color: oklch(from var(--_accent) calc(l - 0.15) c h);
-
-      --_outlined-active-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-    }
-
-    &.ui-critical {
-      --_color: var(--critical);
-    }
-
-    &.ui-primary {
-      --_color: var(--primary);
-    }
-
-    /* Disabled */
-    &:where([disabled]) {
-      --_text-color: color-mix(
-        in oklch,
-        var(--text-muted) 50%,
-        var(--surface-default)
-      );
-
-      cursor: not-allowed;
-      opacity: 0.64;
+    &:where(a):where([aria-disabled="true"], .ui-disabled) {
+      pointer-events: none;
     }
 
     /* Hover & Active */
-    &:where(:not([disabled])) {
-      &:where(:not(:active):hover) {
-        --_bg-color: var(--_default-hover-bg-color);
+    &:where(
+      :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
+    ) {
+      @media (hover: hover) {
+        &:where(:not(:active):hover) {
+          --_bg-color: var(--_default-hover-bg-color);
+        }
       }
 
       &:where(:hover:active),
@@ -109,56 +124,78 @@
     }
 
     /* Icons / Keyboard */
-    &:where(:has(svg), &.ui-icon-only) {
+    &:where(:has(> svg)) {
       gap: 1ex;
 
-      svg {
+      & > svg {
+        block-size: auto;
         color: currentColor;
-        max-block-size: 0.7lh;
+        flex-shrink: 0;
+        inline-size: auto;
+        max-block-size: var(--_icon-size);
       }
     }
 
+    &:where(:has(> svg:first-child + *)) {
+      padding-inline-start: calc(var(--_padding-inline) * 0.75);
+    }
+
+    &:where(:has(> * + svg:last-child)) {
+      padding-inline-end: calc(var(--_padding-inline) * 0.75);
+    }
+
     /* Keyboard input */
-    :is(kbd) {
-      background-color: oklch(from currentColor l c h / 10%);
+    kbd {
+      background-color: color-mix(in oklch, currentColor 12%, transparent);
       border: 0;
-      color: oklch(from currentColor l c h / 80%);
+      color: inherit;
       font-size: 0.8em;
       font-weight: 400;
       line-height: 1.2;
+      opacity: 0.8;
     }
 
     /* Sizes */
     &.ui-x-small {
       --_min-height: var(--button-size-x-small);
       --_font-size: var(--font-size-0);
+      --_padding-inline: 1ex;
       padding-block: 0;
-      padding-inline: 0.5ex;
     }
 
     &.ui-small {
       --_min-height: var(--button-size-small);
       --_font-size: var(--font-size-05);
+      --_padding-inline: 1.25ex;
       padding-block: 0;
-      padding-inline: 0.75ex;
     }
 
     &.ui-large {
       --_min-height: var(--button-size-large);
-      padding-inline: 4ex;
+      --_padding-inline: 2.5ex;
+    }
+
+    &:where(:has(> svg:only-child)) {
+      --_icon-size: calc(var(--_min-height) * 0.6);
+      min-inline-size: var(--_min-height);
+      padding-inline: 0;
     }
 
     /* Variants */
     &.ui-outlined {
       --_bg-color: transparent;
       --_border-color: var(--_accent);
-      --_text-color: var(--_accent);
+      --_text-color: var(--_accent-text);
 
-      &:where(:not([disabled])) {
-        &:where(:not(:active):hover) {
-          --_bg-color: var(--_accent);
-          --_border-color: var(--_accent);
-          --_text-color: var(--_accent-contrast);
+      &:where(
+        :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
+      ) {
+        @media (hover: hover) {
+          &:where(:not(:active):hover) {
+            --_bg-color: var(--_accent);
+            --_border-color: var(--_accent);
+            --_text-color: var(--_accent-contrast);
+          }
         }
 
         &:where(:active) {
@@ -173,10 +210,14 @@
       --_bg-color: var(--_accent-tonal);
       --_text-color: var(--_accent-tonal-contrast);
 
-      &:where(:not([disabled])) {
-        &:where(:not(:active):hover) {
-          --_bg-color: var(--_accent);
-          --_text-color: var(--_accent-contrast);
+      &:where(
+        :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
+      ) {
+        @media (hover: hover) {
+          &:where(:not(:active):hover) {
+            --_bg-color: var(--_accent);
+            --_text-color: var(--_accent-contrast);
+          }
         }
 
         &:where(:active) {
@@ -190,13 +231,66 @@
       --_bg-color: var(--_accent);
       --_text-color: var(--_accent-contrast);
 
-      &:where(:not([disabled])) {
-        &:where(:not(:active):hover) {
-          --_bg-color: var(--_filled-hover-bg-color);
+      &:where(
+        :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
+      ) {
+        @media (hover: hover) {
+          &:where(:not(:active):hover) {
+            --_bg-color: var(--_filled-hover-bg-color);
+          }
         }
 
         &:where(:active) {
           --_bg-color: var(--_filled-active-bg-color);
+        }
+      }
+    }
+
+    /* Disabled */
+    &:is([disabled], [aria-disabled="true"], .ui-disabled) {
+      cursor: not-allowed;
+      opacity: var(--disabled-opacity);
+
+      &:not(.ui-filled, .ui-tonal) {
+        --_text-color: var(--text-disabled);
+      }
+    }
+
+    &.ui-rounded {
+      --_border-radius: var(--radius-round);
+    }
+
+    &.ui-ripple {
+      --_ripple-color: oklch(0.6 0 0 / 0.2);
+      --_ripple-scale: 0.01;
+      --_ripple-size: 130%;
+
+      position: relative;
+      transform-style: preserve-3d;
+
+      &::before {
+        background-color: var(--_ripple-color);
+        block-size: var(--_ripple-size);
+        clip-path: circle(50%);
+        content: "";
+        inline-size: var(--_ripple-size);
+        inset: 50% auto auto 50%;
+        position: absolute;
+        transform: translate(-50%, -50%) translateZ(-1px)
+          scale(var(--_ripple-scale));
+        transition: transform calc(var(--duration) * var(--_motion)) var(--ease);
+      }
+
+      &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+        @media (hover: hover) {
+          &:where(:not(:active):hover) {
+            --_ripple-scale: 1;
+          }
+        }
+
+        &:where(:hover:active),
+        &[aria-current="page"] {
+          --_ripple-scale: 1.1;
         }
       }
     }
@@ -214,7 +308,6 @@
     padding: 0;
   }
 
-  :where(input[type="file"])::-webkit-file-upload-button,
   :where(input[type="file"])::file-selector-button {
     cursor: pointer;
     margin-inline-end: var(--size-relative-6);

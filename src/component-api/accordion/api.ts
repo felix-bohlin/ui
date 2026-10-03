@@ -19,6 +19,17 @@ export default {
       type: "string",
     },
     {
+      default: '"rotate"',
+      description: "How the marker animates when the accordion opens.",
+      group: "Marker",
+      prop: "markerAnimation",
+      values: {
+        flip: ".ui-marker-flip",
+        rotate: ".ui-marker-rotate",
+        turn: ".ui-marker-turn",
+      },
+    },
+    {
       attribute: "[open]",
       default: "false",
       description: "Whether the accordion is open.",
@@ -48,6 +59,12 @@ export default {
       slots: ["summary"],
     },
     {
+      code: "<svg>",
+      description: "The marker. Astro and Vue render a chevron by default.",
+      selector: "summary > svg",
+      slots: ["marker"],
+    },
+    {
       description: "The collapsible content.",
       selector: ".ui-content",
       slots: ["default"],
@@ -62,11 +79,5 @@ export default {
     description: "Container element.",
     selector: "details.ui-accordion",
   },
-  slots: [
-    {
-      description: "A custom marker that replaces the native one.",
-      name: "marker",
-    },
-  ],
   source: "Accordion",
 } satisfies ComponentApi

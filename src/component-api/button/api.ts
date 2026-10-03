@@ -26,6 +26,27 @@ export default {
       prop: "href",
     },
     {
+      description: "The accessible name. Use it on icon-only buttons.",
+      frameworks: ["astro", "vue"],
+      prop: "label",
+      type: "string",
+    },
+    {
+      class: ".ui-ripple",
+      default: "false",
+      description:
+        "A halo behind the button on hover instead of a background change.",
+      group: "Hover",
+      prop: "ripple",
+    },
+    {
+      class: ".ui-rounded",
+      default: "false",
+      description: "Fully rounded corners, a circle when icon-only.",
+      group: "Shape",
+      prop: "rounded",
+    },
+    {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",

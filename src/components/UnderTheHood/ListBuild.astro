@@ -1,0 +1,206 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.list {
+  background-color: var(--surface-default);
+  list-style: none;
+  padding: 0.5rem 0;
+}
+
+.list li,
+.list li > button {
+  align-items: center;
+  display: flex;
+  gap: var(--gap);
+  min-block-size: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  position: relative;
+}
+
+.start {
+  display: grid;
+  inline-size: var(--start-size);
+}
+
+.text {
+  display: grid;
+  flex: 1;
+}
+
+.text > * + * {
+  color: var(--text-muted);
+  font-size: var(--font-size-0);
+}`,
+    html: `
+<ul class="list">
+  <li>
+    <button>
+      <span class="start"><svg>…</svg></span>
+      <span class="text">
+        <span>Inbox</span>
+        <span>3 unread</span>
+      </span>
+      <span class="end">⌘I</span>
+    </button>
+  </li>
+</ul>`,
+    notes: [
+      "Start, text and end slots in one flex row",
+      "<code>--gap</code> and <code>--start-size</code> drive the spacing and the icon column",
+      "The button is padded too, so the padding doubles",
+    ],
+    title: "Row",
+  },
+  {
+    css: `
+.list li:has(> a, > button) {
+  padding: 0;
+}
+
+.list li > button {
+  inline-size: 100%;
+}
+
+.list li > button:hover {
+  background-color: oklch(from var(--primary) l c h / 15%);
+}`,
+    features: ["has", "relative-color"],
+    notes: [
+      "<code>:has(> a, > button)</code> moves the padding onto the button",
+      "The whole row is the hit target",
+      "Hover tint derived from <code>--primary</code>",
+    ],
+    title: "Clickable",
+  },
+  {
+    css: `
+.inset .text {
+  padding-inline-start: calc(var(--start-size) + var(--gap));
+}`,
+    notes: [
+      "An item without an icon lines up with the ones that have one",
+      "Same two custom properties, so it follows the knobs",
+    ],
+    title: "Inset",
+  },
+  {
+    css: `
+.bordered li + li {
+  margin-block-start: 0.75rem;
+}
+
+.bordered li + li::before {
+  border-block-start: 1px solid var(--border-color);
+  content: "";
+  inset: -0.5rem 0 auto 0;
+  position: absolute;
+}`,
+    notes: [
+      "<code>li + li</code>: a line between items, never above the first",
+      "The line sits in the margin, outside the hover area",
+    ],
+    title: "Bordered",
+  },
+]
+
+const knobs = [
+  {
+    label: "Gap",
+    max: 24,
+    min: 4,
+    property: "--gap",
+    step: 2,
+    unit: "px",
+    value: 12,
+  },
+  {
+    label: "Start size",
+    max: 40,
+    min: 16,
+    property: "--start-size",
+    step: 2,
+    unit: "px",
+    value: 24,
+  },
+]
+
+const items = [
+  {
+    description: "Older than 30 days",
+    end: "⌘A",
+    headline: "Archive",
+  },
+  {
+    description: "Saved yesterday",
+    end: "⌘D",
+    headline: "Drafts",
+    icon: "M3 17.25V21h3.75L17.8 9.94l-3.75-3.75L3 17.25zM20.7 7.04a1 1 0 0 0 0-1.41l-2.33-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.82-1.83z",
+  },
+  {
+    description: "3 unread",
+    end: "⌘I",
+    headline: "Inbox",
+    icon: "M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 12h-4a3 3 0 0 1-6 0H5V5h14v10z",
+  },
+]
+---
+
+<BuildUp id="build-list" knobs={knobs} steps={steps}>
+  <ul class="list bordered">
+    {
+      items.map((item) => (
+        <li class:list={{ inset: !item.icon }}>
+          <button type="button">
+            {item.icon && (
+              <span class="start">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d={item.icon} fill="currentColor" />
+                </svg>
+              </span>
+            )}
+            <span class="text">
+              <span>{item.headline}</span>
+              <span>{item.description}</span>
+            </span>
+            <span class="end">{item.end}</span>
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+</BuildUp>
+
+<style>
+  .list {
+    border: var(--border-width, 1px) solid var(--border-color);
+    border-radius: var(--radius-2);
+    inline-size: min(100%, 22rem);
+    margin: 0;
+
+    & button {
+      background: none;
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+      font: inherit;
+      text-align: start;
+    }
+
+    & svg {
+      block-size: auto;
+      inline-size: 100%;
+    }
+  }
+
+  .end {
+    color: var(--text-muted);
+    font-size: var(--font-size-0);
+  }
+</style>

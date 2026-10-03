@@ -7,13 +7,14 @@ import ChipCSS from "@opui/css/components/chip.css?raw"
 import Conditional from "../../components/Conditional.astro"
 
 import chipApi from "../../component-api/chip/api"
+import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
 ---
 
 <Component
   slug="chip"
   heroAnatomy
   apis={[{ title: "Chip API", api: chipApi }]}
-  browserSupport={["color-mix", "has", "light-dark", "relative-color"]}
+  browserSupport={["has", "light-dark", "relative-color"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Chip/Chip.astro",
@@ -59,7 +60,7 @@ import chipApi from "../../component-api/chip/api"
     <h2 id="icon">Icon</h2>
     <Conditional>
       <p slot="astro">
-        The icon can be placed before or after the text using the
+        The icon can be placed before or after the text using the{" "}
         <code>start</code> and <code>end</code> slots.
       </p>
       <p slot="html">
@@ -67,7 +68,7 @@ import chipApi from "../../component-api/chip/api"
         Make sure the text is wrapped in the <code>.ui-text</code> wrapper class.
       </p>
       <p slot="vue">
-        The icon can be placed before or after the text using the
+        The icon can be placed before or after the text using the{" "}
         <code>start</code> and <code>end</code> slots.
       </p>
     </Conditional>
@@ -88,6 +89,26 @@ import chipApi from "../../component-api/chip/api"
     <h2 id="sizes">Sizes</h2>
     <AutoExample name="Sizes" row />
   </section>
+
+  <section>
+    <h2 id="disabled">Disabled</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Disable a button chip with the <code>disabled</code> attribute.
+      </Fragment>
+      <Fragment slot="html">
+        Add disabled styling with the <code>disabled</code> attribute, <code
+          >aria-disabled="true"</code
+        > or the <code>.ui-disabled</code> class.
+      </Fragment>
+      <Fragment slot="vue">
+        Disable a button chip with the <code>disabled</code> attribute.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Disabled" row />
+  </section>
+
+  <ChipBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.5}>

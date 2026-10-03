@@ -38,6 +38,28 @@ const expectFocusWithin = (locator: Locator) =>
     .toBe(true)
 
 interaction(
+  "anchor",
+  "RepoCard",
+  "hover card shows on hover",
+  async ({ page, root }) => {
+    const trigger = root.getByRole("link", { name: "felix-bohlin/ui" })
+    const card = root.getByText("Public repository")
+
+    const supportsInterest = await page.evaluate(
+      () => "interestForElement" in HTMLAnchorElement.prototype,
+    )
+
+    await expect(card).toBeHidden()
+    if (supportsInterest) {
+      await trigger.hover()
+      await expect(card).toBeVisible()
+      await page.mouse.move(0, 0)
+      await expect(card).toBeHidden()
+    }
+  },
+)
+
+interaction(
   "accordion",
   "Basics",
   "accordion toggles with click and keyboard",

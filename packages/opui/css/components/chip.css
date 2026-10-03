@@ -1,23 +1,34 @@
 @layer components.root {
   :where(.ui-chip) {
+    --_motion: var(--motion, 1);
+    --_ripple-duration: calc(0.4s * var(--_motion));
+    --_ripple-size: 100%;
     --_bg-color: var(--surface-tonal);
     --_border-color: var(--border-color);
     --_color: var(--text-primary);
 
     align-items: center;
-    background: var(--_bg-color) var(--ripple, none);
+    background: var(--_bg-color) var(--_ripple, none);
 
     /* Ripple effect */
     background-position: center;
-    block-size: var(--size-7, 2rem);
-    border: 1px solid var(--_border-color);
-    border-radius: var(--radius-2, 0.5rem);
+    block-size: var(--chip-size);
+    border: var(--border-width) solid var(--_border-color);
+    border-radius: var(--border-radius);
     color: var(--_color);
     display: inline-flex;
-    font-size: var(--font-size-0, 0.75rem);
+    font-size: var(--font-size-0);
     gap: var(--size-1);
+    max-inline-size: 100%;
     padding-inline: var(--size-2);
     text-decoration: none;
+
+    &:not(.ui-multiline) > .ui-text {
+      min-inline-size: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     /* Variants */
     &.ui-tonal {
@@ -30,7 +41,9 @@
       --_color: var(--text-primary);
     }
 
-    &:where(button, a):where(:not([disabled])) {
+    &:where(button, a):where(
+        :not([disabled], [aria-disabled="true"], .ui-disabled)
+      ) {
       &:where(:not(:active)):hover {
         --_bg-color: light-dark(
           oklch(from var(--surface-tonal) calc(l * 0.98) c h),
@@ -51,42 +64,60 @@
     &:has(svg) {
       svg {
         flex-shrink: 0;
-        inline-size: var(--size-3);
+        inline-size: var(--icon-size-small);
       }
     }
 
     /* Sizes */
     &.ui-small {
-      block-size: var(--size-5);
+      block-size: var(--chip-size-small);
+    }
+
+    &.ui-large {
+      block-size: var(--chip-size-large);
+      font-size: var(--font-size-05);
+      padding-inline: var(--size-3);
+
+      &:has(svg:first-child) {
+        padding-inline: var(--size-2) var(--size-3);
+      }
+
+      &:has(svg:last-child) {
+        padding-inline: var(--size-3) var(--size-2);
+      }
+
+      svg {
+        inline-size: var(--icon-size);
+      }
     }
 
     &.ui-multiline {
       block-size: auto;
     }
 
-    &:where(:not([disabled])) {
+    &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
       &:where(:not(:active):hover) {
-        --ripple: radial-gradient(circle, transparent 1%, var(--_bg-color) 1%)
+        --_ripple: radial-gradient(circle, transparent 1%, var(--_bg-color) 1%)
           center/15000%;
 
-        transition: background var(--button-ripple-duration);
+        transition: background var(--_ripple-duration);
       }
 
       &:where(:hover:active) {
-        background-size: var(--button-ripple-size);
+        background-size: var(--_ripple-size);
         transition: background 0s;
       }
     }
 
     /* Disabled */
-    &:where([disabled]) {
-      opacity: 0.64;
-      --_color: color-mix(
-        in oklch,
-        var(--text-muted) 50%,
-        var(--surface-default)
-      );
+    &:where([disabled], [aria-disabled="true"], .ui-disabled) {
+      opacity: var(--disabled-opacity);
+      --_color: var(--text-disabled);
       cursor: not-allowed;
+    }
+
+    &:where(a):where([aria-disabled="true"], .ui-disabled) {
+      pointer-events: none;
     }
   }
 }

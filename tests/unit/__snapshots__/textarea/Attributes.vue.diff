@@ -1,0 +1,12 @@
+===================================================================
+--- astro
++++ vue
+@@ -1,6 +1,6 @@
+-<label class="ui-textarea" data-testid="message">
++<label class="ui-textarea">
+   <span class="ui-label">Message</span>
+   <span class="ui-field">
+-    <textarea placeholder="Write something" required></textarea>
++    <textarea data-testid="message" placeholder="Write something" required></textarea>
+   </span>
+ </label>

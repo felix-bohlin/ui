@@ -28,6 +28,7 @@ export type ApiOption = {
 
 export type ComponentApi = {
   component: string
+  css?: string[]
   file?: string
   model?: { description: string; prop: string; type: string }
   notes?: Partial<Record<Framework, string>>
@@ -39,5 +40,5 @@ export type ComponentApi = {
     "anchorName" | "code" | "component" | "description" | "selector"
   >
   slots?: { description: string; name: string }[]
-  source: string
+  source?: string
 }

@@ -9,6 +9,8 @@ Lists meant to be used stand-alone or as part of Select elements
   :where(.ui-list) {
     --_bg-color: var(--surface-filled);
     --_bg-color-hover: oklch(from var(--primary) l c h / 15%);
+    --_item-gap: var(--size-3);
+    --_start-size: var(--icon-size-large);
 
     background-color: var(--_bg-color);
     color: var(--text-primary);
@@ -42,7 +44,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &::before {
           block-size: 1px;
-          border-block-start: 1px solid var(--border-color);
+          border-block-start: var(--border-width) solid var(--border-color);
           content: "";
           display: block;
           inline-size: 100%;
@@ -56,10 +58,12 @@ Lists meant to be used stand-alone or as part of Select elements
 
     /* Dense - less gaps and spacing */
     &.ui-dense {
+      --_item-gap: var(--size-2);
+      --_start-size: var(--icon-size);
+
       :where(li, option) {
-        gap: var(--size-2);
         min-block-size: var(--size-7);
-        padding: var(--size-1) var(--size-2);
+        padding: var(--size-1) var(--size-3);
 
         &.ui-border-top {
           margin-block-start: var(--size-2);
@@ -76,9 +80,8 @@ Lists meant to be used stand-alone or as part of Select elements
         }
 
         & > :where(a, button, label) {
-          gap: var(--size-2);
           min-block-size: var(--size-7);
-          padding: var(--size-1) var(--size-2);
+          padding: var(--size-1) var(--size-3);
         }
 
         /* Checkbox / Radio */
@@ -88,7 +91,7 @@ Lists meant to be used stand-alone or as part of Select elements
           }
 
           &:where(.ui-checkbox, .ui-radio) {
-            --_input-size: var(--size-3);
+            --_input-size: var(--choice-size-small);
           }
         }
 
@@ -99,14 +102,14 @@ Lists meant to be used stand-alone or as part of Select elements
             max-inline-size: var(--size-6);
           }
 
-          .ui-icon-button,
+          .ui-button:has(> svg:only-child),
           svg {
-            max-inline-size: var(--size-4);
+            max-inline-size: var(--_start-size);
           }
 
           .ui-checkbox,
           .ui-radio {
-            --_input-size: var(--size-3);
+            --_input-size: var(--choice-size-small);
           }
         }
       }
@@ -129,9 +132,9 @@ Lists meant to be used stand-alone or as part of Select elements
       background-color: var(--_bg-color);
       display: flex;
       font-size: var(--font-size-05);
-      gap: var(--size-3);
+      gap: var(--_item-gap);
       isolation: isolate;
-      min-block-size: 40px;
+      min-block-size: var(--control-size);
       padding: var(--size-2) var(--size-3);
       position: relative;
 
@@ -165,10 +168,10 @@ Lists meant to be used stand-alone or as part of Select elements
         color: inherit;
         cursor: pointer;
         display: flex;
-        gap: var(--size-3);
+        gap: var(--_item-gap);
         inline-size: 100%;
         margin: 0;
-        min-block-size: 40px;
+        min-block-size: var(--control-size);
         padding: var(--size-2) var(--size-3);
         text-align: start;
         text-decoration: none;
@@ -196,11 +199,11 @@ Lists meant to be used stand-alone or as part of Select elements
         color: inherit;
         cursor: pointer;
         display: flex;
-        gap: var(--size-3);
+        gap: var(--_item-gap);
         inline-size: 100%;
         margin: 0;
-        min-block-size: 40px;
-        outline-offset: -3px;
+        min-block-size: var(--control-size);
+        outline-offset: var(--focus-ring-inset);
         padding: var(--size-2) var(--size-3);
         text-align: start;
         text-decoration: none;
@@ -232,9 +235,9 @@ Lists meant to be used stand-alone or as part of Select elements
 
         /* Switches look comically big in lists, so it's better to use a smaller variant  */
         &.ui-switch {
-          --_dot-size: 0.75rem;
-          --_track-height: var(--size-4);
-          --_track-width: 2.5rem;
+          --_dot-size: var(--switch-dot-size-small);
+          --_track-height: var(--switch-track-height-small);
+          --_track-width: var(--switch-track-width-small);
         }
       }
 
@@ -249,7 +252,7 @@ Lists meant to be used stand-alone or as part of Select elements
 
         &::before {
           block-size: 1px;
-          border-block-start: 1px solid var(--border-color);
+          border-block-start: var(--border-width) solid var(--border-color);
           content: "";
           display: block;
           inline-size: 100%;
@@ -262,6 +265,7 @@ Lists meant to be used stand-alone or as part of Select elements
       .ui-text {
         flex: 1;
         line-height: 1.6;
+        min-inline-size: 0;
 
         :where(h1, h2, h3, h4, h5, h6, p, span) {
           color: inherit;
@@ -282,7 +286,7 @@ Lists meant to be used stand-alone or as part of Select elements
         z-index: 1;
 
         &:has(svg) {
-          max-inline-size: var(--size-5);
+          max-inline-size: var(--_start-size);
         }
 
         svg {
@@ -323,14 +327,14 @@ Lists meant to be used stand-alone or as part of Select elements
 
         svg {
           inline-size: 100%;
-          max-inline-size: var(--size-5);
+          max-inline-size: var(--icon-size-large);
         }
       }
 
       /* Inset */
       &.ui-inset {
         .ui-text {
-          padding-inline-start: calc(var(--size-5) + var(--size-3));
+          padding-inline-start: calc(var(--_start-size) + var(--_item-gap));
         }
 
         /* Safety measure so it won't look bad if there for some reason should exist a leading element inside. */

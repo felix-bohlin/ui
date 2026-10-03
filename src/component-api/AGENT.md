@@ -7,8 +7,8 @@ This guide defines the standards for documenting Astro UI component APIs in `src
 When creating or updating a component API table, ensure:
 
 - [ ] **File Format**: Either an `api.ts` data file (preferred, see [Data-driven APIs](#data-driven-apis-apits)) or `.astro` table files.
-- [ ] **Folder Structure**: If a component has different APIs for Astro and HTML, use a folder (e.g., `src/component-api/button/`) with `Astro.astro` and `HTML.astro`.
-- [ ] **Table Component**: Use the `Table` component from `../../ui-components/Table` (adjust path as needed).
+- [ ] **Folder Structure**: One folder per component (e.g., `src/component-api/button/`) holding `api.ts`, or the legacy `Astro.astro`, `HTML.astro` and `Vue.astro` tables.
+- [ ] **Table Component**: Legacy `.astro` tables use the `Table` component from `@opui/astro`.
 - [ ] **Table Sub-components**: Use `Table.Head`, `Table.Body`, `Table.Row`, `Table.Cell`, `Table.HeaderCell`, `Table.ColumnGroup`, and `Table.Column` for table structure.
 - [ ] **Column Widths**: Use `Table.ColumnGroup` and `Table.Column` to specify widths: `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 20%"`, `width="min-width: 300px"`.
 - [ ] **CSS Verified**: All modifiers and selectors (e.g., `& > .content`) exist in the component's CSS file in `packages/opui/css/components/`.
@@ -89,20 +89,21 @@ import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
 
 `src/component-api/<slug>/api.ts` default-exports a `ComponentApi` ([types.ts](types.ts)) and replaces the hand-written tables for every framework. [text-field/api.ts](text-field/api.ts) is the reference implementation.
 
-- `source`: the component folder in `packages/opui/components/`.
+- `source`: the component folder in `packages/opui/components/`. Omit it for CSS-only components, such as `spinner`; every framework then shows the HTML tables plus its `notes`.
 - `page`: the docs page slug when it differs from the folder, such as `tabs` for `tabs-item`. The API index links to it, and the build warns when it does not exist.
 - `file`: the component file name when it differs from `component`, such as `TabsItem` for `Tabs.Item`. Props are read from the `<file>Props` type, or `Props`.
 - `root` and `parts`: structural elements with a `selector` and a `description`. A part lists the `props` and `slots` that fill it (kebab-case slot names), plus optional `legacy` aliases and `model`. Set `anchorName` when the part's CSS already sets an `anchor-name`, so `<Anatomy>` keeps it. Set `component` when a sub-component renders the part, such as `{ astro: "DescriptionList.Term", vue: "DescriptionListTerm" }`. Keep parts in visual order; they also drive the `<Anatomy>` diagram and the HTML parts table.
 - `options`: props and their HTML equivalent (`class` or `attribute`, `group` for the HTML table). Use `frameworks` to limit an option to some frameworks and `type` to override the resolved type.
   - `values` maps each value of an enum prop to its modifier, or `null` when the value adds none (shown as `default`). The build warns when the keys don't match the prop's type.
   - `part` is the selector of the part that gets the modifier, such as `.ui-actions` for `actionsAlign`.
-  - `cssVar` is the custom property an option sets, such as `--anchor-position-area`. It can be combined with a class or `values`.
+  - `cssVar` is the CSS property an option sets, such as `--anchor-position-area` or `font-size`. It can be combined with a class or `values`.
 - `slots`: slots that aren't parts, such as `default`.
+- `css`: the stylesheets under `packages/opui/css/components/` the component is styled by, without the extension. Defaults to the kebab-cased `source`. The CSS variables table lists every theme token those files read, with the default from `theme.css` and the description from `src/utils/theme-token-descriptions.ts`.
 - `model` and `notes`: the bound value and per-framework notes.
 
 Prop names and types are read from each framework's types file, and Astro/Vue slots from the component source, so they are never written by hand. Framework syntax lives in [frameworks.ts](frameworks.ts). The build warns (`[component-api]`) when a prop or slot is missing from `api.ts` or documented but not in the source.
 
-Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`. `<Anatomy>` finds it from the page slug. `tests/e2e/anatomy.spec.ts` checks every page with `heroAnatomy` for overflow, spacing and axe violations.
+Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`, or let `<Component slug="...">` pick it up without a title. `<Anatomy>` finds it from the page slug. `tests/e2e/anatomy.spec.ts` checks every page with `heroAnatomy` for overflow, spacing and axe violations.
 
 ## Example Reference
 

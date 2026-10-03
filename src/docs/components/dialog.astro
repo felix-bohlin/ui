@@ -8,8 +8,19 @@ import DialogCSS from "@opui/css/components/dialog.css?raw"
 import CardCSS from "@opui/css/components/card.css?raw"
 
 import Conditional from "../../components/Conditional.astro"
+import {
+  componentHasFramework,
+  DEFAULT_FRAMEWORK,
+  type FrameworkId,
+} from "../../utils/framework-routing"
+
+const hasToast = componentHasFramework(
+  (Astro.currentLocale ?? DEFAULT_FRAMEWORK) as FrameworkId,
+  "toast",
+)
 
 import dialogApi from "../../component-api/dialog/api"
+import DialogBuild from "../../components/UnderTheHood/DialogBuild.astro"
 
 export const description =
   "A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use."
@@ -20,11 +31,14 @@ export const description =
   slug="dialog"
   apis={[{ title: "Dialog API", api: dialogApi }]}
   browserSupport={[
+    "backdrop-filter",
     "container-style-queries",
     "dialog-closedby",
+    "display-animation",
     "has",
     "invoker-commands",
     "overlay",
+    "scrollbar-gutter",
     "starting-style",
     "transition-behavior",
   ]}
@@ -55,9 +69,15 @@ export const description =
         The term "modal" and "dialog" are often used interchangeably, but
         there's an important difference. A modal window describes parts of a UI
         that <a href="#modal" class="ui-link">blocks user interaction</a>. A
-        dialog <a href="#non-modal" class="ui-link"
-          >doesn't have to be blocking</a
-        >.
+        dialog {
+          hasToast ? (
+            <a href="#non-modal" class="ui-link">
+              doesn't have to be blocking
+            </a>
+          ) : (
+            "doesn't have to be blocking"
+          )
+        }.
       </p>
     </UICallout>
   </div>
@@ -65,24 +85,34 @@ export const description =
   <section>
     <h2 id="usage">Usage</h2>
 
-    <h3 id="non-modal">Non-modal</h3>
-    <ul>
-      <li>
-        <DocLink href="/components/toast" class="ui-link">Toast</DocLink>:
-        informative but non-interruptive
-      </li>
-    </ul>
+    {
+      hasToast && (
+        <>
+          <h3 id="non-modal">Non-modal</h3>
+          <ul>
+            <li>
+              <DocLink
+                href="/components/toast"
+                class="ui-link"
+                set:text="Toast"
+              />
+              : informative but non-interruptive
+            </li>
+          </ul>
+        </>
+      )
+    }
 
     <h3 id="modal">Modal</h3>
     <div class="ui-not-rich-text">
       <UICallout severity="info">
-        <Fragment slot="title">No JavaScript required</Fragment>
+        <Fragment slot="title">HTML only</Fragment>
         <p>
           In browsers that support <a
             href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API"
             class="ui-link">Invoker Commands</a
-          > you can toggle a <code>&lt;dialog&gt;</code> without JavaScript by using
-          the <code>commandfor</code> and <code>command</code> attributes.
+          > you can toggle a <code>&lt;dialog&gt;</code> with HTML only, using the
+          {" "}<code>commandfor</code> and <code>command</code> attributes.
         </p>
       </UICallout>
     </div>
@@ -213,11 +243,13 @@ export const description =
     <AutoExample name="CloseBehaviors" row />
   </section>
 
+  <DialogBuild slot="under-the-hood" />
+
   <Fragment slot="accessibility">
     <ul>
       <li>
         The <code>tabindex</code> attribute must <strong>not</strong> be used on the
-        <code>&lt;dialog&gt;</code> element.
+        {" "}<code>&lt;dialog&gt;</code> element.
       </li>
     </ul>
 

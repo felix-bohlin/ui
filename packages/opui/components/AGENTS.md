@@ -211,7 +211,7 @@ const fieldId = id || $id("input") // Prefer passed ID if available
 ```
 
 ### Default Icons
-Components like `Callout` or `Toast` should provide default SVG icons within their named slots, while allowing users to override them.
+Components like `Callout` should provide default SVG icons within their named slots, while allowing users to override them.
 
 ```astro
 <slot name="icon">

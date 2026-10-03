@@ -17,9 +17,13 @@ import BadgeCSS from "@opui/css/components/badge.css?raw"
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
 
 import badgeApi from "../../component-api/badge/api"
+import BadgeBuild from "../../components/UnderTheHood/BadgeBuild.astro"
+export const description =
+  "Badges attach a small count or status dot to another element."
 ---
 
 <Component
+  description={description}
   slug="badge"
   heroAnatomy
   apis={[{ title: "Badge API", api: badgeApi }]}
@@ -43,11 +47,6 @@ import badgeApi from "../../component-api/badge/api"
   ]}
 >
   <Fragment slot="title">Badge</Fragment>
-  <Fragment slot="preamble">
-    <p>
-      A badge is a small status indicator that can be placed on other elements.
-    </p>
-  </Fragment>
 
   <section>
     <h2 id="variants">Variants</h2>
@@ -96,7 +95,7 @@ import badgeApi from "../../component-api/badge/api"
       <p slot="html">
         <code>.ui-critical</code>, <code>.ui-info</code>, <code
           >.ui-neutral</code
-        >,
+        >,{" "}
         <code>.ui-success</code>, <code>.ui-warning</code>.
       </p>
       <p slot="astro">
@@ -118,15 +117,15 @@ import badgeApi from "../../component-api/badge/api"
     <h2 id="visibility">Visibility</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Change the badge's visibility using the <code>invisible</code>
+        Change the badge's visibility using the <code>invisible</code>{" "}
         prop.
       </Fragment>
       <Fragment slot="html">
-        Change the badge's visibility using the <code>.ui-invisible</code>
+        Change the badge's visibility using the <code>.ui-invisible</code>{" "}
         class.
       </Fragment>
       <Fragment slot="vue">
-        Change the badge's visibility using the <code>invisible</code>
+        Change the badge's visibility using the <code>invisible</code>{" "}
         prop.
       </Fragment>
     </Conditional>
@@ -162,17 +161,19 @@ import badgeApi from "../../component-api/badge/api"
         >.
       </p>
       <p slot="astro">
-        <code>start-start</code>, default,
+        <code>start-start</code>, default,{" "}
         <code>end-start</code>, <code>end-end</code>.
       </p>
       <p slot="vue">
-        <code>start-start</code>, default,
+        <code>start-start</code>, default,{" "}
         <code>end-start</code>, <code>end-end</code>.
       </p>
     </Conditional>
 
     <AutoExample name="Alignment" row spacious />
   </section>
+
+  <BadgeBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={2}>

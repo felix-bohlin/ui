@@ -1,0 +1,95 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import CarouselBuild from "../../components/UnderTheHood/CarouselBuild.astro"
+import { Code } from "astro-expressive-code/components"
+---
+
+<TechniquePost slug="carousel-css-only">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      Scroll snap made swiping between slides a CSS job years ago. The controls
+      never were: previous and next buttons, dots that show where you are, and
+      disabling the buttons at either end all needed JavaScript that listens to
+      scroll events and keeps state in sync.
+    </p>
+    <p>
+      Those controls also had to be made accessible by hand: labels, focus and
+      the current slide.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        A grid with <code>grid-auto-flow: column</code> and <code
+          >scroll-snap-type</code
+        > is the track
+      </li>
+      <li>
+        <code>::scroll-button()</code> generates real, focusable buttons that scroll
+        the track and disable themselves at the ends
+      </li>
+      <li>
+        <code>::scroll-marker</code> gives every item a dot inside a <code
+          >::scroll-marker-group</code
+        >, and <code>:target-current</code> styles the active one
+      </li>
+      <li>
+        The alt text in <code>content: "" / "Next"</code> names the buttons, a CSS
+        counter numbers the dots
+      </li>
+      <li>Anchor positioning places the buttons over the scroller</li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.carousel {
+  counter-reset: item;
+  scroll-marker-group: after;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel::scroll-button(inline-end) {
+  content: "" / "Next";
+  inset-block-start: anchor(center);
+  inset-inline-end: calc(anchor(self-end) + 0.5rem);
+  position: absolute;
+  position-anchor: auto;
+}
+
+.carousel > * {
+  counter-increment: item;
+  scroll-snap-align: start;
+}
+
+.carousel > *::scroll-marker {
+  content: "" / "Slide " counter(item);
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <CarouselBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Without the pseudo-elements there are no buttons or dots, just a scroll
+        snapping row you swipe or scroll
+      </li>
+      <li>
+        The scrollbar is only hidden inside <code
+          >@supports selector(::scroll-button(*))</code
+        >, so it stays as the control elsewhere
+      </li>
+      <li>
+        Space for buttons outside the items is only reserved under the same
+        check
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

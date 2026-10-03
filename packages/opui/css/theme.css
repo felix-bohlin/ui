@@ -1,85 +1,136 @@
 @layer theme {
-  /* 1. Color scheme */
+  /* Color scheme */
   .ui-light {
     --color-scheme: light;
+
+    color-scheme: light;
   }
 
   .ui-dark {
     --color-scheme: dark;
+
+    color-scheme: dark;
+  }
+
+  :where(.ui-light, .ui-dark):where(:not(html)) {
+    background-color: var(--surface-default);
+    color: var(--text-muted);
   }
 
   :where(html) {
     color-scheme: var(--color-scheme, light dark);
 
-    /* 2. Palette - override the values in core/palette.css */
-    --palette-hue: light-dark(var(--hue-green), var(--hue-blue));
+    /* Palette - override the values in core/palette.css */
     --palette-chroma: 0.5;
-    /* --palette-source: oklch(.58 calc(.21 * .5) var(--hue-blue));   */
+    --palette-hue: var(--hue-green);
+    --palette-hue-rotate-by: 0;
+    /* --palette-source: oklch(0.58 calc(0.21 * 0.5) var(--hue-blue)); */
 
     /* Gray palette also lives in core/palette.css. */
-    /*
-      --gray-hue: 255;
-      --gray-chroma: 0.01;
-    */
+    --gray-chroma: 0.01;
+    --gray-hue: 255;
+  }
 
-    /* 3. Named colors (no severity meaning) - use when you literally want a green/red/etc. dot */
+  :where(html.ui-dark) {
+    --palette-hue: var(--hue-blue);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :where(html) {
+      --color-scheme: dark;
+    }
+
+    :where(html:not(.ui-light)) {
+      --palette-hue: var(--hue-blue);
+    }
+  }
+
+  :where(html, .ui-palette) {
+    /* Named colors (no severity meaning) - use when you literally want a green/red/etc. dot */
     --blue: oklch(from var(--color-9) l 0.2 210);
     --green: oklch(from var(--color-9) l 0.2 145);
     --orange: oklch(from var(--color-7) l 0.2 75);
     --red: oklch(from var(--color-9) l 0.2 25);
 
-    /* 4. Intent tokens */
-    --success: var(--green);
-    --info: var(--blue);
-    --warning: var(--orange);
+    /* Intent tokens */
     --critical: var(--red);
+    --info: var(--blue);
+    --invalid-color: var(--critical);
+    --invalid-text-color: light-dark(
+      var(--invalid-color),
+      oklch(from var(--invalid-color) max(l, 0.75) c h)
+    );
     --neutral: var(--gray-9);
+    --success: var(--green);
+    --warning: var(--orange);
 
-    /* 5. Primary */
-    --primary: var(--color-8);
-    --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
+    /* Primary */
+    --primary: light-dark(var(--color-9), var(--color-6));
+    --primary-contrast: light-dark(var(--gray-1), var(--gray-15));
     --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
-    --primary-contrast: var(--gray-1);
+    --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
 
-    /* 6. Text */
-    --text-primary: light-dark(var(--gray-15), var(--gray-1));
-    --text-primary-contrast: light-dark(var(--gray-2), var(--gray-15));
+    /* Text */
+    --text-disabled: color-mix(
+      in oklch,
+      var(--text-muted) 50%,
+      var(--surface-default)
+    );
+    --text-inverse: light-dark(var(--gray-1), var(--gray-15));
     --text-muted: light-dark(var(--gray-13), var(--gray-4));
     --text-muted-contrast: light-dark(var(--gray-4), var(--gray-13));
+    --text-primary: light-dark(var(--gray-15), var(--gray-1));
+    --text-primary-contrast: light-dark(var(--gray-2), var(--gray-15));
 
-    /* 7. Surfaces */
+    /* Surfaces */
     --surface-default: light-dark(var(--gray-1), var(--gray-13));
-    --surface-filled: light-dark(var(--gray-4), var(--gray-15));
-    --surface-tonal: light-dark(var(--gray-3), var(--gray-12));
     --surface-elevated: light-dark(var(--gray-1), var(--gray-12));
+    --surface-filled: light-dark(var(--gray-4), var(--gray-15));
+    --surface-inverse: light-dark(var(--gray-15), var(--gray-2));
+    --surface-tonal: light-dark(var(--gray-3), var(--gray-12));
 
-    /* 8. Borders */
+    /* Borders */
     --border-color: light-dark(var(--gray-4), var(--gray-12));
+
+    /* Field / input */
+    --field-border-color: var(--border-color);
+  }
+
+  :where(html) {
+    /* Borders */
     --border-radius: var(--size-2);
     --border-width: 1px;
 
-    /* 9. Focus ring */
-    --focus-ring-color: var(--primary);
-    --focus-ring-width: 2px;
+    /* Focus ring */
+    /* --focus-ring-color: var(--primary); */
+    --focus-ring-inset: calc(-1 * var(--focus-ring-width));
     --focus-ring-offset: 2px;
     --focus-ring-style: solid;
+    --focus-ring-width: 2px;
 
-    /* 10. Typography */
+    /* Typography */
     --font-size-h1: var(--font-size-fluid-3);
     --font-size-h2: var(--font-size-fluid-2);
-    --font-size-h3: var(--font-size-fluid-1);
-    --font-size-h4: var(--font-size-3);
+    --font-size-h3: clamp(var(--font-size-3), 4vw, var(--font-size-4));
+    --font-size-h4: clamp(var(--font-size-2), 3vw, var(--font-size-3));
     --font-size-h5: var(--font-size-2);
-    --font-size-h6: var(--font-size-fluid-0);
+    --font-size-h6: var(--font-size-1);
 
     /* Sneaking in an extra font size I want but Open Props doesn't provide. You can do whatever you want with your own theme. It's just CSS. */
     --font-size-05: 0.875rem;
 
-    /* 11. Control sizes - shared scale for fields and buttons so they line up. */
-    --control-size-x-small: 28px;
-    --control-size-small: 32px;
-    --control-size: 40px;
-    --control-size-large: 46px;
+    --font-weight-medium: var(--font-weight-5);
+    --font-weight-semibold: var(--font-weight-6);
+    --font-weight-bold: var(--font-weight-7);
+
+    --rhythm-step: 0.25rem;
+
+    /* Control sizes - shared scale for fields and buttons so they line up. */
+    --density: 1;
+    --control-size-x-small: calc(28px * var(--density));
+    --control-size-small: calc(32px * var(--density));
+    --control-size: calc(40px * var(--density));
+    --control-size-large: calc(46px * var(--density));
 
     --field-size-x-small: var(--control-size-x-small);
     --field-size-small: var(--control-size-small);
@@ -91,17 +142,72 @@
     --button-size: var(--control-size);
     --button-size-large: var(--control-size-large);
 
-    /* 12. Field / input */
-    --field-border-color: var(--border-color);
+    --chip-size-small: var(--control-size-x-small);
+    --chip-size: var(--control-size-small);
+    --chip-size-large: var(--control-size);
+
+    /* Field / input */
     --field-border-radius: var(--size-2);
     --field-border-width: 1px;
+    --field-helper-color: var(--text-muted);
+    --field-helper-font-size: var(--font-size-0);
+    --field-helper-line-height: var(--font-lineheight-3);
+    --field-label-color: var(--text-primary);
+    --field-label-font-size: var(--font-size-05);
+    --field-label-font-weight: var(--font-weight-semibold);
+    --field-required-color: var(--invalid-text-color);
 
-    /* 13. Button */
+    /* Button */
     --button-border-radius: var(--size-2);
+
+    /* Motion */
+    --duration-fast: 0.1s;
+    --duration: 0.2s;
+    --duration-slow: 0.3s;
+    --ease: ease;
+    --ease-enter: var(--ease-out-3);
+    --ease-exit: var(--ease-in-3);
+    --motion: 1;
+
+    /* State */
+    --disabled-opacity: 0.64;
+    --state-active-alpha: 20%;
+    --state-active-alpha-accent: 25%;
+    --state-active-alpha-dark: 30%;
+    --state-hover-alpha: 10%;
+    --state-hover-alpha-accent: 15%;
+    --state-hover-alpha-dark: 20%;
+
+    /* Icons */
+    --icon-size-small: var(--size-3);
+    --icon-size: var(--size-4);
+    --icon-size-large: var(--size-5);
+
+    /* Choice controls */
+    --choice-label-offset: 0px;
+    --choice-size-small: var(--size-3);
+    --choice-size: var(--size-4);
+    --choice-size-large: var(--size-5);
+    --switch-dot-size-small: 0.75rem;
+    --switch-dot-size: var(--size-3);
+    --switch-track-height-small: var(--size-4);
+    --switch-track-height: var(--size-5);
+    --switch-track-width-small: 2.5rem;
+    --switch-track-width: var(--size-8);
+
+    /* Overlays */
+    --backdrop-blur: 1px;
+    --backdrop-color: rgb(0 0 0 / 0.5);
   }
 
-  /* 14. Severity scope classes */
-  :where(.ui-critical, [data-invalid], del) {
+  @media (prefers-reduced-motion: reduce) {
+    :where(html) {
+      --motion: 0;
+    }
+  }
+
+  /* Severity scope classes */
+  :where(.ui-critical, .ui-del, [data-invalid], del) {
     --palette-source: oklch(0.58 0.21 var(--hue-red));
     --palette-hue-rotate-by: 1;
   }
@@ -111,7 +217,7 @@
     --palette-hue-rotate-by: 1;
   }
 
-  :where(.ui-success, ins) {
+  :where(.ui-success, .ui-ins, ins) {
     --palette-source: oklch(0.58 0.21 var(--hue-green));
     --palette-hue-rotate-by: 1;
   }
@@ -119,5 +225,16 @@
   :where(.ui-warning) {
     --palette-source: oklch(0.58 0.21 var(--hue-orange));
     --palette-hue-rotate-by: 1;
+  }
+
+  :where(.ui-neutral) {
+    --palette-source: oklch(0.58 var(--gray-chroma) var(--gray-hue));
+    --palette-hue-rotate-by: 0;
+  }
+
+  /* Raised surfaces */
+  :where(.ui-card.ui-elevated, .ui-card.ui-tonal) {
+    --border-color: light-dark(var(--gray-4), var(--surface-default));
+    --field-border-color: var(--border-color);
   }
 }

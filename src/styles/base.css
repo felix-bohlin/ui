@@ -2,6 +2,19 @@
   navigation: auto;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-group(*.doc-heading) {
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*.doc-heading) {
+    animation-duration: 0s;
+  }
+}
+
 *::selection {
   background: var(--color-12);
   color: var(--color-1);
@@ -89,5 +102,15 @@
 
   &.ui-end {
     margin-inline: auto var(--_gap);
+  }
+}
+
+.code-tabs {
+  & > .ui-tab-label:first-of-type {
+    margin-inline-start: var(--size-2);
+  }
+
+  & > .ui-tab-panel {
+    margin-block-start: 0;
   }
 }

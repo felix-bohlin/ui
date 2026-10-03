@@ -7,6 +7,6 @@ const variantClass = variant ? `border-${variant}` : ""
 ---
 
 <hr
-  class:list={["ui-divider", className, variantClass && `ui-${variantClass}`]}
+  class:list={["ui-divider", variantClass && `ui-${variantClass}`, className]}
   {...rest}
 />

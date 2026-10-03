@@ -1,17 +1,23 @@
 import { getRelativeLocaleUrl } from "astro:i18n"
 import {
+  componentHasFramework,
   DEFAULT_FRAMEWORK,
   FRAMEWORK_IDS,
   FRAMEWORKS,
   frameworkPrefixPattern,
+  isFrameworkFree,
+  pathHasFramework,
   type FrameworkId,
 } from "./framework"
 
 export {
+  componentHasFramework,
   DEFAULT_FRAMEWORK,
   FRAMEWORK_IDS,
   FRAMEWORKS,
   frameworkPrefixPattern,
+  isFrameworkFree,
+  pathHasFramework,
   type FrameworkId,
 }
 
@@ -44,7 +50,7 @@ export function stripFrameworkPrefix(pathname: string): string {
 
 /**
  * Build the URL for the same logical page on a specific framework. Honors the
- * Astro i18n config (default framework is unprefixed). Preserves any query
+ * Astro i18n config (every framework has its own prefix). Preserves any query
  * string and hash fragment on the input - Astro's `getRelativeLocaleUrl`
  * treats its input as a single path segment and would otherwise mangle them
  * (e.g. append a trailing slash *after* the hash).
@@ -63,6 +69,7 @@ export function hrefFor(framework: FrameworkId, pathname: string): string {
   const suffix = splitAt === -1 ? "" : pathname.slice(splitAt)
 
   const sharedPath = stripFrameworkPrefix(path)
+  if (isFrameworkFree(sharedPath)) return `${sharedPath}${suffix}`
   const localized = getRelativeLocaleUrl(
     framework,
     sharedPath.replace(/^\//, ""),
@@ -77,9 +84,13 @@ export function hrefFor(framework: FrameworkId, pathname: string): string {
 export function frameworkVariantsOf(
   pathname: string,
 ): { framework: FrameworkId; url: string; isDefault: boolean }[] {
-  return FRAMEWORKS.map((l) => ({
-    framework: l.id,
-    url: hrefFor(l.id, pathname),
-    isDefault: l.id === DEFAULT_FRAMEWORK,
-  }))
+  const sharedPath = stripFrameworkPrefix(pathname)
+  if (isFrameworkFree(sharedPath)) return []
+  return FRAMEWORKS.filter((l) => pathHasFramework(l.id, sharedPath)).map(
+    (l) => ({
+      framework: l.id,
+      url: hrefFor(l.id, pathname),
+      isDefault: l.id === DEFAULT_FRAMEWORK,
+    }),
+  )
 }

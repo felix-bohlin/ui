@@ -1,3 +1,46 @@
+# Migrating from v5 to v6
+
+`IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `rounded` makes it a circle and `ripple` gives it the hover halo. `IconButton`'s default size matches `size="small"`, and its `small` matches `x-small`.
+
+```diff
+- <IconButton aria-label="Edit">
++ <Button ripple rounded size="small" aria-label="Edit">
+```
+
+```diff
+- <button class="ui-icon-button ui-small">
++ <button class="ui-button ui-rounded ui-ripple ui-x-small">
+```
+
+`icon-button.css` is gone, so drop its import if you import single component files.
+
+`TextField` and `Textarea` take a `size` prop like `Select`, with `x-small`, `small` and `large`.
+
+```diff
+- <TextField small label="Name" />
++ <TextField size="small" label="Name" />
+```
+
+`Switch` takes `size="small"` instead of `small` too.
+
+```diff
+- <Switch small>Notifications</Switch>
++ <Switch size="small">Notifications</Switch>
+```
+
+`ButtonGroup` variants apply to the whole group. Move a variant from a button inside a group to the group.
+
+```diff
+- <div role="group" class="ui-button-group">
+-   <button class="ui-button ui-outlined">One</button>
++ <div role="group" class="ui-button-group ui-outlined">
++   <button class="ui-button">One</button>
+```
+
+# Migrating from v5.4 to v5.5
+
+`Toast` is no longer exported from `opui-css/astro` or `opui-css/vue`. It is still available in HTML as an alpha: import `opui-css/css/components/toast.css` and `opui-css/css/js/toast.js`, and call `initToastManager()` once.
+
 # Migrating from v5.0 to v5.1
 
 In v5.1.0, the `critical` prop has been renamed to `error` on all form components (`TextField`, `Checkbox`, `Radio`, `Switch`, `Select`, `ClassicSelect`, `Textarea`).
@@ -106,7 +149,7 @@ pnpm add open-props
 import { Button, Dialog, Tabs } from "opui-css/astro"
 ---
 
-<Button variant="primary">Save</Button>
+<Button color="primary">Save</Button>
 ```
 
 `astro` is an _optional_ peer - only required if you actually import from `opui-css/astro`. Pure-CSS consumers won't see a peer warning.
@@ -118,7 +161,7 @@ Astro components emit prefixed `ui-` classes (see the v4 → v5 section at the t
 v4 declares the layer order in `css/imports.css` / `dist/opui.css`:
 
 ```css
-@layer openprops, normalize, theme, components.root, components.extended, utils;
+@layer openprops, theme, normalize, components.root, components.extended, utils;
 ```
 
 Put your overrides in a later layer or unlayered. If your app already declared `@layer` with a different order, reconcile or import `dist/opui.components.css` and own the layer order yourself.

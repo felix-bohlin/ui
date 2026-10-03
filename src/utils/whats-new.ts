@@ -74,6 +74,9 @@ const whatsNew = {
     },
     `Breaking: <code>--ripple</code> is <code>--_ripple</code>.`,
   ],
+  "data-grid": [
+    `New component. A data grid with sorting, filtering, selection, pinned columns and detail panels, built with subgrid and <code>:has()</code>. HTML and CSS only.`,
+  ],
   dialog: [
     `<a href="#modal">Long content</a> scrolls between a fixed header and actions.`,
   ],

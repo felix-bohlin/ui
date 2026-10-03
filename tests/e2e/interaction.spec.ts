@@ -90,6 +90,169 @@ interaction(
   },
 )
 
+const visibleRows = (root: Locator) =>
+  root.locator('.ui-body > [role="row"]:not(.ui-empty)').evaluateAll((rows) =>
+    rows
+      .filter((row) => row.checkVisibility())
+      .toSorted(
+        (a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top,
+      )
+      .map((row) =>
+        row.querySelector('[role="rowheader"]')?.textContent?.trim(),
+      ),
+  )
+
+interaction(
+  "data-grid",
+  "Sorting",
+  "data grid sorts rows with the header radios",
+  async ({ root }) => {
+    await expect
+      .poll(() => visibleRows(root))
+      .toEqual([
+        "Margaret Hamilton",
+        "Grace Hopper",
+        "Katherine Johnson",
+        "Ada Lovelace",
+        "Alan Turing",
+        "Hedy Lamarr",
+      ])
+
+    await root
+      .getByRole("radio", { name: "Sort by Location, ascending" })
+      .check({ force: true })
+    await expect
+      .poll(() => visibleRows(root))
+      .toEqual([
+        "Margaret Hamilton",
+        "Katherine Johnson",
+        "Ada Lovelace",
+        "Alan Turing",
+        "Grace Hopper",
+        "Hedy Lamarr",
+      ])
+  },
+)
+
+interaction(
+  "data-grid",
+  "Filtering",
+  "data grid filters rows and selected rows",
+  async ({ root }) => {
+    await root.getByRole("radio", { name: "Active" }).check({ force: true })
+    await expect
+      .poll(() => visibleRows(root))
+      .toEqual(["Ada Lovelace", "Grace Hopper", "Margaret Hamilton"])
+
+    await root
+      .getByRole("checkbox", { name: "Select Grace Hopper" })
+      .check({ force: true })
+    await root.getByRole("radio", { name: "Selected" }).check({ force: true })
+    await expect.poll(() => visibleRows(root)).toEqual(["Grace Hopper"])
+    await expect(root.locator(".ui-empty")).toBeHidden()
+
+    await root
+      .getByRole("checkbox", { name: "Select Grace Hopper" })
+      .uncheck({ force: true })
+    await expect.poll(() => visibleRows(root)).toEqual([])
+    await expect(root.locator(".ui-empty")).toBeVisible()
+  },
+)
+
+interaction(
+  "data-grid",
+  "ColumnVisibility",
+  "data grid hides columns from the columns menu",
+  async ({ root }) => {
+    const role = root.getByRole("columnheader", { name: "Role" })
+
+    await expect(role).toBeVisible()
+    await root.getByRole("button", { name: "Columns" }).click()
+    await root.getByRole("checkbox", { name: "Role" }).uncheck()
+    await expect(role).toBeHidden()
+    await expect(root.getByRole("cell", { name: "Engineer" })).toBeHidden()
+  },
+)
+
+interaction(
+  "data-grid",
+  "BulkActions",
+  "data grid submits the selection and clears it with reset",
+  async ({ root }) => {
+    const actions = root.locator(".ui-bulk-actions")
+
+    await expect(actions).toBeHidden()
+    await root
+      .getByRole("checkbox", { name: "Select Grace Hopper" })
+      .check({ force: true })
+    await root
+      .getByRole("checkbox", { name: "Select Hedy Lamarr" })
+      .check({ force: true })
+    await expect(actions).toBeVisible()
+    await expect
+      .poll(() =>
+        root
+          .locator("form")
+          .evaluate((form: HTMLFormElement) =>
+            new FormData(form).getAll("selected"),
+          ),
+      )
+      .toEqual(["grace", "hedy"])
+
+    await actions.getByRole("button", { name: "Clear selection" }).click()
+    await expect(root.locator(".ui-body input:checked")).toHaveCount(0)
+    await expect(actions).toBeHidden()
+  },
+)
+
+interaction(
+  "data-grid",
+  "HeaderMenus",
+  "data grid sorts and hides columns from header menus",
+  async ({ page, root }) => {
+    const menu = root.locator("menu:popover-open")
+
+    await root.getByRole("button", { name: "Options for Tickets" }).click()
+    await expect(menu).toBeVisible()
+    await menu
+      .getByText("Sort descending")
+      .evaluate((label: HTMLLabelElement) => label.click())
+    await expect
+      .poll(() => visibleRows(root))
+      .toEqual([
+        "Margaret Hamilton",
+        "Grace Hopper",
+        "Katherine Johnson",
+        "Ada Lovelace",
+        "Alan Turing",
+        "Hedy Lamarr",
+      ])
+    await page.keyboard.press("Escape")
+
+    await root.getByRole("button", { name: "Options for Role" }).click()
+    await expect(menu).toBeVisible()
+    await menu
+      .getByText("Hide column")
+      .evaluate((label: HTMLLabelElement) => label.click())
+    await expect(root.getByRole("columnheader", { name: /^Role/ })).toBeHidden()
+  },
+)
+
+interaction(
+  "data-grid",
+  "DetailPanel",
+  "data grid expands a detail panel",
+  async ({ root }) => {
+    const detail = root.getByText("Ada Lovelace joined in 2015.")
+
+    await expect(detail).toBeHidden()
+    await root
+      .locator("summary", { hasText: "Show details for Ada Lovelace" })
+      .click()
+    await expect(detail).toBeVisible()
+  },
+)
+
 interaction(
   "dialog",
   "Usage",

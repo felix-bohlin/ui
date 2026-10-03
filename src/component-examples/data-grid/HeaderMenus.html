@@ -1,0 +1,331 @@
+<div class="ui-data-grid">
+  <div class="ui-toolbar">
+    <button
+      class="ui-button ui-outlined ui-small"
+      command="toggle-popover"
+      commandfor="header-menus-columns-1"
+      type="button"
+    >
+      Columns
+    </button>
+    <menu
+      class="ui-menu ui-list ui-dense ui-columns ui-align-end"
+      id="header-menus-columns-1"
+      popover
+    >
+      <li>
+        <label class="ui-checkbox">
+          <input
+            checked
+            id="header-menus-columns-1-1"
+            type="checkbox"
+            value="1"
+          />Name</label
+        >
+      </li>
+      <li>
+        <label class="ui-checkbox">
+          <input
+            checked
+            id="header-menus-columns-1-2"
+            type="checkbox"
+            value="2"
+          />Role</label
+        >
+      </li>
+      <li>
+        <label class="ui-checkbox">
+          <input
+            checked
+            id="header-menus-columns-1-3"
+            type="checkbox"
+            value="3"
+          />Location</label
+        >
+      </li>
+      <li>
+        <label class="ui-checkbox">
+          <input
+            checked
+            id="header-menus-columns-1-4"
+            type="checkbox"
+            value="4"
+          />Tickets</label
+        >
+      </li>
+    </menu>
+  </div>
+  <div aria-label="Team" role="table" tabindex="0">
+    <div class="ui-head" role="rowgroup">
+      <div role="row">
+        <div role="columnheader">
+          <span>Name</span>
+          <span class="ui-sort">
+            <label>
+              <input
+                id="header-menus-sort-1-1-asc"
+                name="header-menus-sort-1"
+                type="radio"
+                value="asc"
+              />
+              <span class="ui-sr-only">Sort by Name, ascending</span>
+            </label>
+            <label>
+              <input
+                id="header-menus-sort-1-1-desc"
+                name="header-menus-sort-1"
+                type="radio"
+                value="desc"
+              />
+              <span class="ui-sr-only">Sort by Name, descending</span>
+            </label>
+          </span>
+          <button
+            aria-label="Options for Name"
+            class="ui-button ui-rounded ui-small"
+            command="toggle-popover"
+            commandfor="header-menus-header-menu-1-1"
+            type="button"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </button>
+          <menu
+            class="ui-menu ui-list ui-dense ui-align-end"
+            id="header-menus-header-menu-1-1"
+            popover
+          >
+            <li>
+              <label for="header-menus-sort-1-1-asc">Sort ascending</label>
+            </li>
+            <li>
+              <label for="header-menus-sort-1-1-desc">Sort descending</label>
+            </li>
+            <li>
+              <label for="header-menus-columns-1-1">Hide column</label>
+            </li>
+          </menu>
+        </div>
+        <div role="columnheader">
+          <span>Role</span>
+          <span class="ui-sort">
+            <label>
+              <input
+                id="header-menus-sort-1-2-asc"
+                name="header-menus-sort-1"
+                type="radio"
+                value="asc"
+              />
+              <span class="ui-sr-only">Sort by Role, ascending</span>
+            </label>
+            <label>
+              <input
+                id="header-menus-sort-1-2-desc"
+                name="header-menus-sort-1"
+                type="radio"
+                value="desc"
+              />
+              <span class="ui-sr-only">Sort by Role, descending</span>
+            </label>
+          </span>
+          <button
+            aria-label="Options for Role"
+            class="ui-button ui-rounded ui-small"
+            command="toggle-popover"
+            commandfor="header-menus-header-menu-1-2"
+            type="button"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </button>
+          <menu
+            class="ui-menu ui-list ui-dense ui-align-end"
+            id="header-menus-header-menu-1-2"
+            popover
+          >
+            <li>
+              <label for="header-menus-sort-1-2-asc">Sort ascending</label>
+            </li>
+            <li>
+              <label for="header-menus-sort-1-2-desc">Sort descending</label>
+            </li>
+            <li>
+              <label for="header-menus-columns-1-2">Hide column</label>
+            </li>
+          </menu>
+        </div>
+        <div role="columnheader">
+          <span>Location</span>
+          <span class="ui-sort">
+            <label>
+              <input
+                id="header-menus-sort-1-3-asc"
+                name="header-menus-sort-1"
+                type="radio"
+                value="asc"
+              />
+              <span class="ui-sr-only">Sort by Location, ascending</span>
+            </label>
+            <label>
+              <input
+                id="header-menus-sort-1-3-desc"
+                name="header-menus-sort-1"
+                type="radio"
+                value="desc"
+              />
+              <span class="ui-sr-only">Sort by Location, descending</span>
+            </label>
+          </span>
+          <button
+            aria-label="Options for Location"
+            class="ui-button ui-rounded ui-small"
+            command="toggle-popover"
+            commandfor="header-menus-header-menu-1-3"
+            type="button"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </button>
+          <menu
+            class="ui-menu ui-list ui-dense ui-align-end"
+            id="header-menus-header-menu-1-3"
+            popover
+          >
+            <li>
+              <label for="header-menus-sort-1-3-asc">Sort ascending</label>
+            </li>
+            <li>
+              <label for="header-menus-sort-1-3-desc">Sort descending</label>
+            </li>
+            <li>
+              <label for="header-menus-columns-1-3">Hide column</label>
+            </li>
+          </menu>
+        </div>
+        <div class="ui-numeric" role="columnheader">
+          <span>Tickets</span>
+          <span class="ui-sort">
+            <label>
+              <input
+                id="header-menus-sort-1-4-asc"
+                name="header-menus-sort-1"
+                type="radio"
+                value="asc"
+              />
+              <span class="ui-sr-only">Sort by Tickets, ascending</span>
+            </label>
+            <label>
+              <input
+                id="header-menus-sort-1-4-desc"
+                name="header-menus-sort-1"
+                type="radio"
+                value="desc"
+              />
+              <span class="ui-sr-only">Sort by Tickets, descending</span>
+            </label>
+          </span>
+          <button
+            aria-label="Options for Tickets"
+            class="ui-button ui-rounded ui-small"
+            command="toggle-popover"
+            commandfor="header-menus-header-menu-1-4"
+            type="button"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path
+                d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </button>
+          <menu
+            class="ui-menu ui-list ui-dense ui-align-end"
+            id="header-menus-header-menu-1-4"
+            popover
+          >
+            <li>
+              <label for="header-menus-sort-1-4-asc">Sort ascending</label>
+            </li>
+            <li>
+              <label for="header-menus-sort-1-4-desc">Sort descending</label>
+            </li>
+            <li>
+              <label for="header-menus-columns-1-4">Hide column</label>
+            </li>
+          </menu>
+        </div>
+      </div>
+    </div>
+    <div class="ui-body" role="rowgroup">
+      <div
+        role="row"
+        style="--_rank-1: 1; --_rank-2: 3; --_rank-3: 3; --_rank-4: 3"
+      >
+        <div role="rowheader">Ada Lovelace</div>
+        <div role="cell">Engineer</div>
+        <div role="cell">London</div>
+        <div class="ui-numeric" role="cell">42</div>
+      </div>
+      <div
+        role="row"
+        style="--_rank-1: 2; --_rank-2: 6; --_rank-3: 4; --_rank-4: 2"
+      >
+        <div role="rowheader">Alan Turing</div>
+        <div role="cell">Researcher</div>
+        <div role="cell">Manchester</div>
+        <div class="ui-numeric" role="cell">37</div>
+      </div>
+      <div
+        role="row"
+        style="--_rank-1: 3; --_rank-2: 1; --_rank-3: 5; --_rank-4: 5"
+      >
+        <div role="rowheader">Grace Hopper</div>
+        <div role="cell">Admiral</div>
+        <div role="cell">New York</div>
+        <div class="ui-numeric" role="cell">58</div>
+      </div>
+      <div
+        role="row"
+        style="--_rank-1: 4; --_rank-2: 4; --_rank-3: 6; --_rank-4: 1"
+      >
+        <div role="rowheader">Hedy Lamarr</div>
+        <div role="cell">Inventor</div>
+        <div role="cell">Vienna</div>
+        <div class="ui-numeric" role="cell">12</div>
+      </div>
+      <div
+        role="row"
+        style="--_rank-1: 5; --_rank-2: 5; --_rank-3: 2; --_rank-4: 4"
+      >
+        <div role="rowheader">Katherine Johnson</div>
+        <div role="cell">Mathematician</div>
+        <div role="cell">Hampton</div>
+        <div class="ui-numeric" role="cell">51</div>
+      </div>
+      <div
+        role="row"
+        style="--_rank-1: 6; --_rank-2: 2; --_rank-3: 1; --_rank-4: 6"
+      >
+        <div role="rowheader">Margaret Hamilton</div>
+        <div role="cell">Director</div>
+        <div role="cell">Boston</div>
+        <div class="ui-numeric" role="cell">64</div>
+      </div>
+      <div class="ui-empty" role="row">
+        <div role="cell">No rows</div>
+      </div>
+    </div>
+  </div>
+</div>

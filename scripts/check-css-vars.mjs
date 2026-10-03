@@ -7,6 +7,7 @@ const opuiDir = join(root, "packages/opui")
 const openPropsEntry = join(opuiDir, "open-props.css")
 
 const CONSUMER_SET = ["--anchor-position-area", "--text-color-2"]
+const CONSUMER_SET_PATTERN = /^--_(col|rank|sum)-\d+$/
 
 const DECLARATION = /(--[\w-]+)\s*:/g
 const READ = /var\(\s*(--[\w-]+)/g
@@ -63,7 +64,12 @@ for (const file of (await listCssFiles(opuiDir)).toSorted()) {
 }
 
 const errors = [...reads]
-  .filter(([name]) => !defined.has(name) && !CONSUMER_SET.includes(name))
+  .filter(
+    ([name]) =>
+      !defined.has(name) &&
+      !CONSUMER_SET.includes(name) &&
+      !CONSUMER_SET_PATTERN.test(name),
+  )
   .toSorted(([a], [b]) => a.localeCompare(b))
   .map(
     ([name, files]) =>

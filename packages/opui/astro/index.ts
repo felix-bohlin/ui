@@ -18,6 +18,7 @@ export {
   Term as DescriptionListTerm,
 } from "../components/DescriptionList/index"
 export { default as Dialog } from "../components/Dialog/Dialog.astro"
+export { default as DataGrid } from "../components/DataGrid/DataGrid.astro"
 export { default as Divider } from "../components/Divider/Divider.astro"
 export { default as Drawer } from "../components/Drawer/Drawer.astro"
 export { default as DrawerFooter } from "../components/Drawer/DrawerFooter.astro"
@@ -58,3 +59,10 @@ export { default as TextField } from "../components/TextField/TextField.astro"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.astro"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.astro"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.astro"
+export type {
+  DataGridColumn,
+  DataGridColumnGroup,
+  DataGridFilter,
+  DataGridRow,
+  DataGridSort,
+} from "../components/DataGrid/types"

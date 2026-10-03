@@ -1,0 +1,68 @@
+---
+import { Avatar, Button, Chip, DataGrid } from "@opui/astro"
+import type { DataGridRow } from "@opui/astro"
+import { initials, people, type Person } from "./data"
+
+const columns = [
+  { key: "name", label: "Name", rowHeader: true, sortable: true },
+  { editable: true, key: "role", label: "Role", sortable: true },
+  { key: "status", label: "Status", sortable: true },
+  { key: "city", label: "Location", sortable: true },
+  { key: "joined", label: "Joined", numeric: true, sortable: true },
+  {
+    key: "tickets",
+    label: "Tickets",
+    numeric: true,
+    sortable: true,
+    sum: true,
+  },
+  { fit: true, hideable: false, key: "actions", label: "Actions" },
+]
+
+const filters = [
+  { label: "Active", match: (row: DataGridRow) => row.status === "Active" },
+  { label: "Away", match: (row: DataGridRow) => row.status === "Away" },
+  { label: "Selected", match: "selected" as const },
+]
+---
+
+<DataGrid
+  columns={columns}
+  columnsMenu
+  densityToggle
+  filters={filters}
+  footer
+  label="Team"
+  maxBlockSize="24rem"
+  numbered
+  pinEnd
+  pinStart
+  rows={people}
+  selectable
+>
+  <fragment slot="cell-name">
+    {
+      (row: Person) => (
+        <Fragment>
+          <Avatar>{initials(row.name)}</Avatar>
+          {row.name}
+        </Fragment>
+      )
+    }
+  </fragment>
+  <fragment slot="cell-status">
+    {(row: Person) => <Chip label={row.status} size="small" />}
+  </fragment>
+  <fragment slot="cell-actions">
+    {() => <Button size="small">Edit</Button>}
+  </fragment>
+  <fragment slot="detail">
+    {
+      (row: Person) => (
+        <p>
+          {row.name} joined in {row.joined}. Contact: {row.email}
+        </p>
+      )
+    }
+  </fragment>
+</DataGrid>

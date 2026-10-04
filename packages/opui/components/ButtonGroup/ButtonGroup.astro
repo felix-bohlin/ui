@@ -7,6 +7,8 @@ const {
   class: className,
   color,
   orientation,
+  scrollable,
+  shrink,
   size,
   variant,
   ...rest
@@ -20,6 +22,7 @@ const {
     size && `ui-${size}`,
     variant && `ui-${variant}`,
     orientation && `ui-${orientation}`,
+    { "ui-scrollable": scrollable, "ui-shrink": shrink },
     className,
   ]}
   role="group"

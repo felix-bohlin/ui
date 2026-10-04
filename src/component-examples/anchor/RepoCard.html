@@ -1,0 +1,61 @@
+<div>
+  The source lives in
+  <span
+    class="ui-anchor"
+    style="--anchor-position-area: block-end span-inline-end"
+  >
+    <a
+      class="ui-link"
+      href="https://github.com/felix-bohlin/ui"
+      interestfor="anchor-repo-card"
+      >felix-bohlin/ui</a
+    >
+    <span class="ui-anchor-floating" id="anchor-repo-card" popover="hint">
+      <div class="ui-card ui-elevated repo-card">
+        <div class="ui-content">
+          <div class="repo-card-identity">
+            <div class="ui-avatar ui-rounded">
+              <img src="https://github.com/felix-bohlin.png" alt="" />
+            </div>
+            <div>
+              <strong>felix-bohlin/ui</strong>
+              <span class="ui-caption">Public repository</span>
+            </div>
+          </div>
+          <p>
+            A CSS UI library exploring how next-gen HTML &amp; CSS features can
+            change the way we create components.
+          </p>
+          <p class="ui-caption">CSS · MIT license</p>
+        </div>
+        <div class="ui-actions">
+          <button class="ui-button ui-outlined ui-small">Star</button>
+        </div>
+      </div>
+    </span>
+  </span>
+  on GitHub.
+</div>
+
+<style>
+  .repo-card {
+    font-size: var(--font-size-05);
+    inline-size: 280px;
+    margin-block-start: var(--size-2);
+  }
+
+  .repo-card .ui-content {
+    display: grid;
+    gap: var(--size-2);
+  }
+
+  .repo-card-identity {
+    align-items: center;
+    display: flex;
+    gap: var(--size-3);
+  }
+
+  .repo-card-identity > div {
+    display: grid;
+  }
+</style>

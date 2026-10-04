@@ -1,0 +1,141 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.indicator {
+  background-color: var(--primary);
+  block-size: var(--size);
+  border-radius: var(--radius-round);
+  color: var(--primary-contrast);
+  display: grid;
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-medium);
+  inline-size: max-content;
+  min-inline-size: var(--size);
+  padding-inline: 0.25rem;
+  place-items: center;
+}`,
+    html: `
+<span class="badge">
+  <svg>…</svg>
+  <span class="indicator">5</span>
+</span>`,
+    notes: [
+      "<code>min-inline-size</code> equals <code>block-size</code>: a circle for one digit, a pill for more",
+      "<code>max-content</code> keeps <code>99+</code> on one line",
+    ],
+    title: "Indicator",
+  },
+  {
+    css: `
+.badge {
+  display: inline-flex;
+  position: relative;
+  vertical-align: middle;
+}
+
+.indicator {
+  inset-block: auto 100%;
+  inset-inline: 100% auto;
+  position: absolute;
+  translate: -50% 50%;
+}`,
+    features: ["individual-transforms", "logical-properties"],
+    notes: [
+      "Insets of <code>100%</code> park the indicator just outside the top end corner",
+      "<code>translate</code> pulls its center back onto the corner",
+      "Built on Anchor, but plain insets: works without <code>position-area</code>",
+    ],
+    title: "Corner",
+  },
+  {
+    css: `
+.badge {
+  --dir: 1;
+  --tx: -50%;
+  --ty: 50%;
+}
+
+.badge:dir(rtl) {
+  --dir: -1;
+}
+
+.indicator {
+  translate: calc(var(--tx) * var(--dir)) var(--ty);
+}`,
+    features: ["dir-pseudo"],
+    notes: [
+      "Logical insets flip in right-to-left, <code>translate</code> doesn't",
+      "<code>:dir(rtl)</code> sets <code>--dir: -1</code> and the offset follows",
+      "Offsets live in custom properties, so alignments only swap values",
+    ],
+    title: "Direction",
+  },
+  {
+    css: `
+.badge.dot {
+  --dot: 0.5rem;
+  --tx: calc((var(--dot) - 2px) * -1);
+  --ty: var(--dot);
+}
+
+.badge.dot .indicator {
+  block-size: var(--dot);
+  inline-size: var(--dot);
+  min-inline-size: var(--dot);
+  padding: 0;
+}`,
+    notes: [
+      "Same indicator, emptied and shrunk",
+      "New <code>--tx</code> and <code>--ty</code> tuck it inside the corner, no new positioning rules",
+    ],
+    title: "Dot",
+  },
+]
+
+const knobs = [
+  {
+    label: "Size",
+    max: 32,
+    min: 16,
+    property: "--size",
+    step: 2,
+    unit: "px",
+    value: 20,
+  },
+]
+
+const badges = [
+  { label: "5" },
+  { label: "99+" },
+  { dir: "rtl", label: "3" },
+  { className: "dot", label: "" },
+]
+
+const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><path fill="currentColor" d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"/></svg>`
+---
+
+<BuildUp id="build-badge" knobs={knobs} steps={steps}>
+  <div class="row">
+    {
+      badges.map((badge) => (
+        <span class:list={["badge", badge.className]} dir={badge.dir}>
+          <Fragment set:html={icon} />
+          <span class="indicator">{badge.label}</span>
+        </span>
+      ))
+    }
+  </div>
+</BuildUp>
+
+<style>
+  .row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-8);
+    justify-content: center;
+  }
+</style>

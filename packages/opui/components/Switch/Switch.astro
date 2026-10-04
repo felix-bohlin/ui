@@ -1,6 +1,7 @@
 ---
 import SwitchInput from "./SwitchInput.astro"
 import type { SwitchProps as Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Switch"
 
@@ -9,14 +10,16 @@ const {
   error,
   hideLabel,
   name,
-  small,
+  size,
   spread,
   stack,
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
+const describedBy =
+  [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
 
 if (
   import.meta.env.DEV &&
@@ -33,8 +36,8 @@ if (
 <label
   class:list={[
     "ui-switch",
+    size && `ui-${size}`,
     {
-      "ui-small": small,
       "ui-stack": stack,
       "ui-spread": spread,
     },
@@ -56,7 +59,12 @@ if (
       </span>
     )
   }
-  <SwitchInput aria-describedby={endTextId} name={name} {...rest} />
+  <SwitchInput
+    {...rest}
+    aria-describedby={describedBy}
+    aria-invalid={error ? "true" : undefined}
+    name={name}
+  />
   {
     Astro.slots.has("default") && (
       <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>

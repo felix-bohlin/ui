@@ -15,7 +15,10 @@ Peer dependencies:
 
 - `astro` `^7` (only required if you use the Astro components)
 - `open-props` `^1.7`
+- `svelte` `^5` (optional; only the Svelte type files ship today, there are no Svelte components yet)
 - `vue` `^3.5` (only required if you use the Vue components)
+
+Every component folder also ships `types.solid.ts` and `types.svelte.ts` for projects that port the markup to Solid or Svelte.
 
 ## Usage
 
@@ -54,6 +57,27 @@ import { Button, Card } from "opui-css/vue"
 
 Both `opui-css/astro` and `opui-css/vue` export uncompiled sources (`.astro`, `.vue`, `.ts`), so they need a bundler that compiles them, e.g. Astro or Vite with `@vitejs/plugin-vue`.
 
+#### Ids in Astro
+
+Components that link elements with ids (form fields, Tabs, Drawer, Menu, …) read `Astro.locals.$id` when it exists and otherwise generate a random id per render. For stable, per-request ids (useful for snapshot tests), define it in a middleware:
+
+```ts
+// src/middleware.ts
+import { defineMiddleware } from "astro:middleware"
+
+export const onRequest = defineMiddleware((context, next) => {
+  const counts = new Map<string, number>()
+  context.locals.$id = (prefix) => {
+    const count = (counts.get(prefix) ?? 0) + 1
+    counts.set(prefix, count)
+    return `${prefix}-${count}`
+  }
+  return next()
+})
+```
+
+Add `/// <reference types="opui-css/env.d.ts" />` to your `env.d.ts` to type `$id`.
+
 ### Plain HTML + CSS (no build step)
 
 Drop a pre-bundled stylesheet into any page and use the documented class names:
@@ -81,7 +105,7 @@ If you do have a bundler that resolves CSS `@import`s (Vite, Astro, webpack, …
 The library defines this layer order:
 
 ```css
-@layer openprops, theme, normalize, components.root, components.extended, utils;
+@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;
 ```
 
 Import `opui-css/css/layers.css` first to set this order when you import single files.
@@ -90,24 +114,27 @@ Wrap your own styles in a layer above `utils` (or unlayered) to override.
 
 ## Entry points
 
-| Import                              | What it gives you                             |
-| ----------------------------------- | --------------------------------------------- |
-| `opui-css`                          | Pre-bundled: everything in one file (default) |
-| `opui-css/open-props`               | Pre-bundled: Open Props tokens only           |
-| `opui-css/dist/opui.css`            | Same as default - explicit path               |
-| `opui-css/dist/opui.components.css` | Pre-bundled: components only                  |
-| `opui-css/dist/op.css`              | Same as `opui-css/open-props` - explicit path |
-| `opui-css/css/imports.css`          | Source: everything (resolved by your bundler) |
-| `opui-css/css/layers.css`           | `@layer` order only                           |
-| `opui-css/css/components.css`       | All component styles (no tokens / reset)      |
-| `opui-css/css/components/*.css`     | One component at a time                       |
-| `opui-css/css/theme.css`            | Theme tokens (primary, surfaces, text, …)     |
-| `opui-css/core/normalize.css`       | CSS reset                                     |
-| `opui-css/core/palette.css`         | Extra OKLCH palette                           |
-| `opui-css/core/utils.css`           | Utility classes                               |
-| `opui-css/astro`                    | All Astro components                          |
-| `opui-css/vue`                      | All Vue components                            |
-| `opui-css/components/*`             | Individual Astro and Vue component sources    |
+| Import                              | What it gives you                                                          |
+| ----------------------------------- | -------------------------------------------------------------------------- |
+| `opui-css`                          | Pre-bundled: everything in one file (default)                              |
+| `opui-css/open-props`               | Pre-bundled: Open Props tokens only                                        |
+| `opui-css/open-props.css`           | Source: the Open Props imports (needs `open-props` installed)              |
+| `opui-css/dist/opui.css`            | Same as default - explicit path                                            |
+| `opui-css/dist/opui.components.css` | Pre-bundled: components only                                               |
+| `opui-css/dist/op.css`              | Same as `opui-css/open-props` - explicit path                              |
+| `opui-css/css/imports.css`          | Source: everything (resolved by your bundler)                              |
+| `opui-css/css/layers.css`           | `@layer` order only                                                        |
+| `opui-css/css/components.css`       | All component styles (no tokens / reset)                                   |
+| `opui-css/css/components/*.css`     | One component at a time                                                    |
+| `opui-css/css/theme.css`            | Theme tokens (colors, sizes, motion, state)                                |
+| `opui-css/core/normalize.css`       | CSS reset                                                                  |
+| `opui-css/core/palette.css`         | OKLCH palette (required by the components)                                 |
+| `opui-css/core/utils.css`           | Utility classes                                                            |
+| `opui-css/css/js/toast.js`          | `initToastManager()` and `showToast()` for the HTML Toast                  |
+| `opui-css/css/js/checkbox.js`       | `activateIndeterminate()` for indeterminate checkboxes without a framework |
+| `opui-css/astro`                    | All Astro components                                                       |
+| `opui-css/vue`                      | All Vue components                                                         |
+| `opui-css/components/*`             | Individual Astro and Vue component sources                                 |
 
 ## AI assistants
 

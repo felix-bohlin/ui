@@ -1,0 +1,61 @@
+---
+import Learn from "./Learn.astro"
+import ReadMore from "../components/UnderTheHood/ReadMore.astro"
+import { references } from "../components/UnderTheHood/references"
+import { componentName, formatDate, posts } from "../utils/learn"
+import {
+  componentHasFramework,
+  DEFAULT_FRAMEWORK,
+  hrefFor,
+  type FrameworkId,
+} from "../utils/framework-routing"
+
+type Props = {
+  slug: string
+  topic?: keyof typeof references
+}
+
+const { slug, topic: topicProp } = Astro.props
+const post = posts.find((entry) => entry.slug === slug)!
+const component = post.component!
+
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+
+const docsHref = hrefFor(
+  componentHasFramework(currentFramework, component)
+    ? currentFramework
+    : DEFAULT_FRAMEWORK,
+  `/components/${component}`,
+)
+
+const name = componentName(component)
+
+const topic =
+  topicProp ??
+  (component in references ? (component as keyof typeof references) : undefined)
+---
+
+<Learn
+  description={post.description}
+  overline={formatDate(post.date)}
+  title={post.title}
+>
+  <Fragment slot="title">{post.title}</Fragment>
+  <Fragment slot="preamble">{post.description}</Fragment>
+
+  <slot />
+
+  <section>
+    <h2 id="read-more">Read more</h2>
+    <ul>
+      <li><a href={docsHref}>{name} docs</a></li>
+      <li>
+        <a href={hrefFor(currentFramework, "/learn/under-the-hood")}
+          >Every component, under the hood</a
+        >
+      </li>
+    </ul>
+    {topic && <ReadMore topic={topic} />}
+  </section>
+</Learn>

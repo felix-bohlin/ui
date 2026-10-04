@@ -4,10 +4,10 @@ Each component has one reference per listed framework: `html/<file>`, `astro/<fi
 
 | Component | File | Frameworks | Description |
 | --- | --- | --- | --- |
-| Accordion | `accordion.md` | html, astro, vue | Let's you show and hide stuff. Comes with a chevron marker, check out how to add your own custom marker. |
+| Accordion | `accordion.md` | html, astro, vue | Lets you show and hide content. Comes with a chevron marker and a custom marker slot. |
 | Anchor | `anchor.md` | html, astro, vue | A structural primitive to enable CSS Anchor Positioning on stuff. |
-| Avatar | `avatar.md` | html, astro, vue |  |
-| Badge | `badge.md` | html, astro, vue |  |
+| Avatar | `avatar.md` | html, astro, vue | Avatars show a person or entity as an image, initials or icon. |
+| Badge | `badge.md` | html, astro, vue | Badges attach a small count or status dot to another element. |
 | Button | `button.md` | html, astro, vue | Buttons allow users to take actions, and make choices, with a single tap. |
 | Button group | `button-group.md` | html, astro, vue | Groups related buttons by wrapping them with class="ui-button-group" and role="group". |
 | Callout | `callout.md` | html, astro, vue | Callouts call out for user attention. Should be part of the flow and used without interrupting the user's task. |
@@ -24,7 +24,7 @@ Each component has one reference per listed framework: `html/<file>`, `astro/<fi
 | Menu | `menu.md` | html, astro, vue | A popover list of actions or links. |
 | Progress | `progress.md` | html, astro, vue | See also: Spinner. |
 | Radio | `radio.md` | html, astro, vue | See also: Form documentation. |
-| Range | `range.md` | html, astro, vue |  |
+| Range | `range.md` | html, astro, vue | Range lets users pick a number by sliding a thumb along a track. |
 | Select | `select.md` | html, astro, vue | Leverages the List component to provide markup for the Select popover. |
 | Spinner | `spinner.md` | html, astro, vue | Add it to an element with aria-busy="true". Spinners are always indeterminate. See also: Progress bar. |
 | Switch | `switch.md` | html, astro, vue | See also: Switch field group. |
@@ -33,6 +33,23 @@ Each component has one reference per listed framework: `html/<file>`, `astro/<fi
 | Text field | `text-field.md` | html, astro, vue | An input for single-line text data. Basic text fields with labels, field descriptions, and validation states. |
 | Textarea | `textarea.md` | html, astro, vue | An input for multi-line text data. Basic textareas with labels, supporting text, and validation states. |
 | Toast | `toast.md` | html | Non-interruptive and stackable notifications. They pop up like... toast. |
-| Toggle | `toggle.md` | html, astro, vue | Buttons (disguised as input checkbox/radio) that can be toggled on and off. |
+| Toggle | `toggle.md` | html, astro, vue | Toggle buttons and toggle groups switch options on and off, alone or as a set. |
 | Tooltip | `tooltip.md` | html, astro, vue | Built on top of Anchor. |
 | Typography | `typography.md` | html, astro, vue | Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in .ui-rich-text. |
+
+Components documented on another component's page:
+
+| Component | File |
+| --- | --- |
+| ClassicSelect | `select.md` |
+| DrawerHeader | `drawer.md` |
+| FieldDescription | `form.md` |
+| FieldGroup | `form.md` |
+| FieldLegend | `form.md` |
+| FieldSet | `form.md` |
+| ListItem | `list.md` |
+| Tabs.Item | `tabs.md` |
+| Tabs.Panel | `tabs.md` |
+| Tabs.Tab | `tabs.md` |
+| ToggleButton | `toggle.md` |
+| ToggleGroup | `toggle.md` |

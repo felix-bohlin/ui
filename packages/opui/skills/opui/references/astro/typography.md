@@ -2,6 +2,14 @@
 
 Styles for headings, body text, and other text content. Use util classes anywhere or wrap content in `.ui-rich-text`.
 
+### What's new
+
+- [Rich text](#classless) spacing comes from one flow space, with more room above headings than below.
+- Heading sizes and line heights snap to `--rhythm-step`, and the heading scale no longer inverts on narrow screens.
+- [Rich text](#rich-text-showcase) styles tables, `hr` and task lists.
+- Rich text sits in the `components.prose` layer, below components, so components inside prose keep their own styles.
+- Rich text headings, `pre` and `small` scale with the surrounding font size.
+
 ## Class-based
 
 Utils that you can plop down wherever.
@@ -577,18 +585,101 @@ cold-brew 1.0.0</samp></pre>
 
 ## API
 
-| Prop    | Type                                                                                                                                              | Default | Description                                                                      |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------- |
-| Classes | `.ui-h1`–`.ui-h6`, `.ui-p`, `.ui-overline`, `.ui-caption`, `.ui-hgroup`, `.ui-blockquote`, `pre.ui-code-block`, inline utilities, `.ui-rich-text` | -       | CSS-only typography. Apply classes on elements in templates; no Astro component. |
-| Sizes   | `.ui-small`, `.ui-large`                                                                                                                          | -       | Size modifiers on `.ui-p`.                                                       |
+| Type          | Modifiers                                                                                                                                                  | Default | Description                                          |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ---------------------------------------------------- |
+| Blockquote    | `.ui-blockquote`                                                                                                                                           | -       | Quoted block with a start border.                    |
+| Caption       | `.ui-caption`                                                                                                                                              | -       | Muted supporting text.                               |
+| Code block    | `pre.ui-code-block`                                                                                                                                        | -       | Monospace preformatted block.                        |
+| Heading group | `.ui-hgroup`                                                                                                                                               | -       | Groups an overline, heading, and optional body copy. |
+| Headings      | `.ui-h1`, `.ui-h2`, `.ui-h3`, `.ui-h4`, `.ui-h5`, `.ui-h6`                                                                                                 | -       | Heading styles for any element.                      |
+| Inline        | `.ui-abbr`, `.ui-cite`, `.ui-del`, `.ui-dfn`, `.ui-ins`, `.ui-kbd`, `.ui-mark`, `.ui-s`, `.ui-samp`, `.ui-small`, `.ui-sub`, `.ui-sup`, `.ui-u`, `.ui-var` | -       | Inline text element utilities.                       |
+| Overline      | `.ui-overline`                                                                                                                                             | -       | Small uppercase label text.                          |
+| Paragraph     | `.ui-p`                                                                                                                                                    | -       | Body paragraph styling.                              |
+| Sizes         | `.ui-large`, `.ui-small`                                                                                                                                   | -       | Size modifiers on `.ui-p`.                           |
+
+### Parts
+
+| Part            | Description                                         |
+| --------------- | --------------------------------------------------- |
+| `.ui-rich-text` | Classless typography for uncontrolled child markup. |
+
+CSS-only typography. Apply the classes on elements in templates; no Astro component.
+
+## Under the hood
+
+1. Unsnapped
+
+   - Stripes mark each line box (`1lh`), dotted lines mark `--rhythm-step`
+   - A plain `line-height` lands between grid lines at most sizes
+
+2. Snap line height
+
+   - `round(up, …, step)` snaps the line height to the next step
+   - `1em + 0.5rem`: tight for large headings, roomy for small ones
+   - One rule for every heading level
+
+3. Snap font size
+
+   - Fluid sizes land on half a step
+   - Drag **Font size**: it moves in steps, not pixels
+
+4. Flow space
+
+   - One flow space derived from the body text
+   - More space above a heading than below: it sits with the text it introduces
+
+Step 1 of 4: Unsnapped
+
+```css
+.prose h2 {
+  font-size: var(--size);
+  line-height: 1.2;
+}
+```
+
+Step 2 of 4: Snap line height
+
+- [`round(), mod(), and rem()`](https://webstatus.dev/features/round-mod-rem) (Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
+
+```css
+.prose h2 {
+  line-height: round(up, 1em + 0.5rem, var(--rhythm-step));
+}
+```
+
+Step 3 of 4: Snap font size
+
+```css
+.prose h2 {
+  font-size: round(var(--size), var(--rhythm-step) / 2);
+}
+```
+
+Step 4 of 4: Flow space
+
+```css
+.prose {
+  --flow-space: 1.25em;
+}
+
+
+.prose > * {
+  margin-block: 0 var(--flow-space);
+}
+
+
+.prose h2 {
+  margin-block: calc(var(--flow-space) * 1.5) calc(var(--flow-space) * 0.5);
+}
+```
 
 ## Browser support
 
 - Chromium: Full support Supported since v143.
-- Firefox: Full support Supported since v146.
+- Firefox: Partial support Missing: text-wrap-pretty.
 - Safari: Partial support Missing: box-decoration-break.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Typography.md).
 
 ## Installation
 

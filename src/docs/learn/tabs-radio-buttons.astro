@@ -1,0 +1,95 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import TabsBuild from "../../components/UnderTheHood/TabsBuild.astro"
+import { Code } from "astro-expressive-code/components"
+---
+
+<TechniquePost slug="tabs-radio-buttons">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      Tabs usually mean JavaScript: click handlers, <code>aria-selected</code>,
+      hiding and showing panels. CSS-only tabs with radios are old news, but
+      they needed the labels grouped apart from the panels and one selector per
+      tab to connect them.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        One radio group holds the state, and arrow keys move between the radios
+        natively
+      </li>
+      <li>
+        The markup interleaves radio, label, panel for each tab, so <code
+          >:checked + label + panel</code
+        > shows the right panel without a selector per tab
+      </li>
+      <li>
+        A wrapping flex row with <code>order</code> pulls every label into one row
+        and drops the panels below
+      </li>
+      <li>
+        The radios are visually hidden, <code>:focus-visible + label</code> draws
+        the focus ring on the label
+      </li>
+      <li>
+        <code>:nth-child(1 of .tab-label)</code> finds the first label among the radios
+        and panels, to round the outer corners of the track
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.tabs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tab-label {
+  order: 1;
+}
+
+.tab-panel {
+  display: none;
+  inline-size: 100%;
+  order: 2;
+}
+
+.tab-input:checked + .tab-label + .tab-panel {
+  display: block;
+}
+
+.tab-label:nth-child(1 of .tab-label) {
+  border-end-start-radius: var(--radius);
+  border-start-start-radius: var(--radius);
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <TabsBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Browsers without <code>:nth-child(of S)</code> drop those rules: the first
+        and last tabs lose their outer rounding, switching still works
+      </li>
+      <li>
+        <code>reading-flow: flex-visual</code> is ignored where unsupported. Focus
+        follows the DOM, which matches here: only the checked radio and its visible
+        panel are in the tab order
+      </li>
+      <li>
+        The rest is <code>:checked</code>, the next-sibling combinator and <code
+          >order</code
+        >, supported everywhere
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

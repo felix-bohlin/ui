@@ -3,6 +3,7 @@ import path from "path"
 import { pathToFileURL } from "url"
 import { globby } from "globby"
 
+import { posts } from "../src/utils/learn-posts.ts"
 import { componentHasFramework, FRAMEWORKS } from "../src/utils/framework.js"
 
 const API_LABEL_PATTERN = FRAMEWORKS.map((f) => f.label).join("|")
@@ -12,6 +13,19 @@ const OUTPUT_FILE = path.resolve(process.cwd(), "public/search-index.json")
 
 function frameworkUrl(framework, sharedPath) {
   return `/${framework}${sharedPath}`
+}
+
+function readHeadings(content) {
+  const headingMatches = content.matchAll(
+    /<h[23][^>]*id=["'](.*?)["'].*?>(.*?)<\/h[23]>/gi,
+  )
+  // Dedupe: a docs page may declare the same heading inside both an
+  // astro and html `<Conditional>` slot, but at runtime only one is rendered.
+  return Array.from(
+    new Set(
+      Array.from(headingMatches, (m) => m[2].replace(/<[^>]*>/g, "").trim()),
+    ),
+  )
 }
 
 function readMeta(file) {
@@ -33,16 +47,7 @@ function readMeta(file) {
       ? preambleMatch[1].replace(/<[^>]*>/g, "").trim()
       : ""
 
-  const headingMatches = content.matchAll(
-    /<h[23][^>]*id=["'](.*?)["'].*?>(.*?)<\/h[23]>/gi,
-  )
-  // Dedupe: a docs page may declare the same heading inside both an
-  // astro and html `<Conditional>` slot, but at runtime only one is rendered.
-  const headings = Array.from(
-    new Set(
-      Array.from(headingMatches, (m) => m[2].replace(/<[^>]*>/g, "").trim()),
-    ),
-  )
+  const headings = readHeadings(content)
 
   return { title, preamble, headings }
 }
@@ -142,6 +147,29 @@ async function generateIndex() {
       headings: meta.headings.join(" "),
       category: "Guide",
       url: "/",
+    })
+  }
+
+  // Learn posts are framework-agnostic and live at /learn/<slug>.
+  for (const post of posts.toSorted((a, b) => a.slug.localeCompare(b.slug))) {
+    const content = fs.readFileSync(
+      `src/docs/learn/${post.slug}.astro`,
+      "utf-8",
+    )
+
+    index.push({
+      id: `learn-${post.slug}`,
+      title: post.title,
+      description: post.description,
+      headings: [
+        ...readHeadings(content),
+        post.technique,
+        ...(post.features ?? []),
+      ]
+        .filter(Boolean)
+        .join(" "),
+      category: "Learn",
+      url: `/learn/${post.slug}`,
     })
   }
 

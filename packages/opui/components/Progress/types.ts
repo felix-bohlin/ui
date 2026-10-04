@@ -1,9 +1,4 @@
 export type Props = {
-  [key: string]: any
-  "aria-busy"?: "true" | "false" | boolean
-  "aria-describedby"?: string
-  "aria-label"?: string
-  id?: string
   max?: number | string
   value?: number | string
   variant?: "filled" | "default" | "tonal"

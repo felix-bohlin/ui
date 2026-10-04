@@ -1,0 +1,280 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-panel {
+    border: 1px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+    padding: var(--size-3);
+  }
+
+  .todo-stack {
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .todo-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+  }
+
+  .todo-sim {
+    background-color: Canvas;
+    color: CanvasText;
+    forced-color-adjust: none;
+
+    .ui-switch,
+    .ui-toggle-button,
+    .ui-label {
+      color: CanvasText;
+    }
+
+    .ui-toggle-button {
+      border-color: CanvasText;
+    }
+
+    .ui-toggle-group {
+      outline-color: CanvasText;
+    }
+  }
+
+  .todo-sim.todo-current {
+    .ui-switch input::before,
+    .ui-switch input::after {
+      background-color: Canvas;
+      border-color: CanvasText;
+      outline-color: CanvasText;
+    }
+
+    .ui-toggle-button {
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+
+  .todo-sim.todo-fixed {
+    .ui-switch {
+      --_accent-color: SelectedItem;
+      --_accent-contrast: SelectedItemText;
+      --_dot-bg-color: CanvasText;
+      --_track-bg-color: Canvas;
+    }
+
+    .ui-toggle-button {
+      background-color: transparent;
+      box-shadow: none;
+    }
+
+    .ui-toggle-button:has(:checked) {
+      background-color: SelectedItem;
+      color: SelectedItemText;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .todo-live.todo-fixed {
+      .ui-switch {
+        --_accent-color: SelectedItem;
+        --_accent-contrast: SelectedItemText;
+        --_dot-bg-color: CanvasText;
+      }
+
+      .ui-toggle-button:has(:checked) {
+        --_button-bg-color: SelectedItem;
+
+        color: SelectedItemText;
+        forced-color-adjust: none;
+      }
+    }
+  }
+</style>
+<div class="todo-stack">
+  <p>
+    To see the real thing, open DevTools, press <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> +
+    <kbd>Shift</kbd> + <kbd>P</kbd>, run "Show Rendering", and set "Emulate CSS
+    media feature forced-colors" to <code>active</code>. The first row then
+    shows the live result. The second row simulates it without emulation.
+  </p>
+  <p class="ui-caption">Live (only differs with forced colors on)</p>
+  <div class="todo-compare">
+    <div>
+      <p class="ui-caption">Current</p>
+      <div class="todo-panel todo-live todo-current">
+        <div class="todo-row">
+          <label class="ui-switch">
+            <input type="checkbox" role="switch" checked />
+            <span class="ui-label">On</span>
+          </label>
+          <label class="ui-switch">
+            <input type="checkbox" role="switch" />
+            <span class="ui-label">Off</span>
+          </label>
+        </div>
+        <div class="todo-row">
+          <label class="ui-toggle-button">
+            <input type="checkbox" checked />
+            Bold (on)
+          </label>
+          <label class="ui-toggle-button">
+            <input type="checkbox" />
+            Italic (off)
+          </label>
+        </div>
+        <div class="ui-toggle-group" role="radiogroup" aria-label="Align">
+          <label class="ui-toggle-button">
+            <input type="radio" name="todo-fc-live-current" />
+            Left
+          </label>
+          <label class="ui-toggle-button">
+            <input type="radio" name="todo-fc-live-current" checked />
+            Center
+          </label>
+          <label class="ui-toggle-button">
+            <input type="radio" name="todo-fc-live-current" />
+            Right
+          </label>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="ui-caption">Fixed</p>
+      <div class="todo-panel todo-live todo-fixed">
+        <div class="todo-row">
+          <label class="ui-switch">
+            <input type="checkbox" role="switch" checked />
+            <span class="ui-label">On</span>
+          </label>
+          <label class="ui-switch">
+            <input type="checkbox" role="switch" />
+            <span class="ui-label">Off</span>
+          </label>
+        </div>
+        <div class="todo-row">
+          <label class="ui-toggle-button">
+            <input type="checkbox" checked />
+            Bold (on)
+          </label>
+          <label class="ui-toggle-button">
+            <input type="checkbox" />
+            Italic (off)
+          </label>
+        </div>
+        <div class="ui-toggle-group" role="radiogroup" aria-label="Align">
+          <label class="ui-toggle-button">
+            <input type="radio" name="todo-fc-live-fixed" />
+            Left
+          </label>
+          <label class="ui-toggle-button">
+            <input type="radio" name="todo-fc-live-fixed" checked />
+            Center
+          </label>
+          <label class="ui-toggle-button">
+            <input type="radio" name="todo-fc-live-fixed" />
+            Right
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="ui-caption">Simulated forced colors</p>
+  <div class="todo-compare">
+    <div>
+      <p class="ui-caption">
+        Current: the off dot and the selected tint are forced to
+        <code>Canvas</code>
+      </p>
+      <div class="todo-panel todo-sim todo-current">
+        <div class="todo-row">
+          <label class="ui-switch">
+            <input type="checkbox" role="switch" checked />
+            <span class="ui-label">On</span>
+          </label>
+          <label class="ui-switch">
+            <input type="checkbox" role="switch" />
+            <span class="ui-label">Off</span>
+          </label>
+        </div>
+        <div class="todo-row">
+          <label class="ui-toggle-button">
+            <input type="checkbox" checked />
+            Bold (on)
+          </label>
+          <label class="ui-toggle-button">
+            <input type="checkbox" />
+            Italic (off)
+          </label>
+        </div>
+        <div class="ui-toggle-group" role="radiogroup" aria-label="Align">
+          <label class="ui-toggle-button">
+            <input type="radio" name="todo-fc-sim-current" />
+            Left
+          </label>
+          <label class="ui-toggle-button">
+            <input type="radio" name="todo-fc-sim-current" checked />
+            Center
+          </label>
+          <label class="ui-toggle-button">
+            <input type="radio" name="todo-fc-sim-current" />
+            Right
+          </label>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="ui-caption">
+        Fixed: <code>CanvasText</code> dot, <code>SelectedItem</code> for on and
+        selected
+      </p>
+      <div class="todo-panel todo-sim todo-fixed">
+        <div class="todo-row">
+          <label class="ui-switch">
+            <input type="checkbox" role="switch" checked />
+            <span class="ui-label">On</span>
+          </label>
+          <label class="ui-switch">
+            <input type="checkbox" role="switch" />
+            <span class="ui-label">Off</span>
+          </label>
+        </div>
+        <div class="todo-row">
+          <label class="ui-toggle-button">
+            <input type="checkbox" checked />
+            Bold (on)
+          </label>
+          <label class="ui-toggle-button">
+            <input type="checkbox" />
+            Italic (off)
+          </label>
+        </div>
+        <div class="ui-toggle-group" role="radiogroup" aria-label="Align">
+          <label class="ui-toggle-button">
+            <input type="radio" name="todo-fc-sim-fixed" />
+            Left
+          </label>
+          <label class="ui-toggle-button">
+            <input type="radio" name="todo-fc-sim-fixed" checked />
+            Center
+          </label>
+          <label class="ui-toggle-button">
+            <input type="radio" name="todo-fc-sim-fixed" />
+            Right
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

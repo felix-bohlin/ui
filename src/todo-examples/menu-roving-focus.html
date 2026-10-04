@@ -1,0 +1,165 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+    justify-items: start;
+    min-inline-size: 0;
+  }
+
+  .todo-stack {
+    display: grid;
+    gap: var(--size-4);
+    padding-block-end: 16rem;
+  }
+</style>
+<div class="todo-stack">
+  <p>
+    Open each menu with the keyboard (<kbd>Tab</kbd> to the button, then
+    <kbd>Enter</kbd>) and try <kbd>Tab</kbd>, <kbd>↓</kbd>, <kbd>↑</kbd>,
+    <kbd>Home</kbd>, <kbd>End</kbd> and a letter key.
+  </p>
+  <div class="todo-compare">
+    <div>
+      <p class="ui-caption">
+        Current: every item is a Tab stop, arrow keys do nothing
+      </p>
+      <button
+        type="button"
+        class="ui-button ui-outlined"
+        commandfor="todo-menu-current"
+        command="toggle-popover"
+      >
+        Current menu
+      </button>
+      <menu class="ui-menu ui-list" id="todo-menu-current" popover>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Edit</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Duplicate</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button" disabled>
+            <div class="ui-text"><p>Archive</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Rename</p></div>
+          </button>
+        </li>
+        <li class="ui-border-top ui-critical">
+          <button type="button">
+            <div class="ui-text"><p>Delete</p></div>
+          </button>
+        </li>
+      </menu>
+    </div>
+    <div>
+      <p class="ui-caption">
+        Roving focus (about 30 lines of JS): one Tab stop, arrows, Home/End,
+        type-ahead, focus moves into the menu when it opens
+      </p>
+      <button
+        type="button"
+        class="ui-button ui-outlined"
+        commandfor="todo-menu-roving"
+        command="toggle-popover"
+        aria-haspopup="menu"
+      >
+        Roving menu
+      </button>
+      <menu
+        class="ui-menu ui-list"
+        id="todo-menu-roving"
+        popover
+        role="menu"
+        data-roving
+      >
+        <li role="none">
+          <button type="button" role="menuitem">
+            <div class="ui-text"><p>Edit</p></div>
+          </button>
+        </li>
+        <li role="none">
+          <button type="button" role="menuitem">
+            <div class="ui-text"><p>Duplicate</p></div>
+          </button>
+        </li>
+        <li role="none">
+          <button type="button" role="menuitem" disabled>
+            <div class="ui-text"><p>Archive</p></div>
+          </button>
+        </li>
+        <li role="none">
+          <button type="button" role="menuitem">
+            <div class="ui-text"><p>Rename</p></div>
+          </button>
+        </li>
+        <li class="ui-border-top ui-critical" role="none">
+          <button type="button" role="menuitem">
+            <div class="ui-text"><p>Delete</p></div>
+          </button>
+        </li>
+      </menu>
+    </div>
+  </div>
+</div>
+<script>
+  for (const menu of document.querySelectorAll("[data-roving]")) {
+    const items = () => [...menu.querySelectorAll("button:not(:disabled)")]
+    const focusItem = (item) => {
+      for (const other of items()) other.tabIndex = other === item ? 0 : -1
+      item.focus()
+    }
+
+    menu.addEventListener("toggle", (event) => {
+      if (event.newState === "open") focusItem(items()[0])
+    })
+
+    menu.addEventListener("keydown", (event) => {
+      const list = items()
+      const index = list.indexOf(document.activeElement)
+      const target = {
+        ArrowDown: list[(index + 1) % list.length],
+        ArrowUp: list[(index - 1 + list.length) % list.length],
+        End: list.at(-1),
+        Home: list[0],
+      }[event.key]
+      const match =
+        event.key.length === 1 &&
+        [...list.slice(index + 1), ...list.slice(0, index + 1)].find((item) =>
+          item.textContent
+            .trim()
+            .toLowerCase()
+            .startsWith(event.key.toLowerCase()),
+        )
+      const next = target ?? match
+      if (!next) return
+      event.preventDefault()
+      focusItem(next)
+    })
+
+    menu.addEventListener("focusout", (event) => {
+      const target = event.relatedTarget
+      if (
+        menu.contains(target) ||
+        target?.getAttribute("commandfor") === menu.id
+      )
+        return
+      menu.hidePopover()
+    })
+  }
+</script>

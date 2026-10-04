@@ -221,19 +221,16 @@ Findings with a page and section in brackets come from the stress pages in `src/
     .ui-divider {
       margin-block: var(--divider-space, var(--size-fluid-3));
     }
+
+    :where(.ui-card, .ui-dialog, .ui-drawer, .ui-callout) {
+      --divider-space: var(--size-3);
+    }
     ```
+    Users can set `--divider-space` on any wrapper. Dividers that are direct children of a flex or grid container with `gap` (like a card) could get `margin-block: 0`, since the gap already spaces them.
   > Fix
   - Fixed: `.ui-divider` uses `margin-block: var(--divider-space, var(--size-fluid-3))`. `--divider-space` is a theme token (`theme.css`, "Divider", default `--size-fluid-3`), and cards, callouts, dialogs and drawers set it to `--size-3` ("Compact surfaces" scope in `theme.css`). It inherits, so it reaches dividers at any depth, and you can set it on any wrapper.
   - A divider that is a direct child of a card gets `margin-block: 0`, since the card's `gap` already spaces it (`divider.css`).
   - Documented in the Divider docs (new "Spacing" section and example) and in the CSS variables table of the Divider API.
-
-    :where(.ui-card, .ui-dialog, .ui-drawer, .ui-callout) {
-    --divider-space: var(--size-3);
-    }
-
-    ```
-    Users can set `--divider-space` on any wrapper. Dividers that are direct children of a flex or grid container with `gap` (like a card) could get `margin-block: 0`, since the gap already spaces them.
-    ```
 - [x] (2) Narrow-container table padding grows instead of shrinking (`data-display` TableOverflow)
   - Fixed: removed with the table container queries (see above).
 - [x] (2) `.ui-marker-turn` rotates `90deg` in RTL too, so a mirrored (left-pointing) chevron turns up instead of down (`accordion.css:106-108`)
@@ -498,16 +495,12 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```css
     .ui-drawer .ui-header {
       gap: var(--size-1);
+
+      :where(h1, h2, h3, h4, h5, h6) {
+        flex: 1;
+      }
+    }
     ```
-  > Fix
-  - Fixed: the heading takes the free space (`flex: 1`) and the header has `gap: var(--size-1)`, so any number of actions line up at the end. In a header without a heading, the first icon-only button gets `margin-inline-start: auto`, so headers with only text or only buttons still put them at the end (`drawer.css`).
-
-    :where(h1, h2, h3, h4, h5, h6) {
-    flex: 1;
-    }
-    }
-
-    ````
     ```html
     <div class="ui-header">
       <h2>Settings</h2>
@@ -516,9 +509,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
         <svg>…close…</svg>
       </button>
     </div>
-    ````
-
+    ```
   - Nothing to learn: the markup is the same as today. A header without a heading can use any element with `flex: 1`, or a single `margin-inline-start: auto` on the first action.
+  > Fix
+  - Fixed: the heading takes the free space (`flex: 1`) and the header has `gap: var(--size-1)`, so any number of actions line up at the end. In a header without a heading, the first icon-only button gets `margin-inline-start: auto`, so headers with only text or only buttons still put them at the end (`drawer.css`).
 - [x] (4) Rich text headings, `pre` and `small` don't follow the inherited font size (`typography` InheritedSizes)
   - Fixed: headings scale by `1em / 1rem` (typed arithmetic, behind `@supports`), so they're unchanged at 16px and scale with the text around them. `pre` is `0.875em`, `small` is `max(0.75em, var(--font-size-0))`.
 - [x] (4) Vue derived values are plain consts, not `computed`, so they don't update when props change: Anchor (`Anchor.vue:8-25`), Badge (`Badge.vue:9`), Divider (`Divider.vue:5`), Table Column (`Table/Column.vue:10`), ToggleButton (`ToggleButton.vue:15-18`), ToggleGroup (`ToggleGroup.vue:20-21`), Menu (`Menu.vue:20`), Tabs (`Tabs.vue:13`), Drawer (`Drawer.vue:19`)
@@ -661,39 +655,35 @@ Findings with a page and section in brackets come from the stress pages in `src/
          --border-color: light-dark(var(--gray-4), var(--gray-13));
          --field-border-color: var(--border-color);
        }
+
+       /* 16. Filled surfaces */
+       :where(
+         .ui-list:not(.ui-default, .ui-tonal, .ui-transparent),
+         .ui-table th
+       ) {
+         --border-color: light-dark(var(--gray-6), var(--gray-13));
+       }
        ```
+    2. A surface context variable. Every surface sets `--surface`, and borders are derived from it with relative color, so they contrast with any surface, including custom ones:
+       ```css
+       .ui-card.ui-tonal {
+         --surface: var(--surface-tonal);
+       }
+
+       .ui-table th {
+         border-color: light-dark(
+           oklch(
+             from var(--surface, var(--surface-default)) calc(l - 0.08) c h
+           ),
+           oklch(from var(--surface, var(--surface-default)) calc(l + 0.08) c h)
+         );
+       }
+       ```
+       The catch: the derivation has to live where the border is drawn, in every component, and themes lose the single `--border-color` knob.
+  - Recommendation: option 1. It matches how theme.css already works (severity scopes, raised surfaces) and keeps one place to theme borders. Filled is a one-block addition.
   > Fix
   - Fixed with option 1: a "Filled surfaces" scope in `theme.css` sets `--border-color: light-dark(var(--gray-6), var(--gray-12))` on `.ui-list:not(.ui-default, .ui-tonal, .ui-transparent)` and `.ui-table th`. Table header borders and filled bordered list dividers show in light mode. Dark mode keeps `--gray-12`, which already showed on the darker filled surface.
   - The theme generator copies `theme.css` as a whole, so the block is in the generated theme too.
-
-    /* 16. Filled surfaces */
-    :where(
-    .ui-list:not(.ui-default, .ui-tonal, .ui-transparent),
-    .ui-table th
-    ) {
-    --border-color: light-dark(var(--gray-6), var(--gray-13));
-    }
-
-    ````
-    2. A surface context variable. Every surface sets `--surface`, and borders are derived from it with relative color, so they contrast with any surface, including custom ones:
-    ```css
-    .ui-card.ui-tonal {
-      --surface: var(--surface-tonal);
-    }
-
-    .ui-table th {
-      border-color: light-dark(
-        oklch(
-          from var(--surface, var(--surface-default)) calc(l - 0.08) c h
-        ),
-        oklch(from var(--surface, var(--surface-default)) calc(l + 0.08) c h)
-      );
-    }
-    ````
-
-    The catch: the derivation has to live where the border is drawn, in every component, and themes lose the single `--border-color` knob.
-
-  - Recommendation: option 1. It matches how theme.css already works (severity scopes, raised surfaces) and keeps one place to theme borders. Filled is a one-block addition.
 - [x] (5) `pre` inside `dir="rtl"` runs code right to left (`typography` Bidi)
   > in this example I can see code inside RTL run left to right. if that's wrong then fix it.
   - It was wrong. Each line runs left to right, but punctuation at the ends gets moved by the bidi algorithm: `const x = add(1, 2);` showed as `;const x = add(1, 2)`, `x++` as `++x` and `// comment.` as `.comment //`, and lines were right-aligned. Fixed: rich text `pre` and inline `code` are `direction: ltr` with `unicode-bidi: isolate`, unless they have their own `dir`.
@@ -706,7 +696,23 @@ Findings with a page and section in brackets come from the stress pages in `src/
     .ui-menu[popover] {
       container-type: anchored;
     }
+
+    .ui-menu.ui-inline-end {
+      --_side: var(--_submenu-inline-end, inline-end);
+    }
+
+    .ui-menu.ui-inline-start {
+      --_side: var(--_submenu-inline-start, inline-start);
+    }
+
+    @container anchored(fallback: flip-inline) or anchored(fallback: flip-block flip-inline) {
+      .ui-menu .ui-menu {
+        --_submenu-inline-end: inline-start;
+        --_submenu-inline-start: inline-end;
+      }
+    }
     ```
+    Submenus of a flipped menu open on the same side, and deeper levels inherit it.
   > Fix
   - Still blocked for the anchored-query version: lightningcss 1.32.0 (installed) and 1.33.0 (latest on npm) both fail on `@container anchored(…)`.
   - Fixed another way, without container queries: the root menu is an anchor (`--ui-menu-root`, scoped to itself). Second-level and deeper submenus shrink their inline-end edge to the root menu's start edge when the root menu is on that side:
@@ -723,25 +729,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
     When the parent submenu has flipped, the inline-end side no longer fits, so the submenu flips too and keeps the direction. `flip-inline` mirrors the expression, so a submenu also won't flip back over the root menu. It builds with lightningcss.
   - Checked in Chromium (`overlays` Submenus): Edit > Transform > Rotate now opens at the inline start (it opened over the Edit menu before), File > Export > Image still opens at the inline end, and the same holds in an RTL document.
-
-    .ui-menu.ui-inline-end {
-    --_side: var(--_submenu-inline-end, inline-end);
-    }
-
-    .ui-menu.ui-inline-start {
-    --_side: var(--_submenu-inline-start, inline-start);
-    }
-
-    @container anchored(fallback: flip-inline) or anchored(fallback: flip-block flip-inline) {
-    .ui-menu .ui-menu {
-    --_submenu-inline-end: inline-start;
-    --_submenu-inline-start: inline-end;
-    }
-    }
-
-    ```
-    Submenus of a flipped menu open on the same side, and deeper levels inherit it.
-    ```
 - [?] (5) FieldGroup `name`: the Astro regex also names `type="submit"`, `button` and hidden inputs. Vue only reaches components that inject `CurrentFieldNameKey`, so native inputs and ClassicSelect get no name (`FieldGroup.astro:9-13`, `FieldGroup.vue:8-10`)
   > Explain further and provide an example
   - Rendered output of the same slot content:
@@ -850,19 +837,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
     :where(.ui-text-field, .ui-textarea, .ui-select) {
       min-inline-size: var(--_min-inline-size, 0);
     }
-    ```
-  > Fix
-  - Fixed: `text-field.css` gives `.ui-text-field`, `.ui-textarea` and `.ui-select` a `12ch` minimum when they're a direct child of a `.ui-table` cell (`:where(.ui-table) :where(td, th) > &`, zero specificity, so a class overrides it). I left out the private `--_min-inline-size` with a `0` default: setting `min-inline-size: 0` on every field root would also let fields shrink below their label in flex rows, so fields outside tables are unchanged.
 
     .ui-table :where(td, th) > :where(.ui-text-field, .ui-select) {
-    --_min-inline-size: 12ch;
+      --_min-inline-size: 12ch;
     }
-
     ```
-
-    ```
-
   - For exact widths, `<col>` / `Table.Column width` already works.
+  > Fix
+  - Fixed: `text-field.css` gives `.ui-text-field`, `.ui-textarea` and `.ui-select` a `12ch` minimum when they're a direct child of a `.ui-table` cell (`:where(.ui-table) :where(td, th) > &`, zero specificity, so a class overrides it). I left out the private `--_min-inline-size` with a `0` default: setting `min-inline-size: 0` on every field root would also let fields shrink below their label in flex rows, so fields outside tables are unchanged.
 - [x] (6) List rows can't shrink below their longest word: `li .ui-text` needs `min-inline-size: 0` (`layout` Columns)
 - [x] (6) Long description list terms squeeze values into one word per line, and unbroken values overflow (`data-display` DescriptionLists)
   - Fixed: wide items use `auto auto` columns with `justify-content: space-between`, so a long term and a long value share the space. Items get `overflow-wrap: anywhere`, so unbroken values wrap.
@@ -1223,35 +1205,25 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```css
     .ui-dialog > .ui-content {
       container-type: scroll-state;
-    ```
-  > Fix
-  > i like it, just use a more subtle shadow
-  - Fixed: Dialog and Drawer `.ui-content` are `scroll-state` containers. A soft 8px gradient (`--_scroll-shadow-color`, 10% black in light mode, 40% in dark) shows under the header once the content is scrolled, and above the actions/footer while there's more below. It fades in and out.
-  - Changed from the proposal: a sticky `::before` in the scroller sits inside the scroller's padding (20px down in the drawer), so the shadow cut through the content. The shadows are `position: absolute` against the dialog/drawer instead, pinned to the content's edges with `anchor(--ui-dialog-content inside)` / `--ui-drawer-content`, with `pointer-events: none`.
-  - The sticky table header part is out of scope: sticky headers were removed (see the second-pass item).
-  - Updated the todo example to the final look.
 
-    &::before {
-    block-size: 0;
-    content: "";
-    display: block;
-    inset-block-start: 0;
-    margin-inline: calc(-1 * var(--size-3));
-    position: sticky;
-    transition: box-shadow 0.2s;
-    }
+      &::before {
+        block-size: 0;
+        content: "";
+        display: block;
+        inset-block-start: 0;
+        margin-inline: calc(-1 * var(--size-3));
+        position: sticky;
+        transition: box-shadow 0.2s;
+      }
     }
 
     @container scroll-state(scrollable: top) {
-    .ui-dialog > .ui-content::before {
-    box-shadow: 0 0 12px 6px rgb(0 0 0 / 0.35);
+      .ui-dialog > .ui-content::before {
+        box-shadow: 0 0 12px 6px rgb(0 0 0 / 0.35);
+      }
     }
-    }
-
     ```
     The same with `::after`, `inset-block-end: 0` and `scrollable: bottom` gives a shadow above the actions while there's more to read.
-    ```
-
   - Sticky table header (for the second pass): the table's scroll wrapper is the container, and the header gets a shadow once it's stuck:
     ```css
     .table-scroll {
@@ -1272,6 +1244,15 @@ Findings with a page and section in brackets come from the stress pages in `src/
       }
     }
     ```
+  > Fix
+  > i like it, just use a more subtle shadow
+  - Fixed: Dialog and Drawer `.ui-content` are `scroll-state` containers. A shadow shows under the header once the content is scrolled, and above the actions/footer while there's more below. It fades in and out.
+  - Changed from the proposal: a sticky `::before` in the scroller sits inside the scroller's padding (20px down in the drawer), so the shadow cut through the content. The shadows are `position: absolute` against the dialog/drawer instead, pinned to the content's edges with `anchor(--ui-dialog-content inside)` / `--ui-drawer-content`, with `pointer-events: none`.
+  - The sticky table header part is out of scope: sticky headers were removed (see the second-pass item).
+  - Updated the todo example to the final look.
+  > Scroll shadows in Dialog and Drawer: make sure you're either using shadow values from the library or open props
+  - Fixed: the shadow is Open Props `--shadow-4` (`--_scroll-shadow`), the level elevated cards use in light mode, instead of a custom gradient. Each shadow is an 8px pseudo-element just outside the content edge, with `clip-path: inset(100% 0 calc(-1 * var(--size-6)))` so only the part that falls on the content shows. The bottom one is the same element flipped with `scale: 1 -1`.
+  - Dark mode: Open Props shadows use a dark gray at 4-8% strength, so they're barely visible on dark surfaces. That's true for every Open Props shadow in the library (cards, drawers, menus), since `props.shadows.dark.css` isn't imported. Importing it, or setting Open Props' dark values (`--shadow-color: 220 40% 2%`, `--shadow-strength: 25%`) on `html` in dark mode in `theme.css`, would fix them all at once.
 - [?] (3) Docs sticky `h2` sets `container-name: sticky-heading` / `container-type: scroll-state`, but no `@container` rule uses it, and it has a hard-coded `max-inline-size: 555px` with a TODO comment (`Document.astro:449-456`)
   > Explain further and provide an example
   - Over 1200px, each docs `h2` is `position: sticky` at `--size-4` with `z-index: 22`, so it slides up into the floating header bar and sits next to the logo while you scroll its section. `max-inline-size: 555px` is there so it doesn't cover the nav (Guide, Components, …).
@@ -1340,22 +1321,17 @@ Findings with a page and section in brackets come from the stress pages in `src/
       &::after {
         content: none;
       }
+
+      input[list] {
+        padding-inline-end: var(--_field-padding-inline);
+      }
+    }
     ```
+  - It fits how Select and TextField work: the default arrow stays CSS-only, and a custom one uses the same slot as any icon. Astro and Vue get an `arrow` slot that renders into `.ui-suffix`. Select could take the same slot later, hiding `::picker-icon` when it's filled.
+  - Trade-off: the arrow is decorative (`pointer-events: none`), like today. Typing or pressing the down arrow key opens the list. A clickable arrow would need `input.showPicker()`, which is JavaScript.
   > Fix
   > use the chevron icon used in the select component
   - Fixed: the auto-suggest arrow is drawn exactly like Select's: `--_arrow-size` and `--_arrow-inset` live on the shared field root in `text-field.css` (moved from `select.css`), and `text-input.css` uses them with `color: var(--text-primary)`. The smaller inset at `x-small`/`small` is gone, so it lines up with Select's arrow at every size (checked in Chromium on `forms` SizeMatrix). The suffix `svg` plan is dropped. Firefox draws no indicator and Safari draws its own, as before; not checked in those browsers.
-
-    input[list] {
-    padding-inline-end: var(--_field-padding-inline);
-    }
-    }
-
-    ```
-
-    ```
-
-  - It fits how Select and TextField work: the default arrow stays CSS-only, and a custom one uses the same slot as any icon. Astro and Vue get an `arrow` slot that renders into `.ui-suffix`. Select could take the same slot later, hiding `::picker-icon` when it's filled.
-  - Trade-off: the arrow is decorative (`pointer-events: none`), like today. Typing or pressing the down arrow key opens the list. A clickable arrow would need `input.showPicker()`, which is JavaScript.
 - [] (4) Button `kbd` looks weird on Mac
 - [] (6) Review `feat/pixel-style` (Pixel style switcher in theme drawer): check every component in light/dark, no flash on reload, Default unchanged vs main, logo font now uses `--font-heading`. Rebase may conflict in button-group.css and CHANGELOG.md
 - [] (6) Test anatomy heroes in Firefox, Safari and with Windows fonts

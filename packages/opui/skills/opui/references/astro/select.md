@@ -6,6 +6,7 @@ Leverages the [List component](https://open-props-ui.netlify.app/astro/component
 
 - [X-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.
+- [Preselect](#preselected) options with `value` or `selected` on an item.
 
 ## Anatomy
 
@@ -143,6 +144,37 @@ import { Select } from "opui-css/astro"
   <option>Norway</option>
   <option>Denmark</option>
 </Select>
+```
+
+## Preselected
+
+Set `value` to preselect an option, or`selected: true` on an item.
+
+```astro
+---
+import { Select } from "opui-css/astro"
+---
+
+
+<Select
+  label="Role"
+  items={[
+    { text: "Designer", value: "designer" },
+    { text: "Developer", value: "developer" },
+    { text: "Manager", value: "manager" },
+  ]}
+  value="developer"
+/>
+
+
+<Select
+  label="Team"
+  items={[
+    { text: "Design", value: "design" },
+    { selected: true, text: "Engineering", value: "engineering" },
+    { text: "Sales", value: "sales" },
+  ]}
+/>
 ```
 
 ## Validation
@@ -356,7 +388,7 @@ import { ClassicSelect } from "opui-css/astro"
 | `endText`     | `string`                          | -            | Supporting text displayed below the field.                                |
 | `error`       | `boolean`                         | `false`      | Shows error styles.                                                       |
 | `id`          | `string`                          | -            | The id of the `<select>`.                                                 |
-| `items`       | `Item[]`                          | `[]`         | The options, as `{ text, value }` objects.                                |
+| `items`       | `Item[]`                          | `[]`         | The options, as `{ selected, text, value }` objects.                      |
 | `label`       | `string`                          | -            | The label for the field.                                                  |
 | `size`        | `"x-small"`, `"small"`, `"large"` | -            | The size of the element.                                                  |
 | `spread`      | `boolean`                         | `false`      | Pushes the label and description to one side and the select to the other. |
@@ -405,6 +437,7 @@ import { ClassicSelect } from "opui-css/astro"
 | `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                               |
 | `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                  |
+| `--surface-elevated`         | `light-dark(var(--gray-1), var(--gray-12))`                                             | Background of elevated cards and accordions.                                                                               |
 | `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                      |
 | `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                              |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                           |
@@ -462,6 +495,7 @@ Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to t
 | `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                               |
 | `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                  |
+| `--surface-elevated`         | `light-dark(var(--gray-1), var(--gray-12))`                                             | Background of elevated cards and accordions.                                                                               |
 | `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                      |
 | `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                              |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                           |

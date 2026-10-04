@@ -1,5 +1,9 @@
 # Description list
 
+### What's new
+
+- Breaking: `Description` is now `DescriptionListDescription`, like Astro.
+
 ## Anatomy
 
 - Price
@@ -18,15 +22,15 @@
 
   The term.
 
-* `<Description>`
+* `<DescriptionListDescription>`
 
   The description.
 
 ```vue
 <script setup lang="ts">
 import {
-  Description,
   DescriptionList,
+  DescriptionListDescription,
   DescriptionListItem,
   DescriptionListTerm,
 } from "opui-css/vue"
@@ -37,15 +41,15 @@ import {
   <DescriptionList>
     <DescriptionListItem>
       <DescriptionListTerm>Price</DescriptionListTerm>
-      <Description>6 950 000</Description>
+      <DescriptionListDescription>6 950 000</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
       <DescriptionListTerm>Size</DescriptionListTerm>
-      <Description>64 m²</Description>
+      <DescriptionListDescription>64 m²</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
       <DescriptionListTerm>Rooms</DescriptionListTerm>
-      <Description>3</Description>
+      <DescriptionListDescription>3</DescriptionListDescription>
     </DescriptionListItem>
   </DescriptionList>
 </template>
@@ -58,8 +62,8 @@ Set `bordered` on `DescriptionList` to add a separator between the term and desc
 ```vue
 <script setup lang="ts">
 import {
-  Description,
   DescriptionList,
+  DescriptionListDescription,
   DescriptionListItem,
   DescriptionListTerm,
 } from "opui-css/vue"
@@ -70,15 +74,15 @@ import {
   <DescriptionList bordered>
     <DescriptionListItem>
       <DescriptionListTerm>Price</DescriptionListTerm>
-      <Description>6 950 000</Description>
+      <DescriptionListDescription>6 950 000</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
       <DescriptionListTerm>Size</DescriptionListTerm>
-      <Description>64 m²</Description>
+      <DescriptionListDescription>64 m²</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
       <DescriptionListTerm>Rooms</DescriptionListTerm>
-      <Description>3</Description>
+      <DescriptionListDescription>3</DescriptionListDescription>
     </DescriptionListItem>
   </DescriptionList>
 
@@ -86,15 +90,15 @@ import {
   <DescriptionList bordered="dotted">
     <DescriptionListItem>
       <DescriptionListTerm>Price</DescriptionListTerm>
-      <Description>6 950 000</Description>
+      <DescriptionListDescription>6 950 000</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
       <DescriptionListTerm>Size</DescriptionListTerm>
-      <Description>64 m²</Description>
+      <DescriptionListDescription>64 m²</DescriptionListDescription>
     </DescriptionListItem>
     <DescriptionListItem>
       <DescriptionListTerm>Rooms</DescriptionListTerm>
-      <Description>3</Description>
+      <DescriptionListDescription>3</DescriptionListDescription>
     </DescriptionListItem>
   </DescriptionList>
 </template>

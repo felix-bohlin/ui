@@ -306,7 +306,7 @@ Use a `<hr />` to create a visual break between sections of your form.
 
 
   <div class="ui-field-group" role="group">
-    <button class="ui-button ui-filled">Publish</button>
+    <button type="button" class="ui-button ui-filled">Publish</button>
   </div>
 </form>
 ```
@@ -339,7 +339,7 @@ Everything all at once.
         <span class="ui-label" id="kitchen-sink-role-label">Role</span>
         <span class="ui-field">
           <select aria-labelledby="kitchen-sink-role-label">
-            <button>
+            <button type="button">
               <selectedcontent></selectedcontent>
             </button>
             <div class="ui-list">
@@ -476,7 +476,7 @@ Everything all at once.
 
   <div class="ui-field-group" role="group">
     <button class="ui-button ui-filled" type="submit">Send</button>
-    <button class="ui-button">Cancel</button>
+    <button type="button" class="ui-button">Cancel</button>
   </div>
 </form>
 ```
@@ -509,7 +509,7 @@ Everything all at once, but horizontally.
         <span class="ui-label" id="kitchen-sink-row-role-label">Role</span>
         <span class="ui-field">
           <select aria-labelledby="kitchen-sink-row-role-label">
-            <button>
+            <button type="button">
               <selectedcontent></selectedcontent>
             </button>
             <div class="ui-list">
@@ -646,7 +646,7 @@ Everything all at once, but horizontally.
 
   <div class="ui-field-group" role="group">
     <button class="ui-button ui-filled" type="submit">Send</button>
-    <button class="ui-button">Cancel</button>
+    <button type="button" class="ui-button">Cancel</button>
   </div>
 </form>
 ```

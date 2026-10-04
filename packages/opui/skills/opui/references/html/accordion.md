@@ -65,7 +65,7 @@ Explain more about the topic shown in the summary through supporting text.
 
 ## Variants
 
-Add one of the variant classes (`.ui-card`, `.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to the `<details>` element to change how it looks.
+Add one of the variant classes (`.ui-outlined`, `.ui-elevated`, `.ui-tonal`) to the `<details>` element to change how it looks. Add `.ui-card` for the card styles.
 
 ```html
 <!-- Text (default) -->
@@ -252,7 +252,7 @@ Group multiple accordions by wrapping them in a `.ui-card` element with `role="g
 
 ### Mutually exclusive
 
-Set the `name` prop to allow only one accordion in a group to be open at a time.
+Set the same `name` attribute on each `<details>` element to allow only one of them to be open at a time.
 
 ```html
 <div class="ui-card ui-outlined" role="group">
@@ -330,7 +330,7 @@ Set the `name` prop to allow only one accordion in a group to be open at a time.
 
 ## Actions
 
-Include interactive elements in the header by using the `.ui-actions` class.
+Add buttons or other interactive elements below the content in a `.ui-actions` element, after `.ui-content`.
 
 ```html
 <details open class="ui-accordion ui-card ui-marker-rotate ui-elevated">
@@ -356,8 +356,8 @@ Include interactive elements in the header by using the `.ui-actions` class.
     </p>
   </div>
   <div class="ui-actions">
-    <button class="ui-button">Cancel</button>
-    <button class="ui-button">Agree</button>
+    <button type="button" class="ui-button">Cancel</button>
+    <button type="button" class="ui-button">Agree</button>
   </div>
 </details>
 ```
@@ -491,12 +491,12 @@ The [WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) f
 
 ### Accordion API
 
-| Type     | Modifiers                                                 | Default             | Description                                                  |
-| -------- | --------------------------------------------------------- | ------------------- | ------------------------------------------------------------ |
-| Grouping | `[name]`                                                  | -                   | Groups accordions so only one of them can be open at a time. |
-| Marker   | `.ui-marker-flip`, `.ui-marker-rotate`, `.ui-marker-turn` | `.ui-marker-rotate` | How the marker animates when the accordion opens.            |
-| State    | `[open]`                                                  | -                   | Whether the accordion is open.                               |
-| Variants | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal`      | default             | The variant to use.                                          |
+| Type     | Modifiers                                                 | Default | Description                                                  |
+| -------- | --------------------------------------------------------- | ------- | ------------------------------------------------------------ |
+| Grouping | `[name]`                                                  | -       | Groups accordions so only one of them can be open at a time. |
+| Marker   | `.ui-marker-flip`, `.ui-marker-rotate`, `.ui-marker-turn` | -       | How the marker animates when the accordion opens.            |
+| State    | `[open]`                                                  | -       | Whether the accordion is open.                               |
+| Variants | default, `.ui-elevated`, `.ui-outlined`, `.ui-tonal`      | default | The variant to use.                                          |
 
 #### Parts
 

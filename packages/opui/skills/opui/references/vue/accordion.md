@@ -149,7 +149,7 @@ import { Accordion, Card } from "opui-css/vue"
 
 ### Mutually exclusive
 
-Set the `name` prop to allow only one accordion in a group to be open at a time.
+Set the same `name` prop on each accordion to allow only one of them to be open at a time.
 
 ```vue
 <script setup lang="ts">
@@ -189,7 +189,7 @@ import { Accordion, Card } from "opui-css/vue"
 
 ## Actions
 
-Include interactive elements in the header by using the `.ui-actions` class.
+Add buttons or other interactive elements below the content with the`actions` slot.
 
 ```vue
 <script setup lang="ts">

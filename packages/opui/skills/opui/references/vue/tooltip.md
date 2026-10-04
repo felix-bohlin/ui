@@ -2,6 +2,11 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/vue/components/anchor.md).
 
+### What's new
+
+- Breaking: `id` is required.
+- The arrow points at the trigger in every position, also after a flip.
+
 Wrap the trigger in `<Tooltip>` and pass a stable `id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like `<button>` or `<a>`). Pass a `label` prop for plain text or use the `content` slot for richer markup.
 
 ## Basics

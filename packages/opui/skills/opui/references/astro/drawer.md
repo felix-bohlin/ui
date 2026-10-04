@@ -2,11 +2,15 @@
 
 Slides in from the sides, top or bottom of the screen.
 
+### What's new
+
+- Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls.
+
 ## Usage
 
 Change the opening side with the `side` prop.
 
-Add a title to the header with the `header` slot. A close button is automatically included in the header.
+Put a `DrawerHeader` in the `header` slot to add a heading and a close button. Put actions in the `footer` slot, wrapped in a `DrawerFooter`.
 
 The backdrop is blurred by default. Use `backdrop="transparent"` to remove the blur effect.
 
@@ -238,6 +242,30 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | Slot      | Description                                              |
 | --------- | -------------------------------------------------------- |
 | `default` | Content placed between the heading and the close button. |
+
+#### CSS variables
+
+| Variable            | Default                                     | Description                                                                                                                |
+| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                           |
+| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                         |
+| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                    |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
+
+### Drawer footer API
+
+#### Slots
+
+| Slot      | Description                              |
+| --------- | ---------------------------------------- |
+| `default` | The footer content, for example actions. |
 
 #### CSS variables
 

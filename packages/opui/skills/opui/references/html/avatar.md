@@ -1,5 +1,9 @@
 # Avatar
 
+### What's new
+
+- Breaking: `alt` is required when `src` is set.
+
 ## Image
 
 ```html
@@ -115,8 +119,8 @@ Group multiple avatars by adding `role="group"` to a parent container.
 <div class="ui-avatar-group" role="group">
   <div class="ui-avatar">AB</div>
   <div class="ui-avatar">CD</div>
-  <button class="ui-avatar">EF</button>
-  <button class="ui-avatar">GH</button>
+  <button type="button" class="ui-avatar">EF</button>
+  <button type="button" class="ui-avatar">GH</button>
   <a href="#" class="ui-avatar">IJ</a>
   <a href="#" class="ui-avatar">KL</a>
 </div>
@@ -140,13 +144,13 @@ Group multiple avatars by adding `role="group"` to a parent container.
 
 #### CSS variables
 
-| Variable             | Default                                      | Description                                                   |
-| -------------------- | -------------------------------------------- | ------------------------------------------------------------- |
-| `--control-size`     | `calc(40px * var(--density))`                | Shared default height for fields and buttons so they line up. |
-| `--icon-size-large`  | `var(--size-5)`                              | Icon size inside `IconButton`, `Avatar` and `List`.           |
-| `--primary`          | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                  |
-| `--primary-contrast` | `light-dark(var(--gray-1), var(--gray-15))`  | Text color on a `--primary` background.                       |
-| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                     |
+| Variable             | Default                                                                               | Description                                                   |
+| -------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| `--control-size`     | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up. |
+| `--icon-size-large`  | `var(--size-5)`                                                                       | Icon size inside `IconButton`, `Avatar` and `List`.           |
+| `--primary`          | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                  |
+| `--primary-contrast` | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                       |
+| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                     |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 

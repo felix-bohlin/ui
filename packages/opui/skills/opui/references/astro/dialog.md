@@ -3,6 +3,7 @@
 ### What's new
 
 - [Long content](#modal) scrolls between a fixed header and actions.
+- A subtle scroll shadow shows under the header and above the actions while the content scrolls.
 
 ### Modal vs Dialog
 

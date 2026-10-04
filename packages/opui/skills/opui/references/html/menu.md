@@ -6,6 +6,7 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 
 - New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.
 - A subtle light gray border in dark mode, so menus stand out on dialogs and other raised surfaces.
+- Tall menus shrink to the space on their side instead of running off-screen.
 
 ## Basics
 
@@ -13,6 +14,7 @@ A popover [List](https://open-props-ui.netlify.app/html/components/list.md), anc
 
 ```html
 <button
+  type="button"
   class="ui-button ui-outlined"
   commandfor="menu-basics-html"
   command="toggle-popover"
@@ -51,6 +53,7 @@ If you want to decide yourself what goes into your list.
 
 ```html
 <button
+  type="button"
   class="ui-button ui-rounded ui-ripple ui-small"
   aria-label="More actions"
   commandfor="menu-custom-html"
@@ -128,6 +131,7 @@ If you want to decide yourself what goes into your list.
 
 ```html
 <button
+  type="button"
   class="ui-button ui-outlined"
   commandfor="menu-block-start-html"
   command="toggle-popover"
@@ -166,6 +170,7 @@ If you want to decide yourself what goes into your list.
 
 
 <button
+  type="button"
   class="ui-button ui-outlined"
   commandfor="menu-block-end-html"
   command="toggle-popover"
@@ -204,6 +209,7 @@ If you want to decide yourself what goes into your list.
 
 
 <button
+  type="button"
   class="ui-button ui-outlined"
   commandfor="menu-inline-start-html"
   command="toggle-popover"
@@ -246,6 +252,7 @@ If you want to decide yourself what goes into your list.
 
 
 <button
+  type="button"
   class="ui-button ui-outlined"
   commandfor="menu-inline-end-html"
   command="toggle-popover"
@@ -289,6 +296,7 @@ Put a `menu` in the `li`, after its button. Mark the item with an icon from your
 
 ```html
 <button
+  type="button"
   class="ui-button ui-outlined"
   commandfor="menu-file-html"
   command="toggle-popover"

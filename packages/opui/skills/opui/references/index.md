@@ -42,6 +42,7 @@ Components documented on another component's page:
 | Component | File |
 | --- | --- |
 | ClassicSelect | `select.md` |
+| DrawerFooter | `drawer.md` |
 | DrawerHeader | `drawer.md` |
 | FieldDescription | `form.md` |
 | FieldGroup | `form.md` |

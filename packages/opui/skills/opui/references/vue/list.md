@@ -4,6 +4,7 @@
 
 - Breaking: `divided` is removed. Use [`bordered`](#on-every-item).
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
+- Only direct children are styled as rows, so nested lists inside a row stay normal lists.
 
 ## Anatomy
 
@@ -499,7 +500,7 @@ import { List, ListItem } from "opui-css/vue"
 
 ## Gutterless
 
-Apply the `.ui-gutterless` class on the `ul.ui-list` element to remove the inline padding on the list items.
+Add the `gutterless` prop to the `List` to remove the inline padding on the list items.
 
 ```vue
 <script setup lang="ts">
@@ -553,7 +554,7 @@ import { List, ListItem } from "opui-css/vue"
 
 ### On every item
 
-Apply the `.ui-bordered` class on the `ul.ui-list` element to give all list items a border.
+Add the `bordered` prop to the `List` to give all list items a border.
 
 ```vue
 <script setup lang="ts">
@@ -572,7 +573,7 @@ import { List, ListItem } from "opui-css/vue"
 
 ### On one item
 
-Apply the `.ui-border-top` class on a `li` item to give it an upper border.
+Add the `borderTop` prop to a `ListItem` to give it an upper border.
 
 ```vue
 <script setup lang="ts">
@@ -650,16 +651,17 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### List item API
 
-| Prop          | Type                                | Default | Description                                                           |
-| ------------- | ----------------------------------- | ------- | --------------------------------------------------------------------- |
-| `as`          | `string`                            | -       | The element to render inside the `<li>`, such as `"a"` or `"button"`. |
-| `borderTop`   | `boolean`                           | `false` | Adds a border above the item.                                         |
-| `description` | `string`                            | -       | Supporting text, the second paragraph.                                |
-| `for`         | `string`                            | -       | The `for` attribute of the `<label>` when `type` is set.              |
-| `headline`    | `string`                            | -       | The headline, the first paragraph.                                    |
-| `href`        | `string`                            | -       | The link to use, with `as="a"`.                                       |
-| `inset`       | `boolean`                           | `false` | Aligns the text with items that have start content.                   |
-| `type`        | `"checkbox"`, `"radio"`, `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.     |
+| Prop          | Type                                | Default | Description                                                                                                  |
+| ------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+| `as`          | `"div"`, `"button"`, `"a"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. |
+| `borderTop`   | `boolean`                           | `false` | Adds a border above the item.                                                                                |
+| `description` | `string`                            | -       | Supporting text, the second paragraph.                                                                       |
+| `disabled`    | `boolean`                           | -       | Disables the item when `as` is `"button"`.                                                                   |
+| `for`         | `string`                            | -       | The `for` attribute of the `<label>` when `type` is set.                                                     |
+| `headline`    | `string`                            | -       | The headline, the first paragraph.                                                                           |
+| `href`        | `string`                            | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                         |
+| `inset`       | `boolean`                           | `false` | Aligns the text with items that have start content.                                                          |
+| `type`        | `"checkbox"`, `"radio"`, `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.                                            |
 
 #### Slots
 

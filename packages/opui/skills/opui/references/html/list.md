@@ -4,6 +4,7 @@
 
 - Breaking: `.divided` is removed. Use [`.ui-bordered`](#on-every-item).
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
+- Only direct children are styled as rows, so nested lists inside a row stay normal lists.
 
 ## Anatomy
 

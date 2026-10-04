@@ -4,6 +4,7 @@
 
 - [X-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
 - [Spread](#spread) fields line up at one width.
+- The auto-suggest arrow matches the Select arrow at every size.
 
 ## Anatomy
 
@@ -667,6 +668,14 @@ The control can also be a `<select>` or `<textarea>`. A `<datalist>` can be plac
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `.ui-text-field input` | The input, wrapped in a `<span class="ui-field">`.                                                               |
 | `.ui-field`            | Wraps the `<input>`. Border, background, and focus styling are inherited from `.ui-field`, not the input itself. |
+
+#### CSS variables
+
+| Variable         | Default                                     | Description                                            |
+| ---------------- | ------------------------------------------- | ------------------------------------------------------ |
+| `--text-primary` | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values. |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ## Under the hood
 

@@ -89,8 +89,8 @@ There are some basic styles here to get you going, but for more advanced use-cas
     Notice how the buttons are made to align with the text above.
   </div>
   <div class="ui-actions">
-    <button class="ui-button">Cancel</button>
-    <button class="ui-button">Save</button>
+    <button type="button" class="ui-button">Cancel</button>
+    <button type="button" class="ui-button">Save</button>
   </div>
 </div>
 
@@ -98,8 +98,8 @@ There are some basic styles here to get you going, but for more advanced use-cas
 <div class="ui-card ui-outlined">
   <div class="ui-content">Trying other button types too. Look at that!</div>
   <div class="ui-actions">
-    <button class="ui-button ui-outlined">Cancel</button>
-    <button class="ui-button ui-filled">Save</button>
+    <button type="button" class="ui-button ui-outlined">Cancel</button>
+    <button type="button" class="ui-button ui-filled">Save</button>
   </div>
 </div>
 
@@ -108,6 +108,7 @@ There are some basic styles here to get you going, but for more advanced use-cas
   <div class="ui-content">Icon buttons work too!</div>
   <div class="ui-actions">
     <button
+      type="button"
       class="ui-button ui-rounded ui-ripple ui-small"
       aria-label="Favorite"
     >
@@ -123,7 +124,11 @@ There are some basic styles here to get you going, but for more advanced use-cas
         />
       </svg>
     </button>
-    <button class="ui-button ui-rounded ui-ripple ui-small" aria-label="Share">
+    <button
+      type="button"
+      class="ui-button ui-rounded ui-ripple ui-small"
+      aria-label="Share"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -148,8 +153,8 @@ Align actions to the end with the `.ui-align-end` class.
 <div class="ui-card ui-outlined">
   <div class="ui-content">Buttons aligned to the end. Works too!</div>
   <div class="ui-actions ui-align-end">
-    <button class="ui-button">Cancel</button>
-    <button class="ui-button">Save</button>
+    <button type="button" class="ui-button">Cancel</button>
+    <button type="button" class="ui-button">Save</button>
   </div>
 </div>
 
@@ -157,8 +162,8 @@ Align actions to the end with the `.ui-align-end` class.
 <div class="ui-card ui-outlined">
   <div class="ui-content">Again, buttons are aligned to the end!</div>
   <div class="ui-actions ui-align-end">
-    <button class="ui-button ui-outlined">Cancel</button>
-    <button class="ui-button ui-filled">Save</button>
+    <button type="button" class="ui-button ui-outlined">Cancel</button>
+    <button type="button" class="ui-button ui-filled">Save</button>
   </div>
 </div>
 
@@ -167,6 +172,7 @@ Align actions to the end with the `.ui-align-end` class.
   <div class="ui-content">Icon buttons aligned to the end!</div>
   <div class="ui-actions ui-align-end">
     <button
+      type="button"
       class="ui-button ui-rounded ui-ripple ui-small"
       aria-label="Favorite"
     >
@@ -182,7 +188,11 @@ Align actions to the end with the `.ui-align-end` class.
         />
       </svg>
     </button>
-    <button class="ui-button ui-rounded ui-ripple ui-small" aria-label="Share">
+    <button
+      type="button"
+      class="ui-button ui-rounded ui-ripple ui-small"
+      aria-label="Share"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"

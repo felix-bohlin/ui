@@ -3,6 +3,7 @@
 ### What's new
 
 - [Long content](#modal) scrolls between a fixed header and actions.
+- A subtle scroll shadow shows under the header and above the actions while the content scrolls.
 
 ### Modal vs Dialog
 
@@ -22,6 +23,7 @@ In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/
 
 ```html
 <button
+  type="button"
   commandfor="example-dialog-html"
   command="show-modal"
   class="ui-button ui-outlined"
@@ -80,6 +82,7 @@ You can use it like this: `<dialog closedby="">` and give it the following value
 
 ```html
 <button
+  type="button"
   commandfor="closing-behaviors-dialog-html"
   command="show-modal"
   class="ui-button ui-outlined"
@@ -118,6 +121,7 @@ You can use it like this: `<dialog closedby="">` and give it the following value
   </div>
   <div class="ui-actions">
     <button
+      type="button"
       commandfor="closing-behaviors-dialog-html"
       command="close"
       class="ui-button"

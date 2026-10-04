@@ -210,7 +210,7 @@ import { Callout } from "opui-css/vue"
 
 ## Accessibility
 
-- The `role="note"` attribute is automatically added to the Callout container.
+- The Callout is an `<article>`, so screen readers announce it as self-contained content. Don't add `role="note"`, it isn't allowed on `<article>`.
 - Use both color and icon to help distinguish between Callout [severities](#severities).
 - Don't interrupt the user with a Callout. In that case, use [Dialog](https://open-props-ui.netlify.app/vue/components/dialog.md).
 
@@ -253,7 +253,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 1. Surface
 
-   - `role="note"`: part of the flow, not an interruption
+   - `<article>`: self-contained content in the flow, not an interruption
    - An opaque surface first, the tint comes next
    - Colors live in custom properties so variants only swap values
 
@@ -278,7 +278,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 Step 1 of 4: Surface
 
 ```html
-<article class="callout" role="note">
+<article class="callout">
   <div class="content">
     <h3>Heads up</h3>
     <p>…</p>

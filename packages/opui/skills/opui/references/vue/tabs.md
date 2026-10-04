@@ -233,24 +233,24 @@ The content area associated with a tab:
 
 #### CSS variables
 
-| Variable               | Default                                      | Description                                                                                                                |
-| ---------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                |
-| `--border-radius`      | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                          |
-| `--duration-fast`      | `0.1s`                                       | Transition duration for hover and press feedback.                                                                          |
-| `--ease`               | `ease`                                       | Default easing for transitions.                                                                                            |
-| `--focus-ring-color`   | Unset                                        | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                            |
-| `--focus-ring-offset`  | `2px`                                        | Distance between a control and its focus ring.                                                                             |
-| `--focus-ring-style`   | `solid`                                      | Outline style of the focus ring.                                                                                           |
-| `--focus-ring-width`   | `2px`                                        | Width of the focus ring.                                                                                                   |
-| `--font-weight-medium` | `var(--font-weight-5)`                       | Font weight for badges, overlines and group labels.                                                                        |
-| `--motion`             | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--primary`            | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                               |
-| `--primary-contrast`   | `light-dark(var(--gray-1), var(--gray-15))`  | Text color on a `--primary` background.                                                                                    |
-| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                                  |
-| `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                              |
-| `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                           |
-| `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                     |
+| Variable               | Default                                                                               | Description                                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`      | `var(--size-2)`                                                                       | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                          |
+| `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                            |
+| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                            |
+| `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                             |
+| `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                           |
+| `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                   |
+| `--font-weight-medium` | `var(--font-weight-5)`                                                                | Font weight for badges, overlines and group labels.                                                                        |
+| `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
+| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                  |
+| `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                              |
+| `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                           |
+| `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                     |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
@@ -271,24 +271,24 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 #### CSS variables
 
-| Variable               | Default                                      | Description                                                                                                                |
-| ---------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                |
-| `--border-radius`      | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                          |
-| `--duration-fast`      | `0.1s`                                       | Transition duration for hover and press feedback.                                                                          |
-| `--ease`               | `ease`                                       | Default easing for transitions.                                                                                            |
-| `--focus-ring-color`   | Unset                                        | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                            |
-| `--focus-ring-offset`  | `2px`                                        | Distance between a control and its focus ring.                                                                             |
-| `--focus-ring-style`   | `solid`                                      | Outline style of the focus ring.                                                                                           |
-| `--focus-ring-width`   | `2px`                                        | Width of the focus ring.                                                                                                   |
-| `--font-weight-medium` | `var(--font-weight-5)`                       | Font weight for badges, overlines and group labels.                                                                        |
-| `--motion`             | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--primary`            | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                               |
-| `--primary-contrast`   | `light-dark(var(--gray-1), var(--gray-15))`  | Text color on a `--primary` background.                                                                                    |
-| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                                  |
-| `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                              |
-| `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                           |
-| `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                     |
+| Variable               | Default                                                                               | Description                                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`      | `var(--size-2)`                                                                       | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                          |
+| `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                            |
+| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                            |
+| `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                             |
+| `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                           |
+| `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                   |
+| `--font-weight-medium` | `var(--font-weight-5)`                                                                | Font weight for badges, overlines and group labels.                                                                        |
+| `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
+| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                  |
+| `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                              |
+| `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                           |
+| `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                     |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
@@ -306,24 +306,24 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 #### CSS variables
 
-| Variable               | Default                                      | Description                                                                                                                |
-| ---------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                |
-| `--border-radius`      | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                          |
-| `--duration-fast`      | `0.1s`                                       | Transition duration for hover and press feedback.                                                                          |
-| `--ease`               | `ease`                                       | Default easing for transitions.                                                                                            |
-| `--focus-ring-color`   | Unset                                        | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                            |
-| `--focus-ring-offset`  | `2px`                                        | Distance between a control and its focus ring.                                                                             |
-| `--focus-ring-style`   | `solid`                                      | Outline style of the focus ring.                                                                                           |
-| `--focus-ring-width`   | `2px`                                        | Width of the focus ring.                                                                                                   |
-| `--font-weight-medium` | `var(--font-weight-5)`                       | Font weight for badges, overlines and group labels.                                                                        |
-| `--motion`             | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--primary`            | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                               |
-| `--primary-contrast`   | `light-dark(var(--gray-1), var(--gray-15))`  | Text color on a `--primary` background.                                                                                    |
-| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                                  |
-| `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                              |
-| `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                           |
-| `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                     |
+| Variable               | Default                                                                               | Description                                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`      | `var(--size-2)`                                                                       | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                          |
+| `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                            |
+| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                            |
+| `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                             |
+| `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                           |
+| `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                   |
+| `--font-weight-medium` | `var(--font-weight-5)`                                                                | Font weight for badges, overlines and group labels.                                                                        |
+| `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
+| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                  |
+| `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                              |
+| `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                           |
+| `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                     |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
@@ -342,24 +342,24 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 #### CSS variables
 
-| Variable               | Default                                      | Description                                                                                                                |
-| ---------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                |
-| `--border-radius`      | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                          |
-| `--duration-fast`      | `0.1s`                                       | Transition duration for hover and press feedback.                                                                          |
-| `--ease`               | `ease`                                       | Default easing for transitions.                                                                                            |
-| `--focus-ring-color`   | Unset                                        | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                            |
-| `--focus-ring-offset`  | `2px`                                        | Distance between a control and its focus ring.                                                                             |
-| `--focus-ring-style`   | `solid`                                      | Outline style of the focus ring.                                                                                           |
-| `--focus-ring-width`   | `2px`                                        | Width of the focus ring.                                                                                                   |
-| `--font-weight-medium` | `var(--font-weight-5)`                       | Font weight for badges, overlines and group labels.                                                                        |
-| `--motion`             | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
-| `--primary`            | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                               |
-| `--primary-contrast`   | `light-dark(var(--gray-1), var(--gray-15))`  | Text color on a `--primary` background.                                                                                    |
-| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                                  |
-| `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                              |
-| `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`  | Body text color.                                                                                                           |
-| `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                     |
+| Variable               | Default                                                                               | Description                                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`      | `var(--size-2)`                                                                       | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                          |
+| `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                            |
+| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                            |
+| `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                             |
+| `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                           |
+| `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                   |
+| `--font-weight-medium` | `var(--font-weight-5)`                                                                | Font weight for badges, overlines and group labels.                                                                        |
+| `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
+| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                  |
+| `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                              |
+| `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                           |
+| `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                     |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 

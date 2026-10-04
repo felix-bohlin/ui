@@ -2,6 +2,11 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/html/components/anchor.md).
 
+### What's new
+
+- Breaking: `id` is required.
+- The arrow points at the trigger in every position, also after a flip.
+
 Add the `.ui-tooltip` class alongside `.ui-anchor` on the wrapper. Wire `interestfor` on the trigger to the `.ui-anchor-floating[popover="hint"]` element's ID.
 
 ## Basics
@@ -13,6 +18,7 @@ Set the tooltip text inside `.ui-anchor-floating[popover="hint"]`.
 ```html
 <span class="ui-anchor ui-tooltip">
   <button
+    type="button"
     class="ui-button"
     interestfor="tooltip-basic"
     commandfor="tooltip-basic"
@@ -33,6 +39,7 @@ You can place any markup you want (famous last words) inside `.ui-anchor-floatin
 ```html
 <span class="ui-anchor ui-tooltip">
   <button
+    type="button"
     class="ui-button"
     interestfor="tooltip-rich"
     commandfor="tooltip-rich"
@@ -57,6 +64,7 @@ Set `--anchor-position-area` on the parent with your preferred `position-area` v
     style="--anchor-position-area: block-start"
   >
     <button
+      type="button"
       class="ui-button"
       interestfor="tooltip-top"
       commandfor="tooltip-top"
@@ -73,6 +81,7 @@ Set `--anchor-position-area` on the parent with your preferred `position-area` v
     style="--anchor-position-area: inline-start"
   >
     <button
+      type="button"
       class="ui-button"
       interestfor="tooltip-start"
       commandfor="tooltip-start"
@@ -86,6 +95,7 @@ Set `--anchor-position-area` on the parent with your preferred `position-area` v
   </span>
   <span class="ui-anchor ui-tooltip" style="--anchor-position-area: inline-end">
     <button
+      type="button"
       class="ui-button"
       interestfor="tooltip-end"
       commandfor="tooltip-end"
@@ -99,6 +109,7 @@ Set `--anchor-position-area` on the parent with your preferred `position-area` v
   </span>
   <span class="ui-anchor ui-tooltip" style="--anchor-position-area: block-end">
     <button
+      type="button"
       class="ui-button"
       interestfor="tooltip-bottom"
       commandfor="tooltip-bottom"
@@ -154,6 +165,7 @@ Add the `.ui-with-arrow` class on the `.ui-tooltip`. This would be cool to solve
 ```html
 <span class="ui-anchor ui-tooltip ui-with-arrow">
   <button
+    type="button"
     class="ui-button"
     interestfor="tooltip-arrow"
     commandfor="tooltip-arrow"

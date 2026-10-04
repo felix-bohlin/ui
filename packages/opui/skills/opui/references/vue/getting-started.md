@@ -1,6 +1,10 @@
 # Getting started
 
+OPUI ships first-class Vue components. Install the package, import what you need, and you're set.
+
 ## Install via NPM
+
+The components ship as uncompiled single-file components (`.vue` and `.ts`), so your build has to compile them. Any setup with Vue SFC support works, for example Vite with `@vitejs/plugin-vue`, Nuxt, or Astro with `@astrojs/vue`.
 
 `pnpm`
 

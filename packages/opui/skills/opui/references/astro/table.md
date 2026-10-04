@@ -3,6 +3,7 @@
 ### What's new
 
 - [Dense](#variants) tables have less block padding.
+- Fields and selects in cells keep a `12ch` minimum width.
 
 ## Anatomy
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useId } from "vue"
+import { computed, useId } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
 const {
@@ -17,7 +17,7 @@ defineOptions({
 })
 
 const uid = useId()
-const menuId = id || uid
+const menuId = computed(() => id || uid)
 </script>
 
 <template>

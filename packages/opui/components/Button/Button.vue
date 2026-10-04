@@ -28,6 +28,7 @@ const isButton = computed(() => Tag.value === "button")
     :aria-label="label"
     :disabled="isButton ? disabled : undefined"
     :href="href"
+    :type="isButton ? 'button' : undefined"
   >
     <slot></slot>
   </component>

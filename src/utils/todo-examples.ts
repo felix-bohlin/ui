@@ -32,7 +32,6 @@ import scrollState from "../todo-examples/scroll-state.html?raw"
 import smallParagraph from "../todo-examples/small-paragraph.html?raw"
 import stickyTableHeader from "../todo-examples/sticky-table-header.html?raw"
 import tallMenu from "../todo-examples/tall-menu.html?raw"
-import textBoxTrim from "../todo-examples/text-box-trim.html?raw"
 import verticalButtonGroupIcons from "../todo-examples/vertical-button-group-icons.html?raw"
 
 export const todoExamples = {
@@ -171,10 +170,6 @@ export const todoExamples = {
   "tall-menu": {
     match: "A tall menu runs off the viewport",
     source: tallMenu,
-  },
-  "text-box-trim": {
-    match: "`text-box: trim-both cap alphabetic`",
-    source: textBoxTrim,
   },
   "vertical-button-group-icons": {
     match: "Vertical ButtonGroup squares any button",

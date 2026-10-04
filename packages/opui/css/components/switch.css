@@ -158,7 +158,6 @@
         inset-block: 0 auto;
         inset-inline: auto -0.25ex;
         position: absolute;
-        text-box: inherit;
       }
     }
 
@@ -190,13 +189,6 @@
       padding-inline: 0 1ex;
       position: relative;
       user-select: none;
-
-      @supports (text-box: trim-start cap alphabetic) {
-        margin-block-start: calc(
-          (var(--_track-height) - 1cap) / 2 + var(--choice-label-offset)
-        );
-        text-box: trim-start cap alphabetic;
-      }
     }
 
     /* End text */
@@ -260,7 +252,6 @@
         grid-row: 2;
         margin-block-start: var(--size-1);
         padding-inline: 1ex;
-        text-box: normal;
       }
 
       .ui-end-text {

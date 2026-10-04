@@ -24,6 +24,7 @@ const {
     variant && `ui-${variant}`,
     className,
   ]}
+  type={Tag === "button" ? "button" : undefined}
   {...rest as any}
   ><slot name="start" /><slot />{
     label && <span class="ui-text">{label}</span>

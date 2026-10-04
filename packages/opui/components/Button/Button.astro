@@ -38,6 +38,7 @@ const isButton = Tag === "button"
   aria-label={label}
   disabled={isButton ? disabled : undefined}
   href={href}
+  type={isButton ? "button" : undefined}
   {...rest as any}
 >
   <slot />

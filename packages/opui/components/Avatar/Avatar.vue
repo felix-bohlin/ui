@@ -33,8 +33,9 @@ const Tag = computed(() => as || (href ? "a" : "div"))
     :href="href"
     :interestfor="interestfor"
     :role="isGroup ? 'group' : undefined"
+    :type="Tag === 'button' ? 'button' : undefined"
   >
-    <img v-if="src" :src="src" :alt="alt" />
+    <img v-if="src" :src="src" :alt="alt ?? ''" />
     <slot v-else></slot>
   </component>
 </template>

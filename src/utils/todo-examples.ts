@@ -2,6 +2,7 @@ import buttonKeyboard from "../component-examples/button/Keyboard.html?raw"
 import abbrUnderline from "../todo-examples/abbr-underline.html?raw"
 import accordionFocusRing from "../todo-examples/accordion-focus-ring.html?raw"
 import autosuggestSizes from "../todo-examples/autosuggest-sizes.html?raw"
+import badgeAccessibleName from "../todo-examples/badge-accessible-name.html?raw"
 import badgeDotAlignment from "../todo-examples/badge-dot-alignment.html?raw"
 import buttonUnwrappedText from "../todo-examples/button-unwrapped-text.html?raw"
 import calloutIconColor from "../todo-examples/callout-icon-color.html?raw"
@@ -45,6 +46,10 @@ export const todoExamples = {
   "autosuggest-sizes": {
     match: "Auto-suggest arrow",
     source: autosuggestSizes,
+  },
+  "badge-accessible-name": {
+    match: "Badge: a count is announced without context",
+    source: badgeAccessibleName,
   },
   "badge-dot-alignment": {
     match: "`.ui-dot` sets fixed",

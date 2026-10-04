@@ -4,7 +4,17 @@ Findings with a page and section in brackets come from the stress pages in `src/
 
 ## Accessibility
 
-- [] (3) FieldSet `as="div"` has no `role="group"` (`FieldSet.astro:6-9`, `FieldSet.vue:11-15`). FieldGroup sets `role="group"` after the spread, so `role="radiogroup"` is impossible in Astro (`FieldGroup.astro:19-20`)
+- [?] (3) Badge: a count is announced without context. The `Indicator` example is an icon with "5", so screen readers say just "5" (`src/component-examples/badge/Indicator.{astro,html,vue}`)
+  - What I meant: `aria-label` on the indicator `<span>` doesn't fix it. A `<span>` has no role, and ARIA doesn't allow naming generic elements, so screen readers ignore the label and read the text ("5"). Badge used to do this, and now has `srLabel` (visually hidden text) instead.
+  - What works: text that is in the content. Either visually hidden (`srLabel` in Astro and Vue, `.ui-sr-only` in HTML), or visible text next to the badge ("Inbox 5"). See the example: all three, with what Chromium's accessibility tree reads.
+    ```html
+    <span class="ui-badge-indicator"
+      >5 <span class="ui-sr-only">unread messages</span></span
+    >
+    ```
+  - Suggestion: use `srLabel` (`.ui-sr-only` in HTML) in the `Indicator` example and add an Accessibility section to the Badge docs that says so.
+- [x] (3) FieldSet `as="div"` has no `role="group"` (`FieldSet.astro:6-9`, `FieldSet.vue:11-15`). FieldGroup sets `role="group"` after the spread, so `role="radiogroup"` is impossible in Astro (`FieldGroup.astro:19-20`)
+  - Fixed: FieldGroup no longer sets `role="group"`. It's a layout wrapper inside a `<fieldset>`, which is already a group, so screen readers announced two groups. A `role` passed to FieldGroup now renders. FieldSet with `as` set to anything other than `fieldset` gets `role="group"` (before the spread, so it can be overridden). The HTML examples drop `role="group"` from `.ui-field-group`.
 - [?] (4) Avatar `<img>` has no `alt` attribute when `alt` is omitted (`Avatar.astro:28`, `Avatar.vue:37`)
   > at least in the types alt on images shouldn't be optional. Also, on icon-only buttons label should be non-optional too.
   - Fixed (Avatar): `alt` is required in the types whenever `src` is set (`{ alt: string; src: string } | { alt?: never; src?: never }` in `Avatar/types.ts`, used by Astro, Vue, Svelte and Solid). `alt=""` is still allowed for decorative images. The `<img>` always renders `alt`.
@@ -132,7 +142,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Filter chips are `<button type="button" aria-pressed>` (`Chip as="button"`) in a `role="group"` labelled "Filter by category", so they're reachable with Tab and work with Enter/Space; ←/→ in the input still switches category.
   - "No recent searches in this category" moved out of the listbox. `.command-list` got `tabindex="0"` (axe `scrollable-region-focusable`, `src/components/Command.astro`).
   - axe (`@axe-core/playwright`) on the open dialog: 0 violations with results, empty, filtered-empty and recent-searches states.
-- [?] (5) Tabs accessibility section documents `role="tab"` on `label` inside a radio-based `role="tablist"`, which axe flags (`aria-allowed-role`, `aria-required-children` for every tabs example in `a11y-known-violations.json`) (`tabs.astro:112-153`)
+- [x] (5) Tabs accessibility section documents `role="tab"` on `label` inside a radio-based `role="tablist"`, which axe flags (`aria-allowed-role`, `aria-required-children` for every tabs example in `a11y-known-violations.json`) (`tabs.astro:112-153`)
   > explain further what the issue is
   - The tabs are radio buttons: `input[type=radio]` + `label.ui-tab-label` + `div[role=tabpanel]`, all direct children of `.ui-tabs[role=tablist]`. The docs table (and `TabsTab` in Astro/Vue) add `role="tab"` to the `label`.
   - What axe flags on every tabs example (checked on `tabs/Basics.html`):
@@ -153,6 +163,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - A (recommended): drop `role="tablist"` and `role="tab"`, and describe them as what they are: a radio group that shows a panel. Arrow keys already move and select (like automatic tabs), and screen readers announce a correct, consistent radio group. Optionally `role="radiogroup"` + `aria-label` on `.ui-tabs`, and keep `role="tabpanel"` off too (or `role="region"` with `aria-labelledby` when panels need a landmark). Both axe entries go away for all 10 tabs keys in `a11y-known-violations.json`.
     - B: real ARIA tabs (`button role="tab"` with `aria-selected`, roving `tabindex`). Needs JS, so it's not the CSS-only component anymore.
     - C: keep it and keep the ledger entries. Not recommended: the roles actively misreport state.
+  - Fixed (option A): Tabs, TabsTab and TabsPanel render no `tablist`, `tab` or `tabpanel` roles, and TabsItem no `aria-controls`. `panelId` (TabsItem, TabsPanel) and `tabId` (TabsPanel) are gone, since nothing references the panel anymore. `tabs.css` selects by class only. The accessibility docs describe a radio group and say how to name it (`role="radiogroup"` + `aria-label` on `.ui-tabs`). The tabs entries are removed from `a11y-known-violations.json`.
 - [?] (5) Link hover/focus color `--primary-light` is about 2.8:1 on the default light surface (`link.css:11-14`, `typography.css:317-320`, `theme.css:71`)
   > Explain further and provide an example
   - `--primary-light` is `oklch(from var(--primary) calc(l * 1.25) c h)`, so in light mode it makes a mid-tone link lighter, toward the light page. Measured with the default palette:

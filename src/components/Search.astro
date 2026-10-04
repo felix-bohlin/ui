@@ -3,13 +3,23 @@ import { Button, Chip, List } from "@opui/astro"
 import Command from "./Command.astro"
 ---
 
-<Command isDialog id="search-dialog" class="search-modal">
+<Command
+  isDialog
+  id="search-dialog"
+  class="search-modal"
+  aria-label="Search docs"
+>
   <input
     slot="input"
     type="text"
     id="search-input"
     placeholder="Search docs..."
     autocomplete="off"
+    aria-label="Search docs"
+    role="combobox"
+    aria-autocomplete="list"
+    aria-controls="recent-list"
+    aria-expanded="false"
   />
 
   <Button
@@ -34,30 +44,54 @@ import Command from "./Command.astro"
     </svg>
   </Button>
 
-  <div slot="header" class="search-filters" id="search-filters">
+  <div
+    slot="header"
+    class="search-filters"
+    id="search-filters"
+    role="group"
+    aria-label="Filter by category"
+  >
     <Chip
+      aria-pressed="true"
+      as="button"
       size="small"
+      type="button"
       variant="tonal"
       class="filter-chip active"
       data-filter="all">All</Chip
     >
     <Chip
+      aria-pressed="false"
+      as="button"
       size="small"
+      type="button"
       variant="outlined"
       class="filter-chip"
       data-filter="Component">Components</Chip
     >
     <Chip
+      aria-pressed="false"
+      as="button"
       size="small"
+      type="button"
       variant="outlined"
       class="filter-chip"
       data-filter="Guide">Guides</Chip
     >
-    <Chip size="small" variant="outlined" class="filter-chip" data-filter="API"
-      >API</Chip
+    <Chip
+      aria-pressed="false"
+      as="button"
+      size="small"
+      type="button"
+      variant="outlined"
+      class="filter-chip"
+      data-filter="API">API</Chip
     >
     <Chip
+      aria-pressed="false"
+      as="button"
       size="small"
+      type="button"
       variant="outlined"
       class="filter-chip"
       data-filter="Learn">Learn</Chip
@@ -69,10 +103,22 @@ import Command from "./Command.astro"
       No results found.
     </div>
     <div id="recent-searches" class="command-group">
-      <div class="command-group-heading">Recent</div>
-      <List variant="transparent" id="recent-list" />
+      <div class="command-group-heading" id="recent-heading">Recent</div>
+      <List
+        variant="transparent"
+        id="recent-list"
+        role="listbox"
+        aria-labelledby="recent-heading"
+      />
+      <div
+        class="command-empty"
+        id="recent-empty"
+        style="display: none; padding-block: var(--size-4);"
+      >
+        No recent searches in this category.
+      </div>
     </div>
-    <div id="results-list"></div>
+    <div id="results-list" role="listbox" aria-label="Results"></div>
   </div>
 
   <Fragment slot="footer">
@@ -102,6 +148,7 @@ import Command from "./Command.astro"
   const input = document.getElementById("search-input") as HTMLInputElement
   const resultsList = document.getElementById("results-list")
   const recentList = document.getElementById("recent-list")
+  const recentEmpty = document.getElementById("recent-empty")
   const recentGroup = document.getElementById("recent-searches")
   const emptyState = document.getElementById("search-empty")
   const filterGroup = document.getElementById("search-filters")
@@ -159,9 +206,11 @@ import Command from "./Command.astro"
       filterGroup.querySelectorAll(".filter-chip").forEach((c) => {
         c.classList.remove("active", "ui-tonal")
         c.classList.add("ui-outlined")
+        c.setAttribute("aria-pressed", "false")
       })
       filterChip.classList.add("active", "ui-tonal")
       filterChip.classList.remove("ui-outlined")
+      filterChip.setAttribute("aria-pressed", "true")
       activeFilter = (filterChip as HTMLElement).dataset.filter || "all"
       updateResults()
       input.focus()
@@ -222,16 +271,18 @@ import Command from "./Command.astro"
     return text.replace(regex, "<mark>$1</mark>")
   }
 
-  function renderItem(item: any, index: number, isSelected: boolean) {
+  function renderItem(item: any, id: string, isSelected: boolean) {
     const query = input.value.trim()
     const li = document.createElement("li")
-    if (isSelected) li.setAttribute("aria-selected", "true")
+    li.id = id
+    li.setAttribute("aria-selected", String(isSelected))
+    li.setAttribute("role", "option")
 
     const displayTitle = highlight(item.title, query)
     const displayDesc = highlight(item.description || "", query)
 
     li.innerHTML = `
-      <a href="${item.url}">
+      <a>
         <div class="ui-text">
           <p class="ui-title">${displayTitle}</p>
           <p class="ui-description">${displayDesc}</p>
@@ -242,9 +293,14 @@ import Command from "./Command.astro"
       </a>
     `
 
-    li.querySelector("a")?.addEventListener("click", (e) => {
+    li.addEventListener("click", (e) => {
       saveRecentSearch(item)
+      if (e.ctrlKey || e.metaKey) {
+        window.open(item.url, "_blank")
+        return
+      }
       dialog.close()
+      window.location.href = item.url
     })
 
     return li
@@ -254,6 +310,9 @@ import Command from "./Command.astro"
     const query = input.value.trim()
     resultsList!.innerHTML = ""
     selectedIndex = -1
+    input.removeAttribute("aria-activedescendant")
+    input.setAttribute("aria-controls", query ? "results-list" : "recent-list")
+    input.setAttribute("aria-expanded", "false")
 
     if (!query) {
       recentGroup!.style.display = "block"
@@ -315,15 +374,20 @@ import Command from "./Command.astro"
 
     let globalIndex = 0
     for (const category of sortedCategories) {
+      const headingId = `search-group-${category.toLowerCase()}`
       const groupDiv = document.createElement("div")
       groupDiv.className = "command-group"
-      groupDiv.innerHTML = `<div class="command-group-heading">${category}</div>`
+      groupDiv.innerHTML = `<div class="command-group-heading" id="${headingId}">${category}</div>`
 
       const ul = document.createElement("ul")
       ul.className = "ui-list ui-transparent"
+      ul.setAttribute("aria-labelledby", headingId)
+      ul.setAttribute("role", "group")
 
       grouped[category].forEach((item: any) => {
-        ul.appendChild(renderItem(item, globalIndex++, false))
+        ul.appendChild(
+          renderItem(item, `search-result-${globalIndex++}`, false),
+        )
       })
 
       groupDiv.appendChild(ul)
@@ -378,19 +442,21 @@ import Command from "./Command.astro"
     }
 
     recentList!.innerHTML = ""
+    recentEmpty!.style.display = "none"
+    recentList!.style.display = "block"
 
     if (recent.length === 0) {
       recentGroup!.style.display = activeFilter !== "all" ? "block" : "none"
+      recentList!.style.display = "none"
       if (activeFilter !== "all") {
-        recentList!.innerHTML =
-          '<div class="command-empty" style="padding-block: var(--size-4);">No recent searches in this category.</div>'
+        recentEmpty!.style.display = "block"
       }
       return
     }
 
     recentGroup!.style.display = "block"
     recent.forEach((item: any, index: number) => {
-      recentList!.appendChild(renderItem(item, index, false))
+      recentList!.appendChild(renderItem(item, `search-recent-${index}`, false))
     })
 
     if (recent.length > 0) {
@@ -401,15 +467,14 @@ import Command from "./Command.astro"
 
   function updateSelection() {
     const items = getActiveItems()
+    input.setAttribute("aria-expanded", String(items.length > 0))
     items.forEach((item, i) => {
-      const link = item.querySelector("a")
       if (i === selectedIndex) {
         item.setAttribute("aria-selected", "true")
-        link?.setAttribute("aria-selected", "true")
+        input.setAttribute("aria-activedescendant", item.id)
         item.scrollIntoView({ block: "nearest" })
       } else {
-        item.removeAttribute("aria-selected")
-        link?.removeAttribute("aria-selected")
+        item.setAttribute("aria-selected", "false")
       }
     })
   }
@@ -449,9 +514,11 @@ import Command from "./Command.astro"
       chips.forEach((c) => {
         c.classList.remove("active", "ui-tonal")
         c.classList.add("ui-outlined")
+        c.setAttribute("aria-pressed", "false")
       })
       targetChip.classList.add("active", "ui-tonal")
       targetChip.classList.remove("ui-outlined")
+      targetChip.setAttribute("aria-pressed", "true")
       activeFilter = targetChip.dataset.filter || "all"
       updateResults()
       return
@@ -469,21 +536,8 @@ import Command from "./Command.astro"
       selectedIndex = (selectedIndex - 1 + items.length) % items.length
       updateSelection()
     } else if (e.key === "Enter") {
-      const selected = items[selectedIndex] as HTMLElement
-      const link = selected.querySelector("a")
-      if (link) {
-        const url = link.getAttribute("href")
-        const title = selected.querySelector(".ui-title")?.textContent
-        const description =
-          selected.querySelector(".ui-description")?.textContent
-        const category = selected.querySelector(
-          ".command-item-shortcut",
-        )?.textContent
-
-        saveRecentSearch({ url, title, description, category })
-        dialog.close()
-        window.location.href = link.href
-      }
+      const selected = items[selectedIndex] as HTMLElement | undefined
+      selected?.click()
     }
   })
 

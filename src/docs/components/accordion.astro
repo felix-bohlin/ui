@@ -72,11 +72,10 @@ export const description =
         Use the <code>variant</code> prop to change how it looks.
       </Fragment>
       <Fragment slot="html">
-        Add one of the variant classes (<code>.ui-card</code>, <code
-          >.ui-outlined</code
-        >, <code>.ui-elevated</code>, <code>.ui-tonal</code>) to the <code
-          >&lt;details&gt;</code
-        > element to change how it looks.
+        Add one of the variant classes (<code>.ui-outlined</code>, <code
+          >.ui-elevated</code
+        >, <code>.ui-tonal</code>) to the <code>&lt;details&gt;</code> element to
+        change how it looks. Add <code>.ui-card</code> for the card styles.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>variant</code> prop to change how it looks.
@@ -111,10 +110,21 @@ export const description =
 
     <h3 id="mutually-exclusive">Mutually exclusive</h3>
 
-    <p>
-      Set the <code>name</code> prop to allow only one accordion in a group to be
-      open at a time.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set the same <code>name</code> prop on each accordion to allow only one of
+        them to be open at a time.
+      </Fragment>
+      <Fragment slot="html">
+        Set the same <code>name</code> attribute on each <code
+          >&lt;details&gt;</code
+        > element to allow only one of them to be open at a time.
+      </Fragment>
+      <Fragment slot="vue">
+        Set the same <code>name</code> prop on each accordion to allow only one of
+        them to be open at a time.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="GroupSingle" column />
   </section>
@@ -122,11 +132,21 @@ export const description =
   <section>
     <h2 id="actions">Actions</h2>
 
-    <p>
-      Include interactive elements in the header by using the <code
-        >.ui-actions</code
-      > class.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Add buttons or other interactive elements below the content with the
+        <code>actions</code> slot.
+      </Fragment>
+      <Fragment slot="html">
+        Add buttons or other interactive elements below the content in a <code
+          >.ui-actions</code
+        > element, after <code>.ui-content</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Add buttons or other interactive elements below the content with the
+        <code>actions</code> slot.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Actions" />
   </section>

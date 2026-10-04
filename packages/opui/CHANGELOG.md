@@ -12,6 +12,14 @@ Next release: 6.0.0 (major).
 - `Switch` takes `size="small"` instead of `small`, like `Checkbox`.
 - `ButtonGroup` variants apply to the whole group. A variant class on a single button inside a group is no longer supported.
 - `List` no longer takes `divided`. Use `bordered` (`.ui-bordered`) ([#395](https://github.com/felix-bohlin/ui/issues/395)).
+- `Button` no longer takes `.ui-icon-only`. A button whose only child is an `svg` is square, so remove the class.
+- `Button` in Astro and Vue no longer adds `.ui-disabled` to a disabled `<button>`. It sets `disabled`, and `aria-disabled="true"` on links. Target `:disabled` or `[aria-disabled="true"]` instead of `.ui-disabled`.
+- `Button` icon styles only apply to a direct child `svg` (`> svg`), sized with `--_icon-size`. An `svg` nested in another element is no longer sized. Padding scales with `--_padding-inline` (`1ex` x-small, `1.25ex` small, `1.5ex` default, `2.5ex` large; was `0.5ex`, `0.75ex`, `1.5ex` and `4ex`), and the icon side gets tighter padding when a direct child `svg` sits next to a wrapped label (e.g. `<span>`).
+- `Anchor` with `trigger="hover"` and `Tooltip` no longer wrap their trigger in a `<span interestfor>`. Add `interestfor` with the anchor's `id` to the trigger element.
+- `Tabs` look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill. `--_accent-color` and `--_bg-color` are gone, use `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`, or a `variant`. The open panel gets a `--size-2` top margin.
+- `Typography` rich text only styles headings without a class, like lists. Component parts such as the `Callout` title keep their own styles. Use the `.ui-h1`–`.ui-h6` classes to style a heading that has a class.
+- `Typography` theme tokens `--font-size-h3` and `--font-size-h4` are fluid with higher minimums and `--font-size-h6` is `--font-size-1`, so heading sizes no longer invert or drop below body text on narrow viewports.
+- `theme.css` no longer sets `--focus-ring-color` (it was `var(--primary)` and unused). The global `:focus-visible` ring now reads `--focus-ring-color`, `--focus-ring-width`, `--focus-ring-style` and `--focus-ring-offset`, and keeps its inverted page background color while `--focus-ring-color` is unset. Set `--focus-ring-color` yourself where you read it.
 
 ### Removed
 
@@ -28,7 +36,6 @@ Next release: 6.0.0 (major).
 - `ListItem` takes a `submenu` slot, rendered inside the `<li>` after the element set by `as`, for a nested `Menu`.
 - `Button` is square when its only child is an `svg`, at every size and inside `ButtonGroup`.
 - `DrawerHeader` takes a `commandfor` prop (the drawer `id`). When set, the close button uses `command="close"` (Invoker Commands), HTML only. Without it, the previous script fallback is used.
-- `Button` padding scales with `--_padding-inline`, and the icon side gets tighter padding when a direct child `svg` sits next to a wrapped label (e.g. `<span>`).
 - `Button` supports `.ui-disabled`. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.
 - `Chip` supports `aria-disabled="true"` and `.ui-disabled`. Disabled links (`a[aria-disabled="true"]`, `a.ui-disabled`) no longer receive clicks.
 - `Carousel` buttons take image icons via `--_button-prev-icon` and `--_button-next-icon`, sized with `--_button-icon-size`. They default to the chevron and swap in RTL.
@@ -62,16 +69,13 @@ Next release: 6.0.0 (major).
 - `Button` critical keeps light text on its fill, tonal primary and critical buttons use dark text on a light container in light mode and light text on a dark container in dark mode, and text and outlined buttons use a lighter accent for text in dark mode. `Menu` critical items do the same.
 - `ButtonGroup` and `ToggleGroup` wrap onto more rows when they don't fit, instead of overflowing. The group draws its outer edge and rounded corners, and dividers sit between items in every row.
 - `TextField`, `Textarea`, `Select` and `Range` with `spread` split their container into equal label and field columns, so spread fields line up at one width. The fixed `30ch` textarea and `25ch` range minimums are gone.
-- `Tabs` look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill.
 - `Tabs` take a `scrollable` prop (`.ui-scrollable`). The tabs stay on one row and scroll sideways when they don't fit, and the open panel stays in view. Supports up to 20 tabs.
-- `Typography` rich text only styles headings without a class, like lists. Component parts such as the `Callout` title keep their own styles.
 - `Typography` rich text spacing derives from one flow space (`1.25em` of the body text), and every margin derived from it snaps to `--rhythm-step`. Headings get more space above than below, so they sit closer to the text they introduce, and lists with block content, description lists, `details`, `address`, code blocks and figures follow the same rhythm.
 - `Typography` rich text list gutters are measured in `ch`, so two-digit markers fit, and ordered lists with 100 or more items get a wider gutter. Bulleted and numbered list text starts at the same position.
 - `Typography` `sup` and `sub` are `0.75em` in rich text and in `.ui-sup` and `.ui-sub`, and no longer change the line height.
 - `Typography` rich text figure captions are muted and start-aligned under quotes, code blocks and tables.
 - `Typography` heading group subtitle line heights and spacing, in rich text `hgroup` and `.ui-hgroup`, snap to `--rhythm-step`.
 - `Typography` headings share one line height, `1em + 0.5rem` rounded to `--rhythm-step`, in rich text and in the `.ui-h1`–`.ui-h6` classes.
-- `Typography` theme tokens `--font-size-h3` and `--font-size-h4` are fluid with higher minimums and `--font-size-h6` is `--font-size-1`, so heading sizes no longer invert or drop below body text on narrow viewports.
 - `Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton` and `ToggleGroup` borders read `--border-width`, and `Checkbox`, `Radio`, `Switch` and `TextField` borders read `--field-border-width`, instead of a hardcoded `1px`.
 - `Chip` uses `--border-radius` (8px) instead of Open Props `--radius-2` (5px).
 - `Radio` is `--choice-size` (20px) like `Checkbox`, instead of 18px.
@@ -103,7 +107,6 @@ Next release: 6.0.0 (major).
 - `Progress` pulses in place under reduced motion (`--motion: 0`) instead of freezing. Its indeterminate animation was scaled to `0s`.
 - `Spinner` slows down to 1.5s per turn under reduced motion (`--motion: 0`) instead of ignoring it.
 - Documented source imports with a `.css` extension (`opui-css/css/imports.css`, `opui-css/core/normalize.css`, `opui-css/css/components/button.css`, …) now resolve through `exports`. Previously they resolved to `*.css.css`.
-- Global `:focus-visible` ring now reads `--focus-ring-color`, `--focus-ring-width`, `--focus-ring-style` and `--focus-ring-offset`. `--focus-ring-color` is unset by default so the ring keeps its inverted page background color.
 - `Tooltip` transitions now respect `--motion` (`prefers-reduced-motion`, `.ui-motion-off`).
 - `Dialog` backdrop is themeable via `--_backdrop-bg-color` and `--_backdrop-blur` (same as `Drawer`).
 - `Dialog` scroll-lock matches `.ui-scroll-lock` and no longer shifts the layout when the scrollbar disappears.
@@ -112,6 +115,9 @@ Next release: 6.0.0 (major).
 - `Button` and `ButtonGroup` hover styles only apply on devices that support hover, so they no longer stick after a tap.
 - `ButtonGroup` dividers are no longer double thick.
 - `opui-css/open-props.css` resolves through `exports`.
+- The package no longer ships the internal `components/AGENTS.md`.
+- `dist` source maps no longer embed the sources (`sourcesContent`) or `node_modules/.pnpm` paths. Open Props sources point to `../../open-props/`, and `opui.components.css.map` accounts for the `@layer` order line.
+- Peer dependency ranges are `astro` `^7`, `solid-js` `^1.9`, `svelte` `^5` and `vue` `^3.5` instead of the versions used for development.
 - Vue `DrawerHeader` closes the drawer without hydration.
 - `FieldGroup` `name` only applies to its own fields in Astro and Vue.
 - `Tabs` and `ToggleGroup` context only applies to their own children in Astro.

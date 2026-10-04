@@ -9,6 +9,7 @@ import {
   ButtonGroup as UIButtonGroup,
 } from "@opui/astro"
 
+import ButtonCSS from "@opui/css/components/button.css?raw"
 import ButtonGroupCSS from "@opui/css/components/button-group.css?raw"
 import buttonGroupApi from "../../component-api/button-group/api"
 import buttonApi from "../../component-api/button/api"
@@ -40,6 +41,7 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   ]}
   installationTabs={[
     { title: "button-group.css", code: ButtonGroupCSS, lang: "css" },
+    { title: "button.css", code: ButtonCSS, lang: "css", isDependency: true },
   ]}
 >
   <Fragment slot="title">Button group</Fragment>

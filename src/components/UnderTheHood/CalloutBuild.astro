@@ -19,14 +19,14 @@ const steps = [
   gap: 0.5rem;
 }`,
     html: `
-<article class="callout" role="note">
+<article class="callout">
   <div class="content">
     <h3>Heads up</h3>
     <p>…</p>
   </div>
 </article>`,
     notes: [
-      "<code>role=&quot;note&quot;</code>: part of the flow, not an interruption",
+      "<code>&lt;article&gt;</code>: self-contained content in the flow, not an interruption",
       "An opaque surface first, the tint comes next",
       "Colors live in custom properties so variants only swap values",
     ],
@@ -146,7 +146,7 @@ const callouts = [
   <div class="stack">
     {
       callouts.map((callout) => (
-        <article class:list={["callout", callout.severity]} role="note">
+        <article class:list={["callout", callout.severity]}>
           {callout.icon && (
             <svg
               aria-hidden="true"

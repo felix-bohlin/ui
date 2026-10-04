@@ -46,6 +46,7 @@ import TextFieldCSS from "@opui/css/components/text-input.css?raw"
 import textFieldApi from "../../component-api/text-field/api"
 import textInputApi from "../../component-api/text-input/api"
 import TextFieldBuild from "../../components/UnderTheHood/TextFieldBuild.astro"
+import { DEFAULT_FRAMEWORK } from "../../utils/framework-routing"
 
 export const description =
   "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states."
@@ -65,7 +66,9 @@ export const description =
   ]}
   apis={[
     { title: "Text field API", api: textFieldApi },
-    { title: "Text input API", api: textInputApi },
+    ...((Astro.currentLocale ?? DEFAULT_FRAMEWORK) === "html"
+      ? [{ title: "Text input API", api: textInputApi }]
+      : []),
   ]}
   changelogPaths={[
     {

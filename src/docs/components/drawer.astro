@@ -5,6 +5,7 @@ import { Switch, Table } from "@opui/astro"
 
 import DrawerCSS from "@opui/css/components/drawer.css?raw"
 import drawerApi from "../../component-api/drawer/api"
+import drawerFooterApi from "../../component-api/drawer-footer/api"
 import drawerHeaderApi from "../../component-api/drawer-header/api"
 import DrawerBuild from "../../components/UnderTheHood/DrawerBuild.astro"
 
@@ -32,6 +33,7 @@ import Conditional from "../../components/Conditional.astro"
   apis={[
     { title: "Drawer API", api: drawerApi },
     { title: "Drawer header API", api: drawerHeaderApi },
+    { title: "Drawer footer API", api: drawerFooterApi },
   ]}
   changelogPaths={[
     {
@@ -59,8 +61,9 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="astro">
         <p>Change the opening side with the <code>side</code> prop.</p>
         <p>
-          Add a title to the header with the <code>header</code> slot. A close button
-          is automatically included in the header.
+          Put a <code>DrawerHeader</code> in the <code>header</code> slot to add a
+          heading and a close button. Put actions in the <code>footer</code> slot,
+          wrapped in a <code>DrawerFooter</code>.
         </p>
         <p>
           The backdrop is blurred by default. Use <code
@@ -94,8 +97,9 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="vue">
         <p>Change the opening side with the <code>side</code> prop.</p>
         <p>
-          Add a title to the header with the <code>header</code> slot. A close button
-          is automatically included in the header.
+          Put a <code>DrawerHeader</code> in the <code>header</code> slot to add a
+          heading and a close button. Put actions in the <code>footer</code> slot,
+          wrapped in a <code>DrawerFooter</code>.
         </p>
         <p>
           The backdrop is blurred by default. Use <code

@@ -137,10 +137,23 @@ export const description =
     <AutoExample name="Vertical" centered />
 
     <h3 id="sizes">Sizes</h3>
-    <p>
-      Choose between four sizes: <code>.ui-x-small</code>, <code>.ui-small</code
-      >, default and <code>.ui-large</code>.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Sizes" centered row />
 

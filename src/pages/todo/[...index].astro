@@ -7,6 +7,7 @@ import {
   FieldGroup,
   FieldLegend,
   FieldSet,
+  Radio,
   Textarea,
 } from "@opui/astro"
 import Document from "../../layouts/Document.astro"
@@ -149,7 +150,7 @@ const count = sections.reduce(
       <section data-todo-section={section.title}>
         <h2 id={slugify(section.title)}>{section.title}</h2>
         <ol class="todo-list ui-not-rich-text">
-          {section.items.map((item) => (
+          {section.items.map((item, index) => (
             <li class="todo-item" data-todo-line={item.line}>
               <div class="todo-text">
                 {item.severity && (
@@ -235,11 +236,14 @@ const count = sections.reduce(
                 <FieldLegend class="ui-sr-only">
                   {`Actions for: ${plainText(item.text)}`}
                 </FieldLegend>
-                <FieldGroup direction="row">
+                <FieldGroup
+                  direction="row"
+                  name={`todo-action-${slugify(section.title)}-${index}`}
+                >
                   {actions.map((action) => (
-                    <Checkbox class="todo-action" size="small" value={action}>
+                    <Radio class="todo-action" size="small" value={action}>
                       {action}
-                    </Checkbox>
+                    </Radio>
                   ))}
                 </FieldGroup>
               </FieldSet>
@@ -288,8 +292,8 @@ const count = sections.reduce(
   const readComments = () => read<string>(storageKey)
   const writeComments = (comments: Record<string, string>) =>
     write(storageKey, comments)
-  const readActions = () => read<string[]>(actionsKey)
-  const writeActions = (actions: Record<string, string[]>) =>
+  const readActions = () => read<string>(actionsKey)
+  const writeActions = (actions: Record<string, string>) =>
     write(actionsKey, actions)
 
   const items = [...document.querySelectorAll<HTMLElement>(".todo-item")]
@@ -297,10 +301,8 @@ const count = sections.reduce(
   const actionsOf = (item: HTMLElement) => [
     ...item.querySelectorAll<HTMLInputElement>(".todo-action input"),
   ]
-  const checkedActions = (item: HTMLElement) =>
-    actionsOf(item)
-      .filter((input) => input.checked)
-      .map((input) => input.value)
+  const checkedAction = (item: HTMLElement) =>
+    actionsOf(item).find((input) => input.checked)?.value
   const status = document.querySelector("#todo-status")!
   const onlyCommented = document.querySelector<HTMLInputElement>(
     "#todo-only-commented",
@@ -330,9 +332,9 @@ const count = sections.reduce(
 
   const saveActions = (item: HTMLElement) => {
     const line = item.dataset.todoLine!
-    const checked = checkedActions(item)
+    const checked = checkedAction(item)
     const actions = readActions()
-    if (checked.length) actions[line] = checked
+    if (checked) actions[line] = checked
     else delete actions[line]
     if (!writeActions(actions))
       status.textContent =
@@ -343,8 +345,7 @@ const count = sections.reduce(
   const savedActions = readActions()
   for (const item of items) {
     for (const input of actionsOf(item)) {
-      input.checked =
-        savedActions[item.dataset.todoLine!]?.includes(input.value) ?? false
+      input.checked = savedActions[item.dataset.todoLine!] === input.value
       input.addEventListener("change", () => saveActions(item))
     }
     const field = fieldOf(item)
@@ -377,12 +378,12 @@ const count = sections.reduce(
         ...section.querySelectorAll<HTMLElement>(".todo-item"),
       ].flatMap((item) => {
         const comment = fieldOf(item).value.trim()
-        const checked = checkedActions(item)
-        if (!comment && !checked.length && onlyCommented.checked) return []
-        if (comment || checked.length) commented++
+        const checked = checkedAction(item)
+        if (!comment && !checked && onlyCommented.checked) return []
+        if (comment || checked) commented++
         return [
           item.dataset.todoLine!,
-          ...checked.map((action) => `  > ${action}`),
+          ...(checked ? [`  > ${checked}`] : []),
           ...(comment
             ? comment.split("\n").map((line) => `  > ${line}`.trimEnd())
             : []),

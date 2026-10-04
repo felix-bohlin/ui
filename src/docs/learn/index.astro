@@ -6,7 +6,6 @@ import { computeFeatureSupport } from "../../utils/browser-support"
 import {
   categories,
   componentName,
-  excerpt,
   formatDate,
   levels,
   posts,
@@ -39,11 +38,10 @@ const entries = posts
       Number(!!a.component) - Number(!!b.component) ||
       (a.component ?? "").localeCompare(b.component ?? ""),
   )
-  .map((post, index) => {
+  .map((post) => {
     const inSeries = series.find((entry) => entry.posts.includes(post.slug))
     return {
       ...post,
-      excerpt: index < 3 ? excerpt(post.slug) : undefined,
       features: (post.features ?? []).map((id) => ({
         id,
         name: computeFeatureSupport(id).name,
@@ -88,10 +86,11 @@ const entries = posts
               <h2 style={`view-transition-name: learn-${post.slug}-title`}>
                 <DocLink href={`/learn/${post.slug}`}>{post.title}</DocLink>
               </h2>
-              <p>{post.description}</p>
+              <p style={`view-transition-name: learn-${post.slug}-description`}>
+                {post.description}
+              </p>
             </hgroup>
             <div class="ui-content">
-              {post.excerpt && <p class="learn-excerpt">{post.excerpt}</p>}
               <ul aria-label="Tags" class="learn-chips">
                 <li>
                   <Chip size="small">{labelOf(categories, post.category)}</Chip>
@@ -209,10 +208,13 @@ const entries = posts
         margin: 0;
       }
 
-      & > p:first-child,
-      & > h2 {
+      & > * {
         inline-size: fit-content;
         view-transition-class: doc-heading;
+      }
+
+      & > p:last-child {
+        view-transition-class: doc-heading doc-reflow;
       }
 
       & > p:first-child {
@@ -268,18 +270,6 @@ const entries = posts
     & hgroup > p:last-child {
       max-inline-size: 65ch;
     }
-  }
-
-  .learn-excerpt {
-    -webkit-box-orient: vertical;
-    display: -webkit-box;
-    line-clamp: 4;
-    -webkit-line-clamp: 4;
-    line-height: 1.5;
-    margin: 0;
-    max-inline-size: 75ch;
-    overflow: hidden;
-    text-wrap: pretty;
   }
 
   .learn-chips {

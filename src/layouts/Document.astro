@@ -112,7 +112,14 @@ const descText =
               (preambleHasBlockMarkup ? (
                 <Fragment set:html={preamble} />
               ) : (
-                <p set:html={preamble} />
+                <p
+                  class:list={{ "doc-transition": transitionName }}
+                  set:html={preamble}
+                  style={
+                    transitionName &&
+                    `view-transition-name: ${transitionName}-description`
+                  }
+                />
               ))
           }
         </hgroup>
@@ -169,6 +176,10 @@ const descText =
   .doc-transition {
     inline-size: fit-content;
     view-transition-class: doc-heading;
+  }
+
+  h1 + .doc-transition {
+    view-transition-class: doc-heading doc-reflow;
   }
 
   #document-page {

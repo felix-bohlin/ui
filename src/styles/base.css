@@ -9,6 +9,12 @@
   }
 }
 
+::view-transition-old(*.doc-reflow),
+::view-transition-new(*.doc-reflow) {
+  block-size: auto;
+  inline-size: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*.doc-heading) {
     animation-duration: 0s;

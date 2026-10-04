@@ -95,41 +95,6 @@ export const readingMinutes = (slug: string) => {
   return Math.max(1, Math.ceil(words / 200))
 }
 
-const decodeEntities = (text: string) =>
-  text
-    .replaceAll("&lt;", "<")
-    .replaceAll("&gt;", ">")
-    .replaceAll("&nbsp;", " ")
-    .replaceAll("&quot;", `"`)
-    .replaceAll("&amp;", "&")
-
-export const excerpt = (slug: string, maxLength = 400) => {
-  const body = (sourceOf(slug).split(/^---$/m)[2] ?? "")
-    .replace(/code=\{`[\s\S]*?`\}/g, "")
-    .replace(/<(script|style)\b[\s\S]*?<\/\1>/g, "")
-    .replace(/<section>\s*<h2 id="(outline|read-more)"[\s\S]*?<\/section>/g, "")
-  const text = [
-    ...body.matchAll(/<(?:li|p)\b[^>]*>([\s\S]*?)(?=<\/?(?:li|ol|p|ul)\b)/g),
-  ]
-    .map(([, html]) => html.trim())
-    .filter((html) => !/^<a\b[^>]*>[\s\S]*<\/a>$/.test(html))
-    .map((html) =>
-      decodeEntities(
-        html
-          .replace(/\{[^{}]*\}/g, "")
-          .replace(/<[^>]+>/g, "")
-          .replace(/\s+/g, " ")
-          .trim(),
-      ),
-    )
-    .filter(Boolean)
-    .map((line) => (/[.:!?…]$/.test(line) ? line : `${line}.`))
-    .join(" ")
-  if (text.length <= maxLength) return text
-  const cut = text.slice(0, maxLength)
-  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[\s,.:;–-]+$/, "")}…`
-}
-
 const dateFormat = new Intl.DateTimeFormat("en", { dateStyle: "long" })
 
 export const formatDate = (date: string) => dateFormat.format(new Date(date))

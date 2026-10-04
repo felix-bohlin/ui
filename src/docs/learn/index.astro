@@ -59,7 +59,7 @@ const entries = posts
 ---
 
 <Learn
-  description="Release notes, and short posts on the HTML and CSS behind each component."
+  description="Learn how the components are made, it’s quite cool!"
   overline=""
   showToc={false}
   wide
@@ -91,17 +91,7 @@ const entries = posts
               <p>{post.description}</p>
             </hgroup>
             <div class="ui-content">
-              {post.excerpt && (
-                <div class="learn-excerpt">
-                  <p>{post.excerpt}</p>
-                  <span
-                    aria-hidden="true"
-                    class="ui-button ui-small ui-outlined"
-                  >
-                    Read more
-                  </span>
-                </div>
-              )}
+              {post.excerpt && <p class="learn-excerpt">{post.excerpt}</p>}
               <ul aria-label="Tags" class="learn-chips">
                 <li>
                   <Chip size="small">{labelOf(categories, post.category)}</Chip>
@@ -170,6 +160,13 @@ const entries = posts
                   ))}
               </dl>
             </div>
+            {post.excerpt && (
+              <div class="ui-actions">
+                <span aria-hidden="true" class="ui-button ui-small ui-outlined">
+                  Read more
+                </span>
+              </div>
+            )}
           </article>
         </li>
       ))
@@ -281,21 +278,15 @@ const entries = posts
   }
 
   .learn-excerpt {
-    display: grid;
-    gap: var(--size-3);
-    justify-items: start;
-
-    & p {
-      -webkit-box-orient: vertical;
-      display: -webkit-box;
-      line-clamp: 4;
-      -webkit-line-clamp: 4;
-      line-height: 1.5;
-      margin: 0;
-      max-inline-size: 75ch;
-      overflow: hidden;
-      text-wrap: pretty;
-    }
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    line-clamp: 4;
+    -webkit-line-clamp: 4;
+    line-height: 1.5;
+    margin: 0;
+    max-inline-size: 75ch;
+    overflow: hidden;
+    text-wrap: pretty;
   }
 
   .learn-chips {

@@ -1,5 +1,14 @@
 ---
-import { Accordion, Button, Checkbox, Chip, Textarea } from "@opui/astro"
+import {
+  Accordion,
+  Button,
+  Checkbox,
+  Chip,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Textarea,
+} from "@opui/astro"
 import Document from "../../layouts/Document.astro"
 import {
   parseTodo,
@@ -81,6 +90,13 @@ const todoSections = sections.map((section) => ({
     examples: examplesFor(item.text),
   })),
 }))
+
+const actions = [
+  "Explain further",
+  "Explain further and provide an example",
+  "Fix",
+  "Remove issue",
+]
 
 const count = sections.reduce(
   (total, section) => total + section.items.length,
@@ -215,6 +231,18 @@ const count = sections.reduce(
                 </span>
                 <span class="todo-saved" slot="end-text" />
               </Textarea>
+              <FieldSet class="todo-actions-field">
+                <FieldLegend class="ui-sr-only">
+                  {`Actions for: ${plainText(item.text)}`}
+                </FieldLegend>
+                <FieldGroup direction="row">
+                  {actions.map((action) => (
+                    <Checkbox class="todo-action" size="small" value={action}>
+                      {action}
+                    </Checkbox>
+                  ))}
+                </FieldGroup>
+              </FieldSet>
             </li>
           ))}
         </ol>
@@ -238,26 +266,41 @@ const count = sections.reduce(
 
 <script>
   const storageKey = "opui-todo-comments"
+  const actionsKey = "opui-todo-actions"
 
-  const readComments = (): Record<string, string> => {
+  const read = <T,>(key: string): Record<string, T> => {
     try {
-      return JSON.parse(localStorage.getItem(storageKey) ?? "{}")
+      return JSON.parse(localStorage.getItem(key) ?? "{}")
     } catch {
       return {}
     }
   }
 
-  const writeComments = (comments: Record<string, string>) => {
+  const write = (key: string, value: Record<string, unknown>) => {
     try {
-      localStorage.setItem(storageKey, JSON.stringify(comments))
+      localStorage.setItem(key, JSON.stringify(value))
       return true
     } catch {
       return false
     }
   }
 
+  const readComments = () => read<string>(storageKey)
+  const writeComments = (comments: Record<string, string>) =>
+    write(storageKey, comments)
+  const readActions = () => read<string[]>(actionsKey)
+  const writeActions = (actions: Record<string, string[]>) =>
+    write(actionsKey, actions)
+
   const items = [...document.querySelectorAll<HTMLElement>(".todo-item")]
   const fieldOf = (item: HTMLElement) => item.querySelector("textarea")!
+  const actionsOf = (item: HTMLElement) => [
+    ...item.querySelectorAll<HTMLInputElement>(".todo-action input"),
+  ]
+  const checkedActions = (item: HTMLElement) =>
+    actionsOf(item)
+      .filter((input) => input.checked)
+      .map((input) => input.value)
   const status = document.querySelector("#todo-status")!
   const onlyCommented = document.querySelector<HTMLInputElement>(
     "#todo-only-commented",
@@ -285,8 +328,25 @@ const count = sections.reduce(
 
   const saveAll = () => [...pending.keys()].forEach(save)
 
+  const saveActions = (item: HTMLElement) => {
+    const line = item.dataset.todoLine!
+    const checked = checkedActions(item)
+    const actions = readActions()
+    if (checked.length) actions[line] = checked
+    else delete actions[line]
+    if (!writeActions(actions))
+      status.textContent =
+        "Comments can't be saved in this browser. Copy them before leaving the page."
+  }
+
   const saved = readComments()
+  const savedActions = readActions()
   for (const item of items) {
+    for (const input of actionsOf(item)) {
+      input.checked =
+        savedActions[item.dataset.todoLine!]?.includes(input.value) ?? false
+      input.addEventListener("change", () => saveActions(item))
+    }
     const field = fieldOf(item)
     field.value = saved[item.dataset.todoLine!] ?? ""
     field.addEventListener("input", () => {
@@ -317,10 +377,12 @@ const count = sections.reduce(
         ...section.querySelectorAll<HTMLElement>(".todo-item"),
       ].flatMap((item) => {
         const comment = fieldOf(item).value.trim()
-        if (!comment && onlyCommented.checked) return []
-        if (comment) commented++
+        const checked = checkedActions(item)
+        if (!comment && !checked.length && onlyCommented.checked) return []
+        if (comment || checked.length) commented++
         return [
           item.dataset.todoLine!,
+          ...checked.map((action) => `  > ${action}`),
           ...(comment
             ? comment.split("\n").map((line) => `  > ${line}`.trimEnd())
             : []),
@@ -412,10 +474,12 @@ const count = sections.reduce(
     for (const item of items) {
       clearTimeout(pending.get(item))
       fieldOf(item).value = ""
+      for (const input of actionsOf(item)) input.checked = false
       item.querySelector(".todo-saved")!.textContent = ""
     }
     pending.clear()
     writeComments({})
+    writeActions({})
     status.textContent = "Comments cleared."
   })
 </script>

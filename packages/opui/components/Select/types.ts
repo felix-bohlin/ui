@@ -11,6 +11,7 @@ export type Props = {
 }
 
 export type Item = {
+  selected?: boolean
   text: string
   value: any
 }

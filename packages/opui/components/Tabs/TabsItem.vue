@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, provide, useId } from "vue"
+import { computed, inject, provide, useId } from "vue"
 import {
   CurrentPanelIdKey,
   CurrentTabIdKey,
@@ -18,7 +18,8 @@ defineOptions({
 const groupUid = useId()
 const tabUid = useId()
 const panelUid = useId()
-const tabsGroupName = name || inject(TabsGroupNameKey, undefined) || groupUid
+const parentGroupName = inject(TabsGroupNameKey, undefined)
+const tabsGroupName = computed(() => name || parentGroupName?.value || groupUid)
 provide(TabsGroupNameKey, tabsGroupName)
 
 const computedTabId = tabId || tabUid

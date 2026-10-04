@@ -11,7 +11,7 @@
     inline-size: 100%;
     overflow: hidden;
     position: relative;
-    vertical-align: baseline;
+    vertical-align: middle;
 
     /* Color */
     &.ui-filled {

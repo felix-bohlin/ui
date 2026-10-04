@@ -39,7 +39,7 @@
 
     /* Element states */
     @media (hover: hover) {
-      &:hover:not(.ui-disabled) {
+      &:hover:not(.ui-disabled, :has(input:disabled)) {
         --_button-bg-color: light-dark(
           oklch(0% 0 0 / 0.04),
           oklch(100% 0 0 / 0.08)
@@ -48,15 +48,15 @@
     }
 
     &:has(input:focus-visible) {
-      --focus-ring-color: var(--text-muted);
       --focus-ring-offset: -6px;
       outline: var(--focus-ring-width) var(--focus-ring-style)
-        var(--focus-ring-color);
+        var(--focus-ring-color, var(--text-muted));
       outline-offset: var(--focus-ring-offset);
     }
 
     /* Disabled */
-    &.ui-disabled {
+    &.ui-disabled,
+    &:has(input:disabled) {
       border-color: color-mix(in oklch, var(--border-color) 50%, transparent);
       color: color-mix(in oklch, var(--text-primary) 30%, transparent);
       cursor: not-allowed;

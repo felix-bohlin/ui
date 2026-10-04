@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { inject, useId } from "vue"
+import { computed, inject, useId } from "vue"
+import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 import { ToggleGroupKey } from "../ToggleGroup/types.d.vue"
 import type { Props, Slots } from "./types.d.vue"
 
@@ -12,10 +13,11 @@ defineOptions({
 })
 
 const group = inject(ToggleGroupKey, undefined)
-const finalName = name || group?.name
-const finalType = type || group?.type || "checkbox"
+const currentFieldName = inject(CurrentFieldNameKey, undefined)
+const finalName = computed(() => name || group?.name || currentFieldName)
+const finalType = computed(() => type || group?.type || "checkbox")
 const uid = useId()
-const inputId = id || uid
+const inputId = computed(() => id || uid)
 </script>
 
 <template>

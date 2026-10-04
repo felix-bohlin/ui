@@ -1,11 +1,12 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Dialog"
 
 const { actionsAlign, class: className, closedby, ...rest } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const headerId =
   Astro.slots.has("header") && !rest["aria-labelledby"]
     ? $id("dialog-header")

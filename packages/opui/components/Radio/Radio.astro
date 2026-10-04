@@ -19,6 +19,17 @@ const $id = createId(Astro.locals)
 const endTextId = Astro.slots.has("end-text") ? $id("end-text") : undefined
 const describedBy =
   [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") || undefined
+
+if (
+  import.meta.env.DEV &&
+  !Astro.slots.has("default") &&
+  !Astro.props["aria-label"] &&
+  !Astro.props["aria-labelledby"]
+) {
+  console.warn(
+    "[OPUI Radio] Missing accessible name. Provide a default slot, and set `hideLabel` to hide it visually.",
+  )
+}
 ---
 
 <label
@@ -38,7 +49,13 @@ const describedBy =
     aria-invalid={error ? "true" : undefined}
     name={name}
   />
-  <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}><slot /></span>
+  {
+    Astro.slots.has("default") && (
+      <span class:list={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+        <slot />
+      </span>
+    )
+  }
   {
     Astro.slots.has("end-text") && (
       <span id={endTextId} class="ui-end-text">

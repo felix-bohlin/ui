@@ -1,4 +1,5 @@
 ---
+import type { Item } from "./types"
 import type { Props } from "./types.astro"
 import { createId } from "../id"
 
@@ -6,16 +7,17 @@ export const title = "Select"
 
 const {
   class: className,
-  description,
-  error,
   dense,
+  description,
+  endText,
+  error,
   id,
   items = [],
   label,
   name,
-  spread,
   size,
-  endText,
+  spread,
+  value,
   variant = "outlined",
   ...rest
 } = Astro.props
@@ -24,6 +26,12 @@ const $id = createId(Astro.locals)
 const labelId = $id("select-label")
 const endTextId =
   endText || Astro.slots.has("end-text") ? $id("end-text") : undefined
+const isSelected = (item: Item) =>
+  value === undefined
+    ? item.selected
+    : Array.isArray(value)
+      ? value.includes(item.value)
+      : item.value === value
 ---
 
 <label
@@ -67,7 +75,13 @@ const endTextId =
         <selectedcontent></selectedcontent>
       </button>
       <div class:list={["ui-list", { "ui-dense": dense }]}>
-        {items.map((item) => <option value={item.value}>{item.text}</option>)}
+        {
+          items.map((item) => (
+            <option selected={isSelected(item) || undefined} value={item.value}>
+              {item.text}
+            </option>
+          ))
+        }
         <slot />
       </div>
     </select>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { provide, useId } from "vue"
+import { computed, provide, reactive, useId } from "vue"
 import { ToggleGroupKey, type Props, type Slots } from "./types.d.vue"
 
 const {
@@ -17,10 +17,12 @@ defineOptions({
 })
 
 const uid = useId()
-const groupName = name || uid
-const inputType = selection === "single" ? "radio" : "checkbox"
+const groupName = computed(() => name || uid)
+const inputType = computed(() =>
+  selection === "single" ? "radio" : "checkbox",
+)
 
-provide(ToggleGroupKey, { name: groupName, type: inputType })
+provide(ToggleGroupKey, reactive({ name: groupName, type: inputType }))
 </script>
 
 <template>

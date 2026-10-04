@@ -10,6 +10,13 @@ defineOptions({
 const props = defineProps<Props>()
 const slots = defineSlots<Slots>()
 const attrs = useAttrs()
+const inputAttrs = computed(() =>
+  Object.fromEntries(
+    Object.entries(attrs).filter(
+      ([key]) => key !== "aria-describedby" && key !== "style",
+    ),
+  ),
+)
 const modelValue = defineModel<string>()
 
 const model = computed({
@@ -40,6 +47,7 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
       props.class,
     ]"
     :data-invalid="props.error ? '' : undefined"
+    :style="$attrs.style"
   >
     <span v-if="props.label || $slots.label" class="ui-label">
       <slot name="label">{{ props.label }}</slot>
@@ -58,7 +66,7 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
         :aria-invalid="props.error ? 'true' : undefined"
         :id="props.id"
         :name="currentFieldName"
-        v-bind="$attrs"
+        v-bind="inputAttrs"
         v-model="model"
       ></textarea>
       <span class="ui-prefix" v-if="$slots.prefix"

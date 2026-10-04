@@ -17,7 +17,6 @@ export type Slots<S> = {
   header: string | S
   label: string | S
   prefix: string | S
-  startText: string | S
   suffix: string | S
   supportingText: string | S
 }

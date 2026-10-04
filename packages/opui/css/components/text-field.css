@@ -6,6 +6,8 @@
   :where(.ui-text-field, .ui-textarea, .ui-select) {
     --_motion: var(--motion, 1);
     --_accent-color: var(--primary);
+    --_arrow-inset: var(--size-3);
+    --_arrow-size: 5px;
     --_bg-color: var(--surface-default);
     --_border-color: var(--field-border-color);
     --_field-padding-block: var(--size-2);
@@ -313,6 +315,10 @@
       grid-row: 3;
       line-height: var(--field-helper-line-height);
       margin-block-start: var(--size-1);
+    }
+
+    :where(.ui-table) :where(td, th) > & {
+      min-inline-size: 12ch;
     }
 
     /* Auto-fit */

@@ -46,9 +46,8 @@
       }
 
       &:focus-visible {
-        --focus-ring-color: currentColor;
         outline: var(--focus-ring-width) var(--focus-ring-style)
-          var(--focus-ring-color);
+          var(--focus-ring-color, currentColor);
         outline-offset: var(--focus-ring-offset);
       }
 
@@ -161,6 +160,10 @@
         position: absolute;
         text-box: inherit;
       }
+    }
+
+    &:not(:has(.ui-label, .ui-text)) {
+      vertical-align: middle;
     }
 
     /* Disabled */

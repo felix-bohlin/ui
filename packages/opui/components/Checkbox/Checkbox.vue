@@ -40,7 +40,9 @@ const endTextId = useId()
       "
       :indeterminate="props.indeterminate"
     />
-    <span :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
+    <span
+      v-if="$slots.default"
+      :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
       ><slot></slot
     ></span>
     <span :id="endTextId" class="ui-end-text" v-if="$slots['end-text']">

@@ -1,5 +1,5 @@
 @layer components.root {
-  label.ui-radio {
+  :where(label.ui-radio) {
     --_accent: light-dark(
       var(--primary),
       oklch(from var(--primary) min(l, 0.62) c h)
@@ -19,6 +19,10 @@
     line-height: var(--font-lineheight-3);
     transform: translateZ(0);
     user-select: none;
+
+    &:not(:has(.ui-label, .ui-text)) {
+      vertical-align: middle;
+    }
 
     /* Disabled */
     &:has([disabled]) {

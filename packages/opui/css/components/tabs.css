@@ -60,9 +60,8 @@
       &:focus-visible {
         & + [role="tab"]::before,
         & + .ui-tab-label::before {
-          --focus-ring-color: var(--text-muted);
           outline: var(--focus-ring-width) var(--focus-ring-style)
-            var(--focus-ring-color);
+            var(--focus-ring-color, var(--text-muted));
           outline-offset: var(--focus-ring-offset, 0);
         }
       }

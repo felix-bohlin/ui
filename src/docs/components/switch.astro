@@ -59,9 +59,10 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
    -->
 
   <p>
-    All switches should have an accessible name. Either provide a visible or
-    visually-hidden label inside the component, or set <code>aria-label</code> on
-    the input. Both approaches are fine.
+    All switches should have an accessible name. Put the label text inside the
+    component, also when there's no visible label: use <code>.ui-sr-only</code>
+    instead of <code>.ui-label</code>, or the <code>hideLabel</code> prop in Astro
+    and Vue.
   </p>
 
   <AutoExample name="Variants" row />
@@ -292,16 +293,15 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
               href="#visible-label"
               class="ui-link">visible label</a
             >, or a <code>.ui-sr-only</code> child to hide it visually while keeping
-            it accessible. In Astro, set the <code>hideLabel</code> prop to render
-            the slot content as <code>.ui-sr-only</code>.</td
+            it accessible. In Astro and Vue, set the <code>hideLabel</code> prop to
+            render the slot content as <code>.ui-sr-only</code>.</td
           >
         </tr>
         <tr>
           <td>Add an <code>aria-label</code> on the input</td>
           <td
-            >Used when there's no visible label inside the component (e.g.
-            icon-only switches). In Astro, pass <code>aria-label</code> as a prop
-            on the component and it will land on the input.</td
+            >Not used. Use a <code>.ui-sr-only</code> label instead, also for icon-only
+            switches.</td
           >
         </tr>
         <tr>
@@ -337,7 +337,8 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   <Fragment slot="anatomy">
     <Anatomy zoom={1.5}>
       <div class="switch-anatomy">
-        <UISwitch aria-label="Theme">
+        <UISwitch hideLabel>
+          Theme
           <svg
             slot="icon-unchecked"
             xmlns="http://www.w3.org/2000/svg"

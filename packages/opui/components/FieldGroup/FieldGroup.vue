@@ -22,7 +22,6 @@ if (props.name) {
       props.class,
     ]"
     v-bind="$attrs"
-    role="group"
   >
     <slot></slot>
   </div>

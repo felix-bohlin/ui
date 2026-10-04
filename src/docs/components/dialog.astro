@@ -117,7 +117,33 @@ export const description =
       </UICallout>
     </div>
 
+    <Conditional>
+      <p slot="astro">
+        The header slot names the dialog: it gets an <code>aria-labelledby</code
+        > that points at the header.
+      </p>
+      <p slot="html">
+        Name the dialog by pointing <code>aria-labelledby</code> at its title.
+      </p>
+      <p slot="vue">
+        The header slot names the dialog: it gets an <code>aria-labelledby</code
+        > that points at the header.
+      </p>
+    </Conditional>
+
     <AutoExample name="Usage" row />
+  </section>
+
+  <section>
+    <h2 id="alert-dialog">Alert dialog</h2>
+    <p>
+      Use <code>role="alertdialog"</code> when the dialog interrupts with something
+      that needs a response, like confirming a destructive action. Point
+      {" "}<code>aria-describedby</code> at the message so screen readers read it
+      when the dialog opens.
+    </p>
+
+    <AutoExample name="AlertDialog" row />
   </section>
 
   <section>
@@ -254,6 +280,12 @@ export const description =
     </ul>
 
     <h3 id="role-attributes">Role & attributes</h3>
+    <p>
+      Don't add <code>role="dialog"</code> or <code>aria-modal="true"</code>.
+      The <code>&lt;dialog&gt;</code> element has the dialog role, and opening it
+      with <code>command="show-modal"</code> (or <code>showModal()</code>) makes
+      it modal and the page behind it inert.
+    </p>
     <Table style="table-layout: fixed">
       <Table.ColumnGroup>
         <Table.Column width="30%" />
@@ -267,19 +299,6 @@ export const description =
       </Table.Head>
       <Table.Body>
         <Table.Row>
-          <Table.Cell><code>role="dialog"</code></Table.Cell>
-          <Table.Cell
-            >Identifies the element that serves as the dialog container.</Table.Cell
-          >
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>role="alertdialog"</code></Table.Cell>
-          <Table.Cell>
-            If the dialog is a confirmation window communicating an important
-            message that requires a confirmation or other user response.
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row>
           <Table.Cell><code>aria-labelledby="IDREF"</code></Table.Cell>
           <Table.Cell>
             Gives the dialog an accessible name by referring to the element that
@@ -289,16 +308,17 @@ export const description =
         <Table.Row>
           <Table.Cell><code>aria-describedby="IDREF"</code></Table.Cell>
           <Table.Cell>
-            Gives the dialog an accessible description by referring to the
-            dialog content that describes the primary message or purpose of the
-            dialog.
+            Optional. Gives the dialog an accessible description by referring to
+            the dialog content that describes the primary message or purpose of
+            the dialog.
           </Table.Cell>
         </Table.Row>
         <Table.Row>
-          <Table.Cell><code>aria-modal="true"</code></Table.Cell>
+          <Table.Cell><code>role="alertdialog"</code></Table.Cell>
           <Table.Cell>
-            Tells assistive technologies that the windows underneath the current
-            dialog are not available for interaction (inert).
+            Only if the dialog is a confirmation window communicating an
+            important message that requires a confirmation or other user
+            response. See <a href="#alert-dialog">alert dialog</a>.
           </Table.Cell>
         </Table.Row>
       </Table.Body>

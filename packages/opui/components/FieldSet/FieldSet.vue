@@ -15,6 +15,7 @@ defineOptions({
   <component
     :is="props.as"
     :class="['ui-fieldset', props.class]"
+    :role="props.as === 'fieldset' ? undefined : 'group'"
     v-bind="$attrs"
   >
     <slot></slot>

@@ -1,13 +1,13 @@
 <button class="ui-button ui-outlined" command="show-modal" commandfor="id-1" type="button">Open dialog</button>
-<dialog aria-labelledby="id-2" aria-modal="true" class="ui-card ui-dialog ui-elevated" id="id-1" role="alertdialog">
-  <hgroup>
-    <h2 class="ui-h4" id="id-2">Are you sure?</h2>
+<dialog aria-labelledby="id-2" class="ui-card ui-dialog ui-elevated" id="id-1">
+  <hgroup id="id-2">
+    <h2 class="ui-h4">Newsletter</h2>
   </hgroup>
   <div class="ui-content">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales, nulla sit amet porttitor rhoncus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales, nulla sit amet porttitor rhoncus.</p>
+    <p>Get a short email when we ship something new. No more than once a month.</p>
   </div>
   <div class="ui-actions">
-    <button class="ui-button" command="close" commandfor="id-1" type="button">Cancel</button>
-    <button class="ui-button ui-filled" command="close" commandfor="id-1" type="button">Save</button>
+    <button class="ui-button" command="close" commandfor="id-1" type="button">Not now</button>
+    <button class="ui-button ui-filled" command="close" commandfor="id-1" type="button">Subscribe</button>
   </div>
 </dialog>

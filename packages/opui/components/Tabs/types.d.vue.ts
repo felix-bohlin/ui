@@ -28,4 +28,3 @@ export type Slots = {
 
 export const TabsGroupNameKey = Symbol() as InjectionKey<Readonly<Ref<string>>>
 export const CurrentTabIdKey = Symbol() as InjectionKey<string>
-export const CurrentPanelIdKey = Symbol() as InjectionKey<string>

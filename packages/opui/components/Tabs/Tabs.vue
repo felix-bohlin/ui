@@ -22,7 +22,6 @@ provide(TabsGroupNameKey, groupName)
       variant && `ui-${variant}`,
       $props.class,
     ]"
-    role="tablist"
     v-bind="$attrs"
   >
     <slot></slot>

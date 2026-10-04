@@ -120,7 +120,7 @@ interaction(
     const dialog = root.locator("dialog")
 
     await root.getByRole("button", { name: "Open dialog" }).click()
-    await dialog.getByRole("button", { name: "Cancel" }).click()
+    await dialog.getByRole("button", { name: "Not now" }).click()
     await expect(dialog).toBeHidden()
   },
 )
@@ -187,13 +187,14 @@ interaction(
   "Basics",
   "tabs switch panels with click and arrow keys",
   async ({ page, root }) => {
-    const tabs = root.getByRole("tab")
-    const panels = root.locator('[role="tabpanel"]')
+    const tabs = root.locator(".ui-tab-label")
+    const panels = root.locator(".ui-tab-panel")
 
     await expect(panels.nth(0)).toBeVisible()
     await expect(panels.nth(1)).toBeHidden()
 
     await tabs.nth(1).click()
+    await expect(root.getByRole("radio", { name: "Settings" })).toBeChecked()
     await expect(panels.nth(1)).toBeVisible()
     await expect(panels.nth(0)).toBeHidden()
 

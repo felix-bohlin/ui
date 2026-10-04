@@ -98,6 +98,29 @@
 + .ui-tabs { --_active-text-color: var(--critical); }
 ```
 
+`Tabs` are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-controls` and `aria-labelledby` from HTML tabs, and `panelId` (and `tabId` on the panel) from Astro and Vue. Styles that target `[role="tab"]` or `[role="tabpanel"]` need `.ui-tab-label` and `.ui-tab-panel`.
+
+```diff
+- <div class="ui-tabs" role="tablist">
+-   <input type="radio" name="tabs" id="tab-1" class="ui-tab-input" aria-controls="panel-1" checked />
+-   <label for="tab-1" class="ui-tab-label" role="tab">Profile</label>
+-   <div id="panel-1" class="ui-tab-panel" role="tabpanel" aria-labelledby="tab-1">…</div>
++ <div class="ui-tabs">
++   <input type="radio" name="tabs" id="tab-1" class="ui-tab-input" checked />
++   <label for="tab-1" class="ui-tab-label">Profile</label>
++   <div class="ui-tab-panel">…</div>
+```
+
+`FieldGroup` no longer sets `role="group"`. Inside a fieldset nothing changes. A FieldGroup without a fieldset can take `role` and `aria-label` itself. In HTML, drop `role="group"` from `.ui-field-group`.
+
+```diff
+  <fieldset class="ui-fieldset">
+    <legend>Notifications</legend>
+-   <div class="ui-field-group" role="group">…</div>
++   <div class="ui-field-group">…</div>
+  </fieldset>
+```
+
 `Anchor` with `trigger="hover"` and `Tooltip` no longer wrap the trigger in a `<span interestfor>`. Give the anchor an `id` and add `interestfor` with that id to the trigger.
 
 ```diff

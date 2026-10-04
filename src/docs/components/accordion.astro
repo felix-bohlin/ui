@@ -194,27 +194,20 @@ export const description =
   </section>
 
   <Fragment slot="accessibility">
-    <p>
-      The <a
-        class="ui-link"
-        href="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/"
-        >WAI-ARIA guidelines</a
-      > for accordions recommend:
-    </p>
-
     <ul>
       <li>
-        <code>summary</code> element
-        <ul>
-          <li>adding id and aria-controls</li>
-          <li>adding aria-expanded (if using JS)</li>
-        </ul>
+        Accordions are <code>&lt;details&gt;</code> and
+        {" "}<code>&lt;summary&gt;</code>. The browser announces the summary
+        with its expanded or collapsed state and toggles it with
+        {" "}<kbd>Enter</kbd> and <kbd>Space</kbd>, so no ARIA is needed.
       </li>
       <li>
-        content wrapper
-        <ul>
-          <li>adding id, role and aria-labelledby</li>
-        </ul>
+        In supporting browsers, find in page also searches closed accordions and
+        opens the one with the match.
+      </li>
+      <li>
+        Don't add <code>role="region"</code> to the content. Every accordion becomes
+        a landmark, which crowds the landmark list on pages with many of them.
       </li>
     </ul>
   </Fragment>

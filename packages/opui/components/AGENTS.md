@@ -12,7 +12,7 @@ When implementing or updating a component, ensure:
 - [ ] **Sorting**: Props, Destructuring, and Classes are sorted alphabetically.
 - [ ] **Rest Props**: `...rest` is captured and spread onto the root element.
 - [ ] **Class Management**: Used `class:list` for all class manipulations.
-- [ ] **ID Stability**: Used `Astro.locals.$id` for any internal element linking.
+- [ ] **ID Stability**: Used `createId(Astro.locals)` for any internal element linking.
 - [ ] **Accessibility**: ARIA labels, roles, and relationships are correctly handled.
 - [ ] **Slot Strategy**: Named slots are used for structural content (icons, actions).
 
@@ -144,11 +144,11 @@ Most inputs should be wrapped in a `<label>` to provide a larger hit area and bu
 ```
 
 ### End Text & ARIA
-When providing `endText`, use `Astro.locals.$id` to link it to the input via `aria-describedby`.
+When providing `endText`, use `createId(Astro.locals)` to link it to the input via `aria-describedby`.
 
 ```astro
 ---
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const helpId = $id("help")
 ---
 <input aria-describedby={endText ? helpId : undefined} />
@@ -203,10 +203,10 @@ When building forms, follow this nesting order inside a `FieldSet`:
 ## 6. Identification & Accessibility
 
 ### Unique IDs
-Always use `Astro.locals.$id` for IDs. This ensures stability across server and client rendering and prevents ID collisions when multiple instances of the same component are on a page.
+Always use `createId(Astro.locals)` from `../id` for IDs. It falls back to random IDs when no middleware sets `Astro.locals.$id`. This ensures stability across server and client rendering and prevents ID collisions when multiple instances of the same component are on a page.
 
 ```astro
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const fieldId = id || $id("input") // Prefer passed ID if available
 ```
 

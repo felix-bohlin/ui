@@ -15,7 +15,7 @@
     --_header-font-size: var(--font-size-3);
     --_header-padding: var(--size-3);
     --_inline-size: min(375px, 100vi);
-    --_scroll-shadow-color: light-dark(oklch(0 0 0 / 10%), oklch(0 0 0 / 40%));
+    --_scroll-shadow: var(--shadow-4);
     --_shadow: var(--shadow-2);
     --_transition-duration: calc(var(--duration) * var(--_motion));
     --_transition-timing: var(--ease-enter);
@@ -84,6 +84,8 @@
       &::before,
       &::after {
         block-size: var(--size-2);
+        box-shadow: var(--_scroll-shadow);
+        clip-path: inset(100% 0 calc(-1 * var(--size-6)));
         content: "";
         inset-inline: anchor(--ui-drawer-content inside);
         opacity: 0;
@@ -94,13 +96,12 @@
       }
 
       &::before {
-        background: linear-gradient(var(--_scroll-shadow-color), transparent);
-        inset-block-start: anchor(--ui-drawer-content inside);
+        inset-block-end: anchor(--ui-drawer-content top);
       }
 
       &::after {
-        background: linear-gradient(transparent, var(--_scroll-shadow-color));
-        inset-block-end: anchor(--ui-drawer-content inside);
+        inset-block-start: anchor(--ui-drawer-content bottom);
+        scale: 1 -1;
       }
     }
 

@@ -14,7 +14,6 @@ import primaryContrast from "../todo-examples/primary-contrast.html?raw"
 import scrollState from "../todo-examples/scroll-state.html?raw"
 import tallMenu from "../todo-examples/tall-menu.html?raw"
 import textBoxTrim from "../todo-examples/text-box-trim.html?raw"
-import userValid from "../todo-examples/user-valid.html?raw"
 
 export const todoExamples = {
   "autosuggest-sizes": {
@@ -80,10 +79,6 @@ export const todoExamples = {
   "text-box-trim": {
     match: "`text-box: trim-both cap alphabetic`",
     source: textBoxTrim,
-  },
-  "user-valid": {
-    match: "Opt-in `:user-valid`",
-    source: userValid,
   },
 }
 

@@ -101,8 +101,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Nothing to learn: the markup is the same as today. A header without a heading can use any element with `flex: 1`, or a single `margin-inline-start: auto` on the first action.
 - [x] (4) Rich text headings, `pre` and `small` don't follow the inherited font size (`typography` InheritedSizes)
   - Fixed: headings scale by `1em / 1rem` (typed arithmetic, behind `@supports`), so they're unchanged at 16px and scale with the text around them. `pre` is `0.875em`, `small` is `max(0.75em, var(--font-size-0))`.
-- [] (4) Toasts have no maximum width, and a toast with an icon centers its text (`overlays` ToastLayering)
-  > skip toasts for now.
 - [] (4) Vue derived values are plain consts, not `computed`, so they don't update when props change: Anchor (`Anchor.vue:8-25`), Badge (`Badge.vue:9`), Divider (`Divider.vue:5`), Table Column (`Table/Column.vue:10`), ToggleButton (`ToggleButton.vue:15-18`), ToggleGroup (`ToggleGroup.vue:20-21`), Menu (`Menu.vue:20`), Tabs (`Tabs.vue:13`), Drawer (`Drawer.vue:19`)
 - [] (4) Anchor takes `id` as a prop for the floating element and drops it unless `trigger="hover"`, so a user `id` on Anchor or Badge never renders (`Anchor.astro:7-17`, `Anchor.vue:5-10`, `Badge.astro:16`)
 - [] (4) Tooltip `id` is optional, but without it the trigger can't reference the generated id, so the tooltip never opens. Make `id` required (`Tooltip/types.ts:4`, `Tooltip.astro:8-14`, `Tooltip.vue:5-13`)
@@ -290,8 +288,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fixed: `.ui-actions` gets `margin-block-start: auto` and `flex-wrap: wrap`. Its top spacing moved from margin to padding, so non-stretched cards look the same.
 - [x] (8) Rich text link styles apply to component links inside prose: `a.ui-button`, `a.ui-chip` and `a.ui-avatar` get underlined primary text (`typography` ComponentsInProse)
   - Fixed: rich text moved to a new `components.prose` layer, below `components.root`, so component styles always beat classless prose styles. Layer order is now `openprops, theme, normalize, components.prose, components.root, components.extended, utils` (README, getting started and skill updated). Rich text links also skip elements with a `ui-` class, so `a.ui-chip` isn't bold.
-- [] (8) Toasts are inert or under the backdrop while a modal dialog is open (`overlays` ToastLayering)
-  > don't do anything with toasts just yet - skip
 - [x] (9) Tooltips more than one viewport down the page never show: `position-visibility: anchors-visible` in `tooltip.css` (`overlays` LongContent, `tests/e2e/stress-overlays.spec.ts`)
   > fix it. what I also noticed was that dialogs that are scrollable should have fixed header and footer - fix that too.
   - Fixed: the cause was `position: absolute` on hover popovers in `anchor.css` (top-layer boxes below the initial containing block are not painted). They are `position: fixed` now. `anchors-visible` stays, so a tooltip hides when its trigger scrolls out of view.
@@ -305,8 +301,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [] (2) Vue getting started has no preamble (empty meta/search description) and doesn't mention Vite + `@vitejs/plugin-vue` (`src/docs/guide/getting-started/Vue.astro:8-9`)
 - [] (3) Sizes prose: the Button HTML text lists only `.ui-small` and `.ui-large` and skips `.ui-x-small` (the IconButton migration needs it). The Toggle text shows classes on Astro/Vue pages too, not a `Conditional` with the `size` prop (`button.astro:173-176`, `toggle.astro:140-143`)
 - [] (3) The "Text input API" table (HTML classes, no `source` and no `notes`) shows on Astro/Vue text-field pages and on `/astro/api` and `/vue/api`, with no note. The Text field API table already covers `autoFit` for those frameworks (`text-field.astro:68`, `component-api/text-input/api.ts`, `ApiTables.astro:28`)
-- [] (3) Toast API table is out of date: the message is `data-title` (falls back to `textContent`, never `value`), there is no default severity (`info` is listed), and `warning`, `data-description`, `data-template` and `data-close-label` are missing (`component-api/toast/HTML.astro:29-53`, `css/js/toast.js:48-56`)
-- [] (4) Toast Severity example uses `green`/`red`/`blue` classes that don't exist (`src/component-examples/toast/Severity.html:2,12,22`)
 - [] (4) List docs Gutterless and Borders only describe the HTML classes on the Astro and Vue pages too, not the `gutterless`, `bordered` and `borderTop` props (`list.astro:304-326`)
 - [] (4) Drawer docs say the `header` slot includes a close button automatically, but only `DrawerHeader` renders one. `DrawerFooter` has no API table (`drawer.astro:61-63,96-98,32-35`)
 - [] (4) Accordion docs: Actions says "in the header" with the `.ui-actions` class on every framework, but actions render after the content and Astro/Vue use an `actions` slot. "`name` prop" shows on the HTML page, and `.ui-card` is listed as a variant class (`accordion.astro:75,115,126-128`)
@@ -320,13 +314,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [] (6) CHANGELOG Unreleased leaves out breaking changes or files them outside Breaking. Missing: `.ui-icon-only` removed, Astro/Vue `Button` no longer adds `.ui-disabled`, Anchor/Tooltip hover `interestfor` wrapper removed. Filed elsewhere: Tabs restyle with `--_accent-color`/`--_bg-color` removed and new panel margin (Changed), Button padding scale and direct-child `> svg` icon sizing (Added), class-less rich text headings and heading sizes (Changed), `--focus-ring-color` unset (Fixed) (`CHANGELOG.md:7-14,25,31,65,67,74,106`)
 - [] (6) Accordion API table shows `.ui-marker-rotate` as the default on the HTML page, but in HTML no marker class means no animation (`src/component-api/accordion/api.ts:22`, `src/component-api/rows.ts:34-43`)
 - [] (7) MIGRATING v5→v6 still misses: Accordion marker class (`.ui-marker-rotate`), the default chevron in Astro/Vue (doubles custom chevrons), Checkbox/Chip/Radio private variable renames, List `divided` → `bordered`, Tabs restyle, Anchor/Tooltip `interestfor` wrapper, `.ui-icon-only` removed, class-less rich text headings and sizes, the new `components.prose` layer, `--focus-ring-color`. "see the v4 → v5 section at the top of this file" is stale, that section isn't at the top (`MIGRATING.md:1-38,157`)
-- [] (7) Toast docs don't show the required setup (`output#toast-manager`, `template#toast-template`, `initToastManager()`). The examples only work because `Layout.astro:81-119` injects them (`src/docs/components/toast.astro:42-90`)
 - [x] (8) Changelog: `divided` removed from `List`, use `bordered` (#395). Removed after 5.5.0 and missing from Unreleased
 
 ## Limitations
 
-- [] (2) Toast has no loading state. The loading example only exists on the unmerged `claude/toast-simplify` branch, and isn't a real component there
-  > skip toast fixes for now.
 - [x] (3) Carousel: vertical orientation
   - Added `.ui-vertical` / `orientation="vertical"`. It scrolls and snaps on the block axis, needs a height (`--_block-size`, default `24rem`), and supports buttons (`::scroll-button(block-start/end)`, rotated icons, also outside), markers and peek. Markers sit in a column at the inline end of the items, centered (anchored to the carousel, so they follow RTL). Docs section and example added.
   - Scroll and snap are checked in Chromium 141. The button positions aren't: Carousel buttons need Chromium 144+. Check them in the docs.
@@ -370,29 +361,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [] (2) dist source maps embed `sourcesContent` and `node_modules/.pnpm` paths, a large share of the unpacked size (`packages/opui/scripts/build.mjs:31-35`)
 - [] (2) Orphans: `src/component-examples/TextFieldInputTypes.vue`, `ToggleGroupInteractive.{astro,vue}` and `definition-list/Anatomy.vue` aren't used by any docs page (only parity snapshots), and the `../pages/components/*.astro` glob matches nothing (`src/utils/components.ts:7,12-18`)
 - [] (2) Dead CSS: `@supports (-moz-appearance: none)` in `link.css:17-19` sets the same `2px` as the base rule, and `margin-block-end: 0` on the last option repeats the list's `margin: 0` (`select.css:95-97`)
-- [?] (3) Opt-in `:user-valid` success styling for forms
-  > explain further how this would work.
-  - Fields already turn red with `:user-invalid` (only after the user has interacted, unlike `:invalid`). `:user-valid` is its counterpart. An opt-in class on a field or a whole form would show a success state once a value is valid:
-    ```css
-    :where(.ui-validate)
-      :where(.ui-text-field, .ui-textarea, .ui-select):has(:user-valid),
-    :where(.ui-text-field, .ui-textarea, .ui-select).ui-validate:has(
-        :user-valid
-      ) {
-      --_accent-color: var(--success);
-      --_border-color: var(--success);
-      --_label-color: var(--success);
-    }
-    ```
-    ```html
-    <form class="ui-validate">
-      <label class="ui-text-field">
-        <span class="ui-label">Email</span>
-        <span class="ui-field"><input type="email" required /></span>
-      </label>
-    </form>
-    ```
-  - Opt-in because green on every valid field is noisy for simple forms. It's most useful for fields with rules, like passwords and usernames.
 - [?] (3) Scroll-state container queries: sticky Table header shadow, scroll shadows in Dialog/Drawer
   > provide examples here in the todo page how that would work.
   - Scroll-state queries let descendants (and the scroller's own pseudo-elements) react to the scroller's state: `scrollable: top` means there is content scrolled out above.
@@ -442,22 +410,6 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [] (3) Docs sticky `h2` sets `container-name: sticky-heading` / `container-type: scroll-state`, but no `@container` rule uses it, and it has a hard-coded `max-inline-size: 555px` with a TODO comment (`Document.astro:449-456`)
 - [] (3) Vue exports `Description` next to `DescriptionListTerm`/`DescriptionListItem`, while Astro exports `DescriptionListDescription` (`packages/opui/vue/index.ts:14`, `packages/opui/astro/index.ts:15-19`)
 - [] (3) ListItem types allow `as="li"` through `as?: string` (renders `<li><li>`), and `class` is in the base types instead of the framework types (`ListItem/types.ts:3,20-23`)
-- [?] (4) Register theme knobs with `@property` (`--motion`, `--border-radius`, focus ring tokens). `--focus-ring-color` is unset by default on purpose, so it can't get an initial value
-  > i don't understand, explain further.
-  - `@property` gives a custom property a type, an initial value and inheritance:
-    ```css
-    @property --motion {
-      syntax: "<number>";
-      inherits: true;
-      initial-value: 1;
-    }
-    ```
-  - What it gets us:
-    - Bad values fall back to the initial value instead of breaking everything that uses them. Today `--motion: fast` makes every `calc(0.2s * var(--motion))` invalid, so transitions disappear. Registered, it falls back to `1`.
-    - Typed values can be transitioned, e.g. animating `--border-radius`.
-    - Defaults live with the property, so a component file imported on its own still has a working `--motion` without `normalize.css`.
-  - Why not `--focus-ring-color`: its default comes from `var(--focus-ring-color, var(--_focus-visible-color))`. The fallback only kicks in while the property is unset. A registered property always has a value (its initial value), so the fallback would never run and the inverted page color behavior would be lost.
-  - Low impact, mainly safety. Fine to leave until there's a concrete need.
 - [] (4) No type exports from `opui-css/astro` / `opui-css/vue` (component `Props`, Menu `MenuItem`, Select `Item`) (`astro/index.ts`, `vue/index.ts`)
 - [?] (5) `contrast-color()` for `--primary-contrast` so custom primaries get readable text
   > contrast-color() has its limitations - it can only be black or white. it's better to use relative color syntax imo.

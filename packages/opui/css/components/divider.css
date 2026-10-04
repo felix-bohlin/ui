@@ -2,7 +2,7 @@
   :where(.ui-divider) {
     background-color: var(--border-color);
     block-size: var(--border-size-1);
-    margin-block: var(--size-fluid-3);
+    margin-block: var(--divider-space, var(--size-fluid-3));
 
     /* Border color */
     &.ui-border-filled {
@@ -16,5 +16,9 @@
     &.ui-border-tonal {
       background-color: var(--surface-tonal);
     }
+  }
+
+  :where(.ui-card) > :where(.ui-divider) {
+    margin-block: 0;
   }
 }

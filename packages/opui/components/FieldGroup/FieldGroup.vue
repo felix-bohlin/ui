@@ -5,6 +5,10 @@ import { CurrentFieldNameKey, type Props, type Slots } from "./types.d.vue"
 const props = defineProps<Props>()
 defineSlots<Slots>()
 
+defineOptions({
+  inheritAttrs: false,
+})
+
 if (props.name) {
   provide(CurrentFieldNameKey, props.name)
 }

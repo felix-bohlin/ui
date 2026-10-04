@@ -9,7 +9,7 @@ export default {
   options: [
     {
       description:
-        'The element to render inside the `<li>`, such as `"a"` or `"button"`.',
+        'The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set.',
       prop: "as",
     },
     {
@@ -24,7 +24,7 @@ export default {
       prop: "for",
     },
     {
-      description: 'The link to use, with `as="a"`.',
+      description: "The link to use. Renders an `<a>` inside the `<li>`.",
       prop: "href",
     },
     {

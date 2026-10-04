@@ -94,6 +94,30 @@ export const description =
   </section>
 
   <section>
+    <h2 id="stretch">Stretch</h2>
+    <p>
+      Items in a row are as tall as the tallest one, but their content keeps its
+      own height.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-stretch</code> stretches the content of each item, such as a card,
+        to the item's height.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>stretch</code> stretches the content of each item, such as a card,
+        to the item's height.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>stretch</code> stretches the content of each item, such as a card,
+        to the item's height.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Stretch" />
+  </section>
+
+  <section>
     <h2 id="peek">Peek</h2>
     <Conditional as="p">
       <Fragment slot="html"

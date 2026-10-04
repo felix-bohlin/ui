@@ -7,6 +7,7 @@ export type Props = {
   peek?: boolean
   persistentButtons?: boolean
   perView?: number
+  stretch?: boolean
 }
 
 export type Slots<S> = {

@@ -34,6 +34,7 @@ describe("theme tokens", () => {
       "Typography",
       "Control sizes",
       "Button",
+      "Divider",
       "Motion",
       "State",
       "Icons",

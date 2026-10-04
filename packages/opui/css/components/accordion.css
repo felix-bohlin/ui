@@ -107,6 +107,10 @@
       rotate: 90deg;
     }
 
+    &.ui-marker-turn[open]:dir(rtl) > summary svg {
+      rotate: -90deg;
+    }
+
     & > .ui-content {
       margin-block-start: 0;
       padding-block: var(--_content-padding-block);

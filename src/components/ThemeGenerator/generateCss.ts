@@ -38,7 +38,6 @@ const RAMPS = {
   "--surface-elevated": { gray: ["1", "12"], color: ["1", "12"] },
   "--border-color": { gray: ["4", "12"], color: ["4", "12"] },
   "--neutral": { gray: ["9", "9"], color: ["9", "9"] },
-  "--primary-contrast": { gray: ["1", "1"], color: ["1", "1"] },
 } satisfies Record<string, Ramp>
 
 function rampValue(ramp: Ramp, grays: { light: boolean; dark: boolean }) {

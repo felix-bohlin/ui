@@ -16,7 +16,3 @@ export type Props = {
   placement?: "block-end" | "block-start" | "inline-end" | "inline-start"
   popover?: "auto" | "manual"
 }
-
-export type Slots<S> = {
-  children?: S
-}

@@ -66,7 +66,9 @@
 
     /* Primary */
     --primary: light-dark(var(--color-9), var(--color-6));
-    --primary-contrast: light-dark(var(--gray-1), var(--gray-15));
+    --primary-contrast: oklch(
+      from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h
+    );
     --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
     --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
 
@@ -160,6 +162,9 @@
     /* Button */
     --button-border-radius: var(--size-2);
 
+    /* Divider */
+    --divider-space: var(--size-fluid-3);
+
     /* Motion */
     --duration-fast: 0.1s;
     --duration: 0.2s;
@@ -236,5 +241,15 @@
   :where(.ui-card.ui-elevated, .ui-card.ui-tonal) {
     --border-color: light-dark(var(--gray-4), var(--surface-default));
     --field-border-color: var(--border-color);
+  }
+
+  /* Filled surfaces */
+  :where(.ui-list:not(.ui-default, .ui-tonal, .ui-transparent), .ui-table th) {
+    --border-color: light-dark(var(--gray-6), var(--gray-12));
+  }
+
+  /* Compact surfaces */
+  :where(.ui-callout, .ui-card, .ui-dialog, .ui-drawer) {
+    --divider-space: var(--size-3);
   }
 }

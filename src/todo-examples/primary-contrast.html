@@ -8,7 +8,7 @@
 
   .todo-swatch {
     --primary-contrast: oklch(
-      from var(--primary) clamp(0.15, (0.62 - l) * 1000, 0.98) calc(c * 0.15) h
+      from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h
     );
 
     background-color: var(--primary);
@@ -20,7 +20,8 @@
 </style>
 <p>
   Each swatch sets its own <code>--primary</code> and derives
-  <code>--primary-contrast</code> with relative color.
+  <code>--primary-contrast</code> with the same relative color as
+  <code>theme.css</code>.
 </p>
 <div class="todo-swatches">
   <div class="todo-swatch" style="--primary: oklch(0.45 0.15 260)">
@@ -32,7 +33,7 @@
   <div class="todo-swatch" style="--primary: oklch(0.75 0.12 200)">Cyan</div>
   <div class="todo-swatch" style="--primary: oklch(0.35 0.1 300)">Purple</div>
   <div class="todo-swatch" style="--primary: oklch(0.6 0.02 255)">Gray</div>
-  <div class="todo-swatch" style="--primary: oklch(0.62 0.18 50)">
+  <div class="todo-swatch" style="--primary: oklch(0.57 0.18 50)">
     Orange, on the threshold
   </div>
 </div>

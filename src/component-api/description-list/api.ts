@@ -34,7 +34,7 @@ export default {
       code: "<dd>",
       component: {
         astro: "DescriptionList.Description",
-        vue: "Description",
+        vue: "DescriptionListDescription",
       },
       description: "The description.",
       selector: "dd",

@@ -5,6 +5,10 @@ const props = withDefaults(defineProps<Props>(), {
   as: "fieldset",
 })
 defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
 </script>
 
 <template>

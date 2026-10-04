@@ -39,7 +39,8 @@ Lists meant to be used stand-alone or as part of Select elements
 
     /* Borders on all list items */
     &.ui-bordered {
-      :where(li + li, option + option) {
+      & > :where(li + li, option + option),
+      & > :where([role="group"]) > :where(option + option) {
         margin-block-start: var(--size-3);
 
         &::before {
@@ -61,7 +62,8 @@ Lists meant to be used stand-alone or as part of Select elements
       --_item-gap: var(--size-2);
       --_start-size: var(--icon-size);
 
-      :where(li, option) {
+      & > :where(li, option),
+      & > :where([role="group"]) > :where(option) {
         min-block-size: var(--size-7);
         padding: var(--size-1) var(--size-3);
 
@@ -117,7 +119,8 @@ Lists meant to be used stand-alone or as part of Select elements
 
     /* Gutterless */
     &.ui-gutterless {
-      :where(li, option) {
+      & > :where(li, option),
+      & > :where([role="group"]) > :where(option) {
         padding-inline: 0;
 
         & > :where(a, button, label) {
@@ -127,7 +130,8 @@ Lists meant to be used stand-alone or as part of Select elements
     }
 
     /* List item */
-    :where(li, option, [role="group"] > label) {
+    & > :where(li, option),
+    & > :where([role="group"]) > :where(label, option) {
       align-items: center;
       background-color: var(--_bg-color);
       display: flex;
@@ -270,6 +274,7 @@ Lists meant to be used stand-alone or as part of Select elements
         :where(h1, h2, h3, h4, h5, h6, p, span) {
           color: inherit;
           font-weight: 400;
+          margin: 0;
         }
 
         p + p {

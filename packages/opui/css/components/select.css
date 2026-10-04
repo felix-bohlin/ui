@@ -147,6 +147,11 @@
         appearance: none;
       }
 
+      :where(option, optgroup) {
+        background-color: var(--surface-elevated);
+        color: var(--text-primary);
+      }
+
       /* Arrow */
       &::after {
         align-self: center;

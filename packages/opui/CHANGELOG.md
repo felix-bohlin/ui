@@ -20,11 +20,19 @@ Next release: 6.0.0 (major).
 - `Typography` rich text only styles headings without a class, like lists. Component parts such as the `Callout` title keep their own styles. Use the `.ui-h1`–`.ui-h6` classes to style a heading that has a class.
 - `Typography` theme tokens `--font-size-h3` and `--font-size-h4` are fluid with higher minimums and `--font-size-h6` is `--font-size-1`, so heading sizes no longer invert or drop below body text on narrow viewports.
 - `theme.css` no longer sets `--focus-ring-color` (it was `var(--primary)` and unused). The global `:focus-visible` ring now reads `--focus-ring-color`, `--focus-ring-width`, `--focus-ring-style` and `--focus-ring-offset`, and keeps its inverted page background color while `--focus-ring-color` is unset. Set `--focus-ring-color` yourself where you read it.
+- `Avatar` requires `alt` when `src` is set (types). `alt=""` is still allowed for decorative images.
+- `Tooltip` requires an `id` (types). Without it the trigger can't reference the tooltip.
+- `Button`, and `Chip` and `Avatar` with `as="button"`, render `type="button"` by default in Astro and Vue, so they no longer submit forms. Pass `type="submit"` for submit buttons.
+- `TextField` and `Textarea` in Astro pass extra attributes to the `<input>`/`<textarea>` instead of the `<label>`. `class` and `style` stay on the label. In Vue, `style` now goes to the label instead of the input.
+- `DescriptionList` in Vue exports `DescriptionListDescription` instead of `Description`, like Astro.
+- `ListItem` `as` only accepts `"a"`, `"button"` or `"div"` (types).
 
 ### Removed
 
 - `IconButton`. Use `Button`: an icon-only button is square by default, `rounded` (`.ui-rounded`) makes it a circle and `ripple` (`.ui-ripple`) gives it the hover halo. The old default size is `size="small"`, the old `small` is `x-small`.
 - `palette.css` no longer registers the palette variables (`--color-*`, `--gray-*`, `--palette-source` and `--palette-hue`) with `@property`.
+- `ToggleGroup` no longer exports the unused `ToggleContext` type.
+- `TextField` and `Textarea` no longer declare a `startText` slot, which was never rendered. The `startText` prop stays.
 
 ### Added
 
@@ -61,6 +69,11 @@ Next release: 6.0.0 (major).
 - `theme.css` re-derives every color token (`--primary`, `--surface-*`, `--text-*`, `--border-color`, `--field-border-color` and the named and intent colors) inside `.ui-palette` from its own palette. A subtree with `class="ui-palette" style="--palette-hue: 30"` is a complete second theme.
 - `theme.css` adds `--density`, a multiplier for `--control-size-x-small`, `--control-size-small`, `--control-size` and `--control-size-large`. Defaults to `1`. `Button`, `Select`, `Textarea` and `TextField` padding shrinks to fit a smaller control size, down to the height of the text.
 - `Carousel` takes `orientation="vertical"` (`.ui-vertical`) to scroll on the block axis. Set its height with `--_block-size`. Markers sit in a column beside the items.
+- `Select` items take `selected`, and `value` preselects options in Astro and Vue (an array with `multiple`). Options render `selected` on the server.
+- `Carousel` takes `stretch` (`.ui-stretch`), which stretches each item's content, such as a card, to the item's height.
+- `Divider` reads a `--divider-space` theme token for the space around it. Cards, callouts, dialogs and drawers set it to `--size-3`.
+- `opui-css/astro` and `opui-css/vue` export the component `Props` types (`ButtonProps`, `TabsTabProps`, …), `MenuItem`, `SelectItem` and `ClassicSelectItem`.
+- `Dialog` and `Drawer` show a subtle scroll shadow under the header and above the actions while the content scrolls (scroll-state container queries).
 
 ### Changed
 
@@ -81,7 +94,7 @@ Next release: 6.0.0 (major).
 - `Radio` is `--choice-size` (20px) like `Checkbox`, instead of 18px.
 - `ButtonGroup` small buttons are `--button-size-small` (32px) instead of 30px, with the same `--font-size-05` text as a small `Button`.
 - `ToggleButton` and `ToggleGroup` text shrinks with the size like `Button`: `--font-size-05` when small and `--font-size-0` when x-small.
-- `Checkbox`, `Radio` and `Switch` line up with the first line of their label, and center on its capital letters instead of the line box, so the control looks centered in any font and at any size. Browsers without `text-box` center on the first line box.
+- `Checkbox`, `Radio` and `Switch` line up with the first line of their label and center on it.
 - `Chip` small is `--chip-size-small` (28px, the x-small control size) instead of 24px.
 - `Textarea` minimum height is three lines plus padding at every size. Small was a fixed 64px.
 - `Range`, `Switch` and `TextField` invalid states use `--invalid-color`.
@@ -101,6 +114,17 @@ Next release: 6.0.0 (major).
 - `List` dense rows keep the default inline padding, so they line up with `Card` content.
 - `Table` dense cells have less block padding.
 - `Typography` rich text headings, `pre` and `small` scale with the inherited font size.
+- `theme.css` derives `--primary-contrast` from `--primary` with relative color: near-white text on dark primaries and near-black on light ones, with a hint of the primary's hue. Custom primaries get readable text.
+- `Checkbox` and `Radio` root selectors are wrapped in `:where()`, like other components.
+- `Checkbox` and `Radio` no longer render an empty `.ui-label` without a default slot, and warn in dev without an accessible name, like `Switch`.
+- `Checkbox`, `Radio`, `Switch` and `Progress` align to the middle when there's no visible label, so they center in table cells and lines of text. Give them a hidden label (`hideLabel`, or `.ui-sr-only` in HTML).
+- `TextField`, `Textarea` and `Select` keep a `12ch` minimum width in table cells.
+- `TextField` auto-suggest arrow uses the `Select` arrow size and inset at every size.
+- `List` only styles direct `li`/`option` children (and options in a `[role="group"]`) as rows, so nested lists inside a row stay normal lists. Headings and paragraphs in `.ui-text` have no margin.
+- `Divider` that is a direct child of a card has no margin, since the card's gap spaces it.
+- `Drawer` header headings take the free space and the header has a gap, so several actions line up at the end. Without a heading, the first icon-only button is pushed to the end.
+- `Menu` is capped to the space on its side and only flips when that side has less than `12rem`.
+- `Tooltip` with an arrow shifts along the edge like other tooltips.
 
 ### Fixed
 
@@ -169,6 +193,25 @@ Next release: 6.0.0 (major).
 - `Typography` rich text `pre` and inline `code` run left to right in RTL.
 - `Typography` rich text ordered lists widen their gutter for long numbers, including `ol[start]`, and task lists only match a classless `label`, so a `Checkbox` in a list keeps its own styles.
 - `package.json` lists `solid-js` as an optional peer dependency, like `astro`, `svelte` and `vue`.
+- `TextField`, `Textarea` and `Dialog` in Astro no longer crash without a middleware that sets `Astro.locals.$id`.
+- `TextField` and `Textarea` merge a passed `aria-describedby` with the end text id.
+- `Range` in Vue shows the default value without `value` or `v-model`, and `v-model` returns a number.
+- `Range` and `ToggleButton` in Vue take the `FieldGroup` name.
+- `Range` invalid state colors the thumb too.
+- `ToggleButton` disabled styles apply to a disabled input without `.ui-disabled`.
+- `Switch`, `Tabs` and `ToggleButton` use a theme's `--focus-ring-color` for the focus ring.
+- `Checkbox` forced-colors styles apply to checked and indeterminate boxes.
+- `Accordion` `.ui-marker-turn` turns the marker down in RTL.
+- `Callout` rich text inside `.ui-content` no longer gets doubled margins.
+- `List` and `Table` borders on filled lists and table headers are visible in light mode.
+- `ListItem` with `href` and no `as` renders a link in Astro and Vue.
+- `FieldSet`, `FieldLegend`, `FieldDescription`, `FieldGroup` and `Form` in Vue no longer apply attributes and listeners twice.
+- `Avatar` in Vue accepts arrays and objects for `class`, and the image always has an `alt` attribute.
+- `Anchor` and `Badge` render a user `id` on the root. With `trigger="hover"` it stays the floating element's id.
+- `Menu` taller than the space on either side no longer runs off the viewport.
+- `Menu` second-level submenus keep the flipped direction instead of opening over the root menu.
+- `Tooltip` arrow points at the trigger for every position, after flips and shifts.
+- Vue `Anchor`, `Badge`, `Divider`, `Drawer`, `Menu`, `Table` Column, `Tabs`, `ToggleButton` and `ToggleGroup` update derived values when props change.
 
 ## 5.5.0 - 2026-09-28
 

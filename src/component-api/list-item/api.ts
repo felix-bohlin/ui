@@ -20,6 +20,10 @@ export default {
       prop: "borderTop",
     },
     {
+      description: 'Disables the item when `as` is `"button"`.',
+      prop: "disabled",
+    },
+    {
       description: "The `for` attribute of the `<label>` when `type` is set.",
       prop: "for",
     },

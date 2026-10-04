@@ -17,6 +17,9 @@ const whatsNew = {
       html: `Breaking: markers only animate with a marker class. Add <code>.ui-marker-rotate</code> to keep the previous rotation.`,
     },
   ],
+  avatar: [
+    `Breaking: <code>alt</code> is required when <code>src</code> is set.`,
+  ],
   button: [
     {
       astro: `<a href="#icon-only">Icon-only</a> buttons are square. <code>rounded</code> makes them round and <code>ripple</code> adds a hover halo.`,
@@ -30,6 +33,9 @@ const whatsNew = {
       html: `Links with <code>.ui-disabled</code> or <code>aria-disabled="true"</code> look and act disabled.`,
     },
     `<a href="#colors">Primary and critical</a> colors pass contrast in light and dark mode.`,
+    {
+      default: `Breaking: buttons render <code>type="button"</code> by default. Pass <code>type="submit"</code> for submit buttons.`,
+    },
   ],
   "button-group": [
     `<a href="#split-button">Split button</a> with a <code>Menu</code>.`,
@@ -54,6 +60,10 @@ const whatsNew = {
       default: `<a href="#vertical">Vertical</a> carousels with <code>orientation="vertical"</code>.`,
       html: `<a href="#vertical">Vertical</a> carousels with <code>.ui-vertical</code>.`,
     },
+    {
+      default: `<a href="#stretch">Stretch</a> cards to equal height with the <code>stretch</code> prop.`,
+      html: `<a href="#stretch">Stretch</a> cards to equal height with <code>.ui-stretch</code>.`,
+    },
   ],
   card: [
     `<a href="#variants">Tonal and elevated</a> cards have a border in the page background color, so they stay visible on tonal surfaces.`,
@@ -62,6 +72,7 @@ const whatsNew = {
   checkbox: [
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code>, and <code>--isLTR</code> and <code>--isRTL</code> are <code>--_dir-rtl</code>.`,
+    `Without a visible label, checkboxes center in table cells and lines of text.`,
   ],
   chip: [
     {
@@ -73,9 +84,24 @@ const whatsNew = {
       html: `Long labels truncate with an ellipsis unless the chip is <code>.ui-multiline</code>.`,
     },
     `Breaking: <code>--ripple</code> is <code>--_ripple</code>.`,
+    {
+      default: `Breaking: <code>as="button"</code> renders <code>type="button"</code> by default.`,
+    },
+  ],
+  "description-list": [
+    {
+      vue: `Breaking: <code>Description</code> is now <code>DescriptionListDescription</code>, like Astro.`,
+    },
   ],
   dialog: [
     `<a href="#modal">Long content</a> scrolls between a fixed header and actions.`,
+    `A subtle scroll shadow shows under the header and above the actions while the content scrolls.`,
+  ],
+  divider: [
+    `<a href="#spacing">Spacing</a> comes from <code>--divider-space</code>, which cards, callouts, dialogs and drawers make tighter.`,
+  ],
+  drawer: [
+    `Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls.`,
   ],
   list: [
     {
@@ -83,6 +109,7 @@ const whatsNew = {
       html: `Breaking: <code>.divided</code> is removed. Use <a href="#on-every-item"><code>.ui-bordered</code></a>.`,
     },
     `<a href="#dense">Dense</a> rows keep the default inline padding, so they line up with card content.`,
+    `Only direct children are styled as rows, so nested lists inside a row stay normal lists.`,
   ],
   menu: [
     `New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.`,
@@ -91,10 +118,12 @@ const whatsNew = {
       vue: `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
     },
     `A subtle light gray border in dark mode, so menus stand out on dialogs and other raised surfaces.`,
+    `Tall menus shrink to the space on their side instead of running off-screen.`,
   ],
   radio: [
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code>, and <code>--isLTR</code> and <code>--isRTL</code> are <code>--_dir-rtl</code>.`,
+    `Without a visible label, radios center in table cells and lines of text.`,
   ],
   range: [
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
@@ -105,18 +134,24 @@ const whatsNew = {
       html: `<a href="#sizes">X-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,
+    {
+      default: `<a href="#preselected">Preselect</a> options with <code>value</code> or <code>selected</code> on an item.`,
+      html: `<a href="#preselected">Preselect</a> options with <code>selected</code>.`,
+    },
   ],
   switch: [
     {
       default: `Breaking: <a href="#sizes"><code>size="small"</code></a> replaces <code>small</code>.`,
     },
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
+    `Without a visible label, switches center in table cells and lines of text.`,
   ],
   table: [
     {
       default: `<a href="#variants">Dense</a> tables have less block padding.`,
       html: `<a href="#variants">Dense</a> tables (<code>.ui-dense</code>) have less block padding.`,
     },
+    `Fields and selects in cells keep a <code>12ch</code> minimum width.`,
   ],
   tabs: [
     `Restyled as a segmented control.`,
@@ -135,6 +170,11 @@ const whatsNew = {
       html: `<a href="#sizes">X-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,
+    {
+      astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the input. <code>class</code> and <code>style</code> stay on the label.`,
+      vue: `Breaking: <code>style</code> goes to the label instead of the input.`,
+    },
+    `The auto-suggest arrow matches the Select arrow at every size.`,
   ],
   textarea: [
     {
@@ -142,6 +182,10 @@ const whatsNew = {
       html: `<a href="#sizes">X-small and large</a> sizes with <code>.ui-x-small</code> and <code>.ui-large</code>.`,
     },
     `<a href="#spread">Spread</a> fields line up at one width.`,
+    {
+      astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the textarea. <code>class</code> and <code>style</code> stay on the label.`,
+      vue: `Breaking: <code>style</code> goes to the label instead of the textarea.`,
+    },
   ],
   toggle: [
     {
@@ -153,6 +197,12 @@ const whatsNew = {
       default: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>scrollable</code> or truncates with <code>shrink</code>.`,
       html: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>.ui-scrollable</code> or truncates with <code>.ui-shrink</code>.`,
     },
+  ],
+  tooltip: [
+    {
+      default: `Breaking: <code>id</code> is required.`,
+    },
+    `The arrow points at the trigger in every position, also after a flip.`,
   ],
   typography: [
     `<a href="#classless">Rich text</a> spacing comes from one flow space, with more room above headings than below.`,

@@ -9,6 +9,23 @@ const REFERENCES = path.resolve(
   "packages/opui/skills/opui/references",
 )
 
+const SUB_APIS = path.resolve(process.cwd(), "src/component-api")
+
+function readSubApis(pages) {
+  return fs
+    .readdirSync(SUB_APIS, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .flatMap(({ name }) => {
+      const file = path.join(SUB_APIS, name, "api.ts")
+      if (!fs.existsSync(file)) return []
+      const source = fs.readFileSync(file, "utf-8")
+      const page = source.match(/^  page: "([^"]+)",$/m)?.[1]
+      const component = source.match(/^  component: "([^"]+)",$/m)?.[1]
+      if (!page || !component || !pages.has(page)) return []
+      return [{ component, page }]
+    })
+}
+
 function readComponents(llmsTxt) {
   return Array.from(
     fs
@@ -63,6 +80,9 @@ function buildSkill() {
   const components = readComponents(path.join(DIST, "html/llms.txt")).sort(
     (a, b) => a.title.localeCompare(b.title),
   )
+  const subApis = readSubApis(new Set(components.map((c) => c.slug))).sort(
+    (a, b) => a.component.localeCompare(b.component),
+  )
 
   const index = [
     "# Components",
@@ -79,6 +99,12 @@ function buildSkill() {
         .join(", ")
       return `| ${c.title} | \`${c.slug}.md\` | ${frameworks} | ${c.description.replace(/\|/g, "\\|")} |`
     }),
+    "",
+    "Components documented on another component's page:",
+    "",
+    "| Component | File |",
+    "| --- | --- |",
+    ...subApis.map((s) => `| ${s.component} | \`${s.page}.md\` |`),
     "",
   ].join("\n")
 

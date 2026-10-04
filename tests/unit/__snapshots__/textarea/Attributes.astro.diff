@@ -1,0 +1,12 @@
+===================================================================
+--- html
++++ astro
+@@ -1,6 +1,6 @@
+-<label class="ui-textarea">
++<label class="ui-textarea" data-testid="message">
+   <span class="ui-label">Message</span>
+   <span class="ui-field">
+-    <textarea data-testid="message" placeholder="Write something" required></textarea>
++    <textarea placeholder="Write something" required></textarea>
+   </span>
+ </label>

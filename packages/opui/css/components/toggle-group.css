@@ -5,22 +5,34 @@
     --_border-radius: var(--button-border-radius);
 
     background-color: var(--_bg-color);
-    border: 1px solid var(--_border-color);
     border-radius: var(--_border-radius);
     display: inline-flex;
+    flex-wrap: wrap;
     inline-size: fit-content;
+    max-inline-size: 100%;
+    outline: var(--border-width) solid var(--_border-color);
+    outline-offset: calc(-1 * var(--border-width));
     overflow: hidden;
 
     /* Sizes */
     &.ui-small {
       .ui-toggle-button {
+        --_font-size: var(--font-size-05);
         --_size: var(--field-size-small);
       }
     }
 
     &.ui-x-small {
       .ui-toggle-button {
+        --_font-size: var(--font-size-0);
         --_size: var(--field-size-x-small);
+      }
+    }
+
+    &.ui-large {
+      .ui-toggle-button {
+        --_size: var(--field-size-large);
+        padding-inline: var(--size-3);
       }
     }
 
@@ -28,27 +40,43 @@
     .ui-toggle-button {
       border: 0;
       border-radius: 0;
+      box-shadow:
+        calc(-1 * var(--border-width)) 0 0 0 var(--_border-color),
+        0 calc(-1 * var(--border-width)) 0 0 var(--_border-color);
+      flex: auto;
       margin: 0;
-    }
-
-    &:not(.ui-vertical) {
-      .ui-toggle-button {
-        border-inline-end: 1px solid var(--_border-color);
-
-        &:last-of-type {
-          border-inline-end: 0;
-        }
-      }
     }
 
     &.ui-vertical {
       flex-direction: column;
+    }
+
+    /* Overflow */
+    &.ui-scrollable {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      overscroll-behavior-inline: contain;
+      scrollbar-width: thin;
 
       .ui-toggle-button {
-        border-block-end: 1px solid var(--_border-color);
+        flex: none;
+      }
+    }
 
-        &:last-of-type {
-          border-block-end: 0;
+    &.ui-shrink {
+      flex-wrap: nowrap;
+
+      .ui-toggle-button {
+        min-inline-size: 0;
+        overflow: hidden;
+        white-space: nowrap;
+
+        &:not(:has(svg)) {
+          align-content: center;
+          display: block;
+          text-align: center;
+          text-overflow: ellipsis;
         }
       }
     }

@@ -1,0 +1,34 @@
+<style>
+  .todo-user-valid
+    :where(.ui-text-field, .ui-textarea, .ui-select):has(:user-valid) {
+    --_accent-color: var(--success);
+    --_border-color: var(--success);
+    --_label-color: var(--success);
+  }
+</style>
+<p>
+  Type in each field, then leave it. Valid fields turn green, invalid ones turn
+  red. Neither shows anything before you interact.
+</p>
+<form
+  class="todo-user-valid"
+  style="display: grid; gap: var(--size-3); inline-size: 18rem"
+>
+  <label class="ui-text-field">
+    <span class="ui-label">Email</span>
+    <span class="ui-field"
+      ><input type="email" required placeholder="you@example.com"
+    /></span>
+  </label>
+  <label class="ui-text-field">
+    <span class="ui-label">Username</span>
+    <span class="ui-field"
+      ><input
+        type="text"
+        required
+        minlength="4"
+        pattern="[a-z0-9]+"
+        placeholder="At least 4 lowercase letters or digits"
+    /></span>
+  </label>
+</form>

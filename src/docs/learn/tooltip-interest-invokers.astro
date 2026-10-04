@@ -1,0 +1,99 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
+import { Code } from "astro-expressive-code/components"
+---
+
+<TechniquePost slug="tooltip-interest-invokers">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      A tooltip opens on hover and focus, closes on <kbd>Esc</kbd>, blur and
+      leave, and stays next to its trigger without running off the screen. Every
+      part of that used to be JavaScript: event listeners, delays and a
+      positioning library that measures and flips.
+    </p>
+    <p>Now it's two attributes and a few lines of CSS.</p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        <code>interestfor</code> on the trigger and <code>popover="hint"</code> on
+        the tooltip: it opens on hover and focus, no JavaScript
+      </li>
+      <li>
+        <code>commandfor</code> with <code>command="toggle-popover"</code> opens it
+        on tap, where there is no hover
+      </li>
+      <li>
+        The invoker becomes the implicit anchor: no <code>anchor-name</code>, no
+        ids to wire up in CSS
+      </li>
+      <li>
+        <code>position-area: block-start</code> centers it above the trigger
+      </li>
+    </ul>
+    <Code
+      lang="html"
+      code={`<button
+  interestfor="tooltip"
+  commandfor="tooltip"
+  command="toggle-popover"
+>
+  Save
+</button>
+
+<span class="tooltip" id="tooltip" popover="hint">Save changes</span>`}
+    />
+  </section>
+
+  <section>
+    <h2 id="staying-on-screen">Staying on screen</h2>
+    <ul>
+      <li>
+        <code>position-try-fallbacks</code> flips the tooltip below the trigger when
+        there's no room above
+      </li>
+      <li>
+        Two <code>@position-try</code> rules use <code>anchor-size(inline)</code
+        > to slide it sideways at the edge of the window, still over the trigger
+      </li>
+      <li>
+        <code>position-visibility: anchors-visible</code> hides it when the trigger
+        scrolls out of view
+      </li>
+      <li>
+        Near an edge, <code>calc-size(max-content, min(size, 10rem))</code> keeps
+        long text at least <code>10rem</code> wide, while short labels stay snug
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <TooltipBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Without interest invokers, hover and focus do nothing, and <code
+          >commandfor</code
+        > still toggles the tooltip on click
+      </li>
+      <li>
+        An unknown <code>popover</code> value falls back to <code>manual</code>,
+        so the tooltip stays open until it's toggled again
+      </li>
+      <li>
+        There's no <code>@supports</code> fallback for anchor positioning or <code
+          >calc-size()</code
+        >: those declarations are ignored, and the tooltip isn't placed next to
+        its trigger
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

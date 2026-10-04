@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "FieldDescription",
+  css: ["form"],
   options: [],
   page: "form",
   parts: [],

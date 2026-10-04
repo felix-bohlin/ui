@@ -6,7 +6,11 @@ import { List, ListItem } from "opui-css/vue"
   <List gutterless>
     <ListItem headline="Gutterless list item">
       <template #end>
-        <button class="ui-button ui-rounded ui-ripple ui-small" type="button">
+        <button
+          aria-label="Delete"
+          class="ui-button ui-rounded ui-ripple ui-small"
+          type="button"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="32"

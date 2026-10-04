@@ -16,6 +16,7 @@ import Conditional from "../../components/Conditional.astro"
 
 import listApi from "../../component-api/list/api"
 import listItemApi from "../../component-api/list-item/api"
+import ListBuild from "../../components/UnderTheHood/ListBuild.astro"
 
 export const description =
   "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it."
@@ -29,7 +30,7 @@ export const description =
     { title: "List API", api: listApi },
     { title: "List item API", api: listItemApi },
   ]}
-  browserSupport={["has", "light-dark", "relative-color"]}
+  browserSupport={["has", "relative-color"]}
   changelogPaths={[
     {
       path: "packages/opui/components/List/List.astro",
@@ -120,7 +121,7 @@ export const description =
         Change background color with the <code>variant</code> prop.
       </p>
       <p slot="html">
-        Use
+        Use{" "}
         <code>.ui-default</code>, <code>.ui-tonal</code>, and <code
           >.ui-transparent</code
         > to change the background color.
@@ -131,11 +132,12 @@ export const description =
     </Conditional>
 
     <Callout class="ui-not-rich-text">
-      <Fragment slot="title">Filled as default?!</Fragment>
+      <Fragment slot="title">Filled by default</Fragment>
       <p>
-        Yeah it's a bit weird, but normally you would use a list in a
-        popover/select scenario that needs to contrast against the background.
-        If nothing else, just change it yourself.
+        Without a color class the list uses the filled surface, because lists
+        usually sit in popovers and selects that need to contrast against the
+        page. Pick <code>default</code> or <code>tonal</code> to match the page surface
+        instead.
       </p>
     </Callout>
 
@@ -148,7 +150,7 @@ export const description =
       Wrap the elements of your List item with a <code>a</code>, <code
         >button</code
       >
-      or <code>label</code> depending on use-case.
+      {" "}or <code>label</code> depending on use-case.
     </p>
 
     <AutoExample name="Clickable" />
@@ -156,13 +158,19 @@ export const description =
     <h3 id="selected">Selected item</h3>
     <Conditional>
       <p slot="html">
-        Add <code>aria-selected="true"</code> to the <code>li</code>.
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >li</code
+        >.
       </p>
       <p slot="astro">
-        Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >ListItem</code
+        >.
       </p>
       <p slot="vue">
-        Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >ListItem</code
+        >.
       </p>
     </Conditional>
     <AutoExample name="Selected" />
@@ -175,7 +183,8 @@ export const description =
         Main text lives in the <code>text</code> slot, or pass <code
           >headline</code
         >
-        and <code>description</code> props directly on <code>ListItem</code>.
+        {" "}and <code>description</code> props directly on <code>ListItem</code
+        >.
       </Fragment>
       <Fragment slot="html">
         Main text lives in <code>div.ui-text</code>.
@@ -184,7 +193,8 @@ export const description =
         Main text lives in the <code>text</code> slot, or pass <code
           >headline</code
         >
-        and <code>description</code> props directly on <code>ListItem</code>.
+        {" "}and <code>description</code> props directly on <code>ListItem</code
+        >.
       </Fragment>
     </Conditional>
 
@@ -248,7 +258,7 @@ export const description =
       Wrap the List item content with a <code
         >&lt;label class="ui-checkbox" for="INPUTID"&gt;</code
       >
-      to make the entire surface clickable.
+      {" "}to make the entire surface clickable.
     </p>
     <p>
       Read more: <DocLink href="/components/checkbox" class="ui-link"
@@ -262,7 +272,7 @@ export const description =
       Wrap the List item content with a <code
         >&lt;label class="ui-radio" for="INPUTID"&gt;</code
       >
-      to make the entire surface clickable.
+      {" "}to make the entire surface clickable.
     </p>
     <p>
       Radio group: Add a common name to each <code>&lt;input&gt;</code> for radio
@@ -336,7 +346,7 @@ export const description =
           slot="html"
           id="list-dense-toggle-html"
           class="list-dense-toggle"
-          small
+          size="small"
           checked
         >
           <code>.ui-dense</code>
@@ -345,7 +355,7 @@ export const description =
           slot="astro"
           id="list-dense-toggle-astro"
           class="list-dense-toggle"
-          small
+          size="small"
           checked
         >
           <code>dense</code>
@@ -354,7 +364,7 @@ export const description =
           slot="vue"
           id="list-dense-toggle-vue"
           class="list-dense-toggle"
-          small
+          size="small"
           checked
         >
           <code>dense</code>
@@ -388,6 +398,8 @@ export const description =
       <Example.Code slot="code-vue" code={ListDenseVueRaw} />
     </Example>
   </section>
+
+  <ListBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy api={listItemApi} zoom={1.25}>

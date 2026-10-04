@@ -1,0 +1,2351 @@
+<section class="stress" data-example="SizeMatrix">
+  <h2>Size matrix</h2>
+  <p>
+    Every control at every size, bottom aligned. Fields, buttons and toggles of
+    the same size share one height: 28, 32, 40 and 46px.
+  </p>
+  <div class="stress-row" data-size="x-small">
+    <span class="stress-tag">X-small</span
+    ><label class="ui-text-field ui-x-small"
+      ><span class="ui-label">Amount</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Placeholder" value="1 200" /><span
+          class="ui-prefix"
+          >$</span
+        ></span
+      ></label
+    ><label class="ui-text-field ui-x-small"
+      ><span class="ui-label">Date</span
+      ><span class="ui-field"
+        ><input type="date" value="2026-10-01" /></span></label
+    ><label class="ui-text-field ui-x-small"
+      ><span class="ui-label">Time</span
+      ><span class="ui-field"><input type="time" value="10:00" /></span></label
+    ><label class="ui-text-field ui-x-small stress-wide"
+      ><span class="ui-label">Attachment</span
+      ><span class="ui-field"><input type="file" /></span></label
+    ><label class="ui-text-field ui-x-small"
+      ><span class="ui-label">Country</span
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Placeholder"
+          list="stress-list-1" /></span
+      ><datalist id="stress-list-1">
+        <option value="Finland"></option>
+        <option value="Sweden"></option>
+        <option value="Norway"></option></datalist></label
+    ><label class="ui-select ui-x-small"
+      ><span class="ui-label" id="stress-select-label-1">Status</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-1">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Archived</option>
+          </div>
+        </select></span
+      ></label
+    ><label class="ui-select ui-x-small"
+      ><span class="ui-label" id="stress-select-label-2">Priority</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-2">
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+        </select></span
+      ></label
+    ><label class="ui-text-field ui-x-small stress-auto"
+      ><span class="ui-label">Color</span
+      ><span class="ui-field"
+        ><input type="color" value="#3b82f6" /></span></label
+    ><button class="ui-button ui-x-small ui-filled" type="button">Save</button
+    ><button class="ui-button ui-x-small ui-outlined" type="button">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+        ></path></svg
+      ><span>Add</span></button
+    ><button
+      class="ui-button ui-x-small ui-tonal"
+      type="button"
+      aria-label="More"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+        ></path>
+      </svg>
+    </button>
+    <div
+      role="group"
+      aria-label="Actions"
+      class="ui-button-group ui-x-small ui-outlined"
+    >
+      <button class="ui-button" type="button">Undo</button
+      ><button class="ui-button" type="button">Redo</button>
+    </div>
+    <div role="radiogroup" aria-label="View" class="ui-toggle-group ui-x-small">
+      <label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-1" checked />List</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-1" />Grid</label
+      >
+    </div>
+    <label class="ui-toggle-button ui-x-small"
+      ><input type="checkbox" />Bold</label
+    >
+  </div>
+  <div class="stress-row" data-size="small">
+    <span class="stress-tag">Small</span
+    ><label class="ui-text-field ui-small"
+      ><span class="ui-label">Amount</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Placeholder" value="1 200" /><span
+          class="ui-prefix"
+          >$</span
+        ></span
+      ></label
+    ><label class="ui-text-field ui-small"
+      ><span class="ui-label">Date</span
+      ><span class="ui-field"
+        ><input type="date" value="2026-10-01" /></span></label
+    ><label class="ui-text-field ui-small"
+      ><span class="ui-label">Time</span
+      ><span class="ui-field"><input type="time" value="10:00" /></span></label
+    ><label class="ui-text-field ui-small stress-wide"
+      ><span class="ui-label">Attachment</span
+      ><span class="ui-field"><input type="file" /></span></label
+    ><label class="ui-text-field ui-small"
+      ><span class="ui-label">Country</span
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Placeholder"
+          list="stress-list-2" /></span
+      ><datalist id="stress-list-2">
+        <option value="Finland"></option>
+        <option value="Sweden"></option>
+        <option value="Norway"></option></datalist></label
+    ><label class="ui-select ui-small"
+      ><span class="ui-label" id="stress-select-label-3">Status</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-3">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Archived</option>
+          </div>
+        </select></span
+      ></label
+    ><label class="ui-select ui-small"
+      ><span class="ui-label" id="stress-select-label-4">Priority</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-4">
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+        </select></span
+      ></label
+    ><label class="ui-text-field ui-small stress-auto"
+      ><span class="ui-label">Color</span
+      ><span class="ui-field"
+        ><input type="color" value="#3b82f6" /></span></label
+    ><button class="ui-button ui-small ui-filled" type="button">Save</button
+    ><button class="ui-button ui-small ui-outlined" type="button">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+        ></path></svg
+      ><span>Add</span></button
+    ><button
+      class="ui-button ui-small ui-tonal"
+      type="button"
+      aria-label="More"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+        ></path>
+      </svg>
+    </button>
+    <div
+      role="group"
+      aria-label="Actions"
+      class="ui-button-group ui-small ui-outlined"
+    >
+      <button class="ui-button" type="button">Undo</button
+      ><button class="ui-button" type="button">Redo</button>
+    </div>
+    <div role="radiogroup" aria-label="View" class="ui-toggle-group ui-small">
+      <label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-2" checked />List</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-2" />Grid</label
+      >
+    </div>
+    <label class="ui-toggle-button ui-small"
+      ><input type="checkbox" />Bold</label
+    >
+  </div>
+  <div class="stress-row" data-size="default">
+    <span class="stress-tag">Default</span
+    ><label class="ui-text-field"
+      ><span class="ui-label">Amount</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Placeholder" value="1 200" /><span
+          class="ui-prefix"
+          >$</span
+        ></span
+      ></label
+    ><label class="ui-text-field"
+      ><span class="ui-label">Date</span
+      ><span class="ui-field"
+        ><input type="date" value="2026-10-01" /></span></label
+    ><label class="ui-text-field"
+      ><span class="ui-label">Time</span
+      ><span class="ui-field"><input type="time" value="10:00" /></span></label
+    ><label class="ui-text-field stress-wide"
+      ><span class="ui-label">Attachment</span
+      ><span class="ui-field"><input type="file" /></span></label
+    ><label class="ui-text-field"
+      ><span class="ui-label">Country</span
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Placeholder"
+          list="stress-list-3" /></span
+      ><datalist id="stress-list-3">
+        <option value="Finland"></option>
+        <option value="Sweden"></option>
+        <option value="Norway"></option></datalist></label
+    ><label class="ui-select"
+      ><span class="ui-label" id="stress-select-label-5">Status</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-5">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Archived</option>
+          </div>
+        </select></span
+      ></label
+    ><label class="ui-select"
+      ><span class="ui-label" id="stress-select-label-6">Priority</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-6">
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+        </select></span
+      ></label
+    ><label class="ui-text-field stress-auto"
+      ><span class="ui-label">Color</span
+      ><span class="ui-field"
+        ><input type="color" value="#3b82f6" /></span></label
+    ><button class="ui-button ui-filled" type="button">Save</button
+    ><button class="ui-button ui-outlined" type="button">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+        ></path></svg
+      ><span>Add</span></button
+    ><button class="ui-button ui-tonal" type="button" aria-label="More">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+        ></path>
+      </svg>
+    </button>
+    <div role="group" aria-label="Actions" class="ui-button-group ui-outlined">
+      <button class="ui-button" type="button">Undo</button
+      ><button class="ui-button" type="button">Redo</button>
+    </div>
+    <div role="radiogroup" aria-label="View" class="ui-toggle-group">
+      <label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-3" checked />List</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-3" />Grid</label
+      >
+    </div>
+    <label class="ui-toggle-button"><input type="checkbox" />Bold</label>
+  </div>
+  <div class="stress-row" data-size="large">
+    <span class="stress-tag">Large</span
+    ><label class="ui-text-field ui-large"
+      ><span class="ui-label">Amount</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Placeholder" value="1 200" /><span
+          class="ui-prefix"
+          >$</span
+        ></span
+      ></label
+    ><label class="ui-text-field ui-large"
+      ><span class="ui-label">Date</span
+      ><span class="ui-field"
+        ><input type="date" value="2026-10-01" /></span></label
+    ><label class="ui-text-field ui-large"
+      ><span class="ui-label">Time</span
+      ><span class="ui-field"><input type="time" value="10:00" /></span></label
+    ><label class="ui-text-field ui-large stress-wide"
+      ><span class="ui-label">Attachment</span
+      ><span class="ui-field"><input type="file" /></span></label
+    ><label class="ui-text-field ui-large"
+      ><span class="ui-label">Country</span
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Placeholder"
+          list="stress-list-4" /></span
+      ><datalist id="stress-list-4">
+        <option value="Finland"></option>
+        <option value="Sweden"></option>
+        <option value="Norway"></option></datalist></label
+    ><label class="ui-select ui-large"
+      ><span class="ui-label" id="stress-select-label-7">Status</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-7">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Archived</option>
+          </div>
+        </select></span
+      ></label
+    ><label class="ui-select ui-large"
+      ><span class="ui-label" id="stress-select-label-8">Priority</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-8">
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+        </select></span
+      ></label
+    ><label class="ui-text-field ui-large stress-auto"
+      ><span class="ui-label">Color</span
+      ><span class="ui-field"
+        ><input type="color" value="#3b82f6" /></span></label
+    ><button class="ui-button ui-large ui-filled" type="button">Save</button
+    ><button class="ui-button ui-large ui-outlined" type="button">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+        ></path></svg
+      ><span>Add</span></button
+    ><button
+      class="ui-button ui-large ui-tonal"
+      type="button"
+      aria-label="More"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+        ></path>
+      </svg>
+    </button>
+    <div
+      role="group"
+      aria-label="Actions"
+      class="ui-button-group ui-large ui-outlined"
+    >
+      <button class="ui-button" type="button">Undo</button
+      ><button class="ui-button" type="button">Redo</button>
+    </div>
+    <div role="radiogroup" aria-label="View" class="ui-toggle-group ui-large">
+      <label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-4" checked />List</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-4" />Grid</label
+      >
+    </div>
+    <label class="ui-toggle-button ui-large"
+      ><input type="checkbox" />Bold</label
+    >
+  </div>
+</section>
+<section class="stress" data-example="Toolbar">
+  <h2>Toolbar</h2>
+  <p>
+    Unlabeled controls in one centered row, the way filter bars and table
+    toolbars combine them.
+  </p>
+  <div class="stress-row stress-center" data-size="x-small">
+    <span class="stress-tag">X-small</span
+    ><label class="ui-text-field ui-x-small"
+      ><span class="ui-field"
+        ><input type="search" placeholder="Search" aria-label="Search" /><span
+          class="ui-prefix"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10 2.75a7.25 7.25 0 0 1 5.63 11.819l4.9 4.9a.75.75 0 0 1-.976 1.134l-.084-.073l-4.901-4.9A7.25 7.25 0 1 1 10 2.75m0 1.5a5.75 5.75 0 1 0 0 11.5a5.75 5.75 0 0 0 0-11.5"
+            ></path></svg></span></span></label
+    ><label class="ui-select ui-x-small"
+      ><span class="ui-field"
+        ><select aria-label="Status">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>All statuses</option>
+            <option>Open</option>
+            <option>Closed</option>
+          </div>
+        </select></span
+      ></label
+    >
+    <div
+      role="radiogroup"
+      aria-label="Range"
+      class="ui-toggle-group ui-x-small"
+    >
+      <label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-5" checked />Day</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-5" />Week</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-5" />Month</label
+      >
+    </div>
+    <div
+      role="group"
+      aria-label="Export"
+      class="ui-button-group ui-x-small ui-tonal"
+    >
+      <button class="ui-button" type="button">Export</button
+      ><button class="ui-button" type="button" aria-label="More export options">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <button class="ui-button ui-x-small ui-outlined" type="button">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+        ></path></svg
+      ><span>Filters</span></button
+    ><button class="ui-button ui-x-small ui-filled ui-primary" type="button">
+      Create
+    </button>
+  </div>
+  <div class="stress-row stress-center" data-size="small">
+    <span class="stress-tag">Small</span
+    ><label class="ui-text-field ui-small"
+      ><span class="ui-field"
+        ><input type="search" placeholder="Search" aria-label="Search" /><span
+          class="ui-prefix"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10 2.75a7.25 7.25 0 0 1 5.63 11.819l4.9 4.9a.75.75 0 0 1-.976 1.134l-.084-.073l-4.901-4.9A7.25 7.25 0 1 1 10 2.75m0 1.5a5.75 5.75 0 1 0 0 11.5a5.75 5.75 0 0 0 0-11.5"
+            ></path></svg></span></span></label
+    ><label class="ui-select ui-small"
+      ><span class="ui-field"
+        ><select aria-label="Status">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>All statuses</option>
+            <option>Open</option>
+            <option>Closed</option>
+          </div>
+        </select></span
+      ></label
+    >
+    <div role="radiogroup" aria-label="Range" class="ui-toggle-group ui-small">
+      <label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-6" checked />Day</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-6" />Week</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-6" />Month</label
+      >
+    </div>
+    <div
+      role="group"
+      aria-label="Export"
+      class="ui-button-group ui-small ui-tonal"
+    >
+      <button class="ui-button" type="button">Export</button
+      ><button class="ui-button" type="button" aria-label="More export options">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <button class="ui-button ui-small ui-outlined" type="button">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+        ></path></svg
+      ><span>Filters</span></button
+    ><button class="ui-button ui-small ui-filled ui-primary" type="button">
+      Create
+    </button>
+  </div>
+  <div class="stress-row stress-center" data-size="default">
+    <span class="stress-tag">Default</span
+    ><label class="ui-text-field"
+      ><span class="ui-field"
+        ><input type="search" placeholder="Search" aria-label="Search" /><span
+          class="ui-prefix"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10 2.75a7.25 7.25 0 0 1 5.63 11.819l4.9 4.9a.75.75 0 0 1-.976 1.134l-.084-.073l-4.901-4.9A7.25 7.25 0 1 1 10 2.75m0 1.5a5.75 5.75 0 1 0 0 11.5a5.75 5.75 0 0 0 0-11.5"
+            ></path></svg></span></span></label
+    ><label class="ui-select"
+      ><span class="ui-field"
+        ><select aria-label="Status">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>All statuses</option>
+            <option>Open</option>
+            <option>Closed</option>
+          </div>
+        </select></span
+      ></label
+    >
+    <div role="radiogroup" aria-label="Range" class="ui-toggle-group">
+      <label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-7" checked />Day</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-7" />Week</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-7" />Month</label
+      >
+    </div>
+    <div role="group" aria-label="Export" class="ui-button-group ui-tonal">
+      <button class="ui-button" type="button">Export</button
+      ><button class="ui-button" type="button" aria-label="More export options">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <button class="ui-button ui-outlined" type="button">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+        ></path></svg
+      ><span>Filters</span></button
+    ><button class="ui-button ui-filled ui-primary" type="button">
+      Create
+    </button>
+  </div>
+  <div class="stress-row stress-center" data-size="large">
+    <span class="stress-tag">Large</span
+    ><label class="ui-text-field ui-large"
+      ><span class="ui-field"
+        ><input type="search" placeholder="Search" aria-label="Search" /><span
+          class="ui-prefix"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10 2.75a7.25 7.25 0 0 1 5.63 11.819l4.9 4.9a.75.75 0 0 1-.976 1.134l-.084-.073l-4.901-4.9A7.25 7.25 0 1 1 10 2.75m0 1.5a5.75 5.75 0 1 0 0 11.5a5.75 5.75 0 0 0 0-11.5"
+            ></path></svg></span></span></label
+    ><label class="ui-select ui-large"
+      ><span class="ui-field"
+        ><select aria-label="Status">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>All statuses</option>
+            <option>Open</option>
+            <option>Closed</option>
+          </div>
+        </select></span
+      ></label
+    >
+    <div role="radiogroup" aria-label="Range" class="ui-toggle-group ui-large">
+      <label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-8" checked />Day</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-8" />Week</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-8" />Month</label
+      >
+    </div>
+    <div
+      role="group"
+      aria-label="Export"
+      class="ui-button-group ui-large ui-tonal"
+    >
+      <button class="ui-button" type="button">Export</button
+      ><button class="ui-button" type="button" aria-label="More export options">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <button class="ui-button ui-large ui-outlined" type="button">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="currentColor"
+          d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+        ></path></svg
+      ><span>Filters</span></button
+    ><button class="ui-button ui-large ui-filled ui-primary" type="button">
+      Create
+    </button>
+  </div>
+</section>
+<section class="stress" data-example="ChipsAndControls">
+  <h2>Chips next to controls</h2>
+  <p>
+    Filter chips in a toolbar. Chip sizes sit one step below the control scale:
+    small chips match x-small controls, default chips match small controls and
+    large chips match default controls.
+  </p>
+  <div class="stress-row stress-center">
+    <span class="stress-tag">X-small controls, small chips</span
+    ><label class="ui-text-field ui-x-small"
+      ><span class="ui-field"
+        ><input
+          type="search"
+          placeholder="Filter"
+          aria-label="Filter" /></span></label
+    ><button class="ui-chip ui-outlined ui-small" type="button">
+      <span class="ui-text">Open</span></button
+    ><button class="ui-chip ui-outlined ui-small" type="button">
+      <span class="ui-text">Assigned to me</span></button
+    ><button class="ui-chip ui-outlined ui-small" type="button">
+      <span class="ui-text">Due this week</span></button
+    ><button class="ui-button ui-outlined ui-x-small" type="button">
+      Clear
+    </button>
+  </div>
+  <div class="stress-row stress-center">
+    <span class="stress-tag">Small controls, default chips</span
+    ><label class="ui-text-field ui-small"
+      ><span class="ui-field"
+        ><input
+          type="search"
+          placeholder="Filter"
+          aria-label="Filter" /></span></label
+    ><button class="ui-chip ui-outlined" type="button">
+      <span class="ui-text">Open</span></button
+    ><button class="ui-chip ui-outlined" type="button">
+      <span class="ui-text">Assigned to me</span></button
+    ><button class="ui-chip ui-outlined" type="button">
+      <span class="ui-text">Due this week</span></button
+    ><button class="ui-button ui-outlined ui-small" type="button">Clear</button>
+  </div>
+  <div class="stress-row stress-center">
+    <span class="stress-tag">Default controls, large chips</span
+    ><label class="ui-text-field"
+      ><span class="ui-field"
+        ><input
+          type="search"
+          placeholder="Filter"
+          aria-label="Filter" /></span></label
+    ><button class="ui-chip ui-outlined ui-large" type="button">
+      <span class="ui-text">Open</span></button
+    ><button class="ui-chip ui-outlined ui-large" type="button">
+      <span class="ui-text">Assigned to me</span></button
+    ><button class="ui-chip ui-outlined ui-large" type="button">
+      <span class="ui-text">Due this week</span></button
+    ><button class="ui-button ui-outlined" type="button">Clear</button>
+  </div>
+</section>
+<section class="stress" data-example="FieldAndButton">
+  <h2>Field and button</h2>
+  <p>
+    Inline forms where a button sits next to a labeled field. The button lines
+    up with the field, not the label.
+  </p>
+  <div class="stress-row" data-size="x-small">
+    <span class="stress-tag">X-small</span
+    ><label class="ui-text-field ui-x-small"
+      ><span class="ui-label">Email</span
+      ><span class="ui-field"
+        ><input type="email" placeholder="you@example.com" /></span></label
+    ><button class="ui-button ui-x-small ui-filled" type="button">
+      Subscribe</button
+    ><label class="ui-select ui-x-small"
+      ><span class="ui-label" id="stress-select-label-13">Plan</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-13">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Monthly</option>
+            <option>Yearly</option>
+          </div>
+        </select></span
+      ></label
+    ><button class="ui-button ui-x-small ui-outlined" type="button">
+      Apply
+    </button>
+  </div>
+  <div class="stress-row" data-size="small">
+    <span class="stress-tag">Small</span
+    ><label class="ui-text-field ui-small"
+      ><span class="ui-label">Email</span
+      ><span class="ui-field"
+        ><input type="email" placeholder="you@example.com" /></span></label
+    ><button class="ui-button ui-small ui-filled" type="button">
+      Subscribe</button
+    ><label class="ui-select ui-small"
+      ><span class="ui-label" id="stress-select-label-14">Plan</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-14">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Monthly</option>
+            <option>Yearly</option>
+          </div>
+        </select></span
+      ></label
+    ><button class="ui-button ui-small ui-outlined" type="button">Apply</button>
+  </div>
+  <div class="stress-row" data-size="default">
+    <span class="stress-tag">Default</span
+    ><label class="ui-text-field"
+      ><span class="ui-label">Email</span
+      ><span class="ui-field"
+        ><input type="email" placeholder="you@example.com" /></span></label
+    ><button class="ui-button ui-filled" type="button">Subscribe</button
+    ><label class="ui-select"
+      ><span class="ui-label" id="stress-select-label-15">Plan</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-15">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Monthly</option>
+            <option>Yearly</option>
+          </div>
+        </select></span
+      ></label
+    ><button class="ui-button ui-outlined" type="button">Apply</button>
+  </div>
+  <div class="stress-row" data-size="large">
+    <span class="stress-tag">Large</span
+    ><label class="ui-text-field ui-large"
+      ><span class="ui-label">Email</span
+      ><span class="ui-field"
+        ><input type="email" placeholder="you@example.com" /></span></label
+    ><button class="ui-button ui-large ui-filled" type="button">
+      Subscribe</button
+    ><label class="ui-select ui-large"
+      ><span class="ui-label" id="stress-select-label-16">Plan</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-16">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Monthly</option>
+            <option>Yearly</option>
+          </div>
+        </select></span
+      ></label
+    ><button class="ui-button ui-large ui-outlined" type="button">Apply</button>
+  </div>
+</section>
+<section class="stress" data-example="Affixes">
+  <h2>Affixes</h2>
+  <p>
+    Text and icon prefixes and suffixes keep the field height at every size.
+    Headers and footers add to it.
+  </p>
+  <div class="stress-row" data-size="x-small">
+    <span class="stress-tag">X-small</span
+    ><label class="ui-text-field ui-x-small"
+      ><span class="ui-label">Price</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Placeholder" value="49" /><span
+          class="ui-prefix"
+          >€</span
+        ><span class="ui-suffix">EUR</span></span
+      ></label
+    ><label class="ui-text-field ui-x-small"
+      ><span class="ui-label">Search</span
+      ><span class="ui-field"
+        ><input type="search" placeholder="Placeholder" /><span
+          class="ui-prefix"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10 2.75a7.25 7.25 0 0 1 5.63 11.819l4.9 4.9a.75.75 0 0 1-.976 1.134l-.084-.073l-4.901-4.9A7.25 7.25 0 1 1 10 2.75m0 1.5a5.75 5.75 0 1 0 0 11.5a5.75 5.75 0 0 0 0-11.5"
+            ></path></svg></span></span></label
+    ><label class="ui-text-field ui-x-small"
+      ><span class="ui-label">Website</span
+      ><span class="ui-field"
+        ><input type="url" placeholder="Placeholder" value="example.com" /><span
+          class="ui-prefix"
+          >https://</span
+        ><span class="ui-suffix"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
+            ></path></svg></span></span></label
+    ><label class="ui-text-field ui-x-small"
+      ><span class="ui-label">Weight</span
+      ><span class="ui-field"
+        ><input type="number" placeholder="Placeholder" value="72" /><span
+          class="ui-suffix"
+          >kg</span
+        ></span
+      ></label
+    ><label class="ui-select ui-x-small"
+      ><span class="ui-label" id="stress-select-label-17">Currency</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-17">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>SEK</option>
+            <option>EUR</option>
+            <option>USD</option>
+          </div>
+        </select></span
+      ></label
+    >
+  </div>
+  <div class="stress-row" data-size="small">
+    <span class="stress-tag">Small</span
+    ><label class="ui-text-field ui-small"
+      ><span class="ui-label">Price</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Placeholder" value="49" /><span
+          class="ui-prefix"
+          >€</span
+        ><span class="ui-suffix">EUR</span></span
+      ></label
+    ><label class="ui-text-field ui-small"
+      ><span class="ui-label">Search</span
+      ><span class="ui-field"
+        ><input type="search" placeholder="Placeholder" /><span
+          class="ui-prefix"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10 2.75a7.25 7.25 0 0 1 5.63 11.819l4.9 4.9a.75.75 0 0 1-.976 1.134l-.084-.073l-4.901-4.9A7.25 7.25 0 1 1 10 2.75m0 1.5a5.75 5.75 0 1 0 0 11.5a5.75 5.75 0 0 0 0-11.5"
+            ></path></svg></span></span></label
+    ><label class="ui-text-field ui-small"
+      ><span class="ui-label">Website</span
+      ><span class="ui-field"
+        ><input type="url" placeholder="Placeholder" value="example.com" /><span
+          class="ui-prefix"
+          >https://</span
+        ><span class="ui-suffix"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
+            ></path></svg></span></span></label
+    ><label class="ui-text-field ui-small"
+      ><span class="ui-label">Weight</span
+      ><span class="ui-field"
+        ><input type="number" placeholder="Placeholder" value="72" /><span
+          class="ui-suffix"
+          >kg</span
+        ></span
+      ></label
+    ><label class="ui-select ui-small"
+      ><span class="ui-label" id="stress-select-label-18">Currency</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-18">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>SEK</option>
+            <option>EUR</option>
+            <option>USD</option>
+          </div>
+        </select></span
+      ></label
+    >
+  </div>
+  <div class="stress-row" data-size="default">
+    <span class="stress-tag">Default</span
+    ><label class="ui-text-field"
+      ><span class="ui-label">Price</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Placeholder" value="49" /><span
+          class="ui-prefix"
+          >€</span
+        ><span class="ui-suffix">EUR</span></span
+      ></label
+    ><label class="ui-text-field"
+      ><span class="ui-label">Search</span
+      ><span class="ui-field"
+        ><input type="search" placeholder="Placeholder" /><span
+          class="ui-prefix"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10 2.75a7.25 7.25 0 0 1 5.63 11.819l4.9 4.9a.75.75 0 0 1-.976 1.134l-.084-.073l-4.901-4.9A7.25 7.25 0 1 1 10 2.75m0 1.5a5.75 5.75 0 1 0 0 11.5a5.75 5.75 0 0 0 0-11.5"
+            ></path></svg></span></span></label
+    ><label class="ui-text-field"
+      ><span class="ui-label">Website</span
+      ><span class="ui-field"
+        ><input type="url" placeholder="Placeholder" value="example.com" /><span
+          class="ui-prefix"
+          >https://</span
+        ><span class="ui-suffix"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
+            ></path></svg></span></span></label
+    ><label class="ui-text-field"
+      ><span class="ui-label">Weight</span
+      ><span class="ui-field"
+        ><input type="number" placeholder="Placeholder" value="72" /><span
+          class="ui-suffix"
+          >kg</span
+        ></span
+      ></label
+    ><label class="ui-select"
+      ><span class="ui-label" id="stress-select-label-19">Currency</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-19">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>SEK</option>
+            <option>EUR</option>
+            <option>USD</option>
+          </div>
+        </select></span
+      ></label
+    >
+  </div>
+  <div class="stress-row" data-size="large">
+    <span class="stress-tag">Large</span
+    ><label class="ui-text-field ui-large"
+      ><span class="ui-label">Price</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Placeholder" value="49" /><span
+          class="ui-prefix"
+          >€</span
+        ><span class="ui-suffix">EUR</span></span
+      ></label
+    ><label class="ui-text-field ui-large"
+      ><span class="ui-label">Search</span
+      ><span class="ui-field"
+        ><input type="search" placeholder="Placeholder" /><span
+          class="ui-prefix"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M10 2.75a7.25 7.25 0 0 1 5.63 11.819l4.9 4.9a.75.75 0 0 1-.976 1.134l-.084-.073l-4.901-4.9A7.25 7.25 0 1 1 10 2.75m0 1.5a5.75 5.75 0 1 0 0 11.5a5.75 5.75 0 0 0 0-11.5"
+            ></path></svg></span></span></label
+    ><label class="ui-text-field ui-large"
+      ><span class="ui-label">Website</span
+      ><span class="ui-field"
+        ><input type="url" placeholder="Placeholder" value="example.com" /><span
+          class="ui-prefix"
+          >https://</span
+        ><span class="ui-suffix"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
+            ></path></svg></span></span></label
+    ><label class="ui-text-field ui-large"
+      ><span class="ui-label">Weight</span
+      ><span class="ui-field"
+        ><input type="number" placeholder="Placeholder" value="72" /><span
+          class="ui-suffix"
+          >kg</span
+        ></span
+      ></label
+    ><label class="ui-select ui-large"
+      ><span class="ui-label" id="stress-select-label-20">Currency</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-20">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>SEK</option>
+            <option>EUR</option>
+            <option>USD</option>
+          </div>
+        </select></span
+      ></label
+    >
+  </div>
+  <div class="stress-row">
+    <label class="ui-text-field"
+      ><span class="ui-label">Username</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Jane Doe" /><span class="ui-header"
+          >Full name</span
+        ></span
+      ></label
+    ><label class="ui-text-field"
+      ><span class="ui-label">Tagline</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="A short description" /><span
+          class="ui-footer"
+          >0 / 80</span
+        ></span
+      ></label
+    ><label class="ui-textarea"
+      ><span class="ui-label">Notes</span
+      ><span class="ui-field">
+        <textarea placeholder="Placeholder"></textarea
+        ><span class="ui-prefix">✎</span
+        ><span class="ui-footer">0 / 500</span></span
+      ></label
+    >
+  </div>
+</section>
+<section class="stress" data-example="States">
+  <h2>States</h2>
+  <p>
+    Placeholder, value, required, invalid, disabled and read-only side by side
+    in both field variants.
+  </p>
+  <h3>Outlined</h3>
+  <div class="stress-grid">
+    <label class="ui-text-field"
+      ><span class="ui-label">Placeholder</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Placeholder" /></span></label
+    ><label class="ui-text-field"
+      ><span class="ui-label">Value</span
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Placeholder"
+          value="Jane Doe" /></span></label
+    ><label class="ui-text-field"
+      ><span class="ui-label">Required</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Placeholder" required /></span></label
+    ><label class="ui-text-field" data-invalid=""
+      ><span class="ui-label">Invalid</span
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Placeholder"
+          value="jane@"
+          aria-describedby="stress-end-1" /></span
+      ><span class="ui-end-text" id="stress-end-1"
+        >Enter a valid email address.</span
+      ></label
+    ><label class="ui-text-field"
+      ><span class="ui-label">Disabled</span
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Placeholder"
+          value="Can't touch this"
+          disabled /></span></label
+    ><label class="ui-text-field"
+      ><span class="ui-label">Read-only</span
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Placeholder"
+          value="Read only"
+          readonly /></span></label
+    ><label class="ui-select"
+      ><span class="ui-label" id="stress-select-label-21">Select</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-21">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Archived</option>
+          </div>
+        </select></span
+      ></label
+    ><label class="ui-select" data-invalid=""
+      ><span class="ui-label" id="stress-select-label-22">Invalid select</span
+      ><span class="ui-field"
+        ><select
+          aria-labelledby="stress-select-label-22"
+          aria-describedby="stress-end-2"
+        >
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Archived</option>
+          </div>
+        </select></span
+      ><span class="ui-end-text" id="stress-end-2">Pick a status.</span></label
+    ><label class="ui-select"
+      ><span class="ui-label" id="stress-select-label-23">Disabled select</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-23" disabled>
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Archived</option>
+          </div>
+        </select></span
+      ></label
+    ><label class="ui-textarea"
+      ><span class="ui-label">Textarea</span
+      ><span class="ui-field">
+        <textarea placeholder="Placeholder">
+Two lines
+of text</textarea>
+      </span></label
+    ><label class="ui-textarea" data-invalid=""
+      ><span class="ui-label">Invalid textarea</span
+      ><span class="ui-field">
+        <textarea
+          placeholder="Placeholder"
+          aria-describedby="stress-end-3"
+        ></textarea></span
+      ><span class="ui-end-text" id="stress-end-3">Too short.</span></label
+    ><label class="ui-textarea"
+      ><span class="ui-label">Disabled textarea</span
+      ><span class="ui-field">
+        <textarea placeholder="Placeholder" disabled></textarea></span
+    ></label>
+  </div>
+  <h3>Filled</h3>
+  <div class="stress-grid">
+    <label class="ui-text-field ui-filled"
+      ><span class="ui-label">Placeholder</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Placeholder" /></span></label
+    ><label class="ui-text-field ui-filled"
+      ><span class="ui-label">Value</span
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Placeholder"
+          value="Jane Doe" /></span></label
+    ><label class="ui-text-field ui-filled"
+      ><span class="ui-label">Required</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Placeholder" required /></span></label
+    ><label class="ui-text-field ui-filled" data-invalid=""
+      ><span class="ui-label">Invalid</span
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Placeholder"
+          value="jane@"
+          aria-describedby="stress-end-4" /></span
+      ><span class="ui-end-text" id="stress-end-4"
+        >Enter a valid email address.</span
+      ></label
+    ><label class="ui-text-field ui-filled"
+      ><span class="ui-label">Disabled</span
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Placeholder"
+          value="Can't touch this"
+          disabled /></span></label
+    ><label class="ui-text-field ui-filled"
+      ><span class="ui-label">Read-only</span
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Placeholder"
+          value="Read only"
+          readonly /></span></label
+    ><label class="ui-select ui-filled"
+      ><span class="ui-label" id="stress-select-label-24">Select</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-24">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Archived</option>
+          </div>
+        </select></span
+      ></label
+    ><label class="ui-select ui-filled" data-invalid=""
+      ><span class="ui-label" id="stress-select-label-25">Invalid select</span
+      ><span class="ui-field"
+        ><select
+          aria-labelledby="stress-select-label-25"
+          aria-describedby="stress-end-5"
+        >
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Archived</option>
+          </div>
+        </select></span
+      ><span class="ui-end-text" id="stress-end-5">Pick a status.</span></label
+    ><label class="ui-select ui-filled"
+      ><span class="ui-label" id="stress-select-label-26">Disabled select</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-26" disabled>
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Archived</option>
+          </div>
+        </select></span
+      ></label
+    ><label class="ui-textarea ui-filled"
+      ><span class="ui-label">Textarea</span
+      ><span class="ui-field">
+        <textarea placeholder="Placeholder">
+Two lines
+of text</textarea>
+      </span></label
+    ><label class="ui-textarea ui-filled" data-invalid=""
+      ><span class="ui-label">Invalid textarea</span
+      ><span class="ui-field">
+        <textarea
+          placeholder="Placeholder"
+          aria-describedby="stress-end-6"
+        ></textarea></span
+      ><span class="ui-end-text" id="stress-end-6">Too short.</span></label
+    ><label class="ui-textarea ui-filled"
+      ><span class="ui-label">Disabled textarea</span
+      ><span class="ui-field">
+        <textarea placeholder="Placeholder" disabled></textarea></span
+    ></label>
+  </div>
+  <h3>Choices</h3>
+  <div class="stress-grid">
+    <div class="stress-stack">
+      <label class="ui-checkbox"
+        ><input type="checkbox" checked /><span class="ui-label"
+          >Checked</span
+        ></label
+      ><label class="ui-checkbox"
+        ><input type="checkbox" /><span class="ui-label">Unchecked</span></label
+      ><label class="ui-checkbox"
+        ><input type="checkbox" disabled /><span class="ui-label"
+          >Disabled</span
+        ></label
+      ><label class="ui-checkbox" data-invalid=""
+        ><input type="checkbox" aria-describedby="stress-end-7" /><span
+          class="ui-label"
+          >Invalid</span
+        ><span class="ui-end-text" id="stress-end-7">Required.</span></label
+      >
+    </div>
+    <div class="stress-stack">
+      <label class="ui-radio"
+        ><input type="radio" name="stress-states-radio" checked /><span
+          class="ui-label"
+          >Checked</span
+        ></label
+      ><label class="ui-radio"
+        ><input type="radio" name="stress-states-radio" /><span class="ui-label"
+          >Unchecked</span
+        ></label
+      ><label class="ui-radio"
+        ><input type="radio" name="stress-states-radio" disabled /><span
+          class="ui-label"
+          >Disabled</span
+        ></label
+      >
+    </div>
+    <div class="stress-stack">
+      <label class="ui-switch"
+        ><input type="checkbox" role="switch" checked /><span class="ui-label"
+          >On</span
+        ></label
+      ><label class="ui-switch"
+        ><input type="checkbox" role="switch" /><span class="ui-label"
+          >Off</span
+        ></label
+      ><label class="ui-switch"
+        ><input type="checkbox" role="switch" disabled /><span class="ui-label"
+          >Disabled</span
+        ></label
+      ><label class="ui-switch" data-invalid=""
+        ><input
+          type="checkbox"
+          role="switch"
+          aria-describedby="stress-end-8"
+        /><span class="ui-label">Invalid</span
+        ><span class="ui-end-text" id="stress-end-8">Required.</span></label
+      >
+    </div>
+    <div class="stress-stack">
+      <label class="ui-range"
+        ><span class="ui-label" id="stress-range-label-1">Range</span
+        ><input
+          type="range"
+          aria-labelledby="stress-range-label-1"
+          min="0"
+          max="100"
+          value="40" /></label
+      ><label class="ui-range"
+        ><span class="ui-label" id="stress-range-label-2">Disabled range</span
+        ><input
+          type="range"
+          aria-labelledby="stress-range-label-2"
+          min="0"
+          max="100"
+          value="40"
+          disabled
+      /></label>
+    </div>
+  </div>
+  <h3>Buttons</h3>
+  <div class="stress-row">
+    <button class="ui-button" type="button">Text</button
+    ><button class="ui-button ui-outlined" type="button">Outlined</button
+    ><button class="ui-button ui-tonal" type="button">Tonal</button
+    ><button class="ui-button ui-filled" type="button">Filled</button
+    ><button class="ui-button ui-filled" type="button" disabled>Disabled</button
+    ><button class="ui-button ui-outlined" type="button" disabled>
+      Disabled
+    </button>
+    <div role="group" aria-label="Actions" class="ui-button-group ui-outlined">
+      <button class="ui-button" type="button">One</button
+      ><button class="ui-button" type="button" disabled>Two</button
+      ><button class="ui-button" type="button">Three</button>
+    </div>
+    <div role="radiogroup" aria-label="Disabled option" class="ui-toggle-group">
+      <label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-9" checked />On</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-9" />Off</label
+      ><label class="ui-toggle-button ui-disabled"
+        ><input type="radio" name="stress-toggle-9" disabled />Disabled</label
+      >
+    </div>
+    <label class="ui-toggle-button"
+      ><input type="checkbox" checked />Pressed</label
+    >
+  </div>
+</section>
+<section class="stress" data-example="LongContent">
+  <h2>Long content</h2>
+  <p>
+    Long labels, values, options and supporting text in 16rem columns. Nothing
+    should overflow its column.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-narrow">
+      <label class="ui-text-field"
+        ><span class="ui-label"
+          >A very long label that keeps going well past the width of the field
+          it describes</span
+        ><span class="ui-start-text"
+          >Start text that also runs long and has to wrap over several
+          lines.</span
+        ><span class="ui-field"
+          ><input
+            type="text"
+            placeholder="Placeholder"
+            aria-describedby="stress-end-9" /></span
+        ><span class="ui-end-text" id="stress-end-9"
+          >End text that wraps too, so the field has to make room above and
+          below.</span
+        ></label
+      ><label class="ui-text-field"
+        ><span class="ui-label">Unbroken value</span
+        ><span class="ui-field"
+          ><input
+            type="text"
+            placeholder="Placeholder"
+            value="https://example.com/a/really/long/unbroken/path/that/never/stops/anywhere-at-all" /></span></label
+      ><label class="ui-text-field"
+        ><span class="ui-label">Long affixes</span
+        ><span class="ui-field"
+          ><input type="text" placeholder="Placeholder" value="42" /><span
+            class="ui-prefix"
+            >Prefix that is long</span
+          ><span class="ui-suffix">and a suffix</span></span
+        ></label
+      ><label class="ui-select"
+        ><span class="ui-label" id="stress-select-label-27"
+          >A very long label that keeps going well past the width of the field
+          it describes</span
+        ><span class="ui-field"
+          ><select aria-labelledby="stress-select-label-27">
+            <button><selectedcontent></selectedcontent></button>
+            <div class="ui-list">
+              <option>
+                An option with a label long enough to be truncated by the field
+              </option>
+              <option>Short</option>
+            </div>
+          </select></span
+        ></label
+      ><label class="ui-select"
+        ><span class="ui-label" id="stress-select-label-28">Classic select</span
+        ><span class="ui-field"
+          ><select aria-labelledby="stress-select-label-28">
+            <option>
+              An option with a label long enough to be truncated by the field
+            </option>
+            <option>Short</option>
+          </select></span
+        ></label
+      >
+    </div>
+    <div class="stress-narrow">
+      <button class="ui-button ui-filled" type="button">
+        A button label that is long enough to wrap onto a second line</button
+      ><button class="ui-button ui-outlined" type="button">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path></svg
+        ><span
+          >Wrapped label next to an icon that pushes the width</span
+        ></button
+      ><label class="ui-checkbox"
+        ><input type="checkbox" aria-describedby="stress-end-10" /><span
+          class="ui-label"
+          >A very long label that keeps going well past the width of the field
+          it describes</span
+        ><span class="ui-end-text" id="stress-end-10"
+          >Supporting text for the checkbox that also wraps.</span
+        ></label
+      ><label class="ui-switch"
+        ><input
+          type="checkbox"
+          role="switch"
+          aria-describedby="stress-end-11"
+        /><span class="ui-label"
+          >A very long label that keeps going well past the width of the field
+          it describes</span
+        ><span class="ui-end-text" id="stress-end-11"
+          >Supporting text for the switch that also wraps.</span
+        ></label
+      ><label class="ui-radio"
+        ><input type="radio" name="stress-long-radio" checked /><span
+          class="ui-label"
+          >A very long label that keeps going well past the width of the field
+          it describes</span
+        ></label
+      ><label class="ui-range"
+        ><span class="ui-label" id="stress-range-label-3"
+          >A very long label that keeps going well past the width of the field
+          it describes</span
+        ><span class="ui-start-text" id="stress-start-1"
+          >Range start text that wraps.</span
+        ><input
+          type="range"
+          aria-labelledby="stress-range-label-3"
+          aria-describedby="stress-start-1"
+          min="0"
+          max="100"
+          value="40"
+      /></label>
+    </div>
+    <div class="stress-narrow">
+      <div
+        role="group"
+        aria-label="Overflowing group"
+        class="ui-button-group ui-outlined"
+      >
+        <button class="ui-button" type="button">First action</button
+        ><button class="ui-button" type="button">Second action</button
+        ><button class="ui-button" type="button">Third action</button>
+      </div>
+      <div role="radiogroup" aria-label="Notifications" class="ui-toggle-group">
+        <label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="stress-toggle-10"
+            checked
+          />Everything</label
+        ><label class="ui-toggle-button"
+          ><input type="radio" name="stress-toggle-10" />Mentions</label
+        ><label class="ui-toggle-button"
+          ><input type="radio" name="stress-toggle-10" />Nothing at all</label
+        >
+      </div>
+      <label class="ui-textarea"
+        ><span class="ui-label"
+          >A very long label that keeps going well past the width of the field
+          it describes</span
+        ><span class="ui-field">
+          <textarea placeholder="Placeholder">
+https://example.com/a/really/long/unbroken/path/that/never/stops/anywhere-at-all
+Line two
+Line three
+Line four
+Line five</textarea>
+        </span></label
+      ><label class="ui-text-field ui-spread"
+        ><span class="ui-label">Spread in a narrow container</span
+        ><span class="ui-start-text">Collapses to a column below 400px.</span
+        ><span class="ui-field"
+          ><input type="text" placeholder="Placeholder" /></span
+      ></label>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="Spread">
+  <h2>Spread</h2>
+  <p>
+    Spread fields next to spread choices, in a wide and a narrow container. The
+    narrow one collapses to a column.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-stack stress-wide-column">
+      <label class="ui-text-field ui-spread"
+        ><span class="ui-label">Display name</span
+        ><span class="ui-start-text">Shown on your profile.</span
+        ><span class="ui-field"
+          ><input
+            type="text"
+            placeholder="Placeholder"
+            aria-describedby="stress-end-12" /></span
+        ><span class="ui-end-text" id="stress-end-12"
+          >Up to 40 characters.</span
+        ></label
+      ><label class="ui-select ui-spread"
+        ><span class="ui-label" id="stress-select-label-29">Language</span
+        ><span class="ui-field"
+          ><select aria-labelledby="stress-select-label-29">
+            <button><selectedcontent></selectedcontent></button>
+            <div class="ui-list">
+              <option>English</option>
+              <option>Svenska</option>
+              <option>Suomi</option>
+            </div>
+          </select></span
+        ></label
+      ><label class="ui-select ui-spread"
+        ><span class="ui-label" id="stress-select-label-30">Region</span
+        ><span class="ui-field"
+          ><select aria-labelledby="stress-select-label-30">
+            <option>Europe</option>
+            <option>Americas</option>
+            <option>Asia</option>
+          </select></span
+        ></label
+      ><label class="ui-text-field ui-small ui-spread"
+        ><span class="ui-label">Small field</span
+        ><span class="ui-field"
+          ><input type="text" placeholder="Small" /></span></label
+      ><label class="ui-textarea ui-spread"
+        ><span class="ui-label">Bio</span
+        ><span class="ui-field">
+          <textarea
+            placeholder="Placeholder"
+            aria-describedby="stress-end-13"
+          ></textarea></span
+        ><span class="ui-end-text" id="stress-end-13"
+          >Markdown is supported.</span
+        ></label
+      ><label class="ui-switch ui-spread"
+        ><input
+          type="checkbox"
+          role="switch"
+          checked
+          aria-describedby="stress-end-14"
+        /><span class="ui-label">Notifications</span
+        ><span class="ui-end-text" id="stress-end-14"
+          >Email and push.</span
+        ></label
+      ><label class="ui-checkbox ui-spread"
+        ><input type="checkbox" /><span class="ui-label"
+          >Newsletter</span
+        ></label
+      ><label class="ui-range ui-spread"
+        ><span class="ui-label" id="stress-range-label-4">Volume</span
+        ><span class="ui-start-text" id="stress-start-2"
+          >Applies to every device.</span
+        ><input
+          type="range"
+          aria-labelledby="stress-range-label-4"
+          aria-describedby="stress-start-2"
+          min="0"
+          max="100"
+          value="40"
+      /></label>
+    </div>
+    <div class="stress-stack stress-narrow">
+      <label class="ui-text-field ui-spread"
+        ><span class="ui-label">Display name</span
+        ><span class="ui-start-text">Shown on your profile.</span
+        ><span class="ui-field"
+          ><input
+            type="text"
+            placeholder="Placeholder"
+            aria-describedby="stress-end-15" /></span
+        ><span class="ui-end-text" id="stress-end-15"
+          >Up to 40 characters.</span
+        ></label
+      ><label class="ui-select ui-spread"
+        ><span class="ui-label" id="stress-select-label-31">Language</span
+        ><span class="ui-field"
+          ><select aria-labelledby="stress-select-label-31">
+            <button><selectedcontent></selectedcontent></button>
+            <div class="ui-list">
+              <option>English</option>
+              <option>Svenska</option>
+              <option>Suomi</option>
+            </div>
+          </select></span
+        ></label
+      ><label class="ui-select ui-spread"
+        ><span class="ui-label" id="stress-select-label-32">Region</span
+        ><span class="ui-field"
+          ><select aria-labelledby="stress-select-label-32">
+            <option>Europe</option>
+            <option>Americas</option>
+            <option>Asia</option>
+          </select></span
+        ></label
+      ><label class="ui-text-field ui-small ui-spread"
+        ><span class="ui-label">Small field</span
+        ><span class="ui-field"
+          ><input type="text" placeholder="Small" /></span></label
+      ><label class="ui-textarea ui-spread"
+        ><span class="ui-label">Bio</span
+        ><span class="ui-field">
+          <textarea
+            placeholder="Placeholder"
+            aria-describedby="stress-end-16"
+          ></textarea></span
+        ><span class="ui-end-text" id="stress-end-16"
+          >Markdown is supported.</span
+        ></label
+      ><label class="ui-switch ui-spread"
+        ><input
+          type="checkbox"
+          role="switch"
+          checked
+          aria-describedby="stress-end-17"
+        /><span class="ui-label">Notifications</span
+        ><span class="ui-end-text" id="stress-end-17"
+          >Email and push.</span
+        ></label
+      ><label class="ui-checkbox ui-spread"
+        ><input type="checkbox" /><span class="ui-label"
+          >Newsletter</span
+        ></label
+      ><label class="ui-range ui-spread"
+        ><span class="ui-label" id="stress-range-label-5">Volume</span
+        ><span class="ui-start-text" id="stress-start-3"
+          >Applies to every device.</span
+        ><input
+          type="range"
+          aria-labelledby="stress-range-label-5"
+          aria-describedby="stress-start-3"
+          min="0"
+          max="100"
+          value="40"
+      /></label>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="ChoicesAndFields">
+  <h2>Choices next to fields</h2>
+  <p>
+    Checkboxes, radios and switches centered in a row of fields and buttons, the
+    way login and filter forms place them.
+  </p>
+  <div class="stress-row stress-center">
+    <span class="stress-tag">Small</span
+    ><label class="ui-text-field ui-small"
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Field"
+          aria-label="Small field" /></span></label
+    ><label class="ui-checkbox ui-small"
+      ><input type="checkbox" /><span class="ui-label">Remember me</span></label
+    ><label class="ui-radio ui-small"
+      ><input type="radio" name="stress-radio-1" checked /><span
+        class="ui-label"
+        >Option</span
+      ></label
+    ><label class="ui-switch ui-small"
+      ><input type="checkbox" role="switch" checked /><span class="ui-label"
+        >Notify</span
+      ></label
+    ><button class="ui-button ui-small ui-filled" type="button">Sign in</button>
+  </div>
+  <div class="stress-row stress-center">
+    <span class="stress-tag">Default</span
+    ><label class="ui-text-field"
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Field"
+          aria-label="Default field" /></span></label
+    ><label class="ui-checkbox"
+      ><input type="checkbox" /><span class="ui-label">Remember me</span></label
+    ><label class="ui-radio"
+      ><input type="radio" name="stress-radio-2" checked /><span
+        class="ui-label"
+        >Option</span
+      ></label
+    ><label class="ui-switch"
+      ><input type="checkbox" role="switch" checked /><span class="ui-label"
+        >Notify</span
+      ></label
+    ><button class="ui-button ui-filled" type="button">Sign in</button>
+  </div>
+  <div class="stress-row stress-center">
+    <span class="stress-tag">Large</span
+    ><label class="ui-text-field ui-large"
+      ><span class="ui-field"
+        ><input
+          type="text"
+          placeholder="Field"
+          aria-label="Large field" /></span></label
+    ><label class="ui-checkbox ui-large"
+      ><input type="checkbox" /><span class="ui-label">Remember me</span></label
+    ><label class="ui-radio ui-large"
+      ><input type="radio" name="stress-radio-3" checked /><span
+        class="ui-label"
+        >Option</span
+      ></label
+    ><label class="ui-switch"
+      ><input type="checkbox" role="switch" checked /><span class="ui-label"
+        >Notify</span
+      ></label
+    ><button class="ui-button ui-large ui-filled" type="button">Sign in</button>
+  </div>
+</section>
+<section class="stress" data-example="InheritedFontSize">
+  <h2>Inherited font size</h2>
+  <p>
+    The same controls inside parents with a 12, 16 and 20px font size. Shows
+    which parts follow the parent and which stay on the rem scale.
+  </p>
+  <div class="stress-row" style="font-size: 12px">
+    <span class="stress-tag">12px</span
+    ><label class="ui-text-field"
+      ><span class="ui-label">Field</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Field" /></span></label
+    ><label class="ui-select"
+      ><span class="ui-label" id="stress-select-label-33">Select</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-33">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Archived</option>
+          </div>
+        </select></span
+      ></label
+    ><button class="ui-button ui-outlined" type="button">Button</button>
+    <div role="radiogroup" aria-label="12px toggle" class="ui-toggle-group">
+      <label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-11" checked />A</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-11" />B</label
+      >
+    </div>
+    <label class="ui-checkbox"
+      ><input type="checkbox" /><span class="ui-label">Checkbox</span></label
+    ><label class="ui-switch"
+      ><input type="checkbox" role="switch" /><span class="ui-label"
+        >Switch</span
+      ></label
+    >
+  </div>
+  <div class="stress-row" style="font-size: 16px">
+    <span class="stress-tag">16px</span
+    ><label class="ui-text-field"
+      ><span class="ui-label">Field</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Field" /></span></label
+    ><label class="ui-select"
+      ><span class="ui-label" id="stress-select-label-34">Select</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-34">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Archived</option>
+          </div>
+        </select></span
+      ></label
+    ><button class="ui-button ui-outlined" type="button">Button</button>
+    <div role="radiogroup" aria-label="16px toggle" class="ui-toggle-group">
+      <label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-12" checked />A</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-12" />B</label
+      >
+    </div>
+    <label class="ui-checkbox"
+      ><input type="checkbox" /><span class="ui-label">Checkbox</span></label
+    ><label class="ui-switch"
+      ><input type="checkbox" role="switch" /><span class="ui-label"
+        >Switch</span
+      ></label
+    >
+  </div>
+  <div class="stress-row" style="font-size: 20px">
+    <span class="stress-tag">20px</span
+    ><label class="ui-text-field"
+      ><span class="ui-label">Field</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Field" /></span></label
+    ><label class="ui-select"
+      ><span class="ui-label" id="stress-select-label-35">Select</span
+      ><span class="ui-field"
+        ><select aria-labelledby="stress-select-label-35">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Draft</option>
+            <option>Published</option>
+            <option>Archived</option>
+          </div>
+        </select></span
+      ></label
+    ><button class="ui-button ui-outlined" type="button">Button</button>
+    <div role="radiogroup" aria-label="20px toggle" class="ui-toggle-group">
+      <label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-13" checked />A</label
+      ><label class="ui-toggle-button"
+        ><input type="radio" name="stress-toggle-13" />B</label
+      >
+    </div>
+    <label class="ui-checkbox"
+      ><input type="checkbox" /><span class="ui-label">Checkbox</span></label
+    ><label class="ui-switch"
+      ><input type="checkbox" role="switch" /><span class="ui-label"
+        >Switch</span
+      ></label
+    >
+  </div>
+</section>
+<section class="stress" data-example="RightToLeft">
+  <h2>Right to left</h2>
+  <p>Affixes, arrows, file buttons, icons and spread layouts mirror in RTL.</p>
+  <div dir="rtl" class="stress-stack">
+    <div class="stress-row">
+      <label class="ui-text-field"
+        ><span class="ui-label">المبلغ</span
+        ><span class="ui-field"
+          ><input type="text" placeholder="Placeholder" value="1200" /><span
+            class="ui-prefix"
+            >$</span
+          ><span class="ui-suffix">USD</span></span
+        ></label
+      ><label class="ui-text-field"
+        ><span class="ui-label">البلد</span
+        ><span class="ui-field"
+          ><input
+            type="text"
+            placeholder="Placeholder"
+            list="stress-list-5" /></span
+        ><datalist id="stress-list-5">
+          <option value="Finland"></option>
+          <option value="Sweden"></option>
+          <option value="Norway"></option></datalist></label
+      ><label class="ui-select"
+        ><span class="ui-label" id="stress-select-label-36">الحالة</span
+        ><span class="ui-field"
+          ><select aria-labelledby="stress-select-label-36">
+            <button><selectedcontent></selectedcontent></button>
+            <div class="ui-list">
+              <option>مسودة</option>
+              <option>منشور</option>
+            </div>
+          </select></span
+        ></label
+      ><label class="ui-select"
+        ><span class="ui-label" id="stress-select-label-37">الأولوية</span
+        ><span class="ui-field"
+          ><select aria-labelledby="stress-select-label-37">
+            <option>منخفضة</option>
+            <option>عالية</option>
+          </select></span
+        ></label
+      ><label class="ui-text-field stress-wide"
+        ><span class="ui-label">مرفق</span
+        ><span class="ui-field"><input type="file" /></span></label
+      ><button class="ui-button ui-outlined" type="button">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path></svg
+        ><span>إضافة</span>
+      </button>
+      <div
+        role="group"
+        aria-label="إجراءات"
+        class="ui-button-group ui-outlined"
+      >
+        <button class="ui-button" type="button">تراجع</button
+        ><button class="ui-button" type="button">إعادة</button>
+      </div>
+      <div role="radiogroup" aria-label="عرض" class="ui-toggle-group">
+        <label class="ui-toggle-button"
+          ><input type="radio" name="stress-toggle-14" checked />قائمة</label
+        ><label class="ui-toggle-button"
+          ><input type="radio" name="stress-toggle-14" />شبكة</label
+        >
+      </div>
+    </div>
+    <div class="stress-row stress-center">
+      <label class="ui-checkbox"
+        ><input type="checkbox" checked /><span class="ui-label"
+          >تذكرني</span
+        ></label
+      ><label class="ui-radio"
+        ><input type="radio" name="stress-rtl-radio" checked /><span
+          class="ui-label"
+          >خيار</span
+        ></label
+      ><label class="ui-switch"
+        ><input type="checkbox" role="switch" checked /><span class="ui-label"
+          >إشعارات</span
+        ></label
+      >
+    </div>
+    <label class="ui-text-field ui-spread"
+      ><span class="ui-label">الاسم</span
+      ><span class="ui-start-text">يظهر في ملفك الشخصي.</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Placeholder" /></span></label
+    ><label class="ui-range"
+      ><span class="ui-label" id="stress-range-label-6">الصوت</span
+      ><input
+        type="range"
+        aria-labelledby="stress-range-label-6"
+        min="0"
+        max="100"
+        value="70"
+    /></label>
+  </div>
+</section>
+<section class="stress" data-example="KitchenSink">
+  <h2>Kitchen sink</h2>
+  <p>
+    A complete settings form: fieldsets, field groups in rows, every control
+    type, validation and an actions row.
+  </p>
+  <form class="ui-form stress-form" action="#">
+    <fieldset class="ui-fieldset">
+      <legend>Account</legend>
+      <p class="ui-field-description">
+        Everything at the default size, as a real settings page would use it.
+      </p>
+      <div class="ui-field-group ui-row" role="group">
+        <label class="ui-text-field"
+          ><span class="ui-label">First name</span
+          ><span class="ui-field"
+            ><input
+              type="text"
+              placeholder="Placeholder"
+              value="Jane"
+              required /></span></label
+        ><label class="ui-text-field"
+          ><span class="ui-label">Last name</span
+          ><span class="ui-field"
+            ><input
+              type="text"
+              placeholder="Placeholder"
+              value="Doe"
+              required /></span
+        ></label>
+      </div>
+      <div class="ui-field-group" role="group">
+        <label class="ui-text-field" data-invalid=""
+          ><span class="ui-label">Email</span
+          ><span class="ui-field"
+            ><input
+              type="email"
+              placeholder="Placeholder"
+              value="jane@"
+              aria-describedby="stress-end-18" /></span
+          ><span class="ui-end-text" id="stress-end-18"
+            >Enter a valid email address.</span
+          ></label
+        ><label class="ui-text-field"
+          ><span class="ui-label">Password</span
+          ><span class="ui-field"
+            ><input
+              type="password"
+              placeholder="Placeholder"
+              value="hunter2"
+              aria-describedby="stress-end-19" /></span
+          ><span class="ui-end-text" id="stress-end-19"
+            >At least 12 characters.</span
+          ></label
+        ><label class="ui-select"
+          ><span class="ui-label" id="stress-select-label-38">Role</span
+          ><span class="ui-field"
+            ><select aria-labelledby="stress-select-label-38">
+              <button><selectedcontent></selectedcontent></button>
+              <div class="ui-list">
+                <option>Developer</option>
+                <option>Designer</option>
+                <option>Manager</option>
+              </div>
+            </select></span
+          ></label
+        ><label class="ui-text-field"
+          ><span class="ui-label">Tags</span
+          ><span class="ui-field"
+            ><input type="text" placeholder="Add a tag" /></span
+          ><span class="stress-chips"
+            ><span class="ui-chip ui-small"
+              ><span class="ui-text">css</span></span
+            ><span class="ui-chip ui-small"
+              ><span class="ui-text">open-props</span></span
+            ><span class="ui-chip ui-small"
+              ><span class="ui-text">forms</span></span
+            ></span
+          ></label
+        >
+      </div>
+    </fieldset>
+    <hr class="ui-divider" />
+    <fieldset class="ui-fieldset">
+      <legend>Address</legend>
+      <div class="ui-field-group" role="group">
+        <label class="ui-text-field"
+          ><span class="ui-label">Street</span
+          ><span class="ui-field"
+            ><input
+              type="text"
+              placeholder="Placeholder"
+              value="Storgatan 1" /></span
+        ></label>
+      </div>
+      <div class="ui-field-group ui-row" role="group">
+        <label class="ui-text-field"
+          ><span class="ui-label">Postal code</span
+          ><span class="ui-field"
+            ><input
+              type="text"
+              placeholder="Placeholder"
+              value="111 22"
+              inputmode="numeric" /></span></label
+        ><label class="ui-text-field"
+          ><span class="ui-label">City</span
+          ><span class="ui-field"
+            ><input
+              type="text"
+              placeholder="Placeholder"
+              value="Stockholm" /></span></label
+        ><label class="ui-select"
+          ><span class="ui-label" id="stress-select-label-39">Country</span
+          ><span class="ui-field"
+            ><select aria-labelledby="stress-select-label-39">
+              <option>Sweden</option>
+              <option>Finland</option>
+              <option>Norway</option>
+            </select></span
+          ></label
+        >
+      </div>
+    </fieldset>
+    <hr class="ui-divider" />
+    <fieldset class="ui-fieldset">
+      <legend>Preferences</legend>
+      <div class="ui-field-group ui-row" role="group">
+        <label class="ui-radio"
+          ><input type="radio" name="stress-ks-theme" checked /><span
+            class="ui-label"
+            >Light</span
+          ></label
+        ><label class="ui-radio"
+          ><input type="radio" name="stress-ks-theme" /><span class="ui-label"
+            >Dark</span
+          ></label
+        ><label class="ui-radio"
+          ><input type="radio" name="stress-ks-theme" /><span class="ui-label"
+            >System</span
+          ></label
+        >
+      </div>
+      <div class="ui-field-group" role="group">
+        <label class="ui-switch ui-spread"
+          ><input type="checkbox" role="switch" checked /><span class="ui-label"
+            >Email notifications</span
+          ></label
+        ><label class="ui-switch ui-spread"
+          ><input type="checkbox" role="switch" /><span class="ui-label"
+            >Push notifications</span
+          ></label
+        ><label class="ui-range ui-spread"
+          ><span class="ui-label" id="stress-range-label-7">Font scale</span
+          ><input
+            type="range"
+            aria-labelledby="stress-range-label-7"
+            aria-describedby="stress-end-20"
+            min="0"
+            max="100"
+            value="50"
+          /><span class="ui-end-text" id="stress-end-20"
+            >Applies after reload.</span
+          ></label
+        >
+      </div>
+      <div class="ui-field-group" role="group">
+        <div role="radiogroup" aria-label="Density" class="ui-toggle-group">
+          <label class="ui-toggle-button"
+            ><input type="radio" name="stress-toggle-15" />Compact</label
+          ><label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="stress-toggle-15"
+              checked
+            />Comfortable</label
+          ><label class="ui-toggle-button"
+            ><input type="radio" name="stress-toggle-15" />Spacious</label
+          >
+        </div>
+      </div>
+    </fieldset>
+    <hr class="ui-divider" />
+    <fieldset class="ui-fieldset">
+      <legend>About</legend>
+      <div class="ui-field-group" role="group">
+        <label class="ui-textarea"
+          ><span class="ui-label">Bio</span
+          ><span class="ui-field">
+            <textarea placeholder="Placeholder">
+Designer and developer.</textarea
+            ><span class="ui-footer">22 / 500</span></span
+          ></label
+        ><label class="ui-checkbox"
+          ><input
+            type="checkbox"
+            aria-describedby="stress-end-21"
+            required
+          /><span class="ui-label">I agree to the terms and conditions</span
+          ><span class="ui-end-text" id="stress-end-21"
+            >You can withdraw at any time.</span
+          ></label
+        >
+      </div>
+    </fieldset>
+    <hr class="ui-divider" />
+    <div class="stress-actions">
+      <button class="ui-button ui-critical ui-outlined" type="button">
+        Delete account</button
+      ><span class="stress-actions-end"
+        ><button class="ui-button" type="button">Cancel</button>
+        <div role="group" aria-label="Save" class="ui-button-group ui-filled">
+          <button class="ui-button" type="button">Save</button
+          ><button
+            class="ui-button"
+            type="button"
+            aria-label="More save options"
+          >
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+              ></path>
+            </svg>
+          </button></div
+      ></span>
+    </div>
+  </form>
+</section>

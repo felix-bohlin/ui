@@ -1,0 +1,186 @@
+---
+import { Button } from "@opui/astro"
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.dialog {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-3);
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.dialog:not([open]) {
+  display: none;
+}`,
+    features: ["dialog", "dialog-closedby", "invoker-commands"],
+    html: `
+<button commandfor="dialog" command="show-modal">Shortcuts</button>
+
+<dialog class="dialog" id="dialog" closedby="any">
+  <h2>Keyboard shortcuts</h2>
+  <div class="content">…</div>
+  <div class="actions">
+    <button commandfor="dialog" command="close">Close</button>
+  </div>
+</dialog>`,
+    notes: [
+      "<code>command=&quot;show-modal&quot;</code>: top layer, inert page, focus moves in, no JavaScript",
+      "<code>closedby=&quot;any&quot;</code> closes it on <kbd>Esc</kbd> and on a click outside",
+      "<code>display: flex</code> overrides the hidden state, so <code>:not([open])</code> puts <code>display: none</code> back",
+    ],
+    title: "Modal",
+  },
+  {
+    css: `
+.dialog {
+  inline-size: 100%;
+  inset: 0;
+  margin: auto;
+  margin-block-start: 15dvb;
+  max-block-size: calc(85dvb - 1rem);
+  max-inline-size: min(100% - 1rem, 60ch);
+  overflow: auto;
+}
+
+.dialog > :not(.content) {
+  flex-shrink: 0;
+}
+
+.dialog > .content {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}`,
+    features: ["overscroll-behavior", "viewport-unit-variants"],
+    notes: [
+      "Pinned to 15% from the top, so it doesn't jump around as the content grows",
+      "<code>dvb</code> follows the mobile browser toolbar as it shows and hides",
+      "Only <code>.content</code> scrolls, the heading and actions stay put",
+      "<code>overscroll-behavior: contain</code> stops the scroll from chaining to the page",
+    ],
+    title: "Place",
+  },
+  {
+    css: `
+.dialog::backdrop {
+  backdrop-filter: blur(var(--backdrop-blur));
+  background-color: var(--backdrop-color);
+}`,
+    features: ["backdrop", "backdrop-filter"],
+    notes: [
+      "<code>::backdrop</code> covers the viewport, right under the dialog in the top layer",
+      "<code>backdrop-filter</code> blurs the page behind it",
+    ],
+    title: "Backdrop",
+  },
+  {
+    css: `
+.dialog {
+  opacity: 0;
+}
+
+.dialog[open] {
+  opacity: 1;
+  transition:
+    display 0.2s allow-discrete,
+    opacity 0.2s,
+    overlay 0.2s allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+  }
+}`,
+    features: ["overlay", "starting-style", "transition-behavior"],
+    notes: [
+      "<code>@starting-style</code> gives the entry transition a starting point",
+      "The transition only lives on <code>[open]</code>, so closing is instant, on purpose",
+    ],
+    title: "Fade",
+  },
+]
+
+const shortcuts = [
+  { keys: "⌘ K", label: "Search" },
+  { keys: "⌘ S", label: "Save" },
+  { keys: "⌘ Z", label: "Undo" },
+  { keys: "⌘ ⇧ Z", label: "Redo" },
+  { keys: "⌘ /", label: "Toggle comment" },
+  { keys: "Esc", label: "Close dialog" },
+]
+---
+
+<BuildUp id="build-dialog" steps={steps}>
+  <Button
+    command="show-modal"
+    commandfor="build-dialog-modal"
+    variant="outlined"
+  >
+    Shortcuts
+  </Button>
+  <dialog
+    aria-labelledby="build-dialog-title"
+    class="dialog"
+    closedby="any"
+    id="build-dialog-modal"
+  >
+    <h3 id="build-dialog-title">Keyboard shortcuts</h3>
+    <div class="content">
+      <dl>
+        {
+          shortcuts.map((shortcut) => (
+            <div>
+              <dt>{shortcut.label}</dt>
+              <dd>
+                <kbd>{shortcut.keys}</kbd>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+    <div class="actions">
+      <Button command="close" commandfor="build-dialog-modal">Close</Button>
+    </div>
+  </dialog>
+</BuildUp>
+
+<style>
+  .dialog {
+    & h3 {
+      font-size: var(--font-size-3);
+      margin: 0;
+      padding: var(--size-3) var(--size-3) 0;
+    }
+
+    & .content {
+      padding-inline: var(--size-3);
+    }
+
+    & dl {
+      display: grid;
+      gap: var(--size-2);
+      margin: 0;
+    }
+
+    & dl > div {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    & dd {
+      margin: 0;
+    }
+
+    & .actions {
+      display: flex;
+      justify-content: end;
+      padding: 0 var(--size-1) var(--size-2);
+    }
+  }
+</style>

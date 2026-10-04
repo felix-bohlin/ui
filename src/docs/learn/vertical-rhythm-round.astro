@@ -1,0 +1,79 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
+import { Code } from "astro-expressive-code/components"
+---
+
+<TechniquePost slug="vertical-rhythm-round" topic="rhythm">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      A unitless <code>line-height</code> multiplies the font size, so a 29px heading
+      at <code>1.2</code> gets a 34.8px line. Every heading size lands somewhere different,
+      and text drifts off any grid you lay under it.
+    </p>
+    <p>
+      Keeping it on a grid meant a Sass function per size, and that breaks as
+      soon as sizes are fluid. Not anymore.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        <code>round(up, value, step)</code> rounds a length up to a multiple of <code
+          >step</code
+        > at computed time, whatever the value is
+      </li>
+      <li>
+        <code>1em + 0.5rem</code> is tight for large headings and roomy for small
+        ones, rounded up so it never clips
+      </li>
+      <li>Font sizes snap to half a step, so fluid sizes move in steps</li>
+      <li>
+        Margins and flow space round to the same <code>--rhythm-step</code>
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`h1, h2, h3 {
+  line-height: round(up, 1em + 0.5rem, var(--rhythm-step, 0.25rem));
+}
+
+h2 {
+  font-size: round(var(--font-size-h2), var(--rhythm-step, 0.25rem) / 2);
+}
+
+.rich-text {
+  --flow-space: round(1.25em, var(--rhythm-step, 0.25rem));
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <RhythmBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        <code>round()</code> is Baseline since 2024, so this works in every current
+        browser
+      </li>
+      <li>
+        There's no <code>@supports</code> fallback, and every <code
+          >round()</code
+        > takes a custom property, so an older browser can't drop the declaration
+        while parsing
+      </li>
+      <li>
+        It becomes invalid at computed-value time instead: <code>font-size</code
+        > and <code>line-height</code> inherit from the parent, and margins fall back
+        to zero
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

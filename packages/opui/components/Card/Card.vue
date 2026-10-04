@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useSlots } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
 const { actionsAlign, variant } = defineProps<Props>()

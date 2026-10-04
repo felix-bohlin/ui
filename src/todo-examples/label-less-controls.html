@@ -1,0 +1,155 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-proposed
+    :where(.ui-checkbox, .ui-radio, .ui-switch):not(:has(.ui-label)),
+  .todo-proposed .ui-progress {
+    vertical-align: middle;
+  }
+
+  .todo-compare td {
+    background-image: linear-gradient(
+      to bottom,
+      transparent calc(50% - 0.5px),
+      red calc(50% - 0.5px),
+      red calc(50% + 0.5px),
+      transparent calc(50% + 0.5px)
+    );
+  }
+</style>
+<p>The red line is the middle of each cell.</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">Current</p>
+    <table class="ui-table">
+      <thead>
+        <tr>
+          <th>Select</th>
+          <th>Name</th>
+          <th>Active</th>
+          <th>Progress</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <label class="ui-checkbox"
+              ><input type="checkbox" checked /><span class="ui-sr-only"
+                >Select Ada</span
+              ></label
+            >
+          </td>
+          <td>Ada Lovelace</td>
+          <td>
+            <label class="ui-switch"
+              ><input type="checkbox" role="switch" checked /><span
+                class="ui-sr-only"
+                >Ada active</span
+              ></label
+            >
+          </td>
+          <td>
+            <div class="ui-progress">
+              <progress value="80" max="100">80%</progress>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="ui-checkbox"
+              ><input type="checkbox" /><span class="ui-sr-only"
+                >Select Alan</span
+              ></label
+            >
+          </td>
+          <td>Alan Turing</td>
+          <td>
+            <label class="ui-switch"
+              ><input type="checkbox" role="switch" /><span class="ui-sr-only"
+                >Alan active</span
+              ></label
+            >
+          </td>
+          <td>
+            <div class="ui-progress">
+              <progress value="30" max="100">30%</progress>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="todo-proposed">
+    <p class="ui-caption">
+      Proposed: <code>vertical-align: middle</code> without a label
+    </p>
+    <table class="ui-table">
+      <thead>
+        <tr>
+          <th>Select</th>
+          <th>Name</th>
+          <th>Active</th>
+          <th>Progress</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <label class="ui-checkbox"
+              ><input type="checkbox" checked /><span class="ui-sr-only"
+                >Select Ada</span
+              ></label
+            >
+          </td>
+          <td>Ada Lovelace</td>
+          <td>
+            <label class="ui-switch"
+              ><input type="checkbox" role="switch" checked /><span
+                class="ui-sr-only"
+                >Ada active</span
+              ></label
+            >
+          </td>
+          <td>
+            <div class="ui-progress">
+              <progress value="80" max="100">80%</progress>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="ui-checkbox"
+              ><input type="checkbox" /><span class="ui-sr-only"
+                >Select Alan</span
+              ></label
+            >
+          </td>
+          <td>Alan Turing</td>
+          <td>
+            <label class="ui-switch"
+              ><input type="checkbox" role="switch" /><span class="ui-sr-only"
+                >Alan active</span
+              ></label
+            >
+          </td>
+          <td>
+            <div class="ui-progress">
+              <progress value="30" max="100">30%</progress>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

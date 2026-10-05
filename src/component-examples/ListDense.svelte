@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { List } from "@opui/svelte"
+  import { List } from "opui-css/svelte"
   import ListAll from "./ListAll.svelte"
 </script>
 

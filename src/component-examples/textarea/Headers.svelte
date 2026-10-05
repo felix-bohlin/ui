@@ -1,15 +1,11 @@
 <script lang="ts">
-  import { Textarea } from "@opui/svelte"
+  import { Textarea } from "opui-css/svelte"
 </script>
 
 <Textarea label="Code" placeholder="console.log('Hello, world!')">
-  {#snippet header()}
-    script.js
-  {/snippet}
+  {#snippet header()}script.js{/snippet}
 </Textarea>
 
 <Textarea label="Comment" placeholder="Write a comment...">
-  {#snippet footer()}
-    0 / 280
-  {/snippet}
+  {#snippet footer()}0 / 280{/snippet}
 </Textarea>

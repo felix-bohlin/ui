@@ -1,13 +1,24 @@
 <script lang="ts">
-  import { Anchor } from "@opui/svelte"
+  import { Anchor, Button, Card } from "opui-css/svelte"
 </script>
 
-<Anchor>
-  <button>Hover me</button>
+<Anchor alignment="inline-end">
+  <Button variant="outlined">Export</Button>
   {#snippet anchored()}
-    <span
-      style="background: var(--surface-2); padding: var(--size-2) var(--size-3); border-radius: var(--radius-2); box-shadow: var(--shadow-3);"
-      >Floating content</span
-    >
+    <Card variant="tonal" class="coach-mark">
+      {#snippet content()}
+        <strong>New</strong> Export to PDF and CSV from the same menu.
+      {/snippet}
+    </Card>
   {/snippet}
 </Anchor>
+
+<style>
+  :global {
+    .coach-mark {
+      font-size: var(--font-size-1);
+      margin-inline-start: var(--size-2);
+      max-inline-size: 220px;
+    }
+  }
+</style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Badge } from "@opui/svelte"
+  import { Badge } from "opui-css/svelte"
 </script>
 
 <Badge label="5" invisible>

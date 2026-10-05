@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { TextField } from "@opui/svelte"
+  import { TextField } from "opui-css/svelte"
 </script>
 
 <TextField label="Users" list="users" placeholder="Placeholder">
@@ -11,7 +11,7 @@
 </TextField>
 
 <TextField
-  filled
+  variant="filled"
   label="Emails"
   list="users-email"
   placeholder="Placeholder"

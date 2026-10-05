@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Callout } from "@opui/svelte"
+  import { Callout } from "opui-css/svelte"
 </script>
 
 <Callout>
@@ -12,10 +12,8 @@
 <Callout variant="outlined">
   {#snippet title()}Another Callout{/snippet}
   <p>
-    This is an outlined Callout. Why not use a <a
-      class="ui-link"
-      href="/components/card">Card</a
-    > since they look very similar? For one, the Callout is a more focused component
-    with different properties.
+    This is an outlined Callout. Why not use a
+    <a class="ui-link" href="/components/card">Card</a> since they look very similar?
+    For one, the Callout is a more focused component with different properties.
   </p>
 </Callout>

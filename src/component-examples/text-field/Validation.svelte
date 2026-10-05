@@ -1,10 +1,15 @@
 <script lang="ts">
-  import { TextField } from "@opui/svelte"
+  import { TextField } from "opui-css/svelte"
 </script>
 
 <div class="example-row">
   <TextField label="I'm required" placeholder="Placeholder" required />
-  <TextField label="So am I!" placeholder="Placeholder" required filled />
+  <TextField
+    label="So am I!"
+    placeholder="Placeholder"
+    required
+    variant="filled"
+  />
 </div>
 
 <div class="example-row">
@@ -21,6 +26,6 @@
     value="Uh-oh"
     endText="Only letters from the first half of the alphabet are allowed."
     error
-    filled
+    variant="filled"
   />
 </div>

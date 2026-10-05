@@ -1,17 +1,19 @@
 <script lang="ts">
-  import { FieldSet } from "@opui/svelte"
-  import { FieldLegend } from "@opui/svelte"
-  import { FieldDescription } from "@opui/svelte"
-  import { FieldGroup } from "@opui/svelte"
-  import { Textarea } from "@opui/svelte"
-  import { TextField } from "@opui/svelte"
+  import {
+    FieldDescription,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+    Textarea,
+    TextField,
+  } from "opui-css/svelte"
 </script>
 
 <FieldSet>
   <FieldLegend>Pet info</FieldLegend>
   <FieldDescription>We must know your pet's information.</FieldDescription>
   <FieldGroup name="bio">
-    <TextField label="Name" />
+    <TextField label="Name" name="name" />
     <Textarea required label="Life story" />
   </FieldGroup>
 </FieldSet>

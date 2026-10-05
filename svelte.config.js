@@ -1,9 +1,12 @@
 import { vitePreprocess } from "@astrojs/svelte"
 
 export default {
-  preprocess: vitePreprocess(),
-  onwarn(warning, defaultHandler) {
-    if (warning.filename?.includes("component-examples")) return
-    defaultHandler(warning)
+  compilerOptions: {
+    warningFilter: (warning) =>
+      !(
+        warning.filename?.includes("component-examples") &&
+        warning.code.startsWith("a11y")
+      ),
   },
+  preprocess: vitePreprocess(),
 }

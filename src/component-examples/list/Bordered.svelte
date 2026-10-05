@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { List } from "@opui/svelte"
-  import { ListItem } from "@opui/svelte"
+  import { List, ListItem } from "opui-css/svelte"
 </script>
 
 <List bordered>

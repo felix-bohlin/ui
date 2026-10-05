@@ -1,7 +1,12 @@
 <script lang="ts">
-  import { ButtonGroup } from "@opui/svelte"
-  import { Button } from "@opui/svelte"
+  import { Button, ButtonGroup } from "opui-css/svelte"
 </script>
+
+<ButtonGroup size="x-small" variant="outlined">
+  <Button>X-small</Button>
+  <Button>X-small</Button>
+  <Button>X-small</Button>
+</ButtonGroup>
 
 <ButtonGroup size="small" variant="outlined">
   <Button>Small</Button>

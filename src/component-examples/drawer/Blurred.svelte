@@ -1,8 +1,5 @@
 <script lang="ts">
-  import { Button } from "@opui/svelte"
-  import { Drawer } from "@opui/svelte"
-  import { DrawerFooter } from "@opui/svelte"
-  import { DrawerHeader } from "@opui/svelte"
+  import { Button, Drawer, DrawerFooter, DrawerHeader } from "opui-css/svelte"
 </script>
 
 <Button commandfor="drawer-blurred" command="show-modal"
@@ -16,7 +13,7 @@
   closedby="any"
 >
   {#snippet header()}
-    <DrawerHeader heading="Blurred Backdrop" />
+    <DrawerHeader commandfor="drawer-blurred" heading="Blurred Backdrop" />
   {/snippet}
   {#snippet content()}
     <p>
@@ -29,19 +26,10 @@
       aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
       voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     </p>
-    <p>
-      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-      deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste
-      natus error sit voluptatem accusantium doloremque laudantium, totam rem
-      aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-      beatae vitae dicta sunt explicabo.
-    </p>
   {/snippet}
-  {#snippet footer()}
-    <DrawerFooter>
+  {#snippet footer()}<DrawerFooter>
       <Button size="small" commandfor="drawer-blurred" command="close"
         >Close</Button
       >
-    </DrawerFooter>
-  {/snippet}
+    </DrawerFooter>{/snippet}
 </Drawer>

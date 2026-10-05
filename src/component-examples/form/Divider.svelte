@@ -1,11 +1,13 @@
 <script lang="ts">
-  import { Form } from "@opui/svelte"
-  import { FieldSet } from "@opui/svelte"
-  import { FieldLegend } from "@opui/svelte"
-  import { FieldGroup } from "@opui/svelte"
-  import { TextField } from "@opui/svelte"
-  import { Button } from "@opui/svelte"
-  import { Divider } from "@opui/svelte"
+  import {
+    Button,
+    Divider,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+    Form,
+    TextField,
+  } from "opui-css/svelte"
 </script>
 
 <Form>
@@ -19,6 +21,7 @@
   <Divider />
 
   <FieldGroup>
+    <Button>Save draft</Button>
     <Button variant="filled">Publish</Button>
   </FieldGroup>
 </Form>

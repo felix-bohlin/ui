@@ -1,10 +1,13 @@
 <script lang="ts">
-  import { Avatar } from "@opui/svelte"
-  import { CheckboxInput } from "@opui/svelte"
-  import { ListItem } from "@opui/svelte"
-  import { RadioInput } from "@opui/svelte"
-  import { SwitchInput } from "@opui/svelte"
-  const { prefix = "" } = $props()
+  import {
+    Avatar,
+    CheckboxInput,
+    ListItem,
+    RadioInput,
+    SwitchInput,
+  } from "opui-css/svelte"
+
+  let { prefix = "" }: { prefix?: string } = $props()
 </script>
 
 <ListItem headline="Headline" />
@@ -15,15 +18,11 @@
 />
 
 <ListItem headline="Trailing supporting text">
-  {#snippet end()}
-    <div>100+</div>
-  {/snippet}
+  {#snippet end()}100+{/snippet}
 </ListItem>
 
 <ListItem headline="Trailing keyboard command">
-  {#snippet end()}
-    <div><kbd>CTRL+Shift+X</kbd></div>
-  {/snippet}
+  {#snippet end()}<kbd>CTRL+Shift+X</kbd>{/snippet}
 </ListItem>
 
 <ListItem borderTop headline="Headline with start icon">
@@ -84,9 +83,7 @@
 </ListItem>
 
 <ListItem borderTop headline="Headline">
-  {#snippet start()}
-    <Avatar>OP</Avatar>
-  {/snippet}
+  {#snippet start()}<Avatar>OP</Avatar>{/snippet}
 </ListItem>
 
 <ListItem headline="Headline" description="Supporting text">
@@ -167,56 +164,53 @@
 
 <ListItem headline="End icon button">
   {#snippet end()}
-    <div>
-      <button class="ui-icon-button">
-        <span class="ui-sr-only">More</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 32 32"
-        >
-          <path
-            fill="currentColor"
-            d="M16 9.5a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5m0 9a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5M13.5 25a2.5 2.5 0 1 0 5 0a2.5 2.5 0 0 0-5 0"
-          ></path>
-        </svg>
-      </button>
-    </div>
+    <button class="ui-button ui-rounded ui-ripple ui-small" aria-label="More">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M16 9.5a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5m0 9a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5M13.5 25a2.5 2.5 0 1 0 5 0a2.5 2.5 0 0 0-5 0"
+        ></path>
+      </svg>
+    </button>
   {/snippet}
 </ListItem>
 
 <ListItem borderTop type="checkbox" for={`${prefix}checkbox-all`}>
-  {#snippet text()}
-    <div>Checkbox</div>
-  {/snippet}
+  {#snippet text()}Checkbox{/snippet}
   {#snippet end()}
     <CheckboxInput id={`${prefix}checkbox-all`} />
   {/snippet}
 </ListItem>
 
 <ListItem borderTop type="radio" for={`${prefix}radio-all-1`}>
-  {#snippet text()}
-    <div>Radio 1</div>
-  {/snippet}
+  {#snippet text()}Radio 1{/snippet}
   {#snippet end()}
-    <RadioInput id={`${prefix}radio-all-1`} name={`${prefix}radio-group-all`} />
+    <RadioInput
+      id={`${prefix}radio-all-1`}
+      name={`${prefix}radio-group-all`}
+      value="1"
+    />
   {/snippet}
 </ListItem>
 
 <ListItem type="radio" for={`${prefix}radio-all-2`}>
-  {#snippet text()}
-    <div>Radio 2</div>
-  {/snippet}
+  {#snippet text()}Radio 2{/snippet}
   {#snippet end()}
-    <RadioInput id={`${prefix}radio-all-2`} name={`${prefix}radio-group-all`} />
+    <RadioInput
+      id={`${prefix}radio-all-2`}
+      name={`${prefix}radio-group-all`}
+      value="2"
+    />
   {/snippet}
 </ListItem>
 
 <ListItem borderTop type="switch" for={`${prefix}switch-all-1`}>
-  {#snippet text()}
-    <div>Switch 1</div>
-  {/snippet}
+  {#snippet text()}Switch 1{/snippet}
   {#snippet end()}
     <SwitchInput id={`${prefix}switch-all-1`} />
   {/snippet}

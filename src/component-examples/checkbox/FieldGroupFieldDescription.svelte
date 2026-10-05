@@ -1,17 +1,19 @@
 <script lang="ts">
-  import { Checkbox } from "@opui/svelte"
-  import { FieldSet } from "@opui/svelte"
-  import { FieldLegend } from "@opui/svelte"
-  import { FieldDescription } from "@opui/svelte"
-  import { FieldGroup } from "@opui/svelte"
-  import { Form } from "@opui/svelte"
+  import {
+    Checkbox,
+    FieldDescription,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+    Form,
+  } from "opui-css/svelte"
 </script>
 
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
-    <FieldGroup direction="row" name="checkbox-group-field-description-1-astro">
+    <FieldGroup direction="row" name="checkbox-group-field-description-1">
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>
@@ -20,7 +22,7 @@
 
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="checkbox-group-field-description-2-astro">
+    <FieldGroup direction="row" name="checkbox-group-field-description-2">
       <Checkbox checked>Checkbox 1</Checkbox>
       <Checkbox>Checkbox 2</Checkbox>
       <Checkbox>Checkbox 3</Checkbox>

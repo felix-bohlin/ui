@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Chip } from "@opui/svelte"
+  import { Chip } from "opui-css/svelte"
 </script>
 
 <div class="example-row">
@@ -8,8 +8,7 @@
 </div>
 <div class="example-row">
   <Chip as="button" variant="tonal">
-    {#snippet start()}
-      <svg
+    {#snippet start()}<svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -18,15 +17,13 @@
         <path
           fill="currentColor"
           d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
-        ></path>
-      </svg>
-    {/snippet}
+        ></path></svg
+      >{/snippet}
     <span class="ui-text">Open now</span>
   </Chip>
   <Chip as="button" variant="outlined">
     <span class="ui-text">Sort by</span>
-    {#snippet end()}
-      <svg
+    {#snippet end()}<svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -35,8 +32,7 @@
         <path
           fill="currentColor"
           d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
-        ></path>
-      </svg>
-    {/snippet}
+        ></path></svg
+      >{/snippet}
   </Chip>
 </div>

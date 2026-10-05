@@ -1,17 +1,19 @@
 <script lang="ts">
-  import { Switch } from "@opui/svelte"
-  import { FieldSet } from "@opui/svelte"
-  import { FieldLegend } from "@opui/svelte"
-  import { FieldDescription } from "@opui/svelte"
-  import { FieldGroup } from "@opui/svelte"
-  import { Form } from "@opui/svelte"
+  import {
+    FieldDescription,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+    Form,
+    Switch,
+  } from "opui-css/svelte"
 </script>
 
 <Form>
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
     <FieldDescription>Field description above fields</FieldDescription>
-    <FieldGroup direction="row" name="switch-group-field-description-1-astro">
+    <FieldGroup direction="row" name="switch-group-field-description-1">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>
@@ -20,7 +22,7 @@
 
   <FieldSet>
     <FieldLegend>Legend</FieldLegend>
-    <FieldGroup direction="row" name="switch-group-field-description-2-astro">
+    <FieldGroup direction="row" name="switch-group-field-description-2">
       <Switch>Switch 1</Switch>
       <Switch>Switch 2</Switch>
       <Switch>Switch 3</Switch>

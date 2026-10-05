@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { Switch } from "@opui/svelte"
+  import { Switch } from "opui-css/svelte"
 </script>
 
-<Switch checked hideLabel>Label</Switch>
-<Switch hideLabel>Label</Switch>
-<Switch checked disabled hideLabel>Label</Switch>
-<Switch disabled hideLabel>Label</Switch>
+<Switch name="switch-variants" checked hideLabel>Label</Switch>
+<Switch name="switch-variants" hideLabel>Label</Switch>
+<Switch name="switch-variants" checked disabled hideLabel>Label</Switch>
+<Switch name="switch-variants" disabled hideLabel>Label</Switch>

@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { Button } from "@opui/svelte"
-  import { Tooltip } from "@opui/svelte"
+  import { Button, Tooltip } from "opui-css/svelte"
 </script>
 
 <Tooltip label="Save your changes" id="tooltip-basic">

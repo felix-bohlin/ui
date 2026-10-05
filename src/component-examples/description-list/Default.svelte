@@ -1,21 +1,23 @@
 <script lang="ts">
-  import { Description } from "@opui/svelte"
-  import { DescriptionList } from "@opui/svelte"
-  import { DescriptionListItem } from "@opui/svelte"
-  import { DescriptionListTerm } from "@opui/svelte"
+  import {
+    DescriptionList,
+    DescriptionListDescription,
+    DescriptionListItem,
+    DescriptionListTerm,
+  } from "opui-css/svelte"
 </script>
 
 <DescriptionList>
   <DescriptionListItem>
     <DescriptionListTerm>Price</DescriptionListTerm>
-    <Description>6 950 000</Description>
+    <DescriptionListDescription>6 950 000</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
     <DescriptionListTerm>Size</DescriptionListTerm>
-    <Description>64 m²</Description>
+    <DescriptionListDescription>64 m²</DescriptionListDescription>
   </DescriptionListItem>
   <DescriptionListItem>
     <DescriptionListTerm>Rooms</DescriptionListTerm>
-    <Description>3</Description>
+    <DescriptionListDescription>3</DescriptionListDescription>
   </DescriptionListItem>
 </DescriptionList>

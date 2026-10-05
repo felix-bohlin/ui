@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { Chip } from "@opui/svelte"
+  import { Chip } from "opui-css/svelte"
 </script>
 
 <Chip variant="tonal">
-  {#snippet start()}
-    <svg
+  {#snippet start()}<svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -13,15 +12,13 @@
       <path
         fill="currentColor"
         d="M16.25 3A3.75 3.75 0 0 1 20 6.75v9a3.75 3.75 0 0 1-2.89 3.651l2.462 1.172a.75.75 0 0 1-.55 1.392l-.095-.038L13.83 19.5h-3.661l-5.097 2.427a.75.75 0 1 1-.645-1.354L6.89 19.4A3.75 3.75 0 0 1 4 15.75v-9A3.75 3.75 0 0 1 7.75 3zM8 15a1 1 0 1 0 0 2a1 1 0 0 0 0-2m8 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2m.25-10.5h-8.5A2.25 2.25 0 0 0 5.5 6.75v5.75h13V6.75a2.25 2.25 0 0 0-2.25-2.25m-3 1.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1 0-1.5z"
-      ></path>
-    </svg>
-  {/snippet}
+      ></path></svg
+    >{/snippet}
   <span class="ui-text">Tonal</span>
 </Chip>
 <Chip variant="outlined">
   <span class="ui-text">Outlined</span>
-  {#snippet end()}
-    <svg
+  {#snippet end()}<svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -30,7 +27,6 @@
       <path
         fill="currentColor"
         d="M16.25 3A3.75 3.75 0 0 1 20 6.75v9a3.75 3.75 0 0 1-2.89 3.651l2.462 1.172a.75.75 0 0 1-.55 1.392l-.095-.038L13.83 19.5h-3.661l-5.097 2.427a.75.75 0 1 1-.645-1.354L6.89 19.4A3.75 3.75 0 0 1 4 15.75v-9A3.75 3.75 0 0 1 7.75 3zM8 15a1 1 0 1 0 0 2a1 1 0 0 0 0-2m8 0a1 1 0 1 0 0 2a1 1 0 0 0 0-2m.25-10.5h-8.5A2.25 2.25 0 0 0 5.5 6.75v5.75h13V6.75a2.25 2.25 0 0 0-2.25-2.25m-3 1.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1 0-1.5z"
-      ></path>
-    </svg>
-  {/snippet}
+      ></path></svg
+    >{/snippet}
 </Chip>

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { Avatar } from "@opui/svelte"
+  import { Avatar } from "opui-css/svelte"
 </script>
 
-<Avatar>LE</Avatar>
-<Avatar>TT</Avatar>
-<Avatar>ER</Avatar>
+<Avatar aria-label="Lena Ek" role="img">LE</Avatar>
+<Avatar aria-label="Tom Tanaka" role="img">TT</Avatar>
+<Avatar aria-label="Elif Rahman" role="img">ER</Avatar>

@@ -1,37 +1,37 @@
 <script lang="ts">
-  import { Button } from "@opui/svelte"
+  import { Button } from "opui-css/svelte"
 </script>
 
 <Button>
-  Text
-  <svg> <!-- --> </svg>
+  <span class="ui-text">Text</span>
+  <svg><!-- --></svg>
 </Button>
 <Button variant="outlined">
-  Outlined
-  <svg> <!-- --> </svg>
+  <span class="ui-text">Outlined</span>
+  <svg><!-- --></svg>
 </Button>
 <Button variant="tonal">
-  Tonal
-  <svg> <!-- --> </svg>
+  <span class="ui-text">Tonal</span>
+  <svg><!-- --></svg>
 </Button>
 <Button variant="filled">
-  Filled
-  <svg> <!-- --> </svg>
+  <span class="ui-text">Filled</span>
+  <svg><!-- --></svg>
 </Button>
 
 <Button>
-  <svg> <!-- --> </svg>
-  Text
+  <svg><!-- --></svg>
+  <span class="ui-text">Text</span>
 </Button>
 <Button variant="outlined">
-  <svg> <!-- --> </svg>
-  Outlined
+  <svg><!-- --></svg>
+  <span class="ui-text">Outlined</span>
 </Button>
 <Button variant="tonal">
-  <svg> <!-- --> </svg>
-  Tonal
+  <svg><!-- --></svg>
+  <span class="ui-text">Tonal</span>
 </Button>
 <Button variant="filled">
-  <svg> <!-- --> </svg>
-  Filled
+  <svg><!-- --></svg>
+  <span class="ui-text">Filled</span>
 </Button>

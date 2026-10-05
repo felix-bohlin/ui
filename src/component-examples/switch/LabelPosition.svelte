@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Switch } from "@opui/svelte"
+  import { Switch } from "opui-css/svelte"
 </script>
 
-<Switch>Default</Switch>
-<Switch stack>Stack</Switch>
+<Switch name="switch-label-position">Default</Switch>
+<Switch name="switch-label-position" stack>Stack</Switch>

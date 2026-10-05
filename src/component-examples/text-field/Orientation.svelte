@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { TextField } from "@opui/svelte"
+  import { TextField } from "opui-css/svelte"
 </script>
 
 <TextField spread placeholder="Evil Rabbit">
@@ -7,7 +7,7 @@
   {#snippet description()}Provide your full name for identification{/snippet}
 </TextField>
 
-<TextField spread placeholder="you@example.com" type="email" filled>
+<TextField spread placeholder="you@example.com" type="email" variant="filled">
   {#snippet label()}Email{/snippet}
   {#snippet description()}We'll use this to contact you{/snippet}
   {#snippet endText()}Please use a valid email address{/snippet}
@@ -32,7 +32,7 @@
   {#snippet suffix()}EUR{/snippet}
 </TextField>
 
-<TextField spread label="Website" placeholder="example.com" filled>
+<TextField spread label="Website" placeholder="example.com" variant="filled">
   {#snippet description()}Your public profile URL{/snippet}
   {#snippet prefix()}https://{/snippet}
   {#snippet endText()}Must include a valid domain{/snippet}
@@ -46,7 +46,7 @@
 
 <TextField
   spread
-  filled
+  variant="filled"
   label="API key"
   placeholder="Paste your key"
   type="password"

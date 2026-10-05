@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Divider } from "@opui/svelte"
+  import { Divider } from "opui-css/svelte"
 </script>
 
 Tonal

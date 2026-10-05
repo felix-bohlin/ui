@@ -1,31 +1,19 @@
 <script lang="ts">
-  import { Dialog } from "@opui/svelte"
-  import { Button } from "@opui/svelte"
+  import { Button, Dialog } from "opui-css/svelte"
 </script>
 
 <Button commandfor="example-dialog" command="show-modal" variant="outlined">
   Open dialog
 </Button>
 
-<Dialog
-  id="example-dialog"
-  role="alertdialog"
-  aria-labelledby="dialog-heading"
-  aria-modal="true"
->
-  {#snippet header()}
-    <h2 id="dialog-heading" class="ui-h4">Are you sure?</h2>
-  {/snippet}
-  {#snippet content()}
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus. Lorem ipsum dolor sit amet, consectetur
-      adipiscing elit. Vivamus sodales, nulla sit amet porttitor rhoncus.
-    </p>
-  {/snippet}
+<Dialog id="example-dialog">
+  {#snippet header()}<h2 class="ui-h4">Newsletter</h2>{/snippet}
+  {#snippet content()}<p>
+      Get a short email when we ship something new. No more than once a month.
+    </p>{/snippet}
   {#snippet actions()}
     <Button commandfor="example-dialog" command="close" type="button">
-      Cancel
+      Not now
     </Button>
     <Button
       commandfor="example-dialog"
@@ -33,7 +21,7 @@
       type="button"
       variant="filled"
     >
-      Save
+      Subscribe
     </Button>
   {/snippet}
 </Dialog>

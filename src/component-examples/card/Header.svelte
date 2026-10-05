@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Card } from "@opui/svelte"
+  import { Card } from "opui-css/svelte"
 </script>
 
 <Card variant="outlined">

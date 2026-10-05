@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Select } from "@opui/svelte"
+  import { Select } from "opui-css/svelte"
 </script>
 
 <Select label="Label">

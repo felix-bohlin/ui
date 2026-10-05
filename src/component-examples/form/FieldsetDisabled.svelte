@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { FieldSet } from "@opui/svelte"
-  import { FieldLegend } from "@opui/svelte"
-  import { FieldDescription } from "@opui/svelte"
-  import { FieldGroup } from "@opui/svelte"
-  import { Checkbox } from "@opui/svelte"
+  import {
+    Checkbox,
+    FieldDescription,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+  } from "opui-css/svelte"
 </script>
 
 <FieldSet disabled>

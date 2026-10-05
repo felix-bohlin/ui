@@ -1,24 +1,22 @@
 <script lang="ts">
-  import { List } from "@opui/svelte"
-  import { ListItem } from "@opui/svelte"
-  import { RadioInput } from "@opui/svelte"
+  import { List, ListItem, RadioInput } from "opui-css/svelte"
 </script>
 
 <List>
   <ListItem type="radio" for="radio-example-1">
-    {#snippet text()}
-      <div>Radio 1</div>
-    {/snippet}
-    {#snippet end()}
-      <RadioInput id="radio-example-1" name="radio-example-group" />
-    {/snippet}
+    {#snippet text()}Radio 1{/snippet}
+    {#snippet end()}<RadioInput
+        id="radio-example-1"
+        name="radio-example-group"
+        value="1"
+      />{/snippet}
   </ListItem>
   <ListItem type="radio" for="radio-example-2">
-    {#snippet text()}
-      <div>Radio 2</div>
-    {/snippet}
-    {#snippet end()}
-      <RadioInput id="radio-example-2" name="radio-example-group" />
-    {/snippet}
+    {#snippet text()}Radio 2{/snippet}
+    {#snippet end()}<RadioInput
+        id="radio-example-2"
+        name="radio-example-group"
+        value="2"
+      />{/snippet}
   </ListItem>
 </List>

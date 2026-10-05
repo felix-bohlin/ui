@@ -1,18 +1,20 @@
 <script lang="ts">
-  import { Form } from "@opui/svelte"
-  import { FieldSet } from "@opui/svelte"
-  import { FieldLegend } from "@opui/svelte"
-  import { FieldDescription } from "@opui/svelte"
-  import { FieldGroup } from "@opui/svelte"
-  import { TextField } from "@opui/svelte"
-  import { Select } from "@opui/svelte"
-  import { Switch } from "@opui/svelte"
-  import { Radio } from "@opui/svelte"
-  import { Textarea } from "@opui/svelte"
-  import { Checkbox } from "@opui/svelte"
-  import { Range } from "@opui/svelte"
-  import { Button } from "@opui/svelte"
-  import { Divider } from "@opui/svelte"
+  import {
+    Button,
+    Checkbox,
+    Divider,
+    FieldDescription,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+    Form,
+    Radio,
+    Range,
+    Select,
+    Switch,
+    TextField,
+    Textarea,
+  } from "opui-css/svelte"
 
   const roleItems = [
     { text: "Developer", value: "dev" },
@@ -77,9 +79,9 @@
 
   <FieldSet>
     <FieldLegend>Experience Level</FieldLegend>
-    <FieldDescription
-      >How many years of experience do you have?</FieldDescription
-    >
+    <FieldDescription>
+      How many years of experience do you have?
+    </FieldDescription>
     <FieldGroup>
       <Range
         label="Professional Experience"

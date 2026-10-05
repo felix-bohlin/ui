@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Chip } from "@opui/svelte"
+  import { Chip } from "opui-css/svelte"
 </script>
 
 <Chip variant="tonal" label="Tonal" />

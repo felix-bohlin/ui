@@ -1,9 +1,11 @@
 <script lang="ts">
-  import { FieldSet } from "@opui/svelte"
-  import { FieldLegend } from "@opui/svelte"
-  import { FieldDescription } from "@opui/svelte"
-  import { FieldGroup } from "@opui/svelte"
-  import { Radio } from "@opui/svelte"
+  import {
+    FieldDescription,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+    Radio,
+  } from "opui-css/svelte"
 </script>
 
 <FieldSet>

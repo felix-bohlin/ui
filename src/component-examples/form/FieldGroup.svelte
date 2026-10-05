@@ -1,11 +1,13 @@
 <script lang="ts">
-  import { Checkbox } from "@opui/svelte"
-  import { FieldDescription } from "@opui/svelte"
-  import { FieldGroup } from "@opui/svelte"
-  import { FieldLegend } from "@opui/svelte"
-  import { FieldSet } from "@opui/svelte"
-  import { Form } from "@opui/svelte"
-  import { Radio } from "@opui/svelte"
+  import {
+    Checkbox,
+    FieldDescription,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+    Form,
+    Radio,
+  } from "opui-css/svelte"
 </script>
 
 <Form>
@@ -26,33 +28,23 @@
     <FieldGroup name="projects">
       <Checkbox value="the-smile">
         The Smile
-        {#snippet endText()}
-          Thom Yorke, Jonny Greenwood, Tom Skinner
-        {/snippet}
+        {#snippet endText()}Thom Yorke, Jonny Greenwood, Tom Skinner{/snippet}
       </Checkbox>
       <Checkbox value="atoms-for-peace">
         Atoms for Peace
-        {#snippet endText()}
-          Thom Yorke, Flea, Nigel Godrich
-        {/snippet}
+        {#snippet endText()}Thom Yorke, Flea, Nigel Godrich{/snippet}
       </Checkbox>
       <Checkbox value="eob">
         EOB
-        {#snippet endText()}
-          Ed O'Brien solo
-        {/snippet}
+        {#snippet endText()}Ed O'Brien solo{/snippet}
       </Checkbox>
       <Checkbox value="jonny-scores">
         Film Scores
-        {#snippet endText()}
-          Film compositions by Jonny Greenwood
-        {/snippet}
+        {#snippet endText()}Film compositions by Jonny Greenwood{/snippet}
       </Checkbox>
       <Checkbox value="selway-solo">
         Philip Selway
-        {#snippet endText()}
-          Philip Selway solo albums
-        {/snippet}
+        {#snippet endText()}Philip Selway solo albums{/snippet}
       </Checkbox>
     </FieldGroup>
   </FieldSet>

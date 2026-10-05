@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { ClassicSelect } from "@opui/svelte"
+  import { ClassicSelect } from "opui-css/svelte"
 </script>
 
 <ClassicSelect label="Label">
   <option value="">-</option>
-  <option>Option</option>
-  <option>Option</option>
+  <option>Option 1</option>
+  <option>Option 2</option>
 </ClassicSelect>
 
 <ClassicSelect label="Label" variant="filled">

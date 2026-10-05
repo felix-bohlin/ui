@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { ButtonGroup } from "@opui/svelte"
-  import { Button } from "@opui/svelte"
+  import { Button, ButtonGroup } from "opui-css/svelte"
 </script>
 
 <ButtonGroup color="primary" variant="filled">

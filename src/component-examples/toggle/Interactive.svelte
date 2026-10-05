@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { ToggleGroup } from "@opui/svelte"
-  import { ToggleButton } from "@opui/svelte"
+  import { ToggleButton, ToggleGroup } from "opui-css/svelte"
 </script>
 
 <ToggleGroup selection="single" name="transport">
-  <ToggleButton value="walking" checked>
+  <ToggleButton value="walking" pressed>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"

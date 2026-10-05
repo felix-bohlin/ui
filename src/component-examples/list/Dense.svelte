@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { List } from "@opui/svelte"
-  import ListDense from "../ListDense.svelte"
+  import { List, ListItem } from "opui-css/svelte"
 </script>
 
 <List dense>
-  <ListDense />
+  <ListItem headline="Dense list item" />
+  <ListItem headline="Dense list item" />
 </List>

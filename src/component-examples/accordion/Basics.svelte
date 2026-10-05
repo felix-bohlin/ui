@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { Accordion } from "@opui/svelte"
+  import { Accordion } from "opui-css/svelte"
 </script>
 
-<Accordion summary="Accordion">
+<Accordion>
+  {#snippet summary()}Accordion{/snippet}
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
     nulla sit amet porttitor rhoncus, lacus ex vestibulum libero, ac mollis

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { Checkbox } from "@opui/svelte"
+  import { Checkbox } from "opui-css/svelte"
 </script>
 
-<Checkbox name="checkbox">Default</Checkbox>
-<Checkbox stack name="checkbox">Stack</Checkbox>
+<Checkbox name="checkbox-label-position">Default</Checkbox>
+<Checkbox stack name="checkbox-label-position">Stack</Checkbox>

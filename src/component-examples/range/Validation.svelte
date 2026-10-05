@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Range } from "@opui/svelte"
+  import { Range } from "opui-css/svelte"
 </script>
 
-<Range label="Invalid Range" data-invalid endText="This value is incorrect." />
+<Range label="Invalid Range" error endText="This value is incorrect." />

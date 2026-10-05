@@ -1,3 +1,5 @@
 <div class="ui-text-field">
-  <input type="text" placeholder="Placeholder" />
+  <span class="ui-field">
+    <input aria-label="Search" placeholder="Search" type="text" />
+  </span>
 </div>

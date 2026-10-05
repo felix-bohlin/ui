@@ -1,17 +1,17 @@
 <script lang="ts">
-  import { Select } from "@opui/svelte"
+  import { Select } from "opui-css/svelte"
 </script>
 
-<Select label="Currency" prefix="¢">
+<Select label="Currency">
+  {#snippet prefix()}¤{/snippet}
   <option value="">-</option>
   <option>EUR</option>
-  <option>EUR</option>
   <option>SEK</option>
+  <option>USD</option>
 </Select>
 
 <Select label="Country">
-  {#snippet prefix()}
-    <svg
+  {#snippet prefix()}<svg
       width="16"
       height="16"
       viewBox="0 0 24 24"
@@ -25,11 +25,10 @@
       <path d="M2 12h20"></path>
       <path
         d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
-      ></path>
-    </svg>
-  {/snippet}
+      ></path></svg
+    >{/snippet}
   <option value="">-</option>
-  <option>Sweden</option>
-  <option>Norway</option>
   <option>Denmark</option>
+  <option>Norway</option>
+  <option>Sweden</option>
 </Select>

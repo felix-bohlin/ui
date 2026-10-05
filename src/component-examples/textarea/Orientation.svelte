@@ -1,16 +1,14 @@
 <script lang="ts">
-  import { Textarea } from "@opui/svelte"
+  import { Textarea } from "opui-css/svelte"
 </script>
 
 <Textarea spread placeholder="Hello, world!">
   {#snippet label()}Message{/snippet}
-  {#snippet description()}
-    You can write your message here. Keep it short, preferably under 100
-    characters.
-  {/snippet}
+  {#snippet description()}You can write your message here. Keep it short,
+    preferably under 100 characters.{/snippet}
 </Textarea>
 
-<Textarea spread placeholder="Additional notes..." filled>
+<Textarea spread placeholder="Additional notes..." variant="filled">
   {#snippet label()}Notes{/snippet}
   {#snippet description()}Add any additional notes or comments{/snippet}
   {#snippet endText()}Maximum 500 characters{/snippet}
@@ -52,7 +50,7 @@
 
 <Textarea
   spread
-  filled
+  variant="filled"
   label="Release notes"
   placeholder="Markdown supported..."
 >

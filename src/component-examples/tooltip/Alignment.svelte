@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { Button } from "@opui/svelte"
-  import { Tooltip } from "@opui/svelte"
+  import { Button, Tooltip } from "opui-css/svelte"
 </script>
 
 <div class="tooltip-alignment-grid">
@@ -35,27 +34,29 @@
 </div>
 
 <style>
-  .tooltip-alignment-grid {
-    display: grid;
-    gap: var(--size-3);
-    grid-template-areas:
-      ".     top    .  "
-      "start .      end"
-      ".     bottom .  ";
-    justify-items: center;
-    align-items: center;
-  }
+  :global {
+    .tooltip-alignment-grid {
+      align-items: center;
+      display: grid;
+      gap: var(--size-3);
+      grid-template-areas:
+        ".     top    .  "
+        "start .      end"
+        ".     bottom .  ";
+      justify-items: center;
+    }
 
-  .tooltip-alignment-grid > :global(:nth-child(1)) {
-    grid-area: top;
-  }
-  .tooltip-alignment-grid > :global(:nth-child(2)) {
-    grid-area: start;
-  }
-  .tooltip-alignment-grid > :global(:nth-child(3)) {
-    grid-area: end;
-  }
-  .tooltip-alignment-grid > :global(:nth-child(4)) {
-    grid-area: bottom;
+    .tooltip-alignment-grid > :nth-child(1) {
+      grid-area: top;
+    }
+    .tooltip-alignment-grid > :nth-child(2) {
+      grid-area: start;
+    }
+    .tooltip-alignment-grid > :nth-child(3) {
+      grid-area: end;
+    }
+    .tooltip-alignment-grid > :nth-child(4) {
+      grid-area: bottom;
+    }
   }
 </style>

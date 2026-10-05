@@ -1,11 +1,8 @@
 <script lang="ts">
-  import { Tabs } from "@opui/svelte"
-  import { TabsItem } from "@opui/svelte"
-  import { TabsPanel } from "@opui/svelte"
-  import { TabsTab } from "@opui/svelte"
+  import { Tabs, TabsItem, TabsPanel, TabsTab } from "opui-css/svelte"
 </script>
 
-<Tabs>
+<Tabs name="basic-tabs">
   <TabsItem open>
     <TabsTab>Profile</TabsTab>
     <TabsPanel>Profile settings and information.</TabsPanel>

@@ -4,6 +4,7 @@
 
 - [Dense](#variants) tables have less block padding.
 - Fields and selects in cells keep a `12ch` minimum width.
+- [Sticky header](#sticky-header) with the `stickyHeader` prop.
 
 ## Anatomy
 
@@ -168,13 +169,94 @@ import { Table } from "opui-css/astro"
 </Table>
 ```
 
+## Sticky header
+
+`stickyHeader` keeps the header rows at the top of the nearest scroll container while the rows scroll under them, and adds a shadow once the header is stuck. Put the table in a scroll box, or let it stick to the page and set `--_sticky-offset` on the table to clear a fixed top bar.
+
+```astro
+---
+import { Table } from "opui-css/astro"
+---
+
+
+<div
+  role="region"
+  aria-label="Invoices"
+  tabindex="0"
+  style="max-block-size: 15rem; overflow: auto"
+>
+  <Table stickyHeader>
+    <Table.Head>
+      <Table.Row>
+        <Table.HeaderCell>Invoice</Table.HeaderCell>
+        <Table.HeaderCell>Customer</Table.HeaderCell>
+        <Table.HeaderCell>Amount</Table.HeaderCell>
+      </Table.Row>
+    </Table.Head>
+    <Table.Body>
+      <Table.Row>
+        <Table.Cell>INV-1000</Table.Cell>
+        <Table.Cell>Ada</Table.Cell>
+        <Table.Cell>€130</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell>INV-1001</Table.Cell>
+        <Table.Cell>Grace</Table.Cell>
+        <Table.Cell>€260</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell>INV-1002</Table.Cell>
+        <Table.Cell>Linus</Table.Cell>
+        <Table.Cell>€390</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell>INV-1003</Table.Cell>
+        <Table.Cell>Margaret</Table.Cell>
+        <Table.Cell>€520</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell>INV-1004</Table.Cell>
+        <Table.Cell>Alan</Table.Cell>
+        <Table.Cell>€650</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell>INV-1005</Table.Cell>
+        <Table.Cell>Barbara</Table.Cell>
+        <Table.Cell>€780</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell>INV-1006</Table.Cell>
+        <Table.Cell>Ken</Table.Cell>
+        <Table.Cell>€910</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell>INV-1007</Table.Cell>
+        <Table.Cell>Frances</Table.Cell>
+        <Table.Cell>€1,040</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell>INV-1008</Table.Cell>
+        <Table.Cell>Dennis</Table.Cell>
+        <Table.Cell>€1,170</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell>INV-1009</Table.Cell>
+        <Table.Cell>Radia</Table.Cell>
+        <Table.Cell>€1,300</Table.Cell>
+      </Table.Row>
+    </Table.Body>
+  </Table>
+</div>
+```
+
 ## API
 
 ### Table API
 
-| Prop      | Type                    | Default | Description         |
-| --------- | ----------------------- | ------- | ------------------- |
-| `variant` | `"dense"`, `"spacious"` | -       | The variant to use. |
+| Prop           | Type                    | Default | Description                                                                                          |
+| -------------- | ----------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
+| `stickyHeader` | `boolean`               | `false` | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
+| `variant`      | `"dense"`, `"spacious"` | -       | The variant to use.                                                                                  |
 
 #### Slots
 
@@ -184,17 +266,19 @@ import { Table } from "opui-css/astro"
 
 #### CSS variables
 
-| Variable                 | Default                                     | Description                                                                                           |
-| ------------------------ | ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                           |
-| `--border-radius`        | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                     |
-| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                               |
-| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
-| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                     |
-| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                             |
-| `--surface-filled`       | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                 |
-| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
-| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                |
+| Variable                 | Default                                     | Description                                                                                                                |
+| ------------------------ | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`        | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                                                    |
+| `--duration`             | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                                          |
+| `--motion`               | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--surface-filled`       | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                                      |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 

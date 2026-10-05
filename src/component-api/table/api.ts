@@ -9,6 +9,14 @@ export default {
   },
   options: [
     {
+      class: ".ui-sticky-header",
+      default: "false",
+      description:
+        "Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`.",
+      group: "Sticky header",
+      prop: "stickyHeader",
+    },
+    {
       description: "The variant to use.",
       group: "Variants",
       prop: "variant",

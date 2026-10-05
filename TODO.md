@@ -939,7 +939,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (7) Sticky table headers don't stick: `.ui-table { overflow: hidden }` should be `overflow: clip` (`data-display` TableStickyHeader)
   > remove the ability to do sticky table headers - they need to be rethought. create a todo for doing a second pass on sticky headers. skip this for now.
   - Removed the leftover `thead { z-index: 1 }`. Sticky headers were never documented. Follow-up below.
-- [?] (7) Sticky table headers: second pass. Needs `overflow: clip` instead of `hidden` on `.ui-table` (or a scroll wrapper that is the sticky container), a header background and border that survive `border-collapse: separate`, and an opt-in class. See the scroll-state suggestion for the stuck shadow.
+- [x] (7) Sticky table headers: second pass. Needs `overflow: clip` instead of `hidden` on `.ui-table` (or a scroll wrapper that is the sticky container), a header background and border that survive `border-collapse: separate`, and an opt-in class. See the scroll-state suggestion for the stuck shadow.
   > Explain further and provide an example
   - Why it fails today: `.ui-table { overflow: hidden }` (`table.css:11`) makes the table its own scroll container, and the table never scrolls, so a sticky `th` never sticks. The example's left table scrolls its header away.
   - What works (checked in Chromium, inside a scroll wrapper and against the page):
@@ -976,6 +976,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - `--table-sticky-offset` for pages with a fixed top bar.
     - For a scrolling box, wrap the table: `<div class="ui-table-scroll" tabindex="0" role="region" aria-label="…">` with `max-block-size` and `overflow: auto`.
   - Example: `sticky-table-header` (current vs proposed, scrolled; the proposed header shows the stuck shadow).
+  - Fixed: `.ui-table` uses `overflow: clip`. `stickyHeader` (`.ui-sticky-header`) makes `thead` sticky and a `scroll-state` container, keeps the header opaque on hover and gives it the Dialog/Drawer scroll shadow (`--shadow-4`, clipped to below the header) once it's stuck. Offset it with `--_sticky-offset` on the table (a private variable, like Carousel's `--_block-size`, instead of `--table-sticky-offset`). No `.ui-table-scroll` class: the docs example and the `data-display` TableStickyHeader stress test wrap the table in their own scroll box. Multi-row headers stick as one block.
 - [x] (7) Select can't preselect. Astro passes `value` through `...rest` onto `<select>`, and options get no `selected`. Vue SSR outputs no `selected` because the `v-model` select transform only handles direct `option`/`optgroup` children, not options inside `div.ui-list`. `Item` has no `selected` field (`Select.astro:64,70`, `Select.vue:63-75`, `Select/types.ts:13-16`)
   > Fix
   - Fixed: `Item` has `selected`. Astro takes `value` (a string or an array for `multiple`) and marks matching options `selected`; without `value`, items with `selected: true` are selected. Vue renders `selected` on item options from the `v-model`/`value`, falling back to `selected` items, so SSR output matches Astro. New `select/Preselected` example.

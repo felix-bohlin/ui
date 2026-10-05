@@ -77,6 +77,7 @@ Next release: 6.0.0 (major).
 - `opui-css/astro` and `opui-css/vue` export the component `Props` types (`ButtonProps`, `TabsTabProps`, …), `MenuItem`, `SelectItem` and `ClassicSelectItem`.
 - `Dialog` and `Drawer` show a subtle scroll shadow under the header and above the actions while the content scrolls (scroll-state container queries).
 - `theme.css` adds `--contrast`, set to `more` under `prefers-contrast: more` or with `.ui-contrast-more`. A style query then raises the contrast of muted text, borders, field borders, primary, intent colors and the focus ring, and components with translucent text or fills (`Badge`, `Button`, `Divider`, `List`, `Menu`, `Progress`, `Tabs`, `TextField`, `ToggleButton` and `Typography`) follow. `.ui-contrast-more` also works on a subtree, and `.ui-contrast-normal` on `html` ignores the OS preference.
+- `Table` takes `stickyHeader` (`.ui-sticky-header`), which keeps the header rows at the top of the nearest scroll container and shows a shadow once they are stuck (scroll-state container queries). Offset it with `--_sticky-offset`.
 
 ### Changed
 
@@ -216,6 +217,7 @@ Next release: 6.0.0 (major).
 - `Tooltip` arrow points at the trigger for every position, after flips and shifts.
 - Vue `Anchor`, `Badge`, `Divider`, `Drawer`, `Menu`, `Table` Column, `Tabs`, `ToggleButton` and `ToggleGroup` update derived values when props change.
 - `Accordion`, `Avatar`, `Divider`, `List`, `Progress`, `Range`, `Select`, `Switch`, `Tabs`, `Textarea`, `TextField` and `ToggleButton` keep their state visible in forced colors mode: selected tabs, toggles and list items use `SelectedItem`, switches, ranges, progress bars and dividers are drawn with system colors, focused fields get a `Highlight` outline, and elevated and tonal accordions and letter avatars get an outline.
+- `Table` uses `overflow: clip` instead of `overflow: hidden`, so it is no longer a scroll container and sticky cells inside it stick.
 
 ## 5.5.0 - 2026-09-28
 

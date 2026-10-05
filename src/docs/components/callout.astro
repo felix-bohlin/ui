@@ -119,6 +119,11 @@ const ThemeCSS = `/* ... */
       <Fragment slot="html">
         Tonal (default) and <code>.ui-outlined</code> variants.
       </Fragment>
+      <Fragment slot="svelte">
+        Tonal (default) and outlined variants are available via the <code
+          >variant</code
+        > prop.
+      </Fragment>
       <Fragment slot="vue">
         Tonal (default) and outlined variants are available via the <code
           >variant</code
@@ -146,6 +151,13 @@ const ThemeCSS = `/* ... */
           >.ui-neutral</code
         >
         {" "}tone for brand-tinted attention. The default is a plain surface.
+      </Fragment>
+      <Fragment slot="svelte">
+        The <code>severity</code> prop accepts <code>info</code>, <code
+          >success</code
+        >, <code>warning</code>, and <code>critical</code>, plus a non-severity
+        {" "}<code>neutral</code> tone for brand-tinted attention. The default is
+        a plain surface.
       </Fragment>
       <Fragment slot="vue">
         The <code>severity</code> prop accepts <code>info</code>, <code
@@ -191,6 +203,11 @@ const ThemeCSS = `/* ... */
         > have a default icon. Replace it with the <code>icon</code> slot.
       </Fragment>
       <Fragment slot="html"> Icon must be placed before the content. </Fragment>
+      <Fragment slot="svelte">
+        <code>info</code>, <code>success</code>, <code>warning</code> and <code
+          >critical</code
+        > have a default icon. Replace it with the <code>icon</code> snippet.
+      </Fragment>
       <Fragment slot="vue">
         <code>info</code>, <code>success</code>, <code>warning</code> and <code
           >critical</code

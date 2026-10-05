@@ -23,7 +23,7 @@ Explain more about the topic shown in the summary through supporting text.
 
 - `<svg>`
 
-  The marker. Astro and Vue render a chevron by default.
+  The marker. Astro, Svelte and Vue render a chevron by default.
 
 - `.ui-content`
 
@@ -494,13 +494,13 @@ Add `.ui-marker-flip`, `.ui-marker-rotate` or `.ui-marker-turn` to the `<details
 
 #### Parts
 
-| Part                   | Description                                            |
-| ---------------------- | ------------------------------------------------------ |
-| `details.ui-accordion` | Container element.                                     |
-| `<summary>`            | The always visible header.                             |
-| `<svg>`                | The marker. Astro and Vue render a chevron by default. |
-| `.ui-content`          | The collapsible content.                               |
-| `.ui-actions`          | A group of actions, such as buttons.                   |
+| Part                   | Description                                                    |
+| ---------------------- | -------------------------------------------------------------- |
+| `details.ui-accordion` | Container element.                                             |
+| `<summary>`            | The always visible header.                                     |
+| `<svg>`                | The marker. Astro, Svelte and Vue render a chevron by default. |
+| `.ui-content`          | The collapsible content.                                       |
+| `.ui-actions`          | A group of actions, such as buttons.                           |
 
 #### CSS variables
 

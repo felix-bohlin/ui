@@ -10,7 +10,9 @@ import ListCSS from "@opui/css/components/list.css?raw"
 import ExampleDefaultHTML from "../../component-examples/list/Default.html?raw"
 
 import ListDense from "../../component-examples/ListDense.astro"
+import ListDenseSvelte from "../../component-examples/ListDense.svelte"
 import ListDenseVue from "../../component-examples/ListDense.vue"
+import ListDenseSvelteRaw from "../../component-examples/ListDense.svelte?raw"
 import ListDenseVueRaw from "../../component-examples/ListDense.vue?raw"
 import Conditional from "../../components/Conditional.astro"
 
@@ -89,6 +91,20 @@ export const description =
           items after the main content
         </li>
       </ul>
+      <ul slot="svelte">
+        <li>
+          <a href="#text" class="ui-link"><code>text</code> snippet</a>: main
+          content
+        </li>
+        <li>
+          <a href="#start-items" class="ui-link"><code>start</code> snippet</a> (optional):
+          items before the main content
+        </li>
+        <li>
+          <a href="#end-items" class="ui-link"><code>end</code> snippet</a> (optional):
+          items after the main content
+        </li>
+      </ul>
       <ul slot="vue">
         <li>
           <a href="#text" class="ui-link"><code>text</code> slot</a>: main
@@ -126,6 +142,9 @@ export const description =
       <p slot="html">
         Use <code>.ui-tonal</code> or <code>.ui-transparent</code> to change the background
         color.
+      </p>
+      <p slot="svelte">
+        Change background color with the <code>variant</code> prop.
       </p>
       <p slot="vue">
         Change background color with the <code>variant</code> prop.
@@ -168,6 +187,11 @@ export const description =
           >ListItem</code
         >.
       </p>
+      <p slot="svelte">
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >ListItem</code
+        >.
+      </p>
       <p slot="vue">
         Add <code>aria-current="page"</code> to the link inside the <code
           >ListItem</code
@@ -190,6 +214,13 @@ export const description =
       <Fragment slot="html">
         Main text lives in <code>div.ui-text</code>.
       </Fragment>
+      <Fragment slot="svelte">
+        Main text lives in the <code>text</code> snippet, or pass <code
+          >headline</code
+        >
+        {" "}and <code>description</code> props directly on <code>ListItem</code
+        >.
+      </Fragment>
       <Fragment slot="vue">
         Main text lives in the <code>text</code> slot, or pass <code
           >headline</code
@@ -210,6 +241,9 @@ export const description =
       </Fragment>
       <Fragment slot="html">
         Found in <code>div.ui-start</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Authored via the <code>start</code> snippet on <code>ListItem</code>.
       </Fragment>
       <Fragment slot="vue">
         Authored via the <code>start</code> slot on <code>ListItem</code>.
@@ -242,6 +276,9 @@ export const description =
       </Fragment>
       <Fragment slot="html">
         Found in <code>div.ui-end</code>.
+      </Fragment>
+      <Fragment slot="svelte">
+        Authored via the <code>end</code> snippet on <code>ListItem</code>.
       </Fragment>
       <Fragment slot="vue">
         Authored via the <code>end</code> slot on <code>ListItem</code>.
@@ -313,6 +350,10 @@ export const description =
         Add the <code>gutterless</code> prop to the <code>List</code> to remove the
         inline padding on the list items.
       </p>
+      <p slot="svelte">
+        Add the <code>gutterless</code> prop to the <code>List</code> to remove the
+        inline padding on the list items.
+      </p>
       <p slot="vue">
         Add the <code>gutterless</code> prop to the <code>List</code> to remove the
         inline padding on the list items.
@@ -333,6 +374,10 @@ export const description =
         Add the <code>bordered</code> prop to the <code>List</code> to give all list
         items a border.
       </p>
+      <p slot="svelte">
+        Add the <code>bordered</code> prop to the <code>List</code> to give all list
+        items a border.
+      </p>
       <p slot="vue">
         Add the <code>bordered</code> prop to the <code>List</code> to give all list
         items a border.
@@ -347,6 +392,10 @@ export const description =
         it an upper border.
       </p>
       <p slot="astro">
+        Add the <code>borderTop</code> prop to a <code>ListItem</code> to give it
+        an upper border.
+      </p>
+      <p slot="svelte">
         Add the <code>borderTop</code> prop to a <code>ListItem</code> to give it
         an upper border.
       </p>
@@ -366,6 +415,9 @@ export const description =
         >!
       </p>
       <p slot="astro">
+        Just add the <code>dense</code> prop to the <code>List</code>!
+      </p>
+      <p slot="svelte">
         Just add the <code>dense</code> prop to the <code>List</code>!
       </p>
       <p slot="vue">
@@ -393,6 +445,15 @@ export const description =
           <code>dense</code>
         </Switch>
         <Switch
+          slot="svelte"
+          id="list-dense-toggle-svelte"
+          class="list-dense-toggle"
+          size="small"
+          checked
+        >
+          <code>dense</code>
+        </Switch>
+        <Switch
           slot="vue"
           id="list-dense-toggle-vue"
           class="list-dense-toggle"
@@ -406,6 +467,7 @@ export const description =
       <Example.Preview slot="preview-astro">
         <ListDense />
       </Example.Preview>
+      <Example.Preview slot="preview-svelte" code={ListDenseSvelte} />
       <Example.Preview slot="preview-vue" code={ListDenseVue} />
       <Example.Preview slot="preview-html">
         <div
@@ -427,6 +489,7 @@ export const description =
   <!--  -->
 </List>`}
       />
+      <Example.Code slot="code-svelte" code={ListDenseSvelteRaw} />
       <Example.Code slot="code-vue" code={ListDenseVueRaw} />
     </Example>
   </section>

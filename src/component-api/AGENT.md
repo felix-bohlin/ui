@@ -1,6 +1,6 @@
 # Component API Documentation Guide
 
-This guide defines the standards for documenting component APIs (HTML, Astro and Vue) in `src/component-api/`. Use this as a reference when generating or updating `api.ts` files, or the few remaining hand-written `.astro` tables.
+This guide defines the standards for documenting component APIs (HTML, Astro, Svelte and Vue) in `src/component-api/`. Use this as a reference when generating or updating `api.ts` files, or the few remaining hand-written `.astro` tables.
 
 ## Checklist for Documentation
 

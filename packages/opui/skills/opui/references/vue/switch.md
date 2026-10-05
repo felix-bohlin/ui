@@ -453,11 +453,11 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Switch } from "opui-css/vue"
 
 Accessible switches should have a label. The first two approaches are equally ok:
 
-| Approach                                                       | Usage in Switch component                                                                                                                                                                                                        |
-| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Provide a label inside the element                             | Use a `.ui-label` child for a [visible label](#visible-label), or a `.ui-sr-only` child to hide it visually while keeping it accessible. In Astro and Vue, set the `hideLabel` prop to render the slot content as `.ui-sr-only`. |
-| Add an `aria-label` on the input                               | Not used. Use a `.ui-sr-only` label instead, also for icon-only switches.                                                                                                                                                        |
-| Have a visible label that you reference with `aria-labelledby` | Not used.                                                                                                                                                                                                                        |
+| Approach                                                       | Usage in Switch component                                                                                                                                                                                                                |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Provide a label inside the element                             | Use a `.ui-label` child for a [visible label](#visible-label), or a `.ui-sr-only` child to hide it visually while keeping it accessible. In Astro, Svelte and Vue, set the `hideLabel` prop to render the slot content as `.ui-sr-only`. |
+| Add an `aria-label` on the input                               | Not used. Use a `.ui-sr-only` label instead, also for icon-only switches.                                                                                                                                                                |
+| Have a visible label that you reference with `aria-labelledby` | Not used.                                                                                                                                                                                                                                |
 
 ### Keyboard support
 

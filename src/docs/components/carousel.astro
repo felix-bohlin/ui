@@ -76,6 +76,7 @@ export const description =
         ><code>.ui-with-buttons</code>, and <code>.ui-with-markers</code> to navigate.</Fragment
       >
       <Fragment slot="astro"><code>markers</code> to add markers.</Fragment>
+      <Fragment slot="svelte"><code>markers</code> to add markers.</Fragment>
       <Fragment slot="vue"><code>markers</code> to add markers.</Fragment>
     </Conditional>
 
@@ -87,6 +88,7 @@ export const description =
     <Conditional as="p">
       <Fragment slot="html"><code>--_per-view</code>.</Fragment>
       <Fragment slot="astro"><code>perView</code>.</Fragment>
+      <Fragment slot="svelte"><code>perView</code>.</Fragment>
       <Fragment slot="vue"><code>perView</code>.</Fragment>
     </Conditional>
 
@@ -108,6 +110,10 @@ export const description =
         ><code>stretch</code> stretches the content of each item, such as a card,
         to the item's height.</Fragment
       >
+      <Fragment slot="svelte"
+        ><code>stretch</code> stretches the content of each item, such as a card,
+        to the item's height.</Fragment
+      >
       <Fragment slot="vue"
         ><code>stretch</code> stretches the content of each item, such as a card,
         to the item's height.</Fragment
@@ -126,6 +132,9 @@ export const description =
       <Fragment slot="astro"
         ><code>peek</code>, and <code>align="center"</code> to snap to the center.</Fragment
       >
+      <Fragment slot="svelte"
+        ><code>peek</code>, and <code>align="center"</code> to snap to the center.</Fragment
+      >
       <Fragment slot="vue"
         ><code>peek</code>, and <code>align="center"</code> to snap to the center.</Fragment
       >
@@ -142,6 +151,10 @@ export const description =
         {" "}<code>--_block-size</code>.</Fragment
       >
       <Fragment slot="astro"
+        ><code>orientation="vertical"</code> scrolls on the block axis. Set its height
+        with <code>--_block-size</code>.</Fragment
+      >
+      <Fragment slot="svelte"
         ><code>orientation="vertical"</code> scrolls on the block axis. Set its height
         with <code>--_block-size</code>.</Fragment
       >
@@ -179,6 +192,9 @@ export const description =
       <Fragment slot="astro"
         ><code>buttons="outside"</code> to keep buttons off the content.</Fragment
       >
+      <Fragment slot="svelte"
+        ><code>buttons="outside"</code> to keep buttons off the content.</Fragment
+      >
       <Fragment slot="vue"
         ><code>buttons="outside"</code> to keep buttons off the content.</Fragment
       >
@@ -195,6 +211,10 @@ export const description =
         button has a muted border.</Fragment
       >
       <Fragment slot="astro"
+        ><code>persistentButtons</code> to keep both buttons visible. A disabled button
+        has a muted border.</Fragment
+      >
+      <Fragment slot="svelte"
         ><code>persistentButtons</code> to keep both buttons visible. A disabled button
         has a muted border.</Fragment
       >

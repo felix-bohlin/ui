@@ -7,9 +7,20 @@ import Theming from "./_theming.astro"
 
 <Guide overline="Guide">
   <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships first-class Svelte 5 components. Install the package, import what
+    you need, and you're set.
+  </Fragment>
 
   <section>
     <h2 id="installation">Install via NPM</h2>
+    <p>
+      The components ship as uncompiled Svelte components (<code>.svelte</code> and
+      <code>.ts</code>), so your build has to compile them. Any setup with
+      Svelte 5 support works, for example SvelteKit, Vite with <code
+        >@sveltejs/vite-plugin-svelte</code
+      >, or Astro with <code>@astrojs/svelte</code>.
+    </p>
     <CodeGroup
       tabs={[
         {
@@ -29,19 +40,42 @@ import Theming from "./_theming.astro"
   <section>
     <h2 id="css">Import the CSS</h2>
     <p>
-      Svelte components ship markup only - the CSS still has to be imported in
-      your app somehow. Import everything:
+      Svelte components ship markup only - the CSS still has to be imported
+      once, in your root layout or the entry file that mounts your app. Import
+      everything:
     </p>
-    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
-    <p>Or pick and choose:</p>
     <Code
-      code={`@import "opui-css/open-props.css";
+      code={`<!-- src/routes/+layout.svelte -->
+<script lang="ts">
+  import "opui-css/css/imports.css"
+
+  let { children } = $props()
+</script>
+
+{@render children()}`}
+      lang="svelte"
+    />
+    <p>
+      Or pick and choose in a CSS file, and import that file in your layout
+      instead:
+    </p>
+    <Code
+      code={`/* src/styles/main.css */
+@import "opui-css/css/layers.css";
+@import "opui-css/open-props.css";
 @import "opui-css/core/palette.css";
 @import "opui-css/css/theme.css";
 @import "opui-css/core/normalize.css";
 @import "opui-css/css/components.css";
 @import "opui-css/core/utils.css";`}
       lang="css"
+    />
+    <Code
+      code={`<!-- src/routes/+layout.svelte -->
+<script lang="ts">
+  import "../styles/main.css"
+</script>`}
+      lang="svelte"
     />
   </section>
 
@@ -55,6 +89,14 @@ import Theming from "./_theming.astro"
 <Button variant="filled">Click me</Button>`}
       lang="svelte"
     />
+    <p>
+      Slots are snippets: the default slot is <code>children</code> and named slots
+      are camelCased, such as <code>endText</code>. Form controls support
+      <code>bind:value</code>, and <code>Checkbox</code> and <code>Switch</code> also
+      <code>bind:checked</code> and <code>bind:group</code>. Use <code
+        >bind:group</code
+      > on <code>Radio</code>.
+    </p>
   </section>
 
   <Theming />

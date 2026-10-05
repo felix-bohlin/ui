@@ -59,6 +59,7 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         > and <code>role="group"</code>.
       </Fragment>
       <Fragment slot="astro">Groups related buttons.</Fragment>
+      <Fragment slot="svelte">Groups related buttons.</Fragment>
       <Fragment slot="vue">Groups related buttons.</Fragment>
     </Conditional>
   </Fragment>
@@ -99,6 +100,10 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
           >.ui-outlined</code
         >, <code>.ui-tonal</code>, and <code>.ui-filled</code> classes.
       </Fragment>
+      <Fragment slot="svelte">
+        Change the appearance of the entire group with the <code>variant</code>
+        {" "}prop.
+      </Fragment>
       <Fragment slot="vue">
         Change the appearance of the entire group with the <code>variant</code>
         {" "}prop.
@@ -118,6 +123,11 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
       <Fragment slot="html">
         Add a <code>.ui-primary</code> or <code>.ui-critical</code> class to recolor
         the entire group. The default is a neutral gray.
+      </Fragment>
+      <Fragment slot="svelte">
+        Set the <code>color</code> prop to <code>primary</code> or <code
+          >critical</code
+        > to recolor the entire group. The default is a neutral gray.
       </Fragment>
       <Fragment slot="vue">
         Set the <code>color</code> prop to <code>primary</code> or <code
@@ -139,6 +149,10 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         Adjust the size of all buttons in the group using the <code
           >.ui-x-small</code
         >, <code>.ui-small</code> and <code>.ui-large</code> classes.
+      </Fragment>
+      <Fragment slot="svelte">
+        Adjust the size of all buttons in the group using the <code>size</code>
+        {" "}prop.
       </Fragment>
       <Fragment slot="vue">
         Adjust the size of all buttons in the group using the <code>size</code>
@@ -171,6 +185,10 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
         last button. <code>align="end"</code> lines it up with the group.
       </Fragment>
+      <Fragment slot="svelte">
+        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
+        last button. <code>align="end"</code> lines it up with the group.
+      </Fragment>
       <Fragment slot="vue">
         A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
         last button. <code>align="end"</code> lines it up with the group.
@@ -194,6 +212,12 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         >
         {" "}attribute to each <code>&lt;button&gt;</code>.
       </Fragment>
+      <Fragment slot="svelte">
+        Disable individual buttons within a group by setting the <code
+          >disabled</code
+        >
+        {" "}prop on each <code>Button</code>.
+      </Fragment>
       <Fragment slot="vue">
         Disable individual buttons within a group by setting the <code
           >disabled</code
@@ -214,6 +238,11 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
       </Fragment>
       <Fragment slot="html">
         Change the layout of the group with the <code>.ui-vertical</code> class.
+      </Fragment>
+      <Fragment slot="svelte">
+        Change the layout of the group with the <code
+          >orientation="vertical"</code
+        > prop.
       </Fragment>
       <Fragment slot="vue">
         Change the layout of the group with the <code
@@ -241,6 +270,14 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
           >.ui-scrollable</code
         > to keep them on one row and scroll them sideways, or <code
           >.ui-shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+      <Fragment slot="svelte">
+        Buttons wrap onto more rows when they don't fit. Use <code
+          >scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >shrink</code
         > to keep them on one row and truncate their labels. Icon-only items keep
         their size.
       </Fragment>

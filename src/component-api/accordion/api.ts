@@ -63,7 +63,8 @@ export default {
     },
     {
       code: "<svg>",
-      description: "The marker. Astro and Vue render a chevron by default.",
+      description:
+        "The marker. Astro, Svelte and Vue render a chevron by default.",
       selector: "summary > svg",
       slots: ["marker"],
     },

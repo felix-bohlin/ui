@@ -8,7 +8,7 @@
 }
 
 :where(h1, h2, h3, h4, h5, h6, hgroup h1 + p) {
-  font-family: var(--font-bricolage-grotesque), sans-serif;
+  font-family: var(--font-heading);
 }
 
 .anatomy {
@@ -42,6 +42,7 @@
 
 /* Setup */
 :root {
+  --font-heading: var(--font-bricolage-grotesque), sans-serif;
   --_gap: var(--size-4, 20px);
   --_page-gutters: var(--_gap);
 

@@ -41,7 +41,7 @@
     &.ui-outlined {
       --_bg-color: var(--surface-default);
       --_border-color: var(--border-color);
-      --_border-width: 1px;
+      --_border-width: var(--border-width);
       --_margin-inline: 0;
       --_padding-inline: var(--size-3);
     }
@@ -143,7 +143,7 @@
 
       /* Border between accordion items */
       & + & {
-        border-block-start: 1px solid var(--_gutter-color);
+        border-block-start: var(--border-width) solid var(--_gutter-color);
         border-radius: 0;
       }
 

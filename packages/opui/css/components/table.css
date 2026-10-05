@@ -1,7 +1,7 @@
 @layer components.root {
   :where(.ui-table) {
     --_table-border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
+    border: var(--border-width) solid var(--border-color);
 
     border-collapse: separate;
     border-radius: var(--_table-border-radius);

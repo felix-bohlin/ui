@@ -13,14 +13,19 @@ import {
   Switch,
   TextField,
 } from "@opui/astro"
+import { PRESETS } from "../utils/theme-presets"
+import { RADIUS_OPTIONS, TOKEN_DEFAULTS } from "../utils/theme-store"
 
-const borderRadiusItems = [
-  { text: "0", value: "0" },
-  { text: "1", value: "var(--radius-1)" },
-  { text: "2", value: "var(--radius-2)" },
-  { text: "3", value: "var(--radius-3)" },
-  { text: "4", value: "var(--radius-4)" },
-]
+const radiusGroups = [
+  { name: "--border-radius", label: "Border radius" },
+  { name: "--field-border-radius", label: "Field border radius" },
+  { name: "--button-border-radius", label: "Button border radius" },
+] as const
+
+const presetOptions = [
+  { id: "", label: "Default", tagline: "The library as it ships." },
+  ...PRESETS.map(({ id, label, tagline }) => ({ id, label, tagline })),
+].sort((a, b) => a.label.localeCompare(b.label))
 
 const { link } = Astro.locals
 ---
@@ -38,6 +43,38 @@ const { link } = Astro.locals
   <Fragment slot="content">
     <div class="configurator-content">
       <form class="ui-form" id="theme-configurator-form">
+        <FieldSet>
+          <FieldLegend>Theme</FieldLegend>
+          <FieldGroup>
+            <div class="chip-group-wrapper">
+              <div class="chip-group">
+                {
+                  presetOptions.map((option) => (
+                    <Chip
+                      as="button"
+                      type="button"
+                      size="small"
+                      variant={option.id === "" ? "tonal" : "outlined"}
+                      aria-pressed={option.id === "" ? "true" : "false"}
+                      data-preset={option.id}
+                      label={option.label}
+                      title={option.tagline}
+                    />
+                  ))
+                }
+              </div>
+              <p>
+                Presets live in these docs, not in the library. <a
+                  class="ui-link"
+                  href={link("/themes")}>Browse and copy them</a
+                >.
+              </p>
+            </div>
+          </FieldGroup>
+        </FieldSet>
+
+        <Divider />
+
         <FieldSet>
           <FieldLegend>Theme mode</FieldLegend>
           <FieldGroup direction="row">
@@ -145,85 +182,35 @@ const { link } = Astro.locals
         <Divider />
 
         <FieldSet>
-          <FieldLegend>Border radii/radiuses/radiopedes/you know</FieldLegend>
-          <FieldGroup>
-            <div class="chip-group-wrapper">
-              <span class="ui-label">Border radius</span>
-              <div class="chip-group">
-                {
-                  borderRadiusItems.map((item) => (
-                    <Chip
-                      as="button"
-                      type="button"
-                      size="small"
-                      variant={
-                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
-                      }
-                      data-name="--border-radius"
-                      data-value={item.value}
-                      data-default={
-                        item.value === "var(--radius-2)" ? "true" : undefined
-                      }
-                      label={item.text}
-                      title={item.value}
-                    />
-                  ))
-                }
-              </div>
-            </div>
-          </FieldGroup>
-          <FieldGroup>
-            <div class="chip-group-wrapper">
-              <span class="ui-label">Field border radius</span>
-              <div class="chip-group">
-                {
-                  borderRadiusItems.map((item) => (
-                    <Chip
-                      as="button"
-                      type="button"
-                      size="small"
-                      variant={
-                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
-                      }
-                      data-name="--field-border-radius"
-                      data-value={item.value}
-                      data-default={
-                        item.value === "var(--radius-2)" ? "true" : undefined
-                      }
-                      label={item.text}
-                      title={item.value}
-                    />
-                  ))
-                }
-              </div>
-            </div>
-          </FieldGroup>
-          <FieldGroup>
-            <div class="chip-group-wrapper">
-              <span class="ui-label">Button border radius</span>
-              <div class="chip-group">
-                {
-                  borderRadiusItems.map((item) => (
-                    <Chip
-                      as="button"
-                      type="button"
-                      size="small"
-                      variant={
-                        item.value === "var(--radius-2)" ? "tonal" : "outlined"
-                      }
-                      data-name="--button-border-radius"
-                      data-value={item.value}
-                      data-default={
-                        item.value === "var(--radius-2)" ? "true" : undefined
-                      }
-                      label={item.text}
-                      title={item.value}
-                    />
-                  ))
-                }
-              </div>
-            </div>
-          </FieldGroup>
+          <FieldLegend>Border radii</FieldLegend>
+          {
+            radiusGroups.map((group) => (
+              <FieldGroup>
+                <div class="chip-group-wrapper">
+                  <span class="ui-label">{group.label}</span>
+                  <div class="chip-group">
+                    {RADIUS_OPTIONS.map((item) => {
+                      const pressed = item.value === TOKEN_DEFAULTS[group.name]
+                      return (
+                        <Chip
+                          as="button"
+                          type="button"
+                          size="small"
+                          variant={pressed ? "tonal" : "outlined"}
+                          aria-pressed={pressed ? "true" : "false"}
+                          data-name={group.name}
+                          data-value={item.value}
+                          data-default={pressed ? "true" : undefined}
+                          label={item.text}
+                          title={item.value}
+                        />
+                      )
+                    })}
+                  </div>
+                </div>
+              </FieldGroup>
+            ))
+          }
         </FieldSet>
       </form>
     </div>
@@ -247,10 +234,10 @@ const { link } = Astro.locals
   import {
     themeStore,
     TOKENS,
-    TOKEN_DEFAULTS,
     type Mode,
     type Token,
   } from "../utils/theme-store"
+  import { isPresetId } from "../utils/theme-presets"
   import { hexToOklch, oklchToHex } from "../utils/color-utils"
 
   const TOKEN_SET = new Set<string>(TOKENS)
@@ -264,12 +251,29 @@ const { link } = Astro.locals
   ) as HTMLInputElement | null
   const drawer = document.getElementById("theme-configurator-drawer")
 
+  function setChipPressed(chip: HTMLElement, pressed: boolean) {
+    chip.classList.toggle("ui-tonal", pressed)
+    chip.classList.toggle("ui-outlined", !pressed)
+    chip.setAttribute("aria-pressed", String(pressed))
+  }
+
+  function syncPresetChips() {
+    if (!form) return
+    const active = themeStore.getPreset() ?? ""
+    form
+      .querySelectorAll<HTMLElement>("[data-preset]")
+      .forEach((chip) => setChipPressed(chip, chip.dataset.preset === active))
+  }
+
   function syncFormFromStore(mode: Mode = themeStore.getActiveSiteMode()) {
     if (!form) return
     const config = themeStore.get(mode)
+    const defaults = themeStore.defaults()
+
+    syncPresetChips()
 
     TOKENS.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token] ?? ""
+      const value = config[token] ?? defaults[token] ?? ""
       if (!value) return
       const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
       if (input && input.type !== "checkbox") {
@@ -278,26 +282,9 @@ const { link } = Astro.locals
         input.dispatchEvent(new Event("input", { bubbles: false }))
       }
 
-      const chips = form.querySelectorAll<HTMLElement>(`[data-name="${token}"]`)
-      let foundMatch = false
-      chips.forEach((chip) => {
-        if (chip.dataset.value === value) {
-          chip.classList.add("ui-tonal")
-          chip.classList.remove("ui-outlined")
-          foundMatch = true
-        } else {
-          chip.classList.remove("ui-tonal")
-          chip.classList.add("ui-outlined")
-        }
-      })
-      if (!foundMatch && chips.length > 0) {
-        chips.forEach((chip) => {
-          if (chip.dataset.default === "true") {
-            chip.classList.add("ui-tonal")
-            chip.classList.remove("ui-outlined")
-          }
-        })
-      }
+      form
+        .querySelectorAll<HTMLElement>(`[data-name="${token}"]`)
+        .forEach((chip) => setChipPressed(chip, chip.dataset.value === value))
     })
 
     const enableGrays = form.querySelector<HTMLInputElement>(
@@ -310,10 +297,10 @@ const { link } = Astro.locals
     )
     if (colorPicker) {
       const hue = parseFloat(
-        config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
+        config["--palette-hue"] ?? defaults["--palette-hue"],
       )
       const chroma = parseFloat(
-        config["--palette-chroma"] ?? TOKEN_DEFAULTS["--palette-chroma"],
+        config["--palette-chroma"] ?? defaults["--palette-chroma"],
       )
       colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
     }
@@ -367,6 +354,15 @@ const { link } = Astro.locals
   })
 
   form?.addEventListener("click", (e) => {
+    const presetChip = (e.target as HTMLElement).closest<HTMLElement>(
+      "[data-preset]",
+    )
+    if (presetChip && form.contains(presetChip)) {
+      const id = presetChip.dataset.preset
+      themeStore.setPreset(isPresetId(id) ? id : null)
+      return
+    }
+
     const chip = (e.target as HTMLElement).closest<HTMLElement>(
       "[data-name][data-value]",
     )
@@ -380,16 +376,9 @@ const { link } = Astro.locals
       themeStore.setToken(themeStore.getActiveSiteMode(), name as Token, value)
     }
 
-    const chips = form.querySelectorAll<HTMLElement>(`[data-name="${name}"]`)
-    chips.forEach((c) => {
-      if (c === chip) {
-        c.classList.add("ui-tonal")
-        c.classList.remove("ui-outlined")
-      } else {
-        c.classList.remove("ui-tonal")
-        c.classList.add("ui-outlined")
-      }
-    })
+    form
+      .querySelectorAll<HTMLElement>(`[data-name="${name}"]`)
+      .forEach((c) => setChipPressed(c, c === chip))
   })
 
   resetBtn?.addEventListener("click", () => {
@@ -401,15 +390,9 @@ const { link } = Astro.locals
     }
     const allChips =
       form?.querySelectorAll<HTMLElement>("[data-name][data-value]") ?? []
-    allChips.forEach((chip) => {
-      if (chip.dataset.default === "true") {
-        chip.classList.add("ui-tonal")
-        chip.classList.remove("ui-outlined")
-      } else {
-        chip.classList.remove("ui-tonal")
-        chip.classList.add("ui-outlined")
-      }
-    })
+    allChips.forEach((chip) =>
+      setChipPressed(chip, chip.dataset.default === "true"),
+    )
   })
 
   themeStore.subscribe((detail) => {
@@ -420,6 +403,12 @@ const { link } = Astro.locals
 
 <style is:global>
   html.no-grays {
+    --neutral: var(--color-9);
+    --primary-contrast: var(--color-1);
+    --text-primary: light-dark(var(--color-15), var(--color-1));
+    --text-primary-contrast: light-dark(var(--color-2), var(--color-15));
+    --text-muted: light-dark(var(--color-13), var(--color-4));
+    --text-muted-contrast: light-dark(var(--color-4), var(--color-13));
     --surface-default: light-dark(var(--color-1), var(--color-14));
     --surface-filled: light-dark(var(--color-5), var(--color-16));
     --surface-tonal: light-dark(var(--color-4), var(--color-12));

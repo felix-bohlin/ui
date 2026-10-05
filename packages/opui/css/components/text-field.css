@@ -85,12 +85,12 @@
     }
 
     .ui-header {
-      border-block-end: 1px solid var(--_border-color);
+      border-block-end: var(--field-border-width) solid var(--_border-color);
       grid-area: header;
     }
 
     .ui-footer {
-      border-block-start: 1px solid var(--_border-color);
+      border-block-start: var(--field-border-width) solid var(--_border-color);
       grid-area: footer;
     }
 

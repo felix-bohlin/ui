@@ -1,0 +1,122 @@
+@font-face {
+  font-display: swap;
+  font-family: "Pixelify Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  src: url("/PixelifySans%5Bwght%5D.ttf") format("truetype");
+}
+
+[data-theme="pixelated"] {
+  --palette-hue: 130;
+  --palette-chroma: 0.7;
+  --palette-hue-rotate-by: 0;
+  --gray-chroma: 0.02;
+  --gray-hue: 130;
+  --border-radius: 0;
+  --field-border-radius: 0;
+  --button-border-radius: 0;
+
+  --pixelated-font: "Pixelify Sans", ui-monospace, monospace;
+  --pixelated-unit: 3px;
+  --pixelated-ink: light-dark(var(--gray-15), var(--gray-2));
+
+  --font-sans: var(--pixelated-font);
+  --font-heading: var(--pixelated-font);
+  --radius-1: 0;
+  --radius-2: 0;
+  --radius-3: 0;
+  --radius-4: 0;
+  --radius-5: 0;
+  --radius-6: 0;
+  --radius-round: 0;
+  --shadow-1: 2px 2px 0 0 var(--pixelated-ink);
+  --shadow-2: 3px 3px 0 0 var(--pixelated-ink);
+  --shadow-3: 4px 4px 0 0 var(--pixelated-ink);
+  --shadow-4: 6px 6px 0 0 var(--pixelated-ink);
+  --shadow-5: 8px 8px 0 0 var(--pixelated-ink);
+  --shadow-6: 8px 8px 0 0 var(--pixelated-ink);
+  --ease-1: var(--ease-step-3);
+  --ease-2: var(--ease-step-3);
+  --ease-3: var(--ease-step-3);
+  --ease-4: var(--ease-step-3);
+  --ease-5: var(--ease-step-3);
+  --ease-in-1: var(--ease-step-3);
+  --ease-in-2: var(--ease-step-3);
+  --ease-in-3: var(--ease-step-3);
+  --ease-in-4: var(--ease-step-3);
+  --ease-in-5: var(--ease-step-3);
+  --ease-out-1: var(--ease-step-3);
+  --ease-out-2: var(--ease-step-3);
+  --ease-out-3: var(--ease-step-3);
+  --ease-out-4: var(--ease-step-3);
+  --ease-out-5: var(--ease-step-3);
+  --border-width: 2px;
+  --field-border-width: 2px;
+  --focus-ring-color: var(--pixelated-ink);
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 3px;
+  --focus-ring-style: dashed;
+  --primary: var(--color-9);
+  --primary-contrast: var(--gray-1);
+  --text-primary: light-dark(var(--gray-16), var(--gray-1));
+  --text-muted: light-dark(var(--gray-14), var(--gray-3));
+  --surface-default: light-dark(var(--gray-2), var(--gray-15));
+  --surface-filled: light-dark(var(--color-2), var(--gray-16));
+  --surface-tonal: light-dark(var(--color-3), var(--color-13));
+  --surface-elevated: light-dark(var(--gray-1), var(--gray-14));
+  --border-color: var(--pixelated-ink);
+  --field-border-color: var(--pixelated-ink);
+
+  font-family: var(--font-sans);
+  image-rendering: pixelated;
+
+  :is(h1, h2, h3, h4, h5, h6, .ui-h1, .ui-h2, .ui-h3, .ui-h4, .ui-h5, .ui-h6) {
+    font-family: var(--font-heading);
+    letter-spacing: 0;
+  }
+
+  svg {
+    shape-rendering: crispEdges;
+  }
+
+  .ui-button:not([disabled]):active {
+    translate: 0 var(--pixelated-unit);
+  }
+
+  :is(
+    .ui-button:is(.ui-filled, .ui-outlined, .ui-tonal),
+    .ui-icon-button:is(.ui-filled, .ui-outlined, .ui-tonal),
+    .ui-card:is(.ui-outlined, .ui-elevated, .ui-tonal),
+    .ui-callout,
+    .ui-chip
+  ) {
+    --pixelated-corners:
+      0 calc(-1 * var(--pixelated-unit)) 0 0 var(--pixelated-ink),
+      0 var(--pixelated-unit) 0 0 var(--pixelated-ink),
+      calc(-1 * var(--pixelated-unit)) 0 0 0 var(--pixelated-ink),
+      var(--pixelated-unit) 0 0 0 var(--pixelated-ink);
+
+    border-color: transparent;
+    border-width: 0;
+    box-shadow: var(--pixelated-corners);
+    margin: var(--pixelated-unit);
+  }
+
+  :is(.ui-button, .ui-icon-button).ui-outlined {
+    --pixelated-ink: currentColor;
+  }
+
+  .ui-link {
+    text-decoration-style: dotted;
+    text-underline-offset: 0.25em;
+  }
+
+  .ui-divider {
+    block-size: var(--pixelated-unit);
+  }
+
+  *::selection {
+    background: var(--pixelated-ink);
+    color: var(--surface-default);
+  }
+}

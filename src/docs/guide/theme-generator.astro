@@ -1,6 +1,8 @@
 ---
 import Guide from "../../layouts/Guide.astro"
 import Generator from "../../components/ThemeGenerator/ThemeGenerator.astro"
+
+const { link } = Astro.locals
 ---
 
 <Guide overline="Guide" showToc={false}>
@@ -8,10 +10,13 @@ import Generator from "../../components/ThemeGenerator/ThemeGenerator.astro"
 
   <p>
     Tweak the controls below to customize the design tokens. Pick which mode
-    you're editing - Light, Dark, or Both at once. When the edited mode matches
+    you're editing: Light, Dark, or Both at once. When the edited mode matches
     the site's current mode, the rest of the docs updates live too. Your changes
-    persist between visits and can also be copied as a stand-alone
-    <code>theme.css</code>.
+    persist between visits until you reset them, and you can copy or download
+    them as a stand-alone <code>theme.css</code>. Want a completely different
+    look instead? The <a class="ui-link" href={link("/themes")}>themes</a> page has
+    ready-made presets, and the sliders here keep working on top of whichever one
+    is active.
   </p>
 
   <Generator />

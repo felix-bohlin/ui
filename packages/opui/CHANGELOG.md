@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Component borders read `--border-width` (and `--field-border-width` for `Checkbox`, `Radio`, `Switch` and `TextField`) instead of a hardcoded `1px`. This affects `Accordion`, `ButtonGroup`, `Callout`, `Card`, `Chip`, `DescriptionList`, `List`, `Table`, `ToggleButton` and `ToggleGroup`.
+
 ## 5.5.0 - 2026-09-28
 
 ### Removed

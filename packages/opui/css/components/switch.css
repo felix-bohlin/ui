@@ -35,7 +35,7 @@
       &::before {
         background-color: var(--_track-bg-color);
         block-size: var(--_track-height);
-        border: 1px solid var(--_dot-bg-color);
+        border: var(--field-border-width) solid var(--_dot-bg-color);
         border-radius: var(--radius-round);
         content: "";
         inline-size: var(--_track-width);

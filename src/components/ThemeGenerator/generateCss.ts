@@ -29,8 +29,8 @@ const PALETTE_TOKENS = [
 
 type Snapshot = Record<Token, string>
 
-function snapshotFor(config: ModeConfig): Snapshot {
-  const out = { ...TOKEN_DEFAULTS }
+function snapshotFor(config: ModeConfig, defaults: Snapshot): Snapshot {
+  const out = { ...defaults }
   for (const [key, value] of Object.entries(config)) {
     if (key in out && typeof value === "string") {
       out[key as Token] = value
@@ -47,16 +47,51 @@ function paletteSource(snap: Snapshot): string {
   return `oklch(0.58 calc(0.21 * ${snap["--palette-chroma"]}) ${snap["--palette-hue"]})`
 }
 
+type Ramp = { gray: [string, string]; color: [string, string] }
+
+const RAMPS = {
+  "--text-primary": { gray: ["15", "1"], color: ["15", "1"] },
+  "--text-primary-contrast": { gray: ["2", "15"], color: ["2", "15"] },
+  "--text-muted": { gray: ["13", "4"], color: ["13", "4"] },
+  "--text-muted-contrast": { gray: ["4", "13"], color: ["4", "13"] },
+  "--surface-default": { gray: ["1", "13"], color: ["1", "14"] },
+  "--surface-filled": { gray: ["4", "15"], color: ["5", "16"] },
+  "--surface-tonal": { gray: ["3", "12"], color: ["4", "12"] },
+  "--surface-elevated": { gray: ["1", "12"], color: ["1", "12"] },
+  "--border-color": { gray: ["4", "12"], color: ["4", "12"] },
+  "--neutral": { gray: ["9", "9"], color: ["9", "9"] },
+  "--primary-contrast": { gray: ["1", "1"], color: ["1", "1"] },
+} satisfies Record<string, Ramp>
+
+function rampValue(ramp: Ramp, grays: { light: boolean; dark: boolean }) {
+  const light = grays.light
+    ? `--gray-${ramp.gray[0]}`
+    : `--color-${ramp.color[0]}`
+  const dark = grays.dark
+    ? `--gray-${ramp.gray[1]}`
+    : `--color-${ramp.color[1]}`
+  return light === dark
+    ? `var(${light})`
+    : `light-dark(var(${light}), var(${dark}))`
+}
+
 export function generateCss({
   light,
   dark,
+  defaults = TOKEN_DEFAULTS,
+  preset,
 }: {
   light: ModeConfig
   dark: ModeConfig
+  defaults?: Snapshot
+  preset?: string
 }): string {
-  const lightSnap = snapshotFor(light)
-  const darkSnap = snapshotFor(dark)
-  const graysEnabled = isGraysEnabled(light)
+  const lightSnap = snapshotFor(light, defaults)
+  const darkSnap = snapshotFor(dark, defaults)
+  const grays = { light: isGraysEnabled(light), dark: isGraysEnabled(dark) }
+  const graysEnabled = grays.light || grays.dark
+  const ramp = (token: keyof typeof RAMPS) =>
+    `    ${token}: ${rampValue(RAMPS[token], grays)};`
 
   const palettesDiffer = PALETTE_TOKENS.some(
     (t) =>
@@ -71,6 +106,13 @@ export function generateCss({
   const lines: string[] = []
   lines.push("/*")
   lines.push("  theme setup")
+  if (preset) {
+    lines.push("")
+    lines.push(
+      `  Tweaked on top of the "${preset}" docs preset. The preset itself`,
+    )
+    lines.push("  is not part of this file - grab it from the themes page.")
+  }
   lines.push("*/")
   lines.push("@layer theme {")
   lines.push("")
@@ -124,7 +166,7 @@ export function generateCss({
   lines.push("    --info: var(--blue);")
   lines.push("    --warning: var(--orange);")
   lines.push("    --critical: var(--red);")
-  lines.push(`    --neutral: var(${graysEnabled ? "--gray-9" : "--color-9"});`)
+  lines.push(ramp("--neutral"))
   lines.push("")
   lines.push("    /* 5. Primary */")
   lines.push("    --primary: var(--color-8);")
@@ -134,83 +176,29 @@ export function generateCss({
   lines.push(
     "    --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);",
   )
-  lines.push(
-    `    --primary-contrast: var(${graysEnabled ? "--gray-1" : "--color-1"});`,
-  )
+  lines.push(ramp("--primary-contrast"))
   lines.push("")
   lines.push("    /* 6. Text */")
-
-  if (graysEnabled) {
-    lines.push("    --text-primary: light-dark(var(--gray-15), var(--gray-1));")
-    lines.push(
-      "    --text-primary-contrast: light-dark(var(--gray-2), var(--gray-15));",
-    )
-    lines.push("    --text-muted: light-dark(var(--gray-13), var(--gray-4));")
-    lines.push(
-      "    --text-muted-contrast: light-dark(var(--gray-4), var(--gray-13));",
-    )
-  } else {
-    lines.push(
-      "    --text-primary: light-dark(var(--color-15), var(--color-1));",
-    )
-    lines.push(
-      "    --text-primary-contrast: light-dark(var(--color-2), var(--color-15));",
-    )
-    lines.push("    --text-muted: light-dark(var(--color-13), var(--color-4));")
-    lines.push(
-      "    --text-muted-contrast: light-dark(var(--color-4), var(--color-13));",
-    )
-  }
-
+  lines.push(ramp("--text-primary"))
+  lines.push(ramp("--text-primary-contrast"))
+  lines.push(ramp("--text-muted"))
+  lines.push(ramp("--text-muted-contrast"))
   lines.push("")
   lines.push("    /* 7. Surfaces */")
-
-  if (graysEnabled) {
-    lines.push(
-      "    --surface-default: light-dark(var(--gray-1), var(--gray-13));",
-    )
-    lines.push(
-      "    --surface-filled: light-dark(var(--gray-4), var(--gray-15));",
-    )
-    lines.push(
-      "    --surface-tonal: light-dark(var(--gray-3), var(--gray-12));",
-    )
-    lines.push(
-      "    --surface-elevated: light-dark(var(--gray-1), var(--gray-12));",
-    )
-  } else {
-    lines.push(
-      "    --surface-default: light-dark(var(--color-1), var(--color-14));",
-    )
-    lines.push(
-      "    --surface-filled: light-dark(var(--color-5), var(--color-16));",
-    )
-    lines.push(
-      "    --surface-tonal: light-dark(var(--color-4), var(--color-12));",
-    )
-    lines.push(
-      "    --surface-elevated: light-dark(var(--color-1), var(--color-12));",
-    )
-  }
-
+  lines.push(ramp("--surface-default"))
+  lines.push(ramp("--surface-filled"))
+  lines.push(ramp("--surface-tonal"))
+  lines.push(ramp("--surface-elevated"))
   lines.push("")
   lines.push("    /* 8. Borders */")
-
-  if (graysEnabled) {
-    lines.push("    --border-color: light-dark(var(--gray-4), var(--gray-12));")
-  } else {
-    lines.push(
-      "    --border-color: light-dark(var(--color-4), var(--color-12));",
-    )
-  }
-
+  lines.push(ramp("--border-color"))
   lines.push(`    --border-radius: ${lightSnap["--border-radius"]};`)
   lines.push("    --border-width: 1px;")
   lines.push("")
   lines.push(
     "    /* 9. Focus ring - components consume these and may override locally */",
   )
-  lines.push("    --focus-ring-color: var(--primary);")
+  lines.push("    /* --focus-ring-color: var(--primary); */")
   lines.push("    --focus-ring-width: 2px;")
   lines.push("    --focus-ring-offset: 2px;")
   lines.push("    --focus-ring-style: solid;")
@@ -244,14 +232,7 @@ export function generateCss({
   lines.push("")
   lines.push("    /* 12. Field / input */")
 
-  if (graysEnabled) {
-    lines.push("    --field-border-color: var(--border-color);")
-  } else {
-    lines.push(
-      "    --field-border-color: light-dark(var(--color-4), var(--color-12));",
-    )
-  }
-
+  lines.push("    --field-border-color: var(--border-color);")
   lines.push(
     `    --field-border-radius: ${lightSnap["--field-border-radius"]};`,
   )
@@ -274,7 +255,7 @@ export function generateCss({
       `    --palette-hue-rotate-by: ${darkSnap["--palette-hue-rotate-by"]};`,
     )
   }
-  if (graysEnabled) {
+  if (grays.dark) {
     if (darkSnap["--gray-chroma"] !== lightSnap["--gray-chroma"]) {
       darkOverrides.push(`    --gray-chroma: ${darkSnap["--gray-chroma"]};`)
     }
@@ -304,6 +285,12 @@ export function generateCss({
     lines.push("")
     lines.push("  .ui-dark {")
     lines.push(...darkOverrides)
+    lines.push("  }")
+    lines.push("")
+    lines.push("  @media (prefers-color-scheme: dark) {")
+    lines.push("    :where(html:not(.ui-light)) {")
+    lines.push(...darkOverrides.map((line) => `  ${line}`))
+    lines.push("    }")
     lines.push("  }")
   }
 

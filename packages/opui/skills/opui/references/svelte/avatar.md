@@ -157,14 +157,14 @@ Group multiple avatars by setting the `isGroup` prop on a parent container.
 | ------------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------ |
 | `alt`         | `string`                                 | -       | Alternative text for the image.                                          |
 | `as`          | `"div"` , `"button"` , `"a"`             | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"div"`. |
-| `children`    | `(Snippet<[]> & Snippet<[]>)`            | -       | Letters or an icon, when there's no image.                               |
+| `children`    | `Snippet`                                | -       | Letters or an icon, when there's no image.                               |
 | `command`     | `string`                                 | -       | The command to send to the `commandfor` target.                          |
 | `commandfor`  | `string`                                 | -       | The id of the element the command targets.                               |
 | `disabled`    | `boolean`                                | -       | Disables the avatar when `as` is `"button"`.                             |
 | `href`        | `string`                                 | -       | The link to use. Renders an `<a>`.                                       |
 | `interestfor` | `string`                                 | -       | The id of the element to show on interest.                               |
 | `isGroup`     | `boolean`                                | `false` | Renders a container that groups avatars.                                 |
-| `src`         | `string`                                 | -       | The image source. Replaces the default slot.                             |
+| `src`         | `string`                                 | -       | The image source. Replaces the content.                                  |
 | `variant`     | `"squared"` , `"rounded"` , `"squircle"` | -       | The variant to use.                                                      |
 
 #### CSS variables

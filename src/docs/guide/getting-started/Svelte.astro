@@ -16,10 +16,11 @@ import Theming from "./_theming.astro"
     <h2 id="installation">Install via NPM</h2>
     <p>
       The components ship as uncompiled Svelte components (<code>.svelte</code> and
-      <code>.ts</code>), so your build has to compile them. Any setup with
-      Svelte 5 support works, for example SvelteKit, Vite with <code
-        >@sveltejs/vite-plugin-svelte</code
-      >, or Astro with <code>@astrojs/svelte</code>.
+      <code>.ts</code>), so your build has to compile them. They need Svelte
+      5.29 or later. Any setup with Svelte support works, for example SvelteKit,
+      Vite with <code>@sveltejs/vite-plugin-svelte</code>, or Astro with <code
+        >@astrojs/svelte</code
+      >.
     </p>
     <CodeGroup
       tabs={[
@@ -91,11 +92,13 @@ import Theming from "./_theming.astro"
     />
     <p>
       Slots are snippets: the default slot is <code>children</code> and named slots
-      are camelCased, such as <code>endText</code>. Form controls support
-      <code>bind:value</code>, and <code>Checkbox</code> and <code>Switch</code> also
-      <code>bind:checked</code> and <code>bind:group</code>. Use <code
-        >bind:group</code
-      > on <code>Radio</code>.
+      are camelCased, such as <code>endText</code>. <code>TextField</code>, <code
+        >Textarea</code
+      >, <code>Select</code>, <code>ClassicSelect</code> and <code>Range</code> support
+      <code>bind:value</code>. <code>Checkbox</code> and <code>Switch</code> support
+      <code>bind:checked</code> and <code>bind:group</code>, and <code
+        >Radio</code
+      > supports <code>bind:group</code>.
     </p>
   </section>
 

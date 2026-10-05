@@ -82,7 +82,7 @@ The Svelte component destructures props, snippets and `...rest` from `$props()`:
 </script>
 ```
 
-Derived values go in `$derived()`. Slots are snippets: the default slot is `children`, named slots are camelCased (`end-text` becomes `endText`). Where Vue uses `defineModel`, Svelte uses `$bindable()`: `bind:value` on Select, ClassicSelect, TextField, Textarea and Range, `bind:checked` and `bind:group` on Checkbox and Switch, and `bind:group` on Radio. Vue's `provide`/`inject` maps to the typed `getContext`/`setContext` helpers in each component's `context.ts`.
+Derived values go in `$derived()`. Slots are snippets: the default slot is `children`, named slots are camelCased (`end-text` becomes `endText`). The components need Svelte 5.29 or later (`{@attach}`). Where Vue uses `defineModel`, Svelte uses `$bindable()`: `bind:value` on Select, ClassicSelect, TextField, Textarea and Range, `bind:checked` and `bind:group` on Checkbox and Switch, and `bind:group` on Radio. Vue's `provide`/`inject` maps to the typed `getContext`/`setContext` helpers in each component's `context.ts`.
 
 ### Key Rules:
 - **Alphabetical Sorting**: Sort property definitions in `types.ts` and variables in the destructuring statement.

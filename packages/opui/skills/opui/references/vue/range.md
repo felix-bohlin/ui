@@ -237,20 +237,20 @@ import { Range } from "opui-css/vue"
 
 ### Range API
 
-| Prop          | Type                                                                                | Default | Description                                                              |
-| ------------- | ----------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `endText`     | `string`                                                                            | -       | Supporting text displayed below the input.                               |
-| `error`       | `boolean`                                                                           | `false` | Shows error styles.                                                      |
-| `id`          | `string`                                                                            | -       | The id of the `<input>`. Generated when omitted and the value is shown.  |
-| `label`       | `string`                                                                            | -       | The label for the range.                                                 |
-| `list`        | `string`                                                                            | -       | The id of the `<datalist>`. Needed with `options`.                       |
-| `options`     | `(string \| number \| { value: string \| number; label?: string \| undefined; })[]` | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.           |
-| `spread`      | `boolean`                                                                           | `false` | Pushes the label and description to one side and the input to the other. |
-| `startText`   | `string`                                                                            | -       | Description text displayed above the input.                              |
-| `v-model`     | `number` , `string`                                                                 | -       | The current value.                                                       |
-| `value`       | `number` , `string`                                                                 | -       | The current value.                                                       |
-| `valueSuffix` | `string`                                                                            | -       | Shows the current value, with an optional `valueSuffix`.                 |
-| `variant`     | `"tonal"` , `"filled"`                                                              | -       | The track surface. Without one, the track uses the field border color.   |
+| Prop          | Type                                                                                | Default | Description                                                                                   |
+| ------------- | ----------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------- |
+| `endText`     | `string`                                                                            | -       | Supporting text displayed below the input.                                                    |
+| `error`       | `boolean`                                                                           | `false` | Shows error styles.                                                                           |
+| `id`          | `string`                                                                            | -       | The id of the `<input>`. Generated when omitted and the value is shown.                       |
+| `label`       | `string`                                                                            | -       | The label for the range.                                                                      |
+| `list`        | `string`                                                                            | -       | The id of the `<datalist>`. Needed with `options`.                                            |
+| `options`     | `(string \| number \| { value: string \| number; label?: string \| undefined; })[]` | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.                                |
+| `spread`      | `boolean`                                                                           | `false` | Pushes the label and description to one side and the input to the other.                      |
+| `startText`   | `string`                                                                            | -       | Description text displayed above the input.                                                   |
+| `v-model`     | `number` , `string`                                                                 | -       | The current value.                                                                            |
+| `value`       | `number` , `string`                                                                 | -       | The current value.                                                                            |
+| `valueSuffix` | `string`                                                                            | -       | Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`. |
+| `variant`     | `"tonal"` , `"filled"`                                                              | -       | The track surface. Without one, the track uses the field border color.                        |
 
 #### Slots
 

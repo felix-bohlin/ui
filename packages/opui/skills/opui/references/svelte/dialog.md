@@ -190,7 +190,7 @@ Source: [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/
 | -------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------ |
 | `actions`      | `Snippet`                             | -       | A group of actions, such as buttons.                                     |
 | `actionsAlign` | `"start"` , `"end"`                   | -       | Alignment for the actions.                                               |
-| `children`     | `(Snippet<[]> & Snippet<[]>)`         | -       | Raw content placed directly in the dialog.                               |
+| `children`     | `Snippet`                             | -       | Raw content placed directly in the dialog.                               |
 | `closedby`     | `"any"` , `"closerequest"` , `"none"` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
 | `content`      | `Snippet`                             | -       | The dialog content.                                                      |
 | `header`       | `string` , `Snippet`                  | -       | The dialog header.                                                       |
@@ -207,7 +207,7 @@ Source: [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
 
-Attributes that aren't props, such as `closedby` or `id`, go to the `<dialog>`.
+Attributes that aren't props, such as `id`, go to the `<dialog>`.
 
 ## Under the hood
 

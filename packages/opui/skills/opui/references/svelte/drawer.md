@@ -15,7 +15,7 @@ Put a `DrawerHeader` in the `header` snippet to add a heading and a close button
 
 The backdrop is blurred by default. Use `backdrop="transparent"` to remove the blur effect.
 
-Page scrolling is locked by default when the drawer is open. Use the `scrollLock=` prop to allow scrolling while the drawer is open.
+Page scrolling is locked by default when the drawer is open. Use the `scrollLock={false}` prop to allow scrolling while the drawer is open.
 
 ```svelte
 <script lang="ts">
@@ -195,7 +195,7 @@ Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the
 | Prop         | Type                                                                | Default          | Description                                                              |
 | ------------ | ------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------------ |
 | `backdrop`   | `"transparent"` , `"blurred"`                                       | `"blurred"`      | The backdrop style.                                                      |
-| `children`   | `(Snippet<[]> & Snippet<[]>)`                                       | -                | Raw content placed directly in the drawer.                               |
+| `children`   | `Snippet`                                                           | -                | Raw content placed directly in the drawer.                               |
 | `closedby`   | `"none"` , `"any"` , `"closerequest"`                               | `"any"`          | How the drawer can be closed. `"any"` also closes it on a click outside. |
 | `content`    | `Snippet`                                                           | -                | The scrollable content.                                                  |
 | `footer`     | `Snippet`                                                           | -                | The footer. `DrawerFooter` renders it.                                   |

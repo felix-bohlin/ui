@@ -42,7 +42,7 @@ export default {
       prop: "isGroup",
     },
     {
-      description: "The image source. Replaces the default slot.",
+      description: "The image source. Replaces the content.",
       frameworks: ["astro", "svelte", "vue"],
       prop: "src",
       type: "string",

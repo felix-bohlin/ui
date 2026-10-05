@@ -430,7 +430,7 @@ Bog-standard native HTML `<select>` without customized option list. Use it when 
 | Prop          | Type                                         | Default      | Description                                                               |
 | ------------- | -------------------------------------------- | ------------ | ------------------------------------------------------------------------- |
 | `bind:value`  | `string` , `number` , `(string \| number)[]` | -            | The selected value, or values with `multiple`.                            |
-| `children`    | `(Snippet<[]> & Snippet<[]>)`                | -            | Extra `<option>` and `<optgroup>` elements.                               |
+| `children`    | `Snippet`                                    | -            | Extra `<option>` and `<optgroup>` elements.                               |
 | `dense`       | `boolean`                                    | `false`      | Packs the options tighter.                                                |
 | `description` | `string` , `Snippet`                         | -            | Description text displayed above the field.                               |
 | `endText`     | `string` , `Snippet`                         | -            | Supporting text displayed below the field.                                |

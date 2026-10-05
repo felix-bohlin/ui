@@ -15,7 +15,7 @@ Put a `DrawerHeader` in the `header` slot to add a heading and a close button. P
 
 The backdrop is blurred by default. Use `backdrop="transparent"` to remove the blur effect.
 
-Page scrolling is locked by default when the drawer is open. Use the `scrollLock=` prop to allow scrolling while the drawer is open.
+Page scrolling is locked by default when the drawer is open. Use the `scrollLock={false}` prop to allow scrolling while the drawer is open.
 
 ```vue
 <script setup lang="ts">

@@ -51,9 +51,9 @@ export default {
       type: "number | string",
     },
     {
-      description: "Replaces the shown value.",
-      frameworks: ["svelte"],
-      prop: "valueText",
+      description:
+        "Text after the shown value, such as `%`. Setting it shows the current value in an `<output>`.",
+      prop: "valueSuffix",
     },
     {
       description:
@@ -79,6 +79,7 @@ export default {
       props: ["valueSuffix"],
       selector: "output.ui-value",
       slots: ["value"],
+      snippets: ["valueText"],
     },
     {
       description: "Description text displayed above the input.",

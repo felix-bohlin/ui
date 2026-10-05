@@ -78,7 +78,17 @@ const cleanType = (text: string) => {
   const hasString = parts.includes("string")
   return parts
     .filter((part) => !(hasString && /^\(string & .+\)$/.test(part)))
-    .map((part) => part.replace(/^Snippet<\[\]>$/, "Snippet"))
+    .map((part) => {
+      const types = [
+        ...new Set(
+          part
+            .replace(/^\((.*)\)$/, "$1")
+            .replaceAll("Snippet<[]>", "Snippet")
+            .split(" & "),
+        ),
+      ]
+      return types.length === 1 ? types[0] : part
+    })
     .join(" | ")
 }
 
@@ -191,6 +201,9 @@ export const describe = (
     if (kind === "prop" && part.props?.includes(name)) return part.description
     if (kind === "prop" && part.legacy?.props?.includes(name)) {
       return legacyOf(part.props?.[0] ?? "")
+    }
+    if (kind === "prop" && part.snippets?.includes(name)) {
+      return part.description
     }
     if (part.slots?.some(matches)) return part.description
     if (part.legacy?.slots?.some(matches)) {

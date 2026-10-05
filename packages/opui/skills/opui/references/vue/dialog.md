@@ -238,7 +238,7 @@ Source: [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
-Attributes that aren't props, such as `closedby` or `id`, go to the `<dialog>`.
+Attributes that aren't props, such as `id`, go to the `<dialog>`.
 
 ## Under the hood
 

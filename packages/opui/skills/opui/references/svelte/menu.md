@@ -223,19 +223,29 @@ Pass a `Menu` to the `submenu` snippet of a `ListItem`. Mark the item with an ic
 
 ## API
 
-| Type      | Modifiers                                               | Default                     | Description                                   |
-| --------- | ------------------------------------------------------- | --------------------------- | --------------------------------------------- |
-| Part      | `menu.ui-menu.ui-list[popover]`                         | -                           | The menu surface.                             |
-| Trigger   | `commandfor="id"`, `command="toggle-popover"`           | -                           | Opens the menu.                               |
-| Children  | `li > button`, `li > a`                                 | -                           | Menu items.                                   |
-| Children  | `command="hide-popover"`                                | -                           | Closes the menu on click.                     |
-| Children  | `li.ui-label`                                           | -                           | Group label.                                  |
-| Children  | `.ui-start`, `.ui-text`, `.ui-end`                      | -                           | Icons, text and shortcuts, as in a List item. |
-| Colors    | `.ui-critical`                                          | -                           | Destructive item.                             |
-| Placement | `.ui-block-start`, `.ui-inline-start`, `.ui-inline-end` | default                     | Where the menu opens.                         |
-| Placement | `.ui-align-end`                                         | -                           | Lines up with the trigger's end edge.         |
-| Placement | `--anchor-position-area`                                | `block-end span-inline-end` | Any valid `position-area` value.              |
-| Sizes     | `.ui-dense`                                             | -                           | Less spacing.                                 |
+| Prop        | Type                                                             | Default        | Description                                       |
+| ----------- | ---------------------------------------------------------------- | -------------- | ------------------------------------------------- |
+| `align`     | `"start"`, `"end"`                                               | `"start"`      | Which edge of the trigger the menu lines up with. |
+| `class`     | `string`                                                         | -              | Optional CSS class.                               |
+| `dense`     | `boolean`                                                        | `false`        | Less spacing.                                     |
+| `id`        | `string`                                                         | auto-generated | The trigger's `commandfor`.                       |
+| `items`     | `MenuItem[]`                                                     | -              | Menu items.                                       |
+| `placement` | `"block-end"`, `"block-start"`, `"inline-end"`, `"inline-start"` | `"block-end"`  | Where the menu opens.                             |
+| `popover`   | `"auto"`, `"manual"`                                             | `"auto"`       | The popover type.                                 |
+| `children`  | `Snippet`                                                        | -              | Optional child content.                           |
+
+### MenuItem
+
+| Key            | Type      | Default | Description                         |
+| -------------- | --------- | ------- | ----------------------------------- |
+| `borderTop`    | `boolean` | `false` | Divider above the item.             |
+| `closeOnClick` | `boolean` | `true`  | Close the menu on click.            |
+| `critical`     | `boolean` | `false` | Destructive item.                   |
+| `disabled`     | `boolean` | `false` | Disables the item.                  |
+| `href`         | `string`  | -       | Renders a link instead of a button. |
+| `label`        | `string`  | -       | The item text.                      |
+| `shortcut`     | `string`  | -       | Keyboard shortcut hint.             |
+| any other key  | `unknown` | -       | Passed to the item element.         |
 
 ## Under the hood
 

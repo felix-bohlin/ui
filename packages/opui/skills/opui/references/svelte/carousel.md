@@ -490,7 +490,7 @@ Announces item position. Buttons and markers are named.
 | ------------------- | ----------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `align`             | `"start"` , `"center"`        | `"start"`      | Where items snap.                                                                                                     |
 | `buttons`           | `boolean` , `"outside"`       | `true`         | Previous and next buttons. `"outside"` places them beside the items.                                                  |
-| `children`          | `(Snippet<[]> & Snippet<[]>)` | -              | An item.                                                                                                              |
+| `children`          | `Snippet`                     | -              | An item.                                                                                                              |
 | `label`             | `string`                      | -              | Accessible name of the carousel.                                                                                      |
 | `markers`           | `boolean`                     | `false`        | One marker per item, after the list.                                                                                  |
 | `orientation`       | `"horizontal"` , `"vertical"` | `"horizontal"` | Scroll direction. Vertical carousels need a block size, set with `--_block-size`.                                     |

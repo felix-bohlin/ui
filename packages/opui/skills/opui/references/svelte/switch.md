@@ -451,11 +451,11 @@ Attach the `data-invalid` attribute to your `FieldSet` component.
 
 Accessible switches should have a label. The first two approaches are equally ok:
 
-| Approach                                                       | Usage in Switch component                                                                                                                                                                                                                |
-| -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Provide a label inside the element                             | Use a `.ui-label` child for a [visible label](#visible-label), or a `.ui-sr-only` child to hide it visually while keeping it accessible. In Astro, Svelte and Vue, set the `hideLabel` prop to render the slot content as `.ui-sr-only`. |
-| Add an `aria-label` on the input                               | Not used. Use a `.ui-sr-only` label instead, also for icon-only switches.                                                                                                                                                                |
-| Have a visible label that you reference with `aria-labelledby` | Not used.                                                                                                                                                                                                                                |
+| Approach                                                       | Usage in Switch component                                                                                                                                                                                                         |
+| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Provide a label inside the element                             | Use a `.ui-label` child for a [visible label](#visible-label), or a `.ui-sr-only` child to hide it visually while keeping it accessible. In Astro, Svelte and Vue, set the `hideLabel` prop to render the label as `.ui-sr-only`. |
+| Add an `aria-label` on the input                               | Not used. Use a `.ui-sr-only` label instead, also for icon-only switches.                                                                                                                                                         |
+| Have a visible label that you reference with `aria-labelledby` | Not used.                                                                                                                                                                                                                         |
 
 ### Keyboard support
 
@@ -467,19 +467,19 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Switch API
 
-| Prop            | Type                          | Default | Description                                       |
-| --------------- | ----------------------------- | ------- | ------------------------------------------------- |
-| `bind:checked`  | `boolean`                     | -       | The checked state.                                |
-| `bind:group`    | `(string \| number)[]`        | -       | The checked values of a group.                    |
-| `children`      | `(Snippet<[]> & Snippet<[]>)` | -       | The label.                                        |
-| `endText`       | `string` , `Snippet`          | -       | Supporting text displayed below the label.        |
-| `error`         | `boolean`                     | `false` | Shows error styles.                               |
-| `hideLabel`     | `boolean`                     | `false` | Visually hides the label.                         |
-| `iconChecked`   | `Snippet`                     | -       | An optional icon in the thumb when checked.       |
-| `iconUnchecked` | `Snippet`                     | -       | An optional icon in the thumb when unchecked.     |
-| `size`          | `"small"`                     | -       | The size of the element.                          |
-| `spread`        | `boolean`                     | `false` | Pushes the label and the switch to opposite ends. |
-| `stack`         | `boolean`                     | `false` | Stacks the label under the switch.                |
+| Prop            | Type                   | Default | Description                                       |
+| --------------- | ---------------------- | ------- | ------------------------------------------------- |
+| `bind:checked`  | `boolean`              | -       | The checked state.                                |
+| `bind:group`    | `(string \| number)[]` | -       | The checked values of a group.                    |
+| `children`      | `Snippet`              | -       | The label.                                        |
+| `endText`       | `string` , `Snippet`   | -       | Supporting text displayed below the label.        |
+| `error`         | `boolean`              | `false` | Shows error styles.                               |
+| `hideLabel`     | `boolean`              | `false` | Visually hides the label.                         |
+| `iconChecked`   | `Snippet`              | -       | An optional icon in the thumb when checked.       |
+| `iconUnchecked` | `Snippet`              | -       | An optional icon in the thumb when unchecked.     |
+| `size`          | `"small"`              | -       | The size of the element.                          |
+| `spread`        | `boolean`              | `false` | Pushes the label and the switch to opposite ends. |
+| `stack`         | `boolean`              | `false` | Stacks the label under the switch.                |
 
 #### CSS variables
 

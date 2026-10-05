@@ -16,7 +16,7 @@ Peer dependencies:
 - `astro` `^7` (only required if you use the Astro components)
 - `open-props` `^1.7.23`
 - `solid-js` `^1.9` (optional; only the Solid type files ship today, there are no Solid components yet)
-- `svelte` `^5` (only required if you use the Svelte components)
+- `svelte` `^5.29` (only required if you use the Svelte components)
 - `vue` `^3.5` (only required if you use the Vue components)
 
 Every component folder also ships `types.solid.ts` for projects that port the markup to Solid.

@@ -4,7 +4,7 @@ OPUI ships first-class Svelte 5 components. Install the package, import what you
 
 ## Install via NPM
 
-The components ship as uncompiled Svelte components (`.svelte` and `.ts`), so your build has to compile them. Any setup with Svelte 5 support works, for example SvelteKit, Vite with `@sveltejs/vite-plugin-svelte`, or Astro with `@astrojs/svelte`.
+The components ship as uncompiled Svelte components (`.svelte` and `.ts`), so your build has to compile them. They need Svelte 5.29 or later. Any setup with Svelte support works, for example SvelteKit, Vite with `@sveltejs/vite-plugin-svelte`, or Astro with `@astrojs/svelte`.
 
 `pnpm`
 
@@ -63,7 +63,7 @@ Or pick and choose in a CSS file, and import that file in your layout instead:
 <Button variant="filled">Click me</Button>
 ```
 
-Slots are snippets: the default slot is `children` and named slots are camelCased, such as `endText`. Form controls support `bind:value`, and `Checkbox` and `Switch` also `bind:checked` and `bind:group`. Use `bind:group` on `Radio`.
+Slots are snippets: the default slot is `children` and named slots are camelCased, such as `endText`. `TextField`, `Textarea`, `Select`, `ClassicSelect` and `Range` support `bind:value`. `Checkbox` and `Switch` support `bind:checked` and `bind:group`, and `Radio` supports `bind:group`.
 
 ## Theming
 

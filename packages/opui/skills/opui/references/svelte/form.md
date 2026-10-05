@@ -14,7 +14,7 @@ Dog Cat
 
   Container element. Spaces its fieldsets and fields.
 
-- `<fieldset>`
+- `<FieldSet>`
 
   Groups related fields.
 
@@ -26,7 +26,7 @@ Dog Cat
 
   Supporting text displayed below the legend.
 
-- `.ui-field-group`
+- `<FieldGroup>`
 
   Lays out related fields.
 

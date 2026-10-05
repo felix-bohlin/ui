@@ -220,7 +220,7 @@ Align actions to the end with the `actionsAlign="end"` prop.
 | -------------- | -------------------------------------------------- | ------- | ---------------------------------------- |
 | `actions`      | `Snippet`                                          | -       | A group of actions, such as buttons.     |
 | `actionsAlign` | `"start"` , `"end"`                                | -       | Alignment for the actions.               |
-| `children`     | `(Snippet<[]> & Snippet<[]>)`                      | -       | Raw content placed directly in the card. |
+| `children`     | `Snippet`                                          | -       | Raw content placed directly in the card. |
 | `content`      | `Snippet`                                          | -       | The card content.                        |
 | `header`       | `Snippet`                                          | -       | The card header.                         |
 | `variant`      | `"outlined"` , `"elevated"` , `"tonal"` , `"text"` | -       | The variant to use.                      |

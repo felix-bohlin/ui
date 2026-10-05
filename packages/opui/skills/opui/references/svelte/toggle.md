@@ -285,7 +285,7 @@ Toggle buttons in a group wrap onto more rows when they don't fit. Use `scrollab
 
 | Prop          | Type                                              | Default      | Description                                                                                                       |
 | ------------- | ------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
-| `children`    | `Snippet<[]> & Snippet<[]>`                       | -            | The toggle buttons.                                                                                               |
+| `children`    | `Snippet`                                         | -            | The toggle buttons.                                                                                               |
 | `name`        | `string`                                          | -            | The name shared by the inputs. Generated when omitted.                                                            |
 | `orientation` | `"vertical"`                                      | -            | The orientation of the element.                                                                                   |
 | `scrollable`  | `boolean`                                         | `false`      | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
@@ -322,7 +322,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 | Prop       | Type                                | Default      | Description                                                |
 | ---------- | ----------------------------------- | ------------ | ---------------------------------------------------------- |
-| `children` | `(Snippet<[]> & Snippet<[]>)`       | -            | The label and an optional icon.                            |
+| `children` | `Snippet`                           | -            | The label and an optional icon.                            |
 | `disabled` | `boolean`                           | `false`      | Disables the button.                                       |
 | `id`       | `string`                            | -            | The id of the `<input>`. Generated when omitted.           |
 | `label`    | `string`                            | -            | The input value when `value` is omitted.                   |

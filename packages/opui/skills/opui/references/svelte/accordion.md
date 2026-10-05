@@ -304,7 +304,7 @@ Set the `markerAnimation` prop to change how the marker animates when the accord
 | Prop              | Type                                                  | Default     | Description                                                    |
 | ----------------- | ----------------------------------------------------- | ----------- | -------------------------------------------------------------- |
 | `actions`         | `Snippet`                                             | -           | A group of actions, such as buttons.                           |
-| `children`        | `Snippet<[]> & Snippet<[]>`                           | -           | The collapsible content.                                       |
+| `children`        | `Snippet`                                             | -           | The collapsible content.                                       |
 | `marker`          | `Snippet`                                             | -           | The marker. Astro, Svelte and Vue render a chevron by default. |
 | `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                      | `"rotate"`  | How the marker animates when the accordion opens.              |
 | `name`            | `string`                                              | -           | Groups accordions so only one of them can be open at a time.   |

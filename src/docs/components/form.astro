@@ -43,14 +43,18 @@ const anatomyApi = {
   parts: [
     {
       code: "<fieldset>",
-      component: { astro: "FieldSet", vue: "FieldSet" },
+      component: { astro: "FieldSet", svelte: "FieldSet", vue: "FieldSet" },
       description: "Groups related fields.",
       selector: ".ui-fieldset",
     },
     ...fieldSetApi.parts,
     {
       code: ".ui-field-group",
-      component: { astro: "FieldGroup", vue: "FieldGroup" },
+      component: {
+        astro: "FieldGroup",
+        svelte: "FieldGroup",
+        vue: "FieldGroup",
+      },
       description: "Lays out related fields.",
       selector: ".ui-fieldset .ui-field-group",
     },

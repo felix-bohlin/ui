@@ -334,7 +334,7 @@ importers:
         specifier: ^1.9
         version: 1.9.14
       svelte:
-        specifier: ^5
+        specifier: ^5.29
         version: 5.56.4
       vue:
         specifier: ^3.5

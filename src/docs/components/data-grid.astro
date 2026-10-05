@@ -6,7 +6,7 @@ import Conditional from "../../components/Conditional.astro"
 import DocLink from "../../components/DocLink.astro"
 import DataGridBuild from "../../components/UnderTheHood/DataGridBuild.astro"
 import { Code } from "astro-expressive-code/components"
-import { DataGrid as UIDataGrid, Table } from "@opui/astro"
+import { DataGrid as UIDataGrid, Table, Callout } from "@opui/astro"
 import type { DataGridRow } from "@opui/astro"
 
 import DataGridCSS from "@opui/css/components/data-grid.css?raw"
@@ -192,6 +192,14 @@ const techniques = [
       href="/components/table">Table</DocLink
     >.
   </Fragment>
+
+  <Callout>
+    <Fragment slot="title">This is SO COOL!</Fragment>
+    <p>
+      Don't miss the <a href="#under-the-hood">Under the hood</a> section to see how
+      it works!
+    </p>
+  </Callout>
 
   <Fragment slot="anatomy">
     <Anatomy>

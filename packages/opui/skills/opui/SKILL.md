@@ -12,7 +12,7 @@ A CSS UI library built on [Open Props](https://open-props.style/). It ships fram
 Install with `npm install opui-css open-props`.
 
 - With a bundler, import everything with `@import "opui-css/css/imports.css"`, or one component at a time from `opui-css/css/components/<name>.css`.
-- Without a bundler, link `https://cdn.jsdelivr.net/npm/opui-css/dist/opui.css`.
+- Without a bundler, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`.
 - Astro: `import { Button } from "opui-css/astro"`. Vue: `import { Button } from "opui-css/vue"`. Both still need the CSS imported once.
 
 ## Conventions

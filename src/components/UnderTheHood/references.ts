@@ -333,10 +333,26 @@ export const references = {
       href: mdn("Web/HTML/Element/input/range"),
       label: '<input type="range">',
     },
+    { code: true, href: mdn("Web/CSS/@property"), label: "@property" },
+    {
+      code: true,
+      href: mdn("Web/CSS/animation-timeline"),
+      label: "animation-timeline",
+    },
     {
       code: true,
       href: mdn("Web/CSS/gradient/linear-gradient"),
       label: "linear-gradient()",
+    },
+    {
+      code: true,
+      href: mdn("Web/CSS/timeline-scope"),
+      label: "timeline-scope",
+    },
+    {
+      code: true,
+      href: mdn("Web/CSS/view-timeline"),
+      label: "view-timeline",
     },
   ],
   rhythm: [

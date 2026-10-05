@@ -22,7 +22,6 @@ import forcedColorsSwitchToggle from "../todo-examples/forced-colors-switch-togg
 import labelLessControls from "../todo-examples/label-less-controls.html?raw"
 import linkHoverContrast from "../todo-examples/link-hover-contrast.html?raw"
 import listNestedLists from "../todo-examples/list-nested-lists.html?raw"
-import menuRovingFocus from "../todo-examples/menu-roving-focus.html?raw"
 import primaryContrast from "../todo-examples/primary-contrast.html?raw"
 import rangeTrackFill from "../todo-examples/range-track-fill.html?raw"
 import richTextComponentLeaks from "../todo-examples/rich-text-component-leaks.html?raw"
@@ -130,10 +129,6 @@ export const todoExamples = {
   "list-nested-lists": {
     match: "`.ui-list` styles nested classless lists",
     source: listNestedLists,
-  },
-  "menu-roving-focus": {
-    match: "Menu: arrow key navigation",
-    source: menuRovingFocus,
   },
   "primary-contrast": {
     match: "`contrast-color()` for `--primary-contrast`",

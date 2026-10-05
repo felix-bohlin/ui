@@ -5,46 +5,10 @@
   "dark/stress/layout/Badges": [
     "color-contrast"
   ],
-  "dark/stress/typography/Bidi": [
-    "color-contrast"
-  ],
-  "dark/stress/typography/EveryElement": [
-    "color-contrast"
-  ],
-  "dark/stress/typography/HeadingClasses": [
-    "color-contrast"
-  ],
-  "dark/stress/typography/VerticalRhythm": [
-    "color-contrast"
-  ],
-  "dark/typography/Default": [
-    "color-contrast"
-  ],
-  "dark/typography/HeadingGroup": [
-    "color-contrast"
-  ],
-  "dark/typography/HeadingGroupClass": [
-    "color-contrast"
-  ],
-  "dark/typography/Variants": [
-    "color-contrast"
-  ],
-  "light/list/Default": [
-    "color-contrast"
-  ],
-  "light/list/EndKeyboard": [
-    "color-contrast"
-  ],
   "light/stress/data-display/InlineAlignment": [
     "color-contrast"
   ],
   "light/stress/layout/Badges": [
-    "color-contrast"
-  ],
-  "light/stress/typography/ProseInComponents": [
-    "color-contrast"
-  ],
-  "light/typography/Default": [
     "color-contrast"
   ]
 }

@@ -15,7 +15,9 @@ defineOptions({
 const group = inject(ToggleGroupKey, undefined)
 const currentFieldName = inject(CurrentFieldNameKey, undefined)
 const finalName = computed(() => name || group?.name || currentFieldName)
-const finalType = computed(() => type || group?.type || "checkbox")
+const finalType = computed(() =>
+  group?.type === "radio" ? "radio" : type || group?.type || "checkbox",
+)
 const uid = useId()
 const inputId = computed(() => id || uid)
 </script>

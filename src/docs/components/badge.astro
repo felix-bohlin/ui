@@ -175,6 +175,29 @@ export const description =
 
   <BadgeBuild slot="under-the-hood" />
 
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        A count on its own is read without context, such as "5". Add visually
+        hidden text inside the indicator, so it's read as "5 unread messages":
+        <Conditional>
+          <Fragment slot="astro">the <code>srLabel</code> prop.</Fragment>
+          <Fragment slot="html"
+            >a <code>.ui-sr-only</code> element inside <code
+              >.ui-badge-indicator</code
+            >.</Fragment
+          >
+          <Fragment slot="vue">the <code>srLabel</code> prop.</Fragment>
+        </Conditional>
+      </li>
+      <li>
+        Don't use <code>aria-label</code> on the indicator. It's a
+        <code>&lt;span&gt;</code> without a role, so screen readers ignore the label
+        and read the text.
+      </li>
+    </ul>
+  </Fragment>
+
   <Fragment slot="anatomy">
     <Anatomy zoom={2}>
       <UIBadge label="5">

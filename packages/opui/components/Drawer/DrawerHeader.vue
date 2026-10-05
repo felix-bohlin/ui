@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, inject } from "vue"
 import Button from "../Button/Button.vue"
+import { DrawerHeadingIdKey } from "./types.d.vue"
 import type { DrawerHeaderProps, DrawerHeaderSlots } from "./types.d.vue"
 
 const {
@@ -14,6 +15,8 @@ defineOptions({
   inheritAttrs: false,
 })
 
+const headingId = inject(DrawerHeadingIdKey, undefined)
+
 const closeAttrs = computed(() =>
   commandfor
     ? { command: "close", commandfor }
@@ -23,7 +26,7 @@ const closeAttrs = computed(() =>
 
 <template>
   <div :class="['ui-header', $props.class]" v-bind="$attrs">
-    <h2 v-if="heading">{{ heading }}</h2>
+    <h2 v-if="heading" :id="headingId">{{ heading }}</h2>
     <slot></slot>
     <Button
       :aria-label="closeLabel"

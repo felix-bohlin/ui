@@ -1,26 +1,14 @@
 <script setup lang="ts">
-import { computed } from "vue"
 import Anchor from "../Anchor/Anchor.vue"
 import type { Props, Slots } from "./types.d.vue"
 
 const { alignment, color, dot, invisible, label, srLabel } =
   defineProps<Props>()
 defineSlots<Slots>()
-
-const positionArea = computed(() =>
-  alignment === "start-start"
-    ? "start start"
-    : alignment === "end-start"
-      ? "end start"
-      : alignment === "end-end"
-        ? "end end"
-        : undefined,
-)
 </script>
 
 <template>
   <Anchor
-    :alignment="positionArea"
     :class="[
       'ui-badge',
       {

@@ -82,6 +82,11 @@
     .ui-actions {
       justify-content: end;
       padding-inline: var(--size-3) var(--size-1);
+
+      &.ui-align-start {
+        justify-content: start;
+        padding-inline: var(--size-1) var(--size-3);
+      }
     }
 
     &[open] {

@@ -63,6 +63,27 @@ const steps = [
   },
   {
     css: `
+.range {
+  animation: build-range-fill linear both;
+  animation-range: contain;
+  animation-timeline: --thumb;
+  box-sizing: content-box;
+  margin: -0.75rem;
+  outline-offset: -0.75rem;
+  overflow: hidden;
+  padding: 0.75rem;
+  timeline-scope: --thumb;
+}
+
+.range:dir(rtl) {
+  animation-direction: reverse;
+}
+
+.range::-webkit-slider-thumb {
+  view-timeline: --thumb inline;
+  view-timeline-inset: 0.75rem;
+}
+
 .range::-webkit-slider-runnable-track {
   background-image: linear-gradient(var(--primary), var(--primary));
   background-repeat: no-repeat;
@@ -74,22 +95,36 @@ const steps = [
   block-size: 0.75ex;
   border-radius: 1e5px;
 }`,
-    features: ["gradients"],
+    features: [
+      "gradients",
+      "registered-custom-properties",
+      "scroll-driven-animations",
+    ],
     html: `
-<input class="range" type="range" min="0" max="100" value="40" />
-
-<script>
-  const update = () => {
-    const fill = ((input.value - input.min) / (input.max - input.min)) * 100
-    input.style.setProperty("--fill", fill + "%")
+<style>
+  @property --fill {
+    syntax: "<percentage>";
+    inherits: true;
+    initial-value: 0%;
   }
-  input.addEventListener("input", update)
-  update()
-</script>`,
+
+  @keyframes build-range-fill {
+    from {
+      --fill: 100%;
+    }
+
+    to {
+      --fill: 0%;
+    }
+  }
+</style>`,
     notes: [
       "Firefox draws the filled part with <code>::-moz-range-progress</code>",
       "Elsewhere a one-color <code>linear-gradient</code>, sized to <code>--fill</code>, paints it",
-      "A few lines of JavaScript keep <code>--fill</code> in sync with the value",
+      "<code>overflow: hidden</code> makes the input a scroller, and the thumb a <code>view-timeline</code> inside it. <code>timeline-scope</code> lets the input use it",
+      "The thumb's position drives the animation: <code>--fill</code> is registered as a <code>&lt;percentage&gt;</code>, so it animates. No JavaScript",
+      "The timeline runs from the end edge, so the keyframes go from <code>100%</code> to <code>0%</code>, reversed in right-to-left",
+      "Padding with an equal negative margin leaves room for the thumb and halo, <code>view-timeline-inset</code> and <code>outline-offset</code> take it back out",
     ],
     title: "Fill",
   },
@@ -203,6 +238,24 @@ const ticks = [0, 25, 50, 75, 100]
   }
 </style>
 
+<style is:global>
+  @property --fill {
+    syntax: "<percentage>";
+    inherits: true;
+    initial-value: 0%;
+  }
+
+  @keyframes build-range-fill {
+    from {
+      --fill: 100%;
+    }
+
+    to {
+      --fill: 0%;
+    }
+  }
+</style>
+
 <script>
   function initRangeBuild() {
     const input = document.querySelector<HTMLInputElement>("#build-range-input")
@@ -212,10 +265,6 @@ const ticks = [0, 25, 50, 75, 100]
     if (!input || input.dataset.ready) return
     input.dataset.ready = ""
     const update = () => {
-      const min = Number(input.min || 0)
-      const max = Number(input.max || 100)
-      const fill = ((Number(input.value) - min) / (max - min || 1)) * 100
-      input.style.setProperty("--fill", `${fill}%`)
       if (output) output.textContent = input.value
     }
     input.addEventListener("input", update)

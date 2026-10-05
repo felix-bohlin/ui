@@ -231,14 +231,16 @@ import { DescriptionList } from "@opui/astro"
     <Conditional>
       <p slot="astro">
         Use <code>FieldGroup</code> to wrap related fields. It provides a shared
-        {" "}<code>name</code> to all nested inputs.
+        {" "}<code>name</code> to all nested inputs, except button, hidden, image,
+        reset and submit inputs.
       </p>
       <p slot="html">
         Use <code>.ui-field-group</code> to wrap related fields.
       </p>
       <p slot="vue">
         Use <code>FieldGroup</code> to wrap related fields. It provides a shared
-        {" "}<code>name</code> to all nested inputs.
+        {" "}<code>name</code> to the OPUI fields inside. Native elements need their
+        own <code>name</code>.
       </p>
     </Conditional>
     <p>

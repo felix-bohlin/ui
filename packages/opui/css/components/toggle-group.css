@@ -80,5 +80,14 @@
         }
       }
     }
+
+    @media (forced-colors: active) {
+      .ui-toggle-button {
+        border-block-start: var(--border-width) solid CanvasText;
+        border-inline-start: var(--border-width) solid CanvasText;
+        margin-block-start: calc(-1 * var(--border-width));
+        margin-inline-start: calc(-1 * var(--border-width));
+      }
+    }
   }
 }

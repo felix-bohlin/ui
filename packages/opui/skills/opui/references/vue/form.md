@@ -204,7 +204,7 @@ import { FieldDescription, FieldLegend, FieldSet } from "opui-css/vue"
 
 ## Field group
 
-Use `FieldGroup` to wrap related fields. It provides a shared `name` to all nested inputs.
+Use `FieldGroup` to wrap related fields. It provides a shared `name` to the OPUI fields inside. Native elements need their own `name`.
 
 The field group only handles layout. Wrap it in a fieldset with a legend to group and name the fields for screen readers.
 
@@ -758,10 +758,10 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Field group API
 
-| Prop        | Type                | Default | Description                                             |
-| ----------- | ------------------- | ------- | ------------------------------------------------------- |
-| `direction` | `"row"`, `"column"` | -       | The orientation of the element.                         |
-| `name`      | `string`            | -       | Sets `name` on every input, select and textarea inside. |
+| Prop        | Type                | Default | Description                                                                                                              |
+| ----------- | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `direction` | `"row"`, `"column"` | -       | The orientation of the element.                                                                                          |
+| `name`      | `string`            | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
 
 #### Slots
 

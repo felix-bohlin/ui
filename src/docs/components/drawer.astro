@@ -257,6 +257,28 @@ import Conditional from "../../components/Conditional.astro"
   <Fragment slot="accessibility">
     <ul>
       <li>
+        <Conditional>
+          <Fragment slot="astro"
+            >The drawer is named by the first heading in the <code>header</code> slot,
+            through <code>aria-labelledby</code>. Pass <code>aria-label</code> or
+            <code>aria-labelledby</code> to name it yourself.</Fragment
+          >
+          <Fragment slot="html"
+            >Name the drawer with <code>aria-labelledby</code> pointing at the heading's
+            <code>id</code>, not at <code>.ui-header</code>, which also holds
+            the close button.</Fragment
+          >
+          <Fragment slot="vue"
+            >The drawer is named by the <code>heading</code> of a <code
+              >DrawerHeader</code
+            > in the <code>header</code> slot, through <code
+              >aria-labelledby</code
+            >. With your own heading, pass <code>aria-labelledby</code> or
+            <code>aria-label</code> to <code>Drawer</code>.</Fragment
+          >
+        </Conditional>
+      </li>
+      <li>
         The <code>autofocus</code> attribute should be added to the element the user
         is expected to interact with immediately upon opening a modal dialog. If no
         other element involves more immediate interaction, it is recommended to add

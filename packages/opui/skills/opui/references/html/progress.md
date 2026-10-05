@@ -72,7 +72,9 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 | Variable            | Default                                      | Description                                                                                                                |
 | ------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                |
 | `--border-radius`   | `var(--size-2)`                              | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--border-width`    | `1px`                                        | Default border width for components that draw a border.                                                                    |
 | `--duration`        | `0.2s`                                       | Default transition duration. Multiplied by `--motion`.                                                                     |
 | `--ease-enter`      | `var(--ease-out-3)`                          | Easing for elements entering the screen.                                                                                   |
 | `--motion`          | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |

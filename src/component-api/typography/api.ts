@@ -67,6 +67,13 @@ export default {
       },
     },
     {
+      class: ".ui-link",
+      description:
+        "Link styles outside `.ui-rich-text`. Hover and focus darken the color in light mode, lighten it in dark mode and thicken the underline.",
+      group: "Link",
+      prop: "link",
+    },
+    {
       class: ".ui-overline",
       description: "Small uppercase label text.",
       group: "Overline",

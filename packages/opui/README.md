@@ -86,7 +86,7 @@ Drop a pre-bundled stylesheet into any page and use the documented class names:
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/opui-css/dist/opui.css"
+  href="https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css"
 />
 
 <button class="ui-button ui-primary">Click me</button>

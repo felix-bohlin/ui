@@ -150,7 +150,7 @@
       & > button {
         padding: var(--size-2);
 
-        &:has(svg) {
+        &:has(> svg:only-child) {
           aspect-ratio: 1;
           padding: var(--size-1);
         }

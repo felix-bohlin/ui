@@ -247,10 +247,10 @@ Attributes that aren't props, such as `disabled`, `name` or `value`, go to the `
 
 ### Field group API
 
-| Prop        | Type                | Default | Description                                             |
-| ----------- | ------------------- | ------- | ------------------------------------------------------- |
-| `direction` | `"row"`, `"column"` | -       | The orientation of the element.                         |
-| `name`      | `string`            | -       | Sets `name` on every input, select and textarea inside. |
+| Prop        | Type                | Default | Description                                                                                                              |
+| ----------- | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `direction` | `"row"`, `"column"` | -       | The orientation of the element.                                                                                          |
+| `name`      | `string`            | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
 
 #### Slots
 

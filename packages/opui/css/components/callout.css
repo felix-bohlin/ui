@@ -108,8 +108,8 @@
       grid-template-columns: var(--_icon-size) 1fr;
 
       & > svg {
+        color: var(--_icon-color);
         margin-block-start: 0.15rem;
-        stroke: var(--_icon-color);
       }
     }
   }

@@ -38,6 +38,7 @@
       color: var(--text-muted);
       font-size: var(--font-size-05);
       line-height: var(--font-lineheight-3);
+      margin: 0;
 
       &:has(+ *) {
         margin-block-end: var(--size-3);
@@ -120,7 +121,7 @@
     }
 
     /* If it only has buttons */
-    &:has(> .ui-button):not(:has(> :not(.ui-button))) {
+    &:has(> .ui-button):not(.ui-column, :has(> :not(.ui-button))) {
       align-items: center;
       flex-direction: row;
       gap: var(--size-2);
@@ -136,6 +137,10 @@
     }
 
     /* Directions */
+    &.ui-column:has(> .ui-button):not(:has(> :not(.ui-button))) {
+      align-items: start;
+    }
+
     &.ui-row {
       flex-direction: row;
       flex-wrap: wrap;

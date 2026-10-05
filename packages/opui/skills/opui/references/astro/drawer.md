@@ -5,6 +5,7 @@ Slides in from the sides, top or bottom of the screen.
 ### What's new
 
 - Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls.
+- Named by the header heading through `aria-labelledby`.
 
 ## Usage
 
@@ -168,6 +169,7 @@ Use the `closedby` prop to control the closing behavior.
 
 ## Accessibility
 
+- The drawer is named by the first heading in the `header` slot, through `aria-labelledby`. Pass `aria-label` or`aria-labelledby` to name it yourself.
 - The `autofocus` attribute should be added to the element the user is expected to interact with immediately upon opening a modal dialog. If no other element involves more immediate interaction, it is recommended to add autofocus to the close button inside the dialog, or the dialog itself if the user is expected to click/activate it to dismiss.
 - Do not add the `tabindex` property to the `<dialog>` element as it is not interactive and does not receive focus. The dialog's contents, including the close button contained in the dialog, can receive focus and be interactive.
 

@@ -19,9 +19,9 @@
 
   An optional icon.
 
-- `<span>`
+- `<span class="ui-text">`
 
-  The label.
+  The label. Wrap it when the button has an icon.
 
 ## Variants
 
@@ -85,7 +85,7 @@ import { Button } from "opui-css/vue"
 
 ## Buttons with icon and label
 
-Include an icon alongside text by nesting it within the component. Always wrap the label in a `<span>`: it tightens the padding on the icon side, and a button whose only element is an `svg` is styled as icon-only.
+Include an icon alongside text by nesting it within the component. Always wrap the label in a `<span class="ui-text">`: it tightens the padding on the icon side, and a button whose only element is an `svg` is styled as icon-only, even with text next to it.
 
 ```vue
 <script setup lang="ts">
@@ -95,38 +95,38 @@ import { Button } from "opui-css/vue"
 
 <template>
   <Button>
-    <span>Text</span>
+    <span class="ui-text">Text</span>
     <svg><!-- --></svg>
   </Button>
   <Button variant="outlined">
-    <span>Outlined</span>
+    <span class="ui-text">Outlined</span>
     <svg><!-- --></svg>
   </Button>
   <Button variant="tonal">
-    <span>Tonal</span>
+    <span class="ui-text">Tonal</span>
     <svg><!-- --></svg>
   </Button>
   <Button variant="filled">
-    <span>Filled</span>
+    <span class="ui-text">Filled</span>
     <svg><!-- --></svg>
   </Button>
 
 
   <Button>
     <svg><!-- --></svg>
-    <span>Text</span>
+    <span class="ui-text">Text</span>
   </Button>
   <Button variant="outlined">
     <svg><!-- --></svg>
-    <span>Outlined</span>
+    <span class="ui-text">Outlined</span>
   </Button>
   <Button variant="tonal">
     <svg><!-- --></svg>
-    <span>Tonal</span>
+    <span class="ui-text">Tonal</span>
   </Button>
   <Button variant="filled">
     <svg><!-- --></svg>
-    <span>Filled</span>
+    <span class="ui-text">Filled</span>
   </Button>
 </template>
 ```
@@ -160,7 +160,7 @@ import { Button } from "opui-css/vue"
 
 
 <template>
-  <Button aria-label="Edit">
+  <Button icon-only label="Edit">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -173,7 +173,7 @@ import { Button } from "opui-css/vue"
       ></path>
     </svg>
   </Button>
-  <Button aria-label="Edit" rounded>
+  <Button icon-only label="Edit" rounded>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -186,7 +186,7 @@ import { Button } from "opui-css/vue"
       ></path>
     </svg>
   </Button>
-  <Button aria-label="Edit" ripple rounded>
+  <Button icon-only label="Edit" ripple rounded>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -199,7 +199,7 @@ import { Button } from "opui-css/vue"
       ></path>
     </svg>
   </Button>
-  <Button aria-label="Edit" ripple rounded variant="tonal">
+  <Button icon-only label="Edit" ripple rounded variant="tonal">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -212,7 +212,14 @@ import { Button } from "opui-css/vue"
       ></path>
     </svg>
   </Button>
-  <Button aria-label="Edit" color="primary" ripple rounded variant="filled">
+  <Button
+    icon-only
+    label="Edit"
+    color="primary"
+    ripple
+    rounded
+    variant="filled"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -225,7 +232,7 @@ import { Button } from "opui-css/vue"
       ></path>
     </svg>
   </Button>
-  <Button aria-label="Edit" ripple rounded size="small">
+  <Button icon-only label="Edit" ripple rounded size="small">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -263,15 +270,15 @@ import { Button } from "opui-css/vue"
 
 
   <Button size="small" variant="outlined">
-    <span>Small</span>
+    <span class="ui-text">Small</span>
     <svg><!-- --></svg>
   </Button>
   <Button variant="outlined">
-    <span>Default</span>
+    <span class="ui-text">Default</span>
     <svg><!-- --></svg>
   </Button>
   <Button variant="outlined" size="large">
-    <span>Large</span>
+    <span class="ui-text">Large</span>
     <svg><!-- --></svg>
   </Button>
 </template>
@@ -306,6 +313,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `color`    | `"critical"`, `"primary"`           | -       | Optional colors.                                                            |
 | `disabled` | `boolean`                           | `false` | Disables the button.                                                        |
 | `href`     | `string`                            | -       | The link to use. Renders an `<a>`.                                          |
+| `iconOnly` | `boolean`                           | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
 | `label`    | `string`                            | -       | The accessible name. Use it on icon-only buttons.                           |
 | `ripple`   | `boolean`                           | `false` | A halo behind the button on hover instead of a background change.           |
 | `rounded`  | `boolean`                           | `false` | Fully rounded corners, a circle when icon-only.                             |

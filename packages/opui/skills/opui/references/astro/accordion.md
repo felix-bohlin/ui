@@ -328,6 +328,7 @@ import { Accordion } from "opui-css/astro"
 | `--border-width`     | `1px`                                       | Default border width for components that draw a border.                                                                    |
 | `--duration`         | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
 | `--ease`             | `ease`                                      | Default easing for transitions.                                                                                            |
+| `--focus-ring-width` | `2px`                                       | Width of the focus ring.                                                                                                   |
 | `--font-weight-bold` | `var(--font-weight-7)`                      | Font weight for headings, buttons and terms.                                                                               |
 | `--motion`           | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |

@@ -79,11 +79,6 @@
         grid-row: 2;
         margin-block-start: var(--size-1);
         padding-inline: 1ex;
-
-        /* Required dot */
-        &::after {
-          inset: 0 -0.25ex auto auto;
-        }
       }
 
       .ui-end-text {

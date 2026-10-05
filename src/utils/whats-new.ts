@@ -20,6 +20,12 @@ const whatsNew = {
   avatar: [
     `Breaking: <code>alt</code> is required when <code>src</code> is set.`,
   ],
+  badge: [
+    {
+      default: `<a href="#indicator">Indicator</a> context for screen readers with <code>srLabel</code>.`,
+      html: `<a href="#indicator">Indicator</a> context for screen readers with <code>.ui-sr-only</code>.`,
+    },
+  ],
   button: [
     {
       astro: `<a href="#icon-only">Icon-only</a> buttons are square. <code>rounded</code> makes them round and <code>ripple</code> adds a hover halo.`,
@@ -102,6 +108,10 @@ const whatsNew = {
   ],
   drawer: [
     `Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls.`,
+    {
+      default: `Named by the header heading through <code>aria-labelledby</code>.`,
+      html: `Name it with <code>aria-labelledby</code> pointing at the header heading.`,
+    },
   ],
   list: [
     {
@@ -127,6 +137,7 @@ const whatsNew = {
   ],
   range: [
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
+    `The track fill is CSS only, so plain HTML ranges fill too.`,
   ],
   select: [
     {
@@ -214,6 +225,7 @@ const whatsNew = {
     `<a href="#rich-text-showcase">Rich text</a> styles tables, <code>hr</code> and task lists.`,
     `Rich text sits in the <code>components.prose</code> layer, below components, so components inside prose keep their own styles.`,
     `Rich text headings, <code>pre</code> and <code>small</code> scale with the surrounding font size.`,
+    `<a href="#link">Links</a> are documented, and get a thicker underline on hover.`,
   ],
 } satisfies Record<string, Note[]>
 

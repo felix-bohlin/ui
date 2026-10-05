@@ -32,7 +32,24 @@ import { Code } from "astro-expressive-code/components"
         Firefox paints the fill with <code>::-moz-range-progress</code>.
         Elsewhere a one-color <code>linear-gradient</code> sized to <code
           >--track-fill</code
-        > does it, kept in sync with the value by a few lines of JavaScript
+        > does it
+      </li>
+      <li>
+        The thumb's position sets the fill, no JavaScript. With <code
+          >overflow: hidden</code
+        > the input is a scroller, so the thumb can be a <code
+          >view-timeline</code
+        >. <code>timeline-scope</code> lets the input animate on it
+      </li>
+      <li>
+        <code>--track-fill</code> is registered with <code>@property</code>, so
+        keyframes can animate it. The timeline runs from the end edge, so they
+        go from <code>100%</code> to <code>0%</code>
+      </li>
+      <li>
+        Padding and an equal negative margin leave room for the thumb and its
+        halo without moving anything. <code>view-timeline-inset</code> takes it back
+        out of the timeline, <code>outline-offset</code> out of the focus ring
       </li>
       <li>
         <code>display: flex</code> brings the datalist back, and <code
@@ -46,7 +63,40 @@ import { Code } from "astro-expressive-code/components"
     </ul>
     <Code
       lang="css"
-      code={`input[type="range"]::-webkit-slider-runnable-track {
+      code={`@property --track-fill {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
+@keyframes range-fill {
+  from {
+    --track-fill: 100%;
+  }
+
+  to {
+    --track-fill: 0%;
+  }
+}
+
+input[type="range"] {
+  animation: range-fill linear both;
+  animation-range: contain;
+  animation-timeline: --thumb;
+  box-sizing: content-box;
+  margin: -0.75rem;
+  outline-offset: -0.75rem;
+  overflow: hidden;
+  padding: 0.75rem;
+  timeline-scope: --thumb;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  view-timeline: --thumb inline;
+  view-timeline-inset: 0.75rem;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
   background-color: var(--track-color);
   background-image: linear-gradient(var(--fill-color), var(--fill-color));
   background-repeat: no-repeat;
@@ -77,8 +127,12 @@ datalist > option {
     <h2 id="fallback">Fallback</h2>
     <ul>
       <li>
-        Without JavaScript <code>--track-fill</code> stays at <code>0%</code> in Chromium
-        and Safari: no fill, the slider still works. Firefox fills natively
+        Without scroll-driven animations <code>--track-fill</code> stays at <code
+          >0%</code
+        >: no fill, the slider still works. <code
+          >@supports (animation-timeline: view())</code
+        > keeps the padding and <code>overflow: hidden</code> out too. Firefox fills
+        natively
       </li>
       <li>
         The labels are plain flex content and render wherever <code
@@ -87,6 +141,7 @@ datalist > option {
       </li>
       <li>
         In right-to-left, <code>:dir(rtl)</code> moves the gradient to the right edge
+        and reverses the animation
       </li>
     </ul>
   </section>

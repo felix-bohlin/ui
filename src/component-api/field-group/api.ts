@@ -14,7 +14,8 @@ export default {
       values: { column: null, row: ".ui-row" },
     },
     {
-      description: "Sets `name` on every input, select and textarea inside.",
+      description:
+        "Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components.",
       prop: "name",
     },
   ],

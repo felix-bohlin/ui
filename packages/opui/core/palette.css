@@ -21,6 +21,8 @@
     ins,
     abbr,
     dfn,
+    .ui-abbr,
+    .ui-dfn,
     .ui-palette
   ) {
     --palette-source: oklch(

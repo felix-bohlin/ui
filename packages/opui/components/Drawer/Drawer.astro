@@ -16,6 +16,25 @@ const {
 
 const $id = createId(Astro.locals)
 const drawerId = id || $id("drawer")
+
+let header = Astro.slots.has("header")
+  ? await Astro.slots.render("header")
+  : undefined
+let labelledBy: string | undefined
+const heading =
+  header && !rest["aria-label"] && !rest["aria-labelledby"]
+    ? header.match(/<h[1-6]\b[^>]*>/)?.[0]
+    : undefined
+if (header && heading) {
+  labelledBy = heading.match(/\sid="([^"]+)"/)?.[1]
+  if (!labelledBy) {
+    labelledBy = `${drawerId}-heading`
+    header = header.replace(
+      heading,
+      heading.replace(/^<h[1-6]/, (tag) => `${tag} id="${labelledBy}"`),
+    )
+  }
+}
 ---
 
 <dialog
@@ -29,10 +48,11 @@ const drawerId = id || $id("drawer")
     },
     className,
   ]}
+  aria-labelledby={labelledBy}
   id={drawerId}
   {...rest}
 >
-  {Astro.slots.has("header") && <slot name="header" />}
+  {header && <Fragment set:html={header} />}
 
   {
     Astro.slots.has("content") && (

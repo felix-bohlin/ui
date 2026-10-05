@@ -37,7 +37,7 @@ const header = (framework) =>
     `These docs show ${framework.label} usage. Install with \`npm install opui-css open-props\`.`,
     "",
     "- Every class is prefixed with `ui-` (e.g. `.ui-button`, `.ui-filled`).",
-    '- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or one component at a time from `opui-css/css/components/<name>.css`. Without one, link `https://cdn.jsdelivr.net/npm/opui-css/dist/opui.css`.',
+    '- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or one component at a time from `opui-css/css/components/<name>.css`. Without one, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`.',
     ...(framework.id === DEFAULT_FRAMEWORK
       ? []
       : [

@@ -76,7 +76,7 @@ In Astro and Vue, `Button` renders `type="button"` by default, so it no longer s
 
 Colors changed: critical buttons keep light text on their fill, tonal primary and critical buttons use dark text on a light container in light mode and light text on a dark container in dark mode, and text and outlined buttons use a lighter accent for text in dark mode.
 
-## ButtonGroup
+## Button group
 
 Variants apply to the whole group. Move a variant from a button inside a group to the group.
 
@@ -115,11 +115,11 @@ The `--ripple` variable is private. Rename overrides to `--_ripple`.
 
 Chips use `--border-radius` (8px) instead of Open Props `--radius-2` (5px), small chips are `--chip-size-small` (28px) instead of 24px, and labels truncate with an ellipsis unless the chip is `multiline`.
 
-## ClassicSelect
+## Classic select
 
 `ClassicSelect` no longer sets `aria-labelledby` or a label `id`. The wrapping `<label>` names the select, so `endText` is part of its accessible name, like `TextField`. The arrow is a chevron instead of a triangle.
 
-## DescriptionList
+## Description list
 
 In Vue, the description part is exported as `DescriptionListDescription` instead of `Description`, like Astro.
 
@@ -149,7 +149,7 @@ The variant classes drop the `border-` prefix. The `variant` prop is unchanged.
 
 The backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--backdrop-blur`. `.ui-backdrop-transparent` still removes it. Header headings take the free space, so several header actions line up at the end.
 
-## FieldGroup and FieldSet
+## Field group and field set
 
 `FieldGroup` no longer sets `role="group"`. Inside a fieldset nothing changes. A `FieldGroup` without a fieldset can take `role` and `aria-label` itself. In HTML, drop `role="group"` from `.ui-field-group`.
 
@@ -163,7 +163,7 @@ The backdrop dims and blurs like `Dialog`, through `--backdrop-color` and `--bac
 
 `FieldSet` with another element in `as` gets `role="group"`.
 
-## IconButton
+## Icon button
 
 `IconButton` is removed. `Button` covers it: a button whose only child is an `svg` is square, `rounded` makes it a circle and `ripple` gives it the hover halo. The old default size (28px) is `size="x-small"`. The old `small` (20px) has no preset: use `x-small` with `--_min-height: var(--size-4)`.
 
@@ -204,7 +204,7 @@ Only direct `li`/`option` children (and options in a `[role="group"]`) are style
 + <ul class="ui-list ui-transparent">
 ```
 
-## ListItem
+## List item
 
 `as` only accepts `"a"`, `"button"` or `"div"` (types).
 
@@ -305,7 +305,7 @@ Tabs are a radio group without tab roles. Remove `role="tablist"`, `role="tab"`,
 
 Tabs that don't fit can stay on one row and scroll sideways with `scrollable` (`.ui-scrollable`).
 
-## TextField
+## Text field
 
 `TextField` takes a `size` prop like `Select`, with `x-small`, `small` and `large`.
 
@@ -355,7 +355,7 @@ Severity icons are masks filled with `--success`, `--info`, `--warning` and `--c
 
 The keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and `toast.js` listens for `ui-toast-exit`. Rename them if your CSS or scripts reference `toast-enter`, `toast-hold` or `toast-exit`.
 
-## ToggleButton and ToggleGroup
+## Toggle button and toggle group
 
 Text shrinks with the size like `Button`: `--font-size-05` when small and `--font-size-0` when x-small. Groups wrap onto more rows when they don't fit; use `scrollable` or `shrink` to keep them on one row.
 

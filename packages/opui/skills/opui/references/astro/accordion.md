@@ -295,15 +295,9 @@ import { Accordion } from "opui-css/astro"
 
 ## Accessibility
 
-The [WAI-ARIA guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) for accordions recommend:
-
-- `summary` element
-
-  - adding id and aria-controls
-  - adding aria-expanded (if using JS)
-
-- content wrapper
-  - adding id, role and aria-labelledby
+- Accordions are `<details>` and `<summary>`. The browser announces the summary with its expanded or collapsed state and toggles it with `Enter` and `Space`, so no ARIA is needed.
+- In supporting browsers, find in page also searches closed accordions and opens the one with the match.
+- Don't add `role="region"` to the content. Every accordion becomes a landmark, which crowds the landmark list on pages with many of them.
 
 ## API
 

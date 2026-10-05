@@ -506,7 +506,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
-Set `disabled` on the input too. Checkbox inputs also need `aria-pressed`.
+Set `disabled` on the input too.
 
 ## Under the hood
 

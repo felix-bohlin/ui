@@ -205,7 +205,7 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 
 ## Accessibility
 
-- The Callout is an `<article>`, so screen readers announce it as self-contained content. Don't add `role="note"`, it isn't allowed on `<article>`.
+- The Callout is an `<article>`, so screen readers announce it as self-contained content.
 - Use both color and icon to help distinguish between Callout [severities](#severities).
 - Don't interrupt the user with a Callout. In that case, use [Dialog](https://open-props-ui.netlify.app/html/components/dialog.md) or [Toast](https://open-props-ui.netlify.app/html/components/toast.md).
 

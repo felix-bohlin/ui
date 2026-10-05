@@ -206,6 +206,8 @@ import { FieldDescription, FieldLegend, FieldSet } from "opui-css/vue"
 
 Use `FieldGroup` to wrap related fields. It provides a shared `name` to all nested inputs.
 
+The field group only handles layout. Wrap it in a fieldset with a legend to group and name the fields for screen readers.
+
 ```vue
 <script setup lang="ts">
 import {
@@ -666,10 +668,10 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Field set API
 
-| Prop       | Type      | Default      | Description                  |
-| ---------- | --------- | ------------ | ---------------------------- |
-| `as`       | `string`  | `"fieldset"` | The element to render.       |
-| `disabled` | `boolean` | `false`      | Disables every field inside. |
+| Prop       | Type      | Default      | Description                                                                   |
+| ---------- | --------- | ------------ | ----------------------------------------------------------------------------- |
+| `as`       | `string`  | `"fieldset"` | The element to render. Any element other than `fieldset` gets `role="group"`. |
+| `disabled` | `boolean` | `false`      | Disables every field inside.                                                  |
 
 #### Slots
 

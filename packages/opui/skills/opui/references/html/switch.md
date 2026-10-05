@@ -384,7 +384,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 <div class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-switch">
         <input name="switch-group" type="checkbox" role="switch" />
         <span class="ui-label">Switch 1</span>
@@ -408,7 +408,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-switch">
         <input name="switch-group-direction" type="checkbox" role="switch" />
         <span class="ui-label">Switch 1</span>
@@ -435,7 +435,7 @@ Can be placed above and below the fields.
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
     <p class="ui-field-description">Field description above fields</p>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-switch">
         <input
           name="switch-group-field-description-1"
@@ -466,7 +466,7 @@ Can be placed above and below the fields.
 
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-switch">
         <input
           name="switch-group-field-description-2"
@@ -505,7 +505,7 @@ Attach the `disabled` attribute to the `<fieldset>` element.
 <form class="ui-form">
   <fieldset class="ui-fieldset" disabled>
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-switch">
         <input name="switch-group-disabled" type="checkbox" role="switch" />
         <span class="ui-label">Switch 1</span>
@@ -531,7 +531,7 @@ Attach the `required` attribute to at least one of your `<input>` elements.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>These are required!</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-switch">
         <input
           name="switch-group-required"
@@ -572,7 +572,7 @@ Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` ele
 <form class="ui-form">
   <fieldset class="ui-fieldset" data-invalid>
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-switch">
         <input
           name="switch-field-group-validation"
@@ -717,7 +717,7 @@ The input needs `type="checkbox"` and `role="switch"`. Use `.ui-sr-only` instead
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
-The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
+Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
 
 ## Under the hood
 

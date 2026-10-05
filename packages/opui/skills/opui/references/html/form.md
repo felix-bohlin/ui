@@ -11,12 +11,12 @@ A way to build structured forms.
     <p class="ui-field-description"><!-- --></p>
 
 
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <!-- form fields -->
     </div>
 
 
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <!-- form fields -->
     </div>
   </fieldset>
@@ -27,15 +27,15 @@ A way to build structured forms.
 
 
 <div class="ui-form">
-  <div class="ui-fieldset">
+  <div class="ui-fieldset" role="group">
     <p class="ui-legend"><!-- --></p>
     <p class="ui-field-description"><!-- --></p>
 
 
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <!-- form fields -->
     </div>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <!-- form fields -->
     </div>
   </div>
@@ -66,7 +66,7 @@ Used to show a relationship between form elements.
 <fieldset class="ui-fieldset">
   <legend>Favorite Pet</legend>
   <p class="ui-field-description">Please select your favorite type of pet.</p>
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <label class="ui-radio">
       <input name="pet" type="radio" value="dog" />
       <span class="ui-label">Dog</span>
@@ -89,7 +89,7 @@ Used to show a relationship between form elements.
 <fieldset class="ui-fieldset">
   <legend>Pet info</legend>
   <p class="ui-field-description">We must know your pet's information.</p>
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <label class="ui-text-field">
       <span class="ui-label">Name</span>
       <span class="ui-field">
@@ -114,7 +114,7 @@ Turns out you can disable an entire fieldset.
 <fieldset class="ui-fieldset" disabled>
   <legend>Pet dating</legend>
   <p class="ui-field-description">You can't change these settings</p>
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <label class="ui-checkbox">
       <input
         checked
@@ -162,12 +162,14 @@ Use `FieldDescription` (or `.ui-field-description`) to give extra context about 
 
 Use `.ui-field-group` to wrap related fields.
 
+The field group only handles layout. Wrap it in a fieldset with a legend to group and name the fields for screen readers.
+
 ```html
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Choose your favorite Radiohead album</legend>
     <p class="ui-field-description">There are no wrong answers.</p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-radio">
         <input type="radio" name="albums" value="ok-computer" />
         <span class="ui-label">OK Computer</span>
@@ -191,7 +193,7 @@ Use `.ui-field-group` to wrap related fields.
   <fieldset class="ui-fieldset">
     <legend>Which side projects do you follow?</legend>
     <p class="ui-field-description">Some are better than others.</p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-checkbox">
         <input
           aria-describedby="field-group-projects-1-end-text"
@@ -265,7 +267,7 @@ Use the `.ui-row` class to lay out fields horizontally.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Options</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
         <input type="checkbox" />
         <span class="ui-label">Option 1</span>
@@ -291,7 +293,7 @@ Use a `<hr />` to create a visual break between sections of your form.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Post Content</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-text-field">
         <span class="ui-label">Title</span>
         <span class="ui-field">
@@ -305,7 +307,7 @@ Use a `<hr />` to create a visual break between sections of your form.
   <hr class="ui-divider" />
 
 
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <button type="button" class="ui-button ui-filled">Publish</button>
   </div>
 </form>
@@ -322,7 +324,7 @@ Everything all at once.
     <p class="ui-field-description">
       Please provide your basic contact details.
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-text-field">
         <span class="ui-label">Full Name</span>
         <span class="ui-field">
@@ -362,7 +364,7 @@ Everything all at once.
     <p class="ui-field-description">
       Configure how you want to receive updates.
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-switch">
         <input type="checkbox" role="switch" name="email_notifs" checked />
         <span class="ui-label">Email Notifications</span>
@@ -381,7 +383,7 @@ Everything all at once.
   <fieldset class="ui-fieldset">
     <legend>Theme Preference</legend>
     <p class="ui-field-description">Select your preferred visual style.</p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-radio">
         <input type="radio" name="theme" value="light" checked />
         <span class="ui-label">Light Theme</span>
@@ -406,7 +408,7 @@ Everything all at once.
     <p class="ui-field-description">
       How many years of experience do you have?
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-range">
         <span class="ui-label" id="kitchen-sink-experience-label"
           >Professional Experience</span
@@ -434,7 +436,7 @@ Everything all at once.
   <fieldset class="ui-fieldset">
     <legend>Additional Info</legend>
     <p class="ui-field-description">Anything else we should know?</p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-textarea">
         <span class="ui-label">Biography</span>
         <span class="ui-field">
@@ -454,7 +456,7 @@ Everything all at once.
 
   <fieldset class="ui-fieldset">
     <legend>Legal</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-checkbox">
         <input
           aria-describedby="kitchen-sink-terms-1-end-text"
@@ -474,7 +476,7 @@ Everything all at once.
   <hr class="ui-divider" />
 
 
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <button class="ui-button ui-filled" type="submit">Send</button>
     <button type="button" class="ui-button">Cancel</button>
   </div>
@@ -492,7 +494,7 @@ Everything all at once, but horizontally.
     <p class="ui-field-description">
       Please provide your basic contact details.
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-text-field ui-spread">
         <span class="ui-label">Full Name</span>
         <span class="ui-field">
@@ -532,7 +534,7 @@ Everything all at once, but horizontally.
     <p class="ui-field-description">
       Configure how you want to receive updates.
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-switch ui-spread">
         <input type="checkbox" role="switch" name="email_notifs" checked />
         <span class="ui-label">Email Notifications</span>
@@ -551,7 +553,7 @@ Everything all at once, but horizontally.
   <fieldset class="ui-fieldset">
     <legend>Theme Preference</legend>
     <p class="ui-field-description">Select your preferred visual style.</p>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-radio">
         <input type="radio" name="theme" value="light" checked />
         <span class="ui-label">Light Theme</span>
@@ -576,7 +578,7 @@ Everything all at once, but horizontally.
     <p class="ui-field-description">
       How many years of experience do you have?
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-range ui-spread">
         <span class="ui-label" id="kitchen-sink-row-experience-label"
           >Professional Experience</span
@@ -604,7 +606,7 @@ Everything all at once, but horizontally.
   <fieldset class="ui-fieldset">
     <legend>Additional Info</legend>
     <p class="ui-field-description">Anything else we should know?</p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-textarea ui-spread">
         <span class="ui-label">Biography</span>
         <span class="ui-field">
@@ -624,7 +626,7 @@ Everything all at once, but horizontally.
 
   <fieldset class="ui-fieldset">
     <legend>Legal</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-checkbox ui-spread">
         <input
           aria-describedby="kitchen-sink-row-terms-1-end-text"
@@ -644,7 +646,7 @@ Everything all at once, but horizontally.
   <hr class="ui-divider" />
 
 
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <button class="ui-button ui-filled" type="submit">Send</button>
     <button type="button" class="ui-button">Cancel</button>
   </div>
@@ -799,7 +801,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
-The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
+Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
 
 ## Under the hood
 

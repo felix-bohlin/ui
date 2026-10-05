@@ -198,7 +198,7 @@ import { Callout } from "opui-css/astro"
 
 ## Accessibility
 
-- The Callout is an `<article>`, so screen readers announce it as self-contained content. Don't add `role="note"`, it isn't allowed on `<article>`.
+- The Callout is an `<article>`, so screen readers announce it as self-contained content.
 - Use both color and icon to help distinguish between Callout [severities](#severities).
 - Don't interrupt the user with a Callout. In that case, use [Dialog](https://open-props-ui.netlify.app/astro/components/dialog.md).
 

@@ -34,7 +34,7 @@ Give every `<input type="radio">` in the group the same `name` attribute. Browse
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-radio">
         <input name="radio-group" type="radio" value="1" checked />
         <span class="ui-label">Radio 1</span>
@@ -58,7 +58,7 @@ Give every `<input type="radio">` in the group the same `name` attribute. Browse
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-radio">
         <input name="radio-group-direction" type="radio" value="1" checked />
         <span class="ui-label">Radio 1</span>
@@ -85,7 +85,7 @@ Can be placed above and below the fields.
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
     <p class="ui-field-description">Field description above fields</p>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-radio">
         <input
           name="radio-group-field-description-1"
@@ -109,7 +109,7 @@ Can be placed above and below the fields.
 
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-radio">
         <input
           name="radio-group-field-description-2"
@@ -141,7 +141,7 @@ Attach the `disabled` attribute to the `<fieldset>` element.
 <form class="ui-form">
   <fieldset class="ui-fieldset" disabled>
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-radio">
         <input name="radio-group-disabled" type="radio" value="1" checked />
         <span class="ui-label">Radio 1</span>
@@ -167,7 +167,7 @@ Attach the `required` attribute to at least one of your `<input>` elements.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>These are required!</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-radio">
         <input name="radio-group-required" type="radio" value="1" required />
         <span class="ui-label">Radio 1</span>
@@ -203,7 +203,7 @@ Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` ele
 <form class="ui-form">
   <fieldset class="ui-fieldset" data-invalid>
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-radio">
         <input name="radio-group-validation" type="radio" value="1" checked />
         <span class="ui-label">Radio 1</span>
@@ -300,7 +300,7 @@ Use `.ui-sr-only` instead of `.ui-label` to hide the label visually.
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
-The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
+Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
 
 ## Under the hood
 

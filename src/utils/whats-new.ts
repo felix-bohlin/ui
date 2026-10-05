@@ -152,6 +152,10 @@ const whatsNew = {
       html: `<a href="#variants">Dense</a> tables (<code>.ui-dense</code>) have less block padding.`,
     },
     `Fields and selects in cells keep a <code>12ch</code> minimum width.`,
+    {
+      default: `<a href="#sticky-header">Sticky header</a> with the <code>stickyHeader</code> prop.`,
+      html: `<a href="#sticky-header">Sticky header</a> with <code>.ui-sticky-header</code>.`,
+    },
   ],
   tabs: [
     `Restyled as a segmented control.`,

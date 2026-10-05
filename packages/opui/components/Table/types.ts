@@ -1,4 +1,5 @@
 export type Props = {
+  stickyHeader?: boolean
   variant?: "dense" | "spacious"
 }
 

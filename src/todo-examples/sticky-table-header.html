@@ -22,36 +22,19 @@
     margin: 0;
   }
 
+  .todo-current .ui-table {
+    overflow: hidden;
+  }
+
   .todo-current th {
     inset-block-start: 0;
     position: sticky;
-  }
-
-  .ui-table.todo-sticky-header {
-    overflow: clip;
-
-    & > thead {
-      container-type: scroll-state;
-      inset-block-start: var(--table-sticky-offset, 0);
-      position: sticky;
-      z-index: 1;
-    }
-
-    & > thead tr:hover > th {
-      background-color: var(--surface-filled);
-    }
-  }
-
-  @container scroll-state(stuck: top) {
-    .todo-sticky-header > thead th {
-      box-shadow: 0 var(--size-1) var(--size-2) -0.25rem oklch(0 0 0 / 30%);
-    }
   }
 </style>
 <div class="todo-compare">
   <div class="todo-current">
     <p class="ui-caption">
-      Current: <code>th { position: sticky }</code> inside
+      Before: <code>th { position: sticky }</code> inside
       <code>.ui-table { overflow: hidden }</code>
     </p>
     <div class="todo-scroller" tabindex="0" role="region" aria-label="Invoices">
@@ -129,12 +112,9 @@
     </div>
   </div>
   <div>
-    <p class="ui-caption">
-      Proposed: <code>.ui-table.ui-sticky-header</code> (simulated with
-      <code>.todo-sticky-header</code>)
-    </p>
+    <p class="ui-caption">Now: <code>.ui-table.ui-sticky-header</code></p>
     <div class="todo-scroller" tabindex="0" role="region" aria-label="Invoices">
-      <table class="ui-table todo-sticky-header">
+      <table class="ui-table ui-sticky-header">
         <thead>
           <tr>
             <th>Invoice</th>

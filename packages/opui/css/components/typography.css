@@ -871,6 +871,10 @@
       unicode-bidi: isolate;
     }
 
+    :is(h1, h2, h3, h4, h5, h6) :not(pre) > code {
+      padding: 0.05em 0.2em;
+    }
+
     mark {
       border-radius: var(--radius-2);
       box-decoration-break: clone;

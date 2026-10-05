@@ -1,0 +1,78 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    justify-items: start;
+  }
+</style>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">
+      Walkthrough: <code>.ripple</code> sets <code>border-radius: 50%</code>
+    </p>
+    <button
+      aria-label="Edit"
+      class="ui-button ui-ripple"
+      style="border-radius: 50%"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        height="32"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+  </div>
+  <div>
+    <p class="ui-caption">Library: <code>.ui-ripple</code> alone</p>
+    <button aria-label="Edit" class="ui-button ui-ripple" type="button">
+      <svg
+        aria-hidden="true"
+        height="32"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+  </div>
+  <div>
+    <p class="ui-caption">Library: <code>.ui-ripple.ui-rounded</code></p>
+    <button
+      aria-label="Edit"
+      class="ui-button ui-ripple ui-rounded"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        height="32"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M21.65 3.434a4.889 4.889 0 1 1 6.915 6.914l-.902.901l-6.914-6.914zM19.335 5.75L4.357 20.73a3.7 3.7 0 0 0-1.002 1.84l-1.333 6.22a1 1 0 0 0 1.188 1.188l6.22-1.333a3.7 3.7 0 0 0 1.84-1.002l14.98-14.98z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+  </div>
+</div>

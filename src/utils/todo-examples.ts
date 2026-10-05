@@ -5,8 +5,10 @@ import autosuggestSizes from "../todo-examples/autosuggest-sizes.html?raw"
 import badgeAccessibleName from "../todo-examples/badge-accessible-name.html?raw"
 import badgeDotAlignment from "../todo-examples/badge-dot-alignment.html?raw"
 import buttonUnwrappedText from "../todo-examples/button-unwrapped-text.html?raw"
+import buttonWalkthroughRipple from "../todo-examples/button-walkthrough-ripple.html?raw"
 import calloutIconColor from "../todo-examples/callout-icon-color.html?raw"
 import calloutRichText from "../todo-examples/callout-rich-text.html?raw"
+import calloutWalkthroughIcon from "../todo-examples/callout-walkthrough-icon.html?raw"
 import cardDividers from "../todo-examples/card-dividers.html?raw"
 import carouselEqualHeight from "../todo-examples/carousel-equal-height.html?raw"
 import checkboxForcedColors from "../todo-examples/checkbox-forced-colors.html?raw"
@@ -22,8 +24,10 @@ import forcedColorsSwitchToggle from "../todo-examples/forced-colors-switch-togg
 import labelLessControls from "../todo-examples/label-less-controls.html?raw"
 import linkHoverContrast from "../todo-examples/link-hover-contrast.html?raw"
 import listNestedLists from "../todo-examples/list-nested-lists.html?raw"
+import listWalkthroughNested from "../todo-examples/list-walkthrough-nested.html?raw"
 import primaryContrast from "../todo-examples/primary-contrast.html?raw"
 import rangeTrackFill from "../todo-examples/range-track-fill.html?raw"
+import rangeWalkthroughRtlFill from "../todo-examples/range-walkthrough-rtl-fill.html?raw"
 import richTextComponentLeaks from "../todo-examples/rich-text-component-leaks.html?raw"
 import richTextTableWrapping from "../todo-examples/rich-text-table-wrapping.html?raw"
 import rtlRequiredAsterisk from "../todo-examples/rtl-required-asterisk.html?raw"
@@ -62,6 +66,10 @@ export const todoExamples = {
     match: "Button with an icon and unwrapped text",
     source: buttonUnwrappedText,
   },
+  "button-walkthrough-ripple": {
+    match: "Button walkthrough:",
+    source: buttonWalkthroughRipple,
+  },
   "callout-icon-color": {
     match: "Callout icon color is set with",
     source: calloutIconColor,
@@ -69,6 +77,10 @@ export const todoExamples = {
   "callout-rich-text": {
     match: "Callout `.ui-content` grid gap",
     source: calloutRichText,
+  },
+  "callout-walkthrough-icon": {
+    match: "Callout walkthrough:",
+    source: calloutWalkthroughIcon,
   },
   "card-dividers": {
     match: "Dividers inside cards",
@@ -130,6 +142,10 @@ export const todoExamples = {
     match: "`.ui-list` styles nested classless lists",
     source: listNestedLists,
   },
+  "list-walkthrough-nested": {
+    match: "List walkthrough:",
+    source: listWalkthroughNested,
+  },
   "primary-contrast": {
     match: "`contrast-color()` for `--primary-contrast`",
     source: primaryContrast,
@@ -137,6 +153,10 @@ export const todoExamples = {
   "range-track-fill": {
     match: "HTML Range shows no track fill",
     source: rangeTrackFill,
+  },
+  "range-walkthrough-rtl-fill": {
+    match: "Range walkthrough:",
+    source: rangeWalkthroughRtlFill,
   },
   "rich-text-component-leaks": {
     match: "Rich text still styles component parts",

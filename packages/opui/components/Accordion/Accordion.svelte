@@ -3,9 +3,9 @@
 
   let {
     class: className,
+    markerAnimation = "rotate",
     name,
     open,
-    ref = $bindable(null),
     variant,
 
     // Snippets
@@ -15,30 +15,35 @@
     summary,
     ...rest
   }: Props = $props()
-
-  const id = $props.id()
-  const summaryId = `summary-${id}`
-  const contentId = `content-${id}`
 </script>
 
 <details
-  bind:this={ref}
   {name}
-  class={["ui-accordion", "ui-card", variant && `ui-${variant}`, className]}
+  class={[
+    "ui-accordion",
+    "ui-card",
+    markerAnimation && `ui-marker-${markerAnimation}`,
+    variant && `ui-${variant}`,
+    className,
+  ]}
   {open}
   {...rest}
 >
-  <summary id={summaryId} aria-controls={contentId}
-    >{#if typeof summary === "string"}{summary}{:else}{@render summary()}{/if}{@render marker?.()}</summary
+  <summary
+    >{#if typeof summary === "string"}{summary}{:else}{@render summary?.()}{/if}{#if marker}{@render marker()}{:else}<svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        ><path
+          fill="currentColor"
+          d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+        ></path></svg
+      >{/if}</summary
   >
 
-  <div
-    id={contentId}
-    class="ui-content"
-    role="region"
-    aria-labelledby={summaryId}
-  >
-    {@render children()}
+  <div class="ui-content">
+    {@render children?.()}
   </div>
 
   {#if actions}

@@ -4,7 +4,6 @@
   let {
     actionsAlign,
     class: className,
-    ref = $bindable(null),
     variant,
 
     // Snippets
@@ -16,11 +15,7 @@
   }: Props = $props()
 </script>
 
-<div
-  bind:this={ref}
-  class={["ui-card", variant && `ui-${variant}`, className]}
-  {...rest}
->
+<div class={["ui-card", variant && `ui-${variant}`, className]} {...rest}>
   {#if header}
     <hgroup>
       {@render header()}

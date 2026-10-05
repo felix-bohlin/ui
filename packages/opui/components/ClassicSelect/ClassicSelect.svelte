@@ -1,17 +1,15 @@
 <script lang="ts">
+  import { getFieldContext } from "../FieldGroup/context"
   import type { ClassicSelectProps as Props } from "./types.svelte"
 
   let {
     class: className,
-    disabled,
     endText,
     error,
     id,
     items = [],
     label,
     name,
-    ref = $bindable(null),
-    required,
     size,
     value = $bindable(),
     variant = "outlined",
@@ -21,12 +19,13 @@
     ...rest
   }: Props = $props()
 
-  const componentId = $props.id()
-  const labelId = `select-label-${componentId}`
+  const uid = $props.id()
+  const field = getFieldContext()
+  const selectId = $derived(id || `select-${uid}`)
+  const endTextId = $derived(endText ? `end-text-${uid}` : undefined)
 </script>
 
 <label
-  bind:this={ref}
   class={[
     "ui-select",
     size && `ui-${size}`,
@@ -35,30 +34,25 @@
     },
     className,
   ]}
-  data-invalid={error || undefined}
+  data-invalid={error ? "" : undefined}
 >
-  {#if label}
-    <span class="ui-label" id={labelId}>
-      {label}
-    </span>
-  {/if}
+  {#if label}<span class="ui-label">{label}</span>{/if}
   <span class="ui-field">
     <select
-      aria-labelledby={label ? labelId : undefined}
+      aria-describedby={endTextId}
+      aria-invalid={error ? "true" : undefined}
       bind:value
-      {disabled}
-      id={id || `select-${componentId}`}
-      {name}
-      {required}
+      id={selectId}
+      name={name ?? field?.name}
       {...rest}
     >
-      {#each items as item}
+      {#each items as item (item.value)}
         <option value={item.value}>{item.text}</option>
       {/each}
       {@render children?.()}
     </select>
   </span>
   {#if endText}
-    <span class="ui-end-text">{endText}</span>
+    <span class="ui-end-text" id={endTextId}>{endText}</span>
   {/if}
 </label>

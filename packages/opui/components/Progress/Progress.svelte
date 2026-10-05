@@ -2,22 +2,16 @@
   import type { Props } from "./types.svelte"
 
   let {
+    children,
     class: className,
     max,
-    ref = $bindable(null),
     value,
     variant,
-
-    // Snippets
-    children,
     ...rest
   }: Props = $props()
 </script>
 
-<div
-  bind:this={ref}
-  class={["ui-progress", className, variant && `ui-${variant}`]}
->
+<div class={["ui-progress", variant && `ui-${variant}`, className]}>
   <progress {max} {value} {...rest}>
     {@render children?.()}
   </progress>

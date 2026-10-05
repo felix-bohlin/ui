@@ -8,13 +8,9 @@ type Group = { group?: string | number | boolean }
 
 export type RadioInputProps = Base.RadioInputProps &
   Group &
-  Omit<SvelteHTMLElements["input"], "group" | "type"> & {
-    ref?: HTMLInputElement | null
-  }
+  Omit<SvelteHTMLElements["input"], "type">
 
 export type RadioProps = Omit<Base.RadioProps, keyof Snippets> &
   Snippets &
   Group &
-  Omit<SvelteHTMLElements["input"], "group" | "size"> & {
-    ref?: HTMLLabelElement | null
-  }
+  Omit<SvelteHTMLElements["input"], "size">

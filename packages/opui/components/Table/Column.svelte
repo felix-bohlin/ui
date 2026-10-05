@@ -1,11 +1,11 @@
 <script lang="ts">
   import type { ColumnProps as Props } from "./types.svelte"
 
-  let { ref = $bindable(null), width, ...rest }: Props = $props()
+  let { style, width, ...rest }: Props = $props()
+
+  const widthStyle = $derived(
+    width ? `${width.includes(":") ? width : `width: ${width}`};` : "",
+  )
 </script>
 
-<col
-  bind:this={ref}
-  style={width ? (width.includes(":") ? width : `width: ${width}`) : undefined}
-  {...rest}
-/>
+<col style={`${widthStyle}${style ?? ""}` || undefined} {...rest} />

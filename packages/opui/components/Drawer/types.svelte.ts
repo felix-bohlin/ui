@@ -5,17 +5,11 @@ import type { Snippet } from "svelte"
 type Snippets = Base.Slots<Snippet>
 
 export type Props = Base.Props &
-  Omit<SvelteHTMLElements["dialog"], "id"> &
-  Snippets & {
-    ref?: HTMLDialogElement | null
-  }
+  Omit<SvelteHTMLElements["dialog"], "closedby" | "id"> &
+  Snippets
 
 export type DrawerFooterProps = Base.DrawerFooterProps &
-  SvelteHTMLElements["div"] & {
-    ref?: HTMLDivElement | null
-  }
+  SvelteHTMLElements["div"]
 
 export type DrawerHeaderProps = Base.DrawerHeaderProps &
-  SvelteHTMLElements["div"] & {
-    ref?: HTMLDivElement | null
-  }
+  SvelteHTMLElements["div"]

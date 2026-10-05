@@ -6,7 +6,6 @@
     class: className,
     dense,
     gutterless,
-    ref = $bindable(null),
     variant,
 
     // Snippets
@@ -16,7 +15,6 @@
 </script>
 
 <ul
-  bind:this={ref}
   class={[
     "ui-list",
     {

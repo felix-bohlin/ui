@@ -5,15 +5,14 @@
     as: Tag = "fieldset",
     children,
     class: className,
-    ref = $bindable(null),
     ...rest
   }: Props = $props()
 </script>
 
 <svelte:element
   this={Tag}
-  bind:this={ref}
   class={["ui-fieldset", className]}
+  role={Tag === "fieldset" ? undefined : "group"}
   {...rest}
 >
   {@render children?.()}

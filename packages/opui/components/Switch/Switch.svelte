@@ -1,6 +1,5 @@
 <script lang="ts">
   import SwitchInput from "./SwitchInput.svelte"
-  import { getFieldContext } from "../FieldGroup/context"
   import type { SwitchProps as Props } from "./types.svelte"
 
   let {
@@ -9,9 +8,7 @@
     error,
     group = $bindable(),
     hideLabel,
-    name,
-    ref = $bindable(null),
-    small,
+    size,
     spread,
     stack,
 
@@ -24,35 +21,24 @@
   }: Props = $props()
 
   const id = $props.id()
-  const field = getFieldContext()
   const endTextId = $derived(endText ? `end-text-${id}` : undefined)
-
-  $effect(() => {
-    if (
-      import.meta.env.DEV &&
-      !children &&
-      !rest["aria-label"] &&
-      !rest["aria-labelledby"]
-    ) {
-      console.warn(
-        "[OPUI Switch] Missing accessible name. Provide a child element, `aria-label`, or `aria-labelledby`.",
-      )
-    }
-  })
+  const describedBy = $derived(
+    [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") ||
+      undefined,
+  )
 </script>
 
 <label
-  bind:this={ref}
   class={[
     "ui-switch",
+    size && `ui-${size}`,
     {
-      "ui-small": small,
       "ui-stack": stack,
       "ui-spread": spread,
     },
     className,
   ]}
-  data-invalid={error || undefined}
+  data-invalid={error ? "" : undefined}
 >
   {#if iconUnchecked}
     <span class="ui-icon-unchecked" aria-hidden="true">
@@ -65,11 +51,11 @@
     </span>
   {/if}
   <SwitchInput
-    aria-describedby={endTextId}
+    {...rest}
+    aria-describedby={describedBy}
+    aria-invalid={error ? "true" : undefined}
     bind:checked
     bind:group
-    name={name || field?.name}
-    {...rest}
   />
   {#if children}
     <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
@@ -78,11 +64,7 @@
   {/if}
   {#if endText}
     <span id={endTextId} class="ui-end-text">
-      {#if typeof endText === "string"}
-        {endText}
-      {:else}
-        {@render endText()}
-      {/if}
+      {#if typeof endText === "string"}{endText}{:else}{@render endText()}{/if}
     </span>
   {/if}
 </label>

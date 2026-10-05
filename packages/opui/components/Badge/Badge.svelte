@@ -9,28 +9,16 @@
     dot,
     invisible,
     label,
-    ref = $bindable(null),
+    srLabel,
 
     // Snippets
     children,
     indicator,
     ...rest
   }: Props = $props()
-
-  const positionArea = $derived(
-    alignment === "start-start"
-      ? "start start"
-      : alignment === "end-start"
-        ? "end start"
-        : alignment === "end-end"
-          ? "end end"
-          : undefined,
-  )
 </script>
 
 <Anchor
-  bind:ref
-  alignment={positionArea}
   class={[
     "ui-badge",
     {
@@ -38,18 +26,17 @@
       "ui-invisible": invisible,
     },
     alignment && `ui-${alignment}`,
-    className,
     color && `ui-${color}`,
+    className,
   ]}
   {...rest}
 >
   {@render children?.()}
   {#snippet anchored()}
-    <span class="ui-badge-indicator" aria-label={label?.toString()}>
+    <span class="ui-badge-indicator">
       {dot ? "" : label}
-      {#if !dot}
-        {@render indicator?.()}
-      {/if}
+      {#if !dot}{@render indicator?.()}{/if}
+      {#if srLabel}<span class="ui-sr-only">{srLabel}</span>{/if}
     </span>
   {/snippet}
 </Anchor>

@@ -4,108 +4,97 @@
   import type { Snippet } from "svelte"
 
   let {
+    "aria-describedby": ariaDescribedBy,
     autoFit,
     class: className,
     error,
-    filled,
     id,
-    label,
-    ref = $bindable(null),
-    small,
-    spread,
-
-    // Input Props
-    disabled,
-    list,
-    max,
-    min,
     name,
-    placeholder,
-    required,
-    step,
+    size,
+    spread,
+    startText,
+    style,
     type = "text",
     value = $bindable(),
+    variant,
 
     // Snippets
     children,
-    description: descriptionProp,
+    description,
     endText,
     footer,
     header,
+    label,
     prefix,
-    startText,
     suffix,
     supportingText,
     ...rest
   }: Props = $props()
 
-  const componentId = $props.id()
+  const uid = $props.id()
   const field = getFieldContext()
-  const description = $derived(descriptionProp || startText)
+  const startTextValue = $derived(description || startText)
+  const endTextId = $derived(
+    endText || supportingText ? `end-text-${uid}` : undefined,
+  )
+  const describedBy = $derived(
+    [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined,
+  )
 </script>
 
-{#snippet snippetString(ss: Snippet | string | undefined)}
-  {#if typeof ss === "string"}
-    {ss}
-  {:else}
-    {@render ss?.()}
-  {/if}
-{/snippet}
+{#snippet content(
+  part: string | Snippet,
+)}{#if typeof part === "string"}{part}{:else}{@render part()}{/if}{/snippet}
 
 <label
-  bind:this={ref}
   class={[
     "ui-text-field",
+    size && `ui-${size}`,
     {
       "ui-auto-fit": autoFit,
-      "ui-filled": filled,
+      "ui-filled": variant === "filled",
       "ui-spread": spread,
-      "ui-small": small,
     },
     className,
   ]}
-  data-invalid={error || undefined}
-  {...rest}
+  data-invalid={error ? "" : undefined}
+  {style}
 >
   {#if label}
-    <span class="ui-label">{@render snippetString(label)}</span>
+    <span class="ui-label">{@render content(label)}</span>
   {/if}
-  {#if description}
-    <span class="ui-start-text">{@render snippetString(description)}</span>
+  {#if startTextValue}
+    <span class="ui-start-text">{@render content(startTextValue)}</span>
   {/if}
   <span class="ui-field">
     <input
+      {...rest}
+      aria-describedby={describedBy}
+      aria-invalid={error ? "true" : undefined}
       bind:value
-      {disabled}
-      id={id || `text-field-${componentId}`}
+      {id}
       inputmode={type === "numeric" ? "numeric" : undefined}
-      {list}
-      {max}
-      {min}
-      name={name || field?.name}
+      name={name ?? field?.name}
       pattern={type === "numeric" ? "[0-9]*" : undefined}
-      {placeholder}
-      {required}
-      {step}
       type={type === "numeric" ? "text" : type}
     />
     {#if prefix}
-      <span class="ui-prefix">{@render snippetString(prefix)}</span>
+      <span class="ui-prefix">{@render content(prefix)}</span>
     {/if}
     {#if suffix}
-      <span class="ui-suffix">{@render snippetString(suffix)}</span>
+      <span class="ui-suffix">{@render content(suffix)}</span>
     {/if}
     {#if header}
-      <span class="ui-header">{@render snippetString(header)}</span>
+      <span class="ui-header">{@render content(header)}</span>
     {/if}
     {#if footer}
-      <span class="ui-footer">{@render snippetString(footer)}</span>
+      <span class="ui-footer">{@render content(footer)}</span>
     {/if}
   </span>
   {#if endText || supportingText}
-    <span class="ui-end-text">
-      {@render snippetString(endText)}
-      {@render snippetString(supportingText)}
+    <span class="ui-end-text" id={endTextId}>
+      {#if endText}{@render content(endText)}{/if}
+      {#if supportingText}{@render content(supportingText)}{/if}
     </span>
   {/if}
   {@render children?.()}

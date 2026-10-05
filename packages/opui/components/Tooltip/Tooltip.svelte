@@ -8,7 +8,6 @@
     class: className,
     id,
     label,
-    ref = $bindable(null),
 
     // Snippets
     children,
@@ -18,7 +17,6 @@
 </script>
 
 <Anchor
-  bind:ref
   {alignment}
   class={["ui-tooltip", { "ui-with-arrow": arrow }, className]}
   {id}

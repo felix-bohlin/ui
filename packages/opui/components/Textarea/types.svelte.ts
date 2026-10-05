@@ -7,9 +7,7 @@ type Snippets = Partial<Base.Slots<Snippet>>
 export type Props =
   // Unique component props, except snippets
   Omit<Base.Props, keyof Snippets> &
-    // All html label attributes, (except prefix)
-    Omit<SvelteHTMLElements["label"], "prefix"> &
     // Some input attributes for spreading
-    Pick<SvelteHTMLElements["textarea"], Base.TextareaProps> &
+    Omit<SvelteHTMLElements["textarea"], keyof Snippets> &
     // Snippets
-    Snippets & { ref?: HTMLLabelElement | null }
+    Snippets

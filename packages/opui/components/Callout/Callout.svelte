@@ -3,7 +3,7 @@
 
   let {
     class: className,
-    ref = $bindable(null),
+    headingLevel = 3,
     severity,
     variant,
 
@@ -16,8 +16,6 @@
 </script>
 
 <article
-  bind:this={ref}
-  role="note"
   class={[
     "ui-callout",
     variant && `ui-${variant}`,
@@ -30,6 +28,7 @@
     {@render icon()}
   {:else if severity === "info"}
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -40,8 +39,22 @@
         d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
       />
     </svg>
+  {:else if severity === "success"}
+    <svg
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    >
+      <path
+        fill="currentColor"
+        d="M22.707 12.707a1 1 0 0 0-1.414-1.414L14.5 18.086l-3.293-3.293a1 1 0 0 0-1.414 1.414l4 4a1 1 0 0 0 1.414 0zM16 2C8.268 2 2 8.268 2 16s6.268 14 14 14s14-6.268 14-14S23.732 2 16 2M4 16C4 9.373 9.373 4 16 4s12 5.373 12 12s-5.373 12-12 12S4 22.627 4 16"
+      />
+    </svg>
   {:else if severity === "warning"}
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -54,6 +67,7 @@
     </svg>
   {:else if severity === "critical"}
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -67,9 +81,9 @@
   {/if}
   <div class="ui-content">
     {#if title}
-      <h3 class="ui-title">
+      <svelte:element this={`h${headingLevel}`} class="ui-title">
         {@render title()}
-      </h3>
+      </svelte:element>
     {/if}
     {@render children?.()}
   </div>

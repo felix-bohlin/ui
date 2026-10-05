@@ -4,6 +4,4 @@ import type { Snippet } from "svelte"
 
 export type Props = Omit<Base.Props, keyof Base.Slots<Snippet>> &
   Base.Slots<Snippet> &
-  Omit<SvelteHTMLElements["select"], "prefix" | "size"> & {
-    ref?: HTMLLabelElement | null
-  }
+  Omit<SvelteHTMLElements["select"], "prefix" | "size">

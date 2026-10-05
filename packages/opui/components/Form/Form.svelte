@@ -5,16 +5,10 @@
     as: Tag = "form",
     children,
     class: className,
-    ref = $bindable(null),
     ...rest
   }: Props = $props()
 </script>
 
-<svelte:element
-  this={Tag}
-  bind:this={ref}
-  class={["ui-form", className]}
-  {...rest}
->
+<svelte:element this={Tag} class={["ui-form", className]} {...rest}>
   {@render children?.()}
 </svelte:element>

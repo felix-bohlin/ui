@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { SectionProps as Props } from "./types.svelte"
 
-  let { children, ref = $bindable(null), ...rest }: Props<"tbody"> = $props()
+  let { children, ...rest }: Props<"tbody"> = $props()
 </script>
 
-<tbody bind:this={ref} {...rest}>
+<tbody {...rest}>
   {@render children?.()}
 </tbody>

@@ -84,6 +84,9 @@ const cleanType = (text: string) => {
 
 type Target = Pick<ComponentApi, "component" | "file" | "source">
 
+export const modelsFor = (api: ComponentApi, framework: ComponentFramework) =>
+  api.model ? (api.model.frameworks?.[framework] ?? [api.model]) : []
+
 const componentFile = (target: Target, framework: ComponentFramework) =>
   frameworks[framework].component(target.file ?? target.component)
 
@@ -163,6 +166,8 @@ export const describe = (
   if (kind === "prop") {
     const option = api.options.find((option) => option.prop === name)
     if (option) return option.description
+    const model = modelsFor(api, framework).find((model) => model.prop === name)
+    if (model) return model.description
   }
 
   for (const part of api.parts) {

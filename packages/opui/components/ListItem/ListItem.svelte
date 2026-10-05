@@ -1,23 +1,24 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
   import type { Snippet } from "svelte"
-  import type { HTMLLiAttributes } from "svelte/elements"
+  import type { HTMLAttributes } from "svelte/elements"
 
   let {
     as,
     borderTop,
     class: className,
+    description,
     for: htmlFor,
+    headline,
+    href,
     inset,
-    ref = $bindable(null),
     type,
 
     // Snippets
     children,
-    description,
     end,
-    headline,
     start,
+    submenu,
     text,
     ...rest
   }: Props = $props()
@@ -25,49 +26,36 @@
   const hasLabel = $derived(
     type === "checkbox" || type === "radio" || type === "switch",
   )
+  const Tag = $derived(as ?? (href ? "a" : undefined))
 </script>
 
-{#snippet stringOrSnippet(value: string | Snippet)}
-  {#if typeof value === "string"}
-    {value}
-  {:else}
-    {@render value()}
-  {/if}
-{/snippet}
+{#snippet content(
+  part: string | Snippet,
+)}{#if typeof part === "string"}{part}{:else}{@render part()}{/if}{/snippet}
 
 {#snippet startPart()}
   {#if start}
     <div class="ui-start">
-      {@render stringOrSnippet(start)}
+      {@render content(start)}
     </div>
-  {/if}
-{/snippet}
-
-{#snippet textPart()}
-  {#if headline}
-    <p>{@render stringOrSnippet(headline)}</p>
-  {/if}
-  {#if description}
-    <p>{@render stringOrSnippet(description)}</p>
-  {/if}
-  {#if text}
-    {@render stringOrSnippet(text)}
   {/if}
 {/snippet}
 
 {#snippet endPart()}
   {#if end}
     <div class="ui-end">
-      {@render stringOrSnippet(end)}
+      {@render content(end)}
     </div>
   {/if}
 {/snippet}
 
-{#snippet inner()}
+{#snippet body()}
   {@render startPart()}
   {#if headline || description || text}
     <div class="ui-text">
-      {@render textPart()}
+      {#if headline}<p>{headline}</p>{/if}
+      {#if description}<p>{description}</p>{/if}
+      {#if text}{@render content(text)}{/if}
       {@render children?.()}
     </div>
   {:else}
@@ -77,7 +65,6 @@
 {/snippet}
 
 <li
-  bind:this={ref}
   class={[
     {
       "ui-border-top": borderTop,
@@ -85,24 +72,27 @@
     },
     className,
   ]}
-  {...(as ? {} : rest) as HTMLLiAttributes}
+  {...(Tag ? {} : rest) as HTMLAttributes<HTMLLIElement>}
 >
   {#if hasLabel}
-    <label class={`ui-${type}`} for={htmlFor}>
+    <label class={type && `ui-${type}`} for={htmlFor}>
       {@render startPart()}
       {#if text || headline || description}
         <div class="ui-text">
-          {@render textPart()}
+          {#if headline}<p>{headline}</p>{/if}
+          {#if description}<p>{description}</p>{/if}
+          {#if text}{@render content(text)}{/if}
         </div>
       {/if}
       {@render endPart()}
       {@render children?.()}
     </label>
-  {:else if as}
-    <svelte:element this={as} {...rest}>
-      {@render inner()}
+  {:else if Tag}
+    <svelte:element this={Tag} {href} {...rest as HTMLAttributes<HTMLElement>}>
+      {@render body()}
     </svelte:element>
   {:else}
-    {@render inner()}
+    {@render body()}
   {/if}
+  {#if submenu}{@render content(submenu)}{/if}
 </li>

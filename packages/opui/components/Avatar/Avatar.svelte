@@ -7,7 +7,6 @@
     class: className,
     href,
     isGroup,
-    ref = $bindable(null),
     src,
     variant,
 
@@ -21,18 +20,18 @@
 
 <svelte:element
   this={Tag}
-  bind:this={ref}
   class={[
-    { "ui-avatar": !isGroup },
+    { "ui-avatar": !isGroup, "ui-avatar-group": isGroup },
     !isGroup && variant && `ui-${variant}`,
     className,
   ]}
   {href}
   role={isGroup ? "group" : undefined}
+  type={Tag === "button" ? "button" : undefined}
   {...rest}
 >
   {#if src}
-    <img {src} {alt} />
+    <img {src} alt={alt ?? ""} />
   {:else}
     {@render children?.()}
   {/if}

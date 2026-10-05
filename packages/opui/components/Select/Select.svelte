@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getFieldContext } from "../FieldGroup/context"
+  import type { Item } from "./types"
   import type { Props } from "./types.svelte"
   import type { Snippet } from "svelte"
 
@@ -10,7 +11,6 @@
     id,
     items = [],
     name,
-    ref = $bindable(null),
     size,
     spread,
     value = $bindable(),
@@ -28,21 +28,24 @@
     ...rest
   }: Props = $props()
 
-  const componentId = $props.id()
+  const uid = $props.id()
   const field = getFieldContext()
-  const labelId = `select-label-${componentId}`
+  const labelId = `select-label-${uid}`
+  const endTextId = $derived(endText ? `end-text-${uid}` : undefined)
+
+  const isSelected = (item: Item) =>
+    value === undefined
+      ? item.selected
+      : Array.isArray(value)
+        ? value.includes(item.value)
+        : item.value === value
 </script>
 
-{#snippet snippetString(ss: Snippet | string | undefined)}
-  {#if typeof ss === "string"}
-    {ss}
-  {:else}
-    {@render ss?.()}
-  {/if}
-{/snippet}
+{#snippet content(
+  part: string | Snippet,
+)}{#if typeof part === "string"}{part}{:else}{@render part()}{/if}{/snippet}
 
 <label
-  bind:this={ref}
   class={[
     "ui-select",
     size && `ui-${size}`,
@@ -52,52 +55,56 @@
     },
     className,
   ]}
-  data-invalid={error || undefined}
+  data-invalid={error ? "" : undefined}
 >
   {#if label}
     <span class="ui-label" id={labelId}>
-      {@render snippetString(label)}
+      {@render content(label)}
     </span>
   {/if}
   {#if description}
     <span class="ui-start-text">
-      {@render snippetString(description)}
+      {@render content(description)}
     </span>
   {/if}
   <span class="ui-field">
     <select
+      aria-describedby={endTextId}
+      aria-invalid={error ? "true" : undefined}
       aria-labelledby={label ? labelId : undefined}
       bind:value
-      id={id || `select-${componentId}`}
-      name={name || field?.name}
+      {id}
+      name={name ?? field?.name}
       {...rest}
     >
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class={["ui-list", { "ui-dense": dense }]}>
-        {#each items as item}
-          <option value={item.value}>{item.text}</option>
+        {#each items as item (item.value)}
+          <option selected={isSelected(item) || undefined} value={item.value}
+            >{item.text}</option
+          >
         {/each}
         {@render children?.()}
       </div>
     </select>
     {#if prefix}
-      <span class="ui-prefix">{@render snippetString(prefix)}</span>
+      <span class="ui-prefix">{@render content(prefix)}</span>
     {/if}
     {#if suffix}
-      <span class="ui-suffix">{@render snippetString(suffix)}</span>
+      <span class="ui-suffix">{@render content(suffix)}</span>
     {/if}
     {#if header}
-      <span class="ui-header">{@render snippetString(header)}</span>
+      <span class="ui-header">{@render content(header)}</span>
     {/if}
     {#if footer}
-      <span class="ui-footer">{@render snippetString(footer)}</span>
+      <span class="ui-footer">{@render content(footer)}</span>
     {/if}
   </span>
   {#if endText}
-    <span id={`end-text-${componentId}`} class="ui-end-text">
-      {@render snippetString(endText)}
+    <span id={endTextId} class="ui-end-text">
+      {@render content(endText)}
     </span>
   {/if}
 </label>

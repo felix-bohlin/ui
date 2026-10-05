@@ -1,17 +1,18 @@
 <script lang="ts">
-  import type { Props } from "./types.svelte"
   import { setTabsContext } from "./context"
+  import type { Props } from "./types.svelte"
 
   let {
     children,
     class: className,
     name,
-    ref = $bindable(null),
+    scrollable,
+    variant,
     ...rest
   }: Props = $props()
 
-  const id = $props.id()
-  const groupName = $derived(name || `tabs-${id}`)
+  const uid = $props.id()
+  const groupName = $derived(name || `tabs-${uid}`)
 
   setTabsContext({
     get groupName() {
@@ -20,6 +21,14 @@
   })
 </script>
 
-<div bind:this={ref} class={["ui-tabs", className]} role="tablist" {...rest}>
+<div
+  class={[
+    "ui-tabs",
+    { "ui-scrollable": scrollable },
+    variant && `ui-${variant}`,
+    className,
+  ]}
+  {...rest}
+>
   {@render children?.()}
 </div>

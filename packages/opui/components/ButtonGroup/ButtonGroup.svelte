@@ -5,7 +5,8 @@
     class: className,
     color,
     orientation,
-    ref = $bindable(null),
+    scrollable,
+    shrink,
     size,
     variant,
 
@@ -16,13 +17,13 @@
 </script>
 
 <div
-  bind:this={ref}
   class={[
     "ui-button-group",
     color && `ui-${color}`,
     size && `ui-${size}`,
     variant && `ui-${variant}`,
     orientation && `ui-${orientation}`,
+    { "ui-scrollable": scrollable, "ui-shrink": shrink },
     className,
   ]}
   role="group"

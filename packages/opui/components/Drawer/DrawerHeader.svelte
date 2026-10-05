@@ -1,28 +1,37 @@
 <script lang="ts">
-  import IconButton from "../IconButton/IconButton.svelte"
+  import Button from "../Button/Button.svelte"
+  import { getDrawerContext } from "./context"
   import type { DrawerHeaderProps as Props } from "./types.svelte"
 
   let {
     children,
     class: className,
+    closeLabel = "Close",
+    commandfor,
     heading,
-    ref = $bindable(null),
     ...rest
   }: Props = $props()
 
-  const closeDrawer = (event: MouseEvent) => {
-    const target = event.currentTarget as HTMLElement | null
-    target?.closest("dialog")?.close()
-  }
+  const drawer = getDrawerContext()
+
+  const closeAttrs = $derived(
+    commandfor
+      ? { command: "close", commandfor }
+      : {
+          onclick: (event: MouseEvent) =>
+            (event.currentTarget as HTMLElement).closest("dialog")?.close(),
+        },
+  )
 </script>
 
-<div bind:this={ref} class={["ui-header", className]} {...rest}>
+<div class={["ui-header", className]} {...rest}>
   {#if heading}
-    <span>{heading}</span>
+    <h2 id={drawer?.headingId}>{heading}</h2>
   {/if}
   {@render children?.()}
-  <IconButton onclick={closeDrawer} title="Close">
+  <Button aria-label={closeLabel} ripple rounded size="small" {...closeAttrs}>
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width="32"
       height="32"
@@ -33,5 +42,5 @@
         d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
       ></path>
     </svg>
-  </IconButton>
+  </Button>
 </div>

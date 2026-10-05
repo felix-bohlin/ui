@@ -1,22 +1,10 @@
 import type * as Base from "./types"
 import type { SvelteHTMLElements } from "svelte/elements"
 
-export type Props = Base.Props &
-  SvelteHTMLElements["dl"] & {
-    ref?: HTMLDListElement | null
-  }
+export type Props = Base.Props & SvelteHTMLElements["dl"]
 
-export type TermProps = Base.Props &
-  SvelteHTMLElements["dt"] & {
-    ref?: HTMLElement | null
-  }
+export type TermProps = SvelteHTMLElements["dt"]
 
-export type DescriptionProps = Base.Props &
-  SvelteHTMLElements["dd"] & {
-    ref?: HTMLElement | null
-  }
+export type DescriptionProps = SvelteHTMLElements["dd"]
 
-export type ItemProps = Base.Props &
-  SvelteHTMLElements["div"] & {
-    ref?: HTMLDivElement | null
-  }
+export type ItemProps = SvelteHTMLElements["div"]

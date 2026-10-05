@@ -1,16 +1,7 @@
 <script lang="ts">
   import type { Props } from "./types.svelte"
 
-  let {
-    class: className,
-    ref = $bindable(null),
-    variant,
-    ...rest
-  }: Props = $props()
+  let { class: className, variant, ...rest }: Props = $props()
 </script>
 
-<hr
-  bind:this={ref}
-  class={["ui-divider", className, variant && `ui-border-${variant}`]}
-  {...rest}
-/>
+<hr class={["ui-divider", variant && `ui-${variant}`, className]} {...rest} />

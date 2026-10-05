@@ -4,15 +4,19 @@
   let {
     children,
     class: className,
-    ref = $bindable(null),
+    stickyHeader,
     variant,
     ...rest
   }: Props = $props()
 </script>
 
 <table
-  bind:this={ref}
-  class={["ui-table", className, variant && `ui-${variant}`]}
+  class={[
+    "ui-table",
+    { "ui-sticky-header": stickyHeader },
+    variant && `ui-${variant}`,
+    className,
+  ]}
   {...rest}
 >
   {@render children?.()}

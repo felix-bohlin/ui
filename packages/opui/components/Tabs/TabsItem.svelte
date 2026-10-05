@@ -1,42 +1,35 @@
 <script lang="ts">
-  import type { TabsItemProps as Props } from "./types.svelte"
   import { getTabsContext, setTabsContext } from "./context"
-
-  const id = $props.id()
+  import type { TabsItemProps as Props } from "./types.svelte"
 
   let {
     children,
     class: className,
     name,
     open,
-    panelId = `panel-${id}`,
-    ref = $bindable(null),
-    tabId = `tab-${id}`,
+    tabId,
     ...rest
   }: Props = $props()
 
+  const uid = $props.id()
   const parent = getTabsContext()
-  const groupName = $derived(name || parent?.groupName)
+  const groupName = $derived(name || parent?.groupName || `tabs-${uid}`)
+  const computedTabId = $derived(tabId || `tab-${uid}`)
 
   setTabsContext({
     get groupName() {
       return groupName
     },
-    get panelId() {
-      return panelId
-    },
     get tabId() {
-      return tabId
+      return computedTabId
     },
   })
 </script>
 
 <input
-  bind:this={ref}
-  aria-controls={panelId}
   checked={open}
   class={["ui-tab-input", className]}
-  id={tabId}
+  id={computedTabId}
   name={groupName}
   type="radio"
   {...rest}

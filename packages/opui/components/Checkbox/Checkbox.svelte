@@ -1,6 +1,5 @@
 <script lang="ts">
   import CheckboxInput from "./CheckboxInput.svelte"
-  import { getFieldContext } from "../FieldGroup/context"
   import type { CheckboxProps as Props } from "./types.svelte"
 
   let {
@@ -9,8 +8,6 @@
     error,
     group = $bindable(),
     hideLabel,
-    name,
-    ref = $bindable(null),
     size,
     spread,
     stack,
@@ -22,12 +19,14 @@
   }: Props = $props()
 
   const id = $props.id()
-  const field = getFieldContext()
   const endTextId = $derived(endText ? `end-text-${id}` : undefined)
+  const describedBy = $derived(
+    [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") ||
+      undefined,
+  )
 </script>
 
 <label
-  bind:this={ref}
   class={[
     "ui-checkbox",
     size && `ui-${size}`,
@@ -37,25 +36,23 @@
     },
     className,
   ]}
-  data-invalid={error || undefined}
+  data-invalid={error ? "" : undefined}
 >
   <CheckboxInput
-    aria-describedby={endTextId}
+    {...rest}
+    aria-describedby={describedBy}
+    aria-invalid={error ? "true" : undefined}
     bind:checked
     bind:group
-    name={name || field?.name}
-    {...rest}
   />
-  <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
-    {@render children?.()}
-  </span>
+  {#if children}
+    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+      {@render children()}
+    </span>
+  {/if}
   {#if endText}
     <span id={endTextId} class="ui-end-text">
-      {#if typeof endText === "string"}
-        {endText}
-      {:else}
-        {@render endText()}
-      {/if}
+      {#if typeof endText === "string"}{endText}{:else}{@render endText()}{/if}
     </span>
   {/if}
 </label>

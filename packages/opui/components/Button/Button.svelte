@@ -7,7 +7,10 @@
     color,
     disabled,
     href,
-    ref = $bindable(null),
+    iconOnly: _iconOnly,
+    label,
+    ripple,
+    rounded,
     size,
     variant,
 
@@ -22,17 +25,22 @@
 
 <svelte:element
   this={Tag}
-  bind:this={ref}
   class={[
     "ui-button",
-    { "ui-disabled": isButton && disabled },
+    {
+      "ui-ripple": ripple,
+      "ui-rounded": rounded,
+    },
     size && `ui-${size}`,
     variant && `ui-${variant}`,
     color && `ui-${color}`,
     className,
   ]}
+  aria-disabled={!isButton && disabled ? "true" : undefined}
+  aria-label={label}
   disabled={isButton ? disabled : undefined}
   {href}
+  type={isButton ? "button" : undefined}
   {...rest}
 >
   {@render children?.()}

@@ -27,11 +27,15 @@ export type ApiOption = {
   values?: Partial<Record<string, string | null>>
 }
 
+export type ApiModel = { description: string; prop: string; type: string }
+
 export type ComponentApi = {
   component: string
   css?: string[]
   file?: string
-  model?: { description: string; prop: string; type: string }
+  model?: ApiModel & {
+    frameworks?: Partial<Record<ComponentFramework, ApiModel[]>>
+  }
   notes?: Partial<Record<Framework, string>>
   options: ApiOption[]
   page?: string

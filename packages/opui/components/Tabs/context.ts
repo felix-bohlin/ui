@@ -2,7 +2,6 @@ import { getContext, setContext } from "svelte"
 
 export type TabsContext = {
   groupName?: string
-  panelId?: string
   tabId?: string
 }
 

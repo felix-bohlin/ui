@@ -7,7 +7,6 @@
     href,
     label,
     multiline,
-    ref = $bindable(null),
     size,
     variant = "tonal",
 
@@ -23,7 +22,6 @@
 
 <svelte:element
   this={Tag}
-  bind:this={ref}
   class={[
     "ui-chip",
     {
@@ -33,7 +31,8 @@
     variant && `ui-${variant}`,
     className,
   ]}
-  {href}
+  href={Tag === "a" ? href : undefined}
+  type={Tag === "button" ? "button" : undefined}
   {...rest}
   >{@render start?.()}{@render children?.()}{#if label}<span class="ui-text"
       >{label}</span

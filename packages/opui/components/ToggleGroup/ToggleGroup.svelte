@@ -1,40 +1,45 @@
 <script lang="ts">
-  import type { Props } from "./types.svelte"
   import { setToggleGroupContext } from "./context"
+  import type { Props } from "./types.svelte"
 
   let {
-    children,
     class: className,
     name,
     orientation,
-    ref = $bindable(null),
+    scrollable,
     selection = "multiple",
+    shrink,
     size = "default",
+
+    // Snippets
+    children,
     ...rest
   }: Props = $props()
 
-  const id = $props.id()
+  const uid = $props.id()
+  const groupName = $derived(name || `toggle-group-${uid}`)
+  const inputType = $derived(selection === "single" ? "radio" : "checkbox")
 
   setToggleGroupContext({
     get groupName() {
-      return name || `toggle-group-${id}`
+      return groupName
     },
     get inputType() {
-      return selection === "single" ? "radio" : "checkbox"
+      return inputType
     },
   })
 </script>
 
 <div
-  bind:this={ref}
   class={[
     "ui-toggle-group",
     size !== "default" && size && `ui-${size}`,
     orientation && `ui-${orientation}`,
+    { "ui-scrollable": scrollable, "ui-shrink": shrink },
     className,
   ]}
   role={selection === "single" ? "radiogroup" : "group"}
   {...rest}
 >
-  {@render children()}
+  {@render children?.()}
 </div>

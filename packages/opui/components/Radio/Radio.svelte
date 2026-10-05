@@ -1,6 +1,5 @@
 <script lang="ts">
   import RadioInput from "./RadioInput.svelte"
-  import { getFieldContext } from "../FieldGroup/context"
   import type { RadioProps as Props } from "./types.svelte"
 
   let {
@@ -8,8 +7,6 @@
     error,
     group = $bindable(),
     hideLabel,
-    name,
-    ref = $bindable(null),
     size,
     stack,
 
@@ -20,12 +17,14 @@
   }: Props = $props()
 
   const id = $props.id()
-  const field = getFieldContext()
   const endTextId = $derived(endText ? `end-text-${id}` : undefined)
+  const describedBy = $derived(
+    [endTextId, rest["aria-describedby"]].filter(Boolean).join(" ") ||
+      undefined,
+  )
 </script>
 
 <label
-  bind:this={ref}
   class={[
     "ui-radio",
     size && `ui-${size}`,
@@ -34,24 +33,22 @@
     },
     className,
   ]}
-  data-invalid={error || undefined}
+  data-invalid={error ? "" : undefined}
 >
   <RadioInput
-    aria-describedby={endTextId}
-    bind:group
-    name={name || field?.name}
     {...rest}
+    aria-describedby={describedBy}
+    aria-invalid={error ? "true" : undefined}
+    bind:group
   />
-  <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
-    {@render children?.()}
-  </span>
+  {#if children}
+    <span class={[hideLabel ? "ui-sr-only" : "ui-label"]}>
+      {@render children()}
+    </span>
+  {/if}
   {#if endText}
     <span id={endTextId} class="ui-end-text">
-      {#if typeof endText === "string"}
-        {endText}
-      {:else}
-        {@render endText()}
-      {/if}
+      {#if typeof endText === "string"}{endText}{:else}{@render endText()}{/if}
     </span>
   {/if}
 </label>

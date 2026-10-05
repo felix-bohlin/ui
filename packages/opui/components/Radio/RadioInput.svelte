@@ -1,22 +1,26 @@
 <script lang="ts">
+  import { getFieldContext } from "../FieldGroup/context"
   import type { RadioInputProps as Props } from "./types.svelte"
 
   let {
     checked,
     group = $bindable(),
+    name,
     onchange,
-    ref = $bindable(null),
     value,
     ...rest
   }: Props = $props()
+
+  const field = getFieldContext()
 </script>
 
 <input
-  bind:this={ref}
   type="radio"
-  checked={group === undefined ? checked : group === value}
+  checked={(group === undefined ? checked : group === (value ?? true)) ||
+    undefined}
+  name={name ?? field?.name}
   onchange={(event) => {
-    group = value
+    group = value ?? true
     onchange?.(event)
   }}
   {value}

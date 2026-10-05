@@ -1,24 +1,12 @@
 <script lang="ts">
-  import type { TabsTabProps as Props } from "./types.svelte"
   import { getTabsContext } from "./context"
+  import type { TabsTabProps as Props } from "./types.svelte"
 
-  let {
-    children,
-    class: className,
-    ref = $bindable(null),
-    tabId,
-    ...rest
-  }: Props = $props()
+  let { children, class: className, tabId, ...rest }: Props = $props()
 
-  const context = getTabsContext()
+  const tabs = getTabsContext()
 </script>
 
-<label
-  bind:this={ref}
-  for={tabId || context?.tabId}
-  class={["ui-tab-label", className]}
-  role="tab"
-  {...rest}
->
+<label for={tabId || tabs?.tabId} class={["ui-tab-label", className]} {...rest}>
   {@render children?.()}
 </label>

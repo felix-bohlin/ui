@@ -1,29 +1,37 @@
 <script lang="ts">
-  import type { Props } from "./types.svelte"
+  import { getFieldContext } from "../FieldGroup/context"
   import { getToggleGroupContext } from "../ToggleGroup/context"
+  import type { Props } from "./types.svelte"
 
   let {
-    children,
     class: className,
     disabled,
     id,
     label,
     name,
     pressed,
-    ref = $bindable(null),
     size,
     type,
     value,
+
+    // Snippets
+    children,
     ...rest
   }: Props = $props()
 
-  const componentId = $props.id()
+  const field = getFieldContext()
   const group = getToggleGroupContext()
-  const finalType = $derived(type || group?.inputType || "checkbox")
+  const uid = $props.id()
+
+  const finalName = $derived(name || group?.groupName || field?.name)
+  const finalType = $derived(
+    group?.inputType === "radio"
+      ? "radio"
+      : type || group?.inputType || "checkbox",
+  )
 </script>
 
 <label
-  bind:this={ref}
   class={[
     "ui-toggle-button",
     { "ui-disabled": disabled },
@@ -32,14 +40,13 @@
   ]}
 >
   <input
-    aria-pressed={finalType === "checkbox" ? pressed : undefined}
     checked={pressed}
     {disabled}
-    id={id || `toggle-${componentId}`}
-    name={name || group?.groupName}
+    id={id || `toggle-${uid}`}
+    name={finalName}
     type={finalType}
     value={value || label}
     {...rest}
   />
-  {@render children?.()}
+  {#if children}{@render children()}{:else}{label}{/if}
 </label>

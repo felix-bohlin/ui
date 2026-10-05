@@ -24,7 +24,7 @@ Floating content that is always shown, like a coach mark beside a button. Set `-
 
 ```html
 <span class="ui-anchor" style="--anchor-position-area: inline-end">
-  <button class="ui-button ui-outlined">Export</button>
+  <button type="button" class="ui-button ui-outlined">Export</button>
   <span class="ui-anchor-floating">
     <div class="ui-card ui-tonal coach-mark">
       <div class="ui-content">
@@ -84,7 +84,9 @@ Put a [Card](https://open-props-ui.netlify.app/html/components/card.md) in the f
           <p class="ui-caption">CSS · MIT license</p>
         </div>
         <div class="ui-actions">
-          <button class="ui-button ui-outlined ui-small">Star</button>
+          <button type="button" class="ui-button ui-outlined ui-small">
+            Star
+          </button>
         </div>
       </div>
     </span>

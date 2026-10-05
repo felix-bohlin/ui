@@ -228,7 +228,7 @@ import { ToggleGroup, ToggleButton } from "opui-css/astro"
 
 ### Sizes
 
-Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
+Choose between four sizes with the `size` prop: `x-small`, `small`, default and `large`.
 
 ```astro
 ---

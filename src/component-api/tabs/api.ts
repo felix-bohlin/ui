@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Tabs",
   notes: {
-    html: 'The root needs `role="tablist"`. Each tab is an `input.ui-tab-input[type="radio"]`, followed by its `label.ui-tab-label[role="tab"]` and `.ui-tab-panel[role="tabpanel"]`.',
+    html: 'Each tab is an `input.ui-tab-input[type="radio"]`, followed by its `label.ui-tab-label` and `.ui-tab-panel`.',
   },
   options: [
     {

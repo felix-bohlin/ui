@@ -38,7 +38,7 @@ export default {
     },
     {
       default: "[]",
-      description: "The options, as `{ text, value }` objects.",
+      description: "The options, as `{ selected, text, value }` objects.",
       prop: "items",
     },
     {

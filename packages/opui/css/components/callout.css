@@ -113,4 +113,11 @@
       }
     }
   }
+
+  @scope (.ui-rich-text) to (.ui-not-rich-text) {
+    .ui-callout > .ui-content,
+    .ui-callout > :scope.ui-content {
+      display: block;
+    }
+  }
 }

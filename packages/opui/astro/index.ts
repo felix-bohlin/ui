@@ -59,6 +59,22 @@ export { default as TextField } from "../components/TextField/TextField.astro"
 export { default as ToggleButton } from "../components/ToggleButton/ToggleButton.astro"
 export { default as ToggleGroup } from "../components/ToggleGroup/ToggleGroup.astro"
 export { default as Tooltip } from "../components/Tooltip/Tooltip.astro"
+export type { Props as AccordionProps } from "../components/Accordion/types.astro"
+export type { Props as AnchorProps } from "../components/Anchor/types.astro"
+export type { Props as AvatarProps } from "../components/Avatar/types.astro"
+export type { Props as BadgeProps } from "../components/Badge/types.astro"
+export type { Props as ButtonProps } from "../components/Button/types.astro"
+export type { Props as ButtonGroupProps } from "../components/ButtonGroup/types.astro"
+export type { Props as CalloutProps } from "../components/Callout/types.astro"
+export type { Props as CardProps } from "../components/Card/types.astro"
+export type { Props as CarouselProps } from "../components/Carousel/types.astro"
+export type {
+  CheckboxInputProps,
+  CheckboxProps,
+} from "../components/Checkbox/types.astro"
+export type { Props as ChipProps } from "../components/Chip/types.astro"
+export type { Item as ClassicSelectItem } from "../components/ClassicSelect/types"
+export type { ClassicSelectProps } from "../components/ClassicSelect/types.astro"
 export type {
   DataGridColumn,
   DataGridColumnGroup,
@@ -66,3 +82,54 @@ export type {
   DataGridRow,
   DataGridSort,
 } from "../components/DataGrid/types"
+export type { Props as DataGridProps } from "../components/DataGrid/types.astro"
+export type {
+  DescriptionProps as DescriptionListDescriptionProps,
+  ItemProps as DescriptionListItemProps,
+  Props as DescriptionListProps,
+  TermProps as DescriptionListTermProps,
+} from "../components/DescriptionList/types.astro"
+export type { Props as DialogProps } from "../components/Dialog/types.astro"
+export type { Props as DividerProps } from "../components/Divider/types.astro"
+export type {
+  DrawerFooterProps,
+  DrawerHeaderProps,
+  Props as DrawerProps,
+} from "../components/Drawer/types.astro"
+export type { Props as FieldDescriptionProps } from "../components/FieldDescription/types.astro"
+export type { Props as FieldGroupProps } from "../components/FieldGroup/types.astro"
+export type { Props as FieldLegendProps } from "../components/FieldLegend/types.astro"
+export type { Props as FieldSetProps } from "../components/FieldSet/types.astro"
+export type { Props as FormProps } from "../components/Form/types.astro"
+export type { Props as ListProps } from "../components/List/types.astro"
+export type { Props as ListItemProps } from "../components/ListItem/types.astro"
+export type { MenuItem } from "../components/Menu/types"
+export type { Props as MenuProps } from "../components/Menu/types.astro"
+export type { Props as ProgressProps } from "../components/Progress/types.astro"
+export type {
+  RadioInputProps,
+  RadioProps,
+} from "../components/Radio/types.astro"
+export type { RangeProps } from "../components/Range/types.astro"
+export type { Item as SelectItem } from "../components/Select/types"
+export type { Props as SelectProps } from "../components/Select/types.astro"
+export type {
+  SwitchInputProps,
+  SwitchProps,
+} from "../components/Switch/types.astro"
+export type {
+  ColumnProps as TableColumnProps,
+  Props as TableProps,
+  SectionProps as TableSectionProps,
+} from "../components/Table/types.astro"
+export type {
+  TabsItemProps,
+  TabsPanelProps,
+  Props as TabsProps,
+  TabsTabProps,
+} from "../components/Tabs/types.astro"
+export type { Props as TextareaProps } from "../components/Textarea/types.astro"
+export type { Props as TextFieldProps } from "../components/TextField/types.astro"
+export type { Props as ToggleButtonProps } from "../components/ToggleButton/types.astro"
+export type { Props as ToggleGroupProps } from "../components/ToggleGroup/types.astro"
+export type { Props as TooltipProps } from "../components/Tooltip/types.astro"

@@ -1230,24 +1230,16 @@
     The tab panel should not add extra space above the first card, and the list
     rows should line up with the card header.
   </p>
-  <div class="ui-tabs ui-line" role="tablist">
+  <div class="ui-tabs ui-line">
     <input
       type="radio"
       name="stress-layout-settings"
       id="stress-layout-tab-general"
       class="ui-tab-input"
       checked
-      aria-controls="stress-layout-panel-general"
     />
-    <label for="stress-layout-tab-general" class="ui-tab-label" role="tab"
-      >General</label
-    >
-    <div
-      id="stress-layout-panel-general"
-      class="ui-tab-panel"
-      role="tabpanel"
-      aria-labelledby="stress-layout-tab-general"
-    >
+    <label for="stress-layout-tab-general" class="ui-tab-label">General</label>
+    <div class="ui-tab-panel">
       <div class="stress-grid">
         <div class="ui-card ui-outlined">
           <hgroup>
@@ -1330,9 +1322,8 @@
       name="stress-layout-settings"
       id="stress-layout-tab-members"
       class="ui-tab-input"
-      aria-controls="stress-layout-panel-members"
     />
-    <label for="stress-layout-tab-members" class="ui-tab-label" role="tab"
+    <label for="stress-layout-tab-members" class="ui-tab-label"
       ><span class="ui-anchor ui-badge ui-neutral"
         ><span>Members</span
         ><span class="ui-anchor-floating"
@@ -1340,55 +1331,34 @@
         ></span
       ></label
     >
-    <div
-      id="stress-layout-panel-members"
-      class="ui-tab-panel"
-      role="tabpanel"
-      aria-labelledby="stress-layout-tab-members"
-    >
-      Members.
-    </div>
+    <div class="ui-tab-panel">Members.</div>
     <input
       type="radio"
       name="stress-layout-settings"
       id="stress-layout-tab-billing"
       class="ui-tab-input"
-      aria-controls="stress-layout-panel-billing"
     />
-    <label for="stress-layout-tab-billing" class="ui-tab-label" role="tab"
+    <label for="stress-layout-tab-billing" class="ui-tab-label"
       ><span class="ui-anchor ui-badge ui-dot ui-critical"
         ><span>Billing</span
         ><span class="ui-anchor-floating"
           ><span class="ui-badge-indicator"></span></span></span
     ></label>
-    <div
-      id="stress-layout-panel-billing"
-      class="ui-tab-panel"
-      role="tabpanel"
-      aria-labelledby="stress-layout-tab-billing"
-    >
-      Billing.
-    </div>
+    <div class="ui-tab-panel">Billing.</div>
   </div>
   <div class="ui-card ui-outlined">
-    <div class="ui-tabs ui-outlined" role="tablist">
+    <div class="ui-tabs ui-outlined">
       <input
         type="radio"
         name="stress-layout-card-tabs"
         id="stress-layout-card-tab-1"
         class="ui-tab-input"
         checked
-        aria-controls="stress-layout-card-panel-1"
       />
-      <label for="stress-layout-card-tab-1" class="ui-tab-label" role="tab"
+      <label for="stress-layout-card-tab-1" class="ui-tab-label"
         >Tabs in a card</label
       >
-      <div
-        id="stress-layout-card-panel-1"
-        class="ui-tab-panel"
-        role="tabpanel"
-        aria-labelledby="stress-layout-card-tab-1"
-      >
+      <div class="ui-tab-panel">
         The tabs are a direct child of the card, so they get no padding from it.
       </div>
       <input
@@ -1396,19 +1366,9 @@
         name="stress-layout-card-tabs"
         id="stress-layout-card-tab-2"
         class="ui-tab-input"
-        aria-controls="stress-layout-card-panel-2"
       />
-      <label for="stress-layout-card-tab-2" class="ui-tab-label" role="tab"
-        >Second</label
-      >
-      <div
-        id="stress-layout-card-panel-2"
-        class="ui-tab-panel"
-        role="tabpanel"
-        aria-labelledby="stress-layout-card-tab-2"
-      >
-        Second panel.
-      </div>
+      <label for="stress-layout-card-tab-2" class="ui-tab-label">Second</label>
+      <div class="ui-tab-panel">Second panel.</div>
     </div>
   </div>
 </section>
@@ -1761,7 +1721,7 @@
     </hgroup>
     <div class="ui-content">
       <ul
-        class="ui-carousel ui-buttons-outside ui-with-buttons ui-with-markers"
+        class="ui-carousel ui-buttons-outside ui-stretch ui-with-buttons ui-with-markers"
         aria-label="Plans"
         style="--_per-view: 2"
       >
@@ -1936,44 +1896,24 @@
       </div>
     </div>
     <div class="stress-stack">
-      <div class="ui-tabs" role="tablist">
+      <div class="ui-tabs">
         <input
           type="radio"
           name="stress-layout-rtl-tabs"
           id="stress-layout-rtl-tab-1"
           class="ui-tab-input"
           checked
-          aria-controls="stress-layout-rtl-panel-1"
         />
-        <label for="stress-layout-rtl-tab-1" class="ui-tab-label" role="tab"
-          >First</label
-        >
-        <div
-          id="stress-layout-rtl-panel-1"
-          class="ui-tab-panel"
-          role="tabpanel"
-          aria-labelledby="stress-layout-rtl-tab-1"
-        >
-          First panel.
-        </div>
+        <label for="stress-layout-rtl-tab-1" class="ui-tab-label">First</label>
+        <div class="ui-tab-panel">First panel.</div>
         <input
           type="radio"
           name="stress-layout-rtl-tabs"
           id="stress-layout-rtl-tab-2"
           class="ui-tab-input"
-          aria-controls="stress-layout-rtl-panel-2"
         />
-        <label for="stress-layout-rtl-tab-2" class="ui-tab-label" role="tab"
-          >Second</label
-        >
-        <div
-          id="stress-layout-rtl-panel-2"
-          class="ui-tab-panel"
-          role="tabpanel"
-          aria-labelledby="stress-layout-rtl-tab-2"
-        >
-          Second panel.
-        </div>
+        <label for="stress-layout-rtl-tab-2" class="ui-tab-label">Second</label>
+        <div class="ui-tab-panel">Second panel.</div>
       </div>
       <div class="stress-row stress-center">
         <span class="ui-anchor ui-badge"

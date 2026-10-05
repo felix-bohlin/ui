@@ -1,0 +1,257 @@
+<style>
+  .todo-cases {
+    border-collapse: collapse;
+    inline-size: 100%;
+
+    td,
+    th {
+      border-block-end: 1px solid var(--border-color);
+      padding: var(--size-2);
+      text-align: start;
+      vertical-align: top;
+    }
+
+    td > div {
+      display: grid;
+      gap: var(--size-1);
+      justify-items: start;
+    }
+  }
+
+  .todo-badge-box {
+    padding: var(--size-3) var(--size-4) 0 0;
+  }
+
+  .todo-proposed {
+    .ui-overline {
+      color: oklch(from var(--text-muted) calc(l * 0.9) c h);
+    }
+
+    mark a[href] {
+      color: inherit;
+    }
+
+    :is(del, ins) code {
+      background-color: transparent;
+    }
+
+    .ui-list .ui-end kbd {
+      color: var(--text-muted);
+      opacity: 1;
+    }
+
+    .ui-list a[href] {
+      color: light-dark(var(--primary-dark), var(--primary));
+    }
+
+    a[href] code {
+      background-color: transparent;
+    }
+
+    .ui-badge.ui-info {
+      --_bg-color: oklch(from var(--info) calc(l * 0.9) c h);
+      --_border-color: var(--_bg-color);
+    }
+  }
+</style>
+<p>
+  Each row shows the flagged text as it renders now and with the proposed fix.
+  The ratio is computed live (axe needs 4.5:1 for this small text).
+</p>
+<table class="todo-cases">
+  <thead>
+    <tr>
+      <th>Case</th>
+      <th>Current</th>
+      <th>Proposed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Overline, dark (Typography, hgroup)</td>
+      <td class="ui-dark">
+        <div>
+          <p class="ui-overline" data-contrast>Overline</p>
+          <span data-ratio></span>
+        </div>
+      </td>
+      <td class="ui-dark todo-proposed">
+        <div>
+          <p class="ui-overline" data-contrast>Overline</p>
+          <span data-ratio></span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Link inside <code>mark</code>, dark (Typography Default)</td>
+      <td class="ui-dark">
+        <div class="ui-rich-text">
+          <p>
+            <mark>with <a href="#" data-contrast>a link</a></mark>
+            <span data-ratio></span>
+          </p>
+        </div>
+      </td>
+      <td class="ui-dark todo-proposed">
+        <div class="ui-rich-text">
+          <p>
+            <mark>with <a href="#" data-contrast>a link</a></mark>
+            <span data-ratio></span>
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>code</code> in <code>del</code>/<code>ins</code>, dark (Typography
+        Default)
+      </td>
+      <td class="ui-dark">
+        <div class="ui-rich-text">
+          <p>
+            <del><code data-contrast>deleted code</code></del>
+            <span data-ratio></span>
+          </p>
+          <p>
+            <ins><code data-contrast>inserted code</code></ins>
+            <span data-ratio></span>
+          </p>
+        </div>
+      </td>
+      <td class="ui-dark todo-proposed">
+        <div class="ui-rich-text">
+          <p>
+            <del><code data-contrast>deleted code</code></del>
+            <span data-ratio></span>
+          </p>
+          <p>
+            <ins><code data-contrast>inserted code</code></ins>
+            <span data-ratio></span>
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Linked <code>code</code>, light (Typography Default)</td>
+      <td class="ui-light">
+        <div class="ui-rich-text">
+          <p>
+            <a href="#"><code data-contrast>linked code</code></a>
+            <span data-ratio></span>
+          </p>
+        </div>
+      </td>
+      <td class="ui-light todo-proposed">
+        <div class="ui-rich-text">
+          <p>
+            <a href="#"><code data-contrast>linked code</code></a>
+            <span data-ratio></span>
+          </p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>kbd</code> and a link in a List, light (List Default, EndKeyboard,
+        <code>typography</code> ProseInComponents)
+      </td>
+      <td class="ui-light">
+        <ul class="ui-list">
+          <li>
+            <div class="ui-text ui-rich-text">
+              <p>Save, <a href="#" data-contrast>a link</a></p>
+              <span data-ratio></span>
+            </div>
+            <div class="ui-end"><kbd data-contrast>CTRL+S</kbd></div>
+          </li>
+        </ul>
+        <span data-ratio></span>
+      </td>
+      <td class="ui-light todo-proposed">
+        <ul class="ui-list">
+          <li>
+            <div class="ui-text ui-rich-text">
+              <p>Save, <a href="#" data-contrast>a link</a></p>
+              <span data-ratio></span>
+            </div>
+            <div class="ui-end"><kbd data-contrast>CTRL+S</kbd></div>
+          </li>
+        </ul>
+        <span data-ratio></span>
+      </td>
+    </tr>
+    <tr>
+      <td>Info badge (Badges, InlineAlignment)</td>
+      <td>
+        <div class="todo-badge-box">
+          <span class="ui-anchor ui-badge ui-info">
+            Inbox
+            <span class="ui-anchor-floating">
+              <span class="ui-badge-indicator" data-contrast>99+</span>
+            </span>
+          </span>
+          <span data-ratio></span>
+        </div>
+      </td>
+      <td class="todo-proposed">
+        <div class="todo-badge-box">
+          <span class="ui-anchor ui-badge ui-info">
+            Inbox
+            <span class="ui-anchor-floating">
+              <span class="ui-badge-indicator" data-contrast>99+</span>
+            </span>
+          </span>
+          <span data-ratio></span>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<script>
+  {
+    const context = document
+      .createElement("canvas")
+      .getContext("2d", { willReadFrequently: true })
+    const rgba = (color) => {
+      context.clearRect(0, 0, 1, 1)
+      context.fillStyle = color
+      context.fillRect(0, 0, 1, 1)
+      return [...context.getImageData(0, 0, 1, 1).data]
+    }
+    const luminance = ([r, g, b]) =>
+      [r, g, b]
+        .map((value) => value / 255)
+        .map((value) =>
+          value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4,
+        )
+        .reduce(
+          (sum, value, index) => sum + value * [0.2126, 0.7152, 0.0722][index],
+          0,
+        )
+    const backgroundOf = (element) => {
+      for (let node = element; node; node = node.parentElement) {
+        const color = rgba(getComputedStyle(node).backgroundColor)
+        if (color[3] > 0) return color
+      }
+      return [255, 255, 255, 255]
+    }
+    for (const element of document.querySelectorAll("[data-contrast]")) {
+      const background = backgroundOf(element)
+      const opacity = Number(getComputedStyle(element).opacity)
+      const foreground = rgba(getComputedStyle(element).color).map(
+        (value, index) => value * opacity + background[index] * (1 - opacity),
+      )
+      const [a, b] = [luminance(foreground), luminance(background)].toSorted(
+        (x, y) => y - x,
+      )
+      const ratio = (a + 0.05) / (b + 0.05)
+      const output = [
+        element.nextElementSibling,
+        element.parentElement.nextElementSibling,
+        element.closest("ul, .ui-badge")?.nextElementSibling,
+      ].find((node) => node?.matches("[data-ratio]") && !node.textContent)
+      if (output)
+        output.textContent = `${element.textContent.trim()}: ${ratio.toFixed(2)}:1`
+    }
+  }
+</script>

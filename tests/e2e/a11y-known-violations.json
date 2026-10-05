@@ -5,14 +5,6 @@
   "dark/stress/layout/Badges": [
     "color-contrast"
   ],
-  "dark/stress/layout/RightToLeft": [
-    "aria-allowed-role",
-    "aria-required-children"
-  ],
-  "dark/stress/layout/SettingsPage": [
-    "aria-allowed-role",
-    "aria-required-children"
-  ],
   "dark/stress/typography/Bidi": [
     "color-contrast"
   ],
@@ -24,26 +16,6 @@
   ],
   "dark/stress/typography/VerticalRhythm": [
     "color-contrast"
-  ],
-  "dark/tabs/Basics": [
-    "aria-allowed-role",
-    "aria-required-children"
-  ],
-  "dark/tabs/Filled": [
-    "aria-allowed-role",
-    "aria-required-children"
-  ],
-  "dark/tabs/Line": [
-    "aria-allowed-role",
-    "aria-required-children"
-  ],
-  "dark/tabs/Outlined": [
-    "aria-allowed-role",
-    "aria-required-children"
-  ],
-  "dark/tabs/Scrollable": [
-    "aria-allowed-role",
-    "aria-required-children"
   ],
   "dark/typography/Default": [
     "color-contrast"
@@ -69,36 +41,8 @@
   "light/stress/layout/Badges": [
     "color-contrast"
   ],
-  "light/stress/layout/RightToLeft": [
-    "aria-allowed-role",
-    "aria-required-children"
-  ],
-  "light/stress/layout/SettingsPage": [
-    "aria-allowed-role",
-    "aria-required-children"
-  ],
   "light/stress/typography/ProseInComponents": [
     "color-contrast"
-  ],
-  "light/tabs/Basics": [
-    "aria-allowed-role",
-    "aria-required-children"
-  ],
-  "light/tabs/Filled": [
-    "aria-allowed-role",
-    "aria-required-children"
-  ],
-  "light/tabs/Line": [
-    "aria-allowed-role",
-    "aria-required-children"
-  ],
-  "light/tabs/Outlined": [
-    "aria-allowed-role",
-    "aria-required-children"
-  ],
-  "light/tabs/Scrollable": [
-    "aria-allowed-role",
-    "aria-required-children"
   ],
   "light/typography/Default": [
     "color-contrast"

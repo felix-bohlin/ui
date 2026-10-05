@@ -4,6 +4,8 @@
 
 - [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
 - [Spread](#spread) fields line up at one width.
+- Breaking: extra attributes such as `autocomplete` and `aria-*` go to the input. `class` and `style` stay on the label.
+- The auto-suggest arrow matches the Select arrow at every size.
 
 ## Anatomy
 
@@ -549,21 +551,6 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 Input attributes (`disabled`, `list`, `max`, `min`, `name`, `placeholder`, `required`, `step`, `value`) go to the `<input>`. Other attributes go to the root `<label>`.
-
-### Text input API
-
-| Type     | Modifiers             | Default | Description                                                      |
-| -------- | --------------------- | ------- | ---------------------------------------------------------------- |
-| Auto-fit | `.ui-auto-fit`        | -       | When enabled, the element changes size depending on its content. |
-| Sizes    | `.ui-small`           | -       | The size of the element.                                         |
-| Variants | default, `.ui-filled` | default | The variant to use.                                              |
-
-#### Parts
-
-| Part                   | Description                                                                                                      |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `.ui-text-field input` | The input, wrapped in a `<span class="ui-field">`.                                                               |
-| `.ui-field`            | Wraps the `<input>`. Border, background, and focus styling are inherited from `.ui-field`, not the input itself. |
 
 ## Under the hood
 

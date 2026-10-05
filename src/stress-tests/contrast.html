@@ -1,0 +1,1863 @@
+<style>
+  .stress-contrast-scope {
+    align-content: start;
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-3);
+    padding: var(--size-4);
+  }
+
+  .stress-contrast-grid {
+    display: grid;
+    gap: var(--size-6);
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  }
+</style>
+
+<section class="stress" data-example="SideBySide">
+  <h2>Side by side</h2>
+  <p>
+    The same controls without and with <code>.ui-contrast-more</code>. Muted
+    text, borders, field borders, primary, critical and the focus ring get more
+    contrast. Everything else keeps its color.
+  </p>
+  <div class="stress-contrast-grid">
+    <div class="stress-stack">
+      <h3>Default</h3>
+      <div class="stress-stack">
+        <label class="ui-text-field"
+          ><span class="ui-label">Email</span
+          ><span class="ui-field"
+            ><input
+              type="email"
+              placeholder="name@example.com"
+              aria-describedby="contrast-default-email-help" /></span
+          ><span class="ui-end-text" id="contrast-default-email-help"
+            >We'll never share it.</span
+          ></label
+        >
+        <label class="ui-select"
+          ><span class="ui-label" id="contrast-default-plan-label">Plan</span
+          ><span class="ui-field"
+            ><select aria-labelledby="contrast-default-plan-label">
+              <option>Free</option>
+              <option>Pro</option>
+              <option>Team</option>
+            </select></span
+          ></label
+        >
+        <div class="stress-actions-end">
+          <button class="ui-button ui-primary ui-filled" type="button">
+            Save
+          </button>
+          <button class="ui-button ui-primary ui-outlined" type="button">
+            Preview
+          </button>
+          <button class="ui-button ui-primary ui-tonal" type="button">
+            Draft
+          </button>
+          <button class="ui-button" type="button">Search <kbd>⌘K</kbd></button>
+        </div>
+        <div class="stress-actions-end">
+          <button class="ui-button ui-critical ui-filled" type="button">
+            Delete
+          </button>
+          <button class="ui-button ui-critical ui-outlined" type="button">
+            Archive
+          </button>
+          <button class="ui-button ui-critical ui-tonal" type="button">
+            Revoke
+          </button>
+          <button class="ui-button ui-filled" type="button" disabled>
+            Disabled
+          </button>
+        </div>
+        <div class="ui-tabs">
+          <input
+            type="radio"
+            name="contrast-default-tabs"
+            id="contrast-default-tab-profile"
+            class="ui-tab-input"
+            checked
+          /><label for="contrast-default-tab-profile" class="ui-tab-label"
+            >Profile</label
+          >
+          <div class="ui-tab-panel">Profile settings and information.</div>
+          <input
+            type="radio"
+            name="contrast-default-tabs"
+            id="contrast-default-tab-settings"
+            class="ui-tab-input"
+          /><label for="contrast-default-tab-settings" class="ui-tab-label"
+            >Settings</label
+          >
+          <div class="ui-tab-panel">General account settings.</div>
+          <input
+            type="radio"
+            name="contrast-default-tabs"
+            id="contrast-default-tab-alerts"
+            class="ui-tab-input"
+          /><label for="contrast-default-tab-alerts" class="ui-tab-label"
+            >Alerts</label
+          >
+          <div class="ui-tab-panel">Manage your notifications.</div>
+        </div>
+        <div role="radiogroup" aria-label="View" class="ui-toggle-group">
+          <label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="contrast-default-view"
+              value="day"
+            />Day</label
+          ><label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="contrast-default-view"
+              value="week"
+              checked
+            />Week</label
+          ><label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="contrast-default-view"
+              value="month"
+            />Month</label
+          >
+        </div>
+        <div class="stress-actions-end">
+          <label class="ui-checkbox"
+            ><input type="checkbox" checked /><span class="ui-label"
+              >Remember me</span
+            ></label
+          >
+          <label class="ui-switch"
+            ><input type="checkbox" role="switch" /><span class="ui-label"
+              >Alerts</span
+            ></label
+          >
+          <label class="ui-radio"
+            ><input type="radio" name="contrast-default-radio" checked /><span
+              class="ui-label"
+              >Yes</span
+            ></label
+          >
+          <label class="ui-radio"
+            ><input type="radio" name="contrast-default-radio" /><span
+              class="ui-label"
+              >No</span
+            ></label
+          >
+        </div>
+        <div class="stress-chips">
+          <div class="ui-chip ui-tonal"><span class="ui-text">Tonal</span></div>
+          <div class="ui-chip ui-outlined">
+            <span class="ui-text">Outlined</span>
+          </div>
+        </div>
+        <div class="stress-actions-end">
+          <span class="ui-anchor ui-badge" role="img" aria-label="3 messages"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">3</span></span
+            ></span
+          ><span
+            class="ui-anchor ui-badge ui-critical"
+            role="img"
+            aria-label="12 critical messages"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">12</span></span
+            ></span
+          ><span
+            class="ui-anchor ui-badge ui-success"
+            role="img"
+            aria-label="4 sent messages"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">4</span></span
+            ></span
+          ><span
+            class="ui-anchor ui-badge ui-info"
+            role="img"
+            aria-label="7 info messages"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">7</span></span
+            ></span
+          ><span
+            class="ui-anchor ui-badge ui-warning"
+            role="img"
+            aria-label="2 warnings"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">2</span></span
+            ></span
+          ><span
+            class="ui-anchor ui-badge ui-neutral"
+            role="img"
+            aria-label="9 archived messages"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">9</span></span
+            ></span
+          >
+        </div>
+        <p>
+          Muted body text with <a class="ui-link" href="#">a link</a>,
+          <code>inline code</code> and a <kbd>Ctrl</kbd> hint.
+        </p>
+        <hr class="ui-divider" />
+        <div class="ui-progress">
+          <progress aria-label="Upload" value="40" max="100"></progress>
+        </div>
+      </div>
+    </div>
+    <div class="ui-contrast-more stress-stack">
+      <h3>.ui-contrast-more</h3>
+      <div class="stress-stack">
+        <label class="ui-text-field"
+          ><span class="ui-label">Email</span
+          ><span class="ui-field"
+            ><input
+              type="email"
+              placeholder="name@example.com"
+              aria-describedby="contrast-more-email-help" /></span
+          ><span class="ui-end-text" id="contrast-more-email-help"
+            >We'll never share it.</span
+          ></label
+        >
+        <label class="ui-select"
+          ><span class="ui-label" id="contrast-more-plan-label">Plan</span
+          ><span class="ui-field"
+            ><select aria-labelledby="contrast-more-plan-label">
+              <option>Free</option>
+              <option>Pro</option>
+              <option>Team</option>
+            </select></span
+          ></label
+        >
+        <div class="stress-actions-end">
+          <button class="ui-button ui-primary ui-filled" type="button">
+            Save
+          </button>
+          <button class="ui-button ui-primary ui-outlined" type="button">
+            Preview
+          </button>
+          <button class="ui-button ui-primary ui-tonal" type="button">
+            Draft
+          </button>
+          <button class="ui-button" type="button">Search <kbd>⌘K</kbd></button>
+        </div>
+        <div class="stress-actions-end">
+          <button class="ui-button ui-critical ui-filled" type="button">
+            Delete
+          </button>
+          <button class="ui-button ui-critical ui-outlined" type="button">
+            Archive
+          </button>
+          <button class="ui-button ui-critical ui-tonal" type="button">
+            Revoke
+          </button>
+          <button class="ui-button ui-filled" type="button" disabled>
+            Disabled
+          </button>
+        </div>
+        <div class="ui-tabs">
+          <input
+            type="radio"
+            name="contrast-more-tabs"
+            id="contrast-more-tab-profile"
+            class="ui-tab-input"
+            checked
+          /><label for="contrast-more-tab-profile" class="ui-tab-label"
+            >Profile</label
+          >
+          <div class="ui-tab-panel">Profile settings and information.</div>
+          <input
+            type="radio"
+            name="contrast-more-tabs"
+            id="contrast-more-tab-settings"
+            class="ui-tab-input"
+          /><label for="contrast-more-tab-settings" class="ui-tab-label"
+            >Settings</label
+          >
+          <div class="ui-tab-panel">General account settings.</div>
+          <input
+            type="radio"
+            name="contrast-more-tabs"
+            id="contrast-more-tab-alerts"
+            class="ui-tab-input"
+          /><label for="contrast-more-tab-alerts" class="ui-tab-label"
+            >Alerts</label
+          >
+          <div class="ui-tab-panel">Manage your notifications.</div>
+        </div>
+        <div role="radiogroup" aria-label="View" class="ui-toggle-group">
+          <label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="contrast-more-view"
+              value="day"
+            />Day</label
+          ><label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="contrast-more-view"
+              value="week"
+              checked
+            />Week</label
+          ><label class="ui-toggle-button"
+            ><input
+              type="radio"
+              name="contrast-more-view"
+              value="month"
+            />Month</label
+          >
+        </div>
+        <div class="stress-actions-end">
+          <label class="ui-checkbox"
+            ><input type="checkbox" checked /><span class="ui-label"
+              >Remember me</span
+            ></label
+          >
+          <label class="ui-switch"
+            ><input type="checkbox" role="switch" /><span class="ui-label"
+              >Alerts</span
+            ></label
+          >
+          <label class="ui-radio"
+            ><input type="radio" name="contrast-more-radio" checked /><span
+              class="ui-label"
+              >Yes</span
+            ></label
+          >
+          <label class="ui-radio"
+            ><input type="radio" name="contrast-more-radio" /><span
+              class="ui-label"
+              >No</span
+            ></label
+          >
+        </div>
+        <div class="stress-chips">
+          <div class="ui-chip ui-tonal"><span class="ui-text">Tonal</span></div>
+          <div class="ui-chip ui-outlined">
+            <span class="ui-text">Outlined</span>
+          </div>
+        </div>
+        <div class="stress-actions-end">
+          <span class="ui-anchor ui-badge" role="img" aria-label="3 messages"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">3</span></span
+            ></span
+          ><span
+            class="ui-anchor ui-badge ui-critical"
+            role="img"
+            aria-label="12 critical messages"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">12</span></span
+            ></span
+          ><span
+            class="ui-anchor ui-badge ui-success"
+            role="img"
+            aria-label="4 sent messages"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">4</span></span
+            ></span
+          ><span
+            class="ui-anchor ui-badge ui-info"
+            role="img"
+            aria-label="7 info messages"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">7</span></span
+            ></span
+          ><span
+            class="ui-anchor ui-badge ui-warning"
+            role="img"
+            aria-label="2 warnings"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">2</span></span
+            ></span
+          ><span
+            class="ui-anchor ui-badge ui-neutral"
+            role="img"
+            aria-label="9 archived messages"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">9</span></span
+            ></span
+          >
+        </div>
+        <p>
+          Muted body text with <a class="ui-link" href="#">a link</a>,
+          <code>inline code</code> and a <kbd>Ctrl</kbd> hint.
+        </p>
+        <hr class="ui-divider" />
+        <div class="ui-progress">
+          <progress aria-label="Upload" value="40" max="100"></progress>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="SizeMatrix">
+  <h2>Size matrix</h2>
+  <p>
+    Fields, buttons and toggles at every size in high contrast mode. Stronger
+    borders and a wider focus ring must not change a control's height.
+  </p>
+  <div class="ui-contrast-more stress-stack">
+    <div class="stress-row" data-size="x-small">
+      <span class="stress-tag">X-small</span
+      ><label class="ui-text-field ui-x-small"
+        ><span class="ui-label">Name</span
+        ><span class="ui-field"
+          ><input type="text" placeholder="Placeholder" /></span></label
+      ><label class="ui-text-field ui-filled ui-x-small"
+        ><span class="ui-label">Filled</span
+        ><span class="ui-field"
+          ><input type="text" value="Value" /></span></label
+      ><label class="ui-select ui-x-small"
+        ><span class="ui-label" id="contrast-size-x-small-label">Status</span
+        ><span class="ui-field"
+          ><select aria-labelledby="contrast-size-x-small-label">
+            <option>Draft</option>
+            <option>Published</option>
+          </select></span
+        ></label
+      ><button class="ui-button ui-x-small ui-filled" type="button">Save</button
+      ><button class="ui-button ui-x-small ui-outlined" type="button">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path></svg
+        ><span>Add</span></button
+      ><button
+        class="ui-button ui-x-small ui-tonal"
+        type="button"
+        aria-label="Add"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path>
+        </svg>
+      </button>
+      <div
+        role="radiogroup"
+        aria-label="View"
+        class="ui-toggle-group ui-x-small"
+      >
+        <label class="ui-toggle-button ui-x-small"
+          ><input
+            type="radio"
+            name="contrast-size-x-small-view"
+            value="day"
+          />Day</label
+        ><label class="ui-toggle-button ui-x-small"
+          ><input
+            type="radio"
+            name="contrast-size-x-small-view"
+            value="week"
+            checked
+          />Week</label
+        ><label class="ui-toggle-button ui-x-small"
+          ><input
+            type="radio"
+            name="contrast-size-x-small-view"
+            value="month"
+          />Month</label
+        >
+      </div>
+    </div>
+    <div class="stress-row" data-size="small">
+      <span class="stress-tag">Small</span
+      ><label class="ui-text-field ui-small"
+        ><span class="ui-label">Name</span
+        ><span class="ui-field"
+          ><input type="text" placeholder="Placeholder" /></span></label
+      ><label class="ui-text-field ui-filled ui-small"
+        ><span class="ui-label">Filled</span
+        ><span class="ui-field"
+          ><input type="text" value="Value" /></span></label
+      ><label class="ui-select ui-small"
+        ><span class="ui-label" id="contrast-size-small-label">Status</span
+        ><span class="ui-field"
+          ><select aria-labelledby="contrast-size-small-label">
+            <option>Draft</option>
+            <option>Published</option>
+          </select></span
+        ></label
+      ><button class="ui-button ui-small ui-filled" type="button">Save</button
+      ><button class="ui-button ui-small ui-outlined" type="button">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path></svg
+        ><span>Add</span></button
+      ><button
+        class="ui-button ui-small ui-tonal"
+        type="button"
+        aria-label="Add"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path>
+        </svg>
+      </button>
+      <div role="radiogroup" aria-label="View" class="ui-toggle-group ui-small">
+        <label class="ui-toggle-button ui-small"
+          ><input
+            type="radio"
+            name="contrast-size-small-view"
+            value="day"
+          />Day</label
+        ><label class="ui-toggle-button ui-small"
+          ><input
+            type="radio"
+            name="contrast-size-small-view"
+            value="week"
+            checked
+          />Week</label
+        ><label class="ui-toggle-button ui-small"
+          ><input
+            type="radio"
+            name="contrast-size-small-view"
+            value="month"
+          />Month</label
+        >
+      </div>
+    </div>
+    <div class="stress-row" data-size="default">
+      <span class="stress-tag">Default</span
+      ><label class="ui-text-field"
+        ><span class="ui-label">Name</span
+        ><span class="ui-field"
+          ><input type="text" placeholder="Placeholder" /></span></label
+      ><label class="ui-text-field ui-filled"
+        ><span class="ui-label">Filled</span
+        ><span class="ui-field"
+          ><input type="text" value="Value" /></span></label
+      ><label class="ui-select"
+        ><span class="ui-label" id="contrast-size-default-label">Status</span
+        ><span class="ui-field"
+          ><select aria-labelledby="contrast-size-default-label">
+            <option>Draft</option>
+            <option>Published</option>
+          </select></span
+        ></label
+      ><button class="ui-button ui-filled" type="button">Save</button
+      ><button class="ui-button ui-outlined" type="button">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path></svg
+        ><span>Add</span></button
+      ><button class="ui-button ui-tonal" type="button" aria-label="Add">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path>
+        </svg>
+      </button>
+      <div role="radiogroup" aria-label="View" class="ui-toggle-group">
+        <label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="contrast-size-default-view"
+            value="day"
+          />Day</label
+        ><label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="contrast-size-default-view"
+            value="week"
+            checked
+          />Week</label
+        ><label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="contrast-size-default-view"
+            value="month"
+          />Month</label
+        >
+      </div>
+    </div>
+    <div class="stress-row" data-size="large">
+      <span class="stress-tag">Large</span
+      ><label class="ui-text-field ui-large"
+        ><span class="ui-label">Name</span
+        ><span class="ui-field"
+          ><input type="text" placeholder="Placeholder" /></span></label
+      ><label class="ui-text-field ui-filled ui-large"
+        ><span class="ui-label">Filled</span
+        ><span class="ui-field"
+          ><input type="text" value="Value" /></span></label
+      ><label class="ui-select ui-large"
+        ><span class="ui-label" id="contrast-size-large-label">Status</span
+        ><span class="ui-field"
+          ><select aria-labelledby="contrast-size-large-label">
+            <option>Draft</option>
+            <option>Published</option>
+          </select></span
+        ></label
+      ><button class="ui-button ui-large ui-filled" type="button">Save</button
+      ><button class="ui-button ui-large ui-outlined" type="button">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path></svg
+        ><span>Add</span></button
+      ><button
+        class="ui-button ui-large ui-tonal"
+        type="button"
+        aria-label="Add"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+          ></path>
+        </svg>
+      </button>
+      <div role="radiogroup" aria-label="View" class="ui-toggle-group ui-large">
+        <label class="ui-toggle-button ui-large"
+          ><input
+            type="radio"
+            name="contrast-size-large-view"
+            value="day"
+          />Day</label
+        ><label class="ui-toggle-button ui-large"
+          ><input
+            type="radio"
+            name="contrast-size-large-view"
+            value="week"
+            checked
+          />Week</label
+        ><label class="ui-toggle-button ui-large"
+          ><input
+            type="radio"
+            name="contrast-size-large-view"
+            value="month"
+          />Month</label
+        >
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="FieldStates">
+  <h2>Field states</h2>
+  <p>
+    Placeholder, value, filled, affixes, helper text, required, invalid and
+    disabled fields. Field borders need at least 3:1 against the page and helper
+    text 7:1.
+  </p>
+  <div class="ui-contrast-more stress-grid">
+    <label class="ui-text-field"
+      ><span class="ui-label">Placeholder</span
+      ><span class="ui-field"
+        ><input type="text" placeholder="Placeholder" /></span
+    ></label>
+    <label class="ui-text-field"
+      ><span class="ui-label">Value</span
+      ><span class="ui-field"><input type="text" value="Ada Lovelace" /></span
+    ></label>
+    <label class="ui-text-field ui-filled"
+      ><span class="ui-label">Filled</span
+      ><span class="ui-field"><input type="text" value="Ada Lovelace" /></span
+    ></label>
+    <label class="ui-text-field"
+      ><span class="ui-label">Affixes</span
+      ><span class="ui-field"
+        ><input type="text" value="0.00" /><span class="ui-prefix">€</span
+        ><span class="ui-suffix">EUR</span></span
+      ></label
+    >
+    <label class="ui-text-field"
+      ><span class="ui-label">Required</span
+      ><span class="ui-field"
+        ><input
+          type="text"
+          required
+          aria-describedby="contrast-required-help" /></span
+      ><span class="ui-end-text" id="contrast-required-help"
+        >Supporting text below the field.</span
+      ></label
+    >
+    <label class="ui-text-field" data-invalid
+      ><span class="ui-label">Invalid</span
+      ><span class="ui-field"
+        ><input
+          type="text"
+          value="Not an email"
+          aria-invalid="true"
+          aria-describedby="contrast-invalid-help" /></span
+      ><span class="ui-end-text" id="contrast-invalid-help"
+        >Enter a valid email address.</span
+      ></label
+    >
+    <label class="ui-text-field"
+      ><span class="ui-label">Disabled</span
+      ><span class="ui-field"
+        ><input type="text" value="Read only value" disabled /></span
+    ></label>
+    <label class="ui-select" data-invalid
+      ><span class="ui-label" id="contrast-invalid-select-label"
+        >Invalid select</span
+      ><span class="ui-field"
+        ><select
+          aria-labelledby="contrast-invalid-select-label"
+          aria-invalid="true"
+          aria-describedby="contrast-invalid-select-help"
+        >
+          <option>Wrong option</option>
+        </select></span
+      ><span class="ui-end-text" id="contrast-invalid-select-help"
+        >Pick another option.</span
+      ></label
+    >
+    <label class="ui-textarea"
+      ><span class="ui-label">Notes</span
+      ><span class="ui-field">
+        <textarea
+          placeholder="Add a note…"
+          aria-describedby="contrast-notes-help"
+        ></textarea></span
+      ><span class="ui-end-text" id="contrast-notes-help"
+        >Markdown supported.</span
+      ></label
+    >
+    <label class="ui-range"
+      ><span class="ui-label" id="contrast-range-label">Volume</span
+      ><span class="ui-start-text" id="contrast-range-help">Drag to adjust</span
+      ><input
+        type="range"
+        aria-labelledby="contrast-range-label"
+        aria-describedby="contrast-range-help"
+        value="60"
+    /></label>
+    <label class="ui-range"
+      ><span class="ui-label" id="contrast-range-disabled-label"
+        >Disabled range</span
+      ><input
+        type="range"
+        aria-labelledby="contrast-range-disabled-label"
+        value="30"
+        disabled
+    /></label>
+  </div>
+</section>
+<section class="stress" data-example="Choices">
+  <h2>Choices</h2>
+  <p>
+    Checkboxes, radios, switches and toggles in every state, including disabled
+    and invalid.
+  </p>
+  <div class="ui-contrast-more stress-columns">
+    <form class="ui-form">
+      <fieldset class="ui-fieldset">
+        <legend>Checkboxes</legend>
+        <div class="ui-field-group">
+          <label class="ui-checkbox"
+            ><input type="checkbox" checked /><span class="ui-label"
+              >Checked</span
+            ></label
+          >
+          <label class="ui-checkbox"
+            ><input type="checkbox" /><span class="ui-label"
+              >Unchecked</span
+            ></label
+          >
+          <label class="ui-checkbox"
+            ><input type="checkbox" checked disabled /><span class="ui-label"
+              >Checked and disabled</span
+            ></label
+          >
+          <label class="ui-checkbox" data-invalid
+            ><input
+              type="checkbox"
+              aria-invalid="true"
+              aria-describedby="contrast-checkbox-help"
+            /><span class="ui-label">Invalid</span
+            ><span class="ui-end-text" id="contrast-checkbox-help"
+              >Accept the terms.</span
+            ></label
+          >
+        </div>
+      </fieldset>
+    </form>
+    <form class="ui-form">
+      <fieldset class="ui-fieldset">
+        <legend>Radios</legend>
+        <div class="ui-field-group">
+          <label class="ui-radio"
+            ><input type="radio" name="contrast-choice-radio" checked /><span
+              class="ui-label"
+              >Checked</span
+            ></label
+          >
+          <label class="ui-radio"
+            ><input type="radio" name="contrast-choice-radio" /><span
+              class="ui-label"
+              >Unchecked</span
+            ></label
+          >
+          <label class="ui-radio"
+            ><input
+              type="radio"
+              name="contrast-choice-radio-disabled"
+              disabled
+            /><span class="ui-label">Disabled</span></label
+          >
+        </div>
+      </fieldset>
+    </form>
+    <form class="ui-form">
+      <fieldset class="ui-fieldset">
+        <legend>Switches</legend>
+        <div class="ui-field-group">
+          <label class="ui-switch"
+            ><input type="checkbox" role="switch" checked /><span
+              class="ui-label"
+              >On</span
+            ></label
+          >
+          <label class="ui-switch"
+            ><input type="checkbox" role="switch" /><span class="ui-label"
+              >Off</span
+            ></label
+          >
+          <label class="ui-switch"
+            ><input type="checkbox" role="switch" checked disabled /><span
+              class="ui-label"
+              >On and disabled</span
+            ></label
+          >
+          <label class="ui-switch" data-invalid
+            ><input
+              type="checkbox"
+              role="switch"
+              aria-invalid="true"
+              aria-describedby="contrast-switch-help"
+            /><span class="ui-label">Invalid</span
+            ><span class="ui-end-text" id="contrast-switch-help"
+              >Turn this on to continue.</span
+            ></label
+          >
+        </div>
+      </fieldset>
+    </form>
+    <div class="stress-stack">
+      <div role="radiogroup" aria-label="View" class="ui-toggle-group">
+        <label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="contrast-choice-view"
+            value="day"
+          />Day</label
+        ><label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="contrast-choice-view"
+            value="week"
+            checked
+          />Week</label
+        ><label class="ui-toggle-button"
+          ><input
+            type="radio"
+            name="contrast-choice-view"
+            value="month"
+          />Month</label
+        >
+      </div>
+      <div role="group" aria-label="Formatting" class="ui-toggle-group">
+        <label class="ui-toggle-button"
+          ><input type="checkbox" checked />Bold</label
+        >
+        <label class="ui-toggle-button"><input type="checkbox" />Italic</label>
+        <label class="ui-toggle-button"
+          ><input type="checkbox" disabled />Strike</label
+        >
+      </div>
+      <label class="ui-toggle-button"
+        ><input type="checkbox" checked />Standalone</label
+      >
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="Intent">
+  <h2>Intent colors</h2>
+  <p>
+    Primary and critical buttons in every variant, badges, callouts and progress
+    bars. Text on intent colors and intent colored text both need 7:1.
+  </p>
+  <div class="ui-contrast-more stress-stack">
+    <div class="stress-actions-end">
+      <button class="ui-button ui-primary" type="button">Text</button
+      ><button class="ui-button ui-primary ui-outlined" type="button">
+        Outlined</button
+      ><button class="ui-button ui-primary ui-tonal" type="button">Tonal</button
+      ><button class="ui-button ui-primary ui-filled" type="button">
+        Filled
+      </button>
+      <button class="ui-button ui-critical" type="button">Text</button
+      ><button class="ui-button ui-critical ui-outlined" type="button">
+        Outlined</button
+      ><button class="ui-button ui-critical ui-tonal" type="button">
+        Tonal</button
+      ><button class="ui-button ui-critical ui-filled" type="button">
+        Filled
+      </button>
+    </div>
+    <div class="stress-actions-end">
+      <button class="ui-button ui-outlined" type="button" disabled>
+        Disabled</button
+      ><button class="ui-button ui-tonal" type="button" disabled>
+        Disabled</button
+      ><button class="ui-button ui-filled" type="button" disabled>
+        Disabled
+      </button>
+      <div
+        class="ui-button-group ui-primary ui-filled"
+        role="group"
+        aria-label="Primary group"
+      >
+        <button type="button" class="ui-button">One</button
+        ><button type="button" class="ui-button">Two</button>
+      </div>
+      <div
+        class="ui-button-group ui-critical ui-outlined"
+        role="group"
+        aria-label="Critical group"
+      >
+        <button type="button" class="ui-button">One</button
+        ><button type="button" class="ui-button">Two</button>
+      </div>
+    </div>
+    <div class="stress-actions-end">
+      <span class="ui-anchor ui-badge" role="img" aria-label="3 messages"
+        ><svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path></svg
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator">3</span></span
+        ></span
+      ><span
+        class="ui-anchor ui-badge ui-critical"
+        role="img"
+        aria-label="12 critical messages"
+        ><svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path></svg
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator">12</span></span
+        ></span
+      ><span
+        class="ui-anchor ui-badge ui-success"
+        role="img"
+        aria-label="4 sent messages"
+        ><svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path></svg
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator">4</span></span
+        ></span
+      ><span
+        class="ui-anchor ui-badge ui-info"
+        role="img"
+        aria-label="7 info messages"
+        ><svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path></svg
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator">7</span></span
+        ></span
+      ><span
+        class="ui-anchor ui-badge ui-warning"
+        role="img"
+        aria-label="2 warnings"
+        ><svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path></svg
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator">2</span></span
+        ></span
+      ><span
+        class="ui-anchor ui-badge ui-neutral"
+        role="img"
+        aria-label="9 archived messages"
+        ><svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path></svg
+        ><span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator">9</span></span
+        ></span
+      >
+    </div>
+    <div class="stress-grid">
+      <article class="ui-callout ui-neutral">
+        <div class="ui-content">
+          <p>A tonal neutral callout with <code>code</code>.</p>
+        </div>
+      </article>
+      <article class="ui-callout ui-info">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+          ></path>
+        </svg>
+        <div class="ui-content">
+          <p>
+            A tonal info callout with <a class="ui-link" href="#">a link</a>.
+          </p>
+        </div>
+      </article>
+      <article class="ui-callout ui-warning">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+          ></path>
+        </svg>
+        <div class="ui-content"><p>A tonal warning callout.</p></div>
+      </article>
+      <article class="ui-callout ui-critical">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+          ></path>
+        </svg>
+        <div class="ui-content"><p>A tonal critical callout.</p></div>
+      </article>
+      <article class="ui-callout ui-outlined ui-success">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+          ></path>
+        </svg>
+        <div class="ui-content">
+          <h3 class="ui-title">Saved</h3>
+          <p>An outlined success callout with a title.</p>
+        </div>
+      </article>
+      <article class="ui-callout ui-outlined ui-critical">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+          ></path>
+        </svg>
+        <div class="ui-content">
+          <h3 class="ui-title">Failed</h3>
+          <p>An outlined critical callout with a title.</p>
+        </div>
+      </article>
+    </div>
+    <div class="stress-grid">
+      <div class="ui-progress">
+        <progress aria-label="Default progress" value="30" max="100"></progress>
+      </div>
+      <div class="ui-progress ui-filled">
+        <progress aria-label="Filled progress" value="60" max="100"></progress>
+      </div>
+      <div class="ui-progress ui-tonal">
+        <progress aria-label="Tonal progress" value="90" max="100"></progress>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="Navigation">
+  <h2>Navigation</h2>
+  <p>
+    Every Tabs variant, a selected list item, keyboard hints and accordions.
+    Unselected tabs and list shortcuts are translucent by default.
+  </p>
+  <div class="ui-contrast-more stress-contrast-grid">
+    <div class="stress-stack">
+      <h3>Tabs</h3>
+      <div class="ui-tabs">
+        <input
+          type="radio"
+          name="contrast-nav-basic-tabs"
+          id="contrast-nav-basic-tab-profile"
+          class="ui-tab-input"
+          checked
+        /><label for="contrast-nav-basic-tab-profile" class="ui-tab-label"
+          >Profile</label
+        >
+        <div class="ui-tab-panel">Profile settings and information.</div>
+        <input
+          type="radio"
+          name="contrast-nav-basic-tabs"
+          id="contrast-nav-basic-tab-settings"
+          class="ui-tab-input"
+        /><label for="contrast-nav-basic-tab-settings" class="ui-tab-label"
+          >Settings</label
+        >
+        <div class="ui-tab-panel">General account settings.</div>
+        <input
+          type="radio"
+          name="contrast-nav-basic-tabs"
+          id="contrast-nav-basic-tab-alerts"
+          class="ui-tab-input"
+        /><label for="contrast-nav-basic-tab-alerts" class="ui-tab-label"
+          >Alerts</label
+        >
+        <div class="ui-tab-panel">Manage your notifications.</div>
+      </div>
+      <div class="ui-tabs ui-filled">
+        <input
+          type="radio"
+          name="contrast-nav-filled-tabs"
+          id="contrast-nav-filled-tab-profile"
+          class="ui-tab-input"
+          checked
+        /><label for="contrast-nav-filled-tab-profile" class="ui-tab-label"
+          >Profile</label
+        >
+        <div class="ui-tab-panel">Profile settings and information.</div>
+        <input
+          type="radio"
+          name="contrast-nav-filled-tabs"
+          id="contrast-nav-filled-tab-settings"
+          class="ui-tab-input"
+        /><label for="contrast-nav-filled-tab-settings" class="ui-tab-label"
+          >Settings</label
+        >
+        <div class="ui-tab-panel">General account settings.</div>
+        <input
+          type="radio"
+          name="contrast-nav-filled-tabs"
+          id="contrast-nav-filled-tab-alerts"
+          class="ui-tab-input"
+        /><label for="contrast-nav-filled-tab-alerts" class="ui-tab-label"
+          >Alerts</label
+        >
+        <div class="ui-tab-panel">Manage your notifications.</div>
+      </div>
+      <div class="ui-tabs ui-line">
+        <input
+          type="radio"
+          name="contrast-nav-line-tabs"
+          id="contrast-nav-line-tab-profile"
+          class="ui-tab-input"
+          checked
+        /><label for="contrast-nav-line-tab-profile" class="ui-tab-label"
+          >Profile</label
+        >
+        <div class="ui-tab-panel">Profile settings and information.</div>
+        <input
+          type="radio"
+          name="contrast-nav-line-tabs"
+          id="contrast-nav-line-tab-settings"
+          class="ui-tab-input"
+        /><label for="contrast-nav-line-tab-settings" class="ui-tab-label"
+          >Settings</label
+        >
+        <div class="ui-tab-panel">General account settings.</div>
+        <input
+          type="radio"
+          name="contrast-nav-line-tabs"
+          id="contrast-nav-line-tab-alerts"
+          class="ui-tab-input"
+        /><label for="contrast-nav-line-tab-alerts" class="ui-tab-label"
+          >Alerts</label
+        >
+        <div class="ui-tab-panel">Manage your notifications.</div>
+      </div>
+      <div class="ui-tabs ui-outlined">
+        <input
+          type="radio"
+          name="contrast-nav-outlined-tabs"
+          id="contrast-nav-outlined-tab-profile"
+          class="ui-tab-input"
+          checked
+        /><label for="contrast-nav-outlined-tab-profile" class="ui-tab-label"
+          >Profile</label
+        >
+        <div class="ui-tab-panel">Profile settings and information.</div>
+        <input
+          type="radio"
+          name="contrast-nav-outlined-tabs"
+          id="contrast-nav-outlined-tab-settings"
+          class="ui-tab-input"
+        /><label for="contrast-nav-outlined-tab-settings" class="ui-tab-label"
+          >Settings</label
+        >
+        <div class="ui-tab-panel">General account settings.</div>
+        <input
+          type="radio"
+          name="contrast-nav-outlined-tabs"
+          id="contrast-nav-outlined-tab-alerts"
+          class="ui-tab-input"
+        /><label for="contrast-nav-outlined-tab-alerts" class="ui-tab-label"
+          >Alerts</label
+        >
+        <div class="ui-tab-panel">Manage your notifications.</div>
+      </div>
+    </div>
+    <div class="stress-stack">
+      <h3>Lists</h3>
+      <ul class="ui-list">
+        <li>
+          <a href="#" aria-current="page"
+            ><div class="ui-text">
+              <p>Selected item</p>
+              <p>Has aria-current="page"</p>
+            </div></a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><div class="ui-text">
+              <p>Normal item</p>
+              <p>Supporting text</p>
+            </div></a
+          >
+        </li>
+        <li>
+          <div class="ui-text"><p>Save all</p></div>
+          <div class="ui-end"><kbd>Ctrl+Alt+S</kbd></div>
+        </li>
+      </ul>
+      <ul class="ui-list ui-bordered ui-transparent">
+        <li>
+          <div class="ui-text"><p>Bordered</p></div>
+        </li>
+        <li>
+          <div class="ui-text"><p>Transparent</p></div>
+        </li>
+      </ul>
+    </div>
+    <div class="stress-stack">
+      <h3>Accordions</h3>
+      <details class="ui-accordion ui-card ui-marker-rotate" open>
+        <summary>
+          Text<svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+            ></path>
+          </svg>
+        </summary>
+        <div class="ui-content">
+          <p>Muted content inside a text accordion.</p>
+        </div>
+      </details>
+      <details class="ui-accordion ui-card ui-marker-rotate ui-outlined">
+        <summary>
+          Outlined<svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+            ></path>
+          </svg>
+        </summary>
+        <div class="ui-content">
+          <p>Muted content inside a outlined accordion.</p>
+        </div>
+      </details>
+      <details class="ui-accordion ui-card ui-marker-rotate ui-tonal">
+        <summary>
+          Tonal<svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+            ></path>
+          </svg>
+        </summary>
+        <div class="ui-content">
+          <p>Muted content inside a tonal accordion.</p>
+        </div>
+      </details>
+      <details class="ui-accordion ui-card ui-marker-rotate ui-elevated" open>
+        <summary>
+          Elevated<svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+            ></path>
+          </svg>
+        </summary>
+        <div class="ui-content">
+          <p>Muted content inside a elevated accordion.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="Surfaces">
+  <h2>Surfaces</h2>
+  <p>
+    Cards, a table and dividers. Elevated and tonal cards and table headers set
+    their own border color, which high contrast mode replaces.
+  </p>
+  <div class="ui-contrast-more stress-stack">
+    <div class="stress-grid">
+      <div class="ui-card ui-outlined">
+        <div class="ui-content stress-stack">
+          <p class="ui-overline">Outlined</p>
+          <label class="ui-text-field"
+            ><span class="ui-label">Field</span
+            ><span class="ui-field"
+              ><input
+                type="text"
+                placeholder="Placeholder"
+                aria-describedby="contrast-card-outlined-help" /></span
+            ><span class="ui-end-text" id="contrast-card-outlined-help"
+              >Helper text on a outlined card.</span
+            ></label
+          >
+          <hr class="ui-divider" />
+          <p>Muted text and <a class="ui-link" href="#">a link</a>.</p>
+          <div class="stress-actions-end">
+            <button class="ui-button ui-outlined" type="button">Cancel</button
+            ><button class="ui-button ui-primary ui-filled" type="button">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="ui-card ui-tonal">
+        <div class="ui-content stress-stack">
+          <p class="ui-overline">Tonal</p>
+          <label class="ui-text-field"
+            ><span class="ui-label">Field</span
+            ><span class="ui-field"
+              ><input
+                type="text"
+                placeholder="Placeholder"
+                aria-describedby="contrast-card-tonal-help" /></span
+            ><span class="ui-end-text" id="contrast-card-tonal-help"
+              >Helper text on a tonal card.</span
+            ></label
+          >
+          <hr class="ui-divider" />
+          <p>Muted text and <a class="ui-link" href="#">a link</a>.</p>
+          <div class="stress-actions-end">
+            <button class="ui-button ui-outlined" type="button">Cancel</button
+            ><button class="ui-button ui-primary ui-filled" type="button">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="ui-card ui-elevated">
+        <div class="ui-content stress-stack">
+          <p class="ui-overline">Elevated</p>
+          <label class="ui-text-field"
+            ><span class="ui-label">Field</span
+            ><span class="ui-field"
+              ><input
+                type="text"
+                placeholder="Placeholder"
+                aria-describedby="contrast-card-elevated-help" /></span
+            ><span class="ui-end-text" id="contrast-card-elevated-help"
+              >Helper text on a elevated card.</span
+            ></label
+          >
+          <hr class="ui-divider" />
+          <p>Muted text and <a class="ui-link" href="#">a link</a>.</p>
+          <div class="stress-actions-end">
+            <button class="ui-button ui-outlined" type="button">Cancel</button
+            ><button class="ui-button ui-primary ui-filled" type="button">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <table class="ui-table">
+      <caption>
+        Invoices
+      </caption>
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Customer</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1001</td>
+          <td>Ada Lovelace</td>
+          <td>Paid</td>
+        </tr>
+        <tr>
+          <td>1002</td>
+          <td>Grace Hopper</td>
+          <td>Due</td>
+        </tr>
+        <tr>
+          <td>1003</td>
+          <td>Margaret Hamilton</td>
+          <td>Overdue</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">Three invoices</td>
+        </tr>
+      </tfoot>
+    </table>
+    <div class="stress-grid">
+      <div class="stress-stack">
+        <p>Tonal divider</p>
+        <hr class="ui-divider ui-border-tonal" />
+      </div>
+      <div class="stress-stack">
+        <p>Filled divider</p>
+        <hr class="ui-divider ui-border-filled" />
+      </div>
+      <div class="stress-stack">
+        <p>Primary divider</p>
+        <hr class="ui-divider ui-border-primary" />
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stress" data-example="Typography">
+  <h2>Typography</h2>
+  <p>
+    Rich text with an overline, subtitle, links, linked code, inline code,
+    keyboard hints and edits.
+  </p>
+  <div class="ui-contrast-more">
+    <article class="ui-rich-text">
+      <hgroup>
+        <p>Overline</p>
+        <h3>A heading with a subtitle</h3>
+        <p>The subtitle is translucent by default.</p>
+      </hgroup>
+      <p>
+        Body text with <strong>strong</strong>, <em>emphasis</em>,
+        <a href="#">a link</a>, <a href="#"><code>linked code</code></a
+        >, <code>inline code</code>, <kbd>Ctrl</kbd> + <kbd>K</kbd>,
+        <del>deleted</del>, <ins>inserted</ins>,
+        <abbr title="Cascading Style Sheets">CSS</abbr> and
+        <small>small print</small>.
+      </p>
+      <blockquote>
+        <p>A blockquote with <code>code</code> inside.</p>
+      </blockquote>
+      <ul>
+        <li>List item with <a href="#">a link</a></li>
+        <li>List item with <kbd>Esc</kbd></li>
+      </ul>
+      <pre><code>const contrast = "more"</code></pre>
+    </article>
+    <p class="ui-caption">A caption outside rich text.</p>
+    <p>
+      <span class="ui-del">Deleted</span> and
+      <span class="ui-ins">inserted</span> classes outside rich text.
+    </p>
+  </div>
+</section>
+<section class="stress" data-example="Scopes">
+  <h2>Scopes</h2>
+  <p>
+    <code>.ui-contrast-more</code> combined with <code>.ui-palette</code> and
+    <code>.ui-dark</code> in both nesting orders.
+  </p>
+  <div class="ui-contrast-more stress-contrast-grid">
+    <section
+      class="ui-palette stress-contrast-scope"
+      style="--palette-hue: 30"
+      aria-label="Palette scope"
+    >
+      <p class="ui-caption">.ui-palette inside .ui-contrast-more</p>
+      <label class="ui-text-field"
+        ><span class="ui-label">Field</span
+        ><span class="ui-field"
+          ><input type="text" placeholder="Placeholder" /></span
+      ></label>
+      <div class="stress-actions-end">
+        <button class="ui-button ui-primary ui-outlined" type="button">
+          Outlined</button
+        ><button class="ui-button ui-primary ui-filled" type="button">
+          Filled
+        </button>
+      </div>
+      <div class="ui-tabs ui-filled">
+        <input
+          type="radio"
+          name="contrast-scope-palette-tabs"
+          id="contrast-scope-palette-tab-profile"
+          class="ui-tab-input"
+          checked
+        /><label for="contrast-scope-palette-tab-profile" class="ui-tab-label"
+          >Profile</label
+        >
+        <div class="ui-tab-panel">Profile settings and information.</div>
+        <input
+          type="radio"
+          name="contrast-scope-palette-tabs"
+          id="contrast-scope-palette-tab-settings"
+          class="ui-tab-input"
+        /><label for="contrast-scope-palette-tab-settings" class="ui-tab-label"
+          >Settings</label
+        >
+        <div class="ui-tab-panel">General account settings.</div>
+        <input
+          type="radio"
+          name="contrast-scope-palette-tabs"
+          id="contrast-scope-palette-tab-alerts"
+          class="ui-tab-input"
+        /><label for="contrast-scope-palette-tab-alerts" class="ui-tab-label"
+          >Alerts</label
+        >
+        <div class="ui-tab-panel">Manage your notifications.</div>
+      </div>
+    </section>
+    <section class="ui-dark stress-contrast-scope" aria-label="Dark scope">
+      <p class="ui-caption">.ui-dark inside .ui-contrast-more</p>
+      <label class="ui-text-field"
+        ><span class="ui-label">Field</span
+        ><span class="ui-field"
+          ><input type="text" placeholder="Placeholder" /></span
+      ></label>
+      <div class="stress-actions-end">
+        <button class="ui-button ui-critical ui-outlined" type="button">
+          Outlined</button
+        ><button class="ui-button ui-critical ui-filled" type="button">
+          Filled
+        </button>
+      </div>
+      <div class="ui-tabs">
+        <input
+          type="radio"
+          name="contrast-scope-dark-tabs"
+          id="contrast-scope-dark-tab-profile"
+          class="ui-tab-input"
+          checked
+        /><label for="contrast-scope-dark-tab-profile" class="ui-tab-label"
+          >Profile</label
+        >
+        <div class="ui-tab-panel">Profile settings and information.</div>
+        <input
+          type="radio"
+          name="contrast-scope-dark-tabs"
+          id="contrast-scope-dark-tab-settings"
+          class="ui-tab-input"
+        /><label for="contrast-scope-dark-tab-settings" class="ui-tab-label"
+          >Settings</label
+        >
+        <div class="ui-tab-panel">General account settings.</div>
+        <input
+          type="radio"
+          name="contrast-scope-dark-tabs"
+          id="contrast-scope-dark-tab-alerts"
+          class="ui-tab-input"
+        /><label for="contrast-scope-dark-tab-alerts" class="ui-tab-label"
+          >Alerts</label
+        >
+        <div class="ui-tab-panel">Manage your notifications.</div>
+      </div>
+    </section>
+  </div>
+  <div class="ui-dark stress-contrast-scope">
+    <div class="ui-contrast-more stress-stack">
+      <p class="ui-caption">.ui-contrast-more inside .ui-dark</p>
+      <label class="ui-text-field"
+        ><span class="ui-label">Field</span
+        ><span class="ui-field"
+          ><input type="text" placeholder="Placeholder" /></span
+      ></label>
+      <div class="stress-actions-end">
+        <button class="ui-button ui-primary ui-outlined" type="button">
+          Outlined</button
+        ><button class="ui-button ui-primary ui-tonal" type="button">
+          Tonal</button
+        ><button class="ui-button ui-primary ui-filled" type="button">
+          Filled
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

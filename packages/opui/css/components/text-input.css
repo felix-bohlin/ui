@@ -19,12 +19,13 @@
 
     .ui-field::after {
       block-size: 0;
-      border-block-start: 5px solid;
-      border-inline: 5px solid transparent;
+      border-block-start: var(--_arrow-size) solid;
+      border-inline: var(--_arrow-size) solid transparent;
+      color: var(--text-primary);
       content: "";
       inline-size: 0;
       inset-block: 50% auto;
-      inset-inline: auto var(--size-3);
+      inset-inline: auto var(--_arrow-inset);
       pointer-events: none;
       position: absolute;
       translate: 0 -50%;
@@ -34,10 +35,6 @@
     &.ui-x-small {
       input[list] {
         padding-inline-end: var(--size-7);
-      }
-
-      .ui-field::after {
-        inset-inline-end: var(--size-2);
       }
     }
   }

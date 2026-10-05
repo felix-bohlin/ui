@@ -3,6 +3,8 @@
 ### What's new
 
 - [Dense](#variants) tables (`.ui-dense`) have less block padding.
+- Fields and selects in cells keep a `12ch` minimum width.
+- [Sticky header](#sticky-header) with `.ui-sticky-header`.
 
 ## Anatomy
 
@@ -161,13 +163,89 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 </table>
 ```
 
+## Sticky header
+
+`.ui-sticky-header` keeps the header rows at the top of the nearest scroll container while the rows scroll under them, and adds a shadow once the header is stuck. Put the table in a scroll box, or let it stick to the page and set `--_sticky-offset` on the table to clear a fixed top bar.
+
+```html
+<div
+  role="region"
+  aria-label="Invoices"
+  tabindex="0"
+  style="max-block-size: 15rem; overflow: auto"
+>
+  <table class="ui-table ui-sticky-header">
+    <thead>
+      <tr>
+        <th>Invoice</th>
+        <th>Customer</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>INV-1000</td>
+        <td>Ada</td>
+        <td>€130</td>
+      </tr>
+      <tr>
+        <td>INV-1001</td>
+        <td>Grace</td>
+        <td>€260</td>
+      </tr>
+      <tr>
+        <td>INV-1002</td>
+        <td>Linus</td>
+        <td>€390</td>
+      </tr>
+      <tr>
+        <td>INV-1003</td>
+        <td>Margaret</td>
+        <td>€520</td>
+      </tr>
+      <tr>
+        <td>INV-1004</td>
+        <td>Alan</td>
+        <td>€650</td>
+      </tr>
+      <tr>
+        <td>INV-1005</td>
+        <td>Barbara</td>
+        <td>€780</td>
+      </tr>
+      <tr>
+        <td>INV-1006</td>
+        <td>Ken</td>
+        <td>€910</td>
+      </tr>
+      <tr>
+        <td>INV-1007</td>
+        <td>Frances</td>
+        <td>€1,040</td>
+      </tr>
+      <tr>
+        <td>INV-1008</td>
+        <td>Dennis</td>
+        <td>€1,170</td>
+      </tr>
+      <tr>
+        <td>INV-1009</td>
+        <td>Radia</td>
+        <td>€1,300</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
 ## API
 
 ### Table API
 
-| Type     | Modifiers                   | Default | Description         |
-| -------- | --------------------------- | ------- | ------------------- |
-| Variants | `.ui-dense`, `.ui-spacious` | -       | The variant to use. |
+| Type          | Modifiers                   | Default | Description                                                                                          |
+| ------------- | --------------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
+| Sticky header | `.ui-sticky-header`         | -       | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
+| Variants      | `.ui-dense`, `.ui-spacious` | -       | The variant to use.                                                                                  |
 
 #### Parts
 
@@ -182,17 +260,19 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 
 #### CSS variables
 
-| Variable                 | Default                                     | Description                                                                                           |
-| ------------------------ | ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                           |
-| `--border-radius`        | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                     |
-| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                               |
-| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
-| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                     |
-| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                             |
-| `--surface-filled`       | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                 |
-| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
-| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                |
+| Variable                 | Default                                     | Description                                                                                                                |
+| ------------------------ | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`        | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                                                    |
+| `--duration`             | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                                          |
+| `--motion`               | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--surface-filled`       | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                                      |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 

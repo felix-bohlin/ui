@@ -29,9 +29,17 @@ for (const { input, layers, out } of targets) {
   const result = await processor.process(`@import "${from}";`, {
     from,
     to,
-    map: { inline: false, annotation: `${out}.map` },
+    map: { annotation: `${out}.map`, inline: false, sourcesContent: false },
   })
+  const map = result.map.toJSON()
+  map.sources = map.sources.map((source) =>
+    source.replace(
+      /^(?:\.\.\/)+node_modules\/\.pnpm\/[^/]+\/node_modules\//,
+      "../../",
+    ),
+  )
+  if (layers) map.mappings = `;${map.mappings}`
   await writeFile(to, layers ? `${layerOrder}\n${result.css}` : result.css)
-  await writeFile(`${to}.map`, result.map.toString())
+  await writeFile(`${to}.map`, JSON.stringify(map))
   console.log(`built dist/${out} (+ .map)`)
 }

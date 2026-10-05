@@ -65,6 +65,14 @@ export default {
       group: "Items per view",
       prop: "perView",
     },
+    {
+      class: ".ui-stretch",
+      default: "false",
+      description:
+        "Makes each item a grid, so its content (a card, a link) fills the item's height. Media with an aspect ratio keeps it.",
+      group: "Stretch",
+      prop: "stretch",
+    },
   ],
   parts: [
     {

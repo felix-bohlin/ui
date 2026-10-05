@@ -204,19 +204,8 @@ const ThemeCSS = `/* ... */
   <Fragment slot="accessibility">
     <ul>
       <li>
-        <Conditional>
-          <Fragment slot="astro">
-            The <code>role="note"</code> attribute is automatically added to the Callout
-            container.
-          </Fragment>
-          <Fragment slot="html">
-            Add <code>role="note"</code> to the Callout container.
-          </Fragment>
-          <Fragment slot="vue">
-            The <code>role="note"</code> attribute is automatically added to the Callout
-            container.
-          </Fragment>
-        </Conditional>
+        The Callout is an <code>&lt;article&gt;</code>, so screen readers
+        announce it as self-contained content.
       </li>
       <li>
         Use both color and icon to help distinguish between Callout <a

@@ -2,6 +2,10 @@
 
 It's just a line.
 
+### What's new
+
+- [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.
+
 ## Default
 
 ```vue
@@ -39,6 +43,36 @@ import { Divider } from "opui-css/vue"
 </template>
 ```
 
+## Spacing
+
+The space above and below a divider is `--divider-space`. Cards, callouts, dialogs and drawers set a tighter value, and a divider that is a direct child of a card has no margin, since the card's gap already spaces it. Set `--divider-space` on any wrapper to change it for every divider inside.
+
+```vue
+<script setup lang="ts">
+import { Card, Divider } from "opui-css/vue"
+</script>
+
+
+<template>
+  <Card variant="outlined">
+    <div class="ui-content">Inside a card, the gap spaces the divider.</div>
+    <Divider />
+    <div class="ui-content">
+      Nested deeper, it uses the card's tighter space.
+      <Divider />
+      So everything stays close together.
+    </div>
+  </Card>
+
+
+  <div style="--divider-space: var(--size-1)">
+    A custom space on any wrapper
+    <Divider />
+    reaches every divider inside it.
+  </div>
+</template>
+```
+
 ## API
 
 ### Divider API
@@ -49,12 +83,13 @@ import { Divider } from "opui-css/vue"
 
 #### CSS variables
 
-| Variable           | Default                                      | Description                                                           |
-| ------------------ | -------------------------------------------- | --------------------------------------------------------------------- |
-| `--border-color`   | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.           |
-| `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                          |
-| `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes. |
-| `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                         |
+| Variable           | Default                                      | Description                                                                                                                                                                                   |
+| ------------------ | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`   | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                   |
+| `--divider-space`  | `var(--size-fluid-3)`                        | Block margin around a `Divider`. Cards, callouts, dialogs and drawers set it to `--size-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it. |
+| `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                  |
+| `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                         |
+| `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                 |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 

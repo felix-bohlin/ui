@@ -10,8 +10,3 @@ export type Props = {
 export type Slots<S> = {
   children: S
 }
-
-export type ToggleContext = {
-  groupName: string
-  inputType: "radio" | "checkbox"
-}

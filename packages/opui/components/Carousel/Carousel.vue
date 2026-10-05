@@ -10,6 +10,7 @@ const {
   peek,
   persistentButtons,
   perView,
+  stretch,
 } = defineProps<Props>()
 defineSlots<Slots>()
 </script>
@@ -23,6 +24,7 @@ defineSlots<Slots>()
         'ui-buttons-outside': buttons === 'outside',
         'ui-buttons-persistent': persistentButtons,
         'ui-peek': peek,
+        'ui-stretch': stretch,
         'ui-vertical': orientation === 'vertical',
         'ui-with-buttons': buttons,
         'ui-with-markers': markers,

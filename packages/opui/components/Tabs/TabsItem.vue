@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { inject, provide, useId } from "vue"
+import { computed, inject, provide, useId } from "vue"
 import {
-  CurrentPanelIdKey,
   CurrentTabIdKey,
   TabsGroupNameKey,
   type Slots,
   type TabsItemProps,
 } from "./types.d.vue"
 
-const { name, open, panelId, tabId } = defineProps<TabsItemProps>()
+const { name, open, tabId } = defineProps<TabsItemProps>()
 defineSlots<Slots>()
 
 defineOptions({
@@ -17,20 +16,17 @@ defineOptions({
 
 const groupUid = useId()
 const tabUid = useId()
-const panelUid = useId()
-const tabsGroupName = name || inject(TabsGroupNameKey, undefined) || groupUid
+const parentGroupName = inject(TabsGroupNameKey, undefined)
+const tabsGroupName = computed(() => name || parentGroupName?.value || groupUid)
 provide(TabsGroupNameKey, tabsGroupName)
 
 const computedTabId = tabId || tabUid
-const computedPanelId = panelId || panelUid
 
 provide(CurrentTabIdKey, computedTabId)
-provide(CurrentPanelIdKey, computedPanelId)
 </script>
 
 <template>
   <input
-    :aria-controls="computedPanelId"
     :checked="open"
     :class="['ui-tab-input', $props.class]"
     :id="computedTabId"

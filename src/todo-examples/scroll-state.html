@@ -11,38 +11,46 @@
   }
 
   .todo-scroll-state .ui-card > .ui-content {
+    --_scroll-shadow-color: light-dark(oklch(0 0 0 / 10%), oklch(0 0 0 / 40%));
+
+    anchor-name: --todo-content;
+    anchor-scope: --todo-content;
     container-type: scroll-state;
     overflow-y: auto;
     overscroll-behavior: contain;
 
     &::before,
     &::after {
-      block-size: 0;
+      block-size: var(--size-2);
       content: "";
-      display: block;
-      margin-inline: calc(-1 * var(--size-3));
-      position: sticky;
-      transition: box-shadow 0.2s;
+      inset-inline: anchor(--todo-content inside);
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      transition: opacity 0.2s;
+      z-index: 1;
     }
 
     &::before {
-      inset-block-start: 0;
+      background: linear-gradient(var(--_scroll-shadow-color), transparent);
+      inset-block-start: anchor(--todo-content inside);
     }
 
     &::after {
-      inset-block-end: 0;
+      background: linear-gradient(transparent, var(--_scroll-shadow-color));
+      inset-block-end: anchor(--todo-content inside);
     }
   }
 
   @container scroll-state(scrollable: top) {
     .todo-scroll-state .ui-card > .ui-content::before {
-      box-shadow: 0 0 12px 6px rgb(0 0 0 / 0.35);
+      opacity: 1;
     }
   }
 
   @container scroll-state(scrollable: bottom) {
     .todo-scroll-state .ui-card > .ui-content::after {
-      box-shadow: 0 0 12px 6px rgb(0 0 0 / 0.35);
+      opacity: 1;
     }
   }
 

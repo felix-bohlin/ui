@@ -11,6 +11,14 @@
     --motion: 10;
   }
 
+  .ui-contrast-more {
+    --contrast: more;
+  }
+
+  .ui-contrast-normal {
+    --contrast: normal;
+  }
+
   /*
 Screen-reader only
 */

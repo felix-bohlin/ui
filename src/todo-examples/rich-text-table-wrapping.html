@@ -1,0 +1,209 @@
+<style>
+  .todo-options {
+    display: grid;
+    gap: var(--size-5);
+    inline-size: 100%;
+  }
+
+  .todo-option {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-narrow {
+    inline-size: 20rem;
+    max-inline-size: 100%;
+    outline: 1px dashed var(--border-color);
+  }
+
+  .todo-wide {
+    inline-size: 36rem;
+    max-inline-size: 100%;
+    outline: 1px dashed var(--border-color);
+  }
+
+  .todo-scroll table {
+    display: block;
+    overflow-x: auto;
+
+    :where(th, td) {
+      overflow-wrap: break-word;
+    }
+  }
+
+  .todo-hyphens table :where(th, td) {
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
+
+  .todo-wrapper .todo-scroller {
+    overflow-x: auto;
+
+    :where(th, td) {
+      overflow-wrap: normal;
+    }
+  }
+</style>
+<p>Each box is 20rem wide, like a phone column.</p>
+<div class="todo-options">
+  <section class="todo-option">
+    <p class="ui-caption">4. Current: <code>overflow-wrap: anywhere</code></p>
+    <div class="ui-rich-text todo-narrow">
+      <table>
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th>Storage</th>
+            <th>Seats</th>
+            <th>Support</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Starter</td>
+            <td>10 GB</td>
+            <td>1</td>
+            <td>Community</td>
+            <td>Free</td>
+          </tr>
+          <tr>
+            <td>Business</td>
+            <td>1 TB</td>
+            <td>Unlimited</td>
+            <td>example.com/support/business</td>
+            <td>€1,200.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section class="todo-option">
+    <p class="ui-caption">
+      1. Scroll: <code>display: block; overflow-x: auto</code> +
+      <code>break-word</code>
+    </p>
+    <div class="ui-rich-text todo-narrow todo-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th>Storage</th>
+            <th>Seats</th>
+            <th>Support</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Starter</td>
+            <td>10 GB</td>
+            <td>1</td>
+            <td>Community</td>
+            <td>Free</td>
+          </tr>
+          <tr>
+            <td>Business</td>
+            <td>1 TB</td>
+            <td>Unlimited</td>
+            <td>example.com/support/business</td>
+            <td>€1,200.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section class="todo-option">
+    <p class="ui-caption">
+      3. <code>hyphens: auto</code> + <code>break-word</code>
+    </p>
+    <div class="ui-rich-text todo-narrow todo-hyphens">
+      <table>
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th>Storage</th>
+            <th>Seats</th>
+            <th>Support</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Starter</td>
+            <td>10 GB</td>
+            <td>1</td>
+            <td>Community</td>
+            <td>Free</td>
+          </tr>
+          <tr>
+            <td>Business</td>
+            <td>1 TB</td>
+            <td>Unlimited</td>
+            <td>example.com/support/business</td>
+            <td>€1,200.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section class="todo-option">
+    <p class="ui-caption">
+      Author opt-in: focusable scroll wrapper, words whole
+    </p>
+    <div class="ui-rich-text todo-narrow todo-wrapper">
+      <div class="todo-scroller" tabindex="0" role="region" aria-label="Plans">
+        <table>
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>Storage</th>
+              <th>Seats</th>
+              <th>Support</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Starter</td>
+              <td>10 GB</td>
+              <td>1</td>
+              <td>Community</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>Business</td>
+              <td>1 TB</td>
+              <td>Unlimited</td>
+              <td>example.com/support/business</td>
+              <td>€1,200.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section class="todo-option">
+    <p class="ui-caption">
+      1. Scroll, side effect: a short table in a wide column stops stretching
+    </p>
+    <div class="ui-rich-text todo-wide todo-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Starter</td>
+            <td>Free</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

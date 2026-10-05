@@ -8,7 +8,7 @@
     border-spacing: 0;
     inline-size: 100%;
     margin: var(--size-3) 0;
-    overflow: hidden;
+    overflow: clip;
     position: relative;
 
     /* Rows */
@@ -114,6 +114,34 @@
     /* Column group */
     colgroup col {
       border: none;
+    }
+
+    &.ui-sticky-header {
+      --_motion: var(--motion, 1);
+      --_scroll-shadow: var(--shadow-4);
+      --_sticky-offset: 0;
+
+      & > thead {
+        container-type: scroll-state;
+        inset-block-start: var(--_sticky-offset);
+        position: sticky;
+        z-index: 1;
+
+        th {
+          transition: box-shadow calc(var(--duration) * var(--_motion));
+        }
+
+        tr:hover > th {
+          background-color: var(--surface-filled);
+        }
+      }
+
+      @container scroll-state(stuck: top) {
+        & > thead th {
+          box-shadow: var(--_scroll-shadow);
+          clip-path: inset(0 0 calc(-1 * var(--size-6)));
+        }
+      }
     }
 
     /* Spacious */

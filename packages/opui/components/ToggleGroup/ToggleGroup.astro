@@ -27,9 +27,7 @@ const html = slotHtml.replace(
       ? attrs
       : ` name="${escapedName}"${attrs}`
     if (selection === "single") {
-      inputAttrs = inputAttrs
-        .replace(/\saria-pressed(="[^"]*")?/, "")
-        .replace(/\stype="checkbox"/, ' type="radio"')
+      inputAttrs = inputAttrs.replace(/\stype="checkbox"/, ' type="radio"')
     }
     return start + inputAttrs
   },

@@ -13,9 +13,5 @@
         color: var(--primary-light);
       }
     }
-
-    @supports (-moz-appearance: none) {
-      text-underline-offset: 2px;
-    }
   }
 }

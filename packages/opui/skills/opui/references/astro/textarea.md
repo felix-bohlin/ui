@@ -4,6 +4,7 @@
 
 - [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
 - [Spread](#spread) fields line up at one width.
+- Breaking: extra attributes such as `autocomplete` and `aria-*` go to the textarea. `class` and `style` stay on the label.
 
 ## Anatomy
 

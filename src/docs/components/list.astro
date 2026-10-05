@@ -302,27 +302,58 @@ export const description =
 
   <section>
     <h2 id="gutterless">Gutterless</h2>
-    <p>
-      Apply the <code>.ui-gutterless</code> class on the <code>ul.ui-list</code> element
-      to remove the inline padding on the list items.
-    </p>
+    <Conditional>
+      <p slot="html">
+        Apply the <code>.ui-gutterless</code> class on the <code
+          >ul.ui-list</code
+        > element to remove the inline padding on the list items.
+      </p>
+      <p slot="astro">
+        Add the <code>gutterless</code> prop to the <code>List</code> to remove the
+        inline padding on the list items.
+      </p>
+      <p slot="vue">
+        Add the <code>gutterless</code> prop to the <code>List</code> to remove the
+        inline padding on the list items.
+      </p>
+    </Conditional>
     <AutoExample name="Gutterless" />
   </section>
 
   <section>
     <h2 id="borders">Borders</h2>
     <h3 id="on-every-item">On every item</h3>
-    <p>
-      Apply the <code>.ui-bordered</code> class on the <code>ul.ui-list</code> element
-      to give all list items a border.
-    </p>
+    <Conditional>
+      <p slot="html">
+        Apply the <code>.ui-bordered</code> class on the <code>ul.ui-list</code> element
+        to give all list items a border.
+      </p>
+      <p slot="astro">
+        Add the <code>bordered</code> prop to the <code>List</code> to give all list
+        items a border.
+      </p>
+      <p slot="vue">
+        Add the <code>bordered</code> prop to the <code>List</code> to give all list
+        items a border.
+      </p>
+    </Conditional>
     <AutoExample name="Bordered" />
 
     <h3 id="on-one-item">On one item</h3>
-    <p>
-      Apply the <code>.ui-border-top</code> class on a <code>li</code> item to give
-      it an upper border.
-    </p>
+    <Conditional>
+      <p slot="html">
+        Apply the <code>.ui-border-top</code> class on a <code>li</code> item to give
+        it an upper border.
+      </p>
+      <p slot="astro">
+        Add the <code>borderTop</code> prop to a <code>ListItem</code> to give it
+        an upper border.
+      </p>
+      <p slot="vue">
+        Add the <code>borderTop</code> prop to a <code>ListItem</code> to give it
+        an upper border.
+      </p>
+    </Conditional>
     <AutoExample name="SingleBorder" />
   </section>
 

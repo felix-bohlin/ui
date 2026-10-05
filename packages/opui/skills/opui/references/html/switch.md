@@ -6,10 +6,11 @@ See also: [Switch field group](#field-group).
 
 - Breaking: [`size="small"`](#sizes) replaces `small`.
 - [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
+- Without a visible label, switches center in table cells and lines of text.
 
 ## Anatomy
 
-LabelEnd text
+ThemeLabelEnd text
 
 - `label.ui-switch`
 
@@ -35,7 +36,7 @@ LabelEnd text
 
   Supporting text displayed below the label.
 
-All switches should have an accessible name. Either provide a visible or visually-hidden label inside the component, or set `aria-label` on the input. Both approaches are fine.
+All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only`instead of `.ui-label`, or the `hideLabel` prop in Astro and Vue.
 
 ```html
 <!-- Checked -->
@@ -334,12 +335,8 @@ The switch lines up with the first line of its label and centers on the label's 
       ></path>
     </svg>
   </span>
-  <input
-    name="switch-icons"
-    type="checkbox"
-    role="switch"
-    aria-label="Toggle theme"
-  />
+  <input name="switch-icons" type="checkbox" role="switch" />
+  <span class="ui-sr-only">Toggle theme</span>
 </label>
 
 
@@ -370,13 +367,8 @@ The switch lines up with the first line of its label and centers on the label's 
       ></path>
     </svg>
   </span>
-  <input
-    name="switch-icons"
-    type="checkbox"
-    role="switch"
-    checked
-    aria-label="Toggle theme"
-  />
+  <input name="switch-icons" type="checkbox" role="switch" checked />
+  <span class="ui-sr-only">Toggle theme</span>
 </label>
 ```
 
@@ -392,7 +384,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 <div class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-switch">
         <input name="switch-group" type="checkbox" role="switch" />
         <span class="ui-label">Switch 1</span>
@@ -416,7 +408,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-switch">
         <input name="switch-group-direction" type="checkbox" role="switch" />
         <span class="ui-label">Switch 1</span>
@@ -443,7 +435,7 @@ Can be placed above and below the fields.
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
     <p class="ui-field-description">Field description above fields</p>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-switch">
         <input
           name="switch-group-field-description-1"
@@ -474,7 +466,7 @@ Can be placed above and below the fields.
 
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-switch">
         <input
           name="switch-group-field-description-2"
@@ -513,7 +505,7 @@ Attach the `disabled` attribute to the `<fieldset>` element.
 <form class="ui-form">
   <fieldset class="ui-fieldset" disabled>
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-switch">
         <input name="switch-group-disabled" type="checkbox" role="switch" />
         <span class="ui-label">Switch 1</span>
@@ -539,7 +531,7 @@ Attach the `required` attribute to at least one of your `<input>` elements.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>These are required!</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-switch">
         <input
           name="switch-group-required"
@@ -580,7 +572,7 @@ Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` ele
 <form class="ui-form">
   <fieldset class="ui-fieldset" data-invalid>
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-switch">
         <input
           name="switch-field-group-validation"
@@ -623,11 +615,11 @@ Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` ele
 
 Accessible switches should have a label. The first two approaches are equally ok:
 
-| Approach                                                       | Usage in Switch component                                                                                                                                                                                                |
-| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Provide a label inside the element                             | Use a `.ui-label` child for a [visible label](#visible-label), or a `.ui-sr-only` child to hide it visually while keeping it accessible. In Astro, set the `hideLabel` prop to render the slot content as `.ui-sr-only`. |
-| Add an `aria-label` on the input                               | Used when there's no visible label inside the component (e.g. icon-only switches). In Astro, pass `aria-label` as a prop on the component and it will land on the input.                                                 |
-| Have a visible label that you reference with `aria-labelledby` | Not used.                                                                                                                                                                                                                |
+| Approach                                                       | Usage in Switch component                                                                                                                                                                                                        |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Provide a label inside the element                             | Use a `.ui-label` child for a [visible label](#visible-label), or a `.ui-sr-only` child to hide it visually while keeping it accessible. In Astro and Vue, set the `hideLabel` prop to render the slot content as `.ui-sr-only`. |
+| Add an `aria-label` on the input                               | Not used. Use a `.ui-sr-only` label instead, also for icon-only switches.                                                                                                                                                        |
+| Have a visible label that you reference with `aria-labelledby` | Not used.                                                                                                                                                                                                                        |
 
 ### Keyboard support
 
@@ -681,7 +673,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 | `--invalid-text-color`        | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                             |
 | `--motion`                    | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`.                            |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                          |
-| `--primary-contrast`          | `light-dark(var(--gray-1), var(--gray-15))`                                             | Text color on a `--primary` background.                                                                                                               |
+| `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )`   | Text color on a `--primary` background.                                                                                                               |
 | `--switch-dot-size`           | `var(--size-3)`                                                                         | Diameter of the `Switch` dot.                                                                                                                         |
 | `--switch-dot-size-small`     | `0.75rem`                                                                               | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                                                      |
 | `--switch-track-height`       | `var(--size-5)`                                                                         | Height of the `Switch` track.                                                                                                                         |
@@ -725,7 +717,7 @@ The input needs `type="checkbox"` and `role="switch"`. Use `.ui-sr-only` instead
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
-The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
+Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
 
 ## Under the hood
 

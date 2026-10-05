@@ -20,6 +20,7 @@ export type ApiOption = {
   description: string
   frameworks?: Framework[]
   group?: string
+  htmlDefault?: string | null
   part?: string
   prop: string
   type?: string

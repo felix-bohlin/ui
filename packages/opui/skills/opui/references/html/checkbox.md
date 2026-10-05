@@ -6,6 +6,7 @@ See also: [Checkbox field group](#field-group).
 
 - [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
 - Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl`.
+- Without a visible label, checkboxes center in table cells and lines of text.
 
 ## Anatomy
 
@@ -207,7 +208,7 @@ The `indeterminate` state cannot be set with HTML or CSS alone. The browser only
       <span class="ui-label">Select all</span>
     </label>
   </legend>
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <label class="ui-checkbox child">
       <input name="indeterminate-children" type="checkbox" checked />
       <span class="ui-label">Apples</span>
@@ -382,7 +383,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-checkbox">
         <input name="checkbox-group" type="checkbox" checked />
         <span class="ui-label">Checkbox 1</span>
@@ -406,7 +407,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
         <input name="checkbox-group-direction" type="checkbox" checked />
         <span class="ui-label">Checkbox 1</span>
@@ -433,7 +434,7 @@ Can be placed above and below the fields.
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
     <p class="ui-field-description">Field description above fields</p>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
         <input
           name="checkbox-group-field-description-1"
@@ -456,7 +457,7 @@ Can be placed above and below the fields.
 
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
         <input
           name="checkbox-group-field-description-2"
@@ -487,7 +488,7 @@ Attach the `disabled` attribute to the `<fieldset>` element.
 <form class="ui-form">
   <fieldset class="ui-fieldset" disabled>
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
         <input name="checkbox-group-disabled" type="checkbox" checked />
         <span class="ui-label">Checkbox 1</span>
@@ -513,7 +514,7 @@ Attach the `required` attribute to at least one of your `<input>` elements.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>These are required!</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
         <input name="checkbox-group-required" type="checkbox" required />
         <span class="ui-label">Checkbox 1</span>
@@ -539,7 +540,7 @@ Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` ele
 <form class="ui-form">
   <fieldset class="ui-fieldset" data-invalid>
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
         <input name="checkbox-group-validation" type="checkbox" checked />
         <span class="ui-label">Checkbox 1</span>
@@ -618,7 +619,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                  |
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                             |
 | `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                          |
-| `--primary-contrast`         | `light-dark(var(--gray-1), var(--gray-15))`                                             | Text color on a `--primary` background.                                                                                                               |
+| `--primary-contrast`         | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )`   | Text color on a `--primary` background.                                                                                                               |
 | `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                             |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                |
 
@@ -657,7 +658,7 @@ Use `.ui-sr-only` instead of `.ui-label` to hide the label visually. `data-indet
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
-The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
+Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
 
 ## Under the hood
 

@@ -55,18 +55,42 @@
       --_bg-color: var(--critical);
       --_border-color: var(--critical);
       --_text-color: var(--gray-1);
+
+      @container style(--contrast: more) {
+        --_bg-color: light-dark(
+          var(--critical),
+          oklch(from var(--critical) min(l, 0.45) c h)
+        );
+        --_border-color: var(--_bg-color);
+      }
     }
 
     &.ui-success {
       --_bg-color: var(--success);
       --_border-color: var(--success);
       --_text-color: var(--gray-1);
+
+      @container style(--contrast: more) {
+        --_bg-color: light-dark(
+          var(--success),
+          oklch(from var(--success) min(l, 0.45) c h)
+        );
+        --_border-color: var(--_bg-color);
+      }
     }
 
     &.ui-info {
       --_bg-color: var(--info);
       --_border-color: var(--info);
       --_text-color: var(--gray-1);
+
+      @container style(--contrast: more) {
+        --_bg-color: light-dark(
+          var(--info),
+          oklch(from var(--info) min(l, 0.45) c h)
+        );
+        --_border-color: var(--_bg-color);
+      }
     }
 
     &.ui-warning {

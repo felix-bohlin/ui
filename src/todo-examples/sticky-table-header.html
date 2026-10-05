@@ -1,0 +1,194 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-scroller {
+    max-block-size: 14rem;
+    overflow-y: auto;
+  }
+
+  .todo-scroller .ui-table {
+    margin: 0;
+  }
+
+  .todo-current .ui-table {
+    overflow: hidden;
+  }
+
+  .todo-current th {
+    inset-block-start: 0;
+    position: sticky;
+  }
+</style>
+<div class="todo-compare">
+  <div class="todo-current">
+    <p class="ui-caption">
+      Before: <code>th { position: sticky }</code> inside
+      <code>.ui-table { overflow: hidden }</code>
+    </p>
+    <div class="todo-scroller" tabindex="0" role="region" aria-label="Invoices">
+      <table class="ui-table">
+        <thead>
+          <tr>
+            <th>Invoice</th>
+            <th>Customer</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>INV-1000</td>
+            <td>Ada</td>
+            <td>€130,00</td>
+          </tr>
+          <tr>
+            <td>INV-1001</td>
+            <td>Grace</td>
+            <td>€260,00</td>
+          </tr>
+          <tr>
+            <td>INV-1002</td>
+            <td>Linus</td>
+            <td>€390,00</td>
+          </tr>
+          <tr>
+            <td>INV-1003</td>
+            <td>Margaret</td>
+            <td>€520,00</td>
+          </tr>
+          <tr>
+            <td>INV-1004</td>
+            <td>Alan</td>
+            <td>€650,00</td>
+          </tr>
+          <tr>
+            <td>INV-1005</td>
+            <td>Barbara</td>
+            <td>€780,00</td>
+          </tr>
+          <tr>
+            <td>INV-1006</td>
+            <td>Ken</td>
+            <td>€910,00</td>
+          </tr>
+          <tr>
+            <td>INV-1007</td>
+            <td>Frances</td>
+            <td>€1040,00</td>
+          </tr>
+          <tr>
+            <td>INV-1008</td>
+            <td>Dennis</td>
+            <td>€1170,00</td>
+          </tr>
+          <tr>
+            <td>INV-1009</td>
+            <td>Radia</td>
+            <td>€1300,00</td>
+          </tr>
+          <tr>
+            <td>INV-1010</td>
+            <td>Edsger</td>
+            <td>€1430,00</td>
+          </tr>
+          <tr>
+            <td>INV-1011</td>
+            <td>Hedy</td>
+            <td>€1560,00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption">Now: <code>.ui-table.ui-sticky-header</code></p>
+    <div class="todo-scroller" tabindex="0" role="region" aria-label="Invoices">
+      <table class="ui-table ui-sticky-header">
+        <thead>
+          <tr>
+            <th>Invoice</th>
+            <th>Customer</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>INV-1000</td>
+            <td>Ada</td>
+            <td>€130,00</td>
+          </tr>
+          <tr>
+            <td>INV-1001</td>
+            <td>Grace</td>
+            <td>€260,00</td>
+          </tr>
+          <tr>
+            <td>INV-1002</td>
+            <td>Linus</td>
+            <td>€390,00</td>
+          </tr>
+          <tr>
+            <td>INV-1003</td>
+            <td>Margaret</td>
+            <td>€520,00</td>
+          </tr>
+          <tr>
+            <td>INV-1004</td>
+            <td>Alan</td>
+            <td>€650,00</td>
+          </tr>
+          <tr>
+            <td>INV-1005</td>
+            <td>Barbara</td>
+            <td>€780,00</td>
+          </tr>
+          <tr>
+            <td>INV-1006</td>
+            <td>Ken</td>
+            <td>€910,00</td>
+          </tr>
+          <tr>
+            <td>INV-1007</td>
+            <td>Frances</td>
+            <td>€1040,00</td>
+          </tr>
+          <tr>
+            <td>INV-1008</td>
+            <td>Dennis</td>
+            <td>€1170,00</td>
+          </tr>
+          <tr>
+            <td>INV-1009</td>
+            <td>Radia</td>
+            <td>€1300,00</td>
+          </tr>
+          <tr>
+            <td>INV-1010</td>
+            <td>Edsger</td>
+            <td>€1430,00</td>
+          </tr>
+          <tr>
+            <td>INV-1011</td>
+            <td>Hedy</td>
+            <td>€1560,00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  for (const scroller of document.querySelectorAll(".todo-scroller"))
+    scroller.scrollTop = 120
+</script>

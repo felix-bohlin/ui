@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "ToggleButton",
   notes: {
-    html: "Set `disabled` on the input too. Checkbox inputs also need `aria-pressed`.",
+    html: "Set `disabled` on the input too.",
   },
   options: [
     {

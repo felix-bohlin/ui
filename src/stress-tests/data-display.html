@@ -39,12 +39,6 @@
     max-block-size: 14rem;
     overflow: auto;
   }
-
-  .stress-data-sticky th {
-    inset-block-start: 0;
-    position: sticky;
-    z-index: 1;
-  }
 </style>
 
 <section class="stress" data-example="TableCellContent">
@@ -1322,9 +1316,9 @@
 <section class="stress" data-example="TableStickyHeader">
   <h2>Table sticky header</h2>
   <p>
-    A long table in a scroll box with sticky header cells. Scroll the box: the
-    header should stay on top, keep its background and not let rows show
-    through.
+    A long table in a scroll box with <code>.ui-sticky-header</code>. Scroll the
+    box: the header should stay on top, keep its background, not let rows show
+    through and show a shadow.
   </p>
   <div
     class="stress-data-sticky stress-wide-column"
@@ -1332,7 +1326,7 @@
     aria-label="Daily requests"
     tabindex="0"
   >
-    <table class="ui-table">
+    <table class="ui-table ui-sticky-header">
       <thead>
         <tr>
           <th>Day</th>

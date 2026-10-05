@@ -10,6 +10,7 @@ type Props = {
   image?: string
   overline?: string
   showToc?: boolean
+  transitionName?: string
   wide?: boolean
 }
 
@@ -19,6 +20,7 @@ const {
   image,
   overline,
   showToc = true,
+  transitionName,
   wide,
 } = Astro.props
 const sidebar = await Astro.slots.render("sidebar")
@@ -85,14 +87,39 @@ const descText =
     <main id="main-content">
       <article class="ui-rich-text">
         <hgroup id="main-heading">
-          {overline && <p>{overline}</p>}
-          <h1><slot name="title" /></h1>
+          {
+            overline && (
+              <p
+                class:list={{ "doc-transition": transitionName }}
+                style={
+                  transitionName &&
+                  `view-transition-name: ${transitionName}-date`
+                }
+              >
+                {overline}
+              </p>
+            )
+          }
+          <h1
+            class:list={{ "doc-transition": transitionName }}
+            style={transitionName &&
+              `view-transition-name: ${transitionName}-title`}
+          >
+            <slot name="title" />
+          </h1>
           {
             preamble &&
               (preambleHasBlockMarkup ? (
                 <Fragment set:html={preamble} />
               ) : (
-                <p set:html={preamble} />
+                <p
+                  class:list={{ "doc-transition": transitionName }}
+                  set:html={preamble}
+                  style={
+                    transitionName &&
+                    `view-transition-name: ${transitionName}-description`
+                  }
+                />
               ))
           }
         </hgroup>
@@ -146,6 +173,15 @@ const descText =
 </script>
 
 <style is:global>
+  .doc-transition {
+    inline-size: fit-content;
+    view-transition-class: doc-heading;
+  }
+
+  h1 + .doc-transition {
+    view-transition-class: doc-heading doc-reflow;
+  }
+
   #document-page {
     display: grid;
     grid-template-columns:

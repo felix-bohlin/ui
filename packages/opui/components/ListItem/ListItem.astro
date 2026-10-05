@@ -4,7 +4,7 @@ import type { Props } from "./types.astro"
 export const title = "List Item"
 
 const {
-  as: Tag,
+  as: Tag = Astro.props.href ? "a" : undefined,
   borderTop,
   class: className,
   description,

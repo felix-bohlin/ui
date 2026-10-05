@@ -66,5 +66,5 @@
     "vue": "catalog:",
     "vue-tsc": "^3.3.11"
   },
-  "packageManager": "pnpm@12.8.1"
+  "packageManager": "pnpm@12.9.1"
 }

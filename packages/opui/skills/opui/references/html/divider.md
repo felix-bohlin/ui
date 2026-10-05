@@ -2,6 +2,10 @@
 
 It's just a line.
 
+### What's new
+
+- [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.
+
 ## Default
 
 ```html
@@ -25,6 +29,29 @@ Primary
 <hr class="ui-divider ui-border-primary" />
 ```
 
+## Spacing
+
+The space above and below a divider is `--divider-space`. Cards, callouts, dialogs and drawers set a tighter value, and a divider that is a direct child of a card has no margin, since the card's gap already spaces it. Set `--divider-space` on any wrapper to change it for every divider inside.
+
+```html
+<div class="ui-card ui-outlined">
+  <div class="ui-content">Inside a card, the gap spaces the divider.</div>
+  <hr class="ui-divider" />
+  <div class="ui-content">
+    Nested deeper, it uses the card's tighter space.
+    <hr class="ui-divider" />
+    So everything stays close together.
+  </div>
+</div>
+
+
+<div style="--divider-space: var(--size-1)">
+  A custom space on any wrapper
+  <hr class="ui-divider" />
+  reaches every divider inside it.
+</div>
+```
+
 ## API
 
 ### Divider API
@@ -41,12 +68,13 @@ Primary
 
 #### CSS variables
 
-| Variable           | Default                                      | Description                                                           |
-| ------------------ | -------------------------------------------- | --------------------------------------------------------------------- |
-| `--border-color`   | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.           |
-| `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                          |
-| `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes. |
-| `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                         |
+| Variable           | Default                                      | Description                                                                                                                                                                                   |
+| ------------------ | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`   | `light-dark(var(--gray-4), var(--gray-12))`  | Default border color for cards, lists, tables and dividers.                                                                                                                                   |
+| `--divider-space`  | `var(--size-fluid-3)`                        | Block margin around a `Divider`. Cards, callouts, dialogs and drawers set it to `--size-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it. |
+| `--primary`        | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                                                                                                  |
+| `--surface-filled` | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                                                                                                         |
+| `--surface-tonal`  | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                                                                                                 |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 

@@ -3,6 +3,8 @@
 ### What's new
 
 - [Dense](#variants) tables have less block padding.
+- Fields and selects in cells keep a `12ch` minimum width.
+- [Sticky header](#sticky-header) with the `stickyHeader` prop.
 
 ## Anatomy
 
@@ -165,13 +167,103 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 </template>
 ```
 
+## Sticky header
+
+`stickyHeader` keeps the header rows at the top of the nearest scroll container while the rows scroll under them, and adds a shadow once the header is stuck. Put the table in a scroll box, or let it stick to the page and set `--_sticky-offset` on the table to clear a fixed top bar.
+
+```vue
+<script setup lang="ts">
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/vue"
+</script>
+
+
+<template>
+  <div
+    role="region"
+    aria-label="Invoices"
+    tabindex="0"
+    style="max-block-size: 15rem; overflow: auto"
+  >
+    <Table stickyHeader>
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>Invoice</TableHeaderCell>
+          <TableHeaderCell>Customer</TableHeaderCell>
+          <TableHeaderCell>Amount</TableHeaderCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableCell>INV-1000</TableCell>
+          <TableCell>Ada</TableCell>
+          <TableCell>€130</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>INV-1001</TableCell>
+          <TableCell>Grace</TableCell>
+          <TableCell>€260</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>INV-1002</TableCell>
+          <TableCell>Linus</TableCell>
+          <TableCell>€390</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>INV-1003</TableCell>
+          <TableCell>Margaret</TableCell>
+          <TableCell>€520</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>INV-1004</TableCell>
+          <TableCell>Alan</TableCell>
+          <TableCell>€650</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>INV-1005</TableCell>
+          <TableCell>Barbara</TableCell>
+          <TableCell>€780</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>INV-1006</TableCell>
+          <TableCell>Ken</TableCell>
+          <TableCell>€910</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>INV-1007</TableCell>
+          <TableCell>Frances</TableCell>
+          <TableCell>€1,040</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>INV-1008</TableCell>
+          <TableCell>Dennis</TableCell>
+          <TableCell>€1,170</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>INV-1009</TableCell>
+          <TableCell>Radia</TableCell>
+          <TableCell>€1,300</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  </div>
+</template>
+```
+
 ## API
 
 ### Table API
 
-| Prop      | Type                    | Default | Description         |
-| --------- | ----------------------- | ------- | ------------------- |
-| `variant` | `"dense"`, `"spacious"` | -       | The variant to use. |
+| Prop           | Type                    | Default | Description                                                                                          |
+| -------------- | ----------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
+| `stickyHeader` | `boolean`               | `false` | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
+| `variant`      | `"dense"`, `"spacious"` | -       | The variant to use.                                                                                  |
 
 #### Slots
 
@@ -181,17 +273,19 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 
 #### CSS variables
 
-| Variable                 | Default                                     | Description                                                                                           |
-| ------------------------ | ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                           |
-| `--border-radius`        | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                     |
-| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                               |
-| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
-| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                     |
-| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                             |
-| `--surface-filled`       | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                 |
-| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                      |
-| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                |
+| Variable                 | Default                                     | Description                                                                                                                |
+| ------------------------ | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`        | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--border-width`         | `1px`                                       | Default border width for components that draw a border.                                                                    |
+| `--duration`             | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--font-size-05`         | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--font-weight-semibold` | `var(--font-weight-6)`                      | Font weight for labels, table headers and titles.                                                                          |
+| `--motion`               | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--surface-filled`       | `light-dark(var(--gray-4), var(--gray-15))` | Background of filled areas such as progress tracks and table stripes.                                                      |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))` | Body text color.                                                                                                           |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 

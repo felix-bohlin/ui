@@ -9,7 +9,7 @@ export default {
   options: [
     {
       description:
-        'The element to render inside the `<li>`, such as `"a"` or `"button"`.',
+        'The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set.',
       prop: "as",
     },
     {
@@ -20,11 +20,15 @@ export default {
       prop: "borderTop",
     },
     {
+      description: 'Disables the item when `as` is `"button"`.',
+      prop: "disabled",
+    },
+    {
       description: "The `for` attribute of the `<label>` when `type` is set.",
       prop: "for",
     },
     {
-      description: 'The link to use, with `as="a"`.',
+      description: "The link to use. Renders an `<a>` inside the `<li>`.",
       prop: "href",
     },
     {

@@ -6,6 +6,7 @@ Leverages the [List component](https://open-props-ui.netlify.app/html/components
 
 - [X-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
 - [Spread](#spread) fields line up at one width.
+- [Preselect](#preselected) options with `selected`.
 
 ## Anatomy
 
@@ -199,6 +200,45 @@ Add a `.ui-prefix` or `.ui-suffix` element inside `.ui-field` to affix content a
         ></path>
       </svg>
     </span>
+  </span>
+</label>
+```
+
+## Preselected
+
+Add `selected` to the `option` to preselect it.
+
+```html
+<label class="ui-select">
+  <span class="ui-label" id="select-preselected-1-label">Role</span>
+  <span class="ui-field">
+    <select aria-labelledby="select-preselected-1-label">
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option value="designer">Designer</option>
+        <option selected value="developer">Developer</option>
+        <option value="manager">Manager</option>
+      </div>
+    </select>
+  </span>
+</label>
+
+
+<label class="ui-select">
+  <span class="ui-label" id="select-preselected-2-label">Team</span>
+  <span class="ui-field">
+    <select aria-labelledby="select-preselected-2-label">
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option value="design">Design</option>
+        <option selected value="engineering">Engineering</option>
+        <option value="sales">Sales</option>
+      </div>
+    </select>
   </span>
 </label>
 ```
@@ -629,6 +669,7 @@ Bog-standard native HTML `<select>` without customized option list.
 | `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                               |
 | `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                  |
+| `--surface-elevated`         | `light-dark(var(--gray-1), var(--gray-12))`                                             | Background of elevated cards and accordions.                                                                               |
 | `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                      |
 | `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                              |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                           |
@@ -686,6 +727,7 @@ The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` wit
 | `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                               |
 | `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                  |
+| `--surface-elevated`         | `light-dark(var(--gray-1), var(--gray-12))`                                             | Background of elevated cards and accordions.                                                                               |
 | `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                      |
 | `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                              |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                           |

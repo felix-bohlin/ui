@@ -1,6 +1,5 @@
 export type Props = {
   borderTop?: boolean
-  class?: string
   description?: string
   for?: string
   headline?: string
@@ -9,24 +8,28 @@ export type Props = {
 } & (
   | {
       as?: "a"
-      href: string
       disabled?: never
+      href: string
     }
   | {
-      as?: "button"
-      href?: never
+      as: "button"
       disabled?: boolean
+      href?: never
     }
   | {
-      as?: string
+      as: "div"
+      disabled?: never
+      href?: never
+    }
+  | {
+      as?: never
+      disabled?: never
       href?: never
     }
 )
 
 export type Slots<S> = {
-  description?: string | S
   end?: string | S
-  headline?: string | S
   start?: string | S
   submenu?: string | S
   text?: string | S

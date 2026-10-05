@@ -14,6 +14,13 @@
       oklch(from var(--_accent) max(l, 0.75) c h)
     );
 
+    @container style(--contrast: more) {
+      --_accent-text: light-dark(
+        var(--_accent),
+        oklch(from var(--_accent) max(l, 0.85) min(c, 0.1) h)
+      );
+    }
+
     --_default-hover-bg-color: light-dark(
       oklch(from var(--_accent) l 0.01 h / var(--state-hover-alpha)),
       oklch(from var(--_accent) l 0.01 h / var(--state-hover-alpha-dark))
@@ -41,6 +48,10 @@
       --_color-tonal: light-dark(var(--color-6), var(--color-11));
       --_accent-tonal-contrast: light-dark(var(--gray-15), var(--gray-1));
 
+      @container style(--contrast: more) {
+        --_color-tonal: light-dark(var(--color-4), var(--color-12));
+      }
+
       --_default-hover-bg-color: oklch(
         from var(--_accent) l c h / var(--state-hover-alpha-accent)
       );
@@ -58,6 +69,13 @@
     :where(.ui-button-group.ui-critical) > & {
       --_color: var(--critical);
       --_color-contrast: var(--gray-1);
+
+      @container style(--contrast: more) {
+        --_color: light-dark(
+          var(--critical),
+          oklch(from var(--critical) min(l, 0.45) c h)
+        );
+      }
     }
 
     &.ui-primary,
@@ -153,6 +171,10 @@
       font-weight: 400;
       line-height: 1.2;
       opacity: 0.8;
+
+      @container style(--contrast: more) {
+        opacity: 1;
+      }
     }
 
     /* Sizes */
@@ -186,6 +208,10 @@
       --_bg-color: transparent;
       --_border-color: var(--_accent);
       --_text-color: var(--_accent-text);
+
+      @container style(--contrast: more) {
+        --_border-color: var(--_accent-text);
+      }
 
       &:where(
         :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)

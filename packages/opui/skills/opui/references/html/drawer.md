@@ -2,6 +2,10 @@
 
 Slides in from the sides, top or bottom of the screen.
 
+### What's new
+
+- Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls.
+
 ## Usage
 
 Change the opening side with the `.ui-inline-start`, `.ui-inline-end`, `.ui-block-start`, and `.ui-block-end` classes.
@@ -13,6 +17,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
 ```html
 <div class="drawer-examples">
   <button
+    type="button"
     class="ui-button top"
     commandfor="drawer-block-start-html"
     command="show-modal"
@@ -20,6 +25,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
     Block Start
   </button>
   <button
+    type="button"
     class="ui-button left"
     commandfor="drawer-inline-start-html"
     command="show-modal"
@@ -27,6 +33,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
     Inline Start
   </button>
   <button
+    type="button"
     class="ui-button right"
     commandfor="drawer-inline-end-html"
     command="show-modal"
@@ -34,6 +41,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
     Inline End
   </button>
   <button
+    type="button"
     class="ui-button bottom"
     commandfor="drawer-block-end-html"
     command="show-modal"
@@ -51,6 +59,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   <div class="ui-header">
     <h2>Inline Start</h2>
     <button
+      type="button"
       class="ui-button ui-rounded ui-ripple ui-small"
       aria-label="Close"
       commandfor="drawer-inline-start-html"
@@ -90,6 +99,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       class="ui-button ui-small"
       commandfor="drawer-inline-start-html"
       command="close"
@@ -108,6 +118,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   <div class="ui-header">
     <h2>Inline End</h2>
     <button
+      type="button"
       class="ui-button ui-rounded ui-ripple ui-small"
       aria-label="Close"
       commandfor="drawer-inline-end-html"
@@ -147,6 +158,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       class="ui-button ui-small"
       commandfor="drawer-inline-end-html"
       command="close"
@@ -165,6 +177,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   <div class="ui-header">
     <h2>Block Start</h2>
     <button
+      type="button"
       class="ui-button ui-rounded ui-ripple ui-small"
       aria-label="Close"
       commandfor="drawer-block-start-html"
@@ -199,6 +212,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       class="ui-button ui-small"
       commandfor="drawer-block-start-html"
       command="close"
@@ -217,6 +231,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   <div class="ui-header">
     <h2>Block End</h2>
     <button
+      type="button"
       class="ui-button ui-rounded ui-ripple ui-small"
       aria-label="Close"
       commandfor="drawer-block-end-html"
@@ -251,6 +266,7 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       class="ui-button ui-small"
       commandfor="drawer-block-end-html"
       command="close"
@@ -380,6 +396,30 @@ Add `autofocus` to the root, or to an element inside, to choose what gets focus 
 | `.ui-header` | Container element. |
 | `<h2>`       | The heading.       |
 | `<button>`   | Closes the drawer. |
+
+#### CSS variables
+
+| Variable            | Default                                     | Description                                                                                                                |
+| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--backdrop-blur`   | `1px`                                       | Blur radius behind an open `Dialog` or `Drawer`.                                                                           |
+| `--backdrop-color`  | `rgb(0 0 0 / 0.5)`                          | Overlay color behind an open `Dialog` or `Drawer`.                                                                         |
+| `--border-color`    | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-width`    | `1px`                                       | Default border width for components that draw a border.                                                                    |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-default` | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                                                                                  |
+| `--text-primary`    | `light-dark(var(--gray-15), var(--gray-1))` | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+
+### Drawer footer API
+
+#### Parts
+
+| Part         | Description                                                           |
+| ------------ | --------------------------------------------------------------------- |
+| `.ui-footer` | Container element. Lays out its content in a row, aligned to the end. |
 
 #### CSS variables
 

@@ -11,7 +11,7 @@
     inline-size: 100%;
     overflow: hidden;
     position: relative;
-    vertical-align: baseline;
+    vertical-align: middle;
 
     /* Color */
     &.ui-filled {
@@ -24,6 +24,16 @@
 
     &.ui-tonal {
       --_bg-color: var(--surface-tonal);
+    }
+
+    @container style(--contrast: more) {
+      outline: var(--border-width) solid var(--border-color);
+    }
+
+    @media (forced-colors: active) {
+      --_accent-color: SelectedItem;
+
+      outline: 1px solid CanvasText;
     }
 
     & > progress {

@@ -72,11 +72,10 @@ export const description =
         Use the <code>variant</code> prop to change how it looks.
       </Fragment>
       <Fragment slot="html">
-        Add one of the variant classes (<code>.ui-card</code>, <code
-          >.ui-outlined</code
-        >, <code>.ui-elevated</code>, <code>.ui-tonal</code>) to the <code
-          >&lt;details&gt;</code
-        > element to change how it looks.
+        Add one of the variant classes (<code>.ui-outlined</code>, <code
+          >.ui-elevated</code
+        >, <code>.ui-tonal</code>) to the <code>&lt;details&gt;</code> element to
+        change how it looks. Add <code>.ui-card</code> for the card styles.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>variant</code> prop to change how it looks.
@@ -111,10 +110,21 @@ export const description =
 
     <h3 id="mutually-exclusive">Mutually exclusive</h3>
 
-    <p>
-      Set the <code>name</code> prop to allow only one accordion in a group to be
-      open at a time.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set the same <code>name</code> prop on each accordion to allow only one of
+        them to be open at a time.
+      </Fragment>
+      <Fragment slot="html">
+        Set the same <code>name</code> attribute on each <code
+          >&lt;details&gt;</code
+        > element to allow only one of them to be open at a time.
+      </Fragment>
+      <Fragment slot="vue">
+        Set the same <code>name</code> prop on each accordion to allow only one of
+        them to be open at a time.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="GroupSingle" column />
   </section>
@@ -122,11 +132,21 @@ export const description =
   <section>
     <h2 id="actions">Actions</h2>
 
-    <p>
-      Include interactive elements in the header by using the <code
-        >.ui-actions</code
-      > class.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Add buttons or other interactive elements below the content with the
+        <code>actions</code> slot.
+      </Fragment>
+      <Fragment slot="html">
+        Add buttons or other interactive elements below the content in a <code
+          >.ui-actions</code
+        > element, after <code>.ui-content</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Add buttons or other interactive elements below the content with the
+        <code>actions</code> slot.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Actions" />
   </section>
@@ -174,27 +194,20 @@ export const description =
   </section>
 
   <Fragment slot="accessibility">
-    <p>
-      The <a
-        class="ui-link"
-        href="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/"
-        >WAI-ARIA guidelines</a
-      > for accordions recommend:
-    </p>
-
     <ul>
       <li>
-        <code>summary</code> element
-        <ul>
-          <li>adding id and aria-controls</li>
-          <li>adding aria-expanded (if using JS)</li>
-        </ul>
+        Accordions are <code>&lt;details&gt;</code> and
+        {" "}<code>&lt;summary&gt;</code>. The browser announces the summary
+        with its expanded or collapsed state and toggles it with
+        {" "}<kbd>Enter</kbd> and <kbd>Space</kbd>, so no ARIA is needed.
       </li>
       <li>
-        content wrapper
-        <ul>
-          <li>adding id, role and aria-labelledby</li>
-        </ul>
+        In supporting browsers, find in page also searches closed accordions and
+        opens the one with the match.
+      </li>
+      <li>
+        Don't add <code>role="region"</code> to the content. Every accordion becomes
+        a landmark, which crowds the landmark list on pages with many of them.
       </li>
     </ul>
   </Fragment>

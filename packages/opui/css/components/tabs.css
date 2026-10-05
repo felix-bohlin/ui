@@ -16,6 +16,10 @@
     --_track-border-width: 1px;
     --_track-color: var(--surface-tonal);
 
+    @container style(--contrast: more) {
+      --_text-color: var(--text-muted);
+    }
+
     align-items: flex-start;
     display: flex;
     flex-wrap: wrap;
@@ -35,7 +39,6 @@
 
       &:checked {
         /* Checked Tab */
-        & + [role="tab"],
         & + .ui-tab-label {
           color: var(--_active-text-color);
 
@@ -50,7 +53,6 @@
           }
 
           /* Checked Panel */
-          & + [role="tabpanel"],
           & + .ui-tab-panel {
             display: block;
           }
@@ -58,18 +60,15 @@
       }
 
       &:focus-visible {
-        & + [role="tab"]::before,
         & + .ui-tab-label::before {
-          --focus-ring-color: var(--text-muted);
           outline: var(--focus-ring-width) var(--focus-ring-style)
-            var(--focus-ring-color);
+            var(--focus-ring-color, var(--text-muted));
           outline-offset: var(--focus-ring-offset, 0);
         }
       }
     }
 
     /* Tab */
-    & > [role="tab"],
     & > .ui-tab-label {
       align-items: center;
       background-color: var(--_track-color);
@@ -119,7 +118,7 @@
           var(--ease);
       }
 
-      &:nth-child(1 of [role="tab"], .ui-tab-label) {
+      &:nth-child(1 of .ui-tab-label) {
         border-end-start-radius: var(--_border-radius);
         border-inline-start: var(--_track-border-width) solid
           var(--_track-border-color);
@@ -133,7 +132,7 @@
         }
       }
 
-      &:nth-last-child(1 of [role="tab"], .ui-tab-label) {
+      &:nth-last-child(1 of .ui-tab-label) {
         border-end-end-radius: var(--_border-radius);
         border-inline-end: var(--_track-border-width) solid
           var(--_track-border-color);
@@ -155,7 +154,6 @@
     }
 
     /* Tab Panel */
-    & > [role="tabpanel"],
     & > .ui-tab-panel {
       display: none;
       inline-size: 100%;
@@ -206,7 +204,6 @@
         margin: 0;
 
         &:focus-visible {
-          & + [role="tab"]::before,
           & + .ui-tab-label::before {
             outline-offset: calc(-1 * var(--focus-ring-width));
           }
@@ -293,12 +290,10 @@
         grid-column: 20 / span 1;
       }
 
-      & > [role="tab"],
       & > .ui-tab-label {
         grid-row: 1;
       }
 
-      & > [role="tabpanel"],
       & > .ui-tab-panel {
         grid-column: 1 / -1;
         grid-row: 2;
@@ -308,12 +303,29 @@
       }
 
       &.ui-line {
-        & > [role="tab"],
         & > .ui-tab-label {
-          &:not(:nth-last-child(1 of [role="tab"], .ui-tab-label)) {
+          &:not(:nth-last-child(1 of .ui-tab-label)) {
             margin-inline-end: var(--size-1);
           }
         }
+      }
+    }
+
+    @media (forced-colors: active) {
+      & > .ui-tab-label::before {
+        border-color: Canvas;
+      }
+
+      & > .ui-tab-input:checked + .ui-tab-label {
+        --_active-bg-color: SelectedItem;
+        --_active-border-color: SelectedItem;
+        --_active-text-color: SelectedItemText;
+        --_indicator-color: SelectedItem;
+        --_track-color: Canvas;
+        --focus-ring-color: CanvasText;
+
+        border-color: CanvasText;
+        forced-color-adjust: none;
       }
     }
   }

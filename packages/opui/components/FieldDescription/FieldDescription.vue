@@ -3,6 +3,10 @@ import type { Props, Slots } from "./types.d.vue"
 
 const props = defineProps<Props>()
 defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
 </script>
 
 <template>

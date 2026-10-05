@@ -3,6 +3,7 @@ import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
 import { Table as UITable, ToggleGroup, ToggleButton } from "@opui/astro"
 
 import Default from "../../component-examples/table/Default.astro"
@@ -25,7 +26,12 @@ export const description =
   heroAnatomy
   apis={[{ title: "Table API", api: tableApi }]}
   installationTabs={[{ title: "table.css", code: TableCSS, lang: "css" }]}
-  browserSupport={["container-queries", "has", "relative-color"]}
+  browserSupport={[
+    "container-queries",
+    "has",
+    "overflow-clip",
+    "relative-color",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Table",
@@ -99,6 +105,35 @@ export const description =
     </p>
 
     <AutoExample name="Advanced" />
+  </section>
+
+  <section>
+    <h2 id="sticky-header">Sticky header</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        <code>stickyHeader</code> keeps the header rows at the top of the nearest
+        scroll container while the rows scroll under them, and adds a shadow once
+        the header is stuck. Put the table in a scroll box, or let it stick to the
+        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
+        bar.
+      </Fragment>
+      <Fragment slot="html">
+        <code>.ui-sticky-header</code> keeps the header rows at the top of the nearest
+        scroll container while the rows scroll under them, and adds a shadow once
+        the header is stuck. Put the table in a scroll box, or let it stick to the
+        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
+        bar.
+      </Fragment>
+      <Fragment slot="vue">
+        <code>stickyHeader</code> keeps the header rows at the top of the nearest
+        scroll container while the rows scroll under them, and adds a shadow once
+        the header is stuck. Put the table in a scroll box, or let it stick to the
+        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
+        bar.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="StickyHeader" />
   </section>
 
   <TableBuild slot="under-the-hood" />

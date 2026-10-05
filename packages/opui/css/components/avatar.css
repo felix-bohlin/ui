@@ -50,6 +50,12 @@
         corner-shape: squircle;
       }
     }
+
+    @media (forced-colors: active) {
+      &:not(:has(img)) {
+        border: 1px solid CanvasText;
+      }
+    }
   }
 
   :where(.ui-avatar-group) {

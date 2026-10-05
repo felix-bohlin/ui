@@ -15,14 +15,27 @@ defineSlots<Slots>()
 const attrs = useAttrs()
 const modelValue = defineModel<string | number | (string | number)[]>()
 
+const multiple = computed(
+  () => attrs.multiple !== undefined && attrs.multiple !== false,
+)
+const selectedItemValues = computed(() =>
+  props.items.filter((item) => item.selected).map((item) => item.value),
+)
+
 const model = computed({
   get: () =>
     modelValue.value ??
-    (attrs.value as string | number | (string | number)[] | undefined),
+    (attrs.value as string | number | (string | number)[] | undefined) ??
+    (multiple.value ? selectedItemValues.value : selectedItemValues.value[0]),
   set: (value) => {
     modelValue.value = value
   },
 })
+
+const isSelected = (value: unknown) =>
+  Array.isArray(model.value)
+    ? model.value.includes(value as string | number)
+    : model.value === value
 
 const labelId = useId()
 const endTextId = useId()
@@ -69,6 +82,7 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
           <option
             v-for="item in props.items"
             :key="item.value"
+            :selected="isSelected(item.value) || undefined"
             :value="item.value"
           >
             {{ item.text }}

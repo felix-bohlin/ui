@@ -4,6 +4,7 @@
 
 - [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
 - [Spread](#spread) fields line up at one width.
+- Breaking: `style` goes to the label instead of the textarea.
 
 ## Anatomy
 

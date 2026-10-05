@@ -12,6 +12,13 @@ const props = withDefaults(defineProps<Props>(), {
 })
 const slots = defineSlots<Slots>()
 const attrs = useAttrs()
+const inputAttrs = computed(() =>
+  Object.fromEntries(
+    Object.entries(attrs).filter(
+      ([key]) => key !== "aria-describedby" && key !== "style",
+    ),
+  ),
+)
 const modelValue = defineModel<string | number>()
 
 const model = computed({
@@ -43,6 +50,7 @@ const startTextValue = computed(() => props.description || props.startText)
       props.class,
     ]"
     :data-invalid="props.error ? '' : undefined"
+    :style="$attrs.style"
   >
     <span v-if="props.label || $slots.label" class="ui-label">
       <slot name="label">{{ props.label }}</slot>
@@ -64,7 +72,7 @@ const startTextValue = computed(() => props.description || props.startText)
         :inputmode="props.type === 'numeric' ? 'numeric' : undefined"
         :pattern="props.type === 'numeric' ? '[0-9]*' : undefined"
         :type="props.type === 'numeric' ? 'text' : props.type"
-        v-bind="$attrs"
+        v-bind="inputAttrs"
         v-model="model"
       />
       <span class="ui-prefix" v-if="$slots.prefix"

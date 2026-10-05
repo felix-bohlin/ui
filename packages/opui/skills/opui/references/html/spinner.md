@@ -25,23 +25,25 @@ Simply add `aria-busy="true"` to a `<button>`.
 ```html
 <!-- Text buttons -->
 <div class="example-row">
-  <button aria-busy="true" class="ui-button">Text</button>
-  <button aria-busy="true" disabled class="ui-button ui-outlined">
+  <button type="button" aria-busy="true" class="ui-button">Text</button>
+  <button type="button" aria-busy="true" disabled class="ui-button ui-outlined">
     Outlined
   </button>
-  <button aria-busy="true" class="ui-button ui-filled">Filled</button>
+  <button type="button" aria-busy="true" class="ui-button ui-filled">
+    Filled
+  </button>
 </div>
 
 
 <!-- Icon buttons -->
 <div class="example-row">
-  <button aria-busy="true" class="ui-button">
+  <button type="button" aria-busy="true" class="ui-button">
     <span class="ui-sr-only">Text</span>
   </button>
-  <button aria-busy="true" disabled class="ui-button ui-outlined">
+  <button type="button" aria-busy="true" disabled class="ui-button ui-outlined">
     <span class="ui-sr-only">Outlined</span>
   </button>
-  <button aria-busy="true" class="ui-button ui-filled">
+  <button type="button" aria-busy="true" class="ui-button ui-filled">
     <span class="ui-sr-only">Filled</span>
   </button>
 </div>

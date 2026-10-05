@@ -66,7 +66,9 @@
 
     /* Primary */
     --primary: light-dark(var(--color-9), var(--color-6));
-    --primary-contrast: light-dark(var(--gray-1), var(--gray-15));
+    --primary-contrast: oklch(
+      from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h
+    );
     --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
     --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
 
@@ -160,6 +162,9 @@
     /* Button */
     --button-border-radius: var(--size-2);
 
+    /* Divider */
+    --divider-space: var(--size-fluid-3);
+
     /* Motion */
     --duration-fast: 0.1s;
     --duration: 0.2s;
@@ -168,6 +173,9 @@
     --ease-enter: var(--ease-out-3);
     --ease-exit: var(--ease-in-3);
     --motion: 1;
+
+    /* Contrast */
+    --contrast: normal;
 
     /* State */
     --disabled-opacity: 0.64;
@@ -206,6 +214,12 @@
     }
   }
 
+  @media (prefers-contrast: more) {
+    :where(html) {
+      --contrast: more;
+    }
+  }
+
   /* Severity scope classes */
   :where(.ui-critical, .ui-del, [data-invalid], del) {
     --palette-source: oklch(0.58 0.21 var(--hue-red));
@@ -236,5 +250,90 @@
   :where(.ui-card.ui-elevated, .ui-card.ui-tonal) {
     --border-color: light-dark(var(--gray-4), var(--surface-default));
     --field-border-color: var(--border-color);
+  }
+
+  /* Filled surfaces */
+  :where(.ui-list:not(.ui-default, .ui-tonal, .ui-transparent), .ui-table th) {
+    --border-color: light-dark(var(--gray-6), var(--gray-12));
+  }
+
+  /* Compact surfaces */
+  :where(.ui-callout, .ui-card, .ui-dialog, .ui-drawer) {
+    --divider-space: var(--size-3);
+  }
+
+  /* Higher contrast */
+  @container style(--contrast: more) {
+    :where(
+      body,
+      .ui-contrast-more > *,
+      .ui-palette,
+      .ui-card.ui-elevated,
+      .ui-card.ui-tonal,
+      .ui-list:not(.ui-default, .ui-tonal, .ui-transparent),
+      .ui-table th
+    ) {
+      --blue: light-dark(
+        oklch(from var(--color-11) l 0.2 210),
+        oklch(from var(--color-9) l 0.2 210)
+      );
+      --green: light-dark(
+        oklch(from var(--color-11) l 0.2 145),
+        oklch(from var(--color-9) l 0.2 145)
+      );
+      --red: light-dark(
+        oklch(from var(--color-11) l 0.2 25),
+        oklch(from var(--color-9) l 0.2 25)
+      );
+
+      --critical: var(--red);
+      --info: var(--blue);
+      --invalid-color: var(--critical);
+      --invalid-text-color: light-dark(
+        var(--invalid-color),
+        oklch(from var(--invalid-color) max(l, 0.85) min(c, 0.1) h)
+      );
+      --success: var(--green);
+
+      --primary: light-dark(var(--color-12), var(--color-3));
+      --primary-contrast: oklch(
+        from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15)
+          h
+      );
+      --primary-dark: oklch(from var(--primary) calc(l * 0.75) c h);
+      --primary-light: oklch(from var(--primary) calc(l * 1.25) c h);
+
+      --text-disabled: color-mix(
+        in oklch,
+        var(--text-muted) 60%,
+        var(--surface-default)
+      );
+      --text-muted: color-mix(
+        in oklch,
+        var(--text-primary) 90%,
+        var(--surface-default)
+      );
+
+      --border-color: color-mix(
+        in oklch,
+        var(--text-primary) 55%,
+        var(--surface-default)
+      );
+      --field-border-color: color-mix(
+        in oklch,
+        var(--text-primary) 70%,
+        var(--surface-default)
+      );
+      --field-helper-color: var(--text-muted);
+      --field-required-color: var(--invalid-text-color);
+      --focus-ring-inset: calc(-1 * var(--focus-ring-width));
+      --focus-ring-width: 3px;
+    }
+
+    :where(body, .ui-contrast-more > *) {
+      accent-color: var(--primary);
+      caret-color: var(--primary);
+      color: var(--text-muted);
+    }
   }
 }

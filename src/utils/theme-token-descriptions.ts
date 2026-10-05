@@ -24,6 +24,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--choice-size-large": "`Checkbox` and `Radio` input size with `.ui-large`.",
   "--choice-size-small":
     "`Checkbox` and `Radio` input size with `.ui-small` and inside `List`.",
+  "--contrast":
+    "`more` raises text, border, primary and focus ring contrast through a style query. Set to `more` automatically under `prefers-contrast: more`.",
   "--control-size":
     "Shared default height for fields and buttons so they line up.",
   "--control-size-large": "Shared large height for fields and buttons.",
@@ -33,6 +35,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--density":
     "Multiplier for the `--control-size*` scale. `0.875` is compact, `1.125` is comfortable.",
   "--disabled-opacity": "Opacity applied to disabled controls.",
+  "--divider-space":
+    "Block margin around a `Divider`. Cards, callouts, dialogs and drawers set it to `--size-3`. A divider that is a direct child of a card has no margin, since the card's gap already spaces it.",
   "--duration": "Default transition duration. Multiplied by `--motion`.",
   "--duration-fast": "Transition duration for hover and press feedback.",
   "--duration-slow":

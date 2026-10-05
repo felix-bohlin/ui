@@ -4,11 +4,6 @@ import type { TabsTabProps as Props } from "./types.astro"
 const { class: className, tabId, ...rest } = Astro.props
 ---
 
-<label
-  for={tabId}
-  class:list={["ui-tab-label", className]}
-  role="tab"
-  {...rest}
->
+<label for={tabId} class:list={["ui-tab-label", className]} {...rest}>
   <slot />
 </label>

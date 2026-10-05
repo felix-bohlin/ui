@@ -1,14 +1,17 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Textarea"
 
 const {
+  "aria-describedby": ariaDescribedBy,
   autoFit,
   class: className,
   cols,
   description,
   disabled,
+  endText,
   error,
   filled,
   id,
@@ -16,21 +19,23 @@ const {
   maxlength,
   minlength,
   name,
-  spread,
   placeholder,
   required,
   rows,
   size,
-  endText,
+  spread,
+  style,
   value,
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const endTextId =
   endText || Astro.slots.has("end-text") || Astro.slots.has("supporting-text")
     ? $id("end-text")
     : undefined
+const describedBy =
+  [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined
 ---
 
 <label
@@ -45,7 +50,7 @@ const endTextId =
     className,
   ]}
   data-invalid={error ? "" : undefined}
-  {...rest}
+  style={style}
 >
   {
     (label || Astro.slots.has("label")) && (
@@ -66,7 +71,8 @@ const endTextId =
   }
   <span class="ui-field">
     <textarea
-      aria-describedby={endTextId}
+      {...rest}
+      aria-describedby={describedBy}
       aria-invalid={error ? "true" : undefined}
       cols={cols}
       disabled={disabled}

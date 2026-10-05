@@ -14,7 +14,8 @@ pnpm add opui-css open-props
 Peer dependencies:
 
 - `astro` `^7` (only required if you use the Astro components)
-- `open-props` `^1.7`
+- `open-props` `^1.7.23`
+- `solid-js` `^1.9` (optional; only the Solid type files ship today, there are no Solid components yet)
 - `svelte` `^5` (optional; only the Svelte type files ship today, there are no Svelte components yet)
 - `vue` `^3.5` (only required if you use the Vue components)
 

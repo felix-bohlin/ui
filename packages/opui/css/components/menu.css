@@ -10,6 +10,7 @@
     --_border-width: var(--border-width);
     --_margin: var(--_offset) 0;
     --_max-block-size: 60dvb;
+    --_min-block-size: 12rem;
     --_min-inline-size: 12rem;
     --_offset: var(--size-1);
     --_side: block-end;
@@ -52,6 +53,17 @@
         overlay var(--_transition-duration) allow-discrete,
         scale var(--_transition-duration) var(--ease-enter);
 
+      @supports (min-block-size: calc-size(fit-content, size)) {
+        max-block-size: min(
+          var(--_max-block-size),
+          calc(100% - var(--_offset))
+        );
+        min-block-size: calc-size(
+          fit-content,
+          min(size, var(--_min-block-size))
+        );
+      }
+
       &:popover-open {
         opacity: 1;
         scale: 1;
@@ -92,6 +104,22 @@
       scale: -1 1;
     }
 
+    &:not(.ui-menu .ui-menu) {
+      anchor-name: --ui-menu-root;
+      anchor-scope: --ui-menu-root;
+    }
+
+    & .ui-menu .ui-menu[popover] {
+      inset-inline-end: max(
+        0px,
+        min(
+          anchor(--ui-menu-root start),
+          (anchor(end) - anchor(--ui-menu-root start)) * 1000
+        )
+      );
+      inset-inline-start: 0;
+    }
+
     @supports (-webkit-touch-callout: none) {
       &:has(.ui-menu[popover]) {
         anchor-name: --ui-menu;
@@ -122,6 +150,13 @@
         var(--critical),
         oklch(from var(--critical) max(l, 0.75) c h)
       );
+
+      @container style(--contrast: more) {
+        color: light-dark(
+          var(--critical),
+          oklch(from var(--critical) max(l, 0.85) min(c, 0.1) h)
+        );
+      }
     }
 
     :where(li) > :where(a, button) > .ui-end {

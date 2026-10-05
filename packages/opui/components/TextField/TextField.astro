@@ -1,15 +1,17 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Text Field"
 
 const {
+  "aria-describedby": ariaDescribedBy,
   autoFit,
   class: className,
-  error,
   description,
   disabled,
   endText,
+  error,
   filled,
   id,
   label,
@@ -23,17 +25,20 @@ const {
   spread,
   startText,
   step,
+  style,
   type = "text",
   value,
   ...rest
 } = Astro.props
 
 const startTextValue = description || startText
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const endTextId =
   endText || Astro.slots.has("end-text") || Astro.slots.has("supporting-text")
     ? $id("end-text")
     : undefined
+const describedBy =
+  [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined
 ---
 
 <label
@@ -48,7 +53,7 @@ const endTextId =
     className,
   ]}
   data-invalid={error ? "" : undefined}
-  {...rest}
+  style={style}
 >
   {
     (label || Astro.slots.has("label")) && (
@@ -68,7 +73,8 @@ const endTextId =
   }
   <span class="ui-field">
     <input
-      aria-describedby={endTextId}
+      {...rest}
+      aria-describedby={describedBy}
       aria-invalid={error ? "true" : undefined}
       disabled={disabled}
       id={id}

@@ -6,7 +6,8 @@ export default {
   options: [
     {
       default: '"fieldset"',
-      description: "The element to render.",
+      description:
+        'The element to render. Any element other than `fieldset` gets `role="group"`.',
       prop: "as",
     },
     {

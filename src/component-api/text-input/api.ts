@@ -3,6 +3,11 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Text input",
   css: ["text-input"],
+  notes: {
+    astro:
+      "CSS-only. Styles the `<input>` inside `.ui-text-field`; the Text field component sets these with its `autoFit`, `filled` and `size` props.",
+    vue: "CSS-only. Styles the `<input>` inside `.ui-text-field`; the Text field component sets these with its `autoFit`, `filled` and `size` props.",
+  },
   options: [
     {
       class: ".ui-auto-fit",

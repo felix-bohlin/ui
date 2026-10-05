@@ -77,6 +77,11 @@
       --_snap-align: center;
     }
 
+    /* Stretch */
+    &.ui-stretch > * {
+      display: grid;
+    }
+
     /* Peek at the neighbouring items */
     &.ui-peek {
       --_padding-inline: var(--size-8);

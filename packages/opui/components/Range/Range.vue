@@ -2,12 +2,15 @@
 import type { RangeProps, Slots } from "./types.d.vue"
 import {
   computed,
+  inject,
   onMounted,
+  useAttrs,
   useId,
   useSlots,
   useTemplateRef,
   watch,
 } from "vue"
+import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -24,8 +27,20 @@ const model = computed({
   },
 })
 
+const attrs = useAttrs()
+const defaultValue = computed(() => {
+  const min = Number(attrs.min ?? 0)
+  const max = Math.max(min, Number(attrs.max ?? 100))
+  const step = attrs.step === "any" ? 0 : Number(attrs.step ?? 1)
+  const middle = min + (max - min) / 2
+  if (!step) return middle
+  const value = min + Math.round((middle - min) / step) * step
+  return value > max ? value - step : value
+})
+
 const uid = useId()
 const slots = useSlots()
+const currentFieldName = inject(CurrentFieldNameKey, undefined)
 const hasValue = computed(
   () => props.valueSuffix !== undefined || !!slots.value,
 )
@@ -65,7 +80,9 @@ const endTextId = useId()
       :for="inputId"
       :data-suffix="props.valueSuffix"
     >
-      <slot name="value">{{ model }}{{ props.valueSuffix }}</slot>
+      <slot name="value"
+        >{{ model ?? defaultValue }}{{ props.valueSuffix }}</slot
+      >
     </output>
     <span
       v-if="props.startText || $slots['start-text']"
@@ -88,10 +105,11 @@ const endTextId = useId()
       :aria-labelledby="props.label || $slots.default ? labelId : undefined"
       :id="inputId"
       :list="props.list"
+      :name="currentFieldName"
       ref="input"
       type="range"
       v-bind="$attrs"
-      v-model="model"
+      v-model.number="model"
     />
 
     <datalist v-if="props.options || $slots.datalist" :id="props.list">

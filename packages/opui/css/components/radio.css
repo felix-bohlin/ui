@@ -1,5 +1,5 @@
 @layer components.root {
-  label.ui-radio {
+  :where(label.ui-radio) {
     --_accent: light-dark(
       var(--primary),
       oklch(from var(--primary) min(l, 0.62) c h)
@@ -20,6 +20,10 @@
     transform: translateZ(0);
     user-select: none;
 
+    &:not(:has(.ui-label, .ui-text)) {
+      vertical-align: middle;
+    }
+
     /* Disabled */
     &:has([disabled]) {
       cursor: not-allowed;
@@ -39,7 +43,6 @@
         inset-block: 0 auto;
         inset-inline: auto -0.25ex;
         position: absolute;
-        text-box: inherit;
       }
     }
 
@@ -54,13 +57,6 @@
       );
       padding-inline: 0 1ex;
       position: relative;
-
-      @supports (text-box: trim-start cap alphabetic) {
-        margin-block-start: calc(
-          (var(--_input-size) - 1cap) / 2 + var(--choice-label-offset)
-        );
-        text-box: trim-start cap alphabetic;
-      }
     }
 
     /* End text */
@@ -83,7 +79,6 @@
         grid-row: 2;
         margin-block-start: var(--size-1);
         padding-inline: 1ex;
-        text-box: normal;
 
         /* Required dot */
         &::after {

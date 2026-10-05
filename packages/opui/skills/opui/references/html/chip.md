@@ -7,6 +7,7 @@ Chips are compact elements that represent an input, attribute, or action.
 - [Large](#sizes) size with `.ui-large`, and small chips are 28px to match the control sizes.
 - Long labels truncate with an ellipsis unless the chip is `.ui-multiline`.
 - Breaking: `--ripple` is `--_ripple`.
+- Breaking: `as="button"` renders `type="button"` by default.
 
 ## Anatomy
 
@@ -85,15 +86,15 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
 
 ```html
 <div class="example-row">
-  <button class="ui-chip ui-tonal">
+  <button type="button" class="ui-chip ui-tonal">
     <span class="ui-text">Tonal button</span>
   </button>
-  <button class="ui-chip ui-outlined">
+  <button type="button" class="ui-chip ui-outlined">
     <span class="ui-text">Outlined button</span>
   </button>
 </div>
 <div class="example-row">
-  <button class="ui-chip ui-tonal">
+  <button type="button" class="ui-chip ui-tonal">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -107,7 +108,7 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
     </svg>
     <span class="ui-text">Open now</span>
   </button>
-  <button class="ui-chip ui-outlined">
+  <button type="button" class="ui-chip ui-outlined">
     <span class="ui-text">Sort by</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -180,10 +181,10 @@ Add disabled styling with the `disabled` attribute, `aria-disabled="true"` or th
 
 ```html
 <div class="example-row">
-  <button class="ui-chip ui-tonal" disabled>
+  <button type="button" class="ui-chip ui-tonal" disabled>
     <span class="ui-text">Tonal</span>
   </button>
-  <button class="ui-chip ui-outlined" disabled>
+  <button type="button" class="ui-chip ui-outlined" disabled>
     <span class="ui-text">Outlined</span>
   </button>
 </div>

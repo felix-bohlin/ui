@@ -39,7 +39,12 @@ const mergedStyle =
     : { ...positionArea, ...style }
 ---
 
-<span class:list={["ui-anchor", className]} style={mergedStyle} {...rest}>
+<span
+  class:list={["ui-anchor", className]}
+  id={isHover ? undefined : idProp}
+  style={mergedStyle}
+  {...rest}
+>
   <slot />
   <span
     class="ui-anchor-floating"

@@ -11,10 +11,6 @@
     gap: var(--size-2);
     min-inline-size: 0;
   }
-
-  .todo-proposed > * {
-    display: grid;
-  }
 </style>
 <div class="todo-compare">
   <div>
@@ -52,12 +48,10 @@
     </ul>
   </div>
   <div>
-    <p class="ui-caption">
-      Proposed: <code>.ui-carousel &gt; * { display: grid }</code>
-    </p>
+    <p class="ui-caption">Fixed: <code>.ui-stretch</code></p>
     <ul
-      class="ui-carousel todo-proposed"
-      aria-label="Proposed"
+      class="ui-carousel ui-stretch"
+      aria-label="Fixed"
       style="--_per-view: 3"
     >
       <li>

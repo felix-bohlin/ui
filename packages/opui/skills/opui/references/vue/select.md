@@ -6,6 +6,7 @@ Leverages the [List component](https://open-props-ui.netlify.app/vue/components/
 
 - [X-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.
+- [Preselect](#preselected) options with `value` or `selected` on an item.
 
 ## Anatomy
 
@@ -148,6 +149,43 @@ import { Select } from "opui-css/vue"
     <option>Norway</option>
     <option>Denmark</option>
   </Select>
+</template>
+```
+
+## Preselected
+
+Set `value` or `v-model` to preselect an option, or`selected: true` on an item.
+
+```vue
+<script setup lang="ts">
+import { ref } from "vue"
+import { Select } from "opui-css/vue"
+
+
+const role = ref("developer")
+</script>
+
+
+<template>
+  <Select
+    label="Role"
+    :items="[
+      { text: 'Designer', value: 'designer' },
+      { text: 'Developer', value: 'developer' },
+      { text: 'Manager', value: 'manager' },
+    ]"
+    v-model="role"
+  />
+
+
+  <Select
+    label="Team"
+    :items="[
+      { text: 'Design', value: 'design' },
+      { selected: true, text: 'Engineering', value: 'engineering' },
+      { text: 'Sales', value: 'sales' },
+    ]"
+  />
 </template>
 ```
 
@@ -370,7 +408,7 @@ import { ClassicSelect } from "opui-css/vue"
 | `endText`     | `string`                                   | -            | Supporting text displayed below the field.                                |
 | `error`       | `boolean`                                  | `false`      | Shows error styles.                                                       |
 | `id`          | `string`                                   | -            | The id of the `<select>`.                                                 |
-| `items`       | `Item[]`                                   | `[]`         | The options, as `{ text, value }` objects.                                |
+| `items`       | `Item[]`                                   | `[]`         | The options, as `{ selected, text, value }` objects.                      |
 | `label`       | `string`                                   | -            | The label for the field.                                                  |
 | `size`        | `"x-small"`, `"small"`, `"large"`          | -            | The size of the element.                                                  |
 | `spread`      | `boolean`                                  | `false`      | Pushes the label and description to one side and the select to the other. |
@@ -420,6 +458,7 @@ import { ClassicSelect } from "opui-css/vue"
 | `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                               |
 | `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                  |
+| `--surface-elevated`         | `light-dark(var(--gray-1), var(--gray-12))`                                             | Background of elevated cards and accordions.                                                                               |
 | `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                      |
 | `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                              |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                           |
@@ -478,6 +517,7 @@ Attributes that aren't props, such as `disabled` or `name`, go to the `<select>`
 | `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                               |
 | `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                  |
+| `--surface-elevated`         | `light-dark(var(--gray-1), var(--gray-12))`                                             | Background of elevated cards and accordions.                                                                               |
 | `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                      |
 | `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                              |
 | `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                           |

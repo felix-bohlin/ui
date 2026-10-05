@@ -3,11 +3,16 @@ import type { Props } from "./types.astro"
 
 export const title = "Table"
 
-const { class: className, variant, ...rest } = Astro.props
+const { class: className, stickyHeader, variant, ...rest } = Astro.props
 ---
 
 <table
-  class:list={["ui-table", variant && `ui-${variant}`, className]}
+  class:list={[
+    "ui-table",
+    { "ui-sticky-header": stickyHeader },
+    variant && `ui-${variant}`,
+    className,
+  ]}
   {...rest}
 >
   <slot />

@@ -3,16 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Tabs.Panel",
   file: "TabsPanel",
-  options: [
-    {
-      description: "The id of the panel. Set by the item.",
-      prop: "panelId",
-    },
-    {
-      description: "The id of the tab input that labels it. Set by the item.",
-      prop: "tabId",
-    },
-  ],
+  options: [],
   page: "tabs",
   parts: [],
   root: {

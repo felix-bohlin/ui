@@ -3,6 +3,7 @@
 ### What's new
 
 - [Long content](#modal) scrolls between a fixed header and actions.
+- A subtle scroll shadow shows under the header and above the actions while the content scrolls.
 
 ### Modal vs Dialog
 
@@ -20,8 +21,11 @@ The term "modal" and "dialog" are often used interchangeably, but there's an imp
 
 In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
+Name the dialog by pointing `aria-labelledby` at its title.
+
 ```html
 <button
+  type="button"
   commandfor="example-dialog-html"
   command="show-modal"
   class="ui-button ui-outlined"
@@ -33,18 +37,14 @@ In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/
 <dialog
   id="example-dialog-html"
   class="ui-dialog ui-card ui-elevated"
-  role="alertdialog"
-  aria-labelledby="dialog-heading"
-  aria-modal="true"
+  aria-labelledby="example-dialog-title-html"
 >
-  <hgroup>
-    <h2 id="dialog-heading" class="ui-h4">Are you sure?</h2>
+  <hgroup id="example-dialog-title-html">
+    <h2 class="ui-h4">Newsletter</h2>
   </hgroup>
   <div class="ui-content">
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-      nulla sit amet porttitor rhoncus. Lorem ipsum dolor sit amet, consectetur
-      adipiscing elit. Vivamus sodales, nulla sit amet porttitor rhoncus.
+      Get a short email when we ship something new. No more than once a month.
     </p>
   </div>
   <div class="ui-actions">
@@ -54,7 +54,7 @@ In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/
       class="ui-button"
       type="button"
     >
-      Cancel
+      Not now
     </button>
     <button
       commandfor="example-dialog-html"
@@ -62,7 +62,58 @@ In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/
       class="ui-button ui-filled"
       type="button"
     >
-      Save
+      Subscribe
+    </button>
+  </div>
+</dialog>
+```
+
+## Alert dialog
+
+Use `role="alertdialog"` when the dialog interrupts with something that needs a response, like confirming a destructive action. Point `aria-describedby` at the message so screen readers read it when the dialog opens.
+
+```html
+<button
+  type="button"
+  commandfor="alert-dialog-html"
+  command="show-modal"
+  class="ui-button ui-outlined ui-critical"
+>
+  Delete project
+</button>
+
+
+<dialog
+  id="alert-dialog-html"
+  class="ui-dialog ui-card ui-elevated"
+  role="alertdialog"
+  aria-labelledby="alert-dialog-title-html"
+  aria-describedby="alert-dialog-description-html"
+>
+  <hgroup id="alert-dialog-title-html">
+    <h2 class="ui-h4">Delete project?</h2>
+  </hgroup>
+  <div class="ui-content">
+    <p id="alert-dialog-description-html">
+      This deletes the project and all its files. You can't undo this.
+    </p>
+  </div>
+  <div class="ui-actions">
+    <button
+      commandfor="alert-dialog-html"
+      command="close"
+      class="ui-button"
+      type="button"
+    >
+      Cancel
+    </button>
+    <button
+      commandfor="alert-dialog-html"
+      command="close"
+      class="ui-button ui-filled ui-critical"
+      type="button"
+    >
+      Delete
     </button>
   </div>
 </dialog>
@@ -80,6 +131,7 @@ You can use it like this: `<dialog closedby="">` and give it the following value
 
 ```html
 <button
+  type="button"
   commandfor="closing-behaviors-dialog-html"
   command="show-modal"
   class="ui-button ui-outlined"
@@ -100,7 +152,7 @@ You can use it like this: `<dialog closedby="">` and give it the following value
   <div class="ui-content">
     <fieldset class="ui-fieldset">
       <legend>Choose a closing behavior:</legend>
-      <div class="ui-field-group" role="group">
+      <div class="ui-field-group">
         <label class="ui-radio">
           <input type="radio" name="closedby-demo" value="any" checked />
           <span class="ui-label">any</span>
@@ -118,6 +170,7 @@ You can use it like this: `<dialog closedby="">` and give it the following value
   </div>
   <div class="ui-actions">
     <button
+      type="button"
       commandfor="closing-behaviors-dialog-html"
       command="close"
       class="ui-button"
@@ -151,13 +204,13 @@ You can use it like this: `<dialog closedby="">` and give it the following value
 
 ### Role & attributes
 
-| Role/attribute             | Usage                                                                                                                                      |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `role="dialog"`            | Identifies the element that serves as the dialog container.                                                                                |
-| `role="alertdialog"`       | If the dialog is a confirmation window communicating an important message that requires a confirmation or other user response.             |
-| `aria-labelledby="IDREF"`  | Gives the dialog an accessible name by referring to the element that provides the dialog title.                                            |
-| `aria-describedby="IDREF"` | Gives the dialog an accessible description by referring to the dialog content that describes the primary message or purpose of the dialog. |
-| `aria-modal="true"`        | Tells assistive technologies that the windows underneath the current dialog are not available for interaction (inert).                     |
+Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
+
+| Role/attribute             | Usage                                                                                                                                                                  |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `aria-labelledby="IDREF"`  | Gives the dialog an accessible name by referring to the element that provides the dialog title.                                                                        |
+| `aria-describedby="IDREF"` | Optional. Gives the dialog an accessible description by referring to the dialog content that describes the primary message or purpose of the dialog.                   |
+| `role="alertdialog"`       | Only if the dialog is a confirmation window communicating an important message that requires a confirmation or other user response. See [alert dialog](#alert-dialog). |
 
 ### Keyboard support
 

@@ -192,11 +192,6 @@
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {
-      --_thumb-bg: var(--invalid-color);
-      --_thumb-highlight-color: oklch(
-        from var(--invalid-color) 70% 100% h / 20%
-      );
-
       .ui-start-text,
       .ui-end-text,
       .ui-value {
@@ -299,6 +294,10 @@
       /* Element state */
       .ui-range:has(:user-invalid) &,
       .ui-range[data-invalid] & {
+        --_thumb-bg: var(--invalid-color);
+        --_thumb-highlight-color: oklch(
+          from var(--invalid-color) 70% 100% h / 20%
+        );
         --_track-fill-color: var(--invalid-color);
       }
 
@@ -328,6 +327,42 @@
 
         &::-moz-range-thumb {
           cursor: not-allowed;
+        }
+      }
+
+      @media (forced-colors: active) {
+        --_forced-fill-color: SelectedItem;
+        --_forced-track-color: CanvasText;
+
+        &[disabled] {
+          --_forced-fill-color: GrayText;
+          --_forced-track-color: GrayText;
+        }
+
+        &::-webkit-slider-runnable-track {
+          background-color: var(--_forced-track-color);
+          background-image: linear-gradient(
+            var(--_forced-fill-color),
+            var(--_forced-fill-color)
+          );
+        }
+
+        &::-moz-range-track {
+          background: var(--_forced-track-color);
+        }
+
+        &::-moz-range-progress {
+          background: var(--_forced-fill-color);
+        }
+
+        &::-webkit-slider-thumb {
+          background: var(--_forced-fill-color);
+          border-color: Canvas;
+        }
+
+        &::-moz-range-thumb {
+          background: var(--_forced-fill-color);
+          border-color: Canvas;
         }
       }
     }

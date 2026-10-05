@@ -1,4 +1,4 @@
-/// <reference path="./elements.d.ts" />
+import type {} from "./elements"
 
 export { default as Accordion } from "../components/Accordion/Accordion.svelte"
 export { default as Anchor } from "../components/Anchor/Anchor.svelte"

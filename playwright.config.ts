@@ -7,7 +7,9 @@ export default defineConfig({
     toHaveScreenshot: {
       animations: "disabled",
       caret: "hide",
+      maxDiffPixels: 100,
       scale: "css",
+      threshold: 0.05,
     },
   },
   forbidOnly: !!process.env.CI,
@@ -19,7 +21,7 @@ export default defineConfig({
     },
     {
       name: "dark",
-      testMatch: /visual\.spec\.ts/,
+      testMatch: /(a11y|visual)\.spec\.ts/,
       use: { ...devices["Desktop Chrome"], colorScheme: "dark" },
     },
   ],

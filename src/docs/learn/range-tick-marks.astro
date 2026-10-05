@@ -1,0 +1,148 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import RangeBuild from "../../components/UnderTheHood/RangeBuild.astro"
+import { Code } from "astro-expressive-code/components"
+---
+
+<TechniquePost slug="range-tick-marks">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      <code>&lt;input type="range"&gt;</code> handles dragging, keyboard steps and
+      the form value. Styling it means vendor pseudo-elements for the track and the
+      thumb, and only Firefox has one for the filled part.
+    </p>
+    <p>
+      Tick marks have a native answer too: point <code>list</code> at a <code
+        >&lt;datalist&gt;</code
+      >. The datalist itself stays hidden, so the labels never show.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        <code>appearance: none</code> on the input and on the thumb, then style
+        {" "}<code>::-webkit-slider-runnable-track</code> and <code
+          >::-moz-range-track</code
+        >
+      </li>
+      <li>
+        Firefox paints the fill with <code>::-moz-range-progress</code>.
+        Elsewhere a one-color <code>linear-gradient</code> sized to <code
+          >--track-fill</code
+        > does it
+      </li>
+      <li>
+        The thumb's position sets the fill, no JavaScript. With <code
+          >overflow: hidden</code
+        > the input is a scroller, so the thumb can be a <code
+          >view-timeline</code
+        >. <code>timeline-scope</code> lets the input animate on it
+      </li>
+      <li>
+        <code>--track-fill</code> is registered with <code>@property</code>, so
+        keyframes can animate it. The timeline runs from the end edge, so they
+        go from <code>100%</code> to <code>0%</code>
+      </li>
+      <li>
+        Padding and an equal negative margin leave room for the thumb and its
+        halo without moving anything. <code>view-timeline-inset</code> takes it back
+        out of the timeline, <code>outline-offset</code> out of the focus ring
+      </li>
+      <li>
+        <code>display: flex</code> brings the datalist back, and <code
+          >justify-content: space-between</code
+        > spreads its options
+      </li>
+      <li>
+        Zero-width options with centered labels sit on each step. Half a thumb
+        of padding lines the ends up with the thumb's center
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`@property --track-fill {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
+@keyframes range-fill {
+  from {
+    --track-fill: 100%;
+  }
+
+  to {
+    --track-fill: 0%;
+  }
+}
+
+input[type="range"] {
+  animation: range-fill linear both;
+  animation-range: contain;
+  animation-timeline: --thumb;
+  box-sizing: content-box;
+  margin: -0.75rem;
+  outline-offset: -0.75rem;
+  overflow: hidden;
+  padding: 0.75rem;
+  timeline-scope: --thumb;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  view-timeline: --thumb inline;
+  view-timeline-inset: 0.75rem;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: var(--track-color);
+  background-image: linear-gradient(var(--fill-color), var(--fill-color));
+  background-repeat: no-repeat;
+  background-size: var(--track-fill, 0%) 100%;
+}
+
+datalist {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: calc(3ex / 2);
+}
+
+datalist > option {
+  display: flex;
+  inline-size: 0;
+  justify-content: center;
+  white-space: nowrap;
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <RangeBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Without scroll-driven animations <code>--track-fill</code> stays at <code
+          >0%</code
+        >: no fill, the slider still works. <code
+          >@supports (animation-timeline: view())</code
+        > keeps the padding and <code>overflow: hidden</code> out too. Firefox fills
+        natively
+      </li>
+      <li>
+        The labels are plain flex content and render wherever <code
+          >&lt;datalist&gt;</code
+        > is parsed
+      </li>
+      <li>
+        In right-to-left, <code>:dir(rtl)</code> moves the gradient to the right edge
+        and reverses the animation
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

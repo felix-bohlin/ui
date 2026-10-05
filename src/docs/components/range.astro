@@ -1,17 +1,34 @@
 ---
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
+import Anatomy from "../../components/Anatomy.astro"
+import { Range as UIRange } from "@opui/astro"
 
 import AutoExample from "../../components/AutoExample.astro"
-import ExampleAnatomy from "../../component-examples/range/Anatomy.astro"
 
 import RangeCSS from "@opui/css/components/range.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import RangeBuild from "../../components/UnderTheHood/RangeBuild.astro"
+
+import rangeApi from "../../component-api/range/api"
+export const description =
+  "Range lets users pick a number by sliding a thumb along a track."
 ---
 
 <Component
+  description={description}
   slug="range"
-  browserSupport={["light-dark", "relative-color", "container-queries"]}
+  heroAnatomy
+  apis={[{ title: "Range API", api: rangeApi }]}
+  browserSupport={[
+    "container-queries",
+    "datalist",
+    "has",
+    "light-dark",
+    "registered-custom-properties",
+    "relative-color",
+    "scroll-driven-animations",
+    "user-pseudos",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Range/Range.astro",
@@ -29,10 +46,39 @@ import Conditional from "../../components/Conditional.astro"
 >
   <Fragment slot="title">Range</Fragment>
 
-  <AutoExample name="Default" column />
+  <section>
+    <h2 id="basics">Basics</h2>
+    <AutoExample name="Default" column />
+  </section>
 
   <section>
-    <h2 id="start-end-text">Start text & End text</h2>
+    <h2 id="variants">Variants</h2>
+    <Conditional>
+      <p slot="astro">
+        Use the <code>variant</code> prop to swap the track surface for better contrast
+        on different backgrounds. Without a variant, the track uses <code
+          >--field-border-color</code
+        >, like the border of a text field.
+      </p>
+      <p slot="html">
+        Use the <code>.ui-filled</code> or <code>.ui-tonal</code>
+        {" "}class to swap the track surface for better contrast on different
+        backgrounds. Without a class, the track uses <code
+          >--field-border-color</code
+        >, like the border of a text field.
+      </p>
+      <p slot="vue">
+        Use the <code>variant</code> prop to swap the track surface for better contrast
+        on different backgrounds. Without a variant, the track uses <code
+          >--field-border-color</code
+        >, like the border of a text field.
+      </p>
+    </Conditional>
+    <AutoExample name="Surfaces" column spacious />
+  </section>
+
+  <section>
+    <h2 id="start-end-text">Start and end text</h2>
     <AutoExample name="StartEndText" column />
   </section>
 
@@ -46,21 +92,11 @@ import Conditional from "../../components/Conditional.astro"
         text in sync with the input.
       </p>
       <p slot="html">
-        Add an <code>&lt;output class="ui-value"&gt;</code> sibling to the
+        Add an <code>&lt;output class="ui-value"&gt;</code> sibling to the{" "}
         <code>.ui-label</code> with <code>for</code> pointing at the input's id. Optionally
-        set <code>data-suffix</code> for a unit (e.g. <code>°</code>,
+        set <code>data-suffix</code> for a unit (e.g. <code>°</code>,{" "}
         <code>px</code>). Updating its text content is the consumer's
         responsibility.
-      </p>
-      <p slot="svelte">
-        Pass the <code>valueSuffix</code> prop to render a live readout of the slider's
-        current value next to the label. The component wires up an <code
-          >&lt;output&gt;</code
-        >
-        element and keeps its text in sync with the bindable <code>value</code>.
-        Use the
-        <code>valueText</code> snippet for the readout shown before the component
-        mounts.
       </p>
       <p slot="vue">
         Pass the <code>valueSuffix</code> prop (or use the <code>value</code> named
@@ -79,56 +115,24 @@ import Conditional from "../../components/Conditional.astro"
         Pass an id to the <code>list</code> prop together with an <code
           >options</code
         >
-        array - <code>{"options=[{ value, label }]"}</code> - and the component renders
-        a matching <code>&lt;datalist&gt;</code>.
+        {" "}array - <code>{"options=[{ value, label }]"}</code> - and the component
+        renders a matching <code>&lt;datalist&gt;</code>.
       </p>
       <p slot="html">
         Use the <code>list</code> attribute on the <code>&lt;input&gt;</code> and
-        follow it with a <code>&lt;datalist&gt;</code> element containing
-        <code>&lt;option&gt;</code> elements with <code>value</code> and
+        follow it with a <code>&lt;datalist&gt;</code> element containing{" "}
+        <code>&lt;option&gt;</code> elements with <code>value</code> and{" "}
         <code>label</code> attributes.
-      </p>
-      <p slot="svelte">
-        Pass an id to the <code>list</code> prop together with an <code
-          >options</code
-        >
-        array - <code>{"options=[{ value, label }]"}</code> - and the component renders
-        a matching <code>&lt;datalist&gt;</code>.
       </p>
       <p slot="vue">
         Pass an id to the <code>list</code> prop together with an <code
           >options</code
         >
-        array - <code>{"options=[{ value, label }]"}</code> - and the component renders
-        a matching <code>&lt;datalist&gt;</code>.
+        {" "}array - <code>{"options=[{ value, label }]"}</code> - and the component
+        renders a matching <code>&lt;datalist&gt;</code>.
       </p>
     </Conditional>
     <AutoExample name="TickMarksLabels" column />
-  </section>
-
-  <section>
-    <h2 id="variants">Variants</h2>
-    <Conditional>
-      <p slot="astro">
-        Use the <code>variant</code> prop to swap the track surface for better contrast
-        on different backgrounds.
-      </p>
-      <p slot="html">
-        Use the <code>.ui-filled</code>, <code>.ui-default</code>, or <code
-          >.ui-tonal</code
-        >
-        class to swap the track surface for better contrast on different backgrounds.
-      </p>
-      <p slot="svelte">
-        Use the <code>variant</code> prop to swap the track surface for better contrast
-        on different backgrounds.
-      </p>
-      <p slot="vue">
-        Use the <code>variant</code> prop to swap the track surface for better contrast
-        on different backgrounds.
-      </p>
-    </Conditional>
-    <AutoExample name="Surfaces" column spacious />
   </section>
 
   <section>
@@ -154,18 +158,19 @@ import Conditional from "../../components/Conditional.astro"
     <AutoExample name="RowValidation" column />
   </section>
 
+  <RangeBuild slot="under-the-hood" />
+
   <Fragment slot="anatomy">
-    <ol>
-      <li>Container</li>
-      <li>Label (optional)</li>
-      <li>Value (optional)</li>
-      <li>Start text (optional)</li>
-      <li>Input</li>
-      <li>End text (optional)</li>
-    </ol>
-    <Example>
-      <Example.Preview code={ExampleAnatomy} />
-    </Example>
+    <Anatomy zoom={1.25}>
+      <UIRange
+        endText="End text"
+        label="Label"
+        startText="Start text"
+        style="inline-size: 18rem"
+        value="50"
+        valueSuffix=""
+      />
+    </Anatomy>
   </Fragment>
 
   <Fragment slot="accessibility">
@@ -199,13 +204,3 @@ import Conditional from "../../components/Conditional.astro"
     </ul>
   </Fragment>
 </Component>
-
-<style is:global>
-  .anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: 2px;
-    & > * {
-      outline: var(--_anatomy-border-red);
-    }
-  }
-</style>

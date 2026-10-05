@@ -1,0 +1,67 @@
+<button
+  type="button"
+  class="ui-button ui-outlined"
+  commandfor="menu-file-html"
+  command="toggle-popover"
+>
+  File
+</button>
+<menu class="ui-menu ui-list" id="menu-file-html" popover>
+  <li>
+    <button type="button" commandfor="menu-file-html" command="hide-popover">
+      <div class="ui-text"><p>New</p></div>
+    </button>
+  </li>
+  <li>
+    <button type="button" commandfor="menu-file-html" command="hide-popover">
+      <div class="ui-text"><p>Open</p></div>
+    </button>
+  </li>
+  <li>
+    <button commandfor="menu-export-html" command="toggle-popover">
+      <div class="ui-text"><p>Export</p></div>
+      <div class="ui-end">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12l-6.293-6.293a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+          />
+        </svg>
+      </div>
+    </button>
+    <menu class="ui-menu ui-list ui-inline-end" id="menu-export-html" popover>
+      <li>
+        <button
+          type="button"
+          commandfor="menu-file-html"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>PDF</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="menu-file-html"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>PNG</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="menu-file-html"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>SVG</p></div>
+        </button>
+      </li>
+    </menu>
+  </li>
+</menu>

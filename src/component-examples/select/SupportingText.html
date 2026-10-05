@@ -1,33 +1,45 @@
 <label class="ui-select">
-  <span class="ui-label">Label</span>
+  <span class="ui-label" id="select-supporting-1-label">Label</span>
   <span class="ui-field">
-    <select>
+    <select
+      aria-describedby="select-supporting-1-end-text"
+      aria-labelledby="select-supporting-1-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
+        <option value="">-</option>
         <option>Outlined (default)</option>
         <option>Option Two</option>
         <option>Option Three</option>
       </div>
     </select>
   </span>
-  <span class="ui-end-text">Supporting text</span>
+  <span class="ui-end-text" id="select-supporting-1-end-text"
+    >Supporting text</span
+  >
 </label>
 
 <label class="ui-select ui-filled">
-  <span class="ui-label">Label</span>
+  <span class="ui-label" id="select-supporting-2-label">Label</span>
   <span class="ui-field">
-    <select>
+    <select
+      aria-describedby="select-supporting-2-end-text"
+      aria-labelledby="select-supporting-2-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
+        <option value="">-</option>
         <option>Filled</option>
         <option>Option Two</option>
         <option>Option Three</option>
       </div>
     </select>
   </span>
-  <span class="ui-end-text">Supporting text</span>
+  <span class="ui-end-text" id="select-supporting-2-end-text"
+    >Supporting text</span
+  >
 </label>

@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import type { CheckboxInputProps } from "./types"
-import { inject, useAttrs, useTemplateRef, watchPostEffect } from "vue"
+import {
+  computed,
+  inject,
+  useAttrs,
+  useTemplateRef,
+  watchPostEffect,
+} from "vue"
 import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
 defineOptions({
@@ -10,13 +16,20 @@ defineOptions({
 const attrs = useAttrs()
 const currentFieldName = inject(CurrentFieldNameKey, undefined)
 const props = defineProps<CheckboxInputProps>()
-const modelValue = defineModel<boolean | (string | number)[]>()
+const modelValue = defineModel<boolean | (string | number)[] | undefined>({
+  default: undefined,
+})
 
 const input = useTemplateRef<HTMLInputElement>("input")
 
-if (modelValue.value === undefined && attrs.checked !== undefined) {
-  modelValue.value = attrs.checked !== false
-}
+const model = computed({
+  get: () =>
+    modelValue.value ??
+    (attrs.checked !== undefined && attrs.checked !== false),
+  set: (value) => {
+    modelValue.value = value
+  },
+})
 
 watchPostEffect(() => {
   if (input.value) input.value.indeterminate = Boolean(props.indeterminate)
@@ -27,9 +40,9 @@ watchPostEffect(() => {
   <input
     ref="input"
     type="checkbox"
-    :data-indeterminate="props.indeterminate || undefined"
+    :data-indeterminate="props.indeterminate ? '' : undefined"
     :name="currentFieldName"
     v-bind="$attrs"
-    v-model="modelValue"
+    v-model="model"
   />
 </template>

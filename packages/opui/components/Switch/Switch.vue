@@ -9,7 +9,9 @@ defineOptions({
 
 const props = defineProps<SwitchProps>()
 defineSlots<Slots>()
-const modelValue = defineModel<boolean | (string | number)[]>()
+const modelValue = defineModel<boolean | (string | number)[] | undefined>({
+  default: undefined,
+})
 
 const endTextId = useId()
 </script>
@@ -18,14 +20,14 @@ const endTextId = useId()
   <label
     :class="[
       'ui-switch',
+      props.size && `ui-${props.size}`,
       {
-        'ui-small': props.small,
         'ui-stack': props.stack,
         'ui-spread': props.spread,
       },
       props.class,
     ]"
-    :data-invalid="props.error || undefined"
+    :data-invalid="props.error ? '' : undefined"
   >
     <span
       v-if="$slots['icon-unchecked']"
@@ -44,9 +46,14 @@ const endTextId = useId()
     </span>
 
     <SwitchInput
+      :aria-invalid="props.error ? 'true' : undefined"
       v-bind="$attrs"
       v-model="modelValue"
-      :aria-describedby="$slots['end-text'] ? endTextId : undefined"
+      :aria-describedby="
+        [$slots['end-text'] ? endTextId : undefined, $attrs['aria-describedby']]
+          .filter(Boolean)
+          .join(' ') || undefined
+      "
     />
 
     <span

@@ -1,0 +1,67 @@
+<style>
+  .todo-abbr {
+    border-collapse: collapse;
+
+    td,
+    th {
+      border-block-end: 1px solid var(--border-color);
+      padding: var(--size-1) var(--size-3);
+      text-align: start;
+    }
+
+    td:nth-child(2) {
+      font-size: var(--font-size-3);
+    }
+
+    td:last-child {
+      white-space: nowrap;
+    }
+  }
+</style>
+<table class="todo-abbr">
+  <thead>
+    <tr>
+      <th>Markup</th>
+      <th>Rendered</th>
+      <th>Underline color</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>&lt;abbr class="ui-abbr"&gt;</code></td>
+      <td><abbr class="ui-abbr" title="Cascading Style Sheets">CSS</abbr></td>
+      <td data-color></td>
+    </tr>
+    <tr>
+      <td><code>&lt;span class="ui-abbr"&gt;</code></td>
+      <td><span class="ui-abbr" title="Cascading Style Sheets">CSS</span></td>
+      <td data-color></td>
+    </tr>
+    <tr>
+      <td><code>&lt;dfn class="ui-dfn"&gt;</code></td>
+      <td><dfn class="ui-dfn">Specificity</dfn></td>
+      <td data-color></td>
+    </tr>
+    <tr>
+      <td><code>&lt;span class="ui-dfn"&gt;</code></td>
+      <td><span class="ui-dfn">Specificity</span></td>
+      <td data-color></td>
+    </tr>
+    <tr>
+      <td>
+        Proposed, simulated with <code>.ui-info</code>:
+        <code>&lt;span class="ui-abbr"&gt;</code>
+      </td>
+      <td>
+        <span class="ui-abbr ui-info" title="Cascading Style Sheets">CSS</span>
+      </td>
+      <td data-color></td>
+    </tr>
+  </tbody>
+</table>
+<script>
+  for (const cell of document.querySelectorAll("[data-color]")) {
+    const sample = cell.previousElementSibling.firstElementChild
+    cell.textContent = getComputedStyle(sample).textDecorationColor
+  }
+</script>

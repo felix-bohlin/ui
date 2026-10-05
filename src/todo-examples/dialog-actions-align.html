@@ -1,0 +1,79 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-compare .ui-dialog {
+    margin: 0;
+    max-inline-size: none;
+    position: static;
+  }
+
+  .todo-fixed .ui-dialog .ui-actions.ui-align-start {
+    justify-content: start;
+    padding-inline: var(--size-1) var(--size-3);
+  }
+
+  .todo-fixed .ui-field-group.ui-column {
+    align-items: start;
+    flex-direction: column;
+  }
+</style>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">
+      Current: Dialog
+      <code>actionsAlign="start"</code>
+      (<code>.ui-actions.ui-align-start</code>)
+    </p>
+    <dialog open class="ui-dialog ui-card ui-elevated">
+      <hgroup><h3>Discard draft?</h3></hgroup>
+      <div class="ui-content"><p>Your changes will be lost.</p></div>
+      <div class="ui-actions ui-align-start">
+        <button class="ui-button">Cancel</button>
+        <button class="ui-button ui-filled ui-critical">Discard</button>
+      </div>
+    </dialog>
+  </div>
+  <div class="todo-fixed">
+    <p class="ui-caption">
+      Fixed: <code>.ui-align-start</code> sets
+      <code>justify-content: start</code>
+    </p>
+    <dialog open class="ui-dialog ui-card ui-elevated">
+      <hgroup><h3>Discard draft?</h3></hgroup>
+      <div class="ui-content"><p>Your changes will be lost.</p></div>
+      <div class="ui-actions ui-align-start">
+        <button class="ui-button">Cancel</button>
+        <button class="ui-button ui-filled ui-critical">Discard</button>
+      </div>
+    </dialog>
+  </div>
+  <div>
+    <p class="ui-caption">
+      Current: FieldGroup <code>direction="column"</code> with only buttons
+    </p>
+    <div class="ui-field-group ui-column">
+      <button class="ui-button ui-filled">Save</button>
+      <button class="ui-button ui-outlined">Save as draft</button>
+    </div>
+  </div>
+  <div class="todo-fixed">
+    <p class="ui-caption">
+      Fixed: <code>.ui-column</code> wins over the buttons-only row
+    </p>
+    <div class="ui-field-group ui-column">
+      <button class="ui-button ui-filled">Save</button>
+      <button class="ui-button ui-outlined">Save as draft</button>
+    </div>
+  </div>
+</div>

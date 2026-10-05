@@ -5,11 +5,11 @@ import { CheckboxInput, List, ListItem } from "opui-css/vue"
 <template>
   <List>
     <ListItem type="checkbox" for="checkbox-example-1">
-      <template #text><div>Checkbox 1</div></template>
+      <template #text>Checkbox 1</template>
       <template #end><CheckboxInput id="checkbox-example-1" /></template>
     </ListItem>
     <ListItem type="checkbox" for="checkbox-example-2">
-      <template #text><div>Checkbox 2</div></template>
+      <template #text>Checkbox 2</template>
       <template #end><CheckboxInput id="checkbox-example-2" /></template>
     </ListItem>
   </List>

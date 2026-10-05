@@ -1,11 +1,12 @@
 <label class="ui-select">
-  <span class="ui-label">Label</span>
+  <span class="ui-label" id="select-variants-1-label">Label</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-variants-1-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
+        <option value="">-</option>
         <option>Outlined (default)</option>
         <option>Option Two</option>
         <option>Option Three</option>
@@ -15,13 +16,14 @@
 </label>
 
 <label class="ui-select ui-filled">
-  <span class="ui-label">Label</span>
+  <span class="ui-label" id="select-variants-2-label">Label</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-variants-2-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
       <div class="ui-list">
+        <option value="">-</option>
         <option>Filled</option>
         <option>Option Two</option>
         <option>Option Three</option>

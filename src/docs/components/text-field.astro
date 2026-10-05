@@ -1,46 +1,41 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
-import { Callout as UICallout, Switch as UISwitch } from "@opui/astro"
+import {
+  Callout as UICallout,
+  Switch as UISwitch,
+  TextField as UITextField,
+} from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
 
 import InputTypes from "../../component-examples/text-field/InputTypes.astro"
 import InputTypesAstro from "../../component-examples/text-field/InputTypes.astro?raw"
-import InputTypesSvelteRaw from "../../component-examples/text-field/InputTypes.svelte?raw"
-import InputTypesPreviewSvelte from "../../component-examples/text-field/InputTypes.svelte"
 import InputTypesVueRaw from "../../component-examples/text-field/InputTypes.vue?raw"
 import InputTypesPreviewVue from "../../component-examples/text-field/InputTypes.vue"
 import InputTypesHtml from "../../component-examples/text-field/InputTypes.html?raw"
 
 import Numeric from "../../component-examples/text-field/Numeric.astro"
 import NumericAstro from "../../component-examples/text-field/Numeric.astro?raw"
-import NumericSvelteRaw from "../../component-examples/text-field/Numeric.svelte?raw"
-import NumericPreviewSvelte from "../../component-examples/text-field/Numeric.svelte"
 import NumericVueRaw from "../../component-examples/text-field/Numeric.vue?raw"
 import NumericPreviewVue from "../../component-examples/text-field/Numeric.vue"
 import NumericHtml from "../../component-examples/text-field/Numeric.html?raw"
 
 import File from "../../component-examples/text-field/File.astro"
 import FileAstro from "../../component-examples/text-field/File.astro?raw"
-import FileSvelteRaw from "../../component-examples/text-field/File.svelte?raw"
-import FilePreviewSvelte from "../../component-examples/text-field/File.svelte"
 import FileVueRaw from "../../component-examples/text-field/File.vue?raw"
 import FilePreviewVue from "../../component-examples/text-field/File.vue"
 import FileHtml from "../../component-examples/text-field/File.html?raw"
 
 import Autosuggest from "../../component-examples/text-field/Autosuggest.astro"
 import AutosuggestAstro from "../../component-examples/text-field/Autosuggest.astro?raw"
-import AutosuggestSvelteRaw from "../../component-examples/text-field/Autosuggest.svelte?raw"
-import AutosuggestPreviewSvelte from "../../component-examples/text-field/Autosuggest.svelte"
 import AutosuggestVueRaw from "../../component-examples/text-field/Autosuggest.vue?raw"
 import AutosuggestPreviewVue from "../../component-examples/text-field/Autosuggest.vue"
 import AutosuggestHtml from "../../component-examples/text-field/Autosuggest.html?raw"
 
 import NoLabel from "../../component-examples/text-field/NoLabel.astro"
 import NoLabelAstro from "../../component-examples/text-field/NoLabel.astro?raw"
-import NoLabelSvelteRaw from "../../component-examples/text-field/NoLabel.svelte?raw"
-import NoLabelPreviewSvelte from "../../component-examples/text-field/NoLabel.svelte"
 import NoLabelVueRaw from "../../component-examples/text-field/NoLabel.vue?raw"
 import NoLabelPreviewVue from "../../component-examples/text-field/NoLabel.vue"
 import NoLabelHtml from "../../component-examples/text-field/NoLabel.html?raw"
@@ -48,14 +43,10 @@ import NoLabelHtml from "../../component-examples/text-field/NoLabel.html?raw"
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextFieldCSS from "@opui/css/components/text-input.css?raw"
 
-import TextFieldAPIAstro from "../../component-api/text-field/Astro.astro"
-import TextFieldAPIHTML from "../../component-api/text-field/HTML.astro"
-import TextFieldAPISvelte from "../../component-api/text-field/Svelte.astro"
-import TextFieldAPIVue from "../../component-api/text-field/Vue.astro"
-import TextInputAPIAstro from "../../component-api/text-input/Astro.astro"
-import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
-import TextInputAPISvelte from "../../component-api/text-input/Svelte.astro"
-import TextInputAPIVue from "../../component-api/text-input/Vue.astro"
+import textFieldApi from "../../component-api/text-field/api"
+import textInputApi from "../../component-api/text-input/api"
+import TextFieldBuild from "../../components/UnderTheHood/TextFieldBuild.astro"
+import { DEFAULT_FRAMEWORK } from "../../utils/framework-routing"
 
 export const description =
   "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states."
@@ -63,29 +54,22 @@ export const description =
 
 <Component
   description={description}
+  heroAnatomy
   slug="text-field"
   browserSupport={[
+    "container-queries",
     "datalist",
     "field-sizing",
     "has",
     "light-dark",
     "relative-color",
+    "user-pseudos",
   ]}
   apis={[
-    {
-      title: "Text field API",
-      astro: TextFieldAPIAstro,
-      html: TextFieldAPIHTML,
-      svelte: TextFieldAPISvelte,
-      vue: TextFieldAPIVue,
-    },
-    {
-      title: "Text input API",
-      astro: TextInputAPIAstro,
-      html: TextInputAPIHTML,
-      svelte: TextInputAPISvelte,
-      vue: TextInputAPIVue,
-    },
+    { title: "Text field API", api: textFieldApi },
+    ...((Astro.currentLocale ?? DEFAULT_FRAMEWORK) === "html"
+      ? [{ title: "Text input API", api: textInputApi }]
+      : []),
   ]}
   changelogPaths={[
     {
@@ -119,6 +103,20 @@ export const description =
 
   <section>
     <h2 id="variants">Variants</h2>
+    <Conditional>
+      <p slot="astro">
+        Text fields are outlined by default. Set <code>variant="filled"</code> for
+        a filled field.
+      </p>
+      <p slot="html">
+        Text fields are outlined by default. Add <code>.ui-filled</code> for a filled
+        field.
+      </p>
+      <p slot="vue">
+        Text fields are outlined by default. Set <code>variant="filled"</code> for
+        a filled field.
+      </p>
+    </Conditional>
     <AutoExample name="Variants" row />
   </section>
 
@@ -141,12 +139,6 @@ export const description =
         Prefix and suffix sit beside the input, while header and footer span the field's
         full width with a divider.
       </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
-        and <code>footer</code> props or snippets to affix content inside the field's
-        border. Prefix and suffix sit beside the input, while header and footer span
-        the field's full width with a divider.
-      </Fragment>
       <Fragment slot="vue">
         Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
         and <code>footer</code> slots to affix content inside the field's border.
@@ -156,7 +148,7 @@ export const description =
       <Fragment slot="html">
         Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
           >.ui-header</code
-        >, or
+        >, or{" "}
         <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
         inside the field's border. Prefix and suffix sit beside the input, while header
         and footer span the field's full width with a divider.
@@ -181,10 +173,6 @@ export const description =
         Set <code>required</code> on the component to toggle required styles on the
         input.
       </Fragment>
-      <Fragment slot="svelte">
-        Add the <code>required</code> attribute on the component. It is forwarded
-        to the underlying <code>&lt;input&gt;</code>.
-      </Fragment>
       <Fragment slot="vue">
         Add the <code>required</code> attribute on the component. It is forwarded
         to the underlying <code>&lt;input&gt;</code>.
@@ -197,18 +185,13 @@ export const description =
     <Conditional as="p">
       <Fragment slot="astro">
         Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
-      </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
+        {" "}<code>data-invalid</code> on the root element. Make use of the end text
+        to give extra feedback on the error.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
+        {" "}<code>data-invalid</code> on the root element. Make use of the end text
+        to give extra feedback on the error.
       </Fragment>
       <Fragment slot="html">
         Add <code>data-invalid</code> on the root element to toggle invalid styles.
@@ -232,11 +215,6 @@ export const description =
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
-      <Fragment slot="svelte">
-        Use the <code>spread</code> boolean prop to display the label and description
-        on the left with the input on the right. The layout collapses to a column
-        on narrow containers.
-      </Fragment>
       <Fragment slot="vue">
         Use the <code>spread</code> boolean prop to display the label and description
         on the left with the input on the right. The layout collapses to a column
@@ -257,19 +235,17 @@ export const description =
   <section>
     <h2 id="input-types">Input types</h2>
     <Example row>
-      <UISwitch small slot="controls" id="text-field-filled-toggle"
+      <UISwitch size="small" slot="controls" id="text-field-filled-toggle"
         >Filled</UISwitch
       >
-      <UISwitch small slot="controls" id="text-field-small-toggle"
+      <UISwitch size="small" slot="controls" id="text-field-small-toggle"
         >Small</UISwitch
       >
 
       <Example.Preview slot="preview-astro" code={InputTypes} />
       <Example.Preview slot="preview-html" code={InputTypesHtml} />
-      <Example.Preview slot="preview-svelte" code={InputTypesPreviewSvelte} />
       <Example.Preview slot="preview-vue" code={InputTypesPreviewVue} />
       <Example.Code slot="code-astro" code={InputTypesAstro} />
-      <Example.Code slot="code-svelte" code={InputTypesSvelteRaw} />
       <Example.Code slot="code-vue" code={InputTypesVueRaw} />
       <Example.Code slot="code-html" code={InputTypesHtml} />
     </Example>
@@ -293,10 +269,8 @@ export const description =
     <Example>
       <Numeric slot="preview-astro" />
       <Numeric slot="preview-html" />
-      <NumericPreviewSvelte slot="preview-svelte" />
       <NumericPreviewVue slot="preview-vue" />
       <Example.Code slot="code-astro" code={NumericAstro} />
-      <Example.Code slot="code-svelte" code={NumericSvelteRaw} />
       <Example.Code slot="code-vue" code={NumericVueRaw} />
       <Example.Code slot="code-html" code={NumericHtml} />
     </Example>
@@ -313,7 +287,7 @@ export const description =
             data it should only be used when mathematical operations are needed on
             the input (which is... never). Data like credit card numbers, IDs or social
             security numbers - are actually text that happen to be numeric rather
-            than mathematical values. Therefore, consider using
+            than mathematical values. Therefore, consider using{" "}
             <code
               >&lt;input type="text" inputmode="numeric" pattern="[0-9]*"&gt;</code
             > instead.
@@ -351,21 +325,15 @@ export const description =
 
     <h3 id="file">File</h3>
     <p>
-      Use <code>aria-label</code> instead of the <code>&lt;label&gt;</code> element.
-    </p>
-
-    <p>
       File is a weird one. Should it really be an <code>&lt;input&gt;</code> element?
-      Well, it's what we've got :sweat_smile:
+      Well, it's what we've got.
     </p>
 
     <Example row>
       <File slot="preview-astro" />
       <File slot="preview-html" />
-      <FilePreviewSvelte slot="preview-svelte" />
       <FilePreviewVue slot="preview-vue" />
       <Example.Code slot="code-astro" code={FileAstro} />
-      <Example.Code slot="code-svelte" code={FileSvelteRaw} />
       <Example.Code slot="code-vue" code={FileVueRaw} />
       <Example.Code slot="code-html" code={FileHtml} />
     </Example>
@@ -386,10 +354,8 @@ export const description =
     <Example row>
       <Autosuggest slot="preview-astro" />
       <Autosuggest slot="preview-html" />
-      <AutosuggestPreviewSvelte slot="preview-svelte" />
       <AutosuggestPreviewVue slot="preview-vue" />
       <Example.Code slot="code-astro" code={AutosuggestAstro} />
-      <Example.Code slot="code-svelte" code={AutosuggestSvelteRaw} />
       <Example.Code slot="code-vue" code={AutosuggestVueRaw} />
       <Example.Code slot="code-html" code={AutosuggestHtml} />
     </Example>
@@ -434,14 +400,14 @@ export const description =
     <Example>
       <NoLabel slot="preview-astro" />
       <NoLabel slot="preview-html" />
-      <NoLabelPreviewSvelte slot="preview-svelte" />
       <NoLabelPreviewVue slot="preview-vue" />
       <Example.Code slot="code-astro" code={NoLabelAstro} />
-      <Example.Code slot="code-svelte" code={NoLabelSvelteRaw} />
       <Example.Code slot="code-vue" code={NoLabelVueRaw} />
       <Example.Code slot="code-html" code={NoLabelHtml} />
     </Example>
   </section>
+
+  <TextFieldBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
     <ul>
@@ -454,37 +420,20 @@ export const description =
   </Fragment>
 
   <Fragment slot="anatomy">
-    <ol>
-      <li><code>label.ui-text-field</code>: Container element</li>
-      <li><code>.ui-label</code>: Field label element</li>
-      <li><code>.ui-field</code>: The boxed input area</li>
-      <li>
-        <code>.ui-header</code>: Optional inside-border header strip (with
-        divider)
-      </li>
-      <li><code>.ui-prefix</code>: Optional inline-start affix</li>
-      <li><code>&lt;input&gt;</code>: Input element</li>
-      <li><code>.ui-suffix</code>: Optional inline-end affix</li>
-      <li>
-        <code>.ui-footer</code>: Optional inside-border footer strip (with
-        divider)
-      </li>
-      <li><code>.ui-end-text</code>: Supporting text element</li>
-    </ol>
-
-    <Example>
-      <label class="ui-text-field anatomy">
-        <span class="ui-label">Label</span>
-        <span class="ui-field">
-          <span class="ui-header">Header</span>
-          <span class="ui-prefix">¢</span>
-          <input type="text" value="Value" placeholder="Placeholder" />
-          <span class="ui-suffix">EUR</span>
-          <span class="ui-footer">Footer</span>
-        </span>
-        <span class="ui-end-text">Supporting text</span>
-      </label>
-    </Example>
+    <Anatomy zoom={1.25}>
+      <UITextField
+        description="Description"
+        endText="Supporting text"
+        label="Label"
+        placeholder="Placeholder"
+        value="Value"
+      >
+        <span slot="header">Header</span>
+        <span slot="prefix">¢</span>
+        <span slot="suffix">EUR</span>
+        <span slot="footer">Footer</span>
+      </UITextField>
+    </Anatomy>
   </Fragment>
 </Component>
 
@@ -526,14 +475,3 @@ export const description =
   setupInputTypesControls()
   document.addEventListener("astro:after-swap", setupInputTypesControls)
 </script>
-
-<style is:global>
-  .anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: 6px;
-
-    & > * {
-      outline: var(--_anatomy-border-red);
-    }
-  }
-</style>

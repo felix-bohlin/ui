@@ -1,5 +1,6 @@
 ---
 import type { ClassicSelectProps as Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Classic Select"
 
@@ -19,9 +20,9 @@ const {
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const selectId = id || $id("select")
-const labelId = $id("select-label")
+const endTextId = endText ? $id("end-text") : undefined
 ---
 
 <label
@@ -33,28 +34,37 @@ const labelId = $id("select-label")
     },
     className,
   ]}
-  data-invalid={error || undefined}
+  data-invalid={error ? "" : undefined}
 >
-  {
-    label && (
-      <span class="ui-label" id={labelId}>
-        {label}
-      </span>
-    )
-  }
+  {label && <span class="ui-label">{label}</span>}
   <span class="ui-field">
     <select
-      aria-labelledby={label ? labelId : undefined}
+      aria-describedby={endTextId}
+      aria-invalid={error ? "true" : undefined}
       disabled={disabled}
       id={selectId}
       name={name}
       required={required}
-      value={value}
       {...rest}
     >
-      {items.map((item) => <option value={item.value}>{item.text}</option>)}
+      {
+        items.map((item) => (
+          <option
+            selected={item.value === value || undefined}
+            value={item.value}
+          >
+            {item.text}
+          </option>
+        ))
+      }
       <slot />
     </select>
   </span>
-  {endText && <span class="ui-end-text">{endText}</span>}
+  {
+    endText && (
+      <span class="ui-end-text" id={endTextId}>
+        {endText}
+      </span>
+    )
+  }
 </label>

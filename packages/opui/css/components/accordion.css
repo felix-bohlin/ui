@@ -7,17 +7,17 @@
     --_actions-padding-inline: var(--size-3) var(--size-1);
     --_bg-color: transparent;
     --_border-color: transparent;
-    --_border-radius: var(--border-radius, 4px);
+    --_border-radius: var(--border-radius);
     --_border-width: 0;
     --_content-padding-block: var(--size-2) var(--size-3);
     --_content-padding-inline: var(--_padding-inline);
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease);
     --_margin-inline: var(--size-1);
     --_padding-inline: initial;
     --_shadow: none;
     --_summary-padding-block: var(--size-3);
     --_summary-padding-inline: var(--_padding-inline);
-    --_svg-transition: calc(0.2s * var(--_motion)) var(--ease-1);
-    --_transition: calc(0.2s * var(--_motion));
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
@@ -25,7 +25,16 @@
     box-shadow: var(--_shadow);
     display: block;
     margin-inline: var(--_margin-inline);
-    transition: all var(--_transition) ease-out;
+    transition:
+      background-color var(--_duration) var(--_ease),
+      border-color var(--_duration) var(--_ease),
+      border-width var(--_duration) var(--_ease),
+      box-shadow var(--_duration) var(--_ease),
+      margin-inline var(--_duration) var(--_ease);
+
+    /* Accordion animation */
+    /* https://nerdy.dev/open-and-close-transitions-for-the-details-element */
+    interpolate-size: allow-keywords;
 
     &.ui-elevated {
       --_bg-color: var(--surface-elevated);
@@ -37,7 +46,7 @@
     &.ui-outlined {
       --_bg-color: var(--surface-default);
       --_border-color: var(--border-color);
-      --_border-width: 1px;
+      --_border-width: var(--border-width);
       --_margin-inline: 0;
       --_padding-inline: var(--size-3);
     }
@@ -48,18 +57,21 @@
       --_padding-inline: var(--size-3);
     }
 
-    /* Accordion animation */
-    /* https://nerdy.dev/open-and-close-transitions-for-the-details-element */
-    interpolate-size: allow-keywords;
+    @media (forced-colors: active) {
+      &.ui-elevated,
+      &.ui-tonal {
+        --_border-width: var(--border-width);
+      }
+    }
 
     &::details-content {
       block-size: 0;
       opacity: 0;
       overflow-y: clip;
       transition:
-        content-visibility var(--_transition) allow-discrete,
-        opacity var(--_transition),
-        block-size var(--_transition);
+        content-visibility var(--_duration) allow-discrete,
+        opacity var(--_duration),
+        block-size var(--_duration);
     }
 
     &[open]::details-content {
@@ -71,10 +83,15 @@
     & > summary {
       background-color: inherit;
       cursor: pointer;
-      font-weight: 700;
+      font-weight: var(--font-weight-bold);
       padding-block: var(--_summary-padding-block);
       padding-inline: var(--_summary-padding-inline);
       user-select: none;
+
+      &:focus-visible {
+        border-radius: var(--_border-radius);
+        outline-offset: calc(-2 * var(--focus-ring-width, 2px));
+      }
 
       &:has(svg) {
         align-items: center;
@@ -89,12 +106,26 @@
       }
 
       svg {
-        transition: rotate var(--_svg-transition);
+        transition:
+          rotate var(--_duration) var(--_ease),
+          scale var(--_duration) var(--_ease);
       }
     }
 
-    &[open] > summary svg {
+    &.ui-marker-flip[open] > summary svg {
+      scale: 1 -1;
+    }
+
+    &.ui-marker-rotate[open] > summary svg {
       rotate: 180deg;
+    }
+
+    &.ui-marker-turn[open] > summary svg {
+      rotate: 90deg;
+    }
+
+    &.ui-marker-turn[open]:dir(rtl) > summary svg {
+      rotate: -90deg;
     }
 
     & > .ui-content {
@@ -143,7 +174,7 @@
 
       /* Border between accordion items */
       & + & {
-        border-block-start: 1px solid var(--_gutter-color);
+        border-block-start: var(--border-width) solid var(--_gutter-color);
         border-radius: 0;
       }
 

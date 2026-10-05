@@ -1,6 +1,6 @@
 {
   "name": "opui-css",
-  "version": "5.5.0",
+  "version": "6.0.0",
   "description": "A CSS UI library exploring next-gen HTML & CSS features. HTML, Astro, Svelte & Vue components on top of Open Props.",
   "type": "module",
   "license": "MIT",
@@ -16,14 +16,18 @@
   },
   "keywords": [
     "astro",
+    "astro-component",
     "components",
     "css",
     "design-system",
     "html",
     "open-props",
     "svelte",
+    "svelte-components",
     "ui",
-    "vue"
+    "vue",
+    "vue-components",
+    "withastro"
   ],
   "sideEffects": [
     "*.css",
@@ -32,11 +36,13 @@
   "files": [
     "astro",
     "components",
+    "!components/AGENTS.md",
     "core",
     "css",
     "dist",
     "env.d.ts",
     "open-props.css",
+    "skills",
     "svelte",
     "vue",
     "CHANGELOG.md",
@@ -48,13 +54,19 @@
   "exports": {
     ".": "./dist/opui.css",
     "./open-props": "./dist/op.css",
+    "./open-props.css": "./open-props.css",
     "./astro": "./astro/index.ts",
     "./svelte": "./svelte/index.ts",
     "./vue": "./vue/index.ts",
     "./components/*": "./components/*",
+    "./core/*.css": "./core/*.css",
     "./core/*": "./core/*.css",
+    "./css/js/*": "./css/js/*",
+    "./css/*.css": "./css/*.css",
     "./css/*": "./css/*.css",
-    "./dist/*": "./dist/*"
+    "./dist/*": "./dist/*",
+    "./env.d.ts": "./env.d.ts",
+    "./package.json": "./package.json"
   },
   "scripts": {
     "build": "node scripts/build.mjs",
@@ -64,17 +76,22 @@
     "release:major": "pnpm version major && pnpm publish && git push --follow-tags"
   },
   "devDependencies": {
+    "open-props": "^1.7.23",
     "postcss": "^8.4.0",
     "postcss-import": "^16.1.0"
   },
   "peerDependencies": {
-    "astro": "^7.0.6",
+    "astro": "^7",
     "open-props": "^1.7.23",
-    "svelte": "^5.56.4",
-    "vue": "^3.5.39"
+    "solid-js": "^1.9",
+    "svelte": "^5",
+    "vue": "^3.5"
   },
   "peerDependenciesMeta": {
     "astro": {
+      "optional": true
+    },
+    "solid-js": {
       "optional": true
     },
     "svelte": {

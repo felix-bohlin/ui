@@ -3,6 +3,7 @@ import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import SpinnerCSS from "@opui/css/components/spinner.css?raw"
+import SpinnerBuild from "../../components/UnderTheHood/SpinnerBuild.astro"
 ---
 
 <Component
@@ -27,7 +28,10 @@ import SpinnerCSS from "@opui/css/components/spinner.css?raw"
     >.
   </Fragment>
 
-  <AutoExample name="Default" />
+  <section>
+    <h2 id="basics">Basics</h2>
+    <AutoExample name="Default" />
+  </section>
 
   <section>
     <h2 id="sizes">Sizes</h2>
@@ -79,4 +83,6 @@ import SpinnerCSS from "@opui/css/components/spinner.css?raw"
       <li><code>&lt;progress&gt;</code></li>
     </ul>
   </section>
+
+  <SpinnerBuild slot="under-the-hood" />
 </Component>

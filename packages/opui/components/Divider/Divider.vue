@@ -2,11 +2,8 @@
 import type { Props } from "./types.d.vue"
 
 const { variant } = defineProps<Props>()
-const variantClass = variant ? `border-${variant}` : ""
 </script>
 
 <template>
-  <hr
-    :class="['ui-divider', $props.class, variantClass && `ui-${variantClass}`]"
-  />
+  <hr :class="['ui-divider', variant && `ui-${variant}`, $props.class]" />
 </template>

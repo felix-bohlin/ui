@@ -1,5 +1,6 @@
 ---
 import type { RangeProps as Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Range"
 
@@ -7,6 +8,7 @@ const {
   class: className,
   disabled,
   endText,
+  error,
   id,
   label,
   list,
@@ -23,14 +25,25 @@ const {
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 
 const hasLabel = !!label || Astro.slots.has("default")
 const hasStartText = !!startText || Astro.slots.has("start-text")
 const hasEndText = !!endText || Astro.slots.has("end-text")
 const hasValue = valueSuffix !== undefined || Astro.slots.has("value")
+const defaultValue = () => {
+  const minValue = Number(min ?? 0)
+  const maxValue = Math.max(minValue, Number(max ?? 100))
+  const stepValue = step === "any" ? 0 : Number(step ?? 1)
+  const middle = minValue + (maxValue - minValue) / 2
+  if (!stepValue) return middle
+  const stepped =
+    minValue + Math.round((middle - minValue) / stepValue) * stepValue
+  return stepped > maxValue ? stepped - stepValue : stepped
+}
+const valueText = `${value ?? defaultValue()}${valueSuffix ?? ""}`
 
-const inputId = id || $id("range")
+const inputId = id || (hasValue ? $id("range") : undefined)
 const labelId = hasLabel ? $id("range-label") : undefined
 const startTextId = hasStartText ? $id("range-start") : undefined
 const endTextId = hasEndText ? $id("range-end") : undefined
@@ -46,6 +59,7 @@ const describedBy =
     { "ui-spread": spread },
     className,
   ]}
+  data-invalid={error ? "" : undefined}
 >
   {
     hasLabel && (
@@ -58,7 +72,7 @@ const describedBy =
   {
     hasValue && (
       <output class="ui-value" for={inputId} data-suffix={valueSuffix}>
-        <slot name="value">{value}</slot>
+        <slot name="value">{valueText}</slot>
       </output>
     )
   }
@@ -72,6 +86,7 @@ const describedBy =
   }
   <input
     aria-describedby={describedBy}
+    aria-invalid={error ? "true" : undefined}
     aria-labelledby={labelId}
     disabled={disabled}
     id={inputId}

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useId, computed, inject } from "vue"
+import { computed, inject, useAttrs, useId } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
@@ -10,10 +10,29 @@ defineOptions({
 const props = withDefaults(defineProps<Props>(), {
   type: "text",
 })
-defineSlots<Slots>()
+const slots = defineSlots<Slots>()
+const attrs = useAttrs()
+const inputAttrs = computed(() =>
+  Object.fromEntries(
+    Object.entries(attrs).filter(
+      ([key]) => key !== "aria-describedby" && key !== "style",
+    ),
+  ),
+)
 const modelValue = defineModel<string | number>()
 
-const fieldId = props.id || useId()
+const model = computed({
+  get: () => modelValue.value ?? (attrs.value as string | number | undefined),
+  set: (value) => {
+    modelValue.value = value
+  },
+})
+
+const uid = useId()
+const hasEndText = computed(
+  () => !!props.endText || !!slots["end-text"] || !!slots["supporting-text"],
+)
+const endTextId = computed(() => (hasEndText.value ? uid : undefined))
 const currentFieldName = inject(CurrentFieldNameKey, undefined)
 const startTextValue = computed(() => props.description || props.startText)
 </script>
@@ -22,15 +41,16 @@ const startTextValue = computed(() => props.description || props.startText)
   <label
     :class="[
       'ui-text-field',
+      props.size && `ui-${props.size}`,
       {
         'ui-auto-fit': props.autoFit,
-        'ui-filled': props.filled,
+        'ui-filled': variant === 'filled',
         'ui-spread': props.spread,
-        'ui-small': props.small,
       },
       props.class,
     ]"
-    :data-invalid="props.error || undefined"
+    :data-invalid="props.error ? '' : undefined"
+    :style="$attrs.style"
   >
     <span v-if="props.label || $slots.label" class="ui-label">
       <slot name="label">{{ props.label }}</slot>
@@ -42,13 +62,18 @@ const startTextValue = computed(() => props.description || props.startText)
 
     <span class="ui-field">
       <input
-        :id="fieldId"
+        :aria-describedby="
+          [endTextId, $attrs['aria-describedby']].filter(Boolean).join(' ') ||
+          undefined
+        "
+        :aria-invalid="props.error ? 'true' : undefined"
+        :id="props.id"
         :name="currentFieldName"
         :inputmode="props.type === 'numeric' ? 'numeric' : undefined"
         :pattern="props.type === 'numeric' ? '[0-9]*' : undefined"
         :type="props.type === 'numeric' ? 'text' : props.type"
-        v-bind="$attrs"
-        v-model="modelValue"
+        v-bind="inputAttrs"
+        v-model="model"
       />
       <span class="ui-prefix" v-if="$slots.prefix"
         ><slot name="prefix"></slot
@@ -66,6 +91,7 @@ const startTextValue = computed(() => props.description || props.startText)
 
     <span
       v-if="props.endText || $slots['end-text'] || $slots['supporting-text']"
+      :id="endTextId"
       class="ui-end-text"
     >
       <slot name="end-text">{{ props.endText }}</slot

@@ -1,4 +1,8 @@
 {
-  "recommendations": ["astro-build.astro-vscode", "esbenp.prettier-vscode"],
+  "recommendations": [
+    "astro-build.astro-vscode",
+    "esbenp.prettier-vscode",
+    "piyushsarkar.sort-css-properties"
+  ],
   "unwantedRecommendations": []
 }

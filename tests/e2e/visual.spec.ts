@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test"
-import { COMPONENTS, openFixture } from "./fixtures"
+import { FIXTURES, openFixture } from "./fixtures"
 
-for (const component of COMPONENTS) {
+for (const component of FIXTURES) {
   test(`${component} looks the same`, async ({ page }) => {
     await openFixture(page, "html", component)
 
@@ -13,7 +13,7 @@ for (const component of COMPONENTS) {
       const example = examples.nth(index)
       const name = await example.getAttribute("data-example")
       await expect.soft(example).toHaveScreenshot(`${component}/${name}.png`, {
-        mask: [example.locator("img")],
+        mask: [example.locator("img"), example.locator("video")],
       })
     }
   })

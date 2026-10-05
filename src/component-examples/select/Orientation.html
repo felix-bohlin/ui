@@ -1,8 +1,8 @@
 <label class="ui-select ui-spread">
-  <span class="ui-label">Country</span>
+  <span class="ui-label" id="select-orientation-1-label">Country</span>
   <span class="ui-start-text">Select your country of residence</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-orientation-1-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -19,10 +19,13 @@
 </label>
 
 <label class="ui-select ui-spread ui-filled">
-  <span class="ui-label">Language</span>
+  <span class="ui-label" id="select-orientation-2-label">Language</span>
   <span class="ui-start-text">Choose your preferred language</span>
   <span class="ui-field">
-    <select>
+    <select
+      aria-describedby="select-orientation-2-end-text"
+      aria-labelledby="select-orientation-2-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -36,14 +39,16 @@
       </div>
     </select>
   </span>
-  <span class="ui-end-text">This affects UI translations</span>
+  <span class="ui-end-text" id="select-orientation-2-end-text"
+    >This affects UI translations</span
+  >
 </label>
 
 <label class="ui-select ui-spread">
-  <span class="ui-label">Required</span>
+  <span class="ui-label" id="select-orientation-3-label">Required</span>
   <span class="ui-start-text">You must select an option</span>
   <span class="ui-field">
-    <select required>
+    <select aria-labelledby="select-orientation-3-label" required>
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -57,10 +62,10 @@
 </label>
 
 <label class="ui-select ui-spread">
-  <span class="ui-label">Disabled</span>
+  <span class="ui-label" id="select-orientation-4-label">Disabled</span>
   <span class="ui-start-text">This select is disabled</span>
   <span class="ui-field">
-    <select disabled>
+    <select aria-labelledby="select-orientation-4-label" disabled>
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -72,10 +77,14 @@
 </label>
 
 <label class="ui-select ui-spread" data-invalid>
-  <span class="ui-label">Invalid Select</span>
+  <span class="ui-label" id="select-orientation-5-label">Invalid Select</span>
   <span class="ui-start-text">This select has an error</span>
   <span class="ui-field">
-    <select>
+    <select
+      aria-describedby="select-orientation-5-end-text"
+      aria-invalid="true"
+      aria-labelledby="select-orientation-5-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -84,14 +93,16 @@
       </div>
     </select>
   </span>
-  <span class="ui-end-text">Please select a valid option.</span>
+  <span class="ui-end-text" id="select-orientation-5-end-text"
+    >Please select a valid option.</span
+  >
 </label>
 
 <label class="ui-select ui-spread">
-  <span class="ui-label">Currency</span>
+  <span class="ui-label" id="select-orientation-6-label">Currency</span>
   <span class="ui-start-text">Used for billing</span>
   <span class="ui-field">
-    <select>
+    <select aria-labelledby="select-orientation-6-label">
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -107,10 +118,13 @@
 </label>
 
 <label class="ui-select ui-spread ui-filled">
-  <span class="ui-label">Region</span>
+  <span class="ui-label" id="select-orientation-7-label">Region</span>
   <span class="ui-start-text">Affects data residency and latency</span>
   <span class="ui-field">
-    <select>
+    <select
+      aria-describedby="select-orientation-7-end-text"
+      aria-labelledby="select-orientation-7-label"
+    >
       <button>
         <selectedcontent></selectedcontent>
       </button>
@@ -140,5 +154,7 @@
       </svg>
     </span>
   </span>
-  <span class="ui-end-text">Cannot be changed after deploy</span>
+  <span class="ui-end-text" id="select-orientation-7-end-text"
+    >Cannot be changed after deploy</span
+  >
 </label>

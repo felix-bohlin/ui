@@ -7,7 +7,7 @@ type Element = DefaultTreeAdapterMap["element"]
 const DROPPED_ELEMENTS = new Set(["script", "style"])
 
 const DROPPED_ATTRIBUTE =
-  /^(data-astro-|data-v-|data-vue-|data-server-rendered$|slot$)/
+  /^(data-astro-|data-v-|data-vue-|data-server-rendered$|on[a-z]+$|slot$)/
 
 const ID_REFERENCE_ATTRIBUTES = new Set([
   "anchor",
@@ -91,8 +91,14 @@ const normalizeAttribute = (
   if (name === "style") {
     return value
       .split(";")
-      .map((declaration) => declaration.trim())
+      .map((declaration) => declaration.trim().replace(/\s*:\s*/, ": "))
       .filter(Boolean)
+      .map((declaration) => {
+        const colon = declaration.indexOf(":")
+        return colon === -1
+          ? declaration
+          : `${declaration.slice(0, colon).trim()}: ${declaration.slice(colon + 1).trim()}`
+      })
       .join("; ")
   }
   return value.trim()
@@ -120,7 +126,10 @@ const serialize = (
         name: attr.name,
         value: normalizeAttribute(attr.name, attr.value, ids),
       }))
-      .filter((attr) => !(attr.name === "class" && !attr.value))
+      .filter(
+        (attr) =>
+          !((attr.name === "class" || attr.name === "style") && !attr.value),
+      )
       .toSorted((a, b) => a.name.localeCompare(b.name))
       .map((attr) => (attr.value ? `${attr.name}="${attr.value}"` : attr.name))
 

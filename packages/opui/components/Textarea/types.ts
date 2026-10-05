@@ -3,10 +3,10 @@ export type Props = {
   description?: string
   endText?: string
   error?: boolean
-  filled?: boolean
   label?: string
-  small?: boolean
+  size?: "x-small" | "small" | "large"
   spread?: boolean
+  variant?: "outlined" | "filled"
 }
 
 export type Slots<S> = {

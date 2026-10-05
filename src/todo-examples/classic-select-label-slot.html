@@ -1,0 +1,50 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+</style>
+<p>
+  Both selects are the exact markup Astro <code>ClassicSelect</code> renders.
+  Inspect them in the DevTools Accessibility pane to see the computed name.
+</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">
+      <code>&lt;ClassicSelect label="Fruit"&gt;</code>: name is "Fruit"
+    </p>
+    <label class="ui-select">
+      <span class="ui-label" id="todo-select-label-prop">Fruit</span>
+      <span class="ui-field">
+        <select aria-labelledby="todo-select-label-prop" id="todo-select-prop">
+          <option>Apple</option>
+          <option>Pear</option>
+        </select>
+      </span>
+    </label>
+  </div>
+  <div>
+    <p class="ui-caption">
+      <code>&lt;Fragment slot="label"&gt;Fruit&lt;/Fragment&gt;</code>: the text
+      is dropped and <code>aria-labelledby</code> points at an id that doesn't
+      exist, so the name is empty
+    </p>
+    <label class="ui-select">
+      <span class="ui-field">
+        <select aria-labelledby="todo-select-label-slot" id="todo-select-slot">
+          <option>Apple</option>
+          <option>Pear</option>
+        </select>
+      </span>
+    </label>
+  </div>
+</div>

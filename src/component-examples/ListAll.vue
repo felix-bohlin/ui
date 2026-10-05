@@ -21,15 +21,11 @@ const { prefix = "" } = defineProps<{
   />
 
   <ListItem headline="Trailing supporting text">
-    <template #end><div>100+</div></template>
+    <template #end>100+</template>
   </ListItem>
 
   <ListItem headline="Trailing keyboard command">
-    <template #end>
-      <div>
-        <kbd>CTRL+Shift+X</kbd>
-      </div>
-    </template>
+    <template #end><kbd>CTRL+Shift+X</kbd></template>
   </ListItem>
 
   <ListItem border-top headline="Headline with start icon">
@@ -99,6 +95,8 @@ const { prefix = "" } = defineProps<{
         <img
           src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt=""
+          decoding="async"
+          loading="lazy"
         />
       </Avatar>
     </template>
@@ -169,54 +167,53 @@ const { prefix = "" } = defineProps<{
 
   <ListItem headline="End icon button">
     <template #end>
-      <div>
-        <button class="ui-icon-button">
-          <span class="ui-sr-only">More</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-          >
-            <path
-              fill="currentColor"
-              d="M16 9.5a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5m0 9a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5M13.5 25a2.5 2.5 0 1 0 5 0a2.5 2.5 0 0 0-5 0"
-            ></path>
-          </svg>
-        </button>
-      </div>
+      <button class="ui-button ui-rounded ui-ripple ui-small" aria-label="More">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M16 9.5a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5m0 9a2.5 2.5 0 1 1 0-5a2.5 2.5 0 0 1 0 5M13.5 25a2.5 2.5 0 1 0 5 0a2.5 2.5 0 0 0-5 0"
+          ></path>
+        </svg>
+      </button>
     </template>
   </ListItem>
 
   <ListItem border-top type="checkbox" :for="`${prefix}checkbox-all`">
-    <template #text><div>Checkbox</div></template>
+    <template #text>Checkbox</template>
     <template #end>
       <CheckboxInput :id="`${prefix}checkbox-all`" />
     </template>
   </ListItem>
 
   <ListItem border-top type="radio" :for="`${prefix}radio-all-1`">
-    <template #text><div>Radio 1</div></template>
+    <template #text>Radio 1</template>
     <template #end>
       <RadioInput
         :id="`${prefix}radio-all-1`"
         :name="`${prefix}radio-group-all`"
+        value="1"
       />
     </template>
   </ListItem>
 
   <ListItem type="radio" :for="`${prefix}radio-all-2`">
-    <template #text><div>Radio 2</div></template>
+    <template #text>Radio 2</template>
     <template #end>
       <RadioInput
         :id="`${prefix}radio-all-2`"
         :name="`${prefix}radio-group-all`"
+        value="2"
       />
     </template>
   </ListItem>
 
   <ListItem border-top type="switch" :for="`${prefix}switch-all-1`">
-    <template #text><div>Switch 1</div></template>
+    <template #text>Switch 1</template>
     <template #end>
       <SwitchInput :id="`${prefix}switch-all-1`" />
     </template>

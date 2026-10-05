@@ -1,13 +1,13 @@
 export type RangeProps = {
-  [key: string]: any
   endText?: string
+  error?: boolean
   id?: string
   label?: string
   spread?: boolean
   startText?: string
   value?: number | string
   valueSuffix?: string
-  variant?: "filled" | "default" | "tonal"
+  variant?: "filled" | "tonal"
 } & (
   | { list?: never; options?: never }
   | {

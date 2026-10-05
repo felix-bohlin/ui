@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, useId } from "vue"
+import { computed, inject, useAttrs, useId } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
@@ -12,9 +12,31 @@ const props = withDefaults(defineProps<Props>(), {
   variant: "outlined",
 })
 defineSlots<Slots>()
+const attrs = useAttrs()
 const modelValue = defineModel<string | number | (string | number)[]>()
 
-const selectId = props.id || useId()
+const multiple = computed(
+  () => attrs.multiple !== undefined && attrs.multiple !== false,
+)
+const selectedItemValues = computed(() =>
+  props.items.filter((item) => item.selected).map((item) => item.value),
+)
+
+const model = computed({
+  get: () =>
+    modelValue.value ??
+    (attrs.value as string | number | (string | number)[] | undefined) ??
+    (multiple.value ? selectedItemValues.value : selectedItemValues.value[0]),
+  set: (value) => {
+    modelValue.value = value
+  },
+})
+
+const isSelected = (value: unknown) =>
+  Array.isArray(model.value)
+    ? model.value.includes(value as string | number)
+    : model.value === value
+
 const labelId = useId()
 const endTextId = useId()
 const currentFieldName = inject(CurrentFieldNameKey, undefined)
@@ -31,7 +53,7 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
       },
       props.class,
     ]"
-    :data-invalid="props.error || undefined"
+    :data-invalid="props.error ? '' : undefined"
   >
     <span v-if="props.label || $slots.label" class="ui-label" :id="labelId">
       <slot name="label">{{ props.label }}</slot>
@@ -43,11 +65,15 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
 
     <span class="ui-field">
       <select
+        :aria-describedby="
+          props.endText || $slots['end-text'] ? endTextId : undefined
+        "
+        :aria-invalid="props.error ? 'true' : undefined"
         :aria-labelledby="props.label || $slots.label ? labelId : undefined"
-        :id="selectId"
+        :id="props.id"
         :name="currentFieldName"
         v-bind="$attrs"
-        v-model="modelValue"
+        v-model="model"
       >
         <button v-pre>
           <selectedcontent></selectedcontent>
@@ -56,6 +82,7 @@ const currentFieldName = inject(CurrentFieldNameKey, undefined)
           <option
             v-for="item in props.items"
             :key="item.value"
+            :selected="isSelected(item.value) || undefined"
             :value="item.value"
           >
             {{ item.text }}

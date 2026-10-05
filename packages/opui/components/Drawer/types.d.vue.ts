@@ -1,4 +1,4 @@
-import type { HTMLAttributes, Slot } from "vue"
+import type { HTMLAttributes, InjectionKey, Ref, Slot } from "vue"
 import type {
   DrawerFooterProps as BaseDrawerFooterProps,
   DrawerHeaderProps as BaseDrawerHeaderProps,
@@ -29,3 +29,7 @@ export type DrawerHeaderSlots = {
 export type DrawerFooterSlots = {
   default?: Slot
 }
+
+export const DrawerHeadingIdKey = Symbol() as InjectionKey<
+  Readonly<Ref<string>>
+>

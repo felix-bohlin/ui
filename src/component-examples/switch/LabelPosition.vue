@@ -3,6 +3,6 @@ import { Switch } from "opui-css/vue"
 </script>
 
 <template>
-  <Switch>Default</Switch>
-  <Switch stack>Stack</Switch>
+  <Switch name="switch-label-position">Default</Switch>
+  <Switch name="switch-label-position" stack>Stack</Switch>
 </template>

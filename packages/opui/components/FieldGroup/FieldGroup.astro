@@ -8,7 +8,7 @@ const slotHtml = (await Astro.slots.render("default")) ?? ""
 const escapedName = name?.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
 const html = name
   ? slotHtml.replace(
-      /<(input|select|textarea)\b(?![^>]*\sname=)/g,
+      /<(input|select|textarea)\b(?![^>]*\sname=)(?![^>]*\stype="(?:button|hidden|image|reset|submit)")/g,
       (_, tag) => `<${tag} name="${escapedName}"`,
     )
   : slotHtml
@@ -17,6 +17,5 @@ const html = name
 <div
   class:list={["ui-field-group", direction && `ui-${direction}`, className]}
   {...rest}
-  role="group"
   set:html={html}
 />

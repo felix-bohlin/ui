@@ -1,0 +1,109 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-5);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    align-content: start;
+    display: grid;
+    gap: var(--size-3);
+    min-inline-size: 0;
+  }
+
+  .todo-label {
+    --size: 1.25rem;
+
+    align-items: start;
+    display: inline-grid;
+    gap: 0 0.5rem;
+    grid-auto-flow: column;
+    grid-template-columns: auto 1fr;
+
+    & > input {
+      appearance: none;
+      background-color: var(--primary);
+      block-size: var(--size);
+      border-radius: var(--radius-1);
+      inline-size: var(--size);
+      margin: 0;
+    }
+
+    & > span {
+      margin-block-start: calc((var(--size) - 1cap) / 2);
+      text-box: trim-start cap alphabetic;
+    }
+
+    &.todo-large {
+      --size: 2.5rem;
+    }
+  }
+
+  .todo-guide {
+    background-image: linear-gradient(
+      oklch(from var(--primary) l c h / 50%),
+      oklch(from var(--primary) l c h / 50%)
+    );
+    background-position: 0 calc(var(--size, 1.25rem) / 2);
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+  }
+
+  .ui-checkbox.todo-guide {
+    --size: var(--_input-size);
+  }
+
+  .todo-support {
+    display: none;
+  }
+
+  @supports not (text-box: trim-start cap alphabetic) {
+    .todo-support {
+      display: block;
+    }
+  }
+</style>
+<p>
+  The line marks the middle of the box. A label with two lines shows which line
+  the box centers on.
+</p>
+<p class="todo-support ui-caption">
+  This browser has no <code>text-box</code>: the walkthrough's labels sit low
+  here.
+</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">
+      Walkthrough: <code>text-box</code> + <code>1cap</code>
+    </p>
+    <label class="todo-label todo-guide">
+      <input type="checkbox" />
+      <span>Notifications</span>
+    </label>
+    <label class="todo-label todo-guide">
+      <input type="checkbox" />
+      <span>A label that wraps onto a second line because it is long</span>
+    </label>
+    <label class="todo-label todo-large todo-guide">
+      <input type="checkbox" />
+      <span>Large box</span>
+    </label>
+  </div>
+  <div>
+    <p class="ui-caption">
+      Library: <code>(size − 1lh) / 2</code>, no <code>text-box</code>
+    </p>
+    <label class="ui-checkbox todo-guide">
+      <input type="checkbox" />
+      <span class="ui-label">Notifications</span>
+    </label>
+    <label class="ui-checkbox todo-guide">
+      <input type="checkbox" />
+      <span class="ui-label"
+        >A label that wraps onto a second line because it is long</span
+      >
+    </label>
+  </div>
+</div>

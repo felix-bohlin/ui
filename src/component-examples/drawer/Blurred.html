@@ -1,20 +1,29 @@
-<button class="ui-button" commandfor="drawer-blurred-html" command="show-modal">
+<button
+  type="button"
+  class="ui-button"
+  commandfor="drawer-blurred-html"
+  command="show-modal"
+>
   Open Blurred Drawer
 </button>
 
 <dialog
   class="ui-drawer ui-scroll-lock ui-inline-start"
   id="drawer-blurred-html"
+  aria-labelledby="drawer-blurred-html-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <span>Blurred Backdrop</span>
+    <h2 id="drawer-blurred-html-heading">Blurred Backdrop</h2>
     <button
-      class="ui-icon-button"
-      title="Close"
-      onclick="this.closest('dialog').close()"
+      type="button"
+      class="ui-button ui-rounded ui-ripple ui-small"
+      aria-label="Close"
+      commandfor="drawer-blurred-html"
+      command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -41,6 +50,7 @@
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       class="ui-button ui-small"
       commandfor="drawer-blurred-html"
       command="close"

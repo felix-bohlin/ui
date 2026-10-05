@@ -4,7 +4,7 @@
     <p class="ui-field-description">
       Please provide your basic contact details.
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-text-field">
         <span class="ui-label">Full Name</span>
         <span class="ui-field">
@@ -18,10 +18,10 @@
         </span>
       </label>
       <label class="ui-select">
-        <span class="ui-label">Role</span>
+        <span class="ui-label" id="kitchen-sink-role-label">Role</span>
         <span class="ui-field">
-          <select>
-            <button>
+          <select aria-labelledby="kitchen-sink-role-label">
+            <button type="button">
               <selectedcontent></selectedcontent>
             </button>
             <div class="ui-list">
@@ -42,7 +42,7 @@
     <p class="ui-field-description">
       Configure how you want to receive updates.
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-switch">
         <input type="checkbox" role="switch" name="email_notifs" checked />
         <span class="ui-label">Email Notifications</span>
@@ -82,13 +82,23 @@
     <p class="ui-field-description">
       How many years of experience do you have?
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-range">
-        <span class="ui-label">Professional Experience</span>
-        <span class="ui-start-text"
+        <span class="ui-label" id="kitchen-sink-experience-label"
+          >Professional Experience</span
+        >
+        <span class="ui-start-text" id="kitchen-sink-experience-start-text"
           >Drag the slider to match your total tenure.</span
         >
-        <input type="range" min="0" max="20" step="1" value="5" />
+        <input
+          type="range"
+          aria-describedby="kitchen-sink-experience-start-text"
+          aria-labelledby="kitchen-sink-experience-label"
+          min="0"
+          max="20"
+          step="1"
+          value="5"
+        />
       </label>
     </div>
   </fieldset>
@@ -98,11 +108,15 @@
   <fieldset class="ui-fieldset">
     <legend>Additional Info</legend>
     <p class="ui-field-description">Anything else we should know?</p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-textarea">
         <span class="ui-label">Biography</span>
         <span class="ui-field">
-          <textarea placeholder="Tell us about yourself..." rows="4"></textarea>
+          <textarea
+            name="details"
+            placeholder="Tell us about yourself..."
+            rows="4"
+          ></textarea>
         </span>
       </label>
     </div>
@@ -112,19 +126,26 @@
 
   <fieldset class="ui-fieldset">
     <legend>Legal</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-checkbox">
-        <input type="checkbox" name="terms" required />
+        <input
+          aria-describedby="kitchen-sink-terms-1-end-text"
+          type="checkbox"
+          name="terms"
+          required
+        />
         <span class="ui-label">I agree to the terms and conditions</span>
-        <span class="ui-end-text">Support this text</span>
+        <span class="ui-end-text" id="kitchen-sink-terms-1-end-text"
+          >Support this text</span
+        >
       </label>
     </div>
   </fieldset>
 
   <hr class="ui-divider" />
 
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <button class="ui-button ui-filled" type="submit">Send</button>
-    <button class="ui-button">Cancel</button>
+    <button type="button" class="ui-button">Cancel</button>
   </div>
 </form>

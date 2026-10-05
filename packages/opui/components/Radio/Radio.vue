@@ -9,7 +9,9 @@ defineOptions({
 
 const props = defineProps<RadioProps>()
 defineSlots<Slots>()
-const modelValue = defineModel<string | number | boolean>()
+const modelValue = defineModel<string | number | boolean | undefined>({
+  default: undefined,
+})
 
 const endTextId = useId()
 </script>
@@ -24,14 +26,21 @@ const endTextId = useId()
       },
       props.class,
     ]"
-    :data-invalid="props.error || undefined"
+    :data-invalid="props.error ? '' : undefined"
   >
     <RadioInput
+      :aria-invalid="props.error ? 'true' : undefined"
       v-bind="$attrs"
       v-model="modelValue"
-      :aria-describedby="$slots['end-text'] ? endTextId : undefined"
+      :aria-describedby="
+        [$slots['end-text'] ? endTextId : undefined, $attrs['aria-describedby']]
+          .filter(Boolean)
+          .join(' ') || undefined
+      "
     />
-    <span :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
+    <span
+      v-if="$slots.default"
+      :class="[props.hideLabel ? 'ui-sr-only' : 'ui-label']"
       ><slot></slot
     ></span>
     <span :id="endTextId" class="ui-end-text" v-if="$slots['end-text']">

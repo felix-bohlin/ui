@@ -11,7 +11,7 @@ import { Textarea } from "opui-css/vue"
     >
   </Textarea>
 
-  <Textarea spread placeholder="Additional notes..." filled>
+  <Textarea spread placeholder="Additional notes..." variant="filled">
     <template #label>Notes</template>
     <template #description>Add any additional notes or comments</template>
     <template #end-text>Maximum 500 characters</template>
@@ -56,7 +56,7 @@ import { Textarea } from "opui-css/vue"
 
   <Textarea
     spread
-    filled
+    variant="filled"
     label="Release notes"
     placeholder="Markdown supported..."
   >

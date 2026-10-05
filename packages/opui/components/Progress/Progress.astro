@@ -6,7 +6,7 @@ export const title = "Progress"
 const { class: className, max, value, variant, ...rest } = Astro.props
 ---
 
-<div class:list={["ui-progress", className, variant && `ui-${variant}`]}>
+<div class:list={["ui-progress", variant && `ui-${variant}`, className]}>
   <progress max={max} value={value} {...rest}>
     <slot />
   </progress>

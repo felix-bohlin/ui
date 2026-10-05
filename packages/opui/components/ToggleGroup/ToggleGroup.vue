@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { provide, useId } from "vue"
+import { computed, provide, reactive, useId } from "vue"
 import { ToggleGroupKey, type Props, type Slots } from "./types.d.vue"
 
 const {
   name,
   orientation,
+  scrollable,
   selection = "multiple",
+  shrink,
   size = "default",
 } = defineProps<Props>()
 defineSlots<Slots>()
@@ -14,10 +16,13 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const groupName = name || useId()
-const inputType = selection === "single" ? "radio" : "checkbox"
+const uid = useId()
+const groupName = computed(() => name || uid)
+const inputType = computed(() =>
+  selection === "single" ? "radio" : "checkbox",
+)
 
-provide(ToggleGroupKey, { name: groupName, type: inputType })
+provide(ToggleGroupKey, reactive({ name: groupName, type: inputType }))
 </script>
 
 <template>
@@ -26,6 +31,7 @@ provide(ToggleGroupKey, { name: groupName, type: inputType })
       'ui-toggle-group',
       size !== 'default' && size && `ui-${size}`,
       orientation && `ui-${orientation}`,
+      { 'ui-scrollable': scrollable, 'ui-shrink': shrink },
       $props.class,
     ]"
     :role="selection === 'single' ? 'radiogroup' : 'group'"

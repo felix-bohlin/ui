@@ -1,0 +1,70 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-panel {
+    border: 1px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--size-3);
+  }
+</style>
+<p>
+  The same fieldset twice. The only difference is <code>.ui-row</code> on the
+  text field. The field itself doesn't change (there's no
+  <code>.ui-text-field.ui-row</code> style), but the fieldset's
+  <code>row-gap</code> jumps from <code>--size-1</code> to
+  <code>--size-7</code>. Measured: <output data-gap="0"></output> vs
+  <output data-gap="1"></output>.
+</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption"><code>.ui-text-field</code></p>
+    <div class="todo-panel">
+      <fieldset class="ui-fieldset">
+        <legend>Pet info</legend>
+        <p class="ui-field-description">We must know your pet's name.</p>
+        <div class="ui-field-group">
+          <label class="ui-text-field">
+            <span class="ui-label">Name</span>
+            <span class="ui-field"><input type="text" name="name" /></span>
+          </label>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption"><code>.ui-text-field.ui-row</code></p>
+    <div class="todo-panel">
+      <fieldset class="ui-fieldset">
+        <legend>Pet info</legend>
+        <p class="ui-field-description">We must know your pet's name.</p>
+        <div class="ui-field-group">
+          <label class="ui-text-field ui-row">
+            <span class="ui-label">Name</span>
+            <span class="ui-field"><input type="text" name="name" /></span>
+          </label>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>
+<script>
+  {
+    const fieldsets = document.querySelectorAll(".ui-fieldset")
+    for (const output of document.querySelectorAll("[data-gap]")) {
+      output.textContent = getComputedStyle(
+        fieldsets[output.dataset.gap],
+      ).rowGap
+    }
+  }
+</script>

@@ -1,5 +1,6 @@
 ---
 import { Table } from "@opui/astro"
+import ApiTables from "./ApiTables.astro"
 import {
   DEFAULT_FRAMEWORK,
   FRAMEWORKS,
@@ -20,13 +21,16 @@ const apiList = Array.isArray(apis) ? apis : apis ? [apis] : []
 const currentFramework = (Astro.currentLocale ??
   DEFAULT_FRAMEWORK) as FrameworkId
 
+const frameworkKeys = (value: any) =>
+  Object.keys(value).filter((k) => k !== "id" && k !== "title")
+
 const isFrameworkKeyedApi = (value: any) =>
   value &&
   !Array.isArray(value) &&
   typeof value === "object" &&
   !value.rows &&
-  Object.keys(value).length > 0 &&
-  Object.keys(value).every((k) => FRAMEWORK_IDS.includes(k as FrameworkId))
+  frameworkKeys(value).length > 0 &&
+  frameworkKeys(value).every((k) => FRAMEWORK_IDS.includes(k as FrameworkId))
 
 // Pick the framework-keyed API entry for the active framework, falling back
 // to the default framework, then the first authored variant - same fallback
@@ -65,7 +69,9 @@ const hasFrameworkSpecificApi =
           return (
             <Fragment>
               {title && <h3 id={id}>{title}</h3>}
-              {isFrameworkSpecificEntry ? (
+              {api.api ? (
+                <ApiTables api={api.api} headingLevel={title ? 4 : 3} />
+              ) : isFrameworkSpecificEntry ? (
                 <Astro.self apis={pickFrameworkVariant(api)} hideTitle={true} />
               ) : apiData?.rows ? (
                 <div class="api-table-container">
@@ -162,16 +168,16 @@ const hasFrameworkSpecificApi =
 
 <style>
   .api-table-container {
-    overflow-x: auto;
     margin-block-end: var(--size-4);
+    overflow-x: auto;
   }
 
   .api-table-container :global(table),
   .api-table-container :global(.api-table) {
     display: table;
+    margin: 0;
+    min-width: 700px;
     table-layout: fixed;
     width: 100%;
-    min-width: 700px;
-    margin: 0;
   }
 </style>

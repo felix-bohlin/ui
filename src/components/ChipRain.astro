@@ -1,0 +1,91 @@
+---
+import { Chip } from "@opui/astro"
+import { getBaselineMappings } from "../utils/baseline"
+
+const { featureToComponents } = await getBaselineMappings()
+const features = Object.keys(featureToComponents).sort()
+---
+
+<div class="chip-rain" aria-hidden="true" hidden>
+  {
+    features.map((id) => (
+      <Chip class="raindrop" size="small">
+        {id}
+      </Chip>
+    ))
+  }
+</div>
+
+<script>
+  const STORAGE_KEY = "opui-chip-rain-seen"
+
+  function startRain() {
+    const rain = document.querySelector<HTMLElement>(".chip-rain")
+    if (!rain) return
+
+    try {
+      if (localStorage.getItem(STORAGE_KEY)) return
+      localStorage.setItem(STORAGE_KEY, "1")
+    } catch (_) {
+      return
+    }
+
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
+    const drops = rain.querySelectorAll<HTMLElement>(".raindrop")
+    let remaining = drops.length
+
+    drops.forEach((drop) => {
+      drop.style.setProperty("--delay", `${Math.random() * 2.5}s`)
+      drop.style.setProperty("--duration", `${2.5 + Math.random() * 2}s`)
+      drop.style.setProperty("--rotate", `${Math.random() * 90 - 45}deg`)
+      drop.style.setProperty("--spin", `${Math.random() * 360 - 180}deg`)
+      drop.style.setProperty("--x", `${Math.random() * 95}vw`)
+      drop.addEventListener(
+        "animationend",
+        () => {
+          remaining -= 1
+          if (remaining === 0) rain.remove()
+        },
+        { once: true },
+      )
+    })
+
+    rain.hidden = false
+  }
+
+  startRain()
+</script>
+
+<style>
+  .chip-rain {
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    position: fixed;
+    z-index: var(--layer-important);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .raindrop {
+    animation: chip-fall var(--duration) var(--ease-in-2) var(--delay) both;
+    box-shadow: var(--shadow-2);
+    left: var(--x);
+    position: absolute;
+    top: 0;
+  }
+
+  @keyframes chip-fall {
+    from {
+      transform: translateY(-120%) rotate(var(--rotate));
+    }
+
+    to {
+      transform: translateY(calc(100dvh + 100%))
+        rotate(calc(var(--rotate) + var(--spin)));
+    }
+  }
+</style>

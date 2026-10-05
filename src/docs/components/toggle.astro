@@ -1,15 +1,32 @@
 ---
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
+import DocLink from "../../components/DocLink.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import {
+  ToggleButton as UIToggleButton,
+  ToggleGroup as UIToggleGroup,
+} from "@opui/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import ToggleGroupCSS from "@opui/css/components/toggle-group.css?raw"
 import ToggleButtonCSS from "@opui/css/components/toggle-button.css?raw"
 import Conditional from "../../components/Conditional.astro"
+
+import toggleButtonApi from "../../component-api/toggle-button/api"
+import toggleGroupApi from "../../component-api/toggle-group/api"
+import ToggleBuild from "../../components/UnderTheHood/ToggleBuild.astro"
+export const description =
+  "Toggle buttons and toggle groups switch options on and off, alone or as a set."
 ---
 
 <Component
+  description={description}
   slug="toggle"
-  browserSupport={["color-mix", "light-dark", "relative-color"]}
+  heroAnatomy
+  apis={[
+    { title: "Toggle group API", api: toggleGroupApi },
+    { title: "Toggle button API", api: toggleButtonApi },
+  ]}
+  browserSupport={["color-mix", "has", "light-dark", "relative-color"]}
   changelogPaths={[
     {
       path: "packages/opui/components/ToggleButton/ToggleButton.astro",
@@ -29,7 +46,8 @@ import Conditional from "../../components/Conditional.astro"
       path: "packages/opui/css/components/toggle-group.css",
       type: "css",
     },
-    { path: "src/component-api/toggle", type: "api" },
+    { path: "src/component-api/toggle-button", type: "api" },
+    { path: "src/component-api/toggle-group", type: "api" },
   ]}
   installationTabs={[
     {
@@ -47,6 +65,14 @@ import Conditional from "../../components/Conditional.astro"
   <Fragment slot="title">Toggle</Fragment>
   <Fragment slot="preamble"
     >Buttons (disguised as input checkbox/radio) that can be toggled on and off.
+    Use them for options in a toolbar, like bold or text alignment. For a
+    setting that applies right away, use a <DocLink href="/components/switch"
+      >Switch</DocLink
+    >, and for choices in a form a <DocLink href="/components/checkbox"
+      >Checkbox</DocLink
+    >. To switch between panels of content, use <DocLink href="/components/tabs"
+      >Tabs</DocLink
+    >.
   </Fragment>
 
   <section>
@@ -65,9 +91,6 @@ import Conditional from "../../components/Conditional.astro"
           >&lt;div role="radiogroup" class="ui-toggle-group"&gt;</code
         > (or <code>role="group"</code> when multi-select).
       </Fragment>
-      <Fragment slot="svelte">
-        Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
-      </Fragment>
       <Fragment slot="vue">
         Group toggle buttons by wrapping them in a <code>ToggleGroup</code> component.
       </Fragment>
@@ -81,9 +104,6 @@ import Conditional from "../../components/Conditional.astro"
       <p slot="astro">
         Use <code>selection="multiple"</code> for multi-select groups.
       </p>
-      <p slot="svelte">
-        Use <code>selection="multiple"</code> for multi-select groups.
-      </p>
       <p slot="vue">
         Use <code>selection="multiple"</code> for multi-select groups.
       </p>
@@ -93,15 +113,22 @@ import Conditional from "../../components/Conditional.astro"
 
     <h3 id="single-select">Single-select</h3>
     <Conditional>
-      <p slot="html">Use <code>type="radio"</code> for single-select groups.</p>
-      <p slot="astro">
-        Use <code>selection="single"</code> for single-select groups.
+      <p slot="html">
+        Use <code>type="radio"</code> for single-select groups. Add <code
+          >checked</code
+        > to the input that starts pressed.
       </p>
-      <p slot="svelte">
-        Use <code>selection="single"</code> for single-select groups.
+      <p slot="astro">
+        Use <code>selection="single"</code> for single-select groups. Every button
+        is a radio then, and a <code>type</code> on a button is ignored. Set <code
+          >pressed</code
+        > on the button that starts pressed.
       </p>
       <p slot="vue">
-        Use <code>selection="single"</code> for single-select groups.
+        Use <code>selection="single"</code> for single-select groups. Every button
+        is a radio then, and a <code>type</code> on a button is ignored. Set <code
+          >pressed</code
+        > on the button that starts pressed.
       </p>
     </Conditional>
 
@@ -121,11 +148,6 @@ import Conditional from "../../components/Conditional.astro"
       <p slot="html">
         Change the layout of the group with the <code>.ui-vertical</code> class.
       </p>
-      <p slot="svelte">
-        Change the layout of the group with the <code
-          >orientation="vertical"</code
-        > prop.
-      </p>
       <p slot="vue">
         Change the layout of the group with the <code
           >orientation="vertical"</code
@@ -135,55 +157,70 @@ import Conditional from "../../components/Conditional.astro"
     <AutoExample name="Vertical" centered />
 
     <h3 id="sizes">Sizes</h3>
-    <p>
-      Choose between three sizes: default, <code>.ui-x-small</code> and <code
-        >.ui-small</code
-      >.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Sizes" centered row />
+
+    <h3 id="overflow">Overflow</h3>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Toggle buttons in a group wrap onto more rows when they don't fit. Use <code
+          >scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+      <Fragment slot="html">
+        Toggle buttons in a group wrap onto more rows when they don't fit. Add <code
+          >.ui-scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >.ui-shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+      <Fragment slot="vue">
+        Toggle buttons in a group wrap onto more rows when they don't fit. Use <code
+          >scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Overflow" />
   </section>
 
+  <ToggleBuild slot="under-the-hood" />
+
   <Fragment slot="anatomy">
-    <Example centered>
-      <div role="radiogroup" class="ui-toggle-group anatomy">
-        <label class="ui-toggle-button">
-          <input type="radio" checked />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            ><path
-              fill="currentColor"
-              d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
-            ></path></svg
-          >
-          Selected
-        </label>
-        <label class="ui-toggle-button">
-          <input type="radio" />
-          Enabled
-        </label>
-      </div>
-    </Example>
+    <Anatomy api={toggleGroupApi} zoom={1.25}>
+      <UIToggleGroup name="toggle-anatomy" selection="single">
+        <UIToggleButton pressed type="radio">Day</UIToggleButton>
+        <UIToggleButton type="radio">Week</UIToggleButton>
+        <UIToggleButton type="radio">Month</UIToggleButton>
+      </UIToggleGroup>
+    </Anatomy>
   </Fragment>
 </Component>
 
 <style is:global>
-  .anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: 4px;
-
-    .ui-toggle-button:first-of-type {
-      outline: var(--_anatomy-border-red);
-
-      & > * {
-        outline: var(--_anatomy-border-red);
-      }
-    }
-  }
-
   .ui-toggle-group
     .ui-toggle-button:has(input:checked).has-text
     svg:nth-of-type(2) {

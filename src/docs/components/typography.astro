@@ -4,11 +4,11 @@ import { Code } from "astro-expressive-code/components"
 import Component from "../../layouts/Component.astro"
 import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
+import RhythmBuild from "../../components/UnderTheHood/RhythmBuild.astro"
 import BlockquoteHtml from "../../component-examples/typography/Blockquote.html?raw"
 import CodeBlockHtml from "../../component-examples/typography/CodeBlock.html?raw"
 
-import ExampleDefaultHTML from "../../component-examples/typography/Default.html?raw"
-
+import LinkCSS from "@opui/css/components/link.css?raw"
 import TypographyCSS from "@opui/css/components/typography.css?raw"
 ---
 
@@ -16,9 +16,14 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
   slug="typography"
   browserSupport={[
     "box-decoration-break",
+    "has",
     "light-dark",
+    "registered-custom-properties",
     "relative-color",
+    "round-mod-rem",
     "scope",
+    "scrollbar-width",
+    "text-wrap-pretty",
   ]}
   changelogPaths={[
     { path: "src/docs/components/typography.astro", type: "docs" },
@@ -31,6 +36,7 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
   ]}
   installationTabs={[
     { title: "typography.css", code: TypographyCSS, lang: "css" },
+    { title: "link.css", code: LinkCSS, lang: "css" },
   ]}
 >
   <Fragment slot="title">Typography</Fragment>
@@ -54,6 +60,15 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
       <Example.Preview slot="preview-html" code={BlockquoteHtml} />
       <Example.Preview slot="preview-astro" code={BlockquoteHtml} />
     </Example>
+
+    <h3 id="link">Link</h3>
+    <p>
+      Use <code>.ui-link</code> for links outside <code>.ui-rich-text</code>.
+      Inside rich text, links get the same style without a class. On hover and
+      focus the underline gets thicker, and the color darkens in light mode and
+      lightens in dark mode.
+    </p>
+    <AutoExample name="Link" />
 
     <h3 id="code-block">Code block</h3>
     <Example column>
@@ -103,6 +118,11 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
             <td><kbd>Ctrl + S</kbd></td>
             <td><code>&lt;kbd&gt;</code></td>
             <td><code>.ui-kbd</code></td>
+          </tr>
+          <tr>
+            <td><a class="ui-link" href="#link">Link</a></td>
+            <td><code>&lt;a href&gt;</code></td>
+            <td><code>.ui-link</code></td>
           </tr>
           <tr>
             <td><mark>Highlight</mark></td>
@@ -166,9 +186,14 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
       children. It's extra handy when you can't control the contents yourself, like
       printing text from a CMS.
     </p>
+    <p>
+      Headings, lists and tables with a class keep their own styles, and
+      components look the same inside rich text as outside it. Wrap a part in
+      {" "}<code>.ui-not-rich-text</code> to end the rich text styles there.
+    </p>
     <Code
       lang="html"
-      code={`<article class="ui-rich-text">\n  <!-- -->\n</article>`}
+      code={`<article class="ui-rich-text">\n  <h2>Styled</h2>\n  <div class="ui-not-rich-text"><!-- not styled --></div>\n</article>`}
     />
 
     <h3 id="rich-text-showcase">Classless showcase</h3>
@@ -176,9 +201,7 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
       Let's put everything together and see how all elements look in a
       classless, rich-text context.
     </p>
-    <Example>
-      <Example.Preview slot="preview-html" code={ExampleDefaultHTML} />
-      <Example.Preview slot="preview-astro" code={ExampleDefaultHTML} />
-    </Example>
+    <AutoExample name="Default" />
   </section>
+  <RhythmBuild slot="under-the-hood" />
 </Component>

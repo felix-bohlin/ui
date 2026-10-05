@@ -1,10 +1,13 @@
 export type Props = {
+  command?: string
+  commandfor?: string
+  interestfor?: string
   isGroup?: boolean
   variant?: "squared" | "rounded" | "squircle"
 } & (
   | {
       as?: "div"
-      href: never
+      href?: never
       disabled?: never
     }
   | {
@@ -17,10 +20,18 @@ export type Props = {
       href?: never
       disabled?: boolean
     }
-)
+) &
+  (
+    | {
+        alt: string
+        src: string
+      }
+    | {
+        alt?: never
+        src?: never
+      }
+  )
 
 export type Slots<S> = {
   children?: S
 }
-
-export type ImageProps = "src" | "alt"

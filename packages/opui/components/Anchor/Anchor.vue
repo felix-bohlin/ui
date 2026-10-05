@@ -1,35 +1,26 @@
 <script setup lang="ts">
-import { useId } from "vue"
+import { computed, useId } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
 const { alignment, id: idProp, trigger = "always" } = defineProps<Props>()
 defineSlots<Slots>()
 
-const isHover = trigger === "hover"
+const isHover = computed(() => trigger === "hover")
 const uid = useId()
-const id = isHover ? (idProp ?? uid) : undefined
+const id = computed(() => (isHover.value ? (idProp ?? uid) : undefined))
 
-const insetMap: Record<string, string> = {
-  "start start": "auto 100% 100% auto",
-  "start end": "auto auto 100% 100%",
-  "end start": "100% 100% auto auto",
-  "end end": "100% auto auto 100%",
-}
-
-const positionArea = alignment
-  ? {
-      "--anchor-position-area": alignment,
-      "--_anchor-inset": insetMap[alignment],
-    }
-  : {}
+const positionArea = computed(() =>
+  alignment ? { "--anchor-position-area": alignment } : undefined,
+)
 </script>
 
 <template>
-  <span :class="['ui-anchor', $props.class]" :style="positionArea">
-    <span v-if="isHover" :interestfor="id">
-      <slot></slot>
-    </span>
-    <slot v-else></slot>
+  <span
+    :id="isHover ? undefined : idProp"
+    :class="['ui-anchor', $props.class]"
+    v-bind="positionArea && { style: positionArea }"
+  >
+    <slot></slot>
     <span
       class="ui-anchor-floating"
       :id="id"

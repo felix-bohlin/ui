@@ -18,10 +18,13 @@ const hasLabel = computed(
       props.type === "switch"),
 )
 const labelClass = computed(() => props.type || "")
-const Tag = computed(() => props.as)
+const Tag = computed(() => props.as ?? (props.href ? "a" : undefined))
 
 const liAttrs = computed(() => (Tag.value ? {} : attrs))
 const innerAttrs = computed(() => (Tag.value ? attrs : {}))
+const disabled = computed(() =>
+  "disabled" in props ? props.disabled : undefined,
+)
 </script>
 
 <template>
@@ -57,7 +60,13 @@ const innerAttrs = computed(() => (Tag.value ? attrs : {}))
       <slot></slot>
     </label>
 
-    <component :is="Tag" v-else-if="Tag" v-bind="innerAttrs">
+    <component
+      :is="Tag"
+      v-else-if="Tag"
+      :disabled="disabled"
+      :href="props.href"
+      v-bind="innerAttrs"
+    >
       <div v-if="slots.start" class="ui-start">
         <slot name="start"></slot>
       </div>
@@ -94,5 +103,6 @@ const innerAttrs = computed(() => (Tag.value ? attrs : {}))
         <slot name="end"></slot>
       </div>
     </template>
+    <slot name="submenu"></slot>
   </li>
 </template>

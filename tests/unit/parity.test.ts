@@ -1,15 +1,13 @@
-import { createHash } from "node:crypto"
-import { writeFileSync } from "node:fs"
+import { existsSync } from "node:fs"
 import { experimental_AstroContainer as AstroContainer } from "astro/container"
 import { getContainerRenderer } from "@astrojs/vue/container-renderer"
 import { loadRenderers } from "astro:container"
+import { createTwoFilesPatch } from "diff"
 import { createSSRApp } from "vue"
 import { renderToString } from "vue/server-renderer"
-import { afterAll, beforeAll, describe, expect, test } from "vitest"
+import { beforeAll, describe, expect, test } from "vitest"
 import { normalize } from "./normalize"
-import knownDrift from "./parity-known-drift.json"
 
-const KNOWN_DRIFT_FILE = new URL("./parity-known-drift.json", import.meta.url)
 const RECORD = !!process.env.PARITY_RECORD
 
 const astroModules = import.meta.glob<{ default: any }>(
@@ -42,7 +40,9 @@ const EXAMPLE_CLASSES = new Set([
   ),
 ])
 
-type Framework = "astro" | "html" | "vue"
+const FRAMEWORKS = ["html", "astro", "vue"] as const
+
+type Framework = (typeof FRAMEWORKS)[number]
 
 type Example = {
   key: string
@@ -95,7 +95,6 @@ const renderers: Record<
     container.renderToString(loaded.default, {
       locals: {
         $id: createIdGenerator(),
-        _isInsideForm: false,
         componentSlug: key.split("/")[0],
         link: (path: string) => path,
       },
@@ -118,65 +117,14 @@ const markup = (example: Example, framework: Framework) => {
   return cache.get(cacheKey)!
 }
 
-type Comparison = keyof typeof knownDrift
-
-const known: Record<Comparison, Record<string, string>> = knownDrift
-const recorded: Record<Comparison, Record<string, string>> = {
-  "astro-vue": {},
-  html: {},
-}
-
-const compare = (
-  comparison: Comparison,
-  example: Example,
-  pairs: [Framework, Framework][],
-) => {
-  const title = pairs.map(([a, b]) => `${a} = ${b}`).join(", ")
-
-  test(title, async () => {
-    const outputs = await Promise.all(
-      pairs.map(([a, b]) =>
-        Promise.all([markup(example, a), markup(example, b)]),
-      ),
-    )
-    const drift = outputs
-      .map(([left, right], index) =>
-        left === right ? "" : `${pairs[index].join("|")}\n${left}\n${right}`,
-      )
-      .join("\n")
-    const signature = drift.trim()
-      ? createHash("sha256").update(drift).digest("hex").slice(0, 16)
-      : ""
-
-    if (RECORD) {
-      if (signature) recorded[comparison][example.key] = signature
-      return
-    }
-
-    const expected = known[comparison][example.key]
-    if (expected) {
-      expect(
-        signature,
-        `known drift changed or was fixed; re-record with pnpm test:record-drift`,
-      ).toBe(expected)
-      return
-    }
-
-    outputs.forEach(([left, right], index) => {
-      const [a, b] = pairs[index]
-      expect(right, `${b} differs from ${a}`).toBe(left)
-    })
-  })
-}
-
 describe.each(cases)("$key", (example) => {
-  const frameworks = (["astro", "html", "vue"] as const).filter(
+  const frameworks = FRAMEWORKS.filter(
     (framework) => example.loaders[framework],
   )
 
-  test.each(frameworks)("%s matches snapshot", async (framework) => {
-    await expect(await markup(example, framework)).toMatchFileSnapshot(
-      `__snapshots__/${example.key}.${framework}.html`,
+  test(`${frameworks[0]} matches snapshot`, async () => {
+    await expect(await markup(example, frameworks[0])).toMatchFileSnapshot(
+      `__snapshots__/${example.key}.html`,
     )
   })
 
@@ -193,31 +141,32 @@ describe.each(cases)("$key", (example) => {
     },
   )
 
-  if (example.loaders.astro && example.loaders.vue) {
-    compare("astro-vue", example, [["astro", "vue"]])
-  }
+  test.each(
+    frameworks
+      .slice(1)
+      .map((framework, index) => [framework, frameworks[index]]),
+  )("%s matches %s", async (framework, reference) => {
+    const [expected, actual] = await Promise.all([
+      markup(example, reference),
+      markup(example, framework),
+    ])
+    const driftFile = `__snapshots__/${example.key}.${framework}.diff`
+    const recorded = existsSync(new URL(driftFile, import.meta.url))
 
-  const components = frameworks.filter((framework) => framework !== "html")
-  if (example.loaders.html && components.length > 0) {
-    compare(
-      "html",
-      example,
-      components.map((framework) => ["html", framework]),
-    )
-  }
-})
-
-afterAll(() => {
-  if (!RECORD) return
-  const sorted = Object.fromEntries(
-    Object.entries(recorded).map(([comparison, signatures]) => [
-      comparison,
-      Object.fromEntries(
-        Object.keys(signatures)
-          .toSorted((a, b) => a.localeCompare(b))
-          .map((key) => [key, signatures[key]]),
-      ),
-    ]),
-  )
-  writeFileSync(KNOWN_DRIFT_FILE, JSON.stringify(sorted, null, 2) + "\n")
+    if (actual === expected) {
+      expect(
+        recorded,
+        `${driftFile} records drift that no longer exists; delete it`,
+      ).toBe(false)
+      return
+    }
+    if (!recorded && !RECORD) {
+      expect(actual, `${framework} differs from ${reference}`).toBe(expected)
+    }
+    await expect(
+      createTwoFilesPatch(reference, framework, expected, actual, "", "", {
+        context: 2,
+      }),
+    ).toMatchFileSnapshot(driftFile)
+  })
 })

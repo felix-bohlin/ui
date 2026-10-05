@@ -2,22 +2,22 @@
 import { Switch } from "@opui/astro"
 ---
 
-<Switch spread>
+<Switch name="switch-spread" spread>
   Notifications
   <Fragment slot="end-text">Receive alerts when someone mentions you.</Fragment>
 </Switch>
 
-<Switch spread required>
+<Switch name="switch-spread" spread required>
   Required
   <Fragment slot="end-text">You must accept this to proceed.</Fragment>
 </Switch>
 
-<Switch spread disabled>
+<Switch name="switch-spread" spread disabled>
   Disabled
   <Fragment slot="end-text">This switch is disabled.</Fragment>
 </Switch>
 
-<Switch spread error>
+<Switch name="switch-spread" spread error>
   Invalid Switch
   <Fragment slot="end-text">There is an error with this switch.</Fragment>
 </Switch>

@@ -1,5 +1,11 @@
 export default {
   ignoreFiles: ["**/dist/**", "**/node_modules/**"],
+  overrides: [
+    {
+      files: ["src/**/*.css"],
+      rules: { "selector-class-pattern": null },
+    },
+  ],
   rules: {
     "block-no-empty": true,
     "color-no-invalid-hex": true,
@@ -7,6 +13,7 @@ export default {
       true,
       { ignore: ["consecutive-duplicates-with-different-values"] },
     ],
+    "declaration-block-no-shorthand-property-overrides": true,
     "function-no-unknown": null,
     "no-duplicate-selectors": [true, { severity: "warning" }],
     "no-invalid-double-slash-comments": true,

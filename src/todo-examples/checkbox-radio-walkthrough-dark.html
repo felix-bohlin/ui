@@ -1,0 +1,130 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-panel {
+    align-content: start;
+    background-color: var(--surface-default);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-2);
+    color: var(--text-primary);
+    display: grid;
+    gap: var(--size-3);
+    padding: var(--size-3);
+  }
+
+  .todo-row {
+    align-items: center;
+    display: flex;
+    gap: var(--size-3);
+  }
+
+  .todo-check,
+  .todo-radio {
+    appearance: none;
+    background-color: var(--surface-default);
+    block-size: 1.25rem;
+    border: 1px solid var(--border-color);
+    box-sizing: border-box;
+    display: grid;
+    inline-size: 1.25rem;
+    margin: 0;
+    place-items: center;
+    position: relative;
+
+    &:checked {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+  }
+
+  .todo-check {
+    border-radius: var(--radius-1);
+
+    &:checked::after {
+      background-color: var(--primary-contrast);
+      clip-path: polygon(15% 52%, 40% 77%, 85% 32%, 75% 22%, 40% 57%, 25% 42%);
+      content: "";
+      inset: 0;
+      position: absolute;
+    }
+  }
+
+  .todo-radio {
+    border-radius: 50%;
+
+    &:checked::after {
+      background-color: var(--primary-contrast);
+      block-size: 40%;
+      border-radius: 50%;
+      content: "";
+      inline-size: 40%;
+    }
+  }
+</style>
+<div class="todo-compare">
+  <div class="todo-panel ui-light">
+    <p class="ui-caption">Walkthrough, light</p>
+    <div class="todo-row">
+      <input
+        aria-label="Walkthrough checkbox, light"
+        checked
+        class="todo-check"
+        type="checkbox"
+      />
+      <input
+        aria-label="Walkthrough radio, light"
+        checked
+        class="todo-radio"
+        type="radio"
+      />
+    </div>
+  </div>
+  <div class="todo-panel ui-light">
+    <p class="ui-caption">Library, light</p>
+    <div class="todo-row">
+      <label class="ui-checkbox">
+        <input checked type="checkbox" />
+        <span class="ui-label">Checkbox</span>
+      </label>
+      <label class="ui-radio">
+        <input checked name="todo-dark-radio-1" type="radio" />
+        <span class="ui-label">Radio</span>
+      </label>
+    </div>
+  </div>
+  <div class="todo-panel ui-dark">
+    <p class="ui-caption">Walkthrough, dark: light fill, dark marker</p>
+    <div class="todo-row">
+      <input
+        aria-label="Walkthrough checkbox, dark"
+        checked
+        class="todo-check"
+        type="checkbox"
+      />
+      <input
+        aria-label="Walkthrough radio, dark"
+        checked
+        class="todo-radio"
+        type="radio"
+      />
+    </div>
+  </div>
+  <div class="todo-panel ui-dark">
+    <p class="ui-caption">Library, dark: darkened fill, light marker</p>
+    <div class="todo-row">
+      <label class="ui-checkbox">
+        <input checked type="checkbox" />
+        <span class="ui-label">Checkbox</span>
+      </label>
+      <label class="ui-radio">
+        <input checked name="todo-dark-radio-2" type="radio" />
+        <span class="ui-label">Radio</span>
+      </label>
+    </div>
+  </div>
+</div>

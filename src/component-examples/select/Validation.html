@@ -1,65 +1,85 @@
-<label class="ui-select">
-  <span class="ui-label">Label</span>
-  <span class="ui-field">
-    <select required>
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option>Pick me!</option>
-        <option>No me!!</option>
-        <option>Come on!</option>
-      </div>
-    </select>
-  </span>
-</label>
+<div class="example-row">
+  <label class="ui-select">
+    <span class="ui-label" id="select-validation-1-label">Label</span>
+    <span class="ui-field">
+      <select aria-labelledby="select-validation-1-label" required>
+        <button>
+          <selectedcontent></selectedcontent>
+        </button>
+        <div class="ui-list">
+          <option value="">-</option>
+          <option>Pick me!</option>
+          <option>No me!!</option>
+          <option>Come on!</option>
+        </div>
+      </select>
+    </span>
+  </label>
 
-<label class="ui-select ui-filled">
-  <span class="ui-label">Label</span>
-  <span class="ui-field">
-    <select required>
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option>Pick me!</option>
-        <option>No me!!</option>
-        <option>Come on!</option>
-      </div>
-    </select>
-  </span>
-</label>
+  <label class="ui-select ui-filled">
+    <span class="ui-label" id="select-validation-2-label">Label</span>
+    <span class="ui-field">
+      <select aria-labelledby="select-validation-2-label" required>
+        <button>
+          <selectedcontent></selectedcontent>
+        </button>
+        <div class="ui-list">
+          <option value="">-</option>
+          <option>Pick me!</option>
+          <option>No me!!</option>
+          <option>Come on!</option>
+        </div>
+      </select>
+    </span>
+  </label>
+</div>
 
-<label class="ui-select" data-invalid>
-  <span class="ui-label">Label</span>
-  <span class="ui-field">
-    <select>
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option selected>Wrong option</option>
-        <option>Also wrong!</option>
-        <option>Nothing's right!</option>
-      </div>
-    </select>
-  </span>
-  <span class="ui-end-text">Supporting text</span>
-</label>
+<div class="example-row">
+  <label class="ui-select" data-invalid>
+    <span class="ui-label" id="select-validation-3-label">Label</span>
+    <span class="ui-field">
+      <select
+        aria-describedby="select-validation-3-end-text"
+        aria-invalid="true"
+        aria-labelledby="select-validation-3-label"
+      >
+        <button>
+          <selectedcontent></selectedcontent>
+        </button>
+        <div class="ui-list">
+          <option value="">-</option>
+          <option selected>Wrong option</option>
+          <option>Also wrong!</option>
+          <option>Nothing's right!</option>
+        </div>
+      </select>
+    </span>
+    <span class="ui-end-text" id="select-validation-3-end-text"
+      >Supporting text</span
+    >
+  </label>
 
-<label class="ui-select ui-filled" data-invalid>
-  <span class="ui-label">Label</span>
-  <span class="ui-field">
-    <select>
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option selected>Wrong option</option>
-        <option>Also wrong!</option>
-        <option>Nothing's right!</option>
-      </div>
-    </select>
-  </span>
-  <span class="ui-end-text">Supporting text</span>
-</label>
+  <label class="ui-select ui-filled" data-invalid>
+    <span class="ui-label" id="select-validation-4-label">Label</span>
+    <span class="ui-field">
+      <select
+        aria-describedby="select-validation-4-end-text"
+        aria-invalid="true"
+        aria-labelledby="select-validation-4-label"
+      >
+        <button>
+          <selectedcontent></selectedcontent>
+        </button>
+        <div class="ui-list">
+          <option value="">-</option>
+          <option selected>Wrong option</option>
+          <option>Also wrong!</option>
+          <option>Nothing's right!</option>
+        </div>
+      </select>
+    </span>
+    <span class="ui-end-text" id="select-validation-4-end-text"
+      >Supporting text</span
+    >
+  </label>
+</div>

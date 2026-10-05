@@ -1,0 +1,157 @@
+<style>
+  .todo-scroll {
+    inline-size: 100%;
+    overflow-x: auto;
+  }
+
+  .todo-table {
+    border-collapse: collapse;
+    inline-size: 100%;
+
+    td,
+    th {
+      border-block-end: 1px solid var(--border-color);
+      padding: var(--size-2);
+      text-align: start;
+      vertical-align: middle;
+    }
+  }
+</style>
+<p>
+  Click and Tab through each control. The counter shows whether clicks get
+  through. "Announced" is what Chromium's accessibility tree says.
+</p>
+<div class="todo-scroll">
+  <table class="todo-table">
+    <thead>
+      <tr>
+        <th>Markup</th>
+        <th>Control</th>
+        <th>Clicks</th>
+        <th>Focusable</th>
+        <th>Announced</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>&lt;button disabled&gt;</code></td>
+        <td>
+          <button type="button" class="ui-button ui-outlined" disabled>
+            Save
+          </button>
+        </td>
+        <td><output>0</output></td>
+        <td>No</td>
+        <td>Unavailable</td>
+      </tr>
+      <tr>
+        <td><code>&lt;button aria-disabled="true"&gt;</code></td>
+        <td>
+          <button
+            type="button"
+            class="ui-button ui-outlined"
+            aria-disabled="true"
+          >
+            Save
+          </button>
+        </td>
+        <td><output>0</output></td>
+        <td>Yes</td>
+        <td>Unavailable (your script must ignore the click)</td>
+      </tr>
+      <tr>
+        <td><code>&lt;button class="ui-disabled"&gt;</code></td>
+        <td>
+          <button type="button" class="ui-button ui-outlined ui-disabled">
+            Save
+          </button>
+        </td>
+        <td><output>0</output></td>
+        <td>Yes</td>
+        <td>Available: looks off, works, and says nothing</td>
+      </tr>
+      <tr>
+        <td><code>&lt;a aria-disabled="true"&gt;</code></td>
+        <td>
+          <a
+            class="ui-button ui-outlined"
+            href="#todo-link"
+            aria-disabled="true"
+            >Docs</a
+          >
+        </td>
+        <td><output>0</output></td>
+        <td>Yes (<kbd>Enter</kbd> still follows it)</td>
+        <td>Unavailable</td>
+      </tr>
+      <tr>
+        <td><code>&lt;a class="ui-disabled"&gt;</code></td>
+        <td>
+          <a class="ui-button ui-outlined ui-disabled" href="#todo-link"
+            >Docs</a
+          >
+        </td>
+        <td><output>0</output></td>
+        <td>Yes (<kbd>Enter</kbd> still follows it)</td>
+        <td>Available</td>
+      </tr>
+      <tr>
+        <td>
+          <code>&lt;label class="ui-toggle-button"&gt;</code> +
+          <code>&lt;input disabled&gt;</code>
+        </td>
+        <td>
+          <label class="ui-toggle-button">
+            <input type="checkbox" disabled />
+            Bold
+          </label>
+        </td>
+        <td><output>0</output></td>
+        <td>No</td>
+        <td>Unavailable (styled by <code>:has(input:disabled)</code>)</td>
+      </tr>
+      <tr>
+        <td>
+          <code>&lt;label class="ui-toggle-button ui-disabled"&gt;</code>
+        </td>
+        <td>
+          <label class="ui-toggle-button ui-disabled">
+            <input type="checkbox" />
+            Bold
+          </label>
+        </td>
+        <td><output>0</output></td>
+        <td>Yes</td>
+        <td>Available, and it still toggles</td>
+      </tr>
+      <tr>
+        <td><code>&lt;div class="ui-chip ui-disabled"&gt;</code></td>
+        <td>
+          <div class="ui-chip ui-tonal ui-disabled">
+            <span class="ui-text">Archived</span>
+          </div>
+        </td>
+        <td><output>0</output></td>
+        <td>No (not interactive)</td>
+        <td>Text only. <code>disabled</code> doesn't exist on a div</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script>
+  {
+    for (const row of document.querySelectorAll(".todo-table tbody tr")) {
+      const control = row.querySelector("td:nth-child(2) > *")
+      const output = row.querySelector("output")
+      const input = control.querySelector("input")
+      const count = () => (output.textContent = Number(output.textContent) + 1)
+      if (input) input.addEventListener("change", count)
+      else if (control.matches("a, button"))
+        control.addEventListener("click", (event) => {
+          event.preventDefault()
+          count()
+        })
+      else output.textContent = "–"
+    }
+  }
+</script>

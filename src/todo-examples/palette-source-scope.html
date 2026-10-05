@@ -1,0 +1,99 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-panel {
+    border: 1px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+    padding: var(--size-3);
+  }
+
+  .todo-source {
+    --palette-source: oklch(0.6 0.2 30);
+  }
+
+  .todo-swatches {
+    display: flex;
+    gap: var(--size-1);
+
+    span {
+      block-size: var(--size-6);
+      border-radius: var(--radius-2);
+      inline-size: var(--size-6);
+    }
+
+    span:nth-child(1) {
+      background-color: var(--color-3);
+    }
+
+    span:nth-child(2) {
+      background-color: var(--color-6);
+    }
+
+    span:nth-child(3) {
+      background-color: var(--color-9);
+    }
+
+    span:nth-child(4) {
+      background-color: var(--color-12);
+    }
+  }
+</style>
+<p>
+  Every panel sets <code>--palette-source: oklch(0.6 0.2 30)</code> (a warm
+  red). The swatches are <code>--color-3</code>, <code>-6</code>,
+  <code>-9</code> and <code>-12</code>.
+</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">A plain <code>div</code>: nothing changes</p>
+    <div class="todo-panel todo-source">
+      <div class="todo-swatches">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <button type="button" class="ui-button ui-primary ui-filled">
+        Primary
+      </button>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption">
+      <code>.ui-info</code> (a severity scope): the steps change,
+      <code>--primary</code> doesn't
+    </p>
+    <div class="todo-panel todo-source ui-info">
+      <div class="todo-swatches">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <button type="button" class="ui-button ui-primary ui-filled">
+        Primary
+      </button>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption">
+      <code>.ui-palette</code>: the steps and every color token change
+    </p>
+    <div class="todo-panel todo-source ui-palette">
+      <div class="todo-swatches">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <button type="button" class="ui-button ui-primary ui-filled">
+        Primary
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-compare table {
+    inline-size: auto;
+    max-inline-size: 24rem;
+  }
+
+  .todo-proposed .ui-table :where(td, th) > :where(.ui-text-field, .ui-select) {
+    min-inline-size: 12ch;
+  }
+</style>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">Current: fields collapse in an auto-layout table</p>
+    <table class="ui-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Notes</th>
+          <th>Email</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ada Lovelace</td>
+          <td>Wrote the first published algorithm for a machine.</td>
+          <td>
+            <label class="ui-text-field ui-small"
+              ><span class="ui-sr-only">Email</span
+              ><span class="ui-field"
+                ><input type="email" value="ada@example.com" /></span
+            ></label>
+          </td>
+          <td>
+            <label class="ui-select ui-small"
+              ><span class="ui-sr-only">Role</span
+              ><span class="ui-field"
+                ><select>
+                  <option>Engineer</option>
+                  <option>Researcher</option>
+                </select></span
+              ></label
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="todo-proposed">
+    <p class="ui-caption">
+      Proposed: fields in cells get a <code>12ch</code> minimum
+    </p>
+    <table class="ui-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Notes</th>
+          <th>Email</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ada Lovelace</td>
+          <td>Wrote the first published algorithm for a machine.</td>
+          <td>
+            <label class="ui-text-field ui-small"
+              ><span class="ui-sr-only">Email</span
+              ><span class="ui-field"
+                ><input type="email" value="ada@example.com" /></span
+            ></label>
+          </td>
+          <td>
+            <label class="ui-select ui-small"
+              ><span class="ui-sr-only">Role</span
+              ><span class="ui-field"
+                ><select>
+                  <option>Engineer</option>
+                  <option>Researcher</option>
+                </select></span
+              ></label
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

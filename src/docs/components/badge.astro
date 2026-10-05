@@ -4,37 +4,30 @@ import Example from "../../components/Example"
 
 import AutoExample from "../../components/AutoExample.astro"
 import BadgeVisibility from "../../component-examples/badge/Visibility.astro"
-import BadgeVisibilitySvelte from "../../component-examples/badge/Visibility.svelte"
 import BadgeVisibilityVue from "../../component-examples/badge/Visibility.vue"
 import BadgeVisibilityHTML from "../../component-examples/badge/Visibility.html?raw"
 import BadgeVisibilityAstro from "../../component-examples/badge/VisibilityCode.astro?raw"
-import BadgeVisibilitySvelteRaw from "../../component-examples/badge/VisibilityCode.svelte?raw"
 import BadgeVisibilityVueRaw from "../../component-examples/badge/VisibilityCode.vue?raw"
 
-import BadgeAnatomy from "../../component-examples/badge/Anatomy.astro"
-
-import { Switch as UISwitch } from "@opui/astro"
+import Anatomy from "../../components/Anatomy.astro"
+import { Badge as UIBadge, Switch as UISwitch } from "@opui/astro"
 import Conditional from "../../components/Conditional.astro"
 
 import BadgeCSS from "@opui/css/components/badge.css?raw"
 import AnchorCSS from "@opui/css/components/anchor.css?raw"
+
+import badgeApi from "../../component-api/badge/api"
+import BadgeBuild from "../../components/UnderTheHood/BadgeBuild.astro"
+export const description =
+  "Badges attach a small count or status dot to another element."
 ---
 
-<style is:global>
-  .anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: -2px;
-
-    & > .ui-anchor-floating > .ui-badge-indicator {
-      outline: var(--_anatomy-border-red);
-      outline-offset: -3px;
-    }
-  }
-</style>
-
 <Component
+  description={description}
   slug="badge"
-  browserSupport={["anchor-positioning"]}
+  heroAnatomy
+  apis={[{ title: "Badge API", api: badgeApi }]}
+  browserSupport={["anchor-positioning", "light-dark", "relative-color"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Badge/Badge.astro",
@@ -54,11 +47,6 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
   ]}
 >
   <Fragment slot="title">Badge</Fragment>
-  <Fragment slot="preamble">
-    <p>
-      A badge is a small status indicator that can be placed on other elements.
-    </p>
-  </Fragment>
 
   <section>
     <h2 id="variants">Variants</h2>
@@ -69,15 +57,36 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
       <Fragment slot="html">
         Default, and <code>.ui-dot</code>.
       </Fragment>
-      <Fragment slot="svelte">
-        Default, and <code>dot</code>.
-      </Fragment>
       <Fragment slot="vue">
         Default, and <code>dot</code>.
       </Fragment>
     </Conditional>
 
     <AutoExample name="Variants" row />
+  </section>
+
+  <section>
+    <h2 id="severities">Severities</h2>
+    <Conditional>
+      <p slot="html">
+        <code>.ui-critical</code>, <code>.ui-info</code>, <code
+          >.ui-neutral</code
+        >,{" "}
+        <code>.ui-success</code>, <code>.ui-warning</code>.
+      </p>
+      <p slot="astro">
+        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
+          >success</code
+        >, <code>warning</code>.
+      </p>
+      <p slot="vue">
+        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
+          >success</code
+        >, <code>warning</code>.
+      </p>
+    </Conditional>
+
+    <AutoExample name="Color" row />
   </section>
 
   <section>
@@ -94,11 +103,6 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
           >.ui-anchor-floating</code
         >.
       </Fragment>
-      <Fragment slot="svelte">
-        Set indicator text with the <code>label</code> prop or the <code
-          >indicator</code
-        > snippet. The <code>children</code> snippet holds the anchored element.
-      </Fragment>
       <Fragment slot="vue">
         Set indicator text with the <code>label</code> prop or the <code
           >indicator</code
@@ -110,51 +114,18 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
   </section>
 
   <section>
-    <h2 id="severities">Severities</h2>
-    <Conditional>
-      <p slot="html">
-        <code>.ui-critical</code>, <code>.ui-info</code>, <code
-          >.ui-neutral</code
-        >,
-        <code>.ui-success</code>, <code>.ui-warning</code>.
-      </p>
-      <p slot="astro">
-        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
-          >success</code
-        >, <code>warning</code>.
-      </p>
-      <p slot="svelte">
-        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
-          >success</code
-        >, <code>warning</code>.
-      </p>
-      <p slot="vue">
-        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
-          >success</code
-        >, <code>warning</code>.
-      </p>
-    </Conditional>
-
-    <AutoExample name="Color" row />
-  </section>
-
-  <section>
     <h2 id="visibility">Visibility</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Change the badge's visibility using the <code>invisible</code>
+        Change the badge's visibility using the <code>invisible</code>{" "}
         prop.
       </Fragment>
       <Fragment slot="html">
-        Change the badge's visibility using the <code>.ui-invisible</code>
+        Change the badge's visibility using the <code>.ui-invisible</code>{" "}
         class.
       </Fragment>
-      <Fragment slot="svelte">
-        Change the badge's visibility using the <code>invisible</code>
-        prop.
-      </Fragment>
       <Fragment slot="vue">
-        Change the badge's visibility using the <code>invisible</code>
+        Change the badge's visibility using the <code>invisible</code>{" "}
         prop.
       </Fragment>
     </Conditional>
@@ -167,20 +138,15 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
         <UISwitch slot="astro" id="badge-visibility-toggle"
           ><code>invisible</code></UISwitch
         >
-        <UISwitch slot="svelte" id="badge-visibility-toggle"
-          ><code>invisible</code></UISwitch
-        >
         <UISwitch slot="vue" id="badge-visibility-toggle"
           ><code>invisible</code></UISwitch
         >
       </Conditional>
       <Example.Preview slot="preview-astro" code={BadgeVisibility} />
       <Example.Preview slot="preview-html" code={BadgeVisibilityHTML} />
-      <Example.Preview slot="preview-svelte" code={BadgeVisibilitySvelte} />
       <Example.Preview slot="preview-vue" code={BadgeVisibilityVue} />
       <Example.Code slot="code-html" code={BadgeVisibilityHTML} />
       <Example.Code slot="code-astro" code={BadgeVisibilityAstro} />
-      <Example.Code slot="code-svelte" code={BadgeVisibilitySvelteRaw} />
       <Example.Code slot="code-vue" code={BadgeVisibilityVueRaw} />
     </Example>
   </section>
@@ -195,15 +161,11 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
         >.
       </p>
       <p slot="astro">
-        <code>start-start</code>, default,
-        <code>end-start</code>, <code>end-end</code>.
-      </p>
-      <p slot="svelte">
-        <code>start-start</code>, default,
+        <code>start-start</code>, default,{" "}
         <code>end-start</code>, <code>end-end</code>.
       </p>
       <p slot="vue">
-        <code>start-start</code>, default,
+        <code>start-start</code>, default,{" "}
         <code>end-start</code>, <code>end-end</code>.
       </p>
     </Conditional>
@@ -211,30 +173,46 @@ import AnchorCSS from "@opui/css/components/anchor.css?raw"
     <AutoExample name="Alignment" row spacious />
   </section>
 
-  <Fragment slot="anatomy">
-    <Conditional>
-      <p slot="astro">
-        The badge is composed of an anchored element (default slot), and an
-        indicator (<code>label</code> prop or <code>indicator</code> slot).
-      </p>
-      <p slot="html">
-        The badge is composed of an anchored element and a <code
-          >.ui-badge-indicator</code
-        > inside <code>.ui-anchor-floating</code>.
-      </p>
-      <p slot="svelte">
-        The badge is composed of an anchored element (<code>children</code>),
-        and an indicator (<code>label</code> prop or <code>indicator</code> snippet).
-      </p>
-      <p slot="vue">
-        The badge is composed of an anchored element (default slot), and an
-        indicator (<code>label</code> prop or <code>indicator</code> slot).
-      </p>
-    </Conditional>
+  <BadgeBuild slot="under-the-hood" />
 
-    <Example row>
-      <Example.Preview code={BadgeAnatomy} />
-    </Example>
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        A count on its own is read without context, such as "5". Add visually
+        hidden text inside the indicator, so it's read as "5 unread messages":
+        <Conditional>
+          <Fragment slot="astro">the <code>srLabel</code> prop.</Fragment>
+          <Fragment slot="html"
+            >a <code>.ui-sr-only</code> element inside <code
+              >.ui-badge-indicator</code
+            >.</Fragment
+          >
+          <Fragment slot="vue">the <code>srLabel</code> prop.</Fragment>
+        </Conditional>
+      </li>
+      <li>
+        Don't use <code>aria-label</code> on the indicator. It's a
+        <code>&lt;span&gt;</code> without a role, so screen readers ignore the label
+        and read the text.
+      </li>
+    </ul>
+  </Fragment>
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={2}>
+      <UIBadge label="5">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          ><path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path></svg
+        >
+      </UIBadge>
+    </Anatomy>
   </Fragment>
 </Component>
 

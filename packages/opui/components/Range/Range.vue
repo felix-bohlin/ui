@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { RangeProps, Slots } from "./types.d.vue"
-import { useId } from "vue"
+import { computed, inject, useAttrs, useId, useSlots } from "vue"
+import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -10,7 +11,32 @@ const props = defineProps<RangeProps>()
 defineSlots<Slots>()
 const modelValue = defineModel<number | string>()
 
-const inputId = props.id || useId()
+const model = computed({
+  get: () => modelValue.value ?? props.value,
+  set: (value) => {
+    modelValue.value = value
+  },
+})
+
+const attrs = useAttrs()
+const defaultValue = computed(() => {
+  const min = Number(attrs.min ?? 0)
+  const max = Math.max(min, Number(attrs.max ?? 100))
+  const step = attrs.step === "any" ? 0 : Number(attrs.step ?? 1)
+  const middle = min + (max - min) / 2
+  if (!step) return middle
+  const value = min + Math.round((middle - min) / step) * step
+  return value > max ? value - step : value
+})
+
+const uid = useId()
+const slots = useSlots()
+const currentFieldName = inject(CurrentFieldNameKey, undefined)
+const hasValue = computed(
+  () => props.valueSuffix !== undefined || !!slots.value,
+)
+const inputId = computed(() => props.id || (hasValue.value ? uid : undefined))
+
 const labelId = useId()
 const startTextId = useId()
 const endTextId = useId()
@@ -24,6 +50,7 @@ const endTextId = useId()
       { 'ui-spread': props.spread },
       props.class,
     ]"
+    :data-invalid="props.error ? '' : undefined"
   >
     <span v-if="props.label || $slots.default" class="ui-label" :id="labelId">
       <slot>{{ props.label }}</slot>
@@ -34,7 +61,9 @@ const endTextId = useId()
       :for="inputId"
       :data-suffix="props.valueSuffix"
     >
-      <slot name="value">{{ modelValue ?? props.value }}</slot>
+      <slot name="value"
+        >{{ model ?? defaultValue }}{{ props.valueSuffix }}</slot
+      >
     </output>
     <span
       v-if="props.startText || $slots['start-text']"
@@ -53,12 +82,14 @@ const endTextId = useId()
           .filter(Boolean)
           .join(' ') || undefined
       "
-      :aria-labelledby="labelId"
+      :aria-invalid="props.error ? 'true' : undefined"
+      :aria-labelledby="props.label || $slots.default ? labelId : undefined"
       :id="inputId"
       :list="props.list"
+      :name="currentFieldName"
       type="range"
       v-bind="$attrs"
-      v-model="modelValue"
+      v-model.number="model"
     />
 
     <datalist v-if="props.options || $slots.datalist" :id="props.list">

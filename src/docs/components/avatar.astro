@@ -5,11 +5,18 @@ import AutoExample from "../../components/AutoExample.astro"
 import AvatarCSS from "@opui/css/components/avatar.css?raw"
 
 import Conditional from "../../components/Conditional.astro"
+
+import avatarApi from "../../component-api/avatar/api"
+import AvatarBuild from "../../components/UnderTheHood/AvatarBuild.astro"
+export const description =
+  "Avatars show a person or entity as an image, initials or icon."
 ---
 
 <Component
+  description={description}
   slug="avatar"
-  browserSupport={["has"]}
+  apis={[{ title: "Avatar API", api: avatarApi }]}
+  browserSupport={["corner-shape", "has"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Avatar/Avatar.astro",
@@ -57,9 +64,6 @@ import Conditional from "../../components/Conditional.astro"
           >.ui-rounded</code
         > and <code>.ui-squircle</code> classes.
       </Fragment>
-      <Fragment slot="svelte">
-        Change the shape of the avatar with the <code>variant</code> prop.
-      </Fragment>
       <Fragment slot="vue">
         Change the shape of the avatar with the <code>variant</code> prop.
       </Fragment>
@@ -79,10 +83,6 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="html">
         Group multiple avatars by adding <code>role="group"</code> to a parent container.
       </Fragment>
-      <Fragment slot="svelte">
-        Group multiple avatars by setting the <code>isGroup</code> prop on a parent
-        container.
-      </Fragment>
       <Fragment slot="vue">
         Group multiple avatars by setting the <code>isGroup</code> prop on a parent
         container.
@@ -91,4 +91,27 @@ import Conditional from "../../components/Conditional.astro"
 
     <AutoExample name="Grouped" row />
   </section>
+
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Give an image avatar the person's name as its <code>alt</code>, not
+        "Avatar". When the name is already shown next to it, use <code
+          >alt=""</code
+        > so it isn't read twice.
+      </li>
+      <li>
+        Initials and icons have no name on their own. Add <code>role="img"</code
+        > and an <code>aria-label</code> with the full name, or <code
+          >aria-hidden="true"</code
+        > when the name is next to it.
+      </li>
+      <li>
+        A link or button avatar needs an <code>aria-label</code> that names the person,
+        and a group of avatars an <code>aria-label</code> that names the group.
+      </li>
+    </ul>
+  </Fragment>
+
+  <AvatarBuild slot="under-the-hood" />
 </Component>

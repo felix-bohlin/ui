@@ -1,0 +1,286 @@
+<style>
+  .todo-badges {
+    display: grid;
+    gap: var(--size-4);
+  }
+
+  .todo-badges .todo-row {
+    gap: var(--size-6);
+  }
+
+  .todo-badges figure {
+    display: grid;
+    gap: var(--size-2);
+    justify-items: center;
+    margin: 0;
+  }
+
+  .todo-badges .ui-badge > svg {
+    outline: 1px dashed var(--border-color);
+  }
+
+  .todo-fixed .ui-badge {
+    --_sx: -1;
+    --_sy: 1;
+
+    &.ui-start-start {
+      --_sx: 1;
+    }
+
+    &.ui-end-start {
+      --_sx: 1;
+      --_sy: -1;
+    }
+
+    &.ui-end-end {
+      --_sy: -1;
+    }
+
+    &.ui-dot {
+      --_anchor-tx: calc((var(--_dot-size) - 2px) * var(--_sx));
+      --_anchor-ty: calc(var(--_dot-size) * var(--_sy));
+    }
+  }
+</style>
+<div class="todo-badges">
+  <p class="ui-caption">
+    Current: every <code>.ui-dot</code> gets the top-end offsets
+  </p>
+  <div class="todo-row">
+    <figure>
+      <span class="ui-anchor ui-badge ui-dot ui-start-start">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span
+        ></span>
+      </span>
+      <figcaption class="ui-caption">start-start</figcaption>
+    </figure>
+    <figure>
+      <span class="ui-anchor ui-badge ui-dot">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span
+        ></span>
+      </span>
+      <figcaption class="ui-caption">default (start-end)</figcaption>
+    </figure>
+    <figure>
+      <span class="ui-anchor ui-badge ui-dot ui-end-start">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span
+        ></span>
+      </span>
+      <figcaption class="ui-caption">end-start</figcaption>
+    </figure>
+    <figure>
+      <span class="ui-anchor ui-badge ui-dot ui-end-end">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span
+        ></span>
+      </span>
+      <figcaption class="ui-caption">end-end</figcaption>
+    </figure>
+  </div>
+  <p class="ui-caption">
+    Proposed: the dot offset follows the alignment's corner
+  </p>
+  <div class="todo-row todo-fixed">
+    <figure>
+      <span class="ui-anchor ui-badge ui-dot ui-start-start">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span
+        ></span>
+      </span>
+      <figcaption class="ui-caption">start-start</figcaption>
+    </figure>
+    <figure>
+      <span class="ui-anchor ui-badge ui-dot">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span
+        ></span>
+      </span>
+      <figcaption class="ui-caption">default (start-end)</figcaption>
+    </figure>
+    <figure>
+      <span class="ui-anchor ui-badge ui-dot ui-end-start">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span
+        ></span>
+      </span>
+      <figcaption class="ui-caption">end-start</figcaption>
+    </figure>
+    <figure>
+      <span class="ui-anchor ui-badge ui-dot ui-end-end">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span
+        ></span>
+      </span>
+      <figcaption class="ui-caption">end-end</figcaption>
+    </figure>
+  </div>
+  <div dir="rtl" class="todo-row todo-fixed">
+    <figure>
+      <span class="ui-anchor ui-badge ui-dot ui-start-start">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span
+        ></span>
+      </span>
+      <figcaption class="ui-caption">start-start</figcaption>
+    </figure>
+    <figure>
+      <span class="ui-anchor ui-badge ui-dot">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span
+        ></span>
+      </span>
+      <figcaption class="ui-caption">default (start-end)</figcaption>
+    </figure>
+    <figure>
+      <span class="ui-anchor ui-badge ui-dot ui-end-start">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span
+        ></span>
+      </span>
+      <figcaption class="ui-caption">end-start</figcaption>
+    </figure>
+    <figure>
+      <span class="ui-anchor ui-badge ui-dot ui-end-end">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+          ></path>
+        </svg>
+        <span class="ui-anchor-floating"
+          ><span class="ui-badge-indicator"></span
+        ></span>
+      </span>
+      <figcaption class="ui-caption">end-end</figcaption>
+    </figure>
+  </div>
+</div>

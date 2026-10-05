@@ -11,12 +11,12 @@ A way to build structured forms.
     <p class="ui-field-description"><!-- --></p>
 
 
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <!-- form fields -->
     </div>
 
 
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <!-- form fields -->
     </div>
   </fieldset>
@@ -27,15 +27,15 @@ A way to build structured forms.
 
 
 <div class="ui-form">
-  <div class="ui-fieldset">
+  <div class="ui-fieldset" role="group">
     <p class="ui-legend"><!-- --></p>
     <p class="ui-field-description"><!-- --></p>
 
 
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <!-- form fields -->
     </div>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <!-- form fields -->
     </div>
   </div>
@@ -52,19 +52,13 @@ Used to show a relationship between form elements.
 
 - `<legend>`
 
-  ---
-
   to describe what it's about.
 
-- `.ui-field-description`(optional)
-
-  ---
+- `.ui-field-description` (optional)
 
   to give extra context about the fieldset.
 
 - `.ui-field-group`
-
-  ---
 
   groups related fields.
 
@@ -72,7 +66,7 @@ Used to show a relationship between form elements.
 <fieldset class="ui-fieldset">
   <legend>Favorite Pet</legend>
   <p class="ui-field-description">Please select your favorite type of pet.</p>
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <label class="ui-radio">
       <input name="pet" type="radio" value="dog" />
       <span class="ui-label">Dog</span>
@@ -95,7 +89,7 @@ Used to show a relationship between form elements.
 <fieldset class="ui-fieldset">
   <legend>Pet info</legend>
   <p class="ui-field-description">We must know your pet's information.</p>
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <label class="ui-text-field">
       <span class="ui-label">Name</span>
       <span class="ui-field">
@@ -120,7 +114,7 @@ Turns out you can disable an entire fieldset.
 <fieldset class="ui-fieldset" disabled>
   <legend>Pet dating</legend>
   <p class="ui-field-description">You can't change these settings</p>
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <label class="ui-checkbox">
       <input
         checked
@@ -143,7 +137,7 @@ Turns out you can disable an entire fieldset.
 </fieldset>
 ```
 
-## Field Legend
+## Field legend
 
 Use `FieldLegend` (or `<legend>`) to describe the fieldset.
 
@@ -153,7 +147,7 @@ Use `FieldLegend` (or `<legend>`) to describe the fieldset.
 </fieldset>
 ```
 
-## Field Description
+## Field description
 
 Use `FieldDescription` (or `.ui-field-description`) to give extra context about the fieldset.
 
@@ -164,16 +158,18 @@ Use `FieldDescription` (or `.ui-field-description`) to give extra context about 
 </fieldset>
 ```
 
-## Field Group
+## Field group
 
 Use `.ui-field-group` to wrap related fields.
+
+The field group only handles layout. Wrap it in a fieldset with a legend to group and name the fields for screen readers.
 
 ```html
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Choose your favorite Radiohead album</legend>
     <p class="ui-field-description">There are no wrong answers.</p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-radio">
         <input type="radio" name="albums" value="ok-computer" />
         <span class="ui-label">OK Computer</span>
@@ -197,7 +193,7 @@ Use `.ui-field-group` to wrap related fields.
   <fieldset class="ui-fieldset">
     <legend>Which side projects do you follow?</legend>
     <p class="ui-field-description">Some are better than others.</p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-checkbox">
         <input
           aria-describedby="field-group-projects-1-end-text"
@@ -271,7 +267,7 @@ Use the `.ui-row` class to lay out fields horizontally.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Options</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
         <input type="checkbox" />
         <span class="ui-label">Option 1</span>
@@ -297,7 +293,7 @@ Use a `<hr />` to create a visual break between sections of your form.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Post Content</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-text-field">
         <span class="ui-label">Title</span>
         <span class="ui-field">
@@ -311,13 +307,13 @@ Use a `<hr />` to create a visual break between sections of your form.
   <hr class="ui-divider" />
 
 
-  <div class="ui-field-group" role="group">
-    <button class="ui-button ui-filled">Publish</button>
+  <div class="ui-field-group">
+    <button type="button" class="ui-button ui-filled">Publish</button>
   </div>
 </form>
 ```
 
-## Kitchen Sink
+## Kitchen sink
 
 Everything all at once.
 
@@ -328,7 +324,7 @@ Everything all at once.
     <p class="ui-field-description">
       Please provide your basic contact details.
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-text-field">
         <span class="ui-label">Full Name</span>
         <span class="ui-field">
@@ -345,7 +341,7 @@ Everything all at once.
         <span class="ui-label" id="kitchen-sink-role-label">Role</span>
         <span class="ui-field">
           <select aria-labelledby="kitchen-sink-role-label">
-            <button>
+            <button type="button">
               <selectedcontent></selectedcontent>
             </button>
             <div class="ui-list">
@@ -368,7 +364,7 @@ Everything all at once.
     <p class="ui-field-description">
       Configure how you want to receive updates.
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-switch">
         <input type="checkbox" role="switch" name="email_notifs" checked />
         <span class="ui-label">Email Notifications</span>
@@ -387,7 +383,7 @@ Everything all at once.
   <fieldset class="ui-fieldset">
     <legend>Theme Preference</legend>
     <p class="ui-field-description">Select your preferred visual style.</p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-radio">
         <input type="radio" name="theme" value="light" checked />
         <span class="ui-label">Light Theme</span>
@@ -412,7 +408,7 @@ Everything all at once.
     <p class="ui-field-description">
       How many years of experience do you have?
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-range">
         <span class="ui-label" id="kitchen-sink-experience-label"
           >Professional Experience</span
@@ -440,7 +436,7 @@ Everything all at once.
   <fieldset class="ui-fieldset">
     <legend>Additional Info</legend>
     <p class="ui-field-description">Anything else we should know?</p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-textarea">
         <span class="ui-label">Biography</span>
         <span class="ui-field">
@@ -460,7 +456,7 @@ Everything all at once.
 
   <fieldset class="ui-fieldset">
     <legend>Legal</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-checkbox">
         <input
           aria-describedby="kitchen-sink-terms-1-end-text"
@@ -480,9 +476,9 @@ Everything all at once.
   <hr class="ui-divider" />
 
 
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <button class="ui-button ui-filled" type="submit">Send</button>
-    <button class="ui-button">Cancel</button>
+    <button type="button" class="ui-button">Cancel</button>
   </div>
 </form>
 ```
@@ -498,7 +494,7 @@ Everything all at once, but horizontally.
     <p class="ui-field-description">
       Please provide your basic contact details.
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-text-field ui-spread">
         <span class="ui-label">Full Name</span>
         <span class="ui-field">
@@ -515,7 +511,7 @@ Everything all at once, but horizontally.
         <span class="ui-label" id="kitchen-sink-row-role-label">Role</span>
         <span class="ui-field">
           <select aria-labelledby="kitchen-sink-row-role-label">
-            <button>
+            <button type="button">
               <selectedcontent></selectedcontent>
             </button>
             <div class="ui-list">
@@ -538,7 +534,7 @@ Everything all at once, but horizontally.
     <p class="ui-field-description">
       Configure how you want to receive updates.
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-switch ui-spread">
         <input type="checkbox" role="switch" name="email_notifs" checked />
         <span class="ui-label">Email Notifications</span>
@@ -557,7 +553,7 @@ Everything all at once, but horizontally.
   <fieldset class="ui-fieldset">
     <legend>Theme Preference</legend>
     <p class="ui-field-description">Select your preferred visual style.</p>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-radio">
         <input type="radio" name="theme" value="light" checked />
         <span class="ui-label">Light Theme</span>
@@ -582,7 +578,7 @@ Everything all at once, but horizontally.
     <p class="ui-field-description">
       How many years of experience do you have?
     </p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-range ui-spread">
         <span class="ui-label" id="kitchen-sink-row-experience-label"
           >Professional Experience</span
@@ -610,7 +606,7 @@ Everything all at once, but horizontally.
   <fieldset class="ui-fieldset">
     <legend>Additional Info</legend>
     <p class="ui-field-description">Anything else we should know?</p>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-textarea ui-spread">
         <span class="ui-label">Biography</span>
         <span class="ui-field">
@@ -630,7 +626,7 @@ Everything all at once, but horizontally.
 
   <fieldset class="ui-fieldset">
     <legend>Legal</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-checkbox ui-spread">
         <input
           aria-describedby="kitchen-sink-row-terms-1-end-text"
@@ -650,9 +646,9 @@ Everything all at once, but horizontally.
   <hr class="ui-divider" />
 
 
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <button class="ui-button ui-filled" type="submit">Send</button>
-    <button class="ui-button">Cancel</button>
+    <button type="button" class="ui-button">Cancel</button>
   </div>
 </form>
 ```
@@ -666,6 +662,25 @@ Everything all at once, but horizontally.
 | Part       | Description                                         |
 | ---------- | --------------------------------------------------- |
 | `.ui-form` | Container element. Spaces its fieldsets and fields. |
+
+#### CSS variables
+
+| Variable                     | Default                                                                                 | Description                                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                     |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                         |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                          |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                        |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ### Field set API
 
@@ -682,6 +697,25 @@ Everything all at once, but horizontally.
 | `<legend>`              | The label of the fieldset.                  |
 | `.ui-field-description` | Supporting text displayed below the legend. |
 
+#### CSS variables
+
+| Variable                     | Default                                                                                 | Description                                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                     |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                         |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                          |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                        |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+
 ### Field legend API
 
 #### Parts
@@ -690,6 +724,25 @@ Everything all at once, but horizontally.
 | ------------------------- | ------------------------ |
 | `:is(legend, .ui-legend)` | The label of a fieldset. |
 
+#### CSS variables
+
+| Variable                     | Default                                                                                 | Description                                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                     |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                         |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                          |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                        |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+
 ### Field description API
 
 #### Parts
@@ -697,6 +750,25 @@ Everything all at once, but horizontally.
 | Part                    | Description                     |
 | ----------------------- | ------------------------------- |
 | `.ui-field-description` | Supporting text for a fieldset. |
+
+#### CSS variables
+
+| Variable                     | Default                                                                                 | Description                                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                     |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                         |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                          |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                        |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ### Field group API
 
@@ -710,7 +782,144 @@ Everything all at once, but horizontally.
 | ----------------- | ------------------ |
 | `.ui-field-group` | Container element. |
 
-The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
+#### CSS variables
+
+| Variable                     | Default                                                                                 | Description                                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                     |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                         |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                          |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                        |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+
+Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
+
+## Under the hood
+
+1. Fieldset
+
+   - `<fieldset>` and `<legend>` name the group for assistive tech
+   - `all: unset` drops the border, padding and the legend notch
+   - What's left is a plain grid
+
+2. Description
+
+   - `:has(+ .description)`: the legend knows a description follows
+   - The spacing moves from the legend to the description
+
+3. Groups
+
+   - `:has(> .check):not(:has(> :not(.check)))`: only checkboxes, nothing else
+   - A list of choices gets a tighter gap
+   - A group of only buttons becomes a row
+
+4. Required
+
+   - One `required` input anywhere inside marks the legend
+   - No prop to keep in sync with the inputs
+
+Step 1 of 4: Fieldset
+
+- [`all`](https://webstatus.dev/features/all) (Widely available): Chrome 37+, Edge 79+, Firefox 27+, Safari 9.1+
+- [\<fieldset> and \<legend>](https://webstatus.dev/features/fieldset) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
+
+```html
+<fieldset class="fieldset">
+  <legend>Account</legend>
+  …
+</fieldset>
+```
+
+```css
+.fieldset {
+  all: unset;
+  display: grid;
+  gap: 0.25rem;
+}
+
+
+.fieldset legend {
+  all: unset;
+  font-weight: 600;
+  margin-block-end: 0.75rem;
+}
+```
+
+Step 2 of 4: Description
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+
+```css
+.fieldset legend:has(+ .description) {
+  margin-block-end: 0;
+}
+
+
+.description {
+  color: var(--text-muted);
+  font-size: var(--font-size-05);
+  margin: 0;
+}
+
+
+.description:has(+ *) {
+  margin-block-end: 0.75rem;
+}
+```
+
+Step 3 of 4: Groups
+
+```css
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
+.group + .group {
+  margin-block-start: 1.25rem;
+}
+
+
+.group:has(> .check):not(:has(> :not(.check))) {
+  gap: 0.5rem;
+}
+
+
+.group:has(> button):not(:has(> :not(button))) {
+  align-items: center;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+```
+
+Step 4 of 4: Required
+
+```css
+.fieldset:has(:required) legend {
+  padding-inline-end: 1ex;
+  position: relative;
+}
+
+
+.fieldset:has(:required) legend::after {
+  color: var(--field-required-color);
+  content: "*";
+  inset-block: 0 auto;
+  inset-inline: auto -0.25ex;
+  position: absolute;
+}
+```
 
 ## Browser support
 
@@ -718,7 +927,7 @@ The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to 
 - Firefox: Full support Supported since v121.
 - Safari: Full support Supported since v15.4.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Form.md).
 
 ## Installation
 

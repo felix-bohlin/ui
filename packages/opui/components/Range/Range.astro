@@ -1,5 +1,6 @@
 ---
 import type { RangeProps as Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Range"
 
@@ -24,15 +25,23 @@ const {
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 
 const hasLabel = !!label || Astro.slots.has("default")
 const hasStartText = !!startText || Astro.slots.has("start-text")
 const hasEndText = !!endText || Astro.slots.has("end-text")
 const hasValue = valueSuffix !== undefined || Astro.slots.has("value")
-const valueText = [value, valueSuffix]
-  .filter((part) => part !== undefined)
-  .join("")
+const defaultValue = () => {
+  const minValue = Number(min ?? 0)
+  const maxValue = Math.max(minValue, Number(max ?? 100))
+  const stepValue = step === "any" ? 0 : Number(step ?? 1)
+  const middle = minValue + (maxValue - minValue) / 2
+  if (!stepValue) return middle
+  const stepped =
+    minValue + Math.round((middle - minValue) / stepValue) * stepValue
+  return stepped > maxValue ? stepped - stepValue : stepped
+}
+const valueText = `${value ?? defaultValue()}${valueSuffix ?? ""}`
 
 const inputId = id || (hasValue ? $id("range") : undefined)
 const labelId = hasLabel ? $id("range-label") : undefined
@@ -77,6 +86,7 @@ const describedBy =
   }
   <input
     aria-describedby={describedBy}
+    aria-invalid={error ? "true" : undefined}
     aria-labelledby={labelId}
     disabled={disabled}
     id={inputId}
@@ -122,10 +132,14 @@ const describedBy =
     const output = range.querySelector<HTMLOutputElement>(
       ":scope > output.ui-value",
     )
-    if (!input || !output) continue
-    const suffix = output.dataset.suffix ?? ""
+    if (!input) continue
+    const suffix = output?.dataset.suffix ?? ""
     const update = () => {
-      output.textContent = `${input.value}${suffix}`
+      const min = Number(input.min || 0)
+      const max = Number(input.max || 100)
+      const fill = ((Number(input.value) - min) / (max - min || 1)) * 100
+      input.style.setProperty("--_track-fill", `${fill}%`)
+      if (output) output.textContent = `${input.value}${suffix}`
     }
     input.addEventListener("input", update)
     update()

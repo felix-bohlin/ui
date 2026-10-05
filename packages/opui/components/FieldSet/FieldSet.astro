@@ -6,6 +6,10 @@ export const title = "Field Set"
 const { as: Tag = "fieldset", class: className, ...rest } = Astro.props
 ---
 
-<Tag class:list={["ui-fieldset", className]} {...rest}>
+<Tag
+  class:list={["ui-fieldset", className]}
+  role={Tag === "fieldset" ? undefined : "group"}
+  {...rest}
+>
   <slot />
 </Tag>

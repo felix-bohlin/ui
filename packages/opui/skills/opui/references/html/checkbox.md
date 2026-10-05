@@ -2,6 +2,12 @@
 
 See also: [Checkbox field group](#field-group).
 
+### What's new
+
+- [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
+- Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl`.
+- Without a visible label, checkboxes center in table cells and lines of text.
+
 ## Anatomy
 
 LabelEnd text
@@ -158,6 +164,7 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 <div class="example-row ui-spacious">
   <label class="ui-checkbox" data-invalid>
     <input
+      aria-invalid="true"
       name="checkbox-validation"
       type="checkbox"
       checked
@@ -172,6 +179,7 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 
   <label class="ui-checkbox ui-stack" data-invalid>
     <input
+      aria-invalid="true"
       name="checkbox-validation"
       type="checkbox"
       aria-describedby="checkbox-validation-end-text-2"
@@ -200,7 +208,7 @@ The `indeterminate` state cannot be set with HTML or CSS alone. The browser only
       <span class="ui-label">Select all</span>
     </label>
   </legend>
-  <div class="ui-field-group" role="group">
+  <div class="ui-field-group">
     <label class="ui-checkbox child">
       <input name="indeterminate-children" type="checkbox" checked />
       <span class="ui-label">Apples</span>
@@ -252,7 +260,7 @@ The `indeterminate` state cannot be set with HTML or CSS alone. The browser only
 
 ## Spread
 
-Add the `.ui-spread` class to the `<label class="ui-checkbox">`to push the label to the left and the checkbox to the right. This is useful for full-width items like lists and menus.
+Add the `.ui-spread` class to the `<label class="ui-checkbox">` to push the label to the left and the checkbox to the right. This is useful for full-width items like lists and menus.
 
 ```html
 <label class="ui-checkbox ui-spread">
@@ -298,6 +306,7 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">`to push the label
 
 <label class="ui-checkbox ui-spread" data-invalid>
   <input
+    aria-invalid="true"
     name="checkbox-spread"
     type="checkbox"
     aria-describedby="checkbox-spread-end-text-4"
@@ -352,11 +361,21 @@ Add the `.ui-spread` class to the `<label class="ui-checkbox">`to push the label
 </div>
 ```
 
+## Label alignment
+
+The checkbox lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
+
+```css
+:root {
+  --choice-label-offset: 0.05em;
+}
+```
+
 ## Field group
 
 Use field groups to group related checkboxes.
 
-Give every `<input type="checkbox">` in the group the same`name` attribute so they're submitted together.
+Give every `<input type="checkbox">` in the group the same `name` attribute so they're submitted together.
 
 See also: [Form documentation](https://open-props-ui.netlify.app/html/components/form.md).
 
@@ -364,7 +383,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group" role="group">
+    <div class="ui-field-group">
       <label class="ui-checkbox">
         <input name="checkbox-group" type="checkbox" checked />
         <span class="ui-label">Checkbox 1</span>
@@ -388,7 +407,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
         <input name="checkbox-group-direction" type="checkbox" checked />
         <span class="ui-label">Checkbox 1</span>
@@ -415,7 +434,7 @@ Can be placed above and below the fields.
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
     <p class="ui-field-description">Field description above fields</p>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
         <input
           name="checkbox-group-field-description-1"
@@ -438,7 +457,7 @@ Can be placed above and below the fields.
 
   <fieldset class="ui-fieldset">
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
         <input
           name="checkbox-group-field-description-2"
@@ -469,7 +488,7 @@ Attach the `disabled` attribute to the `<fieldset>` element.
 <form class="ui-form">
   <fieldset class="ui-fieldset" disabled>
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
         <input name="checkbox-group-disabled" type="checkbox" checked />
         <span class="ui-label">Checkbox 1</span>
@@ -495,7 +514,7 @@ Attach the `required` attribute to at least one of your `<input>` elements.
 <form class="ui-form">
   <fieldset class="ui-fieldset">
     <legend>These are required!</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
         <input name="checkbox-group-required" type="checkbox" required />
         <span class="ui-label">Checkbox 1</span>
@@ -521,7 +540,7 @@ Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` ele
 <form class="ui-form">
   <fieldset class="ui-fieldset" data-invalid>
     <legend>Legend</legend>
-    <div class="ui-field-group ui-row" role="group">
+    <div class="ui-field-group ui-row">
       <label class="ui-checkbox">
         <input name="checkbox-group-validation" type="checkbox" checked />
         <span class="ui-label">Checkbox 1</span>
@@ -540,6 +559,8 @@ Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` ele
 </form>
 ```
 
+## Accessibility
+
 ### Labels
 
 Accessible checkboxes must have a label. You can choose between three approaches:
@@ -552,10 +573,9 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Keyboard support
 
-| Key     | Function                                                  |
-| ------- | --------------------------------------------------------- |
-| `Space` | When Checkbox is focused it changes its state.            |
-| `Enter` | (Optional) When Checkbox is focused it changes its state. |
+| Key     | Function                                       |
+| ------- | ---------------------------------------------- |
+| `Space` | When Checkbox is focused it changes its state. |
 
 ## API
 
@@ -578,6 +598,33 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `.ui-label`         | The label.                                 |
 | `.ui-end-text`      | Supporting text displayed below the label. |
 
+#### CSS variables
+
+| Variable                     | Default                                                                                 | Description                                                                                                                                           |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`             | `light-dark(var(--gray-4), var(--gray-12))`                                             | Default border color for cards, lists, tables and dividers.                                                                                           |
+| `--choice-label-offset`      | `0px`                                                                                   | Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font. |
+| `--choice-size`              | `var(--size-4)`                                                                         | Default `Checkbox` and `Radio` input size.                                                                                                            |
+| `--choice-size-large`        | `var(--size-5)`                                                                         | `Checkbox` and `Radio` input size with `.ui-large`.                                                                                                   |
+| `--choice-size-small`        | `var(--size-3)`                                                                         | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                 |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                 |
+| `--field-border-width`       | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                            |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                     |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                      |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                    |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                          |
+| `--field-label-font-size`    | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                           |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                  |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                       |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                  |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                             |
+| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                          |
+| `--primary-contrast`         | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )`   | Text color on a `--primary` background.                                                                                                               |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                             |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+
 Use `.ui-sr-only` instead of `.ui-label` to hide the label visually. `data-indeterminate` needs `checkbox.js`, which sets the `indeterminate` property.
 
 ### Field group API
@@ -592,15 +639,161 @@ Use `.ui-sr-only` instead of `.ui-label` to hide the label visually. `data-indet
 | ----------------- | ------------------ |
 | `.ui-field-group` | Container element. |
 
-The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.
+#### CSS variables
+
+| Variable                     | Default                                                                                 | Description                                                                                                               |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                     |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                         |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                          |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                        |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable. |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                          |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+
+Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
+
+## Under the hood
+
+1. Appearance
+
+   - `appearance: none` drops the native box, the input keeps focus, keyboard and form value
+   - `:checked` still matches: the fill is plain CSS
+
+2. Checkmark
+
+   - Without native appearance the input can take a `::after`
+   - The check is a `clip-path: polygon()` over a solid fill, no SVG
+   - Points in percentages, so it scales with the box
+
+3. Indeterminate
+
+   - Same pseudo-element, a different polygon: a dash
+   - `indeterminate` is a JavaScript-only property, there is no attribute
+   - The component renders `data-indeterminate` and sets the property on load
+
+4. Label
+
+   - The `<label>` wraps the input, so the text is part of the hit area
+   - `:has(:disabled)` dims the whole row from the input's state
+   - `text-box: trim-start cap` + a `1cap` offset centers the capitals on the box
+   - Drag the size: the text stays centered
+
+Step 1 of 4: Appearance
+
+- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+
+```css
+.checkbox {
+  appearance: none;
+  aspect-ratio: 1;
+  background-color: var(--surface-default);
+  block-size: var(--size);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-1);
+  box-sizing: border-box;
+  display: grid;
+  inline-size: var(--size);
+  margin: 0;
+  position: relative;
+}
+
+
+.checkbox:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+```
+
+Step 2 of 4: Checkmark
+
+- [`clip-path`](https://webstatus.dev/features/clip-path) (Widely available): Chrome 88+, Edge 88+, Firefox 71+, Safari 13.1+
+
+```css
+.checkbox::after {
+  background-color: var(--primary-contrast);
+  clip-path: polygon(15% 52%, 40% 77%, 85% 32%, 75% 22%, 40% 57%, 25% 42%);
+  content: "";
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+}
+
+
+.checkbox:checked::after {
+  opacity: 1;
+}
+```
+
+Step 3 of 4: Indeterminate
+
+- [`:indeterminate`](https://webstatus.dev/features/indeterminate) (Widely available): Chrome 39+, Edge 79+, Firefox 51+, Safari 10+
+
+```html
+<input class="checkbox" type="checkbox" data-indeterminate />
+
+
+<script>
+  for (const input of document.querySelectorAll("[data-indeterminate]")) {
+    input.indeterminate = true
+  }
+</script>
+```
+
+```css
+.checkbox:indeterminate {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+
+.checkbox:indeterminate::after {
+  clip-path: polygon(20% 45%, 80% 45%, 80% 55%, 20% 55%);
+  opacity: 1;
+}
+```
+
+Step 4 of 4: Label
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`text-box`](https://webstatus.dev/features/text-box) (Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari 18.2+
+
+```css
+.label {
+  align-items: start;
+  cursor: pointer;
+  display: inline-grid;
+  gap: 0 0.5rem;
+  grid-auto-flow: column;
+}
+
+
+.label:has(:disabled) {
+  cursor: not-allowed;
+  opacity: var(--disabled-opacity);
+}
+
+
+.label > span {
+  margin-block-start: calc((var(--size) - 1cap) / 2);
+  text-box: trim-start cap alphabetic;
+}
+```
 
 ## Browser support
 
-- Chromium: Full support Supported since v105.
-- Firefox: Full support Supported since v121.
-- Safari: Full support Supported since v15.4.
+- Chromium: Full support Supported since v133.
+- Firefox: Partial support Missing: text-box.
+- Safari: Full support Supported since v18.2.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Checkbox.md).
 
 ## Installation
 

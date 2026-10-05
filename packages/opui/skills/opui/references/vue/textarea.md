@@ -1,5 +1,11 @@
 # Textarea
 
+### What's new
+
+- [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
+- [Spread](#spread) fields line up at one width.
+- Breaking: `style` goes to the label instead of the textarea.
+
 ## Anatomy
 
 LabelDescription¢EURHeaderFooterSupporting text
@@ -67,8 +73,10 @@ import { Textarea } from "opui-css/vue"
 
 
 <template>
-  <Textarea label="Small outlined" placeholder="Placeholder" small />
-  <Textarea label="Small filled" placeholder="Placeholder" small filled />
+  <Textarea label="X-small" placeholder="Placeholder" size="x-small" />
+  <Textarea label="Small" placeholder="Placeholder" size="small" />
+  <Textarea label="Default" placeholder="Placeholder" />
+  <Textarea label="Large" placeholder="Placeholder" size="large" />
 </template>
 ```
 
@@ -149,7 +157,7 @@ import { Textarea } from "opui-css/vue"
 
 Add the `required` attribute on the component. It is forwarded to the underlying `<textarea>`.
 
-Use the `error` prop to toggle invalid styles. It renders`data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
+Use the `error` prop to toggle invalid styles. It renders `data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
 
 ```vue
 <script setup lang="ts">
@@ -283,18 +291,18 @@ import { Textarea } from "opui-css/vue"
 
 ### Textarea API
 
-| Prop          | Type      | Default | Description                                                                 |
-| ------------- | --------- | ------- | --------------------------------------------------------------------------- |
-| `autoFit`     | `boolean` | `false` | Changes height depending on its content.                                    |
-| `description` | `string`  | -       | Description text displayed above the field.                                 |
-| `endText`     | `string`  | -       | Supporting text displayed below the field.                                  |
-| `error`       | `boolean` | `false` | Shows error styles.                                                         |
-| `filled`      | `boolean` | `false` | The variant to use.                                                         |
-| `id`          | `string`  | -       | The id of the `<textarea>`.                                                 |
-| `label`       | `string`  | -       | The label for the field.                                                    |
-| `small`       | `boolean` | `false` | The size of the element.                                                    |
-| `spread`      | `boolean` | `false` | Pushes the label and description to one side and the textarea to the other. |
-| `v-model`     | `string`  | -       | The textarea value.                                                         |
+| Prop          | Type                              | Default | Description                                                                 |
+| ------------- | --------------------------------- | ------- | --------------------------------------------------------------------------- |
+| `autoFit`     | `boolean`                         | `false` | Changes height depending on its content.                                    |
+| `description` | `string`                          | -       | Description text displayed above the field.                                 |
+| `endText`     | `string`                          | -       | Supporting text displayed below the field.                                  |
+| `error`       | `boolean`                         | `false` | Shows error styles.                                                         |
+| `filled`      | `boolean`                         | `false` | The variant to use.                                                         |
+| `id`          | `string`                          | -       | The id of the `<textarea>`.                                                 |
+| `label`       | `string`                          | -       | The label for the field.                                                    |
+| `size`        | `"x-small"`, `"small"`, `"large"` | -       | The size of the element.                                                    |
+| `spread`      | `boolean`                         | `false` | Pushes the label and description to one side and the textarea to the other. |
+| `v-model`     | `string`                          | -       | The textarea value.                                                         |
 
 #### Slots
 
@@ -310,7 +318,156 @@ import { Textarea } from "opui-css/vue"
 | `suffix`          | Content at the inline-end of the field, inside the border.     |
 | `supporting-text` | Legacy alias of the `end-text` slot.                           |
 
+#### CSS variables
+
+| Variable                     | Default                                                                                 | Description                                                                                                                |
+| ---------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-width`             | `1px`                                                                                   | Default border width for components that draw a border.                                                                    |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                      |
+| `--duration`                 | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                            |
+| `--field-border-color`       | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                   |
+| `--field-border-radius`      | `var(--size-2)`                                                                         | Corner radius for fields.                                                                                                  |
+| `--field-border-width`       | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                 |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                          |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                           |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                         |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                               |
+| `--field-label-font-size`    | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                       |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                            |
+| `--field-size`               | `var(--control-size)`                                                                   | Default field height.                                                                                                      |
+| `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                             |
+| `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                             |
+| `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                           |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--icon-size`                | `var(--size-4)`                                                                         | Default icon size inside components.                                                                                       |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                       |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.  |
+| `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                               |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                  |
+| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                              |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                           |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+
 Attributes that aren't props, such as `placeholder` or `rows`, go to the `<textarea>`.
+
+## Under the hood
+
+1. Field
+
+   - Same wrapper and field box as the text field
+   - `rows` fixes the height, the content scrolls
+
+2. Grow
+
+   - `field-sizing: content` sizes the box to its text
+   - Type a few lines: it grows, delete them: it shrinks
+   - No resize observer, no JavaScript
+
+3. Limits
+
+   - `lh` is one line of the textarea's own text
+   - At least three lines plus padding, so an empty field still looks like a textarea
+   - `--max-block-size` overrides the 20 line cap, then it scrolls
+
+4. Auto-fit
+
+   - Without a fixed width, `field-sizing` grows sideways too
+   - `min-inline-size: 25ch` keeps short text from collapsing the box
+   - `resize: both` once the width is free
+
+Step 1 of 4: Field
+
+- [\<textarea>](https://webstatus.dev/features/textarea) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
+
+```html
+<label class="textarea">
+  <span class="label">Notes</span>
+  <span class="field">
+    <textarea rows="2">…</textarea>
+  </span>
+</label>
+```
+
+```css
+.textarea {
+  display: grid;
+}
+
+
+.label {
+  font-size: var(--font-size-05);
+  font-weight: 600;
+  margin-block-end: 0.25rem;
+}
+
+
+.field {
+  background-color: var(--surface-default);
+  border: 1px solid var(--field-border-color);
+  border-radius: var(--radius-2);
+  display: grid;
+}
+
+
+.field textarea {
+  background: transparent;
+  border: 0;
+  color: var(--text-primary);
+  font: inherit;
+  inline-size: 100%;
+  line-height: 1.5;
+  outline: 0;
+  padding: 0.5rem;
+}
+
+
+.textarea:focus-within .field {
+  border-color: var(--primary);
+}
+```
+
+Step 2 of 4: Grow
+
+- [`field-sizing`](https://webstatus.dev/features/field-sizing) (Newly available): Chrome 123+, Edge 123+, Firefox 152+, Safari 26.2+
+
+```css
+.field textarea {
+  block-size: auto;
+  field-sizing: content;
+}
+```
+
+Step 3 of 4: Limits
+
+- [lh unit](https://webstatus.dev/features/lh) (Widely available): Chrome 109+, Edge 109+, Firefox 120+, Safari 16.4+
+
+```css
+.field textarea {
+  max-block-size: var(--max-block-size, 20lh);
+  min-block-size: calc(0.5rem * 2 + 3lh);
+  resize: vertical;
+}
+```
+
+Step 4 of 4: Auto-fit
+
+```css
+.auto-fit {
+  inline-size: fit-content;
+}
+
+
+.auto-fit textarea {
+  inline-size: auto;
+  min-inline-size: 25ch;
+  resize: both;
+}
+```
 
 ## Browser support
 
@@ -318,7 +475,7 @@ Attributes that aren't props, such as `placeholder` or `rows`, go to the `<texta
 - Firefox: Full support Supported since v152.
 - Safari: Full support Supported since v26.2.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Textarea.md).
 
 ## Installation
 

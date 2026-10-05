@@ -5,7 +5,7 @@ export type Props = {
   error?: boolean
   filled?: boolean
   label?: string
-  small?: boolean
+  size?: "x-small" | "small" | "large"
   spread?: boolean
 }
 
@@ -16,7 +16,6 @@ export type Slots<S> = {
   header?: string | S
   label?: string | S
   prefix?: string | S
-  startText?: string | S
   suffix?: string | S
   supportingText?: string | S
 }

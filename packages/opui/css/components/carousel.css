@@ -1,18 +1,25 @@
 @layer components.root {
   :where(.ui-carousel) {
     --_motion: var(--motion, 1);
+    --_block-size: 24rem;
     --_button-bg-color: light-dark(var(--gray-13), var(--gray-3));
-    --_button-border-color: transparent;
-    --_button-color: light-dark(var(--gray-1), var(--gray-15));
+    --_button-border-color: light-dark(
+      oklch(from var(--_button-bg-color) calc(l + 0.3) c h),
+      oklch(from var(--_button-bg-color) calc(l - 0.3) c h)
+    );
+    --_button-disabled-border-color: light-dark(
+      oklch(from var(--_button-bg-color) calc(l + 0.12) c h),
+      oklch(from var(--_button-bg-color) calc(l - 0.12) c h)
+    );
     --_button-disabled-opacity: 0;
+    --_button-end-icon: var(--_button-next-icon);
     --_button-icon-size: 60%;
     --_button-inset: var(--size-2);
-    --_button-next-content: "\276F";
-    --_button-next-icon: none;
-    --_button-prev-content: "\276E";
-    --_button-prev-icon: none;
+    --_button-next-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cstyle%3Epath{fill:oklch(0.98 0.01 255)}@media (prefers-color-scheme: dark){path{fill:oklch(0.16 0.01 255)}}@media (forced-colors: active){path{fill:CanvasText}}%3C/style%3E%3Cpath d='M8.293 4.293a1 1 0 0 0 0 1.414L14.586 12l-6.293 6.293a1 1 0 1 0 1.414 1.414l7-7a1 1 0 0 0 0-1.414l-7-7a1 1 0 0 0-1.414 0'/%3E%3C/svg%3E");
+    --_button-prev-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cstyle%3Epath{fill:oklch(0.98 0.01 255)}@media (prefers-color-scheme: dark){path{fill:oklch(0.16 0.01 255)}}@media (forced-colors: active){path{fill:CanvasText}}%3C/style%3E%3Cpath d='M15.707 4.293a1 1 0 0 1 0 1.414L9.414 12l6.293 6.293a1 1 0 0 1-1.414 1.414l-7-7a1 1 0 0 1 0-1.414l7-7a1 1 0 0 1 1.414 0'/%3E%3C/svg%3E");
     --_button-shadow: var(--shadow-2);
-    --_button-size: var(--button-size-small, 32px);
+    --_button-size: var(--button-size-small);
+    --_button-start-icon: var(--_button-prev-icon);
     --_gap: var(--size-3);
     --_item-size: calc(
       (100% - (var(--_per-view) - 1) * var(--_gap)) / var(--_per-view)
@@ -20,11 +27,14 @@
     --_marker-color: oklch(from var(--text-primary) l c h / 25%);
     --_marker-color-active: var(--primary);
     --_marker-gap: var(--size-2);
+    --_button-next-label: "Next";
+    --_button-prev-label: "Previous";
     --_marker-label: "Slide ";
     --_marker-size: var(--size-2);
     --_markers-margin-block-start: var(--size-3);
     --_media-aspect-ratio: 16 / 9;
-    --_media-border-radius: var(--border-radius, var(--radius-2));
+    --_media-border-radius: var(--border-radius);
+    --_padding-block: 0px;
     --_padding-inline: 0px;
     --_per-view: 1;
     --_snap-align: start;
@@ -67,106 +77,144 @@
       --_snap-align: center;
     }
 
+    /* Stretch */
+    &.ui-stretch > * {
+      display: grid;
+    }
+
     /* Peek at the neighbouring items */
     &.ui-peek {
       --_padding-inline: var(--size-8);
     }
 
+    /* Vertical */
+    &.ui-vertical {
+      block-size: var(--_block-size);
+      grid-auto-columns: auto;
+      grid-auto-flow: row;
+      grid-auto-rows: var(--_item-size);
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior-y: contain;
+      padding-block: var(--_padding-block);
+      padding-inline: 0;
+      scroll-padding-block: var(--_padding-block);
+      scroll-padding-inline: 0;
+      scroll-snap-type: y mandatory;
+
+      &.ui-peek {
+        --_padding-block: var(--size-8);
+      }
+    }
+
     /* Buttons */
     &.ui-with-buttons {
       &::scroll-button(inline-start),
-      &::scroll-button(inline-end) {
+      &::scroll-button(inline-end),
+      &.ui-vertical::scroll-button(block-start),
+      &.ui-vertical::scroll-button(block-end) {
         background-color: var(--_button-bg-color);
         background-position: center;
         background-repeat: no-repeat;
         background-size: var(--_button-icon-size);
         block-size: var(--_button-size);
-        border: var(--border-width, 1px) solid var(--_button-border-color);
+        border: var(--border-width) solid var(--_button-border-color);
         border-radius: var(--radius-round);
         box-shadow: var(--_button-shadow);
-        color: var(--_button-color);
         cursor: pointer;
-        display: grid;
-        font-size: calc(var(--_button-size) * 0.4);
         inline-size: var(--_button-size);
         inset-block-start: anchor(center);
-        line-height: 1;
         padding: 0;
-        place-items: center;
         position: absolute;
         position-anchor: auto;
         transition:
-          opacity calc(0.15s * var(--_motion)) ease,
-          scale calc(0.1s * var(--_motion)) ease;
+          border-color calc(var(--duration) * var(--_motion)) var(--ease),
+          opacity calc(var(--duration) * var(--_motion)) var(--ease),
+          scale calc(var(--duration-fast) * var(--_motion)) var(--ease);
         translate: 0 -50%;
       }
 
       &::scroll-button(inline-start) {
-        background-image: var(--_button-prev-icon);
-        content: var(--_button-prev-content) / "Previous";
+        background-image: var(--_button-start-icon);
+        content: "" / var(--_button-prev-label);
         inset-inline-start: calc(anchor(self-start) + var(--_button-inset));
       }
 
       &::scroll-button(inline-end) {
-        background-image: var(--_button-next-icon);
-        content: var(--_button-next-content) / "Next";
+        background-image: var(--_button-end-icon);
+        content: "" / var(--_button-next-label);
         inset-inline-end: calc(anchor(self-end) + var(--_button-inset));
       }
 
-      @supports (content: if(style(--x: none): "a" ; else: "b")) {
-        &::scroll-button(inline-start) {
-          content: if(
-              style(--_button-prev-icon: none): var(--_button-prev-content) ;
-                else: ""
-            ) /
-            "Previous";
-        }
-
-        &::scroll-button(inline-end) {
-          content: if(
-              style(--_button-next-icon: none): var(--_button-next-content) ;
-                else: ""
-            ) /
-            "Next";
-        }
-      }
-
-      @supports not (content: if(style(--x: none): "a" ; else: "b")) {
-        @container not style(--_button-prev-icon: none) {
-          &::scroll-button(inline-start) {
-            content: "" / "Previous";
-          }
-        }
-
-        @container not style(--_button-next-icon: none) {
-          &::scroll-button(inline-end) {
-            content: "" / "Next";
-          }
-        }
-      }
-
       &:dir(rtl) {
-        --_button-next-content: "\276E";
-        --_button-prev-content: "\276F";
+        --_button-end-icon: var(--_button-prev-icon);
+        --_button-start-icon: var(--_button-next-icon);
+      }
 
-        &::scroll-button(inline-start) {
-          background-image: var(--_button-next-icon);
+      &.ui-vertical {
+        &::scroll-button(inline-start),
+        &::scroll-button(inline-end) {
+          content: none;
         }
 
-        &::scroll-button(inline-end) {
+        &::scroll-button(block-start),
+        &::scroll-button(block-end) {
+          inset-inline-start: calc(anchor(center) - var(--_button-size) / 2);
+          rotate: 90deg;
+          translate: none;
+        }
+
+        &::scroll-button(block-start) {
           background-image: var(--_button-prev-icon);
+          content: "" / var(--_button-prev-label);
+          inset-block-start: calc(anchor(self-start) + var(--_button-inset));
+        }
+
+        &::scroll-button(block-end) {
+          background-image: var(--_button-next-icon);
+          content: "" / var(--_button-next-label);
+          inset-block-end: calc(anchor(self-end) + var(--_button-inset));
+          inset-block-start: auto;
+        }
+
+        &.ui-buttons-outside {
+          @supports selector(::scroll-button(*)) {
+            margin-block: calc(var(--_button-size) + var(--_button-inset));
+            margin-inline: 0;
+          }
+
+          &::scroll-button(block-start) {
+            inset-block-start: calc(
+              anchor(self-start) - var(--_button-size) - var(--_button-inset)
+            );
+          }
+
+          &::scroll-button(block-end) {
+            inset-block-end: calc(
+              anchor(self-end) - var(--_button-size) - var(--_button-inset)
+            );
+          }
         }
       }
 
       &::scroll-button(inline-start):active,
-      &::scroll-button(inline-end):active {
+      &::scroll-button(inline-end):active,
+      &.ui-vertical::scroll-button(block-start):active,
+      &.ui-vertical::scroll-button(block-end):active {
         scale: 0.94;
       }
 
       &::scroll-button(inline-start):disabled,
-      &::scroll-button(inline-end):disabled {
+      &::scroll-button(inline-end):disabled,
+      &.ui-vertical::scroll-button(block-start):disabled,
+      &.ui-vertical::scroll-button(block-end):disabled {
+        border-color: var(--_button-disabled-border-color);
         cursor: default;
         opacity: var(--_button-disabled-opacity);
+      }
+
+      &.ui-buttons-persistent {
+        --_button-disabled-opacity: 1;
       }
 
       /* Buttons outside the items */
@@ -208,11 +256,31 @@
         content: "" / var(--_marker-label) counter(ui-carousel-item);
         cursor: pointer;
         inline-size: var(--_marker-size);
-        transition: background-color calc(0.15s * var(--_motion)) ease;
+        transition: background-color calc(var(--duration) * var(--_motion))
+          var(--ease);
       }
 
       & > *::scroll-marker:target-current {
         background-color: var(--_marker-color-active);
+      }
+    }
+
+    &.ui-vertical.ui-with-markers {
+      anchor-name: --ui-carousel;
+      anchor-scope: --ui-carousel;
+      margin-inline-end: calc(
+        var(--_marker-size) + var(--_markers-margin-block-start)
+      );
+
+      &::scroll-marker-group {
+        flex-direction: column;
+        inset-block-start: anchor(--ui-carousel center);
+        inset-inline-start: calc(
+          anchor(--ui-carousel end) + var(--_markers-margin-block-start)
+        );
+        margin: 0;
+        position: absolute;
+        translate: 0 -50%;
       }
     }
 

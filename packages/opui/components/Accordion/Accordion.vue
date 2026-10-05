@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useId } from "vue"
 import type { Props, Slots } from "./types.d.vue"
 
 const {
@@ -10,9 +9,6 @@ const {
   variant,
 } = defineProps<Props>()
 defineSlots<Slots>()
-
-const summaryId = useId()
-const contentId = useId()
 </script>
 
 <template>
@@ -27,8 +23,7 @@ const contentId = useId()
     ]"
     :open="open"
   >
-    <!-- Summary -->
-    <summary :id="summaryId" :aria-controls="contentId">
+    <summary>
       <slot name="summary"></slot
       ><slot name="marker"
         ><svg
@@ -44,17 +39,10 @@ const contentId = useId()
       ></slot>
     </summary>
 
-    <!-- Content -->
-    <div
-      :id="contentId"
-      class="ui-content"
-      role="region"
-      :aria-labelledby="summaryId"
-    >
+    <div class="ui-content">
       <slot></slot>
     </div>
 
-    <!-- Actions -->
     <div v-if="$slots.actions" class="ui-actions">
       <slot name="actions"></slot>
     </div>

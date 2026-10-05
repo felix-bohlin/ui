@@ -2,10 +2,12 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "FieldSet",
+  css: ["form"],
   options: [
     {
       default: '"fieldset"',
-      description: "The element to render.",
+      description:
+        'The element to render. Any element other than `fieldset` gets `role="group"`.',
       prop: "as",
     },
     {

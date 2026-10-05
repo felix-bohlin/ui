@@ -1,0 +1,70 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-proposed .ui-list {
+    li li {
+      display: list-item;
+      gap: 0;
+      min-block-size: 0;
+      padding: 0;
+    }
+
+    .ui-text :where(h1, h2, h3, h4, h5, h6, p) {
+      margin: 0;
+    }
+  }
+</style>
+<p>
+  The proposal limits rows to direct children (<code
+    >&amp; &gt; :where(li, option)</code
+  >). The example fakes that by resetting nested <code>li</code>.
+</p>
+<div class="todo-compare">
+  <div class="ui-rich-text">
+    <p class="ui-caption">
+      Current: the nested list becomes rows, prose margins apply
+    </p>
+    <ul class="ui-list ui-transparent">
+      <li>
+        <div class="ui-text">
+          <p>Release notes</p>
+          <ul>
+            <li>Faster search</li>
+            <li>New export formats</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="ui-text"><p>Known issues</p></div>
+      </li>
+    </ul>
+  </div>
+  <div class="ui-rich-text todo-proposed">
+    <p class="ui-caption">Proposed: direct children only, no text margins</p>
+    <ul class="ui-list ui-transparent">
+      <li>
+        <div class="ui-text">
+          <p>Release notes</p>
+          <ul>
+            <li>Faster search</li>
+            <li>New export formats</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="ui-text"><p>Known issues</p></div>
+      </li>
+    </ul>
+  </div>
+</div>

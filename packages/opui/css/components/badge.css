@@ -1,13 +1,16 @@
 @layer components.extended {
   :where(.ui-badge) {
+    --_motion: var(--motion, 1);
     --_anchor-tx: -50%;
     --_anchor-ty: 50%;
-    --_badge-inset: auto auto 100% 100%;
+    --_badge-inset-block: auto 100%;
+    --_badge-inset-inline: 100% auto;
     --_bg-color: var(--primary);
     --_border-color: var(--primary);
+    --_dir: 1;
     --_dot-size: var(--size-2);
     --_size: var(--size-4);
-    --_text-color: var(--gray-1);
+    --_text-color: var(--primary-contrast);
 
     display: inline-flex;
     position: relative;
@@ -16,9 +19,15 @@
     /* Floating wrapper: traditional inset-based positioning so this works
        in browsers without position-area support (Firefox, older Safari). */
     & > .ui-anchor-floating:not([popover]) {
-      inset: var(--_badge-inset);
+      inset-block: var(--_badge-inset-block);
+      inset-inline: var(--_badge-inset-inline);
       position-anchor: auto;
       position-area: none;
+      translate: calc(var(--_anchor-tx) * var(--_dir)) var(--_anchor-ty);
+    }
+
+    &:dir(rtl) {
+      --_dir: -1;
     }
 
     /* Indicator */
@@ -30,59 +39,90 @@
       color: var(--_text-color);
       display: grid;
       font-size: var(--font-size-0);
-      font-weight: 500;
+      font-weight: var(--font-weight-medium);
       inline-size: max-content;
       line-height: normal;
       min-inline-size: var(--_size);
       padding-inline: var(--size-1);
       place-items: center;
       text-align: center;
-      transition: opacity 0.2s var(--ease-out-1);
+      transition: opacity calc(var(--duration) * var(--_motion))
+        var(--ease-enter);
     }
 
     /* Colors */
     &.ui-critical {
       --_bg-color: var(--critical);
       --_border-color: var(--critical);
+      --_text-color: var(--gray-1);
+
+      @container style(--contrast: more) {
+        --_bg-color: light-dark(
+          var(--critical),
+          oklch(from var(--critical) min(l, 0.45) c h)
+        );
+        --_border-color: var(--_bg-color);
+      }
     }
 
     &.ui-success {
       --_bg-color: var(--success);
       --_border-color: var(--success);
+      --_text-color: var(--gray-1);
+
+      @container style(--contrast: more) {
+        --_bg-color: light-dark(
+          var(--success),
+          oklch(from var(--success) min(l, 0.45) c h)
+        );
+        --_border-color: var(--_bg-color);
+      }
     }
 
     &.ui-info {
       --_bg-color: var(--info);
       --_border-color: var(--info);
+      --_text-color: var(--gray-1);
+
+      @container style(--contrast: more) {
+        --_bg-color: light-dark(
+          var(--info),
+          oklch(from var(--info) min(l, 0.45) c h)
+        );
+        --_border-color: var(--_bg-color);
+      }
     }
 
     &.ui-warning {
       --_bg-color: var(--warning);
       --_border-color: var(--warning);
+      --_text-color: var(--gray-15);
     }
 
     &.ui-neutral {
       --_bg-color: var(--neutral);
       --_border-color: var(--neutral);
+      --_text-color: var(--gray-1);
     }
 
     /* Alignment */
     &.ui-start-start {
       --_anchor-tx: 50%;
       --_anchor-ty: 50%;
-      --_badge-inset: auto 100% 100% auto;
+      --_badge-inset-inline: auto 100%;
     }
 
     &.ui-end-start {
       --_anchor-tx: 50%;
       --_anchor-ty: -50%;
-      --_badge-inset: 100% 100% auto auto;
+      --_badge-inset-block: 100% auto;
+      --_badge-inset-inline: auto 100%;
     }
 
     &.ui-end-end {
       --_anchor-tx: -50%;
       --_anchor-ty: -50%;
-      --_badge-inset: 100% auto auto 100%;
+      --_badge-inset-block: 100% auto;
     }
 
     /* Dot */

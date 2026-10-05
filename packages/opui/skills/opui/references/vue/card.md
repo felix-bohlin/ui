@@ -2,6 +2,11 @@
 
 The card is extremely versatile and can be used on its own, or as a building block for [accordions](https://open-props-ui.netlify.app/vue/components/accordion.md), [dialogs](https://open-props-ui.netlify.app/vue/components/dialog.md) and more.
 
+### What's new
+
+- [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.
+- [Actions](#actions) stick to the bottom of stretched cards and wrap when they don't fit.
+
 ## Anatomy
 
 Overline
@@ -62,7 +67,7 @@ import { Card } from "opui-css/vue"
 
 **Why does a text variant exist?**
 
-It really doesn't make sense to use the text variant unless you really need to. The [accordion group](https://open-props-ui.netlify.app/vue/components/accordion.md#accordion-group) is a great example where Open Props UI leverages the text variant of the`.ui-card` component.
+It really doesn't make sense to use the text variant unless you really need to. The [accordion group](https://open-props-ui.netlify.app/vue/components/accordion.md#accordion-group) is a great example where Open Props UI leverages the text variant of the `.ui-card` component.
 
 ## Header
 
@@ -233,13 +238,136 @@ import { Button, Card } from "opui-css/vue"
 | `default` | Raw content placed directly in the card. |
 | `header`  | The card header.                         |
 
+#### CSS variables
+
+| Variable             | Default                                     | Description                                                       |
+| -------------------- | ------------------------------------------- | ----------------------------------------------------------------- |
+| `--border-color`     | `light-dark(var(--gray-4), var(--gray-12))` | Default border color for cards, lists, tables and dividers.       |
+| `--border-radius`    | `var(--size-2)`                             | Default corner radius for cards, callouts, tables and accordions. |
+| `--border-width`     | `1px`                                       | Default border width for components that draw a border.           |
+| `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))` | Page and card background.                                         |
+| `--surface-elevated` | `light-dark(var(--gray-1), var(--gray-12))` | Background of elevated cards and accordions.                      |
+| `--surface-tonal`    | `light-dark(var(--gray-3), var(--gray-12))` | Background of tonal variants.                                     |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+
+## Under the hood
+
+1. Base
+
+   - A flex column: header, content and actions share one `gap`
+   - Padding sits on the children, so media can go edge to edge
+   - `overflow: hidden` clips children to the rounded corners
+
+2. Variants
+
+   - Variants only swap custom properties, the rules stay the same
+   - `@container style(--color-scheme: dark)` picks a heavier shadow
+   - Shadows barely show on dark surfaces, switch the site to dark mode to compare
+
+3. Actions
+
+   - `margin-block-start: auto` pins the actions to the bottom of a stretched card
+   - `[class="ui-button"]` only matches a plain text button, no variant classes
+   - A text button has no background, so the row shifts to line its label up with the text
+
+Step 1 of 3: Base
+
+- [Flexbox gap](https://webstatus.dev/features/flexbox-gap) (Widely available): Chrome 84+, Edge 84+, Firefox 63+, Safari 14.1+
+- [\<hgroup>](https://webstatus.dev/features/hgroup) (Widely available): Chrome 5+, Edge 12+, Firefox 4+, Safari 5+
+
+```html
+<div class="card">
+  <hgroup>
+    <p>Overline</p>
+    <h3>Headline</h3>
+  </hgroup>
+  <div class="content">…</div>
+  <div class="actions">…</div>
+</div>
+```
+
+```css
+.card {
+  --card-bg: var(--surface-default);
+  --card-border: transparent;
+  --card-border-width: 0;
+  --card-shadow: none;
+  background-color: var(--card-bg);
+  border: var(--card-border-width) solid var(--card-border);
+  border-radius: var(--radius-2);
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-inline-size: 0;
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
+
+.card > :is(hgroup, .content) {
+  padding-inline: 0.75rem;
+}
+
+
+.card > hgroup {
+  padding-block-start: 0.75rem;
+}
+```
+
+Step 2 of 3: Variants
+
+- [Container style queries](https://webstatus.dev/features/container-style-queries) (Newly available): Chrome 111+, Edge 111+, Firefox 151+, Safari 18+
+- [Custom properties](https://webstatus.dev/features/custom-properties) (Widely available): Chrome 49+, Edge 15+, Firefox 31+, Safari 9.1+
+
+```css
+.tonal {
+  --card-bg: var(--surface-tonal);
+  --card-border: var(--surface-default);
+  --card-border-width: 1px;
+}
+
+
+.elevated {
+  --card-bg: var(--surface-elevated);
+  --card-border: var(--surface-default);
+  --card-border-width: 1px;
+  --card-shadow: var(--shadow-3);
+
+
+  @container style(--color-scheme: dark) {
+    --card-shadow: var(--shadow-4);
+  }
+}
+```
+
+Step 3 of 3: Actions
+
+- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+
+```css
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block-start: auto;
+  padding: 0.5rem 0.75rem;
+}
+
+
+.actions:has(.ui-button:first-child[class="ui-button"]) {
+  padding-inline: 0.25rem 0.75rem;
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v111.
 - Firefox: Full support Supported since v151.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Card.md).
 
 ## Installation
 

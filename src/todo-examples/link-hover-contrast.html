@@ -1,0 +1,193 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-scheme {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-2);
+    padding: var(--size-3);
+  }
+
+  .todo-scheme table {
+    border-collapse: collapse;
+
+    td,
+    th {
+      border-block-end: 1px solid var(--border-color);
+      padding: var(--size-1) var(--size-2);
+      text-align: start;
+    }
+  }
+
+  .todo-tonal {
+    background-color: var(--surface-tonal);
+  }
+
+  .todo-current-hover {
+    color: var(--primary-light);
+  }
+
+  .todo-proposed-hover {
+    color: light-dark(var(--primary-dark), var(--primary-light));
+  }
+
+  .todo-proposed .ui-link[href] {
+    &:hover,
+    &:focus-visible {
+      color: light-dark(var(--primary-dark), var(--primary-light));
+    }
+  }
+</style>
+<div class="todo-compare">
+  <div class="todo-scheme ui-light">
+    <strong>Light</strong>
+    <table>
+      <thead>
+        <tr>
+          <th>State</th>
+          <th>Default surface</th>
+          <th>Tonal surface</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Rest (<code>--primary</code>)</td>
+          <td>
+            <a class="ui-link" href="#" data-contrast>Link</a>
+            <span data-ratio></span>
+          </td>
+          <td class="todo-tonal">
+            <a class="ui-link" href="#" data-contrast>Link</a>
+            <span data-ratio></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Hover now (<code>--primary-light</code>)</td>
+          <td>
+            <a class="ui-link todo-current-hover" href="#" data-contrast
+              >Link</a
+            >
+            <span data-ratio></span>
+          </td>
+          <td class="todo-tonal">
+            <a class="ui-link todo-current-hover" href="#" data-contrast
+              >Link</a
+            >
+            <span data-ratio></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Hover proposed (<code>--primary-dark</code>)</td>
+          <td>
+            <a class="ui-link todo-proposed-hover" href="#" data-contrast
+              >Link</a
+            >
+            <span data-ratio></span>
+          </td>
+          <td class="todo-tonal">
+            <a class="ui-link todo-proposed-hover" href="#" data-contrast
+              >Link</a
+            >
+            <span data-ratio></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Hover these: <a class="ui-link" href="#">current link</a> and
+      <span class="todo-proposed"
+        ><a class="ui-link" href="#">proposed link</a></span
+      >.
+    </p>
+  </div>
+  <div class="todo-scheme ui-dark">
+    <strong>Dark</strong>
+    <table>
+      <thead>
+        <tr>
+          <th>State</th>
+          <th>Default surface</th>
+          <th>Tonal surface</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Rest (<code>--primary</code>)</td>
+          <td>
+            <a class="ui-link" href="#" data-contrast>Link</a>
+            <span data-ratio></span>
+          </td>
+          <td class="todo-tonal">
+            <a class="ui-link" href="#" data-contrast>Link</a>
+            <span data-ratio></span>
+          </td>
+        </tr>
+        <tr>
+          <td>Hover (<code>--primary-light</code>, unchanged)</td>
+          <td>
+            <a class="ui-link todo-current-hover" href="#" data-contrast
+              >Link</a
+            >
+            <span data-ratio></span>
+          </td>
+          <td class="todo-tonal">
+            <a class="ui-link todo-current-hover" href="#" data-contrast
+              >Link</a
+            >
+            <span data-ratio></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Hover these: <a class="ui-link" href="#">current link</a> and
+      <span class="todo-proposed"
+        ><a class="ui-link" href="#">proposed link</a></span
+      >.
+    </p>
+  </div>
+</div>
+<script>
+  {
+    const context = document
+      .createElement("canvas")
+      .getContext("2d", { willReadFrequently: true })
+    const rgba = (color) => {
+      context.clearRect(0, 0, 1, 1)
+      context.fillStyle = color
+      context.fillRect(0, 0, 1, 1)
+      return [...context.getImageData(0, 0, 1, 1).data]
+    }
+    const luminance = ([r, g, b]) =>
+      [r, g, b]
+        .map((value) => value / 255)
+        .map((value) =>
+          value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4,
+        )
+        .reduce(
+          (sum, value, index) => sum + value * [0.2126, 0.7152, 0.0722][index],
+          0,
+        )
+    const backgroundOf = (element) => {
+      for (let node = element; node; node = node.parentElement) {
+        const color = getComputedStyle(node).backgroundColor
+        if (rgba(color)[3] > 0) return color
+      }
+      return "white"
+    }
+    for (const element of document.querySelectorAll("[data-contrast]")) {
+      const [a, b] = [
+        luminance(rgba(getComputedStyle(element).color)),
+        luminance(rgba(backgroundOf(element))),
+      ].toSorted((x, y) => y - x)
+      const ratio = (a + 0.05) / (b + 0.05)
+      element.nextElementSibling.textContent = `${ratio.toFixed(2)}:1 ${ratio >= 4.5 ? "pass" : "fail"}`
+    }
+  }
+</script>

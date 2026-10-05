@@ -2,13 +2,14 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "ListItem",
+  css: ["list"],
   notes: {
     html: "Wrap the content in an `<a>`, `<button>` or `<label>` to make the item interactive.",
   },
   options: [
     {
       description:
-        'The element to render inside the `<li>`, such as `"a"` or `"button"`.',
+        'The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set.',
       prop: "as",
     },
     {
@@ -19,11 +20,15 @@ export default {
       prop: "borderTop",
     },
     {
+      description: 'Disables the item when `as` is `"button"`.',
+      prop: "disabled",
+    },
+    {
       description: "The `for` attribute of the `<label>` when `type` is set.",
       prop: "for",
     },
     {
-      description: 'The link to use, with `as="a"`.',
+      description: "The link to use. Renders an `<a>` inside the `<li>`.",
       prop: "href",
     },
     {
@@ -39,7 +44,6 @@ export default {
       group: "Controls",
       prop: "type",
       values: {
-        button: null,
         checkbox: "label.ui-checkbox",
         radio: "label.ui-radio",
         switch: "label.ui-switch",
@@ -86,6 +90,11 @@ export default {
       description:
         "Extra content inside `.ui-text`, or all the content when there's no text.",
       name: "default",
+    },
+    {
+      description:
+        "A submenu `Menu`, rendered inside the `<li>` after the element set by `as`.",
+      name: "submenu",
     },
   ],
   source: "ListItem",

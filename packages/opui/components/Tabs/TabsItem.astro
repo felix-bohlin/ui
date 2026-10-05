@@ -1,13 +1,13 @@
 ---
 import type { TabsItemProps as Props } from "./types.astro"
+import { createId } from "../id"
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const {
   class: className,
   name,
   open,
   tabId = $id("tab"),
-  panelId = $id("panel"),
   ...rest
 } = Astro.props
 
@@ -15,23 +15,13 @@ const escapeAttr = (value: string) =>
   value.replaceAll("&", "&amp;").replaceAll('"', "&quot;")
 
 const slotHtml = (await Astro.slots.render("default")) ?? ""
-const html = slotHtml
-  .replace(
-    /<label\b(?=[^>]*\sclass="[^"]*\bui-tab-label\b)(?![^>]*\sfor=)/g,
-    () => `<label for="${escapeAttr(tabId)}"`,
-  )
-  .replace(
-    /<div\b(?=[^>]*\srole="tabpanel")(?![^>]*\sid=)/g,
-    () => `<div id="${escapeAttr(panelId)}"`,
-  )
-  .replace(
-    /<div\b(?=[^>]*\srole="tabpanel")(?![^>]*\saria-labelledby=)/g,
-    () => `<div aria-labelledby="${escapeAttr(tabId)}"`,
-  )
+const html = slotHtml.replace(
+  /<label\b(?=[^>]*\sclass="[^"]*\bui-tab-label\b)(?![^>]*\sfor=)/g,
+  () => `<label for="${escapeAttr(tabId)}"`,
+)
 ---
 
 <input
-  aria-controls={panelId}
   checked={open}
   class:list={["ui-tab-input", className]}
   id={tabId}

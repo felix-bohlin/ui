@@ -13,7 +13,7 @@ import {
   Switch,
   TextField,
 } from "@opui/astro"
-import { RADIUS_OPTIONS, TOKEN_DEFAULTS } from "../utils/theme-store"
+import { RADIUS_OPTIONS, tokenDefaults } from "../utils/theme-store"
 
 const radiusGroups = [
   { name: "--border-radius", label: "Border radius" },
@@ -66,6 +66,31 @@ const { link } = Astro.locals
                 ></path></svg
               >
             </Switch>
+            <Switch spread id="contrast-switcher">
+              High contrast
+              <svg
+                slot="icon-checked"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                ><path
+                  fill="currentColor"
+                  d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20m0 2v16a8 8 0 1 1 0-16"
+                ></path></svg
+              >
+              <svg
+                slot="icon-unchecked"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                ><path
+                  fill="currentColor"
+                  d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20m0 2a8 8 0 1 1 0 16a8 8 0 0 1 0-16"
+                ></path></svg
+              >
+            </Switch>
           </FieldGroup>
         </FieldSet>
 
@@ -80,7 +105,7 @@ const { link } = Astro.locals
               name="--palette-source-color"
               value="#000000"
               spread
-              small
+              size="small"
             />
             <Range
               label="Hue"
@@ -152,7 +177,8 @@ const { link } = Astro.locals
                   <span class="ui-label">{group.label}</span>
                   <div class="chip-group">
                     {RADIUS_OPTIONS.map((item) => {
-                      const pressed = item.value === TOKEN_DEFAULTS[group.name]
+                      const pressed =
+                        item.value === tokenDefaults("light")[group.name]
                       return (
                         <Chip
                           as="button"
@@ -196,11 +222,12 @@ const { link } = Astro.locals
   import {
     themeStore,
     TOKENS,
-    TOKEN_DEFAULTS,
+    tokenDefaults,
     type Mode,
     type Token,
   } from "../utils/theme-store"
   import { hexToOklch, oklchToHex } from "../utils/color-utils"
+  import { skipOffscreenRendering } from "../utils/skip-offscreen-rendering"
 
   const TOKEN_SET = new Set<string>(TOKENS)
 
@@ -210,6 +237,9 @@ const { link } = Astro.locals
   const resetBtn = document.getElementById("theme-configurator-reset")
   const themeSwitcher = document.getElementById(
     "theme-switcher",
+  ) as HTMLInputElement | null
+  const contrastSwitcher = document.getElementById(
+    "contrast-switcher",
   ) as HTMLInputElement | null
   const drawer = document.getElementById("theme-configurator-drawer")
 
@@ -222,9 +252,10 @@ const { link } = Astro.locals
   function syncFormFromStore(mode: Mode = themeStore.getActiveSiteMode()) {
     if (!form) return
     const config = themeStore.get(mode)
+    const defaults = tokenDefaults(mode)
 
     TOKENS.forEach((token) => {
-      const value = config[token] ?? TOKEN_DEFAULTS[token] ?? ""
+      const value = config[token] ?? defaults[token] ?? ""
       if (!value) return
       const input = form.querySelector<HTMLInputElement>(`[name="${token}"]`)
       if (input && input.type !== "checkbox") {
@@ -248,10 +279,10 @@ const { link } = Astro.locals
     )
     if (colorPicker) {
       const hue = parseFloat(
-        config["--palette-hue"] ?? TOKEN_DEFAULTS["--palette-hue"],
+        config["--palette-hue"] ?? defaults["--palette-hue"],
       )
       const chroma = parseFloat(
-        config["--palette-chroma"] ?? TOKEN_DEFAULTS["--palette-chroma"],
+        config["--palette-chroma"] ?? defaults["--palette-chroma"],
       )
       colorPicker.value = oklchToHex(0.58, 0.21 * chroma, hue)
     }
@@ -274,6 +305,26 @@ const { link } = Astro.locals
       syncFormFromStore(newTheme)
     })
   }
+
+  function syncContrastSwitcher() {
+    if (!contrastSwitcher) return
+    contrastSwitcher.checked =
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--contrast")
+        .trim() === "more"
+  }
+
+  syncContrastSwitcher()
+  matchMedia("(prefers-contrast: more)").addEventListener(
+    "change",
+    syncContrastSwitcher,
+  )
+
+  contrastSwitcher?.addEventListener("click", () => {
+    ;(window as any).themeUtils?.setContrast(
+      contrastSwitcher.checked ? "more" : "normal",
+    )
+  })
 
   form?.addEventListener("input", (e) => {
     const target = e.target as HTMLInputElement | null
@@ -304,6 +355,27 @@ const { link } = Astro.locals
     }
   })
 
+  let endDrag: (() => void) | undefined
+
+  form?.addEventListener("pointerdown", (e) => {
+    const target = e.target as HTMLInputElement
+    if (target.type !== "range" || endDrag) return
+
+    const restore = skipOffscreenRendering()
+    const controller = new AbortController()
+    endDrag = () => {
+      controller.abort()
+      restore()
+      endDrag = undefined
+    }
+    for (const type of ["pointerup", "pointercancel", "resize", "scroll"]) {
+      window.addEventListener(type, () => endDrag?.(), {
+        passive: true,
+        signal: controller.signal,
+      })
+    }
+  })
+
   form?.addEventListener("click", (e) => {
     const chip = (e.target as HTMLElement).closest<HTMLElement>(
       "[data-name][data-value]",
@@ -330,6 +402,8 @@ const { link } = Astro.locals
       themeSwitcher.checked =
         document.documentElement.classList.contains("ui-dark")
     }
+    ;(window as any).themeUtils?.setContrast(null)
+    syncContrastSwitcher()
     const allChips =
       form?.querySelectorAll<HTMLElement>("[data-name][data-value]") ?? []
     allChips.forEach((chip) =>
@@ -346,7 +420,6 @@ const { link } = Astro.locals
 <style is:global>
   html.no-grays {
     --neutral: var(--color-9);
-    --primary-contrast: var(--color-1);
     --text-primary: light-dark(var(--color-15), var(--color-1));
     --text-primary-contrast: light-dark(var(--color-2), var(--color-15));
     --text-muted: light-dark(var(--color-13), var(--color-4));

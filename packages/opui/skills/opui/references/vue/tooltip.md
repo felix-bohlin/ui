@@ -2,7 +2,12 @@
 
 Built on top of [Anchor](https://open-props-ui.netlify.app/vue/components/anchor.md).
 
-Wrap the trigger in `<Tooltip>` and pass a stable`id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like`<button>` or `<a>`). Pass a`label` prop for plain text or use the `content` slot for richer markup.
+### What's new
+
+- Breaking: `id` is required.
+- The arrow points at the trigger in every position, also after a flip.
+
+Wrap the trigger in `<Tooltip>` and pass a stable `id`. Set `interestfor`, `commandfor`, and `command="toggle-popover"` on the trigger element itself (these attributes are only valid on real invokers like `<button>` or `<a>`). Pass a `label` prop for plain text or use the `content` slot for richer markup.
 
 ## Basics
 
@@ -30,7 +35,7 @@ import { Button, Tooltip } from "opui-css/vue"
 
 ### ... or any markup you want
 
-Use the `content` slot instead, and it let's you put anything in the tooltip.
+Use the `content` slot instead, and it lets you put anything in the tooltip.
 
 ```vue
 <script setup lang="ts">
@@ -103,6 +108,7 @@ import { Button, Tooltip } from "opui-css/vue"
 
 <style>
 .tooltip-alignment-grid {
+  align-items: center;
   display: grid;
   gap: var(--size-3);
   grid-template-areas:
@@ -110,7 +116,6 @@ import { Button, Tooltip } from "opui-css/vue"
     "start .      end"
     ".     bottom .  ";
   justify-items: center;
-  align-items: center;
 }
 
 
@@ -131,7 +136,7 @@ import { Button, Tooltip } from "opui-css/vue"
 
 ## Arrow
 
-Set the `arrow` prop. This would be cool to solve with `corner-shape`one day.
+Set the `arrow` prop. This would be cool to solve with `corner-shape` one day.
 
 ```vue
 <script setup lang="ts">
@@ -169,13 +174,142 @@ import { Button, Tooltip } from "opui-css/vue"
 | `content` | The tooltip, a `popover="hint"`.                       |
 | `default` | The trigger that shows the tooltip on hover and focus. |
 
+#### CSS variables
+
+| Variable            | Default                                     | Description                                                                                                                |
+| ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--duration`        | `0.2s`                                      | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease-enter`      | `var(--ease-out-3)`                         | Easing for elements entering the screen.                                                                                   |
+| `--font-size-05`    | `0.875rem`                                  | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--motion`          | `1`                                         | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--surface-inverse` | `light-dark(var(--gray-15), var(--gray-2))` | Background of `Toast` and `Tooltip`, inverted against the page.                                                            |
+| `--text-inverse`    | `light-dark(var(--gray-1), var(--gray-15))` | Text color on `--surface-inverse`.                                                                                         |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+
+## Under the hood
+
+1. Hint
+
+   - `interestfor` + `popover="hint"`: opens on hover and focus, no JavaScript
+   - `commandfor` toggles it on tap, where there is no hover
+   - The invoker is the implicit anchor: no `anchor-name`, no ids to wire
+   - `position-area: block-start` centers it above the trigger
+
+2. Size
+
+   - Hover the icon: long text wraps at `240px`
+   - `calc-size()` keeps long text at least `10rem` wide near an edge, short text stays snug
+   - `text-wrap: pretty` avoids a lonely last word
+
+3. Shift
+
+   - Scroll the trigger to the top of the window and hover it again
+   - The two `@position-try` rules slide it sideways at the edge of the window, keeping it over the trigger
+   - `anchors-visible` hides it when the trigger scrolls out of view
+
+4. Arrow
+
+   - Hover Share: a rotated square, half outside the tooltip
+   - `[popover]` defaults to `overflow: auto`, which would clip it
+   - A shifted tooltip would point the arrow at nothing, so it only flips
+
+Step 1 of 4: Hint
+
+- [Anchor positioning](https://webstatus.dev/features/anchor-positioning) (Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+- [Interest invokers](https://webstatus.dev/features/interest-invokers) (Limited availability): Chrome 142+, Edge 142+, Firefox not supported, Safari not supported
+- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [popover="hint"](https://webstatus.dev/features/popover-hint) (Limited availability): Chrome 133+, Edge 133+, Firefox 149+, Safari not supported
+
+```html
+<button
+  interestfor="tooltip"
+  commandfor="tooltip"
+  command="toggle-popover"
+>
+  Save
+</button>
+
+
+<span class="tooltip" id="tooltip" popover="hint">Save changes</span>
+```
+
+```css
+.tooltip {
+  background-color: var(--surface-inverse);
+  border: 0;
+  border-radius: var(--radius-2);
+  color: var(--text-inverse);
+  font-size: var(--font-size-05);
+  inset: auto;
+  line-height: 1.3;
+  margin: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  position-area: block-start;
+}
+```
+
+Step 2 of 4: Size
+
+- [`calc-size()`](https://webstatus.dev/features/calc-size) (Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
+- [text-wrap: pretty](https://webstatus.dev/features/text-wrap-pretty) (Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari 26+
+
+```css
+.tooltip {
+  max-inline-size: 240px;
+  min-inline-size: calc-size(max-content, min(size, 10rem));
+  text-align: center;
+  text-wrap: pretty;
+}
+```
+
+Step 3 of 4: Shift
+
+```css
+.tooltip {
+  position-try-fallbacks:
+    flip-block,
+    --build-tooltip-shift-start,
+    --build-tooltip-shift-end,
+    --build-tooltip-shift-start flip-block,
+    --build-tooltip-shift-end flip-block;
+  position-visibility: anchors-visible;
+}
+```
+
+Step 4 of 4: Arrow
+
+```css
+.tooltip.arrow {
+  margin: 0.75rem;
+  overflow: visible;
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
+}
+
+
+.tooltip.arrow::before {
+  background-color: inherit;
+  block-size: 0.5rem;
+  content: "";
+  inline-size: 0.5rem;
+  inset-block-end: -0.25rem;
+  inset-inline: 0;
+  margin-inline: auto;
+  position: absolute;
+  rotate: 45deg;
+}
+```
+
 ## Browser support
 
 - Chromium: Full support Supported since v144.
-- Firefox: Full support Supported since v151.
-- Safari: Partial support Missing: popover-hint.
+- Firefox: Partial support Missing: display-animation, interest-invokers, overlay, text-wrap-pretty.
+- Safari: Partial support Missing: interest-invokers, overlay, popover-hint.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Tooltip.md).
 
 ## Installation
 

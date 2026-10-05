@@ -14,6 +14,7 @@ const {
   variant,
   disabled,
   href,
+  label,
   ...rest
 } = props
 
@@ -33,8 +34,11 @@ const isButton = Tag === "button"
     color && `ui-${color}`,
     className,
   ]}
+  aria-disabled={!isButton && disabled ? "true" : undefined}
+  aria-label={label}
   disabled={isButton ? disabled : undefined}
   href={href}
+  type={isButton ? "button" : undefined}
   {...rest as any}
 >
   <slot />

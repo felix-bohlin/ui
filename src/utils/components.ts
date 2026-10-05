@@ -4,18 +4,9 @@ import {
   type FrameworkId,
 } from "./framework-routing"
 
-const pageModules = import.meta.glob("../pages/components/*.astro")
 const docModules = import.meta.glob("../docs/components/*.astro")
 
 const slugs = new Set<string>()
-
-for (const path of Object.keys(pageModules)) {
-  if (path.endsWith("index.astro")) continue
-  // Skip dynamic route shells like [component].astro.
-  if (path.includes("[")) continue
-  const slug = path.split("/").pop()?.replace(".astro", "") || ""
-  if (slug) slugs.add(slug)
-}
 
 for (const path of Object.keys(docModules)) {
   const slug = path.split("/").pop()?.replace(".astro", "") || ""

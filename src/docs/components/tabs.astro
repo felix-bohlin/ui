@@ -2,6 +2,7 @@
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import TabsBuild from "../../components/UnderTheHood/TabsBuild.astro"
 import { Table, Tabs as UITabs } from "@opui/astro"
 
 import TabsCSS from "@opui/css/components/tabs.css?raw"
@@ -21,7 +22,13 @@ import tabsApi from "../../component-api/tabs/api"
     { title: "Tabs tab API", api: tabsTabApi },
     { title: "Tabs panel API", api: tabsPanelApi },
   ]}
-  browserSupport={["light-dark"]}
+  browserSupport={[
+    "color-mix",
+    "container-queries",
+    "light-dark",
+    "reading-flow",
+    "scrollbar-width",
+  ]}
   installationTabs={[{ title: "tabs.css", code: TabsCSS, lang: "css" }]}
   changelogPaths={[
     {
@@ -90,13 +97,37 @@ import tabsApi from "../../component-api/tabs/api"
     <AutoExample name="Outlined" />
   </section>
 
+  <section>
+    <h2 id="scrollable">Scrollable</h2>
+    <p>
+      Tabs wrap onto more rows when they don't fit. Use <code>scrollable</code>
+      {" "}(<code>.ui-scrollable</code>) to keep them on one row and scroll them
+      sideways instead. The open panel stays in view, and up to 20 tabs are
+      supported. The tabs size to their container, so give them a width inside
+      flex and grid layouts that size to their content.
+    </p>
+    <AutoExample name="Scrollable" />
+  </section>
+
   <Fragment slot="accessibility">
     <p>
-      The tab system uses standard radio inputs and labels, so we get group
-      management and keyboard support for free!
+      Tabs are radio buttons. Each tab is a radio input with a label, and the
+      panel after it shows while it's checked. Screen readers announce a radio
+      group ("Profile, radio button, checked, 1 of 3"), which matches how the
+      tabs behave.
+    </p>
+    <p>
+      There are no <code>tablist</code>, <code>tab</code> or
+      {" "}<code>tabpanel</code> roles. ARIA tabs promise focusable tabs with a selected
+      state, and radio inputs can't keep that promise without JavaScript. Native radios
+      get group management and keyboard support for free.
+    </p>
+    <p>
+      To name the group, add <code>role="radiogroup"</code> and
+      {" "}<code>aria-label</code> (or <code>aria-labelledby</code>) to
+      {" "}<code>.ui-tabs</code>.
     </p>
 
-    <h3>Tab List</h3>
     <Table>
       <Table.ColumnGroup>
         <Table.Column width="150px" />
@@ -112,13 +143,6 @@ import tabsApi from "../../component-api/tabs/api"
       </Table.Head>
       <Table.Body>
         <Table.Row>
-          <Table.Cell><code>.ui-tabs</code></Table.Cell>
-          <Table.Cell><code>role="tablist"</code></Table.Cell>
-          <Table.Cell
-            >Identifies the element as a container for a set of tabs.</Table.Cell
-          >
-        </Table.Row>
-        <Table.Row>
           <Table.Cell><code>input</code></Table.Cell>
           <Table.Cell><code>name</code></Table.Cell>
           <Table.Cell
@@ -126,42 +150,14 @@ import tabsApi from "../../component-api/tabs/api"
           >
         </Table.Row>
         <Table.Row>
+          <Table.Cell><code>input</code></Table.Cell>
+          <Table.Cell><code>checked</code></Table.Cell>
+          <Table.Cell>Selects the tab that is open initially.</Table.Cell>
+        </Table.Row>
+        <Table.Row>
           <Table.Cell><code>label</code></Table.Cell>
-          <Table.Cell><code>role="tab"</code></Table.Cell>
-          <Table.Cell
-            >Identifies the element as a tab to assistive technology.</Table.Cell
-          >
-        </Table.Row>
-      </Table.Body>
-    </Table>
-
-    <h3>Tab Panel</h3>
-
-    <p>The content area associated with a tab:</p>
-
-    <Table>
-      <Table.ColumnGroup>
-        <Table.Column width="150px" />
-        <Table.Column width="150px" />
-        <Table.Column />
-      </Table.ColumnGroup>
-      <Table.Head>
-        <Table.Row>
-          <Table.HeaderCell>Attribute</Table.HeaderCell>
-          <Table.HeaderCell>Value</Table.HeaderCell>
-          <Table.HeaderCell>Description</Table.HeaderCell>
-        </Table.Row>
-      </Table.Head>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell><code>role</code></Table.Cell>
-          <Table.Cell><code>"tabpanel"</code></Table.Cell>
-          <Table.Cell>Identifies the element as a tab panel.</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>aria-labelledby</code></Table.Cell>
-          <Table.Cell><code>string</code></Table.Cell>
-          <Table.Cell>Links the panel to its trigger ID.</Table.Cell>
+          <Table.Cell><code>for</code></Table.Cell>
+          <Table.Cell>Names the radio button after the tab.</Table.Cell>
         </Table.Row>
       </Table.Body>
     </Table>
@@ -171,7 +167,7 @@ import tabsApi from "../../component-api/tabs/api"
     <ul>
       <li>
         <strong>Tab</strong>: Moves focus to the active tab trigger (the radio
-        button). Pressing Tab again moves focus out of the tab list to the next
+        button). Pressing Tab again moves focus out of the tabs to the next
         focusable element.
       </li>
       <li>
@@ -184,4 +180,5 @@ import tabsApi from "../../component-api/tabs/api"
       </li>
     </ul>
   </Fragment>
+  <TabsBuild slot="under-the-hood" />
 </Component>

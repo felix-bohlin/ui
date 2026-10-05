@@ -6,11 +6,12 @@
     /* Default arrow */
     &::picker-icon {
       background-color: currentColor;
-      block-size: var(--_arrow-size);
+      block-size: var(--_chevron-size);
       content: "";
-      inline-size: var(--_arrow-size);
-      inset: 50% var(--_arrow-inset) auto auto;
-      mask: var(--_arrow-icon) center / contain no-repeat;
+      inline-size: var(--_chevron-size);
+      inset-block: 50% auto;
+      inset-inline: auto var(--_arrow-inset);
+      mask: var(--_chevron-icon) center / contain no-repeat;
       pointer-events: none;
       position: absolute;
       translate: 0 -50%;
@@ -34,14 +35,14 @@
       /* Animation starting styles */
       @starting-style {
         opacity: 0;
-        transform: scale(0.9);
+        scale: 0.9;
       }
 
       transition:
-        display calc(0.2s * var(--_motion)) allow-discrete,
-        opacity calc(0.2s * var(--_motion)) var(--ease-3),
-        overlay calc(0.2s * var(--_motion)) allow-discrete,
-        scale calc(0.2s * var(--_motion)) var(--ease-3);
+        display calc(var(--duration) * var(--_motion)) allow-discrete,
+        opacity calc(var(--duration) * var(--_motion)) var(--ease),
+        overlay calc(var(--duration) * var(--_motion)) allow-discrete,
+        scale calc(var(--duration) * var(--_motion)) var(--ease);
     }
 
     /* Animation off-stage styles */
@@ -78,7 +79,7 @@
             oklch(from var(--text-primary) calc(l * 0.75) c h),
             oklch(from var(--text-primary) calc(l * 1.25) c h)
           );
-          font-weight: 500;
+          font-weight: var(--font-weight-medium);
           overflow: hidden;
           padding-inline: var(--size-2);
           text-overflow: ellipsis;
@@ -89,23 +90,12 @@
         option:first-of-type {
           margin-block-start: var(--size-2);
         }
-
-        option:last-of-type,
-        &:last-child {
-          option:last-of-type {
-            margin-block-end: 0;
-          }
-        }
       }
 
       /* Option */
       option {
         /* Checkmark */
         /* TODO - checkmark should be the final version of the checkmark API. Follow the development of this and remove redundant psuedo stuff. */
-        &::check {
-          display: none;
-        }
-
         &::checkmark {
           display: none;
         }
@@ -115,25 +105,21 @@
         }
 
         &:focus-visible {
-          outline-offset: -1px;
+          outline-offset: var(--focus-ring-inset);
         }
       }
     }
   }
 
   :where(.ui-select:has(select)) {
-    --_arrow-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414'/%3E%3C/svg%3E");
-    --_arrow-inset: var(--size-3);
-    --_arrow-size: 1rem;
+    --_chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414'/%3E%3C/svg%3E");
+    --_chevron-size: 1rem;
 
     /* Size */
-    &.ui-small {
+    &.ui-small,
+    &.ui-x-small {
       button {
         padding-inline: var(--size-2) var(--size-7);
-
-        &::after {
-          inset-inline-end: var(--size-2);
-        }
       }
     }
 
@@ -145,28 +131,52 @@
     &:not(:has(button)) {
       select {
         appearance: none;
+        text-overflow: ellipsis;
+      }
+
+      :where(option, optgroup) {
+        background-color: var(--surface-elevated);
+        color: var(--text-primary);
       }
 
       /* Arrow */
       &::after {
         align-self: center;
         background-color: currentColor;
-        block-size: var(--_arrow-size);
+        block-size: var(--_chevron-size);
         content: "";
         display: inline-block;
         flex-shrink: 0;
         grid-column: 1/-1;
         grid-row: 2;
-        inline-size: var(--_arrow-size);
+        inline-size: var(--_chevron-size);
         inset-inline-end: var(--_arrow-inset);
         justify-self: end;
-        mask: var(--_arrow-icon) center / contain no-repeat;
+        mask: var(--_chevron-icon) center / contain no-repeat;
         pointer-events: none;
         position: relative;
       }
 
       &:not(.ui-spread):has(> .ui-start-text)::after {
         grid-row: 3;
+      }
+
+      &.ui-spread::after {
+        align-self: start;
+        grid-row: 1 / span 2;
+        margin-block-start: calc((var(--_height) - var(--_chevron-size)) / 2);
+      }
+
+      @container (width < 400px) {
+        &.ui-spread::after {
+          align-self: center;
+          grid-row: 2;
+          margin-block-start: 0;
+        }
+
+        &.ui-spread:has(> .ui-start-text)::after {
+          grid-row: 3;
+        }
       }
     }
   }

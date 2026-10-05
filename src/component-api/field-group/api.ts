@@ -2,8 +2,9 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "FieldGroup",
+  css: ["form"],
   notes: {
-    html: 'The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.',
+    html: "Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.",
   },
   options: [
     {

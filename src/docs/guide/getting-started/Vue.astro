@@ -7,9 +7,20 @@ import Theming from "./_theming.astro"
 
 <Guide overline="Guide">
   <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships first-class Vue components. Install the package, import what you
+    need, and you're set.
+  </Fragment>
 
   <section>
     <h2 id="installation">Install via NPM</h2>
+    <p>
+      The components ship as uncompiled single-file components (<code>.vue</code
+      > and <code>.ts</code>), so your build has to compile them. Any setup with
+      Vue SFC support works, for example Vite with <code
+        >@vitejs/plugin-vue</code
+      >, Nuxt, or Astro with <code>@astrojs/vue</code>.
+    </p>
     <CodeGroup
       tabs={[
         {

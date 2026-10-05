@@ -44,7 +44,9 @@ import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextFieldCSS from "@opui/css/components/text-input.css?raw"
 
 import textFieldApi from "../../component-api/text-field/api"
-import TextInputAPIHTML from "../../component-api/text-input/HTML.astro"
+import textInputApi from "../../component-api/text-input/api"
+import TextFieldBuild from "../../components/UnderTheHood/TextFieldBuild.astro"
+import { DEFAULT_FRAMEWORK } from "../../utils/framework-routing"
 
 export const description =
   "An input for single-line text data. Basic text fields with labels, field descriptions, and validation states."
@@ -55,6 +57,7 @@ export const description =
   heroAnatomy
   slug="text-field"
   browserSupport={[
+    "container-queries",
     "datalist",
     "field-sizing",
     "has",
@@ -63,7 +66,9 @@ export const description =
   ]}
   apis={[
     { title: "Text field API", api: textFieldApi },
-    { title: "Text input API", html: TextInputAPIHTML },
+    ...((Astro.currentLocale ?? DEFAULT_FRAMEWORK) === "html"
+      ? [{ title: "Text input API", api: textInputApi }]
+      : []),
   ]}
   changelogPaths={[
     {
@@ -128,7 +133,7 @@ export const description =
       <Fragment slot="html">
         Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
           >.ui-header</code
-        >, or
+        >, or{" "}
         <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
         inside the field's border. Prefix and suffix sit beside the input, while header
         and footer span the field's full width with a divider.
@@ -165,13 +170,13 @@ export const description =
     <Conditional as="p">
       <Fragment slot="astro">
         Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
+        {" "}<code>data-invalid</code> on the root element. Make use of the end text
+        to give extra feedback on the error.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
+        {" "}<code>data-invalid</code> on the root element. Make use of the end text
+        to give extra feedback on the error.
       </Fragment>
       <Fragment slot="html">
         Add <code>data-invalid</code> on the root element to toggle invalid styles.
@@ -215,10 +220,10 @@ export const description =
   <section>
     <h2 id="input-types">Input types</h2>
     <Example row>
-      <UISwitch small slot="controls" id="text-field-filled-toggle"
+      <UISwitch size="small" slot="controls" id="text-field-filled-toggle"
         >Filled</UISwitch
       >
-      <UISwitch small slot="controls" id="text-field-small-toggle"
+      <UISwitch size="small" slot="controls" id="text-field-small-toggle"
         >Small</UISwitch
       >
 
@@ -267,7 +272,7 @@ export const description =
             data it should only be used when mathematical operations are needed on
             the input (which is... never). Data like credit card numbers, IDs or social
             security numbers - are actually text that happen to be numeric rather
-            than mathematical values. Therefore, consider using
+            than mathematical values. Therefore, consider using{" "}
             <code
               >&lt;input type="text" inputmode="numeric" pattern="[0-9]*"&gt;</code
             > instead.
@@ -310,7 +315,7 @@ export const description =
 
     <p>
       File is a weird one. Should it really be an <code>&lt;input&gt;</code> element?
-      Well, it's what we've got :sweat_smile:
+      Well, it's what we've got.
     </p>
 
     <Example row>
@@ -390,6 +395,8 @@ export const description =
       <Example.Code slot="code-html" code={NoLabelHtml} />
     </Example>
   </section>
+
+  <TextFieldBuild slot="under-the-hood" />
 
   <Fragment slot="accessibility">
     <ul>

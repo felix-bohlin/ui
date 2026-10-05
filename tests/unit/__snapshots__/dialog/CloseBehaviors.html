@@ -1,12 +1,12 @@
-<button class="ui-button ui-outlined" command="show-modal" commandfor="id-1">Open dialog</button>
-<dialog class="ui-card ui-dialog ui-elevated" closedby="any" id="id-1">
-  <hgroup>
+<button class="ui-button ui-outlined" command="show-modal" commandfor="id-1" type="button">Open dialog</button>
+<dialog aria-labelledby="id-2" class="ui-card ui-dialog ui-elevated" closedby="any" id="id-1">
+  <hgroup id="id-2">
     <h2 class="ui-h4">How to close</h2>
   </hgroup>
   <div class="ui-content">
     <fieldset class="ui-fieldset">
       <legend>Choose a closing behavior:</legend>
-      <div class="ui-field-group" role="group">
+      <div class="ui-field-group">
         <label class="ui-radio">
           <input checked name="closedby-demo" type="radio" value="any">
           <span class="ui-label">any</span>
@@ -23,6 +23,6 @@
     </fieldset>
   </div>
   <div class="ui-actions">
-    <button class="ui-button" command="close" commandfor="id-1">Close manually</button>
+    <button class="ui-button" command="close" commandfor="id-1" type="button">Close manually</button>
   </div>
 </dialog>

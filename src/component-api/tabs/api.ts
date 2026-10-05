@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "Tabs",
   notes: {
-    html: 'The root needs `role="tablist"`. Each tab is an `input.ui-tab-input[type="radio"]`, followed by its `label.ui-tab-label[role="tab"]` and `.ui-tab-panel[role="tabpanel"]`.',
+    html: 'Each tab is an `input.ui-tab-input[type="radio"]`, followed by its `label.ui-tab-label` and `.ui-tab-panel`.',
   },
   options: [
     {
@@ -12,6 +12,14 @@ export default {
       group: "Group",
       part: ".ui-tab-input",
       prop: "name",
+    },
+    {
+      class: ".ui-scrollable",
+      default: "false",
+      description:
+        "Keeps the tabs on one row and scrolls them sideways when they don't fit. Supports up to 20 tabs.",
+      group: "Overflow",
+      prop: "scrollable",
     },
     {
       description: "The variant to use.",

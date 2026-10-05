@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useId } from "vue"
+import { computed, useId } from "vue"
 import type { DrawerSlots, Props } from "./types.d.vue"
 
 const {
@@ -15,7 +15,8 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const drawerId = id || useId()
+const uid = useId()
+const drawerId = computed(() => id || uid)
 </script>
 
 <template>

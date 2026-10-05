@@ -4,6 +4,13 @@ export default {
   component: "DrawerHeader",
   options: [
     {
+      default: '"Close"',
+      description: "The accessible name of the close button.",
+      frameworks: ["astro", "vue"],
+      prop: "closeLabel",
+      type: "string",
+    },
+    {
       description:
         "The id of the drawer to close with the `close` command. Without it, the button closes the nearest `<dialog>` on click.",
       prop: "commandfor",
@@ -12,10 +19,10 @@ export default {
   page: "drawer",
   parts: [
     {
-      code: "<span>",
+      code: "<h2>",
       description: "The heading.",
       props: ["heading"],
-      selector: ".ui-header > span",
+      selector: ".ui-header > h2",
     },
     {
       code: "<button>",

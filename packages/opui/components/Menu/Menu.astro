@@ -1,5 +1,6 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Menu"
 
@@ -14,7 +15,7 @@ const {
   ...rest
 } = Astro.props
 
-const { $id } = Astro.locals
+const $id = createId(Astro.locals)
 const menuId = id || $id("menu")
 ---
 
@@ -60,11 +61,13 @@ const menuId = id || $id("menu")
               type={href ? undefined : "button"}
               {...(itemRest as any)}
             >
-              {label}{" "}
+              <div class="ui-text">
+                <p>{label}</p>
+              </div>
               {shortcut && (
-                <span class="ui-end">
+                <div class="ui-end">
                   <kbd>{shortcut}</kbd>
-                </span>
+                </div>
               )}
             </Tag>
           </li>

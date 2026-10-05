@@ -26,7 +26,9 @@
     display: flex;
     flex-direction: column;
     gap: var(--size-3);
+    min-inline-size: 0;
     overflow: hidden;
+    overflow-wrap: break-word;
     padding-inline: 0;
     position: relative;
 
@@ -40,18 +42,21 @@
 
     &.ui-tonal {
       --_card-bg-color: var(--_bg-tonal);
-      --_card-border-width: 1px;
+      --_card-border-color: var(--_bg-surface);
+      --_card-border-width: var(--border-width);
     }
 
     &.ui-elevated {
       --_card-bg-color: var(--_bg-elevated);
+      --_card-border-color: var(--_bg-surface);
+      --_card-border-width: var(--border-width);
       --_card-shadow: var(--_shadow-elevated);
     }
 
     &.ui-outlined {
       --_card-bg-color: var(--_bg-surface);
       --_card-border-color: var(--_border-color);
-      --_card-border-width: 1px;
+      --_card-border-width: var(--border-width);
     }
 
     & > :where(hgroup, .ui-content) {
@@ -90,17 +95,14 @@
     /* Actions */
     & > .ui-actions {
       display: flex;
+      flex-wrap: wrap;
       gap: var(--size-2);
-      margin-block: var(--size-2) 0;
-      padding-block-end: var(--size-2);
+      margin-block-start: auto;
+      padding-block: var(--size-2);
       padding-inline: var(--size-3);
 
       &:has(.ui-button:first-child[class="ui-button"]) {
         padding-inline: var(--size-1) var(--size-3);
-      }
-
-      &:has(.ui-button:not([class="ui-button"])) {
-        padding-block-end: var(--size-2);
       }
 
       /* Alignment */

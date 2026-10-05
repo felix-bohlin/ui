@@ -9,9 +9,9 @@ export default {
   },
   notes: {
     astro:
-      "Other attributes, such as `checked`, `disabled`, `name` and `required`, go to the `<input>`. Without a label, set `aria-label` or `aria-labelledby`.",
+      "Other attributes, such as `checked`, `disabled`, `name` and `required`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.",
     html: 'The input needs `type="checkbox"` and `role="switch"`. Use `.ui-sr-only` instead of `.ui-label` to hide the label visually.',
-    vue: "Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`. Without a label, set `aria-label` or `aria-labelledby`.",
+    vue: "Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.",
   },
   options: [
     {
@@ -27,11 +27,10 @@ export default {
       prop: "hideLabel",
     },
     {
-      class: ".ui-small",
-      default: "false",
       description: "The size of the element.",
       group: "Sizes",
-      prop: "small",
+      prop: "size",
+      values: { small: ".ui-small" },
     },
     {
       class: ".ui-spread",

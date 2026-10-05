@@ -7,26 +7,16 @@ import { Button, Dialog } from "opui-css/vue"
     Open dialog
   </Button>
 
-  <Dialog
-    id="example-dialog"
-    role="alertdialog"
-    aria-labelledby="dialog-heading"
-    aria-modal="true"
-  >
-    <template #header
-      ><h2 id="dialog-heading" class="ui-h4">Are you sure?</h2></template
-    >
+  <Dialog id="example-dialog">
+    <template #header><h2 class="ui-h4">Newsletter</h2></template>
     <template #content
       ><p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        sodales, nulla sit amet porttitor rhoncus. Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Vivamus sodales, nulla sit amet porttitor
-        rhoncus.
+        Get a short email when we ship something new. No more than once a month.
       </p></template
     >
     <template #actions>
       <Button commandfor="example-dialog" command="close" type="button">
-        Cancel
+        Not now
       </Button>
       <Button
         commandfor="example-dialog"
@@ -34,7 +24,7 @@ import { Button, Dialog } from "opui-css/vue"
         type="button"
         variant="filled"
       >
-        Save
+        Subscribe
       </Button>
     </template>
   </Dialog>

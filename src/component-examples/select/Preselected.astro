@@ -1,0 +1,22 @@
+---
+import { Select } from "@opui/astro"
+---
+
+<Select
+  label="Role"
+  items={[
+    { text: "Designer", value: "designer" },
+    { text: "Developer", value: "developer" },
+    { text: "Manager", value: "manager" },
+  ]}
+  value="developer"
+/>
+
+<Select
+  label="Team"
+  items={[
+    { text: "Design", value: "design" },
+    { selected: true, text: "Engineering", value: "engineering" },
+    { text: "Sales", value: "sales" },
+  ]}
+/>

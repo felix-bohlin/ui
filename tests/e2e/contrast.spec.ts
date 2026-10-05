@@ -60,6 +60,16 @@ const contrast = (locator: Locator, foreground: string, background: string) =>
 const setContrast = (page: Page, value: "more" | "no-preference") =>
   page.emulateMedia({ contrast: value })
 
+const settleTransitions = (page: Page) =>
+  page.evaluate(() =>
+    Promise.all(
+      document
+        .getAnimations()
+        .filter((animation) => animation instanceof CSSTransition)
+        .map((animation) => animation.finished.catch(() => undefined)),
+    ),
+  )
+
 test.describe("prefers-contrast", () => {
   test.beforeEach(async ({ page }) => {
     await openFixture(page, "html", "theming")
@@ -172,6 +182,7 @@ test("stress/contrast has no AAA contrast violations inside .ui-contrast-more", 
   await openFixture(page, "html", "stress/contrast")
   for (const colorScheme of ["light", "dark"] as const) {
     await page.emulateMedia({ colorScheme })
+    await settleTransitions(page)
     const { violations } = await new AxeBuilder({ page })
       .include(".ui-contrast-more")
       .withRules(["color-contrast-enhanced"])
@@ -191,6 +202,7 @@ for (const component of COMPONENTS) {
     await openFixture(page, "html", component)
     for (const colorScheme of ["light", "dark"] as const) {
       await page.emulateMedia({ colorScheme, contrast: "more" })
+      await settleTransitions(page)
       const { violations } = await new AxeBuilder({ page })
         .include("main")
         .exclude(".ui-not-rich-text a:not([class])")

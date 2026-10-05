@@ -5,7 +5,7 @@ export default {
   options: [
     {
       description: "Alternative text for the image.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "alt",
       type: "string",
     },
@@ -43,7 +43,7 @@ export default {
     },
     {
       description: "The image source. Replaces the default slot.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "svelte", "vue"],
       prop: "src",
       type: "string",
     },

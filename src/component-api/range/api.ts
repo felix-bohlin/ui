@@ -11,6 +11,8 @@ export default {
     astro:
       "Input attributes, such as `disabled`, `max`, `min`, `name` and `step`, go to the `<input>`.",
     html: "Add a `<datalist>` after the input for tick marks.",
+    svelte:
+      "Attributes that aren't props, such as `max`, `min` or `step`, go to the `<input>`.",
     vue: "Attributes that aren't props, such as `max`, `min` or `step`, go to the `<input>`.",
   },
   options: [
@@ -47,6 +49,11 @@ export default {
       description: "The current value.",
       prop: "value",
       type: "number | string",
+    },
+    {
+      description: "Replaces the shown value.",
+      frameworks: ["svelte"],
+      prop: "valueText",
     },
     {
       description:

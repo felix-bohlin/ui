@@ -4,6 +4,7 @@ export default {
   component: "Drawer",
   notes: {
     html: "Add `autofocus` to the root, or to an element inside, to choose what gets focus when it opens.",
+    svelte: "Attributes that aren't props go to the `<dialog>`.",
     vue: "Attributes that aren't props go to the `<dialog>`.",
   },
   options: [

@@ -6,6 +6,8 @@ export default {
     astro:
       'Group accordions in a `<Card role="group">`. Set its `variant` to theme the whole group.',
     html: 'Add `.ui-card` to the root for card styles. Group accordions in a `.ui-card[role="group"]` and set the variant on it to theme the whole group.',
+    svelte:
+      'Group accordions in a `<Card role="group">`. Set its `variant` to theme the whole group.',
     vue: 'Group accordions in a `<Card role="group">`. Set its `variant` to theme the whole group.',
   },
   options: [
@@ -13,7 +15,7 @@ export default {
       attribute: "[name]",
       description:
         "Groups accordions so only one of them can be open at a time.",
-      frameworks: ["astro", "html", "vue"],
+      frameworks: ["astro", "html", "svelte", "vue"],
       group: "Grouping",
       prop: "name",
       type: "string",
@@ -34,7 +36,7 @@ export default {
       attribute: "[open]",
       default: "false",
       description: "Whether the accordion is open.",
-      frameworks: ["astro", "html", "vue"],
+      frameworks: ["astro", "html", "svelte", "vue"],
       group: "State",
       prop: "open",
       type: "boolean",

@@ -6,6 +6,8 @@ export default {
   notes: {
     astro:
       "CSS-only. Styles the `<input>` inside `.ui-text-field`; the Text field component sets these with its `autoFit`, `filled` and `size` props.",
+    svelte:
+      "CSS-only. Styles the `<input>` inside `.ui-text-field`; the Text field component sets these with its `autoFit`, `filled` and `size` props.",
     vue: "CSS-only. Styles the `<input>` inside `.ui-text-field`; the Text field component sets these with its `autoFit`, `filled` and `size` props.",
   },
   options: [

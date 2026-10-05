@@ -11,6 +11,8 @@ export default {
   notes: {
     astro:
       "Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to the `<select>`.",
+    svelte:
+      "Attributes that aren't props, such as `disabled` or `name`, go to the `<select>`.",
     vue: "Attributes that aren't props, such as `disabled` or `name`, go to the `<select>`.",
   },
   options: [

@@ -237,7 +237,7 @@ const techniques = [
     <h2 id="custom-cells">Custom cells</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >Cells can hold other components, such as <code>.ui-avatar</code>,
+        >Cells can hold other components, such as <code>.ui-avatar</code>,{" "}
         <code>.ui-chip</code> and <code>.ui-progress</code>.</Fragment
       >
       <Fragment slot="astro"
@@ -255,7 +255,7 @@ const techniques = [
     <h2 id="sorting">Sorting</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >Sort radios in a header with <code>value="asc"</code> and
+        >Sort radios in a header with <code>value="asc"</code> and{" "}
         <code>value="desc"</code>. Each row sets <code>--_rank-[n]</code>, its
         position when sorted by column <code>n</code>.</Fragment
       >
@@ -317,22 +317,26 @@ const techniques = [
     <Conditional as="p">
       <Fragment slot="html"
         ><code>.ui-bulk-actions</code> in <code>.ui-toolbar</code> only shows while
-        rows are selected. Give checkboxes a <code>name</code> and
+        rows are selected. Give checkboxes a <code>name</code> and{" "}
         <code>value</code>, and editable inputs a <code>name</code>, to submit
         them. <code>form</code> ties them to a form outside the grid, so a reset button
         clears the selection without touching sorting or filters.</Fragment
       >
       <Fragment slot="astro"
-        >An <code>actions</code> slot only shows while rows are selected.
-        <code>rowKey</code> names the checkboxes and editable inputs, such as
-        <code>selected=ada</code> and <code>role[ada]</code>, and
+        >An <code>actions</code> slot only shows while rows are selected.{" "}
+        <code>rowKey</code> names the checkboxes and editable inputs, such as{
+          " "
+        }
+        <code>selected=ada</code> and <code>role[ada]</code>, and{" "}
         <code>form</code> ties them to a form, so a reset button clears the selection
         without touching sorting or filters.</Fragment
       >
       <Fragment slot="vue"
-        >An <code>#actions</code> slot only shows while rows are selected.
-        <code>row-key</code> names the checkboxes and editable inputs, such as
-        <code>selected=ada</code> and <code>role[ada]</code>, and
+        >An <code>#actions</code> slot only shows while rows are selected.{" "}
+        <code>row-key</code> names the checkboxes and editable inputs, such as{
+          " "
+        }
+        <code>selected=ada</code> and <code>role[ada]</code>, and{" "}
         <code>form</code> ties them to a form, so a reset button clears the selection
         without touching sorting or filters.</Fragment
       >
@@ -345,16 +349,20 @@ const techniques = [
     <h2 id="filtering">Filtering</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >Radios in <code>.ui-filters</code>. A row with
-        <code>data-filters="1"</code> matches the radio with
+        >Radios in <code>.ui-filters</code>. A row with{" "}
+        <code>data-filters="1"</code> matches the radio with{" "}
         <code>value="1"</code>. <code>value="selected"</code> shows selected rows.</Fragment
       >
       <Fragment slot="astro"
-        ><code>filters</code>. A filter's <code>match</code> is a function, or
+        ><code>filters</code>. A filter's <code>match</code> is a function, or{
+          " "
+        }
         <code>"selected"</code>.</Fragment
       >
       <Fragment slot="vue"
-        ><code>filters</code>. A filter's <code>match</code> is a function, or
+        ><code>filters</code>. A filter's <code>match</code> is a function, or{
+          " "
+        }
         <code>"selected"</code>.</Fragment
       >
     </Conditional>
@@ -366,7 +374,7 @@ const techniques = [
     <h2 id="column-visibility">Column visibility</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >Checkboxes in <code>.ui-columns</code> with the column number as
+        >Checkboxes in <code>.ui-columns</code> with the column number as{" "}
         <code>value</code>.</Fragment
       >
       <Fragment slot="astro"
@@ -405,7 +413,7 @@ const techniques = [
     <h2 id="density">Density</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        ><code>.ui-dense</code> or <code>.ui-spacious</code>, or radios in
+        ><code>.ui-dense</code> or <code>.ui-spacious</code>, or radios in{" "}
         <code>.ui-density</code>.</Fragment
       >
       <Fragment slot="astro"
@@ -423,17 +431,17 @@ const techniques = [
     <h2 id="column-widths">Column widths</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >Columns share the space and never get narrower than their content.
+        >Columns share the space and never get narrower than their content.{" "}
         <code>--_col-[n]</code> sets a track size, and <code>.ui-fit</code> on a header
         fits the column to its content.</Fragment
       >
       <Fragment slot="astro"
-        >Columns share the space and never get narrower than their content.
+        >Columns share the space and never get narrower than their content.{" "}
         <code>width</code> sets a track size, and <code>fit</code> fits the column
         to its content.</Fragment
       >
       <Fragment slot="vue"
-        >Columns share the space and never get narrower than their content.
+        >Columns share the space and never get narrower than their content.{" "}
         <code>width</code> sets a track size, and <code>fit</code> fits the column
         to its content.</Fragment
       >
@@ -463,17 +471,17 @@ const techniques = [
     <h2 id="pinned-columns">Pinned columns</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        ><code>.ui-pin-start</code> and <code>.ui-pin-end</code>, and
+        ><code>.ui-pin-start</code> and <code>.ui-pin-end</code>, and{" "}
         <code>--_max-block-size</code> for a sticky header. Shadows show when there
         is more to scroll.</Fragment
       >
       <Fragment slot="astro"
-        ><code>pinStart</code> and <code>pinEnd</code>, and
+        ><code>pinStart</code> and <code>pinEnd</code>, and{" "}
         <code>maxBlockSize</code> for a sticky header. Shadows show when there is
         more to scroll.</Fragment
       >
       <Fragment slot="vue"
-        ><code>pin-start</code> and <code>pin-end</code>, and
+        ><code>pin-start</code> and <code>pin-end</code>, and{" "}
         <code>max-block-size</code> for a sticky header. Shadows show when there is
         more to scroll.</Fragment
       >
@@ -515,7 +523,7 @@ const techniques = [
     <h2 id="column-groups">Column groups</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >A header row with <code>aria-colspan</code> and a matching
+        >A header row with <code>aria-colspan</code> and a matching{" "}
         <code>grid-column</code> span.</Fragment
       >
       <Fragment slot="astro"><code>columnGroups</code>.</Fragment>
@@ -529,7 +537,9 @@ const techniques = [
     <h2 id="totals">Totals</h2>
     <Conditional as="p">
       <Fragment slot="html"
-        >Each row sets <code>--_sum-[n]</code>, and a <code>.ui-sum</code> cell in
+        >Each row sets <code>--_sum-[n]</code>, and a <code>.ui-sum</code> cell in{
+          " "
+        }
         <code>.ui-foot</code> shows the total of column <code>n</code>. Totals
         follow the filters.</Fragment
       >
@@ -577,6 +587,7 @@ const techniques = [
   <section>
     <h2 id="rtl">Right to left</h2>
     <p>
+      {" "}
       <code>dir="rtl"</code> mirrors pinned columns, scroll shadows, sort arrows and
       the detail toggle.
     </p>
@@ -617,6 +628,7 @@ const techniques = [
               <Table.Cell>{feature}</Table.Cell>
               <Table.Cell>{how}</Table.Cell>
               <Table.Cell>
+                {" "}
                 <code>{css}</code>
               </Table.Cell>
             </Table.Row>
@@ -628,8 +640,8 @@ const techniques = [
     <h3 id="pinned-columns-and-shadows">Pinned columns and scroll shadows</h3>
     <p>
       Pinned cells are sticky. <code>sibling-index()</code> offsets each pinned checkbox,
-      expand and first column by the ones before it, with
-      <code>:nth-child()</code> rules as a fallback. The table is a
+      expand and first column by the ones before it, with{" "}
+      <code>:nth-child()</code> rules as a fallback. The table is a{" "}
       <code>scroll-state</code> container, so shadows only appear when there is content
       to scroll back to.
     </p>
@@ -637,7 +649,7 @@ const techniques = [
 
     <h3 id="detail-panels">Detail panels</h3>
     <p>
-      The expand cell and its <code>details</code> are
+      The expand cell and its <code>details</code> are{" "}
       <code>display: contents</code>, so the summary becomes a grid item in the
       row and <code>::details-content</code> moves to a second grid row that spans
       all columns. It fades in instead of animating its height: every frame of a height
@@ -647,9 +659,10 @@ const techniques = [
 
     <h3 id="row-numbers-under-the-hood">Row numbers</h3>
     <p>
+      {" "}
       <code>content</code> can't print a number, but a counter can. Each row resets
       a counter to its position: <code>sibling-index()</code> when unsorted, its rank
-      when sorted ascending, and
+      when sorted ascending, and{" "}
       <code>sibling-count()</code> minus its rank when sorted descending. The number
       cell prints the counter. Without <code>sibling-index()</code>, it falls
       back to the visible row counter.
@@ -658,9 +671,9 @@ const techniques = [
 
     <h3 id="resizing-and-editing">Resizing and editing</h3>
     <p>
-      Resizable headers use <code>resize: horizontal</code>. Body cells get
+      Resizable headers use <code>resize: horizontal</code>. Body cells get{" "}
       <code>contain: inline-size</code> so they stop contributing to the column width,
-      and the header alone sets it. Editable cells are inputs with
+      and the header alone sets it. Editable cells are inputs with{" "}
       <code>field-sizing: content</code>, so a column fits its longest value.
     </p>
     <Code lang="css" code={snippets.resizing} />
@@ -687,8 +700,10 @@ const techniques = [
   <Fragment slot="accessibility">
     <p>
       Uses ARIA table roles, and the table scrolls with the keyboard. Every
-      control is a native checkbox, radio or input with a name. CSS can't update
-      <code>aria-sort</code>, and sorting changes the visual order, so
+      control is a native checkbox, radio or input with a name. CSS can't update{
+        " "
+      }
+      <code>aria-sort</code>, and sorting changes the visual order, so{" "}
       <code>reading-flow</code> keeps the reading and focus order in step where supported.
     </p>
   </Fragment>

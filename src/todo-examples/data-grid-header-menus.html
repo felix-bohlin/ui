@@ -1,0 +1,224 @@
+<style>
+  .todo-header-menus {
+    display: grid;
+    gap: var(--size-3);
+    inline-size: 100%;
+  }
+
+  .todo-header-menus .ui-sort {
+    block-size: var(--icon-size);
+    color: var(--primary);
+    inline-size: var(--icon-size);
+  }
+
+  .todo-header-menus
+    [role="columnheader"]:has(menu :checked:not([value=""]))
+    .ui-sort::before {
+    background-color: currentColor;
+    block-size: 100%;
+    content: "";
+    display: block;
+    inline-size: 100%;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 4l-7 7 1.4 1.4 4.6-4.6V20h2V7.8l4.6 4.6L19 11z'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+  }
+
+  .todo-header-menus
+    [role="columnheader"]:has(menu [value="desc"]:checked)
+    .ui-sort::before {
+    rotate: 180deg;
+  }
+</style>
+<div class="todo-header-menus">
+  <p class="ui-caption">
+    The sort radios live in the header menus, and the arrow next to a header
+    only shows the sort. Tab to a menu button, press Enter, then Tab into the
+    menu: arrow keys pick a sort, and Manage columns opens the Columns menu.
+  </p>
+  <div class="ui-data-grid">
+    <div class="ui-toolbar">
+      <button
+        class="ui-button ui-outlined ui-small"
+        command="toggle-popover"
+        commandfor="todo-header-menus-columns"
+        type="button"
+      >
+        Columns
+      </button>
+      <menu
+        class="ui-menu ui-list ui-dense ui-columns ui-align-end"
+        id="todo-header-menus-columns"
+        popover
+      >
+        <li>
+          <label class="ui-checkbox"
+            ><input checked type="checkbox" value="1" />Name</label
+          >
+        </li>
+        <li>
+          <label class="ui-checkbox"
+            ><input checked type="checkbox" value="2" />Role</label
+          >
+        </li>
+        <li>
+          <label class="ui-checkbox"
+            ><input checked type="checkbox" value="3" />Tickets</label
+          >
+        </li>
+      </menu>
+    </div>
+    <div aria-label="Team" role="table" tabindex="0">
+      <div class="ui-head" role="rowgroup">
+        <div role="row">
+          <div role="columnheader">
+            <span>Name</span>
+            <span aria-hidden="true" class="ui-sort"></span>
+            <button
+              aria-label="Options for Name"
+              class="ui-button ui-rounded ui-small"
+              command="toggle-popover"
+              commandfor="todo-header-menus-1"
+              type="button"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path
+                  d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+            <menu
+              class="ui-menu ui-list ui-dense ui-align-end"
+              id="todo-header-menus-1"
+              popover
+            >
+              <li>
+                <label class="ui-radio"
+                  ><input
+                    name="todo-header-menus-sort"
+                    type="radio"
+                    value="asc"
+                  />Sort ascending</label
+                >
+              </li>
+              <li>
+                <label class="ui-radio"
+                  ><input
+                    name="todo-header-menus-sort"
+                    type="radio"
+                    value="desc"
+                  />Sort descending</label
+                >
+              </li>
+              <li>
+                <label class="ui-radio"
+                  ><input
+                    checked
+                    name="todo-header-menus-sort"
+                    type="radio"
+                    value=""
+                  />Unsorted</label
+                >
+              </li>
+              <li>
+                <button
+                  command="show-popover"
+                  commandfor="todo-header-menus-columns"
+                  type="button"
+                >
+                  Manage columns
+                </button>
+              </li>
+            </menu>
+          </div>
+          <div role="columnheader"><span>Role</span></div>
+          <div class="ui-numeric" role="columnheader">
+            <span>Tickets</span>
+            <span aria-hidden="true" class="ui-sort"></span>
+            <button
+              aria-label="Options for Tickets"
+              class="ui-button ui-rounded ui-small"
+              command="toggle-popover"
+              commandfor="todo-header-menus-3"
+              type="button"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path
+                  d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+            <menu
+              class="ui-menu ui-list ui-dense ui-align-end"
+              id="todo-header-menus-3"
+              popover
+            >
+              <li>
+                <label class="ui-radio"
+                  ><input
+                    name="todo-header-menus-sort"
+                    type="radio"
+                    value="asc"
+                  />Sort ascending</label
+                >
+              </li>
+              <li>
+                <label class="ui-radio"
+                  ><input
+                    name="todo-header-menus-sort"
+                    type="radio"
+                    value="desc"
+                  />Sort descending</label
+                >
+              </li>
+              <li>
+                <label class="ui-radio"
+                  ><input
+                    name="todo-header-menus-sort"
+                    type="radio"
+                    value=""
+                  />Unsorted</label
+                >
+              </li>
+              <li>
+                <button
+                  command="show-popover"
+                  commandfor="todo-header-menus-columns"
+                  type="button"
+                >
+                  Manage columns
+                </button>
+              </li>
+            </menu>
+          </div>
+        </div>
+      </div>
+      <div class="ui-body" role="rowgroup">
+        <div role="row" style="--_rank-1: 1; --_rank-3: 2">
+          <div role="rowheader">Ada Lovelace</div>
+          <div role="cell">Engineer</div>
+          <div class="ui-numeric" role="cell">42</div>
+        </div>
+        <div role="row" style="--_rank-1: 2; --_rank-3: 4">
+          <div role="rowheader">Grace Hopper</div>
+          <div role="cell">Admiral</div>
+          <div class="ui-numeric" role="cell">58</div>
+        </div>
+        <div role="row" style="--_rank-1: 3; --_rank-3: 1">
+          <div role="rowheader">Hedy Lamarr</div>
+          <div role="cell">Inventor</div>
+          <div class="ui-numeric" role="cell">12</div>
+        </div>
+        <div role="row" style="--_rank-1: 4; --_rank-3: 3">
+          <div role="rowheader">Katherine Johnson</div>
+          <div role="cell">Mathematician</div>
+          <div class="ui-numeric" role="cell">51</div>
+        </div>
+        <div class="ui-empty" role="row">
+          <div role="cell">No rows</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

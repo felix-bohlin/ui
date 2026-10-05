@@ -12,6 +12,7 @@ import carouselEqualHeight from "../todo-examples/carousel-equal-height.html?raw
 import checkboxForcedColors from "../todo-examples/checkbox-forced-colors.html?raw"
 import classicSelectLabelSlot from "../todo-examples/classic-select-label-slot.html?raw"
 import colorContrastLedger from "../todo-examples/color-contrast-ledger.html?raw"
+import dataGridHeaderMenus from "../todo-examples/data-grid-header-menus.html?raw"
 import dialogActionsAlign from "../todo-examples/dialog-actions-align.html?raw"
 import disabledButtons from "../todo-examples/disabled-buttons.html?raw"
 import drawerHeader from "../todo-examples/drawer-header.html?raw"
@@ -89,6 +90,10 @@ export const todoExamples = {
   "color-contrast-ledger": {
     match: "Remaining `color-contrast` entries",
     source: colorContrastLedger,
+  },
+  "data-grid-header-menus": {
+    match: "Data grid header menus",
+    source: dataGridHeaderMenus,
   },
   "dialog-actions-align": {
     match: "Classes emitted with no CSS",

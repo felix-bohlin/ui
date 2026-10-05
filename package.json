@@ -27,7 +27,7 @@
     "test:e2e:update": "playwright test --update-snapshots=all",
     "test:record-drift": "PARITY_RECORD=1 vitest run -u",
     "test:update": "vitest run --update",
-    "typecheck": "astro check && vue-tsc --noEmit -p tsconfig.vue.json"
+    "typecheck": "astro check && vue-tsc --noEmit -p tsconfig.vue.json && svelte-check --tsconfig ./tsconfig.svelte.json --fail-on-warnings"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
@@ -65,6 +65,7 @@
     "solid-js": "catalog:",
     "stylelint": "^17.15.0",
     "svelte": "catalog:",
+    "svelte-check": "^4.7.6",
     "unified": "^11.0.5",
     "vitest": "^5.0.2",
     "vue": "catalog:",

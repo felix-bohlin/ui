@@ -10,6 +10,8 @@ for (const [path, loader] of Object.entries(loaders)) {
   if (match) registry.set(match[1], loader)
 }
 
+const pending = new WeakSet<HTMLElement>()
+
 async function mountAll() {
   const targets = document.querySelectorAll<HTMLElement>(
     "[data-svelte-example]:not([data-svelte-mounted])",
@@ -17,15 +19,16 @@ async function mountAll() {
 
   for (const el of targets) {
     const id = el.getAttribute("data-svelte-example")
-    if (!id) continue
+    if (!id || pending.has(el)) continue
 
     const loader = registry.get(id)
     if (!loader) continue
 
-    el.setAttribute("data-svelte-mounted", "")
+    pending.add(el)
     const mod = await loader()
     el.innerHTML = ""
     mount(mod.default, { target: el })
+    el.setAttribute("data-svelte-mounted", "")
   }
 }
 

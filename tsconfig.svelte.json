@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "packages/opui/components/**/*.svelte",
+    "packages/opui/components/**/*.svelte.ts",
+    "packages/opui/svelte/**/*.ts",
+    "src/**/*.svelte"
+  ]
+}

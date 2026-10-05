@@ -1,0 +1,87 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-stack {
+    display: grid;
+    gap: var(--size-4);
+  }
+
+  .todo-ring > summary {
+    outline: var(--focus-ring-width) var(--focus-ring-style)
+      var(--focus-ring-color, currentColor);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  .todo-inset > summary {
+    &:focus-visible {
+      outline-offset: var(--focus-ring-inset);
+    }
+  }
+
+  .todo-ring.todo-inset > summary {
+    outline-offset: var(--focus-ring-inset);
+  }
+</style>
+<div class="todo-stack">
+  <div class="todo-compare">
+    <div>
+      <p class="ui-caption">
+        Current, ring forced on: <code>outline-offset: 2px</code> draws outside
+        the summary, and the card's <code>overflow: hidden</code> clips it
+      </p>
+      <details class="ui-accordion ui-card ui-outlined todo-ring">
+        <summary>Closed accordion</summary>
+        <div class="ui-content"><p>Content</p></div>
+      </details>
+      <details class="ui-accordion ui-card ui-outlined todo-ring" open>
+        <summary>Open accordion</summary>
+        <div class="ui-content"><p>Only the bottom edge shows.</p></div>
+      </details>
+    </div>
+    <div>
+      <p class="ui-caption">
+        Proposed, ring forced on:
+        <code>outline-offset: var(--focus-ring-inset)</code> draws inside
+      </p>
+      <details class="ui-accordion ui-card ui-outlined todo-ring todo-inset">
+        <summary>Closed accordion</summary>
+        <div class="ui-content"><p>Content</p></div>
+      </details>
+      <details
+        class="ui-accordion ui-card ui-outlined todo-ring todo-inset"
+        open
+      >
+        <summary>Open accordion</summary>
+        <div class="ui-content"><p>All four edges show.</p></div>
+      </details>
+    </div>
+  </div>
+  <p>Press <kbd>Tab</kbd> through these to see the real focus ring:</p>
+  <div class="todo-compare">
+    <div>
+      <p class="ui-caption">Current</p>
+      <details class="ui-accordion ui-card ui-outlined">
+        <summary>Current</summary>
+        <div class="ui-content"><p>Content</p></div>
+      </details>
+    </div>
+    <div>
+      <p class="ui-caption">Proposed</p>
+      <details class="ui-accordion ui-card ui-outlined todo-inset">
+        <summary>Proposed</summary>
+        <div class="ui-content"><p>Content</p></div>
+      </details>
+    </div>
+  </div>
+</div>

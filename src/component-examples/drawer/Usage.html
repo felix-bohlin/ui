@@ -1,5 +1,6 @@
 <div class="drawer-examples">
   <button
+    type="button"
     class="ui-button top"
     commandfor="drawer-block-start-html"
     command="show-modal"
@@ -7,6 +8,7 @@
     Block Start
   </button>
   <button
+    type="button"
     class="ui-button left"
     commandfor="drawer-inline-start-html"
     command="show-modal"
@@ -14,6 +16,7 @@
     Inline Start
   </button>
   <button
+    type="button"
     class="ui-button right"
     commandfor="drawer-inline-end-html"
     command="show-modal"
@@ -21,6 +24,7 @@
     Inline End
   </button>
   <button
+    type="button"
     class="ui-button bottom"
     commandfor="drawer-block-end-html"
     command="show-modal"
@@ -32,17 +36,20 @@
 <dialog
   class="ui-drawer ui-scroll-lock ui-inline-start"
   id="drawer-inline-start-html"
+  aria-labelledby="drawer-inline-start-html-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <span>Inline Start</span>
+    <h2 id="drawer-inline-start-html-heading">Inline Start</h2>
     <button
+      type="button"
       class="ui-button ui-rounded ui-ripple ui-small"
-      title="Close"
+      aria-label="Close"
       commandfor="drawer-inline-start-html"
       command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -75,6 +82,7 @@
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       class="ui-button ui-small"
       commandfor="drawer-inline-start-html"
       command="close"
@@ -87,17 +95,20 @@
 <dialog
   class="ui-drawer ui-scroll-lock ui-inline-end"
   id="drawer-inline-end-html"
+  aria-labelledby="drawer-inline-end-html-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <span>Inline End</span>
+    <h2 id="drawer-inline-end-html-heading">Inline End</h2>
     <button
+      type="button"
       class="ui-button ui-rounded ui-ripple ui-small"
-      title="Close"
+      aria-label="Close"
       commandfor="drawer-inline-end-html"
       command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -130,6 +141,7 @@
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       class="ui-button ui-small"
       commandfor="drawer-inline-end-html"
       command="close"
@@ -142,17 +154,20 @@
 <dialog
   class="ui-drawer ui-scroll-lock ui-block-start"
   id="drawer-block-start-html"
+  aria-labelledby="drawer-block-start-html-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <span>Block Start</span>
+    <h2 id="drawer-block-start-html-heading">Block Start</h2>
     <button
+      type="button"
       class="ui-button ui-rounded ui-ripple ui-small"
-      title="Close"
+      aria-label="Close"
       commandfor="drawer-block-start-html"
       command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -180,6 +195,7 @@
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       class="ui-button ui-small"
       commandfor="drawer-block-start-html"
       command="close"
@@ -192,17 +208,20 @@
 <dialog
   class="ui-drawer ui-scroll-lock ui-block-end"
   id="drawer-block-end-html"
+  aria-labelledby="drawer-block-end-html-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <span>Block End</span>
+    <h2 id="drawer-block-end-html-heading">Block End</h2>
     <button
+      type="button"
       class="ui-button ui-rounded ui-ripple ui-small"
-      title="Close"
+      aria-label="Close"
       commandfor="drawer-block-end-html"
       command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -230,6 +249,7 @@
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       class="ui-button ui-small"
       commandfor="drawer-block-end-html"
       command="close"

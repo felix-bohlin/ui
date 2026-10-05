@@ -1,10 +1,16 @@
 # Toggle
 
-Buttons (disguised as input checkbox/radio) that can be toggled on and off.
+Buttons (disguised as input checkbox/radio) that can be toggled on and off. Use them for options in a toolbar, like bold or text alignment. For a setting that applies right away, use a [Switch](https://open-props-ui.netlify.app/html/components/switch.md), and for choices in a form a [Checkbox](https://open-props-ui.netlify.app/html/components/checkbox.md). To switch between panels of content, use [Tabs](https://open-props-ui.netlify.app/html/components/tabs.md).
+
+### What's new
+
+- [Large](#sizes) size with `.ui-large`.
+- [Small and x-small](#sizes) toggles use smaller text, like `Button`.
+- [Groups wrap](#overflow) when they don't fit, or scrolls with `.ui-scrollable` or truncates with `.ui-shrink`.
 
 ## Anatomy
 
-DayWeekMonth
+Day Week Month
 
 - `.ui-toggle-group`
 
@@ -87,7 +93,7 @@ Use `type="checkbox"` for multi-select groups.
 
 ### Single-select
 
-Use `type="radio"` for single-select groups.
+Use `type="radio"` for single-select groups. Add `checked` to the input that starts pressed.
 
 ```html
 <div role="radiogroup" class="ui-toggle-group">
@@ -295,7 +301,7 @@ Change the layout of the group with the `.ui-vertical` class.
 
 ### Sizes
 
-Choose between three sizes: default, `.ui-x-small` and `.ui-small`.
+Choose between four sizes: `.ui-x-small`, `.ui-small`, default and `.ui-large`.
 
 ```html
 <label class="ui-toggle-button ui-x-small">
@@ -314,17 +320,121 @@ Choose between three sizes: default, `.ui-x-small` and `.ui-small`.
   <input type="checkbox" id="toggle-size-3" />
   default
 </label>
+
+
+<label class="ui-toggle-button ui-large">
+  <input type="checkbox" id="toggle-size-4" />
+  large
+</label>
+```
+
+### Overflow
+
+Toggle buttons in a group wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep them on one row and scroll them sideways, or `.ui-shrink` to keep them on one row and truncate their labels. Icon-only items keep their size.
+
+```html
+<div style="display: grid; gap: var(--size-3); max-inline-size: 18rem">
+  <div role="group" class="ui-toggle-group">
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        id="overflow-wrap-all"
+        name="overflow-wrap"
+        value="all"
+      />
+      Everything
+    </label>
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        id="overflow-wrap-mentions"
+        name="overflow-wrap"
+        value="mentions"
+      />
+      Mentions
+    </label>
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        id="overflow-wrap-none"
+        name="overflow-wrap"
+        value="none"
+      />
+      Nothing at all
+    </label>
+  </div>
+  <div role="group" class="ui-toggle-group ui-scrollable">
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        id="overflow-scrollable-all"
+        name="overflow-scrollable"
+        value="all"
+      />
+      Everything
+    </label>
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        id="overflow-scrollable-mentions"
+        name="overflow-scrollable"
+        value="mentions"
+      />
+      Mentions
+    </label>
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        id="overflow-scrollable-none"
+        name="overflow-scrollable"
+        value="none"
+      />
+      Nothing at all
+    </label>
+  </div>
+  <div role="group" class="ui-toggle-group ui-shrink">
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        id="overflow-shrink-all"
+        name="overflow-shrink"
+        value="all"
+      />
+      Everything
+    </label>
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        id="overflow-shrink-mentions"
+        name="overflow-shrink"
+        value="mentions"
+      />
+      Mentions
+    </label>
+    <label class="ui-toggle-button">
+      <input
+        type="checkbox"
+        id="overflow-shrink-none"
+        name="overflow-shrink"
+        value="none"
+      />
+      Nothing at all
+    </label>
+  </div>
+</div>
 ```
 
 ## API
 
 ### Toggle group API
 
-| Type        | Modifiers                               | Default          | Description                                                                   |
-| ----------- | --------------------------------------- | ---------------- | ----------------------------------------------------------------------------- |
-| Orientation | `.ui-vertical`                          | -                | The orientation of the element.                                               |
-| Selection   | `[role="group"]`, `[role="radiogroup"]` | `[role="group"]` | Whether one or several buttons can be selected. `"single"` uses radio inputs. |
-| Sizes       | default, `.ui-small`, `.ui-x-small`     | default          | The size of the buttons.                                                      |
+| Type        | Modifiers                                        | Default          | Description                                                                                                       |
+| ----------- | ------------------------------------------------ | ---------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Orientation | `.ui-vertical`                                   | -                | The orientation of the element.                                                                                   |
+| Overflow    | `.ui-scrollable`                                 | -                | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| Overflow    | `.ui-shrink`                                     | -                | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| Selection   | `[role="group"]`, `[role="radiogroup"]`          | `[role="group"]` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
+| Sizes       | default, `.ui-large`, `.ui-small`, `.ui-x-small` | default          | The size of the buttons.                                                                                          |
 
 #### Parts
 
@@ -333,11 +443,36 @@ Choose between three sizes: default, `.ui-x-small` and `.ui-small`.
 | `.ui-toggle-group`  | Container element. |
 | `.ui-toggle-button` | A toggle button.   |
 
+#### CSS variables
+
+| Variable                 | Default                                                                               | Description                                                                                           |
+| ------------------------ | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                           |
+| `--border-width`         | `1px`                                                                                 | Default border width for components that draw a border.                                               |
+| `--button-border-radius` | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                          |
+| `--field-size`           | `var(--control-size)`                                                                 | Default field height.                                                                                 |
+| `--field-size-large`     | `var(--control-size-large)`                                                           | Field height with `.ui-large`.                                                                        |
+| `--field-size-small`     | `var(--control-size-small)`                                                           | Field height with `.ui-small`.                                                                        |
+| `--field-size-x-small`   | `var(--control-size-x-small)`                                                         | Field height with `.ui-x-small`.                                                                      |
+| `--focus-ring-color`     | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.       |
+| `--focus-ring-offset`    | `2px`                                                                                 | Distance between a control and its focus ring.                                                        |
+| `--focus-ring-style`     | `solid`                                                                               | Outline style of the focus ring.                                                                      |
+| `--focus-ring-width`     | `2px`                                                                                 | Width of the focus ring.                                                                              |
+| `--font-size-05`         | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
+| `--icon-size`            | `var(--size-4)`                                                                       | Default icon size inside components.                                                                  |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                          |
+| `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                               |
+| `--surface-default`      | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                             |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                      |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+
 ### Toggle button API
 
 | Type  | Modifiers                                       | Default                  | Description                                                |
 | ----- | ----------------------------------------------- | ------------------------ | ---------------------------------------------------------- |
-| Sizes | `.ui-small`, `.ui-x-small`                      | -                        | The size of the element.                                   |
+| Sizes | `.ui-large`, `.ui-small`, `.ui-x-small`         | -                        | The size of the element.                                   |
 | State | `.ui-disabled`                                  | -                        | Disables the button.                                       |
 | State | `input[checked]`                                | -                        | Selects the button.                                        |
 | Type  | `input[type="checkbox"]`, `input[type="radio"]` | `input[type="checkbox"]` | The input type. `"radio"` allows one selection in a group. |
@@ -349,7 +484,161 @@ Choose between three sizes: default, `.ui-x-small` and `.ui-small`.
 | `label.ui-toggle-button` | Container element.                         |
 | `<input>`                | A visually hidden checkbox or radio input. |
 
-Set `disabled` on the input too. Checkbox inputs also need `aria-pressed`.
+#### CSS variables
+
+| Variable                 | Default                                                                               | Description                                                                                           |
+| ------------------------ | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--border-color`         | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                           |
+| `--border-width`         | `1px`                                                                                 | Default border width for components that draw a border.                                               |
+| `--button-border-radius` | `var(--size-2)`                                                                       | Corner radius for `Button`, `ButtonGroup`, `ToggleButton` and `ToggleGroup`.                          |
+| `--field-size`           | `var(--control-size)`                                                                 | Default field height.                                                                                 |
+| `--field-size-large`     | `var(--control-size-large)`                                                           | Field height with `.ui-large`.                                                                        |
+| `--field-size-small`     | `var(--control-size-small)`                                                           | Field height with `.ui-small`.                                                                        |
+| `--field-size-x-small`   | `var(--control-size-x-small)`                                                         | Field height with `.ui-x-small`.                                                                      |
+| `--focus-ring-color`     | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.       |
+| `--focus-ring-offset`    | `2px`                                                                                 | Distance between a control and its focus ring.                                                        |
+| `--focus-ring-style`     | `solid`                                                                               | Outline style of the focus ring.                                                                      |
+| `--focus-ring-width`     | `2px`                                                                                 | Width of the focus ring.                                                                              |
+| `--font-size-05`         | `0.875rem`                                                                            | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text. |
+| `--icon-size`            | `var(--size-4)`                                                                       | Default icon size inside components.                                                                  |
+| `--primary`              | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                          |
+| `--primary-contrast`     | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                               |
+| `--text-muted`           | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                      |
+| `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+
+Set `disabled` on the input too.
+
+## Under the hood
+
+1. Label
+
+   - A `<label>` wrapping a checkbox: click, keyboard and form value for free
+   - The checkbox holds the state, no `aria-pressed` to keep in sync
+
+2. Pressed
+
+   - `:has(input:checked)`: the label styles itself from the checkbox state
+   - Relative color turns `--primary` into a 25% tint
+   - `light-dark()` picks the hover tint per color scheme
+
+3. Hide input
+
+   - Visually hidden, still focusable and announced
+   - `:has(input:focus-visible)` draws an inset focus ring on the label
+   - `Tab` to a toggle and press `Space`
+
+4. Group
+
+   - Radios with a shared `name`: single select, no JavaScript
+   - Checkboxes for multi-select, with `role="group"`
+   - Each toggle draws a divider on its start and top edge, the group clips the outer ones
+
+Step 1 of 4: Label
+
+```html
+<label class="toggle">
+  <input type="checkbox" />
+  Bold
+</label>
+```
+
+```css
+.toggle {
+  align-items: center;
+  block-size: var(--field-size);
+  border: 1px solid var(--border-color);
+  border-radius: var(--button-border-radius);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: inline-flex;
+  gap: var(--size-2);
+  justify-content: center;
+  min-inline-size: var(--field-size);
+  padding: 0 var(--size-2);
+  position: relative;
+  user-select: none;
+}
+```
+
+Step 2 of 4: Pressed
+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+
+```css
+.toggle {
+  --bg: transparent;
+  background-color: var(--bg);
+}
+
+
+.toggle:hover {
+  --bg: light-dark(oklch(0% 0 0 / 0.04), oklch(100% 0 0 / 0.08));
+}
+
+
+.toggle:has(input:checked) {
+  --bg: oklch(from var(--primary) l c h / 25%);
+}
+```
+
+Step 3 of 4: Hide input
+
+- [`:focus-visible` ](https://webstatus.dev/features/focus-visible)(Widely available): Chrome 86+, Edge 86+, Firefox 85+, Safari 15.4+
+
+```css
+.toggle input {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+
+.toggle:has(input:focus-visible) {
+  outline: 2px solid var(--text-muted);
+  outline-offset: -6px;
+}
+```
+
+Step 4 of 4: Group
+
+```html
+<div class="toggle-group" role="radiogroup">
+  <label class="toggle">
+    <input type="radio" name="view" checked />
+    Day
+  </label>
+  …
+</div>
+```
+
+```css
+.toggle-group {
+  background-color: var(--surface-default);
+  border-radius: var(--button-border-radius);
+  display: inline-flex;
+  flex-wrap: wrap;
+  outline: 1px solid var(--border-color);
+  outline-offset: -1px;
+  overflow: hidden;
+}
+
+
+.toggle-group .toggle {
+  border: 0;
+  border-radius: 0;
+  box-shadow:
+    -1px 0 0 0 var(--border-color),
+    0 -1px 0 0 var(--border-color);
+  flex: auto;
+}
+```
 
 ## Browser support
 
@@ -357,7 +646,7 @@ Set `disabled` on the input too. Checkbox inputs also need `aria-pressed`.
 - Firefox: Full support Supported since v128.
 - Safari: Full support Supported since v18.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Toggle.md).
 
 ## Installation
 

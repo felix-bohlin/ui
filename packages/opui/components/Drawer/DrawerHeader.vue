@@ -1,14 +1,21 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, inject } from "vue"
 import Button from "../Button/Button.vue"
+import { DrawerHeadingIdKey } from "./types.d.vue"
 import type { DrawerHeaderProps, DrawerHeaderSlots } from "./types.d.vue"
 
-const { commandfor, heading } = defineProps<DrawerHeaderProps>()
+const {
+  closeLabel = "Close",
+  commandfor,
+  heading,
+} = defineProps<DrawerHeaderProps>()
 defineSlots<DrawerHeaderSlots>()
 
 defineOptions({
   inheritAttrs: false,
 })
+
+const headingId = inject(DrawerHeadingIdKey, undefined)
 
 const closeAttrs = computed(() =>
   commandfor
@@ -19,10 +26,17 @@ const closeAttrs = computed(() =>
 
 <template>
   <div :class="['ui-header', $props.class]" v-bind="$attrs">
-    <span v-if="heading">{{ heading }}</span>
+    <h2 v-if="heading" :id="headingId">{{ heading }}</h2>
     <slot></slot>
-    <Button ripple rounded size="small" title="Close" v-bind="closeAttrs">
+    <Button
+      :aria-label="closeLabel"
+      ripple
+      rounded
+      size="small"
+      v-bind="closeAttrs"
+    >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"

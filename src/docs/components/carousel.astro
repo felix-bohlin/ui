@@ -4,6 +4,7 @@ import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 import DocLink from "../../components/DocLink.astro"
+import CarouselBuild from "../../components/UnderTheHood/CarouselBuild.astro"
 import { Card as UICard, Carousel as UICarousel } from "@opui/astro"
 
 import CarouselCSS from "@opui/css/components/carousel.css?raw"
@@ -21,9 +22,13 @@ export const description =
   apis={[{ title: "Carousel API", api: carouselApi }]}
   browserSupport={[
     "anchor-positioning",
+    "light-dark",
+    "relative-color",
     "scroll-buttons",
+    "scroll-marker-targets",
     "scroll-markers",
     "scroll-snap",
+    "scrollbar-width",
   ]}
   changelogPaths={[
     {
@@ -46,7 +51,7 @@ export const description =
         label="Destinations"
         markers
         perView={2}
-        style="--_button-disabled-opacity: 1"
+        persistentButtons
       >
         {
           ["Kyoto", "Lima", "Lisbon"].map((title) => (
@@ -89,6 +94,30 @@ export const description =
   </section>
 
   <section>
+    <h2 id="stretch">Stretch</h2>
+    <p>
+      Items in a row are as tall as the tallest one, but their content keeps its
+      own height.
+    </p>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-stretch</code> stretches the content of each item, such as a card,
+        to the item's height.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>stretch</code> stretches the content of each item, such as a card,
+        to the item's height.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>stretch</code> stretches the content of each item, such as a card,
+        to the item's height.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Stretch" />
+  </section>
+
+  <section>
     <h2 id="peek">Peek</h2>
     <Conditional as="p">
       <Fragment slot="html"
@@ -103,6 +132,26 @@ export const description =
     </Conditional>
 
     <AutoExample name="Peek" />
+  </section>
+
+  <section>
+    <h2 id="vertical">Vertical</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-vertical</code> scrolls on the block axis. Set its height with
+        {" "}<code>--_block-size</code>.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>orientation="vertical"</code> scrolls on the block axis. Set its height
+        with <code>--_block-size</code>.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>orientation="vertical"</code> scrolls on the block axis. Set its height
+        with <code>--_block-size</code>.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="Vertical" />
   </section>
 
   <section>
@@ -139,10 +188,31 @@ export const description =
   </section>
 
   <section>
+    <h2 id="persistent-buttons">Persistent buttons</h2>
+    <Conditional as="p">
+      <Fragment slot="html"
+        ><code>.ui-buttons-persistent</code> to keep both buttons visible. A disabled
+        button has a muted border.</Fragment
+      >
+      <Fragment slot="astro"
+        ><code>persistentButtons</code> to keep both buttons visible. A disabled button
+        has a muted border.</Fragment
+      >
+      <Fragment slot="vue"
+        ><code>persistentButtons</code> to keep both buttons visible. A disabled button
+        has a muted border.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="PersistentButtons" />
+  </section>
+
+  <section>
     <h2 id="custom-buttons">Custom buttons</h2>
     <p>
-      <code>--_button-prev-icon</code> and <code>--_button-next-icon</code> for custom
-      icons, <code>--_button-icon-size</code> to scale them.
+      <code>--_button-prev-icon</code> and <code>--_button-next-icon</code> take any
+      SVG, e.g. from your icon library, <code>--_button-icon-size</code> to scale
+      them.
     </p>
 
     <AutoExample name="CustomButtons" />
@@ -151,4 +221,5 @@ export const description =
   <Fragment slot="accessibility">
     <p>Announces item position. Buttons and markers are named.</p>
   </Fragment>
+  <CarouselBuild slot="under-the-hood" />
 </Component>

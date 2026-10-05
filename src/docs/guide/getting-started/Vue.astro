@@ -7,9 +7,20 @@ import Theming from "./_theming.astro"
 
 <Guide overline="Guide">
   <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships first-class Vue components. Install the package, import what you
+    need, and you're set.
+  </Fragment>
 
   <section>
     <h2 id="installation">Install via NPM</h2>
+    <p>
+      The components ship as uncompiled single-file components (<code>.vue</code
+      > and <code>.ts</code>), so your build has to compile them. Any setup with
+      Vue SFC support works, for example Vite with <code
+        >@vitejs/plugin-vue</code
+      >, Nuxt, or Astro with <code>@astrojs/vue</code>.
+    </p>
     <CodeGroup
       tabs={[
         {
@@ -29,13 +40,26 @@ import Theming from "./_theming.astro"
   <section>
     <h2 id="css">Import the CSS</h2>
     <p>
-      Vue components ship markup only - the CSS still has to be imported in your
-      app somehow. Import everything:
+      Vue components ship markup only - the CSS still has to be imported once,
+      in the entry file that creates your app. Import everything:
     </p>
-    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
-    <p>Or pick and choose:</p>
     <Code
-      code={`@import "opui-css/css/layers.css";
+      code={`// src/main.ts
+import { createApp } from "vue"
+import "opui-css/css/imports.css"
+import App from "./App.vue"
+
+createApp(App).mount("#app")`}
+      lang="ts"
+    />
+    <p>
+      Or pick and choose in a CSS file, and import that file in <code
+        >main.ts</code
+      > instead:
+    </p>
+    <Code
+      code={`/* src/styles/main.css */
+@import "opui-css/css/layers.css";
 @import "opui-css/open-props.css";
 @import "opui-css/core/palette.css";
 @import "opui-css/css/theme.css";
@@ -44,6 +68,14 @@ import Theming from "./_theming.astro"
 @import "opui-css/core/utils.css";`}
       lang="css"
     />
+    <Code
+      code={`// src/main.ts
+import "./styles/main.css"`}
+      lang="ts"
+    />
+    <p>
+      In Nuxt, add the file to <code>css</code> in <code>nuxt.config.ts</code> instead.
+    </p>
   </section>
 
   <section>

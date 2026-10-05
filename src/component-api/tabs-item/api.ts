@@ -16,10 +16,6 @@ export default {
       prop: "open",
     },
     {
-      description: "The id of the panel. Generated when omitted.",
-      prop: "panelId",
-    },
-    {
       description: "The id of the input. Generated when omitted.",
       prop: "tabId",
     },

@@ -2,8 +2,9 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "FieldGroup",
+  css: ["form"],
   notes: {
-    html: 'The root needs `role="group"`. Wrap it in a `.ui-fieldset` with a `<legend>` to label it.',
+    html: "Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.",
   },
   options: [
     {
@@ -13,7 +14,8 @@ export default {
       values: { column: null, row: ".ui-row" },
     },
     {
-      description: "Sets `name` on every input, select and textarea inside.",
+      description:
+        "Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components.",
       prop: "name",
     },
   ],

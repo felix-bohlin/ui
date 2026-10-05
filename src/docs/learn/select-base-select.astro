@@ -1,0 +1,101 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
+import { Code } from "astro-expressive-code/components"
+---
+
+<TechniquePost slug="select-base-select">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      <code>&lt;select&gt;</code> has always been the control you couldn't style.
+      The dropdown belongs to the operating system, options hold only text and nothing
+      animates.
+    </p>
+    <p>
+      The usual fix is a rebuilt listbox: a button, a popup, ARIA roles and
+      JavaScript for focus, keyboard and typeahead. Not anymore.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        <code>appearance: base-select</code> on the select and on <code
+          >::picker(select)</code
+        > opts in to the stylable version
+      </li>
+      <li>
+        A <code>&lt;button&gt;</code> inside the select is the trigger, and <code
+          >&lt;selectedcontent&gt;</code
+        > in it mirrors the chosen option
+      </li>
+      <li>
+        <code>::picker-icon</code> is the arrow, and <code>:open</code> matches while
+        the picker shows, so the arrow flips
+      </li>
+      <li>
+        <code>::picker(select)</code> is a top-layer popover: <code
+          >@starting-style</code
+        > and <code>allow-discrete</code> on <code>display</code> and <code
+          >overlay</code
+        > animate it in and out
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`select:has(button),
+::picker(select) {
+  appearance: base-select;
+}
+
+::picker(select) {
+  opacity: 1;
+  scale: 1;
+  transition:
+    display 0.2s allow-discrete,
+    opacity 0.2s,
+    overlay 0.2s allow-discrete,
+    scale 0.2s;
+
+  @starting-style {
+    opacity: 0;
+    scale: 0.9;
+  }
+}
+
+select:not(:open)::picker(select) {
+  opacity: 0;
+  scale: 0.9;
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <SelectBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Older parsers drop the <code>&lt;button&gt;</code> and wrapper elements inside
+        {" "}<code>&lt;select&gt;</code> and keep the options: a native select with
+        the same value
+      </li>
+      <li>
+        With no button left, <code>:not(:has(button))</code> matches: the select gets
+        {" "}<code>appearance: none</code> and the wrapper's <code>::after</code
+        >{" "}
+        draws the same arrow
+      </li>
+      <li>
+        A browser that parses the button but doesn't know <code
+          >base-select</code
+        > ignores the declaration and renders its native select
+      </li>
+    </ul>
+  </section>
+</TechniquePost>

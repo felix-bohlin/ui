@@ -2,7 +2,11 @@ import fs from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 
-import { DEFAULT_FRAMEWORK, FRAMEWORKS } from "../utils/framework.js"
+import {
+  DEFAULT_FRAMEWORK,
+  FRAMEWORK_FREE_PREFIXES,
+  FRAMEWORKS,
+} from "../utils/framework.js"
 import { markdownPath } from "../utils/markdown.js"
 import { articleToMarkdown, pageMeta, parseHtml } from "./html-to-markdown.mjs"
 
@@ -33,7 +37,7 @@ const header = (framework) =>
     `These docs show ${framework.label} usage. Install with \`npm install opui-css open-props\`.`,
     "",
     "- Every class is prefixed with `ui-` (e.g. `.ui-button`, `.ui-filled`).",
-    '- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or one component at a time from `opui-css/css/components/<name>.css`. Without one, link `https://cdn.jsdelivr.net/npm/opui-css/dist/opui.css`.',
+    '- With a bundler, import everything with `@import "opui-css/css/imports.css"`, or one component at a time from `opui-css/css/components/<name>.css`. Without one, link `https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css`.',
     ...(framework.id === DEFAULT_FRAMEWORK
       ? []
       : [
@@ -100,9 +104,14 @@ export default function llms() {
       "astro:server:setup": ({ server }) => {
         server.middlewares.use(async (req, res, next) => {
           const { pathname } = new URL(req.url ?? "/", "http://localhost")
-          const framework = FRAMEWORKS.find((f) =>
-            pathname.startsWith(`/${f.id}/`),
+          const isFrameworkFree = FRAMEWORK_FREE_PREFIXES.some((p) =>
+            pathname.startsWith(`${p}/`),
           )
+          const framework =
+            FRAMEWORKS.find((f) => pathname.startsWith(`/${f.id}/`)) ??
+            (isFrameworkFree
+              ? FRAMEWORKS.find((f) => f.id === DEFAULT_FRAMEWORK)
+              : undefined)
           if (!framework || !pathname.endsWith(".md")) return next()
 
           const page = await fetch(
@@ -111,7 +120,9 @@ export default function llms() {
               `http://${req.headers.host}`,
             ),
           )
-          if (!page.ok) return next()
+          if (!page.ok && !(isFrameworkFree && page.status === 404)) {
+            return next()
+          }
 
           const markdown = await articleToMarkdown(
             parseHtml(await page.text()),
@@ -202,6 +213,29 @@ export default function llms() {
           logger.info(
             `${framework.id}: ${pages.length} markdown pages, llms.txt, llms-full.txt`,
           )
+        }
+
+        const rewriteHref = hrefRewriter(DEFAULT_FRAMEWORK, site)
+        for (const prefix of FRAMEWORK_FREE_PREFIXES) {
+          const prefixDir = path.join(outDir, prefix)
+          if (!fs.existsSync(prefixDir)) continue
+          let count = 0
+          for (const file of htmlFiles(prefixDir)) {
+            const tree = parseHtml(fs.readFileSync(file, "utf-8"))
+            if (pageMeta(tree).isRedirect) continue
+            const markdown = await articleToMarkdown(tree, { rewriteHref })
+            if (!markdown) continue
+            const relative = path
+              .relative(outDir, path.dirname(file))
+              .split(path.sep)
+              .join("/")
+            fs.writeFileSync(
+              path.join(outDir, markdownPath(`/${relative}/`)),
+              `${markdown}\n`,
+            )
+            count++
+          }
+          logger.info(`${prefix}: ${count} markdown pages`)
         }
       },
     },

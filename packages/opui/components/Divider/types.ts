@@ -1,3 +1,3 @@
 export type Props = {
-  variant?: "tonal" | "filled" | "primary"
+  variant?: "filled" | "primary" | "tonal"
 }

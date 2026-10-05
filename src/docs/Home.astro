@@ -20,6 +20,8 @@ const currentFramework = (Astro.currentLocale ??
   DEFAULT_FRAMEWORK) as FrameworkId
 const componentsHref = hrefFor(currentFramework, "/components")
 const quickstartHref = hrefFor(currentFramework, "/guide/getting-started")
+const learnHref = hrefFor(currentFramework, "/learn/under-the-hood")
+const migratingHref = hrefFor(currentFramework, "/guide/migrating")
 
 const FRAMEWORK_BRANDING: Record<
   FrameworkId,
@@ -32,20 +34,18 @@ const FRAMEWORK_BRANDING: Record<
 ---
 
 <Default>
-  <section id="main-content" class="container ui-large">
+  <main id="main-content" class="container is-wide">
     <ComponentShowcase aria-hidden="true">
       <hgroup class="ui-hgroup" id="main-heading">
-        <p>{version}</p>
+        <p>
+          {version} · <a class="ui-link" href={migratingHref}>Migrating to v6</a
+          >
+        </p>
 
         <h1 class="ui-h1">Open Props UI</h1>
 
         <p class="hero-description">
-          Components you can copy-paste into your project. <br /> Like if <a
-            class="ui-link"
-            href="https://ui.shadcn.com/">shadcn</a
-          > and <a class="ui-link" href="https://open-props.style/"
-            >Open Props</a
-          > had a baby. <br /> Using as modern CSS & HTML as possible.
+          Components built on modern CSS & HTML, and how they work.
         </p>
 
         <div class="hero-ctas">
@@ -80,7 +80,7 @@ const FRAMEWORK_BRANDING: Record<
         </p>
       </hgroup>
     </ComponentShowcase>
-  </section>
+  </main>
 
   <ChipRain />
 </Default>
@@ -130,14 +130,14 @@ const FRAMEWORK_BRANDING: Record<
         transparent 1.4500000000000002px
       );
       background-size: 20px 20px;
-      content: "";
-      top: 0;
-      right: 0;
       bottom: 0;
+      content: "";
       left: 0;
       opacity: 0.05;
       pointer-events: none;
       position: fixed;
+      right: 0;
+      top: 0;
     }
   }
 </style>
@@ -148,8 +148,9 @@ const FRAMEWORK_BRANDING: Record<
   }
 
   .hero-description {
-    line-height: var(--font-lineheight-4);
     font-size: var(--font-size-2);
+    line-height: var(--font-lineheight-4);
+    text-wrap: balance;
   }
 
   .hero-ctas {
@@ -172,7 +173,6 @@ const FRAMEWORK_BRANDING: Record<
     .ui-label {
       font-weight: var(--font-weight-6);
       letter-spacing: var(--font-letterspacing-3);
-      text-transform: uppercase;
     }
 
     & :global(.astro-logo) {
@@ -199,9 +199,9 @@ const FRAMEWORK_BRANDING: Record<
       content: "";
       inset: 0;
       opacity: 0.3;
+      pointer-events: none;
       position: fixed;
       z-index: -1;
-      pointer-events: none;
     }
   }
 </style>

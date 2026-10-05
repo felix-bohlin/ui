@@ -10,6 +10,7 @@ import CalloutCSS from "@opui/css/components/callout.css?raw"
 import calloutApi from "../../component-api/callout/api"
 
 import Conditional from "../../components/Conditional.astro"
+import CalloutBuild from "../../components/UnderTheHood/CalloutBuild.astro"
 import {
   componentHasFramework,
   DEFAULT_FRAMEWORK,
@@ -129,31 +130,14 @@ const ThemeCSS = `/* ... */
   </section>
 
   <section>
-    <h2 id="icon">Icon</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Icons are placed in the <code>icon</code> slot. You can also modify the component
-        so you don't have to do it manually every time.
-      </Fragment>
-      <Fragment slot="html"> Icon must be placed before the content. </Fragment>
-      <Fragment slot="vue">
-        Icons are placed in the <code>icon</code> slot. You can also modify the component
-        so you don't have to do it manually every time.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Icon" column />
-  </section>
-
-  <section>
     <h2 id="severities">Severities</h2>
     <Conditional as="p">
       <Fragment slot="astro">
         The <code>severity</code> prop accepts <code>info</code>, <code
           >success</code
         >, <code>warning</code>, and <code>critical</code>, plus a non-severity
-        <code>neutral</code> tone for brand-tinted attention. The default is a plain
-        surface.
+        {" "}<code>neutral</code> tone for brand-tinted attention. The default is
+        a plain surface.
       </Fragment>
       <Fragment slot="html">
         Severity modifiers - <code>.ui-info</code>, <code>.ui-success</code>, <code
@@ -161,14 +145,14 @@ const ThemeCSS = `/* ... */
         >, <code>.ui-critical</code> - plus the non-severity <code
           >.ui-neutral</code
         >
-        tone for brand-tinted attention. The default is a plain surface.
+        {" "}tone for brand-tinted attention. The default is a plain surface.
       </Fragment>
       <Fragment slot="vue">
         The <code>severity</code> prop accepts <code>info</code>, <code
           >success</code
         >, <code>warning</code>, and <code>critical</code>, plus a non-severity
-        <code>neutral</code> tone for brand-tinted attention. The default is a plain
-        surface.
+        {" "}<code>neutral</code> tone for brand-tinted attention. The default is
+        a plain surface.
       </Fragment>
     </Conditional>
 
@@ -198,22 +182,32 @@ const ThemeCSS = `/* ... */
     <AutoExample name="Severities" column />
   </section>
 
+  <section>
+    <h2 id="icon">Icon</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        <code>info</code>, <code>success</code>, <code>warning</code> and <code
+          >critical</code
+        > have a default icon. Replace it with the <code>icon</code> slot.
+      </Fragment>
+      <Fragment slot="html"> Icon must be placed before the content. </Fragment>
+      <Fragment slot="vue">
+        <code>info</code>, <code>success</code>, <code>warning</code> and <code
+          >critical</code
+        > have a default icon. Replace it with the <code>icon</code> slot.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Icon" column />
+  </section>
+
+  <CalloutBuild slot="under-the-hood" />
+
   <Fragment slot="accessibility">
     <ul>
       <li>
-        <Conditional>
-          <Fragment slot="astro">
-            The <code>role="note"</code> attribute is automatically added to the Callout
-            container.
-          </Fragment>
-          <Fragment slot="html">
-            Add <code>role="note"</code> to the Callout container.
-          </Fragment>
-          <Fragment slot="vue">
-            The <code>role="note"</code> attribute is automatically added to the Callout
-            container.
-          </Fragment>
-        </Conditional>
+        The Callout is an <code>&lt;article&gt;</code>, so screen readers
+        announce it as self-contained content.
       </li>
       <li>
         Use both color and icon to help distinguish between Callout <a

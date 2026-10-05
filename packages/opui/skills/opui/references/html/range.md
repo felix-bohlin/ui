@@ -1,8 +1,14 @@
 # Range
 
+### What's new
+
+- [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
+- The track fill is CSS only, so plain HTML ranges fill too.
+- Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
+
 ## Anatomy
 
-Label50Start textEnd text
+Label 50 Start text End text
 
 - `label.ui-range`
 
@@ -28,6 +34,8 @@ Label50Start textEnd text
 
   Supporting text displayed below the input.
 
+## Basics
+
 ```html
 <label class="ui-range">
   <span class="ui-label" id="range-default-1-label">Label</span>
@@ -40,7 +48,32 @@ Label50Start textEnd text
 </label>
 ```
 
-## Start text & End text
+## Variants
+
+Use the `.ui-filled` or `.ui-tonal` class to swap the track surface for better contrast on different backgrounds. Without a class, the track uses `--field-border-color`, like the border of a text field.
+
+```html
+<label class="ui-range">
+  <span class="ui-label" id="range-surfaces-1-label"
+    >No variant = <code>var(--field-border-color)</code></span
+  >
+  <input aria-labelledby="range-surfaces-1-label" type="range" />
+</label>
+<label class="ui-range ui-filled">
+  <span class="ui-label" id="range-surfaces-2-label"
+    ><code>filled</code> = <code>var(--surface-filled)</code></span
+  >
+  <input aria-labelledby="range-surfaces-2-label" type="range" />
+</label>
+<label class="ui-range ui-tonal">
+  <span class="ui-label" id="range-surfaces-3-label"
+    ><code>tonal</code> = <code>var(--surface-tonal)</code></span
+  >
+  <input aria-labelledby="range-surfaces-3-label" type="range" />
+</label>
+```
+
+## Start and end text
 
 ```html
 <label class="ui-range">
@@ -61,7 +94,7 @@ Label50Start textEnd text
 
 ## Value
 
-Add an `<output class="ui-value">` sibling to the`.ui-label` with `for` pointing at the input's id. Optionally set `data-suffix` for a unit (e.g. `°`,`px`). Updating its text content is the consumer's responsibility.
+Add an `<output class="ui-value">` sibling to the `.ui-label` with `for` pointing at the input's id. Optionally set `data-suffix` for a unit (e.g. `°`, `px`). Updating its text content is the consumer's responsibility.
 
 ```html
 <label class="ui-range">
@@ -80,7 +113,7 @@ Add an `<output class="ui-value">` sibling to the`.ui-label` with `for` pointing
 
 ## Tick marks
 
-Use the `list` attribute on the `<input>` and follow it with a `<datalist>` element containing`<option>` elements with `value` and`label` attributes.
+Use the `list` attribute on the `<input>` and follow it with a `<datalist>` element containing `<option>` elements with `value` and `label` attributes.
 
 ```html
 <label class="ui-range">
@@ -102,35 +135,6 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
 </label>
 ```
 
-## Variants
-
-Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surface for better contrast on different backgrounds.
-
-```html
-<label class="ui-range">
-  <span class="ui-label" id="range-surfaces-1-label">Default</span>
-  <input aria-labelledby="range-surfaces-1-label" type="range" />
-</label>
-<label class="ui-range ui-default">
-  <span class="ui-label" id="range-surfaces-2-label"
-    ><code>default</code> = <code>var(--surface-default)</code></span
-  >
-  <input aria-labelledby="range-surfaces-2-label" type="range" />
-</label>
-<label class="ui-range ui-filled">
-  <span class="ui-label" id="range-surfaces-3-label"
-    ><code>filled</code> = <code>var(--surface-filled)</code></span
-  >
-  <input aria-labelledby="range-surfaces-3-label" type="range" />
-</label>
-<label class="ui-range ui-tonal">
-  <span class="ui-label" id="range-surfaces-4-label"
-    ><code>tonal</code> = <code>var(--surface-tonal)</code></span
-  >
-  <input aria-labelledby="range-surfaces-4-label" type="range" />
-</label>
-```
-
 ## Disabled
 
 ```html
@@ -146,6 +150,7 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 <label class="ui-range" data-invalid>
   <span class="ui-label" id="range-validation-1-label">Invalid Range</span>
   <input
+    aria-invalid="true"
     aria-describedby="range-validation-1-end-text"
     aria-labelledby="range-validation-1-label"
     type="range"
@@ -188,6 +193,7 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
   <span class="ui-label" id="range-row-3-label">Invalid Range</span>
   <span class="ui-start-text" id="range-row-3-start-text">Start text</span>
   <input
+    aria-invalid="true"
     aria-describedby="range-row-3-start-text range-row-3-end-text"
     aria-labelledby="range-row-3-label"
     type="range"
@@ -237,6 +243,7 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 <label class="ui-range ui-spread" data-invalid>
   <span class="ui-label" id="range-row-validation-label">Volume</span>
   <input
+    aria-invalid="true"
     type="range"
     aria-labelledby="range-row-validation-label"
     min="0"
@@ -261,11 +268,11 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 
 ### Range API
 
-| Type       | Modifiers                                | Default | Description                                                              |
-| ---------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| Layout     | `.ui-spread`                             | -       | Pushes the label and description to one side and the input to the other. |
-| Validation | `[data-invalid]`                         | -       | Shows error styles.                                                      |
-| Variants   | `.ui-default`, `.ui-filled`, `.ui-tonal` | -       | The variant to use.                                                      |
+| Type       | Modifiers                 | Default | Description                                                              |
+| ---------- | ------------------------- | ------- | ------------------------------------------------------------------------ |
+| Layout     | `.ui-spread`              | -       | Pushes the label and description to one side and the input to the other. |
+| Validation | `[data-invalid]`          | -       | Shows error styles.                                                      |
+| Variants   | `.ui-filled`, `.ui-tonal` | -       | The track surface. Without one, the track uses the field border color.   |
 
 #### Parts
 
@@ -278,15 +285,262 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal`class to swap the track surfa
 | `<input>`        | The range input.                                         |
 | `.ui-end-text`   | Supporting text displayed below the input.               |
 
+#### CSS variables
+
+| Variable                     | Default                                                                                 | Description                                                                                                                |
+| ---------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                      |
+| `--duration-fast`            | `0.1s`                                                                                  | Transition duration for hover and press feedback.                                                                          |
+| `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                            |
+| `--field-border-color`       | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                   |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                          |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                           |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                         |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                               |
+| `--field-label-font-size`    | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                       |
+| `--font-weight-semibold`     | `var(--font-weight-6)`                                                                  | Font weight for labels, table headers and titles.                                                                          |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                       |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.  |
+| `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                               |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                  |
+| `--surface-filled`           | `light-dark(var(--gray-4), var(--gray-15))`                                             | Background of filled areas such as progress tracks and table stripes.                                                      |
+| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                              |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+
 Add a `<datalist>` after the input for tick marks.
+
+## Under the hood
+
+1. Track
+
+   - `appearance: none` on the input, then style the track pseudo-element
+   - Chromium and Safari: `::-webkit-slider-runnable-track`, Firefox: `::-moz-range-track`
+   - A `1e5px` radius is always a pill
+
+2. Thumb
+
+   - The thumb needs its own `appearance: none`
+   - WebKit pins it to the top of the track: (track − thumb) ÷ 2 centers it
+   - A border in the surface color cuts it out of the track
+
+3. Fill
+
+   - Firefox draws the filled part with `::-moz-range-progress`
+   - Elsewhere a one-color `linear-gradient`, sized to `--fill`, paints it
+   - `overflow: hidden` makes the input a scroller, and the thumb a `view-timeline` inside it. `timeline-scope` lets the input use it
+   - The thumb's position drives the animation: `--fill` is registered as a `<percentage>`, so it animates. No JavaScript
+   - The timeline runs from the end edge, so the keyframes go from `100%` to `0%`, reversed in right-to-left
+   - Padding with an equal negative margin leaves room for the thumb and halo, `view-timeline-inset` and `outline-offset` take it back out
+
+4. Halo
+
+   - A `box-shadow` spread draws the ring, no extra element
+   - Relative color: the primary hue at a fixed lightness and 20% alpha
+   - The pseudo-elements inherit `--halo` from the input's `:hover` and `:active`
+   - Hover and drag the thumb
+
+5. Ticks
+
+   - A `<datalist>` is hidden by default, `display: flex` brings it back
+   - Zero-width options with centered labels sit exactly on each step
+   - Half a thumb of padding lines the ends up with the thumb's center
+
+Step 1 of 5: Track
+
+- [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+- [\<input type="range"> ](https://webstatus.dev/features/input-range)(Widely available): Chrome 4+, Edge 12+, Firefox 23+, Safari 3.1+
+
+```css
+.range {
+  appearance: none;
+  background: transparent;
+  block-size: 1.25rem;
+  inline-size: 100%;
+}
+
+
+.range::-webkit-slider-runnable-track {
+  appearance: none;
+  background-color: var(--border-color);
+  block-size: 0.75ex;
+  border-radius: 1e5px;
+}
+
+
+.range::-moz-range-track {
+  appearance: none;
+  background-color: var(--border-color);
+  block-size: 0.75ex;
+  border-radius: 1e5px;
+}
+```
+
+Step 2 of 5: Thumb
+
+```css
+.range::-webkit-slider-thumb {
+  appearance: none;
+  background: var(--primary);
+  block-size: 3ex;
+  border: 3px solid var(--surface-default);
+  border-radius: 50%;
+  cursor: ew-resize;
+  inline-size: 3ex;
+  margin-block-start: -1.125ex;
+}
+
+
+.range::-moz-range-thumb {
+  appearance: none;
+  background: var(--primary);
+  block-size: 3ex;
+  border: 3px solid var(--surface-default);
+  border-radius: 50%;
+  cursor: ew-resize;
+  inline-size: 3ex;
+}
+```
+
+Step 3 of 5: Fill
+
+- [Gradients ](https://webstatus.dev/features/gradients)(Widely available): Chrome 26+, Edge 12+, Firefox 3.6+, Safari 7+
+- [Registered custom properties ](https://webstatus.dev/features/registered-custom-properties)(Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
+- [Scroll-driven animations ](https://webstatus.dev/features/scroll-driven-animations)(Limited availability): Chrome 115+, Edge 115+, Firefox not supported, Safari 26+
+
+```html
+<style>
+  @property --fill {
+    syntax: "<percentage>";
+    inherits: true;
+    initial-value: 0%;
+  }
+
+
+  @keyframes build-range-fill {
+    from {
+      --fill: 100%;
+    }
+
+
+    to {
+      --fill: 0%;
+    }
+  }
+</style>
+```
+
+```css
+.range {
+  animation: build-range-fill linear both;
+  animation-range: contain;
+  animation-timeline: --thumb;
+  box-sizing: content-box;
+  margin: -0.75rem;
+  outline-offset: -0.75rem;
+  overflow: hidden;
+  padding: 0.75rem;
+  timeline-scope: --thumb;
+}
+
+
+.range:dir(rtl) {
+  animation-direction: reverse;
+}
+
+
+.range::-webkit-slider-thumb {
+  view-timeline: --thumb inline;
+  view-timeline-inset: 0.75rem;
+}
+
+
+.range::-webkit-slider-runnable-track {
+  background-image: linear-gradient(var(--primary), var(--primary));
+  background-repeat: no-repeat;
+  background-size: var(--fill) 100%;
+}
+
+
+.range::-moz-range-progress {
+  background-color: var(--primary);
+  block-size: 0.75ex;
+  border-radius: 1e5px;
+}
+```
+
+Step 4 of 5: Halo
+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+
+```css
+.range {
+  --halo: 0px;
+}
+
+
+.range:hover {
+  --halo: 0.25rem;
+}
+
+
+.range:active {
+  --halo: 0.5rem;
+}
+
+
+.range::-webkit-slider-thumb {
+  box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
+  transition: box-shadow 0.2s var(--ease);
+}
+
+
+.range::-moz-range-thumb {
+  box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
+  transition: box-shadow 0.2s var(--ease);
+}
+```
+
+Step 5 of 5: Ticks
+
+- [\<datalist> ](https://webstatus.dev/features/datalist)(Limited availability): Chrome 69+, Edge 12+, Firefox 110+, Safari 12.1+
+
+```html
+<input class="range" type="range" list="ticks" … />
+<datalist class="ticks" id="ticks">
+  <option value="0" label="0"></option>
+  <option value="25" label="25"></option>
+  …
+</datalist>
+```
+
+```css
+.ticks {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 1.5ex;
+}
+
+
+.ticks > option {
+  display: flex;
+  inline-size: 0;
+  justify-content: center;
+  padding: 0;
+  white-space: nowrap;
+}
+```
 
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
-- Safari: Full support Supported since v18.
+- Firefox: Partial support Missing: scroll-driven-animations.
+- Safari: Full support Supported since v26.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Range.md).
 
 ## Installation
 

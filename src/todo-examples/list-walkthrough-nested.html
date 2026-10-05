@@ -1,0 +1,89 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-walkthrough {
+    --gap: 0.75rem;
+
+    background-color: var(--surface-filled);
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0;
+
+    li {
+      align-items: center;
+      display: flex;
+      gap: var(--gap);
+      min-block-size: 2.5rem;
+      padding: 0.5rem 0.75rem;
+      position: relative;
+    }
+
+    li + li {
+      margin-block-start: 0.75rem;
+    }
+
+    li + li::before {
+      border-block-start: 1px solid var(--border-color);
+      content: "";
+      inset: -0.5rem 0 auto 0;
+      position: absolute;
+    }
+  }
+
+  .todo-nested {
+    display: grid;
+    gap: var(--size-1);
+  }
+
+  .todo-nested ul {
+    margin: 0;
+  }
+</style>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">
+      Walkthrough: <code>.list li</code>, <code>.bordered li + li</code>
+    </p>
+    <ul class="todo-walkthrough">
+      <li>Inbox</li>
+      <li>
+        <div class="todo-nested">
+          <span>Labels</span>
+          <ul>
+            <li>Work</li>
+            <li>Personal</li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <p class="ui-caption">
+      Library: <code>&gt; li</code>, nested list stays a list
+    </p>
+    <ul class="ui-list ui-bordered">
+      <li>Inbox</li>
+      <li>
+        <div class="todo-nested">
+          <span>Labels</span>
+          <ul>
+            <li>Work</li>
+            <li>Personal</li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

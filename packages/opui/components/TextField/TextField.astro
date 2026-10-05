@@ -1,16 +1,17 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Text Field"
 
 const {
+  "aria-describedby": ariaDescribedBy,
   autoFit,
   class: className,
-  error,
   description,
   disabled,
   endText,
-  filled,
+  error,
   id,
   label,
   list,
@@ -19,31 +20,40 @@ const {
   name,
   placeholder,
   required,
-  small,
+  size,
   spread,
   startText,
   step,
+  style,
   type = "text",
   value,
+  variant,
   ...rest
 } = Astro.props
 
 const startTextValue = description || startText
+const $id = createId(Astro.locals)
+const endTextId =
+  endText || Astro.slots.has("end-text") || Astro.slots.has("supporting-text")
+    ? $id("end-text")
+    : undefined
+const describedBy =
+  [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined
 ---
 
 <label
   class:list={[
     "ui-text-field",
+    size && `ui-${size}`,
     {
       "ui-auto-fit": autoFit,
-      "ui-filled": filled,
+      "ui-filled": variant === "filled",
       "ui-spread": spread,
-      "ui-small": small,
     },
     className,
   ]}
   data-invalid={error ? "" : undefined}
-  {...rest}
+  style={style}
 >
   {
     (label || Astro.slots.has("label")) && (
@@ -63,6 +73,9 @@ const startTextValue = description || startText
   }
   <span class="ui-field">
     <input
+      {...rest}
+      aria-describedby={describedBy}
+      aria-invalid={error ? "true" : undefined}
       disabled={disabled}
       id={id}
       inputmode={type === "numeric" ? "numeric" : undefined}
@@ -110,7 +123,7 @@ const startTextValue = description || startText
     (endText ||
       Astro.slots.has("end-text") ||
       Astro.slots.has("supporting-text")) && (
-      <span class="ui-end-text">
+      <span class="ui-end-text" id={endTextId}>
         {endText}
         <slot name="end-text" />
         <slot name="supporting-text" />

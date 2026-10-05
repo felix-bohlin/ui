@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type { Props, Slots } from "./types.d.vue"
 
-const { severity, variant } = defineProps<Props>()
+const { headingLevel = 3, severity, variant } = defineProps<Props>()
 const slots = defineSlots<Slots>()
 </script>
 
 <template>
   <article
-    role="note"
     :class="[
       'ui-callout',
       variant && `ui-${variant}`,
@@ -17,6 +16,7 @@ const slots = defineSlots<Slots>()
   >
     <slot name="icon">
       <svg
+        aria-hidden="true"
         v-if="severity === 'info'"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -29,6 +29,20 @@ const slots = defineSlots<Slots>()
         />
       </svg>
       <svg
+        aria-hidden="true"
+        v-if="severity === 'success'"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M22.707 12.707a1 1 0 0 0-1.414-1.414L14.5 18.086l-3.293-3.293a1 1 0 0 0-1.414 1.414l4 4a1 1 0 0 0 1.414 0zM16 2C8.268 2 2 8.268 2 16s6.268 14 14 14s14-6.268 14-14S23.732 2 16 2M4 16C4 9.373 9.373 4 16 4s12 5.373 12 12s-5.373 12-12 12S4 22.627 4 16"
+        />
+      </svg>
+      <svg
+        aria-hidden="true"
         v-if="severity === 'warning'"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -41,6 +55,7 @@ const slots = defineSlots<Slots>()
         />
       </svg>
       <svg
+        aria-hidden="true"
         v-if="severity === 'critical'"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -54,9 +69,9 @@ const slots = defineSlots<Slots>()
       </svg>
     </slot>
     <div class="ui-content">
-      <h3 v-if="slots.title" class="ui-title">
+      <component :is="`h${headingLevel}`" v-if="slots.title" class="ui-title">
         <slot name="title"></slot>
-      </h3>
+      </component>
       <slot></slot>
     </div>
   </article>

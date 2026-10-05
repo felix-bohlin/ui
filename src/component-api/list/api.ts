@@ -25,11 +25,11 @@ export default {
       prop: "gutterless",
     },
     {
-      description: "The background color variant.",
+      description:
+        "The background color variant. Without one, the list uses the filled surface.",
       group: "Variants",
       prop: "variant",
       values: {
-        default: ".ui-default",
         tonal: ".ui-tonal",
         transparent: ".ui-transparent",
       },

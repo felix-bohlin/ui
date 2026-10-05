@@ -31,7 +31,7 @@ Before creating or refactoring a page, perform the following research:
     - If not, create it from the props, parts and slots identified in steps 1 and 2, following [src/component-api/AGENT.md](../../component-api/AGENT.md). Props and slots are read from the component source, so the build warns when `api.ts` and the source disagree.
     - A few components still use hand-written tables (`src/component-api/[name]/Astro.astro` and `HTML.astro`). Convert them to `api.ts` when touching them.
 4.  **Identify Dependencies**: Determine if the component relies on other components.
-    - **Field-based components** (`TextField`, `Select`, `Textarea`): Usually depend on `field.css`.
+    - **Field-based components** (`TextField`, `Select`, `Textarea`): Usually depend on `text-field.css`.
     - **Group-based components** (`CheckboxGroup`, `RadioGroup`): Usually depend on `form.css`.
     - **Popover-based components** (`Select`): Usually depend on `list.css`.
 5.  **Examine Patterns**: Read a similar existing module (e.g., `src/docs/components/accordion.astro`) to ensure UI and content parity.
@@ -121,6 +121,27 @@ The manual form remains supported and unchanged:
 2.  **Replace `<Example>` blocks**: For each standard section, replace the import block + `<Example>` + four slots with a single `<AutoExample name="..." />`.
 3.  **Cleanup**: Remove the now-unused `?raw` and component imports from the page frontmatter.
 
+### 3.3 Section order
+
+The `Component` layout renders a page in this order. Only the default slot is ordered by the page itself; the rest is placed by the layout, wherever the slot sits in the source.
+
+1. `title` and `preamble`. Not every page needs a preamble. Use it for a short description, and for "when to use" guidance when the component has a close sibling (Chip vs Button, Dialog vs Drawer, Menu vs Select, Switch vs Checkbox vs Toggle, Tabs vs Toggle group), linked both ways with `<DocLink>`.
+2. Browser support chips (`browserSupport`) and the What's new callout.
+3. The `anatomy` slot, when `heroAnatomy` is set.
+4. The default slot, in this order. Skip what doesn't apply:
+   1. Basics: the plain component. The first example always sits in a `<section>` with an `h2`, usually `<h2 id="basics">Basics</h2>`.
+   2. Variants, colors and severities.
+   3. Sizes and density.
+   4. Parts and content: labels, icons, slots, affixes.
+   5. States: disabled, required, invalid, validation.
+   6. Layout: spread, orientation, alignment, overflow.
+   7. Composition and special cases: groups, advanced examples, related notes.
+5. The `accessibility` slot, as "Accessibility".
+6. The `anatomy` slot as "Anatomy", when `heroAnatomy` isn't set.
+7. The API tables (`apis`).
+8. The `under-the-hood` slot, as "Under the hood".
+9. Browser support, Installation (`installationTabs` and the `installation` slot), See also (`seeAlsoLinks`) and Changelog (`changelogPaths`).
+
 ## 4. Layout Props & Slots
 
 The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.astro)) provides the following inputs:
@@ -172,7 +193,7 @@ import buttonApi from "../../component-api/button/api"
 
 ### 5.3 `<UICallout>` (Alerts & Info)
 
-- **Severity**: `ok`, `warning`, `critical`, or default (blue).
+- **Severity**: `info`, `success`, `warning`, `critical`, `neutral`, or none for a plain surface.
 - **Wrapping**: Always wrap in `<div class="ui-not-rich-text">`.
 - **Content**: If multiple paragraphs/lists, wrap content in `<div class="ui-rich-text">`.
 
@@ -206,13 +227,13 @@ Use the `anatomy` slot with the `<Anatomy>` component ([src/components/Anatomy.a
 Place logic in a `<script>` tag.
 
 - Use specific IDs to avoid global conflicts.
-- Wrap logic in a function and call it on `astro:after-swap` for View Transitions.
+- The site uses cross-document view transitions (`@view-transition` in `base.css`), not `<ClientRouter>`, so scripts run on every page load. Do not listen for `astro:after-swap`.
 
 ### 5.6 `<Conditional>` (Framework-Specific Content)
 
 Use `<Conditional>` to display different text or HTML content for different frameworks. This is ideal for descriptions or instructions that only apply to a specific framework (e.g., explaining an `aria-label` attribute for HTML vs. a `label` prop for Astro).
 
-- **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`.
+- **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `vue`.
 - **Props**: `as` (optional). Defaults to `span` for inline content. Use `as="div"` or `as="p"` for block-level content.
 - **Resolution**: Server-rendered. The component reads `Astro.currentLocale` (driven by URL routing) and emits only the matching slot. Falls back to the default framework's slot if the active framework's slot is not authored.
 
@@ -231,7 +252,7 @@ Use `<Conditional>` to display different text or HTML content for different fram
 ## 7. Key Learnings & Debugging
 
 - **Framework Routing**: Every framework lives under its own prefix (e.g. `/html/components/button`, `/astro/components/button`). The active framework comes from `Astro.currentLocale` and flows into `<Conditional>`, `<Example>`, and `<ComponentAPI>` automatically. Legacy unprefixed URLs redirect to the default framework variant.
-- **Adding a New Framework**: Add the framework to `FRAMEWORKS` in [src/utils/framework.js](../../utils/framework.js) and a row to the `FRAMEWORK_BRANDING` map in [src/pages/index.astro](../../pages/index.astro). Then drop the per-component content into the right folders - `src/component-examples/<component>/<Name>.<ext>` for each example and `packages/opui/components/<Name>/types.<framework>.ts` for the props `api.ts` reads (see [src/component-api/frameworks.ts](../../component-api/frameworks.ts)). `<AutoExample>` and `api.ts` pick those up without doc-page edits. Any sections still using the manual `<Example>` form will need `preview-<id>` / `code-<id>` slots added alongside the existing ones.
+- **Adding a New Framework**: Add the framework to `FRAMEWORKS` in [src/utils/framework.js](../../utils/framework.js) and a row to the `FRAMEWORK_BRANDING` map in [src/docs/Home.astro](../Home.astro). Then drop the per-component content into the right folders - `src/component-examples/<component>/<Name>.<ext>` for each example and `packages/opui/components/<Name>/types.<framework>.ts` for the props `api.ts` reads (see [src/component-api/frameworks.ts](../../component-api/frameworks.ts)). `<AutoExample>` and `api.ts` pick those up without doc-page edits. Any sections still using the manual `<Example>` form will need `preview-<id>` / `code-<id>` slots added alongside the existing ones.
 - **Line Highlighting**: Use the `ins`, `del`, or `mark` props with array syntax (e.g., `mark={[1, 5, 10]}`).
   - **1-indexed**: Highlights are 1-indexed. The opening `---` of an Astro file is line 1.
   - **Validation**: Cross-check that highlighted lines in Astro correspond to the same functionality in HTML.

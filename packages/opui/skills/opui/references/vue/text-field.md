@@ -1,8 +1,17 @@
 # Text field
 
+### What's new
+
+- [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
+- [Spread](#spread) fields line up at one width.
+- Breaking: `style` goes to the label instead of the input.
+- The auto-suggest arrow is the Select chevron at every size.
+- Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.
+- Breaking: no generated input `id`. Pass `id` when something outside the component references the input.
+
 ## Anatomy
 
-LabelDescription¢EURHeaderFooterSupporting text
+Label Description ¢ EUR Header Footer Supporting text
 
 - `<TextField>`
 
@@ -46,6 +55,8 @@ LabelDescription¢EURHeaderFooterSupporting text
 
 ## Variants
 
+Text fields are outlined by default. Set `variant="filled"` for a filled field.
+
 ```vue
 <script setup lang="ts">
 import { TextField } from "opui-css/vue"
@@ -54,7 +65,7 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <TextField label="Outlined" placeholder="Placeholder" />
-  <TextField label="Filled" placeholder="Placeholder" filled />
+  <TextField label="Filled" placeholder="Placeholder" variant="filled" />
 </template>
 ```
 
@@ -67,8 +78,10 @@ import { TextField } from "opui-css/vue"
 
 
 <template>
-  <TextField label="Small outlined" placeholder="Placeholder" small />
-  <TextField label="Small filled" placeholder="Placeholder" small filled />
+  <TextField label="X-small" placeholder="Placeholder" size="x-small" />
+  <TextField label="Small" placeholder="Placeholder" size="small" />
+  <TextField label="Default" placeholder="Placeholder" />
+  <TextField label="Large" placeholder="Placeholder" size="large" />
 </template>
 ```
 
@@ -157,7 +170,7 @@ import { TextField } from "opui-css/vue"
 
 Add the `required` attribute on the component. It is forwarded to the underlying `<input>`.
 
-Use the `error` prop to toggle invalid styles. It renders`data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
+Use the `error` prop to toggle invalid styles. It renders `data-invalid` on the root element. Make use of the end text to give extra feedback on the error.
 
 ```vue
 <script setup lang="ts">
@@ -168,7 +181,12 @@ import { TextField } from "opui-css/vue"
 <template>
   <div class="example-row">
     <TextField label="I'm required" placeholder="Placeholder" required />
-    <TextField label="So am I!" placeholder="Placeholder" required filled />
+    <TextField
+      label="So am I!"
+      placeholder="Placeholder"
+      required
+      variant="filled"
+    />
   </div>
 
 
@@ -186,7 +204,7 @@ import { TextField } from "opui-css/vue"
       value="Uh-oh"
       endText="Only letters from the first half of the alphabet are allowed."
       error
-      filled
+      variant="filled"
     />
   </div>
 </template>
@@ -209,7 +227,7 @@ import { TextField } from "opui-css/vue"
   </TextField>
 
 
-  <TextField spread placeholder="you@example.com" type="email" filled>
+  <TextField spread placeholder="you@example.com" type="email" variant="filled">
     <template #label>Email</template>
     <template #description>We'll use this to contact you</template>
     <template #end-text>Please use a valid email address</template>
@@ -239,7 +257,7 @@ import { TextField } from "opui-css/vue"
   </TextField>
 
 
-  <TextField spread label="Website" placeholder="example.com" filled>
+  <TextField spread label="Website" placeholder="example.com" variant="filled">
     <template #description>Your public profile URL</template>
     <template #prefix>https://</template>
     <template #end-text>Must include a valid domain</template>
@@ -255,7 +273,7 @@ import { TextField } from "opui-css/vue"
 
   <TextField
     spread
-    filled
+    variant="filled"
     label="API key"
     placeholder="Paste your key"
     type="password"
@@ -405,7 +423,7 @@ import { TextField } from "opui-css/vue"
 
 ### You most likely don't need `<input type="number">`
 
-While `<input type="number">` may seem logical for numeric data it should only be used when mathematical operations are needed on the input (which is... never). Data like credit card numbers, IDs or social security numbers - are actually text that happen to be numeric rather than mathematical values. Therefore, consider using`<input type="text" inputmode="numeric" pattern="[0-9]*">` instead.
+While `<input type="number">` may seem logical for numeric data it should only be used when mathematical operations are needed on the input (which is... never). Data like credit card numbers, IDs or social security numbers - are actually text that happen to be numeric rather than mathematical values. Therefore, consider using `<input type="text" inputmode="numeric" pattern="[0-9]*">` instead.
 
 **You will have a bad time.**
 
@@ -423,9 +441,7 @@ The British Government has a [great article](https://technology.blog.gov.uk/2020
 
 ### File
 
-Use `aria-label` instead of the `<label>` element.
-
-File is a weird one. Should it really be an `<input>` element? Well, it's what we've got :sweat_smile:
+File is a weird one. Should it really be an `<input>` element? Well, it's what we've got.
 
 ```vue
 <script setup lang="ts">
@@ -435,7 +451,7 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <TextField type="file" placeholder="File" label="Label" />
-  <TextField type="file" placeholder="File" label="Label" filled />
+  <TextField type="file" placeholder="File" label="Label" variant="filled" />
 </template>
 ```
 
@@ -463,7 +479,7 @@ import { TextField } from "opui-css/vue"
 
 
   <TextField
-    filled
+    variant="filled"
     label="Emails"
     list="users-email"
     placeholder="Placeholder"
@@ -492,7 +508,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 <template>
   <div class="ui-text-field">
     <span class="ui-field">
-      <input type="text" placeholder="Placeholder" />
+      <input aria-label="Search" placeholder="Search" type="text" />
     </span>
   </div>
 </template>
@@ -506,20 +522,20 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 ### Text field API
 
-| Prop          | Type                  | Default  | Description                                                               |
-| ------------- | --------------------- | -------- | ------------------------------------------------------------------------- |
-| `autoFit`     | `boolean`             | `false`  | Changes size depending on its content.                                    |
-| `description` | `string`              | -        | Description text displayed above the field.                               |
-| `endText`     | `string`              | -        | Supporting text displayed below the field.                                |
-| `error`       | `boolean`             | `false`  | Shows error styles.                                                       |
-| `filled`      | `boolean`             | `false`  | The variant to use.                                                       |
-| `id`          | `string`              | -        | The id of the `<input>`.                                                  |
-| `label`       | `string`              | -        | The label for the field.                                                  |
-| `small`       | `boolean`             | `false`  | The size of the element.                                                  |
-| `spread`      | `boolean`             | `false`  | Pushes the label and description to one side and the input to the other.  |
-| `startText`   | `string`              | -        | Legacy alias of `description`.                                            |
-| `type`        | `"numeric"`, `string` | `"text"` | The input type. `"numeric"` renders a text input with a numeric keyboard. |
-| `v-model`     | `string`, `number`    | -        | The input value.                                                          |
+| Prop          | Type                                | Default      | Description                                                               |
+| ------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `autoFit`     | `boolean`                           | `false`      | Changes size depending on its content.                                    |
+| `description` | `string`                            | -            | Description text displayed above the field.                               |
+| `endText`     | `string`                            | -            | Supporting text displayed below the field.                                |
+| `error`       | `boolean`                           | `false`      | Shows error styles.                                                       |
+| `id`          | `string`                            | -            | The id of the `<input>`.                                                  |
+| `label`       | `string`                            | -            | The label for the field.                                                  |
+| `size`        | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                  |
+| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
+| `startText`   | `string`                            | -            | Legacy alias of `description`.                                            |
+| `type`        | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
+| `v-model`     | `string` , `number`                 | -            | The input value.                                                          |
+| `variant`     | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                       |
 
 #### Slots
 
@@ -535,16 +551,206 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | `suffix`          | Content at the inline-end of the field, inside the border.   |
 | `supporting-text` | Legacy alias of the `end-text` slot.                         |
 
+#### CSS variables
+
+| Variable                     | Default                                                                                 | Description                                                                                                                |
+| ---------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                      |
+| `--duration`                 | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                     |
+| `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                            |
+| `--field-border-color`       | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                   |
+| `--field-border-radius`      | `var(--size-2)`                                                                         | Corner radius for fields.                                                                                                  |
+| `--field-border-width`       | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                 |
+| `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                          |
+| `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                           |
+| `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                         |
+| `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                               |
+| `--field-label-font-size`    | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                       |
+| `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                            |
+| `--field-size`               | `var(--control-size)`                                                                   | Default field height.                                                                                                      |
+| `--field-size-large`         | `var(--control-size-large)`                                                             | Field height with `.ui-large`.                                                                                             |
+| `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                             |
+| `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                           |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                   |
+| `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
+| `--icon-size`                | `var(--size-4)`                                                                         | Default icon size inside components.                                                                                       |
+| `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                       |
+| `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.  |
+| `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                               |
+| `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                  |
+| `--surface-tonal`            | `light-dark(var(--gray-3), var(--gray-12))`                                             | Background of tonal variants.                                                                                              |
+| `--text-muted`               | `light-dark(var(--gray-13), var(--gray-4))`                                             | Body text color.                                                                                                           |
+| `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
+
 Attributes that aren't props, such as `placeholder` or `disabled`, go to the `<input>`.
 
-### Text input API
+## Under the hood
 
-| Type     | Modifiers             | Default | Description                                                                                                                                                       |
-| -------- | --------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Wrapper  | `.ui-field`           | -       | The `<input>` must be wrapped in a `<span class="ui-field">` element. Border, background, and focus styling are inherited from `.ui-field`, not the input itself. |
-| Auto-fit | `.ui-auto-fit`        | -       | When enabled, the element changes size depending on its content.                                                                                                  |
-| Sizes    | `.ui-small`           | -       | The size of the element.                                                                                                                                          |
-| Variants | default, `.ui-filled` | -       | The variant to use.                                                                                                                                               |
+1. Wrapper
+
+   - `<label>` wraps everything: no `for` and `id` to wire
+   - The box is drawn on a wrapper, the input itself is borderless
+   - `:focus-within` moves the focus color to the box
+
+2. Affixes
+
+   - The input comes first in the markup, `grid-area` places the affixes around it
+   - `:has(> .prefix)` drops the input padding next to an affix
+
+3. Required
+
+   - `:has(:required)` marks the label from the input's own attribute
+   - Nothing to keep in sync
+
+4. Validation
+
+   - `:user-invalid` waits until the user has edited the field, not on page load
+   - `[data-invalid]` for errors from the server
+   - Only the private custom properties change, every rule above follows
+
+Step 1 of 4: Wrapper
+
+- [`:focus-within` ](https://webstatus.dev/features/focus-within)(Widely available): Chrome 60+, Edge 79+, Firefox 52+, Safari 10.1+
+- [\<label> ](https://webstatus.dev/features/label)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
+
+```html
+<label class="text-field">
+  <span class="label">Price</span>
+  <span class="field">
+    <input />
+  </span>
+</label>
+```
+
+```css
+.text-field {
+  --accent: var(--primary);
+  --border: var(--field-border-color);
+  --helper: var(--field-helper-color);
+
+
+  display: grid;
+}
+
+
+.label {
+  font-size: var(--font-size-05);
+  font-weight: 600;
+  margin-block-end: 0.25rem;
+}
+
+
+.field {
+  background-color: var(--surface-default);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2);
+  display: grid;
+  min-block-size: var(--field-size);
+}
+
+
+.field input {
+  background: transparent;
+  border: 0;
+  color: var(--text-primary);
+  font: inherit;
+  min-inline-size: 0;
+  outline: 0;
+  padding: 0.5rem;
+}
+
+
+.text-field:focus-within .field {
+  border-color: var(--accent);
+}
+
+
+.end-text {
+  color: var(--helper);
+  font-size: var(--font-size-0);
+  margin-block-start: 0.25rem;
+}
+```
+
+Step 2 of 4: Affixes
+
+- [Grid ](https://webstatus.dev/features/grid)(Widely available): Chrome 57+, Edge 16+, Firefox 52+, Safari 10.1+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+
+```html
+<span class="field">
+  <input />
+  <span class="prefix">€</span>
+  <span class="suffix">per month</span>
+</span>
+```
+
+```css
+.field {
+  grid-template-areas: "prefix input suffix";
+  grid-template-columns: auto 1fr auto;
+}
+
+
+.field input {
+  grid-area: input;
+}
+
+
+.prefix,
+.suffix {
+  align-items: center;
+  color: var(--text-muted);
+  display: inline-flex;
+  padding-inline: 0.5rem;
+}
+
+
+.prefix {
+  grid-area: prefix;
+}
+
+
+.suffix {
+  grid-area: suffix;
+}
+
+
+.field:has(> .prefix) input {
+  padding-inline-start: 0;
+}
+
+
+.field:has(> .suffix) input {
+  padding-inline-end: 0;
+}
+```
+
+Step 3 of 4: Required
+
+```css
+.text-field:has(:required) .label::after {
+  color: var(--field-required-color);
+  content: "*";
+  margin-inline-start: 0.25em;
+}
+```
+
+Step 4 of 4: Validation
+
+- [`:user-valid and :user-invalid` ](https://webstatus.dev/features/user-pseudos)(Widely available): Chrome 119+, Edge 119+, Firefox 88+, Safari 16.5+
+
+```css
+.text-field:is([data-invalid], :has(:user-invalid)) {
+  --accent: var(--invalid-color);
+  --border: var(--invalid-color);
+  --helper: var(--invalid-text-color);
+}
+```
 
 ## Browser support
 
@@ -552,7 +758,7 @@ Attributes that aren't props, such as `placeholder` or `disabled`, go to the `<i
 - Firefox: Full support Supported since v152.
 - Safari: Full support Supported since v26.2.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Text+Field.md).
 
 ## Installation
 

@@ -1,0 +1,70 @@
+<style>
+  .todo-sizes {
+    border-collapse: collapse;
+
+    td,
+    th {
+      border-block-end: 1px solid var(--border-color);
+      padding: var(--size-1) var(--size-3);
+      text-align: start;
+    }
+  }
+
+  .todo-fixed :where(.ui-p).ui-small {
+    font-size: var(--font-size-05);
+  }
+</style>
+<table class="todo-sizes">
+  <thead>
+    <tr>
+      <th>Markup</th>
+      <th>Current</th>
+      <th>font-size</th>
+      <th>Proposed</th>
+      <th>font-size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>&lt;p class="ui-p"&gt;</code></td>
+      <td><p class="ui-p">Body text</p></td>
+      <td data-size></td>
+      <td class="todo-fixed"><p class="ui-p">Body text</p></td>
+      <td data-size></td>
+    </tr>
+    <tr>
+      <td><code>&lt;div class="ui-p ui-small"&gt;</code></td>
+      <td><div class="ui-p ui-small">Body small</div></td>
+      <td data-size></td>
+      <td class="todo-fixed"><div class="ui-p ui-small">Body small</div></td>
+      <td data-size></td>
+    </tr>
+    <tr>
+      <td><code>&lt;p class="ui-p ui-small"&gt;</code></td>
+      <td><p class="ui-p ui-small">Body small</p></td>
+      <td data-size></td>
+      <td class="todo-fixed"><p class="ui-p ui-small">Body small</p></td>
+      <td data-size></td>
+    </tr>
+    <tr>
+      <td><code>&lt;span class="ui-small"&gt;</code></td>
+      <td><span class="ui-small">Small print</span></td>
+      <td data-size></td>
+      <td class="todo-fixed"><span class="ui-small">Small print</span></td>
+      <td data-size></td>
+    </tr>
+    <tr>
+      <td><code>&lt;small&gt;</code></td>
+      <td><small>Small print</small></td>
+      <td data-size></td>
+      <td class="todo-fixed"><small>Small print</small></td>
+      <td data-size></td>
+    </tr>
+  </tbody>
+</table>
+<script>
+  for (const cell of document.querySelectorAll("[data-size]")) {
+    const sample = cell.previousElementSibling.firstElementChild
+    cell.textContent = getComputedStyle(sample).fontSize
+  }
+</script>

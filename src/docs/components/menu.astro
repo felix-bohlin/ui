@@ -3,6 +3,7 @@ import Component from "../../layouts/Component.astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
+import MenuBuild from "../../components/UnderTheHood/MenuBuild.astro"
 
 import ListCSS from "@opui/css/components/list.css?raw"
 import MenuCSS from "@opui/css/components/menu.css?raw"
@@ -15,8 +16,12 @@ export const description = "A popover list of actions or links."
   slug="menu"
   browserSupport={[
     "anchor-positioning",
+    "display-animation",
+    "has",
     "invoker-commands",
+    "overlay",
     "popover",
+    "relative-color",
     "starting-style",
     "transition-behavior",
   ]}
@@ -39,7 +44,10 @@ export const description = "A popover list of actions or links."
   <Fragment slot="title">Menu</Fragment>
   <Fragment slot="preamble">
     A popover <DocLink href="/components/list">List</DocLink>, anchored to a
-    <DocLink href="/components/button">Button</DocLink>.
+    {" "}<DocLink href="/components/button">Button</DocLink>. Use a Menu for
+    actions and navigation. To pick a value in a form, use a <DocLink
+      href="/components/select">Select</DocLink
+    >.
   </Fragment>
 
   <section>
@@ -98,7 +106,26 @@ export const description = "A popover list of actions or links."
 
   <section>
     <h2 id="submenu">Submenu</h2>
-    <p>A menu inside a list item.</p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Pass a <code>Menu</code> to the <code>submenu</code> slot of a <code
+          >ListItem</code
+        >. Mark the item with an icon from your icon library in the <code
+          >end</code
+        > slot.
+      </Fragment>
+      <Fragment slot="html">
+        Put a <code>menu</code> in the <code>li</code>, after its button. Mark
+        the item with an icon from your icon library in <code>div.ui-end</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Pass a <code>Menu</code> to the <code>submenu</code> slot of a <code
+          >ListItem</code
+        >. Mark the item with an icon from your icon library in the <code
+          >end</code
+        > slot.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Submenu" centered />
   </section>
@@ -106,4 +133,5 @@ export const description = "A popover list of actions or links."
   <Fragment slot="accessibility">
     <p><kbd>Tab</kbd> to navigate, and <kbd>Esc</kbd> to close.</p>
   </Fragment>
+  <MenuBuild slot="under-the-hood" />
 </Component>

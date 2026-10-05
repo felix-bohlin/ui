@@ -11,14 +11,19 @@ import SelectCSS from "@opui/css/components/select.css?raw"
 import ListCSS from "@opui/css/components/list.css?raw"
 import classicSelectApi from "../../component-api/classic-select/api"
 import selectApi from "../../component-api/select/api"
+import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
 ---
 
 <Component
   slug="select"
   browserSupport={[
+    "container-queries",
     "customizable-select",
+    "display-animation",
+    "field-sizing",
     "has",
     "light-dark",
+    "open-pseudo",
     "overlay",
     "relative-color",
     "starting-style",
@@ -27,7 +32,7 @@ import selectApi from "../../component-api/select/api"
   heroAnatomy
   apis={[
     { title: "Select API", api: selectApi },
-    { title: "Classic Select API", api: classicSelectApi },
+    { title: "Classic select API", api: classicSelectApi },
   ]}
   installationTabs={[
     {
@@ -68,12 +73,35 @@ import selectApi from "../../component-api/select/api"
   <Fragment slot="preamble">
     Leverages the <DocLink href="/components/list" class="ui-link"
       >List component</DocLink
-    > to provide markup for the Select popover.
+    > to provide markup for the Select popover. Use a Select to pick a value in a
+    form. For actions, use a <DocLink href="/components/menu">Menu</DocLink>.
   </Fragment>
 
   <section>
     <h2 id="variants">Variants</h2>
     <AutoExample name="Variants" row spacious />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <AutoExample name="Sizes" row spacious />
+  </section>
+
+  <section>
+    <h2 id="dense">Dense</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>dense</code> prop to pack the options tighter.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-dense</code> to the <code>.ui-list</code> to pack the options
+        tighter.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>dense</code> prop to pack the options tighter.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Dense" row spacious />
   </section>
 
   <section>
@@ -91,7 +119,7 @@ import selectApi from "../../component-api/select/api"
       </Fragment>
       <Fragment slot="html">
         Add a <code>.ui-prefix</code> or <code>.ui-suffix</code> element inside
-        <code>.ui-field</code> to affix content alongside the select.
+        {" "}<code>.ui-field</code> to affix content alongside the select.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>prefix</code> and <code>suffix</code> slots to affix icons or
@@ -100,6 +128,33 @@ import selectApi from "../../component-api/select/api"
     </Conditional>
 
     <AutoExample name="Affix" row spacious />
+  </section>
+
+  <section>
+    <h2 id="preselected">Preselected</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>value</code> to preselect an option, or
+        <code>selected: true</code> on an item.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>selected</code> to the <code>option</code> to preselect it.
+      </Fragment>
+      <Fragment slot="vue">
+        Set <code>value</code> or <code>v-model</code> to preselect an option, or
+        <code>selected: true</code> on an item.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Preselected" row spacious />
+  </section>
+
+  <section>
+    <h2 id="option-groups">Option groups</h2>
+    <p>
+      Wrap options in a <code>&lt;div role="group"&gt;</code> and start it with a
+      {" "}<code>&lt;label class="ui-text"&gt;</code> to group them under a heading.
+    </p>
+    <AutoExample name="Grouped" row spacious />
   </section>
 
   <section>
@@ -113,8 +168,8 @@ import selectApi from "../../component-api/select/api"
           </li>
           <li>
             Use the <code>error</code> prop to toggle invalid styles. It renders the
-            <code>data-invalid</code> attribute on the root element. Make use of the
-            end text to give extra feedback on the error.
+            {" "}<code>data-invalid</code> attribute on the root element. Make use
+            of the end text to give extra feedback on the error.
           </li>
         </ul>
       </Fragment>
@@ -126,8 +181,8 @@ import selectApi from "../../component-api/select/api"
           </li>
           <li>
             Use the <code>error</code> prop to toggle invalid styles. It renders
-            <code>data-invalid</code> on the root element. Make use of the end text
-            to give extra feedback on the error.
+            {" "}<code>data-invalid</code> on the root element. Make use of the end
+            text to give extra feedback on the error.
           </li>
         </ul>
       </Fragment>
@@ -172,19 +227,17 @@ import selectApi from "../../component-api/select/api"
   </section>
 
   <section>
-    <h2 id="sizes">Sizes</h2>
-    <AutoExample name="Sizes" row spacious />
-  </section>
-
-  <section>
     <h2 id="classic-select">Classic select</h2>
     <p>
       Bog-standard native HTML <code>&lt;select&gt;</code> without customized option
-      list.
+      list. Use it when the browser's own picker is all you need, and the Select above
+      when the options need styles, icons or groups.
     </p>
 
     <AutoExample name="Classic" row spacious />
   </section>
+
+  <SelectBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>
@@ -199,7 +252,7 @@ import selectApi from "../../component-api/select/api"
         name="select-anatomy"
       >
         <span slot="header">Header</span>
-        <span slot="prefix">¢</span>
+        <span slot="prefix">¤</span>
         <span slot="suffix">EUR</span>
         <span slot="footer">Footer</span>
       </UISelect>

@@ -1,0 +1,29 @@
+---
+import Guide from "../../layouts/Guide.astro"
+import { compiledContent } from "../../../packages/opui/MIGRATING.md"
+
+const html = await compiledContent()
+const start = html.indexOf('<h1 id="migrating-from-v5-to-v6"')
+const end = html.indexOf("<h1", start + 1)
+const section = html
+  .slice(start, end === -1 ? undefined : end)
+  .replace(/^<h1[^>]*>[\s\S]*?<\/h1>/, "")
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Migrating to v6</Fragment>
+  <Fragment slot="preamble">
+    The breaking changes in v6 and how to update your code, component by
+    component.
+  </Fragment>
+
+  <Fragment set:html={section} />
+
+  <p>
+    Coming from an older version? The notes for v3, v4 and v5 are in <a
+      href="https://github.com/felix-bohlin/ui/blob/main/packages/opui/MIGRATING.md"
+      target="_blank"
+      rel="noopener noreferrer"><code>MIGRATING.md</code></a
+    >.
+  </p>
+</Guide>

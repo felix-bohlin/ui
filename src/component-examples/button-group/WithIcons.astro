@@ -8,11 +8,11 @@ const closeIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32
 ---
 
 <ButtonGroup variant="outlined">
-  <Button aria-label="Label">
+  <Button iconOnly label="OK">
     <Fragment set:html={checkIcon} />
   </Button>
-  <Button aria-label="Label"> Maybe </Button>
-  <Button aria-label="Label">
+  <Button> Maybe </Button>
+  <Button iconOnly label="No">
     <Fragment set:html={closeIcon} />
   </Button>
 </ButtonGroup>
@@ -20,14 +20,14 @@ const closeIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32
 <ButtonGroup variant="outlined">
   <Button>
     <Fragment set:html={checkIcon} />
-    <span>OK</span>
+    <span class="ui-text">OK</span>
   </Button>
   <Button>
     <Fragment set:html={helpIcon} />
-    <span>Maybe</span>
+    <span class="ui-text">Maybe</span>
   </Button>
   <Button>
     <Fragment set:html={closeIcon} />
-    <span>No</span>
+    <span class="ui-text">No</span>
   </Button>
 </ButtonGroup>

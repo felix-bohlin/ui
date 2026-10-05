@@ -1,11 +1,12 @@
 # Tabs
 
-The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' `:checked` state.
+The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' `:checked` state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a [Toggle group](https://open-props-ui.netlify.app/html/components/toggle.md#toggle-group).
 
 ### What's new
 
 - Restyled as a segmented control.
-- [Line variant](#line) with `.ui-line`.
+- [Scrollable](#scrollable) tabs with `.ui-scrollable`.
+- [Filled](#filled), [line](#line) and [outlined](#outlined) variants with `.ui-filled`, `.ui-line` and `.ui-outlined`.
 
 ## Anatomy
 
@@ -32,24 +33,16 @@ General account settings.
 ## Basics
 
 ```html
-<div class="ui-tabs" role="tablist">
+<div class="ui-tabs">
   <input
     type="radio"
     name="basic-tabs"
     id="tab-profile"
     class="ui-tab-input"
     checked
-    aria-controls="panel-profile"
   />
-  <label for="tab-profile" class="ui-tab-label" role="tab">Profile</label>
-  <div
-    id="panel-profile"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="tab-profile"
-  >
-    Profile settings and information.
-  </div>
+  <label for="tab-profile" class="ui-tab-label">Profile</label>
+  <div class="ui-tab-panel">Profile settings and information.</div>
 
 
   <input
@@ -57,17 +50,9 @@ General account settings.
     name="basic-tabs"
     id="tab-settings"
     class="ui-tab-input"
-    aria-controls="panel-settings"
   />
-  <label for="tab-settings" class="ui-tab-label" role="tab">Settings</label>
-  <div
-    id="panel-settings"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="tab-settings"
-  >
-    General account settings.
-  </div>
+  <label for="tab-settings" class="ui-tab-label">Settings</label>
+  <div class="ui-tab-panel">General account settings.</div>
 
 
   <input
@@ -75,19 +60,9 @@ General account settings.
     name="basic-tabs"
     id="tab-notifications"
     class="ui-tab-input"
-    aria-controls="panel-notifications"
   />
-  <label for="tab-notifications" class="ui-tab-label" role="tab"
-    >Notifications</label
-  >
-  <div
-    id="panel-notifications"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="tab-notifications"
-  >
-    Manage your notifications.
-  </div>
+  <label for="tab-notifications" class="ui-tab-label">Notifications</label>
+  <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
 
@@ -96,26 +71,16 @@ General account settings.
 Use `variant="filled"` (`.ui-filled`) to fill the selected tab with the primary color.
 
 ```html
-<div class="ui-tabs ui-filled" role="tablist">
+<div class="ui-tabs ui-filled">
   <input
     type="radio"
     name="filled-tabs"
     id="filled-tab-profile"
     class="ui-tab-input"
     checked
-    aria-controls="filled-panel-profile"
   />
-  <label for="filled-tab-profile" class="ui-tab-label" role="tab"
-    >Profile</label
-  >
-  <div
-    id="filled-panel-profile"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="filled-tab-profile"
-  >
-    Profile settings and information.
-  </div>
+  <label for="filled-tab-profile" class="ui-tab-label">Profile</label>
+  <div class="ui-tab-panel">Profile settings and information.</div>
 
 
   <input
@@ -123,19 +88,9 @@ Use `variant="filled"` (`.ui-filled`) to fill the selected tab with the primary 
     name="filled-tabs"
     id="filled-tab-settings"
     class="ui-tab-input"
-    aria-controls="filled-panel-settings"
   />
-  <label for="filled-tab-settings" class="ui-tab-label" role="tab"
-    >Settings</label
-  >
-  <div
-    id="filled-panel-settings"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="filled-tab-settings"
-  >
-    General account settings.
-  </div>
+  <label for="filled-tab-settings" class="ui-tab-label">Settings</label>
+  <div class="ui-tab-panel">General account settings.</div>
 
 
   <input
@@ -143,19 +98,11 @@ Use `variant="filled"` (`.ui-filled`) to fill the selected tab with the primary 
     name="filled-tabs"
     id="filled-tab-notifications"
     class="ui-tab-input"
-    aria-controls="filled-panel-notifications"
   />
-  <label for="filled-tab-notifications" class="ui-tab-label" role="tab"
+  <label for="filled-tab-notifications" class="ui-tab-label"
     >Notifications</label
   >
-  <div
-    id="filled-panel-notifications"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="filled-tab-notifications"
-  >
-    Manage your notifications.
-  </div>
+  <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
 
@@ -164,24 +111,16 @@ Use `variant="filled"` (`.ui-filled`) to fill the selected tab with the primary 
 Use `variant="line"` (`.ui-line`) for tabs without a background, marking the selected tab with a line.
 
 ```html
-<div class="ui-tabs ui-line" role="tablist">
+<div class="ui-tabs ui-line">
   <input
     type="radio"
     name="line-tabs"
     id="line-tab-profile"
     class="ui-tab-input"
     checked
-    aria-controls="line-panel-profile"
   />
-  <label for="line-tab-profile" class="ui-tab-label" role="tab">Profile</label>
-  <div
-    id="line-panel-profile"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="line-tab-profile"
-  >
-    Profile settings and information.
-  </div>
+  <label for="line-tab-profile" class="ui-tab-label">Profile</label>
+  <div class="ui-tab-panel">Profile settings and information.</div>
 
 
   <input
@@ -189,19 +128,9 @@ Use `variant="line"` (`.ui-line`) for tabs without a background, marking the sel
     name="line-tabs"
     id="line-tab-settings"
     class="ui-tab-input"
-    aria-controls="line-panel-settings"
   />
-  <label for="line-tab-settings" class="ui-tab-label" role="tab"
-    >Settings</label
-  >
-  <div
-    id="line-panel-settings"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="line-tab-settings"
-  >
-    General account settings.
-  </div>
+  <label for="line-tab-settings" class="ui-tab-label">Settings</label>
+  <div class="ui-tab-panel">General account settings.</div>
 
 
   <input
@@ -209,19 +138,9 @@ Use `variant="line"` (`.ui-line`) for tabs without a background, marking the sel
     name="line-tabs"
     id="line-tab-notifications"
     class="ui-tab-input"
-    aria-controls="line-panel-notifications"
   />
-  <label for="line-tab-notifications" class="ui-tab-label" role="tab"
-    >Notifications</label
-  >
-  <div
-    id="line-panel-notifications"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="line-tab-notifications"
-  >
-    Manage your notifications.
-  </div>
+  <label for="line-tab-notifications" class="ui-tab-label">Notifications</label>
+  <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
 
@@ -230,26 +149,16 @@ Use `variant="line"` (`.ui-line`) for tabs without a background, marking the sel
 Use `variant="outlined"` (`.ui-outlined`) for a bordered track without a background.
 
 ```html
-<div class="ui-tabs ui-outlined" role="tablist">
+<div class="ui-tabs ui-outlined">
   <input
     type="radio"
     name="outlined-tabs"
     id="outlined-tab-profile"
     class="ui-tab-input"
     checked
-    aria-controls="outlined-panel-profile"
   />
-  <label for="outlined-tab-profile" class="ui-tab-label" role="tab"
-    >Profile</label
-  >
-  <div
-    id="outlined-panel-profile"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="outlined-tab-profile"
-  >
-    Profile settings and information.
-  </div>
+  <label for="outlined-tab-profile" class="ui-tab-label">Profile</label>
+  <div class="ui-tab-panel">Profile settings and information.</div>
 
 
   <input
@@ -257,19 +166,9 @@ Use `variant="outlined"` (`.ui-outlined`) for a bordered track without a backgro
     name="outlined-tabs"
     id="outlined-tab-settings"
     class="ui-tab-input"
-    aria-controls="outlined-panel-settings"
   />
-  <label for="outlined-tab-settings" class="ui-tab-label" role="tab"
-    >Settings</label
-  >
-  <div
-    id="outlined-panel-settings"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="outlined-tab-settings"
-  >
-    General account settings.
-  </div>
+  <label for="outlined-tab-settings" class="ui-tab-label">Settings</label>
+  <div class="ui-tab-panel">General account settings.</div>
 
 
   <input
@@ -277,46 +176,125 @@ Use `variant="outlined"` (`.ui-outlined`) for a bordered track without a backgro
     name="outlined-tabs"
     id="outlined-tab-notifications"
     class="ui-tab-input"
-    aria-controls="outlined-panel-notifications"
   />
-  <label for="outlined-tab-notifications" class="ui-tab-label" role="tab"
+  <label for="outlined-tab-notifications" class="ui-tab-label"
     >Notifications</label
   >
-  <div
-    id="outlined-panel-notifications"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="outlined-tab-notifications"
+  <div class="ui-tab-panel">Manage your notifications.</div>
+</div>
+```
+
+## Scrollable
+
+Tabs wrap onto more rows when they don't fit. Use `scrollable` (`.ui-scrollable`) to keep them on one row and scroll them sideways instead. The open panel stays in view, and up to 20 tabs are supported. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
+
+```html
+<div class="ui-tabs ui-scrollable">
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-profile"
+    class="ui-tab-input"
+    checked
+  />
+  <label for="scrollable-tab-profile" class="ui-tab-label">Profile</label>
+  <div class="ui-tab-panel">Profile settings and information.</div>
+
+
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-settings"
+    class="ui-tab-input"
+  />
+  <label for="scrollable-tab-settings" class="ui-tab-label">Settings</label>
+  <div class="ui-tab-panel">General account settings.</div>
+
+
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-notifications"
+    class="ui-tab-input"
+  />
+  <label for="scrollable-tab-notifications" class="ui-tab-label"
+    >Notifications</label
   >
-    Manage your notifications.
+  <div class="ui-tab-panel">Manage your notifications.</div>
+
+
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-billing"
+    class="ui-tab-input"
+  />
+  <label for="scrollable-tab-billing" class="ui-tab-label">Billing</label>
+  <div class="ui-tab-panel">Plans, invoices and payment methods.</div>
+
+
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-security"
+    class="ui-tab-input"
+  />
+  <label for="scrollable-tab-security" class="ui-tab-label">Security</label>
+  <div class="ui-tab-panel">
+    Passwords, sessions and two-factor authentication.
   </div>
+
+
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-integrations"
+    class="ui-tab-input"
+  />
+  <label for="scrollable-tab-integrations" class="ui-tab-label"
+    >Integrations</label
+  >
+  <div class="ui-tab-panel">Connected apps and webhooks.</div>
+
+
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-team"
+    class="ui-tab-input"
+  />
+  <label for="scrollable-tab-team" class="ui-tab-label">Team</label>
+  <div class="ui-tab-panel">Members and roles.</div>
+
+
+  <input
+    type="radio"
+    name="scrollable-tabs"
+    id="scrollable-tab-advanced"
+    class="ui-tab-input"
+  />
+  <label for="scrollable-tab-advanced" class="ui-tab-label">Advanced</label>
+  <div class="ui-tab-panel">Export data or delete the account.</div>
 </div>
 ```
 
 ## Accessibility
 
-The tab system uses standard radio inputs and labels, so we get group management and keyboard support for free!
+Tabs are radio buttons. Each tab is a radio input with a label, and the panel after it shows while it's checked. Screen readers announce a radio group ("Profile, radio button, checked, 1 of 3"), which matches how the tabs behave.
 
-### Tab List
+There are no `tablist`, `tab` or `tabpanel` roles. ARIA tabs promise focusable tabs with a selected state, and radio inputs can't keep that promise without JavaScript. Native radios get group management and keyboard support for free.
 
-| Element    | Attribute        | Description                                                |
-| ---------- | ---------------- | ---------------------------------------------------------- |
-| `.ui-tabs` | `role="tablist"` | Identifies the element as a container for a set of tabs.   |
-| `input`    | `name`           | Groups the radio buttons together for exclusive selection. |
-| `label`    | `role="tab"`     | Identifies the element as a tab to assistive technology.   |
+To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby`) to `.ui-tabs`.
 
-### Tab Panel
+| Element | Attribute | Description                                                |
+| ------- | --------- | ---------------------------------------------------------- |
+| `input` | `name`    | Groups the radio buttons together for exclusive selection. |
+| `input` | `checked` | Selects the tab that is open initially.                    |
+| `label` | `for`     | Names the radio button after the tab.                      |
 
-The content area associated with a tab:
+### Keyboard interaction
 
-| Attribute         | Value        | Description                            |
-| ----------------- | ------------ | -------------------------------------- |
-| `role`            | `"tabpanel"` | Identifies the element as a tab panel. |
-| `aria-labelledby` | `string`     | Links the panel to its trigger ID.     |
-
-### Keyboard Interaction
-
-- **Tab**: Moves focus to the active tab trigger (the radio button). Pressing Tab again moves focus out of the tab list to the next focusable element.
+- **Tab**: Moves focus to the active tab trigger (the radio button). Pressing Tab again moves focus out of the tabs to the next focusable element.
 - **Right Arrow / Down Arrow**: Moves focus to the next tab and activates it.
 - **Left Arrow / Up Arrow**: Moves focus to the previous tab and activates it.
 
@@ -324,10 +302,11 @@ The content area associated with a tab:
 
 ### Tabs API
 
-| Type     | Modifiers                                | Default | Description                                                |
-| -------- | ---------------------------------------- | ------- | ---------------------------------------------------------- |
-| Group    | `.ui-tab-input[name]`                    | -       | The name shared by the tab inputs. Generated when omitted. |
-| Variants | `.ui-filled`, `.ui-line`, `.ui-outlined` | -       | The variant to use.                                        |
+| Type     | Modifiers                                | Default | Description                                                                                      |
+| -------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------------------------------ |
+| Group    | `.ui-tab-input[name]`                    | -       | The name shared by the tab inputs. Generated when omitted.                                       |
+| Overflow | `.ui-scrollable`                         | -       | Keeps the tabs on one row and scrolls them sideways when they don't fit. Supports up to 20 tabs. |
+| Variants | `.ui-filled`, `.ui-line`, `.ui-outlined` | -       | The variant to use.                                                                              |
 
 #### Parts
 
@@ -338,7 +317,30 @@ The content area associated with a tab:
 | `.ui-tab-label` | A tab.                                                  |
 | `.ui-tab-panel` | The panel of the selected tab.                          |
 
-The root needs `role="tablist"`. Each tab is an `input.ui-tab-input[type="radio"]`, followed by its `label.ui-tab-label[role="tab"]` and `.ui-tab-panel[role="tabpanel"]`.
+#### CSS variables
+
+| Variable               | Default                                                                               | Description                                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`      | `var(--size-2)`                                                                       | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                          |
+| `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                            |
+| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                            |
+| `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                             |
+| `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                           |
+| `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                   |
+| `--font-weight-medium` | `var(--font-weight-5)`                                                                | Font weight for badges, overlines and group labels.                                                                        |
+| `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
+| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                  |
+| `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                              |
+| `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                           |
+| `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+
+Each tab is an `input.ui-tab-input[type="radio"]`, followed by its `label.ui-tab-label` and `.ui-tab-panel`.
 
 ### Tabs item API
 
@@ -352,6 +354,29 @@ The root needs `role="tablist"`. Each tab is an `input.ui-tab-input[type="radio"
 | -------------------- | ------------------------------------------------------------- |
 | `input.ui-tab-input` | The radio input for a tab, followed by the tab and the panel. |
 
+#### CSS variables
+
+| Variable               | Default                                                                               | Description                                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`      | `var(--size-2)`                                                                       | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                          |
+| `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                            |
+| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                            |
+| `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                             |
+| `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                           |
+| `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                   |
+| `--font-weight-medium` | `var(--font-weight-5)`                                                                | Font weight for badges, overlines and group labels.                                                                        |
+| `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
+| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                  |
+| `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                              |
+| `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                           |
+| `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+
 ### Tabs tab API
 
 #### Parts
@@ -359,6 +384,29 @@ The root needs `role="tablist"`. Each tab is an `input.ui-tab-input[type="radio"
 | Part                 | Description |
 | -------------------- | ----------- |
 | `label.ui-tab-label` | The tab.    |
+
+#### CSS variables
+
+| Variable               | Default                                                                               | Description                                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`      | `var(--size-2)`                                                                       | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                          |
+| `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                            |
+| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                            |
+| `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                             |
+| `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                           |
+| `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                   |
+| `--font-weight-medium` | `var(--font-weight-5)`                                                                | Font weight for badges, overlines and group labels.                                                                        |
+| `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
+| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                  |
+| `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                              |
+| `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                           |
+| `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
 ### Tabs panel API
 
@@ -368,13 +416,170 @@ The root needs `role="tablist"`. Each tab is an `input.ui-tab-input[type="radio"
 | --------------- | ----------- |
 | `.ui-tab-panel` | The panel.  |
 
+#### CSS variables
+
+| Variable               | Default                                                                               | Description                                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--border-color`       | `light-dark(var(--gray-4), var(--gray-12))`                                           | Default border color for cards, lists, tables and dividers.                                                                |
+| `--border-radius`      | `var(--size-2)`                                                                       | Default corner radius for cards, callouts, tables and accordions.                                                          |
+| `--duration-fast`      | `0.1s`                                                                                | Transition duration for hover and press feedback.                                                                          |
+| `--ease`               | `ease`                                                                                | Default easing for transitions.                                                                                            |
+| `--focus-ring-color`   | Unset                                                                                 | Color of the keyboard focus ring. When unset, the ring uses the page background color inverted.                            |
+| `--focus-ring-offset`  | `2px`                                                                                 | Distance between a control and its focus ring.                                                                             |
+| `--focus-ring-style`   | `solid`                                                                               | Outline style of the focus ring.                                                                                           |
+| `--focus-ring-width`   | `2px`                                                                                 | Width of the focus ring.                                                                                                   |
+| `--font-weight-medium` | `var(--font-weight-5)`                                                                | Font weight for badges, overlines and group labels.                                                                        |
+| `--motion`             | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
+| `--primary`            | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
+| `--primary-contrast`   | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
+| `--surface-default`    | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                                                                                  |
+| `--surface-tonal`      | `light-dark(var(--gray-3), var(--gray-12))`                                           | Background of tonal variants.                                                                                              |
+| `--text-muted`         | `light-dark(var(--gray-13), var(--gray-4))`                                           | Body text color.                                                                                                           |
+| `--text-primary`       | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                                     |
+
+Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
+
+## Under the hood
+
+1. Radios
+
+   - One radio group holds the state
+   - `:checked + label + panel` shows the matching panel
+
+2. Order
+
+   - The markup interleaves label, panel, label, panel
+   - `order` pulls every label into one row and drops the panel below
+
+3. Hide radios
+
+   - Visually hidden, still focusable: arrow keys move between tabs
+   - Focus ring drawn on the label
+
+4. Segmented
+
+   - Each label paints its slice of the track
+   - The pill is a `::before` inset from the track
+   - `:nth-child(1 of .tab-label)` finds the first label among the radios and panels
+   - Inner radius = outer radius − inset
+
+Step 1 of 4: Radios
+
+```html
+<div class="tabs">
+  <input class="tab-input" type="radio" name="tabs" id="tab-1" checked />
+  <label class="tab-label" for="tab-1">Profile</label>
+  <div class="tab-panel">…</div>
+  …
+</div>
+```
+
+```css
+.tab-panel {
+  display: none;
+}
+
+
+.tab-input:checked + .tab-label + .tab-panel {
+  display: block;
+}
+```
+
+Step 2 of 4: Order
+
+```css
+.tabs {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.tab-label {
+  order: 1;
+}
+
+
+.tab-panel {
+  inline-size: 100%;
+  order: 2;
+}
+```
+
+Step 3 of 4: Hide radios
+
+```css
+.tab-input {
+  block-size: 1px;
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
+
+.tab-input:focus-visible + .tab-label {
+  outline: 2px solid var(--text-muted);
+}
+```
+
+Step 4 of 4: Segmented
+
+```css
+.tab-label {
+  background-color: var(--surface-tonal);
+  isolation: isolate;
+  padding: calc(0.25rem + var(--inset)) 0.75rem;
+  position: relative;
+}
+
+
+.tab-label::before {
+  border-radius: calc(var(--radius) - var(--inset));
+  content: "";
+  inset: var(--inset) 0;
+  position: absolute;
+  transition: background-color 0.1s;
+  z-index: -1;
+}
+
+
+.tab-label:nth-child(1 of .tab-label) {
+  border-radius: var(--radius) 0 0 var(--radius);
+  padding-inline-start: calc(0.75rem + var(--inset));
+
+
+  &::before {
+    inset-inline-start: var(--inset);
+  }
+}
+
+
+.tab-label:nth-last-child(1 of .tab-label) {
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding-inline-end: calc(0.75rem + var(--inset));
+
+
+  &::before {
+    inset-inline-end: var(--inset);
+  }
+}
+
+
+.tab-input:checked + .tab-label::before {
+  background-color: var(--surface-default);
+  box-shadow: var(--shadow-1);
+}
+```
+
 ## Browser support
 
-- Chromium: Full support Supported since v123.
-- Firefox: Full support Supported since v120.
-- Safari: Full support Supported since v17.5.
+- Chromium: Full support Supported since v137.
+- Firefox: Partial support Missing: reading-flow.
+- Safari: Partial support Missing: reading-flow.
 
-See also the [full browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support.md).
+Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Tabs.md).
 
 ## Installation
 

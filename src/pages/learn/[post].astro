@@ -1,0 +1,21 @@
+---
+const docs = import.meta.glob("../../docs/learn/*.astro", {
+  eager: true,
+})
+
+const slugOf = (path: string) => path.split("/").pop()!.replace(".astro", "")
+
+export function getStaticPaths() {
+  return Object.keys(import.meta.glob("../../docs/learn/*.astro"))
+    .map((path) => path.split("/").pop()!.replace(".astro", ""))
+    .filter((slug) => slug !== "index")
+    .sort()
+    .map((slug) => ({ params: { post: slug } }))
+}
+
+const { post } = Astro.params
+const match = Object.entries(docs).find(([path]) => slugOf(path) === post)
+const Doc = (match![1] as { default: any }).default
+---
+
+<Doc />

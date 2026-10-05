@@ -1,0 +1,259 @@
+---
+import Guide from "../../layouts/Guide.astro"
+import { Code } from "astro-expressive-code/components"
+import CodeGroup from "../../components/CodeGroup.astro"
+import DocLink from "../../components/DocLink.astro"
+import Example from "../../components/Example/index"
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Concepts</Fragment>
+  <Fragment slot="preamble">
+    The few ideas the whole library is built on: cascade layers, light and dark,
+    how props map to classes, rich text, and when you need JavaScript.
+  </Fragment>
+
+  <section>
+    <h2 id="cascade-layers">Cascade layers</h2>
+    <p>
+      Every rule in OPUI lives in a cascade layer. <code>layers.css</code> declares
+      the order once, and everything after it slots into place:
+    </p>
+    <Code
+      code={`@layer openprops, theme, normalize, components.prose, components.root, components.extended, utils;`}
+      lang="css"
+    />
+    <ul>
+      <li>
+        <code>openprops</code>: the Open Props tokens (<code>--size-3</code>,
+        <code>--font-size-1</code>, …).
+      </li>
+      <li>
+        <code>theme</code>: <code>palette.css</code> and <code>theme.css</code>,
+        the colors and component tokens like <code>--primary</code> and <code
+          >--button-size</code
+        >.
+      </li>
+      <li><code>normalize</code>: the reset.</li>
+      <li>
+        <code>components.prose</code>: rich text, lowest of the components so a
+        component inside rich text keeps its own styles.
+      </li>
+      <li>
+        <code>components.root</code>: components that stand on their own, like
+        Button and Checkbox.
+      </li>
+      <li>
+        <code>components.extended</code>: components built on top of others,
+        like Badge, Dialog and Select.
+      </li>
+      <li>
+        <code>utils</code>: utility classes such as <code>.ui-sr-only</code>.
+      </li>
+    </ul>
+    <p>
+      A later layer always beats an earlier one, no matter the specificity. And
+      anything you write outside a layer beats all of them. So you never have to
+      fight the library with <code>!important</code> or long selectors:
+    </p>
+    <Code
+      code={`/* Unlayered, so it wins over every OPUI layer */
+.ui-card {
+  border-radius: 0;
+}`}
+      lang="css"
+    />
+    <p>
+      Import <code>layers.css</code> first when you import single files, so the order
+      is set before anything lands in a layer. <DocLink
+        href="/guide/customizing">Customizing</DocLink
+      > has more on where to put your own styles.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="light-and-dark">Light and dark</h2>
+    <p>
+      OPUI follows the OS setting out of the box: <code>theme.css</code> sets <code
+        >color-scheme: light dark</code
+      > and the color tokens use <code>light-dark()</code>, so there is no dark
+      mode class to toggle. By default the palette is green in light mode and
+      blue in dark mode.
+    </p>
+    <p>
+      <code>.ui-light</code> and <code>.ui-dark</code> force a scheme. Put them on
+      <code>html</code> for the whole page, or on any element to force just that part.
+    </p>
+    <Example>
+      <div class="concepts-schemes">
+        <div class="ui-light">
+          <button class="ui-button ui-filled ui-primary" type="button">
+            Always light
+          </button>
+        </div>
+        <div class="ui-dark">
+          <button class="ui-button ui-filled ui-primary" type="button">
+            Always dark
+          </button>
+        </div>
+      </div>
+    </Example>
+    <p>
+      More on scopes and the palette in <DocLink
+        href="/guide/getting-started#theming">Theming</DocLink
+      >.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="props-and-classes">Props and classes</h2>
+    <p>
+      Every class the library owns starts with <code>ui-</code>, so it never
+      clashes with yours. A component is one class on the right element, and its
+      options are modifier classes next to it. The Astro and Vue components take
+      the same options as props and render those exact classes, so the HTML and
+      the props map one to one:
+    </p>
+    <CodeGroup
+      tabs={[
+        {
+          title: "HTML",
+          code: `<button class="ui-button ui-outlined ui-small ui-primary" type="button">
+  Save
+</button>`,
+          lang: "html",
+        },
+        {
+          title: "Astro",
+          code: `<Button variant="outlined" size="small" color="primary">Save</Button>`,
+          lang: "astro",
+        },
+        {
+          title: "Vue",
+          code: `<Button variant="outlined" size="small" color="primary">Save</Button>`,
+          lang: "vue",
+        },
+      ]}
+    />
+    <p>
+      Boolean props turn into a class of the same name (<code>rounded</code> is <code
+        >.ui-rounded</code
+      >), and native states stay native: a disabled button is <code
+        >disabled</code
+      >, not a class. Every component's API table lists the prop and the class
+      side by side, so switching between frameworks (or dropping down to plain
+      HTML) is mostly copy and paste.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="rich-text">Rich text</h2>
+    <p>
+      Content you don't control, like Markdown or CMS output, has no classes.
+      Wrap it in <code>.ui-rich-text</code> and the plain elements inside get styled:
+      headings, paragraphs, lists, links, tables, quotes and code. Only elements without
+      a class are touched, so components inside rich text look the same as anywhere
+      else.
+    </p>
+    <p>
+      <code>.ui-not-rich-text</code> stops it for a subtree, handy for a demo or a
+      widget in the middle of an article.
+    </p>
+    <Example richText="not-rich-text">
+      <article class="ui-rich-text">
+        <h3>Release notes</h3>
+        <p>Plain HTML, styled by the wrapper.</p>
+        <ul>
+          <li>No classes needed</li>
+          <li>Components keep their own styles</li>
+        </ul>
+        <div class="ui-not-rich-text">
+          <ul>
+            <li>This list is left alone</li>
+          </ul>
+        </div>
+      </article>
+    </Example>
+    <p>
+      Need a heading style outside rich text, or on a heading that has a class?
+      Use <code>.ui-h1</code>–<code>.ui-h6</code>. More on the <DocLink
+        href="/components/typography">Typography</DocLink
+      > page.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="javascript">JavaScript</h2>
+    <p>
+      OPUI is CSS first, and the HTML platform does a lot these days. These work
+      without a single line of JavaScript:
+    </p>
+    <ul>
+      <li>
+        Accordion is a <code>details</code> element, Tabs are a radio group, and ToggleButton
+        and ToggleGroup are checkboxes and radios.
+      </li>
+      <li>
+        Dialog, Drawer and Menu open with Invoker Commands (<code>command</code> and
+        <code>commandfor</code> on a button) and the Popover API.
+      </li>
+      <li>
+        Tooltip and hover Anchor show with <code>interestfor</code> and CSS anchor
+        positioning.
+      </li>
+      <li>
+        Carousel buttons and markers are generated by CSS, and the Range track
+        fill is a scroll-driven animation.
+      </li>
+    </ul>
+    <p>
+      Some of these are fresh off the press, so check <DocLink
+        href="/guide/browser-support">browser support</DocLink
+      > for what falls back and where.
+    </p>
+    <p>A few things do need script in plain HTML:</p>
+    <ul>
+      <li>
+        <strong>Toast</strong>: <code>css/js/toast.js</code> has <code
+          >initToastManager()</code
+        > and <code>showToast()</code>.
+      </li>
+      <li>
+        <strong>Indeterminate checkboxes</strong>: <code>indeterminate</code> is a
+        property, not an attribute. Mark the input with <code
+          >data-indeterminate</code
+        > and call <code>activateIndeterminate()</code> from <code
+          >css/js/checkbox.js</code
+        >.
+      </li>
+      <li>
+        <strong>Range value</strong>: the <code>output</code> that shows the current
+        value has to be updated on <code>input</code>. The Astro component ships
+        a tiny script for it, and Vue does it reactively.
+      </li>
+    </ul>
+    <Code
+      code={`<script type="module">
+  import { activateIndeterminate } from "opui-css/css/js/checkbox.js"
+  import { initToastManager } from "opui-css/css/js/toast.js"
+
+  activateIndeterminate()
+  initToastManager()
+</script>`}
+      lang="html"
+    />
+  </section>
+</Guide>
+
+<style>
+  .concepts-schemes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+
+    > div {
+      border-radius: var(--border-radius);
+      padding: var(--size-4);
+    }
+  }
+</style>

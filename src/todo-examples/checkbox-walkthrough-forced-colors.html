@@ -1,0 +1,74 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-5);
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    align-content: start;
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .todo-check {
+    appearance: none;
+    background-color: var(--surface-default);
+    block-size: 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-1);
+    box-sizing: border-box;
+    inline-size: 1.25rem;
+    margin: 0;
+    position: relative;
+
+    &:checked {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    &:checked::after {
+      background-color: var(--primary-contrast);
+      clip-path: polygon(15% 52%, 40% 77%, 85% 32%, 75% 22%, 40% 57%, 25% 42%);
+      content: "";
+      inset: 0;
+      position: absolute;
+    }
+  }
+
+  .todo-label {
+    align-items: center;
+    display: inline-flex;
+    gap: var(--size-2);
+  }
+</style>
+<p>
+  Turn on forced colors to compare: DevTools, <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> +
+  <kbd>Shift</kbd> + <kbd>P</kbd>, "Show Rendering", "Emulate CSS media feature
+  forced-colors: active". Without it both look the same.
+</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">Walkthrough: no forced-colors block</p>
+    <label class="todo-label">
+      <input checked class="todo-check" type="checkbox" />
+      Checked
+    </label>
+    <label class="todo-label">
+      <input class="todo-check" type="checkbox" />
+      Unchecked
+    </label>
+  </div>
+  <div>
+    <p class="ui-caption">Library: system colors in forced colors</p>
+    <label class="ui-checkbox">
+      <input checked type="checkbox" />
+      <span class="ui-label">Checked</span>
+    </label>
+    <label class="ui-checkbox">
+      <input type="checkbox" />
+      <span class="ui-label">Unchecked</span>
+    </label>
+  </div>
+</div>

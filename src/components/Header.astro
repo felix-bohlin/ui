@@ -30,6 +30,7 @@ const navItems: { label: string; href: string }[] = [
   { label: "Guide", href: "/guide/getting-started" },
   { label: "Components", href: "/components" },
   { label: "API", href: "/api" },
+  { label: "Learn", href: "/learn" },
 ]
 
 const resolvedNavItems = navItems.map((item) => ({
@@ -49,8 +50,23 @@ const { link } = Astro.locals
         ? "dark"
         : "light"
     },
+    getStoredContrast() {
+      return localStorage.getItem("contrast")
+    },
     getStoredTheme() {
       return localStorage.getItem("theme")
+    },
+    setContrast(contrast) {
+      document.documentElement.classList.remove(
+        "ui-contrast-more",
+        "ui-contrast-normal",
+      )
+      if (contrast) {
+        document.documentElement.classList.add(`ui-contrast-${contrast}`)
+        localStorage.setItem("contrast", contrast)
+      } else {
+        localStorage.removeItem("contrast")
+      }
     },
     setTheme(theme) {
       document.documentElement.classList.remove(
@@ -112,6 +128,7 @@ const { link } = Astro.locals
   const initialTheme = storedTheme || window.themeUtils.getSystemPreference()
   window.themeUtils.setTheme(initialTheme)
   window.themeUtils.applyCustomTheme()
+  window.themeUtils.setContrast(window.themeUtils.getStoredContrast())
 </script>
 
 <div class="site-header">
@@ -194,13 +211,14 @@ const { link } = Astro.locals
           href="https://github.com/felix-bohlin/ui"
           target="_blank"
           class="github-link ui-button ui-rounded ui-ripple ui-small"
-          aria-label="Github repo"
+          aria-label="GitHub repository"
         >
           <GithubLogo />
         </a>
 
         <!-- Mobile menu button -->
         <button
+          aria-label="Menu"
           class="mobile-menu-button ui-button ui-rounded ui-ripple ui-small"
           commandfor="mobile-menu-drawer"
           command="show-modal"
@@ -277,19 +295,19 @@ const { link } = Astro.locals
   .header-toolbar {
     display: none;
     margin-inline: auto;
-    max-inline-size: calc(var(--_content-lg) + var(--_page-gutters));
+    max-inline-size: calc(var(--site-content-lg) + var(--site-page-gutters));
     min-inline-size: 0;
 
     &:has(.local-nav) {
       display: grid;
-      grid-template-columns: var(--_gap) 1fr 0 minmax(auto, 100%) 0 1fr var(
-          --_gap
-        );
+      grid-template-columns:
+        var(--site-gap) 1fr 0 minmax(auto, 100%)
+        0 1fr var(--site-gap);
 
       @media (width >= 900px) {
         grid-template-columns:
-          var(--_gap) 1fr 200px minmax(auto, 100%)
-          0 1fr var(--_gap);
+          var(--site-gap) 1fr 200px minmax(auto, 100%)
+          0 1fr var(--site-gap);
       }
 
       @media (width >= 1140px) {
@@ -298,12 +316,14 @@ const { link } = Astro.locals
     }
   }
 
-  .site-header:has(.header-toolbar:has(.local-nav)) header .ui-content {
-    border-block-end-color: transparent;
-  }
+  @media (width < 1140px) {
+    .site-header:has(.local-nav) header .ui-content {
+      border-block-end: none;
+    }
 
-  .site-header:has(.header-toolbar:has(.local-nav)) header .ui-content::before {
-    border-block-end: none;
+    .site-header:has(.local-nav) header .ui-content::before {
+      border-block-end: none;
+    }
   }
 
   header {
@@ -317,7 +337,7 @@ const { link } = Astro.locals
       gap: var(--size-4);
       justify-content: space-between;
       margin: 0 auto;
-      max-inline-size: var(--_content-lg);
+      max-inline-size: var(--site-content-lg);
       padding: var(--size-4);
       position: relative;
 
@@ -326,8 +346,8 @@ const { link } = Astro.locals
         animation-range: 0 150px;
         animation-timeline: scroll();
         background-color: var(--surface-elevated);
-        border-radius: 0;
         border: var(--border-width) solid oklch(from var(--primary) l c h / 0.2);
+        border-radius: 0;
         box-shadow: var(--shadow-2);
         content: "";
         inset: 0;
@@ -359,8 +379,8 @@ const { link } = Astro.locals
         display: flex;
         gap: var(--size-4);
         list-style: none;
-        padding: 0;
         margin: 0;
+        padding: 0;
 
         .ui-link {
           text-decoration: none;
@@ -442,8 +462,8 @@ const { link } = Astro.locals
   #mobile-menu-drawer {
     nav {
       display: block;
-      margin-inline: calc(var(--size-4) * -1);
       margin-block-start: calc(var(--size-4) * -1);
+      margin-inline: calc(var(--size-4) * -1);
 
       a {
         align-items: center;
@@ -452,8 +472,8 @@ const { link } = Astro.locals
         font-weight: var(--font-weight-6);
         padding: var(--size-3) var(--size-4);
         text-decoration: none;
-        width: 100%;
         transition: background-color 0.2s ease;
+        width: 100%;
 
         &[aria-current="page"] {
           background-color: var(--surface-tonal);
@@ -467,13 +487,13 @@ const { link } = Astro.locals
     }
 
     .drawer-footer {
-      padding-block: var(--size-4);
       display: flex;
       flex-direction: column;
       gap: var(--size-3);
+      padding-block: var(--size-4);
 
       .ui-label {
-        color: var(--text-2);
+        color: var(--text-muted);
         font-size: var(--font-size-0);
         font-weight: var(--font-weight-7);
         letter-spacing: var(--font-letter-spacing-1);
@@ -496,13 +516,13 @@ const { link } = Astro.locals
 
   header,
   .ui-content {
-    animation-timeline: scroll();
     animation-range: 0 150px;
+    animation-timeline: scroll();
   }
 
   @keyframes shrink-padding {
     to {
-      padding: var(--size-3) var(--_gap);
+      padding: var(--size-3) var(--site-gap);
     }
   }
 

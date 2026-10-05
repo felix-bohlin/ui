@@ -6,13 +6,23 @@ export type Props = {
   variant?: "outlined" | "tonal" | "filled"
 } & (
   | {
-      as?: "a"
-      href: string
-      disabled?: never
+      iconOnly: true
+      label: string
     }
   | {
-      as?: "button"
-      href?: never
-      disabled?: boolean
+      iconOnly?: false
+      label?: string
     }
-)
+) &
+  (
+    | {
+        as?: "a"
+        href: string
+        disabled?: boolean
+      }
+    | {
+        as?: "button"
+        href?: never
+        disabled?: boolean
+      }
+  )

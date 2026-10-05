@@ -19,11 +19,12 @@ const Tag = (as || (href ? "a" : "div")) as any
 
 <Tag
   class:list={[
-    { "ui-avatar": !isGroup },
+    { "ui-avatar": !isGroup, "ui-avatar-group": isGroup },
     !isGroup && variant && `ui-${variant}`,
     className,
   ]}
   href={href}
   role={isGroup ? "group" : undefined}
-  {...rest}>{src ? <img src={src} alt={alt} /> : <slot />}</Tag
+  type={Tag === "button" ? "button" : undefined}
+  {...rest}>{src ? <img src={src} alt={alt ?? ""} /> : <slot />}</Tag
 >

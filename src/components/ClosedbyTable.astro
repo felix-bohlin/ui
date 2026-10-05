@@ -1,0 +1,89 @@
+---
+import { Table } from "@opui/astro"
+import { DEFAULT_FRAMEWORK } from "../utils/framework-routing"
+
+type Props = {
+  componentDefault?: "any" | "closerequest" | "none"
+  name: string
+}
+
+const { componentDefault, name } = Astro.props
+
+const isHtml = (Astro.currentLocale ?? DEFAULT_FRAMEWORK) === "html"
+const defaultValue = isHtml ? undefined : componentDefault
+
+const rows = [
+  {
+    description: `A click outside the ${name}, <kbd>Esc</kbd> or the platform's close request (like the back gesture on mobile), and your own close button.`,
+    value: "any",
+  },
+  {
+    description: `<kbd>Esc</kbd> or the platform's close request, and your own close button. A click outside does nothing.`,
+    value: "closerequest",
+  },
+  {
+    description: `Only your own close button (<code>command="close"</code>), <code>close()</code> or a form with <code>method="dialog"</code>.`,
+    value: "none",
+  },
+]
+---
+
+<p>
+  {
+    isHtml ? (
+      <>
+        Set <code>closedby</code> on the <code>&lt;dialog&gt;</code> to choose
+        how the {name} can be closed.
+      </>
+    ) : (
+      <>
+        Use the <code>closedby</code> prop to choose how the {name} can be
+        closed.
+      </>
+    )
+  }
+</p>
+<Table style="table-layout: fixed">
+  <Table.ColumnGroup>
+    <Table.Column width="30%" />
+    <Table.Column />
+  </Table.ColumnGroup>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Value</Table.HeaderCell>
+      <Table.HeaderCell>Closes with</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    {
+      rows.map((row) => (
+        <Table.Row>
+          <Table.Cell>
+            <code>closedby="{row.value}"</code>
+            {row.value === defaultValue && " (default)"}
+          </Table.Cell>
+          <Table.Cell>
+            <Fragment set:html={row.description} />
+          </Table.Cell>
+        </Table.Row>
+      ))
+    }
+  </Table.Body>
+</Table>
+<p>
+  {
+    defaultValue ? (
+      <>
+        The {name} sets <code>closedby="{defaultValue}"</code> when you leave it
+        out.
+      </>
+    ) : (
+      <>
+        Without <code>closedby</code>, the browser picks: a modal {name}, opened
+        with <code>command="show-modal"</code> or <code>showModal()</code>, acts
+        like <code>closerequest</code>, and a non-modal one like{" "}
+        <code>none</code>.
+      </>
+    )
+  }
+</p>

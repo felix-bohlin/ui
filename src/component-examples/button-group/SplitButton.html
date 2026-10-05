@@ -1,7 +1,8 @@
 <div role="group" class="ui-button-group ui-outlined">
-  <button class="ui-button">Save</button>
+  <button type="button" class="ui-button">Save</button>
 
   <button
+    type="button"
     class="ui-button"
     aria-label="More save options"
     commandfor="split-button-menu-html"
@@ -31,7 +32,7 @@
         command="hide-popover"
         commandfor="split-button-menu-html"
       >
-        Save as draft
+        <div class="ui-text"><p>Save as draft</p></div>
       </button>
     </li>
     <li>
@@ -40,7 +41,7 @@
         command="hide-popover"
         commandfor="split-button-menu-html"
       >
-        Save and publish
+        <div class="ui-text"><p>Save and publish</p></div>
       </button>
     </li>
   </menu>

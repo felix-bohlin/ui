@@ -1,0 +1,74 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-fixed .ui-stack .ui-label::after {
+    inset-block: 0 auto;
+    inset-inline: auto -0.25ex;
+  }
+</style>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">Current, LTR: the asterisk follows the label</p>
+    <div class="todo-row">
+      <label class="ui-checkbox">
+        <input type="checkbox" required />
+        <span class="ui-label">Accept terms</span>
+      </label>
+      <label class="ui-checkbox ui-stack">
+        <input type="checkbox" required />
+        <span class="ui-label">Accept terms</span>
+      </label>
+      <label class="ui-radio ui-stack">
+        <input type="radio" name="todo-ltr" required />
+        <span class="ui-label">Monthly</span>
+      </label>
+    </div>
+  </div>
+  <div dir="rtl">
+    <p class="ui-caption">
+      Current, RTL: stacked labels get it before the text
+    </p>
+    <div class="todo-row">
+      <label class="ui-checkbox">
+        <input type="checkbox" required />
+        <span class="ui-label">قبول الشروط</span>
+      </label>
+      <label class="ui-checkbox ui-stack">
+        <input type="checkbox" required />
+        <span class="ui-label">قبول الشروط</span>
+      </label>
+      <label class="ui-radio ui-stack">
+        <input type="radio" name="todo-rtl" required />
+        <span class="ui-label">شهري</span>
+      </label>
+    </div>
+  </div>
+  <div dir="rtl" class="todo-fixed">
+    <p class="ui-caption">Fixed, RTL: logical <code>inset-inline</code></p>
+    <div class="todo-row">
+      <label class="ui-checkbox">
+        <input type="checkbox" required />
+        <span class="ui-label">قبول الشروط</span>
+      </label>
+      <label class="ui-checkbox ui-stack">
+        <input type="checkbox" required />
+        <span class="ui-label">قبول الشروط</span>
+      </label>
+      <label class="ui-radio ui-stack">
+        <input type="radio" name="todo-fixed" required />
+        <span class="ui-label">شهري</span>
+      </label>
+    </div>
+  </div>
+</div>

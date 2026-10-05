@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Textarea",
+  css: ["text-field", "textarea"],
   model: {
     description: "The textarea value.",
     prop: "value",
@@ -28,24 +29,20 @@ export default {
       prop: "error",
     },
     {
-      class: ".ui-filled",
-      default: "false",
-      description: "The variant to use.",
-      group: "Variants",
-      prop: "filled",
-    },
-    {
       description: "The id of the `<textarea>`.",
       frameworks: ["astro", "vue"],
       prop: "id",
       type: "string",
     },
     {
-      class: ".ui-small",
-      default: "false",
       description: "The size of the element.",
       group: "Sizes",
-      prop: "small",
+      prop: "size",
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       class: ".ui-spread",
@@ -54,6 +51,13 @@ export default {
         "Pushes the label and description to one side and the textarea to the other.",
       group: "Layout",
       prop: "spread",
+    },
+    {
+      default: '"outlined"',
+      description: "The variant to use.",
+      group: "Variants",
+      prop: "variant",
+      values: { filled: ".ui-filled", outlined: null },
     },
   ],
   parts: [

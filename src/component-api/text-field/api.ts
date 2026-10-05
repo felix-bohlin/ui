@@ -29,24 +29,20 @@ export default {
       prop: "error",
     },
     {
-      class: ".ui-filled",
-      default: "false",
-      description: "The variant to use.",
-      group: "Variants",
-      prop: "filled",
-    },
-    {
       description: "The id of the `<input>`.",
       frameworks: ["astro", "vue"],
       prop: "id",
       type: "string",
     },
     {
-      class: ".ui-small",
-      default: "false",
       description: "The size of the element.",
       group: "Sizes",
-      prop: "small",
+      prop: "size",
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       class: ".ui-spread",
@@ -63,6 +59,13 @@ export default {
       frameworks: ["astro", "vue"],
       prop: "type",
       type: '"numeric" | string',
+    },
+    {
+      default: '"outlined"',
+      description: "The variant to use.",
+      group: "Variants",
+      prop: "variant",
+      values: { filled: ".ui-filled", outlined: null },
     },
   ],
   parts: [

@@ -6,15 +6,19 @@ import { unified } from "unified"
 import { select, selectAll } from "hast-util-select"
 
 const REMOVE_SELECTORS = [
+  ".build-up-knobs",
+  ".build-up-stage",
+  ".build-up-steps legend",
   ".component-footer",
   ".controls",
   ".example-preview",
+  ".guide-footer",
   ".header-anchor",
   ".theme-generator",
+  ".ui-tab-label",
   "h1 .ui-anchor-floating",
   "[data-panel='output']",
   "[data-tab='output']",
-  "[role='tab']",
   "button",
   "input",
   "script",
@@ -77,7 +81,7 @@ const codeBlock = (node) => {
 }
 
 const codeGroup = (node) => {
-  const labels = selectAll("[role='tab']", node).map((tab) =>
+  const labels = selectAll(".ui-tab-label", node).map((tab) =>
     textContent(tab).trim(),
   )
   const blocks = selectAll(".expressive-code", node)
@@ -105,6 +109,23 @@ const browserSupport = (node) =>
         .join(" ")
       return element("li", {}, [
         text(`${ENGINES[engine] ?? engine}: ${summary}`),
+      ])
+    }),
+  )
+
+const featureSupport = (node) =>
+  element(
+    "ul",
+    {},
+    selectAll("li", node).map((item) => {
+      const status = textContent(select(".feature-support-status", item))
+      const browsers = selectAll("dl > div", item).map((row) => {
+        const version = textContent(select("dd", row)).trim()
+        return `${textContent(select("dt", row)).trim()} ${version === "No" ? "not supported" : `${version}+`}`
+      })
+      return element("li", {}, [
+        select("a", item),
+        text(` (${status.trim()}): ${browsers.join(", ")}`),
       ])
     }),
   )
@@ -187,6 +208,7 @@ export async function articleToMarkdown(
     )
   }
   replace(article, isClass("browser-support-chips"), browserSupport)
+  replace(article, isClass("feature-support"), featureSupport)
   replace(article, isClass("code-group"), codeGroup)
   replace(article, isClass("expressive-code"), codeBlock)
   prune(article, new Set(selectAll(REMOVE_SELECTORS.join(", "), article)))

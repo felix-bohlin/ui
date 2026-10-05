@@ -1,0 +1,122 @@
+---
+import BuildUp from "./BuildUp.astro"
+
+const steps = [
+  {
+    css: `
+.group {
+  border-radius: var(--radius-2);
+  display: inline-flex;
+  flex-wrap: wrap;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  overflow: hidden;
+}
+
+.group > button {
+  border-radius: 0;
+  flex: auto;
+}`,
+    html: `
+<div class="group" role="group">
+  <button>Day</button>
+  <button>Week</button>
+  …
+</div>`,
+    notes: [
+      "Buttons drop their own radius, <code>overflow: hidden</code> on the group rounds the outer corners",
+      "<code>flex: auto</code> stretches the buttons to fill a wrapped row",
+      "<code>role=&quot;group&quot;</code> tells assistive tech the buttons belong together",
+    ],
+    title: "Join",
+  },
+  {
+    css: `
+.group > button {
+  --divider: light-dark(
+    oklch(from var(--surface-tonal) calc(l - 0.1) c h),
+    oklch(from var(--surface-tonal) calc(l + 0.1) c h)
+  );
+  box-shadow:
+    -1px 0 0 0 var(--divider),
+    0 -1px 0 0 var(--divider);
+}`,
+    features: ["light-dark", "relative-color"],
+    notes: [
+      "Each button draws a line along its start and top edge",
+      "The group clips the lines on the outer edges, so only the gaps between buttons show one",
+      "Drag <strong>Width</strong>: wrapped rows get a divider on top for free",
+      "Relative color: one shade darker in light mode, lighter in dark",
+    ],
+    title: "Dividers",
+  },
+  {
+    css: `
+.group.outlined {
+  outline: 1px solid var(--border-color);
+  outline-offset: -1px;
+}
+
+.group.outlined > button {
+  --divider: var(--border-color);
+}`,
+    html: `
+<div class="group outlined" role="group">…</div>`,
+    notes: [
+      "<code>outline</code> takes no space and <code>overflow</code> can't clip it",
+      "<code>outline-offset: -1px</code> pulls it in on top of the buttons' outer edge",
+      "The dividers switch to the same color, nothing else changes",
+    ],
+    title: "Outline",
+  },
+]
+
+const knobs = [
+  {
+    label: "Width",
+    max: 360,
+    min: 120,
+    property: "--width",
+    step: 10,
+    unit: "px",
+    value: 360,
+  },
+]
+---
+
+<BuildUp id="build-button-group" knobs={knobs} steps={steps}>
+  <div class="frame">
+    {
+      ["group", "group outlined"].map((className) => (
+        <div class={className} role="group">
+          {["Day", "Week", "Month", "Year"].map((label) => (
+            <button type="button">{label}</button>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</BuildUp>
+
+<style>
+  .frame {
+    display: grid;
+    gap: var(--size-4);
+    inline-size: min(100%, var(--width));
+    justify-items: center;
+  }
+
+  .group > button {
+    background-color: var(--surface-tonal);
+    border: 0;
+    border-radius: var(--radius-2);
+    color: var(--text-primary);
+    cursor: pointer;
+    font: inherit;
+    padding: var(--size-2) var(--size-3);
+  }
+
+  .outlined > button {
+    background-color: transparent;
+  }
+</style>

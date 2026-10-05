@@ -8,6 +8,7 @@ import DescriptionListCSS from "@opui/css/components/description-list.css?raw"
 import Conditional from "../../components/Conditional.astro"
 
 import descriptionListApi from "../../component-api/description-list/api"
+import DescriptionListBuild from "../../components/UnderTheHood/DescriptionListBuild.astro"
 
 export const description =
   "Description lists are used to display a list of terms and their descriptions."
@@ -18,7 +19,7 @@ export const description =
   slug="description-list"
   heroAnatomy
   apis={[{ title: "Description list API", api: descriptionListApi }]}
-  browserSupport={["container-queries", "has"]}
+  browserSupport={["container-queries"]}
   changelogPaths={[
     {
       path: "packages/opui/components/DescriptionList",
@@ -42,7 +43,10 @@ export const description =
 >
   <Fragment slot="title">Description list</Fragment>
 
-  <AutoExample name="Default" />
+  <section>
+    <h2 id="basics">Basics</h2>
+    <AutoExample name="Default" />
+  </section>
 
   <section>
     <h2 id="bordered">Bordered</h2>
@@ -70,6 +74,8 @@ export const description =
     </Conditional>
     <AutoExample name="Bordered" column spacious />
   </section>
+
+  <DescriptionListBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy zoom={1.25}>

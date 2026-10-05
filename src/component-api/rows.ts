@@ -1,4 +1,8 @@
+import { existsSync, readFileSync } from "node:fs"
+import path from "node:path"
 import { describe, frameworkProps, slotNames } from "../utils/component-source"
+import { themeTokenDescriptions } from "../utils/theme-token-descriptions"
+import { themeTokens } from "../utils/theme-tokens"
 import {
   frameworks,
   type ComponentFramework,
@@ -28,6 +32,7 @@ export const modifiers = (option: ApiOption) => {
 }
 
 export const htmlDefault = (option: ApiOption) => {
+  if (option.htmlDefault !== undefined) return option.htmlDefault ?? undefined
   const value = option.default?.replace(/^"(.*)"$/, "$1")
   if (value === undefined) return undefined
   if (option.values) {
@@ -95,6 +100,36 @@ export const slotRows = (api: ComponentApi, framework: ComponentFramework) =>
     }))
     .sort(byName)
 
+const kebab = (name: string) =>
+  name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
+
+const THEME_TOKENS = themeTokens()
+
+export const stylesheets = (api: ComponentApi) =>
+  (api.css ?? (api.source ? [kebab(api.source)] : [])).map((file) =>
+    path.resolve("packages/opui/css/components", `${file}.css`),
+  )
+
+export const cssVarRows = (api: ComponentApi) => {
+  const reads = new Set(
+    stylesheets(api).flatMap((file) =>
+      existsSync(file)
+        ? [
+            ...readFileSync(file, "utf8").matchAll(/var\(\s*(--[a-z][\w-]*)/g),
+          ].map((match) => match[1])
+        : [],
+    ),
+  )
+  return THEME_TOKENS.filter((token) => reads.has(token.name))
+    .map((token) => ({
+      dark: token.dark,
+      default: token.optional ? undefined : token.value,
+      description: themeTokenDescriptions[token.name] ?? "",
+      name: token.name,
+    }))
+    .sort(byName)
+}
+
 export const partLabel = (
   api: ComponentApi,
   part: ApiPart,
@@ -102,7 +137,7 @@ export const partLabel = (
   root = false,
 ) => {
   const fallback = part.code ?? part.selector
-  if (framework === "html") return fallback
+  if (framework === "html" || !api.source) return fallback
   if (root) return `<${part.component?.[framework] ?? api.component}>`
   if (part.component?.[framework]) return `<${part.component[framework]}>`
 

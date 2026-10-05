@@ -1,7 +1,7 @@
 export type SwitchProps = {
   error?: boolean
   hideLabel?: boolean
-  small?: boolean
+  size?: "small"
   spread?: boolean
   stack?: boolean
 }

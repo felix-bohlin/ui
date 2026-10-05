@@ -1,45 +1,56 @@
 ---
 import type { Props } from "./types.astro"
+import { createId } from "../id"
 
 export const title = "Textarea"
 
 const {
+  "aria-describedby": ariaDescribedBy,
   autoFit,
   class: className,
   cols,
   description,
   disabled,
+  endText,
   error,
-  filled,
   id,
   label,
   maxlength,
   minlength,
   name,
-  spread,
   placeholder,
   required,
   rows,
-  small,
-  endText,
+  size,
+  spread,
+  style,
   value,
+  variant,
   ...rest
 } = Astro.props
+
+const $id = createId(Astro.locals)
+const endTextId =
+  endText || Astro.slots.has("end-text") || Astro.slots.has("supporting-text")
+    ? $id("end-text")
+    : undefined
+const describedBy =
+  [endTextId, ariaDescribedBy].filter(Boolean).join(" ") || undefined
 ---
 
 <label
   class:list={[
     "ui-textarea",
+    size && `ui-${size}`,
     {
       "ui-auto-fit": autoFit,
-      "ui-filled": filled,
+      "ui-filled": variant === "filled",
       "ui-spread": spread,
-      "ui-small": small,
     },
     className,
   ]}
   data-invalid={error ? "" : undefined}
-  {...rest}
+  style={style}
 >
   {
     (label || Astro.slots.has("label")) && (
@@ -60,6 +71,9 @@ const {
   }
   <span class="ui-field">
     <textarea
+      {...rest}
+      aria-describedby={describedBy}
+      aria-invalid={error ? "true" : undefined}
       cols={cols}
       disabled={disabled}
       id={id}
@@ -68,8 +82,8 @@ const {
       name={name}
       placeholder={placeholder}
       required={required}
-      rows={rows}
-      value={value}></textarea>
+      rows={rows}>{value}</textarea
+    >
     {
       Astro.slots.has("prefix") && (
         <span class="ui-prefix">
@@ -103,7 +117,7 @@ const {
     (endText ||
       Astro.slots.has("end-text") ||
       Astro.slots.has("supporting-text")) && (
-      <span class="ui-end-text">
+      <span class="ui-end-text" id={endTextId}>
         {endText}
         <slot name="end-text" />
         <slot name="supporting-text" />

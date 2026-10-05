@@ -3,7 +3,7 @@ import type { ComponentApi } from "../types"
 export default {
   component: "ToggleButton",
   notes: {
-    html: "Set `disabled` on the input too. Checkbox inputs also need `aria-pressed`.",
+    html: "Set `disabled` on the input too.",
   },
   options: [
     {
@@ -43,7 +43,11 @@ export default {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { small: ".ui-small", "x-small": ".ui-x-small" },
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       default: '"checkbox"',

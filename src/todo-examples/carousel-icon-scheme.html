@@ -1,0 +1,71 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-scheme {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+    padding: var(--size-3);
+  }
+</style>
+<p>
+  One carousel forced light and one forced dark, so one of them always runs
+  against the scheme this page sees (<code>prefers-color-scheme</code>:
+  <output data-os></output>). Scroll buttons need
+  <code>::scroll-button</code> (Chromium 135+). Toggle your OS or DevTools
+  "prefers-color-scheme" and the arrows should stay readable in both.
+</p>
+<div class="todo-compare">
+  <div class="todo-scheme ui-light">
+    <strong><code>.ui-light</code></strong>
+    <ul
+      class="ui-carousel ui-buttons-outside ui-with-buttons"
+      aria-label="Light carousel"
+    >
+      <li>
+        <div class="ui-card ui-tonal"><div class="ui-content">One</div></div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal"><div class="ui-content">Two</div></div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal"><div class="ui-content">Three</div></div>
+      </li>
+    </ul>
+  </div>
+  <div class="todo-scheme ui-dark">
+    <strong><code>.ui-dark</code></strong>
+    <ul
+      class="ui-carousel ui-buttons-outside ui-with-buttons"
+      aria-label="Dark carousel"
+    >
+      <li>
+        <div class="ui-card ui-tonal"><div class="ui-content">One</div></div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal"><div class="ui-content">Two</div></div>
+      </li>
+      <li>
+        <div class="ui-card ui-tonal"><div class="ui-content">Three</div></div>
+      </li>
+    </ul>
+  </div>
+</div>
+<script>
+  {
+    const output = document.querySelector("[data-os]")
+    const query = matchMedia("(prefers-color-scheme: dark)")
+    const update = () => {
+      output.textContent = query.matches ? "dark" : "light"
+    }
+    update()
+    query.addEventListener("change", update)
+  }
+</script>

@@ -49,11 +49,11 @@ export default {
       type: "number | string",
     },
     {
-      description: "The variant to use.",
+      description:
+        "The track surface. Without one, the track uses the field border color.",
       group: "Variants",
       prop: "variant",
       values: {
-        default: ".ui-default",
         filled: ".ui-filled",
         tonal: ".ui-tonal",
       },

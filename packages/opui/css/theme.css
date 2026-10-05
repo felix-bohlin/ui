@@ -295,7 +295,7 @@
       );
       --success: var(--green);
 
-      --primary: light-dark(var(--color-11), var(--color-5));
+      --primary: light-dark(var(--color-12), var(--color-3));
       --primary-contrast: oklch(
         from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15)
           h

@@ -349,6 +349,11 @@
       --_border-color: var(--invalid-color);
       --_label-color: var(--invalid-text-color);
       --_end-text-color: var(--invalid-text-color);
+
+      @container style(--contrast: more) {
+        --_accent-color: var(--invalid-text-color);
+        --_border-color: var(--invalid-text-color);
+      }
     }
 
     /*

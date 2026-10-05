@@ -17,6 +17,13 @@
       background-color: var(--surface-tonal);
     }
 
+    @container style(--contrast: more) {
+      &.ui-border-filled,
+      &.ui-border-tonal {
+        background-color: var(--border-color);
+      }
+    }
+
     @media (forced-colors: active) {
       block-size: 0;
       border-block-start: var(--border-size-1) solid CanvasText;

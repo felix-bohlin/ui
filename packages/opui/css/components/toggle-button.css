@@ -78,6 +78,17 @@
           --_button-bg-color: oklch(from var(--primary) l c h / 35%);
         }
       }
+
+      @container style(--contrast: more) {
+        --_button-bg-color: var(--primary);
+        color: var(--primary-contrast);
+
+        @media (hover: hover) {
+          &:hover {
+            --_button-bg-color: oklch(from var(--primary) calc(l * 0.9) c h);
+          }
+        }
+      }
     }
 
     /* Sizes */

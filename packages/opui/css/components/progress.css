@@ -26,6 +26,10 @@
       --_bg-color: var(--surface-tonal);
     }
 
+    @container style(--contrast: more) {
+      outline: var(--border-width) solid var(--border-color);
+    }
+
     @media (forced-colors: active) {
       --_accent-color: SelectedItem;
 

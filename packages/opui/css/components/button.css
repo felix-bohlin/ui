@@ -209,6 +209,10 @@
       --_border-color: var(--_accent);
       --_text-color: var(--_accent-text);
 
+      @container style(--contrast: more) {
+        --_border-color: var(--_accent-text);
+      }
+
       &:where(
         :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
       ) {

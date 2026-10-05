@@ -29,13 +29,6 @@ export default {
       prop: "error",
     },
     {
-      default: "false",
-      description:
-        'Deprecated, removed in 7.0. Use `variant="filled"`. `variant` wins when both are set.',
-      frameworks: ["astro", "vue"],
-      prop: "filled",
-    },
-    {
       description: "The id of the `<input>`.",
       frameworks: ["astro", "vue"],
       prop: "id",

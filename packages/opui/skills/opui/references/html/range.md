@@ -4,7 +4,7 @@
 
 - [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
 - The track fill is CSS only, so plain HTML ranges fill too.
-- Breaking: [`.ui-surface`](#variants) replaces `.ui-default`.
+- Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
 
 ## Anatomy
 
@@ -50,7 +50,7 @@ Label 50 Start text End text
 
 ## Variants
 
-Use the `.ui-filled`, `.ui-surface`, or `.ui-tonal` class to swap the track surface for better contrast on different backgrounds. Without a class, the track uses `--field-border-color`, like the border of a text field.
+Use the `.ui-filled` or `.ui-tonal` class to swap the track surface for better contrast on different backgrounds. Without a class, the track uses `--field-border-color`, like the border of a text field.
 
 ```html
 <label class="ui-range">
@@ -65,17 +65,11 @@ Use the `.ui-filled`, `.ui-surface`, or `.ui-tonal` class to swap the track surf
   >
   <input aria-labelledby="range-surfaces-2-label" type="range" />
 </label>
-<label class="ui-range ui-surface">
-  <span class="ui-label" id="range-surfaces-3-label"
-    ><code>surface</code> = <code>var(--surface-default)</code></span
-  >
-  <input aria-labelledby="range-surfaces-3-label" type="range" />
-</label>
 <label class="ui-range ui-tonal">
-  <span class="ui-label" id="range-surfaces-4-label"
+  <span class="ui-label" id="range-surfaces-3-label"
     ><code>tonal</code> = <code>var(--surface-tonal)</code></span
   >
-  <input aria-labelledby="range-surfaces-4-label" type="range" />
+  <input aria-labelledby="range-surfaces-3-label" type="range" />
 </label>
 ```
 
@@ -274,11 +268,11 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
 
 ### Range API
 
-| Type       | Modifiers                                | Default | Description                                                              |
-| ---------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| Layout     | `.ui-spread`                             | -       | Pushes the label and description to one side and the input to the other. |
-| Validation | `[data-invalid]`                         | -       | Shows error styles.                                                      |
-| Variants   | `.ui-filled`, `.ui-surface`, `.ui-tonal` | -       | The track surface. Without one, the track uses the field border color.   |
+| Type       | Modifiers                 | Default | Description                                                              |
+| ---------- | ------------------------- | ------- | ------------------------------------------------------------------------ |
+| Layout     | `.ui-spread`              | -       | Pushes the label and description to one side and the input to the other. |
+| Validation | `[data-invalid]`          | -       | Shows error styles.                                                      |
+| Variants   | `.ui-filled`, `.ui-tonal` | -       | The track surface. Without one, the track uses the field border color.   |
 
 #### Parts
 

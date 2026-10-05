@@ -13,10 +13,7 @@
   }
 
   .todo-proposed
-    :where(
-      .ui-list:not(.ui-surface, .ui-tonal, .ui-transparent),
-      .ui-table th
-    ) {
+    :where(.ui-list:not(.ui-tonal, .ui-transparent), .ui-table th) {
     --border-color: light-dark(var(--gray-6), var(--gray-13));
   }
 </style>

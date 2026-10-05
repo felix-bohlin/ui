@@ -5,7 +5,7 @@
 - Breaking: `divided` is removed. Use [`bordered`](#on-every-item).
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
 - Only direct children are styled as rows, so nested lists inside a row stay normal lists.
-- Breaking: [`variant="surface"`](#variants) replaces `variant="default"`.
+- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
 
 ## Anatomy
 
@@ -71,7 +71,7 @@ Change background color with the `variant` prop.
 
 ### Filled by default
 
-Without a color class the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `surface` or `tonal` to match the page surface instead.
+Without a color class the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `tonal`, or `transparent` to show the surface behind the list.
 
 ```astro
 ---
@@ -82,12 +82,6 @@ import { List, ListItem } from "opui-css/astro"
 <div class="column" style="gap: var(--size-4);">
   <List>
     <ListItem headline="Filled (default)" />
-    <ListItem headline="Second item" />
-  </List>
-
-
-  <List variant="surface">
-    <ListItem headline="Surface" />
     <ListItem headline="Second item" />
   </List>
 
@@ -593,12 +587,12 @@ Just add the `dense` prop to the `List`!
 
 ### List API
 
-| Prop         | Type                                      | Default | Description                                                                  |
-| ------------ | ----------------------------------------- | ------- | ---------------------------------------------------------------------------- |
-| `bordered`   | `boolean`                                 | `false` | Adds a border between list items.                                            |
-| `dense`      | `boolean`                                 | `false` | Packs the list tighter.                                                      |
-| `gutterless` | `boolean`                                 | `false` | Removes the inline padding.                                                  |
-| `variant`    | `"tonal"` , `"transparent"` , `"surface"` | -       | The background color variant. Without one, the list uses the filled surface. |
+| Prop         | Type                        | Default | Description                                                                  |
+| ------------ | --------------------------- | ------- | ---------------------------------------------------------------------------- |
+| `bordered`   | `boolean`                   | `false` | Adds a border between list items.                                            |
+| `dense`      | `boolean`                   | `false` | Packs the list tighter.                                                      |
+| `gutterless` | `boolean`                   | `false` | Removes the inline padding.                                                  |
+| `variant`    | `"tonal"` , `"transparent"` | -       | The background color variant. Without one, the list uses the filled surface. |
 
 #### Slots
 
@@ -619,7 +613,6 @@ Just add the `dense` prop to the `List`!
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
 | `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `Avatar` and `List`.                                                                             |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
-| `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                         |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                     |
 | `--switch-dot-size-small`     | `0.75rem`                                    | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                  |
@@ -667,7 +660,6 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
 | `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `Avatar` and `List`.                                                                             |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
-| `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                         |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                     |
 | `--switch-dot-size-small`     | `0.75rem`                                    | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                  |

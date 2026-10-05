@@ -130,8 +130,8 @@ const whatsNew = {
     `<a href="#dense">Dense</a> rows keep the default inline padding, so they line up with card content.`,
     `Only direct children are styled as rows, so nested lists inside a row stay normal lists.`,
     {
-      default: `Breaking: <a href="#variants"><code>variant="surface"</code></a> replaces <code>variant="default"</code>.`,
-      html: `Breaking: <a href="#variants"><code>.ui-surface</code></a> replaces <code>.ui-default</code>.`,
+      default: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
+      html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
     },
   ],
   menu: [
@@ -145,8 +145,8 @@ const whatsNew = {
   ],
   progress: [
     {
-      default: `Breaking: <a href="#variants"><code>variant="surface"</code></a> replaces <code>variant="default"</code>.`,
-      html: `Breaking: <a href="#variants"><code>.ui-surface</code></a> replaces <code>.ui-default</code>.`,
+      default: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
+      html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
     },
   ],
   radio: [
@@ -158,8 +158,8 @@ const whatsNew = {
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
     `The track fill is CSS only, so plain HTML ranges fill too.`,
     {
-      default: `Breaking: <a href="#variants"><code>variant="surface"</code></a> replaces <code>variant="default"</code>.`,
-      html: `Breaking: <a href="#variants"><code>.ui-surface</code></a> replaces <code>.ui-default</code>.`,
+      default: `Breaking: <a href="#variants"><code>variant="default"</code></a> is gone, since it wasn't the default look.`,
+      html: `Breaking: <a href="#variants"><code>.ui-default</code></a> is gone, since it wasn't the default look.`,
     },
     {
       astro: `<a href="#validation">Validation</a> with the <code>error</code> prop.`,
@@ -223,8 +223,8 @@ const whatsNew = {
     },
     `The auto-suggest arrow is the Select chevron at every size.`,
     {
-      astro: `<a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>, which is deprecated until 7.0.`,
-      vue: `<a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>, which is deprecated until 7.0.`,
+      astro: `Breaking: <a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>.`,
+      vue: `Breaking: <a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>.`,
     },
     {
       astro: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
@@ -242,8 +242,8 @@ const whatsNew = {
       vue: `Breaking: <code>style</code> goes to the label instead of the textarea.`,
     },
     {
-      astro: `<a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>, which is deprecated until 7.0.`,
-      vue: `<a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>, which is deprecated until 7.0.`,
+      astro: `Breaking: <a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>.`,
+      vue: `Breaking: <a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>.`,
     },
     {
       astro: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,

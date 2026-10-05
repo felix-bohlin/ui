@@ -6,7 +6,7 @@
 - [Spread](#spread) fields line up at one width.
 - Breaking: extra attributes such as `autocomplete` and `aria-*` go to the input. `class` and `style` stay on the label.
 - The auto-suggest arrow is the Select chevron at every size.
-- [`variant="filled"`](#variants) replaces the boolean `filled`, which is deprecated until 7.0.
+- Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.
 - Breaking: no generated input `id`. Pass `id` when something outside the component references the input.
 
 ## Anatomy
@@ -55,7 +55,7 @@ Label Description ¢ EUR Header Footer Supporting text
 
 ## Variants
 
-Text fields are outlined by default. Set `variant="filled"` for a filled field. The old `filled` prop still works until 7.0.
+Text fields are outlined by default. Set `variant="filled"` for a filled field.
 
 ```astro
 ---
@@ -495,20 +495,19 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 ### Text field API
 
-| Prop          | Type                                | Default      | Description                                                                           |
-| ------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------------------- |
-| `autoFit`     | `boolean`                           | `false`      | Changes size depending on its content.                                                |
-| `description` | `string`                            | -            | Description text displayed above the field.                                           |
-| `endText`     | `string`                            | -            | Supporting text displayed below the field.                                            |
-| `error`       | `boolean`                           | `false`      | Shows error styles.                                                                   |
-| `filled`      | `boolean`                           | `false`      | Deprecated, removed in 7.0. Use `variant="filled"`. `variant` wins when both are set. |
-| `id`          | `string`                            | -            | The id of the `<input>`.                                                              |
-| `label`       | `string`                            | -            | The label for the field.                                                              |
-| `size`        | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                              |
-| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.              |
-| `startText`   | `string`                            | -            | Legacy alias of `description`.                                                        |
-| `type`        | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard.             |
-| `variant`     | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                                   |
+| Prop          | Type                                | Default      | Description                                                               |
+| ------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `autoFit`     | `boolean`                           | `false`      | Changes size depending on its content.                                    |
+| `description` | `string`                            | -            | Description text displayed above the field.                               |
+| `endText`     | `string`                            | -            | Supporting text displayed below the field.                                |
+| `error`       | `boolean`                           | `false`      | Shows error styles.                                                       |
+| `id`          | `string`                            | -            | The id of the `<input>`.                                                  |
+| `label`       | `string`                            | -            | The label for the field.                                                  |
+| `size`        | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                  |
+| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
+| `startText`   | `string`                            | -            | Legacy alias of `description`.                                            |
+| `type`        | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
+| `variant`     | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                       |
 
 #### Slots
 

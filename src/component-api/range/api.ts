@@ -55,7 +55,6 @@ export default {
       prop: "variant",
       values: {
         filled: ".ui-filled",
-        surface: ".ui-surface",
         tonal: ".ui-tonal",
       },
     },

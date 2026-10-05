@@ -4,7 +4,7 @@
 
 - [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
 - The track fill is CSS only, so plain HTML ranges fill too.
-- Breaking: [`variant="surface"`](#variants) replaces `variant="default"`.
+- Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
 - [Validation](#validation) with the `error` prop.
 
 ## Anatomy
@@ -59,9 +59,6 @@ import { Range } from "opui-css/astro"
 <Range>No variant = <code>var(--field-border-color)</code></Range>
 <Range variant="filled">
   <code>filled</code> = <code>var(--surface-filled)</code>
-</Range>
-<Range variant="surface">
-  <code>surface</code> = <code>var(--surface-default)</code>
 </Range>
 <Range variant="tonal">
   <code>tonal</code> = <code>var(--surface-tonal)</code>
@@ -228,7 +225,7 @@ import { Range } from "opui-css/astro"
 | `startText`   | `string`                                                                                | -       | Description text displayed above the input.                              |
 | `value`       | `number` , `string`                                                                     | -       | The current value.                                                       |
 | `valueSuffix` | `string`                                                                                | -       | Shows the current value, with an optional `valueSuffix`.                 |
-| `variant`     | `"tonal"` , `"filled"` , `"surface"`                                                    | -       | The track surface. Without one, the track uses the field border color.   |
+| `variant`     | `"tonal"` , `"filled"`                                                                  | -       | The track surface. Without one, the track uses the field border color.   |
 
 #### Slots
 

@@ -9,11 +9,6 @@ import { List, ListItem } from "opui-css/vue"
       <ListItem headline="Second item" />
     </List>
 
-    <List variant="surface">
-      <ListItem headline="Surface" />
-      <ListItem headline="Second item" />
-    </List>
-
     <List variant="tonal">
       <ListItem headline="Tonal" />
       <ListItem headline="Second item" />

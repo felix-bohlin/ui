@@ -2,5 +2,5 @@ export type Props = {
   bordered?: boolean
   dense?: boolean
   gutterless?: boolean
-  variant?: "surface" | "tonal" | "transparent"
+  variant?: "tonal" | "transparent"
 }

@@ -192,16 +192,16 @@ Icons are smaller than before. Set `--_icon-size: var(--size-5)` to get the old 
 
 Only direct `li`/`option` children (and options in a `[role="group"]`) are styled as rows, so nested lists inside a row stay normal lists. Headings and paragraphs in `.ui-text` have no margin. Dense rows keep the default inline padding, sizes follow `--control-size`, and rich text links in a list are `--primary-dark` in light mode.
 
-`variant="default"` is `variant="surface"` (`.ui-surface`). It looks the same (`--surface-default`).
+`variant="default"` (`.ui-default`, the page surface) is gone. On the page, `transparent` looks the same. Without a variant a list is filled.
 
 ```diff
 - <List variant="default" />
-+ <List variant="surface" />
++ <List variant="transparent" />
 ```
 
 ```diff
 - <ul class="ui-list ui-default">
-+ <ul class="ui-list ui-surface">
++ <ul class="ui-list ui-transparent">
 ```
 
 ## ListItem
@@ -216,16 +216,16 @@ Critical items keep readable text in light and dark mode, like `Button`. The men
 
 Without a visible label the progress bar aligns to the middle. Give it a hidden label (`.ui-sr-only` in HTML).
 
-`variant="default"` is `variant="surface"` (`.ui-surface`). It looks the same (`--surface-default`).
+`variant="default"` (`.ui-default`, the page surface) is gone. Use no variant, `filled` or `tonal`.
 
 ```diff
 - <Progress variant="default" />
-+ <Progress variant="surface" />
++ <Progress variant="tonal" />
 ```
 
 ```diff
 - <div class="ui-progress ui-default">
-+ <div class="ui-progress ui-surface">
++ <div class="ui-progress ui-tonal">
 ```
 
 ## Radio
@@ -248,16 +248,16 @@ Astro and Vue no longer set `--_track-fill` from script. The track fill is a scr
 
 With `spread`, the label and the range split the container into equal columns, and the fixed `25ch` minimum is gone. The invalid state uses `--invalid-color`.
 
-`variant="default"` is `variant="surface"` (`.ui-surface`). It looks the same (`--surface-default`).
+`variant="default"` (`.ui-default`, the page surface) is gone. Use no variant, `filled` or `tonal`.
 
 ```diff
 - <Range variant="default" />
-+ <Range variant="surface" />
++ <Range variant="tonal" />
 ```
 
 ```diff
 - <label class="ui-range ui-default">
-+ <label class="ui-range ui-surface">
++ <label class="ui-range ui-tonal">
 ```
 
 ## Select
@@ -322,7 +322,7 @@ The `startText` slot is gone (it was never rendered). The `startText` prop stays
 
 With `spread`, label and field split the container into equal columns. Fields keep a `12ch` minimum width in table cells, the invalid state uses `--invalid-color`, and the auto-suggest arrow is a chevron with the `Select` arrow size.
 
-Use `variant="filled"` like `Select`. The boolean `filled` still works but is deprecated and goes away in 7.0. When both are set, `variant` wins. The class is still `.ui-filled`.
+The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is still `.ui-filled`.
 
 ```diff
 - <TextField filled label="Name" />
@@ -342,7 +342,7 @@ Astro and Vue no longer generate an `id`, extra attributes go to the `<textarea>
 
 The minimum height is three lines plus padding at every size (small was a fixed 64px). With `spread`, the fixed `30ch` minimum is gone and label and field split the container into equal columns. Textareas keep a `12ch` minimum width in table cells.
 
-Use `variant="filled"` like `Select`. The boolean `filled` still works but is deprecated and goes away in 7.0. When both are set, `variant` wins. The class is still `.ui-filled`.
+The boolean `filled` is gone. Use `variant="filled"` like `Select`. The class is still `.ui-filled`.
 
 ```diff
 - <Textarea filled label="Name" />

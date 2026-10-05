@@ -86,10 +86,6 @@
       --_track-color: var(--surface-filled);
     }
 
-    &.ui-surface input[type="range"] {
-      --_track-color: var(--surface-default);
-    }
-
     &.ui-tonal input[type="range"] {
       --_track-color: var(--surface-tonal);
     }

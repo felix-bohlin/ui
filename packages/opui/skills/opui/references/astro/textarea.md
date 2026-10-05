@@ -5,7 +5,7 @@
 - [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
 - [Spread](#spread) fields line up at one width.
 - Breaking: extra attributes such as `autocomplete` and `aria-*` go to the textarea. `class` and `style` stay on the label.
-- [`variant="filled"`](#variants) replaces the boolean `filled`, which is deprecated until 7.0.
+- Breaking: [`variant="filled"`](#variants) replaces the boolean `filled`.
 - Breaking: no generated input `id`. Pass `id` when something outside the component references the input.
 
 ## Anatomy
@@ -54,7 +54,7 @@ Label Description  ¢ EUR Header Footer Supporting text
 
 ## Variants
 
-Textareas are outlined by default. Set `variant="filled"` for a filled textarea. The old `filled` prop still works until 7.0.
+Textareas are outlined by default. Set `variant="filled"` for a filled textarea.
 
 ```astro
 ---
@@ -272,18 +272,17 @@ import { Textarea } from "opui-css/astro"
 
 ### Textarea API
 
-| Prop          | Type                                | Default      | Description                                                                           |
-| ------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------------------- |
-| `autoFit`     | `boolean`                           | `false`      | Changes height depending on its content.                                              |
-| `description` | `string`                            | -            | Description text displayed above the field.                                           |
-| `endText`     | `string`                            | -            | Supporting text displayed below the field.                                            |
-| `error`       | `boolean`                           | `false`      | Shows error styles.                                                                   |
-| `filled`      | `boolean`                           | `false`      | Deprecated, removed in 7.0. Use `variant="filled"`. `variant` wins when both are set. |
-| `id`          | `string`                            | -            | The id of the `<textarea>`.                                                           |
-| `label`       | `string`                            | -            | The label for the field.                                                              |
-| `size`        | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                              |
-| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other.           |
-| `variant`     | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                                   |
+| Prop          | Type                                | Default      | Description                                                                 |
+| ------------- | ----------------------------------- | ------------ | --------------------------------------------------------------------------- |
+| `autoFit`     | `boolean`                           | `false`      | Changes height depending on its content.                                    |
+| `description` | `string`                            | -            | Description text displayed above the field.                                 |
+| `endText`     | `string`                            | -            | Supporting text displayed below the field.                                  |
+| `error`       | `boolean`                           | `false`      | Shows error styles.                                                         |
+| `id`          | `string`                            | -            | The id of the `<textarea>`.                                                 |
+| `label`       | `string`                            | -            | The label for the field.                                                    |
+| `size`        | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                    |
+| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other. |
+| `variant`     | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                         |
 
 #### Slots
 

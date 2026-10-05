@@ -30,7 +30,6 @@ export default {
       group: "Variants",
       prop: "variant",
       values: {
-        surface: ".ui-surface",
         tonal: ".ui-tonal",
         transparent: ".ui-transparent",
       },

@@ -254,7 +254,7 @@
   }
 
   /* Filled surfaces */
-  :where(.ui-list:not(.ui-surface, .ui-tonal, .ui-transparent), .ui-table th) {
+  :where(.ui-list:not(.ui-tonal, .ui-transparent), .ui-table th) {
     --border-color: light-dark(var(--gray-6), var(--gray-12));
   }
 
@@ -271,7 +271,7 @@
       .ui-palette,
       .ui-card.ui-elevated,
       .ui-card.ui-tonal,
-      .ui-list:not(.ui-surface, .ui-tonal, .ui-transparent),
+      .ui-list:not(.ui-tonal, .ui-transparent),
       .ui-table th
     ) {
       --blue: light-dark(

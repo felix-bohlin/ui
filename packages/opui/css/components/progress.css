@@ -18,10 +18,6 @@
       --_bg-color: var(--surface-filled);
     }
 
-    &.ui-surface {
-      --_bg-color: var(--surface-default);
-    }
-
     &.ui-tonal {
       --_bg-color: var(--surface-tonal);
     }

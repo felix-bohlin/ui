@@ -29,10 +29,6 @@ Lists meant to be used stand-alone or as part of Select elements
       --_bg-color: transparent;
     }
 
-    &.ui-surface {
-      --_bg-color: var(--surface-default);
-    }
-
     &.ui-tonal {
       --_bg-color: var(--surface-tonal);
     }

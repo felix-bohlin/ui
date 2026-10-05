@@ -13,7 +13,6 @@ const {
   disabled,
   endText,
   error,
-  filled,
   id,
   label,
   maxlength,
@@ -30,8 +29,6 @@ const {
   ...rest
 } = Astro.props
 
-const resolvedVariant = variant ?? (filled ? "filled" : "outlined")
-
 const $id = createId(Astro.locals)
 const endTextId =
   endText || Astro.slots.has("end-text") || Astro.slots.has("supporting-text")
@@ -47,7 +44,7 @@ const describedBy =
     size && `ui-${size}`,
     {
       "ui-auto-fit": autoFit,
-      "ui-filled": resolvedVariant === "filled",
+      "ui-filled": variant === "filled",
       "ui-spread": spread,
     },
     className,

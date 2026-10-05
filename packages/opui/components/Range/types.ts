@@ -7,7 +7,7 @@ export type RangeProps = {
   startText?: string
   value?: number | string
   valueSuffix?: string
-  variant?: "filled" | "surface" | "tonal"
+  variant?: "filled" | "tonal"
 } & (
   | { list?: never; options?: never }
   | {

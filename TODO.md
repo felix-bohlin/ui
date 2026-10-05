@@ -1826,6 +1826,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: the `default` variant is `surface` (`.ui-surface`, `--surface-default`) on List, Range and Progress, with no alias (`List/types.ts`, `Range/types.ts`, `Progress/types.ts`, `list.css`, `range.css`, `progress.css`, `theme.css`).
+  > Surface instead of variant: it goes contrary to the rest of the library, correct?
+  - Yes: no other component uses `surface` as a variant value, and Card and Accordion get the page background with no variant. Decision: drop the page surface option. List takes `tonal` and `transparent` (filled without a variant), Progress `filled` and `tonal` (tonal without one), Range `filled` and `tonal` (field border without one). A page-colored list on the page looks like `transparent`, and a page-colored track was invisible there anyway. `.ui-default`/`.ui-surface` styles are gone from `list.css`, `progress.css`, `range.css` and `theme.css`, and CHANGELOG, MIGRATING and What's new say what to use instead.
   - Divider renders `.ui-filled`, `.ui-primary` and `.ui-tonal` instead of `.ui-border-*`, also in its `--contrast: more` block. The `variant` values are unchanged (`Divider.astro`, `Divider.vue`, `divider.css`).
   - Types, `api.ts`, examples, docs, stress pages, `ComponentShowcase.astro` and the `filled-borders` todo example use the new names. Nothing in the library styles `.ui-surface`, `.ui-filled`, `.ui-primary` or `.ui-tonal` on its own, so none of them reaches `hr.ui-divider`.
   - CHANGELOG (Breaking), MIGRATING and What's new list the renames.
@@ -1856,7 +1858,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Size scales also differ: Switch has `small`, Checkbox and Radio have `small | large`, fields have `x-small | small | large` (`Switch/types.ts:4`, `Checkbox/types.ts:5`, `Radio/types.ts:4`). Confirm that's intended.
   > Fix
   > regarding size scales: create a new todo with examples on the inputs. fix the rest.
-  - Fixed: TextField and Textarea take `variant?: "outlined" | "filled"` (default outlined), like Select. `filled` is a deprecated alias until 7.0, and `variant` wins when both are set (`TextField.astro`, `TextField.vue`, `Textarea.astro`, `Textarea.vue`, `types.ts`). The API tables have a `variant` row and mark `filled` as deprecated. Examples use `variant="filled"`.
+  - Fixed: TextField and Textarea take `variant?: "outlined" | "filled"` (default outlined), like Select (`TextField.astro`, `TextField.vue`, `Textarea.astro`, `Textarea.vue`, `types.ts`). The API tables have a `variant` row, and examples use `variant="filled"`.
+  > Just remove the bool for filled, let’s not wait for 7.0
+  - Fixed: the boolean `filled` is gone, no alias. CHANGELOG (Breaking), MIGRATING and What's new say so.
   - Size scales: new item under Suggestions ("Sizes: control size scales differ").
 
 ## Suggestions

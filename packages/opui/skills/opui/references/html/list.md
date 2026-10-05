@@ -5,7 +5,7 @@
 - Breaking: `.divided` is removed. Use [`.ui-bordered`](#on-every-item).
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
 - Only direct children are styled as rows, so nested lists inside a row stay normal lists.
-- Breaking: [`.ui-surface`](#variants) replaces `.ui-default`.
+- Breaking: [`.ui-default`](#variants) is gone, since it wasn't the default look.
 
 ## Anatomy
 
@@ -294,11 +294,11 @@ The List component is *extremely* flexible and versatile. Be careful if you star
 
 ## Variants
 
-Use `.ui-surface`, `.ui-tonal`, and `.ui-transparent` to change the background color.
+Use `.ui-tonal` or `.ui-transparent` to change the background color.
 
 ### Filled by default
 
-Without a color class the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `surface` or `tonal` to match the page surface instead.
+Without a color class the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `tonal`, or `transparent` to show the surface behind the list.
 
 ```html
 <div class="column" style="gap: var(--size-4)">
@@ -306,20 +306,6 @@ Without a color class the list uses the filled surface, because lists usually si
     <li>
       <div class="ui-text">
         <p>Filled (default)</p>
-      </div>
-    </li>
-    <li>
-      <div class="ui-text">
-        <p>Second item</p>
-      </div>
-    </li>
-  </ul>
-
-
-  <ul class="ui-list ui-surface">
-    <li>
-      <div class="ui-text">
-        <p>Surface</p>
       </div>
     </li>
     <li>
@@ -904,12 +890,12 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 
 ### List API
 
-| Type       | Modifiers                                     | Default | Description                                                                  |
-| ---------- | --------------------------------------------- | ------- | ---------------------------------------------------------------------------- |
-| Bordered   | `.ui-bordered`                                | -       | Adds a border between list items.                                            |
-| Dense      | `.ui-dense`                                   | -       | Packs the list tighter.                                                      |
-| Gutterless | `.ui-gutterless`                              | -       | Removes the inline padding.                                                  |
-| Variants   | `.ui-surface`, `.ui-tonal`, `.ui-transparent` | -       | The background color variant. Without one, the list uses the filled surface. |
+| Type       | Modifiers                      | Default | Description                                                                  |
+| ---------- | ------------------------------ | ------- | ---------------------------------------------------------------------------- |
+| Bordered   | `.ui-bordered`                 | -       | Adds a border between list items.                                            |
+| Dense      | `.ui-dense`                    | -       | Packs the list tighter.                                                      |
+| Gutterless | `.ui-gutterless`               | -       | Removes the inline padding.                                                  |
+| Variants   | `.ui-tonal`, `.ui-transparent` | -       | The background color variant. Without one, the list uses the filled surface. |
 
 #### Parts
 
@@ -931,7 +917,6 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
 | `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `Avatar` and `List`.                                                                             |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
-| `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                         |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                     |
 | `--switch-dot-size-small`     | `0.75rem`                                    | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                  |
@@ -974,7 +959,6 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
 | `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `Avatar` and `List`.                                                                             |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
-| `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                         |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
 | `--surface-tonal`             | `light-dark(var(--gray-3), var(--gray-12))`  | Background of tonal variants.                                                                                     |
 | `--switch-dot-size-small`     | `0.75rem`                                    | Diameter of the `Switch` dot with `.ui-small` and inside `List`.                                                  |

@@ -66,6 +66,31 @@ const { link } = Astro.locals
                 ></path></svg
               >
             </Switch>
+            <Switch spread id="contrast-switcher">
+              High contrast
+              <svg
+                slot="icon-checked"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                ><path
+                  fill="currentColor"
+                  d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20m0 2v16a8 8 0 1 1 0-16"
+                ></path></svg
+              >
+              <svg
+                slot="icon-unchecked"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                ><path
+                  fill="currentColor"
+                  d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20m0 2a8 8 0 1 1 0 16a8 8 0 0 1 0-16"
+                ></path></svg
+              >
+            </Switch>
           </FieldGroup>
         </FieldSet>
 
@@ -213,6 +238,9 @@ const { link } = Astro.locals
   const themeSwitcher = document.getElementById(
     "theme-switcher",
   ) as HTMLInputElement | null
+  const contrastSwitcher = document.getElementById(
+    "contrast-switcher",
+  ) as HTMLInputElement | null
   const drawer = document.getElementById("theme-configurator-drawer")
 
   function setChipPressed(chip: HTMLElement, pressed: boolean) {
@@ -277,6 +305,26 @@ const { link } = Astro.locals
       syncFormFromStore(newTheme)
     })
   }
+
+  function syncContrastSwitcher() {
+    if (!contrastSwitcher) return
+    contrastSwitcher.checked =
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--contrast")
+        .trim() === "more"
+  }
+
+  syncContrastSwitcher()
+  matchMedia("(prefers-contrast: more)").addEventListener(
+    "change",
+    syncContrastSwitcher,
+  )
+
+  contrastSwitcher?.addEventListener("click", () => {
+    ;(window as any).themeUtils?.setContrast(
+      contrastSwitcher.checked ? "more" : "normal",
+    )
+  })
 
   form?.addEventListener("input", (e) => {
     const target = e.target as HTMLInputElement | null
@@ -354,6 +402,8 @@ const { link } = Astro.locals
       themeSwitcher.checked =
         document.documentElement.classList.contains("ui-dark")
     }
+    ;(window as any).themeUtils?.setContrast(null)
+    syncContrastSwitcher()
     const allChips =
       form?.querySelectorAll<HTMLElement>("[data-name][data-value]") ?? []
     allChips.forEach((chip) =>

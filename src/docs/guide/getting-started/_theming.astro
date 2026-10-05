@@ -1,6 +1,7 @@
 ---
 import { Code } from "astro-expressive-code/components"
 import DocLink from "../../../components/DocLink.astro"
+import Example from "../../../components/Example/index"
 ---
 
 <section>
@@ -121,3 +122,115 @@ import DocLink from "../../../components/DocLink.astro"
     lang="css"
   />
 </section>
+
+<section>
+  <h2 id="contrast">Contrast</h2>
+  <p>
+    The <code>--contrast</code> variable is <code>normal</code> by default. If a user
+    has <code>prefers-contrast: more</code> enabled, it is set to <code
+      >more</code
+    >, and a style query raises the contrast of muted text, borders, field
+    borders, the primary color, intent colors and the focus ring. Components
+    with translucent text, such as Tabs, keyboard hints and inline code, follow
+    along.
+  </p>
+  <p>
+    Try it with the <strong>High contrast</strong> switch in the theme config drawer.
+  </p>
+
+  <Example row showCode={false}>
+    <div class="contrast-demo">
+      <section>
+        <p class="ui-caption">Default</p>
+        <label class="ui-text-field">
+          <span class="ui-label">Email</span>
+          <span class="ui-field">
+            <input type="email" placeholder="name@example.com" />
+          </span>
+          <span class="ui-end-text">We'll never share it.</span>
+        </label>
+        <button class="ui-button ui-primary ui-outlined">Subscribe</button>
+      </section>
+      <section class="ui-contrast-more">
+        <p class="ui-caption">.ui-contrast-more</p>
+        <label class="ui-text-field">
+          <span class="ui-label">Email</span>
+          <span class="ui-field">
+            <input type="email" placeholder="name@example.com" />
+          </span>
+          <span class="ui-end-text">We'll never share it.</span>
+        </label>
+        <button class="ui-button ui-primary ui-outlined">Subscribe</button>
+      </section>
+    </div>
+  </Example>
+
+  <h3 id="contrast-classes">Classes</h3>
+  <ul>
+    <li>
+      <code>.ui-contrast-more</code>: sets <code>--contrast: more</code>. Put it
+      on{" "}
+      <code>html</code> for the whole page, or on any element to raise the contrast
+      of its children.
+    </li>
+    <li>
+      <code>.ui-contrast-normal</code>: sets <code>--contrast: normal</code>.
+      Put it on <code>html</code> to ignore the OS preference.
+    </li>
+  </ul>
+  <Code code={`<html lang="en" class="ui-contrast-more">`} lang="html" />
+
+  <h3 id="contrast-custom">Custom Values</h3>
+  <p>
+    Style queries match against the parent element, so the overrides are set on
+    <code>body</code> instead of <code>html</code>. They replace any value you
+    set on <code>html</code> for the same tokens. To tune them, write your own style
+    query:
+  </p>
+  <Code
+    code={`@container style(--contrast: more) {
+  :where(body) {
+    --border-color: var(--text-muted);
+    --field-border-color: var(--border-color);
+  }
+}`}
+    lang="css"
+  />
+  <p>
+    Tokens that reference an overridden token, like <code
+      >--field-border-color</code
+    > above, have to be set again in the same rule.
+  </p>
+
+  <h3 id="forced-colors">Forced Colors</h3>
+  <p>
+    When an OS contrast theme forces its own palette (<code
+      >forced-colors: active</code
+    >), components switch to system colors so their state stays visible.
+    Selected tabs, toggles and list items use <code>SelectedItem</code>,
+    switches, ranges, progress bars and dividers are drawn with <code
+      >CanvasText</code
+    >, and focused fields get a <code>Highlight</code> outline. There is nothing to
+    configure.
+  </p>
+</section>
+
+<style>
+  .contrast-demo {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+
+    section {
+      align-items: start;
+      display: flex;
+      flex-direction: column;
+      gap: var(--size-3);
+    }
+
+    .ui-text-field {
+      inline-size: 100%;
+    }
+  }
+</style>

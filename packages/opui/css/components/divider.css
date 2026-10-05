@@ -16,6 +16,11 @@
     &.ui-border-tonal {
       background-color: var(--surface-tonal);
     }
+
+    @media (forced-colors: active) {
+      block-size: 0;
+      border-block-start: var(--border-size-1) solid CanvasText;
+    }
   }
 
   :where(.ui-card) > :where(.ui-divider) {

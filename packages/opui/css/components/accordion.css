@@ -52,6 +52,13 @@
       --_padding-inline: var(--size-3);
     }
 
+    @media (forced-colors: active) {
+      &.ui-elevated,
+      &.ui-tonal {
+        --_border-width: var(--border-width);
+      }
+    }
+
     &::details-content {
       block-size: 0;
       opacity: 0;

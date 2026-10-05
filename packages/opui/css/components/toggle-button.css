@@ -95,5 +95,16 @@
       --_size: var(--field-size-large);
       padding-inline: var(--size-3);
     }
+
+    @media (forced-colors: active) {
+      &:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
+        --focus-ring-color: SelectedItemText;
+
+        background-color: SelectedItem;
+        border-color: SelectedItem;
+        color: SelectedItemText;
+        forced-color-adjust: none;
+      }
+    }
   }
 }

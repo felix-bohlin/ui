@@ -74,6 +74,10 @@
     font-weight: var(--font-weight-medium);
     letter-spacing: 0.06em;
     text-transform: uppercase;
+
+    @container style(--contrast: more) {
+      color: var(--text-muted);
+    }
   }
 
   :where(.ui-hgroup) {
@@ -95,11 +99,20 @@
       font-weight: var(--font-weight-medium);
       letter-spacing: 0.06em;
       text-transform: uppercase;
+
+      @container style(--contrast: more) {
+        color: var(--text-muted);
+      }
     }
 
     /* Body paragraphs after the heading */
     & > p:not(:first-of-type:first-child) {
       color: oklch(from currentColor l c h / 75%);
+
+      @container style(--contrast: more) {
+        color: inherit;
+      }
+
       font-size: var(--font-size-3);
       line-height: round(up, 1.6em, var(--rhythm-step, 0.25rem));
     }
@@ -191,11 +204,21 @@
 
   :where(.ui-del) {
     color: light-dark(var(--color-11), var(--color-6));
+
+    @container style(--contrast: more) {
+      color: light-dark(var(--color-12), var(--color-3));
+    }
+
     text-decoration: line-through;
   }
 
   :where(.ui-ins) {
     color: light-dark(var(--color-11), var(--color-6));
+
+    @container style(--contrast: more) {
+      color: light-dark(var(--color-12), var(--color-3));
+    }
+
     text-decoration: underline;
     text-underline-offset: 1px;
   }
@@ -528,6 +551,10 @@
       font-weight: var(--font-weight-medium);
       letter-spacing: 0.06em;
       text-transform: uppercase;
+
+      @container style(--contrast: more) {
+        color: var(--text-muted);
+      }
     }
 
     hgroup {
@@ -552,6 +579,11 @@
       /* Body paragraphs after the heading */
       & > p:not(:first-of-type:first-child) {
         color: oklch(from currentColor l c h / 75%);
+
+        @container style(--contrast: more) {
+          color: inherit;
+        }
+
         font-size: var(--font-size-3);
         line-height: round(up, 1.6em, var(--rhythm-step, 0.25rem));
       }
@@ -754,6 +786,10 @@
 
     :where(del, ins) {
       color: light-dark(var(--color-11), var(--color-6));
+
+      @container style(--contrast: more) {
+        color: light-dark(var(--color-12), var(--color-3));
+      }
     }
 
     small {
@@ -771,6 +807,11 @@
 
     code {
       background-color: light-dark(oklch(0 0 0 / 12%), oklch(1 0 0 / 18%));
+
+      @container style(--contrast: more) {
+        background-color: light-dark(oklch(0 0 0 / 6%), oklch(1 0 0 / 10%));
+      }
+
       border-radius: var(--radius-2);
       font-size: 0.9em;
       padding: 0.1ex 0.3ex;
@@ -778,6 +819,10 @@
 
     a[href] code {
       background-color: light-dark(oklch(0 0 0 / 12%), oklch(0 0 0 / 24%));
+
+      @container style(--contrast: more) {
+        background-color: transparent;
+      }
     }
 
     :where(kbd, var) {

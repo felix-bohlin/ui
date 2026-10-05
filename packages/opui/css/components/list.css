@@ -328,6 +328,10 @@ Lists meant to be used stand-alone or as part of Select elements
           border: 0;
           color: inherit;
           opacity: 0.6;
+
+          @container style(--contrast: more) {
+            opacity: 1;
+          }
         }
 
         svg {
@@ -345,6 +349,21 @@ Lists meant to be used stand-alone or as part of Select elements
         /* Safety measure so it won't look bad if there for some reason should exist a leading element inside. */
         .ui-start {
           display: none;
+        }
+      }
+
+      @media (forced-colors: active) {
+        &[aria-selected="true"],
+        &[aria-selected="true"] > :is(a, button, label),
+        &:checked,
+        &
+          > :is(a, button, label):is(
+            [aria-current="page"],
+            [aria-selected="true"]
+          ) {
+          background-color: SelectedItem;
+          color: SelectedItemText;
+          forced-color-adjust: none;
         }
       }
     }

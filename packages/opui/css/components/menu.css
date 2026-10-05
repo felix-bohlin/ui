@@ -149,6 +149,13 @@
         var(--critical),
         oklch(from var(--critical) max(l, 0.75) c h)
       );
+
+      @container style(--contrast: more) {
+        color: light-dark(
+          var(--critical),
+          oklch(from var(--critical) max(l, 0.85) min(c, 0.1) h)
+        );
+      }
     }
 
     :where(li) > :where(a, button) > .ui-end {

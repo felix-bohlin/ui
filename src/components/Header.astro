@@ -50,8 +50,23 @@ const { link } = Astro.locals
         ? "dark"
         : "light"
     },
+    getStoredContrast() {
+      return localStorage.getItem("contrast")
+    },
     getStoredTheme() {
       return localStorage.getItem("theme")
+    },
+    setContrast(contrast) {
+      document.documentElement.classList.remove(
+        "ui-contrast-more",
+        "ui-contrast-normal",
+      )
+      if (contrast) {
+        document.documentElement.classList.add(`ui-contrast-${contrast}`)
+        localStorage.setItem("contrast", contrast)
+      } else {
+        localStorage.removeItem("contrast")
+      }
     },
     setTheme(theme) {
       document.documentElement.classList.remove(
@@ -113,6 +128,7 @@ const { link } = Astro.locals
   const initialTheme = storedTheme || window.themeUtils.getSystemPreference()
   window.themeUtils.setTheme(initialTheme)
   window.themeUtils.applyCustomTheme()
+  window.themeUtils.setContrast(window.themeUtils.getStoredContrast())
 </script>
 
 <div class="site-header">

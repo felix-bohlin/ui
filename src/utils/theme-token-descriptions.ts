@@ -24,6 +24,8 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--choice-size-large": "`Checkbox` and `Radio` input size with `.ui-large`.",
   "--choice-size-small":
     "`Checkbox` and `Radio` input size with `.ui-small` and inside `List`.",
+  "--contrast":
+    "`more` raises text, border, primary and focus ring contrast through a style query. Set to `more` automatically under `prefers-contrast: more`.",
   "--control-size":
     "Shared default height for fields and buttons so they line up.",
   "--control-size-large": "Shared large height for fields and buttons.",

@@ -277,6 +277,12 @@
       }
     }
 
+    @media (forced-colors: active) {
+      &:focus-within .ui-field {
+        outline: var(--focus-ring-width) solid Highlight;
+      }
+    }
+
     /* Label */
     .ui-label {
       color: var(--field-label-color);

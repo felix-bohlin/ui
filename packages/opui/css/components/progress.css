@@ -26,6 +26,12 @@
       --_bg-color: var(--surface-tonal);
     }
 
+    @media (forced-colors: active) {
+      --_accent-color: SelectedItem;
+
+      outline: 1px solid CanvasText;
+    }
+
     & > progress {
       appearance: none;
       background: none;

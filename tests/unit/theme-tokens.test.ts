@@ -1,4 +1,5 @@
 import { existsSync } from "node:fs"
+import themeSource from "@opui/css/theme.css?raw"
 import { describe, expect, test } from "vitest"
 import { cssVarRows, stylesheets } from "../../src/component-api/rows"
 import type { ComponentApi } from "../../src/component-api/types"
@@ -36,6 +37,7 @@ describe("theme tokens", () => {
       "Button",
       "Divider",
       "Motion",
+      "Contrast",
       "State",
       "Icons",
       "Choice controls",
@@ -82,6 +84,24 @@ describe("theme tokens", () => {
     expect(tokenDefaults("light")["--palette-hue"]).toBe("145")
     expect(tokenDefaults("dark")["--palette-hue"]).toBe("240")
     expect(tokenDefaults("light")["--border-radius"]).toBe("var(--size-2)")
+  })
+
+  test("contrast overrides also set the tokens derived from them", () => {
+    const block = themeSource.slice(
+      themeSource.indexOf("@container style(--contrast: more)"),
+    )
+    const overridden = new Set(
+      [...block.matchAll(/^\s*(--[\w-]+):/gm)].map((match) => match[1]),
+    )
+    expect(overridden.size).toBeGreaterThan(0)
+    for (const token of tokens.filter((candidate) => !candidate.optional)) {
+      const references = [
+        ...`${token.value} ${token.dark ?? ""}`.matchAll(/var\((--[\w-]+)/g),
+      ].map((match) => match[1])
+      if (references.some((name) => overridden.has(name))) {
+        expect(overridden, token.name).toContain(token.name)
+      }
+    }
   })
 
   test("setThemeToken replaces the light declaration only", () => {

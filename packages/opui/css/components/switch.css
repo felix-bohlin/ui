@@ -272,5 +272,17 @@
         color: var(--invalid-text-color);
       }
     }
+
+    @media (forced-colors: active) {
+      --_accent-color: SelectedItem;
+      --_accent-contrast: SelectedItemText;
+      --_dot-bg-color: CanvasText;
+      --_track-bg-color: Canvas;
+
+      &:has([disabled]) {
+        --_accent-color: GrayText;
+        --_dot-bg-color: GrayText;
+      }
+    }
   }
 }

@@ -177,9 +177,8 @@ Set the `indeterminate` prop to render a partially-selected state. `indeterminat
   <FieldLegend>
     <Checkbox
       class="parent"
-      checked={allChecked}
-      {indeterminate}
-      onchange={toggleAll}>Select all</Checkbox
+      bind:checked={() => allChecked, toggleAll}
+      {indeterminate}>Select all</Checkbox
     >
   </FieldLegend>
   <FieldGroup name="indeterminate-children">
@@ -440,17 +439,18 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Checkbox API
 
-| Prop            | Type                    | Default | Description                                                                          |
-| --------------- | ----------------------- | ------- | ------------------------------------------------------------------------------------ |
-| `bind:checked`  | `boolean`               | -       | The checked state.                                                                   |
-| `bind:group`    | `(string` , `number)[]` | -       | The checked values of a group.                                                       |
-| `endText`       | `string` , `Snippet`    | -       | Supporting text displayed below the label.                                           |
-| `error`         | `boolean`               | `false` | Shows error styles.                                                                  |
-| `hideLabel`     | `boolean`               | `false` | Visually hides the label.                                                            |
-| `indeterminate` | `boolean`               | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| `size`          | `"small"` , `"large"`   | -       | The size of the element.                                                             |
-| `spread`        | `boolean`               | `false` | Pushes the label and the input to opposite ends.                                     |
-| `stack`         | `boolean`               | `false` | Stacks the label under the input.                                                    |
+| Prop            | Type                   | Default | Description                                                                          |
+| --------------- | ---------------------- | ------- | ------------------------------------------------------------------------------------ |
+| `bind:checked`  | `boolean`              | -       | The checked state.                                                                   |
+| `bind:group`    | `(string \| number)[]` | -       | The checked values of a group.                                                       |
+| `children`      | `Snippet`              | -       | The label.                                                                           |
+| `endText`       | `string` , `Snippet`   | -       | Supporting text displayed below the label.                                           |
+| `error`         | `boolean`              | `false` | Shows error styles.                                                                  |
+| `hideLabel`     | `boolean`              | `false` | Visually hides the label.                                                            |
+| `indeterminate` | `boolean`              | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+| `size`          | `"small"` , `"large"`  | -       | The size of the element.                                                             |
+| `spread`        | `boolean`              | `false` | Pushes the label and the input to opposite ends.                                     |
+| `stack`         | `boolean`              | `false` | Stacks the label under the input.                                                    |
 
 #### CSS variables
 
@@ -483,10 +483,11 @@ Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`.
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                              |
-| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the element.                                                                                          |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                                         |
+| ----------- | -------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `children`  | `Snippet`            | -       | The fields, such as checkboxes, radios or switches.                                                                                 |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the element.                                                                                                     |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components. |
 
 #### CSS variables
 

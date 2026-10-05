@@ -470,9 +470,10 @@ Everything at once.
 
 ### Form API
 
-| Prop | Type               | Default  | Description            |
-| ---- | ------------------ | -------- | ---------------------- |
-| `as` | `"div"` , `"form"` | `"form"` | The element to render. |
+| Prop       | Type               | Default  | Description               |
+| ---------- | ------------------ | -------- | ------------------------- |
+| `as`       | `"div"` , `"form"` | `"form"` | The element to render.    |
+| `children` | `Snippet`          | -        | The fieldsets and fields. |
 
 #### CSS variables
 
@@ -498,6 +499,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | Prop       | Type                   | Default      | Description                                                                                                                       |
 | ---------- | ---------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------- |
 | `as`       | `"div"` , `"fieldset"` | `"fieldset"` | The element to render. Any element other than `fieldset` gets `role="group"`, and needs `aria-labelledby` pointing at its legend. |
+| `children` | `Snippet`              | -            | The legend, description and fields.                                                                                               |
 | `disabled` | `boolean`              | `false`      | Disables every field inside.                                                                                                      |
 
 #### CSS variables
@@ -521,9 +523,10 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Field legend API
 
-| Prop | Type               | Default    | Description                                                   |
-| ---- | ------------------ | ---------- | ------------------------------------------------------------- |
-| `as` | `"p"` , `"legend"` | `"legend"` | The element to render. Adds `.ui-legend` when not `"legend"`. |
+| Prop       | Type               | Default    | Description                                                   |
+| ---------- | ------------------ | ---------- | ------------------------------------------------------------- |
+| `as`       | `"p"` , `"legend"` | `"legend"` | The element to render. Adds `.ui-legend` when not `"legend"`. |
+| `children` | `Snippet`          | -          | The label.                                                    |
 
 #### CSS variables
 
@@ -546,6 +549,10 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Field description API
 
+| Prop       | Type      | Default | Description |
+| ---------- | --------- | ------- | ----------- |
+| `children` | `Snippet` | -       | The text.   |
+
 #### CSS variables
 
 | Variable                     | Default                                                                                 | Description                                                                                                               |
@@ -567,10 +574,11 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                              |
-| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the element.                                                                                          |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                                         |
+| ----------- | -------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `children`  | `Snippet`            | -       | The fields, such as checkboxes, radios or switches.                                                                                 |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the element.                                                                                                     |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components. |
 
 #### CSS variables
 

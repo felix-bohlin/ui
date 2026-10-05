@@ -272,6 +272,7 @@ When enabled the Field changes size depending on its content.
 | ---------------- | ----------------------------------- | ------------ | --------------------------------------------------------------------------- |
 | `autoFit`        | `boolean`                           | `false`      | Changes height depending on its content.                                    |
 | `bind:value`     | `string`                            | -            | The textarea value.                                                         |
+| `children`       | `Snippet`                           | -            | Extra content inside the root.                                              |
 | `description`    | `string` , `Snippet`                | -            | Description text displayed above the field.                                 |
 | `endText`        | `string` , `Snippet`                | -            | Supporting text displayed below the field.                                  |
 | `error`          | `boolean`                           | `false`      | Shows error styles.                                                         |

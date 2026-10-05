@@ -2,6 +2,10 @@
 
 Callouts call out for user attention. Should be part of the flow and used **without** interrupting the user's task.
 
+### What's new
+
+- [`success`](#icon) has a default icon, like `info`, `warning` and `critical`.
+
 ## Anatomy
 
 ### Title
@@ -132,6 +136,7 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 
 | Prop           | Type                                                              | Default   | Description                                                                        |
 | -------------- | ----------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------- |
+| `children`     | `Snippet`                                                         | -         | The content.                                                                       |
 | `headingLevel` | `2` , `3` , `4` , `5` , `6`                                       | `3`       | The heading level of the title.                                                    |
 | `icon`         | `Snippet`                                                         | -         | An optional icon. `info`, `success`, `warning` and `critical` have a default icon. |
 | `severity`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -         | The severity. Sets the color and the default icon.                                 |

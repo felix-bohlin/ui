@@ -193,6 +193,7 @@ Disable a button chip with the `disabled` attribute.
 | Prop        | Type                         | Default   | Description                                           |
 | ----------- | ---------------------------- | --------- | ----------------------------------------------------- |
 | `as`        | `"div"` , `"button"` , `"a"` | `"div"`   | The element to render. Defaults to `"a"` with `href`. |
+| `children`  | `Snippet`                    | -         | Content placed before the label.                      |
 | `end`       | `Snippet`                    | -         | Optional content at the end, such as an icon.         |
 | `href`      | `string`                     | -         | The link to use. Renders an `<a>`.                    |
 | `label`     | `string`                     | -         | The label.                                            |

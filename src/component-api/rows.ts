@@ -5,6 +5,7 @@ import {
   frameworkProps,
   modelsFor,
   slotNames,
+  snippetNames,
 } from "../utils/component-source"
 import { themeTokenDescriptions } from "../utils/theme-token-descriptions"
 import { themeTokens } from "../utils/theme-tokens"
@@ -80,8 +81,11 @@ export const propRows = (api: ComponentApi, framework: ComponentFramework) => {
   const bound = new Set(
     modelIsProp ? modelsFor(api, framework).map((entry) => entry.prop) : [],
   )
+  const snippets = snippetNames(api, framework)
+    .filter((name) => !props.has(name) && !bound.has(name))
+    .map((name) => [name, "Snippet"] as const)
   return [
-    ...[...props, ...scoped]
+    ...[...props, ...scoped, ...snippets]
       .filter(([name]) => !bound.has(name))
       .map(([name, type]) => ({
         default: option(name)?.default,

@@ -5,6 +5,7 @@
 - [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
 - The track fill is CSS only, so plain HTML ranges fill too.
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.
+- [Validation](#validation) with the `error` prop.
 
 ## Anatomy
 
@@ -212,21 +213,22 @@ Pass an id to the `list` prop together with an `options` array - `options=[{ val
 
 ### Range API
 
-| Prop          | Type                                                                                    | Default | Description                                                              |
-| ------------- | --------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `bind:value`  | `number` , `string`                                                                     | -       | The current value.                                                       |
-| `datalist`    | `Snippet`                                                                               | -       | Extra `<option>` elements for the `<datalist>`.                          |
-| `endText`     | `string` , `Snippet`                                                                    | -       | Supporting text displayed below the input.                               |
-| `error`       | `boolean`                                                                               | `false` | Shows error styles.                                                      |
-| `id`          | `string`                                                                                | -       | The id of the `<input>`. Generated when omitted and the value is shown.  |
-| `label`       | `string`                                                                                | -       | The label for the range.                                                 |
-| `list`        | `string`                                                                                | -       | The id of the `<datalist>`. Needed with `options`.                       |
-| `options`     | `(string` , `number` , `{ value: string` , `number; label?: string` , `undefined; })[]` | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.           |
-| `spread`      | `boolean`                                                                               | `false` | Pushes the label and description to one side and the input to the other. |
-| `startText`   | `string` , `Snippet`                                                                    | -       | Description text displayed above the input.                              |
-| `valueSuffix` | `string`                                                                                | -       | Shows the current value, with an optional `valueSuffix`.                 |
-| `valueText`   | `Snippet`                                                                               | -       | Replaces the shown value.                                                |
-| `variant`     | `"tonal"` , `"filled"`                                                                  | -       | The track surface. Without one, the track uses the field border color.   |
+| Prop          | Type                                                                                | Default | Description                                                              |
+| ------------- | ----------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| `bind:value`  | `number` , `string`                                                                 | -       | The current value.                                                       |
+| `children`    | `Snippet`                                                                           | -       | The label for the range.                                                 |
+| `datalist`    | `Snippet`                                                                           | -       | Extra `<option>` elements for the `<datalist>`.                          |
+| `endText`     | `string` , `Snippet`                                                                | -       | Supporting text displayed below the input.                               |
+| `error`       | `boolean`                                                                           | `false` | Shows error styles.                                                      |
+| `id`          | `string`                                                                            | -       | The id of the `<input>`. Generated when omitted and the value is shown.  |
+| `label`       | `string`                                                                            | -       | The label for the range.                                                 |
+| `list`        | `string`                                                                            | -       | The id of the `<datalist>`. Needed with `options`.                       |
+| `options`     | `(string \| number \| { value: string \| number; label?: string \| undefined; })[]` | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.           |
+| `spread`      | `boolean`                                                                           | `false` | Pushes the label and description to one side and the input to the other. |
+| `startText`   | `string` , `Snippet`                                                                | -       | Description text displayed above the input.                              |
+| `valueSuffix` | `string`                                                                            | -       | Shows the current value, with an optional `valueSuffix`.                 |
+| `valueText`   | `Snippet`                                                                           | -       | Replaces the shown value.                                                |
+| `variant`     | `"tonal"` , `"filled"`                                                              | -       | The track surface. Without one, the track uses the field border color.   |
 
 #### CSS variables
 

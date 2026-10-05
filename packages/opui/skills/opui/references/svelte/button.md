@@ -4,6 +4,7 @@ Buttons do things, like saving a form or opening a dialog. For filters, tags and
 
 ### What's new
 
+- [Icon-only](#icon-only) buttons are square. `rounded` makes them round and `ripple` adds a hover halo.
 - Replaces `IconButton`.
 - Wrap the label in a `<span>` to [tighten the padding](#buttons-with-icon-and-label) next to an icon.
 - Links with `aria-disabled="true"` look and act disabled.
@@ -297,6 +298,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | Prop       | Type                                  | Default | Description                                                                 |
 | ---------- | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
 | `as`       | `"button"` , `"a"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
+| `children` | `Snippet`                             | -       | The label and an optional icon.                                             |
 | `color`    | `"critical"` , `"primary"`            | -       | Optional colors.                                                            |
 | `disabled` | `boolean`                             | `false` | Disables the button.                                                        |
 | `href`     | `string`                              | -       | The link to use. Renders an `<a>`.                                          |

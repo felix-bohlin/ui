@@ -66,11 +66,12 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 ### Progress API
 
-| Prop      | Type                   | Default   | Description                                                          |
-| --------- | ---------------------- | --------- | -------------------------------------------------------------------- |
-| `max`     | `string` , `number`    | -         | The maximum value.                                                   |
-| `value`   | `string` , `number`    | -         | The current value. Omit it for an indeterminate state.               |
-| `variant` | `"tonal"` , `"filled"` | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
+| Prop       | Type                   | Default   | Description                                                          |
+| ---------- | ---------------------- | --------- | -------------------------------------------------------------------- |
+| `children` | `Snippet`              | -         | Fallback content inside the `<progress>`.                            |
+| `max`      | `string` , `number`    | -         | The maximum value.                                                   |
+| `value`    | `string` , `number`    | -         | The current value. Omit it for an indeterminate state.               |
+| `variant`  | `"tonal"` , `"filled"` | `"tonal"` | The track surface. Without one, the track looks the same as `tonal`. |
 
 #### CSS variables
 

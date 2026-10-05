@@ -38,7 +38,7 @@ Theme Label End text
 
 ## Basics
 
-All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only` instead of `.ui-label`, or the `hideLabel` prop in Astro and Vue.
+All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only` instead of `.ui-label`, or the `hideLabel` prop in Astro, Svelte and Vue.
 
 ```astro
 ---
@@ -511,10 +511,10 @@ Other attributes, such as `checked`, `disabled`, `name` and `required`, go to th
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                              |
-| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the element.                                                                                          |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                                         |
+| ----------- | -------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the element.                                                                                                     |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components. |
 
 #### Slots
 

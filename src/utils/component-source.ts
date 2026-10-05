@@ -53,7 +53,7 @@ const program = () => {
   return cache.program
 }
 
-const splitUnion = (text: string) => {
+export const splitUnion = (text: string) => {
   const parts: string[] = []
   let depth = 0
   let current = ""
@@ -130,6 +130,23 @@ export const frameworkProps = (
       props.set(symbol.name, cleanType(type))
     })
   return props
+}
+
+export const snippetNames = (target: Target, framework: ComponentFramework) => {
+  if (!frameworks[framework].slotsAreProps) return []
+  const text = read(target.source, componentFile(target, framework))
+  if (!text) return []
+
+  const local = new Set(
+    [...text.matchAll(/\{#snippet (\w+)\(\s*(\w*)/g)].flatMap(
+      ([, name, param]) => [name, param],
+    ),
+  )
+  const names = [
+    ...text.matchAll(/\{@render (\w+)(?:\?\.)?\(/g),
+    ...text.matchAll(/\{@render content\(\s*(\w+)/g),
+  ].map(([, name]) => name)
+  return [...new Set(names)].filter((name) => !local.has(name)).sort()
 }
 
 export const slotNames = (target: Target, framework: ComponentFramework) => {
@@ -246,7 +263,16 @@ export const checkApi = (api: ComponentApi) => {
           )
       })
 
-      if (frameworks[framework].slotsAreProps) return
+      if (frameworks[framework].slotsAreProps) {
+        snippetNames(api, framework).forEach((snippet) => {
+          if (!describe(api, snippet, framework, "prop")) {
+            warn(
+              `${api.component} (${framework}): snippet "${snippet}" is not documented`,
+            )
+          }
+        })
+        return
+      }
 
       const slots = slotNames(api, framework)
       slots.forEach((slot) => {

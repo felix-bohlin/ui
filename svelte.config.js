@@ -1,5 +1,3 @@
-import { vitePreprocess } from "@astrojs/svelte"
-
 export default {
   compilerOptions: {
     warningFilter: (warning) =>
@@ -8,5 +6,4 @@ export default {
         warning.code.startsWith("a11y")
       ),
   },
-  preprocess: vitePreprocess(),
 }

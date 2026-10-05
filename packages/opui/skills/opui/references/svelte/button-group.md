@@ -494,6 +494,7 @@ Buttons wrap onto more rows when they don't fit. Use `scrollable` to keep them o
 
 | Prop          | Type                                  | Default | Description                                                                                                       |
 | ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
+| `children`    | `Snippet`                             | -       | The buttons.                                                                                                      |
 | `color`       | `"critical"` , `"primary"`            | -       | Optional colors for the buttons.                                                                                  |
 | `orientation` | `"vertical"`                          | -       | The orientation of the element.                                                                                   |
 | `scrollable`  | `boolean`                             | `false` | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
@@ -541,6 +542,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | Prop       | Type                                  | Default | Description                                                                 |
 | ---------- | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
 | `as`       | `"button"` , `"a"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
+| `children` | `Snippet`                             | -       | The label and an optional icon.                                             |
 | `color`    | `"critical"` , `"primary"`            | -       | Optional colors.                                                            |
 | `disabled` | `boolean`                             | `false` | Disables the button.                                                        |
 | `href`     | `string`                              | -       | The link to use. Renders an `<a>`.                                          |

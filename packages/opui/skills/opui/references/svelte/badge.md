@@ -276,6 +276,7 @@ Where the badge should be placed over the child.
 | Prop        | Type                                                              | Default | Description                                                                                |
 | ----------- | ----------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------ |
 | `alignment` | `"start-start"` , `"end-start"` , `"end-end"`                     | -       | Where the indicator is placed.                                                             |
+| `children`  | `Snippet`                                                         | -       | The element the badge is anchored to.                                                      |
 | `color`     | `"critical"` , `"info"` , `"neutral"` , `"success"` , `"warning"` | -       | Optional colors.                                                                           |
 | `dot`       | `boolean`                                                         | `false` | Renders the indicator as a dot, without a label.                                           |
 | `indicator` | `Snippet`                                                         | -       | The indicator, inside `.ui-anchor-floating`.                                               |

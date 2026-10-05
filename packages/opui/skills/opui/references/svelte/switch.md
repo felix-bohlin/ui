@@ -38,7 +38,7 @@ Theme Label End text
 
 ## Basics
 
-All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only` instead of `.ui-label`, or the `hideLabel` prop in Astro and Vue.
+All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only` instead of `.ui-label`, or the `hideLabel` prop in Astro, Svelte and Vue.
 
 ```svelte
 <script lang="ts">
@@ -470,7 +470,7 @@ Accessible switches should have a label. The first two approaches are equally ok
 | Prop            | Type                          | Default | Description                                       |
 | --------------- | ----------------------------- | ------- | ------------------------------------------------- |
 | `bind:checked`  | `boolean`                     | -       | The checked state.                                |
-| `bind:group`    | `(string` , `number)[]`       | -       | The checked values of a group.                    |
+| `bind:group`    | `(string \| number)[]`        | -       | The checked values of a group.                    |
 | `children`      | `(Snippet<[]> & Snippet<[]>)` | -       | The label.                                        |
 | `endText`       | `string` , `Snippet`          | -       | Supporting text displayed below the label.        |
 | `error`         | `boolean`                     | `false` | Shows error styles.                               |
@@ -520,10 +520,11 @@ Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`.
 
 ### Field group API
 
-| Prop        | Type                 | Default | Description                                                                                                              |
-| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `direction` | `"row"` , `"column"` | -       | The orientation of the element.                                                                                          |
-| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                                         |
+| ----------- | -------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `children`  | `Snippet`            | -       | The fields, such as checkboxes, radios or switches.                                                                                 |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the element.                                                                                                     |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Svelte and Vue, only on OPUI components. |
 
 #### CSS variables
 

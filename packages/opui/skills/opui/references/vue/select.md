@@ -450,19 +450,19 @@ import { ClassicSelect } from "opui-css/vue"
 
 ### Select API
 
-| Prop          | Type                                          | Default      | Description                                                               |
-| ------------- | --------------------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `dense`       | `boolean`                                     | `false`      | Packs the options tighter.                                                |
-| `description` | `string`                                      | -            | Description text displayed above the field.                               |
-| `endText`     | `string`                                      | -            | Supporting text displayed below the field.                                |
-| `error`       | `boolean`                                     | `false`      | Shows error styles.                                                       |
-| `id`          | `string`                                      | -            | The id of the `<select>`.                                                 |
-| `items`       | `Item[]`                                      | `[]`         | The options, as `{ selected, text, value }` objects.                      |
-| `label`       | `string`                                      | -            | The label for the field.                                                  |
-| `size`        | `"x-small"` , `"small"` , `"large"`           | -            | The size of the element.                                                  |
-| `spread`      | `boolean`                                     | `false`      | Pushes the label and description to one side and the select to the other. |
-| `v-model`     | `string` , `number` , `(string` , `number)[]` | -            | The selected value, or values with `multiple`.                            |
-| `variant`     | `"outlined"` , `"filled"`                     | `"outlined"` | The variant to use.                                                       |
+| Prop          | Type                                         | Default      | Description                                                               |
+| ------------- | -------------------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `dense`       | `boolean`                                    | `false`      | Packs the options tighter.                                                |
+| `description` | `string`                                     | -            | Description text displayed above the field.                               |
+| `endText`     | `string`                                     | -            | Supporting text displayed below the field.                                |
+| `error`       | `boolean`                                    | `false`      | Shows error styles.                                                       |
+| `id`          | `string`                                     | -            | The id of the `<select>`.                                                 |
+| `items`       | `Item[]`                                     | `[]`         | The options, as `{ selected, text, value }` objects.                      |
+| `label`       | `string`                                     | -            | The label for the field.                                                  |
+| `size`        | `"x-small"` , `"small"` , `"large"`          | -            | The size of the element.                                                  |
+| `spread`      | `boolean`                                    | `false`      | Pushes the label and description to one side and the select to the other. |
+| `v-model`     | `string` , `number` , `(string \| number)[]` | -            | The selected value, or values with `multiple`.                            |
+| `variant`     | `"outlined"` , `"filled"`                    | `"outlined"` | The variant to use.                                                       |
 
 #### Slots
 
@@ -520,16 +520,16 @@ Attributes that aren't props, such as `disabled` or `name`, go to the `<select>`
 
 ### Classic select API
 
-| Prop      | Type                                          | Default      | Description                                       |
-| --------- | --------------------------------------------- | ------------ | ------------------------------------------------- |
-| `endText` | `string`                                      | -            | Supporting text displayed below the field.        |
-| `error`   | `boolean`                                     | `false`      | Shows error styles.                               |
-| `id`      | `string`                                      | -            | The id of the `<select>`. Generated when omitted. |
-| `items`   | `Item[]`                                      | `[]`         | The options, as `{ text, value }` objects.        |
-| `label`   | `string`                                      | -            | The label for the field.                          |
-| `size`    | `"x-small"` , `"small"` , `"large"`           | -            | The size of the element.                          |
-| `v-model` | `string` , `number` , `(string` , `number)[]` | -            | The selected value, or values with `multiple`.    |
-| `variant` | `"outlined"` , `"filled"`                     | `"outlined"` | The variant to use.                               |
+| Prop      | Type                                         | Default      | Description                                       |
+| --------- | -------------------------------------------- | ------------ | ------------------------------------------------- |
+| `endText` | `string`                                     | -            | Supporting text displayed below the field.        |
+| `error`   | `boolean`                                    | `false`      | Shows error styles.                               |
+| `id`      | `string`                                     | -            | The id of the `<select>`. Generated when omitted. |
+| `items`   | `Item[]`                                     | `[]`         | The options, as `{ text, value }` objects.        |
+| `label`   | `string`                                     | -            | The label for the field.                          |
+| `size`    | `"x-small"` , `"small"` , `"large"`          | -            | The size of the element.                          |
+| `v-model` | `string` , `number` , `(string \| number)[]` | -            | The selected value, or values with `multiple`.    |
+| `variant` | `"outlined"` , `"filled"`                    | `"outlined"` | The variant to use.                               |
 
 #### Slots
 

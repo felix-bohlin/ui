@@ -224,11 +224,12 @@ Attributes that aren't props go to the `<dialog>`.
 
 ### Drawer header API
 
-| Prop         | Type     | Default   | Description                                                                                                            |
-| ------------ | -------- | --------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `closeLabel` | `string` | `"Close"` | The accessible name of the close button.                                                                               |
-| `commandfor` | `string` | -         | The id of the drawer to close with the `close` command. Without it, the button closes the nearest `<dialog>` on click. |
-| `heading`    | `string` | -         | The heading.                                                                                                           |
+| Prop         | Type      | Default   | Description                                                                                                            |
+| ------------ | --------- | --------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `children`   | `Snippet` | -         | Content placed between the heading and the close button.                                                               |
+| `closeLabel` | `string`  | `"Close"` | The accessible name of the close button.                                                                               |
+| `commandfor` | `string`  | -         | The id of the drawer to close with the `close` command. Without it, the button closes the nearest `<dialog>` on click. |
+| `heading`    | `string`  | -         | The heading.                                                                                                           |
 
 #### CSS variables
 
@@ -247,6 +248,10 @@ Attributes that aren't props go to the `<dialog>`.
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
 
 ### Drawer footer API
+
+| Prop       | Type      | Default | Description                              |
+| ---------- | --------- | ------- | ---------------------------------------- |
+| `children` | `Snippet` | -       | The footer content, for example actions. |
 
 #### CSS variables
 

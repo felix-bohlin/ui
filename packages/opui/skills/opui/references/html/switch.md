@@ -38,7 +38,7 @@ Theme Label End text
 
 ## Basics
 
-All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only` instead of `.ui-label`, or the `hideLabel` prop in Astro and Vue.
+All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only` instead of `.ui-label`, or the `hideLabel` prop in Astro, Svelte and Vue.
 
 ```html
 <!-- Checked -->

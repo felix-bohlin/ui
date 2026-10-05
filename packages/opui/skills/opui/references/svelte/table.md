@@ -336,6 +336,7 @@ An advanced table showcasing the use of `colgroup`, `rowspan`, and `colspan`.
 
 | Prop           | Type                     | Default | Description                                                                                          |
 | -------------- | ------------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| `children`     | `Snippet`                | -       | The table sections.                                                                                  |
 | `stickyHeader` | `boolean`                | `false` | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
 | `variant`      | `"dense"` , `"spacious"` | -       | The variant to use.                                                                                  |
 

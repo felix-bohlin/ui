@@ -216,6 +216,7 @@ Preview where a link goes before following it. The card keeps its interactive co
 | ----------- | ---------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | `alignment` | `string`               | `"start end"` | Any valid `position-area` value. Controls where the floating content is placed.                                                               |
 | `anchored`  | `Snippet`              | -             | The floating content.                                                                                                                         |
+| `children`  | `Snippet`              | -             | The content the floating content is anchored to.                                                                                              |
 | `id`        | `string`               | -             | The id of the floating content when `trigger` is `"hover"` (add `interestfor` with the same id to the trigger), otherwise the id of the root. |
 | `trigger`   | `"always"` , `"hover"` | `"always"`    | Shows the floating content always, or on hover and focus with `popover="hint"`.                                                               |
 

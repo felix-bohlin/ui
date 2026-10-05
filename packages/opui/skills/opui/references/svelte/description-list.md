@@ -105,6 +105,7 @@ Set `bordered` on `DescriptionList` to add a separator between the term and desc
 | Prop       | Type                   | Default | Description                                         |
 | ---------- | ---------------------- | ------- | --------------------------------------------------- |
 | `bordered` | `boolean` , `"dotted"` | `false` | Adds a border between the term and the description. |
+| `children` | `Snippet`              | -       | The items.                                          |
 
 #### CSS variables
 

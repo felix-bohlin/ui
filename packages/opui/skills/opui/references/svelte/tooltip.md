@@ -151,6 +151,7 @@ Set the `arrow` prop. This would be cool to solve with `corner-shape` one day.
 | ----------- | --------- | --------------- | ------------------------------------------------------------------------- |
 | `alignment` | `string`  | `"block-start"` | Any valid `position-area` value. Controls where the tooltip is placed.    |
 | `arrow`     | `boolean` | `false`         | Adds an arrow that points to the trigger.                                 |
+| `children`  | `Snippet` | -               | The trigger that shows the tooltip on hover and focus.                    |
 | `content`   | `Snippet` | -               | The tooltip, a `popover="hint"`.                                          |
 | `id`        | `string`  | -               | The id of the tooltip. Add `interestfor` with the same id to the trigger. |
 | `label`     | `string`  | -               | The tooltip, a `popover="hint"`.                                          |

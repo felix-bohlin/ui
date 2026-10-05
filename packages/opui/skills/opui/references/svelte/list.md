@@ -569,6 +569,7 @@ Just add the `dense` prop to the `List`!
 | Prop         | Type                        | Default | Description                                                                  |
 | ------------ | --------------------------- | ------- | ---------------------------------------------------------------------------- |
 | `bordered`   | `boolean`                   | `false` | Adds a border between list items.                                            |
+| `children`   | `Snippet`                   | -       | The list items.                                                              |
 | `dense`      | `boolean`                   | `false` | Packs the list tighter.                                                      |
 | `gutterless` | `boolean`                   | `false` | Removes the inline padding.                                                  |
 | `variant`    | `"tonal"` , `"transparent"` | -       | The background color variant. Without one, the list uses the filled surface. |
@@ -602,6 +603,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | ------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
 | `as`          | `"div"` , `"button"` , `"a"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. |
 | `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                |
+| `children`    | `Snippet`                             | -       | Extra content inside `.ui-text`, or all the content when there's no text.                                    |
 | `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                       |
 | `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                   |
 | `end`         | `string` , `Snippet`                  | -       | Optional content at the end, such as a value or an action.                                                   |

@@ -18,9 +18,8 @@
   <FieldLegend>
     <Checkbox
       class="parent"
-      checked={allChecked}
-      {indeterminate}
-      onchange={toggleAll}>Select all</Checkbox
+      bind:checked={() => allChecked, toggleAll}
+      {indeterminate}>Select all</Checkbox
     >
   </FieldLegend>
   <FieldGroup name="indeterminate-children">

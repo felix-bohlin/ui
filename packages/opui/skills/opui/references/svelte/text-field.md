@@ -134,7 +134,7 @@ Use the `prefix`, `suffix`, `header`, and `footer` snippets to affix content ins
 
 ### Headers and footers
 
-Use the `header` slot for inside-field captions (filenames, categories) and the `footer` slot for counters, hints, or action buttons.
+Use the header for inside-field captions (filenames, categories) and the footer for counters, hints, or action buttons.
 
 ```svelte
 <script lang="ts">
@@ -493,6 +493,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | ---------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
 | `autoFit`        | `boolean`                           | `false`      | Changes size depending on its content.                                    |
 | `bind:value`     | `string` , `number`                 | -            | The input value.                                                          |
+| `children`       | `Snippet`                           | -            | Extra content inside the root, such as a `<datalist>`.                    |
 | `description`    | `string` , `Snippet`                | -            | Description text displayed above the field.                               |
 | `endText`        | `string` , `Snippet`                | -            | Supporting text displayed below the field.                                |
 | `error`          | `boolean`                           | `false`      | Shows error styles.                                                       |

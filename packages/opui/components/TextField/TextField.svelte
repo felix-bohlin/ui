@@ -33,7 +33,6 @@
 
   const uid = $props.id()
   const field = getFieldContext()
-  const startTextValue = $derived(description || startText)
   const endTextId = $derived(
     endText || supportingText ? `end-text-${uid}` : undefined,
   )
@@ -63,8 +62,14 @@
   {#if label}
     <span class="ui-label">{@render content(label)}</span>
   {/if}
-  {#if startTextValue}
-    <span class="ui-start-text">{@render content(startTextValue)}</span>
+  {#if description || startText}
+    <span class="ui-start-text">
+      {#if description}
+        {@render content(description)}
+      {:else}
+        {startText}
+      {/if}
+    </span>
   {/if}
   <span class="ui-field">
     <input

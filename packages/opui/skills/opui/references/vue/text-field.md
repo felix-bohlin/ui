@@ -146,7 +146,7 @@ import { TextField } from "opui-css/vue"
 
 ### Headers and footers
 
-Use the `header` slot for inside-field captions (filenames, categories) and the `footer` slot for counters, hints, or action buttons.
+Use the header for inside-field captions (filenames, categories) and the footer for counters, hints, or action buttons.
 
 ```vue
 <script setup lang="ts">

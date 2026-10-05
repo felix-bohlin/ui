@@ -204,6 +204,7 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 | Prop         | Type                                 | Default | Description                                                                                      |
 | ------------ | ------------------------------------ | ------- | ------------------------------------------------------------------------------------------------ |
+| `children`   | `Snippet`                            | -       | The tab items.                                                                                   |
 | `name`       | `string`                             | -       | The name shared by the tab inputs. Generated when omitted.                                       |
 | `scrollable` | `boolean`                            | `false` | Keeps the tabs on one row and scrolls them sideways when they don't fit. Supports up to 20 tabs. |
 | `variant`    | `"outlined"` , `"filled"` , `"line"` | -       | The variant to use.                                                                              |
@@ -233,11 +234,12 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Tabs item API
 
-| Prop    | Type      | Default | Description                                  |
-| ------- | --------- | ------- | -------------------------------------------- |
-| `name`  | `string`  | -       | Overrides the name shared by the tab inputs. |
-| `open`  | `boolean` | `false` | Selects the tab initially.                   |
-| `tabId` | `string`  | -       | The id of the input. Generated when omitted. |
+| Prop       | Type      | Default | Description                                  |
+| ---------- | --------- | ------- | -------------------------------------------- |
+| `children` | `Snippet` | -       | The tab and the panel.                       |
+| `name`     | `string`  | -       | Overrides the name shared by the tab inputs. |
+| `open`     | `boolean` | `false` | Selects the tab initially.                   |
+| `tabId`    | `string`  | -       | The id of the input. Generated when omitted. |
 
 #### CSS variables
 
@@ -264,9 +266,10 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Tabs tab API
 
-| Prop    | Type     | Default | Description                                     |
-| ------- | -------- | ------- | ----------------------------------------------- |
-| `tabId` | `string` | -       | The id of the input it labels. Set by the item. |
+| Prop       | Type      | Default | Description                                     |
+| ---------- | --------- | ------- | ----------------------------------------------- |
+| `children` | `Snippet` | -       | The tab label.                                  |
+| `tabId`    | `string`  | -       | The id of the input it labels. Set by the item. |
 
 #### CSS variables
 
@@ -292,6 +295,10 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/svelte/guide/theme-tokens.md) for the full list.
 
 ### Tabs panel API
+
+| Prop       | Type      | Default | Description        |
+| ---------- | --------- | ------- | ------------------ |
+| `children` | `Snippet` | -       | The panel content. |
 
 #### CSS variables
 

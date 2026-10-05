@@ -111,14 +111,16 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
     <h2 id="preselected">Preselected</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Set <code>value</code> to preselect an option, or
+        Set <code>value</code> to preselect an option, or{" "}
         <code>selected: true</code> on an item.
       </Fragment>
       <Fragment slot="html">
         Add <code>selected</code> to the <code>option</code> to preselect it.
       </Fragment>
       <Fragment slot="vue">
-        Set <code>value</code> or <code>v-model</code> to preselect an option, or
+        Set <code>value</code> or <code>v-model</code> to preselect an option, or{
+          " "
+        }
         <code>selected: true</code> on an item.
       </Fragment>
     </Conditional>

@@ -732,6 +732,10 @@
       .ui-body {
         opacity: var(--disabled-opacity);
         pointer-events: none;
+
+        @container style(--contrast: more) {
+          opacity: 1;
+        }
       }
 
       .ui-head::after {

@@ -168,7 +168,8 @@ interaction(
 
     await expect(role).toBeVisible()
     await root.getByRole("button", { name: "Columns" }).click()
-    await root.getByRole("checkbox", { name: "Role" }).uncheck()
+    await root.getByRole("checkbox", { name: "Role" }).press("Space")
+    await expect(root.getByRole("checkbox", { name: "Role" })).not.toBeChecked()
     await expect(role).toBeHidden()
     await expect(root.getByRole("cell", { name: "Engineer" })).toBeHidden()
   },

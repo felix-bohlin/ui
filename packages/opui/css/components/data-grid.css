@@ -402,17 +402,22 @@
     .ui-expand details {
       background-color: inherit;
       display: contents;
+      interpolate-size: allow-keywords;
 
       &::details-content {
+        block-size: 0;
         grid-column: 1 / -1;
         grid-row: 2;
         opacity: 0;
+        overflow: clip;
         transition:
+          block-size var(--_transition-duration) var(--ease),
           content-visibility var(--_transition-duration) allow-discrete,
           opacity var(--_transition-duration) var(--ease);
       }
 
       &[open]::details-content {
+        block-size: auto;
         opacity: 1;
       }
 
@@ -777,8 +782,11 @@
       gap: var(--size-2);
     }
 
-    &:not(:has(.ui-body .ui-row-select :checked)) .ui-bulk-actions {
-      display: none;
+    &:not(:has(.ui-body .ui-row-select :checked)) {
+      .ui-bulk-actions,
+      .ui-toolbar:not(:has(> :not(.ui-bulk-actions))) {
+        display: none;
+      }
     }
 
     .ui-selected-count,

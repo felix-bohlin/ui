@@ -117,6 +117,7 @@
           (anchor(end) - anchor(--ui-menu-root start)) * 1000
         )
       );
+      inset-inline-start: 0;
     }
 
     @supports (-webkit-touch-callout: none) {

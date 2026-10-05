@@ -740,6 +740,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
     When the parent submenu has flipped, the inline-end side no longer fits, so the submenu flips too and keeps the direction. `flip-inline` mirrors the expression, so a submenu also won't flip back over the root menu. It builds with lightningcss.
   - Checked in Chromium (`overlays` Submenus): Edit > Transform > Rotate now opens at the inline start (it opened over the Edit menu before), File > Export > Image still opens at the inline end, and the same holds in an RTL document.
+  - Fixed: in newer browsers Edit > Transform > Rotate opened at the far start edge of the viewport. With only one inset set, the menu aligns toward that inset instead of toward its anchor, and after `flip-inline` that inset is on the start side. The submenu also sets `inset-inline-start: 0`, so the alignment comes from `position-area`.
 - [?] (5) FieldGroup `name`: the Astro regex also names `type="submit"`, `button` and hidden inputs. Vue only reaches components that inject `CurrentFieldNameKey`, so native inputs and ClassicSelect get no name (`FieldGroup.astro:9-13`, `FieldGroup.vue:8-10`)
   > Explain further and provide an example
   - Rendered output of the same slot content:

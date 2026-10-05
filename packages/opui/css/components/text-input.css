@@ -18,14 +18,13 @@
     }
 
     .ui-field::after {
-      block-size: 0;
-      border-block-start: var(--_arrow-size) solid;
-      border-inline: var(--_arrow-size) solid transparent;
-      color: var(--text-primary);
+      background-color: var(--text-primary);
+      block-size: var(--_chevron-size);
       content: "";
-      inline-size: 0;
+      inline-size: var(--_chevron-size);
       inset-block: 50% auto;
       inset-inline: auto var(--_arrow-inset);
+      mask: var(--_chevron-icon) center / contain no-repeat;
       pointer-events: none;
       position: absolute;
       translate: 0 -50%;

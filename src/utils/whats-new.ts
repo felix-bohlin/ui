@@ -149,6 +149,7 @@ const whatsNew = {
       default: `<a href="#preselected">Preselect</a> options with <code>value</code> or <code>selected</code> on an item.`,
       html: `<a href="#preselected">Preselect</a> options with <code>selected</code>.`,
     },
+    `The arrow is a chevron.`,
   ],
   switch: [
     {
@@ -189,7 +190,7 @@ const whatsNew = {
       astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the input. <code>class</code> and <code>style</code> stay on the label.`,
       vue: `Breaking: <code>style</code> goes to the label instead of the input.`,
     },
-    `The auto-suggest arrow matches the Select arrow at every size.`,
+    `The auto-suggest arrow is the Select chevron at every size.`,
   ],
   textarea: [
     {

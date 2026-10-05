@@ -127,6 +127,7 @@ Next release: 6.0.0 (major).
 - `Checkbox`, `Radio`, `Switch` and `Progress` align to the middle when there's no visible label, so they center in table cells and lines of text. Give them a hidden label (`hideLabel`, or `.ui-sr-only` in HTML).
 - `TextField`, `Textarea` and `Select` keep a `12ch` minimum width in table cells.
 - `TextField` auto-suggest arrow uses the `Select` arrow size and inset at every size.
+- `Select`, `ClassicSelect` and `TextField` auto-suggest arrows are a chevron instead of a triangle.
 - `List` only styles direct `li`/`option` children (and options in a `[role="group"]`) as rows, so nested lists inside a row stay normal lists. Headings and paragraphs in `.ui-text` have no margin.
 - `Divider` that is a direct child of a card has no margin, since the card's gap spaces it.
 - `Drawer` header headings take the free space and the header has a gap, so several actions line up at the end. Without a heading, the first icon-only button is pushed to the end.

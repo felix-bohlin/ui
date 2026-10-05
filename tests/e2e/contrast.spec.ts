@@ -14,7 +14,10 @@ const resolve = (locator: Locator, color: string) =>
   locator.evaluate((element, value) => {
     const probe = document.createElement("div")
     probe.style.color = value
-    element.append(probe)
+    const host = element.matches("input, select, textarea")
+      ? element.parentElement!
+      : element
+    host.append(probe)
     const resolved = getComputedStyle(probe).color
     probe.remove()
     return resolved
@@ -29,7 +32,10 @@ const contrast = (locator: Locator, foreground: string, background: string) =>
       const toRgb = (value: string) => {
         const probe = document.createElement("div")
         probe.style.color = value
-        element.append(probe)
+        const host = element.matches("input, select, textarea")
+          ? element.parentElement!
+          : element
+        host.append(probe)
         context.fillStyle = getComputedStyle(probe).color
         probe.remove()
         context.fillRect(0, 0, 1, 1)

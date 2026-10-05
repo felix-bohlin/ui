@@ -1,6 +1,34 @@
 # Form
 
-A way to build structured forms.
+Spacing and grouping for form fields.
+
+## Anatomy
+
+Favorite pet
+
+Pick one.
+
+DogCat
+
+- `<Form>`
+
+  Container element. Spaces its fieldsets and fields.
+
+- `<FieldSet>`
+
+  Groups related fields.
+
+- `<FieldLegend>`
+
+  The label of the fieldset.
+
+- `<FieldDescription>`
+
+  Supporting text displayed below the legend.
+
+- `<FieldGroup>`
+
+  Lays out related fields.
 
 ## Usage
 
@@ -29,61 +57,12 @@ import {
       </FieldGroup>
     </FieldSet>
   </Form>
-
-
-  <!-- or -->
-
-
-  <Form as="div">
-    <FieldSet as="div">
-      <FieldLegend as="p"><!-- --></FieldLegend>
-      <FieldDescription><!-- --></FieldDescription>
-      <FieldGroup>
-        <!-- -->
-      </FieldGroup>
-      <FieldGroup>
-        <!-- -->
-      </FieldGroup>
-    </FieldSet>
-  </Form>
-</template>
-```
-
-### Non-semantic elements
-
-Sometimes you can't use semantic form elements like `<fieldset>` and `<legend>`. Use the `as` prop on `FieldSet` and `FieldLegend` to render non-semantic alternatives.
-
-```vue
-<script setup lang="ts">
-import { FieldDescription, FieldLegend, FieldSet, Form } from "opui-css/vue"
-</script>
-
-
-<template>
-  <Form as="div">
-    <FieldSet as="div">
-      <FieldLegend as="p">Using as prop</FieldLegend>
-      <FieldDescription> Renders as div and p elements. </FieldDescription>
-    </FieldSet>
-  </Form>
 </template>
 ```
 
 ## Fieldset
 
-Used to show a relationship between form elements.
-
-- `FieldLegend`
-
-  to describe what it's about.
-
-- `FieldDescription` (optional)
-
-  to give extra context about the fieldset.
-
-- `FieldGroup`
-
-  groups related fields.
+Groups related fields. Label it with `FieldLegend` and add an optional`FieldDescription`.
 
 ```vue
 <script setup lang="ts">
@@ -112,101 +91,9 @@ import {
 </template>
 ```
 
-### Required
-
-```vue
-<script setup lang="ts">
-import {
-  FieldDescription,
-  FieldGroup,
-  FieldLegend,
-  FieldSet,
-  Textarea,
-  TextField,
-} from "opui-css/vue"
-</script>
-
-
-<template>
-  <FieldSet>
-    <FieldLegend>Pet info</FieldLegend>
-    <FieldDescription>We must know your pet's information.</FieldDescription>
-    <FieldGroup name="bio">
-      <TextField label="Name" name="name" />
-      <Textarea required label="Life story" />
-    </FieldGroup>
-  </FieldSet>
-</template>
-```
-
-### Disabled
-
-Turns out you can disable an entire fieldset.
-
-```vue
-<script setup lang="ts">
-import {
-  Checkbox,
-  FieldDescription,
-  FieldGroup,
-  FieldLegend,
-  FieldSet,
-} from "opui-css/vue"
-</script>
-
-
-<template>
-  <FieldSet disabled>
-    <FieldLegend>Pet dating</FieldLegend>
-    <FieldDescription>You can't change these settings</FieldDescription>
-    <FieldGroup name="notifications">
-      <Checkbox value="horse-tinder" checked>Horse Tinder</Checkbox>
-      <Checkbox value="onlyhorsefans" checked>OnlyHorseFans</Checkbox>
-    </FieldGroup>
-  </FieldSet>
-</template>
-```
-
-## Field legend
-
-Use `FieldLegend` (or `<legend>`) to describe the fieldset.
-
-```vue
-<script setup lang="ts">
-import { FieldLegend, FieldSet } from "opui-css/vue"
-</script>
-
-
-<template>
-  <FieldSet>
-    <FieldLegend>Legend</FieldLegend>
-  </FieldSet>
-</template>
-```
-
-## Field description
-
-Use `FieldDescription` (or `.ui-field-description`) to give extra context about the fieldset.
-
-```vue
-<script setup lang="ts">
-import { FieldDescription, FieldLegend, FieldSet } from "opui-css/vue"
-</script>
-
-
-<template>
-  <FieldSet>
-    <FieldLegend>Legend</FieldLegend>
-    <FieldDescription>This is a field description.</FieldDescription>
-  </FieldSet>
-</template>
-```
-
 ## Field group
 
-Use `FieldGroup` to wrap related fields. It provides a shared `name` to the OPUI fields inside. Native elements need their own `name`.
-
-The field group only handles layout. Wrap it in a fieldset with a legend to group and name the fields for screen readers.
+Lays out related fields and passes a shared `name` to the OPUI fields inside. Wrap it in a fieldset to group them for screen readers.
 
 ```vue
 <script setup lang="ts">
@@ -270,7 +157,7 @@ import {
 
 ### Row
 
-Use the `direction="row"` prop to lay out fields horizontally.
+Set `direction="row"` to lay out fields horizontally.
 
 ```vue
 <script setup lang="ts">
@@ -292,9 +179,97 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
 </template>
 ```
 
-## Divider
+## States
 
-Use the `Divider` component to create a visual break between sections of your form.
+### Disabled
+
+Set `disabled` on `FieldSet` to disable every field inside.
+
+```vue
+<script setup lang="ts">
+import {
+  Checkbox,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "opui-css/vue"
+</script>
+
+
+<template>
+  <FieldSet disabled>
+    <FieldLegend>Pet dating</FieldLegend>
+    <FieldDescription>You can't change these settings</FieldDescription>
+    <FieldGroup name="notifications">
+      <Checkbox value="horse-tinder" checked>Horse Tinder</Checkbox>
+      <Checkbox value="onlyhorsefans" checked>OnlyHorseFans</Checkbox>
+    </FieldGroup>
+  </FieldSet>
+</template>
+```
+
+### Invalid
+
+Add `data-invalid` to `FieldSet` for error styles. Explain the error in a `.ui-end-text`.
+
+```vue
+<script setup lang="ts">
+import {
+  Checkbox,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "opui-css/vue"
+</script>
+
+
+<template>
+  <FieldSet data-invalid>
+    <FieldLegend>Pet food</FieldLegend>
+    <FieldDescription>Pick at least one.</FieldDescription>
+    <FieldGroup name="food">
+      <Checkbox value="kibble">Kibble</Checkbox>
+      <Checkbox value="wet-food">Wet food</Checkbox>
+    </FieldGroup>
+    <span class="ui-end-text">Your pet is hungry.</span>
+  </FieldSet>
+</template>
+```
+
+### Required
+
+The legend gets an asterisk when a field inside is required.
+
+```vue
+<script setup lang="ts">
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+  Textarea,
+  TextField,
+} from "opui-css/vue"
+</script>
+
+
+<template>
+  <FieldSet>
+    <FieldLegend>Pet info</FieldLegend>
+    <FieldDescription>We must know your pet's information.</FieldDescription>
+    <FieldGroup name="bio">
+      <TextField label="Name" name="name" />
+      <Textarea required label="Life story" />
+    </FieldGroup>
+  </FieldSet>
+</template>
+```
+
+## Actions
+
+A field group with only buttons lines up in a row. Separate it from the fields with `Divider`.
 
 ```vue
 <script setup lang="ts">
@@ -324,15 +299,36 @@ import {
 
 
     <FieldGroup>
+      <Button>Save draft</Button>
       <Button variant="filled">Publish</Button>
     </FieldGroup>
   </Form>
 </template>
 ```
 
+## Without fieldset
+
+Can't use `<form>`, `<fieldset>` or `<legend>`? Set `as` on `Form`, `FieldSet` and `FieldLegend`.
+
+```vue
+<script setup lang="ts">
+import { FieldDescription, FieldLegend, FieldSet, Form } from "opui-css/vue"
+</script>
+
+
+<template>
+  <Form as="div">
+    <FieldSet as="div">
+      <FieldLegend as="p">Delivery</FieldLegend>
+      <FieldDescription>Rendered as div and p elements.</FieldDescription>
+    </FieldSet>
+  </Form>
+</template>
+```
+
 ## Kitchen sink
 
-Everything all at once.
+Everything at once.
 
 ```vue
 <script setup lang="ts">
@@ -464,157 +460,6 @@ const experience = ref(5)
       <FieldLegend>Legal</FieldLegend>
       <FieldGroup name="legal">
         <Checkbox name="terms" required>
-          I agree to the terms and conditions
-          <template #end-text>Support this text</template>
-        </Checkbox>
-      </FieldGroup>
-    </FieldSet>
-
-
-    <Divider />
-
-
-    <FieldGroup>
-      <Button variant="filled" type="submit">Send</Button>
-      <Button>Cancel</Button>
-    </FieldGroup>
-  </Form>
-</template>
-```
-
-### Row
-
-Everything all at once, but horizontally.
-
-```vue
-<script setup lang="ts">
-import {
-  Button,
-  Checkbox,
-  Divider,
-  FieldDescription,
-  FieldGroup,
-  FieldLegend,
-  FieldSet,
-  Form,
-  Radio,
-  Range,
-  Select,
-  Switch,
-  TextField,
-  Textarea,
-} from "opui-css/vue"
-import { ref } from "vue"
-
-
-const roleItems = [
-  { text: "Developer", value: "dev" },
-  { text: "Designer", value: "design" },
-  { text: "Manager", value: "manager" },
-]
-
-
-const emailNotifs = ref(true)
-const smsNotifs = ref(false)
-const theme = ref("light")
-const experience = ref(5)
-</script>
-
-
-<template>
-  <Form id="kitchen-sink-example-row">
-    <FieldSet>
-      <FieldLegend>User Profile</FieldLegend>
-      <FieldDescription>
-        Please provide your basic contact details.
-      </FieldDescription>
-      <FieldGroup>
-        <TextField placeholder="Jane Doe" required spread>
-          <template #label>Full Name</template>
-        </TextField>
-        <TextField type="email" placeholder="jane@example.com" required spread>
-          <template #label>Email Address</template>
-        </TextField>
-        <Select :items="roleItems" spread>
-          <template #label>Role</template>
-        </Select>
-      </FieldGroup>
-    </FieldSet>
-
-
-    <Divider />
-
-
-    <FieldSet>
-      <FieldLegend>Notifications</FieldLegend>
-      <FieldDescription>
-        Configure how you want to receive updates.
-      </FieldDescription>
-      <FieldGroup name="notifications">
-        <Switch v-model="emailNotifs" name="email_notifs" spread
-          >Email Notifications</Switch
-        >
-        <Switch v-model="smsNotifs" name="sms_notifs" spread
-          >SMS Notifications</Switch
-        >
-      </FieldGroup>
-    </FieldSet>
-
-
-    <Divider />
-
-
-    <FieldSet>
-      <FieldLegend>Theme Preference</FieldLegend>
-      <FieldDescription>Select your preferred visual style.</FieldDescription>
-      <FieldGroup direction="row" name="theme">
-        <Radio v-model="theme" value="light">Light Theme</Radio>
-        <Radio v-model="theme" value="dark">Dark Theme</Radio>
-        <Radio v-model="theme" value="system">System Default</Radio>
-      </FieldGroup>
-    </FieldSet>
-
-
-    <Divider />
-
-
-    <FieldSet>
-      <FieldLegend>Experience Level</FieldLegend>
-      <FieldDescription>
-        How many years of experience do you have?
-      </FieldDescription>
-      <FieldGroup>
-        <Range min="0" max="20" step="1" v-model="experience" spread>
-          Professional Experience
-          <template #start-text
-            >Drag the slider to match your total tenure.</template
-          >
-        </Range>
-      </FieldGroup>
-    </FieldSet>
-
-
-    <Divider />
-
-
-    <FieldSet>
-      <FieldLegend>Additional Info</FieldLegend>
-      <FieldDescription>Anything else we should know?</FieldDescription>
-      <FieldGroup name="details">
-        <Textarea placeholder="Tell us about yourself..." :rows="4" spread>
-          <template #label>Biography</template>
-        </Textarea>
-      </FieldGroup>
-    </FieldSet>
-
-
-    <Divider />
-
-
-    <FieldSet>
-      <FieldLegend>Legal</FieldLegend>
-      <FieldGroup name="legal">
-        <Checkbox name="terms" required spread>
           I agree to the terms and conditions
           <template #end-text>Support this text</template>
         </Checkbox>

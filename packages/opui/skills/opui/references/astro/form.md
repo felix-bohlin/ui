@@ -1,6 +1,34 @@
 # Form
 
-A way to build structured forms.
+Spacing and grouping for form fields.
+
+## Anatomy
+
+Favorite pet
+
+Pick one.
+
+DogCat
+
+- `<Form>`
+
+  Container element. Spaces its fieldsets and fields.
+
+- `<FieldSet>`
+
+  Groups related fields.
+
+- `<FieldLegend>`
+
+  The label of the fieldset.
+
+- `<FieldDescription>`
+
+  Supporting text displayed below the legend.
+
+- `<FieldGroup>`
+
+  Lays out related fields.
 
 ## Usage
 
@@ -26,58 +54,11 @@ import { FieldDescription } from "opui-css/astro"
     </FieldGroup>
   </FieldSet>
 </Form>
-
-
-<!-- or -->
-
-
-<Form as="div">
-  <FieldSet as="div">
-    <FieldLegend as="p"><!-- --></FieldLegend>
-    <FieldDescription><!-- --></FieldDescription>
-    <FieldGroup>
-      <!-- -->
-    </FieldGroup>
-    <FieldGroup>
-      <!-- -->
-    </FieldGroup>
-  </FieldSet>
-</Form>
-```
-
-### Non-semantic elements
-
-Sometimes you can't use semantic form elements like `<fieldset>` and `<legend>`. Use the `as` prop on `FieldSet` and `FieldLegend` to render non-semantic alternatives.
-
-```astro
----
-import { FieldDescription, FieldLegend, FieldSet, Form } from "opui-css/astro"
----
-
-
-<Form as="div">
-  <FieldSet as="div">
-    <FieldLegend as="p">Using as prop</FieldLegend>
-    <FieldDescription> Renders as div and p elements. </FieldDescription>
-  </FieldSet>
-</Form>
 ```
 
 ## Fieldset
 
-Used to show a relationship between form elements.
-
-- `FieldLegend`
-
-  to describe what it's about.
-
-- `FieldDescription` (optional)
-
-  to give extra context about the fieldset.
-
-- `FieldGroup`
-
-  groups related fields.
+Groups related fields. Label it with `FieldLegend` and add an optional`FieldDescription`.
 
 ```astro
 ---
@@ -100,92 +81,9 @@ import { Radio } from "opui-css/astro"
 </FieldSet>
 ```
 
-### Required
-
-```astro
----
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Textarea } from "opui-css/astro"
-import { TextField } from "opui-css/astro"
----
-
-
-<FieldSet>
-  <FieldLegend>Pet info</FieldLegend>
-  <FieldDescription>We must know your pet's information.</FieldDescription>
-  <FieldGroup name="bio">
-    <TextField label="Name" name="name" />
-    <Textarea required label="Life story" />
-  </FieldGroup>
-</FieldSet>
-```
-
-### Disabled
-
-Turns out you can disable an entire fieldset.
-
-```astro
----
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
-import { FieldGroup } from "opui-css/astro"
-import { Checkbox } from "opui-css/astro"
----
-
-
-<FieldSet disabled>
-  <FieldLegend>Pet dating</FieldLegend>
-  <FieldDescription>You can't change these settings</FieldDescription>
-  <FieldGroup name="notifications">
-    <Checkbox value="horse-tinder" checked>Horse Tinder</Checkbox>
-    <Checkbox value="onlyhorsefans" checked>OnlyHorseFans</Checkbox>
-  </FieldGroup>
-</FieldSet>
-```
-
-## Field legend
-
-Use `FieldLegend` (or `<legend>`) to describe the fieldset.
-
-```astro
----
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
----
-
-
-<FieldSet>
-  <FieldLegend>Legend</FieldLegend>
-</FieldSet>
-```
-
-## Field description
-
-Use `FieldDescription` (or `.ui-field-description`) to give extra context about the fieldset.
-
-```astro
----
-import { FieldSet } from "opui-css/astro"
-import { FieldLegend } from "opui-css/astro"
-import { FieldDescription } from "opui-css/astro"
----
-
-
-<FieldSet>
-  <FieldLegend>Legend</FieldLegend>
-  <FieldDescription>This is a field description.</FieldDescription>
-</FieldSet>
-```
-
 ## Field group
 
-Use `FieldGroup` to wrap related fields. It provides a shared `name` to all nested inputs, except button, hidden, image, reset and submit inputs.
-
-The field group only handles layout. Wrap it in a fieldset with a legend to group and name the fields for screen readers.
+Lays out related fields and passes a shared `name` to the inputs inside. Wrap it in a fieldset to group them for screen readers.
 
 ```astro
 ---
@@ -246,7 +144,7 @@ import { Radio } from "opui-css/astro"
 
 ### Row
 
-Use the `direction="row"` prop to lay out fields horizontally.
+Set `direction="row"` to lay out fields horizontally.
 
 ```astro
 ---
@@ -270,9 +168,85 @@ import { Checkbox } from "opui-css/astro"
 </Form>
 ```
 
-## Divider
+## States
 
-Use the `Divider` component to create a visual break between sections of your form.
+### Disabled
+
+Set `disabled` on `FieldSet` to disable every field inside.
+
+```astro
+---
+import { FieldSet } from "opui-css/astro"
+import { FieldLegend } from "opui-css/astro"
+import { FieldDescription } from "opui-css/astro"
+import { FieldGroup } from "opui-css/astro"
+import { Checkbox } from "opui-css/astro"
+---
+
+
+<FieldSet disabled>
+  <FieldLegend>Pet dating</FieldLegend>
+  <FieldDescription>You can't change these settings</FieldDescription>
+  <FieldGroup name="notifications">
+    <Checkbox value="horse-tinder" checked>Horse Tinder</Checkbox>
+    <Checkbox value="onlyhorsefans" checked>OnlyHorseFans</Checkbox>
+  </FieldGroup>
+</FieldSet>
+```
+
+### Invalid
+
+Add `data-invalid` to `FieldSet` for error styles. Explain the error in a `.ui-end-text`.
+
+```astro
+---
+import { FieldSet } from "opui-css/astro"
+import { FieldLegend } from "opui-css/astro"
+import { FieldDescription } from "opui-css/astro"
+import { FieldGroup } from "opui-css/astro"
+import { Checkbox } from "opui-css/astro"
+---
+
+
+<FieldSet data-invalid="">
+  <FieldLegend>Pet food</FieldLegend>
+  <FieldDescription>Pick at least one.</FieldDescription>
+  <FieldGroup name="food">
+    <Checkbox value="kibble">Kibble</Checkbox>
+    <Checkbox value="wet-food">Wet food</Checkbox>
+  </FieldGroup>
+  <span class="ui-end-text">Your pet is hungry.</span>
+</FieldSet>
+```
+
+### Required
+
+The legend gets an asterisk when a field inside is required.
+
+```astro
+---
+import { FieldSet } from "opui-css/astro"
+import { FieldLegend } from "opui-css/astro"
+import { FieldDescription } from "opui-css/astro"
+import { FieldGroup } from "opui-css/astro"
+import { Textarea } from "opui-css/astro"
+import { TextField } from "opui-css/astro"
+---
+
+
+<FieldSet>
+  <FieldLegend>Pet info</FieldLegend>
+  <FieldDescription>We must know your pet's information.</FieldDescription>
+  <FieldGroup name="bio">
+    <TextField label="Name" name="name" />
+    <Textarea required label="Life story" />
+  </FieldGroup>
+</FieldSet>
+```
+
+## Actions
+
+A field group with only buttons lines up in a row. Separate it from the fields with `Divider`.
 
 ```astro
 ---
@@ -299,14 +273,33 @@ import { Divider } from "opui-css/astro"
 
 
   <FieldGroup>
+    <Button>Save draft</Button>
     <Button variant="filled">Publish</Button>
   </FieldGroup>
 </Form>
 ```
 
+## Without fieldset
+
+Can't use `<form>`, `<fieldset>` or `<legend>`? Set `as` on `Form`, `FieldSet` and `FieldLegend`.
+
+```astro
+---
+import { FieldDescription, FieldLegend, FieldSet, Form } from "opui-css/astro"
+---
+
+
+<Form as="div">
+  <FieldSet as="div">
+    <FieldLegend as="p">Delivery</FieldLegend>
+    <FieldDescription>Rendered as div and p elements.</FieldDescription>
+  </FieldSet>
+</Form>
+```
+
 ## Kitchen sink
 
-Everything all at once.
+Everything at once.
 
 ```astro
 ---
@@ -426,144 +419,6 @@ import { Divider } from "opui-css/astro"
     <FieldLegend>Legal</FieldLegend>
     <FieldGroup name="legal">
       <Checkbox name="terms" required>
-        I agree to the terms and conditions
-        <Fragment slot="end-text">Support this text</Fragment>
-      </Checkbox>
-    </FieldGroup>
-  </FieldSet>
-
-
-  <Divider />
-
-
-  <FieldGroup>
-    <Button variant="filled" type="submit">Send</Button>
-    <Button>Cancel</Button>
-  </FieldGroup>
-</Form>
-```
-
-### Row
-
-Everything all at once, but horizontally.
-
-```astro
----
-import {
-  Button,
-  Checkbox,
-  Divider,
-  FieldDescription,
-  FieldGroup,
-  FieldLegend,
-  FieldSet,
-  Form,
-  Radio,
-  Range,
-  Select,
-  Switch,
-  TextField,
-  Textarea,
-} from "opui-css/astro"
----
-
-
-<Form id="kitchen-sink-example-row">
-  <FieldSet>
-    <FieldLegend>User Profile</FieldLegend>
-    <FieldDescription>
-      Please provide your basic contact details.
-    </FieldDescription>
-    <FieldGroup>
-      <TextField placeholder="Jane Doe" required spread>
-        <Fragment slot="label">Full Name</Fragment>
-      </TextField>
-      <TextField type="email" placeholder="jane@example.com" required spread>
-        <Fragment slot="label">Email Address</Fragment>
-      </TextField>
-      <Select
-        items={[
-          { text: "Developer", value: "dev" },
-          { text: "Designer", value: "design" },
-          { text: "Manager", value: "manager" },
-        ]}
-        spread
-      >
-        <Fragment slot="label">Role</Fragment>
-      </Select>
-    </FieldGroup>
-  </FieldSet>
-
-
-  <Divider />
-
-
-  <FieldSet>
-    <FieldLegend>Notifications</FieldLegend>
-    <FieldDescription>
-      Configure how you want to receive updates.
-    </FieldDescription>
-    <FieldGroup name="notifications">
-      <Switch name="email_notifs" checked spread>Email Notifications</Switch>
-      <Switch name="sms_notifs" spread>SMS Notifications</Switch>
-    </FieldGroup>
-  </FieldSet>
-
-
-  <Divider />
-
-
-  <FieldSet>
-    <FieldLegend>Theme Preference</FieldLegend>
-    <FieldDescription>Select your preferred visual style.</FieldDescription>
-    <FieldGroup direction="row" name="theme">
-      <Radio value="light" checked>Light Theme</Radio>
-      <Radio value="dark">Dark Theme</Radio>
-      <Radio value="system">System Default</Radio>
-    </FieldGroup>
-  </FieldSet>
-
-
-  <Divider />
-
-
-  <FieldSet>
-    <FieldLegend>Experience Level</FieldLegend>
-    <FieldDescription
-      >How many years of experience do you have?</FieldDescription
-    >
-    <FieldGroup>
-      <Range min="0" max="20" step="1" value="5" spread>
-        Professional Experience
-        <Fragment slot="start-text"
-          >Drag the slider to match your total tenure.</Fragment
-        >
-      </Range>
-    </FieldGroup>
-  </FieldSet>
-
-
-  <Divider />
-
-
-  <FieldSet>
-    <FieldLegend>Additional Info</FieldLegend>
-    <FieldDescription>Anything else we should know?</FieldDescription>
-    <FieldGroup name="details">
-      <Textarea placeholder="Tell us about yourself..." rows={4} spread>
-        <Fragment slot="label">Biography</Fragment>
-      </Textarea>
-    </FieldGroup>
-  </FieldSet>
-
-
-  <Divider />
-
-
-  <FieldSet>
-    <FieldLegend>Legal</FieldLegend>
-    <FieldGroup name="legal">
-      <Checkbox name="terms" required spread>
         I agree to the terms and conditions
         <Fragment slot="end-text">Support this text</Fragment>
       </Checkbox>

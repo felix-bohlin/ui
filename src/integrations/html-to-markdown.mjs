@@ -14,10 +14,10 @@ const REMOVE_SELECTORS = [
   ".example-preview",
   ".header-anchor",
   ".theme-generator",
+  ".ui-tab-label",
   "h1 .ui-anchor-floating",
   "[data-panel='output']",
   "[data-tab='output']",
-  "[role='tab']",
   "button",
   "input",
   "script",
@@ -80,7 +80,7 @@ const codeBlock = (node) => {
 }
 
 const codeGroup = (node) => {
-  const labels = selectAll("[role='tab']", node).map((tab) =>
+  const labels = selectAll(".ui-tab-label", node).map((tab) =>
     textContent(tab).trim(),
   )
   const blocks = selectAll(".expressive-code", node)

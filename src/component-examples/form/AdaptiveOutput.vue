@@ -5,8 +5,8 @@ import { FieldDescription, FieldLegend, FieldSet, Form } from "opui-css/vue"
 <template>
   <Form as="div">
     <FieldSet as="div">
-      <FieldLegend as="p">Using as prop</FieldLegend>
-      <FieldDescription> Renders as div and p elements. </FieldDescription>
+      <FieldLegend as="p">Delivery</FieldLegend>
+      <FieldDescription>Rendered as div and p elements.</FieldDescription>
     </FieldSet>
   </Form>
 </template>

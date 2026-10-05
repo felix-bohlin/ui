@@ -1,6 +1,34 @@
 # Form
 
-A way to build structured forms.
+Spacing and grouping for form fields.
+
+## Anatomy
+
+Favorite pet
+
+Pick one.
+
+DogCat
+
+- `.ui-form`
+
+  Container element. Spaces its fieldsets and fields.
+
+- `<fieldset>`
+
+  Groups related fields.
+
+- `<legend>`
+
+  The label of the fieldset.
+
+- `.ui-field-description`
+
+  Supporting text displayed below the legend.
+
+- `.ui-field-group`
+
+  Lays out related fields.
 
 ## Usage
 
@@ -21,46 +49,11 @@ A way to build structured forms.
     </div>
   </fieldset>
 </form>
-
-
-<!-- or -->
-
-
-<div class="ui-form">
-  <div class="ui-fieldset" role="group">
-    <p class="ui-legend"><!-- --></p>
-    <p class="ui-field-description"><!-- --></p>
-
-
-    <div class="ui-field-group">
-      <!-- form fields -->
-    </div>
-    <div class="ui-field-group">
-      <!-- form fields -->
-    </div>
-  </div>
-</div>
 ```
-
-### Non-semantic elements
-
-Sometimes you can't use semantic form elements like `<fieldset>` and `<legend>`. Replace them with `<div role="group">` paired with a `<span class="ui-legend">` (or any heading) to keep the visual treatment without the native semantics.
 
 ## Fieldset
 
-Used to show a relationship between form elements.
-
-- `<legend>`
-
-  to describe what it's about.
-
-- `.ui-field-description` (optional)
-
-  to give extra context about the fieldset.
-
-- `.ui-field-group`
-
-  groups related fields.
+Groups related fields. Label it with `<legend>` and add an optional `.ui-field-description`.
 
 ```html
 <fieldset class="ui-fieldset">
@@ -83,86 +76,9 @@ Used to show a relationship between form elements.
 </fieldset>
 ```
 
-### Required
-
-```html
-<fieldset class="ui-fieldset">
-  <legend>Pet info</legend>
-  <p class="ui-field-description">We must know your pet's information.</p>
-  <div class="ui-field-group">
-    <label class="ui-text-field">
-      <span class="ui-label">Name</span>
-      <span class="ui-field">
-        <input type="text" name="name" />
-      </span>
-    </label>
-    <label class="ui-textarea">
-      <span class="ui-label">Life story</span>
-      <span class="ui-field">
-        <textarea name="bio" required></textarea>
-      </span>
-    </label>
-  </div>
-</fieldset>
-```
-
-### Disabled
-
-Turns out you can disable an entire fieldset.
-
-```html
-<fieldset class="ui-fieldset" disabled>
-  <legend>Pet dating</legend>
-  <p class="ui-field-description">You can't change these settings</p>
-  <div class="ui-field-group">
-    <label class="ui-checkbox">
-      <input
-        checked
-        name="notifications"
-        type="checkbox"
-        value="horse-tinder"
-      />
-      <span class="ui-label">Horse Tinder</span>
-    </label>
-    <label class="ui-checkbox">
-      <input
-        name="notifications"
-        type="checkbox"
-        value="onlyhorsefans"
-        checked
-      />
-      <span class="ui-label">OnlyHorseFans</span>
-    </label>
-  </div>
-</fieldset>
-```
-
-## Field legend
-
-Use `FieldLegend` (or `<legend>`) to describe the fieldset.
-
-```html
-<fieldset class="ui-fieldset">
-  <legend>Legend</legend>
-</fieldset>
-```
-
-## Field description
-
-Use `FieldDescription` (or `.ui-field-description`) to give extra context about the fieldset.
-
-```html
-<fieldset class="ui-fieldset">
-  <legend>Legend</legend>
-  <p class="ui-field-description">This is a field description.</p>
-</fieldset>
-```
-
 ## Field group
 
-Use `.ui-field-group` to wrap related fields.
-
-The field group only handles layout. Wrap it in a fieldset with a legend to group and name the fields for screen readers.
+Lays out related fields. Wrap it in a fieldset to group them for screen readers.
 
 ```html
 <form class="ui-form">
@@ -261,7 +177,7 @@ The field group only handles layout. Wrap it in a fieldset with a legend to grou
 
 ### Row
 
-Use the `.ui-row` class to lay out fields horizontally.
+Add `.ui-row` to lay out fields horizontally.
 
 ```html
 <form class="ui-form">
@@ -285,9 +201,89 @@ Use the `.ui-row` class to lay out fields horizontally.
 </form>
 ```
 
-## Divider
+## States
 
-Use a `<hr />` to create a visual break between sections of your form.
+### Disabled
+
+Add `disabled` to the `<fieldset>` to disable every field inside.
+
+```html
+<fieldset class="ui-fieldset" disabled>
+  <legend>Pet dating</legend>
+  <p class="ui-field-description">You can't change these settings</p>
+  <div class="ui-field-group">
+    <label class="ui-checkbox">
+      <input
+        checked
+        name="notifications"
+        type="checkbox"
+        value="horse-tinder"
+      />
+      <span class="ui-label">Horse Tinder</span>
+    </label>
+    <label class="ui-checkbox">
+      <input
+        name="notifications"
+        type="checkbox"
+        value="onlyhorsefans"
+        checked
+      />
+      <span class="ui-label">OnlyHorseFans</span>
+    </label>
+  </div>
+</fieldset>
+```
+
+### Invalid
+
+Add `data-invalid` to the `<fieldset>` for error styles. Explain the error in a `.ui-end-text`.
+
+```html
+<fieldset class="ui-fieldset" data-invalid>
+  <legend>Pet food</legend>
+  <p class="ui-field-description">Pick at least one.</p>
+  <div class="ui-field-group">
+    <label class="ui-checkbox">
+      <input name="food" type="checkbox" value="kibble" />
+      <span class="ui-label">Kibble</span>
+    </label>
+    <label class="ui-checkbox">
+      <input name="food" type="checkbox" value="wet-food" />
+      <span class="ui-label">Wet food</span>
+    </label>
+  </div>
+  <span class="ui-end-text">Your pet is hungry.</span>
+</fieldset>
+```
+
+### Required
+
+The legend gets an asterisk when a field inside is required.
+
+```html
+<fieldset class="ui-fieldset">
+  <legend>Pet info</legend>
+  <p class="ui-field-description">We must know your pet's information.</p>
+  <div class="ui-field-group">
+    <label class="ui-text-field">
+      <span class="ui-label">Name</span>
+      <span class="ui-field">
+        <input type="text" name="name" />
+      </span>
+    </label>
+    <label class="ui-textarea">
+      <span class="ui-label">Life story</span>
+      <span class="ui-field">
+        <textarea name="bio" required></textarea>
+      </span>
+    </label>
+  </div>
+</fieldset>
+```
+
+## Actions
+
+A field group with only buttons lines up in a row. Separate it from the fields with `<hr class="ui-divider">`.
 
 ```html
 <form class="ui-form">
@@ -308,14 +304,28 @@ Use a `<hr />` to create a visual break between sections of your form.
 
 
   <div class="ui-field-group">
+    <button type="button" class="ui-button">Save draft</button>
     <button type="button" class="ui-button ui-filled">Publish</button>
   </div>
 </form>
 ```
 
+## Without fieldset
+
+Can't use `<form>`, `<fieldset>` or `<legend>`? Use `.ui-form`, `.ui-fieldset` with `role="group"` and `.ui-legend` on other elements.
+
+```html
+<div class="ui-form">
+  <div class="ui-fieldset" role="group">
+    <p class="ui-legend">Delivery</p>
+    <p class="ui-field-description">Rendered as div and p elements.</p>
+  </div>
+</div>
+```
+
 ## Kitchen sink
 
-Everything all at once.
+Everything at once.
 
 ```html
 <form class="ui-form" id="kitchen-sink-example-html">
@@ -466,176 +476,6 @@ Everything all at once.
         />
         <span class="ui-label">I agree to the terms and conditions</span>
         <span class="ui-end-text" id="kitchen-sink-terms-1-end-text"
-          >Support this text</span
-        >
-      </label>
-    </div>
-  </fieldset>
-
-
-  <hr class="ui-divider" />
-
-
-  <div class="ui-field-group">
-    <button class="ui-button ui-filled" type="submit">Send</button>
-    <button type="button" class="ui-button">Cancel</button>
-  </div>
-</form>
-```
-
-### Row
-
-Everything all at once, but horizontally.
-
-```html
-<form class="ui-form" id="kitchen-sink-example-row-html">
-  <fieldset class="ui-fieldset">
-    <legend>User Profile</legend>
-    <p class="ui-field-description">
-      Please provide your basic contact details.
-    </p>
-    <div class="ui-field-group">
-      <label class="ui-text-field ui-spread">
-        <span class="ui-label">Full Name</span>
-        <span class="ui-field">
-          <input type="text" placeholder="Jane Doe" required />
-        </span>
-      </label>
-      <label class="ui-text-field ui-spread">
-        <span class="ui-label">Email Address</span>
-        <span class="ui-field">
-          <input type="email" placeholder="jane@example.com" required />
-        </span>
-      </label>
-      <label class="ui-select ui-spread">
-        <span class="ui-label" id="kitchen-sink-row-role-label">Role</span>
-        <span class="ui-field">
-          <select aria-labelledby="kitchen-sink-row-role-label">
-            <button type="button">
-              <selectedcontent></selectedcontent>
-            </button>
-            <div class="ui-list">
-              <option value="dev">Developer</option>
-              <option value="design">Designer</option>
-              <option value="manager">Manager</option>
-            </div>
-          </select>
-        </span>
-      </label>
-    </div>
-  </fieldset>
-
-
-  <hr class="ui-divider" />
-
-
-  <fieldset class="ui-fieldset">
-    <legend>Notifications</legend>
-    <p class="ui-field-description">
-      Configure how you want to receive updates.
-    </p>
-    <div class="ui-field-group">
-      <label class="ui-switch ui-spread">
-        <input type="checkbox" role="switch" name="email_notifs" checked />
-        <span class="ui-label">Email Notifications</span>
-      </label>
-      <label class="ui-switch ui-spread">
-        <input type="checkbox" role="switch" name="sms_notifs" />
-        <span class="ui-label">SMS Notifications</span>
-      </label>
-    </div>
-  </fieldset>
-
-
-  <hr class="ui-divider" />
-
-
-  <fieldset class="ui-fieldset">
-    <legend>Theme Preference</legend>
-    <p class="ui-field-description">Select your preferred visual style.</p>
-    <div class="ui-field-group ui-row">
-      <label class="ui-radio">
-        <input type="radio" name="theme" value="light" checked />
-        <span class="ui-label">Light Theme</span>
-      </label>
-      <label class="ui-radio">
-        <input type="radio" name="theme" value="dark" />
-        <span class="ui-label">Dark Theme</span>
-      </label>
-      <label class="ui-radio">
-        <input type="radio" name="theme" value="system" />
-        <span class="ui-label">System Default</span>
-      </label>
-    </div>
-  </fieldset>
-
-
-  <hr class="ui-divider" />
-
-
-  <fieldset class="ui-fieldset">
-    <legend>Experience Level</legend>
-    <p class="ui-field-description">
-      How many years of experience do you have?
-    </p>
-    <div class="ui-field-group">
-      <label class="ui-range ui-spread">
-        <span class="ui-label" id="kitchen-sink-row-experience-label"
-          >Professional Experience</span
-        >
-        <span class="ui-start-text" id="kitchen-sink-row-experience-start-text"
-          >Drag the slider to match your total tenure.</span
-        >
-        <input
-          type="range"
-          aria-describedby="kitchen-sink-row-experience-start-text"
-          aria-labelledby="kitchen-sink-row-experience-label"
-          min="0"
-          max="20"
-          step="1"
-          value="5"
-        />
-      </label>
-    </div>
-  </fieldset>
-
-
-  <hr class="ui-divider" />
-
-
-  <fieldset class="ui-fieldset">
-    <legend>Additional Info</legend>
-    <p class="ui-field-description">Anything else we should know?</p>
-    <div class="ui-field-group">
-      <label class="ui-textarea ui-spread">
-        <span class="ui-label">Biography</span>
-        <span class="ui-field">
-          <textarea
-            name="details"
-            placeholder="Tell us about yourself..."
-            rows="4"
-          ></textarea>
-        </span>
-      </label>
-    </div>
-  </fieldset>
-
-
-  <hr class="ui-divider" />
-
-
-  <fieldset class="ui-fieldset">
-    <legend>Legal</legend>
-    <div class="ui-field-group">
-      <label class="ui-checkbox ui-spread">
-        <input
-          aria-describedby="kitchen-sink-row-terms-1-end-text"
-          type="checkbox"
-          name="terms"
-          required
-        />
-        <span class="ui-label">I agree to the terms and conditions</span>
-        <span class="ui-end-text" id="kitchen-sink-row-terms-1-end-text"
           >Support this text</span
         >
       </label>

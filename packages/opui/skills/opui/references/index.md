@@ -19,7 +19,7 @@ Each component has one reference per listed framework: `html/<file>`, `astro/<fi
 | Dialog | `dialog.md` | html, astro, vue | A minimally styled window overlaid on the main content. By design the Dialog is minimal with zero content to allow for both modal and non-modal use. |
 | Divider | `divider.md` | html, astro, vue | It's just a line. |
 | Drawer | `drawer.md` | html, astro, vue | Slides in from the sides, top or bottom of the screen. |
-| Form | `form.md` | html, astro, vue | A way to build structured forms. |
+| Form | `form.md` | html, astro, vue | Spacing and grouping for form fields. |
 | List | `list.md` | html, astro, vue | Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it. |
 | Menu | `menu.md` | html, astro, vue | A popover list of actions or links. |
 | Progress | `progress.md` | html, astro, vue | See also: Spinner. |

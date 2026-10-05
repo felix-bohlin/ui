@@ -482,8 +482,8 @@
   {
     "id": "component-form-html",
     "title": "Form",
-    "description": "A way to build structured forms.",
-    "headings": "Usage Non-semantic elements Fieldset Required Disabled Field legend Field description Field group Row Divider Kitchen sink",
+    "description": "Spacing and grouping for form fields.",
+    "headings": "Usage Fieldset Field group Row States Disabled Invalid Required Actions Without fieldset Kitchen sink",
     "category": "Component",
     "frameworkId": "html",
     "type": "HTML",
@@ -492,8 +492,8 @@
   {
     "id": "component-form-astro",
     "title": "Form",
-    "description": "A way to build structured forms.",
-    "headings": "Usage Non-semantic elements Fieldset Required Disabled Field legend Field description Field group Row Divider Kitchen sink",
+    "description": "Spacing and grouping for form fields.",
+    "headings": "Usage Fieldset Field group Row States Disabled Invalid Required Actions Without fieldset Kitchen sink",
     "category": "Component",
     "frameworkId": "astro",
     "type": "Astro",
@@ -502,8 +502,8 @@
   {
     "id": "component-form-vue",
     "title": "Form",
-    "description": "A way to build structured forms.",
-    "headings": "Usage Non-semantic elements Fieldset Required Disabled Field legend Field description Field group Row Divider Kitchen sink",
+    "description": "Spacing and grouping for form fields.",
+    "headings": "Usage Fieldset Field group Row States Disabled Invalid Required Actions Without fieldset Kitchen sink",
     "category": "Component",
     "frameworkId": "vue",
     "type": "Vue",

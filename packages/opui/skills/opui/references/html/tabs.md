@@ -33,24 +33,16 @@ General account settings.
 ## Basics
 
 ```html
-<div class="ui-tabs" role="tablist">
+<div class="ui-tabs">
   <input
     type="radio"
     name="basic-tabs"
     id="tab-profile"
     class="ui-tab-input"
     checked
-    aria-controls="panel-profile"
   />
-  <label for="tab-profile" class="ui-tab-label" role="tab">Profile</label>
-  <div
-    id="panel-profile"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="tab-profile"
-  >
-    Profile settings and information.
-  </div>
+  <label for="tab-profile" class="ui-tab-label">Profile</label>
+  <div class="ui-tab-panel">Profile settings and information.</div>
 
 
   <input
@@ -58,17 +50,9 @@ General account settings.
     name="basic-tabs"
     id="tab-settings"
     class="ui-tab-input"
-    aria-controls="panel-settings"
   />
-  <label for="tab-settings" class="ui-tab-label" role="tab">Settings</label>
-  <div
-    id="panel-settings"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="tab-settings"
-  >
-    General account settings.
-  </div>
+  <label for="tab-settings" class="ui-tab-label">Settings</label>
+  <div class="ui-tab-panel">General account settings.</div>
 
 
   <input
@@ -76,19 +60,9 @@ General account settings.
     name="basic-tabs"
     id="tab-notifications"
     class="ui-tab-input"
-    aria-controls="panel-notifications"
   />
-  <label for="tab-notifications" class="ui-tab-label" role="tab"
-    >Notifications</label
-  >
-  <div
-    id="panel-notifications"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="tab-notifications"
-  >
-    Manage your notifications.
-  </div>
+  <label for="tab-notifications" class="ui-tab-label">Notifications</label>
+  <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
 
@@ -97,26 +71,16 @@ General account settings.
 Use `variant="filled"` (`.ui-filled`) to fill the selected tab with the primary color.
 
 ```html
-<div class="ui-tabs ui-filled" role="tablist">
+<div class="ui-tabs ui-filled">
   <input
     type="radio"
     name="filled-tabs"
     id="filled-tab-profile"
     class="ui-tab-input"
     checked
-    aria-controls="filled-panel-profile"
   />
-  <label for="filled-tab-profile" class="ui-tab-label" role="tab"
-    >Profile</label
-  >
-  <div
-    id="filled-panel-profile"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="filled-tab-profile"
-  >
-    Profile settings and information.
-  </div>
+  <label for="filled-tab-profile" class="ui-tab-label">Profile</label>
+  <div class="ui-tab-panel">Profile settings and information.</div>
 
 
   <input
@@ -124,19 +88,9 @@ Use `variant="filled"` (`.ui-filled`) to fill the selected tab with the primary 
     name="filled-tabs"
     id="filled-tab-settings"
     class="ui-tab-input"
-    aria-controls="filled-panel-settings"
   />
-  <label for="filled-tab-settings" class="ui-tab-label" role="tab"
-    >Settings</label
-  >
-  <div
-    id="filled-panel-settings"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="filled-tab-settings"
-  >
-    General account settings.
-  </div>
+  <label for="filled-tab-settings" class="ui-tab-label">Settings</label>
+  <div class="ui-tab-panel">General account settings.</div>
 
 
   <input
@@ -144,19 +98,11 @@ Use `variant="filled"` (`.ui-filled`) to fill the selected tab with the primary 
     name="filled-tabs"
     id="filled-tab-notifications"
     class="ui-tab-input"
-    aria-controls="filled-panel-notifications"
   />
-  <label for="filled-tab-notifications" class="ui-tab-label" role="tab"
+  <label for="filled-tab-notifications" class="ui-tab-label"
     >Notifications</label
   >
-  <div
-    id="filled-panel-notifications"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="filled-tab-notifications"
-  >
-    Manage your notifications.
-  </div>
+  <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
 
@@ -165,24 +111,16 @@ Use `variant="filled"` (`.ui-filled`) to fill the selected tab with the primary 
 Use `variant="line"` (`.ui-line`) for tabs without a background, marking the selected tab with a line.
 
 ```html
-<div class="ui-tabs ui-line" role="tablist">
+<div class="ui-tabs ui-line">
   <input
     type="radio"
     name="line-tabs"
     id="line-tab-profile"
     class="ui-tab-input"
     checked
-    aria-controls="line-panel-profile"
   />
-  <label for="line-tab-profile" class="ui-tab-label" role="tab">Profile</label>
-  <div
-    id="line-panel-profile"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="line-tab-profile"
-  >
-    Profile settings and information.
-  </div>
+  <label for="line-tab-profile" class="ui-tab-label">Profile</label>
+  <div class="ui-tab-panel">Profile settings and information.</div>
 
 
   <input
@@ -190,19 +128,9 @@ Use `variant="line"` (`.ui-line`) for tabs without a background, marking the sel
     name="line-tabs"
     id="line-tab-settings"
     class="ui-tab-input"
-    aria-controls="line-panel-settings"
   />
-  <label for="line-tab-settings" class="ui-tab-label" role="tab"
-    >Settings</label
-  >
-  <div
-    id="line-panel-settings"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="line-tab-settings"
-  >
-    General account settings.
-  </div>
+  <label for="line-tab-settings" class="ui-tab-label">Settings</label>
+  <div class="ui-tab-panel">General account settings.</div>
 
 
   <input
@@ -210,19 +138,9 @@ Use `variant="line"` (`.ui-line`) for tabs without a background, marking the sel
     name="line-tabs"
     id="line-tab-notifications"
     class="ui-tab-input"
-    aria-controls="line-panel-notifications"
   />
-  <label for="line-tab-notifications" class="ui-tab-label" role="tab"
-    >Notifications</label
-  >
-  <div
-    id="line-panel-notifications"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="line-tab-notifications"
-  >
-    Manage your notifications.
-  </div>
+  <label for="line-tab-notifications" class="ui-tab-label">Notifications</label>
+  <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
 
@@ -231,26 +149,16 @@ Use `variant="line"` (`.ui-line`) for tabs without a background, marking the sel
 Use `variant="outlined"` (`.ui-outlined`) for a bordered track without a background.
 
 ```html
-<div class="ui-tabs ui-outlined" role="tablist">
+<div class="ui-tabs ui-outlined">
   <input
     type="radio"
     name="outlined-tabs"
     id="outlined-tab-profile"
     class="ui-tab-input"
     checked
-    aria-controls="outlined-panel-profile"
   />
-  <label for="outlined-tab-profile" class="ui-tab-label" role="tab"
-    >Profile</label
-  >
-  <div
-    id="outlined-panel-profile"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="outlined-tab-profile"
-  >
-    Profile settings and information.
-  </div>
+  <label for="outlined-tab-profile" class="ui-tab-label">Profile</label>
+  <div class="ui-tab-panel">Profile settings and information.</div>
 
 
   <input
@@ -258,19 +166,9 @@ Use `variant="outlined"` (`.ui-outlined`) for a bordered track without a backgro
     name="outlined-tabs"
     id="outlined-tab-settings"
     class="ui-tab-input"
-    aria-controls="outlined-panel-settings"
   />
-  <label for="outlined-tab-settings" class="ui-tab-label" role="tab"
-    >Settings</label
-  >
-  <div
-    id="outlined-panel-settings"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="outlined-tab-settings"
-  >
-    General account settings.
-  </div>
+  <label for="outlined-tab-settings" class="ui-tab-label">Settings</label>
+  <div class="ui-tab-panel">General account settings.</div>
 
 
   <input
@@ -278,19 +176,11 @@ Use `variant="outlined"` (`.ui-outlined`) for a bordered track without a backgro
     name="outlined-tabs"
     id="outlined-tab-notifications"
     class="ui-tab-input"
-    aria-controls="outlined-panel-notifications"
   />
-  <label for="outlined-tab-notifications" class="ui-tab-label" role="tab"
+  <label for="outlined-tab-notifications" class="ui-tab-label"
     >Notifications</label
   >
-  <div
-    id="outlined-panel-notifications"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="outlined-tab-notifications"
-  >
-    Manage your notifications.
-  </div>
+  <div class="ui-tab-panel">Manage your notifications.</div>
 </div>
 ```
 
@@ -299,26 +189,16 @@ Use `variant="outlined"` (`.ui-outlined`) for a bordered track without a backgro
 Tabs wrap onto more rows when they don't fit. Use `scrollable` (`.ui-scrollable`) to keep them on one row and scroll them sideways instead. The open panel stays in view, and up to 20 tabs are supported. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
 
 ```html
-<div class="ui-tabs ui-scrollable" role="tablist">
+<div class="ui-tabs ui-scrollable">
   <input
     type="radio"
     name="scrollable-tabs"
     id="scrollable-tab-profile"
     class="ui-tab-input"
     checked
-    aria-controls="scrollable-panel-profile"
   />
-  <label for="scrollable-tab-profile" class="ui-tab-label" role="tab"
-    >Profile</label
-  >
-  <div
-    id="scrollable-panel-profile"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="scrollable-tab-profile"
-  >
-    Profile settings and information.
-  </div>
+  <label for="scrollable-tab-profile" class="ui-tab-label">Profile</label>
+  <div class="ui-tab-panel">Profile settings and information.</div>
 
 
   <input
@@ -326,19 +206,9 @@ Tabs wrap onto more rows when they don't fit. Use `scrollable` (`.ui-scrollable`
     name="scrollable-tabs"
     id="scrollable-tab-settings"
     class="ui-tab-input"
-    aria-controls="scrollable-panel-settings"
   />
-  <label for="scrollable-tab-settings" class="ui-tab-label" role="tab"
-    >Settings</label
-  >
-  <div
-    id="scrollable-panel-settings"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="scrollable-tab-settings"
-  >
-    General account settings.
-  </div>
+  <label for="scrollable-tab-settings" class="ui-tab-label">Settings</label>
+  <div class="ui-tab-panel">General account settings.</div>
 
 
   <input
@@ -346,19 +216,11 @@ Tabs wrap onto more rows when they don't fit. Use `scrollable` (`.ui-scrollable`
     name="scrollable-tabs"
     id="scrollable-tab-notifications"
     class="ui-tab-input"
-    aria-controls="scrollable-panel-notifications"
   />
-  <label for="scrollable-tab-notifications" class="ui-tab-label" role="tab"
+  <label for="scrollable-tab-notifications" class="ui-tab-label"
     >Notifications</label
   >
-  <div
-    id="scrollable-panel-notifications"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="scrollable-tab-notifications"
-  >
-    Manage your notifications.
-  </div>
+  <div class="ui-tab-panel">Manage your notifications.</div>
 
 
   <input
@@ -366,19 +228,9 @@ Tabs wrap onto more rows when they don't fit. Use `scrollable` (`.ui-scrollable`
     name="scrollable-tabs"
     id="scrollable-tab-billing"
     class="ui-tab-input"
-    aria-controls="scrollable-panel-billing"
   />
-  <label for="scrollable-tab-billing" class="ui-tab-label" role="tab"
-    >Billing</label
-  >
-  <div
-    id="scrollable-panel-billing"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="scrollable-tab-billing"
-  >
-    Plans, invoices and payment methods.
-  </div>
+  <label for="scrollable-tab-billing" class="ui-tab-label">Billing</label>
+  <div class="ui-tab-panel">Plans, invoices and payment methods.</div>
 
 
   <input
@@ -386,17 +238,9 @@ Tabs wrap onto more rows when they don't fit. Use `scrollable` (`.ui-scrollable`
     name="scrollable-tabs"
     id="scrollable-tab-security"
     class="ui-tab-input"
-    aria-controls="scrollable-panel-security"
   />
-  <label for="scrollable-tab-security" class="ui-tab-label" role="tab"
-    >Security</label
-  >
-  <div
-    id="scrollable-panel-security"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="scrollable-tab-security"
-  >
+  <label for="scrollable-tab-security" class="ui-tab-label">Security</label>
+  <div class="ui-tab-panel">
     Passwords, sessions and two-factor authentication.
   </div>
 
@@ -406,19 +250,11 @@ Tabs wrap onto more rows when they don't fit. Use `scrollable` (`.ui-scrollable`
     name="scrollable-tabs"
     id="scrollable-tab-integrations"
     class="ui-tab-input"
-    aria-controls="scrollable-panel-integrations"
   />
-  <label for="scrollable-tab-integrations" class="ui-tab-label" role="tab"
+  <label for="scrollable-tab-integrations" class="ui-tab-label"
     >Integrations</label
   >
-  <div
-    id="scrollable-panel-integrations"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="scrollable-tab-integrations"
-  >
-    Connected apps and webhooks.
-  </div>
+  <div class="ui-tab-panel">Connected apps and webhooks.</div>
 
 
   <input
@@ -426,17 +262,9 @@ Tabs wrap onto more rows when they don't fit. Use `scrollable` (`.ui-scrollable`
     name="scrollable-tabs"
     id="scrollable-tab-team"
     class="ui-tab-input"
-    aria-controls="scrollable-panel-team"
   />
-  <label for="scrollable-tab-team" class="ui-tab-label" role="tab">Team</label>
-  <div
-    id="scrollable-panel-team"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="scrollable-tab-team"
-  >
-    Members and roles.
-  </div>
+  <label for="scrollable-tab-team" class="ui-tab-label">Team</label>
+  <div class="ui-tab-panel">Members and roles.</div>
 
 
   <input
@@ -444,46 +272,29 @@ Tabs wrap onto more rows when they don't fit. Use `scrollable` (`.ui-scrollable`
     name="scrollable-tabs"
     id="scrollable-tab-advanced"
     class="ui-tab-input"
-    aria-controls="scrollable-panel-advanced"
   />
-  <label for="scrollable-tab-advanced" class="ui-tab-label" role="tab"
-    >Advanced</label
-  >
-  <div
-    id="scrollable-panel-advanced"
-    class="ui-tab-panel"
-    role="tabpanel"
-    aria-labelledby="scrollable-tab-advanced"
-  >
-    Export data or delete the account.
-  </div>
+  <label for="scrollable-tab-advanced" class="ui-tab-label">Advanced</label>
+  <div class="ui-tab-panel">Export data or delete the account.</div>
 </div>
 ```
 
 ## Accessibility
 
-The tab system uses standard radio inputs and labels, so we get group management and keyboard support for free!
+Tabs are radio buttons. Each tab is a radio input with a label, and the panel after it shows while it's checked. Screen readers announce a radio group ("Profile, radio button, checked, 1 of 3"), which matches how the tabs behave.
 
-### Tab List
+There are no `tablist`, `tab` or `tabpanel` roles. ARIA tabs promise focusable tabs with a selected state, and radio inputs can't keep that promise without JavaScript. Native radios get group management and keyboard support for free.
 
-| Element    | Attribute        | Description                                                |
-| ---------- | ---------------- | ---------------------------------------------------------- |
-| `.ui-tabs` | `role="tablist"` | Identifies the element as a container for a set of tabs.   |
-| `input`    | `name`           | Groups the radio buttons together for exclusive selection. |
-| `label`    | `role="tab"`     | Identifies the element as a tab to assistive technology.   |
+To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby`) to `.ui-tabs`.
 
-### Tab Panel
-
-The content area associated with a tab:
-
-| Attribute         | Value        | Description                            |
-| ----------------- | ------------ | -------------------------------------- |
-| `role`            | `"tabpanel"` | Identifies the element as a tab panel. |
-| `aria-labelledby` | `string`     | Links the panel to its trigger ID.     |
+| Element | Attribute | Description                                                |
+| ------- | --------- | ---------------------------------------------------------- |
+| `input` | `name`    | Groups the radio buttons together for exclusive selection. |
+| `input` | `checked` | Selects the tab that is open initially.                    |
+| `label` | `for`     | Names the radio button after the tab.                      |
 
 ### Keyboard Interaction
 
-- **Tab**: Moves focus to the active tab trigger (the radio button). Pressing Tab again moves focus out of the tab list to the next focusable element.
+- **Tab**: Moves focus to the active tab trigger (the radio button). Pressing Tab again moves focus out of the tabs to the next focusable element.
 - **Right Arrow / Down Arrow**: Moves focus to the next tab and activates it.
 - **Left Arrow / Up Arrow**: Moves focus to the previous tab and activates it.
 
@@ -529,7 +340,7 @@ The content area associated with a tab:
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
 
-The root needs `role="tablist"`. Each tab is an `input.ui-tab-input[type="radio"]`, followed by its `label.ui-tab-label[role="tab"]` and `.ui-tab-panel[role="tabpanel"]`.
+Each tab is an `input.ui-tab-input[type="radio"]`, followed by its `label.ui-tab-label` and `.ui-tab-panel`.
 
 ### Tabs item API
 

@@ -185,6 +185,8 @@ import { FieldDescription } from "opui-css/astro"
 
 Use `FieldGroup` to wrap related fields. It provides a shared `name` to all nested inputs.
 
+The field group only handles layout. Wrap it in a fieldset with a legend to group and name the fields for screen readers.
+
 ```astro
 ---
 import { Checkbox } from "opui-css/astro"
@@ -614,10 +616,10 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Field set API
 
-| Prop       | Type                  | Default      | Description                  |
-| ---------- | --------------------- | ------------ | ---------------------------- |
-| `as`       | `"div"`, `"fieldset"` | `"fieldset"` | The element to render.       |
-| `disabled` | `boolean`             | `false`      | Disables every field inside. |
+| Prop       | Type                  | Default      | Description                                                                   |
+| ---------- | --------------------- | ------------ | ----------------------------------------------------------------------------- |
+| `as`       | `"div"`, `"fieldset"` | `"fieldset"` | The element to render. Any element other than `fieldset` gets `role="group"`. |
+| `disabled` | `boolean`             | `false`      | Disables every field inside.                                                  |
 
 #### Slots
 

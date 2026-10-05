@@ -180,28 +180,21 @@ import { Tabs } from "opui-css/astro"
 
 ## Accessibility
 
-The tab system uses standard radio inputs and labels, so we get group management and keyboard support for free!
+Tabs are radio buttons. Each tab is a radio input with a label, and the panel after it shows while it's checked. Screen readers announce a radio group ("Profile, radio button, checked, 1 of 3"), which matches how the tabs behave.
 
-### Tab List
+There are no `tablist`, `tab` or `tabpanel` roles. ARIA tabs promise focusable tabs with a selected state, and radio inputs can't keep that promise without JavaScript. Native radios get group management and keyboard support for free.
 
-| Element    | Attribute        | Description                                                |
-| ---------- | ---------------- | ---------------------------------------------------------- |
-| `.ui-tabs` | `role="tablist"` | Identifies the element as a container for a set of tabs.   |
-| `input`    | `name`           | Groups the radio buttons together for exclusive selection. |
-| `label`    | `role="tab"`     | Identifies the element as a tab to assistive technology.   |
+To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby`) to `.ui-tabs`.
 
-### Tab Panel
-
-The content area associated with a tab:
-
-| Attribute         | Value        | Description                            |
-| ----------------- | ------------ | -------------------------------------- |
-| `role`            | `"tabpanel"` | Identifies the element as a tab panel. |
-| `aria-labelledby` | `string`     | Links the panel to its trigger ID.     |
+| Element | Attribute | Description                                                |
+| ------- | --------- | ---------------------------------------------------------- |
+| `input` | `name`    | Groups the radio buttons together for exclusive selection. |
+| `input` | `checked` | Selects the tab that is open initially.                    |
+| `label` | `for`     | Names the radio button after the tab.                      |
 
 ### Keyboard Interaction
 
-- **Tab**: Moves focus to the active tab trigger (the radio button). Pressing Tab again moves focus out of the tab list to the next focusable element.
+- **Tab**: Moves focus to the active tab trigger (the radio button). Pressing Tab again moves focus out of the tabs to the next focusable element.
 - **Right Arrow / Down Arrow**: Moves focus to the next tab and activates it.
 - **Left Arrow / Up Arrow**: Moves focus to the previous tab and activates it.
 
@@ -246,12 +239,11 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Tabs item API
 
-| Prop      | Type      | Default | Description                                  |
-| --------- | --------- | ------- | -------------------------------------------- |
-| `name`    | `string`  | -       | Overrides the name shared by the tab inputs. |
-| `open`    | `boolean` | `false` | Selects the tab initially.                   |
-| `panelId` | `string`  | -       | The id of the panel. Generated when omitted. |
-| `tabId`   | `string`  | -       | The id of the input. Generated when omitted. |
+| Prop    | Type      | Default | Description                                  |
+| ------- | --------- | ------- | -------------------------------------------- |
+| `name`  | `string`  | -       | Overrides the name shared by the tab inputs. |
+| `open`  | `boolean` | `false` | Selects the tab initially.                   |
+| `tabId` | `string`  | -       | The id of the input. Generated when omitted. |
 
 #### Slots
 
@@ -318,11 +310,6 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
 ### Tabs panel API
-
-| Prop      | Type     | Default | Description                                              |
-| --------- | -------- | ------- | -------------------------------------------------------- |
-| `panelId` | `string` | -       | The id of the panel. Set by the item.                    |
-| `tabId`   | `string` | -       | The id of the tab input that labels it. Set by the item. |
 
 #### Slots
 

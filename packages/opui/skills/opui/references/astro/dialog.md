@@ -17,6 +17,8 @@ The term "modal" and "dialog" are often used interchangeably, but there's an imp
 
 In browsers that support [Invoker Commands](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) you can toggle a `<dialog>` with HTML only, using the `commandfor` and `command` attributes.
 
+The header slot names the dialog: it gets an `aria-labelledby` that points at the header.
+
 ```astro
 ---
 import { Dialog } from "opui-css/astro"
@@ -29,21 +31,14 @@ import { Button } from "opui-css/astro"
 </Button>
 
 
-<Dialog
-  id="example-dialog"
-  role="alertdialog"
-  aria-labelledby="dialog-heading"
-  aria-modal="true"
->
-  <h2 id="dialog-heading" class="ui-h4" slot="header">Are you sure?</h2>
+<Dialog id="example-dialog">
+  <h2 class="ui-h4" slot="header">Newsletter</h2>
   <p slot="content">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales,
-    nulla sit amet porttitor rhoncus. Lorem ipsum dolor sit amet, consectetur
-    adipiscing elit. Vivamus sodales, nulla sit amet porttitor rhoncus.
+    Get a short email when we ship something new. No more than once a month.
   </p>
   <Fragment slot="actions">
     <Button commandfor="example-dialog" command="close" type="button">
-      Cancel
+      Not now
     </Button>
     <Button
       commandfor="example-dialog"
@@ -51,7 +46,54 @@ import { Button } from "opui-css/astro"
       type="button"
       variant="filled"
     >
-      Save
+      Subscribe
+    </Button>
+  </Fragment>
+</Dialog>
+```
+
+## Alert dialog
+
+Use `role="alertdialog"` when the dialog interrupts with something that needs a response, like confirming a destructive action. Point `aria-describedby` at the message so screen readers read it when the dialog opens.
+
+```astro
+---
+import { Dialog } from "opui-css/astro"
+import { Button } from "opui-css/astro"
+---
+
+
+<Button
+  color="critical"
+  commandfor="alert-dialog"
+  command="show-modal"
+  variant="outlined"
+>
+  Delete project
+</Button>
+
+
+<Dialog
+  id="alert-dialog"
+  role="alertdialog"
+  aria-describedby="alert-dialog-description"
+>
+  <h2 class="ui-h4" slot="header">Delete project?</h2>
+  <p id="alert-dialog-description" slot="content">
+    This deletes the project and all its files. You can't undo this.
+  </p>
+  <Fragment slot="actions">
+    <Button commandfor="alert-dialog" command="close" type="button">
+      Cancel
+    </Button>
+    <Button
+      color="critical"
+      commandfor="alert-dialog"
+      command="close"
+      type="button"
+      variant="filled"
+    >
+      Delete
     </Button>
   </Fragment>
 </Dialog>
@@ -129,13 +171,13 @@ import { FieldLegend } from "opui-css/astro"
 
 ### Role & attributes
 
-| Role/attribute             | Usage                                                                                                                                      |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `role="dialog"`            | Identifies the element that serves as the dialog container.                                                                                |
-| `role="alertdialog"`       | If the dialog is a confirmation window communicating an important message that requires a confirmation or other user response.             |
-| `aria-labelledby="IDREF"`  | Gives the dialog an accessible name by referring to the element that provides the dialog title.                                            |
-| `aria-describedby="IDREF"` | Gives the dialog an accessible description by referring to the dialog content that describes the primary message or purpose of the dialog. |
-| `aria-modal="true"`        | Tells assistive technologies that the windows underneath the current dialog are not available for interaction (inert).                     |
+Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
+
+| Role/attribute             | Usage                                                                                                                                                                  |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `aria-labelledby="IDREF"`  | Gives the dialog an accessible name by referring to the element that provides the dialog title.                                                                        |
+| `aria-describedby="IDREF"` | Optional. Gives the dialog an accessible description by referring to the dialog content that describes the primary message or purpose of the dialog.                   |
+| `role="alertdialog"`       | Only if the dialog is a confirmation window communicating an important message that requires a confirmation or other user response. See [alert dialog](#alert-dialog). |
 
 ### Keyboard support
 

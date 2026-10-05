@@ -60,6 +60,7 @@
     }
 
     & > :where(hgroup, .ui-content) {
+      margin-block: 0;
       padding-inline: var(--size-3);
 
       &:last-child {
@@ -70,6 +71,10 @@
     /* Header */
     & > hgroup {
       padding-block: var(--size-3) 0;
+
+      & > :where(h1, h2, h3, h4, h5, h6, p) {
+        margin-block: 0;
+      }
 
       /* Top paragraph */
       & > p:first-of-type:first-child {

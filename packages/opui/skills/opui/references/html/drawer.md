@@ -5,6 +5,7 @@ Slides in from the sides, top or bottom of the screen.
 ### What's new
 
 - Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls.
+- Name it with `aria-labelledby` pointing at the header heading.
 
 ## Usage
 
@@ -54,10 +55,11 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
 <dialog
   class="ui-drawer ui-scroll-lock ui-inline-start"
   id="drawer-inline-start-html"
+  aria-labelledby="drawer-inline-start-html-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <h2>Inline Start</h2>
+    <h2 id="drawer-inline-start-html-heading">Inline Start</h2>
     <button
       type="button"
       class="ui-button ui-rounded ui-ripple ui-small"
@@ -113,10 +115,11 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
 <dialog
   class="ui-drawer ui-scroll-lock ui-inline-end"
   id="drawer-inline-end-html"
+  aria-labelledby="drawer-inline-end-html-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <h2>Inline End</h2>
+    <h2 id="drawer-inline-end-html-heading">Inline End</h2>
     <button
       type="button"
       class="ui-button ui-rounded ui-ripple ui-small"
@@ -172,10 +175,11 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
 <dialog
   class="ui-drawer ui-scroll-lock ui-block-start"
   id="drawer-block-start-html"
+  aria-labelledby="drawer-block-start-html-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <h2>Block Start</h2>
+    <h2 id="drawer-block-start-html-heading">Block Start</h2>
     <button
       type="button"
       class="ui-button ui-rounded ui-ripple ui-small"
@@ -226,10 +230,11 @@ Add the `.ui-scroll-lock` utility class to the drawer to lock page scrolling whi
 <dialog
   class="ui-drawer ui-scroll-lock ui-block-end"
   id="drawer-block-end-html"
+  aria-labelledby="drawer-block-end-html-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <h2>Block End</h2>
+    <h2 id="drawer-block-end-html-heading">Block End</h2>
     <button
       type="button"
       class="ui-button ui-rounded ui-ripple ui-small"
@@ -325,6 +330,7 @@ You can use it like this: `<dialog closedby="">` and give it the following value
 
 ## Accessibility
 
+- Name the drawer with `aria-labelledby` pointing at the heading's`id`, not at `.ui-header`, which also holds the close button.
 - The `autofocus` attribute should be added to the element the user is expected to interact with immediately upon opening a modal dialog. If no other element involves more immediate interaction, it is recommended to add autofocus to the close button inside the dialog, or the dialog itself if the user is expected to click/activate it to dismiss.
 - Do not add the `tabindex` property to the `<dialog>` element as it is not interactive and does not receive focus. The dialog's contents, including the close button contained in the dialog, can receive focus and be interactive.
 

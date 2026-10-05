@@ -5,14 +5,13 @@
 
     /* Default arrow */
     &::picker-icon {
-      block-size: 0;
-      border-block-start: var(--_arrow-size) solid;
-      border-inline: var(--_arrow-size) solid transparent;
-      color: currentColor;
+      background-color: currentColor;
+      block-size: var(--_chevron-size);
       content: "";
-      inline-size: 0;
+      inline-size: var(--_chevron-size);
       inset-block: 50% auto;
       inset-inline: auto var(--_arrow-inset);
+      mask: var(--_chevron-icon) center / contain no-repeat;
       pointer-events: none;
       position: absolute;
       translate: 0 -50%;
@@ -140,17 +139,17 @@
       /* Arrow */
       &::after {
         align-self: center;
-        block-size: 0;
-        border-block-start: var(--_arrow-size) solid;
-        border-inline: var(--_arrow-size) solid transparent;
+        background-color: currentColor;
+        block-size: var(--_chevron-size);
         content: "";
         display: inline-block;
         flex-shrink: 0;
         grid-column: 1/-1;
         grid-row: 2;
-        inline-size: 0;
+        inline-size: var(--_chevron-size);
         inset-inline-end: var(--_arrow-inset);
         justify-self: end;
+        mask: var(--_chevron-icon) center / contain no-repeat;
         pointer-events: none;
         position: relative;
       }
@@ -162,7 +161,7 @@
       &.ui-spread::after {
         align-self: start;
         grid-row: 1 / span 2;
-        margin-block-start: calc((var(--_height) - var(--_arrow-size)) / 2);
+        margin-block-start: calc((var(--_height) - var(--_chevron-size)) / 2);
       }
 
       @container (width < 400px) {

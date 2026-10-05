@@ -1,5 +1,9 @@
 # Badge
 
+### What's new
+
+- [Indicator](#indicator) context for screen readers with `srLabel`.
+
 ## Anatomy
 
 5
@@ -69,7 +73,7 @@ import { Badge } from "opui-css/vue"
 
 
 <template>
-  <Badge label="5">
+  <Badge label="5" sr-label="unread messages">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -84,7 +88,7 @@ import { Badge } from "opui-css/vue"
   </Badge>
 
 
-  <Badge>
+  <Badge sr-label="unread messages">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -269,6 +273,11 @@ import { Badge } from "opui-css/vue"
   </Badge>
 </template>
 ```
+
+## Accessibility
+
+- A count on its own is read without context, such as "5". Add visually hidden text inside the indicator, so it's read as "5 unread messages":the `srLabel` prop.
+- Don't use `aria-label` on the indicator. It's a`<span>` without a role, so screen readers ignore the label and read the text.
 
 ## API
 

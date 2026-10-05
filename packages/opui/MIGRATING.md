@@ -48,7 +48,14 @@
 
 ```diff
 - <button class="ui-button"><span><svg>…</svg></span> Save</button>
-+ <button class="ui-button"><svg>…</svg> Save</button>
++ <button class="ui-button"><svg>…</svg><span class="ui-text">Save</span></button>
+```
+
+Wrap the label in `<span class="ui-text">` when a `Button` has an icon. CSS can't see text nodes, so `<button class="ui-button"><svg>…</svg>Save</button>` has an `svg` as its only element and is styled as icon-only (square, no inline padding).
+
+```diff
+- <button class="ui-button"><svg>…</svg>Save</button>
++ <button class="ui-button"><svg>…</svg><span class="ui-text">Save</span></button>
 ```
 
 `Button` in Astro and Vue no longer adds `.ui-disabled` to a disabled `<button>`. Target `:disabled` (or `[aria-disabled="true"]` for links) in your own styles.

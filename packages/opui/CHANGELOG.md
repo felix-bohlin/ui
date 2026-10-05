@@ -14,7 +14,7 @@ Next release: 6.0.0 (major).
 - `List` no longer takes `divided`. Use `bordered` (`.ui-bordered`) ([#395](https://github.com/felix-bohlin/ui/issues/395)).
 - `Button` no longer takes `.ui-icon-only`. A button whose only child is an `svg` is square, so remove the class.
 - `Button` in Astro and Vue no longer adds `.ui-disabled` to a disabled `<button>`. It sets `disabled`, and `aria-disabled="true"` on links. Target `:disabled` or `[aria-disabled="true"]` instead of `.ui-disabled`.
-- `Button` icon styles only apply to a direct child `svg` (`> svg`), sized with `--_icon-size`. An `svg` nested in another element is no longer sized. Padding scales with `--_padding-inline` (`1ex` x-small, `1.25ex` small, `1.5ex` default, `2.5ex` large; was `0.5ex`, `0.75ex`, `1.5ex` and `4ex`), and the icon side gets tighter padding when a direct child `svg` sits next to a wrapped label (e.g. `<span>`).
+- `Button` icon styles only apply to a direct child `svg` (`> svg`), sized with `--_icon-size`. An `svg` nested in another element is no longer sized. Padding scales with `--_padding-inline` (`1ex` x-small, `1.25ex` small, `1.5ex` default, `2.5ex` large; was `0.5ex`, `0.75ex`, `1.5ex` and `4ex`), and the icon side gets tighter padding when a direct child `svg` sits next to a wrapped label (`<span class="ui-text">`). Wrap the label when the button has an icon: text next to an `svg` without a wrapper renders as icon-only.
 - `Anchor` with `trigger="hover"` and `Tooltip` no longer wrap their trigger in a `<span interestfor>`. Add `interestfor` with the anchor's `id` to the trigger element.
 - `Tabs` look like segmented controls: the tabs sit on a rounded track and the selected tab is a raised pill. `--_accent-color` and `--_bg-color` are gone, use `--_active-bg-color`, `--_active-text-color`, `--_indicator-color` and `--_track-color`, or a `variant`. The open panel gets a `--size-2` top margin.
 - `Typography` rich text only styles headings without a class, like lists. Component parts such as the `Callout` title keep their own styles. Use the `.ui-h1`–`.ui-h6` classes to style a heading that has a class.
@@ -28,6 +28,8 @@ Next release: 6.0.0 (major).
 - `ListItem` `as` only accepts `"a"`, `"button"` or `"div"` (types).
 - `Tabs` render no `tablist`, `tab` or `tabpanel` roles and no `aria-controls`/`aria-labelledby`, so screen readers announce the radio group they are. `TabsItem` and `TabsPanel` no longer take `panelId`, and `TabsPanel` no longer takes `tabId`. `tabs.css` no longer matches `[role="tab"]` or `[role="tabpanel"]`, use `.ui-tab-label` and `.ui-tab-panel`.
 - `FieldGroup` no longer sets `role="group"`. Wrap it in a `FieldSet` (a `<fieldset>`, already a group) to group and name the fields. `FieldSet` with another element in `as` gets `role="group"`.
+- `ClassicSelect` no longer sets `aria-labelledby` or a label `id`. The wrapping `<label>` names the select, so `endText` is part of the name, like `TextField`.
+- `Range` in Astro and Vue no longer sets `--_track-fill` from script. The track fill is a scroll-driven animation in CSS.
 
 ### Removed
 
@@ -79,6 +81,7 @@ Next release: 6.0.0 (major).
 - `Dialog` and `Drawer` show a subtle scroll shadow under the header and above the actions while the content scrolls (scroll-state container queries).
 - `theme.css` adds `--contrast`, set to `more` under `prefers-contrast: more` or with `.ui-contrast-more`. A style query then raises the contrast of muted text, borders, field borders, primary, intent colors and the focus ring, and components with translucent text or fills (`Badge`, `Button`, `Divider`, `List`, `Menu`, `Progress`, `Tabs`, `TextField`, `ToggleButton` and `Typography`) follow. `.ui-contrast-more` also works on a subtree, and `.ui-contrast-normal` on `html` ignores the OS preference.
 - `Table` takes `stickyHeader` (`.ui-sticky-header`), which keeps the header rows at the top of the nearest scroll container and shows a shadow once they are stuck (scroll-state container queries). Offset it with `--_sticky-offset`.
+- `Button` takes `iconOnly` (types only), which makes `label` required for icon-only buttons.
 
 ### Changed
 
@@ -125,11 +128,13 @@ Next release: 6.0.0 (major).
 - `Checkbox`, `Radio`, `Switch` and `Progress` align to the middle when there's no visible label, so they center in table cells and lines of text. Give them a hidden label (`hideLabel`, or `.ui-sr-only` in HTML).
 - `TextField`, `Textarea` and `Select` keep a `12ch` minimum width in table cells.
 - `TextField` auto-suggest arrow uses the `Select` arrow size and inset at every size.
+- `Select`, `ClassicSelect` and `TextField` auto-suggest arrows are a chevron instead of a triangle.
 - `List` only styles direct `li`/`option` children (and options in a `[role="group"]`) as rows, so nested lists inside a row stay normal lists. Headings and paragraphs in `.ui-text` have no margin.
 - `Divider` that is a direct child of a card has no margin, since the card's gap spaces it.
 - `Drawer` header headings take the free space and the header has a gap, so several actions line up at the end. Without a heading, the first icon-only button is pushed to the end.
 - `Menu` is capped to the space on its side and only flips when that side has less than `12rem`.
 - `Tooltip` with an arrow shifts along the edge like other tooltips.
+- Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick. Rich text links in a `List` are `--primary-dark` in light mode.
 
 ### Fixed
 
@@ -219,6 +224,24 @@ Next release: 6.0.0 (major).
 - Vue `Anchor`, `Badge`, `Divider`, `Drawer`, `Menu`, `Table` Column, `Tabs`, `ToggleButton` and `ToggleGroup` update derived values when props change.
 - `Accordion`, `Avatar`, `Divider`, `List`, `Progress`, `Range`, `Select`, `Switch`, `Tabs`, `Textarea`, `TextField` and `ToggleButton` keep their state visible in forced colors mode: selected tabs, toggles and list items use `SelectedItem`, switches, ranges, progress bars and dividers are drawn with system colors, focused fields get a `Highlight` outline, and elevated and tonal accordions and letter avatars get an outline.
 - `Table` uses `overflow: clip` instead of `overflow: hidden`, so it is no longer a scroll container and sticky cells inside it stick.
+- `Range` fills the track in Chromium and Safari without JavaScript, also in plain HTML, with a scroll-driven animation. The hover ring is no longer clipped at min or max.
+- `Badge` dots sit in the corner of every alignment, not only the default one.
+- `Badge` and `Anchor` no longer write the unused `--_anchor-inset`, and aligned badges no longer write `--anchor-position-area`.
+- `Drawer` is named by its header heading through `aria-labelledby`, in Astro (first heading in the `header` slot) and Vue (`DrawerHeader` `heading`).
+- `Dialog` `actionsAlign="start"` aligns the actions to the start.
+- `FieldGroup` `direction="column"` stacks a group of only buttons.
+- `FieldGroup` `name` skips button, hidden, image, reset and submit inputs in Astro, and reaches `ClassicSelect` in Vue.
+- `ToggleButton` in Vue is a radio in a single-selection `ToggleGroup`, like Astro, even with a `type`.
+- `ToggleGroup` separators show in forced colors.
+- `Accordion` focus ring is drawn inside the summary, so the card no longer clips it.
+- `ButtonGroup` vertical only squares icon-only buttons.
+- `Callout` icons take the severity color with `color`, so fill icons no longer get a colored outline.
+- `Checkbox` and `Radio` required asterisks in stacked labels sit after the label in RTL.
+- `Typography` `.ui-p.ui-small` is `--font-size-05` (14px) instead of 12px.
+- `Typography` `.ui-abbr` and `.ui-dfn` underlines use the info color, like `abbr` and `dfn`.
+- `Typography` overline and heading group overline text, `code` in dark mode, `code` in `del`/`ins`, linked `code` in light mode and links in `mark` pass contrast.
+- `List` keyboard shortcuts in `.ui-end` pass contrast.
+- `DescriptionList`, `List` row links, `Card` (and `Dialog`) heading groups, `FieldDescription`, and `Button` and `List` `kbd` no longer pick up rich text padding, margins, font weight or font.
 
 ## 5.5.0 - 2026-09-28
 

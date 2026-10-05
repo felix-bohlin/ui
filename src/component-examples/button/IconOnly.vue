@@ -3,7 +3,7 @@ import { Button } from "opui-css/vue"
 </script>
 
 <template>
-  <Button aria-label="Edit">
+  <Button icon-only label="Edit">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -16,7 +16,7 @@ import { Button } from "opui-css/vue"
       ></path>
     </svg>
   </Button>
-  <Button aria-label="Edit" rounded>
+  <Button icon-only label="Edit" rounded>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -29,7 +29,7 @@ import { Button } from "opui-css/vue"
       ></path>
     </svg>
   </Button>
-  <Button aria-label="Edit" ripple rounded>
+  <Button icon-only label="Edit" ripple rounded>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -42,7 +42,7 @@ import { Button } from "opui-css/vue"
       ></path>
     </svg>
   </Button>
-  <Button aria-label="Edit" ripple rounded variant="tonal">
+  <Button icon-only label="Edit" ripple rounded variant="tonal">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -55,7 +55,14 @@ import { Button } from "opui-css/vue"
       ></path>
     </svg>
   </Button>
-  <Button aria-label="Edit" color="primary" ripple rounded variant="filled">
+  <Button
+    icon-only
+    label="Edit"
+    color="primary"
+    ripple
+    rounded
+    variant="filled"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -68,7 +75,7 @@ import { Button } from "opui-css/vue"
       ></path>
     </svg>
   </Button>
-  <Button aria-label="Edit" ripple rounded size="small">
+  <Button icon-only label="Edit" ripple rounded size="small">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"

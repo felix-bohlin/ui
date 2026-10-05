@@ -192,8 +192,9 @@ export const posts = [
     category: "under-the-hood",
     component: "range",
     date: "2026-10-02",
-    description: "A gradient fill and datalist tick marks for input range.",
-    features: ["datalist", "input-range"],
+    description:
+      "A scroll-driven gradient fill and datalist tick marks for input range.",
+    features: ["datalist", "input-range", "scroll-driven-animations"],
     level: "intermediate",
     slug: "range-tick-marks",
     technique: "<datalist>",

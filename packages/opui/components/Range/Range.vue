@@ -1,15 +1,6 @@
 <script setup lang="ts">
 import type { RangeProps, Slots } from "./types.d.vue"
-import {
-  computed,
-  inject,
-  onMounted,
-  useAttrs,
-  useId,
-  useSlots,
-  useTemplateRef,
-  watch,
-} from "vue"
+import { computed, inject, useAttrs, useId, useSlots } from "vue"
 import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 
 defineOptions({
@@ -46,16 +37,6 @@ const hasValue = computed(
 )
 const inputId = computed(() => props.id || (hasValue.value ? uid : undefined))
 
-const input = useTemplateRef<HTMLInputElement>("input")
-const fillTrack = () => {
-  if (!input.value) return
-  const min = Number(input.value.min || 0)
-  const max = Number(input.value.max || 100)
-  const fill = ((Number(input.value.value) - min) / (max - min || 1)) * 100
-  input.value.style.setProperty("--_track-fill", `${fill}%`)
-}
-onMounted(fillTrack)
-watch(model, fillTrack, { flush: "post" })
 const labelId = useId()
 const startTextId = useId()
 const endTextId = useId()
@@ -106,7 +87,6 @@ const endTextId = useId()
       :id="inputId"
       :list="props.list"
       :name="currentFieldName"
-      ref="input"
       type="range"
       v-bind="$attrs"
       v-model.number="model"

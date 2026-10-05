@@ -589,9 +589,9 @@ Bog-standard native HTML `<select>` without customized option list.
 
 ```html
 <label class="ui-select">
-  <span class="ui-label" id="select-classic-1-label">Label</span>
+  <span class="ui-label">Label</span>
   <span class="ui-field">
-    <select aria-labelledby="select-classic-1-label" id="select-classic-1">
+    <select id="select-classic-1">
       <option value="">-</option>
       <option>Option 1</option>
       <option>Option 2</option>
@@ -601,9 +601,9 @@ Bog-standard native HTML `<select>` without customized option list.
 
 
 <label class="ui-select ui-filled">
-  <span class="ui-label" id="select-classic-2-label">Label</span>
+  <span class="ui-label">Label</span>
   <span class="ui-field">
-    <select aria-labelledby="select-classic-2-label" id="select-classic-2">
+    <select id="select-classic-2">
       <option value="">-</option>
       <option>Option 1</option>
       <option>Option 2</option>
@@ -661,6 +661,7 @@ Bog-standard native HTML `<select>` without customized option list.
 | `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                             |
 | `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                           |
 | `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`                                                    | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.          |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                   |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
 | `--font-weight-medium`       | `var(--font-weight-5)`                                                                  | Font weight for badges, overlines and group labels.                                                                        |
 | `--icon-size`                | `var(--size-4)`                                                                         | Default icon size inside components.                                                                                       |
@@ -719,6 +720,7 @@ The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` wit
 | `--field-size-small`         | `var(--control-size-small)`                                                             | Field height with `.ui-small`.                                                                                             |
 | `--field-size-x-small`       | `var(--control-size-x-small)`                                                           | Field height with `.ui-x-small`.                                                                                           |
 | `--focus-ring-inset`         | `calc(-1 * var(--focus-ring-width))`                                                    | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options.          |
+| `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                   |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                      |
 | `--font-weight-medium`       | `var(--font-weight-5)`                                                                  | Font weight for badges, overlines and group labels.                                                                        |
 | `--icon-size`                | `var(--size-4)`                                                                         | Default icon size inside components.                                                                                       |

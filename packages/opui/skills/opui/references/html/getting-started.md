@@ -116,6 +116,40 @@ Additionally, this is how you could include `--motion` in your CSS:
 transition: transform calc(var(--duration) * var(--motion, 1)) var(--ease);
 ```
 
+## Contrast
+
+The `--contrast` variable is `normal` by default. If a user has `prefers-contrast: more` enabled, it is set to `more`, and a style query raises the contrast of muted text, borders, field borders, the primary color, intent colors and the focus ring. Components with translucent text, such as Tabs, keyboard hints and inline code, follow along.
+
+Try it with the **High contrast** switch in the theme config drawer.
+
+### Classes
+
+- `.ui-contrast-more`: sets `--contrast: more`. Put it on `html` for the whole page, or on any element to raise the contrast of its children.
+- `.ui-contrast-normal`: sets `--contrast: normal`. Put it on `html` to ignore the OS preference.
+
+```html
+<html lang="en" class="ui-contrast-more">
+```
+
+### Custom Values
+
+Style queries match against the parent element, so the overrides are set on`body` instead of `html`. They replace any value you set on `html` for the same tokens. To tune them, write your own style query:
+
+```css
+@container style(--contrast: more) {
+  :where(body) {
+    --border-color: var(--text-muted);
+    --field-border-color: var(--border-color);
+  }
+}
+```
+
+Tokens that reference an overridden token, like `--field-border-color` above, have to be set again in the same rule.
+
+### Forced Colors
+
+When an OS contrast theme forces its own palette (`forced-colors: active`), components switch to system colors so their state stays visible. Selected tabs, toggles and list items use `SelectedItem`, switches, ranges, progress bars and dividers are drawn with `CanvasText`, and focused fields get a `Highlight` outline. There is nothing to configure.
+
 ## Install via NPM
 
 `pnpm`
@@ -152,6 +186,8 @@ Or pick and choose the parts you want to include:
 
 ## Install via CDN
 
+`@6` loads the newest 6.x release, so a new major version never changes your site. Pin an exact version, such as `@6.0.0`, for full control.
+
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css/dist/opui.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/opui-css@6/dist/opui.css" />
 ```

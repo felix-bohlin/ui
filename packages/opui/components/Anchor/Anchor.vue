@@ -9,20 +9,8 @@ const isHover = computed(() => trigger === "hover")
 const uid = useId()
 const id = computed(() => (isHover.value ? (idProp ?? uid) : undefined))
 
-const insetMap: Record<string, string> = {
-  "start start": "auto 100% 100% auto",
-  "start end": "auto auto 100% 100%",
-  "end start": "100% 100% auto auto",
-  "end end": "100% auto auto 100%",
-}
-
 const positionArea = computed(() =>
-  alignment
-    ? {
-        "--anchor-position-area": alignment,
-        "--_anchor-inset": insetMap[alignment],
-      }
-    : undefined,
+  alignment ? { "--anchor-position-area": alignment } : undefined,
 )
 </script>
 

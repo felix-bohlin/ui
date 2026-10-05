@@ -83,6 +83,11 @@
       padding-inline: var(--_summary-padding-inline);
       user-select: none;
 
+      &:focus-visible {
+        border-radius: var(--_border-radius);
+        outline-offset: calc(-2 * var(--focus-ring-width, 2px));
+      }
+
       &:has(svg) {
         align-items: center;
         display: flex;

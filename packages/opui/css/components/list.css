@@ -203,6 +203,7 @@ Lists meant to be used stand-alone or as part of Select elements
         color: inherit;
         cursor: pointer;
         display: flex;
+        font-weight: inherit;
         gap: var(--_item-gap);
         inline-size: 100%;
         margin: 0;
@@ -327,7 +328,9 @@ Lists meant to be used stand-alone or as part of Select elements
           background-color: transparent;
           border: 0;
           color: inherit;
-          opacity: 0.6;
+          font-family: var(--font-mono);
+          opacity: 0.7;
+          padding: 0;
 
           @container style(--contrast: more) {
             opacity: 1;

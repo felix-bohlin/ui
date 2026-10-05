@@ -226,6 +226,32 @@
         --_thumb-size: 30px;
       }
 
+      @supports (animation-timeline: view()) {
+        --_inset: max(
+          var(--size-2),
+          var(--_thumb-size) / 2 + var(--size-2) - var(--size-4) / 2
+        );
+
+        animation: ui-range-fill linear both;
+        animation-range: contain;
+        animation-timeline: --ui-range-thumb;
+        box-sizing: content-box;
+        margin: calc(var(--_inset) * -1);
+        outline-offset: calc(1ex - var(--_inset));
+        overflow: hidden;
+        padding: var(--_inset);
+        timeline-scope: --ui-range-thumb;
+
+        &:dir(rtl) {
+          animation-direction: reverse;
+        }
+
+        &::-webkit-slider-thumb {
+          view-timeline: --ui-range-thumb inline;
+          view-timeline-inset: var(--_inset);
+        }
+      }
+
       /* Track */
       &::-webkit-slider-runnable-track {
         appearance: none;
@@ -365,6 +391,16 @@
           border-color: Canvas;
         }
       }
+    }
+  }
+
+  @keyframes ui-range-fill {
+    from {
+      --_track-fill: 100%;
+    }
+
+    to {
+      --_track-fill: 0%;
     }
   }
 }

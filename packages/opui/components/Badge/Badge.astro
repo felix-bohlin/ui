@@ -15,19 +15,9 @@ const {
   srLabel,
   ...rest
 } = Astro.props
-
-const positionArea =
-  alignment === "start-start"
-    ? "start start"
-    : alignment === "end-start"
-      ? "end start"
-      : alignment === "end-end"
-        ? "end end"
-        : undefined
 ---
 
 <Anchor
-  alignment={positionArea}
   class:list={[
     "ui-badge",
     {

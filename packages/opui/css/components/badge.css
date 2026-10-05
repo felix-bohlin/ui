@@ -1,14 +1,16 @@
 @layer components.extended {
   :where(.ui-badge) {
     --_motion: var(--motion, 1);
-    --_anchor-tx: -50%;
-    --_anchor-ty: 50%;
+    --_anchor-tx: calc(50% * var(--_sign-x));
+    --_anchor-ty: calc(50% * var(--_sign-y));
     --_badge-inset-block: auto 100%;
     --_badge-inset-inline: 100% auto;
     --_bg-color: var(--primary);
     --_border-color: var(--primary);
     --_dir: 1;
     --_dot-size: var(--size-2);
+    --_sign-x: -1;
+    --_sign-y: 1;
     --_size: var(--size-4);
     --_text-color: var(--primary-contrast);
 
@@ -107,28 +109,26 @@
 
     /* Alignment */
     &.ui-start-start {
-      --_anchor-tx: 50%;
-      --_anchor-ty: 50%;
       --_badge-inset-inline: auto 100%;
+      --_sign-x: 1;
     }
 
     &.ui-end-start {
-      --_anchor-tx: 50%;
-      --_anchor-ty: -50%;
       --_badge-inset-block: 100% auto;
       --_badge-inset-inline: auto 100%;
+      --_sign-x: 1;
+      --_sign-y: -1;
     }
 
     &.ui-end-end {
-      --_anchor-tx: -50%;
-      --_anchor-ty: -50%;
       --_badge-inset-block: 100% auto;
+      --_sign-y: -1;
     }
 
     /* Dot */
     &.ui-dot {
-      --_anchor-tx: calc((var(--_dot-size) - 2px) * -1);
-      --_anchor-ty: var(--_dot-size);
+      --_anchor-tx: calc((var(--_dot-size) - 2px) * var(--_sign-x));
+      --_anchor-ty: calc(var(--_dot-size) * var(--_sign-y));
     }
 
     &.ui-dot > .ui-anchor-floating > .ui-badge-indicator {

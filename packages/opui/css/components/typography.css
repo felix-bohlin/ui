@@ -3,7 +3,7 @@
     text-wrap: pretty;
 
     &.ui-small {
-      font-size: var(--font-size-1);
+      font-size: var(--font-size-05);
     }
 
     &.ui-large {
@@ -68,7 +68,7 @@
   :where(.ui-overline) {
     color: light-dark(
       oklch(from var(--text-muted) calc(l * 1.25) c h),
-      oklch(from var(--text-muted) calc(l * 0.75) c h)
+      oklch(from var(--text-muted) calc(l * 0.9) c h)
     );
     font-size: var(--font-size-0);
     font-weight: var(--font-weight-medium);
@@ -93,7 +93,7 @@
     & > p:first-of-type:first-child {
       color: light-dark(
         oklch(from var(--text-muted) calc(l * 1.25) c h),
-        oklch(from var(--text-muted) calc(l * 0.75) c h)
+        oklch(from var(--text-muted) calc(l * 0.9) c h)
       );
       font-size: var(--font-size-0);
       font-weight: var(--font-weight-medium);
@@ -161,7 +161,7 @@
     vertical-align: baseline;
   }
 
-  :where(p, span).ui-small {
+  :where(p:not(.ui-p), span).ui-small {
     font-size: max(0.5em, var(--font-size-0, 0.75rem));
   }
 
@@ -339,7 +339,24 @@
 
       &:hover,
       &:focus-visible {
-        color: var(--primary-light);
+        color: light-dark(var(--primary-dark), var(--primary-light));
+        text-decoration-color: currentColor;
+        text-decoration-thickness: 3px;
+      }
+    }
+
+    :where(.ui-list, :scope:where(.ui-list *))
+      a[href]:where(:not([class*="ui-"])) {
+      color: light-dark(var(--primary-dark), var(--primary));
+      text-decoration-color: currentColor;
+    }
+
+    mark a[href]:where(:not([class*="ui-"])) {
+      &,
+      &:hover,
+      &:focus-visible {
+        color: inherit;
+        text-decoration-color: currentColor;
       }
     }
 
@@ -545,7 +562,7 @@
     :is(.ui-overline, hgroup p:first-of-type:first-child) {
       color: light-dark(
         oklch(from var(--text-muted) calc(l * 1.25) c h),
-        oklch(from var(--text-muted) calc(l * 0.75) c h)
+        oklch(from var(--text-muted) calc(l * 0.9) c h)
       );
       font-size: var(--font-size-0);
       font-weight: var(--font-weight-medium);
@@ -806,10 +823,10 @@
     }
 
     code {
-      background-color: light-dark(oklch(0 0 0 / 12%), oklch(1 0 0 / 18%));
+      background-color: light-dark(oklch(0 0 0 / 12%), oklch(1 0 0 / 10%));
 
       @container style(--contrast: more) {
-        background-color: light-dark(oklch(0 0 0 / 6%), oklch(1 0 0 / 10%));
+        background-color: light-dark(oklch(0 0 0 / 6%), oklch(1 0 0 / 6%));
       }
 
       border-radius: var(--radius-2);
@@ -818,11 +835,15 @@
     }
 
     a[href] code {
-      background-color: light-dark(oklch(0 0 0 / 12%), oklch(0 0 0 / 24%));
+      background-color: light-dark(transparent, oklch(0 0 0 / 24%));
 
       @container style(--contrast: more) {
         background-color: transparent;
       }
+    }
+
+    :is(del, ins) code {
+      background-color: transparent;
     }
 
     :where(kbd, var) {
@@ -848,6 +869,10 @@
     :where(pre, :not(pre) > code):where(:not([dir])) {
       direction: ltr;
       unicode-bidi: isolate;
+    }
+
+    :is(h1, h2, h3, h4, h5, h6) :not(pre) > code {
+      padding: 0.05em 0.2em;
     }
 
     mark {

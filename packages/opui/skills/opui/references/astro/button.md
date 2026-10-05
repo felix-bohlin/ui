@@ -19,9 +19,9 @@
 
   An optional icon.
 
-- `<span>`
+- `<span class="ui-text">`
 
-  The label.
+  The label. Wrap it when the button has an icon.
 
 ## Variants
 
@@ -81,7 +81,7 @@ import { Button } from "opui-css/astro"
 
 ## Buttons with icon and label
 
-Include an icon alongside text by nesting it within the component. Always wrap the label in a `<span>`: it tightens the padding on the icon side, and a button whose only element is an `svg` is styled as icon-only.
+Include an icon alongside text by nesting it within the component. Always wrap the label in a `<span class="ui-text">`: it tightens the padding on the icon side, and a button whose only element is an `svg` is styled as icon-only, even with text next to it.
 
 ```astro
 ---
@@ -90,38 +90,38 @@ import { Button } from "opui-css/astro"
 
 
 <Button>
-  <span>Text</span>
+  <span class="ui-text">Text</span>
   <svg> <!-- --> </svg>
 </Button>
 <Button variant="outlined">
-  <span>Outlined</span>
+  <span class="ui-text">Outlined</span>
   <svg> <!-- --> </svg>
 </Button>
 <Button variant="tonal">
-  <span>Tonal</span>
+  <span class="ui-text">Tonal</span>
   <svg> <!-- --> </svg>
 </Button>
 <Button variant="filled">
-  <span>Filled</span>
+  <span class="ui-text">Filled</span>
   <svg> <!-- --> </svg>
 </Button>
 
 
 <Button>
   <svg> <!-- --> </svg>
-  <span>Text</span>
+  <span class="ui-text">Text</span>
 </Button>
 <Button variant="outlined">
   <svg> <!-- --> </svg>
-  <span>Outlined</span>
+  <span class="ui-text">Outlined</span>
 </Button>
 <Button variant="tonal">
   <svg> <!-- --> </svg>
-  <span>Tonal</span>
+  <span class="ui-text">Tonal</span>
 </Button>
 <Button variant="filled">
   <svg> <!-- --> </svg>
-  <span>Filled</span>
+  <span class="ui-text">Filled</span>
 </Button>
 ```
 
@@ -162,22 +162,22 @@ const editIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
 ---
 
 
-<Button aria-label="Edit">
+<Button iconOnly label="Edit">
   <Fragment set:html={editIcon} />
 </Button>
-<Button aria-label="Edit" rounded>
+<Button iconOnly label="Edit" rounded>
   <Fragment set:html={editIcon} />
 </Button>
-<Button aria-label="Edit" ripple rounded>
+<Button iconOnly label="Edit" ripple rounded>
   <Fragment set:html={editIcon} />
 </Button>
-<Button aria-label="Edit" ripple rounded variant="tonal">
+<Button iconOnly label="Edit" ripple rounded variant="tonal">
   <Fragment set:html={editIcon} />
 </Button>
-<Button aria-label="Edit" color="primary" ripple rounded variant="filled">
+<Button iconOnly label="Edit" color="primary" ripple rounded variant="filled">
   <Fragment set:html={editIcon} />
 </Button>
-<Button aria-label="Edit" ripple rounded size="small">
+<Button iconOnly label="Edit" ripple rounded size="small">
   <Fragment set:html={editIcon} />
 </Button>
 ```
@@ -203,15 +203,15 @@ import { Button } from "opui-css/astro"
 
 
 <Button size="small" variant="outlined">
-  <span>Small</span>
+  <span class="ui-text">Small</span>
   <svg> <!-- --> </svg>
 </Button>
 <Button variant="outlined">
-  <span>Default</span>
+  <span class="ui-text">Default</span>
   <svg> <!-- --> </svg>
 </Button>
 <Button variant="outlined" size="large">
-  <span>Large</span>
+  <span class="ui-text">Large</span>
   <svg> <!-- --> </svg>
 </Button>
 ```
@@ -243,6 +243,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `color`    | `"critical"`, `"primary"`           | -       | Optional colors.                                                            |
 | `disabled` | `boolean`                           | `false` | Disables the button.                                                        |
 | `href`     | `string`                            | -       | The link to use. Renders an `<a>`.                                          |
+| `iconOnly` | `boolean`                           | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
 | `label`    | `string`                            | -       | The accessible name. Use it on icon-only buttons.                           |
 | `ripple`   | `boolean`                           | `false` | A halo behind the button on hover instead of a background change.           |
 | `rounded`  | `boolean`                           | `false` | Fully rounded corners, a circle when icon-only.                             |

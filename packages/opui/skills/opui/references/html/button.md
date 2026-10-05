@@ -19,9 +19,9 @@
 
   An optional icon.
 
-- `<span>`
+- `<span class="ui-text">`
 
-  The label.
+  The label. Wrap it when the button has an icon.
 
 ## Variants
 
@@ -75,12 +75,12 @@ Add a `.ui-primary` or `.ui-critical` class to apply a brand or destructive colo
 
 ## Buttons with icon and label
 
-Include an icon alongside text by nesting an SVG element within the button. Always wrap the label in a `<span>`: it tightens the padding on the icon side, and a button whose only element is an `svg` is styled as icon-only.
+Include an icon alongside text by nesting an SVG element within the button. Always wrap the label in a `<span class="ui-text">`: it tightens the padding on the icon side, and a button whose only element is an `svg` is styled as icon-only, even with text next to it.
 
 ```html
 <div class="example-row">
   <button type="button" class="ui-button">
-    <span>Text</span>
+    <span class="ui-text">Text</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -96,7 +96,7 @@ Include an icon alongside text by nesting an SVG element within the button. Alwa
 
 
   <button type="button" class="ui-button ui-outlined">
-    <span>Outlined</span>
+    <span class="ui-text">Outlined</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -112,7 +112,7 @@ Include an icon alongside text by nesting an SVG element within the button. Alwa
 
 
   <button type="button" class="ui-button ui-tonal">
-    <span>Tonal</span>
+    <span class="ui-text">Tonal</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -128,7 +128,7 @@ Include an icon alongside text by nesting an SVG element within the button. Alwa
 
 
   <button type="button" class="ui-button ui-filled">
-    <span>Filled</span>
+    <span class="ui-text">Filled</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -155,7 +155,7 @@ Include an icon alongside text by nesting an SVG element within the button. Alwa
         d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
       ></path>
     </svg>
-    <span>Text</span>
+    <span class="ui-text">Text</span>
   </button>
   <button type="button" class="ui-button ui-outlined">
     <svg
@@ -169,7 +169,7 @@ Include an icon alongside text by nesting an SVG element within the button. Alwa
         d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
       ></path>
     </svg>
-    <span>Outlined</span>
+    <span class="ui-text">Outlined</span>
   </button>
 
 
@@ -185,7 +185,7 @@ Include an icon alongside text by nesting an SVG element within the button. Alwa
         d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
       ></path>
     </svg>
-    <span>Tonal</span>
+    <span class="ui-text">Tonal</span>
   </button>
 
 
@@ -201,7 +201,7 @@ Include an icon alongside text by nesting an SVG element within the button. Alwa
         d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
       ></path>
     </svg>
-    <span>Filled</span>
+    <span class="ui-text">Filled</span>
   </button>
 </div>
 ```
@@ -335,7 +335,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
 
 <div class="example-row">
   <button type="button" class="ui-button ui-outlined ui-small">
-    <span>Small</span>
+    <span class="ui-text">Small</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -349,7 +349,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
     </svg>
   </button>
   <button type="button" class="ui-button ui-outlined">
-    <span>Default</span>
+    <span class="ui-text">Default</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -363,7 +363,7 @@ Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
     </svg>
   </button>
   <button type="button" class="ui-button ui-outlined ui-large">
-    <span>Large</span>
+    <span class="ui-text">Large</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -400,7 +400,7 @@ Add disabled styling with the `disabled` attribute or the `.ui-disabled` class.
 
 <div class="example-row">
   <button type="button" class="ui-button" disabled>
-    <span>Text</span>
+    <span class="ui-text">Text</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -416,7 +416,7 @@ Add disabled styling with the `disabled` attribute or the `.ui-disabled` class.
 
 
   <button type="button" class="ui-button ui-outlined" disabled>
-    <span>Outlined</span>
+    <span class="ui-text">Outlined</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -432,7 +432,7 @@ Add disabled styling with the `disabled` attribute or the `.ui-disabled` class.
 
 
   <button type="button" class="ui-button ui-tonal" disabled>
-    <span>Tonal</span>
+    <span class="ui-text">Tonal</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -448,7 +448,7 @@ Add disabled styling with the `disabled` attribute or the `.ui-disabled` class.
 
 
   <button type="button" class="ui-button ui-filled" disabled>
-    <span>Filled</span>
+    <span class="ui-text">Filled</span>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -483,11 +483,11 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 #### Parts
 
-| Part         | Description        |
-| ------------ | ------------------ |
-| `.ui-button` | Container element. |
-| `<svg>`      | An optional icon.  |
-| `<span>`     | The label.         |
+| Part                     | Description                                     |
+| ------------------------ | ----------------------------------------------- |
+| `.ui-button`             | Container element.                              |
+| `<svg>`                  | An optional icon.                               |
+| `<span class="ui-text">` | The label. Wrap it when the button has an icon. |
 
 #### CSS variables
 

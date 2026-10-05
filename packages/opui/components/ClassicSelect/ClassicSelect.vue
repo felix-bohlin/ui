@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { CurrentFieldNameKey } from "../FieldGroup/types.d.vue"
 import type { ClassicSelectProps, Slots } from "./types.d.vue"
-import { useId } from "vue"
+import { inject, useId } from "vue"
 
 defineOptions({
   inheritAttrs: false,
@@ -13,8 +14,9 @@ const props = withDefaults(defineProps<ClassicSelectProps>(), {
 defineSlots<Slots>()
 const modelValue = defineModel<string | number | (string | number)[]>()
 
+const fieldName = inject(CurrentFieldNameKey, undefined)
+
 const selectId = props.id || useId()
-const labelId = useId()
 const endTextId = useId()
 </script>
 
@@ -30,15 +32,13 @@ const endTextId = useId()
     ]"
     :data-invalid="props.error ? '' : undefined"
   >
-    <span v-if="props.label" class="ui-label" :id="labelId">{{
-      props.label
-    }}</span>
+    <span v-if="props.label" class="ui-label">{{ props.label }}</span>
     <span class="ui-field">
       <select
         :aria-describedby="props.endText ? endTextId : undefined"
         :aria-invalid="props.error ? 'true' : undefined"
-        :aria-labelledby="props.label ? labelId : undefined"
         :id="selectId"
+        :name="fieldName"
         v-bind="$attrs"
         v-model="modelValue"
       >

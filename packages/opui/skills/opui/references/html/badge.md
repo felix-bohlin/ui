@@ -1,5 +1,9 @@
 # Badge
 
+### What's new
+
+- [Indicator](#indicator) context for screen readers with `.ui-sr-only`.
+
 ## Anatomy
 
 5
@@ -75,7 +79,9 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator">5</span>
+    <span class="ui-badge-indicator"
+      >5 <span class="ui-sr-only">unread messages</span></span
+    >
   </span>
 </span>
 
@@ -93,7 +99,9 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
     ></path>
   </svg>
   <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator">99+</span>
+    <span class="ui-badge-indicator"
+      >99+ <span class="ui-sr-only">unread messages</span></span
+    >
   </span>
 </span>
 ```
@@ -241,13 +249,7 @@ Where the badge should be placed over the child.
 `.ui-start-start`, default, `.ui-end-start`, `.ui-end-end`.
 
 ```html
-<span
-  class="ui-anchor ui-badge ui-start-start"
-  style="
-    --anchor-position-area: start start;
-    --_anchor-inset: auto 100% 100% auto;
-  "
->
+<span class="ui-anchor ui-badge ui-start-start">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -283,13 +285,7 @@ Where the badge should be placed over the child.
 </span>
 
 
-<span
-  class="ui-anchor ui-badge ui-end-start"
-  style="
-    --anchor-position-area: end start;
-    --_anchor-inset: 100% 100% auto auto;
-  "
->
+<span class="ui-anchor ui-badge ui-end-start">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -307,10 +303,7 @@ Where the badge should be placed over the child.
 </span>
 
 
-<span
-  class="ui-anchor ui-badge ui-end-end"
-  style="--anchor-position-area: end end; --_anchor-inset: 100% auto auto 100%"
->
+<span class="ui-anchor ui-badge ui-end-end">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="32"
@@ -328,16 +321,21 @@ Where the badge should be placed over the child.
 </span>
 ```
 
+## Accessibility
+
+- A count on its own is read without context, such as "5". Add visually hidden text inside the indicator, so it's read as "5 unread messages":a `.ui-sr-only` element inside `.ui-badge-indicator`.
+- Don't use `aria-label` on the indicator. It's a`<span>` without a role, so screen readers ignore the label and read the text.
+
 ## API
 
 ### Badge API
 
-| Type       | Modifiers                                                                   | Default | Description                                      |
-| ---------- | --------------------------------------------------------------------------- | ------- | ------------------------------------------------ |
-| Alignment  | `.ui-end-end`, `.ui-end-start`, `.ui-start-start`, `--anchor-position-area` | -       | Where the indicator is placed.                   |
-| Colors     | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`     | -       | Optional colors.                                 |
-| Variants   | `.ui-dot`                                                                   | -       | Renders the indicator as a dot, without a label. |
-| Visibility | `.ui-invisible`                                                             | -       | Hides the indicator.                             |
+| Type       | Modifiers                                                               | Default | Description                                      |
+| ---------- | ----------------------------------------------------------------------- | ------- | ------------------------------------------------ |
+| Alignment  | `.ui-end-end`, `.ui-end-start`, `.ui-start-start`                       | -       | Where the indicator is placed.                   |
+| Colors     | `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning` | -       | Optional colors.                                 |
+| Variants   | `.ui-dot`                                                               | -       | Renders the indicator as a dot, without a label. |
+| Visibility | `.ui-invisible`                                                         | -       | Hides the indicator.                             |
 
 #### Parts
 
@@ -364,8 +362,6 @@ Where the badge should be placed over the child.
 | `--warning`            | `var(--orange)`                                                                       | Severity color for warnings.                                                                                               |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
-
-With an alignment class, also set `--anchor-position-area` to the same position, such as `start start`.
 
 ## Under the hood
 

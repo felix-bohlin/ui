@@ -16,18 +16,8 @@ const {
 const isHover = trigger === "hover"
 const id = isHover ? (idProp ?? createId(Astro.locals)("anchor")) : undefined
 
-const insetMap: Record<string, string> = {
-  "start start": "auto 100% 100% auto",
-  "start end": "auto auto 100% 100%",
-  "end start": "100% 100% auto auto",
-  "end end": "100% auto auto 100%",
-}
-
 const positionArea = alignment
-  ? {
-      "--anchor-position-area": alignment,
-      "--_anchor-inset": insetMap[alignment],
-    }
+  ? { "--anchor-position-area": alignment }
   : undefined
 const positionAreaString = Object.entries(positionArea ?? {})
   .filter(([, value]) => value !== undefined)

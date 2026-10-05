@@ -124,15 +124,15 @@ const closeIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32
 <ButtonGroup variant="outlined">
   <Button>
     <Fragment set:html={checkIcon} />
-    <span>OK</span>
+    <span class="ui-text">OK</span>
   </Button>
   <Button>
     <Fragment set:html={helpIcon} />
-    <span>Maybe</span>
+    <span class="ui-text">Maybe</span>
   </Button>
   <Button>
     <Fragment set:html={closeIcon} />
-    <span>No</span>
+    <span class="ui-text">No</span>
   </Button>
 </ButtonGroup>
 ```
@@ -407,6 +407,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `color`    | `"critical"`, `"primary"`           | -       | Optional colors.                                                            |
 | `disabled` | `boolean`                           | `false` | Disables the button.                                                        |
 | `href`     | `string`                            | -       | The link to use. Renders an `<a>`.                                          |
+| `iconOnly` | `boolean`                           | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
 | `label`    | `string`                            | -       | The accessible name. Use it on icon-only buttons.                           |
 | `ripple`   | `boolean`                           | `false` | A halo behind the button on hover instead of a background change.           |
 | `rounded`  | `boolean`                           | `false` | Fully rounded corners, a circle when icon-only.                             |

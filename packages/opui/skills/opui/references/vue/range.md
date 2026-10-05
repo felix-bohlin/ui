@@ -3,6 +3,7 @@
 ### What's new
 
 - [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
+- The track fill is CSS only, so plain HTML ranges fill too.
 
 ## Anatomy
 
@@ -306,7 +307,10 @@ Attributes that aren't props, such as `max`, `min` or `step`, go to the `<input>
 
    - Firefox draws the filled part with `::-moz-range-progress`
    - Elsewhere a one-color `linear-gradient`, sized to `--fill`, paints it
-   - A few lines of JavaScript keep `--fill` in sync with the value
+   - `overflow: hidden` makes the input a scroller, and the thumb a `view-timeline` inside it. `timeline-scope` lets the input use it
+   - The thumb's position drives the animation: `--fill` is registered as a `<percentage>`, so it animates. No JavaScript
+   - The timeline runs from the end edge, so the keyframes go from `100%` to `0%`, reversed in right-to-left
+   - Padding with an equal negative margin leaves room for the thumb and halo, `view-timeline-inset` and `outline-offset` take it back out
 
 4. Halo
 
@@ -380,22 +384,56 @@ Step 2 of 5: Thumb
 Step 3 of 5: Fill
 
 - [Gradients](https://webstatus.dev/features/gradients) (Widely available): Chrome 26+, Edge 12+, Firefox 3.6+, Safari 7+
+- [Registered custom properties](https://webstatus.dev/features/registered-custom-properties) (Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
+- [Scroll-driven animations](https://webstatus.dev/features/scroll-driven-animations) (Limited availability): Chrome 115+, Edge 115+, Firefox not supported, Safari 26+
 
 ```html
-<input class="range" type="range" min="0" max="100" value="40" />
-
-
-<script>
-  const update = () => {
-    const fill = ((input.value - input.min) / (input.max - input.min)) * 100
-    input.style.setProperty("--fill", fill + "%")
+<style>
+  @property --fill {
+    syntax: "<percentage>";
+    inherits: true;
+    initial-value: 0%;
   }
-  input.addEventListener("input", update)
-  update()
-</script>
+
+
+  @keyframes build-range-fill {
+    from {
+      --fill: 100%;
+    }
+
+
+    to {
+      --fill: 0%;
+    }
+  }
+</style>
 ```
 
 ```css
+.range {
+  animation: build-range-fill linear both;
+  animation-range: contain;
+  animation-timeline: --thumb;
+  box-sizing: content-box;
+  margin: -0.75rem;
+  outline-offset: -0.75rem;
+  overflow: hidden;
+  padding: 0.75rem;
+  timeline-scope: --thumb;
+}
+
+
+.range:dir(rtl) {
+  animation-direction: reverse;
+}
+
+
+.range::-webkit-slider-thumb {
+  view-timeline: --thumb inline;
+  view-timeline-inset: 0.75rem;
+}
+
+
 .range::-webkit-slider-runnable-track {
   background-image: linear-gradient(var(--primary), var(--primary));
   background-repeat: no-repeat;
@@ -475,8 +513,8 @@ Step 5 of 5: Ticks
 ## Browser support
 
 - Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
-- Safari: Full support Supported since v18.
+- Firefox: Partial support Missing: scroll-driven-animations.
+- Safari: Full support Supported since v26.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Range.md).
 

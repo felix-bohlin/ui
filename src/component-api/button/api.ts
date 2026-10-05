@@ -26,6 +26,14 @@ export default {
       prop: "href",
     },
     {
+      default: "false",
+      description:
+        "Marks the button as icon-only, so `label` is required. Types only.",
+      frameworks: ["astro", "vue"],
+      prop: "iconOnly",
+      type: "boolean",
+    },
+    {
       description: "The accessible name. Use it on icon-only buttons.",
       frameworks: ["astro", "vue"],
       prop: "label",
@@ -74,9 +82,9 @@ export default {
       selector: ".ui-button > svg",
     },
     {
-      code: "<span>",
-      description: "The label.",
-      selector: ".ui-button > span",
+      code: '<span class="ui-text">',
+      description: "The label. Wrap it when the button has an icon.",
+      selector: ".ui-button > .ui-text",
     },
   ],
   root: {

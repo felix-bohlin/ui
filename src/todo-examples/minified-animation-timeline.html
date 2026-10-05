@@ -1,0 +1,113 @@
+<style>
+  @property --todo-fill {
+    inherits: true;
+    initial-value: 0%;
+    syntax: "<percentage>";
+  }
+
+  @keyframes todo-fill {
+    from {
+      --todo-fill: 100%;
+    }
+
+    to {
+      --todo-fill: 0%;
+    }
+  }
+
+  .todo-ranges {
+    display: grid;
+    gap: var(--size-5);
+    inline-size: min(100%, 28rem);
+  }
+
+  .todo-ranges > div {
+    display: grid;
+    gap: var(--size-2);
+  }
+
+  .todo-range {
+    animation-range: contain;
+    appearance: none;
+    background: transparent;
+    block-size: 1.25rem;
+    box-sizing: content-box;
+    inline-size: 100%;
+    margin: -0.75rem;
+    overflow: hidden;
+    padding: 0.75rem;
+    timeline-scope: --todo-thumb;
+
+    &::-webkit-slider-runnable-track {
+      appearance: none;
+      background-color: var(--border-color);
+      background-image: linear-gradient(var(--primary), var(--primary));
+      background-repeat: no-repeat;
+      background-size: var(--todo-fill) 100%;
+      block-size: 0.75ex;
+      border-radius: 1e5px;
+    }
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      background: var(--primary);
+      block-size: 3ex;
+      border: 3px solid var(--surface-default);
+      border-radius: 50%;
+      inline-size: 3ex;
+      margin-block-start: -1.125ex;
+      view-timeline: --todo-thumb inline;
+      view-timeline-inset: 0.75rem;
+    }
+  }
+
+  .todo-shorthand {
+    animation: linear both todo-fill --todo-thumb;
+  }
+
+  .todo-longhands {
+    animation-fill-mode: both;
+    animation-name: todo-fill;
+    animation-timeline: --todo-thumb;
+    animation-timing-function: linear;
+  }
+</style>
+<p>
+  Chromium and Safari. Both use the same keyframes and thumb timeline; only the
+  way <code>animation</code> is written differs. This snippet isn't minified, so
+  it shows exactly what each form does.
+</p>
+<div class="todo-ranges">
+  <div>
+    <p class="ui-caption">
+      What lightningcss outputs:
+      <code>animation: linear both todo-fill --todo-thumb</code>. Dropped, no
+      fill
+    </p>
+    <input
+      aria-label="Shorthand"
+      class="todo-range todo-shorthand"
+      type="range"
+      value="60"
+    />
+  </div>
+  <div>
+    <p class="ui-caption">Longhands, which lightningcss leaves alone</p>
+    <input
+      aria-label="Longhands"
+      class="todo-range todo-longhands"
+      type="range"
+      value="60"
+    />
+  </div>
+  <div>
+    <p class="ui-caption">
+      The library's <code>.ui-range</code>: fill in <code>pnpm dev</code>, none
+      in a build
+    </p>
+    <label class="ui-range">
+      <span class="ui-label" id="todo-minified-label">Library</span>
+      <input aria-labelledby="todo-minified-label" type="range" value="60" />
+    </label>
+  </div>
+</div>

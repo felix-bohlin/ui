@@ -913,6 +913,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > in this example I can see code inside RTL run left to right. if that's wrong then fix it.
   - It was wrong. Each line runs left to right, but punctuation at the ends gets moved by the bidi algorithm: `const x = add(1, 2);` showed as `;const x = add(1, 2)`, `x++` as `++x` and `// comment.` as `.comment //`, and lines were right-aligned. Fixed: rich text `pre` and inline `code` are `direction: ltr` with `unicode-bidi: isolate`, unless they have their own `dir`.
 - [] (5) Range fill and the header scroll fade are dead in production builds. lightningcss (the CSS minifier) folds `animation-timeline` into the `animation` shorthand, `animation: linear both ui-range-fill --ui-range-thumb`, which Chromium rejects, so `animation` computes to `none`. Dev isn't minified, so it only shows in builds, and users whose bundler minifies with lightningcss get it too (`range.css:235-237`, `Header.astro:345-347`, `LocalNav.astro:98-100`)
+  - See the example: the minified shorthand, the longhands and the library's `.ui-range` side by side.
   - Check: the HTML Range test fixture in `dist-test` has `animation-name: none` on every range in Chromium 141.
   - Fix: write the longhands, which lightningcss leaves alone:
     ```css
@@ -1358,18 +1359,21 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - toast: no Invoker Commands API, Popover API
   - tooltip: no `interestfor`, `anchor()`, `anchor-scope`
 - [] (2) Accordion walkthrough: drift
-  - The native marker is always hidden. The library only hides it when the summary has an svg, and the docs promise "Leave it out to fall back to the native arrow" (`AccordionBuild.astro:52-61`, `accordion.css:91-101`, `accordion.astro:162-163`)
-  - The turn marker has no RTL rule, `.ui-marker-turn[open]:dir(rtl) > summary svg { rotate: -90deg; }` (`AccordionBuild.astro:77-82`, `accordion.css:122-124`)
+  - See the example: a summary without an svg, and the turn marker in RTL with a right-pointing and a mirrored chevron.
+  - The native marker is always hidden. The library only hides it when the summary has an svg, and the docs promise "Leave it out to fall back to the native arrow" (`AccordionBuild.astro:52-61`, `accordion.css:96-106`, `accordion.astro:162-163`)
+  - The turn marker has no RTL rule, `.ui-marker-turn[open]:dir(rtl) > summary svg { rotate: -90deg; }` (`AccordionBuild.astro:77-82`, `accordion.css:127-129`)
+  - Library question: the RTL `-90deg` assumes the chevron is mirrored in RTL. The docs examples use a right-pointing chevron that nothing mirrors, so in RTL it opens pointing up. Mirror it (`.ui-marker-turn:dir(rtl) > summary svg { scale: -1 1; }`) or say in the docs that RTL needs a left-pointing icon
 - [] (2) Anchor walkthrough: drift
   - The card sets `position-anchor`, and a note says so. The library's popover variant doesn't: a popover opened by `interestfor` anchors to its invoker. Only the always-visible variant uses `position-anchor` (`AnchorBuild.astro:53-57,66`, `anchor.css:9-35`)
   - No `position-visibility: anchors-visible`, which the library sets and the Read more links point to (`AnchorBuild.astro:73-84`, `anchor.css:33`, `references.ts:49-50`)
   - "Only `<button>` and `<a href>` can be interest invokers" leaves out `<area>` (`AnchorBuild.astro:24`)
 - [] (2) Button group walkthrough: drift
+  - See the example: the walkthrough's outlined group, the library's, and the library's without `role="group"`.
   - The selector is `.group`, and the note says `role="group"` is for assistive tech. The library only styles `[role="group"].ui-button-group`, so a group without the role is unstyled (`ButtonGroupBuild.astro:7,29`, `button-group.css:2`)
   - Outlined uses the subtle `--border-color`. The library draws a strong `--_edge-color` (`light-dark(var(--color-16), var(--color-1))`) on an outline that is always there, and dividers take the same color (`ButtonGroupBuild.astro:55-62`, `button-group.css:4,11-25,78-79`)
   - The note says the line is on each button's start edge, but the `box-shadow` is physical, so it's on the left (`ButtonGroupBuild.astro:40-46`, `button-group.css:31-33`)
 - [] (2) Button walkthrough: `.ripple` sets `border-radius: 50%`, so the step teaches that ripple makes a button round. The circle comes from `.ui-rounded`, and the docs pair them (`ButtonBuild.astro:65-68`, `button.css:288-311`, `button.astro:147-154`)
-  - See the example: hover each button.
+  - See the example: hover each button, and the icon in a 56px icon-only button.
   - Also drifted:
     - The halo runs on plain `:hover`. The library limits it to `@media (hover: hover)` and enabled buttons, so touch gets no sticky halo (`ButtonBuild.astro:85-91`, `button.css:313-324`)
     - The icon is capped at `1.25em` at every size. The library uses `0.7lh`, and icon-only buttons scale it with the button (`calc(var(--_min-height) * 0.6)`) (`ButtonBuild.astro:19-22`, `button.css:92,153,203-207`)
@@ -1379,6 +1383,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix
   - Fixed: the Accessibility list says the Callout is an `<article>` (self-contained content) and not to add `role="note"`, on every framework. `CalloutBuild` drops `role="note"` from its code and preview, and its first note is now about `<article>`.
 - [] (2) Carousel walkthrough: drift
+  - See the example: 3 per view with a 32px gap in an 18rem track, with the demo's `7rem` minimum and with `0`.
   - Buttons, markers and the hidden scrollbar apply unconditionally. In the library markers need `.ui-with-markers`, HTML buttons need `.ui-with-buttons`, and the scrollbar is only hidden when one of them is on. The note "Scrollbar hidden only where buttons are supported" leaves out the class (`CarouselBuild.astro:42-70,82-115,121`, `carousel.css:111,241,287-291`)
   - The demo slides set `min-inline-size: 7rem`, while the library sets `0`. At 3 per view with a 32px gap on a narrow stage the slides overrun the gap, contradicting the "(track − gaps) ÷ items per view" note (`CarouselBuild.astro:176`, `carousel.css:60-64`)
   - Text glyphs for the arrows: `❮` on the inline-start button points the wrong way in RTL. The library uses SVG chevrons that swap under `:dir(rtl)`. A note is enough (`CarouselBuild.astro:57-65,75`, `carousel.css:15-19,30-31,137-152`)
@@ -1391,12 +1396,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: `.list > li`, `.list > li > button`, `.list > li:has(> a, > button, > label)`, `.bordered > li + li`
   - Also drifted:
     - `:has(> a, > button)` leaves out `> label` (checkbox, radio and switch rows) (`ListBuild.astro:59,72`, `list.css:155,198-200`)
-    - The base background is `--surface-default`, which is the `.ui-default` variant. The default is `--surface-filled` (`ListBuild.astro:8`, `list.css:10,15,32-34`)
+    - The base background is `--surface-default`. The library list is `--surface-filled` (`ListBuild.astro:8`, `list.css:10`)
     - The shortcut is plain text. The library puts it in `<kbd>` (`ListBuild.astro:46,172`, `list/EndKeyboard.html`)
 - [] (2) Menu walkthrough: the "Flip" step and its note describe pure flipping. The library caps the menu to the space on its side and scrolls, flips only when that side has less than 12rem, and has two `@position-try` fallbacks that span below or above as a last resort (`MenuBuild.astro:49-58`, `menu.css:28-31,43-48,56-65,177-185`)
   - Also `min-inline-size: max(10rem, …)` vs 12rem, and the demo hover is `--surface-tonal` where real menus use the list's primary tint (`MenuBuild.astro:36,127-129`, `menu.css:14,39`, `list.css:217-219`)
 - [] (2) Progress walkthrough: the step's `<progress>` snippets have no accessible name. The demo and docs use `aria-label` (`ProgressBuild.astro:8-14`, `progress.astro:98`)
 - [] (2) Radio and Checkbox walkthroughs: dark mode looks the opposite of the library. They use `--primary` and `--primary-contrast` straight, so a light primary gets a dark marker. The library darkens the fill and keeps a light marker for 3:1 (`CheckboxBuild.astro:21-24,35,56-59`, `checkbox.css:3-7,135-143`, `RadioBuild.astro:19-22,38`, `radio.css:3-7,109-117`)
+  - See the example: walkthrough and library styles in light and dark.
   - Fix:
     ```css
     .checkbox {
@@ -1410,12 +1416,15 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Also: both dim the row with `:has(:disabled)`, the library uses `:has([disabled])`. They differ inside `<fieldset disabled>`, where `:disabled` is arguably right, so this may be a library fix instead (`CheckboxBuild.astro:91`, `checkbox.css:27`, `RadioBuild.astro:66`, `radio.css:28`)
   - Radio: the demo radios sit in a bare `div`, with no fieldset or legend (`RadioBuild.astro:105-120`)
 - [] (2) Select walkthrough: drift
+  - See the example: the triangle vs the chevron, and a select without a button forced into `base-select` (open both).
   - The arrow is a border triangle. The library switched to a masked chevron, and What's new says "The arrow is a chevron." (`SelectBuild.astro:55-65,72`, `select.css:7-18`, `whats-new.ts:153`)
   - `appearance: base-select` applies to every select. The library only opts in `select:has(button)`, as the learn post's own snippet shows (`SelectBuild.astro:7-10`, `select.css:181-184`, `select-base-select.astro:47-50`)
   - The demo select has no `aria-labelledby`, which the library sets (`SelectBuild.astro:151-153`, `select/Variants.html:2-4`)
 - [] (2) Spinner walkthrough: the note says `:not(…)` skips "sections described by a progress bar". It skips anything with `aria-describedby`, so a busy button with a hint gets no spinner (`SpinnerBuild.astro:13,33`, `spinner.css:8`)
+  - See the example: a busy button with and without `aria-describedby`.
 - [] (2) Table walkthrough: no sticky header. Step 1 lacks `overflow: clip` (not `hidden`, so the table isn't a scroll container), and no step shows `position: sticky` on `thead` with the `scroll-state(stuck: top)` shadow (`TableBuild.astro:7-13`, `table.css:11,119-144`, `table.astro:111-131`)
 - [] (2) Tabs walkthrough: drift
+  - See the example: the track corners in RTL with physical and logical radii, and the focus ring on the label vs the pill.
   - Physical corners on the track ends (`border-radius: var(--radius) 0 0 var(--radius)`) next to logical insets, so in RTL the rounded ends and the pill are on opposite sides. The library and the learn post use logical radii (`TabsBuild.astro:88,97`, `tabs.css:122-125,136-139`)
   - The focus ring outlines the label rectangle. The library outlines the pill (`+ .ui-tab-label::before`) (`TabsBuild.astro:60-65`, `tabs.css:62-67`)
   - The demo group has no name. The docs say to add `role="radiogroup"` and `aria-label` (`TabsBuild.astro:147`)
@@ -1474,6 +1483,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix
   - Fixed: `toggle-button` and `toggle-group` (`toggle.astro`).
 - [] (3) Badge walkthrough: drift
+  - See the example: dots in all four corners, walkthrough math vs library.
   - The indicator snippet and demo are a bare count, read as "5". The docs now require hidden context (`5 <span class="ui-sr-only">unread messages</span>`) (`BadgeBuild.astro:20-24,126`, `badge.astro:178-196`)
   - The dot offset hardcodes its sign. The library derives it from `--_sign-x` and `--_sign-y`, which alignments flip, so the note "alignments only swap values" is the pre-fix version (`BadgeBuild.astro:72,78-82,92`, `badge.css:4-13,110-132`)
     ```css
@@ -1488,6 +1498,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
 - [] (3) Checkbox and Radio walkthroughs teach `text-box: trim-start cap` with a `1cap` offset, which c393948 replaced with `margin-block-start: calc((var(--_input-size) - 1lh) / 2 + var(--choice-label-offset))`. Firefox has no `text-box`, so the demo label sits low there (`CheckboxBuild.astro:96-105`, `checkbox.css:49-59`, `RadioBuild.astro:71-80`, `radio.css:55-57`)
+  - See the example: label alignment side by side. In Chromium they look alike. Open it in Firefox to see the walkthrough labels sit low.
   - Same leftover `text-box` in `browserSupport` (`checkbox.astro:21`, `radio.astro:20`, `switch.astro:20`), the learn post (`checkbox-appearance-none.astro:38,85-86`) and the Read more links (`references.ts:169`)
   - Fix:
     ```css
@@ -1496,6 +1507,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
 - [] (3) Checkbox walkthrough: no forced-colors step. With `appearance: none` the fill and the `clip-path` check are backgrounds, which forced colors erase. The library brings them back with system colors (`checkbox.css:188-202`)
+  - See the example: turn on forced colors emulation (steps on the page). The walkthrough's checked box then looks unchecked.
   ```css
   @media (forced-colors: active) {
     .checkbox {
@@ -1518,6 +1530,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [] (3) Divider walkthrough: "Ship it" is a `background-color` line, which disappears in forced colors. The library switches to a border there (`DividerBuild.astro:30-37,51-58`, `divider.css:27-30`)
   - The "Breathe" step uses `var(--size-fluid-3)`. The library reads `var(--divider-space, var(--size-fluid-3))`, which cards, callouts, dialogs and drawers tighten, and the docs explain it right above the walkthrough (`DividerBuild.astro:40-49`, `divider.css:5,33-35`, `divider.astro:44-48`)
   - "Coming in v3: a second line" names a long-gone version (`DividerBuild.astro:55`)
+  - Same problem as the done Accessibility item "Divider disappears in forced colors", which has an example
 - [] (3) Range walkthrough: the fill is reversed in RTL, but the gradient still starts at the left edge, so it's painted on the wrong side of the thumb in Chromium and Safari. The library adds `&:dir(rtl)::-webkit-slider-runnable-track { background-position: right; }` (`RangeBuild.astro:87-91,126`, `range.css:269-271`)
   - See the example: the walkthrough CSS at 25% in RTL, without and with the fix.
   - Also drifted:
@@ -1538,6 +1551,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   </label>
   ```
 - [] (3) Textarea walkthrough: `--max-block-size` is taught as the override for the 20 line cap, and the knob sets it, but the library reads the private `--_max-block-size`, so users can't override it that way (`TextareaBuild.astro:69,77,106`, `textarea.css:6`)
+  - See the example: 12 lines with `--max-block-size: 4lh` and with `--_max-block-size: 4lh`.
   - Fix: expose `--max-block-size` in the library (and the API table), or reword the note
 - [x] (3) The "Text input API" table (HTML classes, no `source` and no `notes`) shows on Astro/Vue text-field pages and on `/astro/api` and `/vue/api`, with no note. The Text field API table already covers `autoFit` for those frameworks (`text-field.astro:68`, `component-api/text-input/api.ts`, `ApiTables.astro:28`)
   > Fix
@@ -1748,6 +1762,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > write a migration note for each component, plus the theme and whatever else.
   - Fixed: the v5→v6 section of MIGRATING.md has one section per component (A–Z), then Theme and tokens, Typography and rich text, and Package and imports, covering every Breaking, Removed and Changed entry in the CHANGELOG. The new Migrating to v6 page renders that section from MIGRATING.md (single source), and Home and the guide nav link it.
 - [] (4) Rhythm walkthrough: `--flow-space: 1.25em` isn't registered or rounded. Unregistered, the `em` resolves against each heading's own font size, so heading margins grow with the heading and the text after an h2 drifts off the grid, contradicting "One flow space derived from the body text". The library registers `--_flow-space` with `@property` and rounds it to `--rhythm-step`, and the learn post says it does (`RhythmBuild.astro:43-55,86`, `typography.css:288-297`, `vertical-rhythm-round.astro:35,49`)
+  - See the example: the same text with both versions. The red block edges sit on the green grid lines only in the second.
   ```css
   @property --flow-space {
     inherits: true;
@@ -1778,6 +1793,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix
   - Fixed: CHANGELOG (Removed) and MIGRATING say the old default (28px) is `size="x-small"`, the old `small` (20px) has no preset (`x-small` with `--_min-height: var(--size-4)`), `--_icon-size: var(--size-5)` gives the old 24px icon, and the icon color is the accent instead of the inherited text color.
 - [] (5) Tooltip walkthrough: the Arrow step is the arrow from before c393948. It sits at a fixed spot and the step swaps the fallbacks for flips only ("A shifted tooltip would point the arrow at nothing"). After `flip-block` the demo arrow points away from the trigger. The library keeps the shift fallbacks, makes the tooltip its own anchor and places the arrow with `clamp(anchor(--ui-tooltip left), anchor(--anchor center), anchor(--ui-tooltip right))` (`TooltipBuild.astro:80-103`, `tooltip.css:50-81`)
+  - See the example: the walkthrough arrow and the library arrow, both flipped below the trigger, plus a shifted one.
   - No step shows the fade in and out (`opacity` with `@starting-style` and `allow-discrete`) (`tooltip.css:83-98`)
 - [x] (6) CHANGELOG Unreleased leaves out breaking changes or files them outside Breaking. Missing: `.ui-icon-only` removed, Astro/Vue `Button` no longer adds `.ui-disabled`, Anchor/Tooltip hover `interestfor` wrapper removed. Filed elsewhere: Tabs restyle with `--_accent-color`/`--_bg-color` removed and new panel margin (Changed), Button padding scale and direct-child `> svg` icon sizing (Added), class-less rich text headings and heading sizes (Changed), `--focus-ring-color` unset (Fixed) (`CHANGELOG.md:7-14,25,31,65,67,74,106`)
   > Fix

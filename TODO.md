@@ -88,7 +88,25 @@ Findings with a page and section in brackets come from the stress pages in `src/
     }
     ```
     Measured before the hue change: info 4.95:1, success 5.44:1, critical 6.75:1 with `min(l, 0.48)`.
-  - Then remove the info badge keys from `a11y-known-violations.json` with `pnpm test:e2e:record-a11y`, if they're still there.
+  - The four info badge `color-contrast` keys are gone from `a11y-known-violations.json` (re-recorded with `pnpm test:e2e:record-a11y`).
+- [] (3) Rich text tables that scroll sideways can't be reached by keyboard in Safari: the scroll box has no focusable content and no `tabindex`. axe flags `scrollable-region-focusable` on the `typography` stress page (Columns, HostileContent), light and dark, recorded in `a11y-known-violations.json` (`typography.css`)
+  - Chromium and Firefox make scroll containers keyboard focusable on their own, Safari doesn't, and axe flags it everywhere.
+  - Options:
+    - A: document the wrapper on the Typography page, for authors who know a table is wide:
+      ```html
+      <div
+        role="region"
+        aria-label="Release history"
+        tabindex="0"
+        style="overflow-x: auto"
+      >
+        <table>
+          …
+        </table>
+      </div>
+      ```
+    - B: only scroll tables inside a narrow container (`@container (inline-size < 30rem)`), so wide pages keep plain tables and the violation only shows where it scrolls.
+    - C: go back to wrapping inside cells, with a minimum column width (`min-inline-size: 8ch` on `th, td`) instead of `overflow-wrap: anywhere`, so nothing scrolls. Long tables then overflow their grid or flex parent again.
 - [x] (4) Avatar `<img>` has no `alt` attribute when `alt` is omitted (`Avatar.astro:28`, `Avatar.vue:37`)
   > at least in the types alt on images shouldn't be optional. Also, on icon-only buttons label should be non-optional too.
   - Fixed (Avatar): `alt` is required in the types whenever `src` is set (`{ alt: string; src: string } | { alt?: never; src?: never }` in `Avatar/types.ts`, used by Astro, Vue, Svelte and Solid). `alt=""` is still allowed for decorative images. The `<img>` always renders `alt`.
@@ -1157,6 +1175,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Your reply is the same as the one above, which is already answered with the `rich-text-table-wrapping` example. Still needs a decision: option 1 (scroll, Safari keyboard gap in the a11y ledger) or 4 (keep `anywhere`).
   > Fix
   - Fixed (option 1): classless rich text tables are `display: block; overflow-x: auto` at `inline-size: 100%`, and cells use `overflow-wrap: break-word` instead of `anywhere` (`typography.css`). Words stay whole and wide tables scroll inside the column (checked at 390px). A table with short content no longer stretches to full width. Safari doesn't make the scroll box keyboard focusable, so wrap a wide table in `<div role="region" aria-label="…" tabindex="0">` when that matters.
+  - axe flags `scrollable-region-focusable` on the `typography` stress page (Columns, HostileContent), light and dark. Recorded in `a11y-known-violations.json` as intended; see the Accessibility item "Rich text tables that scroll".
 - [x] (7) Sticky table headers don't stick: `.ui-table { overflow: hidden }` should be `overflow: clip` (`data-display` TableStickyHeader)
   > remove the ability to do sticky table headers - they need to be rethought. create a todo for doing a second pass on sticky headers. skip this for now.
   - Removed the leftover `thead { z-index: 1 }`. Sticky headers were never documented. Follow-up below.

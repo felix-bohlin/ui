@@ -1,14 +1,14 @@
 {
-  "dark/stress/data-display/InlineAlignment": [
-    "color-contrast"
+  "dark/stress/typography/Columns": [
+    "scrollable-region-focusable"
   ],
-  "dark/stress/layout/Badges": [
-    "color-contrast"
+  "dark/stress/typography/HostileContent": [
+    "scrollable-region-focusable"
   ],
-  "light/stress/data-display/InlineAlignment": [
-    "color-contrast"
+  "light/stress/typography/Columns": [
+    "scrollable-region-focusable"
   ],
-  "light/stress/layout/Badges": [
-    "color-contrast"
+  "light/stress/typography/HostileContent": [
+    "scrollable-region-focusable"
   ]
 }

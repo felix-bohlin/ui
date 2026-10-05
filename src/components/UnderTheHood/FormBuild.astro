@@ -66,15 +66,15 @@ const steps = [
   gap: 0.5rem;
 }
 
-.group:has(> button):not(:has(> :not(button))) {
+.group:has(> button):not(.column, :has(> :not(button))) {
   align-items: center;
   flex-direction: row;
   gap: 0.5rem;
 }`,
     notes: [
-      "<code>:has(> .check):not(:has(> :not(.check)))</code>: only checkboxes, nothing else",
+      "<code>:has(> .check):not(:has(> :not(.check)))</code>: only checkboxes, radios or switches, nothing else",
       "A list of choices gets a tighter gap",
-      "A group of only buttons becomes a row",
+      "A group of only buttons becomes a row, unless it's set to <code>.column</code>",
     ],
     title: "Groups",
   },
@@ -108,7 +108,7 @@ const channels = ["Email", "Push", "SMS"]
     <fieldset class="fieldset">
       <legend>Notifications</legend>
       <p class="description">Where should we reach you?</p>
-      <div class="group" role="group">
+      <div class="group">
         <label class="field">
           Email address
           <input
@@ -119,7 +119,7 @@ const channels = ["Email", "Push", "SMS"]
           />
         </label>
       </div>
-      <div class="group" role="group">
+      <div class="group">
         {
           channels.map((channel, index) => (
             <label class="check">
@@ -134,7 +134,7 @@ const channels = ["Email", "Push", "SMS"]
           ))
         }
       </div>
-      <div class="group" role="group">
+      <div class="group">
         <button type="reset">Cancel</button>
         <button type="button">Save</button>
       </div>

@@ -10,7 +10,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/vue/components/
 
 ## Anatomy
 
-LabelEnd text
+Label End text
 
 - `<Radio>`
 
@@ -28,6 +28,8 @@ LabelEnd text
 
   Supporting text displayed below the label.
 
+## Basics
+
 The `name` prop will get passed down to each radio button in the group.
 
 ```vue
@@ -41,28 +43,6 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
     <FieldSet>
       <FieldLegend>Legend</FieldLegend>
       <FieldGroup name="radio-group">
-        <Radio value="1" checked>Radio 1</Radio>
-        <Radio value="2">Radio 2</Radio>
-        <Radio value="3">Radio 3</Radio>
-      </FieldGroup>
-    </FieldSet>
-  </Form>
-</template>
-```
-
-## Direction
-
-```vue
-<script setup lang="ts">
-import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
-</script>
-
-
-<template>
-  <Form>
-    <FieldSet>
-      <FieldLegend>Legend</FieldLegend>
-      <FieldGroup direction="row" name="radio-group-direction">
         <Radio value="1" checked>Radio 1</Radio>
         <Radio value="2">Radio 2</Radio>
         <Radio value="3">Radio 3</Radio>
@@ -163,16 +143,6 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
 </template>
 ```
 
-## Label alignment
-
-The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
-
-```css
-:root {
-  --choice-label-offset: 0.05em;
-}
-```
-
 ## Validation
 
 Attach `data-invalid` to the `FieldSet` wrapper, or use the `error` prop on individual `Radio` components.
@@ -198,17 +168,49 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
 </template>
 ```
 
+## Direction
+
+```vue
+<script setup lang="ts">
+import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
+</script>
+
+
+<template>
+  <Form>
+    <FieldSet>
+      <FieldLegend>Legend</FieldLegend>
+      <FieldGroup direction="row" name="radio-group-direction">
+        <Radio value="1" checked>Radio 1</Radio>
+        <Radio value="2">Radio 2</Radio>
+        <Radio value="3">Radio 3</Radio>
+      </FieldGroup>
+    </FieldSet>
+  </Form>
+</template>
+```
+
+## Label alignment
+
+The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
+
+```css
+:root {
+  --choice-label-offset: 0.05em;
+}
+```
+
 ## API
 
 ### Radio API
 
-| Prop        | Type                          | Default | Description                       |
-| ----------- | ----------------------------- | ------- | --------------------------------- |
-| `error`     | `boolean`                     | `false` | Shows error styles.               |
-| `hideLabel` | `boolean`                     | `false` | Visually hides the label.         |
-| `size`      | `"small"`, `"large"`          | -       | The size of the element.          |
-| `stack`     | `boolean`                     | `false` | Stacks the label under the input. |
-| `v-model`   | `string`, `number`, `boolean` | -       | The selected value of the group.  |
+| Prop        | Type                            | Default | Description                       |
+| ----------- | ------------------------------- | ------- | --------------------------------- |
+| `error`     | `boolean`                       | `false` | Shows error styles.               |
+| `hideLabel` | `boolean`                       | `false` | Visually hides the label.         |
+| `size`      | `"small"` , `"large"`           | -       | The size of the element.          |
+| `stack`     | `boolean`                       | `false` | Stacks the label under the input. |
+| `v-model`   | `string` , `number` , `boolean` | -       | The selected value of the group.  |
 
 #### Slots
 
@@ -247,10 +249,10 @@ Attributes that aren't props, such as `disabled`, `name` or `value`, go to the `
 
 ### Field group API
 
-| Prop        | Type                | Default | Description                                                                                                              |
-| ----------- | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `direction` | `"row"`, `"column"` | -       | The orientation of the element.                                                                                          |
-| `name`      | `string`            | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                              |
+| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the element.                                                                                          |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
 
 #### Slots
 
@@ -297,7 +299,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 3: Appearance
 
-- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+- [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
 
 ```css
 .radio {
@@ -346,8 +348,8 @@ Step 2 of 3: Dot
 
 Step 3 of 3: Label
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [`text-box`](https://webstatus.dev/features/text-box) (Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari 18.2+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`text-box` ](https://webstatus.dev/features/text-box)(Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari 18.2+
 
 ```css
 .label {
@@ -373,9 +375,9 @@ Step 3 of 3: Label
 
 ## Browser support
 
-- Chromium: Full support Supported since v133.
-- Firefox: Partial support Missing: text-box.
-- Safari: Full support Supported since v18.2.
+- Chromium: Full support Supported since v125.
+- Firefox: Full support Supported since v128.
+- Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Radio.md).
 

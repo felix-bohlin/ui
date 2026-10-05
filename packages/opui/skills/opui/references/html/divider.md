@@ -5,6 +5,7 @@ It's just a line.
 ### What's new
 
 - [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.
+- Breaking: [`.ui-filled`, `.ui-primary` and `.ui-tonal`](#variants) replace the `.ui-border-*` classes.
 
 ## Default
 
@@ -16,17 +17,19 @@ This text is placed under
 
 ## Variants
 
+Use `.ui-filled`, `.ui-primary`, or `.ui-tonal` to change the line color.
+
 ```html
 Tonal
-<hr class="ui-divider ui-border-tonal" />
+<hr class="ui-divider ui-tonal" />
 
 
 Filled
-<hr class="ui-divider ui-border-filled" />
+<hr class="ui-divider ui-filled" />
 
 
 Primary
-<hr class="ui-divider ui-border-primary" />
+<hr class="ui-divider ui-primary" />
 ```
 
 ## Spacing
@@ -56,9 +59,9 @@ The space above and below a divider is `--divider-space`. Cards, callouts, dialo
 
 ### Divider API
 
-| Type     | Modifiers                                                     | Default | Description         |
-| -------- | ------------------------------------------------------------- | ------- | ------------------- |
-| Variants | `.ui-border-filled`, `.ui-border-primary`, `.ui-border-tonal` | -       | The variant to use. |
+| Type     | Modifiers                                | Default | Description         |
+| -------- | ---------------------------------------- | ------- | ------------------- |
+| Variants | `.ui-filled`, `.ui-primary`, `.ui-tonal` | -       | The variant to use. |
 
 #### Parts
 
@@ -110,7 +113,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 5: Element
 
-- [\<hr>](https://webstatus.dev/features/hr) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3+
+- [\<hr> ](https://webstatus.dev/features/hr)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3+
 
 ```html
 <p>Above the line</p>
@@ -128,7 +131,7 @@ Step 2 of 5: Height
 
 Step 3 of 5: Paint
 
-- [`background-color`](https://webstatus.dev/features/background-color) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
+- [`background-color` ](https://webstatus.dev/features/background-color)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
 
 ```css
 .divider {
@@ -138,8 +141,8 @@ Step 3 of 5: Paint
 
 Step 4 of 5: Breathe
 
-- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
-- [`margin`](https://webstatus.dev/features/margin) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [`margin` ](https://webstatus.dev/features/margin)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
 
 ```css
 .divider {

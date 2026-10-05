@@ -1,7 +1,7 @@
 @layer components.root {
   :where(.ui-switch) {
     --_motion: var(--motion, 1);
-    --_accent-color: light-dark(
+    --_accent: light-dark(
       var(--primary),
       oklch(from var(--primary) min(l, 0.62) c h)
     );
@@ -14,8 +14,9 @@
     --_track-bg-color: light-dark(var(--gray-3), var(--gray-8));
     --_track-height: var(--switch-track-height);
     --_track-width: var(--switch-track-width);
-    --_transition-tf: var(--ease);
-    --_transition-time: calc(var(--duration) * var(--_motion));
+
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease);
 
     align-items: start;
     color: var(--text-primary);
@@ -68,11 +69,11 @@
       /* Checked */
       &:checked {
         &::before {
-          background-color: var(--_accent-color);
-          border-color: var(--_accent-color);
+          background-color: var(--_accent);
+          border-color: var(--_accent);
           transition:
-            background-color var(--_transition-time) var(--_transition-tf),
-            border-color var(--_transition-time) var(--_transition-tf);
+            background-color var(--_duration) var(--_ease),
+            border-color var(--_duration) var(--_ease);
         }
 
         /* Dot */
@@ -90,13 +91,17 @@
       /* Track */
       &::before {
         transition:
-          background-color var(--_transition-time) var(--_transition-tf),
-          border-color var(--_transition-time) var(--_transition-tf);
+          background-color var(--_duration) var(--_ease),
+          border-color var(--_duration) var(--_ease);
       }
 
       /* Dot */
       &::after {
-        transition: all var(--_transition-time) var(--_transition-tf);
+        transition:
+          background-color var(--_duration) var(--_ease),
+          inset-inline-start var(--_duration) var(--_ease),
+          outline-color var(--_duration) var(--_ease),
+          outline-width var(--_duration) var(--_ease);
       }
 
       &:active:after {
@@ -274,13 +279,13 @@
     }
 
     @media (forced-colors: active) {
-      --_accent-color: SelectedItem;
+      --_accent: SelectedItem;
       --_accent-contrast: SelectedItemText;
       --_dot-bg-color: CanvasText;
       --_track-bg-color: Canvas;
 
       &:has([disabled]) {
-        --_accent-color: GrayText;
+        --_accent: GrayText;
         --_dot-bg-color: GrayText;
       }
     }

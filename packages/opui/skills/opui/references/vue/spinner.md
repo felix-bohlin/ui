@@ -2,6 +2,8 @@
 
 Add it to an element with `aria-busy="true"`. Spinners are always indeterminate. See also: [Progress bar](https://open-props-ui.netlify.app/vue/components/progress.md).
 
+## Basics
+
 ```vue
 <template>
   <div aria-busy="true"></div>
@@ -125,8 +127,8 @@ Set `aria-busy` on any element to show a spinner. CSS-only; no Vue component.
 
 Step 1 of 4: Ring
 
-- [`::before and ::after`](https://webstatus.dev/features/before-after) (Widely available): Chrome 1+, Edge 12+, Firefox 1.5+, Safari 4+
-- [`:not()`](https://webstatus.dev/features/not) (Widely available): Chrome 88+, Edge 88+, Firefox 84+, Safari 9+
+- [`::before and ::after` ](https://webstatus.dev/features/before-after)(Widely available): Chrome 1+, Edge 12+, Firefox 1.5+, Safari 4+
+- [`:not()` ](https://webstatus.dev/features/not)(Widely available): Chrome 88+, Edge 88+, Firefox 84+, Safari 9+
 
 ```html
 <p aria-busy="true">Loading results</p>
@@ -158,8 +160,8 @@ Step 1 of 4: Ring
 
 Step 2 of 4: Spin
 
-- [`Animations (CSS)`](https://webstatus.dev/features/animations-css) (Widely available): Chrome 43+, Edge 12+, Firefox 16+, Safari 9+
-- [2D transforms](https://webstatus.dev/features/transforms2d) (Widely available): Chrome 36+, Edge 12+, Firefox 16+, Safari 9+
+- [`Animations (CSS)` ](https://webstatus.dev/features/animations-css)(Widely available): Chrome 43+, Edge 12+, Firefox 16+, Safari 9+
+- [2D transforms ](https://webstatus.dev/features/transforms2d)(Widely available): Chrome 36+, Edge 12+, Firefox 16+, Safari 9+
 
 ```css
 [aria-busy="true"]::before {
@@ -169,8 +171,8 @@ Step 2 of 4: Spin
 
 Step 3 of 4: Gap
 
-- [`:empty`](https://webstatus.dev/features/empty) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3.1+
-- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [`:empty` ](https://webstatus.dev/features/empty)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3.1+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
 
 ```css
 [aria-busy="true"]:not(:empty)::before {
@@ -180,7 +182,7 @@ Step 3 of 4: Gap
 
 Step 4 of 4: Reduced motion
 
-- [`min(), max(), and clamp()`](https://webstatus.dev/features/min-max-clamp) (Widely available): Chrome 79+, Edge 79+, Firefox 75+, Safari 13.1+
+- [`min(), max(), and clamp()` ](https://webstatus.dev/features/min-max-clamp)(Widely available): Chrome 79+, Edge 79+, Firefox 75+, Safari 13.1+
 
 ```css
 .demo {

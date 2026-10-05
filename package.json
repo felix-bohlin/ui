@@ -1,5 +1,6 @@
 {
   "name": "open-props-ui-docs",
+  "private": true,
   "type": "module",
   "version": "2.1.0",
   "scripts": {

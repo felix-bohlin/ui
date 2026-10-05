@@ -7,7 +7,7 @@ export default {
     {
       default: '"fieldset"',
       description:
-        'The element to render. Any element other than `fieldset` gets `role="group"`.',
+        'The element to render. Any element other than `fieldset` gets `role="group"`, and needs `aria-labelledby` pointing at its legend.',
       prop: "as",
     },
     {

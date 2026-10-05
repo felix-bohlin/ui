@@ -2,7 +2,7 @@
   :where(.ui-callout) {
     --_bg-color: var(--surface-tonal);
     --_border-color: var(--surface-tonal);
-    --_color: var(--text-primary);
+    --_text-color: var(--text-primary);
     --_icon-color: currentColor;
     --_link-hover-color: var(--primary);
     --_padding: var(--size-3);
@@ -12,17 +12,17 @@
     --_font-size: var(--font-size-05);
     --_title-font-size: var(--font-size-1);
     --_icon-size: var(--icon-size);
-    --_surface-bg: var(--surface-default);
+    --_surface-bg-color: var(--surface-default);
 
     --_outlined-bg-color: var(--surface-default);
     --_outlined-border-color: var(--border-color);
-    --_outlined-color: var(--text-primary);
+    --_outlined-text-color: var(--text-primary);
     --_outlined-icon-color: currentColor;
 
-    background-color: var(--_surface-bg);
+    background-color: var(--_surface-bg-color);
     border: var(--border-width) solid var(--_border-color, var(--border-color));
     border-radius: var(--_border-radius);
-    color: var(--_color);
+    color: var(--_text-color);
     isolation: isolate;
     padding: var(--_padding);
     position: relative;
@@ -37,19 +37,19 @@
         oklch(from var(--color-6) l c h / 5%)
       );
       --_border-color: light-dark(var(--color-5), var(--color-11));
-      --_color: light-dark(var(--color-16), var(--color-1));
+      --_text-color: light-dark(var(--color-16), var(--color-1));
       --_icon-color: var(--color-9);
 
       --_outlined-bg-color: var(--surface-default);
       --_outlined-border-color: var(--color-9);
-      --_outlined-color: light-dark(var(--color-15), var(--color-1));
+      --_outlined-text-color: light-dark(var(--color-15), var(--color-1));
       --_outlined-icon-color: var(--color-9);
     }
 
     &.ui-outlined {
       --_bg-color: var(--_outlined-bg-color);
       --_border-color: var(--_outlined-border-color);
-      --_color: var(--_outlined-color);
+      --_text-color: var(--_outlined-text-color);
       --_icon-color: var(--_outlined-icon-color);
     }
 
@@ -94,8 +94,10 @@
       a[href] {
         color: inherit;
 
-        &:hover {
-          color: var(--_link-hover-color);
+        @media (hover: hover) {
+          &:hover {
+            color: var(--_link-hover-color);
+          }
         }
       }
     }

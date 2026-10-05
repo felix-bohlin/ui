@@ -92,5 +92,26 @@ export const description =
     <AutoExample name="Grouped" row />
   </section>
 
+  <Fragment slot="accessibility">
+    <ul>
+      <li>
+        Give an image avatar the person's name as its <code>alt</code>, not
+        "Avatar". When the name is already shown next to it, use <code
+          >alt=""</code
+        > so it isn't read twice.
+      </li>
+      <li>
+        Initials and icons have no name on their own. Add <code>role="img"</code
+        > and an <code>aria-label</code> with the full name, or <code
+          >aria-hidden="true"</code
+        > when the name is next to it.
+      </li>
+      <li>
+        A link or button avatar needs an <code>aria-label</code> that names the person,
+        and a group of avatars an <code>aria-label</code> that names the group.
+      </li>
+    </ul>
+  </Fragment>
+
   <AvatarBuild slot="under-the-hood" />
 </Component>

@@ -4,10 +4,12 @@
 
 - [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
 - The track fill is CSS only, so plain HTML ranges fill too.
+- Breaking: [`variant="surface"`](#variants) replaces `variant="default"`.
+- [Validation](#validation) with the `error` prop.
 
 ## Anatomy
 
-Label50Start textEnd text
+Label 50 Start text End text
 
 - `<Range>`
 
@@ -33,6 +35,8 @@ Label50Start textEnd text
 
   Supporting text displayed below the input.
 
+## Basics
+
 ```astro
 ---
 import { Range } from "opui-css/astro"
@@ -42,7 +46,29 @@ import { Range } from "opui-css/astro"
 <Range label="Label" startText="Min" />
 ```
 
-## Start text & End text
+## Variants
+
+Use the `variant` prop to swap the track surface for better contrast on different backgrounds. Without a variant, the track uses `--field-border-color`, like the border of a text field.
+
+```astro
+---
+import { Range } from "opui-css/astro"
+---
+
+
+<Range>No variant = <code>var(--field-border-color)</code></Range>
+<Range variant="filled">
+  <code>filled</code> = <code>var(--surface-filled)</code>
+</Range>
+<Range variant="surface">
+  <code>surface</code> = <code>var(--surface-default)</code>
+</Range>
+<Range variant="tonal">
+  <code>tonal</code> = <code>var(--surface-tonal)</code>
+</Range>
+```
+
+## Start and end text
 
 ```astro
 ---
@@ -87,28 +113,6 @@ import { Range } from "opui-css/astro"
     { value: 100, label: "100%" },
   ]}
 />
-```
-
-## Variants
-
-Use the `variant` prop to swap the track surface for better contrast on different backgrounds.
-
-```astro
----
-import { Range } from "opui-css/astro"
----
-
-
-<Range label="Default" />
-<Range variant="default">
-  <code>default</code> = <code>var(--surface-default)</code>
-</Range>
-<Range variant="filled">
-  <code>filled</code> = <code>var(--surface-filled)</code>
-</Range>
-<Range variant="tonal">
-  <code>tonal</code> = <code>var(--surface-tonal)</code>
-</Range>
 ```
 
 ## Disabled
@@ -212,19 +216,19 @@ import { Range } from "opui-css/astro"
 
 ### Range API
 
-| Prop          | Type                                                                                | Default | Description                                                              |
-| ------------- | ----------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `endText`     | `string`                                                                            | -       | Supporting text displayed below the input.                               |
-| `error`       | `boolean`                                                                           | `false` | Shows error styles.                                                      |
-| `id`          | `string`                                                                            | -       | The id of the `<input>`. Generated when omitted and the value is shown.  |
-| `label`       | `string`                                                                            | -       | The label for the range.                                                 |
-| `list`        | `string`                                                                            | -       | The id of the `<datalist>`. Needed with `options`.                       |
-| `options`     | `(string`, `number`, `{ value: string`, `number; label?: string`, `undefined; })[]` | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.           |
-| `spread`      | `boolean`                                                                           | `false` | Pushes the label and description to one side and the input to the other. |
-| `startText`   | `string`                                                                            | -       | Description text displayed above the input.                              |
-| `value`       | `number`, `string`                                                                  | -       | The current value.                                                       |
-| `valueSuffix` | `string`                                                                            | -       | Shows the current value, with an optional `valueSuffix`.                 |
-| `variant`     | `"default"`, `"tonal"`, `"filled"`                                                  | -       | The variant to use.                                                      |
+| Prop          | Type                                                                                    | Default | Description                                                              |
+| ------------- | --------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| `endText`     | `string`                                                                                | -       | Supporting text displayed below the input.                               |
+| `error`       | `boolean`                                                                               | `false` | Shows error styles.                                                      |
+| `id`          | `string`                                                                                | -       | The id of the `<input>`. Generated when omitted and the value is shown.  |
+| `label`       | `string`                                                                                | -       | The label for the range.                                                 |
+| `list`        | `string`                                                                                | -       | The id of the `<datalist>`. Needed with `options`.                       |
+| `options`     | `(string` , `number` , `{ value: string` , `number; label?: string` , `undefined; })[]` | -       | Tick marks, rendered as `<option>` elements in a `<datalist>`.           |
+| `spread`      | `boolean`                                                                               | `false` | Pushes the label and description to one side and the input to the other. |
+| `startText`   | `string`                                                                                | -       | Description text displayed above the input.                              |
+| `value`       | `number` , `string`                                                                     | -       | The current value.                                                       |
+| `valueSuffix` | `string`                                                                                | -       | Shows the current value, with an optional `valueSuffix`.                 |
+| `variant`     | `"tonal"` , `"filled"` , `"surface"`                                                    | -       | The track surface. Without one, the track uses the field border color.   |
 
 #### Slots
 
@@ -302,8 +306,8 @@ Input attributes, such as `disabled`, `max`, `min`, `name` and `step`, go to the
 
 Step 1 of 5: Track
 
-- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
-- [\<input type="range">](https://webstatus.dev/features/input-range) (Widely available): Chrome 4+, Edge 12+, Firefox 23+, Safari 3.1+
+- [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+- [\<input type="range"> ](https://webstatus.dev/features/input-range)(Widely available): Chrome 4+, Edge 12+, Firefox 23+, Safari 3.1+
 
 ```css
 .range {
@@ -358,9 +362,9 @@ Step 2 of 5: Thumb
 
 Step 3 of 5: Fill
 
-- [Gradients](https://webstatus.dev/features/gradients) (Widely available): Chrome 26+, Edge 12+, Firefox 3.6+, Safari 7+
-- [Registered custom properties](https://webstatus.dev/features/registered-custom-properties) (Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
-- [Scroll-driven animations](https://webstatus.dev/features/scroll-driven-animations) (Limited availability): Chrome 115+, Edge 115+, Firefox not supported, Safari 26+
+- [Gradients ](https://webstatus.dev/features/gradients)(Widely available): Chrome 26+, Edge 12+, Firefox 3.6+, Safari 7+
+- [Registered custom properties ](https://webstatus.dev/features/registered-custom-properties)(Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
+- [Scroll-driven animations ](https://webstatus.dev/features/scroll-driven-animations)(Limited availability): Chrome 115+, Edge 115+, Firefox not supported, Safari 26+
 
 ```html
 <style>
@@ -425,7 +429,7 @@ Step 3 of 5: Fill
 
 Step 4 of 5: Halo
 
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .range {
@@ -457,7 +461,7 @@ Step 4 of 5: Halo
 
 Step 5 of 5: Ticks
 
-- [\<datalist>](https://webstatus.dev/features/datalist) (Limited availability): Chrome 69+, Edge 12+, Firefox 110+, Safari 12.1+
+- [\<datalist> ](https://webstatus.dev/features/datalist)(Limited availability): Chrome 69+, Edge 12+, Firefox 110+, Safari 12.1+
 
 ```html
 <input class="range" type="range" list="ticks" … />

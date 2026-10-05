@@ -7,6 +7,7 @@ export type Props = {
   label?: string
   size?: "x-small" | "small" | "large"
   spread?: boolean
+  variant?: "outlined" | "filled"
 }
 
 export type Slots<S> = {

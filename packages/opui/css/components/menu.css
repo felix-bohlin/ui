@@ -8,6 +8,8 @@
     );
     --_border-radius: var(--border-radius);
     --_border-width: var(--border-width);
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease-enter);
     --_margin: var(--_offset) 0;
     --_max-block-size: 60dvb;
     --_min-block-size: 12rem;
@@ -17,7 +19,6 @@
     --_span: span-inline-end;
     --_position-area: var(--_side) var(--_span);
     --_shadow: var(--shadow-3);
-    --_transition-duration: calc(var(--duration) * var(--_motion));
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
@@ -48,10 +49,10 @@
         --ui-menu-block-start;
       scale: 0.96;
       transition:
-        display var(--_transition-duration) allow-discrete,
-        opacity var(--_transition-duration) var(--ease-enter),
-        overlay var(--_transition-duration) allow-discrete,
-        scale var(--_transition-duration) var(--ease-enter);
+        display var(--_duration) allow-discrete,
+        opacity var(--_duration) var(--_ease),
+        overlay var(--_duration) allow-discrete,
+        scale var(--_duration) var(--_ease);
 
       @supports (min-block-size: calc-size(fit-content, size)) {
         max-block-size: min(
@@ -136,14 +137,16 @@
       cursor: not-allowed;
       opacity: var(--disabled-opacity);
 
-      &:hover {
-        background-color: transparent;
+      @media (hover: hover) {
+        &:hover {
+          background-color: transparent;
+        }
       }
     }
 
     :where(li.ui-critical),
     li > :is(a, button).ui-critical {
-      --_bg-color-hover: oklch(
+      --_hover-bg-color: oklch(
         from var(--critical) l c h / var(--state-hover-alpha-accent)
       );
       color: light-dark(

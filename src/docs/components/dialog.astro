@@ -7,6 +7,7 @@ import { Callout as UICallout, Table } from "@opui/astro"
 import DialogCSS from "@opui/css/components/dialog.css?raw"
 import CardCSS from "@opui/css/components/card.css?raw"
 
+import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
 import {
   componentHasFramework,
@@ -31,8 +32,9 @@ export const description =
   slug="dialog"
   apis={[{ title: "Dialog API", api: dialogApi }]}
   browserSupport={[
+    "anchor-positioning",
     "backdrop-filter",
-    "container-style-queries",
+    "container-scroll-state-queries",
     "dialog-closedby",
     "display-animation",
     "has",
@@ -61,12 +63,18 @@ export const description =
   ]}
 >
   <Fragment slot="title">Dialog</Fragment>
+  <Fragment slot="preamble">
+    Use a Dialog for a question or a short task that needs the user's full
+    attention. For navigation, filters or side content, use a <DocLink
+      href="/components/drawer">Drawer</DocLink
+    >.
+  </Fragment>
 
   <div class="ui-not-rich-text">
     <UICallout>
-      <Fragment slot="title">Modal vs Dialog</Fragment>
+      <Fragment slot="title">Modal vs dialog</Fragment>
       <p>
-        The term "modal" and "dialog" are often used interchangeably, but
+        The terms "modal" and "dialog" are often used interchangeably, but
         there's an important difference. A modal window describes parts of a UI
         that <a href="#modal" class="ui-link">blocks user interaction</a>. A
         dialog {
@@ -148,123 +156,7 @@ export const description =
 
   <section>
     <h2 id="how-to-close">How to close a dialog</h2>
-    <Conditional>
-      <Fragment slot="html">
-        <p>
-          You can use it like this: <code>&lt;dialog closedby=""&gt;</code> and give
-          it the following values:
-        </p>
-        <Table style="table-layout: fixed">
-          <Table.ColumnGroup>
-            <Table.Column width="30%" />
-            <Table.Column />
-          </Table.ColumnGroup>
-          <Table.Head>
-            <Table.Row>
-              <Table.HeaderCell>Attr value</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell><code>closedby="any"</code></Table.Cell>
-              <Table.Cell
-                >Click anywhere outside of the dialog to close it.</Table.Cell
-              >
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
-              <Table.Cell>
-                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
-                button on mobile, and whatever dismiss action assistive tools use.
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="none"</code></Table.Cell>
-              <Table.Cell
-                >You have to handroll a closing solution yourself.</Table.Cell
-              >
-            </Table.Row>
-          </Table.Body>
-        </Table>
-      </Fragment>
-      <Fragment slot="astro">
-        <p>
-          Use <code>closedby</code> prop to control the closing behavior.
-        </p>
-        <Table style="table-layout: fixed">
-          <Table.ColumnGroup>
-            <Table.Column width="30%" />
-            <Table.Column />
-          </Table.ColumnGroup>
-          <Table.Head>
-            <Table.Row>
-              <Table.HeaderCell>Prop</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell><code>closedby="any"</code></Table.Cell>
-              <Table.Cell
-                >Click anywhere outside of the dialog to close it.</Table.Cell
-              >
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
-              <Table.Cell>
-                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
-                button on mobile, and whatever dismiss action assistive tools use.
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="none"</code></Table.Cell>
-              <Table.Cell
-                >You have to handroll a closing solution yourself.</Table.Cell
-              >
-            </Table.Row>
-          </Table.Body>
-        </Table>
-      </Fragment>
-      <Fragment slot="vue">
-        <p>
-          Use <code>closedby</code> prop to control the closing behavior.
-        </p>
-        <Table style="table-layout: fixed">
-          <Table.ColumnGroup>
-            <Table.Column width="30%" />
-            <Table.Column />
-          </Table.ColumnGroup>
-          <Table.Head>
-            <Table.Row>
-              <Table.HeaderCell>Prop</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell><code>closedby="any"</code></Table.Cell>
-              <Table.Cell
-                >Click anywhere outside of the dialog to close it.</Table.Cell
-              >
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
-              <Table.Cell>
-                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
-                button on mobile, and whatever dismiss action assistive tools use.
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="none"</code></Table.Cell>
-              <Table.Cell
-                >You have to handroll a closing solution yourself.</Table.Cell
-              >
-            </Table.Row>
-          </Table.Body>
-        </Table>
-      </Fragment>
-    </Conditional>
+    <ClosedbyTable name="dialog" />
 
     <AutoExample name="CloseBehaviors" row />
   </section>

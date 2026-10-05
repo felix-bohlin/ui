@@ -20,10 +20,24 @@ https://open-props-ui.netlify.app/html/guide/getting-started/
 The project is managed as a monorepo with two main parts:
 
 - **The Library (`packages/opui`)**: Contains the framework-agnostic core of the library. It is managed as a standalone workspace package named `opui-css`.
-  - `components/`: UI components organized by folder. Each folder contains the component logic, templates (e.g., `Button.astro`), and specific types.
-  - `css/`: Component styles, theme, and entry-point imports.
   - `astro/`: Public entry point and barrel exports for Astro-based projects.
-- **The Documentation Site (`src/`)**: The Astro site implementation, located in `src/pages`, `src/layouts`, and `src/components`.
+  - `components/`: UI components organized by folder. Each folder contains the Astro and Vue templates (e.g., `Button.astro`, `Button.vue`) and their types.
+  - `core/`: Normalize, palette and utility classes.
+  - `css/`: Component styles, theme, layer order, entry-point imports and the HTML helper scripts in `css/js/`.
+  - `scripts/`: The build that writes the pre-bundled files to `dist/`.
+  - `skills/`: The agent skill shipped with the package. `skills/opui/references` is generated.
+  - `vue/`: Public entry point and barrel exports for Vue-based projects.
+- **The Documentation Site (`src/`)**: The Astro site.
+  - `src/component-api/`: API table data for each component (`api.ts`).
+  - `src/component-examples/`: One example per framework (`.astro`, `.html`, `.vue`), shown on the docs pages and used by the parity tests.
+  - `src/components/`, `src/layouts/`: Docs site components and page layouts.
+  - `src/docs/`: Page content for the components, guide and learn sections.
+  - `src/integrations/`: Build integrations, such as the Markdown export and `llms.txt`.
+  - `src/pages/`: Routes. Most of them render a page from `src/docs/` for each framework.
+  - `src/stress-tests/`: Pages that combine many components, rendered at `/tests/<name>/`.
+  - `src/utils/`: Shared helpers and data, such as framework routing and What's new notes.
+- **Scripts (`scripts/`)**: Checks and generators run by `pnpm check` and the build (search index, browser support, agent skill, CSS order).
+- **Tests (`tests/`)**: Unit and parity tests in `tests/unit`, Playwright visual, accessibility and interaction tests in `tests/e2e`.
 
 ### Development
 

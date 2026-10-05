@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import { Chip as UIChip } from "@opui/astro"
 import AutoExample from "../../components/AutoExample.astro"
@@ -33,6 +34,8 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
   <Fragment slot="title">Chip</Fragment>
   <Fragment slot="preamble">
     Chips are compact elements that represent an input, attribute, or action.
+    Use them for filters, tags and choices. For the main action, like Save or
+    Send, use a <DocLink href="/components/button">Button</DocLink>.
   </Fragment>
 
   <section>
@@ -54,6 +57,11 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
       </Fragment>
     </Conditional>
     <AutoExample name="Variants" row />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <AutoExample name="Sizes" row />
   </section>
 
   <section>
@@ -83,11 +91,6 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
   <section>
     <h2 id="link">Link</h2>
     <AutoExample name="Link" row />
-  </section>
-
-  <section>
-    <h2 id="sizes">Sizes</h2>
-    <AutoExample name="Sizes" row />
   </section>
 
   <section>

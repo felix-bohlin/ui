@@ -1,6 +1,6 @@
 # Switch
 
-See also: [Switch field group](#field-group).
+Use a Switch for a setting that applies right away. Use a [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md) for choices that are submitted with a form, and a [Toggle](https://open-props-ui.netlify.app/vue/components/toggle.md) for options in a toolbar. See also: [Switch field group](#field-group).
 
 ### What's new
 
@@ -10,7 +10,7 @@ See also: [Switch field group](#field-group).
 
 ## Anatomy
 
-ThemeLabelEnd text
+Theme Label End text
 
 - `<Switch>`
 
@@ -36,7 +36,9 @@ ThemeLabelEnd text
 
   Supporting text displayed below the label.
 
-All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only`instead of `.ui-label`, or the `hideLabel` prop in Astro and Vue.
+## Basics
+
+All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only` instead of `.ui-label`, or the `hideLabel` prop in Astro and Vue.
 
 ```vue
 <script setup lang="ts">
@@ -49,6 +51,28 @@ import { Switch } from "opui-css/vue"
   <Switch name="switch-variants" hideLabel>Label</Switch>
   <Switch name="switch-variants" checked disabled hideLabel>Label</Switch>
   <Switch name="switch-variants" disabled hideLabel>Label</Switch>
+</template>
+```
+
+## Sizes
+
+Set `size="small"` for a smaller Switch variant.
+
+```vue
+<script setup lang="ts">
+import { Switch } from "opui-css/vue"
+</script>
+
+
+<template>
+  <div class="example-row">
+    <Switch name="switch-sizes" size="small" checked hideLabel>Small</Switch>
+    <Switch name="switch-sizes" checked hideLabel>Default</Switch>
+  </div>
+  <div class="example-row">
+    <Switch name="switch-sizes" size="small" checked>Small</Switch>
+    <Switch name="switch-sizes" checked>Default</Switch>
+  </div>
 </template>
 ```
 
@@ -137,74 +161,6 @@ import { Switch } from "opui-css/vue"
 </template>
 ```
 
-## Spread
-
-Use the `spread` prop to push the label to the left and the switch to the right. This is useful for full-width items like lists and menus.
-
-```vue
-<script setup lang="ts">
-import { Switch } from "opui-css/vue"
-</script>
-
-
-<template>
-  <Switch name="switch-spread" spread>
-    Notifications
-    <template #end-text>Receive alerts when someone mentions you.</template>
-  </Switch>
-
-
-  <Switch name="switch-spread" spread required>
-    Required
-    <template #end-text>You must accept this to proceed.</template>
-  </Switch>
-
-
-  <Switch name="switch-spread" spread disabled>
-    Disabled
-    <template #end-text>This switch is disabled.</template>
-  </Switch>
-
-
-  <Switch name="switch-spread" spread error>
-    Invalid Switch
-    <template #end-text>There is an error with this switch.</template>
-  </Switch>
-</template>
-```
-
-## Sizes
-
-Set `size="small"` for a smaller Switch variant.
-
-```vue
-<script setup lang="ts">
-import { Switch } from "opui-css/vue"
-</script>
-
-
-<template>
-  <div class="example-row">
-    <Switch name="switch-sizes" size="small" checked hideLabel>Small</Switch>
-    <Switch name="switch-sizes" checked hideLabel>Default</Switch>
-  </div>
-  <div class="example-row">
-    <Switch name="switch-sizes" size="small" checked>Small</Switch>
-    <Switch name="switch-sizes" checked>Default</Switch>
-  </div>
-</template>
-```
-
-## Label alignment
-
-The switch lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
-
-```css
-:root {
-  --choice-label-offset: 0.05em;
-}
-```
-
 ## Icons
 
 ```vue
@@ -271,6 +227,52 @@ import { Switch } from "opui-css/vue"
     ></template>
   </Switch>
 </template>
+```
+
+## Spread
+
+Use the `spread` prop to push the label to the left and the switch to the right. This is useful for full-width items like lists and menus.
+
+```vue
+<script setup lang="ts">
+import { Switch } from "opui-css/vue"
+</script>
+
+
+<template>
+  <Switch name="switch-spread" spread>
+    Notifications
+    <template #end-text>Receive alerts when someone mentions you.</template>
+  </Switch>
+
+
+  <Switch name="switch-spread" spread required>
+    Required
+    <template #end-text>You must accept this to proceed.</template>
+  </Switch>
+
+
+  <Switch name="switch-spread" spread disabled>
+    Disabled
+    <template #end-text>This switch is disabled.</template>
+  </Switch>
+
+
+  <Switch name="switch-spread" spread error>
+    Invalid Switch
+    <template #end-text>There is an error with this switch.</template>
+  </Switch>
+</template>
+```
+
+## Label alignment
+
+The switch lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
+
+```css
+:root {
+  --choice-label-offset: 0.05em;
+}
 ```
 
 ## Field group
@@ -467,14 +469,14 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Switch API
 
-| Prop        | Type                              | Default | Description                                          |
-| ----------- | --------------------------------- | ------- | ---------------------------------------------------- |
-| `error`     | `boolean`                         | `false` | Shows error styles.                                  |
-| `hideLabel` | `boolean`                         | `false` | Visually hides the label.                            |
-| `size`      | `"small"`                         | -       | The size of the element.                             |
-| `spread`    | `boolean`                         | `false` | Pushes the label and the switch to opposite ends.    |
-| `stack`     | `boolean`                         | `false` | Stacks the label under the switch.                   |
-| `v-model`   | `boolean`, `(string`, `number)[]` | -       | The checked state, or the checked values of a group. |
+| Prop        | Type                                | Default | Description                                          |
+| ----------- | ----------------------------------- | ------- | ---------------------------------------------------- |
+| `error`     | `boolean`                           | `false` | Shows error styles.                                  |
+| `hideLabel` | `boolean`                           | `false` | Visually hides the label.                            |
+| `size`      | `"small"`                           | -       | The size of the element.                             |
+| `spread`    | `boolean`                           | `false` | Pushes the label and the switch to opposite ends.    |
+| `stack`     | `boolean`                           | `false` | Stacks the label under the switch.                   |
+| `v-model`   | `boolean` , `(string` , `number)[]` | -       | The checked state, or the checked values of a group. |
 
 #### Slots
 
@@ -524,10 +526,10 @@ Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`.
 
 ### Field group API
 
-| Prop        | Type                | Default | Description                                                                                                              |
-| ----------- | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `direction` | `"row"`, `"column"` | -       | The orientation of the element.                                                                                          |
-| `name`      | `string`            | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                              |
+| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the element.                                                                                          |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
 
 #### Slots
 
@@ -583,8 +585,8 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 4: Track
 
-- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
-- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
 
 ```html
 <label class="label">
@@ -619,7 +621,7 @@ Step 1 of 4: Track
 
 Step 2 of 4: Dot
 
-- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
 
 ```css
 .switch::after {
@@ -680,7 +682,7 @@ Step 3 of 4: Motion
 
 Step 4 of 4: Icons
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```html
 <label class="label">
@@ -733,9 +735,9 @@ Step 4 of 4: Icons
 
 ## Browser support
 
-- Chromium: Full support Supported since v133.
-- Firefox: Partial support Missing: text-box.
-- Safari: Full support Supported since v18.2.
+- Chromium: Full support Supported since v125.
+- Firefox: Full support Supported since v128.
+- Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Switch.md).
 

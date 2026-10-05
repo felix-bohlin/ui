@@ -1,5 +1,7 @@
 # Button
 
+Buttons do things, like saving a form or opening a dialog. For filters, tags and choices, use a [Chip](https://open-props-ui.netlify.app/html/components/chip.md).
+
 ### What's new
 
 - [Icon-only](#icon-only) buttons are square. `.ui-rounded` makes them round and `.ui-ripple` adds a hover halo.
@@ -70,6 +72,87 @@ Add a `.ui-primary` or `.ui-critical` class to apply a brand or destructive colo
   </button>
   <button type="button" class="ui-button ui-critical ui-tonal">Tonal</button>
   <button type="button" class="ui-button ui-critical ui-filled">Filled</button>
+</div>
+```
+
+## Sizes
+
+Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
+
+```html
+<div class="example-row">
+  <button type="button" class="ui-button ui-x-small">X-small</button>
+  <button type="button" class="ui-button ui-small">Small</button>
+  <button type="button" class="ui-button">Default</button>
+  <button type="button" class="ui-button ui-large">Large</button>
+</div>
+
+
+<div class="example-row">
+  <button type="button" class="ui-button ui-filled ui-x-small">X-small</button>
+  <button type="button" class="ui-button ui-filled ui-small">Small</button>
+  <button type="button" class="ui-button ui-filled">Default</button>
+  <button type="button" class="ui-button ui-filled ui-large">Large</button>
+</div>
+
+
+<div class="example-row">
+  <button type="button" class="ui-button ui-outlined ui-x-small">
+    <span class="ui-text">X-small</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+      ></path>
+    </svg>
+  </button>
+  <button type="button" class="ui-button ui-outlined ui-small">
+    <span class="ui-text">Small</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+      ></path>
+    </svg>
+  </button>
+  <button type="button" class="ui-button ui-outlined">
+    <span class="ui-text">Default</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+      ></path>
+    </svg>
+  </button>
+  <button type="button" class="ui-button ui-outlined ui-large">
+    <span class="ui-text">Large</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+    >
+      <path
+        fill="currentColor"
+        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+      ></path>
+    </svg>
+  </button>
 </div>
 ```
 
@@ -314,74 +397,9 @@ A button whose only child is an `svg` is square. Give it an `aria-label`. Add `.
 </button>
 ```
 
-## Sizes
-
-Resize any button with the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
-
-```html
-<div class="example-row">
-  <button type="button" class="ui-button ui-small">Small</button>
-  <button type="button" class="ui-button">Default</button>
-  <button type="button" class="ui-button ui-large">Large</button>
-</div>
-
-
-<div class="example-row">
-  <button type="button" class="ui-button ui-filled ui-small">Small</button>
-  <button type="button" class="ui-button ui-filled">Default</button>
-  <button type="button" class="ui-button ui-filled ui-large">Large</button>
-</div>
-
-
-<div class="example-row">
-  <button type="button" class="ui-button ui-outlined ui-small">
-    <span class="ui-text">Small</span>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
-  <button type="button" class="ui-button ui-outlined">
-    <span class="ui-text">Default</span>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
-  <button type="button" class="ui-button ui-outlined ui-large">
-    <span class="ui-text">Large</span>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path
-        fill="currentColor"
-        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
-      ></path>
-    </svg>
-  </button>
-</div>
-```
-
 ## Disabled
 
-Add disabled styling with the `disabled` attribute or the `.ui-disabled` class.
+Add disabled styling with the `disabled` attribute or the `.ui-disabled` class. Links can't be disabled, so use `aria-disabled="true"` on an `<a>`, which blocks clicks. The link can still be focused and followed with `Enter`.
 
 ```html
 <div class="example-row">
@@ -462,6 +480,20 @@ Add disabled styling with the `disabled` attribute or the `.ui-disabled` class.
     </svg>
   </button>
 </div>
+
+
+<div class="example-row">
+  <a href="#" class="ui-button" aria-disabled="true">Text</a>
+
+
+  <a href="#" class="ui-button ui-outlined" aria-disabled="true">Outlined</a>
+
+
+  <a href="#" class="ui-button ui-tonal" aria-disabled="true">Tonal</a>
+
+
+  <a href="#" class="ui-button ui-filled" aria-disabled="true">Filled</a>
+</div>
 ```
 
 ## File upload
@@ -497,7 +529,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                   |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                          |
 | `--button-size-small`         | `var(--control-size-small)`                                                           | `Button` height with `.ui-small`.                                                                                          |
-| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `IconButton` height with `.ui-x-small`.                                                                       |
+| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `ButtonGroup` height with `.ui-x-small`.                                                                      |
 | `--critical`                  | `var(--red)`                                                                          | Severity color for errors and destructive actions.                                                                         |
 | `--disabled-opacity`          | `0.64`                                                                                | Opacity applied to disabled controls.                                                                                      |
 | `--duration`                  | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                     |
@@ -508,6 +540,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `--motion`                    | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
 | `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
+| `--ripple-color`              | `oklch(0.6 0 0 / 0.2)`                                                                | Halo color for `Button` with `.ui-ripple` and the `Checkbox` and `Radio` hover effect.                                     |
 | `--state-active-alpha`        | `20%`                                                                                 | Alpha of the pressed state layer on neutral buttons in light mode.                                                         |
 | `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                          |
 | `--state-active-alpha-dark`   | `30%`                                                                                 | Alpha of the pressed state layer on neutral buttons in dark mode.                                                          |
@@ -568,7 +601,7 @@ Step 1 of 4: Base
 
 Step 2 of 4: Icon-only
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```css
 .button:has(> svg:only-child) {

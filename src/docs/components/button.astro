@@ -56,6 +56,10 @@ export const description =
   installationTabs={[{ title: "button.css", code: ButtonCSS, lang: "css" }]}
 >
   <Fragment slot="title">Button</Fragment>
+  <Fragment slot="preamble">
+    Buttons do things, like saving a form or opening a dialog. For filters, tags
+    and choices, use a <DocLink href="/components/chip">Chip</DocLink>.
+  </Fragment>
 
   <section>
     <h2 id="variants">Variants</h2>
@@ -94,6 +98,35 @@ export const description =
       </Fragment>
     </Conditional>
     <AutoExample name="Colors" column spacious />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Resize any button using the <code>size</code> prop: <code>x-small</code
+        >,
+        <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Resize any button with the <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        > and <code>.ui-large</code> classes.
+      </Fragment>
+      <Fragment slot="vue">
+        Resize any button using the <code>size</code> prop: <code>x-small</code
+        >,
+        <code>small</code>, default and <code>large</code>.
+      </Fragment>
+    </Conditional>
+    <Example column>
+      <Example.Preview slot="preview-astro" code={ExampleSizes} />
+      <Example.Preview slot="preview-html" code={ExampleSizesHTML} />
+      <Example.Preview slot="preview-vue" code={ExampleSizesVue} />
+      <Example.Code slot="code-html" code={ExampleSizesHTML} />
+      <Example.Code slot="code-astro" code={ExampleSizesCodeAstro} />
+      <Example.Code slot="code-vue" code={ExampleSizesCodeVue} />
+    </Example>
   </section>
 
   <section>
@@ -164,43 +197,30 @@ export const description =
   </section>
 
   <section>
-    <h2 id="sizes">Sizes</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Resize any button using the <code>size</code> prop.
-      </Fragment>
-      <Fragment slot="html">
-        Resize any button with the <code>.ui-x-small</code>, <code
-          >.ui-small</code
-        > and <code>.ui-large</code> classes.
-      </Fragment>
-      <Fragment slot="vue">
-        Resize any button using the <code>size</code> prop.
-      </Fragment>
-    </Conditional>
-    <Example column>
-      <Example.Preview slot="preview-astro" code={ExampleSizes} />
-      <Example.Preview slot="preview-html" code={ExampleSizesHTML} />
-      <Example.Preview slot="preview-vue" code={ExampleSizesVue} />
-      <Example.Code slot="code-html" code={ExampleSizesHTML} />
-      <Example.Code slot="code-astro" code={ExampleSizesCodeAstro} />
-      <Example.Code slot="code-vue" code={ExampleSizesCodeVue} />
-    </Example>
-  </section>
-
-  <section>
     <h2 id="disabled">Disabled</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Disable the button with the <code>disabled</code> prop.
+        Disable the button with the <code>disabled</code> prop. Links can't be disabled,
+        so with <code>href</code> it sets <code>aria-disabled="true"</code> and blocks
+        clicks instead. The link can still be focused and followed with <kbd
+          >Enter</kbd
+        >.
       </Fragment>
       <Fragment slot="html">
         Add disabled styling with the <code>disabled</code> attribute or the <code
           >.ui-disabled</code
-        > class.
+        > class. Links can't be disabled, so use <code
+          >aria-disabled="true"</code
+        >
+        on an <code>&lt;a&gt;</code>, which blocks clicks. The link can still be
+        focused and followed with <kbd>Enter</kbd>.
       </Fragment>
       <Fragment slot="vue">
-        Disable the button with the <code>disabled</code> prop.
+        Disable the button with the <code>disabled</code> prop. Links can't be disabled,
+        so with <code>href</code> it sets <code>aria-disabled="true"</code> and blocks
+        clicks instead. The link can still be focused and followed with <kbd
+          >Enter</kbd
+        >.
       </Fragment>
     </Conditional>
     <Example column>

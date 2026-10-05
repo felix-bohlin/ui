@@ -1,0 +1,113 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-surface {
+    border: 1px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-3);
+    padding: var(--size-3);
+  }
+
+  .todo-tonal {
+    background-color: var(--surface-tonal);
+  }
+</style>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">On the page (<code>--surface-default</code>)</p>
+    <div class="todo-surface">
+      <div class="ui-card">
+        <hgroup><h3 class="ui-h6">No variant</h3></hgroup>
+        <div class="ui-content">Background: <code>--surface-default</code></div>
+      </div>
+      <div class="ui-card ui-text">
+        <hgroup><h3 class="ui-h6">Text variant</h3></hgroup>
+        <div class="ui-content">Background: transparent</div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption">On a tonal surface (<code>--surface-tonal</code>)</p>
+    <div class="todo-surface todo-tonal">
+      <div class="ui-card">
+        <hgroup><h3 class="ui-h6">No variant</h3></hgroup>
+        <div class="ui-content">A page-colored panel appears</div>
+      </div>
+      <div class="ui-card ui-text">
+        <hgroup><h3 class="ui-h6">Text variant</h3></hgroup>
+        <div class="ui-content">Takes the tonal color</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="ui-caption">
+  Accordion groups on a tonal surface. The items are plain
+  <code>.ui-card</code> in every case: <code>accordion.css</code> makes them
+  transparent, so only the group card's variant matters.
+</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">
+      <code>.ui-card[role="group"]</code>, no variant: a panel, with the
+      summaries flush against its edge
+    </p>
+    <div class="todo-surface todo-tonal">
+      <div class="ui-card" role="group">
+        <details class="ui-accordion ui-card">
+          <summary>First</summary>
+          <div class="ui-content"><p>Content</p></div>
+        </details>
+        <details class="ui-accordion ui-card">
+          <summary>Second</summary>
+          <div class="ui-content"><p>Content</p></div>
+        </details>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption">
+      <code>.ui-card.ui-text[role="group"]</code>
+    </p>
+    <div class="todo-surface todo-tonal">
+      <div class="ui-card ui-text" role="group">
+        <details class="ui-accordion ui-card">
+          <summary>First</summary>
+          <div class="ui-content"><p>Content</p></div>
+        </details>
+        <details class="ui-accordion ui-card">
+          <summary>Second</summary>
+          <div class="ui-content"><p>Content</p></div>
+        </details>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption">
+      <code>.ui-card.ui-outlined[role="group"]</code> (what the docs use)
+    </p>
+    <div class="todo-surface todo-tonal">
+      <div class="ui-card ui-outlined" role="group">
+        <details class="ui-accordion ui-card">
+          <summary>First</summary>
+          <div class="ui-content"><p>Content</p></div>
+        </details>
+        <details class="ui-accordion ui-card">
+          <summary>Second</summary>
+          <div class="ui-content"><p>Content</p></div>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>

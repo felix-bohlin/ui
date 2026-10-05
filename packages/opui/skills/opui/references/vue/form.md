@@ -8,7 +8,7 @@ Favorite pet
 
 Pick one.
 
-DogCat
+Dog Cat
 
 - `<Form>`
 
@@ -62,7 +62,7 @@ import {
 
 ## Fieldset
 
-Groups related fields. Label it with `FieldLegend` and add an optional`FieldDescription`.
+Groups related fields. Label it with `FieldLegend` and add an optional `FieldDescription`.
 
 ```vue
 <script setup lang="ts">
@@ -308,7 +308,7 @@ import {
 
 ## Without fieldset
 
-Can't use `<form>`, `<fieldset>` or `<legend>`? Set `as` on `Form`, `FieldSet` and `FieldLegend`.
+Can't use `<form>`, `<fieldset>` or `<legend>`? Set `as` on `Form`, `FieldSet` and `FieldLegend`. A `div` doesn't pick up its name from the legend, so give the legend an `id` and point `aria-labelledby` on the field set at it.
 
 ```vue
 <script setup lang="ts">
@@ -318,8 +318,8 @@ import { FieldDescription, FieldLegend, FieldSet, Form } from "opui-css/vue"
 
 <template>
   <Form as="div">
-    <FieldSet as="div">
-      <FieldLegend as="p">Delivery</FieldLegend>
+    <FieldSet aria-labelledby="delivery-legend" as="div">
+      <FieldLegend as="p" id="delivery-legend">Delivery</FieldLegend>
       <FieldDescription>Rendered as div and p elements.</FieldDescription>
     </FieldSet>
   </Form>
@@ -513,10 +513,10 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Field set API
 
-| Prop       | Type      | Default      | Description                                                                   |
-| ---------- | --------- | ------------ | ----------------------------------------------------------------------------- |
-| `as`       | `string`  | `"fieldset"` | The element to render. Any element other than `fieldset` gets `role="group"`. |
-| `disabled` | `boolean` | `false`      | Disables every field inside.                                                  |
+| Prop       | Type      | Default      | Description                                                                                                                       |
+| ---------- | --------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| `as`       | `string`  | `"fieldset"` | The element to render. Any element other than `fieldset` gets `role="group"`, and needs `aria-labelledby` pointing at its legend. |
+| `disabled` | `boolean` | `false`      | Disables every field inside.                                                                                                      |
 
 #### Slots
 
@@ -603,10 +603,10 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Field group API
 
-| Prop        | Type                | Default | Description                                                                                                              |
-| ----------- | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `direction` | `"row"`, `"column"` | -       | The orientation of the element.                                                                                          |
-| `name`      | `string`            | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                              |
+| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the element.                                                                                          |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
 
 #### Slots
 
@@ -648,9 +648,9 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 3. Groups
 
-   - `:has(> .check):not(:has(> :not(.check)))`: only checkboxes, nothing else
+   - `:has(> .check):not(:has(> :not(.check)))`: only checkboxes, radios or switches, nothing else
    - A list of choices gets a tighter gap
-   - A group of only buttons becomes a row
+   - A group of only buttons becomes a row, unless it's set to `.column`
 
 4. Required
 
@@ -659,8 +659,8 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 4: Fieldset
 
-- [`all`](https://webstatus.dev/features/all) (Widely available): Chrome 37+, Edge 79+, Firefox 27+, Safari 9.1+
-- [\<fieldset> and \<legend>](https://webstatus.dev/features/fieldset) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
+- [`all` ](https://webstatus.dev/features/all)(Widely available): Chrome 37+, Edge 79+, Firefox 27+, Safari 9.1+
+- [\<fieldset> and \<legend> ](https://webstatus.dev/features/fieldset)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
 
 ```html
 <fieldset class="fieldset">
@@ -686,7 +686,7 @@ Step 1 of 4: Fieldset
 
 Step 2 of 4: Description
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```css
 .fieldset legend:has(+ .description) {
@@ -726,7 +726,7 @@ Step 3 of 4: Groups
 }
 
 
-.group:has(> button):not(:has(> :not(button))) {
+.group:has(> button):not(.column, :has(> :not(button))) {
   align-items: center;
   flex-direction: row;
   gap: 0.5rem;

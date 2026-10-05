@@ -192,8 +192,8 @@ Control how long the toast stays visible using `data-duration`. Supports CSS tim
 
 Step 1 of 4: Stack
 
-- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
-- [\<template>](https://webstatus.dev/features/template) (Widely available): Chrome 26+, Edge 13+, Firefox 22+, Safari 8+
+- [Invoker commands ](https://webstatus.dev/features/invoker-commands)(Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [\<template> ](https://webstatus.dev/features/template)(Widely available): Chrome 26+, Edge 13+, Firefox 22+, Safari 8+
 
 ```html
 <button
@@ -237,8 +237,8 @@ Step 1 of 4: Stack
 
 Step 2 of 4: Lifetime
 
-- [`Animations (CSS)`](https://webstatus.dev/features/animations-css) (Widely available): Chrome 43+, Edge 12+, Firefox 16+, Safari 9+
-- [`attr()`](https://webstatus.dev/features/attr) (Limited availability): Chrome 133+, Edge 133+, Firefox 119+, Safari 18.4+
+- [`Animations (CSS)` ](https://webstatus.dev/features/animations-css)(Widely available): Chrome 43+, Edge 12+, Firefox 16+, Safari 9+
+- [`attr()` ](https://webstatus.dev/features/attr)(Limited availability): Chrome 133+, Edge 133+, Firefox 119+, Safari 18.4+
 
 ```css
 .toast {
@@ -255,7 +255,7 @@ Step 2 of 4: Lifetime
 
 Step 3 of 4: Pause
 
-- [`:focus-within`](https://webstatus.dev/features/focus-within) (Widely available): Chrome 60+, Edge 79+, Firefox 52+, Safari 10.1+
+- [`:focus-within` ](https://webstatus.dev/features/focus-within)(Widely available): Chrome 60+, Edge 79+, Firefox 52+, Safari 10.1+
 
 ```css
 .toast:hover,
@@ -271,8 +271,8 @@ Step 3 of 4: Pause
 
 Step 4 of 4: Icons
 
-- [Masks](https://webstatus.dev/features/masks) (Widely available): Chrome 120+, Edge 120+, Firefox 53+, Safari 15.4+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [Masks ](https://webstatus.dev/features/masks)(Widely available): Chrome 120+, Edge 120+, Firefox 53+, Safari 15.4+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .toast .icon {

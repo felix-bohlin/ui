@@ -96,6 +96,46 @@ import { Button, ButtonGroup } from "opui-css/vue"
 </template>
 ```
 
+## Sizes
+
+Adjust the size of all buttons in the group using the `size` prop.
+
+```vue
+<script setup lang="ts">
+import { Button, ButtonGroup } from "opui-css/vue"
+</script>
+
+
+<template>
+  <ButtonGroup size="x-small" variant="outlined">
+    <Button>X-small</Button>
+    <Button>X-small</Button>
+    <Button>X-small</Button>
+  </ButtonGroup>
+
+
+  <ButtonGroup size="small" variant="outlined">
+    <Button>Small</Button>
+    <Button>Small</Button>
+    <Button>Small</Button>
+  </ButtonGroup>
+
+
+  <ButtonGroup variant="outlined">
+    <Button>Default</Button>
+    <Button>Default</Button>
+    <Button>Default</Button>
+  </ButtonGroup>
+
+
+  <ButtonGroup size="large" variant="outlined">
+    <Button>Large</Button>
+    <Button>Large</Button>
+    <Button>Large</Button>
+  </ButtonGroup>
+</template>
+```
+
 ## Icons
 
 Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/vue/components/button.md) Wrap labels in a `<span>` so buttons with an icon keep their padding.
@@ -108,7 +148,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 <template>
   <ButtonGroup variant="outlined">
-    <Button aria-label="Label">
+    <Button iconOnly label="OK">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -121,8 +161,8 @@ import { Button, ButtonGroup } from "opui-css/vue"
         ></path>
       </svg>
     </Button>
-    <Button aria-label="Label"> Maybe </Button>
-    <Button aria-label="Label">
+    <Button> Maybe </Button>
+    <Button iconOnly label="No">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -224,9 +264,9 @@ import { Button, ButtonGroup, Menu } from "opui-css/vue"
 </template>
 ```
 
-## Sizes
+## Disabled
 
-Adjust the size of all buttons in the group using the `size` prop.
+Disable individual buttons within a group by setting the `disabled` prop on each `Button`.
 
 ```vue
 <script setup lang="ts">
@@ -235,31 +275,17 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 
 <template>
-  <ButtonGroup size="x-small" variant="outlined">
-    <Button>X-small</Button>
-    <Button>X-small</Button>
-    <Button>X-small</Button>
+  <ButtonGroup variant="filled">
+    <Button>Enabled</Button>
+    <Button disabled>Disabled</Button>
+    <Button>Enabled</Button>
   </ButtonGroup>
 
 
-  <ButtonGroup size="small" variant="outlined">
-    <Button>Small</Button>
-    <Button>Small</Button>
-    <Button>Small</Button>
-  </ButtonGroup>
-
-
-  <ButtonGroup variant="outlined">
-    <Button>Default</Button>
-    <Button>Default</Button>
-    <Button>Default</Button>
-  </ButtonGroup>
-
-
-  <ButtonGroup size="large" variant="outlined">
-    <Button>Large</Button>
-    <Button>Large</Button>
-    <Button>Large</Button>
+  <ButtonGroup variant="filled" color="primary">
+    <Button>Enabled</Button>
+    <Button disabled>Disabled</Button>
+    <Button>Enabled</Button>
   </ButtonGroup>
 </template>
 ```
@@ -277,7 +303,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 <template>
   <div class="example-row">
     <ButtonGroup orientation="vertical">
-      <Button aria-label="Up">
+      <Button aria-label="Increase">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -312,7 +338,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 
     <ButtonGroup orientation="vertical" variant="outlined">
-      <Button aria-label="Up">
+      <Button aria-label="Increase">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -347,7 +373,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 
     <ButtonGroup orientation="vertical" variant="tonal">
-      <Button aria-label="Up">
+      <Button aria-label="Increase">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -382,7 +408,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 
     <ButtonGroup orientation="vertical" variant="filled">
-      <Button aria-label="Up">
+      <Button aria-label="Increase">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -478,44 +504,18 @@ import { Button, ButtonGroup } from "opui-css/vue"
 </template>
 ```
 
-## Disabled
-
-Disable individual buttons within a group by setting the `disabled` prop on each `Button`.
-
-```vue
-<script setup lang="ts">
-import { Button, ButtonGroup } from "opui-css/vue"
-</script>
-
-
-<template>
-  <ButtonGroup variant="filled">
-    <Button>Enabled</Button>
-    <Button disabled>Disabled</Button>
-    <Button>Enabled</Button>
-  </ButtonGroup>
-
-
-  <ButtonGroup variant="filled" color="primary">
-    <Button>Enabled</Button>
-    <Button disabled>Disabled</Button>
-    <Button>Enabled</Button>
-  </ButtonGroup>
-</template>
-```
-
 ## API
 
-### Button group
+### Button group API
 
-| Prop          | Type                                | Default | Description                                                                                                       |
-| ------------- | ----------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
-| `color`       | `"critical"`, `"primary"`           | -       | Optional colors for the buttons.                                                                                  |
-| `orientation` | `"vertical"`                        | -       | The orientation of the element.                                                                                   |
-| `scrollable`  | `boolean`                           | `false` | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| `shrink`      | `boolean`                           | `false` | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"x-small"`, `"small"`, `"large"`   | -       | The size of the buttons.                                                                                          |
-| `variant`     | `"outlined"`, `"tonal"`, `"filled"` | -       | The variant of the buttons.                                                                                       |
+| Prop          | Type                                  | Default | Description                                                                                                       |
+| ------------- | ------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
+| `color`       | `"critical"` , `"primary"`            | -       | Optional colors for the buttons.                                                                                  |
+| `orientation` | `"vertical"`                          | -       | The orientation of the element.                                                                                   |
+| `scrollable`  | `boolean`                             | `false` | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| `shrink`      | `boolean`                             | `false` | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| `size`        | `"x-small"` , `"small"` , `"large"`   | -       | The size of the buttons.                                                                                          |
+| `variant`     | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant of the buttons.                                                                                       |
 
 #### Slots
 
@@ -532,7 +532,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                   |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                          |
 | `--button-size-small`         | `var(--control-size-small)`                                                           | `Button` height with `.ui-small`.                                                                                          |
-| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `IconButton` height with `.ui-x-small`.                                                                       |
+| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `ButtonGroup` height with `.ui-x-small`.                                                                      |
 | `--critical`                  | `var(--red)`                                                                          | Severity color for errors and destructive actions.                                                                         |
 | `--disabled-opacity`          | `0.64`                                                                                | Opacity applied to disabled controls.                                                                                      |
 | `--duration`                  | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                     |
@@ -544,6 +544,7 @@ import { Button, ButtonGroup } from "opui-css/vue"
 | `--motion`                    | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
 | `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
+| `--ripple-color`              | `oklch(0.6 0 0 / 0.2)`                                                                | Halo color for `Button` with `.ui-ripple` and the `Checkbox` and `Radio` hover effect.                                     |
 | `--state-active-alpha`        | `20%`                                                                                 | Alpha of the pressed state layer on neutral buttons in light mode.                                                         |
 | `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                          |
 | `--state-active-alpha-dark`   | `30%`                                                                                 | Alpha of the pressed state layer on neutral buttons in dark mode.                                                          |
@@ -557,20 +558,20 @@ import { Button, ButtonGroup } from "opui-css/vue"
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/vue/guide/theme-tokens.md) for the full list.
 
-### Button
+### Button API
 
-| Prop       | Type                                | Default | Description                                                                 |
-| ---------- | ----------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `as`       | `"button"`, `"a"`                   | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
-| `color`    | `"critical"`, `"primary"`           | -       | Optional colors.                                                            |
-| `disabled` | `boolean`                           | `false` | Disables the button.                                                        |
-| `href`     | `string`                            | -       | The link to use. Renders an `<a>`.                                          |
-| `iconOnly` | `boolean`                           | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
-| `label`    | `string`                            | -       | The accessible name. Use it on icon-only buttons.                           |
-| `ripple`   | `boolean`                           | `false` | A halo behind the button on hover instead of a background change.           |
-| `rounded`  | `boolean`                           | `false` | Fully rounded corners, a circle when icon-only.                             |
-| `size`     | `"x-small"`, `"small"`, `"large"`   | -       | The size of the element.                                                    |
-| `variant`  | `"outlined"`, `"tonal"`, `"filled"` | -       | The variant to use.                                                         |
+| Prop       | Type                                  | Default | Description                                                                 |
+| ---------- | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
+| `as`       | `"button"` , `"a"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
+| `color`    | `"critical"` , `"primary"`            | -       | Optional colors.                                                            |
+| `disabled` | `boolean`                             | `false` | Disables the button.                                                        |
+| `href`     | `string`                              | -       | The link to use. Renders an `<a>`.                                          |
+| `iconOnly` | `boolean`                             | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
+| `label`    | `string`                              | -       | The accessible name. Use it on icon-only buttons.                           |
+| `ripple`   | `boolean`                             | `false` | A halo behind the button on hover instead of a background change.           |
+| `rounded`  | `boolean`                             | `false` | Fully rounded corners, a circle when icon-only.                             |
+| `size`     | `"x-small"` , `"small"` , `"large"`   | -       | The size of the element.                                                    |
+| `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant to use.                                                         |
 
 #### Slots
 
@@ -586,7 +587,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                   |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                          |
 | `--button-size-small`         | `var(--control-size-small)`                                                           | `Button` height with `.ui-small`.                                                                                          |
-| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `IconButton` height with `.ui-x-small`.                                                                       |
+| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `ButtonGroup` height with `.ui-x-small`.                                                                      |
 | `--critical`                  | `var(--red)`                                                                          | Severity color for errors and destructive actions.                                                                         |
 | `--disabled-opacity`          | `0.64`                                                                                | Opacity applied to disabled controls.                                                                                      |
 | `--duration`                  | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                     |
@@ -597,6 +598,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--motion`                    | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
 | `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
+| `--ripple-color`              | `oklch(0.6 0 0 / 0.2)`                                                                | Halo color for `Button` with `.ui-ripple` and the `Checkbox` and `Radio` hover effect.                                     |
 | `--state-active-alpha`        | `20%`                                                                                 | Alpha of the pressed state layer on neutral buttons in light mode.                                                         |
 | `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                          |
 | `--state-active-alpha-dark`   | `30%`                                                                                 | Alpha of the pressed state layer on neutral buttons in dark mode.                                                          |
@@ -660,8 +662,8 @@ Step 1 of 3: Join
 
 Step 2 of 3: Dividers
 
-- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .group > button {

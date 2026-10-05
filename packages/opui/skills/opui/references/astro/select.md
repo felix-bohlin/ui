@@ -1,16 +1,18 @@
 # Select
 
-Leverages the [List component](https://open-props-ui.netlify.app/astro/components/list.md) to provide markup for the Select popover.
+Leverages the [List component](https://open-props-ui.netlify.app/astro/components/list.md) to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a [Menu](https://open-props-ui.netlify.app/astro/components/menu.md).
 
 ### What's new
 
 - [X-small and large](#sizes) sizes with the `size` prop.
 - [Spread](#spread) fields line up at one width.
 - [Preselect](#preselected) options with `value` or `selected` on an item.
+- The arrow is a chevron.
+- Breaking: no generated input `id`. Pass `id` when something outside the component references the input.
 
 ## Anatomy
 
-LabelDescriptionOption one (1)¢EURHeaderFooterSupporting text
+Label Description Option one (1) ¤ EUR Header Footer Supporting text
 
 - `<Select>`
 
@@ -76,6 +78,54 @@ import { Select } from "opui-css/astro"
 </Select>
 ```
 
+## Sizes
+
+```astro
+---
+import { Select } from "opui-css/astro"
+---
+
+
+<Select label="X-small" size="x-small">
+  <option value="">X-small</option>
+  <option>Option Two</option>
+  <option>Option Three</option>
+</Select>
+<Select label="Small" size="small">
+  <option value="">Small</option>
+  <option>Option Two</option>
+  <option>Option Three</option>
+</Select>
+<Select label="Default">
+  <option value="">Default</option>
+  <option>Option Two</option>
+  <option>Option Three</option>
+</Select>
+<Select label="Large" size="large">
+  <option value="">Large</option>
+  <option>Option Two</option>
+  <option>Option Three</option>
+</Select>
+```
+
+## Dense
+
+Use the `dense` prop to pack the options tighter.
+
+```astro
+---
+import { Select } from "opui-css/astro"
+---
+
+
+<Select label="Fruit" dense>
+  <option value="">-</option>
+  <option>Apple</option>
+  <option>Banana</option>
+  <option>Cherry</option>
+</Select>
+```
+
 ## End text
 
 `.ui-end-text`: end text element
@@ -113,11 +163,11 @@ import { Select } from "opui-css/astro"
 
 
 <Select label="Currency">
-  <Fragment slot="prefix">¢</Fragment>
+  <Fragment slot="prefix">¤</Fragment>
   <option value="">-</option>
   <option>EUR</option>
-  <option>EUR</option>
   <option>SEK</option>
+  <option>USD</option>
 </Select>
 
 
@@ -140,15 +190,15 @@ import { Select } from "opui-css/astro"
     ></path>
   </svg>
   <option value="">-</option>
-  <option>Sweden</option>
-  <option>Norway</option>
   <option>Denmark</option>
+  <option>Norway</option>
+  <option>Sweden</option>
 </Select>
 ```
 
 ## Preselected
 
-Set `value` to preselect an option, or`selected: true` on an item.
+Set `value` to preselect an option, or `selected: true` on an item.
 
 ```astro
 ---
@@ -175,6 +225,31 @@ import { Select } from "opui-css/astro"
     { text: "Sales", value: "sales" },
   ]}
 />
+```
+
+## Option groups
+
+Wrap options in a `<div role="group">` and start it with a `<label class="ui-text">` to group them under a heading.
+
+```astro
+---
+import { Select } from "opui-css/astro"
+---
+
+
+<Select label="Car">
+  <option value="">Select car</option>
+  <div role="group">
+    <label class="ui-text">French cars</label>
+    <option>Citroën</option>
+    <option>Renault</option>
+  </div>
+  <div role="group">
+    <label class="ui-text">Swedish cars</label>
+    <option>Saab</option>
+    <option>Volvo</option>
+  </div>
+</Select>
 ```
 
 ## Validation
@@ -323,39 +398,9 @@ import { Select } from "opui-css/astro"
 </Select>
 ```
 
-## Sizes
-
-```astro
----
-import { Select } from "opui-css/astro"
----
-
-
-<Select label="X-small" size="x-small">
-  <option value="">X-small</option>
-  <option>Option Two</option>
-  <option>Option Three</option>
-</Select>
-<Select label="Small" size="small">
-  <option value="">Small</option>
-  <option>Option Two</option>
-  <option>Option Three</option>
-</Select>
-<Select label="Default">
-  <option value="">Default</option>
-  <option>Option Two</option>
-  <option>Option Three</option>
-</Select>
-<Select label="Large" size="large">
-  <option value="">Large</option>
-  <option>Option Two</option>
-  <option>Option Three</option>
-</Select>
-```
-
 ## Classic select
 
-Bog-standard native HTML `<select>` without customized option list.
+Bog-standard native HTML `<select>` without customized option list. Use it when the browser's own picker is all you need, and the Select above when the options need styles, icons or groups.
 
 ```astro
 ---
@@ -381,18 +426,18 @@ import { ClassicSelect } from "opui-css/astro"
 
 ### Select API
 
-| Prop          | Type                              | Default      | Description                                                               |
-| ------------- | --------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `dense`       | `boolean`                         | `false`      | Packs the options tighter.                                                |
-| `description` | `string`                          | -            | Description text displayed above the field.                               |
-| `endText`     | `string`                          | -            | Supporting text displayed below the field.                                |
-| `error`       | `boolean`                         | `false`      | Shows error styles.                                                       |
-| `id`          | `string`                          | -            | The id of the `<select>`.                                                 |
-| `items`       | `Item[]`                          | `[]`         | The options, as `{ selected, text, value }` objects.                      |
-| `label`       | `string`                          | -            | The label for the field.                                                  |
-| `size`        | `"x-small"`, `"small"`, `"large"` | -            | The size of the element.                                                  |
-| `spread`      | `boolean`                         | `false`      | Pushes the label and description to one side and the select to the other. |
-| `variant`     | `"outlined"`, `"filled"`          | `"outlined"` | The variant to use.                                                       |
+| Prop          | Type                                | Default      | Description                                                               |
+| ------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `dense`       | `boolean`                           | `false`      | Packs the options tighter.                                                |
+| `description` | `string`                            | -            | Description text displayed above the field.                               |
+| `endText`     | `string`                            | -            | Supporting text displayed below the field.                                |
+| `error`       | `boolean`                           | `false`      | Shows error styles.                                                       |
+| `id`          | `string`                            | -            | The id of the `<select>`.                                                 |
+| `items`       | `Item[]`                            | `[]`         | The options, as `{ selected, text, value }` objects.                      |
+| `label`       | `string`                            | -            | The label for the field.                                                  |
+| `size`        | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                  |
+| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the select to the other. |
+| `variant`     | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                       |
 
 #### Slots
 
@@ -448,17 +493,17 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to the `<select>`.
 
-### Classic Select API
+### Classic select API
 
-| Prop      | Type                              | Default      | Description                                       |
-| --------- | --------------------------------- | ------------ | ------------------------------------------------- |
-| `endText` | `string`                          | -            | Supporting text displayed below the field.        |
-| `error`   | `boolean`                         | `false`      | Shows error styles.                               |
-| `id`      | `string`                          | -            | The id of the `<select>`. Generated when omitted. |
-| `items`   | `Item[]`                          | `[]`         | The options, as `{ text, value }` objects.        |
-| `label`   | `string`                          | -            | The label for the field.                          |
-| `size`    | `"x-small"`, `"small"`, `"large"` | -            | The size of the element.                          |
-| `variant` | `"outlined"`, `"filled"`          | `"outlined"` | The variant to use.                               |
+| Prop      | Type                                | Default      | Description                                       |
+| --------- | ----------------------------------- | ------------ | ------------------------------------------------- |
+| `endText` | `string`                            | -            | Supporting text displayed below the field.        |
+| `error`   | `boolean`                           | `false`      | Shows error styles.                               |
+| `id`      | `string`                            | -            | The id of the `<select>`. Generated when omitted. |
+| `items`   | `Item[]`                            | `[]`         | The options, as `{ text, value }` objects.        |
+| `label`   | `string`                            | -            | The label for the field.                          |
+| `size`    | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                          |
+| `variant` | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                               |
 
 #### Slots
 
@@ -535,7 +580,7 @@ Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to t
 
 Step 1 of 4: Base select
 
-- [Customizable \<select>](https://webstatus.dev/features/customizable-select) (Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari not supported
+- [Customizable \<select> ](https://webstatus.dev/features/customizable-select)(Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari not supported
 
 ```html
 <select class="select">
@@ -581,7 +626,7 @@ selectedcontent {
 
 Step 2 of 4: Arrow
 
-- [`:open`](https://webstatus.dev/features/open-pseudo) (Newly available): Chrome 133+, Edge 133+, Firefox 136+, Safari 26.5+
+- [`:open` ](https://webstatus.dev/features/open-pseudo)(Newly available): Chrome 133+, Edge 133+, Firefox 136+, Safari 26.5+
 
 ```css
 .select {
@@ -609,7 +654,7 @@ Step 2 of 4: Arrow
 
 Step 3 of 4: Picker
 
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .select::picker(select) {
@@ -649,8 +694,8 @@ Step 3 of 4: Picker
 
 Step 4 of 4: Animate
 
-- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
-- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+- [`@starting-style` ](https://webstatus.dev/features/starting-style)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
+- [`transition-behavior` ](https://webstatus.dev/features/transition-behavior)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 
 ```css
 .select::picker(select) {

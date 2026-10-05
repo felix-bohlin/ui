@@ -86,7 +86,7 @@
       --_track-color: var(--surface-filled);
     }
 
-    &.ui-default input[type="range"] {
+    &.ui-surface input[type="range"] {
       --_track-color: var(--surface-default);
     }
 
@@ -201,7 +201,7 @@
 
     /* Range input */
     :where(& > input[type="range"]) {
-      --_thumb-bg: var(--primary);
+      --_thumb-bg-color: var(--primary);
       --_thumb-highlight-color: oklch(from var(--primary) 70% 100% h / 20%);
       --_thumb-highlight-size: 0px;
       --_thumb-offset: -1.125ex;
@@ -287,7 +287,7 @@
       /* Ring */
       &::-webkit-slider-thumb {
         appearance: none;
-        background: var(--_thumb-bg);
+        background: var(--_thumb-bg-color);
         block-size: var(--_thumb-size);
         border: 3px solid var(--surface-default);
         border-radius: 50%;
@@ -303,7 +303,7 @@
 
       &::-moz-range-thumb {
         appearance: none;
-        background: var(--_thumb-bg);
+        background: var(--_thumb-bg-color);
         block-size: var(--_thumb-size);
         border: 3px solid var(--surface-default);
         border-radius: 50%;
@@ -320,7 +320,7 @@
       /* Element state */
       .ui-range:has(:user-invalid) &,
       .ui-range[data-invalid] & {
-        --_thumb-bg: var(--invalid-color);
+        --_thumb-bg-color: var(--invalid-color);
         --_thumb-highlight-color: oklch(
           from var(--invalid-color) 70% 100% h / 20%
         );
@@ -328,8 +328,10 @@
       }
 
       &:not([disabled]) {
-        &:hover {
-          --_thumb-highlight-size: var(--size-1);
+        @media (hover: hover) {
+          &:hover {
+            --_thumb-highlight-size: var(--size-1);
+          }
         }
 
         &:active {
@@ -342,7 +344,7 @@
       }
 
       &[disabled] {
-        --_thumb-bg: oklch(from var(--text-primary) l c h / 50%);
+        --_thumb-bg-color: oklch(from var(--text-primary) l c h / 50%);
         --_track-color: var(--field-border-color);
 
         cursor: not-allowed;

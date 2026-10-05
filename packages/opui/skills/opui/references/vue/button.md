@@ -1,5 +1,7 @@
 # Button
 
+Buttons do things, like saving a form or opening a dialog. For filters, tags and choices, use a [Chip](https://open-props-ui.netlify.app/vue/components/chip.md).
+
 ### What's new
 
 - [Icon-only](#icon-only) buttons are square. `rounded` makes them round and `ripple` adds a hover halo.
@@ -80,6 +82,48 @@ import { Button } from "opui-css/vue"
     <Button color="critical" variant="tonal">Tonal</Button>
     <Button color="critical" variant="filled">Filled</Button>
   </div>
+</template>
+```
+
+## Sizes
+
+Resize any button using the `size` prop: `x-small`, `small`, default and `large`.
+
+```vue
+<script setup lang="ts">
+import { Button } from "opui-css/vue"
+</script>
+
+
+<template>
+  <Button size="x-small">X-small</Button>
+  <Button size="small">Small</Button>
+  <Button>Default</Button>
+  <Button size="large">Large</Button>
+
+
+  <Button variant="filled" size="x-small">X-small</Button>
+  <Button variant="filled" size="small">Small</Button>
+  <Button variant="filled">Default</Button>
+  <Button variant="filled" size="large">Large</Button>
+
+
+  <Button size="x-small" variant="outlined">
+    <span class="ui-text">X-small</span>
+    <svg><!-- --></svg>
+  </Button>
+  <Button size="small" variant="outlined">
+    <span class="ui-text">Small</span>
+    <svg><!-- --></svg>
+  </Button>
+  <Button variant="outlined">
+    <span class="ui-text">Default</span>
+    <svg><!-- --></svg>
+  </Button>
+  <Button variant="outlined" size="large">
+    <span class="ui-text">Large</span>
+    <svg><!-- --></svg>
+  </Button>
 </template>
 ```
 
@@ -248,45 +292,9 @@ import { Button } from "opui-css/vue"
 </template>
 ```
 
-## Sizes
-
-Resize any button using the `size` prop.
-
-```vue
-<script setup lang="ts">
-import { Button } from "opui-css/vue"
-</script>
-
-
-<template>
-  <Button size="small">Small</Button>
-  <Button>Default</Button>
-  <Button size="large">Large</Button>
-
-
-  <Button variant="filled" size="small">Small</Button>
-  <Button variant="filled">Default</Button>
-  <Button variant="filled" size="large">Large</Button>
-
-
-  <Button size="small" variant="outlined">
-    <span class="ui-text">Small</span>
-    <svg><!-- --></svg>
-  </Button>
-  <Button variant="outlined">
-    <span class="ui-text">Default</span>
-    <svg><!-- --></svg>
-  </Button>
-  <Button variant="outlined" size="large">
-    <span class="ui-text">Large</span>
-    <svg><!-- --></svg>
-  </Button>
-</template>
-```
-
 ## Disabled
 
-Disable the button with the `disabled` prop.
+Disable the button with the `disabled` prop. Links can't be disabled, so with `href` it sets `aria-disabled="true"` and blocks clicks instead. The link can still be focused and followed with `Enter`.
 
 ```vue
 <script setup lang="ts">
@@ -296,6 +304,7 @@ import { Button } from "opui-css/vue"
 
 <template>
   <Button disabled>Text</Button>
+  <Button disabled href="#">Link</Button>
 </template>
 ```
 
@@ -307,18 +316,18 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 
 ### Button API
 
-| Prop       | Type                                | Default | Description                                                                 |
-| ---------- | ----------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `as`       | `"button"`, `"a"`                   | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
-| `color`    | `"critical"`, `"primary"`           | -       | Optional colors.                                                            |
-| `disabled` | `boolean`                           | `false` | Disables the button.                                                        |
-| `href`     | `string`                            | -       | The link to use. Renders an `<a>`.                                          |
-| `iconOnly` | `boolean`                           | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
-| `label`    | `string`                            | -       | The accessible name. Use it on icon-only buttons.                           |
-| `ripple`   | `boolean`                           | `false` | A halo behind the button on hover instead of a background change.           |
-| `rounded`  | `boolean`                           | `false` | Fully rounded corners, a circle when icon-only.                             |
-| `size`     | `"x-small"`, `"small"`, `"large"`   | -       | The size of the element.                                                    |
-| `variant`  | `"outlined"`, `"tonal"`, `"filled"` | -       | The variant to use.                                                         |
+| Prop       | Type                                  | Default | Description                                                                 |
+| ---------- | ------------------------------------- | ------- | --------------------------------------------------------------------------- |
+| `as`       | `"button"` , `"a"`                    | -       | The element to render. Defaults to `"a"` with `href`, otherwise `"button"`. |
+| `color`    | `"critical"` , `"primary"`            | -       | Optional colors.                                                            |
+| `disabled` | `boolean`                             | `false` | Disables the button.                                                        |
+| `href`     | `string`                              | -       | The link to use. Renders an `<a>`.                                          |
+| `iconOnly` | `boolean`                             | `false` | Marks the button as icon-only, so `label` is required. Types only.          |
+| `label`    | `string`                              | -       | The accessible name. Use it on icon-only buttons.                           |
+| `ripple`   | `boolean`                             | `false` | A halo behind the button on hover instead of a background change.           |
+| `rounded`  | `boolean`                             | `false` | Fully rounded corners, a circle when icon-only.                             |
+| `size`     | `"x-small"` , `"small"` , `"large"`   | -       | The size of the element.                                                    |
+| `variant`  | `"outlined"` , `"tonal"` , `"filled"` | -       | The variant to use.                                                         |
 
 #### Slots
 
@@ -334,7 +343,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                   |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                          |
 | `--button-size-small`         | `var(--control-size-small)`                                                           | `Button` height with `.ui-small`.                                                                                          |
-| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `IconButton` height with `.ui-x-small`.                                                                       |
+| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `ButtonGroup` height with `.ui-x-small`.                                                                      |
 | `--critical`                  | `var(--red)`                                                                          | Severity color for errors and destructive actions.                                                                         |
 | `--disabled-opacity`          | `0.64`                                                                                | Opacity applied to disabled controls.                                                                                      |
 | `--duration`                  | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                     |
@@ -345,6 +354,7 @@ Is it a button? Is it an input? You can find the [docs for it here](https://open
 | `--motion`                    | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
 | `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
+| `--ripple-color`              | `oklch(0.6 0 0 / 0.2)`                                                                | Halo color for `Button` with `.ui-ripple` and the `Checkbox` and `Radio` hover effect.                                     |
 | `--state-active-alpha`        | `20%`                                                                                 | Alpha of the pressed state layer on neutral buttons in light mode.                                                         |
 | `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                          |
 | `--state-active-alpha-dark`   | `30%`                                                                                 | Alpha of the pressed state layer on neutral buttons in dark mode.                                                          |
@@ -405,7 +415,7 @@ Step 1 of 4: Base
 
 Step 2 of 4: Icon-only
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```css
 .button:has(> svg:only-child) {

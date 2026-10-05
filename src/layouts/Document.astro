@@ -185,10 +185,10 @@ const descText =
   #document-page {
     display: grid;
     grid-template-columns:
-      var(--_gap) 1fr 0 minmax(auto, 100%)
-      0 1fr var(--_gap);
+      var(--site-gap) 1fr 0 minmax(auto, 100%)
+      0 1fr var(--site-gap);
     margin: 0 auto;
-    max-inline-size: calc(var(--_content-lg) + var(--_page-gutters));
+    max-inline-size: calc(var(--site-content-lg) + var(--site-page-gutters));
 
     &:before {
       background: radial-gradient(
@@ -219,8 +219,8 @@ const descText =
 
     @media (width >= 900px) {
       grid-template-columns:
-        var(--_gap) 1fr 200px minmax(auto, 100%)
-        0 1fr var(--_gap);
+        var(--site-gap) 1fr 200px minmax(auto, 100%)
+        0 1fr var(--site-gap);
 
       &[data-wide] > #main-content {
         grid-column: 4 / 6;
@@ -234,8 +234,8 @@ const descText =
 
     @media (width >=1140px) {
       grid-template-columns:
-        var(--_gap) 1fr 200px minmax(auto, 100%)
-        150px 1fr var(--_gap);
+        var(--site-gap) 1fr 200px minmax(auto, 100%)
+        150px 1fr var(--site-gap);
 
       .page-contents {
         display: block;
@@ -388,13 +388,13 @@ const descText =
       border-radius: var(--border-radius);
       grid-column: 3;
       grid-row: 2;
-      inset-block-start: calc(var(--size-10) + var(--_gap));
-      max-block-size: calc(100dvb - var(--size-10) - var(--_page-gutters));
+      inset-block-start: calc(var(--size-10) + var(--site-gap));
+      max-block-size: calc(100dvb - var(--size-10) - var(--site-page-gutters));
       overflow-y: auto;
       position: sticky;
 
       .ui-content {
-        padding: var(--_gap);
+        padding: var(--site-gap);
       }
 
       @supports (corner-shape: squircle) {
@@ -403,26 +403,28 @@ const descText =
       }
 
       @media (width >= 900px) and (width < 1140px) {
-        inset-block-start: calc(var(--size-10) + var(--size-8) + var(--_gap));
+        inset-block-start: calc(
+          var(--size-10) + var(--size-8) + var(--site-gap)
+        );
         max-block-size: calc(
-          100dvb - var(--size-10) - var(--size-8) - var(--_page-gutters)
+          100dvb - var(--size-10) - var(--size-8) - var(--site-page-gutters)
         );
       }
     }
 
     #main-heading {
       margin-block-end: var(--size-8);
-      max-inline-size: var(--_content-text);
+      max-inline-size: var(--site-content-text);
     }
 
     #main-content {
       grid-column: 4;
       grid-row: 2;
-      max-inline-size: var(--_content-document);
+      max-inline-size: var(--site-content-document);
       min-inline-size: 0;
 
       @media (width >= 900px) {
-        padding: var(--_gap);
+        padding: var(--site-gap);
       }
 
       & > .ui-rich-text section:last-of-type > div:last-of-type {
@@ -462,9 +464,30 @@ const descText =
             container-name: sticky-heading;
             container-type: scroll-state;
             inset-block-start: var(--size-4);
-            max-inline-size: 555px; /* TODO: fix this in a non-ugly way */
+            max-inline-size: calc(
+              min(
+                  100vw - var(--site-gap),
+                  (100vw + var(--site-content-lg)) / 2
+                ) -
+                var(--site-header-end-inline-size) -
+                max(
+                  0px,
+                  (100vw - var(--site-content-lg) - var(--site-page-gutters)) /
+                    2
+                ) -
+                var(--site-gap) * 2 - 200px - var(--size-5)
+            );
             position: sticky;
             z-index: 22;
+
+            @container sticky-heading scroll-state(stuck: top) {
+              & > span {
+                min-inline-size: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            }
           }
         }
       }
@@ -477,7 +500,7 @@ const descText =
       inset-block-start: var(--size-10);
       max-block-size: calc(100dvb - var(--size-10));
       overflow-y: auto;
-      padding: var(--_gap) 0 var(--_gap) var(--_gap);
+      padding: var(--site-gap) 0 var(--site-gap) var(--site-gap);
       position: sticky;
 
       @media (width >= 900px) and (width < 1140px) {

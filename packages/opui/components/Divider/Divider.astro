@@ -3,10 +3,9 @@ export const title = "Divider"
 import type { Props } from "./types.astro"
 
 const { class: className, variant, ...rest } = Astro.props
-const variantClass = variant ? `border-${variant}` : ""
 ---
 
 <hr
-  class:list={["ui-divider", variantClass && `ui-${variantClass}`, className]}
+  class:list={["ui-divider", variant && `ui-${variant}`, className]}
   {...rest}
 />

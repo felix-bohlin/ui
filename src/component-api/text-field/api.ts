@@ -29,10 +29,10 @@ export default {
       prop: "error",
     },
     {
-      class: ".ui-filled",
       default: "false",
-      description: "The variant to use.",
-      group: "Variants",
+      description:
+        'Deprecated, removed in 7.0. Use `variant="filled"`. `variant` wins when both are set.',
+      frameworks: ["astro", "vue"],
       prop: "filled",
     },
     {
@@ -66,6 +66,13 @@ export default {
       frameworks: ["astro", "vue"],
       prop: "type",
       type: '"numeric" | string',
+    },
+    {
+      default: '"outlined"',
+      description: "The variant to use.",
+      group: "Variants",
+      prop: "variant",
+      values: { filled: ".ui-filled", outlined: null },
     },
   ],
   parts: [

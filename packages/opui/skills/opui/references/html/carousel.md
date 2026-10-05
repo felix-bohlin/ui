@@ -719,6 +719,7 @@ Announces item position. Buttons and markers are named.
 | `--ease`              | `ease`                                       | Default easing for transitions.                                                                                            |
 | `--motion`            | `1`                                          | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`           | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                               |
+| `--surface-inverse`   | `light-dark(var(--gray-15), var(--gray-2))`  | Background of `Toast` and `Tooltip`, inverted against the page.                                                            |
 | `--text-primary`      | `light-dark(var(--gray-15), var(--gray-1))`  | Emphasized text color for headings, labels and values.                                                                     |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
@@ -768,7 +769,7 @@ Step 1 of 4: Grid track
 
 Step 2 of 4: Scroll snap
 
-- [Scroll snap](https://webstatus.dev/features/scroll-snap) (Widely available): Chrome 69+, Edge 79+, Firefox 68+, Safari 11+
+- [Scroll snap ](https://webstatus.dev/features/scroll-snap)(Widely available): Chrome 69+, Edge 79+, Firefox 68+, Safari 11+
 
 ```css
 .carousel {
@@ -784,8 +785,8 @@ Step 2 of 4: Scroll snap
 
 Step 3 of 4: Scroll buttons
 
-- [Anchor positioning](https://webstatus.dev/features/anchor-positioning) (Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
-- [`::scroll-button`](https://webstatus.dev/features/scroll-buttons) (Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari not supported
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+- [`::scroll-button` ](https://webstatus.dev/features/scroll-buttons)(Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari not supported
 
 ```css
 .carousel::scroll-button(inline-start),
@@ -824,7 +825,7 @@ Step 3 of 4: Scroll buttons
 
 Step 4 of 4: Scroll markers
 
-- [Scroll markers](https://webstatus.dev/features/scroll-markers) (Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari not supported
+- [Scroll markers ](https://webstatus.dev/features/scroll-markers)(Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari not supported
 
 ```css
 .carousel {

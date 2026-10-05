@@ -47,9 +47,25 @@ function readMeta(file) {
       ? preambleMatch[1].replace(/<[^>]*>/g, "").trim()
       : ""
 
-  const headings = readHeadings(content)
+  const headings = [
+    ...readHeadings(content),
+    ...readMarkdownHeadings(file, content),
+  ]
 
   return { title, preamble, headings }
+}
+
+function readMarkdownHeadings(file, content) {
+  const importMatch = content.match(/from\s+["']([^"']+\.md)["']/)
+  if (!importMatch) return []
+  const markdown = fs.readFileSync(
+    path.resolve(path.dirname(file), importMatch[1]),
+    "utf-8",
+  )
+  const firstSection = markdown.split(/^# /m)[1] ?? ""
+  return Array.from(firstSection.matchAll(/^##+ (.+)$/gm), (m) =>
+    m[1].replace(/`/g, "").trim(),
+  )
 }
 
 async function generateIndex() {

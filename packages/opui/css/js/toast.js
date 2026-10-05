@@ -114,6 +114,6 @@ function wireToast(node) {
     node.classList.add("ui-exiting")
   })
   node.addEventListener("animationend", (event) => {
-    if (event.animationName === "toast-exit") node.remove()
+    if (event.animationName === "ui-toast-exit") node.remove()
   })
 }

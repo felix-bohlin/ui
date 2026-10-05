@@ -233,8 +233,8 @@ For a hover trigger, add `popover="hint"` and an id to `.ui-anchor-floating`, an
 
 Step 1 of 4: Hint
 
-- [Interest invokers](https://webstatus.dev/features/interest-invokers) (Limited availability): Chrome 142+, Edge 142+, Firefox not supported, Safari not supported
-- [popover="hint"](https://webstatus.dev/features/popover-hint) (Limited availability): Chrome 133+, Edge 133+, Firefox 149+, Safari not supported
+- [Interest invokers ](https://webstatus.dev/features/interest-invokers)(Limited availability): Chrome 142+, Edge 142+, Firefox not supported, Safari not supported
+- [popover="hint" ](https://webstatus.dev/features/popover-hint)(Limited availability): Chrome 133+, Edge 133+, Firefox 149+, Safari not supported
 
 ```html
 <button interestfor="card">felix-bohlin/ui</button>
@@ -257,7 +257,7 @@ Step 1 of 4: Hint
 
 Step 2 of 4: Tap
 
-- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [Invoker commands ](https://webstatus.dev/features/invoker-commands)(Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
 
 ```html
 <button
@@ -271,7 +271,7 @@ Step 2 of 4: Tap
 
 Step 3 of 4: Anchor
 
-- [Anchor positioning](https://webstatus.dev/features/anchor-positioning) (Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
+- [Anchor positioning ](https://webstatus.dev/features/anchor-positioning)(Limited availability): Chrome 144+, Edge 144+, Firefox 151+, Safari 26+
 
 ```html
 <span class="anchor">

@@ -32,7 +32,7 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
   heroAnatomy
   apis={[
     { title: "Select API", api: selectApi },
-    { title: "Classic Select API", api: classicSelectApi },
+    { title: "Classic select API", api: classicSelectApi },
   ]}
   installationTabs={[
     {
@@ -73,12 +73,35 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
   <Fragment slot="preamble">
     Leverages the <DocLink href="/components/list" class="ui-link"
       >List component</DocLink
-    > to provide markup for the Select popover.
+    > to provide markup for the Select popover. Use a Select to pick a value in a
+    form. For actions, use a <DocLink href="/components/menu">Menu</DocLink>.
   </Fragment>
 
   <section>
     <h2 id="variants">Variants</h2>
     <AutoExample name="Variants" row spacious />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <AutoExample name="Sizes" row spacious />
+  </section>
+
+  <section>
+    <h2 id="dense">Dense</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Use the <code>dense</code> prop to pack the options tighter.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-dense</code> to the <code>.ui-list</code> to pack the options
+        tighter.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>dense</code> prop to pack the options tighter.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Dense" row spacious />
   </section>
 
   <section>
@@ -123,6 +146,15 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
       </Fragment>
     </Conditional>
     <AutoExample name="Preselected" row spacious />
+  </section>
+
+  <section>
+    <h2 id="option-groups">Option groups</h2>
+    <p>
+      Wrap options in a <code>&lt;div role="group"&gt;</code> and start it with a
+      {" "}<code>&lt;label class="ui-text"&gt;</code> to group them under a heading.
+    </p>
+    <AutoExample name="Grouped" row spacious />
   </section>
 
   <section>
@@ -195,15 +227,11 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
   </section>
 
   <section>
-    <h2 id="sizes">Sizes</h2>
-    <AutoExample name="Sizes" row spacious />
-  </section>
-
-  <section>
     <h2 id="classic-select">Classic select</h2>
     <p>
       Bog-standard native HTML <code>&lt;select&gt;</code> without customized option
-      list.
+      list. Use it when the browser's own picker is all you need, and the Select above
+      when the options need styles, icons or groups.
     </p>
 
     <AutoExample name="Classic" row spacious />
@@ -224,7 +252,7 @@ import SelectBuild from "../../components/UnderTheHood/SelectBuild.astro"
         name="select-anatomy"
       >
         <span slot="header">Header</span>
-        <span slot="prefix">¢</span>
+        <span slot="prefix">¤</span>
         <span slot="suffix">EUR</span>
         <span slot="footer">Footer</span>
       </UISelect>

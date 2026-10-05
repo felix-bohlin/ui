@@ -10,14 +10,19 @@ import calloutIconColor from "../todo-examples/callout-icon-color.html?raw"
 import calloutRichText from "../todo-examples/callout-rich-text.html?raw"
 import calloutWalkthroughIcon from "../todo-examples/callout-walkthrough-icon.html?raw"
 import cardDividers from "../todo-examples/card-dividers.html?raw"
+import cardLink from "../todo-examples/card-link.html?raw"
+import cardTextVariant from "../todo-examples/card-text-variant.html?raw"
 import carouselEqualHeight from "../todo-examples/carousel-equal-height.html?raw"
+import carouselIconScheme from "../todo-examples/carousel-icon-scheme.html?raw"
 import checkboxForcedColors from "../todo-examples/checkbox-forced-colors.html?raw"
+import choiceHaloLayer from "../todo-examples/choice-halo-layer.html?raw"
 import classicSelectLabelSlot from "../todo-examples/classic-select-label-slot.html?raw"
-import colorContrastLedger from "../todo-examples/color-contrast-ledger.html?raw"
 import dialogActionsAlign from "../todo-examples/dialog-actions-align.html?raw"
+import dialogFocusWrap from "../todo-examples/dialog-focus-wrap.html?raw"
 import disabledButtons from "../todo-examples/disabled-buttons.html?raw"
 import drawerHeader from "../todo-examples/drawer-header.html?raw"
 import fieldsInTables from "../todo-examples/fields-in-tables.html?raw"
+import fieldsetTextFieldRow from "../todo-examples/fieldset-text-field-row.html?raw"
 import filledBorders from "../todo-examples/filled-borders.html?raw"
 import forcedColorsDivider from "../todo-examples/forced-colors-divider.html?raw"
 import forcedColorsSwitchToggle from "../todo-examples/forced-colors-switch-toggle.html?raw"
@@ -25,7 +30,10 @@ import labelLessControls from "../todo-examples/label-less-controls.html?raw"
 import linkHoverContrast from "../todo-examples/link-hover-contrast.html?raw"
 import listNestedLists from "../todo-examples/list-nested-lists.html?raw"
 import listWalkthroughNested from "../todo-examples/list-walkthrough-nested.html?raw"
+import paletteSourceScope from "../todo-examples/palette-source-scope.html?raw"
 import primaryContrast from "../todo-examples/primary-contrast.html?raw"
+import radioCoarseSizes from "../todo-examples/radio-coarse-sizes.html?raw"
+import radioSpread from "../todo-examples/radio-spread.html?raw"
 import rangeTrackFill from "../todo-examples/range-track-fill.html?raw"
 import rangeWalkthroughRtlFill from "../todo-examples/range-walkthrough-rtl-fill.html?raw"
 import richTextComponentLeaks from "../todo-examples/rich-text-component-leaks.html?raw"
@@ -33,9 +41,13 @@ import richTextTableWrapping from "../todo-examples/rich-text-table-wrapping.htm
 import rtlRequiredAsterisk from "../todo-examples/rtl-required-asterisk.html?raw"
 import scrollState from "../todo-examples/scroll-state.html?raw"
 import smallParagraph from "../todo-examples/small-paragraph.html?raw"
+import spinnerDescribedBy from "../todo-examples/spinner-described-by.html?raw"
 import stickyTableHeader from "../todo-examples/sticky-table-header.html?raw"
+import switchInvalidFocus from "../todo-examples/switch-invalid-focus.html?raw"
 import tallMenu from "../todo-examples/tall-menu.html?raw"
+import uiDisabledWhere from "../todo-examples/ui-disabled-where.html?raw"
 import verticalButtonGroupIcons from "../todo-examples/vertical-button-group-icons.html?raw"
+import vueSsrIndicator from "../todo-examples/vue-ssr-indicator.html?raw"
 
 export const todoExamples = {
   "abbr-underline": {
@@ -86,25 +98,41 @@ export const todoExamples = {
     match: "Dividers inside cards",
     source: cardDividers,
   },
+  "card-link": {
+    match: "Composition example: a clickable card",
+    source: cardLink,
+  },
+  "card-text-variant": {
+    match: 'Card: the "Why does a text variant exist?"',
+    source: cardTextVariant,
+  },
   "carousel-equal-height": {
     match: "Carousel slides aren't equal height",
     source: carouselEqualHeight,
+  },
+  "carousel-icon-scheme": {
+    match: "Carousel: the prev/next icons",
+    source: carouselIconScheme,
   },
   "checkbox-forced-colors": {
     match: "Checkbox forced-colors block loses on specificity",
     source: checkboxForcedColors,
   },
+  "choice-halo-layer": {
+    match: "Checkbox and Radio: the hover/active halo",
+    source: choiceHaloLayer,
+  },
   "classic-select-label-slot": {
     match: "Astro ClassicSelect: `aria-labelledby` also points",
     source: classicSelectLabelSlot,
   },
-  "color-contrast-ledger": {
-    match: "Remaining `color-contrast` entries",
-    source: colorContrastLedger,
-  },
   "dialog-actions-align": {
     match: "Classes emitted with no CSS",
     source: dialogActionsAlign,
+  },
+  "dialog-focus-wrap": {
+    match: "Dialog and Drawer docs: the Tab and Shift+Tab rows",
+    source: dialogFocusWrap,
   },
   "disabled-buttons": {
     match: "Disabled button text color",
@@ -117,6 +145,10 @@ export const todoExamples = {
   "fields-in-tables": {
     match: "Fields and selects collapse",
     source: fieldsInTables,
+  },
+  "fieldset-text-field-row": {
+    match: "Dead CSS: `.ui-form:has(.ui-text-field.ui-row)`",
+    source: fieldsetTextFieldRow,
   },
   "filled-borders": {
     match: "Light mode: `--border-color` and `--surface-filled`",
@@ -146,9 +178,21 @@ export const todoExamples = {
     match: "List walkthrough:",
     source: listWalkthroughNested,
   },
+  "palette-source-scope": {
+    match: "Getting started Theming says `--palette-source`",
+    source: paletteSourceScope,
+  },
   "primary-contrast": {
     match: "`contrast-color()` for `--primary-contrast`",
     source: primaryContrast,
+  },
+  "radio-coarse-sizes": {
+    match: "Radio: on touch screens",
+    source: radioCoarseSizes,
+  },
+  "radio-spread": {
+    match: "Radio has no `.ui-spread`",
+    source: radioSpread,
   },
   "range-track-fill": {
     match: "HTML Range shows no track fill",
@@ -178,17 +222,33 @@ export const todoExamples = {
     match: "`p.ui-p.ui-small` renders 12px",
     source: smallParagraph,
   },
+  "spinner-described-by": {
+    match: "Spinner: the prose never says",
+    source: spinnerDescribedBy,
+  },
   "sticky-table-header": {
     match: "Sticky table headers: second pass",
     source: stickyTableHeader,
+  },
+  "switch-invalid-focus": {
+    match: "Switch: an invalid switch barely shows focus",
+    source: switchInvalidFocus,
   },
   "tall-menu": {
     match: "A tall menu runs off the viewport",
     source: tallMenu,
   },
+  "ui-disabled-where": {
+    match: "Menu: disabled items only match",
+    source: uiDisabledWhere,
+  },
   "vertical-button-group-icons": {
     match: "Vertical ButtonGroup squares any button",
     source: verticalButtonGroupIcons,
+  },
+  "vue-ssr-indicator": {
+    match: "Vue SSR: no page says what needs hydration",
+    source: vueSsrIndicator,
   },
 }
 

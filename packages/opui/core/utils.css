@@ -62,8 +62,10 @@ Add `.ui-scroll-lock` to any element that uses the [open] attribute (native <dia
     }
 
     &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
-      &:hover:before {
-        --_thumb-scale: 1;
+      @media (hover: hover) {
+        &:hover:before {
+          --_thumb-scale: 1;
+        }
       }
 
       &:active:before {
@@ -73,7 +75,7 @@ Add `.ui-scroll-lock` to any element that uses the [open] attribute (native <dia
       &::before {
         --_thumb-scale: 0.01;
 
-        background-color: oklch(0.6 0 0 / 0.2);
+        background-color: var(--ripple-color);
         block-size: var(--_ripple-size, 150%);
         clip-path: circle(50%);
         content: "";

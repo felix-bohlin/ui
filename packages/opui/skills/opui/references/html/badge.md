@@ -61,51 +61,6 @@ Default, and `.ui-dot`.
 </span>
 ```
 
-## Indicator
-
-Put indicator text inside `.ui-badge-indicator`. The anchored element is the badge's direct child before `.ui-anchor-floating`.
-
-```html
-<span class="ui-anchor ui-badge">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
-  >
-    <path
-      fill="currentColor"
-      d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-    ></path>
-  </svg>
-  <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator"
-      >5 <span class="ui-sr-only">unread messages</span></span
-    >
-  </span>
-</span>
-
-
-<span class="ui-anchor ui-badge">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
-  >
-    <path
-      fill="currentColor"
-      d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
-    ></path>
-  </svg>
-  <span class="ui-anchor-floating">
-    <span class="ui-badge-indicator"
-      >99+ <span class="ui-sr-only">unread messages</span></span
-    >
-  </span>
-</span>
-```
-
 ## Severities
 
 `.ui-critical`, `.ui-info`, `.ui-neutral`, `.ui-success`, `.ui-warning`.
@@ -197,6 +152,51 @@ Put indicator text inside `.ui-badge-indicator`. The anchored element is the bad
   </svg>
   <span class="ui-anchor-floating">
     <span class="ui-badge-indicator">5</span>
+  </span>
+</span>
+```
+
+## Indicator
+
+Put indicator text inside `.ui-badge-indicator`. The anchored element is the badge's direct child before `.ui-anchor-floating`.
+
+```html
+<span class="ui-anchor ui-badge">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+    ></path>
+  </svg>
+  <span class="ui-anchor-floating">
+    <span class="ui-badge-indicator"
+      >5 <span class="ui-sr-only">unread messages</span></span
+    >
+  </span>
+</span>
+
+
+<span class="ui-anchor ui-badge">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+    ></path>
+  </svg>
+  <span class="ui-anchor-floating">
+    <span class="ui-badge-indicator"
+      >99+ <span class="ui-sr-only">unread messages</span></span
+    >
   </span>
 </span>
 ```
@@ -323,8 +323,8 @@ Where the badge should be placed over the child.
 
 ## Accessibility
 
-- A count on its own is read without context, such as "5". Add visually hidden text inside the indicator, so it's read as "5 unread messages":a `.ui-sr-only` element inside `.ui-badge-indicator`.
-- Don't use `aria-label` on the indicator. It's a`<span>` without a role, so screen readers ignore the label and read the text.
+- A count on its own is read without context, such as "5". Add visually hidden text inside the indicator, so it's read as "5 unread messages": a `.ui-sr-only` element inside `.ui-badge-indicator`.
+- Don't use `aria-label` on the indicator. It's a `<span>` without a role, so screen readers ignore the label and read the text.
 
 ## API
 
@@ -414,8 +414,8 @@ Step 1 of 4: Indicator
 
 Step 2 of 4: Corner
 
-- [Individual transform properties](https://webstatus.dev/features/individual-transforms) (Widely available): Chrome 104+, Edge 104+, Firefox 72+, Safari 14.1+
-- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [Individual transform properties ](https://webstatus.dev/features/individual-transforms)(Widely available): Chrome 104+, Edge 104+, Firefox 72+, Safari 14.1+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
 
 ```css
 .badge {
@@ -435,7 +435,7 @@ Step 2 of 4: Corner
 
 Step 3 of 4: Direction
 
-- [`:dir()`](https://webstatus.dev/features/dir-pseudo) (Widely available): Chrome 120+, Edge 120+, Firefox 49+, Safari 16.4+
+- [`:dir()` ](https://webstatus.dev/features/dir-pseudo)(Widely available): Chrome 120+, Edge 120+, Firefox 49+, Safari 16.4+
 
 ```css
 .badge {

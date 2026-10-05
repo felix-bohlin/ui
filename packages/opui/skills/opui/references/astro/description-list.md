@@ -22,6 +22,8 @@
 
   The description.
 
+## Basics
+
 ```astro
 ---
 import { DescriptionList } from "opui-css/astro"
@@ -90,9 +92,9 @@ import { DescriptionList } from "opui-css/astro"
 
 ### Description list API
 
-| Prop       | Type                  | Default | Description                                         |
-| ---------- | --------------------- | ------- | --------------------------------------------------- |
-| `bordered` | `boolean`, `"dotted"` | `false` | Adds a border between the term and the description. |
+| Prop       | Type                   | Default | Description                                         |
+| ---------- | ---------------------- | ------- | --------------------------------------------------- |
+| `bordered` | `boolean` , `"dotted"` | `false` | Adds a border between the term and the description. |
 
 #### Slots
 
@@ -177,7 +179,7 @@ Step 1 of 4: Stacked
 
 Step 2 of 4: Container query
 
-- [Container queries](https://webstatus.dev/features/container-queries) (Widely available): Chrome 105+, Edge 105+, Firefox 110+, Safari 16+
+- [Container queries ](https://webstatus.dev/features/container-queries)(Widely available): Chrome 105+, Edge 105+, Firefox 110+, Safari 16+
 
 ```css
 .dl {

@@ -68,7 +68,7 @@
 
   .todo-sim.todo-fixed {
     .ui-switch {
-      --_accent-color: SelectedItem;
+      --_accent: SelectedItem;
       --_accent-contrast: SelectedItemText;
       --_dot-bg-color: CanvasText;
       --_track-bg-color: Canvas;
@@ -88,13 +88,13 @@
   @media (forced-colors: active) {
     .todo-live.todo-fixed {
       .ui-switch {
-        --_accent-color: SelectedItem;
+        --_accent: SelectedItem;
         --_accent-contrast: SelectedItemText;
         --_dot-bg-color: CanvasText;
       }
 
       .ui-toggle-button:has(:checked) {
-        --_button-bg-color: SelectedItem;
+        --_bg-color: SelectedItem;
 
         color: SelectedItemText;
         forced-color-adjust: none;

@@ -30,6 +30,10 @@
 - `FieldGroup` no longer sets `role="group"`. Wrap it in a `FieldSet` (a `<fieldset>`, already a group) to group and name the fields. `FieldSet` with another element in `as` gets `role="group"`.
 - `ClassicSelect` no longer sets `aria-labelledby` or a label `id`. The wrapping `<label>` names the select, so `endText` is part of the name, like `TextField`.
 - `Range` in Astro and Vue no longer sets `--_track-fill` from script. The track fill is a scroll-driven animation in CSS.
+- `List`, `Range` and `Progress` take `variant="surface"` (`.ui-surface`) instead of `variant="default"` (`.ui-default`). The look is the same (`--surface-default`).
+- `Divider` variants render `.ui-filled`, `.ui-primary` and `.ui-tonal` instead of `.ui-border-filled`, `.ui-border-primary` and `.ui-border-tonal`. The `variant` values are unchanged.
+- `Accordion`, `Avatar`, `Badge`, `Button`, `Callout`, `Card`, `Chip`, `Drawer`, `List`, `Menu`, `Progress`, `Range`, `Select`, `Switch`, `Table`, `TextField`, `Textarea`, `Toast`, `ToggleButton` and `Tooltip` private custom properties follow one scheme: `--_accent`, `--_text-color`, `--_bg-color`, `--_duration`/`--_ease`, `--_size` and `--_min-height`. MIGRATING lists every rename.
+- `Toast` keyframes are `ui-toast-enter`, `ui-toast-hold` and `ui-toast-exit`, and `toast.js` listens for `ui-toast-exit`.
 
 ### Removed
 
@@ -81,6 +85,8 @@
 - `Table` takes `stickyHeader` (`.ui-sticky-header`), which keeps the header rows at the top of the nearest scroll container and shows a shadow once they are stuck (scroll-state container queries). Offset it with `--_sticky-offset`.
 - `Button` takes `iconOnly` (types only), which makes `label` required for icon-only buttons.
 - `Range` takes an `error` prop (`data-invalid`) for the invalid state, like the other fields.
+- `theme.css` adds `--ripple-color` for the `Button` ripple and the `Checkbox` and `Radio` hover halo.
+- `Callout` with `severity="success"` shows a default check icon in Astro and Vue, like `info`, `warning` and `critical`.
 
 ### Changed
 
@@ -134,6 +140,12 @@
 - `Menu` is capped to the space on its side and only flips when that side has less than `12rem`.
 - `Tooltip` with an arrow shifts along the edge like other tooltips.
 - Links (`.ui-link` and rich text links) darken in light mode and lighten in dark mode on hover and focus, and their underline gets `3px` thick. Rich text links in a `List` are `--primary-dark` in light mode.
+- `TextField` and `Textarea` take `variant="filled"` like `Select`. The boolean `filled` still works but is deprecated and will be removed in 7.0. `variant` wins when both are set.
+- `theme.css` `--info` and `--blue` use `--hue-blue` (240), the same blue as the `.ui-info` palette. White text on an info `Badge` is 4.58:1.
+- `Typography` rich text tables scroll sideways in a narrow column instead of breaking words letter by letter.
+- `Carousel` buttons use `--surface-inverse`.
+- `ToggleGroup` is in the `components.extended` layer, like `ButtonGroup`.
+- `Callout` links, `Chip`, `Link`, `List`, `Menu`, `Range`, `Table`, `TextField`, `Toast`, the `Checkbox` and `Radio` halo and rich text links only show hover styles on devices that can hover, so they no longer stick after a tap.
 
 ### Fixed
 
@@ -241,6 +253,10 @@
 - `Typography` overline and heading group overline text, `code` in dark mode, `code` in `del`/`ins`, linked `code` in light mode and links in `mark` pass contrast.
 - `List` keyboard shortcuts in `.ui-end` pass contrast.
 - `DescriptionList`, `List` row links, `Card` (and `Dialog`) heading groups, `FieldDescription`, and `Button` and `List` `kbd` no longer pick up rich text padding, margins, font weight or font.
+- `Dialog` only locks page scroll for modal dialogs (`showModal()`).
+- `Select` only opts selects inside `.ui-select` into `appearance: base-select`.
+- `env.d.ts` is in the package `exports`, so `/// <reference types="opui-css/env.d.ts" />` resolves.
+- `dist/opui.components.css` no longer starts with a stray `undefined` line, which dropped the layer order and the `Anchor` styles.
 
 ## 5.5.0 - 2026-09-28
 

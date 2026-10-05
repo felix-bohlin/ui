@@ -28,8 +28,11 @@ const {
   style,
   type = "text",
   value,
+  variant,
   ...rest
 } = Astro.props
+
+const resolvedVariant = variant ?? (filled ? "filled" : "outlined")
 
 const startTextValue = description || startText
 const $id = createId(Astro.locals)
@@ -47,7 +50,7 @@ const describedBy =
     size && `ui-${size}`,
     {
       "ui-auto-fit": autoFit,
-      "ui-filled": filled,
+      "ui-filled": resolvedVariant === "filled",
       "ui-spread": spread,
     },
     className,

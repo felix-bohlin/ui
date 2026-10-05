@@ -103,7 +103,7 @@
     }
   }
 
-  :where(html:has(.ui-dialog[open])) {
+  :where(html:has(.ui-dialog:modal)) {
     block-size: 100%;
     overflow: clip;
     overscroll-behavior: contain;

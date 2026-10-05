@@ -22,32 +22,29 @@
     &::backdrop {
       display: none;
     }
-
-    /* Optional cap on visible toasts. Older toasts beyond this depth are hidden
-		   but still in the DOM so they animate cleanly when newer ones are removed. */
-    /* > .toast:nth-last-child(n + 6) { display: none; } */
   }
 
   :where(.ui-toast) {
     --_motion: var(--motion, 1);
-    --_anim-enter: calc(var(--duration-slow) * var(--_motion));
-    --_anim-exit: calc(var(--duration-slow) * var(--_motion));
-    --_duration: 5s;
+    --_enter-duration: calc(var(--duration-slow) * var(--_motion));
+    --_exit-duration: calc(var(--duration-slow) * var(--_motion));
+    --_hold-duration: 5s;
 
     align-items: center;
     animation:
-      toast-enter var(--_anim-enter) var(--ease-enter) both,
-      toast-hold var(--_duration) linear both,
-      toast-exit var(--_anim-exit) var(--ease-exit) both;
+      ui-toast-enter var(--_enter-duration) var(--ease-enter) both,
+      ui-toast-hold var(--_hold-duration) linear both,
+      ui-toast-exit var(--_exit-duration) var(--ease-exit) both;
     animation:
-      toast-enter var(--_anim-enter) var(--ease-enter) both,
-      toast-hold attr(data-duration type(<time>), 5s) linear both,
-      toast-exit var(--_anim-exit) var(--ease-exit) both;
+      ui-toast-enter var(--_enter-duration) var(--ease-enter) both,
+      ui-toast-hold attr(data-duration type(<time>), 5s) linear both,
+      ui-toast-exit var(--_exit-duration) var(--ease-exit) both;
     animation-delay:
-      0s, var(--_anim-enter), calc(var(--_anim-enter) + var(--_duration));
+      0s, var(--_enter-duration),
+      calc(var(--_enter-duration) + var(--_hold-duration));
     animation-delay:
-      0s, var(--_anim-enter),
-      calc(var(--_anim-enter) + attr(data-duration type(<time>), 5s));
+      0s, var(--_enter-duration),
+      calc(var(--_enter-duration) + attr(data-duration type(<time>), 5s));
     background-color: var(--surface-inverse);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-3);
@@ -59,13 +56,18 @@
     padding: var(--size-3) var(--size-4);
     pointer-events: auto;
 
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        animation-play-state: paused;
+      }
+    }
+
     &:focus-within {
       animation-play-state: paused;
     }
 
     &.ui-exiting {
-      animation: toast-exit var(--_anim-exit) var(--ease-exit) forwards;
+      animation: ui-toast-exit var(--_exit-duration) var(--ease-exit) forwards;
     }
 
     .ui-icon {
@@ -105,8 +107,10 @@
       place-items: center;
       transition: opacity calc(var(--duration) * var(--_motion));
 
-      &:hover {
-        opacity: 1;
+      @media (hover: hover) {
+        &:hover {
+          opacity: 1;
+        }
       }
     }
 
@@ -131,7 +135,7 @@
     }
   }
 
-  @keyframes toast-enter {
+  @keyframes ui-toast-enter {
     from {
       opacity: 0;
       translate: var(--size-4) 0;
@@ -143,7 +147,7 @@
     }
   }
 
-  @keyframes toast-hold {
+  @keyframes ui-toast-hold {
     from {
       opacity: 1;
     }
@@ -153,7 +157,7 @@
     }
   }
 
-  @keyframes toast-exit {
+  @keyframes ui-toast-exit {
     from {
       opacity: 1;
       scale: 1;

@@ -14,7 +14,7 @@ Supporting text that explains the callout in more detail.
 
 - `<svg>`
 
-  An optional icon. `info`, `warning` and `critical` have a default icon.
+  An optional icon. `info`, `success`, `warning` and `critical` have a default icon.
 
 - `.ui-content`
 
@@ -29,7 +29,7 @@ Supporting text that explains the callout in more detail.
 You might want to check out:
 
 - [Dialog](https://open-props-ui.netlify.app/html/components/dialog.md): takes over completely
-- [Toast](https://open-props-ui.netlify.app/html/components/toast.md): informative but non-interruptive
+- [Toast](https://open-props-ui.netlify.app/html/components/toast.md) : informative but non-interruptive
 
 ## Variants
 
@@ -57,28 +57,6 @@ Tonal (default) and `.ui-outlined` variants.
       properties.
     </p>
   </div>
-</article>
-```
-
-## Icon
-
-Icon must be placed before the content.
-
-```html
-<article class="ui-callout">
-  <svg
-    aria-hidden="true"
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    viewBox="0 0 32 32"
-  >
-    <path
-      fill="currentColor"
-      d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
-    ></path>
-  </svg>
-  <div class="ui-content">This is a tonal Callout with an icon.</div>
 </article>
 ```
 
@@ -110,6 +88,23 @@ Omitting an icon is possible. However, it helps having one if you need to convey
     ></path>
   </svg>
   <div class="ui-content">This is a tonal info Callout</div>
+</article>
+
+
+<article class="ui-callout ui-success">
+  <svg
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M22.707 12.707a1 1 0 0 0-1.414-1.414L14.5 18.086l-3.293-3.293a1 1 0 0 0-1.414 1.414l4 4a1 1 0 0 0 1.414 0zM16 2C8.268 2 2 8.268 2 16s6.268 14 14 14s14-6.268 14-14S23.732 2 16 2M4 16C4 9.373 9.373 4 16 4s12 5.373 12 12s-5.373 12-12 12S4 22.627 4 16"
+    ></path>
+  </svg>
+  <div class="ui-content">This is a tonal success Callout</div>
 </article>
 
 
@@ -169,6 +164,23 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 </article>
 
 
+<article class="ui-callout ui-outlined ui-success">
+  <svg
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M22.707 12.707a1 1 0 0 0-1.414-1.414L14.5 18.086l-3.293-3.293a1 1 0 0 0-1.414 1.414l4 4a1 1 0 0 0 1.414 0zM16 2C8.268 2 2 8.268 2 16s6.268 14 14 14s14-6.268 14-14S23.732 2 16 2M4 16C4 9.373 9.373 4 16 4s12 5.373 12 12s-5.373 12-12 12S4 22.627 4 16"
+    ></path>
+  </svg>
+  <div class="ui-content">This is an outlined success Callout</div>
+</article>
+
+
 <article class="ui-callout ui-outlined ui-warning">
   <svg
     aria-hidden="true"
@@ -203,11 +215,33 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 </article>
 ```
 
+## Icon
+
+Icon must be placed before the content.
+
+```html
+<article class="ui-callout">
+  <svg
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+  >
+    <path
+      fill="currentColor"
+      d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+    ></path>
+  </svg>
+  <div class="ui-content">This is a tonal Callout with an icon.</div>
+</article>
+```
+
 ## Accessibility
 
 - The Callout is an `<article>`, so screen readers announce it as self-contained content.
 - Use both color and icon to help distinguish between Callout [severities](#severities).
-- Don't interrupt the user with a Callout. In that case, use [Dialog](https://open-props-ui.netlify.app/html/components/dialog.md) or [Toast](https://open-props-ui.netlify.app/html/components/toast.md).
+- Don't interrupt the user with a Callout. In that case, use [Dialog](https://open-props-ui.netlify.app/html/components/dialog.md) or [Toast](https://open-props-ui.netlify.app/html/components/toast.md) .
 
 ## API
 
@@ -220,12 +254,12 @@ Omitting an icon is possible. However, it helps having one if you need to convey
 
 #### Parts
 
-| Part          | Description                                                             |
-| ------------- | ----------------------------------------------------------------------- |
-| `.ui-callout` | Container element.                                                      |
-| `<svg>`       | An optional icon. `info`, `warning` and `critical` have a default icon. |
-| `.ui-content` | The content.                                                            |
-| `<h3>`        | An optional title inside the content.                                   |
+| Part          | Description                                                                        |
+| ------------- | ---------------------------------------------------------------------------------- |
+| `.ui-callout` | Container element.                                                                 |
+| `<svg>`       | An optional icon. `info`, `success`, `warning` and `critical` have a default icon. |
+| `.ui-content` | The content.                                                                       |
+| `<h3>`        | An optional title inside the content.                                              |
 
 #### CSS variables
 
@@ -301,8 +335,8 @@ Step 1 of 4: Surface
 
 Step 2 of 4: Tint layer
 
-- [`::before and ::after`](https://webstatus.dev/features/before-after) (Widely available): Chrome 1+, Edge 12+, Firefox 1.5+, Safari 4+
-- [`isolation`](https://webstatus.dev/features/isolation) (Widely available): Chrome 41+, Edge 79+, Firefox 36+, Safari 8+
+- [`::before and ::after` ](https://webstatus.dev/features/before-after)(Widely available): Chrome 1+, Edge 12+, Firefox 1.5+, Safari 4+
+- [`isolation` ](https://webstatus.dev/features/isolation)(Widely available): Chrome 41+, Edge 79+, Firefox 36+, Safari 8+
 
 ```css
 .callout {
@@ -325,7 +359,7 @@ Step 2 of 4: Tint layer
 
 Step 3 of 4: Icon
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```css
 .callout:has(> svg) {
@@ -343,8 +377,8 @@ Step 3 of 4: Icon
 
 Step 4 of 4: Severity
 
-- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .info {

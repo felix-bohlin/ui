@@ -1,0 +1,120 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-panel {
+    border: 1px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+    padding: var(--size-3);
+  }
+
+  .todo-panel .ui-radio .ui-label {
+    background-color: oklch(from var(--primary) l c h / 0.15);
+  }
+
+  .todo-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .todo-coarse .ui-radio input[type="radio"] {
+    block-size: var(--size-4);
+    inline-size: var(--size-4);
+  }
+</style>
+<p>
+  A page can't switch <code>pointer: coarse</code> on for itself, so the second
+  panel copies the rule from <code>radio.css</code>. (Chromium's device toolbar
+  with a touch device does emulate it, if you open this in a new tab.) The
+  numbers are measured live: box size, and how far the label's first line is
+  from the box center (0px is centered).
+</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">
+      Mouse (<code>pointer: fine</code>), and the proposal on touch screens
+    </p>
+    <div class="todo-panel">
+      <div class="todo-row">
+        <label class="ui-radio ui-small">
+          <input type="radio" name="todo-fine" checked />
+          <span class="ui-label">Small</span>
+        </label>
+        <output class="ui-caption" data-measure></output>
+      </div>
+      <div class="todo-row">
+        <label class="ui-radio">
+          <input type="radio" name="todo-fine" />
+          <span class="ui-label">Default</span>
+        </label>
+        <output class="ui-caption" data-measure></output>
+      </div>
+      <div class="todo-row">
+        <label class="ui-radio ui-large">
+          <input type="radio" name="todo-fine" />
+          <span class="ui-label">Large</span>
+        </label>
+        <output class="ui-caption" data-measure></output>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption">
+      Touch screen now (<code>pointer: coarse</code>, simulated): every box is
+      <code>--size-4</code>
+    </p>
+    <div class="todo-panel todo-coarse">
+      <div class="todo-row">
+        <label class="ui-radio ui-small">
+          <input type="radio" name="todo-coarse" checked />
+          <span class="ui-label">Small</span>
+        </label>
+        <output class="ui-caption" data-measure></output>
+      </div>
+      <div class="todo-row">
+        <label class="ui-radio">
+          <input type="radio" name="todo-coarse" />
+          <span class="ui-label">Default</span>
+        </label>
+        <output class="ui-caption" data-measure></output>
+      </div>
+      <div class="todo-row">
+        <label class="ui-radio ui-large">
+          <input type="radio" name="todo-coarse" />
+          <span class="ui-label">Large</span>
+        </label>
+        <output class="ui-caption" data-measure></output>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  {
+    for (const output of document.querySelectorAll("[data-measure]")) {
+      const label = output.previousElementSibling
+      const box = label.querySelector("input").getBoundingClientRect()
+      const text = label.querySelector(".ui-label")
+      const lineHeight = parseFloat(getComputedStyle(text).lineHeight)
+      const offset =
+        text.getBoundingClientRect().top +
+        lineHeight / 2 -
+        (box.top + box.height / 2)
+      output.textContent = `${box.width}px box, label ${offset > 0 ? "+" : ""}${offset.toFixed(1)}px`
+    }
+  }
+</script>

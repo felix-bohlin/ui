@@ -218,10 +218,10 @@ import { Button } from "opui-css/astro"
 
 ### Card API
 
-| Prop           | Type                                            | Default | Description                |
-| -------------- | ----------------------------------------------- | ------- | -------------------------- |
-| `actionsAlign` | `"start"`, `"end"`                              | -       | Alignment for the actions. |
-| `variant`      | `"outlined"`, `"elevated"`, `"tonal"`, `"text"` | -       | The variant to use.        |
+| Prop           | Type                                               | Default | Description                |
+| -------------- | -------------------------------------------------- | ------- | -------------------------- |
+| `actionsAlign` | `"start"` , `"end"`                                | -       | Alignment for the actions. |
+| `variant`      | `"outlined"` , `"elevated"` , `"tonal"` , `"text"` | -       | The variant to use.        |
 
 #### Slots
 
@@ -267,8 +267,8 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 3: Base
 
-- [Flexbox gap](https://webstatus.dev/features/flexbox-gap) (Widely available): Chrome 84+, Edge 84+, Firefox 63+, Safari 14.1+
-- [\<hgroup>](https://webstatus.dev/features/hgroup) (Widely available): Chrome 5+, Edge 12+, Firefox 4+, Safari 5+
+- [Flexbox gap ](https://webstatus.dev/features/flexbox-gap)(Widely available): Chrome 84+, Edge 84+, Firefox 63+, Safari 14.1+
+- [\<hgroup> ](https://webstatus.dev/features/hgroup)(Widely available): Chrome 5+, Edge 12+, Firefox 4+, Safari 5+
 
 ```html
 <div class="card">
@@ -312,8 +312,8 @@ Step 1 of 3: Base
 
 Step 2 of 3: Variants
 
-- [Container style queries](https://webstatus.dev/features/container-style-queries) (Newly available): Chrome 111+, Edge 111+, Firefox 151+, Safari 18+
-- [Custom properties](https://webstatus.dev/features/custom-properties) (Widely available): Chrome 49+, Edge 15+, Firefox 31+, Safari 9.1+
+- [Container style queries ](https://webstatus.dev/features/container-style-queries)(Newly available): Chrome 111+, Edge 111+, Firefox 151+, Safari 18+
+- [Custom properties ](https://webstatus.dev/features/custom-properties)(Widely available): Chrome 49+, Edge 15+, Firefox 31+, Safari 9.1+
 
 ```css
 .tonal {
@@ -338,7 +338,7 @@ Step 2 of 3: Variants
 
 Step 3 of 3: Actions
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```css
 .actions {

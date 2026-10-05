@@ -10,7 +10,7 @@
 <div class="ui-avatar">
   <img
     src="https://images.unsplash.com/photo-1614530606961-c4ce986825c1?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    alt="Avatar"
+    alt="Maya Lind"
   />
 </div>
 
@@ -18,7 +18,7 @@
 <div class="ui-avatar">
   <img
     src="https://images.unsplash.com/photo-1672714413950-c9f7c5a45fa1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    alt="Avatar"
+    alt="Omar Haddad"
   />
 </div>
 
@@ -26,7 +26,7 @@
 <div class="ui-avatar">
   <img
     src="https://plus.unsplash.com/premium_photo-1675674458649-0c667500f3cc?q=80&w=1885&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    alt="Avatar"
+    alt="Priya Nair"
   />
 </div>
 ```
@@ -34,9 +34,9 @@
 ## Letter
 
 ```html
-<div class="ui-avatar">LE</div>
-<div class="ui-avatar">TT</div>
-<div class="ui-avatar">ER</div>
+<div class="ui-avatar" role="img" aria-label="Lena Ek">LE</div>
+<div class="ui-avatar" role="img" aria-label="Tom Tanaka">TT</div>
+<div class="ui-avatar" role="img" aria-label="Elif Rahman">ER</div>
 ```
 
 ## Icon
@@ -98,7 +98,7 @@ Change the shape of the avatar with the `.ui-squared`, `.ui-rounded` and `.ui-sq
 <div class="ui-avatar ui-rounded">
   <img
     src="https://images.unsplash.com/photo-1616286608358-0e1b143f7d2f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    alt="Avatar"
+    alt="Jonas Berg"
   />
 </div>
 
@@ -106,7 +106,7 @@ Change the shape of the avatar with the `.ui-squared`, `.ui-rounded` and `.ui-sq
 <div class="ui-avatar ui-squircle">
   <img
     src="https://plus.unsplash.com/premium_photo-1770631651199-d92007477b6f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    alt="Avatar"
+    alt="Sara Kim"
   />
 </div>
 ```
@@ -116,15 +116,21 @@ Change the shape of the avatar with the `.ui-squared`, `.ui-rounded` and `.ui-sq
 Group multiple avatars by adding `role="group"` to a parent container.
 
 ```html
-<div class="ui-avatar-group" role="group">
-  <div class="ui-avatar">AB</div>
-  <div class="ui-avatar">CD</div>
-  <button type="button" class="ui-avatar">EF</button>
-  <button type="button" class="ui-avatar">GH</button>
-  <a href="#" class="ui-avatar">IJ</a>
-  <a href="#" class="ui-avatar">KL</a>
+<div class="ui-avatar-group" role="group" aria-label="Team">
+  <div class="ui-avatar" role="img" aria-label="Anna Berg">AB</div>
+  <div class="ui-avatar" role="img" aria-label="Carl Dahl">CD</div>
+  <button type="button" class="ui-avatar" aria-label="Eva Falk">EF</button>
+  <button type="button" class="ui-avatar" aria-label="Gustav Holm">GH</button>
+  <a href="#" class="ui-avatar" aria-label="Ida Jansson">IJ</a>
+  <a href="#" class="ui-avatar" aria-label="Karl Lund">KL</a>
 </div>
 ```
+
+## Accessibility
+
+- Give an image avatar the person's name as its `alt`, not "Avatar". When the name is already shown next to it, use `alt=""` so it isn't read twice.
+- Initials and icons have no name on their own. Add `role="img"` and an `aria-label` with the full name, or `aria-hidden="true"` when the name is next to it.
+- A link or button avatar needs an `aria-label` that names the person, and a group of avatars an `aria-label` that names the group.
 
 ## API
 
@@ -147,7 +153,7 @@ Group multiple avatars by adding `role="group"` to a parent container.
 | Variable             | Default                                                                               | Description                                                   |
 | -------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
 | `--control-size`     | `calc(40px * var(--density))`                                                         | Shared default height for fields and buttons so they line up. |
-| `--icon-size-large`  | `var(--size-5)`                                                                       | Icon size inside `IconButton`, `Avatar` and `List`.           |
+| `--icon-size-large`  | `var(--size-5)`                                                                       | Icon size inside `Avatar` and `List`.                         |
 | `--primary`          | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                  |
 | `--primary-contrast` | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                       |
 | `--surface-default`  | `light-dark(var(--gray-1), var(--gray-13))`                                           | Page and card background.                                     |
@@ -182,7 +188,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 4: Circle
 
-- [`aspect-ratio`](https://webstatus.dev/features/aspect-ratio) (Widely available): Chrome 88+, Edge 88+, Firefox 89+, Safari 15+
+- [`aspect-ratio` ](https://webstatus.dev/features/aspect-ratio)(Widely available): Chrome 88+, Edge 88+, Firefox 89+, Safari 15+
 
 ```css
 .avatar {
@@ -207,8 +213,8 @@ Step 1 of 4: Circle
 
 Step 2 of 4: Image
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [`object-fit`](https://webstatus.dev/features/object-fit) (Widely available): Chrome 32+, Edge 79+, Firefox 36+, Safari 10+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`object-fit` ](https://webstatus.dev/features/object-fit)(Widely available): Chrome 32+, Edge 79+, Firefox 36+, Safari 10+
 
 ```html
 <div class="avatar">
@@ -233,7 +239,7 @@ Step 2 of 4: Image
 
 Step 3 of 4: Shapes
 
-- [`corner-shape`](https://webstatus.dev/features/corner-shape) (Limited availability): Chrome 139+, Edge 139+, Firefox not supported, Safari not supported
+- [`corner-shape` ](https://webstatus.dev/features/corner-shape)(Limited availability): Chrome 139+, Edge 139+, Firefox not supported, Safari not supported
 
 ```css
 .avatar.rounded {

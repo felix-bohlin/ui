@@ -27,7 +27,7 @@ export const description =
   slug="badge"
   heroAnatomy
   apis={[{ title: "Badge API", api: badgeApi }]}
-  browserSupport={["anchor-positioning"]}
+  browserSupport={["anchor-positioning", "light-dark", "relative-color"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Badge/Badge.astro",
@@ -66,30 +66,6 @@ export const description =
   </section>
 
   <section>
-    <h2 id="indicator">Indicator</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Set indicator text with the <code>label</code> prop or the <code
-          >indicator</code
-        > slot. The default slot holds the anchored element.
-      </Fragment>
-      <Fragment slot="html">
-        Put indicator text inside <code>.ui-badge-indicator</code>. The anchored
-        element is the badge's direct child before <code
-          >.ui-anchor-floating</code
-        >.
-      </Fragment>
-      <Fragment slot="vue">
-        Set indicator text with the <code>label</code> prop or the <code
-          >indicator</code
-        > slot. The default slot holds the anchored element.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Indicator" row />
-  </section>
-
-  <section>
     <h2 id="severities">Severities</h2>
     <Conditional>
       <p slot="html">
@@ -111,6 +87,30 @@ export const description =
     </Conditional>
 
     <AutoExample name="Color" row />
+  </section>
+
+  <section>
+    <h2 id="indicator">Indicator</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set indicator text with the <code>label</code> prop or the <code
+          >indicator</code
+        > slot. The default slot holds the anchored element.
+      </Fragment>
+      <Fragment slot="html">
+        Put indicator text inside <code>.ui-badge-indicator</code>. The anchored
+        element is the badge's direct child before <code
+          >.ui-anchor-floating</code
+        >.
+      </Fragment>
+      <Fragment slot="vue">
+        Set indicator text with the <code>label</code> prop or the <code
+          >indicator</code
+        > slot. The default slot holds the anchored element.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Indicator" row />
   </section>
 
   <section>

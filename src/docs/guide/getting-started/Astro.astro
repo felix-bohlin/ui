@@ -34,13 +34,24 @@ import Theming from "./_theming.astro"
   <section>
     <h2 id="css">Import the CSS</h2>
     <p>
-      Astro components ship markup only - the CSS still has to be imported in
-      your app somehow. Import everything:
+      Astro components ship markup only - the CSS still has to be imported once.
+      The frontmatter of the layout every page uses is a good spot. Import
+      everything:
     </p>
-    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
-    <p>Or pick and choose:</p>
     <Code
-      code={`@import "opui-css/css/layers.css";
+      code={`---
+// src/layouts/Layout.astro
+import "opui-css/css/imports.css"
+---`}
+      lang="astro"
+    />
+    <p>
+      Or pick and choose in a CSS file, and import that file in the layout
+      instead:
+    </p>
+    <Code
+      code={`/* src/styles/global.css */
+@import "opui-css/css/layers.css";
 @import "opui-css/open-props.css";
 @import "opui-css/core/palette.css";
 @import "opui-css/css/theme.css";
@@ -48,6 +59,13 @@ import Theming from "./_theming.astro"
 @import "opui-css/css/components.css";
 @import "opui-css/core/utils.css";`}
       lang="css"
+    />
+    <Code
+      code={`---
+// src/layouts/Layout.astro
+import "../styles/global.css"
+---`}
+      lang="astro"
     />
   </section>
 

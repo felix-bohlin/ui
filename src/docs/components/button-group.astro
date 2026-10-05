@@ -20,11 +20,17 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
 
 <Component
   slug="button-group"
-  browserSupport={["color-mix", "has", "light-dark", "relative-color"]}
+  browserSupport={[
+    "color-mix",
+    "has",
+    "light-dark",
+    "relative-color",
+    "scrollbar-width",
+  ]}
   heroAnatomy
   apis={[
-    { title: "Button group", api: buttonGroupApi },
-    { title: "Button", api: buttonApi },
+    { title: "Button group API", api: buttonGroupApi },
+    { title: "Button API", api: buttonApi },
   ]}
   changelogPaths={[
     {
@@ -123,6 +129,26 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   </section>
 
   <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Adjust the size of all buttons in the group using the <code>size</code>
+        {" "}prop.
+      </Fragment>
+      <Fragment slot="html">
+        Adjust the size of all buttons in the group using the <code
+          >.ui-x-small</code
+        >, <code>.ui-small</code> and <code>.ui-large</code> classes.
+      </Fragment>
+      <Fragment slot="vue">
+        Adjust the size of all buttons in the group using the <code>size</code>
+        {" "}prop.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Size" column centered />
+  </section>
+
+  <section>
     <h2 id="icons">Icons</h2>
     <p>
       Yes of course, they're just <DocLink
@@ -154,23 +180,28 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
   </section>
 
   <section>
-    <h2 id="sizes">Sizes</h2>
+    <h2 id="disabled">Disabled</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Adjust the size of all buttons in the group using the <code>size</code>
-        {" "}prop.
+        Disable individual buttons within a group by setting the <code
+          >disabled</code
+        >
+        {" "}prop on each <code>Button</code>.
       </Fragment>
       <Fragment slot="html">
-        Adjust the size of all buttons in the group using the <code
-          >.ui-x-small</code
-        >, <code>.ui-small</code> and <code>.ui-large</code> classes.
+        Disable individual buttons within a group by adding the <code
+          >disabled</code
+        >
+        {" "}attribute to each <code>&lt;button&gt;</code>.
       </Fragment>
       <Fragment slot="vue">
-        Adjust the size of all buttons in the group using the <code>size</code>
-        {" "}prop.
+        Disable individual buttons within a group by setting the <code
+          >disabled</code
+        >
+        {" "}prop on each <code>Button</code>.
       </Fragment>
     </Conditional>
-    <AutoExample name="Size" column centered />
+    <AutoExample name="Disabled" column centered />
   </section>
 
   <section>
@@ -223,31 +254,6 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
       </Fragment>
     </Conditional>
     <AutoExample name="Overflow" />
-  </section>
-
-  <section>
-    <h2 id="disabled">Disabled</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Disable individual buttons within a group by setting the <code
-          >disabled</code
-        >
-        {" "}prop on each <code>Button</code>.
-      </Fragment>
-      <Fragment slot="html">
-        Disable individual buttons within a group by adding the <code
-          >disabled</code
-        >
-        {" "}attribute to each <code>&lt;button&gt;</code>.
-      </Fragment>
-      <Fragment slot="vue">
-        Disable individual buttons within a group by setting the <code
-          >disabled</code
-        >
-        {" "}prop on each <code>Button</code>.
-      </Fragment>
-    </Conditional>
-    <AutoExample name="Disabled" column centered />
   </section>
 
   <ButtonGroupBuild slot="under-the-hood" />

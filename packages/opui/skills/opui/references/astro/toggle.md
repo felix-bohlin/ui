@@ -1,6 +1,6 @@
 # Toggle
 
-Buttons (disguised as input checkbox/radio) that can be toggled on and off.
+Buttons (disguised as input checkbox/radio) that can be toggled on and off. Use them for options in a toolbar, like bold or text alignment. For a setting that applies right away, use a [Switch](https://open-props-ui.netlify.app/astro/components/switch.md), and for choices in a form a [Checkbox](https://open-props-ui.netlify.app/astro/components/checkbox.md). To switch between panels of content, use [Tabs](https://open-props-ui.netlify.app/astro/components/tabs.md).
 
 ### What's new
 
@@ -10,7 +10,7 @@ Buttons (disguised as input checkbox/radio) that can be toggled on and off.
 
 ## Anatomy
 
-DayWeekMonth
+Day Week Month
 
 - `<ToggleGroup>`
 
@@ -70,7 +70,7 @@ import { ToggleGroup, ToggleButton } from "opui-css/astro"
 
 ### Single-select
 
-Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored.
+Use `selection="single"` for single-select groups. Every button is a radio then, and a `type` on a button is ignored. Set `pressed` on the button that starts pressed.
 
 ```astro
 ---
@@ -91,7 +91,7 @@ import { ToggleGroup, ToggleButton } from "opui-css/astro"
       ></path></svg
     >
   </ToggleButton>
-  <ToggleButton value="center" checked aria-label="Align center">
+  <ToggleButton value="center" pressed aria-label="Align center">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -127,7 +127,7 @@ import { ToggleGroup, ToggleButton } from "opui-css/astro"
 
 
 <ToggleGroup selection="single" name="transport">
-  <ToggleButton value="walking" checked>
+  <ToggleButton value="walking" pressed>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -199,7 +199,7 @@ import { ToggleGroup, ToggleButton } from "opui-css/astro"
       ></path></svg
     >
   </ToggleButton>
-  <ToggleButton value="center" checked aria-label="Align center">
+  <ToggleButton value="center" pressed aria-label="Align center">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -275,14 +275,14 @@ import { ToggleButton, ToggleGroup } from "opui-css/astro"
 
 ### Toggle group API
 
-| Prop          | Type                                           | Default      | Description                                                                                                       |
-| ------------- | ---------------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
-| `name`        | `string`                                       | -            | The name shared by the inputs. Generated when omitted.                                                            |
-| `orientation` | `"vertical"`                                   | -            | The orientation of the element.                                                                                   |
-| `scrollable`  | `boolean`                                      | `false`      | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
-| `selection`   | `"multiple"`, `"single"`                       | `"multiple"` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
-| `shrink`      | `boolean`                                      | `false`      | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
-| `size`        | `"default"`, `"x-small"`, `"small"`, `"large"` | `"default"`  | The size of the buttons.                                                                                          |
+| Prop          | Type                                              | Default      | Description                                                                                                       |
+| ------------- | ------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
+| `name`        | `string`                                          | -            | The name shared by the inputs. Generated when omitted.                                                            |
+| `orientation` | `"vertical"`                                      | -            | The orientation of the element.                                                                                   |
+| `scrollable`  | `boolean`                                         | `false`      | Keeps the items on one row and scrolls them sideways when they don't fit. By default they wrap onto more rows.    |
+| `selection`   | `"multiple"` , `"single"`                         | `"multiple"` | Whether one or several buttons can be selected. `"single"` uses radio inputs.                                     |
+| `shrink`      | `boolean`                                         | `false`      | Keeps the items on one row and shrinks them, truncating labels with an ellipsis. Icon-only items keep their size. |
+| `size`        | `"default"` , `"x-small"` , `"small"` , `"large"` | `"default"`  | The size of the buttons.                                                                                          |
 
 #### Slots
 
@@ -317,16 +317,16 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### Toggle button API
 
-| Prop       | Type                              | Default      | Description                                                |
-| ---------- | --------------------------------- | ------------ | ---------------------------------------------------------- |
-| `disabled` | `boolean`                         | `false`      | Disables the button.                                       |
-| `id`       | `string`                          | -            | The id of the `<input>`. Generated when omitted.           |
-| `label`    | `string`                          | -            | The input value when `value` is omitted.                   |
-| `name`     | `string`                          | -            | The name of the input. Set by the group.                   |
-| `pressed`  | `boolean`                         | `false`      | Selects the button.                                        |
-| `size`     | `"x-small"`, `"small"`, `"large"` | -            | The size of the element.                                   |
-| `type`     | `"checkbox"`, `"radio"`           | `"checkbox"` | The input type. `"radio"` allows one selection in a group. |
-| `value`    | `string`                          | -            | The value of the input.                                    |
+| Prop       | Type                                | Default      | Description                                                |
+| ---------- | ----------------------------------- | ------------ | ---------------------------------------------------------- |
+| `disabled` | `boolean`                           | `false`      | Disables the button.                                       |
+| `id`       | `string`                            | -            | The id of the `<input>`. Generated when omitted.           |
+| `label`    | `string`                            | -            | The input value when `value` is omitted.                   |
+| `name`     | `string`                            | -            | The name of the input. Set by the group.                   |
+| `pressed`  | `boolean`                           | `false`      | Selects the button.                                        |
+| `size`     | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                   |
+| `type`     | `"checkbox"` , `"radio"`            | `"checkbox"` | The input type. `"radio"` allows one selection in a group. |
+| `value`    | `string`                            | -            | The value of the input.                                    |
 
 #### Slots
 
@@ -412,9 +412,9 @@ Step 1 of 4: Label
 
 Step 2 of 4: Pressed
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .toggle {
@@ -435,7 +435,7 @@ Step 2 of 4: Pressed
 
 Step 3 of 4: Hide input
 
-- [`:focus-visible`](https://webstatus.dev/features/focus-visible) (Widely available): Chrome 86+, Edge 86+, Firefox 85+, Safari 15.4+
+- [`:focus-visible` ](https://webstatus.dev/features/focus-visible)(Widely available): Chrome 86+, Edge 86+, Firefox 85+, Safari 15.4+
 
 ```css
 .toggle input {

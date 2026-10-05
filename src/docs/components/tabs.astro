@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
 import Anatomy from "../../components/Anatomy.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import TabsBuild from "../../components/UnderTheHood/TabsBuild.astro"
@@ -62,7 +63,10 @@ import tabsApi from "../../component-api/tabs/api"
   </Fragment>
   <Fragment slot="preamble">
     The Tabs are radio inputs and the Panels are just divs that show and hide
-    based on the radio inputs' <code>:checked</code> state.
+    based on the radio inputs' <code>:checked</code> state. Use Tabs to switch between
+    panels of content. To pick an option, like a list or grid view, use a <DocLink
+      href="/components/toggle#toggle-group">Toggle group</DocLink
+    >.
   </Fragment>
 
   <section>
@@ -162,7 +166,7 @@ import tabsApi from "../../component-api/tabs/api"
       </Table.Body>
     </Table>
 
-    <h3>Keyboard Interaction</h3>
+    <h3 id="keyboard-interaction">Keyboard interaction</h3>
 
     <ul>
       <li>

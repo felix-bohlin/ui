@@ -8,7 +8,7 @@ Favorite pet
 
 Pick one.
 
-DogCat
+Dog Cat
 
 - `.ui-form`
 
@@ -312,12 +312,12 @@ A field group with only buttons lines up in a row. Separate it from the fields w
 
 ## Without fieldset
 
-Can't use `<form>`, `<fieldset>` or `<legend>`? Use `.ui-form`, `.ui-fieldset` with `role="group"` and `.ui-legend` on other elements.
+Can't use `<form>`, `<fieldset>` or `<legend>`? Use `.ui-form`, `.ui-fieldset` with `role="group"` and `.ui-legend` on other elements. A `div` doesn't pick up its name from the legend, so give the legend an `id` and point `aria-labelledby` on the field set at it.
 
 ```html
 <div class="ui-form">
-  <div class="ui-fieldset" role="group">
-    <p class="ui-legend">Delivery</p>
+  <div class="ui-fieldset" role="group" aria-labelledby="delivery-legend">
+    <p class="ui-legend" id="delivery-legend">Delivery</p>
     <p class="ui-field-description">Rendered as div and p elements.</p>
   </div>
 </div>
@@ -658,9 +658,9 @@ Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
 
 3. Groups
 
-   - `:has(> .check):not(:has(> :not(.check)))`: only checkboxes, nothing else
+   - `:has(> .check):not(:has(> :not(.check)))`: only checkboxes, radios or switches, nothing else
    - A list of choices gets a tighter gap
-   - A group of only buttons becomes a row
+   - A group of only buttons becomes a row, unless it's set to `.column`
 
 4. Required
 
@@ -669,8 +669,8 @@ Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
 
 Step 1 of 4: Fieldset
 
-- [`all`](https://webstatus.dev/features/all) (Widely available): Chrome 37+, Edge 79+, Firefox 27+, Safari 9.1+
-- [\<fieldset> and \<legend>](https://webstatus.dev/features/fieldset) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
+- [`all` ](https://webstatus.dev/features/all)(Widely available): Chrome 37+, Edge 79+, Firefox 27+, Safari 9.1+
+- [\<fieldset> and \<legend> ](https://webstatus.dev/features/fieldset)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
 
 ```html
 <fieldset class="fieldset">
@@ -696,7 +696,7 @@ Step 1 of 4: Fieldset
 
 Step 2 of 4: Description
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```css
 .fieldset legend:has(+ .description) {
@@ -736,7 +736,7 @@ Step 3 of 4: Groups
 }
 
 
-.group:has(> button):not(:has(> :not(button))) {
+.group:has(> button):not(.column, :has(> :not(button))) {
   align-items: center;
   flex-direction: row;
   gap: 0.5rem;

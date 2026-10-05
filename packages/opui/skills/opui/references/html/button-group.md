@@ -82,13 +82,46 @@ Add a `.ui-primary` or `.ui-critical` class to recolor the entire group. The def
 </div>
 ```
 
+## Sizes
+
+Adjust the size of all buttons in the group using the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
+
+```html
+<div role="group" class="ui-button-group ui-x-small ui-outlined">
+  <button type="button" class="ui-button">X-small</button>
+  <button type="button" class="ui-button">X-small</button>
+  <button type="button" class="ui-button">X-small</button>
+</div>
+
+
+<div role="group" class="ui-button-group ui-small ui-outlined">
+  <button type="button" class="ui-button">Small</button>
+  <button type="button" class="ui-button">Small</button>
+  <button type="button" class="ui-button">Small</button>
+</div>
+
+
+<div role="group" class="ui-button-group ui-outlined">
+  <button type="button" class="ui-button">Default</button>
+  <button type="button" class="ui-button">Default</button>
+  <button type="button" class="ui-button">Default</button>
+</div>
+
+
+<div role="group" class="ui-button-group ui-large ui-outlined">
+  <button type="button" class="ui-button">Large</button>
+  <button type="button" class="ui-button">Large</button>
+  <button type="button" class="ui-button">Large</button>
+</div>
+```
+
 ## Icons
 
 Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/components/button.md) Wrap labels in a `<span>` so buttons with an icon keep their padding.
 
 ```html
 <div role="group" class="ui-button-group ui-outlined">
-  <button type="button" class="ui-button" aria-label="Label">
+  <button type="button" class="ui-button" aria-label="OK">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -103,10 +136,10 @@ Yes of course, they're just [buttons.](https://open-props-ui.netlify.app/html/co
   </button>
 
 
-  <button type="button" class="ui-button" aria-label="Label">Maybe</button>
+  <button type="button" class="ui-button">Maybe</button>
 
 
-  <button type="button" class="ui-button" aria-label="Label">
+  <button type="button" class="ui-button" aria-label="No">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="32"
@@ -229,36 +262,22 @@ A [Menu](https://open-props-ui.netlify.app/html/components/menu.md) after the la
 </div>
 ```
 
-## Sizes
+## Disabled
 
-Adjust the size of all buttons in the group using the `.ui-x-small`, `.ui-small` and `.ui-large` classes.
+Disable individual buttons within a group by adding the `disabled` attribute to each `<button>`.
 
 ```html
-<div role="group" class="ui-button-group ui-x-small ui-outlined">
-  <button type="button" class="ui-button">X-small</button>
-  <button type="button" class="ui-button">X-small</button>
-  <button type="button" class="ui-button">X-small</button>
+<div role="group" class="ui-button-group ui-filled">
+  <button type="button" class="ui-button">Enabled</button>
+  <button type="button" class="ui-button" disabled>Disabled</button>
+  <button type="button" class="ui-button">Enabled</button>
 </div>
 
 
-<div role="group" class="ui-button-group ui-small ui-outlined">
-  <button type="button" class="ui-button">Small</button>
-  <button type="button" class="ui-button">Small</button>
-  <button type="button" class="ui-button">Small</button>
-</div>
-
-
-<div role="group" class="ui-button-group ui-outlined">
-  <button type="button" class="ui-button">Default</button>
-  <button type="button" class="ui-button">Default</button>
-  <button type="button" class="ui-button">Default</button>
-</div>
-
-
-<div role="group" class="ui-button-group ui-large ui-outlined">
-  <button type="button" class="ui-button">Large</button>
-  <button type="button" class="ui-button">Large</button>
-  <button type="button" class="ui-button">Large</button>
+<div role="group" class="ui-button-group ui-filled ui-primary">
+  <button type="button" class="ui-button">Enabled</button>
+  <button type="button" class="ui-button" disabled>Disabled</button>
+  <button type="button" class="ui-button">Enabled</button>
 </div>
 ```
 
@@ -269,7 +288,7 @@ Change the layout of the group with the `.ui-vertical` class.
 ```html
 <div class="example-row">
   <div class="ui-button-group ui-vertical" role="group">
-    <button type="button" aria-label="Up" class="ui-button">
+    <button type="button" aria-label="Increase" class="ui-button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -304,7 +323,7 @@ Change the layout of the group with the `.ui-vertical` class.
 
 
   <div class="ui-button-group ui-outlined ui-vertical" role="group">
-    <button type="button" aria-label="Up" class="ui-button">
+    <button type="button" aria-label="Increase" class="ui-button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -339,7 +358,7 @@ Change the layout of the group with the `.ui-vertical` class.
 
 
   <div class="ui-button-group ui-tonal ui-vertical" role="group">
-    <button type="button" aria-label="Up" class="ui-button">
+    <button type="button" aria-label="Increase" class="ui-button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -374,7 +393,7 @@ Change the layout of the group with the `.ui-vertical` class.
 
 
   <div class="ui-button-group ui-filled ui-vertical" role="group">
-    <button type="button" aria-label="Up" class="ui-button">
+    <button type="button" aria-label="Increase" class="ui-button">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -456,28 +475,9 @@ Buttons wrap onto more rows when they don't fit. Add `.ui-scrollable` to keep th
 </div>
 ```
 
-## Disabled
-
-Disable individual buttons within a group by adding the `disabled` attribute to each `<button>`.
-
-```html
-<div role="group" class="ui-button-group ui-filled">
-  <button type="button" class="ui-button">Enabled</button>
-  <button type="button" class="ui-button" disabled>Disabled</button>
-  <button type="button" class="ui-button">Enabled</button>
-</div>
-
-
-<div role="group" class="ui-button-group ui-filled ui-primary">
-  <button type="button" class="ui-button">Enabled</button>
-  <button type="button" class="ui-button" disabled>Disabled</button>
-  <button type="button" class="ui-button">Enabled</button>
-</div>
-```
-
 ## API
 
-### Button group
+### Button group API
 
 | Type        | Modifiers                                 | Default | Description                                                                                                       |
 | ----------- | ----------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -504,7 +504,7 @@ Disable individual buttons within a group by adding the `disabled` attribute to 
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                   |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                          |
 | `--button-size-small`         | `var(--control-size-small)`                                                           | `Button` height with `.ui-small`.                                                                                          |
-| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `IconButton` height with `.ui-x-small`.                                                                       |
+| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `ButtonGroup` height with `.ui-x-small`.                                                                      |
 | `--critical`                  | `var(--red)`                                                                          | Severity color for errors and destructive actions.                                                                         |
 | `--disabled-opacity`          | `0.64`                                                                                | Opacity applied to disabled controls.                                                                                      |
 | `--duration`                  | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                     |
@@ -516,6 +516,7 @@ Disable individual buttons within a group by adding the `disabled` attribute to 
 | `--motion`                    | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
 | `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
+| `--ripple-color`              | `oklch(0.6 0 0 / 0.2)`                                                                | Halo color for `Button` with `.ui-ripple` and the `Checkbox` and `Radio` hover effect.                                     |
 | `--state-active-alpha`        | `20%`                                                                                 | Alpha of the pressed state layer on neutral buttons in light mode.                                                         |
 | `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                          |
 | `--state-active-alpha-dark`   | `30%`                                                                                 | Alpha of the pressed state layer on neutral buttons in dark mode.                                                          |
@@ -531,7 +532,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 The root needs `role="group"`.
 
-### Button
+### Button API
 
 | Type     | Modifiers                                 | Default | Description                                                       |
 | -------- | ----------------------------------------- | ------- | ----------------------------------------------------------------- |
@@ -558,7 +559,7 @@ The root needs `role="group"`.
 | `--button-size`               | `var(--control-size)`                                                                 | Default `Button` height.                                                                                                   |
 | `--button-size-large`         | `var(--control-size-large)`                                                           | `Button` height with `.ui-large`.                                                                                          |
 | `--button-size-small`         | `var(--control-size-small)`                                                           | `Button` height with `.ui-small`.                                                                                          |
-| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `IconButton` height with `.ui-x-small`.                                                                       |
+| `--button-size-x-small`       | `var(--control-size-x-small)`                                                         | `Button` and `ButtonGroup` height with `.ui-x-small`.                                                                      |
 | `--critical`                  | `var(--red)`                                                                          | Severity color for errors and destructive actions.                                                                         |
 | `--disabled-opacity`          | `0.64`                                                                                | Opacity applied to disabled controls.                                                                                      |
 | `--duration`                  | `0.2s`                                                                                | Default transition duration. Multiplied by `--motion`.                                                                     |
@@ -569,6 +570,7 @@ The root needs `role="group"`.
 | `--motion`                    | `1`                                                                                   | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`. |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))`                                          | Brand color for primary actions and accents.                                                                               |
 | `--primary-contrast`          | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )` | Text color on a `--primary` background.                                                                                    |
+| `--ripple-color`              | `oklch(0.6 0 0 / 0.2)`                                                                | Halo color for `Button` with `.ui-ripple` and the `Checkbox` and `Radio` hover effect.                                     |
 | `--state-active-alpha`        | `20%`                                                                                 | Alpha of the pressed state layer on neutral buttons in light mode.                                                         |
 | `--state-active-alpha-accent` | `25%`                                                                                 | Alpha of the pressed state layer on primary and critical buttons.                                                          |
 | `--state-active-alpha-dark`   | `30%`                                                                                 | Alpha of the pressed state layer on neutral buttons in dark mode.                                                          |
@@ -632,8 +634,8 @@ Step 1 of 3: Join
 
 Step 2 of 3: Dividers
 
-- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .group > button {

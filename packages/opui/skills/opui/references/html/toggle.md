@@ -1,6 +1,6 @@
 # Toggle
 
-Buttons (disguised as input checkbox/radio) that can be toggled on and off.
+Buttons (disguised as input checkbox/radio) that can be toggled on and off. Use them for options in a toolbar, like bold or text alignment. For a setting that applies right away, use a [Switch](https://open-props-ui.netlify.app/html/components/switch.md), and for choices in a form a [Checkbox](https://open-props-ui.netlify.app/html/components/checkbox.md). To switch between panels of content, use [Tabs](https://open-props-ui.netlify.app/html/components/tabs.md).
 
 ### What's new
 
@@ -10,7 +10,7 @@ Buttons (disguised as input checkbox/radio) that can be toggled on and off.
 
 ## Anatomy
 
-DayWeekMonth
+Day Week Month
 
 - `.ui-toggle-group`
 
@@ -93,7 +93,7 @@ Use `type="checkbox"` for multi-select groups.
 
 ### Single-select
 
-Use `type="radio"` for single-select groups.
+Use `type="radio"` for single-select groups. Add `checked` to the input that starts pressed.
 
 ```html
 <div role="radiogroup" class="ui-toggle-group">
@@ -564,9 +564,9 @@ Step 1 of 4: Label
 
 Step 2 of 4: Pressed
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .toggle {
@@ -587,7 +587,7 @@ Step 2 of 4: Pressed
 
 Step 3 of 4: Hide input
 
-- [`:focus-visible`](https://webstatus.dev/features/focus-visible) (Widely available): Chrome 86+, Edge 86+, Firefox 85+, Safari 15.4+
+- [`:focus-visible` ](https://webstatus.dev/features/focus-visible)(Widely available): Chrome 86+, Edge 86+, Firefox 85+, Safari 15.4+
 
 ```css
 .toggle input {

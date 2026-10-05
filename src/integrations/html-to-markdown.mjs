@@ -12,6 +12,7 @@ const REMOVE_SELECTORS = [
   ".component-footer",
   ".controls",
   ".example-preview",
+  ".guide-footer",
   ".header-anchor",
   ".theme-generator",
   ".ui-tab-label",

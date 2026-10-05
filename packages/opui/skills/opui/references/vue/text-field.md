@@ -5,11 +5,13 @@
 - [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
 - [Spread](#spread) fields line up at one width.
 - Breaking: `style` goes to the label instead of the input.
-- The auto-suggest arrow matches the Select arrow at every size.
+- The auto-suggest arrow is the Select chevron at every size.
+- [`variant="filled"`](#variants) replaces the boolean `filled`, which is deprecated until 7.0.
+- Breaking: no generated input `id`. Pass `id` when something outside the component references the input.
 
 ## Anatomy
 
-LabelDescription¢EURHeaderFooterSupporting text
+Label Description ¢ EUR Header Footer Supporting text
 
 - `<TextField>`
 
@@ -53,6 +55,8 @@ LabelDescription¢EURHeaderFooterSupporting text
 
 ## Variants
 
+Text fields are outlined by default. Set `variant="filled"` for a filled field. The old `filled` prop still works until 7.0.
+
 ```vue
 <script setup lang="ts">
 import { TextField } from "opui-css/vue"
@@ -61,7 +65,7 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <TextField label="Outlined" placeholder="Placeholder" />
-  <TextField label="Filled" placeholder="Placeholder" filled />
+  <TextField label="Filled" placeholder="Placeholder" variant="filled" />
 </template>
 ```
 
@@ -177,7 +181,12 @@ import { TextField } from "opui-css/vue"
 <template>
   <div class="example-row">
     <TextField label="I'm required" placeholder="Placeholder" required />
-    <TextField label="So am I!" placeholder="Placeholder" required filled />
+    <TextField
+      label="So am I!"
+      placeholder="Placeholder"
+      required
+      variant="filled"
+    />
   </div>
 
 
@@ -195,7 +204,7 @@ import { TextField } from "opui-css/vue"
       value="Uh-oh"
       endText="Only letters from the first half of the alphabet are allowed."
       error
-      filled
+      variant="filled"
     />
   </div>
 </template>
@@ -218,7 +227,7 @@ import { TextField } from "opui-css/vue"
   </TextField>
 
 
-  <TextField spread placeholder="you@example.com" type="email" filled>
+  <TextField spread placeholder="you@example.com" type="email" variant="filled">
     <template #label>Email</template>
     <template #description>We'll use this to contact you</template>
     <template #end-text>Please use a valid email address</template>
@@ -248,7 +257,7 @@ import { TextField } from "opui-css/vue"
   </TextField>
 
 
-  <TextField spread label="Website" placeholder="example.com" filled>
+  <TextField spread label="Website" placeholder="example.com" variant="filled">
     <template #description>Your public profile URL</template>
     <template #prefix>https://</template>
     <template #end-text>Must include a valid domain</template>
@@ -264,7 +273,7 @@ import { TextField } from "opui-css/vue"
 
   <TextField
     spread
-    filled
+    variant="filled"
     label="API key"
     placeholder="Paste your key"
     type="password"
@@ -432,8 +441,6 @@ The British Government has a [great article](https://technology.blog.gov.uk/2020
 
 ### File
 
-Use `aria-label` instead of the `<label>` element.
-
 File is a weird one. Should it really be an `<input>` element? Well, it's what we've got.
 
 ```vue
@@ -444,7 +451,7 @@ import { TextField } from "opui-css/vue"
 
 <template>
   <TextField type="file" placeholder="File" label="Label" />
-  <TextField type="file" placeholder="File" label="Label" filled />
+  <TextField type="file" placeholder="File" label="Label" variant="filled" />
 </template>
 ```
 
@@ -472,7 +479,7 @@ import { TextField } from "opui-css/vue"
 
 
   <TextField
-    filled
+    variant="filled"
     label="Emails"
     list="users-email"
     placeholder="Placeholder"
@@ -501,7 +508,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 <template>
   <div class="ui-text-field">
     <span class="ui-field">
-      <input type="text" placeholder="Placeholder" />
+      <input aria-label="Search" placeholder="Search" type="text" />
     </span>
   </div>
 </template>
@@ -515,20 +522,21 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 ### Text field API
 
-| Prop          | Type                              | Default  | Description                                                               |
-| ------------- | --------------------------------- | -------- | ------------------------------------------------------------------------- |
-| `autoFit`     | `boolean`                         | `false`  | Changes size depending on its content.                                    |
-| `description` | `string`                          | -        | Description text displayed above the field.                               |
-| `endText`     | `string`                          | -        | Supporting text displayed below the field.                                |
-| `error`       | `boolean`                         | `false`  | Shows error styles.                                                       |
-| `filled`      | `boolean`                         | `false`  | The variant to use.                                                       |
-| `id`          | `string`                          | -        | The id of the `<input>`.                                                  |
-| `label`       | `string`                          | -        | The label for the field.                                                  |
-| `size`        | `"x-small"`, `"small"`, `"large"` | -        | The size of the element.                                                  |
-| `spread`      | `boolean`                         | `false`  | Pushes the label and description to one side and the input to the other.  |
-| `startText`   | `string`                          | -        | Legacy alias of `description`.                                            |
-| `type`        | `"numeric"`, `string`             | `"text"` | The input type. `"numeric"` renders a text input with a numeric keyboard. |
-| `v-model`     | `string`, `number`                | -        | The input value.                                                          |
+| Prop          | Type                                | Default      | Description                                                                           |
+| ------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------------------- |
+| `autoFit`     | `boolean`                           | `false`      | Changes size depending on its content.                                                |
+| `description` | `string`                            | -            | Description text displayed above the field.                                           |
+| `endText`     | `string`                            | -            | Supporting text displayed below the field.                                            |
+| `error`       | `boolean`                           | `false`      | Shows error styles.                                                                   |
+| `filled`      | `boolean`                           | `false`      | Deprecated, removed in 7.0. Use `variant="filled"`. `variant` wins when both are set. |
+| `id`          | `string`                            | -            | The id of the `<input>`.                                                              |
+| `label`       | `string`                            | -            | The label for the field.                                                              |
+| `size`        | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                              |
+| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.              |
+| `startText`   | `string`                            | -            | Legacy alias of `description`.                                                        |
+| `type`        | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard.             |
+| `v-model`     | `string` , `number`                 | -            | The input value.                                                                      |
+| `variant`     | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                                   |
 
 #### Slots
 
@@ -607,8 +615,8 @@ Attributes that aren't props, such as `placeholder` or `disabled`, go to the `<i
 
 Step 1 of 4: Wrapper
 
-- [`:focus-within`](https://webstatus.dev/features/focus-within) (Widely available): Chrome 60+, Edge 79+, Firefox 52+, Safari 10.1+
-- [\<label>](https://webstatus.dev/features/label) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
+- [`:focus-within` ](https://webstatus.dev/features/focus-within)(Widely available): Chrome 60+, Edge 79+, Firefox 52+, Safari 10.1+
+- [\<label> ](https://webstatus.dev/features/label)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
 
 ```html
 <label class="text-field">
@@ -671,8 +679,8 @@ Step 1 of 4: Wrapper
 
 Step 2 of 4: Affixes
 
-- [Grid](https://webstatus.dev/features/grid) (Widely available): Chrome 57+, Edge 16+, Firefox 52+, Safari 10.1+
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [Grid ](https://webstatus.dev/features/grid)(Widely available): Chrome 57+, Edge 16+, Firefox 52+, Safari 10.1+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```html
 <span class="field">
@@ -735,7 +743,7 @@ Step 3 of 4: Required
 
 Step 4 of 4: Validation
 
-- [`:user-valid and :user-invalid`](https://webstatus.dev/features/user-pseudos) (Widely available): Chrome 119+, Edge 119+, Firefox 88+, Safari 16.5+
+- [`:user-valid and :user-invalid` ](https://webstatus.dev/features/user-pseudos)(Widely available): Chrome 119+, Edge 119+, Firefox 88+, Safari 16.5+
 
 ```css
 .text-field:is([data-invalid], :has(:user-invalid)) {

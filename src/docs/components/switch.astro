@@ -17,7 +17,7 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 
 <Component
   slug="switch"
-  browserSupport={["has", "light-dark", "text-box"]}
+  browserSupport={["has", "light-dark", "relative-color", "user-pseudos"]}
   heroAnatomy
   apis={[
     { title: "Switch API", api: switchApi },
@@ -48,7 +48,13 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 >
   <Fragment slot="title">Switch</Fragment>
   <Fragment slot="preamble">
-    See also: <a href="#field-group" class="ui-link">Switch field group</a>.
+    Use a Switch for a setting that applies right away. Use a <DocLink
+      href="/components/checkbox">Checkbox</DocLink
+    > for choices that are submitted with a form, and a <DocLink
+      href="/components/toggle">Toggle</DocLink
+    > for options in a toolbar. See also: <a href="#field-group" class="ui-link"
+      >Switch field group</a
+    >.
   </Fragment>
 
   <!--
@@ -58,14 +64,38 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   https://webkit.org/blog/15054/an-html-switch-control/
    -->
 
-  <p>
-    All switches should have an accessible name. Put the label text inside the
-    component, also when there's no visible label: use <code>.ui-sr-only</code>
-    instead of <code>.ui-label</code>, or the <code>hideLabel</code> prop in Astro
-    and Vue.
-  </p>
+  <section>
+    <h2 id="basics">Basics</h2>
+    <p>
+      All switches should have an accessible name. Put the label text inside the
+      component, also when there's no visible label: use <code>.ui-sr-only</code
+      >
+      instead of <code>.ui-label</code>, or the <code>hideLabel</code> prop in Astro
+      and Vue.
+    </p>
 
-  <AutoExample name="Variants" row />
+    <AutoExample name="Variants" row />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>size="small"</code> for a smaller Switch variant.
+      </Fragment>
+      <Fragment slot="html">
+        Add the <code>.ui-small</code> class on the <code
+          >&lt;label class="ui-switch"&gt;</code
+        >
+        {" "}for a smaller Switch variant.
+      </Fragment>
+      <Fragment slot="vue">
+        Set <code>size="small"</code> for a smaller Switch variant.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Sizes" column centered spacious />
+  </section>
 
   <section>
     <h2 id="visible-label">Visible label</h2>
@@ -123,6 +153,11 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   </section>
 
   <section>
+    <h2 id="icons">Icons</h2>
+    <AutoExample name="Icons" column centered />
+  </section>
+
+  <section>
     <h2 id="spread">Spread</h2>
     <Conditional as="p">
       <Fragment slot="astro">
@@ -146,26 +181,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
   </section>
 
   <section>
-    <h2 id="sizes">Sizes</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Set <code>size="small"</code> for a smaller Switch variant.
-      </Fragment>
-      <Fragment slot="html">
-        Add the <code>.ui-small</code> class on the <code
-          >&lt;label class="ui-switch"&gt;</code
-        >
-        {" "}for a smaller Switch variant.
-      </Fragment>
-      <Fragment slot="vue">
-        Set <code>size="small"</code> for a smaller Switch variant.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Sizes" column centered spacious />
-  </section>
-
-  <section>
     <h2 id="label-alignment">Label alignment</h2>
     <p>
       The switch lines up with the first line of its label and centers on the
@@ -175,11 +190,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
       {" "}<code>cap</code> so it scales with the label.
     </p>
     <Code lang="css" code={`:root {\n  --choice-label-offset: 0.05em;\n}`} />
-  </section>
-
-  <section>
-    <h2 id="icons">Icons</h2>
-    <AutoExample name="Icons" column centered />
   </section>
 
   <section>

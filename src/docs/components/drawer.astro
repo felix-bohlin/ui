@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example"
 import { Switch, Table } from "@opui/astro"
 
@@ -15,13 +16,16 @@ import ExampleUsageAstro from "../../component-examples/drawer/Usage.astro?raw"
 import ExampleUsageVueRaw from "../../component-examples/drawer/Usage.vue?raw"
 import ExampleUsageHTML from "../../component-examples/drawer/Usage.html?raw"
 
+import ClosedbyTable from "../../components/ClosedbyTable.astro"
 import Conditional from "../../components/Conditional.astro"
 ---
 
 <Component
   slug="drawer"
   browserSupport={[
+    "anchor-positioning",
     "backdrop-filter",
+    "container-scroll-state-queries",
     "dialog-closedby",
     "display-animation",
     "has",
@@ -52,7 +56,11 @@ import Conditional from "../../components/Conditional.astro"
 >
   <Fragment slot="title">Drawer</Fragment>
   <Fragment slot="preamble">
-    Slides in from the sides, top or bottom of the screen.
+    Slides in from the sides, top or bottom of the screen. Good for navigation,
+    filters and side content. For a question or a short task that needs the
+    user's full attention, use a <DocLink href="/components/dialog"
+      >Dialog</DocLink
+    >.
   </Fragment>
 
   <section>
@@ -133,123 +141,7 @@ import Conditional from "../../components/Conditional.astro"
 
   <section>
     <h2 id="closedby">How to close a drawer</h2>
-    <Conditional>
-      <Fragment slot="html">
-        <p>
-          You can use it like this: <code>&lt;dialog closedby=""&gt;</code> and give
-          it the following values:
-        </p>
-        <Table style="table-layout: fixed">
-          <Table.ColumnGroup>
-            <Table.Column width="30%" />
-            <Table.Column />
-          </Table.ColumnGroup>
-          <Table.Head>
-            <Table.Row>
-              <Table.HeaderCell>Attr value</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell><code>closedby="any"</code></Table.Cell>
-              <Table.Cell
-                >Click anywhere outside of the drawer to close it.</Table.Cell
-              >
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
-              <Table.Cell>
-                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
-                button on mobile, and whatever dismiss action assistive tools use.
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="none"</code></Table.Cell>
-              <Table.Cell
-                >You have to handroll a closing solution yourself.</Table.Cell
-              >
-            </Table.Row>
-          </Table.Body>
-        </Table>
-      </Fragment>
-      <Fragment slot="astro">
-        <p>
-          Use the <code>closedby</code> prop to control the closing behavior.
-        </p>
-        <Table style="table-layout: fixed">
-          <Table.ColumnGroup>
-            <Table.Column width="30%" />
-            <Table.Column />
-          </Table.ColumnGroup>
-          <Table.Head>
-            <Table.Row>
-              <Table.HeaderCell>Prop</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell><code>closedby="any"</code></Table.Cell>
-              <Table.Cell
-                >Click anywhere outside of the drawer to close it.</Table.Cell
-              >
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
-              <Table.Cell>
-                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
-                button on mobile, and whatever dismiss action assistive tools use.
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="none"</code></Table.Cell>
-              <Table.Cell
-                >You have to handroll a closing solution yourself.</Table.Cell
-              >
-            </Table.Row>
-          </Table.Body>
-        </Table>
-      </Fragment>
-      <Fragment slot="vue">
-        <p>
-          Use the <code>closedby</code> prop to control the closing behavior.
-        </p>
-        <Table style="table-layout: fixed">
-          <Table.ColumnGroup>
-            <Table.Column width="30%" />
-            <Table.Column />
-          </Table.ColumnGroup>
-          <Table.Head>
-            <Table.Row>
-              <Table.HeaderCell>Prop</Table.HeaderCell>
-              <Table.HeaderCell>Description</Table.HeaderCell>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell><code>closedby="any"</code></Table.Cell>
-              <Table.Cell
-                >Click anywhere outside of the drawer to close it.</Table.Cell
-              >
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="closerequest"</code></Table.Cell>
-              <Table.Cell>
-                Device-specific way to close, ex: <kbd>Esc</kbd> on desktop, back
-                button on mobile, and whatever dismiss action assistive tools use.
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell><code>closedby="none"</code></Table.Cell>
-              <Table.Cell
-                >You have to handroll a closing solution yourself.</Table.Cell
-              >
-            </Table.Row>
-          </Table.Body>
-        </Table>
-      </Fragment>
-    </Conditional>
+    <ClosedbyTable componentDefault="any" name="drawer" />
   </section>
 
   <DrawerBuild slot="under-the-hood" />
@@ -303,6 +195,12 @@ import Conditional from "../../components/Conditional.astro"
     </p>
 
     <h3 id="role-attributes">Role & attributes</h3>
+    <p>
+      Don't add <code>role="dialog"</code> or <code>aria-modal="true"</code>.
+      The <code>&lt;dialog&gt;</code> element has the dialog role, and opening it
+      with <code>command="show-modal"</code> (or <code>showModal()</code>) makes
+      it modal and the page behind it inert.
+    </p>
     <Table style="table-layout: fixed">
       <Table.ColumnGroup>
         <Table.Column width="30%" />
@@ -316,12 +214,6 @@ import Conditional from "../../components/Conditional.astro"
       </Table.Head>
       <Table.Body>
         <Table.Row>
-          <Table.Cell><code>role="dialog"</code></Table.Cell>
-          <Table.Cell
-            >Identifies the element that serves as the drawer container.</Table.Cell
-          >
-        </Table.Row>
-        <Table.Row>
           <Table.Cell><code>aria-labelledby="IDREF"</code></Table.Cell>
           <Table.Cell>
             Gives the drawer an accessible name by referring to the element that
@@ -331,16 +223,9 @@ import Conditional from "../../components/Conditional.astro"
         <Table.Row>
           <Table.Cell><code>aria-describedby="IDREF"</code></Table.Cell>
           <Table.Cell>
-            Gives the drawer an accessible description by referring to the
-            drawer content that describes the primary message or purpose of the
-            drawer.
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell><code>aria-modal="true"</code></Table.Cell>
-          <Table.Cell>
-            Tells assistive technologies that the windows underneath the current
-            drawer are not available for interaction (inert).
+            Optional. Gives the drawer an accessible description by referring to
+            the drawer content that describes the primary message or purpose of
+            the drawer.
           </Table.Cell>
         </Table.Row>
       </Table.Body>

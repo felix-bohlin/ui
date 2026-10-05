@@ -20,12 +20,15 @@ export default {
       prop: "value",
     },
     {
-      description: "The variant to use.",
+      default: '"tonal"',
+      description:
+        "The track surface. Without one, the track looks the same as `tonal`.",
       group: "Variants",
+      htmlDefault: null,
       prop: "variant",
       values: {
-        default: ".ui-default",
         filled: ".ui-filled",
+        surface: ".ui-surface",
         tonal: ".ui-tonal",
       },
     },

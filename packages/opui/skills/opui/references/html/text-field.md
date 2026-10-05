@@ -4,11 +4,11 @@
 
 - [X-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
 - [Spread](#spread) fields line up at one width.
-- The auto-suggest arrow matches the Select arrow at every size.
+- The auto-suggest arrow is the Select chevron at every size.
 
 ## Anatomy
 
-LabelDescription¢EURHeaderFooterSupporting text
+Label Description ¢ EUR Header Footer Supporting text
 
 - `label.ui-text-field`
 
@@ -51,6 +51,8 @@ LabelDescription¢EURHeaderFooterSupporting text
   Supporting text displayed below the field.
 
 ## Variants
+
+Text fields are outlined by default. Add `.ui-filled` for a filled field.
 
 ```html
 <label class="ui-text-field">
@@ -514,8 +516,6 @@ The British Government has a [great article](https://technology.blog.gov.uk/2020
 
 ### File
 
-Use `aria-label` instead of the `<label>` element.
-
 File is a weird one. Should it really be an `<input>` element? Well, it's what we've got.
 
 ```html
@@ -582,7 +582,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 ```html
 <div class="ui-text-field">
   <span class="ui-field">
-    <input type="text" placeholder="Placeholder" />
+    <input aria-label="Search" placeholder="Search" type="text" />
   </span>
 </div>
 ```
@@ -601,7 +601,7 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 | Layout     | `.ui-spread`                            | -       | Pushes the label and description to one side and the input to the other. |
 | Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                 |
 | Validation | `[data-invalid]`                        | -       | Shows error styles.                                                      |
-| Variants   | `.ui-filled`                            | -       | The variant to use.                                                      |
+| Variants   | default, `.ui-filled`                   | default | The variant to use.                                                      |
 
 #### Parts
 
@@ -704,8 +704,8 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 4: Wrapper
 
-- [`:focus-within`](https://webstatus.dev/features/focus-within) (Widely available): Chrome 60+, Edge 79+, Firefox 52+, Safari 10.1+
-- [\<label>](https://webstatus.dev/features/label) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
+- [`:focus-within` ](https://webstatus.dev/features/focus-within)(Widely available): Chrome 60+, Edge 79+, Firefox 52+, Safari 10.1+
+- [\<label> ](https://webstatus.dev/features/label)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
 
 ```html
 <label class="text-field">
@@ -768,8 +768,8 @@ Step 1 of 4: Wrapper
 
 Step 2 of 4: Affixes
 
-- [Grid](https://webstatus.dev/features/grid) (Widely available): Chrome 57+, Edge 16+, Firefox 52+, Safari 10.1+
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [Grid ](https://webstatus.dev/features/grid)(Widely available): Chrome 57+, Edge 16+, Firefox 52+, Safari 10.1+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```html
 <span class="field">
@@ -832,7 +832,7 @@ Step 3 of 4: Required
 
 Step 4 of 4: Validation
 
-- [`:user-valid and :user-invalid`](https://webstatus.dev/features/user-pseudos) (Widely available): Chrome 119+, Edge 119+, Firefox 88+, Safari 16.5+
+- [`:user-valid and :user-invalid` ](https://webstatus.dev/features/user-pseudos)(Widely available): Chrome 119+, Edge 119+, Firefox 88+, Safari 16.5+
 
 ```css
 .text-field:is([data-invalid], :has(:user-invalid)) {

@@ -1,6 +1,6 @@
 # Switch
 
-See also: [Switch field group](#field-group).
+Use a Switch for a setting that applies right away. Use a [Checkbox](https://open-props-ui.netlify.app/html/components/checkbox.md) for choices that are submitted with a form, and a [Toggle](https://open-props-ui.netlify.app/html/components/toggle.md) for options in a toolbar. See also: [Switch field group](#field-group).
 
 ### What's new
 
@@ -10,7 +10,7 @@ See also: [Switch field group](#field-group).
 
 ## Anatomy
 
-ThemeLabelEnd text
+Theme Label End text
 
 - `label.ui-switch`
 
@@ -36,7 +36,9 @@ ThemeLabelEnd text
 
   Supporting text displayed below the label.
 
-All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only`instead of `.ui-label`, or the `hideLabel` prop in Astro and Vue.
+## Basics
+
+All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only` instead of `.ui-label`, or the `hideLabel` prop in Astro and Vue.
 
 ```html
 <!-- Checked -->
@@ -71,6 +73,39 @@ All switches should have an accessible name. Put the label text inside the compo
   <input name="switch-variants" type="checkbox" role="switch" disabled />
   <span class="ui-sr-only">Label</span>
 </label>
+```
+
+## Sizes
+
+Add the `.ui-small` class on the `<label class="ui-switch">` for a smaller Switch variant.
+
+```html
+<div class="example-row">
+  <label class="ui-switch ui-small">
+    <input name="switch-sizes" type="checkbox" role="switch" checked />
+    <span class="ui-sr-only">Small</span>
+  </label>
+
+
+  <label class="ui-switch">
+    <input name="switch-sizes" type="checkbox" role="switch" checked />
+    <span class="ui-sr-only">Default</span>
+  </label>
+</div>
+
+
+<div class="example-row">
+  <label class="ui-switch ui-small">
+    <input name="switch-sizes" type="checkbox" role="switch" checked />
+    <span class="ui-label">Small</span>
+  </label>
+
+
+  <label class="ui-switch">
+    <input name="switch-sizes" type="checkbox" role="switch" checked />
+    <span class="ui-label">Default</span>
+  </label>
+</div>
 ```
 
 ## Visible label
@@ -198,113 +233,6 @@ Render the label text inside an element with a `.ui-label` class. Also, don't mi
 </div>
 ```
 
-## Spread
-
-Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label to the left and the switch to the right. This is useful for full-width items like lists and menus.
-
-```html
-<label class="ui-switch ui-spread">
-  <input
-    name="switch-spread"
-    type="checkbox"
-    role="switch"
-    aria-describedby="switch-spread-end-text-1"
-  />
-  <span class="ui-label">Notifications</span>
-  <span class="ui-end-text" id="switch-spread-end-text-1"
-    >Receive alerts when someone mentions you.</span
-  >
-</label>
-
-
-<label class="ui-switch ui-spread">
-  <input
-    name="switch-spread"
-    type="checkbox"
-    role="switch"
-    required
-    aria-describedby="switch-spread-end-text-2"
-  />
-  <span class="ui-label">Required</span>
-  <span class="ui-end-text" id="switch-spread-end-text-2"
-    >You must accept this to proceed.</span
-  >
-</label>
-
-
-<label class="ui-switch ui-spread">
-  <input
-    name="switch-spread"
-    type="checkbox"
-    role="switch"
-    disabled
-    aria-describedby="switch-spread-end-text-3"
-  />
-  <span class="ui-label">Disabled</span>
-  <span class="ui-end-text" id="switch-spread-end-text-3"
-    >This switch is disabled.</span
-  >
-</label>
-
-
-<label class="ui-switch ui-spread" data-invalid>
-  <input
-    aria-invalid="true"
-    name="switch-spread"
-    type="checkbox"
-    role="switch"
-    aria-describedby="switch-spread-end-text-4"
-  />
-  <span class="ui-label">Invalid Switch</span>
-  <span class="ui-end-text" id="switch-spread-end-text-4"
-    >There is an error with this switch.</span
-  >
-</label>
-```
-
-## Sizes
-
-Add the `.ui-small` class on the `<label class="ui-switch">` for a smaller Switch variant.
-
-```html
-<div class="example-row">
-  <label class="ui-switch ui-small">
-    <input name="switch-sizes" type="checkbox" role="switch" checked />
-    <span class="ui-sr-only">Small</span>
-  </label>
-
-
-  <label class="ui-switch">
-    <input name="switch-sizes" type="checkbox" role="switch" checked />
-    <span class="ui-sr-only">Default</span>
-  </label>
-</div>
-
-
-<div class="example-row">
-  <label class="ui-switch ui-small">
-    <input name="switch-sizes" type="checkbox" role="switch" checked />
-    <span class="ui-label">Small</span>
-  </label>
-
-
-  <label class="ui-switch">
-    <input name="switch-sizes" type="checkbox" role="switch" checked />
-    <span class="ui-label">Default</span>
-  </label>
-</div>
-```
-
-## Label alignment
-
-The switch lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
-
-```css
-:root {
-  --choice-label-offset: 0.05em;
-}
-```
-
 ## Icons
 
 ```html
@@ -370,6 +298,80 @@ The switch lines up with the first line of its label and centers on the label's 
   <input name="switch-icons" type="checkbox" role="switch" checked />
   <span class="ui-sr-only">Toggle theme</span>
 </label>
+```
+
+## Spread
+
+Add the `.ui-spread` class to the `<label class="ui-switch">` to push the label to the left and the switch to the right. This is useful for full-width items like lists and menus.
+
+```html
+<label class="ui-switch ui-spread">
+  <input
+    name="switch-spread"
+    type="checkbox"
+    role="switch"
+    aria-describedby="switch-spread-end-text-1"
+  />
+  <span class="ui-label">Notifications</span>
+  <span class="ui-end-text" id="switch-spread-end-text-1"
+    >Receive alerts when someone mentions you.</span
+  >
+</label>
+
+
+<label class="ui-switch ui-spread">
+  <input
+    name="switch-spread"
+    type="checkbox"
+    role="switch"
+    required
+    aria-describedby="switch-spread-end-text-2"
+  />
+  <span class="ui-label">Required</span>
+  <span class="ui-end-text" id="switch-spread-end-text-2"
+    >You must accept this to proceed.</span
+  >
+</label>
+
+
+<label class="ui-switch ui-spread">
+  <input
+    name="switch-spread"
+    type="checkbox"
+    role="switch"
+    disabled
+    aria-describedby="switch-spread-end-text-3"
+  />
+  <span class="ui-label">Disabled</span>
+  <span class="ui-end-text" id="switch-spread-end-text-3"
+    >This switch is disabled.</span
+  >
+</label>
+
+
+<label class="ui-switch ui-spread" data-invalid>
+  <input
+    aria-invalid="true"
+    name="switch-spread"
+    type="checkbox"
+    role="switch"
+    aria-describedby="switch-spread-end-text-4"
+  />
+  <span class="ui-label">Invalid Switch</span>
+  <span class="ui-end-text" id="switch-spread-end-text-4"
+    >There is an error with this switch.</span
+  >
+</label>
+```
+
+## Label alignment
+
+The switch lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
+
+```css
+:root {
+  --choice-label-offset: 0.05em;
+}
 ```
 
 ## Field group
@@ -748,8 +750,8 @@ Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
 
 Step 1 of 4: Track
 
-- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
-- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
 
 ```html
 <label class="label">
@@ -784,7 +786,7 @@ Step 1 of 4: Track
 
 Step 2 of 4: Dot
 
-- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
 
 ```css
 .switch::after {
@@ -845,7 +847,7 @@ Step 3 of 4: Motion
 
 Step 4 of 4: Icons
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```html
 <label class="label">
@@ -898,9 +900,9 @@ Step 4 of 4: Icons
 
 ## Browser support
 
-- Chromium: Full support Supported since v133.
-- Firefox: Partial support Missing: text-box.
-- Safari: Full support Supported since v18.2.
+- Chromium: Full support Supported since v125.
+- Firefox: Full support Supported since v128.
+- Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Switch.md).
 

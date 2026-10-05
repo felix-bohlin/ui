@@ -5,6 +5,7 @@
 - Breaking: `.divided` is removed. Use [`.ui-bordered`](#on-every-item).
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
 - Only direct children are styled as rows, so nested lists inside a row stay normal lists.
+- Breaking: [`.ui-surface`](#variants) replaces `.ui-default`.
 
 ## Anatomy
 
@@ -37,6 +38,8 @@
 * `.ui-end`
 
   Optional content at the end, such as a value or an action.
+
+## Basics
 
 ```html
 <ul class="ui-list">
@@ -291,11 +294,11 @@ The List component is *extremely* flexible and versatile. Be careful if you star
 
 ## Variants
 
-Use `.ui-default`, `.ui-tonal`, and `.ui-transparent` to change the background color.
+Use `.ui-surface`, `.ui-tonal`, and `.ui-transparent` to change the background color.
 
 ### Filled by default
 
-Without a color class the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `default` or `tonal` to match the page surface instead.
+Without a color class the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `surface` or `tonal` to match the page surface instead.
 
 ```html
 <div class="column" style="gap: var(--size-4)">
@@ -313,10 +316,10 @@ Without a color class the list uses the filled surface, because lists usually si
   </ul>
 
 
-  <ul class="ui-list ui-default">
+  <ul class="ui-list ui-surface">
     <li>
       <div class="ui-text">
-        <p>Default</p>
+        <p>Surface</p>
       </div>
     </li>
     <li>
@@ -358,7 +361,7 @@ Without a color class the list uses the filled surface, because lists usually si
 
 ## Clickable list item
 
-Wrap the elements of your List item with a `a`, `button` or `label` depending on use-case.
+Wrap the elements of your List item with an `a`, `button` or `label` depending on use-case.
 
 ```html
 <ul class="ui-list">
@@ -901,12 +904,12 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 
 ### List API
 
-| Type       | Modifiers                                     | Default | Description                       |
-| ---------- | --------------------------------------------- | ------- | --------------------------------- |
-| Bordered   | `.ui-bordered`                                | -       | Adds a border between list items. |
-| Dense      | `.ui-dense`                                   | -       | Packs the list tighter.           |
-| Gutterless | `.ui-gutterless`                              | -       | Removes the inline padding.       |
-| Variants   | `.ui-default`, `.ui-tonal`, `.ui-transparent` | -       | The background color variant.     |
+| Type       | Modifiers                                     | Default | Description                                                                  |
+| ---------- | --------------------------------------------- | ------- | ---------------------------------------------------------------------------- |
+| Bordered   | `.ui-bordered`                                | -       | Adds a border between list items.                                            |
+| Dense      | `.ui-dense`                                   | -       | Packs the list tighter.                                                      |
+| Gutterless | `.ui-gutterless`                              | -       | Removes the inline padding.                                                  |
+| Variants   | `.ui-surface`, `.ui-tonal`, `.ui-transparent` | -       | The background color variant. Without one, the list uses the filled surface. |
 
 #### Parts
 
@@ -926,7 +929,7 @@ Just add the `.ui-dense` class to the `ul.ui-list`!
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
-| `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `IconButton`, `Avatar` and `List`.                                                               |
+| `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `Avatar` and `List`.                                                                             |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
 | `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                         |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
@@ -969,7 +972,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
-| `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `IconButton`, `Avatar` and `List`.                                                               |
+| `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `Avatar` and `List`.                                                                             |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
 | `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                         |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
@@ -1064,8 +1067,8 @@ Step 1 of 4: Row
 
 Step 2 of 4: Clickable
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .list li:has(> a, > button) {

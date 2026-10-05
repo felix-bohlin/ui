@@ -20,6 +20,7 @@ const currentFramework = (Astro.currentLocale ??
 const componentsHref = hrefFor(currentFramework, "/components")
 const quickstartHref = hrefFor(currentFramework, "/guide/getting-started")
 const learnHref = hrefFor(currentFramework, "/learn/under-the-hood")
+const migratingHref = hrefFor(currentFramework, "/guide/migrating")
 
 const FRAMEWORK_BRANDING: Record<
   FrameworkId,
@@ -32,10 +33,13 @@ const FRAMEWORK_BRANDING: Record<
 ---
 
 <Default>
-  <main id="main-content" class="container ui-large">
+  <main id="main-content" class="container is-wide">
     <ComponentShowcase aria-hidden="true">
       <hgroup class="ui-hgroup" id="main-heading">
-        <p>{version}</p>
+        <p>
+          {version} · <a class="ui-link" href={migratingHref}>Migrating to v6</a
+          >
+        </p>
 
         <h1 class="ui-h1">Open Props UI</h1>
 

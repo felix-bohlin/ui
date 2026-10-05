@@ -21,6 +21,8 @@ This text is placed under
 
 ## Variants
 
+Use the `variant` prop to change the line color.
+
 ```astro
 ---
 import { Divider } from "opui-css/astro"
@@ -71,9 +73,9 @@ import { Card, Divider } from "opui-css/astro"
 
 ### Divider API
 
-| Prop      | Type                               | Default | Description         |
-| --------- | ---------------------------------- | ------- | ------------------- |
-| `variant` | `"tonal"`, `"primary"`, `"filled"` | -       | The variant to use. |
+| Prop      | Type                                 | Default | Description         |
+| --------- | ------------------------------------ | ------- | ------------------- |
+| `variant` | `"tonal"` , `"primary"` , `"filled"` | -       | The variant to use. |
 
 #### CSS variables
 
@@ -119,7 +121,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 5: Element
 
-- [\<hr>](https://webstatus.dev/features/hr) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3+
+- [\<hr> ](https://webstatus.dev/features/hr)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 3+
 
 ```html
 <p>Above the line</p>
@@ -137,7 +139,7 @@ Step 2 of 5: Height
 
 Step 3 of 5: Paint
 
-- [`background-color`](https://webstatus.dev/features/background-color) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
+- [`background-color` ](https://webstatus.dev/features/background-color)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
 
 ```css
 .divider {
@@ -147,8 +149,8 @@ Step 3 of 5: Paint
 
 Step 4 of 5: Breathe
 
-- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
-- [`margin`](https://webstatus.dev/features/margin) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [`margin` ](https://webstatus.dev/features/margin)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
 
 ```css
 .divider {

@@ -5,7 +5,7 @@
     --_ripple-size: 100%;
     --_bg-color: var(--surface-tonal);
     --_border-color: var(--border-color);
-    --_color: var(--text-primary);
+    --_text-color: var(--text-primary);
 
     align-items: center;
     background: var(--_bg-color) var(--_ripple, none);
@@ -15,7 +15,7 @@
     block-size: var(--chip-size);
     border: var(--border-width) solid var(--_border-color);
     border-radius: var(--border-radius);
-    color: var(--_color);
+    color: var(--_text-color);
     display: inline-flex;
     font-size: var(--font-size-0);
     gap: var(--size-1);
@@ -33,22 +33,24 @@
     /* Variants */
     &.ui-tonal {
       --_bg-color: var(--surface-tonal);
-      --_color: var(--text-primary);
+      --_text-color: var(--text-primary);
     }
 
     &.ui-outlined {
       --_bg-color: var(--surface-default);
-      --_color: var(--text-primary);
+      --_text-color: var(--text-primary);
     }
 
     &:where(button, a):where(
         :not([disabled], [aria-disabled="true"], .ui-disabled)
       ) {
-      &:where(:not(:active)):hover {
-        --_bg-color: light-dark(
-          oklch(from var(--surface-tonal) calc(l * 0.98) c h),
-          oklch(from var(--surface-tonal) calc(l * 1.1) c h)
-        );
+      @media (hover: hover) {
+        &:where(:not(:active)):hover {
+          --_bg-color: light-dark(
+            oklch(from var(--surface-tonal) calc(l * 0.98) c h),
+            oklch(from var(--surface-tonal) calc(l * 1.1) c h)
+          );
+        }
       }
     }
 
@@ -96,11 +98,17 @@
     }
 
     &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
-      &:where(:not(:active):hover) {
-        --_ripple: radial-gradient(circle, transparent 1%, var(--_bg-color) 1%)
-          center/15000%;
+      @media (hover: hover) {
+        &:where(:not(:active):hover) {
+          --_ripple: radial-gradient(
+              circle,
+              transparent 1%,
+              var(--_bg-color) 1%
+            )
+            center/15000%;
 
-        transition: background var(--_ripple-duration);
+          transition: background var(--_ripple-duration);
+        }
       }
 
       &:where(:hover:active) {
@@ -112,7 +120,7 @@
     /* Disabled */
     &:where([disabled], [aria-disabled="true"], .ui-disabled) {
       opacity: var(--disabled-opacity);
-      --_color: var(--text-disabled);
+      --_text-color: var(--text-disabled);
       cursor: not-allowed;
     }
 

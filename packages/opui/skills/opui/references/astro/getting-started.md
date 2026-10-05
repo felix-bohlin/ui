@@ -18,13 +18,15 @@ npm install opui-css open-props astro -S
 
 ## Import the CSS
 
-Astro components ship markup only - the CSS still has to be imported in your app somehow. Import everything:
+Astro components ship markup only - the CSS still has to be imported once. The frontmatter of the layout every page uses is a good spot. Import everything:
 
-```css
-@import "opui-css/css/imports.css";
+```astro
+---
+import "opui-css/css/imports.css"
+---
 ```
 
-Or pick and choose:
+Or pick and choose in a CSS file, and import that file in the layout instead:
 
 ```css
 @import "opui-css/css/layers.css";
@@ -34,6 +36,12 @@ Or pick and choose:
 @import "opui-css/core/normalize.css";
 @import "opui-css/css/components.css";
 @import "opui-css/core/utils.css";
+```
+
+```astro
+---
+import "../styles/global.css"
+---
 ```
 
 ## How to use
@@ -73,6 +81,10 @@ You can also set `--palette-source` directly (it must be an `oklch()` color), an
 
 Every token with its default is listed on the [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) page.
 
+### `theme.css` generator
+
+There's a WIP visual editor for editing `theme.css` - [try it out](https://open-props-ui.netlify.app/astro/guide/theme-generator.md)!
+
 ### Scopes
 
 `.ui-light` and `.ui-dark` force a color scheme. Put them on `html` to control the whole page, or on any element to force a subtree. `.ui-palette` re-derives the palette and all color tokens from the knobs set on that element, so one page can carry several brands.
@@ -90,7 +102,7 @@ Every token with its default is listed on the [theme tokens](https://open-props-
 
 Use the `--motion` variable to turn motion on or off. The default value is `1`. If a user has `prefers-reduced-motion: reduce` enabled, `--motion` will be set to `0` by default.
 
-### Global Classes
+### Global classes
 
 Adding these utility classes to the `html` element will override the OS preference.
 
@@ -102,7 +114,7 @@ Adding these utility classes to the `html` element will override the OS preferen
 <html lang="en" class="ui-motion-debug">
 ```
 
-### Local Overrides
+### Local overrides
 
 Components use a local `--_motion` variable that allows you to disable motion for each component individually if you want.
 
@@ -133,9 +145,9 @@ Try it with the **High contrast** switch in the theme config drawer.
 <html lang="en" class="ui-contrast-more">
 ```
 
-### Custom Values
+### Custom values
 
-Style queries match against the parent element, so the overrides are set on`body` instead of `html`. They replace any value you set on `html` for the same tokens. To tune them, write your own style query:
+Style queries match against the parent element, so the overrides are set on `body` instead of `html`. They replace any value you set on `html` for the same tokens. To tune them, write your own style query:
 
 ```css
 @container style(--contrast: more) {
@@ -148,6 +160,6 @@ Style queries match against the parent element, so the overrides are set on`body
 
 Tokens that reference an overridden token, like `--field-border-color` above, have to be set again in the same rule.
 
-### Forced Colors
+### Forced colors
 
 When an OS contrast theme forces its own palette (`forced-colors: active`), components switch to system colors so their state stays visible. Selected tabs, toggles and list items use `SelectedItem`, switches, ranges, progress bars and dividers are drawn with `CanvasText`, and focused fields get a `Highlight` outline. There is nothing to configure.

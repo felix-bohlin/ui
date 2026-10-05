@@ -14,7 +14,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--button-size-large": "`Button` height with `.ui-large`.",
   "--button-size-small": "`Button` height with `.ui-small`.",
   "--button-size-x-small":
-    "`Button` and `IconButton` height with `.ui-x-small`.",
+    "`Button` and `ButtonGroup` height with `.ui-x-small`.",
   "--chip-size": "Default `Chip` height.",
   "--chip-size-large": "`Chip` height with `.ui-large`.",
   "--chip-size-small": "`Chip` height with `.ui-small`.",
@@ -86,7 +86,7 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--green":
     "A literal green derived from the palette lightness. No severity meaning.",
   "--icon-size": "Default icon size inside components.",
-  "--icon-size-large": "Icon size inside `IconButton`, `Avatar` and `List`.",
+  "--icon-size-large": "Icon size inside `Avatar` and `List`.",
   "--icon-size-small": "Icon size inside `Chip`.",
   "--info": "Severity color for informational messages.",
   "--invalid-color": "Color for invalid field borders, fills and outlines.",
@@ -113,6 +113,8 @@ export const themeTokenDescriptions: Record<string, string> = {
     "A literal red derived from the palette lightness. No severity meaning.",
   "--rhythm-step":
     "Vertical rhythm unit. Rich text margins and heading line heights round to it.",
+  "--ripple-color":
+    "Halo color for `Button` with `.ui-ripple` and the `Checkbox` and `Radio` hover effect.",
   "--state-active-alpha":
     "Alpha of the pressed state layer on neutral buttons in light mode.",
   "--state-active-alpha-accent":

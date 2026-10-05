@@ -35,6 +35,9 @@ const hasEndText = computed(
 const endTextId = computed(() => (hasEndText.value ? uid : undefined))
 const currentFieldName = inject(CurrentFieldNameKey, undefined)
 const startTextValue = computed(() => props.description || props.startText)
+const resolvedVariant = computed(
+  () => props.variant ?? (props.filled ? "filled" : "outlined"),
+)
 </script>
 
 <template>
@@ -44,7 +47,7 @@ const startTextValue = computed(() => props.description || props.startText)
       props.size && `ui-${props.size}`,
       {
         'ui-auto-fit': props.autoFit,
-        'ui-filled': props.filled,
+        'ui-filled': resolvedVariant === 'filled',
         'ui-spread': props.spread,
       },
       props.class,

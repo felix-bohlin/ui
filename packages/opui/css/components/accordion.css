@@ -11,13 +11,13 @@
     --_border-width: 0;
     --_content-padding-block: var(--size-2) var(--size-3);
     --_content-padding-inline: var(--_padding-inline);
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease);
     --_margin-inline: var(--size-1);
     --_padding-inline: initial;
     --_shadow: none;
     --_summary-padding-block: var(--size-3);
     --_summary-padding-inline: var(--_padding-inline);
-    --_svg-transition: calc(var(--duration) * var(--_motion)) var(--ease);
-    --_transition: calc(var(--duration) * var(--_motion));
 
     background-color: var(--_bg-color);
     border: var(--_border-width) solid var(--_border-color);
@@ -25,7 +25,12 @@
     box-shadow: var(--_shadow);
     display: block;
     margin-inline: var(--_margin-inline);
-    transition: all var(--_transition) var(--ease);
+    transition:
+      background-color var(--_duration) var(--_ease),
+      border-color var(--_duration) var(--_ease),
+      border-width var(--_duration) var(--_ease),
+      box-shadow var(--_duration) var(--_ease),
+      margin-inline var(--_duration) var(--_ease);
 
     /* Accordion animation */
     /* https://nerdy.dev/open-and-close-transitions-for-the-details-element */
@@ -64,9 +69,9 @@
       opacity: 0;
       overflow-y: clip;
       transition:
-        content-visibility var(--_transition) allow-discrete,
-        opacity var(--_transition),
-        block-size var(--_transition);
+        content-visibility var(--_duration) allow-discrete,
+        opacity var(--_duration),
+        block-size var(--_duration);
     }
 
     &[open]::details-content {
@@ -102,8 +107,8 @@
 
       svg {
         transition:
-          rotate var(--_svg-transition),
-          scale var(--_svg-transition);
+          rotate var(--_duration) var(--_ease),
+          scale var(--_duration) var(--_ease);
       }
     }
 

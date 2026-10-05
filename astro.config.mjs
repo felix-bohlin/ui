@@ -51,6 +51,7 @@ const legacyRedirects = {
 
 // https://astro.build/config
 export default defineConfig({
+  compressHTML: true,
   image: { service: passthroughImageService() },
   site: "https://open-props-ui.netlify.app/",
   i18n: {

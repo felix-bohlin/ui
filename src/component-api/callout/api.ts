@@ -34,7 +34,7 @@ export default {
     {
       code: "<svg>",
       description:
-        "An optional icon. `info`, `warning` and `critical` have a default icon.",
+        "An optional icon. `info`, `success`, `warning` and `critical` have a default icon.",
       selector: ".ui-callout > svg",
       slots: ["icon"],
     },

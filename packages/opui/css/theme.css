@@ -47,7 +47,7 @@
 
   :where(html, .ui-palette) {
     /* Named colors (no severity meaning) - use when you literally want a green/red/etc. dot */
-    --blue: oklch(from var(--color-9) l 0.2 210);
+    --blue: oklch(from var(--color-9) l 0.2 240);
     --green: oklch(from var(--color-9) l 0.2 145);
     --orange: oklch(from var(--color-7) l 0.2 75);
     --red: oklch(from var(--color-9) l 0.2 25);
@@ -179,6 +179,7 @@
 
     /* State */
     --disabled-opacity: 0.64;
+    --ripple-color: oklch(0.6 0 0 / 0.2);
     --state-active-alpha: 20%;
     --state-active-alpha-accent: 25%;
     --state-active-alpha-dark: 30%;
@@ -253,7 +254,7 @@
   }
 
   /* Filled surfaces */
-  :where(.ui-list:not(.ui-default, .ui-tonal, .ui-transparent), .ui-table th) {
+  :where(.ui-list:not(.ui-surface, .ui-tonal, .ui-transparent), .ui-table th) {
     --border-color: light-dark(var(--gray-6), var(--gray-12));
   }
 
@@ -270,12 +271,12 @@
       .ui-palette,
       .ui-card.ui-elevated,
       .ui-card.ui-tonal,
-      .ui-list:not(.ui-default, .ui-tonal, .ui-transparent),
+      .ui-list:not(.ui-surface, .ui-tonal, .ui-transparent),
       .ui-table th
     ) {
       --blue: light-dark(
-        oklch(from var(--color-11) l 0.2 210),
-        oklch(from var(--color-9) l 0.2 210)
+        oklch(from var(--color-11) l 0.2 240),
+        oklch(from var(--color-9) l 0.2 240)
       );
       --green: light-dark(
         oklch(from var(--color-11) l 0.2 145),

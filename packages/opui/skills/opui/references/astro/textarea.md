@@ -5,10 +5,12 @@
 - [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.
 - [Spread](#spread) fields line up at one width.
 - Breaking: extra attributes such as `autocomplete` and `aria-*` go to the textarea. `class` and `style` stay on the label.
+- [`variant="filled"`](#variants) replaces the boolean `filled`, which is deprecated until 7.0.
+- Breaking: no generated input `id`. Pass `id` when something outside the component references the input.
 
 ## Anatomy
 
-LabelDescription¢EURHeaderFooterSupporting text
+Label Description  ¢ EUR Header Footer Supporting text
 
 - `<Textarea>`
 
@@ -52,6 +54,8 @@ LabelDescription¢EURHeaderFooterSupporting text
 
 ## Variants
 
+Textareas are outlined by default. Set `variant="filled"` for a filled textarea. The old `filled` prop still works until 7.0.
+
 ```astro
 ---
 import { Textarea } from "opui-css/astro"
@@ -59,7 +63,7 @@ import { Textarea } from "opui-css/astro"
 
 
 <Textarea label="Default" placeholder="Placeholder" />
-<Textarea label="Filled" placeholder="Placeholder" filled />
+<Textarea label="Filled" placeholder="Placeholder" variant="filled" />
 ```
 
 ## Sizes
@@ -85,7 +89,12 @@ import { Textarea } from "opui-css/astro"
 
 
 <Textarea label="Label" placeholder="Default" endText="Supporting text" />
-<Textarea label="Label" placeholder="Filled" endText="Supporting text" filled />
+<Textarea
+  label="Label"
+  placeholder="Filled"
+  endText="Supporting text"
+  variant="filled"
+/>
 ```
 
 ## Affix
@@ -148,7 +157,7 @@ import { Textarea } from "opui-css/astro"
 
 <div class="example-row">
   <Textarea label="Label" placeholder="Default" required />
-  <Textarea label="Label" placeholder="Filled" required filled />
+  <Textarea label="Label" placeholder="Filled" required variant="filled" />
 </div>
 
 
@@ -164,7 +173,7 @@ import { Textarea } from "opui-css/astro"
     placeholder="Filled"
     endText="Only letters from the first half of the alphabet are allowed."
     error
-    filled
+    variant="filled"
   />
 </div>
 ```
@@ -188,7 +197,7 @@ import { Textarea } from "opui-css/astro"
 </Textarea>
 
 
-<Textarea spread placeholder="Additional notes..." filled>
+<Textarea spread placeholder="Additional notes..." variant="filled">
   <Fragment slot="label">Notes</Fragment>
   <Fragment slot="description">Add any additional notes or comments</Fragment>
   <Fragment slot="end-text">Maximum 500 characters</Fragment>
@@ -235,7 +244,7 @@ import { Textarea } from "opui-css/astro"
 
 <Textarea
   spread
-  filled
+  variant="filled"
   label="Release notes"
   placeholder="Markdown supported..."
 >
@@ -263,17 +272,18 @@ import { Textarea } from "opui-css/astro"
 
 ### Textarea API
 
-| Prop          | Type                              | Default | Description                                                                 |
-| ------------- | --------------------------------- | ------- | --------------------------------------------------------------------------- |
-| `autoFit`     | `boolean`                         | `false` | Changes height depending on its content.                                    |
-| `description` | `string`                          | -       | Description text displayed above the field.                                 |
-| `endText`     | `string`                          | -       | Supporting text displayed below the field.                                  |
-| `error`       | `boolean`                         | `false` | Shows error styles.                                                         |
-| `filled`      | `boolean`                         | `false` | The variant to use.                                                         |
-| `id`          | `string`                          | -       | The id of the `<textarea>`.                                                 |
-| `label`       | `string`                          | -       | The label for the field.                                                    |
-| `size`        | `"x-small"`, `"small"`, `"large"` | -       | The size of the element.                                                    |
-| `spread`      | `boolean`                         | `false` | Pushes the label and description to one side and the textarea to the other. |
+| Prop          | Type                                | Default      | Description                                                                           |
+| ------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------------------- |
+| `autoFit`     | `boolean`                           | `false`      | Changes height depending on its content.                                              |
+| `description` | `string`                            | -            | Description text displayed above the field.                                           |
+| `endText`     | `string`                            | -            | Supporting text displayed below the field.                                            |
+| `error`       | `boolean`                           | `false`      | Shows error styles.                                                                   |
+| `filled`      | `boolean`                           | `false`      | Deprecated, removed in 7.0. Use `variant="filled"`. `variant` wins when both are set. |
+| `id`          | `string`                            | -            | The id of the `<textarea>`.                                                           |
+| `label`       | `string`                            | -            | The label for the field.                                                              |
+| `size`        | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                              |
+| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other.           |
+| `variant`     | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                                   |
 
 #### Slots
 
@@ -354,7 +364,7 @@ Textarea attributes (`cols`, `disabled`, `maxlength`, `minlength`, `name`, `plac
 
 Step 1 of 4: Field
 
-- [\<textarea>](https://webstatus.dev/features/textarea) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
+- [\<textarea> ](https://webstatus.dev/features/textarea)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
 
 ```html
 <label class="textarea">
@@ -405,7 +415,7 @@ Step 1 of 4: Field
 
 Step 2 of 4: Grow
 
-- [`field-sizing`](https://webstatus.dev/features/field-sizing) (Newly available): Chrome 123+, Edge 123+, Firefox 152+, Safari 26.2+
+- [`field-sizing` ](https://webstatus.dev/features/field-sizing)(Newly available): Chrome 123+, Edge 123+, Firefox 152+, Safari 26.2+
 
 ```css
 .field textarea {
@@ -416,7 +426,7 @@ Step 2 of 4: Grow
 
 Step 3 of 4: Limits
 
-- [lh unit](https://webstatus.dev/features/lh) (Widely available): Chrome 109+, Edge 109+, Firefox 120+, Safari 16.4+
+- [lh unit ](https://webstatus.dev/features/lh)(Widely available): Chrome 109+, Edge 109+, Firefox 120+, Safari 16.4+
 
 ```css
 .field textarea {

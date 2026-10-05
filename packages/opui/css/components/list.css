@@ -8,7 +8,7 @@ Lists meant to be used stand-alone or as part of Select elements
 */
   :where(.ui-list) {
     --_bg-color: var(--surface-filled);
-    --_bg-color-hover: oklch(from var(--primary) l c h / 15%);
+    --_hover-bg-color: oklch(from var(--primary) l c h / 15%);
     --_item-gap: var(--size-3);
     --_start-size: var(--icon-size-large);
 
@@ -29,7 +29,7 @@ Lists meant to be used stand-alone or as part of Select elements
       --_bg-color: transparent;
     }
 
-    &.ui-default {
+    &.ui-surface {
       --_bg-color: var(--surface-default);
     }
 
@@ -161,7 +161,7 @@ Lists meant to be used stand-alone or as part of Select elements
         &[aria-selected="true"] > :where(a, button, label),
         &[aria-selected="true"],
         &:has(> [aria-current="page"]) > :where(a, button, label) {
-          background-color: var(--_bg-color-hover);
+          background-color: var(--_hover-bg-color);
         }
       }
 
@@ -181,12 +181,14 @@ Lists meant to be used stand-alone or as part of Select elements
         text-decoration: none;
         z-index: 0;
 
-        &:hover {
-          background-color: var(--_bg-color-hover);
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--_hover-bg-color);
+          }
         }
 
         &[aria-selected="true"] {
-          background-color: var(--_bg-color-hover);
+          background-color: var(--_hover-bg-color);
           color: var(--primary);
         }
 
@@ -214,13 +216,15 @@ Lists meant to be used stand-alone or as part of Select elements
         text-decoration: none;
         z-index: 0;
 
-        &:hover {
-          background-color: var(--_bg-color-hover);
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--_hover-bg-color);
+          }
         }
 
         &[aria-selected="true"],
         &[aria-current="page"] {
-          background-color: var(--_bg-color-hover);
+          background-color: var(--_hover-bg-color);
         }
       }
 

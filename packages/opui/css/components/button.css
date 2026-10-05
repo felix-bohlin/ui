@@ -1,14 +1,10 @@
 @layer components.root {
   :where(.ui-button) {
     --_motion: var(--motion, 1);
-    --_color: light-dark(var(--color-16), var(--color-1));
-    --_color-contrast: light-dark(var(--color-1), var(--color-16));
-    --_color-tonal: var(--surface-tonal);
-
-    --_accent: var(--_color);
-    --_accent-contrast: var(--_color-contrast);
-    --_accent-tonal: var(--_color-tonal);
-    --_accent-tonal-contrast: var(--_color);
+    --_accent: light-dark(var(--color-16), var(--color-1));
+    --_accent-contrast: light-dark(var(--color-1), var(--color-16));
+    --_accent-tonal: var(--surface-tonal);
+    --_accent-tonal-contrast: var(--_accent);
     --_accent-text: light-dark(
       var(--_accent),
       oklch(from var(--_accent) max(l, 0.75) c h)
@@ -44,12 +40,12 @@
     &.ui-primary,
     /* Color inherited from Button Group. */
     :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) > & {
-      --_color-contrast: var(--primary-contrast);
-      --_color-tonal: light-dark(var(--color-6), var(--color-11));
+      --_accent-contrast: var(--primary-contrast);
+      --_accent-tonal: light-dark(var(--color-6), var(--color-11));
       --_accent-tonal-contrast: light-dark(var(--gray-15), var(--gray-1));
 
       @container style(--contrast: more) {
-        --_color-tonal: light-dark(var(--color-4), var(--color-12));
+        --_accent-tonal: light-dark(var(--color-4), var(--color-12));
       }
 
       --_default-hover-bg-color: oklch(
@@ -67,11 +63,11 @@
 
     &.ui-critical,
     :where(.ui-button-group.ui-critical) > & {
-      --_color: var(--critical);
-      --_color-contrast: var(--gray-1);
+      --_accent: var(--critical);
+      --_accent-contrast: var(--gray-1);
 
       @container style(--contrast: more) {
-        --_color: light-dark(
+        --_accent: light-dark(
           var(--critical),
           oklch(from var(--critical) min(l, 0.45) c h)
         );
@@ -80,7 +76,7 @@
 
     &.ui-primary,
     :where(.ui-button-group.ui-primary) > & {
-      --_color: var(--primary);
+      --_accent: var(--primary);
     }
   }
 
@@ -290,7 +286,7 @@
     }
 
     &.ui-ripple {
-      --_ripple-color: oklch(0.6 0 0 / 0.2);
+      --_ripple-color: var(--ripple-color);
       --_ripple-scale: 0.01;
       --_ripple-size: 130%;
 

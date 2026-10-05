@@ -1,6 +1,6 @@
 # Tabs
 
-The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' `:checked` state.
+The Tabs are radio inputs and the Panels are just divs that show and hide based on the radio inputs' `:checked` state. Use Tabs to switch between panels of content. To pick an option, like a list or grid view, use a [Toggle group](https://open-props-ui.netlify.app/vue/components/toggle.md#toggle-group).
 
 ### What's new
 
@@ -202,7 +202,7 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 | `input` | `checked` | Selects the tab that is open initially.                    |
 | `label` | `for`     | Names the radio button after the tab.                      |
 
-### Keyboard Interaction
+### Keyboard interaction
 
 - **Tab**: Moves focus to the active tab trigger (the radio button). Pressing Tab again moves focus out of the tabs to the next focusable element.
 - **Right Arrow / Down Arrow**: Moves focus to the next tab and activates it.
@@ -212,11 +212,11 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 ### Tabs API
 
-| Prop         | Type                               | Default | Description                                                                                      |
-| ------------ | ---------------------------------- | ------- | ------------------------------------------------------------------------------------------------ |
-| `name`       | `string`                           | -       | The name shared by the tab inputs. Generated when omitted.                                       |
-| `scrollable` | `boolean`                          | `false` | Keeps the tabs on one row and scrolls them sideways when they don't fit. Supports up to 20 tabs. |
-| `variant`    | `"outlined"`, `"filled"`, `"line"` | -       | The variant to use.                                                                              |
+| Prop         | Type                                 | Default | Description                                                                                      |
+| ------------ | ------------------------------------ | ------- | ------------------------------------------------------------------------------------------------ |
+| `name`       | `string`                             | -       | The name shared by the tab inputs. Generated when omitted.                                       |
+| `scrollable` | `boolean`                            | `false` | Keeps the tabs on one row and scrolls them sideways when they don't fit. Supports up to 20 tabs. |
+| `variant`    | `"outlined"` , `"filled"` , `"line"` | -       | The variant to use.                                                                              |
 
 #### Slots
 

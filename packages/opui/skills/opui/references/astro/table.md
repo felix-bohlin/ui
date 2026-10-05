@@ -39,9 +39,9 @@
 
 ## Variants
 
-### Default
+Change the cell padding with `variant="dense"` or `variant="spacious"`.
 
-Toggle between different padding densities for the table using the controls below.
+### Default
 
 ```astro
 ---
@@ -50,6 +50,100 @@ import { Table } from "opui-css/astro"
 
 
 <Table>
+  <caption>Band Members</caption>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Band</Table.HeaderCell>
+      <Table.HeaderCell>Name</Table.HeaderCell>
+      <Table.HeaderCell>Instrument</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Radiohead</Table.Cell>
+      <Table.Cell>Ed O'Brien</Table.Cell>
+      <Table.Cell>Guitar/Vocals</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Korn</Table.Cell>
+      <Table.Cell>Jonathan Davis</Table.Cell>
+      <Table.Cell>Vocals</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Broken Bells</Table.Cell>
+      <Table.Cell>James Mercer</Table.Cell>
+      <Table.Cell>Vocals/Guitar</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Pink Floyd</Table.Cell>
+      <Table.Cell>David Gilmour</Table.Cell>
+      <Table.Cell>Guitar/Vocals</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+  <tfoot>
+    <Table.Row>
+      <Table.Cell colspan={3}>All great bands!</Table.Cell>
+    </Table.Row>
+  </tfoot>
+</Table>
+```
+
+### Dense
+
+```astro
+---
+import { Table } from "opui-css/astro"
+---
+
+
+<Table variant="dense">
+  <caption>Band Members</caption>
+  <Table.Head>
+    <Table.Row>
+      <Table.HeaderCell>Band</Table.HeaderCell>
+      <Table.HeaderCell>Name</Table.HeaderCell>
+      <Table.HeaderCell>Instrument</Table.HeaderCell>
+    </Table.Row>
+  </Table.Head>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Radiohead</Table.Cell>
+      <Table.Cell>Ed O'Brien</Table.Cell>
+      <Table.Cell>Guitar/Vocals</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Korn</Table.Cell>
+      <Table.Cell>Jonathan Davis</Table.Cell>
+      <Table.Cell>Vocals</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Broken Bells</Table.Cell>
+      <Table.Cell>James Mercer</Table.Cell>
+      <Table.Cell>Vocals/Guitar</Table.Cell>
+    </Table.Row>
+    <Table.Row>
+      <Table.Cell>Pink Floyd</Table.Cell>
+      <Table.Cell>David Gilmour</Table.Cell>
+      <Table.Cell>Guitar/Vocals</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+  <tfoot>
+    <Table.Row>
+      <Table.Cell colspan={3}>All great bands!</Table.Cell>
+    </Table.Row>
+  </tfoot>
+</Table>
+```
+
+### Spacious
+
+```astro
+---
+import { Table } from "opui-css/astro"
+---
+
+
+<Table variant="spacious">
   <caption>Band Members</caption>
   <Table.Head>
     <Table.Row>
@@ -253,10 +347,10 @@ import { Table } from "opui-css/astro"
 
 ### Table API
 
-| Prop           | Type                    | Default | Description                                                                                          |
-| -------------- | ----------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
-| `stickyHeader` | `boolean`               | `false` | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
-| `variant`      | `"dense"`, `"spacious"` | -       | The variant to use.                                                                                  |
+| Prop           | Type                     | Default | Description                                                                                          |
+| -------------- | ------------------------ | ------- | ---------------------------------------------------------------------------------------------------- |
+| `stickyHeader` | `boolean`                | `false` | Keeps the header rows at the top of the nearest scroll container. Offset it with `--_sticky-offset`. |
+| `variant`      | `"dense"` , `"spacious"` | -       | The variant to use.                                                                                  |
 
 #### Slots
 
@@ -310,8 +404,8 @@ Set column widths with `Table.ColumnGroup` and `Table.Column`, which takes a `wi
 
 Step 1 of 4: Separate
 
-- [`border-radius`](https://webstatus.dev/features/border-radius) (Widely available): Chrome 4+, Edge 12+, Firefox 4+, Safari 5+
-- [Tables](https://webstatus.dev/features/table) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
+- [`border-radius` ](https://webstatus.dev/features/border-radius)(Widely available): Chrome 4+, Edge 12+, Firefox 4+, Safari 5+
+- [Tables ](https://webstatus.dev/features/table)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
 
 ```css
 .table {
@@ -325,8 +419,8 @@ Step 1 of 4: Separate
 
 Step 2 of 4: Cells
 
-- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .table :is(th, td) {
@@ -383,7 +477,7 @@ Step 3 of 4: Corners
 
 Step 4 of 4: Footer
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```css
 .table tfoot td {
@@ -400,9 +494,9 @@ Step 4 of 4: Footer
 
 ## Browser support
 
-- Chromium: Full support Supported since v125.
-- Firefox: Full support Supported since v128.
-- Safari: Full support Supported since v18.
+- Chromium: Full support Supported since v133.
+- Firefox: Partial support Missing: container-scroll-state-queries.
+- Safari: Partial support Missing: container-scroll-state-queries.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Table.md).
 

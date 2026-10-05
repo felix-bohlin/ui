@@ -1,6 +1,6 @@
 # Checkbox
 
-See also: [Checkbox field group](#field-group).
+Use a Checkbox for choices that are submitted with a form. For a setting that applies right away, use a [Switch](https://open-props-ui.netlify.app/vue/components/switch.md), and for options in a toolbar a [Toggle](https://open-props-ui.netlify.app/vue/components/toggle.md). See also: [Checkbox field group](#field-group).
 
 ### What's new
 
@@ -10,7 +10,7 @@ See also: [Checkbox field group](#field-group).
 
 ## Anatomy
 
-LabelEnd text
+Label End text
 
 - `<Checkbox>`
 
@@ -28,6 +28,8 @@ LabelEnd text
 
   Supporting text displayed below the label.
 
+## Basics
+
 ```vue
 <script setup lang="ts">
 import { Checkbox } from "opui-css/vue"
@@ -44,6 +46,32 @@ import { Checkbox } from "opui-css/vue"
   <Checkbox checked disabled name="checkbox-variants" hideLabel
     >Checked and disabled</Checkbox
   >
+</template>
+```
+
+## Sizes
+
+```vue
+<script setup lang="ts">
+import { Checkbox } from "opui-css/vue"
+</script>
+
+
+<template>
+  <div class="example-row">
+    <Checkbox hideLabel size="small" checked name="checkbox-sizes"
+      >Label</Checkbox
+    >
+    <Checkbox hideLabel checked name="checkbox-sizes">Label</Checkbox>
+    <Checkbox hideLabel size="large" checked name="checkbox-sizes"
+      >Label</Checkbox
+    >
+  </div>
+  <div class="example-row">
+    <Checkbox size="small" checked name="checkbox-sizes">Small</Checkbox>
+    <Checkbox checked name="checkbox-sizes">Default</Checkbox>
+    <Checkbox size="large" checked name="checkbox-sizes">Large</Checkbox>
+  </div>
 </template>
 ```
 
@@ -220,32 +248,6 @@ import { Checkbox } from "opui-css/vue"
 </template>
 ```
 
-## Sizes
-
-```vue
-<script setup lang="ts">
-import { Checkbox } from "opui-css/vue"
-</script>
-
-
-<template>
-  <div class="example-row">
-    <Checkbox hideLabel size="small" checked name="checkbox-sizes"
-      >Label</Checkbox
-    >
-    <Checkbox hideLabel checked name="checkbox-sizes">Label</Checkbox>
-    <Checkbox hideLabel size="large" checked name="checkbox-sizes"
-      >Label</Checkbox
-    >
-  </div>
-  <div class="example-row">
-    <Checkbox size="small" checked name="checkbox-sizes">Small</Checkbox>
-    <Checkbox checked name="checkbox-sizes">Default</Checkbox>
-    <Checkbox size="large" checked name="checkbox-sizes">Large</Checkbox>
-  </div>
-</template>
-```
-
 ## Label alignment
 
 The checkbox lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
@@ -375,7 +377,7 @@ import { Checkbox, FieldGroup, FieldLegend, FieldSet, Form } from "opui-css/vue"
 
 ### Required
 
-Attach the `required` attribute to at least one of your `<input>` elements.
+Each checkbox with `required` must be checked before the form submits. There's no native "at least one" for checkboxes.
 
 ```vue
 <script setup lang="ts">
@@ -431,7 +433,7 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | Approach                                                          | Usage in Checkbox component |
 | ----------------------------------------------------------------- | --------------------------- |
 | Provide a label text inside the `label`/`role="checkbox"` element | Default                     |
-| Add a `aria-label` on the input element                           | Not used                    |
+| Add an `aria-label` on the input element                          | Not used                    |
 | Have a visible label that you reference with `aria-labelledby`    | Not used                    |
 
 ### Keyboard support
@@ -444,15 +446,15 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Checkbox API
 
-| Prop            | Type                              | Default | Description                                                                          |
-| --------------- | --------------------------------- | ------- | ------------------------------------------------------------------------------------ |
-| `error`         | `boolean`                         | `false` | Shows error styles.                                                                  |
-| `hideLabel`     | `boolean`                         | `false` | Visually hides the label.                                                            |
-| `indeterminate` | `boolean`                         | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| `size`          | `"small"`, `"large"`              | -       | The size of the element.                                                             |
-| `spread`        | `boolean`                         | `false` | Pushes the label and the input to opposite ends.                                     |
-| `stack`         | `boolean`                         | `false` | Stacks the label under the input.                                                    |
-| `v-model`       | `boolean`, `(string`, `number)[]` | -       | The checked state, or the checked values of a group.                                 |
+| Prop            | Type                                | Default | Description                                                                          |
+| --------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------ |
+| `error`         | `boolean`                           | `false` | Shows error styles.                                                                  |
+| `hideLabel`     | `boolean`                           | `false` | Visually hides the label.                                                            |
+| `indeterminate` | `boolean`                           | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+| `size`          | `"small"` , `"large"`               | -       | The size of the element.                                                             |
+| `spread`        | `boolean`                           | `false` | Pushes the label and the input to opposite ends.                                     |
+| `stack`         | `boolean`                           | `false` | Stacks the label under the input.                                                    |
+| `v-model`       | `boolean` , `(string` , `number)[]` | -       | The checked state, or the checked values of a group.                                 |
 
 #### Slots
 
@@ -492,10 +494,10 @@ Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`.
 
 ### Field group API
 
-| Prop        | Type                | Default | Description                                                                                                              |
-| ----------- | ------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `direction` | `"row"`, `"column"` | -       | The orientation of the element.                                                                                          |
-| `name`      | `string`            | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
+| Prop        | Type                 | Default | Description                                                                                                              |
+| ----------- | -------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `direction` | `"row"` , `"column"` | -       | The orientation of the element.                                                                                          |
+| `name`      | `string`             | -       | Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components. |
 
 #### Slots
 
@@ -550,7 +552,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 4: Appearance
 
-- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+- [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
 
 ```css
 .checkbox {
@@ -576,7 +578,7 @@ Step 1 of 4: Appearance
 
 Step 2 of 4: Checkmark
 
-- [`clip-path`](https://webstatus.dev/features/clip-path) (Widely available): Chrome 88+, Edge 88+, Firefox 71+, Safari 13.1+
+- [`clip-path` ](https://webstatus.dev/features/clip-path)(Widely available): Chrome 88+, Edge 88+, Firefox 71+, Safari 13.1+
 
 ```css
 .checkbox::after {
@@ -596,7 +598,7 @@ Step 2 of 4: Checkmark
 
 Step 3 of 4: Indeterminate
 
-- [`:indeterminate`](https://webstatus.dev/features/indeterminate) (Widely available): Chrome 39+, Edge 79+, Firefox 51+, Safari 10+
+- [`:indeterminate` ](https://webstatus.dev/features/indeterminate)(Widely available): Chrome 39+, Edge 79+, Firefox 51+, Safari 10+
 
 ```html
 <input class="checkbox" type="checkbox" data-indeterminate />
@@ -624,8 +626,8 @@ Step 3 of 4: Indeterminate
 
 Step 4 of 4: Label
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [`text-box`](https://webstatus.dev/features/text-box) (Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari 18.2+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`text-box` ](https://webstatus.dev/features/text-box)(Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari 18.2+
 
 ```css
 .label {
@@ -651,9 +653,9 @@ Step 4 of 4: Label
 
 ## Browser support
 
-- Chromium: Full support Supported since v133.
-- Firefox: Partial support Missing: text-box.
-- Safari: Full support Supported since v18.2.
+- Chromium: Full support Supported since v125.
+- Firefox: Full support Supported since v128.
+- Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/vue/guide/browser-support/?components=Checkbox.md).
 

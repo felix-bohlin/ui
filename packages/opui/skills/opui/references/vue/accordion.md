@@ -5,7 +5,7 @@ Lets you show and hide content. Comes with a chevron marker, check out how to ad
 ### What's new
 
 - [Marker animation](#marker-animation) with the `markerAnimation` prop.
-- A chevron marker by default. The `marker` slot replaces it.
+- Breaking: a chevron marker by default. The `marker` slot replaces it, so move a custom chevron there or it shows twice.
 
 ## Anatomy
 
@@ -189,7 +189,7 @@ import { Accordion, Card } from "opui-css/vue"
 
 ## Actions
 
-Add buttons or other interactive elements below the content with the`actions` slot.
+Add buttons or other interactive elements below the content with the `actions` slot.
 
 ```vue
 <script setup lang="ts">
@@ -316,12 +316,12 @@ import { Accordion } from "opui-css/vue"
 
 ### Accordion API
 
-| Prop              | Type                                               | Default     | Description                                                  |
-| ----------------- | -------------------------------------------------- | ----------- | ------------------------------------------------------------ |
-| `markerAnimation` | `"flip"`, `"rotate"`, `"turn"`                     | `"rotate"`  | How the marker animates when the accordion opens.            |
-| `name`            | `string`                                           | -           | Groups accordions so only one of them can be open at a time. |
-| `open`            | `boolean`                                          | `false`     | Whether the accordion is open.                               |
-| `variant`         | `"default"`, `"outlined"`, `"elevated"`, `"tonal"` | `"default"` | The variant to use.                                          |
+| Prop              | Type                                                  | Default     | Description                                                  |
+| ----------------- | ----------------------------------------------------- | ----------- | ------------------------------------------------------------ |
+| `markerAnimation` | `"flip"` , `"rotate"` , `"turn"`                      | `"rotate"`  | How the marker animates when the accordion opens.            |
+| `name`            | `string`                                              | -           | Groups accordions so only one of them can be open at a time. |
+| `open`            | `boolean`                                             | `false`     | Whether the accordion is open.                               |
+| `variant`         | `"default"` , `"outlined"` , `"elevated"` , `"tonal"` | `"default"` | The variant to use.                                          |
 
 #### Slots
 
@@ -382,10 +382,10 @@ Step 1 of 3: Details
 
 Step 2 of 3: Animate to auto
 
-- [`content-visibility`](https://webstatus.dev/features/content-visibility) (Newly available): Chrome 108+, Edge 108+, Firefox 130+, Safari 26+
-- [`::details-content`](https://webstatus.dev/features/details-content) (Newly available): Chrome 131+, Edge 131+, Firefox 143+, Safari 18.4+
-- [`interpolate-size`](https://webstatus.dev/features/interpolate-size) (Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
-- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+- [`content-visibility` ](https://webstatus.dev/features/content-visibility)(Newly available): Chrome 108+, Edge 108+, Firefox 130+, Safari 26+
+- [`::details-content` ](https://webstatus.dev/features/details-content)(Newly available): Chrome 131+, Edge 131+, Firefox 143+, Safari 18.4+
+- [`interpolate-size` ](https://webstatus.dev/features/interpolate-size)(Limited availability): Chrome 129+, Edge 129+, Firefox not supported, Safari not supported
+- [`transition-behavior` ](https://webstatus.dev/features/transition-behavior)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 
 ```css
 .accordion {

@@ -5,6 +5,7 @@
 - Breaking: `divided` is removed. Use [`bordered`](#on-every-item).
 - [Dense](#dense) rows keep the default inline padding, so they line up with card content.
 - Only direct children are styled as rows, so nested lists inside a row stay normal lists.
+- Breaking: [`variant="surface"`](#variants) replaces `variant="default"`.
 
 ## Anatomy
 
@@ -38,6 +39,8 @@
 
   Optional content at the end, such as a value or an action.
 
+## Basics
+
 ```vue
 <script setup lang="ts">
 import { List } from "opui-css/vue"
@@ -70,7 +73,7 @@ Change background color with the `variant` prop.
 
 ### Filled by default
 
-Without a color class the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `default` or `tonal` to match the page surface instead.
+Without a color class the list uses the filled surface, because lists usually sit in popovers and selects that need to contrast against the page. Pick `surface` or `tonal` to match the page surface instead.
 
 ```vue
 <script setup lang="ts">
@@ -86,8 +89,8 @@ import { List, ListItem } from "opui-css/vue"
     </List>
 
 
-    <List variant="default">
-      <ListItem headline="Default" />
+    <List variant="surface">
+      <ListItem headline="Surface" />
       <ListItem headline="Second item" />
     </List>
 
@@ -108,7 +111,7 @@ import { List, ListItem } from "opui-css/vue"
 
 ## Clickable list item
 
-Wrap the elements of your List item with a `a`, `button` or `label` depending on use-case.
+Wrap the elements of your List item with an `a`, `button` or `label` depending on use-case.
 
 ```vue
 <script setup lang="ts">
@@ -612,12 +615,12 @@ import ListAll from "./ListAll.vue"
 
 ### List API
 
-| Prop         | Type                                    | Default | Description                       |
-| ------------ | --------------------------------------- | ------- | --------------------------------- |
-| `bordered`   | `boolean`                               | `false` | Adds a border between list items. |
-| `dense`      | `boolean`                               | `false` | Packs the list tighter.           |
-| `gutterless` | `boolean`                               | `false` | Removes the inline padding.       |
-| `variant`    | `"default"`, `"tonal"`, `"transparent"` | -       | The background color variant.     |
+| Prop         | Type                                      | Default | Description                                                                  |
+| ------------ | ----------------------------------------- | ------- | ---------------------------------------------------------------------------- |
+| `bordered`   | `boolean`                                 | `false` | Adds a border between list items.                                            |
+| `dense`      | `boolean`                                 | `false` | Packs the list tighter.                                                      |
+| `gutterless` | `boolean`                                 | `false` | Removes the inline padding.                                                  |
+| `variant`    | `"tonal"` , `"transparent"` , `"surface"` | -       | The background color variant. Without one, the list uses the filled surface. |
 
 #### Slots
 
@@ -636,7 +639,7 @@ import ListAll from "./ListAll.vue"
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
-| `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `IconButton`, `Avatar` and `List`.                                                               |
+| `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `Avatar` and `List`.                                                                             |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
 | `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                         |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
@@ -651,17 +654,17 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 ### List item API
 
-| Prop          | Type                                | Default | Description                                                                                                  |
-| ------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
-| `as`          | `"div"`, `"button"`, `"a"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. |
-| `borderTop`   | `boolean`                           | `false` | Adds a border above the item.                                                                                |
-| `description` | `string`                            | -       | Supporting text, the second paragraph.                                                                       |
-| `disabled`    | `boolean`                           | -       | Disables the item when `as` is `"button"`.                                                                   |
-| `for`         | `string`                            | -       | The `for` attribute of the `<label>` when `type` is set.                                                     |
-| `headline`    | `string`                            | -       | The headline, the first paragraph.                                                                           |
-| `href`        | `string`                            | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                         |
-| `inset`       | `boolean`                           | `false` | Aligns the text with items that have start content.                                                          |
-| `type`        | `"checkbox"`, `"radio"`, `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.                                            |
+| Prop          | Type                                  | Default | Description                                                                                                  |
+| ------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+| `as`          | `"div"` , `"button"` , `"a"`          | -       | The element to render inside the `<li>`: `"a"`, `"button"` or `"div"`. Defaults to `"a"` when `href` is set. |
+| `borderTop`   | `boolean`                             | `false` | Adds a border above the item.                                                                                |
+| `description` | `string`                              | -       | Supporting text, the second paragraph.                                                                       |
+| `disabled`    | `boolean`                             | -       | Disables the item when `as` is `"button"`.                                                                   |
+| `for`         | `string`                              | -       | The `for` attribute of the `<label>` when `type` is set.                                                     |
+| `headline`    | `string`                              | -       | The headline, the first paragraph.                                                                           |
+| `href`        | `string`                              | -       | The link to use. Renders an `<a>` inside the `<li>`.                                                         |
+| `inset`       | `boolean`                             | `false` | Aligns the text with items that have start content.                                                          |
+| `type`        | `"checkbox"` , `"radio"` , `"switch"` | -       | Wraps the content in a `<label>` for a checkbox, radio or switch.                                            |
 
 #### Slots
 
@@ -684,7 +687,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--focus-ring-inset`          | `calc(-1 * var(--focus-ring-width))`         | Negative offset for focus rings drawn inside a control, such as `ButtonGroup`, `List` items and `Select` options. |
 | `--font-size-05`              | `0.875rem`                                   | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.             |
 | `--icon-size`                 | `var(--size-4)`                              | Default icon size inside components.                                                                              |
-| `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `IconButton`, `Avatar` and `List`.                                                               |
+| `--icon-size-large`           | `var(--size-5)`                              | Icon size inside `Avatar` and `List`.                                                                             |
 | `--primary`                   | `light-dark(var(--color-9), var(--color-6))` | Brand color for primary actions and accents.                                                                      |
 | `--surface-default`           | `light-dark(var(--gray-1), var(--gray-13))`  | Page and card background.                                                                                         |
 | `--surface-filled`            | `light-dark(var(--gray-4), var(--gray-15))`  | Background of filled areas such as progress tracks and table stripes.                                             |
@@ -777,8 +780,8 @@ Step 1 of 4: Row
 
 Step 2 of 4: Clickable
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .list li:has(> a, > button) {

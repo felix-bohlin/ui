@@ -1,6 +1,6 @@
 # Drawer
 
-Slides in from the sides, top or bottom of the screen.
+Slides in from the sides, top or bottom of the screen. Good for navigation, filters and side content. For a question or a short task that needs the user's full attention, use a [Dialog](https://open-props-ui.netlify.app/astro/components/dialog.md).
 
 ### What's new
 
@@ -159,17 +159,19 @@ import { Button, Drawer, DrawerHeader, DrawerFooter } from "opui-css/astro"
 
 ## How to close a drawer
 
-Use the `closedby` prop to control the closing behavior.
+Use the `closedby` prop to choose how the drawer can be closed.
 
-| Prop                      | Description                                                                                                                 |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `closedby="any"`          | Click anywhere outside of the drawer to close it.                                                                           |
-| `closedby="closerequest"` | Device-specific way to close, ex: `Esc` on desktop, back button on mobile, and whatever dismiss action assistive tools use. |
-| `closedby="none"`         | You have to handroll a closing solution yourself.                                                                           |
+| Value                      | Closes with                                                                                                                     |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `closedby="any"` (default) | A click outside the drawer, `Esc` or the platform's close request (like the back gesture on mobile), and your own close button. |
+| `closedby="closerequest"`  | `Esc` or the platform's close request, and your own close button. A click outside does nothing.                                 |
+| `closedby="none"`          | Only your own close button (`command="close"`), `close()` or a form with `method="dialog"`.                                     |
+
+The drawer sets `closedby="any"` when you leave it out.
 
 ## Accessibility
 
-- The drawer is named by the first heading in the `header` slot, through `aria-labelledby`. Pass `aria-label` or`aria-labelledby` to name it yourself.
+- The drawer is named by the first heading in the `header` slot, through `aria-labelledby`. Pass `aria-label` or `aria-labelledby` to name it yourself.
 - The `autofocus` attribute should be added to the element the user is expected to interact with immediately upon opening a modal dialog. If no other element involves more immediate interaction, it is recommended to add autofocus to the close button inside the dialog, or the dialog itself if the user is expected to click/activate it to dismiss.
 - Do not add the `tabindex` property to the `<dialog>` element as it is not interactive and does not receive focus. The dialog's contents, including the close button contained in the dialog, can receive focus and be interactive.
 
@@ -177,12 +179,12 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ### Role & attributes
 
-| Role/attribute             | Usage                                                                                                                                      |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `role="dialog"`            | Identifies the element that serves as the drawer container.                                                                                |
-| `aria-labelledby="IDREF"`  | Gives the drawer an accessible name by referring to the element that provides the drawer title.                                            |
-| `aria-describedby="IDREF"` | Gives the drawer an accessible description by referring to the drawer content that describes the primary message or purpose of the drawer. |
-| `aria-modal="true"`        | Tells assistive technologies that the windows underneath the current drawer are not available for interaction (inert).                     |
+Don't add `role="dialog"` or `aria-modal="true"`. The `<dialog>` element has the dialog role, and opening it with `command="show-modal"` (or `showModal()`) makes it modal and the page behind it inert.
+
+| Role/attribute             | Usage                                                                                                                                                |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `aria-labelledby="IDREF"`  | Gives the drawer an accessible name by referring to the element that provides the drawer title.                                                      |
+| `aria-describedby="IDREF"` | Optional. Gives the drawer an accessible description by referring to the drawer content that describes the primary message or purpose of the drawer. |
 
 ### Keyboard support
 
@@ -198,13 +200,13 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elemen
 
 ### Drawer API
 
-| Prop         | Type                                                             | Default          | Description                                                              |
-| ------------ | ---------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------------ |
-| `backdrop`   | `"transparent"`, `"blurred"`                                     | `"blurred"`      | The backdrop style.                                                      |
-| `closedby`   | `"none"`, `"any"`, `"closerequest"`                              | `"any"`          | How the drawer can be closed. `"any"` also closes it on a click outside. |
-| `id`         | `string`                                                         | -                | The id of the `<dialog>`. Generated when omitted.                        |
-| `scrollLock` | `boolean`                                                        | `true`           | Locks page scroll while the drawer is open.                              |
-| `side`       | `"inline-start"`, `"inline-end"`, `"block-start"`, `"block-end"` | `"inline-start"` | The side it opens from.                                                  |
+| Prop         | Type                                                                | Default          | Description                                                              |
+| ------------ | ------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------------ |
+| `backdrop`   | `"transparent"` , `"blurred"`                                       | `"blurred"`      | The backdrop style.                                                      |
+| `closedby`   | `"none"` , `"any"` , `"closerequest"`                               | `"any"`          | How the drawer can be closed. `"any"` also closes it on a click outside. |
+| `id`         | `string`                                                            | -                | The id of the `<dialog>`. Generated when omitted.                        |
+| `scrollLock` | `boolean`                                                           | `true`           | Locks page scroll while the drawer is open.                              |
+| `side`       | `"inline-start"` , `"inline-end"` , `"block-start"` , `"block-end"` | `"inline-start"` | The side it opens from.                                                  |
 
 #### Slots
 
@@ -313,9 +315,9 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 4: Modal
 
-- [\<dialog>](https://webstatus.dev/features/dialog) (Widely available): Chrome 37+, Edge 79+, Firefox 98+, Safari 15.4+
-- [\<dialog closedby>](https://webstatus.dev/features/dialog-closedby) (Limited availability): Chrome 134+, Edge 134+, Firefox 141+, Safari not supported
-- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [\<dialog> ](https://webstatus.dev/features/dialog)(Widely available): Chrome 37+, Edge 79+, Firefox 98+, Safari 15.4+
+- [\<dialog closedby> ](https://webstatus.dev/features/dialog-closedby)(Limited availability): Chrome 134+, Edge 134+, Firefox 141+, Safari not supported
+- [Invoker commands ](https://webstatus.dev/features/invoker-commands)(Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
 
 ```html
 <button commandfor="drawer" command="show-modal">Start</button>
@@ -354,8 +356,8 @@ Step 1 of 4: Modal
 
 Step 2 of 4: Edge
 
-- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
-- [Small, large, and dynamic viewport units](https://webstatus.dev/features/viewport-unit-variants) (Widely available): Chrome 108+, Edge 108+, Firefox 101+, Safari 15.4+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [Small, large, and dynamic viewport units ](https://webstatus.dev/features/viewport-unit-variants)(Widely available): Chrome 108+, Edge 108+, Firefox 101+, Safari 15.4+
 
 ```css
 .drawer {
@@ -387,10 +389,10 @@ Step 2 of 4: Edge
 
 Step 3 of 4: Slide
 
-- [`:dir()`](https://webstatus.dev/features/dir-pseudo) (Widely available): Chrome 120+, Edge 120+, Firefox 49+, Safari 16.4+
-- [`overlay`](https://webstatus.dev/features/overlay) (Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari not supported
-- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
-- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+- [`:dir()` ](https://webstatus.dev/features/dir-pseudo)(Widely available): Chrome 120+, Edge 120+, Firefox 49+, Safari 16.4+
+- [`overlay` ](https://webstatus.dev/features/overlay)(Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari not supported
+- [`@starting-style` ](https://webstatus.dev/features/starting-style)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
+- [`transition-behavior` ](https://webstatus.dev/features/transition-behavior)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 
 ```css
 .drawer {
@@ -436,8 +438,8 @@ Step 3 of 4: Slide
 
 Step 4 of 4: Backdrop
 
-- [`::backdrop`](https://webstatus.dev/features/backdrop) (Widely available): Chrome 37+, Edge 79+, Firefox 47+, Safari 15.4+
-- [`backdrop-filter`](https://webstatus.dev/features/backdrop-filter) (Newly available): Chrome 76+, Edge 79+, Firefox 103+, Safari 18+
+- [`::backdrop` ](https://webstatus.dev/features/backdrop)(Widely available): Chrome 37+, Edge 79+, Firefox 47+, Safari 15.4+
+- [`backdrop-filter` ](https://webstatus.dev/features/backdrop-filter)(Newly available): Chrome 76+, Edge 79+, Firefox 103+, Safari 18+
 
 ```css
 .drawer::backdrop {
@@ -467,9 +469,9 @@ Step 4 of 4: Backdrop
 
 ## Browser support
 
-- Chromium: Full support Supported since v135.
-- Firefox: Partial support Missing: display-animation, overlay.
-- Safari: Partial support Missing: dialog-closedby, overlay.
+- Chromium: Full support Supported since v144.
+- Firefox: Partial support Missing: container-scroll-state-queries, display-animation, overlay.
+- Safari: Partial support Missing: container-scroll-state-queries, dialog-closedby, overlay.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Drawer.md).
 

@@ -95,7 +95,7 @@
       /* Option */
       option {
         /* Checkmark */
-        /* TODO - checkmark should be the final version of the checkmark API. Follow the development of this and remove redundant psuedo stuff. */
+        /* TODO - checkmark should be the final version of the checkmark API. Follow the development of this and remove redundant pseudo stuff. */
         &::checkmark {
           display: none;
         }
@@ -123,7 +123,7 @@
     /*
     * Non-experimental Select
     *
-    * Hack to get the arrow working. Pseudo elements aren't allowed on the `<select>` element, so need to add it on the `.select` class instead. Noting this down if an `:after` element would be needed on a `.select`.
+    * Hack to get the arrow working. Pseudo elements aren't allowed on the `<select>` element, so need to add it on the `.ui-select` class instead. Noting this down if an `:after` element would be needed on a `.ui-select`.
     */
     &:not(:has(button)) {
       select {
@@ -161,7 +161,9 @@
       &.ui-spread::after {
         align-self: start;
         grid-row: 1 / span 2;
-        margin-block-start: calc((var(--_height) - var(--_chevron-size)) / 2);
+        margin-block-start: calc(
+          (var(--_min-height) - var(--_chevron-size)) / 2
+        );
       }
 
       @container (width < 400px) {
@@ -178,8 +180,8 @@
     }
   }
 
-  select:has(button),
-  ::picker(select) {
+  :where(.ui-select select:has(button)),
+  :where(.ui-select select:has(button))::picker(select) {
     appearance: base-select;
   }
 }

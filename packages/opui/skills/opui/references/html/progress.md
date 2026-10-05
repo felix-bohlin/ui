@@ -2,6 +2,10 @@
 
 See also: [Spinner](https://open-props-ui.netlify.app/html/components/spinner.md).
 
+### What's new
+
+- Breaking: [`.ui-surface`](#variants) replaces `.ui-default`.
+
 ## Indeterminate
 
 ```html
@@ -20,13 +24,13 @@ See also: [Spinner](https://open-props-ui.netlify.app/html/components/spinner.md
 
 ## Variants
 
-Use the modifier classes `.ui-filled`, `.ui-default`, or `.ui-tonal` on the wrapper `<div>` to swap the progress bar track surface for better contrast on different backgrounds.
+Use the modifier classes `.ui-filled`, `.ui-surface`, or `.ui-tonal` on the wrapper `<div>` to swap the progress bar track surface for better contrast on different backgrounds. Without a class, the track is tonal, the same as `.ui-tonal`.
 
 ```html
-<div class="ui-progress ui-default">
+<div class="ui-progress ui-filled">
   <progress value="25" max="100"></progress>
 </div>
-<div class="ui-progress ui-filled">
+<div class="ui-progress ui-surface">
   <progress value="50" max="100"></progress>
 </div>
 <div class="ui-progress ui-tonal">
@@ -56,10 +60,10 @@ Source: [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress
 
 ### Progress API
 
-| Type     | Modifiers                                | Default | Description                                            |
-| -------- | ---------------------------------------- | ------- | ------------------------------------------------------ |
-| Value    | `progress[value]`                        | -       | The current value. Omit it for an indeterminate state. |
-| Variants | `.ui-default`, `.ui-filled`, `.ui-tonal` | -       | The variant to use.                                    |
+| Type     | Modifiers                                | Default | Description                                                          |
+| -------- | ---------------------------------------- | ------- | -------------------------------------------------------------------- |
+| Value    | `progress[value]`                        | -       | The current value. Omit it for an indeterminate state.               |
+| Variants | `.ui-filled`, `.ui-surface`, `.ui-tonal` | -       | The track surface. Without one, the track looks the same as `tonal`. |
 
 #### Parts
 
@@ -120,7 +124,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 5: Native
 
-- [\<progress>](https://webstatus.dev/features/progress) (Widely available): Chrome 6+, Edge 12+, Firefox 6+, Safari 6+
+- [\<progress> ](https://webstatus.dev/features/progress)(Widely available): Chrome 6+, Edge 12+, Firefox 6+, Safari 6+
 
 ```html
 <div class="progress">
@@ -135,7 +139,7 @@ Step 1 of 5: Native
 
 Step 2 of 5: Track
 
-- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+- [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
 
 ```css
 .progress {
@@ -180,9 +184,9 @@ Step 3 of 5: Value
 
 Step 4 of 5: Indeterminate
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [`:indeterminate`](https://webstatus.dev/features/indeterminate) (Widely available): Chrome 39+, Edge 79+, Firefox 51+, Safari 10+
-- [Logical properties](https://webstatus.dev/features/logical-properties) (Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:indeterminate` ](https://webstatus.dev/features/indeterminate)(Widely available): Chrome 39+, Edge 79+, Firefox 51+, Safari 10+
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
 
 ```css
 .progress:has(> progress:indeterminate)::after {
@@ -206,7 +210,7 @@ Step 4 of 5: Indeterminate
 
 Step 5 of 5: Reduced motion
 
-- [Container style queries](https://webstatus.dev/features/container-style-queries) (Newly available): Chrome 111+, Edge 111+, Firefox 151+, Safari 18+
+- [Container style queries ](https://webstatus.dev/features/container-style-queries)(Newly available): Chrome 111+, Edge 111+, Firefox 151+, Safari 18+
 
 ```css
 .stack {

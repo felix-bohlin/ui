@@ -121,6 +121,27 @@ The manual form remains supported and unchanged:
 2.  **Replace `<Example>` blocks**: For each standard section, replace the import block + `<Example>` + four slots with a single `<AutoExample name="..." />`.
 3.  **Cleanup**: Remove the now-unused `?raw` and component imports from the page frontmatter.
 
+### 3.3 Section order
+
+The `Component` layout renders a page in this order. Only the default slot is ordered by the page itself; the rest is placed by the layout, wherever the slot sits in the source.
+
+1. `title` and `preamble`. Not every page needs a preamble. Use it for a short description, and for "when to use" guidance when the component has a close sibling (Chip vs Button, Dialog vs Drawer, Menu vs Select, Switch vs Checkbox vs Toggle, Tabs vs Toggle group), linked both ways with `<DocLink>`.
+2. Browser support chips (`browserSupport`) and the What's new callout.
+3. The `anatomy` slot, when `heroAnatomy` is set.
+4. The default slot, in this order. Skip what doesn't apply:
+   1. Basics: the plain component. The first example always sits in a `<section>` with an `h2`, usually `<h2 id="basics">Basics</h2>`.
+   2. Variants, colors and severities.
+   3. Sizes and density.
+   4. Parts and content: labels, icons, slots, affixes.
+   5. States: disabled, required, invalid, validation.
+   6. Layout: spread, orientation, alignment, overflow.
+   7. Composition and special cases: groups, advanced examples, related notes.
+5. The `accessibility` slot, as "Accessibility".
+6. The `anatomy` slot as "Anatomy", when `heroAnatomy` isn't set.
+7. The API tables (`apis`).
+8. The `under-the-hood` slot, as "Under the hood".
+9. Browser support, Installation (`installationTabs` and the `installation` slot), See also (`seeAlsoLinks`) and Changelog (`changelogPaths`).
+
 ## 4. Layout Props & Slots
 
 The `Component` layout ([src/layouts/Component.astro](../../layouts/Component.astro)) provides the following inputs:
@@ -172,7 +193,7 @@ import buttonApi from "../../component-api/button/api"
 
 ### 5.3 `<UICallout>` (Alerts & Info)
 
-- **Severity**: `ok`, `warning`, `critical`, or default (blue).
+- **Severity**: `info`, `success`, `warning`, `critical`, `neutral`, or none for a plain surface.
 - **Wrapping**: Always wrap in `<div class="ui-not-rich-text">`.
 - **Content**: If multiple paragraphs/lists, wrap content in `<div class="ui-rich-text">`.
 

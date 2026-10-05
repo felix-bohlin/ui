@@ -1,23 +1,23 @@
 @layer components.extended {
   :where(.ui-tooltip) {
     --_motion: var(--motion, 1);
-    --_tooltip-bg: var(--surface-inverse);
-    --_tooltip-color: var(--text-inverse);
-    --_tooltip-min-inline-size: 10rem;
-    --_tooltip-offset: var(--size-2);
-    --_tooltip-shift: var(--size-4);
+    --_bg-color: var(--surface-inverse);
+    --_min-inline-size: 10rem;
+    --_offset: var(--size-2);
+    --_shift: var(--size-4);
+    --_text-color: var(--text-inverse);
 
     & > .ui-anchor-floating {
-      background-color: var(--_tooltip-bg);
+      background-color: var(--_bg-color);
       border-radius: var(--radius-2);
-      color: var(--_tooltip-color);
+      color: var(--_text-color);
       font-size: var(--font-size-05);
       line-height: 1.3;
-      margin: var(--_tooltip-offset);
+      margin: var(--_offset);
       max-inline-size: 240px;
       min-inline-size: calc-size(
         max-content,
-        min(size, var(--_tooltip-min-inline-size))
+        min(size, var(--_min-inline-size))
       );
       /* UA sets overflow: auto on [popover], which clips the arrow. */
       overflow: visible;
@@ -52,7 +52,7 @@
 
       & > .ui-anchor-floating {
         /* Offset so the arrow doesn't overlap the trigger. */
-        --_tooltip-offset: calc(var(--size-2) + var(--_arrow-size) / 2);
+        --_offset: calc(var(--size-2) + var(--_arrow-size) / 2);
 
         anchor-name: --ui-tooltip;
         anchor-scope: --ui-tooltip;
@@ -60,7 +60,7 @@
       }
 
       & > .ui-anchor-floating::before {
-        background-color: var(--_tooltip-bg);
+        background-color: var(--_bg-color);
         block-size: var(--_arrow-size);
         content: "";
         inline-size: var(--_arrow-size);
@@ -100,13 +100,13 @@
 }
 
 @position-try --ui-tooltip-shift-start {
-  margin-block: 0 var(--_tooltip-offset);
-  margin-inline: 0 calc(anchor-size(inline) / 2 - var(--_tooltip-shift));
+  margin-block: 0 var(--_offset);
+  margin-inline: 0 calc(anchor-size(inline) / 2 - var(--_shift));
   position-area: block-start span-inline-start;
 }
 
 @position-try --ui-tooltip-shift-end {
-  margin-block: 0 var(--_tooltip-offset);
-  margin-inline: calc(anchor-size(inline) / 2 - var(--_tooltip-shift)) 0;
+  margin-block: 0 var(--_offset);
+  margin-inline: calc(anchor-size(inline) / 2 - var(--_shift)) 0;
   position-area: block-start span-inline-end;
 }

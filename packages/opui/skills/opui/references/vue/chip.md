@@ -1,6 +1,6 @@
 # Chip
 
-Chips are compact elements that represent an input, attribute, or action.
+Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a [Button](https://open-props-ui.netlify.app/vue/components/button.md).
 
 ### What's new
 
@@ -42,6 +42,26 @@ import { Chip } from "opui-css/vue"
 <template>
   <Chip variant="tonal" label="Tonal" />
   <Chip variant="outlined" label="Outlined" />
+</template>
+```
+
+## Sizes
+
+```vue
+<script setup lang="ts">
+import { Chip } from "opui-css/vue"
+</script>
+
+
+<template>
+  <Chip size="small" label="Small" />
+  <Chip label="Default" />
+  <Chip size="large" label="Large" />
+  <Chip
+    multiline
+    style="max-width: 30ch"
+    label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales."
+  />
 </template>
 ```
 
@@ -165,26 +185,6 @@ import { Chip } from "opui-css/vue"
 </template>
 ```
 
-## Sizes
-
-```vue
-<script setup lang="ts">
-import { Chip } from "opui-css/vue"
-</script>
-
-
-<template>
-  <Chip size="small" label="Small" />
-  <Chip label="Default" />
-  <Chip size="large" label="Large" />
-  <Chip
-    multiline
-    style="max-width: 30ch"
-    label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales."
-  />
-</template>
-```
-
 ## Disabled
 
 Disable a button chip with the `disabled` attribute.
@@ -207,14 +207,14 @@ import { Chip } from "opui-css/vue"
 
 ### Chip API
 
-| Prop        | Type                                        | Default   | Description                                           |
-| ----------- | ------------------------------------------- | --------- | ----------------------------------------------------- |
-| `as`        | `"div"`, `"button"`, `"a"`, `(string & {})` | `"div"`   | The element to render. Defaults to `"a"` with `href`. |
-| `href`      | `string`                                    | -         | The link to use. Renders an `<a>`.                    |
-| `label`     | `string`                                    | -         | The label.                                            |
-| `multiline` | `boolean`                                   | `false`   | Lets the label wrap to multiple lines.                |
-| `size`      | `"small"`, `"large"`                        | -         | The size of the element.                              |
-| `variant`   | `"outlined"`, `"tonal"`                     | `"tonal"` | The variant to use.                                   |
+| Prop        | Type                                           | Default   | Description                                           |
+| ----------- | ---------------------------------------------- | --------- | ----------------------------------------------------- |
+| `as`        | `"div"` , `"button"` , `"a"` , `(string & {})` | `"div"`   | The element to render. Defaults to `"a"` with `href`. |
+| `href`      | `string`                                       | -         | The link to use. Renders an `<a>`.                    |
+| `label`     | `string`                                       | -         | The label.                                            |
+| `multiline` | `boolean`                                      | `false`   | Lets the label wrap to multiple lines.                |
+| `size`      | `"small"` , `"large"`                          | -         | The size of the element.                              |
+| `variant`   | `"outlined"` , `"tonal"`                       | `"tonal"` | The variant to use.                                   |
 
 #### Slots
 
@@ -302,7 +302,7 @@ Step 1 of 4: Base
 
 Step 2 of 4: Icon
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```css
 .chip:has(svg:first-child) {
@@ -323,7 +323,7 @@ Step 2 of 4: Icon
 
 Step 3 of 4: Truncate
 
-- [Text overflow](https://webstatus.dev/features/text-overflow) (Widely available): Chrome 1+, Edge 12+, Firefox 7+, Safari 1.3+
+- [Text overflow ](https://webstatus.dev/features/text-overflow)(Widely available): Chrome 1+, Edge 12+, Firefox 7+, Safari 1.3+
 
 ```css
 .chip {
@@ -341,8 +341,8 @@ Step 3 of 4: Truncate
 
 Step 4 of 4: Hover
 
-- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .chip:where(button, a):hover {

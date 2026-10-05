@@ -1,16 +1,17 @@
 # Select
 
-Leverages the [List component](https://open-props-ui.netlify.app/html/components/list.md) to provide markup for the Select popover.
+Leverages the [List component](https://open-props-ui.netlify.app/html/components/list.md) to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a [Menu](https://open-props-ui.netlify.app/html/components/menu.md).
 
 ### What's new
 
 - [X-small and large](#sizes) sizes with `.ui-x-small` and `.ui-large`.
 - [Spread](#spread) fields line up at one width.
 - [Preselect](#preselected) options with `selected`.
+- The arrow is a chevron.
 
 ## Anatomy
 
-LabelDescriptionOption one (1)¢EURHeaderFooterSupporting text
+Label Description Option one (1) ¤ EUR Header Footer Supporting text
 
 - `label.ui-select`
 
@@ -91,6 +92,100 @@ LabelDescriptionOption one (1)¢EURHeaderFooterSupporting text
 </label>
 ```
 
+## Sizes
+
+```html
+<label class="ui-select ui-x-small">
+  <span class="ui-label" id="select-sizes-1-label">X-small</span>
+  <span class="ui-field">
+    <select aria-labelledby="select-sizes-1-label">
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option value="">X-small</option>
+        <option>Option Two</option>
+        <option>Option Three</option>
+      </div>
+    </select>
+  </span>
+</label>
+
+
+<label class="ui-select ui-small">
+  <span class="ui-label" id="select-sizes-2-label">Small</span>
+  <span class="ui-field">
+    <select aria-labelledby="select-sizes-2-label">
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option value="">Small</option>
+        <option>Option Two</option>
+        <option>Option Three</option>
+      </div>
+    </select>
+  </span>
+</label>
+
+
+<label class="ui-select">
+  <span class="ui-label" id="select-sizes-3-label">Default</span>
+  <span class="ui-field">
+    <select aria-labelledby="select-sizes-3-label">
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option value="">Default</option>
+        <option>Option Two</option>
+        <option>Option Three</option>
+      </div>
+    </select>
+  </span>
+</label>
+
+
+<label class="ui-select ui-large">
+  <span class="ui-label" id="select-sizes-4-label">Large</span>
+  <span class="ui-field">
+    <select aria-labelledby="select-sizes-4-label">
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option value="">Large</option>
+        <option>Option Two</option>
+        <option>Option Three</option>
+      </div>
+    </select>
+  </span>
+</label>
+```
+
+## Dense
+
+Add `.ui-dense` to the `.ui-list` to pack the options tighter.
+
+```html
+<label class="ui-select">
+  <span class="ui-label" id="select-dense-1-label">Fruit</span>
+  <span class="ui-field">
+    <select aria-labelledby="select-dense-1-label">
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list ui-dense">
+        <option value="">-</option>
+        <option>Apple</option>
+        <option>Banana</option>
+        <option>Cherry</option>
+      </div>
+    </select>
+  </span>
+</label>
+```
+
 ## End text
 
 `.ui-end-text`: end text element
@@ -159,11 +254,11 @@ Add a `.ui-prefix` or `.ui-suffix` element inside `.ui-field` to affix content a
       <div class="ui-list">
         <option value="">-</option>
         <option>EUR</option>
-        <option>EUR</option>
         <option>SEK</option>
+        <option>USD</option>
       </div>
     </select>
-    <span class="ui-prefix">¢</span>
+    <span class="ui-prefix">¤</span>
   </span>
 </label>
 
@@ -177,9 +272,9 @@ Add a `.ui-prefix` or `.ui-suffix` element inside `.ui-field` to affix content a
       </button>
       <div class="ui-list">
         <option value="">-</option>
-        <option>Sweden</option>
-        <option>Norway</option>
         <option>Denmark</option>
+        <option>Norway</option>
+        <option>Sweden</option>
       </div>
     </select>
     <span class="ui-prefix">
@@ -237,6 +332,36 @@ Add `selected` to the `option` to preselect it.
         <option value="design">Design</option>
         <option selected value="engineering">Engineering</option>
         <option value="sales">Sales</option>
+      </div>
+    </select>
+  </span>
+</label>
+```
+
+## Option groups
+
+Wrap options in a `<div role="group">` and start it with a `<label class="ui-text">` to group them under a heading.
+
+```html
+<label class="ui-select">
+  <span class="ui-label" id="select-grouped-1-label">Car</span>
+  <span class="ui-field">
+    <select aria-labelledby="select-grouped-1-label">
+      <button>
+        <selectedcontent></selectedcontent>
+      </button>
+      <div class="ui-list">
+        <option value="">Select car</option>
+        <div role="group">
+          <label class="ui-text">French cars</label>
+          <option>Citroën</option>
+          <option>Renault</option>
+        </div>
+        <div role="group">
+          <label class="ui-text">Swedish cars</label>
+          <option>Saab</option>
+          <option>Volvo</option>
+        </div>
       </div>
     </select>
   </span>
@@ -512,80 +637,9 @@ Add the `.ui-spread` class to display the label and description on the left with
 </label>
 ```
 
-## Sizes
-
-```html
-<label class="ui-select ui-x-small">
-  <span class="ui-label" id="select-sizes-1-label">X-small</span>
-  <span class="ui-field">
-    <select aria-labelledby="select-sizes-1-label">
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option value="">X-small</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
-      </div>
-    </select>
-  </span>
-</label>
-
-
-<label class="ui-select ui-small">
-  <span class="ui-label" id="select-sizes-2-label">Small</span>
-  <span class="ui-field">
-    <select aria-labelledby="select-sizes-2-label">
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option value="">Small</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
-      </div>
-    </select>
-  </span>
-</label>
-
-
-<label class="ui-select">
-  <span class="ui-label" id="select-sizes-3-label">Default</span>
-  <span class="ui-field">
-    <select aria-labelledby="select-sizes-3-label">
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option value="">Default</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
-      </div>
-    </select>
-  </span>
-</label>
-
-
-<label class="ui-select ui-large">
-  <span class="ui-label" id="select-sizes-4-label">Large</span>
-  <span class="ui-field">
-    <select aria-labelledby="select-sizes-4-label">
-      <button>
-        <selectedcontent></selectedcontent>
-      </button>
-      <div class="ui-list">
-        <option value="">Large</option>
-        <option>Option Two</option>
-        <option>Option Three</option>
-      </div>
-    </select>
-  </span>
-</label>
-```
-
 ## Classic select
 
-Bog-standard native HTML `<select>` without customized option list.
+Bog-standard native HTML `<select>` without customized option list. Use it when the browser's own picker is all you need, and the Select above when the options need styles, icons or groups.
 
 ```html
 <label class="ui-select">
@@ -680,7 +734,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` with the options. Browsers without customizable selects show a native select.
 
-### Classic Select API
+### Classic select API
 
 | Type       | Modifiers                               | Default | Description              |
 | ---------- | --------------------------------------- | ------- | ------------------------ |
@@ -765,7 +819,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 4: Base select
 
-- [Customizable \<select>](https://webstatus.dev/features/customizable-select) (Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari not supported
+- [Customizable \<select> ](https://webstatus.dev/features/customizable-select)(Limited availability): Chrome 135+, Edge 135+, Firefox not supported, Safari not supported
 
 ```html
 <select class="select">
@@ -811,7 +865,7 @@ selectedcontent {
 
 Step 2 of 4: Arrow
 
-- [`:open`](https://webstatus.dev/features/open-pseudo) (Newly available): Chrome 133+, Edge 133+, Firefox 136+, Safari 26.5+
+- [`:open` ](https://webstatus.dev/features/open-pseudo)(Newly available): Chrome 133+, Edge 133+, Firefox 136+, Safari 26.5+
 
 ```css
 .select {
@@ -839,7 +893,7 @@ Step 2 of 4: Arrow
 
 Step 3 of 4: Picker
 
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .select::picker(select) {
@@ -879,8 +933,8 @@ Step 3 of 4: Picker
 
 Step 4 of 4: Animate
 
-- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
-- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+- [`@starting-style` ](https://webstatus.dev/features/starting-style)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
+- [`transition-behavior` ](https://webstatus.dev/features/transition-behavior)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 
 ```css
 .select::picker(select) {

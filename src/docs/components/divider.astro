@@ -1,6 +1,7 @@
 ---
 import Component from "../../layouts/Component.astro"
 import AutoExample from "../../components/AutoExample.astro"
+import Conditional from "../../components/Conditional.astro"
 import DividerCSS from "@opui/css/components/divider.css?raw"
 import DividerBuild from "../../components/UnderTheHood/DividerBuild.astro"
 
@@ -29,12 +30,25 @@ import dividerApi from "../../component-api/divider/api"
   <Fragment slot="preamble"> It's just a line. </Fragment>
 
   <section>
-    <h2 class="default">Default</h2>
+    <h2 id="default">Default</h2>
     <AutoExample name="Default" />
   </section>
 
   <section>
     <h2 id="variants">Variants</h2>
+    <Conditional>
+      <p slot="astro">
+        Use the <code>variant</code> prop to change the line color.
+      </p>
+      <p slot="html">
+        Use <code>.ui-filled</code>, <code>.ui-primary</code>, or <code
+          >.ui-tonal</code
+        > to change the line color.
+      </p>
+      <p slot="vue">
+        Use the <code>variant</code> prop to change the line color.
+      </p>
+    </Conditional>
     <AutoExample name="Variants" />
   </section>
 

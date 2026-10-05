@@ -27,6 +27,7 @@ export const description =
     "registered-custom-properties",
     "relative-color",
     "scroll-driven-animations",
+    "user-pseudos",
   ]}
   changelogPaths={[
     {
@@ -45,10 +46,41 @@ export const description =
 >
   <Fragment slot="title">Range</Fragment>
 
-  <AutoExample name="Default" column />
+  <section>
+    <h2 id="basics">Basics</h2>
+    <AutoExample name="Default" column />
+  </section>
 
   <section>
-    <h2 id="start-end-text">Start text & End text</h2>
+    <h2 id="variants">Variants</h2>
+    <Conditional>
+      <p slot="astro">
+        Use the <code>variant</code> prop to swap the track surface for better contrast
+        on different backgrounds. Without a variant, the track uses <code
+          >--field-border-color</code
+        >, like the border of a text field.
+      </p>
+      <p slot="html">
+        Use the <code>.ui-filled</code>, <code>.ui-surface</code>, or <code
+          >.ui-tonal</code
+        >
+        {" "}class to swap the track surface for better contrast on different
+        backgrounds. Without a class, the track uses <code
+          >--field-border-color</code
+        >, like the border of a text field.
+      </p>
+      <p slot="vue">
+        Use the <code>variant</code> prop to swap the track surface for better contrast
+        on different backgrounds. Without a variant, the track uses <code
+          >--field-border-color</code
+        >, like the border of a text field.
+      </p>
+    </Conditional>
+    <AutoExample name="Surfaces" column spacious />
+  </section>
+
+  <section>
+    <h2 id="start-end-text">Start and end text</h2>
     <AutoExample name="StartEndText" column />
   </section>
 
@@ -103,28 +135,6 @@ export const description =
       </p>
     </Conditional>
     <AutoExample name="TickMarksLabels" column />
-  </section>
-
-  <section>
-    <h2 id="variants">Variants</h2>
-    <Conditional>
-      <p slot="astro">
-        Use the <code>variant</code> prop to swap the track surface for better contrast
-        on different backgrounds.
-      </p>
-      <p slot="html">
-        Use the <code>.ui-filled</code>, <code>.ui-default</code>, or <code
-          >.ui-tonal</code
-        >
-        {" "}class to swap the track surface for better contrast on different
-        backgrounds.
-      </p>
-      <p slot="vue">
-        Use the <code>variant</code> prop to swap the track surface for better contrast
-        on different backgrounds.
-      </p>
-    </Conditional>
-    <AutoExample name="Surfaces" column spacious />
   </section>
 
   <section>

@@ -22,6 +22,8 @@
 
   The description.
 
+## Basics
+
 ```html
 <dl class="ui-description-list">
   <div class="ui-item">
@@ -170,7 +172,7 @@ Step 1 of 4: Stacked
 
 Step 2 of 4: Container query
 
-- [Container queries](https://webstatus.dev/features/container-queries) (Widely available): Chrome 105+, Edge 105+, Firefox 110+, Safari 16+
+- [Container queries ](https://webstatus.dev/features/container-queries)(Widely available): Chrome 105+, Edge 105+, Firefox 110+, Safari 16+
 
 ```css
 .dl {

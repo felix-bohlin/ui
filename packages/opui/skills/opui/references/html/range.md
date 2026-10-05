@@ -4,10 +4,11 @@
 
 - [Spread](#spread) ranges line up with spread fields and collapse to a column in narrow containers.
 - The track fill is CSS only, so plain HTML ranges fill too.
+- Breaking: [`.ui-surface`](#variants) replaces `.ui-default`.
 
 ## Anatomy
 
-Label50Start textEnd text
+Label 50 Start text End text
 
 - `label.ui-range`
 
@@ -33,6 +34,8 @@ Label50Start textEnd text
 
   Supporting text displayed below the input.
 
+## Basics
+
 ```html
 <label class="ui-range">
   <span class="ui-label" id="range-default-1-label">Label</span>
@@ -45,7 +48,38 @@ Label50Start textEnd text
 </label>
 ```
 
-## Start text & End text
+## Variants
+
+Use the `.ui-filled`, `.ui-surface`, or `.ui-tonal` class to swap the track surface for better contrast on different backgrounds. Without a class, the track uses `--field-border-color`, like the border of a text field.
+
+```html
+<label class="ui-range">
+  <span class="ui-label" id="range-surfaces-1-label"
+    >No variant = <code>var(--field-border-color)</code></span
+  >
+  <input aria-labelledby="range-surfaces-1-label" type="range" />
+</label>
+<label class="ui-range ui-filled">
+  <span class="ui-label" id="range-surfaces-2-label"
+    ><code>filled</code> = <code>var(--surface-filled)</code></span
+  >
+  <input aria-labelledby="range-surfaces-2-label" type="range" />
+</label>
+<label class="ui-range ui-surface">
+  <span class="ui-label" id="range-surfaces-3-label"
+    ><code>surface</code> = <code>var(--surface-default)</code></span
+  >
+  <input aria-labelledby="range-surfaces-3-label" type="range" />
+</label>
+<label class="ui-range ui-tonal">
+  <span class="ui-label" id="range-surfaces-4-label"
+    ><code>tonal</code> = <code>var(--surface-tonal)</code></span
+  >
+  <input aria-labelledby="range-surfaces-4-label" type="range" />
+</label>
+```
+
+## Start and end text
 
 ```html
 <label class="ui-range">
@@ -104,35 +138,6 @@ Use the `list` attribute on the `<input>` and follow it with a `<datalist>` elem
     <option value="75" label="75%"></option>
     <option value="100" label="100%"></option>
   </datalist>
-</label>
-```
-
-## Variants
-
-Use the `.ui-filled`, `.ui-default`, or `.ui-tonal` class to swap the track surface for better contrast on different backgrounds.
-
-```html
-<label class="ui-range">
-  <span class="ui-label" id="range-surfaces-1-label">Default</span>
-  <input aria-labelledby="range-surfaces-1-label" type="range" />
-</label>
-<label class="ui-range ui-default">
-  <span class="ui-label" id="range-surfaces-2-label"
-    ><code>default</code> = <code>var(--surface-default)</code></span
-  >
-  <input aria-labelledby="range-surfaces-2-label" type="range" />
-</label>
-<label class="ui-range ui-filled">
-  <span class="ui-label" id="range-surfaces-3-label"
-    ><code>filled</code> = <code>var(--surface-filled)</code></span
-  >
-  <input aria-labelledby="range-surfaces-3-label" type="range" />
-</label>
-<label class="ui-range ui-tonal">
-  <span class="ui-label" id="range-surfaces-4-label"
-    ><code>tonal</code> = <code>var(--surface-tonal)</code></span
-  >
-  <input aria-labelledby="range-surfaces-4-label" type="range" />
 </label>
 ```
 
@@ -273,7 +278,7 @@ Use the `.ui-filled`, `.ui-default`, or `.ui-tonal` class to swap the track surf
 | ---------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------ |
 | Layout     | `.ui-spread`                             | -       | Pushes the label and description to one side and the input to the other. |
 | Validation | `[data-invalid]`                         | -       | Shows error styles.                                                      |
-| Variants   | `.ui-default`, `.ui-filled`, `.ui-tonal` | -       | The variant to use.                                                      |
+| Variants   | `.ui-filled`, `.ui-surface`, `.ui-tonal` | -       | The track surface. Without one, the track uses the field border color.   |
 
 #### Parts
 
@@ -352,8 +357,8 @@ Add a `<datalist>` after the input for tick marks.
 
 Step 1 of 5: Track
 
-- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
-- [\<input type="range">](https://webstatus.dev/features/input-range) (Widely available): Chrome 4+, Edge 12+, Firefox 23+, Safari 3.1+
+- [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+- [\<input type="range"> ](https://webstatus.dev/features/input-range)(Widely available): Chrome 4+, Edge 12+, Firefox 23+, Safari 3.1+
 
 ```css
 .range {
@@ -408,9 +413,9 @@ Step 2 of 5: Thumb
 
 Step 3 of 5: Fill
 
-- [Gradients](https://webstatus.dev/features/gradients) (Widely available): Chrome 26+, Edge 12+, Firefox 3.6+, Safari 7+
-- [Registered custom properties](https://webstatus.dev/features/registered-custom-properties) (Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
-- [Scroll-driven animations](https://webstatus.dev/features/scroll-driven-animations) (Limited availability): Chrome 115+, Edge 115+, Firefox not supported, Safari 26+
+- [Gradients ](https://webstatus.dev/features/gradients)(Widely available): Chrome 26+, Edge 12+, Firefox 3.6+, Safari 7+
+- [Registered custom properties ](https://webstatus.dev/features/registered-custom-properties)(Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
+- [Scroll-driven animations ](https://webstatus.dev/features/scroll-driven-animations)(Limited availability): Chrome 115+, Edge 115+, Firefox not supported, Safari 26+
 
 ```html
 <style>
@@ -475,7 +480,7 @@ Step 3 of 5: Fill
 
 Step 4 of 5: Halo
 
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .range {
@@ -507,7 +512,7 @@ Step 4 of 5: Halo
 
 Step 5 of 5: Ticks
 
-- [\<datalist>](https://webstatus.dev/features/datalist) (Limited availability): Chrome 69+, Edge 12+, Firefox 110+, Safari 12.1+
+- [\<datalist> ](https://webstatus.dev/features/datalist)(Limited availability): Chrome 69+, Edge 12+, Firefox 110+, Safari 12.1+
 
 ```html
 <input class="range" type="range" list="ticks" … />

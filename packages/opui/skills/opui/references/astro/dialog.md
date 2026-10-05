@@ -1,13 +1,15 @@
 # Dialog
 
+Use a Dialog for a question or a short task that needs the user's full attention. For navigation, filters or side content, use a [Drawer](https://open-props-ui.netlify.app/astro/components/drawer.md).
+
 ### What's new
 
 - [Long content](#modal) scrolls between a fixed header and actions.
 - A subtle scroll shadow shows under the header and above the actions while the content scrolls.
 
-### Modal vs Dialog
+### Modal vs dialog
 
-The term "modal" and "dialog" are often used interchangeably, but there's an important difference. A modal window describes parts of a UI that [blocks user interaction](#modal). A dialog doesn't have to be blocking.
+The terms "modal" and "dialog" are often used interchangeably, but there's an important difference. A modal window describes parts of a UI that [blocks user interaction](#modal). A dialog doesn't have to be blocking.
 
 ## Usage
 
@@ -101,13 +103,15 @@ import { Button } from "opui-css/astro"
 
 ## How to close a dialog
 
-Use `closedby` prop to control the closing behavior.
+Use the `closedby` prop to choose how the dialog can be closed.
 
-| Prop                      | Description                                                                                                                 |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `closedby="any"`          | Click anywhere outside of the dialog to close it.                                                                           |
-| `closedby="closerequest"` | Device-specific way to close, ex: `Esc` on desktop, back button on mobile, and whatever dismiss action assistive tools use. |
-| `closedby="none"`         | You have to handroll a closing solution yourself.                                                                           |
+| Value                     | Closes with                                                                                                                     |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `closedby="any"`          | A click outside the dialog, `Esc` or the platform's close request (like the back gesture on mobile), and your own close button. |
+| `closedby="closerequest"` | `Esc` or the platform's close request, and your own close button. A click outside does nothing.                                 |
+| `closedby="none"`         | Only your own close button (`command="close"`), `close()` or a form with `method="dialog"`.                                     |
+
+Without `closedby`, the browser picks: a modal dialog, opened with `command="show-modal"` or `showModal()`, acts like `closerequest`, and a non-modal one like `none`.
 
 ```astro
 ---
@@ -195,10 +199,10 @@ Source: [w3.org](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/
 
 ### Dialog API
 
-| Prop           | Type                                | Default | Description                                                              |
-| -------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `actionsAlign` | `"start"`, `"end"`                  | -       | Alignment for the actions.                                               |
-| `closedby`     | `"any"`, `"closerequest"`, `"none"` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
+| Prop           | Type                                  | Default | Description                                                              |
+| -------------- | ------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| `actionsAlign` | `"start"` , `"end"`                   | -       | Alignment for the actions.                                               |
+| `closedby`     | `"any"` , `"closerequest"` , `"none"` | -       | How the dialog can be closed. `"any"` also closes it on a click outside. |
 
 #### Slots
 
@@ -248,9 +252,9 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 4: Modal
 
-- [\<dialog>](https://webstatus.dev/features/dialog) (Widely available): Chrome 37+, Edge 79+, Firefox 98+, Safari 15.4+
-- [\<dialog closedby>](https://webstatus.dev/features/dialog-closedby) (Limited availability): Chrome 134+, Edge 134+, Firefox 141+, Safari not supported
-- [Invoker commands](https://webstatus.dev/features/invoker-commands) (Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
+- [\<dialog> ](https://webstatus.dev/features/dialog)(Widely available): Chrome 37+, Edge 79+, Firefox 98+, Safari 15.4+
+- [\<dialog closedby> ](https://webstatus.dev/features/dialog-closedby)(Limited availability): Chrome 134+, Edge 134+, Firefox 141+, Safari not supported
+- [Invoker commands ](https://webstatus.dev/features/invoker-commands)(Newly available): Chrome 135+, Edge 135+, Firefox 144+, Safari 26.2+
 
 ```html
 <button commandfor="dialog" command="show-modal">Shortcuts</button>
@@ -285,8 +289,8 @@ Step 1 of 4: Modal
 
 Step 2 of 4: Place
 
-- [`overscroll-behavior`](https://webstatus.dev/features/overscroll-behavior) (Limited availability): Chrome 144+, Edge 144+, Firefox 150+, Safari not supported
-- [Small, large, and dynamic viewport units](https://webstatus.dev/features/viewport-unit-variants) (Widely available): Chrome 108+, Edge 108+, Firefox 101+, Safari 15.4+
+- [`overscroll-behavior` ](https://webstatus.dev/features/overscroll-behavior)(Limited availability): Chrome 144+, Edge 144+, Firefox 150+, Safari not supported
+- [Small, large, and dynamic viewport units ](https://webstatus.dev/features/viewport-unit-variants)(Widely available): Chrome 108+, Edge 108+, Firefox 101+, Safari 15.4+
 
 ```css
 .dialog {
@@ -313,8 +317,8 @@ Step 2 of 4: Place
 
 Step 3 of 4: Backdrop
 
-- [`::backdrop`](https://webstatus.dev/features/backdrop) (Widely available): Chrome 37+, Edge 79+, Firefox 47+, Safari 15.4+
-- [`backdrop-filter`](https://webstatus.dev/features/backdrop-filter) (Newly available): Chrome 76+, Edge 79+, Firefox 103+, Safari 18+
+- [`::backdrop` ](https://webstatus.dev/features/backdrop)(Widely available): Chrome 37+, Edge 79+, Firefox 47+, Safari 15.4+
+- [`backdrop-filter` ](https://webstatus.dev/features/backdrop-filter)(Newly available): Chrome 76+, Edge 79+, Firefox 103+, Safari 18+
 
 ```css
 .dialog::backdrop {
@@ -325,9 +329,9 @@ Step 3 of 4: Backdrop
 
 Step 4 of 4: Fade
 
-- [`overlay`](https://webstatus.dev/features/overlay) (Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari not supported
-- [`@starting-style`](https://webstatus.dev/features/starting-style) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
-- [`transition-behavior`](https://webstatus.dev/features/transition-behavior) (Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
+- [`overlay` ](https://webstatus.dev/features/overlay)(Limited availability): Chrome 117+, Edge 117+, Firefox not supported, Safari not supported
+- [`@starting-style` ](https://webstatus.dev/features/starting-style)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
+- [`transition-behavior` ](https://webstatus.dev/features/transition-behavior)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 
 ```css
 .dialog {
@@ -351,9 +355,9 @@ Step 4 of 4: Fade
 
 ## Browser support
 
-- Chromium: Full support Supported since v135.
-- Firefox: Partial support Missing: display-animation, overlay.
-- Safari: Partial support Missing: dialog-closedby, overlay.
+- Chromium: Full support Supported since v144.
+- Firefox: Partial support Missing: container-scroll-state-queries, display-animation, overlay.
+- Safari: Partial support Missing: container-scroll-state-queries, dialog-closedby, overlay.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/astro/guide/browser-support/?components=Dialog.md).
 

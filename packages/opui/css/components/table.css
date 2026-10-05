@@ -1,10 +1,10 @@
 @layer components.root {
   :where(.ui-table) {
-    --_table-border-radius: var(--border-radius);
+    --_border-radius: var(--border-radius);
     border: var(--border-width) solid var(--border-color);
 
     border-collapse: separate;
-    border-radius: var(--_table-border-radius);
+    border-radius: var(--_border-radius);
     border-spacing: 0;
     inline-size: 100%;
     margin: var(--size-3) 0;
@@ -12,8 +12,10 @@
     position: relative;
 
     /* Rows */
-    tr:hover > :is(td, th) {
-      background-color: oklch(from var(--surface-filled) l c h / 75%);
+    @media (hover: hover) {
+      tr:hover > :is(td, th) {
+        background-color: oklch(from var(--surface-filled) l c h / 75%);
+      }
     }
 
     /* Cells */
@@ -52,33 +54,33 @@
     /* Round corner cells  */
     & > thead:first-of-type tr:first-child {
       th:first-child {
-        border-start-start-radius: var(--_table-border-radius);
+        border-start-start-radius: var(--_border-radius);
       }
 
       th:last-child {
-        border-start-end-radius: var(--_table-border-radius);
+        border-start-end-radius: var(--_border-radius);
       }
     }
 
     /* Logic for tables without thead */
     & > tbody:first-of-type:not(thead ~ tbody) tr:first-child {
       td:first-child {
-        border-start-start-radius: var(--_table-border-radius);
+        border-start-start-radius: var(--_border-radius);
       }
 
       td:last-child {
-        border-start-end-radius: var(--_table-border-radius);
+        border-start-end-radius: var(--_border-radius);
       }
     }
 
     /* Logic for bottom corners (whether in tbody or tfoot) */
     & > *:last-child tr:last-child {
       :where(th, td):first-child {
-        border-end-start-radius: var(--_table-border-radius);
+        border-end-start-radius: var(--_border-radius);
       }
 
       :where(th, td):last-child {
-        border-end-end-radius: var(--_table-border-radius);
+        border-end-end-radius: var(--_border-radius);
       }
     }
 
@@ -131,8 +133,10 @@
           transition: box-shadow calc(var(--duration) * var(--_motion));
         }
 
-        tr:hover > th {
-          background-color: var(--surface-filled);
+        @media (hover: hover) {
+          tr:hover > th {
+            background-color: var(--surface-filled);
+          }
         }
       }
 

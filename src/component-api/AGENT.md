@@ -1,12 +1,12 @@
 # Component API Documentation Guide
 
-This guide defines the standards for documenting Astro UI component APIs in `src/component-api/`. Use this as a reference when generating or updating `-api.astro` files.
+This guide defines the standards for documenting component APIs (HTML, Astro and Vue) in `src/component-api/`. Use this as a reference when generating or updating `api.ts` files, or the few remaining hand-written `.astro` tables.
 
 ## Checklist for Documentation
 
 When creating or updating a component API table, ensure:
 
-- [ ] **File Format**: Either an `api.ts` data file (preferred, see [Data-driven APIs](#data-driven-apis-apits)) or `.astro` table files.
+- [ ] **File Format**: An `api.ts` data file (see [Data-driven APIs](#data-driven-apis-apits)). Only `menu` and `toast` still use hand-written `.astro` tables.
 - [ ] **Folder Structure**: One folder per component (e.g., `src/component-api/button/`) holding `api.ts`, or the legacy `Astro.astro`, `HTML.astro` and `Vue.astro` tables.
 - [ ] **Table Component**: Legacy `.astro` tables use the `Table` component from `@opui/astro`.
 - [ ] **Table Sub-components**: Use `Table.Head`, `Table.Body`, `Table.Row`, `Table.Cell`, `Table.HeaderCell`, `Table.ColumnGroup`, and `Table.Column` for table structure.
@@ -50,12 +50,15 @@ When creating or updating a component API table, ensure:
 
 ## Framework-specific APIs
 
-API tables are **auto-resolved** when the doc page declares `slug="..."` on `<Component>`. The layout globs `src/component-api/<slug>/<Label>.astro` for every framework in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)) - so the conventional layout is:
+API tables are **auto-resolved** when the doc page declares `slug="..."` on `<Component>`. The layout uses `src/component-api/<slug>/api.ts` when it exists. Otherwise it globs `src/component-api/<slug>/<Label>.astro` for every framework in `FRAMEWORKS` ([src/utils/framework.js](../utils/framework.js)), which only `menu` and `toast` still use:
 
 ```
 src/component-api/button/
+  api.ts
+src/component-api/menu/
   Astro.astro
   HTML.astro
+  Vue.astro
 ```
 
 The doc page is just:
@@ -64,23 +67,20 @@ The doc page is just:
 <Component slug="button">...</Component>
 ```
 
-No `apis` prop, no manual imports. Adding a framework with a matching `<Label>.astro` file in the same folder picks it up automatically.
+No `apis` prop, no manual imports.
 
-You only need to pass `apis={{ ... }}` explicitly for non-standard layouts:
-
-- Shared API tables across components (e.g., `field-api.astro` reused by several form components).
-- Multiple API sections per page (e.g., a component plus its `*Group` companion):
+Pass `apis={[ ... ]}` explicitly to give the section a title, or to show several API sections on one page (e.g., a component plus its `*Group` companion):
 
 ```astro
 ---
-import FieldAPIHTML from "../../component-api/field/HTML.astro"
-import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
+import buttonApi from "../../component-api/button/api"
+import buttonGroupApi from "../../component-api/button-group/api"
 ---
 
 <Component
   apis={[
-    { title: "Field", id: "field", component: FieldAPIHTML },
-    { title: "Field group", id: "field-group", component: FieldGroupAPIHTML },
+    { title: "Button group API", api: buttonGroupApi },
+    { title: "Button API", api: buttonApi },
   ]}>...</Component
 >
 ```
@@ -107,7 +107,7 @@ Pages pass it to `<Component>` as `apis={[{ title: "Text field API", api }]}`, o
 
 ## Example Reference
 
-**Button Astro (src/component-api/button/Astro.astro)**
+**Legacy Astro table (shortened from src/component-api/menu/Astro.astro)**
 
 ```astro
 ---
@@ -131,22 +131,19 @@ import { Table } from "@opui/astro"
   </Table.Head>
   <Table.Body>
     <Table.Row>
-      <Table.Cell><code>size</code></Table.Cell>
-      <Table.Cell><code>"small"</code>, <code>"large"</code></Table.Cell>
-      <Table.Cell>-</Table.Cell>
-      <Table.Cell>The size of the button.</Table.Cell>
+      <Table.Cell><code>align</code></Table.Cell>
+      <Table.Cell><code>"start"</code>, <code>"end"</code></Table.Cell>
+      <Table.Cell><code>"start"</code></Table.Cell>
+      <Table.Cell>Which edge of the trigger the menu lines up with.</Table.Cell>
     </Table.Row>
     <Table.Row>
-      <Table.Cell><code>variant</code></Table.Cell>
-      <Table.Cell
-        ><code>"outlined"</code>, <code>"tonal"</code>, <code>"filled"</code
-        ></Table.Cell
-      >
-      <Table.Cell>-</Table.Cell>
-      <Table.Cell>The variant to use.</Table.Cell>
+      <Table.Cell><code>dense</code></Table.Cell>
+      <Table.Cell><code>boolean</code></Table.Cell>
+      <Table.Cell><code>false</code></Table.Cell>
+      <Table.Cell>Less spacing.</Table.Cell>
     </Table.Row>
   </Table.Body>
 </Table>
 ```
 
-Refer to [card/api.ts](card/api.ts) and [text-field/api.ts](text-field/api.ts) for the preferred implementations of multi-language APIs.
+Refer to [card/api.ts](card/api.ts) and [text-field/api.ts](text-field/api.ts) for the preferred implementations of multi-framework APIs.

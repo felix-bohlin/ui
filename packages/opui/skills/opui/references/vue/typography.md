@@ -10,6 +10,7 @@ Styles for headings, body text, and other text content. Use util classes anywher
 - Rich text sits in the `components.prose` layer, below components, so components inside prose keep their own styles.
 - Rich text headings, `pre` and `small` scale with the surrounding font size.
 - [Links](#link) are documented, and get a thicker underline on hover.
+- Rich text tables scroll sideways in narrow columns instead of breaking words letter by letter.
 
 ## Class-based
 
@@ -84,9 +85,12 @@ Use `.ui-link` for links outside `.ui-rich-text`. Inside rich text, links get th
 
 Wrap your code in `.ui-rich-text` to add typographic styles to its children. It's extra handy when you can't control the contents yourself, like printing text from a CMS.
 
+Headings, lists and tables with a class keep their own styles, and components look the same inside rich text as outside it. Wrap a part in `.ui-not-rich-text` to end the rich text styles there.
+
 ```html
 <article class="ui-rich-text">
-  <!-- -->
+  <h2>Styled</h2>
+  <div class="ui-not-rich-text"><!-- not styled --></div>
 </article>
 ```
 
@@ -669,7 +673,7 @@ Step 1 of 4: Unsnapped
 
 Step 2 of 4: Snap line height
 
-- [`round(), mod(), and rem()`](https://webstatus.dev/features/round-mod-rem) (Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
+- [`round(), mod(), and rem()` ](https://webstatus.dev/features/round-mod-rem)(Newly available): Chrome 125+, Edge 125+, Firefox 118+, Safari 17.2+
 
 ```css
 .prose h2 {

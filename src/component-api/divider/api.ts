@@ -8,9 +8,9 @@ export default {
       group: "Variants",
       prop: "variant",
       values: {
-        filled: ".ui-border-filled",
-        primary: ".ui-border-primary",
-        tonal: ".ui-border-tonal",
+        filled: ".ui-filled",
+        primary: ".ui-primary",
+        tonal: ".ui-tonal",
       },
     },
   ],

@@ -130,23 +130,6 @@ const ThemeCSS = `/* ... */
   </section>
 
   <section>
-    <h2 id="icon">Icon</h2>
-    <Conditional as="p">
-      <Fragment slot="astro">
-        Icons are placed in the <code>icon</code> slot. You can also modify the component
-        so you don't have to do it manually every time.
-      </Fragment>
-      <Fragment slot="html"> Icon must be placed before the content. </Fragment>
-      <Fragment slot="vue">
-        Icons are placed in the <code>icon</code> slot. You can also modify the component
-        so you don't have to do it manually every time.
-      </Fragment>
-    </Conditional>
-
-    <AutoExample name="Icon" column />
-  </section>
-
-  <section>
     <h2 id="severities">Severities</h2>
     <Conditional as="p">
       <Fragment slot="astro">
@@ -197,6 +180,25 @@ const ThemeCSS = `/* ... */
     </div>
 
     <AutoExample name="Severities" column />
+  </section>
+
+  <section>
+    <h2 id="icon">Icon</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        <code>info</code>, <code>success</code>, <code>warning</code> and <code
+          >critical</code
+        > have a default icon. Replace it with the <code>icon</code> slot.
+      </Fragment>
+      <Fragment slot="html"> Icon must be placed before the content. </Fragment>
+      <Fragment slot="vue">
+        <code>info</code>, <code>success</code>, <code>warning</code> and <code
+          >critical</code
+        > have a default icon. Replace it with the <code>icon</code> slot.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="Icon" column />
   </section>
 
   <CalloutBuild slot="under-the-hood" />

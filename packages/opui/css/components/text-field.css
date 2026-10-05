@@ -5,7 +5,7 @@
 */
   :where(.ui-text-field, .ui-textarea, .ui-select) {
     --_motion: var(--motion, 1);
-    --_accent-color: var(--primary);
+    --_accent: var(--primary);
     --_arrow-inset: var(--size-3);
     --_bg-color: var(--surface-default);
     --_border-color: var(--field-border-color);
@@ -14,12 +14,12 @@
     --_field-padding-block: var(--size-2);
     --_field-padding-block-fit: min(
       var(--_field-padding-block),
-      max(0px, (var(--_height) - 1lh - var(--field-border-width) * 2) / 2)
+      max(0px, (var(--_min-height) - 1lh - var(--field-border-width) * 2) / 2)
     );
     --_field-padding-inline: var(--size-2);
     --_font-size: var(--font-size-1);
-    --_height: var(--field-size);
     --_label-color: var(--text-muted);
+    --_min-height: var(--field-size);
     --_end-text-color: var(--field-helper-color);
 
     align-content: start;
@@ -39,7 +39,7 @@
         "prefix input  suffix"
         "footer footer footer";
       grid-template-columns: auto 1fr auto;
-      min-block-size: var(--_height);
+      min-block-size: var(--_min-height);
 
       transition: border-color calc(var(--duration) * var(--_motion))
         var(--ease);
@@ -150,7 +150,7 @@
 
       input {
         align-self: flex-start;
-        block-size: calc(var(--_height) - var(--field-border-width) * 2);
+        block-size: calc(var(--_min-height) - var(--field-border-width) * 2);
         box-shadow: none;
         color: var(--text-primary);
         cursor: inherit;
@@ -241,8 +241,8 @@
     /* Input - color */
     &:has(input[type="color"]) {
       .ui-field {
-        block-size: var(--_height);
-        inline-size: var(--_height);
+        block-size: var(--_min-height);
+        inline-size: var(--_min-height);
         min-block-size: 0;
         overflow: hidden;
       }
@@ -250,8 +250,8 @@
       input {
         appearance: none;
         background: none;
-        block-size: var(--_height);
-        inline-size: var(--_height);
+        block-size: var(--_min-height);
+        inline-size: var(--_min-height);
         overflow: hidden;
         padding: 0;
 
@@ -266,15 +266,21 @@
     }
 
     /* Element states */
-    &:hover:not([data-invalid], :focus-within, :has(:user-invalid, :disabled)) {
-      .ui-field {
-        border-color: var(--text-primary);
+    @media (hover: hover) {
+      &:hover:not(
+          [data-invalid],
+          :focus-within,
+          :has(:user-invalid, :disabled)
+        ) {
+        .ui-field {
+          border-color: var(--text-primary);
+        }
       }
     }
 
     &:focus-within {
       .ui-field {
-        border-color: var(--_accent-color);
+        border-color: var(--_accent);
       }
     }
 
@@ -346,13 +352,13 @@
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {
-      --_accent-color: var(--invalid-color);
+      --_accent: var(--invalid-color);
       --_border-color: var(--invalid-color);
       --_label-color: var(--invalid-text-color);
       --_end-text-color: var(--invalid-text-color);
 
       @container style(--contrast: more) {
-        --_accent-color: var(--invalid-text-color);
+        --_accent: var(--invalid-text-color);
         --_border-color: var(--invalid-text-color);
       }
     }
@@ -365,11 +371,13 @@
 
       &:not(:has([disabled], input[type="color"])) {
         /* Hover */
-        &:hover {
-          --_bg-color: light-dark(
-            oklch(from var(--surface-tonal) calc(l * 0.93) c h),
-            oklch(from var(--surface-tonal) calc(l * 1.1) c h)
-          );
+        @media (hover: hover) {
+          &:hover {
+            --_bg-color: light-dark(
+              oklch(from var(--surface-tonal) calc(l * 0.93) c h),
+              oklch(from var(--surface-tonal) calc(l * 1.1) c h)
+            );
+          }
         }
       }
     }
@@ -413,18 +421,18 @@
     /* Sizes */
     &.ui-x-small {
       --_field-padding-block: 0.1875rem;
-      --_height: var(--field-size-x-small);
+      --_min-height: var(--field-size-x-small);
     }
 
     &.ui-small {
       --_field-padding-block: var(--size-1);
-      --_height: var(--field-size-small);
+      --_min-height: var(--field-size-small);
     }
 
     &.ui-large {
       --_field-padding-block: 0.75rem;
       --_field-padding-inline: var(--size-3);
-      --_height: var(--field-size-large);
+      --_min-height: var(--field-size-large);
     }
 
     &.ui-small,

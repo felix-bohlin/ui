@@ -186,9 +186,14 @@ import TypographyCSS from "@opui/css/components/typography.css?raw"
       children. It's extra handy when you can't control the contents yourself, like
       printing text from a CMS.
     </p>
+    <p>
+      Headings, lists and tables with a class keep their own styles, and
+      components look the same inside rich text as outside it. Wrap a part in
+      {" "}<code>.ui-not-rich-text</code> to end the rich text styles there.
+    </p>
     <Code
       lang="html"
-      code={`<article class="ui-rich-text">\n  <!-- -->\n</article>`}
+      code={`<article class="ui-rich-text">\n  <h2>Styled</h2>\n  <div class="ui-not-rich-text"><!-- not styled --></div>\n</article>`}
     />
 
     <h3 id="rich-text-showcase">Classless showcase</h3>

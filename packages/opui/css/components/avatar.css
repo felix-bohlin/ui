@@ -1,17 +1,17 @@
 @layer components.root {
   :where(.ui-avatar) {
     --_bg-color: var(--primary);
-    --_color: var(--primary-contrast);
-    --_width: var(--control-size);
+    --_size: var(--control-size);
+    --_text-color: var(--primary-contrast);
 
     align-items: center;
     aspect-ratio: 1;
     background-color: var(--_bg-color);
     border-radius: var(--radius-round);
-    color: var(--_color);
+    color: var(--_text-color);
     display: inline-flex;
     flex-shrink: 0;
-    inline-size: var(--_width);
+    inline-size: var(--_size);
     justify-content: center;
     overflow: clip;
     position: relative;

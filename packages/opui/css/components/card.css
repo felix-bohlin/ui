@@ -1,14 +1,14 @@
 @layer components.root {
   :where(.ui-card) {
-    --_bg-tonal: var(--surface-tonal);
-    --_bg-elevated: var(--surface-elevated);
-    --_bg-surface: var(--surface-default);
-    --_border-color: var(--border-color);
-    --_card-bg-color: var(--_bg-surface);
-    --_card-border-color: transparent;
-    --_card-border-width: 0;
+    --_elevated-bg-color: var(--surface-elevated);
+    --_outlined-border-color: var(--border-color);
+    --_surface-bg-color: var(--surface-default);
+    --_tonal-bg-color: var(--surface-tonal);
+    --_bg-color: var(--_surface-bg-color);
+    --_border-color: transparent;
+    --_border-width: 0;
 
-    --_card-shadow: none;
+    --_shadow: none;
     --_shadow-light: var(--shadow-3);
     --_shadow-dark: var(--shadow-4);
     --_shadow-elevated: var(--_shadow-light);
@@ -17,12 +17,12 @@
       --_shadow-elevated: var(--_shadow-dark);
     }
 
-    background-color: var(--_card-bg-color);
-    border-color: var(--_card-border-color);
+    background-color: var(--_bg-color);
+    border-color: var(--_border-color);
     border-radius: var(--border-radius);
     border-style: solid;
-    border-width: var(--_card-border-width);
-    box-shadow: var(--_card-shadow);
+    border-width: var(--_border-width);
+    box-shadow: var(--_shadow);
     display: flex;
     flex-direction: column;
     gap: var(--size-3);
@@ -34,29 +34,29 @@
 
     /* Variants */
     &.ui-text {
-      --_card-bg-color: transparent;
-      --_card-border-color: transparent;
-      --_card-border-width: 0;
-      --_card-shadow: none;
+      --_bg-color: transparent;
+      --_border-color: transparent;
+      --_border-width: 0;
+      --_shadow: none;
     }
 
     &.ui-tonal {
-      --_card-bg-color: var(--_bg-tonal);
-      --_card-border-color: var(--_bg-surface);
-      --_card-border-width: var(--border-width);
+      --_bg-color: var(--_tonal-bg-color);
+      --_border-color: var(--_surface-bg-color);
+      --_border-width: var(--border-width);
     }
 
     &.ui-elevated {
-      --_card-bg-color: var(--_bg-elevated);
-      --_card-border-color: var(--_bg-surface);
-      --_card-border-width: var(--border-width);
-      --_card-shadow: var(--_shadow-elevated);
+      --_bg-color: var(--_elevated-bg-color);
+      --_border-color: var(--_surface-bg-color);
+      --_border-width: var(--border-width);
+      --_shadow: var(--_shadow-elevated);
     }
 
     &.ui-outlined {
-      --_card-bg-color: var(--_bg-surface);
-      --_card-border-color: var(--_border-color);
-      --_card-border-width: var(--border-width);
+      --_bg-color: var(--_surface-bg-color);
+      --_border-color: var(--_outlined-border-color);
+      --_border-width: var(--border-width);
     }
 
     & > :where(hgroup, .ui-content) {

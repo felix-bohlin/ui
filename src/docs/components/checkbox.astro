@@ -18,7 +18,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 <Component
   slug="checkbox"
   heroAnatomy
-  browserSupport={["has", "text-box"]}
+  browserSupport={["has", "light-dark", "relative-color", "user-pseudos"]}
   apis={[
     { title: "Checkbox API", api: checkboxApi },
     { title: "Field group API", api: fieldGroupApi },
@@ -48,10 +48,24 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 >
   <Fragment slot="title">Checkbox</Fragment>
   <Fragment slot="preamble">
-    See also: <a href="#field-group" class="ui-link">Checkbox field group</a>.
+    Use a Checkbox for choices that are submitted with a form. For a setting
+    that applies right away, use a <DocLink href="/components/switch"
+      >Switch</DocLink
+    >, and for options in a toolbar a <DocLink href="/components/toggle"
+      >Toggle</DocLink
+    >. See also: <a href="#field-group" class="ui-link">Checkbox field group</a
+    >.
   </Fragment>
 
-  <AutoExample name="Variants" row />
+  <section>
+    <h2 id="basics">Basics</h2>
+    <AutoExample name="Variants" row />
+  </section>
+
+  <section>
+    <h2 id="sizes">Sizes</h2>
+    <AutoExample name="Sizes" column centered spacious />
+  </section>
 
   <section>
     <h2 id="visible-label">Visible label</h2>
@@ -198,11 +212,6 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
   </section>
 
   <section>
-    <h2 id="sizes">Sizes</h2>
-    <AutoExample name="Sizes" column centered spacious />
-  </section>
-
-  <section>
     <h2 id="label-alignment">Label alignment</h2>
     <p>
       The checkbox lines up with the first line of its label and centers on the
@@ -254,9 +263,8 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
     <h3 id="field-group-required">Required</h3>
     <p>
-      Attach the <code>required</code> attribute to at least one of your <code
-        >&lt;input&gt;</code
-      > elements.
+      Each checkbox with <code>required</code> must be checked before the form submits.
+      There's no native "at least one" for checkboxes.
     </p>
     <AutoExample name="FieldGroupRequired" row />
 
@@ -265,7 +273,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       <p slot="html">
         Attach the <code>data-invalid</code> attribute to your <code
           >&lt;fieldset class="ui-fieldset"&gt;</code
-        > element
+        > element.
       </p>
       <p slot="astro">
         Attach the <code>data-invalid</code> attribute to your <code
@@ -306,7 +314,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
           <td>Default</td>
         </tr>
         <tr>
-          <td>Add a <code>aria-label</code> on the input element</td>
+          <td>Add an <code>aria-label</code> on the input element</td>
           <td>Not used</td>
         </tr>
         <tr>

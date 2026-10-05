@@ -2,7 +2,7 @@
   :where(.ui-carousel) {
     --_motion: var(--motion, 1);
     --_block-size: 24rem;
-    --_button-bg-color: light-dark(var(--gray-13), var(--gray-3));
+    --_button-bg-color: var(--surface-inverse);
     --_button-border-color: light-dark(
       oklch(from var(--_button-bg-color) calc(l + 0.3) c h),
       oklch(from var(--_button-bg-color) calc(l - 0.3) c h)

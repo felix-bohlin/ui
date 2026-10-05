@@ -7,7 +7,7 @@
 
 ## Anatomy
 
-LabelDescription¢EURHeaderFooterSupporting text
+Label Description  ¢ EUR Header Footer Supporting text
 
 - `label.ui-textarea`
 
@@ -50,6 +50,8 @@ LabelDescription¢EURHeaderFooterSupporting text
   Supporting text displayed below the field.
 
 ## Variants
+
+Textareas are outlined by default. Add `.ui-filled` for a filled textarea.
 
 ```html
 <label class="ui-textarea">
@@ -355,7 +357,7 @@ When enabled the Field changes size depending on its content.
 | Layout     | `.ui-spread`                            | -       | Pushes the label and description to one side and the textarea to the other. |
 | Sizes      | `.ui-large`, `.ui-small`, `.ui-x-small` | -       | The size of the element.                                                    |
 | Validation | `[data-invalid]`                        | -       | Shows error styles.                                                         |
-| Variants   | `.ui-filled`                            | -       | The variant to use.                                                         |
+| Variants   | default, `.ui-filled`                   | default | The variant to use.                                                         |
 
 #### Parts
 
@@ -435,7 +437,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 Step 1 of 4: Field
 
-- [\<textarea>](https://webstatus.dev/features/textarea) (Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
+- [\<textarea> ](https://webstatus.dev/features/textarea)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari not supported
 
 ```html
 <label class="textarea">
@@ -486,7 +488,7 @@ Step 1 of 4: Field
 
 Step 2 of 4: Grow
 
-- [`field-sizing`](https://webstatus.dev/features/field-sizing) (Newly available): Chrome 123+, Edge 123+, Firefox 152+, Safari 26.2+
+- [`field-sizing` ](https://webstatus.dev/features/field-sizing)(Newly available): Chrome 123+, Edge 123+, Firefox 152+, Safari 26.2+
 
 ```css
 .field textarea {
@@ -497,7 +499,7 @@ Step 2 of 4: Grow
 
 Step 3 of 4: Limits
 
-- [lh unit](https://webstatus.dev/features/lh) (Widely available): Chrome 109+, Edge 109+, Firefox 120+, Safari 16.4+
+- [lh unit ](https://webstatus.dev/features/lh)(Widely available): Chrome 109+, Edge 109+, Firefox 120+, Safari 16.4+
 
 ```css
 .field textarea {

@@ -24,6 +24,7 @@ export const description =
     "has",
     "light-dark",
     "relative-color",
+    "user-pseudos",
   ]}
   heroAnatomy
   apis={[{ title: "Textarea API", api: textareaApi }]}
@@ -59,6 +60,20 @@ export const description =
 
   <section>
     <h2 id="variants">Variants</h2>
+    <Conditional>
+      <p slot="astro">
+        Textareas are outlined by default. Set <code>variant="filled"</code> for a
+        filled textarea. The old <code>filled</code> prop still works until 7.0.
+      </p>
+      <p slot="html">
+        Textareas are outlined by default. Add <code>.ui-filled</code> for a filled
+        textarea.
+      </p>
+      <p slot="vue">
+        Textareas are outlined by default. Set <code>variant="filled"</code> for a
+        filled textarea. The old <code>filled</code> prop still works until 7.0.
+      </p>
+    </Conditional>
     <AutoExample name="Variants" row />
   </section>
 
@@ -165,8 +180,6 @@ export const description =
     <p>When enabled the Field changes size depending on its content.</p>
 
     <AutoExample name="AutoFit" exampleClass="flex" />
-
-    <div class="ui-not-rich-text"></div>
   </section>
 
   <TextareaBuild slot="under-the-hood" />

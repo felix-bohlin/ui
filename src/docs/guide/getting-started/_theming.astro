@@ -58,6 +58,13 @@ import Example from "../../../components/Example/index"
     <DocLink href="/guide/theme-tokens">theme tokens</DocLink> page.
   </p>
 
+  <h3 id="theme-generator"><code>theme.css</code> generator</h3>
+  <p>
+    There's a WIP visual editor for editing <code>theme.css</code> - <DocLink
+      href="/guide/theme-generator">try it out</DocLink
+    >!
+  </p>
+
   <h3 id="theming-scopes">Scopes</h3>
   <p>
     <code>.ui-light</code> and <code>.ui-dark</code> force a color scheme. Put them
@@ -83,7 +90,7 @@ import Example from "../../../components/Example/index"
     {" "}<code>--motion</code> will be set to <code>0</code> by default.
   </p>
 
-  <h3 id="motion-global">Global Classes</h3>
+  <h3 id="motion-global">Global classes</h3>
   <p>
     Adding these utility classes to the <code>html</code> element will override the
     OS preference.
@@ -102,7 +109,7 @@ import Example from "../../../components/Example/index"
   </ul>
   <Code code={`<html lang="en" class="ui-motion-debug">`} lang="html" />
 
-  <h3 id="motion-local">Local Overrides</h3>
+  <h3 id="motion-local">Local overrides</h3>
   <p>
     Components use a local <code>--_motion</code> variable that allows you to disable
     motion for each component individually if you want.
@@ -180,7 +187,7 @@ import Example from "../../../components/Example/index"
   </ul>
   <Code code={`<html lang="en" class="ui-contrast-more">`} lang="html" />
 
-  <h3 id="contrast-custom">Custom Values</h3>
+  <h3 id="contrast-custom">Custom values</h3>
   <p>
     Style queries match against the parent element, so the overrides are set on
     <code>body</code> instead of <code>html</code>. They replace any value you
@@ -202,7 +209,7 @@ import Example from "../../../components/Example/index"
     > above, have to be set again in the same rule.
   </p>
 
-  <h3 id="forced-colors">Forced Colors</h3>
+  <h3 id="forced-colors">Forced colors</h3>
   <p>
     When an OS contrast theme forces its own palette (<code
       >forced-colors: active</code

@@ -10,8 +10,8 @@ const whatsNew = {
       vue: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
     },
     {
-      astro: `A chevron marker by default. The <code>marker</code> slot replaces it.`,
-      vue: `A chevron marker by default. The <code>marker</code> slot replaces it.`,
+      astro: `Breaking: a chevron marker by default. The <code>marker</code> slot replaces it, so move a custom chevron there or it shows twice.`,
+      vue: `Breaking: a chevron marker by default. The <code>marker</code> slot replaces it, so move a custom chevron there or it shows twice.`,
     },
     {
       html: `Breaking: markers only animate with a marker class. Add <code>.ui-marker-rotate</code> to keep the previous rotation.`,
@@ -54,6 +54,12 @@ const whatsNew = {
     {
       default: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>scrollable</code> or truncates with <code>shrink</code>.`,
       html: `<a href="#overflow">Wraps</a> when it doesn't fit, or scrolls with <code>.ui-scrollable</code> or truncates with <code>.ui-shrink</code>.`,
+    },
+  ],
+  callout: [
+    {
+      astro: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
+      vue: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
     },
   ],
   carousel: [
@@ -105,6 +111,9 @@ const whatsNew = {
   ],
   divider: [
     `<a href="#spacing">Spacing</a> comes from <code>--divider-space</code>, which cards, callouts, dialogs and drawers make tighter.`,
+    {
+      html: `Breaking: <a href="#variants"><code>.ui-filled</code>, <code>.ui-primary</code> and <code>.ui-tonal</code></a> replace the <code>.ui-border-*</code> classes.`,
+    },
   ],
   drawer: [
     `Several header actions line up at the end, and a subtle scroll shadow shows while the content scrolls.`,
@@ -120,6 +129,10 @@ const whatsNew = {
     },
     `<a href="#dense">Dense</a> rows keep the default inline padding, so they line up with card content.`,
     `Only direct children are styled as rows, so nested lists inside a row stay normal lists.`,
+    {
+      default: `Breaking: <a href="#variants"><code>variant="surface"</code></a> replaces <code>variant="default"</code>.`,
+      html: `Breaking: <a href="#variants"><code>.ui-surface</code></a> replaces <code>.ui-default</code>.`,
+    },
   ],
   menu: [
     `New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.`,
@@ -130,6 +143,12 @@ const whatsNew = {
     `A subtle light gray border in dark mode, so menus stand out on dialogs and other raised surfaces.`,
     `Tall menus shrink to the space on their side instead of running off-screen.`,
   ],
+  progress: [
+    {
+      default: `Breaking: <a href="#variants"><code>variant="surface"</code></a> replaces <code>variant="default"</code>.`,
+      html: `Breaking: <a href="#variants"><code>.ui-surface</code></a> replaces <code>.ui-default</code>.`,
+    },
+  ],
   radio: [
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code>, and <code>--isLTR</code> and <code>--isRTL</code> are <code>--_dir-rtl</code>.`,
@@ -138,6 +157,14 @@ const whatsNew = {
   range: [
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
     `The track fill is CSS only, so plain HTML ranges fill too.`,
+    {
+      default: `Breaking: <a href="#variants"><code>variant="surface"</code></a> replaces <code>variant="default"</code>.`,
+      html: `Breaking: <a href="#variants"><code>.ui-surface</code></a> replaces <code>.ui-default</code>.`,
+    },
+    {
+      astro: `<a href="#validation">Validation</a> with the <code>error</code> prop.`,
+      vue: `<a href="#validation">Validation</a> with the <code>error</code> prop.`,
+    },
   ],
   select: [
     {
@@ -150,6 +177,10 @@ const whatsNew = {
       html: `<a href="#preselected">Preselect</a> options with <code>selected</code>.`,
     },
     `The arrow is a chevron.`,
+    {
+      astro: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
+      vue: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
+    },
   ],
   switch: [
     {
@@ -191,6 +222,14 @@ const whatsNew = {
       vue: `Breaking: <code>style</code> goes to the label instead of the input.`,
     },
     `The auto-suggest arrow is the Select chevron at every size.`,
+    {
+      astro: `<a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>, which is deprecated until 7.0.`,
+      vue: `<a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>, which is deprecated until 7.0.`,
+    },
+    {
+      astro: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
+      vue: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
+    },
   ],
   textarea: [
     {
@@ -201,6 +240,14 @@ const whatsNew = {
     {
       astro: `Breaking: extra attributes such as <code>autocomplete</code> and <code>aria-*</code> go to the textarea. <code>class</code> and <code>style</code> stay on the label.`,
       vue: `Breaking: <code>style</code> goes to the label instead of the textarea.`,
+    },
+    {
+      astro: `<a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>, which is deprecated until 7.0.`,
+      vue: `<a href="#variants"><code>variant="filled"</code></a> replaces the boolean <code>filled</code>, which is deprecated until 7.0.`,
+    },
+    {
+      astro: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
+      vue: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
     },
   ],
   toggle: [
@@ -227,6 +274,7 @@ const whatsNew = {
     `Rich text sits in the <code>components.prose</code> layer, below components, so components inside prose keep their own styles.`,
     `Rich text headings, <code>pre</code> and <code>small</code> scale with the surrounding font size.`,
     `<a href="#link">Links</a> are documented, and get a thicker underline on hover.`,
+    `Rich text tables scroll sideways in narrow columns instead of breaking words letter by letter.`,
   ],
 } satisfies Record<string, Note[]>
 

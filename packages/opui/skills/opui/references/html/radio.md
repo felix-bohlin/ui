@@ -10,7 +10,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/html/components
 
 ## Anatomy
 
-LabelEnd text
+Label End text
 
 - `label.ui-radio`
 
@@ -27,6 +27,8 @@ LabelEnd text
 - `.ui-end-text`
 
   Supporting text displayed below the label.
+
+## Basics
 
 Give every `<input type="radio">` in the group the same `name` attribute. Browsers use that shared name to enforce mutual exclusivity within the group.
 
@@ -45,30 +47,6 @@ Give every `<input type="radio">` in the group the same `name` attribute. Browse
       </label>
       <label class="ui-radio">
         <input name="radio-group" type="radio" value="3" />
-        <span class="ui-label">Radio 3</span>
-      </label>
-    </div>
-  </fieldset>
-</form>
-```
-
-## Direction
-
-```html
-<form class="ui-form">
-  <fieldset class="ui-fieldset">
-    <legend>Legend</legend>
-    <div class="ui-field-group ui-row">
-      <label class="ui-radio">
-        <input name="radio-group-direction" type="radio" value="1" checked />
-        <span class="ui-label">Radio 1</span>
-      </label>
-      <label class="ui-radio">
-        <input name="radio-group-direction" type="radio" value="2" />
-        <span class="ui-label">Radio 2</span>
-      </label>
-      <label class="ui-radio">
-        <input name="radio-group-direction" type="radio" value="3" />
         <span class="ui-label">Radio 3</span>
       </label>
     </div>
@@ -185,19 +163,9 @@ Attach the `required` attribute to at least one of your `<input>` elements.
 </form>
 ```
 
-## Label alignment
-
-The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
-
-```css
-:root {
-  --choice-label-offset: 0.05em;
-}
-```
-
 ## Validation
 
-Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` element
+Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` element.
 
 ```html
 <form class="ui-form">
@@ -220,6 +188,40 @@ Attach the `data-invalid` attribute to your `<fieldset class="ui-fieldset">` ele
     <span class="ui-end-text">Something went wrong!</span>
   </fieldset>
 </form>
+```
+
+## Direction
+
+```html
+<form class="ui-form">
+  <fieldset class="ui-fieldset">
+    <legend>Legend</legend>
+    <div class="ui-field-group ui-row">
+      <label class="ui-radio">
+        <input name="radio-group-direction" type="radio" value="1" checked />
+        <span class="ui-label">Radio 1</span>
+      </label>
+      <label class="ui-radio">
+        <input name="radio-group-direction" type="radio" value="2" />
+        <span class="ui-label">Radio 2</span>
+      </label>
+      <label class="ui-radio">
+        <input name="radio-group-direction" type="radio" value="3" />
+        <span class="ui-label">Radio 3</span>
+      </label>
+    </div>
+  </fieldset>
+</form>
+```
+
+## Label alignment
+
+The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
+
+```css
+:root {
+  --choice-label-offset: 0.05em;
+}
 ```
 
 ## API
@@ -322,7 +324,7 @@ Wrap it in a `.ui-fieldset` with a `<legend>` to group and label it.
 
 Step 1 of 3: Appearance
 
-- [`appearance`](https://webstatus.dev/features/appearance) (Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+- [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
 
 ```css
 .radio {
@@ -371,8 +373,8 @@ Step 2 of 3: Dot
 
 Step 3 of 3: Label
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [`text-box`](https://webstatus.dev/features/text-box) (Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari 18.2+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`text-box` ](https://webstatus.dev/features/text-box)(Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari 18.2+
 
 ```css
 .label {
@@ -398,9 +400,9 @@ Step 3 of 3: Label
 
 ## Browser support
 
-- Chromium: Full support Supported since v133.
-- Firefox: Partial support Missing: text-box.
-- Safari: Full support Supported since v18.2.
+- Chromium: Full support Supported since v125.
+- Firefox: Full support Supported since v128.
+- Safari: Full support Supported since v18.
 
 Explore these features in the [browser support guide](https://open-props-ui.netlify.app/html/guide/browser-support/?components=Radio.md).
 

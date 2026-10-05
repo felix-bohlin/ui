@@ -106,7 +106,7 @@ const tour = `@keyframes ${id}-tour {
   }
 
   .layout {
-    --_accent: var(--primary);
+    --_anatomy-accent: var(--primary);
     --_idle: color-mix(in oklch, var(--text-muted) 45%, transparent);
     --_knee: var(--size-5);
     --_line: 1.5px;
@@ -164,7 +164,7 @@ const tour = `@keyframes ${id}-tour {
       calc(var(--i) * var(--_step)) infinite;
     background-color: color-mix(
       in oklch,
-      var(--_accent) calc(var(--anatomy-on) * 8%),
+      var(--_anatomy-accent) calc(var(--anatomy-on) * 8%),
       transparent
     );
     border-radius: var(--radius-2);
@@ -178,14 +178,14 @@ const tour = `@keyframes ${id}-tour {
     anchor-name: var(--marker);
     background-color: color-mix(
       in oklch,
-      var(--_accent) calc(var(--anatomy-on) * 100%),
+      var(--_anatomy-accent) calc(var(--anatomy-on) * 100%),
       transparent
     );
     block-size: 0.5rem;
     border: var(--_line) solid
       color-mix(
         in oklch,
-        var(--_accent) calc(var(--anatomy-on) * 100%),
+        var(--_anatomy-accent) calc(var(--anatomy-on) * 100%),
         var(--_idle)
       );
     border-radius: 50%;
@@ -195,13 +195,13 @@ const tour = `@keyframes ${id}-tour {
   .frame {
     background-color: color-mix(
       in oklch,
-      var(--_accent) calc(var(--anatomy-on) * 12%),
+      var(--_anatomy-accent) calc(var(--anatomy-on) * 12%),
       transparent
     );
     border: 1px solid
       color-mix(
         in oklch,
-        var(--_accent) calc(var(--anatomy-on) * 100%),
+        var(--_anatomy-accent) calc(var(--anatomy-on) * 100%),
         transparent
       );
     border-radius: var(--radius-1);
@@ -217,7 +217,7 @@ const tour = `@keyframes ${id}-tour {
     display: contents;
 
     > * {
-      border: 0 solid var(--_accent);
+      border: 0 solid var(--_anatomy-accent);
       pointer-events: none;
       position: absolute;
     }
@@ -251,7 +251,7 @@ const tour = `@keyframes ${id}-tour {
       translate: 0 calc(var(--_line) / -2);
 
       &:after {
-        background-color: var(--_accent);
+        background-color: var(--_anatomy-accent);
         block-size: 7px;
         border-radius: 50%;
         content: "";
@@ -318,7 +318,7 @@ const tour = `@keyframes ${id}-tour {
       &:after {
         background: radial-gradient(
           closest-side,
-          color-mix(in oklch, var(--_accent) 22%, transparent),
+          color-mix(in oklch, var(--_anatomy-accent) 22%, transparent),
           transparent
         );
         content: "";

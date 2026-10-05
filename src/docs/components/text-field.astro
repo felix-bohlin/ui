@@ -63,6 +63,7 @@ export const description =
     "has",
     "light-dark",
     "relative-color",
+    "user-pseudos",
   ]}
   apis={[
     { title: "Text field API", api: textFieldApi },
@@ -102,6 +103,20 @@ export const description =
 
   <section>
     <h2 id="variants">Variants</h2>
+    <Conditional>
+      <p slot="astro">
+        Text fields are outlined by default. Set <code>variant="filled"</code> for
+        a filled field. The old <code>filled</code> prop still works until 7.0.
+      </p>
+      <p slot="html">
+        Text fields are outlined by default. Add <code>.ui-filled</code> for a filled
+        field.
+      </p>
+      <p slot="vue">
+        Text fields are outlined by default. Set <code>variant="filled"</code> for
+        a filled field. The old <code>filled</code> prop still works until 7.0.
+      </p>
+    </Conditional>
     <AutoExample name="Variants" row />
   </section>
 
@@ -309,10 +324,6 @@ export const description =
     </div>
 
     <h3 id="file">File</h3>
-    <p>
-      Use <code>aria-label</code> instead of the <code>&lt;label&gt;</code> element.
-    </p>
-
     <p>
       File is a weird one. Should it really be an <code>&lt;input&gt;</code> element?
       Well, it's what we've got.

@@ -1,6 +1,6 @@
 # Chip
 
-Chips are compact elements that represent an input, attribute, or action.
+Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a [Button](https://open-props-ui.netlify.app/html/components/button.md).
 
 ### What's new
 
@@ -41,6 +41,32 @@ The Chip has two variants: tonal (default) and `.ui-outlined`.
 
 <div class="ui-chip ui-outlined">
   <span class="ui-text">Outlined</span>
+</div>
+```
+
+## Sizes
+
+```html
+<div class="ui-chip ui-tonal ui-small">
+  <span class="ui-text">Small</span>
+</div>
+
+
+<div class="ui-chip ui-tonal">
+  <span class="ui-text">Default</span>
+</div>
+
+
+<div class="ui-chip ui-tonal ui-large">
+  <span class="ui-text">Large</span>
+</div>
+
+
+<div class="ui-chip ui-tonal ui-multiline" style="max-width: 30ch">
+  <span class="ui-text"
+    >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+    sodales.</span
+  >
 </div>
 ```
 
@@ -147,32 +173,6 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
     ></path>
   </svg>
 </a>
-```
-
-## Sizes
-
-```html
-<div class="ui-chip ui-tonal ui-small">
-  <span class="ui-text">Small</span>
-</div>
-
-
-<div class="ui-chip ui-tonal">
-  <span class="ui-text">Default</span>
-</div>
-
-
-<div class="ui-chip ui-tonal ui-large">
-  <span class="ui-text">Large</span>
-</div>
-
-
-<div class="ui-chip ui-tonal ui-multiline" style="max-width: 30ch">
-  <span class="ui-text"
-    >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-    sodales.</span
-  >
-</div>
 ```
 
 ## Disabled
@@ -287,7 +287,7 @@ Step 1 of 4: Base
 
 Step 2 of 4: Icon
 
-- [`:has()`](https://webstatus.dev/features/has) (Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
 
 ```css
 .chip:has(svg:first-child) {
@@ -308,7 +308,7 @@ Step 2 of 4: Icon
 
 Step 3 of 4: Truncate
 
-- [Text overflow](https://webstatus.dev/features/text-overflow) (Widely available): Chrome 1+, Edge 12+, Firefox 7+, Safari 1.3+
+- [Text overflow ](https://webstatus.dev/features/text-overflow)(Widely available): Chrome 1+, Edge 12+, Firefox 7+, Safari 1.3+
 
 ```css
 .chip {
@@ -326,8 +326,8 @@ Step 3 of 4: Truncate
 
 Step 4 of 4: Hover
 
-- [`light-dark()`](https://webstatus.dev/features/light-dark) (Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
-- [Relative colors](https://webstatus.dev/features/relative-color) (Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .chip:where(button, a):hover {

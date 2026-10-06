@@ -1,21 +1,113 @@
-<p class="ui-caption">
-  Hover "Selected": the primary tint turns into the faint neutral hover color.
-</p>
-<div class="ui-toggle-group" role="group" aria-label="Normal contrast">
-  <label class="ui-toggle-button">
-    <input type="checkbox" name="todo-toggle" value="selected" checked />
-    Selected
-  </label>
-  <label class="ui-toggle-button">
-    <input type="checkbox" name="todo-toggle" value="not-selected" />
-    Not selected
-  </label>
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(.ui-toggle-button):has(
+        :where(input[type="checkbox"], input[type="radio"]):checked
+      ) {
+        @media (hover: hover) {
+          &:hover:not(:has(input:disabled)) {
+            --_bg-color: oklch(from var(--primary) l c h / 35%);
+          }
+
+          &:hover:has(input:disabled) {
+            --_bg-color: oklch(from var(--primary) l c h / 25%);
+          }
+        }
+
+        @container style(--contrast: more) {
+          @media (hover: hover) {
+            &:hover:not(:has(input:disabled)) {
+              --_bg-color: oklch(from var(--primary) calc(l * 0.9) c h);
+            }
+
+            &:hover:has(input:disabled) {
+              --_bg-color: var(--primary);
+            }
+          }
+        }
+      }
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Hover each toggle: "Selected" loses its tint, the contrast-more one turns
+      near-white under white text, and the disabled one still changes.
+    </p>
+    <div class="ui-toggle-group" role="group" aria-label="Formatting, current">
+      <label class="ui-toggle-button" data-name="Selected">
+        <input type="checkbox" name="bold-current" checked />
+        Selected
+      </label>
+      <label class="ui-toggle-button" data-name="Not selected">
+        <input type="checkbox" name="italic-current" />
+        Not selected
+      </label>
+      <label class="ui-toggle-button" data-name="Disabled, selected">
+        <input type="checkbox" name="underline-current" checked disabled />
+        Disabled, selected
+      </label>
+    </div>
+    <div class="ui-contrast-more">
+      <div
+        class="ui-toggle-group"
+        role="group"
+        aria-label="Contrast more, current"
+      >
+        <label class="ui-toggle-button" data-name="Contrast more, selected">
+          <input type="checkbox" name="strike-current" checked />
+          Contrast more, selected
+        </label>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure>Hover a toggle.</p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The selected hover gets the disabled guard, which lifts it to (0,3,1). The
+      old unguarded hover is reset for disabled toggles.
+    </p>
+    <div class="ui-toggle-group" role="group" aria-label="Formatting, fixed">
+      <label class="ui-toggle-button" data-name="Selected">
+        <input type="checkbox" name="bold-fixed" checked />
+        Selected
+      </label>
+      <label class="ui-toggle-button" data-name="Not selected">
+        <input type="checkbox" name="italic-fixed" />
+        Not selected
+      </label>
+      <label class="ui-toggle-button" data-name="Disabled, selected">
+        <input type="checkbox" name="underline-fixed" checked disabled />
+        Disabled, selected
+      </label>
+    </div>
+    <div class="ui-contrast-more">
+      <div
+        class="ui-toggle-group"
+        role="group"
+        aria-label="Contrast more, fixed"
+      >
+        <label class="ui-toggle-button" data-name="Contrast more, selected">
+          <input type="checkbox" name="strike-fixed" checked />
+          Contrast more, selected
+        </label>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure>Hover a toggle.</p>
+  </section>
 </div>
-<div class="ui-contrast-more">
-  <div class="ui-toggle-group" role="group" aria-label="Contrast more">
-    <label class="ui-toggle-button">
-      <input type="checkbox" name="todo-toggle-more" value="selected" checked />
-      Selected, contrast more (hover: text disappears)
-    </label>
-  </div>
-</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const out = panel.querySelector("[data-measure]")
+    for (const toggle of panel.querySelectorAll(".ui-toggle-button")) {
+      const rest = getComputedStyle(toggle).backgroundColor
+      toggle.addEventListener("mouseenter", () => {
+        const style = getComputedStyle(toggle)
+        out.textContent = `${toggle.dataset.name}\nat rest: ${rest}\nhovered: ${style.backgroundColor}\ntext: ${style.color}`
+      })
+    }
+  }
+</script>

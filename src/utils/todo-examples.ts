@@ -16,6 +16,7 @@ import buttonGroupVerticalSmall from "../todo-examples/button-group-vertical-sma
 import buttonGroupWalkthroughOutline from "../todo-examples/button-group-walkthrough-outline.html?raw"
 import buttonUnwrappedText from "../todo-examples/button-unwrapped-text.html?raw"
 import buttonWalkthroughRipple from "../todo-examples/button-walkthrough-ripple.html?raw"
+import calloutHtmlDefaultIcon from "../todo-examples/callout-html-default-icon.html?raw"
 import calloutIconColor from "../todo-examples/callout-icon-color.html?raw"
 import calloutLinkFocus from "../todo-examples/callout-link-focus.html?raw"
 import calloutRichText from "../todo-examples/callout-rich-text.html?raw"
@@ -23,9 +24,14 @@ import calloutWalkthroughIcon from "../todo-examples/callout-walkthrough-icon.ht
 import cardActionsAlignEnd from "../todo-examples/card-actions-align-end.html?raw"
 import cardDividers from "../todo-examples/card-dividers.html?raw"
 import cardLink from "../todo-examples/card-link.html?raw"
+import cardTextClassComment from "../todo-examples/card-text-class-comment.html?raw"
 import cardTextVariant from "../todo-examples/card-text-variant.html?raw"
 import carouselEqualHeight from "../todo-examples/carousel-equal-height.html?raw"
+import carouselFocusRing from "../todo-examples/carousel-focus-ring.html?raw"
+import carouselMarkersForcedColors from "../todo-examples/carousel-markers-forced-colors.html?raw"
+import carouselMotionOffScroll from "../todo-examples/carousel-motion-off-scroll.html?raw"
 import carouselTranslatedLabels from "../todo-examples/carousel-translated-labels.html?raw"
+import carouselVerticalOutsideMarkers from "../todo-examples/carousel-vertical-outside-markers.html?raw"
 import carouselWalkthroughOverrun from "../todo-examples/carousel-walkthrough-overrun.html?raw"
 import checkboxForcedColors from "../todo-examples/checkbox-forced-colors.html?raw"
 import checkboxIndeterminateHelper from "../todo-examples/checkbox-indeterminate-helper.html?raw"
@@ -34,6 +40,7 @@ import checkboxRadioWalkthroughLabel from "../todo-examples/checkbox-radio-walkt
 import checkboxWalkthroughForcedColors from "../todo-examples/checkbox-walkthrough-forced-colors.html?raw"
 import chipDisabledText from "../todo-examples/chip-disabled-text.html?raw"
 import chipIconPadding from "../todo-examples/chip-icon-padding.html?raw"
+import chipRipple from "../todo-examples/chip-ripple.html?raw"
 import chipTruncation from "../todo-examples/chip-truncation.html?raw"
 import choiceHaloLayer from "../todo-examples/choice-halo-layer.html?raw"
 import classicSelectLabelSlot from "../todo-examples/classic-select-label-slot.html?raw"
@@ -196,6 +203,10 @@ export const todoExamples = {
     match: "Button walkthrough:",
     source: buttonWalkthroughRipple,
   },
+  "callout-html-default-icon": {
+    match: "Callout: the `<svg>` part says",
+    source: calloutHtmlDefaultIcon,
+  },
   "callout-icon-color": {
     match: "Callout icon color is set with",
     source: calloutIconColor,
@@ -224,6 +235,10 @@ export const todoExamples = {
     match: "Composition example: a clickable card",
     source: cardLink,
   },
+  "card-text-class-comment": {
+    match: "Card: `Variants.html` opens with",
+    source: cardTextClassComment,
+  },
   "card-text-variant": {
     match: 'Card: the "Why does a text variant exist?"',
     source: cardTextVariant,
@@ -232,9 +247,25 @@ export const todoExamples = {
     match: "Carousel slides aren't equal height",
     source: carouselEqualHeight,
   },
+  "carousel-focus-ring": {
+    match: "Carousel: the library focus ring",
+    source: carouselFocusRing,
+  },
+  "carousel-markers-forced-colors": {
+    match: "Carousel: the markers are `background-color`",
+    source: carouselMarkersForcedColors,
+  },
+  "carousel-motion-off-scroll": {
+    match: "Carousel: `scroll-behavior: smooth` is",
+    source: carouselMotionOffScroll,
+  },
   "carousel-translated-labels": {
     match: "Carousel: the generated button and marker names are English",
     source: carouselTranslatedLabels,
+  },
+  "carousel-vertical-outside-markers": {
+    match: 'Carousel: vertical + `buttons="outside"`',
+    source: carouselVerticalOutsideMarkers,
   },
   "carousel-walkthrough-overrun": {
     match: "Carousel walkthrough:",
@@ -267,6 +298,10 @@ export const todoExamples = {
   "chip-icon-padding": {
     match: "Chip: a chip with a start and an end icon gets",
     source: chipIconPadding,
+  },
+  "chip-ripple": {
+    match: "Chip: the `/* Ripple effect */`",
+    source: chipRipple,
   },
   "chip-truncation": {
     match: "Chip: the Sizes example shows `multiline`",
@@ -441,7 +476,7 @@ export const todoExamples = {
     source: radioCoarseSizes,
   },
   "radio-sizes-stack": {
-    match: "Radio: the page has no Sizes, Stack,",
+    match: "Radio: the page has no Sizes, Stack or hidden-label sections",
     source: radioSizesStack,
   },
   "radio-spread": {

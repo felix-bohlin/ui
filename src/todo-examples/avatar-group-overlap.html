@@ -1,13 +1,101 @@
-<div style="display: flex; gap: var(--size-3); align-items: center">
-  <div
-    class="ui-avatar-group"
-    role="group"
-    aria-label="Team"
-    style="outline: 1px dashed red"
-  >
-    <div class="ui-avatar" role="img" aria-label="Anna Berg">AB</div>
-    <div class="ui-avatar" role="img" aria-label="Carl Dahl">CD</div>
-    <div class="ui-avatar" role="img" aria-label="Eva Falk">EF</div>
-  </div>
-  <span>EF overlaps the dashed group box; this text is 16px too close</span>
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(.ui-avatar-group) .ui-avatar {
+        margin-inline-end: 0;
+      }
+
+      :where(.ui-avatar-group) > * + * {
+        margin-inline-start: calc(-1 * var(--_margin));
+      }
+    }
+  }
+
+  .todo-group-row {
+    align-items: center;
+    display: flex;
+    gap: var(--size-3);
+  }
+
+  .todo-group-row .ui-avatar-group {
+    outline: 1px dashed var(--critical);
+  }
+
+  .todo-group-row > span:last-child {
+    background-color: var(--surface-tonal);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The last avatar overlaps the dashed group box and the text after it, which
+      sits 16px closer than the 16px gap.
+    </p>
+    <div class="todo-group-row">
+      <div class="ui-avatar-group" role="group" aria-label="Team, current">
+        <span class="ui-avatar">AB</span>
+        <span class="ui-avatar">CD</span>
+        <span class="ui-avatar">EF</span>
+      </div>
+      <span>Next item</span>
+    </div>
+    <div class="todo-group-row">
+      <div class="ui-avatar-group" role="group" aria-label="Reviewers, current">
+        <span class="ui-avatar">EF</span>
+        <span class="ui-anchor ui-badge ui-dot ui-success"
+          ><span class="ui-avatar">GH</span
+          ><span class="ui-anchor-floating"
+            ><span class="ui-badge-indicator"></span></span
+        ></span>
+        <span class="ui-avatar">IJ</span>
+      </div>
+      <span>Next item</span>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Overlap from the start with <code>&gt; * + *</code>; the old end margin is
+      reset to 0.
+    </p>
+    <div class="todo-group-row">
+      <div class="ui-avatar-group" role="group" aria-label="Team, fixed">
+        <span class="ui-avatar">AB</span>
+        <span class="ui-avatar">CD</span>
+        <span class="ui-avatar">EF</span>
+      </div>
+      <span>Next item</span>
+    </div>
+    <div class="todo-group-row">
+      <div class="ui-avatar-group" role="group" aria-label="Reviewers, fixed">
+        <span class="ui-avatar">EF</span>
+        <span class="ui-anchor ui-badge ui-dot ui-success"
+          ><span class="ui-avatar">GH</span
+          ><span class="ui-anchor-floating"
+            ><span class="ui-badge-indicator"></span></span
+        ></span>
+        <span class="ui-avatar">IJ</span>
+      </div>
+      <span>Next item</span>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
 </div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    panel.querySelector("[data-measure]").textContent = [
+      ...panel.querySelectorAll(".todo-group-row"),
+    ]
+      .map((row, index) => {
+        const group = row.querySelector(".ui-avatar-group")
+        const avatars = group.querySelectorAll(".ui-avatar")
+        const last = avatars[avatars.length - 1].getBoundingClientRect()
+        const box = group.getBoundingClientRect()
+        const next = row.lastElementChild.getBoundingClientRect()
+        return `group ${index + 1}: last avatar ${Math.round(last.right - box.right)}px past the box, text ${Math.round(next.left - last.right)}px after it`
+      })
+      .join("\n")
+  }
+</script>

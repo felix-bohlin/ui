@@ -1,6 +1,7 @@
 import buttonKeyboard from "../component-examples/button/Keyboard.html?raw"
 import abbrUnderline from "../todo-examples/abbr-underline.html?raw"
 import accordionFocusRing from "../todo-examples/accordion-focus-ring.html?raw"
+import accordionHtmlMarker from "../todo-examples/accordion-html-marker.html?raw"
 import accordionPlainGroup from "../todo-examples/accordion-plain-group.html?raw"
 import accordionWalkthroughMarker from "../todo-examples/accordion-walkthrough-marker.html?raw"
 import autosuggestSizes from "../todo-examples/autosuggest-sizes.html?raw"
@@ -47,6 +48,7 @@ import dialogLongContent from "../todo-examples/dialog-long-content.html?raw"
 import disabledButtons from "../todo-examples/disabled-buttons.html?raw"
 import drawerHeader from "../todo-examples/drawer-header.html?raw"
 import fieldGroupColumn from "../todo-examples/field-group-column.html?raw"
+import fieldUserInvalid from "../todo-examples/field-user-invalid.html?raw"
 import fieldsInTables from "../todo-examples/fields-in-tables.html?raw"
 import fieldsetTextFieldRow from "../todo-examples/fieldset-text-field-row.html?raw"
 import filledBorders from "../todo-examples/filled-borders.html?raw"
@@ -55,7 +57,9 @@ import forcedColorsSwitchToggle from "../todo-examples/forced-colors-switch-togg
 import formWalkthroughActions from "../todo-examples/form-walkthrough-actions.html?raw"
 import labelLessControls from "../todo-examples/label-less-controls.html?raw"
 import linkHoverContrast from "../todo-examples/link-hover-contrast.html?raw"
+import listDenseGroupLabel from "../todo-examples/list-dense-group-label.html?raw"
 import listNestedLists from "../todo-examples/list-nested-lists.html?raw"
+import listTextLeak from "../todo-examples/list-text-leak.html?raw"
 import listVideoRtl from "../todo-examples/list-video-rtl.html?raw"
 import listWalkthroughNested from "../todo-examples/list-walkthrough-nested.html?raw"
 import minifiedAnimationTimeline from "../todo-examples/minified-animation-timeline.html?raw"
@@ -80,6 +84,9 @@ import richTextInlineCode from "../todo-examples/rich-text-inline-code.html?raw"
 import richTextTableWrapping from "../todo-examples/rich-text-table-wrapping.html?raw"
 import rtlRequiredAsterisk from "../todo-examples/rtl-required-asterisk.html?raw"
 import scrollState from "../todo-examples/scroll-state.html?raw"
+import selectHeaderFooter from "../todo-examples/select-header-footer.html?raw"
+import selectPickerCorners from "../todo-examples/select-picker-corners.html?raw"
+import selectSpreadCurrency from "../todo-examples/select-spread-currency.html?raw"
 import selectWalkthroughArrow from "../todo-examples/select-walkthrough-arrow.html?raw"
 import shadowDarkMode from "../todo-examples/shadow-dark-mode.html?raw"
 import smallParagraph from "../todo-examples/small-paragraph.html?raw"
@@ -92,6 +99,10 @@ import tableWalkthroughSticky from "../todo-examples/table-walkthrough-sticky.ht
 import tabsWalkthroughRtl from "../todo-examples/tabs-walkthrough-rtl.html?raw"
 import tallMenu from "../todo-examples/tall-menu.html?raw"
 import textFieldDescription from "../todo-examples/text-field-description.html?raw"
+import textFieldFilledDisabledHover from "../todo-examples/text-field-filled-disabled-hover.html?raw"
+import textFieldLabelWidth from "../todo-examples/text-field-label-width.html?raw"
+import textareaAutoFit from "../todo-examples/textarea-auto-fit.html?raw"
+import textareaMinBlockSize from "../todo-examples/textarea-min-block-size.html?raw"
 import textareaWalkthroughMaxSize from "../todo-examples/textarea-walkthrough-max-size.html?raw"
 import toggleButtonSelectedHover from "../todo-examples/toggle-button-selected-hover.html?raw"
 import tooltipWalkthroughArrow from "../todo-examples/tooltip-walkthrough-arrow.html?raw"
@@ -108,6 +119,10 @@ export const todoExamples = {
   "accordion-focus-ring": {
     match: "Accordion `summary` focus ring is mostly invisible",
     source: accordionFocusRing,
+  },
+  "accordion-html-marker": {
+    match: "Accordion: the shared preamble",
+    source: accordionHtmlMarker,
   },
   "accordion-plain-group": {
     match: 'Accordion: in a plain `.ui-card[role="group"]`',
@@ -297,6 +312,10 @@ export const todoExamples = {
     match: "Form: the Field group API shows",
     source: fieldGroupColumn,
   },
+  "field-user-invalid": {
+    match: "Switch, Text field, Textarea: the Validation",
+    source: fieldUserInvalid,
+  },
   "fields-in-tables": {
     match: "Fields and selects collapse",
     source: fieldsInTables,
@@ -329,9 +348,17 @@ export const todoExamples = {
     match: "Link hover/focus color `--primary-light`",
     source: linkHoverContrast,
   },
+  "list-dense-group-label": {
+    match: "List: the `.ui-dense` row selector",
+    source: listDenseGroupLabel,
+  },
   "list-nested-lists": {
     match: "`.ui-list` styles nested classless lists",
     source: listNestedLists,
+  },
+  "list-text-leak": {
+    match: "List: the `.ui-text` rule inside",
+    source: listTextLeak,
   },
   "list-video-rtl": {
     match: "List: `li:has(video)` uses physical padding",
@@ -429,6 +456,18 @@ export const todoExamples = {
     match: "Scroll-state container queries",
     source: scrollState,
   },
+  "select-header-footer": {
+    match: "Select: the `header` and `footer`",
+    source: selectHeaderFooter,
+  },
+  "select-picker-corners": {
+    match: "Select: `::picker(select)` keeps the",
+    source: selectPickerCorners,
+  },
+  "select-spread-currency": {
+    match: "Select: the Spread example still",
+    source: selectSpreadCurrency,
+  },
   "select-walkthrough-arrow": {
     match: "Select walkthrough:",
     source: selectWalkthroughArrow,
@@ -477,6 +516,22 @@ export const todoExamples = {
     match:
       "Text field, Textarea: `description` (`.ui-start-text`) has no section",
     source: textFieldDescription,
+  },
+  "text-field-filled-disabled-hover": {
+    match: "TextField: the `.ui-filled` hover",
+    source: textFieldFilledDisabledHover,
+  },
+  "text-field-label-width": {
+    match: "TextField: `&:has(input[list]) .ui-label` and",
+    source: textFieldLabelWidth,
+  },
+  "textarea-auto-fit": {
+    match: "Textarea: Auto-fit is described",
+    source: textareaAutoFit,
+  },
+  "textarea-min-block-size": {
+    match: "Textarea: `min-block-size` adds `var(--border-width)",
+    source: textareaMinBlockSize,
   },
   "textarea-walkthrough-max-size": {
     match: "Textarea walkthrough:",

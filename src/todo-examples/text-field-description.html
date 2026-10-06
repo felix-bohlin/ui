@@ -1,10 +1,60 @@
-<label class="ui-text-field">
-  <span class="ui-label">Name</span>
-  <span class="ui-start-text">As shown on your passport</span>
-  <span class="ui-field"><input type="text" /></span>
-</label>
-<label class="ui-text-field ui-spread" style="inline-size: 32rem">
-  <span class="ui-label">Name</span>
-  <span class="ui-start-text">As shown on your passport</span>
-  <span class="ui-field"><input type="text" /></span>
-</label>
+<style>
+  .todo-compare .ui-text-field {
+    inline-size: 16rem;
+  }
+
+  .todo-compare .ui-text-field.ui-spread {
+    inline-size: 100%;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      No Description section. It only shows up in the Spread example, whose
+      prose says "display the label and description on the left":
+    </p>
+    <label class="ui-text-field ui-spread">
+      <span class="ui-label">Name</span>
+      <span class="ui-start-text">As shown on your passport</span>
+      <span class="ui-field"><input type="text" /></span>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      A "Description" h3 under End text. HTML: "Add a
+      <code>.ui-start-text</code> between <code>.ui-label</code> and
+      <code>.ui-field</code>." Astro, Vue: "Use the <code>description</code>
+      prop or slot."
+    </p>
+    <label class="ui-text-field">
+      <span class="ui-label">Name</span>
+      <span class="ui-start-text">As shown on your passport</span>
+      <span class="ui-field"><input type="text" /></span>
+    </label>
+    <label class="ui-text-field ui-spread">
+      <span class="ui-label">Name</span>
+      <span class="ui-start-text">As shown on your passport</span>
+      <span class="ui-field"><input type="text" /></span>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const rows = [...panel.querySelectorAll(".ui-text-field")].map((root) => {
+      const label = root.querySelector(".ui-label").getBoundingClientRect()
+      const text = root.querySelector(".ui-start-text").getBoundingClientRect()
+      const field = root.querySelector(".ui-field").getBoundingClientRect()
+      const name = root.classList.contains("ui-spread") ? "spread" : "default"
+      const place =
+        text.top >= label.bottom - 1 && text.bottom <= field.top + 1
+          ? "between label and field"
+          : "beside the field"
+      return `${name}: description ${place}`
+    })
+    panel.querySelector("[data-measure]").textContent = rows.join("; ")
+  }
+</script>

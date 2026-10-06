@@ -1,0 +1,117 @@
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      :where(.ui-list) > :where(li, option) :is(.ui-start, .ui-end) .ui-text {
+        flex: revert-layer;
+        line-height: revert-layer;
+        min-inline-size: revert-layer;
+      }
+
+      :where(.ui-list) > :where(li, option) .ui-end * > svg {
+        inline-size: revert-layer;
+        max-inline-size: revert-layer;
+      }
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The row's <code>.ui-text</code> rule also hits the button and chip labels
+      in <code>.ui-end</code>: "Edit" is squeezed.
+    </p>
+    <ul class="ui-list" style="inline-size: 20rem">
+      <li>
+        <div class="ui-text">
+          <p>Headline</p>
+          <p>Supporting text</p>
+        </div>
+        <div class="ui-end">
+          <button type="button" class="ui-button ui-outlined ui-small">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+              ></path>
+            </svg>
+            <span class="ui-text">Edit</span>
+          </button>
+        </div>
+      </li>
+      <li>
+        <div class="ui-text"><p>Headline</p></div>
+        <div class="ui-end">
+          <span class="ui-chip"><span class="ui-text">Chip</span></span>
+        </div>
+      </li>
+    </ul>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The rule only matches <code>&gt; .ui-text</code> and
+      <code>&gt; :where(a, button, label) &gt; .ui-text</code>, and
+      <code>.ui-end svg</code> becomes <code>.ui-end &gt; svg</code>, since it
+      also stretches the button icon. Scoped rules revert both here.
+    </p>
+    <ul class="ui-list" style="inline-size: 20rem">
+      <li>
+        <div class="ui-text">
+          <p>Headline</p>
+          <p>Supporting text</p>
+        </div>
+        <div class="ui-end">
+          <button type="button" class="ui-button ui-outlined ui-small">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+              ></path>
+            </svg>
+            <span class="ui-text">Edit</span>
+          </button>
+        </div>
+      </li>
+      <li>
+        <div class="ui-text"><p>Headline</p></div>
+        <div class="ui-end">
+          <span class="ui-chip"><span class="ui-text">Chip</span></span>
+        </div>
+      </li>
+    </ul>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const button = panel.querySelector(".ui-list .ui-button")
+    const text = button.querySelector(".ui-text")
+    const icon = button.querySelector("svg")
+    const style = getComputedStyle(button)
+    const box = button.getBoundingClientRect()
+    const width = (el) => Math.round(el.getBoundingClientRect().width * 10) / 10
+    const startGap = icon.getBoundingClientRect().left - box.left
+    const textBox = text.getBoundingClientRect()
+    const endGap =
+      box.right - textBox.left - Math.max(textBox.width, text.scrollWidth)
+    const overflows =
+      startGap < parseFloat(style.paddingInlineStart) ||
+      endGap < parseFloat(style.paddingInlineEnd)
+    const chip = panel.querySelector(".ui-chip > .ui-text")
+    panel.querySelector("[data-measure]").textContent =
+      `"Edit" ${width(text)}px wide (text needs ${text.scrollWidth}px), icon ${width(icon)}px, ` +
+      `content overflows the button padding: ${overflows}; chip label ${width(chip)}px, line-height ${getComputedStyle(chip).lineHeight}`
+  }
+</script>

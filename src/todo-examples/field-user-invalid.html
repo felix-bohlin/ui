@@ -1,0 +1,91 @@
+<style>
+  .todo-compare :is(.ui-text-field, .ui-textarea) {
+    inline-size: 16rem;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Docs: "Add <code>[required]</code> to the <code>&lt;input&gt;</code>
+      element to toggle required styles." Type in a field, clear it and press
+      Tab, or turn the switch on and off: it turns red.
+    </p>
+    <label class="ui-text-field">
+      <span class="ui-label">Name</span>
+      <span class="ui-field"><input type="text" required /></span>
+    </label>
+    <label class="ui-textarea">
+      <span class="ui-label">Message</span>
+      <span class="ui-field"><textarea required></textarea></span>
+    </label>
+    <label class="ui-switch">
+      <input
+        name="user-invalid-current"
+        type="checkbox"
+        role="switch"
+        required
+      />
+      <span class="ui-label">Accept terms</span>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Docs add: "Fields also get the invalid styles from the browser's own
+      validation (<code>:user-invalid</code>), after the user has edited them.
+      Use <code>data-invalid</code> for server-side errors." Same fields, plus a
+      <code>data-invalid</code> one.
+    </p>
+    <label class="ui-text-field">
+      <span class="ui-label">Name</span>
+      <span class="ui-field"><input type="text" required /></span>
+    </label>
+    <label class="ui-textarea">
+      <span class="ui-label">Message</span>
+      <span class="ui-field"><textarea required></textarea></span>
+    </label>
+    <label class="ui-switch">
+      <input name="user-invalid-fixed" type="checkbox" role="switch" required />
+      <span class="ui-label">Accept terms</span>
+    </label>
+    <label class="ui-text-field" data-invalid>
+      <span class="ui-label">Username</span>
+      <span class="ui-field">
+        <input
+          aria-describedby="user-invalid-end-text-fixed"
+          aria-invalid="true"
+          type="text"
+          value="taken"
+        />
+      </span>
+      <span class="ui-end-text" id="user-invalid-end-text-fixed"
+        >Server: this username is taken.</span
+      >
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const output = panel.querySelector("[data-measure]")
+    const write = () => {
+      const rows = [...panel.querySelectorAll("input, textarea")].map((el) => {
+        const root = el.closest(".ui-text-field, .ui-textarea, .ui-switch")
+        const name = root.querySelector(".ui-label").textContent
+        const target = root.querySelector(".ui-field") ?? el
+        const style = getComputedStyle(target)
+        const color =
+          target === el
+            ? `ring ${style.boxShadow === "none" ? "none" : style.boxShadow.split(")")[0] + ")"}`
+            : `border ${style.borderColor}`
+        return `${name}: :user-invalid ${el.matches(":user-invalid")}, ${color}`
+      })
+      output.textContent = rows.join("; ")
+    }
+    write()
+    panel.addEventListener("focusout", () => setTimeout(write, 400))
+    panel.addEventListener("change", () => setTimeout(write, 400))
+  }
+</script>

@@ -1,14 +1,121 @@
-<div class="todo-row" style="align-items: start">
-  <div class="ui-card" role="group" style="inline-size: 16rem">
-    <details class="ui-accordion ui-card" open>
-      <summary>Summary at 0</summary>
-      <div class="ui-content"><p>Content indented 12px</p></div>
-    </details>
-  </div>
-  <div class="ui-card ui-outlined" role="group" style="inline-size: 16rem">
-    <details class="ui-accordion ui-card" open>
-      <summary>Outlined group</summary>
-      <div class="ui-content"><p>Summary and content line up</p></div>
-    </details>
-  </div>
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      :where(.ui-card[role="group"]:has(details.ui-accordion)).ui-card:not(
+          .ui-tonal,
+          .ui-outlined,
+          .ui-elevated
+        ) {
+        --_item-padding-inline: 0;
+      }
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Plain <code>.ui-card[role="group"]</code>: the summary starts at 0, the
+      content is indented.
+    </p>
+    <div class="ui-card" role="group">
+      <details class="ui-accordion ui-card ui-marker-rotate" open>
+        <summary>
+          Accordion title
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+            />
+          </svg>
+        </summary>
+        <div class="ui-content">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </details>
+      <details class="ui-accordion ui-card ui-marker-rotate">
+        <summary>
+          Accordion title
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+            />
+          </svg>
+        </summary>
+        <div class="ui-content">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </details>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The plain group sets <code>--_item-padding-inline: 0</code>, so content
+      lines up with the summary.
+    </p>
+    <div class="ui-card" role="group">
+      <details class="ui-accordion ui-card ui-marker-rotate" open>
+        <summary>
+          Accordion title
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+            />
+          </svg>
+        </summary>
+        <div class="ui-content">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </details>
+      <details class="ui-accordion ui-card ui-marker-rotate">
+        <summary>
+          Accordion title
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+            />
+          </svg>
+        </summary>
+        <div class="ui-content">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </details>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
 </div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const details = panel.querySelector("details")
+    const summary = details.querySelector("summary")
+    const content = details.querySelector(".ui-content")
+    const pad = (el) => getComputedStyle(el).paddingInlineStart
+    panel.querySelector("[data-measure]").textContent =
+      `summary padding-inline-start ${pad(summary)}, content ${pad(content)}`
+  }
+</script>

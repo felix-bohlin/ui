@@ -1,43 +1,133 @@
-<style>
-  .todo-inline {
-    border-collapse: collapse;
-
-    td,
-    th {
-      border-block-end: 1px solid var(--border-color);
-      padding: var(--size-1) var(--size-3);
-      text-align: start;
-    }
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The docs table sits in <code>.ui-not-rich-text</code> inside the page's
+      <code>.ui-rich-text</code>, so the prose styles stop and the bare elements
+      render with browser defaults.
+    </p>
+    <article class="ui-rich-text">
+      <div class="ui-not-rich-text">
+        <table class="ui-table">
+          <thead>
+            <tr>
+              <th>Result</th>
+              <th>Class</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><abbr title="Abbreviation">Abbr.</abbr></td>
+              <td><code>.ui-abbr</code></td>
+            </tr>
+            <tr>
+              <td><dfn title="Title">Definition</dfn></td>
+              <td><code>.ui-dfn</code></td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl + S</kbd></td>
+              <td><code>.ui-kbd</code></td>
+            </tr>
+            <tr>
+              <td><mark>Highlight</mark></td>
+              <td><code>.ui-mark</code></td>
+            </tr>
+            <tr>
+              <td><del>Deleted</del></td>
+              <td><code>.ui-del</code></td>
+            </tr>
+            <tr>
+              <td><ins>Inserted</ins></td>
+              <td><code>.ui-ins</code></td>
+            </tr>
+            <tr>
+              <td><var>variable</var></td>
+              <td><code>.ui-var</code></td>
+            </tr>
+            <tr>
+              <td><samp>sample output</samp></td>
+              <td><code>.ui-samp</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">Each sample carries the class it documents.</p>
+    <article class="ui-rich-text">
+      <div class="ui-not-rich-text">
+        <table class="ui-table">
+          <thead>
+            <tr>
+              <th>Result</th>
+              <th>Class</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <abbr class="ui-abbr" title="Abbreviation">Abbr.</abbr>
+              </td>
+              <td><code>.ui-abbr</code></td>
+            </tr>
+            <tr>
+              <td><dfn class="ui-dfn" title="Title">Definition</dfn></td>
+              <td><code>.ui-dfn</code></td>
+            </tr>
+            <tr>
+              <td><kbd class="ui-kbd">Ctrl + S</kbd></td>
+              <td><code>.ui-kbd</code></td>
+            </tr>
+            <tr>
+              <td><mark class="ui-mark">Highlight</mark></td>
+              <td><code>.ui-mark</code></td>
+            </tr>
+            <tr>
+              <td><del class="ui-del">Deleted</del></td>
+              <td><code>.ui-del</code></td>
+            </tr>
+            <tr>
+              <td><ins class="ui-ins">Inserted</ins></td>
+              <td><code>.ui-ins</code></td>
+            </tr>
+            <tr>
+              <td><var class="ui-var">variable</var></td>
+              <td><code>.ui-var</code></td>
+            </tr>
+            <tr>
+              <td><samp class="ui-samp">sample output</samp></td>
+              <td><code>.ui-samp</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  const props = {
+    abbr: ["text-decoration-style", "text-decoration-color"],
+    dfn: ["font-style", "text-decoration-style"],
+    kbd: ["background-color", "font-family"],
+    mark: ["background-color", "padding-left"],
+    del: ["color"],
+    ins: ["color"],
+    var: ["background-color", "font-style"],
+    samp: ["font-family"],
   }
-</style>
-<table class="todo-inline">
-  <thead>
-    <tr>
-      <th>Element</th>
-      <th>Without class (as on the docs page)</th>
-      <th>With the class</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>kbd</code></td>
-      <td><kbd>Ctrl + S</kbd></td>
-      <td><kbd class="ui-kbd">Ctrl + S</kbd></td>
-    </tr>
-    <tr>
-      <td><code>mark</code></td>
-      <td><mark>Highlight</mark></td>
-      <td><mark class="ui-mark">Highlight</mark></td>
-    </tr>
-    <tr>
-      <td><code>abbr</code></td>
-      <td><abbr title="Abbreviation">Abbr.</abbr></td>
-      <td><abbr class="ui-abbr" title="Abbreviation">Abbr.</abbr></td>
-    </tr>
-    <tr>
-      <td><code>del</code> / <code>ins</code></td>
-      <td><del>old</del> <ins>new</ins></td>
-      <td><del class="ui-del">old</del> <ins class="ui-ins">new</ins></td>
-    </tr>
-  </tbody>
-</table>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const lines = Object.entries(props).map(([tag, names]) => {
+      const style = getComputedStyle(panel.querySelector(`td > ${tag}`))
+      const values = names.map(
+        (name) =>
+          `${name} ${name === "font-family" ? style.fontFamily.split(",")[0] : style.getPropertyValue(name)}`,
+      )
+      return `${tag}: ${values.join(", ")}`
+    })
+    panel.querySelector("[data-measure]").textContent = lines.join("\n")
+  }
+</script>

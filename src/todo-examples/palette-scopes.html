@@ -2,17 +2,16 @@
   .todo-scopes {
     display: grid;
     gap: var(--size-3);
-    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
     inline-size: 100%;
-  }
 
-  .todo-scopes > section {
-    border: var(--border-width) solid var(--border-color);
-    border-radius: var(--border-radius);
-    display: grid;
-    gap: var(--size-2);
-    justify-items: start;
-    padding: var(--size-3);
+    > div {
+      border: var(--border-width) solid var(--border-color);
+      border-radius: var(--border-radius);
+      display: grid;
+      gap: var(--size-2);
+      justify-items: start;
+      padding: var(--size-3);
+    }
   }
 
   .todo-swatches {
@@ -26,38 +25,57 @@
     }
   }
 </style>
-<div class="todo-scopes">
-  <section>
-    <p class="ui-caption">Page palette</p>
-    <div class="todo-swatches" aria-hidden="true">
-      <span style="background: var(--color-3)"></span>
-      <span style="background: var(--color-6)"></span>
-      <span style="background: var(--color-9)"></span>
-    </div>
-    <button class="ui-button ui-filled ui-primary" type="button">
-      Primary
-    </button>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Concepts never defines the scope classes. Getting started has one line
+      over the <code>.ui-warning</code> snippet: "This is how the severity
+      classes get their colors:"
+    </p>
+    <div class="todo-scopes"></div>
   </section>
-  <section class="ui-critical">
-    <p class="ui-caption"><code>.ui-critical</code> scope</p>
-    <div class="todo-swatches" aria-hidden="true">
-      <span style="background: var(--color-3)"></span>
-      <span style="background: var(--color-6)"></span>
-      <span style="background: var(--color-9)"></span>
-    </div>
-    <button class="ui-button ui-filled ui-primary" type="button">
-      Primary keeps the page color
-    </button>
-  </section>
-  <section class="ui-palette" style="--palette-hue: 30">
-    <p class="ui-caption"><code>.ui-palette</code>, hue 30</p>
-    <div class="todo-swatches" aria-hidden="true">
-      <span style="background: var(--color-3)"></span>
-      <span style="background: var(--color-6)"></span>
-      <span style="background: var(--color-9)"></span>
-    </div>
-    <button class="ui-button ui-filled ui-primary" type="button">
-      Primary follows
-    </button>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Concepts, Palette scopes: "A few classes swap the source on a subtree […].
+      The <code>--color-1</code> to <code>--color-16</code> steps below them
+      follow […]. Tokens such as <code>--primary</code> and
+      <code>--text-muted</code> keep the page values.
+      <code>.ui-palette</code> re-derives those too, from your own
+      <code>--palette-hue</code>."
+    </p>
+    <div class="todo-scopes"></div>
   </section>
 </div>
+<script>
+  const scopes = [
+    ["", "", "Page palette"],
+    ["ui-critical", "", ".ui-critical"],
+    ["ui-palette", "--palette-hue: 30", ".ui-palette, --palette-hue: 30"],
+  ]
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    for (const [className, style, label] of scopes) {
+      const scope = document.createElement("div")
+      scope.className = className
+      scope.style.cssText = style
+      scope.innerHTML = `<p class="ui-caption">${label}</p>
+        <div class="todo-swatches" aria-hidden="true">
+          <span style="background: var(--color-3)"></span><span style="background: var(--color-6)"></span><span style="background: var(--color-9)"></span>
+        </div>
+        <div class="todo-row">
+          <button type="button" class="ui-button ui-filled ui-primary">Primary</button>
+          <button type="button" class="ui-button ui-tonal ui-primary">Tonal primary</button>
+        </div>
+        <p class="todo-measure"></p>`
+      panel.querySelector(".todo-scopes").append(scope)
+      const bg = (el) => getComputedStyle(el).backgroundColor
+      scope.querySelector(".todo-measure").textContent = [
+        `--color-9 ${bg(scope.querySelectorAll(".todo-swatches > span")[2])}`,
+        `filled primary (--primary) ${bg(scope.querySelector(".ui-filled"))}`,
+        `--text-muted ${getComputedStyle(scope.querySelector(".ui-caption")).color}`,
+        `tonal primary (--color-6) ${bg(scope.querySelector(".ui-tonal"))}`,
+      ].join("\n")
+    }
+  }
+</script>

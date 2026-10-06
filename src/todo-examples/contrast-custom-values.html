@@ -1,0 +1,129 @@
+<style>
+  @layer theme {
+    @container style(--contrast: more) {
+      :where(body) {
+        --border-color: var(--text-muted);
+        --field-border-color: var(--border-color);
+      }
+
+      @scope (.todo-fixed) {
+        :where(
+          .ui-contrast-more > *,
+          .ui-palette,
+          .ui-card.ui-elevated,
+          .ui-card.ui-tonal,
+          .ui-list:not(.ui-tonal, .ui-transparent),
+          .ui-table th
+        ) {
+          --border-color: var(--text-muted);
+          --field-border-color: var(--border-color);
+        }
+      }
+    }
+  }
+
+  .todo-full {
+    display: grid;
+    gap: var(--size-3);
+    inline-size: 100%;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The docs snippet, <code>:where(body)</code> only. Inside a
+      <code>.ui-contrast-more</code> section, a <code>.ui-palette</code>, an
+      elevated card and a table header the library values win.
+    </p>
+    <div class="ui-contrast-more todo-full">
+      <div class="todo-full">
+        <label class="ui-text-field" data-case="Section">
+          <span class="ui-label">Section</span>
+          <span class="ui-field"><input type="text" /></span>
+        </label>
+        <div class="ui-card ui-elevated">
+          <div class="ui-content">
+            <label class="ui-text-field" data-case="Elevated card">
+              <span class="ui-label">Elevated card</span>
+              <span class="ui-field"><input type="text" /></span>
+            </label>
+          </div>
+        </div>
+        <div class="ui-palette" style="--palette-hue: 30">
+          <label class="ui-text-field" data-case=".ui-palette">
+            <span class="ui-label">.ui-palette</span>
+            <span class="ui-field"><input type="text" /></span>
+          </label>
+        </div>
+        <table class="ui-table">
+          <thead>
+            <tr>
+              <th data-case="Table th">Header</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cell</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The snippet lists the library's selectors, so the custom
+      <code>--border-color: var(--text-muted)</code> applies everywhere.
+    </p>
+    <div class="ui-contrast-more todo-full">
+      <div class="todo-full">
+        <label class="ui-text-field" data-case="Section">
+          <span class="ui-label">Section</span>
+          <span class="ui-field"><input type="text" /></span>
+        </label>
+        <div class="ui-card ui-elevated">
+          <div class="ui-content">
+            <label class="ui-text-field" data-case="Elevated card">
+              <span class="ui-label">Elevated card</span>
+              <span class="ui-field"><input type="text" /></span>
+            </label>
+          </div>
+        </div>
+        <div class="ui-palette" style="--palette-hue: 30">
+          <label class="ui-text-field" data-case=".ui-palette">
+            <span class="ui-label">.ui-palette</span>
+            <span class="ui-field"><input type="text" /></span>
+          </label>
+        </div>
+        <table class="ui-table">
+          <thead>
+            <tr>
+              <th data-case="Table th">Header</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cell</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const lines = []
+    for (const el of panel.querySelectorAll("[data-case]")) {
+      const border = el.matches("th")
+        ? getComputedStyle(el).borderBottomColor
+        : getComputedStyle(el.querySelector(".ui-field")).borderTopColor
+      lines.push(`${el.dataset.case}: border ${border}`)
+    }
+    panel.querySelector("[data-measure]").textContent = lines.join("\n")
+  }
+</script>

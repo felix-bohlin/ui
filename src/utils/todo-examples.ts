@@ -33,6 +33,8 @@ import chipIconPadding from "../todo-examples/chip-icon-padding.html?raw"
 import chipTruncation from "../todo-examples/chip-truncation.html?raw"
 import choiceHaloLayer from "../todo-examples/choice-halo-layer.html?raw"
 import classicSelectLabelSlot from "../todo-examples/classic-select-label-slot.html?raw"
+import contrastCustomValues from "../todo-examples/contrast-custom-values.html?raw"
+import contrastNormalNested from "../todo-examples/contrast-normal-nested.html?raw"
 import controlSizes from "../todo-examples/control-sizes.html?raw"
 import dialogActionsAlign from "../todo-examples/dialog-actions-align.html?raw"
 import dialogFocusWrap from "../todo-examples/dialog-focus-wrap.html?raw"
@@ -50,11 +52,14 @@ import listNestedLists from "../todo-examples/list-nested-lists.html?raw"
 import listVideoRtl from "../todo-examples/list-video-rtl.html?raw"
 import listWalkthroughNested from "../todo-examples/list-walkthrough-nested.html?raw"
 import minifiedAnimationTimeline from "../todo-examples/minified-animation-timeline.html?raw"
+import paletteHueRotate from "../todo-examples/palette-hue-rotate.html?raw"
 import paletteScopes from "../todo-examples/palette-scopes.html?raw"
 import paletteSourceScope from "../todo-examples/palette-source-scope.html?raw"
+import primaryContrastClamp from "../todo-examples/primary-contrast-clamp.html?raw"
 import primaryContrast from "../todo-examples/primary-contrast.html?raw"
 import progressWalkthroughName from "../todo-examples/progress-walkthrough-name.html?raw"
 import radioCoarseSizes from "../todo-examples/radio-coarse-sizes.html?raw"
+import radioSizesStack from "../todo-examples/radio-sizes-stack.html?raw"
 import radioSpread from "../todo-examples/radio-spread.html?raw"
 import rangeSpreadTicksValue from "../todo-examples/range-spread-ticks-value.html?raw"
 import rangeTrackFill from "../todo-examples/range-track-fill.html?raw"
@@ -224,6 +229,14 @@ export const todoExamples = {
     match: "Astro ClassicSelect: `aria-labelledby` also points",
     source: classicSelectLabelSlot,
   },
+  "contrast-custom-values": {
+    match: "Contrast, Custom values: the snippet",
+    source: contrastCustomValues,
+  },
+  "contrast-normal-nested": {
+    match: "Getting started Contrast: `.ui-contrast-normal`",
+    source: contrastNormalNested,
+  },
   "control-sizes": {
     match: "Sizes: control size scales differ",
     source: controlSizes,
@@ -292,6 +305,10 @@ export const todoExamples = {
     match: "Range fill and the header scroll fade",
     source: minifiedAnimationTimeline,
   },
+  "palette-hue-rotate": {
+    match: "`--palette-hue-rotate-by` is described as",
+    source: paletteHueRotate,
+  },
   "palette-scopes": {
     match: "Concepts: severity scope classes are never defined",
     source: paletteScopes,
@@ -304,6 +321,10 @@ export const todoExamples = {
     match: "`contrast-color()` for `--primary-contrast`",
     source: primaryContrast,
   },
+  "primary-contrast-clamp": {
+    match: '`--primary-contrast` description ("Text color',
+    source: primaryContrastClamp,
+  },
   "progress-walkthrough-name": {
     match: "Progress walkthrough:",
     source: progressWalkthroughName,
@@ -311,6 +332,10 @@ export const todoExamples = {
   "radio-coarse-sizes": {
     match: "Radio: on touch screens",
     source: radioCoarseSizes,
+  },
+  "radio-sizes-stack": {
+    match: "Radio: the page has no Sizes, Stack,",
+    source: radioSizesStack,
   },
   "radio-spread": {
     match: "Radio has no `.ui-spread`",

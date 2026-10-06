@@ -90,6 +90,7 @@
 - `theme.css` adds `--ripple-color` for the `Button` ripple and the `Checkbox` and `Radio` hover halo.
 - `Callout` with `severity="success"` shows a default check icon in Astro and Vue, like `info`, `warning` and `critical`.
 - `Radio` takes a `spread` prop (`.ui-spread`), like `Checkbox` and `Switch`.
+- `Card` takes `.ui-card-link` on a link to make the whole card clickable. Other links and buttons in the card stay clickable.
 
 ### Changed
 

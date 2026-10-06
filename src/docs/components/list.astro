@@ -7,11 +7,10 @@ import AutoExample from "../../components/AutoExample.astro"
 import { Callout, List as UIList, ListItem, Switch } from "@opui/astro"
 
 import ListCSS from "@opui/css/components/list.css?raw"
-import ExampleDefaultHTML from "../../component-examples/list/Default.html?raw"
-
-import ListDense from "../../component-examples/ListDense.astro"
-import ListDenseVue from "../../component-examples/ListDense.vue"
-import ListDenseVueRaw from "../../component-examples/ListDense.vue?raw"
+import ListDense from "../../component-examples/list/Dense.astro"
+import ListDenseHTML from "../../component-examples/list/Dense.html?raw"
+import ListDenseVue from "../../component-examples/list/Dense.vue"
+import ListDenseVueRaw from "../../component-examples/list/Dense.vue?raw"
 import Conditional from "../../components/Conditional.astro"
 
 import listApi from "../../component-api/list/api"
@@ -407,14 +406,7 @@ export const description =
         <ListDense />
       </Example.Preview>
       <Example.Preview slot="preview-vue" code={ListDenseVue} />
-      <Example.Preview slot="preview-html">
-        <div
-          set:html={ExampleDefaultHTML.replace(
-            /class="ui-list"/,
-            'class="ui-list ui-dense list-dense-target"',
-          ).replace(/-all-/g, "-dense-")}
-        />
-      </Example.Preview>
+      <Example.Preview slot="preview-html" code={ListDenseHTML} />
       <Example.Code
         slot="code-html"
         code={`<ul class="ui-list ui-dense">
@@ -461,14 +453,16 @@ export const description =
     document
       .querySelectorAll<HTMLElement>(".example-container")
       .forEach((container) => {
-        if (!container.querySelector(".list-dense-target")) return
+        if (!container.querySelector(".list-dense-toggle")) return
         if (container.dataset.listDenseSetup) return
         container.dataset.listDenseSetup = "true"
 
         const sync = (checked: boolean) => {
-          container.querySelectorAll(".list-dense-target").forEach((list) => {
-            list.classList.toggle("ui-dense", checked)
-          })
+          container
+            .querySelectorAll(".example-preview .ui-list")
+            .forEach((list) => {
+              list.classList.toggle("ui-dense", checked)
+            })
           container
             .querySelectorAll<HTMLInputElement>(".list-dense-toggle input")
             .forEach((input) => {

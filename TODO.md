@@ -2214,9 +2214,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix
   - Fixed: Radio takes `spread` (`.ui-spread`): the layout block from Checkbox in `radio.css`, `spread?: boolean` in `Radio/types.ts`, `ui-spread` in `Radio.astro`/`Radio.vue`, the `api.ts` option, a `Spread` example (three spread radios with end text, one disabled) and a Spread section after Direction (`radio.astro`), plus its parity snapshot.
   - Checked in Chromium: a spread radio fills its container with the label at the start, the radio at the end and the end text under the label, and lines up with a spread Checkbox in LTR and RTL.
-- [] (2) Unused examples: no docs page shows them, only the `/<framework>/test/<component>` fixtures and parity snapshots (`src/component-examples/`: `button/{Filled,Outlined,Text,Tonal}`, `dialog/Anatomy`, `drawer/Blurred`, `list/Dense`, `text-field/Attributes`, `textarea/Attributes`, `toggle/Default`, `typography/HeadingGroup`). Select and Table leftovers are in their own Docs items
+- [x] (2) Unused examples: no docs page shows them, only the `/<framework>/test/<component>` fixtures and parity snapshots (`src/component-examples/`: `button/{Filled,Outlined,Text,Tonal}`, `dialog/Anatomy`, `drawer/Blurred`, `list/Dense`, `text-field/Attributes`, `textarea/Attributes`, `toggle/Default`, `typography/HeadingGroup`). Select and Table leftovers are in their own Docs items
   - `list.astro:12-14` imports the root `ListDense`/`ListAll` instead of `list/Dense`, so the List examples live in two places.
   - Delete them (or show them) and update the parity snapshots as an intended change.
+  > Fix
+  - Deleted, since another example already shows the same thing: `button/{Filled,Outlined,Text,Tonal}` (`button/Variants`), `dialog/Anatomy` (an unstyled stub), `drawer/Blurred` (blurred is the default backdrop, `drawer/Usage`), `text-field/Attributes` and `textarea/Attributes` (passthrough is in the API notes), `toggle/Default` (`toggle/Standalone`) and `typography/HeadingGroup` (`typography/Default` has two `hgroup`s). Their parity snapshots and visual baselines are gone too.
+  - Kept `list/Dense` as the full dense list, and the List page's Dense section uses it. The shared `ListAll` moved to `list/partials/`, and the root `ListDense` is gone, so the List examples live in one place. The dense switch toggles `.ui-dense` on the preview list.
+  - `list/Dense` and the new `card/Clickable` visual baselines need the `update-snapshots` label in CI.
 - [x] (3) Scroll-state container queries: sticky Table header shadow, scroll shadows in Dialog/Drawer
   > provide examples here in the todo page how that would work.
   - Scroll-state queries let descendants (and the scroller's own pseudo-elements) react to the scroller's state: `scrollable: top` means there is content scrolled out above.
@@ -2304,7 +2308,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: one or two lines in each preamble, linked both ways: Chip ↔ Button, Dialog ↔ Drawer, Menu ↔ Select, Switch ↔ Checkbox ↔ Toggle, Tabs ↔ Toggle group, and Select ↔ Classic select (in the Classic select section, "Bog-standard" stays). Button and Dialog get a short preamble with just that line.
-- [] (3) Composition example: a clickable card. Card has no `href`/`as`, and no page shows one (`src/component-examples/card/`, `Card/types.ts:1-4`)
+- [x] (3) Composition example: a clickable card. Card has no `href`/`as`, and no page shows one (`src/component-examples/card/`, `Card/types.ts:1-4`)
   - Example: the whole card as a link when it holds nothing else interactive, or a stretched link when it does
     ```html
     <a class="ui-card ui-outlined" href="/pricing">
@@ -2391,6 +2395,10 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Caveats: the `::after` sits above the text, so dragging over the description starts a link drag instead of selecting text (no CSS-only way around it). Only one `.ui-card-link` per card works.
   - Recommendation: add `.ui-card-link` to `card.css` and a "Clickable card" section on the Card page, documenting only this technique.
   - See the example: two cards with a click log. Try selecting text and Ctrl+click.
+  > Fix
+  - Fixed with the `::after` trick: `.ui-card-link` on a link stretches it over the card (`card.css`, `components.root`, in `:where()`). Other links, buttons, inputs, labels, selects, summaries, textareas and `[tabindex]` elements in that card are lifted above it, so they keep their own clicks. Through `:has()` the card border turns `--text-muted` on hover (`Highlight` in forced colors) and the card gets the focus ring, the link itself none. No transitions, so no `--motion`.
+  - New "Clickable card" section (`#clickable`) with a `Clickable` example: a card with only a link, and one with a link and a Subscribe button. A callout says one link per card and that the text can't be selected. The Card API has notes for it (a part would end up in the anatomy diagram) (`card.astro`, `card/Clickable.*`, `card/api.ts`).
+  - Checked in Chromium on the docs pages: a click anywhere lands on the link, Subscribe gets its own click, Tab puts the ring on the card, and the accessible name is just the link text.
 - [x] (3) Guide order and prev/next: the nav is Getting started, Theme generator, Theme tokens, Why, Browser support, Acknowledgments, and guide pages have no prev/next links like component pages (`Guide.astro:31-38`, `Component.astro:93-94,301-354`)
   - Example:
     ```ts

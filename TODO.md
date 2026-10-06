@@ -2430,7 +2430,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fixed: `src/docs/components/AGENTS.md` §3.3 gives the order as it renders: title and optional preamble, browser chips and What's new, hero anatomy, then the page's sections (Basics, Variants, Sizes, Parts, States, Layout, Composition), then Accessibility, Anatomy (when not hero), API, Under the hood, Browser support, Installation, See also and Changelog. Preambles stay optional.
   - The first example without a heading sits under "Basics" on checkbox, description-list, list, radio, range, spinner and switch. Sections moved into that order on badge, button, button-group, callout, checkbox, chip, radio, select and switch.
   - Accessibility sections: new item under Docs ("Accessibility sections are missing"). AGENTS.md also lists the real Callout severities now.
-- [] (3) Vue SSR: no page says what needs hydration. Checkbox `indeterminate` is set in `watchPostEffect`, the Range value `<output>` and every `v-model` only update on the client (`CheckboxInput.vue:35-37`, `Range.vue:12-25,58-67`, `getting-started/Vue.astro`)
+- [x] (3) Vue SSR: no page says what needs hydration. Checkbox `indeterminate` is set in `watchPostEffect`, the Range value `<output>` and every `v-model` only update on the client (`CheckboxInput.vue:35-37`, `Range.vue:12-25,58-67`, `getting-started/Vue.astro`)
   - Example: a note under "How to use"
     ```md
     Components render complete HTML on the server and work without hydration, except:
@@ -2497,6 +2497,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
       </Tooltip>
       ```
   - See the example: both header chips and an API table with the marker.
+  > Fix
+  > add a tooltip to the icons in the table
+  - Fixed: `api.ts` takes a framework-keyed `hydration` field, like `notes` (`description`, `fallback`, `prop`). Filled in: Checkbox `indeterminate` (fallback `activateIndeterminate()` from `opui-css/css/js/checkbox.js`) and Range `valueSuffix` (the value `<output>`). `v-model` is added for every component with an `api.model`: Checkbox, ClassicSelect, Radio, Range, Select, Switch, TextField and Textarea, the 8 that call `defineModel` (`types.ts`, `rows.ts`, `checkbox/api.ts`, `range/api.ts`).
+  - Vue component pages get a chip next to the browser support chips: "SSR: no hydration needed" (tonal, server icon) or "SSR: hydrate for `indeterminate`, `v-model`" (outlined, icon crossed out), with a tooltip that lists each prop and its fallback (`HydrationChip.astro`, `icons/Server.astro`, `Component.astro`, `BrowserSupportChips.astro`).
+  - Vue API tables show the crossed-out icon after each prop that needs hydration. It's a button named "Needs hydration" with its own tooltip (description and fallback), reachable with the keyboard (`HydrationMarker.astro`, `ApiTables.astro`).
+  - The Vue getting started page has a "Server rendering" section that links the components (`getting-started/Vue.astro`). The `[component-api]` check fails when a hydration `prop` doesn't exist (`component-source.ts`).
+  - Checked in Chromium: Checkbox shows the hydrate chip and icons on `indeterminate` and `v-model`, Button and Divider show "no hydration needed", HTML and Astro pages show nothing, and every tooltip opens from the keyboard.
+  - Side finding: tooltips inside the API table's scroll box were open but not painted in Chromium 141, because of the library's `position-visibility: anchors-visible`. The marker tooltip sets `position-visibility: always`. Other tooltips in scroll containers may have the same problem.
 - [] (3) Sizes: control size scales differ. Switch has `small`, Checkbox, Radio and Chip have `small | large`, and fields (TextField, Textarea, Select, ClassicSelect) and Button have `x-small | small | large`. A form row can't set one size on every control, and the stress `[data-size]` rows have no x-small switch, checkbox or radio (`Switch/types.ts:4`, `Checkbox/types.ts:5`, `Radio/types.ts:4`, `Chip/types.ts:6`, `TextField/types.ts:9`, `Textarea/types.ts:9`, `Select/types.ts:8`, `ClassicSelect/types.ts:12`)
   - Switch, `small` only:
     ```astro

@@ -46,7 +46,6 @@ import forcedColorsDivider from "../todo-examples/forced-colors-divider.html?raw
 import forcedColorsSwitchToggle from "../todo-examples/forced-colors-switch-toggle.html?raw"
 import labelLessControls from "../todo-examples/label-less-controls.html?raw"
 import linkHoverContrast from "../todo-examples/link-hover-contrast.html?raw"
-import listBorderOffset from "../todo-examples/list-border-offset.html?raw"
 import listNestedLists from "../todo-examples/list-nested-lists.html?raw"
 import listVideoRtl from "../todo-examples/list-video-rtl.html?raw"
 import listWalkthroughNested from "../todo-examples/list-walkthrough-nested.html?raw"
@@ -277,10 +276,6 @@ export const todoExamples = {
     match: "Link hover/focus color `--primary-light`",
     source: linkHoverContrast,
   },
-  "list-border-offset": {
-    match: "List: the `.ui-bordered` and `.ui-border-top` line sits 8px above",
-    source: listBorderOffset,
-  },
   "list-nested-lists": {
     match: "`.ui-list` styles nested classless lists",
     source: listNestedLists,
@@ -302,7 +297,7 @@ export const todoExamples = {
     source: paletteScopes,
   },
   "palette-source-scope": {
-    match: "Getting started Theming says `--palette-source`",
+    match: "Getting started Theming says `--palette-source` can be overridden",
     source: paletteSourceScope,
   },
   "primary-contrast": {

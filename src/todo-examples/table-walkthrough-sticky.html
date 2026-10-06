@@ -1,0 +1,223 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+  .todo-scroll {
+    block-size: 12rem;
+    overflow: auto;
+  }
+  .table {
+    --radius: 12px;
+    border: 1px solid var(--border-color);
+    border-collapse: separate;
+    border-radius: var(--radius);
+    border-spacing: 0;
+    font-size: var(--font-size-0);
+    inline-size: 100%;
+  }
+  .table :is(th, td) {
+    background-color: var(--surface-default);
+    border-block-end: 1px solid var(--border-color);
+    border-inline-end: 1px solid var(--border-color);
+    padding: 0.25rem 0.5rem;
+    text-align: start;
+  }
+  .table th {
+    background-color: var(--surface-filled);
+  }
+  .table :is(th, td):last-child {
+    border-inline-end: none;
+  }
+  .table > :last-child tr:last-child > * {
+    border-block-end: none;
+  }
+  .table > thead tr:first-child th:first-child {
+    border-start-start-radius: var(--radius);
+  }
+  .table > thead tr:first-child th:last-child {
+    border-start-end-radius: var(--radius);
+  }
+  .table > :last-child tr:last-child > :first-child {
+    border-end-start-radius: var(--radius);
+  }
+  .table > :last-child tr:last-child > :last-child {
+    border-end-end-radius: var(--radius);
+  }
+  .table.sticky {
+    overflow: clip;
+  }
+  .table.sticky > thead {
+    container-type: scroll-state;
+    inset-block-start: 0;
+    position: sticky;
+    z-index: 1;
+  }
+  .table.sticky > thead th {
+    transition: box-shadow 0.2s;
+  }
+  @container scroll-state(stuck: top) {
+    .table.sticky > thead th {
+      box-shadow: var(--shadow-4);
+      clip-path: inset(0 0 -2rem);
+    }
+  }
+</style>
+<p>
+  Scroll both boxes. The walkthrough stops at the corners and the footer, so its
+  header scrolls away. The proposed step keeps it stuck, and the shadow only
+  shows once it's stuck.
+</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">Walkthrough today</p>
+    <div
+      class="todo-scroll"
+      tabindex="0"
+      role="region"
+      aria-label="Walkthrough today"
+    >
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Component</th>
+            <th scope="col">Size</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Accordion</td>
+            <td>1 kB</td>
+          </tr>
+          <tr>
+            <td>Avatar</td>
+            <td>2 kB</td>
+          </tr>
+          <tr>
+            <td>Badge</td>
+            <td>3 kB</td>
+          </tr>
+          <tr>
+            <td>Button</td>
+            <td>4 kB</td>
+          </tr>
+          <tr>
+            <td>Callout</td>
+            <td>1 kB</td>
+          </tr>
+          <tr>
+            <td>Card</td>
+            <td>2 kB</td>
+          </tr>
+          <tr>
+            <td>Carousel</td>
+            <td>3 kB</td>
+          </tr>
+          <tr>
+            <td>Checkbox</td>
+            <td>4 kB</td>
+          </tr>
+          <tr>
+            <td>Chip</td>
+            <td>1 kB</td>
+          </tr>
+          <tr>
+            <td>Dialog</td>
+            <td>2 kB</td>
+          </tr>
+          <tr>
+            <td>Drawer</td>
+            <td>3 kB</td>
+          </tr>
+          <tr>
+            <td>Menu</td>
+            <td>4 kB</td>
+          </tr>
+          <tr>
+            <td>Tabs</td>
+            <td>1 kB</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div>
+    <p class="ui-caption">With the proposed "Sticky header" step</p>
+    <div
+      class="todo-scroll"
+      tabindex="0"
+      role="region"
+      aria-label="With the sticky step"
+    >
+      <table class="table sticky">
+        <thead>
+          <tr>
+            <th scope="col">Component</th>
+            <th scope="col">Size</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Accordion</td>
+            <td>1 kB</td>
+          </tr>
+          <tr>
+            <td>Avatar</td>
+            <td>2 kB</td>
+          </tr>
+          <tr>
+            <td>Badge</td>
+            <td>3 kB</td>
+          </tr>
+          <tr>
+            <td>Button</td>
+            <td>4 kB</td>
+          </tr>
+          <tr>
+            <td>Callout</td>
+            <td>1 kB</td>
+          </tr>
+          <tr>
+            <td>Card</td>
+            <td>2 kB</td>
+          </tr>
+          <tr>
+            <td>Carousel</td>
+            <td>3 kB</td>
+          </tr>
+          <tr>
+            <td>Checkbox</td>
+            <td>4 kB</td>
+          </tr>
+          <tr>
+            <td>Chip</td>
+            <td>1 kB</td>
+          </tr>
+          <tr>
+            <td>Dialog</td>
+            <td>2 kB</td>
+          </tr>
+          <tr>
+            <td>Drawer</td>
+            <td>3 kB</td>
+          </tr>
+          <tr>
+            <td>Menu</td>
+            <td>4 kB</td>
+          </tr>
+          <tr>
+            <td>Tabs</td>
+            <td>1 kB</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -177,7 +177,7 @@ import { Chip } from "opui-css/astro"
 
 ## Disabled
 
-Disable a button chip with the `disabled` attribute.
+Disable a button chip with the `disabled` attribute. A static chip can't be disabled, so `class="ui-disabled"` just dims it.
 
 ```astro
 ---
@@ -268,7 +268,7 @@ Step 1 of 4: Base
 </div>
 
 
-<button class="chip">…</button>
+<button class="chip" type="button">…</button>
 ```
 
 ```css

@@ -7,6 +7,7 @@ See also: [Form documentation](https://open-props-ui.netlify.app/vue/components/
 - [Lines up](#label-alignment) with the first line of the label and centers on its capitals in any font.
 - Breaking: `--highlight-size` is `--_ripple-size`, `--thumb-scale` is `--_thumb-scale`, and `--isLTR` and `--isRTL` are `--_dir-rtl`.
 - Without a visible label, radios center in table cells and lines of text.
+- [Spread](#spread) with the `spread` prop, like Checkbox and Switch.
 
 ## Anatomy
 
@@ -190,6 +191,39 @@ import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
 </template>
 ```
 
+## Spread
+
+Use the `spread` prop to push the label to the left and the radio to the right. Handy for settings cards next to spread checkboxes and switches.
+
+```vue
+<script setup lang="ts">
+import { FieldGroup, FieldLegend, FieldSet, Form, Radio } from "opui-css/vue"
+</script>
+
+
+<template>
+  <Form>
+    <FieldSet>
+      <FieldLegend>Delivery</FieldLegend>
+      <FieldGroup name="radio-spread">
+        <Radio value="standard" checked spread>
+          Standard
+          <template #end-text>Arrives in 3 to 5 days.</template>
+        </Radio>
+        <Radio value="express" spread>
+          Express
+          <template #end-text>Arrives tomorrow.</template>
+        </Radio>
+        <Radio value="pickup" spread disabled>
+          Pickup
+          <template #end-text>Not available in your area.</template>
+        </Radio>
+      </FieldGroup>
+    </FieldSet>
+  </Form>
+</template>
+```
+
 ## Label alignment
 
 The radio lines up with the first line of its label and centers on the label's capital letters, so it looks centered in any font and at any size. If a font still looks off, nudge the label with `--choice-label-offset`, in `em` or `cap` so it scales with the label.
@@ -204,13 +238,14 @@ The radio lines up with the first line of its label and centers on the label's c
 
 ### Radio API
 
-| Prop        | Type                            | Default | Description                       |
-| ----------- | ------------------------------- | ------- | --------------------------------- |
-| `error`     | `boolean`                       | `false` | Shows error styles.               |
-| `hideLabel` | `boolean`                       | `false` | Visually hides the label.         |
-| `size`      | `"small"` , `"large"`           | -       | The size of the element.          |
-| `stack`     | `boolean`                       | `false` | Stacks the label under the input. |
-| `v-model`   | `string` , `number` , `boolean` | -       | The selected value of the group.  |
+| Prop                                                                                                                                                                        | Type                            | Default | Description                                      |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ------- | ------------------------------------------------ |
+| `error`                                                                                                                                                                     | `boolean`                       | `false` | Shows error styles.                              |
+| `hideLabel`                                                                                                                                                                 | `boolean`                       | `false` | Visually hides the label.                        |
+| `size`                                                                                                                                                                      | `"small"` , `"large"`           | -       | The size of the element.                         |
+| `spread`                                                                                                                                                                    | `boolean`                       | `false` | Pushes the label and the input to opposite ends. |
+| `stack`                                                                                                                                                                     | `boolean`                       | `false` | Stacks the label under the input.                |
+| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number` , `boolean` | -       | The selected value of the group.                 |
 
 #### Slots
 
@@ -228,6 +263,8 @@ The radio lines up with the first line of its label and centers on the label's c
 | `--choice-size-large`        | `var(--size-5)`                                                                         | `Checkbox` and `Radio` input size with `.ui-large`.                                                                                                   |
 | `--choice-size-small`        | `var(--size-3)`                                                                         | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                 |
 | `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                 |
+| `--duration`                 | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                |
+| `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                                                       |
 | `--field-border-color`       | `var(--border-color)`                                                                   | Border color for `TextField`, `Select`, `Textarea`, `Radio` and `Range`.                                                                              |
 | `--field-border-width`       | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                            |
 | `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                     |
@@ -235,11 +272,14 @@ The radio lines up with the first line of its label and centers on the label's c
 | `--field-helper-line-height` | `var(--font-lineheight-3)`                                                              | Line height for helper and end text under a field.                                                                                                    |
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                                                          |
 | `--field-label-font-size`    | `var(--font-size-05)`                                                                   | Font size for field labels.                                                                                                                           |
+| `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                                                  |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                       |
 | `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                  |
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                             |
+| `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`.                            |
 | `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                          |
 | `--primary-contrast`         | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )`   | Text color on a `--primary` background.                                                                                                               |
+| `--ripple-color`             | `oklch(0.6 0 0 / 0.2)`                                                                  | Halo color for `Button` with `.ui-ripple` and the `Checkbox` and `Radio` hover effect.                                                                |
 | `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                             |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                |
 
@@ -271,6 +311,7 @@ Attributes that aren't props, such as `disabled`, `name` or `value`, go to the `
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                            |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
 | `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
@@ -285,6 +326,8 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
    - `appearance: none` drops the native circle
    - Still a radio group: one shared `name`, arrow keys move the selection
+   - The `<legend>` names the group
+   - In dark mode `--accent` caps the primary's lightness, so the light dot keeps 3:1
 
 2. Dot
 
@@ -294,15 +337,38 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 3. Label
 
    - The `<label>` wraps the input, so the text is part of the hit area
-   - `:has(:disabled)` dims the whole row from the input's state
-   - `text-box: trim-start cap` + a `1cap` offset centers the capitals on the circle
+   - `:has([disabled])` dims the whole row from the input's state
+   - `(size − 1lh) / 2` centers the first line on the circle, in every browser
 
 Step 1 of 3: Appearance
 
 - [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
+
+```html
+<fieldset>
+  <legend>Plan</legend>
+  <label class="label">
+    <input class="radio" type="radio" name="plan" checked />
+    <span>Monthly</span>
+  </label>
+  <label class="label">
+    <input class="radio" type="radio" name="plan" />
+    <span>Yearly</span>
+  </label>
+</fieldset>
+```
 
 ```css
 .radio {
+  --accent: light-dark(
+    var(--primary),
+    oklch(from var(--primary) min(l, 0.62) c h)
+  );
+  --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
+
+
   appearance: none;
   aspect-ratio: 1;
   background-color: var(--surface-default);
@@ -316,8 +382,8 @@ Step 1 of 3: Appearance
 
 
 .radio:checked {
-  background-color: var(--primary);
-  border-color: var(--primary);
+  background-color: var(--accent);
+  border-color: var(--accent);
 }
 ```
 
@@ -331,7 +397,7 @@ Step 2 of 3: Dot
 
 
 .radio::after {
-  background-color: var(--primary-contrast);
+  background-color: var(--accent-contrast);
   block-size: var(--dot);
   border-radius: 50%;
   content: "";
@@ -349,7 +415,7 @@ Step 2 of 3: Dot
 Step 3 of 3: Label
 
 - [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [`text-box` ](https://webstatus.dev/features/text-box)(Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari 18.2+
+- [lh unit ](https://webstatus.dev/features/lh)(Widely available): Chrome 109+, Edge 109+, Firefox 120+, Safari 16.4+
 
 ```css
 .label {
@@ -361,15 +427,14 @@ Step 3 of 3: Label
 }
 
 
-.label:has(:disabled) {
+.label:has([disabled]) {
   cursor: not-allowed;
   opacity: var(--disabled-opacity);
 }
 
 
 .label > span {
-  margin-block-start: calc((1.25rem - 1cap) / 2);
-  text-box: trim-start cap alphabetic;
+  margin-block-start: calc((1.25rem - 1lh) / 2);
 }
 ```
 

@@ -9,6 +9,15 @@ export default {
       prop: "as",
     },
     {
+      class: ".ui-disabled",
+      default: "false",
+      description:
+        "Dims a static chip. Only changes the look. Use `disabled` on button chips.",
+      frameworks: ["html"],
+      group: "State",
+      prop: "disabled",
+    },
+    {
       description: "The link to use. Renders an `<a>`.",
       prop: "href",
     },

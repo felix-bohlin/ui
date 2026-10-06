@@ -106,18 +106,21 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
     <h2 id="disabled">Disabled</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Disable a button chip with the <code>disabled</code> attribute.
+        Disable a button chip with the <code>disabled</code> attribute. A static chip
+        can't be disabled, so <code>class="ui-disabled"</code> just dims it.
       </Fragment>
       <Fragment slot="html">
-        Add disabled styling with the <code>disabled</code> attribute, <code
-          >aria-disabled="true"</code
-        > or the <code>.ui-disabled</code> class.
+        Disable a button chip with the <code>disabled</code> attribute, and use
+        {" "}<code>aria-disabled="true"</code> on a link chip. A static
+        {" "}<code>&lt;div class="ui-chip"&gt;</code> can't be disabled, so the
+        {" "}<code>.ui-disabled</code> class just dims it.
       </Fragment>
       <Fragment slot="svelte">
         Disable a button chip with the <code>disabled</code> attribute.
       </Fragment>
       <Fragment slot="vue">
-        Disable a button chip with the <code>disabled</code> attribute.
+        Disable a button chip with the <code>disabled</code> attribute. A static chip
+        can't be disabled, so <code>class="ui-disabled"</code> just dims it.
       </Fragment>
     </Conditional>
     <AutoExample name="Disabled" row />

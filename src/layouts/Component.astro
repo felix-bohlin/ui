@@ -5,9 +5,11 @@ import FrameworkPicker from "../components/FrameworkPicker.astro"
 import BrowserSupport from "../components/BrowserSupport.astro"
 import BrowserSupportChips from "../components/BrowserSupportChips.astro"
 import ComponentAPI from "../components/ComponentAPI.astro"
+import HydrationChip from "../components/HydrationChip.astro"
 import type { ComponentApi } from "../component-api/types"
 import Installation, { type Tab } from "../components/Installation.astro"
 import { Button, Callout, Chip, Divider, List, ListItem } from "@opui/astro"
+import { shipped } from "../utils/component-source"
 import {
   getComponentChangelog,
   type ChangelogPathEntry,
@@ -85,6 +87,17 @@ const autoApis = (() => {
 
 const apis = apisProp === "auto" ? autoApis : (apisProp ?? autoApis)
 
+const hydrationFramework =
+  currentFramework === "svelte" || currentFramework === "vue"
+    ? currentFramework
+    : undefined
+const hydrationApis = hydrationFramework
+  ? [apis ?? []]
+      .flat()
+      .flatMap((entry: { api?: ComponentApi }) => entry?.api ?? [])
+      .filter((api) => shipped(api, hydrationFramework))
+  : []
+
 const components = componentsFor(currentFramework)
 const currentIndex = components.findIndex(
   (component) => component.slug === currentSlug,
@@ -144,7 +157,15 @@ const changelog = changelogPaths ? getComponentChangelog(changelogPaths) : []
   <slot name="title" slot="title" />
   <slot name="preamble" slot="preamble" />
 
-  {browserSupport && <BrowserSupportChips ids={browserSupport} />}
+  {
+    (browserSupport || hydrationApis.length > 0) && (
+      <BrowserSupportChips ids={browserSupport ?? []}>
+        {hydrationApis.length > 0 && (
+          <HydrationChip apis={hydrationApis} framework={hydrationFramework!} />
+        )}
+      </BrowserSupportChips>
+    )
+  }
 
   {
     whatsNew.length > 0 && (

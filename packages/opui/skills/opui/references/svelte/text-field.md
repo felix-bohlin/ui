@@ -489,26 +489,26 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 ### Text field API
 
-| Prop             | Type                                | Default      | Description                                                               |
-| ---------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `autoFit`        | `boolean`                           | `false`      | Changes size depending on its content.                                    |
-| `bind:value`     | `string` , `number`                 | -            | The input value.                                                          |
-| `children`       | `Snippet`                           | -            | Extra content inside the root, such as a `<datalist>`.                    |
-| `description`    | `string` , `Snippet`                | -            | Description text displayed above the field.                               |
-| `endText`        | `string` , `Snippet`                | -            | Supporting text displayed below the field.                                |
-| `error`          | `boolean`                           | `false`      | Shows error styles.                                                       |
-| `footer`         | `string` , `Snippet`                | -            | Content below the input, inside the border, with a divider.               |
-| `header`         | `string` , `Snippet`                | -            | Content above the input, inside the border, with a divider.               |
-| `id`             | `string`                            | -            | The id of the `<input>`.                                                  |
-| `label`          | `string` , `Snippet`                | -            | The label for the field.                                                  |
-| `prefix`         | `string` , `Snippet`                | -            | Content at the inline-start of the field, inside the border.              |
-| `size`           | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                  |
-| `spread`         | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
-| `startText`      | `string`                            | -            | Legacy alias of `description`.                                            |
-| `suffix`         | `string` , `Snippet`                | -            | Content at the inline-end of the field, inside the border.                |
-| `supportingText` | `string` , `Snippet`                | -            | Legacy alias of `endText`.                                                |
-| `type`           | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
-| `variant`        | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                       |
+| Prop                                                                                                                                                                           | Type                                | Default      | Description                                                               |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `autoFit`                                                                                                                                                                      | `boolean`                           | `false`      | Changes size depending on its content.                                    |
+| `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number`                 | -            | The input value.                                                          |
+| `children`                                                                                                                                                                     | `Snippet`                           | -            | Extra content inside the root, such as a `<datalist>`.                    |
+| `description`                                                                                                                                                                  | `string` , `Snippet`                | -            | Description text displayed above the field.                               |
+| `endText`                                                                                                                                                                      | `string` , `Snippet`                | -            | Supporting text displayed below the field.                                |
+| `error`                                                                                                                                                                        | `boolean`                           | `false`      | Shows error styles.                                                       |
+| `footer`                                                                                                                                                                       | `string` , `Snippet`                | -            | Content below the input, inside the border, with a divider.               |
+| `header`                                                                                                                                                                       | `string` , `Snippet`                | -            | Content above the input, inside the border, with a divider.               |
+| `id`                                                                                                                                                                           | `string`                            | -            | The id of the `<input>`.                                                  |
+| `label`                                                                                                                                                                        | `string` , `Snippet`                | -            | The label for the field.                                                  |
+| `prefix`                                                                                                                                                                       | `string` , `Snippet`                | -            | Content at the inline-start of the field, inside the border.              |
+| `size`                                                                                                                                                                         | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                  |
+| `spread`                                                                                                                                                                       | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
+| `startText`                                                                                                                                                                    | `string`                            | -            | Legacy alias of `description`.                                            |
+| `suffix`                                                                                                                                                                       | `string` , `Snippet`                | -            | Content at the inline-end of the field, inside the border.                |
+| `supportingText`                                                                                                                                                               | `string` , `Snippet`                | -            | Legacy alias of `endText`.                                                |
+| `type`                                                                                                                                                                         | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
+| `variant`                                                                                                                                                                      | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                       |
 
 #### CSS variables
 
@@ -590,6 +590,7 @@ Step 1 of 4: Wrapper
   --accent: var(--primary);
   --border: var(--field-border-color);
   --helper: var(--field-helper-color);
+  --label: var(--text-muted);
 
 
   display: grid;
@@ -663,7 +664,7 @@ Step 2 of 4: Affixes
 .prefix,
 .suffix {
   align-items: center;
-  color: var(--text-muted);
+  color: var(--label);
   display: inline-flex;
   padding-inline: 0.5rem;
 }
@@ -708,6 +709,7 @@ Step 4 of 4: Validation
   --accent: var(--invalid-color);
   --border: var(--invalid-color);
   --helper: var(--invalid-text-color);
+  --label: var(--invalid-text-color);
 }
 ```
 

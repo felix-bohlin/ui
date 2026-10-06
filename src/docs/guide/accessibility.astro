@@ -1,0 +1,232 @@
+---
+import Guide from "../../layouts/Guide.astro"
+import { Code } from "astro-expressive-code/components"
+import Conditional from "../../components/Conditional.astro"
+import DocLink from "../../components/DocLink.astro"
+---
+
+<Guide overline="Guide">
+  <Fragment slot="title">Accessibility</Fragment>
+  <Fragment slot="preamble">
+    A few basics to get you started. OPUI leans on native HTML, so a lot comes
+    for free, but you still decide the names, the order and the content. Test
+    with a keyboard and a screen reader, it always depends.
+  </Fragment>
+
+  <section>
+    <h2 id="native-elements">Built on native elements</h2>
+    <p>
+      Components are styled native elements: <code>&lt;button&gt;</code>,
+      <code>&lt;dialog&gt;</code>, <code>&lt;details&gt;</code>, popovers and
+      form inputs. The browser gives them their roles, keyboard support and
+      focus handling, so there are no ARIA widgets that need JavaScript to work.
+    </p>
+    <ul>
+      <li>
+        <DocLink href="/components/tabs">Tabs</DocLink> are radio buttons, and so
+        is a <DocLink href="/components/toggle">Toggle group</DocLink> with single
+        selection.
+      </li>
+      <li>
+        <DocLink href="/components/dialog">Dialog</DocLink> and <DocLink
+          href="/components/drawer">Drawer</DocLink
+        > open with <code>showModal()</code> (or <code
+          >command="show-modal"</code
+        >), which makes the page behind them inert.
+      </li>
+      <li>
+        <DocLink href="/components/accordion">Accordion</DocLink> is <code
+          >&lt;details&gt;</code
+        > and <code>&lt;summary&gt;</code>.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="accessible-names">Accessible names</h2>
+    <p>Anything without visible text needs a name. The usual suspects:</p>
+    <ul>
+      <li>
+        Icon-only <DocLink href="/components/button#icon-only">Buttons</DocLink
+        >:
+        <Conditional>
+          <Fragment slot="astro">the <code>label</code> prop.</Fragment>
+          <Fragment slot="html"><code>aria-label</code>.</Fragment>
+          <Fragment slot="svelte">the <code>label</code> prop.</Fragment>
+          <Fragment slot="vue">the <code>label</code> prop.</Fragment>
+        </Conditional>
+      </li>
+      <li>
+        <DocLink href="/components/checkbox">Checkbox</DocLink>, <DocLink
+          href="/components/radio">Radio</DocLink
+        > and <DocLink href="/components/switch">Switch</DocLink> without visible
+        text:
+        <Conditional>
+          <Fragment slot="astro"
+            >keep the text and set <code>hideLabel</code>.</Fragment
+          >
+          <Fragment slot="html"
+            >put the text in a <code>.ui-sr-only</code> element.</Fragment
+          >
+          <Fragment slot="svelte"
+            >keep the text and set <code>hideLabel</code>.</Fragment
+          >
+          <Fragment slot="vue"
+            >keep the text and set <code>hideLabel</code>.</Fragment
+          >
+        </Conditional>
+      </li>
+      <li>
+        <DocLink href="/components/badge#accessibility">Badge</DocLink> counts need
+        hidden context, so "5" is read as "5 unread messages".
+      </li>
+      <li>
+        <DocLink href="/components/avatar#accessibility">Avatar</DocLink> takes the
+        person's name as <code>alt</code>, or <code>alt=""</code> when the name is
+        shown next to it.
+      </li>
+      <li>
+        <DocLink href="/components/carousel">Carousel</DocLink> needs a label. Its
+        buttons and markers are named in CSS, with <code
+          >--_button-prev-label</code
+        >, <code>--_button-next-label</code> and <code>--_marker-label</code>,
+        so translate those too.
+      </li>
+      <li>
+        <DocLink href="/components/tabs#accessibility">Tabs</DocLink> get a name with
+        <code>role="radiogroup"</code> and <code>aria-label</code>.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="keyboard">Keyboard</h2>
+    <p>Keyboard support is whatever the native element does. A quick tour:</p>
+    <ul>
+      <li>
+        <strong>Accordion</strong>: <kbd>Enter</kbd> and <kbd>Space</kbd> open and
+        close it.
+      </li>
+      <li>
+        <strong>Dialog and Drawer</strong>: <kbd>Tab</kbd> moves through the dialog.
+        After the last element, focus goes to the browser UI, then back to the first
+        element. The page behind is inert. <kbd>Esc</kbd> closes it, unless you set
+        <code>closedby="none"</code>, and focus goes back to the button that
+        opened it.
+      </li>
+      <li>
+        <strong>Menu</strong>: <kbd>Tab</kbd> moves through the items and
+        <kbd>Esc</kbd> closes it. There are no arrow keys.
+      </li>
+      <li>
+        <strong>Range</strong>: arrow keys, <kbd>Page Up</kbd>, <kbd
+          >Page Down</kbd
+        >, <kbd>Home</kbd> and <kbd>End</kbd>.
+      </li>
+      <li>
+        <strong>Select</strong>: the native select keys.
+      </li>
+      <li>
+        <strong>Tabs and single selection Toggle groups</strong>: <kbd>Tab</kbd>
+        moves into the group, arrow keys move and select.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="focus">Focus</h2>
+    <p>
+      Every focusable element gets a <code>:focus-visible</code> ring from <code
+        >normalize.css</code
+      >. By default it's the inverted page color, so it shows up on any
+      background. Tune it with theme tokens:
+    </p>
+    <Code
+      code={`:where(html) {
+  --focus-ring-color: var(--primary);
+  --focus-ring-offset: 2px;
+  --focus-ring-style: solid;
+  --focus-ring-width: 2px;
+}`}
+      lang="css"
+    />
+    <p>
+      <code>--focus-ring-inset</code> is used where the ring is drawn inside, like
+      list items and button groups. With more contrast, the ring grows to 3px.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="contrast-and-motion">Contrast, forced colors and motion</h2>
+    <p>These live in Getting started, next to the rest of the theming:</p>
+    <ul>
+      <li>
+        <DocLink href="/guide/getting-started#contrast">Contrast</DocLink>:
+        <code>prefers-contrast: more</code> raises the contrast of text, borders and
+        the focus ring. Force it with <code>.ui-contrast-more</code>.
+      </li>
+      <li>
+        <DocLink href="/guide/getting-started#forced-colors"
+          >Forced colors</DocLink
+        >: components switch to system colors. Nothing to configure.
+      </li>
+      <li>
+        <DocLink href="/guide/getting-started#motion">Motion</DocLink>:
+        <code>prefers-reduced-motion: reduce</code> sets <code>--motion: 0</code
+        >. Override it with <code>.ui-motion-off</code> and <code
+          >.ui-motion-on</code
+        >.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="per-component">Per component</h2>
+    <p>Some pages have their own notes:</p>
+    <ul>
+      <li>
+        <DocLink href="/components/accordion#accessibility">Accordion</DocLink>
+      </li>
+      <li>
+        <DocLink href="/components/avatar#accessibility">Avatar</DocLink>
+      </li>
+      <li><DocLink href="/components/badge#accessibility">Badge</DocLink></li>
+      <li>
+        <DocLink href="/components/callout#accessibility">Callout</DocLink>
+      </li>
+      <li>
+        <DocLink href="/components/carousel#accessibility">Carousel</DocLink>
+      </li>
+      <li>
+        <DocLink href="/components/checkbox#accessibility">Checkbox</DocLink>
+      </li>
+      <li>
+        <DocLink href="/components/dialog#accessibility">Dialog</DocLink>
+      </li>
+      <li>
+        <DocLink href="/components/drawer#accessibility">Drawer</DocLink>
+      </li>
+      <li><DocLink href="/components/menu#accessibility">Menu</DocLink></li>
+      <li>
+        <DocLink href="/components/progress#accessibility">Progress</DocLink>
+      </li>
+      <li><DocLink href="/components/range#accessibility">Range</DocLink></li>
+      <li>
+        <DocLink href="/components/switch#accessibility">Switch</DocLink>
+      </li>
+      <li><DocLink href="/components/tabs#accessibility">Tabs</DocLink></li>
+      <li>
+        <DocLink href="/components/text-field#accessibility">Text field</DocLink
+        >
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="known-gaps">Known gaps</h2>
+    <p>
+      <DocLink href="/components/menu">Menu</DocLink> has no arrow key navigation,
+      only <kbd>Tab</kbd> and <kbd>Esc</kbd>. Keep that in mind for long menus.
+    </p>
+  </section>
+</Guide>

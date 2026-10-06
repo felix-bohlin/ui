@@ -31,14 +31,7 @@
   )
 </script>
 
-<label
-  class={[
-    "ui-toggle-button",
-    { "ui-disabled": disabled },
-    size && `ui-${size}`,
-    className,
-  ]}
->
+<label class={["ui-toggle-button", size && `ui-${size}`, className]}>
   <input
     checked={pressed}
     {disabled}

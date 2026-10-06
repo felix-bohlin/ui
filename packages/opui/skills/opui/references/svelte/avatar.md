@@ -279,6 +279,8 @@ Step 3 of 4: Shapes
 
 Step 4 of 4: Group
 
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+
 ```html
 <div class="avatar-group" role="group">
   <div class="avatar">AB</div>

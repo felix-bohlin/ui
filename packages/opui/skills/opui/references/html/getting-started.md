@@ -111,7 +111,9 @@ The basic idea is to pick one hue and chroma, and derive a 16-step palette from 
 - **`--palette-chroma`** scales the saturation, from `0` (gray) to `1`.
 - **`--palette-hue-rotate-by`** is a separate knob for per-step warm/cool drift, in degrees.
 
-You can also set `--palette-source` directly (it must be an `oklch()` color), and you can override it anywhere you want for useful or cool effect:
+You can also set `--palette-source` directly (it must be an `oklch()` color). Set it on `:root`, or on an element with `.ui-palette` to re-theme that part of the page. Anywhere else it has no effect: the palette is computed where `core/palette.css` declares it and only inherited from there. The same goes for `--palette-hue`, `--palette-chroma` and `--palette-hue-rotate-by`.
+
+This is how the severity classes get their colors:
 
 ```css
 :where(.ui-warning) {

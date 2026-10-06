@@ -12,7 +12,7 @@ const steps = [
   display: block;
 }`,
     html: `
-<div class="tabs">
+<div aria-label="Account" class="tabs" role="radiogroup">
   <input class="tab-input" type="radio" name="tabs" id="tab-1" checked />
   <label class="tab-label" for="tab-1">Profile</label>
   <div class="tab-panel">…</div>
@@ -60,9 +60,10 @@ const steps = [
 .tab-input:focus-visible + .tab-label {
   outline: 2px solid var(--text-muted);
 }`,
+    features: ["clip-path", "focus-visible"],
     notes: [
       "Visually hidden, still focusable: arrow keys move between tabs",
-      "Focus ring drawn on the label",
+      "Focus ring on the label, for now",
     ],
     title: "Hide radios",
   },
@@ -85,7 +86,8 @@ const steps = [
 }
 
 .tab-label:nth-child(1 of .tab-label) {
-  border-radius: var(--radius) 0 0 var(--radius);
+  border-end-start-radius: var(--radius);
+  border-start-start-radius: var(--radius);
   padding-inline-start: calc(0.75rem + var(--inset));
 
   &::before {
@@ -94,7 +96,8 @@ const steps = [
 }
 
 .tab-label:nth-last-child(1 of .tab-label) {
-  border-radius: 0 var(--radius) var(--radius) 0;
+  border-end-end-radius: var(--radius);
+  border-start-end-radius: var(--radius);
   padding-inline-end: calc(0.75rem + var(--inset));
 
   &::before {
@@ -105,12 +108,23 @@ const steps = [
 .tab-input:checked + .tab-label::before {
   background-color: var(--surface-default);
   box-shadow: var(--shadow-1);
+}
+
+.tab-input:focus-visible + .tab-label {
+  outline: none;
+}
+
+.tab-input:focus-visible + .tab-label::before {
+  outline: 2px solid var(--text-muted);
 }`,
+    features: ["isolation", "nth-child-of"],
     notes: [
       "Each label paints its slice of the track",
       "The pill is a <code>::before</code> inset from the track",
       "<code>:nth-child(1 of .tab-label)</code> finds the first label among the radios and panels",
       "Inner radius = outer radius − inset",
+      "Logical radii round the ends in right-to-left too",
+      "The focus ring moves onto the pill",
     ],
     title: "Segmented",
   },
@@ -144,7 +158,7 @@ const tabs = [
 ---
 
 <BuildUp id="build-tabs" knobs={knobs} steps={steps}>
-  <div class="tabs">
+  <div aria-label="Account" class="tabs" role="radiogroup">
     {
       tabs.map((tab, index) => (
         <>

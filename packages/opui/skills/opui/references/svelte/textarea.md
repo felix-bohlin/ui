@@ -268,24 +268,24 @@ When enabled the Field changes size depending on its content.
 
 ### Textarea API
 
-| Prop             | Type                                | Default      | Description                                                                 |
-| ---------------- | ----------------------------------- | ------------ | --------------------------------------------------------------------------- |
-| `autoFit`        | `boolean`                           | `false`      | Changes height depending on its content.                                    |
-| `bind:value`     | `string`                            | -            | The textarea value.                                                         |
-| `children`       | `Snippet`                           | -            | Extra content inside the root.                                              |
-| `description`    | `string` , `Snippet`                | -            | Description text displayed above the field.                                 |
-| `endText`        | `string` , `Snippet`                | -            | Supporting text displayed below the field.                                  |
-| `error`          | `boolean`                           | `false`      | Shows error styles.                                                         |
-| `footer`         | `string` , `Snippet`                | -            | Content below the textarea, inside the border, with a divider.              |
-| `header`         | `string` , `Snippet`                | -            | Content above the textarea, inside the border, with a divider.              |
-| `id`             | `string`                            | -            | The id of the `<textarea>`.                                                 |
-| `label`          | `string` , `Snippet`                | -            | The label for the field.                                                    |
-| `prefix`         | `string` , `Snippet`                | -            | Content at the inline-start of the field, inside the border.                |
-| `size`           | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                    |
-| `spread`         | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other. |
-| `suffix`         | `string` , `Snippet`                | -            | Content at the inline-end of the field, inside the border.                  |
-| `supportingText` | `string` , `Snippet`                | -            | Legacy alias of `endText`.                                                  |
-| `variant`        | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                         |
+| Prop                                                                                                                                                                           | Type                                | Default      | Description                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------- | ------------ | --------------------------------------------------------------------------- |
+| `autoFit`                                                                                                                                                                      | `boolean`                           | `false`      | Changes height depending on its content.                                    |
+| `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string`                            | -            | The textarea value.                                                         |
+| `children`                                                                                                                                                                     | `Snippet`                           | -            | Extra content inside the root.                                              |
+| `description`                                                                                                                                                                  | `string` , `Snippet`                | -            | Description text displayed above the field.                                 |
+| `endText`                                                                                                                                                                      | `string` , `Snippet`                | -            | Supporting text displayed below the field.                                  |
+| `error`                                                                                                                                                                        | `boolean`                           | `false`      | Shows error styles.                                                         |
+| `footer`                                                                                                                                                                       | `string` , `Snippet`                | -            | Content below the textarea, inside the border, with a divider.              |
+| `header`                                                                                                                                                                       | `string` , `Snippet`                | -            | Content above the textarea, inside the border, with a divider.              |
+| `id`                                                                                                                                                                           | `string`                            | -            | The id of the `<textarea>`.                                                 |
+| `label`                                                                                                                                                                        | `string` , `Snippet`                | -            | The label for the field.                                                    |
+| `prefix`                                                                                                                                                                       | `string` , `Snippet`                | -            | Content at the inline-start of the field, inside the border.                |
+| `size`                                                                                                                                                                         | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                    |
+| `spread`                                                                                                                                                                       | `boolean`                           | `false`      | Pushes the label and description to one side and the textarea to the other. |
+| `suffix`                                                                                                                                                                       | `string` , `Snippet`                | -            | Content at the inline-end of the field, inside the border.                  |
+| `supportingText`                                                                                                                                                               | `string` , `Snippet`                | -            | Legacy alias of `endText`.                                                  |
+| `variant`                                                                                                                                                                      | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                         |
 
 #### CSS variables
 
@@ -342,7 +342,7 @@ Attributes that aren't props, such as `placeholder` or `rows`, go to the `<texta
 
    - `lh` is one line of the textarea's own text
    - At least three lines plus padding, so an empty field still looks like a textarea
-   - `--max-block-size` overrides the 20 line cap, then it scrolls
+   - `--_max-block-size` changes the 20 line cap, as in the library. Past it, the text scrolls
 
 4. Auto-fit
 
@@ -418,7 +418,7 @@ Step 3 of 4: Limits
 
 ```css
 .field textarea {
-  max-block-size: var(--max-block-size, 20lh);
+  max-block-size: var(--_max-block-size, 20lh);
   min-block-size: calc(0.5rem * 2 + 3lh);
   resize: vertical;
 }

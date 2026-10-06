@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { List, ListItem } from "opui-css/vue"
+import { List } from "opui-css/vue"
+import ListAll from "./partials/ListAll.vue"
 </script>
 
 <template>
   <List dense>
-    <ListItem headline="Dense list item" />
-    <ListItem headline="Dense list item" />
+    <ListAll prefix="dense-" />
   </List>
 </template>

@@ -460,17 +460,19 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
    - Buttons drop their own radius, `overflow: hidden` on the group rounds the outer corners
    - `flex: auto` stretches the buttons to fill a wrapped row
-   - `role="group"` tells assistive tech the buttons belong together
+   - `role="group"` tells assistive tech the buttons belong together, and the styles require it, so it can't be forgotten
 
 2. Dividers
 
-   - Each button draws a line along its start and top edge
+   - Each button draws a line along its left and top edge
    - The group clips the lines on the outer edges, so only the gaps between buttons show one
+   - Physical is fine here: in right-to-left the clipped outer edge just switches sides
    - Drag **Width**: wrapped rows get a divider on top for free
    - Relative color: one shade darker in light mode, lighter in dark
 
 3. Outline
 
+   - The outline is always there, transparent until `.outlined` gives `--edge` a strong color
    - `outline` takes no space and `overflow` can't clip it
    - `outline-offset: -1px` pulls it in on top of the buttons' outer edge
    - The dividers switch to the same color, nothing else changes
@@ -479,14 +481,14 @@ Step 1 of 3: Join
 
 ```html
 <div class="group" role="group">
-  <button>Day</button>
-  <button>Week</button>
+  <button type="button">Day</button>
+  <button type="button">Week</button>
   …
 </div>
 ```
 
 ```css
-.group {
+[role="group"].group {
   border-radius: var(--radius-2);
   display: inline-flex;
   flex-wrap: wrap;
@@ -496,7 +498,7 @@ Step 1 of 3: Join
 }
 
 
-.group > button {
+[role="group"].group > button {
   border-radius: 0;
   flex: auto;
 }
@@ -508,7 +510,7 @@ Step 2 of 3: Dividers
 - [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
-.group > button {
+[role="group"].group > button {
   --divider: light-dark(
     oklch(from var(--surface-tonal) calc(l - 0.1) c h),
     oklch(from var(--surface-tonal) calc(l + 0.1) c h)
@@ -521,19 +523,27 @@ Step 2 of 3: Dividers
 
 Step 3 of 3: Outline
 
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+
 ```html
 <div class="group outlined" role="group">…</div>
 ```
 
 ```css
-.group.outlined {
-  outline: 1px solid var(--border-color);
+[role="group"].group {
+  --edge: transparent;
+  outline: 1px solid var(--edge);
   outline-offset: -1px;
 }
 
 
-.group.outlined > button {
-  --divider: var(--border-color);
+[role="group"].group.outlined {
+  --edge: light-dark(var(--color-16), var(--color-1));
+}
+
+
+[role="group"].group.outlined > button {
+  --divider: var(--edge);
 }
 ```
 

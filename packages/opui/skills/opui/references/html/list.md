@@ -976,12 +976,13 @@ Wrap the content in an `<a>`, `<button>` or `<label>` to make the item interacti
 1. Row
 
    - Start, text and end parts in one flex row
+   - `>` styles direct children only, so a nested list in a row stays a list
    - `--gap` and `--start-size` drive the spacing and the icon column
    - The button is padded too, so the padding doubles
 
 2. Clickable
 
-   - `:has(> a, > button)` moves the padding onto the button
+   - `:has(> a, > button, > label)` moves the padding onto the button, link or label (checkbox, radio and switch rows)
    - The whole row is the hit target
    - Hover tint derived from `--primary`
 
@@ -992,7 +993,7 @@ Wrap the content in an `<a>`, `<button>` or `<label>` to make the item interacti
 
 4. Bordered
 
-   - `li + li`: a line between items, never above the first
+   - `> li + li`: a line between items, never above the first
    - The line sits in the margin, outside the hover area
 
 Step 1 of 4: Row
@@ -1000,13 +1001,13 @@ Step 1 of 4: Row
 ```html
 <ul class="list">
   <li>
-    <button>
+    <button type="button">
       <span class="start"><svg>…</svg></span>
       <span class="text">
         <span>Inbox</span>
         <span>3 unread</span>
       </span>
-      <span class="end">⌘I</span>
+      <span class="end"><kbd>⌘I</kbd></span>
     </button>
   </li>
 </ul>
@@ -1014,14 +1015,14 @@ Step 1 of 4: Row
 
 ```css
 .list {
-  background-color: var(--surface-default);
+  background-color: var(--surface-filled);
   list-style: none;
   padding: 0.5rem 0;
 }
 
 
-.list li,
-.list li > button {
+.list > li,
+.list > li > button {
   align-items: center;
   display: flex;
   gap: var(--gap);
@@ -1055,17 +1056,17 @@ Step 2 of 4: Clickable
 - [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
-.list li:has(> a, > button) {
+.list > li:has(> a, > button, > label) {
   padding: 0;
 }
 
 
-.list li > button {
+.list > li > button {
   inline-size: 100%;
 }
 
 
-.list li > button:hover {
+.list > li > button:hover {
   background-color: oklch(from var(--primary) l c h / 15%);
 }
 ```
@@ -1081,12 +1082,12 @@ Step 3 of 4: Inset
 Step 4 of 4: Bordered
 
 ```css
-.bordered li + li {
+.bordered > li + li {
   margin-block-start: 0.75rem;
 }
 
 
-.bordered li + li::before {
+.bordered > li + li::before {
   border-block-start: 1px solid var(--border-color);
   content: "";
   inset: -0.5rem 0 auto 0;

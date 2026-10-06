@@ -428,7 +428,7 @@ Step 2 of 4: Icon-only
 Step 3 of 4: Icon side
 
 ```html
-<button class="button">
+<button class="button" type="button">
   <svg>…</svg>
   <span>Download</span>
 </button>
@@ -446,6 +446,9 @@ Step 3 of 4: Icon side
 ```
 
 Step 4 of 4: Ripple
+
+- [`clip-path` ](https://webstatus.dev/features/clip-path)(Widely available): Chrome 88+, Edge 88+, Firefox 71+, Safari 13.1+
+- [3D transforms ](https://webstatus.dev/features/transforms3d)(Widely available): Chrome 36+, Edge 12+, Firefox 16+, Safari 15.4+
 
 ```css
 .ripple {

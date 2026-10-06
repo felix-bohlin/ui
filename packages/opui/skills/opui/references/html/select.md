@@ -188,7 +188,7 @@ Add `.ui-dense` to the `.ui-list` to pack the options tighter.
 
 ## End text
 
-`.ui-end-text`: end text element
+Use `.ui-end-text` for supporting text below the select.
 
 ```html
 <label class="ui-select">
@@ -865,6 +865,7 @@ selectedcontent {
 
 Step 2 of 4: Arrow
 
+- [Individual transform properties ](https://webstatus.dev/features/individual-transforms)(Widely available): Chrome 104+, Edge 104+, Firefox 72+, Safari 14.1+
 - [`:open` ](https://webstatus.dev/features/open-pseudo)(Newly available): Chrome 133+, Edge 133+, Firefox 136+, Safari 26.5+
 
 ```css
@@ -933,6 +934,7 @@ Step 3 of 4: Picker
 
 Step 4 of 4: Animate
 
+- [Individual transform properties ](https://webstatus.dev/features/individual-transforms)(Widely available): Chrome 104+, Edge 104+, Firefox 72+, Safari 14.1+
 - [`@starting-style` ](https://webstatus.dev/features/starting-style)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
 - [`transition-behavior` ](https://webstatus.dev/features/transition-behavior)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 

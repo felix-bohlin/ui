@@ -8,6 +8,7 @@
     group = $bindable(),
     hideLabel,
     size,
+    spread,
     stack,
 
     // Snippets
@@ -30,6 +31,7 @@
     size && `ui-${size}`,
     {
       "ui-stack": stack,
+      "ui-spread": spread,
     },
     className,
   ]}

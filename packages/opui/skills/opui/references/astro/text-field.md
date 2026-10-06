@@ -603,6 +603,7 @@ Step 1 of 4: Wrapper
   --accent: var(--primary);
   --border: var(--field-border-color);
   --helper: var(--field-helper-color);
+  --label: var(--text-muted);
 
 
   display: grid;
@@ -676,7 +677,7 @@ Step 2 of 4: Affixes
 .prefix,
 .suffix {
   align-items: center;
-  color: var(--text-muted);
+  color: var(--label);
   display: inline-flex;
   padding-inline: 0.5rem;
 }
@@ -721,6 +722,7 @@ Step 4 of 4: Validation
   --accent: var(--invalid-color);
   --border: var(--invalid-color);
   --helper: var(--invalid-text-color);
+  --label: var(--invalid-text-color);
 }
 ```
 

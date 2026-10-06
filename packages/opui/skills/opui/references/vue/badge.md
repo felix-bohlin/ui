@@ -323,6 +323,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
    - `min-inline-size` equals `block-size`: a circle for one digit, a pill for more
    - `max-content` keeps `99+` on one line
+   - A bare count is read as "5", hidden text makes it "5 unread messages"
 
 2. Corner
 
@@ -334,19 +335,22 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
    - Logical insets flip in right-to-left, `translate` doesn't
    - `:dir(rtl)` sets `--dir: -1` and the offset follows
-   - Offsets live in custom properties, so alignments only swap values
+   - Offsets follow `--sign-x` and `--sign-y`, so alignments only flip the signs
 
 4. Dot
 
    - Same indicator, emptied and shrunk
    - New `--tx` and `--ty` tuck it inside the corner, no new positioning rules
+   - Same signs, so it tucks in whichever corner it's aligned to
 
 Step 1 of 4: Indicator
 
 ```html
 <span class="badge">
   <svg>…</svg>
-  <span class="indicator">5</span>
+  <span class="indicator">
+    5 <span class="ui-sr-only">unread messages</span>
+  </span>
 </span>
 ```
 
@@ -394,8 +398,10 @@ Step 3 of 4: Direction
 ```css
 .badge {
   --dir: 1;
-  --tx: -50%;
-  --ty: 50%;
+  --sign-x: -1;
+  --sign-y: 1;
+  --tx: calc(50% * var(--sign-x));
+  --ty: calc(50% * var(--sign-y));
 }
 
 
@@ -414,8 +420,8 @@ Step 4 of 4: Dot
 ```css
 .badge.dot {
   --dot: 0.5rem;
-  --tx: calc((var(--dot) - 2px) * -1);
-  --ty: var(--dot);
+  --tx: calc((var(--dot) - 2px) * var(--sign-x));
+  --ty: calc(var(--dot) * var(--sign-y));
 }
 
 

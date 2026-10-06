@@ -353,7 +353,7 @@ Textarea attributes (`cols`, `disabled`, `maxlength`, `minlength`, `name`, `plac
 
    - `lh` is one line of the textarea's own text
    - At least three lines plus padding, so an empty field still looks like a textarea
-   - `--max-block-size` overrides the 20 line cap, then it scrolls
+   - `--_max-block-size` changes the 20 line cap, as in the library. Past it, the text scrolls
 
 4. Auto-fit
 
@@ -429,7 +429,7 @@ Step 3 of 4: Limits
 
 ```css
 .field textarea {
-  max-block-size: var(--max-block-size, 20lh);
+  max-block-size: var(--_max-block-size, 20lh);
   min-block-size: calc(0.5rem * 2 + 3lh);
   resize: vertical;
 }

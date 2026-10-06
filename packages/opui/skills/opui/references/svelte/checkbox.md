@@ -71,7 +71,7 @@ Label End text
 
 ## Visible label
 
-Render the label text inside an element with a `.ui-label` class. Also, don't miss the info on label [accessibility](#accessibility).
+The `children` snippet is the label. Also, don't miss the info on label [accessibility](#accessibility).
 
 ```svelte
 <script lang="ts">
@@ -423,11 +423,11 @@ Attach the `data-invalid` attribute to your `FieldSet` component.
 
 Accessible checkboxes must have a label. You can choose between three approaches:
 
-| Approach                                                          | Usage in Checkbox component |
-| ----------------------------------------------------------------- | --------------------------- |
-| Provide a label text inside the `label`/`role="checkbox"` element | Default                     |
-| Add an `aria-label` on the input element                          | Not used                    |
-| Have a visible label that you reference with `aria-labelledby`    | Not used                    |
+| Approach                                                       | Usage in Checkbox component |
+| -------------------------------------------------------------- | --------------------------- |
+| Provide a label text inside the `label` element                | Default                     |
+| Add an `aria-label` on the input element                       | Not used                    |
+| Have a visible label that you reference with `aria-labelledby` | Not used                    |
 
 ### Keyboard support
 
@@ -439,18 +439,18 @@ Accessible checkboxes must have a label. You can choose between three approaches
 
 ### Checkbox API
 
-| Prop            | Type                   | Default | Description                                                                          |
-| --------------- | ---------------------- | ------- | ------------------------------------------------------------------------------------ |
-| `bind:checked`  | `boolean`              | -       | The checked state.                                                                   |
-| `bind:group`    | `(string \| number)[]` | -       | The checked values of a group.                                                       |
-| `children`      | `Snippet`              | -       | The label.                                                                           |
-| `endText`       | `string` , `Snippet`   | -       | Supporting text displayed below the label.                                           |
-| `error`         | `boolean`              | `false` | Shows error styles.                                                                  |
-| `hideLabel`     | `boolean`              | `false` | Visually hides the label.                                                            |
-| `indeterminate` | `boolean`              | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
-| `size`          | `"small"` , `"large"`  | -       | The size of the element.                                                             |
-| `spread`        | `boolean`              | `false` | Pushes the label and the input to opposite ends.                                     |
-| `stack`         | `boolean`              | `false` | Stacks the label under the input.                                                    |
+| Prop                                                                                                                                                                                                                                | Type                   | Default | Description                                                                          |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------- | ------------------------------------------------------------------------------------ |
+| `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                    | `boolean`              | -       | The checked state.                                                                   |
+| `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.                                                      | `(string \| number)[]` | -       | The checked values of a group.                                                       |
+| `children`                                                                                                                                                                                                                          | `Snippet`              | -       | The label.                                                                           |
+| `endText`                                                                                                                                                                                                                           | `string` , `Snippet`   | -       | Supporting text displayed below the label.                                           |
+| `error`                                                                                                                                                                                                                             | `boolean`              | `false` | Shows error styles.                                                                  |
+| `hideLabel`                                                                                                                                                                                                                         | `boolean`              | `false` | Visually hides the label.                                                            |
+| `indeterminate` **Needs hydration** A DOM property, set in an `{@attach}`. The server renders `data-indeterminate`, but the box looks unchecked until hydration. Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`. | `boolean`              | `false` | Shows a partially checked state. Sets the `indeterminate` property on the `<input>`. |
+| `size`                                                                                                                                                                                                                              | `"small"` , `"large"`  | -       | The size of the element.                                                             |
+| `spread`                                                                                                                                                                                                                            | `boolean`              | `false` | Pushes the label and the input to opposite ends.                                     |
+| `stack`                                                                                                                                                                                                                             | `boolean`              | `false` | Stacks the label under the input.                                                    |
 
 #### CSS variables
 
@@ -462,6 +462,8 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `--choice-size-large`        | `var(--size-5)`                                                                         | `Checkbox` and `Radio` input size with `.ui-large`.                                                                                                   |
 | `--choice-size-small`        | `var(--size-3)`                                                                         | `Checkbox` and `Radio` input size with `.ui-small` and inside `List`.                                                                                 |
 | `--disabled-opacity`         | `0.64`                                                                                  | Opacity applied to disabled controls.                                                                                                                 |
+| `--duration`                 | `0.2s`                                                                                  | Default transition duration. Multiplied by `--motion`.                                                                                                |
+| `--ease`                     | `ease`                                                                                  | Default easing for transitions.                                                                                                                       |
 | `--field-border-width`       | `1px`                                                                                   | Border width for fields, `Checkbox`, `Radio` and `Switch`.                                                                                            |
 | `--field-helper-color`       | `var(--text-muted)`                                                                     | Text color for helper and end text under a field.                                                                                                     |
 | `--field-helper-font-size`   | `var(--font-size-0)`                                                                    | Font size for helper and end text under a field.                                                                                                      |
@@ -472,8 +474,10 @@ Accessible checkboxes must have a label. You can choose between three approaches
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                                                       |
 | `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                                                  |
 | `--invalid-text-color`       | `light-dark( var(--invalid-color), oklch(from var(--invalid-color) max(l, 0.75) c h) )` | Color for validation messages and invalid labels. Lighter than `--invalid-color` in dark mode so the text stays readable.                             |
+| `--motion`                   | `1`                                                                                     | Motion multiplier. `0` disables transitions, `1` is normal speed. Set to `0` automatically under `prefers-reduced-motion`.                            |
 | `--primary`                  | `light-dark(var(--color-9), var(--color-6))`                                            | Brand color for primary actions and accents.                                                                                                          |
 | `--primary-contrast`         | `oklch( from var(--primary) clamp(0.15, (0.565 - l) * 1000, 0.98) calc(c * 0.15) h )`   | Text color on a `--primary` background.                                                                                                               |
+| `--ripple-color`             | `oklch(0.6 0 0 / 0.2)`                                                                  | Halo color for `Button` with `.ui-ripple` and the `Checkbox` and `Radio` hover effect.                                                                |
 | `--surface-default`          | `light-dark(var(--gray-1), var(--gray-13))`                                             | Page and card background.                                                                                                                             |
 | `--text-primary`             | `light-dark(var(--gray-15), var(--gray-1))`                                             | Emphasized text color for headings, labels and values.                                                                                                |
 
@@ -500,6 +504,7 @@ Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`.
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                            |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
 | `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
@@ -514,6 +519,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
    - `appearance: none` drops the native box, the input keeps focus, keyboard and form value
    - `:checked` still matches: the fill is plain CSS
+   - In dark mode `--accent` caps the primary's lightness, so the light check keeps 3:1
 
 2. Checkmark
 
@@ -530,16 +536,31 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 4. Label
 
    - The `<label>` wraps the input, so the text is part of the hit area
-   - `:has(:disabled)` dims the whole row from the input's state
-   - `text-box: trim-start cap` + a `1cap` offset centers the capitals on the box
+   - `:has([disabled])` dims the whole row from the input's state
+   - `(size − 1lh) / 2` centers the first line on the box, in every browser
    - Drag the size: the text stays centered
 
-Step 1 of 4: Appearance
+5. Forced colors
+
+   - Forced colors swap author colors for the user's palette, so the fill and the check, both backgrounds, disappear
+   - System colors are kept: `SelectedItem` for the fill, `SelectedItemText` for the check
+   - Try it with forced colors emulation in DevTools
+
+Step 1 of 5: Appearance
 
 - [`appearance` ](https://webstatus.dev/features/appearance)(Widely available): Chrome 84+, Edge 84+, Firefox 80+, Safari 15.4+
+- [`light-dark()` ](https://webstatus.dev/features/light-dark)(Newly available): Chrome 123+, Edge 123+, Firefox 120+, Safari 17.5+
+- [Relative colors ](https://webstatus.dev/features/relative-color)(Newly available): Chrome 125+, Edge 125+, Firefox 128+, Safari 18+
 
 ```css
 .checkbox {
+  --accent: light-dark(
+    var(--primary),
+    oklch(from var(--primary) min(l, 0.62) c h)
+  );
+  --accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
+
+
   appearance: none;
   aspect-ratio: 1;
   background-color: var(--surface-default);
@@ -555,18 +576,18 @@ Step 1 of 4: Appearance
 
 
 .checkbox:checked {
-  background-color: var(--primary);
-  border-color: var(--primary);
+  background-color: var(--accent);
+  border-color: var(--accent);
 }
 ```
 
-Step 2 of 4: Checkmark
+Step 2 of 5: Checkmark
 
 - [`clip-path` ](https://webstatus.dev/features/clip-path)(Widely available): Chrome 88+, Edge 88+, Firefox 71+, Safari 13.1+
 
 ```css
 .checkbox::after {
-  background-color: var(--primary-contrast);
+  background-color: var(--accent-contrast);
   clip-path: polygon(15% 52%, 40% 77%, 85% 32%, 75% 22%, 40% 57%, 25% 42%);
   content: "";
   inset: 0;
@@ -580,7 +601,7 @@ Step 2 of 4: Checkmark
 }
 ```
 
-Step 3 of 4: Indeterminate
+Step 3 of 5: Indeterminate
 
 - [`:indeterminate` ](https://webstatus.dev/features/indeterminate)(Widely available): Chrome 39+, Edge 79+, Firefox 51+, Safari 10+
 
@@ -597,8 +618,8 @@ Step 3 of 4: Indeterminate
 
 ```css
 .checkbox:indeterminate {
-  background-color: var(--primary);
-  border-color: var(--primary);
+  background-color: var(--accent);
+  border-color: var(--accent);
 }
 
 
@@ -608,10 +629,10 @@ Step 3 of 4: Indeterminate
 }
 ```
 
-Step 4 of 4: Label
+Step 4 of 5: Label
 
 - [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
-- [`text-box` ](https://webstatus.dev/features/text-box)(Limited availability): Chrome 133+, Edge 133+, Firefox not supported, Safari 18.2+
+- [lh unit ](https://webstatus.dev/features/lh)(Widely available): Chrome 109+, Edge 109+, Firefox 120+, Safari 16.4+
 
 ```css
 .label {
@@ -623,15 +644,38 @@ Step 4 of 4: Label
 }
 
 
-.label:has(:disabled) {
+.label:has([disabled]) {
   cursor: not-allowed;
   opacity: var(--disabled-opacity);
 }
 
 
 .label > span {
-  margin-block-start: calc((var(--size) - 1cap) / 2);
-  text-box: trim-start cap alphabetic;
+  margin-block-start: calc((var(--size) - 1lh) / 2);
+}
+```
+
+Step 5 of 5: Forced colors
+
+- [Forced colors ](https://webstatus.dev/features/forced-colors)(Widely available): Chrome 89+, Edge 79+, Firefox 89+, Safari 16+
+- [System colors ](https://webstatus.dev/features/system-color)(Widely available): Chrome 1+, Edge 12+, Firefox 1+, Safari 1+
+
+```css
+@media (forced-colors: active) {
+  .checkbox {
+    border-color: CanvasText;
+  }
+
+
+  .checkbox:is(:checked, :indeterminate) {
+    background-color: SelectedItem;
+    border-color: SelectedItem;
+  }
+
+
+  .checkbox:is(:checked, :indeterminate)::after {
+    background-color: SelectedItemText;
+  }
 }
 ```
 

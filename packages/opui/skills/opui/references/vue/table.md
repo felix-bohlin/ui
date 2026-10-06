@@ -459,6 +459,8 @@ Step 2 of 4: Cells
 
 Step 3 of 4: Corners
 
+- [Logical properties ](https://webstatus.dev/features/logical-properties)(Widely available): Chrome 89+, Edge 89+, Firefox 66+, Safari 15+
+
 ```css
 .table > thead tr:first-child th:first-child {
   border-start-start-radius: var(--radius);

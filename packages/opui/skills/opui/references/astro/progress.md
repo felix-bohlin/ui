@@ -185,7 +185,7 @@ Step 3 of 5: Value
 ```css
 .progress > progress[value]::-webkit-progress-value {
   background-color: var(--primary);
-  transition: inline-size 0.2s ease-out;
+  transition: inline-size calc(0.2s * var(--motion, 1)) ease-out;
 }
 
 

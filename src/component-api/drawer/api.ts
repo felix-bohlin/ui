@@ -2,6 +2,16 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Drawer",
+  hydration: {
+    svelte: [
+      {
+        description:
+          "With your own heading instead of a `DrawerHeader` `heading`, `aria-labelledby` only points at it after hydration.",
+        fallback: "Pass `aria-labelledby` or `aria-label`.",
+        prop: "header",
+      },
+    ],
+  },
   notes: {
     html: "Add `autofocus` to the root, or to an element inside, to choose what gets focus when it opens.",
     svelte: "Attributes that aren't props go to the `<dialog>`.",

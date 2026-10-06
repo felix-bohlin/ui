@@ -258,7 +258,7 @@ Step 1 of 4: Base
 </div>
 
 
-<button class="chip">…</button>
+<button class="chip" type="button">…</button>
 ```
 
 ```css

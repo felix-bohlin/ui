@@ -38,7 +38,7 @@ Theme Label End text
 
 ## Basics
 
-All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: use `.ui-sr-only` instead of `.ui-label`, or the `hideLabel` prop in Astro, Svelte and Vue.
+All switches should have an accessible name. Put the label text inside the component, also when there's no visible label: set `hideLabel` to hide it visually.
 
 ```svelte
 <script lang="ts">
@@ -74,7 +74,7 @@ Set `size="small"` for a smaller Switch variant.
 
 ## Visible label
 
-Render the label text inside an element with a `.ui-label` class. Also, don't miss the info on label [accessibility](#accessibility).
+The `children` snippet is the label. Also, don't miss the info on label [accessibility](#accessibility).
 
 ```svelte
 <script lang="ts">
@@ -451,11 +451,11 @@ Attach the `data-invalid` attribute to your `FieldSet` component.
 
 Accessible switches should have a label. The first two approaches are equally ok:
 
-| Approach                                                       | Usage in Switch component                                                                                                                                                                                                         |
-| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Provide a label inside the element                             | Use a `.ui-label` child for a [visible label](#visible-label), or a `.ui-sr-only` child to hide it visually while keeping it accessible. In Astro, Svelte and Vue, set the `hideLabel` prop to render the label as `.ui-sr-only`. |
-| Add an `aria-label` on the input                               | Not used. Use a `.ui-sr-only` label instead, also for icon-only switches.                                                                                                                                                         |
-| Have a visible label that you reference with `aria-labelledby` | Not used.                                                                                                                                                                                                                         |
+| Approach                                                       | Usage in Switch component                                                                                                       |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Provide a label inside the element                             | The `children` snippet is the [visible label](#visible-label). Set `hideLabel` to hide it visually while keeping it accessible. |
+| Add an `aria-label` on the input                               | Not used. Use `hideLabel` instead, also for icon-only switches.                                                                 |
+| Have a visible label that you reference with `aria-labelledby` | Not used.                                                                                                                       |
 
 ### Keyboard support
 
@@ -467,19 +467,19 @@ Accessible switches should have a label. The first two approaches are equally ok
 
 ### Switch API
 
-| Prop            | Type                   | Default | Description                                       |
-| --------------- | ---------------------- | ------- | ------------------------------------------------- |
-| `bind:checked`  | `boolean`              | -       | The checked state.                                |
-| `bind:group`    | `(string \| number)[]` | -       | The checked values of a group.                    |
-| `children`      | `Snippet`              | -       | The label.                                        |
-| `endText`       | `string` , `Snippet`   | -       | Supporting text displayed below the label.        |
-| `error`         | `boolean`              | `false` | Shows error styles.                               |
-| `hideLabel`     | `boolean`              | `false` | Visually hides the label.                         |
-| `iconChecked`   | `Snippet`              | -       | An optional icon in the thumb when checked.       |
-| `iconUnchecked` | `Snippet`              | -       | An optional icon in the thumb when unchecked.     |
-| `size`          | `"small"`              | -       | The size of the element.                          |
-| `spread`        | `boolean`              | `false` | Pushes the label and the switch to opposite ends. |
-| `stack`         | `boolean`              | `false` | Stacks the label under the switch.                |
+| Prop                                                                                                                                                                             | Type                   | Default | Description                                       |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------- | ------------------------------------------------- |
+| `bind:checked` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `boolean`              | -       | The checked state.                                |
+| `bind:group` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead.   | `(string \| number)[]` | -       | The checked values of a group.                    |
+| `children`                                                                                                                                                                       | `Snippet`              | -       | The label.                                        |
+| `endText`                                                                                                                                                                        | `string` , `Snippet`   | -       | Supporting text displayed below the label.        |
+| `error`                                                                                                                                                                          | `boolean`              | `false` | Shows error styles.                               |
+| `hideLabel`                                                                                                                                                                      | `boolean`              | `false` | Visually hides the label.                         |
+| `iconChecked`                                                                                                                                                                    | `Snippet`              | -       | An optional icon in the thumb when checked.       |
+| `iconUnchecked`                                                                                                                                                                  | `Snippet`              | -       | An optional icon in the thumb when unchecked.     |
+| `size`                                                                                                                                                                           | `"small"`              | -       | The size of the element.                          |
+| `spread`                                                                                                                                                                         | `boolean`              | `false` | Pushes the label and the switch to opposite ends. |
+| `stack`                                                                                                                                                                          | `boolean`              | `false` | Stacks the label under the switch.                |
 
 #### CSS variables
 
@@ -537,6 +537,7 @@ Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`.
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                            |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
 | `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
@@ -571,6 +572,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
    - `:has(:checked)` on the label swaps which icon shows
    - Each icon sits on the side the dot is not
    - `pointer-events: none` lets clicks through to the input
+   - A `.ui-sr-only` span names the switch without showing text
 
 Step 1 of 4: Track
 
@@ -677,7 +679,8 @@ Step 4 of 4: Icons
 <label class="label">
   <span class="icon icon-unchecked" aria-hidden="true"><svg>…</svg></span>
   <span class="icon icon-checked" aria-hidden="true"><svg>…</svg></span>
-  <input class="switch" type="checkbox" role="switch" aria-label="Light theme" />
+  <input class="switch" type="checkbox" role="switch" />
+  <span class="ui-sr-only">Light theme</span>
 </label>
 ```
 

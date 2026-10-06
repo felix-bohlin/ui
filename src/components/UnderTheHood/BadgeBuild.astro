@@ -20,11 +20,14 @@ const steps = [
     html: `
 <span class="badge">
   <svg>…</svg>
-  <span class="indicator">5</span>
+  <span class="indicator">
+    5 <span class="ui-sr-only">unread messages</span>
+  </span>
 </span>`,
     notes: [
       "<code>min-inline-size</code> equals <code>block-size</code>: a circle for one digit, a pill for more",
       "<code>max-content</code> keeps <code>99+</code> on one line",
+      'A bare count is read as "5", hidden text makes it "5 unread messages"',
     ],
     title: "Indicator",
   },
@@ -54,8 +57,10 @@ const steps = [
     css: `
 .badge {
   --dir: 1;
-  --tx: -50%;
-  --ty: 50%;
+  --sign-x: -1;
+  --sign-y: 1;
+  --tx: calc(50% * var(--sign-x));
+  --ty: calc(50% * var(--sign-y));
 }
 
 .badge:dir(rtl) {
@@ -69,7 +74,7 @@ const steps = [
     notes: [
       "Logical insets flip in right-to-left, <code>translate</code> doesn't",
       "<code>:dir(rtl)</code> sets <code>--dir: -1</code> and the offset follows",
-      "Offsets live in custom properties, so alignments only swap values",
+      "Offsets follow <code>--sign-x</code> and <code>--sign-y</code>, so alignments only flip the signs",
     ],
     title: "Direction",
   },
@@ -77,8 +82,8 @@ const steps = [
     css: `
 .badge.dot {
   --dot: 0.5rem;
-  --tx: calc((var(--dot) - 2px) * -1);
-  --ty: var(--dot);
+  --tx: calc((var(--dot) - 2px) * var(--sign-x));
+  --ty: calc(var(--dot) * var(--sign-y));
 }
 
 .badge.dot .indicator {
@@ -90,6 +95,7 @@ const steps = [
     notes: [
       "Same indicator, emptied and shrunk",
       "New <code>--tx</code> and <code>--ty</code> tuck it inside the corner, no new positioning rules",
+      "Same signs, so it tucks in whichever corner it's aligned to",
     ],
     title: "Dot",
   },
@@ -108,9 +114,9 @@ const knobs = [
 ]
 
 const badges = [
-  { label: "5" },
-  { label: "99+" },
-  { dir: "rtl", label: "3" },
+  { label: "5", srLabel: "unread messages" },
+  { label: "99+", srLabel: "unread messages" },
+  { dir: "rtl", label: "3", srLabel: "unread messages" },
   { className: "dot", label: "" },
 ]
 
@@ -123,7 +129,10 @@ const icon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width=
       badges.map((badge) => (
         <span class:list={["badge", badge.className]} dir={badge.dir}>
           <Fragment set:html={icon} />
-          <span class="indicator">{badge.label}</span>
+          <span class="indicator">
+            {badge.label}
+            {badge.srLabel && <span class="ui-sr-only">{badge.srLabel}</span>}
+          </span>
         </span>
       ))
     }

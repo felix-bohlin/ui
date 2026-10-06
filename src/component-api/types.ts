@@ -13,6 +13,12 @@ export type ApiPart = {
   snippets?: string[]
 }
 
+export type ApiHydration = {
+  description: string
+  fallback?: string
+  prop: string
+}
+
 export type ApiOption = {
   attribute?: string
   class?: string
@@ -34,6 +40,7 @@ export type ComponentApi = {
   component: string
   css?: string[]
   file?: string
+  hydration?: Partial<Record<ComponentFramework, ApiHydration[]>>
   model?: ApiModel & {
     frameworks?: Partial<Record<ComponentFramework, ApiModel[]>>
   }

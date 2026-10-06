@@ -1,0 +1,594 @@
+<style>
+  .todo-stack {
+    display: grid;
+    gap: var(--size-4);
+    inline-size: 100%;
+  }
+  .todo-sizes {
+    border-collapse: collapse;
+    font-size: var(--font-size-0);
+  }
+  .todo-sizes :is(th, td) {
+    padding: var(--size-2);
+    text-align: start;
+    vertical-align: middle;
+  }
+  .todo-sizes .ui-text-field,
+  .todo-sizes .ui-select {
+    inline-size: 8rem;
+  }
+  .todo-missing {
+    background-color: oklch(from var(--critical) l c h / 15%);
+  }
+  .todo-new {
+    background-color: oklch(from var(--success) l c h / 15%);
+  }
+  .todo-form-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+  }
+  .todo-form-row .ui-text-field,
+  .todo-form-row .ui-select {
+    inline-size: 8rem;
+  }
+  .todo-unified .ui-checkbox.ui-x-small,
+  .todo-unified .ui-radio.ui-x-small {
+    --_input-size: 0.875rem;
+  }
+  .todo-unified .ui-chip.ui-x-small {
+    block-size: 1.5rem;
+    font-size: var(--font-size-00);
+    padding-inline: var(--size-1);
+  }
+  .todo-unified .ui-switch.ui-x-small {
+    --_dot-size: 0.625rem;
+    --_track-height: 1rem;
+    --_track-width: 2rem;
+  }
+  .todo-unified .ui-switch.ui-large {
+    --_dot-size: 1.25rem;
+    --_track-height: 1.75rem;
+    --_track-width: 3.5rem;
+  }
+</style>
+<div class="todo-stack">
+  <p>
+    Every cell sets the size class for its row.
+    <span class="todo-missing">Red</span>: the size doesn't exist today, so the
+    class does nothing and you get the default.
+    <span class="todo-new">Green</span>: the size it would get with one scale
+    (simulated with inline CSS on this page).
+  </p>
+  <h2 class="ui-h5">Today</h2>
+  <table class="todo-sizes">
+    <thead>
+      <tr>
+        <th scope="col">Size</th>
+        <th scope="col">Button</th>
+        <th scope="col">Checkbox</th>
+        <th scope="col">Chip</th>
+        <th scope="col">Radio</th>
+        <th scope="col">Select</th>
+        <th scope="col">Switch</th>
+        <th scope="col">Text field</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">X-small</th>
+        <td>
+          <button type="button" class="ui-button ui-outlined ui-x-small">
+            Save
+          </button>
+        </td>
+        <td class="todo-missing">
+          <label class="ui-checkbox ui-x-small"
+            ><input type="checkbox" checked /><span class="ui-label"
+              >Accept</span
+            ></label
+          >
+        </td>
+        <td class="todo-missing">
+          <span class="ui-chip ui-outlined ui-x-small">Tag</span>
+        </td>
+        <td class="todo-missing">
+          <label class="ui-radio ui-x-small"
+            ><input type="radio" name="now-radio-x-small" checked /><span
+              class="ui-label"
+              >Basic</span
+            ></label
+          >
+        </td>
+        <td>
+          <label class="ui-select ui-x-small"
+            ><span class="ui-label ui-sr-only" id="now-select-1">Fruit</span
+            ><span class="ui-field"
+              ><select aria-labelledby="now-select-1">
+                <button><selectedcontent></selectedcontent></button>
+                <div class="ui-list">
+                  <option>Apple</option>
+                  <option>Pear</option>
+                </div>
+              </select></span
+            ></label
+          >
+        </td>
+        <td class="todo-missing">
+          <label class="ui-switch ui-x-small"
+            ><input type="checkbox" role="switch" checked /><span
+              class="ui-label"
+              >Wi-Fi</span
+            ></label
+          >
+        </td>
+        <td>
+          <label class="ui-text-field ui-x-small"
+            ><span class="ui-label ui-sr-only">Name</span
+            ><span class="ui-field"
+              ><input type="text" placeholder="Name" /></span
+          ></label>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Small</th>
+        <td>
+          <button type="button" class="ui-button ui-outlined ui-small">
+            Save
+          </button>
+        </td>
+        <td>
+          <label class="ui-checkbox ui-small"
+            ><input type="checkbox" checked /><span class="ui-label"
+              >Accept</span
+            ></label
+          >
+        </td>
+        <td><span class="ui-chip ui-outlined ui-small">Tag</span></td>
+        <td>
+          <label class="ui-radio ui-small"
+            ><input type="radio" name="now-radio-small" checked /><span
+              class="ui-label"
+              >Basic</span
+            ></label
+          >
+        </td>
+        <td>
+          <label class="ui-select ui-small"
+            ><span class="ui-label ui-sr-only" id="now-select-2">Fruit</span
+            ><span class="ui-field"
+              ><select aria-labelledby="now-select-2">
+                <button><selectedcontent></selectedcontent></button>
+                <div class="ui-list">
+                  <option>Apple</option>
+                  <option>Pear</option>
+                </div>
+              </select></span
+            ></label
+          >
+        </td>
+        <td>
+          <label class="ui-switch ui-small"
+            ><input type="checkbox" role="switch" checked /><span
+              class="ui-label"
+              >Wi-Fi</span
+            ></label
+          >
+        </td>
+        <td>
+          <label class="ui-text-field ui-small"
+            ><span class="ui-label ui-sr-only">Name</span
+            ><span class="ui-field"
+              ><input type="text" placeholder="Name" /></span
+          ></label>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Default</th>
+        <td>
+          <button type="button" class="ui-button ui-outlined">Save</button>
+        </td>
+        <td>
+          <label class="ui-checkbox"
+            ><input type="checkbox" checked /><span class="ui-label"
+              >Accept</span
+            ></label
+          >
+        </td>
+        <td><span class="ui-chip ui-outlined">Tag</span></td>
+        <td>
+          <label class="ui-radio"
+            ><input type="radio" name="now-radio-default" checked /><span
+              class="ui-label"
+              >Basic</span
+            ></label
+          >
+        </td>
+        <td>
+          <label class="ui-select"
+            ><span class="ui-label ui-sr-only" id="now-select-3">Fruit</span
+            ><span class="ui-field"
+              ><select aria-labelledby="now-select-3">
+                <button><selectedcontent></selectedcontent></button>
+                <div class="ui-list">
+                  <option>Apple</option>
+                  <option>Pear</option>
+                </div>
+              </select></span
+            ></label
+          >
+        </td>
+        <td>
+          <label class="ui-switch"
+            ><input type="checkbox" role="switch" checked /><span
+              class="ui-label"
+              >Wi-Fi</span
+            ></label
+          >
+        </td>
+        <td>
+          <label class="ui-text-field"
+            ><span class="ui-label ui-sr-only">Name</span
+            ><span class="ui-field"
+              ><input type="text" placeholder="Name" /></span
+          ></label>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row">Large</th>
+        <td>
+          <button type="button" class="ui-button ui-outlined ui-large">
+            Save
+          </button>
+        </td>
+        <td>
+          <label class="ui-checkbox ui-large"
+            ><input type="checkbox" checked /><span class="ui-label"
+              >Accept</span
+            ></label
+          >
+        </td>
+        <td><span class="ui-chip ui-outlined ui-large">Tag</span></td>
+        <td>
+          <label class="ui-radio ui-large"
+            ><input type="radio" name="now-radio-large" checked /><span
+              class="ui-label"
+              >Basic</span
+            ></label
+          >
+        </td>
+        <td>
+          <label class="ui-select ui-large"
+            ><span class="ui-label ui-sr-only" id="now-select-4">Fruit</span
+            ><span class="ui-field"
+              ><select aria-labelledby="now-select-4">
+                <button><selectedcontent></selectedcontent></button>
+                <div class="ui-list">
+                  <option>Apple</option>
+                  <option>Pear</option>
+                </div>
+              </select></span
+            ></label
+          >
+        </td>
+        <td class="todo-missing">
+          <label class="ui-switch ui-large"
+            ><input type="checkbox" role="switch" checked /><span
+              class="ui-label"
+              >Wi-Fi</span
+            ></label
+          >
+        </td>
+        <td>
+          <label class="ui-text-field ui-large"
+            ><span class="ui-label ui-sr-only">Name</span
+            ><span class="ui-field"
+              ><input type="text" placeholder="Name" /></span
+          ></label>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h2 class="ui-h5">One scale: x-small, small, default, large everywhere</h2>
+  <div class="todo-unified">
+    <table class="todo-sizes">
+      <thead>
+        <tr>
+          <th scope="col">Size</th>
+          <th scope="col">Button</th>
+          <th scope="col">Checkbox</th>
+          <th scope="col">Chip</th>
+          <th scope="col">Radio</th>
+          <th scope="col">Select</th>
+          <th scope="col">Switch</th>
+          <th scope="col">Text field</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">X-small</th>
+          <td>
+            <button type="button" class="ui-button ui-outlined ui-x-small">
+              Save
+            </button>
+          </td>
+          <td class="todo-new">
+            <label class="ui-checkbox ui-x-small"
+              ><input type="checkbox" checked /><span class="ui-label"
+                >Accept</span
+              ></label
+            >
+          </td>
+          <td class="todo-new">
+            <span class="ui-chip ui-outlined ui-x-small">Tag</span>
+          </td>
+          <td class="todo-new">
+            <label class="ui-radio ui-x-small"
+              ><input type="radio" name="one-radio-x-small" checked /><span
+                class="ui-label"
+                >Basic</span
+              ></label
+            >
+          </td>
+          <td>
+            <label class="ui-select ui-x-small"
+              ><span class="ui-label ui-sr-only" id="one-select-5">Fruit</span
+              ><span class="ui-field"
+                ><select aria-labelledby="one-select-5">
+                  <button><selectedcontent></selectedcontent></button>
+                  <div class="ui-list">
+                    <option>Apple</option>
+                    <option>Pear</option>
+                  </div>
+                </select></span
+              ></label
+            >
+          </td>
+          <td class="todo-new">
+            <label class="ui-switch ui-x-small"
+              ><input type="checkbox" role="switch" checked /><span
+                class="ui-label"
+                >Wi-Fi</span
+              ></label
+            >
+          </td>
+          <td>
+            <label class="ui-text-field ui-x-small"
+              ><span class="ui-label ui-sr-only">Name</span
+              ><span class="ui-field"
+                ><input type="text" placeholder="Name" /></span
+            ></label>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Small</th>
+          <td>
+            <button type="button" class="ui-button ui-outlined ui-small">
+              Save
+            </button>
+          </td>
+          <td>
+            <label class="ui-checkbox ui-small"
+              ><input type="checkbox" checked /><span class="ui-label"
+                >Accept</span
+              ></label
+            >
+          </td>
+          <td><span class="ui-chip ui-outlined ui-small">Tag</span></td>
+          <td>
+            <label class="ui-radio ui-small"
+              ><input type="radio" name="one-radio-small" checked /><span
+                class="ui-label"
+                >Basic</span
+              ></label
+            >
+          </td>
+          <td>
+            <label class="ui-select ui-small"
+              ><span class="ui-label ui-sr-only" id="one-select-6">Fruit</span
+              ><span class="ui-field"
+                ><select aria-labelledby="one-select-6">
+                  <button><selectedcontent></selectedcontent></button>
+                  <div class="ui-list">
+                    <option>Apple</option>
+                    <option>Pear</option>
+                  </div>
+                </select></span
+              ></label
+            >
+          </td>
+          <td>
+            <label class="ui-switch ui-small"
+              ><input type="checkbox" role="switch" checked /><span
+                class="ui-label"
+                >Wi-Fi</span
+              ></label
+            >
+          </td>
+          <td>
+            <label class="ui-text-field ui-small"
+              ><span class="ui-label ui-sr-only">Name</span
+              ><span class="ui-field"
+                ><input type="text" placeholder="Name" /></span
+            ></label>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Default</th>
+          <td>
+            <button type="button" class="ui-button ui-outlined">Save</button>
+          </td>
+          <td>
+            <label class="ui-checkbox"
+              ><input type="checkbox" checked /><span class="ui-label"
+                >Accept</span
+              ></label
+            >
+          </td>
+          <td><span class="ui-chip ui-outlined">Tag</span></td>
+          <td>
+            <label class="ui-radio"
+              ><input type="radio" name="one-radio-default" checked /><span
+                class="ui-label"
+                >Basic</span
+              ></label
+            >
+          </td>
+          <td>
+            <label class="ui-select"
+              ><span class="ui-label ui-sr-only" id="one-select-7">Fruit</span
+              ><span class="ui-field"
+                ><select aria-labelledby="one-select-7">
+                  <button><selectedcontent></selectedcontent></button>
+                  <div class="ui-list">
+                    <option>Apple</option>
+                    <option>Pear</option>
+                  </div>
+                </select></span
+              ></label
+            >
+          </td>
+          <td>
+            <label class="ui-switch"
+              ><input type="checkbox" role="switch" checked /><span
+                class="ui-label"
+                >Wi-Fi</span
+              ></label
+            >
+          </td>
+          <td>
+            <label class="ui-text-field"
+              ><span class="ui-label ui-sr-only">Name</span
+              ><span class="ui-field"
+                ><input type="text" placeholder="Name" /></span
+            ></label>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Large</th>
+          <td>
+            <button type="button" class="ui-button ui-outlined ui-large">
+              Save
+            </button>
+          </td>
+          <td>
+            <label class="ui-checkbox ui-large"
+              ><input type="checkbox" checked /><span class="ui-label"
+                >Accept</span
+              ></label
+            >
+          </td>
+          <td><span class="ui-chip ui-outlined ui-large">Tag</span></td>
+          <td>
+            <label class="ui-radio ui-large"
+              ><input type="radio" name="one-radio-large" checked /><span
+                class="ui-label"
+                >Basic</span
+              ></label
+            >
+          </td>
+          <td>
+            <label class="ui-select ui-large"
+              ><span class="ui-label ui-sr-only" id="one-select-8">Fruit</span
+              ><span class="ui-field"
+                ><select aria-labelledby="one-select-8">
+                  <button><selectedcontent></selectedcontent></button>
+                  <div class="ui-list">
+                    <option>Apple</option>
+                    <option>Pear</option>
+                  </div>
+                </select></span
+              ></label
+            >
+          </td>
+          <td class="todo-new">
+            <label class="ui-switch ui-large"
+              ><input type="checkbox" role="switch" checked /><span
+                class="ui-label"
+                >Wi-Fi</span
+              ></label
+            >
+          </td>
+          <td>
+            <label class="ui-text-field ui-large"
+              ><span class="ui-label ui-sr-only">Name</span
+              ><span class="ui-field"
+                ><input type="text" placeholder="Name" /></span
+            ></label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h2 class="ui-h5">A form row with <code>x-small</code> on everything</h2>
+  <p class="ui-caption">Today</p>
+  <div class="todo-form-row">
+    <button type="button" class="ui-button ui-outlined ui-x-small">Save</button
+    ><label class="ui-checkbox ui-x-small"
+      ><input type="checkbox" checked /><span class="ui-label"
+        >Accept</span
+      ></label
+    ><span class="ui-chip ui-outlined ui-x-small">Tag</span
+    ><label class="ui-radio ui-x-small"
+      ><input type="radio" name="now-row-radio-x-small" checked /><span
+        class="ui-label"
+        >Basic</span
+      ></label
+    ><label class="ui-select ui-x-small"
+      ><span class="ui-label ui-sr-only" id="now-row-select-9">Fruit</span
+      ><span class="ui-field"
+        ><select aria-labelledby="now-row-select-9">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Apple</option>
+            <option>Pear</option>
+          </div>
+        </select></span
+      ></label
+    ><label class="ui-switch ui-x-small"
+      ><input type="checkbox" role="switch" checked /><span class="ui-label"
+        >Wi-Fi</span
+      ></label
+    ><label class="ui-text-field ui-x-small"
+      ><span class="ui-label ui-sr-only">Name</span
+      ><span class="ui-field"><input type="text" placeholder="Name" /></span
+    ></label>
+  </div>
+  <p class="ui-caption">One scale</p>
+  <div class="todo-unified">
+    <div class="todo-form-row">
+      <button type="button" class="ui-button ui-outlined ui-x-small">
+        Save</button
+      ><label class="ui-checkbox ui-x-small"
+        ><input type="checkbox" checked /><span class="ui-label"
+          >Accept</span
+        ></label
+      ><span class="ui-chip ui-outlined ui-x-small">Tag</span
+      ><label class="ui-radio ui-x-small"
+        ><input type="radio" name="one-row-radio-x-small" checked /><span
+          class="ui-label"
+          >Basic</span
+        ></label
+      ><label class="ui-select ui-x-small"
+        ><span class="ui-label ui-sr-only" id="one-row-select-10">Fruit</span
+        ><span class="ui-field"
+          ><select aria-labelledby="one-row-select-10">
+            <button><selectedcontent></selectedcontent></button>
+            <div class="ui-list">
+              <option>Apple</option>
+              <option>Pear</option>
+            </div>
+          </select></span
+        ></label
+      ><label class="ui-switch ui-x-small"
+        ><input type="checkbox" role="switch" checked /><span class="ui-label"
+          >Wi-Fi</span
+        ></label
+      ><label class="ui-text-field ui-x-small"
+        ><span class="ui-label ui-sr-only">Name</span
+        ><span class="ui-field"><input type="text" placeholder="Name" /></span
+      ></label>
+    </div>
+  </div>
+</div>

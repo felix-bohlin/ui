@@ -104,6 +104,24 @@ export const propRows = (api: ComponentApi, framework: ComponentFramework) => {
   ].sort(byName)
 }
 
+export const hydrationRows = (
+  api: ComponentApi,
+  framework: ComponentFramework,
+) => {
+  const model = frameworks[framework].model
+  return [
+    ...(api.hydration?.[framework] ?? []),
+    ...(model
+      ? modelsFor(api, framework).map((entry) => ({
+          description:
+            "The bound value only updates on the client. The native control still changes and submits with its form.",
+          fallback: "Read the value from the form instead.",
+          prop: model(entry.prop),
+        }))
+      : []),
+  ].sort((a, b) => a.prop.localeCompare(b.prop))
+}
+
 export const slotRows = (api: ComponentApi, framework: ComponentFramework) =>
   slotNames(api, framework)
     .map((name) => ({

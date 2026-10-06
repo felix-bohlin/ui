@@ -56,7 +56,7 @@ import { Tabs } from "opui-css/astro"
 
 ## Filled
 
-Use `variant="filled"` (`.ui-filled`) to fill the selected tab with the primary color.
+Use `variant="filled"` to fill the selected tab with the primary color.
 
 ```astro
 ---
@@ -82,7 +82,7 @@ import { Tabs } from "opui-css/astro"
 
 ## Line
 
-Use `variant="line"` (`.ui-line`) for tabs without a background, marking the selected tab with a line.
+Use `variant="line"` for tabs without a background, marking the selected tab with a line.
 
 ```astro
 ---
@@ -108,7 +108,7 @@ import { Tabs } from "opui-css/astro"
 
 ## Outlined
 
-Use `variant="outlined"` (`.ui-outlined`) for a bordered track without a background.
+Use `variant="outlined"` for a bordered track without a background.
 
 ```astro
 ---
@@ -134,7 +134,7 @@ import { Tabs } from "opui-css/astro"
 
 ## Scrollable
 
-Tabs wrap onto more rows when they don't fit. Use `scrollable` (`.ui-scrollable`) to keep them on one row and scroll them sideways instead. The open panel stays in view, and up to 20 tabs are supported. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
+Tabs wrap onto more rows when they don't fit. Use `scrollable` to keep them on one row and scroll them sideways instead. The open panel stays in view, and up to 20 tabs are supported. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
 
 ```astro
 ---
@@ -184,7 +184,7 @@ Tabs are radio buttons. Each tab is a radio input with a label, and the panel af
 
 There are no `tablist`, `tab` or `tabpanel` roles. ARIA tabs promise focusable tabs with a selected state, and radio inputs can't keep that promise without JavaScript. Native radios get group management and keyboard support for free.
 
-To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby`) to `.ui-tabs`.
+To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby`) to `Tabs`.
 
 | Element | Attribute | Description                                                |
 | ------- | --------- | ---------------------------------------------------------- |
@@ -355,7 +355,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 3. Hide radios
 
    - Visually hidden, still focusable: arrow keys move between tabs
-   - Focus ring drawn on the label
+   - Focus ring on the label, for now
 
 4. Segmented
 
@@ -363,11 +363,13 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
    - The pill is a `::before` inset from the track
    - `:nth-child(1 of .tab-label)` finds the first label among the radios and panels
    - Inner radius = outer radius − inset
+   - Logical radii round the ends in right-to-left too
+   - The focus ring moves onto the pill
 
 Step 1 of 4: Radios
 
 ```html
-<div class="tabs">
+<div aria-label="Account" class="tabs" role="radiogroup">
   <input class="tab-input" type="radio" name="tabs" id="tab-1" checked />
   <label class="tab-label" for="tab-1">Profile</label>
   <div class="tab-panel">…</div>
@@ -409,6 +411,9 @@ Step 2 of 4: Order
 
 Step 3 of 4: Hide radios
 
+- [`clip-path` ](https://webstatus.dev/features/clip-path)(Widely available): Chrome 88+, Edge 88+, Firefox 71+, Safari 13.1+
+- [`:focus-visible` ](https://webstatus.dev/features/focus-visible)(Widely available): Chrome 86+, Edge 86+, Firefox 85+, Safari 15.4+
+
 ```css
 .tab-input {
   block-size: 1px;
@@ -426,6 +431,9 @@ Step 3 of 4: Hide radios
 ```
 
 Step 4 of 4: Segmented
+
+- [`isolation` ](https://webstatus.dev/features/isolation)(Widely available): Chrome 41+, Edge 79+, Firefox 36+, Safari 8+
+- [`:nth-child() of <selector>` ](https://webstatus.dev/features/nth-child-of)(Widely available): Chrome 111+, Edge 111+, Firefox 113+, Safari 9+
 
 ```css
 .tab-label {
@@ -447,7 +455,8 @@ Step 4 of 4: Segmented
 
 
 .tab-label:nth-child(1 of .tab-label) {
-  border-radius: var(--radius) 0 0 var(--radius);
+  border-end-start-radius: var(--radius);
+  border-start-start-radius: var(--radius);
   padding-inline-start: calc(0.75rem + var(--inset));
 
 
@@ -458,7 +467,8 @@ Step 4 of 4: Segmented
 
 
 .tab-label:nth-last-child(1 of .tab-label) {
-  border-radius: 0 var(--radius) var(--radius) 0;
+  border-end-end-radius: var(--radius);
+  border-start-end-radius: var(--radius);
   padding-inline-end: calc(0.75rem + var(--inset));
 
 
@@ -471,6 +481,16 @@ Step 4 of 4: Segmented
 .tab-input:checked + .tab-label::before {
   background-color: var(--surface-default);
   box-shadow: var(--shadow-1);
+}
+
+
+.tab-input:focus-visible + .tab-label {
+  outline: none;
+}
+
+
+.tab-input:focus-visible + .tab-label::before {
+  outline: 2px solid var(--text-muted);
 }
 ```
 

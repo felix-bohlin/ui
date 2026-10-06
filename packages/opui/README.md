@@ -106,7 +106,7 @@ Drop a pre-bundled stylesheet into any page and use the documented class names:
 <button class="ui-button ui-primary">Click me</button>
 ```
 
-`dist/opui.css` is a single self-contained file (Open Props + palette + theme + normalize + every component + utils, in the correct cascade layers). `dist/opui.components.css` has only the layer order and the component styles. The components need Open Props, `core/palette.css` and `css/theme.css` to look right, and `core/utils.css` holds `.ui-sr-only`, the motion and contrast classes and the `Checkbox`/`Radio` hover halo, so load those yourself when you use it.
+`dist/opui.css` is a single self-contained file (Open Props + palette + theme + normalize + every component + utils, in the correct cascade layers). `dist/opui.components.css` has only the layer order and the component styles. The components need Open Props, `core/palette.css` and `css/theme.css` to look right, and `core/utils.css` holds `.ui-sr-only` and the motion and contrast classes, so load those yourself when you use it.
 
 If you do have a bundler that resolves CSS `@import`s (Vite, Astro, webpack, …), import the source instead so you only ship what you use:
 

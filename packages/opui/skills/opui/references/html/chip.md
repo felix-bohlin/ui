@@ -177,7 +177,7 @@ Make sure the text is wrapped in the `.ui-text` wrapper class.
 
 ## Disabled
 
-Add disabled styling with the `disabled` attribute, `aria-disabled="true"` or the `.ui-disabled` class.
+Disable a button chip with the `disabled` attribute, and use `aria-disabled="true"` on a link chip. A static `<div class="ui-chip">` can't be disabled, so the `.ui-disabled` class just dims it.
 
 ```html
 <div class="example-row">
@@ -194,11 +194,12 @@ Add disabled styling with the `disabled` attribute, `aria-disabled="true"` or th
 
 ### Chip API
 
-| Type     | Modifiers                   | Default     | Description                            |
-| -------- | --------------------------- | ----------- | -------------------------------------- |
-| Layout   | `.ui-multiline`             | -           | Lets the label wrap to multiple lines. |
-| Sizes    | `.ui-large`, `.ui-small`    | -           | The size of the element.               |
-| Variants | `.ui-outlined`, `.ui-tonal` | `.ui-tonal` | The variant to use.                    |
+| Type     | Modifiers                   | Default     | Description                                                                |
+| -------- | --------------------------- | ----------- | -------------------------------------------------------------------------- |
+| Layout   | `.ui-multiline`             | -           | Lets the label wrap to multiple lines.                                     |
+| Sizes    | `.ui-large`, `.ui-small`    | -           | The size of the element.                                                   |
+| State    | `.ui-disabled`              | -           | Dims a static chip. Only changes the look. Use `disabled` on button chips. |
+| Variants | `.ui-outlined`, `.ui-tonal` | `.ui-tonal` | The variant to use.                                                        |
 
 #### Parts
 
@@ -265,7 +266,7 @@ Step 1 of 4: Base
 </div>
 
 
-<button class="chip">…</button>
+<button class="chip" type="button">…</button>
 ```
 
 ```css

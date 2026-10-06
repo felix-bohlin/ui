@@ -62,6 +62,16 @@ import { Button } from "opui-css/vue"
 </template>
 ```
 
+## Server rendering
+
+Without hydration (Nuxt, or Astro with `@astrojs/vue` and no `client:*` directive), every component renders complete HTML. The native controls work and submit with their form. A few things only update on the client:
+
+- [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md#indeterminate) `indeterminate`: it's a DOM property, so the box looks unchecked. Or call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.
+- [Range](https://open-props-ui.netlify.app/vue/components/range.md#value) value: the `<output>` doesn't follow the thumb. The track fill is CSS, so it's fine.
+- `v-model` on [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md), [Classic select](https://open-props-ui.netlify.app/vue/components/select.md#classic-select), [Radio](https://open-props-ui.netlify.app/vue/components/radio.md), [Range](https://open-props-ui.netlify.app/vue/components/range.md), [Select](https://open-props-ui.netlify.app/vue/components/select.md), [Switch](https://open-props-ui.netlify.app/vue/components/switch.md), [Text field](https://open-props-ui.netlify.app/vue/components/text-field.md) and [Textarea](https://open-props-ui.netlify.app/vue/components/textarea.md): the ref stays put. The native value still changes and submits.
+
+Hydrate those (`client:load` in Astro) or use them in a client-rendered Vue app. Component pages say what needs hydration next to the browser support chips, and the API tables mark each prop with a crossed-out server icon.
+
 ## Theming
 
 The basic idea is to pick one hue and chroma, and derive a 16-step palette from them. `theme.css` sets `--palette-hue` and `--palette-chroma`, and `core/palette.css` turns them into a source color, `--palette-source`, and the `--color-1` to `--color-16` steps.
@@ -78,7 +88,9 @@ The basic idea is to pick one hue and chroma, and derive a 16-step palette from 
 - **`--palette-chroma`** scales the saturation, from `0` (gray) to `1`.
 - **`--palette-hue-rotate-by`** is a separate knob for per-step warm/cool drift, in degrees.
 
-You can also set `--palette-source` directly (it must be an `oklch()` color), and you can override it anywhere you want for useful or cool effect:
+You can also set `--palette-source` directly (it must be an `oklch()` color). Set it on `:root`, or on an element with `.ui-palette` to re-theme that part of the page. Anywhere else it has no effect: the palette is computed where `core/palette.css` declares it and only inherited from there. The same goes for `--palette-hue`, `--palette-chroma` and `--palette-hue-rotate-by`.
+
+This is how the severity classes get their colors:
 
 ```css
 :where(.ui-warning) {

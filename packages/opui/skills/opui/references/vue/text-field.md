@@ -522,20 +522,20 @@ No. But you get some accessibility wins for free with `<label>`. It's recommende
 
 ### Text field API
 
-| Prop          | Type                                | Default      | Description                                                               |
-| ------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `autoFit`     | `boolean`                           | `false`      | Changes size depending on its content.                                    |
-| `description` | `string`                            | -            | Description text displayed above the field.                               |
-| `endText`     | `string`                            | -            | Supporting text displayed below the field.                                |
-| `error`       | `boolean`                           | `false`      | Shows error styles.                                                       |
-| `id`          | `string`                            | -            | The id of the `<input>`.                                                  |
-| `label`       | `string`                            | -            | The label for the field.                                                  |
-| `size`        | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                  |
-| `spread`      | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
-| `startText`   | `string`                            | -            | Legacy alias of `description`.                                            |
-| `type`        | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
-| `v-model`     | `string` , `number`                 | -            | The input value.                                                          |
-| `variant`     | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                       |
+| Prop                                                                                                                                                                        | Type                                | Default      | Description                                                               |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `autoFit`                                                                                                                                                                   | `boolean`                           | `false`      | Changes size depending on its content.                                    |
+| `description`                                                                                                                                                               | `string`                            | -            | Description text displayed above the field.                               |
+| `endText`                                                                                                                                                                   | `string`                            | -            | Supporting text displayed below the field.                                |
+| `error`                                                                                                                                                                     | `boolean`                           | `false`      | Shows error styles.                                                       |
+| `id`                                                                                                                                                                        | `string`                            | -            | The id of the `<input>`.                                                  |
+| `label`                                                                                                                                                                     | `string`                            | -            | The label for the field.                                                  |
+| `size`                                                                                                                                                                      | `"x-small"` , `"small"` , `"large"` | -            | The size of the element.                                                  |
+| `spread`                                                                                                                                                                    | `boolean`                           | `false`      | Pushes the label and description to one side and the input to the other.  |
+| `startText`                                                                                                                                                                 | `string`                            | -            | Legacy alias of `description`.                                            |
+| `type`                                                                                                                                                                      | `"numeric"` , `string`              | `"text"`     | The input type. `"numeric"` renders a text input with a numeric keyboard. |
+| `v-model` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number`                 | -            | The input value.                                                          |
+| `variant`                                                                                                                                                                   | `"outlined"` , `"filled"`           | `"outlined"` | The variant to use.                                                       |
 
 #### Slots
 
@@ -631,6 +631,7 @@ Step 1 of 4: Wrapper
   --accent: var(--primary);
   --border: var(--field-border-color);
   --helper: var(--field-helper-color);
+  --label: var(--text-muted);
 
 
   display: grid;
@@ -704,7 +705,7 @@ Step 2 of 4: Affixes
 .prefix,
 .suffix {
   align-items: center;
-  color: var(--text-muted);
+  color: var(--label);
   display: inline-flex;
   padding-inline: 0.5rem;
 }
@@ -749,6 +750,7 @@ Step 4 of 4: Validation
   --accent: var(--invalid-color);
   --border: var(--invalid-color);
   --helper: var(--invalid-text-color);
+  --label: var(--invalid-text-color);
 }
 ```
 

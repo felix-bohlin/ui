@@ -127,7 +127,7 @@ Use the `dense` prop to pack the options tighter.
 
 ## End text
 
-`.ui-end-text`: end text element
+Use `endText` for supporting text below the select.
 
 ```svelte
 <script lang="ts">
@@ -427,24 +427,24 @@ Bog-standard native HTML `<select>` without customized option list. Use it when 
 
 ### Select API
 
-| Prop          | Type                                         | Default      | Description                                                               |
-| ------------- | -------------------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `bind:value`  | `string` , `number` , `(string \| number)[]` | -            | The selected value, or values with `multiple`.                            |
-| `children`    | `Snippet`                                    | -            | Extra `<option>` and `<optgroup>` elements.                               |
-| `dense`       | `boolean`                                    | `false`      | Packs the options tighter.                                                |
-| `description` | `string` , `Snippet`                         | -            | Description text displayed above the field.                               |
-| `endText`     | `string` , `Snippet`                         | -            | Supporting text displayed below the field.                                |
-| `error`       | `boolean`                                    | `false`      | Shows error styles.                                                       |
-| `footer`      | `string` , `Snippet`                         | -            | Content below the select, inside the border, with a divider.              |
-| `header`      | `string` , `Snippet`                         | -            | Content above the select, inside the border, with a divider.              |
-| `id`          | `string`                                     | -            | The id of the `<select>`.                                                 |
-| `items`       | `Item[]`                                     | `[]`         | The options, as `{ selected, text, value }` objects.                      |
-| `label`       | `string` , `Snippet`                         | -            | The label for the field.                                                  |
-| `prefix`      | `string` , `Snippet`                         | -            | Content at the inline-start of the field, inside the border.              |
-| `size`        | `"x-small"` , `"small"` , `"large"`          | -            | The size of the element.                                                  |
-| `spread`      | `boolean`                                    | `false`      | Pushes the label and description to one side and the select to the other. |
-| `suffix`      | `string` , `Snippet`                         | -            | Content at the inline-end of the field, inside the border.                |
-| `variant`     | `"outlined"` , `"filled"`                    | `"outlined"` | The variant to use.                                                       |
+| Prop                                                                                                                                                                           | Type                                         | Default      | Description                                                               |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number` , `(string \| number)[]` | -            | The selected value, or values with `multiple`.                            |
+| `children`                                                                                                                                                                     | `Snippet`                                    | -            | Extra `<option>` and `<optgroup>` elements.                               |
+| `dense`                                                                                                                                                                        | `boolean`                                    | `false`      | Packs the options tighter.                                                |
+| `description`                                                                                                                                                                  | `string` , `Snippet`                         | -            | Description text displayed above the field.                               |
+| `endText`                                                                                                                                                                      | `string` , `Snippet`                         | -            | Supporting text displayed below the field.                                |
+| `error`                                                                                                                                                                        | `boolean`                                    | `false`      | Shows error styles.                                                       |
+| `footer`                                                                                                                                                                       | `string` , `Snippet`                         | -            | Content below the select, inside the border, with a divider.              |
+| `header`                                                                                                                                                                       | `string` , `Snippet`                         | -            | Content above the select, inside the border, with a divider.              |
+| `id`                                                                                                                                                                           | `string`                                     | -            | The id of the `<select>`.                                                 |
+| `items`                                                                                                                                                                        | `Item[]`                                     | `[]`         | The options, as `{ selected, text, value }` objects.                      |
+| `label`                                                                                                                                                                        | `string` , `Snippet`                         | -            | The label for the field.                                                  |
+| `prefix`                                                                                                                                                                       | `string` , `Snippet`                         | -            | Content at the inline-start of the field, inside the border.              |
+| `size`                                                                                                                                                                         | `"x-small"` , `"small"` , `"large"`          | -            | The size of the element.                                                  |
+| `spread`                                                                                                                                                                       | `boolean`                                    | `false`      | Pushes the label and description to one side and the select to the other. |
+| `suffix`                                                                                                                                                                       | `string` , `Snippet`                         | -            | Content at the inline-end of the field, inside the border.                |
+| `variant`                                                                                                                                                                      | `"outlined"` , `"filled"`                    | `"outlined"` | The variant to use.                                                       |
 
 #### CSS variables
 
@@ -489,17 +489,17 @@ Attributes that aren't props, such as `disabled` or `name`, go to the `<select>`
 
 ### Classic select API
 
-| Prop         | Type                                         | Default      | Description                                       |
-| ------------ | -------------------------------------------- | ------------ | ------------------------------------------------- |
-| `bind:value` | `string` , `number` , `(string \| number)[]` | -            | The selected value, or values with `multiple`.    |
-| `children`   | `Snippet`                                    | -            | Extra `<option>` and `<optgroup>` elements.       |
-| `endText`    | `string`                                     | -            | Supporting text displayed below the field.        |
-| `error`      | `boolean`                                    | `false`      | Shows error styles.                               |
-| `id`         | `string`                                     | -            | The id of the `<select>`. Generated when omitted. |
-| `items`      | `Item[]`                                     | `[]`         | The options, as `{ text, value }` objects.        |
-| `label`      | `string`                                     | -            | The label for the field.                          |
-| `size`       | `"x-small"` , `"small"` , `"large"`          | -            | The size of the element.                          |
-| `variant`    | `"outlined"` , `"filled"`                    | `"outlined"` | The variant to use.                               |
+| Prop                                                                                                                                                                           | Type                                         | Default      | Description                                       |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- | ------------ | ------------------------------------------------- |
+| `bind:value` **Needs hydration** The bound value only updates on the client. The native control still changes and submits with its form. Read the value from the form instead. | `string` , `number` , `(string \| number)[]` | -            | The selected value, or values with `multiple`.    |
+| `children`                                                                                                                                                                     | `Snippet`                                    | -            | Extra `<option>` and `<optgroup>` elements.       |
+| `endText`                                                                                                                                                                      | `string`                                     | -            | Supporting text displayed below the field.        |
+| `error`                                                                                                                                                                        | `boolean`                                    | `false`      | Shows error styles.                               |
+| `id`                                                                                                                                                                           | `string`                                     | -            | The id of the `<select>`. Generated when omitted. |
+| `items`                                                                                                                                                                        | `Item[]`                                     | `[]`         | The options, as `{ text, value }` objects.        |
+| `label`                                                                                                                                                                        | `string`                                     | -            | The label for the field.                          |
+| `size`                                                                                                                                                                         | `"x-small"` , `"small"` , `"large"`          | -            | The size of the element.                          |
+| `variant`                                                                                                                                                                      | `"outlined"` , `"filled"`                    | `"outlined"` | The variant to use.                               |
 
 #### CSS variables
 
@@ -616,6 +616,7 @@ selectedcontent {
 
 Step 2 of 4: Arrow
 
+- [Individual transform properties ](https://webstatus.dev/features/individual-transforms)(Widely available): Chrome 104+, Edge 104+, Firefox 72+, Safari 14.1+
 - [`:open` ](https://webstatus.dev/features/open-pseudo)(Newly available): Chrome 133+, Edge 133+, Firefox 136+, Safari 26.5+
 
 ```css
@@ -684,6 +685,7 @@ Step 3 of 4: Picker
 
 Step 4 of 4: Animate
 
+- [Individual transform properties ](https://webstatus.dev/features/individual-transforms)(Widely available): Chrome 104+, Edge 104+, Firefox 72+, Safari 14.1+
 - [`@starting-style` ](https://webstatus.dev/features/starting-style)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.5+
 - [`transition-behavior` ](https://webstatus.dev/features/transition-behavior)(Newly available): Chrome 117+, Edge 117+, Firefox 129+, Safari 17.4+
 

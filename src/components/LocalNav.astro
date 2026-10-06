@@ -95,9 +95,11 @@ const { sidebarDrawerId, showToc = true } = Astro.props
     }
 
     &::before {
-      animation: fade-bg linear both;
+      animation-fill-mode: both;
+      animation-name: fade-bg;
       animation-range: 0 150px;
       animation-timeline: scroll();
+      animation-timing-function: linear;
       background-color: var(--surface-elevated);
       border: var(--border-width) solid oklch(from var(--primary) l c h / 0.2);
       border-block-end: var(--border-width) solid

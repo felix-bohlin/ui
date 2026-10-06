@@ -12,6 +12,7 @@ import fieldGroupApi from "../../component-api/field-group/api"
 import switchApi from "../../component-api/switch/api"
 
 import Conditional from "../../components/Conditional.astro"
+import PropOrClass from "../../components/PropOrClass.astro"
 import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 ---
 
@@ -66,13 +67,32 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 
   <section>
     <h2 id="basics">Basics</h2>
-    <p>
-      All switches should have an accessible name. Put the label text inside the
-      component, also when there's no visible label: use <code>.ui-sr-only</code
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >All switches should have an accessible name. Put the label text inside
+        the component, also when there's no visible label: set <code
+          >hideLabel</code
+        > to hide it visually.</Fragment
       >
-      instead of <code>.ui-label</code>, or the <code>hideLabel</code> prop in Astro,
-      Svelte and Vue.
-    </p>
+      <Fragment slot="html"
+        >All switches should have an accessible name. Put the label text inside
+        the component, also when there's no visible label: use <code
+          >.ui-sr-only</code
+        > instead of <code>.ui-label</code>.</Fragment
+      >
+      <Fragment slot="svelte"
+        >All switches should have an accessible name. Put the label text inside
+        the component, also when there's no visible label: set <code
+          >hideLabel</code
+        > to hide it visually.</Fragment
+      >
+      <Fragment slot="vue"
+        >All switches should have an accessible name. Put the label text inside
+        the component, also when there's no visible label: set <code
+          >hideLabel</code
+        > to hide it visually.</Fragment
+      >
+    </Conditional>
 
     <AutoExample name="Variants" row />
   </section>
@@ -102,13 +122,32 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
 
   <section>
     <h2 id="visible-label">Visible label</h2>
-    <p>
-      Render the label text inside an element with a <code>.ui-label</code> class.
-      Also, don't miss the info on label <a
-        href="#accessibility"
-        class="ui-link">accessibility</a
-      >.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >The default slot is the label. Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
+      >
+      <Fragment slot="html"
+        >Render the label text inside an element with a <code>.ui-label</code> class.
+        Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
+      >
+      <Fragment slot="svelte"
+        >The <code>children</code> snippet is the label. Also, don't miss the info
+        on label <a href="#accessibility" class="ui-link">accessibility</a
+        >.</Fragment
+      >
+      <Fragment slot="vue"
+        >The default slot is the label. Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
+      >
+    </Conditional>
 
     <AutoExample name="VisibleLabel" column centered />
 
@@ -322,22 +361,44 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
       <tbody>
         <tr>
           <td>Provide a label inside the element</td>
-          <td
-            >Use a <code>.ui-label</code> child for a <a
-              href="#visible-label"
-              class="ui-link">visible label</a
-            >, or a <code>.ui-sr-only</code> child to hide it visually while keeping
-            it accessible. In Astro, Svelte and Vue, set the <code
-              >hideLabel</code
-            >
-            prop to render the label as <code>.ui-sr-only</code>.</td
-          >
+          <td>
+            <Conditional>
+              <Fragment slot="astro"
+                >The default slot is the <a
+                  href="#visible-label"
+                  class="ui-link">visible label</a
+                >. Set <code>hideLabel</code> to hide it visually while keeping it
+                accessible.</Fragment
+              >
+              <Fragment slot="html"
+                >Use a <code>.ui-label</code> child for a <a
+                  href="#visible-label"
+                  class="ui-link">visible label</a
+                >, or a <code>.ui-sr-only</code> child to hide it visually while keeping
+                it accessible.</Fragment
+              >
+              <Fragment slot="svelte"
+                >The <code>children</code> snippet is the <a
+                  href="#visible-label"
+                  class="ui-link">visible label</a
+                >. Set <code>hideLabel</code> to hide it visually while keeping it
+                accessible.</Fragment
+              >
+              <Fragment slot="vue"
+                >The default slot is the <a
+                  href="#visible-label"
+                  class="ui-link">visible label</a
+                >. Set <code>hideLabel</code> to hide it visually while keeping it
+                accessible.</Fragment
+              >
+            </Conditional>
+          </td>
         </tr>
         <tr>
           <td>Add an <code>aria-label</code> on the input</td>
           <td
-            >Not used. Use a <code>.ui-sr-only</code> label instead, also for icon-only
-            switches.</td
+            >Not used. Use <PropOrClass prop="hideLabel" class=".ui-sr-only" /> instead,
+            also for icon-only switches.</td
           >
         </tr>
         <tr>

@@ -2,6 +2,26 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Checkbox",
+  hydration: {
+    svelte: [
+      {
+        description:
+          "A DOM property, set in an `{@attach}`. The server renders `data-indeterminate`, but the box looks unchecked until hydration.",
+        fallback:
+          "Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.",
+        prop: "indeterminate",
+      },
+    ],
+    vue: [
+      {
+        description:
+          "A DOM property, set in `watchPostEffect`. The server renders `data-indeterminate`, but the box looks unchecked until hydration.",
+        fallback:
+          "Call `activateIndeterminate()` from `opui-css/css/js/checkbox.js`.",
+        prop: "indeterminate",
+      },
+    ],
+  },
   model: {
     description: "The checked state, or the checked values of a group.",
     frameworks: {

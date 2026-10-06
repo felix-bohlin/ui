@@ -486,6 +486,7 @@ Everything at once.
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                            |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
 | `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
@@ -513,6 +514,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                            |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
 | `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
@@ -539,6 +541,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                            |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
 | `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
@@ -564,6 +567,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                            |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
 | `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
@@ -591,6 +595,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--field-label-color`        | `var(--text-primary)`                                                                   | Text color for field labels.                                                                                              |
 | `--field-label-font-weight`  | `var(--font-weight-semibold)`                                                           | Font weight for emphasized field labels and legends.                                                                      |
 | `--field-required-color`     | `var(--invalid-text-color)`                                                             | Color of the required asterisk.                                                                                           |
+| `--focus-ring-offset`        | `2px`                                                                                   | Distance between a control and its focus ring.                                                                            |
 | `--focus-ring-width`         | `2px`                                                                                   | Width of the focus ring.                                                                                                  |
 | `--font-size-05`             | `0.875rem`                                                                              | A font size between Open Props `--font-size-0` and `--font-size-1`, used for labels and compact text.                     |
 | `--invalid-color`            | `var(--critical)`                                                                       | Color for invalid field borders, fills and outlines.                                                                      |
@@ -673,6 +678,8 @@ Step 2 of 4: Description
 ```
 
 Step 3 of 4: Groups
+
+- [`:not()` ](https://webstatus.dev/features/not)(Widely available): Chrome 88+, Edge 88+, Firefox 84+, Safari 9+
 
 ```css
 .group {

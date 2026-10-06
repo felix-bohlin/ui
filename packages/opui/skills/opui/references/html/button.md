@@ -7,7 +7,7 @@ Buttons do things, like saving a form or opening a dialog. For filters, tags and
 - [Icon-only](#icon-only) buttons are square. `.ui-rounded` makes them round and `.ui-ripple` adds a hover halo.
 - Replaces `IconButton`.
 - Wrap the label in a `<span>` to [tighten the padding](#buttons-with-icon-and-label) next to an icon.
-- Links with `.ui-disabled` or `aria-disabled="true"` look and act disabled.
+- Links with `aria-disabled="true"` look and act disabled.
 - [Primary and critical](#colors) colors pass contrast in light and dark mode.
 - Breaking: buttons render `type="button"` by default. Pass `type="submit"` for submit buttons.
 
@@ -399,7 +399,7 @@ A button whose only child is an `svg` is square. Give it an `aria-label`. Add `.
 
 ## Disabled
 
-Add disabled styling with the `disabled` attribute or the `.ui-disabled` class. Links can't be disabled, so use `aria-disabled="true"` on an `<a>`, which blocks clicks. The link can still be focused and followed with `Enter`.
+Disable the button with the `disabled` attribute. Links can't be disabled, so use `aria-disabled="true"` on an `<a>`, which blocks clicks. The link can still be focused and followed with `Enter`.
 
 ```html
 <div class="example-row">
@@ -614,7 +614,7 @@ Step 2 of 4: Icon-only
 Step 3 of 4: Icon side
 
 ```html
-<button class="button">
+<button class="button" type="button">
   <svg>…</svg>
   <span>Download</span>
 </button>
@@ -632,6 +632,9 @@ Step 3 of 4: Icon side
 ```
 
 Step 4 of 4: Ripple
+
+- [`clip-path` ](https://webstatus.dev/features/clip-path)(Widely available): Chrome 88+, Edge 88+, Firefox 71+, Safari 13.1+
+- [3D transforms ](https://webstatus.dev/features/transforms3d)(Widely available): Chrome 36+, Edge 12+, Firefox 16+, Safari 15.4+
 
 ```css
 .ripple {

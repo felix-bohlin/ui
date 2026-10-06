@@ -124,6 +124,10 @@
       rotate: 90deg;
     }
 
+    &.ui-marker-turn:dir(rtl) > summary svg {
+      scale: -1 1;
+    }
+
     &.ui-marker-turn[open]:dir(rtl) > summary svg {
       rotate: -90deg;
     }

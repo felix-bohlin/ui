@@ -7,6 +7,7 @@ Buttons (disguised as input checkbox/radio) that can be toggled on and off. Use 
 - [Large](#sizes) size with `.ui-large`.
 - [Small and x-small](#sizes) toggles use smaller text, like `Button`.
 - [Groups wrap](#overflow) when they don't fit, or scrolls with `.ui-scrollable` or truncates with `.ui-shrink`.
+- Breaking: no `.ui-disabled`. A toggle looks disabled when its input is `disabled`.
 
 ## Anatomy
 
@@ -473,7 +474,7 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | Type  | Modifiers                                       | Default                  | Description                                                |
 | ----- | ----------------------------------------------- | ------------------------ | ---------------------------------------------------------- |
 | Sizes | `.ui-large`, `.ui-small`, `.ui-x-small`         | -                        | The size of the element.                                   |
-| State | `.ui-disabled`                                  | -                        | Disables the button.                                       |
+| State | `input[disabled]`                               | -                        | Disables the button.                                       |
 | State | `input[checked]`                                | -                        | Selects the button.                                        |
 | Type  | `input[type="checkbox"]`, `input[type="radio"]` | `input[type="checkbox"]` | The input type. `"radio"` allows one selection in a group. |
 
@@ -507,8 +508,6 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 | `--text-primary`         | `light-dark(var(--gray-15), var(--gray-1))`                                           | Emphasized text color for headings, labels and values.                                                |
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/html/guide/theme-tokens.md) for the full list.
-
-Set `disabled` on the input too.
 
 ## Under the hood
 

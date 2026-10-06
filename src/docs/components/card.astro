@@ -137,6 +137,27 @@ import cardApi from "../../component-api/card/api"
     <AutoExample name="Alignment" column />
   </section>
 
+  <section>
+    <h2 id="clickable">Clickable card</h2>
+    <p>
+      Add <code>.ui-card-link</code> to a link in the card, usually the one in the
+      heading, and the whole card becomes clickable. The link stretches over the card,
+      so Ctrl/Cmd+click and "Open in new tab" work from anywhere, and screen readers
+      only hear the link text. Other links and buttons in the card stay clickable.
+    </p>
+
+    <AutoExample name="Clickable" column />
+
+    <div class="ui-not-rich-text">
+      <UICallout>
+        <div class="ui-rich-text">
+          Only one <code>.ui-card-link</code> per card. The link covers the text,
+          so selecting text in the card won't work. Fair trade.
+        </div>
+      </UICallout>
+    </div>
+  </section>
+
   <CardBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">

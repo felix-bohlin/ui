@@ -367,9 +367,10 @@ Group accordions in a `<Card role="group">`. Set its `variant` to theme the whol
 
 3. Marker
 
-   - `list-style: none` removes the native marker
+   - `list-style: none` removes the native marker, but only when there's an `<svg>` to replace it
    - Three marker animations: `flip`, `rotate`, `turn`
    - Individual transform properties (`rotate`, `scale`) transition independently
+   - In right-to-left, `turn` mirrors the chevron to point at the end, then turns the other way
 
 Step 1 of 3: Details
 
@@ -412,8 +413,12 @@ Step 2 of 3: Animate to auto
 
 Step 3 of 3: Marker
 
+- [`:dir()` ](https://webstatus.dev/features/dir-pseudo)(Widely available): Chrome 120+, Edge 120+, Firefox 49+, Safari 16.4+
+- [`:has()` ](https://webstatus.dev/features/has)(Widely available): Chrome 105+, Edge 105+, Firefox 121+, Safari 15.4+
+- [Individual transform properties ](https://webstatus.dev/features/individual-transforms)(Widely available): Chrome 104+, Edge 104+, Firefox 72+, Safari 14.1+
+
 ```css
-.accordion > summary {
+.accordion > summary:has(svg) {
   align-items: center;
   display: flex;
   justify-content: space-between;
@@ -421,7 +426,7 @@ Step 3 of 3: Marker
 }
 
 
-.accordion > summary::-webkit-details-marker {
+.accordion > summary:has(svg)::-webkit-details-marker {
   display: none;
 }
 
@@ -445,6 +450,16 @@ Step 3 of 3: Marker
 
 .marker-turn[open] > summary svg {
   rotate: 90deg;
+}
+
+
+.marker-turn:dir(rtl) > summary svg {
+  scale: -1 1;
+}
+
+
+.marker-turn[open]:dir(rtl) > summary svg {
+  rotate: -90deg;
 }
 ```
 

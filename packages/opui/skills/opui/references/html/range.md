@@ -330,10 +330,12 @@ Add a `<datalist>` after the input for tick marks.
 3. Fill
 
    - Firefox draws the filled part with `::-moz-range-progress`
-   - Elsewhere a one-color `linear-gradient`, sized to `--fill`, paints it
+   - Elsewhere a one-color `linear-gradient`, sized to `--track-fill`, paints it
    - `overflow: hidden` makes the input a scroller, and the thumb a `view-timeline` inside it. `timeline-scope` lets the input use it
-   - The thumb's position drives the animation: `--fill` is registered as a `<percentage>`, so it animates. No JavaScript
-   - The timeline runs from the end edge, so the keyframes go from `100%` to `0%`, reversed in right-to-left
+   - The thumb's position drives the animation: `--track-fill` is registered as a `<percentage>`, so it animates. No JavaScript
+   - The timeline runs from the end edge, so the keyframes go from `100%` to `0%`
+   - In right-to-left the animation runs in reverse and the gradient moves to the right edge
+   - `@supports` keeps the scroller out where scroll-driven animations aren't supported: no fill, the slider still works
    - Padding with an equal negative margin leaves room for the thumb and halo, `view-timeline-inset` and `outline-offset` take it back out
 
 4. Halo
@@ -341,6 +343,7 @@ Add a `<datalist>` after the input for tick marks.
    - A `box-shadow` spread draws the ring, no extra element
    - Relative color: the primary hue at a fixed lightness and 20% alpha
    - The pseudo-elements inherit `--halo` from the input's `:hover` and `:active`
+   - `:not([disabled])`: no halo on a disabled slider
    - Hover and drag the thumb
 
 5. Ticks
@@ -407,13 +410,14 @@ Step 2 of 5: Thumb
 
 Step 3 of 5: Fill
 
+- [`:dir()` ](https://webstatus.dev/features/dir-pseudo)(Widely available): Chrome 120+, Edge 120+, Firefox 49+, Safari 16.4+
 - [Gradients ](https://webstatus.dev/features/gradients)(Widely available): Chrome 26+, Edge 12+, Firefox 3.6+, Safari 7+
 - [Registered custom properties ](https://webstatus.dev/features/registered-custom-properties)(Newly available): Chrome 85+, Edge 85+, Firefox 128+, Safari 16.4+
 - [Scroll-driven animations ](https://webstatus.dev/features/scroll-driven-animations)(Limited availability): Chrome 115+, Edge 115+, Firefox not supported, Safari 26+
 
 ```html
 <style>
-  @property --fill {
+  @property --track-fill {
     syntax: "<percentage>";
     inherits: true;
     initial-value: 0%;
@@ -422,46 +426,55 @@ Step 3 of 5: Fill
 
   @keyframes build-range-fill {
     from {
-      --fill: 100%;
+      --track-fill: 100%;
     }
 
 
     to {
-      --fill: 0%;
+      --track-fill: 0%;
     }
   }
 </style>
 ```
 
 ```css
-.range {
-  animation: build-range-fill linear both;
-  animation-range: contain;
-  animation-timeline: --thumb;
-  box-sizing: content-box;
-  margin: -0.75rem;
-  outline-offset: -0.75rem;
-  overflow: hidden;
-  padding: 0.75rem;
-  timeline-scope: --thumb;
-}
+@supports (animation-timeline: view()) {
+  .range {
+    animation-fill-mode: both;
+    animation-name: build-range-fill;
+    animation-range: contain;
+    animation-timeline: --thumb;
+    animation-timing-function: linear;
+    box-sizing: content-box;
+    margin: -0.75rem;
+    outline-offset: -0.75rem;
+    overflow: hidden;
+    padding: 0.75rem;
+    timeline-scope: --thumb;
+  }
 
 
-.range:dir(rtl) {
-  animation-direction: reverse;
-}
+  .range:dir(rtl) {
+    animation-direction: reverse;
+  }
 
 
-.range::-webkit-slider-thumb {
-  view-timeline: --thumb inline;
-  view-timeline-inset: 0.75rem;
+  .range::-webkit-slider-thumb {
+    view-timeline: --thumb inline;
+    view-timeline-inset: 0.75rem;
+  }
 }
 
 
 .range::-webkit-slider-runnable-track {
   background-image: linear-gradient(var(--primary), var(--primary));
   background-repeat: no-repeat;
-  background-size: var(--fill) 100%;
+  background-size: var(--track-fill, 0%) 100%;
+}
+
+
+.range:dir(rtl)::-webkit-slider-runnable-track {
+  background-position: right;
 }
 
 
@@ -482,25 +495,25 @@ Step 4 of 5: Halo
 }
 
 
-.range:hover {
+.range:not([disabled]):hover {
   --halo: 0.25rem;
 }
 
 
-.range:active {
+.range:not([disabled]):active {
   --halo: 0.5rem;
 }
 
 
 .range::-webkit-slider-thumb {
   box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
-  transition: box-shadow 0.2s var(--ease);
+  transition: box-shadow calc(0.2s * var(--motion, 1)) var(--ease);
 }
 
 
 .range::-moz-range-thumb {
   box-shadow: 0 0 0 var(--halo) oklch(from var(--primary) 70% 100% h / 20%);
-  transition: box-shadow 0.2s var(--ease);
+  transition: box-shadow calc(0.2s * var(--motion, 1)) var(--ease);
 }
 ```
 

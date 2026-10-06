@@ -191,7 +191,8 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
    - One source color per severity, every shade derived with `oklch(from …)`
    - `light-dark()` picks the shade for each color scheme, no media query
    - A 20% tint in light, 5% in dark: the opaque surface underneath does the rest
-   - The real palette derives 16 shades from `--palette-source`, here four are inlined
+   - The real palette derives 16 shades from `--palette-source`, here seven are inlined
+   - The icon draws with `currentColor`, so `color` tints fill and stroke icons alike
 
 Step 1 of 4: Surface
 
@@ -298,7 +299,7 @@ Step 4 of 4: Severity
 
 
 .callout > svg {
-  stroke: var(--icon, currentColor);
+  color: var(--icon, currentColor);
 }
 ```
 

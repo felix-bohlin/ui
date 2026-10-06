@@ -7,6 +7,7 @@ Buttons (disguised as input checkbox/radio) that can be toggled on and off. Use 
 - [Large](#sizes) size with `size="large"`.
 - [Small and x-small](#sizes) toggles use smaller text, like `Button`.
 - [Groups wrap](#overflow) when they don't fit, or scrolls with `scrollable` or truncates with `shrink`.
+- Breaking: no `.ui-disabled`. A toggle looks disabled when its input is `disabled`.
 
 ## Anatomy
 

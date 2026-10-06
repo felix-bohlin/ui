@@ -137,13 +137,15 @@ const steps = [
 <label class="label">
   <span class="icon icon-unchecked" aria-hidden="true"><svg>…</svg></span>
   <span class="icon icon-checked" aria-hidden="true"><svg>…</svg></span>
-  <input class="switch" type="checkbox" role="switch" aria-label="Light theme" />
+  <input class="switch" type="checkbox" role="switch" />
+  <span class="ui-sr-only">Light theme</span>
 </label>`,
     notes: [
       "Icons and input share one grid cell, stacked on the track",
       "<code>:has(:checked)</code> on the label swaps which icon shows",
       "Each icon sits on the side the dot is not",
       "<code>pointer-events: none</code> lets clicks through to the input",
+      "A <code>.ui-sr-only</code> span names the switch without showing text",
     ],
     title: "Icons",
   },
@@ -178,12 +180,8 @@ const sun = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hi
       <span class="icon icon-checked" aria-hidden="true"
         ><Fragment set:html={sun} /></span
       >
-      <input
-        aria-label="Light theme"
-        class="switch"
-        role="switch"
-        type="checkbox"
-      />
+      <input class="switch" role="switch" type="checkbox" />
+      <span class="ui-sr-only">Light theme</span>
     </label>
   </div>
 </BuildUp>

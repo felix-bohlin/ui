@@ -29,6 +29,11 @@ export const references = {
     { code: true, href: mdn("Web/CSS/anchor-name"), label: "anchor-name" },
     { code: true, href: mdn("Web/CSS/anchor-scope"), label: "anchor-scope" },
     {
+      code: true,
+      href: mdn("Web/HTML/Element/button#interestfor"),
+      label: "interestfor",
+    },
+    {
       code: false,
       href: mdn("Web/API/Invoker_Commands_API"),
       label: "Invoker Commands API",
@@ -166,7 +171,6 @@ export const references = {
       href: mdn("Web/CSS/@media/forced-colors"),
       label: "forced-colors",
     },
-    { code: true, href: mdn("Web/CSS/text-box"), label: "text-box" },
   ],
   "description-list": [
     { code: true, href: mdn("Web/CSS/::after"), label: "::after" },
@@ -199,6 +203,11 @@ export const references = {
     },
     {
       code: true,
+      href: mdn("Web/CSS/backdrop-filter"),
+      label: "backdrop-filter",
+    },
+    {
+      code: true,
       href: mdn("Web/HTML/Element/dialog#closedby"),
       label: "closedby",
     },
@@ -206,6 +215,12 @@ export const references = {
       code: false,
       href: mdn("Web/API/Invoker_Commands_API"),
       label: "Invoker Commands API",
+    },
+    { code: true, href: mdn("Web/CSS/overlay"), label: "overlay" },
+    {
+      code: true,
+      href: mdn("Web/CSS/overscroll-behavior"),
+      label: "overscroll-behavior",
     },
     {
       code: true,
@@ -228,11 +243,31 @@ export const references = {
       label: "@starting-style",
     },
     {
+      code: true,
+      href: mdn("Web/CSS/backdrop-filter"),
+      label: "backdrop-filter",
+    },
+    {
+      code: true,
+      href: mdn("Web/HTML/Element/dialog#closedby"),
+      label: "closedby",
+    },
+    {
+      code: false,
+      href: mdn("Web/API/Invoker_Commands_API"),
+      label: "Invoker Commands API",
+    },
+    {
       code: false,
       href: mdn("Web/CSS/CSS_logical_properties_and_values"),
       label: "Logical properties",
     },
     { code: true, href: mdn("Web/CSS/overlay"), label: "overlay" },
+    {
+      code: true,
+      href: mdn("Web/CSS/overscroll-behavior"),
+      label: "overscroll-behavior",
+    },
     {
       code: true,
       href: mdn("Web/CSS/transition-behavior"),
@@ -275,6 +310,11 @@ export const references = {
       label: "position-try-fallbacks",
     },
     {
+      code: true,
+      href: mdn("Web/CSS/transition-behavior"),
+      label: "transition-behavior",
+    },
+    {
       code: false,
       href: mdn("Web/CSS/CSS_anchor_positioning/Using"),
       label: "Using CSS anchor positioning",
@@ -298,6 +338,11 @@ export const references = {
       label: ":indeterminate",
     },
     { code: true, href: mdn("Web/HTML/Element/progress"), label: "<progress>" },
+    {
+      code: true,
+      href: mdn("Web/CSS/@container"),
+      label: "@container style()",
+    },
     { code: true, href: mdn("Web/CSS/appearance"), label: "appearance" },
     {
       code: true,
@@ -356,6 +401,7 @@ export const references = {
     },
   ],
   rhythm: [
+    { code: true, href: mdn("Web/CSS/@property"), label: "@property" },
     { code: true, href: mdn("Web/CSS/length#lh"), label: "lh" },
     { code: true, href: mdn("Web/CSS/line-height"), label: "line-height" },
     { code: true, href: mdn("Web/CSS/round"), label: "round()" },
@@ -380,6 +426,7 @@ export const references = {
       href: mdn("Learn_web_development/Extensions/Forms/Customizable_select"),
       label: "Customizable select elements",
     },
+    { code: true, href: mdn("Web/CSS/mask"), label: "mask" },
     {
       code: true,
       href: mdn("Web/CSS/transition-behavior"),
@@ -491,7 +538,14 @@ export const references = {
   ],
   tooltip: [
     { code: true, href: mdn("Web/CSS/@position-try"), label: "@position-try" },
+    { code: true, href: mdn("Web/CSS/anchor"), label: "anchor()" },
+    { code: true, href: mdn("Web/CSS/anchor-scope"), label: "anchor-scope" },
     { code: true, href: mdn("Web/CSS/calc-size"), label: "calc-size()" },
+    {
+      code: true,
+      href: mdn("Web/HTML/Element/button#interestfor"),
+      label: "interestfor",
+    },
     {
       code: false,
       href: mdn("Web/API/Invoker_Commands_API"),

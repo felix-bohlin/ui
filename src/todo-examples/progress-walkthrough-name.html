@@ -1,0 +1,42 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+</style>
+<p>
+  Turn on a screen reader (or open the accessibility tree in DevTools) and move
+  through the three bars.
+</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">Walkthrough snippet: no name</p>
+    <div class="ui-progress">
+      <progress max="100" value="60"></progress>
+    </div>
+    <p class="ui-caption">Read as "progress bar, 60%". 60% of what?</p>
+  </div>
+  <div>
+    <p class="ui-caption"><code>aria-label</code>, like the demo and docs</p>
+    <div class="ui-progress">
+      <progress aria-label="Uploading" max="100" value="60"></progress>
+    </div>
+    <p class="ui-caption">Read as "Uploading, progress bar, 60%".</p>
+  </div>
+  <div>
+    <p class="ui-caption">Or a visible <code>&lt;label&gt;</code></p>
+    <label for="todo-progress-upload">Uploading report.pdf</label>
+    <div class="ui-progress">
+      <progress id="todo-progress-upload" max="100" value="60"></progress>
+    </div>
+    <p class="ui-caption">Read as "Uploading report.pdf, progress bar, 60%".</p>
+  </div>
+</div>

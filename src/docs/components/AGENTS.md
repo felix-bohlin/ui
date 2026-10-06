@@ -237,13 +237,22 @@ Use `<Conditional>` to display different text or HTML content for different fram
 - **Props**: `as` (optional). Defaults to `span` for inline content. Use `as="div"` or `as="p"` for block-level content.
 - **Resolution**: Server-rendered. The component reads `Astro.currentLocale` (driven by URL routing) and emits only the matching slot. Falls back to the default framework's slot if the active framework's slot is not authored.
 
+For a sentence that only differs by the prop and the class it names, use `<PropOrClass>` ([src/components/PropOrClass.astro](../../components/PropOrClass.astro)) inline instead, so the sentence is written once. It renders `prop` in a `<code>` on Astro and Vue pages and `class` on HTML pages:
+
+```astro
+<p>
+  Use <PropOrClass prop='variant="filled"' class=".ui-filled" /> to fill the selected
+  tab with the primary color.
+</p>
+```
+
 ## 6. Content Generation & Best Practices
 
 - **Analytical Examples**: Show sections for each major variant, size, and state found in CSS/source.
 - **Modifier Descriptions**: Section descriptions should focus on **actionable modifiers** (props or CSS classes).
   - **Include** when explaining how to change the component (e.g., "Set the `orientation` prop to change the button group layout" or "Resize any button with the `.ui-small` and `.ui-large` classes").
   - **Omit** when the heading is self-explanatory and the configuration is static or default (e.g., "Image", "Letter", or "Icon" sections for an Avatar). If the section merely showcases a built-in capability without requiring specific prop-based modification logic to understand, skip the description to avoid "stating the obvious."
-  - **Framework-Specific Counterparts**: Descriptions should always have framework-specific counterparts when referring to implementation details (like props vs. classes). Use the `<Conditional>` component to ensure the technical guidance matches the active framework's URL.
+  - **Framework-Specific Counterparts**: Descriptions should always have framework-specific counterparts when referring to implementation details (like props vs. classes). Use the `<Conditional>` component (or `<PropOrClass>` for a single prop or class) to ensure the technical guidance matches the active framework's URL.
 - **Functional Parity**: Ensure that HTML examples are just as functional and complete as their Astro counterparts. Both versions should result in the same visual and functional output in their respective previews.
 - **Code Example Intent**: Code examples should be **sparse and minimal**. Focus on highlighting the most important change or point of the demo rather than being an exhaustive mirror of the preview's implementation.
 - **No Fluff**: Stick to direct, technical descriptions. No conversational filler.

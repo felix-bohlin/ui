@@ -69,13 +69,27 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
   <section>
     <h2 id="visible-label">Visible label</h2>
-    <p>
-      Render the label text inside an element with a <code>.ui-label</code> class.
-      Also, don't miss the info on label <a
-        href="#accessibility"
-        class="ui-link">accessibility</a
-      >.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >The default slot is the label. Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
+      >
+      <Fragment slot="html"
+        >Render the label text inside an element with a <code>.ui-label</code> class.
+        Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
+      >
+      <Fragment slot="vue"
+        >The default slot is the label. Also, don't miss the info on label <a
+          href="#accessibility"
+          class="ui-link">accessibility</a
+        >.</Fragment
+      >
+    </Conditional>
 
     <AutoExample name="VisibleLabel" column centered />
 
@@ -307,9 +321,7 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
       <tbody>
         <tr>
           <td>
-            Provide a label text inside the <code>label</code>/<code
-              >role="checkbox"</code
-            > element
+            Provide a label text inside the <code>label</code> element
           </td>
           <td>Default</td>
         </tr>

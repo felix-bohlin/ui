@@ -10,7 +10,7 @@ const steps = [
   textarea,
   html,
   progress,
-  [aria-describedby]
+  [aria-describedby]:not(button, a)
 ) {
   &::before {
     block-size: 1em;
@@ -30,7 +30,7 @@ const steps = [
 <p aria-busy="true">Loading results</p>`,
     notes: [
       "The state is the API: <code>aria-busy=&quot;true&quot;</code>, no class",
-      "<code>:not(…)</code> skips form fields, <code>&lt;progress&gt;</code> and sections described by a progress bar",
+      "<code>:not(…)</code> skips form fields, <code>&lt;progress&gt;</code> and sections described by a progress bar, but never buttons or links",
       "One transparent border side makes the gap in the ring",
       "<code>1em</code> sizes it from the font: drag <strong>Font size</strong>",
     ],
@@ -101,7 +101,7 @@ const knobs = [
   <div class="demo">
     <p aria-busy="true">Loading results</p>
     <span aria-busy="true"></span>
-    <button aria-busy="true" class="button">Saving</button>
+    <button aria-busy="true" class="button" type="button">Saving</button>
   </div>
 </BuildUp>
 

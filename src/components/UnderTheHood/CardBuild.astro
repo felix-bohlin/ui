@@ -22,11 +22,20 @@ const steps = [
 }
 
 .card > :is(hgroup, .content) {
+  margin-block: 0;
   padding-inline: 0.75rem;
+}
+
+.card > :is(hgroup, .content):last-child {
+  padding-block-end: 0.75rem;
 }
 
 .card > hgroup {
   padding-block-start: 0.75rem;
+}
+
+.card > hgroup > * {
+  margin-block: 0;
 }`,
     html: `
 <div class="card">
@@ -41,6 +50,7 @@ const steps = [
     notes: [
       "A flex column: header, content and actions share one <code>gap</code>",
       "Padding sits on the children, so media can go edge to edge",
+      "Without actions, the last child pads the bottom itself",
       "<code>overflow: hidden</code> clips children to the rounded corners",
     ],
     title: "Base",
@@ -104,8 +114,8 @@ const steps = [
       </hgroup>
       <div class="content">Labels line up with this text.</div>
       <div class="actions">
-        <button class="ui-button">Cancel</button>
-        <button class="ui-button">Save</button>
+        <button class="ui-button" type="button">Cancel</button>
+        <button class="ui-button" type="button">Save</button>
       </div>
     </div>
     <div class="card elevated">
@@ -118,8 +128,8 @@ const steps = [
         the bottom.
       </div>
       <div class="actions">
-        <button class="ui-button ui-outlined">Cancel</button>
-        <button class="ui-button ui-filled">Save</button>
+        <button class="ui-button ui-outlined" type="button">Cancel</button>
+        <button class="ui-button ui-filled" type="button">Save</button>
       </div>
     </div>
   </div>
@@ -135,10 +145,6 @@ const steps = [
 
   .card {
     font-size: var(--font-size-05);
-
-    & hgroup > * {
-      margin: 0;
-    }
 
     & hgroup > p {
       color: var(--text-muted);

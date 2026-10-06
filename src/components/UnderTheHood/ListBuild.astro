@@ -5,13 +5,13 @@ const steps = [
   {
     css: `
 .list {
-  background-color: var(--surface-default);
+  background-color: var(--surface-filled);
   list-style: none;
   padding: 0.5rem 0;
 }
 
-.list li,
-.list li > button {
+.list > li,
+.list > li > button {
   align-items: center;
   display: flex;
   gap: var(--gap);
@@ -37,18 +37,19 @@ const steps = [
     html: `
 <ul class="list">
   <li>
-    <button>
+    <button type="button">
       <span class="start"><svg>…</svg></span>
       <span class="text">
         <span>Inbox</span>
         <span>3 unread</span>
       </span>
-      <span class="end">⌘I</span>
+      <span class="end"><kbd>⌘I</kbd></span>
     </button>
   </li>
 </ul>`,
     notes: [
       "Start, text and end slots in one flex row",
+      "<code>&gt;</code> styles direct children only, so a nested list in a row stays a list",
       "<code>--gap</code> and <code>--start-size</code> drive the spacing and the icon column",
       "The button is padded too, so the padding doubles",
     ],
@@ -56,20 +57,20 @@ const steps = [
   },
   {
     css: `
-.list li:has(> a, > button) {
+.list > li:has(> a, > button, > label) {
   padding: 0;
 }
 
-.list li > button {
+.list > li > button {
   inline-size: 100%;
 }
 
-.list li > button:hover {
+.list > li > button:hover {
   background-color: oklch(from var(--primary) l c h / 15%);
 }`,
     features: ["has", "relative-color"],
     notes: [
-      "<code>:has(> a, > button)</code> moves the padding onto the button",
+      "<code>:has(> a, > button, > label)</code> moves the padding onto the button, link or label (checkbox, radio and switch rows)",
       "The whole row is the hit target",
       "Hover tint derived from <code>--primary</code>",
     ],
@@ -88,18 +89,18 @@ const steps = [
   },
   {
     css: `
-.bordered li + li {
+.bordered > li + li {
   margin-block-start: 0.75rem;
 }
 
-.bordered li + li::before {
+.bordered > li + li::before {
   border-block-start: 1px solid var(--border-color);
   content: "";
   inset: -0.5rem 0 auto 0;
   position: absolute;
 }`,
     notes: [
-      "<code>li + li</code>: a line between items, never above the first",
+      "<code>&gt; li + li</code>: a line between items, never above the first",
       "The line sits in the margin, outside the hover area",
     ],
     title: "Bordered",
@@ -169,7 +170,9 @@ const items = [
               <span>{item.headline}</span>
               <span>{item.description}</span>
             </span>
-            <span class="end">{item.end}</span>
+            <span class="end">
+              <kbd>{item.end}</kbd>
+            </span>
           </button>
         </li>
       ))
@@ -202,5 +205,10 @@ const items = [
   .end {
     color: var(--text-muted);
     font-size: var(--font-size-0);
+
+    & kbd {
+      color: inherit;
+      font-family: var(--font-mono);
+    }
   }
 </style>

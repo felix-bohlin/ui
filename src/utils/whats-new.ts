@@ -36,7 +36,6 @@ const whatsNew = {
     `Wrap the label in a <code>&lt;span&gt;</code> to <a href="#buttons-with-icon-and-label">tighten the padding</a> next to an icon.`,
     {
       default: `Links with <code>aria-disabled="true"</code> look and act disabled.`,
-      html: `Links with <code>.ui-disabled</code> or <code>aria-disabled="true"</code> look and act disabled.`,
     },
     `<a href="#colors">Primary and critical</a> colors pass contrast in light and dark mode.`,
     {
@@ -153,6 +152,10 @@ const whatsNew = {
     `<a href="#label-alignment">Lines up</a> with the first line of the label and centers on its capitals in any font.`,
     `Breaking: <code>--highlight-size</code> is <code>--_ripple-size</code>, <code>--thumb-scale</code> is <code>--_thumb-scale</code>, and <code>--isLTR</code> and <code>--isRTL</code> are <code>--_dir-rtl</code>.`,
     `Without a visible label, radios center in table cells and lines of text.`,
+    {
+      default: `<a href="#spread">Spread</a> with the <code>spread</code> prop, like Checkbox and Switch.`,
+      html: `<a href="#spread">Spread</a> with <code>.ui-spread</code>, like Checkbox and Switch.`,
+    },
   ],
   range: [
     `<a href="#spread">Spread</a> ranges line up with spread fields and collapse to a column in narrow containers.`,
@@ -181,6 +184,9 @@ const whatsNew = {
       astro: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
       vue: `Breaking: no generated input <code>id</code>. Pass <code>id</code> when something outside the component references the input.`,
     },
+  ],
+  spinner: [
+    `Busy buttons and links with <code>aria-describedby</code> <a href="#blocked-by-another-use-case">get a spinner</a> now.`,
   ],
   switch: [
     {
@@ -260,6 +266,7 @@ const whatsNew = {
       default: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>scrollable</code> or truncates with <code>shrink</code>.`,
       html: `<a href="#overflow">Groups wrap</a> when they don't fit, or scrolls with <code>.ui-scrollable</code> or truncates with <code>.ui-shrink</code>.`,
     },
+    `Breaking: no <code>.ui-disabled</code>. A toggle looks disabled when its input is <code>disabled</code>.`,
   ],
   tooltip: [
     {

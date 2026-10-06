@@ -16,7 +16,6 @@ import cardDividers from "../todo-examples/card-dividers.html?raw"
 import cardLink from "../todo-examples/card-link.html?raw"
 import cardTextVariant from "../todo-examples/card-text-variant.html?raw"
 import carouselEqualHeight from "../todo-examples/carousel-equal-height.html?raw"
-import carouselIconScheme from "../todo-examples/carousel-icon-scheme.html?raw"
 import carouselWalkthroughOverrun from "../todo-examples/carousel-walkthrough-overrun.html?raw"
 import checkboxForcedColors from "../todo-examples/checkbox-forced-colors.html?raw"
 import checkboxRadioWalkthroughDark from "../todo-examples/checkbox-radio-walkthrough-dark.html?raw"
@@ -24,6 +23,7 @@ import checkboxRadioWalkthroughLabel from "../todo-examples/checkbox-radio-walkt
 import checkboxWalkthroughForcedColors from "../todo-examples/checkbox-walkthrough-forced-colors.html?raw"
 import choiceHaloLayer from "../todo-examples/choice-halo-layer.html?raw"
 import classicSelectLabelSlot from "../todo-examples/classic-select-label-slot.html?raw"
+import controlSizes from "../todo-examples/control-sizes.html?raw"
 import dialogActionsAlign from "../todo-examples/dialog-actions-align.html?raw"
 import dialogFocusWrap from "../todo-examples/dialog-focus-wrap.html?raw"
 import disabledButtons from "../todo-examples/disabled-buttons.html?raw"
@@ -40,6 +40,7 @@ import listWalkthroughNested from "../todo-examples/list-walkthrough-nested.html
 import minifiedAnimationTimeline from "../todo-examples/minified-animation-timeline.html?raw"
 import paletteSourceScope from "../todo-examples/palette-source-scope.html?raw"
 import primaryContrast from "../todo-examples/primary-contrast.html?raw"
+import progressWalkthroughName from "../todo-examples/progress-walkthrough-name.html?raw"
 import radioCoarseSizes from "../todo-examples/radio-coarse-sizes.html?raw"
 import radioSpread from "../todo-examples/radio-spread.html?raw"
 import rangeTrackFill from "../todo-examples/range-track-fill.html?raw"
@@ -52,9 +53,9 @@ import scrollState from "../todo-examples/scroll-state.html?raw"
 import selectWalkthroughArrow from "../todo-examples/select-walkthrough-arrow.html?raw"
 import smallParagraph from "../todo-examples/small-paragraph.html?raw"
 import spinnerDescribedBy from "../todo-examples/spinner-described-by.html?raw"
-import spinnerWalkthroughDescribedby from "../todo-examples/spinner-walkthrough-describedby.html?raw"
 import stickyTableHeader from "../todo-examples/sticky-table-header.html?raw"
 import switchInvalidFocus from "../todo-examples/switch-invalid-focus.html?raw"
+import tableWalkthroughSticky from "../todo-examples/table-walkthrough-sticky.html?raw"
 import tabsWalkthroughRtl from "../todo-examples/tabs-walkthrough-rtl.html?raw"
 import tallMenu from "../todo-examples/tall-menu.html?raw"
 import textareaWalkthroughMaxSize from "../todo-examples/textarea-walkthrough-max-size.html?raw"
@@ -136,10 +137,6 @@ export const todoExamples = {
     match: "Carousel slides aren't equal height",
     source: carouselEqualHeight,
   },
-  "carousel-icon-scheme": {
-    match: "Carousel: the prev/next icons",
-    source: carouselIconScheme,
-  },
   "carousel-walkthrough-overrun": {
     match: "Carousel walkthrough:",
     source: carouselWalkthroughOverrun,
@@ -167,6 +164,10 @@ export const todoExamples = {
   "classic-select-label-slot": {
     match: "Astro ClassicSelect: `aria-labelledby` also points",
     source: classicSelectLabelSlot,
+  },
+  "control-sizes": {
+    match: "Sizes: control size scales differ",
+    source: controlSizes,
   },
   "dialog-actions-align": {
     match: "Classes emitted with no CSS",
@@ -232,6 +233,10 @@ export const todoExamples = {
     match: "`contrast-color()` for `--primary-contrast`",
     source: primaryContrast,
   },
+  "progress-walkthrough-name": {
+    match: "Progress walkthrough:",
+    source: progressWalkthroughName,
+  },
   "radio-coarse-sizes": {
     match: "Radio: on touch screens",
     source: radioCoarseSizes,
@@ -280,10 +285,6 @@ export const todoExamples = {
     match: "Spinner: the prose never says",
     source: spinnerDescribedBy,
   },
-  "spinner-walkthrough-describedby": {
-    match: "Spinner walkthrough:",
-    source: spinnerWalkthroughDescribedby,
-  },
   "sticky-table-header": {
     match: "Sticky table headers: second pass",
     source: stickyTableHeader,
@@ -291,6 +292,10 @@ export const todoExamples = {
   "switch-invalid-focus": {
     match: "Switch: an invalid switch barely shows focus",
     source: switchInvalidFocus,
+  },
+  "table-walkthrough-sticky": {
+    match: "Table walkthrough:",
+    source: tableWalkthroughSticky,
   },
   "tabs-walkthrough-rtl": {
     match: "Tabs walkthrough:",

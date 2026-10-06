@@ -361,6 +361,13 @@ Text shrinks with the size like `Button`: `--font-size-05` when small and `--fon
 
 `ToggleGroup` no longer exports the unused `ToggleContext` type.
 
+`ToggleButton` no longer supports `.ui-disabled`, and Astro and Vue no longer add it. Set `disabled` on the input, the toggle is styled through `:has(input:disabled)`. `.ui-disabled` stays on `Chip`, to dim a static chip.
+
+```diff
+- <label class="ui-toggle-button ui-disabled"><input type="checkbox" />Bold</label>
++ <label class="ui-toggle-button"><input type="checkbox" disabled />Bold</label>
+```
+
 ## Tooltip
 
 `Tooltip` no longer wraps the trigger in a `<span interestfor>`. Give the tooltip an `id` (now required in the types) and add `interestfor` with that id to the trigger.

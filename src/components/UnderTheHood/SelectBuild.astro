@@ -67,7 +67,7 @@ selectedcontent {
 .select:open::picker-icon {
   rotate: 180deg;
 }`,
-    features: ["open-pseudo"],
+    features: ["individual-transforms", "open-pseudo"],
     notes: [
       "<code>::picker-icon</code> is the arrow, redrawn here as a border triangle",
       "<code>:open</code> matches while the picker is showing, so the arrow flips",
@@ -134,7 +134,11 @@ selectedcontent {
   opacity: 0;
   scale: 0.9;
 }`,
-    features: ["starting-style", "transition-behavior"],
+    features: [
+      "individual-transforms",
+      "starting-style",
+      "transition-behavior",
+    ],
     notes: [
       "<code>@starting-style</code> gives the entry transition a starting point",
       "<code>allow-discrete</code> keeps <code>display</code> and <code>overlay</code> alive during the exit",

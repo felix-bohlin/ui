@@ -49,14 +49,14 @@ const steps = [
   },
   {
     css: `
-.accordion > summary {
+.accordion > summary:has(svg) {
   align-items: center;
   display: flex;
   justify-content: space-between;
   list-style: none;
 }
 
-.accordion > summary::-webkit-details-marker {
+.accordion > summary:has(svg)::-webkit-details-marker {
   display: none;
 }
 
@@ -76,11 +76,21 @@ const steps = [
 
 .marker-turn[open] > summary svg {
   rotate: 90deg;
+}
+
+.marker-turn:dir(rtl) > summary svg {
+  scale: -1 1;
+}
+
+.marker-turn[open]:dir(rtl) > summary svg {
+  rotate: -90deg;
 }`,
+    features: ["dir-pseudo", "has", "individual-transforms"],
     notes: [
-      "<code>list-style: none</code> removes the native marker",
+      "<code>list-style: none</code> removes the native marker, but only when there's an <code>&lt;svg&gt;</code> to replace it",
       "Three marker animations: <code>flip</code>, <code>rotate</code>, <code>turn</code>",
       "Individual transform properties (<code>rotate</code>, <code>scale</code>) transition independently",
+      "In right-to-left, <code>turn</code> mirrors the chevron to point at the end, then turns the other way",
     ],
     title: "Marker",
   },
@@ -90,6 +100,13 @@ const markers = [
   { className: "marker-flip", icon: "M7 10l5 5 5-5", label: "Flip" },
   { className: "marker-rotate", icon: "M7 10l5 5 5-5", label: "Rotate" },
   { className: "marker-turn", icon: "M10 7l5 5-5 5", label: "Turn" },
+  {
+    className: "marker-turn",
+    dir: "rtl",
+    icon: "M10 7l5 5-5 5",
+    label: "Turn, right to left",
+  },
+  { label: "Native" },
 ]
 ---
 
@@ -97,25 +114,27 @@ const markers = [
   <div class="stack">
     {
       markers.map((marker) => (
-        <details class:list={["accordion", marker.className]}>
+        <details class:list={["accordion", marker.className]} dir={marker.dir}>
           <summary>
             {marker.label}
-            <svg
-              aria-hidden="true"
-              height="20"
-              viewBox="0 0 24 24"
-              width="20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d={marker.icon}
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-              />
-            </svg>
+            {marker.icon && (
+              <svg
+                aria-hidden="true"
+                height="20"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d={marker.icon}
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+            )}
           </summary>
           <p>
             Panel content with enough text to show the height transition as it

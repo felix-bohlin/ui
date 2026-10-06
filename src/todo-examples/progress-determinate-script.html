@@ -1,0 +1,63 @@
+<style>
+  .todo-compare .ui-progress {
+    inline-size: 16rem;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Determinate.html stays at 10 (the Astro and Vue versions step every 3
+      seconds). Indeterminate.html puts aria-busy on the progress itself.
+    </p>
+    <div class="ui-progress">
+      <progress
+        id="determinate-progress-current"
+        value="10"
+        max="100"
+      ></progress>
+    </div>
+    <div class="ui-progress">
+      <progress aria-busy="true"></progress>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Determinate.html gets the same script as Determinate.astro. The
+      indeterminate progress drops aria-busy and is still indeterminate.
+    </p>
+    <div class="ui-progress">
+      <progress id="determinate-progress-fixed" value="10" max="100"></progress>
+    </div>
+    <div class="ui-progress">
+      <progress></progress>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  const progress = document.querySelector("#determinate-progress-fixed")
+  if (progress) {
+    setInterval(() => {
+      if (progress.value >= 100) {
+        progress.value = 10
+      } else {
+        progress.value += 10
+      }
+    }, 3000)
+  }
+</script>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const [determinate, indeterminate] = panel.querySelectorAll("progress")
+    const show = () => {
+      panel.querySelector("[data-measure]").textContent =
+        `determinate value: ${determinate.value}\n` +
+        `indeterminate: :indeterminate ${indeterminate.matches(":indeterminate")}, aria-busy ${indeterminate.getAttribute("aria-busy")}`
+    }
+    show()
+    setInterval(show, 500)
+  }
+</script>

@@ -5,9 +5,11 @@ import accordionPlainGroup from "../todo-examples/accordion-plain-group.html?raw
 import accordionWalkthroughMarker from "../todo-examples/accordion-walkthrough-marker.html?raw"
 import autosuggestSizes from "../todo-examples/autosuggest-sizes.html?raw"
 import avatarGroupOverlap from "../todo-examples/avatar-group-overlap.html?raw"
+import avatarGroupRoleOnly from "../todo-examples/avatar-group-role-only.html?raw"
 import badgeAccessibleName from "../todo-examples/badge-accessible-name.html?raw"
 import badgeDotAlignment from "../todo-examples/badge-dot-alignment.html?raw"
 import badgeWalkthroughDot from "../todo-examples/badge-walkthrough-dot.html?raw"
+import buttonAriaCurrent from "../todo-examples/button-aria-current.html?raw"
 import buttonGroupLinkItem from "../todo-examples/button-group-link-item.html?raw"
 import buttonGroupVerticalSmall from "../todo-examples/button-group-vertical-small.html?raw"
 import buttonGroupWalkthroughOutline from "../todo-examples/button-group-walkthrough-outline.html?raw"
@@ -25,6 +27,7 @@ import carouselEqualHeight from "../todo-examples/carousel-equal-height.html?raw
 import carouselTranslatedLabels from "../todo-examples/carousel-translated-labels.html?raw"
 import carouselWalkthroughOverrun from "../todo-examples/carousel-walkthrough-overrun.html?raw"
 import checkboxForcedColors from "../todo-examples/checkbox-forced-colors.html?raw"
+import checkboxIndeterminateHelper from "../todo-examples/checkbox-indeterminate-helper.html?raw"
 import checkboxRadioWalkthroughDark from "../todo-examples/checkbox-radio-walkthrough-dark.html?raw"
 import checkboxRadioWalkthroughLabel from "../todo-examples/checkbox-radio-walkthrough-label.html?raw"
 import checkboxWalkthroughForcedColors from "../todo-examples/checkbox-walkthrough-forced-colors.html?raw"
@@ -36,16 +39,20 @@ import classicSelectLabelSlot from "../todo-examples/classic-select-label-slot.h
 import contrastCustomValues from "../todo-examples/contrast-custom-values.html?raw"
 import contrastNormalNested from "../todo-examples/contrast-normal-nested.html?raw"
 import controlSizes from "../todo-examples/control-sizes.html?raw"
+import descriptionListAnatomyWidth from "../todo-examples/description-list-anatomy-width.html?raw"
+import descriptionListNarrowBorder from "../todo-examples/description-list-narrow-border.html?raw"
 import dialogActionsAlign from "../todo-examples/dialog-actions-align.html?raw"
 import dialogFocusWrap from "../todo-examples/dialog-focus-wrap.html?raw"
 import dialogLongContent from "../todo-examples/dialog-long-content.html?raw"
 import disabledButtons from "../todo-examples/disabled-buttons.html?raw"
 import drawerHeader from "../todo-examples/drawer-header.html?raw"
+import fieldGroupColumn from "../todo-examples/field-group-column.html?raw"
 import fieldsInTables from "../todo-examples/fields-in-tables.html?raw"
 import fieldsetTextFieldRow from "../todo-examples/fieldset-text-field-row.html?raw"
 import filledBorders from "../todo-examples/filled-borders.html?raw"
 import forcedColorsDivider from "../todo-examples/forced-colors-divider.html?raw"
 import forcedColorsSwitchToggle from "../todo-examples/forced-colors-switch-toggle.html?raw"
+import formWalkthroughActions from "../todo-examples/form-walkthrough-actions.html?raw"
 import labelLessControls from "../todo-examples/label-less-controls.html?raw"
 import linkHoverContrast from "../todo-examples/link-hover-contrast.html?raw"
 import listNestedLists from "../todo-examples/list-nested-lists.html?raw"
@@ -57,15 +64,19 @@ import paletteScopes from "../todo-examples/palette-scopes.html?raw"
 import paletteSourceScope from "../todo-examples/palette-source-scope.html?raw"
 import primaryContrastClamp from "../todo-examples/primary-contrast-clamp.html?raw"
 import primaryContrast from "../todo-examples/primary-contrast.html?raw"
+import progressDeterminateScript from "../todo-examples/progress-determinate-script.html?raw"
 import progressWalkthroughName from "../todo-examples/progress-walkthrough-name.html?raw"
 import radioCoarseSizes from "../todo-examples/radio-coarse-sizes.html?raw"
 import radioSizesStack from "../todo-examples/radio-sizes-stack.html?raw"
 import radioSpread from "../todo-examples/radio-spread.html?raw"
 import rangeSpreadTicksValue from "../todo-examples/range-spread-ticks-value.html?raw"
+import rangeTickCentering from "../todo-examples/range-tick-centering.html?raw"
 import rangeTrackFill from "../todo-examples/range-track-fill.html?raw"
+import rangeValueScript from "../todo-examples/range-value-script.html?raw"
 import rangeWalkthroughRtlFill from "../todo-examples/range-walkthrough-rtl-fill.html?raw"
 import rhythmWalkthroughFlowSpace from "../todo-examples/rhythm-walkthrough-flow-space.html?raw"
 import richTextComponentLeaks from "../todo-examples/rich-text-component-leaks.html?raw"
+import richTextInlineCode from "../todo-examples/rich-text-inline-code.html?raw"
 import richTextTableWrapping from "../todo-examples/rich-text-table-wrapping.html?raw"
 import rtlRequiredAsterisk from "../todo-examples/rtl-required-asterisk.html?raw"
 import scrollState from "../todo-examples/scroll-state.html?raw"
@@ -75,6 +86,7 @@ import smallParagraph from "../todo-examples/small-paragraph.html?raw"
 import spinnerDescribedBy from "../todo-examples/spinner-described-by.html?raw"
 import stickyTableHeader from "../todo-examples/sticky-table-header.html?raw"
 import switchInvalidFocus from "../todo-examples/switch-invalid-focus.html?raw"
+import tableHeaderHover from "../todo-examples/table-header-hover.html?raw"
 import tableRowHeaderFooter from "../todo-examples/table-row-header-footer.html?raw"
 import tableWalkthroughSticky from "../todo-examples/table-walkthrough-sticky.html?raw"
 import tabsWalkthroughRtl from "../todo-examples/tabs-walkthrough-rtl.html?raw"
@@ -113,6 +125,10 @@ export const todoExamples = {
     match: "Avatar: every avatar in `.ui-avatar-group` gets",
     source: avatarGroupOverlap,
   },
+  "avatar-group-role-only": {
+    match: 'Avatar: the HTML "Grouped" prose',
+    source: avatarGroupRoleOnly,
+  },
   "badge-accessible-name": {
     match: "Badge: a count is announced without context",
     source: badgeAccessibleName,
@@ -124,6 +140,10 @@ export const todoExamples = {
   "badge-walkthrough-dot": {
     match: "Badge walkthrough:",
     source: badgeWalkthroughDot,
+  },
+  "button-aria-current": {
+    match: 'Button: `[aria-current="page"]` gets the',
+    source: buttonAriaCurrent,
   },
   "button-group-link-item": {
     match: "Button group: every item rule targets `& > button`",
@@ -197,6 +217,10 @@ export const todoExamples = {
     match: "Checkbox forced-colors block loses on specificity",
     source: checkboxForcedColors,
   },
+  "checkbox-indeterminate-helper": {
+    match: "Checkbox: the HTML Indeterminate",
+    source: checkboxIndeterminateHelper,
+  },
   "checkbox-radio-walkthrough-dark": {
     match: "Radio and Checkbox walkthroughs:",
     source: checkboxRadioWalkthroughDark,
@@ -241,6 +265,14 @@ export const todoExamples = {
     match: "Sizes: control size scales differ",
     source: controlSizes,
   },
+  "description-list-anatomy-width": {
+    match: "Description list: the hero anatomy",
+    source: descriptionListAnatomyWidth,
+  },
+  "description-list-narrow-border": {
+    match: "Description list: the Bordered",
+    source: descriptionListNarrowBorder,
+  },
   "dialog-actions-align": {
     match: "Classes emitted with no CSS",
     source: dialogActionsAlign,
@@ -261,6 +293,10 @@ export const todoExamples = {
     match: "Drawer header can't hold two icon buttons",
     source: drawerHeader,
   },
+  "field-group-column": {
+    match: "Form: the Field group API shows",
+    source: fieldGroupColumn,
+  },
   "fields-in-tables": {
     match: "Fields and selects collapse",
     source: fieldsInTables,
@@ -280,6 +316,10 @@ export const todoExamples = {
   "forced-colors-switch-toggle": {
     match: "Forced colors: the unchecked Switch dot",
     source: forcedColorsSwitchToggle,
+  },
+  "form-walkthrough-actions": {
+    match: "Form walkthrough: the demo puts",
+    source: formWalkthroughActions,
   },
   "label-less-controls": {
     match: "Label-less checkboxes",
@@ -325,6 +365,10 @@ export const todoExamples = {
     match: '`--primary-contrast` description ("Text color',
     source: primaryContrastClamp,
   },
+  "progress-determinate-script": {
+    match: "Progress: the Determinate HTML",
+    source: progressDeterminateScript,
+  },
   "progress-walkthrough-name": {
     match: "Progress walkthrough:",
     source: progressWalkthroughName,
@@ -345,9 +389,17 @@ export const todoExamples = {
     match: "Range: in `.ui-spread`, `.ui-value` and `datalist`",
     source: rangeSpreadTicksValue,
   },
+  "range-tick-centering": {
+    match: "Range: tick labels are not centered",
+    source: rangeTickCentering,
+  },
   "range-track-fill": {
     match: "HTML Range shows no track fill",
     source: rangeTrackFill,
+  },
+  "range-value-script": {
+    match: "Range: the Value HTML example has",
+    source: rangeValueScript,
   },
   "range-walkthrough-rtl-fill": {
     match: "Range walkthrough:",
@@ -360,6 +412,10 @@ export const todoExamples = {
   "rich-text-component-leaks": {
     match: "Rich text still styles component parts",
     source: richTextComponentLeaks,
+  },
+  "rich-text-inline-code": {
+    match: "Typography: rich text inline `code`",
+    source: richTextInlineCode,
   },
   "rich-text-table-wrapping": {
     match: "Rich text tables break short words",
@@ -396,6 +452,10 @@ export const todoExamples = {
   "switch-invalid-focus": {
     match: "Switch: an invalid switch barely shows focus",
     source: switchInvalidFocus,
+  },
+  "table-header-hover": {
+    match: "Table: row hover also fires on",
+    source: tableHeaderHover,
   },
   "table-row-header-footer": {
     match: 'Table: footer and "row above the footer" rules match `td` only',

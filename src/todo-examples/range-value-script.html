@@ -1,0 +1,68 @@
+<style>
+  .todo-compare .ui-range {
+    inline-size: 16rem;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      A copy of the Value HTML example. Drag the slider: "250°" never changes.
+    </p>
+    <label class="ui-range">
+      <span class="ui-label" id="range-value-1-label-current">Hue</span>
+      <output class="ui-value" for="hueRange-current" data-suffix="°"
+        >250°</output
+      >
+      <input
+        aria-labelledby="range-value-1-label-current"
+        type="range"
+        id="hueRange-current"
+        min="0"
+        max="360"
+        value="250"
+      />
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The same markup plus the five-line input listener in Value.html. Drag the
+      slider: the output follows it.
+    </p>
+    <label class="ui-range">
+      <span class="ui-label" id="range-value-1-label-fixed">Hue</span>
+      <output class="ui-value" for="hueRange-fixed" data-suffix="°"
+        >250°</output
+      >
+      <input
+        aria-labelledby="range-value-1-label-fixed"
+        type="range"
+        id="hueRange-fixed"
+        min="0"
+        max="360"
+        value="250"
+      />
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  const input = document.getElementById("hueRange-fixed")
+  const output = document.querySelector('output[for="hueRange-fixed"]')
+  input.addEventListener("input", () => {
+    output.textContent = `${input.value}${output.dataset.suffix ?? ""}`
+  })
+</script>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const range = panel.querySelector('input[type="range"]')
+    const show = () => {
+      panel.querySelector("[data-measure]").textContent =
+        `input value: ${range.value}, output text: ${panel.querySelector("output").textContent}`
+    }
+    range.addEventListener("input", show)
+    show()
+  }
+</script>

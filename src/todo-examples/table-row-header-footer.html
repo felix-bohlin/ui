@@ -1,18 +1,113 @@
-<table class="ui-table" style="max-inline-size: 20rem">
-  <tbody>
-    <tr>
-      <th scope="row">Price</th>
-      <td>6 950 000</td>
-    </tr>
-    <tr>
-      <th scope="row">Rooms</th>
-      <td>3</td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-      <th scope="row">Total</th>
-      <td>2 rows</td>
-    </tr>
-  </tfoot>
-</table>
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(.ui-table) tfoot :where(th, td) {
+        background-color: var(--surface-filled);
+        border-block-start: var(--border-width) solid var(--border-color);
+        color: var(--text-primary);
+        font-weight: var(--font-weight-semibold);
+        padding-block: var(--size-2);
+      }
+
+      :where(.ui-table) tbody:has(+ tfoot) tr:last-child :where(th, td) {
+        border-block-end: none;
+      }
+    }
+  }
+
+  .todo-zoom {
+    max-inline-size: 14rem;
+    zoom: 2;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Shown at 2x zoom. Under "Sweden" the line above the footer sits 1px higher
+      and darker; the "Total" cell has no top border and less padding.
+    </p>
+    <table class="ui-table todo-zoom">
+      <thead>
+        <tr>
+          <th scope="col">Country</th>
+          <th scope="col">Q1</th>
+          <th scope="col">Q2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Norway</th>
+          <td>143</td>
+          <td>151</td>
+        </tr>
+        <tr>
+          <th scope="row">Sweden</th>
+          <td>210</td>
+          <td>225</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="row">Total</th>
+          <td>353</td>
+          <td>376</td>
+        </tr>
+      </tfoot>
+    </table>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Footer and row-above-footer rules match th and td. The old td-only rules
+      set the same values, so they need no reset.
+    </p>
+    <table class="ui-table todo-zoom">
+      <thead>
+        <tr>
+          <th scope="col">Country</th>
+          <th scope="col">Q1</th>
+          <th scope="col">Q2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Norway</th>
+          <td>143</td>
+          <td>151</td>
+        </tr>
+        <tr>
+          <th scope="row">Sweden</th>
+          <td>210</td>
+          <td>225</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="row">Total</th>
+          <td>353</td>
+          <td>376</td>
+        </tr>
+      </tfoot>
+    </table>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const cell = (s) => getComputedStyle(panel.querySelector(s))
+    const line = (s, side) =>
+      `${s.getPropertyValue(`border-${side}-width`)} ${s.getPropertyValue(`border-${side}-color`)}`
+    const bodyTh = cell("tbody tr:last-child th")
+    const bodyTd = cell("tbody tr:last-child td")
+    const footTh = cell("tfoot th")
+    const footTd = cell("tfoot td")
+    panel.querySelector("[data-measure]").textContent = [
+      `Sweden th bottom: ${line(bodyTh, "bottom")}`,
+      `Sweden td bottom: ${line(bodyTd, "bottom")}`,
+      `Total th top: ${line(footTh, "top")}, padding-block ${footTh.paddingTop}`,
+      `tfoot td top: ${line(footTd, "top")}, padding-block ${footTd.paddingTop}`,
+    ].join("\n")
+  }
+</script>

@@ -233,7 +233,7 @@ Place logic in a `<script>` tag.
 
 Use `<Conditional>` to display different text or HTML content for different frameworks. This is ideal for descriptions or instructions that only apply to a specific framework (e.g., explaining an `aria-label` attribute for HTML vs. a `label` prop for Astro).
 
-- **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `vue`.
+- **Slots**: Named after the framework ids defined in `FRAMEWORKS` ([src/utils/framework.js](../../utils/framework.js)). Today: `html`, `astro`, `solid`, `vue`.
 - **Props**: `as` (optional). Defaults to `span` for inline content. Use `as="div"` or `as="p"` for block-level content.
 - **Resolution**: Server-rendered. The component reads `Astro.currentLocale` (driven by URL routing) and emits only the matching slot. Falls back to the default framework's slot if the active framework's slot is not authored.
 

@@ -7,9 +7,19 @@ import Theming from "./_theming.astro"
 
 <Guide overline="Guide">
   <Fragment slot="title">Getting started</Fragment>
+  <Fragment slot="preamble">
+    OPUI ships Solid components. Install the package, import what you need, and
+    you're set.
+  </Fragment>
 
   <section>
     <h2 id="installation">Install via NPM</h2>
+    <p>
+      The components ship as uncompiled sources (<code>.tsx</code> and <code
+        >.ts</code
+      >), so your build has to compile them. Any setup with Solid JSX support
+      works, for example Vite with <code>@solidjs/vite-plugin</code>.
+    </p>
     <CodeGroup
       tabs={[
         {
@@ -43,19 +53,38 @@ import Theming from "./_theming.astro"
   <section>
     <h2 id="css">Import the CSS</h2>
     <p>
-      Solid components ship markup only - the CSS still has to be imported in
-      your app somehow. Import everything:
+      Solid components ship markup only - the CSS still has to be imported once,
+      in the entry file that renders your app. Import everything:
     </p>
-    <Code code={`@import "opui-css/css/imports.css";`} lang="css" />
-    <p>Or pick and choose:</p>
     <Code
-      code={`@import "opui-css/open-props.css";
+      code={`// src/index.tsx
+import { render } from "@solidjs/web"
+import "opui-css/css/imports.css"
+import App from "./App"
+
+render(() => <App />, document.getElementById("root")!)`}
+      lang="tsx"
+    />
+    <p>
+      Or pick and choose in a CSS file, and import that file in <code
+        >index.tsx</code
+      > instead:
+    </p>
+    <Code
+      code={`/* src/styles/main.css */
+@import "opui-css/css/layers.css";
+@import "opui-css/open-props.css";
 @import "opui-css/core/palette.css";
 @import "opui-css/css/theme.css";
 @import "opui-css/core/normalize.css";
 @import "opui-css/css/components.css";
 @import "opui-css/core/utils.css";`}
       lang="css"
+    />
+    <Code
+      code={`// src/index.tsx
+import "./styles/main.css"`}
+      lang="tsx"
     />
   </section>
 

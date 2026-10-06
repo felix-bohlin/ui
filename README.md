@@ -21,15 +21,16 @@ The project is managed as a monorepo with two main parts:
 
 - **The Library (`packages/opui`)**: Contains the framework-agnostic core of the library. It is managed as a standalone workspace package named `opui-css`.
   - `astro/`: Public entry point and barrel exports for Astro-based projects.
-  - `components/`: UI components organized by folder. Each folder contains the Astro and Vue templates (e.g., `Button.astro`, `Button.vue`) and their types.
+  - `components/`: UI components organized by folder. Each folder contains the Astro, Solid and Vue templates (e.g., `Button.astro`, `Button.tsx`, `Button.vue`) and their types.
   - `core/`: Normalize, palette and utility classes.
   - `css/`: Component styles, theme, layer order, entry-point imports and the HTML helper scripts in `css/js/`.
   - `scripts/`: The build that writes the pre-bundled files to `dist/`.
   - `skills/`: The agent skill shipped with the package. `skills/opui/references` is generated.
+  - `solid/`: Public entry point and barrel exports for Solid-based projects.
   - `vue/`: Public entry point and barrel exports for Vue-based projects.
 - **The Documentation Site (`src/`)**: The Astro site.
   - `src/component-api/`: API table data for each component (`api.ts`).
-  - `src/component-examples/`: One example per framework (`.astro`, `.html`, `.vue`), shown on the docs pages and used by the parity tests.
+  - `src/component-examples/`: One example per framework (`.astro`, `.html`, `.tsx`, `.vue`), shown on the docs pages and used by the parity tests.
   - `src/components/`, `src/layouts/`: Docs site components and page layouts.
   - `src/docs/`: Page content for the components, guide and learn sections.
   - `src/integrations/`: Build integrations, such as the Markdown export and `llms.txt`.
@@ -50,8 +51,8 @@ pnpm dev
 
 ### Adding New Components
 
-1. Create a folder in `packages/opui/components/[ComponentName]` with `[ComponentName].astro`, `[ComponentName].vue` and the `types*.ts` files (see `packages/opui/components/AGENTS.md`).
-2. Export the component from both barrels, `packages/opui/astro/index.ts` and `packages/opui/vue/index.ts`, in alphabetical order.
+1. Create a folder in `packages/opui/components/[ComponentName]` with `[ComponentName].astro`, `[ComponentName].tsx`, `[ComponentName].vue` and the `types*.ts` files (see `packages/opui/components/AGENTS.md`).
+2. Export the component from the barrels, `packages/opui/astro/index.ts`, `packages/opui/solid/index.ts` and `packages/opui/vue/index.ts`, in alphabetical order.
 3. Add the CSS in `packages/opui/css/components/[component-name].css` and list it in `packages/opui/css/components.css`.
 4. Add the docs page `src/docs/components/[component-name].astro`, one example per framework in `src/component-examples/[component-name]/` and the API data in `src/component-api/[component-name]/api.ts` (see `src/docs/components/AGENTS.md` and `src/component-api/AGENT.md`).
 5. Run `pnpm check` and `pnpm test:e2e`; record the new parity snapshots with `pnpm test:update`.

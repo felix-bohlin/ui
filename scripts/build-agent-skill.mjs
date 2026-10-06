@@ -87,7 +87,7 @@ function buildSkill() {
   const index = [
     "# Components",
     "",
-    "Each component has one reference per listed framework: `html/<file>`, `astro/<file>` and `vue/<file>`.",
+    "Each component has one reference per listed framework: `html/<file>`, `astro/<file>`, `solid/<file>` and `vue/<file>`.",
     "",
     "| Component | File | Frameworks | Description |",
     "| --- | --- | --- | --- |",

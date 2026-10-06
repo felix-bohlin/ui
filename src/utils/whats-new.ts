@@ -7,6 +7,7 @@ const whatsNew = {
     {
       astro: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
       html: `<a href="#marker-animation">Marker animation</a> with <code>.ui-marker-flip</code>, <code>.ui-marker-rotate</code> or <code>.ui-marker-turn</code>.`,
+      solid: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
       vue: `<a href="#marker-animation">Marker animation</a> with the <code>markerAnimation</code> prop.`,
     },
     {
@@ -30,6 +31,7 @@ const whatsNew = {
     {
       astro: `<a href="#icon-only">Icon-only</a> buttons are square. <code>rounded</code> makes them round and <code>ripple</code> adds a hover halo.`,
       html: `<a href="#icon-only">Icon-only</a> buttons are square. <code>.ui-rounded</code> makes them round and <code>.ui-ripple</code> adds a hover halo.`,
+      solid: `<a href="#icon-only">Icon-only</a> buttons are square. <code>rounded</code> makes them round and <code>ripple</code> adds a hover halo.`,
       vue: `<a href="#icon-only">Icon-only</a> buttons are square. <code>rounded</code> makes them round and <code>ripple</code> adds a hover halo.`,
     },
     `Replaces <code>IconButton</code>.`,
@@ -59,6 +61,7 @@ const whatsNew = {
   callout: [
     {
       astro: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
+      solid: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
       vue: `<a href="#icon"><code>success</code></a> has a default icon, like <code>info</code>, <code>warning</code> and <code>critical</code>.`,
     },
   ],
@@ -138,6 +141,7 @@ const whatsNew = {
     `New component. A popover menu that anchors to its trigger, with groups and submenus. HTML and CSS only.`,
     {
       astro: `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
+      solid: `<a href="#submenu">Submenus</a> with the <code>submenu</code> prop on <code>ListItem</code>.`,
       vue: `<a href="#submenu">Submenus</a> with the <code>submenu</code> slot on <code>ListItem</code>.`,
     },
     `A subtle light gray border in dark mode, so menus stand out on dialogs and other raised surfaces.`,
@@ -163,6 +167,7 @@ const whatsNew = {
     },
     {
       astro: `<a href="#validation">Validation</a> with the <code>error</code> prop.`,
+      solid: `<a href="#validation">Validation</a> with the <code>error</code> prop.`,
       vue: `<a href="#validation">Validation</a> with the <code>error</code> prop.`,
     },
   ],

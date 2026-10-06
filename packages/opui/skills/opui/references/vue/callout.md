@@ -2,6 +2,8 @@
 
 Callouts call out for user attention. Should be part of the flow and used **without** interrupting the user's task.
 
+**Vue.** Import components from `opui-css/vue`. Props and named slots follow the same API as in the Astro sections below; static HTML notes describe class-based markup when you are not using Vue components.
+
 ### What's new
 
 - [`success`](#icon) has a default icon, like `info`, `warning` and `critical`.

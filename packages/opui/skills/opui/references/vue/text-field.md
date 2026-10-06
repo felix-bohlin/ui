@@ -1,5 +1,7 @@
 # Text field
 
+**Vue.** Import components from `opui-css/vue`. Props and named slots follow the same API as in the Astro sections below; static HTML notes describe class-based markup when you are not using Vue components.
+
 ### What's new
 
 - [X-small and large](#sizes) sizes. Breaking: `size="small"` replaces `small`.

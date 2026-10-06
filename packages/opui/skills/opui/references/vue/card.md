@@ -2,6 +2,8 @@
 
 The card is extremely versatile and can be used on its own, or as a building block for [accordions](https://open-props-ui.netlify.app/vue/components/accordion.md), [dialogs](https://open-props-ui.netlify.app/vue/components/dialog.md) and more.
 
+**Vue.** Import components from `opui-css/vue`. Props and named slots follow the same API as in the Astro sections below; static HTML notes describe class-based markup when you are not using Vue components.
+
 ### What's new
 
 - [Tonal and elevated](#variants) cards have a border in the page background color, so they stay visible on tonal surfaces.

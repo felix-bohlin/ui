@@ -2,6 +2,8 @@
 
 It's just a line.
 
+**Vue.** Import components from `opui-css/vue`. Props and named slots follow the same API as in the Astro sections below; static HTML notes describe class-based markup when you are not using Vue components.
+
 ### What's new
 
 - [Spacing](#spacing) comes from `--divider-space`, which cards, callouts, dialogs and drawers make tighter.

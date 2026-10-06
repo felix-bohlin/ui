@@ -2,6 +2,8 @@
 
 See also: [Spinner](https://open-props-ui.netlify.app/vue/components/spinner.md).
 
+**Vue.** Import components from `opui-css/vue`. Props and named slots follow the same API as in the Astro sections below; static HTML notes describe class-based markup when you are not using Vue components.
+
 ### What's new
 
 - Breaking: [`variant="default"`](#variants) is gone, since it wasn't the default look.

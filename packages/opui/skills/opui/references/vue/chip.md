@@ -2,6 +2,8 @@
 
 Chips are compact elements that represent an input, attribute, or action. Use them for filters, tags and choices. For the main action, like Save or Send, use a [Button](https://open-props-ui.netlify.app/vue/components/button.md).
 
+**Vue.** Import components from `opui-css/vue`. Props and named slots follow the same API as in the Astro sections below; static HTML notes describe class-based markup when you are not using Vue components.
+
 ### What's new
 
 - [Large](#sizes) size with `size="large"`, and small chips are 28px to match the control sizes.
@@ -209,7 +211,7 @@ import { Chip } from "opui-css/vue"
 
 | Prop        | Type                                           | Default   | Description                                           |
 | ----------- | ---------------------------------------------- | --------- | ----------------------------------------------------- |
-| `as`        | `"div"` , `"button"` , `"a"` , `(string & {})` | `"div"`   | The element to render. Defaults to `"a"` with `href`. |
+| `as`        | `(string & {})` , `"div"` , `"button"` , `"a"` | `"div"`   | The element to render. Defaults to `"a"` with `href`. |
 | `href`      | `string`                                       | -         | The link to use. Renders an `<a>`.                    |
 | `label`     | `string`                                       | -         | The label.                                            |
 | `multiline` | `boolean`                                      | `false`   | Lets the label wrap to multiple lines.                |

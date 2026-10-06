@@ -334,7 +334,7 @@ import { Textarea } from "opui-css/astro"
 
 Theme tokens this component reads. Override them on `html` or on a wrapper. See [theme tokens](https://open-props-ui.netlify.app/astro/guide/theme-tokens.md) for the full list.
 
-Textarea attributes (`cols`, `disabled`, `maxlength`, `minlength`, `name`, `placeholder`, `required`, `rows`, `value`) go to the `<textarea>`. Other attributes go to the root `<label>`.
+Attributes, such as `disabled`, `name`, `placeholder`, `rows` and `value`, go to the `<textarea>`. `class` and `style` stay on the root `<label>`.
 
 ## Under the hood
 

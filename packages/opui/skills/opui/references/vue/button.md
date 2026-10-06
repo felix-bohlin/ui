@@ -2,6 +2,8 @@
 
 Buttons do things, like saving a form or opening a dialog. For filters, tags and choices, use a [Chip](https://open-props-ui.netlify.app/vue/components/chip.md).
 
+**Vue.** Import components from `opui-css/vue`. Props and named slots follow the same API as in the Astro sections below; static HTML notes describe class-based markup when you are not using Vue components.
+
 ### What's new
 
 - [Icon-only](#icon-only) buttons are square. `rounded` makes them round and `ripple` adds a hover halo.

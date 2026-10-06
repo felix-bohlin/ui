@@ -2,6 +2,8 @@
 
 Buttons (disguised as input checkbox/radio) that can be toggled on and off. Use them for options in a toolbar, like bold or text alignment. For a setting that applies right away, use a [Switch](https://open-props-ui.netlify.app/vue/components/switch.md), and for choices in a form a [Checkbox](https://open-props-ui.netlify.app/vue/components/checkbox.md). To switch between panels of content, use [Tabs](https://open-props-ui.netlify.app/vue/components/tabs.md).
 
+**Vue.** Import components from `opui-css/vue`. Props and named slots follow the same API as in the Astro sections below; static HTML notes describe class-based markup when you are not using Vue components.
+
 ### What's new
 
 - [Large](#sizes) size with `size="large"`.

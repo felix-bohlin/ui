@@ -2,6 +2,8 @@
 
 Leverages the [List component](https://open-props-ui.netlify.app/vue/components/list.md) to provide markup for the Select popover. Use a Select to pick a value in a form. For actions, use a [Menu](https://open-props-ui.netlify.app/vue/components/menu.md).
 
+**Vue.** Import components from `opui-css/vue`. Props and named slots follow the same API as in the Astro sections below; static HTML notes describe class-based markup when you are not using Vue components.
+
 ### What's new
 
 - [X-small and large](#sizes) sizes with the `size` prop.

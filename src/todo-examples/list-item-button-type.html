@@ -1,0 +1,60 @@
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The button item from the Clickable list example, which is also what
+      <code>ListItem as="button"</code> renders, inside a
+      <code>&lt;form&gt;</code>. Click it: the form submits.
+    </p>
+    <form>
+      <ul class="ui-list">
+        <li>
+          <button>
+            <div class="ui-text">
+              <p>Button list item</p>
+            </div>
+          </button>
+        </li>
+      </ul>
+    </form>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The item renders <code>type="button"</code>, so clicking it doesn't submit
+      the form.
+    </p>
+    <form>
+      <ul class="ui-list">
+        <li>
+          <button type="button">
+            <div class="ui-text">
+              <p>Button list item</p>
+            </div>
+          </button>
+        </li>
+      </ul>
+    </form>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  {
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      const measure = panel.querySelector("[data-measure]")
+      const button = panel.querySelector("form button")
+      let submits = 0
+      const write = () =>
+        (measure.textContent = `button type: ${button.type}\nform submits: ${submits}`)
+      write()
+      panel.querySelector("form").addEventListener("submit", (event) => {
+        event.preventDefault()
+        submits++
+        write()
+      })
+    }
+  }
+</script>

@@ -42,11 +42,14 @@ import contrastNormalNested from "../todo-examples/contrast-normal-nested.html?r
 import controlSizes from "../todo-examples/control-sizes.html?raw"
 import descriptionListAnatomyWidth from "../todo-examples/description-list-anatomy-width.html?raw"
 import descriptionListNarrowBorder from "../todo-examples/description-list-narrow-border.html?raw"
+import dialogActionsAlignApi from "../todo-examples/dialog-actions-align-api.html?raw"
 import dialogActionsAlign from "../todo-examples/dialog-actions-align.html?raw"
 import dialogFocusWrap from "../todo-examples/dialog-focus-wrap.html?raw"
 import dialogLongContent from "../todo-examples/dialog-long-content.html?raw"
 import disabledButtons from "../todo-examples/disabled-buttons.html?raw"
+import drawerFooterInlineEnd from "../todo-examples/drawer-footer-inline-end.html?raw"
 import drawerHeader from "../todo-examples/drawer-header.html?raw"
+import drawerTransparentScrollLock from "../todo-examples/drawer-transparent-scroll-lock.html?raw"
 import fieldGroupColumn from "../todo-examples/field-group-column.html?raw"
 import fieldUserInvalid from "../todo-examples/field-user-invalid.html?raw"
 import fieldsInTables from "../todo-examples/fields-in-tables.html?raw"
@@ -58,10 +61,13 @@ import formWalkthroughActions from "../todo-examples/form-walkthrough-actions.ht
 import labelLessControls from "../todo-examples/label-less-controls.html?raw"
 import linkHoverContrast from "../todo-examples/link-hover-contrast.html?raw"
 import listDenseGroupLabel from "../todo-examples/list-dense-group-label.html?raw"
+import listItemButtonType from "../todo-examples/list-item-button-type.html?raw"
 import listNestedLists from "../todo-examples/list-nested-lists.html?raw"
 import listTextLeak from "../todo-examples/list-text-leak.html?raw"
 import listVideoRtl from "../todo-examples/list-video-rtl.html?raw"
 import listWalkthroughNested from "../todo-examples/list-walkthrough-nested.html?raw"
+import maskIconsForcedColors from "../todo-examples/mask-icons-forced-colors.html?raw"
+import menuShrink from "../todo-examples/menu-shrink.html?raw"
 import minifiedAnimationTimeline from "../todo-examples/minified-animation-timeline.html?raw"
 import paletteHueRotate from "../todo-examples/palette-hue-rotate.html?raw"
 import paletteScopes from "../todo-examples/palette-scopes.html?raw"
@@ -96,6 +102,9 @@ import switchInvalidFocus from "../todo-examples/switch-invalid-focus.html?raw"
 import tableHeaderHover from "../todo-examples/table-header-hover.html?raw"
 import tableRowHeaderFooter from "../todo-examples/table-row-header-footer.html?raw"
 import tableWalkthroughSticky from "../todo-examples/table-walkthrough-sticky.html?raw"
+import tabsReadingFlow from "../todo-examples/tabs-reading-flow.html?raw"
+import tabsScrollableLimit from "../todo-examples/tabs-scrollable-limit.html?raw"
+import tabsSharedName from "../todo-examples/tabs-shared-name.html?raw"
 import tabsWalkthroughRtl from "../todo-examples/tabs-walkthrough-rtl.html?raw"
 import tallMenu from "../todo-examples/tall-menu.html?raw"
 import textFieldDescription from "../todo-examples/text-field-description.html?raw"
@@ -104,7 +113,10 @@ import textFieldLabelWidth from "../todo-examples/text-field-label-width.html?ra
 import textareaAutoFit from "../todo-examples/textarea-auto-fit.html?raw"
 import textareaMinBlockSize from "../todo-examples/textarea-min-block-size.html?raw"
 import textareaWalkthroughMaxSize from "../todo-examples/textarea-walkthrough-max-size.html?raw"
+import toastButtonType from "../todo-examples/toast-button-type.html?raw"
+import toastRtl from "../todo-examples/toast-rtl.html?raw"
 import toggleButtonSelectedHover from "../todo-examples/toggle-button-selected-hover.html?raw"
+import tooltipToastForcedColorsBorder from "../todo-examples/tooltip-toast-forced-colors-border.html?raw"
 import tooltipWalkthroughArrow from "../todo-examples/tooltip-walkthrough-arrow.html?raw"
 import typographyInlineTable from "../todo-examples/typography-inline-table.html?raw"
 import uiDisabledWhere from "../todo-examples/ui-disabled-where.html?raw"
@@ -292,6 +304,10 @@ export const todoExamples = {
     match: "Classes emitted with no CSS",
     source: dialogActionsAlign,
   },
+  "dialog-actions-align-api": {
+    match: "Dialog: `actionsAlign` in api.ts",
+    source: dialogActionsAlignApi,
+  },
   "dialog-focus-wrap": {
     match: "Dialog and Drawer docs: the Tab and Shift+Tab rows",
     source: dialogFocusWrap,
@@ -304,9 +320,17 @@ export const todoExamples = {
     match: "Disabled button text color",
     source: disabledButtons,
   },
+  "drawer-footer-inline-end": {
+    match: "Drawer: the Drawer footer API says",
+    source: drawerFooterInlineEnd,
+  },
   "drawer-header": {
     match: "Drawer header can't hold two icon buttons",
     source: drawerHeader,
+  },
+  "drawer-transparent-scroll-lock": {
+    match: "Drawer: the Usage prose and the",
+    source: drawerTransparentScrollLock,
   },
   "field-group-column": {
     match: "Form: the Field group API shows",
@@ -352,6 +376,10 @@ export const todoExamples = {
     match: "List: the `.ui-dense` row selector",
     source: listDenseGroupLabel,
   },
+  "list-item-button-type": {
+    match: 'ListItem `as="button"` renders `<button>`',
+    source: listItemButtonType,
+  },
   "list-nested-lists": {
     match: "`.ui-list` styles nested classless lists",
     source: listNestedLists,
@@ -367,6 +395,14 @@ export const todoExamples = {
   "list-walkthrough-nested": {
     match: "List walkthrough:",
     source: listWalkthroughNested,
+  },
+  "mask-icons-forced-colors": {
+    match: "Select, Text input and Toast: mask",
+    source: maskIconsForcedColors,
+  },
+  "menu-shrink": {
+    match: "Menu doesn't shrink to the space",
+    source: menuShrink,
   },
   "minified-animation-timeline": {
     match: "Range fill and the header scroll fade",
@@ -504,6 +540,18 @@ export const todoExamples = {
     match: "Table walkthrough:",
     source: tableWalkthroughSticky,
   },
+  "tabs-reading-flow": {
+    match: "Tabs: in Chromium, `reading-flow`",
+    source: tabsReadingFlow,
+  },
+  "tabs-scrollable-limit": {
+    match: "Tabs: `.ui-scrollable` places the",
+    source: tabsScrollableLimit,
+  },
+  "tabs-shared-name": {
+    match: "Tabs: the HTML modifiers table",
+    source: tabsSharedName,
+  },
   "tabs-walkthrough-rtl": {
     match: "Tabs walkthrough:",
     source: tabsWalkthroughRtl,
@@ -537,9 +585,21 @@ export const todoExamples = {
     match: "Textarea walkthrough:",
     source: textareaWalkthroughMaxSize,
   },
+  "toast-button-type": {
+    match: "Toast: every HTML trigger button",
+    source: toastButtonType,
+  },
+  "toast-rtl": {
+    match: "Toast: the manager is pinned with",
+    source: toastRtl,
+  },
   "toggle-button-selected-hover": {
     match: "ToggleButton: hovering a selected toggle button drops its tint",
     source: toggleButtonSelectedHover,
+  },
+  "tooltip-toast-forced-colors-border": {
+    match: "Tooltip and Toast: no border in",
+    source: tooltipToastForcedColorsBorder,
   },
   "tooltip-walkthrough-arrow": {
     match: "Tooltip walkthrough:",

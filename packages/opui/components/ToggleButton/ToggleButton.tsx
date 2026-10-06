@@ -19,9 +19,9 @@ export default function ToggleButton(props: Props) {
   )
 
   const group = useContext(ToggleGroupContext)
-  const field = useContext(FieldGroupContext)
+  const fieldGroup = useContext(FieldGroupContext)
   const uid = createUniqueId()
-  const finalName = () => props.name || group.name || field.name
+  const finalName = () => props.name || group.name || fieldGroup.name
   const finalType = () =>
     group.type === "radio" ? "radio" : props.type || group.type || "checkbox"
 

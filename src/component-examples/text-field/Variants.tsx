@@ -4,7 +4,7 @@ export default function Example() {
   return (
     <>
       <TextField label="Outlined" placeholder="Placeholder" />
-      <TextField label="Filled" placeholder="Placeholder" filled />
+      <TextField label="Filled" placeholder="Placeholder" variant="filled" />
     </>
   )
 }

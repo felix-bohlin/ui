@@ -1,15 +1,22 @@
-import { Anchor } from "opui-css/solid"
+import { Anchor, Button, Card } from "opui-css/solid"
 
 export default function Example() {
   return (
     <Anchor
+      alignment="inline-end"
       anchored={
-        <span style="background: var(--surface-2); padding: var(--size-2) var(--size-3); border-radius: var(--radius-2); box-shadow: var(--shadow-3);">
-          Floating content
-        </span>
+        <Card
+          variant="tonal"
+          class="coach-mark"
+          content={
+            <>
+              <strong>New</strong> Export to PDF and CSV from the same menu.
+            </>
+          }
+        />
       }
     >
-      <button>Hover me</button>
+      <Button variant="outlined">Export</Button>
     </Anchor>
   )
 }

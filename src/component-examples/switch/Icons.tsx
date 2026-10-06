@@ -5,8 +5,8 @@ export default function Example() {
     <>
       <Switch
         name="switch-icons"
-        small
-        aria-label="Toggle theme"
+        size="small"
+        hideLabel
         iconUnchecked={
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -33,12 +33,14 @@ export default function Example() {
             ></path>
           </svg>
         }
-      />
+      >
+        Toggle theme
+      </Switch>
 
       <Switch
         name="switch-icons"
         checked
-        aria-label="Toggle theme"
+        hideLabel
         iconUnchecked={
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +67,9 @@ export default function Example() {
             ></path>
           </svg>
         }
-      />
+      >
+        Toggle theme
+      </Switch>
     </>
   )
 }

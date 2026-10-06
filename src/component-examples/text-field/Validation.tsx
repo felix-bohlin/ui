@@ -5,7 +5,12 @@ export default function Example() {
     <>
       <div class="example-row">
         <TextField label="I'm required" placeholder="Placeholder" required />
-        <TextField label="So am I!" placeholder="Placeholder" required filled />
+        <TextField
+          label="So am I!"
+          placeholder="Placeholder"
+          required
+          variant="filled"
+        />
       </div>
 
       <div class="example-row">
@@ -22,7 +27,7 @@ export default function Example() {
           value="Uh-oh"
           endText="Only letters from the first half of the alphabet are allowed."
           error
-          filled
+          variant="filled"
         />
       </div>
     </>

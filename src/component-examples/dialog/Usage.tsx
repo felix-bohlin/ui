@@ -13,26 +13,17 @@ export default function Example() {
 
       <Dialog
         id="example-dialog"
-        role="alertdialog"
-        aria-labelledby="dialog-heading"
-        aria-modal="true"
-        header={
-          <h2 id="dialog-heading" class="ui-h4">
-            Are you sure?
-          </h2>
-        }
+        header={<h2 class="ui-h4">Newsletter</h2>}
         content={
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-            sodales, nulla sit amet porttitor rhoncus. Lorem ipsum dolor sit
-            amet, consectetur adipiscing elit. Vivamus sodales, nulla sit amet
-            porttitor rhoncus.
+            Get a short email when we ship something new. No more than once a
+            month.
           </p>
         }
         actions={
           <>
             <Button commandfor="example-dialog" command="close" type="button">
-              Cancel
+              Not now
             </Button>
             <Button
               commandfor="example-dialog"
@@ -40,7 +31,7 @@ export default function Example() {
               type="button"
               variant="filled"
             >
-              Save
+              Subscribe
             </Button>
           </>
         }

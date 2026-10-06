@@ -3,11 +3,11 @@ import { Select } from "opui-css/solid"
 export default function Example() {
   return (
     <>
-      <Select label="Currency" prefix="¢">
+      <Select label="Currency" prefix="¤">
         <option value="">-</option>
         <option>EUR</option>
-        <option>EUR</option>
         <option>SEK</option>
+        <option>USD</option>
       </Select>
 
       <Select
@@ -30,9 +30,9 @@ export default function Example() {
         }
       >
         <option value="">-</option>
-        <option>Sweden</option>
-        <option>Norway</option>
         <option>Denmark</option>
+        <option>Norway</option>
+        <option>Sweden</option>
       </Select>
     </>
   )

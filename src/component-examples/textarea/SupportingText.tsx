@@ -8,7 +8,7 @@ export default function Example() {
         label="Label"
         placeholder="Filled"
         endText="Supporting text"
-        filled
+        variant="filled"
       />
     </>
   )

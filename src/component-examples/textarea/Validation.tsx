@@ -5,7 +5,12 @@ export default function Example() {
     <>
       <div class="example-row">
         <Textarea label="Label" placeholder="Default" required />
-        <Textarea label="Label" placeholder="Filled" required filled />
+        <Textarea
+          label="Label"
+          placeholder="Filled"
+          required
+          variant="filled"
+        />
       </div>
 
       <div class="example-row">
@@ -20,7 +25,7 @@ export default function Example() {
           placeholder="Filled"
           endText="Only letters from the first half of the alphabet are allowed."
           error
-          filled
+          variant="filled"
         />
       </div>
     </>

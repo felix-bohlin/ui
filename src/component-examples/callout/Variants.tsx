@@ -9,7 +9,7 @@ export default function Example() {
           needed here.
         </p>
       </Callout>
-      <Callout title="Another Callout" variant="outlined">
+      <Callout variant="outlined" title="Another Callout">
         <p>
           This is an outlined Callout. Why not use a{" "}
           <a class="ui-link" href="/components/card">

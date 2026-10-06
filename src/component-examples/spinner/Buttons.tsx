@@ -6,7 +6,8 @@ export default function Example() {
       <div class="example-row">
         <Button aria-busy="true">Text</Button>
         <Button aria-busy="true" disabled variant="outlined">
-          Outlined
+          {" "}
+          Outlined{" "}
         </Button>
         <Button aria-busy="true" variant="filled">
           Filled

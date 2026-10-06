@@ -8,7 +8,7 @@ export default function Example() {
         spread
         endText="I have read and agree to the privacy policy."
       >
-        Accept Terms &amp; Conditions
+        Accept Terms & Conditions
       </Checkbox>
 
       <Checkbox

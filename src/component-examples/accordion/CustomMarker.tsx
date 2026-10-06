@@ -3,6 +3,8 @@ import { Accordion } from "opui-css/solid"
 export default function Example() {
   return (
     <Accordion
+      variant="outlined"
+      summary="Custom marker"
       marker={
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -10,14 +12,13 @@ export default function Example() {
           height="24"
           viewBox="0 0 24 24"
         >
+          {/* Icon from Fluent UI System Icons by Microsoft Corporation - https://github.com/microsoft/fluentui-system-icons/blob/main/LICENSE */}
           <path
             fill="currentColor"
-            d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+            d="M12 3.25a.75.75 0 0 1 .75.75v7.25H20a.75.75 0 0 1 0 1.5h-7.25V20a.75.75 0 0 1-1.5 0v-7.25H4a.75.75 0 0 1 0-1.5h7.25V4a.75.75 0 0 1 .75-.75"
           ></path>
         </svg>
       }
-      summary="Custom marker"
-      variant="outlined"
     >
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus

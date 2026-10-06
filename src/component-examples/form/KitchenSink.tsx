@@ -1,4 +1,3 @@
-import { createSignal } from "solid-js"
 import {
   Button,
   Checkbox,
@@ -15,6 +14,7 @@ import {
   TextField,
   Textarea,
 } from "opui-css/solid"
+import { ref } from "vue"
 
 const roleItems = [
   { text: "Developer", value: "dev" },
@@ -22,12 +22,12 @@ const roleItems = [
   { text: "Manager", value: "manager" },
 ]
 
-export default function Example() {
-  const [emailNotifs, setEmailNotifs] = createSignal(true)
-  const [smsNotifs, setSmsNotifs] = createSignal(false)
-  const [theme, setTheme] = createSignal("light")
-  const [experience, setExperience] = createSignal(5)
+const emailNotifs = ref(true)
+const smsNotifs = ref(false)
+const theme = ref("light")
+const experience = ref(5)
 
+export default function Example() {
   return (
     <Form id="kitchen-sink-example">
       <FieldSet>
@@ -55,18 +55,10 @@ export default function Example() {
           Configure how you want to receive updates.
         </FieldDescription>
         <FieldGroup name="notifications">
-          <Switch
-            checked={emailNotifs()}
-            name="email_notifs"
-            onChange={(e) => setEmailNotifs(e.currentTarget.checked)}
-          >
+          <Switch /* TODO v-model="emailNotifs" */ name="email_notifs">
             Email Notifications
           </Switch>
-          <Switch
-            checked={smsNotifs()}
-            name="sms_notifs"
-            onChange={(e) => setSmsNotifs(e.currentTarget.checked)}
-          >
+          <Switch /* TODO v-model="smsNotifs" */ name="sms_notifs">
             SMS Notifications
           </Switch>
         </FieldGroup>
@@ -78,25 +70,9 @@ export default function Example() {
         <FieldLegend>Theme Preference</FieldLegend>
         <FieldDescription>Select your preferred visual style.</FieldDescription>
         <FieldGroup name="theme">
-          <Radio
-            checked={theme() === "light"}
-            value="light"
-            onChange={(e) => setTheme(e.currentTarget.value)}
-          >
-            Light Theme
-          </Radio>
-          <Radio
-            checked={theme() === "dark"}
-            value="dark"
-            onChange={(e) => setTheme(e.currentTarget.value)}
-          >
-            Dark Theme
-          </Radio>
-          <Radio
-            checked={theme() === "system"}
-            value="system"
-            onChange={(e) => setTheme(e.currentTarget.value)}
-          >
+          <Radio /* TODO v-model="theme" */ value="light">Light Theme</Radio>
+          <Radio /* TODO v-model="theme" */ value="dark">Dark Theme</Radio>
+          <Radio /* TODO v-model="theme" */ value="system">
             System Default
           </Radio>
         </FieldGroup>
@@ -115,9 +91,7 @@ export default function Example() {
             min="0"
             max="20"
             step="1"
-            value={experience()}
-            onInput={(e) => setExperience(Number(e.currentTarget.value))}
-            startText="Drag the slider to match your total tenure."
+            /* TODO v-model="experience" */ startText="Drag the slider to match your total tenure."
           />
         </FieldGroup>
       </FieldSet>

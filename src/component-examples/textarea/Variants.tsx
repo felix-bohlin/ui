@@ -4,7 +4,7 @@ export default function Example() {
   return (
     <>
       <Textarea label="Default" placeholder="Placeholder" />
-      <Textarea label="Filled" placeholder="Placeholder" filled />
+      <Textarea label="Filled" placeholder="Placeholder" variant="filled" />
     </>
   )
 }

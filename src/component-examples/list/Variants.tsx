@@ -8,11 +8,6 @@ export default function Example() {
         <ListItem headline="Second item" />
       </List>
 
-      <List variant="default">
-        <ListItem headline="Default" />
-        <ListItem headline="Second item" />
-      </List>
-
       <List variant="tonal">
         <ListItem headline="Tonal" />
         <ListItem headline="Second item" />

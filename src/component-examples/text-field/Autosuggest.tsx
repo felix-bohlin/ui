@@ -12,7 +12,7 @@ export default function Example() {
       </TextField>
 
       <TextField
-        filled
+        variant="filled"
         label="Emails"
         list="users-email"
         placeholder="Placeholder"

@@ -14,7 +14,7 @@ export default function Example() {
         spread
         placeholder="you@example.com"
         type="email"
-        filled
+        variant="filled"
         label="Email"
         description="We'll use this to contact you"
         endText="Please use a valid email address"
@@ -55,7 +55,7 @@ export default function Example() {
         spread
         label="Website"
         placeholder="example.com"
-        filled
+        variant="filled"
         description="Your public profile URL"
         prefix="https://"
         endText="Must include a valid domain"
@@ -72,7 +72,7 @@ export default function Example() {
 
       <TextField
         spread
-        filled
+        variant="filled"
         label="API key"
         placeholder="Paste your key"
         type="password"

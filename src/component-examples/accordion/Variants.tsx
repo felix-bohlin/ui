@@ -11,7 +11,7 @@ export default function Example() {
         </p>
       </Accordion>
 
-      <Accordion summary="Elevated" variant="elevated">
+      <Accordion variant="elevated" summary="Elevated">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
           sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
@@ -19,7 +19,7 @@ export default function Example() {
         </p>
       </Accordion>
 
-      <Accordion summary="Outlined" variant="outlined">
+      <Accordion variant="outlined" summary="Outlined">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
           sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,
@@ -27,7 +27,7 @@ export default function Example() {
         </p>
       </Accordion>
 
-      <Accordion summary="Tonal" variant="tonal">
+      <Accordion variant="tonal" summary="Tonal">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
           sodales, nulla sit amet porttitor rhoncus, lacus ex vestibulum libero,

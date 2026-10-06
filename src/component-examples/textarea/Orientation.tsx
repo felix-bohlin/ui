@@ -13,7 +13,7 @@ export default function Example() {
       <Textarea
         spread
         placeholder="Additional notes..."
-        filled
+        variant="filled"
         label="Notes"
         description="Add any additional notes or comments"
         endText="Maximum 500 characters"
@@ -66,7 +66,7 @@ export default function Example() {
 
       <Textarea
         spread
-        filled
+        variant="filled"
         label="Release notes"
         placeholder="Markdown supported..."
         description="Shown on the changelog page"

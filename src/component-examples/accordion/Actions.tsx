@@ -3,15 +3,15 @@ import { Accordion, Button } from "opui-css/solid"
 export default function Example() {
   return (
     <Accordion
+      open
+      variant="elevated"
+      summary="Accordion with actions"
       actions={
         <>
           <Button>Cancel</Button>
           <Button>Agree</Button>
         </>
       }
-      open
-      summary="Accordion with actions"
-      variant="elevated"
     >
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus

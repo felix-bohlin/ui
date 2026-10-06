@@ -6,7 +6,11 @@ export default function Example() {
       <ListItem
         headline="Gutterless list item"
         end={
-          <button class="ui-icon-button" type="button">
+          <button
+            aria-label="Delete"
+            class="ui-button ui-rounded ui-ripple ui-small"
+            type="button"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"

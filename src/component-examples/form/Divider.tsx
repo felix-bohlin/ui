@@ -21,6 +21,7 @@ export default function Example() {
       <Divider />
 
       <FieldGroup>
+        <Button>Save draft</Button>
         <Button variant="filled">Publish</Button>
       </FieldGroup>
     </Form>

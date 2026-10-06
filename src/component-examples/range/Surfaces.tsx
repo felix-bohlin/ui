@@ -3,9 +3,8 @@ import { Range } from "opui-css/solid"
 export default function Example() {
   return (
     <>
-      <Range label="Default" />
-      <Range variant="default">
-        <code>default</code> = <code>var(--surface-default)</code>
+      <Range>
+        No variant = <code>var(--field-border-color)</code>
       </Range>
       <Range variant="filled">
         <code>filled</code> = <code>var(--surface-filled)</code>

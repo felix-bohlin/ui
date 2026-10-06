@@ -4,7 +4,7 @@ export default function Example() {
   return (
     <>
       <div class="example-row">
-        <Switch name="switch-sizes" small checked hideLabel>
+        <Switch name="switch-sizes" size="small" checked hideLabel>
           Small
         </Switch>
         <Switch name="switch-sizes" checked hideLabel>
@@ -12,7 +12,7 @@ export default function Example() {
         </Switch>
       </div>
       <div class="example-row">
-        <Switch name="switch-sizes" small checked>
+        <Switch name="switch-sizes" size="small" checked>
           Small
         </Switch>
         <Switch name="switch-sizes" checked>

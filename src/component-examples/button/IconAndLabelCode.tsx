@@ -4,37 +4,37 @@ export default function Example() {
   return (
     <>
       <Button>
-        Text
+        <span class="ui-text">Text</span>
         <svg>{/* */}</svg>
       </Button>
       <Button variant="outlined">
-        Outlined
+        <span class="ui-text">Outlined</span>
         <svg>{/* */}</svg>
       </Button>
       <Button variant="tonal">
-        Tonal
+        <span class="ui-text">Tonal</span>
         <svg>{/* */}</svg>
       </Button>
       <Button variant="filled">
-        Filled
+        <span class="ui-text">Filled</span>
         <svg>{/* */}</svg>
       </Button>
 
       <Button>
         <svg>{/* */}</svg>
-        Text
+        <span class="ui-text">Text</span>
       </Button>
       <Button variant="outlined">
         <svg>{/* */}</svg>
-        Outlined
+        <span class="ui-text">Outlined</span>
       </Button>
       <Button variant="tonal">
         <svg>{/* */}</svg>
-        Tonal
+        <span class="ui-text">Tonal</span>
       </Button>
       <Button variant="filled">
         <svg>{/* */}</svg>
-        Filled
+        <span class="ui-text">Filled</span>
       </Button>
     </>
   )

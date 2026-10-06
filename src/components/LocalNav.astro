@@ -80,66 +80,19 @@ const { sidebarDrawerId, showToc = true } = Astro.props
 <style>
   .local-nav {
     align-items: center;
-    backdrop-filter: blur(3px);
     display: flex;
     grid-column: 4 / 8;
-    margin-block-end: var(--size-4);
     margin-inline-start: var(--size-2);
     padding-block: var(--size-2);
     padding-inline: var(--size-1);
-    position: relative;
 
     @media (width < 900px) {
       grid-column: 1 / -1;
       margin-inline-start: 0;
     }
 
-    &::before {
-      animation-fill-mode: both;
-      animation-name: fade-bg;
-      animation-range: 0 150px;
-      animation-timeline: scroll();
-      animation-timing-function: linear;
-      background-color: var(--surface-elevated);
-      border: var(--border-width) solid oklch(from var(--primary) l c h / 0.2);
-      border-block-end: var(--border-width) solid
-        oklch(from var(--text-primary) l c h / 0.15);
-      border-block-start: none;
-      border-radius: 0;
-      box-shadow: var(--shadow-2);
-      content: "";
-      inset: 0;
-      opacity: 0;
-      position: absolute;
-      z-index: -1;
-
-      @media (width >= 900px) {
-        inset-block: 0;
-        inset-inline-end: 0;
-        inset-inline-start: calc(
-          -1 * (var(--site-gap) + 200px + clamp(2rem, 18vw, 16rem))
-        );
-        -webkit-mask-image: linear-gradient(
-          to right,
-          transparent 0,
-          #000 clamp(2.5rem, 12vw, 7rem)
-        );
-        mask-image: linear-gradient(
-          to right,
-          transparent 0,
-          #000 clamp(2.5rem, 12vw, 7rem)
-        );
-      }
-    }
-
     @media (width >= 1140px) {
       display: none;
-    }
-  }
-
-  @keyframes fade-bg {
-    to {
-      opacity: 1;
     }
   }
 

@@ -317,12 +317,41 @@ const { link } = Astro.locals
   }
 
   @media (width < 1140px) {
-    .site-header:has(.local-nav) header .ui-content {
-      border-block-end: none;
-    }
+    .site-header:has(.local-nav) {
+      animation-fill-mode: both;
+      animation-name: frost;
+      animation-range: 0 150px;
+      animation-timeline: scroll();
+      animation-timing-function: linear;
+      margin-block-end: var(--size-4);
 
-    .site-header:has(.local-nav) header .ui-content::before {
-      border-block-end: none;
+      &::before {
+        animation-fill-mode: both;
+        animation-name: fade-bg;
+        animation-range: 0 150px;
+        animation-timeline: scroll();
+        animation-timing-function: linear;
+        background-color: oklch(from var(--surface-elevated) l c h / 0.8);
+        border-block-end: var(--border-width) solid
+          oklch(from var(--text-primary) l c h / 0.15);
+        box-shadow: var(--shadow-2);
+        content: "";
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        z-index: -1;
+      }
+
+      header .ui-content {
+        animation-name: compact-content;
+        backdrop-filter: none;
+        border-block-end: none;
+
+        &::before {
+          display: none;
+        }
+      }
     }
   }
 
@@ -539,6 +568,23 @@ const { link } = Astro.locals
     to {
       border-block-end-color: transparent;
       opacity: 0.9;
+      padding: var(--size-2) var(--size-3) var(--size-2) var(--size-2);
+    }
+  }
+
+  @keyframes frost {
+    from {
+      -webkit-backdrop-filter: blur(0) saturate(1);
+      backdrop-filter: blur(0) saturate(1);
+    }
+    to {
+      -webkit-backdrop-filter: blur(12px) saturate(1.5);
+      backdrop-filter: blur(12px) saturate(1.5);
+    }
+  }
+
+  @keyframes compact-content {
+    to {
       padding: var(--size-2) var(--size-3) var(--size-2) var(--size-2);
     }
   }

@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Select",
+  css: ["select", "text-field"],
   model: {
     description: "The selected value, or values with `multiple`.",
     prop: "value",
@@ -11,6 +12,8 @@ export default {
     astro:
       "Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to the `<select>`.",
     html: "The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` with the options. Browsers without customizable selects show a native select.",
+    solid:
+      "Props that aren't listed here, such as `disabled`, `multiple` or `name`, go to the `<select>`. `value` selects the matching `items`.",
     vue: "Attributes that aren't props, such as `disabled` or `name`, go to the `<select>`.",
   },
   options: [
@@ -31,20 +34,24 @@ export default {
     },
     {
       description: "The id of the `<select>`.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "id",
       type: "string",
     },
     {
       default: "[]",
-      description: "The options, as `{ text, value }` objects.",
+      description: "The options, as `{ selected, text, value }` objects.",
       prop: "items",
     },
     {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { small: ".ui-small" },
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       class: ".ui-spread",

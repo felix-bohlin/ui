@@ -10,12 +10,15 @@ import ListCSS from "@opui/css/components/list.css?raw"
 import ExampleDefaultHTML from "../../component-examples/list/Default.html?raw"
 
 import ListDense from "../../component-examples/ListDense.astro"
+import ListDenseSolid from "../../component-examples/ListDense.tsx"
+import ListDenseSolidRaw from "../../component-examples/ListDense.tsx?raw"
 import ListDenseVue from "../../component-examples/ListDense.vue"
 import ListDenseVueRaw from "../../component-examples/ListDense.vue?raw"
 import Conditional from "../../components/Conditional.astro"
 
 import listApi from "../../component-api/list/api"
 import listItemApi from "../../component-api/list-item/api"
+import ListBuild from "../../components/UnderTheHood/ListBuild.astro"
 
 export const description =
   "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it."
@@ -29,7 +32,7 @@ export const description =
     { title: "List API", api: listApi },
     { title: "List item API", api: listItemApi },
   ]}
-  browserSupport={["has", "light-dark", "relative-color"]}
+  browserSupport={["has", "relative-color"]}
   changelogPaths={[
     {
       path: "packages/opui/components/List/List.astro",
@@ -51,7 +54,10 @@ export const description =
 >
   <Fragment slot="title">List</Fragment>
 
-  <AutoExample name="Default" />
+  <section>
+    <h2 id="basics">Basics</h2>
+    <AutoExample name="Default" />
+  </section>
 
   <section>
     <h2 id="configurations">Configurations</h2>
@@ -82,6 +88,20 @@ export const description =
         </li>
         <li>
           <a href="#end-items" class="ui-link"><code>.ui-end</code></a> (optional):
+          items after the main content
+        </li>
+      </ul>
+      <ul slot="solid">
+        <li>
+          <a href="#text" class="ui-link"><code>text</code> prop</a>: main
+          content
+        </li>
+        <li>
+          <a href="#start-items" class="ui-link"><code>start</code> prop</a> (optional):
+          items before the main content
+        </li>
+        <li>
+          <a href="#end-items" class="ui-link"><code>end</code> prop</a> (optional):
           items after the main content
         </li>
       </ul>
@@ -120,10 +140,11 @@ export const description =
         Change background color with the <code>variant</code> prop.
       </p>
       <p slot="html">
-        Use
-        <code>.ui-default</code>, <code>.ui-tonal</code>, and <code
-          >.ui-transparent</code
-        > to change the background color.
+        Use <code>.ui-tonal</code> or <code>.ui-transparent</code> to change the background
+        color.
+      </p>
+      <p slot="solid">
+        Change background color with the <code>variant</code> prop.
       </p>
       <p slot="vue">
         Change background color with the <code>variant</code> prop.
@@ -131,11 +152,12 @@ export const description =
     </Conditional>
 
     <Callout class="ui-not-rich-text">
-      <Fragment slot="title">Filled as default?!</Fragment>
+      <Fragment slot="title">Filled by default</Fragment>
       <p>
-        Yeah it's a bit weird, but normally you would use a list in a
-        popover/select scenario that needs to contrast against the background.
-        If nothing else, just change it yourself.
+        Without a color class the list uses the filled surface, because lists
+        usually sit in popovers and selects that need to contrast against the
+        page. Pick <code>tonal</code>, or <code>transparent</code> to show the surface
+        behind the list.
       </p>
     </Callout>
 
@@ -145,10 +167,10 @@ export const description =
   <section>
     <h2 id="clickable-list-item">Clickable list item</h2>
     <p>
-      Wrap the elements of your List item with a <code>a</code>, <code
+      Wrap the elements of your List item with an <code>a</code>, <code
         >button</code
       >
-      or <code>label</code> depending on use-case.
+      {" "}or <code>label</code> depending on use-case.
     </p>
 
     <AutoExample name="Clickable" />
@@ -156,13 +178,24 @@ export const description =
     <h3 id="selected">Selected item</h3>
     <Conditional>
       <p slot="html">
-        Add <code>aria-selected="true"</code> to the <code>li</code>.
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >li</code
+        >.
       </p>
       <p slot="astro">
-        Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >ListItem</code
+        >.
+      </p>
+      <p slot="solid">
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >ListItem</code
+        >.
       </p>
       <p slot="vue">
-        Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >ListItem</code
+        >.
       </p>
     </Conditional>
     <AutoExample name="Selected" />
@@ -175,16 +208,25 @@ export const description =
         Main text lives in the <code>text</code> slot, or pass <code
           >headline</code
         >
-        and <code>description</code> props directly on <code>ListItem</code>.
+        {" "}and <code>description</code> props directly on <code>ListItem</code
+        >.
       </Fragment>
       <Fragment slot="html">
         Main text lives in <code>div.ui-text</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        Main text lives in the <code>text</code> prop, or pass <code
+          >headline</code
+        >
+        {" "}and <code>description</code> props directly on <code>ListItem</code
+        >.
       </Fragment>
       <Fragment slot="vue">
         Main text lives in the <code>text</code> slot, or pass <code
           >headline</code
         >
-        and <code>description</code> props directly on <code>ListItem</code>.
+        {" "}and <code>description</code> props directly on <code>ListItem</code
+        >.
       </Fragment>
     </Conditional>
 
@@ -199,6 +241,9 @@ export const description =
       </Fragment>
       <Fragment slot="html">
         Found in <code>div.ui-start</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        Authored via the <code>start</code> prop on <code>ListItem</code>.
       </Fragment>
       <Fragment slot="vue">
         Authored via the <code>start</code> slot on <code>ListItem</code>.
@@ -232,6 +277,9 @@ export const description =
       <Fragment slot="html">
         Found in <code>div.ui-end</code>.
       </Fragment>
+      <Fragment slot="solid">
+        Authored via the <code>end</code> prop on <code>ListItem</code>.
+      </Fragment>
       <Fragment slot="vue">
         Authored via the <code>end</code> slot on <code>ListItem</code>.
       </Fragment>
@@ -248,7 +296,7 @@ export const description =
       Wrap the List item content with a <code
         >&lt;label class="ui-checkbox" for="INPUTID"&gt;</code
       >
-      to make the entire surface clickable.
+      {" "}to make the entire surface clickable.
     </p>
     <p>
       Read more: <DocLink href="/components/checkbox" class="ui-link"
@@ -262,7 +310,7 @@ export const description =
       Wrap the List item content with a <code
         >&lt;label class="ui-radio" for="INPUTID"&gt;</code
       >
-      to make the entire surface clickable.
+      {" "}to make the entire surface clickable.
     </p>
     <p>
       Radio group: Add a common name to each <code>&lt;input&gt;</code> for radio
@@ -292,27 +340,70 @@ export const description =
 
   <section>
     <h2 id="gutterless">Gutterless</h2>
-    <p>
-      Apply the <code>.ui-gutterless</code> class on the <code>ul.ui-list</code> element
-      to remove the inline padding on the list items.
-    </p>
+    <Conditional>
+      <p slot="html">
+        Apply the <code>.ui-gutterless</code> class on the <code
+          >ul.ui-list</code
+        > element to remove the inline padding on the list items.
+      </p>
+      <p slot="astro">
+        Add the <code>gutterless</code> prop to the <code>List</code> to remove the
+        inline padding on the list items.
+      </p>
+      <p slot="solid">
+        Add the <code>gutterless</code> prop to the <code>List</code> to remove the
+        inline padding on the list items.
+      </p>
+      <p slot="vue">
+        Add the <code>gutterless</code> prop to the <code>List</code> to remove the
+        inline padding on the list items.
+      </p>
+    </Conditional>
     <AutoExample name="Gutterless" />
   </section>
 
   <section>
     <h2 id="borders">Borders</h2>
     <h3 id="on-every-item">On every item</h3>
-    <p>
-      Apply the <code>.ui-bordered</code> class on the <code>ul.ui-list</code> element
-      to give all list items a border.
-    </p>
+    <Conditional>
+      <p slot="html">
+        Apply the <code>.ui-bordered</code> class on the <code>ul.ui-list</code> element
+        to give all list items a border.
+      </p>
+      <p slot="astro">
+        Add the <code>bordered</code> prop to the <code>List</code> to give all list
+        items a border.
+      </p>
+      <p slot="solid">
+        Add the <code>bordered</code> prop to the <code>List</code> to give all list
+        items a border.
+      </p>
+      <p slot="vue">
+        Add the <code>bordered</code> prop to the <code>List</code> to give all list
+        items a border.
+      </p>
+    </Conditional>
     <AutoExample name="Bordered" />
 
     <h3 id="on-one-item">On one item</h3>
-    <p>
-      Apply the <code>.ui-border-top</code> class on a <code>li</code> item to give
-      it an upper border.
-    </p>
+    <Conditional>
+      <p slot="html">
+        Apply the <code>.ui-border-top</code> class on a <code>li</code> item to give
+        it an upper border.
+      </p>
+      <p slot="astro">
+        Add the <code>borderTop</code> prop to a <code>ListItem</code> to give it
+        an upper border.
+      </p>
+      <p slot="solid">
+        Add the <code>borderTop</code> prop to a <code>ListItem</code> to give it
+        an upper border.
+      </p>
+      <p slot="vue">
+        Add the <code>borderTop</code> prop to a <code>ListItem</code> to give it
+        an upper border.
+      </p>
+    </Conditional>
     <AutoExample name="SingleBorder" />
   </section>
 
@@ -326,17 +417,20 @@ export const description =
       <p slot="astro">
         Just add the <code>dense</code> prop to the <code>List</code>!
       </p>
+      <p slot="solid">
+        Just add the <code>dense</code> prop to the <code>List</code>!
+      </p>
       <p slot="vue">
         Just add the <code>dense</code> prop to the <code>List</code>!
       </p>
     </Conditional>
-    <Example>
+    <Example solidExampleId="ListDense">
       <Conditional slot="controls">
         <Switch
           slot="html"
           id="list-dense-toggle-html"
           class="list-dense-toggle"
-          small
+          size="small"
           checked
         >
           <code>.ui-dense</code>
@@ -345,7 +439,16 @@ export const description =
           slot="astro"
           id="list-dense-toggle-astro"
           class="list-dense-toggle"
-          small
+          size="small"
+          checked
+        >
+          <code>dense</code>
+        </Switch>
+        <Switch
+          slot="solid"
+          id="list-dense-toggle-solid"
+          class="list-dense-toggle"
+          size="small"
           checked
         >
           <code>dense</code>
@@ -354,7 +457,7 @@ export const description =
           slot="vue"
           id="list-dense-toggle-vue"
           class="list-dense-toggle"
-          small
+          size="small"
           checked
         >
           <code>dense</code>
@@ -364,6 +467,7 @@ export const description =
       <Example.Preview slot="preview-astro">
         <ListDense />
       </Example.Preview>
+      <Example.Preview slot="preview-solid" code={ListDenseSolid} />
       <Example.Preview slot="preview-vue" code={ListDenseVue} />
       <Example.Preview slot="preview-html">
         <div
@@ -385,9 +489,12 @@ export const description =
   <!--  -->
 </List>`}
       />
+      <Example.Code slot="code-solid" code={ListDenseSolidRaw} />
       <Example.Code slot="code-vue" code={ListDenseVueRaw} />
     </Example>
   </section>
+
+  <ListBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy api={listItemApi} zoom={1.25}>

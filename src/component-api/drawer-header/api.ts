@@ -2,19 +2,32 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "DrawerHeader",
-  options: [],
+  options: [
+    {
+      default: '"Close"',
+      description: "The accessible name of the close button.",
+      frameworks: ["astro", "solid", "vue"],
+      prop: "closeLabel",
+      type: "string",
+    },
+    {
+      description:
+        "The id of the drawer to close with the `close` command. Without it, the button closes the nearest `<dialog>` on click.",
+      prop: "commandfor",
+    },
+  ],
   page: "drawer",
   parts: [
     {
-      code: "<span>",
+      code: "<h2>",
       description: "The heading.",
       props: ["heading"],
-      selector: ".ui-header > span",
+      selector: ".ui-header > h2",
     },
     {
       code: "<button>",
       description: "Closes the drawer.",
-      selector: ".ui-header > .ui-icon-button",
+      selector: ".ui-header > .ui-button",
     },
   ],
   root: {

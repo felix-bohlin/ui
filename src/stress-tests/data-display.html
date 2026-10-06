@@ -1,0 +1,2609 @@
+<style>
+  .stress-data-cell {
+    align-items: center;
+    display: flex;
+    gap: var(--size-2);
+  }
+
+  .stress-data-column {
+    align-content: start;
+    display: grid;
+    gap: var(--size-3);
+    inline-size: min(100%, 24rem);
+  }
+
+  .stress-data-container {
+    container-type: inline-size;
+  }
+
+  .stress-data-meta {
+    color: var(--text-muted);
+    font-size: var(--font-size-0);
+  }
+
+  .stress-data-num {
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+  }
+
+  .stress-data-progress {
+    inline-size: 6rem;
+  }
+
+  .stress-data-scroll {
+    max-inline-size: 100%;
+    overflow-x: auto;
+  }
+
+  .stress-data-sticky {
+    max-block-size: 14rem;
+    overflow: auto;
+  }
+</style>
+
+<section class="stress" data-example="TableCellContent">
+  <h2>Table cell content</h2>
+  <p>
+    Every kind of content in one default table. Rows should stay one control
+    tall, avatars, chips, badges and buttons should center on the row, numbers
+    right align, and long unbroken strings should not break the layout.
+  </p>
+  <table class="ui-table">
+    <caption>
+      Team members
+    </caption>
+    <thead>
+      <tr>
+        <th>
+          <label class="ui-checkbox"
+            ><input type="checkbox" data-indeterminate /><span
+              class="ui-sr-only"
+              >Select all</span
+            ></label
+          >
+        </th>
+        <th>Person</th>
+        <th>Status</th>
+        <th>Inbox</th>
+        <th>Progress</th>
+        <th class="stress-data-num">Amount</th>
+        <th>Active</th>
+        <th>Notes</th>
+        <th><span class="ui-sr-only">Actions</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <label class="ui-checkbox"
+            ><input type="checkbox" checked /><span class="ui-sr-only"
+              >Select Ada Lovelace</span
+            ></label
+          >
+        </td>
+        <td>
+          <div class="stress-data-cell">
+            <span class="ui-avatar">AL</span>
+            <div>
+              <div>Ada Lovelace</div>
+              <div class="stress-data-meta">ada@example.com</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="ui-chip ui-small"
+            ><span class="ui-text">Active</span></span
+          >
+        </td>
+        <td>
+          <span class="ui-anchor ui-badge ui-critical"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">12</span></span
+            ></span
+          >
+        </td>
+        <td>
+          <div class="ui-progress stress-data-progress">
+            <progress
+              value="80"
+              max="100"
+              aria-label="Ada Lovelace progress"
+            ></progress>
+          </div>
+        </td>
+        <td class="stress-data-num">1&nbsp;204,50</td>
+        <td>
+          <label class="ui-switch"
+            ><input type="checkbox" role="switch" checked /><span
+              class="ui-sr-only"
+              >Ada Lovelace active</span
+            ></label
+          >
+        </td>
+        <td>Short note</td>
+        <td>
+          <div class="stress-data-cell">
+            <button class="ui-button ui-x-small ui-outlined" type="button">
+              Edit
+            </button>
+            <button
+              class="ui-button ui-x-small"
+              type="button"
+              aria-label="Options for Ada Lovelace"
+              commandfor="stress-data-menu-1"
+              command="toggle-popover"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                ></path>
+              </svg>
+            </button>
+            <menu class="ui-menu ui-list" id="stress-data-menu-1" popover>
+              <li>
+                <button
+                  type="button"
+                  commandfor="stress-data-menu-1"
+                  command="hide-popover"
+                >
+                  <div class="ui-text"><p>Duplicate</p></div>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  commandfor="stress-data-menu-1"
+                  command="hide-popover"
+                >
+                  <div class="ui-text"><p>Edit</p></div>
+                </button>
+              </li>
+            </menu>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label class="ui-checkbox"
+            ><input type="checkbox" /><span class="ui-sr-only"
+              >Select Alan Turing</span
+            ></label
+          >
+        </td>
+        <td>
+          <div class="stress-data-cell">
+            <span class="ui-anchor ui-badge ui-dot ui-success"
+              ><span class="ui-avatar"
+                ><img
+                  alt=""
+                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%23f59e0b'/%3E%3Ccircle cx='20' cy='16' r='7' fill='%23fff'/%3E%3Cpath d='M6 40a14 14 0 0 1 28 0' fill='%23fff'/%3E%3C/svg%3E" /></span
+              ><span class="ui-anchor-floating"
+                ><span class="ui-badge-indicator"></span></span
+            ></span>
+            <div>
+              <div>Alan Turing</div>
+              <div class="stress-data-meta">
+                alan.mathison.turing@bletchley-park.example.co.uk
+              </div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="ui-chip ui-small ui-outlined"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
+              ></path></svg
+            ><span class="ui-text">Verified</span></span
+          >
+        </td>
+        <td>
+          <span class="ui-anchor ui-badge"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">99+</span></span
+            ></span
+          >
+        </td>
+        <td>
+          <div class="ui-progress stress-data-progress">
+            <progress aria-label="Alan Turing progress"></progress>
+          </div>
+        </td>
+        <td class="stress-data-num">98&nbsp;765&nbsp;432,00</td>
+        <td>
+          <label class="ui-switch"
+            ><input type="checkbox" role="switch" /><span class="ui-sr-only"
+              >Alan Turing active</span
+            ></label
+          >
+        </td>
+        <td>Waiting for review</td>
+        <td>
+          <div class="stress-data-cell">
+            <button class="ui-button ui-x-small ui-outlined" type="button">
+              Edit
+            </button>
+            <button
+              class="ui-button ui-x-small"
+              type="button"
+              aria-label="Options for Alan Turing"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label class="ui-checkbox"
+            ><input type="checkbox" disabled /><span class="ui-sr-only"
+              >Select Barbara Liskov</span
+            ></label
+          >
+        </td>
+        <td>
+          <div class="stress-data-cell">
+            <span class="ui-avatar ui-rounded"
+              ><svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+              >
+                <path
+                  fill="currentColor"
+                  d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
+                ></path></svg
+            ></span>
+            <div>Barbara Liskov</div>
+          </div>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="stress-data-num">0</td>
+        <td>
+          <label class="ui-switch"
+            ><input type="checkbox" role="switch" disabled /><span
+              class="ui-sr-only"
+              >Barbara Liskov active</span
+            ></label
+          >
+        </td>
+        <td>
+          A note that is long enough to wrap onto several lines inside the cell
+          so the row grows taller than its neighbours and every other cell has
+          to decide where to sit vertically.
+        </td>
+        <td>
+          <div class="stress-data-cell">
+            <button
+              class="ui-button ui-x-small ui-outlined"
+              type="button"
+              disabled
+            >
+              Edit
+            </button>
+            <button
+              class="ui-button ui-x-small"
+              type="button"
+              aria-label="Options for Barbara Liskov"
+              disabled
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label class="ui-checkbox"
+            ><input type="checkbox" /><span class="ui-sr-only"
+              >Select Grace Hopper</span
+            ></label
+          >
+        </td>
+        <td>
+          <div class="stress-data-cell">
+            <span class="ui-avatar ui-squircle">GH</span>
+            <div>
+              <div>Grace Brewster Murray Hopper, Rear Admiral</div>
+              <div class="stress-data-meta">grace@example.com</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="ui-chip"><span class="ui-text">Default size</span></span>
+        </td>
+        <td>
+          <span class="ui-anchor ui-badge ui-warning"
+            ><svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+              ></path></svg
+            ><span class="ui-anchor-floating"
+              ><span class="ui-badge-indicator">3</span></span
+            ></span
+          >
+        </td>
+        <td>
+          <div class="ui-progress stress-data-progress">
+            <progress
+              value="100"
+              max="100"
+              aria-label="Grace Hopper progress"
+            ></progress>
+          </div>
+        </td>
+        <td class="stress-data-num">-42,00</td>
+        <td>
+          <label class="ui-switch ui-small"
+            ><input type="checkbox" role="switch" checked /><span
+              class="ui-sr-only"
+              >Grace Hopper active</span
+            ></label
+          >
+        </td>
+        <td>
+          <a class="ui-link" href="#stress-data-link">example.com/docs</a>
+        </td>
+        <td>
+          <div class="stress-data-cell">
+            <button class="ui-button ui-small ui-tonal" type="button">
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+                ></path></svg
+              ><span class="ui-text">Assign</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="5">Total</td>
+        <td class="stress-data-num">98&nbsp;766&nbsp;594,50</td>
+        <td colspan="3"></td>
+      </tr>
+    </tfoot>
+  </table>
+</section>
+
+<section class="stress" data-example="TableInlineEditing">
+  <h2>Table inline editing</h2>
+  <p>
+    Fields, selects, buttons, checkboxes and switches of each size inside dense,
+    default and spacious tables. X-small and small controls should fit a row
+    without making it taller than the other densities need.
+  </p>
+  <div class="stress-stack">
+    <div class="stress-wide-column">
+      <h3>Dense</h3>
+      <table class="ui-table ui-dense">
+        <thead>
+          <tr>
+            <th>Size</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Done</th>
+            <th><span class="ui-sr-only">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>X-small</td>
+            <td>
+              <div class="ui-text-field ui-x-small">
+                <span class="ui-field"
+                  ><input
+                    type="text"
+                    value="Ada"
+                    aria-label="Name, dense x-small"
+                /></span>
+              </div>
+            </td>
+            <td>
+              <div class="ui-select ui-x-small">
+                <span class="ui-field"
+                  ><select aria-label="Status, dense x-small">
+                    <button><selectedcontent></selectedcontent></button>
+                    <div class="ui-list">
+                      <option>Draft</option>
+                      <option>Published</option>
+                    </div>
+                  </select></span
+                >
+              </div>
+            </td>
+            <td>
+              <label class="ui-checkbox ui-small"
+                ><input type="checkbox" checked /><span class="ui-sr-only"
+                  >Done, dense x-small</span
+                ></label
+              >
+            </td>
+            <td>
+              <div class="stress-data-cell">
+                <button class="ui-button ui-x-small ui-filled" type="button">
+                  Save
+                </button>
+                <button
+                  class="ui-button ui-x-small"
+                  type="button"
+                  aria-label="More, dense x-small"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Small</td>
+            <td>
+              <div class="ui-text-field ui-small">
+                <span class="ui-field"
+                  ><input
+                    type="text"
+                    value="Alan"
+                    aria-label="Name, dense small"
+                /></span>
+              </div>
+            </td>
+            <td>
+              <div class="ui-select ui-small">
+                <span class="ui-field"
+                  ><select aria-label="Status, dense small">
+                    <button><selectedcontent></selectedcontent></button>
+                    <div class="ui-list">
+                      <option>Draft</option>
+                      <option>Published</option>
+                    </div>
+                  </select></span
+                >
+              </div>
+            </td>
+            <td>
+              <label class="ui-switch ui-small"
+                ><input type="checkbox" role="switch" checked /><span
+                  class="ui-sr-only"
+                  >Done, dense small</span
+                ></label
+              >
+            </td>
+            <td>
+              <div class="stress-data-cell">
+                <button class="ui-button ui-small ui-filled" type="button">
+                  Save
+                </button>
+                <button
+                  class="ui-button ui-small"
+                  type="button"
+                  aria-label="More, dense small"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Default</td>
+            <td>
+              <div class="ui-text-field">
+                <span class="ui-field"
+                  ><input
+                    type="text"
+                    value="Grace"
+                    aria-label="Name, dense default"
+                /></span>
+              </div>
+            </td>
+            <td>
+              <div class="ui-select">
+                <span class="ui-field"
+                  ><select aria-label="Status, dense default">
+                    <button><selectedcontent></selectedcontent></button>
+                    <div class="ui-list">
+                      <option>Draft</option>
+                      <option>Published</option>
+                    </div>
+                  </select></span
+                >
+              </div>
+            </td>
+            <td>
+              <label class="ui-switch"
+                ><input type="checkbox" role="switch" /><span class="ui-sr-only"
+                  >Done, dense default</span
+                ></label
+              >
+            </td>
+            <td>
+              <div class="stress-data-cell">
+                <button class="ui-button ui-filled" type="button">Save</button>
+                <button
+                  class="ui-button"
+                  type="button"
+                  aria-label="More, dense default"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="stress-wide-column">
+      <h3>Default</h3>
+      <table class="ui-table">
+        <thead>
+          <tr>
+            <th>Size</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Done</th>
+            <th><span class="ui-sr-only">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>X-small</td>
+            <td>
+              <div class="ui-text-field ui-x-small">
+                <span class="ui-field"
+                  ><input
+                    type="text"
+                    value="Ada"
+                    aria-label="Name, default x-small"
+                /></span>
+              </div>
+            </td>
+            <td>
+              <div class="ui-select ui-x-small">
+                <span class="ui-field"
+                  ><select aria-label="Status, default x-small">
+                    <button><selectedcontent></selectedcontent></button>
+                    <div class="ui-list">
+                      <option>Draft</option>
+                      <option>Published</option>
+                    </div>
+                  </select></span
+                >
+              </div>
+            </td>
+            <td>
+              <label class="ui-checkbox ui-small"
+                ><input type="checkbox" checked /><span class="ui-sr-only"
+                  >Done, default x-small</span
+                ></label
+              >
+            </td>
+            <td>
+              <div class="stress-data-cell">
+                <button class="ui-button ui-x-small ui-filled" type="button">
+                  Save
+                </button>
+                <button
+                  class="ui-button ui-x-small"
+                  type="button"
+                  aria-label="More, default x-small"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Small</td>
+            <td>
+              <div class="ui-text-field ui-small">
+                <span class="ui-field"
+                  ><input
+                    type="text"
+                    value="Alan"
+                    aria-label="Name, default small"
+                /></span>
+              </div>
+            </td>
+            <td>
+              <div class="ui-select ui-small">
+                <span class="ui-field"
+                  ><select aria-label="Status, default small">
+                    <button><selectedcontent></selectedcontent></button>
+                    <div class="ui-list">
+                      <option>Draft</option>
+                      <option>Published</option>
+                    </div>
+                  </select></span
+                >
+              </div>
+            </td>
+            <td>
+              <label class="ui-switch ui-small"
+                ><input type="checkbox" role="switch" checked /><span
+                  class="ui-sr-only"
+                  >Done, default small</span
+                ></label
+              >
+            </td>
+            <td>
+              <div class="stress-data-cell">
+                <button class="ui-button ui-small ui-filled" type="button">
+                  Save
+                </button>
+                <button
+                  class="ui-button ui-small"
+                  type="button"
+                  aria-label="More, default small"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Default</td>
+            <td>
+              <div class="ui-text-field">
+                <span class="ui-field"
+                  ><input
+                    type="text"
+                    value="Grace"
+                    aria-label="Name, default default"
+                /></span>
+              </div>
+            </td>
+            <td>
+              <div class="ui-select">
+                <span class="ui-field"
+                  ><select aria-label="Status, default default">
+                    <button><selectedcontent></selectedcontent></button>
+                    <div class="ui-list">
+                      <option>Draft</option>
+                      <option>Published</option>
+                    </div>
+                  </select></span
+                >
+              </div>
+            </td>
+            <td>
+              <label class="ui-switch"
+                ><input type="checkbox" role="switch" /><span class="ui-sr-only"
+                  >Done, default default</span
+                ></label
+              >
+            </td>
+            <td>
+              <div class="stress-data-cell">
+                <button class="ui-button ui-filled" type="button">Save</button>
+                <button
+                  class="ui-button"
+                  type="button"
+                  aria-label="More, default default"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="stress-wide-column">
+      <h3>Spacious</h3>
+      <table class="ui-table ui-spacious">
+        <thead>
+          <tr>
+            <th>Size</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Done</th>
+            <th><span class="ui-sr-only">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>X-small</td>
+            <td>
+              <div class="ui-text-field ui-x-small">
+                <span class="ui-field"
+                  ><input
+                    type="text"
+                    value="Ada"
+                    aria-label="Name, spacious x-small"
+                /></span>
+              </div>
+            </td>
+            <td>
+              <div class="ui-select ui-x-small">
+                <span class="ui-field"
+                  ><select aria-label="Status, spacious x-small">
+                    <button><selectedcontent></selectedcontent></button>
+                    <div class="ui-list">
+                      <option>Draft</option>
+                      <option>Published</option>
+                    </div>
+                  </select></span
+                >
+              </div>
+            </td>
+            <td>
+              <label class="ui-checkbox ui-small"
+                ><input type="checkbox" checked /><span class="ui-sr-only"
+                  >Done, spacious x-small</span
+                ></label
+              >
+            </td>
+            <td>
+              <div class="stress-data-cell">
+                <button class="ui-button ui-x-small ui-filled" type="button">
+                  Save
+                </button>
+                <button
+                  class="ui-button ui-x-small"
+                  type="button"
+                  aria-label="More, spacious x-small"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Small</td>
+            <td>
+              <div class="ui-text-field ui-small">
+                <span class="ui-field"
+                  ><input
+                    type="text"
+                    value="Alan"
+                    aria-label="Name, spacious small"
+                /></span>
+              </div>
+            </td>
+            <td>
+              <div class="ui-select ui-small">
+                <span class="ui-field"
+                  ><select aria-label="Status, spacious small">
+                    <button><selectedcontent></selectedcontent></button>
+                    <div class="ui-list">
+                      <option>Draft</option>
+                      <option>Published</option>
+                    </div>
+                  </select></span
+                >
+              </div>
+            </td>
+            <td>
+              <label class="ui-switch ui-small"
+                ><input type="checkbox" role="switch" checked /><span
+                  class="ui-sr-only"
+                  >Done, spacious small</span
+                ></label
+              >
+            </td>
+            <td>
+              <div class="stress-data-cell">
+                <button class="ui-button ui-small ui-filled" type="button">
+                  Save
+                </button>
+                <button
+                  class="ui-button ui-small"
+                  type="button"
+                  aria-label="More, spacious small"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Default</td>
+            <td>
+              <div class="ui-text-field">
+                <span class="ui-field"
+                  ><input
+                    type="text"
+                    value="Grace"
+                    aria-label="Name, spacious default"
+                /></span>
+              </div>
+            </td>
+            <td>
+              <div class="ui-select">
+                <span class="ui-field"
+                  ><select aria-label="Status, spacious default">
+                    <button><selectedcontent></selectedcontent></button>
+                    <div class="ui-list">
+                      <option>Draft</option>
+                      <option>Published</option>
+                    </div>
+                  </select></span
+                >
+              </div>
+            </td>
+            <td>
+              <label class="ui-switch"
+                ><input type="checkbox" role="switch" /><span class="ui-sr-only"
+                  >Done, spacious default</span
+                ></label
+              >
+            </td>
+            <td>
+              <div class="stress-data-cell">
+                <button class="ui-button ui-filled" type="button">Save</button>
+                <button
+                  class="ui-button"
+                  type="button"
+                  aria-label="More, spacious default"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="stress" data-example="TableStructure">
+  <h2>Table structure</h2>
+  <p>
+    Grouped headers, row headers, several bodies, a table without a head and a
+    table without a foot. Outer corners should stay rounded and every inner
+    border should be a single line.
+  </p>
+  <table class="ui-table">
+    <caption>
+      Quarterly figures with a caption that is long enough to wrap onto a second
+      line when the table is narrow, to see where it sits relative to the
+      rounded border.
+    </caption>
+    <colgroup>
+      <col />
+      <col span="2" />
+      <col span="2" />
+    </colgroup>
+    <thead>
+      <tr>
+        <th rowspan="2" scope="col">Region</th>
+        <th colspan="2" scope="colgroup">First half</th>
+        <th colspan="2" scope="colgroup">Second half</th>
+      </tr>
+      <tr>
+        <th class="stress-data-num" scope="col">Q1</th>
+        <th class="stress-data-num" scope="col">Q2</th>
+        <th class="stress-data-num" scope="col">Q3</th>
+        <th class="stress-data-num" scope="col">Q4</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Denmark</th>
+        <td class="stress-data-num">120</td>
+        <td class="stress-data-num">135</td>
+        <td class="stress-data-num">150</td>
+        <td class="stress-data-num">162</td>
+      </tr>
+      <tr>
+        <th scope="row">Finland</th>
+        <td class="stress-data-num">98</td>
+        <td class="stress-data-num">104</td>
+        <td class="stress-data-num"></td>
+        <td class="stress-data-num">121</td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+        <th scope="row">Norway</th>
+        <td class="stress-data-num">143</td>
+        <td class="stress-data-num">151</td>
+        <td class="stress-data-num">149</td>
+        <td class="stress-data-num">170</td>
+      </tr>
+      <tr>
+        <th scope="row">Sweden</th>
+        <td class="stress-data-num">210</td>
+        <td class="stress-data-num">225</td>
+        <td class="stress-data-num">231</td>
+        <td class="stress-data-num">248</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th scope="row">Total</th>
+        <td class="stress-data-num">571</td>
+        <td class="stress-data-num">615</td>
+        <td class="stress-data-num">530</td>
+        <td class="stress-data-num">701</td>
+      </tr>
+    </tfoot>
+  </table>
+  <div class="stress-columns">
+    <div class="stress-data-column">
+      <h3>No head, no foot</h3>
+      <table class="ui-table">
+        <tbody>
+          <tr>
+            <th scope="row">Price</th>
+            <td class="stress-data-num">6&nbsp;950&nbsp;000</td>
+          </tr>
+          <tr>
+            <th scope="row">Rooms</th>
+            <td class="stress-data-num">3</td>
+          </tr>
+          <tr>
+            <th scope="row">Size</th>
+            <td class="stress-data-num">64 m²</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="stress-data-column">
+      <h3>Head, no foot, dense</h3>
+      <table class="ui-table ui-dense">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alpha</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>Beta</td>
+            <td>2</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="stress-data-column">
+      <h3>Single cell</h3>
+      <table class="ui-table">
+        <tbody>
+          <tr>
+            <td>Only one cell</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="stress" data-example="TableOverflow">
+  <h2>Table overflow</h2>
+  <p>
+    A wide table in a narrow container, with and without a scroll wrapper, and a
+    table with many columns. Without a wrapper the table should not spill over
+    its neighbours; with one the border and corners should survive scrolling.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-narrow">
+      <h3>No wrapper</h3>
+      <table class="ui-table">
+        <thead>
+          <tr>
+            <th>Commit</th>
+            <th>Author</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>9f86d081884c7d659a2feaa0c55ad015</td>
+            <td>Ada Lovelace</td>
+            <td>Fix overflow</td>
+          </tr>
+          <tr>
+            <td>e3b0c44298fc1c149afbf4c8996fb924</td>
+            <td>Alan Turing</td>
+            <td>Add tests</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="stress-narrow">
+      <h3>Scroll wrapper</h3>
+      <div
+        class="stress-data-scroll"
+        role="region"
+        aria-label="Commits"
+        tabindex="0"
+      >
+        <table class="ui-table">
+          <thead>
+            <tr>
+              <th>Commit</th>
+              <th>Author</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>9f86d081884c7d659a2feaa0c55ad015</td>
+              <td>Ada Lovelace</td>
+              <td>Fix overflow</td>
+            </tr>
+            <tr>
+              <td>e3b0c44298fc1c149afbf4c8996fb924</td>
+              <td>Alan Turing</td>
+              <td>Add tests</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="stress-narrow stress-data-container">
+      <h3>Size container</h3>
+      <table class="ui-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ada Lovelace</td>
+            <td>Analyst</td>
+          </tr>
+          <tr>
+            <td>Alan Turing</td>
+            <td>Cryptographer</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h3>Many columns</h3>
+  <div
+    class="stress-data-scroll"
+    role="region"
+    aria-label="Monthly metrics"
+    tabindex="0"
+  >
+    <table class="ui-table ui-dense">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th class="stress-data-num">Jan</th>
+          <th class="stress-data-num">Feb</th>
+          <th class="stress-data-num">Mar</th>
+          <th class="stress-data-num">Apr</th>
+          <th class="stress-data-num">May</th>
+          <th class="stress-data-num">Jun</th>
+          <th class="stress-data-num">Jul</th>
+          <th class="stress-data-num">Aug</th>
+          <th class="stress-data-num">Sep</th>
+          <th class="stress-data-num">Oct</th>
+          <th class="stress-data-num">Nov</th>
+          <th class="stress-data-num">Dec</th>
+          <th class="stress-data-num">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Conversion rate per visitor</td>
+          <td class="stress-data-num">1,2 %</td>
+          <td class="stress-data-num">1,4 %</td>
+          <td class="stress-data-num">1,1 %</td>
+          <td class="stress-data-num">1,9 %</td>
+          <td class="stress-data-num">2,3 %</td>
+          <td class="stress-data-num">2,0 %</td>
+          <td class="stress-data-num">1,7 %</td>
+          <td class="stress-data-num">1,5 %</td>
+          <td class="stress-data-num">1,8 %</td>
+          <td class="stress-data-num">2,2 %</td>
+          <td class="stress-data-num">2,6 %</td>
+          <td class="stress-data-num">3,1 %</td>
+          <td class="stress-data-num">1,9 %</td>
+        </tr>
+        <tr>
+          <td>Revenue</td>
+          <td class="stress-data-num">120&nbsp;400</td>
+          <td class="stress-data-num">98&nbsp;200</td>
+          <td class="stress-data-num">143&nbsp;900</td>
+          <td class="stress-data-num">151&nbsp;000</td>
+          <td class="stress-data-num">160&nbsp;250</td>
+          <td class="stress-data-num">171&nbsp;800</td>
+          <td class="stress-data-num">90&nbsp;100</td>
+          <td class="stress-data-num">88&nbsp;450</td>
+          <td class="stress-data-num">176&nbsp;300</td>
+          <td class="stress-data-num">182&nbsp;900</td>
+          <td class="stress-data-num">199&nbsp;999</td>
+          <td class="stress-data-num">240&nbsp;000</td>
+          <td class="stress-data-num">1&nbsp;823&nbsp;299</td>
+        </tr>
+        <tr>
+          <td>Visitors</td>
+          <td class="stress-data-num">10&nbsp;033</td>
+          <td class="stress-data-num">7&nbsp;014</td>
+          <td class="stress-data-num">13&nbsp;081</td>
+          <td class="stress-data-num">7&nbsp;947</td>
+          <td class="stress-data-num">6&nbsp;967</td>
+          <td class="stress-data-num">8&nbsp;590</td>
+          <td class="stress-data-num">5&nbsp;300</td>
+          <td class="stress-data-num">5&nbsp;896</td>
+          <td class="stress-data-num">9&nbsp;794</td>
+          <td class="stress-data-num">8&nbsp;313</td>
+          <td class="stress-data-num">7&nbsp;692</td>
+          <td class="stress-data-num">7&nbsp;741</td>
+          <td class="stress-data-num">98&nbsp;368</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="stress" data-example="TableStickyHeader">
+  <h2>Table sticky header</h2>
+  <p>
+    A long table in a scroll box with <code>.ui-sticky-header</code>. Scroll the
+    box: the header should stay on top, keep its background, not let rows show
+    through and show a shadow.
+  </p>
+  <div
+    class="stress-data-sticky stress-wide-column"
+    role="region"
+    aria-label="Daily requests"
+    tabindex="0"
+  >
+    <table class="ui-table ui-sticky-header">
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Status</th>
+          <th class="stress-data-num">Requests</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2026-09-21</td>
+          <td>
+            <span class="ui-chip ui-small"
+              ><span class="ui-text">Healthy</span></span
+            >
+          </td>
+          <td class="stress-data-num">12&nbsp;004</td>
+        </tr>
+        <tr>
+          <td>2026-09-22</td>
+          <td>
+            <span class="ui-chip ui-small"
+              ><span class="ui-text">Healthy</span></span
+            >
+          </td>
+          <td class="stress-data-num">11&nbsp;873</td>
+        </tr>
+        <tr>
+          <td>2026-09-23</td>
+          <td>
+            <span class="ui-chip ui-small ui-outlined"
+              ><span class="ui-text">Degraded</span></span
+            >
+          </td>
+          <td class="stress-data-num">9&nbsp;120</td>
+        </tr>
+        <tr>
+          <td>2026-09-24</td>
+          <td>
+            <span class="ui-chip ui-small"
+              ><span class="ui-text">Healthy</span></span
+            >
+          </td>
+          <td class="stress-data-num">13&nbsp;540</td>
+        </tr>
+        <tr>
+          <td>2026-09-25</td>
+          <td>
+            <span class="ui-chip ui-small"
+              ><span class="ui-text">Healthy</span></span
+            >
+          </td>
+          <td class="stress-data-num">14&nbsp;002</td>
+        </tr>
+        <tr>
+          <td>2026-09-26</td>
+          <td>
+            <span class="ui-chip ui-small ui-outlined"
+              ><span class="ui-text">Degraded</span></span
+            >
+          </td>
+          <td class="stress-data-num">8&nbsp;311</td>
+        </tr>
+        <tr>
+          <td>2026-09-27</td>
+          <td>
+            <span class="ui-chip ui-small"
+              ><span class="ui-text">Healthy</span></span
+            >
+          </td>
+          <td class="stress-data-num">12&nbsp;999</td>
+        </tr>
+        <tr>
+          <td>2026-09-28</td>
+          <td>
+            <span class="ui-chip ui-small"
+              ><span class="ui-text">Healthy</span></span
+            >
+          </td>
+          <td class="stress-data-num">13&nbsp;210</td>
+        </tr>
+        <tr>
+          <td>2026-09-29</td>
+          <td>
+            <span class="ui-chip ui-small"
+              ><span class="ui-text">Healthy</span></span
+            >
+          </td>
+          <td class="stress-data-num">12&nbsp;650</td>
+        </tr>
+        <tr>
+          <td>2026-09-30</td>
+          <td>
+            <span class="ui-chip ui-small"
+              ><span class="ui-text">Healthy</span></span
+            >
+          </td>
+          <td class="stress-data-num">13&nbsp;777</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="stress" data-example="ListContent">
+  <h2>List content</h2>
+  <p>
+    Default and dense lists with long titles and descriptions and mixed leading
+    and trailing content. Leading and trailing elements should center on the
+    text block and long text should wrap instead of pushing them out.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-data-column">
+      <h3>Default</h3>
+      <ul class="ui-list">
+        <li>
+          <div class="ui-start"><div class="ui-avatar">AL</div></div>
+          <div class="ui-text">
+            <p>Ada Lovelace</p>
+            <p>Analyst</p>
+          </div>
+          <div class="ui-end">09:41</div>
+        </li>
+        <li>
+          <div class="ui-start">
+            <div class="ui-avatar">
+              <img
+                alt=""
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%2310b981'/%3E%3Ccircle cx='20' cy='16' r='7' fill='%23fff'/%3E%3Cpath d='M6 40a14 14 0 0 1 28 0' fill='%23fff'/%3E%3C/svg%3E"
+              />
+            </div>
+          </div>
+          <div class="ui-text">
+            <p>
+              A headline that is long enough to wrap onto at least two lines in
+              this column
+            </p>
+            <p>
+              Supporting text that is also quite long so it fills up multiple
+              lines below the headline.
+            </p>
+          </div>
+          <div class="ui-end">
+            <span class="ui-chip ui-small"
+              ><span class="ui-text">New</span></span
+            >
+          </div>
+        </li>
+        <li>
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text">
+            <p>alan.mathison.turing@bletchley-park.example.co.uk</p>
+          </div>
+          <div class="ui-end">
+            <span class="ui-anchor ui-badge ui-critical"
+              ><svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+              >
+                <path
+                  fill="currentColor"
+                  d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+                ></path></svg
+              ><span class="ui-anchor-floating"
+                ><span class="ui-badge-indicator">8</span></span
+              ></span
+            >
+          </div>
+        </li>
+        <li>
+          <div class="ui-text">
+            <p>Trailing icon button</p>
+            <p>Should sit at the end edge</p>
+          </div>
+          <div class="ui-end">
+            <button
+              class="ui-button ui-small"
+              type="button"
+              aria-label="More for default list item"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </li>
+        <li>
+          <label class="ui-checkbox" for="stress-data-list-check-1">
+            <div class="ui-text">
+              <p>
+                Checkbox item with a label long enough to wrap onto two lines
+              </p>
+              <p>Supporting text</p>
+            </div>
+            <div class="ui-end">
+              <input id="stress-data-list-check-1" type="checkbox" checked />
+            </div>
+          </label>
+        </li>
+        <li>
+          <label class="ui-switch" for="stress-data-list-switch-1">
+            <div class="ui-start">
+              <div class="ui-avatar ui-rounded">GH</div>
+            </div>
+            <div class="ui-text">
+              <p>Switch item</p>
+              <p>With leading avatar</p>
+            </div>
+            <div class="ui-end">
+              <input
+                id="stress-data-list-switch-1"
+                type="checkbox"
+                role="switch"
+                checked
+              />
+            </div>
+          </label>
+        </li>
+        <li>
+          <div class="ui-text">
+            <p>Upload</p>
+            <div class="ui-progress">
+              <progress
+                value="64"
+                max="100"
+                aria-label="Upload progress, default list"
+              ></progress>
+            </div>
+          </div>
+          <div class="ui-end">64%</div>
+        </li>
+      </ul>
+    </div>
+    <div class="stress-data-column">
+      <h3>Dense</h3>
+      <ul class="ui-list ui-dense">
+        <li>
+          <div class="ui-start"><div class="ui-avatar">AL</div></div>
+          <div class="ui-text">
+            <p>Ada Lovelace</p>
+            <p>Analyst</p>
+          </div>
+          <div class="ui-end">09:41</div>
+        </li>
+        <li>
+          <div class="ui-start">
+            <div class="ui-avatar">
+              <img
+                alt=""
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%2310b981'/%3E%3Ccircle cx='20' cy='16' r='7' fill='%23fff'/%3E%3Cpath d='M6 40a14 14 0 0 1 28 0' fill='%23fff'/%3E%3C/svg%3E"
+              />
+            </div>
+          </div>
+          <div class="ui-text">
+            <p>
+              A headline that is long enough to wrap onto at least two lines in
+              this column
+            </p>
+            <p>
+              Supporting text that is also quite long so it fills up multiple
+              lines below the headline.
+            </p>
+          </div>
+          <div class="ui-end">
+            <span class="ui-chip ui-small"
+              ><span class="ui-text">New</span></span
+            >
+          </div>
+        </li>
+        <li>
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text">
+            <p>alan.mathison.turing@bletchley-park.example.co.uk</p>
+          </div>
+          <div class="ui-end">
+            <span class="ui-anchor ui-badge ui-critical"
+              ><svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+              >
+                <path
+                  fill="currentColor"
+                  d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+                ></path></svg
+              ><span class="ui-anchor-floating"
+                ><span class="ui-badge-indicator">8</span></span
+              ></span
+            >
+          </div>
+        </li>
+        <li>
+          <div class="ui-text">
+            <p>Trailing icon button</p>
+            <p>Should sit at the end edge</p>
+          </div>
+          <div class="ui-end">
+            <button
+              class="ui-button ui-x-small"
+              type="button"
+              aria-label="More for dense list item"
+            >
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </li>
+        <li>
+          <label class="ui-checkbox" for="stress-data-list-check-2">
+            <div class="ui-text">
+              <p>
+                Checkbox item with a label long enough to wrap onto two lines
+              </p>
+              <p>Supporting text</p>
+            </div>
+            <div class="ui-end">
+              <input id="stress-data-list-check-2" type="checkbox" checked />
+            </div>
+          </label>
+        </li>
+        <li>
+          <label class="ui-switch" for="stress-data-list-switch-2">
+            <div class="ui-start">
+              <div class="ui-avatar ui-rounded">GH</div>
+            </div>
+            <div class="ui-text">
+              <p>Switch item</p>
+              <p>With leading avatar</p>
+            </div>
+            <div class="ui-end">
+              <input
+                id="stress-data-list-switch-2"
+                type="checkbox"
+                role="switch"
+                checked
+              />
+            </div>
+          </label>
+        </li>
+        <li>
+          <div class="ui-text">
+            <p>Upload</p>
+            <div class="ui-progress">
+              <progress
+                value="64"
+                max="100"
+                aria-label="Upload progress, dense list"
+              ></progress>
+            </div>
+          </div>
+          <div class="ui-end">64%</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="stress" data-example="ListSurfaces">
+  <h2>List surfaces</h2>
+  <p>
+    Every list background and modifier inside outlined and tonal cards. List
+    items should line up with the card padding and borders should not double up
+    with the card edge.
+  </p>
+  <div class="stress-grid">
+    <div class="ui-card ui-outlined">
+      <hgroup><h3>Filled, bordered</h3></hgroup>
+      <ul class="ui-list ui-bordered">
+        <li>
+          <div class="ui-text"><p>Alpha</p></div>
+        </li>
+        <li>
+          <div class="ui-text"><p>Beta</p></div>
+        </li>
+        <li>
+          <div class="ui-text"><p>Gamma</p></div>
+        </li>
+      </ul>
+    </div>
+    <div class="ui-card ui-outlined">
+      <hgroup><h3>Default, border top</h3></hgroup>
+      <ul class="ui-list ui-transparent">
+        <li>
+          <div class="ui-text"><p>Alpha</p></div>
+        </li>
+        <li>
+          <div class="ui-text"><p>Beta</p></div>
+        </li>
+        <li class="ui-border-top">
+          <div class="ui-text"><p>Gamma</p></div>
+        </li>
+      </ul>
+    </div>
+    <div class="ui-card ui-tonal">
+      <hgroup><h3>Tonal in tonal card</h3></hgroup>
+      <ul class="ui-list ui-tonal">
+        <li>
+          <div class="ui-text"><p>Alpha</p></div>
+        </li>
+        <li>
+          <div class="ui-text"><p>Beta</p></div>
+        </li>
+      </ul>
+    </div>
+    <div class="ui-card ui-tonal">
+      <hgroup><h3>Transparent, gutterless</h3></hgroup>
+      <div class="ui-content">
+        <ul class="ui-list ui-transparent ui-gutterless">
+          <li>
+            <div class="ui-text"><p>Alpha</p></div>
+            <div class="ui-end">1</div>
+          </li>
+          <li>
+            <div class="ui-text"><p>Beta</p></div>
+            <div class="ui-end">2</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="ui-card ui-outlined">
+      <hgroup><h3>Clickable, selected</h3></hgroup>
+      <ul class="ui-list ui-transparent">
+        <li>
+          <a href="#stress-data-current" aria-current="page"
+            ><div class="ui-text"><p>Current page</p></div></a
+          >
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Button item</p></div>
+          </button>
+        </li>
+        <li>
+          <a href="#stress-data-other"
+            ><div class="ui-start"><div class="ui-avatar">BL</div></div>
+            <div class="ui-text"><p>Link with avatar</p></div>
+            <div class="ui-end">3</div></a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="ui-card ui-outlined">
+      <hgroup><h3>Dense, inset</h3></hgroup>
+      <ul class="ui-list ui-dense ui-transparent">
+        <li>
+          <div class="ui-start">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <path
+                fill="currentColor"
+                d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
+              ></path>
+            </svg>
+          </div>
+          <div class="ui-text"><p>With icon</p></div>
+        </li>
+        <li class="ui-inset">
+          <div class="ui-text"><p>Inset, aligned with text</p></div>
+        </li>
+        <li class="ui-inset">
+          <div class="ui-text"><p>Inset again</p></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="stress" data-example="DescriptionLists">
+  <h2>Description lists</h2>
+  <p>
+    Description lists with long terms and values, rich values and nesting, in a
+    wide column, a narrow column and a narrow size container. In a narrow
+    column, terms and values should stack instead of squeezing side by side.
+  </p>
+  <div class="stress-stack">
+    <div class="stress-wide-column stress-stack">
+      <h3>Wide column, bordered</h3>
+      <dl class="ui-description-list ui-bordered">
+        <div class="ui-item">
+          <dt class="ui-term">Owner</dt>
+          <dd class="ui-description">
+            <span class="stress-data-cell"
+              ><span class="ui-avatar">AL</span>Ada Lovelace</span
+            >
+          </dd>
+        </div>
+        <div class="ui-item">
+          <dt class="ui-term">Progress</dt>
+          <dd class="ui-description">
+            <div class="ui-progress stress-data-progress">
+              <progress
+                value="40"
+                max="100"
+                aria-label="Progress, wide list"
+              ></progress>
+            </div>
+          </dd>
+        </div>
+        <div class="ui-item">
+          <dt class="ui-term">Status</dt>
+          <dd class="ui-description">
+            <span class="ui-chip ui-small"
+              ><span class="ui-text">Active</span></span
+            >
+          </dd>
+        </div>
+        <div class="ui-item">
+          <dt class="ui-term">
+            A very long term that keeps going well past what a term usually
+            holds
+          </dt>
+          <dd class="ui-description">
+            And a value that is also long enough to need wrapping somewhere
+          </dd>
+        </div>
+        <div class="ui-item">
+          <dt class="ui-term">Checksum</dt>
+          <dd class="ui-description">
+            9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+          </dd>
+        </div>
+      </dl>
+      <h3>Wide column, dotted, nested</h3>
+      <dl class="ui-description-list ui-bordered ui-dotted">
+        <div class="ui-item">
+          <dt class="ui-term">Price</dt>
+          <dd class="ui-description">6&nbsp;950&nbsp;000</dd>
+        </div>
+        <div class="ui-item">
+          <dt class="ui-term">Rooms</dt>
+          <dd class="ui-description">
+            <dl class="ui-description-list">
+              <div class="ui-item">
+                <dt class="ui-term">Bedrooms</dt>
+                <dd class="ui-description">2</dd>
+              </div>
+              <div class="ui-item">
+                <dt class="ui-term">Living rooms</dt>
+                <dd class="ui-description">1</dd>
+              </div>
+            </dl>
+          </dd>
+        </div>
+        <div class="ui-item">
+          <dt class="ui-term">Size</dt>
+          <dd class="ui-description">64 m²</dd>
+        </div>
+      </dl>
+    </div>
+    <div class="stress-columns">
+      <div class="stress-narrow">
+        <h3>Narrow column</h3>
+        <dl class="ui-description-list ui-bordered">
+          <div class="ui-item">
+            <dt class="ui-term">Owner</dt>
+            <dd class="ui-description">Ada Lovelace</dd>
+          </div>
+          <div class="ui-item">
+            <dt class="ui-term">A long term that keeps going</dt>
+            <dd class="ui-description">A long value that keeps going too</dd>
+          </div>
+          <div class="ui-item">
+            <dt class="ui-term">Checksum</dt>
+            <dd class="ui-description">
+              9f86d081884c7d659a2feaa0c55ad015a3bf4f1b
+            </dd>
+          </div>
+        </dl>
+      </div>
+      <div class="stress-narrow stress-data-container">
+        <h3>Narrow size container</h3>
+        <dl class="ui-description-list ui-bordered">
+          <div class="ui-item">
+            <dt class="ui-term">Owner</dt>
+            <dd class="ui-description">Ada Lovelace</dd>
+          </div>
+          <div class="ui-item">
+            <dt class="ui-term">A long term that keeps going</dt>
+            <dd class="ui-description">A long value that keeps going too</dd>
+          </div>
+          <div class="ui-item">
+            <dt class="ui-term">Checksum</dt>
+            <dd class="ui-description">
+              9f86d081884c7d659a2feaa0c55ad015a3bf4f1b
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <h3>Side by side</h3>
+  <div class="stress-grid">
+    <dl class="ui-description-list">
+      <div class="ui-item">
+        <dt class="ui-term">Created</dt>
+        <dd class="ui-description">2026-09-01</dd>
+      </div>
+      <div class="ui-item">
+        <dt class="ui-term">Updated</dt>
+        <dd class="ui-description">2026-10-01</dd>
+      </div>
+    </dl>
+    <dl class="ui-description-list ui-bordered">
+      <div class="ui-item">
+        <dt class="ui-term">Created</dt>
+        <dd class="ui-description">2026-09-01</dd>
+      </div>
+      <div class="ui-item">
+        <dt class="ui-term">Updated</dt>
+        <dd class="ui-description">2026-10-01</dd>
+      </div>
+    </dl>
+    <dl class="ui-description-list ui-bordered ui-dotted">
+      <div class="ui-item">
+        <dt class="ui-term">Created</dt>
+        <dd class="ui-description">2026-09-01</dd>
+      </div>
+      <div class="ui-item">
+        <dt class="ui-term">Updated</dt>
+        <dd class="ui-description">2026-10-01</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<section class="stress" data-example="InlineAlignment">
+  <h2>Inline alignment</h2>
+  <p>
+    Avatars, chips, badges and buttons on one center aligned row, and the same
+    things inline in running text. Shapes of the same height should share one
+    center line and inline items should not push the line height apart.
+  </p>
+  <div class="stress-row stress-center">
+    <span class="stress-tag">Center aligned</span>
+    <div class="ui-avatar">AL</div>
+    <div class="ui-avatar ui-squared">SQ</div>
+    <div class="ui-avatar ui-rounded">RO</div>
+    <div class="ui-avatar ui-squircle">SC</div>
+    <div class="ui-avatar">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
+        ></path>
+      </svg>
+    </div>
+    <span class="ui-anchor ui-badge"
+      ><span class="ui-avatar">GH</span
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator">4</span></span
+      ></span
+    >
+    <span class="ui-chip ui-small"><span class="ui-text">Small</span></span>
+    <span class="ui-chip"><span class="ui-text">Default</span></span>
+    <span class="ui-chip ui-outlined"
+      ><span class="ui-text">Sort by</span
+      ><svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
+        ></path></svg
+    ></span>
+    <button class="ui-button ui-x-small ui-outlined" type="button">
+      X-small
+    </button>
+    <button class="ui-button ui-small ui-outlined" type="button">Small</button>
+    <button class="ui-button ui-outlined" type="button">Default</button>
+    <span class="ui-anchor ui-badge ui-info"
+      ><button class="ui-button ui-tonal" type="button">Inbox</button
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator">99+</span></span
+      ></span
+    >
+    <span class="ui-anchor ui-badge ui-dot ui-success"
+      ><svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+        ></path></svg
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator"></span></span
+    ></span>
+    <span>Text</span>
+  </div>
+  <p>
+    Running text with an avatar <span class="ui-avatar">AL</span>, a small chip
+    <span class="ui-chip ui-small"><span class="ui-text">Chip</span></span
+    >, a default chip
+    <span class="ui-chip"><span class="ui-text">Chip</span></span>
+    and a badge
+    <span class="ui-anchor ui-badge ui-neutral"
+      ><svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+      >
+        <path
+          fill="currentColor"
+          d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+        ></path></svg
+      ><span class="ui-anchor-floating"
+        ><span class="ui-badge-indicator">7</span></span
+      ></span
+    >
+    on a line that wraps onto a second line so the spacing between lines shows.
+  </p>
+  <h3>Avatar groups</h3>
+  <div class="stress-row stress-center">
+    <div class="ui-avatar-group" role="group" aria-label="Team">
+      <div class="ui-avatar">AL</div>
+      <div class="ui-avatar">
+        <img
+          alt=""
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%23f59e0b'/%3E%3Ccircle cx='20' cy='16' r='7' fill='%23fff'/%3E%3Cpath d='M6 40a14 14 0 0 1 28 0' fill='%23fff'/%3E%3C/svg%3E"
+        />
+      </div>
+      <div class="ui-avatar ui-rounded">BL</div>
+      <button class="ui-avatar" type="button">GH</button>
+      <a class="ui-avatar" href="#stress-data-more">+12</a>
+    </div>
+    <div class="ui-card ui-tonal">
+      <div class="ui-content">
+        <div
+          class="ui-avatar-group"
+          role="group"
+          aria-label="Team on tonal card"
+        >
+          <div class="ui-avatar">AL</div>
+          <div class="ui-avatar">AT</div>
+          <div class="ui-avatar">BL</div>
+          <div class="ui-avatar">+128</div>
+        </div>
+      </div>
+    </div>
+    <ul class="ui-list ui-dense">
+      <li>
+        <div class="ui-text"><p>Reviewers</p></div>
+        <div class="ui-end">
+          <div class="ui-avatar-group" role="group" aria-label="Reviewers">
+            <div class="ui-avatar">AL</div>
+            <div class="ui-avatar">AT</div>
+            <div class="ui-avatar">+3</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="stress" data-example="BusyStates">
+  <h2>Busy states</h2>
+  <p>
+    Spinners and progress bars inside buttons, chips, table cells and list
+    items. Busy buttons should keep their size, spinners should center, and
+    progress bars should fill their cell without changing the row height.
+  </p>
+  <div class="stress-row stress-center">
+    <button
+      class="ui-button ui-x-small ui-filled"
+      type="button"
+      aria-busy="true"
+    >
+      X-small
+    </button>
+    <button class="ui-button ui-small ui-filled" type="button" aria-busy="true">
+      Small
+    </button>
+    <button class="ui-button ui-filled" type="button" aria-busy="true">
+      Default
+    </button>
+    <button class="ui-button ui-large ui-filled" type="button" aria-busy="true">
+      Large
+    </button>
+    <button
+      class="ui-button ui-x-small ui-outlined"
+      type="button"
+      aria-busy="true"
+    >
+      <span class="ui-sr-only">Loading x-small</span>
+    </button>
+    <button
+      class="ui-button ui-small ui-outlined"
+      type="button"
+      aria-busy="true"
+    >
+      <span class="ui-sr-only">Loading small</span>
+    </button>
+    <button class="ui-button ui-outlined" type="button" aria-busy="true">
+      <span class="ui-sr-only">Loading default</span>
+    </button>
+    <span class="ui-chip ui-small" aria-busy="true"
+      ><span class="ui-text">Syncing</span></span
+    >
+    <span class="ui-chip" aria-busy="true"
+      ><span class="ui-text">Syncing</span></span
+    >
+  </div>
+  <div class="stress-columns">
+    <div class="stress-data-column">
+      <table class="ui-table ui-dense">
+        <thead>
+          <tr>
+            <th>Job</th>
+            <th>Progress</th>
+            <th><span class="ui-sr-only">State</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Build</td>
+            <td>
+              <div class="ui-progress">
+                <progress
+                  value="30"
+                  max="100"
+                  aria-label="Build progress"
+                ></progress>
+              </div>
+            </td>
+            <td aria-busy="true"></td>
+          </tr>
+          <tr>
+            <td>Deploy</td>
+            <td>
+              <div class="ui-progress">
+                <progress aria-label="Deploy progress"></progress>
+              </div>
+            </td>
+            <td aria-busy="true">Running</td>
+          </tr>
+          <tr>
+            <td>Test</td>
+            <td>
+              <div class="ui-progress ui-filled">
+                <progress
+                  value="100"
+                  max="100"
+                  aria-label="Test progress"
+                ></progress>
+              </div>
+            </td>
+            <td>Done</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="stress-data-column">
+      <ul class="ui-list ui-transparent">
+        <li>
+          <div class="ui-text">
+            <p>Build</p>
+            <div class="ui-progress">
+              <progress
+                value="30"
+                max="100"
+                aria-label="Build progress, list"
+              ></progress>
+            </div>
+          </div>
+          <div class="ui-end" aria-busy="true"></div>
+        </li>
+        <li>
+          <div class="ui-start">
+            <div class="ui-avatar" aria-busy="true"></div>
+          </div>
+          <div class="ui-text"><p>Avatar with spinner</p></div>
+        </li>
+        <li>
+          <div class="ui-text"><p aria-busy="true">Loading text</p></div>
+          <div class="ui-end">
+            <button class="ui-button ui-small" type="button" aria-busy="true">
+              <span class="ui-sr-only">Loading list action</span>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="stress" data-example="Tooltips">
+  <h2>Tooltips on data</h2>
+  <p>
+    Tooltip triggers inside table cells, list items and avatar groups. Hover
+    them: the tooltip should escape the table's rounded clipping and point at
+    its trigger.
+  </p>
+  <div class="stress-columns">
+    <div class="stress-data-column">
+      <table class="ui-table">
+        <thead>
+          <tr>
+            <th>File</th>
+            <th><span class="ui-sr-only">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>report.pdf</td>
+            <td>
+              <span class="ui-anchor ui-tooltip ui-with-arrow"
+                ><button
+                  class="ui-button ui-x-small"
+                  type="button"
+                  aria-label="Add report.pdf"
+                  interestfor="stress-data-tip-1"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+                    ></path>
+                  </svg></button
+                ><span
+                  class="ui-anchor-floating"
+                  id="stress-data-tip-1"
+                  popover="hint"
+                  >Add to collection</span
+                ></span
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>9f86d081884c7d659a2feaa0c55ad015.csv</td>
+            <td>
+              <span class="ui-anchor ui-tooltip"
+                ><button
+                  class="ui-button ui-x-small"
+                  type="button"
+                  aria-label="Add 9f86d081884c7d659a2feaa0c55ad015.csv"
+                  interestfor="stress-data-tip-2"
+                >
+                  <svg
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M11.75 3a.75.75 0 0 1 .743.648l.007.102l.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102l-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75"
+                    ></path>
+                  </svg></button
+                ><span
+                  class="ui-anchor-floating"
+                  id="stress-data-tip-2"
+                  popover="hint"
+                  >A tooltip with enough text to wrap onto several lines at its
+                  maximum width</span
+                ></span
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="stress-data-column">
+      <div class="ui-avatar-group" role="group" aria-label="Owners">
+        <span class="ui-anchor ui-tooltip"
+          ><button
+            class="ui-avatar"
+            type="button"
+            interestfor="stress-data-tip-3"
+          >
+            AL</button
+          ><span
+            class="ui-anchor-floating"
+            id="stress-data-tip-3"
+            popover="hint"
+            >Ada Lovelace</span
+          ></span
+        >
+        <span class="ui-anchor ui-tooltip"
+          ><button
+            class="ui-avatar"
+            type="button"
+            interestfor="stress-data-tip-4"
+          >
+            AT</button
+          ><span
+            class="ui-anchor-floating"
+            id="stress-data-tip-4"
+            popover="hint"
+            >Alan Turing</span
+          ></span
+        >
+        <span class="ui-anchor ui-tooltip"
+          ><button
+            class="ui-avatar"
+            type="button"
+            interestfor="stress-data-tip-5"
+          >
+            BL</button
+          ><span
+            class="ui-anchor-floating"
+            id="stress-data-tip-5"
+            popover="hint"
+            >Barbara Liskov</span
+          ></span
+        >
+      </div>
+      <ul class="ui-list">
+        <li>
+          <div class="ui-text"><p>Item with a tooltip</p></div>
+          <div class="ui-end">
+            <span class="ui-anchor ui-tooltip ui-with-arrow"
+              ><button
+                class="ui-button ui-small"
+                type="button"
+                aria-label="More for list item"
+                interestfor="stress-data-tip-6"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M7.75 12a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0m6 0a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0M18 13.75a1.75 1.75 0 1 0 0-3.5a1.75 1.75 0 0 0 0 3.5"
+                  ></path>
+                </svg></button
+              ><span
+                class="ui-anchor-floating"
+                id="stress-data-tip-6"
+                popover="hint"
+                >More actions</span
+              ></span
+            >
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="stress" data-example="RightToLeft">
+  <h2>Right to left</h2>
+  <p>
+    A table, a list and a description list with <code>dir="rtl"</code>. Rounded
+    corners, borders, leading and trailing content, badges and progress should
+    all mirror.
+  </p>
+  <div class="stress-columns" dir="rtl" lang="ar">
+    <div class="stress-data-column">
+      <table class="ui-table">
+        <thead>
+          <tr>
+            <th>
+              <label class="ui-checkbox"
+                ><input type="checkbox" /><span class="ui-sr-only"
+                  >تحديد الكل</span
+                ></label
+              >
+            </th>
+            <th>الاسم</th>
+            <th>التقدم</th>
+            <th class="stress-data-num">المبلغ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <label class="ui-checkbox"
+                ><input type="checkbox" checked /><span class="ui-sr-only"
+                  >تحديد أحمد</span
+                ></label
+              >
+            </td>
+            <td>
+              <div class="stress-data-cell">
+                <span class="ui-anchor ui-badge ui-dot ui-success"
+                  ><span class="ui-avatar">أ</span
+                  ><span class="ui-anchor-floating"
+                    ><span class="ui-badge-indicator"></span></span
+                ></span>
+                أحمد
+              </div>
+            </td>
+            <td>
+              <div class="ui-progress stress-data-progress">
+                <progress
+                  value="70"
+                  max="100"
+                  aria-label="تقدم أحمد"
+                ></progress>
+              </div>
+            </td>
+            <td class="stress-data-num">1&nbsp;200</td>
+          </tr>
+          <tr>
+            <td>
+              <label class="ui-checkbox"
+                ><input type="checkbox" /><span class="ui-sr-only"
+                  >تحديد سارة</span
+                ></label
+              >
+            </td>
+            <td>
+              <div class="stress-data-cell">
+                <span class="ui-avatar">س</span>
+                سارة
+              </div>
+            </td>
+            <td>
+              <div class="ui-progress stress-data-progress">
+                <progress aria-label="تقدم سارة"></progress>
+              </div>
+            </td>
+            <td class="stress-data-num">980</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">المجموع</td>
+            <td class="stress-data-num">2&nbsp;180</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="stress-data-column">
+      <ul class="ui-list ui-transparent">
+        <li>
+          <div class="ui-start"><div class="ui-avatar">أ</div></div>
+          <div class="ui-text">
+            <p>أحمد</p>
+            <p>محلل بيانات</p>
+          </div>
+          <div class="ui-end">٠٩:٤١</div>
+        </li>
+        <li>
+          <label class="ui-switch" for="stress-data-rtl-switch">
+            <div class="ui-text"><p>الإشعارات</p></div>
+            <div class="ui-end">
+              <input
+                id="stress-data-rtl-switch"
+                type="checkbox"
+                role="switch"
+                checked
+              />
+            </div>
+          </label>
+        </li>
+        <li class="ui-inset">
+          <div class="ui-text"><p>عنصر بمسافة بادئة</p></div>
+        </li>
+      </ul>
+      <dl class="ui-description-list ui-bordered">
+        <div class="ui-item">
+          <dt class="ui-term">السعر</dt>
+          <dd class="ui-description">6&nbsp;950&nbsp;000</dd>
+        </div>
+        <div class="ui-item">
+          <dt class="ui-term">الغرف</dt>
+          <dd class="ui-description">3</dd>
+        </div>
+      </dl>
+      <div class="stress-row stress-center">
+        <span class="ui-anchor ui-badge"
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z"
+            ></path></svg
+          ><span class="ui-anchor-floating"
+            ><span class="ui-badge-indicator">5</span></span
+          ></span
+        >
+        <div class="ui-avatar-group" role="group" aria-label="الفريق">
+          <div class="ui-avatar">أ</div>
+          <div class="ui-avatar">س</div>
+          <div class="ui-avatar">+4</div>
+        </div>
+        <span class="ui-chip ui-outlined"
+          ><span class="ui-text">ترتيب</span
+          ><svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M5.366 11.116a1.25 1.25 0 0 1 1.768 0L16 19.982l8.866-8.866a1.25 1.25 0 0 1 1.768 1.768l-9.75 9.75a1.25 1.25 0 0 1-1.768 0l-9.75-9.75a1.25 1.25 0 0 1 0-1.768"
+            ></path></svg
+        ></span>
+      </div>
+    </div>
+  </div>
+</section>

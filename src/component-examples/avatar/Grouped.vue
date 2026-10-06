@@ -3,12 +3,12 @@ import { Avatar } from "opui-css/vue"
 </script>
 
 <template>
-  <Avatar isGroup>
-    <Avatar>AB</Avatar>
-    <Avatar>CD</Avatar>
-    <Avatar as="button">EF</Avatar>
-    <Avatar as="button">GH</Avatar>
-    <Avatar href="#">IJ</Avatar>
-    <Avatar href="#">KL</Avatar>
+  <Avatar aria-label="Team" isGroup>
+    <Avatar aria-label="Anna Berg" role="img">AB</Avatar>
+    <Avatar aria-label="Carl Dahl" role="img">CD</Avatar>
+    <Avatar aria-label="Eva Falk" as="button">EF</Avatar>
+    <Avatar aria-label="Gustav Holm" as="button">GH</Avatar>
+    <Avatar aria-label="Ida Jansson" href="#">IJ</Avatar>
+    <Avatar aria-label="Karl Lund" href="#">KL</Avatar>
   </Avatar>
 </template>

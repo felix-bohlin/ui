@@ -8,7 +8,7 @@
 //
 // Order convention: default framework first.
 
-/** @typedef {"html" | "astro" | "vue"} FrameworkId */
+/** @typedef {"html" | "astro" | "solid" | "vue"} FrameworkId */
 
 /** @type {FrameworkId} */
 export const DEFAULT_FRAMEWORK = "html"
@@ -17,13 +17,45 @@ export const DEFAULT_FRAMEWORK = "html"
 export const FRAMEWORKS = [
   { id: "html", label: "HTML" },
   { id: "astro", label: "Astro" },
+  { id: "solid", label: "Solid" },
   { id: "vue", label: "Vue" },
 ]
 
 /** @type {FrameworkId[]} */
 export const FRAMEWORK_IDS = FRAMEWORKS.map(
-  (l) => /** @type {FrameworkId} */ (l.id),
+  (l) => /** @type {FrameworkId} */ l.id,
 )
+
+/** @type {Record<string, FrameworkId[]>} */
+export const COMPONENT_FRAMEWORKS = {
+  toast: ["html"],
+}
+
+/**
+ * @param {FrameworkId} framework
+ * @param {string} slug
+ */
+export function componentHasFramework(framework, slug) {
+  return COMPONENT_FRAMEWORKS[slug]?.includes(framework) ?? true
+}
+
+/**
+ * @param {FrameworkId} framework
+ * @param {string} sharedPath
+ */
+export function pathHasFramework(framework, sharedPath) {
+  const slug = sharedPath.match(/^\/components\/([^/]+)/)?.[1]
+  return !slug || componentHasFramework(framework, slug)
+}
+
+export const FRAMEWORK_FREE_PREFIXES = ["/learn"]
+
+/** @param {string} sharedPath */
+export function isFrameworkFree(sharedPath) {
+  return FRAMEWORK_FREE_PREFIXES.some(
+    (prefix) => sharedPath === prefix || sharedPath.startsWith(`${prefix}/`),
+  )
+}
 
 /**
  * Build a fresh regex that matches a framework prefix at the start of a

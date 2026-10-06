@@ -6,6 +6,7 @@ import { createTwoFilesPatch } from "diff"
 import { createSSRApp } from "vue"
 import { renderToString } from "vue/server-renderer"
 import { beforeAll, describe, expect, test } from "vitest"
+import solidRenderer from "../../integrations/solid/server.js"
 import { normalize } from "./normalize"
 
 const RECORD = !!process.env.PARITY_RECORD
@@ -13,11 +14,14 @@ const RECORD = !!process.env.PARITY_RECORD
 const astroModules = import.meta.glob<{ default: any }>(
   "../../src/component-examples/**/*.astro",
 )
+const solidModules = import.meta.glob<{ default: any }>(
+  "../../src/component-examples/**/*.tsx",
+)
 const vueModules = import.meta.glob<{ default: any }>(
   "../../src/component-examples/**/*.vue",
 )
 const exampleSources = import.meta.glob<string>(
-  "../../src/component-examples/**/*.{astro,html,vue}",
+  "../../src/component-examples/**/*.{astro,html,tsx,vue}",
   { eager: true, import: "default", query: "?raw" },
 )
 const htmlSources = import.meta.glob<string>(
@@ -40,9 +44,16 @@ const EXAMPLE_CLASSES = new Set([
   ),
 ])
 
-const FRAMEWORKS = ["html", "astro", "vue"] as const
+const FRAMEWORKS = ["html", "astro", "solid", "vue"] as const
 
 type Framework = (typeof FRAMEWORKS)[number]
+
+const REFERENCES: Record<Framework, Framework[]> = {
+  astro: ["html"],
+  html: [],
+  solid: ["astro", "html"],
+  vue: ["astro", "html"],
+}
 
 type Example = {
   key: string
@@ -65,6 +76,7 @@ const register = (
 }
 register("astro", astroModules)
 register("html", htmlSources)
+register("solid", solidModules)
 register("vue", vueModules)
 
 const cases = [...examples.values()]
@@ -95,12 +107,17 @@ const renderers: Record<
     container.renderToString(loaded.default, {
       locals: {
         $id: createIdGenerator(),
-        _isInsideForm: false,
         componentSlug: key.split("/")[0],
         link: (path: string) => path,
       },
     }),
   html: async (loaded) => loaded,
+  solid: async (loaded) =>
+    solidRenderer.renderToStaticMarkup(
+      loaded.default,
+      {},
+      { default: undefined },
+    ).html,
   vue: (loaded) => renderToString(createSSRApp(loaded.default)),
 }
 
@@ -143,9 +160,12 @@ describe.each(cases)("$key", (example) => {
   )
 
   test.each(
-    frameworks
-      .slice(1)
-      .map((framework, index) => [framework, frameworks[index]]),
+    frameworks.flatMap((framework) => {
+      const reference = REFERENCES[framework].find(
+        (candidate) => example.loaders[candidate],
+      )
+      return reference ? [[framework, reference]] : []
+    }),
   )("%s matches %s", async (framework, reference) => {
     const [expected, actual] = await Promise.all([
       markup(example, reference),

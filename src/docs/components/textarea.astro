@@ -9,6 +9,7 @@ import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
 
 import textareaApi from "../../component-api/textarea/api"
+import TextareaBuild from "../../components/UnderTheHood/TextareaBuild.astro"
 
 export const description =
   "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states."
@@ -18,11 +19,12 @@ export const description =
   description={description}
   slug="textarea"
   browserSupport={[
-    "datalist",
+    "container-queries",
     "field-sizing",
     "has",
     "light-dark",
     "relative-color",
+    "user-pseudos",
   ]}
   heroAnatomy
   apis={[{ title: "Textarea API", api: textareaApi }]}
@@ -58,6 +60,24 @@ export const description =
 
   <section>
     <h2 id="variants">Variants</h2>
+    <Conditional>
+      <p slot="astro">
+        Textareas are outlined by default. Set <code>variant="filled"</code> for a
+        filled textarea.
+      </p>
+      <p slot="html">
+        Textareas are outlined by default. Add <code>.ui-filled</code> for a filled
+        textarea.
+      </p>
+      <p slot="solid">
+        Textareas are outlined by default. Set <code>variant="filled"</code> for a
+        filled textarea.
+      </p>
+      <p slot="vue">
+        Textareas are outlined by default. Set <code>variant="filled"</code> for a
+        filled textarea.
+      </p>
+    </Conditional>
     <AutoExample name="Variants" row />
   </section>
 
@@ -79,6 +99,11 @@ export const description =
         and <code>footer</code> slots to affix content inside the textarea's border.
         Header and footer are particularly useful for filenames and character counters.
       </Fragment>
+      <Fragment slot="solid">
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> props to affix content inside the textarea's border.
+        Header and footer are particularly useful for filenames and character counters.
+      </Fragment>
       <Fragment slot="vue">
         Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
         and <code>footer</code> slots to affix content inside the textarea's border.
@@ -87,7 +112,7 @@ export const description =
       <Fragment slot="html">
         Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
           >.ui-header</code
-        >, or
+        >, or{" "}
         <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
         inside the textarea's border.
       </Fragment>
@@ -107,6 +132,10 @@ export const description =
         Set <code>required</code> on the component to toggle required styles on the
         textarea.
       </Fragment>
+      <Fragment slot="solid">
+        Add the <code>required</code> attribute on the component. It is forwarded
+        to the underlying <code>&lt;textarea&gt;</code>.
+      </Fragment>
       <Fragment slot="vue">
         Add the <code>required</code> attribute on the component. It is forwarded
         to the underlying <code>&lt;textarea&gt;</code>.
@@ -119,13 +148,18 @@ export const description =
     <Conditional as="p">
       <Fragment slot="astro">
         Use the <code>error</code> prop to toggle invalid styles. It renders the
-        <code>data-invalid</code> attribute on the root element. Make use of the end
-        text to give extra feedback on the error.
+        {" "}<code>data-invalid</code> attribute on the root element. Make use of
+        the end text to give extra feedback on the error.
+      </Fragment>
+      <Fragment slot="solid">
+        Use the <code>error</code> prop to toggle invalid styles. It renders
+        {" "}<code>data-invalid</code> on the root element. Make use of the end text
+        to give extra feedback on the error.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
+        {" "}<code>data-invalid</code> on the root element. Make use of the end text
+        to give extra feedback on the error.
       </Fragment>
       <Fragment slot="html">
         Add <code>data-invalid</code> on the root element to toggle invalid styles.
@@ -149,6 +183,11 @@ export const description =
         on the left with the textarea on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
+      <Fragment slot="solid">
+        Use the <code>spread</code> boolean prop to display the label and description
+        on the left with the textarea on the right. The layout collapses to a column
+        on narrow containers.
+      </Fragment>
       <Fragment slot="vue">
         Use the <code>spread</code> boolean prop to display the label and description
         on the left with the textarea on the right. The layout collapses to a column
@@ -164,9 +203,9 @@ export const description =
     <p>When enabled the Field changes size depending on its content.</p>
 
     <AutoExample name="AutoFit" exampleClass="flex" />
-
-    <div class="ui-not-rich-text"></div>
   </section>
+
+  <TextareaBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy>

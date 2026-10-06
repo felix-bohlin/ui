@@ -2,10 +2,12 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "FieldSet",
+  css: ["form"],
   options: [
     {
       default: '"fieldset"',
-      description: "The element to render.",
+      description:
+        'The element to render. Any element other than `fieldset` gets `role="group"`, and needs `aria-labelledby` pointing at its legend.',
       prop: "as",
     },
     {
@@ -19,7 +21,7 @@ export default {
       attribute: "[disabled]",
       default: "false",
       description: "Disables every field inside.",
-      frameworks: ["astro", "html", "vue"],
+      frameworks: ["astro", "html", "solid", "vue"],
       group: "State",
       prop: "disabled",
       type: "boolean",
@@ -29,12 +31,20 @@ export default {
   parts: [
     {
       code: "<legend>",
-      component: { astro: "FieldLegend", vue: "FieldLegend" },
+      component: {
+        astro: "FieldLegend",
+        solid: "FieldLegend",
+        vue: "FieldLegend",
+      },
       description: "The label of the fieldset.",
       selector: ":is(legend, .ui-legend)",
     },
     {
-      component: { astro: "FieldDescription", vue: "FieldDescription" },
+      component: {
+        astro: "FieldDescription",
+        solid: "FieldDescription",
+        vue: "FieldDescription",
+      },
       description: "Supporting text displayed below the legend.",
       selector: ".ui-field-description",
     },

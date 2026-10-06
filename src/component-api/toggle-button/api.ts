@@ -3,21 +3,21 @@ import type { ComponentApi } from "../types"
 export default {
   component: "ToggleButton",
   notes: {
-    html: "Set `disabled` on the input too. Checkbox inputs also need `aria-pressed`.",
+    html: "Set `disabled` on the input too.",
   },
   options: [
     {
       class: ".ui-disabled",
       default: "false",
       description: "Disables the button.",
-      frameworks: ["astro", "html", "vue"],
+      frameworks: ["astro", "html", "solid", "vue"],
       group: "State",
       prop: "disabled",
       type: "boolean",
     },
     {
       description: "The id of the `<input>`. Generated when omitted.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "id",
       type: "string",
     },
@@ -27,7 +27,7 @@ export default {
     },
     {
       description: "The name of the input. Set by the group.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "name",
       type: "string",
     },
@@ -43,7 +43,11 @@ export default {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
-      values: { small: ".ui-small", "x-small": ".ui-x-small" },
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       default: '"checkbox"',
@@ -55,7 +59,7 @@ export default {
     },
     {
       description: "The value of the input.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "value",
       type: "string",
     },

@@ -7,7 +7,7 @@ export type Props = {
 } & (
   | {
       as?: "div"
-      href: never
+      href?: never
       disabled?: never
     }
   | {
@@ -20,10 +20,18 @@ export type Props = {
       href?: never
       disabled?: boolean
     }
-)
+) &
+  (
+    | {
+        alt: string
+        src: string
+      }
+    | {
+        alt?: never
+        src?: never
+      }
+  )
 
 export type Slots<S> = {
   children?: S
 }
-
-export type ImageProps = "src" | "alt"

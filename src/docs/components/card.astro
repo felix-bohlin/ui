@@ -11,6 +11,7 @@ import {
 import AutoExample from "../../components/AutoExample.astro"
 import CardCSS from "@opui/css/components/card.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import CardBuild from "../../components/UnderTheHood/CardBuild.astro"
 
 import cardApi from "../../component-api/card/api"
 ---
@@ -19,7 +20,7 @@ import cardApi from "../../component-api/card/api"
   slug="card"
   heroAnatomy
   apis={[{ title: "Card API", api: cardApi }]}
-  browserSupport={["container-style-queries"]}
+  browserSupport={["container-style-queries", "has"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Card/Card.astro",
@@ -55,6 +56,9 @@ import cardApi from "../../component-api/card/api"
           >.ui-outlined</code
         >, <code>.ui-tonal</code>, and <code>.ui-elevated</code> classes.
       </Fragment>
+      <Fragment slot="solid">
+        Change the card variant with the <code>variant</code> prop.
+      </Fragment>
       <Fragment slot="vue">
         Change the card variant with the <code>variant</code> prop.
       </Fragment>
@@ -70,7 +74,7 @@ import cardApi from "../../component-api/card/api"
           to. The <DocLink href="/components/accordion#accordion-group"
             >accordion group</DocLink
           > is a great example where Open Props UI leverages the text variant of the
-          <code>.ui-card</code> component.
+          {" "}<code>.ui-card</code> component.
         </div>
       </UICallout>
     </div>
@@ -83,6 +87,7 @@ import cardApi from "../../component-api/card/api"
       <Fragment slot="html">
         Using the <code>&lt;hgroup&gt;</code>.
       </Fragment>
+      <Fragment slot="solid"> Using the <code>header</code> prop. </Fragment>
       <Fragment slot="vue"> Using the <code>header</code> slot. </Fragment>
     </Conditional>
     <AutoExample name="Header" column />
@@ -96,6 +101,9 @@ import cardApi from "../../component-api/card/api"
       </Fragment>
       <Fragment slot="html">
         Using the <code>.ui-actions</code> class.
+      </Fragment>
+      <Fragment slot="solid">
+        Using the <code>actions</code> prop.
       </Fragment>
       <Fragment slot="vue">
         Using the <code>actions</code> slot.
@@ -116,6 +124,9 @@ import cardApi from "../../component-api/card/api"
       <Fragment slot="html">
         Align actions to the end with the <code>.ui-align-end</code> class.
       </Fragment>
+      <Fragment slot="solid">
+        Align actions to the end with the <code>actionsAlign="end"</code> prop.
+      </Fragment>
       <Fragment slot="vue">
         Align actions to the end with the <code>actionsAlign="end"</code> prop.
       </Fragment>
@@ -123,6 +134,8 @@ import cardApi from "../../component-api/card/api"
 
     <AutoExample name="Alignment" column />
   </section>
+
+  <CardBuild slot="under-the-hood" />
 
   <Fragment slot="anatomy">
     <Anatomy>

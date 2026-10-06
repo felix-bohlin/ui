@@ -1,21 +1,24 @@
 @layer components.root {
   :where(.ui-switch) {
     --_motion: var(--motion, 1);
-    --_accent-color: var(--primary);
-    --_accent-contrast: var(--primary-contrast);
+    --_accent: light-dark(
+      var(--primary),
+      oklch(from var(--primary) min(l, 0.62) c h)
+    );
+    --_accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
 
     --_dot-bg-color: light-dark(var(--gray-11), var(--gray-14));
-    --_dot-inset: var(--size-1) auto auto var(--size-1);
     --_dot-outline-size: 0;
-    --_dot-size: var(--size-3);
+    --_dot-size: var(--switch-dot-size);
 
     --_track-bg-color: light-dark(var(--gray-3), var(--gray-8));
-    --_track-height: var(--size-5);
-    --_track-width: var(--size-8);
-    --_transition-tf: var(--ease-4);
-    --_transition-time: calc(0.2s * var(--_motion));
+    --_track-height: var(--switch-track-height);
+    --_track-width: var(--switch-track-width);
 
-    align-items: center;
+    --_duration: calc(var(--duration) * var(--_motion));
+    --_ease: var(--ease);
+
+    align-items: start;
     color: var(--text-primary);
     display: inline-grid;
     gap: 0 var(--size-2);
@@ -35,7 +38,7 @@
       &::before {
         background-color: var(--_track-bg-color);
         block-size: var(--_track-height);
-        border: 1px solid var(--_dot-bg-color);
+        border: var(--field-border-width) solid var(--_dot-bg-color);
         border-radius: var(--radius-round);
         content: "";
         inline-size: var(--_track-width);
@@ -44,9 +47,8 @@
       }
 
       &:focus-visible {
-        --focus-ring-color: currentColor;
         outline: var(--focus-ring-width) var(--focus-ring-style)
-          var(--focus-ring-color);
+          var(--focus-ring-color, currentColor);
         outline-offset: var(--focus-ring-offset);
       }
 
@@ -57,7 +59,8 @@
         border-radius: var(--radius-round);
         content: "";
         inline-size: var(--_dot-size);
-        inset: var(--_dot-inset);
+        inset-block-start: var(--size-1);
+        inset-inline-start: var(--size-1);
         outline: var(--_dot-outline-size) solid var(--_dot-bg-color);
         outline-offset: -1px;
         position: absolute;
@@ -66,11 +69,11 @@
       /* Checked */
       &:checked {
         &::before {
-          background-color: var(--_accent-color);
-          border-color: var(--_accent-color);
+          background-color: var(--_accent);
+          border-color: var(--_accent);
           transition:
-            background-color var(--_transition-time) var(--_transition-tf),
-            border-color var(--_transition-time) var(--_transition-tf);
+            background-color var(--_duration) var(--_ease),
+            border-color var(--_duration) var(--_ease);
         }
 
         /* Dot */
@@ -88,23 +91,21 @@
       /* Track */
       &::before {
         transition:
-          background-color var(--_transition-time) var(--_transition-tf),
-          border-color var(--_transition-time) var(--_transition-tf);
+          background-color var(--_duration) var(--_ease),
+          border-color var(--_duration) var(--_ease);
       }
 
       /* Dot */
       &::after {
-        transition: all var(--_transition-time) var(--_transition-tf);
+        transition:
+          background-color var(--_duration) var(--_ease),
+          inset-inline-start var(--_duration) var(--_ease),
+          outline-color var(--_duration) var(--_ease),
+          outline-width var(--_duration) var(--_ease);
       }
 
       &:active:after {
         --_dot-outline-size: calc(var(--size-1) + 1px);
-      }
-
-      &:checked {
-        &:active:after {
-          --_dot-outline-size: calc(var(--size-1) + 1px);
-        }
       }
     }
 
@@ -133,6 +134,7 @@
       .ui-icon-checked {
         grid-column: 1;
         grid-row: 1;
+        margin-block-start: var(--size-1);
         pointer-events: none;
         z-index: 1;
 
@@ -154,19 +156,24 @@
     }
 
     /* Required dot */
-    &:has(:invalid) {
+    &:has(:required) {
       .ui-label:after {
-        color: var(--red);
+        color: var(--field-required-color);
         content: "*";
-        inset: 0 -0.25ex auto auto;
+        inset-block: 0 auto;
+        inset-inline: auto -0.25ex;
         position: absolute;
       }
+    }
+
+    &:not(:has(.ui-label, .ui-text)) {
+      vertical-align: middle;
     }
 
     /* Disabled */
     &:has([disabled]) {
       cursor: not-allowed;
-      opacity: 0.64;
+      opacity: var(--disabled-opacity);
       user-select: none;
 
       input {
@@ -176,10 +183,13 @@
 
     /* Label */
     .ui-label {
-      color: var(--text-primary);
-      font-size: var(--font-size-05);
+      color: var(--field-label-color);
+      font-size: var(--field-label-font-size);
       grid-column: 2;
       grid-row: 1;
+      margin-block-start: calc(
+        (var(--_track-height) - 1lh) / 2 + var(--choice-label-offset)
+      );
       min-width: 0;
       padding-inline: 0 1ex;
       position: relative;
@@ -188,31 +198,31 @@
 
     /* End text */
     :where(.ui-end-text) {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
+      color: var(--field-helper-color);
+      font-size: var(--field-helper-font-size);
       grid-column: 2;
       grid-row: 2;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
       z-index: 1;
     }
 
     /* Size */
     &.ui-small {
-      --_dot-size: 0.75rem;
-      --_track-height: var(--size-4);
-      --_track-width: 2.5rem;
+      --_dot-size: var(--switch-dot-size-small);
+      --_track-height: var(--switch-track-height-small);
+      --_track-width: var(--switch-track-width-small);
     }
 
     /* Spread layout */
     &.ui-spread {
-      align-items: center;
+      align-items: start;
       column-gap: var(--size-4);
       grid-auto-flow: unset;
       grid-template-columns: 1fr auto;
       inline-size: 100%;
 
       .ui-label {
-        font-weight: 600;
+        font-weight: var(--field-label-font-weight);
         grid-column: 1;
         grid-row: 1;
         inline-size: fit-content;
@@ -256,14 +266,27 @@
     }
 
     /* Validation */
-    &[data-invalid] {
+    &[data-invalid],
+    &:has(:user-invalid) {
       input {
         border-radius: var(--radius-round);
-        outline: 2px solid var(--color-9);
+        outline: var(--focus-ring-width) solid var(--invalid-color);
       }
 
       .ui-end-text {
-        color: var(--color-9);
+        color: var(--invalid-text-color);
+      }
+    }
+
+    @media (forced-colors: active) {
+      --_accent: SelectedItem;
+      --_accent-contrast: SelectedItemText;
+      --_dot-bg-color: CanvasText;
+      --_track-bg-color: Canvas;
+
+      &:has([disabled]) {
+        --_accent: GrayText;
+        --_dot-bg-color: GrayText;
       }
     }
   }

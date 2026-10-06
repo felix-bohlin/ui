@@ -1,0 +1,110 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-panel {
+    border: 1px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-3);
+    justify-items: start;
+    padding: var(--size-3);
+  }
+
+  .todo-stack {
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .todo-components-only :is(.ui-checkbox, .ui-radio) input::before {
+    content: none;
+  }
+
+  .todo-hover:is(.ui-checkbox, .ui-radio) input::before {
+    --_thumb-scale: 1;
+  }
+
+  @layer components.root {
+    .todo-tinted :is(.ui-checkbox, .ui-radio) input::before {
+      background-color: oklch(from var(--primary) l c h / 0.3);
+    }
+  }
+</style>
+<div class="todo-stack">
+  <p>
+    Hover the controls. The first row in each panel has the halo forced on so
+    you can compare without a mouse.
+  </p>
+  <div class="todo-compare">
+    <div>
+      <p class="ui-caption">
+        <code>opui.css</code> or <code>imports.css</code>: halo from the
+        <code>utils</code> layer
+      </p>
+      <div class="todo-panel">
+        <label class="ui-checkbox todo-hover">
+          <input type="checkbox" tabindex="-1" />
+          <span class="ui-label">Forced hover</span>
+        </label>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-label">Checkbox</span>
+        </label>
+        <label class="ui-radio">
+          <input type="radio" name="todo-full" />
+          <span class="ui-label">Radio</span>
+        </label>
+      </div>
+    </div>
+    <div class="todo-components-only">
+      <p class="ui-caption">
+        <code>opui.components.css</code>, <code>components.css</code> or
+        <code>checkbox.css</code> alone: no halo (simulated)
+      </p>
+      <div class="todo-panel">
+        <label class="ui-checkbox todo-hover">
+          <input type="checkbox" tabindex="-1" />
+          <span class="ui-label">Forced hover</span>
+        </label>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-label">Checkbox</span>
+        </label>
+        <label class="ui-radio">
+          <input type="radio" name="todo-components" />
+          <span class="ui-label">Radio</span>
+        </label>
+      </div>
+    </div>
+    <div class="todo-tinted">
+      <p class="ui-caption">
+        A primary tint in <code>@layer components.root</code>: ignored, because
+        <code>utils</code> wins
+      </p>
+      <div class="todo-panel">
+        <label class="ui-checkbox todo-hover">
+          <input type="checkbox" tabindex="-1" />
+          <span class="ui-label">Forced hover</span>
+        </label>
+        <label class="ui-checkbox">
+          <input type="checkbox" />
+          <span class="ui-label">Checkbox</span>
+        </label>
+        <label class="ui-radio">
+          <input type="radio" name="todo-tinted" />
+          <span class="ui-label">Radio</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

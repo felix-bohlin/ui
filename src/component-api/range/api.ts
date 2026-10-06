@@ -11,6 +11,8 @@ export default {
     astro:
       "Input attributes, such as `disabled`, `max`, `min`, `name` and `step`, go to the `<input>`.",
     html: "Add a `<datalist>` after the input for tick marks.",
+    solid:
+      "Props that aren't listed here, such as `max`, `min` or `step`, go to the `<input>`.",
     vue: "Attributes that aren't props, such as `max`, `min` or `step`, go to the `<input>`.",
   },
   options: [
@@ -49,11 +51,17 @@ export default {
       type: "number | string",
     },
     {
-      description: "The variant to use.",
+      description:
+        "Content for the `<output>`, in place of the value and `valueSuffix`.",
+      frameworks: ["solid"],
+      prop: "valueText",
+    },
+    {
+      description:
+        "The track surface. Without one, the track uses the field border color.",
       group: "Variants",
       prop: "variant",
       values: {
-        default: ".ui-default",
         filled: ".ui-filled",
         tonal: ".ui-tonal",
       },

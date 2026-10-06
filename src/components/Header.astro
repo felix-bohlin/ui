@@ -5,7 +5,6 @@ import {
   Drawer,
   DrawerFooter,
   DrawerHeader,
-  IconButton,
   List,
   ListItem,
 } from "@opui/astro"
@@ -31,6 +30,7 @@ const navItems: { label: string; href: string }[] = [
   { label: "Guide", href: "/guide/getting-started" },
   { label: "Components", href: "/components" },
   { label: "API", href: "/api" },
+  { label: "Learn", href: "/learn" },
 ]
 
 const resolvedNavItems = navItems.map((item) => ({
@@ -50,8 +50,23 @@ const { link } = Astro.locals
         ? "dark"
         : "light"
     },
+    getStoredContrast() {
+      return localStorage.getItem("contrast")
+    },
     getStoredTheme() {
       return localStorage.getItem("theme")
+    },
+    setContrast(contrast) {
+      document.documentElement.classList.remove(
+        "ui-contrast-more",
+        "ui-contrast-normal",
+      )
+      if (contrast) {
+        document.documentElement.classList.add(`ui-contrast-${contrast}`)
+        localStorage.setItem("contrast", contrast)
+      } else {
+        localStorage.removeItem("contrast")
+      }
     },
     setTheme(theme) {
       document.documentElement.classList.remove(
@@ -113,6 +128,7 @@ const { link } = Astro.locals
   const initialTheme = storedTheme || window.themeUtils.getSystemPreference()
   window.themeUtils.setTheme(initialTheme)
   window.themeUtils.applyCustomTheme()
+  window.themeUtils.setContrast(window.themeUtils.getStoredContrast())
 </script>
 
 <div class="site-header">
@@ -150,7 +166,13 @@ const { link } = Astro.locals
 
       <div class="ui-actions">
         <!-- Search -->
-        <IconButton data-open-search title="Search (⌘K)">
+        <Button
+          ripple
+          rounded
+          size="small"
+          data-open-search
+          title="Search (⌘K)"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -161,10 +183,13 @@ const { link } = Astro.locals
               d="M16.102 17.162a8 8 0 1 1 1.06-1.06l4.618 4.618a.75.75 0 1 1-1.06 1.06zM17.5 11a6.5 6.5 0 1 0-13 0a6.5 6.5 0 0 0 13 0"
             ></path></svg
           >
-        </IconButton>
+        </Button>
 
         <!-- Theme Configurator -->
-        <IconButton
+        <Button
+          ripple
+          rounded
+          size="small"
           commandfor="theme-configurator-drawer"
           command="show-modal"
           title="Customize Theme"
@@ -179,21 +204,22 @@ const { link } = Astro.locals
               d="M3.839 5.858c2.94-3.916 9.03-5.055 13.364-2.36c4.28 2.66 5.854 7.777 4.1 12.577c-1.655 4.533-6.016 6.328-9.159 4.048c-1.177-.854-1.634-1.925-1.854-3.664l-.106-.987l-.045-.398c-.123-.934-.311-1.352-.705-1.572c-.535-.298-.892-.305-1.595-.033l-.351.146l-.179.078c-1.014.44-1.688.595-2.541.416l-.2-.047l-.164-.047c-2.789-.864-3.202-4.647-.565-8.157m.984 6.716l.123.037l.134.03c.439.087.814.015 1.437-.242l.602-.257c1.202-.493 1.985-.54 3.046.05c.917.512 1.275 1.298 1.457 2.66l.053.459l.055.532l.047.422c.172 1.361.485 2.09 1.248 2.644c2.275 1.65 5.534.309 6.87-3.349c1.516-4.152.174-8.514-3.484-10.789c-3.675-2.284-8.899-1.306-11.373 1.987c-2.075 2.763-1.82 5.28-.215 5.816m11.225-1.994a1.25 1.25 0 1 1 2.414-.647a1.25 1.25 0 0 1-2.414.647m.494 3.488a1.25 1.25 0 1 1 2.415-.647a1.25 1.25 0 0 1-2.415.647M14.07 7.577a1.25 1.25 0 1 1 2.415-.647a1.25 1.25 0 0 1-2.415.647m-.028 8.998a1.25 1.25 0 1 1 2.414-.647a1.25 1.25 0 0 1-2.414.647m-3.497-9.97a1.25 1.25 0 1 1 2.415-.646a1.25 1.25 0 0 1-2.415.646"
             ></path></svg
           >
-        </IconButton>
+        </Button>
 
         <!-- Github -->
         <a
           href="https://github.com/felix-bohlin/ui"
           target="_blank"
-          class="github-link ui-icon-button"
+          class="github-link ui-button ui-rounded ui-ripple ui-small"
+          aria-label="GitHub repository"
         >
-          <span class="ui-sr-only">Github repo</span>
           <GithubLogo />
         </a>
 
         <!-- Mobile menu button -->
         <button
-          class="mobile-menu-button ui-icon-button"
+          aria-label="Menu"
+          class="mobile-menu-button ui-button ui-rounded ui-ripple ui-small"
           commandfor="mobile-menu-drawer"
           command="show-modal"
         >
@@ -269,19 +295,19 @@ const { link } = Astro.locals
   .header-toolbar {
     display: none;
     margin-inline: auto;
-    max-inline-size: calc(var(--_content-lg) + var(--_page-gutters));
+    max-inline-size: calc(var(--site-content-lg) + var(--site-page-gutters));
     min-inline-size: 0;
 
     &:has(.local-nav) {
       display: grid;
-      grid-template-columns: var(--_gap) 1fr 0 minmax(auto, 100%) 0 1fr var(
-          --_gap
-        );
+      grid-template-columns:
+        var(--site-gap) 1fr 0 minmax(auto, 100%)
+        0 1fr var(--site-gap);
 
       @media (width >= 900px) {
         grid-template-columns:
-          var(--_gap) 1fr 200px minmax(auto, 100%)
-          0 1fr var(--_gap);
+          var(--site-gap) 1fr 200px minmax(auto, 100%)
+          0 1fr var(--site-gap);
       }
 
       @media (width >= 1140px) {
@@ -290,12 +316,14 @@ const { link } = Astro.locals
     }
   }
 
-  .site-header:has(.header-toolbar:has(.local-nav)) header .ui-content {
-    border-block-end-color: transparent;
-  }
+  @media (width < 1140px) {
+    .site-header:has(.local-nav) header .ui-content {
+      border-block-end: none;
+    }
 
-  .site-header:has(.header-toolbar:has(.local-nav)) header .ui-content::before {
-    border-block-end: none;
+    .site-header:has(.local-nav) header .ui-content::before {
+      border-block-end: none;
+    }
   }
 
   header {
@@ -309,7 +337,7 @@ const { link } = Astro.locals
       gap: var(--size-4);
       justify-content: space-between;
       margin: 0 auto;
-      max-inline-size: var(--_content-lg);
+      max-inline-size: var(--site-content-lg);
       padding: var(--size-4);
       position: relative;
 
@@ -318,8 +346,8 @@ const { link } = Astro.locals
         animation-range: 0 150px;
         animation-timeline: scroll();
         background-color: var(--surface-elevated);
-        border-radius: 0;
         border: var(--border-width) solid oklch(from var(--primary) l c h / 0.2);
+        border-radius: 0;
         box-shadow: var(--shadow-2);
         content: "";
         inset: 0;
@@ -351,8 +379,8 @@ const { link } = Astro.locals
         display: flex;
         gap: var(--size-4);
         list-style: none;
-        padding: 0;
         margin: 0;
+        padding: 0;
 
         .ui-link {
           text-decoration: none;
@@ -386,7 +414,7 @@ const { link } = Astro.locals
       }
 
       span {
-        font-family: "Bricolage Grotesque", sans-serif;
+        font-family: var(--font-bricolage-grotesque), sans-serif;
         transition: transform 0.3s ease-out;
 
         & + span {
@@ -434,8 +462,8 @@ const { link } = Astro.locals
   #mobile-menu-drawer {
     nav {
       display: block;
-      margin-inline: calc(var(--size-4) * -1);
       margin-block-start: calc(var(--size-4) * -1);
+      margin-inline: calc(var(--size-4) * -1);
 
       a {
         align-items: center;
@@ -444,8 +472,8 @@ const { link } = Astro.locals
         font-weight: var(--font-weight-6);
         padding: var(--size-3) var(--size-4);
         text-decoration: none;
-        width: 100%;
         transition: background-color 0.2s ease;
+        width: 100%;
 
         &[aria-current="page"] {
           background-color: var(--surface-tonal);
@@ -459,13 +487,13 @@ const { link } = Astro.locals
     }
 
     .drawer-footer {
-      padding-block: var(--size-4);
       display: flex;
       flex-direction: column;
       gap: var(--size-3);
+      padding-block: var(--size-4);
 
       .ui-label {
-        color: var(--text-2);
+        color: var(--text-muted);
         font-size: var(--font-size-0);
         font-weight: var(--font-weight-7);
         letter-spacing: var(--font-letter-spacing-1);
@@ -488,13 +516,13 @@ const { link } = Astro.locals
 
   header,
   .ui-content {
-    animation-timeline: scroll();
     animation-range: 0 150px;
+    animation-timeline: scroll();
   }
 
   @keyframes shrink-padding {
     to {
-      padding: var(--size-3) var(--_gap);
+      padding: var(--size-3) var(--site-gap);
     }
   }
 

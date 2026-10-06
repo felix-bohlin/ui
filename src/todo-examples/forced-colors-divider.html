@@ -1,0 +1,93 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-panel {
+    border: 1px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--size-3);
+  }
+
+  .todo-stack {
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .todo-sim {
+    background-color: Canvas;
+    color: CanvasText;
+    forced-color-adjust: none;
+  }
+
+  .todo-sim.todo-current .ui-divider {
+    background-color: Canvas;
+  }
+
+  .todo-sim.todo-fixed .ui-divider {
+    background-color: CanvasText;
+  }
+
+  @media (forced-colors: active) {
+    .todo-live.todo-fixed .ui-divider {
+      background-color: CanvasText;
+    }
+  }
+</style>
+<div class="todo-stack">
+  <p>
+    To see the real thing, open DevTools, press <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> +
+    <kbd>Shift</kbd> + <kbd>P</kbd>, run "Show Rendering", and set "Emulate CSS
+    media feature forced-colors" to <code>active</code>. The first row then
+    shows the live result. The second row simulates it without emulation.
+  </p>
+  <p class="ui-caption">Live (only differs with forced colors on)</p>
+  <div class="todo-compare">
+    <div>
+      <p class="ui-caption">Current</p>
+      <div class="todo-panel todo-live todo-current">
+        Above
+        <hr class="ui-divider" />
+        Below
+      </div>
+    </div>
+    <div>
+      <p class="ui-caption">Fixed</p>
+      <div class="todo-panel todo-live todo-fixed">
+        Above
+        <hr class="ui-divider" />
+        Below
+      </div>
+    </div>
+  </div>
+  <p class="ui-caption">Simulated forced colors</p>
+  <div class="todo-compare">
+    <div>
+      <p class="ui-caption">
+        Current: <code>background-color</code> is forced to <code>Canvas</code>
+      </p>
+      <div class="todo-panel todo-sim todo-current">
+        Above
+        <hr class="ui-divider" />
+        Below
+      </div>
+    </div>
+    <div>
+      <p class="ui-caption">Fixed: <code>CanvasText</code> in forced colors</p>
+      <div class="todo-panel todo-sim todo-fixed">
+        Above
+        <hr class="ui-divider" />
+        Below
+      </div>
+    </div>
+  </div>
+</div>

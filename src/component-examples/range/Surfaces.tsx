@@ -1,0 +1,17 @@
+import { Range } from "opui-css/solid"
+
+export default function Example() {
+  return (
+    <>
+      <Range>
+        No variant = <code>var(--field-border-color)</code>
+      </Range>
+      <Range variant="filled">
+        <code>filled</code> = <code>var(--surface-filled)</code>
+      </Range>
+      <Range variant="tonal">
+        <code>tonal</code> = <code>var(--surface-tonal)</code>
+      </Range>
+    </>
+  )
+}

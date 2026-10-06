@@ -1,22 +1,11 @@
+import type { JSX } from "@solidjs/web"
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
 
-export type Props = Base.Props &
-  Omit<JSX.InputHTMLAttributes<HTMLInputElement>, "type"> & {
-    type?:
-      | "text"
-      | "password"
-      | "email"
-      | "number"
-      | "numeric"
-      | "search"
-      | "tel"
-      | "url"
-      | "date"
-      | "time"
-      | "datetime-local"
-      | "month"
-      | "week"
-      | "color"
-      | string
-  } & Partial<Base.Slots<JSX.Element>>
+export type Props = Omit<Base.Props, keyof Base.Slots<JSX.Element>> &
+  Partial<Base.Slots<JSX.Element>> &
+  Omit<
+    JSX.InputHTMLAttributes<HTMLInputElement>,
+    "prefix" | "size" | "type"
+  > & {
+    type?: JSX.InputHTMLAttributes<HTMLInputElement>["type"] | "numeric"
+  }

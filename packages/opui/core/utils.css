@@ -1,4 +1,24 @@
 @layer utils {
+  .ui-motion-off {
+    --motion: 0;
+  }
+
+  .ui-motion-on {
+    --motion: 1;
+  }
+
+  .ui-motion-debug {
+    --motion: 10;
+  }
+
+  .ui-contrast-more {
+    --contrast: more;
+  }
+
+  .ui-contrast-normal {
+    --contrast: normal;
+  }
+
   /*
 Screen-reader only
 */
@@ -9,6 +29,14 @@ Screen-reader only
     overflow: hidden;
     position: absolute;
     white-space: nowrap;
+
+    &.ui-focusable:focus-visible {
+      block-size: auto;
+      clip-path: none;
+      inline-size: auto;
+      position: static;
+      white-space: normal;
+    }
   }
 
   /*
@@ -16,51 +44,51 @@ Scroll-lock
 Add `.ui-scroll-lock` to any element that uses the [open] attribute (native <dialog>,
 <details>, or any custom element). When that element is open, the page is locked.
 */
-  html:has(.ui-scroll-lock[open]) {
+  html:has(.ui-scroll-lock[open]:not(.ui-backdrop-transparent)) {
     overflow: clip;
     overscroll-behavior: contain;
     scrollbar-gutter: stable;
   }
 
-  /* Hover and active effect for checkbox, radio and icon buttons */
-  :where(.ui-checkbox input, .ui-radio input, .ui-icon-button) {
-    --isLTR: 1;
-    --isRTL: -1;
+  /* Hover and active effect for checkbox and radio */
+  :where(.ui-checkbox input, .ui-radio input) {
+    --_dir-rtl: -1;
 
     position: relative;
     transform-style: preserve-3d;
 
     &:dir(rtl) {
-      --isLTR: -1;
-      --isRTL: 1;
+      --_dir-rtl: 1;
     }
 
-    &:where(:not([disabled])) {
-      &:hover:before {
-        --thumb-scale: 1;
+    &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+      @media (hover: hover) {
+        &:hover:before {
+          --_thumb-scale: 1;
+        }
       }
 
       &:active:before {
-        --thumb-scale: 1.1;
+        --_thumb-scale: 1.1;
       }
 
       &::before {
-        --thumb-scale: 0.01;
-        --highlight-size: 150%;
+        --_thumb-scale: 0.01;
 
-        background-color: oklch(0.6 0 0 / 0.2);
-        block-size: var(--highlight-size);
+        background-color: var(--ripple-color);
+        block-size: var(--_ripple-size, 150%);
         clip-path: circle(50%);
         content: "";
-        inline-size: var(--highlight-size);
+        inline-size: var(--_ripple-size, 150%);
         inset-block-start: 50%;
         inset-inline-start: 50%;
         position: absolute;
-        transform: translateX(calc(var(--isRTL) * 50%)) translateY(-50%)
-          translateZ(-1px) scale(var(--thumb-scale));
+        transform: translateX(calc(var(--_dir-rtl) * 50%)) translateY(-50%)
+          translateZ(-1px) scale(var(--_thumb-scale));
         transform-origin: center center;
 
-        transition: transform calc(0.2s * var(--motion, 1)) ease;
+        transition: transform calc(var(--duration) * var(--motion, 1))
+          var(--ease);
         will-change: transform;
       }
     }

@@ -1,0 +1,81 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+} from "opui-css/solid"
+
+export default function Example() {
+  return (
+    <div
+      role="region"
+      aria-label="Invoices"
+      tabindex="0"
+      style="max-block-size: 15rem; overflow: auto"
+    >
+      <Table stickyHeader>
+        <TableHead>
+          <TableRow>
+            <TableHeaderCell>Invoice</TableHeaderCell>
+            <TableHeaderCell>Customer</TableHeaderCell>
+            <TableHeaderCell>Amount</TableHeaderCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell>INV-1000</TableCell>
+            <TableCell>Ada</TableCell>
+            <TableCell>€130</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>INV-1001</TableCell>
+            <TableCell>Grace</TableCell>
+            <TableCell>€260</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>INV-1002</TableCell>
+            <TableCell>Linus</TableCell>
+            <TableCell>€390</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>INV-1003</TableCell>
+            <TableCell>Margaret</TableCell>
+            <TableCell>€520</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>INV-1004</TableCell>
+            <TableCell>Alan</TableCell>
+            <TableCell>€650</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>INV-1005</TableCell>
+            <TableCell>Barbara</TableCell>
+            <TableCell>€780</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>INV-1006</TableCell>
+            <TableCell>Ken</TableCell>
+            <TableCell>€910</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>INV-1007</TableCell>
+            <TableCell>Frances</TableCell>
+            <TableCell>€1,040</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>INV-1008</TableCell>
+            <TableCell>Dennis</TableCell>
+            <TableCell>€1,170</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>INV-1009</TableCell>
+            <TableCell>Radia</TableCell>
+            <TableCell>€1,300</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
+  )
+}

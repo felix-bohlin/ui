@@ -37,6 +37,9 @@ const isFrameworkKeyedApi = (value: any) =>
 // shape `<Conditional>` uses so partially-authored docs don't go blank.
 const pickFrameworkVariant = (value: any) =>
   value[currentFramework] ??
+  (currentFramework === "solid" || currentFramework === "vue"
+    ? value.astro
+    : undefined) ??
   value[DEFAULT_FRAMEWORK] ??
   FRAMEWORKS.map((f) => value[f.id]).find(Boolean)
 
@@ -168,16 +171,16 @@ const hasFrameworkSpecificApi =
 
 <style>
   .api-table-container {
-    overflow-x: auto;
     margin-block-end: var(--size-4);
+    overflow-x: auto;
   }
 
   .api-table-container :global(table),
   .api-table-container :global(.api-table) {
     display: table;
+    margin: 0;
+    min-width: 700px;
     table-layout: fixed;
     width: 100%;
-    min-width: 700px;
-    margin: 0;
   }
 </style>

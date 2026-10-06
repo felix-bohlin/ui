@@ -26,6 +26,35 @@ export default {
       prop: "href",
     },
     {
+      default: "false",
+      description:
+        "Marks the button as icon-only, so `label` is required. Types only.",
+      frameworks: ["astro", "solid", "vue"],
+      prop: "iconOnly",
+      type: "boolean",
+    },
+    {
+      description: "The accessible name. Use it on icon-only buttons.",
+      frameworks: ["astro", "solid", "vue"],
+      prop: "label",
+      type: "string",
+    },
+    {
+      class: ".ui-ripple",
+      default: "false",
+      description:
+        "A halo behind the button on hover instead of a background change.",
+      group: "Hover",
+      prop: "ripple",
+    },
+    {
+      class: ".ui-rounded",
+      default: "false",
+      description: "Fully rounded corners, a circle when icon-only.",
+      group: "Shape",
+      prop: "rounded",
+    },
+    {
       description: "The size of the element.",
       group: "Sizes",
       prop: "size",
@@ -53,9 +82,9 @@ export default {
       selector: ".ui-button > svg",
     },
     {
-      code: "<span>",
-      description: "The label.",
-      selector: ".ui-button > span",
+      code: '<span class="ui-text">',
+      description: "The label. Wrap it when the button has an icon.",
+      selector: ".ui-button > .ui-text",
     },
   ],
   root: {

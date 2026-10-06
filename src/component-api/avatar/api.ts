@@ -5,7 +5,7 @@ export default {
   options: [
     {
       description: "Alternative text for the image.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "alt",
       type: "string",
     },
@@ -35,7 +35,7 @@ export default {
       prop: "interestfor",
     },
     {
-      attribute: '[role="group"]',
+      class: ".ui-avatar-group",
       default: "false",
       description: "Renders a container that groups avatars.",
       group: "Group",
@@ -43,7 +43,7 @@ export default {
     },
     {
       description: "The image source. Replaces the default slot.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "src",
       type: "string",
     },

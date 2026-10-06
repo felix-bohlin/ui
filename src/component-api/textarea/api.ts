@@ -2,6 +2,7 @@ import type { ComponentApi } from "../types"
 
 export default {
   component: "Textarea",
+  css: ["text-field", "textarea"],
   model: {
     description: "The textarea value.",
     prop: "value",
@@ -9,7 +10,9 @@ export default {
   },
   notes: {
     astro:
-      "Textarea attributes (`cols`, `disabled`, `maxlength`, `minlength`, `name`, `placeholder`, `required`, `rows`, `value`) go to the `<textarea>`. Other attributes go to the root `<label>`.",
+      "Attributes, such as `disabled`, `name`, `placeholder`, `rows` and `value`, go to the `<textarea>`. `class` and `style` stay on the root `<label>`.",
+    solid:
+      "Props that aren't listed here, such as `placeholder` or `rows`, go to the `<textarea>`. `class` and `style` stay on the root `<label>`.",
     vue: "Attributes that aren't props, such as `placeholder` or `rows`, go to the `<textarea>`.",
   },
   options: [
@@ -28,24 +31,20 @@ export default {
       prop: "error",
     },
     {
-      class: ".ui-filled",
-      default: "false",
-      description: "The variant to use.",
-      group: "Variants",
-      prop: "filled",
-    },
-    {
       description: "The id of the `<textarea>`.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "id",
       type: "string",
     },
     {
-      class: ".ui-small",
-      default: "false",
       description: "The size of the element.",
       group: "Sizes",
-      prop: "small",
+      prop: "size",
+      values: {
+        large: ".ui-large",
+        small: ".ui-small",
+        "x-small": ".ui-x-small",
+      },
     },
     {
       class: ".ui-spread",
@@ -54,6 +53,13 @@ export default {
         "Pushes the label and description to one side and the textarea to the other.",
       group: "Layout",
       prop: "spread",
+    },
+    {
+      default: '"outlined"',
+      description: "The variant to use.",
+      group: "Variants",
+      prop: "variant",
+      values: { filled: ".ui-filled", outlined: null },
     },
   ],
   parts: [

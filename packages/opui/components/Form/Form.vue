@@ -5,6 +5,10 @@ const props = withDefaults(defineProps<Props>(), {
   as: "form",
 })
 defineSlots<Slots>()
+
+defineOptions({
+  inheritAttrs: false,
+})
 </script>
 
 <template>

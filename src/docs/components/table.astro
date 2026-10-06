@@ -1,17 +1,13 @@
 ---
 import Component from "../../layouts/Component.astro"
 import Anatomy from "../../components/Anatomy.astro"
-import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
-import { Table as UITable, ToggleGroup, ToggleButton } from "@opui/astro"
+import Conditional from "../../components/Conditional.astro"
+import { Table as UITable } from "@opui/astro"
 
-import Default from "../../component-examples/table/Default.astro"
-import DefaultVue from "../../component-examples/table/Default.vue"
-import DefaultAstro from "../../component-examples/table/Default.astro?raw"
-import DefaultVueRaw from "../../component-examples/table/Default.vue?raw"
-import DefaultHtml from "../../component-examples/table/Default.html?raw"
-
+import TableCSS from "@opui/css/components/table.css?raw"
 import tableApi from "../../component-api/table/api"
+import TableBuild from "../../components/UnderTheHood/TableBuild.astro"
 
 export const description =
   "Displays tabular data. Basic tables with row and column headers, and optional captions and footers."
@@ -22,7 +18,13 @@ export const description =
   slug="table"
   heroAnatomy
   apis={[{ title: "Table API", api: tableApi }]}
-  browserSupport={["has", "container-queries", "relative-color"]}
+  installationTabs={[{ title: "table.css", code: TableCSS, lang: "css" }]}
+  browserSupport={[
+    "container-scroll-state-queries",
+    "has",
+    "overflow-clip",
+    "relative-color",
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Table",
@@ -65,26 +67,37 @@ export const description =
   <section>
     <h2 id="variants">Variants</h2>
 
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Change the cell padding with <code>variant="dense"</code> or <code
+          >variant="spacious"</code
+        >.
+      </Fragment>
+      <Fragment slot="html">
+        Change the cell padding with the <code>.ui-dense</code> or <code
+          >.ui-spacious</code
+        > class.
+      </Fragment>
+      <Fragment slot="solid">
+        Change the cell padding with <code>variant="dense"</code> or <code
+          >variant="spacious"</code
+        >.
+      </Fragment>
+      <Fragment slot="vue">
+        Change the cell padding with <code>variant="dense"</code> or <code
+          >variant="spacious"</code
+        >.
+      </Fragment>
+    </Conditional>
+
     <h3 id="default">Default</h3>
-    <p>
-      Toggle between different padding densities for the table using the
-      controls below.
-    </p>
+    <AutoExample name="Default" />
 
-    <Example wrapperClass="table-interactive-example">
-      <ToggleGroup slot="controls" size="x-small" selection="single">
-        <ToggleButton data-size="dense">Dense</ToggleButton>
-        <ToggleButton data-size="default" pressed>Default</ToggleButton>
-        <ToggleButton data-size="spacious">Spacious</ToggleButton>
-      </ToggleGroup>
+    <h3 id="dense">Dense</h3>
+    <AutoExample name="Dense" />
 
-      <Example.Preview slot="preview-astro" code={Default} />
-      <Example.Preview slot="preview-html" code={DefaultHtml} />
-      <Example.Preview slot="preview-vue" code={DefaultVue} />
-      <Example.Code slot="code-astro" code={DefaultAstro} />
-      <Example.Code slot="code-vue" code={DefaultVueRaw} />
-      <Example.Code slot="code-html" code={DefaultHtml} />
-    </Example>
+    <h3 id="spacious">Spacious</h3>
+    <AutoExample name="Spacious" />
   </section>
 
   <section>
@@ -97,36 +110,42 @@ export const description =
 
     <AutoExample name="Advanced" />
   </section>
+
+  <section>
+    <h2 id="sticky-header">Sticky header</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        <code>stickyHeader</code> keeps the header rows at the top of the nearest
+        scroll container while the rows scroll under them, and adds a shadow once
+        the header is stuck. Put the table in a scroll box, or let it stick to the
+        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
+        bar.
+      </Fragment>
+      <Fragment slot="html">
+        <code>.ui-sticky-header</code> keeps the header rows at the top of the nearest
+        scroll container while the rows scroll under them, and adds a shadow once
+        the header is stuck. Put the table in a scroll box, or let it stick to the
+        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
+        bar.
+      </Fragment>
+      <Fragment slot="solid">
+        <code>stickyHeader</code> keeps the header rows at the top of the nearest
+        scroll container while the rows scroll under them, and adds a shadow once
+        the header is stuck. Put the table in a scroll box, or let it stick to the
+        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
+        bar.
+      </Fragment>
+      <Fragment slot="vue">
+        <code>stickyHeader</code> keeps the header rows at the top of the nearest
+        scroll container while the rows scroll under them, and adds a shadow once
+        the header is stuck. Put the table in a scroll box, or let it stick to the
+        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
+        bar.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="StickyHeader" />
+  </section>
+
+  <TableBuild slot="under-the-hood" />
 </Component>
-
-<script>
-  function setupTableInteractive() {
-    document
-      .querySelectorAll<HTMLElement>(".ui-table-interactive-example")
-      .forEach((container) => {
-        if (container.dataset.tableInteractiveSetup) return
-        container.dataset.tableInteractiveSetup = "true"
-
-        container.addEventListener("change", (event) => {
-          const input = event.target
-          if (!(input instanceof HTMLInputElement) || input.type !== "radio") {
-            return
-          }
-          if (!input.checked) return
-
-          const size = input.getAttribute("data-size")
-          if (!size) return
-
-          container.querySelectorAll("table").forEach((table) => {
-            table.classList.remove("ui-dense", "ui-spacious")
-            if (size !== "default") {
-              table.classList.add(`ui-${size}`)
-            }
-          })
-        })
-      })
-  }
-
-  setupTableInteractive()
-  document.addEventListener("astro:after-swap", setupTableInteractive)
-</script>

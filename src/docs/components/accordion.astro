@@ -8,11 +8,15 @@ import AutoExample from "../../components/AutoExample.astro"
 import AccordionCSS from "@opui/css/components/accordion.css?raw"
 import CardCSS from "@opui/css/components/card.css?raw"
 import Conditional from "../../components/Conditional.astro"
+import AccordionBuild from "../../components/UnderTheHood/AccordionBuild.astro"
 
 import accordionApi from "../../component-api/accordion/api"
+export const description =
+  "Lets you show and hide content. Comes with a chevron marker and a custom marker slot."
 ---
 
 <Component
+  description={description}
   slug="accordion"
   heroAnatomy
   apis={[{ title: "Accordion API", api: accordionApi }]}
@@ -50,8 +54,8 @@ import accordionApi from "../../component-api/accordion/api"
 >
   <Fragment slot="title">Accordion</Fragment>
   <Fragment slot="preamble">
-    Let's you show and hide stuff. Uses the native HTML arrow, check out how to
-    add your own <a class="ui-link" href="#custom-marker">custom marker</a>.
+    Lets you show and hide content. Comes with a chevron marker, check out how
+    to add your own <a class="ui-link" href="#custom-marker">custom marker</a>.
   </Fragment>
 
   <section>
@@ -68,11 +72,13 @@ import accordionApi from "../../component-api/accordion/api"
         Use the <code>variant</code> prop to change how it looks.
       </Fragment>
       <Fragment slot="html">
-        Add one of the variant classes (<code>.ui-card</code>, <code
-          >.ui-outlined</code
-        >, <code>.ui-elevated</code>, <code>.ui-tonal</code>) to the <code
-          >&lt;details&gt;</code
-        > element to change how it looks.
+        Add one of the variant classes (<code>.ui-outlined</code>, <code
+          >.ui-elevated</code
+        >, <code>.ui-tonal</code>) to the <code>&lt;details&gt;</code> element to
+        change how it looks. Add <code>.ui-card</code> for the card styles.
+      </Fragment>
+      <Fragment slot="solid">
+        Use the <code>variant</code> prop to change how it looks.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>variant</code> prop to change how it looks.
@@ -87,7 +93,7 @@ import accordionApi from "../../component-api/accordion/api"
 
     <Conditional as="p">
       <Fragment slot="astro">
-        Group multiple accordions by wrapping them in a <code>Card</code>
+        Group multiple accordions by wrapping them in a <code>Card</code>{" "}
         component with <code>role="group"</code>. To theme the entire group,
         apply the <code>variant</code> prop to the parent container.
       </Fragment>
@@ -96,8 +102,13 @@ import accordionApi from "../../component-api/accordion/api"
         with <code>role="group"</code>. To theme the entire group, apply the
         variant class to the parent container.
       </Fragment>
+      <Fragment slot="solid">
+        Group multiple accordions by wrapping them in a <code>Card</code>{" "}
+        component with <code>role="group"</code>. To theme the entire group,
+        apply the <code>variant</code> prop to the parent container.
+      </Fragment>
       <Fragment slot="vue">
-        Group multiple accordions by wrapping them in a <code>Card</code>
+        Group multiple accordions by wrapping them in a <code>Card</code>{" "}
         component with <code>role="group"</code>. To theme the entire group,
         apply the <code>variant</code> prop to the parent container.
       </Fragment>
@@ -107,10 +118,25 @@ import accordionApi from "../../component-api/accordion/api"
 
     <h3 id="mutually-exclusive">Mutually exclusive</h3>
 
-    <p>
-      Set the <code>name</code> prop to allow only one accordion in a group to be
-      open at a time.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set the same <code>name</code> prop on each accordion to allow only one of
+        them to be open at a time.
+      </Fragment>
+      <Fragment slot="html">
+        Set the same <code>name</code> attribute on each <code
+          >&lt;details&gt;</code
+        > element to allow only one of them to be open at a time.
+      </Fragment>
+      <Fragment slot="solid">
+        Set the same <code>name</code> prop on each accordion to allow only one of
+        them to be open at a time.
+      </Fragment>
+      <Fragment slot="vue">
+        Set the same <code>name</code> prop on each accordion to allow only one of
+        them to be open at a time.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="GroupSingle" column />
   </section>
@@ -118,11 +144,25 @@ import accordionApi from "../../component-api/accordion/api"
   <section>
     <h2 id="actions">Actions</h2>
 
-    <p>
-      Include interactive elements in the header by using the <code
-        >.ui-actions</code
-      > class.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Add buttons or other interactive elements below the content with the
+        <code>actions</code> slot.
+      </Fragment>
+      <Fragment slot="html">
+        Add buttons or other interactive elements below the content in a <code
+          >.ui-actions</code
+        > element, after <code>.ui-content</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        Add buttons or other interactive elements below the content with the
+        <code>actions</code> prop.
+      </Fragment>
+      <Fragment slot="vue">
+        Add buttons or other interactive elements below the content with the
+        <code>actions</code> slot.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="Actions" />
   </section>
@@ -130,36 +170,67 @@ import accordionApi from "../../component-api/accordion/api"
   <section>
     <h2 id="custom-marker">Custom marker</h2>
 
-    <p>
-      Replace the default marker by adding an SVG inside the <code>summary</code
-      >.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Replace the default marker with the <code>marker</code> slot.
+      </Fragment>
+      <Fragment slot="html">
+        Replace the SVG inside the <code>summary</code> to change the marker. Leave
+        it out to fall back to the native arrow.
+      </Fragment>
+      <Fragment slot="solid">
+        Replace the default marker with the <code>marker</code> prop.
+      </Fragment>
+      <Fragment slot="vue">
+        Replace the default marker with the <code>marker</code> slot.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="CustomMarker" column />
   </section>
 
-  <Fragment slot="accessibility">
-    <p>
-      The <a
-        class="ui-link"
-        href="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/"
-        >WAI-ARIA guidelines</a
-      > for accordions recommend:
-    </p>
+  <section>
+    <h2 id="marker-animation">Marker animation</h2>
 
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set the <code>markerAnimation</code> prop to change how the marker animates
+        when the accordion opens.
+      </Fragment>
+      <Fragment slot="html">
+        Add <code>.ui-marker-flip</code>, <code>.ui-marker-rotate</code> or <code
+          >.ui-marker-turn</code
+        > to the <code>&lt;details&gt;</code> element to animate the marker when the
+        accordion opens.
+      </Fragment>
+      <Fragment slot="solid">
+        Set the <code>markerAnimation</code> prop to change how the marker animates
+        when the accordion opens.
+      </Fragment>
+      <Fragment slot="vue">
+        Set the <code>markerAnimation</code> prop to change how the marker animates
+        when the accordion opens.
+      </Fragment>
+    </Conditional>
+
+    <AutoExample name="MarkerAnimation" column />
+  </section>
+
+  <Fragment slot="accessibility">
     <ul>
       <li>
-        <code>summary</code> element
-        <ul>
-          <li>adding id and aria-controls</li>
-          <li>adding aria-expanded (if using JS)</li>
-        </ul>
+        Accordions are <code>&lt;details&gt;</code> and
+        {" "}<code>&lt;summary&gt;</code>. The browser announces the summary
+        with its expanded or collapsed state and toggles it with
+        {" "}<kbd>Enter</kbd> and <kbd>Space</kbd>, so no ARIA is needed.
       </li>
       <li>
-        content wrapper
-        <ul>
-          <li>adding id, role and aria-labelledby</li>
-        </ul>
+        In supporting browsers, find in page also searches closed accordions and
+        opens the one with the match.
+      </li>
+      <li>
+        Don't add <code>role="region"</code> to the content. Every accordion becomes
+        a landmark, which crowds the landmark list on pages with many of them.
       </li>
     </ul>
   </Fragment>
@@ -179,4 +250,5 @@ import accordionApi from "../../component-api/accordion/api"
       </UIAccordion>
     </Anatomy>
   </Fragment>
+  <AccordionBuild slot="under-the-hood" />
 </Component>

@@ -1296,8 +1296,12 @@ Findings with a page and section in brackets come from the stress pages in `src/
 ---
 
 - [x] (10) Astro TextField, Textarea and Dialog still crash for package users: they destructure `Astro.locals.$id` directly instead of using `createId`, so a TextField/Textarea with end text or a Dialog with a `header` slot throws when no middleware sets `$id` (`TextField.astro:32`, `Textarea.astro:29`, `Dialog.astro:8`, `components/id.ts`)
+
   > Fix
   - Fixed: TextField, Textarea and Dialog use `createId(Astro.locals)`. No component reads `Astro.locals.$id` directly anymore.
+
+- [] (4) Menu doesn't shrink to the space on its side in Chromium 141: it flips as soon as the whole menu doesn't fit. `max-block-size: calc(100% - var(--_offset))` subtracts one offset, but `--_margin` sets both block margins, so the margin box overflows by one offset. The docs menu (4 items, 186px) flipped above with 293px free below. The Menu walkthrough copies it (`menu.css`, `MenuBuild.astro`)
+  - On a minimal page `calc(100% - 2 * var(--_offset))` fixes it: the menu shrinks with 250px free and flips with 150px. On the docs page it still flipped: with `min-block-size: calc-size(…)` the menu came out 1px taller than its `max-block-size`, which looks like a rounding bug, so it may need a small extra allowance.
 
 ## Docs
 
@@ -1341,7 +1345,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (1) Typos: "a `a`" (`list.astro:150`), "a `aria-label`" (`checkbox.astro:309`), "The term "modal" and "dialog" are" (`dialog.astro:69`)
   > Fix
   - Fixed: "an `a`" (`list.astro`), "an `aria-label`" (`checkbox.astro`), "The terms "modal" and "dialog" are" (`dialog.astro`).
-- [] (1) Walkthroughs: `features` missing for features the step uses
+- [x] (1) Walkthroughs: `features` missing for features the step uses
   - Accordion "Marker": `individual-transforms` (`AccordionBuild.astro:63-84`)
   - Avatar "Group": `logical-properties` (`AvatarBuild.astro:79-99`)
   - Button "Ripple": `clip-path`, `transforms3d` (`ButtonBuild.astro:63-97`)
@@ -1355,11 +1359,19 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Select steps 2 and 4: `individual-transforms` (`SelectBuild.astro:64,68,120-135`)
   - Table "Corners": `logical-properties` (`TableBuild.astro:56-73`)
   - Tabs: no step lists any. Step 3: `clip-path`, `focus-visible`. Step 4: `isolation`, `nth-child-of` (`TabsBuild.astro:53-97`)
-- [] (1) Walkthroughs: button snippets and demos without `type="button"`, which every library button and example has since c393948 (`AnchorBuild.astro:19,33-39,62`, `ButtonBuild.astro:52-59,127-135`, `ButtonGroupBuild.astro:21-25`, `CardBuild.astro:107-108,121-122`, `ChipBuild.astro:26`, `DialogBuild.astro:23-32`, `DrawerBuild.astro:28-35`, `ListBuild.astro:40`, `MenuBuild.astro:17,21,104`, `SpinnerBuild.astro:104`, `ToastBuild.astro:32-38`, `TooltipBuild.astro:27-33`)
+  > Fix
+  - Fixed: every id above, plus the ones new steps use (for example Checkbox "Forced colors" `forced-colors`/`system-color`, Dialog and Drawer "Shadow" `anchor-positioning`/`container-scroll-state-queries`, Menu "Fit" `calc-size`, Rhythm "Flow space" `registered-custom-properties`, Tooltip "Fade" `starting-style`/`transition-behavior`). Carousel's `:target-current` is `scroll-markers`/`scroll-marker-targets`. Every id exists in web-features.
+- [x] (1) Walkthroughs: button snippets and demos without `type="button"`, which every library button and example has since c393948 (`AnchorBuild.astro:19,33-39,62`, `ButtonBuild.astro:52-59,127-135`, `ButtonGroupBuild.astro:21-25`, `CardBuild.astro:107-108,121-122`, `ChipBuild.astro:26`, `DialogBuild.astro:23-32`, `DrawerBuild.astro:28-35`, `ListBuild.astro:40`, `MenuBuild.astro:17,21,104`, `SpinnerBuild.astro:104`, `ToastBuild.astro:32-38`, `TooltipBuild.astro:27-33`)
   - The Toast HTML examples have the same gap (`src/component-examples/toast/*.html`)
-- [] (1) Walkthroughs: fixed durations ignore `--motion`, which the library multiplies in. Menu step 4 (`MenuBuild.astro:66-70`, `menu.css:3,20,50-54`), Progress step 3 (`ProgressBuild.astro:58`, `progress.css:54-55`), Range halo (`RangeBuild.astro:147,152`, `range.css:300-301,316-317`)
+  > Fix
+  - Fixed in the Anchor, Button, Button group, Card, Chip, Dialog, Drawer, List, Menu, Spinner and Tooltip walkthroughs and learn posts. A `<button>` inside `<select>` (Select) is the select's own button and keeps no type, like the library examples.
+  - Toast and its HTML examples are left out: toasts are on hold.
+- [x] (1) Walkthroughs: fixed durations ignore `--motion`, which the library multiplies in. Menu step 4 (`MenuBuild.astro:66-70`, `menu.css:3,20,50-54`), Progress step 3 (`ProgressBuild.astro:58`, `progress.css:54-55`), Range halo (`RangeBuild.astro:147,152`, `range.css:300-301,316-317`)
   - Fix: `transition: inline-size calc(0.2s * var(--motion, 1)) ease-out`
-- [] (1) Walkthroughs: Read more links (`references.ts`, shown on learn posts) miss what the walkthroughs teach
+  > Fix
+  - Fixed: Menu "Animate", Progress step 3 and the Range halo use `calc(<duration> * var(--motion, 1))`. The new Tooltip "Fade" step does too.
+  - Not changed: other walkthrough transitions (Dialog "Fade", Drawer "Slide", Switch "Motion", Accordion) still use a plain `0.2s`. The Switch learn post says the dot jumps with reduced motion, which its walkthrough doesn't do.
+- [x] (1) Walkthroughs: Read more links (`references.ts`, shown on learn posts) miss what the walkthroughs teach
   - anchor: `interestfor`
   - checkbox: links `text-box`, which the library dropped
   - dialog: no `backdrop-filter`, `overlay`, `overscroll-behavior`. Links `:has()` and `scrollbar-gutter` for a scroll lock the walkthrough doesn't show
@@ -1370,6 +1382,8 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - select: no `mask`
   - toast: no Invoker Commands API, Popover API
   - tooltip: no `interestfor`, `anchor()`, `anchor-scope`
+  > Fix
+  - Fixed (`references.ts`): anchor `interestfor`; checkbox without `text-box`; dialog `backdrop-filter`, `overlay`, `overscroll-behavior` (`:has()` and `scrollbar-gutter` stay, the walkthrough shows the scroll lock now); drawer `backdrop-filter`, `closedby`, Invoker Commands API, `overscroll-behavior`; menu `transition-behavior`; progress `@container style()`; rhythm `@property`; select `mask`; tooltip `anchor()`, `anchor-scope`, `interestfor`. Toast is left out (on hold). The Select walkthrough only teaches `mask` once its drift item is done.
 - [x] (2) Accordion walkthrough: drift
   - See the example: a summary without an svg, and the turn marker in RTL with a right-pointing and a mirrored chevron.
   - The native marker is always hidden. The library only hides it when the summary has an svg, and the docs promise "Leave it out to fall back to the native arrow" (`AccordionBuild.astro:52-61`, `accordion.css:96-106`, `accordion.astro:162-163`)
@@ -1379,10 +1393,12 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fixed: the native marker is only hidden when the summary has an svg (`summary:has(svg)`), and the demo has a "Native" item with no icon (`AccordionBuild.astro`).
   - Library question, fixed in the library: `.ui-marker-turn:dir(rtl) > summary svg { scale: -1 1; }` mirrors the chevron, so with the existing `rotate: -90deg` it points to the inline end when closed and down when open (`accordion.css`). The walkthrough shows both rules and a right-to-left demo item.
   - Checked in Chromium on copies of the Marker animation examples, LTR and RTL: turn is right/down in LTR and left/down in RTL (it opened pointing up before), rotate and flip are unchanged. Someone who already used a left-pointing chevron in RTL now gets it mirrored.
-- [] (2) Anchor walkthrough: drift
+- [x] (2) Anchor walkthrough: drift
   - The card sets `position-anchor`, and a note says so. The library's popover variant doesn't: a popover opened by `interestfor` anchors to its invoker. Only the always-visible variant uses `position-anchor` (`AnchorBuild.astro:53-57,66`, `anchor.css:9-35`)
   - No `position-visibility: anchors-visible`, which the library sets and the Read more links point to (`AnchorBuild.astro:73-84`, `anchor.css:33`, `references.ts:49-50`)
   - "Only `<button>` and `<a href>` can be interest invokers" leaves out `<area>` (`AnchorBuild.astro:24`)
+  > Fix
+  - Fixed: the Anchor step drops the wrapper, `anchor-name` and `position-anchor`, with notes that the invoker is the implicit anchor and only an always-visible card needs both. Flip adds `position-visibility: anchors-visible`. The interest invoker note lists `<button>`, `<a href>` and `<area>`, and so does the learn post (`AnchorBuild.astro`, `anchor-hover-cards.astro`).
 - [x] (2) Button group walkthrough: drift
   - See the example: the walkthrough's outlined group, the library's, and the library's without `role="group"`.
   - The selector is `.group`, and the note says `role="group"` is for assistive tech. The library only styles `[role="group"].ui-button-group`, so a group without the role is unstyled (`ButtonGroupBuild.astro:7,29`, `button-group.css:2`)
@@ -1482,8 +1498,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix
   - Fixed: `.list > li`, `.list > li > button`, `.list > li:has(> a, > button, > label)` and `.bordered > li + li`, with a note that `>` keeps a nested list a list. The base is `--surface-filled`, and the shortcut is a `<kbd>` (`ListBuild.astro`).
   - Checked in Chromium: nested items stay plain list items, top-level rows look the same as before, and the background matches the library list.
-- [] (2) Menu walkthrough: the "Flip" step and its note describe pure flipping. The library caps the menu to the space on its side and scrolls, flips only when that side has less than 12rem, and has two `@position-try` fallbacks that span below or above as a last resort (`MenuBuild.astro:49-58`, `menu.css:28-31,43-48,56-65,177-185`)
+- [x] (2) Menu walkthrough: the "Flip" step and its note describe pure flipping. The library caps the menu to the space on its side and scrolls, flips only when that side has less than 12rem, and has two `@position-try` fallbacks that span below or above as a last resort (`MenuBuild.astro:49-58`, `menu.css:28-31,43-48,56-65,177-185`)
   - Also `min-inline-size: max(10rem, …)` vs 12rem, and the demo hover is `--surface-tonal` where real menus use the list's primary tint (`MenuBuild.astro:36,127-129`, `menu.css:14,39`, `list.css:217-219`)
+  > Fix
+  - Fixed: Anchor uses `min-inline-size: max(12rem, anchor-size(inline))`. A new "Fit" step caps the menu (`max-block-size`, `overflow-y: auto`, `overscroll-behavior: contain`) and, with `calc-size()`, shrinks it to its side's space and only flips below 12rem. Flip shows the two span fallbacks as `@position-try` rules. The demo hover is the primary tint inside `@media (hover: hover)`, and the demo has 7 items so the cap shows. The learn post has a bullet on the cap and the 12rem threshold (`MenuBuild.astro`, `menu-popover-anchor.astro`).
+  - Found while checking, see the new Menu item under Bugs: in Chromium 141 the library menu never shrinks, it flips as soon as it doesn't fit, and the walkthrough copies that.
 - [] (2) Progress walkthrough: the step's `<progress>` snippets have no accessible name. The demo and docs use `aria-label` (`ProgressBuild.astro:8-14`, `progress.astro:98`)
   > Explain further and provide an example
   - `<progress>` has the `progressbar` role, and a progress bar needs a name (axe `aria-progressbar-name`, WCAG 4.1.2). Without one, a screen reader only says "progress bar, 60%", and the user has no idea what is at 60%.
@@ -1713,9 +1732,14 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fixed: new step 5, "Forced colors", with the CSS above (`CanvasText` border, `SelectedItem` fill, `SelectedItemText` mark), listing `forced-colors` and `system-color` (`CheckboxBuild.astro`).
   - Checked with forced colors emulated in Chromium: at step 4 the checked box is white with a white mark, at step 5 checked and indeterminate boxes are filled with a visible mark.
   - Not done: the Radio walkthrough has the same gap (its dot is a background too). This item only named Checkbox.
-- [] (3) Dialog and Drawer walkthroughs: the step snippets show an unnamed `<dialog>`. Both components set `aria-labelledby`, and both docs pages tell readers to (`DialogBuild.astro:23-32`, `DrawerBuild.astro:28-35`, `Dialog.astro:10-17`, `Drawer.astro:20-37,51`, `dialog.astro:120-131`, `drawer.astro:257-277`)
+- [x] (3) Dialog and Drawer walkthroughs: the step snippets show an unnamed `<dialog>`. Both components set `aria-labelledby`, and both docs pages tell readers to (`DialogBuild.astro:23-32`, `DrawerBuild.astro:28-35`, `Dialog.astro:10-17`, `Drawer.astro:20-37,51`, `dialog.astro:120-131`, `drawer.astro:257-277`)
   - Neither shows the scroll shadow (`container-type: scroll-state` with `scroll-state(scrollable: top|bottom)`), and Dialog doesn't show the page scroll lock (`html:has(.ui-dialog[open])`) (`dialog.css:39-80,106-111`, `drawer.css:75-118`)
   - Dialog's border is `--border-color`. The dialog is an elevated card, whose border matches the page (`DialogBuild.astro:10`, `card.css:49-54`)
+  > Fix
+  - Fixed: the step snippets name the dialog with `aria-labelledby` on the heading, with a note, and Dialog's border is `var(--surface-default)` like an elevated card (`DialogBuild.astro`, `DrawerBuild.astro`).
+  - New "Shadow" step in both: `.content` gets `anchor-name` and `container-type: scroll-state`, `::before`/`::after` are pinned to its edges with `anchor()`, and `@container scroll-state(scrollable: top|bottom)` fades them in. The demos have enough content to scroll.
+  - Dialog's Backdrop step adds the page scroll lock, `html:has(.dialog:modal) { overflow: clip; scrollbar-gutter: stable; }`. The demo really locks the page from that step on. The learn post says `html:has(.ui-dialog:modal)` like `dialog.css` (`dialog-closedby.astro`).
+  - Checked in Chromium: the top shadow fades in after scrolling, the bottom one shows while there's more below, and the page only locks from step 4.
 - [x] (3) Range walkthrough: the fill is reversed in RTL, but the gradient still starts at the left edge, so it's painted on the wrong side of the thumb in Chromium and Safari. The library adds `&:dir(rtl)::-webkit-slider-runnable-track { background-position: right; }` (`RangeBuild.astro:87-91,126`, `range.css:269-271`)
   - See the example: the walkthrough CSS at 25% in RTL, without and with the fix.
   - Also drifted:
@@ -1964,9 +1988,13 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
   > Fix
   - Fixed: CHANGELOG (Removed) and MIGRATING say the old default (28px) is `size="x-small"`, the old `small` (20px) has no preset (`x-small` with `--_min-height: var(--size-4)`), `--_icon-size: var(--size-5)` gives the old 24px icon, and the icon color is the accent instead of the inherited text color.
-- [] (5) Tooltip walkthrough: the Arrow step is the arrow from before c393948. It sits at a fixed spot and the step swaps the fallbacks for flips only ("A shifted tooltip would point the arrow at nothing"). After `flip-block` the demo arrow points away from the trigger. The library keeps the shift fallbacks, makes the tooltip its own anchor and places the arrow with `clamp(anchor(--ui-tooltip left), anchor(--anchor center), anchor(--ui-tooltip right))` (`TooltipBuild.astro:80-103`, `tooltip.css:50-81`)
+- [x] (5) Tooltip walkthrough: the Arrow step is the arrow from before c393948. It sits at a fixed spot and the step swaps the fallbacks for flips only ("A shifted tooltip would point the arrow at nothing"). After `flip-block` the demo arrow points away from the trigger. The library keeps the shift fallbacks, makes the tooltip its own anchor and places the arrow with `clamp(anchor(--ui-tooltip left), anchor(--anchor center), anchor(--ui-tooltip right))` (`TooltipBuild.astro:80-103`, `tooltip.css:50-81`)
   - See the example: the walkthrough arrow and the library arrow, both flipped below the trigger, plus a shifted one.
   - No step shows the fade in and out (`opacity` with `@starting-style` and `allow-discrete`) (`tooltip.css:83-98`)
+  > Fix
+  - Fixed: the Arrow step keeps the shift fallbacks. A `.anchor` wrapper names the trigger (`anchor-name: --anchor`, `anchor-scope`), the tooltip is its own anchor (`--tooltip`), and the arrow is `position: fixed` at `clamp(anchor(--tooltip left), anchor(--anchor center), anchor(--tooltip right))` (and the same for `top`). The note says "So it still points at the trigger after a flip or a shift". The `@position-try` rules no longer reset the margin, so the arrow keeps its gap when shifted.
+  - New "Fade" step: `opacity` with `@starting-style`, and `display`/`overlay` with `allow-discrete`, durations times `--motion`. The learn post mentions the arrow (`TooltipBuild.astro`, `tooltip-interest-invokers.astro`).
+  - Checked in Chromium above, flipped below, shifted, and shifted and flipped: the arrow lines up with the trigger's center every time.
 - [x] (6) CHANGELOG Unreleased leaves out breaking changes or files them outside Breaking. Missing: `.ui-icon-only` removed, Astro/Vue `Button` no longer adds `.ui-disabled`, Anchor/Tooltip hover `interestfor` wrapper removed. Filed elsewhere: Tabs restyle with `--_accent-color`/`--_bg-color` removed and new panel margin (Changed), Button padding scale and direct-child `> svg` icon sizing (Added), class-less rich text headings and heading sizes (Changed), `--focus-ring-color` unset (Fixed) (`CHANGELOG.md:7-14,25,31,65,67,74,106`)
   > Fix
   - Fixed, checked against 5.5.0 (`aeadad7d`): added to Breaking `.ui-icon-only` removed (it was in 5.5.0 `button.css`), Astro/Vue `Button` no longer adding `.ui-disabled` and the Anchor/Tooltip `<span interestfor>` wrapper removed (`318694ee`).

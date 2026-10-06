@@ -122,6 +122,10 @@ export const description =
         Text fields are outlined by default. Add <code>.ui-filled</code> for a filled
         field.
       </p>
+      <p slot="solid">
+        Text fields are outlined by default. Set <code>variant="filled"</code> for
+        a filled field.
+      </p>
       <p slot="vue">
         Text fields are outlined by default. Set <code>variant="filled"</code> for
         a filled field.
@@ -149,15 +153,15 @@ export const description =
         Prefix and suffix sit beside the input, while header and footer span the field's
         full width with a divider.
       </Fragment>
-      <Fragment slot="vue">
-        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
-        and <code>footer</code> slots to affix content inside the field's border.
-        Prefix and suffix sit beside the input, while header and footer span the field's
-        full width with a divider.
-      </Fragment>
       <Fragment slot="solid">
         Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
         and <code>footer</code> props to affix content inside the field's border.
+        Prefix and suffix sit beside the input, while header and footer span the field's
+        full width with a divider.
+      </Fragment>
+      <Fragment slot="vue">
+        Use the <code>prefix</code>, <code>suffix</code>, <code>header</code>,
+        and <code>footer</code> slots to affix content inside the field's border.
         Prefix and suffix sit beside the input, while header and footer span the field's
         full width with a divider.
       </Fragment>
@@ -189,11 +193,11 @@ export const description =
         Set <code>required</code> on the component to toggle required styles on the
         input.
       </Fragment>
-      <Fragment slot="vue">
+      <Fragment slot="solid">
         Add the <code>required</code> attribute on the component. It is forwarded
         to the underlying <code>&lt;input&gt;</code>.
       </Fragment>
-      <Fragment slot="solid">
+      <Fragment slot="vue">
         Add the <code>required</code> attribute on the component. It is forwarded
         to the underlying <code>&lt;input&gt;</code>.
       </Fragment>
@@ -208,15 +212,15 @@ export const description =
         {" "}<code>data-invalid</code> on the root element. Make use of the end text
         to give extra feedback on the error.
       </Fragment>
-      <Fragment slot="vue">
+      <Fragment slot="solid">
         Use the <code>error</code> prop to toggle invalid styles. It renders
         {" "}<code>data-invalid</code> on the root element. Make use of the end text
         to give extra feedback on the error.
       </Fragment>
-      <Fragment slot="solid">
+      <Fragment slot="vue">
         Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
+        {" "}<code>data-invalid</code> on the root element. Make use of the end text
+        to give extra feedback on the error.
       </Fragment>
       <Fragment slot="html">
         Add <code>data-invalid</code> on the root element to toggle invalid styles.
@@ -240,12 +244,12 @@ export const description =
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
-      <Fragment slot="vue">
+      <Fragment slot="solid">
         Use the <code>spread</code> boolean prop to display the label and description
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.
       </Fragment>
-      <Fragment slot="solid">
+      <Fragment slot="vue">
         Use the <code>spread</code> boolean prop to display the label and description
         on the left with the input on the right. The layout collapses to a column
         on narrow containers.

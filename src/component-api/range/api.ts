@@ -52,6 +52,12 @@ export default {
     },
     {
       description:
+        "Content for the `<output>`, in place of the value and `valueSuffix`.",
+      frameworks: ["solid"],
+      prop: "valueText",
+    },
+    {
+      description:
         "The track surface. Without one, the track uses the field border color.",
       group: "Variants",
       prop: "variant",

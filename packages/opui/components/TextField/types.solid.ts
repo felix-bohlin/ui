@@ -3,6 +3,9 @@ import type * as Base from "./types"
 
 export type Props = Omit<Base.Props, keyof Base.Slots<JSX.Element>> &
   Partial<Base.Slots<JSX.Element>> &
-  Omit<JSX.InputHTMLAttributes<HTMLInputElement>, "prefix" | "size" | "type"> & {
+  Omit<
+    JSX.InputHTMLAttributes<HTMLInputElement>,
+    "prefix" | "size" | "type"
+  > & {
     type?: JSX.InputHTMLAttributes<HTMLInputElement>["type"] | "numeric"
   }

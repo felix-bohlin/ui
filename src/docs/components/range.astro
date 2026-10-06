@@ -67,6 +67,12 @@ export const description =
           >--field-border-color</code
         >, like the border of a text field.
       </p>
+      <p slot="solid">
+        Use the <code>variant</code> prop to swap the track surface for better contrast
+        on different backgrounds. Without a variant, the track uses <code
+          >--field-border-color</code
+        >, like the border of a text field.
+      </p>
       <p slot="vue">
         Use the <code>variant</code> prop to swap the track surface for better contrast
         on different backgrounds. Without a variant, the track uses <code
@@ -98,15 +104,15 @@ export const description =
         <code>px</code>). Updating its text content is the consumer's
         responsibility.
       </p>
+      <p slot="solid">
+        Pass the <code>valueSuffix</code> prop (or the <code>valueText</code> prop
+        for custom content) to render a live readout of the slider's current value
+        next to the label. The component wires up an <code>&lt;output&gt;</code> element
+        and keeps its text in sync with the input.
+      </p>
       <p slot="vue">
         Pass the <code>valueSuffix</code> prop (or use the <code>value</code> named
         slot) to render a live readout of the slider's current value next to the label.
-        The component wires up an <code>&lt;output&gt;</code> element and keeps its
-        text in sync with the input.
-      </p>
-      <p slot="solid">
-        Pass the <code>valueSuffix</code> prop (or the <code>valueText</code> prop)
-        to render a live readout of the slider's current value next to the label.
         The component wires up an <code>&lt;output&gt;</code> element and keeps its
         text in sync with the input.
       </p>
@@ -130,19 +136,19 @@ export const description =
         <code>&lt;option&gt;</code> elements with <code>value</code> and{" "}
         <code>label</code> attributes.
       </p>
-      <p slot="vue">
+      <p slot="solid">
         Pass an id to the <code>list</code> prop together with an <code
           >options</code
         >
         {" "}array - <code>{"options=[{ value, label }]"}</code> - and the component
         renders a matching <code>&lt;datalist&gt;</code>.
       </p>
-      <p slot="solid">
+      <p slot="vue">
         Pass an id to the <code>list</code> prop together with an <code
           >options</code
         >
-        array - <code>{"options=[{ value, label }]"}</code> - and the component renders
-        a matching <code>&lt;datalist&gt;</code>.
+        {" "}array - <code>{"options=[{ value, label }]"}</code> - and the component
+        renders a matching <code>&lt;datalist&gt;</code>.
       </p>
     </Conditional>
     <AutoExample name="TickMarksLabels" column />

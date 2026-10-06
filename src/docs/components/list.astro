@@ -91,20 +91,6 @@ export const description =
           items after the main content
         </li>
       </ul>
-      <ul slot="vue">
-        <li>
-          <a href="#text" class="ui-link"><code>text</code> slot</a>: main
-          content
-        </li>
-        <li>
-          <a href="#start-items" class="ui-link"><code>start</code> slot</a> (optional):
-          items before the main content
-        </li>
-        <li>
-          <a href="#end-items" class="ui-link"><code>end</code> slot</a> (optional):
-          items after the main content
-        </li>
-      </ul>
       <ul slot="solid">
         <li>
           <a href="#text" class="ui-link"><code>text</code> prop</a>: main
@@ -116,6 +102,20 @@ export const description =
         </li>
         <li>
           <a href="#end-items" class="ui-link"><code>end</code> prop</a> (optional):
+          items after the main content
+        </li>
+      </ul>
+      <ul slot="vue">
+        <li>
+          <a href="#text" class="ui-link"><code>text</code> slot</a>: main
+          content
+        </li>
+        <li>
+          <a href="#start-items" class="ui-link"><code>start</code> slot</a> (optional):
+          items before the main content
+        </li>
+        <li>
+          <a href="#end-items" class="ui-link"><code>end</code> slot</a> (optional):
           items after the main content
         </li>
       </ul>
@@ -143,10 +143,10 @@ export const description =
         Use <code>.ui-tonal</code> or <code>.ui-transparent</code> to change the background
         color.
       </p>
-      <p slot="vue">
+      <p slot="solid">
         Change background color with the <code>variant</code> prop.
       </p>
-      <p slot="solid">
+      <p slot="vue">
         Change background color with the <code>variant</code> prop.
       </p>
     </Conditional>
@@ -187,13 +187,15 @@ export const description =
           >ListItem</code
         >.
       </p>
-      <p slot="vue">
+      <p slot="solid">
         Add <code>aria-current="page"</code> to the link inside the <code
           >ListItem</code
         >.
       </p>
-      <p slot="solid">
-        Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
+      <p slot="vue">
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >ListItem</code
+        >.
       </p>
     </Conditional>
     <AutoExample name="Selected" />
@@ -212,18 +214,19 @@ export const description =
       <Fragment slot="html">
         Main text lives in <code>div.ui-text</code>.
       </Fragment>
+      <Fragment slot="solid">
+        Main text lives in the <code>text</code> prop, or pass <code
+          >headline</code
+        >
+        {" "}and <code>description</code> props directly on <code>ListItem</code
+        >.
+      </Fragment>
       <Fragment slot="vue">
         Main text lives in the <code>text</code> slot, or pass <code
           >headline</code
         >
         {" "}and <code>description</code> props directly on <code>ListItem</code
         >.
-      </Fragment>
-      <Fragment slot="solid">
-        Main text lives in the <code>text</code> prop, or pass <code
-          >headline</code
-        >
-        and <code>description</code> props directly on <code>ListItem</code>.
       </Fragment>
     </Conditional>
 
@@ -239,11 +242,11 @@ export const description =
       <Fragment slot="html">
         Found in <code>div.ui-start</code>.
       </Fragment>
-      <Fragment slot="vue">
-        Authored via the <code>start</code> slot on <code>ListItem</code>.
-      </Fragment>
       <Fragment slot="solid">
         Authored via the <code>start</code> prop on <code>ListItem</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Authored via the <code>start</code> slot on <code>ListItem</code>.
       </Fragment>
     </Conditional>
 
@@ -274,11 +277,11 @@ export const description =
       <Fragment slot="html">
         Found in <code>div.ui-end</code>.
       </Fragment>
-      <Fragment slot="vue">
-        Authored via the <code>end</code> slot on <code>ListItem</code>.
-      </Fragment>
       <Fragment slot="solid">
         Authored via the <code>end</code> prop on <code>ListItem</code>.
+      </Fragment>
+      <Fragment slot="vue">
+        Authored via the <code>end</code> slot on <code>ListItem</code>.
       </Fragment>
     </Conditional>
 
@@ -347,6 +350,10 @@ export const description =
         Add the <code>gutterless</code> prop to the <code>List</code> to remove the
         inline padding on the list items.
       </p>
+      <p slot="solid">
+        Add the <code>gutterless</code> prop to the <code>List</code> to remove the
+        inline padding on the list items.
+      </p>
       <p slot="vue">
         Add the <code>gutterless</code> prop to the <code>List</code> to remove the
         inline padding on the list items.
@@ -367,6 +374,10 @@ export const description =
         Add the <code>bordered</code> prop to the <code>List</code> to give all list
         items a border.
       </p>
+      <p slot="solid">
+        Add the <code>bordered</code> prop to the <code>List</code> to give all list
+        items a border.
+      </p>
       <p slot="vue">
         Add the <code>bordered</code> prop to the <code>List</code> to give all list
         items a border.
@@ -381,6 +392,10 @@ export const description =
         it an upper border.
       </p>
       <p slot="astro">
+        Add the <code>borderTop</code> prop to a <code>ListItem</code> to give it
+        an upper border.
+      </p>
+      <p slot="solid">
         Add the <code>borderTop</code> prop to a <code>ListItem</code> to give it
         an upper border.
       </p>
@@ -402,10 +417,10 @@ export const description =
       <p slot="astro">
         Just add the <code>dense</code> prop to the <code>List</code>!
       </p>
-      <p slot="vue">
+      <p slot="solid">
         Just add the <code>dense</code> prop to the <code>List</code>!
       </p>
-      <p slot="solid">
+      <p slot="vue">
         Just add the <code>dense</code> prop to the <code>List</code>!
       </p>
     </Conditional>
@@ -430,8 +445,8 @@ export const description =
           <code>dense</code>
         </Switch>
         <Switch
-          slot="vue"
-          id="list-dense-toggle-vue"
+          slot="solid"
+          id="list-dense-toggle-solid"
           class="list-dense-toggle"
           size="small"
           checked
@@ -439,10 +454,10 @@ export const description =
           <code>dense</code>
         </Switch>
         <Switch
-          slot="solid"
-          id="list-dense-toggle-solid"
+          slot="vue"
+          id="list-dense-toggle-vue"
           class="list-dense-toggle"
-          small
+          size="small"
           checked
         >
           <code>dense</code>
@@ -452,8 +467,8 @@ export const description =
       <Example.Preview slot="preview-astro">
         <ListDense />
       </Example.Preview>
-      <Example.Preview slot="preview-vue" code={ListDenseVue} />
       <Example.Preview slot="preview-solid" code={ListDenseSolid} />
+      <Example.Preview slot="preview-vue" code={ListDenseVue} />
       <Example.Preview slot="preview-html">
         <div
           set:html={ExampleDefaultHTML.replace(
@@ -474,8 +489,8 @@ export const description =
   <!--  -->
 </List>`}
       />
-      <Example.Code slot="code-vue" code={ListDenseVueRaw} />
       <Example.Code slot="code-solid" code={ListDenseSolidRaw} />
+      <Example.Code slot="code-vue" code={ListDenseVueRaw} />
     </Example>
   </section>
 

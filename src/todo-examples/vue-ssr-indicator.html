@@ -1,0 +1,137 @@
+<style>
+  .todo-stack {
+    display: grid;
+    gap: var(--size-3);
+    inline-size: 100%;
+  }
+
+  .todo-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-2);
+  }
+
+  .todo-chips svg,
+  .todo-prop svg {
+    block-size: 1.25em;
+    inline-size: 1.25em;
+  }
+
+  .todo-prop {
+    align-items: center;
+    display: inline-flex;
+    gap: var(--size-1);
+
+    svg {
+      color: var(--text-muted);
+    }
+  }
+
+  .todo-scroll {
+    inline-size: 100%;
+    overflow-x: auto;
+  }
+</style>
+<div class="todo-stack">
+  <p class="ui-caption">
+    1. Page header, Vue pages only, next to the browser support chips. Same
+    full/partial logic as browser support.
+  </p>
+  <div class="todo-chips">
+    <span class="ui-chip ui-tonal ui-small">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M4 3h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1m1 2v4h14V5zm-1 8h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1m1 2v4h14v-4zm2-9h2v2H7zm0 10h2v2H7z"
+        />
+      </svg>
+      <span class="ui-text">SSR: no hydration needed</span>
+    </span>
+    <span class="ui-chip ui-outlined ui-small">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M4 3h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1m1 2v4h14V5zm-1 8h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1m1 2v4h14v-4zm2-9h2v2H7zm0 10h2v2H7z"
+        />
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-width="2"
+          d="M3 21 21 3"
+        />
+      </svg>
+      <span class="ui-text">SSR: hydrate for <code>indeterminate</code></span>
+    </span>
+  </div>
+  <p class="ui-caption">
+    The tooltip on the outlined chip lists each feature and its no-JS fallback,
+    from <code>api.ts</code>: "<code>indeterminate</code> is a DOM property, so
+    the server renders an unchecked box. Hydrate it, or call
+    <code>activateIndeterminate()</code>."
+  </p>
+  <p class="ui-caption">
+    2. API table: the same crossed icon after each prop that only works after
+    hydration.
+  </p>
+  <div class="todo-scroll">
+    <table class="ui-table">
+      <thead>
+        <tr>
+          <th>Prop</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>checked</code></td>
+          <td><code>boolean</code></td>
+          <td>Checks the box.</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="todo-prop"
+              ><code>indeterminate</code>
+              <svg viewBox="0 0 24 24" role="img" aria-label="Needs hydration">
+                <path
+                  fill="currentColor"
+                  d="M4 3h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1m1 2v4h14V5zm-1 8h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1m1 2v4h14v-4zm2-9h2v2H7zm0 10h2v2H7z"
+                />
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  d="M3 21 21 3"
+                /></svg
+            ></span>
+          </td>
+          <td><code>boolean</code></td>
+          <td>Shows the indeterminate state.</td>
+        </tr>
+        <tr>
+          <td>
+            <span class="todo-prop"
+              ><code>v-model</code>
+              <svg viewBox="0 0 24 24" role="img" aria-label="Needs hydration">
+                <path
+                  fill="currentColor"
+                  d="M4 3h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1m1 2v4h14V5zm-1 8h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1m1 2v4h14v-4zm2-9h2v2H7zm0 10h2v2H7z"
+                />
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                  d="M3 21 21 3"
+                /></svg
+            ></span>
+          </td>
+          <td><code>boolean</code></td>
+          <td>Two-way binding for the checked state.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

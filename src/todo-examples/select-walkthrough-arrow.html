@@ -1,0 +1,97 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-5);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    align-content: start;
+    display: grid;
+    gap: var(--size-2);
+  }
+
+  .todo-triangle select::picker-icon {
+    background: none;
+    block-size: 0;
+    border-block-start: 5px solid;
+    border-inline: 5px solid transparent;
+    inline-size: 0;
+    mask: none;
+  }
+
+  .todo-base-select select {
+    appearance: base-select;
+  }
+</style>
+<p>Arrow: needs a browser with customizable select (Chromium 135+).</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">Walkthrough: border triangle</p>
+    <label class="ui-select todo-triangle">
+      <span class="ui-label" id="todo-select-1-label">Fruit</span>
+      <span class="ui-field">
+        <select aria-labelledby="todo-select-1-label">
+          <button>
+            <selectedcontent></selectedcontent>
+          </button>
+          <div class="ui-list">
+            <option>Apple</option>
+            <option>Banana</option>
+          </div>
+        </select>
+      </span>
+    </label>
+  </div>
+  <div>
+    <p class="ui-caption">Library: masked chevron</p>
+    <label class="ui-select">
+      <span class="ui-label" id="todo-select-2-label">Fruit</span>
+      <span class="ui-field">
+        <select aria-labelledby="todo-select-2-label">
+          <button>
+            <selectedcontent></selectedcontent>
+          </button>
+          <div class="ui-list">
+            <option>Apple</option>
+            <option>Banana</option>
+          </div>
+        </select>
+      </span>
+    </label>
+  </div>
+</div>
+<p>
+  A select without a <code>&lt;button&gt;</code> (the classic path). The
+  walkthrough opts every select into <code>base-select</code>, the library only
+  <code>select:has(button)</code>. Closed they look the same. Open each: the
+  first shows the browser's unstyled <code>base-select</code> picker, the second
+  the native dropdown.
+</p>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">Walkthrough: forced into <code>base-select</code></p>
+    <label class="ui-select todo-base-select">
+      <span class="ui-label" id="todo-select-3-label">Fruit</span>
+      <span class="ui-field">
+        <select aria-labelledby="todo-select-3-label">
+          <option>Apple</option>
+          <option>Banana</option>
+        </select>
+      </span>
+    </label>
+  </div>
+  <div>
+    <p class="ui-caption">Library: stays native</p>
+    <label class="ui-select">
+      <span class="ui-label" id="todo-select-4-label">Fruit</span>
+      <span class="ui-field">
+        <select aria-labelledby="todo-select-4-label">
+          <option>Apple</option>
+          <option>Banana</option>
+        </select>
+      </span>
+    </label>
+  </div>
+</div>

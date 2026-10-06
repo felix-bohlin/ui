@@ -5,7 +5,12 @@ import { ListItem } from "@opui/astro"
 
 <List gutterless>
   <ListItem headline="Gutterless list item">
-    <button slot="end" class="ui-icon-button" type="button">
+    <button
+      slot="end"
+      aria-label="Delete"
+      class="ui-button ui-rounded ui-ripple ui-small"
+      type="button"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"

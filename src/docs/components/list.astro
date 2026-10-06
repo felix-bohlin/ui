@@ -1,5 +1,6 @@
 ---
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
 import DocLink from "../../components/DocLink.astro"
 import Example from "../../components/Example"
 import AutoExample from "../../components/AutoExample.astro"
@@ -15,6 +16,10 @@ import ListDenseVue from "../../component-examples/ListDense.vue"
 import ListDenseVueRaw from "../../component-examples/ListDense.vue?raw"
 import Conditional from "../../components/Conditional.astro"
 
+import listApi from "../../component-api/list/api"
+import listItemApi from "../../component-api/list-item/api"
+import ListBuild from "../../components/UnderTheHood/ListBuild.astro"
+
 export const description =
   "Lists are continuous, vertical indexes of text and images and video. Use lists to help users find a specific item and act on it."
 ---
@@ -22,7 +27,12 @@ export const description =
 <Component
   description={description}
   slug="list"
-  browserSupport={["has", "light-dark", "relative-color"]}
+  heroAnatomy
+  apis={[
+    { title: "List API", api: listApi },
+    { title: "List item API", api: listItemApi },
+  ]}
+  browserSupport={["has", "relative-color"]}
   changelogPaths={[
     {
       path: "packages/opui/components/List/List.astro",
@@ -44,7 +54,10 @@ export const description =
 >
   <Fragment slot="title">List</Fragment>
 
-  <AutoExample name="Default" />
+  <section>
+    <h2 id="basics">Basics</h2>
+    <AutoExample name="Default" />
+  </section>
 
   <section>
     <h2 id="configurations">Configurations</h2>
@@ -127,10 +140,8 @@ export const description =
         Change background color with the <code>variant</code> prop.
       </p>
       <p slot="html">
-        Use
-        <code>.ui-default</code>, <code>.ui-tonal</code>, and <code
-          >.ui-transparent</code
-        > to change the background color.
+        Use <code>.ui-tonal</code> or <code>.ui-transparent</code> to change the background
+        color.
       </p>
       <p slot="vue">
         Change background color with the <code>variant</code> prop.
@@ -141,11 +152,12 @@ export const description =
     </Conditional>
 
     <Callout class="ui-not-rich-text">
-      <Fragment slot="title">Filled as default?!</Fragment>
+      <Fragment slot="title">Filled by default</Fragment>
       <p>
-        Yeah it's a bit weird, but normally you would use a list in a
-        popover/select scenario that needs to contrast against the background.
-        If nothing else, just change it yourself.
+        Without a color class the list uses the filled surface, because lists
+        usually sit in popovers and selects that need to contrast against the
+        page. Pick <code>tonal</code>, or <code>transparent</code> to show the surface
+        behind the list.
       </p>
     </Callout>
 
@@ -155,10 +167,10 @@ export const description =
   <section>
     <h2 id="clickable-list-item">Clickable list item</h2>
     <p>
-      Wrap the elements of your List item with a <code>a</code>, <code
+      Wrap the elements of your List item with an <code>a</code>, <code
         >button</code
       >
-      or <code>label</code> depending on use-case.
+      {" "}or <code>label</code> depending on use-case.
     </p>
 
     <AutoExample name="Clickable" />
@@ -166,13 +178,19 @@ export const description =
     <h3 id="selected">Selected item</h3>
     <Conditional>
       <p slot="html">
-        Add <code>aria-selected="true"</code> to the <code>li</code>.
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >li</code
+        >.
       </p>
       <p slot="astro">
-        Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >ListItem</code
+        >.
       </p>
       <p slot="vue">
-        Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
+        Add <code>aria-current="page"</code> to the link inside the <code
+          >ListItem</code
+        >.
       </p>
       <p slot="solid">
         Add <code>aria-selected="true"</code> to the <code>ListItem</code>.
@@ -188,7 +206,8 @@ export const description =
         Main text lives in the <code>text</code> slot, or pass <code
           >headline</code
         >
-        and <code>description</code> props directly on <code>ListItem</code>.
+        {" "}and <code>description</code> props directly on <code>ListItem</code
+        >.
       </Fragment>
       <Fragment slot="html">
         Main text lives in <code>div.ui-text</code>.
@@ -197,7 +216,8 @@ export const description =
         Main text lives in the <code>text</code> slot, or pass <code
           >headline</code
         >
-        and <code>description</code> props directly on <code>ListItem</code>.
+        {" "}and <code>description</code> props directly on <code>ListItem</code
+        >.
       </Fragment>
       <Fragment slot="solid">
         Main text lives in the <code>text</code> prop, or pass <code
@@ -273,7 +293,7 @@ export const description =
       Wrap the List item content with a <code
         >&lt;label class="ui-checkbox" for="INPUTID"&gt;</code
       >
-      to make the entire surface clickable.
+      {" "}to make the entire surface clickable.
     </p>
     <p>
       Read more: <DocLink href="/components/checkbox" class="ui-link"
@@ -287,7 +307,7 @@ export const description =
       Wrap the List item content with a <code
         >&lt;label class="ui-radio" for="INPUTID"&gt;</code
       >
-      to make the entire surface clickable.
+      {" "}to make the entire surface clickable.
     </p>
     <p>
       Radio group: Add a common name to each <code>&lt;input&gt;</code> for radio
@@ -317,27 +337,58 @@ export const description =
 
   <section>
     <h2 id="gutterless">Gutterless</h2>
-    <p>
-      Apply the <code>.ui-gutterless</code> class on the <code>ul.ui-list</code> element
-      to remove the inline padding on the list items.
-    </p>
+    <Conditional>
+      <p slot="html">
+        Apply the <code>.ui-gutterless</code> class on the <code
+          >ul.ui-list</code
+        > element to remove the inline padding on the list items.
+      </p>
+      <p slot="astro">
+        Add the <code>gutterless</code> prop to the <code>List</code> to remove the
+        inline padding on the list items.
+      </p>
+      <p slot="vue">
+        Add the <code>gutterless</code> prop to the <code>List</code> to remove the
+        inline padding on the list items.
+      </p>
+    </Conditional>
     <AutoExample name="Gutterless" />
   </section>
 
   <section>
     <h2 id="borders">Borders</h2>
     <h3 id="on-every-item">On every item</h3>
-    <p>
-      Apply the <code>.ui-bordered</code> class on the <code>ul.ui-list</code> element
-      to give all list items a border.
-    </p>
+    <Conditional>
+      <p slot="html">
+        Apply the <code>.ui-bordered</code> class on the <code>ul.ui-list</code> element
+        to give all list items a border.
+      </p>
+      <p slot="astro">
+        Add the <code>bordered</code> prop to the <code>List</code> to give all list
+        items a border.
+      </p>
+      <p slot="vue">
+        Add the <code>bordered</code> prop to the <code>List</code> to give all list
+        items a border.
+      </p>
+    </Conditional>
     <AutoExample name="Bordered" />
 
     <h3 id="on-one-item">On one item</h3>
-    <p>
-      Apply the <code>.ui-border-top</code> class on a <code>li</code> item to give
-      it an upper border.
-    </p>
+    <Conditional>
+      <p slot="html">
+        Apply the <code>.ui-border-top</code> class on a <code>li</code> item to give
+        it an upper border.
+      </p>
+      <p slot="astro">
+        Add the <code>borderTop</code> prop to a <code>ListItem</code> to give it
+        an upper border.
+      </p>
+      <p slot="vue">
+        Add the <code>borderTop</code> prop to a <code>ListItem</code> to give it
+        an upper border.
+      </p>
+    </Conditional>
     <AutoExample name="SingleBorder" />
   </section>
 
@@ -364,7 +415,7 @@ export const description =
           slot="html"
           id="list-dense-toggle-html"
           class="list-dense-toggle"
-          small
+          size="small"
           checked
         >
           <code>.ui-dense</code>
@@ -373,7 +424,7 @@ export const description =
           slot="astro"
           id="list-dense-toggle-astro"
           class="list-dense-toggle"
-          small
+          size="small"
           checked
         >
           <code>dense</code>
@@ -382,7 +433,7 @@ export const description =
           slot="vue"
           id="list-dense-toggle-vue"
           class="list-dense-toggle"
-          small
+          size="small"
           checked
         >
           <code>dense</code>
@@ -428,57 +479,28 @@ export const description =
     </Example>
   </section>
 
-  <Fragment slot="anatomy">
-    <ol>
-      <li>Container: <code>ul.ui-list</code></li>
-      <li>List item: <code>li</code></li>
-      <li>
-        Content wrapper (optional): <code>a</code>, <code>button</code>, <code
-          >label</code
-        >
-      </li>
-      <li>
-        Start content (optional): <code>.ui-start</code> &gt; <code>svg</code>, <code
-          >img</code
-        >, <code>video</code>
-      </li>
-      <li>
-        Text content: <code>.ui-text</code> &gt; <code>p</code>, <code
-          >p + p</code
-        >
-      </li>
-      <li>
-        End content (optional): <code>.ui-end</code> &gt; <code>svg</code>, <code
-          >p</code
-        >, <code>button</code>, <code>a</code>, <code>input</code>
-      </li>
-    </ol>
+  <ListBuild slot="under-the-hood" />
 
-    <Example>
-      <Example.Preview slot="preview-astro">
-        <UIList class="anatomy">
-          <ListItem
-            class="anatomy"
-            headline="Headline"
-            description="Supporting text"
+  <Fragment slot="anatomy">
+    <Anatomy api={listItemApi} zoom={1.25}>
+      <UIList style="inline-size: 18rem">
+        <ListItem headline="Headline" description="Supporting text">
+          <svg
+            slot="start"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
           >
-            <svg
-              slot="start"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-            >
-              <path
-                fill="currentColor"
-                d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
-              ></path>
-            </svg>
-            <div slot="end">100+</div>
-          </ListItem>
-        </UIList>
-      </Example.Preview>
-    </Example>
+            <path
+              fill="currentColor"
+              d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30s6.14-.823 8.315-2.207C26.477 26.417 28 24.393 28 22v-.5a3.5 3.5 0 0 0-3.5-3.5z"
+            ></path>
+          </svg>
+          <div slot="end">100+</div>
+        </ListItem>
+      </UIList>
+    </Anatomy>
   </Fragment>
 </Component>
 
@@ -526,23 +548,5 @@ export const description =
   .tab-panel ul {
     margin: 0 auto;
     max-inline-size: 40ch;
-  }
-
-  .anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: -2px;
-
-    .ui-text,
-    svg,
-    img,
-    video,
-    .ui-start,
-    .ui-end,
-    a,
-    button,
-    label {
-      outline: var(--_anatomy-border-red);
-      outline-offset: -3px;
-    }
   }
 </style>

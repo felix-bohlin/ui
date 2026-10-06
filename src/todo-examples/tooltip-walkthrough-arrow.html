@@ -1,0 +1,120 @@
+<style>
+  .todo-cases {
+    display: grid;
+    gap: var(--size-6);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-case {
+    anchor-scope: --todo-trigger, --todo-tip;
+    block-size: 9rem;
+    display: grid;
+    gap: var(--size-2);
+    grid-template-rows: auto 1fr;
+    position: relative;
+  }
+
+  .todo-stage {
+    align-items: start;
+    display: flex;
+    justify-content: center;
+    padding-block-start: var(--size-2);
+  }
+
+  .todo-shifted .todo-stage {
+    justify-content: start;
+  }
+
+  .todo-trigger {
+    anchor-name: --todo-trigger;
+  }
+
+  .todo-tip {
+    background-color: var(--surface-inverse);
+    border-radius: var(--radius-2);
+    color: var(--text-inverse);
+    font-size: var(--font-size-05);
+    inset: auto;
+    line-height: 1.3;
+    margin: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    position: absolute;
+    position-anchor: --todo-trigger;
+    position-area: block-end;
+    white-space: nowrap;
+  }
+
+  .todo-shifted .todo-tip {
+    position-area: block-end span-inline-end;
+  }
+
+  .todo-tip::before {
+    background-color: inherit;
+    block-size: 0.5rem;
+    content: "";
+    inline-size: 0.5rem;
+    rotate: 45deg;
+  }
+
+  .todo-walkthrough::before {
+    inset-block-end: -0.25rem;
+    inset-inline: 0;
+    margin-inline: auto;
+    position: absolute;
+  }
+
+  .todo-library {
+    anchor-name: --todo-tip;
+  }
+
+  .todo-library::before {
+    left: clamp(
+      anchor(--todo-tip left),
+      anchor(--todo-trigger center),
+      anchor(--todo-tip right)
+    );
+    margin: -0.25rem;
+    position: fixed;
+    top: clamp(
+      anchor(--todo-tip top),
+      anchor(--todo-trigger center),
+      anchor(--todo-tip bottom)
+    );
+  }
+</style>
+<p>
+  Each tooltip is shown where <code>flip-block</code> (and, in the last one, a
+  shift fallback) would put it: below the trigger.
+</p>
+<div class="todo-cases">
+  <div class="todo-case">
+    <p class="ui-caption">Walkthrough, flipped: the arrow points away</p>
+    <div class="todo-stage">
+      <button class="ui-button ui-outlined todo-trigger" type="button">
+        Share
+      </button>
+      <span class="todo-tip todo-walkthrough">Copy a link</span>
+    </div>
+  </div>
+  <div class="todo-case">
+    <p class="ui-caption">
+      Library, flipped: <code>clamp()</code> + <code>anchor()</code>
+    </p>
+    <div class="todo-stage">
+      <button class="ui-button ui-outlined todo-trigger" type="button">
+        Share
+      </button>
+      <span class="todo-tip todo-library">Copy a link</span>
+    </div>
+  </div>
+  <div class="todo-case todo-shifted">
+    <p class="ui-caption">Library, flipped and shifted: still on the trigger</p>
+    <div class="todo-stage">
+      <button class="ui-button ui-outlined todo-trigger" type="button">
+        Share
+      </button>
+      <span class="todo-tip todo-library">Copy a link to this page</span>
+    </div>
+  </div>
+</div>

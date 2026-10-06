@@ -1,0 +1,98 @@
+<style>
+  @property --todo-fill {
+    inherits: true;
+    initial-value: 0%;
+    syntax: "<percentage>";
+  }
+
+  @keyframes todo-range-fill {
+    from {
+      --todo-fill: 100%;
+    }
+
+    to {
+      --todo-fill: 0%;
+    }
+  }
+
+  .todo-compare {
+    display: grid;
+    gap: var(--size-5);
+    inline-size: min(100%, 28rem);
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+  }
+
+  .todo-range {
+    animation: todo-range-fill linear both;
+    animation-range: contain;
+    animation-timeline: --todo-thumb;
+    appearance: none;
+    background: transparent;
+    block-size: 1.25rem;
+    box-sizing: content-box;
+    inline-size: 100%;
+    margin: -0.75rem;
+    overflow: hidden;
+    padding: 0.75rem;
+    timeline-scope: --todo-thumb;
+
+    &:dir(rtl) {
+      animation-direction: reverse;
+    }
+
+    &::-webkit-slider-runnable-track {
+      appearance: none;
+      background-color: var(--border-color);
+      background-image: linear-gradient(var(--primary), var(--primary));
+      background-repeat: no-repeat;
+      background-size: var(--todo-fill) 100%;
+      block-size: 0.75ex;
+      border-radius: 1e5px;
+    }
+
+    &.todo-fixed:dir(rtl)::-webkit-slider-runnable-track {
+      background-position: right;
+    }
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      background: var(--primary);
+      block-size: 3ex;
+      border: 3px solid var(--surface-default);
+      border-radius: 50%;
+      inline-size: 3ex;
+      margin-block-start: -1.125ex;
+      view-timeline: --todo-thumb inline;
+      view-timeline-inset: 0.75rem;
+    }
+  }
+</style>
+<div class="todo-compare" dir="rtl">
+  <div>
+    <p class="ui-caption" dir="ltr">
+      Walkthrough in RTL: the fill starts at the left edge (Chromium, Safari)
+    </p>
+    <input
+      aria-label="Walkthrough"
+      class="todo-range"
+      type="range"
+      value="25"
+    />
+  </div>
+  <div>
+    <p class="ui-caption" dir="ltr">
+      With <code>background-position: right</code> in RTL, as
+      <code>range.css</code> does
+    </p>
+    <input
+      aria-label="Fixed"
+      class="todo-range todo-fixed"
+      type="range"
+      value="25"
+    />
+  </div>
+</div>

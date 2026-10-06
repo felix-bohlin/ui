@@ -1,0 +1,126 @@
+---
+import "@opui/css/imports.css"
+import { FRAMEWORK_IDS } from "../../../utils/framework-routing"
+
+export function getStaticPaths() {
+  if (!process.env.OPUI_TEST_PAGES) return []
+  return FRAMEWORK_IDS.map((framework) => ({ params: { framework } }))
+}
+
+const { framework } = Astro.params
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex" />
+    <title>{`theming - ${framework}`}</title>
+  </head>
+  <body>
+    <main>
+      <section class="fixture">
+        <h2>Default</h2>
+        <div class="fixture-preview" data-example="Default">
+          <div class="example-row">
+            <button class="ui-button ui-primary ui-filled">Primary</button>
+            <button class="ui-button ui-critical ui-filled">Critical</button>
+            <span class="ui-badge">3</span>
+          </div>
+          <div class="ui-card ui-elevated">
+            <div class="ui-content">Elevated card</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="fixture">
+        <h2>DarkSubtree</h2>
+        <div class="fixture-preview" data-example="DarkSubtree">
+          <section class="ui-dark scope">
+            <div class="example-row">
+              <button class="ui-button ui-primary ui-filled">Primary</button>
+              <button class="ui-button ui-critical ui-filled">Critical</button>
+              <span class="ui-badge">3</span>
+            </div>
+            <div class="ui-card ui-elevated">
+              <div class="ui-content">Elevated card</div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="fixture">
+        <h2>LightSubtree</h2>
+        <div class="fixture-preview" data-example="LightSubtree">
+          <section class="ui-light scope">
+            <div class="example-row">
+              <button class="ui-button ui-primary ui-filled">Primary</button>
+              <button class="ui-button ui-critical ui-filled">Critical</button>
+              <span class="ui-badge">3</span>
+            </div>
+            <div class="ui-card ui-elevated">
+              <div class="ui-content">Elevated card</div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="fixture">
+        <h2>Palette</h2>
+        <div class="fixture-preview" data-example="Palette">
+          <section class="ui-palette scope" style="--palette-hue: 120">
+            <div class="example-row">
+              <button class="ui-button ui-primary ui-filled">Primary</button>
+              <button class="ui-button ui-critical ui-filled">Critical</button>
+              <span class="ui-badge">3</span>
+            </div>
+            <div class="ui-card ui-outlined">
+              <div class="ui-content">Outlined card</div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="fixture">
+        <h2>MotionOff</h2>
+        <div class="fixture-preview" data-example="MotionOff">
+          <section class="ui-motion-off scope">
+            <button class="ui-button ui-primary ui-filled">Primary</button>
+          </section>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  body {
+    margin: 0;
+    padding: var(--size-4);
+  }
+
+  .fixture h2 {
+    font-size: var(--font-size-1);
+    margin-block: var(--size-4) var(--size-2);
+  }
+
+  .fixture-preview {
+    display: grid;
+    gap: var(--size-3);
+    padding: var(--size-4);
+  }
+
+  .scope {
+    display: grid;
+    gap: var(--size-3);
+    padding: var(--size-4);
+  }
+
+  .example-row {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+  }
+</style>

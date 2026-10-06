@@ -28,6 +28,7 @@ const tag = computed(() => as || (href ? "a" : "div"))
       $props.class,
     ]"
     :href="tag === 'a' ? href : undefined"
+    :type="tag === 'button' ? 'button' : undefined"
   >
     <slot name="start"></slot>
     <slot></slot>

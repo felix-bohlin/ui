@@ -1,0 +1,88 @@
+---
+import TechniquePost from "../../layouts/TechniquePost.astro"
+import CardBuild from "../../components/UnderTheHood/CardBuild.astro"
+import { Code } from "astro-expressive-code/components"
+---
+
+<TechniquePost slug="card-style-queries">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>
+      Shadows barely show on dark surfaces, so an elevated card needs a heavier
+      one in dark mode. <code>light-dark()</code> only picks colors, and a shadow
+      is offsets, blur and color together.
+    </p>
+    <p>
+      A <code>prefers-color-scheme</code> media query only knows the system setting.
+      It misses a page forced to dark with a class, and a dark section inside a light
+      page.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="the-trick">The trick</h2>
+    <ul>
+      <li>
+        The theme sets <code>--color-scheme: dark</code> wherever it switches to dark,
+        and custom properties inherit
+      </li>
+      <li>
+        Every element is a style container, so <code
+          >@container style(--color-scheme: dark)</code
+        > asks the card's parent which scheme it's in
+      </li>
+      <li>
+        Variants only swap custom properties, the shadow included, so the query
+        changes one value
+      </li>
+    </ul>
+    <Code
+      lang="css"
+      code={`.dark {
+  --color-scheme: dark;
+  color-scheme: dark;
+}
+
+.card {
+  --shadow-elevated: var(--shadow-3);
+  box-shadow: var(--card-shadow, none);
+
+  @container style(--color-scheme: dark) {
+    --shadow-elevated: var(--shadow-4);
+  }
+}
+
+.card.elevated {
+  --card-shadow: var(--shadow-elevated);
+}`}
+    />
+  </section>
+
+  <section>
+    <h2 id="try-it">Try it</h2>
+    <CardBuild />
+  </section>
+
+  <section>
+    <h2 id="fallback">Fallback</h2>
+    <ul>
+      <li>
+        Browsers without style queries skip the <code>@container</code> block
+      </li>
+      <li>
+        Elevated cards keep the lighter shadow in dark mode: flatter, but
+        unchanged otherwise
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 id="actions">Actions</h2>
+    <p>
+      The actions row looks at its contents instead, with <code>:has()</code>. <code
+        >.ui-button:first-child[class="ui-button"]</code
+      > only matches a plain text button, with no variant class. It has no background,
+      so the row moves towards the start to line its label up with the content.
+    </p>
+  </section>
+</TechniquePost>

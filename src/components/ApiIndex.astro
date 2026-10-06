@@ -2,10 +2,22 @@
 import Document from "../layouts/Document.astro"
 import FrameworkPicker from "./FrameworkPicker.astro"
 import ComponentAPI from "./ComponentAPI.astro"
-import { FRAMEWORKS, type FrameworkId } from "../utils/framework-routing"
+import type { ComponentApi } from "../component-api/types"
+import { components } from "../utils/components"
+import {
+  componentHasFramework,
+  DEFAULT_FRAMEWORK,
+  FRAMEWORKS,
+  type FrameworkId,
+} from "../utils/framework-routing"
 
 const apiModules = import.meta.glob("../component-api/**/*.astro", {
   eager: true,
+})
+
+const apiData = import.meta.glob<ComponentApi>("../component-api/*/api.ts", {
+  eager: true,
+  import: "default",
 })
 
 const API_LABEL_PATTERN = FRAMEWORKS.map((f) => f.label).join("|")
@@ -15,8 +27,9 @@ const LABEL_TO_ID = Object.fromEntries(
 
 type ApiGroup = {
   folder: string
+  page?: string
   prefix: string
-  apis: Partial<Record<FrameworkId, any>>
+  apis: Partial<Record<FrameworkId, any>> | { api: ComponentApi }[]
 }
 
 const groups: Record<string, ApiGroup> = {}
@@ -39,12 +52,28 @@ for (const path in apiModules) {
   if (!groups[key]) {
     groups[key] = { folder, prefix, apis: {} }
   }
-  groups[key].apis[frameworkId] = (apiModules[path] as any).default
+  ;(groups[key].apis as Record<string, any>)[frameworkId] = (
+    apiModules[path] as any
+  ).default
+}
+
+for (const path in apiData) {
+  const folder = path.split("/").at(-2)!
+  groups[`${folder}/`] = {
+    apis: [{ api: apiData[path] }],
+    folder,
+    page: apiData[path].page,
+    prefix: "",
+  }
 }
 
 const { link } = Astro.locals
+const currentFramework = (Astro.currentLocale ??
+  DEFAULT_FRAMEWORK) as FrameworkId
+const pages = new Set(components.map((component) => component.slug))
 
 const apiList = Object.values(groups)
+  .filter(({ folder }) => componentHasFramework(currentFramework, folder))
   .map((group) => {
     let slug = group.prefix ? group.prefix.toLowerCase() : group.folder
 
@@ -53,10 +82,13 @@ const apiList = Object.values(groups)
       .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ")
 
+    const page = group.page ?? slug
+
     return {
       title,
       slug,
       apis: group.apis,
+      href: pages.has(page) ? link(`/components/${page}`) : undefined,
     }
   })
   .sort((a, b) => a.title.localeCompare(b.title))
@@ -81,11 +113,9 @@ const apiList = Object.values(groups)
   </style>
 
   {
-    apiList.map(({ title, slug, apis }) => (
+    apiList.map(({ title, slug, apis, href }) => (
       <section>
-        <h2 id={slug}>
-          <a href={link(`/components/${slug}`)}>{title}</a>
-        </h2>
+        <h2 id={slug}>{href ? <a href={href}>{title}</a> : title}</h2>
         <ComponentAPI apis={apis} hideTitle />
       </section>
     ))

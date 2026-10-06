@@ -12,21 +12,12 @@ const {
   dot,
   invisible,
   label,
+  srLabel,
   ...rest
 } = Astro.props
-
-const positionArea =
-  alignment === "start-start"
-    ? "start start"
-    : alignment === "end-start"
-      ? "end start"
-      : alignment === "end-end"
-        ? "end end"
-        : undefined
 ---
 
 <Anchor
-  alignment={positionArea}
   class:list={[
     "ui-badge",
     {
@@ -34,18 +25,15 @@ const positionArea =
       "ui-invisible": invisible,
     },
     alignment && `ui-${alignment}`,
-    className,
     color && `ui-${color}`,
+    className,
   ]}
   {...rest as any}
 >
   <slot />
-  <span
-    class="ui-badge-indicator"
-    slot="anchored"
-    aria-label={label?.toString()}
-  >
+  <span class="ui-badge-indicator" slot="anchored">
     {dot ? "" : label}
     {!dot && <slot name="indicator" />}
+    {srLabel && <span class="ui-sr-only">{srLabel}</span>}
   </span>
 </Anchor>

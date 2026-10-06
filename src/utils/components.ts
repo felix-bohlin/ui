@@ -1,17 +1,12 @@
-import { hrefFor, type FrameworkId } from "./framework-routing"
+import {
+  componentHasFramework,
+  hrefFor,
+  type FrameworkId,
+} from "./framework-routing"
 
-const pageModules = import.meta.glob("../pages/components/*.astro")
 const docModules = import.meta.glob("../docs/components/*.astro")
 
 const slugs = new Set<string>()
-
-for (const path of Object.keys(pageModules)) {
-  if (path.endsWith("index.astro")) continue
-  // Skip dynamic route shells like [component].astro.
-  if (path.includes("[")) continue
-  const slug = path.split("/").pop()?.replace(".astro", "") || ""
-  if (slug) slugs.add(slug)
-}
 
 for (const path of Object.keys(docModules)) {
   const slug = path.split("/").pop()?.replace(".astro", "") || ""
@@ -28,6 +23,12 @@ export const components = Array.from(slugs)
     return { name, slug, href: `/components/${slug}` }
   })
   .sort((a, b) => a.name.localeCompare(b.name))
+
+export function componentsFor(framework: FrameworkId) {
+  return components.filter((component) =>
+    componentHasFramework(framework, component.slug),
+  )
+}
 
 /**
  * Returns the URL for a component on a specific framework. Used by sidebar

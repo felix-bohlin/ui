@@ -1,5 +1,6 @@
 <div class="drawer-examples">
   <button
+    type="button"
     class="ui-button top"
     commandfor="drawer-block-start-html"
     command="show-modal"
@@ -7,6 +8,7 @@
     Block Start
   </button>
   <button
+    type="button"
     class="ui-button left"
     commandfor="drawer-inline-start-html"
     command="show-modal"
@@ -14,6 +16,7 @@
     Inline Start
   </button>
   <button
+    type="button"
     class="ui-button right"
     commandfor="drawer-inline-end-html"
     command="show-modal"
@@ -21,6 +24,7 @@
     Inline End
   </button>
   <button
+    type="button"
     class="ui-button bottom"
     commandfor="drawer-block-end-html"
     command="show-modal"
@@ -32,16 +36,20 @@
 <dialog
   class="ui-drawer ui-scroll-lock ui-inline-start"
   id="drawer-inline-start-html"
+  aria-labelledby="drawer-inline-start-html-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <span>Inline Start</span>
+    <h2 id="drawer-inline-start-html-heading">Inline Start</h2>
     <button
-      class="ui-icon-button"
-      title="Close"
-      onclick="this.closest('dialog').close()"
+      type="button"
+      class="ui-button ui-rounded ui-ripple ui-small"
+      aria-label="Close"
+      commandfor="drawer-inline-start-html"
+      command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -71,23 +79,10 @@
       doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
       inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
     </p>
-    <p>
-      Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-      fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
-      sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-      amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-      incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-    </p>
-    <p>
-      Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
-      suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
-      vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil
-      molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla
-      pariatur?
-    </p>
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       class="ui-button ui-small"
       commandfor="drawer-inline-start-html"
       command="close"
@@ -100,16 +95,20 @@
 <dialog
   class="ui-drawer ui-scroll-lock ui-inline-end"
   id="drawer-inline-end-html"
+  aria-labelledby="drawer-inline-end-html-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <span>Inline End</span>
+    <h2 id="drawer-inline-end-html-heading">Inline End</h2>
     <button
-      class="ui-icon-button"
-      title="Close"
-      onclick="this.closest('dialog').close()"
+      type="button"
+      class="ui-button ui-rounded ui-ripple ui-small"
+      aria-label="Close"
+      commandfor="drawer-inline-end-html"
+      command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -139,23 +138,10 @@
       doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
       inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
     </p>
-    <p>
-      Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-      fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
-      sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-      amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-      incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
-    </p>
-    <p>
-      Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
-      suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
-      vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil
-      molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla
-      pariatur?
-    </p>
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       class="ui-button ui-small"
       commandfor="drawer-inline-end-html"
       command="close"
@@ -168,16 +154,20 @@
 <dialog
   class="ui-drawer ui-scroll-lock ui-block-start"
   id="drawer-block-start-html"
+  aria-labelledby="drawer-block-start-html-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <span>Block Start</span>
+    <h2 id="drawer-block-start-html-heading">Block Start</h2>
     <button
-      class="ui-icon-button"
-      title="Close"
-      onclick="this.closest('dialog').close()"
+      type="button"
+      class="ui-button ui-rounded ui-ripple ui-small"
+      aria-label="Close"
+      commandfor="drawer-block-start-html"
+      command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -202,14 +192,10 @@
       dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
-    <p>
-      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-      doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-      inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-    </p>
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       class="ui-button ui-small"
       commandfor="drawer-block-start-html"
       command="close"
@@ -222,16 +208,20 @@
 <dialog
   class="ui-drawer ui-scroll-lock ui-block-end"
   id="drawer-block-end-html"
+  aria-labelledby="drawer-block-end-html-heading"
   closedby="any"
 >
   <div class="ui-header">
-    <span>Block End</span>
+    <h2 id="drawer-block-end-html-heading">Block End</h2>
     <button
-      class="ui-icon-button"
-      title="Close"
-      onclick="this.closest('dialog').close()"
+      type="button"
+      class="ui-button ui-rounded ui-ripple ui-small"
+      aria-label="Close"
+      commandfor="drawer-block-end-html"
+      command="close"
     >
       <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="32"
         height="32"
@@ -256,14 +246,10 @@
       dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
-    <p>
-      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-      doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-      inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-    </p>
   </div>
   <div class="ui-footer">
     <button
+      type="button"
       class="ui-button ui-small"
       commandfor="drawer-block-end-html"
       command="close"

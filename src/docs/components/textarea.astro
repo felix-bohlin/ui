@@ -1,20 +1,15 @@
 ---
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
+import Anatomy from "../../components/Anatomy.astro"
+import { Textarea as UITextarea } from "@opui/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import Conditional from "../../components/Conditional.astro"
 
 import FieldCSS from "@opui/css/components/text-field.css?raw"
 import TextareaCSS from "@opui/css/components/textarea.css?raw"
 
-import TextFieldAPIAstro from "../../component-api/text-field/Astro.astro"
-import TextFieldAPIHTML from "../../component-api/text-field/HTML.astro"
-import TextFieldAPISolid from "../../component-api/text-field/Solid.astro"
-import TextFieldAPIVue from "../../component-api/text-field/Vue.astro"
-import TextareaAPIAstro from "../../component-api/textarea/Astro.astro"
-import TextareaAPIHTML from "../../component-api/textarea/HTML.astro"
-import TextareaAPISolid from "../../component-api/textarea/Solid.astro"
-import TextareaAPIVue from "../../component-api/textarea/Vue.astro"
+import textareaApi from "../../component-api/textarea/api"
+import TextareaBuild from "../../components/UnderTheHood/TextareaBuild.astro"
 
 export const description =
   "An input for multi-line text data. Basic textareas with labels, supporting text, and validation states."
@@ -24,28 +19,15 @@ export const description =
   description={description}
   slug="textarea"
   browserSupport={[
-    "datalist",
+    "container-queries",
     "field-sizing",
     "has",
     "light-dark",
     "relative-color",
+    "user-pseudos",
   ]}
-  apis={[
-    {
-      title: "Text field API",
-      astro: TextFieldAPIAstro,
-      html: TextFieldAPIHTML,
-      solid: TextFieldAPISolid,
-      vue: TextFieldAPIVue,
-    },
-    {
-      title: "Textarea API",
-      astro: TextareaAPIAstro,
-      html: TextareaAPIHTML,
-      solid: TextareaAPISolid,
-      vue: TextareaAPIVue,
-    },
-  ]}
+  heroAnatomy
+  apis={[{ title: "Textarea API", api: textareaApi }]}
   changelogPaths={[
     {
       path: "packages/opui/components/Textarea/Textarea.astro",
@@ -78,6 +60,20 @@ export const description =
 
   <section>
     <h2 id="variants">Variants</h2>
+    <Conditional>
+      <p slot="astro">
+        Textareas are outlined by default. Set <code>variant="filled"</code> for a
+        filled textarea.
+      </p>
+      <p slot="html">
+        Textareas are outlined by default. Add <code>.ui-filled</code> for a filled
+        textarea.
+      </p>
+      <p slot="vue">
+        Textareas are outlined by default. Set <code>variant="filled"</code> for a
+        filled textarea.
+      </p>
+    </Conditional>
     <AutoExample name="Variants" row />
   </section>
 
@@ -112,7 +108,7 @@ export const description =
       <Fragment slot="html">
         Add <code>.ui-prefix</code>, <code>.ui-suffix</code>, <code
           >.ui-header</code
-        >, or
+        >, or{" "}
         <code>.ui-footer</code> elements inside <code>.ui-field</code> to affix content
         inside the textarea's border.
       </Fragment>
@@ -148,13 +144,13 @@ export const description =
     <Conditional as="p">
       <Fragment slot="astro">
         Use the <code>error</code> prop to toggle invalid styles. It renders the
-        <code>data-invalid</code> attribute on the root element. Make use of the end
-        text to give extra feedback on the error.
+        {" "}<code>data-invalid</code> attribute on the root element. Make use of
+        the end text to give extra feedback on the error.
       </Fragment>
       <Fragment slot="vue">
         Use the <code>error</code> prop to toggle invalid styles. It renders
-        <code>data-invalid</code> on the root element. Make use of the end text to
-        give extra feedback on the error.
+        {" "}<code>data-invalid</code> on the root element. Make use of the end text
+        to give extra feedback on the error.
       </Fragment>
       <Fragment slot="solid">
         Use the <code>error</code> prop to toggle invalid styles. It renders
@@ -203,52 +199,24 @@ export const description =
     <p>When enabled the Field changes size depending on its content.</p>
 
     <AutoExample name="AutoFit" exampleClass="flex" />
-
-    <div class="ui-not-rich-text"></div>
   </section>
 
-  <Fragment slot="anatomy">
-    <ol>
-      <li><code>label.ui-textarea</code>: Container element</li>
-      <li><code>.ui-label</code>: Field label element</li>
-      <li><code>.ui-field</code>: The boxed input area</li>
-      <li>
-        <code>.ui-header</code>: Optional inside-border header strip (with
-        divider)
-      </li>
-      <li><code>.ui-prefix</code>: Optional inline-start affix</li>
-      <li><code>&lt;textarea&gt;</code>: Textarea element</li>
-      <li><code>.ui-suffix</code>: Optional inline-end affix</li>
-      <li>
-        <code>.ui-footer</code>: Optional inside-border footer strip (with
-        divider)
-      </li>
-      <li><code>.ui-end-text</code>: Supporting text element</li>
-    </ol>
+  <TextareaBuild slot="under-the-hood" />
 
-    <Example>
-      <label class="ui-textarea anatomy">
-        <span class="ui-label">Label</span>
-        <span class="ui-field">
-          <span class="ui-header">Header</span>
-          <span class="ui-prefix">@</span>
-          <textarea placeholder="Placeholder"></textarea>
-          <span class="ui-suffix">.com</span>
-          <span class="ui-footer">Footer</span>
-        </span>
-        <span class="ui-end-text">Supporting text</span>
-      </label>
-    </Example>
+  <Fragment slot="anatomy">
+    <Anatomy>
+      <UITextarea
+        description="Description"
+        endText="Supporting text"
+        label="Label"
+        placeholder="Placeholder"
+        style="inline-size: 20rem"
+      >
+        <span slot="header">Header</span>
+        <span slot="prefix">¢</span>
+        <span slot="suffix">EUR</span>
+        <span slot="footer">Footer</span>
+      </UITextarea>
+    </Anatomy>
   </Fragment>
 </Component>
-
-<style is:global>
-  .ui-textarea.anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: 6px;
-
-    & > * {
-      outline: var(--_anatomy-border-red);
-    }
-  }
-</style>

@@ -2,23 +2,29 @@
 import { Button } from "@opui/astro"
 ---
 
+<Button size="x-small">X-small</Button>
 <Button size="small">Small</Button>
 <Button>Default</Button>
 <Button size="large">Large</Button>
 
+<Button variant="filled" size="x-small">X-small</Button>
 <Button variant="filled" size="small">Small</Button>
 <Button variant="filled">Default</Button>
 <Button variant="filled" size="large">Large</Button>
 
+<Button size="x-small" variant="outlined">
+  <span class="ui-text">X-small</span>
+  <svg> <!-- --> </svg>
+</Button>
 <Button size="small" variant="outlined">
-  Small
+  <span class="ui-text">Small</span>
   <svg> <!-- --> </svg>
 </Button>
 <Button variant="outlined">
-  Default
+  <span class="ui-text">Default</span>
   <svg> <!-- --> </svg>
 </Button>
 <Button variant="outlined" size="large">
-  Large
+  <span class="ui-text">Large</span>
   <svg> <!-- --> </svg>
 </Button>

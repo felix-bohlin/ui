@@ -1,0 +1,63 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-stroke > svg {
+    color: inherit;
+    stroke: var(--_icon-color);
+  }
+</style>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">Walkthrough: <code>stroke</code> on a fill icon</p>
+    <article class="ui-callout ui-info todo-stroke">
+      <svg
+        aria-hidden="true"
+        height="32"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+          fill="currentColor"
+        />
+      </svg>
+      <div class="ui-content">
+        <h3>Heads up</h3>
+        <p>Callouts sit in the flow of the page.</p>
+      </div>
+    </article>
+  </div>
+  <div>
+    <p class="ui-caption">Library: <code>color</code></p>
+    <article class="ui-callout ui-info">
+      <svg
+        aria-hidden="true"
+        height="32"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M16 13a1 1 0 0 1 1 1v9a1 1 0 1 1-2 0v-9a1 1 0 0 1 1-1m0-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M2 16C2 8.268 8.268 2 16 2s14 6.268 14 14s-6.268 14-14 14S2 23.732 2 16M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12s12-5.373 12-12S22.627 4 16 4"
+          fill="currentColor"
+        />
+      </svg>
+      <div class="ui-content">
+        <h3>Heads up</h3>
+        <p>Callouts sit in the flow of the page.</p>
+      </div>
+    </article>
+  </div>
+</div>

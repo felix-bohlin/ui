@@ -161,9 +161,7 @@ const hasControls = !!controlsHtml
 
 const groupName = $id("example")
 const sourceId = `${groupName}-source`
-const sourcePanelId = `${groupName}-source-panel`
 const outputId = `${groupName}-output`
-const outputPanelId = `${groupName}-output-panel`
 ---
 
 <div
@@ -245,21 +243,12 @@ const outputPanelId = `${groupName}-output-panel`
   {
     hasCode && (
       <div class="example-code-area">
-        <Tabs class="source-tabs" name={groupName}>
-          <Tabs.Item
-            tabId={sourceId}
-            panelId={sourcePanelId}
-            name={groupName}
-            open
-          >
+        <Tabs class="source-tabs code-tabs" name={groupName} variant="line">
+          <Tabs.Item tabId={sourceId} name={groupName} open>
             <Tabs.Tab tabId={sourceId} data-tab="source">
               {codeLangLabel}
             </Tabs.Tab>
-            <Tabs.Panel
-              panelId={sourcePanelId}
-              tabId={sourceId}
-              data-panel="source"
-            >
+            <Tabs.Panel data-panel="source">
               <div class="ui-tab-panel">
                 <Code
                   code={codeContent}
@@ -279,19 +268,11 @@ const outputPanelId = `${groupName}-output-panel`
           </Tabs.Item>
 
           {showOutput && (
-            <Tabs.Item
-              tabId={outputId}
-              panelId={outputPanelId}
-              name={groupName}
-            >
+            <Tabs.Item tabId={outputId} name={groupName}>
               <Tabs.Tab tabId={outputId} data-tab="output">
                 Output
               </Tabs.Tab>
-              <Tabs.Panel
-                panelId={outputPanelId}
-                tabId={outputId}
-                data-panel="output"
-              >
+              <Tabs.Panel data-panel="output">
                 <div class="ui-tab-panel">
                   <Code code={outputContent} lang="html" />
                 </div>
@@ -359,14 +340,14 @@ const outputPanelId = `${groupName}-output-panel`
 
     .show-code-button {
       align-items: center;
+      bottom: anchor(bottom);
       display: flex;
       gap: var(--size-2);
-      position: fixed;
-      position-anchor: --example-preview;
-      bottom: anchor(bottom);
-      right: anchor(right);
       margin: var(--size-2);
       opacity: 0.64;
+      position: fixed;
+      position-anchor: --example-preview;
+      right: anchor(right);
       z-index: 10;
 
       &[aria-expanded="true"] svg {
@@ -489,26 +470,6 @@ const outputPanelId = `${groupName}-output-panel`
       })
       ;(toggleBtn as any)._hasListener = true
     }
-
-    // Keep aria-selected on the source/output tab labels in sync with the
-    // checked state of the underlying inputs.
-    const tabs =
-      container.querySelectorAll<HTMLInputElement>(".ui-tab-input") || []
-    const syncAriaSelected = () => {
-      container.querySelectorAll('label[role="tab"]').forEach((lbl) => {
-        const forId = lbl.getAttribute("for")
-        if (!forId) return
-        const input = container.querySelector<HTMLInputElement>(
-          `#${CSS.escape(forId)}`,
-        )
-        if (input) lbl.setAttribute("aria-selected", String(input.checked))
-      })
-    }
-    tabs.forEach((tab) => {
-      tab.removeEventListener("change", syncAriaSelected)
-      tab.addEventListener("change", syncAriaSelected)
-    })
-    syncAriaSelected()
   }
 
   function init() {

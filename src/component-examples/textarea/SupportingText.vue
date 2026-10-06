@@ -8,6 +8,6 @@ import { Textarea } from "opui-css/vue"
     label="Label"
     placeholder="Filled"
     endText="Supporting text"
-    filled
+    variant="filled"
   />
 </template>

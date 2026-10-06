@@ -1,0 +1,3542 @@
+<style>
+  .stress-overlays-edges {
+    align-content: space-between;
+    display: grid;
+    gap: var(--size-3);
+    min-block-size: 20rem;
+  }
+
+  .stress-overlays-spread {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+    justify-content: space-between;
+  }
+</style>
+
+<section class="stress" data-example="DialogNesting">
+  <h2>Overlays inside a dialog</h2>
+  <p>
+    A modal dialog with a menu and submenu, both select kinds, a tooltip and an
+    accordion, plus a second dialog and a drawer stacked on top. Whatever opens
+    last sits above the dialog and its backdrop and is never clipped by the
+    dialog's scroll box.
+  </p>
+  <div class="stress-row">
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-dialog"
+      command="show-modal"
+    >
+      Edit project
+    </button>
+  </div>
+  <dialog
+    id="stress-overlays-dialog"
+    class="ui-dialog ui-card ui-elevated"
+    aria-labelledby="stress-overlays-dialog-heading"
+    closedby="any"
+  >
+    <hgroup>
+      <h2 id="stress-overlays-dialog-heading" class="ui-h4">Edit project</h2>
+    </hgroup>
+    <div class="ui-content">
+      <div class="stress-row stress-center">
+        <button
+          class="ui-button ui-outlined"
+          type="button"
+          commandfor="stress-overlays-dialog-menu"
+          command="toggle-popover"
+        >
+          Actions
+        </button>
+        <menu class="ui-menu ui-list" id="stress-overlays-dialog-menu" popover>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-dialog-menu"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Duplicate</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-dialog-submenu"
+              command="toggle-popover"
+            >
+              <div class="ui-text"><p>Move to</p></div>
+              <div class="ui-end">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12l-6.293-6.293a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+                  />
+                </svg>
+              </div>
+            </button>
+            <menu
+              class="ui-menu ui-list ui-inline-end"
+              id="stress-overlays-dialog-submenu"
+              popover
+            >
+              <li>
+                <button
+                  type="button"
+                  commandfor="stress-overlays-dialog-submenu"
+                  command="hide-popover"
+                >
+                  <div class="ui-text"><p>Archive</p></div>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  commandfor="stress-overlays-dialog-submenu"
+                  command="hide-popover"
+                >
+                  <div class="ui-text"><p>Drafts</p></div>
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  commandfor="stress-overlays-dialog-submenu"
+                  command="hide-popover"
+                >
+                  <div class="ui-text"><p>Shared</p></div>
+                </button>
+              </li>
+            </menu>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-dialog-menu"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Rename</p></div>
+            </button>
+          </li>
+          <li class="ui-border-top ui-critical">
+            <button
+              type="button"
+              commandfor="stress-overlays-dialog-menu"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Delete</p></div>
+            </button>
+          </li>
+        </menu>
+        <span class="ui-anchor ui-tooltip ui-with-arrow"
+          ><button
+            class="ui-button"
+            type="button"
+            interestfor="stress-overlays-dialog-tooltip"
+            commandfor="stress-overlays-dialog-tooltip"
+            command="toggle-popover"
+          >
+            Help</button
+          ><span
+            class="ui-anchor-floating"
+            id="stress-overlays-dialog-tooltip"
+            popover="hint"
+            >Opens the project guide in a new tab</span
+          ></span
+        >
+      </div>
+      <div class="stress-row">
+        <label class="ui-select"
+          ><span class="ui-label" id="stress-overlays-dialog-status-label"
+            >Status</span
+          ><span class="ui-field"
+            ><select
+              id="stress-overlays-dialog-status"
+              aria-labelledby="stress-overlays-dialog-status-label"
+            >
+              <button><selectedcontent></selectedcontent></button>
+              <div class="ui-list">
+                <option>Archived</option>
+                <option>Draft</option>
+                <option>In review</option>
+                <option>Published</option>
+              </div>
+            </select></span
+          ></label
+        ><label class="ui-select"
+          ><span class="ui-label" id="stress-overlays-dialog-owner-label"
+            >Owner</span
+          ><span class="ui-field"
+            ><select
+              id="stress-overlays-dialog-owner"
+              aria-labelledby="stress-overlays-dialog-owner-label"
+            >
+              <option>Alex Andersson</option>
+              <option>Kim Berg</option>
+              <option>Sam Lindqvist</option>
+              <option>Robin Nyström</option>
+            </select></span
+          ></label
+        >
+      </div>
+      <details class="ui-accordion ui-marker-rotate">
+        <summary>
+          Advanced settings<svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+            />
+          </svg>
+        </summary>
+        <div class="ui-content">
+          <p>Settings that most projects never touch.</p>
+          <div class="stress-row">
+            <label class="ui-select"
+              ><span
+                class="ui-label"
+                id="stress-overlays-dialog-visibility-label"
+                >Visibility</span
+              ><span class="ui-field"
+                ><select
+                  id="stress-overlays-dialog-visibility"
+                  aria-labelledby="stress-overlays-dialog-visibility-label"
+                >
+                  <button><selectedcontent></selectedcontent></button>
+                  <div class="ui-list">
+                    <option>Organization</option>
+                    <option>Private</option>
+                    <option>Public</option>
+                  </div>
+                </select></span
+              ></label
+            >
+          </div>
+        </div>
+      </details>
+    </div>
+    <div class="ui-actions">
+      <button
+        class="ui-button"
+        type="button"
+        commandfor="stress-overlays-dialog-drawer"
+        command="show-modal"
+      >
+        Open drawer</button
+      ><button
+        class="ui-button"
+        type="button"
+        commandfor="stress-overlays-dialog-confirm"
+        command="show-modal"
+      >
+        Delete</button
+      ><button
+        class="ui-button ui-filled"
+        type="button"
+        commandfor="stress-overlays-dialog"
+        command="close"
+      >
+        Save
+      </button>
+    </div>
+  </dialog>
+  <dialog
+    id="stress-overlays-dialog-confirm"
+    class="ui-dialog ui-card ui-elevated"
+    role="alertdialog"
+    aria-modal="true"
+    aria-labelledby="stress-overlays-dialog-confirm-heading"
+    closedby="any"
+  >
+    <hgroup>
+      <h2 id="stress-overlays-dialog-confirm-heading" class="ui-h4">
+        Delete project?
+      </h2>
+    </hgroup>
+    <div class="ui-content">
+      <p>
+        The project and all of its files are removed for everyone. This cannot
+        be undone.
+      </p>
+    </div>
+    <div class="ui-actions">
+      <button
+        class="ui-button"
+        type="button"
+        commandfor="stress-overlays-dialog-confirm"
+        command="close"
+      >
+        Cancel</button
+      ><button
+        class="ui-button ui-filled"
+        type="button"
+        commandfor="stress-overlays-dialog-confirm"
+        command="close"
+      >
+        Delete
+      </button>
+    </div>
+  </dialog>
+  <dialog
+    class="ui-drawer ui-scroll-lock ui-inline-end"
+    id="stress-overlays-dialog-drawer"
+    aria-labelledby="stress-overlays-dialog-drawer-heading"
+    closedby="any"
+  >
+    <div class="ui-header">
+      <h2 id="stress-overlays-dialog-drawer-heading">History</h2>
+      <button
+        class="ui-button ui-rounded ui-ripple ui-small"
+        type="button"
+        aria-label="Close"
+        commandfor="stress-overlays-dialog-drawer"
+        command="close"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="ui-content">
+      <ul class="ui-list">
+        <li>
+          <div class="ui-text"><p>Created</p></div>
+        </li>
+        <li>
+          <div class="ui-text"><p>Renamed</p></div>
+        </li>
+        <li>
+          <div class="ui-text"><p>Shared with team</p></div>
+        </li>
+        <li>
+          <div class="ui-text"><p>Status set to In review</p></div>
+        </li>
+      </ul>
+      <div class="stress-row">
+        <label class="ui-select"
+          ><span
+            class="ui-label"
+            id="stress-overlays-dialog-drawer-filter-label"
+            >Show</span
+          ><span class="ui-field"
+            ><select
+              id="stress-overlays-dialog-drawer-filter"
+              aria-labelledby="stress-overlays-dialog-drawer-filter-label"
+            >
+              <button><selectedcontent></selectedcontent></button>
+              <div class="ui-list">
+                <option>All changes</option>
+                <option>My changes</option>
+              </div>
+            </select></span
+          ></label
+        >
+      </div>
+    </div>
+    <div class="ui-footer">
+      <button
+        class="ui-button ui-small"
+        type="button"
+        commandfor="stress-overlays-dialog-drawer"
+        command="close"
+      >
+        Close
+      </button>
+    </div>
+  </dialog>
+</section>
+
+<section class="stress" data-example="DrawerNesting">
+  <h2>Overlays inside a drawer</h2>
+  <p>
+    An inline end drawer with an end aligned header menu, both select kinds, a
+    tooltip, an accordion group and a dialog opened from its footer. The header
+    menu hugs the viewport edge and the dialog lands above the drawer.
+  </p>
+  <div class="stress-row">
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-drawer"
+      command="show-modal"
+    >
+      Filters
+    </button>
+  </div>
+  <dialog
+    class="ui-drawer ui-scroll-lock ui-inline-end"
+    id="stress-overlays-drawer"
+    aria-labelledby="stress-overlays-drawer-heading"
+    closedby="any"
+  >
+    <div class="ui-header">
+      <h2 id="stress-overlays-drawer-heading">Filters</h2>
+      <button
+        class="ui-button ui-rounded ui-ripple ui-small"
+        type="button"
+        aria-label="More filter actions"
+        commandfor="stress-overlays-drawer-menu"
+        command="toggle-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4m0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4"
+          />
+        </svg>
+      </button>
+      <menu
+        class="ui-menu ui-list ui-align-end"
+        id="stress-overlays-drawer-menu"
+        popover
+      >
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-drawer-menu"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Clear all</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-drawer-menu"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Export</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-drawer-menu"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Share</p></div>
+          </button>
+        </li>
+      </menu>
+      <button
+        class="ui-button ui-rounded ui-ripple ui-small"
+        type="button"
+        aria-label="Close"
+        commandfor="stress-overlays-drawer"
+        command="close"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="ui-content">
+      <div class="stress-stack">
+        <label class="ui-select"
+          ><span class="ui-label" id="stress-overlays-drawer-sort-label"
+            >Sort by</span
+          ><span class="ui-field"
+            ><select
+              id="stress-overlays-drawer-sort"
+              aria-labelledby="stress-overlays-drawer-sort-label"
+            >
+              <button><selectedcontent></selectedcontent></button>
+              <div class="ui-list">
+                <option>Name</option>
+                <option>Newest</option>
+                <option>Oldest</option>
+                <option>Price</option>
+              </div>
+            </select></span
+          ></label
+        ><label class="ui-select"
+          ><span class="ui-label" id="stress-overlays-drawer-region-label"
+            >Region</span
+          ><span class="ui-field"
+            ><select
+              id="stress-overlays-drawer-region"
+              aria-labelledby="stress-overlays-drawer-region-label"
+            >
+              <option>Africa</option>
+              <option>Americas</option>
+              <option>Asia</option>
+              <option>Europe</option>
+              <option>Oceania</option>
+            </select></span
+          ></label
+        >
+        <div class="stress-row stress-center">
+          <span class="ui-anchor ui-tooltip ui-with-arrow"
+            ><button
+              class="ui-button"
+              type="button"
+              interestfor="stress-overlays-drawer-tooltip"
+              commandfor="stress-overlays-drawer-tooltip"
+              command="toggle-popover"
+            >
+              What is this?</button
+            ><span
+              class="ui-anchor-floating"
+              id="stress-overlays-drawer-tooltip"
+              popover="hint"
+              >Filters apply to every list in the workspace</span
+            ></span
+          >
+        </div>
+        <div class="ui-card ui-outlined" role="group" aria-label="More filters">
+          <details
+            class="ui-accordion ui-card ui-marker-rotate"
+            name="stress-overlays-drawer-group"
+          >
+            <summary>
+              Price<svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                />
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <div class="stress-row">
+                <label class="ui-select"
+                  ><span
+                    class="ui-label"
+                    id="stress-overlays-drawer-price-label"
+                    >Range</span
+                  ><span class="ui-field"
+                    ><select
+                      id="stress-overlays-drawer-price"
+                      aria-labelledby="stress-overlays-drawer-price-label"
+                    >
+                      <button><selectedcontent></selectedcontent></button>
+                      <div class="ui-list">
+                        <option>Under 100</option>
+                        <option>100 to 500</option>
+                        <option>Over 500</option>
+                      </div>
+                    </select></span
+                  ></label
+                >
+              </div>
+            </div>
+          </details>
+          <details
+            class="ui-accordion ui-card ui-marker-rotate"
+            name="stress-overlays-drawer-group"
+          >
+            <summary>
+              Tags<svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+                />
+              </svg>
+            </summary>
+            <div class="ui-content">
+              <div class="stress-row stress-center">
+                <button
+                  class="ui-button ui-outlined"
+                  type="button"
+                  commandfor="stress-overlays-drawer-tags-menu"
+                  command="toggle-popover"
+                >
+                  Pick tags
+                </button>
+                <menu
+                  class="ui-menu ui-list"
+                  id="stress-overlays-drawer-tags-menu"
+                  popover
+                >
+                  <li>
+                    <button
+                      type="button"
+                      commandfor="stress-overlays-drawer-tags-menu"
+                      command="hide-popover"
+                    >
+                      <div class="ui-text"><p>Design</p></div>
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      commandfor="stress-overlays-drawer-tags-menu"
+                      command="hide-popover"
+                    >
+                      <div class="ui-text"><p>Engineering</p></div>
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      commandfor="stress-overlays-drawer-tags-menu"
+                      command="hide-popover"
+                    >
+                      <div class="ui-text"><p>Marketing</p></div>
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      commandfor="stress-overlays-drawer-tags-menu"
+                      command="hide-popover"
+                    >
+                      <div class="ui-text"><p>Sales</p></div>
+                    </button>
+                  </li>
+                </menu>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+    <div class="ui-footer">
+      <button
+        class="ui-button ui-small"
+        type="button"
+        commandfor="stress-overlays-drawer-dialog"
+        command="show-modal"
+      >
+        Save filter</button
+      ><button
+        class="ui-button ui-small ui-filled"
+        type="button"
+        commandfor="stress-overlays-drawer"
+        command="close"
+      >
+        Apply
+      </button>
+    </div>
+  </dialog>
+  <dialog
+    id="stress-overlays-drawer-dialog"
+    class="ui-dialog ui-card ui-elevated"
+    aria-labelledby="stress-overlays-drawer-dialog-heading"
+    closedby="any"
+  >
+    <hgroup>
+      <h2 id="stress-overlays-drawer-dialog-heading" class="ui-h4">
+        Save filter
+      </h2>
+    </hgroup>
+    <div class="ui-content">
+      <div class="stress-stack">
+        <label class="ui-text-field"
+          ><span class="ui-label">Name</span
+          ><span class="ui-field"
+            ><input type="text" value="My filter" /></span></label
+        ><label class="ui-select"
+          ><span class="ui-label" id="stress-overlays-drawer-dialog-scope-label"
+            >Visible to</span
+          ><span class="ui-field"
+            ><select
+              id="stress-overlays-drawer-dialog-scope"
+              aria-labelledby="stress-overlays-drawer-dialog-scope-label"
+            >
+              <button><selectedcontent></selectedcontent></button>
+              <div class="ui-list">
+                <option>Everyone</option>
+                <option>Only me</option>
+                <option>My team</option>
+              </div>
+            </select></span
+          ></label
+        >
+      </div>
+    </div>
+    <div class="ui-actions">
+      <button
+        class="ui-button"
+        type="button"
+        commandfor="stress-overlays-drawer-dialog"
+        command="close"
+      >
+        Cancel</button
+      ><button
+        class="ui-button ui-filled"
+        type="button"
+        commandfor="stress-overlays-drawer-dialog"
+        command="close"
+      >
+        Save
+      </button>
+    </div>
+  </dialog>
+</section>
+
+<section class="stress" data-example="DrawerSides">
+  <h2>Drawers on every side with long content</h2>
+  <p>
+    One drawer per side with a body far taller than the viewport. The header and
+    footer stay put while only the body scrolls, and the footer menu of the
+    block end drawer opens upwards.
+  </p>
+  <div class="stress-row">
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-side-block-start"
+      command="show-modal"
+    >
+      Block start</button
+    ><button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-side-inline-start"
+      command="show-modal"
+    >
+      Inline start</button
+    ><button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-side-inline-end"
+      command="show-modal"
+    >
+      Inline end</button
+    ><button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-side-block-end"
+      command="show-modal"
+    >
+      Block end
+    </button>
+  </div>
+  <dialog
+    class="ui-drawer ui-scroll-lock ui-block-start"
+    id="stress-overlays-side-block-start"
+    aria-labelledby="stress-overlays-side-block-start-heading"
+    closedby="any"
+  >
+    <div class="ui-header">
+      <h2 id="stress-overlays-side-block-start-heading">Block start</h2>
+      <button
+        class="ui-button ui-rounded ui-ripple ui-small"
+        type="button"
+        aria-label="Close"
+        commandfor="stress-overlays-side-block-start"
+        command="close"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="ui-content">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <p>
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur.
+      </p>
+      <p>
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <p>
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur.
+      </p>
+      <p>
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <p>
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur.
+      </p>
+      <p>
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <p>
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur.
+      </p>
+      <p>
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <p>
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur.
+      </p>
+      <p>
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <p>
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur.
+      </p>
+      <p>
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum.
+      </p>
+      <label class="ui-text-field"
+        ><span class="ui-label">Comment</span
+        ><span class="ui-field"><input type="text" /></span
+      ></label>
+    </div>
+    <div class="ui-footer">
+      <button
+        class="ui-button ui-small"
+        type="button"
+        commandfor="stress-overlays-side-block-start"
+        command="close"
+      >
+        Close
+      </button>
+    </div>
+  </dialog>
+  <dialog
+    class="ui-drawer ui-scroll-lock ui-inline-start"
+    id="stress-overlays-side-inline-start"
+    aria-labelledby="stress-overlays-side-inline-start-heading"
+    closedby="any"
+  >
+    <div class="ui-header">
+      <h2 id="stress-overlays-side-inline-start-heading">Inline start</h2>
+      <button
+        class="ui-button ui-rounded ui-ripple ui-small"
+        type="button"
+        aria-label="Close"
+        commandfor="stress-overlays-side-inline-start"
+        command="close"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="ui-content">
+      <ul class="ui-list">
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Argentina</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Australia</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Austria</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Belgium</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Brazil</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Canada</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Chile</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Colombia</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Croatia</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Czechia</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Denmark</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Egypt</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Estonia</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Finland</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>France</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Germany</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Greece</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Hungary</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Iceland</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>India</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Ireland</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Italy</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Japan</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Kenya</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Latvia</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Lithuania</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Mexico</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Morocco</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Netherlands</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>New Zealand</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Norway</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Poland</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Portugal</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Romania</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Spain</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Sweden</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Switzerland</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Turkey</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Ukraine</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Uruguay</p></div>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="ui-footer">
+      <button
+        class="ui-button ui-small"
+        type="button"
+        commandfor="stress-overlays-side-inline-start"
+        command="close"
+      >
+        Close
+      </button>
+    </div>
+  </dialog>
+  <dialog
+    class="ui-drawer ui-scroll-lock ui-inline-end"
+    id="stress-overlays-side-inline-end"
+    aria-labelledby="stress-overlays-side-inline-end-heading"
+    closedby="any"
+  >
+    <div class="ui-header">
+      <h2 id="stress-overlays-side-inline-end-heading">Inline end</h2>
+      <button
+        class="ui-button ui-rounded ui-ripple ui-small"
+        type="button"
+        aria-label="Close"
+        commandfor="stress-overlays-side-inline-end"
+        command="close"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="ui-content">
+      <ul class="ui-list">
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Amber</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Aqua</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Azure</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Beige</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Black</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Blue</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Bronze</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Brown</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Coral</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Crimson</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Cyan</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Emerald</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Gold</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Gray</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Green</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Indigo</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Ivory</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Lavender</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Lime</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Magenta</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Maroon</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Navy</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Olive</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Orange</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Pink</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Purple</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Red</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Silver</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Teal</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>White</p></div>
+          </button>
+        </li>
+      </ul>
+      <ul class="ui-list">
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark amber</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark aqua</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark azure</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark beige</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark black</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark blue</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark bronze</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark brown</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark coral</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark crimson</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark cyan</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark emerald</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark gold</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark gray</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark green</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark indigo</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark ivory</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark lavender</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark lime</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark magenta</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark maroon</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark navy</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark olive</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark orange</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark pink</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark purple</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark red</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark silver</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark teal</p></div>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <div class="ui-text"><p>Dark white</p></div>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="ui-footer">
+      <button
+        class="ui-button ui-small"
+        type="button"
+        commandfor="stress-overlays-side-inline-end"
+        command="close"
+      >
+        Close
+      </button>
+    </div>
+  </dialog>
+  <dialog
+    class="ui-drawer ui-scroll-lock ui-block-end"
+    id="stress-overlays-side-block-end"
+    aria-labelledby="stress-overlays-side-block-end-heading"
+    closedby="any"
+  >
+    <div class="ui-header">
+      <h2 id="stress-overlays-side-block-end-heading">Block end</h2>
+      <button
+        class="ui-button ui-rounded ui-ripple ui-small"
+        type="button"
+        aria-label="Close"
+        commandfor="stress-overlays-side-block-end"
+        command="close"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="ui-content">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <p>
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur.
+      </p>
+      <p>
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <p>
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur.
+      </p>
+      <p>
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <p>
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur.
+      </p>
+      <p>
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <p>
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur.
+      </p>
+      <p>
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <p>
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur.
+      </p>
+      <p>
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <p>
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+        ut aliquip ex ea commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur.
+      </p>
+      <p>
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum.
+      </p>
+      <div class="stress-row">
+        <label class="ui-select"
+          ><span
+            class="ui-label"
+            id="stress-overlays-side-block-end-select-label"
+            >Status</span
+          ><span class="ui-field"
+            ><select
+              id="stress-overlays-side-block-end-select"
+              aria-labelledby="stress-overlays-side-block-end-select-label"
+            >
+              <button><selectedcontent></selectedcontent></button>
+              <div class="ui-list">
+                <option>Archived</option>
+                <option>Draft</option>
+                <option>In review</option>
+                <option>Published</option>
+              </div>
+            </select></span
+          ></label
+        >
+      </div>
+    </div>
+    <div class="ui-footer">
+      <button
+        class="ui-button ui-small"
+        type="button"
+        commandfor="stress-overlays-side-block-end-menu"
+        command="toggle-popover"
+      >
+        Sort
+      </button>
+      <menu
+        class="ui-menu ui-list"
+        id="stress-overlays-side-block-end-menu"
+        popover
+      >
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-side-block-end-menu"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Name</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-side-block-end-menu"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Newest</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-side-block-end-menu"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Oldest</p></div>
+          </button>
+        </li>
+      </menu>
+      <button
+        class="ui-button ui-small"
+        type="button"
+        commandfor="stress-overlays-side-block-end"
+        command="close"
+      >
+        Close
+      </button>
+    </div>
+  </dialog>
+</section>
+
+<section class="stress" data-example="EdgeTriggers">
+  <h2>Triggers at the edges</h2>
+  <p>
+    Menus, tooltips and select pickers on triggers pushed into each corner.
+    Scroll a row against the top or bottom of the viewport and open them: every
+    overlay flips or shifts to stay fully on screen.
+  </p>
+  <div class="stress-overlays-edges">
+    <div class="stress-overlays-spread">
+      <div class="stress-row stress-center">
+        <button
+          class="ui-button ui-outlined"
+          type="button"
+          commandfor="stress-overlays-edge-top-start"
+          command="toggle-popover"
+        >
+          Menu
+        </button>
+        <menu
+          class="ui-menu ui-list"
+          id="stress-overlays-edge-top-start"
+          popover
+        >
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-edge-top-start"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Copy</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-edge-top-start"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Cut</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-edge-top-start"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Paste</p></div>
+            </button>
+          </li>
+        </menu>
+        <span class="ui-anchor ui-tooltip"
+          ><button
+            class="ui-button"
+            type="button"
+            interestfor="stress-overlays-edge-top-start-tooltip"
+            commandfor="stress-overlays-edge-top-start-tooltip"
+            command="toggle-popover"
+          >
+            Tooltip</button
+          ><span
+            class="ui-anchor-floating"
+            id="stress-overlays-edge-top-start-tooltip"
+            popover="hint"
+            >Flips below when there is no room above</span
+          ></span
+        >
+      </div>
+      <div class="stress-row stress-center">
+        <label class="ui-select"
+          ><span class="ui-label" id="stress-overlays-edge-top-end-select-label"
+            >Status</span
+          ><span class="ui-field"
+            ><select
+              id="stress-overlays-edge-top-end-select"
+              aria-labelledby="stress-overlays-edge-top-end-select-label"
+            >
+              <button><selectedcontent></selectedcontent></button>
+              <div class="ui-list">
+                <option>Archived</option>
+                <option>Draft</option>
+                <option>In review</option>
+                <option>Published</option>
+              </div>
+            </select></span
+          ></label
+        ><button
+          class="ui-button ui-outlined"
+          type="button"
+          commandfor="stress-overlays-edge-top-end"
+          command="toggle-popover"
+        >
+          Menu
+        </button>
+        <menu
+          class="ui-menu ui-list ui-align-end"
+          id="stress-overlays-edge-top-end"
+          popover
+        >
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-edge-top-end"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Copy</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-edge-top-end"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Cut</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-edge-top-end"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Paste</p></div>
+            </button>
+          </li>
+        </menu>
+      </div>
+    </div>
+    <div class="stress-overlays-spread">
+      <div class="stress-row stress-center">
+        <button
+          class="ui-button ui-outlined"
+          type="button"
+          commandfor="stress-overlays-edge-bottom-start"
+          command="toggle-popover"
+        >
+          Menu
+        </button>
+        <menu
+          class="ui-menu ui-list"
+          id="stress-overlays-edge-bottom-start"
+          popover
+        >
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-edge-bottom-start"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Copy</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-edge-bottom-start"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Cut</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-edge-bottom-start"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Paste</p></div>
+            </button>
+          </li>
+        </menu>
+        <label class="ui-select"
+          ><span
+            class="ui-label"
+            id="stress-overlays-edge-bottom-start-select-label"
+            >Country</span
+          ><span class="ui-field"
+            ><select
+              id="stress-overlays-edge-bottom-start-select"
+              aria-labelledby="stress-overlays-edge-bottom-start-select-label"
+            >
+              <button><selectedcontent></selectedcontent></button>
+              <div class="ui-list">
+                <option>Argentina</option>
+                <option>Australia</option>
+                <option>Austria</option>
+                <option>Belgium</option>
+                <option>Brazil</option>
+                <option>Canada</option>
+                <option>Chile</option>
+                <option>Colombia</option>
+                <option>Croatia</option>
+                <option>Czechia</option>
+                <option>Denmark</option>
+                <option>Egypt</option>
+              </div>
+            </select></span
+          ></label
+        >
+      </div>
+      <div class="stress-row stress-center">
+        <span
+          class="ui-anchor ui-tooltip"
+          style="--anchor-position-area: inline-end"
+          ><button
+            class="ui-button"
+            type="button"
+            interestfor="stress-overlays-edge-bottom-end-tooltip"
+            commandfor="stress-overlays-edge-bottom-end-tooltip"
+            command="toggle-popover"
+          >
+            Tooltip</button
+          ><span
+            class="ui-anchor-floating"
+            id="stress-overlays-edge-bottom-end-tooltip"
+            popover="hint"
+            >Stays inside the viewport at the end edge</span
+          ></span
+        ><button
+          class="ui-button ui-outlined"
+          type="button"
+          commandfor="stress-overlays-edge-bottom-end"
+          command="toggle-popover"
+        >
+          Menu
+        </button>
+        <menu
+          class="ui-menu ui-list ui-inline-end"
+          id="stress-overlays-edge-bottom-end"
+          popover
+        >
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-edge-bottom-end"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Copy</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-edge-bottom-end"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Cut</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-edge-bottom-end"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Paste</p></div>
+            </button>
+          </li>
+        </menu>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stress" data-example="Submenus">
+  <h2>Submenus near the edges</h2>
+  <p>
+    Two levels of submenus. Near the inline end of the viewport an inline end
+    submenu flips to the start side, an inline start submenu at the start edge
+    flips to the end side, and no submenu covers the item that opened it.
+  </p>
+  <div class="stress-overlays-spread">
+    <div class="stress-row">
+      <button
+        class="ui-button ui-outlined"
+        type="button"
+        commandfor="stress-overlays-sub-view"
+        command="toggle-popover"
+      >
+        View
+      </button>
+      <menu class="ui-menu ui-list" id="stress-overlays-sub-view" popover>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-sub-view"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Actual size</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-sub-view-zoom"
+            command="toggle-popover"
+          >
+            <div class="ui-text"><p>Zoom</p></div>
+            <div class="ui-end">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12l-6.293-6.293a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+                />
+              </svg>
+            </div>
+          </button>
+          <menu
+            class="ui-menu ui-list ui-inline-start"
+            id="stress-overlays-sub-view-zoom"
+            popover
+          >
+            <li>
+              <button
+                type="button"
+                commandfor="stress-overlays-sub-view-zoom"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>50%</p></div>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                commandfor="stress-overlays-sub-view-zoom"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>100%</p></div>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                commandfor="stress-overlays-sub-view-zoom"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>200%</p></div>
+              </button>
+            </li>
+          </menu>
+        </li>
+      </menu>
+      <button
+        class="ui-button ui-outlined"
+        type="button"
+        commandfor="stress-overlays-sub-file"
+        command="toggle-popover"
+      >
+        File
+      </button>
+      <menu class="ui-menu ui-list" id="stress-overlays-sub-file" popover>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-sub-file"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>New</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-sub-file"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Open</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-sub-file-export"
+            command="toggle-popover"
+          >
+            <div class="ui-text"><p>Export</p></div>
+            <div class="ui-end">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12l-6.293-6.293a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+                />
+              </svg>
+            </div>
+          </button>
+          <menu
+            class="ui-menu ui-list ui-inline-end"
+            id="stress-overlays-sub-file-export"
+            popover
+          >
+            <li>
+              <button
+                type="button"
+                commandfor="stress-overlays-sub-file"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>PDF</p></div>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                commandfor="stress-overlays-sub-file-image"
+                command="toggle-popover"
+              >
+                <div class="ui-text"><p>Image</p></div>
+                <div class="ui-end">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12l-6.293-6.293a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+                    />
+                  </svg>
+                </div>
+              </button>
+              <menu
+                class="ui-menu ui-list ui-inline-end"
+                id="stress-overlays-sub-file-image"
+                popover
+              >
+                <li>
+                  <button
+                    type="button"
+                    commandfor="stress-overlays-sub-file-image"
+                    command="hide-popover"
+                  >
+                    <div class="ui-text"><p>JPG</p></div>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    commandfor="stress-overlays-sub-file-image"
+                    command="hide-popover"
+                  >
+                    <div class="ui-text"><p>PNG</p></div>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    commandfor="stress-overlays-sub-file-image"
+                    command="hide-popover"
+                  >
+                    <div class="ui-text"><p>WEBP</p></div>
+                  </button>
+                </li>
+              </menu>
+            </li>
+          </menu>
+        </li>
+      </menu>
+    </div>
+    <div class="stress-row">
+      <button
+        class="ui-button ui-outlined"
+        type="button"
+        commandfor="stress-overlays-sub-edit"
+        command="toggle-popover"
+      >
+        Edit
+      </button>
+      <menu
+        class="ui-menu ui-list ui-align-end"
+        id="stress-overlays-sub-edit"
+        popover
+      >
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-sub-edit"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Copy</p></div>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-sub-edit-transform"
+            command="toggle-popover"
+          >
+            <div class="ui-text"><p>Transform</p></div>
+            <div class="ui-end">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12l-6.293-6.293a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+                />
+              </svg>
+            </div>
+          </button>
+          <menu
+            class="ui-menu ui-list ui-inline-end"
+            id="stress-overlays-sub-edit-transform"
+            popover
+          >
+            <li>
+              <button
+                type="button"
+                commandfor="stress-overlays-sub-edit"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>Flip</p></div>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                commandfor="stress-overlays-sub-edit-rotate"
+                command="toggle-popover"
+              >
+                <div class="ui-text"><p>Rotate</p></div>
+                <div class="ui-end">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12l-6.293-6.293a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+                    />
+                  </svg>
+                </div>
+              </button>
+              <menu
+                class="ui-menu ui-list ui-inline-end"
+                id="stress-overlays-sub-edit-rotate"
+                popover
+              >
+                <li>
+                  <button
+                    type="button"
+                    commandfor="stress-overlays-sub-edit-rotate"
+                    command="hide-popover"
+                  >
+                    <div class="ui-text"><p>90° left</p></div>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    commandfor="stress-overlays-sub-edit-rotate"
+                    command="hide-popover"
+                  >
+                    <div class="ui-text"><p>90° right</p></div>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    commandfor="stress-overlays-sub-edit-rotate"
+                    command="hide-popover"
+                  >
+                    <div class="ui-text"><p>180°</p></div>
+                  </button>
+                </li>
+              </menu>
+            </li>
+          </menu>
+        </li>
+        <li>
+          <button
+            type="button"
+            commandfor="stress-overlays-sub-edit"
+            command="hide-popover"
+          >
+            <div class="ui-text"><p>Paste</p></div>
+          </button>
+        </li>
+      </menu>
+    </div>
+  </div>
+</section>
+
+<section class="stress" data-example="LongContent">
+  <h2>Long content</h2>
+  <p>
+    A dialog with a long form scrolls inside its own box, a 30 item menu stops
+    at 60% of the viewport and scrolls, a long tooltip wraps at 240px, and
+    pickers with 40 options stay on screen.
+  </p>
+  <div class="stress-row">
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-long-dialog"
+      command="show-modal"
+    >
+      Long form</button
+    ><button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-long-menu"
+      command="toggle-popover"
+    >
+      30 items
+    </button>
+    <menu class="ui-menu ui-list" id="stress-overlays-long-menu" popover>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Amber</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Aqua</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Azure</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Beige</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Black</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Blue</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Bronze</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Brown</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Coral</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Crimson</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Cyan</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Emerald</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Gold</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Gray</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Green</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Indigo</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Ivory</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Lavender</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Lime</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Magenta</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Maroon</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Navy</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Olive</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Orange</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Pink</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Purple</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Red</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Silver</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Teal</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-long-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>White</p></div>
+        </button>
+      </li>
+    </menu>
+    <span class="ui-anchor ui-tooltip ui-with-arrow"
+      ><button
+        class="ui-button"
+        type="button"
+        interestfor="stress-overlays-long-tooltip"
+        commandfor="stress-overlays-long-tooltip"
+        command="toggle-popover"
+      >
+        Long tooltip</button
+      ><span
+        class="ui-anchor-floating"
+        id="stress-overlays-long-tooltip"
+        popover="hint"
+        >This tooltip has a lot to say. It keeps going well past the point where
+        a tooltip should stop, so it has to wrap over many lines without leaving
+        the viewport or covering its own trigger.</span
+      ></span
+    ><label class="ui-select"
+      ><span class="ui-label" id="stress-overlays-long-select-label"
+        >Country</span
+      ><span class="ui-field"
+        ><select
+          id="stress-overlays-long-select"
+          aria-labelledby="stress-overlays-long-select-label"
+        >
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Argentina</option>
+            <option>Australia</option>
+            <option>Austria</option>
+            <option>Belgium</option>
+            <option>Brazil</option>
+            <option>Canada</option>
+            <option>Chile</option>
+            <option>Colombia</option>
+            <option>Croatia</option>
+            <option>Czechia</option>
+            <option>Denmark</option>
+            <option>Egypt</option>
+            <option>Estonia</option>
+            <option>Finland</option>
+            <option>France</option>
+            <option>Germany</option>
+            <option>Greece</option>
+            <option>Hungary</option>
+            <option>Iceland</option>
+            <option>India</option>
+            <option>Ireland</option>
+            <option>Italy</option>
+            <option>Japan</option>
+            <option>Kenya</option>
+            <option>Latvia</option>
+            <option>Lithuania</option>
+            <option>Mexico</option>
+            <option>Morocco</option>
+            <option>Netherlands</option>
+            <option>New Zealand</option>
+            <option>Norway</option>
+            <option>Poland</option>
+            <option>Portugal</option>
+            <option>Romania</option>
+            <option>Spain</option>
+            <option>Sweden</option>
+            <option>Switzerland</option>
+            <option>Turkey</option>
+            <option>Ukraine</option>
+            <option>Uruguay</option>
+          </div>
+        </select></span
+      ></label
+    ><label class="ui-select"
+      ><span class="ui-label" id="stress-overlays-long-classic-label"
+        >Country</span
+      ><span class="ui-field"
+        ><select
+          id="stress-overlays-long-classic"
+          aria-labelledby="stress-overlays-long-classic-label"
+        >
+          <option>Argentina</option>
+          <option>Australia</option>
+          <option>Austria</option>
+          <option>Belgium</option>
+          <option>Brazil</option>
+          <option>Canada</option>
+          <option>Chile</option>
+          <option>Colombia</option>
+          <option>Croatia</option>
+          <option>Czechia</option>
+          <option>Denmark</option>
+          <option>Egypt</option>
+          <option>Estonia</option>
+          <option>Finland</option>
+          <option>France</option>
+          <option>Germany</option>
+          <option>Greece</option>
+          <option>Hungary</option>
+          <option>Iceland</option>
+          <option>India</option>
+          <option>Ireland</option>
+          <option>Italy</option>
+          <option>Japan</option>
+          <option>Kenya</option>
+          <option>Latvia</option>
+          <option>Lithuania</option>
+          <option>Mexico</option>
+          <option>Morocco</option>
+          <option>Netherlands</option>
+          <option>New Zealand</option>
+          <option>Norway</option>
+          <option>Poland</option>
+          <option>Portugal</option>
+          <option>Romania</option>
+          <option>Spain</option>
+          <option>Sweden</option>
+          <option>Switzerland</option>
+          <option>Turkey</option>
+          <option>Ukraine</option>
+          <option>Uruguay</option>
+        </select></span
+      ></label
+    >
+  </div>
+  <dialog
+    id="stress-overlays-long-dialog"
+    class="ui-dialog ui-card ui-elevated"
+    aria-labelledby="stress-overlays-long-dialog-heading"
+    closedby="any"
+  >
+    <hgroup>
+      <h2 id="stress-overlays-long-dialog-heading" class="ui-h4">Profile</h2>
+    </hgroup>
+    <div class="ui-content">
+      <form class="ui-form stress-stack" method="dialog">
+        <label class="ui-text-field"
+          ><span class="ui-label">First name</span
+          ><span class="ui-field"
+            ><input type="text" value="Ada" /></span></label
+        ><label class="ui-text-field"
+          ><span class="ui-label">Last name</span
+          ><span class="ui-field"
+            ><input type="text" value="Lovelace" /></span></label
+        ><label class="ui-text-field"
+          ><span class="ui-label">Email</span
+          ><span class="ui-field"
+            ><input type="email" value="ada@example.com" /></span></label
+        ><label class="ui-text-field"
+          ><span class="ui-label">Phone</span
+          ><span class="ui-field"><input type="tel" /></span></label
+        ><label class="ui-text-field"
+          ><span class="ui-label">Street</span
+          ><span class="ui-field"><input type="text" /></span></label
+        ><label class="ui-text-field"
+          ><span class="ui-label">Postal code</span
+          ><span class="ui-field"><input type="text" /></span></label
+        ><label class="ui-text-field"
+          ><span class="ui-label">City</span
+          ><span class="ui-field"><input type="text" /></span></label
+        ><label class="ui-select"
+          ><span class="ui-label" id="stress-overlays-long-country-label"
+            >Country</span
+          ><span class="ui-field"
+            ><select
+              id="stress-overlays-long-country"
+              aria-labelledby="stress-overlays-long-country-label"
+            >
+              <button><selectedcontent></selectedcontent></button>
+              <div class="ui-list">
+                <option>Argentina</option>
+                <option>Australia</option>
+                <option>Austria</option>
+                <option>Belgium</option>
+                <option>Brazil</option>
+                <option>Canada</option>
+                <option>Chile</option>
+                <option>Colombia</option>
+                <option>Croatia</option>
+                <option>Czechia</option>
+                <option>Denmark</option>
+                <option>Egypt</option>
+                <option>Estonia</option>
+                <option>Finland</option>
+                <option>France</option>
+                <option>Germany</option>
+                <option>Greece</option>
+                <option>Hungary</option>
+                <option>Iceland</option>
+                <option>India</option>
+                <option>Ireland</option>
+                <option>Italy</option>
+                <option>Japan</option>
+                <option>Kenya</option>
+                <option>Latvia</option>
+                <option>Lithuania</option>
+                <option>Mexico</option>
+                <option>Morocco</option>
+                <option>Netherlands</option>
+                <option>New Zealand</option>
+                <option>Norway</option>
+                <option>Poland</option>
+                <option>Portugal</option>
+                <option>Romania</option>
+                <option>Spain</option>
+                <option>Sweden</option>
+                <option>Switzerland</option>
+                <option>Turkey</option>
+                <option>Ukraine</option>
+                <option>Uruguay</option>
+              </div>
+            </select></span
+          ></label
+        ><label class="ui-select"
+          ><span class="ui-label" id="stress-overlays-long-language-label"
+            >Language</span
+          ><span class="ui-field"
+            ><select
+              id="stress-overlays-long-language"
+              aria-labelledby="stress-overlays-long-language-label"
+            >
+              <option>Danish</option>
+              <option>English</option>
+              <option>Finnish</option>
+              <option>Norwegian</option>
+              <option>Swedish</option>
+            </select></span
+          ></label
+        ><label class="ui-text-field"
+          ><span class="ui-label">Birthday</span
+          ><span class="ui-field"
+            ><input type="date" value="1815-12-10" /></span></label
+        ><label class="ui-textarea"
+          ><span class="ui-label">Notes</span
+          ><span class="ui-field">
+            <textarea>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
+          </span></label
+        >
+        <fieldset class="ui-fieldset">
+          <legend>Notifications</legend>
+          <div class="ui-field-group">
+            <label class="ui-checkbox"
+              ><input
+                name="stress-overlays-long-notify"
+                type="checkbox"
+                checked
+              /><span class="ui-label">Email</span></label
+            ><label class="ui-checkbox"
+              ><input name="stress-overlays-long-notify" type="checkbox" /><span
+                class="ui-label"
+                >Push</span
+              ></label
+            ><label class="ui-checkbox"
+              ><input name="stress-overlays-long-notify" type="checkbox" /><span
+                class="ui-label"
+                >SMS</span
+              ></label
+            >
+          </div>
+        </fieldset>
+        <details class="ui-accordion ui-marker-rotate">
+          <summary>
+            Terms<svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414"
+              />
+            </svg>
+          </summary>
+          <div class="ui-content">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <p>
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </p>
+            <p>
+              Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur.
+            </p>
+            <p>
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+              officia deserunt mollit anim id est laborum.
+            </p>
+          </div>
+        </details>
+      </form>
+    </div>
+    <div class="ui-actions">
+      <button
+        class="ui-button"
+        type="button"
+        commandfor="stress-overlays-long-dialog"
+        command="close"
+      >
+        Cancel</button
+      ><button
+        class="ui-button ui-filled"
+        type="button"
+        commandfor="stress-overlays-long-dialog"
+        command="close"
+      >
+        Save
+      </button>
+    </div>
+  </dialog>
+</section>
+
+<section class="stress" data-example="MenuToOverlay">
+  <h2>Overlays opened from a menu</h2>
+  <p>
+    Menu items that open a dialog and a drawer. The modal opens above the page
+    and the menu does not linger above or below it.
+  </p>
+  <div class="stress-row">
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-launch-menu"
+      command="toggle-popover"
+    >
+      Project
+    </button>
+    <menu class="ui-menu ui-list" id="stress-overlays-launch-menu" popover>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-launch-dialog"
+          command="show-modal"
+        >
+          <div class="ui-text"><p>Rename</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-launch-drawer"
+          command="show-modal"
+        >
+          <div class="ui-text"><p>Show details</p></div>
+        </button>
+      </li>
+    </menu>
+  </div>
+  <dialog
+    id="stress-overlays-launch-dialog"
+    class="ui-dialog ui-card ui-elevated"
+    aria-labelledby="stress-overlays-launch-dialog-heading"
+    closedby="any"
+  >
+    <hgroup>
+      <h2 id="stress-overlays-launch-dialog-heading" class="ui-h4">
+        Rename project
+      </h2>
+    </hgroup>
+    <div class="ui-content">
+      <label class="ui-text-field"
+        ><span class="ui-label">Name</span
+        ><span class="ui-field"><input type="text" value="Stress test" /></span
+      ></label>
+    </div>
+    <div class="ui-actions">
+      <button
+        class="ui-button"
+        type="button"
+        commandfor="stress-overlays-launch-dialog"
+        command="close"
+      >
+        Cancel</button
+      ><button
+        class="ui-button ui-filled"
+        type="button"
+        commandfor="stress-overlays-launch-dialog"
+        command="close"
+      >
+        Rename
+      </button>
+    </div>
+  </dialog>
+  <dialog
+    class="ui-drawer ui-scroll-lock ui-inline-start"
+    id="stress-overlays-launch-drawer"
+    aria-labelledby="stress-overlays-launch-drawer-heading"
+    closedby="any"
+  >
+    <div class="ui-header">
+      <h2 id="stress-overlays-launch-drawer-heading">Details</h2>
+      <button
+        class="ui-button ui-rounded ui-ripple ui-small"
+        type="button"
+        aria-label="Close"
+        commandfor="stress-overlays-launch-drawer"
+        command="close"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="ui-content">
+      <dl class="ui-description-list">
+        <div class="ui-item">
+          <dt class="ui-term">Created</dt>
+          <dd class="ui-description">2026-09-01</dd>
+        </div>
+        <div class="ui-item">
+          <dt class="ui-term">Owner</dt>
+          <dd class="ui-description">Kim Berg</dd>
+        </div>
+        <div class="ui-item">
+          <dt class="ui-term">Status</dt>
+          <dd class="ui-description">Draft</dd>
+        </div>
+      </dl>
+    </div>
+    <div class="ui-footer">
+      <button
+        class="ui-button ui-small"
+        type="button"
+        commandfor="stress-overlays-launch-drawer"
+        command="close"
+      >
+        Close
+      </button>
+    </div>
+  </dialog>
+</section>
+
+<section class="stress" data-example="ToastLayering">
+  <h2>Toasts and modals</h2>
+  <p>
+    Static toasts in the toast manager, shown without JavaScript. Show them and
+    then open the dialog: the manager is already in the top layer, so the dialog
+    and its backdrop cover it. Hide and show them again from inside the dialog
+    to bring them above.
+  </p>
+  <div class="stress-row">
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="toast-manager"
+      command="toggle-popover"
+    >
+      Toggle toasts</button
+    ><button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-toast-dialog"
+      command="show-modal"
+    >
+      Open dialog
+    </button>
+  </div>
+  <dialog
+    id="stress-overlays-toast-dialog"
+    class="ui-dialog ui-card ui-elevated"
+    aria-labelledby="stress-overlays-toast-dialog-heading"
+    closedby="any"
+  >
+    <hgroup>
+      <h2 id="stress-overlays-toast-dialog-heading" class="ui-h4">Publish</h2>
+    </hgroup>
+    <div class="ui-content">
+      <p>Publishing sends a toast while this dialog is open.</p>
+    </div>
+    <div class="ui-actions">
+      <button
+        class="ui-button"
+        type="button"
+        commandfor="toast-manager"
+        command="hide-popover"
+      >
+        Hide toasts</button
+      ><button
+        class="ui-button"
+        type="button"
+        commandfor="toast-manager"
+        command="show-popover"
+      >
+        Show toasts</button
+      ><button
+        class="ui-button ui-filled"
+        type="button"
+        commandfor="stress-overlays-toast-dialog"
+        command="close"
+      >
+        Done
+      </button>
+    </div>
+  </dialog>
+  <output aria-live="polite" id="toast-manager" popover="manual" role="status"
+    ><div
+      class="ui-toast"
+      role="alert"
+      data-severity="success"
+      data-duration="600s"
+    >
+      <span class="ui-icon"></span>
+      <div class="ui-content">
+        <div class="ui-title">Published</div>
+        <div class="ui-description">Your project is live.</div>
+      </div>
+      <button
+        class="ui-close-button"
+        type="button"
+        aria-label="Close published toast"
+        commandfor="toast-manager"
+        command="hide-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="ui-toast"
+      role="alert"
+      data-severity="critical"
+      data-duration="600s"
+    >
+      <span class="ui-icon"></span>
+      <div class="ui-content">
+        <div class="ui-title">Sync failed</div>
+        <div class="ui-description">
+          The connection dropped while saving the last 12 changes. They are kept
+          on this device and retried as soon as you are back online.
+        </div>
+      </div>
+      <button
+        class="ui-close-button"
+        type="button"
+        aria-label="Close sync toast"
+        commandfor="toast-manager"
+        command="hide-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="ui-toast" role="alert" data-duration="600s">
+      <span class="ui-icon"></span>
+      <div class="ui-content"><div class="ui-title">Copied link</div></div>
+      <button
+        class="ui-close-button"
+        type="button"
+        aria-label="Close copied toast"
+        commandfor="toast-manager"
+        command="hide-popover"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button></div
+  ></output>
+</section>
+
+<section class="stress" data-example="Rtl">
+  <h2>Right to left</h2>
+  <p>
+    The same overlays in a right to left container. Inline end submenus and
+    tooltips open to the left, the end aligned menu lines up with the left edge
+    of its trigger and the inline start drawer slides in from the right.
+  </p>
+  <div class="stress-row stress-center" dir="rtl">
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-rtl-menu"
+      command="toggle-popover"
+    >
+      Menu
+    </button>
+    <menu class="ui-menu ui-list" id="stress-overlays-rtl-menu" popover>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-rtl-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Copy</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-rtl-submenu"
+          command="toggle-popover"
+        >
+          <div class="ui-text"><p>Share</p></div>
+          <div class="ui-end">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M8.293 19.707a1 1 0 0 1 0-1.414L14.586 12l-6.293-6.293a1 1 0 1 1 1.414-1.414l7 7a1 1 0 0 1 0 1.414l-7 7a1 1 0 0 1-1.414 0"
+              />
+            </svg>
+          </div>
+        </button>
+        <menu
+          class="ui-menu ui-list ui-inline-end"
+          id="stress-overlays-rtl-submenu"
+          popover
+        >
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-rtl-submenu"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Email</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-rtl-submenu"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Link</p></div>
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              commandfor="stress-overlays-rtl-submenu"
+              command="hide-popover"
+            >
+              <div class="ui-text"><p>Message</p></div>
+            </button>
+          </li>
+        </menu>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-rtl-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Paste</p></div>
+        </button>
+      </li>
+    </menu>
+    <button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-rtl-end-menu"
+      command="toggle-popover"
+    >
+      End aligned
+    </button>
+    <menu
+      class="ui-menu ui-list ui-align-end"
+      id="stress-overlays-rtl-end-menu"
+      popover
+    >
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-rtl-end-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Copy</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-rtl-end-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Cut</p></div>
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          commandfor="stress-overlays-rtl-end-menu"
+          command="hide-popover"
+        >
+          <div class="ui-text"><p>Paste</p></div>
+        </button>
+      </li>
+    </menu>
+    <span
+      class="ui-anchor ui-tooltip ui-with-arrow"
+      style="--anchor-position-area: inline-end"
+      ><button
+        class="ui-button"
+        type="button"
+        interestfor="stress-overlays-rtl-tooltip"
+        commandfor="stress-overlays-rtl-tooltip"
+        command="toggle-popover"
+      >
+        Tooltip</button
+      ><span
+        class="ui-anchor-floating"
+        id="stress-overlays-rtl-tooltip"
+        popover="hint"
+        >Opens on the inline end side</span
+      ></span
+    ><label class="ui-select"
+      ><span class="ui-label" id="stress-overlays-rtl-select-label">Status</span
+      ><span class="ui-field"
+        ><select
+          id="stress-overlays-rtl-select"
+          aria-labelledby="stress-overlays-rtl-select-label"
+        >
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option>Archived</option>
+            <option>Draft</option>
+            <option>In review</option>
+            <option>Published</option>
+          </div>
+        </select></span
+      ></label
+    ><label class="ui-select"
+      ><span class="ui-label" id="stress-overlays-rtl-classic-label">Owner</span
+      ><span class="ui-field"
+        ><select
+          id="stress-overlays-rtl-classic"
+          aria-labelledby="stress-overlays-rtl-classic-label"
+        >
+          <option>Alex Andersson</option>
+          <option>Kim Berg</option>
+          <option>Sam Lindqvist</option>
+          <option>Robin Nyström</option>
+        </select></span
+      ></label
+    ><button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-rtl-drawer-start"
+      command="show-modal"
+    >
+      Inline start drawer</button
+    ><button
+      class="ui-button ui-outlined"
+      type="button"
+      commandfor="stress-overlays-rtl-drawer-end"
+      command="show-modal"
+    >
+      Inline end drawer
+    </button>
+    <dialog
+      class="ui-drawer ui-scroll-lock ui-inline-start"
+      id="stress-overlays-rtl-drawer-start"
+      aria-labelledby="stress-overlays-rtl-drawer-start-heading"
+      closedby="any"
+    >
+      <div class="ui-header">
+        <h2 id="stress-overlays-rtl-drawer-start-heading">Inline start</h2>
+        <button
+          class="ui-button ui-rounded ui-ripple ui-small"
+          type="button"
+          aria-label="Close"
+          commandfor="stress-overlays-rtl-drawer-start"
+          command="close"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="ui-content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+        <p>
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+          nisi ut aliquip ex ea commodo consequat.
+        </p>
+        <p>
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+          dolore eu fugiat nulla pariatur.
+        </p>
+        <p>
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+          officia deserunt mollit anim id est laborum.
+        </p>
+        <div class="stress-row stress-center">
+          <button
+            class="ui-button ui-outlined"
+            type="button"
+            commandfor="stress-overlays-rtl-drawer-menu"
+            command="toggle-popover"
+          >
+            Menu
+          </button>
+          <menu
+            class="ui-menu ui-list ui-inline-end"
+            id="stress-overlays-rtl-drawer-menu"
+            popover
+          >
+            <li>
+              <button
+                type="button"
+                commandfor="stress-overlays-rtl-drawer-menu"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>Copy</p></div>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                commandfor="stress-overlays-rtl-drawer-menu"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>Cut</p></div>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                commandfor="stress-overlays-rtl-drawer-menu"
+                command="hide-popover"
+              >
+                <div class="ui-text"><p>Paste</p></div>
+              </button>
+            </li>
+          </menu>
+        </div>
+      </div>
+      <div class="ui-footer">
+        <button
+          class="ui-button ui-small"
+          type="button"
+          commandfor="stress-overlays-rtl-drawer-start"
+          command="close"
+        >
+          Close
+        </button>
+      </div>
+    </dialog>
+    <dialog
+      class="ui-drawer ui-scroll-lock ui-inline-end"
+      id="stress-overlays-rtl-drawer-end"
+      aria-labelledby="stress-overlays-rtl-drawer-end-heading"
+      closedby="any"
+    >
+      <div class="ui-header">
+        <h2 id="stress-overlays-rtl-drawer-end-heading">Inline end</h2>
+        <button
+          class="ui-button ui-rounded ui-ripple ui-small"
+          type="button"
+          aria-label="Close"
+          commandfor="stress-overlays-rtl-drawer-end"
+          command="close"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="currentColor"
+              d="M26.29 4.293a1 1 0 1 1 1.414 1.414L17.413 16l10.291 10.29a1 1 0 1 1-1.414 1.414L16 17.413L5.707 27.704a1 1 0 0 1-1.414-1.414L14.585 16L4.293 5.707a1 1 0 0 1 1.414-1.414L16 14.584z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div class="ui-content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+        <p>
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+          nisi ut aliquip ex ea commodo consequat.
+        </p>
+        <p>
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+          dolore eu fugiat nulla pariatur.
+        </p>
+        <p>
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+          officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
+      <div class="ui-footer">
+        <button
+          class="ui-button ui-small"
+          type="button"
+          commandfor="stress-overlays-rtl-drawer-end"
+          command="close"
+        >
+          Close
+        </button>
+      </div>
+    </dialog>
+  </div>
+</section>

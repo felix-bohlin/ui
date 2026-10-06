@@ -14,7 +14,6 @@
     padding: 0;
     pointer-events: none;
     position: fixed;
-    z-index: 1000;
 
     &:popover-open {
       display: flex;
@@ -23,25 +22,30 @@
     &::backdrop {
       display: none;
     }
-
-    /* Optional cap on visible toasts. Older toasts beyond this depth are hidden
-		   but still in the DOM so they animate cleanly when newer ones are removed. */
-    /* > .toast:nth-last-child(n + 6) { display: none; } */
   }
 
   :where(.ui-toast) {
-    --_anim-enter: 0.3s;
-    --_anim-exit: 0.3s;
+    --_motion: var(--motion, 1);
+    --_enter-duration: calc(var(--duration-slow) * var(--_motion));
+    --_exit-duration: calc(var(--duration-slow) * var(--_motion));
+    --_hold-duration: 5s;
 
     align-items: center;
     animation:
-      toast-enter var(--_anim-enter) var(--ease-out-3) both,
-      toast-hold attr(data-duration type(<time>), 5s) linear both,
-      toast-exit var(--_anim-exit) var(--ease-in-3) both;
+      ui-toast-enter var(--_enter-duration) var(--ease-enter) both,
+      ui-toast-hold var(--_hold-duration) linear both,
+      ui-toast-exit var(--_exit-duration) var(--ease-exit) both;
+    animation:
+      ui-toast-enter var(--_enter-duration) var(--ease-enter) both,
+      ui-toast-hold attr(data-duration type(<time>), 5s) linear both,
+      ui-toast-exit var(--_exit-duration) var(--ease-exit) both;
     animation-delay:
-      0s, var(--_anim-enter),
-      calc(var(--_anim-enter) + attr(data-duration type(<time>), 5s));
-    background-color: light-dark(var(--gray-15), var(--gray-2));
+      0s, var(--_enter-duration),
+      calc(var(--_enter-duration) + var(--_hold-duration));
+    animation-delay:
+      0s, var(--_enter-duration),
+      calc(var(--_enter-duration) + attr(data-duration type(<time>), 5s));
+    background-color: var(--surface-inverse);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-3);
     color: var(--text-primary-contrast);
@@ -52,19 +56,25 @@
     padding: var(--size-3) var(--size-4);
     pointer-events: auto;
 
-    &:hover {
+    @media (hover: hover) {
+      &:hover {
+        animation-play-state: paused;
+      }
+    }
+
+    &:focus-within {
       animation-play-state: paused;
     }
 
     &.ui-exiting {
-      animation: toast-exit var(--_anim-exit) var(--ease-in-3) forwards;
+      animation: ui-toast-exit var(--_exit-duration) var(--ease-exit) forwards;
     }
 
     .ui-icon {
-      background: no-repeat center / contain;
-      block-size: var(--size-4);
+      block-size: var(--icon-size);
       flex-shrink: 0;
-      inline-size: var(--size-4);
+      inline-size: var(--icon-size);
+      mask: center / contain no-repeat;
     }
 
     /* Hide the icon slot when there's no severity to render against. */
@@ -78,7 +88,7 @@
     }
 
     .ui-title {
-      font-weight: 600;
+      font-weight: var(--font-weight-semibold);
     }
 
     .ui-description {
@@ -95,31 +105,37 @@
       opacity: 0.7;
       padding: var(--size-1);
       place-items: center;
-      transition: opacity 0.2s;
+      transition: opacity calc(var(--duration) * var(--_motion));
 
-      &:hover {
-        opacity: 1;
+      @media (hover: hover) {
+        &:hover {
+          opacity: 1;
+        }
       }
     }
 
     &[data-severity="success"] .ui-icon {
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2322c55e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><path d='m9 11 3 3L22 4'/></svg>");
+      background-color: var(--success);
+      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><path d='m9 11 3 3L22 4'/></svg>");
     }
 
     &[data-severity="info"] .ui-icon {
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M12 16v-4'/><path d='M12 8h.01'/></svg>");
+      background-color: var(--info);
+      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M12 16v-4'/><path d='M12 8h.01'/></svg>");
     }
 
     &[data-severity="warning"] .ui-icon {
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/><path d='M12 9v4'/><path d='M12 17h.01'/></svg>");
+      background-color: var(--warning);
+      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'/><path d='M12 9v4'/><path d='M12 17h.01'/></svg>");
     }
 
     &[data-severity="critical"] .ui-icon {
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ef4444' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>");
+      background-color: var(--critical);
+      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='m15 9-6 6'/><path d='m9 9 6 6'/></svg>");
     }
   }
 
-  @keyframes toast-enter {
+  @keyframes ui-toast-enter {
     from {
       opacity: 0;
       translate: var(--size-4) 0;
@@ -131,7 +147,7 @@
     }
   }
 
-  @keyframes toast-hold {
+  @keyframes ui-toast-hold {
     from {
       opacity: 1;
     }
@@ -141,7 +157,7 @@
     }
   }
 
-  @keyframes toast-exit {
+  @keyframes ui-toast-exit {
     from {
       opacity: 1;
       scale: 1;

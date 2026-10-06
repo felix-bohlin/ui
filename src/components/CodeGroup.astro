@@ -16,7 +16,7 @@ const { tabs } = Astro.props
 ---
 
 <div class="code-group ui-card ui-outlined ui-not-rich-text">
-  <Tabs class="underlined" aria-label="Code tabs">
+  <Tabs variant="line" class="code-tabs">
     {
       tabs.map((tab, index) => (
         <Tabs.Item open={index === 0}>
@@ -34,8 +34,8 @@ const { tabs } = Astro.props
   .code-group {
     gap: 0;
     margin-block: var(--size-4);
-    padding: 0;
     overflow: hidden;
+    padding: 0;
   }
 </style>
 

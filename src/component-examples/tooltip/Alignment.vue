@@ -37,30 +37,30 @@ import { Button, Tooltip } from "opui-css/vue"
       >
     </Tooltip>
   </div>
-
-  <style>
-    .tooltip-alignment-grid {
-      display: grid;
-      gap: var(--size-3);
-      grid-template-areas:
-        ".     top    .  "
-        "start .      end"
-        ".     bottom .  ";
-      justify-items: center;
-      align-items: center;
-    }
-
-    .tooltip-alignment-grid > :nth-child(1) {
-      grid-area: top;
-    }
-    .tooltip-alignment-grid > :nth-child(2) {
-      grid-area: start;
-    }
-    .tooltip-alignment-grid > :nth-child(3) {
-      grid-area: end;
-    }
-    .tooltip-alignment-grid > :nth-child(4) {
-      grid-area: bottom;
-    }
-  </style>
 </template>
+
+<style>
+.tooltip-alignment-grid {
+  align-items: center;
+  display: grid;
+  gap: var(--size-3);
+  grid-template-areas:
+    ".     top    .  "
+    "start .      end"
+    ".     bottom .  ";
+  justify-items: center;
+}
+
+.tooltip-alignment-grid > :nth-child(1) {
+  grid-area: top;
+}
+.tooltip-alignment-grid > :nth-child(2) {
+  grid-area: start;
+}
+.tooltip-alignment-grid > :nth-child(3) {
+  grid-area: end;
+}
+.tooltip-alignment-grid > :nth-child(4) {
+  grid-area: bottom;
+}
+</style>

@@ -1,15 +1,21 @@
 ---
 import Component from "../../layouts/Component.astro"
-import Example from "../../components/Example"
+import DocLink from "../../components/DocLink.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import { Chip as UIChip } from "@opui/astro"
 import AutoExample from "../../components/AutoExample.astro"
 import ChipCSS from "@opui/css/components/chip.css?raw"
-import ExampleAnatomy from "../../component-examples/chip/Anatomy.astro"
 import Conditional from "../../components/Conditional.astro"
+
+import chipApi from "../../component-api/chip/api"
+import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
 ---
 
 <Component
   slug="chip"
-  browserSupport={["color-mix", "has", "light-dark", "relative-color"]}
+  heroAnatomy
+  apis={[{ title: "Chip API", api: chipApi }]}
+  browserSupport={["has", "light-dark", "relative-color"]}
   changelogPaths={[
     {
       path: "packages/opui/components/Chip/Chip.astro",
@@ -28,6 +34,8 @@ import Conditional from "../../components/Conditional.astro"
   <Fragment slot="title">Chip</Fragment>
   <Fragment slot="preamble">
     Chips are compact elements that represent an input, attribute, or action.
+    Use them for filters, tags and choices. For the main action, like Save or
+    Send, use a <DocLink href="/components/button">Button</DocLink>.
   </Fragment>
 
   <section>
@@ -57,10 +65,15 @@ import Conditional from "../../components/Conditional.astro"
   </section>
 
   <section>
+    <h2 id="sizes">Sizes</h2>
+    <AutoExample name="Sizes" row />
+  </section>
+
+  <section>
     <h2 id="icon">Icon</h2>
     <Conditional>
       <p slot="astro">
-        The icon can be placed before or after the text using the
+        The icon can be placed before or after the text using the{" "}
         <code>start</code> and <code>end</code> slots.
       </p>
       <p slot="html">
@@ -72,7 +85,7 @@ import Conditional from "../../components/Conditional.astro"
         <code>start</code> and <code>end</code> props.
       </p>
       <p slot="vue">
-        The icon can be placed before or after the text using the
+        The icon can be placed before or after the text using the{" "}
         <code>start</code> and <code>end</code> slots.
       </p>
     </Conditional>
@@ -90,69 +103,45 @@ import Conditional from "../../components/Conditional.astro"
   </section>
 
   <section>
-    <h2 id="sizes">Sizes</h2>
-    <AutoExample name="Sizes" row />
+    <h2 id="disabled">Disabled</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Disable a button chip with the <code>disabled</code> attribute.
+      </Fragment>
+      <Fragment slot="html">
+        Add disabled styling with the <code>disabled</code> attribute, <code
+          >aria-disabled="true"</code
+        > or the <code>.ui-disabled</code> class.
+      </Fragment>
+      <Fragment slot="vue">
+        Disable a button chip with the <code>disabled</code> attribute.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Disabled" row />
   </section>
 
+  <ChipBuild slot="under-the-hood" />
+
   <Fragment slot="anatomy">
-    <Conditional>
-      <p slot="astro">
-        1. Container: <code>&lt;Chip&gt;</code> (renders as <code>div</code>, <code
-          >a</code
-        > or <code>button</code>)
-        <br />
-        2. Text: <code>label</code> prop or <code>default slot</code>
-        <br />
-        3. Icon (optional): <code>&lt;svg&gt;</code> element in the <code
-          >start</code
-        > or <code>end</code> slot
-      </p>
-      <p slot="html">
-        1. Container: <code>div</code>, <code>a</code> or <code>button</code> with
-        <code>.ui-chip</code> class
-        <br />
-        2. Text: <code>.ui-text</code> wrapper
-        <br />
-        3. Icon (optional): <code>&lt;svg&gt;</code> element
-      </p>
-      <p slot="solid">
-        1. Container: <code>&lt;Chip&gt;</code> (renders as <code>div</code>, <code
-          >a</code
-        > or <code>button</code>)
-        <br />
-        2. Text: <code>label</code> prop or <code>children</code>
-        <br />
-        3. Icon (optional): <code>&lt;svg&gt;</code> element in the <code
-          >start</code
-        > or <code>end</code> prop
-      </p>
-      <p slot="vue">
-        1. Container: <code>&lt;Chip&gt;</code> (renders as <code>div</code>, <code
-          >a</code
-        > or <code>button</code>)
-        <br />
-        2. Text: <code>label</code> prop or <code>default slot</code>
-        <br />
-        3. Icon (optional): <code>&lt;svg&gt;</code> element in the <code
-          >start</code
-        > or <code>end</code> slot
-      </p>
-    </Conditional>
-    <Example row>
-      <Example.Preview slot="preview-astro" code={ExampleAnatomy} />
-    </Example>
+    <Anatomy zoom={1.5}>
+      <UIChip label="Chip">
+        <svg
+          slot="start"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 32 32"
+        >
+          <path
+            fill="currentColor"
+            d="M29.907 5.14a1.25 1.25 0 0 1-.047 1.767l-19 18a1.25 1.25 0 0 1-1.775-.055l-6.75-7.25a1.25 1.25 0 0 1 1.83-1.704l5.89 6.327L28.14 5.093a1.25 1.25 0 0 1 1.767.047"
+          ></path>
+        </svg>
+        <svg slot="end" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+          <path
+            fill="currentColor"
+            d="M6.293 6.293a1 1 0 0 1 1.414 0L16 14.586l8.293-8.293a1 1 0 1 1 1.414 1.414L17.414 16l8.293 8.293a1 1 0 0 1-1.414 1.414L16 17.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L14.586 16L6.293 7.707a1 1 0 0 1 0-1.414"
+          ></path>
+        </svg>
+      </UIChip>
+    </Anatomy>
   </Fragment>
 </Component>
-
-<style is:global>
-  .anatomy {
-    outline: var(--_anatomy-border-gray);
-    outline-offset: -2px;
-
-    .ui-text,
-    svg {
-      outline: var(--_anatomy-border-red);
-      outline-offset: -3px;
-    }
-  }
-</style>

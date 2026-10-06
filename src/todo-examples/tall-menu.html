@@ -1,0 +1,88 @@
+<style>
+  .todo-tall-menu {
+    align-content: center;
+    block-size: 560px;
+    border: 1px dashed var(--border-color);
+    display: grid;
+    inline-size: 100%;
+    justify-items: center;
+  }
+</style>
+<p>
+  Open the menu. The area is 560px tall (the size of a short laptop window), the
+  trigger sits in the middle and the menu holds 12 items. Neither side has room,
+  so the menu runs past the bottom of the iframe and the last items are cut off.
+  Open the example in a new tab and resize the window to about 600px high to see
+  it against the real viewport.
+</p>
+<div class="todo-tall-menu">
+  <button
+    class="ui-button ui-outlined"
+    commandfor="todo-tall-menu"
+    command="toggle-popover"
+  >
+    Actions
+  </button>
+  <menu class="ui-menu ui-list" id="todo-tall-menu" popover>
+    <li>
+      <button type="button">
+        <div class="ui-text"><p>Open</p></div>
+      </button>
+    </li>
+    <li>
+      <button type="button">
+        <div class="ui-text"><p>Open in new tab</p></div>
+      </button>
+    </li>
+    <li>
+      <button type="button">
+        <div class="ui-text"><p>Rename</p></div>
+      </button>
+    </li>
+    <li>
+      <button type="button">
+        <div class="ui-text"><p>Duplicate</p></div>
+      </button>
+    </li>
+    <li>
+      <button type="button">
+        <div class="ui-text"><p>Move to</p></div>
+      </button>
+    </li>
+    <li>
+      <button type="button">
+        <div class="ui-text"><p>Copy link</p></div>
+      </button>
+    </li>
+    <li>
+      <button type="button">
+        <div class="ui-text"><p>Share</p></div>
+      </button>
+    </li>
+    <li>
+      <button type="button">
+        <div class="ui-text"><p>Download</p></div>
+      </button>
+    </li>
+    <li>
+      <button type="button">
+        <div class="ui-text"><p>Print</p></div>
+      </button>
+    </li>
+    <li>
+      <button type="button">
+        <div class="ui-text"><p>Version history</p></div>
+      </button>
+    </li>
+    <li>
+      <button type="button">
+        <div class="ui-text"><p>Archive</p></div>
+      </button>
+    </li>
+    <li class="ui-critical">
+      <button type="button">
+        <div class="ui-text"><p>Delete</p></div>
+      </button>
+    </li>
+  </menu>
+</div>

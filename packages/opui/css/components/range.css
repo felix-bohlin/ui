@@ -1,3 +1,9 @@
+@property --_track-fill {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
 @layer components.root {
   :where(.ui-range) {
     --_motion: var(--motion, 1);
@@ -7,45 +13,45 @@
     position: relative;
 
     .ui-label {
-      color: var(--text-primary);
-      font-size: var(--font-size-05);
-      font-weight: 600;
+      color: var(--field-label-color);
+      font-size: var(--field-label-font-size);
+      font-weight: var(--field-label-font-weight);
       grid-column: 1;
       grid-row: 1;
     }
 
     :where(.ui-value) {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
+      color: var(--field-helper-color);
+      font-size: var(--field-helper-font-size);
       font-variant-numeric: tabular-nums;
-      font-weight: 600;
+      font-weight: var(--font-weight-semibold);
       grid-column: 2;
       grid-row: 1;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
       text-align: end;
     }
 
     .ui-start-text {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
+      color: var(--field-helper-color);
+      font-size: var(--field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 2;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
     }
 
     :where(.ui-end-text) {
-      color: var(--text-muted);
-      font-size: var(--font-size-0);
+      color: var(--field-helper-color);
+      font-size: var(--field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 5;
-      line-height: 1.5;
+      line-height: var(--field-helper-line-height);
     }
 
     /* Datalist (tick mark labels) */
     :where(datalist) {
-      color: var(--text-muted);
+      color: var(--field-helper-color);
       display: flex;
-      font-size: var(--font-size-0);
+      font-size: var(--field-helper-font-size);
       grid-column: 1/-1;
       grid-row: 4;
       justify-content: space-between;
@@ -64,7 +70,7 @@
     /* Disabled */
     &:has([disabled]) {
       cursor: not-allowed;
-      opacity: 0.64;
+      opacity: var(--disabled-opacity);
       user-select: none;
 
       .ui-label,
@@ -80,10 +86,6 @@
       --_track-color: var(--surface-filled);
     }
 
-    &.ui-default input[type="range"] {
-      --_track-color: var(--surface-default);
-    }
-
     &.ui-tonal input[type="range"] {
       --_track-color: var(--surface-tonal);
     }
@@ -93,7 +95,7 @@
       align-items: center;
       column-gap: var(--size-4);
       container-type: inline-size;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 
       .ui-label {
         grid-column: 1;
@@ -101,19 +103,18 @@
       }
 
       .ui-start-text {
-        color: var(--text-muted);
+        color: var(--field-helper-color);
         display: block;
-        font-size: var(--font-size-0);
+        font-size: var(--field-helper-font-size);
         grid-column: 1;
         grid-row: 2;
-        line-height: 1.5;
+        line-height: var(--field-helper-line-height);
       }
 
       input[type="range"] {
         align-self: center;
         grid-column: 2;
         grid-row: 1;
-        min-inline-size: 25ch;
       }
 
       :where(.ui-value) {
@@ -145,23 +146,24 @@
       }
 
       @container (width < 400px) {
-        grid-template-columns: 1fr;
-
         * {
           grid-column: 1/-1;
         }
 
         .ui-label {
+          grid-column: 1/-1;
           grid-row: 1;
         }
 
         :where(.ui-value) {
+          grid-column: 1/-1;
           grid-row: 1;
           justify-self: end;
           text-align: end;
         }
 
         .ui-start-text {
+          grid-column: 1/-1;
           grid-row: 2;
         }
 
@@ -176,6 +178,7 @@
         }
 
         :where(.ui-end-text) {
+          grid-column: 1/-1;
           grid-row: 5;
           text-align: start;
         }
@@ -185,19 +188,16 @@
     /* Validation */
     &[data-invalid],
     &:has(:user-invalid) {
-      --_thumb-bg: var(--color-9);
-      --_thumb-highlight-color: oklch(from var(--color-9) 70% 100% h / 20%);
-
       .ui-start-text,
       .ui-end-text,
       .ui-value {
-        color: var(--color-9);
+        color: var(--invalid-text-color);
       }
     }
 
     /* Range input */
     :where(& > input[type="range"]) {
-      --_thumb-bg: var(--primary);
+      --_thumb-bg-color: var(--primary);
       --_thumb-highlight-color: oklch(from var(--primary) 70% 100% h / 20%);
       --_thumb-highlight-size: 0px;
       --_thumb-offset: -1.125ex;
@@ -222,16 +222,48 @@
         --_thumb-size: 30px;
       }
 
+      @supports (animation-timeline: view()) {
+        --_inset: max(
+          var(--size-2),
+          var(--_thumb-size) / 2 + var(--size-2) - var(--size-4) / 2
+        );
+
+        animation: ui-range-fill linear both;
+        animation-range: contain;
+        animation-timeline: --ui-range-thumb;
+        box-sizing: content-box;
+        margin: calc(var(--_inset) * -1);
+        outline-offset: calc(1ex - var(--_inset));
+        overflow: hidden;
+        padding: var(--_inset);
+        timeline-scope: --ui-range-thumb;
+
+        &:dir(rtl) {
+          animation-direction: reverse;
+        }
+
+        &::-webkit-slider-thumb {
+          view-timeline: --ui-range-thumb inline;
+          view-timeline-inset: var(--_inset);
+        }
+      }
+
       /* Track */
       &::-webkit-slider-runnable-track {
         appearance: none;
-        background: linear-gradient(
-          to right,
-          var(--_track-fill-color) var(--_track-fill, 0%),
-          var(--_track-color) 0%
+        background-color: var(--_track-color);
+        background-image: linear-gradient(
+          var(--_track-fill-color),
+          var(--_track-fill-color)
         );
+        background-repeat: no-repeat;
+        background-size: var(--_track-fill, 0%) 100%;
         block-size: var(--_track-height);
         border-radius: var(--_track-radius);
+      }
+
+      &:dir(rtl)::-webkit-slider-runnable-track {
+        background-position: right;
       }
 
       &::-moz-range-track {
@@ -251,7 +283,7 @@
       /* Ring */
       &::-webkit-slider-thumb {
         appearance: none;
-        background: var(--_thumb-bg);
+        background: var(--_thumb-bg-color);
         block-size: var(--_thumb-size);
         border: 3px solid var(--surface-default);
         border-radius: 50%;
@@ -261,16 +293,13 @@
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        transition: box-shadow calc(0.1s * var(--_motion)) ease;
-
-        .ui-fieldset-item:focus-within & {
-          border-color: var(--gray-14);
-        }
+        transition: box-shadow calc(var(--duration-fast) * var(--_motion))
+          var(--ease);
       }
 
       &::-moz-range-thumb {
         appearance: none;
-        background: var(--_thumb-bg);
+        background: var(--_thumb-bg-color);
         block-size: var(--_thumb-size);
         border: 3px solid var(--surface-default);
         border-radius: 50%;
@@ -280,22 +309,25 @@
         inline-size: var(--_thumb-size);
         margin-block-start: var(--_thumb-offset);
 
-        transition: box-shadow calc(0.1s * var(--_motion)) ease;
-
-        .ui-fieldset-item:focus-within & {
-          border-color: var(--gray-14);
-        }
+        transition: box-shadow calc(var(--duration-fast) * var(--_motion))
+          var(--ease);
       }
 
       /* Element state */
       .ui-range:has(:user-invalid) &,
       .ui-range[data-invalid] & {
-        --_track-fill-color: var(--color-9);
+        --_thumb-bg-color: var(--invalid-color);
+        --_thumb-highlight-color: oklch(
+          from var(--invalid-color) 70% 100% h / 20%
+        );
+        --_track-fill-color: var(--invalid-color);
       }
 
       &:not([disabled]) {
-        &:hover {
-          --_thumb-highlight-size: var(--size-1);
+        @media (hover: hover) {
+          &:hover {
+            --_thumb-highlight-size: var(--size-1);
+          }
         }
 
         &:active {
@@ -308,7 +340,7 @@
       }
 
       &[disabled] {
-        --_thumb-bg: oklch(from var(--text-primary) l c h / 50%);
+        --_thumb-bg-color: oklch(from var(--text-primary) l c h / 50%);
         --_track-color: var(--field-border-color);
 
         cursor: not-allowed;
@@ -321,6 +353,52 @@
           cursor: not-allowed;
         }
       }
+
+      @media (forced-colors: active) {
+        --_forced-fill-color: SelectedItem;
+        --_forced-track-color: CanvasText;
+
+        &[disabled] {
+          --_forced-fill-color: GrayText;
+          --_forced-track-color: GrayText;
+        }
+
+        &::-webkit-slider-runnable-track {
+          background-color: var(--_forced-track-color);
+          background-image: linear-gradient(
+            var(--_forced-fill-color),
+            var(--_forced-fill-color)
+          );
+        }
+
+        &::-moz-range-track {
+          background: var(--_forced-track-color);
+        }
+
+        &::-moz-range-progress {
+          background: var(--_forced-fill-color);
+        }
+
+        &::-webkit-slider-thumb {
+          background: var(--_forced-fill-color);
+          border-color: Canvas;
+        }
+
+        &::-moz-range-thumb {
+          background: var(--_forced-fill-color);
+          border-color: Canvas;
+        }
+      }
+    }
+  }
+
+  @keyframes ui-range-fill {
+    from {
+      --_track-fill: 100%;
+    }
+
+    to {
+      --_track-fill: 0%;
     }
   }
 }

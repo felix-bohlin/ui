@@ -14,6 +14,9 @@
  * "true"/"false" to stay byte-compatible with previously-saved configs.
  */
 
+import huesSource from "open-props/src/props.colors-oklch-hues.css?raw"
+import { themeTokens } from "./theme-tokens"
+
 export type Mode = "light" | "dark"
 
 export type Token =
@@ -39,19 +42,44 @@ export const TOKENS = [
 
 // Defaults must mirror what `packages/opui/css/theme.css` ships
 // so the configurators (drawer + generator) reflect the live site palette
-// before the user has tweaked anything. theme.css hardcodes
-//   --palette-source: oklch(0.58 calc(0.21 * 0.5) var(--hue-blue))
-// where Open Props' --hue-blue is 240, hence chroma 0.5 / hue 240.
-export const TOKEN_DEFAULTS: Record<Token, string> = {
-  "--palette-hue": "240",
-  "--palette-chroma": "0.5",
-  "--palette-hue-rotate-by": "0",
-  "--gray-chroma": "0.01",
-  "--gray-hue": "255",
-  "--border-radius": "var(--radius-2)",
-  "--field-border-radius": "var(--radius-2)",
-  "--button-border-radius": "var(--radius-2)",
+// before the user has tweaked anything. theme.css sets --palette-hue to
+// Open Props' --hue-green (145) in light mode and --hue-blue (240) in dark.
+const HUES = Object.fromEntries(
+  [...huesSource.matchAll(/(--hue-[\w-]+):\s*([\d.]+)/g)].map(
+    ([, name, value]) => [name, value],
+  ),
+)
+
+const resolveHues = (value: string) =>
+  value.replace(/var\((--hue-[\w-]+)\)/g, (match, name) => HUES[name] ?? match)
+
+const THEME_TOKENS = themeTokens()
+
+const TOKEN_DEFAULTS_BY_MODE: Record<Mode, Record<Token, string>> = {
+  dark: {} as Record<Token, string>,
+  light: {} as Record<Token, string>,
 }
+
+for (const token of TOKENS) {
+  const declared = THEME_TOKENS.find((candidate) => candidate.name === token)
+  if (!declared) throw new Error(`${token} is not declared in theme.css`)
+  TOKEN_DEFAULTS_BY_MODE.light[token] = resolveHues(declared.value)
+  TOKEN_DEFAULTS_BY_MODE.dark[token] = resolveHues(
+    declared.dark ?? declared.value,
+  )
+}
+
+export function tokenDefaults(mode: Mode): Record<Token, string> {
+  return TOKEN_DEFAULTS_BY_MODE[mode]
+}
+
+export const RADIUS_OPTIONS = [
+  { text: "0", value: "0" },
+  { text: "1", value: "var(--size-1)" },
+  { text: "2", value: "var(--size-2)" },
+  { text: "3", value: "var(--size-3)" },
+  { text: "4", value: "var(--size-4)" },
+]
 
 export type ModeConfig = Partial<Record<Token, string>> & {
   "enable-grays"?: "true" | "false"
@@ -83,6 +111,10 @@ function readConfig(mode: Mode): ModeConfig {
     // longer applies. Users will fall back to the default --gray-hue (255).
     if ("--gray-hue-offset" in parsed) {
       delete parsed["--gray-hue-offset"]
+    }
+    for (const key of Object.keys(parsed) as Token[]) {
+      const radius = /^var\(--radius-(\d)\)$/.exec(parsed[key] ?? "")
+      if (radius) parsed[key] = `var(--size-${radius[1]})`
     }
     return parsed
   } catch {
@@ -116,7 +148,7 @@ export const themeStore = {
 
   /** Resolve a token's effective value for `mode`, falling back to the default. */
   effective(mode: Mode, token: Token): string {
-    return readConfig(mode)[token] ?? TOKEN_DEFAULTS[token]
+    return readConfig(mode)[token] ?? tokenDefaults(mode)[token]
   },
 
   isGraysEnabled(mode: Mode): boolean {

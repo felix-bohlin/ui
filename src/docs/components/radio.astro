@@ -1,27 +1,28 @@
 ---
+import { Code } from "astro-expressive-code/components"
 import Component from "../../layouts/Component.astro"
+import Anatomy from "../../components/Anatomy.astro"
+import { Radio as UIRadio } from "@opui/astro"
 import DocLink from "../../components/DocLink.astro"
 import AutoExample from "../../components/AutoExample.astro"
 import RadioCSS from "@opui/css/components/radio.css?raw"
 import FormCSS from "@opui/css/components/form.css?raw"
 
-import FieldGroupAPIAstro from "../../component-api/field-group/Astro.astro"
-import FieldGroupAPIHTML from "../../component-api/field-group/HTML.astro"
-import FieldGroupAPISolid from "../../component-api/field-group/Solid.astro"
-import FieldGroupAPIVue from "../../component-api/field-group/Vue.astro"
+import fieldGroupApi from "../../component-api/field-group/api"
+import radioApi from "../../component-api/radio/api"
 
 import Conditional from "../../components/Conditional.astro"
+import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
 ---
 
 <Component
   slug="radio"
-  browserSupport={["has"]}
-  apis={{
-    astro: FieldGroupAPIAstro,
-    html: FieldGroupAPIHTML,
-    solid: FieldGroupAPISolid,
-    vue: FieldGroupAPIVue,
-  }}
+  browserSupport={["has", "light-dark", "relative-color", "user-pseudos"]}
+  heroAnatomy
+  apis={[
+    { title: "Radio API", api: radioApi },
+    { title: "Field group API", api: fieldGroupApi },
+  ]}
   changelogPaths={[
     {
       path: "packages/opui/components/Radio",
@@ -51,32 +52,25 @@ import Conditional from "../../components/Conditional.astro"
     >.
   </Fragment>
 
-  <Conditional as="p">
-    <Fragment slot="astro">
-      The <code>name</code> prop will get passed down to each radio button in the
-      group.
-    </Fragment>
-    <Fragment slot="html">
-      Give every <code>&lt;input type="radio"&gt;</code> in the group the same
-      <code>name</code> attribute. Browsers use that shared name to enforce mutual
-      exclusivity within the group.
-    </Fragment>
-    <Fragment slot="vue">
-      The <code>name</code> prop will get passed down to each radio button in the
-      group.
-    </Fragment>
-    <Fragment slot="solid">
-      The <code>name</code> prop will get passed down to each radio button in the
-      group.
-    </Fragment>
-  </Conditional>
-
-  <AutoExample name="FieldGroup" centered column />
-
   <section>
-    <h2 id="direction">Direction</h2>
+    <h2 id="basics">Basics</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        The <code>name</code> prop will get passed down to each radio button in the
+        group.
+      </Fragment>
+      <Fragment slot="html">
+        Give every <code>&lt;input type="radio"&gt;</code> in the group the same
+        {" "}<code>name</code> attribute. Browsers use that shared name to enforce
+        mutual exclusivity within the group.
+      </Fragment>
+      <Fragment slot="vue">
+        The <code>name</code> prop will get passed down to each radio button in the
+        group.
+      </Fragment>
+    </Conditional>
 
-    <AutoExample name="FieldGroupDirection" row />
+    <AutoExample name="FieldGroup" centered column />
   </section>
 
   <section>
@@ -129,11 +123,11 @@ import Conditional from "../../components/Conditional.astro"
       <p slot="html">
         Attach the <code>data-invalid</code> attribute to your <code
           >&lt;fieldset class="ui-fieldset"&gt;</code
-        > element
+        > element.
       </p>
       <p slot="astro">
         Attach the <code>data-invalid</code> attribute to your <code
-          >Fieldset</code
+          >FieldSet</code
         > component.
       </p>
       <p slot="vue">
@@ -148,13 +142,42 @@ import Conditional from "../../components/Conditional.astro"
 
     <AutoExample name="FieldGroupValidation" row />
   </section>
+
+  <section>
+    <h2 id="direction">Direction</h2>
+
+    <AutoExample name="FieldGroupDirection" row />
+  </section>
+
+  <section>
+    <h2 id="label-alignment">Label alignment</h2>
+    <p>
+      The radio lines up with the first line of its label and centers on the
+      label's capital letters, so it looks centered in any font and at any size.
+      If a font still looks off, nudge the label with
+      {" "}<code>--choice-label-offset</code>, in <code>em</code> or
+      {" "}<code>cap</code> so it scales with the label.
+    </p>
+    <Code lang="css" code={`:root {\n  --choice-label-offset: 0.05em;\n}`} />
+  </section>
+
+  <RadioBuild slot="under-the-hood" />
+
+  <Fragment slot="anatomy">
+    <Anatomy zoom={1.5}>
+      <UIRadio checked name="radio-anatomy">
+        Label
+        <Fragment slot="end-text">End text</Fragment>
+      </UIRadio>
+    </Anatomy>
+  </Fragment>
 </Component>
 
 <style is:global>
   .example-row {
+    align-items: center;
     display: flex;
     gap: var(--size-3);
-    align-items: center;
   }
   .example-row.ui-spacious {
     gap: var(--size-6);

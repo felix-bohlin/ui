@@ -9,6 +9,7 @@ import {
 import sitemap from "@astrojs/sitemap"
 import expressiveCode from "astro-expressive-code"
 import vue from "@astrojs/vue"
+import llms from "./src/integrations/llms.mjs"
 
 import solid from "./integrations/solid/index.mjs"
 
@@ -20,6 +21,7 @@ const slugsIn = (relDir) =>
     .filter((f) => f.endsWith(".astro"))
     .map((f) => f.replace(/\.astro$/, ""))
 
+const learnSlugs = slugsIn("./src/docs/learn").filter((s) => s !== "index")
 const componentSlugs = slugsIn("./src/docs/components")
 const guideSlugs = ["getting-started", ...slugsIn("./src/docs/guide")]
 
@@ -28,16 +30,30 @@ const legacyRedirects = {
   "/components": `${d}/components`,
   "/api": `${d}/api`,
   "/guide": `${d}/guide/getting-started`,
+  "/components/icon-button": `${d}/components/button#icon-only`,
+  ...Object.fromEntries(
+    FRAMEWORK_IDS.map((f) => [
+      `/${f}/components/icon-button`,
+      `/${f}/components/button#icon-only`,
+    ]),
+  ),
   ...Object.fromEntries(
     componentSlugs.map((s) => [`/components/${s}`, `${d}/components/${s}`]),
   ),
   ...Object.fromEntries(
     guideSlugs.map((s) => [`/guide/${s}`, `${d}/guide/${s}`]),
   ),
+  ...Object.fromEntries(
+    ["/blog", ...FRAMEWORK_IDS.map((f) => `/${f}/blog`)].flatMap((prefix) => [
+      [prefix, "/learn"],
+      ...learnSlugs.map((s) => [`${prefix}/${s}`, `/learn/${s}`]),
+    ]),
+  ),
 }
 
 // https://astro.build/config
 export default defineConfig({
+  compressHTML: true,
   image: { service: passthroughImageService() },
   site: "https://open-props-ui.netlify.app/",
   i18n: {
@@ -50,6 +66,7 @@ export default defineConfig({
     solid(),
     vue(),
     sitemap(),
+    llms(),
     expressiveCode({
       themes: ["dark-plus", "light-plus"],
     }),

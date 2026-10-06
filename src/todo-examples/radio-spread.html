@@ -1,0 +1,103 @@
+<style>
+  .todo-compare {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-compare > div {
+    display: grid;
+    gap: var(--size-2);
+    min-inline-size: 0;
+  }
+
+  .todo-settings {
+    display: grid;
+    gap: var(--size-3);
+  }
+
+  .todo-proposed .ui-radio.ui-spread {
+    align-items: start;
+    column-gap: var(--size-4);
+    grid-auto-flow: unset;
+    grid-template-columns: 1fr auto;
+    inline-size: 100%;
+
+    .ui-label {
+      font-weight: var(--field-label-font-weight);
+      grid-column: 1;
+      grid-row: 1;
+      inline-size: fit-content;
+    }
+
+    input {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    :where(.ui-end-text) {
+      grid-column: 1;
+      grid-row: 2;
+    }
+  }
+</style>
+<div class="todo-compare">
+  <div>
+    <p class="ui-caption">
+      Current: <code>.ui-spread</code> does nothing on a radio
+    </p>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content todo-settings">
+        <label class="ui-switch ui-spread">
+          <input type="checkbox" role="switch" checked />
+          <span class="ui-label">Notifications</span>
+        </label>
+        <label class="ui-checkbox ui-spread">
+          <input type="checkbox" />
+          <span class="ui-label">Weekly digest</span>
+        </label>
+        <hr class="ui-divider" />
+        <label class="ui-radio ui-spread">
+          <input type="radio" name="todo-current" checked />
+          <span class="ui-label">Standard</span>
+          <span class="ui-end-text">3–5 days, free</span>
+        </label>
+        <label class="ui-radio ui-spread">
+          <input type="radio" name="todo-current" />
+          <span class="ui-label">Express</span>
+          <span class="ui-end-text">Next day, 9 €</span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="todo-proposed">
+    <p class="ui-caption">
+      Proposed: the checkbox <code>.ui-spread</code> block, copied to
+      <code>radio.css</code>
+    </p>
+    <div class="ui-card ui-outlined">
+      <div class="ui-content todo-settings">
+        <label class="ui-switch ui-spread">
+          <input type="checkbox" role="switch" checked />
+          <span class="ui-label">Notifications</span>
+        </label>
+        <label class="ui-checkbox ui-spread">
+          <input type="checkbox" />
+          <span class="ui-label">Weekly digest</span>
+        </label>
+        <hr class="ui-divider" />
+        <label class="ui-radio ui-spread">
+          <input type="radio" name="todo-proposed" checked />
+          <span class="ui-label">Standard</span>
+          <span class="ui-end-text">3–5 days, free</span>
+        </label>
+        <label class="ui-radio ui-spread">
+          <input type="radio" name="todo-proposed" />
+          <span class="ui-label">Express</span>
+          <span class="ui-end-text">Next day, 9 €</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

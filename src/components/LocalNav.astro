@@ -85,8 +85,8 @@ const { sidebarDrawerId, showToc = true } = Astro.props
     grid-column: 4 / 8;
     margin-block-end: var(--size-4);
     margin-inline-start: var(--size-2);
-    padding-inline: var(--size-1);
     padding-block: var(--size-2);
+    padding-inline: var(--size-1);
     position: relative;
 
     @media (width < 900px) {
@@ -100,9 +100,9 @@ const { sidebarDrawerId, showToc = true } = Astro.props
       animation-timeline: scroll();
       background-color: var(--surface-elevated);
       border: var(--border-width) solid oklch(from var(--primary) l c h / 0.2);
-      border-block-start: none;
       border-block-end: var(--border-width) solid
         oklch(from var(--text-primary) l c h / 0.15);
+      border-block-start: none;
       border-radius: 0;
       box-shadow: var(--shadow-2);
       content: "";
@@ -115,7 +115,7 @@ const { sidebarDrawerId, showToc = true } = Astro.props
         inset-block: 0;
         inset-inline-end: 0;
         inset-inline-start: calc(
-          -1 * (var(--_gap) + 200px + clamp(2rem, 18vw, 16rem))
+          -1 * (var(--site-gap) + 200px + clamp(2rem, 18vw, 16rem))
         );
         -webkit-mask-image: linear-gradient(
           to right,

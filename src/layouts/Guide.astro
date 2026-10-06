@@ -29,10 +29,14 @@ const currentFramework = (Astro.currentLocale ??
   DEFAULT_FRAMEWORK) as FrameworkId
 
 const links = [
-  { href: "/guide/getting-started", label: "Getting started" },
-  { href: "/guide/theme-generator", label: "Theme generator" },
   { href: "/guide/why-opui", label: "Why Open Props UI?" },
+  { href: "/guide/getting-started", label: "Getting started" },
+  { href: "/guide/concepts", label: "Concepts" },
+  { href: "/guide/theme-tokens", label: "Theme tokens" },
+  { href: "/guide/theme-generator", label: "Theme generator" },
+  { href: "/guide/customizing", label: "Customizing" },
   { href: "/guide/browser-support", label: "Browser support" },
+  { href: "/guide/migrating", label: "Migrating to v6" },
   { href: "/guide/acknowledgments", label: "Acknowledgments" },
 ].map((link) => ({
   ...link,
@@ -43,6 +47,10 @@ const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
   /\/$/,
   "",
 )
+
+const currentIndex = links.findIndex((link) => link.href === canonicalPath)
+const prevLink = currentIndex > 0 ? links[currentIndex - 1] : undefined
+const nextLink = currentIndex !== -1 ? links[currentIndex + 1] : undefined
 ---
 
 <Document
@@ -77,18 +85,73 @@ const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
   <slot slot="title" name="title" />
   <slot slot="preamble" name="preamble" />
   <slot />
+
+  {
+    currentIndex !== -1 && (
+      <footer class="guide-footer ui-not-rich-text">
+        <hr class="ui-divider" />
+
+        <nav class="pagination" aria-label="Guide pages">
+          {prevLink ? (
+            <a href={prevLink.resolvedHref} class="pagination-link prev">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+                viewBox="0 0 32 32"
+                aria-hidden="true"
+              >
+                <path
+                  fill="currentColor"
+                  d="M3 16a1 1 0 0 1 1-1h21.586l-8.293-8.293a1 1 0 0 1 1.414-1.414l10 10a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414-1.414L25.586 17H4a1 1 0 0 1-1-1"
+                />
+              </svg>
+              <div class="ui-hgroup">
+                <p class="ui-overline">Previous</p>
+                <p class="ui-h3">{prevLink.label}</p>
+              </div>
+            </a>
+          ) : (
+            <div class="spacer" />
+          )}
+          {nextLink ? (
+            <a href={nextLink.resolvedHref} class="pagination-link next">
+              <div class="ui-hgroup">
+                <p class="ui-overline">Next</p>
+                <p class="ui-h3">{nextLink.label}</p>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+                viewBox="0 0 32 32"
+                aria-hidden="true"
+              >
+                <path
+                  fill="currentColor"
+                  d="M3 16a1 1 0 0 1 1-1h21.586l-8.293-8.293a1 1 0 0 1 1.414-1.414l10 10a1 1 0 0 1 0 1.414l-10 10a1 1 0 0 1-1.414-1.414L25.586 17H4a1 1 0 0 1-1-1"
+                />
+              </svg>
+            </a>
+          ) : (
+            <div class="spacer" />
+          )}
+        </nav>
+      </footer>
+    )
+  }
 </Document>
 
 <style is:global>
   .guide-nav-list {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
 
     & a {
+      color: var(--text-muted);
       display: block;
       padding-block: var(--size-1);
-      color: var(--text-muted);
       text-decoration: none;
 
       &:hover {
@@ -98,6 +161,59 @@ const canonicalPath = stripFrameworkPrefix(Astro.url.pathname).replace(
       &[aria-current="page"] {
         color: var(--link);
         font-weight: var(--font-weight-6);
+      }
+    }
+  }
+</style>
+
+<style>
+  .guide-footer {
+    display: grid;
+    gap: var(--size-4);
+    margin-block-start: var(--size-8);
+
+    hr {
+      margin: 0;
+    }
+
+    .pagination {
+      display: grid;
+      gap: var(--size-4);
+      grid-template-columns: repeat(auto-fit, minmax(min(33ch, 100%), 1fr));
+
+      .pagination-link {
+        align-items: center;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-3);
+        color: var(--text-primary);
+        display: flex;
+        gap: var(--size-4);
+        padding: var(--size-4);
+        text-decoration: none;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: var(--surface-tonal);
+        }
+
+        svg {
+          align-items: center;
+          color: var(--text-muted);
+          display: inline-flex;
+          flex-shrink: 0;
+          font-size: var(--font-size-5);
+        }
+
+        &.prev {
+          svg {
+            rotate: 180deg;
+          }
+        }
+
+        &.next {
+          justify-content: end;
+          text-align: end;
+        }
       }
     }
   }

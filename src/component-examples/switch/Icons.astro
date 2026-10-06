@@ -2,7 +2,8 @@
 import { Switch } from "@opui/astro"
 ---
 
-<Switch name="switch-icons" small aria-label="Toggle theme">
+<Switch name="switch-icons" size="small" hideLabel>
+  Toggle theme
   <svg
     slot="icon-unchecked"
     xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +28,8 @@ import { Switch } from "@opui/astro"
   >
 </Switch>
 
-<Switch name="switch-icons" checked aria-label="Toggle theme">
+<Switch name="switch-icons" checked hideLabel>
+  Toggle theme
   <svg
     slot="icon-unchecked"
     xmlns="http://www.w3.org/2000/svg"

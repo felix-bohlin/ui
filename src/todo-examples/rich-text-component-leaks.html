@@ -1,0 +1,117 @@
+<style>
+  .todo-leaks {
+    align-items: start;
+    display: grid;
+    gap: var(--size-2) var(--size-4);
+    grid-template-columns: repeat(2, minmax(0, 20rem));
+  }
+
+  .todo-leaks .todo-wide {
+    grid-column: 1 / -1;
+    margin-block-start: var(--size-3);
+  }
+
+  .todo-leaks .todo-cell {
+    outline: 1px dashed var(--border-color);
+  }
+</style>
+<div class="todo-leaks">
+  <p class="ui-caption">Outside rich text</p>
+  <p class="ui-caption">Inside <code>.ui-rich-text</code></p>
+  <p class="ui-caption todo-wide">
+    DescriptionList: <code>dd</code> gets the prose
+    <code>padding-inline-start: 1.625em</code>
+  </p>
+  <div class="todo-cell">
+    <dl class="ui-description-list">
+      <div class="ui-item">
+        <dt class="ui-term">Rooms</dt>
+        <dd class="ui-description">
+          3, plus a large kitchen with room for a table
+        </dd>
+      </div>
+    </dl>
+  </div>
+  <div class="todo-cell ui-rich-text">
+    <dl class="ui-description-list">
+      <div class="ui-item">
+        <dt class="ui-term">Rooms</dt>
+        <dd class="ui-description">
+          3, plus a large kitchen with room for a table
+        </dd>
+      </div>
+    </dl>
+  </div>
+  <p class="ui-caption todo-wide">
+    List row link: text outside <code>.ui-text p</code> turns bold (the count)
+  </p>
+  <div class="todo-cell">
+    <ul class="ui-list ui-outlined">
+      <li>
+        <a href="#todo">
+          <div class="ui-text"><p>Inbox</p></div>
+          <div class="ui-end">12</div>
+        </a>
+      </li>
+      <li>
+        <button>
+          <div class="ui-text"><p>Archive</p></div>
+          <div class="ui-end">12</div>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div class="todo-cell ui-rich-text">
+    <ul class="ui-list ui-outlined">
+      <li>
+        <a href="#todo">
+          <div class="ui-text"><p>Inbox</p></div>
+          <div class="ui-end">12</div>
+        </a>
+      </li>
+      <li>
+        <button>
+          <div class="ui-text"><p>Archive</p></div>
+          <div class="ui-end">12</div>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <p class="ui-caption todo-wide">
+    Card header: <code>hgroup</code> gets
+    <code>margin-block-start: 3 &times; flow space</code> (60px)
+  </p>
+  <div class="todo-cell">
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <p>Blog</p>
+        <h3>Card title</h3>
+        <p>Supporting text.</p>
+      </hgroup>
+    </div>
+  </div>
+  <div class="todo-cell ui-rich-text">
+    <div class="ui-card ui-outlined">
+      <hgroup>
+        <p>Blog</p>
+        <h3>Card title</h3>
+        <p>Supporting text.</p>
+      </hgroup>
+    </div>
+  </div>
+  <p class="ui-caption todo-wide">
+    FieldSet: <code>.ui-field-description</code> gets paragraph margins
+  </p>
+  <div class="todo-cell">
+    <fieldset class="ui-fieldset">
+      <legend>Legend</legend>
+      <p class="ui-field-description">This is a field description.</p>
+    </fieldset>
+  </div>
+  <div class="todo-cell ui-rich-text">
+    <fieldset class="ui-fieldset">
+      <legend>Legend</legend>
+      <p class="ui-field-description">This is a field description.</p>
+    </fieldset>
+  </div>
+</div>

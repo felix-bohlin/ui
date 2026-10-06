@@ -1,14 +1,37 @@
 @layer components.extended {
   :where([role="group"].ui-button-group) {
     --_border-radius: var(--button-border-radius);
+    --_edge-color: transparent;
 
     border-radius: var(--_border-radius);
     display: inline-flex;
-    min-width: max-content;
+    flex-wrap: wrap;
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    outline: var(--border-width) solid var(--_edge-color);
+    outline-offset: calc(-1 * var(--border-width));
+    overflow: hidden;
+
+    &.ui-outlined {
+      --_edge-color: light-dark(var(--color-16), var(--color-1));
+
+      &.ui-critical {
+        --_edge-color: var(--critical);
+      }
+
+      &.ui-primary {
+        --_edge-color: var(--primary);
+      }
+    }
 
     /* Button */
-    button {
+    & > button {
+      --_border-color: transparent;
       border-radius: 0;
+      box-shadow:
+        calc(-1 * var(--border-width)) 0 0 0 var(--_divider-color),
+        0 calc(-1 * var(--border-width)) 0 0 var(--_divider-color);
+      flex: auto;
 
       /* button.css > --_accent-tonal */
       --_divider-color: light-dark(
@@ -16,67 +39,57 @@
         oklch(from var(--_accent-tonal) calc(l + 0.1) c h)
       );
 
-      &.ui-outlined {
-        --_divider-color: var(--_border-color);
-      }
-
-      &.ui-filled {
-        --_divider-color: currentColor;
+      /* Siblings */
+      &:is([disabled], [aria-disabled="true"], .ui-disabled) {
+        box-shadow:
+          calc(-1 * var(--border-width)) 0 0 0
+            color-mix(in oklch, var(--_divider-color) 40%, transparent),
+          0 calc(-1 * var(--border-width)) 0 0
+            color-mix(in oklch, var(--_divider-color) 40%, transparent);
       }
 
       &:focus-visible {
-        outline-offset: -4px;
+        outline-offset: var(--focus-ring-inset);
       }
 
-      /* Color inherited from Button Group. */
-      :where(.ui-button-group.ui-critical, .ui-button-group.ui-primary) & {
-        --_color-contrast: var(--gray-1);
-        --_color-tonal: var(--color-6);
-        --_accent-tonal-contrast: var(--text-primary-contrast);
-        --_default-hover-bg-color: oklch(from var(--_accent) l c h / 15%);
-        --_default-active-bg-color: oklch(from var(--_accent) l c h / 25%);
-        --_filled-hover-bg-color: oklch(from var(--_accent) calc(l - 0.1) c h);
-        --_filled-active-bg-color: oklch(
-          from var(--_accent) calc(l - 0.15) c h
-        );
-        --_outlined-active-bg-color: oklch(
-          from var(--_accent) calc(l - 0.1) c h
-        );
-      }
-
-      :where(.ui-button-group.ui-critical) & {
-        --_color: var(--critical);
-      }
-
-      :where(.ui-button-group.ui-primary) & {
-        --_color: var(--primary);
+      :where(.ui-button-group.ui-x-small) & {
+        --_font-size: var(--font-size-0);
+        --_min-height: var(--button-size-x-small);
+        --_padding-inline: 1ex;
+        padding-block: 0;
       }
 
       :where(.ui-button-group.ui-small) & {
-        --_min-height: 1.875rem;
+        --_font-size: var(--font-size-05);
+        --_min-height: var(--button-size-small);
+        --_padding-inline: 1.25ex;
         padding-block: 0;
-        padding-inline: 1ex;
       }
 
       :where(.ui-button-group.ui-large) & {
-        --_min-height: 2.875rem;
-        padding-inline: 4ex;
+        --_min-height: var(--button-size-large);
+        --_padding-inline: 2.5ex;
+      }
+
+      &:where(:has(> svg:only-child)) {
+        padding-inline: 0;
       }
 
       :where(.ui-button-group.ui-outlined) & {
-        --_border-color: var(--_accent);
         --_divider-color: var(--_accent);
 
-        &:where(:not([disabled])) {
-          &:where(:not(:active):hover) {
-            --_bg-color: var(--_accent);
-            --_border-color: var(--_accent);
-            --_text-color: var(--_accent-contrast);
+        &:where(
+          :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
+        ) {
+          @media (hover: hover) {
+            &:where(:not(:active):hover) {
+              --_bg-color: var(--_accent);
+              --_text-color: var(--_accent-contrast);
+            }
           }
 
           &:where(:active) {
             --_bg-color: var(--_outlined-active-bg-color);
-            --_border-color: var(--_outlined-active-bg-color);
             --_text-color: var(--_accent-contrast);
           }
         }
@@ -86,10 +99,14 @@
         --_bg-color: var(--_accent-tonal);
         --_text-color: var(--_accent-tonal-contrast);
 
-        &:where(:not([disabled])) {
-          &:where(:not(:active):hover) {
-            --_bg-color: var(--_accent);
-            --_text-color: var(--_accent-contrast);
+        &:where(
+          :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
+        ) {
+          @media (hover: hover) {
+            &:where(:not(:active):hover) {
+              --_bg-color: var(--_accent);
+              --_text-color: var(--_accent-contrast);
+            }
           }
 
           &:where(:active) {
@@ -111,9 +128,13 @@
           );
         }
 
-        &:where(:not([disabled])) {
-          &:where(:not(:active):hover) {
-            --_bg-color: var(--_filled-hover-bg-color);
+        &:where(
+          :not([disabled], [aria-disabled="true"], .ui-disabled, .ui-ripple)
+        ) {
+          @media (hover: hover) {
+            &:where(:not(:active):hover) {
+              --_bg-color: var(--_filled-hover-bg-color);
+            }
           }
 
           &:where(:active) {
@@ -123,67 +144,56 @@
       }
     }
 
-    &:not(.ui-vertical) {
-      button {
-        &:first-of-type {
-          border-end-start-radius: var(--_border-radius);
-          border-start-start-radius: var(--_border-radius);
-        }
+    &.ui-vertical {
+      flex-direction: column;
 
-        &:last-of-type {
-          border-end-end-radius: var(--_border-radius);
-          border-start-end-radius: var(--_border-radius);
-        }
+      & > button {
+        padding: var(--size-2);
 
-        /* Siblings */
-        & + & {
-          border-inline-start-color: var(--_divider-color);
-          border-inline-width: 1px;
-          margin-inline-start: -1px;
-
-          &[disabled] {
-            border-inline-start-color: color-mix(
-              in oklch,
-              var(--_divider-color) 40%,
-              transparent
-            );
-          }
+        &:has(> svg:only-child) {
+          aspect-ratio: 1;
+          padding: var(--size-1);
         }
       }
     }
 
-    &.ui-vertical {
-      flex-direction: column;
+    /* Overflow */
+    &.ui-scrollable {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      overscroll-behavior-inline: contain;
+      scrollbar-width: thin;
 
-      button {
-        padding: var(--size-2);
+      & > button {
+        flex: none;
+      }
+    }
 
-        &:has(svg) {
-          aspect-ratio: 1;
-          padding: var(--size-1);
+    &.ui-shrink {
+      flex-wrap: nowrap;
+
+      & > button {
+        min-inline-size: 0;
+
+        &:has(> svg:only-child) {
+          flex: none;
         }
 
-        &:first-of-type {
-          border-start-end-radius: var(--_border-radius);
-          border-start-start-radius: var(--_border-radius);
+        &:not(:has(> svg:only-child)) {
+          overflow: hidden;
+          white-space: nowrap;
         }
 
-        &:last-of-type {
-          border-end-end-radius: var(--_border-radius);
-          border-end-start-radius: var(--_border-radius);
+        &:not(:has(> *)) {
+          align-content: center;
+          display: block;
+          text-overflow: ellipsis;
         }
 
-        & + & {
-          border-block-start: 1px solid var(--_divider-color);
-          margin-block-start: -1px;
-
-          &[disabled] {
-            border-block-start-color: color-mix(
-              in oklch,
-              var(--_divider-color) 40%,
-              transparent
-            );
-          }
+        & > span {
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }

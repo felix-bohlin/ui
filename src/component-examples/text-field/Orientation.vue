@@ -8,7 +8,7 @@ import { TextField } from "opui-css/vue"
     <template #description>Provide your full name for identification</template>
   </TextField>
 
-  <TextField spread placeholder="you@example.com" type="email" filled>
+  <TextField spread placeholder="you@example.com" type="email" variant="filled">
     <template #label>Email</template>
     <template #description>We'll use this to contact you</template>
     <template #end-text>Please use a valid email address</template>
@@ -33,7 +33,7 @@ import { TextField } from "opui-css/vue"
     <template #suffix>EUR</template>
   </TextField>
 
-  <TextField spread label="Website" placeholder="example.com" filled>
+  <TextField spread label="Website" placeholder="example.com" variant="filled">
     <template #description>Your public profile URL</template>
     <template #prefix>https://</template>
     <template #end-text>Must include a valid domain</template>
@@ -47,7 +47,7 @@ import { TextField } from "opui-css/vue"
 
   <TextField
     spread
-    filled
+    variant="filled"
     label="API key"
     placeholder="Paste your key"
     type="password"

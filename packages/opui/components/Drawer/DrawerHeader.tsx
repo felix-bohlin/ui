@@ -27,7 +27,7 @@ export default function DrawerHeader(rawProps: DrawerHeaderProps) {
         aria-label={props.closeLabel}
         command={props.commandfor ? "close" : undefined}
         commandfor={props.commandfor}
-        onClick={(event) => {
+        onClick={(event: MouseEvent & { currentTarget: HTMLElement }) => {
           if (!props.commandfor) event.currentTarget.closest("dialog")?.close()
         }}
         ripple

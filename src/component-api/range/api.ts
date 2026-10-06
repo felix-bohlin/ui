@@ -11,6 +11,8 @@ export default {
     astro:
       "Input attributes, such as `disabled`, `max`, `min`, `name` and `step`, go to the `<input>`.",
     html: "Add a `<datalist>` after the input for tick marks.",
+    solid:
+      "Props that aren't listed here, such as `max`, `min` or `step`, go to the `<input>`.",
     vue: "Attributes that aren't props, such as `max`, `min` or `step`, go to the `<input>`.",
   },
   options: [

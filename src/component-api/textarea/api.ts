@@ -10,7 +10,9 @@ export default {
   },
   notes: {
     astro:
-      "Textarea attributes (`cols`, `disabled`, `maxlength`, `minlength`, `name`, `placeholder`, `required`, `rows`, `value`) go to the `<textarea>`. Other attributes go to the root `<label>`.",
+      "Attributes, such as `disabled`, `name`, `placeholder`, `rows` and `value`, go to the `<textarea>`. `class` and `style` stay on the root `<label>`.",
+    solid:
+      "Props that aren't listed here, such as `placeholder` or `rows`, go to the `<textarea>`. `class` and `style` stay on the root `<label>`.",
     vue: "Attributes that aren't props, such as `placeholder` or `rows`, go to the `<textarea>`.",
   },
   options: [
@@ -30,7 +32,7 @@ export default {
     },
     {
       description: "The id of the `<textarea>`.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "id",
       type: "string",
     },

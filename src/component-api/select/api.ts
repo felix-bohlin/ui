@@ -12,6 +12,8 @@ export default {
     astro:
       "Other attributes, such as `disabled`, `multiple`, `name` and `required`, go to the `<select>`.",
     html: "The `<select>` holds a `<button>` with `<selectedcontent>`, and a `.ui-list` with the options. Browsers without customizable selects show a native select.",
+    solid:
+      "Props that aren't listed here, such as `disabled`, `multiple` or `name`, go to the `<select>`. `value` selects the matching `items`.",
     vue: "Attributes that aren't props, such as `disabled` or `name`, go to the `<select>`.",
   },
   options: [
@@ -32,7 +34,7 @@ export default {
     },
     {
       description: "The id of the `<select>`.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "id",
       type: "string",
     },

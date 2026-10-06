@@ -29,7 +29,7 @@ export default function ToggleButton(props: Props) {
     <label
       class={[
         "ui-toggle-button",
-        { "ui-disabled": props.disabled },
+        { "ui-disabled": !!props.disabled },
         props.size && `ui-${props.size}`,
         props.class,
       ]}

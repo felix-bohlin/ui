@@ -5,8 +5,10 @@ export default {
   css: ["text-input"],
   notes: {
     astro:
-      "CSS-only. Styles the `<input>` inside `.ui-text-field`; the Text field component sets these with its `autoFit`, `filled` and `size` props.",
-    vue: "CSS-only. Styles the `<input>` inside `.ui-text-field`; the Text field component sets these with its `autoFit`, `filled` and `size` props.",
+      "CSS-only. Styles the `<input>` inside `.ui-text-field`; the Text field component sets these with its `autoFit`, `size` and `variant` props.",
+    solid:
+      "CSS-only. Styles the `<input>` inside `.ui-text-field`; the Text field component sets these with its `autoFit`, `size` and `variant` props.",
+    vue: "CSS-only. Styles the `<input>` inside `.ui-text-field`; the Text field component sets these with its `autoFit`, `size` and `variant` props.",
   },
   options: [
     {

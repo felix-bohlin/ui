@@ -63,6 +63,11 @@ export const description = "A popover list of actions or links."
           >disabled</code
         > and <code>shortcut</code>.</Fragment
       >
+      <Fragment slot="solid"
+        ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
+          >disabled</code
+        > and <code>shortcut</code>.</Fragment
+      >
       <Fragment slot="vue"
         ><code>items</code> with <code>borderTop</code>, <code>critical</code>, <code
           >disabled</code
@@ -94,6 +99,11 @@ export const description = "A popover list of actions or links."
           >align="end"</code
         > to line up with the end edge.</Fragment
       >
+      <Fragment slot="solid"
+        ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
+          >align="end"</code
+        > to line up with the end edge.</Fragment
+      >
       <Fragment slot="vue"
         ><code>placement</code>, or any <code>--anchor-position-area</code>. <code
           >align="end"</code
@@ -117,6 +127,13 @@ export const description = "A popover list of actions or links."
       <Fragment slot="html">
         Put a <code>menu</code> in the <code>li</code>, after its button. Mark
         the item with an icon from your icon library in <code>div.ui-end</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        Pass a <code>Menu</code> to the <code>submenu</code> prop of a <code
+          >ListItem</code
+        >. Mark the item with an icon from your icon library in the <code
+          >end</code
+        > prop.
       </Fragment>
       <Fragment slot="vue">
         Pass a <code>Menu</code> to the <code>submenu</code> slot of a <code

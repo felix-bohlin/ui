@@ -9,8 +9,10 @@ export default {
   },
   notes: {
     astro:
-      "Input attributes (`disabled`, `list`, `max`, `min`, `name`, `placeholder`, `required`, `step`, `value`) go to the `<input>`. Other attributes go to the root `<label>`.",
+      "Attributes, such as `disabled`, `name`, `placeholder` and `value`, go to the `<input>`. `class` and `style` stay on the root `<label>`.",
     html: "The control can also be a `<select>` or `<textarea>`. A `<datalist>` can be placed inside the root.",
+    solid:
+      "Props that aren't listed here, such as `placeholder` or `disabled`, go to the `<input>`. `class` and `style` stay on the root `<label>`.",
     vue: "Attributes that aren't props, such as `placeholder` or `disabled`, go to the `<input>`.",
   },
   options: [
@@ -30,7 +32,7 @@ export default {
     },
     {
       description: "The id of the `<input>`.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "id",
       type: "string",
     },
@@ -56,7 +58,7 @@ export default {
       default: '"text"',
       description:
         'The input type. `"numeric"` renders a text input with a numeric keyboard.',
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "type",
       type: '"numeric" | string',
     },

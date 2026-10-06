@@ -1,10 +1,63 @@
-<div class="ui-critical" style="display: grid; gap: 8px; justify-items: start">
-  <button class="ui-button ui-filled ui-primary" type="button">Delete</button>
-  <span class="ui-badge">3</span>
-  <p>Plain text in a critical scope keeps the body color.</p>
+<style>
+  .todo-scopes {
+    display: grid;
+    gap: var(--size-3);
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-scopes > section {
+    border: var(--border-width) solid var(--border-color);
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-2);
+    justify-items: start;
+    padding: var(--size-3);
+  }
+
+  .todo-swatches {
+    display: flex;
+    gap: var(--size-1);
+
+    > span {
+      block-size: var(--size-5);
+      border-radius: var(--radius-round);
+      inline-size: var(--size-5);
+    }
+  }
+</style>
+<div class="todo-scopes">
+  <section>
+    <p class="ui-caption">Page palette</p>
+    <div class="todo-swatches" aria-hidden="true">
+      <span style="background: var(--color-3)"></span>
+      <span style="background: var(--color-6)"></span>
+      <span style="background: var(--color-9)"></span>
+    </div>
+    <button class="ui-button ui-filled ui-primary" type="button">
+      Primary
+    </button>
+  </section>
+  <section class="ui-critical">
+    <p class="ui-caption"><code>.ui-critical</code> scope</p>
+    <div class="todo-swatches" aria-hidden="true">
+      <span style="background: var(--color-3)"></span>
+      <span style="background: var(--color-6)"></span>
+      <span style="background: var(--color-9)"></span>
+    </div>
+    <button class="ui-button ui-filled ui-primary" type="button">
+      Primary keeps the page color
+    </button>
+  </section>
+  <section class="ui-palette" style="--palette-hue: 30">
+    <p class="ui-caption"><code>.ui-palette</code>, hue 30</p>
+    <div class="todo-swatches" aria-hidden="true">
+      <span style="background: var(--color-3)"></span>
+      <span style="background: var(--color-6)"></span>
+      <span style="background: var(--color-9)"></span>
+    </div>
+    <button class="ui-button ui-filled ui-primary" type="button">
+      Primary follows
+    </button>
+  </section>
 </div>
-<section class="ui-palette" style="--palette-hue: 30">
-  <button class="ui-button ui-filled ui-primary" type="button">
-    Orange brand
-  </button>
-</section>

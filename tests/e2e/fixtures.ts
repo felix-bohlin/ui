@@ -8,7 +8,7 @@ const PIXEL = Buffer.from(
   "base64",
 )
 
-export const FRAMEWORKS = ["astro", "html", "vue"] as const
+export const FRAMEWORKS = ["astro", "html", "solid", "vue"] as const
 
 export type Framework = (typeof FRAMEWORKS)[number]
 
@@ -49,6 +49,13 @@ export const openFixture = async (
       ? `/tests/${component.slice("stress/".length)}/`
       : `/${framework}/test/${component}/`,
   )
+  if (framework === "solid") {
+    await page.waitForFunction(() =>
+      [...document.querySelectorAll("[data-solid-example]")].every((el) =>
+        el.hasAttribute("data-solid-mounted"),
+      ),
+    )
+  }
   if (framework === "vue") {
     await page.waitForFunction(() =>
       [...document.querySelectorAll("[data-vue-example]")].every(

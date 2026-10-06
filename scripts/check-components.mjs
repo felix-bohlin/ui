@@ -95,9 +95,16 @@ for (const folder of folders) {
       .map((file) => basename(file, ext))
 
   const astro = names(".astro")
+  const solid = names(".tsx")
   const vue = names(".vue")
+  for (const name of astro.filter((name) => !solid.includes(name))) {
+    report(join(dir, `${name}.astro`), "has no matching .tsx component")
+  }
   for (const name of astro.filter((name) => !vue.includes(name))) {
     report(join(dir, `${name}.astro`), "has no matching .vue component")
+  }
+  for (const name of solid.filter((name) => !astro.includes(name))) {
+    report(join(dir, `${name}.tsx`), "has no matching .astro component")
   }
   for (const name of vue.filter((name) => !astro.includes(name))) {
     report(join(dir, `${name}.vue`), "has no matching .astro component")

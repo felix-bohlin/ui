@@ -2,10 +2,14 @@
 import "@opui/css/imports.css"
 import { FRAMEWORK_IDS } from "../../../utils/framework-routing"
 
-type Framework = Exclude<(typeof FRAMEWORK_IDS)[number], "solid">
+type Framework = (typeof FRAMEWORK_IDS)[number]
 
 const astroModules = import.meta.glob<{ default: any }>(
   "../../../component-examples/*/*.astro",
+  { eager: true },
+)
+const solidModules = import.meta.glob<{ default: any }>(
+  "../../../component-examples/*/*.tsx",
   { eager: true },
 )
 const vueModules = import.meta.glob<{ default: any }>(
@@ -25,9 +29,12 @@ const parse = (path: string) => {
 }
 
 const examplesFor = (framework: Framework, slug: string) => {
-  const modules = { astro: astroModules, html: htmlSources, vue: vueModules }[
-    framework
-  ]
+  const modules = {
+    astro: astroModules,
+    html: htmlSources,
+    solid: solidModules,
+    vue: vueModules,
+  }[framework]
   return Object.entries(modules)
     .map(([path, module]) => ({ ...parse(path), module }))
     .filter(
@@ -40,7 +47,7 @@ export function getStaticPaths() {
   if (!process.env.OPUI_TEST_PAGES) return []
 
   const paths = import.meta.glob(
-    "../../../component-examples/*/*.{astro,html,vue}",
+    "../../../component-examples/*/*.{astro,html,tsx,vue}",
   )
   const slugs = [
     ...new Set(
@@ -50,9 +57,8 @@ export function getStaticPaths() {
     ),
   ].toSorted()
 
-  return FRAMEWORK_IDS.filter((framework) => framework !== "solid").flatMap(
-    (framework) =>
-      slugs.map((component) => ({ params: { component, framework } })),
+  return FRAMEWORK_IDS.flatMap((framework) =>
+    slugs.map((component) => ({ params: { component, framework } })),
   )
 }
 
@@ -80,6 +86,14 @@ const examples = examplesFor(framework, component)
             <div class="fixture-preview" data-example={name}>
               {framework === "astro" && <module.default />}
               {framework === "html" && <Fragment set:html={module} />}
+              {framework === "solid" && (
+                <div
+                  class="preview-render"
+                  data-solid-example={`${component}/${name}`}
+                >
+                  <module.default />
+                </div>
+              )}
               {framework === "vue" && (
                 <div
                   class="preview-render"
@@ -104,6 +118,7 @@ const examples = examplesFor(framework, component)
       )
     }
     <script>
+      import "../../../components/Example/mount-solid-examples"
       import "../../../components/Example/mount-vue-examples"
       import { initToastManager } from "@opui/css/js/toast.js"
 

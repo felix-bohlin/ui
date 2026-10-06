@@ -44,9 +44,16 @@ const EXAMPLE_CLASSES = new Set([
   ),
 ])
 
-const FRAMEWORKS = ["html", "astro", "vue", "solid"] as const
+const FRAMEWORKS = ["html", "astro", "solid", "vue"] as const
 
 type Framework = (typeof FRAMEWORKS)[number]
+
+const REFERENCES: Record<Framework, Framework[]> = {
+  astro: ["html"],
+  html: [],
+  solid: ["astro", "html"],
+  vue: ["astro", "html"],
+}
 
 type Example = {
   key: string
@@ -153,9 +160,12 @@ describe.each(cases)("$key", (example) => {
   )
 
   test.each(
-    frameworks
-      .slice(1)
-      .map((framework, index) => [framework, frameworks[index]]),
+    frameworks.flatMap((framework) => {
+      const reference = REFERENCES[framework].find(
+        (candidate) => example.loaders[candidate],
+      )
+      return reference ? [[framework, reference]] : []
+    }),
   )("%s matches %s", async (framework, reference) => {
     const [expected, actual] = await Promise.all([
       markup(example, reference),

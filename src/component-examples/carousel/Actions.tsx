@@ -1,5 +1,4 @@
 import { For } from "solid-js"
-
 import { Button, Card, Carousel } from "opui-css/solid"
 
 const plans = [

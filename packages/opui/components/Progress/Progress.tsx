@@ -2,18 +2,7 @@ import { omit } from "solid-js"
 import type { Props } from "./types.solid"
 
 export default function Progress(props: Props) {
-  const rest = omit(
-    props,
-    "aria-busy",
-    "aria-describedby",
-    "aria-label",
-    "children",
-    "class",
-    "id",
-    "max",
-    "value",
-    "variant",
-  )
+  const rest = omit(props, "children", "class", "max", "value", "variant")
 
   return (
     <div
@@ -23,15 +12,7 @@ export default function Progress(props: Props) {
         props.class,
       ]}
     >
-      <progress
-        aria-busy={props["aria-busy"]}
-        aria-describedby={props["aria-describedby"]}
-        aria-label={props["aria-label"]}
-        id={props.id}
-        max={props.max}
-        value={props.value}
-        {...rest}
-      >
+      <progress max={props.max} value={props.value} {...rest}>
         {props.children}
       </progress>
     </div>

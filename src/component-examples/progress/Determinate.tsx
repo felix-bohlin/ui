@@ -1,21 +1,15 @@
-import { onMounted } from "vue"
+import { createSignal, onSettled } from "solid-js"
 import { Progress } from "opui-css/solid"
 
-onMounted(() => {
-  const progress = document.querySelector<HTMLProgressElement>(
-    "#determinate-progress",
-  )
-  if (progress) {
-    setInterval(() => {
-      if (progress.value >= 100) {
-        progress.value = 10
-      } else {
-        progress.value += 10
-      }
-    }, 3000)
-  }
-})
-
 export default function Example() {
-  return <Progress id="determinate-progress" max="100" value="10" />
+  const [value, setValue] = createSignal(10)
+
+  onSettled(() => {
+    const interval = setInterval(() => {
+      setValue((value) => (value >= 100 ? 10 : value + 10))
+    }, 3000)
+    return () => clearInterval(interval)
+  })
+
+  return <Progress id="determinate-progress" max="100" value={value()} />
 }

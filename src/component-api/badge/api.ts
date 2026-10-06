@@ -42,7 +42,7 @@ export default {
     {
       description:
         'Visually hidden text that describes the badge to assistive technology, such as "3 unread".',
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "srLabel",
       type: "string",
     },

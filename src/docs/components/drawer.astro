@@ -107,18 +107,19 @@ import Conditional from "../../components/Conditional.astro"
       <Fragment slot="solid">
         <p>Change the opening side with the <code>side</code> prop.</p>
         <p>
-          Add a title to the header with the <code>header</code> prop. A close button
-          is automatically included in the header.
+          Put a <code>DrawerHeader</code> in the <code>header</code> prop to add a
+          heading and a close button. Put actions in the <code>footer</code> prop,
+          wrapped in a <code>DrawerFooter</code>.
         </p>
         <p>
           The backdrop is blurred by default. Use <code
             >backdrop="transparent"</code
           >
-          to remove the blur effect.
+          {" "}to remove the blur effect.
         </p>
         <p>
           Page scrolling is locked by default when the drawer is open. Use the
-          <code>scrollLock={false}</code> prop to allow scrolling while the drawer
+          {" "}<code>scrollLock={false}</code> prop to allow scrolling while the drawer
           is open.
         </p>
       </Fragment>
@@ -182,6 +183,14 @@ import Conditional from "../../components/Conditional.astro"
             >Name the drawer with <code>aria-labelledby</code> pointing at the heading's
             <code>id</code>, not at <code>.ui-header</code>, which also holds
             the close button.</Fragment
+          >
+          <Fragment slot="solid"
+            >The drawer is named by the <code>heading</code> of a <code
+              >DrawerHeader</code
+            > in the <code>header</code> prop, through <code
+              >aria-labelledby</code
+            >. With your own heading, pass <code>aria-labelledby</code> or
+            <code>aria-label</code> to <code>Drawer</code>.</Fragment
           >
           <Fragment slot="vue"
             >The drawer is named by the <code>heading</code> of a <code

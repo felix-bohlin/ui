@@ -7,7 +7,13 @@ export default function FieldGroup(props: Props) {
   const parent = useContext(FieldGroupContext)
 
   return (
-    <FieldGroupContext value={{ name: props.name || parent.name }}>
+    <FieldGroupContext
+      value={{
+        get name() {
+          return props.name || parent.name
+        },
+      }}
+    >
       <div
         class={[
           "ui-field-group",
@@ -15,7 +21,6 @@ export default function FieldGroup(props: Props) {
           props.class,
         ]}
         {...rest}
-        role="group"
       >
         {props.children}
       </div>

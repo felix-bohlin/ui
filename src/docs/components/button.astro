@@ -127,18 +127,25 @@ export const description =
           >.ui-small</code
         > and <code>.ui-large</code> classes.
       </Fragment>
+      <Fragment slot="solid">
+        Resize any button using the <code>size</code> prop: <code>x-small</code
+        >,
+        <code>small</code>, default and <code>large</code>.
+      </Fragment>
       <Fragment slot="vue">
         Resize any button using the <code>size</code> prop: <code>x-small</code
         >,
         <code>small</code>, default and <code>large</code>.
       </Fragment>
     </Conditional>
-    <Example column>
+    <Example column solidExampleId="button/Sizes">
       <Example.Preview slot="preview-astro" code={ExampleSizes} />
       <Example.Preview slot="preview-html" code={ExampleSizesHTML} />
+      <Example.Preview slot="preview-solid" code={ExampleSizesSolid} />
       <Example.Preview slot="preview-vue" code={ExampleSizesVue} />
       <Example.Code slot="code-html" code={ExampleSizesHTML} />
       <Example.Code slot="code-astro" code={ExampleSizesCodeAstro} />
+      <Example.Code slot="code-solid" code={ExampleSizesCodeSolid} />
       <Example.Code slot="code-vue" code={ExampleSizesCodeVue} />
     </Example>
   </section>
@@ -162,6 +169,9 @@ export const description =
       </Fragment>
       <Fragment slot="solid">
         Include an icon alongside text by nesting it within the component.
+        Always wrap the label in a <code>&lt;span class="ui-text"&gt;</code>: it
+        tightens the padding on the icon side, and a button whose only element
+        is an <code>svg</code> is styled as icon-only, even with text next to it.
       </Fragment>
       <Fragment slot="vue">
         Include an icon alongside text by nesting it within the component.
@@ -206,7 +216,10 @@ export const description =
         {" "}<code>.ui-ripple</code> for a hover halo instead of a background change.
       </Fragment>
       <Fragment slot="solid">
-        Resize any button using the <code>size</code> prop.
+        A button whose only child is an <code>svg</code> is square. Give it an
+        {" "}<code>aria-label</code>. Add <code>rounded</code> for a circle and <code
+          >ripple</code
+        > for a hover halo instead of a background change.
       </Fragment>
       <Fragment slot="vue">
         A button whose only child is an <code>svg</code> is square. Give it an
@@ -238,7 +251,11 @@ export const description =
         focused and followed with <kbd>Enter</kbd>.
       </Fragment>
       <Fragment slot="solid">
-        Disable the button with the <code>disabled</code> prop.
+        Disable the button with the <code>disabled</code> prop. Links can't be disabled,
+        so with <code>href</code> it sets <code>aria-disabled="true"</code> and blocks
+        clicks instead. The link can still be focused and followed with <kbd
+          >Enter</kbd
+        >.
       </Fragment>
       <Fragment slot="vue">
         Disable the button with the <code>disabled</code> prop. Links can't be disabled,

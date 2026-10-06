@@ -5,6 +5,8 @@ export default {
   notes: {
     astro:
       "Set column widths with `Table.ColumnGroup` and `Table.Column`, which takes a `width`.",
+    solid:
+      "Set column widths with `TableColumnGroup` and `TableColumn`, which takes a `width`.",
     vue: "Set column widths with `TableColumnGroup` and `TableColumn`, which takes a `width`.",
   },
   options: [
@@ -26,31 +28,35 @@ export default {
   parts: [
     {
       code: "<thead>",
-      component: { astro: "Table.Head", vue: "TableHead" },
+      component: { astro: "Table.Head", solid: "TableHead", vue: "TableHead" },
       description: "The header rows.",
       selector: "thead",
     },
     {
       code: "<th>",
-      component: { astro: "Table.HeaderCell", vue: "TableHeaderCell" },
+      component: {
+        astro: "Table.HeaderCell",
+        solid: "TableHeaderCell",
+        vue: "TableHeaderCell",
+      },
       description: "A header cell.",
       selector: "thead th:first-child",
     },
     {
       code: "<tbody>",
-      component: { astro: "Table.Body", vue: "TableBody" },
+      component: { astro: "Table.Body", solid: "TableBody", vue: "TableBody" },
       description: "The body rows.",
       selector: "tbody",
     },
     {
       code: "<tr>",
-      component: { astro: "Table.Row", vue: "TableRow" },
+      component: { astro: "Table.Row", solid: "TableRow", vue: "TableRow" },
       description: "A row.",
       selector: "tbody tr:first-child",
     },
     {
       code: "<td>",
-      component: { astro: "Table.Cell", vue: "TableCell" },
+      component: { astro: "Table.Cell", solid: "TableCell", vue: "TableCell" },
       description: "A data cell.",
       selector: "tbody tr:first-child td:last-child",
     },

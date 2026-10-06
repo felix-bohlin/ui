@@ -1,4 +1,4 @@
-import { omit, Show } from "solid-js"
+import { createUniqueId, omit, Show } from "solid-js"
 import type { Props } from "./types.solid"
 
 export default function Dialog(props: Props) {
@@ -12,13 +12,18 @@ export default function Dialog(props: Props) {
     "header",
   )
 
+  const uid = createUniqueId()
+  const headerId = () =>
+    props.header && !props["aria-labelledby"] ? uid : undefined
+
   return (
     <dialog
+      aria-labelledby={headerId()}
       class={["ui-dialog", "ui-card", "ui-elevated", props.class]}
       {...rest}
     >
       <Show when={props.header}>
-        <hgroup>{props.header}</hgroup>
+        <hgroup id={headerId()}>{props.header}</hgroup>
       </Show>
 
       <Show when={props.content}>

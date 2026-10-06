@@ -16,6 +16,7 @@ export default {
     {
       component: {
         astro: "DescriptionList.Item",
+        solid: "DescriptionListItem",
         vue: "DescriptionListItem",
       },
       description: "Groups a term with its description.",
@@ -25,6 +26,7 @@ export default {
       code: "<dt>",
       component: {
         astro: "DescriptionList.Term",
+        solid: "DescriptionListTerm",
         vue: "DescriptionListTerm",
       },
       description: "The term.",
@@ -34,6 +36,7 @@ export default {
       code: "<dd>",
       component: {
         astro: "DescriptionList.Description",
+        solid: "DescriptionListDescription",
         vue: "DescriptionListDescription",
       },
       description: "The description.",

@@ -6,7 +6,7 @@ export default {
     {
       default: '"Close"',
       description: "The accessible name of the close button.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "closeLabel",
       type: "string",
     },

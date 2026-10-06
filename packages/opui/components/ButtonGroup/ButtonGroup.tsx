@@ -8,6 +8,8 @@ export default function ButtonGroup(props: Props) {
     "class",
     "color",
     "orientation",
+    "scrollable",
+    "shrink",
     "size",
     "variant",
   )
@@ -20,6 +22,7 @@ export default function ButtonGroup(props: Props) {
         props.size && `ui-${props.size}`,
         props.variant && `ui-${props.variant}`,
         props.orientation && `ui-${props.orientation}`,
+        { "ui-scrollable": props.scrollable, "ui-shrink": props.shrink },
         props.class,
       ]}
       role="group"

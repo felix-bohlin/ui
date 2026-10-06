@@ -3,12 +3,14 @@ import {
   createUniqueId,
   For,
   omit,
-  onSettled,
   Show,
+  useContext,
 } from "solid-js"
+import { FieldGroupContext } from "../FieldGroup/context"
 import type { RangeProps } from "./types.solid"
 
 export default function Range(props: RangeProps) {
+  const fieldGroup = useContext(FieldGroupContext)
   const rest = omit(
     props,
     "children",
@@ -19,6 +21,7 @@ export default function Range(props: RangeProps) {
     "id",
     "label",
     "list",
+    "name",
     "options",
     "spread",
     "startText",
@@ -33,7 +36,6 @@ export default function Range(props: RangeProps) {
   const startTextUid = createUniqueId()
   const endTextUid = createUniqueId()
 
-  let label: HTMLLabelElement | undefined
   const [current, setCurrent] = createSignal(() => props.value)
 
   const hasLabel = () => !!(props.label || props.children)
@@ -42,7 +44,17 @@ export default function Range(props: RangeProps) {
   const hasValue = () =>
     props.valueSuffix !== undefined || props.valueText !== undefined
 
-  const inputId = () => props.id ?? (hasValue() ? uid : undefined)
+  const defaultValue = () => {
+    const min = Number(props.min ?? 0)
+    const max = Math.max(min, Number(props.max ?? 100))
+    const step = props.step === "any" ? 0 : Number(props.step ?? 1)
+    const middle = min + (max - min) / 2
+    if (!step) return middle
+    const value = min + Math.round((middle - min) / step) * step
+    return value > max ? value - step : value
+  }
+
+  const inputId = () => props.id || (hasValue() ? uid : undefined)
   const labelId = () => (hasLabel() ? labelUid : undefined)
   const startTextId = () => (hasStartText() ? startTextUid : undefined)
   const endTextId = () => (hasEndText() ? endTextUid : undefined)
@@ -50,37 +62,35 @@ export default function Range(props: RangeProps) {
   const describedBy = () =>
     [startTextId(), endTextId()].filter(Boolean).join(" ") || undefined
 
-  onSettled(() => {
-    const input = label?.querySelector("input")
-    if (input) setCurrent(input.value)
-  })
-
   return (
     <label
-      ref={(el) => (label = el)}
       class={[
         "ui-range",
         props.variant && `ui-${props.variant}`,
-        { "ui-spread": !!props.spread },
+        { "ui-spread": props.spread },
         props.class,
       ]}
       data-invalid={props.error ? "" : undefined}
-      onInput={(e) => {
-        if (e.target instanceof HTMLInputElement) setCurrent(e.target.value)
+      onInput={(event) => {
+        if (event.target instanceof HTMLInputElement) {
+          setCurrent(event.target.value)
+        }
       }}
     >
       <Show when={hasLabel()}>
         <span class="ui-label" id={labelId()}>
-          {props.children ?? props.label}
+          {props.label}
+          {props.children}
         </span>
       </Show>
       <Show when={hasValue()}>
         <output
           class="ui-value"
-          for={inputId()}
           data-suffix={props.valueSuffix}
+          for={inputId()}
         >
-          {props.valueText ?? `${current() ?? ""}${props.valueSuffix ?? ""}`}
+          {props.valueText ??
+            `${current() ?? defaultValue()}${props.valueSuffix ?? ""}`}
         </output>
       </Show>
       <Show when={hasStartText()}>
@@ -90,12 +100,14 @@ export default function Range(props: RangeProps) {
       </Show>
       <input
         aria-describedby={describedBy()}
+        aria-invalid={props.error ? "true" : undefined}
         aria-labelledby={labelId()}
         id={inputId()}
         list={props.list}
+        name={props.name ?? fieldGroup.name}
         type="range"
-        {...rest}
         value={props.value}
+        {...rest}
       />
       <Show when={props.options || props.datalist}>
         <datalist id={props.list}>

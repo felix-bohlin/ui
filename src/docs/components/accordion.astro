@@ -103,7 +103,7 @@ export const description =
         variant class to the parent container.
       </Fragment>
       <Fragment slot="solid">
-        Group multiple accordions by wrapping them in a <code>Card</code>
+        Group multiple accordions by wrapping them in a <code>Card</code>{" "}
         component with <code>role="group"</code>. To theme the entire group,
         apply the <code>variant</code> prop to the parent container.
       </Fragment>
@@ -128,6 +128,10 @@ export const description =
           >&lt;details&gt;</code
         > element to allow only one of them to be open at a time.
       </Fragment>
+      <Fragment slot="solid">
+        Set the same <code>name</code> prop on each accordion to allow only one of
+        them to be open at a time.
+      </Fragment>
       <Fragment slot="vue">
         Set the same <code>name</code> prop on each accordion to allow only one of
         them to be open at a time.
@@ -150,6 +154,10 @@ export const description =
           >.ui-actions</code
         > element, after <code>.ui-content</code>.
       </Fragment>
+      <Fragment slot="solid">
+        Add buttons or other interactive elements below the content with the
+        <code>actions</code> prop.
+      </Fragment>
       <Fragment slot="vue">
         Add buttons or other interactive elements below the content with the
         <code>actions</code> slot.
@@ -169,6 +177,9 @@ export const description =
       <Fragment slot="html">
         Replace the SVG inside the <code>summary</code> to change the marker. Leave
         it out to fall back to the native arrow.
+      </Fragment>
+      <Fragment slot="solid">
+        Replace the default marker with the <code>marker</code> prop.
       </Fragment>
       <Fragment slot="vue">
         Replace the default marker with the <code>marker</code> slot.
@@ -191,6 +202,10 @@ export const description =
           >.ui-marker-turn</code
         > to the <code>&lt;details&gt;</code> element to animate the marker when the
         accordion opens.
+      </Fragment>
+      <Fragment slot="solid">
+        Set the <code>markerAnimation</code> prop to change how the marker animates
+        when the accordion opens.
       </Fragment>
       <Fragment slot="vue">
         Set the <code>markerAnimation</code> prop to change how the marker animates

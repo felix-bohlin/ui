@@ -1,5 +1,4 @@
 import { For } from "solid-js"
-
 import { Card, Carousel } from "opui-css/solid"
 
 const places = [

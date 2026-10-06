@@ -23,7 +23,7 @@ export default function Tooltip(props: Props) {
           {props.content}
         </>
       }
-      class={["ui-tooltip", { "ui-with-arrow": !!props.arrow }, props.class]}
+      class={["ui-tooltip", { "ui-with-arrow": props.arrow }, props.class]}
       id={props.id}
       trigger="hover"
       {...rest}

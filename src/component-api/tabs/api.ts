@@ -35,19 +35,19 @@ export default {
   parts: [
     {
       code: ".ui-tab-input",
-      component: { astro: "Tabs.Item", vue: "TabsItem" },
+      component: { astro: "Tabs.Item", solid: "TabsItem", vue: "TabsItem" },
       description: "A visually hidden radio input that holds a tab's state.",
       selector: ".ui-tab-input:checked",
     },
     {
       code: ".ui-tab-label",
-      component: { astro: "Tabs.Tab", vue: "TabsTab" },
+      component: { astro: "Tabs.Tab", solid: "TabsTab", vue: "TabsTab" },
       description: "A tab.",
       selector: ".ui-tab-input:checked + .ui-tab-label",
     },
     {
       code: ".ui-tab-panel",
-      component: { astro: "Tabs.Panel", vue: "TabsPanel" },
+      component: { astro: "Tabs.Panel", solid: "TabsPanel", vue: "TabsPanel" },
       description: "The panel of the selected tab.",
       selector: ".ui-tab-input:checked + .ui-tab-label + .ui-tab-panel",
     },

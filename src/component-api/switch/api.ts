@@ -11,6 +11,8 @@ export default {
     astro:
       "Other attributes, such as `checked`, `disabled`, `name` and `required`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.",
     html: 'The input needs `type="checkbox"` and `role="switch"`. Use `.ui-sr-only` instead of `.ui-label` to hide the label visually.',
+    solid:
+      "Other attributes, such as `checked`, `disabled`, `name` and `required`, go to the `<input>`. Without a visible label, keep the text in `children` and set `hideLabel`.",
     vue: "Attributes that aren't props, such as `disabled` or `name`, go to the `<input>`. Without a visible label, keep the text in the slot and set `hideLabel`.",
   },
   options: [

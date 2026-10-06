@@ -55,7 +55,11 @@ export default {
   parts: [
     {
       code: ".ui-toggle-button",
-      component: { astro: "ToggleButton", vue: "ToggleButton" },
+      component: {
+        astro: "ToggleButton",
+        solid: "ToggleButton",
+        vue: "ToggleButton",
+      },
       description: "A toggle button.",
       selector: ".ui-toggle-group > .ui-toggle-button:first-child",
     },

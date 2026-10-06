@@ -61,6 +61,11 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
         button. Set <code>alignment</code> to any <code>position-area</code> value
         to place it.
       </Fragment>
+      <Fragment slot="solid">
+        Floating content that is always shown, like a coach mark beside a
+        button. Set <code>alignment</code> to any <code>position-area</code> value
+        to place it.
+      </Fragment>
       <Fragment slot="vue">
         Floating content that is always shown, like a coach mark beside a
         button. Set <code>alignment</code> to any <code>position-area</code> value
@@ -87,9 +92,11 @@ import AnchorBuild from "../../components/UnderTheHood/AnchorBuild.astro"
         >.
       </Fragment>
       <Fragment slot="solid">
-        Set <code>trigger="hover"</code>. The component adds <code
+        Set <code>trigger="hover"</code> and an <code>id</code>, and add <code
           >interestfor</code
-        > and <code>popover="hint"</code> declaratively.
+        > with that id to the trigger. The component adds <code
+          >popover="hint"</code
+        >.
       </Fragment>
       <Fragment slot="vue">
         Set <code>trigger="hover"</code> and an <code>id</code>, and add <code

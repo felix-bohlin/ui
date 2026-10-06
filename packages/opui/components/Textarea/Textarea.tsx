@@ -1,4 +1,4 @@
-import { omit, Show, useContext } from "solid-js"
+import { createUniqueId, omit, Show, useContext } from "solid-js"
 import { FieldGroupContext } from "../FieldGroup/context"
 import type { Props } from "./types.solid"
 
@@ -6,38 +6,47 @@ export default function Textarea(props: Props) {
   const fieldGroup = useContext(FieldGroupContext)
   const rest = omit(
     props,
+    "aria-describedby",
     "autoFit",
     "children",
     "class",
     "description",
     "endText",
     "error",
-    "filled",
     "footer",
     "header",
-    "id",
     "label",
     "name",
     "prefix",
-    "small",
+    "size",
     "spread",
+    "style",
     "suffix",
     "supportingText",
+    "variant",
   )
+
+  const uid = createUniqueId()
+  const hasEndText = () => !!(props.endText || props.supportingText)
+  const endTextId = () => (hasEndText() ? uid : undefined)
+  const describedBy = () =>
+    [endTextId(), props["aria-describedby"]].filter(Boolean).join(" ") ||
+    undefined
 
   return (
     <label
       class={[
         "ui-textarea",
+        props.size && `ui-${props.size}`,
         {
-          "ui-auto-fit": !!props.autoFit,
-          "ui-filled": !!props.filled,
-          "ui-spread": !!props.spread,
-          "ui-small": !!props.small,
+          "ui-auto-fit": props.autoFit,
+          "ui-filled": props.variant === "filled",
+          "ui-spread": props.spread,
         },
         props.class,
       ]}
       data-invalid={props.error ? "" : undefined}
+      style={props.style}
     >
       <Show when={props.label}>
         <span class="ui-label">{props.label}</span>
@@ -49,7 +58,8 @@ export default function Textarea(props: Props) {
 
       <span class="ui-field">
         <textarea
-          id={props.id}
+          aria-describedby={describedBy()}
+          aria-invalid={props.error ? "true" : undefined}
           name={props.name ?? fieldGroup.name}
           {...rest}
         ></textarea>
@@ -67,8 +77,8 @@ export default function Textarea(props: Props) {
         </Show>
       </span>
 
-      <Show when={props.endText || props.supportingText}>
-        <span class="ui-end-text">
+      <Show when={hasEndText()}>
+        <span class="ui-end-text" id={endTextId()}>
           {props.endText}
           {props.supportingText}
         </span>

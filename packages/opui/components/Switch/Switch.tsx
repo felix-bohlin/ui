@@ -5,6 +5,7 @@ import type { SwitchProps } from "./types.solid"
 export default function Switch(props: SwitchProps) {
   const rest = omit(
     props,
+    "aria-describedby",
     "children",
     "class",
     "endText",
@@ -13,22 +14,25 @@ export default function Switch(props: SwitchProps) {
     "iconChecked",
     "iconUnchecked",
     "name",
-    "small",
+    "size",
     "spread",
     "stack",
   )
 
-  const uid = createUniqueId()
-  const endTextId = () => (props.endText ? uid : undefined)
+  const id = createUniqueId()
+  const endTextId = () => (props.endText ? id : undefined)
+  const describedBy = () =>
+    [endTextId(), props["aria-describedby"]].filter(Boolean).join(" ") ||
+    undefined
 
   return (
     <label
       class={[
         "ui-switch",
+        props.size && `ui-${props.size}`,
         {
-          "ui-small": !!props.small,
-          "ui-stack": !!props.stack,
-          "ui-spread": !!props.spread,
+          "ui-spread": props.spread,
+          "ui-stack": props.stack,
         },
         props.class,
       ]}
@@ -44,7 +48,12 @@ export default function Switch(props: SwitchProps) {
           {props.iconChecked}
         </span>
       </Show>
-      <SwitchInput aria-describedby={endTextId()} name={props.name} {...rest} />
+      <SwitchInput
+        {...rest}
+        aria-describedby={describedBy()}
+        aria-invalid={props.error ? "true" : undefined}
+        name={props.name}
+      />
       <Show when={props.children}>
         <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>
           {props.children}

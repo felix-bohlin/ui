@@ -1,4 +1,5 @@
-import { createUniqueId, merge, omit, Show } from "solid-js"
+import { children, createUniqueId, merge, omit, Show } from "solid-js"
+import { DrawerContext } from "./context"
 import type { Props } from "./types.solid"
 
 export default function Drawer(rawProps: Props) {
@@ -27,23 +28,45 @@ export default function Drawer(rawProps: Props) {
 
   const uid = createUniqueId()
   const drawerId = () => props.id || uid
+  const headings = new Set<() => string | undefined>()
+  const header = children(() => (
+    <DrawerContext
+      value={{
+        headingId: () => `${drawerId()}-heading`,
+        register: (heading) => {
+          headings.add(heading)
+          return () => headings.delete(heading)
+        },
+      }}
+    >
+      {props.header}
+    </DrawerContext>
+  ))
+  const labelledBy = () => {
+    header()
+    if (props["aria-label"] || props["aria-labelledby"]) return undefined
+    return [...headings].some((heading) => heading())
+      ? `${drawerId()}-heading`
+      : undefined
+  }
 
   return (
     <dialog
       id={drawerId()}
+      aria-labelledby={labelledBy()}
       class={[
         "ui-drawer",
         props.side && `ui-${props.side}`,
         {
           "ui-backdrop-transparent": props.backdrop === "transparent",
-          "ui-scroll-lock": !!props.scrollLock,
+          "ui-scroll-lock": props.scrollLock,
         },
         props.class,
       ]}
       closedby={props.closedby}
       {...rest}
     >
-      <Show when={props.header}>{props.header}</Show>
+      {header()}
 
       <Show when={props.content}>
         <div class="ui-content">{props.content}</div>
@@ -51,7 +74,7 @@ export default function Drawer(rawProps: Props) {
 
       {props.children}
 
-      <Show when={props.footer}>{props.footer}</Show>
+      {props.footer}
     </dialog>
   )
 }

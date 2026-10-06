@@ -8,8 +8,8 @@ export default function Divider(props: Props) {
     <hr
       class={[
         "ui-divider",
+        props.variant && `ui-${props.variant}`,
         props.class,
-        props.variant && `ui-border-${props.variant}`,
       ]}
       {...rest}
     />

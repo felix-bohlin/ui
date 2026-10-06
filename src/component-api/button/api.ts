@@ -29,13 +29,13 @@ export default {
       default: "false",
       description:
         "Marks the button as icon-only, so `label` is required. Types only.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "iconOnly",
       type: "boolean",
     },
     {
       description: "The accessible name. Use it on icon-only buttons.",
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "label",
       type: "string",
     },

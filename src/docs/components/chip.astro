@@ -81,7 +81,7 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
         Make sure the text is wrapped in the <code>.ui-text</code> wrapper class.
       </p>
       <p slot="solid">
-        The icon can be placed before or after the text using the
+        The icon can be placed before or after the text using the{" "}
         <code>start</code> and <code>end</code> props.
       </p>
       <p slot="vue">
@@ -112,6 +112,9 @@ import ChipBuild from "../../components/UnderTheHood/ChipBuild.astro"
         Add disabled styling with the <code>disabled</code> attribute, <code
           >aria-disabled="true"</code
         > or the <code>.ui-disabled</code> class.
+      </Fragment>
+      <Fragment slot="solid">
+        Disable a button chip with the <code>disabled</code> attribute.
       </Fragment>
       <Fragment slot="vue">
         Disable a button chip with the <code>disabled</code> attribute.

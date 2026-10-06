@@ -1,4 +1,4 @@
+import type { JSX } from "@solidjs/web"
 import type * as Base from "./types"
-import type { JSX } from "solid-js"
 
-export type Props = Base.Props & JSX.HTMLAttributes<HTMLMenuElement>
+export type Props = Base.Props & JSX.MenuHTMLAttributes<HTMLMenuElement>

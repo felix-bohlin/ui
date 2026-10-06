@@ -1,5 +1,5 @@
 import { children, omit, Show } from "solid-js"
-import { Dynamic } from "@solidjs/web"
+import { dynamic } from "@solidjs/web"
 import type { JSX } from "@solidjs/web"
 import type { Props } from "./types.solid"
 
@@ -16,6 +16,7 @@ export default function ListItem(props: Props) {
     "headline",
     "inset",
     "start",
+    "submenu",
     "text",
     "type",
   )
@@ -29,7 +30,8 @@ export default function ListItem(props: Props) {
     props.type === "radio" ||
     props.type === "switch"
   const hasText = () => !!(props.headline || props.description || text())
-  const Tag = () => props.as
+  const tag = () => props.as ?? (props.href ? "a" : undefined)
+  const Tag = dynamic(tag)
 
   const Start = () => (
     <Show when={start()}>
@@ -53,40 +55,34 @@ export default function ListItem(props: Props) {
       {textProps.children}
     </div>
   )
+  const Content = () => (
+    <>
+      <Start />
+      <Show when={hasText()} fallback={props.children}>
+        <Text>{props.children}</Text>
+      </Show>
+      <End />
+    </>
+  )
 
   return (
     <li
       class={[
         {
-          "ui-border-top": !!props.borderTop,
-          "ui-inset": !!props.inset,
+          "ui-border-top": props.borderTop,
+          "ui-inset": props.inset,
         },
         props.class,
       ]}
-      {...(Tag() ? {} : rest)}
+      {...((tag() ? {} : rest) as JSX.HTMLAttributes<HTMLLIElement>)}
     >
       <Show
         when={hasLabel()}
         fallback={
-          <Show
-            when={Tag()}
-            fallback={
-              <>
-                <Start />
-                <Show when={hasText()} fallback={props.children}>
-                  <Text>{props.children}</Text>
-                </Show>
-                <End />
-              </>
-            }
-          >
-            <Dynamic component={Tag()} {...rest}>
-              <Start />
-              <Show when={hasText()} fallback={props.children}>
-                <Text>{props.children}</Text>
-              </Show>
-              <End />
-            </Dynamic>
+          <Show when={tag()} fallback={<Content />}>
+            <Tag {...(rest as JSX.HTMLAttributes<HTMLDivElement>)}>
+              <Content />
+            </Tag>
           </Show>
         }
       >
@@ -99,6 +95,7 @@ export default function ListItem(props: Props) {
           {props.children}
         </label>
       </Show>
+      {props.submenu}
     </li>
   )
 }

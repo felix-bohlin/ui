@@ -1,18 +1,16 @@
-import { merge, omit } from "solid-js"
-import { Dynamic } from "@solidjs/web"
+import { omit } from "solid-js"
+import { dynamic } from "@solidjs/web"
 import type { Props } from "./types.solid"
 
-export default function FieldLegend(rawProps: Props) {
-  const props = merge({ as: "legend" }, rawProps)
+export default function FieldLegend(props: Props) {
   const rest = omit(props, "as", "children", "class")
 
+  const tag = () => props.as || "legend"
+  const Tag = dynamic(tag)
+
   return (
-    <Dynamic
-      component={props.as}
-      class={[{ "ui-legend": props.as !== "legend" }, props.class]}
-      {...rest}
-    >
+    <Tag class={[{ "ui-legend": tag() !== "legend" }, props.class]} {...rest}>
       {props.children}
-    </Dynamic>
+    </Tag>
   )
 }

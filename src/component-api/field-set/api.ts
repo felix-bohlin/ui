@@ -21,7 +21,7 @@ export default {
       attribute: "[disabled]",
       default: "false",
       description: "Disables every field inside.",
-      frameworks: ["astro", "html", "vue"],
+      frameworks: ["astro", "html", "solid", "vue"],
       group: "State",
       prop: "disabled",
       type: "boolean",
@@ -31,12 +31,20 @@ export default {
   parts: [
     {
       code: "<legend>",
-      component: { astro: "FieldLegend", vue: "FieldLegend" },
+      component: {
+        astro: "FieldLegend",
+        solid: "FieldLegend",
+        vue: "FieldLegend",
+      },
       description: "The label of the fieldset.",
       selector: ":is(legend, .ui-legend)",
     },
     {
-      component: { astro: "FieldDescription", vue: "FieldDescription" },
+      component: {
+        astro: "FieldDescription",
+        solid: "FieldDescription",
+        vue: "FieldDescription",
+      },
       description: "Supporting text displayed below the legend.",
       selector: ".ui-field-description",
     },

@@ -1,9 +1,8 @@
-import { merge, omit, Show } from "solid-js"
-import { Dynamic } from "@solidjs/web"
+import { omit, Show } from "solid-js"
+import { dynamic } from "@solidjs/web"
 import type { Props } from "./types.solid"
 
-export default function Chip(rawProps: Props) {
-  const props = merge({ variant: "tonal" }, rawProps)
+export default function Chip(props: Props) {
   const rest = omit(
     props,
     "as",
@@ -18,19 +17,23 @@ export default function Chip(rawProps: Props) {
     "variant",
   )
 
-  const Tag = () => props.as || (props.href ? "a" : "div")
+  const tag = () => props.as || (props.href ? "a" : "div")
+  const variant = () => props.variant ?? "tonal"
+  const Tag = dynamic(tag)
 
   return (
-    <Dynamic
-      component={Tag()}
+    <Tag
       class={[
         "ui-chip",
-        { "ui-multiline": !!props.multiline },
+        {
+          "ui-multiline": props.multiline,
+        },
         props.size && `ui-${props.size}`,
-        props.variant && `ui-${props.variant}`,
+        variant() && `ui-${variant()}`,
         props.class,
       ]}
-      href={Tag() === "a" ? props.href : undefined}
+      href={tag() === "a" ? props.href : undefined}
+      type={tag() === "button" ? "button" : undefined}
       {...rest}
     >
       {props.start}
@@ -39,6 +42,6 @@ export default function Chip(rawProps: Props) {
         <span class="ui-text">{props.label}</span>
       </Show>
       {props.end}
-    </Dynamic>
+    </Tag>
   )
 }

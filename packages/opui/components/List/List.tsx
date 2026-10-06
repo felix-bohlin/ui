@@ -8,7 +8,6 @@ export default function List(props: Props) {
     "children",
     "class",
     "dense",
-    "divided",
     "gutterless",
     "variant",
   )
@@ -18,10 +17,9 @@ export default function List(props: Props) {
       class={[
         "ui-list",
         {
-          "ui-bordered": !!props.bordered,
-          "ui-dense": !!props.dense,
-          "ui-divided": !!props.divided,
-          "ui-gutterless": !!props.gutterless,
+          "ui-bordered": props.bordered,
+          "ui-dense": props.dense,
+          "ui-gutterless": props.gutterless,
         },
         props.variant && `ui-${props.variant}`,
         props.class,

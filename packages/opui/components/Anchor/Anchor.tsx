@@ -1,15 +1,7 @@
-import { createUniqueId, merge, omit } from "solid-js"
+import { createUniqueId, omit } from "solid-js"
 import type { Props } from "./types.solid"
 
-const insetMap: Record<string, string> = {
-  "start start": "auto 100% 100% auto",
-  "start end": "auto auto 100% 100%",
-  "end start": "100% 100% auto auto",
-  "end end": "100% auto auto 100%",
-}
-
-export default function Anchor(rawProps: Props) {
-  const props = merge({ trigger: "always" }, rawProps)
+export default function Anchor(props: Props) {
   const rest = omit(
     props,
     "alignment",
@@ -17,23 +9,34 @@ export default function Anchor(rawProps: Props) {
     "children",
     "class",
     "id",
+    "style",
     "trigger",
   )
 
   const uid = createUniqueId()
-  const isHover = () => props.trigger === "hover"
+  const isHover = () => (props.trigger ?? "always") === "hover"
   const id = () => (isHover() ? (props.id ?? uid) : undefined)
 
-  const positionArea = () =>
-    props.alignment
-      ? {
-          "--anchor-position-area": props.alignment,
-          "--_anchor-inset": insetMap[props.alignment],
-        }
+  const style = () => {
+    const positionArea = props.alignment
+      ? { "--anchor-position-area": props.alignment }
       : undefined
+    if (typeof props.style === "string" || !props.style) {
+      const positionAreaString = positionArea
+        ? `--anchor-position-area: ${props.alignment};`
+        : ""
+      return `${positionAreaString}${props.style ?? ""}` || undefined
+    }
+    return { ...positionArea, ...props.style }
+  }
 
   return (
-    <span class={["ui-anchor", props.class]} style={positionArea()} {...rest}>
+    <span
+      class={["ui-anchor", props.class]}
+      id={isHover() ? undefined : props.id}
+      style={style()}
+      {...rest}
+    >
       {props.children}
       <span
         class="ui-anchor-floating"

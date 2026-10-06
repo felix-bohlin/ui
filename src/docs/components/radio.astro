@@ -64,6 +64,10 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
         {" "}<code>name</code> attribute. Browsers use that shared name to enforce
         mutual exclusivity within the group.
       </Fragment>
+      <Fragment slot="solid">
+        The <code>name</code> prop will get passed down to each radio button in the
+        group.
+      </Fragment>
       <Fragment slot="vue">
         The <code>name</code> prop will get passed down to each radio button in the
         group.
@@ -97,12 +101,12 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
       <Fragment slot="astro">
         Set <code>required</code> on at least one <code>Radio</code> in the group.
       </Fragment>
-      <Fragment slot="vue">
+      <Fragment slot="solid">
         Add the <code>required</code> attribute on at least one <code
           >Radio</code
         >. It is forwarded to the underlying <code>&lt;input&gt;</code>.
       </Fragment>
-      <Fragment slot="solid">
+      <Fragment slot="vue">
         Add the <code>required</code> attribute on at least one <code
           >Radio</code
         >. It is forwarded to the underlying <code>&lt;input&gt;</code>.
@@ -130,11 +134,11 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
           >FieldSet</code
         > component.
       </p>
-      <p slot="vue">
+      <p slot="solid">
         Attach <code>data-invalid</code> to the <code>FieldSet</code> wrapper, or
         use the <code>error</code> prop on individual <code>Radio</code> components.
       </p>
-      <p slot="solid">
+      <p slot="vue">
         Attach <code>data-invalid</code> to the <code>FieldSet</code> wrapper, or
         use the <code>error</code> prop on individual <code>Radio</code> components.
       </p>

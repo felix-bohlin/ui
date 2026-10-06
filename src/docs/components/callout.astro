@@ -156,8 +156,8 @@ const ThemeCSS = `/* ... */
         The <code>severity</code> prop accepts <code>info</code>, <code
           >success</code
         >, <code>warning</code>, and <code>critical</code>, plus a non-severity
-        <code>neutral</code> tone for brand-tinted attention. The default is a plain
-        surface.
+        {" "}<code>neutral</code> tone for brand-tinted attention. The default is
+        a plain surface.
       </Fragment>
       <Fragment slot="vue">
         The <code>severity</code> prop accepts <code>info</code>, <code
@@ -203,6 +203,11 @@ const ThemeCSS = `/* ... */
         > have a default icon. Replace it with the <code>icon</code> slot.
       </Fragment>
       <Fragment slot="html"> Icon must be placed before the content. </Fragment>
+      <Fragment slot="solid">
+        <code>info</code>, <code>success</code>, <code>warning</code> and <code
+          >critical</code
+        > have a default icon. Replace it with the <code>icon</code> prop.
+      </Fragment>
       <Fragment slot="vue">
         <code>info</code>, <code>success</code>, <code>warning</code> and <code
           >critical</code

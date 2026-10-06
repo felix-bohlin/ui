@@ -1,5 +1,5 @@
 import { omit, Show } from "solid-js"
-import { Dynamic } from "@solidjs/web"
+import { dynamic } from "@solidjs/web"
 import type { Props } from "./types.solid"
 
 export default function Avatar(props: Props) {
@@ -15,23 +15,24 @@ export default function Avatar(props: Props) {
     "variant",
   )
 
-  const Tag = () => props.as || (props.href ? "a" : "div")
+  const tag = () => props.as || (props.href ? "a" : "div")
+  const Tag = dynamic(tag)
 
   return (
-    <Dynamic
-      component={Tag()}
+    <Tag
       class={[
-        { "ui-avatar": !props.isGroup },
+        { "ui-avatar": !props.isGroup, "ui-avatar-group": props.isGroup },
         !props.isGroup && props.variant && `ui-${props.variant}`,
         props.class,
       ]}
       href={props.href}
       role={props.isGroup ? "group" : undefined}
+      type={tag() === "button" ? "button" : undefined}
       {...rest}
     >
       <Show when={props.src} fallback={props.children}>
-        <img src={props.src} alt={props.alt} />
+        <img src={props.src} alt={props.alt ?? ""} />
       </Show>
-    </Dynamic>
+    </Tag>
   )
 }

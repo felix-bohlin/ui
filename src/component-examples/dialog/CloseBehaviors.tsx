@@ -1,3 +1,4 @@
+import { createSignal } from "solid-js"
 import {
   Button,
   Dialog,
@@ -6,25 +7,12 @@ import {
   FieldSet,
   Radio,
 } from "opui-css/solid"
-import { onMounted } from "vue"
-
-onMounted(() => {
-  const dialog = document.getElementById(
-    "closing-behaviors-dialog",
-  ) as HTMLDialogElement
-  const radios = document.querySelectorAll('input[name="closedby-demo"]')
-
-  radios.forEach((radio) => {
-    radio.addEventListener("change", (e) => {
-      const target = e.target as HTMLInputElement
-      if (dialog) {
-        dialog.setAttribute("closedby", target.value)
-      }
-    })
-  })
-})
 
 export default function Example() {
+  const [closedby, setClosedby] = createSignal<"any" | "closerequest" | "none">(
+    "any",
+  )
+
   return (
     <>
       <Button
@@ -37,12 +25,21 @@ export default function Example() {
 
       <Dialog
         id="closing-behaviors-dialog"
-        closedby="any"
+        closedby={closedby()}
         header={<h2 class="ui-h4">How to close</h2>}
         content={
           <FieldSet>
             <FieldLegend>Choose a closing behavior:</FieldLegend>
-            <FieldGroup name="closedby-demo">
+            <FieldGroup
+              name="closedby-demo"
+              onChange={(event) =>
+                setClosedby(
+                  (event.target as HTMLInputElement).value as ReturnType<
+                    typeof closedby
+                  >,
+                )
+              }
+            >
               <Radio value="any" checked>
                 any
               </Radio>

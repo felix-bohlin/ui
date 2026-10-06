@@ -1,5 +1,4 @@
 import { For } from "solid-js"
-
 import { Carousel } from "opui-css/solid"
 
 const videos = [

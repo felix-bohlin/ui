@@ -1,5 +1,6 @@
 import { createUniqueId, For, merge, omit, Show, useContext } from "solid-js"
 import { FieldGroupContext } from "../FieldGroup/context"
+import type { Item } from "./types"
 import type { Props } from "./types.solid"
 
 export default function Select(rawProps: Props) {
@@ -15,7 +16,6 @@ export default function Select(rawProps: Props) {
     "error",
     "footer",
     "header",
-    "id",
     "items",
     "label",
     "name",
@@ -26,8 +26,16 @@ export default function Select(rawProps: Props) {
     "variant",
   )
 
-  const labelId = createUniqueId()
-  const endTextId = createUniqueId()
+  const labelUid = createUniqueId()
+  const endTextUid = createUniqueId()
+  const labelId = () => (props.label ? labelUid : undefined)
+  const endTextId = () => (props.endText ? endTextUid : undefined)
+  const isSelected = (item: Item) =>
+    props.value === undefined
+      ? item.selected
+      : Array.isArray(props.value)
+        ? props.value.includes(item.value)
+        : item.value === props.value
 
   return (
     <label
@@ -36,14 +44,14 @@ export default function Select(rawProps: Props) {
         props.size && `ui-${props.size}`,
         {
           "ui-filled": props.variant === "filled",
-          "ui-spread": !!props.spread,
+          "ui-spread": props.spread,
         },
         props.class,
       ]}
       data-invalid={props.error ? "" : undefined}
     >
       <Show when={props.label}>
-        <span class="ui-label" id={labelId}>
+        <span class="ui-label" id={labelId()}>
           {props.label}
         </span>
       </Show>
@@ -52,17 +60,25 @@ export default function Select(rawProps: Props) {
       </Show>
       <span class="ui-field">
         <select
-          aria-labelledby={props.label ? labelId : undefined}
-          id={props.id}
+          aria-describedby={endTextId()}
+          aria-invalid={props.error ? "true" : undefined}
+          aria-labelledby={labelId()}
           name={props.name ?? fieldGroup.name}
           {...rest}
         >
           <button>
             <selectedcontent></selectedcontent>
           </button>
-          <div class={["ui-list", { "ui-dense": !!props.dense }]}>
+          <div class={["ui-list", { "ui-dense": props.dense }]}>
             <For each={props.items}>
-              {(item) => <option value={item.value}>{item.text}</option>}
+              {(item) => (
+                <option
+                  selected={isSelected(item) || undefined}
+                  value={item.value}
+                >
+                  {item.text}
+                </option>
+              )}
             </For>
             {props.children}
           </div>
@@ -81,7 +97,7 @@ export default function Select(rawProps: Props) {
         </Show>
       </span>
       <Show when={props.endText}>
-        <span id={endTextId} class="ui-end-text">
+        <span class="ui-end-text" id={endTextId()}>
           {props.endText}
         </span>
       </Show>

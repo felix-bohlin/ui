@@ -1,21 +1,11 @@
-import { omit, useContext } from "solid-js"
-import { CurrentPanelIdContext, CurrentTabIdContext } from "./context"
+import { omit } from "solid-js"
 import type { TabsPanelProps } from "./types.solid"
 
 export default function TabsPanel(props: TabsPanelProps) {
-  const rest = omit(props, "children", "class", "panelId", "tabId")
-
-  const currentPanelId = useContext(CurrentPanelIdContext)
-  const currentTabId = useContext(CurrentTabIdContext)
+  const rest = omit(props, "children", "class")
 
   return (
-    <div
-      id={props.panelId || currentPanelId()}
-      class={["ui-tab-panel", props.class]}
-      role="tabpanel"
-      aria-labelledby={props.tabId || currentTabId()}
-      {...rest}
-    >
+    <div class={["ui-tab-panel", props.class]} {...rest}>
       {props.children}
     </div>
   )

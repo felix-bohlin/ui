@@ -102,7 +102,7 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
       </Fragment>
       <Fragment slot="solid">
         Change the appearance of the entire group with the <code>variant</code>
-        prop.
+        {" "}prop.
       </Fragment>
       <Fragment slot="vue">
         Change the appearance of the entire group with the <code>variant</code>
@@ -150,6 +150,10 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
           >.ui-x-small</code
         >, <code>.ui-small</code> and <code>.ui-large</code> classes.
       </Fragment>
+      <Fragment slot="solid">
+        Adjust the size of all buttons in the group using the <code>size</code>
+        {" "}prop.
+      </Fragment>
       <Fragment slot="vue">
         Adjust the size of all buttons in the group using the <code>size</code>
         {" "}prop.
@@ -182,8 +186,8 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         last button. <code>align="end"</code> lines it up with the group.
       </Fragment>
       <Fragment slot="solid">
-        Adjust the size of all buttons in the group using the <code>size</code>
-        prop.
+        A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
+        last button. <code>align="end"</code> lines it up with the group.
       </Fragment>
       <Fragment slot="vue">
         A <DocLink href="/components/menu" class="ui-link">Menu</DocLink> after the
@@ -207,6 +211,12 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
           >disabled</code
         >
         {" "}attribute to each <code>&lt;button&gt;</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        Disable individual buttons within a group by setting the <code
+          >disabled</code
+        >
+        {" "}prop on each <code>Button</code>.
       </Fragment>
       <Fragment slot="vue">
         Disable individual buttons within a group by setting the <code
@@ -264,10 +274,12 @@ import ButtonGroupBuild from "../../components/UnderTheHood/ButtonGroupBuild.ast
         their size.
       </Fragment>
       <Fragment slot="solid">
-        Disable individual buttons within a group by setting the <code
-          >disabled</code
-        >
-        prop on each <code>Button</code>.
+        Buttons wrap onto more rows when they don't fit. Use <code
+          >scrollable</code
+        > to keep them on one row and scroll them sideways, or <code
+          >shrink</code
+        > to keep them on one row and truncate their labels. Icon-only items keep
+        their size.
       </Fragment>
       <Fragment slot="vue">
         Buttons wrap onto more rows when they don't fit. Use <code

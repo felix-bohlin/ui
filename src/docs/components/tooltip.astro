@@ -68,6 +68,15 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
       <code>label</code> prop for plain text or use the <code>content</code> slot
       for richer markup.
     </Fragment>
+    <Fragment slot="solid">
+      Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable{" "}
+      <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
+      and <code>command="toggle-popover"</code> on the trigger element itself (these
+      attributes are only valid on real invokers like{" "}
+      <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a{" "}
+      <code>label</code> prop for plain text or use the <code>content</code> prop
+      for richer markup.
+    </Fragment>
     <Fragment slot="vue">
       Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable{" "}
       <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
@@ -75,15 +84,6 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
       attributes are only valid on real invokers like{" "}
       <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a{" "}
       <code>label</code> prop for plain text or use the <code>content</code> slot
-      for richer markup.
-    </Fragment>
-    <Fragment slot="solid">
-      Wrap the trigger in <code>&lt;Tooltip&gt;</code> and pass a stable
-      <code>id</code>. Set <code>interestfor</code>, <code>commandfor</code>,
-      and <code>command="toggle-popover"</code> on the trigger element itself (these
-      attributes are only valid on real invokers like
-      <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code>). Pass a
-      <code>label</code> prop for plain text or use the <code>content</code> prop
       for richer markup.
     </Fragment>
   </Conditional>
@@ -99,10 +99,10 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
       <Fragment slot="astro">
         Pass plain text via the <code>label</code> prop.
       </Fragment>
-      <Fragment slot="vue">
+      <Fragment slot="solid">
         Pass plain text via the <code>label</code> prop.
       </Fragment>
-      <Fragment slot="solid">
+      <Fragment slot="vue">
         Pass plain text via the <code>label</code> prop.
       </Fragment>
     </Conditional>
@@ -121,12 +121,12 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
           Use the <code>content</code> slot instead, and it lets you put anything
           in the tooltip.
         </Fragment>
-        <Fragment slot="vue">
-          Use the <code>content</code> slot instead, and it lets you put anything
+        <Fragment slot="solid">
+          Use the <code>content</code> prop instead, and it lets you put anything
           in the tooltip.
         </Fragment>
-        <Fragment slot="solid">
-          Use the <code>content</code> prop instead, and it let's you put anything
+        <Fragment slot="vue">
+          Use the <code>content</code> slot instead, and it lets you put anything
           in the tooltip.
         </Fragment>
       </Conditional>
@@ -145,10 +145,10 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
       <Fragment slot="astro">
         Use the <code>alignment</code> prop.
       </Fragment>
-      <Fragment slot="vue">
+      <Fragment slot="solid">
         Use the <code>alignment</code> prop.
       </Fragment>
-      <Fragment slot="solid">
+      <Fragment slot="vue">
         Use the <code>alignment</code> prop.
       </Fragment>
     </Conditional>
@@ -169,17 +169,17 @@ import TooltipBuild from "../../components/UnderTheHood/TooltipBuild.astro"
         >
         {" "}one day.
       </Fragment>
-      <Fragment slot="vue">
+      <Fragment slot="solid">
         Set the <code>arrow</code> prop. This would be cool to solve with <code
           >corner-shape</code
         >
         {" "}one day.
       </Fragment>
-      <Fragment slot="solid">
+      <Fragment slot="vue">
         Set the <code>arrow</code> prop. This would be cool to solve with <code
           >corner-shape</code
         >
-        one day.
+        {" "}one day.
       </Fragment>
     </Conditional>
 

@@ -17,7 +17,7 @@ export default {
     {
       description:
         'The id of the floating content when `trigger` is `"hover"` (add `interestfor` with the same id to the trigger), otherwise the id of the root.',
-      frameworks: ["astro", "vue"],
+      frameworks: ["astro", "solid", "vue"],
       prop: "id",
       type: "string",
     },

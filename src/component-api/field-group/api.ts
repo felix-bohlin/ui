@@ -15,7 +15,7 @@ export default {
     },
     {
       description:
-        "Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Vue, only on OPUI components.",
+        "Sets `name` on the fields inside. Skips button, hidden, image, reset and submit inputs. In Solid and Vue, only on OPUI components.",
       prop: "name",
     },
   ],

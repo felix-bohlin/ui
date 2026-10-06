@@ -5,6 +5,7 @@ import type { CheckboxProps } from "./types.solid"
 export default function Checkbox(props: CheckboxProps) {
   const rest = omit(
     props,
+    "aria-describedby",
     "children",
     "class",
     "endText",
@@ -18,6 +19,9 @@ export default function Checkbox(props: CheckboxProps) {
 
   const id = createUniqueId()
   const endTextId = () => (props.endText ? id : undefined)
+  const describedBy = () =>
+    [endTextId(), props["aria-describedby"]].filter(Boolean).join(" ") ||
+    undefined
 
   return (
     <label
@@ -25,21 +29,24 @@ export default function Checkbox(props: CheckboxProps) {
         "ui-checkbox",
         props.size && `ui-${props.size}`,
         {
-          "ui-spread": !!props.spread,
-          "ui-stack": !!props.stack,
+          "ui-spread": props.spread,
+          "ui-stack": props.stack,
         },
         props.class,
       ]}
       data-invalid={props.error ? "" : undefined}
     >
       <CheckboxInput
-        aria-describedby={endTextId()}
-        name={props.name}
         {...rest}
+        aria-describedby={describedBy()}
+        aria-invalid={props.error ? "true" : undefined}
+        name={props.name}
       />
-      <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>
-        {props.children}
-      </span>
+      <Show when={props.children}>
+        <span class={[props.hideLabel ? "ui-sr-only" : "ui-label"]}>
+          {props.children}
+        </span>
+      </Show>
       <Show when={props.endText}>
         <span id={endTextId()} class="ui-end-text">
           {props.endText}

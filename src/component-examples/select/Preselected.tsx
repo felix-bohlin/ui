@@ -1,9 +1,9 @@
-import { ref } from "vue"
+import { createSignal } from "solid-js"
 import { Select } from "opui-css/solid"
 
-const role = ref("developer")
-
 export default function Example() {
+  const [role, setRole] = createSignal("developer")
+
   return (
     <>
       <Select
@@ -12,7 +12,9 @@ export default function Example() {
           { text: "Designer", value: "designer" },
           { text: "Developer", value: "developer" },
           { text: "Manager", value: "manager" },
-        ]} /* TODO v-model="role" */
+        ]}
+        value={role()}
+        onChange={(event) => setRole(event.currentTarget.value)}
       />
 
       <Select

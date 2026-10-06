@@ -5,6 +5,8 @@ export default {
   notes: {
     astro:
       "CSS-only typography. Apply the classes on elements in templates; no Astro component.",
+    solid:
+      "CSS-only typography. Apply the classes on elements in JSX; no Solid component.",
     vue: "CSS-only typography. Apply the classes on elements in templates; no Vue component.",
   },
   options: [

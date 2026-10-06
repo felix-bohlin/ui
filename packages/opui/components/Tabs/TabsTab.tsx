@@ -11,7 +11,6 @@ export default function TabsTab(props: TabsTabProps) {
     <label
       for={props.tabId || currentTabId()}
       class={["ui-tab-label", props.class]}
-      role="tab"
       {...rest}
     >
       {props.children}

@@ -43,14 +43,18 @@ const anatomyApi = {
   parts: [
     {
       code: "<fieldset>",
-      component: { astro: "FieldSet", vue: "FieldSet" },
+      component: { astro: "FieldSet", solid: "FieldSet", vue: "FieldSet" },
       description: "Groups related fields.",
       selector: ".ui-fieldset",
     },
     ...fieldSetApi.parts,
     {
       code: ".ui-field-group",
-      component: { astro: "FieldGroup", vue: "FieldGroup" },
+      component: {
+        astro: "FieldGroup",
+        solid: "FieldGroup",
+        vue: "FieldGroup",
+      },
       description: "Lays out related fields.",
       selector: ".ui-fieldset .ui-field-group",
     },
@@ -102,9 +106,9 @@ const anatomyApi = {
     <h2 id="usage">Usage</h2>
     <Conditional>
       <Code slot="astro" lang="astro" code={ExampleUsageAstroCode} />
-      <Code slot="vue" lang="vue" code={ExampleUsageVueCode} />
       <Code slot="html" lang="html" code={ExampleUsageHTMLCode} />
       <Code slot="solid" lang="tsx" code={ExampleUsageSolidCode} />
+      <Code slot="vue" lang="vue" code={ExampleUsageVueCode} />
     </Conditional>
   </section>
 
@@ -115,20 +119,13 @@ const anatomyApi = {
         Groups related fields. Label it with <code>FieldLegend</code> and add an optional
         <code>FieldDescription</code>.
       </Fragment>
-      <Fragment slot="solid">
-        <h3 id="non-semantic-elements">Non-semantic elements</h3>
-        <p>
-          Sometimes you can't use semantic form elements like <code
-            >&lt;fieldset&gt;</code
-          > and <code>&lt;legend&gt;</code>. Use the <code>as</code> prop on <code
-            >FieldSet</code
-          > and <code>FieldLegend</code> to render non-semantic alternatives.
-        </p>
-        <Code lang="tsx" code={ExampleAdaptiveOutputSolidCode} />
-      </Fragment>
       <Fragment slot="html">
         Groups related fields. Label it with <code>&lt;legend&gt;</code> and add an
         optional <code>.ui-field-description</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        Groups related fields. Label it with <code>FieldLegend</code> and add an optional
+        <code>FieldDescription</code>.
       </Fragment>
       <Fragment slot="vue">
         Groups related fields. Label it with <code>FieldLegend</code> and add an optional
@@ -149,6 +146,10 @@ const anatomyApi = {
         Lays out related fields. Wrap it in a fieldset to group them for screen
         readers.
       </Fragment>
+      <Fragment slot="solid">
+        Lays out related fields and passes a shared <code>name</code> to the OPUI
+        fields inside. Wrap it in a fieldset to group them for screen readers.
+      </Fragment>
       <Fragment slot="vue">
         Lays out related fields and passes a shared <code>name</code> to the OPUI
         fields inside. Wrap it in a fieldset to group them for screen readers.
@@ -164,6 +165,9 @@ const anatomyApi = {
       </Fragment>
       <Fragment slot="html">
         Add <code>.ui-row</code> to lay out fields horizontally.
+      </Fragment>
+      <Fragment slot="solid">
+        Set <code>direction="row"</code> to lay out fields horizontally.
       </Fragment>
       <Fragment slot="vue">
         Set <code>direction="row"</code> to lay out fields horizontally.
@@ -186,6 +190,10 @@ const anatomyApi = {
         Add <code>disabled</code> to the <code>&lt;fieldset&gt;</code> to disable
         every field inside.
       </Fragment>
+      <Fragment slot="solid">
+        Set <code>disabled</code> on <code>FieldSet</code> to disable every field
+        inside.
+      </Fragment>
       <Fragment slot="vue">
         Set <code>disabled</code> on <code>FieldSet</code> to disable every field
         inside.
@@ -202,6 +210,10 @@ const anatomyApi = {
       <Fragment slot="html">
         Add <code>data-invalid</code> to the <code>&lt;fieldset&gt;</code> for error
         styles. Explain the error in a <code>.ui-end-text</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        Add <code>data-invalid</code> to <code>FieldSet</code> for error styles. Explain
+        the error in a <code>.ui-end-text</code>.
       </Fragment>
       <Fragment slot="vue">
         Add <code>data-invalid</code> to <code>FieldSet</code> for error styles. Explain
@@ -225,6 +237,10 @@ const anatomyApi = {
       <Fragment slot="html">
         A field group with only buttons lines up in a row. Separate it from the
         fields with <code>&lt;hr class="ui-divider"&gt;</code>.
+      </Fragment>
+      <Fragment slot="solid">
+        A field group with only buttons lines up in a row. Separate it from the
+        fields with <code>Divider</code>.
       </Fragment>
       <Fragment slot="vue">
         A field group with only buttons lines up in a row. Separate it from the
@@ -255,6 +271,15 @@ const anatomyApi = {
         pick up its name from the legend, so give the legend an <code>id</code> and
         point <code>aria-labelledby</code> on the field set at it.
       </Fragment>
+      <Fragment slot="solid">
+        Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or <code
+          >&lt;legend&gt;</code
+        >? Set <code>as</code> on <code>Form</code>, <code>FieldSet</code> and <code
+          >FieldLegend</code
+        >. A <code>div</code> doesn't pick up its name from the legend, so give the
+        legend an <code>id</code> and point <code>aria-labelledby</code> on the field
+        set at it.
+      </Fragment>
       <Fragment slot="vue">
         Can't use <code>&lt;form&gt;</code>, <code>&lt;fieldset&gt;</code> or <code
           >&lt;legend&gt;</code
@@ -279,8 +304,8 @@ const anatomyApi = {
           <Conditional>
             <Fragment slot="astro">Show <code>&lt;Divider&gt;</code></Fragment>
             <Fragment slot="html">Show <code>&lt;hr&gt;</code></Fragment>
-            <Fragment slot="vue">Show <code>&lt;Divider&gt;</code></Fragment>
             <Fragment slot="solid">Show <code>&lt;Divider&gt;</code></Fragment>
+            <Fragment slot="vue">Show <code>&lt;Divider&gt;</code></Fragment>
           </Conditional>
         </UISwitch>
       </Fragment>

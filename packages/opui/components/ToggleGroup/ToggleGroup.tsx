@@ -1,5 +1,5 @@
 import { createUniqueId, merge, omit } from "solid-js"
-import { ToggleGroupContext } from "./context.solid"
+import { ToggleGroupContext } from "./context"
 import type { Props } from "./types.solid"
 
 export default function ToggleGroup(rawProps: Props) {
@@ -10,22 +10,22 @@ export default function ToggleGroup(rawProps: Props) {
     "class",
     "name",
     "orientation",
+    "scrollable",
     "selection",
+    "shrink",
     "size",
   )
 
   const uid = createUniqueId()
-  const groupName = () => props.name || uid
-  const inputType = () => (props.selection === "single" ? "radio" : "checkbox")
 
   return (
     <ToggleGroupContext
       value={{
-        get groupName() {
-          return groupName()
+        get name() {
+          return props.name || uid
         },
-        get inputType() {
-          return inputType()
+        get type() {
+          return props.selection === "single" ? "radio" : "checkbox"
         },
       }}
     >
@@ -34,6 +34,7 @@ export default function ToggleGroup(rawProps: Props) {
           "ui-toggle-group",
           props.size !== "default" && props.size && `ui-${props.size}`,
           props.orientation && `ui-${props.orientation}`,
+          { "ui-scrollable": props.scrollable, "ui-shrink": props.shrink },
           props.class,
         ]}
         role={props.selection === "single" ? "radiogroup" : "group"}

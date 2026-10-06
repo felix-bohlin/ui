@@ -1,8 +1,10 @@
-import { createUniqueId, For, merge, omit, Show } from "solid-js"
+import { createUniqueId, For, merge, omit, Show, useContext } from "solid-js"
+import { FieldGroupContext } from "../FieldGroup/context"
 import type { ClassicSelectProps } from "./types.solid"
 
 export default function ClassicSelect(rawProps: ClassicSelectProps) {
   const props = merge({ items: [], variant: "outlined" }, rawProps)
+  const fieldGroup = useContext(FieldGroupContext)
   const rest = omit(
     props,
     "children",
@@ -12,14 +14,16 @@ export default function ClassicSelect(rawProps: ClassicSelectProps) {
     "id",
     "items",
     "label",
+    "name",
     "size",
+    "value",
     "variant",
   )
 
   const uid = createUniqueId()
-  const labelId = createUniqueId()
-
-  const selectId = () => props.id ?? uid
+  const endTextUid = createUniqueId()
+  const selectId = () => props.id || uid
+  const endTextId = () => (props.endText ? endTextUid : undefined)
 
   return (
     <label
@@ -32,24 +36,33 @@ export default function ClassicSelect(rawProps: ClassicSelectProps) {
       data-invalid={props.error ? "" : undefined}
     >
       <Show when={props.label}>
-        <span class="ui-label" id={labelId}>
-          {props.label}
-        </span>
+        <span class="ui-label">{props.label}</span>
       </Show>
       <span class="ui-field">
         <select
-          aria-labelledby={props.label ? labelId : undefined}
+          aria-describedby={endTextId()}
+          aria-invalid={props.error ? "true" : undefined}
           id={selectId()}
+          name={props.name ?? fieldGroup.name}
           {...rest}
         >
           <For each={props.items}>
-            {(item) => <option value={item.value}>{item.text}</option>}
+            {(item) => (
+              <option
+                selected={item.value === props.value || undefined}
+                value={item.value}
+              >
+                {item.text}
+              </option>
+            )}
           </For>
           {props.children}
         </select>
       </span>
       <Show when={props.endText}>
-        <span class="ui-end-text">{props.endText}</span>
+        <span class="ui-end-text" id={endTextId()}>
+          {props.endText}
+        </span>
       </Show>
     </label>
   )

@@ -78,6 +78,11 @@ export const description =
           >.ui-spacious</code
         > class.
       </Fragment>
+      <Fragment slot="solid">
+        Change the cell padding with <code>variant="dense"</code> or <code
+          >variant="spacious"</code
+        >.
+      </Fragment>
       <Fragment slot="vue">
         Change the cell padding with <code>variant="dense"</code> or <code
           >variant="spacious"</code
@@ -118,6 +123,13 @@ export const description =
       </Fragment>
       <Fragment slot="html">
         <code>.ui-sticky-header</code> keeps the header rows at the top of the nearest
+        scroll container while the rows scroll under them, and adds a shadow once
+        the header is stuck. Put the table in a scroll box, or let it stick to the
+        page and set <code>--_sticky-offset</code> on the table to clear a fixed top
+        bar.
+      </Fragment>
+      <Fragment slot="solid">
+        <code>stickyHeader</code> keeps the header rows at the top of the nearest
         scroll container while the rows scroll under them, and adds a shadow once
         the header is stuck. Put the table in a scroll box, or let it stick to the
         page and set <code>--_sticky-offset</code> on the table to clear a fixed top

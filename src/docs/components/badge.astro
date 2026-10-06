@@ -84,6 +84,11 @@ export const description =
           >success</code
         >, <code>warning</code>.
       </p>
+      <p slot="solid">
+        <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
+          >success</code
+        >, <code>warning</code>.
+      </p>
       <p slot="vue">
         <code>critical</code>, <code>info</code>, <code>neutral</code>, <code
           >success</code
@@ -111,7 +116,7 @@ export const description =
       <Fragment slot="solid">
         Set indicator text with the <code>label</code> prop or the <code
           >indicator</code
-        > prop. The children hold the anchored element.
+        > prop. <code>children</code> holds the anchored element.
       </Fragment>
       <Fragment slot="vue">
         Set indicator text with the <code>label</code> prop or the <code
@@ -135,7 +140,7 @@ export const description =
         class.
       </Fragment>
       <Fragment slot="solid">
-        Change the badge's visibility using the <code>invisible</code>
+        Change the badge's visibility using the <code>invisible</code>{" "}
         prop.
       </Fragment>
       <Fragment slot="vue">
@@ -184,7 +189,7 @@ export const description =
         <code>end-start</code>, <code>end-end</code>.
       </p>
       <p slot="solid">
-        <code>start-start</code>, default,
+        <code>start-start</code>, default,{" "}
         <code>end-start</code>, <code>end-end</code>.
       </p>
       <p slot="vue">
@@ -210,6 +215,7 @@ export const description =
               >.ui-badge-indicator</code
             >.</Fragment
           >
+          <Fragment slot="solid">the <code>srLabel</code> prop.</Fragment>
           <Fragment slot="vue">the <code>srLabel</code> prop.</Fragment>
         </Conditional>
       </li>

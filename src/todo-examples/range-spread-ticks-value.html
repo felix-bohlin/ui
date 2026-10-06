@@ -1,18 +1,144 @@
-<label class="ui-range ui-spread" style="inline-size: 36rem">
-  <span class="ui-label" id="todo-range-label">Hue</span>
-  <output class="ui-value" for="todo-range">250°</output>
-  <input
-    id="todo-range"
-    aria-labelledby="todo-range-label"
-    type="range"
-    min="0"
-    max="360"
-    value="250"
-    list="todo-range-ticks"
-  />
-  <datalist id="todo-range-ticks">
-    <option value="0" label="0"></option>
-    <option value="180" label="180"></option>
-    <option value="360" label="360"></option>
-  </datalist>
-</label>
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(.ui-range).ui-spread datalist {
+        grid-row: 2;
+      }
+
+      :where(.ui-range).ui-spread:has(.ui-value) datalist {
+        grid-row: 3;
+      }
+
+      @container (width < 400px) {
+        :where(.ui-range).ui-spread datalist,
+        :where(.ui-range).ui-spread:has(.ui-value) datalist {
+          grid-column: 1/-1;
+          grid-row: 4;
+        }
+      }
+    }
+  }
+
+  .todo-wide {
+    inline-size: 100%;
+  }
+
+  .todo-narrow {
+    inline-size: 18rem;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Spread range with a value, tick labels and end text: "250°" is drawn on
+      top of the "360" tick label.
+    </p>
+    <label class="ui-range ui-spread todo-wide">
+      <span class="ui-label" id="todo-range-label-current">Hue</span>
+      <output class="ui-value" for="todo-range-current">250°</output>
+      <input
+        id="todo-range-current"
+        aria-describedby="todo-range-end-current"
+        aria-labelledby="todo-range-label-current"
+        type="range"
+        min="0"
+        max="360"
+        value="250"
+        list="todo-range-ticks-current"
+      />
+      <datalist id="todo-range-ticks-current">
+        <option value="0" label="0"></option>
+        <option value="180" label="180"></option>
+        <option value="360" label="360"></option>
+      </datalist>
+      <span class="ui-end-text" id="todo-range-end-current">End text</span>
+    </label>
+    <label class="ui-range ui-spread todo-narrow">
+      <span class="ui-label" id="todo-range-narrow-label-current">Hue</span>
+      <output class="ui-value" for="todo-range-narrow-current">250°</output>
+      <input
+        id="todo-range-narrow-current"
+        aria-labelledby="todo-range-narrow-label-current"
+        type="range"
+        min="0"
+        max="360"
+        value="250"
+        list="todo-range-narrow-ticks-current"
+      />
+      <datalist id="todo-range-narrow-ticks-current">
+        <option value="0" label="0"></option>
+        <option value="180" label="180"></option>
+        <option value="360" label="360"></option>
+      </datalist>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The datalist moves to row 3 when a value is shown; under 400px it stays in
+      row 4.
+    </p>
+    <label class="ui-range ui-spread todo-wide">
+      <span class="ui-label" id="todo-range-label-fixed">Hue</span>
+      <output class="ui-value" for="todo-range-fixed">250°</output>
+      <input
+        id="todo-range-fixed"
+        aria-describedby="todo-range-end-fixed"
+        aria-labelledby="todo-range-label-fixed"
+        type="range"
+        min="0"
+        max="360"
+        value="250"
+        list="todo-range-ticks-fixed"
+      />
+      <datalist id="todo-range-ticks-fixed">
+        <option value="0" label="0"></option>
+        <option value="180" label="180"></option>
+        <option value="360" label="360"></option>
+      </datalist>
+      <span class="ui-end-text" id="todo-range-end-fixed">End text</span>
+    </label>
+    <label class="ui-range ui-spread todo-narrow">
+      <span class="ui-label" id="todo-range-narrow-label-fixed">Hue</span>
+      <output class="ui-value" for="todo-range-narrow-fixed">250°</output>
+      <input
+        id="todo-range-narrow-fixed"
+        aria-labelledby="todo-range-narrow-label-fixed"
+        type="range"
+        min="0"
+        max="360"
+        value="250"
+        list="todo-range-narrow-ticks-fixed"
+      />
+      <datalist id="todo-range-narrow-ticks-fixed">
+        <option value="0" label="0"></option>
+        <option value="180" label="180"></option>
+        <option value="360" label="360"></option>
+      </datalist>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const lines = [...panel.querySelectorAll(".ui-range")].map((range) => {
+      const v = range.querySelector(".ui-value").getBoundingClientRect()
+      const d = range.querySelector("datalist").getBoundingClientRect()
+      const overlap = (a, b) =>
+        a.left < b.right &&
+        b.left < a.right &&
+        a.top < b.bottom &&
+        b.top < a.bottom
+      const rows = ["output", "datalist"]
+        .map(
+          (s) =>
+            `${s} row ${getComputedStyle(range.querySelector(s)).gridRowStart}`,
+        )
+        .join(", ")
+      return `${Math.round(range.offsetWidth)}px wide: ${rows}; value overlaps ticks: ${overlap(v, d)}`
+    })
+    panel.querySelector("[data-measure]").textContent = lines.join("\n")
+  }
+</script>

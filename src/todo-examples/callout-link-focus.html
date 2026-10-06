@@ -1,11 +1,63 @@
-<p class="ui-caption">
-  Tab to the link: hover changes its color, keyboard focus doesn't.
-</p>
-<article class="ui-callout ui-info" style="max-inline-size: 28rem">
-  <div class="ui-content">
-    <p>
-      Read the <a class="ui-link" href="#">migration guide</a> before you
-      upgrade.
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(.ui-callout):not(.ui-outlined) a[href]:focus-visible {
+        color: var(--_link-hover-color);
+      }
+    }
+  }
+
+  .todo-callout {
+    max-inline-size: 28rem;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Hover the link, then press Tab to focus it: hover turns it primary,
+      keyboard focus keeps the text color.
     </p>
-  </div>
-</article>
+    <article class="ui-callout ui-info todo-callout">
+      <div class="ui-content">
+        <p>
+          Read the <a class="ui-link" href="#">migration guide</a> before you
+          upgrade.
+        </p>
+      </div>
+    </article>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The tonal callout's link rule also sets
+      <code>--_link-hover-color</code> on <code>:focus-visible</code>.
+    </p>
+    <article class="ui-callout ui-info todo-callout">
+      <div class="ui-content">
+        <p>
+          Read the <a class="ui-link" href="#">migration guide</a> before you
+          upgrade.
+        </p>
+      </div>
+    </article>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const link = panel.querySelector("a[href]")
+    const out = panel.querySelector("[data-measure]")
+    const probe = document.createElement("span")
+    probe.style.color = "var(--_link-hover-color)"
+    panel.querySelector(".ui-content").append(probe)
+    const show = () => {
+      const focused = link.matches(":focus-visible")
+      out.textContent = `link color${focused ? " (focused)" : ""}: ${getComputedStyle(link).color}\nhover color: ${getComputedStyle(probe).color}`
+    }
+    link.addEventListener("focus", show)
+    link.addEventListener("blur", show)
+    show()
+  }
+</script>

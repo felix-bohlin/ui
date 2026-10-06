@@ -1,0 +1,90 @@
+<style>
+  .todo-compare .ui-select {
+    inline-size: 16rem;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Only the API ("Content above the select, inside the border, with a
+      divider.") and the anatomy show the parts, with placeholder text:
+    </p>
+    <label class="ui-select">
+      <span class="ui-label" id="header-footer-current-label">Car</span>
+      <span class="ui-field">
+        <select aria-labelledby="header-footer-current-label">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option value="">Select car</option>
+            <option>Saab</option>
+            <option>Volvo</option>
+          </div>
+        </select>
+        <span class="ui-header">Header</span>
+        <span class="ui-footer">Footer</span>
+      </span>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      A "Header and footer" section after Affix. The proposed search field is a
+      second form control inside the root <code>&lt;label&gt;</code>
+      (invalid HTML) and sits outside the picker, so it can't filter it:
+    </p>
+    <label class="ui-select">
+      <span class="ui-label" id="header-footer-proposed-fixed-label">Car</span>
+      <span class="ui-field">
+        <select aria-labelledby="header-footer-proposed-fixed-label">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option value="">Select car</option>
+            <option>Saab</option>
+            <option>Volvo</option>
+          </div>
+        </select>
+        <span class="ui-header"
+          ><input type="search" aria-label="Search cars" placeholder="Search"
+        /></span>
+        <span class="ui-footer"><a class="ui-link" href="#">Manage…</a></span>
+      </span>
+    </label>
+    <p class="todo-note">
+      Non-interactive header text instead, and the "Manage…" link in the footer:
+    </p>
+    <label class="ui-select">
+      <span class="ui-label" id="header-footer-text-fixed-label">Car</span>
+      <span class="ui-field">
+        <select aria-labelledby="header-footer-text-fixed-label">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list">
+            <option value="">Select car</option>
+            <option>Saab</option>
+            <option>Volvo</option>
+          </div>
+        </select>
+        <span class="ui-header">Company cars only</span>
+        <span class="ui-footer"
+          ><a class="ui-link" href="#">Manage cars…</a></span
+        >
+      </span>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  const labelable = "button, input, meter, output, progress, select, textarea"
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const rows = [...panel.querySelectorAll(".ui-select")].map((root) => {
+      const select = root.querySelector("select")
+      const header = root.querySelector(".ui-header")
+      const controls = [...root.querySelectorAll(labelable)].filter(
+        (el) => !select.contains(el),
+      )
+      return `${header.textContent.trim() || "search"}: header in picker ${select.contains(header)}, extra labelable elements in the label ${controls.length}`
+    })
+    panel.querySelector("[data-measure]").textContent = rows.join("; ")
+  }
+</script>

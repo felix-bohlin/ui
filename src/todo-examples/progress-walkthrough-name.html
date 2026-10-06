@@ -1,42 +1,55 @@
 <style>
-  .todo-compare {
-    display: grid;
-    gap: var(--size-4);
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-    inline-size: 100%;
-  }
-
-  .todo-compare > div {
-    display: grid;
-    gap: var(--size-2);
-    min-inline-size: 0;
+  .todo-compare .progress {
+    inline-size: 16rem;
   }
 </style>
-<p>
-  Turn on a screen reader (or open the accessibility tree in DevTools) and move
-  through the three bars.
-</p>
 <div class="todo-compare">
-  <div>
-    <p class="ui-caption">Walkthrough snippet: no name</p>
-    <div class="ui-progress">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The step 1 "Native" snippet. Open the accessibility tree in DevTools (or a
+      screen reader): "progress bar, 60%". 60% of what?
+    </p>
+    <div class="progress">
       <progress max="100" value="60"></progress>
     </div>
-    <p class="ui-caption">Read as "progress bar, 60%". 60% of what?</p>
-  </div>
-  <div>
-    <p class="ui-caption"><code>aria-label</code>, like the demo and docs</p>
-    <div class="ui-progress">
+    <div class="progress">
+      <progress></progress>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Named like the demo and docs, with the note "Give it a name:
+      <code>aria-label</code>, or a <code>&lt;label for&gt;</code> when the text
+      should be visible".
+    </p>
+    <div class="progress">
       <progress aria-label="Uploading" max="100" value="60"></progress>
     </div>
-    <p class="ui-caption">Read as "Uploading, progress bar, 60%".</p>
-  </div>
-  <div>
-    <p class="ui-caption">Or a visible <code>&lt;label&gt;</code></p>
-    <label for="todo-progress-upload">Uploading report.pdf</label>
-    <div class="ui-progress">
-      <progress id="todo-progress-upload" max="100" value="60"></progress>
+    <div class="progress">
+      <progress aria-label="Loading"></progress>
     </div>
-    <p class="ui-caption">Read as "Uploading report.pdf, progress bar, 60%".</p>
-  </div>
+    <label for="todo-progress-upload-fixed">Uploading report.pdf</label>
+    <div class="progress">
+      <progress id="todo-progress-upload-fixed" max="100" value="60"></progress>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
 </div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    panel.querySelector("[data-measure]").textContent = [
+      ...panel.querySelectorAll("progress"),
+    ]
+      .map((p) => {
+        const name =
+          p.getAttribute("aria-label") ??
+          [...p.labels].map((l) => l.textContent.trim()).join(" ")
+        const state = p.hasAttribute("value") ? `${p.value}%` : "indeterminate"
+        return `${state}: name "${name}"`
+      })
+      .join("\n")
+  }
+</script>

@@ -1,23 +1,61 @@
-<div class="todo-row">
-  <button type="button" class="ui-chip ui-tonal" disabled>
-    <span class="ui-text">Tonal chip</span>
-  </button>
-  <button type="button" class="ui-chip ui-outlined" disabled>
-    <span class="ui-text">Outlined chip</span>
-  </button>
-  <button type="button" class="ui-button ui-outlined" disabled>
-    Outlined button
-  </button>
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(.ui-chip):is([disabled], [aria-disabled="true"], .ui-disabled) {
+        --_text-color: var(--text-disabled);
+
+        cursor: not-allowed;
+        opacity: var(--disabled-opacity);
+      }
+    }
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      The disabled chips keep the enabled text color; only opacity dims them.
+    </p>
+    <div class="todo-row">
+      <button type="button" class="ui-chip ui-tonal">
+        <span class="ui-text">Enabled</span>
+      </button>
+      <button type="button" class="ui-chip ui-tonal" disabled>
+        <span class="ui-text">Tonal</span>
+      </button>
+      <button type="button" class="ui-chip ui-outlined" disabled>
+        <span class="ui-text">Outlined</span>
+      </button>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      <code>:is()</code> instead of <code>:where()</code>: the disabled block is
+      (0,1,0) and beats <code>.ui-tonal</code>/<code>.ui-outlined</code> by
+      order.
+    </p>
+    <div class="todo-row">
+      <button type="button" class="ui-chip ui-tonal">
+        <span class="ui-text">Enabled</span>
+      </button>
+      <button type="button" class="ui-chip ui-tonal" disabled>
+        <span class="ui-text">Tonal</span>
+      </button>
+      <button type="button" class="ui-chip ui-outlined" disabled>
+        <span class="ui-text">Outlined</span>
+      </button>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
 </div>
-<p class="ui-caption" data-colors></p>
 <script>
-  const rows = [...document.querySelectorAll(".todo-row > *")].map(
-    (el) =>
-      `${el.textContent.trim()}: ${getComputedStyle(el.querySelector(".ui-text") ?? el).color}`,
-  )
-  const disabled = getComputedStyle(document.documentElement).getPropertyValue(
-    "--text-disabled",
-  )
-  document.querySelector("[data-colors]").textContent =
-    `${rows.join(" / ")} / --text-disabled: ${disabled.trim()}`
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const lines = [...panel.querySelectorAll(".ui-chip")].map(
+      (chip) =>
+        `${chip.textContent.trim()}: ${getComputedStyle(chip).color}, opacity ${getComputedStyle(chip).opacity}`,
+    )
+    panel.querySelector("[data-measure]").textContent = lines.join("\n")
+  }
 </script>

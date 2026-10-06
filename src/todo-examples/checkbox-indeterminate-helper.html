@@ -1,0 +1,46 @@
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      HTML prose: "Add <code>data-indeterminate</code> … and run a script that
+      sets <code>el.indeterminate = true</code>." It doesn't name the shipped
+      helper, so this copy has only the attribute and looks unchecked.
+    </p>
+    <label class="ui-checkbox">
+      <input type="checkbox" data-indeterminate />
+      <span class="ui-label">Select all</span>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Proposed: "Add <code>data-indeterminate</code> to the input and call
+      <code>activateIndeterminate()</code> from
+      <code>opui-css/css/js/checkbox.js</code> once the element is in the DOM.
+      The attribute alone has no effect." This panel calls the helper.
+    </p>
+    <label class="ui-checkbox">
+      <input type="checkbox" data-indeterminate />
+      <span class="ui-label">Select all</span>
+    </label>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  function activateIndeterminate(root = document) {
+    root
+      .querySelectorAll('input[type="checkbox"][data-indeterminate]')
+      .forEach((el) => {
+        el.indeterminate = true
+      })
+  }
+
+  activateIndeterminate(document.querySelector(".todo-fixed"))
+
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const input = panel.querySelector("input")
+    panel.querySelector("[data-measure]").textContent =
+      `data-indeterminate: ${input.hasAttribute("data-indeterminate")}, :indeterminate ${input.matches(":indeterminate")}`
+  }
+</script>

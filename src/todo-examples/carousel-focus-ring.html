@@ -1,0 +1,74 @@
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(.ui-carousel)::scroll-button(*):focus-visible,
+      :where(.ui-carousel) > *::scroll-marker:focus-visible {
+        outline: var(--focus-ring-width) var(--focus-ring-style)
+          var(--focus-ring-color, var(--text-primary));
+        outline-offset: var(--focus-ring-offset);
+      }
+    }
+  }
+
+  .todo-frame {
+    inline-size: 100%;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Click "Start here" and press Tab twice: first the markers, then the Next
+      button. The button's 1px UA ring hugs its edge and barely shows.
+    </p>
+    <a class="ui-link" href="#">Start here</a>
+    <div class="todo-frame">
+      <ul
+        class="ui-carousel ui-with-buttons ui-with-markers"
+        aria-label="Destinations, current"
+      >
+        <li>
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">Kyoto</div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal"><div class="ui-content">Lima</div></div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">Lisbon</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The scroll buttons and markers get the library ring:
+      <code>--focus-ring-width</code> at <code>--focus-ring-offset</code>.
+    </p>
+    <a class="ui-link" href="#">Start here</a>
+    <div class="todo-frame">
+      <ul
+        class="ui-carousel ui-with-buttons ui-with-markers"
+        aria-label="Destinations, fixed"
+      >
+        <li>
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">Kyoto</div>
+          </div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal"><div class="ui-content">Lima</div></div>
+        </li>
+        <li>
+          <div class="ui-card ui-tonal">
+            <div class="ui-content">Lisbon</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>

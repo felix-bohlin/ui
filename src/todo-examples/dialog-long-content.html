@@ -1,36 +1,129 @@
-<button
-  type="button"
-  class="ui-button ui-outlined"
-  commandfor="todo-long-dialog"
-  command="show-modal"
->
-  Open
-</button>
-<dialog
-  id="todo-long-dialog"
-  class="ui-dialog ui-card ui-elevated"
-  aria-labelledby="todo-long-dialog-title"
->
-  <hgroup id="todo-long-dialog-title"><h2 class="ui-h4">Terms</h2></hgroup>
-  <div class="ui-content">
-    <p>
-      This paragraph repeats twenty times so the content scrolls under the
-      header and above the actions.
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      What's new: "Long content scrolls between a fixed header and actions",
+      linking <code>#modal</code>. The page's examples are short, like this
+      Usage dialog: open it, nothing scrolls, and no example or sentence shows
+      the 85dvb cap, the scroll shadows or the page scroll lock.
     </p>
-  </div>
-  <div class="ui-actions">
     <button
       type="button"
-      class="ui-button ui-filled"
-      commandfor="todo-long-dialog"
-      command="close"
+      commandfor="todo-long-dialog-current"
+      command="show-modal"
+      class="ui-button ui-outlined"
     >
-      Accept
+      Open dialog
     </button>
-  </div>
-</dialog>
+    <dialog
+      id="todo-long-dialog-current"
+      class="ui-dialog ui-card ui-elevated"
+      aria-labelledby="todo-long-dialog-current-title"
+    >
+      <hgroup id="todo-long-dialog-current-title">
+        <h2 class="ui-h4">Newsletter</h2>
+      </hgroup>
+      <div class="ui-content">
+        <p>
+          Get a short email when we ship something new. No more than once a
+          month.
+        </p>
+      </div>
+      <div class="ui-actions">
+        <button
+          commandfor="todo-long-dialog-current"
+          command="close"
+          class="ui-button"
+          type="button"
+        >
+          Not now
+        </button>
+        <button
+          commandfor="todo-long-dialog-current"
+          command="close"
+          class="ui-button ui-filled"
+          type="button"
+        >
+          Subscribe
+        </button>
+      </div>
+    </dialog>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      A "Long content" example, with: "The header and actions stay put while
+      <code>.ui-content</code> scrolls, with a shadow on the scrolled edge. A
+      modal dialog also locks page scroll." Open it and scroll the text.
+    </p>
+    <button
+      type="button"
+      commandfor="todo-long-dialog-fixed"
+      command="show-modal"
+      class="ui-button ui-outlined"
+    >
+      Open long dialog
+    </button>
+    <dialog
+      id="todo-long-dialog-fixed"
+      class="ui-dialog ui-card ui-elevated"
+      aria-labelledby="todo-long-dialog-fixed-title"
+    >
+      <hgroup id="todo-long-dialog-fixed-title">
+        <h2 class="ui-h4">Terms</h2>
+      </hgroup>
+      <div class="ui-content">
+        <p>
+          This paragraph repeats twenty times so the content scrolls under the
+          header and above the actions.
+        </p>
+      </div>
+      <div class="ui-actions">
+        <button
+          commandfor="todo-long-dialog-fixed"
+          command="close"
+          class="ui-button"
+          type="button"
+        >
+          Decline
+        </button>
+        <button
+          commandfor="todo-long-dialog-fixed"
+          command="close"
+          class="ui-button ui-filled"
+          type="button"
+        >
+          Accept
+        </button>
+      </div>
+    </dialog>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
 <script>
-  const content = document.querySelector("#todo-long-dialog .ui-content")
-  for (let i = 0; i < 19; i++)
-    content.append(content.firstElementChild.cloneNode(true))
+  {
+    const long = document.querySelector("#todo-long-dialog-fixed .ui-content")
+    for (let i = 0; i < 19; i++)
+      long.append(long.firstElementChild.cloneNode(true))
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      const dialog = panel.querySelector("dialog")
+      const content = dialog.querySelector(".ui-content")
+      const write = () => {
+        const shadow = (pseudo) => getComputedStyle(content, pseudo).opacity
+        panel.querySelector("[data-measure]").textContent = [
+          `dialog: ${Math.round(dialog.offsetHeight)}px of ${getComputedStyle(dialog).maxBlockSize} max`,
+          `content: ${content.scrollHeight}px in ${content.clientHeight}px (${content.scrollHeight > content.clientHeight ? "scrolls" : "fits"})`,
+          `scroll shadows: top ${shadow("::before")}, bottom ${shadow("::after")}`,
+          `html overflow: ${getComputedStyle(document.documentElement).overflow}`,
+        ].join("\n")
+      }
+      dialog.addEventListener("toggle", (event) => {
+        if (event.newState === "open") setTimeout(write, 400)
+      })
+      content.addEventListener("scrollend", () => setTimeout(write, 400))
+    }
+  }
 </script>

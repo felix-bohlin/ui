@@ -1,0 +1,65 @@
+<style>
+  .todo-surface {
+    background-color: var(--surface-tonal);
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-3);
+    inline-size: 100%;
+    padding: var(--size-3);
+  }
+
+  .todo-quote {
+    border-inline-start: var(--border-size-2) solid var(--border-color);
+    padding-inline-start: var(--size-2);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      <code>card/Variants.html</code> opens with this comment. On a tonal
+      surface the card without <code>.ui-text</code> is a page-colored box.
+    </p>
+    <pre class="todo-quote"><code>&lt;!-- .ui-text class optional --&gt;
+&lt;div class="ui-card ui-text"&gt;…</code></pre>
+    <div class="todo-surface">
+      <div class="ui-card ui-text">
+        <div class="ui-content">With <code>.ui-text</code></div>
+      </div>
+      <div class="ui-card">
+        <div class="ui-content">Without it ("optional")</div>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The comment is gone, and the Variants prose says what a classless card
+      looks like.
+    </p>
+    <blockquote class="todo-quote">
+      Without a variant the card has the page surface color and no border.
+    </blockquote>
+    <div class="todo-surface">
+      <div class="ui-card ui-text">
+        <div class="ui-content">Text variant</div>
+      </div>
+      <div class="ui-card">
+        <div class="ui-content">No variant</div>
+      </div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const surface = panel.querySelector(".todo-surface")
+    const lines = [...surface.querySelectorAll(".ui-card")].map(
+      (card) =>
+        `${card.textContent.trim()}: ${getComputedStyle(card).backgroundColor}`,
+    )
+    lines.push(`surface: ${getComputedStyle(surface).backgroundColor}`)
+    panel.querySelector("[data-measure]").textContent = lines.join("\n")
+  }
+</script>

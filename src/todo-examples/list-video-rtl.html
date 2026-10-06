@@ -1,12 +1,86 @@
-<ul class="ui-list" dir="rtl" style="max-inline-size: 24rem">
-  <li>
-    <div class="ui-start">
-      <video controls muted></video>
-    </div>
-    <div class="ui-text">
-      <p>Headline</p>
-      <p>Supporting text</p>
-    </div>
-    <div class="ui-end">13:37</div>
-  </li>
-</ul>
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      :where(.ui-list) > :where(li, option):has(video) {
+        padding-block: 0.75rem;
+        padding-inline: 0 var(--size-3);
+      }
+    }
+  }
+
+  .todo-compare .ui-list {
+    inline-size: 100%;
+    max-inline-size: 24rem;
+  }
+
+  .todo-compare video {
+    background-color: var(--text-muted);
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      In the RTL list the video side gets the 16px padding and the text side
+      gets 0.
+    </p>
+    <ul class="ui-list" data-dir="ltr">
+      <li>
+        <div class="ui-start"><video muted></video></div>
+        <div class="ui-text">
+          <p>Headline</p>
+          <p>Supporting text</p>
+        </div>
+        <div class="ui-end">13:37</div>
+      </li>
+    </ul>
+    <ul class="ui-list" dir="rtl" data-dir="rtl">
+      <li>
+        <div class="ui-start"><video muted></video></div>
+        <div class="ui-text">
+          <p>Headline</p>
+          <p>Supporting text</p>
+        </div>
+        <div class="ui-end">13:37</div>
+      </li>
+    </ul>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Logical <code>padding-inline: 0 var(--size-3)</code>: the end side gets
+      the padding in both directions.
+    </p>
+    <ul class="ui-list" data-dir="ltr">
+      <li>
+        <div class="ui-start"><video muted></video></div>
+        <div class="ui-text">
+          <p>Headline</p>
+          <p>Supporting text</p>
+        </div>
+        <div class="ui-end">13:37</div>
+      </li>
+    </ul>
+    <ul class="ui-list" dir="rtl" data-dir="rtl">
+      <li>
+        <div class="ui-start"><video muted></video></div>
+        <div class="ui-text">
+          <p>Headline</p>
+          <p>Supporting text</p>
+        </div>
+        <div class="ui-end">13:37</div>
+      </li>
+    </ul>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const rows = [...panel.querySelectorAll(".ui-list")].map((list) => {
+      const style = getComputedStyle(list.querySelector("li"))
+      return `${list.dataset.dir}: padding-inline-start ${style.paddingInlineStart}, padding-inline-end ${style.paddingInlineEnd}`
+    })
+    panel.querySelector("[data-measure]").textContent = rows.join("; ")
+  }
+</script>

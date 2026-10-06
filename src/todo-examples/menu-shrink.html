@@ -1,0 +1,165 @@
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      @supports (min-block-size: calc-size(fit-content, size)) {
+        :where(.ui-menu)[popover] {
+          max-block-size: min(
+            var(--_max-block-size),
+            calc(100% - 2 * var(--_offset))
+          );
+        }
+      }
+    }
+  }
+
+  .todo-menu-frame {
+    block-size: 550px;
+    border: var(--border-width) dashed var(--border-color);
+    inline-size: 100%;
+  }
+
+  .todo-menu-stage {
+    padding: 280px var(--size-3) 0;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Each box is a 550px tall frame, so the menu always has the same room. With
+      228px below the trigger, the 6-item menu (250px) flips above instead of
+      shrinking to fit. Click Actions to reopen it.
+    </p>
+    <template>
+      <div class="todo-menu-stage">
+        <button
+          type="button"
+          class="ui-button ui-outlined"
+          commandfor="todo-menu-current"
+          command="toggle-popover"
+        >
+          Actions
+        </button>
+        <menu class="ui-menu ui-list" id="todo-menu-current" popover>
+          <li>
+            <button type="button">
+              <div class="ui-text"><p>Open</p></div>
+            </button>
+          </li>
+          <li>
+            <button type="button">
+              <div class="ui-text"><p>Rename</p></div>
+            </button>
+          </li>
+          <li>
+            <button type="button">
+              <div class="ui-text"><p>Duplicate</p></div>
+            </button>
+          </li>
+          <li>
+            <button type="button">
+              <div class="ui-text"><p>Move to</p></div>
+            </button>
+          </li>
+          <li>
+            <button type="button">
+              <div class="ui-text"><p>Share</p></div>
+            </button>
+          </li>
+          <li class="ui-critical">
+            <button type="button">
+              <div class="ui-text"><p>Delete</p></div>
+            </button>
+          </li>
+        </menu>
+      </div>
+    </template>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      <code>max-block-size</code> subtracts both block margins (<code
+        >2 * var(--_offset)</code
+      >), so the menu shrinks and stays below.
+    </p>
+    <template>
+      <div class="todo-menu-stage">
+        <button
+          type="button"
+          class="ui-button ui-outlined"
+          commandfor="todo-menu-fixed"
+          command="toggle-popover"
+        >
+          Actions
+        </button>
+        <menu class="ui-menu ui-list" id="todo-menu-fixed" popover>
+          <li>
+            <button type="button">
+              <div class="ui-text"><p>Open</p></div>
+            </button>
+          </li>
+          <li>
+            <button type="button">
+              <div class="ui-text"><p>Rename</p></div>
+            </button>
+          </li>
+          <li>
+            <button type="button">
+              <div class="ui-text"><p>Duplicate</p></div>
+            </button>
+          </li>
+          <li>
+            <button type="button">
+              <div class="ui-text"><p>Move to</p></div>
+            </button>
+          </li>
+          <li>
+            <button type="button">
+              <div class="ui-text"><p>Share</p></div>
+            </button>
+          </li>
+          <li class="ui-critical">
+            <button type="button">
+              <div class="ui-text"><p>Delete</p></div>
+            </button>
+          </li>
+        </menu>
+      </div>
+    </template>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  {
+    const styles = [
+      ...document.querySelectorAll('link[rel="stylesheet"], style'),
+    ].map((element) => element.outerHTML)
+    for (const panel of document.querySelectorAll(
+      ".todo-current, .todo-fixed",
+    )) {
+      const template = panel.querySelector("template")
+      const frame = document.createElement("iframe")
+      frame.className = "todo-menu-frame"
+      frame.title = panel.querySelector(".todo-label").textContent
+      frame.srcdoc = `<!doctype html><html lang="en" class="${document.documentElement.className}"><head>${styles.join("")}</head><body class="${panel.className}" style="border: 0; display: block; margin: 0; padding: 0">${template.innerHTML}</body></html>`
+      template.replaceWith(frame)
+      frame.addEventListener("load", () => {
+        const inner = frame.contentDocument
+        const trigger = inner.querySelector("[commandfor]")
+        const menu = inner.querySelector(".ui-menu")
+        menu.addEventListener("toggle", (event) => {
+          if (event.newState !== "open") return
+          const t = trigger.getBoundingClientRect()
+          const m = menu.getBoundingClientRect()
+          panel.querySelector("[data-measure]").textContent = [
+            `free below the trigger: ${Math.round(inner.documentElement.clientHeight - t.bottom)}px`,
+            `free above the trigger: ${Math.round(t.top)}px`,
+            `menu: ${m.top >= t.bottom ? "below" : "above"}, ${Math.round(m.height)}px tall (scrollHeight ${menu.scrollHeight}px)`,
+          ].join("\n")
+        })
+        trigger.click()
+      })
+    }
+  }
+</script>

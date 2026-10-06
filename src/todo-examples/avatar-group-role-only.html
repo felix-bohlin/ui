@@ -1,0 +1,38 @@
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      HTML prose: "Group multiple avatars by adding <code>role="group"</code> to
+      a parent container." Following it gives a plain, unstyled row.
+    </p>
+    <div role="group" aria-label="Team">
+      <div class="ui-avatar" role="img" aria-label="Anna Berg">AB</div>
+      <div class="ui-avatar" role="img" aria-label="Carl Dahl">CD</div>
+      <div class="ui-avatar" role="img" aria-label="Eva Falk">EF</div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Proposed: "Group multiple avatars in a
+      <code>.ui-avatar-group</code> element with <code>role="group"</code> and
+      an <code>aria-label</code>."
+    </p>
+    <div class="ui-avatar-group" role="group" aria-label="Team">
+      <div class="ui-avatar" role="img" aria-label="Anna Berg">AB</div>
+      <div class="ui-avatar" role="img" aria-label="Carl Dahl">CD</div>
+      <div class="ui-avatar" role="img" aria-label="Eva Falk">EF</div>
+    </div>
+    <p class="todo-measure" data-measure></p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const group = panel.querySelector('[role="group"]')
+    const avatar = getComputedStyle(group.querySelector(".ui-avatar"))
+    panel.querySelector("[data-measure]").textContent =
+      `group display: ${getComputedStyle(group).display}\n` +
+      `avatar margin-inline-end: ${avatar.marginInlineEnd}, box-shadow: ${avatar.boxShadow}`
+  }
+</script>

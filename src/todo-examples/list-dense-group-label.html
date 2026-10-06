@@ -1,0 +1,88 @@
+<style>
+  @layer components.extended {
+    @scope (.todo-fixed) {
+      :where(.ui-list).ui-dense > :where([role="group"]) > :where(label) {
+        min-block-size: var(--size-7);
+        padding: var(--size-1) var(--size-3);
+      }
+    }
+  }
+
+  .todo-compare .ui-select {
+    inline-size: 16rem;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Open the dense select: group labels stay 40px tall, options are 32px.
+    </p>
+    <label class="ui-select">
+      <span class="ui-label" id="dense-group-label-current">Car</span>
+      <span class="ui-field">
+        <select aria-labelledby="dense-group-label-current">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list ui-dense">
+            <option value="">Select car</option>
+            <div role="group">
+              <label class="ui-text">French cars</label>
+              <option>Citroën</option>
+              <option>Renault</option>
+            </div>
+            <div role="group">
+              <label class="ui-text">Swedish cars</label>
+              <option>Saab</option>
+              <option>Volvo</option>
+            </div>
+          </div>
+        </select>
+      </span>
+    </label>
+    <p class="todo-measure" data-measure>Open the select to measure.</p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      The dense row selector also matches
+      <code>[role="group"] &gt; label</code>.
+    </p>
+    <label class="ui-select">
+      <span class="ui-label" id="dense-group-label-fixed">Car</span>
+      <span class="ui-field">
+        <select aria-labelledby="dense-group-label-fixed">
+          <button><selectedcontent></selectedcontent></button>
+          <div class="ui-list ui-dense">
+            <option value="">Select car</option>
+            <div role="group">
+              <label class="ui-text">French cars</label>
+              <option>Citroën</option>
+              <option>Renault</option>
+            </div>
+            <div role="group">
+              <label class="ui-text">Swedish cars</label>
+              <option>Saab</option>
+              <option>Volvo</option>
+            </div>
+          </div>
+        </select>
+      </span>
+    </label>
+    <p class="todo-measure" data-measure>Open the select to measure.</p>
+  </section>
+</div>
+<script>
+  for (const panel of document.querySelectorAll(".todo-current, .todo-fixed")) {
+    const select = panel.querySelector("select")
+    const output = panel.querySelector("[data-measure]")
+    const measure = () => {
+      if (!select.matches(":open")) return
+      const height = (el) =>
+        `${Math.round(el.getBoundingClientRect().height)}px`
+      const label = panel.querySelector("[role='group'] > label")
+      const option = panel.querySelector("[role='group'] > option")
+      output.textContent = `group label ${height(label)} (min ${getComputedStyle(label).minBlockSize}), option ${height(option)}`
+    }
+    setInterval(measure, 300)
+  }
+</script>

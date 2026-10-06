@@ -1,0 +1,97 @@
+<style>
+  @layer components.root {
+    @scope (.todo-fixed) {
+      :where(.ui-chip):where(:not(button, a)) {
+        --_ripple: initial;
+
+        transition: none;
+      }
+
+      :where(.ui-chip):where(button, a):where(
+          :not([disabled], [aria-disabled="true"], .ui-disabled)
+        ) {
+        @media (hover: hover) {
+          &:hover {
+            --_bg-color: light-dark(
+              oklch(from var(--surface-tonal) calc(l * 0.98) c h),
+              oklch(from var(--surface-tonal) calc(l * 1.1) c h)
+            );
+            --_ripple: radial-gradient(
+                circle,
+                transparent 1%,
+                var(--_bg-color) 1%
+              )
+              center/15000%;
+
+            transition: background var(--_ripple-duration);
+          }
+        }
+
+        &:where(:hover:active) {
+          background-color: light-dark(
+            oklch(from var(--_bg-color) calc(l * 0.85) c h),
+            oklch(from var(--_bg-color) calc(l * 1.35) c h)
+          );
+          background-size: var(--_ripple-size);
+          transition: background 0s;
+        }
+      }
+    }
+  }
+
+  .todo-compare .ui-chip {
+    --chip-size: 3rem;
+
+    min-inline-size: 12rem;
+  }
+</style>
+<div class="todo-compare">
+  <section class="todo-current">
+    <p class="todo-label">Current</p>
+    <p class="todo-note">
+      Press and release each chip (enlarged): the press drops the hover tint,
+      and the tonal chip shows no circle on release.
+    </p>
+    <div class="todo-row">
+      <button type="button" class="ui-chip ui-tonal">
+        <span class="ui-text">Tonal button</span>
+      </button>
+      <button type="button" class="ui-chip ui-outlined">
+        <span class="ui-text">Outlined button</span>
+      </button>
+      <div class="ui-chip ui-tonal">
+        <span class="ui-text">Static div</span>
+      </div>
+    </div>
+    <p class="todo-note">
+      Measured in Chromium, light, release: tonal circle at most 6/255 from the
+      hover tint; outlined circle is the resting color, 23/255 lighter (an
+      inverted ripple). Pressed = resting color.
+    </p>
+  </section>
+  <section class="todo-fixed">
+    <p class="todo-label">With the fix</p>
+    <p class="todo-note">
+      Hover keeps the gradient and tint while pressed, the press color is
+      <code>l * 0.85</code> (dark <code>l * 1.35</code>), and only
+      <code>button</code> and <code>a</code> chips get the ripple: the
+      <code>div</code> is reset.
+    </p>
+    <div class="todo-row">
+      <button type="button" class="ui-chip ui-tonal">
+        <span class="ui-text">Tonal button</span>
+      </button>
+      <button type="button" class="ui-chip ui-outlined">
+        <span class="ui-text">Outlined button</span>
+      </button>
+      <div class="ui-chip ui-tonal">
+        <span class="ui-text">Static div</span>
+      </div>
+    </div>
+    <p class="todo-note">
+      Measured in Chromium, light, release: circle 23-31/255 darker than the
+      hover tint, filling the chip in about 100ms; dark 19-25/255 lighter.
+      Pressed keeps the hover tint.
+    </p>
+  </section>
+</div>

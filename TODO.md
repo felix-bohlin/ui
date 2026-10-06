@@ -343,6 +343,102 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (10) Closed drawers are rendered off-screen and keyboard focusable: `dialog.ui-drawer` needs `display: none` when closed (`overlays` DrawerSides)
   - Fixed: `dialog.ui-drawer:not([open])` is `display: none`. The close transition still runs (`display` transitions with `allow-discrete`).
 
+- [ ] (4) Carousel: the markers are `background-color` dots with no border, so forced colors turn them `Canvas` on `Canvas` and the marker group is invisible. Same cause as the fixed Divider, Switch and ToggleButton items; the scroll buttons survive through their border (`carousel.css:252-265`)
+  - Fix (system colours are honoured in forced colors, the pattern `checkbox.css:227` uses):
+    ```css
+    @media (forced-colors: active) {
+      & > *::scroll-marker {
+        border: var(--border-width) solid ButtonText;
+      }
+
+      & > *::scroll-marker:target-current {
+        background-color: SelectedItem;
+        border-color: SelectedItem;
+      }
+    }
+    ```
+- [ ] (3) Carousel: the library focus ring doesn't reach `::scroll-button()` and `::scroll-marker`. `normalize.css:113-123` is a bare `:focus-visible` rule, and a selector without the pseudo-element never matches one, so the buttons and the 8px markers get only whatever the UA draws, not `--focus-ring-width`/`--focus-ring-color` (`carousel.css:111-135,252-261`, `normalize.css:113`)
+  - The learn page says the buttons are "real, focusable" (`carousel-css-only.astro:31`). Check in Chromium whether Tab onto a scroll button or an arrow key through the marker group shows any ring; if not, this is a (6).
+  - Fix:
+    ```css
+    &::scroll-button(*):focus-visible,
+    & > *::scroll-marker:focus-visible {
+      outline: var(--focus-ring-width) var(--focus-ring-style)
+        var(--focus-ring-color, var(--text-primary));
+      outline-offset: var(--focus-ring-offset);
+    }
+    ```
+- [ ] (2) Callout: links in a tonal callout change colour on hover but not on keyboard focus. `:where(.ui-callout):not(.ui-outlined) a[href] { color: inherit }` is (0,2,1) and beats `.ui-link[href]:focus-visible { color: … }` (0,2,0) from `link.css:19-23`, while the callout's own `:hover` rule (0,3,1) turns the link `--_link-hover-color` (`callout.css:93-103`, `link.css:11-23`)
+  - Fix:
+    ```css
+    &:not(.ui-outlined) {
+      a[href] {
+        color: inherit;
+
+        @media (hover: hover) {
+          &:hover {
+            color: var(--_link-hover-color);
+          }
+        }
+
+        &:focus-visible {
+          color: var(--_link-hover-color);
+        }
+      }
+    }
+    ```
+- [ ] (4) ToggleButton: the `--contrast: more` half of the bug above. Hovering a selected toggle button with `prefers-contrast: more` leaves `--primary-contrast` text on the 4% neutral hover background, so the label is unreadable while hovered (`toggle-button.css:39-41,75-83`)
+  - Fixed by the same `:not(:has(input:disabled))` on the selected hover rules.
+- [ ] (4) Select, Text input and Toast: mask icons painted with `background-color` disappear in forced colors, same cause as the fixed Divider item. The select chevron (`::picker-icon` and the classic `::after`), the autosuggest chevron and the toast severity icon all become `Canvas` on `Canvas` (`select.css:7-18,140-155`, `text-input.css:20-31`, `toast.css:73-78,117-135`)
+  - Forced colors replace author `background-color` with `Canvas` but keep system color keywords (that is how `checkbox.css` and `list.css` survive). The classic select also has `appearance: none`, so no native arrow comes back; a Windows High Contrast user sees a text field with no dropdown affordance.
+  - Fix:
+    ```css
+    @media (forced-colors: active) {
+      :where(.ui-select select)::picker-icon,
+      :where(.ui-select:has(select)):not(:has(button))::after,
+      :where(.ui-text-field:has(input[list])) .ui-field::after {
+        background-color: ButtonText;
+      }
+
+      :where(.ui-toast) .ui-icon {
+        background-color: CanvasText;
+      }
+    }
+    ```
+- [ ] (3) Toast: nested live regions. The manager is `<output role="status" aria-live="polite">` and every toast is `role="alert"` (assertive, atomic), so screen readers can announce each toast twice, and a success or info toast interrupts like an error (`Layout.astro:81-84`, `toast.js:11`, `src/pages/[framework]/test/[component].astro:99`, `src/stress-tests/overlays.html:3086`)
+  - Fix: drop `role="alert"` from the template and the fallback and let the manager announce, or give the manager no role and set the toast role per severity in `showToast`:
+    ```js
+    node.setAttribute(
+      "role",
+      options.severity === "critical" ? "alert" : "status",
+    )
+    ```
+- [ ] (2) Tooltip and Toast: no border in forced colors, so the box edge vanishes and only the text remains. Menu and Card keep a border there (`anchor.css:21`, `tooltip.css:10-36`, `toast.css:27-57`, `menu.css:24`)
+  - Fix:
+    ```css
+    @media (forced-colors: active) {
+      :where(.ui-tooltip) > .ui-anchor-floating,
+      :where(.ui-toast) {
+        border: var(--border-width) solid CanvasText;
+      }
+    }
+    ```
+- [ ] (4) Carousel: the generated button and marker names are English literals (`"Previous"`, `"Next"`, `"Slide "`) in private properties, and neither the page, the API nor the Under the hood section says they exist or how to translate them. A non-English site ships English control names (`packages/opui/css/components/carousel.css:30-32,139,145,169,175,256`, `src/docs/components/carousel.astro:221-223`, `src/component-api/carousel/api.ts`)
+  - Fix: add to Accessibility: "Buttons are named "Previous" and "Next" and markers "Slide 1", "Slide 2", … through CSS. Translate them with `--_button-prev-label`, `--_button-next-label` and `--_marker-label` on the carousel." and consider `prevLabel`/`nextLabel` props in Astro/Vue that set those properties.
+- [ ] (2) Callout: the two callouts written inline on the docs page pass `<svg slot="icon">` without `aria-hidden="true"`, unlike the component's default icons and every example (`src/docs/components/callout.astro:77-87,161-171` vs `packages/opui/components/Callout/Callout.astro:30`, `src/component-examples/callout/Icon.html:3`)
+  - Fix: add `aria-hidden="true"` to both.
+- [ ] (3) Menu: the Accessibility section is "Tab to navigate, Esc to close" and explains none of the choices the markup encodes. The menu has no `role="menu"`/`menuitem` on purpose (a `<menu>` of buttons), which is why Tab and Shift+Tab move between items and arrow keys do nothing; opening a popover doesn't move focus, it stays on the trigger and Tab enters the menu because it follows the trigger in the DOM; Esc and click-outside only work with the default `popover="auto"`, `popover="manual"` turns both off (`src/docs/components/menu.astro:133-135`, `packages/opui/components/Menu/Menu.astro:22-33,61`, `src/component-api/menu/Astro.astro:63-67`)
+  - The Accessibility guide page item covers the guide; this is the component page. Dialog and Drawer pages have a keyboard table; Menu should match.
+  - Fix: a short Role and Keyboard support block with Tab, Shift+Tab, Enter/Space, Esc, and a sentence on why arrows aren't handled (no JS, no ARIA menu pattern).
+- [ ] (3) Toggle: groups have no accessible name. `ToggleGroup` renders `role="group"` / `role="radiogroup"` and the HTML prose says to write it, but no example sets `aria-label`, and the page has no Accessibility section (the Tabs page tells readers to name its radiogroup) (`packages/opui/components/ToggleGroup/ToggleGroup.astro:45`, `ToggleGroup.vue:37`, `src/docs/components/toggle.astro:89-93`, `src/component-examples/toggle/MultiSelect.html:1`, `Alignment.html:1`, `Interactive.html:1`, `Vertical.html:1`, `Overflow.html:2,31,60`)
+  - Fix: `aria-label` on every group in the examples (Astro/Vue: `<ToggleGroup aria-label="Text style">`) and an `accessibility` slot: name the group; icon-only buttons need `aria-label` on the input (the examples already do this, the prose never says so); Space toggles a checkbox button, arrow keys move and select in a single-select group.
+- [ ] (3) Switch, Text field, Textarea: end text is wired with `aria-describedby` + `id` in every HTML example and automatically by the components, but no prose or HTML API note tells HTML authors to do it; the three "End text" sections have no text (`src/docs/components/switch.astro:115-116`, `text-field.astro:128-131`, `textarea.astro:85-88`, `src/component-examples/switch/SupportingText.html:6,9`, `text-field/SupportingText.html:4,6`, `packages/opui/components/Switch/Switch.astro:20-22`, `TextField/TextField.astro:36-41`)
+  - Fix: HTML slot: "Give `.ui-end-text` an `id` and point `aria-describedby` on the input at it, so it's read with the field." Astro/Vue slot: "The component links `end-text` to the input with `aria-describedby`."
+- [ ] (3) Switch, Text field, Textarea: the HTML Validation prose says only "Add `data-invalid` on the root element", but the HTML examples also set `aria-invalid="true"` on the control, and the components render it for `error`. Without the attribute a screen reader gets no invalid state (`src/docs/components/switch.astro:145-148`, `text-field.astro:196-199`, `textarea.astro:146-149`, `src/component-examples/switch/Validation.html:16`, `text-field/Validation.html:22`, `textarea/Validation.html:22`, `packages/opui/components/Switch/Switch.astro:65`, `TextField/TextField.astro:78`, `Textarea/Textarea.astro:76`)
+  - Fix: "Add `data-invalid` on the root and `aria-invalid="true"` on the input."
+- [ ] (3) Tooltip: no Accessibility section, and the prose tells readers to set `interestfor`, `commandfor` and `command="toggle-popover"` without saying why. The walkthrough has the reason (`interestfor` opens on hover and focus, `commandfor` toggles it on tap where there is no hover), and nothing on the page covers keyboard (focus shows, Esc hides), or that a `popover="hint"` tooltip is the trigger's description and must not hold the only name or interactive content (the Rich content example's `<kbd>` is fine, a link wouldn't be) (`src/docs/components/tooltip.astro:62-79`, `src/components/UnderTheHood/TooltipBuild.astro:37-38`, `src/component-examples/tooltip/RichContent.html:11-13`)
+  - Fix: move the two walkthrough notes into the intro paragraph and add an `accessibility` slot with keyboard, touch and "no interactive content" rows.
+
 ## Bugs
 
 - [x] (2) Dense list padding doesn't line up with card padding, and `.ui-inset` text offset assumes default gaps (`data-display` ListSurfaces)
@@ -1303,6 +1399,290 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [] (4) Menu doesn't shrink to the space on its side in Chromium 141: it flips as soon as the whole menu doesn't fit. `max-block-size: calc(100% - var(--_offset))` subtracts one offset, but `--_margin` sets both block margins, so the margin box overflows by one offset. The docs menu (4 items, 186px) flipped above with 293px free below. The Menu walkthrough copies it (`menu.css`, `MenuBuild.astro`)
   - On a minimal page `calc(100% - 2 * var(--_offset))` fixes it: the menu shrinks with 250px free and flips with 150px. On the docs page it still flipped: with `min-block-size: calc-size(…)` the menu came out 1px taller than its `max-block-size`, which looks like a rounding bug, so it may need a small extra allowance.
 
+- [ ] (4) Chip: the disabled text color never applies. `&:where([disabled], [aria-disabled="true"], .ui-disabled) { --_text-color: var(--text-disabled) }` has specificity (0,0,0), so `.ui-tonal` and `.ui-outlined` (0,1,0) win, and every shipped chip has one of them: `Chip.astro:12` and `Chip.vue` default `variant = "tonal"`, and `chip/Disabled.html:2,5` are `ui-tonal`/`ui-outlined` (`chip.css:34-42,121-125`)
+  - Only `opacity` dims a disabled chip. Button had the same bug and was fixed by moving the block after the variants and using `:is()` (`button.css:267`). Chip's block is already after the variants; only the `:where()` is left.
+  - Fix:
+    ```css
+    &:is([disabled], [aria-disabled="true"], .ui-disabled) {
+      --_text-color: var(--text-disabled);
+
+      cursor: not-allowed;
+      opacity: var(--disabled-opacity);
+    }
+    ```
+- [ ] (3) Chip: the `/* Ripple effect */` never paints. The gradient's colour and the colour layer are the same `var(--_bg-color)`, and on press `--_ripple` is undefined (`chip.css:11-13,100-117`)
+  - `--_ripple` is set only by `&:where(:not(:active):hover)` (`chip.css:102-103`), so on `:active` the shorthand falls back to `var(--_ripple, none)`: no image, `background-size: 100%`, `transition: 0s`. On release the image comes back as a discrete transition (`none` to a gradient isn't interpolable) at 50% of `--_ripple-duration`, when `background-size` has already eased from 100% past ~12000%; the `transparent 1%` core is then larger than the chip's half diagonal, so the gradient is fully transparent over the chip. What's left is a plain 0.4s `background-color` fade on button/link chips and nothing at all on `div` chips, which the block also matches. The CHANGELOG line saying the ripple "animates again" refers to the transition duration, not this.
+  - Fix (keep the gradient during press and give the colour layer a different colour, as the Material trick needs):
+    ```css
+    &:where(:not([disabled], [aria-disabled="true"], .ui-disabled)) {
+      @media (hover: hover) {
+        &:hover {
+          --_ripple: radial-gradient(
+              circle,
+              transparent 1%,
+              var(--_bg-color) 1%
+            )
+            center/15000%;
+
+          transition: background var(--_ripple-duration);
+        }
+      }
+
+      &:where(:hover:active) {
+        background-color: light-dark(
+          oklch(from var(--_bg-color) calc(l * 0.94) c h),
+          oklch(from var(--_bg-color) calc(l * 1.2) c h)
+        );
+        background-size: var(--_ripple-size);
+        transition: background 0s;
+      }
+    }
+    ```
+    The block also matches static `div` chips (the hover background change at `chip.css:44-55` is correctly limited to `button` and `a`), so scope it to `&:where(button, a)` as well.
+    Or drop the gradient and reuse Button's `::before` halo (`button.css:288-321`), which chips could share through `--ripple-color`.
+- [ ] (3) Card: `.ui-actions.ui-align-end` reduces the end padding when the first button is a plain `.ui-button`, but at the end edge the last button is the one that needs to align (`card.css:109-111,114-120`)
+  - `&.ui-align-end:has(.ui-button:first-child[class="ui-button"]) { padding-inline: var(--size-3) var(--size-1) }`. With `<button class="ui-button">Cancel</button><button class="ui-button ui-filled">Save</button>` the filled Save hugs the card edge at 4px; with an outlined Cancel and a plain Save the plain text keeps the full 16px and doesn't line up with the content. `card/Alignment.html:4-5` only works because both buttons are plain. Dialog's `.ui-actions` doesn't do the check at all (`dialog.css:82-90`).
+  - Fix:
+    ```css
+    &.ui-align-end {
+      justify-content: end;
+
+      &:has(.ui-button:first-child[class="ui-button"]) {
+        padding-inline: var(--size-3);
+      }
+
+      &:has(.ui-button:last-child[class="ui-button"]) {
+        padding-inline: var(--size-3) var(--size-1);
+      }
+    }
+    ```
+- [ ] (2) Chip: a chip with a start and an end icon gets `padding-inline: var(--size-2) var(--size-1)`. Both `:has(svg:first-child)` and `:has(svg:last-child)` set the full shorthand, so the later one wins and the start icon sits 8px in instead of 4px. Same in `.ui-large` (`chip.css:58-64,83-89`)
+  - The API documents a `start` and an `end` slot that can be used together (`chip/api.ts` parts `.ui-chip > svg:first-child` and `.ui-chip > svg:last-child`). The selectors are also descendant `:has(svg:first-child)`, not `:has(> svg:first-child)`, so an svg inside `.ui-text` triggers the padding too.
+  - Fix:
+    ```css
+    &:has(> svg:first-child) {
+      padding-inline-start: var(--size-1);
+    }
+
+    &:has(> svg:last-child) {
+      padding-inline-end: var(--size-1);
+    }
+    ```
+    and the same with `--size-2` under `.ui-large`.
+- [ ] (2) Avatar: every avatar in `.ui-avatar-group` gets `margin-inline-end: calc(-1 * var(--_margin))`, the last one too, so the group box is 1rem narrower than its content and the last avatar overlaps whatever follows the group (`avatar.css:61-70`)
+  - In a flex row with `gap`, the next sibling sits 16px closer than the gap says. `Grouped.html` is alone in its example row, so it isn't visible there; `stress-tests/layout.html:1580-1588` puts the group last in a row.
+  - Fix (overlap from the start, so the last item has no trailing margin; `> * + *` also covers avatars wrapped in `.ui-anchor.ui-badge` as in the stress test):
+    ```css
+    :where(.ui-avatar-group) {
+      --_margin: var(--size-3);
+      --_outline-color: var(--surface-default);
+
+      display: flex;
+
+      .ui-avatar {
+        box-shadow: 0 0 0 2px var(--_outline-color);
+      }
+
+      & > * + * {
+        margin-inline-start: calc(-1 * var(--_margin));
+      }
+    }
+    ```
+- [ ] (2) Carousel: vertical + `buttons="outside"` + `markers` loses the space for the markers. `.ui-with-buttons.ui-vertical.ui-buttons-outside { margin-inline: 0 }` (0,3,0) beats `.ui-vertical.ui-with-markers { margin-inline-end: calc(var(--_marker-size) + var(--_markers-margin-block-start)) }` (0,2,0), so the absolutely positioned marker column overflows the parent (`carousel.css:180-184,268-273`)
+  - All three classes come from documented props (`Carousel.astro:33,37,39`).
+  - Fix:
+    ```css
+    &.ui-buttons-outside {
+      @supports selector(::scroll-button(*)) {
+        margin-block: calc(var(--_button-size) + var(--_button-inset));
+        margin-inline-start: 0;
+      }
+    }
+    ```
+    and keep `margin-inline-end` on `.ui-vertical.ui-with-markers` (or move the marker space to `padding-inline-end` on the group's parent).
+- [ ] (5) ToggleButton: hovering a selected toggle button drops its tint. The base hover `&:hover:not(:has(input:disabled))` is (0,2,1) because `:not(:has(input:disabled))` counts as (0,1,1), while the selected hover `&:has(:where(input…):checked):hover` is only (0,2,0), so the neutral 4% hover color wins over the 35% primary tint (`toggle-button.css:39-41,67-73`)
+  - Same layer, both inside `@media (hover: hover)`, so specificity decides: the selected-hover rules at `toggle-button.css:70-72` and `80-82` never apply. Hovering the pressed item in a ToggleGroup makes it look unpressed.
+  - Under `--contrast: more` it gets worse: the selected button keeps `color: var(--primary-contrast)` (`toggle-button.css:78`) but the base hover replaces `--_bg-color: var(--primary)` with `oklch(0% 0 0 / 0.04)`, so on hover the label is near-white text on a near-white button.
+  - The selected hover also has no disabled guard, so a disabled selected button (where the base hover is excluded) still changes tint on hover.
+  - Fix (adding the guard also lifts the specificity to (0,3,1)):
+    ```css
+    &:has(:where(input[type="checkbox"], input[type="radio"]):checked) {
+      --_bg-color: oklch(from var(--primary) l c h / 25%);
+
+      @media (hover: hover) {
+        &:hover:not(:has(input:disabled)) {
+          --_bg-color: oklch(from var(--primary) l c h / 35%);
+        }
+      }
+
+      @container style(--contrast: more) {
+        --_bg-color: var(--primary);
+        color: var(--primary-contrast);
+
+        @media (hover: hover) {
+          &:hover:not(:has(input:disabled)) {
+            --_bg-color: oklch(from var(--primary) calc(l * 0.9) c h);
+          }
+        }
+      }
+    }
+    ```
+- [ ] (3) Range: in `.ui-spread`, `.ui-value` and `datalist` are both placed in row 2, column 2, so a spread range that shows its value and has tick marks draws the value on top of the tick labels (`range.css:120-123,131-134,144-146`, `Range.astro:73-77,103-114`)
+  - `&:has(.ui-value):has(datalist) :where(.ui-end-text) { grid-row: 4 }` shows the intent (value row 2, ticks row 3, end text row 4), but nothing moves the datalist to row 3. `Range.astro` renders `output.ui-value` for `valueSuffix`/the `value` slot and the `datalist` for `options`, so `<Range spread valueSuffix="%" options={…} />` hits it.
+  - The narrow fallback (`@container (width < 400px)`, `range.css:175-178`) puts the datalist in row 4 with (0,1,1), so the new rule must be repeated there or it would win and overlap the input.
+  - Fix:
+    ```css
+    &.ui-spread {
+      datalist {
+        grid-row: 2;
+      }
+
+      &:has(.ui-value) datalist {
+        grid-row: 3;
+      }
+
+      @container (width < 400px) {
+        datalist,
+        &:has(.ui-value) datalist {
+          grid-column: 1/-1;
+          grid-row: 4;
+        }
+      }
+    }
+    ```
+- [ ] (2) Table: footer and "row above the footer" rules match `td` only. A row header (`th scope="row"`) in the last body row keeps its `border-block-end` while its `td` siblings lose it and the `tfoot td` adds `border-top`, so the header column shows a 2px line and the rest 1px; a `th` inside `tfoot` gets no fill, border, weight or padding. `border-top` is also the only physical border in the file (`table.css:88-99,112-114`; row-header tables in `src/stress-tests/data-display.html:1057,1101`; every table example has a `tfoot`)
+  - Fix:
+    ```css
+    tfoot {
+      :where(th, td) {
+        background-color: var(--surface-filled);
+        border-block-start: var(--border-width) solid var(--border-color);
+        color: var(--text-primary);
+        font-weight: var(--font-weight-semibold);
+        padding-block: var(--size-2);
+      }
+    }
+
+    tbody:has(+ tfoot) tr:last-child :where(th, td) {
+      border-block-end: none;
+    }
+    ```
+- [ ] (1) Typography: rich text `code { border-radius: var(--radius-2); padding: 0.1ex 0.3ex }` never applies. Inline code is overridden by `:not(pre) > code` (0,0,2) at `typography.css:872-876` and code in `pre` by `pre > :is(code, samp)` at `typography.css:410-415` (`typography.css:841,843`)
+  - Fix: drop the two dead declarations and keep the background and font size.
+- [ ] (3) ButtonGroup: `.ui-vertical > button { padding: var(--size-2) }` beats the size rules, so `.ui-small` and `.ui-x-small` vertical groups are taller than their size (`button-group.css:55-67,144-146`, `ButtonGroup.astro:22,24`)
+  - The size rules are `:where(.ui-button-group.ui-x-small) &` with `&` = `… > button`, specificity (0,0,1), and set `padding-block: 0` because `--_min-height` (28px/32px) is smaller than `1lh` plus padding. `&.ui-vertical > button` is (0,1,1) and comes later, so vertical items get 8px block padding: an x-small label item is about 34px and a small one about 37px instead of 28px/32px. Horizontal groups are unaffected.
+  - Fix:
+    ```css
+    &.ui-vertical:is(.ui-small, .ui-x-small) > button {
+      padding-block: 0;
+    }
+    ```
+- [ ] (2) List: the `.ui-bordered` and `.ui-border-top` line sits 8px above a row that has a 12px gap, so it is 4px from the row above and 7px from the row below. Dense rows are symmetric (`list.css:40,48,256,264` vs `list.css:67,70`, `list/Bordered.html`, `menu/Basics.html:27`)
+  - `margin-block-start: var(--size-3)` (12px) with `inset: calc(-1 * var(--size-2)) 0 auto 0` (-8px). `.ui-dense` uses `var(--size-2)` and `calc(-1 * var(--size-1))`, which centers the line. Also applies to Menu dividers (`li.ui-border-top`).
+  - Fix:
+    ```css
+    &::before {
+      inset: calc(var(--size-3) / -2) 0 auto 0;
+    }
+    ```
+- [ ] (2) List: `li:has(video)` uses physical padding, `padding: 0.75rem var(--size-3) 0.75rem 0`, so in RTL the video side gets 12px and the text side 0 (`list.css:250-252`, `list/StartVideo.html:3-10`)
+  - Fix:
+    ```css
+    &:has(video) {
+      padding-block: 0.75rem;
+      padding-inline: 0 var(--size-3);
+    }
+    ```
+- [ ] (2) Toast: the manager is pinned with physical `inset: auto var(--size-4) var(--size-4) auto` and the enter keyframe slides from `var(--size-4) 0`, so in RTL toasts still sit bottom-right and slide in from the right. Drawer mirrors with `--_dir` (`toast.css:10,141`, `drawer.css:3,38-40,140`)
+  - Fix:
+    ```css
+    :where(#toast-manager) {
+      inset-block: auto var(--size-4);
+      inset-inline: auto var(--size-4);
+    }
+
+    :where(.ui-toast) {
+      --_dir: 1;
+
+      &:dir(rtl) {
+        --_dir: -1;
+      }
+    }
+
+    @keyframes ui-toast-enter {
+      from {
+        opacity: 0;
+        translate: calc(var(--size-4) * var(--_dir)) 0;
+      }
+    }
+    ```
+- [ ] (2) TextField: the `.ui-filled` hover exclusion uses the `[disabled]` attribute while the base hover uses `:disabled`, so a filled field inside `fieldset[disabled]` still darkens on hover (`text-field.css:270-274,372-382`, `form/FieldsetDisabled.html`)
+  - A field disabled through its fieldset matches `:disabled` but has no `[disabled]` attribute. The base hover (`:has(:user-invalid, :disabled)`) is correctly skipped, the filled one is not. Same for `&:where(:has([disabled]))` at `text-field.css:386`, which is why `form.css:60-69` has to set the cursors itself.
+  - Fix:
+    ```css
+    &.ui-filled {
+      &:not(:has(:disabled, input[type="color"])) {
+        /* … */
+      }
+    }
+    ```
+- [ ] (2) Accordion: in a plain `.ui-card[role="group"]` (no variant) the summary gets `padding-inline: 0` but the content keeps `--_item-padding-inline` (12px), so summary and content misalign. A standalone text accordion has both at 0 (`accordion.css:13,138,156-162,175-177`, `accordion.astro:94-104`)
+  - `--_item-summary-padding-inline: 0` is set for the plain group, while `--_padding-inline: var(--_item-padding-inline)` on each item feeds `--_content-padding-inline`. The docs say to apply the variant to the group, so a plain group is a documented shape, though every example uses `.ui-outlined`.
+  - Fix:
+    ```css
+    &.ui-card:not(.ui-tonal, .ui-outlined, .ui-elevated) {
+      --_item-padding-inline: 0;
+    }
+    ```
+- [ ] (4) Button group: every item rule targets `& > button`, so a `Button` with `href` (an `<a class="ui-button">`) inside a group keeps its own radius, gets no divider, no `flex: auto`, no size or variant overrides and no shrink/scroll handling. Nothing on the page or in the API says links aren't supported, and the part is documented as "The buttons" (`packages/opui/css/components/button-group.css:28,144,162,170`, `src/component-api/button-group/api.ts:59-65`, `packages/opui/components/ButtonGroup/ButtonGroup.astro:31`)
+  - Fix: either select `& > :where(button, a.ui-button)` (or `& > .ui-button`) in all four places, or document "Items must be `<button>` elements".
+- [ ] (3) ListItem `as="button"` renders `<button>` without `type="button"`, so a clickable list inside a `<form>` (a Drawer with a form, a Menu in a toolbar form) submits it. Menu's own items get `type="button"` and Button defaults to it; ListItem was left out, and the List and Menu HTML examples match (`packages/opui/components/ListItem/ListItem.astro:60`, `packages/opui/components/ListItem/ListItem.vue:207-213`, `packages/opui/components/Menu/Menu.astro:61`, `src/component-examples/list/Default.html:77,115,155,179`, `list/Clickable.html:3`, `src/component-examples/ListAll.astro:65,96,138,159`, `src/component-examples/menu/Custom.html:18,32,59`, `menu/Submenu.html:21`)
+  - Fix:
+    ```astro
+    <Tag
+      type={Tag === "button" ? "button" : undefined}
+      {...innerProps as any}
+    />
+    ```
+    ```vue
+    <component :is="Tag" :type="Tag === 'button' ? 'button' : undefined" ...>
+    ```
+    and `type="button"` on the HTML example buttons.
+- [ ] (2) Toast: every HTML trigger button in the examples and the anatomy close button lack `type="button"`, which all other HTML examples got (`src/component-examples/toast/HTML.html:1`, `Severity.html:1,11,21`, `TitleDescription.html:1,10`, `Duration.html:1,11`, `Javascript.html:1`, `src/docs/components/toast.astro:144`)
+  - Fix: add `type="button"`.
+- [ ] (1) Toggle: dead global style. `.ui-toggle-button:has(input:checked).has-text svg:nth-of-type(2)` matches nothing; no example uses `has-text` (`src/docs/components/toggle.astro:223-229`)
+  - Fix: remove the `<style is:global>` block.
+- [ ] (4) `pnpm build-skill` runs nowhere automatically: not in `check`, `build`, the package `prepack`, or the `release*` scripts, and CI never diffs `packages/opui/skills/opui/references`, so a stale skill can be published. The readmes say to run it by hand, which is accurate, but nothing enforces it (`package.json:8-12`, `packages/opui/package.json:68-72`, `.github/workflows/ci.yml:24-25`, `scripts/build-agent-skill.mjs:53-57` needs the docs `dist/`)
+  - `pnpm check` already produces `dist/`, so the check is cheap. Prettier ignores the folder (`.prettierignore:15`), so a regenerate causes no format churn.
+  - Fix (ci.yml, after `pnpm check`):
+    ```yaml
+    - run: pnpm build-skill
+    - run: git diff --exit-code -- public/search-index.json packages/opui/skills
+    ```
+- [ ] (2) CI pins the Playwright image to `v1.63.0-noble` while the dependency is `^1.63.0`; a lockfile bump to 1.64 breaks e2e with a browser-version mismatch in both workflows (`.github/workflows/ci.yml:29`, `.github/workflows/update-snapshots.yml:17`, `package.json:49`)
+  - Fix: pin `"@playwright/test": "1.63.0"`.
+- [ ] (2) No Node version is declared for the repo: the root `package.json` has no `engines` and there is no `.nvmrc`; `--experimental-strip-types` and `Array.prototype.toSorted` need Node 22 (`package.json:9`, `scripts/check-components.mjs:15`, `packages/opui/package.json:103-105`)
+  - Fix: `"engines": { "node": ">=22" }` in the root `package.json`.
+- [ ] (1) `.prettierignore` lists `tests/unit/parity-known-drift.json`, which no longer exists; drift is `.diff` files under `tests/unit/__snapshots__` (`.prettierignore:14`, `tests/unit/parity.test.ts`)
+- [ ] (4) Shadows: `dist/opui.css` and `dist/op.css` ship Open Props' 45 `@custom-media` rules and three `@media (--OSdark)` blocks as-is. No browser supports `@custom-media` (`web-features` lists it with no support), so the dark-mode shadow tokens never apply and every `--shadow-*` in dark mode uses the light values, `--shadow-color: 220 3% 15%` at `--shadow-strength: 1%` (`packages/opui/open-props.css:5`, `packages/opui/scripts/build.mjs:17`, `node_modules/open-props/src/props.shadows.css:53-59`)
+  - The docs build warns about it on every page: `[lightningcss minify] Unknown at rule: @custom-media`.
+  - Card `--_shadow-dark`, Menu, Drawer, Dialog and Table scroll shadows, Accordion and Carousel buttons read `--shadow-1`–`--shadow-4` (`card.css:12-13`, `menu.css:21`, `drawer.css:19-20`, `dialog.css:6`, `table.css:123`, `accordion.css:43`, `carousel.css:20`, `tabs.css:9`).
+  - Even if the custom media were expanded, the Open Props block keys off `prefers-color-scheme`, not `.ui-dark`/`.ui-light`, so a forced dark page on a light OS still gets light shadows.
+  - Fix: set the two tokens in `theme.css` next to `--palette-hue`, which already follows both the class and the OS (`theme.css:34-46`), and drop `props.media.css` from `open-props.css` so the dead rules stop shipping:
+    ```css
+    :where(html.ui-dark) {
+      --shadow-color: 220 40% 2%;
+      --shadow-strength: 25%;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :where(html:not(.ui-light)) {
+        --shadow-color: 220 40% 2%;
+        --shadow-strength: 25%;
+      }
+    }
+    ```
+
 ## Docs
 
 - [x] (1) Card walkthrough: the hgroup margin reset lives in the demo `<style>`, though `card.css` does it now, and a card without actions has no bottom padding (`CardBuild.astro:24-30,139-141`, `card.css:62-68,75-77,96-98`)
@@ -2016,6 +2396,216 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - The stale reference now links to [Migrating from v4 to v5](#migrating-from-v4-to-v5) "above".
 - [x] (8) Changelog: `divided` removed from `List`, use `bordered` (#395). Removed after 5.5.0 and missing from Unreleased
 
+- [ ] (4) Avatar: the HTML "Grouped" prose says to add `role="group"` to a parent container, but the layout comes from `.ui-avatar-group`; `role="group"` alone styles nothing (`src/docs/components/avatar.astro:83-85`, `packages/opui/css/components/avatar.css:61-71`, `src/component-examples/avatar/Grouped.html:1`)
+  - The Astro/Vue slots name `isGroup`, which renders both the class and the role. The HTML reader only gets the role.
+  - Fix:
+    ```html
+    Group multiple avatars in a <code>.ui-avatar-group</code> element with
+    <code>role="group"</code> and an <code>aria-label</code>.
+    ```
+- [ ] (3) Button: the Icon-only prose tells Astro and Vue readers to "give it an `aria-label`", but the examples and the API use `iconOnly` + `label` (`src/docs/components/button.astro:177-195`, `src/component-examples/button/IconOnly.astro:7`, `IconOnly.vue:6`, `src/component-api/button/api.ts:28-41`)
+  - The `iconOnly` discriminant (types error without `label`) is never mentioned on the page.
+  - Fix: "A button whose only child is an `svg` is square. Set `iconOnly` and name it with `label`, which renders `aria-label` (and is required by the types). Add `rounded` …"
+- [ ] (3) Button group: the intro bullet says "Don't allow them to wrap onto a new line", but the Overflow section and the CSS default (`flex-wrap: wrap`) wrap by design (`src/docs/components/button-group.astro:67,228-257`, `packages/opui/css/components/button-group.css:8`)
+  - Fix: drop the bullet, or turn it into "Use `scrollable` or `shrink` when a group must stay on one row" linking `#overflow`.
+- [ ] (3) Callout: the `<svg>` part says "`info`, `success`, `warning` and `critical` have a default icon", and that row renders in the HTML parts table too, but only `Callout.astro`/`Callout.vue` emit the icons; HTML users must paste the svg themselves, as `Severities.html` does. The HTML Icon prose ("Icon must be placed before the content") doesn't say so either (`src/component-api/callout/api.ts:34-40`, `src/docs/components/callout.astro:193`, `packages/opui/components/Callout/Callout.astro:26-91`, `src/component-examples/callout/Severities.html:5-18`)
+  - Fix: follow the Accordion marker wording: `description: "An optional icon before the content. Astro and Vue render one by default for info, success, warning and critical."`, and in the HTML slot: "There are no default icons in HTML: put an `<svg aria-hidden="true">` before `.ui-content`."
+- [ ] (3) Card: `Variants.html` opens with `<!-- .ui-text class optional -->`, but a card without a variant has `--_bg-color: var(--surface-default)` while `.ui-text` is `transparent`, so they differ on tonal/elevated surfaces. The API also documents no default look for `variant` (`src/component-examples/card/Variants.html:1`, `packages/opui/css/components/card.css:5-7,36-41`, `src/component-api/card/api.ts:13-23`)
+  - Fix: delete the comment, and either make the classless card transparent (so the comment becomes true) or add to the Variants prose: "Without a variant the card has the page surface color and no border."
+- [ ] (3) Chip: the Sizes example shows `multiline` (fourth chip), but no section or prose mentions `multiline`/`.ui-multiline`; and the Astro/Vue Icon prose says nothing about wrapping slot text in `.ui-text`, though every example does and ellipsis truncation only applies to `.ui-chip > .ui-text` (`src/docs/components/chip.astro:62-65,69-82`, `src/component-examples/chip/Sizes.astro:8-12`, `packages/opui/css/components/chip.css:26-31`, `packages/opui/components/Chip/Chip.astro:29-31`)
+  - Fix: add to Sizes: "Labels truncate with an ellipsis. Set `multiline` (`.ui-multiline` in HTML) to let them wrap." and to the Astro/Vue Icon slots: "When you use the default slot instead of `label`, wrap the text in `<span class="ui-text">` so it can truncate."
+- [ ] (3) Badge: `browserSupport` lists `anchor-positioning`, but `badge.css` deliberately positions the indicator with insets and resets `position-area: none` / `position-anchor: auto` "so this works in browsers without position-area support", and the Under the hood build-up never uses anchor positioning (`src/docs/components/badge.astro:30`, `packages/opui/css/components/badge.css:21-29`, `src/components/UnderTheHood/BadgeBuild.astro:45,68`)
+  - The chip tells readers Firefox/older Safari are unsupported, which the CSS contradicts.
+  - Fix: `browserSupport={["container-style-queries", "dir-pseudo", "light-dark", "relative-color"]}`.
+- [ ] (2) Button: `[aria-current="page"]` gets the pressed background (and the full ripple), but the Button page never mentions it; only the List page does (`packages/opui/css/components/button.css:133,309`, `src/docs/components/list.astro:162`)
+  - Fix: one sentence under Variants or Disabled: "A link with `aria-current="page"` keeps the pressed background, for navigation."
+- [ ] (2) Checkbox: the HTML Indeterminate prose says "run a script that sets `el.indeterminate = true`", while the API note, the Concepts guide and the package ship `activateIndeterminate()` in `css/js/checkbox.js` for exactly this; the HTML example rolls its own loop (`src/docs/components/checkbox.astro:181`, `src/component-api/checkbox/api.ts:13`, `packages/opui/css/js/checkbox.js:11-17`, `src/docs/guide/concepts.astro:222-227`, `src/component-examples/checkbox/Indeterminate.html:24-51`)
+  - Fix: "Add `data-indeterminate` to the input and call `activateIndeterminate()` from `opui-css/css/js/checkbox.js` once the element is in the DOM. The attribute alone has no effect."
+- [ ] (2) Checkbox: the Labels table's first approach is "label text inside the `label`/`role="checkbox"` element", but the component is a native `<input type="checkbox">` in a `<label>`; `role="checkbox"` is never used or needed and reads like boilerplate from a custom-widget page (`src/docs/components/checkbox.astro:309-326`)
+  - Fix: "Text inside the wrapping `<label>` (default). Hide it with `hideLabel` / `.ui-sr-only` when there is no visible label." and drop the role.
+- [ ] (2) Accordion: the shared preamble says it "Comes with a chevron marker", but in HTML there is no default marker, you paste the svg, as every HTML example shows and the HTML What's new note says (`src/docs/components/accordion.astro:56-59`, `src/utils/whats-new.ts:17`, `src/component-examples/accordion/Basics.html:2-15`)
+  - Fix: wrap in `<Conditional>`; HTML: "Add an svg to the `summary` for a marker, see custom marker."
+- [ ] (2) Avatar: the `alt` row says only "Alternative text for the image", though the types require it whenever `src` is set and What's new files it as breaking (`src/component-api/avatar/api.ts:6-11`, `packages/opui/components/Avatar/types.ts:24-33`, `src/utils/whats-new.ts:21`)
+  - Fix: `description: "Alternative text for the image. Required with src; use an empty string when the name is shown next to it."`
+- [ ] (1) Button: the HTML Disabled prose only offers `aria-disabled="true"` for links, but `.ui-disabled` on an `<a>` also blocks clicks, as What's new says (`src/docs/components/button.astro:209-217`, `packages/opui/css/components/button.css:120-122`, `src/utils/whats-new.ts:39`)
+  - Fix: "…so use `aria-disabled="true"` (or `.ui-disabled`) on an `<a>`, which blocks clicks."
+- [ ] (4) Dialog: `actionsAlign` in api.ts is inverted against the CSS and the component. It maps `end` to `.ui-align-end` and `start` to default, but `dialog.css` makes `justify-content: end` the default and `.ui-align-start` the modifier, and `Dialog.astro` renders `ui-align-${actionsAlign}` (`src/component-api/dialog/api.ts:11-16`, `packages/opui/css/components/dialog.css:82-90`, `packages/opui/components/Dialog/Dialog.astro:40`)
+  - The CSS was fixed earlier (`.ui-align-start` works) but not the API table, so the HTML modifiers table tells readers to add `.ui-align-end`, which is a no-op on a dialog (`card.css:114` already gives `.ui-card > .ui-actions.ui-align-end` end alignment, which dialog.css applies by default), and shows `start` as the default.
+  - Fix:
+    ```ts
+    {
+      default: '"end"',
+      description: "Alignment for the actions.",
+      group: "Alignment",
+      part: ".ui-actions",
+      prop: "actionsAlign",
+      values: { end: null, start: ".ui-align-start" },
+    },
+    ```
+- [ ] (4) Dialog: What's new says "Long content scrolls between a fixed header and actions" and links `#modal`, but nothing on the page shows or explains long content, the `85dvb` cap, the scroll shadows or the page scroll lock. Every example fits in one screen (`src/utils/whats-new.ts:109-110`, `src/docs/components/dialog.astro:114-143`, `packages/opui/css/components/dialog.css:11,39-80,106-111`)
+  - The same applies to Drawer, whose What's new mentions the scroll shadow (`whats-new.ts:119`) and whose examples are three paragraphs long.
+  - Fix: add a "Long content" example (or make Usage's content long) and one sentence under Usage: "The header and actions stay put while `.ui-content` scrolls, with a shadow on the scrolled edge. A modal dialog also locks page scroll."
+- [ ] (3) Drawer: the Usage prose and the `scrollLock` row say page scroll is locked by default, but the shared utility skips `.ui-backdrop-transparent`, and drawer.css only re-locks transparent drawers under 500px. So `backdrop="transparent"` silently turns scroll lock off on desktop, including when the page's own "backdrop=transparent" switch is flipped (`src/docs/components/drawer.astro:82-86,100-103,126-132`, `src/component-api/drawer/api.ts:29-35`, `packages/opui/core/utils.css:47-51`, `packages/opui/css/components/drawer.css:211-217`)
+  - Fix: say so where scroll lock is introduced, and in the `scrollLock` description: "Locks page scroll while the drawer is open. With a transparent backdrop the page stays scrollable, except on screens narrower than 500px." Or drop the `:not(.ui-backdrop-transparent)` exception if it isn't intended.
+- [ ] (3) Form: the Field group API shows `direction="column"` as having no class, but `FieldGroup` renders `.ui-column` and form.css needs it to keep a buttons-only group vertical. HTML readers can't find `.ui-column` anywhere on the page (`src/component-api/field-group/api.ts:10-15`, `packages/opui/components/FieldGroup/FieldGroup.astro:18`, `packages/opui/css/components/form.css:126,142`)
+  - The CSS was fixed earlier; the API table wasn't updated, so the fix is incomplete for HTML users.
+  - Fix:
+    ```ts
+    values: { column: ".ui-column", row: ".ui-row" },
+    ```
+    and a sentence in Actions (`form.astro:203-220`): "A field group with only buttons lines up in a row. Add `.ui-column` (`direction="column"`) to stack them."
+- [ ] (3) Select: the `header` and `footer` parts are in the API tables and the hero anatomy, and styled in text-field.css, but no section or example shows them, so readers see "Header" and "Footer" boxes in the diagram and never learn what goes there (`src/component-api/select/api.ts:87-92,110-115`, `src/docs/components/select.astro:242-259`, `packages/opui/css/components/text-field.css:99-116`)
+  - Fix: add a "Header and footer" section after Affix, with a search field in the header and a "Manage…" link in the footer as the use case.
+- [ ] (3) Select: Variants and Sizes have no prose, so the Astro/Vue pages never name `variant="filled"` or `size="x-small" | "small" | "large"`, while What's new links `#sizes` promising exactly that. End text's only prose is `.ui-end-text: end text element`, shown on every framework (`src/docs/components/select.astro:80-88,107-110`, `src/utils/whats-new.ts:170-173`, `packages/opui/components/Select/types.ts:248-250`)
+  - Fix: `<Conditional>` paragraphs: Variants "Use `variant="filled"` / `.ui-filled`; outlined is the default", Sizes "`size` takes `x-small`, `small` and `large` / `.ui-x-small`, `.ui-small`, `.ui-large`", End text "`endText` prop or `end-text` slot / `.ui-end-text` after `.ui-field`, linked with `aria-describedby`".
+- [ ] (3) Range: Disabled, Validation and Spread have no prose. What's new promises "Validation with the `error` prop" at `#validation`, but the section never names `error`, `data-invalid` or `aria-invalid`, and Spread never names `spread`/`.ui-spread` or the 400px collapse the CSS implements (`src/docs/components/range.astro:138-159`, `src/utils/whats-new.ts:158,164-167`, `packages/opui/css/components/range.css:94-98,148-185`)
+  - The two `<h3>` under Spread have no `id` (`range.astro:152,156`), and `Row.astro:11-20` already shows a disabled and an invalid spread range, so RowDisabled and RowValidation repeat it.
+  - Fix: add `<Conditional>` prose to the three sections (mirror `select.astro:206-224` for Spread), give the h3s ids or drop them together with the two Row* examples.
+- [ ] (3) Radio: the page has no Sizes, Stack, End text or hidden-label sections, although radio.css implements `.ui-small`, `.ui-large` and `.ui-stack`, the API documents `size`, `stack` and `hideLabel`, and the anatomy shows `end-text`. Checkbox and Switch both have Sizes, Visible label, Label position and End text sections (`src/docs/components/radio.astro:55-153`, `packages/opui/css/components/radio.css:99,196-200`, `src/component-api/radio/api.ts:24-41`, `src/docs/components/checkbox.astro:66-88`)
+  - Also: Disabled prose is HTML-only wording on all frameworks ("Attach the `disabled` attribute to the `<fieldset>`", `radio.astro:84-92`), Direction has no prose at all (`radio.astro:137-141`), and the Vue Validation slot mentions the `error` prop while the Astro slot doesn't, though `Radio.astro:10,44` has it (`radio.astro:116-135`).
+  - Fix: port the Checkbox sections (Sizes, Visible label with Label position and End text) with Radio examples, and add `<Conditional>` prose to Disabled and Direction.
+- [ ] (2) Progress: the Determinate HTML example is a static `value="10"` while the Astro and Vue versions step every 3 seconds, and the Indeterminate examples put `aria-busy="true"` on the `<progress>` while the Accessibility section says to put it on the section being updated (`src/component-examples/progress/Determinate.html`, `Determinate.astro:7-20`, `Indeterminate.{astro,html,vue}`, `src/docs/components/progress.astro:83-87`)
+  - Fix: add the same `<script>` to `Determinate.html` (as `dialog/CloseBehaviors.html` does), and drop `aria-busy` from the Indeterminate examples; a `<progress>` without `value` is already indeterminate.
+- [ ] (2) Range: the Value HTML example has no script, so a copy of it never updates the `<output>`. On the docs page it works only because the hero anatomy's `Range.astro` script wires every `.ui-range` on the page (`src/component-examples/range/Value.html`, `packages/opui/components/Range/Range.astro:126-143`, `src/docs/components/range.astro:94-100`)
+  - Fix: add a five-line `input` listener to `Value.html`, matching the "consumer's responsibility" sentence.
+- [ ] (2) Select: the Spread example still lists "EUR" twice with a "¢" prefix, the mistake fixed earlier in Affix only (`src/component-examples/select/Orientation.astro:52-56`, `Orientation.html:110-116`, `Orientation.vue:53-57`)
+  - Fix: `¤` prefix and EUR, SEK, USD, as in `Affix.*`.
+- [ ] (2) Drawer: the Drawer footer API says the footer is "aligned to the end", but an `inline-end` drawer aligns it to the start (`src/component-api/drawer-footer/api.ts:130-132`, `packages/opui/css/components/drawer.css:149-151`)
+  - Fix: "Lays out its content in a row, aligned away from the edge the drawer opens from."
+- [ ] (1) Radio: `changelogPaths` has `src/component-api/field-group` but not `src/component-api/radio` (`src/docs/components/radio.astro:26-42`)
+- [ ] (1) Dialog: the global `.ui-dialog.anatomy` style is dead; the page has no anatomy and the `dialog/Anatomy` example that used it was removed (`src/docs/components/dialog.astro:281-285`)
+- [ ] (1) Description list: the Bordered prose doesn't say the leader line, the muted color and the end alignment only apply when the list is wider than `45ch`; narrower lists stack with no border at all (`src/docs/components/description-list.astro:53-74`, `packages/opui/css/components/description-list.css:45-83`)
+  - Fix: "Above `45ch` the term and description share a row and the border fills the gap between them. Narrower lists stack and show no border."
+- [ ] (4) Typography: the "Inline text elements" table's Result column shows browser defaults, not the library styles it documents. The table sits in `.ui-not-rich-text`, which ends the `@scope (.ui-rich-text) to (.ui-not-rich-text)` styles, and none of the sample elements carry the class from the third column, so `<kbd>`, `<mark>`, `<abbr>`, `<var>`, `<samp>`, `<del>`, `<ins>` render unstyled (`src/docs/components/typography.astro:82-176`, `packages/opui/css/components/typography.css:295`, `src/layouts/Document.astro:88`)
+  - Fix: give each sample the class it documents.
+    ```html
+    <td><kbd class="ui-kbd">Ctrl + S</kbd></td>
+    <td><mark class="ui-mark">Highlight</mark></td>
+    <td><abbr class="ui-abbr" title="Abbreviation">Abbr.</abbr></td>
+    ```
+- [ ] (4) Text field: the "Text input API" table (HTML page) describes `.ui-auto-fit`, `.ui-small`, `.ui-filled` and a `.ui-field` part as the contents of `text-input.css`, with `variant` default `"default"` and a single `small` size. `text-input.css` holds only the autosuggest chevron (`:where(.ui-text-field:has(input[list]))`); those modifiers live in `text-field.css` and are already in the Text field API with the right default (`"outlined"`) and all three sizes (`src/component-api/text-input/api.ts:11-39`, `packages/opui/css/components/text-input.css:1-40`, `text-field.css:338,369,422-436`, `src/docs/components/text-field.astro:70-72,94-99`)
+  - Fix: either delete `text-input/api.ts` and the conditional in `text-field.astro`, or make it describe what the file does: root `.ui-text-field:has(input[list])`, "Hides the native datalist arrow and draws the Select chevron", no options.
+- [ ] (4) Textarea: Auto-fit is described as "the Field changes size depending on its content" and the API says "Changes height depending on its content", but every `.ui-textarea textarea` already has `field-sizing: content` with `min-block-size: 3lh` and `max-block-size: var(--_max-block-size, 20lh)`. `.ui-auto-fit` only adds horizontal growth (`inline-size: auto`, `min-inline-size: 25ch`) and `resize: both`. The page never says textareas grow between 3 and 20 lines by default or how to raise the cap, though `field-sizing` is in `browserSupport` and the `textarea-field-sizing` Learn post is about it (`src/docs/components/textarea.astro:178-183`, `src/component-api/textarea/api.ts:17-23`, `packages/opui/css/components/textarea.css:5-10,14-18`, `text-field.css:338-350`)
+  - Fix: "Textareas grow with their content, from 3 to 20 lines (`field-sizing: content`); set `--_max-block-size` on the root to change the cap. `autoFit` (`.ui-auto-fit`) also lets the width follow the longest line, from 25ch, and allows resizing in both directions." API: "Lets the width follow the content and allows resizing in both directions."
+- [ ] (3) Toast: the HTML API table and the "How it works" prose don't match `toast.js`. Message lists `value` / `textContent`, but the title is `data-title || textContent`; Severity default is given as `info`, but there is no default and a toast without `data-severity` hides its icon; `warning` exists in CSS and JS but isn't listed; `data-description`, `data-template` and `data-close-label` (the `closeLabel` option) are missing. The prose says JS fills `[data-toast-icon]` and `[data-toast-close]` "using textContent", but `fillSlot` only runs for title and description; the icon is a CSS mask per severity and the close button only gets `aria-label` (`src/component-api/toast/HTML.astro:29-53`, `src/docs/components/toast.astro:52-66`, `packages/opui/css/js/toast.js:196-203,221-233,250-259`, `packages/opui/css/components/toast.css:81-83,117-135`)
+  - Fix: rows for `data-title` (falls back to the button text), `data-description`, `data-severity` (`success`, `info`, `warning`, `critical`, default none, no icon), `data-duration` (default `5s`), `data-template`, `data-close-label`; and "JS clones the template, fills `[data-toast-title]` and `[data-toast-description]` with `textContent`, sets `aria-label` on `[data-toast-close]`, and removes the toast on `animationend`."
+- [ ] (3) Toast: the page never shows the three things a reader has to put on their page for any example to work: the `<output id="toast-manager" role="status" aria-live="polite" popover="manual">` stack, the `<template id="toast-template">`, and `initToastManager()`. "Structure lives in HTML via a default `<template id="toast-template">`" is also misleading, since `toast.js` ships a fallback template when none exists. The Concepts guide has the import but the Toast page doesn't link it (`src/docs/components/toast.astro:42-66`, `src/layouts/Layout.astro:81-119`, `packages/opui/css/js/toast.js:184-193,265-273`, `src/docs/guide/concepts.astro:216-243`)
+  - Fix: a "Setup" h3 before "HTML" with the manager markup, the template (or "omit it to get the built-in one") and the import, plus a `<DocLink href="/guide/concepts">` link.
+- [ ] (3) Toast: the Duration section doesn't say that `data-duration` needs typed `attr()`. `toast.css` declares the hold twice, so Firefox and Safari drop the `attr(data-duration type(<time>))` declarations and every toast stays `5s` (`src/docs/components/toast.astro:117-125`, `packages/opui/css/components/toast.css:34-47`)
+  - Fix: "Browsers without typed `attr()` ignore it and use the 5s default."
+- [ ] (3) Toast: the anatomy is stale. It lists Container, Body, Content, Close, but the template also has `.ui-icon`, `.ui-title` and `.ui-description`; the demo uses `.ui-toast.ui-info`, but the severity hook is `[data-severity="info"]` (`src/docs/components/toast.astro:129-160`, `src/layouts/Layout.astro:83-89`, `packages/opui/css/components/toast.css:81-83,122`)
+  - Fix: render the real template markup with `data-severity="info"` and frame `.ui-icon`, `.ui-content` (`.ui-title`, `.ui-description`) and `.ui-close-button`.
+- [ ] (3) Text field, Textarea: `description` (`.ui-start-text`) has no section. It only appears inside the Spread examples and the anatomy, and the Spread prose says "display the label and description on the left" as if the reader already knew it (`src/docs/components/text-field.astro:128-131,205-226`, `textarea.astro:85-88,155-176`, `src/component-api/text-field/api.ts:78-84`)
+  - Fix: a "Description" h3 under End text (or "Description and end text" as one section) with a sentence per framework (`description` prop or slot; `.ui-start-text` between `.ui-label` and `.ui-field` in HTML).
+- [ ] (3) Switch, Text field, Textarea: the Validation prose only documents `data-invalid` / `error`, but the CSS also styles `:has(:user-invalid)`, which is why the `required` fields in the examples turn red after the user leaves them empty. Nothing on the pages says native constraint validation styles the field, or that `:user-invalid` waits for the user to edit it, though `user-pseudos` is in `browserSupport`, `TextFieldBuild` explains it and the `text-field-user-invalid` Learn post exists (`src/docs/components/switch.astro:118-150`, `text-field.astro:169-203`, `textarea.astro:119-153`, `packages/opui/css/components/switch.css:309-310`, `text-field.css:353-354`, `src/components/UnderTheHood/TextFieldBuild.astro:125-132`)
+  - Fix: one sentence in each Validation section: "Fields also get the invalid styles from the browser's own validation (`:user-invalid`), after the user has edited them. Use `data-invalid` for server-side errors."
+- [ ] (2) Switch: sections with an actionable modifier and no prose. Label position never names `stack` / `.ui-stack`; Icons never names the `icon-checked` / `icon-unchecked` slots or the `.ui-icon-checked` / `.ui-icon-unchecked` spans with `aria-hidden="true"` that the HTML example needs (`src/docs/components/switch.astro:112-113,155-158`, `src/component-api/switch/api.ts:42-48,57-66`, `src/component-examples/switch/Icons.html:2,15`)
+  - Fix: a `<Conditional as="p">` per section, e.g. HTML: "Add `.ui-stack` to put the label under the switch." and "Put the icons in `.ui-icon-unchecked` and `.ui-icon-checked` spans with `aria-hidden="true"` before the input."
+- [ ] (2) Text field, Textarea: the Sizes sections have no prose naming `size="x-small" | "small" | "large"` (`.ui-x-small`, `.ui-small`, `.ui-large`), and Auto-fit doesn't name `autoFit` / `.ui-auto-fit`, unlike the Switch and Toggle Sizes sections (`src/docs/components/text-field.astro:123-126,228-233`, `textarea.astro:80-83`)
+  - Fix: copy the Toggle Sizes `<Conditional>` and name the prop/class in Auto-fit.
+- [ ] (2) Tabs: the HTML modifiers table shows the `name` row with "Generated when omitted", but in HTML the author writes the shared `name` on every radio; `htmlRows` copies the one description for every framework (`src/component-api/tabs/api.ts:9-15`, `src/component-api/rows.ts:46-66`, `src/component-examples/tabs/Basics.html:4,14,23`)
+  - Fix: "The name shared by the tab inputs. Astro and Vue generate one when omitted."
+- [ ] (2) Toggle: Sizes and "Text + icon" are h3s under the "Toggle group" h2, but the Sizes example is four standalone toggle buttons and the prose says "with the `size` prop" without saying both `ToggleButton` and `ToggleGroup` take it; "Text + icon" has no prose at all. Sizes (3.3 step 3) also comes after Vertical orientation (step 6) (`src/docs/components/toggle.astro:84,137-139,141-178`, `src/component-examples/toggle/Sizes.html:1-19`, `src/component-api/toggle-button/api.ts:42-51`, `toggle-group/api.ts:41-52`)
+  - Fix: move Sizes to its own h2 after "Toggle button" and say "on a button or on the whole group"; one line for Text + icon ("Put an `svg` before the text; icon-only buttons need `aria-label` on the input").
+- [ ] (2) ToggleButton API: `label` is described as "The input value when `value` is omitted", but it's also the button text when the default slot is empty (`src/component-api/toggle-button/api.ts:24-27`, `packages/opui/components/ToggleButton/ToggleButton.astro:38-41`, `ToggleButton.vue:40-43`)
+  - Fix: "The button text when the slot is empty, and the input value when `value` is omitted."
+- [ ] (4) CHANGELOG files the `components.prose` layer under Changed, but it breaks anyone who declares the layer order themselves: `components.prose` is first mentioned inside `typography.css`, so with a user-declared `openprops, theme, normalize, components.root, components.extended, utils` it sorts after `components.extended` and prose styles beat component styles inside rich text. MIGRATING already treats it as a migration step (`packages/opui/CHANGELOG.md:122`, `packages/opui/MIGRATING.md:450-459`, `packages/opui/css/components/typography.css:294`, `packages/opui/css/layers.css:1`)
+  - Same for the `--motion` move: single-file importers who import `normalize.css` but not `utils.css` lose `.ui-motion-*`, and `--motion` is undefined without `theme.css`. Filed under Changed, MIGRATING says "import `theme.css` and `utils.css` too" (`CHANGELOG.md:120`, `MIGRATING.md:394`)
+  - Fix: move both entries to `### Breaking`.
+- [ ] (3) whats-new.ts: Breaking changelog entries with no note on their component page. No `anchor` key (hover `Anchor` no longer wraps the trigger in `<span interestfor>`), no `form` key (`FieldGroup` dropped `role="group"`), no `toast` key (keyframes renamed `ui-toast-*`, `toast.js` listens for `ui-toast-exit`), `tabs` has only the restyle (no note on removed `tablist`/`tab`/`tabpanel` roles, `panelId`, `tabId`), `select` misses `ClassicSelect` no longer setting `aria-labelledby`, `list` misses `ListItem` `as` narrowed to `a | button | div`, `typography` misses "headings with a class are no longer styled in rich text", `avatar` misses `as="button"` rendering `type="button"`, `button` misses "icon styles only apply to a direct child `svg`" (`src/utils/whats-new.ts:5-279`, `packages/opui/CHANGELOG.md:7-37`)
+  - Fix (examples, link each to the section that documents it):
+    ```ts
+    anchor: [
+      { astro: `Breaking: hover anchors no longer wrap the trigger. Give the anchor an <code>id</code> and put <code>interestfor</code> on the trigger.`, vue: `…same…` },
+    ],
+    form: [
+      { default: `Breaking: <code>FieldGroup</code> no longer sets <code>role="group"</code>. Wrap it in a <code>FieldSet</code>.`, html: `Breaking: drop <code>role="group"</code> from <code>.ui-field-group</code>.` },
+    ],
+    toast: [
+      `Breaking: keyframes are <code>ui-toast-enter</code>, <code>ui-toast-hold</code> and <code>ui-toast-exit</code>.`,
+    ],
+    ```
+- [ ] (3) whats-new.ts: `default` notes about Astro/Vue props render on the HTML page too. Button "render `type="button"` by default" (43), Chip "`as="button"` renders `type="button"`" (100), Switch "`size="small"` replaces `small`" (187, the HTML class was `.ui-small` all along, `switch.css:210`), Tooltip "`id` is required" (266, HTML always needed the id for `interestfor`) (`src/utils/whats-new.ts:42-44,99-101,185-188,264-267`, `whatsNewFor` at `:289-297`)
+  - Fix: key them `astro` and `vue` instead of `default`.
+- [ ] (2) whats-new.ts: 42 of the 107 notes have no `<a href="#…">` link, which `AGENTS.md` asks for ("Link to the section on the page that documents the change"). Examples: `src/utils/whats-new.ts:13-14,17,21,35,38-39,43,86-87,98,110,119,131,143-144,159,179,181-182,197,204,221-224,266,268,272-277` (`AGENTS.md` Changelog and What's new)
+  - Every note that does link resolves to an existing `id` (checked by script).
+  - Fix: link the Breaking notes to the API table (`<a href="#api">`) or the section that shows the new requirement.
+- [ ] (3) Theme tokens page: the Palette section's intro is the theme.css comment "override the values in core/palette.css", picked up by the header parser as a note. On the page it reads as an instruction to edit `palette.css`, while the preamble says to override on `html` (`src/docs/guide/theme-tokens.astro:268`, `src/utils/theme-tokens.ts:16,50`, `packages/opui/css/theme.css:23`)
+  - Fix (theme.css):
+    ```css
+    /* Palette - the knobs core/palette.css derives --color-1 to --color-16 from */
+    ```
+- [ ] (3) Getting started Theming: the snippet shows `--palette-hue: 264` as what `theme.css` sets, but it sets `var(--hue-green)` (and `var(--hue-blue)` in dark mode), as the bullet right under it says (`src/docs/guide/getting-started/_theming.astro:19-23,29-31`, `packages/opui/css/theme.css:24-26,34-36,43-45`)
+  - Fix:
+    ```css
+    :where(html) {
+      --palette-chroma: 0.5;
+      --palette-hue: var(--hue-green);
+      --palette-hue-rotate-by: 0;
+    }
+
+    :where(html.ui-dark) {
+      --palette-hue: var(--hue-blue);
+    }
+    ```
+- [ ] (2) Getting started Theming and the token table say `--palette-source` "must be an `oklch()` color". `palette.css` reads it with `oklch(from var(--palette-source) …)`, and relative color syntax takes any color (`_theming.astro:44-46`, `src/utils/theme-token-descriptions.ts:290-291`, `packages/opui/core/palette.css:33-35`)
+  - Fix: "Any color works: the palette reads its oklch chroma and hue and replaces the lightness per step."
+- [ ] (2) Theme tokens page: the preamble says to override "in a layer above `theme` or unlayered", but the first snippet puts the override inside `@layer theme`, which only wins when it comes after `theme.css` in source order (`src/docs/guide/theme-tokens.astro:206-208,221-227`)
+  - Fix:
+    ```css
+    /* Unlayered, or in a layer after utils (see Customizing) */
+    html {
+      --palette-hue: 30;
+      --border-radius: var(--radius-3);
+      --duration: 0.15s;
+    }
+    ```
+- [ ] (2) `--duration-slow` description says "entering and leaving overlays and toasts". Only Toast reads it; Dialog, Drawer and Menu use `--duration` (`src/utils/theme-token-descriptions.ts:226-227`, `packages/opui/css/components/toast.css:30`, `dialog.css:96-98`, `drawer.css:12`, `menu.css:11`)
+  - Fix: "Transition duration for a `Toast` leaving."
+- [ ] (2) Menu learn post: "`position-try-fallbacks` flips it when it would overflow". The library caps the menu to the space on its side (`max-block-size: min(60dvb, calc(100% - offset))`) and scrolls, and flips only when that side has less than `--_min-block-size` (12rem). Same gap as the open Menu walkthrough item, in the post (`src/docs/learn/menu-popover-anchor.astro:37-41`, `packages/opui/css/components/menu.css:14-15,44-49,57-65`)
+- [ ] (2) Getting started (Astro, Vue) end at "How to use" and jump to Theming. The HTML page points to Concepts and the component list there; Astro and Vue don't (`src/docs/guide/getting-started/Astro.astro:458-468`, `Vue.astro:552-563`, `HTML.astro:374-382`)
+  - Fix: add the HTML page's closing paragraph (Concepts explains props vs classes, layers and what needs JavaScript; then browse the components) after the "How to use" snippet.
+- [ ] (1) Switch learn post sample has `transition: all 0.2s var(--ease)`, which the library replaced with a property list (`src/docs/learn/switch-checkbox.astro:578`, `packages/opui/css/components/switch.css:99-104`)
+- [ ] (1) MIGRATING and CHANGELOG list the `--border-width`/`--field-border-width` readers incompletely: `Select` reads `--field-border-width`, and `Carousel`, `Drawer`, `Menu`, `Progress` and `Textarea` read `--border-width` (`packages/opui/MIGRATING.md:396`, `packages/opui/CHANGELOG.md:104`, `packages/opui/css/components/select.css`, `carousel.css`, `drawer.css`, `menu.css`, `progress.css`, `textarea.css`)
+- [ ] (1) Getting started Theming contrast demo buttons have no `type="button"` (`src/docs/guide/getting-started/_theming.astro:159,170`)
+- [ ] (1) Dead code: `learnHref` is computed and never used (`src/docs/Home.astro:23`); `import type { Props } from "astro"` is unused (`src/docs/guide/why-opui.astro:5`, `src/docs/guide/acknowledgments.astro:4`)
+- [ ] (4) SKILL.md: the single-file import advice omits `layers.css`, which MIGRATING, the package README and the generated getting-started reference all require first (`packages/opui/skills/opui/SKILL.md:14`, `packages/opui/MIGRATING.md:470-475`, `packages/opui/README.md:112`, `packages/opui/skills/opui/references/html/getting-started.md:44`)
+  - An agent following the skill will import `opui-css/css/components/button.css` alone and lose the layer order.
+  - Fix: "With a bundler, import everything with `@import "opui-css/css/imports.css"`, or import `opui-css/css/layers.css` first and then one component at a time from `opui-css/css/components/<name>.css`."
+- [ ] (3) SKILL.md: Conventions don't give the modifiers an agent needs before it opens a reference: sizes, colors, severities, variants, `type="button"`, and the `.ui-text` label wrapper. `<button class="ui-button"><svg>…</svg>Save</button>` renders as icon-only in 6.0 (`packages/opui/skills/opui/SKILL.md:18-23`, `packages/opui/MIGRATING.md:56`, `packages/opui/CHANGELOG.md:17`)
+  - Layer order and reference lookup are covered; nothing removed in 6.0 (`.ui-icon-only`, `IconButton`, `filled`, `divided`, `ui-default`) is mentioned, which is correct.
+  - Fix: two bullets: "Common modifiers: sizes `.ui-x-small`, `.ui-small`, `.ui-large` (not every component has all three), variants `.ui-filled`, `.ui-outlined`, `.ui-tonal`, colors `.ui-primary`, `.ui-critical`, severities `.ui-info`, `.ui-success`, `.ui-warning`, `.ui-critical`. The reference lists which apply." and "Buttons: give `<button>` a `type`. When a button has an icon, wrap the label in `<span class="ui-text">`; a button whose only element is an `svg` is styled as icon-only."
+- [ ] (3) Fixture pages need `OPUI_TEST_PAGES=1`, also in `pnpm dev`, and nothing says so. The route returns no paths without it, unlike `/tests/` and `/todo/`, which also build in dev (`AGENTS.md:33`, `packages/opui/components/AGENTS.md:266`, `src/pages/[framework]/test/[component].astro:40`, `src/pages/tests/[name].astro:5`)
+  - `PARITY_RECORD` and `A11Y_RECORD` are only reachable through `pnpm test:record-drift` / `pnpm test:e2e:record-a11y`, which AGENTS.md names; the README names neither.
+  - Fix: AGENTS.md and README Development: "The fixture pages at `/<framework>/test/<component>` only exist with `OPUI_TEST_PAGES=1` (`OPUI_TEST_PAGES=1 pnpm dev`, or `pnpm test:e2e:serve`)."
+- [ ] (3) Root README: nothing a new contributor needs to run `pnpm test:e2e` is documented: Node 22 (`engines` only in the package, CI uses 22), Playwright browsers (`pnpm exec playwright install chromium`, or `PLAYWRIGHT_CHROMIUM_EXECUTABLE`), and that visual baselines come only from CI, so a new component's `visual.spec.ts` fails locally until the `update-snapshots` label runs (`README.md:42-49,57`, `packages/opui/package.json:103-105`, `.github/workflows/ci.yml:21,29`, `playwright.config.ts:3`, `.claude/hooks/session-start.sh:18-19`, `AGENTS.md:48`)
+  - Fix: under Development: "Node 22 and pnpm 12. `pnpm exec playwright install chromium` once for `pnpm test:e2e` (CI runs the `mcr.microsoft.com/playwright` image; set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to use another Chromium). Visual baselines are generated in CI: add the `update-snapshots` label to the PR for new or changed screenshots."
+- [ ] (3) Root README "Adding New Components" stops at the docs page. The build and CI also require: a `## Unreleased` CHANGELOG entry and a What's new note (`AGENTS.md` rules), committing the regenerated `public/search-index.json` (CI diffs it), `COMPONENT_FRAMEWORKS` in `src/utils/framework.js` when a component doesn't ship for every framework, a `theme-token-descriptions.ts` entry for any new theme token (unit test fails without it), and a stress test section (`README.md:51-57`, `.github/workflows/ci.yml:25`, `src/utils/framework.js:29-31`, `tests/unit/theme-tokens.test.ts:51`, `src/stress-tests/`)
+  - The sidebar, routes, redirects, fixture page and skill index pick the component up from `src/docs/components/` and `api.ts`, so those need no step.
+  - Fix: step 6 "Add the CHANGELOG entry and the What's new note (see `AGENTS.md`), a theme token description for new tokens in `src/utils/theme-token-descriptions.ts`, and the component to a stress page in `src/stress-tests/`. List it in `COMPONENT_FRAMEWORKS` (`src/utils/framework.js`) if it doesn't ship for all three frameworks." and step 7 "Commit `public/search-index.json` (regenerated by `pnpm build`; CI fails when it's stale). New screenshots come from CI: add the `update-snapshots` label."
+- [ ] (3) Docs AGENTS.md §4 lists the layout's inputs but omits `slug` (the prop §3.1 says everything keys off), `title`, `description`, `image`, `showToc`, and the `under-the-hood` slot that §3.3 step 8 renders (`src/docs/components/AGENTS.md:149-166`, `src/layouts/Component.astro:22-34,196-199`)
+  - Fix: Props: add `slug` (required for auto examples, API tables and anatomy), `title`/`description`/`image` (page meta, default from the title slot), `showToc` (default `true`). Slots: add `under-the-hood`: (Optional) rendered as "Under the hood".
+- [ ] (3) Docs AGENTS.md describes examples as `.astro` + `.html` only ("`Basics.{astro,html}` for every framework"), but every example needs a `.vue` file too: the parity test, the fixture route and `AutoExample` all glob `.vue` (`src/docs/components/AGENTS.md:44-46,91`, `src/components/AutoExample.astro:44-49`, `tests/unit/parity.test.ts:13-18`, `README.md:32`)
+  - Fix: "`Basics.astro`, `Basics.html` and `Basics.vue`, one per framework in `FRAMEWORKS`. `<AutoExample name="Basics">` globs `src/component-examples/<slug>/Basics.{astro,html,vue}`."
+- [ ] (3) Component API AGENT.md documents `source`, `page`, `file`, `root`, `parts`, `options`, `slots`, `css`, `model`, `notes` but not the required `component` field (the display name every `api.ts` starts with), nor `code` on a part and `htmlDefault` on an option. `build-agent-skill.mjs` greps `component:` and `page:` at two-space indent to build the sub-API index (`src/component-api/AGENT.md:90-102`, `src/component-api/types.ts:5,23,31`, `scripts/build-agent-skill.mjs:22-24`, `src/utils/component-source.ts:197-250`)
+  - Fix: "`component`: the name shown in tables and build warnings, such as `TextField` or `Tabs.Item`. Keep `component:` and `page:` as single-line two-space-indented string literals; `scripts/build-agent-skill.mjs` reads them to build `references/index.md`." and "`code` on a part overrides the shown selector (`<hgroup>`); `htmlDefault` overrides the HTML default column."
+- [ ] (2) What's new: the List HTML note says `.divided` is removed, but the v5 class was `.ui-divided` (every class was prefixed in 5.0.0). The note is copied into the shipped reference (`src/utils/whats-new.ts:128`, `packages/opui/skills/opui/references/html/list.md:5`)
+  - Fix: `html: "Breaking: <code>.ui-divided</code> is removed. Use <a href="#on-every-item"><code>.ui-bordered</code></a>."`
+- [ ] (2) MIGRATING.md: the v4 to v5 section says "The component prop API is unchanged", but the 5.x changelog it migrates from has three breaking changes with no note: 5.0.0 removed the Avatar `spacing` prop and the ToggleButton `selected` class, 5.0.1 moved `.ui-progress` to a wrapper `<div>`, and 4.1.0 replaced the Card/Dialog `actions.align` prop with `actionsAlign` (`packages/opui/MIGRATING.md:494`, `packages/opui/CHANGELOG.md:362,376-377,397`)
+  - Fix: under "Migrating from v4 to v5": `Avatar` no longer takes `spacing`; `ToggleButton` no longer adds `selected`, style `:checked`; `Progress` (5.0.1): `.ui-progress` and its variant classes go on a wrapper `<div>` around `<progress>`. Under v3 to v4: `Card`/`Dialog` `actions={{ align }}` is `actionsAlign="start" | "end"` (4.1.0).
+- [ ] (2) Root README: `scripts/` is described as "run by `pnpm check` and the build (search index, browser support, agent skill, CSS order)", but `build-agent-skill.mjs` is in neither (`README.md:39`, `package.json:8-12`)
+  - Fix: "Checks and generators. `pnpm check` and `pnpm build` run the search index, browser support and CSS order scripts; `pnpm build-skill` is run by hand (see Agent skill)."
+- [ ] (2) Docs AGENTS.md §1.4 names `CheckboxGroup` and `RadioGroup` as components; neither exists, the group pages are `FieldSet`/`FieldGroup` on the Form page (`src/docs/components/AGENTS.md:35`, `packages/opui/components/`)
+  - Fix: "Field groups (`Checkbox`, `Radio`, `Switch` inside `FieldSet`/`FieldGroup`): depend on `form.css`."
+- [ ] (2) Components AGENTS.md: the default-icon example tests `severity === "error"`; Callout severities are `critical | info | neutral | success | warning`. The docs guide was fixed earlier, this file wasn't (`packages/opui/components/AGENTS.md:239`, `packages/opui/components/Callout/types.ts:3`, `Callout.astro:28-76`)
+  - Fix: `{severity === "critical" && <svg>...</svg>}`
+- [ ] (1) Package README: `css/js/checkbox.js` also exports `initCheckbox()` and `syncIndeterminate()`; the table names only `activateIndeterminate()` (`packages/opui/README.md:139`, `packages/opui/css/js/checkbox.js:11-24`)
+- [ ] (2) `browserSupport` drift across pages: Button, Button group and Badge use `@container style(--contrast: more)` but don't list `container-style-queries` (only Accordion, Card and Tooltip do, though 12 component files use it); Callout uses `@scope` but doesn't list `scope`, which Typography does; Menu misses `light-dark` and `calc-size`; Tabs misses `nth-child-of` (`:nth-child(1 of .ui-tab-label)`, which the walkthrough teaches); Textarea misses `lh` (`3lh`, `20lh`, the Learn post is about it). All ids exist in `web-features` (`src/docs/components/button.astro:42`, `button-group.astro:23-29`, `badge.astro:30`, `callout.astro:49`, `menu.astro:17-27`, `tabs.astro:26-32`, `textarea.astro:21-28`; `packages/opui/css/components/button.css:13,47,69,172,209`, `badge.css:61,74,87`, `callout.css:119`, `menu.css:5-8,57-66,152-161`, `tabs.css:197,299,313`, `textarea.css:6-9`)
+  - The browser support drift on other pages was fixed earlier; these pages weren't in the list.
+  - Fix: add the ids, and decide whether `container-style-queries` is listed everywhere `--contrast: more` is used or nowhere.
+- [ ] (1) Docs scripts still listen for `astro:after-swap`, which AGENTS.md §5.5 says not to do since the site uses cross-document view transitions and no `<ClientRouter>` (`src/docs/components/badge.astro:249`, `drawer.astro:308`, `list.astro:490`, `text-field.astro:476`, `src/component-examples/toast/Javascript.html:21`)
+  - Fix: drop the listener lines.
+
 ## Limitations
 
 - [x] (3) Carousel: vertical orientation
@@ -2072,12 +2662,20 @@ Findings with a page and section in brackets come from the stress pages in `src/
     <Select variant="filled" label="Fruit" items={items} />
     ```
   - Size scales also differ: Switch has `small`, Checkbox and Radio have `small | large`, fields have `x-small | small | large` (`Switch/types.ts:4`, `Checkbox/types.ts:5`, `Radio/types.ts:4`). Confirm that's intended.
+
   > Fix
   > regarding size scales: create a new todo with examples on the inputs. fix the rest.
   - Fixed: TextField and Textarea take `variant?: "outlined" | "filled"` (default outlined), like Select (`TextField.astro`, `TextField.vue`, `Textarea.astro`, `Textarea.vue`, `types.ts`). The API tables have a `variant` row, and examples use `variant="filled"`.
+
   > Just remove the bool for filled, let’s not wait for 7.0
   - Fixed: the boolean `filled` is gone, no alias. CHANGELOG (Breaking), MIGRATING and What's new say so.
   - Size scales: new item under Suggestions ("Sizes: control size scales differ").
+
+- [ ] (2) whats-new.ts: is `default` meant to include the HTML page? If yes, every prop-only Breaking note needs an `html` variant or `astro`/`vue` keys (see the Docs item); if no, rename it or filter `html` out in `whatsNewFor` (`src/utils/whats-new.ts:3,289-297`)
+- [ ] (2) Theming, Motion and Contrast are rendered on all three Getting started pages from `_theming.astro`. Should they be a guide page of their own ("Theming"), so Concepts, Customizing and the token descriptions have one place to link, and Getting started ends at the first component?
+- [ ] (2) Should root `build` run `build-skill` as its last step so `pnpm check` keeps the references fresh and CI can diff them, or stay a manual pre-publish step as the README says? (`package.json:8,10`, `README.md:59-66`)
+- [ ] (1) `packages/opui/components/AGENTS.md:3` still says Astro and Vue "must render the same markup as the HTML examples"; the same claim in SKILL.md was qualified earlier because recorded `.diff` drift is allowed. Qualify it here too? (`packages/opui/components/AGENTS.md:3`, `AGENTS.md:40`)
+- [ ] (1) `src/component-api/AGENT.md` is referenced by that exact singular name everywhere (`README.md:56`, `src/docs/components/AGENTS.md:31,180,204`, `packages/opui/components/AGENTS.md:264`); no rename is needed, only a choice whether to align it with the other two.
 
 ## Suggestions
 
@@ -2648,6 +3246,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > Fix
   - Fixed: new Customizing page (`src/docs/guide/customizing.astro`): theme tokens vs `--_` properties, set them on the component (not a parent), prefer inputs (`--_accent`) over outputs (`--_bg-color`) so hover and active keep working, and unlayered CSS vs your own `overrides` layer, with live examples.
 - [x] (5) `contrast-color()` for `--primary-contrast` so custom primaries get readable text
+
   > contrast-color() has its limitations - it can only be black or white. it's better to use relative color syntax imo.
   - Agreed. With relative color the text can keep the primary's hue and stay off pure black and white. Lightness flips at a threshold:
     ```css
@@ -2657,6 +3256,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
     `(0.62 - l) * 1000` is a big positive number for dark primaries (clamped to 0.98, near white) and a big negative one for light primaries (clamped to 0.15, near black). The chroma keeps a hint of the hue.
   - Caveat: the default primary (`--color-8`, L 58%) gets near-white text at about 4:1, so the existing 3.97:1 issue (Tabs, filled Buttons) stays until the threshold or the primary moves. Want me to implement it and tune the threshold against AA?
+
   > Fix
   - Fixed with relative color in `theme.css`:
     ```css
@@ -2669,6 +3269,131 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Limit: primaries with a lightness of about 0.54 to 0.59 can't reach 4.5:1 with either near-white or near-black text (best is about 4.3:1). Pure white/black would only add about 0.2.
   - No fallback: `theme.css` already needs relative color (`--blue`, `--primary-dark`, etc.), and the docs have no fallback policy.
   - The theme generator and configurator no longer replace `--primary-contrast` with `var(--color-1)` when grays are off, since it's now derived from the primary.
+
+- [ ] (2) Carousel: `scroll-behavior: smooth` is gated on `prefers-reduced-motion` only, so `.ui-motion-off` and a `--motion: 0` override still scroll smoothly while every other carousel transition stops (`carousel.css:56-58`, `utils.css:2-4`)
+  - Fix:
+    ```css
+    @container not style(--motion: 0) {
+      scroll-behavior: smooth;
+    }
+    ```
+- [ ] (2) Table: row hover also fires on header and footer rows. `tr:hover > :is(td, th)` repaints `th` and `tfoot td` with `oklch(from var(--surface-filled) l c h / 75%)`, which is lighter than their `--surface-filled` fill, so the header row flashes on hover. `.ui-sticky-header` already undoes it for its thead, the base table doesn't (`table.css:15-19,136-140`)
+  - Fix (and drop the sticky-header override):
+    ```css
+    @media (hover: hover) {
+      tbody > tr:hover > :is(td, th) {
+        background-color: oklch(from var(--surface-filled) l c h / 75%);
+      }
+    }
+    ```
+- [ ] (2) Range: tick labels are not centered under the thumb ends. `datalist { padding-inline: calc(3ex / 2) }` resolves `ex` at the datalist's `--field-helper-font-size` (0.75rem), while the thumb's `3ex` resolves at the input's inherited body size (`normalize.css:75-78` sets `font: inherit`), and on `hover: none` the thumb is `30px` (`range.css:59,204,220-223`)
+  - At 16px body text: thumb about 24px, half 12px; datalist padding about 9px, so the first and last labels sit about 3px outside the thumb centers, about 6px on touch screens.
+  - Fix: own the thumb size on the root as a registered property so the computed length is shared:
+    ```css
+    @property --_thumb-size {
+      inherits: true;
+      initial-value: 24px;
+      syntax: "<length>";
+    }
+
+    :where(.ui-range) {
+      --_thumb-size: 3ex;
+
+      @media (hover: none) {
+        --_thumb-size: 30px;
+      }
+
+      :where(datalist) {
+        padding-inline: calc(var(--_thumb-size) / 2);
+      }
+    }
+    ```
+    and remove `--_thumb-size` from the input (`range.css:204,222`).
+- [ ] (1) Physical properties left in otherwise logical files: `margin-top` on the range datalist (`range.css:58`) and `min-width` on the switch label (`switch.css:193`), plus `border-top` in the table footer (covered above)
+  - Fix: `margin-block-start: calc(var(--size-1) * -1)` in range.css and `min-inline-size: 0` in switch.css.
+- [ ] (1) Typography: `.ui-kbd`, `.ui-var` and rich text `kbd, var` set `border-color: var(--text-muted)` and `border-width: var(--border-size-1)` on a `var(--text-muted)` background (normalize gives every element `border-style: solid`), so the border is invisible and only adds 2px to the box (`typography.css:174-177,227-230,859-862`, `core/normalize.css:60-64`)
+  - Fix: drop the two border declarations, or give the border a contrasting color if a frame is wanted.
+- [ ] (1) TextField: `&:has(input[list]) .ui-label` and `&:has(select) .ui-label` set `inline-size: calc(100% - var(--size-6))` "to make sure the chevron is visible", but the label is in its own grid row (row 1, field in row 2 or 3) or in column 1 under `.ui-spread`, so it never overlaps the chevron. The rules only shorten the label by 24px (`text-field.css:204-217,294-302,455-459`)
+  - Fix: remove both rules.
+- [ ] (1) Textarea: `min-block-size` adds `var(--border-width) * 2`, but the border is on `.ui-field` (and is `--field-border-width`), the textarea has `border: 0` (`textarea.css:7-9`, `text-field.css:32,48-50`)
+  - Fix:
+    ```css
+    min-block-size: calc(var(--_field-padding-block) * 2 + 3lh);
+    ```
+- [ ] (1) Checkbox JS: `initCheckbox()` has no re-entry guard like `initToastManager()`. `CheckboxInput.astro` and `CheckboxBuild.astro` both call it, so the Checkbox docs page registers two `astro:after-swap` listeners (`checkbox.js:24-27`, `toast.js:33-35`, `CheckboxInput.astro:14-15`, `CheckboxBuild.astro:165-166`)
+  - Fix:
+    ```js
+    let initialized = false
+    export function initCheckbox() {
+      activateIndeterminate()
+      if (initialized) return
+      initialized = true
+      document.addEventListener("astro:after-swap", () =>
+        activateIndeterminate(),
+      )
+    }
+    ```
+- [ ] (1) List: the `.ui-dense` row selector leaves out `[role="group"] > label`, which the base row selector includes, so group labels in a dense Select picker keep `min-block-size: var(--control-size)` (40px) while options shrink to `--size-7` (`list.css:61-64,129-138`, `select/Grouped.html:10-11`, `select/Dense.html:8`)
+  - Fix:
+    ```css
+    & > :where([role="group"]) > :where(label, option) {
+    ```
+- [ ] (2) Button / Button group: the label wrapper is described three ways. Button says "Always wrap the label in a `<span class="ui-text">`", Button group says "Wrap labels in a `<span>`", and the Button API part is `.ui-button > .ui-text`, but `button.css` has no `.ui-text` rule; only the element matters (`button-group.css` shrink reads `& > span`) (`src/docs/components/button.astro:137-139`, `button-group.astro:157-158`, `src/component-api/button/api.ts:84-88`, `packages/opui/css/components/button-group.css:194`)
+  - Fix: pick one wording on both pages, e.g. "wrap the label in `<span class="ui-text">`; the class is a hook, the wrapper is what the CSS looks for".
+- [ ] (2) Badge: the unmodified placement has no name. Alignment prose lists "`.ui-start-start`, default, `.ui-end-start`, `.ui-end-end`", the type only has three values and the API has no `null` entry, so the HTML table never says what "default" is (`src/docs/components/badge.astro:157-171`, `src/component-api/badge/api.ts:7-15`, `packages/opui/components/Badge/types.ts:2`)
+  - Fix: add `"start-end"` to the type with `values: { "start-end": null, … }` and write "default (`start-end`)" in the prose.
+- [ ] (2) Button group: the "Button group or Toggle group?" note links to Toggle, but the Toggle page's preamble only links Checkbox, so the pair isn't linked both ways as AGENTS.md §3.3 asks (`src/docs/components/button-group.astro:74-88`, `src/docs/components/toggle.astro:71`)
+  - Fix: add "For uncontrolled buttons that just run actions, use a Button group." with a `<DocLink>` to the Toggle preamble.
+- [ ] (2) Dialog and Drawer: add a hero or section Anatomy. Both APIs define parts (hgroup, `.ui-content`, `.ui-actions`; `.ui-header`, `.ui-content`, `.ui-footer`) that the pages never label visually (`src/component-api/dialog/api.ts:27-44`, `src/component-api/drawer/api.ts:49-65`, `src/docs/components/dialog.astro`, `src/docs/components/drawer.astro`)
+- [ ] (2) Select: add an Accessibility section that says what `appearance: base-select` keeps native (arrow keys, type-ahead, Enter/Space, Esc, focus returning to the button) and what the fallback is in browsers without customizable select, since the page documents the popover list without any keyboard or focus notes (`src/docs/components/select.astro`, `packages/opui/css/components/select.css:183-186`)
+- [ ] (3) Component pages don't link their Learn post. `learn-posts.ts` has a `component` field for spinner, switch, tabs, text-field, textarea, toast, tooltip and typography, but neither the layout nor the Under the hood section renders it, so the "why" behind `aria-busy`, `:user-invalid`, `field-sizing`, typed `attr()`, `interestfor` and `round()` is one click away with no link (`src/utils/learn-posts.ts:219-315`, `src/layouts/Component.astro:196-200`)
+  - Fix: in `Component.astro`, look up `posts.find((p) => p.component === slug)` and render "Read the post: …" under the Under the hood heading.
+- [ ] (2) Table: no Accessibility section, and the Sticky header example wraps the table in `role="region" aria-label tabindex="0"` without saying why (a scroll box with no focusable content can't be reached by keyboard in Safari, the same issue as the open rich text tables item). `<caption>` and `tfoot` are in the examples and the page description but never in the prose (`src/docs/components/table.astro:12-13,109-136`, `src/component-examples/table/StickyHeader.html:1-6`, `Default.html:2-4,34-38`)
+  - Fix: one sentence under Sticky header on the wrapper, and an `accessibility` slot: `caption` names the table, `th` in `thead` gives column headers, scroll boxes need `tabindex="0"` and a name.
+- [ ] (2) Section order vs AGENTS §3.3: Switch nests Validation (states) under "Visible label" and puts Icons (a part) after it; Table has Advanced (composition) before Sticky header (layout); Tooltip's intro `<Conditional>` sits outside any section before Basics and Basics contains a nested `<section>` (`src/docs/components/switch.astro:100-158`, `table.astro:98-136`, `tooltip.astro:56-120`)
+  - Fix: Switch: Visible label, Label position, End text, Icons, then a Validation h2; Table: Sticky header before Advanced; Tooltip: move the intro into the preamble and flatten the nested section.
+- [ ] (4) Concepts: severity scope classes are never defined. `.ui-critical`, `.ui-info`, `.ui-success`, `.ui-warning` and `.ui-neutral` (plus `[data-invalid]`, `del`, `ins`, `abbr`, `dfn`) re-derive the whole 16-step palette from a fixed source color on whatever element carries them. That is how Button `.ui-critical`, Callout, Badge and Chip severities get their colors, why `.ui-palette` exists, and why the Getting started "override" snippet `:where(.ui-warning) { --palette-source: … }` is in fact the library's own rule. The guide never says it; component pages rely on it from the first example (`packages/opui/css/theme.css:224-248`, `packages/opui/core/palette.css:10-27`, `src/docs/guide/getting-started/_theming.astro:43-54`, `src/docs/guide/concepts.astro:254-257`)
+  - Fix: a "Palette scopes" section in Concepts, between Light and dark and Props and classes: "Colors come from one 16-step palette, derived from `--palette-source`. A few classes swap the source on a subtree: `.ui-critical` (red), `.ui-info` (blue), `.ui-success` (green), `.ui-warning` (orange) and `.ui-neutral` (gray). Every component color token below them (`--primary`, `--color-1` to `--color-16`, the grays) follows, which is why the same class colors a Button, a Badge and a Callout. `.ui-palette` does the same with your own `--palette-hue`."
+- [ ] (3) Learn: no post covers `scroll-state()` container queries, the newest technique in the library: the Table sticky header shadow (`scroll-state(stuck: top)`) and the Dialog and Drawer scroll shadows (`scroll-state(scrollable: top | bottom)` with anchored pseudo-elements). Eight build-ups also have no post though the index describes one per component: Badge, ButtonGroup, Chip, Divider, List, Radio, Table, Toggle (`packages/opui/css/components/table.css:127,143`, `dialog.css:43,72-82`, `drawer.css:78,108-114`, `src/components/UnderTheHood/`, `src/utils/learn-posts.ts`)
+  - Fix: a `table-scroll-state` post ("A header that knows it's stuck"), topics `layout`, feature `container-scroll-state-queries` if present in web-features.
+- [ ] (2) `--palette-hue-rotate-by` is described as "per-step warm/cool drift" without saying how: step n rotates the hue by n times the value, so `1` drifts the ramp 15° from `--color-1` to `--color-16`. The severity scopes set `1` and the brand palette `0`; nothing says why (`src/docs/guide/getting-started/_theming.astro:37-40`, `src/utils/theme-token-descriptions.ts:288-289`, `packages/opui/core/palette.css:33-96`, `packages/opui/css/theme.css:225-248`)
+  - Fix (description): "Hue drift per palette step in degrees: step n rotates n times this value, so `1` spreads 15° across the ramp. The severity scopes use `1` for livelier tints, the brand palette `0`."
+- [ ] (2) `--primary-contrast` description ("Text color on a `--primary` background") leaves the clamp unexplained. It is a step function: `(0.565 - l) * 1000` clamped to `0.15`–`0.98` gives near-black on a light primary and near-white on a dark one, keeping 15% of the chroma, which is what makes a custom `--primary` readable (`src/utils/theme-token-descriptions.ts:293`, `packages/opui/css/theme.css:69-71`)
+  - Fix: "Text color on `--primary`. Derived with relative color: near-black when the primary's lightness is above 0.565, near-white below, tinted with 15% of its chroma, so a custom `--primary` gets readable text."
+- [ ] (2) Theme tokens, Overriding: one sentence on why `theme.css` uses `:where(html)`: zero specificity, so an `html {}` or `:root {}` rule in the same layer (the generator's `theme.css`, a copied theme) wins by source order alone (`src/docs/guide/theme-tokens.astro:212-229`, `packages/opui/css/theme.css:20,101`)
+- [ ] (2) Duplicated content: the `.ui-light`/`.ui-dark`/`.ui-palette` scopes are explained three times with near-identical snippets (`src/docs/guide/getting-started/_theming.astro:68-82`, `src/docs/guide/theme-tokens.astro:230-245`, `src/docs/guide/concepts.astro:317-348`), while Motion and Contrast live only under Getting started (`_theming.astro:85-223`) and Density only on Theme tokens (`theme-tokens.astro:248-262`). The `--motion`, `--contrast` and `--density` descriptions don't link to those sections (`theme-token-descriptions.ts:211-212,219-220,279-280`)
+  - Fix: keep scopes in Concepts, link to it from the other two; link the three descriptions with `<a href="/guide/getting-started#motion">` etc. through `formatInline`.
+- [ ] (2) Contrast, Custom values: the snippet targets `:where(body)` only. The library's rule is `:where(body, .ui-contrast-more > *, .ui-palette, …)`, so a custom override written as shown doesn't apply inside a `.ui-contrast-more` section or a `.ui-palette` (`src/docs/guide/getting-started/_theming.astro:190-210`, `packages/opui/css/theme.css:267-276`)
+  - Fix:
+    ```css
+    @container style(--contrast: more) {
+      :where(body, .ui-contrast-more > *, .ui-palette) {
+        --border-color: var(--text-muted);
+        --field-border-color: var(--border-color);
+      }
+    }
+    ```
+- [ ] (2) Getting started Contrast: `.ui-contrast-normal` can't undo a `.ui-contrast-more` ancestor, unlike `.ui-motion-on` inside `.ui-motion-off`, and the Classes list doesn't say so (`src/docs/guide/getting-started/_theming.astro:177-186`, `packages/opui/css/theme.css:267-338`, `packages/opui/core/utils.css:14-20`)
+  - `--motion` is multiplied at every use site, so a nested `.ui-motion-on` restores motion. The high-contrast tokens are resolved once on `body` or `.ui-contrast-more > *` and inherited as values, so a nested `.ui-contrast-normal` only changes `--contrast`; the children keep the high-contrast `--primary`, `--border-color` and `--text-muted`.
+  - Fix: one sentence in the Classes list: "It doesn't lower the contrast inside a `.ui-contrast-more` ancestor, since the tokens are already resolved on the parent."
+- [ ] (3) Root AGENTS.md never points at the three nested guides, so an agent that only reads the root file misses the component, docs-page and `api.ts` rules (`AGENTS.md:1-48`, `packages/opui/components/AGENTS.md`, `src/docs/components/AGENTS.md`, `src/component-api/AGENT.md`)
+  - Fix: a "Guides" section listing the three files.
+- [ ] (2) `check-components` could enforce the type-file set the README promises (`types.ts`, `types.astro.ts`, `types.d.vue.ts`, `types.solid.ts`, `types.svelte.ts`); today all 36 folders have them, but nothing fails when a new component skips Solid/Svelte (`scripts/check-components.mjs:89-120`, `packages/opui/README.md:22`, `packages/opui/components/AGENTS.md:27-30`)
+  - Fix:
+    ```js
+    for (const name of [
+      "types.ts",
+      "types.astro.ts",
+      "types.d.vue.ts",
+      "types.solid.ts",
+      "types.svelte.ts",
+    ]) {
+      if (!files.includes(name)) report(join(dir, name), "is missing")
+    }
+    ```
+- [ ] (2) Repo: `audit/` (eight files, 140 KB) was the input to the previous audit and nothing references it any more; `TODO.md` carries the outcomes (`audit/*.md`)
+  - Remove it before the release, or move it next to `TODO.md`'s history so the repo root doesn't ship two overlapping audit trails.
+- [ ] (1) `.vscode/extensions.json` recommends Astro and Prettier but not `Vue.volar`, though every component has a `.vue` twin (`.vscode/extensions.json:2-6`)
 
 ## To check
 
@@ -2713,3 +3438,23 @@ Findings with a page and section in brackets come from the stress pages in `src/
   > - keyboard on hover is buggy (the kbd disappears on outlined and tonal buttons; the kbd on outlined and tonal buttons don't inherit the button text color)
   - Fixed: the `kbd` color was `oklch(from currentColor …)`. Chromium resolved it once and didn't update it while the button's color transitioned on hover, so it kept the old color. It now inherits `color` and dims with `opacity: 0.8`, and the background is `color-mix()` with `currentColor`.
 - [] (8) Test Menu and Carousel in Firefox and Safari (only checked in Chromium)
+
+- [ ] (1) Tabs: `.ui-scrollable` places the hidden radios in grid columns with `:nth-of-type(1)` to `(20)` so focusing one scrolls its tab into view; the 21st input and beyond get no `grid-column`, so an absolutely positioned input falls back to the container's padding box and Tab-focusing it scrolls to the start, not to the tab (`tabs.css:200-291`). Confirm with a 21-tab scrollable example and keyboard focus; if real, document a cap or switch to `grid-column: auto` with `position: static` inputs.
+- [ ] (2) Progress: the determinate fill animates with `transition: inline-size …` on `::-webkit-progress-value` (`progress.css:48-52`). The UA sets that pseudo's `width` from the `value` attribute; the well-known trick transitions `width`. Confirm in Chromium that changing `value` animates; if not, use `width` (and `transition: width` for `::-moz-progress-bar` is a no-op either way, so Firefox stays instant).
+- [ ] (2) Select: `::picker(select)` keeps the UA `background-color: Field` and square corners while the `.ui-list` inside is rounded with `var(--field-border-radius)`, so the picker's corners and the `box-shadow` may show outside the rounded list (`select.css:27-46,69-72`)
+  - Confirm by opening the Grouped or Dense example in Chromium 135+ and zooming on a corner of the open picker.
+  - Fix if so:
+    ```css
+    &::picker(select) {
+      background: transparent;
+      border-radius: var(--field-border-radius);
+    }
+    ```
+- [ ] (2) List: the `.ui-text` rule inside list rows is a descendant selector, so it also matches `.ui-button > .ui-text` and `.ui-chip > .ui-text` when a button or chip sits in a `.ui-list` row (`flex: 1`, `line-height: 1.6`, `min-inline-size: 0`). Check a row with an icon+label button and a chip for label height and alignment, and scope it to `& > .ui-text` / `& > a > .ui-text` if it leaks (`packages/opui/css/components/list.css:270-274`, `src/docs/components/button.astro:137`)
+- [ ] (4) Description list: the hero anatomy sets `inline-size: 16rem` (256px) on a `bordered="dotted"` list, but the border only renders in `@container (width > 45ch)` (about 360px at 16px), so the diagram most likely shows the stacked layout with no dotted leader at all. Verify in a browser and widen the subject to 24rem or more if so (`src/docs/components/description-list.astro:81-82`, `packages/opui/css/components/description-list.css:6,45,63-83`, `src/components/Anatomy.astro:102,145-147`)
+- [ ] (2) Toast: the stack is `role="status" aria-live="polite"` while each toast is `role="alert"` (assertive), in both the site template and the JS fallback. Check what screen readers announce for a success toast and whether `role="status"` on the toasts (polite) is the better default; document the choice and `closeLabel` for localizing the close button (`src/layouts/Layout.astro:81-84`, `packages/opui/css/js/toast.js:184,197`)
+- [ ] (2) Tabs: "Pressing Tab again moves focus out of the tabs to the next focusable element" assumes empty panels. With focusable content in the open panel, check where Tab lands in Chromium (`reading-flow: flex-visual` reorders focus) versus Firefox and Safari (DOM order: the open panel follows its label), and whether the RTL arrow keys match "Right Arrow / Down Arrow: next tab" (`src/docs/components/tabs.astro:171-185`, `packages/opui/css/components/tabs.css:206`)
+- [ ] (2) Drawer learn post says "`overlay` is Chromium only" and the fallback bullet describes Firefox and Safari dropping the backdrop at once. Verify current Firefox and Safari support before 6.0 (`src/docs/learn/drawer-starting-style.astro:463-467`)
+- [ ] (2) Theme tokens, Density: "Field and button padding shrinks to fit, down to the height of the text". Check at `--density: 0.75` that x-small fields and buttons don't clip the label (`src/docs/guide/theme-tokens.astro:251-253`, `packages/opui/css/theme.css:131-135`)
+- [ ] (2) `skills/opui/references` is committed and current for components: last regenerated in a258697, and the only later commits touching inputs are `014e96a` (MIGRATING, not part of the skill) and `4f36011` (home page). Regenerate once more right before publish, after the whats-new fixes above.
+- [ ] (1) MIGRATING and CHANGELOG 6.0: all 31 Breaking and 4 Removed entries have a note, and every note maps to an entry (spot-checked 25 against source; all hold). Note for reviewers: Checkbox/Radio `--_dir-rtl` and `--_thumb-scale` live in `core/utils.css:55-76`, not in `checkbox.css`/`radio.css` (open item on the halo layer), so the rename note is right but the vars are only there with `utils.css` imported.

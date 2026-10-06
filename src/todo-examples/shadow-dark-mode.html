@@ -1,0 +1,38 @@
+<style>
+  .todo-shadow {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    inline-size: 100%;
+  }
+
+  .todo-shadow > section {
+    border-radius: var(--border-radius);
+    display: grid;
+    gap: var(--size-3);
+    padding: var(--size-4);
+  }
+</style>
+<div class="todo-shadow">
+  <section class="ui-light">
+    <p class="ui-caption">.ui-light</p>
+    <div class="ui-card ui-elevated">
+      <div class="ui-content">Elevated card</div>
+    </div>
+    <p class="ui-caption" data-shadow></p>
+  </section>
+  <section class="ui-dark">
+    <p class="ui-caption">.ui-dark: same light shadow tokens</p>
+    <div class="ui-card ui-elevated">
+      <div class="ui-content">Elevated card</div>
+    </div>
+    <p class="ui-caption" data-shadow></p>
+  </section>
+</div>
+<script>
+  for (const section of document.querySelectorAll(".todo-shadow > section")) {
+    const style = getComputedStyle(section)
+    section.querySelector("[data-shadow]").textContent =
+      `--shadow-color: ${style.getPropertyValue("--shadow-color").trim()} / --shadow-strength: ${style.getPropertyValue("--shadow-strength").trim()}`
+  }
+</script>

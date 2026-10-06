@@ -1,0 +1,23 @@
+<div class="todo-row" style="align-items: start">
+  <div class="ui-button-group ui-x-small" role="group" data-group="horizontal">
+    <button type="button" class="ui-button">Save</button>
+    <button type="button" class="ui-button">Cancel</button>
+  </div>
+  <div
+    class="ui-button-group ui-x-small ui-vertical"
+    role="group"
+    data-group="vertical"
+  >
+    <button type="button" class="ui-button">Save</button>
+    <button type="button" class="ui-button">Cancel</button>
+  </div>
+</div>
+<p class="ui-caption" data-heights></p>
+<script>
+  const heights = [...document.querySelectorAll("[data-group]")].map(
+    (group) =>
+      `${group.dataset.group} x-small item: ${Math.round(group.firstElementChild.getBoundingClientRect().height)}px`,
+  )
+  document.querySelector("[data-heights]").textContent =
+    `${heights.join(" / ")} (expected 28px)`
+</script>

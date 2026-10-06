@@ -1,0 +1,18 @@
+<label class="ui-range ui-spread" style="inline-size: 36rem">
+  <span class="ui-label" id="todo-range-label">Hue</span>
+  <output class="ui-value" for="todo-range">250°</output>
+  <input
+    id="todo-range"
+    aria-labelledby="todo-range-label"
+    type="range"
+    min="0"
+    max="360"
+    value="250"
+    list="todo-range-ticks"
+  />
+  <datalist id="todo-range-ticks">
+    <option value="0" label="0"></option>
+    <option value="180" label="180"></option>
+    <option value="360" label="360"></option>
+  </datalist>
+</label>

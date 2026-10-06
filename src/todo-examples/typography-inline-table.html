@@ -1,0 +1,43 @@
+<style>
+  .todo-inline {
+    border-collapse: collapse;
+
+    td,
+    th {
+      border-block-end: 1px solid var(--border-color);
+      padding: var(--size-1) var(--size-3);
+      text-align: start;
+    }
+  }
+</style>
+<table class="todo-inline">
+  <thead>
+    <tr>
+      <th>Element</th>
+      <th>Without class (as on the docs page)</th>
+      <th>With the class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>kbd</code></td>
+      <td><kbd>Ctrl + S</kbd></td>
+      <td><kbd class="ui-kbd">Ctrl + S</kbd></td>
+    </tr>
+    <tr>
+      <td><code>mark</code></td>
+      <td><mark>Highlight</mark></td>
+      <td><mark class="ui-mark">Highlight</mark></td>
+    </tr>
+    <tr>
+      <td><code>abbr</code></td>
+      <td><abbr title="Abbreviation">Abbr.</abbr></td>
+      <td><abbr class="ui-abbr" title="Abbreviation">Abbr.</abbr></td>
+    </tr>
+    <tr>
+      <td><code>del</code> / <code>ins</code></td>
+      <td><del>old</del> <ins>new</ins></td>
+      <td><del class="ui-del">old</del> <ins class="ui-ins">new</ins></td>
+    </tr>
+  </tbody>
+</table>

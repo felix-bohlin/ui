@@ -25,6 +25,7 @@ const steps = [
     ],
     html: `
 <button
+  type="button"
   interestfor="tooltip"
   commandfor="tooltip"
   command="toggle-popover"
@@ -77,13 +78,15 @@ const steps = [
   },
   {
     css: `
+.anchor {
+  anchor-name: --anchor;
+  anchor-scope: --anchor;
+}
+
 .tooltip.arrow {
+  anchor-name: --tooltip;
+  anchor-scope: --tooltip;
   margin: 0.75rem;
-  overflow: visible;
-  position-try-fallbacks:
-    flip-block,
-    flip-inline,
-    flip-block flip-inline;
 }
 
 .tooltip.arrow::before {
@@ -91,18 +94,63 @@ const steps = [
   block-size: 0.5rem;
   content: "";
   inline-size: 0.5rem;
-  inset-block-end: -0.25rem;
-  inset-inline: 0;
-  margin-inline: auto;
-  position: absolute;
+  left: clamp(
+    anchor(--tooltip left),
+    anchor(--anchor center),
+    anchor(--tooltip right)
+  );
+  margin: -0.25rem;
+  position: fixed;
   rotate: 45deg;
+  top: clamp(
+    anchor(--tooltip top),
+    anchor(--anchor center),
+    anchor(--tooltip bottom)
+  );
 }`,
+    features: ["anchor-positioning", "min-max-clamp"],
+    html: `
+<span class="anchor">
+  <button type="button" interestfor="share" …>Share</button>
+  <span class="tooltip arrow" id="share" popover="hint">Copy a link</span>
+</span>`,
     notes: [
-      "Hover Share: a rotated square, half outside the tooltip",
-      "<code>[popover]</code> defaults to <code>overflow: auto</code>, which would clip it",
-      "A shifted tooltip would point the arrow at nothing, so it only flips",
+      "Hover Share: a rotated square, centered on the tooltip's edge",
+      "The tooltip is its own anchor, the wrapper names the trigger",
+      "<code>clamp()</code> moves the arrow towards the trigger's center but keeps it on the tooltip's edge",
+      "So it still points at the trigger after a flip or a shift",
     ],
     title: "Arrow",
+  },
+  {
+    css: `
+.tooltip {
+  opacity: 0;
+  transition:
+    display calc(0.2s * var(--motion, 1)) allow-discrete,
+    opacity calc(0.2s * var(--motion, 1)),
+    overlay calc(0.2s * var(--motion, 1)) allow-discrete;
+}
+
+.tooltip:popover-open {
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+  }
+}`,
+    features: [
+      "display-animation",
+      "overlay",
+      "starting-style",
+      "transition-behavior",
+    ],
+    notes: [
+      "<code>@starting-style</code> fades it in from <code>opacity: 0</code>",
+      "<code>allow-discrete</code> keeps <code>display</code> and <code>overlay</code> alive while it fades out",
+      "<code>--motion</code> is <code>0</code> under reduced motion and with <code>.ui-motion-off</code>",
+    ],
+    title: "Fade",
   },
 ]
 
@@ -134,16 +182,18 @@ const sync = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="
     <span class="tooltip" id="build-tooltip-sync" popover="hint">
       Keeps your settings in sync on every device signed in to this account
     </span>
-    <Button
-      command="toggle-popover"
-      commandfor="build-tooltip-share"
-      interestfor="build-tooltip-share"
-      variant="outlined"
-    >
-      Share
-    </Button>
-    <span class="tooltip arrow" id="build-tooltip-share" popover="hint">
-      Copy a link
+    <span class="anchor">
+      <Button
+        command="toggle-popover"
+        commandfor="build-tooltip-share"
+        interestfor="build-tooltip-share"
+        variant="outlined"
+      >
+        Share
+      </Button>
+      <span class="tooltip arrow" id="build-tooltip-share" popover="hint">
+        Copy a link
+      </span>
     </span>
   </div>
 </BuildUp>
@@ -160,13 +210,11 @@ const sync = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="
 
 <style is:global>
   @position-try --build-tooltip-shift-start {
-    margin-block: 0 0.5rem;
     margin-inline: 0 calc(anchor-size(inline) / 2 - 1rem);
     position-area: block-start span-inline-start;
   }
 
   @position-try --build-tooltip-shift-end {
-    margin-block: 0 0.5rem;
     margin-inline: calc(anchor-size(inline) / 2 - 1rem) 0;
     position-area: block-start span-inline-end;
   }

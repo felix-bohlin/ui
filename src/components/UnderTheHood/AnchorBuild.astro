@@ -16,12 +16,12 @@ const steps = [
 }`,
     features: ["interest-invokers", "popover-hint"],
     html: `
-<button interestfor="card">felix-bohlin/ui</button>
+<button type="button" interestfor="card">felix-bohlin/ui</button>
 
 <div class="card" id="card" popover="hint">…</div>`,
     notes: [
       "<code>interestfor</code> opens it on hover and keyboard focus, no JavaScript",
-      "Only <code>&lt;button&gt;</code> and <code>&lt;a href&gt;</code> can be interest invokers",
+      "Only <code>&lt;button&gt;</code>, <code>&lt;a href&gt;</code> and <code>&lt;area&gt;</code> can be interest invokers",
       "<code>popover=&quot;hint&quot;</code> leaves open menus and dialogs alone",
       "Without positioning it opens in the middle of the viewport",
     ],
@@ -31,6 +31,7 @@ const steps = [
     features: ["invoker-commands"],
     html: `
 <button
+  type="button"
   interestfor="card"
   commandfor="card"
   command="toggle-popover"
@@ -45,27 +46,16 @@ const steps = [
   },
   {
     css: `
-.anchor {
-  anchor-name: --anchor;
-  anchor-scope: --anchor;
-}
-
 .card {
   inset: auto;
   margin: 0.5rem 0 0;
-  position-anchor: --anchor;
   position-area: block-end span-inline-end;
 }`,
     features: ["anchor-positioning"],
-    html: `
-<span class="anchor">
-  <button interestfor="card" …>felix-bohlin/ui</button>
-  <div class="card" id="card" popover="hint">…</div>
-</span>`,
     notes: [
-      "<code>anchor-name</code> on the wrapper, <code>position-anchor</code> on the card",
-      "<code>anchor-scope</code> keeps the name local, so every anchor can reuse <code>--anchor</code>",
+      "The invoker is the implicit anchor: no <code>anchor-name</code>, no <code>position-anchor</code>",
       "<code>position-area</code> places it below, spanning towards the end",
+      "A card that's always visible has no invoker, so it needs <code>anchor-name</code> and <code>position-anchor</code>",
     ],
     title: "Anchor",
   },
@@ -76,10 +66,12 @@ const steps = [
     flip-block,
     flip-inline,
     flip-block flip-inline;
+  position-visibility: anchors-visible;
 }`,
     notes: [
       "Scroll the trigger to the bottom of the window and hover it again",
       "The browser tries each fallback when the card would overflow",
+      "<code>anchors-visible</code> hides it when the trigger scrolls out of view",
     ],
     title: "Flip",
   },
@@ -87,24 +79,22 @@ const steps = [
 ---
 
 <BuildUp id="build-anchor" steps={steps}>
-  <span class="anchor">
-    <Button
-      command="toggle-popover"
-      commandfor="build-anchor-card"
-      interestfor="build-anchor-card"
-      variant="outlined"
-    >
-      felix-bohlin/ui
-    </Button>
-    <div class="card" id="build-anchor-card" popover="hint">
-      <strong>felix-bohlin/ui</strong>
-      <p>
-        A CSS UI library exploring how next-gen HTML &amp; CSS features can
-        change the way we create components.
-      </p>
-      <p class="ui-caption">CSS · MIT license</p>
-    </div>
-  </span>
+  <Button
+    command="toggle-popover"
+    commandfor="build-anchor-card"
+    interestfor="build-anchor-card"
+    variant="outlined"
+  >
+    felix-bohlin/ui
+  </Button>
+  <div class="card" id="build-anchor-card" popover="hint">
+    <strong>felix-bohlin/ui</strong>
+    <p>
+      A CSS UI library exploring how next-gen HTML &amp; CSS features can change
+      the way we create components.
+    </p>
+    <p class="ui-caption">CSS · MIT license</p>
+  </div>
 </BuildUp>
 
 <style>

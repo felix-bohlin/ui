@@ -1,0 +1,23 @@
+<div class="todo-row">
+  <button type="button" class="ui-chip ui-tonal" disabled>
+    <span class="ui-text">Tonal chip</span>
+  </button>
+  <button type="button" class="ui-chip ui-outlined" disabled>
+    <span class="ui-text">Outlined chip</span>
+  </button>
+  <button type="button" class="ui-button ui-outlined" disabled>
+    Outlined button
+  </button>
+</div>
+<p class="ui-caption" data-colors></p>
+<script>
+  const rows = [...document.querySelectorAll(".todo-row > *")].map(
+    (el) =>
+      `${el.textContent.trim()}: ${getComputedStyle(el.querySelector(".ui-text") ?? el).color}`,
+  )
+  const disabled = getComputedStyle(document.documentElement).getPropertyValue(
+    "--text-disabled",
+  )
+  document.querySelector("[data-colors]").textContent =
+    `${rows.join(" / ")} / --text-disabled: ${disabled.trim()}`
+</script>

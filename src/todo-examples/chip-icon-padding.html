@@ -1,0 +1,58 @@
+<div class="todo-row">
+  <div class="ui-chip ui-tonal" data-chip="start icon">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="8" fill="currentColor" />
+    </svg>
+    <span class="ui-text">Start</span>
+  </div>
+  <div class="ui-chip ui-tonal" data-chip="end icon">
+    <span class="ui-text">End</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="8" fill="currentColor" />
+    </svg>
+  </div>
+  <div class="ui-chip ui-tonal" data-chip="both icons">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="8" fill="currentColor" />
+    </svg>
+    <span class="ui-text">Both</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="8" fill="currentColor" />
+    </svg>
+  </div>
+</div>
+<p class="ui-caption" data-padding></p>
+<script>
+  document.querySelector("[data-padding]").textContent = [
+    ...document.querySelectorAll("[data-chip]"),
+  ]
+    .map((chip) => {
+      const style = getComputedStyle(chip)
+      return `${chip.dataset.chip}: ${style.paddingInlineStart} / ${style.paddingInlineEnd}`
+    })
+    .join(" · ")
+</script>

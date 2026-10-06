@@ -35,6 +35,12 @@ import { Code } from "astro-expressive-code/components"
         {" "}<code>anchor-size(inline)</code> keeps it at least as wide
       </li>
       <li>
+        <code>max-block-size</code> with <code>100%</code> caps it to the space on
+        its side, where it scrolls. <code>calc-size()</code> keeps at least <code
+          >12rem</code
+        > of it, so it only flips when that side has less room
+      </li>
+      <li>
         <code>position-try-fallbacks</code> flips it when it would overflow. Two
         {" "}<code>@position-try</code> rules move it below or above, spanning both
         sides, when neither side fits

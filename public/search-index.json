@@ -1685,7 +1685,7 @@
     "id": "learn-dialog-closedby",
     "title": "Dialogs without JavaScript",
     "description": "Invoker commands, closedby and @starting-style for modal dialogs.",
-    "headings": "The problem The trick Try it Scroll lock Fallback closedby dialog-closedby invoker-commands starting-style",
+    "headings": "The problem The trick Keyboard shortcuts Try it Scroll lock Fallback closedby dialog-closedby invoker-commands starting-style",
     "category": "Learn",
     "url": "/learn/dialog-closedby"
   },

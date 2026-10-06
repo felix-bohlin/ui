@@ -1,0 +1,36 @@
+<button
+  type="button"
+  class="ui-button ui-outlined"
+  commandfor="todo-long-dialog"
+  command="show-modal"
+>
+  Open
+</button>
+<dialog
+  id="todo-long-dialog"
+  class="ui-dialog ui-card ui-elevated"
+  aria-labelledby="todo-long-dialog-title"
+>
+  <hgroup id="todo-long-dialog-title"><h2 class="ui-h4">Terms</h2></hgroup>
+  <div class="ui-content">
+    <p>
+      This paragraph repeats twenty times so the content scrolls under the
+      header and above the actions.
+    </p>
+  </div>
+  <div class="ui-actions">
+    <button
+      type="button"
+      class="ui-button ui-filled"
+      commandfor="todo-long-dialog"
+      command="close"
+    >
+      Accept
+    </button>
+  </div>
+</dialog>
+<script>
+  const content = document.querySelector("#todo-long-dialog .ui-content")
+  for (let i = 0; i < 19; i++)
+    content.append(content.firstElementChild.cloneNode(true))
+</script>

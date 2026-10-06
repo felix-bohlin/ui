@@ -36,7 +36,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
   - Fix: name the icon buttons "OK" and "No" (`iconOnly label="OK"` in Astro and Vue), drop the label on "Maybe", and rename "Up" to "Increase".
   > Fix
   - Fixed: the icon buttons are "OK" and "No" (`iconOnly label` in Astro and Vue), "Maybe" has no label, and "Up" is "Increase" (`button-group/WithIcons.*`, `Vertical.*`).
-- [] (3) Switch: an invalid switch barely shows focus. `&[data-invalid] input` and `&:has(:user-invalid) input` set `outline` with higher specificity than the `:focus-visible` rule, so on focus the red ring only moves out by `--focus-ring-offset` (`switch.css:48-52,263-269`)
+- [x] (3) Switch: an invalid switch barely shows focus. `&[data-invalid] input` and `&:has(:user-invalid) input` set `outline` with higher specificity than the `:focus-visible` rule, so on focus the red ring only moves out by `--focus-ring-offset` (`switch.css:48-52,263-269`)
   - Fix: give the invalid ring an offset and a different width, or only apply it with `:not(:focus-visible)`.
   > Explain further and provide an example
   - Why: the focus rule `:where(.ui-switch) :where(input[type="checkbox"][role="switch"]):focus-visible` is (0,1,0). The invalid rules `:where(.ui-switch)[data-invalid] input` and `:where(.ui-switch):has(:user-invalid) input` are (0,1,1), so they win the `outline` shorthand. Focus only adds `outline-offset`. `form.css:85-90` has the same pattern for `.ui-fieldset[data-invalid] .ui-switch input`.
@@ -71,7 +71,11 @@ Findings with a page and section in brackets come from the stress pages in `src/
     - B: apply the red ring only with `input:not(:focus-visible)`. Simpler, but the red ring disappears exactly while the user fixes the field.
     - C: color the track border. It's only 1px, and checked switches already use the accent there.
   - See the example: focus rings forced on (current vs proposed), plus real switches to Tab through.
-- [] (3) Badge: success fills are too light for white text, 4.47:1 (needs 4.5:1). Info was the same (4.02:1) and passes now that `--info` uses hue 240 (4.58:1), but the margin is thin, and the stress pages only use info, so axe never sees success (`badge.css`, `theme.css`)
+  > Fix
+  - Fixed with option A: the invalid ring is a `box-shadow` (`0 0 0 var(--focus-ring-width) var(--invalid-color)`), so `outline` is left to focus, and a focused invalid switch pushes the focus ring outside the red one (`outline-offset: calc(var(--focus-ring-offset) + var(--focus-ring-width))`). Same in `form.css` for an invalid fieldset (`switch.css`, `form.css`).
+  - Checked in Chromium, light and dark: at rest the same 2px red ring as before, on focus a 2px focus ring 4px out with the red ring still visible. More contrast: 3px rings, 5px offset. Valid switches are unchanged. In forced colors the red ring is dropped, so an invalid switch no longer looks focused at rest (the end text still says it's invalid).
+  - Side finding: the focus ring on a valid switch is square, since the input only gets `border-radius` when it's invalid.
+- [x] (3) Badge: success fills are too light for white text, 4.47:1 (needs 4.5:1). Info was the same (4.02:1) and passes now that `--info` uses hue 240 (4.58:1), but the margin is thin, and the stress pages only use info, so axe never sees success (`badge.css`, `theme.css`)
   - Fix: cap the lightness of the fills with white text, the same pattern as the `min(l, 0.45)` Badge uses with more contrast. A theme with darker severity colors is unchanged.
     ```css
     &.ui-success {
@@ -81,6 +85,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
     ```
     Measured before the hue change: info 4.95:1, success 5.44:1, critical 6.75:1 with `min(l, 0.48)`.
   - The four info badge `color-contrast` keys are gone from `a11y-known-violations.json` (re-recorded with `pnpm test:e2e:record-a11y`).
+  > Fix
+  - Fixed: critical, info and success fills use `oklch(from var(--…) min(l, 0.48) c h)`, and the border follows the fill. With more contrast, light mode uses the same cap and dark mode keeps `min(l, 0.45)`. Warning (dark text) is unchanged (`badge.css`).
+  - Measured in Chromium with white text, light and dark: critical 5.54 → 6.77:1, info 4.58 → 5.66:1, success 4.44 → 5.45:1. More contrast: unchanged in light (already darker), 6.14–7.37:1 in dark. Badge visual baselines change in CI.
 - [x] (4) Avatar `<img>` has no `alt` attribute when `alt` is omitted (`Avatar.astro:28`, `Avatar.vue:37`)
   > at least in the types alt on images shouldn't be optional. Also, on icon-only buttons label should be non-optional too.
   - Fixed (Avatar): `alt` is required in the types whenever `src` is set (`{ alt: string; src: string } | { alt?: never; src?: never }` in `Avatar/types.ts`, used by Astro, Vue, Svelte and Solid). `alt=""` is still allowed for decorative images. The `<img>` always renders `alt`.
@@ -910,7 +917,7 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (5) `pre` inside `dir="rtl"` runs code right to left (`typography` Bidi)
   > in this example I can see code inside RTL run left to right. if that's wrong then fix it.
   - It was wrong. Each line runs left to right, but punctuation at the ends gets moved by the bidi algorithm: `const x = add(1, 2);` showed as `;const x = add(1, 2)`, `x++` as `++x` and `// comment.` as `.comment //`, and lines were right-aligned. Fixed: rich text `pre` and inline `code` are `direction: ltr` with `unicode-bidi: isolate`, unless they have their own `dir`.
-- [] (5) Range fill and the header scroll fade are dead in production builds. lightningcss (the CSS minifier) folds `animation-timeline` into the `animation` shorthand, `animation: linear both ui-range-fill --ui-range-thumb`, which Chromium rejects, so `animation` computes to `none`. Dev isn't minified, so it only shows in builds, and users whose bundler minifies with lightningcss get it too (`range.css:235-237`, `Header.astro:345-347`, `LocalNav.astro:98-100`)
+- [x] (5) Range fill and the header scroll fade are dead in production builds. lightningcss (the CSS minifier) folds `animation-timeline` into the `animation` shorthand, `animation: linear both ui-range-fill --ui-range-thumb`, which Chromium rejects, so `animation` computes to `none`. Dev isn't minified, so it only shows in builds, and users whose bundler minifies with lightningcss get it too (`range.css:235-237`, `Header.astro:345-347`, `LocalNav.astro:98-100`)
   - See the example: the minified shorthand, the longhands and the library's `.ui-range` side by side.
   - Check: the HTML Range test fixture in `dist-test` has `animation-name: none` on every range in Chromium 141.
   - Fix: write the longhands, which lightningcss leaves alone:
@@ -921,6 +928,9 @@ Findings with a page and section in brackets come from the stress pages in `src/
     animation-timeline: --ui-range-thumb;
     animation-timing-function: linear;
     ```
+  > Fix
+  - Fixed: `animation-fill-mode`, `animation-name` and `animation-timing-function` longhands instead of the `animation` shorthand (`range.css`, `Header.astro`, `LocalNav.astro`). The Range walkthrough and learn post use longhands too.
+  - Checked with lightningcss 1.32: the old shorthand folds into `animation:linear both ui-range-fill --ui-range-thumb`, the new CSS keeps `animation-timeline` separate, with and without targets. In a production build in Chromium every range computes to `ui-range-fill`, `--ui-range-thumb`, `both`, `contain`, and the header and local nav fades run on `scroll()`.
 - [x] (5) Rich text `p` overrides `.ui-p.ui-large`, `.ui-p.ui-small` and `.ui-caption` inside `.ui-rich-text` (`typography` HeadingClasses)
   - Fixed by the `components.prose` layer.
 - [x] (5) Second-level submenus don't keep the flipped direction, and the submenu arrow doesn't mirror in RTL (`overlays` Submenus, Rtl)
@@ -2052,13 +2062,15 @@ Findings with a page and section in brackets come from the stress pages in `src/
 - [x] (1) Colors: the ripple color `oklch(0.6 0 0 / 0.2)` is copied in two places, and Carousel buttons define their own inverse surface `light-dark(var(--gray-13), var(--gray-3))` instead of `--surface-inverse` (`button.css:293`, `core/utils.css:76`, `carousel.css:5`, `theme.css:91`)
   > Fix
   - Fixed: `--ripple-color` theme token (`theme.css`, State), read by Button's `.ui-ripple` and the Checkbox/Radio halo. Carousel buttons use `--surface-inverse`, and the derived border colors still work.
-- [] (1) Dead CSS: `.ui-form:has(.ui-text-field.ui-row)`. No component or example puts `.ui-row` on a text field (`form.css:55-57`)
+- [x] (1) Dead CSS: `.ui-form:has(.ui-text-field.ui-row)`. No component or example puts `.ui-row` on a text field (`form.css:55-57`)
   > Explain further and provide an example
   - The rule is actually `.ui-fieldset:has(.ui-text-field.ui-row)` (nested in `:where(.ui-fieldset)`, `form.css:55-57`).
   - History: it came with the v4 rewrite (`67a0a49`) as `&:has(.text-field.row)`. `text-field.css` never had a `.row` modifier (the side-by-side layout was `.spread`, now `.ui-spread`), and v3 didn't either, so it has been dead since it was written.
   - Nothing produces it: TextField emits `ui-text-field`, size, `ui-auto-fit`, `ui-filled` and `ui-spread`. `.ui-row` only exists on `.ui-field-group` (`direction="row"`). A hand-written `class="ui-row"` on a text field doesn't change the field, it only bumps the fieldset's `row-gap` from 4px to 32px.
   - Recommendation: delete the three lines. No example uses it, so no snapshot changes.
   - See the example: the same fieldset with and without `.ui-row` on the text field.
+  > Fix
+  - Fixed: the rule is deleted (`form.css`). No example used it, so no snapshot changed.
 - [x] (1) Docs site: `base.css` puts private `--_gap`, `--_page-gutters` and `--_content-*` on `:root`, and `.container` reuses `.ui-small`, `.ui-large` and `.ui-text` (the Card text variant) for widths (`src/styles/base.css:63-77,89-102`)
   - Nothing breaks today, since only Callout and Carousel read `--_gap` and both set it. Use site-prefixed names, for example `--site-gap` and `.container.is-narrow`.
   > Fix

@@ -228,9 +228,11 @@
           var(--_thumb-size) / 2 + var(--size-2) - var(--size-4) / 2
         );
 
-        animation: ui-range-fill linear both;
+        animation-fill-mode: both;
+        animation-name: ui-range-fill;
         animation-range: contain;
         animation-timeline: --ui-range-thumb;
+        animation-timing-function: linear;
         box-sizing: content-box;
         margin: calc(var(--_inset) * -1);
         outline-offset: calc(1ex - var(--_inset));

@@ -342,9 +342,11 @@ const { link } = Astro.locals
       position: relative;
 
       &::before {
-        animation: fade-bg linear both;
+        animation-fill-mode: both;
+        animation-name: fade-bg;
         animation-range: 0 150px;
         animation-timeline: scroll();
+        animation-timing-function: linear;
         background-color: var(--surface-elevated);
         border: var(--border-width) solid oklch(from var(--primary) l c h / 0.2);
         border-radius: 0;
@@ -505,12 +507,16 @@ const { link } = Astro.locals
 
   /* Scroll-driven animations */
   .ui-content {
-    animation: fade-content linear both;
+    animation-fill-mode: both;
+    animation-name: fade-content;
+    animation-timing-function: linear;
   }
 
   @container (width >= 1140px) {
     header {
-      animation: shrink-padding linear both;
+      animation-fill-mode: both;
+      animation-name: shrink-padding;
+      animation-timing-function: linear;
     }
   }
 

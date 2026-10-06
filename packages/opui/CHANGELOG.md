@@ -260,6 +260,12 @@
 - `Select` only opts selects inside `.ui-select` into `appearance: base-select`.
 - `env.d.ts` is in the package `exports`, so `/// <reference types="opui-css/env.d.ts" />` resolves.
 - `dist/opui.components.css` no longer starts with a stray `undefined` line, which dropped the layer order and the `Anchor` styles.
+- `Badge` critical, info and success fills cap their lightness at 0.48, so white text passes 4.5:1 (success was 4.44:1).
+- `Checkbox` and `Radio` show their hover and press halo without `core/utils.css`, so `dist/opui.components.css` and single-file imports get it too.
+- `Radio` sizes work on touch screens. Small and large radios were forced to `--size-4`, and the label sat off center.
+- `Range` fill works when the CSS is minified with lightningcss (Vite builds). `animation-timeline` was folded into the `animation` shorthand, which browsers reject.
+- `Switch` draws its invalid ring as a `box-shadow`, so the focus ring shows outside it, also in an invalid `.ui-fieldset`. In forced colors an invalid switch no longer looks focused.
+- `Accordion` with `.ui-marker-turn` mirrors its chevron in right-to-left, so it points to the inline end when closed and down when open.
 
 ## 5.5.0 - 2026-09-28
 

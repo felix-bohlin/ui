@@ -135,7 +135,7 @@ import { Tabs } from "opui-css/astro"
 
 ## Scrollable
 
-Tabs wrap onto more rows when they don't fit. Use `scrollable` to keep them on one row and scroll them sideways instead. The open panel stays in view. Browsers without `sibling-index()` support up to 20 tabs. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
+Tabs wrap onto more rows when they don't fit. Use `scrollable` to keep them on one row and scroll them sideways instead. The open panel stays in view. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
 
 ```astro
 ---
@@ -203,11 +203,11 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 ### Tabs API
 
-| Prop         | Type                                 | Default | Description                                                                                                                        |
-| ------------ | ------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `name`       | `string`                             | -       | The name shared by the tab inputs. Generated when omitted.                                                                         |
-| `scrollable` | `boolean`                            | `false` | Keeps the tabs on one row and scrolls them sideways when they don't fit. Browsers without `sibling-index()` support up to 20 tabs. |
-| `variant`    | `"outlined"` , `"filled"` , `"line"` | -       | The variant to use.                                                                                                                |
+| Prop         | Type                                 | Default | Description                                                              |
+| ------------ | ------------------------------------ | ------- | ------------------------------------------------------------------------ |
+| `name`       | `string`                             | -       | The name shared by the tab inputs. Generated when omitted.               |
+| `scrollable` | `boolean`                            | `false` | Keeps the tabs on one row and scrolls them sideways when they don't fit. |
+| `variant`    | `"outlined"` , `"filled"` , `"line"` | -       | The variant to use.                                                      |
 
 #### Slots
 

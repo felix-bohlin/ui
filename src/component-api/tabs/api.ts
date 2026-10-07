@@ -18,7 +18,7 @@ export default {
       class: ".ui-scrollable",
       default: "false",
       description:
-        "Keeps the tabs on one row and scrolls them sideways when they don't fit. Browsers without `sibling-index()` support up to 20 tabs.",
+        "Keeps the tabs on one row and scrolls them sideways when they don't fit.",
       group: "Overflow",
       prop: "scrollable",
     },

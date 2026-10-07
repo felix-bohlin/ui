@@ -187,7 +187,7 @@ Use `.ui-outlined` for a bordered track without a background.
 
 ## Scrollable
 
-Tabs wrap onto more rows when they don't fit. Use `.ui-scrollable` to keep them on one row and scroll them sideways instead. The open panel stays in view. Browsers without `sibling-index()` support up to 20 tabs. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
+Tabs wrap onto more rows when they don't fit. Use `.ui-scrollable` to keep them on one row and scroll them sideways instead. The open panel stays in view. The tabs size to their container, so give them a width inside flex and grid layouts that size to their content.
 
 ```html
 <div class="ui-tabs ui-scrollable">
@@ -303,11 +303,11 @@ To name the group, add `role="radiogroup"` and `aria-label` (or `aria-labelledby
 
 ### Tabs API
 
-| Type     | Modifiers                                | Default | Description                                                                                                                        |
-| -------- | ---------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Group    | `.ui-tab-input[name]`                    | -       | The name shared by the tab inputs.                                                                                                 |
-| Overflow | `.ui-scrollable`                         | -       | Keeps the tabs on one row and scrolls them sideways when they don't fit. Browsers without `sibling-index()` support up to 20 tabs. |
-| Variants | `.ui-filled`, `.ui-line`, `.ui-outlined` | -       | The variant to use.                                                                                                                |
+| Type     | Modifiers                                | Default | Description                                                              |
+| -------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| Group    | `.ui-tab-input[name]`                    | -       | The name shared by the tab inputs.                                       |
+| Overflow | `.ui-scrollable`                         | -       | Keeps the tabs on one row and scrolls them sideways when they don't fit. |
+| Variants | `.ui-filled`, `.ui-line`, `.ui-outlined` | -       | The variant to use.                                                      |
 
 #### Parts
 

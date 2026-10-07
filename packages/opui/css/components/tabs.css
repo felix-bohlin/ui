@@ -307,6 +307,20 @@
         position: sticky;
       }
 
+      @supports (order: sibling-index()) {
+        grid-auto-columns: max-content;
+        grid-template-columns: none;
+
+        & > .ui-tab-input[type="radio"]:nth-of-type(n) {
+          grid-column: calc((sibling-index() + 2) / 3) / span 1;
+        }
+
+        & > .ui-tab-panel {
+          grid-column: 1 / span calc(sibling-count() / 3);
+          margin-inline-end: -100cqi;
+        }
+      }
+
       &.ui-line {
         & > .ui-tab-label {
           &:not(:nth-last-child(1 of .ui-tab-label)) {

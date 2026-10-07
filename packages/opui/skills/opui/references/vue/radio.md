@@ -443,8 +443,9 @@ Theme tokens this component reads. Override them on `html` or on a wrapper. See 
 
 2. Dot
 
-   - `::after` is the dot, centered by the input's own grid
-   - Sized in percent of the box, so it follows every size
+   - The dot is a `radial-gradient()` on the input's own background, centered in its box
+   - No second box to lay out and round to device pixels, so the dot stays centered at every zoom level and screen scale
+   - Half a pixel between the two stops smooths the edge
 
 3. Label
 
@@ -502,25 +503,12 @@ Step 1 of 3: Appearance
 Step 2 of 3: Dot
 
 ```css
-.radio {
-  display: grid;
-  place-items: center;
-}
-
-
-.radio::after {
-  background-color: var(--accent-contrast);
-  block-size: var(--dot);
-  border-radius: 50%;
-  content: "";
-  inline-size: var(--dot);
-  margin: auto;
-  opacity: 0;
-}
-
-
-.radio:checked::after {
-  opacity: 1;
+.radio:checked {
+  background-image: radial-gradient(
+    circle,
+    var(--accent-contrast) calc(var(--dot) - 0.25px),
+    var(--accent) calc(var(--dot) + 0.25px)
+  );
 }
 ```
 

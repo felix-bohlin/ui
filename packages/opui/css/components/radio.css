@@ -6,7 +6,6 @@
     );
     --_accent-contrast: light-dark(var(--primary-contrast), var(--gray-1));
     --_input-size: var(--choice-size);
-    --_indicator-size: calc(100% - 2 * round(down, 25%, 1px));
 
     align-items: start;
     color: var(--text-primary);
@@ -116,6 +115,14 @@
     /* Input */
     input[type="radio"] {
       --_dir-rtl: -1;
+      --_dot-radius: calc(
+        var(--_input-size) / 2 - var(--field-border-width) -
+          round(
+            down,
+            (var(--_input-size) - 2 * var(--field-border-width)) / 4,
+            1px
+          )
+      );
       --_ripple-size: 175%;
 
       appearance: none;
@@ -126,32 +133,21 @@
       border-radius: var(--radius-round);
       box-sizing: border-box;
       cursor: pointer;
-      display: grid;
       inline-size: var(--_input-size);
       margin: 0;
       padding: 0;
-      place-items: center;
       position: relative;
       transform-style: preserve-3d;
 
+      /* Dot */
       &:checked {
         background-color: var(--_accent);
+        background-image: radial-gradient(
+          circle,
+          var(--_accent-contrast) calc(var(--_dot-radius) - 0.25px),
+          var(--_accent) calc(var(--_dot-radius) + 0.25px)
+        );
         border-color: var(--_accent);
-      }
-
-      /* Dot */
-      &::after {
-        background-color: var(--_accent-contrast);
-        block-size: var(--_indicator-size);
-        border-radius: var(--radius-round);
-        content: "";
-        inline-size: var(--_indicator-size);
-        margin: auto;
-        opacity: 0;
-      }
-
-      &:checked::after {
-        opacity: 1;
       }
 
       /* Hover and active effect */
@@ -219,12 +215,10 @@
         border: 1px solid CanvasText;
 
         &:checked {
-          background-color: SelectedItem;
-          border-color: SelectedItem;
+          --_accent: SelectedItem;
+          --_accent-contrast: SelectedItemText;
 
-          &::after {
-            background-color: SelectedItemText;
-          }
+          forced-color-adjust: none;
         }
       }
     }

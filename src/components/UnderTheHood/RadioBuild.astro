@@ -49,27 +49,17 @@ const steps = [
   },
   {
     css: `
-.radio {
-  display: grid;
-  place-items: center;
-}
-
-.radio::after {
-  background-color: var(--accent-contrast);
-  block-size: var(--dot);
-  border-radius: 50%;
-  content: "";
-  inline-size: var(--dot);
-  margin: auto;
-  opacity: 0;
-}
-
-.radio:checked::after {
-  opacity: 1;
+.radio:checked {
+  background-image: radial-gradient(
+    circle,
+    var(--accent-contrast) calc(var(--dot) - 0.25px),
+    var(--accent) calc(var(--dot) + 0.25px)
+  );
 }`,
     notes: [
-      "<code>::after</code> is the dot, centered by the input's own grid",
-      "Sized in percent of the box, so it follows every size",
+      "The dot is a <code>radial-gradient()</code> on the input's own background, centered in its box",
+      "No second box to lay out and round to device pixels, so the dot stays centered at every zoom level and screen scale",
+      "Half a pixel between the two stops smooths the edge",
     ],
     title: "Dot",
   },
@@ -103,13 +93,13 @@ const steps = [
 
 const knobs = [
   {
-    label: "Dot",
-    max: 70,
-    min: 20,
+    label: "Dot radius",
+    max: 8,
+    min: 2,
     property: "--dot",
-    step: 5,
-    unit: "%",
-    value: 50,
+    step: 1,
+    unit: "px",
+    value: 5,
   },
 ]
 

@@ -80,7 +80,11 @@ const steps = [
 
   outline: var(--ring) solid var(--dot-color);
   outline-offset: -1px;
-  transition: all 0.2s var(--ease);
+  transition:
+    background-color 0.2s var(--ease),
+    inset-inline-start 0.2s var(--ease),
+    outline-color 0.2s var(--ease),
+    outline-width 0.2s var(--ease);
 }
 
 .switch:checked::after {
@@ -93,7 +97,7 @@ const steps = [
     notes: [
       "An <code>outline</code> in the dot's own color grows it without touching its box",
       "Press and hold: <code>:active</code> grows it a little more",
-      "<code>transition: all</code> animates position, color and outline together",
+      "The transition lists position, color and outline, so nothing else animates by accident",
     ],
     title: "Motion",
   },

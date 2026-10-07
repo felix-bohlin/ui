@@ -156,6 +156,7 @@
     --button-size: var(--control-size);
     --button-size-large: var(--control-size-large);
 
+    --chip-size-x-small: calc(24px * var(--density));
     --chip-size-small: var(--control-size-x-small);
     --chip-size: var(--control-size-small);
     --chip-size-large: var(--control-size);
@@ -206,15 +207,22 @@
 
     /* Choice controls */
     --choice-label-offset: 0px;
+    --choice-size-x-small: 0.875rem;
     --choice-size-small: var(--size-3);
     --choice-size: var(--size-4);
     --choice-size-large: var(--size-5);
+    --switch-dot-size-x-small: 0.625rem;
     --switch-dot-size-small: 0.75rem;
     --switch-dot-size: var(--size-3);
+    --switch-dot-size-large: 1.25rem;
+    --switch-track-height-x-small: var(--size-3);
     --switch-track-height-small: var(--size-4);
     --switch-track-height: var(--size-5);
+    --switch-track-height-large: var(--size-6);
+    --switch-track-width-x-small: var(--size-7);
     --switch-track-width-small: 2.5rem;
     --switch-track-width: var(--size-8);
+    --switch-track-width-large: 3.5rem;
 
     /* Overlays */
     --backdrop-blur: 1px;

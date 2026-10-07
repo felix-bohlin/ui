@@ -32,12 +32,12 @@ const steps = [
   },
   {
     css: `
-.chip:has(svg:first-child) {
-  padding-inline: var(--size-1) var(--size-2);
+.chip:has(> svg:first-child) {
+  padding-inline-start: var(--size-1);
 }
 
-.chip:has(svg:last-child) {
-  padding-inline: var(--size-2) var(--size-1);
+.chip:has(> svg:last-child) {
+  padding-inline-end: var(--size-1);
 }
 
 .chip svg {
@@ -46,7 +46,7 @@ const steps = [
 }`,
     features: ["has"],
     notes: [
-      "<code>:has(svg:first-child)</code> and <code>:has(svg:last-child)</code> find the icon side",
+      "<code>:has(&gt; svg:first-child)</code> and <code>:has(&gt; svg:last-child)</code> find the icon side, and each sets only its own side, so a chip can have both",
       "Less padding next to the icon balances its optical weight",
       "No <code>start-icon</code> or <code>end-icon</code> classes",
     ],

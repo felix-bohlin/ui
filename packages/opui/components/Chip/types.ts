@@ -3,7 +3,7 @@ export type Props = {
   href?: string
   label?: string
   multiline?: boolean
-  size?: "small" | "large"
+  size?: "x-small" | "small" | "large"
   variant?: "tonal" | "outlined"
 }
 

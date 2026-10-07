@@ -95,16 +95,21 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     <h2 id="sizes">Sizes</h2>
     <Conditional as="p">
       <Fragment slot="astro">
-        Set <code>size="small"</code> for a smaller Switch variant.
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
       </Fragment>
       <Fragment slot="html">
-        Add the <code>.ui-small</code> class on the <code
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>, on the <code
           >&lt;label class="ui-switch"&gt;</code
-        >
-        {" "}for a smaller Switch variant.
+        >.
       </Fragment>
       <Fragment slot="vue">
-        Set <code>size="small"</code> for a smaller Switch variant.
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
       </Fragment>
     </Conditional>
 
@@ -138,12 +143,51 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     <AutoExample name="VisibleLabel" column centered />
 
     <h3 id="label-position">Label position</h3>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Set <code>stack</code> to put the label under the switch.</Fragment
+      >
+      <Fragment slot="html"
+        >Add <code>.ui-stack</code> to the <code
+          >&lt;label class="ui-switch"&gt;</code
+        > to put the label under the switch.</Fragment
+      >
+      <Fragment slot="vue"
+        >Set <code>stack</code> to put the label under the switch.</Fragment
+      >
+    </Conditional>
     <AutoExample name="LabelPosition" row spacious />
 
     <h3 id="end-text">End text</h3>
     <AutoExample name="SupportingText" row spacious />
+  </section>
 
-    <h3 id="validation">Validation</h3>
+  <section>
+    <h2 id="icons">Icons</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Put an icon in the <code>icon-unchecked</code> and <code
+          >icon-checked</code
+        > slots to show it in the thumb. The component hides them from screen readers.</Fragment
+      >
+      <Fragment slot="html"
+        >Put the icons in <code>.ui-icon-unchecked</code> and <code
+          >.ui-icon-checked</code
+        > spans with <code>aria-hidden="true"</code> before the <code
+          >&lt;input&gt;</code
+        >.</Fragment
+      >
+      <Fragment slot="vue"
+        >Put an icon in the <code>icon-unchecked</code> and <code
+          >icon-checked</code
+        > slots to show it in the thumb. The component hides them from screen readers.</Fragment
+      >
+    </Conditional>
+    <AutoExample name="Icons" column centered />
+  </section>
+
+  <section>
+    <h2 id="validation">Validation</h2>
     <ul>
       <Conditional>
         <li slot="astro">
@@ -203,11 +247,6 @@ import SwitchBuild from "../../components/UnderTheHood/SwitchBuild.astro"
     </ul>
 
     <AutoExample name="Validation" column centered spacious />
-  </section>
-
-  <section>
-    <h2 id="icons">Icons</h2>
-    <AutoExample name="Icons" column centered />
   </section>
 
   <section>

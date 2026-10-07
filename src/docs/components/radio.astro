@@ -17,7 +17,13 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
 
 <Component
   slug="radio"
-  browserSupport={["has", "light-dark", "relative-color", "user-pseudos"]}
+  browserSupport={[
+    "has",
+    "light-dark",
+    "relative-color",
+    "round-mod-rem",
+    "user-pseudos",
+  ]}
   heroAnatomy
   apis={[
     { title: "Radio API", api: radioApi },
@@ -38,6 +44,7 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
       path: "packages/opui/css/components/radio.css",
       type: "css",
     },
+    { path: "src/component-api/radio", type: "api" },
     { path: "src/component-api/field-group", type: "api" },
   ]}
   installationTabs={[
@@ -74,6 +81,86 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
   </section>
 
   <section>
+    <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>, on the <code
+          >&lt;label class="ui-radio"&gt;</code
+        >.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+    </Conditional>
+    <AutoExample name="Sizes" column centered spacious />
+  </section>
+
+  <section>
+    <h2 id="visible-label">Visible label</h2>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >The default slot is the label. Without a visible label, keep the text
+        in the slot and set <code>hideLabel</code> to hide it visually.</Fragment
+      >
+      <Fragment slot="html"
+        >Render the label text inside an element with a <code>.ui-label</code> class.
+        Without a visible label, use <code>.ui-sr-only</code> instead of <code
+          >.ui-label</code
+        > to hide it visually.</Fragment
+      >
+      <Fragment slot="vue"
+        >The default slot is the label. Without a visible label, keep the text
+        in the slot and set <code>hideLabel</code> to hide it visually.</Fragment
+      >
+    </Conditional>
+
+    <AutoExample name="VisibleLabel" column centered />
+
+    <h3 id="label-position">Label position</h3>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Set <code>stack</code> to put the label under the radio.</Fragment
+      >
+      <Fragment slot="html"
+        >Add <code>.ui-stack</code> to the <code
+          >&lt;label class="ui-radio"&gt;</code
+        > to put the label under the radio.</Fragment
+      >
+      <Fragment slot="vue"
+        >Set <code>stack</code> to put the label under the radio.</Fragment
+      >
+    </Conditional>
+    <AutoExample name="LabelPosition" row spacious />
+
+    <h3 id="end-text">End text</h3>
+    <Conditional as="p">
+      <Fragment slot="astro"
+        >Use the <code>end-text</code> slot for supporting text under a single radio's
+        label. The component points <code>aria-describedby</code> at it.</Fragment
+      >
+      <Fragment slot="html"
+        >Add a <code>.ui-end-text</code> element after the label for supporting text
+        under a single radio, and point the input's <code>aria-describedby</code
+        > at its <code>id</code>.</Fragment
+      >
+      <Fragment slot="vue"
+        >Use the <code>end-text</code> slot for supporting text under a single radio's
+        label. The component points <code>aria-describedby</code> at it.</Fragment
+      >
+    </Conditional>
+    <AutoExample name="SupportingText" row spacious />
+  </section>
+
+  <section>
     <h2 id="field-description">Field description</h2>
     <p>Can be placed above and below the fields.</p>
 
@@ -82,11 +169,23 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
 
   <section>
     <h2 id="disabled">Disabled</h2>
-    <p>
-      Attach the <code>disabled</code> attribute to the <code
-        >&lt;fieldset&gt;</code
-      > element.
-    </p>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
+        in it, or on a single <code>Radio</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Attach the <code>disabled</code> attribute to the <code
+          >&lt;fieldset&gt;</code
+        > element to disable every radio in it, or to a single <code
+          >&lt;input&gt;</code
+        >.
+      </Fragment>
+      <Fragment slot="vue">
+        Set <code>disabled</code> on the <code>FieldSet</code> to disable every radio
+        in it, or on a single <code>Radio</code>.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="FieldGroupDisabled" row />
   </section>
@@ -134,6 +233,21 @@ import RadioBuild from "../../components/UnderTheHood/RadioBuild.astro"
 
   <section>
     <h2 id="direction">Direction</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Radios stack vertically by default. Set <code>direction="row"</code> on the
+        <code>FieldGroup</code> to put them in a row.
+      </Fragment>
+      <Fragment slot="html">
+        Radios stack vertically by default. Add <code>.ui-row</code> to the <code
+          >.ui-field-group</code
+        > to put them in a row.
+      </Fragment>
+      <Fragment slot="vue">
+        Radios stack vertically by default. Set <code>direction="row"</code> on the
+        <code>FieldGroup</code> to put them in a row.
+      </Fragment>
+    </Conditional>
 
     <AutoExample name="FieldGroupDirection" row />
   </section>

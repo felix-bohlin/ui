@@ -206,6 +206,10 @@
     }
 
     /* Sizes */
+    &.ui-x-small {
+      --_input-size: var(--choice-size-x-small);
+    }
+
     &.ui-small {
       --_input-size: var(--choice-size-small);
     }

@@ -18,12 +18,15 @@ export const themeTokenDescriptions: Record<string, string> = {
   "--chip-size": "Default `Chip` height.",
   "--chip-size-large": "`Chip` height with `.ui-large`.",
   "--chip-size-small": "`Chip` height with `.ui-small`.",
+  "--chip-size-x-small": "`Chip` height with `.ui-x-small`.",
   "--choice-label-offset":
     "Moves `Checkbox`, `Radio` and `Switch` labels down (positive) or up (negative) against their control. Use `em` or `cap` to scale with the label font.",
   "--choice-size": "Default `Checkbox` and `Radio` input size.",
   "--choice-size-large": "`Checkbox` and `Radio` input size with `.ui-large`.",
   "--choice-size-small":
     "`Checkbox` and `Radio` input size with `.ui-small` and inside `List`.",
+  "--choice-size-x-small":
+    "`Checkbox` and `Radio` input size with `.ui-x-small`.",
   "--contrast":
     "`more` raises text, border, primary and focus ring contrast through a style query. Set to `more` automatically under `prefers-contrast: more`. See [Contrast](/guide/theming#contrast).",
   "--control-size":
@@ -136,14 +139,24 @@ export const themeTokenDescriptions: Record<string, string> = {
     "Background of `Toast` and `Tooltip`, inverted against the page.",
   "--surface-tonal": "Background of tonal variants.",
   "--switch-dot-size": "Diameter of the `Switch` dot.",
+  "--switch-dot-size-large": "Diameter of the `Switch` dot with `.ui-large`.",
   "--switch-dot-size-small":
     "Diameter of the `Switch` dot with `.ui-small` and inside `List`.",
+  "--switch-dot-size-x-small":
+    "Diameter of the `Switch` dot with `.ui-x-small`.",
   "--switch-track-height": "Height of the `Switch` track.",
+  "--switch-track-height-large":
+    "Height of the `Switch` track with `.ui-large`.",
   "--switch-track-height-small":
     "Height of the `Switch` track with `.ui-small` and inside `List`.",
+  "--switch-track-height-x-small":
+    "Height of the `Switch` track with `.ui-x-small`.",
   "--switch-track-width": "Width of the `Switch` track.",
+  "--switch-track-width-large": "Width of the `Switch` track with `.ui-large`.",
   "--switch-track-width-small":
     "Width of the `Switch` track with `.ui-small` and inside `List`.",
+  "--switch-track-width-x-small":
+    "Width of the `Switch` track with `.ui-x-small`.",
   "--text-disabled": "Text color of disabled buttons and chips.",
   "--text-inverse": "Text color on `--surface-inverse`.",
   "--text-muted": "Body text color.",

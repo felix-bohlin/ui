@@ -4,6 +4,6 @@ import type { Snippet } from "svelte"
 
 export type SwitchProps = Base.SwitchProps &
   Base.SwitchSlots<Snippet> &
-  SvelteHTMLElements["input"]
+  Omit<SvelteHTMLElements["input"], "size">
 export type SwitchInputProps = Base.SwitchInputProps &
   SvelteHTMLElements["input"]

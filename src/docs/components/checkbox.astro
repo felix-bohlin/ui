@@ -64,6 +64,25 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
 
   <section>
     <h2 id="sizes">Sizes</h2>
+    <Conditional as="p">
+      <Fragment slot="astro">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+      <Fragment slot="html">
+        Choose between four sizes: <code>.ui-x-small</code>, <code
+          >.ui-small</code
+        >, default and <code>.ui-large</code>, on the <code
+          >&lt;label class="ui-checkbox"&gt;</code
+        >.
+      </Fragment>
+      <Fragment slot="vue">
+        Choose between four sizes with the <code>size</code> prop: <code
+          >x-small</code
+        >, <code>small</code>, default and <code>large</code>.
+      </Fragment>
+    </Conditional>
     <AutoExample name="Sizes" column centered spacious />
   </section>
 
@@ -200,10 +219,9 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
         <p>
           Add <code>data-indeterminate</code> to the <code
             >&lt;input type="checkbox"&gt;</code
-          > and run a script that sets <code>el.indeterminate = true</code>. <code
-            >indeterminate</code
-          > is a JavaScript-only property on <code>HTMLInputElement</code> - the attribute
-          alone has no effect.
+          > and call <code>activateIndeterminate()</code> from <code
+            >opui-css/css/js/checkbox.js</code
+          > once the element is in the DOM. The attribute alone has no effect.
         </p>
 
         <UICallout>
@@ -212,10 +230,11 @@ import CheckboxBuild from "../../components/UnderTheHood/CheckboxBuild.astro"
             The <code>indeterminate</code> state cannot be set with HTML or CSS alone.
             The browser only exposes it as a property on <code
               >HTMLInputElement</code
-            >, so a small script is needed to flip <code
+            >, so <code>activateIndeterminate()</code> sets <code
               >el.indeterminate = true</code
-            > after the element is in the DOM. The <code>:indeterminate</code> CSS
-            pseudo-class then matches and the dash glyph appears.
+            > on every input with <code>data-indeterminate</code>. The <code
+              >:indeterminate</code
+            > CSS pseudo-class then matches and the dash glyph appears.
           </div>
         </UICallout>
       </div>

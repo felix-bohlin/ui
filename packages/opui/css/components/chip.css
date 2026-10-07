@@ -49,12 +49,12 @@
     }
 
     /* Icon */
-    &:has(svg:first-child) {
-      padding-inline: var(--size-1) var(--size-2);
+    &:has(> svg:first-child) {
+      padding-inline-start: var(--size-1);
     }
 
-    &:has(svg:last-child) {
-      padding-inline: var(--size-2) var(--size-1);
+    &:has(> svg:last-child) {
+      padding-inline-end: var(--size-1);
     }
 
     &:has(svg) {
@@ -65,6 +65,10 @@
     }
 
     /* Sizes */
+    &.ui-x-small {
+      block-size: var(--chip-size-x-small);
+    }
+
     &.ui-small {
       block-size: var(--chip-size-small);
     }
@@ -74,12 +78,12 @@
       font-size: var(--font-size-05);
       padding-inline: var(--size-3);
 
-      &:has(svg:first-child) {
-        padding-inline: var(--size-2) var(--size-3);
+      &:has(> svg:first-child) {
+        padding-inline-start: var(--size-2);
       }
 
-      &:has(svg:last-child) {
-        padding-inline: var(--size-3) var(--size-2);
+      &:has(> svg:last-child) {
+        padding-inline-end: var(--size-2);
       }
 
       svg {
@@ -92,10 +96,11 @@
     }
 
     /* Disabled */
-    &:where([disabled], [aria-disabled="true"], .ui-disabled) {
-      opacity: var(--disabled-opacity);
+    &:is([disabled], [aria-disabled="true"], .ui-disabled) {
       --_text-color: var(--text-disabled);
+
       cursor: not-allowed;
+      opacity: var(--disabled-opacity);
     }
 
     &:where(a):where([aria-disabled="true"], .ui-disabled) {

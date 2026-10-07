@@ -109,7 +109,7 @@ Without a visible label the checkbox aligns to the middle, so it centers in tabl
 
 ## Chip
 
-The `--ripple` variable is private. Rename overrides to `--_ripple`.
+The hover and press ripple is removed. Delete any `--ripple` overrides.
 
 `Chip` with `as="button"` renders `type="button"` by default in Astro and Vue. Pass `type="submit"` if it should submit a form.
 
